@@ -90,3 +90,7 @@ DRY_RUN=1 ./apps/desktop/scripts/publish.sh beta
 - Windows arm64 native binary：当前 arm64 安装包打包 x64 的 `cu-proxy-core.exe`
   （emulation 运行），阶段二增加 Rust `aarch64-pc-windows-msvc` 交叉编译。
 - 渲染层更新 UI：用 `auto-updater.mjs` 的 `onEvent` 回调桥接到渲染进度条/通知。
+  ✅ **已落地（2026-06-25）**：下载从霸屏模态改为「弹窗动画退场 → 后台静默下载
+  → 徽标 mini 环形进度 → 右下角完成卡片（立即安装 / ✕ 收起）」。详见
+  ADR `knowledge/decisions/39-updater-download-ux.md`。该改造仅动渲染层 +
+  i18n + CSS，未触及主进程 `auto-updater.mjs` 与 protocol。
