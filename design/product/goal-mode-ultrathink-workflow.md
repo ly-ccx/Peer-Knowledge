@@ -1,8 +1,8 @@
 # 真正的 Goal 模式设计：ultrathink + workflow 自驱闭环（完整技术文档）
 
 > 创建时间：2026-06-30
-> 最后更新：2026-07-01
-> 状态：已定稿（Approved）
+> 最后更新：2026-07-03
+> 状态：已定稿（Approved）— 首批落地已完成（2026-07-03，A1+B1 完整解耦：三态 ChatMode、Runner 归 goal 独占、wire 值迁移、防偏航 re-anchor/drift/verification gate；详见 ADR 41 与实施清单）
 > 关联代码：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
 > - `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（先正名腾出 "Goal" 名字；迁移已完成）
@@ -532,7 +532,7 @@ Goal 模式的 UI 应始终让用户“看得见方向、随时能打断”：
 2. ~~**hooks 落地粒度**：先硬编码几条高价值规则（写盘范围 / 不可逆 / 完成门），还是先做通用 hooks 框架？~~ → **已拍板**（详见第七章）：**分阶段**——阶段一只硬编码 3 条确定性规则（写盘范围 / 不可逆操作 / 完成门），不建框架；阶段二当规则确实增长（≥2 条新增需求）时再抽最小 hook-point 注册表。避免过早抽象。
 3. ~~**no-progress 阈值**：N=3 是否合适？达阈值后是“停下问人”还是“给尽力而为结论 + 证据”？~~ → **已拍板**（详见 5.4 / 第九章）：保留 **N=3 默认但可配置**（`noProgressThreshold`，建议 2–5）；达阈值后**停下转 `blocked` 问人**，并把"尽力而为小结"（已试路径 / 已得证据 / 未达标项）作为 `blocked` 附件 + 结构化选项，**绝不冒充 `completed`**。
 4. ~~**Goal ⇄ Plan 运行中互转**：Goal 跑着遇到高风险，是否降级回 Plan 走审批？反之 Plan 批准后能否升格 Goal 自驱？~~ → **已拍板**（详见 11.1）：**运行中不自动翻转模式**。Goal 途中遇高风险不降级整模式，改走 `on-irreversible` 的**单动作确认**；Plan→Goal 升格必须**用户显式**切换，系统不代替用户改变自主性等级。
-5. **wire 值归属（已拍板）**：新 Goal 模式**继续叫 "Goal" 并复用 `'goal'` wire 值**。落地路径：先对存量会话做一次性数据迁移（持久化 `'goal'→'plan'`），再从 `normalizeChatMode` **取消 `goal→plan` 兼容映射**，使 `'goal'` 字面量腾干净后重新承载自驱语义——从而不与历史数据冲突。（原“另起 `'goal-run'` 独立新值”方案已废弃。）
+5. **wire 值归属（已拍板 ✅ 已落地 2026-07-03）**：新 Goal 模式**继续叫 "Goal" 并复用 `'goal'` wire 值**。落地路径（先对存量会话一次性迁移 `'goal'→'plan'` → 取消 `normalizeChatMode` 的 `goal→plan` 兼容映射 → `'goal'` 腾干净后重新承载自驱语义）已在 `peer_agent` 仓完成并验证：`ChatMode = 'chat' | 'plan' | 'goal'`，`conversation-store` 一次性数据迁移（marker 防重复），全链路撤销兼容映射。（原“另起 `'goal-run'` 独立新值”方案已废弃。）
 6. ~~**re-anchor 频率**：`reanchorEvery` 固定值还是随任务规模自适应？~~ → **已拍板**（详见 3.2 / 5.2）：**随任务规模自适应**，默认 `clamp(ceil(taskCount/3), 2, 6)`，可在 `GoalContract` 覆盖为固定值；另在**计划修订**与 **Explorer 返回**时强制立即 re-anchor。
 
 ---

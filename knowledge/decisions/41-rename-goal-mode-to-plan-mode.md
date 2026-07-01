@@ -1,8 +1,8 @@
 # ADR 41：将现有「Goal 模式」正名为「Plan 模式」
 
 > 创建时间：2026-06-30
-> 最后更新：2026-07-02
-> 状态：已落地（Done）— 采用方案 A（wire 值 `'goal'`→`'plan'`）已在 `peer_agent` 仓实现并提交
+> 最后更新：2026-07-03
+> 状态：已落地（Done）— 方案 A（wire 值 `'goal'`→`'plan'`）已实现提交；后续 wire 值迁移三步（腾空 `'goal'` 并重新赋自驱语义）亦已于 2026-07-03 落地，详见文末「wire 值迁移已落地」
 > 关联代码：`peer_agent`
 > 关联文档：本仓 `design/product/goal-mode-ultrathink-workflow.md`（真正的 Goal 模式设计）、`knowledge/specifications/15-goal-plan-lifecycle-governance.md`
 
@@ -110,7 +110,9 @@
 - Workbench Tab 亦已同步改名（`'goal'`→`'plan'`，旧持久化状态归一化）。
 - 工具投影：相关 plan 工具 `availableInModes` 由 `['goal']` 改为 `['plan']`，避免归一化后被过滤。
 
-> 遗留衔接（2026-07-02 更新命名决策）：`'goal'` 现被兼容映射为 `'plan'`。命名决策已拍板——**真正的 Goal 模式继续叫 "Goal" 并复用 `'goal'` wire 值**（不再另起 `'goal-run'` 之类独立新值）。落地路径：先对存量会话做一次性数据迁移（持久化 `'goal'→'plan'`），再从 `normalizeChatMode` 取消 `goal→plan` 兼容映射，把 `'goal'` 字面量彻底腾干净后重新承载自驱语义。详见 `design/product/goal-mode-ultrathink-workflow.md` 第十六章开放问题 5。
+> 遗留衔接（2026-07-02 更新命名决策）：命名决策已拍板——**真正的 Goal 模式继续叫 "Goal" 并复用 `'goal'` wire 值**（不再另起 `'goal-run'` 之类独立新值）。详见 `design/product/goal-mode-ultrathink-workflow.md` 第十六章开放问题 5。
+
+> **wire 值迁移已落地（2026-07-03 更新）**：上述「先迁数据 → 再撤映射 → 重新赋自驱语义」三步已在 `peer_agent` 仓完成并验证。现状：`ChatMode = 'chat' | 'plan' | 'goal'`（`'goal'` 已重新承载自驱语义）；`conversation-store.mjs` 新增 `migrateLegacyGoalMode` 对存量 index 一次性 `goal→plan`（marker 防重复）；全链路 `normalizeChatMode`/`normalizeMode`/tool 投影/闸门/prompt 各 source 的 `goal→plan` 兼容映射均已撤销；Runner 归 goal 模式独占、plan 回归纯审批门；新增 `MODE_COPY.goal` 与三态 UI；防偏航 re-anchor/drift/verification gate 落地。落地追踪见 `design/product/goal-runner-explorer-task-list.md`「Goal 模式落地前置动作」（三步已勾销）。
 
 ---
 
