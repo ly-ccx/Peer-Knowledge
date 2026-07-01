@@ -1,9 +1,11 @@
 # Goal Runner + Explorer SubAgents 实施任务清单
 
-> 创建时间：2026-06-22 · 最后更新：2026-07-01
+> 创建时间：2026-06-22 · 最后更新：2026-07-02
 
 ## 更新记录
 
+- **2026-07-02**：**命名决策已固化**——新自驱模式继续叫 "Goal" 并**复用 `'goal'` wire 值**；历史 `'goal'` 全部并入 `'plan'`。原「wire 值冲突」不再是开放问题（详见 `goal-mode-ultrathink-workflow.md` 第十六章开放问题 5、`knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`）。
+  - 据此新增下方小节「Goal 模式落地前置动作（wire 值迁移）」，登记落地前必须先做的 wire 值迁移三步，作为真正 Goal 模式在 `peer_agent` 落地的**前置依赖**。
 - **2026-07-01**：Goal Runner 的**次数/轮次预算熔断已移除**。代码仓 `peer_agent` 中，`maxTurns` / `maxToolCalls` 不再作为强制停止条件，Runner 不会再因执行次数/轮次耗尽而停止。
   - 影响范围：本文中所有断言「会因预算耗尽而进入 `budget_exhausted` / 停止」的设计与验收条目均已过时，下文相关处已就地改写为现状。
   - 防失控兜底改为依赖：**no-progress 检测（N=3 双信号）+ `blocked` 状态 + 权限拒绝 + Evidence 强制** 等其它护栏。
@@ -11,6 +13,8 @@
   - `maxExplorers` 作为 **Explorer 并发上限**保留，未随本次移除。
 
 ## 背景
+
+> 交叉引用：本文件是 **Runner + Explorer 的实施切片清单**（偏工程落点与验收）。真正 Goal 模式的**完整技术设计**（状态机全貌 / 数据模型 / 闭环算法 / 防偏航系统 / hooks 闸门 / DoD 完成门 / MODE_COPY 文案 / 落地范围）已沉淀在 `design/product/goal-mode-ultrathink-workflow.md`，本文与之对齐；如有冲突以该设计文档为准。「当前 Goal 模式即 Plan 模式」的正名详见 `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（已落地）。
 
 当前 Goal 模式更接近“Plan 模式”：用户提出目标后，系统生成计划，用户批准后通常只是触发一条继续执行消息，缺少跨 turn 持续托管、自动推进、证据不足时自动探索、以及明确的 Runner 生命周期。
 
@@ -603,6 +607,18 @@ pnpm architecture:check
 ### 风险：System Context 零散拼接
 
 控制：通过明确 Context Source/adapter 注入 runner/explorer 上下文，provider-specific formatting 保持在 encoder seam 后面。
+
+## Goal 模式落地前置动作（wire 值迁移）
+
+> **背景**：命名决策已固化（见更新记录 2026-07-02）——新自驱 Goal 模式继续叫 "Goal" 并**复用 `'goal'` wire 值**，历史 `'goal'` 全部并入 `'plan'`。当前 `peer_agent` 代码仓里 `normalizeChatMode` 仍保留 `goal→plan` 兼容映射（ADR 41 迁移的产物），因此 `'goal'` 这个 wire 值尚未腾空。真正 Goal 模式落地前，**必须先完成下列 wire 值迁移三步**，否则新旧语义会争抢同一字面量。
+>
+> 交叉引用：`knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（迁移决策）、`goal-mode-ultrathink-workflow.md` 第十六章开放问题 5（已从"开放"降级为"已拍板"）。
+
+- [ ] **第一步：一次性数据迁移**——对存量会话/偏好持久化中的 `chatMode === 'goal'` 记录，一次性改写为 `'plan'`，确保历史数据不再依赖运行时兼容映射。
+- [ ] **第二步：取消兼容映射**——迁移完成并验证后，移除 `peer_agent` 中 `normalizeChatMode` 的 `goal→plan` 兜底分支，使 `'goal'` 字面量彻底腾空。
+- [ ] **第三步：重新赋自驱语义**——将腾空后的 `'goal'` wire 值重新绑定到新 Goal 自驱模式（`ChatMode` 恢复 `'goal'` 为并列合法值，承载 explore→plan→act→verify 语义）。
+
+> **执行顺序不可颠倒**：三步存在严格依赖（先迁数据 → 再撤映射 → 才能重新赋义）；跳步会导致历史会话被误解析。此为 `peer_agent` 代码改动，不在本知识库范围，本清单仅登记为落地前置依赖。
 
 ## 暂不做事项
 
