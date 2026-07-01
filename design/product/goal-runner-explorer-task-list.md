@@ -1,5 +1,15 @@
 # Goal Runner + Explorer SubAgents 实施任务清单
 
+> 创建时间：2026-06-22 · 最后更新：2026-07-01
+
+## 更新记录
+
+- **2026-07-01**：Goal Runner 的**次数/轮次预算熔断已移除**。代码仓 `peer_agent` 中，`maxTurns` / `maxToolCalls` 不再作为强制停止条件，Runner 不会再因执行次数/轮次耗尽而停止。
+  - 影响范围：本文中所有断言「会因预算耗尽而进入 `budget_exhausted` / 停止」的设计与验收条目均已过时，下文相关处已就地改写为现状。
+  - 防失控兜底改为依赖：**no-progress 检测（N=3 双信号）+ `blocked` 状态 + 权限拒绝 + Evidence 强制** 等其它护栏。
+  - `budget_exhausted` 状态枚举在协议 / store / UI 中**仍保留**（作为历史兼容与展示），但**不再被次数/轮次逻辑触发**；下文纯枚举列举处按现状保留。
+  - `maxExplorers` 作为 **Explorer 并发上限**保留，未随本次移除。
+
 ## 背景
 
 当前 Goal 模式更接近“Plan 模式”：用户提出目标后，系统生成计划，用户批准后通常只是触发一条继续执行消息，缺少跨 turn 持续托管、自动推进、证据不足时自动探索、以及明确的 Runner 生命周期。
@@ -39,7 +49,7 @@ idle / running / paused / exploring / blocked / budget_exhausted / completed / f
 - 用户批准计划后，Runner 托管推进目标。
 - Runner 可以在已批准的 `goal / boundaries / successCriteria` 内自动执行、验证、修复、继续推进。
 - Runner 不把每一步伪装成用户消息。
-- Runner 必须在权限拒绝、需要用户选择、预算耗尽、证据不足、越界风险时停止到明确状态。
+- Runner 必须在权限拒绝、需要用户选择、证据不足、越界风险时停止到明确状态。（注：次数/轮次预算熔断已于 2026-07-01 移除，不再作为停止条件；无进展由 no-progress 检测转 `blocked` 兜底）
 - Runner 不绕过权限审批，不跳过 Evidence，不直接执行本地能力。
 
 ### 3. Explorer SubAgents 范围
@@ -216,7 +226,7 @@ createGoalRunner({
   -> 调用 chatRuntime 产生 assistant turn
   -> 等待该 turn 完成，包括工具链路和 Evidence
   -> 重新读取最新 GoalPlan
-  -> 判断继续 / 探索 / 完成 / 阻塞 / 预算耗尽
+  -> 判断继续 / 探索 / 完成 / 阻塞（次数/轮次预算耗尽已不再作为分支，2026-07-01 移除）
 ```
 
 ### Runner 禁止事项
@@ -232,7 +242,7 @@ createGoalRunner({
 - [x] `start` 会把 plan/runner 置为 executing/running。
 - [x] `pause` 会停止后续 tick。
 - [x] `clear` 会 cancel plan 并停止 Runner。
-- [x] budget 用尽会进入 `budget_exhausted`。
+- [~] ~~budget 用尽会进入 `budget_exhausted`。~~（2026-07-01 起次数/轮次预算熔断已移除，此路径不再触发；`budget_exhausted` 状态保留但不再由次数逻辑进入）
 - [x] fake runtime 连续返回 progress 时，Runner 能自动多 tick 推进。
 - [x] Runner 每轮重新读 store，不依赖旧内存 plan。
 
@@ -256,27 +266,27 @@ pnpm --filter @peer-agent/protocol typecheck
 
 ### 目标
 
-把 Runner 从 skeleton 升级为 hands-off 自动推进：能识别继续执行、阻塞、预算耗尽、完成前验证。
+把 Runner 从 skeleton 升级为 hands-off 自动推进：能识别继续执行、阻塞、完成前验证。（原「预算耗尽」识别已于 2026-07-01 随次数/轮次熔断一并移除）
 
 ### 任务清单
 
 - [x] 实现 leaf task 提取与完成判定。
 - [x] 实现 successCriteria 检查入口。
 - [x] 实现 intent 决策：`execute | verify | explore | synthesize | block`。
-- [x] 实现 no-progress 防护。（`pump` 闭包内双信号检测：`progress.completed` 计数 + 叶子 `evidenceRefs` 总数，任一增长即「有进展」；连续 3 轮无增长判 `blocked(no_progress)`，先于预算上限触发。局部计数随 `pump` 重新拉起而清零，匹配 resume「既往不咎」语义。提交 `9b916a3`）
+- [x] 实现 no-progress 防护。（`pump` 闭包内双信号检测：`progress.completed` 计数 + 叶子 `evidenceRefs` 总数，任一增长即「有进展」；连续 3 轮无增长判 `blocked(no_progress)`。局部计数随 `pump` 重新拉起而清零，匹配 resume「既往不咎」语义。提交 `9b916a3`。注：原描述为「先于预算上限触发，预算上限作为最终兜底」，2026-07-01 起次数/轮次预算熔断已移除，no-progress 检测成为主要兜底）
 - [x] 实现权限拒绝后的 stop/block 策略。
 - [x] 实现 `request_user_input` 后的 stop/block 策略。
 - [x] 实现工具失败后的 exception policy 处理入口。
-- [x] 实现预算耗尽后的 `budget_exhausted` 状态。
+- [~] ~~实现预算耗尽后的 `budget_exhausted` 状态。~~（2026-07-01 起次数/轮次预算熔断已移除，不再进入该状态；状态枚举本身保留）
 
 ### 默认预算建议
 
-第一版不做无限后台无人值守，建议默认：
+> ⚠️ 现状（2026-07-01）：**次数/轮次预算熔断已移除**。`maxTurns` / `maxToolCalls` 不再作为强制停止条件，仅作为展示计数保留（用于观测运行规模），不会再触发停止。防失控改由 no-progress 检测 + `blocked` + 权限/Evidence 护栏兜底。`maxExplorers` 仍作为 **Explorer 并发上限**保留生效。以下数值为历史设计建议，已不代表当前熔断行为：
 
 ```text
-maxTurns: 12
-maxToolCalls: 80
-maxExplorers: 4
+maxTurns: 12       # 已移除熔断，仅作展示计数
+maxToolCalls: 80   # 已移除熔断，仅作展示计数
+maxExplorers: 4    # 仍生效：Explorer 并发上限
 ```
 
 ### 自动完成条件
@@ -299,7 +309,7 @@ maxExplorers: 4
 
 - [x] 所有 leaf tasks completed 且有 evidenceRefs 时，Runner 可以进入 verify/complete 流程。
 - [x] 没有 evidenceRefs 时不允许目标完成。
-- [x] 连续无进展不会无限循环。（N=3 双信号无进展检测先于预算上限触发 `blocked(no_progress)`，预算上限作为最终兜底）
+- [x] 连续无进展不会无限循环。（N=3 双信号无进展检测触发 `blocked(no_progress)`；2026-07-01 起次数/轮次预算熔断已移除，no-progress 检测成为防失控的主要兜底）
 - [x] 遇到用户选择需求时进入 blocked/paused，而不是继续跑。
 
 ### 当前验证记录
@@ -506,7 +516,7 @@ GoalPlanPanel 按钮 onControl(plan,'pause'|'resume'|'clear')
 - [x] missing evidence -> explorer starts -> explorer report -> runner continues。（`goal-runner.test.mjs`：`explorer: runtime 可动态请求只读子 Agent，Runner 回填报告后继续推进`）
 - [~] permission denied -> runner blocked。（无专用自动化测试覆盖；当前依赖 Runner 通用 blocked 路径，留作后续补集成测试）
 - [~] `request_user_input` -> runner paused/blocked。（无专用自动化测试覆盖；仅有相邻的 `runtime can request a single-turn stop without exhausting budget`，留作后续补集成测试）
-- [x] budget exhausted -> runner `budget_exhausted`。（`goal-runner.test.mjs`：`budget: maxTurns 用尽会进入 budget_exhausted`）
+- [~] ~~budget exhausted -> runner `budget_exhausted`。~~（2026-07-01 起次数/轮次预算熔断已移除，此断言已过时；对应测试用例随代码移除或改写）
 - [x] clear active goal -> no more goal context injection。（`goal-runner.test.mjs`：`clear: 会 cancel plan 并停止 Runner` + `goal-plan-source.test.mjs`：`skips terminal (completed/cancelled) plans`）
 - [x] 普通 chat 不注入 runner context。（三个 source 测试：`goal-runner-source`/`goal-plan-source`/`explorer-source` 的 `chat / non-explorer mode renders nothing`）
 
@@ -534,7 +544,7 @@ pnpm architecture:check
 - [x] task 完成必须有 Evidence refs。（store 层强制 + `goal-runner.test.mjs`：`completed result without task Evidence 会 blocked`）
 - [~] 权限拒绝时 Runner 停在明确状态。（依赖 Runner 通用 blocked 路径；无专用自动化测试，留作后续补集成测试）
 - [~] 用户选择需求时 Runner 停在明确状态。（有 `single-turn stop` 用例佐证；`request_user_input` 专用集成测试留作后续）
-- [x] 预算耗尽时 Runner 停在明确状态。（`goal-runner.test.mjs`：`budget: maxTurns 用尽会进入 budget_exhausted`）
+- [~] ~~预算耗尽时 Runner 停在明确状态。~~（2026-07-01 起次数/轮次预算熔断已移除，不再有「预算耗尽」停止点；无进展改由 no-progress 检测转 `blocked` 停在明确状态）
 - [x] 证据不足时 Runner 不假装完成。（`goal-runner.test.mjs`：`completed result without task Evidence 会 blocked 而不是假装完成` + `no-progress` 双信号检测）
 - [x] Renderer 只表达状态和控制，不执行工具。（Slice 7 调用链核验：UI→IPC→runner，Renderer 不执行本地能力）
 - [x] 普通 chat 模式不受 Goal Runner 影响。（三个 context source 的 `chat / non-explorer mode renders nothing`）
@@ -576,7 +586,7 @@ pnpm architecture:check
 
 ### 风险：自动推进无限循环
 
-控制：预算限制、no-progress 检测、每轮重读 authoritative plan、blocked 状态。
+控制：no-progress 检测（N=3 双信号，主要兜底）、每轮重读 authoritative plan、blocked 状态、权限/Evidence 护栏。（注：次数/轮次预算限制原为兜底之一，已于 2026-07-01 移除，不再参与防失控）
 
 ### 风险：Explorer 越权执行
 
