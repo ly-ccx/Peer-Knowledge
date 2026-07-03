@@ -2,7 +2,7 @@
 
 > 创建时间：2026-06-30
 > 最后更新：2026-07-03
-> 状态：已落地（Done）— 方案 A（wire 值 `'goal'`→`'plan'`）已实现提交；后续 wire 值迁移三步（腾空 `'goal'` 并重新赋自驱语义）亦已于 2026-07-03 落地，详见文末「wire 值迁移已落地」
+> 状态：**部分修订（Superseded in part）** — 方案 A（wire 值 `'goal'`→`'plan'`）与 wire 值迁移三步已落地；但本 ADR 核心结论之一「Runner 归 goal 模式独占、plan 回归纯审批门(A1)」已于 2026-07-03 被 **B2-b 修订推翻**：plan 与 goal「批准后」执行段合一，共用同一自驱 Runner。详见文末「§六之补二：B2-b 修订——plan/goal 执行段合一」
 > 关联代码：`peer_agent`
 > 关联文档：本仓 `design/product/goal-mode-ultrathink-workflow.md`（真正的 Goal 模式设计）、`knowledge/specifications/15-goal-plan-lifecycle-governance.md`
 
@@ -113,6 +113,33 @@
 > 遗留衔接（2026-07-02 更新命名决策）：命名决策已拍板——**真正的 Goal 模式继续叫 "Goal" 并复用 `'goal'` wire 值**（不再另起 `'goal-run'` 之类独立新值）。详见 `design/product/goal-mode-ultrathink-workflow.md` 第十六章开放问题 5。
 
 > **wire 值迁移已落地（2026-07-03 更新）**：上述「先迁数据 → 再撤映射 → 重新赋自驱语义」三步已在 `peer_agent` 仓完成并验证。现状：`ChatMode = 'chat' | 'plan' | 'goal'`（`'goal'` 已重新承载自驱语义）；`conversation-store.mjs` 新增 `migrateLegacyGoalMode` 对存量 index 一次性 `goal→plan`（marker 防重复）；全链路 `normalizeChatMode`/`normalizeMode`/tool 投影/闸门/prompt 各 source 的 `goal→plan` 兼容映射均已撤销；Runner 归 goal 模式独占、plan 回归纯审批门；新增 `MODE_COPY.goal` 与三态 UI；防偏航 re-anchor/drift/verification gate 落地。落地追踪见 `design/product/goal-runner-explorer-task-list.md`「Goal 模式落地前置动作」（三步已勾销）。
+
+---
+
+## 六之补二：B2-b 修订——plan/goal 执行段合一（2026-07-03）
+
+**触发**：用户反馈 plan 计划卡片点「批准并执行」后只显示「已批准」、不自动推进，与按钮字面语义（「执行」）不符。经确认，用户真实诉求是「批准即无人值守自动跑到完成」。
+
+**决策**：修订本 ADR 原结论「Runner 归 goal 模式独占(A1)、plan 回归纯审批门」。改为 **plan 与 goal 批准后执行段合一（代号 B2-b）**：
+
+- plan 批准后与 goal 一样启动同一个自驱 Runner 托管推进，直至命中验证闸门或完成。
+- 复用现有全套护栏——续推上下文注入、防偏航 re-anchor、Verification Gate——而非新写一套无护栏的裸自驱（否决 B2-a）。护栏天然生效的原因：Runner 驱动的 turn 一律以 `mode:'goal'` 执行（`runGoalTurn` 写死），故三大护栏对 plan 批准后启动的 Runner 同样命中。
+
+**修订后 plan 与 goal 的边界**：差异收敛到「**批准前的规划把关粒度**」——plan 仍是 plan-before-execute 的审批门（用户对计划本身逐条把关）；goal 面向可验证目标自驱。**批准后二者行为一致**。此前「批准后是否自驱」这一区分点作废。
+
+**已知代价（知情接受）**：
+
+- 本 ADR 原「A1 独占」结论作废，plan/goal 在执行段不再有行为差异，理论上削弱了「plan = 纯审批、不托管」的定位。
+- 无人值守自驱的固有风险（长任务偏航、自称完成、不可逆操作）由复用的 goal 护栏兜底，不额外裸奔。
+
+**落地实证（`peer_agent` 仓，2026-07-03）**：
+
+| 改动点 | 位置 | 内容 |
+| --- | --- | --- |
+| 核心闸门 | `apps/desktop/electron/main/main.mjs` `goalPlans:approve` handler | 移除 `conv?.mode === 'goal'` 判断，改为批准即 `void goalRunner?.start(planId)`（plan/goal 均启动） |
+| 注释同步 | `apps/desktop/electron/main/prompt/sources/goal-runner-source.mjs` | 头部与 `observe()` 内联注释由「Runner 归 goal 独占」改为「执行段合一，按 turn 的 `mode:'goal'` 注入护栏」 |
+
+**验证**：`pnpm --filter desktop typecheck` 通过；`goal-runner` / `goal-runner-source` / `goal-mode-gate` 三套单测共 34 项全部通过（0 失败）。既有测试不经过 IPC handler（直接调 `store.recordApproval` + `runner.start`），Runner 自身审批门未动，故无需改测试。
 
 ---
 
