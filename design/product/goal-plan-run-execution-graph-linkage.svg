@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Goal / Plan / Run 执行图整体链路</title>
+  <desc id="desc">展示用户消息如何路由到当前 Goal，GoalPlan 聚合根如何分离 Goal、Plan 与 Run，Runner 如何执行 explore plan act verify 闭环，并把动态子计划、自我纠正、验证证据、checkpoint 与右侧面板投影串联起来。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="52%" stop-color="#f5f7fb"/>
+      <stop offset="100%" stop-color="#fffaf2"/>
+    </linearGradient>
+    <filter id="softShadow" x="-8%" y="-10%" width="116%" height="124%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#25324d" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#53627d"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#dc2626"/>
+    </marker>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #152033; }
+      .subtitle { font: 500 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #69758c; }
+      .section-title { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172033; }
+      .label { font: 650 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #1f2937; }
+      .small { font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #516078; }
+      .tiny { font: 500 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #69758c; }
+      .mono { font: 600 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #3b4658; }
+      .card { fill: #ffffff; stroke: #d9e0ec; stroke-width: 1.4; filter: url(#softShadow); }
+      .subcard { fill: #fbfcff; stroke: #dce3ef; stroke-width: 1.2; }
+      .blue { fill: #eef5ff; stroke: #9fc2ff; }
+      .green { fill: #edfdf5; stroke: #8bd8b1; }
+      .amber { fill: #fff7e6; stroke: #f5c56f; }
+      .red { fill: #fff0f0; stroke: #f2a4a4; }
+      .purple { fill: #f6f1ff; stroke: #c5b3ff; }
+      .slate { fill: #f4f7fb; stroke: #cbd5e1; }
+      .arrow { stroke: #53627d; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-blue { stroke: #2563eb; stroke-width: 2.4; fill: none; marker-end: url(#arrowBlue); }
+      .arrow-green { stroke: #059669; stroke-width: 2.4; fill: none; marker-end: url(#arrowGreen); }
+      .arrow-red { stroke: #dc2626; stroke-width: 2.4; fill: none; marker-end: url(#arrowRed); }
+      .dash { stroke-dasharray: 7 7; }
+      .line { stroke: #c7d2e2; stroke-width: 1.2; }
+      .badge { font: 700 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1040" fill="url(#bg)"/>
+
+  <text class="title" x="52" y="54">Goal / Plan / Run 执行图整体链路</text>
+  <text class="subtitle" x="52" y="82">用户消息先路由到未完成 Goal；GoalPlan 作为聚合根承载目标契约、计划图和执行事实；右侧面板只做清晰投影。</text>
+
+  <!-- User input -->
+  <rect class="card" x="52" y="130" width="270" height="290" rx="18"/>
+  <text class="section-title" x="78" y="166">用户消息</text>
+  <text class="small" x="78" y="191">默认是当前 Goal 的事件</text>
+
+  <rect class="subcard blue" x="78" y="218" width="218" height="36" rx="10"/>
+  <text class="label" x="96" y="241">继续</text>
+  <text class="tiny" x="235" y="241">resume</text>
+
+  <rect class="subcard amber" x="78" y="266" width="218" height="36" rx="10"/>
+  <text class="label" x="96" y="289">全部改成 209</text>
+  <text class="tiny" x="226" y="289">override</text>
+
+  <rect class="subcard red" x="78" y="314" width="218" height="36" rx="10"/>
+  <text class="label" x="96" y="337">不是这个意思</text>
+  <text class="tiny" x="224" y="337">correction</text>
+
+  <rect class="subcard slate" x="78" y="362" width="218" height="36" rx="10"/>
+  <text class="label" x="96" y="385">新开一个目标...</text>
+  <text class="tiny" x="232" y="385">new goal</text>
+
+  <!-- Router -->
+  <rect class="card" x="372" y="130" width="292" height="260" rx="18"/>
+  <text class="section-title" x="398" y="166">GoalMessageRouter</text>
+  <text class="small" x="398" y="191">创建 Goal 前先做确定性路由</text>
+
+  <path d="M518 218 L618 272 L518 326 L418 272 Z" fill="#eef5ff" stroke="#8db8ff" stroke-width="1.4"/>
+  <text class="label" x="461" y="266">当前线程有</text>
+  <text class="label" x="462" y="287">未完成 Goal?</text>
+
+  <rect class="subcard green" x="398" y="338" width="110" height="36" rx="10"/>
+  <text class="label" x="426" y="361">Yes</text>
+  <rect class="subcard amber" x="528" y="338" width="110" height="36" rx="10"/>
+  <text class="label" x="561" y="361">No</text>
+
+  <path class="arrow" d="M322 260 C346 260 348 260 372 260"/>
+
+  <!-- Event branch -->
+  <rect class="card" x="732" y="110" width="306" height="142" rx="18"/>
+  <text class="section-title" x="758" y="146">绑定当前 Goal</text>
+  <text class="small" x="758" y="173">append_goal_event</text>
+  <line class="line" x1="758" y1="190" x2="1010" y2="190"/>
+  <text class="mono" x="758" y="215">resume / correction / constraint</text>
+  <text class="mono" x="758" y="236">requirement_override / follow-up</text>
+
+  <!-- Create goal branch -->
+  <rect class="card" x="732" y="286" width="306" height="104" rx="18"/>
+  <text class="section-title" x="758" y="322">创建新 Goal</text>
+  <text class="small" x="758" y="349">仅当没有活跃 Goal，或用户显式新开目标</text>
+  <text class="mono" x="758" y="374">create_goal + freeze contract</text>
+
+  <path class="arrow-green" d="M508 356 C596 328 642 202 732 182"/>
+  <path class="arrow" d="M638 356 C682 358 690 342 732 338"/>
+
+  <!-- Aggregate root -->
+  <rect class="card" x="420" y="472" width="760" height="332" rx="22"/>
+  <text class="section-title" x="450" y="510">GoalPlan 聚合根</text>
+  <text class="small" x="450" y="536">存储仍以 GoalPlan 承载；UI 和协议把 Goal / Plan / Run 分层表达</text>
+
+  <rect class="subcard blue" x="450" y="568" width="218" height="198" rx="16"/>
+  <text class="section-title" x="474" y="602">Goal</text>
+  <text class="small" x="474" y="629">目标契约</text>
+  <line class="line" x1="474" y1="644" x2="642" y2="644"/>
+  <text class="mono" x="474" y="668">title / objective</text>
+  <text class="mono" x="474" y="692">successCriteria[]</text>
+  <text class="mono" x="474" y="716">scope / status</text>
+  <text class="tiny" x="474" y="744">不被“继续”等短消息覆盖</text>
+
+  <rect class="subcard amber" x="692" y="568" width="218" height="198" rx="16"/>
+  <text class="section-title" x="716" y="602">Plan</text>
+  <text class="small" x="716" y="629">计划图与动态子计划</text>
+  <line class="line" x1="716" y1="644" x2="884" y2="644"/>
+  <text class="mono" x="716" y="668">main plan vN</text>
+  <text class="mono" x="716" y="692">derived_plan</text>
+  <text class="mono" x="716" y="716">parentNodeId</text>
+  <text class="tiny" x="716" y="744">谁触发，挂在谁下面</text>
+
+  <rect class="subcard green" x="934" y="568" width="218" height="198" rx="16"/>
+  <text class="section-title" x="958" y="602">Run</text>
+  <text class="small" x="958" y="629">执行事件与审计事实</text>
+  <line class="line" x1="958" y1="644" x2="1126" y2="644"/>
+  <text class="mono" x="958" y="668">RunEvent[]</text>
+  <text class="mono" x="958" y="692">validation / problem</text>
+  <text class="mono" x="958" y="716">self_correction</text>
+  <text class="tiny" x="958" y="744">checkpoint / evidence refs</text>
+
+  <path class="arrow-blue" d="M885 252 C884 340 820 406 785 472"/>
+  <path class="arrow" d="M885 390 C884 424 870 448 850 472"/>
+
+  <!-- Runner loop -->
+  <rect class="card" x="1230" y="118" width="318" height="420" rx="22"/>
+  <text class="section-title" x="1260" y="154">Goal Runner 闭环</text>
+  <text class="small" x="1260" y="181">读取 GoalPlan，写回 RunEvent / GraphNode</text>
+
+  <rect x="1248" y="200" width="284" height="204" rx="26" fill="#fbfcff" stroke="#d6deea" stroke-width="1.2"/>
+  <rect class="subcard blue" x="1328" y="208" width="124" height="42" rx="12"/>
+  <text class="label" x="1360" y="234">EXPLORE</text>
+  <rect class="subcard amber" x="1454" y="268" width="78" height="42" rx="12"/>
+  <text class="label" x="1474" y="294">PLAN</text>
+  <rect class="subcard purple" x="1328" y="326" width="124" height="42" rx="12"/>
+  <text class="label" x="1368" y="352">ACT</text>
+  <rect class="subcard green" x="1248" y="268" width="92" height="42" rx="12"/>
+  <text class="label" x="1265" y="294">VERIFY</text>
+
+  <path class="arrow" d="M1452 229 C1496 230 1518 248 1528 271"/>
+  <path class="arrow" d="M1498 310 C1488 346 1468 366 1442 374"/>
+  <path class="arrow" d="M1328 350 C1294 344 1267 328 1254 304"/>
+  <path class="arrow" d="M1292 268 C1305 236 1320 220 1340 213"/>
+
+  <rect class="subcard red" x="1260" y="420" width="258" height="84" rx="14"/>
+  <text class="label" x="1284" y="449">验证失败 / 覆盖不足</text>
+  <text class="small" x="1284" y="475">写入 self_correction</text>
+  <text class="small" x="1284" y="494">修订 Plan，再回到闭环</text>
+
+  <path class="arrow" d="M1180 610 C1208 570 1218 512 1230 424"/>
+  <path class="arrow-green" d="M1230 628 C1196 638 1190 644 1180 652"/>
+
+  <!-- Right panel projection -->
+  <rect class="card" x="1198" y="620" width="350" height="306" rx="22"/>
+  <text class="section-title" x="1228" y="656">右侧面板投影</text>
+  <text class="small" x="1228" y="682">不混用“目标计划”；三块清楚显示</text>
+
+  <rect class="subcard blue" x="1228" y="712" width="290" height="46" rx="12"/>
+  <text class="label" x="1250" y="741">Goal</text>
+  <text class="tiny" x="1318" y="741">状态 / 完成标准 / 范围</text>
+
+  <rect class="subcard amber" x="1228" y="774" width="290" height="46" rx="12"/>
+  <text class="label" x="1250" y="803">Plan</text>
+  <text class="tiny" x="1318" y="803">主计划 / 动态子计划 / 当前路径</text>
+
+  <rect class="subcard green" x="1228" y="836" width="290" height="56" rx="12"/>
+  <text class="label" x="1250" y="866">Run</text>
+  <text class="tiny" x="1318" y="858">行动 / 观察 / 验证 / 问题</text>
+  <text class="tiny" x="1318" y="878">纠偏 / 自我修正 / checkpoint</text>
+
+  <path class="arrow-blue" d="M1180 670 C1190 670 1192 670 1198 670"/>
+
+  <!-- Checkpoint lane -->
+  <rect class="card" x="52" y="820" width="1088" height="164" rx="22"/>
+  <text class="section-title" x="82" y="858">中断与恢复链路</text>
+  <text class="small" x="82" y="884">网络中断不丢 Goal；用户发送“继续”只恢复 checkpoint，不创建标题为“继续”的新 Goal</text>
+
+  <rect class="subcard red" x="82" y="918" width="210" height="40" rx="12"/>
+  <text class="label" x="106" y="943">network_interrupted</text>
+
+  <rect class="subcard amber" x="340" y="918" width="150" height="40" rx="12"/>
+  <text class="label" x="372" y="943">checkpoint</text>
+
+  <rect class="subcard blue" x="545" y="918" width="148" height="40" rx="12"/>
+  <text class="label" x="591" y="943">继续</text>
+
+  <rect class="subcard green" x="748" y="918" width="184" height="40" rx="12"/>
+  <text class="label" x="794" y="943">resume_goal</text>
+
+  <rect class="subcard purple" x="982" y="918" width="142" height="40" rx="12"/>
+  <text class="label" x="1019" y="943">继续 Runner</text>
+
+  <path class="arrow-red" d="M292 938 C314 938 318 938 340 938"/>
+  <path class="arrow" d="M490 938 C518 938 522 938 545 938"/>
+  <path class="arrow-blue" d="M693 938 C722 938 725 938 748 938"/>
+  <path class="arrow-green" d="M932 938 C955 938 959 938 982 938"/>
+
+  <path class="arrow dash" d="M1024 804 C1030 828 1038 852 1053 918"/>
+
+  <!-- Evidence lane -->
+  <rect class="card" x="52" y="472" width="300" height="278" rx="22"/>
+  <text class="section-title" x="82" y="510">Evidence 链路</text>
+  <text class="small" x="82" y="536">完成、验证、纠正都必须带证据</text>
+
+  <rect class="subcard slate" x="82" y="568" width="240" height="42" rx="12"/>
+  <text class="label" x="105" y="594">Tool Result</text>
+
+  <rect class="subcard slate" x="82" y="628" width="240" height="42" rx="12"/>
+  <text class="label" x="105" y="654">PermissionGrant</text>
+
+  <rect class="subcard slate" x="82" y="688" width="240" height="42" rx="12"/>
+  <text class="label" x="105" y="714">evidenceRefs[]</text>
+
+  <path class="arrow" d="M202 610 C202 620 202 622 202 628"/>
+  <path class="arrow" d="M202 670 C202 680 202 682 202 688"/>
+  <path class="arrow-green dash" d="M322 710 C366 704 384 700 450 690"/>
+
+  <!-- Legend -->
+  <rect x="52" y="996" width="1496" height="1" fill="#d6deea"/>
+  <circle cx="78" cy="1018" r="6" fill="#eef5ff" stroke="#8db8ff"/>
+  <text class="tiny" x="92" y="1022">Goal / 输入路由</text>
+  <circle cx="214" cy="1018" r="6" fill="#fff7e6" stroke="#f5c56f"/>
+  <text class="tiny" x="228" y="1022">Plan / 动态规划</text>
+  <circle cx="368" cy="1018" r="6" fill="#edfdf5" stroke="#8bd8b1"/>
+  <text class="tiny" x="382" y="1022">Run / 验证与证据</text>
+  <circle cx="530" cy="1018" r="6" fill="#fff0f0" stroke="#f2a4a4"/>
+  <text class="tiny" x="544" y="1022">问题 / 自我纠正 / 中断</text>
+</svg>
