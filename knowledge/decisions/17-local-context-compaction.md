@@ -1,6 +1,7 @@
 # Local Context Compaction 机制设计
 
-日期：2026-06-08
+创建时间：2026-06-08
+最后更新：2026-07-07
 状态：设计草案
 
 本文定义 Peer Agent 本地侧的上下文压缩机制。重点不是“如何把历史塞进更短摘要”，而是建立一套本地任务线程可持续工作的上下文治理方法。
@@ -297,6 +298,30 @@ Local compaction 的摘要不是越像自然语言越好，而是越可恢复越
 - 捕获 prompt-too-long 类错误。
 - 强制 compact。
 - 使用 compact 后消息重试一次。
+
+### P5：Context Budget Manager（长期方向，方案 C）
+
+2026-06-30 的最小闭环已把预算守卫集中在 `chat-runtime/compaction-coordinator.mjs`，并在 OpenAI / Anthropic / Gemini agent loop 的 provider 请求前调用：
+
+- `computeContextBudget` 按 `messages + tools + contextWindow` 计算用量；工具 schema 每次请求都会发送，因此必须计入预算。
+- `soft` 线沿用自动压缩触发线；`hard` 线作为发送前拦截线；超过 hard/window 时进入 `emergency + force` 压缩。
+- provider 返回 prompt/context too long 时，先 emergency compact，并最多重试一次；重试仍失败时给明确的 context-window 错误。
+- 本轮不改 provider adapter，不把预算逻辑下沉到各 provider wire protocol。
+
+长期 Context Budget Manager 不应只是“更早触发 compact”，而应成为统一的请求预算规划层：
+
+1. **统一预算模型**：把 system、messages、tools、attachments、reasoning 预留、max output、provider cache 影响纳入同一 Budget Snapshot。
+2. **统一裁剪策略**：在发送前选择 microcompact、semantic compact、artifact ref、工具 schema 裁剪、附件摘要化等动作，并返回可解释计划。
+3. **统一错误恢复**：将 prompt-too-long、rate/output budget、provider-specific context 错误归一为可恢复策略，而不是散落在各 loop。
+4. **统一 UI 信号**：让进度条、压缩横幅、继续生成按钮看到同一预算状态，避免 `412k / 258k` 仍裸发 provider 请求。
+5. **可测试边界**：Budget Manager 输出纯数据计划，provider adapter 只负责协议编码，agent loop 只负责执行计划和控制流。
+
+非本轮范围：
+
+- 不重构 provider adapter。
+- 不引入全新的长期记忆系统。
+- 不实现工具 schema 动态裁剪与附件级预算规划。
+- 不改变 tool call / tool result 配对规则。
 
 ## 八、验收标准
 
