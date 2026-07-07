@@ -1042,6 +1042,7 @@ system-ui
 - 大面积空黑页。
 - loading 独立丑气泡。
 - AI 味很重的渐变、发光、装饰 blob。
+- **用字符 / emoji 当图标**（如 `←` `▾` `▸` `✕` `✓` `→` `●`）。所有图标一律用 SVG 绘制，详见「十六、图标与 SVG 规范」。
 
 ---
 
@@ -1079,3 +1080,57 @@ system-ui
 7. **视觉 QA**：用截图逐屏检查对齐、字号、圆角、暗色层次和滚动状态。
 
 这份文档是后续所有视觉实现的基线；如果实际 UI 和本文冲突，先改 UI，除非产品判断明确更新本文。
+
+---
+
+## 十六、图标与 SVG 规范
+
+> 长期记忆（用户多次强调）：**所有图标一律用 SVG 绘制，禁止用字符 / emoji / 特殊 Unicode 符号拼图标**。
+
+### 16.1 硬性规则
+
+- 任何图标都用内联 `<svg>` 绘制，不用 `←` `▾` `▸` `✕` `✓` `→` `●` 这类字符，也不用 emoji。
+- 需要「同一语义的图标」时，**先复用项目已有形态，不要新造一版**。同一含义（如折叠、返回、关闭）全项目必须是同一个 path。
+- SVG 一律 `stroke="currentColor"`，靠 CSS `color` 控色，跟随主题；不硬编码颜色。
+- 折叠 / 展开这类状态差异，用 CSS `transform: rotate()` 表达，不用「换一个字符」表达。
+- 装饰性伪元素（`::before`）确实需要图标时，用 SVG `data:` URL 配 `mask` + `background-color: currentColor`，而不是 `content: "▾"`。
+
+### 16.2 项目已有的统一 SVG 形态（复用基线）
+
+改 UI 时优先从这里取，不要另画：
+
+| 语义 | 统一 path | 现用处 |
+|---|---|---|
+| 折叠箭头 chevron（默认朝下，折叠态 `rotate(-90deg)`） | `m6 9 6 6 6-6` | thinking-chevron、sidebar-section-chevron、historical-preview-chevron、tool-call-expand、llm-group-caret、timeline 折叠标记 |
+| 返回箭头 back（← 语义） | `M19 12H5` + `m12 19-7-7 7-7` | SettingsPage、LlmSettingsPanel、SystemInstructionsPanel、AppearancePanel 的返回按钮 |
+| 前进 / 展开右向箭头 | `m15 18-6-6 6-6`（左向）/ 需要右向时水平镜像 | BrowserView 导航 |
+
+统一 chevron 的标准写法：
+
+```tsx
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+     style={collapsed ? { transform: 'rotate(-90deg)' } : undefined}>
+  <path d="m6 9 6 6 6-6" />
+</svg>
+```
+
+统一返回箭头的标准写法：
+
+```tsx
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M19 12H5" />
+  <path d="m12 19-7-7 7-7" />
+</svg>
+```
+
+### 16.3 无障碍
+
+- 纯装饰或有文字/`aria-label` 兜底的图标，`<svg>` 上加 `aria-hidden="true"`。
+- 图标按钮（无可见文字）必须给 `aria-label`。
+
+### 16.4 后续治理
+
+- 新增图标前先在本节表格找有没有同语义形态；有就复用，没有再新增并**补进本表**。
+- Review 时如发现字符 / emoji 当图标，一律打回换 SVG。
