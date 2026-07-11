@@ -70,7 +70,7 @@ Electron 桌面客户端。
 
 ### 2.2 `packages/protocol`
 
-端云和端内共享契约。
+客户端与云端之间，以及客户端内部共享契约。
 
 第一阶段对象：
 
@@ -186,7 +186,7 @@ UI 组件可以复用品牌和基础体验。
 - Evidence collector。
 - Local memory store。
 - Audit ledger。
-- Cloud capability session。
+- Cloud Runtime session。
 
 原则：
 
@@ -294,4 +294,4 @@ Cloud CEO Agent Runtime
 - 把本地个人经验塞进普通 chat context。
 - 把客户端描述成本地 Agent。
 
-这些禁止项不是洁癖，而是为了防止工程从第一天就偏离端云能力代理设计原则。
+这些禁止项不是洁癖，而是为了防止工程从第一天就偏离 Runtime 编排、能力声明、本地授权与 Evidence 闭环的设计原则。

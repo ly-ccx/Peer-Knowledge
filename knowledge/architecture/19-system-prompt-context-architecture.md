@@ -16,7 +16,7 @@ Peer Agent 当前已经有 `buildSystemPrompt()`、工具描述 prompt、压缩 
 
 ## 一、设计理念
 
-本方案延续 Peer Agent 既有的端云能力代理设计原则：
+本方案延续 Peer Agent 既有的 Runtime 编排、能力声明、本地授权与 Evidence 闭环设计原则：
 
 ```text
 Runtime owns cognition boundary.

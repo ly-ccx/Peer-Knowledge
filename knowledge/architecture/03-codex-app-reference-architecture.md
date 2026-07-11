@@ -158,7 +158,7 @@ DiagnosticSnapshot
 - `TaskThread`：用户看到的主运行态。
 - `ThreadEvent`：消息、工具、Review、Evidence、Artifact 的统一事件。
 - `ComposerContext`：本次任务允许带入的上下文和本地访问级别。
-- `RuntimeSession`：端云会话事实源。
+- `RuntimeSession`：Runtime 会话事实源。
 - `CapabilityManifest`：本地能力声明。
 - `RuntimeProjection`：云端本次可以看见和选择的能力视图。
 - `ReviewRequest`：需要用户确认的本地动作集合。
@@ -285,7 +285,7 @@ Evidence 先于最终解释。
 - Search / pinned / project index。
 - 任务恢复。
 
-### Phase 2：端云能力主链路
+### Phase 2：能力调用与本地执行主链路
 
 - `RuntimeProjection`。
 - `ReviewRequest`。
@@ -330,4 +330,4 @@ Evidence 先于最终解释。
 5. UI 是否仍然是任务流产品，而不是管理后台？
 6. 个人经验是否仍然默认留在本地？
 
-如果这些问题有任意一个退化，就说明架构偏离了 Codex.app 参考形态或端云能力代理设计原则。
+如果这些问题有任意一个退化，就说明架构偏离了 Codex.app 参考形态，或偏离了 Runtime 编排、能力声明、本地授权与 Evidence 闭环的设计原则。

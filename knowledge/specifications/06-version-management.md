@@ -91,7 +91,7 @@ npx --yes pnpm@10.22.0 version:check
 
 进入条件：
 
-- 端云边界稳定。
+- Runtime、客户端与协议边界稳定。
 - 关键本地能力通过 Manifest / Runtime Projection / Permission / Evidence 主链路。
 - 权限、审计、诊断具备可运维闭环。
 - Web Chat 常用能力完成桌面等价。

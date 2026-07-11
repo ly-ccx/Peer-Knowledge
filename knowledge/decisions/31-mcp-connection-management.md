@@ -165,7 +165,7 @@ Cloud MCP 必须留在云端执行：
 
 ```text
 Cloud MCP Catalog
-  -> Cloud CapabilityManifest
+  -> CapabilityManifest(locality = "cloud")
     -> Runtime Projection
       -> Cloud Agent 可见
         -> Cloud Runtime executes cloud MCP

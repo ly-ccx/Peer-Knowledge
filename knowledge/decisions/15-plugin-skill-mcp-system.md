@@ -39,7 +39,7 @@ Capability Provider
 
 ```text
 Cloud Built-in Tools
-  固定云端能力，不可由客户端卸载
+  固定由 Cloud Runtime 提供，不可由客户端卸载
 
 Personal Workspace Projection
   个人工具面：云端策略 + 个人安装/挂载 + 本地 Gateway 可用能力裁剪后的 Manifest
@@ -180,7 +180,7 @@ Peer Agent 支持两类 MCP：
 
 ```text
 Cloud MCP Server
-  -> Cloud Capability Provider
+  -> MCP Provider Adapter
     -> CapabilityManifest(source = "mcp", locality = "cloud")
       -> Cloud Runtime Projection
         -> Cloud Tool Call
@@ -479,7 +479,7 @@ Provider 不负责：
 
 | API | 方向 | 目的 | 阶段 |
 |---|---|---|---|
-| `GET /api/client/capability/bootstrap` | Client -> Cloud | 拉取云端能力目录、组织策略、推荐插件和最低客户端版本 | P0 |
+| `GET /api/client/capability/bootstrap` | Client -> Cloud | 拉取 Skill 与 Cloud MCP 目录、组织策略、推荐插件和最低客户端版本 | P0 |
 | `POST /api/client/runtime/projection` | Client -> Cloud | 接入个人 Workspace 工具面 | 已有主链路，P0 |
 | `GET /api/client/runtime/ws` | Client -> Cloud | 建立 Gateway WS / outbound runtime session，承载 `client_tool_call`、ack 和 resume | 新主链路，P0 |
 | `POST /api/client/runtime/tasks/poll` | Client -> Cloud | 断线恢复或旧客户端兼容时兜底拉取本地 `client_tool_call` | 兼容兜底 |
@@ -1286,7 +1286,7 @@ Composer：
 
 ## 十六、本地安装和信任
 
-云端能力不做“安装”。
+由 Cloud Runtime 提供的 `Skill` 与 `Cloud MCP` 不做“安装”。
 
 - `Skill` 是云端编排对象，只做 catalog 可见、租户授权、用户启用或禁用。
 - `Cloud MCP` 是云端托管服务，只做 cloud policy / tenant binding。
@@ -1411,7 +1411,7 @@ discovered
 - 实现 shell command permission classification。
 - 实现 shell spawn、timeout、abort、background task、output artifact。
 - 实现 Shell Evidence 回传。
-- 用 `pwd`、write command rule、background stop、Gateway projected shell call 跑通端云闭环。
+- 用 `pwd`、write command rule、background stop、Gateway projected shell call 跑通 Runtime 调用、本地执行与 Evidence 回传闭环。
 
 ### Phase 2：本地 Plugin Registry
 
