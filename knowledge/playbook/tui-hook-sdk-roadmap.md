@@ -2,7 +2,7 @@
 
 > 创建时间：2026-07-09
 > 最后更新：2026-07-12
-> 状态：执行中（Hook 跨宿主公共化已落地；Runtime SDK 内核与 TUI 首个纵向切片已落地）
+> 状态：执行中（阶段一已完成；Runtime SDK Phase 2.1 契约收口与 Desktop 主链路验证已完成）
 > 顺序（已确认）：阶段一 Hook 植入 → 阶段二 Runtime 抽 SDK → 阶段三 TUI 构建
 > 关联知识：`knowledge/specifications/tui-and-hook-design-standard.md`（对标与设计标准）、`knowledge/decisions/16-skill-call-lifecycle.md`、`knowledge/decisions/35-mode-scoped-tool-projection.md`、`knowledge/specifications/09-high-risk-write-scope.md`
 > 关联代码：`peer_agent`（本文件是规划依据，代码改动在该仓落地）
@@ -32,8 +32,10 @@ Capability Provider -> Manifest -> Runtime Projection -> client_tool_call -> Per
 
 - 阶段一：Desktop Hook 闭环与**跨宿主公共 Hook Host** 已落地。外部命令 Runner、配置发现、matcher、超时及 fail-open / fail-closed 策略集中在 `@peer-agent/runtime-node`；Desktop 与 TUI 共用全局 `<userDataPath>/hooks/hooks.json` 和工作区 `.peer/hooks.json`。
 - 阶段二：`@peer-agent/runtime-sdk` 已提供宿主中立 Hook Port、Runtime Event 与 Pipeline；`@peer-agent/runtime-node` 提供 Node Provider Bundle 和 Node Hook Host。SDK 仍保持不依赖文件系统、进程执行、Electron 或 UI 框架。
+- Phase 2.1 实施快照：`packages/protocol` 已成为最小 Runtime 工具调用、结果、请求和执行上下文契约的单一来源；SDK root 入口重新导出这些权威类型，并保留旧 `RuntimeSdk*` 名称作为兼容别名。新增公共 API/类型兼容测试与 Desktop SDK 主链路测试，严格验证 `PreToolUse → PermissionGrant → Provider → PostToolUse → Evidence → Runtime Event`。
+- Phase 2.1 验证结果：Runtime SDK、Runtime Core、Protocol、Runtime Node 的测试、类型检查和构建通过；Desktop SDK 主链路、架构治理与差异格式检查通过。SDK 继续保持 `private`，本阶段未发布 npm。
 - 阶段三：`apps/tui` 已形成 OpenTUI + Bun 的首个真实 Agent 纵向切片，并通过公共 Node Hook Host 接入 deny、ask→审批和 PostToolUse Evidence；完整会话恢复、多模式与非交互产品能力仍待建设。
-- 下一步：继续收口 SDK 发布边界和 Desktop 剩余 Runtime 迁移，再扩展 TUI 的会话、模式和分发能力；不再为 Desktop/TUI 新建私有 Hook 执行路径。
+- 下一步（Phase 2.2）：继续把 Desktop 剩余会话生命周期、resume、中断和事件流迁入 SDK，清理重复宿主编排；完成发布文档、版本兼容策略与包产物验收后，再进入 Phase 2.3 发布和阶段三 TUI 扩展。不得为 Desktop/TUI 新建私有 Hook、权限或 Evidence 路径。
 
 ---
 
@@ -92,9 +94,9 @@ Capability Provider -> Manifest -> Runtime Projection -> client_tool_call -> Per
 
 ### 退出条件（验收）
 - [ ] SDK 作为独立包发布，边界清晰、有版本。
-- [ ] 现有 Electron GUI **能改用 SDK**（至少验证主链路走通），证明 SDK 不是空壳。
-- [ ] SDK 契约与 `packages/protocol` 单一来源一致，无第二套协议。
-- [ ] hook 扩展点、权限三态、Evidence 落账都由 SDK 统一提供。
+- [x] 现有 Electron GUI **能改用 SDK**（至少验证主链路走通），证明 SDK 不是空壳（Phase 2.1 已完成）。
+- [x] SDK 契约与 `packages/protocol` 单一来源一致，无第二套协议（Phase 2.1 已完成最小 Runtime 执行契约收口）。
+- [x] hook 扩展点、权限三态、Evidence 落账都由 SDK 统一提供（Phase 2.1 已由 Desktop 主链路测试验证）。
 
 ### 主要风险
 - 抽象过度或过早 → 以"GUI 能先切过来"作为 SDK 边界正确性的验收锚。
