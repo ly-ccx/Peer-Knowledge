@@ -1,10 +1,15 @@
 # Goal Runner + Explorer SubAgents 实施任务清单
 
-> 创建时间：2026-06-22 · 最后更新：2026-07-03
+> 创建时间：2026-06-22 · 最后更新：2026-07-04
 
 ## 更新记录
 
-- **2026-07-03**：**wire 值迁移三步已在 `peer_agent` 仓落地并验证**（A1+B1 完整解耦，分阶段交付）。`ChatMode` 新增第三态 `'goal'`；Goal Runner 归 goal 模式独占（plan 回归纯审批门、批准后不再自动托管续推）；撤销全链路 `goal→plan` 兼容映射并对存量会话 index 做一次性数据迁移（marker 防重复）；新增 `MODE_COPY.goal` 自驱文案与三态 UI；防偏航 re-anchor / drift 检测 / verification gate 落地。下方「Goal 模式落地前置动作」三步已勾销。typecheck 全绿；goal 相关 14 suites 共 173 tests 全 pass。
+- **2026-07-03（自驱编排两切片）**：**「自驱编排」层两个关键增强已在 `peer_agent` 仓落地并验证**，让 explore→plan→act→verify 闭环真正闭合、自主执行安全。
+  - **Slice A — DoD-as-Code**：`successCriteria` 升级为结构化 `SuccessCriterion[]`（`command/test/file-contains/file-exists/manual`）+ 伴随 `criterionResults`；完成门 `evaluateVerificationGate` 对非 `manual` criterion 要求 `passed=true` 且带 `evidenceRef`，`manual` 降级为 pre-finish 一次确认，全 `manual` 判弱 DoD 告警；`goal-runner-source` 渲染结构化标准并要求模型 **post-act 跑验证、把 Tool Result 作为 evidence 回写**（模型驱动执行 + 完成门机器校验，不新开 runner 旁路）。**全程向后兼容**字符串/缺字段存量计划。
+  - **Slice B — hooks 确定性闸门·阶段一**：`goal-mode-gate` 新增 goal 模式 pre-act 分支——①写盘范围守卫（`write_file`/`edit_file` 越出 workspace 或命中 `boundaries.outOfScope` → DENY，仅匹配像路径/glob 的边界条目）；②不可逆动作（`allow_overwrite` / `rm -rf` / `git push` / `git --force` / `git reset --hard` / `git clean` / `publish` / `git tag`）经 `requestPermission` 逐动作确认，拒绝则结构化失败；③完成门复用 Slice A，不重复造。`projected-tool-executor` 补传 `args`/`workspacePath`/`boundaries` 并接确认。
+  - **验证**：`npm run typecheck` 6/6 项目 Done（零回归）；goal 相关测试 **148/148 pass**（含 `goal-mode-gate` 36、其中新增 Slice B 25）；`tool-registry` 17/17。唯一失败 `projected-tool-executor.test.mjs` 为预存在环境问题（plain `node --test` 缺 electron `webContents` 导出，baseline 同样失败），非本次引入。
+  - 交叉引用：`goal-mode-ultrathink-workflow.md` 第十八章「实现落地记录」。提交策略：验证通过后展示 diff 再定 commit/push。
+- **2026-07-03**：**wire 值迁移三步已在 `peer_agent` 仓落地并验证**（A1+B1 完整解耦，分阶段交付；后续被 ADR 41 B2-b 修订为 plan/goal 批准后执行段合一）。`ChatMode` 新增第三态 `'goal'`；撤销全链路 `goal→plan` 兼容映射并对存量会话 index 做一次性数据迁移（marker 防重复）；新增 `MODE_COPY.goal` 自驱文案与三态 UI；防偏航 re-anchor / drift 检测 / verification gate 落地。下方「Goal 模式落地前置动作」三步已勾销。typecheck 全绿；goal 相关 14 suites 共 173 tests 全 pass。
 - **2026-07-02**：**命名决策已固化**——新自驱模式继续叫 "Goal" 并**复用 `'goal'` wire 值**；历史 `'goal'` 全部并入 `'plan'`。原「wire 值冲突」不再是开放问题（详见 `goal-mode-ultrathink-workflow.md` 第十六章开放问题 5、`knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`）。
   - 据此新增下方小节「Goal 模式落地前置动作（wire 值迁移）」，登记落地前必须先做的 wire 值迁移三步，作为真正 Goal 模式在 `peer_agent` 落地的**前置依赖**。
 - **2026-07-01**：Goal Runner 的**次数/轮次预算熔断已移除**。代码仓 `peer_agent` 中，`maxTurns` / `maxToolCalls` 不再作为强制停止条件，Runner 不会再因执行次数/轮次耗尽而停止。
@@ -617,7 +622,7 @@ pnpm architecture:check
 
 - [x] **第一步：一次性数据迁移**——对存量会话/偏好持久化中的 `chatMode === 'goal'` 记录，一次性改写为 `'plan'`，确保历史数据不再依赖运行时兼容映射。（`conversation-store.mjs` 新增 `migrateLegacyGoalMode`：store 初始化时直接读写原始 index、按字面量迁移、marker 文件防重复）
 - [x] **第二步：取消兼容映射**——迁移完成并验证后，移除 `peer_agent` 中 `normalizeChatMode` 的 `goal→plan` 兜底分支，使 `'goal'` 字面量彻底腾空。（`preferences.ts` `normalizeChatMode`、`conversation-store.mjs` `normalizeMode`、tool 投影/闸门/prompt 各 source 的 `normalizeMode` 均已撤销 `goal→plan`）
-- [x] **第三步：重新赋自驱语义**——将腾空后的 `'goal'` wire 值重新绑定到新 Goal 自驱模式（`ChatMode` 恢复 `'goal'` 为并列合法值，承载 explore→plan→act→verify 语义）。（`ChatMode = 'chat' | 'plan' | 'goal'`；Runner 归 goal 独占、plan 回纯审批门；新增 `MODE_COPY.goal` 自驱文案与三态 UI；防偏航 re-anchor/drift/verification gate 落地）
+- [x] **第三步：重新赋自驱语义**——将腾空后的 `'goal'` wire 值重新绑定到新 Goal 自驱模式（`ChatMode` 恢复 `'goal'` 为并列合法值，承载 explore→plan→act→verify 语义）。（`ChatMode = 'chat' | 'plan' | 'goal'`；`MODE_COPY.goal` 自驱文案与三态 UI落地；防偏航 re-anchor/drift/verification gate 落地；后续 ADR 41 B2-b 修订为 plan/goal 批准后执行段合一，共用自驱 Runner）
 
 > **执行顺序不可颠倒**：三步存在严格依赖（先迁数据 → 再撤映射 → 才能重新赋义）；三步已按序落地。此为 `peer_agent` 代码改动，不在本知识库范围，本清单仅登记为落地追踪。
 

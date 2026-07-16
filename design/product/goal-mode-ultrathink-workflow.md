@@ -1,8 +1,8 @@
 # 真正的 Goal 模式设计：ultrathink + workflow 自驱闭环（完整技术文档）
 
 > 创建时间：2026-06-30
-> 最后更新：2026-07-03
-> 状态：已定稿（Approved）— 首批落地已完成（2026-07-03，A1+B1 完整解耦：三态 ChatMode、Runner 归 goal 独占、wire 值迁移、防偏航 re-anchor/drift/verification gate；详见 ADR 41 与实施清单）
+> 最后更新：2026-07-04
+> 状态：已定稿（Approved）— 首批落地已完成（2026-07-03，三态 ChatMode、wire 值迁移、防偏航 re-anchor/drift/verification gate；ADR 41 已按 B2-b 修订为 plan/goal 批准后执行段合一，共用自驱 Runner）。**自驱编排两切片已落地（2026-07-03）：Slice A（DoD-as-Code：结构化 SuccessCriterion[] + 完成门吃可自动验证 criterion 结果 + 弱 DoD 告警）、Slice B（hooks 阶段一：goal 模式 pre-act 写盘范围守卫 + 不可逆动作逐动作确认）。详见第十八章「实现落地记录」。**
 > 关联代码：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
 > - `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（先正名腾出 "Goal" 名字；迁移已完成）
@@ -460,8 +460,8 @@ Mode: goal.
 Goal 与 Plan 是并列 `ChatMode`，**运行途中不做自动模式翻转**，以保持用户心智干净、避免"自主性被意外升/降级"：
 
 - **Goal 途中遇高风险 / 不可逆操作**：**不**静默降级回 Plan 走整模式审批，而是走已有 `on-irreversible` 闸门的**单动作最少打扰确认**（第七章）——只对该动作停一次问一次，放行后仍留在 Goal 自驱。粒度是"逐动作闸门"，比"整模式降级"更轻、干扰更小。
-- **Plan → Goal**：Plan 计划批准后**不自动升格**为 Goal 自驱；升格必须由**用户显式操作**（切换模式），防止把"审批式计划"意外变成"自主执行"。
-- **净结论**：运行中模式不翻转。所谓"转换"要么是 Goal 内的**逐动作硬闸门**（高风险确认），要么是**用户显式**切换 `ChatMode`；系统不代替用户改变自主性等级。
+- **Plan 批准后执行段**：Plan 计划批准后**不自动改写 ChatMode / 不静默升格为 Goal 契约**；但按照 ADR 41 的 B2-b 修订，批准后的托管执行段与 Goal 共用同一个自驱 Runner，执行 turn 以 `mode:'goal'` 复用防偏航、Verification Gate 与 pre-act 护栏。这里的“合一”是执行段复用，不是模式翻转。
+- **净结论**：运行中模式不翻转。所谓"转换"要么是 Goal 内的**逐动作硬闸门**（高风险确认），要么是**用户显式**切换 `ChatMode`；系统不代替用户改变模式语义。Plan 批准后的自动推进来自用户对计划的批准授权，而不是系统把 Plan 变成 Goal。
 
 ---
 
@@ -531,9 +531,42 @@ Goal 模式的 UI 应始终让用户“看得见方向、随时能打断”：
 1. ~~**成功标准录入形态**：自然语言 + Agent 自行翻译成 `SuccessCriterion`？还是要求用户给明确命令/断言？（`manual` 类如何降级？）~~ → **已拍板**（详见 3.3.1）：采用**混合式录入**——用户给自然语言目标，Agent 在 plan 阶段翻译成 `SuccessCriterion[]`，契约冻结时呈现给用户确认。`manual` 类降级为 **`pre-finish` 完成门的一次人工裁决**（不参与 `post-act` 自测）；若标准全为 `manual` 则判**弱 DoD**并在冻结时告警。
 2. ~~**hooks 落地粒度**：先硬编码几条高价值规则（写盘范围 / 不可逆 / 完成门），还是先做通用 hooks 框架？~~ → **已拍板**（详见第七章）：**分阶段**——阶段一只硬编码 3 条确定性规则（写盘范围 / 不可逆操作 / 完成门），不建框架；阶段二当规则确实增长（≥2 条新增需求）时再抽最小 hook-point 注册表。避免过早抽象。
 3. ~~**no-progress 阈值**：N=3 是否合适？达阈值后是“停下问人”还是“给尽力而为结论 + 证据”？~~ → **已拍板**（详见 5.4 / 第九章）：保留 **N=3 默认但可配置**（`noProgressThreshold`，建议 2–5）；达阈值后**停下转 `blocked` 问人**，并把"尽力而为小结"（已试路径 / 已得证据 / 未达标项）作为 `blocked` 附件 + 结构化选项，**绝不冒充 `completed`**。
-4. ~~**Goal ⇄ Plan 运行中互转**：Goal 跑着遇到高风险，是否降级回 Plan 走审批？反之 Plan 批准后能否升格 Goal 自驱？~~ → **已拍板**（详见 11.1）：**运行中不自动翻转模式**。Goal 途中遇高风险不降级整模式，改走 `on-irreversible` 的**单动作确认**；Plan→Goal 升格必须**用户显式**切换，系统不代替用户改变自主性等级。
+4. ~~**Goal ⇄ Plan 运行中互转**：Goal 跑着遇到高风险，是否降级回 Plan 走审批？反之 Plan 批准后能否升格 Goal 自驱？~~ → **已拍板并被 B2-b 补充**（详见 11.1 与 ADR 41）：**运行中不自动翻转模式**。Goal 途中遇高风险不降级整模式，改走 `on-irreversible` 的**单动作确认**；Plan 批准后不静默改写为 Goal 契约，但批准后的托管执行段与 Goal 共用自驱 Runner。
 5. **wire 值归属（已拍板 ✅ 已落地 2026-07-03）**：新 Goal 模式**继续叫 "Goal" 并复用 `'goal'` wire 值**。落地路径（先对存量会话一次性迁移 `'goal'→'plan'` → 取消 `normalizeChatMode` 的 `goal→plan` 兼容映射 → `'goal'` 腾干净后重新承载自驱语义）已在 `peer_agent` 仓完成并验证：`ChatMode = 'chat' | 'plan' | 'goal'`，`conversation-store` 一次性数据迁移（marker 防重复），全链路撤销兼容映射。（原“另起 `'goal-run'` 独立新值”方案已废弃。）
 6. ~~**re-anchor 频率**：`reanchorEvery` 固定值还是随任务规模自适应？~~ → **已拍板**（详见 3.2 / 5.2）：**随任务规模自适应**，默认 `clamp(ceil(taskCount/3), 2, 6)`，可在 `GoalContract` 覆盖为固定值；另在**计划修订**与 **Explorer 返回**时强制立即 re-anchor。
+
+---
+
+## 十八、实现落地记录（2026-07-03，自驱编排两切片）
+
+> 本章记录「自驱编排」层两个关键增强在 `peer_agent` 的实际落地，均通过 typecheck（6/6 项目 Done）与 goal 相关测试（148/148 pass）。提交策略：验证通过后向用户展示 diff 再定是否 commit/push。
+
+### 18.1 Slice A：DoD-as-Code（成功标准结构化 + 完成门吃验证结果）
+
+- **数据模型**（`apps/desktop/electron/main/goal-plan-store.mjs`）：`successCriteria` 从「字符串数组」升级为结构化 `SuccessCriterion[]`，`kind ∈ {command, test, file-contains, file-exists, manual}`；新增伴随字段 `criterionResults`（`criterionId + passed + evidenceRef`）。**向后兼容**：纯字符串或缺 `kind` 的存量标准归一为 `manual`，缺字段数据降级读取，不破坏存量计划。
+- **工具契约**（`goal_create_plan` schema）：`successCriteria` 允许传结构化对象数组（可选，向后兼容字符串），不破坏 `goal`/`tasks` 必填。
+- **完成门**（`evaluateVerificationGate`）：非 `manual` 的 criterion 必须有 `passed=true` 且带 `evidenceRef` 的 `CriterionResult` 才放行；`manual` 降级为 `pre-finish` 一次人工确认；全 `manual` 判**弱 DoD 告警**。
+- **提示词接线**（`prompt/sources/goal-runner-source.mjs`）：section 标题升级为 `success criteria (Definition of Done):`，渲染结构化 `- [verify] (kind) description` 与验证状态；明确要求模型 **post-act 对可自动验证标准跑验证并把 Tool Result 作为该 criterion 的 evidence 回写**——模型驱动执行 + 完成门机器校验，**不给 runner 新开跑命令的旁路执行路径**（遵守 AGENTS.md 非协商运行时链）。
+- **验证**：`goal-plan-store` / `goal-runner` / `goal-runner-antidrift` / `goal-runner-source` / `goal-plan-source` 合计 112/112 pass。
+
+### 18.2 Slice B：hooks 确定性闸门·阶段一（写盘范围守卫 + 不可逆动作确认）
+
+对齐第七章「阶段一只硬编码规则，不建通用框架」。落点：`apps/desktop/electron/main/chat-runtime/goal-mode-gate.mjs` + `projected-tool-executor.mjs`。
+
+- **① pre-act 写盘范围守卫**（`evaluateWriteScope`）：`write_file`/`edit_file` 的目标 `path`——
+  - 越出 workspace（绝对路径越界或 `..` 逃逸）→ `goal_scope_out_of_workspace` **DENY**；
+  - 命中活跃计划 `boundaries.outOfScope` → `goal_scope_out_of_bounds` **DENY**。仅对「像路径/glob」的边界条目匹配（含 `/`、`*`、`.ext`、或单 word-like token）；纯描述性文字（含空格 / CJK，如「不改审批语义」）豁免，避免误伤。
+- **② on-irreversible 不可逆动作确认**（`detectIrreversibleAction`）：`write_file` 带 `allow_overwrite=true`；`bash` 命中 `rm -rf`/`git push`/`git --force`/`git reset --hard`/`git clean`/`npm|yarn|pnpm|tnpm publish`/`git tag` → 标记 `requiresConfirmation`。执行体（`projected-tool-executor`）经 `requestPermission` 逐动作确认，未获批则复用 `buildGoalModeDenial` 以 `goal_irreversible_denied` 结构化失败。
+- **③ 完成门**：已由 Slice A 的 `evaluateVerificationGate` 落地，本切片不重复造。
+- **模式差异**：goal 模式**不施加**整模式「计划审批门」（那是 plan 模式独占，见 11.1）；goal 只做上述 pre-act 守卫 + 逐动作确认。闸门是 `PermissionGrant` 之前的能力准入判定，不绕过 Runtime Projection。
+- **接线**：`evaluateGoalModeGate` 补收 `args`/`workspacePath`/`boundaries`；新增 `resolveActivePlanBoundaries` 从 store 取活跃计划边界；`buildGoalModeDenial` 支持 `detail` + 新增 3 条中英 denial 文案。
+- **验证**：`goal-mode-gate.test.mjs` 36/36 pass（原 11 + 新增 25：`evaluateWriteScope` 9、`detectIrreversibleAction` 7、goal 模式 gate 6、`resolveActivePlanBoundaries` 3）。
+
+### 18.3 已知边界与后续
+
+- `projected-tool-executor.test.mjs` 在 plain `node --test` 下因 `electron` 的 `webContents` 导出缺失而失败——**预存在环境问题**（需 electron 测试环境），已 `git stash` 验证未改动 baseline 同样失败，非本次改动引入。
+- 阶段二（通用 hook-point 注册表）仍按第七章约定**暂缓**，待确定性规则确实增长（≥2 条新增需求）再抽象。
+- UI Goal Dashboard（第十三章）仍未落地，另行规划。
 
 ---
 

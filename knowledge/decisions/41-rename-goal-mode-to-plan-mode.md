@@ -112,7 +112,7 @@
 
 > 遗留衔接（2026-07-02 更新命名决策）：命名决策已拍板——**真正的 Goal 模式继续叫 "Goal" 并复用 `'goal'` wire 值**（不再另起 `'goal-run'` 之类独立新值）。详见 `design/product/goal-mode-ultrathink-workflow.md` 第十六章开放问题 5。
 
-> **wire 值迁移已落地（2026-07-03 更新）**：上述「先迁数据 → 再撤映射 → 重新赋自驱语义」三步已在 `peer_agent` 仓完成并验证。现状：`ChatMode = 'chat' | 'plan' | 'goal'`（`'goal'` 已重新承载自驱语义）；`conversation-store.mjs` 新增 `migrateLegacyGoalMode` 对存量 index 一次性 `goal→plan`（marker 防重复）；全链路 `normalizeChatMode`/`normalizeMode`/tool 投影/闸门/prompt 各 source 的 `goal→plan` 兼容映射均已撤销；Runner 归 goal 模式独占、plan 回归纯审批门；新增 `MODE_COPY.goal` 与三态 UI；防偏航 re-anchor/drift/verification gate 落地。落地追踪见 `design/product/goal-runner-explorer-task-list.md`「Goal 模式落地前置动作」（三步已勾销）。
+> **wire 值迁移已落地（2026-07-03 更新）**：上述「先迁数据 → 再撤映射 → 重新赋自驱语义」三步已在 `peer_agent` 仓完成并验证。迁移后基线：`ChatMode = 'chat' | 'plan' | 'goal'`（`'goal'` 已重新承载自驱语义）；`conversation-store.mjs` 新增 `migrateLegacyGoalMode` 对存量 index 一次性 `goal→plan`（marker 防重复）；全链路 `normalizeChatMode`/`normalizeMode`/tool 投影/闸门/prompt 各 source 的 `goal→plan` 兼容映射均已撤销；新增 `MODE_COPY.goal` 与三态 UI；防偏航 re-anchor/drift/verification gate 落地。注意：当时的「Runner 归 goal 独占、plan 回归纯审批门」随后已被下方 B2-b 修订为 plan/goal 批准后执行段合一。落地追踪见 `design/product/goal-runner-explorer-task-list.md`「Goal 模式落地前置动作」（三步已勾销）。
 
 ---
 
