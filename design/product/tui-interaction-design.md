@@ -11,6 +11,7 @@
 - `knowledge/decisions/35-mode-scoped-tool-projection.md`
 - `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`
 - `design/product/goal-mode-ultrathink-workflow.md`
+- `design/product/goal-right-status-panel.md`
 
 ---
 
@@ -238,7 +239,23 @@ Blocking surface（最高优先级）
 
 工具细节默认压缩为单行摘要；失败、审批中和用户主动展开时显示详情。
 
-### 5.3 状态栏
+### 5.3 Goal 运行布局
+
+TUI 不设常驻左侧导航。宽终端中的 Goal 运行态使用“主交互区 + 右侧 Goal 状态区”双区布局；会话和工作区通过状态栏、`/session`、`/workspace` 及临时 Picker 管理，不永久占用一列。
+
+```text
+┌─ conversation / command output ───────────────┬─ Goal ─────────────────┐
+│ You / Peer / tool transcript                  │ 修正 CLI Goal 布局       │
+│                                               │ 1/2 · running           │
+│ ┌─ composer ────────────────────────────────┐ │ 当前：修正文档布局        │
+│ └───────────────────────────────────────────┘ │ 验收 / 阻塞 / 证据        │
+└───────────────────────────────────────────────┴─────────────────────────┘
+~/peer_agent  Goal · Ask  gpt-5.6-sol · xhigh  ctx 73%
+```
+
+Goal 状态区共享 [`goal-right-status-panel.md`](./goal-right-status-panel.md) 的信息层级、状态语义和 Runtime 状态源。终端端只改变呈现与导航方式：状态区可聚焦、可折叠；窄终端下依次降级为覆盖式抽屉、全宽临时视图和底部紧凑摘要，不把桌面端左侧导航或完整 Workbench 复制进 TUI。
+
+### 5.4 状态栏
 
 顺序固定：
 
@@ -555,11 +572,11 @@ Leader 快捷键必须可配置；默认使用 Ctrl+X，避免与终端行编辑
 
 | 宽度 | 布局 |
 | --- | --- |
-| ≥120 列 | 状态栏一行；Picker 可双列；完整工作区路径 |
-| 80–119 列 | 状态栏两行；Picker 单列；工作区用 `~/repo` |
-| 60–79 列 | 状态栏三行；隐藏次级描述但保留当前值与风险 |
-| 40–59 列 | 最小可用：状态项逐行；审批按钮纵向；Logo 使用 narrow fallback |
-| <40 列 | 显示明确提示：终端过窄，核心审批仍必须可读；建议扩宽 |
+| ≥120 列 | 状态栏一行；Picker 可双列；完整工作区路径；Goal 可与主交互区左右并排 |
+| 80–119 列 | 状态栏两行；Picker 单列；工作区用 `~/repo`；Goal 使用覆盖式右侧抽屉 |
+| 60–79 列 | 状态栏三行；隐藏次级描述但保留当前值与风险；Goal 使用全宽临时视图 |
+| 40–59 列 | 最小可用：状态项逐行；审批按钮纵向；Goal 底部保留紧凑摘要，详情进入全屏视图 |
+| <40 列 | 显示明确提示：终端过窄，核心审批、Goal 状态与错误恢复仍必须可读；建议扩宽 |
 
 ### 13.2 降级顺序
 

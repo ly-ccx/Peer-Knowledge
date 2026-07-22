@@ -1,7 +1,7 @@
 # 右侧工作面板（Workbench）设计规范
 
 创建时间：2026-06-23
-最后更新：2026-06-23
+最后更新：2026-07-22
 
 ## 背景
 
@@ -147,9 +147,11 @@ closed ──toggle──▶ opening ──(transitionend)──▶ open
 
 ### GoalView（迁移自 GoalPlanPanel）
 
+GoalView 的产品定位、信息架构、状态交互与聊天流降噪规则，统一见 [`goal-right-status-panel.md`](./goal-right-status-panel.md)。本文只约束其 Workbench 容器行为。
+
 - **全量迁移**：`GoalPlanPanel.tsx` 不再通过 `chat-side-panel` portal 注入，改成 Workbench 的 GoalView 内部组件。
 - 删除 `ChatSurface.tsx` 里的 `<aside className="chat-side-panel" />` 槽位与 `setGoalSideEl` 相关逻辑；GoalPlanPanel 的 props 改成直接订阅同一个 store。
-- 视觉上把当前 380px 设计稿往 420px 默认宽度上对齐（间距、列宽小调整）；交互不变。
+- 视觉上对齐 420px 默认宽度，并按 Goal 右侧状态区专题规范重新组织内部信息；不得继续把旧聊天卡片原样搬入右栏。
 - 触发：当 conversation 出现 GoalPlan 时按上文"自动展开 + 自动选中 Goal tab"的规则进入。
 
 ### TerminalView
