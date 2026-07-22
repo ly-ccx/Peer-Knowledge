@@ -2,6 +2,14 @@
 
 > 阶段一文档：跑通「推 tag → GitHub Actions 自动出包 → 客户端按通道收到更新」。
 > 代码签名 / 公证为阶段二增量，本文末尾列出。
+>
+> **CLI 一等发布（方案已复审、代码未落地）**：同 tag 另挂 **CLI 归档**
+> （如 `peer-darwin-arm64.zip`，内含 `peer` + `peer-credential-helper`），
+> 版本门禁纳入 `apps/tui`、安装与 Desktop 独立、数据仍共享 `~/.peer-agent`。
+> CLI job 需 Bun + Rust；细节与验收以
+> `design/product/cli-first-class-release.md` 与 ADR
+> `knowledge/decisions/48-cli-first-class-release.md` 为准。
+> **本文仍以 Desktop 安装包 / electron-updater 为主**；勿在本文复制第二套 CLI 矩阵。
 
 ## 1. 总览
 
@@ -32,10 +40,14 @@ GitHub Releases  (latest*.yml / beta*.yml 更新清单 + 安装包)
 ## 3. 版本事实源与 stamp
 
 仓库内 `VERSION` 是唯一基线版本，`scripts/check-version.mjs` 强制
-`VERSION == 所有 package.json == Cargo.toml == Cargo.lock`。
+`VERSION` 与门禁列表内的 `package.json` / Cargo 清单一致。
 
-发布时 **tag 才是权威版本**。`scripts/stamp-version.mjs` 把 tag 版本回写到上述
-全部文件（check-version 的“写”对偶），从而：
+> **现状缺口（CLI 方案落地前）**：门禁列表**尚未**包含 `apps/tui/package.json`
+> （CLI 仍可能停在 `0.1.0`）。CLI 一等发布阶段一要求把该文件纳入 check/stamp；
+> 详见 `cli-first-class-release.md` §5.1。落地前「所有 package.json」表述不成立。
+
+发布时 **tag 才是权威版本**。`scripts/stamp-version.mjs` 把 tag 版本回写到门禁
+列表内文件（check-version 的“写”对偶），从而：
 
 1. 产物版本 == tag 版本；
 2. 一致性校验仍通过（beta 后缀不再冲突）。
@@ -78,9 +90,10 @@ DRY_RUN=1 ./apps/desktop/scripts/publish.sh beta
 1. 推一个 beta tag：`./apps/desktop/scripts/publish.sh beta`
 2. 打开 Actions 看 Release workflow 跑通：https://github.com/yinLiangDream/Peer-Agent/actions
 3. 确认 Releases 出现 **prerelease**，资产含安装包 + `beta-mac.yml` / `beta.yml`：https://github.com/yinLiangDream/Peer-Agent/releases
-4. 推一个正式 tag：`./apps/desktop/scripts/publish.sh stable`
-5. 确认生成 **正式 Release**，资产含 `latest-mac.yml` / `latest.yml`
-6. 安装一个旧版本客户端，发布更高版本 tag，确认客户端按对应通道弹出更新提示
+4. （CLI 方案落地后）同一 Release 另含 CLI 归档（如 `peer-darwin-arm64.zip`），解压后有 `peer` + `peer-credential-helper`，且 `peer --version` 与 tag 一致；清单见 `cli-first-class-release.md` §8
+5. 推一个正式 tag：`./apps/desktop/scripts/publish.sh stable`
+6. 确认生成 **正式 Release**，资产含 `latest-mac.yml` / `latest.yml`（及落地后的 CLI 归档）
+7. 安装一个旧版本客户端，发布更高版本 tag，确认客户端按对应通道弹出更新提示
 
 ## 7. 阶段二（增量，未在阶段一实现）
 

@@ -755,7 +755,7 @@ Goal mode is aligned when all of these are true:
 2. Goal Runner starts from that contract without `approval.decision === 'approve'`.
 3. Plan mode still blocks side-effecting tools until approval.
 4. Goal mode can execute side-effecting tools through Runtime Projection, PermissionGrant, and Evidence.
-5. Goal mode cannot write outside workspace or explicit boundaries.
+5. Goal mode still enforces plan `outOfScope` / irreversible confirmations and prefers `targetWorkspacePath` / writable roots as the write anchor; runtime no longer hard-fails with `path_outside_workspace` (permission + Goal boundary only).
 6. High-risk and irreversible actions require confirmation.
 7. Task completion requires indexed Evidence.
 8. Final completion requires verification gate success.

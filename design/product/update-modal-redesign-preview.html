@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Update Modal Redesign Preview</title>
+  <style>
+    :root {
+      --za-bg-0: #FAFBFC;
+      --za-bg-1: #F3F5F8;
+      --za-surface-0: #F7F9FC;
+      --za-surface-1: #EAEEF4;
+      --za-line: #DCE0E8;
+      --za-line-strong: #B0B4BC;
+      --za-text: #1A1D21;
+      --za-text-soft: #525660;
+      --za-text-muted: #878B95;
+      --za-text-faint: #B0B4BC;
+      --za-accent: #3B7FAB;
+      --za-accent-soft: #D8E4EE;
+      --za-accent-ink: #F7F9FC;
+      --za-primary-control-bg: #1A1D21;
+      --za-primary-control-ink: #F7F9FC;
+      --za-shadow-panel: 0 2px 12px rgba(26, 29, 33, 0.06);
+      --za-shadow-popover: 0 18px 48px rgba(26, 29, 33, 0.14);
+      --za-radius: 12px;
+      --za-radius-sm: 6px;
+      --za-radius-md: 8px;
+      --za-radius-lg: 16px;
+      --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--za-text);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(59, 127, 171, 0.08), transparent 55%),
+        radial-gradient(900px 500px at 90% 20%, rgba(26, 29, 33, 0.04), transparent 50%),
+        var(--za-bg-1);
+      min-height: 100vh;
+      padding: 28px 24px 48px;
+    }
+
+    .page-head {
+      max-width: 1280px;
+      margin: 0 auto 22px;
+    }
+    .page-head h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+    .page-head p {
+      margin: 0;
+      color: var(--za-text-soft);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      border: 1px solid var(--za-line);
+      background: rgba(250, 251, 252, 0.8);
+      color: var(--za-text-soft);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: var(--za-primary-control-bg);
+      color: var(--za-primary-control-ink);
+      border-color: transparent;
+    }
+
+    .grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      border: 1px solid rgba(220, 224, 232, 0.9);
+      background: rgba(250, 251, 252, 0.65);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--za-shadow-panel);
+    }
+    .panel-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--za-line);
+      background: rgba(247, 249, 252, 0.9);
+    }
+    .panel-label strong {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .panel-label span {
+      font-size: 12px;
+      color: var(--za-text-muted);
+    }
+    .stage {
+      position: relative;
+      min-height: 560px;
+      background:
+        linear-gradient(180deg, rgba(26, 29, 33, 0.18), rgba(26, 29, 33, 0.28)),
+        linear-gradient(135deg, #e8edf3, #f5f7fa 45%, #dfe6ee);
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+    }
+    .stage-fake-ui {
+      position: absolute;
+      inset: 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background:
+        linear-gradient(90deg, rgba(243,245,248,0.55) 240px, transparent 240px),
+        linear-gradient(180deg, rgba(250,251,252,0.35), rgba(250,251,252,0.15));
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    /* Shared modal shell */
+    .modal {
+      position: relative;
+      z-index: 1;
+      width: min(440px, 100%);
+      background: var(--za-surface-0);
+      border: 1px solid var(--za-line);
+      border-radius: var(--za-radius-lg);
+      box-shadow: var(--za-shadow-popover);
+      overflow: hidden;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .btn {
+      appearance: none;
+      border: 1px solid var(--za-line);
+      background: transparent;
+      color: var(--za-text);
+      border-radius: var(--za-radius-md);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover { background: rgba(26, 29, 33, 0.03); }
+    .btn.primary {
+      background: var(--za-primary-control-bg);
+      color: var(--za-primary-control-ink);
+      border-color: transparent;
+    }
+    .btn.primary:hover { filter: brightness(1.08); }
+
+    code, .code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      background: rgba(26, 29, 33, 0.05);
+      border: 1px solid rgba(26, 29, 33, 0.06);
+      border-radius: 5px;
+      padding: 0.05em 0.35em;
+    }
+
+    /* ========== CURRENT (ugly baseline) ========== */
+    .current .modal { padding: 20px 22px 16px; }
+    .current .title {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 650;
+    }
+    .current .version-line {
+      margin: 0 0 14px;
+      font-size: 12.5px;
+      color: var(--za-text-soft);
+      line-height: 1.5;
+    }
+    .current .version-line .new {
+      color: var(--za-accent);
+      font-weight: 600;
+    }
+    .current .notes-label {
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: var(--za-text-muted);
+      font-weight: 500;
+    }
+    .current .notes {
+      margin: 0 0 16px;
+      max-height: 220px;
+      overflow: auto;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(26, 29, 33, 0.04);
+      border: 1px solid rgba(26, 29, 33, 0.05);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--za-text-soft);
+    }
+    .current .notes h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: var(--za-text);
+    }
+    .current .notes ul {
+      margin: 0;
+      padding-left: 1.15em;
+    }
+    .current .notes li { margin: 0 0 8px; }
+
+    /* ========== OPTION A: chips ========== */
+    .a .modal { padding: 18px 18px 14px; }
+    .a .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--za-accent);
+      text-transform: uppercase;
+    }
+    .a .title {
+      margin: 0 0 12px;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .a .version-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      border: 1px solid var(--za-line);
+      background: #fff;
+      color: var(--za-text-soft);
+    }
+    .chip.muted {
+      color: var(--za-text-muted);
+      background: rgba(26, 29, 33, 0.03);
+    }
+    .chip.strong {
+      color: var(--za-accent);
+      background: var(--za-accent-soft);
+      border-color: transparent;
+      font-weight: 600;
+    }
+    .arrow {
+      color: var(--za-text-faint);
+      font-size: 13px;
+    }
+    .a .notes-label {
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--za-text-soft);
+    }
+    .a .notes {
+      margin: 0 0 16px;
+      max-height: 230px;
+      overflow: auto;
+      padding: 0;
+      border-top: 1px solid var(--za-line);
+      border-bottom: 1px solid var(--za-line);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--za-text-soft);
+    }
+    .a .notes-inner {
+      padding: 12px 2px 12px 0;
+    }
+    .a .notes h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: var(--za-text);
+    }
+    .a .notes ul {
+      margin: 0;
+      padding-left: 1.1em;
+    }
+    .a .notes li { margin: 0 0 8px; }
+    .a .notes li:last-child { margin-bottom: 0; }
+
+    /* ========== OPTION B: changelog card (recommended) ========== */
+    .b .modal {
+      width: min(460px, 100%);
+      padding: 0;
+    }
+    .b .hero {
+      padding: 20px 20px 14px;
+      border-bottom: 1px solid var(--za-line);
+      background:
+        linear-gradient(180deg, rgba(216, 228, 238, 0.35), rgba(247, 249, 252, 0));
+    }
+    .b .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 22px;
+      padding: 0 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--za-accent);
+      background: rgba(59, 127, 171, 0.10);
+      margin-bottom: 10px;
+    }
+    .b .pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--za-accent);
+      box-shadow: 0 0 0 3px rgba(59, 127, 171, 0.15);
+    }
+    .b .hero-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+    .b .hero-sub {
+      margin: 8px 0 0;
+      font-size: 12.5px;
+      color: var(--za-text-muted);
+    }
+    .b .hero-sub .from {
+      font-family: var(--font-mono);
+      color: var(--za-text-soft);
+    }
+    .b .body {
+      padding: 14px 20px 8px;
+    }
+    .b .section-title {
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--za-text-muted);
+    }
+    .b .changelog {
+      max-height: 250px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .b .group + .group { margin-top: 14px; }
+    .b .group-title {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 650;
+      color: var(--za-text);
+    }
+    .b .item {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 8px;
+      margin: 0 0 9px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--za-text-soft);
+    }
+    .b .item:last-child { margin-bottom: 0; }
+    .b .dot {
+      width: 6px;
+      height: 6px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--za-line-strong);
+    }
+    .b .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 20px 16px;
+      border-top: 1px solid var(--za-line);
+      background: rgba(250, 251, 252, 0.85);
+    }
+    .b .hint {
+      font-size: 11.5px;
+      color: var(--za-text-muted);
+      line-height: 1.4;
+    }
+    .b .footer .btn-row { flex-shrink: 0; }
+
+    .hidden { display: none !important; }
+
+    .note-bar {
+      max-width: 1280px;
+      margin: 16px auto 0;
+      font-size: 12.5px;
+      color: var(--za-text-muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-head">
+    <h1>升级弹窗视觉预览</h1>
+    <p>基于 Peer Frost token。左侧是现状对照，右侧可切换方案 A / 方案 B。默认推荐 B：Changelog 卡片。</p>
+    <div class="tabs">
+      <button class="tab active" data-target="b">B · Changelog 卡片（推荐）</button>
+      <button class="tab" data-target="a">A · 版本 Chip 对比</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="panel current">
+      <div class="panel-label">
+        <strong>Current</strong>
+        <span>现状：长文案版本对比 + 灰底 notes 盒</span>
+      </div>
+      <div class="stage">
+        <div class="stage-fake-ui"></div>
+        <div class="modal">
+          <h2 class="title">Update available</h2>
+          <p class="version-line">
+            Current version: v0.0.1-beta.37 →
+            <span class="new">New version: v0.0.1-beta.38</span>
+          </p>
+          <div class="notes-label">What's new</div>
+          <div class="notes">
+            <h3>新功能</h3>
+            <ul>
+              <li>CLI 一等发布：GitHub Release 与 Desktop 同 tag 附带 <code>peer-darwin-arm64.tar.gz</code>，可只装命令行、不装客户端。</li>
+              <li><code>peer --version</code>：CLI 支持 <code>--version</code> / <code>-v</code>，编译产物会内嵌发布版本号。</li>
+              <li>会话 @ 提及与图片附件 (TUI)：终端侧支持会话提及与图片附加，交互更接近客户端。</li>
+              <li>Qoder 模型目录：优先走官方 SDK 拉模型目录，并修复私有路径。</li>
+            </ul>
+          </div>
+          <div class="btn-row">
+            <button class="btn primary">Update</button>
+            <button class="btn">Later</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel proposal-a hidden">
+      <div class="panel-label">
+        <strong>Option A</strong>
+        <span>轻改：Chip 版本对比 + 去灰盒</span>
+      </div>
+      <div class="stage a">
+        <div class="stage-fake-ui"></div>
+        <div class="modal">
+          <div class="kicker">New update</div>
+          <h2 class="title">Update available</h2>
+          <div class="version-row">
+            <span class="chip muted">v0.0.1-beta.37</span>
+            <span class="arrow">→</span>
+            <span class="chip strong">v0.0.1-beta.38</span>
+          </div>
+          <div class="notes-label">What's new</div>
+          <div class="notes">
+            <div class="notes-inner">
+              <h3>新功能</h3>
+              <ul>
+                <li>CLI 一等发布：GitHub Release 与 Desktop 同 tag 附带 <span class="code">peer-darwin-arm64.tar.gz</span>，可只装命令行、不装客户端。</li>
+                <li><span class="code">peer --version</span>：CLI 支持 <span class="code">--version</span> / <span class="code">-v</span>，编译产物会内嵌发布版本号。</li>
+                <li>会话 @ 提及与图片附件 (TUI)：终端侧支持会话提及与图片附加，交互更接近客户端。</li>
+                <li>Qoder 模型目录：优先走官方 SDK 拉模型目录，并修复私有路径。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn primary">Update</button>
+            <button class="btn">Later</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel proposal-b">
+      <div class="panel-label">
+        <strong>Option B</strong>
+        <span>推荐：新版本做主标题，changelog 分层更清楚</span>
+      </div>
+      <div class="stage b">
+        <div class="stage-fake-ui"></div>
+        <div class="modal">
+          <div class="hero">
+            <div class="pill">New update</div>
+            <h2 class="hero-title">v0.0.1-beta.38</h2>
+            <p class="hero-sub">from <span class="from">v0.0.1-beta.37</span></p>
+          </div>
+          <div class="body">
+            <div class="section-title">What's new</div>
+            <div class="changelog">
+              <div class="group">
+                <div class="group-title">新功能</div>
+                <div class="item"><span class="dot"></span><div>CLI 一等发布：GitHub Release 与 Desktop 同 tag 附带 <span class="code">peer-darwin-arm64.tar.gz</span>，可只装命令行、不装客户端。</div></div>
+                <div class="item"><span class="dot"></span><div><span class="code">peer --version</span>：CLI 支持 <span class="code">--version</span> / <span class="code">-v</span>，编译产物会内嵌发布版本号。</div></div>
+                <div class="item"><span class="dot"></span><div>会话 @ 提及与图片附件 (TUI)：终端侧支持会话提及与图片附加，交互更接近客户端。</div></div>
+                <div class="item"><span class="dot"></span><div>Qoder 模型目录：优先走官方 SDK 拉模型目录，并修复私有路径。</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="hint">下载在后台进行，完成后用侧边栏 Install 安装。</div>
+            <div class="btn-row">
+              <button class="btn">Later</button>
+              <button class="btn primary">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <p class="note-bar">
+    预览文件：<code>design/product/update-modal-redesign-preview.html</code>。点上方 tab 切换 A / B；左侧始终保留现状对照。确认方向后我再落到 Desktop 实现。
+  </p>
+
+  <script>
+    const tabs = [...document.querySelectorAll('.tab')];
+    const a = document.querySelector('.proposal-a');
+    const b = document.querySelector('.proposal-b');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.dataset.target;
+        a.classList.toggle('hidden', target !== 'a');
+        b.classList.toggle('hidden', target !== 'b');
+      });
+    });
+  </script>
+</body>
+</html>
