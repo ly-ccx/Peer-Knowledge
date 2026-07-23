@@ -1,7 +1,7 @@
 # TUI 与 Desktop Provider Wire 缺口映射
 
 创建时间：2026-07-20  
-最后更新：2026-07-20
+最后更新：2026-07-23
 
 > 性质：架构现状与缺口映射（只读结论，不改代码）  
 > 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
@@ -12,6 +12,14 @@
 
 > 关联发布：`knowledge/decisions/48-cli-first-class-release.md`（CLI 独立安装面）
 ---
+
+## 实现进度（2026-07-23）
+
+- **qoder-private**：TUI 已走 `createQoderPrivateProvider` → Desktop `sendQoderPrivateStream`（非 OpenAI-compatible 假路径）。
+- **anthropic-messages**：TUI 已新增 `createAnthropicMessagesProvider` → Desktop `sendAnthropicMessagesStream`；
+  `index.tsx` 在 `providerId/channelId` 为 anthropic / anthropic-compatible 时分发，禁止压成 `/chat/completions`。
+- **共享元数据**：`SharedModelMetadata.channelId` 从 `llm-providers.json` 透出，供 TUI wire 选择。
+- 仍开放：Gemini 原生 wire、完整 multi-wire 下沉 packages、避免 TUI 静态 import Desktop Main。
 
 ## 1. 问题一句话
 
