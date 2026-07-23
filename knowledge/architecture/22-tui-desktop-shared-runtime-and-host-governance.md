@@ -5,6 +5,11 @@
 状态：架构总览 / 长期治理基线  
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 
+> **硬约束（发布与依赖）**  
+> CLI **必须**可单独通过 npm 安装并独立运行，**完全不依赖 Desktop 客户端**是否安装。  
+> 公开安装面：`@peer-agent/cli`（`npm install -g @peer-agent/cli` → `peer`）。  
+> monorepo 源码允许为共享内核暂时嵌入 Desktop Main 切片（编译进 `peer` 二进制），但 **运行时/发布物不得要求 Electron 或桌面 App 已安装**。
+
 ## 关联文档
 
 - `knowledge/specifications/runtime-sdk-boundary-architecture.md` — Runtime 分层边界
@@ -47,6 +52,7 @@ Peer Agent 的产品意图是：
 | 共用 Runtime，只差工具 | **共享内核 + 分叉适配层** |
 | TUI 是 Desktop 的精简壳 | TUI 是一等宿主，但部分模块仍寄生 Desktop Main |
 | 配置共享 = 行为一致 | 配置可共享，**请求路径 / 组装路径 / 压缩路径**仍可分叉 |
+| CLI 是客户端的附属品 | **CLI 可独立 npm 安装**；与 Desktop 是对等宿主，不是插件 |
 
 ---
 
@@ -80,6 +86,8 @@ Capability Provider
 3. 为 CLI 复制一套脱离 Runtime Projection 的“快捷工具”
 4. 用 prompt 摘要代替 Tool Result / Evidence
 5. 让 Desktop Main 与 packages 形成长期双向依赖环（TUI 可暂时静态嵌入 Desktop 模块，但必须有迁出路线）
+6. **让 CLI 运行时依赖 Desktop 客户端已安装**（Electron App、IPC 到桌面主进程、必须先启动 GUI 等）
+7. **把仅 Desktop 才能交付的路径写成 CLI 的唯一实现**（除非明确 Desktop-only 能力，如可视 `browser_*`）
 
 ---
 
@@ -134,10 +142,28 @@ browser_*                    web_fetch 等非可视路径
 - `@peer-agent/i18n`
 - `@peer-agent/task-thread`
 
+**发布面（必须牢记）：**
+
+| 包 / 产物 | 角色 | 是否依赖 Desktop App |
+|-----------|------|----------------------|
+| `@peer-agent/cli` | 公开 npm 安装器；postinstall 拉 GitHub Release 的 `peer` 二进制 | **否** |
+| `apps/tui` → `peer` 二进制 | CLI/TUI 实际可执行文件（`bun --compile` 等） | **否**（可含共享内核源码） |
+| Desktop Electron App | GUI 宿主 | 自身即客户端 |
+
+用户可仅执行：
+
+```bash
+npm install -g @peer-agent/cli
+peer
+```
+
+无需安装或启动 Desktop。数据面仍可共用 `~/.peer-agent`（可选互通，不是硬依赖）。
+
 **结构风险：**
 
 TUI 除 packages 外，仍 **静态 import** `apps/desktop/electron/main/` 下多份模块（goal-plan-store、goal-runner、skill/mcp provider、部分 prompt source、data-store）。  
-这使 CLI 二进制嵌入 Desktop Main 切片——**共享更深，边界更糊**。长期治理必须把这些模块下沉到真正的 shared package，而不是继续从 TUI 直接依赖 Desktop 路径。
+这使 CLI **源码树**嵌入 Desktop Main 切片——**共享更深，边界更糊**。  
+注意：这是 **构建时源码耦合**，不是「用户必须装客户端」。长期治理必须把这些模块下沉到真正的 shared package，使 CLI 发布与 Desktop 源码路径解耦，同时保持 **npm 独立安装** 不变。
 
 ---
 
@@ -353,9 +379,10 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 
 - OpenTUI 交互、终端主题、键盘 leader / slash command
 - 终端审批与紧凑时间线表达
-- 单进程启动、打包二进制（`peer`）
+- 单进程启动、打包二进制（`peer`）与 **npm 独立分发**（`@peer-agent/cli`）
 - structural compact 与轻量 prompt 路径（在共享契约内）
 - 无可视浏览器时的 `web_fetch` 路径
+- **无 Desktop 客户端时的完整可用路径**（模型、工具、会话、Goal；Desktop-only 能力除外）
 
 ### 6.3 两端都不得负责
 
@@ -370,7 +397,8 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 | 优先级 | 债务 | 风险 | 目标修复方向 |
 |--------|------|------|--------------|
 | P0 | Provider wire 分叉 | 同配置两端行为不一致 | wire 下沉 packages；TUI 不再盲目 OpenAI-compatible |
-| P0 | TUI 静态依赖 Desktop Main | 包边界崩溃、发布耦合 | goal/skill/mcp/data-store 迁出 shared package |
+| P0 | TUI **源码**静态依赖 Desktop Main | 包边界崩溃、**发布物与源码树耦合**（注意：不等于运行时依赖 App） | goal/skill/mcp/data-store 迁出 shared package；`peer` 构建不再 import `apps/desktop/**` |
+| P0 | 任何使 CLI 必须先装 Desktop 的设计 | 破坏 npm 独立安装硬约束 | 评审直接否决；CLI 路径必须可无 GUI 闭环 |
 | P1 | Prompt assembler 仅 Desktop 完整 | 安全/身份指令漂移 | assembler + sources 下沉，宿主只注入环境 source |
 | P1 | Compaction 算法双轨无统一接口 | resume/占用口径回归 | Strategy 接口 + 共享 persistence |
 | P2 | 工具集合与接线仍有历史缺口 | 假能力 / 不可调用 | 以 parity 矩阵持续契约测试 |
@@ -387,6 +415,7 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 2. **Provider 矩阵**：每个 channel 标注 Desktop wire / TUI wire / unsupported
 3. **禁止新增** TUI → `apps/desktop/electron/main/*` 的新 import（只准减不准增）
 4. **Goal 失败态**：plan/runner/task 三态同步成为硬门禁
+5. **CLI 独立发布门禁**：`@peer-agent/cli` postinstall + `peer --version` 在无 Desktop 安装的干净环境可跑通（CI 或发版检查）
 
 ### Phase B — 内核下沉（中期）
 
@@ -425,8 +454,9 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 5. **压缩 / resume / 上下文占用口径是否仍一致？**
 6. **provider 配置共享后，请求路径是否仍正确？**
 7. **失败时 plan / task / runner 是否同步终态？**
+8. **CLI 是否仍可无 Desktop 客户端独立安装与运行？**（`@peer-agent/cli` / `peer`）
 
-只要答案依赖“另一端暂时不用”或“先在 Desktop 做、TUI 以后再说”且影响共享契约，就必须升级为显式 ADR 或本文件修订。
+只要答案依赖“另一端暂时不用”“先在 Desktop 做、TUI 以后再说”或“用户反正会装客户端”且影响共享契约 / CLI 独立发布，就必须升级为显式 ADR 或本文件修订。
 
 ---
 
@@ -459,6 +489,7 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 | TUI host / tools | `apps/tui/src/tui-host.ts`, `skill-mcp-bridge.ts`, `goal-bridge.ts` |
 | TUI goal runner 接线 | `apps/tui/src/goal-runner-adapter.ts` |
 | TUI compact | `apps/tui/src/context-compact.ts` |
+| CLI npm 安装面 | `packages/npm-cli`（`@peer-agent/cli` → `peer`） |
 | Desktop pipeline 适配 | `apps/desktop/electron/main/chat-runtime/runtime-pipeline-adapter.mjs` |
 | Desktop 会话编排 | `apps/desktop/electron/main/llm-chat-service.mjs` |
 | Desktop compact | `apps/desktop/electron/main/chat-runtime/compaction-coordinator.mjs` |
@@ -474,6 +505,7 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 | 日期 | 变更 |
 |------|------|
 | 2026-07-23 | 初版：汇总共享内核、宿主分叉、专项文档分工与长期治理路线 |
+| 2026-07-23 | 硬约束：CLI 可单独 npm 安装、运行时不依赖 Desktop 客户端；区分源码耦合 vs 发布依赖 |
 
 ---
 
