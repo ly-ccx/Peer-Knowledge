@@ -72,7 +72,23 @@ lastActualInputTokens
 
 累计 usage（input/output/cache read/cache write/total）属于计费与调用账本。它可以跨请求累加，不得参与上下文窗口占用计算。
 
-### 4. 计算时机
+### 4. 跨端压缩分界与恢复投影
+
+完整持久化消息是 UI 历史，不等于下一次 provider 请求历史。Desktop 与 CLI/TUI 必须复用同一个持久化 `_compaction` handoff 作为 active provider history 的分界：
+
+```text
+完整持久化 messages
+  -> 最后一个 _compaction
+     -> 分界前原文：只供 UI / earlier 回看
+     -> handoff summary：连续性上下文
+     -> 分界后消息：active provider history
+```
+
+恢复契约必须分别携带完整 UI `messages` 和已经按最后一个共享分界投影出的 active `modelMessages`。Controller 不得再从全部 UI 消息反向猜测 provider history，否则 Desktop 已压缩的原文会在 CLI 继续时重新进入请求。
+
+CLI/TUI 完成手动或自动压缩时必须写入 Desktop 已识别的 `_compaction` 存储格式，而不是只修改内存中的 provider history 或另造第三种压缩标记。旧原文仍保留在持久化时间线中；后续重复压缩保留历史 handoff，并且只有最后一个分界决定下一次请求。结构化 tool call/result 必须成对留在分界同侧，不得因切分制造孤儿 tool result。
+
+### 5. 计算时机
 
 Runtime 在所有可能改变下一请求的边界重新投影，包括：
 
