@@ -29,6 +29,7 @@ Peer Agent 将 Desktop 与 CLI/TUI 视为同一 Agent Runtime 的两个一等宿
 
 本决策延续且不替代以下既有文档：
 
+- `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主共享内核与长期治理总览
 - `knowledge/decisions/35-mode-scoped-tool-projection.md`
 - `knowledge/decisions/38-web-search-fetch-provider.md`
 - `knowledge/decisions/40-embedded-browser-and-agent-control.md`

@@ -13,6 +13,8 @@
 ```
 
 Peer Agent 当前已经有 `buildSystemPrompt()`、工具描述 prompt、压缩 prompt 和 Skill envelope，但这些还只是分散的 prompt 片段。下一阶段要建立的是一套有明确来源、顺序、权限边界和调试能力的上下文装配管线。
+关联总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主共享与 Prompt 分叉治理
+
 
 ## 一、设计理念
 

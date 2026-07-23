@@ -6,6 +6,7 @@
 > 性质：架构现状与缺口映射（只读结论，不改代码）  
 > 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
 > 关联 ADR：`knowledge/decisions/37-provider-channel-and-wire-protocol-separation.md`  
+> 关联总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md`  
 > 本机配置样本：`~/.peer-agent/llm-providers.json`  
 > 本机观测样本：`~/.peer-agent/provider-traces/`
 

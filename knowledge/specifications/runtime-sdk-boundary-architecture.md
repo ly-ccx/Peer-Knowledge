@@ -6,6 +6,7 @@
 > 关联路线：`knowledge/playbook/tui-hook-sdk-roadmap.md`
 > 关联设计：`knowledge/specifications/tui-and-hook-design-standard.md`、`knowledge/specifications/hook-phase1-implementation-design.md`、`knowledge/specifications/hook-phase1-code-walk.md`
 > 关联治理：`knowledge/architecture/20-architecture-governance.md`
+> 关联双宿主总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md`
 > 目标代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
 ---

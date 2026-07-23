@@ -12,6 +12,7 @@
 - `knowledge/decisions/26-agent-loop-termination.md`
 - `knowledge/decisions/42-context-display-vs-trigger-accounting.md`
 - `knowledge/decisions/43-conversation-runtime-state-bucketing.md`
+- `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主压缩持久化共享与算法分叉治理
 
 本文定义 Peer Agent 在自动上下文压缩场景下的发送、排队、运行续接和 UI 状态协议。
 
