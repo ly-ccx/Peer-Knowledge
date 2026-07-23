@@ -14,12 +14,15 @@
 
 - `knowledge/specifications/runtime-sdk-boundary-architecture.md` — Runtime 分层边界
 - `knowledge/architecture/20-architecture-governance.md` — 全局架构治理准则
+- `knowledge/architecture/01-project-structure.md` — 仓库双宿主结构与包边界
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — 本地能力对齐矩阵
 - `knowledge/architecture/tui-desktop-provider-wire-gap-map.md` — Provider wire 分叉映射
 - `knowledge/architecture/19-system-prompt-context-architecture.md` — System Context / 提示词组装
 - `knowledge/architecture/21-auto-context-compaction-run-resume.md` — 压缩与 run 续接
 - `knowledge/specifications/tui-and-hook-design-standard.md` — TUI 与 Hook 设计规范
+- `knowledge/specifications/06-version-management.md` — 版本与发版面
 - `knowledge/specifications/15-goal-plan-lifecycle-governance.md` — Goal 生命周期
+- `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
 - `knowledge/decisions/35-mode-scoped-tool-projection.md` — 模式工具投影
 - `knowledge/decisions/37-provider-channel-and-wire-protocol-separation.md` — channel / wire 分离
 - `knowledge/decisions/51-unified-desktop-cli-file-tools.md` — 文件工具统一
@@ -489,7 +492,9 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 | TUI host / tools | `apps/tui/src/tui-host.ts`, `skill-mcp-bridge.ts`, `goal-bridge.ts` |
 | TUI goal runner 接线 | `apps/tui/src/goal-runner-adapter.ts` |
 | TUI compact | `apps/tui/src/context-compact.ts` |
+| CLI 构建面 | `apps/tui`（`@peer-agent/tui`，private → `dist/peer`） |
 | CLI npm 安装面 | `packages/npm-cli`（`@peer-agent/cli` → `peer`） |
+| CLI 一等发布 ADR | `knowledge/decisions/48-cli-first-class-release.md` |
 | Desktop pipeline 适配 | `apps/desktop/electron/main/chat-runtime/runtime-pipeline-adapter.mjs` |
 | Desktop 会话编排 | `apps/desktop/electron/main/llm-chat-service.mjs` |
 | Desktop compact | `apps/desktop/electron/main/chat-runtime/compaction-coordinator.mjs` |
@@ -506,6 +511,7 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 |------|------|
 | 2026-07-23 | 初版：汇总共享内核、宿主分叉、专项文档分工与长期治理路线 |
 | 2026-07-23 | 硬约束：CLI 可单独 npm 安装、运行时不依赖 Desktop 客户端；区分源码耦合 vs 发布依赖 |
+| 2026-07-23 | 交叉引用 01 / 48 / 06；代码锚点补 `@peer-agent/tui` 构建面 vs `@peer-agent/cli` 安装面 |
 
 ---
 

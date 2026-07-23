@@ -1,5 +1,8 @@
 # 版本管理
 
+创建时间：2026-06-10  
+最后更新：2026-07-23  
+
 > 状态：0.0.1 开发期版本规则  
 > 目标：让 Peer Agent 从第一版开始具备清晰版本事实源、发布边界和变更记录，避免脚手架阶段的版本漂移。
 
@@ -29,13 +32,16 @@
 VERSION
 ```
 
-以下文件必须与 `VERSION` 保持一致：
+以下文件必须与 `VERSION` 保持一致（受管列表以代码仓 `scripts/check-version.mjs` 为准）：
 
 ```text
+VERSION
 package.json
 apps/desktop/package.json
-packages/*/package.json
-crates/*/Cargo.toml
+apps/tui/package.json              # @peer-agent/tui — CLI 构建面
+packages/npm-cli/package.json      # @peer-agent/cli — 公开 npm 安装面
+packages/*/package.json            # 其他 workspace 包
+crates/*/Cargo.toml                # 若仍存在 Rust crate
 Cargo.lock
 ```
 
@@ -53,6 +59,23 @@ npx --yes pnpm@10.22.0 version:check
 - 发布 tag 使用 `v<version>`，例如 `v0.0.1`。
 
 ---
+
+## 2.x 发布面（Desktop + CLI）
+
+同一次 `v*` 发版应覆盖（细节见 `knowledge/decisions/48-cli-first-class-release.md`）：
+
+| 面 | 产物 | 说明 |
+|----|------|------|
+| Desktop | Electron 安装包 | `@peer-agent/desktop` |
+| CLI 归档 | `peer-<os>-<arch>.tar.gz` 等 | 含 `peer` + `peer-credential-helper` |
+| CLI npm | `@peer-agent/cli` | 安装器；postinstall 拉上述归档，**不依赖 Desktop App** |
+
+构建与安装命名：
+
+- `@peer-agent/tui`：private 构建包（`apps/tui`）
+- `@peer-agent/cli`：公开 npm 包（`packages/npm-cli`）
+
+禁止将二者混写为同一 package name。
 
 ## 三、版本阶段
 

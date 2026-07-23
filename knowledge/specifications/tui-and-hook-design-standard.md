@@ -1,11 +1,11 @@
 # TUI 与 Hook 设计标准对齐
 
 > 创建时间：2026-07-09
-> 最后更新：2026-07-09（补入 opencode 实证调研）
-> 状态：设计标准对齐（调研 + 规范草案，尚未落地实现）
-> 定位：TUI = 独立终端 CLI 入口；Hook = 用户可配置的生命周期 hook
-> 关联代码：`peer_agent`（本次不改代码，作为后续实现依据）
-> 关联知识：`knowledge/decisions/16-skill-call-lifecycle.md`、`knowledge/decisions/35-mode-scoped-tool-projection.md`、`knowledge/specifications/09-high-risk-write-scope.md`、`knowledge/specifications/15-goal-plan-lifecycle-governance.md`
+> 最后更新：2026-07-23（对齐双宿主总览：TUI 与 Desktop 平级一等宿主；CLI 可独立 npm 安装）
+> 状态：设计标准对齐（调研 + 规范；实现以代码仓为准）
+> 定位：TUI = 与 Desktop 平级的一等宿主入口；Hook = 用户可配置的生命周期 hook
+> 关联代码：`peer_agent`（`apps/tui`、`packages/npm-cli`）
+> 关联知识：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md`、`knowledge/decisions/48-cli-first-class-release.md`、`knowledge/decisions/16-skill-call-lifecycle.md`、`knowledge/decisions/35-mode-scoped-tool-projection.md`、`knowledge/specifications/09-high-risk-write-scope.md`、`knowledge/specifications/15-goal-plan-lifecycle-governance.md`
 > 调研来源（2026-07-09 实证抓取）：opencode 官方文档 `opencode.ai/docs`（Intro / Plugins / Permissions / Server）与仓库 `github.com/anomalyco/opencode`（`packages/tui`、`packages/plugin`、`packages/server`）；其余产品（Claude Code / Codex CLI / Gemini CLI / Aider）为既有认知归纳，未逐项抓取源码。
 
 ---
@@ -14,7 +14,8 @@
 
 现在要做两件事：一个**独立的终端 CLI/TUI 入口**，以及一套**用户可配置的生命周期 Hook 机制**。本文不写实现代码，而是先把市面主流能力盘一遍，抽出公认的设计标准，再映射到 `peer_agent` 已有的主链路上，得到一份可以直接作为后续实现验收依据的规范。
 
-核心判断：**Hook 不是新发明，而是把现有主链路的关卡开放成可配置扩展点**；**TUI 是新形态，但要复用同一条云端 Runtime + 本地能力主链路，不能另起旁路。**
+核心判断：**Hook 不是新发明，而是把现有主链路的关卡开放成可配置扩展点**；**TUI/CLI 是与 Desktop 平级的一等宿主**，复用同一套 Runtime 契约与本地能力主链路，不能另起旁路。  
+「瘦客户端」指 **不另造推理/工具编排**，不是「Desktop 的附属品」；用户可仅通过 `@peer-agent/cli` 安装运行，**不依赖 Desktop 客户端**。
 
 ---
 
@@ -173,7 +174,7 @@ opencode 的 permission 配置几乎就是我们 `PermissionReview` 想要的形
 
 ## 五、待后续决策的开放问题
 
-1. **TUI 技术栈**：Node + Ink / Rust ratatui / 效仿 opencode 的 OpenTUI（TS+Bun）？opencode 的实证给了新参考——**关键不在渲染库而在 client/server 分离**。倾向复用 `packages/protocol` 做瘦客户端，渲染层先用 Node + Ink 起量。
+1. **TUI 技术栈**：代码仓已采用 OpenTUI（`apps/tui`）。opencode 的启示仍是 **契约统一、不另造编排**；我们的实现是「共享 Runtime packages + 宿主 adapter」，不是必须先起一个 Desktop 服务才能跑 CLI。
 2. **Hook 形态：外部命令（形态 A） vs 进程内插件（形态 B）**？这是本次调研新增的核心抉择。建议**默认形态 A（外部命令）以获得强隔离与语言无关**，对高风险动作 fail-closed；进程内插件形态 B 留给受信任的一方扩展。二者可共存但走同一决策合流。
 3. **Hook 配置位置与作用域**：参考 opencode 的"全局 config → 项目 config → 全局目录 → 项目目录，按序执行"分层模型，定义我们自己的优先级与合并规则。
 4. **Hook 执行环境**：本地子进程执行的沙箱与环境变量注入范围。
@@ -183,9 +184,9 @@ opencode 的 permission 配置几乎就是我们 `PermissionReview` 想要的形
 
 ## 六、结论
 
-- **opencode 的最大启示是架构而非界面**：把 TUI 做成连同一 server/Runtime 的瘦客户端、用 OpenAPI/protocol 做唯一契约。我们的独立 CLI 应照此复用云端 Runtime + `packages/protocol`，不自带本地推理/工具编排旁路。
+- **opencode 的最大启示是架构而非界面**：契约统一、多宿主共用同一 Runtime 语义。我们的 CLI 应复用 `packages/protocol` + runtime packages，不自带本地推理/工具编排旁路；**且可独立 npm 安装，不依赖 Desktop App**。
 - **Hook 有两种事实形态**：外部命令（Claude Code，强隔离）与进程内插件（opencode，细粒度、TS 原生）。我们倾向以外部命令为默认、进程内插件为受信扩展，二者决策合流。
-- TUI 与 Hook 都**不另造链路**：TUI 是主链路的新客户端形态，Hook 是主链路既有关卡上的可配置切面。
+- TUI 与 Hook 都**不另造链路**：TUI 是主链路的一等宿主形态，Hook 是主链路既有关卡上的可配置切面。
 - Hook 的 `PreToolUse` ↔ `PermissionGrant`、`PostToolUse` ↔ `Evidence` 是最自然、价值最高的两个接入点，建议一期先落地。
 - opencode 的"显式 `deny` 不被 `--auto` 覆盖"印证：我们的 `09` 号高风险写红线应做成硬 deny，不受任何自动批准模式影响。
 - 所有扩展点都受 `35`（projection 收敛）、`09`（高风险写红线）、`16`（关卡 + Evidence 落账）三条既有治理约束，hook 只能收紧不能放宽。

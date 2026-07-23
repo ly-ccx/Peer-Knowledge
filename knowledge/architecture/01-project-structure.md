@@ -1,42 +1,51 @@
 # Peer Agent 工程结构设计
 
-> 状态：工程结构草案  
-> 目标：定义 Peer Agent 的仓库组织、模块边界和第一阶段落地路径。
+创建时间：2026-06-10  
+最后更新：2026-07-23  
+
+> 状态：工程结构基线（持续修订）  
+> 目标：定义 Peer Agent 的仓库组织、模块边界与双宿主落地路径。  
+> 关联总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md`  
+> 关联发布：`knowledge/decisions/48-cli-first-class-release.md`
 
 ---
 
 ## 一、推荐仓库结构
 
+当前 monorepo 以 **Desktop + CLI/TUI 双宿主** 为产品入口，共享 packages 内核：
+
 ```text
 peer_agent/
 ├── apps/
-│   └── desktop/
-│       ├── electron/
-│       │   ├── main/
-│       │   └── preload/
-│       └── renderer/
-│           ├── app/
-│           ├── features/
-│           ├── components/
-│           └── styles/
+│   ├── desktop/                 # @peer-agent/desktop — Electron GUI 宿主
+│   │   ├── electron/
+│   │   │   ├── main/
+│   │   │   └── preload/
+│   │   └── renderer/
+│   └── tui/                     # @peer-agent/tui (private) — CLI/TUI 构建面 → dist/peer
 ├── packages/
 │   ├── protocol/
-│   ├── i18n/
+│   ├── runtime-core/
+│   ├── runtime-sdk/
+│   ├── runtime-node/
+│   ├── conversation-store/
+│   ├── credential-helper/
+│   ├── npm-cli/                 # @peer-agent/cli — 公开 npm 安装面（postinstall 拉 peer 二进制）
 │   ├── chat-kernel/
 │   ├── task-thread/
+│   ├── i18n/
 │   └── ui/
-├── crates/
-│   └── cu-proxy-core/
-├── docs/
-│   └── architecture/
-│       ├── 00-engineering-philosophy.md
-│       ├── 01-project-structure.md
-│       ├── 02-i18n-architecture.md
-│       └── 03-codex-app-reference-architecture.md
+├── VERSION
 ├── package.json
 ├── pnpm-workspace.yaml
-└── Cargo.toml
+└── .github/workflows/release.yml
 ```
+
+说明：
+
+- **构建包** `@peer-agent/tui` ≠ **安装包** `@peer-agent/cli`（见 ADR 48）。
+- CLI 可 `npm install -g @peer-agent/cli` 独立运行，**不依赖 Desktop 客户端已安装**。
+- 历史 `crates/cu-proxy-core` 草案若仍存在，不改变「双宿主 + packages 内核」主线。
 
 ---
 
@@ -44,7 +53,7 @@ peer_agent/
 
 ### 2.1 `apps/desktop`
 
-Electron 桌面客户端。
+Electron 桌面客户端（`@peer-agent/desktop`）。
 
 职责：
 
@@ -53,12 +62,13 @@ Electron 桌面客户端。
 - 本地 capability registry。
 - 本地 project index。
 - 安全 IPC 边界。
-- Rust core adapter。
+- Runtime / tool / Goal 编排适配（main 进程）。
 - Codex-like task thread。
 - Sidebar / Header / Composer。
 - Review card。
 - Evidence summary。
 - 设置入口。
+- 可视 browser 控制（Desktop-only 能力）。
 
 限制：
 
@@ -67,6 +77,25 @@ Electron 桌面客户端。
 - Renderer 不允许直接连接 MCP。
 - Renderer 不保存密钥。
 - Renderer 不成为权限事实源。
+
+### 2.1b `apps/tui` 与 `packages/npm-cli`
+
+| 路径 | npm name | 角色 |
+|------|----------|------|
+| `apps/tui` | `@peer-agent/tui`（private） | OpenTUI 源码与 `peer` 二进制构建 |
+| `packages/npm-cli` | `@peer-agent/cli`（公开） | npm 全局安装器；下载/启动 Release 中的 `peer` |
+
+职责（CLI 宿主）：
+
+- 终端会话、slash / leader、审批与时间线表达。
+- 直接挂载共享 Runtime Pipeline（与 Desktop 共用契约）。
+- 独立发布：`peer --version`、GitHub Release 归档、npm 安装通道。
+
+限制：
+
+- 运行时不得要求 Electron / Desktop App 已安装。
+- 禁止另起旁路工具编排；须走 Manifest / Projection / Grant / Evidence。
+- 源码树可暂时共享 Desktop Main 切片（构建嵌入），但属技术债，须迁出 shared package（见 `22`）。
 
 ### 2.2 `packages/protocol`
 
@@ -89,7 +118,7 @@ LocaleCode
 LocalizedText
 ```
 
-这个包是工程的第一优先级。所有 UI、Electron main、Rust core、云端 gateway 未来都应该围绕这些对象对齐。
+这个包是工程的第一优先级。Desktop renderer、Desktop main、CLI/TUI、共享 Runtime packages 都应围绕这些对象对齐。
 
 ### 2.3 `packages/i18n`
 
@@ -283,15 +312,17 @@ Cloud CEO Agent Runtime
 
 ## 五、禁止事项
 
-第一阶段禁止：
+第一阶段与持续治理禁止：
 
 - Renderer 直接调用 `fs`。
 - Renderer 直接调用 `child_process`。
 - IPC 传任意命令字符串。
-- 用 Node main 实现本地能力核心。
+- 用宿主 UI 状态充当权限事实源。
 - 把 Plugin / MCP 做成 UI 内部状态。
 - 把权限授权只存在前端 store。
 - 把本地个人经验塞进普通 chat context。
 - 把客户端描述成本地 Agent。
+- **让 CLI 运行时依赖 Desktop 客户端已安装。**
+- **混淆 `@peer-agent/tui`（构建）与 `@peer-agent/cli`（npm 安装）。**
 
-这些禁止项不是洁癖，而是为了防止工程从第一天就偏离 Runtime 编排、能力声明、本地授权与 Evidence 闭环的设计原则。
+这些禁止项不是洁癖，而是为了防止工程偏离 Runtime 编排、能力声明、本地授权、Evidence 闭环与双宿主独立发布的设计原则。

@@ -360,6 +360,7 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 ## 相关文档
 
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — Desktop 与 TUI/CLI 共享运行时边界与长期治理
+- `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
 - `knowledge/specifications/runtime-sdk-boundary-architecture.md` — Runtime SDK 分层边界
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — 本地能力对齐
 

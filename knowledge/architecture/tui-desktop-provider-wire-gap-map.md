@@ -10,6 +10,7 @@
 > 本机配置样本：`~/.peer-agent/llm-providers.json`  
 > 本机观测样本：`~/.peer-agent/provider-traces/`
 
+> 关联发布：`knowledge/decisions/48-cli-first-class-release.md`（CLI 独立安装面）
 ---
 
 ## 1. 问题一句话

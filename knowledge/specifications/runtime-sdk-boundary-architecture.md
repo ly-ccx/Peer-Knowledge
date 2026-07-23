@@ -9,6 +9,7 @@
 > 关联双宿主总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md`
 > 目标代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
+> 关联发布：`knowledge/decisions/48-cli-first-class-release.md` — CLI npm 安装不依赖 Desktop App
 ---
 
 ## 0A. 已落地边界补充（2026-07-12）
