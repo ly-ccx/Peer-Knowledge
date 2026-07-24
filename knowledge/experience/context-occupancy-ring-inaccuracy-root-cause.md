@@ -138,6 +138,18 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 
 教训:「下一请求投影」的定义依赖 dispatch 路径;只要一个会话有多条发送链路(chat/goal tick/explorer),任何单口径的恢复投影都会在路径切换时表现为「跳变」。长期方向:口径选择应下沉为共享的「dispatch 路径→请求组成」投影函数,而非在 restored handler 内 if/else。
 
+## RC9(2026-07-24 追加):阶段 E 后 TUI 三处显示分子仍是原文口径
+
+现象:阶段 E 落地后用户再次对照,两端仍对不上。排查先确认了两个前提:
+1. 截图里两端是**不同模型**(Desktop Sol 353k vs CLI grok-4.5 500k)——不同分母/工具集的百分比本就不可直接相比;**收敛验收必须同会话同模型**。
+2. 两端确实在跑新代码(核对了 CLI 二进制 mtime 与 dev Electron 启动时间晚于 commit)。
+
+真 bug:TUI 还有三处显示分子走未微压缩的原文口径——idle 态 `withPressure`、流式预览 pressure、以及 **restore 直信旧版写入的持久化快照分子**(修复前的全量口径值)。只有 turn 结束的 requestProjection 是新口径,所以 resume 后不发消息时一直显示旧高位。
+
+修复:`pressureFor` 分子经共享 microcompact 投影(按 messages 引用缓存,不重扫长会话);restore 不再直信快照分子,本地按当前发送口径重算(model/contextWindow 元信息保留)——与 Desktop restored 重投影同精神。
+
+教训:口径迁移必须数尽**所有分子产生点**再验收——漏一个显示路径,旧口径就会从持久化快照里「转世回来」;另外跨端对照验收的实验设计要先固定变量(同会话、同模型、两端均为新构建)。
+
 ## 修订记录
 
 | 日期 | 变更 |
@@ -148,3 +160,4 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | 2026-07-24 | 四次复核:RC2/RC5 已修复——restored 重投影 IPC + 跨宿主 source 守卫落地;仅剩 RC4(切模型分母残留期)待修 |
 | 2026-07-24 | 追加 RC7:restored 成分偏低致「打开 4% 发送 18%」假跳变;toProjectionMessages 与发送口径同成分 + system source 补齐 + document/file flat 计回归修复(commit 26b57c4) |
 | 2026-07-24 | 追加 RC8:goal 会话双请求路径(chat 富/tick 瘦)致反向跳变;restored 按活跃 runner 选口径修复 |
+| 2026-07-24 | 追加 RC9:阶段 E 后 TUI 三处显示分子仍原文口径(含 restore 直信旧快照);pressureFor 接共享 micro 投影 + restore 本地重算修复;并记录「同会话同模型」验收前提 |
