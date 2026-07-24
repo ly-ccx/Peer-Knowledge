@@ -207,7 +207,19 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 3. **T1 清偿(不变式 4、5)**:TUI 手动 `/compact` 改真·全量(keep 0)与 Desktop 对齐;`provider-chat-model.runTurn` 新增 loop 中途 preflight(共享阈值 `decideContextCompaction`)与 PTL emergency 单次重试(确定性结构化压缩,不在 loop 内嵌套 LLM);controller 收尾做连续性 carry-forward、剔除 handoff、经 compact meta 写入共享 marker。
 4. **restored 重投影(Phase 1.4 清偿,圆环 RC2/RC5 收尾)**:新 IPC `chat:context:restored` 在 main 侧按完整成分(全量 system context + 模式投影工具 schema + `_compaction` 边界后 active 历史 + Layer 1 投影)重算,经六阶段生命周期 `restored` 阶段产出,并回写 `contextSnapshot(source: desktop)`;renderer 对 `source ≠ desktop` 的快照不再采信(跨宿主守卫),缺失/失效/被守卫时自动请求重投影,未知期间不渲染伪造百分比。至此六阶段全部有发布者。
 
-### 8.6 下一批优先级
+### 8.6 六次复核追记(2026-07-24,阶段 E:证据引用化替代有损截断)
+
+背景:同会话 Desktop 15% vs CLI 51% 对照暴露两个事实——TUI 无 Layer 1(下一请求真发 255k 全文);而 Desktop microcompact 是「有损截断」(800 字符预览,无回来的路,四类误解风险:中段黑洞、魔数无语义、预览堆积、Layer 2 二次失真)。经用户拍板,按 17 号文档 P1/P2 原设计补完:
+
+1. **Layer 0 通用材料化**(`runtime-node/tool-artifact-store.ts`):超 6000 字符工具输出落盘 `~/.peer-agent/artifacts/<conv>/`,provider 消息只留 `local_tool_result_ref` 骨架(head/tail + keyFindings + suggestedRetrieval + 勿重跑提示);错误结果双倍预览;已是 local_*_ref 的跳过;写盘失败降级 inline。Desktop tool-orchestrator 与 TUI executionContent 同源接入,UI 流不受影响。
+2. **Layer 1 单源化**:microcompact 下沉 `runtime-core/microcompact.ts`(含 ref 骨架保留、可回捞线索抽取);Desktop re-export(legacy 块待删);TUI runTurn 发送切片接入,state 保留原文,requestProjection 改发送口径——**两端占用收敛 + CLI 每轮真实节省 ~180k tokens**。
+3. **级联清理**:conversations:delete 同时清理会话 artifact 目录(ADR 34 同口径)。
+
+验证:runtime-node 4 新测(含中段可从 artifact 找回、ref 骨架显著小于原文、级联清理)、desktop chat-runtime 251、context-compactor 46(已改测共享实现)、TUI 484 全绿;四包 tsc 通过。
+
+待后续:Desktop context-compactor 内 legacy microcompact 死代码块删除;artifact 体积上限/LRU;e2e「模型用 rg 从 artifact 找回中段」验收。
+
+### 8.7 下一批优先级
 
 1. 切模型时触发 restored 重投影,消除圆环 RC4 分母残留期。
 2. TUI 回合间静态投影补计 continuity system block。
@@ -223,3 +235,4 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 | 2026-07-24 | 三次复核:双 hard 线已收敛(0.92 单值);投影生命周期 per-turn 接线完成(preflight/post_compaction/tool_result/turn_complete + 双端 stream_preview 叠加,restored 待 Phase 1.4);新增 `chat:context:projection` IPC 与 renderer revision 序合并 |
 | 2026-07-24 | 四次复核:Phase 0 清零——手动 /compact 归一单入口(manual 语义)、emergency 收敛为 recoverFromPromptTooLong 共享 helper、qoder 补 emergency+持久化、circuit breaker 按会话隔离、TUI 僵尸切分删除 |
 | 2026-07-24 | 五次复核:台账主体清零——`_compaction` 进 protocol(两端同一 buildCompactionMarker)、PTL 分类下沉 runtime-core、TUI 中途 preflight/emergency + 手动全量语义对齐、restored 重投影 + 跨宿主 source 守卫(六阶段全部接线) |
+| 2026-07-24 | 六次复核(阶段 E):证据引用化替代有损截断——Layer 0 通用材料化(artifact + local_tool_result_ref)双端同源、microcompact 下沉 runtime-core、TUI 发送切片接入 Layer 1、artifact 随会话级联清理 |

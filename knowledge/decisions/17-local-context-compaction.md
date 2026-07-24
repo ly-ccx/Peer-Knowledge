@@ -282,12 +282,16 @@ Local compaction 的摘要不是越像自然语言越好，而是越可恢复越
 - message 中只保留 ref、preview、key findings、retrieval commands。
 - UI 可展开 artifact preview。
 
+（2026-07-24 落地：shell/file/batch_search 早已有结构化 local_*_ref 落盘体系；本日补齐「其余大输出」的通用兜底材料化 —— `runtime-node tool-artifact-store`：超阈值输出落盘 `~/.peer-agent/artifacts/<conversationId>/`，provider 消息只留 `local_tool_result_ref` 骨架（head/tail 预览 + keyFindings + suggestedRetrieval + 勿重跑提示）；错误结果双倍预览；写盘失败降级 inline 交给 Layer 1；会话删除级联清理。Desktop tool-orchestrator 与 TUI executionContent 同源接入，UI 展示流不受影响。）
+
 ### P2：引入 microcompact
 
 - 每轮调用前扫描历史 tool results。
 - 旧的大结果替换为 ref stub。
 - 最近结果保留原状。
 - 已压缩结果不重复处理。
+
+（2026-07-24 落地：microcompact 下沉 `runtime-core/microcompact.ts` 单源，Desktop re-export、TUI runTurn 发送切片接入（state 保留原文，与 Desktop apiMessages 同构）；结构化 local_*_ref 保留骨架与检索路径不哑截断；无结构长文本先抽可回捞线索（artifact/path/retrieval）再预览化。自此新结果经 P1 材料化后，Layer 1 几乎不再需要哑截断任何全文。）
 
 ### P3：引入 handoff compaction
 
