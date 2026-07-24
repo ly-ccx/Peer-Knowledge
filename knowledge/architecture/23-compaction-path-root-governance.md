@@ -217,7 +217,15 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 
 验证:runtime-node 4 新测(含中段可从 artifact 找回、ref 骨架显著小于原文、级联清理)、desktop chat-runtime 251、context-compactor 46(已改测共享实现)、TUI 484 全绿;四包 tsc 通过。
 
-待后续:Desktop context-compactor 内 legacy microcompact 死代码块删除;artifact 体积上限/LRU;e2e「模型用 rg 从 artifact 找回中段」验收。
+待后续:~~Desktop context-compactor 内 legacy microcompact 死代码块删除;artifact 体积上限/LRU;e2e「模型用 rg 从 artifact 找回中段」验收~~ 均已于同日收尾(见 8.6.1)。
+
+#### 8.6.1 阶段 E 收尾(2026-07-24,台账清零)
+
+1. legacy microcompact 死代码块(~410 行)已从 context-compactor 删除,runtime-core 成为唯一实现。
+2. artifact 体积治理:单会话预算 256MB,每次写后按 mtime LRU 逐出最旧文件(新写入文件不会被误逐);治理失败不阻断材料化。
+3. 检索回路 e2e:测试验证「预览确实看不到中段 + 沿 suggestedRetrieval 用真实 shell 工具(grep/tail)能找回中段」——回来的路是可执行的事实,不是注释。
+
+至此 23 号治理台账主线全部清零;剩余低优先级项见 8.7。
 
 ### 8.7 下一批优先级
 
@@ -236,3 +244,4 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 | 2026-07-24 | 四次复核:Phase 0 清零——手动 /compact 归一单入口(manual 语义)、emergency 收敛为 recoverFromPromptTooLong 共享 helper、qoder 补 emergency+持久化、circuit breaker 按会话隔离、TUI 僵尸切分删除 |
 | 2026-07-24 | 五次复核:台账主体清零——`_compaction` 进 protocol(两端同一 buildCompactionMarker)、PTL 分类下沉 runtime-core、TUI 中途 preflight/emergency + 手动全量语义对齐、restored 重投影 + 跨宿主 source 守卫(六阶段全部接线) |
 | 2026-07-24 | 六次复核(阶段 E):证据引用化替代有损截断——Layer 0 通用材料化(artifact + local_tool_result_ref)双端同源、microcompact 下沉 runtime-core、TUI 发送切片接入 Layer 1、artifact 随会话级联清理 |
+| 2026-07-24 | 阶段 E 收尾:legacy 死代码块删除(~410 行)、artifact 256MB/LRU 体积治理、检索回路 e2e 验收——台账主线清零 |
