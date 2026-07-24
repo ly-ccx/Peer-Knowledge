@@ -122,7 +122,21 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 - restored system context 补 goalPlanStore + mcpRegistry source;
 - 顺带修复 runtime-core 估算器移植时丢失的 document/file/input_file flat 计(此前落到 estimateJson 会把 base64 当文本展开)。
 
-教训:投影切片必须与真实发送切片同构——拿「另一条链路的专用瘦切片」做占用投影,就会重演 RC1 的成分表错误,只是方向从「偏低兕底」换成「偏低恢复」。另:idle 态投影不含 Goal continuation/explorer 等只在 run 中存在的成分,打开值略低于运行中首次 preflight 属正常语义,不是 bug。
+教训:投影切片必须与真实发送切片同构——拿「另一条链路的专用瘦切片」做占用投影,就会重演 RC1 的成分表错误,只是方向从「偏低兜底」换成「偏低恢复」。另:idle 态投影不含 Goal continuation/explorer 等只在 run 中存在的成分,打开值略低于运行中首次 preflight 属正常语义,不是 bug。
+
+## RC8(2026-07-24 追加):同会话双请求路径口径不同——goal 会话「idle 4% → tick 运行 2%」反向跳变
+
+现象:修完 RC7 后,goal 会话打开显示 4%,runner 开始 tick 后反而降到 2%("越来越少")。
+
+根因:同一会话存在两条真实请求路径,组成不同(ADR 42 口径分离是有意设计):
+- 用户直接发送(chat send):renderer 富口径——segments 历史事实 + 附件全部进请求;
+- Goal Runner tick:瘦口径——`toRuntimeMessages` 裸文本历史 + tick 指令,连续性只走 system 摘要。
+两个百分比各自都是真的:2% 是 tick 请求的真实占用(就是更瘦);4% 是 chat 口径的真实占用。
+跳变来自恢复投影只有 chat 单口径,与 tick 口径不连续。
+
+修复:restored 按「下一次实际会走哪条路」选口径——该会话有 `runner.status === 'running'` 的活跃计划时,投影 tick 瘦口径(含 tick 指令近似);否则投影 chat 富口径。
+
+教训:「下一请求投影」的定义依赖 dispatch 路径;只要一个会话有多条发送链路(chat/goal tick/explorer),任何单口径的恢复投影都会在路径切换时表现为「跳变」。长期方向:口径选择应下沉为共享的「dispatch 路径→请求组成」投影函数,而非在 restored handler 内 if/else。
 
 ## 修订记录
 
@@ -133,3 +147,4 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | 2026-07-24 | 三次复核:双 hard 线已收敛;投影事件 revision 序合并落地(RC3 基本修复);双端 stream_preview 接线,流式期间圆环随 delta 增长 |
 | 2026-07-24 | 四次复核:RC2/RC5 已修复——restored 重投影 IPC + 跨宿主 source 守卫落地;仅剩 RC4(切模型分母残留期)待修 |
 | 2026-07-24 | 追加 RC7:restored 成分偏低致「打开 4% 发送 18%」假跳变;toProjectionMessages 与发送口径同成分 + system source 补齐 + document/file flat 计回归修复(commit 26b57c4) |
+| 2026-07-24 | 追加 RC8:goal 会话双请求路径(chat 富/tick 瘦)致反向跳变;restored 按活跃 runner 选口径修复 |
