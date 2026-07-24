@@ -1,7 +1,7 @@
 # Local Context Compaction 机制设计
 
 创建时间：2026-06-08
-最后更新：2026-07-07
+最后更新：2026-07-24
 状态：设计草案
 
 本文定义 Peer Agent 本地侧的上下文压缩机制。重点不是“如何把历史塞进更短摘要”，而是建立一套本地任务线程可持续工作的上下文治理方法。
@@ -204,9 +204,11 @@ Local compaction 应支持三类触发。
 建议阈值：
 
 ```text
-triggerRatio: 0.75
+triggerRatio: 0.8
 targetRatio: 0.35
 ```
+
+（2026-07-24 校准：早期草案建议 0.75，`peer_agent` 实际落地为 0.8，另有 hardRatio 0.95 硬拦截线与摘要输出/安全区预留；以代码为准，详见 `knowledge/architecture/23-compaction-path-root-governance.md`。）
 
 如果模型 context window 特别大，可以把 trigger 提高到 0.85，但不应因此允许工具输出无节制 inline。
 

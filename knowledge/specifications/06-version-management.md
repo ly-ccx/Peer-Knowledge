@@ -40,10 +40,24 @@ package.json
 apps/desktop/package.json
 apps/tui/package.json              # @peer-agent/tui — CLI 构建面
 packages/npm-cli/package.json      # @peer-agent/cli — 公开 npm 安装面
-packages/*/package.json            # 其他 workspace 包
+packages/protocol/package.json     # 公开 Open Runtime 契约包
+packages/runtime-core/package.json # 公开 Open Runtime core
+packages/runtime-sdk/package.json  # 公开 Open Runtime SDK
+packages/runtime-node/package.json # private host adapter（版本仍随产品）
+packages/*/package.json            # 其他受管 workspace 包（以脚本名单为准）
 crates/*/Cargo.toml                # 若仍存在 Rust crate
 Cargo.lock
 ```
+
+### 2.1 开放 Runtime 版本策略
+
+`@peer-agent/protocol`、`@peer-agent/runtime-core`、`@peer-agent/runtime-sdk` **跟随产品根 `VERSION`**，与 CLI / Desktop 同一 release train。
+
+在 beta 阶段不采用独立 `0.1.x` semver 线，避免 npm 包长期停在旧实现。若未来要独立 major/minor，必须通过新 ADR 迁移。当前策略见：
+
+- `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md`
+
+`@peer-agent/runtime-node` 保持 `private: true`：它是宿主能力适配，不属于公开 SDK。公开包发布前必须通过 tarball contents + 外部宿主 smoke 门禁。
 
 检查命令：
 

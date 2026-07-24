@@ -13,6 +13,7 @@
 - `knowledge/decisions/42-context-display-vs-trigger-accounting.md`
 - `knowledge/decisions/43-conversation-runtime-state-bucketing.md`
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主压缩持久化共享与算法分叉治理
+- `knowledge/architecture/23-compaction-path-root-governance.md` — 压缩路径根治理(入口收敛、口径下沉、CLI 一致性)
 
 本文定义 Peer Agent 在自动上下文压缩场景下的发送、排队、运行续接和 UI 状态协议。
 
@@ -661,7 +662,57 @@ Compaction lock 是 conversation-scoped：
 - 当前 compaction job 尽量 abort；如果不能 abort，完成后丢弃结果或标记 orphaned。
 - pending user messages 默认保留在队列，可让用户选择继续发送或取消。
 
-## 十三、实现分阶段
+## 十三、统一投影与跨宿主执行基线
+
+截至本轮治理，自动压缩不再由 Desktop、CLI/TUI 或 Renderer 各自计算。宿主无关主链路固定为：
+
+```text
+active provider history + system context + projected tools
+  -> runtime-core ContextProjection
+    -> request_preflight compaction decision
+      -> optional compaction + durable handoff
+        -> post_compaction projection
+          -> provider request
+            -> stream_preview projections
+              -> tool_result / turn_complete stable projection
+```
+
+### 13.1 唯一事实源
+
+`@peer-agent/runtime-core` 统一拥有：
+
+- 消息、CJK、图片、tool call/result 和工具 schema 的 token 投影；
+- soft、hard、overflow 阈值与 summary headroom 判断；
+- `currentInputTokens`、`nextRequestInputTokens`、`previewInputTokens`、`compactionPressureTokens`；
+- `request_preflight`、`stream_preview`、`tool_result`、`post_compaction`、`turn_complete`、`restored` 六阶段生命周期；
+- 压力等级、压缩原因和是否应执行的决策。
+
+Desktop 和 CLI/TUI 负责把各自实际发送的 provider messages/tools 投入共享核心，并负责执行摘要、写入共享 `_compaction` handoff 与恢复；不得在宿主中复制阈值或上下文算法。Renderer 不参与真值计算，只展示 Runtime Projection；未提交草稿只能作为明确的本地预览叠加，不能回写 Runtime。
+
+### 13.2 流式进度与压缩安全边界
+
+进行中的 provider 输出必须持续发布 `stream_preview`，所以占用进度会随着 assistant delta 增长。预览以最近稳定投影为基线，只计算尚未稳定写入 active history 的 delta；当 assistant 或 tool result 落入消息后，由稳定阶段全量重算并替换预览，禁止 seed、history 和 provider usage 多路累加。
+
+流式预览越线不直接执行压缩。允许执行自动压缩的唯一时机是下一次 provider 请求前的 `request_preflight`：
+
+- 用户消息已入队，首次 provider dispatch 之前；
+- assistant 发起工具调用，工具结果稳定写入后，下一轮 provider dispatch 之前；
+- Goal Runner continuation 或其他 agent-loop continuation 发起下一请求之前；
+- overflow/retry 路径重新 dispatch provider 之前。
+
+provider 正在 streaming、工具正在执行但结果尚未稳定写入、handoff 尚未持久化时都不是安全边界。压缩完成后必须先写入共享 handoff，再发布 `post_compaction`，然后才能续发请求。压缩事件不能伪装成 `chat:stream:done`；terminal tool 和 Goal handoff 也不能抢发缺少最终投影的裸 done。
+
+### 13.3 快照、切换与恢复
+
+每个稳定投影携带单调 revision，并在消息落盘、压缩落盘和会话切换时遵循同一失效顺序：先使旧快照失效，再基于当前 active model history 发布新值。会话恢复使用 `restored`，不能从完整 UI timeline 反推 provider history；最后一个 `_compaction` handoff 仍是唯一 active history 分界。未知值保持 unknown，不渲染伪造百分比。
+
+### 13.4 落地状态（2026-07-24 四次代码核实，本章主体已实现）
+
+- 已落地：`runtime-core` 六阶段契约与共享估算/阈值（hard 线 0.92 单值）；Desktop 四个 provider loop 的 kernel 持有 per-turn 生命周期，`request_preflight` / `post_compaction` / `tool_result` / `turn_complete` 经 `chat:context:projection` IPC 发布，renderer 以 streamId+revision 序合并；`stream_preview` 由展示侧叠加（Desktop `streamPreviewTokens`、TUI delta flush 重算）；`restored` 经 `chat:context:restored` IPC 按完整成分重算并回写共享快照，renderer 对 `source ≠ 当前宿主` 快照不再采信——**六阶段均有发布者**；TUI 具备 loop 中途 preflight 与 PTL emergency（分类同源 runtime-core `isPromptTooLongError`）；`_compaction` marker 经 `@peer-agent/protocol buildCompactionMarker()` 两端同构。
+- 已知偏离：TUI 中途压缩的 marker 在 turn 结束时持久化（非压缩即时，偏离 13.2 「handoff 先持久化再续发」，turn 中 crash 丢失该次记录）；切模型后到下轮稳定投影前分母仍旧窗口。
+- 进度台账与下一批优先级见 `knowledge/architecture/23-compaction-path-root-governance.md` 第八节。
+
+## 十四、实现分阶段
 
 ### Phase 1：修正 compaction split，保留最新用户原文
 

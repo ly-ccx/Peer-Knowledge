@@ -185,6 +185,21 @@ Renderer 会话状态只保存 Runtime 投影。草稿尚未进入 Runtime 时�
 
 不修改权限、Evidence、Capability Provider 执行链、计费 ledger，也不触碰代码仓中现有的无关 TUI 和测试改动。
 
+## Runtime Projection 生命周期与安全边界
+
+Desktop 与 CLI/TUI 共享 `@peer-agent/runtime-core` 的 `ContextProjection`、token 投影和压缩决策，不允许宿主分别定义阈值或重新解释“当前上下文”。一次 Runtime 生命周期按以下阶段发布同一结构：
+
+1. `request_preflight`：provider 请求前，用即将实际编码的 messages、tools 和 context window 生成稳定投影；自动压缩只能依据这个阶段的 `compactionPressureTokens` 和共享决策执行。
+2. `stream_preview`：provider 正在输出时，以最近稳定投影为基线，仅叠加尚未稳定落入消息历史的 assistant delta；该值用于持续展示下一请求预览，不得触发并发压缩。
+3. `tool_result`：工具结果纳入 Runtime 消息后，用实际保留的消息重新投影，替换流式预览而不是与其重复累计。
+4. `post_compaction`：压缩 handoff 持久化并成为 active provider history 分界后立即重算，使展示、下一轮 preflight 和恢复值同步回落。
+5. `turn_complete`：最终 assistant 内容进入 Runtime 后发布本轮最终投影；`done` 必须携带或对应这份快照，不能由 terminal tool 或 handoff 提前发送裸终态。
+6. `restored`：切换会话或进程恢复时，从持久化 active model history 重建投影；null 或失效快照必须被替换或清除，不能沿用旧百分比。
+
+稳定边界与预览边界严格分离：流式阶段可以持续更新 UI，但 provider 正在 streaming 时不能启动压缩。压缩只允许出现在下一次 provider 请求之前，包括用户发送后的首次 preflight，以及 agent/tool loop 将发起下一轮请求之前。这样即使流式预览已越过 soft/hard 线，也只表达“下一请求有压力”；真正执行仍由随后同一套 Runtime preflight 投影决定。
+
+Renderer 只展示 Runtime Projection，并可为未提交草稿生成明确的临时预览；它不得遍历完整 UI 历史重建 token 真值，也不得以 UI 百分比触发压缩。Desktop 主进程与 CLI/TUI 只是宿主适配器：它们负责提供实际 messages/tools、执行摘要与持久化，但阈值、压力等级、触发原因和投影算法均来自共享核心。
+
 ## Verification
 
 实施完成需证明：

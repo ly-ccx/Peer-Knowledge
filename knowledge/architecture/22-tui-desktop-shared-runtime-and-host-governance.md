@@ -19,10 +19,12 @@
 - `knowledge/architecture/tui-desktop-provider-wire-gap-map.md` — Provider wire 分叉映射
 - `knowledge/architecture/19-system-prompt-context-architecture.md` — System Context / 提示词组装
 - `knowledge/architecture/21-auto-context-compaction-run-resume.md` — 压缩与 run 续接
+- `knowledge/architecture/23-compaction-path-root-governance.md` — 压缩路径根治理(单闸门 + 双端一致)
 - `knowledge/specifications/tui-and-hook-design-standard.md` — TUI 与 Hook 设计规范
 - `knowledge/specifications/06-version-management.md` — 版本与发版面
 - `knowledge/specifications/15-goal-plan-lifecycle-governance.md` — Goal 生命周期
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
+- `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md` — 开放 Runtime 公开包与版本/发布策略
 - `knowledge/decisions/35-mode-scoped-tool-projection.md` — 模式工具投影
 - `knowledge/decisions/37-provider-channel-and-wire-protocol-separation.md` — channel / wire 分离
 - `knowledge/decisions/51-unified-desktop-cli-file-tools.md` — 文件工具统一
@@ -403,7 +405,7 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 | P0 | TUI **源码**静态依赖 Desktop Main | 包边界崩溃、**发布物与源码树耦合**（注意：不等于运行时依赖 App） | goal/skill/mcp/data-store 迁出 shared package；`peer` 构建不再 import `apps/desktop/**` |
 | P0 | 任何使 CLI 必须先装 Desktop 的设计 | 破坏 npm 独立安装硬约束 | 评审直接否决；CLI 路径必须可无 GUI 闭环 |
 | P1 | Prompt assembler 仅 Desktop 完整 | 安全/身份指令漂移 | assembler + sources 下沉，宿主只注入环境 source |
-| P1 | Compaction 算法双轨无统一接口 | resume/占用口径回归 | Strategy 接口 + 共享 persistence |
+| P1 | Compaction 算法双轨无统一接口 | resume/占用口径回归 | Strategy 接口 + 共享 persistence;路线细化见 `23-compaction-path-root-governance.md` |
 | P2 | 工具集合与接线仍有历史缺口 | 假能力 / 不可调用 | 以 parity 矩阵持续契约测试 |
 | P2 | Goal worker 接线成熟度不均 | Goal 在 TUI 半失效 | 共用 runner + 对称 worker port |
 | P3 | UI 层完全分叉 | 体验不一致但可接受 | 只对齐语义 token 与状态文案，不强行共用组件 |
