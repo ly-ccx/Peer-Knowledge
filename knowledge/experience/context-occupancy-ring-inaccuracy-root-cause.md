@@ -108,6 +108,22 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 
 新增注意:~~runtime-core `hardRatio 0.92` 与 Desktop `CONTEXT_BUDGET_GUARD 0.95` 双 hard 线分叉~~ 已于 2026-07-24 同日收敛(0.92 单值)。另:流式期间圆环不动的问题已解决——双端 stream_preview 叠加已接线(Desktop `streamPreviewTokens` + 稳定投影事件;TUI delta flush 重算),圆环随 delta 增长、工具落库/回合结束时回到稳定投影。
 
+## RC7(2026-07-24 追加):restored 重投影成分偏低——「打开 4%、发送后 18%」假跳变
+
+现象:打开会话显示 4%,发送带图消息后跳到 18%。用户怀疑图片被多算;实际方向相反:
+**图片两侧都是 flat 计(草稿 800 / 请求 2000,base64 只在 image_url.url 内、估算器不展开),18% 才接近真实;4% 是 restored 重投影缺成分的偏低值。**
+
+根因(两处成分缺失):
+1. restored 用了 `toRuntimeMessages`(Goal Runner 裸文本切片):非字符串 content 置空、**完全丢弃 user attachments 与 assistant 工具调用 segments**;而真实发送口径(toApiMessages)会把它们转成历史事实文本/附件块/image_url 分片。
+2. restored 的 buildSystemContext 只传了 continuity+mode,缺 goal-plan/mcp-host 等 source(goal 模式下差距最大)。
+
+修复(commit 26b57c4):
+- 新增 `toProjectionMessages`:与发送口径同成分(segments 转历史事实、文本附件计全文、图片转 image_url flat 计);
+- restored system context 补 goalPlanStore + mcpRegistry source;
+- 顺带修复 runtime-core 估算器移植时丢失的 document/file/input_file flat 计(此前落到 estimateJson 会把 base64 当文本展开)。
+
+教训:投影切片必须与真实发送切片同构——拿「另一条链路的专用瘦切片」做占用投影,就会重演 RC1 的成分表错误,只是方向从「偏低兕底」换成「偏低恢复」。另:idle 态投影不含 Goal continuation/explorer 等只在 run 中存在的成分,打开值略低于运行中首次 preflight 属正常语义,不是 bug。
+
 ## 修订记录
 
 | 日期 | 变更 |
@@ -116,3 +132,4 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | 2026-07-24 | 二次复核:RC1 已修复(删除式)、RC2/RC3/RC5 部分缓解、RC4 未动;新增双 hard 线分叉风险 |
 | 2026-07-24 | 三次复核:双 hard 线已收敛;投影事件 revision 序合并落地(RC3 基本修复);双端 stream_preview 接线,流式期间圆环随 delta 增长 |
 | 2026-07-24 | 四次复核:RC2/RC5 已修复——restored 重投影 IPC + 跨宿主 source 守卫落地;仅剩 RC4(切模型分母残留期)待修 |
+| 2026-07-24 | 追加 RC7:restored 成分偏低致「打开 4% 发送 18%」假跳变;toProjectionMessages 与发送口径同成分 + system source 补齐 + document/file flat 计回归修复(commit 26b57c4) |
