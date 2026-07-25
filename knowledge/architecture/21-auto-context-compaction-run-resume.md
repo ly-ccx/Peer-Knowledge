@@ -1,7 +1,7 @@
 # 自动上下文压缩与 Agent Run 续接技术方案
 
 创建时间：2026-07-04
-最后更新：2026-07-25
+最后更新：2026-07-26
 状态：技术方案 / Phase 1、Phase 2 核心语义已在 `peer_agent` 落地
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 关联文档：
@@ -707,10 +707,11 @@ provider 正在 streaming、工具正在执行但结果尚未稳定写入、hand
 
 每个稳定投影携带单调 revision，并在消息落盘、压缩落盘和会话切换时遵循同一失效顺序：先使旧快照失效，再基于当前 active model history 发布新值。会话恢复使用 `restored`，不能从完整 UI timeline 反推 provider history；最后一个 `_compaction` handoff 仍是唯一 active history 分界。未知值保持 unknown，不渲染伪造百分比。
 
-### 13.4 落地状态（2026-07-24 四次代码核实，本章主体已实现）
+### 13.4 落地状态（2026-07-26 代码复核，本章分阶段实现）
 
-- 已落地：`runtime-core` 六阶段契约与共享估算/阈值（hard 线 0.92 单值）；Desktop 四个 provider loop 的 kernel 持有 per-turn 生命周期，`request_preflight` / `post_compaction` / `tool_result` / `turn_complete` 经 `chat:context:projection` IPC 发布，renderer 以 streamId+revision 序合并；`stream_preview` 由展示侧叠加（Desktop `streamPreviewTokens`、TUI delta flush 重算）；`restored` 经 `chat:context:restored` IPC 按完整成分重算并回写共享快照，renderer 对 `source ≠ 当前宿主` 快照不再采信——**六阶段均有发布者**；TUI 具备 loop 中途 preflight 与 PTL emergency（分类同源 runtime-core `isPromptTooLongError`）；`_compaction` marker 经 `@peer-agent/protocol buildCompactionMarker()` 两端同构。
-- 已知偏离：TUI 中途压缩的 marker 在 turn 结束时持久化（非压缩即时，偏离 13.2 「handoff 先持久化再续发」，turn 中 crash 丢失该次记录）；切模型后到下轮稳定投影前分母仍旧窗口。
+- 已落地：`runtime-core` 六阶段契约与共享估算/阈值（hard 线 0.92 单值）；Desktop 四个 provider loop 的 kernel 持有 per-turn 生命周期，`request_preflight` / `post_compaction` / `tool_result` / `turn_complete` 经 `chat:context:projection` IPC 发布，renderer 以 streamId+revision 序合并；TUI 的正文 `stream_preview` 已改由共享 `ContextProjectionLifecycle` 累积；`RuntimePipelineLifecycleObserver.toolResultsApplied` 固定了 tool result 进入 model state 后再发布稳定投影的顺序，Desktop 四个 provider Adapter 与 TUI Adapter 共用这一 Seam；`_compaction` marker 经 `@peer-agent/protocol buildCompactionMarker()` 两端同构。
+- 纠偏：此前“六阶段均有发布者”只能证明阶段覆盖，不能证明架构统一。Desktop 的 `stream_preview` 仍在 renderer 叠加，TUI 在 controller 消费共享 lifecycle；完整 `ContextAccountingSnapshot` 也尚未成为双端唯一状态所有者。
+- 已知偏离：TUI 中途压缩的 marker 在 turn 结束时持久化（非压缩即时，偏离 13.2 「handoff 先持久化再续发」，turn 中 crash 丢失该次记录）；切模型后到下轮稳定投影前分母仍旧窗口；无 usage / 无 exact count 的恢复路径仍会产生启发式投影。
 - 进度台账与下一批优先级见 `knowledge/architecture/23-compaction-path-root-governance.md` 第八节。
 
 ## 十四、实现分阶段

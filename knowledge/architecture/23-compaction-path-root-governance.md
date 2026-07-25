@@ -1,7 +1,7 @@
 # 压缩路径根治理:单一 Compaction Pipeline 与双端一致性
 
 创建时间:2026-07-24
-最后更新:2026-07-25
+最后更新:2026-07-26
 状态:核心 provider 发送管线已统一，手动命令与 UI 协议迁移继续
 关联代码仓:`peer_agent`(本地 `/Users/liangyin/Documents/DEV/github/peer_agent`)
 关联文档:
@@ -318,3 +318,4 @@ Desktop 与 CLI/TUI 的普通 provider 发送、自动压缩和 PTL 恢复，
 | 2026-07-25 | 上下文真值改由 ADR 56 定义：provider usage / provider-aligned exact count 取代启发式 estimator 的权威地位 |
 | 2026-07-25 | 七次代码复核：纠正“台账主线清零”结论；共享原语不等于共享管线，Desktop/CLI 双编排列为 Phase 4 首要债务 |
 | 2026-07-25 | 八次代码复核：共享 ContextAccountingCompactionPipeline 落地；四条 Desktop loop 与 CLI/TUI provider loop 统一，498K usage 与 Grok PTL 回归通过；手动 command、未计量 UI、exact-count adapter 留作 Phase 4 收尾 |
+| 2026-07-26 | 九次代码复核：修复 TUI `provider usage + stream_preview` 被旧 usage 锁死；TUI 正文 preview 接入共享 ContextProjectionLifecycle；Runtime Pipeline 新增 toolResultsApplied lifecycle Seam，Desktop 四个 provider Adapter 与 TUI Adapter 统一在 model state 提交后发布 tool_result；AccountingSnapshot 协议、restored 未计量语义、manual command 与 exact-count adapter 仍待收口 |

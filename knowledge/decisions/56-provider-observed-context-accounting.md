@@ -1,7 +1,7 @@
 # ADR 56：Provider 实测优先的精确上下文记账
 
 - 创建时间：2026-07-25
-- 最后更新：2026-07-25
+- 最后更新：2026-07-26
 - 状态：已采纳，核心发送管线已落地，协议/UI 清理继续
 - 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 - 取代：ADR 52 中“本地估算是上下文权威值、provider usage 只用于诊断”的决策
@@ -529,6 +529,21 @@ but the request contains 501244 tokens
 - 无 usage / 无 exact count 的旧 UI fallback 仍需迁移为“待计量”；
 - 手动 compact 尚需统一为 pipeline command；
 - counted/observed 漂移告警与跨端 canonical fixture 仍待补齐。
+
+### 2026-07-26：Projection Lifecycle 第一批收口
+
+1. 修复 TUI 流式正文预览被上一轮 provider usage 覆盖的问题：usage 只作为稳定基线，
+   尚未提交的 assistant 正文由 `stream_preview` 单独叠加，不能改写自动压缩压力。
+2. TUI 的正文累积由共享 `ContextProjectionLifecycle` 持有，不再由 controller 私有字符串
+   与 pressure 公式共同维护。
+3. Runtime Pipeline 增加 `RuntimePipelineLifecycleObserver.toolResultsApplied` Seam；
+   回调只会发生在 `applyToolResults` 返回新 model state 之后。
+4. Desktop OpenAI、Anthropic、Gemini、Qoder 四个 Adapter 与 TUI Adapter 都通过该 Seam
+   发布 `tool_result` 稳定投影，删除 provider loop 内各自维护的发布顺序。
+
+本批提升了 lifecycle 顺序的 Locality，但没有完成整个 ADR：Accounting pipeline 仍按
+provider request 创建，完整 `ContextAccountingSnapshot` 尚未贯穿持久化和展示，
+Desktop `stream_preview` 仍由 renderer 本地叠加。
 
 ## 十一、参考实现
 
