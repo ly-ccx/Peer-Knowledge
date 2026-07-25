@@ -2,7 +2,7 @@
 
 - 创建时间：2026-07-25
 - 最后更新：2026-07-26
-- 状态：已采纳，核心发送管线已落地，协议/UI 清理继续
+- 状态：已采纳并完成 Phase 4 收口
 - 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 - 取代：ADR 52 中“本地估算是上下文权威值、provider usage 只用于诊断”的决策
 - 保留：ADR 52 关于最终请求投影 seam、跨端 `_compaction` 分界、单 Runtime 入口和 revision 防乱序的决策
@@ -544,6 +544,40 @@ but the request contains 501244 tokens
 本批提升了 lifecycle 顺序的 Locality，但没有完成整个 ADR：Accounting pipeline 仍按
 provider request 创建，完整 `ContextAccountingSnapshot` 尚未贯穿持久化和展示，
 Desktop `stream_preview` 仍由 renderer 本地叠加。
+
+### 2026-07-26：Phase 4 完整收口
+
+1. `ContextAccountingSnapshot` 成为 Desktop、CLI/TUI、conversation store、Runtime
+   event 和 renderer 的唯一上下文容量状态；旧 `ContextProjection`、
+   `requestProjection`、`nextRequestInputTokens`、`compactionPressureTokens` 与
+   `chat:context:projection` IPC 已退出生产代码。
+2. `stream_preview` 与 `tool_result` 由共享 `ContextAccountingLifecycle` 标记
+   `pendingUncountedChanges/pendingContentChars`。两端动态显示 `+`，但在 provider
+   尚未计量前不伪造增长百分比；下一次 exact count 或 provider usage 到达后再更新数字。
+3. Desktop renderer 与 TUI 的宿主本地 estimator 已删除。累积 usage 只用于费用，
+   compactor 内部估算只服务摘要策略，不进入容量协议、圆环或发送放行。
+4. restore、model switch、manual compact、automatic compact 与 provider overflow
+   都进入共享 accounting pipeline：restore 使用 `count_only`，model switch 产生
+   `model_changed/unknown`，手动压缩使用 `manual_compact` 且禁止发送。
+5. Anthropic Messages API-key 与 Gemini API-key 接入 provider exact-count adapter；
+   ChatGPT OAuth、OpenAI-compatible、Qoder 等没有可靠 count API 的渠道显式声明
+   `observed_usage_only`，恢复时没有 provider 证据就显示未知。
+6. exact count 与 send 共享 canonical request；跨宿主 fixture 固化 system、history、
+   tools、effort/reasoning、cache 与 max-output 字段。counted/observed 漂移超过 2%
+   时 `counterStatus=degraded`，两端以 `!` 告警并降级采用 provider usage。
+7. 压缩横幅 IPC 只表达 lifecycle 和 compactor diagnostics，不再携带可被误当作容量
+   真值的 token/window 字段；架构守卫阻止旧字段、旧 IPC 和 renderer estimator 回归。
+
+最终验证：
+
+- Desktop：1560 tests 通过，typecheck 通过；
+- CLI/TUI：510 tests 通过，typecheck 通过；
+- runtime-core：69 tests，runtime-sdk：31 tests，runtime-node：80 tests，全部通过；
+- protocol、runtime-core、runtime-sdk、runtime-node、conversation-store build 通过；
+- architecture governance check 通过。
+
+至此 ADR 的协议、持久化、展示、恢复、模型切换、三类压缩入口、exact-count adapter、
+漂移监控与跨宿主 fixture 退出条件均已满足。
 
 ## 十一、参考实现
 

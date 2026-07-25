@@ -682,17 +682,26 @@ active provider history + system context + projected tools
 
 `@peer-agent/runtime-core` 统一拥有：
 
-- 消息、CJK、图片、tool call/result 和工具 schema 的 token 投影；
-- soft、hard、overflow 阈值与 summary headroom 判断；
-- `currentInputTokens`、`nextRequestInputTokens`、`previewInputTokens`、`compactionPressureTokens`；
-- `request_preflight`、`stream_preview`、`tool_result`、`post_compaction`、`turn_complete`、`restored` 六阶段生命周期；
-- 压力等级、压缩原因和是否应执行的决策。
+- `ContextAccountingSnapshot` 及其单调 revision、content revision、model key 和
+  compaction epoch；
+- BUILD → COUNT/OBSERVE → DECIDE → COMPACT → REBUILD → RECOUNT → SEND →
+  OBSERVE/RECOVER 状态机；
+- `request_preflight`、`stream_preview`、`tool_result`、`post_compaction`、
+  `turn_complete`、`restored`、`model_changed` 生命周期；
+- provider exact count、observed usage、overflow evidence、fingerprint 校验和漂移降级；
+- soft、hard、overflow 阈值、压缩原因和是否放行请求的决策。
 
-Desktop 和 CLI/TUI 负责把各自实际发送的 provider messages/tools 投入共享核心，并负责执行摘要、写入共享 `_compaction` handoff 与恢复；不得在宿主中复制阈值或上下文算法。Renderer 不参与真值计算，只展示 Runtime Projection；未提交草稿只能作为明确的本地预览叠加，不能回写 Runtime。
+Desktop 和 CLI/TUI 只注入 canonical request encoder、provider count/send adapter、
+压缩 strategy 与持久化 port。Renderer/TUI view 只展示共享 snapshot；历史扫描、字符折算、
+累计计费 usage 和宿主本地 estimator 都不得生成容量百分比或触发压缩。
 
 ### 13.2 流式进度与压缩安全边界
 
-进行中的 provider 输出必须持续发布 `stream_preview`，所以占用进度会随着 assistant delta 增长。预览以最近稳定投影为基线，只计算尚未稳定写入 active history 的 delta；当 assistant 或 tool result 落入消息后，由稳定阶段全量重算并替换预览，禁止 seed、history 和 provider usage 多路累加。
+进行中的 provider 输出持续发布 `stream_preview`，但 provider 尚未计量的 delta 只增加
+`pendingContentChars` 并设置 `pendingUncountedChanges=true`。UI 在最近一次权威百分比后
+显示 `+`，不能把字符数换算成 token 后制造“动态增长百分比”。当下一次 provider exact
+count、usage 或 overflow evidence 到达时，Runtime 才更新权威数字；这是动态、真实和
+跨端一致三者同时成立的边界。
 
 流式预览越线不直接执行压缩。允许执行自动压缩的唯一时机是下一次 provider 请求前的 `request_preflight`：
 
@@ -705,14 +714,25 @@ provider 正在 streaming、工具正在执行但结果尚未稳定写入、hand
 
 ### 13.3 快照、切换与恢复
 
-每个稳定投影携带单调 revision，并在消息落盘、压缩落盘和会话切换时遵循同一失效顺序：先使旧快照失效，再基于当前 active model history 发布新值。会话恢复使用 `restored`，不能从完整 UI timeline 反推 provider history；最后一个 `_compaction` handoff 仍是唯一 active history 分界。未知值保持 unknown，不渲染伪造百分比。
+每个 snapshot 携带单调 revision，并在消息落盘、压缩落盘和会话切换时遵循同一失效顺序：
+先使旧快照失效，再基于当前 active model history 计量。会话恢复使用 `count_only/restored`，
+不能从完整 UI timeline 反推 provider history；最后一个 `_compaction` handoff 仍是唯一
+active history 分界。模型切换先发布 `model_changed/unknown`，再按新模型重计量。
+observed-only 渠道没有新 provider 证据时保持 unknown，不渲染 0% 或伪百分比。
 
-### 13.4 落地状态（2026-07-26 代码复核，本章分阶段实现）
+### 13.4 落地状态（2026-07-26 代码复核）
 
-- 已落地：`runtime-core` 六阶段契约与共享估算/阈值（hard 线 0.92 单值）；Desktop 四个 provider loop 的 kernel 持有 per-turn 生命周期，`request_preflight` / `post_compaction` / `tool_result` / `turn_complete` 经 `chat:context:projection` IPC 发布，renderer 以 streamId+revision 序合并；TUI 的正文 `stream_preview` 已改由共享 `ContextProjectionLifecycle` 累积；`RuntimePipelineLifecycleObserver.toolResultsApplied` 固定了 tool result 进入 model state 后再发布稳定投影的顺序，Desktop 四个 provider Adapter 与 TUI Adapter 共用这一 Seam；`_compaction` marker 经 `@peer-agent/protocol buildCompactionMarker()` 两端同构。
-- 纠偏：此前“六阶段均有发布者”只能证明阶段覆盖，不能证明架构统一。Desktop 的 `stream_preview` 仍在 renderer 叠加，TUI 在 controller 消费共享 lifecycle；完整 `ContextAccountingSnapshot` 也尚未成为双端唯一状态所有者。
-- 已知偏离：TUI 中途压缩的 marker 在 turn 结束时持久化（非压缩即时，偏离 13.2 「handoff 先持久化再续发」，turn 中 crash 丢失该次记录）；切模型后到下轮稳定投影前分母仍旧窗口；无 usage / 无 exact count 的恢复路径仍会产生启发式投影。
-- 进度台账与下一批优先级见 `knowledge/architecture/23-compaction-path-root-governance.md` 第八节。
+- 已落地：完整 `ContextAccountingSnapshot` 贯穿 protocol、Runtime event、Desktop/TUI
+  persistence 与 display；renderer/TUI 本地容量 estimator、旧 projection 字段和旧 IPC 已删除。
+- 已落地：Desktop OpenAI、Anthropic、Gemini、Qoder 与 TUI provider adapter 共用
+  accounting/compaction pipeline；手动、自动、emergency、restore 和 model switch 进入同一
+  command/lifecycle 架构。
+- 已落地：Anthropic/Gemini API-key exact count、observed-only 明示降级、跨宿主
+  canonical request fixture、2% counted/observed 漂移监控及 UI 告警。
+- 语义约束：stream/tool 过程中百分比不凭空增长；`+` 表示存在尚未被 provider 计量的内容。
+  下一次 preflight exact count 或 provider usage 到达后，数字才前进。
+- 架构守卫：禁止 `chat:context:projection`、`nextRequestInputTokens`、
+  `compactionPressureTokens`、renderer estimator 与 TUI 私有 pressure state 回归。
 
 ## 十四、实现分阶段
 

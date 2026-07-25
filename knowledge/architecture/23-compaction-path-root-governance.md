@@ -2,7 +2,7 @@
 
 创建时间:2026-07-24
 最后更新:2026-07-26
-状态:核心 provider 发送管线已统一，手动命令与 UI 协议迁移继续
+状态:Phase 4 已完成，统一管线与唯一容量协议进入守卫期
 关联代码仓:`peer_agent`(本地 `/Users/liangyin/Documents/DEV/github/peer_agent`)
 关联文档:
 
@@ -303,6 +303,31 @@ Desktop 与 CLI/TUI 的普通 provider 发送、自动压缩和 PTL 恢复，
 仍是 Phase 4 的剩余工作。
 ```
 
+### 8.10 十次复核追记（2026-07-26，Phase 4 收口）
+
+八、九次复核留下的四类缺口已清零：
+
+| 缺口 | 最终事实 |
+|---|---|
+| Desktop stream preview 私有实现 | provider-neutral agent-loop kernel 持有共享 `ContextAccountingLifecycle`；renderer 只消费 `context.accounting` |
+| 协议/持久化/展示多状态 | `ContextAccountingSnapshot` 成为唯一容量状态；旧 projection 字段、旧 IPC 和 renderer/TUI estimator 已删除 |
+| restore/model switch/manual compact 分叉 | `count_only/restored`、`model_changed`、`manual_compact` 与自动/emergency 共用 pipeline 和 compaction epoch |
+| exact count/跨宿主 fixture/漂移监控 | Anthropic/Gemini API-key exact count；count/send canonical fixture；漂移超过 2% 降级并在双端显示 `!` |
+
+压缩横幅只保留 lifecycle/progress/summary diagnostics，不再携带第二套 token/window 容量
+字段。OpenAI-compatible、ChatGPT OAuth、Qoder 等没有可靠 exact-count API 的渠道明确为
+`observed_usage_only`：恢复时显示 unknown，流式变化显示 `+`，provider usage 到达后更新
+百分比。
+
+验证结果：
+
+- Desktop 1560/1560、TUI 510/510；
+- runtime-core 69/69、runtime-sdk 31/31、runtime-node 80/80；
+- 双端 typecheck、共享包 build 与 architecture governance check 全部通过。
+
+Phase 4 退出条件已满足。后续新增 provider/wire 必须同时提供 capability 声明、
+canonical count/send fixture 和 overflow fixture；否则只能作为 observed-only 接入。
+
 ## 九、修订记录
 
 | 日期 | 变更 |
@@ -319,3 +344,4 @@ Desktop 与 CLI/TUI 的普通 provider 发送、自动压缩和 PTL 恢复，
 | 2026-07-25 | 七次代码复核：纠正“台账主线清零”结论；共享原语不等于共享管线，Desktop/CLI 双编排列为 Phase 4 首要债务 |
 | 2026-07-25 | 八次代码复核：共享 ContextAccountingCompactionPipeline 落地；四条 Desktop loop 与 CLI/TUI provider loop 统一，498K usage 与 Grok PTL 回归通过；手动 command、未计量 UI、exact-count adapter 留作 Phase 4 收尾 |
 | 2026-07-26 | 九次代码复核：修复 TUI `provider usage + stream_preview` 被旧 usage 锁死；TUI 正文 preview 接入共享 ContextProjectionLifecycle；Runtime Pipeline 新增 toolResultsApplied lifecycle Seam，Desktop 四个 provider Adapter 与 TUI Adapter 统一在 model state 提交后发布 tool_result；AccountingSnapshot 协议、restored 未计量语义、manual command 与 exact-count adapter 仍待收口 |
+| 2026-07-26 | 十次代码复核：ContextAccountingSnapshot 成为唯一容量状态；旧 IPC/字段/宿主 estimator 删除；restore/model switch/manual/auto/emergency 统一；Anthropic/Gemini exact count、跨宿主 fixture、2% 漂移降级与 UI 告警落地；Phase 4 收口 |
