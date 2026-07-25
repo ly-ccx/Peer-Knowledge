@@ -1,12 +1,13 @@
 # 右下角上下文占用圆环失准根因分析
 
 创建时间:2026-07-24
-最后更新:2026-07-24(同日二次复核:RC1 已修复,RC2 半修复,见文末状态表)
-状态:根因已钉死 / 修复路线并入 `23-compaction-path-root-governance.md` Phase 1
+最后更新:2026-07-25
+状态:旧估算链根因已钉死 / 权威记账方案改由 ADR 56 定义
 关联代码仓:`peer_agent`(本地 `/Users/liangyin/Documents/DEV/github/peer_agent`)
 关联文档:
 
-- `knowledge/decisions/52-unified-next-request-context-accounting.md` — nextRequestInputTokens 唯一口径(本文是其落地缺口清单)
+- `knowledge/decisions/56-provider-observed-context-accounting.md` — provider 实测与精确计数的当前权威设计
+- `knowledge/decisions/52-unified-next-request-context-accounting.md` — 已被 ADR 56 部分取代的本地估算设计
 - `knowledge/decisions/42-context-display-vs-trigger-accounting.md` — 已被 ADR 52 取代的双口径历史
 - `knowledge/architecture/23-compaction-path-root-governance.md` — 压缩路径根治理(共享估算器下沉即本问题的修复载体)
 
@@ -66,9 +67,12 @@ Desktop 的 system context + tools schema 通常 20k~40k tokens;分母 200k 时�
 
 TUI 投影 = TUI 轻量 system prompt + 手抄估算器(`context-pressure.ts`,无 microcompact、无 hard 线);Desktop 恢复 TUI 写入的快照后,圆环显示的是「TUI 的下一请求」而非「Desktop 的下一请求」。快照已带 `source: 'desktop' | 'tui'` 字段,但恢复端未按宿主重投影。
 
-### RC6 估算残差(可接受,非主因)
+### RC6 估算残差(不再允许进入权威路径)
 
-CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残差;ADR 52 有意选择本地估算(`lastActualInputTokens` 仅诊断)。此项解释「永远差一点」,不解释「一直不准」。
+CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残差。此前 ADR 52
+有意选择本地估算并把 `lastActualInputTokens` 降为诊断字段；498,138 实测对 53% 显示的
+反例证明该决策错误。ADR 56 已规定：启发式估算不得进入 UI 百分比、压缩触发、请求放行和
+权威快照；无精确证据时显示未知或待计量。
 
 ## 深层根因
 
@@ -104,7 +108,7 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | RC3 seed 混口径 + midturn 只升不降 | ✅ 基本修复 | seed 只剩草稿增量;投影事件路径改用 streamId+revision 序合并(`applyContextProjectionEvent`),`Math.max` 仅剩 legacy done/compaction 兼容路径 |
 | RC4 分母漂移 | ❌ 未动 | 切模型后到下轮 done 前仍用旧窗口;可在切模型时触发 restored 重投影顺带解决 |
 | RC5 跨端同字段不同口径 | ✅ 已修复 | renderer 对 `source ≠ desktop` 快照不再采信,自动触发本宿主重投影;TUI 分子算法已同源 runtime-core |
-| RC6 估算残差 | — | 接受,不修 |
+| RC6 估算残差 | ⛔ 退出权威路径 | ADR 56 已禁止启发式估算参与 UI、压缩、放行和权威快照 |
 
 新增注意:~~runtime-core `hardRatio 0.92` 与 Desktop `CONTEXT_BUDGET_GUARD 0.95` 双 hard 线分叉~~ 已于 2026-07-24 同日收敛(0.92 单值)。另:流式期间圆环不动的问题已解决——双端 stream_preview 叠加已接线(Desktop `streamPreviewTokens` + 稳定投影事件;TUI delta flush 重算),圆环随 delta 增长、工具落库/回合结束时回到稳定投影。
 
@@ -161,3 +165,4 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | 2026-07-24 | 追加 RC7:restored 成分偏低致「打开 4% 发送 18%」假跳变;toProjectionMessages 与发送口径同成分 + system source 补齐 + document/file flat 计回归修复(commit 26b57c4) |
 | 2026-07-24 | 追加 RC8:goal 会话双请求路径(chat 富/tick 瘦)致反向跳变;restored 按活跃 runner 选口径修复 |
 | 2026-07-24 | 追加 RC9:阶段 E 后 TUI 三处显示分子仍原文口径(含 restore 直信旧快照);pressureFor 接共享 micro 投影 + restore 本地重算修复;并记录「同会话同模型」验收前提 |
+| 2026-07-25 | 推翻 RC6“估算残差可接受”：启发式估算退出 UI、压缩、放行和权威快照，当前设计转由 ADR 56 定义 |

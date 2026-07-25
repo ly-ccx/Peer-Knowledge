@@ -1,8 +1,8 @@
 # 压缩路径根治理:单一 Compaction Pipeline 与双端一致性
 
 创建时间:2026-07-24
-最后更新:2026-07-24(同日二次复核:代码仓已落地 Phase 1 主体与 Desktop 入口收敛,见第九节)
-状态:治理方案 / 权威路线(取代各处零散压缩接线的默认做法)
+最后更新:2026-07-25
+状态:核心 provider 发送管线已统一，手动命令与 UI 协议迁移继续
 关联代码仓:`peer_agent`(本地 `/Users/liangyin/Documents/DEV/github/peer_agent`)
 关联文档:
 
@@ -10,10 +10,15 @@
 - `knowledge/architecture/21-auto-context-compaction-run-resume.md` — 压缩与 run 续接协议
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主治理(P1 债务「Compaction 算法双轨无统一接口」的展开)
 - `knowledge/decisions/42-context-display-vs-trigger-accounting.md` — 显示口径与触发口径
-- `knowledge/decisions/52-unified-next-request-context-accounting.md` — 下一请求统一记账
+- `knowledge/decisions/56-provider-observed-context-accounting.md` — provider 实测优先的精确上下文记账（当前权威）
+- `knowledge/decisions/52-unified-next-request-context-accounting.md` — 已被 ADR 56 部分取代的本地估算方案
 - `knowledge/experience/context-occupancy-ring-inaccuracy-root-cause.md` — 右下角占用圆环失准根因(本治理 Phase 1 的直接受益面)
 
 ## 一、一句话结论
+
+> 2026-07-25 口径修订：本文早期阶段把共享启发式 `TokenEstimator` 视为上下文权威来源。
+> 该部分已被 ADR 56 取代。共享 estimator 可以保留给非容量场景，但压缩闸门、上下文圆环、
+> provider request 放行和权威快照只能消费 provider usage 或 provider-aligned exact count。
 
 ```text
 压缩不乱在算法,乱在所有权。
@@ -80,34 +85,36 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
   + CompactionMarker(_compaction 形状)、CompactionEventStage 类型定型
 
 @peer-agent/runtime-core(或独立 @peer-agent/context-compaction)
-  ├─ TokenEstimator          估算常量 + estimateText/Messages/Tools(单一来源)
-  ├─ ContextBudget           soft/hard/reserve/overflow 判定(单一来源)
-  ├─ microcompact            Layer 1 工具结果瘦身(host 无关)
-  ├─ split                   splitMessagesForCompaction(已存在)
-  ├─ summary cascade         runCompactionSummaryCascade(已存在)
-  ├─ CompactionStrategy      接口:LlmSummaryStrategy / StructuralStrategy
-  ├─ classifyPromptTooLong   PTL 错误分类 + 重试策略(纯逻辑)
-  └─ CompactionPlan          纯数据输出:做什么、留什么、为何
+  └─ ContextAccountingCompactionPipeline
+      ├─ BUILD canonical request
+      ├─ COUNT provider usage / provider-aligned exact count
+      ├─ DECIDE input budget / compaction threshold
+      ├─ COMPACT + REBUILD + RECOUNT
+      ├─ SEND fingerprint gate
+      ├─ OBSERVE / VERIFY
+      ├─ RECOVER prompt-too-long
+      ├─ microcompact / split / summary cascade(内部原语)
+      └─ CompactionStrategy:LlmSummaryStrategy / StructuralStrategy
 
 宿主适配层(薄)
-  Desktop coordinator:model port(provider fetch)+ IPC 事件 + registry + 持久化调用
-  TUI controller:model port(provider-chat-model)+ snapshot 状态 + 持久化调用
+  Desktop:ProviderRequestAdapter + IPC/持久化 HostEffectsAdapter
+  TUI:ProviderRequestAdapter + snapshot/持久化 HostEffectsAdapter
 
 入口闸门(唯一)
-  Agent loop kernel / RuntimePipeline 的每次 provider request 前:
-    CompactionGate.preflight()
-  provider 返回 PTL 时:
-    CompactionGate.emergency()(kernel 统一,loop 不再各自实现)
+  普通发送 / tool loop / Goal tick / manual / auto / emergency
+    -> ContextAccountingCompactionPipeline.execute(command)
 ```
 
 ### 4.2 不变式(在 17/21 号文档基础上新增)
 
 1. **单闸门**:任何 provider request 只能经 CompactionGate 发出;新增 wire/loop 无需(也不允许)自行接压缩。
-2. **单口径**:估算常量、预算线、microcompact 规则只有共享包一份;宿主不得复制数值。
+2. **单真值**:provider usage 与 provider-aligned exact count 是容量真值;启发式 estimator 不得参与 UI、压缩、放行或权威快照。
 3. **单形状**:`_compaction` marker 与压缩后会话形状由 protocol 类型约束;两端持久化必须产出同一形状,任一端可恢复另一端压缩过的会话。
 4. **手动语义一致**:`/compact` 在两端等价(默认真·全量 + `preserveLatestUserTurn=false`);如需宿主差异,必须落 ADR。
 5. **emergency 双端等价**:PTL 分类、force 压缩、重试上限(1 次)两端一致;TUI 不得因"终端场景少"而豁免。
 6. **状态不出全局**:circuit breaker 等失败状态按 conversationId 隔离,不得使用 module 级可变量。
+7. **共享原语不算统一**:Desktop 与 CLI/TUI 不得分别编排 preflight、压缩、重计数、发送和 PTL recovery。
+8. **策略可替换、状态机不可替换**:摘要实现可通过 `CompactionStrategy` 注入，但切分合同、epoch、重计数、重试和终态必须一致。
 
 ## 五、落地路线
 
@@ -138,22 +145,36 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 2. handoff 形状统一:压缩后 provider 请求形态(handoff user message vs system continuity)二选一定型,另一端迁移;当前倾向 **system continuity + `_compaction` marker 落库**(与 Goal Runner 读取口径一致),需在实施 PR 中以对照实验确认后写入 ADR。
 3. 双端契约测试:同一份会话 fixture,两端压缩 → 持久化形状 diff 必须为空;两端互相恢复对方压缩的会话必须可继续。
 
+### Phase 4 — 端到端管线收敛（ADR 56）
+
+1. 在 runtime-core 建立 `ContextAccountingCompactionPipeline`，完整拥有
+   BUILD → COUNT → DECIDE → COMPACT → REBUILD → RECOUNT → SEND → OBSERVE/RECOVER。
+2. Desktop 的 `provider-request-coordinator`、`compaction-coordinator` 和 provider loops
+   改为 adapters，删除宿主侧状态机编排。
+3. CLI/TUI 删除 `provider-chat-model.compactModelMessagesMidTurn` 和 controller 私有压缩流程；
+   `/compact`、自动 preflight 与 emergency 都提交给共享 pipeline。
+4. `context-pressure` 退化为 snapshot formatter，不再计算或决定容量。
+5. 原有共享 estimator 退出容量链路；精确记账按 ADR 56 的 provider usage /
+   provider-aligned exact count 和 fingerprint 合同实现。
+6. 用跨宿主契约测试证明同 fixture 的 count、decision、epoch、marker、retry 终态一致。
+
 ## 六、验收标准
 
-1. 全仓 `runCompactionCheck` / 压缩入口调用点 ≤ 2(kernel preflight + kernel emergency);loop 与 main.mjs 无直接压缩调用。
-2. 估算常量在仓内只出现一份(grep `cjkCharsPerToken` 只命中共享包)。
+1. 所有 provider send 只能由 `ContextAccountingCompactionPipeline` 放行；宿主和 provider loop 无直接发送旁路。
+2. `decideContextCompaction`、`splitMessagesForCompaction`、summary cascade 和 PTL retry 在 pipeline 外的生产调用点为 0。
 3. qoder loop 与 TUI 均具备 preflight + emergency,测试覆盖 PTL 重试。
 4. `/compact` 在 Desktop 与 TUI 对同一 fixture 产生相同的持久化形状与保留窗口。
 5. TUI 压缩后的会话可被 Desktop 打开并继续,反之亦然(契约测试固化)。
-6. 22 号文档 P1 债务「Compaction 算法双轨无统一接口」可标记为已清偿。
+6. 22 号文档 P1 债务只有在 Desktop 与 CLI/TUI 不再拥有私有压缩状态机后才可标记为已清偿。
 
 ## 七、评审问题单(压缩相关变更必答)
 
 1. 该变更是否新增了第二个压缩入口?(只允许 kernel 闸门)
-2. 是否复制了任何估算常量或预算线到宿主层?
+2. 是否让任何启发式估算重新进入 UI、压缩、放行或权威快照?
 3. 压缩后的会话形状是否仍满足 protocol 定型,两端可互相恢复?
 4. 新增 provider loop / wire 是否自动获得 preflight + emergency(而非手工接线)?
 5. 手动 / 自动 / 紧急三种触发在两端语义是否仍一致?
+6. 该变更是否让宿主直接编排了 pipeline 内部原语?(生产宿主调用必须为 0)
 
 ## 八、落地进度复核(2026-07-24 二次代码核实)
 
@@ -198,7 +219,7 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 4. **circuit breaker 按会话隔离**(不变式 6):module 级计数改为 per-scope Map(conversationId 优先,回退 streamId);`resetCircuitBreaker(scope?)` 兼容无参清空。
 5. **TUI 僵尸切分已删**:`compactModelMessagesStructurally` 与 `StructuralCompactResult` 移除,`context-compact.ts` 只剩结构化摘要与 handoff 文本生成;切分唯一来源 runtime-core。
 
-### 8.5 五次复核追记(2026-07-24 同日落地,台账主体清零)
+### 8.5 五次复核追记(2026-07-24 同日落地,当时判定“台账主体清零”)
 
 以下已实现并验证(Desktop main 251 / renderer 304 / TUI 484 测试全绿,desktop/tui/runtime-core/protocol tsc 全过),分两次 commit 落在 `PeerAgent/fix-context-zero-on-send` 分支:
 
@@ -219,19 +240,68 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 
 待后续:~~Desktop context-compactor 内 legacy microcompact 死代码块删除;artifact 体积上限/LRU;e2e「模型用 rg 从 artifact 找回中段」验收~~ 均已于同日收尾(见 8.6.1)。
 
-#### 8.6.1 阶段 E 收尾(2026-07-24,台账清零)
+#### 8.6.1 阶段 E 收尾(2026-07-24,原语下沉台账清零)
 
 1. legacy microcompact 死代码块(~410 行)已从 context-compactor 删除,runtime-core 成为唯一实现。
 2. artifact 体积治理:单会话预算 256MB,每次写后按 mtime LRU 逐出最旧文件(新写入文件不会被误逐);治理失败不阻断材料化。
 3. 检索回路 e2e:测试验证「预览确实看不到中段 + 沿 suggestedRetrieval 用真实 shell 工具(grep/tail)能找回中段」——回来的路是可执行的事实,不是注释。
 
-至此 23 号治理台账主线全部清零;剩余低优先级项见 8.7。
+至此共享原语、marker 和 Layer 0/1 下沉台账清零；但 2026-07-25 复核确认 Desktop 与
+CLI/TUI 仍分别编排端到端压缩状态机，主线不能宣告全部完成，见 8.8。
 
 ### 8.7 下一批优先级
 
-1. 切模型时触发 restored 重投影,消除圆环 RC4 分母残留期。
-2. TUI 回合间静态投影补计 continuity system block。
-3. TUI 中途压缩 marker 的 turn 内即时持久化(对齐不变式 6)。
+1. 按 ADR 56 收敛 `ContextAccountingCompactionPipeline`，删除 Desktop/CLI 双编排。
+2. 切模型时触发 restored 重投影,消除圆环 RC4 分母残留期。
+3. TUI 回合间静态投影补计 continuity system block。
+4. TUI 中途压缩 marker 的 turn 内即时持久化(对齐不变式 6)。
+
+### 8.8 七次复核追记（2026-07-25，端到端统一缺口）
+
+对当前 `peer_agent` 代码重新核实后，结论是“共享原语”已经完成，但“共享管线”尚未完成：
+
+| 层 | 当前事实 | 判定 |
+|---|---|---|
+| 统计常量与阈值 | Desktop 与 TUI 都调用 `runtime-core/context-projection.ts` | 已共享，但仍是 ADR 52 的启发式估算，ADR 56 尚未落地 |
+| Provider usage | 两端都能取得 usage | 仍只作诊断，未成为 UI 与压缩权威值 |
+| microcompact / split / summary cascade | 位于 runtime-core | 共享原语已完成 |
+| Desktop 编排 | `provider-request-coordinator` + `compaction-coordinator` + `context-compactor` | Desktop 私有状态机仍存在 |
+| CLI/TUI 编排 | `chat-controller` + `provider-chat-model.compactModelMessagesMidTurn` | CLI/TUI 私有状态机仍存在 |
+| PTL classifier | runtime-core 单源 | 共享，但尚未覆盖 Grok `maximum prompt length ... request contains ...` 文案 |
+
+因此当前不能表述为“Desktop 与 CLI 共用一套计算和压缩逻辑”。准确表述是：
+
+```text
+共享了一套旧估算内核和大部分压缩原语，
+但 Desktop 与 CLI/TUI 仍有两条端到端编排管线。
+```
+
+完成标准以 ADR 56 为准：宿主不再直接调用判定、切分、摘要和 PTL retry 原语；所有发送
+经同一个 `ContextAccountingCompactionPipeline` 的 fingerprint gate 放行。
+
+### 8.9 八次复核追记（2026-07-25，Phase 4 核心发送链路落地）
+
+本轮完成了七次复核指出的核心缺口：
+
+| 层 | 落地事实 | 判定 |
+|---|---|---|
+| 共享状态机 | 新增 `runtime-core/context-accounting-pipeline.ts`，统一 build/count-or-observe/decide/compact/rebuild/send/overflow retry | 核心已落地 |
+| Desktop 编排 | OpenAI/Anthropic/Gemini/Qoder 全部改走 `executeDesktopProviderRequest`；loop 私有 recovery 删除 | provider 发送链路已统一 |
+| CLI/TUI 编排 | `provider-chat-model.runTurn` 改走同一 pipeline；私有 mid-turn compactor 与 PTL catch 删除 | provider 发送链路已统一 |
+| 压缩策略 | 新增 `compactMessagesWithSummaryStrategy`；TUI turn 内与 `/compact` 均复用 | 策略边界已共享 |
+| 实测真值 | 上一轮 usage 显式进入下一轮；498K 可触发预压缩，显示不再被低估算覆盖 | 已修复已知故障 |
+| PTL 证据 | Grok maximum-prompt 文案可解析 requested/max；同请求仅重试一次 | 已落地 |
+| 手动入口 | Desktop/TUI 仍由各宿主命令入口调用共享 strategy/coordinator | 尚未完全 command 化 |
+| 未计量 UI | 取得 usage 后精确；无 usage / exact counter 时仍有兼容 projection | 尚待改“待计量” |
+
+因此当前准确结论更新为：
+
+```text
+Desktop 与 CLI/TUI 的普通 provider 发送、自动压缩和 PTL 恢复，
+已由同一个 ContextAccountingCompactionPipeline 编排；
+手动 compact command、无实测 UI 和 provider exact-count adapter
+仍是 Phase 4 的剩余工作。
+```
 
 ## 九、修订记录
 
@@ -245,3 +315,6 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 | 2026-07-24 | 五次复核:台账主体清零——`_compaction` 进 protocol(两端同一 buildCompactionMarker)、PTL 分类下沉 runtime-core、TUI 中途 preflight/emergency + 手动全量语义对齐、restored 重投影 + 跨宿主 source 守卫(六阶段全部接线) |
 | 2026-07-24 | 六次复核(阶段 E):证据引用化替代有损截断——Layer 0 通用材料化(artifact + local_tool_result_ref)双端同源、microcompact 下沉 runtime-core、TUI 发送切片接入 Layer 1、artifact 随会话级联清理 |
 | 2026-07-24 | 阶段 E 收尾:legacy 死代码块删除(~410 行)、artifact 256MB/LRU 体积治理、检索回路 e2e 验收——台账主线清零 |
+| 2026-07-25 | 上下文真值改由 ADR 56 定义：provider usage / provider-aligned exact count 取代启发式 estimator 的权威地位 |
+| 2026-07-25 | 七次代码复核：纠正“台账主线清零”结论；共享原语不等于共享管线，Desktop/CLI 双编排列为 Phase 4 首要债务 |
+| 2026-07-25 | 八次代码复核：共享 ContextAccountingCompactionPipeline 落地；四条 Desktop loop 与 CLI/TUI provider loop 统一，498K usage 与 Grok PTL 回归通过；手动 command、未计量 UI、exact-count adapter 留作 Phase 4 收尾 |

@@ -1,10 +1,14 @@
 # ADR 52：统一下一次请求上下文统计
 
 创建时间: 2026-07-23
-最后更新: 2026-07-23
-状态: Accepted
+最后更新: 2026-07-25
+状态: Superseded in part by ADR 56
 关联代码仓: `peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）
 取代: ADR 42 中“显示口径与压缩触发口径分离”的决策
+
+> 2026-07-25 修订说明：本文关于“本地估算是权威当前值、provider usage 只用于诊断”的决策已被
+> `56-provider-observed-context-accounting.md` 取代。最终请求投影 seam、跨端 `_compaction`
+> 分界、单 Runtime 入口和 revision 防乱序仍然有效。阅读和实施时以 ADR 56 的精确证据链为准。
 
 ## Context
 
@@ -59,6 +63,8 @@ nextRequestInputTokens
 不得再以 `contextTokens` 与 `triggerTokens` 表示两套并列的当前上下文。`triggerTokens`、`authoritativeTriggerTokens` 及只为双口径服务的投影字段应在迁移后移除。
 
 ### 3. 估算、实测与计费分离
+
+> 本节已被 ADR 56 取代，仅保留用于解释历史实现。
 
 发送前无法获得 provider 对未来请求的精确 usage，因此 `nextRequestInputTokens` 是对最终请求载荷的确定性本地估算。它是产品和压缩判断的权威当前值。
 
@@ -154,7 +160,7 @@ Renderer 会话状态只保存 Runtime 投影。草稿尚未进入 Runtime 时�
 2. 新增且会进入下一请求的 assistant/tool/Goal 内容会提高 `nextRequestInputTokens`。
 3. 裁剪、microcompaction 或语义压缩删除的内容不再计入下一请求。
 4. 压缩完成后先重投影，再更新 UI 和决定是否发送。
-5. 上一请求 usage 与 lifetime `totalTokens` 不得把当前投影钉在历史高水位。
+5. `[已被 ADR 56 取代]` 上一请求 usage 与 lifetime `totalTokens` 不得把当前投影钉在历史高水位。
 6. 普通对话、工具循环和 Goal Runner 使用同一计算入口。
 7. 过期 stream/tick 的快照不得覆盖较新的会话投影。
 8. 若压缩后的最终投影仍超过 hard limit，必须在 provider 调用前阻止发送并返回结构化失败。

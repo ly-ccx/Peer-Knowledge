@@ -1,7 +1,7 @@
 # 自动上下文压缩与 Agent Run 续接技术方案
 
 创建时间：2026-07-04
-最后更新：2026-07-04
+最后更新：2026-07-25
 状态：技术方案 / Phase 1、Phase 2 核心语义已在 `peer_agent` 落地
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 关联文档：
@@ -11,6 +11,7 @@
 - `knowledge/decisions/22-stream-reattach-on-reload.md`
 - `knowledge/decisions/26-agent-loop-termination.md`
 - `knowledge/decisions/42-context-display-vs-trigger-accounting.md`
+- `knowledge/decisions/56-provider-observed-context-accounting.md` — 当前上下文真值、精确计数与 overflow 恢复
 - `knowledge/decisions/43-conversation-runtime-state-bucketing.md`
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主压缩持久化共享与算法分叉治理
 - `knowledge/architecture/23-compaction-path-root-governance.md` — 压缩路径根治理(入口收敛、口径下沉、CLI 一致性)
