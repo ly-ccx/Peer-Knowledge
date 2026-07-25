@@ -6,6 +6,10 @@
 
 本文定义 Peer Agent 后续的系统提示词体系。这里故意不把问题理解成“把一段更好的 system prompt 写长一点”，而是把它升级为一套可组合、可追踪、可测试、可演进的 `System Context` 组装机制。
 
+自 ADR 55 起，Desktop 与 TUI 必须消费同一个 `@peer-agent/system-context`
+Assembler 和默认 Source registry；宿主只注入 workspace、provider、Goal、MCP、
+continuity 等事实，不再维护独立基础 prompt 或在 provider adapter 内旁路追加 mode prompt。
+
 核心判断：
 
 ```text

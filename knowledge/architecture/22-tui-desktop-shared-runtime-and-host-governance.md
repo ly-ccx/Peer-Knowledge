@@ -1,7 +1,7 @@
 # TUI 与 Desktop 共享运行时与宿主治理
 
 创建时间：2026-07-23  
-最后更新：2026-07-23  
+最后更新：2026-07-25
 状态：架构总览 / 长期治理基线  
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 
@@ -404,7 +404,7 @@ Desktop 注入宿主 source      TUI 注入宿主 source
 | P0 | Provider wire 分叉 | 同配置两端行为不一致 | wire 下沉 packages；TUI 不再盲目 OpenAI-compatible |
 | P0 | TUI **源码**静态依赖 Desktop Main | 包边界崩溃、**发布物与源码树耦合**（注意：不等于运行时依赖 App） | goal/skill/mcp/data-store 迁出 shared package；`peer` 构建不再 import `apps/desktop/**` |
 | P0 | 任何使 CLI 必须先装 Desktop 的设计 | 破坏 npm 独立安装硬约束 | 评审直接否决；CLI 路径必须可无 GUI 闭环 |
-| P1 | Prompt assembler 仅 Desktop 完整 | 安全/身份指令漂移 | assembler + sources 下沉，宿主只注入环境 source |
+| 已完成（ADR 55） | Prompt assembler 曾仅 Desktop 完整 | 安全/身份指令漂移 | `@peer-agent/system-context` 已承载 assembler + 完整默认 sources，宿主只注入事实 Adapter |
 | P1 | Compaction 算法双轨无统一接口 | resume/占用口径回归 | Strategy 接口 + 共享 persistence;路线细化见 `23-compaction-path-root-governance.md` |
 | P2 | 工具集合与接线仍有历史缺口 | 假能力 / 不可调用 | 以 parity 矩阵持续契约测试 |
 | P2 | Goal worker 接线成熟度不均 | Goal 在 TUI 半失效 | 共用 runner + 对称 worker port |
