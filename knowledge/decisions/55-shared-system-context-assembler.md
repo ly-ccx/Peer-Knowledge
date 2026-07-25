@@ -5,6 +5,11 @@
 状态：Accepted / Implemented
 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
+> 2026-07-25 补充：本 ADR 只统一 System Context。持久化历史到 active provider
+> history 的唯一解释由 ADR 57 `57-canonical-conversation-history-projector.md`
+> 继续治理；两者共同构成完整 Request Projection，不能以共享 System Context
+> 代替共享 History Projector。
+
 ## 关联文档
 
 - `knowledge/architecture/19-system-prompt-context-architecture.md`
