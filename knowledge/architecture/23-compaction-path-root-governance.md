@@ -316,8 +316,19 @@ Desktop 与 CLI/TUI 的普通 provider 发送、自动压缩和 PTL 恢复，
 
 压缩横幅只保留 lifecycle/progress/summary diagnostics，不再携带第二套 token/window 容量
 字段。OpenAI-compatible、ChatGPT OAuth、Qoder 等没有可靠 exact-count API 的渠道明确为
-`observed_usage_only`：恢复时显示 unknown，流式期间保持最后一次权威百分比且不附加
-自定义符号，provider usage 到达后再更新百分比。
+`observed_usage_only`：恢复时优先读取持久化 snapshot，其次读取 assistant usage 和请求级
+usage 日志中的最后一次 provider 实测基线；只有完全没有 provider 证据时才显示 unknown。
+任何 `pressureSource=unknown` 快照都必须继续触发恢复，不能因为 identity 已迁移或
+`phase=restored` 就被误判为可展示状态。
+全新空草稿显示 `0%`，已有历史但无证据仍显示 unknown；两者不能共用一个 fallback。
+跨进程 snapshot 采用 index 兼容镜像 + 原子 sidecar，防止旧 Desktop/TUI 全量重写 index
+时删除新版本容量状态；sidecar 只有在 contentRevision/modelKey 当前时才可读取。
+流式期间保持最后一次权威百分比且不附加自定义符号，provider usage 到达后再更新百分比。
+
+终态持久化遵循单写不变式：主进程在路由 `done` 前依次完成 assistant 正文/segments/usage
+与匹配 `contentRevision` 的 `contextSnapshot` 写入；renderer 不得在 `done` 后再次执行
+`replaceMessages`。跨端模型身份固定为 canonical `providerId::modelId`，宿主绑定字段的
+旧格式迁移不能被误判为模型切换。
 
 验证结果：
 
@@ -345,3 +356,6 @@ canonical count/send fixture 和 overflow fixture；否则只能作为 observed-
 | 2026-07-25 | 八次代码复核：共享 ContextAccountingCompactionPipeline 落地；四条 Desktop loop 与 CLI/TUI provider loop 统一，498K usage 与 Grok PTL 回归通过；手动 command、未计量 UI、exact-count adapter 留作 Phase 4 收尾 |
 | 2026-07-26 | 九次代码复核：修复 TUI `provider usage + stream_preview` 被旧 usage 锁死；TUI 正文 preview 接入共享 ContextProjectionLifecycle；Runtime Pipeline 新增 toolResultsApplied lifecycle Seam，Desktop 四个 provider Adapter 与 TUI Adapter 统一在 model state 提交后发布 tool_result；AccountingSnapshot 协议、restored 未计量语义、manual command 与 exact-count adapter 仍待收口 |
 | 2026-07-26 | 十次代码复核：ContextAccountingSnapshot 成为唯一容量状态；旧 IPC/字段/宿主 estimator 删除；restore/model switch/manual/auto/emergency 统一；Anthropic/Gemini exact count、跨宿主 fixture、2% 漂移降级与 UI 告警落地；Phase 4 收口 |
+| 2026-07-26 | 十一次复核：修复 Desktop `done → renderer replaceMessages` 清空快照；observed-only 从 assistant/request usage 恢复 provider 实测基线；Desktop/TUI 统一 canonical `providerId::modelId` |
+| 2026-07-26 | 十二次复核：修复旧 unknown 快照完成 identity 迁移后被 renderer 误判为可用；unknown 统一成为强制恢复条件 |
+| 2026-07-26 | 十三次复核：新空草稿双端统一显示 0%；共享 context snapshot 增加原子 sidecar，隔离旧 TUI/旧 Desktop 对 index 的降级覆盖 |

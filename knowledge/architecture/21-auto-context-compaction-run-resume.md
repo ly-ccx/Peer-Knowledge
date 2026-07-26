@@ -718,7 +718,16 @@ provider 正在 streaming、工具正在执行但结果尚未稳定写入、hand
 先使旧快照失效，再基于当前 active model history 计量。会话恢复使用 `count_only/restored`，
 不能从完整 UI timeline 反推 provider history；最后一个 `_compaction` handoff 仍是唯一
 active history 分界。模型切换先发布 `model_changed/unknown`，再按新模型重计量。
-observed-only 渠道没有新 provider 证据时保持 unknown，不渲染 0% 或伪百分比。
+observed-only 渠道恢复时按顺序读取共享 `contextSnapshot`、最后一条 assistant 的 provider
+usage、请求级 usage 日志；命中后恢复最后一次实测基线并保持
+`pendingUncountedChanges=true`，只有三者都没有 provider 证据时才保持 unknown。
+`pressureSource=unknown` 本身就是强制恢复条件；即使旧快照已完成 modelKey 迁移且
+`phase=restored`，宿主也不得把它当成可用快照而跳过证据回填。
+全新草稿没有持久化会话历史，双端明确显示 `0%`；该 UI 空态不产生 provider-backed
+snapshot，不能与“已有历史但证据尚未恢复”的 unknown 混为一谈。
+共享 snapshot 另写原子 sidecar；旧版宿主若因不认识新字段而重写 index，只能清掉
+兼容镜像，不能清掉容量真值。sidecar 仍必须通过 contentRevision/modelKey 校验。
+恢复值不代表下一请求的精确计数，但仍是 provider 实测基线，不得用本地估算替代。
 
 ### 13.4 落地状态（2026-07-26 代码复核）
 
@@ -729,6 +738,11 @@ observed-only 渠道没有新 provider 证据时保持 unknown，不渲染 0% �
   command/lifecycle 架构。
 - 已落地：Anthropic/Gemini API-key exact count、observed-only 明示降级、跨宿主
   canonical request fixture、2% counted/observed 漂移监控及 UI 告警。
+- 已落地：正常终态由主进程单写 assistant message、usage 与 `contextSnapshot`；renderer
+  收到 `done` 后只更新表达状态，不再 `replaceMessages` 清空刚写入的快照。
+- 已落地：Desktop/TUI 的上下文模型身份统一为 canonical
+  `providerId::modelId`；旧 TUI 复合 provider binding 迁移为 Desktop 原始 provider id
+  时，若 canonical identity 未变化，不使快照失效。
 - 语义约束：stream/tool 过程中百分比不凭空增长，也不附加自定义符号；下一次
   preflight exact count 或 provider usage 到达后，数字才前进。
 - 架构守卫：禁止 `chat:context:projection`、`nextRequestInputTokens`、

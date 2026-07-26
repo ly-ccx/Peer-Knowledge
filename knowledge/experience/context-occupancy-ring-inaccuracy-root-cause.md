@@ -1,7 +1,7 @@
 # 右下角上下文占用圆环失准根因分析
 
 创建时间:2026-07-24
-最后更新:2026-07-25
+最后更新:2026-07-26
 状态:旧估算链根因已钉死 / 权威记账方案改由 ADR 56 定义
 关联代码仓:`peer_agent`(本地 `/Users/liangyin/Documents/DEV/github/peer_agent`)
 关联文档:
@@ -54,6 +54,12 @@ Desktop 的 system context + tools schema 通常 20k~40k tokens;分母 200k 时�
 ### RC2 快照失效面 ≫ 写回面,经常跌回 RC1
 
 `packages/conversation-store/src/index.mjs` 中 append / replaceMessages / patchMessage / updateLastMessage / 切模型 **5 处**均 `contextSnapshot = null`;写回点仅一个(正常 done 且投影 > 0)。abort、stream error、Goal handoff 强制收尾(`llm-chat-service.mjs` 1208 行注释自证曾有「contextSnapshot 永久 null」竞态)、进程退出后,会话重开即无权威值。
+
+> 2026-07-26 修复：确认正常 `done` 的主进程先写快照后，renderer 又执行
+> `replaceMessages`，使快照稳定回到 null。现已改为主进程终态单写，并把 request usage
+> 同步写入 assistant message；历史缺失 message usage 的会话从请求级 usage 日志恢复最后
+> 一次 provider 实测基线。Desktop/TUI 的 `modelKey` 同时统一为
+> `providerId::modelId`，避免宿主绑定格式迁移再次误删快照。
 
 ### RC3 发送 seed 混口径 + midturn 只升不降
 
@@ -154,6 +160,34 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 
 教训:口径迁移必须数尽**所有分子产生点**再验收——漏一个显示路径,旧口径就会从持久化快照里「转世回来」;另外跨端对照验收的实验设计要先固定变量(同会话、同模型、两端均为新构建)。
 
+## RC10(2026-07-26 追加):unknown 快照 identity 迁移后阻断恢复
+
+现象:旧会话已有最后一次 provider usage,但 Desktop 重启后仍显示 `?`。
+
+根因:store 读取旧快照时把 legacy modelKey 迁成 canonical `providerId::modelId`,renderer
+因此判定 identity 匹配；恢复守卫又只把 `model_changed/unknown` 视为失效,导致
+`restored/unknown` 被误判为可用快照,没有调用 request usage 回填。
+
+修复:`pressureSource=unknown` 无条件触发恢复,与 phase 和 identity 迁移状态无关；架构守卫
+与回归测试固定“canonical identity + restored unknown 仍须恢复”。
+
+教训:身份有效只说明快照属于当前会话和模型,不说明快照内已有容量证据。identity validity
+与 evidence availability 必须分别判定。
+
+## RC11(2026-07-26 追加):旧 TUI 跨进程回写清空新 snapshot
+
+现象:Desktop 已从 request usage 恢复并显示 29%,紧接着 index 中的 snapshot 又变成 null。
+
+根因:仍在运行的旧 TUI 收到共享存储变更后执行 metadata 写入；旧版 store 不认识 canonical
+snapshot,读取时先归一化成 null,再全量重写 index。Desktop UI 当轮仍有 29%,但切换或重启后
+容量真值丢失。
+
+修复:context snapshot 增加独立原子 sidecar；index 字段只作为旧版兼容镜像。新宿主读取时优先
+取通过 contentRevision/modelKey 校验的 sidecar。旧进程可以覆盖 index,但无法删除它不认识的
+sidecar；真正的消息或模型变化仍会使 sidecar 校验失败。
+
+同时明确空态:全新草稿显示 0%,历史会话无 provider 证据才显示 `?`。
+
 ## 修订记录
 
 | 日期 | 变更 |
@@ -168,3 +202,5 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | 2026-07-25 | 推翻 RC6“估算残差可接受”：启发式估算退出 UI、压缩、放行和权威快照，当前设计转由 ADR 56 定义 |
 | 2026-07-25 | 追加跨端 pure-thinking 百分比分析：见 `cli-desktop-context-percent-mismatch-during-thinking.md`；**已纠正**：两端 thinking/reasoning 均不计 preview，主因是宿主本地权威基线差异 + pure-thinking 冻结 |
 | 2026-07-26 | 上述跨端基线分叉已由唯一 `ContextAccountingSnapshot` 与共享 lifecycle/pipeline 解决；未计量变化不再向百分比附加自定义符号，也不恢复宿主本地估算 |
+| 2026-07-26 | 追加 RC10：修复 `restored/unknown` 在 legacy modelKey 迁移后绕过恢复；unknown 统一成为强制恢复条件 |
+| 2026-07-26 | 追加 RC11：旧 TUI 全量重写 index 清空新 snapshot；增加原子 sidecar，并区分空草稿 0% 与历史 unknown |

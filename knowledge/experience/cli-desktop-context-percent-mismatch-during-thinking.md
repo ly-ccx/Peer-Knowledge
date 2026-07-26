@@ -229,8 +229,15 @@ Desktop 权威投影来自 Desktop Runtime / main process 的完整 canonical re
   `ContextAccountingLifecycle`；
 - `ContextAccountingSnapshot` 是唯一跨宿主容量状态；
 - restore 使用 `count_only/restored`，model switch 使用 `model_changed/unknown`；
+- 任意 `pressureSource=unknown` 都会继续触发恢复，不会因 modelKey 已迁移或
+  `phase=restored` 而被误判为可用；
+- 全新空草稿双端显示 `0%`；已有历史但尚无 provider 证据时才显示 `?`；
+- context snapshot 通过原子 sidecar 抵抗旧版 Desktop/TUI 对共享 index 的降级覆盖；
 - Anthropic/Gemini API-key 可在发送前 exact count，其余渠道显式为
-  `observed_usage_only`；
+  `observed_usage_only`；后者恢复时从共享 snapshot、assistant usage、请求级 usage 日志
+  依次读取最后一次 provider 实测基线，只有完全无证据时才显示 unknown；
+- 正常 `done` 由主进程单写消息、usage 与 snapshot，renderer 不再终态全量替换消息；
+- Desktop/TUI 的 `modelKey` 统一为 canonical `providerId::modelId`；
 - stream/tool 阶段只在 Runtime 内标记 `pendingUncountedChanges`，双端百分比不变且不附加
   自定义符号，不伪造动态 token；
 - counted/observed 漂移超过 2% 时降级到 provider usage，并以 `!` 告警；

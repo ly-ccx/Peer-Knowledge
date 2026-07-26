@@ -65,7 +65,8 @@ nextCountedInputTokens
 
 - `requestFingerprint`：绑定具体 canonical request；
 - `contentRevision`：绑定会话内容版本；
-- `modelKey`：绑定 provider、model 和 tokenizer/version；
+- `modelKey`：以 canonical `providerId::modelId` 绑定 provider 与 model；tokenizer/version
+  由 `countCapability` 独立表达；
 - `source`：只能是 `provider_usage`、`provider_count_api` 或 `provider_tokenizer`；
 - `observedAt` 或 `countedAt`。
 
@@ -562,12 +563,22 @@ Desktop `stream_preview` 仍由 renderer 本地叠加。
    `model_changed/unknown`，手动压缩使用 `manual_compact` 且禁止发送。
 5. Anthropic Messages API-key 与 Gemini API-key 接入 provider exact-count adapter；
    ChatGPT OAuth、OpenAI-compatible、Qoder 等没有可靠 count API 的渠道显式声明
-   `observed_usage_only`，恢复时没有 provider 证据就显示未知。
+   `observed_usage_only`。恢复时先读共享 snapshot，再读 assistant usage 与请求级 usage
+   日志中的最后一次 provider 实测；命中后恢复该基线并标记 pending，只有没有任何
+   provider 证据时才显示未知。任何 `pressureSource=unknown` 快照都必须继续触发恢复；
+   identity 迁移或 `phase=restored` 不能把 unknown 升格成可用证据。
+   全新空草稿是独立 UI 状态，显示 `0%`，但不伪造 provider-backed snapshot。
+   跨宿主持久化同时保留 index 兼容镜像与原子 sidecar；读取 sidecar 仍必须校验
+   contentRevision/modelKey，从而既抵抗旧版进程降级覆盖，又不复活真正失效的数值。
 6. exact count 与 send 共享 canonical request；跨宿主 fixture 固化 system、history、
    tools、effort/reasoning、cache 与 max-output 字段。counted/observed 漂移超过 2%
    时 `counterStatus=degraded`，两端以 `!` 告警并降级采用 provider usage。
 7. 压缩横幅 IPC 只表达 lifecycle 和 compactor diagnostics，不再携带可被误当作容量
    真值的 token/window 字段；架构守卫阻止旧字段、旧 IPC 和 renderer estimator 回归。
+8. 正常终态持久化由主进程单写：assistant message、request usage 与
+   `ContextAccountingSnapshot` 在 `done` 路由前完成；renderer 终态不得再全量替换消息。
+   上下文 `modelKey` 统一为 canonical `providerId::modelId`，Desktop 原始 provider
+   binding 与旧 TUI 复合 binding 必须归一到同一身份。
 
 最终验证：
 
