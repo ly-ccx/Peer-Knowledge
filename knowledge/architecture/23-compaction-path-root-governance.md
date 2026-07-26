@@ -316,8 +316,8 @@ Desktop 与 CLI/TUI 的普通 provider 发送、自动压缩和 PTL 恢复，
 
 压缩横幅只保留 lifecycle/progress/summary diagnostics，不再携带第二套 token/window 容量
 字段。OpenAI-compatible、ChatGPT OAuth、Qoder 等没有可靠 exact-count API 的渠道明确为
-`observed_usage_only`：恢复时显示 unknown，流式变化显示 `+`，provider usage 到达后更新
-百分比。
+`observed_usage_only`：恢复时显示 unknown，流式期间保持最后一次权威百分比且不附加
+自定义符号，provider usage 到达后再更新百分比。
 
 验证结果：
 

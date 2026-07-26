@@ -13,8 +13,8 @@
 > 2026-07-26 更新：本文记录的是统一架构落地前的根因。当前生产代码已经删除
 > Desktop renderer 的 `streamPreviewTokens/authoritativeContext`、TUI 私有 pressure
 > projection 和跨宿主 source 守卫，改由 `ContextAccountingSnapshot` 贯穿 Runtime、
-> 持久化与双端展示。流式 reasoning/正文尚未被 provider 计量时统一显示权威基线加 `+`，
-> 不再由两端字符估算器各自产生百分比。
+> 持久化与双端展示。流式 reasoning/正文尚未被 provider 计量时保持最后一次权威百分比，
+> 不附加自定义符号，也不再由两端字符估算器各自产生百分比。
 
 ## 现象
 
@@ -231,7 +231,8 @@ Desktop 权威投影来自 Desktop Runtime / main process 的完整 canonical re
 - restore 使用 `count_only/restored`，model switch 使用 `model_changed/unknown`；
 - Anthropic/Gemini API-key 可在发送前 exact count，其余渠道显式为
   `observed_usage_only`；
-- stream/tool 阶段只标记 `pendingUncountedChanges`，双端显示 `+`，不伪造动态 token；
+- stream/tool 阶段只在 Runtime 内标记 `pendingUncountedChanges`，双端百分比不变且不附加
+  自定义符号，不伪造动态 token；
 - counted/observed 漂移超过 2% 时降级到 provider usage，并以 `!` 告警；
 - 旧 `chat:context:projection`、`nextRequestInputTokens`、renderer estimator 和 TUI
   `context-pressure` 已删除，并由架构守卫防回归。
@@ -246,4 +247,4 @@ Desktop 权威投影来自 Desktop Runtime / main process 的完整 canonical re
 |------|------|
 | 2026-07-25 | 初版：误判 Desktop 计 thinking 为主因 |
 | 2026-07-25 | 重读源码纠正：两端 thinking/reasoning 均不计 preview；主因改为宿主本地权威基线差异 + pure-thinking 冻结 |
-| 2026-07-26 | 标记历史根因已解决：唯一 ContextAccountingSnapshot、共享 lifecycle/pipeline、pending `+` 与漂移 `!` 已落地 |
+| 2026-07-26 | 标记历史根因已解决：唯一 ContextAccountingSnapshot 与共享 lifecycle/pipeline 已落地；pending 保持内部状态，不再向百分比附加 `+` |

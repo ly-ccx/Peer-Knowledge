@@ -698,10 +698,10 @@ Desktop 和 CLI/TUI 只注入 canonical request encoder、provider count/send ad
 ### 13.2 流式进度与压缩安全边界
 
 进行中的 provider 输出持续发布 `stream_preview`，但 provider 尚未计量的 delta 只增加
-`pendingContentChars` 并设置 `pendingUncountedChanges=true`。UI 在最近一次权威百分比后
-显示 `+`，不能把字符数换算成 token 后制造“动态增长百分比”。当下一次 provider exact
-count、usage 或 overflow evidence 到达时，Runtime 才更新权威数字；这是动态、真实和
-跨端一致三者同时成立的边界。
+`pendingContentChars` 并设置 `pendingUncountedChanges=true`。该 pending 状态只服务
+Runtime 生命周期和诊断，UI 不给百分比附加符号，也不能把字符数换算成 token 后制造
+“动态增长百分比”。当下一次 provider exact count、usage 或 overflow evidence 到达时，
+Runtime 才更新权威数字；这是动态、真实和跨端一致三者同时成立的边界。
 
 流式预览越线不直接执行压缩。允许执行自动压缩的唯一时机是下一次 provider 请求前的 `request_preflight`：
 
@@ -729,8 +729,8 @@ observed-only 渠道没有新 provider 证据时保持 unknown，不渲染 0% �
   command/lifecycle 架构。
 - 已落地：Anthropic/Gemini API-key exact count、observed-only 明示降级、跨宿主
   canonical request fixture、2% counted/observed 漂移监控及 UI 告警。
-- 语义约束：stream/tool 过程中百分比不凭空增长；`+` 表示存在尚未被 provider 计量的内容。
-  下一次 preflight exact count 或 provider usage 到达后，数字才前进。
+- 语义约束：stream/tool 过程中百分比不凭空增长，也不附加自定义符号；下一次
+  preflight exact count 或 provider usage 到达后，数字才前进。
 - 架构守卫：禁止 `chat:context:projection`、`nextRequestInputTokens`、
   `compactionPressureTokens`、renderer estimator 与 TUI 私有 pressure state 回归。
 

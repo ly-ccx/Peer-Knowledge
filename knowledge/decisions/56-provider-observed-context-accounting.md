@@ -552,8 +552,9 @@ Desktop `stream_preview` 仍由 renderer 本地叠加。
    `requestProjection`、`nextRequestInputTokens`、`compactionPressureTokens` 与
    `chat:context:projection` IPC 已退出生产代码。
 2. `stream_preview` 与 `tool_result` 由共享 `ContextAccountingLifecycle` 标记
-   `pendingUncountedChanges/pendingContentChars`。两端动态显示 `+`，但在 provider
-   尚未计量前不伪造增长百分比；下一次 exact count 或 provider usage 到达后再更新数字。
+   `pendingUncountedChanges/pendingContentChars`。该状态只用于 Runtime 生命周期与诊断；
+   两端在 provider 尚未计量前保持最后一次权威百分比且不附加自定义符号，下一次 exact
+   count 或 provider usage 到达后再更新数字。
 3. Desktop renderer 与 TUI 的宿主本地 estimator 已删除。累积 usage 只用于费用，
    compactor 内部估算只服务摘要策略，不进入容量协议、圆环或发送放行。
 4. restore、model switch、manual compact、automatic compact 与 provider overflow

@@ -167,4 +167,4 @@ CJK 1.7 / 英文 4 chars-per-token 启发式与真实 tokenizer 有 ±10~20% 残
 | 2026-07-24 | 追加 RC9:阶段 E 后 TUI 三处显示分子仍原文口径(含 restore 直信旧快照);pressureFor 接共享 micro 投影 + restore 本地重算修复;并记录「同会话同模型」验收前提 |
 | 2026-07-25 | 推翻 RC6“估算残差可接受”：启发式估算退出 UI、压缩、放行和权威快照，当前设计转由 ADR 56 定义 |
 | 2026-07-25 | 追加跨端 pure-thinking 百分比分析：见 `cli-desktop-context-percent-mismatch-during-thinking.md`；**已纠正**：两端 thinking/reasoning 均不计 preview，主因是宿主本地权威基线差异 + pure-thinking 冻结 |
-| 2026-07-26 | 上述跨端基线分叉已由唯一 `ContextAccountingSnapshot` 与共享 lifecycle/pipeline 解决；未计量变化显示 `+`，不再恢复宿主本地百分比估算 |
+| 2026-07-26 | 上述跨端基线分叉已由唯一 `ContextAccountingSnapshot` 与共享 lifecycle/pipeline 解决；未计量变化不再向百分比附加自定义符号，也不恢复宿主本地估算 |
