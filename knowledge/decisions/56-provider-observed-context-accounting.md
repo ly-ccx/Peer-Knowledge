@@ -2,7 +2,7 @@
 
 - 创建时间：2026-07-25
 - 最后更新：2026-07-26
-- 状态：已采纳并完成 Phase 4 收口
+- 状态：已采纳并完成 Phase 5（Usage Scope 统一）
 - 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 - 取代：ADR 52 中“本地估算是上下文权威值、provider usage 只用于诊断”的决策
 - 保留：ADR 52 关于最终请求投影 seam、跨端 `_compaction` 分界、单 Runtime 入口和 revision 防乱序的决策
@@ -546,7 +546,7 @@ but the request contains 501244 tokens
 provider request 创建，完整 `ContextAccountingSnapshot` 尚未贯穿持久化和展示，
 Desktop `stream_preview` 仍由 renderer 本地叠加。
 
-### 2026-07-26：Phase 4 完整收口
+### 2026-07-26：Phase 4 完整收口（验收结论已撤回）
 
 1. `ContextAccountingSnapshot` 成为 Desktop、CLI/TUI、conversation store、Runtime
    event 和 renderer 的唯一上下文容量状态；旧 `ContextProjection`、
@@ -588,8 +588,132 @@ Desktop `stream_preview` 仍由 renderer 本地叠加。
 - protocol、runtime-core、runtime-sdk、runtime-node、conversation-store build 通过；
 - architecture governance check 通过。
 
-至此 ADR 的协议、持久化、展示、恢复、模型切换、三类压缩入口、exact-count adapter、
-漂移监控与跨宿主 fixture 退出条件均已满足。
+当时认为 ADR 的协议、持久化、展示、恢复、模型切换、三类压缩入口、
+exact-count adapter、漂移监控与跨宿主 fixture 退出条件均已满足。后续真实跨端
+resume 证明 Usage Scope 仍未统一，故本结论于同日撤回，详见下一节。
+
+### 2026-07-26：重新打开——Usage Scope 串线
+
+真实会话 `aebc2cbf-230a-476f-9b47-90f308eb3327` 暴露出新的确定性故障：
+
+```text
+Desktop 上一用户回合的 tool-loop 累计输入：145,639 / 500,000 = 29%
+TUI resume 后首个真实 provider request：约 7%
+同一 TUI 长程执行后续单请求：108,497 / 500,000 = 22%
+```
+
+历史没有丢失，也没有发生 compaction。根因是同一个无 scope 的 `usage` 形状被用于
+三个不同对象：
+
+1. `ProviderRequestUsage`：一个 immutable canonical request 的 provider 实测；
+2. `RuntimeTurnUsage`：一个用户回合/stream 内所有 provider request 的计费求和；
+3. `ConversationLifetimeUsage`：所有 runtime turn 的计费求和。
+
+Desktop agent loop 同时维护单请求快照和回合累计，但 terminal `done.usage` 是回合累计；
+`llm-chat-service` 将其写入名为 `requests.jsonl` 的账本。恢复逻辑随后把该回合累计行
+当成 `latestObservedUsage`，违反本 ADR 不变式 7。TUI 则在每个 tool-loop round 覆盖
+`state.usage`，终态只把最后一个 provider request 写入 lifetime ledger，造成跨端计费
+漏记和语义不一致。
+
+#### Phase 5 决策
+
+新增共享深模块 `RuntimeUsageAccounting`。其 Interface 只接受一次 provider request
+的 normalized usage，并同时产出：
+
+```text
+observeProviderRequest(usage)
+  -> lastRequest       // 最近 capacity-bearing ProviderRequestUsage，覆盖式
+  -> turnTotal         // RuntimeTurnUsage，累加式
+  -> providerRequestCount
+```
+
+Desktop 与 CLI/TUI 必须使用同一 Module，宿主不得再分别实现覆盖/累加规则。
+provider 请求的成功、无 usage 响应和异常都由共享 Context Pipeline 的
+`onProviderRequest` seam 逐次报告，避免宿主只在正常 response 后计数。
+
+自动压缩的 LLM summary 标记为 `requestPurpose=compaction_summary`：
+
+- 计入 `RuntimeTurnUsage` 与 `providerRequestCount`；
+- `capacityBearing=false`，不得覆盖真实 conversation request 的
+  `ContextAccounting.lastObserved`；
+- summary 失败且没有 usage 时仍作为 null-usage request 计数。
+
+跨层契约必须显式表达 scope：
+
+```text
+provider_request       // 可进入 ContextAccounting.lastObserved
+runtime_turn           // 只进入计费/调用账本
+conversation_lifetime  // 只用于会话累计与成本展示
+```
+
+恢复规则修改为：
+
+1. 优先读取当前有效 `ContextAccountingSnapshot`；
+2. 若 content revision 已推进，只允许从同 modelKey 的历史
+   `ContextAccountingSnapshot.lastObserved` 恢复 provider-request 基线并标记 pending；
+3. 禁止从 `RuntimeTurnUsage`、`ConversationLifetimeUsage`、无 scope 的旧
+   `requests.jsonl` 行恢复上下文百分比；
+4. 没有 provider-request 证据时显示未知，不得把计费累计冒充容量真值。
+
+`requests.jsonl` 的历史文件名暂不迁移，但新增行必须写
+`usageScope: "runtime_turn"` 与 `providerRequestCount`。文件的 Interface 明确为
+runtime-turn billing ledger；任何 context 模块依赖该文件都由架构检查阻止。
+
+Desktop 与 CLI/TUI 的 durable 写入统一下沉到 conversation-store：
+
+```text
+recordRuntimeTurnUsage
+  -> scope 校验
+  -> conversation lifetime 累计
+  -> runtime-turn ledger append
+```
+
+宿主不再各自决定“只写 lifetime”还是“同时写 requests.jsonl”。
+
+#### Phase 5 新增不变式
+
+13. `RuntimeTurnUsage = Σ ProviderRequestUsage`，但不得除以单请求 `contextWindow`。
+14. `ContextAccounting.lastObserved` 只能来自 `usageScope=provider_request`。
+15. Desktop 与 CLI/TUI 对同一多轮 fixture 必须得到相同 `lastRequest`、
+    `turnTotal` 与 `providerRequestCount`。
+16. 一轮存在多个 provider request 时，TUI lifetime ledger 必须累计全部 request，
+    不得只记最后一个。
+17. content revision 推进只能把历史 request observation 标记 pending，不能把
+    runtime-turn billing total 提升为 provider observation。
+18. compaction summary usage 计入回合账单，但不得成为 context capacity authority。
+19. 正常、error、exhausted、stopped 的已观测 provider request 必须走同一累计和持久化
+    规则；零个 billable request 的失败回合不得复用上一回合 usage。
+
+#### Phase 5 验收
+
+- 三轮 fixture `35K -> 45K -> 55K`：
+  - `lastRequest=55K`；
+  - `turnTotal=135K`；
+  - context ring 使用 `55K`；
+  - billing ledger 使用 `135K`；
+  - resume 仍恢复 `55K`，绝不恢复 `135K`。
+- Desktop/TUI 差分测试覆盖普通完成、tool-loop、无 usage round、cache read 和终态错误。
+- 真实会话旧 runtime-turn 行不再被当作 context observation。
+- TUI tool-loop 计费累计与 Desktop 同语义。
+
+#### Phase 5 实施结果
+
+2026-07-26 已完成：
+
+- `@peer-agent/protocol` 定义三种带 tag 的 Usage Scope；
+- `@peer-agent/runtime-core` 提供唯一 `RuntimeUsageAccounting` 与
+  `onProviderRequest` seam；
+- Desktop 四条 provider loop 与 CLI/TUI 共用覆盖/累加规则；
+- 自动压缩 summary 的 usage 纳入 runtime turn，但以
+  `capacityBearing=false` 隔离上下文真值；
+- conversation-store 提供带跨进程锁和 runtime-turn id 去重的统一持久化入口；
+- Desktop 与 CLI/TUI resume 只从 context sidecar 恢复 provider observation，
+  不再扫描 assistant usage 或 `requests.jsonl`；
+- 架构治理脚本禁止旧恢复 seam 回流，并要求两端接入统一持久化入口。
+
+这里的统一不意味着 context ring 与 billing total 数值相等：前者是一条最终
+capacity-bearing provider request，后者是一轮中所有 provider request 的求和。
+统一的是对象定义、采集入口、累计规则、恢复来源和持久化路径。
 
 ## 十一、参考实现
 

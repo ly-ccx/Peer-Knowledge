@@ -1,8 +1,11 @@
 # Runtime Usage Ledger
 
+- 创建时间：2026-06-25
+- 最后更新：2026-07-26
+
 ## Status
 
-Implemented locally on 2026-06-11.
+Accepted and implemented. Usage Scope unification completed on 2026-07-26.
 
 ## Problem
 
@@ -29,14 +32,17 @@ intercepts terminal stream events:
 - `chat:stream:done`
 - `chat:stream:error`
 
-If the terminal payload contains billable usage and a `conversationId`, main
-calls `conversationStore.addUsage(conversationId, usage)` before forwarding the
-event to renderer. The forwarded event is enriched with authoritative
-`lifetimeUsage`.
+If the terminal payload contains a tagged, billable `RuntimeTurnUsage` and a
+`conversationId`, the host calls
+`conversationStore.recordRuntimeTurnUsage(conversationId, ...)`. The shared
+store validates scope, updates lifetime usage, and appends the runtime-turn
+ledger row before the terminal state is presented.
 
-Renderer no longer writes the usage ledger during normal chat. It only:
+Renderer/TUI presentation no longer owns ledger semantics. It only:
 
-- renders active per-request usage during streaming;
+- renders `ContextAccountingSnapshot` for context capacity;
+- renders active `RuntimeTurnUsage` or durable `ConversationLifetimeUsage` for
+  billing views;
 - renders `lifetimeUsage` returned by main on terminal events;
 - keeps a compatibility fallback for older runtimes that send usage without
   lifetime usage.
@@ -46,15 +52,73 @@ Renderer no longer writes the usage ledger during normal chat. It only:
 The ledger is not a UI concern. Renderer must not be the source of truth for
 session billing or token history.
 
-Provider adapters parse usage. Agent loop aggregates usage across tool turns.
-Main runtime persists usage to the conversation ledger. Renderer displays the
-ledger and transient active usage only.
+Provider adapters parse one request's usage. Shared runtime accounting
+aggregates all requests in a tool-loop turn. The shared conversation store
+persists the runtime turn and updates the conversation lifetime. Hosts display
+those facts but do not redefine them.
 
 This keeps the chain aligned with:
 
 ```text
-Provider Usage -> Agent Loop Usage -> Runtime Ledger -> Renderer Display
+ProviderRequestUsage -> RuntimeTurnUsage -> Runtime Ledger
+                                      \-> ConversationLifetimeUsage
 ```
+
+## Usage Scope Contract
+
+The original implementation reused the same untagged token shape for three
+different lifecycle scopes. That made a runtime-turn billing total look like a
+single provider-request observation during context restore, while TUI persisted
+only the final provider request of a tool loop.
+
+The ledger contract now distinguishes:
+
+| Scope | Meaning | May seed context accounting |
+|---|---|---|
+| `provider_request` | Usage returned for one immutable canonical provider request | Yes |
+| `runtime_turn` | Sum of every provider request in one user turn / stream | No |
+| `conversation_lifetime` | Sum of every completed runtime turn | No |
+
+All hosts use the shared `RuntimeUsageAccounting` Module:
+
+```text
+observeProviderRequest
+  -> lastRequest (overwrite)
+  -> turnTotal (accumulate)
+  -> providerRequestCount
+```
+
+The context-capacity Module consumes `lastRequest` only. The billing ledger
+consumes `turnTotal` only. Conversation metadata accumulates `turnTotal` into
+`conversation_lifetime`.
+
+Automatic LLM compaction summaries are provider requests too. They use
+`requestPurpose: "compaction_summary"` and contribute to `turnTotal` and
+`providerRequestCount`, but `capacityBearing: false` prevents the summary
+request from replacing the conversation request used by context accounting.
+Failed provider attempts count as requests with null usage; they do not erase
+the latest capacity-bearing observation.
+
+Both hosts persist through one conversation-store serialized write seam:
+
+```text
+recordRuntimeTurnUsage(conversationId, { usage, attribution })
+  -> validate usageScope == runtime_turn
+  -> acquire the shared usage-ledger lock
+  -> deduplicate by runtime-turn id
+  -> increment conversation lifetime
+  -> append runtime-turn ledger row
+  -> return ConversationLifetimeUsage
+```
+
+The lock prevents Desktop and CLI/TUI usage writes from racing. This ADR does
+not claim filesystem crash atomicity across the index file and JSONL ledger.
+`addUsage` remains only as a compatibility path for legacy/injected stores.
+Production Desktop and CLI/TUI must not implement separate lifetime/log writes.
+
+Existing `requests.jsonl` rows have no reliable scope and are treated as legacy
+runtime-turn billing rows. New rows carry `usageScope: "runtime_turn"` and
+`providerRequestCount`. Context restore must never read this billing file.
 
 ## Error Semantics
 
@@ -67,7 +131,11 @@ If no provider usage exists, no ledger entry is written.
 
 Regression tests cover:
 
-- completed stream usage is written by main before `chat:stream:done` reaches
-  renderer;
-- `chat:stream:error` with provider usage is also written to the main ledger and
-  forwarded with `lifetimeUsage`.
+- multi-request tool loops accumulate every provider request but retain only
+  the final capacity-bearing request for context;
+- completed and terminal-error usage follows the same runtime-turn sink;
+- TUI and Desktop both append scoped runtime-turn ledger rows and update
+  conversation lifetime;
+- duplicate runtime-turn ids do not increment lifetime twice;
+- automatic LLM summary usage is billed but never becomes context authority;
+- context restore never reads the runtime-turn billing ledger.
