@@ -1,7 +1,7 @@
 # 版本管理
 
-创建时间：2026-06-10  
-最后更新：2026-07-23  
+创建时间：2026-06-10
+最后更新：2026-07-27
 
 > 状态：0.0.1 开发期版本规则  
 > 目标：让 Peer Agent 从第一版开始具备清晰版本事实源、发布边界和变更记录，避免脚手架阶段的版本漂移。
@@ -256,12 +256,31 @@ releases/
 
 ### 7.5 CI/CD 流水线
 
-参见仓库根目录 `.gitlab-ci.yml`。流水线分四个阶段：
+当前发布事实源是代码仓：
 
-1. **check**: 版本一致性、TypeScript 类型检查、单元测试
-2. **build**: Renderer 构建 + Rust release 编译（多平台并行）
-3. **package**: electron-builder 打包（macOS DMG/ZIP + Windows NSIS）
-4. **publish**: 手动触发上传到 OSS（beta 或 stable）
+```text
+.github/workflows/release.yml
+```
+
+`v*` tag 触发 GitHub Actions。流水线负责从 tag 解析版本与通道，构建 Desktop 与 CLI 产物，并创建或更新 GitHub Release。具体 job、matrix 和产物名称以 workflow 当前实现为准，不在知识库中复制一份容易过期的静态清单。
+
+人工发版步骤、文档门禁和发布后核验见：
+
+```text
+playbook/release-process.md
+```
+
+执行型 Skill 位于关联代码仓的工作空间目录：
+
+```text
+/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md
+```
+
+该 Skill 绑定 Peer Agent 仓库，不得安装为全局 Skill。范围判断规则见：
+
+```text
+knowledge/decisions/58-local-skill-scope-and-workspace-mounting.md
+```
 
 ### 7.6 代码签名
 

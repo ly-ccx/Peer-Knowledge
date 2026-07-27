@@ -1,0 +1,208 @@
+# Peer Agent 发布流程
+
+创建时间：2026-07-27
+最后更新：2026-07-27
+
+> 用途：记录 Peer Agent Desktop、CLI 和开放 Runtime 的人工发版 SOP、职责边界与检查清单。
+> 执行型 Skill：`/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
+
+## 一、仓库职责
+
+Peer Agent 发布涉及两个解耦仓库：
+
+| 仓库 | 本地路径 | 发布职责 |
+|---|---|---|
+| `peer_agent` | `/Users/liangyin/Documents/DEV/github/peer_agent` | 代码、版本戳、测试、构建、release notes、CHANGELOG、用户文档站、tag、CI 与 GitHub Release |
+| `peer-knowledge` | `/Users/liangyin/Documents/MiaoYan/peer-knowledge` | 架构决策、版本规范、人工发布 SOP、故障经验与运维知识 |
+
+原则：
+
+- 所有可执行代码改动必须落在 `peer_agent`。
+- `release-process` Skill 属于 `peer_agent` 工作空间，不能安装为全局 Skill。
+- 本文是人工可读 Playbook，不替代代码仓中的 Skill 和 CI。
+- `peer-knowledge` 的更新通常与产品发布准备一起完成，但不进入产品构建产物。
+
+## 二、事实源
+
+发布时按以下事实源工作：
+
+| 信息 | 事实源 |
+|---|---|
+| 发布版本 | `v<version>` git tag |
+| 工作区版本 | `peer_agent/VERSION` 与受管 package 清单 |
+| 版本一致性 | `peer_agent/scripts/check-version.mjs` |
+| 版本回写 | `peer_agent/scripts/stamp-version.mjs` |
+| 产品发布说明 | `peer_agent/release-notes/v<version>.md` |
+| 累积变更记录 | `peer_agent/CHANGELOG.md` |
+| 用户文档站 | `peer_agent/docs/` |
+| 架构、规范和 SOP | `peer-knowledge/knowledge/`、`peer-knowledge/playbook/` |
+| 发布流水线 | `peer_agent/.github/workflows/release.yml` |
+
+详细版本规则见：
+
+```text
+knowledge/specifications/06-version-management.md
+```
+
+Skill 范围规则见：
+
+```text
+knowledge/decisions/58-local-skill-scope-and-workspace-mounting.md
+```
+
+## 三、开始前确认
+
+1. Peer Agent 当前活动工作空间应为：
+
+   ```text
+   /Users/liangyin/Documents/DEV/github/peer_agent
+   ```
+
+2. Skills 页面中的 `release-process` 应出现在“工作空间 · peer_agent”，不得出现在“全局”。
+3. 确认目标版本与通道：
+   - Beta：`x.y.z-beta.N`
+   - Stable：`x.y.z`
+4. 确认当前分支、远端和工作树状态。
+5. 明确本次发布是否包含：
+   - Desktop
+   - CLI
+   - 开放 Runtime packages
+   - 用户文档站
+   - 架构/规范/Playbook 更新
+6. 高风险动作（推送 tag、发布包、覆盖 Release）必须获得用户明确确认。
+
+## 四、发布准备
+
+### 4.1 汇总变更
+
+在 `peer_agent` 中比较上一发布 tag 与当前提交：
+
+```bash
+git tag --list 'v*' --sort=-v:refname
+git log <previous-tag>..HEAD --oneline
+git diff --stat <previous-tag>..HEAD
+```
+
+按用户可见功能、修复、工程变化和已知问题分类。
+
+### 4.2 更新产品发布资料
+
+必须检查：
+
+- `release-notes/v<version>.md`
+- `CHANGELOG.md`
+- `docs/changelog.html`
+- `docs/docs.html`
+- `docs/index.html`
+
+产品行为变化后，文档不能继续描述已删除的命令或过期流程。
+
+### 4.3 更新知识库
+
+如果本次发布改变了以下内容，应同时更新 `peer-knowledge`：
+
+- 架构边界或关键数据流。
+- 对外协议和版本策略。
+- Skill、Plugin、MCP、权限或运行时治理规则。
+- 发版流程、回滚方式或故障处理方法。
+- 经验证可复用的开发经验。
+
+知识库文档要求：
+
+- 文件名使用 kebab-case。
+- 文件开头包含“创建时间”和“最后更新”。
+- 记录为什么这样设计，不复制大量代码实现。
+- 可执行步骤应与代码仓真实脚本保持一致。
+
+如果知识库和代码仓都发生改动，两边分别提交；不要把知识库文件复制进产品仓。
+
+### 4.4 版本戳与一致性
+
+在 `peer_agent` 中执行：
+
+```bash
+node scripts/stamp-version.mjs <version>
+node scripts/check-version.mjs
+```
+
+版本脚本的受管文件列表优先于本文中的静态示例。
+
+## 五、发布门禁
+
+发版前至少检查：
+
+- 版本一致性检查通过。
+- 受影响包的 typecheck 通过。
+- 受影响测试通过。
+- Desktop renderer 可构建。
+- CLI 产物与 npm 安装路径可验证。
+- Runtime 公开包的 tarball 内容与外部宿主 smoke 通过。
+- release notes、CHANGELOG 和用户文档站已同步。
+- 本轮架构或流程变化已同步到 `peer-knowledge`。
+
+失败时停止后续 tag，不得用“先发布再补文档”绕过门禁。
+
+## 六、提交、Tag 与 CI
+
+发布准备文件应先提交到约定分支。推送 tag 前再次确认：
+
+```bash
+git status --short
+git log -1 --oneline
+node scripts/check-version.mjs
+```
+
+获得明确授权后：
+
+```bash
+git tag v<version>
+git push origin v<version>
+```
+
+`v*` tag 触发 `.github/workflows/release.yml`。不要在未知脏状态或未经验证的提交上打 tag。
+
+## 七、发布后核验
+
+依次检查：
+
+1. GitHub Actions 对应 tag 的 workflow 成功。
+2. GitHub Release 的标题、notes 和资产正确。
+3. Desktop 安装包与更新清单可下载。
+4. CLI 归档和 npm 安装面可用。
+5. Beta/Stable 通道与版本格式一致。
+6. `docs/` 用户站点展示新版本和更新日志。
+7. 如修改了知识库，确认 `peer-knowledge` 的文档提交已推送。
+
+## 八、失败处理
+
+| 现象 | 处理 |
+|---|---|
+| 版本检查失败 | 修正 `VERSION` 与受管 package 版本，不打 tag |
+| Tag 未触发 CI | 检查 tag 是否为 `v*`、是否已推送到正确 remote |
+| Release 缺资产 | 检查对应平台 job、打包步骤和上传权限 |
+| Pages 仍显示旧版本 | 检查 `release-notes/`、`docs/changelog.html` 与 Pages 源分支 |
+| Skill 在错误项目出现 | 检查是否错误安装到了 `~/.peer-agent/skills`，项目 Skill 应回到 `<workspace>/skills` |
+| 当前项目看不到 `release-process` | 确认活动工作空间是 `peer_agent`，不是 `peer-knowledge` |
+
+如果 tag 已经公开，禁止静默移动或覆盖 tag；应根据影响选择修复发布或显式撤回，并记录原因。
+
+## 九、Definition of Done
+
+- [ ] 版本号与通道已确认
+- [ ] `release-notes/v<version>.md` 已更新
+- [ ] `CHANGELOG.md` 已更新
+- [ ] 用户文档站已同步
+- [ ] 相关架构、规范和 Playbook 已同步到 `peer-knowledge`
+- [ ] 版本一致性检查通过
+- [ ] 受影响测试、typecheck 和构建通过
+- [ ] 发布准备提交可追溯
+- [ ] 推送 tag 前获得明确授权
+- [ ] CI、Release、产物和文档站完成发布后核验
+
+## 十、关联资料
+
+- `knowledge/specifications/06-version-management.md`
+- `knowledge/decisions/48-cli-first-class-release.md`
+- `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md`
+- `knowledge/decisions/58-local-skill-scope-and-workspace-mounting.md`
+- `/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
