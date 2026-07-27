@@ -1,7 +1,7 @@
 # TUI 历史展示修订方案：压缩点连续可见
 
 创建时间：2026-07-25
-最后更新：2026-07-25
+最后更新：2026-07-27
 状态：Draft（产品方向已定，待实现）
 变更级别：B 级（调整 TUI 渲染窗口策略与文案，不改变模型上下文语义）
 关联代码：`peer_agent/apps/tui/src/conversation-render-window.ts`、`app.tsx`
@@ -42,7 +42,7 @@
    - 几次大工具调用就容易触达 160k，导致“才聊一会儿就 hidden”
 
 4. **历史翻页**  
-   - `/history earlier|later|latest` 以 80 条 / 160k 分页  
+   - `/history` 以 80 条 / 160k 分页；支持参数 `later` / `latest`（无独立 `/history-*` 命令）  
    - 这是主动浏览，可以保留
 
 ### 1.2 根因一句话
@@ -86,14 +86,14 @@
 2. **无压缩点**：默认展示**整段会话**（从第一条到最新）。
 3. **只有 emergency 护栏**才允许裁最近窗口；触发阈值必须远高于正常会话（见 §5）。
 4. 顶部提示语义改变：
-   - 压缩点之前有归档：`↑ 压缩前归档 · /history earlier`
+   - 压缩点之前有归档：`↑ 压缩前归档 · /history`
    - 不再把“压缩后正常增长”说成 “earlier messages hidden”
 
 ### 3.2 非目标
 
 - 不改模型上下文构造 / compaction 语义
 - 不改 `ChatSnapshot.messages` 全量持有
-- 不删 `/history earlier|later|latest`（仍用于压缩前归档与 emergency 恢复）
+- 不删 history 浏览能力：仅保留统一 `/history`，用参数 `later|latest` 切换窗口；Esc 回最新；不注册独立 `/history-*` 别名
 
 ---
 
@@ -139,13 +139,13 @@ projectLatest(messages):
 **默认（压缩点边界，非 emergency）：**
 
 ```text
-↑ Earlier conversation compacted · /history earlier
+↑ Earlier conversation compacted · /history
 ```
 
 中文：
 
 ```text
-↑ 更早对话已压缩 · /history earlier
+↑ 更早对话已压缩 · /history
 ```
 
 不要再写：
@@ -162,7 +162,7 @@ projectLatest(messages):
 **Emergency：**
 
 ```text
-⚠ Recent history capped for terminal performance · /history earlier
+⚠ Recent history capped for terminal performance · /history
 ```
 
 ---
@@ -200,14 +200,16 @@ projectLatest(messages):
 
 | 命令 | 语义 |
 |---|---|
-| `/history earlier` | 向更早一页（通常进入压缩点之前） |
-| `/history later` | 向更新一页 |
-| `/history latest` | 回到默认：压缩点→现在 / 无压缩整段 |
+| `/history` | 统一入口：从默认 latest 进入压缩前归档第一页；再执行则继续翻更早 |
+| `/history later` | 向更新一页（`/history` 的参数，不是独立命令） |
+| `/history latest` / `Esc` | 回到默认：压缩点→现在 / 无压缩整段 |
 
 默认 latest 下：
 
+- palette 只暴露一个 `history`；不注册 `/history-earlier|later|latest`
 - `canLoadEarlier` 仅当 `startIndex > 0`（即存在压缩前归档，或 emergency 裁切）
 - 压缩后连续区**不再**被当成“上一页”
+- history 分页模式下 `Esc` 一键回最新
 
 ---
 
@@ -239,7 +241,7 @@ projectLatest(messages):
 
 1. 仍展示连续最近段
 2. 顶部 warning 明确是性能护栏
-3. `/history earlier` 可回看被裁部分
+3. `/history` 可回看被裁部分
 
 后续阶段再做真正的虚拟列表 / 折叠 tool 详情，而不是靠砍消息。
 
@@ -250,7 +252,7 @@ projectLatest(messages):
 1. 新会话、无压缩：连续输入远超 120 条前，**不出现** “earlier messages hidden”（除非 emergency）。
 2. 发生一次 compact 后：默认从 **COMPACTED 边界** 连续展示到最新；压缩后的轮次全部可见。
 3. 顶部若有提示，语义是“压缩前归档/性能护栏”，不是“系统随便藏了 4 条”。
-4. `/history earlier` 仍可浏览压缩前内容；`/history latest` 一键回默认。
+4. `/history` 仍可浏览压缩前内容；`Esc` / `/history latest` 一键回默认。
 5. 既有单测更新并通过；补齐上述场景测试。
 
 ---
