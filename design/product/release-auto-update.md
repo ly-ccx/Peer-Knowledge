@@ -88,8 +88,8 @@ DRY_RUN=1 ./apps/desktop/scripts/publish.sh beta
 
 真实发布验证（交由用户执行）：
 1. 推一个 beta tag：`./apps/desktop/scripts/publish.sh beta`
-2. 打开 Actions 看 Release workflow 跑通：https://github.com/yinLiangDream/Peer-Agent/actions
-3. 确认 Releases 出现 **prerelease**，资产含安装包 + `beta-mac.yml` / `beta.yml`：https://github.com/yinLiangDream/Peer-Agent/releases
+2. 打开 Actions 看 Release workflow 跑通：https://github.com/ly-ccx/Peer-Agent/actions
+3. 确认 Releases 出现 **prerelease**，资产含安装包 + `beta-mac.yml` / `beta.yml`：https://github.com/ly-ccx/Peer-Agent/releases
 4. （CLI 方案落地后）同一 Release 另含 CLI 归档（如 `peer-darwin-arm64.zip`），解压后有 `peer` + `peer-credential-helper`，且 `peer --version` 与 tag 一致；清单见 `cli-first-class-release.md` §8
 5. 推一个正式 tag：`./apps/desktop/scripts/publish.sh stable`
 6. 确认生成 **正式 Release**，资产含 `latest-mac.yml` / `latest.yml`（及落地后的 CLI 归档）

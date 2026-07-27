@@ -6,7 +6,7 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 
 - 代码仓名：`peer_agent`（package name: `peer-agent`，Electron + Vite monorepo）
 - 本地路径：`/Users/liangyin/Documents/DEV/github/peer_agent`
-- 远程仓库：https://github.com/yinLiangDream/Peer-Agent
+- 远程仓库：https://github.com/ly-ccx/Peer-Agent
 - 说明：本知识库只存知识，代码改动一律在该代码仓落地。
 
 ## 目录结构
