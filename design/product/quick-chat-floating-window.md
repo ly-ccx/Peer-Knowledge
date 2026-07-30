@@ -1,13 +1,14 @@
 # 快速会话浮窗（Quick Chat）产品与交互方案
 
 创建时间：2026-07-13
-最后更新：2026-07-21
+最后更新：2026-07-27
 状态：Draft（待产品确认，未进入代码实现）
 
 关联文档：
 
 - `design/product/task-completion-system-notification.md`（任务完成系统通知：触发、去重、回流、权限）
 - `design/product/status-bar-task-center.md`（状态栏任务中心：投影与未读）
+- `design/product/menu-bar-tray-recent-sessions.md`（菜单栏托盘 · 近期会话：New Chat 默认进主窗口，不默认打开 Quick Chat）
 
 ## 一、方案摘要
 

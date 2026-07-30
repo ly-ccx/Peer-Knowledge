@@ -3,28 +3,121 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function () {
+        try {
+          var key = "peer-theme";
+          var pref = localStorage.getItem(key) || "system";
+          if (pref !== "light" && pref !== "dark" && pref !== "system") pref = "system";
+          var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = pref === "dark" || (pref === "system" && systemDark) ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.setAttribute("data-theme-pref", pref);
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" href="./favicon.png" type="image/png" />
     <title>Peer Agent — Docs</title>
     <style>
       :root {
+        --bg: #f5f5f7;
+        --bg-elevated: #ffffff;
+        --ink: #1d1d1f;
+        --ink-soft: #6e6e73;
+        --ink-fade: #86868b;
+        --line: rgba(0, 0, 0, 0.08);
+        --line-strong: rgba(0, 0, 0, 0.12);
+        --azure: #3b7fab;
+        --azure-strong: #2f6a8f;
+        --azure-soft: #d8e4ee;
+        --paper: #f7f9fc;
+        --code-bg: #eef1f6;
+        --code-ink: #243041;
+        --graphite-btn: #1a1d21;
+        --graphite-btn-ink: #f5f7fa;
+        --nav-h: 48px;
+        --sidebar-w: 240px;
+        --toc-w: 200px;
+        --wide: 1120px;
+        --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+          "Inter", "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
+        --mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+      }
+
+      html[data-theme="light"] {
+        color-scheme: light;
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
         --bg: #0f1114;
         --bg-elevated: #161a20;
         --ink: #f2f4f7;
-        --ink-soft: #a8b0bb;
-        --ink-fade: #7a8390;
-        --line: rgba(255, 255, 255, 0.08);
-        --line-strong: rgba(255, 255, 255, 0.12);
-        --azure: #6eb0d6;
-        --azure-strong: #3b7fab;
+        --ink-soft: #c2c9d2;
+        --ink-fade: #98a1ad;
+        --line: rgba(255, 255, 255, 0.10);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        --graphite: #f5f7fa;
+        --graphite-hover: #ffffff;
         --graphite-btn: #f5f7fa;
-        --graphite-btn-ink: #1a1d21;
-        --sidebar-w: 248px;
-        --toc-w: 220px;
-        --nav-h: 52px;
-        --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter",
-          "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
-        --mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+        --graphite-btn-ink: #121417;
+        --azure: #6eb0d6;
+        --azure-strong: #8fc4e2;
+        --azure-soft: rgba(110, 176, 214, 0.18);
+        --paper: #12161c;
+        --fill: #1b212a;
+        --composer: #1a2028;
+        --hairline: rgba(255, 255, 255, 0.10);
+        --code-bg: #0b0d10;
+        --code-ink: #d8e0ea;
+        --shadow: 0 2px 8px rgba(0,0,0,.35), 0 28px 60px rgba(0,0,0,.45);
+        --shadow-soft: 0 1px 2px rgba(0,0,0,.35), 0 12px 28px rgba(0,0,0,.35);
+        --nav-bg: rgba(15, 17, 20, 0.78);
+        --nav-border: rgba(255, 255, 255, 0.08);
+        --chip-bg: rgba(255, 255, 255, 0.06);
+        --chip-active-bg: #1c222b;
+        --hover-fill: rgba(255, 255, 255, 0.06);
+        --card-bg: rgba(255, 255, 255, 0.03);
       }
+      html[data-theme="light"] {
+        --nav-bg: rgba(245, 245, 247, 0.72);
+        --nav-border: rgba(0, 0, 0, 0.06);
+        --chip-bg: rgba(0, 0, 0, 0.04);
+        --chip-active-bg: #ffffff;
+        --hover-fill: rgba(0, 0, 0, 0.04);
+        --card-bg: #ffffff;
+      }
+      :root {
+        --nav-bg: rgba(245, 245, 247, 0.72);
+        --nav-border: rgba(0, 0, 0, 0.06);
+        --chip-bg: rgba(0, 0, 0, 0.04);
+        --chip-active-bg: #ffffff;
+        --hover-fill: rgba(0, 0, 0, 0.04);
+        --card-bg: #ffffff;
+      }
+      .theme-toggle {
+        appearance: none;
+        border: 1px solid var(--line);
+        background: var(--chip-bg);
+        color: var(--ink-soft);
+        width: 34px;
+        height: 28px;
+        border-radius: 980px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0;
+        transition: background .15s ease, color .15s ease, border-color .15s ease;
+      }
+      .theme-toggle:hover { color: var(--ink); background: var(--hover-fill); }
+      .theme-toggle svg { width: 15px; height: 15px; display: block; }
+      .theme-toggle[data-mode="light"] .icon-moon { display: none; }
+      .theme-toggle[data-mode="dark"] .icon-sun { display: none; }
+      .theme-toggle[data-mode="system"] .icon-sun,
+      .theme-toggle[data-mode="system"] .icon-moon { display: none; }
+      .theme-toggle[data-mode="system"] .icon-system { display: block; }
+      .theme-toggle .icon-system { display: none; }
+
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
       body {
@@ -41,38 +134,27 @@
       code, pre, kbd { font-family: var(--mono); }
       code {
         font-size: 0.9em;
-        background: rgba(255,255,255,0.06);
+        background: var(--hover-fill);
         border: 1px solid var(--line);
         border-radius: 6px;
         padding: 0.1em 0.4em;
       }
-      pre {
-        margin: 0 0 16px;
-        padding: 14px 16px;
-        border-radius: 12px;
-        background: #0b0d10;
-        border: 1px solid var(--line);
-        overflow: auto;
-        font-size: 12.5px;
-        line-height: 1.65;
-        color: #d8e0ea;
-        max-width: 760px;
-      }
+      pre { margin: 0 0 16px; padding: 14px 16px; border-radius: 12px; background: var(--code-bg); border: 1px solid var(--line); overflow: auto; font-size: 12.5px; line-height: 1.65; color: var(--code-ink); max-width: 760px; }
       pre code { background: transparent; border: 0; padding: 0; font-size: inherit; }
 
       .topnav {
         position: sticky; top: 0; z-index: 50; height: var(--nav-h);
         display: flex; align-items: center;
-        border-bottom: 1px solid var(--line);
-        background: rgba(15, 17, 20, 0.82);
-        backdrop-filter: blur(18px) saturate(1.2);
-        -webkit-backdrop-filter: blur(18px) saturate(1.2);
+        border-bottom: 1px solid var(--nav-border);
+        background: var(--nav-bg);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
       }
       .topnav-inner {
-        width: min(1440px, 100%); margin: 0 auto; padding: 0 18px;
+        width: min(var(--wide), 100%); margin: 0 auto; padding: 0;
         display: flex; align-items: center; justify-content: space-between; gap: 16px;
       }
-      .brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 650; font-size: 14px; letter-spacing: -0.02em; }
+      .brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; letter-spacing: -0.02em; color: var(--ink); }
       .mark {
         width: 18px;
         height: 18px;
@@ -81,39 +163,35 @@
         object-fit: contain;
         flex-shrink: 0;
       }
-.top-links { display: flex; align-items: center; gap: 4px; flex: 1; margin-left: 18px; }
-      .top-links a { font-size: 13px; color: var(--ink-soft); padding: 8px 12px; border-radius: 8px; }
-      .top-links a:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
-      .top-links a.active { color: var(--ink); position: relative; }
-      .top-links a.active::after {
-        content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 2px;
-        border-radius: 2px; background: var(--azure);
-      }
-      .top-actions { display: flex; align-items: center; gap: 10px; }
+.top-links { display: flex; align-items: center; gap: 18px; }
+      .top-links a { font-size: 12px; color: var(--ink-soft); opacity: 0.88; padding: 0; border-radius: 0; }
+      .top-links a:hover { color: var(--ink); opacity: 1; background: transparent; }
+      .top-links a.active { color: var(--ink); opacity: 1; font-weight: 600; position: static; }
+      .top-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
       .lang {
-        display: inline-flex; align-items: center; height: 30px; padding: 2px;
-        border-radius: 980px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); gap: 1px;
+        display: inline-flex; align-items: center; height: 28px; padding: 2px;
+        border-radius: 980px; background: var(--chip-bg); border: 0; gap: 1px;
       }
       .lang button {
         appearance: none; border: 0; background: transparent; color: var(--ink-fade);
-        font-size: 11px; font-weight: 650; min-width: 30px; height: 24px; border-radius: 980px;
+        font-size: 11px; font-weight: 600; min-width: 30px; height: 24px; border-radius: 980px;
         cursor: pointer; padding: 0 8px;
       }
-      .lang button[aria-pressed="true"] { background: rgba(255,255,255,0.1); color: var(--ink); }
+      .lang button[aria-pressed="true"] { background: var(--hover-fill); color: var(--ink); }
       .btn {
-        display: inline-flex; align-items: center; justify-content: center; height: 32px;
-        padding: 0 14px; border-radius: 980px; font-size: 12.5px; font-weight: 600;
+        display: inline-flex; align-items: center; justify-content: center; height: auto;
+        padding: 6px 12px; border-radius: 980px; font-size: 12px; font-weight: 500;
         border: 1px solid transparent; cursor: pointer;
       }
-      .btn-primary { background: var(--graphite-btn); color: var(--graphite-btn-ink) !important; }
+      .btn-primary { background: var(--graphite-btn); color: var(--graphite-btn-ink) !important; opacity: 1; }
       .btn-ghost { background: transparent; border-color: var(--line-strong); color: var(--ink-soft); }
-      .btn-ghost:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+      .btn-ghost:hover { color: var(--ink); background: var(--chip-bg); }
 
       .shell {
         display: grid;
         grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--toc-w);
         min-height: calc(100vh - var(--nav-h));
-        width: min(1440px, 100%); margin: 0 auto;
+        width: min(var(--wide), 100%); margin: 0 auto;
       }
       .sidebar {
         position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h));
@@ -127,12 +205,12 @@
       .nav-item {
         display: block; width: 100%; text-align: left; appearance: none; border: 0;
         background: transparent; color: var(--ink-soft); font-size: 13.5px; padding: 8px 10px;
-        border-radius: 8px; cursor: pointer; border-left: 2px solid transparent; margin: 1px 0;
+        border-radius: 8px; cursor: pointer; margin: 1px 0;
       }
-      .nav-item:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+      .nav-item:hover { color: var(--ink); background: var(--chip-bg); }
       .nav-item.active {
         color: var(--azure); background: rgba(59, 127, 171, 0.12);
-        border-left-color: var(--azure); font-weight: 600;
+        font-weight: 600;
       }
       .content { min-width: 0; padding: 28px 36px 96px; }
       .doc-page[hidden] { display: none !important; }
@@ -177,7 +255,7 @@
         display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 22px; max-width: 780px;
       }
       .card {
-        border: 1px solid var(--line); background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line); background: var(--bg-elevated);
         border-radius: 14px; padding: 16px;
       }
       .card h3 { margin: 0 0 8px; font-size: 15px; }
@@ -188,13 +266,13 @@
       }
       .steps li {
         counter-increment: step; position: relative; padding: 12px 12px 12px 44px;
-        border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line); border-radius: 12px; background: var(--bg-elevated);
         margin-bottom: 10px;
       }
       .steps li::before {
         content: counter(step); position: absolute; left: 12px; top: 12px; width: 22px; height: 22px;
         border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700;
-        background: rgba(255,255,255,0.08); color: var(--ink);
+        background: var(--hover-fill); color: var(--ink);
       }
       .table-wrap {
         overflow: auto; margin: 12px 0 20px; border: 1px solid var(--line);
@@ -205,13 +283,13 @@
         text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--ink-soft);
         vertical-align: top;
       }
-      th { color: var(--ink); font-weight: 600; background: rgba(255,255,255,0.03); white-space: nowrap; }
+      th { color: var(--ink); font-weight: 600; background: var(--card-bg); white-space: nowrap; }
       tr:last-child td { border-bottom: 0; }
       td code { white-space: nowrap; }
       .inline-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 8px; }
       .kbd {
         display: inline-block; min-width: 1.4em; padding: 0 6px; border-radius: 6px;
-        border: 1px solid var(--line-strong); background: rgba(255,255,255,0.05);
+        border: 1px solid var(--line-strong); background: var(--chip-bg);
         font-family: var(--mono); font-size: 12px; color: var(--ink);
       }
       .toc {
@@ -250,20 +328,34 @@
     <header class="topnav">
       <div class="topnav-inner">
         <a class="brand" href="./index.html">
-          <img class="mark" src="./logo-light.png" alt="" width="18" height="18" />
+          <img class="mark" data-logo-light="./logo-light.png" data-logo-dark="./logo-dark.png" src="./logo-light.png" alt="" width="18" height="18" />
           <span>Peer Agent</span>
         </a>
-        <nav class="top-links" aria-label="Primary">
-          <a class="active" href="./docs.html" data-i18n="nav.docs">Docs</a>
-          <a href="./changelog.html" data-i18n="nav.changelog">Changelog</a>
-          <a href="https://github.com/ly-ccx/Peer-Agent" target="_blank" rel="noreferrer" data-i18n="nav.github">GitHub</a>
-        </nav>
         <div class="top-actions">
+          <nav class="top-links" aria-label="Primary">
+            <a class="active" href="./docs.html" data-i18n="nav.docs">Docs</a>
+            <a href="./index.html#mechanisms" data-i18n="nav.mechanisms">Why Peer</a>
+            <a href="./changelog.html" data-i18n="nav.changelog">Changelog</a>
+            <a href="https://github.com/ly-ccx/Peer-Agent" target="_blank" rel="noreferrer" data-i18n="nav.github">GitHub</a>
+          </nav>
+          <a class="btn btn-primary" href="./index.html#get" data-i18n="nav.download">Download</a>
+                    <button type="button" class="theme-toggle" data-mode="system" aria-label="Theme: System">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"></path>
+            </svg>
+            <svg class="icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+              <path d="M8 20h8M12 16v4"></path>
+            </svg>
+          </button>
           <div class="lang lang-toggle" role="group" aria-label="Language">
             <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
             <button type="button" id="lang-zh" data-lang="zh" aria-pressed="false">中文</button>
           </div>
-          <a class="btn btn-primary" href="./index.html#get" data-i18n="nav.download">Download</a>
         </div>
       </div>
     </header>
@@ -714,7 +806,7 @@ Evidence owns governance.</code></pre>
           <h1 data-i18n="cap.title">Capabilities overview</h1>
           <p class="lede" data-i18n="cap.lede">
             Capabilities are declared through providers/manifests, projected to the model as tools, then executed only after PermissionGrant.
-            There is no blessed “secret side door” for shell vs MCP vs plugins.
+            There is no blessed “secret side door” for shell vs MCP vs plugins vs skills.
           </p>
           <div class="table-wrap">
             <table>
@@ -786,6 +878,273 @@ Evidence owns governance.</code></pre>
           </div>
         </article>
 
+
+        <!-- ================= SKILL ================= -->
+        <article class="doc-page" data-page="skill" hidden>
+          <div class="crumb"><div class="crumb-left"><span data-i18n="group.capabilities">Capabilities</span><span>/</span><strong data-i18n="nav.skill">Skills</strong></div></div>
+          <h1 data-i18n="skill.title">Skills</h1>
+          <p class="lede" data-i18n="skill.lede">
+            A Skill is a reusable instruction package for the agent — not a remote tool server.
+            Peer Agent loads Skills from local packages (<code>SKILL.md</code>), manages enable/disable state,
+            and injects selected skill context into the conversation under the same Runtime governance chain.
+          </p>
+
+          <h2 id="skill-what" data-i18n="skill.whatTitle">What a Skill is</h2>
+          <ul>
+            <li data-i18n="skill.what1"><strong>Package</strong> — a folder or archive containing <code>SKILL.md</code> (required) plus optional <code>assets/</code>.</li>
+            <li data-i18n="skill.what2"><strong>Frontmatter</strong> — name/description, optional <code>whenToUse</code>, <code>allowed-tools</code>, license metadata.</li>
+            <li data-i18n="skill.what3"><strong>Body</strong> — the procedure / playbook the model should follow when the skill is active.</li>
+            <li data-i18n="skill.what4"><strong>Local store</strong> — installed skills live under the app user-data skill root; enable/disable is persisted in local settings.</li>
+          </ul>
+          <div class="callout" data-i18n="skill.notTool">
+            <strong>Not the same as MCP:</strong> MCP projects external tools into the Runtime.
+            Skills primarily inject structured instruction context and optional tool-allow hints — they still cannot bypass PermissionGrant / Evidence.
+          </div>
+
+          <h2 id="skill-vs" data-i18n="skill.vsTitle">Skill vs Plugin vs MCP</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="skill.thObject">Object</th>
+                  <th data-i18n="skill.thRole">Role</th>
+                  <th data-i18n="skill.thUser">What you manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Skill</strong></td>
+                  <td data-i18n="skill.vsSkillRole">Reusable agent playbook / instruction package</td>
+                  <td data-i18n="skill.vsSkillUser">Install, enable/disable, insert/invoke into a thread</td>
+                </tr>
+                <tr>
+                  <td><strong>Plugin</strong></td>
+                  <td data-i18n="skill.vsPluginRole">Local capability packaging & distribution unit</td>
+                  <td data-i18n="skill.vsPluginUser">Ship providers/adapters as packages</td>
+                </tr>
+                <tr>
+                  <td><strong>MCP</strong></td>
+                  <td data-i18n="skill.vsMcpRole">Tool transport protocol for external tools</td>
+                  <td data-i18n="skill.vsMcpUser">Register/enable servers so tools can project</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 id="skill-package" data-i18n="skill.packageTitle">Package shape</h2>
+          <pre><code>my-skill/
+  SKILL.md          # required (YAML frontmatter + markdown body)
+  assets/           # optional attachments
+  ...</code></pre>
+          <p data-i18n="skill.packageBody">
+            Install sources currently include zip and tgz archives that contain <code>SKILL.md</code> at the archive root
+            (or one top-level folder that contains it). Empty descriptions are treated as invalid noise and dropped.
+          </p>
+
+          <h2 id="skill-lifecycle" data-i18n="skill.lifeTitle">Lifecycle on device</h2>
+          <ol class="steps">
+            <li data-i18n="skill.l1"><strong>Discover / install</strong> — load from local skill roots or install from zip/tgz into the user skill store.</li>
+            <li data-i18n="skill.l2"><strong>List</strong> — each skill exposes id, name, description, whenToUse, version, enabled state.</li>
+            <li data-i18n="skill.l3"><strong>Enable / disable</strong> — disabled skills remain installed but stay out of the active set.</li>
+            <li data-i18n="skill.l4"><strong>Borrow / link</strong> — optional source roots can expose available skills that can be linked into the local store.</li>
+            <li data-i18n="skill.l5"><strong>Use in a thread</strong> — insert or invoke skill context; model follows the playbook while tools still require grants.</li>
+            <li data-i18n="skill.l6"><strong>Refresh</strong> — re-scan roots / store after install or external edits.</li>
+          </ol>
+
+          <h2 id="skill-cli" data-i18n="skill.cliTitle">CLI: <code>/skill</code></h2>
+          <p data-i18n="skill.cliBody">
+            In the TUI slash palette, <code>/skill</code> opens Skills management: browse installed skills,
+            enable/disable, refresh, insert, or invoke. Desktop has the corresponding Skills UI over the same store concepts.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="skill.thAction">Action</th>
+                  <th data-i18n="skill.thMeaning">Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-i18n="skill.aBrowse">Browse</td>
+                  <td data-i18n="skill.aBrowseM">See installed skills and enabled state</td>
+                </tr>
+                <tr>
+                  <td data-i18n="skill.aToggle">Enable / disable</td>
+                  <td data-i18n="skill.aToggleM">Keep package installed while controlling participation</td>
+                </tr>
+                <tr>
+                  <td data-i18n="skill.aRefresh">Refresh</td>
+                  <td data-i18n="skill.aRefreshM">Reload from local roots / store</td>
+                </tr>
+                <tr>
+                  <td data-i18n="skill.aInsert">Insert</td>
+                  <td data-i18n="skill.aInsertM">Inject skill context into the current thread for the model to follow</td>
+                </tr>
+                <tr>
+                  <td data-i18n="skill.aInvoke">Invoke</td>
+                  <td data-i18n="skill.aInvokeM">Start using the skill as the active playbook for the next steps</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn" data-i18n="skill.cliWarn">
+            <strong>Governance:</strong> enabling a Skill is not a blanket shell grant. Any tool the skill encourages still goes through
+            Runtime Projection → PermissionGrant → Evidence.
+          </div>
+
+          <h2 id="skill-when" data-i18n="skill.whenTitle">When to use Skills</h2>
+          <ul>
+            <li data-i18n="skill.when1">Repeatable workflows you want the agent to follow consistently (release checklist, review rubric, incident playbook).</li>
+            <li data-i18n="skill.when2">Team conventions that should travel as packages, not as one-off prompt paste.</li>
+            <li data-i18n="skill.when3">Domain procedures that should stay local and auditable, with optional tool allow-lists.</li>
+          </ul>
+          <p data-i18n="skill.whenNot">
+            If you need a live external API tool surface, prefer MCP. If you need a new local execution provider family, prefer Plugin/Provider — not a Skill body pretending to be a tool host.
+          </p>
+        </article>
+
+
+        <!-- ================= PLUGIN ================= -->
+        <article class="doc-page" data-page="plugin" hidden>
+          <div class="crumb"><div class="crumb-left"><span data-i18n="group.capabilities">Capabilities</span><span>/</span><strong data-i18n="nav.plugin">Plugins</strong></div></div>
+          <h1 data-i18n="plugin.title">Plugins</h1>
+          <p class="lede" data-i18n="plugin.lede">
+            A Plugin is a local capability package — the packaging and distribution unit for local providers, adapters,
+            optional local MCP configs, permission declarations, and install metadata. Plugins do not own cognition and
+            are not the permission source of truth.
+          </p>
+
+          <h2 id="plugin-what" data-i18n="plugin.whatTitle">What a Plugin is</h2>
+          <ul>
+            <li data-i18n="plugin.what1"><strong>Capability package</strong> — one or more capability manifests shipped together.</li>
+            <li data-i18n="plugin.what2"><strong>Local adapters</strong> — how those capabilities actually run on the device (native bridge, local process, etc.).</li>
+            <li data-i18n="plugin.what3"><strong>Optional local MCP config</strong> — a Plugin may bundle or register local MCP servers, but MCP remains a transport, not the product object.</li>
+            <li data-i18n="plugin.what4"><strong>Install metadata</strong> — publisher, version, signature/trust metadata, settings/diagnostics contributions.</li>
+          </ul>
+          <div class="callout" data-i18n="plugin.not">
+            <strong>Plugin is not:</strong> the agent brain, a free-pass permission grant, or a cloud remote-control channel.
+            It only declares “what I can do”; whether it runs still depends on Runtime Projection + PermissionGrant + Evidence.
+          </div>
+
+          <h2 id="plugin-vs" data-i18n="plugin.vsTitle">Plugin vs Skill vs MCP</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="plugin.thObject">Object</th>
+                  <th data-i18n="plugin.thRole">Role</th>
+                  <th data-i18n="plugin.thNot">Not for</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Plugin</strong></td>
+                  <td data-i18n="plugin.vsPluginRole">Local capability packaging & distribution</td>
+                  <td data-i18n="plugin.vsPluginNot">Deciding when the agent should act; storing permission truth alone</td>
+                </tr>
+                <tr>
+                  <td><strong>Skill</strong></td>
+                  <td data-i18n="plugin.vsSkillRole">Reusable instruction / playbook package (SKILL.md)</td>
+                  <td data-i18n="plugin.vsSkillNot">Hosting new local execution providers</td>
+                </tr>
+                <tr>
+                  <td><strong>MCP</strong></td>
+                  <td data-i18n="plugin.vsMcpRole">Tool/resource transport protocol</td>
+                  <td data-i18n="plugin.vsMcpNot">Product object, permission model, or governance model</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 id="plugin-chain" data-i18n="plugin.chainTitle">Still the same chain</h2>
+          <pre><code>Plugin package
+  → Capability Manifest(s)
+    → Runtime Projection
+      → Tool Call
+        → PermissionGrant
+          → Local execution
+            → Evidence</code></pre>
+          <p data-i18n="plugin.chainBody">
+            Any Plugin, Skill, or MCP server must enter this path. There is no blessed side door for “plugin tools”
+            that skip projection or grants.
+          </p>
+
+          <h2 id="plugin-contains" data-i18n="plugin.containsTitle">What a Plugin can contain</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="plugin.thPiece">Piece</th>
+                  <th data-i18n="plugin.thMeaning">Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-i18n="plugin.c1a">Capability manifests</td>
+                  <td data-i18n="plugin.c1b">Declared capabilities the Runtime may project</td>
+                </tr>
+                <tr>
+                  <td data-i18n="plugin.c2a">Local adapters</td>
+                  <td data-i18n="plugin.c2b">Native bridge / local process adapters that execute on device</td>
+                </tr>
+                <tr>
+                  <td data-i18n="plugin.c3a">Local MCP config</td>
+                  <td data-i18n="plugin.c3b">Optional bundled local MCP server registration</td>
+                </tr>
+                <tr>
+                  <td data-i18n="plugin.c4a">Permission declarations</td>
+                  <td data-i18n="plugin.c4b">What the package claims it needs — not the final grant</td>
+                </tr>
+                <tr>
+                  <td data-i18n="plugin.c5a">UI contributions</td>
+                  <td data-i18n="plugin.c5b">Settings / diagnostics contribution metadata when needed</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 id="plugin-registry" data-i18n="plugin.regTitle">Local registration layers</h2>
+          <p data-i18n="plugin.regBody">
+            Local registration is designed as three layers that must not be mixed into one folder:
+          </p>
+          <ol class="steps">
+            <li data-i18n="plugin.r1"><strong>Built-in</strong> — first-party capabilities shipped with the client (for example Local Shell is a core provider, not a random plugin).</li>
+            <li data-i18n="plugin.r2"><strong>User-installed</strong> — formal packages recorded under Electron <code>userData</code> plugin registry (e.g. <code>plugins/registry.json</code>).</li>
+            <li data-i18n="plugin.r3"><strong>Workspace / dev</strong> — development-time manifests (compatibility path under workspace <code>capabilities/*.json</code>) for debugging, not third-party distribution.</li>
+          </ol>
+          <div class="callout warn" data-i18n="plugin.regWarn">
+            <strong>Compat note:</strong> workspace <code>capabilities/*.json</code> is a development/compat entry, not the long-term home for packaged third-party plugins.
+          </div>
+
+          <h2 id="plugin-lifecycle" data-i18n="plugin.lifeTitle">Lifecycle (product view)</h2>
+          <ol class="steps">
+            <li data-i18n="plugin.l1"><strong>Install / register</strong> — package lands in the user plugin registry or a declared source root.</li>
+            <li data-i18n="plugin.l2"><strong>Discover manifests</strong> — Runtime loads capability manifests from the package.</li>
+            <li data-i18n="plugin.l3"><strong>Project</strong> — only projected capabilities become model-visible tools for the current workspace/session.</li>
+            <li data-i18n="plugin.l4"><strong>Authorize</strong> — user PermissionGrant (or valid prior grant scope) before execution.</li>
+            <li data-i18n="plugin.l5"><strong>Execute locally</strong> — adapters / local MCP run on the device.</li>
+            <li data-i18n="plugin.l6"><strong>Evidence</strong> — structured results return as Evidence / ClientToolResult trail.</li>
+          </ol>
+
+          <h2 id="plugin-not-shell" data-i18n="plugin.shellTitle">Local Shell is not “just a plugin”</h2>
+          <p data-i18n="plugin.shellBody">
+            Local Shell / Bash is a first-class high-risk built-in Capability Provider. It is modeled as core local power with
+            command safety classification and Evidence, not as an ordinary third-party plugin toggle.
+          </p>
+
+          <h2 id="plugin-when" data-i18n="plugin.whenTitle">When to use a Plugin</h2>
+          <ul>
+            <li data-i18n="plugin.when1">You need a new local capability family (adapters/providers) packaged for install and update.</li>
+            <li data-i18n="plugin.when2">You want to ship local MCP + manifests + settings metadata as one distributable unit.</li>
+            <li data-i18n="plugin.when3">You need clear publisher/install metadata and a governed enable path on the device.</li>
+          </ul>
+          <p data-i18n="plugin.whenNot">
+            If you only need a reusable playbook, use a Skill. If you only need an external tool transport, use MCP.
+            If you need cloud-only business APIs, that belongs to cloud MCP / cloud projection — not a local Plugin pretending to be remote control.
+          </p>
+        </article>
+
         <!-- ================= FAQ ================= -->
         <article class="doc-page" data-page="faq" hidden>
           <div class="crumb"><div class="crumb-left"><span data-i18n="group.help">Help</span><span>/</span><strong data-i18n="nav.faq">FAQ</strong></div></div>
@@ -853,7 +1212,9 @@ Evidence owns governance.</code></pre>
           ]},
           { groupKey: "group.capabilities", items: [
             { id: "capabilities", labelKey: "nav.capabilities" },
-            { id: "mcp", labelKey: "nav.mcp" }
+            { id: "mcp", labelKey: "nav.mcp" },
+            { id: "skill", labelKey: "nav.skill" },
+            { id: "plugin", labelKey: "nav.plugin" }
           ]},
           { groupKey: "group.help", items: [
             { id: "faq", labelKey: "nav.faq" }
@@ -864,21 +1225,123 @@ Evidence owns governance.</code></pre>
         // Dense i18n: English defaults are in HTML; ZH overrides + a few EN labels live here.
         var ui = {
           en: {
-            "nav.docs": "Docs", "nav.changelog": "Changelog", "nav.github": "GitHub", "nav.download": "Download",
+            "nav.docs": "Docs", "nav.mechanisms": "Why Peer", "nav.changelog": "Changelog", "nav.github": "GitHub", "nav.download": "Download",
             "nav.prev": "Previous", "nav.next": "Next",
             "nav.welcome": "Welcome", "nav.install": "Install", "nav.desktop": "Desktop", "nav.cli": "CLI", "nav.model": "Connect a model",
             "nav.runtime": "Local Runtime", "nav.permissions": "Permissions", "nav.evidence": "Evidence",
-            "nav.capabilities": "Overview", "nav.mcp": "MCP", "nav.faq": "FAQ",
+            "nav.capabilities": "Overview", "nav.mcp": "MCP", "nav.skill": "Skills", "nav.plugin": "Plugins", "nav.faq": "FAQ",
             "group.getStarted": "Get started", "group.concepts": "Concepts", "group.capabilities": "Capabilities", "group.help": "Help",
             "toc.title": "On this page", "action.copy": "Copy page", "action.copied": "Copied",
+
+            "skill.title": "Skills",
+            "skill.lede": "A Skill is a reusable instruction package for the agent — not a remote tool server. Peer Agent loads Skills from local packages (SKILL.md), manages enable/disable state, and injects selected skill context into the conversation under the same Runtime governance chain.",
+            "skill.whatTitle": "What a Skill is",
+            "skill.what1": "Package — a folder or archive containing SKILL.md (required) plus optional assets/.",
+            "skill.what2": "Frontmatter — name/description, optional whenToUse, allowed-tools, license metadata.",
+            "skill.what3": "Body — the procedure / playbook the model should follow when the skill is active.",
+            "skill.what4": "Local store — installed skills live under the app user-data skill root; enable/disable is persisted in local settings.",
+            "skill.notTool": "Not the same as MCP: MCP projects external tools into the Runtime. Skills primarily inject structured instruction context and optional tool-allow hints — they still cannot bypass PermissionGrant / Evidence.",
+            "skill.vsTitle": "Skill vs Plugin vs MCP",
+            "skill.thObject": "Object",
+            "skill.thRole": "Role",
+            "skill.thUser": "What you manage",
+            "skill.vsSkillRole": "Reusable agent playbook / instruction package",
+            "skill.vsSkillUser": "Install, enable/disable, insert/invoke into a thread",
+            "skill.vsPluginRole": "Local capability packaging & distribution unit",
+            "skill.vsPluginUser": "Ship providers/adapters as packages",
+            "skill.vsMcpRole": "Tool transport protocol for external tools",
+            "skill.vsMcpUser": "Register/enable servers so tools can project",
+            "skill.packageTitle": "Package shape",
+            "skill.packageBody": "Install sources currently include zip and tgz archives that contain SKILL.md at the archive root (or one top-level folder that contains it). Empty descriptions are treated as invalid noise and dropped.",
+            "skill.lifeTitle": "Lifecycle on device",
+            "skill.l1": "Discover / install — load from local skill roots or install from zip/tgz into the user skill store.",
+            "skill.l2": "List — each skill exposes id, name, description, whenToUse, version, enabled state.",
+            "skill.l3": "Enable / disable — disabled skills remain installed but stay out of the active set.",
+            "skill.l4": "Borrow / link — optional source roots can expose available skills that can be linked into the local store.",
+            "skill.l5": "Use in a thread — insert or invoke skill context; model follows the playbook while tools still require grants.",
+            "skill.l6": "Refresh — re-scan roots / store after install or external edits.",
+            "skill.cliTitle": "CLI: /skill",
+            "skill.cliBody": "In the TUI slash palette, /skill opens Skills management: browse installed skills, enable/disable, refresh, insert, or invoke. Desktop has the corresponding Skills UI over the same store concepts.",
+            "skill.thAction": "Action",
+            "skill.thMeaning": "Meaning",
+            "skill.aBrowse": "Browse",
+            "skill.aBrowseM": "See installed skills and enabled state",
+            "skill.aToggle": "Enable / disable",
+            "skill.aToggleM": "Keep package installed while controlling participation",
+            "skill.aRefresh": "Refresh",
+            "skill.aRefreshM": "Reload from local roots / store",
+            "skill.aInsert": "Insert",
+            "skill.aInsertM": "Inject skill context into the current thread for the model to follow",
+            "skill.aInvoke": "Invoke",
+            "skill.aInvokeM": "Start using the skill as the active playbook for the next steps",
+            "skill.cliWarn": "Governance: enabling a Skill is not a blanket shell grant. Any tool the skill encourages still goes through Runtime Projection → PermissionGrant → Evidence.",
+            "skill.whenTitle": "When to use Skills",
+            "skill.when1": "Repeatable workflows you want the agent to follow consistently (release checklist, review rubric, incident playbook).",
+            "skill.when2": "Team conventions that should travel as packages, not as one-off prompt paste.",
+            "skill.when3": "Domain procedures that should stay local and auditable, with optional tool allow-lists.",
+            "skill.whenNot": "If you need a live external API tool surface, prefer MCP. If you need a new local execution provider family, prefer Plugin/Provider — not a Skill body pretending to be a tool host.",
+
+            "plugin.title": "Plugins",
+            "plugin.lede": "A Plugin is a local capability package — the packaging and distribution unit for local providers, adapters, optional local MCP configs, permission declarations, and install metadata. Plugins do not own cognition and are not the permission source of truth.",
+            "plugin.whatTitle": "What a Plugin is",
+            "plugin.what1": "Capability package — one or more capability manifests shipped together.",
+            "plugin.what2": "Local adapters — how those capabilities actually run on the device (native bridge, local process, etc.).",
+            "plugin.what3": "Optional local MCP config — a Plugin may bundle or register local MCP servers, but MCP remains a transport, not the product object.",
+            "plugin.what4": "Install metadata — publisher, version, signature/trust metadata, settings/diagnostics contributions.",
+            "plugin.not": "Plugin is not: the agent brain, a free-pass permission grant, or a cloud remote-control channel. It only declares “what I can do”; whether it runs still depends on Runtime Projection + PermissionGrant + Evidence.",
+            "plugin.vsTitle": "Plugin vs Skill vs MCP",
+            "plugin.thObject": "Object",
+            "plugin.thRole": "Role",
+            "plugin.thNot": "Not for",
+            "plugin.vsPluginRole": "Local capability packaging & distribution",
+            "plugin.vsPluginNot": "Deciding when the agent should act; storing permission truth alone",
+            "plugin.vsSkillRole": "Reusable instruction / playbook package (SKILL.md)",
+            "plugin.vsSkillNot": "Hosting new local execution providers",
+            "plugin.vsMcpRole": "Tool/resource transport protocol",
+            "plugin.vsMcpNot": "Product object, permission model, or governance model",
+            "plugin.chainTitle": "Still the same chain",
+            "plugin.chainBody": "Any Plugin, Skill, or MCP server must enter this path. There is no blessed side door for “plugin tools” that skip projection or grants.",
+            "plugin.containsTitle": "What a Plugin can contain",
+            "plugin.thPiece": "Piece",
+            "plugin.thMeaning": "Meaning",
+            "plugin.c1a": "Capability manifests",
+            "plugin.c1b": "Declared capabilities the Runtime may project",
+            "plugin.c2a": "Local adapters",
+            "plugin.c2b": "Native bridge / local process adapters that execute on device",
+            "plugin.c3a": "Local MCP config",
+            "plugin.c3b": "Optional bundled local MCP server registration",
+            "plugin.c4a": "Permission declarations",
+            "plugin.c4b": "What the package claims it needs — not the final grant",
+            "plugin.c5a": "UI contributions",
+            "plugin.c5b": "Settings / diagnostics contribution metadata when needed",
+            "plugin.regTitle": "Local registration layers",
+            "plugin.regBody": "Local registration is designed as three layers that must not be mixed into one folder:",
+            "plugin.r1": "Built-in — first-party capabilities shipped with the client (for example Local Shell is a core provider, not a random plugin).",
+            "plugin.r2": "User-installed — formal packages recorded under Electron userData plugin registry (e.g. plugins/registry.json).",
+            "plugin.r3": "Workspace / dev — development-time manifests (compatibility path under workspace capabilities/*.json) for debugging, not third-party distribution.",
+            "plugin.regWarn": "Compat note: workspace capabilities/*.json is a development/compat entry, not the long-term home for packaged third-party plugins.",
+            "plugin.lifeTitle": "Lifecycle (product view)",
+            "plugin.l1": "Install / register — package lands in the user plugin registry or a declared source root.",
+            "plugin.l2": "Discover manifests — Runtime loads capability manifests from the package.",
+            "plugin.l3": "Project — only projected capabilities become model-visible tools for the current workspace/session.",
+            "plugin.l4": "Authorize — user PermissionGrant (or valid prior grant scope) before execution.",
+            "plugin.l5": "Execute locally — adapters / local MCP run on the device.",
+            "plugin.l6": "Evidence — structured results return as Evidence / ClientToolResult trail.",
+            "plugin.shellTitle": "Local Shell is not “just a plugin”",
+            "plugin.shellBody": "Local Shell / Bash is a first-class high-risk built-in Capability Provider. It is modeled as core local power with command safety classification and Evidence, not as an ordinary third-party plugin toggle.",
+            "plugin.whenTitle": "When to use a Plugin",
+            "plugin.when1": "You need a new local capability family (adapters/providers) packaged for install and update.",
+            "plugin.when2": "You want to ship local MCP + manifests + settings metadata as one distributable unit.",
+            "plugin.when3": "You need clear publisher/install metadata and a governed enable path on the device.",
+            "plugin.whenNot": "If you only need a reusable playbook, use a Skill. If you only need an external tool transport, use MCP. If you need cloud-only business APIs, that belongs to cloud MCP / cloud projection — not a local Plugin pretending to be remote control.",
             documentTitle: "Peer Agent — Docs"
           },
           zh: {
-            "nav.docs": "文档", "nav.changelog": "更新日志", "nav.github": "GitHub", "nav.download": "下载",
+            "nav.docs": "文档", "nav.mechanisms": "为什么", "nav.changelog": "更新日志", "nav.github": "GitHub", "nav.download": "下载",
             "nav.prev": "上一页", "nav.next": "下一页",
             "nav.welcome": "欢迎", "nav.install": "安装", "nav.desktop": "Desktop", "nav.cli": "CLI", "nav.model": "连接模型",
             "nav.runtime": "本地 Runtime", "nav.permissions": "权限", "nav.evidence": "Evidence",
-            "nav.capabilities": "能力总览", "nav.mcp": "MCP", "nav.faq": "常见问题",
+            "nav.capabilities": "能力总览", "nav.mcp": "MCP", "nav.skill": "Skills", "nav.plugin": "Plugins", "nav.faq": "常见问题",
             "group.getStarted": "开始使用", "group.concepts": "核心概念", "group.capabilities": "能力", "group.help": "帮助",
             "toc.title": "本页目录", "action.copy": "复制全文", "action.copied": "已复制",
             "welcome.title": "欢迎使用 Peer Agent",
@@ -1039,7 +1502,7 @@ Evidence owns governance.</code></pre>
             "evidence.s3": "长 Goal 会话里，把 Evidence 当作跨多步审计轨迹。",
             "evidence.compact": "相关：/compact 会用结构化摘要压缩模型上下文，UI 转录可保留 —— 但 Evidence/产物仍比摘要文本更重要。",
             "cap.title": "能力总览",
-            "cap.lede": "能力经 provider/manifest 声明，投影为模型工具，并在 PermissionGrant 后执行。Shell、MCP、插件没有“秘密旁路”。",
+            "cap.lede": "能力经 provider/manifest 声明，投影为模型工具，并在 PermissionGrant 后执行。Shell、MCP、插件、Skills 没有“秘密旁路”。",
             "cap.thArea": "领域", "cap.thExamples": "示例", "cap.thGuard": "治理要点",
             "cap.r1a": "文件", "cap.r1b": "读取 / 搜索 / 编辑工作区文件", "cap.r1c": "优先工作区作用域；写入应可经 Evidence 复查",
             "cap.r2a": "Shell", "cap.r2b": "构建、测试、git、脚本", "cap.r2c": "高影响——保持先询问；检查 stdout 产物",
@@ -1073,6 +1536,108 @@ Evidence owns governance.</code></pre>
             "faq.q6": "去哪里报 bug？",
             "faq.a6": "ly-ccx/Peer-Agent 的 GitHub Issues。尽量注明 Desktop 还是 CLI、版本（peer --version / 应用版本），并附 Evidence 片段。",
             "faq.changelog": "更新日志", "faq.download": "下载",
+
+            "skill.title": "Skills",
+            "skill.lede": "Skill 是给 Agent 复用的指令包，不是远程工具服务器。Peer Agent 从本地包（SKILL.md）加载 Skills，管理启用/禁用，并在同一套 Runtime 治理链下把选中的 skill 上下文注入会话。",
+            "skill.whatTitle": "Skill 是什么",
+            "skill.what1": "包 — 含 SKILL.md（必需）与可选 assets/ 的目录或压缩包。",
+            "skill.what2": "Frontmatter — name/description，可选 whenToUse、allowed-tools、license 元数据。",
+            "skill.what3": "正文 — skill 激活后模型应遵循的流程 / playbook。",
+            "skill.what4": "本地 store — 安装在应用 user-data skill 根目录；启用/禁用写入本地 settings。",
+            "skill.notTool": "与 MCP 不同：MCP 把外部工具投影进 Runtime。Skill 主要注入结构化指令上下文与可选工具允许提示 —— 仍不能绕过 PermissionGrant / Evidence。",
+            "skill.vsTitle": "Skill vs Plugin vs MCP",
+            "skill.thObject": "对象",
+            "skill.thRole": "职责",
+            "skill.thUser": "你管理什么",
+            "skill.vsSkillRole": "可复用的 Agent playbook / 指令包",
+            "skill.vsSkillUser": "安装、启用/禁用、插入/调用到线程",
+            "skill.vsPluginRole": "本地能力打包与分发单元",
+            "skill.vsPluginUser": "以包形式交付 provider/adapter",
+            "skill.vsMcpRole": "外部工具的传输协议",
+            "skill.vsMcpUser": "注册/启用 server，使工具可被投影",
+            "skill.packageTitle": "包结构",
+            "skill.packageBody": "当前支持在压缩包根（或仅一层顶层目录）包含 SKILL.md 的 zip / tgz。空 description 会被视为无效噪音并丢弃。",
+            "skill.lifeTitle": "本机生命周期",
+            "skill.l1": "发现 / 安装 — 从本地 skill roots 加载，或从 zip/tgz 安装到用户 skill store。",
+            "skill.l2": "列表 — 每个 skill 暴露 id、name、description、whenToUse、version、enabled。",
+            "skill.l3": "启用 / 禁用 — 禁用后仍保留安装，但不进入活跃集合。",
+            "skill.l4": "借用 / 链接 — 可选 source roots 可暴露可 link 进本地 store 的技能。",
+            "skill.l5": "在线程中使用 — 插入或调用 skill 上下文；模型跟随 playbook，工具仍需授权。",
+            "skill.l6": "刷新 — 安装或外部修改后重新扫描 roots / store。",
+            "skill.cliTitle": "CLI：/skill",
+            "skill.cliBody": "TUI 斜杠面板中 /skill 打开 Skills 管理：浏览已安装技能、启用/禁用、刷新、插入或调用。Desktop 有对应 Skills UI，共享同一 store 概念。",
+            "skill.thAction": "动作",
+            "skill.thMeaning": "含义",
+            "skill.aBrowse": "浏览",
+            "skill.aBrowseM": "查看已安装技能与启用状态",
+            "skill.aToggle": "启用 / 禁用",
+            "skill.aToggleM": "保留安装包，同时控制是否参与",
+            "skill.aRefresh": "刷新",
+            "skill.aRefreshM": "从本地 roots / store 重新加载",
+            "skill.aInsert": "插入",
+            "skill.aInsertM": "把 skill 上下文注入当前线程，供模型遵循",
+            "skill.aInvoke": "调用",
+            "skill.aInvokeM": "把该 skill 作为后续步骤的活跃 playbook",
+            "skill.cliWarn": "治理：启用 Skill 不是整机 shell 授权。Skill 鼓励的任何工具仍走 Runtime Projection → PermissionGrant → Evidence。",
+            "skill.whenTitle": "什么时候用 Skills",
+            "skill.when1": "希望 Agent 稳定遵循的可重复流程（发版清单、审查标准、事故 playbook）。",
+            "skill.when2": "需要以包形式传播的团队约定，而不是一次性粘贴提示词。",
+            "skill.when3": "应保持本地与可审计的领域流程，可附带工具允许列表。",
+            "skill.whenNot": "若需要实时外部 API 工具面，优先 MCP。若需要新的本机执行 provider 族，优先 Plugin/Provider —— 不要让 Skill 正文假装成 tool host。",
+
+            "plugin.title": "Plugins",
+            "plugin.lede": "Plugin 是本地能力包——用于打包与分发本地 provider、adapter、可选本地 MCP 配置、权限声明与安装元数据。Plugin 不拥有认知，也不是权限事实源。",
+            "plugin.whatTitle": "Plugin 是什么",
+            "plugin.what1": "能力包 — 一起交付的一个或多个 capability manifest。",
+            "plugin.what2": "本地 adapter — 这些能力如何在设备上真正执行（native bridge、本地进程等）。",
+            "plugin.what3": "可选本地 MCP 配置 — Plugin 可捆绑或注册本地 MCP，但 MCP 仍是传输层，不是产品对象。",
+            "plugin.what4": "安装元数据 — 发布方、版本、签名/信任信息、设置/诊断贡献。",
+            "plugin.not": "Plugin 不是：Agent 大脑、一劳永逸的权限通行证，也不是云端远程控制通道。它只声明“我能做什么”；能否运行仍取决于 Runtime Projection + PermissionGrant + Evidence。",
+            "plugin.vsTitle": "Plugin vs Skill vs MCP",
+            "plugin.thObject": "对象",
+            "plugin.thRole": "职责",
+            "plugin.thNot": "不适合",
+            "plugin.vsPluginRole": "本地能力打包与分发",
+            "plugin.vsPluginNot": "决定 Agent 何时行动；单独充当权限真相",
+            "plugin.vsSkillRole": "可复用指令 / playbook 包（SKILL.md）",
+            "plugin.vsSkillNot": "承载新的本机执行 provider",
+            "plugin.vsMcpRole": "工具/资源传输协议",
+            "plugin.vsMcpNot": "产品对象、权限模型或治理模型",
+            "plugin.chainTitle": "仍然是同一条链",
+            "plugin.chainBody": "任何 Plugin、Skill 或 MCP server 都必须进入这条路径。不存在跳过 projection 或授权的“插件旁路”。",
+            "plugin.containsTitle": "Plugin 可以包含什么",
+            "plugin.thPiece": "组成部分",
+            "plugin.thMeaning": "含义",
+            "plugin.c1a": "Capability manifests",
+            "plugin.c1b": "Runtime 可投影的已声明能力",
+            "plugin.c2a": "Local adapters",
+            "plugin.c2b": "在设备上执行的 native bridge / 本地进程 adapter",
+            "plugin.c3a": "Local MCP config",
+            "plugin.c3b": "可选捆绑的本地 MCP 注册",
+            "plugin.c4a": "权限声明",
+            "plugin.c4b": "包声称需要什么 — 不是最终 grant",
+            "plugin.c5a": "UI 贡献",
+            "plugin.c5b": "需要时的设置 / 诊断贡献元数据",
+            "plugin.regTitle": "本地注册分层",
+            "plugin.regBody": "本地注册设计为三层，不能混在一个目录：",
+            "plugin.r1": "内置 — 客户端随附的一等能力（例如 Local Shell 是核心 provider，不是随便一个插件）。",
+            "plugin.r2": "用户安装 — 记录在 Electron userData 插件 registry（如 plugins/registry.json）的正式包。",
+            "plugin.r3": "工作区 / 开发 — 开发态 manifest（兼容路径 workspace capabilities/*.json）用于调试，不是第三方分发主路径。",
+            "plugin.regWarn": "兼容说明：workspace capabilities/*.json 是开发/兼容入口，不是第三方正式插件的长期归宿。",
+            "plugin.lifeTitle": "生命周期（产品视角）",
+            "plugin.l1": "安装 / 注册 — 包进入用户 plugin registry 或声明的 source root。",
+            "plugin.l2": "发现 manifests — Runtime 从包中加载 capability manifests。",
+            "plugin.l3": "投影 — 只有被投影的能力才会成为当前工作区/会话的模型可见工具。",
+            "plugin.l4": "授权 — 执行前需要用户 PermissionGrant（或有效既有 grant 范围）。",
+            "plugin.l5": "本地执行 — adapter / 本地 MCP 在设备上运行。",
+            "plugin.l6": "Evidence — 结构化结果作为 Evidence / ClientToolResult 轨迹返回。",
+            "plugin.shellTitle": "Local Shell 不是“普通插件”",
+            "plugin.shellBody": "Local Shell / Bash 是一等高风险内置 Capability Provider。它按核心本机权力建模（含命令安全分级与 Evidence），不是普通第三方插件开关。",
+            "plugin.whenTitle": "什么时候用 Plugin",
+            "plugin.when1": "需要把新的本机能力族（adapter/provider）打包安装与升级。",
+            "plugin.when2": "希望把本地 MCP + manifests + 设置元数据作为一个可分发单元交付。",
+            "plugin.when3": "需要清晰的发布方/安装元数据，以及设备上可治理的启用路径。",
+            "plugin.whenNot": "若只要可复用 playbook，用 Skill。若只要外部工具传输，用 MCP。若只要云端业务 API，那属于云端 MCP / 云端 projection —— 不要用本地 Plugin 假装远程控制。",
             documentTitle: "Peer Agent — 文档"
           }
         };
@@ -1242,5 +1807,82 @@ Evidence owns governance.</code></pre>
         setPage(parseHash().page, false);
       })();
     </script>
+      <script>
+      (function () {
+        var KEY = "peer-theme";
+        var order = ["system", "light", "dark"];
+        function systemDark() {
+          return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        }
+        function normalizePref(pref) {
+          return pref === "light" || pref === "dark" || pref === "system" ? pref : "system";
+        }
+        function resolveTheme(pref) {
+          pref = normalizePref(pref);
+          if (pref === "dark") return "dark";
+          if (pref === "light") return "light";
+          return systemDark() ? "dark" : "light";
+        }
+        function readPref() {
+          try { return normalizePref(localStorage.getItem(KEY) || "system"); }
+          catch (e) { return "system"; }
+        }
+        function writePref(pref) {
+          try { localStorage.setItem(KEY, pref); } catch (e) {}
+        }
+        function labels(pref, theme) {
+          if (pref === "system") return theme === "dark" ? "Theme: System (Dark)" : "Theme: System (Light)";
+          return pref === "dark" ? "Theme: Dark" : "Theme: Light";
+        }
+        function applyLogos(theme) {
+          document.querySelectorAll("img.mark[data-logo-light][data-logo-dark]").forEach(function (img) {
+            var next = theme === "dark" ? img.getAttribute("data-logo-dark") : img.getAttribute("data-logo-light");
+            if (next && img.getAttribute("src") !== next) img.setAttribute("src", next);
+          });
+        }
+        function applyTheme(pref) {
+          pref = normalizePref(pref);
+          var theme = resolveTheme(pref);
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.setAttribute("data-theme-pref", pref);
+          applyLogos(theme);
+          document.querySelectorAll(".theme-toggle").forEach(function (btn) {
+            btn.setAttribute("data-mode", pref);
+            btn.setAttribute("aria-label", labels(pref, theme));
+            btn.title = labels(pref, theme);
+          });
+        }
+        function cyclePref(pref) {
+          var i = order.indexOf(normalizePref(pref));
+          return order[(i + 1) % order.length];
+        }
+        function bind() {
+          document.querySelectorAll(".theme-toggle").forEach(function (btn) {
+            if (btn.__themeBound) return;
+            btn.__themeBound = true;
+            btn.addEventListener("click", function () {
+              var next = cyclePref(readPref());
+              writePref(next);
+              applyTheme(next);
+            });
+          });
+        }
+        applyTheme(readPref());
+        bind();
+        if (window.matchMedia) {
+          var mq = window.matchMedia("(prefers-color-scheme: dark)");
+          var onChange = function () {
+            if (readPref() === "system") applyTheme("system");
+          };
+          if (mq.addEventListener) mq.addEventListener("change", onChange);
+          else if (mq.addListener) mq.addListener(onChange);
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+          applyTheme(readPref());
+          bind();
+        });
+      })();
+    </script>
+
   </body>
 </html>

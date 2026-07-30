@@ -1,13 +1,14 @@
 # macOS 状态栏任务中心产品方案
 
 创建时间：2026-07-13
-最后更新：2026-07-21
+最后更新：2026-07-27
 状态：Draft（待产品评审，未进入代码实现）
 
 关联文档：
 
 - `design/product/task-completion-system-notification.md`（任务完成系统通知：触发、去重、回流、权限；§8 策略的完整规格）
 - `design/product/quick-chat-floating-window.md`（Quick Chat：后台任务卡与回流）
+- `design/product/menu-bar-tray-recent-sessions.md`（菜单栏托盘 · 近期会话入口：Codex 式原生 Menu、P0 先落地；与本方案共享菜单栏槽位、信息对象不同）
 
 ## 一、方案摘要
 
@@ -492,6 +493,12 @@ type TaskCenterSnapshot = {
 - Windows/Linux 系统托盘适配。
 
 ### 12.3 后续迭代
+
+**与近期会话 Tray 的合并顺序**
+
+- P0 菜单栏优先落地 Codex 式「近期会话原生 Menu」，见 `design/product/menu-bar-tray-recent-sessions.md`。
+- 本任务中心方案作为同一菜单栏槽位的后续演进：任务态图标/数字 + 点击展开任务 Popover；避免并排第二个 Peer 图标。
+- 合并前两者可并行设计，但实现上应共用主进程 Tray 生命周期，不可各建一套互斥 Tray。
 
 **V1.1：快捷处理**
 

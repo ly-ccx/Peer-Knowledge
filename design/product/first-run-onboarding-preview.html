@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peer Agent · 首启引导预览（Settings 整页）</title>
+  <style>
+    /*
+      Peer Frost preview — aligned to tokens.css
+      Gate A CTA → Settings page (LlmSettingsPanel), NOT centered modal.
+    */
+    :root {
+      --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
+      --chrome-canvas: #FAFBFC;
+      --chrome-raised: #F3F5F8;
+      --chrome-sunken: #EBEEF3;
+      --chrome-hover: #F0F2F6;
+      --chrome-active: #E5E8EE;
+      --chrome-hairline: #DCE0E8;
+      --paper-base: #EDF1F6;
+      --paper-sheet: #F7F9FC;
+      --paper-sunken: #DDE3EB;
+      --paper-hover: #EAEEF4;
+      --control-composer: #EFF2F6;
+      --control-fill: #EAEDF2;
+      --graphite-base: #1A1D21;
+      --graphite-base-hover: #2A2D33;
+      --graphite-soft: #525660;
+      --graphite-fade: #878B95;
+      --graphite-mute: #B0B4BC;
+      --graphite-hairline: #DCE0E8;
+      --azure-seal: #3B7FAB;
+      --azure-soft: #7BA8C8;
+      --azure-trace: #D8E4EE;
+      --shadow-soft: 0 1px 2px rgba(26, 29, 33, 0.06), 0 6px 18px rgba(26, 29, 33, 0.08);
+      --shadow-panel: 0 2px 12px rgba(26, 29, 33, 0.06);
+      --radius-control: 6px;
+      --radius-row: 8px;
+      --radius-panel: 12px;
+      --radius-modal: 16px;
+      --sidebar-w: 248px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: var(--font-sans);
+      color: var(--graphite-base);
+      background: var(--chrome-canvas);
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 40px;
+      gap: 14px;
+    }
+
+    .chrome {
+      width: min(1160px, 100%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .chrome h1 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .chrome p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--graphite-fade);
+      line-height: 1.45;
+    }
+    .tabs {
+      display: inline-flex;
+      padding: 3px;
+      gap: 2px;
+      background: var(--chrome-raised);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: 999px;
+    }
+    .tabs button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--graphite-soft);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .tabs button:hover { color: var(--graphite-base); background: color-mix(in srgb, var(--chrome-canvas) 70%, transparent); }
+    .tabs button.active {
+      color: var(--graphite-base);
+      background: var(--paper-sheet);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .window {
+      width: min(1160px, 100%);
+      height: min(740px, calc(100vh - 120px));
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      background: var(--chrome-canvas);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: var(--radius-modal);
+      box-shadow: var(--shadow-panel);
+      overflow: hidden;
+    }
+
+    /* App sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 10px;
+      background: var(--chrome-raised);
+      border-right: 1px solid var(--chrome-hairline);
+    }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px 10px;
+    }
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-row);
+      background: var(--graphite-base);
+      color: var(--paper-sheet);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .brand-text { font-size: 13px; font-weight: 600; }
+    .ws-switch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 4px 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-panel);
+      background: var(--paper-sheet);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 78%, transparent);
+      font-size: 12px;
+      color: var(--graphite-soft);
+    }
+    .ws-switch strong { color: var(--graphite-base); font-weight: 600; }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 0 10px;
+      border-radius: var(--radius-row);
+      font-size: 13px;
+      color: var(--graphite-soft);
+    }
+    .nav-btn.primary {
+      background: var(--paper-sheet);
+      color: var(--graphite-base);
+      box-shadow: var(--shadow-soft);
+      font-weight: 500;
+    }
+    .nav-btn .ico {
+      width: 14px;
+      color: var(--graphite-fade);
+      font-size: 12px;
+      text-align: center;
+    }
+    .section-label {
+      margin: 14px 10px 6px;
+      font-size: 11px;
+      color: var(--graphite-mute);
+    }
+    .conv-empty {
+      margin: 2px 6px;
+      padding: 12px 10px;
+      border-radius: var(--radius-panel);
+      border: 1px dashed color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      color: var(--graphite-fade);
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .sidebar-foot {
+      margin-top: auto;
+      padding: 8px;
+      border-radius: var(--radius-panel);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--graphite-soft);
+      cursor: pointer;
+    }
+    .sidebar-foot:hover { background: color-mix(in srgb, var(--paper-sheet) 70%, transparent); }
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--paper-sunken);
+      border: 1px solid var(--chrome-hairline);
+    }
+
+    /* Main */
+    .main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: var(--paper-sheet);
+    }
+    .topbar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      color: var(--graphite-fade);
+      font-size: 12px;
+    }
+    .mode-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--chrome-sunken);
+      color: var(--graphite-soft);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 70%, transparent);
+    }
+    .stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 7.5% 24px 28px;
+      overflow: auto;
+    }
+
+    .empty { width: min(720px, 100%); text-align: center; }
+    .empty-mark {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 12px;
+      border-radius: var(--radius-panel);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 80%, transparent);
+      background: color-mix(in srgb, var(--chrome-canvas) 88%, var(--graphite-base) 4%);
+      color: var(--graphite-mute);
+      display: grid;
+      place-items: center;
+    }
+    .empty h2 {
+      margin: 0;
+      font-size: clamp(30px, 2.4vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.22;
+    }
+    .empty .sub {
+      margin: 10px 0 0;
+      font-size: 14px;
+      color: var(--graphite-fade);
+      line-height: 1.55;
+    }
+    .chat-link {
+      color: var(--azure-seal);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in srgb, var(--azure-seal) 35%, transparent);
+      cursor: pointer;
+      background: none;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      font: inherit;
+      padding: 0;
+    }
+    .cta-row {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 550;
+      border-radius: var(--radius-control);
+      padding: 9px 14px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      color: var(--paper-sheet);
+      background: var(--graphite-base);
+    }
+    .btn-primary:hover { background: var(--graphite-base-hover); }
+    .btn-ghost {
+      color: var(--graphite-soft);
+      background: transparent;
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+    }
+    .btn-ghost:hover {
+      background: var(--chrome-hover);
+      color: var(--graphite-base);
+    }
+
+    .starter-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      text-align: left;
+      width: min(100%, 680px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .starter {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      min-height: 104px;
+      padding: 16px;
+      border: 1px solid color-mix(in srgb, var(--graphite-fade) 28%, transparent);
+      border-radius: var(--radius-panel);
+      background: color-mix(in srgb, var(--chrome-canvas) 88%, var(--graphite-base) 4%);
+      color: var(--graphite-base);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+    }
+    .starter:hover {
+      border-color: color-mix(in srgb, var(--graphite-soft) 40%, transparent);
+      background: var(--paper-sheet);
+    }
+    .starter .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-row);
+      display: grid;
+      place-items: center;
+      color: var(--graphite-soft);
+      background: color-mix(in srgb, var(--paper-sheet) 80%, transparent);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 70%, transparent);
+      font-size: 12px;
+    }
+    .starter .title { font-size: 13px; font-weight: 600; }
+    .starter .desc { font-size: 12px; color: var(--graphite-fade); line-height: 1.45; }
+    .hint-line {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--graphite-mute);
+    }
+
+    .composer-wrap {
+      width: min(760px, 100%);
+      margin-top: 26px;
+    }
+    .composer {
+      border-radius: var(--radius-modal);
+      background: var(--control-composer);
+      border: 1px solid color-mix(in srgb, var(--chrome-hairline) 90%, transparent);
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+      min-height: 144px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      text-align: left;
+    }
+    .composer.disabled { opacity: 0.78; }
+    .composer .placeholder {
+      font-size: 14px;
+      color: var(--graphite-fade);
+      min-height: 56px;
+      line-height: 1.5;
+    }
+    .composer .placeholder.filled { color: var(--graphite-base); }
+    .composer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--paper-sheet) 75%, transparent);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 80%, transparent);
+      color: var(--graphite-soft);
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .send {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--graphite-base);
+      color: var(--paper-sheet);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+    .send[disabled] {
+      background: var(--graphite-mute);
+      cursor: not-allowed;
+    }
+
+    /* Gate C MCP panel */
+    .settings-panel {
+      width: min(720px, 100%);
+      text-align: left;
+      background: var(--paper-sheet);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: var(--radius-panel);
+      overflow: hidden;
+    }
+    .settings-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--chrome-hairline);
+    }
+    .settings-head h3 { margin: 0; font-size: 14px; font-weight: 600; }
+    .settings-head span { font-size: 12px; color: var(--graphite-fade); }
+    .tip-banner {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 14px 14px 0;
+      padding: 12px 14px;
+      border-radius: var(--radius-panel);
+      background: color-mix(in srgb, var(--azure-trace) 70%, var(--paper-sheet));
+      border: 1px solid color-mix(in srgb, var(--azure-soft) 35%, transparent);
+    }
+    .tip-banner .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-row);
+      background: var(--paper-sheet);
+      display: grid;
+      place-items: center;
+      color: var(--azure-seal);
+      font-weight: 700;
+      font-size: 12px;
+      flex: 0 0 auto;
+      border: 1px solid color-mix(in srgb, var(--azure-soft) 30%, transparent);
+    }
+    .tip-banner .body strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .tip-banner .body p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--graphite-soft);
+      line-height: 1.5;
+    }
+    .tip-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .tip-actions button {
+      appearance: none;
+      border: 0;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 550;
+      border-radius: var(--radius-control);
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .tip-actions .ok {
+      background: var(--graphite-base);
+      color: var(--paper-sheet);
+    }
+    .tip-actions .later {
+      background: transparent;
+      color: var(--graphite-soft);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+    }
+    .settings-body { padding: 16px; }
+    .empty-capability {
+      border: 1px dashed color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      border-radius: var(--radius-panel);
+      background: var(--chrome-canvas);
+      padding: 36px 20px;
+      text-align: center;
+    }
+    .empty-capability h4 { margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+    .empty-capability p { margin: 0 0 16px; font-size: 12px; color: var(--graphite-fade); }
+
+    /* ===== Settings page (true product path) ===== */
+    .settings-page {
+      display: none;
+      flex: 1;
+      min-height: 0;
+      background: var(--paper-sheet);
+    }
+    .settings-page-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      height: 100%;
+      min-height: 0;
+    }
+    .settings-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 10px;
+      background: var(--chrome-raised);
+      border-right: 1px solid var(--chrome-hairline);
+      overflow: auto;
+    }
+    .settings-nav-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px 12px;
+    }
+    .settings-nav-header button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-row);
+      color: var(--graphite-soft);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .settings-nav-header button:hover {
+      background: var(--chrome-hover);
+      color: var(--graphite-base);
+    }
+    .settings-nav-header strong {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .settings-nav-group {
+      margin: 10px 8px 4px;
+      font-size: 11px;
+      color: var(--graphite-mute);
+      letter-spacing: 0.02em;
+    }
+    .settings-nav-item {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-row);
+      font: inherit;
+      font-size: 13px;
+      color: var(--graphite-soft);
+      cursor: pointer;
+    }
+    .settings-nav-item:hover {
+      background: color-mix(in srgb, var(--paper-sheet) 70%, transparent);
+      color: var(--graphite-base);
+    }
+    .settings-nav-item.active {
+      background: var(--paper-sheet);
+      color: var(--graphite-base);
+      box-shadow: var(--shadow-soft);
+      font-weight: 550;
+    }
+    .settings-content {
+      overflow: auto;
+      padding: 22px 28px 28px;
+      min-width: 0;
+    }
+    .llm-panel { max-width: 720px; }
+    .llm-panel h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .llm-panel .lead {
+      margin: 0 0 18px;
+      font-size: 13px;
+      color: var(--graphite-fade);
+      line-height: 1.55;
+    }
+    .setup-banner {
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border-radius: var(--radius-panel);
+      background: color-mix(in srgb, var(--chrome-canvas) 80%, var(--graphite-base) 3%);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      font-size: 12px;
+      color: var(--graphite-soft);
+      line-height: 1.5;
+    }
+    .setup-banner strong {
+      color: var(--graphite-base);
+      font-weight: 600;
+    }
+    .llm-card {
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      border-radius: var(--radius-panel);
+      background: var(--chrome-canvas);
+      overflow: hidden;
+    }
+    .llm-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--paper-sheet);
+      border-bottom: 1px solid var(--chrome-hairline);
+    }
+    .llm-card-head h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .llm-card-head p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--graphite-fade);
+    }
+    .llm-fields {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      background: var(--paper-sheet);
+    }
+    .field label {
+      display: block;
+      font-size: 11px;
+      color: var(--graphite-fade);
+      margin-bottom: 6px;
+    }
+    .field input,
+    .field select {
+      width: 100%;
+      height: 36px;
+      border-radius: var(--radius-control);
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 95%, transparent);
+      background: var(--control-fill);
+      padding: 0 10px;
+      font: inherit;
+      font-size: 13px;
+      color: var(--graphite-base);
+      outline: none;
+    }
+    .field input:focus,
+    .field select:focus {
+      border-color: color-mix(in srgb, var(--azure-seal) 45%, var(--chrome-hairline));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--azure-seal) 14%, transparent);
+      background: var(--paper-sheet);
+    }
+    .llm-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 0 16px 16px;
+      background: var(--paper-sheet);
+    }
+    .provider-empty {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: var(--radius-panel);
+      border: 1px dashed color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      color: var(--graphite-fade);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .note {
+      width: min(1160px, 100%);
+      font-size: 12px;
+      color: var(--graphite-fade);
+      line-height: 1.55;
+    }
+    .note code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      background: var(--chrome-raised);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--graphite-soft);
+    }
+
+    /* View switching */
+    .view-chat .settings-page { display: none; }
+    .view-chat .chat-shell { display: contents; }
+    .view-settings .chat-shell { display: none; }
+    .view-settings .settings-page { display: block; }
+    .view-settings .app-sidebar { opacity: 0.55; }
+
+    .state-a .gate-b,
+    .state-a .gate-c,
+    .state-b .gate-a,
+    .state-b .gate-c,
+    .state-c .gate-a,
+    .state-c .gate-b { display: none; }
+
+    .state-c .stage {
+      padding-top: 5%;
+      align-items: stretch;
+    }
+    .state-c .stage-inner {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .window { grid-template-columns: 1fr; height: auto; min-height: 0; }
+      .app-sidebar { display: none; }
+      .settings-page-inner { grid-template-columns: 1fr; }
+      .settings-nav { border-right: 0; border-bottom: 1px solid var(--chrome-hairline); }
+      .starter-grid { grid-template-columns: 1fr; }
+      .stage { padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="chrome">
+    <div>
+      <h1>首启引导 · Settings 整页路径</h1>
+      <p>配置模型 = <code>setActivePage('settings')</code> → <code>LlmSettingsPanel</code> · 不是居中弹窗</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="引导状态">
+      <button type="button" class="active" data-state="a" role="tab" aria-selected="true">Gate A · 未配置模型</button>
+      <button type="button" data-state="b" role="tab" aria-selected="false">Gate B · Welcome + starter</button>
+      <button type="button" data-state="c" role="tab" aria-selected="false">Gate C · 一次性 tip</button>
+    </div>
+  </div>
+
+  <div class="window view-chat state-a" id="app" data-state="a" data-view="chat">
+    <aside class="sidebar app-sidebar" aria-label="侧栏">
+      <div class="brand-row">
+        <div class="brand-mark" aria-hidden="true">P</div>
+        <div class="brand-text">Peer Agent</div>
+      </div>
+      <div class="ws-switch" title="系统默认 ~/PeerAgent">
+        <span>工作区 · <strong id="ws-name">PeerAgent</strong></span>
+        <span aria-hidden="true">▾</span>
+      </div>
+      <div class="nav-btn primary"><span class="ico">+</span>新建会话</div>
+      <div class="nav-btn"><span class="ico">⌕</span>搜索</div>
+      <div class="nav-btn"><span class="ico">◇</span>插件 / MCP</div>
+      <div class="section-label">会话</div>
+      <div class="conv-empty">No chats yet<br />配置模型后开始第一条任务</div>
+      <div class="sidebar-foot" id="open-settings-foot" title="打开设置">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <div style="font-weight:600;color:var(--graphite-base)">你</div>
+          <div>设置 · 模型</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <!-- Chat shell -->
+      <div class="chat-shell">
+        <div class="topbar">
+          <span id="topbar-title">新会话</span>
+          <span class="mode-pill"><span id="mode-label">Chat</span> · 本地桌面</span>
+        </div>
+
+        <div class="stage">
+          <!-- Gate A -->
+          <div class="empty gate-a" id="gate-a">
+            <div class="empty-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v3" /><path d="M12 18v3" /><path d="M3 12h3" /><path d="M18 12h3" />
+                <circle cx="12" cy="12" r="4" />
+              </svg>
+            </div>
+            <h2>先接通模型，再开始任务</h2>
+            <p class="sub">
+              请先
+              <button type="button" class="chat-link" id="open-settings-link">配置模型</button>
+              后开始对话。
+            </p>
+            <div class="cta-row">
+              <button class="btn btn-primary" id="open-settings" type="button">配置模型</button>
+              <button class="btn btn-ghost" type="button" id="dismiss-auto-settings" title="setupModelAutoOpened=true，之后不再自动进设置">稍后再说</button>
+            </div>
+            <div class="composer-wrap">
+              <div class="composer disabled" aria-disabled="true">
+                <div class="placeholder">请先配置模型</div>
+                <div class="composer-bar">
+                  <div class="chips">
+                    <span class="chip">模型未就绪</span>
+                    <span class="chip">默认 · PeerAgent</span>
+                  </div>
+                  <button class="send" disabled aria-label="发送不可用">↑</button>
+                </div>
+              </div>
+            </div>
+            <p class="hint-line" id="gate-a-hint">首启自动进入 Settings 一次（可返回）· 主路径不是弹窗</p>
+          </div>
+
+          <!-- Gate B -->
+          <div class="empty gate-b" id="gate-b">
+            <div class="empty-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 9h8" /><path d="M8 13h5" />
+                <rect x="4" y="5" width="16" height="14" rx="3" />
+              </svg>
+            </div>
+            <h2 id="welcome-title">接下来在 PeerAgent 做什么？</h2>
+            <p class="sub">描述任务，或从下面选一个开始</p>
+            <div class="starter-grid" id="starters">
+              <button type="button" class="starter" data-prompt="梳理 PeerAgent 工作区里我现在能先做哪些事。">
+                <span class="icon" aria-hidden="true">◎</span>
+                <span class="title">梳理现状</span>
+                <span class="desc">在默认工作区里快速摸清可做事项。</span>
+              </button>
+              <button type="button" class="starter" data-prompt="帮我把今天的待办整理成可执行清单。">
+                <span class="icon" aria-hidden="true">⌕</span>
+                <span class="title">排查问题</span>
+                <span class="desc">从描述出发，定位问题与下一步。</span>
+              </button>
+              <button type="button" class="starter" data-prompt="为「首启情境式引导」拆一版可落地的实现方案。">
+                <span class="icon" aria-hidden="true">☰</span>
+                <span class="title">制定方案</span>
+                <span class="desc">把产品方案拆成可验收的实现步骤。</span>
+              </button>
+            </div>
+            <div class="composer-wrap">
+              <div class="composer" id="composer-b">
+                <div class="placeholder" id="composer-text">描述任务，按 Enter 发送…</div>
+                <div class="composer-bar">
+                  <div class="chips">
+                    <span class="chip">模型已配置</span>
+                    <span class="chip">工作区 · PeerAgent</span>
+                  </div>
+                  <button class="send" type="button" aria-label="发送">↑</button>
+                </div>
+              </div>
+            </div>
+            <p class="hint-line">默认工作区 ~/PeerAgent · 可随时换成真实项目目录 · 不挡发送</p>
+          </div>
+
+          <!-- Gate C -->
+          <div class="gate-c stage-inner" id="gate-c">
+            <div class="settings-panel">
+              <div class="settings-head">
+                <h3>MCP 连接</h3>
+                <span>设置 · 工具与能力</span>
+              </div>
+              <div class="tip-banner" id="tip-banner">
+                <div class="icon">i</div>
+                <div class="body">
+                  <strong>连接 MCP 后，可在对话里调用外部工具</strong>
+                  <p>一次性轻提示。添加连接后自然消失；点「知道了」后不再显示。</p>
+                  <div class="tip-actions">
+                    <button class="ok" type="button" id="dismiss-tip">知道了</button>
+                    <button class="later" type="button">查看文档</button>
+                  </div>
+                </div>
+              </div>
+              <div class="settings-body">
+                <div class="empty-capability">
+                  <h4>还没有 MCP 连接</h4>
+                  <p>从市场添加，或粘贴本地 / 远程 MCP 配置。</p>
+                  <button class="btn btn-primary" type="button">添加 MCP</button>
+                </div>
+              </div>
+            </div>
+            <p class="hint-line" style="text-align:center;margin-top:18px;">
+              Gate C：用户主动进入能力表面时出现 · 同时最多 1 条 tip
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings full page (replaces modal) -->
+      <div class="settings-page" id="settings-page" aria-label="设置">
+        <div class="settings-page-inner">
+          <aside class="settings-nav" aria-label="设置分区">
+            <div class="settings-nav-header">
+              <button type="button" id="settings-back" aria-label="返回">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <strong>设置</strong>
+            </div>
+            <div class="settings-nav-group">通用</div>
+            <button type="button" class="settings-nav-item" data-section="general">通用</button>
+            <button type="button" class="settings-nav-item" data-section="appearance">外观</button>
+            <div class="settings-nav-group">AI</div>
+            <button type="button" class="settings-nav-item active" data-section="model" aria-current="page">模型与渠道</button>
+            <button type="button" class="settings-nav-item" data-section="skills">工具与能力</button>
+            <div class="settings-nav-group">应用</div>
+            <button type="button" class="settings-nav-item" data-section="updates">更新与关于</button>
+          </aside>
+
+          <section class="settings-content">
+            <div class="llm-panel" id="llm-panel">
+              <h2>模型与渠道</h2>
+              <p class="lead">LlmSettingsPanel · 添加 Provider 并填写 API Key。保存后无需重启，返回空态即可发消息。</p>
+              <div class="setup-banner" id="setup-banner">
+                <strong>首启引导</strong>：完成至少一个可用模型后，点「保存并返回」进入欢迎空态。可随时点左上角返回（Composer 仍禁用，直到配置完成）。
+              </div>
+              <div class="llm-card">
+                <div class="llm-card-head">
+                  <div>
+                    <h3>添加 Provider</h3>
+                    <p>预览示意 · 对应真实面板内的模型配置表单（非独立 modal tour）</p>
+                  </div>
+                  <button class="btn btn-ghost" type="button" title="真实产品里另有 ModelCatalogDialog 等子弹层">从目录添加</button>
+                </div>
+                <div class="llm-fields">
+                  <div class="field">
+                    <label>Provider</label>
+                    <select>
+                      <option>OpenAI 兼容</option>
+                      <option>Anthropic</option>
+                      <option>自定义</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label>Model ID</label>
+                    <input value="gpt-4.1" />
+                  </div>
+                  <div class="field">
+                    <label>API Key</label>
+                    <input type="password" value="sk-preview-••••••••" />
+                  </div>
+                </div>
+                <div class="llm-actions">
+                  <button class="btn btn-ghost" type="button" id="settings-cancel">返回</button>
+                  <button class="btn btn-primary" type="button" id="save-settings">保存并返回</button>
+                </div>
+              </div>
+              <div class="provider-empty">
+                当前还没有已配置模型。保存后列表会出现 Provider 行；编辑某一行时才会打开
+                <code>ModelSettingsDialog</code>（子弹窗，不是主路径）。
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">
+    路径对齐真产品：Chat 空态 CTA → <code>settings-page</code> / <code>Llm</code> 面板 → 保存 → Gate B。
+    默认工作区 <code>PeerAgent</code> · <code>setupModelAutoOpened</code> 只自动进设置一次。
+    文件：<code>design/product/first-run-onboarding-preview.html</code>
+  </p>
+
+  <script>
+    (function () {
+      var app = document.getElementById("app");
+      var tabs = document.querySelectorAll(".tabs button");
+      var wsName = document.getElementById("ws-name");
+      var modeLabel = document.getElementById("mode-label");
+      var topbarTitle = document.getElementById("topbar-title");
+      var tipBanner = document.getElementById("tip-banner");
+      var composerText = document.getElementById("composer-text");
+      var gateAHint = document.getElementById("gate-a-hint");
+
+      var setupModelAutoOpened = false;
+      var autoOpenTimer = null;
+      var chatState = "a"; // last chat gate while visiting settings
+
+      function markSetupOpened() {
+        setupModelAutoOpened = true;
+        if (gateAHint) {
+          gateAHint.textContent = "setupModelAutoOpened = true · 之后只靠空态 CTA 进 Settings，不再自动进入";
+        }
+      }
+
+      function setView(view) {
+        app.classList.remove("view-chat", "view-settings");
+        app.classList.add(view === "settings" ? "view-settings" : "view-chat");
+        app.dataset.view = view;
+        if (view === "settings") {
+          modeLabel.textContent = "Settings";
+          topbarTitle.textContent = "设置";
+        } else {
+          modeLabel.textContent = chatState === "c" ? "Settings" : "Chat";
+          topbarTitle.textContent = chatState === "c" ? "能力" : "新会话";
+        }
+      }
+
+      function openSettings(fromAuto) {
+        setView("settings");
+        if (fromAuto) markSetupOpened();
+        else markSetupOpened();
+      }
+
+      function closeSettings() {
+        setView("chat");
+        markSetupOpened();
+      }
+
+      function maybeAutoOpenSettings() {
+        if (autoOpenTimer) {
+          clearTimeout(autoOpenTimer);
+          autoOpenTimer = null;
+        }
+        if (chatState !== "a") return;
+        if (setupModelAutoOpened) return;
+        autoOpenTimer = setTimeout(function () {
+          if (chatState === "a" && !setupModelAutoOpened && app.dataset.view !== "settings") {
+            openSettings(true);
+          }
+        }, 420);
+      }
+
+      function setState(state) {
+        chatState = state;
+        app.classList.remove("state-a", "state-b", "state-c");
+        app.classList.add("state-" + state);
+        app.dataset.state = state;
+        tabs.forEach(function (btn) {
+          var on = btn.dataset.state === state;
+          btn.classList.toggle("active", on);
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+        });
+
+        wsName.textContent = "PeerAgent";
+
+        // tabs always show chat gates; leave settings if switching
+        setView("chat");
+
+        if (state === "a") {
+          maybeAutoOpenSettings();
+        } else if (state === "c") {
+          if (tipBanner) tipBanner.style.display = "";
+        }
+      }
+
+      tabs.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setState(btn.dataset.state);
+        });
+      });
+
+      [
+        "open-settings",
+        "open-settings-link",
+        "open-settings-foot"
+      ].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("click", function () { openSettings(false); });
+      });
+
+      document.getElementById("dismiss-auto-settings").addEventListener("click", function () {
+        markSetupOpened();
+        if (app.dataset.view === "settings") closeSettings();
+      });
+
+      document.getElementById("settings-back").addEventListener("click", closeSettings);
+      document.getElementById("settings-cancel").addEventListener("click", closeSettings);
+
+      document.getElementById("save-settings").addEventListener("click", function () {
+        markSetupOpened();
+        setState("b");
+      });
+
+      document.querySelectorAll(".starter").forEach(function (card) {
+        card.addEventListener("click", function () {
+          var prompt = card.getAttribute("data-prompt") || card.querySelector(".title").textContent;
+          composerText.textContent = prompt;
+          composerText.classList.add("filled");
+        });
+      });
+
+      document.getElementById("dismiss-tip").addEventListener("click", function () {
+        tipBanner.style.display = "none";
+      });
+
+      // 首屏：Gate A，并自动进入 Settings 一次
+      setState("a");
+    })();
+  </script>
+</body>
+</html>

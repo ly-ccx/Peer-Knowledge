@@ -1,13 +1,14 @@
 # 任务完成系统通知方案
 
 创建时间：2026-07-21
-最后更新：2026-07-21
+最后更新：2026-07-27
 状态：Draft（产品方案，待实现）
 
 关联文档：
 
 - `design/product/status-bar-task-center.md`（状态栏任务中心：投影、未读、attentionVersion）
 - `design/product/quick-chat-floating-window.md`（Quick Chat：后台任务卡与回流）
+- `design/product/menu-bar-tray-recent-sessions.md`（菜单栏托盘 · 近期会话：常驻入口，不替代本方案的事件驱动通知）
 
 ---
 
