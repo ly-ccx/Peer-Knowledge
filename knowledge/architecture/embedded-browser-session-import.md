@@ -9,7 +9,9 @@
 
 Peer Agent Desktop 支持把用户在外部浏览器中明确选择的**站点 Cookie / 登录会话**一次性复制到内嵌 Browser 的持久 Session，使用户不必在同一站点重复登录。
 
-本能力命名为“导入站点会话”，而不是“导入身份信息”或“迁移浏览器资料”。Cookie 是可直接代表用户登录状态的 bearer credential，必须按高敏凭据治理：
+本能力命名为“导入站点会话”，而不是“导入身份信息”或“迁移浏览器资料”。**这与 Codex 的 “Import cookies and passwords…” 打包入口不是同一条管线**：本文件只覆盖 **Cookie / 登录会话** 复制；**不**在本管线导入密码。Peer **另建**用户面 Password manager / autofill（见 `browser-password-manager-autofill.md`），与 Cookie 导入分入口、分存储、分确认。产品面菜单见 `design/product/embedded-browser-surface.md`。
+
+Cookie 是可直接代表用户登录状态的 bearer credential，必须按高敏凭据治理：
 
 - 用户从设置或 Browser 空状态页主动发起；
 - 用户明确选择来源浏览器、Profile 与站点；
@@ -74,6 +76,26 @@ localStorage/IndexedDB 可能也是站点认证链路的一部分，但缺乏统
 ### 4.3 不提供 Agent 工具
 
 会话导入是用户设置能力，不作为 `browser_*` 或 `computer_*` 工具投影给模型。Agent 不得自行枚举外部 Profile、选择站点、读取或发起 Cookie 导入。
+
+### 4.4 与 Codex「Import cookies and passwords」及密码管理的边界
+
+Codex 将 **Import cookies and passwords…** 与 **Passwords and autofill** 放在同一浏览器身份面。Peer **拆轨**：
+
+| 维度 | Codex（产品观察） | Peer · 本文（Cookie 会话导入） | Peer · 密码能力（另文） |
+|---|---|---|---|
+| 对象 | Cookie + 密码打包 | **仅 Cookie / 登录会话** | 密码条目 + 登录 autofill |
+| 入口名 | cookies and passwords | **导入站点会话** | Password manager |
+| 存储 | 浏览器身份面 | `persist:peer-browser` Cookie | 独立 Password Vault |
+| Agent | 强登录闭环 | 不投影为工具 | **默认不投影**；见密码架构 |
+| Contact autofill | 有 | 无 | 暂缓 |
+
+因此（**针对本 Cookie 管线**）：
+
+1. 不得使用 “Import cookies and passwords” 作为 Peer 会话导入功能名；
+2. 本管线实现与测试**不得**读取浏览器密码数据库或把密码写入 Cookie Store；
+3. 密码管理 / autofill **不**通过扩展本文静默加入，而由 `browser-password-manager-autofill.md` 与后续 ADR 约束；
+4. 可选的「从 Chrome 导入密码」若做，必须是**独立向导**，不得与本流程合并确认；
+5. 菜单与设置以 `design/product/embedded-browser-surface.md` 为准：两入口并存、文案分清。
 
 ## 5. 支持矩阵
 
@@ -655,9 +677,11 @@ type SessionImportEvidence = {
 
 持续同步需要常驻读取外部 Profile、处理双向覆盖和随时解密 Cookie，扩大攻击面与用户预期。首期只做用户触发的一次性复制；来源后续退出登录或撤销会话时，Peer Browser 不保证自动同步，UI 必须说明这一点。
 
-### 为什么不导入密码和通行密钥
+### 为什么本管线不导入密码和通行密钥
 
-密码库和 Passkey 是独立的凭据系统，涉及更高权限、用户在场证明和不可导出的私钥。重复登录体验问题不应通过复制这些凭据解决；Cookie 导入已经足以覆盖大量现有会话。
+密码库和 Passkey 是独立的凭据系统，涉及更高权限、用户在场证明和不可导出的私钥。Cookie 会话导入只解决「已登录会话复制」；**尚未登录、需账号密码** 由 **Password manager / autofill** 承担（`browser-password-manager-autofill.md`），而不是把密码塞进 Cookie 快照管线。
+
+对照 Codex 的打包入口：Peer 故意拆成「导入站点会话」与「Password manager」，避免一次确认覆盖 Cookie + 密码双重敏感面，并保持 Agent 对密码库默认零 API。Passkey 仍不导入。
 
 ### 为什么使用 Helper
 
@@ -673,9 +697,12 @@ type SessionImportEvidence = {
 
 ## 17. 关联文档
 
+- `design/product/embedded-browser-surface.md` — 内嵌 Browser 菜单/设置；会话导入与 Password manager 分入口
+- `knowledge/architecture/browser-password-manager-autofill.md` — 密码库与自动填充（与本文分轨）
 - `knowledge/decisions/40-embedded-browser-and-agent-control.md` — 内嵌 Browser 的持久 partition、安全基线与 Browser control
 - `knowledge/decisions/46-conversation-bound-browser-tabs.md` — Browser tab 的会话绑定；登录态仍由共享 partition 承载
 - `knowledge/architecture/computer-use-capability-ladder.md` — Browser automation 权限与 Evidence；导入会话不等于授权 Agent 操作
+- `knowledge/architecture/visible-browser-readiness-handshake.md` — 可见 Browser 自动展开与就绪后再执行
 - `knowledge/decisions/0001-cross-platform-credential-vault.md` — 签名本地 Helper、失败关闭与凭据治理原则
 - `knowledge/architecture/20-architecture-governance.md` — PermissionGrant、Capability 与 Evidence 主链
 
