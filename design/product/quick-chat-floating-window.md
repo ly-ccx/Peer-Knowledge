@@ -773,3 +773,13 @@ Error
 5. 视觉复用 Peer Frost token 和动效原则；窗口生命周期由 Electron 主进程治理，不能仅用 renderer overlay 模拟。
 
 该边界能让 Quick Chat 真正成为“更短的入口”，而不是一套旁路会话系统。
+
+## 窗口分层（2026-07-30 定案）
+
+> 详见 ADR：`knowledge/decisions/60-quick-chat-independent-popover-window.md`
+
+- **Bar 窗**（`window=quick-chat`）：默认高度 104；**仅**随输入多行 / 附件 / 任务卡内容长高（上限 480）。
+- **Popover 窗**（`window=quick-chat-popover`）：workspace / model / mode / effort / access 下拉的独立 Electron 窗，可超出 bar 边界、可贴边翻向。
+- **禁止**为打开菜单去 `setBounds` 拉高 bar。
+- **否决**：Flutter 悬浮窗、Swift+C# 双端业务整窗（现阶段）。
+
