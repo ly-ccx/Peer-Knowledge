@@ -33,6 +33,17 @@ Quick Chat Popover  (window=quick-chat-popover)
 
 业务真相仍在 Electron 主进程 + TS/React；不引入第二 UI 运行时。
 
+
+
+### 1b. 简单枚举 vs 富内容（2026-07-31 补充）
+
+| kind | 呈现 |
+| --- | --- |
+| `workspace` / `mode` / `access` / `effort` | Electron **`Menu.popup`**（系统菜单，天然不裁切） |
+| `model` | **`Menu.popup` 二级 submenu**（按 provider `group` 分组） |
+
+Renderer 仍统一走 `quickChatShowPopover` IPC；主进程按 `MENU_KINDS` / `WINDOW_POPOVER_KINDS` 分流。
+
 ### 2. 高度策略分离
 
 | 原因 | 是否允许改 Bar 高度 |
@@ -47,7 +58,7 @@ Quick Chat Popover  (window=quick-chat-popover)
 | Flutter 悬浮窗 | 否。第二套 UI 运行时；自身仍可能有窗口边界问题 |
 | Swift + C# 整窗业务双维护 | 否。成本 ×3～4，Composer 语义无法复用 |
 | 继续同窗 DOM + setBounds 扩高 | 否。不得再作为终态 |
-| 系统 Menu 覆盖全部选择器 | 暂不。富内容（effort 滑条、分组）仍需自定义 UI；简单枚举可后续再试点 Menu |
+| 系统 Menu 覆盖全部选择器 | 否。**枚举项**（workspace/model/mode/access/effort）均 `Menu.popup`；model 按 provider 二级 submenu |
 
 ### 4. 进程与 IPC 边界
 
@@ -66,7 +77,7 @@ Quick Chat Popover  (window=quick-chat-popover)
 
 ### 6. 后续可选（非本 ADR 范围）
 
-- 极简枚举改为 `Menu.popup`  
+- ~~极简枚举改为 `Menu.popup`~~（已落地，见 §1b）
 - 仅当独立 Electron 窗仍不满足质感时，评估 **薄原生 Popup 壳**（不做业务）
 
 ## 验收

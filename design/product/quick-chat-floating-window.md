@@ -783,3 +783,15 @@ Error
 - **禁止**为打开菜单去 `setBounds` 拉高 bar。
 - **否决**：Flutter 悬浮窗、Swift+C# 双端业务整窗（现阶段）。
 
+## 菜单分流（2026-07-31）
+
+- **简单枚举**（工作区 / 模型 / 模式 / 访问级别）：系统 `Menu.popup`，不创建 Electron 下拉窗。
+- **富内容**（思考强度等）：独立 Electron popover 窗。
+- bar 高度仍只随输入/附件/任务卡变化。
+
+## 菜单分流（更新：effort 选项 + model 分组）
+
+- **工作区 / 模式 / 访问级别 / 思考强度**：系统 `Menu.popup` 扁平选项。
+- **模型**：系统 `Menu.popup`，按 provider 名做 **二级 submenu**。
+- bar 高度仍只随输入/附件/任务卡变化。
+
