@@ -93,11 +93,23 @@ git diff --stat <previous-tag>..HEAD
 
 - `release-notes/v<version>.md`
 - `CHANGELOG.md`
-- `docs/changelog.html`
+- `docs/changelog.html`（**硬门禁**：见下）
 - `docs/docs.html`
 - `docs/index.html`
 
 产品行为变化后，文档不能继续描述已删除的命令或过期流程。
+
+#### `docs/changelog.html` 硬门禁（禁止 stamp / tag 前跳过）
+
+`release-notes/v<version>.md` 写了**不等于**站点已更新。`docs/changelog.html` 当前是静态嵌入 `var ENTRIES = [...]`，不会自动读取 `release-notes/`。
+
+发版前必须同时满足：
+
+1. `CHANGELOG.md` 含本版标题（如 `## 0.0.1-beta.N`）
+2. `docs/changelog.html` 的 `ENTRIES[0].version` / `label` 为本版（页面「最新」徽章依赖 `idx === 0`）
+3. 本版中英段落与 notes 事实一致
+
+本地核验失败则**禁止**进入 stamp / tag。不要用“先发版再补站点”绕过。
 
 ### 4.2.1 根 `README.md` 漂移检查（每次必做，条件更新）
 
@@ -170,6 +182,7 @@ node scripts/check-version.mjs
 - CLI 产物与 npm 安装路径可验证。
 - Runtime 公开包的 tarball 内容与外部宿主 smoke 通过。
 - release notes、CHANGELOG 和用户文档站已同步。
+- **硬门禁**：`docs/changelog.html` 的 `ENTRIES[0]` 为本版（「最新」徽章落在本版）；核验失败不得 stamp/tag。
 - 根 `README.md` 已完成漂移检查；若命中触发条件已更新，否则记录 `README: no-op`。
 - 本轮架构或流程变化已同步到 `peer-knowledge`。
 
@@ -203,7 +216,7 @@ git push origin v<version>
 3. Desktop 安装包与更新清单可下载。
 4. CLI 归档和 npm 安装面可用。
 5. Beta/Stable 通道与版本格式一致。
-6. `docs/` 用户站点展示新版本和更新日志。
+6. `docs/` 用户站点展示新版本和更新日志；changelog 页「最新」为本版。
 7. 根 `README.md` 检查结果已明确（`no-op` 或 `updated`）；若已更新，入口/安装/能力描述与本轮产品一致。
 8. 如修改了知识库，确认 `peer-knowledge` 的文档提交已推送。
 
@@ -214,7 +227,7 @@ git push origin v<version>
 | 版本检查失败 | 修正 `VERSION` 与受管 package 版本，不打 tag |
 | Tag 未触发 CI | 检查 tag 是否为 `v*`、是否已推送到正确 remote |
 | Release 缺资产 | 检查对应平台 job、打包步骤和上传权限 |
-| Pages 仍显示旧版本 | 检查 `release-notes/`、`docs/changelog.html` 与 Pages 源分支 |
+| Pages 仍显示旧版本 / 「最新」仍是上版 | **硬门禁未过**：补 `CHANGELOG.md` + 把本版插入 `docs/changelog.html` `ENTRIES[0]`，再推 Pages 源分支；不要假设 notes 会自动进站点 |
 | 根 README 仍写旧入口/死链 | 执行 4.2.1 漂移检查；命中触发条件则更新，勿用 notes 顶替 |
 | Skill 在错误项目出现 | 检查是否错误安装到了 `~/.peer-agent/skills`，项目 Skill 应回到 `<workspace>/skills` |
 | 当前项目看不到 `release-process` | 确认活动工作空间是 `peer_agent`，不是 `peer-knowledge` |
@@ -226,6 +239,7 @@ git push origin v<version>
 - [ ] 版本号与通道已确认
 - [ ] `release-notes/v<version>.md` 已更新
 - [ ] `CHANGELOG.md` 已更新
+- [ ] **硬门禁**：`docs/changelog.html` 的 `ENTRIES[0]` 为本版（「最新」徽章落在本版）
 - [ ] 用户文档站已同步
 - [ ] 已完成根 `README.md` 漂移检查（版本 / 安装 / 入口 / 能力 / 链接）
 - [ ] 若命中 README 触发条件：已更新并随发版提交；否则记录 `README: no-op`
