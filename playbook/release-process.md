@@ -1,7 +1,7 @@
 # Peer Agent 发布流程
 
 创建时间：2026-07-27
-最后更新：2026-07-27
+最后更新：2026-08-03
 
 > 用途：记录 Peer Agent Desktop、CLI 和开放 Runtime 的人工发版 SOP、职责边界与检查清单。
 > 执行型 Skill：`/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
@@ -12,7 +12,7 @@ Peer Agent 发布涉及两个解耦仓库：
 
 | 仓库 | 本地路径 | 发布职责 |
 |---|---|---|
-| `peer_agent` | `/Users/liangyin/Documents/DEV/github/peer_agent` | 代码、版本戳、测试、构建、release notes、CHANGELOG、用户文档站、tag、CI 与 GitHub Release |
+| `peer_agent` | `/Users/liangyin/Documents/DEV/github/peer_agent` | 代码、版本戳、测试、构建、release notes、CHANGELOG、根 README 漂移检查、用户文档站、tag、CI 与 GitHub Release |
 | `peer-knowledge` | `/Users/liangyin/Documents/MiaoYan/peer-knowledge` | 架构决策、版本规范、人工发布 SOP、故障经验与运维知识 |
 
 原则：
@@ -34,6 +34,7 @@ Peer Agent 发布涉及两个解耦仓库：
 | 版本回写 | `peer_agent/scripts/stamp-version.mjs` |
 | 产品发布说明 | `peer_agent/release-notes/v<version>.md` |
 | 累积变更记录 | `peer_agent/CHANGELOG.md` |
+| 产品入口说明 | `peer_agent/README.md`（定位 / 安装 / 入口面 / 能力；**不是**变更日志） |
 | 用户文档站 | `peer_agent/docs/` |
 | 架构、规范和 SOP | `peer-knowledge/knowledge/`、`peer-knowledge/playbook/` |
 | 发布流水线 | `peer_agent/.github/workflows/release.yml` |
@@ -65,9 +66,10 @@ knowledge/decisions/58-local-skill-scope-and-workspace-mounting.md
 4. 确认当前分支、远端和工作树状态。
 5. 明确本次发布是否包含：
    - Desktop
-   - CLI
+   - CLI / TUI
    - 开放 Runtime packages
    - 用户文档站
+   - 根 `README.md` 更新（仅在触发条件命中时）
    - 架构/规范/Playbook 更新
 6. 高风险动作（推送 tag、发布包、覆盖 Release）必须获得用户明确确认。
 
@@ -96,6 +98,36 @@ git diff --stat <previous-tag>..HEAD
 - `docs/index.html`
 
 产品行为变化后，文档不能继续描述已删除的命令或过期流程。
+
+### 4.2.1 根 `README.md` 漂移检查（每次必做，条件更新）
+
+**检查必做；完整重写不默认。** 根 README 是产品入口页，不是 `CHANGELOG` / `release-notes` 的替代品。
+
+每次发版至少扫：
+
+1. 版本表述（是否仍写过时 early-development / 旧版本号）
+2. 安装路径（`@peer-agent/cli`、`peer`、Desktop 开发/打包命令）
+3. 入口面（Desktop / TUI / CLI）
+4. 核心能力（Agent / Plan / Goal / Quick Chat / Browser·Workbench / MCP / Skills 等）
+5. 链接存活（相对链接与文档入口；禁止代码仓内 architecture 死链）
+
+仅在命中触发条件时更新 README：
+
+| 触发条件 | 动作 |
+|---|---|
+| 纯 bugfix / 内部重构 / 文案微调 | 通常 **no-op**（记录已检查） |
+| 安装方式、入口面（Desktop / TUI / CLI）变化 | **更新** |
+| 主能力上线/下线或对外叙事变化 | **更新** |
+| Roadmap 大项完成态变化 | **建议更新** |
+| 文档结构迁移导致 README 死链 | **更新** |
+| 正式版（非 beta）或重大定位调整 | **更新** |
+
+结果只允许：
+
+- `README: no-op` — 已检查，无需改
+- `README: updated` — 本轮已改并随发版准备提交
+
+非目标：不要把每条 bugfix 写进 README；不要把 README 当 CHANGELOG 用；不要在发版流程里维护 `peer-knowledge` 架构长文。
 
 ### 4.3 更新知识库
 
@@ -138,6 +170,7 @@ node scripts/check-version.mjs
 - CLI 产物与 npm 安装路径可验证。
 - Runtime 公开包的 tarball 内容与外部宿主 smoke 通过。
 - release notes、CHANGELOG 和用户文档站已同步。
+- 根 `README.md` 已完成漂移检查；若命中触发条件已更新，否则记录 `README: no-op`。
 - 本轮架构或流程变化已同步到 `peer-knowledge`。
 
 失败时停止后续 tag，不得用“先发布再补文档”绕过门禁。
@@ -171,7 +204,8 @@ git push origin v<version>
 4. CLI 归档和 npm 安装面可用。
 5. Beta/Stable 通道与版本格式一致。
 6. `docs/` 用户站点展示新版本和更新日志。
-7. 如修改了知识库，确认 `peer-knowledge` 的文档提交已推送。
+7. 根 `README.md` 检查结果已明确（`no-op` 或 `updated`）；若已更新，入口/安装/能力描述与本轮产品一致。
+8. 如修改了知识库，确认 `peer-knowledge` 的文档提交已推送。
 
 ## 八、失败处理
 
@@ -181,6 +215,7 @@ git push origin v<version>
 | Tag 未触发 CI | 检查 tag 是否为 `v*`、是否已推送到正确 remote |
 | Release 缺资产 | 检查对应平台 job、打包步骤和上传权限 |
 | Pages 仍显示旧版本 | 检查 `release-notes/`、`docs/changelog.html` 与 Pages 源分支 |
+| 根 README 仍写旧入口/死链 | 执行 4.2.1 漂移检查；命中触发条件则更新，勿用 notes 顶替 |
 | Skill 在错误项目出现 | 检查是否错误安装到了 `~/.peer-agent/skills`，项目 Skill 应回到 `<workspace>/skills` |
 | 当前项目看不到 `release-process` | 确认活动工作空间是 `peer_agent`，不是 `peer-knowledge` |
 
@@ -192,6 +227,8 @@ git push origin v<version>
 - [ ] `release-notes/v<version>.md` 已更新
 - [ ] `CHANGELOG.md` 已更新
 - [ ] 用户文档站已同步
+- [ ] 已完成根 `README.md` 漂移检查（版本 / 安装 / 入口 / 能力 / 链接）
+- [ ] 若命中 README 触发条件：已更新并随发版提交；否则记录 `README: no-op`
 - [ ] 相关架构、规范和 Playbook 已同步到 `peer-knowledge`
 - [ ] 版本一致性检查通过
 - [ ] 受影响测试、typecheck 和构建通过
