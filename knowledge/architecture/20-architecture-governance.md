@@ -8,12 +8,14 @@
 核心判断：
 
 ```text
-云端负责认知。
+模型负责认知。
 本地负责能力。
 界面负责表达。
 契约负责边界。
 证据负责治理。
 ```
+
+这里的「模型」是**角色**而非**部署位置**：认知可以来自云端 provider，也可以来自未来的本地推理 runtime。无论模型在哪里，能力执行、授权与 Evidence 始终留在本地。
 
 Peer Agent 可以学习 Claude Code、Codex、OpenCode 的实现经验，但不能退化成普通 Electron 聊天壳、本地 Agent、工具拼装平台或靠 prompt 兜底的自动化脚本集合。
 
@@ -253,7 +255,7 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 
 每次较大变更至少检查：
 
-1. 是否仍然满足“云端负责认知，本地负责能力”？
+1. 是否仍然满足“模型负责认知，本地负责能力”？
 2. 新能力是否进入 `Capability Provider -> Manifest -> Runtime Projection -> Tool Call -> PermissionGrant -> Evidence`？
 3. 是否新增了工具、权限、Evidence 或 prompt 旁路？
 4. Renderer 是否只表达和确认，没有直接执行高权限能力？

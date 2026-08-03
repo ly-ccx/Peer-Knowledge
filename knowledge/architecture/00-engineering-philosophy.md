@@ -21,12 +21,14 @@
 ## 能力代理设计原则
 
 ```text
+模型负责认知。
 本地负责能力。
 界面负责表达。
 契约负责边界。
 证据负责治理。
 ```
 
+- **模型（Model）** 负责认知、规划与工具选择；「模型」指角色而非部署位置，可以是云端 provider，也可以是未来的本地推理 runtime
 - **本地（Main Process）** 拥有发现、授权、执行、证据返回
 - **界面（Renderer）** 只负责表达和用户交互
 - **契约（Protocol）** 定义跨层边界
@@ -112,7 +114,7 @@ Capability Provider → Manifest → Runtime Projection → Tool Call → Permis
 Peer Agent 的工程哲学不是“客户端越强越好”，而是：
 
 ```text
-云端负责认知。
+模型负责认知。
 本地负责能力。
 界面负责表达。
 契约负责边界。

@@ -795,7 +795,7 @@ This is an A-level change:
 The implementation must preserve the 端云能力代理设计原则:
 
 ```text
-云端负责认知。
+模型负责认知。
 本地负责能力。
 界面负责表达。
 契约负责边界。
