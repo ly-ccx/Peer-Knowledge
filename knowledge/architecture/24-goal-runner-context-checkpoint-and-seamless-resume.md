@@ -684,9 +684,9 @@ GoalRunner      ProviderCoordinator  GoalStore   CompactionCoordinator  Conversa
       "mustReadEvidenceRefs": ["tool-result://write-22"],
       "openToolCalls": [],
       "budget": {
-        "contextWindow": 258000,
+        "contextWindow": 272000,
         "beforeTokens": 205000,
-        "targetTokens": 141900,
+        "targetTokens": 149600,
         "systemTokens": 18000,
         "toolsTokens": 27000,
         "checkpointTokens": 1800,

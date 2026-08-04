@@ -319,7 +319,7 @@ Local compaction 的摘要不是越像自然语言越好，而是越可恢复越
 1. **统一预算模型**：把 system、messages、tools、attachments、reasoning 预留、max output、provider cache 影响纳入同一 Budget Snapshot。
 2. **统一裁剪策略**：在发送前选择 microcompact、semantic compact、artifact ref、工具 schema 裁剪、附件摘要化等动作，并返回可解释计划。
 3. **统一错误恢复**：将 prompt-too-long、rate/output budget、provider-specific context 错误归一为可恢复策略，而不是散落在各 loop。
-4. **统一 UI 信号**：让进度条、压缩横幅、继续生成按钮看到同一预算状态，避免 `412k / 258k` 仍裸发 provider 请求。
+4. **统一 UI 信号**：让进度条、压缩横幅、继续生成按钮看到同一预算状态，避免 `412k / 272k` 仍裸发 provider 请求。
 5. **可测试边界**：Budget Manager 输出纯数据计划，provider adapter 只负责协议编码，agent loop 只负责执行计划和控制流。
 
 非本轮范围：
