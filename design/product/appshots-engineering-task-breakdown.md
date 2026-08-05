@@ -14,7 +14,7 @@
 | T2 协议 | ✅ 完成 | `packages/protocol/src/appshot.ts`（AppshotPayload/AppshotResult/四类失败码），typecheck 绿 | 无 |
 | T3 服务 | ✅ 完成 | `apps/desktop/electron/main/appshot-service.mjs` + `.test.mjs`（6/6 绿） | 原 3054ms 偏差已由 T3.1 消除 |
 | T3.1 枚举优化 | ✅ 完成 | `defaultListWindows` 改 swiftc 预编译二进制 + 缓存复用 + 解释兜底；`warmup()` 启动预热（main.mjs 装配） | 热态枚举 0.03s（原 3.7s）；warmup 后同进程捕获 **382ms/373ms ≤1.5s 达标**。一次性 ~10s 为本机 EDR（com.alibaba.security.edr）对新二进制首次执行扫描，由启动 warmup 吸收；无 EDR 环境预计仅 swiftc 编译 ~3.9s 一次性 |
-| T4 热键 | ✅ 完成 | `shortcut-service.mjs`：`appshot`='CommandOrControl+Shift+A' 进 `DEFAULT_SHORTCUTS`/`GLOBAL_ACTIONS`；register 改 per-action 回调表 + per-action 状态（向后兼容旧三种调用形态）+ 跨 action 冲突拒绝；main.mjs 装配 `onAppshot` + 3 个 IPC（appshot:capture / permission-status / open-screen-settings）| 测试 14/14 绿（新增 4 案例：注册/跨 action 冲突/失败回滚/无 handler 降级） |
+| T4 热键 | ✅ 完成 → **已回退占用** | 曾接入 `⌘⇧A` 全局热键；**2026-07-30 用户决策后解除占用**：`DEFAULT_SHORTCUTS`/`GLOBAL_ACTIONS` 不再含 `appshot`，main 不注册 `onAppshot`，启动时清理已持久化的 `shortcuts.appshot`。捕获入口保留设置页「测试捕获」+ IPC | shortcut-service 11/11 绿（含「不占用 CommandOrControl+Shift+A」断言） |
 | T5 权限预检 | ✅ 完成 | `appshot-permission-preflight.mjs` + `.test.mjs`（7/7 绿）：读数 + ScreenCapture 深链三级回退 + i18n hint keys（含 restartFallback） | i18n 文案 key 已定义，实际 copy 待 T8 设置页一起进 packages/i18n |
 | T6 投递路由 | ✅ 完成 | `appshot-delivery.mjs` + `.test.mjs`（6/6 绿）：最近活跃未归档/无则新建；用户侧附件消息（artifactRef 制 + 可选缩略图）；单次 append 不自动开跑 Agent | 缩略图生成（thumbnailDataUrl）暂未接线，待 T7 卡片渲染时定尺寸 |
 | T7 卡片渲染 | ✅ 完成 | `ChatAttachment` 扩展 `artifactRef`+`appshot` 元数据（types.ts）；`AttachmentStrip` Appshot 分支（有缩略图走 image 预览；缺图 ⚠︎ 占位 +「图片不可用」，不伪装成功）；main.mjs 接线 nativeImage ≤480px 缩略图 | desktop tsc 绿；attachmentIntake 7/7 绿；渲染视觉待手测 |
@@ -46,12 +46,17 @@
 
 1. 完成左右 ⌘ 同按真机检测（复用 s6 探针，先授权 Accessibility）；
 2. 实现主进程监听服务（预编译 helper 常驻子进程 + stdout 行协议，参照 winlist 二进制模式）+ 可注入单测；
-3. 接线触发链路：双 ⌘ 触发捕获；无 Accessibility 权限时**自动回退 `⌘⇧A`** 并在设置页提示；
+3. 接线触发链路：双 ⌘ 触发捕获；无 Accessibility 权限时**明确提示并降级到设置页「测试捕获」**（不再默认占用 `⌘⇧A`）；
 4. 设置页：热键展示改双 ⌘、增加 Accessibility 权限状态与引导；
 5. 更新 ADR 59 权限面（Accessibility 从 P0b 提前到热键路径）；
 6. 回归：appshot 全部单测 + shortcut-service 测试。
 
-**当前生效状态**：默认热键维持 `⌘⇧A`（已实现、14/14 测试绿）；双 ⌘ 相关代码仅存在于 scratch spike 目录，未进主分支任何运行路径。
+**当前生效状态（2026-07-30 更新）**：
+
+- **无全局 Appshot 热键**：不注册、不占用 `⌘⇧A` 或其它 accelerator；
+- 启动时会清除本地已持久化的 `shortcuts.appshot`，避免旧配置重新占用；
+- 捕获入口：**设置 → Appshots → 测试捕获**（及 `appshot:capture` IPC）；
+- 双 ⌘ 相关代码仅存在于 `scratch/appshot-spike/`，未进主分支运行路径。
 
 技术底座事实（已实测确认）：
 

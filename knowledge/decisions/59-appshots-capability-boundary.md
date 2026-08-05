@@ -13,7 +13,7 @@ Appshots 是用户主动触发的「前台应用窗口上下文快照」能力�
 
 - Appshots 是 **observe-only** 能力：捕获窗口像素与元数据，不注入键鼠事件、不驱动目标 App。
 - 权限面仅 Screen Recording（P0b 文本再加 Accessibility），**与 Computer Use 操控授权严格分轨**；任何 UI 文案不得把 Appshots 授权表述为「允许控制电脑」。
-- 触发源仅限用户手势：全局热键（当前默认 `CommandOrControl+Shift+A`；目标键位为左右 ⌘ 同按，**暂缓实施**，见附录 A）、设置页「测试捕获」。
+- 触发源仅限用户手势：目标为左右 ⌘ 同按（**暂缓实施**，见附录 A）；**当前不注册全局热键、不占用 `⌘⇧A`**，仅保留设置页「测试捕获」。
 - Peer 自身为 frontmost 时返回结构化拒绝（`peer_frontmost`），不静默捕获自己。
 
 ## 决策 2：不暴露模型工具
@@ -59,5 +59,5 @@ preflight:        systemPreferences.getMediaAccessStatus('screen')（读数即�
 - **状态**：**暂缓开发、功能不外露**，待开发者账号申请完成后实施。
 - **理由**：双 ⌘ 无法用 Electron accelerator 表达（spike S3 实锤），必须走 NSEvent/CGEventTap 原生全局监听，硬依赖 Accessibility 权限（spike S6 实测：未授权时 `TRUSTED=false`，监听零事件）。无签名/公证的开发版在 TCC 授权面上不可控（条目显示为 Electron 而非 Peer Agent），正式签名后再做权限申请体验才成立。
 - **权限面影响（恢复开发时生效）**：Accessibility 从「P0b 文本提取才需要」提前到「热键路径即需要」；决策 1 的权限分轨原则不变——Accessibility 授权仅用于修饰键监听与（未来的）AX 文本，仍不授予操控。
-- **回退契约**：双 ⌘ 上线后，无 Accessibility 权限时自动回退 `⌘⇧A` 并在设置页提示，不得静默失效。
-- **进度与恢复待办**：见拆解文档 §0.1（spike 探针 s6-doublecmd.swift 已编译验证，左右同按真机检测未做）。
+- **回退契约**：双 ⌘ 上线前**不占用** `⌘⇧A`；上线后若无 Accessibility 权限，应明确提示并降级到设置页「测试捕获」，不得静默失效、也不得默认抢占其它系统/应用快捷键。
+- **进度与恢复待办**：见拆解文档 §0.1（spike 探针 s6-doublecmd.swift 已编译验证，左右同按真机检测未做；`⌘⇧A` 全局占用已于 2026-07-30 解除）。

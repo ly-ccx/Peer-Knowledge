@@ -281,7 +281,7 @@ Peer 建议：
 
 | 项 | 约定 |
 |---|---|
-| 默认热键（macOS） | **目标键位 = 左右 `⌘` 同按**（对齐 ChatGPT，用户决策 2026-07-30）。**当前状态：暂缓实现、功能不外露**——双 ⌘ 需 NSEvent/CGEventTap 原生全局监听 + Accessibility 权限，待开发者账号申请完成（签名/公证影响 TCC 授权体验）后再开发。过渡期默认键位为 `⌘⇧A`（CommandOrControl+Shift+A，已实现并测试）。 |
+| 默认热键（macOS） | **目标键位 = 左右 `⌘` 同按**（对齐 ChatGPT，用户决策 2026-07-30）。**当前状态：暂缓实现、功能不外露**——双 ⌘ 需 NSEvent/CGEventTap 原生全局监听 + Accessibility 权限，待开发者账号申请完成后再开发。**过渡期不注册任何全局 Appshot 热键**（含不占用 `⌘⇧A`）；捕获入口为设置页「测试捕获」。 |
 | 可配置 | 设置页可修改、恢复默认 |
 | 生效条件 | Peer 已启动（含菜单栏常驻 / 后台运行策略与现有 Desktop 生命周期一致） |
 | 冲突检测 | 与 `quick-chat-floating-window.md` 快捷键设置页同一套：应用内重复检测、注册失败回滚、启动校验 |
@@ -562,7 +562,7 @@ Peer 选项（按分期）：
 
 | ID | 问题 | 影响 | 建议 |
 |---|---|---|---|
-| Q1 | 双 `⌘` 热键在技术上是否稳定？ | 默认键位 | **状态更新（2026-07-30，用户决策）：目标键位定为左右 ⌘ 同按，但暂缓开发、功能不外露，待开发者账号申请完成后再实施**。技术结论：① Electron `globalShortcut` 层不可行（accelerator conversion failure，已实测）；② 原生路径可行性已初步验证——NSEvent global monitor + 设备位掩码（左 ⌘ 0x08 / 右 ⌘ 0x10）探针已编译通过（scratch/appshot-spike/s6-doublecmd.swift），实测确认无 Accessibility 权限时 TRUSTED=false 监听不生效；左右同按检测的真机实测因决策中止未做。过渡期用 `⌘⇧A`。详见拆解文档 §0.1 |
+| Q1 | 双 `⌘` 热键在技术上是否稳定？ | 默认键位 | **状态更新（2026-07-30，用户决策）：目标键位定为左右 ⌘ 同按，但暂缓开发、功能不外露，待开发者账号申请完成后再实施**。技术结论：① Electron `globalShortcut` 层不可行（accelerator conversion failure，已实测）；② 原生路径可行性已初步验证——NSEvent global monitor + 设备位掩码（左 ⌘ 0x08 / 右 ⌘ 0x10）探针已编译通过（scratch/appshot-spike/s6-doublecmd.swift），实测确认无 Accessibility 权限时 TRUSTED=false 监听不生效；左右同按检测的真机实测因决策中止未做。**过渡期无全局热键占用**（`⌘⇧A` 已解除）。详见拆解文档 §0.1 |
 | Q2 | 虚拟列表 offscreen 文本承诺如何对外表述？ | 预期管理 | 用「尽量 / 视应用可访问性」避免绝对化 |
 | Q3 | 捕获后是否自动 invoke 模型？ | 打扰与费用 | P0 默认否 |
 | Q4 | Appshot 是否算用户消息还是系统附件？ | 历史渲染 / 计费 | 建议用户消息复合气泡 |
