@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img">
+  <title>海绵宝宝骑自行车</title>
+  <desc>手绘卡通画：海绵宝宝骑着一辆红色自行车驶过比奇堡的沙地，天上有花朵形状的云。</desc>
+
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bde5f8"/>
+      <stop offset="1" stop-color="#eaf8ff"/>
+    </linearGradient>
+    <clipPath id="bodyClip">
+      <rect x="268" y="130" width="160" height="180" rx="10"/>
+    </clipPath>
+  </defs>
+
+  <!-- 天空与背景 -->
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="697" cy="86" r="52" fill="#ffd166" opacity="0.35"/>
+  <circle cx="697" cy="86" r="36" fill="#ffd166" stroke="#f4b942" stroke-width="3"/>
+
+  <!-- 花朵云（比奇堡风格） -->
+  <g fill="#d9edf8">
+    <circle cx="150" cy="95" r="20"/>
+    <circle cx="120" cy="99" r="15"/>
+    <circle cx="180" cy="99" r="15"/>
+    <circle cx="133" cy="74" r="15"/>
+    <circle cx="167" cy="74" r="15"/>
+  </g>
+  <g fill="#d9edf8" opacity="0.9">
+    <circle cx="430" cy="62" r="14"/>
+    <circle cx="408" cy="65" r="10"/>
+    <circle cx="452" cy="65" r="10"/>
+    <circle cx="418" cy="47" r="10"/>
+    <circle cx="442" cy="47" r="10"/>
+  </g>
+
+  <!-- 沙地与阴影 -->
+  <rect y="520" width="800" height="80" fill="#f0d493"/>
+  <ellipse cx="120" cy="560" rx="26" ry="5" fill="#e2bf77"/>
+  <ellipse cx="330" cy="582" rx="30" ry="6" fill="#e2bf77"/>
+  <ellipse cx="660" cy="566" rx="26" ry="5" fill="#e2bf77"/>
+  <ellipse cx="500" cy="590" rx="22" ry="5" fill="#e2bf77"/>
+  <ellipse cx="230" cy="522" rx="64" ry="8" fill="#000000" opacity="0.10"/>
+  <ellipse cx="575" cy="522" rx="64" ry="8" fill="#000000" opacity="0.10"/>
+
+  <!-- 速度线 -->
+  <g stroke="#9fc6dd" stroke-width="6" stroke-linecap="round" opacity="0.85">
+    <line x1="92" y1="386" x2="168" y2="386"/>
+    <line x1="74" y1="426" x2="158" y2="426"/>
+    <line x1="92" y1="466" x2="168" y2="466"/>
+  </g>
+
+  <!-- 远侧：远曲柄、远踏板、远腿、远鞋 -->
+  <g stroke-linecap="round">
+    <line x1="400" y1="450" x2="372" y2="414" stroke="#3d3d3d" stroke-width="5"/>
+    <rect x="356" y="407" width="30" height="7" rx="3" fill="#3d3d3d"/>
+    <path d="M 332 306 Q 346 352 366 393" fill="none" stroke="#8a6d1d" stroke-width="12"/>
+    <path d="M 332 306 Q 346 352 366 393" fill="none" stroke="#d8b83c" stroke-width="8"/>
+    <rect x="357" y="385" width="14" height="9" fill="#ffffff" stroke="#d0d0d0" stroke-width="1"/>
+    <line x1="357" y1="389" x2="371" y2="389" stroke="#d62828" stroke-width="2"/>
+    <rect x="352" y="393" width="34" height="15" rx="7" fill="#262626"/>
+  </g>
+
+  <!-- 车轮 -->
+  <g>
+    <circle cx="230" cy="450" r="64" fill="none" stroke="#333333" stroke-width="10"/>
+    <circle cx="230" cy="450" r="54" fill="none" stroke="#b0b7bd" stroke-width="3"/>
+    <g stroke="#b0b7bd" stroke-width="3">
+      <line x1="230" y1="396" x2="230" y2="504"/>
+      <line x1="176" y1="450" x2="284" y2="450"/>
+      <line x1="192" y1="412" x2="268" y2="488"/>
+      <line x1="268" y1="412" x2="192" y2="488"/>
+    </g>
+    <circle cx="230" cy="450" r="7" fill="#555555"/>
+    <circle cx="575" cy="450" r="64" fill="none" stroke="#333333" stroke-width="10"/>
+    <circle cx="575" cy="450" r="54" fill="none" stroke="#b0b7bd" stroke-width="3"/>
+    <g stroke="#b0b7bd" stroke-width="3">
+      <line x1="575" y1="396" x2="575" y2="504"/>
+      <line x1="521" y1="450" x2="629" y2="450"/>
+      <line x1="537" y1="412" x2="613" y2="488"/>
+      <line x1="613" y1="412" x2="537" y2="488"/>
+    </g>
+    <circle cx="575" cy="450" r="7" fill="#555555"/>
+  </g>
+
+  <!-- 车架 -->
+  <g stroke="#e63946" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 230 450 L 400 450 L 350 322 L 230 450"/>
+    <path d="M 350 322 L 525 330"/>
+    <path d="M 400 450 L 540 362"/>
+    <path d="M 525 330 L 540 362"/>
+    <path d="M 540 362 L 575 450"/>
+    <path d="M 525 330 L 512 296"/>
+    <path d="M 512 296 Q 530 282 552 291"/>
+  </g>
+  <line x1="547" y1="289" x2="558" y2="294" stroke="#333333" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- 链条与牙盘 -->
+  <circle cx="230" cy="450" r="9" fill="none" stroke="#3d3d3d" stroke-width="3"/>
+  <circle cx="400" cy="450" r="13" fill="none" stroke="#3d3d3d" stroke-width="4"/>
+  <line x1="238" y1="444" x2="392" y2="439" stroke="#3d3d3d" stroke-width="3" opacity="0.8"/>
+  <line x1="238" y1="456" x2="392" y2="461" stroke="#3d3d3d" stroke-width="3" opacity="0.8"/>
+
+  <!-- 近侧曲柄与踏板 -->
+  <line x1="400" y1="450" x2="426" y2="490" stroke="#3d3d3d" stroke-width="6" stroke-linecap="round"/>
+  <rect x="412" y="490" width="30" height="7" rx="3" fill="#3d3d3d"/>
+
+  <!-- 车座 -->
+  <rect x="308" y="306" width="78" height="17" rx="8" fill="#333333"/>
+
+  <!-- 海绵宝宝：身体 -->
+  <rect x="268" y="130" width="160" height="180" rx="10" fill="#f8ea57"/>
+  <g clip-path="url(#bodyClip)">
+    <ellipse cx="288" cy="152" rx="10" ry="7" fill="#d9c345"/>
+    <ellipse cx="352" cy="150" rx="6" ry="5" fill="#d9c345"/>
+    <ellipse cx="412" cy="148" rx="8" ry="6" fill="#d9c345"/>
+    <ellipse cx="285" cy="246" rx="6" ry="8" fill="#d9c345"/>
+    <ellipse cx="300" cy="264" rx="7" ry="5" fill="#d9c345"/>
+    <ellipse cx="418" cy="262" rx="6" ry="7" fill="#d9c345"/>
+    <rect x="268" y="272" width="160" height="26" fill="#fdfdfd"/>
+    <rect x="268" y="296" width="160" height="14" fill="#8a5a2f"/>
+    <rect x="268" y="295" width="160" height="4" fill="#4c3319"/>
+  </g>
+  <path d="M 344 272 L 357 283 L 370 272" fill="#fdfdfd" stroke="#6b5a14" stroke-width="2"/>
+  <path d="M 357 278 L 364 285 L 357 292 L 350 285 Z" fill="#d62828" stroke="#8f1616" stroke-width="1.5"/>
+  <path d="M 353 290 L 361 290 L 366 313 L 357 321 L 348 313 Z" fill="#d62828" stroke="#8f1616" stroke-width="1.5"/>
+  <rect x="268" y="130" width="160" height="180" rx="10" fill="none" stroke="#6b5a14" stroke-width="3.5"/>
+
+  <!-- 眼睛与睫毛 -->
+  <circle cx="330" cy="200" r="27" fill="#ffffff" stroke="#6b5a14" stroke-width="3"/>
+  <circle cx="384" cy="200" r="27" fill="#ffffff" stroke="#6b5a14" stroke-width="3"/>
+  <g stroke="#6b5a14" stroke-width="3.5" stroke-linecap="round">
+    <line x1="330" y1="173" x2="330" y2="159"/>
+    <line x1="317" y1="176" x2="311" y2="163"/>
+    <line x1="343" y1="176" x2="349" y2="163"/>
+    <line x1="384" y1="173" x2="384" y2="159"/>
+    <line x1="371" y1="176" x2="365" y2="163"/>
+    <line x1="397" y1="176" x2="403" y2="163"/>
+  </g>
+  <circle cx="334" cy="200" r="11" fill="#7ec8e3"/>
+  <circle cx="334" cy="200" r="5" fill="#1d1d1d"/>
+  <circle cx="336" cy="197" r="1.8" fill="#ffffff"/>
+  <circle cx="388" cy="200" r="11" fill="#7ec8e3"/>
+  <circle cx="388" cy="200" r="5" fill="#1d1d1d"/>
+  <circle cx="390" cy="197" r="1.8" fill="#ffffff"/>
+
+  <!-- 鼻子、嘴巴、牙齿、雀斑 -->
+  <ellipse cx="357" cy="231" rx="7" ry="18" fill="#f8ea57" stroke="#6b5a14" stroke-width="3"/>
+  <path d="M 312 242 Q 357 284 402 242" fill="none" stroke="#6b5a14" stroke-width="4" stroke-linecap="round"/>
+  <rect x="345" y="261" width="12" height="15" rx="2" fill="#ffffff" stroke="#6b5a14" stroke-width="2"/>
+  <rect x="358" y="261" width="12" height="15" rx="2" fill="#ffffff" stroke="#6b5a14" stroke-width="2"/>
+  <g fill="#d99a3d">
+    <circle cx="305" cy="231" r="2.2"/>
+    <circle cx="313" cy="239" r="2.2"/>
+    <circle cx="299" cy="241" r="2.2"/>
+    <circle cx="409" cy="231" r="2.2"/>
+    <circle cx="401" cy="239" r="2.2"/>
+    <circle cx="415" cy="241" r="2.2"/>
+  </g>
+
+  <!-- 近侧手臂扶车把 -->
+  <path d="M 424 274 L 446 276" stroke="#fdfdfd" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 443 276 Q 500 272 545 288" fill="none" stroke="#6b5a14" stroke-width="12" stroke-linecap="round"/>
+  <path d="M 443 276 Q 500 272 545 288" fill="none" stroke="#f8ea57" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="549" cy="290" r="7.5" fill="#f8ea57" stroke="#6b5a14" stroke-width="2.5"/>
+
+  <!-- 近侧腿踩踏板 -->
+  <path d="M 362 309 Q 404 388 424 472" fill="none" stroke="#6b5a14" stroke-width="12.5" stroke-linecap="round"/>
+  <path d="M 362 309 Q 404 388 424 472" fill="none" stroke="#f8ea57" stroke-width="8.5" stroke-linecap="round"/>
+  <rect x="415" y="464" width="15" height="10" fill="#ffffff" stroke="#d0d0d0" stroke-width="1"/>
+  <line x1="415" y1="468" x2="430" y2="468" stroke="#d62828" stroke-width="2"/>
+  <rect x="410" y="473" width="42" height="17" rx="8" fill="#262626"/>
+</svg>
