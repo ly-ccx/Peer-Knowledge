@@ -75,3 +75,4 @@ Desktop 自己的 `usage-stats.mjs` 注释已承认真实会话里 `modelProvide
 
 - 同主题背景：`knowledge/experience/anthropic-output-effort-xhigh-降级修复.md`（effortLevels 透传断流，同属"能力/标识声明未透传到消费端"一类）。
 - Desktop 参照实现：`apps/desktop/electron/main/usage-stats.mjs` 的 `resolveProviderRecord`（三形态索引）。
+- **同一 ID 双轨制在用量统计路径的复发与修复**：`knowledge/experience/usage-stats-provider-group-id-mismatch.md`（2026-08-03，请求级快照裸 uuid 导致「按 Provider」每模型条目一行；A 聚合归一 + B 写入落 groupId 双修复）。
