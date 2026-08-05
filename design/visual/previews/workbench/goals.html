@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Peer · 进行中 Goal</title>
+<link rel="stylesheet" href="frost.css" />
+</head>
+<body>
+<div class="app">
+
+      <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">彼</div>
+      <div class="brand-name">Peer</div>
+    </div>
+
+    <!-- ① 最上层：工作台（全局视图，不随工作区变化） -->
+    <div class="sidebar-entry">
+      <a class="entry-btn" href="home.html">
+        <svg viewBox="0 0 24 24"><path d="M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>
+        工作台
+        <span class="entry-badge">1</span>
+      </a>
+    </div>
+
+    <!-- ② 新建对话 -->
+    <div class="sidebar-top">
+      <a class="new-chat-btn" href="chat.html">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        新建对话
+      </a>
+    </div>
+
+    <!-- ③ 执行现场：会话列表 -->
+    <div class="sidebar-scroll">
+      <div class="conv-section">
+        <svg class="conv-pin" viewBox="0 0 24 24"><path d="M12 17v5M9 3h6l-1 8h3l-9 6 2-8H8z"/></svg>
+        置顶
+        <span class="sec-count">1</span>
+      </div>
+      <ul class="conv-list">
+        <li>
+          <a class="conv-item is-run" href="chat.html">
+            <span class="conv-state"><span class="conv-spinner"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">任务工作台首页 HTML 稿</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                桌面端 · Frost 改版
+              </span>
+              <span class="conv-meta"><span class="conv-ws cross" title="发起于 peer-knowledge，改动落在 peer_agent">peer-knowledge <svg class="ws-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> peer_agent</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-section">运行中 <span class="sec-count">1</span></div>
+      <ul class="conv-list">
+        <li>
+          <a class="conv-item is-run" href="chat.html">
+            <span class="conv-state"><span class="conv-spinner"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">发版脚本 dry-run 校验</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                发布 v0.9
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer_agent</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-section">待确认 <span class="sec-count">1</span></div>
+      <ul class="conv-list">
+        <li>
+          <a class="conv-item is-await" href="chat.html">
+            <span class="conv-state"><span class="conv-await"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">Runtime SDK 边界重构</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                Runtime 治理
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer_agent</span></span>
+              <span class="conv-meta"><span class="conv-chip await">待批准</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-section">最近 <span class="sec-count">3</span></div>
+      <ul class="conv-list">
+        <li>
+          <a class="conv-item" href="chat.html">
+            <span class="conv-state"><span class="conv-unread"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">侧栏毛玻璃锯齿修复</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                桌面端 · Frost 改版
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer_agent</span></span>
+              <span class="conv-meta">昨天 <span class="conv-chip">已完成</span></span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="conv-item" href="chat.html">
+            <span class="conv-state"><span class="conv-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">深色模式 token 调研</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                桌面端 · Frost 改版
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer-knowledge</span></span>
+              <span class="conv-meta">周三</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="conv-item" href="chat.html">
+            <span class="conv-state"><span class="conv-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">发版 SOP 整理</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                发布 v0.9
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer_agent</span></span>
+              <span class="conv-meta">周三 <span class="conv-chip">压缩 62%</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-section">已归档 <span class="sec-count">2</span></div>
+      <ul class="conv-list">
+        <li>
+          <a class="conv-item is-archived" href="chat.html">
+            <span class="conv-state"><span class="conv-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">知识库目录结构迁移</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                知识库迁移
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer-knowledge</span></span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="conv-item is-archived" href="chat.html">
+            <span class="conv-state"><span class="conv-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">Frost 规范初稿</span>
+              <span class="conv-task">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+                知识库迁移
+              </span>
+              <span class="conv-meta"><span class="conv-ws">peer-knowledge</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-bottom">
+      <!-- ④ 执行坐标：当前工作区（不是根容器，只决定新会话/新 Goal 默认落点） -->
+      <div class="ws-context">
+        <div class="ws-ctx-label">当前执行坐标</div>
+        <button class="ws-ctx-btn" onclick="event.stopPropagation();document.getElementById('ws-dd').classList.toggle('open')">
+          <span class="ws-ctx-dot"></span>
+          <span class="ws-ctx-text">
+            <span class="ws-ctx-name">peer_agent</span>
+            <span class="ws-ctx-branch">
+              <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="9" r="2.5"/><path d="M6 8.5v7M8.5 6h4a3 3 0 013 3v0"/></svg>
+              main
+            </span>
+          </span>
+          <svg class="ws-ctx-caret" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+        </button>
+        <div class="ws-ctx-dropdown" id="ws-dd">
+          <a class="ws-dropdown-item active"><span class="ws-mini"></span>peer_agent</a>
+          <a class="ws-dropdown-item"><span class="ws-mini"></span>peer-knowledge</a>
+          <a class="ws-dropdown-item"><span class="ws-mini"></span>MiaoYan</a>
+          <div class="ws-dropdown-sep"></div>
+          <a class="ws-dropdown-item">添加工作区…</a>
+          <div class="ws-ctx-hint">切换只改变新会话与新 Goal 的默认落点，不影响工作台里的任务与 Goal 列表。</div>
+        </div>
+      </div>
+      <a class="entry-btn" href="knowledge.html">
+        <svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19a2 2 0 002 2h12a2 2 0 002-2M4 19h16"/></svg>
+        知识库
+      </a>
+      <a class="entry-btn">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1A1.7 1.7 0 007 19.4a1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H1a2 2 0 110-4h.1A1.7 1.7 0 002.6 7a1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H7a1.7 1.7 0 001-1.5V1a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V7a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+        设置
+      </a>
+      <div class="sidebar-footer">
+        <div class="avatar">梁</div>
+        <span>梁寅 · 本地会话</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="search clickable" onclick="document.getElementById('palette').classList.add('open')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        搜索任务、Goal、文档…
+        <kbd>⌘K</kbd>
+      </div>
+      <div class="topbar-date">7 月 31 日 · 周五</div>
+    </header>
+
+    <main class="content">
+      <div class="container">
+
+        <div class="page-head">
+          <div class="page-head-row">
+            <div>
+              <h1>进行中 Goal</h1>
+              <p class="page-sub">2 个执行中 · 1 个待决策 · 本周完成 12 个</p>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" onclick="document.getElementById('modal-goal').classList.add('open')">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                发起 Goal
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 全局视图：工作台是最上层，不随工作区过滤 -->
+        <div class="scope-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 000 18M12 3a15 15 0 010 18"/></svg>
+          <span><strong>全局视图</strong>：这里显示所有工作区的任务与 Goal，不随左下角执行坐标切换而过滤。</span>
+        </div>
+
+        <div class="section-head">
+          <h2>执行中</h2>
+          <span class="count">2</span>
+        </div>
+        <div class="mb-24">
+          <div class="card goal-card clickable" onclick="location.href='goal-detail.html'">
+            <div class="goal-card-refs">
+              <span class="goal-task-ref">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+              桌面端 · Frost 改版
+            </span>
+              <span class="goal-ws-ref cross" title="发起于 peer-knowledge，改动落在 peer_agent"><svg viewBox="0 0 24 24" width="10" height="10" stroke-width="1.9"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19a2 2 0 002 2h12a2 2 0 002-2M4 19h16"/></svg> peer-knowledge <svg class="ws-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg> peer_agent</span>
+            </div>
+            <div class="goal-head">
+              <span class="goal-status"></span>
+              <span class="goal-title">任务工作台首页 HTML 稿</span>
+              <span class="goal-phase">执行中 · 3/4</span>
+            </div>
+            <div class="progress"><div class="progress-fill" style="width:75%"></div></div>
+            <p class="goal-sub">正在产出单文件 HTML，随后自检红线并交付评审。</p>
+            <div class="plan-panel-foot" style="border-top:none; padding:8px 0 0">
+              tick 2/8 · 工具 14/40
+              <a class="to-goal plain" href="chat.html" style="color: var(--graphite-soft)" onclick="event.stopPropagation()">打开会话 →</a>
+            </div>
+          </div>
+          <div class="card goal-card clickable" onclick="location.href='goal-detail.html'">
+            <div class="goal-card-refs">
+              <span class="goal-task-ref">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+              发布 v0.9
+            </span>
+              <span class="goal-ws-ref" title="发起与落点同为 peer_agent"><svg viewBox="0 0 24 24" width="10" height="10" stroke-width="1.9"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14M4 19a2 2 0 002 2h12a2 2 0 002-2M4 19h16"/></svg> peer_agent</span>
+            </div>
+            <div class="goal-head">
+              <span class="goal-status"></span>
+              <span class="goal-title">发版脚本 dry-run 校验</span>
+              <span class="goal-phase">执行中 · 2/5</span>
+            </div>
+            <div class="progress"><div class="progress-fill" style="width:40%"></div></div>
+            <p class="goal-sub">正在跑 electron-builder dry-run，产物签名校验待执行。</p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2>待你决策</h2>
+          <span class="count">1</span>
+        </div>
+        <div class="mb-24">
+          <div class="decision">
+            <h3>Runtime SDK 边界重构 — 等待确认高危写入范围</h3>
+            <p>plan 涉及 main 进程 IPC 白名单调整，属于高危写入。确认边界后 Peer 会继续执行剩余 5 个子任务。</p>
+            <div class="row">
+              <button class="btn btn-primary" onclick="location.href='goal-detail.html'">查看详情并决策</button>
+              <button class="btn btn-ghost" onclick="location.href='chat.html'">进会话看</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2>最近完成</h2>
+          <span class="count">3</span>
+        </div>
+        <div class="card">
+          <ul class="doc-list">
+            <li><a href="goal-detail.html">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="doc-name">侧栏毛玻璃锯齿修复</span>
+              <span class="doc-meta">昨天 · 桌面端 · Frost 改版</span>
+            </a></li>
+            <li><a href="goal-detail.html">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="doc-name">发版 SOP 同步到 playbook</span>
+              <span class="doc-meta">周三 · 发布 v0.9</span>
+            </a></li>
+            <li><a href="goal-detail.html">
+              <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="doc-name">知识库目录结构迁移</span>
+              <span class="doc-meta">周二 · 知识库迁移</span>
+            </a></li>
+          </ul>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="overlay" id="modal-goal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>发起 Goal</h3>
+      <button class="modal-close" onclick="this.closest('.overlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label>目标描述</label><textarea placeholder="要 Peer 达成什么？"></textarea></div>
+      <div class="field"><label>所属任务</label>
+        <select><option>桌面端 · Frost 改版</option><option>Runtime 治理</option><option>发布 v0.9</option></select>
+      </div>
+      <div class="field"><label>边界（可选）</label><input type="text" placeholder="例如：只改 renderer，不动 main 进程" /></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="this.closest('.overlay').classList.remove('open')">取消</button>
+      <button class="btn btn-primary" onclick="this.closest('.overlay').classList.remove('open')">发起</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="palette" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="palette">
+    <input type="text" placeholder="搜索任务、Goal、文档…" />
+    <ul class="palette-list">
+      <li class="palette-section">任务</li>
+      <li><a href="task-detail.html">桌面端 · Frost 改版 <span class="k">Task</span></a></li>
+      <li><a href="task-detail.html">Runtime 治理 <span class="k">Task</span></a></li>
+      <li class="palette-section">GOAL</li>
+      <li><a href="goal-detail.html">任务工作台首页 HTML 稿 <span class="k">Goal</span></a></li>
+      <li><a href="goal-detail.html">Runtime SDK 边界重构 <span class="k">Goal</span></a></li>
+      <li class="palette-section">文档</li>
+      <li><a href="knowledge.html">Frost 玻璃拟态规范 <span class="k">Doc</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      document.getElementById('palette').classList.toggle('open');
+    }
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.overlay.open').forEach(function (o) { o.classList.remove('open'); });
+      document.querySelectorAll('.ws-ctx-dropdown.open').forEach(function (o) { o.classList.remove('open'); });
+    }
+  });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.ws-ctx-dropdown.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+</script>
+</body>
+</html>

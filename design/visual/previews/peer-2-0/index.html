@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Peer 2.0 · Delegation OS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-state="home">
+<div class="app">
+  <aside class="sidebar">
+    <div class="traffic"><i></i><i></i><i></i></div>
+    <div class="brand"><span class="brand-mark"></span><strong>Peer</strong></div>
+    <button class="new-task" id="newTask"><span>＋</span>新建任务<span>⌘ N</span></button>
+    <div class="side-group">
+      <div class="side-label"><span>工作</span><span>2.0</span></div>
+      <button class="nav active" data-view="home"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M9 10v9"/></svg>首页<em>4</em></button>
+      <button class="nav" data-view="tasks"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 9l2 2 5-5M8 15h8"/></svg>任务<em>6</em></button>
+      <button class="nav" data-view="history"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2M4 12a8 8 0 1 0 2-5.5M4 4v5h5"/></svg>历史</button>
+    </div>
+    <div class="side-group">
+      <div class="side-label"><span>Workspace</span><span>3</span></div>
+      <button class="workspace active" data-workspace="peer_agent"><span class="ws-icon">PA</span><span class="ws-copy"><strong>peer_agent</strong><span>~/DEV/github/peer_agent</span></span><i class="live-dot"></i></button>
+      <button class="workspace" data-workspace="peer-knowledge"><span class="ws-icon">PK</span><span class="ws-copy"><strong>peer-knowledge</strong><span>~/MiaoYan/peer-knowledge</span></span></button>
+      <button class="workspace" data-workspace="MiaoYan"><span class="ws-icon">MY</span><span class="ws-copy"><strong>MiaoYan</strong><span>~/Documents/MiaoYan</span></span></button>
+    </div>
+    <div class="side-bottom"><div class="identity"><span class="avatar">LY</span><span>本地工作环境</span></div></div>
+  </aside>
+
+  <main class="stage">
+    <section class="view active" data-view="home">
+      <div class="view-shell">
+        <div class="topline"><div class="crumb"><b>首页</b><span>/</span><span>今天，8 月 3 日</span></div><div class="scope"><i></i>当前 Workspace · peer_agent</div></div>
+        <header class="hero"><div><div class="kicker">Delegation OS</div><h1>只处理真正需要你的事</h1><p>首页不是任务仓库，而是所有任务按下一步行动权形成的动态投影。Peer 推进其余工作，只在决策、权限与验收时交还给你。</p></div><div class="hero-stats"><div class="stat"><b>2</b><span>轮到你</span></div><div class="stat"><b>3</b><span>Peer 推进</span></div><div class="stat"><b>1</b><span>结果待验收</span></div></div></header>
+        <section class="section"><div class="section-head"><div class="section-title"><h2>需要你处理</h2><small>2</small></div><span>决策与权限</span></div><div class="handoff-list">
+          <div class="handoff-row"><div class="task-copy"><strong>Peer 2.0 任务工作台高保真原型</strong><span>peer_agent · 刚刚更新</span></div><div class="owner user"><i>你</i><span>行动权在你</span></div><div class="handoff-reason"><strong>确认首页核心叙事</strong><span>GoalPlan 3 / 5 · 等待决策</span></div><button class="primary" data-open-task>进入决策 →</button></div>
+          <div class="handoff-row"><div class="task-copy"><strong>桌面端 2.4.0 发布检查</strong><span>peer_agent · 12 分钟前</span></div><div class="owner user"><i>你</i><span>等待确认</span></div><div class="handoff-reason"><strong>允许执行签名脚本</strong><span>8 项预检已通过</span></div><button class="secondary">查看影响</button></div>
+        </div></section>
+        <section class="section"><div class="section-head"><div class="section-title"><h2>Peer 正在推进</h2><small>3</small></div><button class="text-action" data-view="tasks">查看全部任务 →</button></div><div class="work-stream">
+          <article class="work-item" data-open-task><div class="work-top"><span class="work-state"><i class="spinner"></i>正在执行</span><time>LIVE</time></div><h3>统一 TaskOverview 状态投影</h3><p>GoalPlan 3 / 5 · Executor 正在对齐状态</p><div class="progress"><i style="width:62%"></i></div></article>
+          <article class="work-item"><div class="work-top"><span class="work-state"><i class="spinner"></i>正在验证</span><time>2m</time></div><h3>Browser Computer Use 回归</h3><p>GoalPlan 7 / 9 · Verifier 检查 Workspace 切换</p><div class="progress"><i style="width:78%"></i></div></article>
+          <article class="work-item"><div class="work-top"><span class="work-state"><i class="spinner"></i>正在整理</span><time>5m</time></div><h3>Skill 作用域说明补充</h3><p>GoalPlan 2 / 4 · 正在生成 Evidence</p><div class="progress"><i style="width:46%"></i></div></article>
+        </div></section>
+        <section class="section result-section"><div class="section-head"><div class="section-title"><h2>结果待验收</h2><small>1</small></div><span>Peer 已完成并带回 Evidence</span></div><div class="result-row"><div class="result-seal">✓</div><div class="task-copy"><strong>任务搜索与跨 Workspace 跳转</strong><span>9 项标准通过 · 4 条 Evidence · 无已知风险</span></div><button class="primary" data-review-result>验收结果 →</button></div></section>
+      </div>
+    </section>
+
+    <section class="view" data-view="tasks">
+      <div class="collection-shell">
+        <div class="topline"><div class="crumb"><b>任务</b><span>/</span><span>未结束的工作</span></div><div class="scope"><i></i>当前 Workspace · peer_agent</div></div>
+        <header class="collection-head"><div><div class="kicker">Active Tasks</div><h1>所有仍在进行的任务</h1><p>任务是事实对象；按状态筛选、查看 GoalPlan 进度，再进入具体任务现场。</p></div><div class="collection-count"><b>6</b><span>未结束任务</span></div></header>
+        <div class="collection-tools"><div class="filter-group" data-filter-group="tasks"><button class="active" data-filter="all">全部 <em>6</em></button><button data-filter="user">待我处理 <em>2</em></button><button data-filter="peer">Peer 推进中 <em>2</em></button><button data-filter="review">待验收 <em>1</em></button><button data-filter="paused">已暂停 <em>1</em></button></div><label class="search-box"><span>⌕</span><input placeholder="搜索任务"></label></div>
+        <div class="task-table"><div class="task-table-head"><span>任务</span><span>下一步行动</span><span>GoalPlan</span><span>更新</span><span></span></div>
+          <article class="task-record" data-status="user" data-open-task><div class="record-title"><i class="status-dot user-dot"></i><div><strong>Peer 2.0 任务工作台高保真原型</strong><span>peer_agent · Conversation</span></div></div><span class="action-owner user-action">等待你的决策</span><div class="goal-progress"><b>3 / 5</b><div><i style="width:60%"></i></div></div><time>刚刚</time><button class="row-open">进入 →</button></article>
+          <article class="task-record" data-status="peer"><div class="record-title"><i class="status-dot peer-dot"></i><div><strong>Browser Computer Use 回归</strong><span>peer_agent · Goal Runner</span></div></div><span class="action-owner peer-action">Peer 正在验证</span><div class="goal-progress"><b>7 / 9</b><div><i style="width:78%"></i></div></div><time>2 分钟</time><button class="row-open">查看 →</button></article>
+          <article class="task-record" data-status="review" data-review-result><div class="record-title"><i class="status-dot review-dot"></i><div><strong>任务搜索与跨 Workspace 跳转</strong><span>peer_agent · Result ready</span></div></div><span class="action-owner review-action">等待验收</span><div class="goal-progress"><b>8 / 8</b><div><i style="width:100%"></i></div></div><time>8 分钟</time><button class="row-open">验收 →</button></article>
+          <article class="task-record" data-status="user"><div class="record-title"><i class="status-dot user-dot"></i><div><strong>桌面端 2.4.0 发布检查</strong><span>peer_agent · Release workflow</span></div></div><span class="action-owner user-action">等待权限</span><div class="goal-progress"><b>8 / 11</b><div><i style="width:73%"></i></div></div><time>12 分钟</time><button class="row-open">处理 →</button></article>
+          <article class="task-record" data-status="peer"><div class="record-title"><i class="status-dot peer-dot"></i><div><strong>Skill 作用域说明补充</strong><span>peer-knowledge · Documentation</span></div></div><span class="action-owner peer-action">Peer 正在整理</span><div class="goal-progress"><b>2 / 4</b><div><i style="width:50%"></i></div></div><time>18 分钟</time><button class="row-open">查看 →</button></article>
+          <article class="task-record" data-status="paused"><div class="record-title"><i class="status-dot paused-dot"></i><div><strong>云端同步边界调研</strong><span>MiaoYan · Research</span></div></div><span class="action-owner paused-action">已暂停</span><div class="goal-progress"><b>1 / 6</b><div><i style="width:17%"></i></div></div><time>昨天</time><button class="row-open">继续 →</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" data-view="history">
+      <div class="collection-shell">
+        <div class="topline"><div class="crumb"><b>历史</b><span>/</span><span>终态任务</span></div><div class="scope">保留 Artifact 与 Evidence</div></div>
+        <header class="collection-head"><div><div class="kicker">Task History</div><h1>已经结束的任务</h1><p>验收、归档、取消与失败都在这里保留事实记录；结果包仍可随时复核。</p></div><div class="collection-count"><b>18</b><span>终态任务</span></div></header>
+        <div class="collection-tools"><div class="filter-group" data-filter-group="history"><button class="active" data-filter="all">全部 <em>18</em></button><button data-filter="accepted">已验收 <em>11</em></button><button data-filter="archived">已归档 <em>4</em></button><button data-filter="cancelled">已取消 <em>2</em></button><button data-filter="failed">失败 <em>1</em></button></div><label class="search-box"><span>⌕</span><input placeholder="搜索历史"></label></div>
+        <div class="history-list">
+          <article class="history-record" data-status="accepted" data-review-result><div class="history-state accepted">✓</div><div class="record-title"><div><strong>任务搜索与跨 Workspace 跳转</strong><span>peer_agent · 8 月 2 日完成</span></div></div><span class="history-badge accepted">已验收</span><span class="evidence-count">4 条 Evidence</span><button class="row-open">查看结果 →</button></article>
+          <article class="history-record" data-status="accepted" data-review-result><div class="history-state accepted">✓</div><div class="record-title"><div><strong>GoalPlan 审批状态修复</strong><span>peer_agent · 7 月 31 日完成</span></div></div><span class="history-badge accepted">已验收</span><span class="evidence-count">7 条 Evidence</span><button class="row-open">查看结果 →</button></article>
+          <article class="history-record" data-status="archived"><div class="history-state archived">□</div><div class="record-title"><div><strong>Workbench 多资源标签设计</strong><span>peer-knowledge · 7 月 28 日归档</span></div></div><span class="history-badge archived">已归档</span><span class="evidence-count">3 个 Artifact</span><button class="row-open" data-continue-history>继续任务</button></article>
+          <article class="history-record" data-status="cancelled"><div class="history-state cancelled">×</div><div class="record-title"><div><strong>旧版首页指标墙实验</strong><span>peer_agent · 7 月 25 日结束</span></div></div><span class="history-badge cancelled">已取消</span><span class="evidence-count">保留决策记录</span><button class="row-open">查看记录 →</button></article>
+          <article class="history-record" data-status="failed"><div class="history-state failed">!</div><div class="record-title"><div><strong>Chromium 自动下载验证</strong><span>peer_agent · 7 月 22 日结束</span></div></div><span class="history-badge failed">失败</span><span class="evidence-count">1 条错误证据</span><button class="row-open" data-continue-history>重新开始</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" data-view="canvas">
+      <div class="canvas-shell">
+        <div class="canvas-top"><div class="crumb"><button class="ghost detail-back" data-back="tasks">← 返回任务</button><span>/</span><b>Peer 2.0 任务工作台高保真原型</b></div><div class="canvas-switch"><button>Conversation</button><button class="active">Task Canvas</button></div><div class="run-state"><i></i>Goal Runner 执行中</div></div>
+        <div class="canvas-layout"><div class="canvas-board">
+          <div class="canvas-heading"><div><div class="kicker">Task Canvas</div><h1>把 Peer 2.0 的委托体验做成可验收原型</h1></div><span class="canvas-status">行动权 · Peer</span></div>
+          <div class="canvas-field">
+            <article class="node goal"><div class="node-type"><i></i>Goal</div><h3>清楚表达完整委托动线</h3><p>首页负责交接，任务负责索引，Canvas 负责共享认知。</p><div class="node-meta"><span>Goal Contract</span><b>已对齐</b></div></article>
+            <article class="node decision n-decision"><div class="node-type"><i></i>Decision</div><h3>首页采用行动权叙事</h3><p>不做指标墙，不把 Goal 变成第二套任务列表。</p><div class="node-meta"><span>需要你</span><b>待确认</b></div></article>
+            <article class="node run"><div class="node-type"><i></i>Agent Run</div><h3>Executor · 原型实现</h3><p>正在构建首页、Canvas 与 Result Review。</p><div class="progress"><i style="width:68%"></i></div></article>
+            <article class="node artifact"><div class="node-type"><i></i>Artifact</div><h3>Peer 2.0 可点击原型</h3><p>HTML · CSS · Interaction · 1440×900</p><div class="node-meta"><span>5 个关键视图</span><b>生成中</b></div></article>
+            <article class="node evidence n-evidence"><div class="node-type"><i></i>Evidence</div><h3>真实浏览器验证</h3><p>布局、溢出、动线和 Frost 红线。</p><div class="node-meta"><span>Verifier</span><b>待执行</b></div></article>
+            <article class="node step-node"><div class="node-type"><i></i>Step</div><h3>同步产品说明与验收</h3><p>所有页面都必须复用同一任务事实。</p><div class="node-meta"><span>4 / 5</span><b>进行中</b></div></article>
+          </div>
+        </div>
+        <aside class="workbench" data-workbench>
+          <div class="wb-tabs"><button class="active" data-pane="plan">Plan</button><button data-pane="browser">Browser</button><button data-pane="files">Files</button><button data-pane="documents">Documents</button></div>
+          <div class="wb-content">
+            <div class="wb-pane active" data-pane="plan"><div class="wb-eyebrow">GoalPlan · executing</div><h2>构建 Peer 2.0 高保真原型</h2><p>每个完成步骤都必须绑定 Evidence。</p><div class="step-list"><div class="step done"><i class="step-mark">✓</i><div><strong>复核能力边界</strong><span>Workspace / GoalPlan / Workbench</span></div></div><div class="step done"><i class="step-mark">✓</i><div><strong>确定产品动线</strong><span>交接 → 推进 → 验收</span></div></div><div class="step active"><i class="step-mark">03</i><div><strong>制作独立原型</strong><span>Executor 正在推进</span></div></div><div class="step"><i class="step-mark">04</i><div><strong>真实浏览器验证</strong><span>等待 Artifact 完成</span></div></div></div><div class="decision-panel"><strong>需要你的决策</strong><p>建议采用首页 / 任务 / 历史的信息架构。</p><button class="primary" id="approveDecision">批准方案</button></div></div>
+            <div class="wb-pane" data-pane="browser"><div class="wb-eyebrow">Browser Session</div><h2>高保真原型预览</h2><p>用户可见的同一 Browser 会话。</p><div class="browser-preview"><div class="browser-bar"><i></i><i></i><i></i></div><div class="browser-screen"><b>首页 / 任务 / 历史</b><p>集合页进入具体任务，再打开资源现场。</p></div></div></div>
+            <div class="wb-pane" data-pane="files"><div class="wb-eyebrow">Workspace Files</div><h2>peer-2-0</h2><p>原型文件直接来自当前 Workspace。</p><div class="file-list"><div class="file">index.html</div><div class="file">styles.css</div><div class="file">app.js</div><div class="file">DESIGN.md</div></div></div>
+            <div class="wb-pane" data-pane="documents"><div class="wb-eyebrow">Documents</div><h2>设计依据</h2><p>Preview、Source 与 Diff 属于资源会话。</p><div class="document-card"><strong>Peer 2.0 产品体系说明书</strong><p>任务是事实对象；首页是行动权投影；执行面板是单任务工作现场。</p></div></div>
+          </div>
+        </aside></div>
+      </div>
+    </section>
+
+    <section class="view" data-view="review">
+      <div class="review-detail-shell">
+        <div class="canvas-top"><div class="crumb"><button class="ghost detail-back" data-back="history">← 返回历史</button><span>/</span><b>任务搜索与跨 Workspace 跳转</b></div><div class="run-state done-state"><i></i>Result Package · v1</div></div>
+        <div class="review-detail-layout"><div class="review-content"><header class="review-head"><div><div class="kicker">结果交还</div><h1>任务搜索与跨 Workspace 跳转</h1></div><span class="review-status"><i>✓</i>全部自动标准通过</span></header>
+          <div class="review-main"><article class="paper"><div class="paper-head"><h2>目标对照</h2><span>Goal Contract</span></div><div class="goal-quote">用户能从任意 Workspace 找到任务，并进入正确 Conversation 与 GoalPlan 上下文。</div></article>
+          <article class="paper"><div class="paper-head"><h2>交付物与 Evidence</h2><span>3 Artifact · 4 Evidence</span></div><div class="deliverables"><div class="deliverable"><strong>跨 Workspace 搜索</strong><span>Renderer</span></div><div class="deliverable"><strong>任务深链</strong><span>Conversation</span></div><div class="deliverable"><strong>浏览器回归</strong><span>1440×900</span></div></div><div class="check"><i>✓</i><div><strong>真实 Chrome 验证</strong><span>搜索、切换与打开链路均通过</span></div><code>PASS</code></div><div class="check"><i>✓</i><div><strong>状态投影验证</strong><span>GoalPlan 与 Conversation 一致</span></div><code>PASS</code></div></article>
+          <article class="paper"><div class="paper-head"><h2>剩余风险</h2><span>1</span></div><div class="risk"><strong>跨 Workspace 聚合仍依赖现有查询边界</strong><p>结果包不承诺尚未实现的全局任务 API。</p></div></article></div></div>
+          <aside class="review-rail"><div class="accept-panel"><small>USER ACCEPTANCE</small><h2>结果已经可以验收</h2><p>接受后，本轮任务进入历史；继续任务则回到同一任务现场。</p><div class="accept-actions"><button class="accept" id="acceptResult">接受结果</button><button class="continue" id="continueTask">继续任务</button></div></div>
+            <div class="compact-workbench" data-workbench><div class="compact-title"><strong>执行面板</strong><span>绑定当前任务</span></div><div class="wb-tabs"><button class="active" data-pane="plan">Plan</button><button data-pane="browser">Browser</button><button data-pane="files">Files</button><button data-pane="documents">Documents</button></div><div class="compact-panes"><div class="wb-pane active" data-pane="plan"><b>GoalPlan · completed</b><span>8 / 8 · Evidence gate passed</span></div><div class="wb-pane" data-pane="browser"><b>Browser · 1 session</b><span>打开验收时使用的真实页面</span></div><div class="wb-pane" data-pane="files"><b>Files · 6 changed</b><span>查看源码与 diff</span></div><div class="wb-pane" data-pane="documents"><b>Documents · 2</b><span>产品说明与验收报告</span></div></div></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"><i></i><span id="toastText"></span></div>
+<script src="app.js"></script>
+</body>
+</html>

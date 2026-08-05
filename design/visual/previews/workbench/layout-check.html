@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>布局校验</title>
+<style>
+body{font-family:-apple-system,system-ui,sans-serif;padding:24px;background:#FAFBFC;color:#1A1D21;font-size:13px}
+h1{font-size:20px;letter-spacing:-.03em;margin-bottom:4px}
+.sub{color:#878B95;font-size:12px;margin-bottom:18px}
+table{border-collapse:collapse;width:100%;max-width:900px;background:#F7F9FC;border:1px solid #DCE0E8;border-radius:8px;overflow:hidden}
+th,td{text-align:left;padding:7px 11px;border-bottom:1px solid #DCE0E8;font-size:12px}
+th{background:#EDF1F6;font-weight:600;font-size:11px;letter-spacing:.04em;color:#525660}
+tr:last-child td{border-bottom:none}
+.pass{color:#3E7A6B;font-weight:600}.fail{color:#7A3E50;font-weight:600}
+.m{font-family:"SF Mono",Menlo,monospace;font-size:11px;color:#525660}
+#sum{margin-top:16px;padding:11px 14px;border-radius:8px;font-weight:600;max-width:900px}
+.ok{background:#EDF1F6;border:1px solid #3E7A6B}.bad{background:#EDF1F6;border:1px solid #7A3E50}
+iframe{position:fixed;left:-9999px;width:1440px;height:900px;border:0}
+</style></head><body>
+<h1>布局盒模型校验</h1>
+<div class="sub">在真实渲染引擎中量 getBoundingClientRect / getComputedStyle，防止「CSS 指标全过但页面是坏的」</div>
+<table><thead><tr><th>#</th><th>校验项</th><th>期望</th><th>实测</th><th>结果</th></tr></thead><tbody id="rows"></tbody></table>
+<div id="sum"></div>
+<iframe id="f" src="home.html"></iframe>
+<script>
+document.getElementById('f').onload = function () {
+  var d = this.contentDocument, w = this.contentWindow, R = [];
+  function add(name, expect, actual, pass) { R.push({name:name, expect:expect, actual:actual, pass:pass}); }
+
+  // 1. Goal 卡必须是 block 级盒
+  var goals = d.querySelectorAll('.card.goal');
+  var g0 = goals[0], gs = w.getComputedStyle(g0), gr = g0.getBoundingClientRect();
+  add('Goal 卡 display', 'block', gs.display, gs.display === 'block');
+
+  // 2. Goal 卡宽度应接近容器宽（inline 时会缩成文字宽）
+  var contW = d.querySelector('.grid-main > div').getBoundingClientRect().width;
+  add('Goal 卡宽度 ≈ 容器', '≥ ' + Math.round(contW * 0.95) + 'px', Math.round(gr.width) + 'px', gr.width >= contW * 0.95);
+
+  // 3. Goal 卡高度：含 refs/标题/进度条/描述/当前项/footer，应 > 150px
+  add('Goal 卡高度', '> 150px', Math.round(gr.height) + 'px', gr.height > 150);
+
+  // 4. 三张 Goal 卡不能重叠（inline 碎片化会导致错位重叠）
+  var overlap = false, prevBottom = -1;
+  for (var i = 0; i < goals.length; i++) {
+    var r = goals[i].getBoundingClientRect();
+    if (prevBottom > 0 && r.top < prevBottom - 1) overlap = true;
+    prevBottom = r.bottom;
+  }
+  add('三张 Goal 卡垂直不重叠', '无重叠', overlap ? '存在重叠' : '无重叠', !overlap);
+
+  // 5. 进度条不得超出卡片宽度（之前贯穿整行的症状）
+  var bar = g0.querySelector('.goal-bar'), br = bar.getBoundingClientRect();
+  add('进度条在卡片内', '≤ 卡片宽', Math.round(br.width) + ' ≤ ' + Math.round(gr.width), br.width <= gr.width);
+
+  // 6. 卡片背景必须绘制（inline 盒包不住块内容时背景异常）
+  add('卡片背景色', 'rgb(247,249,252)', gs.backgroundColor, gs.backgroundColor.replace(/\s/g,'') === 'rgb(247,249,252)');
+
+  // 7. 所有 <a> 型容器都必须显式 display（根因防回归）
+  var bad = [];
+  d.querySelectorAll('a[class]').forEach(function (a) {
+    if (a.children.length > 0 && w.getComputedStyle(a).display === 'inline') bad.push(a.className);
+  });
+  add('无 inline 的 <a> 容器', '0 个', bad.length + ' 个' + (bad.length ? ' (' + bad.slice(0,3).join(', ') + ')' : ''), bad.length === 0);
+
+  // 8. 任务行 / 产出物同样校验
+  var tr0 = d.querySelector('.task-row'), trs = w.getComputedStyle(tr0);
+  add('任务行 display', 'flex', trs.display, trs.display === 'flex');
+  var ar0 = d.querySelector('.artifact'), ars = w.getComputedStyle(ar0);
+  add('产出物 display', 'flex', ars.display, ars.display === 'flex');
+
+  // 9. 三栏都要有实际宽度
+  ['.sidebar','.main','.rightbar'].forEach(function (sel) {
+    var el = d.querySelector(sel), r = el.getBoundingClientRect();
+    add(sel + ' 宽度', '> 100px', Math.round(r.width) + 'px', r.width > 100);
+  });
+
+  // 10. 无横向溢出
+  add('无横向溢出', 'scrollW ≤ clientW', d.documentElement.scrollWidth + ' vs ' + d.documentElement.clientWidth,
+      d.documentElement.scrollWidth <= d.documentElement.clientWidth + 1);
+
+  var tb = document.getElementById('rows'), pass = 0;
+  R.forEach(function (r, i) {
+    if (r.pass) pass++;
+    tb.insertAdjacentHTML('beforeend',
+      '<tr><td class="m">' + (i+1) + '</td><td>' + r.name + '</td><td class="m">' + r.expect +
+      '</td><td class="m">' + r.actual + '</td><td class="' + (r.pass?'pass':'fail') + '">' +
+      (r.pass?'PASS':'FAIL') + '</td></tr>');
+  });
+  var s = document.getElementById('sum');
+  s.className = pass === R.length ? 'ok' : 'bad';
+  s.textContent = (pass === R.length ? 'ALL PASS' : 'FAILED') + ' — ' + pass + '/' + R.length + ' 项通过';
+  document.title = (pass === R.length ? 'ALLPASS' : 'FAIL') + ' ' + pass + '/' + R.length;
+};
+</script></body></html>

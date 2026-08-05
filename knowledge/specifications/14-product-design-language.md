@@ -357,6 +357,21 @@ automation cards:
 - 状态色只用于状态点和短 tag。
 - “展开执行流水”是二级动作，放在卡片底部右侧。
 
+创建 / 编辑面不是编号后台表单，而是简约操作台：
+
+```text
+What     名称 + 任务说明
+When     频率 + 时区（只读绑定）+ 时间字段 + 接下来三次预览
+Guardrails  工作区绑定 + 权限选择 + 超时 + 成功通知设置行
+```
+
+规则：
+
+- 不使用 1/2/3/4/5 编号分节。
+- 超时与成功通知不得硬并排；开关必须是完整设置行。
+- 工作区与时区是绑定事实，不是自由填写字段。
+- 卡片层级轻、标题克制、主路径清晰。
+
 ---
 
 ## 五、组件级设计细节
@@ -451,6 +466,59 @@ tool count
 - 轻微 shadow。
 - 菜单项高度 36-40px。
 - destructive action 不常驻红色，只在 hover 或确认态强调。
+
+### 5.6 布尔控件：Switch 与 Checkbox
+
+布尔值不能仅凭数据类型决定控件。产品语义是唯一判断依据：
+
+| 控件 | 使用语义 | 状态何时生效 | 典型场景 |
+|---|---|---|---|
+| Switch | 开启或关闭一项持续能力、设置或策略 | 用户操作后立即生效，或明确表示将保存的开关状态 | 成功通知、启用 Skill、功能开关 |
+| Checkbox | 在一组候选项中选择零项或多项，或在提交前确认 | 随表单、批量操作或下一步一起提交 | 模型多选、导入项选择 |
+
+禁止用 Checkbox 表达“功能是否开启”，也禁止用 Switch 表达“选中哪些项目”。Radio / Choice Card 继续承担互斥单选，不得用多个 Switch 模拟。
+
+统一状态为：
+
+```text
+off / unchecked
+hover
+pressed
+focus-visible
+on / checked
+disabled-off
+disabled-on
+```
+
+状态映射遵循 Peer Frost：
+
+- 默认轨道或方框：`--control-fill` + `--graphite-hairline`。
+- hover：`--control-fill-hover`，边界提升到 `--graphite-fade`。
+- Switch 开启轨道：`--state-active-on`；圆点使用 `--paper-sheet`。开启态还必须通过圆点位移表达，不能只靠颜色。
+- Checkbox 选中面：`--state-active-on`；勾选图标使用内联 SVG、`currentColor`，不能使用字符 `✓`。
+- 键盘焦点：统一使用 `--azure-seal` 的 2px 外环；Azure 只承担焦点印记，不作为普通开启色。
+- disabled：降低整体对比度并保留当前位置/勾选图形；必须同时阻止指针和键盘变更。
+
+尺寸与布局：
+
+- 默认 Switch 轨道为 36×20px，圆点 16px；紧凑密度只能由共享组件提供，业务模块不能自定义一套尺寸。
+- 默认 Checkbox 视觉框为 18×18px；最小交互区域不低于 32×32px。
+- 设置行优先采用“左侧标题/说明，右侧控件”；短标签允许内联，但点击标签必须能切换控件。
+- 控件本身不得承载业务文案；标签、说明和错误信息由字段/设置行负责。
+
+语义与无障碍：
+
+- Switch 使用原生 `button` + `role="switch"` + `aria-checked`，依赖按钮原生 Enter / Space 行为；不得在业务代码重复实现键盘监听。
+- Checkbox 保留不可见的原生 `input[type="checkbox"]` 作为表单与键盘语义来源，视觉方框由共享组件绘制。
+- 没有可见标签时必须提供 `aria-label` 或 `aria-labelledby`。
+- SVG 仅表达状态，必须 `aria-hidden="true"`；屏幕阅读器状态由原生语义或 ARIA 提供。
+
+工程治理：
+
+- Renderer 业务模块只能使用共享 `Switch` / `Checkbox`，不得直接写裸 `input[type="checkbox"]` 或私有 `role="switch"`。
+- 业务模块不得自画轨道、圆点、勾选 SVG，也不得覆盖组件内部颜色与尺寸。
+- 共享组件样式只消费正名 Token，不新增模块私有颜色，不使用固定 Hex，不写主题专属补丁。
+- Light、Dark、内置 Palette、键盘焦点、disabled-on 与 disabled-off 必须作为发布前验证项。
 
 ---
 

@@ -1,0 +1,3081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Peer · 工作台</title>
+<style>
+/* ============================================================================
+   Peer Frost — 工作台首页高保真稿
+   唯一真相：peer_agent/apps/desktop/renderer/src/styles/tokens.css
+   迁移方式：删除本 :root 块 → 引入 styles/tokens.css，其余 CSS 一行不动
+   ========================================================================= */
+
+:root {
+  /* ---- 字体（tokens.css:35-39）------------------------------------------ */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC",
+               "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---- Chrome 层：环境色（tokens.css:74-79）----------------------------- */
+  --chrome-canvas:   #FAFBFC;
+  --chrome-raised:   #F3F5F8;
+  --chrome-sunken:   #EBEEF3;
+  --chrome-hover:    #F0F2F6;
+  --chrome-active:   #E5E8EE;
+  --chrome-hairline: #DCE0E8;
+
+  /* ---- Paper 层：内容实色（tokens.css:82-87）---------------------------- */
+  --paper-base:   #EDF1F6;
+  --paper-sheet:  #F7F9FC;
+  --paper-sunken: #DDE3EB;
+  --paper-hover:  #EAEEF4;
+  --paper-active: #D5DCE6;
+
+  /* ---- Control 层（tokens.css:90-92）----------------------------------- */
+  --control-composer:   #EFF2F6;
+  --control-fill:       #EAEDF2;
+  --control-fill-hover: #DFE3EA;
+
+  /* ---- Graphite：文本与主操作（tokens.css:95-100）----------------------- */
+  --graphite-base:       #1A1D21;
+  --graphite-base-hover: #2A2D33;
+  --graphite-soft:       #525660;
+  --graphite-fade:       #878B95;
+  --graphite-mute:       #B0B4BC;
+  --graphite-hairline:   #DCE0E8;
+
+  /* ---- Azure：单屏 ≤ 3 处，禁上 CTA（tokens.css:103-105）--------------- */
+  --azure-seal:  #3B7FAB;
+  --azure-soft:  #7BA8C8;
+  --azure-trace: #D8E4EE;
+
+  /* ---- State：状态语义（tokens.css:108-115）---------------------------- */
+  --state-thinking: #6B7FA0;
+  --state-confirm:  #1F6B9B;
+  --state-success:  #3E7A6B;
+  --state-warn:     #3B6FAB;
+  --state-danger:   #7A3E50;
+  --state-denied:   #5C5A70;
+
+  /* ---- 玻璃与模糊（tokens.css:46-56）----------------------------------- */
+  --glass-chrome:         hsla(215, 16%, 98%, 0.52);
+  --glass-chrome-hover:   hsla(215, 16%, 96%, 0.62);
+  --glass-control:        hsla(218, 18%, 96%, 0.56);
+  --glass-popover:        hsla(212, 12%, 99%, 0.88);
+  --glass-edge-highlight: inset 0 1px 0 hsla(210, 30%, 100%, 0.55);
+  --blur-chrome:   24px;
+  --blur-control:  16px;
+  --blur-popover:  24px;
+  --blur-saturate: 1.6;
+
+  /* ---- 圆角：≤ 16px（tokens.css:136-140）------------------------------- */
+  --radius-xs: 2px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ---- 阴影：双层石墨，六档（tokens.css:142-149）------------------------ */
+  --shadow-card:        0 1px 2px rgba(26, 29, 33, 0.08), 0 10px 28px rgba(26, 29, 33, 0.10);
+  --shadow-card-hover:  0 2px 4px rgba(26, 29, 33, 0.10), 0 16px 36px rgba(26, 29, 33, 0.14);
+  --shadow-card-active: 0 1px 3px rgba(26, 29, 33, 0.10), 0 8px 22px rgba(26, 29, 33, 0.12);
+  --shadow-popover:     0 2px 12px rgba(26, 29, 33, 0.06);
+  --shadow-drag:        0 4px 16px rgba(26, 29, 33, 0.10);
+  --shadow-soft:        0 1px 2px rgba(26, 29, 33, 0.06), 0 6px 18px rgba(26, 29, 33, 0.08);
+
+  /* ---- 布局尺度 -------------------------------------------------------- */
+  --sidebar-w:   248px;
+  --rightbar-w:  300px;
+  --content-max: 980px;
+
+  /* ---- 动效 ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 140ms;
+  --dur-base: 200ms;
+}
+
+/* ============================================================================
+   1. Reset + 基础排版
+   ========================================================================= */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--graphite-base);
+  background: var(--chrome-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+button { background: none; border: none; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+svg { display: block; }
+
+::selection { background: var(--azure-trace); color: var(--graphite-base); }
+
+/* 滚动条：细、低对比，不抢视觉 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--paper-sunken);
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--graphite-mute);
+  background-clip: content-box;
+}
+
+/* ============================================================================
+   2. 三栏骨架
+   ========================================================================= */
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  /* 环境层微光：azure 第 1 处（背景） */
+  background:
+    radial-gradient(1100px 460px at 82% -12%, var(--azure-trace) 0%, transparent 62%),
+    radial-gradient(820px 420px at -8% 34%, var(--paper-sunken) 0%, transparent 58%),
+    var(--chrome-canvas);
+}
+
+/* ---- 侧栏（Chrome 层：毛玻璃）----------------------------------------- */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--glass-chrome);
+  backdrop-filter: blur(var(--blur-chrome)) saturate(var(--blur-saturate));
+  -webkit-backdrop-filter: blur(var(--blur-chrome)) saturate(var(--blur-saturate));
+  border-right: 1px solid var(--chrome-hairline);
+  box-shadow: var(--glass-edge-highlight);
+}
+
+/* ---- 中栏 -------------------------------------------------------------- */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- 右栏（Chrome 层：毛玻璃）----------------------------------------- */
+.rightbar {
+  width: var(--rightbar-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--glass-chrome);
+  backdrop-filter: blur(var(--blur-chrome)) saturate(var(--blur-saturate));
+  -webkit-backdrop-filter: blur(var(--blur-chrome)) saturate(var(--blur-saturate));
+  border-left: 1px solid var(--chrome-hairline);
+  box-shadow: var(--glass-edge-highlight);
+}
+
+@media (max-width: 1200px) {
+  .rightbar { display: none; }
+}
+
+/* ---- 顶栏（Chrome 层）------------------------------------------------- */
+.topbar {
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px;
+  background: var(--glass-chrome);
+  backdrop-filter: blur(var(--blur-chrome)) saturate(var(--blur-saturate));
+  -webkit-backdrop-filter: blur(var(--blur-chrome)) saturate(var(--blur-saturate));
+  border-bottom: 1px solid var(--chrome-hairline);
+  box-shadow: var(--glass-edge-highlight);
+}
+
+/* ---- 内容滚动区（Content 层：实色，无毛玻璃）-------------------------- */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 34px 32px 56px;
+}
+
+.container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+/* ============================================================================
+   3. 字阶 × 字距（契约第三节：13 档）
+   大字号收紧、小字号放开 —— 保真度的主要来源
+   ========================================================================= */
+
+/* 30px / -0.035em —— H1，红线 2 要求 ≥ 30px */
+.t-h1 {
+  font-size: 30px;
+  line-height: 1.24;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  color: var(--graphite-base);
+}
+
+/* 26px / -0.03em —— 指标数字 */
+.t-metric {
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--graphite-base);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 21px / -0.03em —— 次级大标题 */
+.t-h1-sub {
+  font-size: 21px;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--graphite-base);
+}
+
+/* 17px / -0.025em —— 区块标题 */
+.t-h2 {
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: var(--graphite-base);
+}
+
+/* 15px / -0.02em —— 卡片标题 */
+.t-h3 {
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--graphite-base);
+}
+
+/* 14px / -0.015em —— 正文强调 */
+.t-body-em {
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  color: var(--graphite-base);
+}
+
+/* 13.5px / -0.01em —— 正文 */
+.t-body {
+  font-size: 13.5px;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  color: var(--graphite-soft);
+}
+
+/* 13px / -0.01em —— 列表项 */
+.t-item {
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  color: var(--graphite-base);
+}
+
+/* 12.5px / 0 —— 次要说明 */
+.t-sub {
+  font-size: 12.5px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+}
+
+/* 12px / 0 —— 元信息 */
+.t-meta {
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+}
+
+/* 11.5px / 0.01em —— 标签 */
+.t-tag {
+  font-size: 11.5px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  color: var(--graphite-soft);
+}
+
+/* 11px / 0.02em —— mono 徽标 */
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  color: var(--graphite-fade);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 10.5px / 0.08em —— 分组标题（全大写间距） */
+.t-eyebrow {
+  font-size: 10.5px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--graphite-mute);
+  text-transform: uppercase;
+}
+
+/* 9.5px / 0.03em —— 极小 mono */
+.t-micro {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  color: var(--graphite-mute);
+}
+
+/* ============================================================================
+   4. 侧栏
+   ========================================================================= */
+
+/* ---- 4.1 品牌 --------------------------------------------------------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 16px 14px 14px;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--graphite-base);
+  color: var(--paper-sheet);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  /* 品牌块用 soft 阴影，与内容卡片区分 */
+  box-shadow: var(--shadow-soft);
+}
+
+.brand-name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--graphite-base);
+}
+
+.brand-ver {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  color: var(--graphite-mute);
+  padding-top: 2px;
+}
+
+/* ---- 4.2 工作台入口（层序第一项）-------------------------------------- */
+.rail {
+  padding: 0 10px 10px;
+  flex-shrink: 0;
+}
+
+.rail-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 9px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+  color: var(--graphite-soft);
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.rail-btn:hover {
+  background: var(--chrome-hover);
+  color: var(--graphite-base);
+}
+
+.rail-btn.is-active {
+  background: var(--chrome-active);
+  border-color: var(--chrome-hairline);
+  color: var(--graphite-base);
+  font-weight: 600;
+}
+
+.rail-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 待决策计数：石墨实底，不用 azure（红线 1） */
+.rail-count {
+  margin-left: auto;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--graphite-base);
+  color: var(--paper-sheet);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- 4.3 新建任务（⌘N，一次会话＝一个任务）---------------------------- */
+.compose-row {
+  padding: 0 10px 12px;
+  flex-shrink: 0;
+}
+
+.btn-compose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--graphite-base);
+  color: var(--paper-sheet);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  box-shadow: var(--shadow-soft);
+  transition: background var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+
+.btn-compose:hover {
+  background: var(--graphite-base-hover);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-compose:active {
+  transform: translateY(0.5px);
+  box-shadow: var(--shadow-card-active);
+}
+
+.btn-compose svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* 键帽：反白描边，压在石墨底上 */
+.compose-kbd {
+  margin-left: auto;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  border: 1px solid hsla(0, 0%, 100%, 0.18);
+  background: hsla(0, 0%, 100%, 0.08);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: hsla(0, 0%, 100%, 0.62);
+}
+
+.btn-kbd {
+  padding: 1px 5px;
+  margin-left: 1px;
+  border-radius: var(--radius-xs);
+  border: 1px solid hsla(0, 0%, 100%, 0.18);
+  background: hsla(0, 0%, 100%, 0.08);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: hsla(0, 0%, 100%, 0.62);
+}
+
+/* ---- 4.4 会话列表 ----------------------------------------------------- */
+.conv-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 8px 8px;
+}
+
+.conv-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 7px 6px;
+}
+
+.conv-group-icon {
+  width: 10px;
+  height: 10px;
+  stroke: var(--graphite-mute);
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.conv-group-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  color: var(--graphite-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+.conv-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 8px 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  margin-bottom: 1px;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.conv-item:hover { background: var(--chrome-hover); }
+
+.conv-item.is-active {
+  background: var(--chrome-active);
+  border-color: var(--chrome-hairline);
+}
+
+/* 状态槽：形状区分，不只靠颜色（红线 6） */
+.conv-state {
+  width: 12px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding-top: 4px;
+}
+
+/* 运行中：旋转环（azure 第 2 处） */
+.st-run {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--azure-trace);
+  border-top-color: var(--azure-seal);
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 待确认：实心方章（形状差异） */
+.st-await {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-xs);
+  background: var(--graphite-base);
+}
+
+/* 完成未读：空心圆 */
+.st-unread {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--graphite-soft);
+}
+
+/* 静置：小实点 */
+.st-idle {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--graphite-mute);
+}
+
+.conv-body {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.conv-title {
+  font-size: 12.5px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--graphite-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conv-item.is-active .conv-title,
+.conv-item.is-await .conv-title { color: var(--graphite-base); font-weight: 600; }
+.conv-item.is-run .conv-title   { color: var(--graphite-base); font-weight: 500; }
+.conv-item.is-archived .conv-title { color: var(--graphite-mute); }
+
+/* 任务的标签与 @ 引用上下文（任务本身即会话） */
+.conv-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  line-height: 1.35;
+  color: var(--graphite-mute);
+  overflow: hidden;
+}
+
+.conv-tags > svg {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.task-context {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--graphite-mute);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-context svg {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linejoin: round;
+}
+
+.conv-foot {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* 工作区标签：默认只显示 target 仓，跳仓时 hover 出全貌 */
+.chip-ws {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  max-width: 100%;
+  padding: 0 4px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--paper-base);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-fade);
+  overflow: hidden;
+}
+
+.chip-ws.is-cross {
+  background: var(--paper-sunken);
+  border-color: var(--graphite-mute);
+  color: var(--graphite-soft);
+  font-weight: 600;
+}
+
+.chip-ws svg {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 待批准 chip：石墨实底 */
+.chip-await {
+  padding: 0 5px;
+  border-radius: var(--radius-xs);
+  background: var(--graphite-base);
+  color: var(--paper-sheet);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.conv-time {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+}
+
+/* ---- 4.5 侧栏底部：执行坐标 ------------------------------------------- */
+.sidebar-foot {
+  flex-shrink: 0;
+  border-top: 1px solid var(--chrome-hairline);
+  padding: 8px 10px 10px;
+}
+
+.ws-ctx { position: relative; margin-bottom: 4px; }
+
+.ws-ctx-eyebrow {
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--graphite-mute);
+  padding: 2px 4px 5px;
+}
+
+.ws-ctx-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--glass-control);
+  backdrop-filter: blur(var(--blur-control));
+  -webkit-backdrop-filter: blur(var(--blur-control));
+  text-align: left;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.ws-ctx-btn:hover { background: var(--chrome-hover); }
+
+.ws-ctx-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  background: var(--graphite-base);
+}
+
+.ws-ctx-text { min-width: 0; }
+
+.ws-ctx-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--graphite-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ws-ctx-branch {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-fade);
+}
+
+.ws-ctx-branch svg {
+  width: 8px;
+  height: 8px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.ws-ctx-caret {
+  margin-left: auto;
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  stroke: var(--graphite-mute);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 向上弹出的工作区下拉（Popover 层） */
+.ws-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 5px);
+  z-index: 40;
+  padding: 5px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--glass-popover);
+  backdrop-filter: blur(var(--blur-popover)) saturate(var(--blur-saturate));
+  -webkit-backdrop-filter: blur(var(--blur-popover)) saturate(var(--blur-saturate));
+  box-shadow: var(--shadow-popover), var(--glass-edge-highlight);
+}
+
+.ws-menu.is-open { display: block; }
+
+.ws-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  letter-spacing: -0.005em;
+  color: var(--graphite-soft);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.ws-menu-item:hover { background: var(--paper-hover); color: var(--graphite-base); }
+
+.ws-menu-item.is-current {
+  background: var(--paper-sunken);
+  color: var(--graphite-base);
+  font-weight: 600;
+}
+
+.ws-menu-mini {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  background: var(--graphite-mute);
+}
+
+.ws-menu-item.is-current .ws-menu-mini { background: var(--graphite-base); }
+
+.ws-menu-path {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+}
+
+.ws-menu-sep {
+  height: 1px;
+  background: var(--chrome-hairline);
+  margin: 5px 4px;
+}
+
+.ws-menu-note {
+  padding: 6px 8px 3px;
+  border-top: 1px solid var(--chrome-hairline);
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--graphite-mute);
+}
+
+/* 底部功能行 */
+.foot-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 6px 9px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  letter-spacing: -0.005em;
+  color: var(--graphite-soft);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.foot-link:hover { background: var(--chrome-hover); color: var(--graphite-base); }
+
+.foot-link svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.foot-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 9px 2px;
+  margin-top: 4px;
+  border-top: 1px solid var(--chrome-hairline);
+}
+
+.avatar {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--paper-sunken);
+  color: var(--graphite-soft);
+  display: grid;
+  place-items: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.foot-user-name {
+  font-size: 11.5px;
+  letter-spacing: -0.005em;
+  color: var(--graphite-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================================
+   5. 顶栏
+   ========================================================================= */
+
+.omni {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 340px;
+  padding: 6px 11px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--glass-control);
+  backdrop-filter: blur(var(--blur-control));
+  -webkit-backdrop-filter: blur(var(--blur-control));
+  font-size: 12.5px;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+
+.omni:hover {
+  background: var(--chrome-hover);
+  border-color: var(--graphite-mute);
+}
+
+.omni svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.omni-kbd {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.omni-kbd span {
+  min-width: 16px;
+  padding: 1px 4px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--chrome-raised);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+  text-align: center;
+}
+
+.topbar-spacer { flex: 1; }
+
+.topbar-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-base);
+  border: 1px solid var(--chrome-hairline);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-soft);
+}
+
+.topbar-stat .dot-run {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--graphite-base);
+  flex-shrink: 0;
+  /* 运行态另有 spinner 承载，此处仅作计数锚点（azure 收敛） */
+}
+
+.topbar-date {
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+}
+
+.topbar-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  color: var(--graphite-fade);
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.topbar-icon:hover { background: var(--chrome-hover); color: var(--graphite-base); }
+
+.topbar-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================================================
+   6. 问候区
+   ========================================================================= */
+
+.greet { margin-bottom: 18px; }
+
+.greet-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+
+.greet-eyebrow-line {
+  width: 18px;
+  height: 1px;
+  background: var(--graphite-mute);
+}
+
+.greet-h1 {
+  font-size: 30px;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  color: var(--graphite-base);
+  max-width: none;
+  margin: 0;
+}
+
+/* azure 第 3 处：问候区强调 */
+.greet-h1 em {
+  font-style: normal;
+  color: var(--azure-seal);
+}
+
+.greet-sub {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--graphite-soft);
+}
+
+.greet-sub b {
+  font-weight: 600;
+  color: var(--graphite-base);
+}
+
+/* ============================================================================
+   7. 通用：按钮 / 卡片 / 区块头
+   ========================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+
+.btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 主按钮：石墨实色，绝不用 azure（红线 1） */
+.btn-primary {
+  background: var(--graphite-base);
+  color: var(--paper-sheet);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover { background: var(--graphite-base-hover); box-shadow: var(--shadow-card); }
+.btn-primary:active { transform: translateY(0.5px); box-shadow: var(--shadow-card-active); }
+
+.btn-ghost {
+  background: var(--paper-sheet);
+  border-color: var(--graphite-hairline);
+  color: var(--graphite-soft);
+}
+
+.btn-ghost:hover {
+  background: var(--paper-hover);
+  border-color: var(--graphite-mute);
+  color: var(--graphite-base);
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--graphite-soft);
+}
+
+.btn-quiet:hover { background: var(--paper-hover); color: var(--graphite-base); }
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 11.5px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-sm svg { width: 11px; height: 11px; }
+
+/* 任务 / Goal 分段切换 */
+.view-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  margin: 0 0 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--paper-base);
+}
+
+.view-switch-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--graphite-soft);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  padding: 8px 12px;
+  border-radius: calc(var(--radius-md) - 2px);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.view-switch-btn:hover {
+  color: var(--graphite-base);
+  background: var(--paper-hover);
+}
+
+.view-switch-btn.is-active {
+  color: var(--graphite-base);
+  background: var(--paper-sheet);
+  box-shadow: 0 1px 2px rgba(26, 29, 33, 0.08);
+}
+
+.view-switch-count {
+  margin-left: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--graphite-mute);
+}
+
+.view-panel[hidden] { display: none !important; }
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.panel-head-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--graphite-base);
+}
+
+.panel-head-count {
+  font-size: 12px;
+  color: var(--graphite-mute);
+}
+
+.panel-head-more {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--graphite-soft);
+  text-decoration: none;
+}
+
+.panel-head-more:hover { color: var(--graphite-base); }
+
+
+/* 卡片：Content 层实色 */
+.card {
+  /* 卡片可能是 <a>，必须显式 block：inline 盒装不住 block 内容，
+     否则圆角边框会在每个行内碎片上各画一段，出现游丝状残影 */
+  display: block;
+  background: var(--paper-sheet);
+  border: 1px solid var(--graphite-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.card-interactive {
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+
+.card-interactive:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--graphite-mute);
+  transform: translateY(-1px);
+}
+
+.card-interactive:active {
+  box-shadow: var(--shadow-card-active);
+  transform: translateY(0);
+}
+
+/* 区块头 */
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-bottom: 11px;
+}
+
+.sec-head-title {
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: var(--graphite-base);
+}
+
+.sec-head-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+.sec-head-more {
+  margin-left: auto;
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.sec-head-more:hover { color: var(--graphite-base); }
+
+/* 栅格 */
+.grid-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 296px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1080px) {
+  .grid-main { grid-template-columns: minmax(0, 1fr); }
+}
+
+.mb-22 { margin-bottom: 22px; }
+.mb-26 { margin-bottom: 26px; }
+
+/* ============================================================================
+   8. 待决策条（卡点收口）
+   ========================================================================= */
+
+.decide {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-lg);
+  background: var(--paper-sheet);
+  border: 1px solid var(--graphite-hairline);
+  border-left: 3px solid var(--graphite-base);
+  box-shadow: var(--shadow-card);
+}
+
+.decide-icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--paper-sunken);
+  display: grid;
+  place-items: center;
+  color: var(--graphite-base);
+}
+
+.decide-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.decide-body { min-width: 0; flex: 1; }
+
+.decide-title {
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: var(--graphite-base);
+  margin-bottom: 4px;
+}
+
+.decide-desc {
+  font-size: 12.5px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.decide-metas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--paper-base);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-fade);
+}
+
+.meta-pill svg {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.decide-actions {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+/* ============================================================================
+   9. 任务列表（Task → Goal）
+   ========================================================================= */
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 15px;
+  border-bottom: 1px solid var(--chrome-hairline);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.task-row:last-child { border-bottom: none; }
+.task-row:hover { background: var(--paper-hover); }
+.task-row:first-child { border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg); }
+.task-row:last-child { border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg); }
+
+/* 勾选框 */
+.tick {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--graphite-mute);
+  display: grid;
+  place-items: center;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+
+.tick:hover { border-color: var(--graphite-soft); }
+
+.task-row.is-done .tick {
+  background: var(--graphite-base);
+  border-color: var(--graphite-base);
+}
+
+.tick svg {
+  width: 9px;
+  height: 9px;
+  stroke: var(--paper-sheet);
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.task-row.is-done .tick svg { opacity: 1; }
+
+.task-body {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.task-title {
+  font-size: 13px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  color: var(--graphite-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.task-top .task-title {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.task-top .due,
+.task-top .due-mono {
+  flex-shrink: 0;
+}
+
+.task-row.is-done .task-title {
+  color: var(--graphite-mute);
+  text-decoration: line-through;
+  text-decoration-color: var(--graphite-mute);
+}
+
+/* Goal 汇总子行 */
+.task-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font-size: 11px;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.task-sub > .n,
+.task-sub > .is-run,
+.task-sub > .is-wait,
+.task-sub > span:not(.task-progress):not(.sep) {
+  min-width: 0;
+}
+
+.task-sub .n {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.task-sub .sep { color: var(--graphite-mute); }
+.task-sub .n { font-family: var(--font-mono); letter-spacing: 0.02em; }
+
+/* 运行中：加旋转点，不只靠颜色 */
+.task-sub .is-run {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--graphite-soft);
+  font-weight: 600;
+}
+
+.task-sub .is-run::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.2px solid var(--paper-sunken);
+  border-top-color: var(--graphite-soft);
+  animation: spin 900ms linear infinite;
+}
+
+.task-sub .is-wait {
+  color: var(--graphite-base);
+  font-weight: 600;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
+
+/* 迷你进度条 */
+.bar {
+  width: 68px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--paper-sunken);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--graphite-base);
+}
+
+.bar-pct {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+  min-width: 26px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 到期标签 */
+.due {
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--paper-base);
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+  white-space: nowrap;
+}
+
+.due.is-today {
+  background: var(--paper-sunken);
+  border-color: var(--graphite-mute);
+  color: var(--graphite-base);
+  font-weight: 600;
+}
+
+.due-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-fade);
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   10. Goal 卡
+   ========================================================================= */
+
+
+/* Goal 紧凑行（分段面板） */
+.goal-list { padding: 2px 0; }
+
+.goal-row {
+  display: block;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--chrome-hairline);
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.goal-row:last-child { border-bottom: none; }
+
+.goal-row:hover { background: var(--paper-hover); }
+
+.goal-row-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.goal-row-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: var(--graphite-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.goal-row-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.goal-row-meta .goal-phase { margin-left: 0; }
+
+.goal-row-sub {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--graphite-fade);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.goal {
+  padding: 14px 15px;
+  margin-bottom: 11px;
+}
+
+.goal:last-child { margin-bottom: 0; }
+
+.goal-refs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 9px;
+}
+
+.ref {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--paper-base);
+  font-size: 10.5px;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+}
+
+.ref svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linejoin: round;
+}
+
+.ref-ws {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+.ref-ws.is-cross {
+  background: var(--paper-sunken);
+  border-color: var(--graphite-mute);
+  color: var(--graphite-soft);
+  font-weight: 600;
+}
+
+.goal-head {
+      flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.goal-title {
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--graphite-base);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 状态徽标：色 + 形状双编码 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--chrome-hairline);
+  background: var(--paper-base);
+  font-size: 10.5px;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--graphite-soft);
+}
+
+.badge-run { border-color: var(--graphite-mute); }
+
+.badge-run::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.3px solid var(--paper-sunken);
+  border-top-color: var(--graphite-base);
+  animation: spin 900ms linear infinite;
+}
+
+.badge-wait {
+  background: var(--paper-sunken);
+  border-color: var(--graphite-mute);
+  color: var(--graphite-base);
+  font-weight: 600;
+}
+
+.badge-wait::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-xs);
+  background: var(--graphite-base);
+}
+
+.badge-done::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.3px solid var(--graphite-mute);
+}
+
+.goal-origin {
+      display: block;
+      margin: 2px 0 8px;
+      color: var(--graphite-soft);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .goal-phase {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-fade);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Goal 进度条 */
+.goal-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--paper-sunken);
+  overflow: hidden;
+  margin-bottom: 9px;
+}
+
+.goal-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--graphite-base);
+}
+
+.goal-desc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+}
+
+/* 当前子任务提示 */
+.goal-now {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  padding: 7px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-base);
+  border: 1px solid var(--chrome-hairline);
+  font-size: 11.5px;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+}
+
+.goal-now-dot {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--graphite-base);
+}
+
+.goal-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--chrome-hairline);
+}
+
+.goal-budget {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+.goal-open {
+  margin-left: auto;
+  font-size: 11.5px;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--graphite-soft);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.goal-open:hover { color: var(--graphite-base); }
+
+/* ============================================================================
+   11. 右列：指标 / 动态
+   ========================================================================= */
+
+.overview-card {
+  padding: 12px 12px 10px;
+  margin-bottom: 14px;
+}
+
+.overview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--chrome-hairline);
+}
+
+.overview-stat {
+  min-width: 0;
+}
+
+.overview-num {
+  display: block;
+  font-size: 20px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--graphite-base);
+  font-variant-numeric: tabular-nums;
+}
+
+.overview-label {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--graphite-fade);
+}
+
+.overview-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 9px;
+  padding: 8px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunken);
+  border: 1px solid var(--chrome-hairline);
+}
+
+.overview-action-main {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+}
+
+.overview-action-count {
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--graphite-base);
+  font-variant-numeric: tabular-nums;
+}
+
+.overview-action-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--graphite-base);
+}
+
+.overview-action-meta {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+}
+/* 动态流 */
+.feed { padding: 3px 15px; }
+
+.feed-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--chrome-hairline);
+}
+
+.feed-item:last-child { border-bottom: none; }
+
+.feed-rail {
+  width: 6px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+  position: relative;
+}
+
+.feed-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--graphite-mute);
+  flex-shrink: 0;
+}
+
+.feed-dot.is-now {
+  background: var(--graphite-base);
+  box-shadow: 0 0 0 3px var(--paper-sunken);
+}
+.feed-dot.is-ok { background: var(--graphite-soft); }
+
+/* 时间线连线 */
+.feed-item:not(:last-child) .feed-rail::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: -10px;
+  width: 1px;
+  background: var(--chrome-hairline);
+}
+
+.feed-body { min-width: 0; flex: 1; }
+
+.feed-text {
+  font-size: 12.5px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+}
+
+.feed-text b { font-weight: 600; color: var(--graphite-base); }
+
+.feed-time {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+}
+
+/* ============================================================================
+   12. 右栏（产出物）
+   ========================================================================= */
+
+.rb-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 11px 11px 9px;
+  border-bottom: 1px solid var(--chrome-hairline);
+  flex-shrink: 0;
+}
+
+.rb-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: 11.5px;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--graphite-fade);
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.rb-tab:hover { background: var(--chrome-hover); color: var(--graphite-base); }
+
+.rb-tab.is-active {
+  background: var(--chrome-active);
+  border-color: var(--chrome-hairline);
+  color: var(--graphite-base);
+  font-weight: 600;
+}
+
+.rb-tab svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rb-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 11px 20px;
+}
+
+.rb-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 3px 9px;
+}
+
+.rb-eyebrow-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  color: var(--graphite-mute);
+}
+
+.artifact {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 10px;
+  margin-bottom: 7px;
+  border-radius: var(--radius-md);
+  background: var(--paper-sheet);
+  border: 1px solid var(--graphite-hairline);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+
+.artifact:hover {
+  box-shadow: var(--shadow-card);
+  border-color: var(--graphite-mute);
+}
+
+.artifact-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--paper-base);
+  display: grid;
+  place-items: center;
+  color: var(--graphite-fade);
+}
+
+.artifact-icon svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.artifact-body { min-width: 0; flex: 1; }
+
+.artifact-name {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0;
+  color: var(--graphite-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artifact-meta {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  color: var(--graphite-mute);
+}
+
+.artifact-new {
+  flex-shrink: 0;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: var(--graphite-base);
+  color: var(--paper-sheet);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* 文件树 */
+.tree { padding: 2px 0; }
+
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 5px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--graphite-soft);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.tree-row:hover { background: var(--chrome-hover); color: var(--graphite-base); }
+.tree-row.is-dir { color: var(--graphite-base); font-weight: 600; }
+.tree-row svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tree-in-1 { padding-left: 18px; }
+.tree-in-2 { padding-left: 33px; }
+
+/* ============================================================================
+   13. 质感打磨：焦点态 / 内高光 / 渐隐分隔 / 可访问性
+   ========================================================================= */
+
+/* ---- 键盘焦点：石墨双环，不用 azure ----------------------------------- */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1.5px var(--paper-sheet),
+              0 0 0 3.5px var(--graphite-soft);
+  border-radius: var(--radius-sm);
+}
+
+.card-interactive:focus-visible,
+.task-row:focus-visible {
+  box-shadow: var(--shadow-card-hover),
+              0 0 0 1.5px var(--paper-sheet),
+              0 0 0 3.5px var(--graphite-soft);
+}
+
+/* ---- 卡片内顶部高光：模拟纸面受光 ------------------------------------- */
+.card { position: relative; }
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    hsla(210, 30%, 100%, 0.75) 16%,
+    hsla(210, 30%, 100%, 0.75) 84%,
+    transparent 100%);
+  pointer-events: none;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+/* 列表型卡片内部已有分隔线，关闭整卡高光避免与首行冲突 */
+.card.is-list::before { display: none; }
+
+/* ---- 分隔线渐隐：两端淡出，比纯直线精细 ------------------------------- */
+.task-row {
+  position: relative;
+  border-bottom: none;
+}
+
+.task-row:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--chrome-hairline) 5%,
+    var(--chrome-hairline) 95%,
+    transparent 100%);
+}
+
+.feed-item {
+  position: relative;
+  border-bottom: none;
+}
+
+.feed-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--chrome-hairline) 0%,
+    var(--chrome-hairline) 86%,
+    transparent 100%);
+}
+
+/* ---- 进度条：槽内阴影 + 填充微渐变 ------------------------------------ */
+.bar, .goal-bar {
+  box-shadow: inset 0 1px 1px rgba(26, 29, 33, 0.06);
+}
+
+.bar-fill, .goal-bar-fill {
+  background: linear-gradient(180deg,
+    var(--graphite-soft) 0%,
+    var(--graphite-base) 100%);
+  transition: width var(--dur-base) var(--ease-out);
+}
+
+/* ---- 待决策条：左侧强调边用渐变 --------------------------------------- */
+.decide {
+  position: relative;
+  border-left: 1px solid var(--graphite-hairline);
+  overflow: hidden;
+}
+
+.decide::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg,
+    var(--graphite-base) 0%,
+    var(--graphite-soft) 100%);
+}
+
+/* ---- 主按钮：顶部内高光，模拟实体键 ---------------------------------- */
+.btn-primary, .btn-compose {
+  background-image: linear-gradient(180deg,
+    hsla(0, 0%, 100%, 0.10) 0%,
+    hsla(0, 0%, 100%, 0) 54%);
+}
+
+/* ---- 小标签：极淡内描边，边界更清晰 ---------------------------------- */
+.badge, .meta-pill, .ref, .due, .chip-ws, .omni-kbd span {
+  box-shadow: inset 0 1px 0 hsla(210, 30%, 100%, 0.5);
+}
+
+/* ---- 侧栏活动项：左侧 2px 石墨标记（不只靠底色，红线 6）--------------- */
+.conv-item { position: relative; }
+
+.conv-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 17px;
+  border-radius: 0 2px 2px 0;
+  background: var(--graphite-base);
+}
+
+.rail-btn { position: relative; }
+
+.rail-btn.is-active::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 15px;
+  border-radius: 0 2px 2px 0;
+  background: var(--graphite-base);
+}
+
+/* ---- 层间投影：顶栏下缘 / 侧栏右缘 ----------------------------------- */
+.topbar { position: relative; z-index: 10; }
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 8px;
+  background: linear-gradient(180deg,
+    rgba(26, 29, 33, 0.035) 0%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+.sidebar { position: relative; z-index: 20; }
+
+.sidebar::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(90deg,
+    rgba(26, 29, 33, 0.03) 0%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- 动态流当前项：外圈衬托（替代 azure 着色）------------------------- */
+.feed-dot.is-now {
+  box-shadow: 0 0 0 3px var(--paper-sunken);
+}
+
+/* ---- 可访问性：尊重减少动效偏好 -------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* 失去旋转后用虚线环保持可辨识（红线 6：状态不只靠颜色）*/
+  .st-run,
+  .badge-run::before,
+  .task-sub .is-run::before {
+    border-style: dashed;
+  }
+}
+
+/* ---- 高对比模式：加深描边与文本 -------------------------------------- */
+@media (prefers-contrast: more) {
+  .card, .artifact, .decide { border-color: var(--graphite-soft); }
+  .conv-title, .task-sub, .goal-desc, .feed-text { color: var(--graphite-base); }
+}
+
+
+
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ======================================================================
+       侧栏
+       层序：品牌 → 工作台（最上层入口）→ 新建任务 → 任务列表 → 执行坐标
+       实体只有一层：一次会话＝一个任务（对齐 Sidebar.tsx:691-697）
+       Goal 是 Peer 在任务内自建的执行计划，用户无法手动发起
+       ==================================================================== -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-mark">彼</div>
+      <div class="brand-name">Peer</div>
+      <div class="brand-ver">0.9.2</div>
+    </div>
+
+    <!-- 工作台：全局视图，不随工作区切换而变 -->
+    <div class="rail">
+      <a class="rail-btn is-active" href="home.html">
+        <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10"/><path d="M9.75 19.5v-5.25h4.5v5.25"/></svg>
+        工作台
+        <span class="rail-count">1</span>
+      </a>
+    </div>
+
+    <div class="compose-row">
+      <a class="btn-compose" href="chat.html">
+        <svg viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        新建任务
+        <span class="compose-kbd">⌘N</span>
+      </a>
+    </div>
+
+    <!-- 会话列表：执行现场 -->
+    <div class="conv-scroll">
+
+      <div class="conv-group">
+        <svg class="conv-group-icon" viewBox="0 0 24 24"><path d="M12 17.5v4M9 3h6l-1 8h3l-9 6.5 2-8.5H8z"/></svg>
+        <span class="t-eyebrow">置顶</span>
+        <span class="conv-group-count">1</span>
+      </div>
+      <ul>
+        <li>
+          <a class="conv-item is-run is-active" href="chat.html">
+            <span class="conv-state"><span class="st-run"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">任务工作台首页 HTML 稿</span>
+              <span class="conv-tags"><svg viewBox="0 0 24 24"><path d="M4 12.5V6a2 2 0 0 1 2-2h6.5L20 11.5a2 2 0 0 1 0 2.8l-5.7 5.7a2 2 0 0 1-2.8 0L4 12.5Z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg><span class="conv-tag">frost</span></span>
+              <span class="conv-foot">
+                <span class="chip-ws is-cross" title="发起于 peer-knowledge，改动落在 peer_agent">
+                  peer-knowledge
+                  <svg viewBox="0 0 24 24"><path d="M5 12h13M12.5 6.5 19 12l-6.5 5.5"/></svg>
+                  peer_agent
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-group">
+        <span class="t-eyebrow">运行中</span>
+        <span class="conv-group-count">1</span>
+      </div>
+      <ul>
+        <li>
+          <a class="conv-item is-run" href="chat.html">
+            <span class="conv-state"><span class="st-run"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">发版脚本 dry-run 校验</span>
+              <span class="conv-tags"><svg viewBox="0 0 24 24"><path d="M4 12.5V6a2 2 0 0 1 2-2h6.5L20 11.5a2 2 0 0 1 0 2.8l-5.7 5.7a2 2 0 0 1-2.8 0L4 12.5Z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg><span class="conv-tag">release</span></span>
+              <span class="conv-foot">
+                <span class="chip-ws">peer_agent</span>
+                <span class="conv-time">运行 6m</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-group">
+        <span class="t-eyebrow">待确认</span>
+        <span class="conv-group-count">1</span>
+      </div>
+      <ul>
+        <li>
+          <a class="conv-item is-await" href="chat.html">
+            <span class="conv-state"><span class="st-await"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">Runtime SDK 边界重构</span>
+              <span class="conv-tags"><svg viewBox="0 0 24 24"><path d="M4 12.5V6a2 2 0 0 1 2-2h6.5L20 11.5a2 2 0 0 1 0 2.8l-5.7 5.7a2 2 0 0 1-2.8 0L4 12.5Z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg><span class="conv-tag">runtime</span></span>
+              <span class="conv-foot">
+                <span class="chip-await">待批准</span>
+                <span class="conv-time">42m</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-group">
+        <span class="t-eyebrow">最近</span>
+        <span class="conv-group-count">3</span>
+      </div>
+      <ul>
+        <li>
+          <a class="conv-item" href="chat.html">
+            <span class="conv-state"><span class="st-unread"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">侧栏毛玻璃锯齿修复</span>
+              <span class="conv-tags"><svg viewBox="0 0 24 24"><path d="M4 12.5V6a2 2 0 0 1 2-2h6.5L20 11.5a2 2 0 0 1 0 2.8l-5.7 5.7a2 2 0 0 1-2.8 0L4 12.5Z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg><span class="conv-tag">frost</span></span>
+              <span class="conv-foot">
+                <span class="chip-ws">peer_agent</span>
+                <span class="conv-time">昨天</span>
+              </span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="conv-item" href="chat.html">
+            <span class="conv-state"><span class="st-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">深色模式 token 调研</span>
+              <span class="conv-tags"><svg viewBox="0 0 24 24"><path d="M4 12.5V6a2 2 0 0 1 2-2h6.5L20 11.5a2 2 0 0 1 0 2.8l-5.7 5.7a2 2 0 0 1-2.8 0L4 12.5Z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg><span class="conv-tag">frost</span></span>
+              <span class="conv-foot">
+                <span class="chip-ws">peer-knowledge</span>
+                <span class="conv-time">周三</span>
+              </span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="conv-item" href="chat.html">
+            <span class="conv-state"><span class="st-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">发版 SOP 整理</span>
+              <span class="conv-tags"><svg viewBox="0 0 24 24"><path d="M4 12.5V6a2 2 0 0 1 2-2h6.5L20 11.5a2 2 0 0 1 0 2.8l-5.7 5.7a2 2 0 0 1-2.8 0L4 12.5Z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg><span class="conv-tag">release</span></span>
+              <span class="conv-foot">
+                <span class="chip-ws">peer_agent</span>
+                <span class="conv-time">压缩 62%</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="conv-group">
+        <span class="t-eyebrow">已归档</span>
+        <span class="conv-group-count">2</span>
+      </div>
+      <ul>
+        <li>
+          <a class="conv-item is-archived" href="chat.html">
+            <span class="conv-state"><span class="st-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">知识库目录结构迁移</span>
+              <span class="conv-foot"><span class="chip-ws">peer-knowledge</span></span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="conv-item is-archived" href="chat.html">
+            <span class="conv-state"><span class="st-idle"></span></span>
+            <span class="conv-body">
+              <span class="conv-title">Frost 规范初稿</span>
+              <span class="conv-foot"><span class="chip-ws">peer-knowledge</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 执行坐标：不是根容器，只决定新会话/新 Goal 的默认落点 -->
+    <div class="sidebar-foot">
+      <div class="ws-ctx">
+        <div class="ws-ctx-eyebrow">当前执行坐标</div>
+        <button class="ws-ctx-btn" id="wsBtn">
+          <span class="ws-ctx-dot"></span>
+          <span class="ws-ctx-text">
+            <span class="ws-ctx-name">peer_agent</span>
+            <span class="ws-ctx-branch">
+              <svg viewBox="0 0 24 24"><circle cx="6.5" cy="6" r="2.2"/><circle cx="6.5" cy="18" r="2.2"/><circle cx="17.5" cy="9" r="2.2"/><path d="M6.5 8.2v7.6M8.7 6h6a2.8 2.8 0 0 1 2.8 2.8v0"/></svg>
+              main
+            </span>
+          </span>
+          <svg class="ws-ctx-caret" viewBox="0 0 24 24"><path d="M18 14.5 12 9l-6 5.5"/></svg>
+        </button>
+        <div class="ws-menu" id="wsMenu">
+          <a class="ws-menu-item is-current">
+            <span class="ws-menu-mini"></span>peer_agent
+            <span class="ws-menu-path">~/DEV/github</span>
+          </a>
+          <a class="ws-menu-item">
+            <span class="ws-menu-mini"></span>peer-knowledge
+            <span class="ws-menu-path">~/MiaoYan</span>
+          </a>
+          <a class="ws-menu-item">
+            <span class="ws-menu-mini"></span>MiaoYan
+            <span class="ws-menu-path">~/Documents</span>
+          </a>
+          <div class="ws-menu-sep"></div>
+          <a class="ws-menu-item">添加工作区…</a>
+          <div class="ws-menu-note">切换只改变新会话与新 Goal 的默认落点，不影响工作台里的任务与 Goal 列表。</div>
+        </div>
+      </div>
+
+      <a class="foot-link" href="knowledge.html">
+        <svg viewBox="0 0 24 24"><path d="M4.5 19V5.5A2 2 0 0 1 6.5 3.5h11a2 2 0 0 1 2 2V19M4.5 19a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2M4.5 19h15"/><path d="M8.5 7.5h7M8.5 11h5"/></svg>
+        知识库
+      </a>
+      <a class="foot-link">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.8"/><path d="M12 3.5v2.2M12 18.3v2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M3.5 12h2.2M18.3 12h2.2M5.9 18.1l1.6-1.6M16.5 7.5l1.6-1.6"/></svg>
+        设置
+      </a>
+
+      <div class="foot-user">
+        <div class="avatar">梁</div>
+        <div class="foot-user-name">梁寅 · 本地会话</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+
+    <!-- ==================== 顶栏 ==================== -->
+    <header class="topbar">
+      <button class="omni" id="omniBtn">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+        搜索任务、Goal、会话、文档…
+        <span class="omni-kbd"><span>⌘</span><span>K</span></span>
+      </button>
+
+      <div class="topbar-spacer"></div>
+
+      <div class="topbar-stat">
+        <span class="dot-run"></span>
+        2 running
+      </div>
+      <div class="topbar-date">7 月 31 日 · 周五</div>
+      <button class="topbar-icon" title="通知">
+        <svg viewBox="0 0 24 24"><path d="M12 3.5a5.5 5.5 0 0 0-5.5 5.5c0 4-2 5.5-2 5.5h15s-2-1.5-2-5.5A5.5 5.5 0 0 0 12 3.5Z"/><path d="M10.3 18a2 2 0 0 0 3.4 0"/></svg>
+      </button>
+    </header>
+
+    <!-- ==================== 内容区 ==================== -->
+    <main class="content">
+      <div class="container">
+
+        <!-- ---------- 问候区：两行状态 ---------- -->
+        <section class="greet">
+          <div class="greet-eyebrow">
+            <span class="greet-eyebrow-line"></span>
+            <span class="t-eyebrow">工作台 · 全局</span>
+          </div>
+          <h1 class="greet-h1">5 个任务推进中 · <em>2 个 Goal</em> 执行中</h1>
+          <p class="greet-sub"><b>1</b> 个任务到期 · <b>1</b> 个 Goal 等待决策</p>
+        </section>
+
+        <!-- ---------- 待决策（卡点收口） ---------- -->
+        <div class="decide">
+          <div class="decide-icon">
+            <svg viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="9.5" rx="2"/><path d="M8.2 10V7.2a3.8 3.8 0 0 1 7.6 0V10"/></svg>
+          </div>
+          <div class="decide-body">
+            <div class="decide-title">Runtime SDK 边界重构</div>
+            <div class="decide-desc">等待确认高危写入范围 · 确认后继续剩余 5 个子任务</div>
+          </div>
+          <div class="decide-actions">
+            <a class="btn btn-ghost btn-sm" href="chat.html">进会话</a>
+            <button class="btn btn-primary btn-sm">批准继续</button>
+          </div>
+        </div>
+
+        <!-- ---------- 主栅格 ---------- -->
+        <div class="grid-main">
+
+          <!-- ===== 左列 ===== -->
+          <div>
+
+            <div class="view-switch" role="tablist" aria-label="主区视图">
+              <button type="button" class="view-switch-btn is-active" data-view="tasks" role="tab" aria-selected="true">
+                任务<span class="view-switch-count">3</span>
+              </button>
+              <button type="button" class="view-switch-btn" data-view="goals" role="tab" aria-selected="false">
+                Goal<span class="view-switch-count">3</span>
+              </button>
+            </div>
+
+            <section class="view-panel" data-panel="tasks" role="tabpanel">
+              <div class="panel-head">
+                <h2 class="panel-head-title">我的任务</h2>
+                <span class="panel-head-count">3 进行中</span>
+                <a class="panel-head-more" href="tasks.html">全部 →</a>
+              </div>
+              <div class="card is-list">
+                <a class="task-row" href="chat.html">
+                  <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg></span>
+                  <span class="task-body">
+                    <span class="task-top">
+                      <span class="task-title">任务工作台首页 HTML 稿</span>
+                      <span class="due is-today">今天 18:00</span>
+                    </span>
+                    <span class="task-sub">
+                      <span class="n">#Frost · #工作台</span>
+                      <span class="sep">·</span>
+                      <span class="is-run">1 执行中</span>
+
+                      <span class="task-progress">
+                        <span class="bar"><span class="bar-fill" style="width:58%"></span></span>
+                        <span class="bar-pct">58%</span>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+
+                <a class="task-row" href="chat.html">
+                  <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg></span>
+                  <span class="task-body">
+                    <span class="task-top">
+                      <span class="task-title">Runtime SDK 边界重构</span>
+                      <span class="due-mono">下周三</span>
+                    </span>
+                    <span class="task-sub">
+                      <span class="n">#Runtime · @任务工作台首页</span>
+                      <span class="sep">·</span>
+                      <span class="is-wait">待你决策</span>
+
+                      <span class="task-progress">
+                        <span class="bar"><span class="bar-fill" style="width:20%"></span></span>
+                        <span class="bar-pct">20%</span>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+
+                <a class="task-row" href="chat.html">
+                  <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg></span>
+                  <span class="task-body">
+                    <span class="task-top">
+                      <span class="task-title">发版脚本 dry-run 校验</span>
+                      <span class="due-mono">8/15</span>
+                    </span>
+                    <span class="task-sub">
+                      <span class="n">#发布 · @Runtime SDK</span>
+                      <span class="sep">·</span>
+                      <span class="is-run">1 执行中</span>
+
+                      <span class="task-progress">
+                        <span class="bar"><span class="bar-fill" style="width:65%"></span></span>
+                        <span class="bar-pct">65%</span>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+
+                <a class="task-row is-done" href="chat.html">
+                  <span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg></span>
+                  <span class="task-body">
+                    <span class="task-top">
+                      <span class="task-title">知识库迁移到 peer-knowledge</span>
+                      <span class="due">已归档</span>
+                    </span>
+                    <span class="task-sub">
+                      <span class="n">#知识库 · @任务工作台首页</span>
+                      <span class="sep">·</span>
+                      <span>全部完成</span>
+
+                    </span>
+                  </span>
+                </a>
+              </div>
+            </section>
+
+            <section class="view-panel" data-panel="goals" role="tabpanel" hidden>
+              <div class="panel-head">
+                <h2 class="panel-head-title">进行中的 Goal</h2>
+                <span class="panel-head-count">2 执行 · 1 待决策</span>
+                <a class="panel-head-more" href="goals.html">全部 →</a>
+              </div>
+              <div class="card is-list goal-list">
+                <a class="goal-row" href="goal-detail.html">
+                  <span class="goal-row-main">
+                    <span class="goal-row-title">任务工作台首页 HTML 稿</span>
+                    <span class="goal-row-meta">
+                      <span class="badge badge-run">执行中</span>
+                      <span class="goal-phase">3/4 · 75%</span>
+                    </span>
+                  </span>
+                  <span class="goal-row-sub">来自任务：任务工作台首页 HTML 稿</span>
+                </a>
+                <a class="goal-row" href="goal-detail.html">
+                  <span class="goal-row-main">
+                    <span class="goal-row-title">发版脚本 dry-run 校验</span>
+                    <span class="goal-row-meta">
+                      <span class="badge badge-run">执行中</span>
+                      <span class="goal-phase">2/5 · 40%</span>
+                    </span>
+                  </span>
+                  <span class="goal-row-sub">来自任务：发版脚本 dry-run 校验</span>
+                </a>
+                <a class="goal-row" href="goal-detail.html">
+                  <span class="goal-row-main">
+                    <span class="goal-row-title">Runtime SDK 边界重构</span>
+                    <span class="goal-row-meta">
+                      <span class="badge badge-wait">待决策</span>
+                      <span class="goal-phase">1/6 · 16%</span>
+                    </span>
+                  </span>
+                  <span class="goal-row-sub">来自任务：Runtime SDK 边界重构</span>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <aside>
+            <section class="overview-card card">
+              <div class="overview-stats">
+                <div class="overview-stat">
+                  <span class="overview-num">5</span>
+                  <span class="overview-label">进行中</span>
+                </div>
+                <div class="overview-stat">
+                  <span class="overview-num">2</span>
+                  <span class="overview-label">Goal</span>
+                </div>
+                <div class="overview-stat">
+                  <span class="overview-num">4</span>
+                  <span class="overview-label">今日完成</span>
+                </div>
+              </div>
+              <div class="overview-action">
+                <div class="overview-action-main">
+                  <span class="overview-action-count">1</span>
+                  <span class="overview-action-text">等待你处理</span>
+                </div>
+                <span class="overview-action-meta">最久 42m</span>
+              </div>
+            </section>
+
+            <div class="sec-head">
+              <h2 class="sec-head-title">最近动态</h2>
+            </div>
+            <div class="card is-list feed">
+<div class="feed-item">
+                <div class="feed-rail"><span class="feed-dot is-now"></span></div>
+                <div class="feed-body">
+                  <div class="feed-text"><b>首页 HTML 稿</b> 完成 token 提取，进入产出阶段。</div>
+                  <time class="feed-time">10:24 · peer-knowledge</time>
+                </div>
+              </div>
+<div class="feed-item">
+                <div class="feed-rail"><span class="feed-dot is-ok"></span></div>
+                <div class="feed-body">
+                  <div class="feed-text"><b>侧栏毛玻璃锯齿</b> 修复已合入，等待下次构建验证。</div>
+                  <time class="feed-time">09:41 · peer_agent</time>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==================== 右栏：产出物 ==================== -->
+  <aside class="rightbar">
+    <div class="rb-tabs">
+      <button class="rb-tab is-active">
+        <svg viewBox="0 0 24 24"><path d="M7 3.5h8l4 4v13H7z"/><path d="M15 3.5v4h4"/></svg>
+        产出物
+      </button>
+      <button class="rb-tab">
+        <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9.5h16"/></svg>
+        浏览器
+      </button>
+      <button class="rb-tab">
+        <svg viewBox="0 0 24 24"><path d="M3.5 7.5l2-3h5l2 3h8v12h-17z"/></svg>
+        文件
+      </button>
+    </div>
+
+    <div class="rb-body">
+      <div class="rb-eyebrow">
+        <span class="t-eyebrow">本次 Goal 产出</span>
+        <span class="rb-eyebrow-count">3</span>
+      </div>
+
+      <a class="artifact" href="chat.html">
+        <span class="artifact-icon">
+          <svg viewBox="0 0 24 24"><path d="M7 3.5h8l4 4v13H7z"/><path d="M15 3.5v4h4"/></svg>
+        </span>
+        <span class="artifact-body">
+          <span class="artifact-name">home.html</span>
+          <span class="artifact-meta">54.9 KB · 刚刚</span>
+        </span>
+        <span class="artifact-new">新</span>
+      </a>
+
+      <a class="artifact" href="chat.html">
+        <span class="artifact-icon">
+          <svg viewBox="0 0 24 24"><path d="M7 3.5h8l4 4v13H7z"/><path d="M15 3.5v4h4"/></svg>
+        </span>
+        <span class="artifact-body">
+          <span class="artifact-name">CONTRACT.md</span>
+          <span class="artifact-meta">4.8 KB · 12m 前</span>
+        </span>
+        <span class="artifact-new">新</span>
+      </a>
+
+      <a class="artifact" href="chat.html">
+        <span class="artifact-icon">
+          <svg viewBox="0 0 24 24"><path d="M7 3.5h8l4 4v13H7z"/><path d="M15 3.5v4h4"/></svg>
+        </span>
+        <span class="artifact-body">
+          <span class="artifact-name">chat.html</span>
+          <span class="artifact-meta">18.4 KB · 1h 前</span>
+        </span>
+      </a>
+
+      <div class="rb-eyebrow" style="padding-top:16px">
+        <span class="t-eyebrow">工作区文件</span>
+        <span class="rb-eyebrow-count">peer-knowledge</span>
+      </div>
+
+      <div class="tree">
+        <div class="tree-row is-dir">
+          <svg viewBox="0 0 24 24"><path d="M3.5 7.5l2-3h5l2 3h8v12h-17z"/></svg>
+          design/
+        </div>
+        <div class="tree-row is-dir tree-in-1">
+          <svg viewBox="0 0 24 24"><path d="M3.5 7.5l2-3h5l2 3h8v12h-17z"/></svg>
+          visual/previews/
+        </div>
+        <div class="tree-row is-dir tree-in-2">
+          <svg viewBox="0 0 24 24"><path d="M3.5 7.5l2-3h5l2 3h8v12h-17z"/></svg>
+          workbench/
+        </div>
+        <div class="tree-row tree-in-2" style="padding-left:48px">CONTRACT.md</div>
+        <div class="tree-row tree-in-2" style="padding-left:48px">home.html</div>
+        <div class="tree-row tree-in-2" style="padding-left:48px">chat.html</div>
+        <div class="tree-row is-dir">
+          <svg viewBox="0 0 24 24"><path d="M3.5 7.5l2-3h5l2 3h8v12h-17z"/></svg>
+          knowledge/
+        </div>
+        <div class="tree-row is-dir">
+          <svg viewBox="0 0 24 24"><path d="M3.5 7.5l2-3h5l2 3h8v12h-17z"/></svg>
+          playbook/
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  var wsBtn = document.getElementById('wsBtn');
+  var wsMenu = document.getElementById('wsMenu');
+  wsBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    wsMenu.classList.toggle('is-open');
+  });
+  document.addEventListener('click', function () { wsMenu.classList.remove('is-open'); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') wsMenu.classList.remove('is-open');
+  });
+</script>
+
+<script>
+(() => {
+  const switcher = document.querySelector('.view-switch');
+  if (!switcher) return;
+  const buttons = [...switcher.querySelectorAll('[data-view]')];
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const setView = (view) => {
+    buttons.forEach((btn) => {
+      const on = btn.dataset.view === view;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.panel !== view;
+    });
+  };
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => setView(btn.dataset.view));
+  });
+})();
+</script>
+</body>
+</html>
