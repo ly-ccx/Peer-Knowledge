@@ -143,6 +143,7 @@ attentionVersion := attentionVersion + 1
 | 历史迁移默认已读的旧任务 | 启动重算时不回放历史通知 |
 | 任务被取消 | 不发送 |
 | 应用冷启动全量重算 | **不回放**启动前已存在的终态；仅订阅启动后的新跃迁（见 §9） |
+| **`activation.kind === 'intake'`（未升级的判别契约）** | **不发送**。intake 只用于“是否要升成可执行 Goal”的判别；纯问答 / 未升级契约即使 status 变为 `completed` / `failed` / `waiting_user`，也**不是**真正可执行 Goal 的结果告知。仅 `accepted_goal`（或历史缺省 activation 的兼容计划）才进入通知决策 |
 
 前台判定（macOS 首版）：
 
@@ -163,6 +164,7 @@ isViewingSameTask =
 
 ```text
 onTaskAttention(task, prevStatus, nextStatus, attentionVersion):
+  if task.activationKind == 'intake': return   // 伪 Goal / 纯问答判别契约，不通知
   if not isNotifiableTransition(prevStatus, nextStatus): return
   if wasNotified(taskId, attentionVersion): return
   if isHistoricalReplay: return
