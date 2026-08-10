@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Peer · 工作台</title>
+  <style>
+    :root {
+      --font: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --line: #e6e9ee;
+      --text: #1c2430;
+      --soft: #5b6573;
+      --fade: #8b93a0;
+      --blue: #3d6f99;
+      --blue-soft: #e8f0f7;
+      --ok: #3e7a6b;
+      --ok-soft: #e7f2ee;
+      --warn: #9a7340;
+      --warn-soft: #f4eee3;
+      --danger: #8a4b55;
+      --ink: #1a1f27;
+      --shadow: 0 1px 2px rgba(28,36,48,.04), 0 10px 30px rgba(28,36,48,.05);
+      --radius: 18px;
+      --ease: cubic-bezier(.22,.61,.36,1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font); color: var(--text); background: var(--bg);
+      -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.5;
+    }
+    button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+    .app { min-height: 100%; display: flex; flex-direction: column; }
+    .topbar {
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; border-bottom: 1px solid rgba(230,233,238,.9);
+      background: rgba(244,246,248,.86); backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 5;
+    }
+    .crumb { display: flex; align-items: center; gap: 8px; color: var(--fade); font-size: 13px; }
+    .crumb b { color: var(--text); font-weight: 650; }
+    .top-right { display: flex; align-items: center; gap: 12px; }
+    .search {
+      width: 260px; height: 36px; border-radius: 999px; border: 1px solid var(--line);
+      background: #fff; display: flex; align-items: center; gap: 8px; padding: 0 14px;
+      color: var(--fade); font-size: 13px;
+    }
+    .search kbd {
+      margin-left: auto; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px;
+    }
+    .run-pill {
+      height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line);
+      background: #fff; display: inline-flex; align-items: center; gap: 8px;
+      color: var(--soft); font-size: 13px; font-weight: 550;
+    }
+    .run-pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px rgba(62,122,107,.14); }
+    .page { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 34px 0 64px; }
+    .eyebrow {
+      color: var(--fade); font-size: 12px; font-weight: 600; letter-spacing: .02em; margin-bottom: 8px;
+    }
+    .hero {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 28px; line-height: 1.2; letter-spacing: -.025em; font-weight: 700; margin-bottom: 8px;
+    }
+    .hero p { max-width: 40rem; color: var(--soft); font-size: 14px; }
+    .calm-card {
+      min-width: 220px; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fbfcfd, #f3f6f8); box-shadow: var(--shadow);
+    }
+    .calm-card .dot {
+      width: 34px; height: 34px; border-radius: 50%; background: #e8eef3; color: var(--ok);
+      display: grid; place-items: center; font-size: 16px; margin-bottom: 10px;
+    }
+    .calm-card b { display: block; font-size: 15px; margin-bottom: 4px; }
+    .calm-card span { color: var(--fade); font-size: 12.5px; }
+    .layout {
+      display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .85fr); gap: 18px; align-items: start;
+    }
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; }
+      .hero h1 { font-size: 24px; }
+    }
+    .panel {
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .panel-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 16px 20px; border-bottom: 1px solid var(--line);
+    }
+    .panel-head h2 { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+    .panel-head .sub { color: var(--fade); font-size: 12.5px; margin-top: 2px; }
+    .meta-link { color: var(--fade); font-size: 12.5px; font-weight: 550; }
+    .meta-link:hover { color: var(--blue); }
+    .handoff { display: flex; flex-direction: column; }
+    .item {
+      display: grid; grid-template-columns: 88px minmax(0,1fr) auto; gap: 16px; align-items: start;
+      padding: 20px; border-bottom: 1px solid var(--line); text-align: left; width: 100%;
+      transition: background 160ms var(--ease);
+    }
+    .item:last-child { border-bottom: 0; }
+    .item:hover { background: #fafbfc; }
+    .type {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 2px;
+    }
+    .tag {
+      display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px;
+      font-size: 12px; font-weight: 700;
+    }
+    .tag.decision, .tag.auth { background: var(--warn-soft); color: var(--warn); }
+    .tag.accept { background: var(--ok-soft); color: var(--ok); }
+    .type-note { color: var(--fade); font-size: 12px; }
+    .body { min-width: 0; }
+    .title { font-size: 17px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
+    .desc { color: var(--soft); font-size: 13.5px; margin-bottom: 10px; max-width: 46rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px;
+      border-radius: 999px; background: #f2f4f7; color: var(--soft); font-size: 12px; font-weight: 600;
+    }
+    .chip em {
+      width: 16px; height: 16px; border-radius: 5px; display: grid; place-items: center;
+      background: var(--ink); color: #fff; font-style: normal; font-size: 8px; font-weight: 700;
+    }
+    .chip.ws { background: var(--blue-soft); color: var(--blue); }
+    .side { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; min-width: 120px; }
+    .time { color: var(--fade); font-size: 12.5px; }
+    .cta {
+      height: 36px; padding: 0 14px; border-radius: 999px; background: var(--ink); color: #fff;
+      font-size: 13px; font-weight: 650; white-space: nowrap;
+    }
+    .cta.ghost { background: #fff; color: var(--text); border: 1px solid var(--line); }
+    .side-stack { display: flex; flex-direction: column; gap: 14px; }
+    .side-panel .panel-head { padding: 14px 16px; }
+    .run-list { display: flex; flex-direction: column; }
+    .run-row {
+      display: grid; grid-template-columns: 14px minmax(0,1fr) auto; gap: 10px; align-items: center;
+      padding: 12px 16px; border-top: 1px solid var(--line); text-align: left; width: 100%;
+    }
+    .run-row:hover { background: #fafbfc; }
+    .run-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #c5ccd6; }
+    .run-dot.on { border-color: var(--blue); box-shadow: inset 0 0 0 2px #fff, 0 0 0 1px var(--blue); }
+    .run-title { font-size: 13.5px; font-weight: 650; letter-spacing: -.01em; }
+    .run-sub { color: var(--fade); font-size: 12px; margin-top: 2px; }
+    .run-pct { color: var(--soft); font-size: 12.5px; font-weight: 600; }
+    .pulse {
+      margin-top: 0; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line);
+      background: rgba(255,255,255,.7);
+    }
+    .pulse-head {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+    }
+    .pulse-head b { font-size: 13px; }
+    .pulse-head span { color: var(--fade); font-size: 12px; }
+    .pulse-row {
+      display: grid; grid-template-columns: 1.2fr repeat(3, .7fr) auto; gap: 8px; align-items: center;
+      padding: 8px 0; border-top: 1px solid rgba(230,233,238,.8); font-size: 12.5px;
+    }
+    .pulse-row:first-of-type { border-top: 0; }
+    .ws-name { display: inline-flex; align-items: center; gap: 7px; font-weight: 650; }
+    .ws-name i {
+      width: 18px; height: 18px; border-radius: 5px; background: var(--ink); color: #fff;
+      display: grid; place-items: center; font-style: normal; font-size: 8px; font-weight: 700;
+    }
+    .num { color: var(--soft); text-align: center; }
+    .num.alert { color: var(--danger); font-weight: 700; }
+    .num.ok { color: var(--ok); font-weight: 700; }
+    .enter { color: var(--blue); font-weight: 650; font-size: 12px; }
+    .toast {
+      position: fixed; right: 20px; bottom: 20px; z-index: 20; max-width: 340px;
+      padding: 12px 14px; border-radius: 12px; background: var(--ink); color: #fff;
+      font-size: 12.5px; box-shadow: var(--shadow); opacity: 0; transform: translateY(8px);
+      transition: .18s var(--ease); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="crumb"><span>全部工作区</span><span>/</span><b>工作台</b></div>
+      <div class="top-right">
+        <div class="search"><span>搜索任务、记忆与文件</span><kbd>⌘K</kbd></div>
+        <div class="run-pill"><i></i>4 个 Run 正在推进</div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">全部工作区</div>
+          <h1>工作台</h1>
+          <p>汇总待你处理的决策、权限与验收。其余由 Peer 推进。</p>
+        </div>
+        <div class="calm-card">
+          <div class="dot">●</div>
+          <b>4 个任务在推进</b>
+          <span>无需你介入</span>
+        </div>
+      </div>
+
+      <div class="layout">
+        <section class="panel" aria-label="需要你">
+          <div class="panel-head">
+            <div>
+              <h2>需要你</h2>
+              <div class="sub">3 项 · 按阻塞影响排序</div>
+            </div>
+            <button class="meta-link" type="button" data-toast="排序：阻塞任务 > 权限闸门 > 纯验收">按阻塞影响排序</button>
+          </div>
+
+          <div class="handoff">
+            <button class="item" type="button" data-toast="切到 peer-knowledge → 审查并批准「3.0 首页只承担行动收件箱」">
+              <div class="type">
+                <span class="tag decision">决策</span>
+                <span class="type-note">阻塞任务</span>
+              </div>
+              <div class="body">
+                <div class="title">确认 3.0 首页只承担行动收件箱</div>
+                <div class="desc">Peer 已完成信息架构推演；批准后将继续生成其余高保真页面。</div>
+                <div class="chips">
+                  <span class="chip ws"><em>PK</em>peer-knowledge</span>
+                  <span class="chip">影响 · Peer 3.0 高保真原型</span>
+                  <span class="chip">GoalPlan 4 / 9</span>
+                  <span class="chip">卡住 2 个后续</span>
+                </div>
+              </div>
+              <div class="side">
+                <span class="time">刚刚</span>
+                <span class="cta">审查并批准 →</span>
+              </div>
+            </button>
+
+            <button class="item" type="button" data-toast="切到 peer_agent → 授权「发布检查读取系统钥匙串」">
+              <div class="type">
+                <span class="tag auth">权限</span>
+                <span class="type-note">自动化暂停</span>
+              </div>
+              <div class="body">
+                <div class="title">允许发布检查读取系统钥匙串</div>
+                <div class="desc">签名验证需要一次性访问证书；不会导出或修改任何凭据。</div>
+                <div class="chips">
+                  <span class="chip ws"><em>PA</em>peer_agent</span>
+                  <span class="chip">影响 · 桌面端发布守门</span>
+                  <span class="chip">Checkpoint 已保存</span>
+                </div>
+              </div>
+              <div class="side">
+                <span class="time">7 分钟</span>
+                <span class="cta ghost">查看影响</span>
+              </div>
+            </button>
+
+            <button class="item" type="button" data-toast="切到 swim → 验收「跨 Workspace 任务搜索」">
+              <div class="type">
+                <span class="tag accept">验收</span>
+                <span class="type-note">Evidence 齐全</span>
+              </div>
+              <div class="body">
+                <div class="title">跨 Workspace 任务搜索已经完成</div>
+                <div class="desc">8 项验证通过，包含真实 Chrome 截图、状态同步记录和 3 个交付物。</div>
+                <div class="chips">
+                  <span class="chip ws"><em>SW</em>swim</span>
+                  <span class="chip">结果 · Result Package v1</span>
+                  <span class="chip">无已知风险</span>
+                </div>
+              </div>
+              <div class="side">
+                <span class="time">18 分钟</span>
+                <span class="cta">验收结果 →</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel side-panel" aria-label="Peer 正在推进">
+            <div class="panel-head">
+              <div>
+                <h2 style="font-size:12px;letter-spacing:.08em;color:var(--fade);font-weight:700;">PEER 正在推进</h2>
+                <div class="sub" style="color:var(--text);font-size:14px;font-weight:700;margin-top:4px;">4 个任务</div>
+              </div>
+              <button class="meta-link" type="button" data-toast="打开跨区推进列表抽屉">查看全部 →</button>
+            </div>
+            <div class="run-list">
+              <button class="run-row" type="button" data-toast="切到 peer-knowledge → 高保真原型 3.0">
+                <span class="run-dot on"></span>
+                <span>
+                  <div class="run-title">高保真原型 3.0</div>
+                  <div class="run-sub">PK · Executor · 构建项目认知页面</div>
+                </span>
+                <span class="run-pct">62%</span>
+              </button>
+              <button class="run-row" type="button" data-toast="切到 peer_agent → 发布守门自动化">
+                <span class="run-dot"></span>
+                <span>
+                  <div class="run-title">发布守门自动化</div>
+                  <div class="run-sub">PA · 等待权限 · Checkpoint 安全</div>
+                </span>
+                <span class="run-pct">暂停</span>
+              </button>
+              <button class="run-row" type="button" data-toast="切到 peer_agent → Skill 作用域回归">
+                <span class="run-dot on"></span>
+                <span>
+                  <div class="run-title">Skill 作用域回归</div>
+                  <div class="run-sub">PA · Verifier · 11 / 14</div>
+                </span>
+                <span class="run-pct">79%</span>
+              </button>
+              <button class="run-row" type="button" data-toast="切到 aper → 插件中心空态">
+                <span class="run-dot on"></span>
+                <span>
+                  <div class="run-title">插件中心空态</div>
+                  <div class="run-sub">AP · 文案与圆角 token</div>
+                </span>
+                <span class="run-pct">34%</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="pulse" aria-label="工作区脉搏">
+            <div class="pulse-head">
+              <b>工作区脉搏</b>
+              <span>点进 = 区级工作台</span>
+            </div>
+            <div class="pulse-row">
+              <span class="ws-name"><i>PK</i>peer-knowledge</span>
+              <span class="num alert">1 需你</span>
+              <span class="num">1 推进</span>
+              <span class="num ok">0 验收</span>
+              <button class="enter" type="button" data-toast="进入 peer-knowledge 区级工作台">进入 →</button>
+            </div>
+            <div class="pulse-row">
+              <span class="ws-name"><i>PA</i>peer_agent</span>
+              <span class="num alert">1 需你</span>
+              <span class="num">2 推进</span>
+              <span class="num ok">0 验收</span>
+              <button class="enter" type="button" data-toast="进入 peer_agent 区级工作台">进入 →</button>
+            </div>
+            <div class="pulse-row">
+              <span class="ws-name"><i>SW</i>swim</span>
+              <span class="num">0 需你</span>
+              <span class="num">0 推进</span>
+              <span class="num ok">1 验收</span>
+              <button class="enter" type="button" data-toast="进入 swim 区级工作台">进入 →</button>
+            </div>
+            <div class="pulse-row">
+              <span class="ws-name"><i>AP</i>aper</span>
+              <span class="num">0 需你</span>
+              <span class="num">1 推进</span>
+              <span class="num">0 验收</span>
+              <button class="enter" type="button" data-toast="进入 aper 区级工作台">进入 →</button>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const el = document.getElementById('toast');
+    let t;
+    document.addEventListener('click', (e) => {
+      const n = e.target.closest('[data-toast]');
+      if (!n) return;
+      el.textContent = n.getAttribute('data-toast');
+      el.classList.add('show');
+      clearTimeout(t);
+      t = setTimeout(() => el.classList.remove('show'), 2200);
+    });
+  </script>
+</body>
+</html>

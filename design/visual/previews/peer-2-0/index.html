@@ -48,7 +48,7 @@
     <section class="view" data-view="tasks">
       <div class="collection-shell">
         <div class="topline"><div class="crumb"><b>任务</b><span>/</span><span>未结束的工作</span></div><div class="scope"><i></i>当前 Workspace · peer_agent</div></div>
-        <header class="collection-head"><div><div class="kicker">Active Tasks</div><h1>所有仍在进行的任务</h1><p>任务是事实对象；按状态筛选、查看 GoalPlan 进度，再进入具体任务现场。</p></div><div class="collection-count"><b>6</b><span>未结束任务</span></div></header>
+                <header class="collection-head"><h1>未结束的任务</h1></header>
         <div class="collection-tools"><div class="filter-group" data-filter-group="tasks"><button class="active" data-filter="all">全部 <em>6</em></button><button data-filter="user">待我处理 <em>2</em></button><button data-filter="peer">Peer 推进中 <em>2</em></button><button data-filter="review">待验收 <em>1</em></button><button data-filter="paused">已暂停 <em>1</em></button></div><label class="search-box"><span>⌕</span><input placeholder="搜索任务"></label></div>
         <div class="task-table"><div class="task-table-head"><span>任务</span><span>下一步行动</span><span>GoalPlan</span><span>更新</span><span></span></div>
           <article class="task-record" data-status="user" data-open-task><div class="record-title"><i class="status-dot user-dot"></i><div><strong>Peer 2.0 任务工作台高保真原型</strong><span>peer_agent · Conversation</span></div></div><span class="action-owner user-action">等待你的决策</span><div class="goal-progress"><b>3 / 5</b><div><i style="width:60%"></i></div></div><time>刚刚</time><button class="row-open">进入 →</button></article>
@@ -64,7 +64,7 @@
     <section class="view" data-view="history">
       <div class="collection-shell">
         <div class="topline"><div class="crumb"><b>历史</b><span>/</span><span>终态任务</span></div><div class="scope">保留 Artifact 与 Evidence</div></div>
-        <header class="collection-head"><div><div class="kicker">Task History</div><h1>已经结束的任务</h1><p>验收、归档、取消与失败都在这里保留事实记录；结果包仍可随时复核。</p></div><div class="collection-count"><b>18</b><span>终态任务</span></div></header>
+                <header class="collection-head"><h1>已经结束的任务</h1></header>
         <div class="collection-tools"><div class="filter-group" data-filter-group="history"><button class="active" data-filter="all">全部 <em>18</em></button><button data-filter="accepted">已验收 <em>11</em></button><button data-filter="archived">已归档 <em>4</em></button><button data-filter="cancelled">已取消 <em>2</em></button><button data-filter="failed">失败 <em>1</em></button></div><label class="search-box"><span>⌕</span><input placeholder="搜索历史"></label></div>
         <div class="history-list">
           <article class="history-record" data-status="accepted" data-review-result><div class="history-state accepted">✓</div><div class="record-title"><div><strong>任务搜索与跨 Workspace 跳转</strong><span>peer_agent · 8 月 2 日完成</span></div></div><span class="history-badge accepted">已验收</span><span class="evidence-count">4 条 Evidence</span><button class="row-open">查看结果 →</button></article>
