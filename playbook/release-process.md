@@ -1,7 +1,7 @@
 # Peer Agent 发布流程
 
 创建时间：2026-07-27
-最后更新：2026-08-03
+最后更新：2026-08-11
 
 > 用途：记录 Peer Agent Desktop、CLI 和开放 Runtime 的人工发版 SOP、职责边界与检查清单。
 > 执行型 Skill：`/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
@@ -198,14 +198,27 @@ git log -1 --oneline
 node scripts/check-version.mjs
 ```
 
-获得明确授权后：
+获得明确授权后，预发布 tag 可以从发布分支创建；**稳定版必须先合并 `main`，再创建正式 tag**：
 
 ```bash
-git tag v<version>
+git push origin HEAD
+# 正式版：通过 PR 将发布准备提交合并到 main
+git fetch origin main --tags
+git switch main
+git pull --ff-only origin main
+RELEASE_TAG=v<version> RELEASE_COMMIT=HEAD pnpm release:source-check
+git tag -a v<version> -m "<version>"
 git push origin v<version>
 ```
 
 `v*` tag 触发 `.github/workflows/release.yml`。不要在未知脏状态或未经验证的提交上打 tag。
+
+来源规则与自动门禁：
+
+- 预发布 tag（`alpha` / `beta` / `rc`）允许来自发布分支。
+- 稳定版以 `main` 为正式代码事实源；`release:source-check` 会验证发布提交已被 `origin/main` 包含。
+- tag 版本必须与仓库 `VERSION` 一致。
+- Release workflow 在任何构建、GitHub Release 与 npm publish 前执行 `version:check` 和 `release:source-check`，失败则停止整条发布链。
 
 ## 七、发布后核验
 
