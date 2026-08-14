@@ -1,8 +1,8 @@
 # Goal / Plan / Run 执行图技术设计
 
 > 创建时间：2026-07-06
-> 最后更新：2026-07-06
-> 状态：设计草案
+> 最后更新：2026-08-14
+> 状态：设计草案（目标线投影、分组展示与追问派生路由已落地，见 §13）
 > 关联代码：`peer_agent`
 > 关联文档：
 > - `design/product/goal-mode-ultrathink-workflow.md`
@@ -599,3 +599,52 @@ Plan step 与 Run action 会有重叠。规则是：
 - validation failure 和 self correction 可审计；
 - 网络中断后可看到 checkpoint，并从 checkpoint 恢复；
 - 旧 `GoalPlan` 数据可正常读取和降级展示。
+
+---
+
+## 十三、落地记录：目标线（Goal Thread）投影与分组展示（2026-08-14）
+
+### 13.1 已落地范围（P1 + P2）
+
+针对「验收后追问产生的新 plan 平铺、关系不可见」的问题（交互原型见
+`design/product/goal-thread-acceptance-demo.html`），本次在 `peer_agent` 落地了投影与展示两层：
+
+| 层 | 文件 | 改动 |
+| --- | --- | --- |
+| 协议 | `packages/protocol/src/task-overview.ts` | `GoalPlanProjectionSnapshot` / `TaskOverviewItem` 新增可选关系字段：`rootPlanId` / `parentPlanId` / `relationType`('derived') / `depth` / `round` / `rootPlanTitle`；`projectGoalPlan` 条件透传（缺事实不携带键） |
+| 聚合 | `apps/desktop/electron/main/task-overview-aggregator.mjs` | 新增 `buildGoalThreadRelationIndex`：优先读 store 水合的关系字段，`sourceTaskId` 链兜底；解析线根、轮次（同根按 createdAt 排序）、根标题；孤立计划不参与线。`toGoalPlanSnapshot` 接收索引并透传 |
+| UI | `apps/desktop/renderer/src/app/pages/TaskOverviewPage.tsx` | 结果待验收区 `groupResultCardsByGoalThread`：同 `rootPlanId` ≥2 张归组为一条线（线头标题 + N 轮 + 竖向轮次列表），卡片标题挂 `R2` 轮次徽标与「↳ 追问派生」文字徽标；单张线归属卡与旧数据仍平铺（向后兼容） |
+| 样式 | `apps/desktop/renderer/src/styles/task-overview.css` | `.goal-thread-group` / `.goal-thread-badge`，全部走 `--za-*` token，徽标用文字而非仅颜色表达关系 |
+
+关键设计决策：
+
+- **根自身也投影 `rootPlanId`（等于自身 planId）**：根待验收时必须与派生轮同组渲染；
+  但只有「有父或有子」的计划才携带线字段，独立目标不会被判成「自成一线」。
+- **轮次（round）是派生量**：同根下按 createdAt 升序的序号，不在 store 持久化，
+  避免与 store 状态机耦合；根永远是 R1。
+- **`rootPlanTitle` 跟随投影**：根卡片被验收移出列表后，分组头仍能显示根目标标题。
+
+验证：protocol 48/48 测试 + build 绿；聚合器 55/55（含 2 条目标线专项测试：
+显式 parentPlanId、sourceTaskId 兜底链、旧数据缺键降级）；桌面端 tsc 对本次改动 0 错误；
+验收过渡 UI 测试 12/12。
+
+### 13.2 P0 追问派生路由（2026-08-14 已落地）
+
+验收后追问不再默认新建顶层 plan。模型侧、执行器、上下文三处一起接上：
+
+| 层 | 文件 | 改动 |
+| --- | --- | --- |
+| 工具 schema / prompt | `apps/desktop/electron/main/tools/goal-tool-definitions.mjs` | `goal_create_plan` 新增可选 `parentPlanId` + `sourceTaskId`（必须成对）。prompt 规定：同主题追问带父计划；明确新需求才省略。`sourceTaskId` 必须是父 plan 上真实存在的 taskId，不能拿 planId 顶替（store 校验） |
+| 执行器 | `apps/desktop/electron/main/runtime-gateway/local-goal-provider.mjs` | 把两参数透传进 `createPlan` / `upsertGoalContract` draft；store 写入 `rootPlanId` / `relationType=derived` / `depth`。模型漏填时，`resolveDerivedPlanRelation` 按同会话最近完成计划自动补挂：显式传参优先；标题/目标像「新需求 / unrelated new request」时不挂 |
+| 上下文兜底 | `packages/system-context/src/sources/goal-plan-source.mjs` | 活动计划被过滤后，注入同会话最近一条 completed plan 的 `planId` / `title` / `completedAt` / `sourceTaskId`，模型可据此填参。无活动计划时仍渲染该摘要 |
+
+验证：goal-plan-source + local-goal-provider 26/26（含漏填自动挂、显式传参优先、明确新需求不挂）；聚合器 56/56。
+旧数据缺关系字段时首页仍平铺，无迁移成本。
+明确的新需求仍可不带两参数，新建顶层目标线。执行器不会在这种文案上强行补挂。
+
+### 13.3 顺带修复的接口漂移
+
+`TaskOverviewItem` 此前漏声明 `qualityReviewStatus` / `qualityChecks`（实现与测试已在用），
+随本次接口改动一并补齐。另注意 HEAD 上存在两处与本设计无关的既有类型漂移
+（`goal.test.ts` 的 `successCriteria` 可选性、`GoalPlanPanel.tsx` 的 `quality_review` phase），
+未越界修复，留待对应负责人处理。

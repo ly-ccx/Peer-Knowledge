@@ -1,0 +1,516 @@
+<!doctype html>
+<!--
+  目标线（Goal Thread）验收 Demo
+  创建时间：2026-08-14
+  最后更新：2026-08-14
+  说明：回应「追问产生的新 plan 平铺、看不出关系」的产品形态提案。
+  数据对应真实截图：统一工具栏圆角（R1）→ 截图验收工具栏圆角（R2），另加一个独立目标做对照。
+  Tokens 遵循 design/visual/previews/workbench/CONTRACT.md（Peer Frost 八条红线）。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>待验收 · 目标线 Demo</title>
+<style>
+  :root {
+    --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+    --chrome-canvas: #FAFBFC;
+    --chrome-hairline: #DCE0E8;
+    --paper-sheet: #F7F9FC;
+    --paper-sunken: #DDE3EB;
+    --paper-hover: #EAEEF4;
+    --graphite-base: #1A1D21;
+    --graphite-soft: #525660;
+    --graphite-fade: #878B95;
+    --graphite-mute: #B0B4BC;
+    --azure-seal: #3B7FAB;
+    --azure-trace: #D8E4EE;
+
+    --signal-ok: #2F7D4F;
+    --signal-ok-soft: #E3F0E8;
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    --shadow-card: 0 1px 2px rgba(26,29,33,.05), 0 4px 16px rgba(26,29,33,.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--graphite-base);
+    background:
+      radial-gradient(1100px 460px at 88% -8%, var(--azure-trace), transparent 60%),
+      radial-gradient(860px 420px at -8% 30%, var(--paper-sunken), transparent 55%),
+      var(--chrome-canvas);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .stage { max-width: 880px; margin: 0 auto; padding: 44px 24px 72px; }
+
+  /* ---------- 页头 ---------- */
+  .eyebrow {
+    font-size: 10.5px; letter-spacing: .08em; font-weight: 600;
+    color: var(--graphite-mute); text-transform: uppercase;
+  }
+  h1 { font-size: 30px; letter-spacing: -.035em; font-weight: 600; margin: 8px 0 6px; }
+  .lede { font-size: 13.5px; line-height: 1.6; color: var(--graphite-soft); max-width: 640px; }
+
+  .demo-controls {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px;
+  }
+  .seg {
+    display: inline-flex; padding: 3px; gap: 2px;
+    background: var(--paper-sunken); border-radius: 10px;
+  }
+  .seg button {
+    font: inherit; font-size: 12.5px; font-weight: 500;
+    border: 0; background: transparent; color: var(--graphite-soft);
+    padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer;
+  }
+  .seg button.on {
+    background: var(--paper-sheet); color: var(--graphite-base); font-weight: 600;
+    box-shadow: var(--shadow-card);
+  }
+  .btn {
+    font: inherit; font-size: 12.5px; font-weight: 500;
+    border-radius: var(--radius-md); padding: 7px 14px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary {
+    background: var(--graphite-base); color: var(--paper-sheet); border: 1px solid var(--graphite-base);
+  }
+  .btn-primary:hover { background: #2A2D33; }
+  .btn-ghost {
+    background: var(--paper-sheet); color: var(--graphite-base);
+    border: 1px solid var(--chrome-hairline);
+  }
+  .btn-ghost:hover { background: var(--paper-hover); }
+  .btn-text {
+    background: none; border: 0; color: var(--graphite-fade);
+    font-size: 12px; padding: 7px 4px;
+  }
+  .btn-text:hover { color: var(--graphite-soft); }
+
+  /* ---------- 区块 ---------- */
+  .sec-head {
+    display: flex; align-items: baseline; gap: 10px; margin: 30px 0 12px;
+  }
+  .sec-head h2 { font-size: 17px; letter-spacing: -.025em; font-weight: 600; }
+  .sec-head .sub { font-size: 12px; color: var(--graphite-fade); }
+  .count {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    background: var(--paper-sunken); color: var(--graphite-soft);
+    border-radius: 999px; padding: 2px 8px;
+  }
+
+  .card {
+    background: var(--paper-sheet);
+    border: 1px solid var(--chrome-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ---------- 平铺卡片（现状） ---------- */
+  .accept-card {
+    display: grid; grid-template-columns: 92px 1fr auto; align-items: center;
+    gap: 16px; padding: 16px 18px; margin-bottom: 10px;
+  }
+  .st { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+  .st-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; letter-spacing: .02em;
+    background: var(--signal-ok-soft); color: var(--signal-ok);
+    border-radius: 999px; padding: 3px 10px 3px 8px;
+  }
+  .st-badge svg { width: 11px; height: 11px; }
+  .st-sub { font-size: 11px; color: var(--graphite-fade); padding-left: 2px; }
+  .c-body { min-width: 0; }
+  .c-title { font-size: 15px; letter-spacing: -.02em; font-weight: 600; margin-bottom: 7px; }
+  .c-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .tag-ws {
+    font-size: 11.5px; font-weight: 500; letter-spacing: .01em;
+    color: var(--azure-seal); background: var(--azure-trace);
+    border-radius: var(--radius-sm); padding: 2px 8px;
+  }
+  .chip {
+    font-size: 12px; color: var(--graphite-fade);
+    background: var(--paper-hover); border-radius: var(--radius-sm); padding: 2px 8px;
+  }
+  .c-acts { display: flex; gap: 8px; align-items: center; }
+
+  .accepted { opacity: .68; }
+  .accepted .c-acts .btn-primary { display: none; }
+
+  /* ---------- 目标线（提案） ---------- */
+  .thread { margin-bottom: 10px; overflow: hidden; }
+  .thread-head {
+    display: grid; grid-template-columns: 26px 1fr auto auto; align-items: center;
+    gap: 12px; padding: 15px 18px;
+  }
+  .twirl {
+    font: inherit; width: 24px; height: 24px; border-radius: var(--radius-sm);
+    border: 1px solid var(--chrome-hairline); background: var(--paper-sheet);
+    color: var(--graphite-fade); cursor: pointer; display: grid; place-items: center;
+    transition: transform .18s ease;
+  }
+  .thread.closed .twirl { transform: rotate(-90deg); }
+  .twirl svg { width: 12px; height: 12px; }
+  .t-title { font-size: 15px; letter-spacing: -.02em; font-weight: 600; }
+  .t-meta { display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+  .t-acts { display: flex; gap: 8px; align-items: center; }
+
+  .runs { list-style: none; border-top: 1px solid var(--chrome-hairline); }
+  .thread.closed .runs { display: none; }
+  .run {
+    position: relative;
+    display: grid; grid-template-columns: 46px 34px 1fr auto auto; align-items: center;
+    gap: 10px; padding: 12px 18px 12px 30px;
+  }
+  .run + .run { border-top: 1px dashed var(--chrome-hairline); }
+  .run::before {              /* 时间轴竖线 */
+    content: ""; position: absolute; left: 40px; top: 0; bottom: 0;
+    width: 1px; background: var(--chrome-hairline);
+  }
+  .run:first-child::before { top: 18px; }
+  .run:last-child::before { bottom: auto; height: 26px; }
+  .rail-dot {
+    position: relative; z-index: 1; width: 18px; height: 18px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--paper-sheet);
+  }
+  .rail-dot.ring { border: 2px solid var(--graphite-mute); width: 14px; height: 14px; }
+  .rail-dot.fill { border: 2px solid var(--signal-ok); background: var(--signal-ok); }
+  .rail-dot svg { width: 9px; height: 9px; color: var(--paper-sheet); }
+  .run-no { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .03em; color: var(--graphite-mute); }
+  .r-title { font-size: 13px; font-weight: 500; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .derive {
+    font-size: 10.5px; font-weight: 500; color: var(--graphite-fade);
+    background: var(--paper-hover); border-radius: 999px; padding: 1px 8px;
+  }
+  .r-meta { font-size: 11.5px; color: var(--graphite-fade); margin-top: 4px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .r-state { font-size: 11px; font-weight: 600; }
+  .r-state.wait { color: var(--graphite-soft); }
+  .r-state.pass { color: var(--signal-ok); }
+  .r-state.run { color: var(--azure-seal); }
+  .run .btn { padding: 5px 11px; font-size: 12px; }
+
+  .thread.accepted .btn-accept-line { display: none; }
+  .thread.accepted .t-badge { background: var(--signal-ok-soft); color: var(--signal-ok); }
+
+  .t-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600;
+    border-radius: 999px; padding: 3px 10px 3px 8px;
+    background: var(--paper-hover); color: var(--graphite-soft);
+  }
+  .t-badge svg { width: 11px; height: 11px; }
+  .thread-state { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+
+  /* ---------- 新增项高亮 ---------- */
+  @keyframes flash {
+    0% { background: var(--azure-trace); }
+    100% { background: transparent; }
+  }
+  .fresh { animation: flash 1.6s ease-out 2; }
+
+  /* ---------- 规则说明 ---------- */
+  .rules { margin-top: 34px; padding: 18px 20px; }
+  .rules h3 { font-size: 13px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 12px; }
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .rule { display: flex; gap: 10px; }
+  .rule-no {
+    flex: none; width: 20px; height: 20px; border-radius: var(--radius-sm);
+    background: var(--paper-sunken); color: var(--graphite-soft);
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+    display: grid; place-items: center; margin-top: 1px;
+  }
+  .rule p { font-size: 12.5px; line-height: 1.55; color: var(--graphite-soft); }
+  .rule b { color: var(--graphite-base); font-weight: 600; }
+
+  .foot-note { margin-top: 22px; font-size: 12px; line-height: 1.6; color: var(--graphite-fade); }
+  .foot-note code { font-family: var(--font-mono); font-size: 11px; background: var(--paper-hover); border-radius: 4px; padding: 1px 5px; }
+</style>
+</head>
+<body>
+<main class="stage">
+
+  <header>
+    <p class="eyebrow">产品形态 Demo · Plan 关系可视化</p>
+    <h1>待验收：从平铺卡片，到目标线</h1>
+    <p class="lede">同一份数据的两种呈现。左边是现状——追问产生的新 plan 平铺成孤立卡片，看不出「截图验收工具栏圆角」其实是「统一工具栏圆角」的第二轮；右边按目标线（rootPlanId）归组，一条线里的每一轮派生都能读出来。</p>
+    <div class="demo-controls">
+      <div class="seg" role="tablist">
+        <button id="tab-flat" class="on">平铺 · 现状</button>
+        <button id="tab-thread">目标线 · 提案</button>
+      </div>
+      <button id="btn-sim" class="btn btn-ghost">模拟：用户继续追问</button>
+      <button id="btn-reset" class="btn btn-text">重置 demo</button>
+    </div>
+  </header>
+
+  <!-- ============ 视图 A：平铺（现状） ============ -->
+  <section id="view-flat">
+    <div class="sec-head">
+      <h2>待验收</h2>
+      <span class="count" id="flat-count">2</span>
+      <span class="sub">两项之间看不出任何关系</span>
+    </div>
+
+    <div class="accept-card card" data-flat="r2">
+      <div class="st">
+        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
+        <span class="st-sub">待用户验收</span>
+      </div>
+      <div class="c-body">
+        <div class="c-title">截图验收工具栏圆角</div>
+        <div class="c-meta">
+          <span class="tag-ws">peer-knowledge</span>
+          <span class="chip">3 / 3</span>
+          <span class="chip">耗时 9m24s</span>
+          <span class="chip">12 分钟前</span>
+        </div>
+      </div>
+      <div class="c-acts">
+        <button class="btn btn-ghost">查看</button>
+        <button class="btn btn-primary" data-accept-card>确认验收</button>
+      </div>
+    </div>
+
+    <div class="accept-card card" data-flat="cli">
+      <div class="st">
+        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
+        <span class="st-sub">待用户验收</span>
+      </div>
+      <div class="c-body">
+        <div class="c-title">修复 CLI 冷启动白屏</div>
+        <div class="c-meta">
+          <span class="tag-ws">peer_agent</span>
+          <span class="chip">1 / 1</span>
+          <span class="chip">耗时 6m12s</span>
+          <span class="chip">1 小时前</span>
+        </div>
+      </div>
+      <div class="c-acts">
+        <button class="btn btn-ghost">查看</button>
+        <button class="btn btn-primary" data-accept-card>确认验收</button>
+      </div>
+    </div>
+
+    <p class="foot-note">↑ 现状：第一轮「统一工具栏圆角」验收通过后已移出列表，它的派生关系随之丢失；新追问生成的 plan 只能靠标题猜。</p>
+  </section>
+
+  <!-- ============ 视图 B：目标线（提案） ============ -->
+  <section id="view-thread" hidden>
+    <div class="sec-head">
+      <h2>待验收</h2>
+      <span class="count">2</span>
+      <span class="sub">1 条目标线 + 1 项独立目标</span>
+    </div>
+
+    <article class="thread card" id="thread">
+      <header class="thread-head">
+        <button class="twirl" data-twirl aria-label="展开/收起">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div>
+          <div class="t-title">统一工具栏圆角</div>
+          <div class="t-meta">
+            <span class="tag-ws">peer-knowledge</span>
+            <span class="chip" id="t-rounds">2 轮</span>
+            <span class="chip" id="t-total">累计 27m24s</span>
+          </div>
+        </div>
+        <div class="thread-state">
+          <span class="t-badge" id="t-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>
+            <span id="t-badge-text">验收 · 最新一轮</span>
+          </span>
+          <span class="st-sub">待用户验收</span>
+        </div>
+        <div class="t-acts">
+          <button class="btn btn-ghost">查看</button>
+          <button class="btn btn-primary btn-accept-line" data-accept-thread>验收整条线</button>
+        </div>
+      </header>
+
+      <ol class="runs" id="runs">
+        <li class="run" data-run="r1">
+          <span class="rail-dot ring"></span>
+          <span class="run-no">R1</span>
+          <div>
+            <div class="r-title">统一工具栏圆角</div>
+            <div class="r-meta"><span>2 / 2</span><span>·</span><span>耗时 18m00s</span><span>·</span><span>29 分钟前</span></div>
+          </div>
+          <span class="r-state wait" data-state>待验收</span>
+          <button class="btn btn-ghost">查看</button>
+        </li>
+        <li class="run" data-run="r2">
+          <span class="rail-dot ring"></span>
+          <span class="run-no">R2</span>
+          <div>
+            <div class="r-title">截图验收工具栏圆角 <span class="derive">↳ 追问派生</span></div>
+            <div class="r-meta"><span>3 / 3</span><span>·</span><span>耗时 9m24s</span><span>·</span><span>12 分钟前</span></div>
+          </div>
+          <span class="r-state wait" data-state>待验收</span>
+          <button class="btn btn-ghost">查看</button>
+        </li>
+      </ol>
+    </article>
+
+    <div class="accept-card card" data-flat="cli2">
+      <div class="st">
+        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
+        <span class="st-sub">待用户验收 · 独立目标</span>
+      </div>
+      <div class="c-body">
+        <div class="c-title">修复 CLI 冷启动白屏</div>
+        <div class="c-meta">
+          <span class="tag-ws">peer_agent</span>
+          <span class="chip">1 / 1</span>
+          <span class="chip">耗时 6m12s</span>
+          <span class="chip">1 小时前</span>
+        </div>
+      </div>
+      <div class="c-acts">
+        <button class="btn btn-ghost">查看</button>
+        <button class="btn btn-primary" data-accept-card>确认验收</button>
+      </div>
+    </div>
+
+    <p class="foot-note">↑ 提案：追问不再生成平级新卡片，而是挂进同一条目标线成为新一轮（R2、R3…）；旧轮次保留为时间轴，验收可以按「整条线」一键完成。</p>
+  </section>
+
+  <!-- ============ 规则 ============ -->
+  <section class="rules card">
+    <h3>背后的准入契约（P0，先于任何 UI）</h3>
+    <div class="rules-grid">
+      <div class="rule">
+        <span class="rule-no">1</span>
+        <p><b>验收前追问</b> → 同一 Plan 续接，不新增卡片、不新增轮次。</p>
+      </div>
+      <div class="rule">
+        <span class="rule-no">2</span>
+        <p><b>验收后追问且主题延续</b> → 新 Plan 必须带 <code style="font-family:var(--font-mono);font-size:11px">parentPlanId</code>，落进同一目标线成为新一轮。</p>
+      </div>
+      <div class="rule">
+        <span class="rule-no">3</span>
+        <p><b>明确的新需求</b> → 才允许新建顶层目标线。</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot-note">Demo 数据映射真实关系：<code>统一工具栏圆角</code>（rootPlanId = 自身）→ <code>截图验收工具栏圆角</code>（parentPlanId = 前者，relationType = derived）。投影层只需把这四个字段从 <code>GoalPlanProjectionSnapshot</code> 透传出来，UI 即可分组；历史数据缺字段时自然降级为平铺。</p>
+
+</main>
+
+<script>
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+
+  /* ----- 视图切换 ----- */
+  const tabFlat = $('#tab-flat'), tabThread = $('#tab-thread');
+  const viewFlat = $('#view-flat'), viewThread = $('#view-thread');
+  function showView(mode) {
+    const flat = mode === 'flat';
+    viewFlat.hidden = !flat; viewThread.hidden = flat;
+    tabFlat.classList.toggle('on', flat); tabThread.classList.toggle('on', !flat);
+  }
+  tabFlat.addEventListener('click', () => showView('flat'));
+  tabThread.addEventListener('click', () => showView('thread'));
+
+  /* ----- 展开 / 收起 ----- */
+  $$('[data-twirl]').forEach(btn => btn.addEventListener('click', () => {
+    $('#thread').classList.toggle('closed');
+  }));
+
+  /* ----- 单卡验收（平铺行为） ----- */
+  $$('[data-accept-card]').forEach(btn => btn.addEventListener('click', () => {
+    const card = btn.closest('.accept-card');
+    card.classList.add('accepted');
+    card.querySelector('.st-sub').textContent = '已通过验收';
+    refreshFlatCount();
+  }));
+
+  function refreshFlatCount() {
+    const pending = $$('#view-flat .accept-card:not(.accepted)').length;
+    $('#flat-count').textContent = pending;
+  }
+
+  /* ----- 验收整条线 ----- */
+  $('[data-accept-thread]').addEventListener('click', () => {
+    const thread = $('#thread');
+    thread.classList.add('accepted');
+    $('#t-badge-text').textContent = '已通过';
+    thread.querySelector('.st-sub').textContent = '2 轮全部验收';
+    $$('#runs .run').forEach(run => {
+      const dot = run.querySelector('.rail-dot');
+      dot.className = 'rail-dot fill';
+      dot.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M4 12.5l5 5L20 7"/></svg>';
+      const state = run.querySelector('[data-state]');
+      state.textContent = '已通过'; state.className = 'r-state pass';
+    });
+    $('#t-rounds').textContent = '2 轮 · 全部通过';
+  });
+
+  /* ----- 模拟：用户继续追问 ----- */
+  let simUsed = false;
+  $('#btn-sim').addEventListener('click', () => {
+    if (simUsed) return;
+    simUsed = true;
+    $('#btn-sim').textContent = '已生成 R3（切到另一视图看差异）';
+
+    /* 平铺视图：又多一张孤立卡片 */
+    const card = document.createElement('div');
+    card.className = 'accept-card card fresh';
+    card.innerHTML = `
+      <div class="st">
+        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
+        <span class="st-sub">待用户验收</span>
+      </div>
+      <div class="c-body">
+        <div class="c-title">把工具栏圆角从 12px 调到 10px</div>
+        <div class="c-meta">
+          <span class="tag-ws">peer-knowledge</span>
+          <span class="chip">5 / 5</span>
+          <span class="chip">耗时 4m05s</span>
+          <span class="chip">刚刚</span>
+        </div>
+      </div>
+      <div class="c-acts">
+        <button class="btn btn-ghost">查看</button>
+        <button class="btn btn-primary" data-accept-card>确认验收</button>
+      </div>`;
+    card.querySelector('[data-accept-card]').addEventListener('click', () => {
+      card.classList.add('accepted');
+      card.querySelector('.st-sub').textContent = '已通过验收';
+      refreshFlatCount();
+    });
+    viewFlat.insertBefore(card, viewFlat.querySelector('.accept-card'));
+    refreshFlatCount();
+
+    /* 目标线视图：同一条线多一轮 */
+    const run = document.createElement('li');
+    run.className = 'run fresh';
+    run.innerHTML = `
+      <span class="rail-dot ring"></span>
+      <span class="run-no">R3</span>
+      <div>
+        <div class="r-title">把工具栏圆角从 12px 调到 10px <span class="derive">↳ 追问派生</span></div>
+        <div class="r-meta"><span>5 / 5</span><span>·</span><span>耗时 4m05s</span><span>·</span><span>刚刚</span></div>
+      </div>
+      <span class="r-state wait" data-state>待验收</span>
+      <button class="btn btn-ghost">查看</button>`;
+    $('#runs').appendChild(run);
+    $('#t-rounds').textContent = '3 轮';
+    $('#t-total').textContent = '累计 31m29s';
+    $('#thread').classList.remove('closed');
+  });
+
+  /* ----- 重置 ----- */
+  $('#btn-reset').addEventListener('click', () => location.reload());
+</script>
+</body>
+</html>
