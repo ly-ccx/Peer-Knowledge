@@ -9,6 +9,8 @@ pending（尚未动代码）。初稿 Proposed on 2026-06-18。
 落地属于 `AGENTS.md` 定义的 **A 级变更**（改动 runtime 契约、能力暴露、存储
 边界），实现前以本文档为准；本文档本身尚未运行任何构建或测试。
 
+2026-08-14 更新：OpenRouter 已作为一等第三方渠道落地（`openrouter` / `openrouter-api`，默认 `https://openrouter.ai/api/v1`，wire=`openai-chat`）。接入约定见 `knowledge/architecture/openrouter-channel.md`。下文 §Context 中「设置界面渠道列表 / 代码中不存在」仍是 2026-06-18 的历史快照，不再代表当前代码。
+
 ## Context
 
 ### 现状（基于代码证据，2026-06-18）
