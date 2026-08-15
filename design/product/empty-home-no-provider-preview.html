@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peer Agent · 无模型首页预览</title>
+  <style>
+    :root {
+      --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
+      --chrome-canvas: #FAFBFC;
+      --chrome-raised: #F3F5F8;
+      --chrome-hover: #F0F2F6;
+      --chrome-hairline: #DCE0E8;
+      --paper-sheet: #F7F9FC;
+      --control-composer: #EFF2F6;
+      --graphite-base: #1A1D21;
+      --graphite-soft: #525660;
+      --graphite-fade: #878B95;
+      --graphite-mute: #B0B4BC;
+      --shadow-soft: 0 1px 2px rgba(26, 29, 33, 0.06), 0 6px 18px rgba(26, 29, 33, 0.08);
+      --shadow-panel: 0 2px 12px rgba(26, 29, 33, 0.06);
+      --radius-row: 8px;
+      --radius-panel: 12px;
+      --radius-modal: 16px;
+      --sidebar-w: 248px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: var(--font-sans);
+      color: var(--graphite-base);
+      background: var(--chrome-canvas);
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 40px;
+      gap: 14px;
+    }
+
+    .chrome {
+      width: min(1160px, 100%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .chrome h1 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .chrome p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--graphite-soft);
+      line-height: 1.5;
+    }
+    .tabs {
+      display: flex;
+      padding: 3px;
+      gap: 2px;
+      background: var(--chrome-raised);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: 999px;
+    }
+    .tabs button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--graphite-soft);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .tabs button.active {
+      color: var(--graphite-base);
+      background: var(--paper-sheet);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .window {
+      width: min(1160px, 100%);
+      height: min(740px, calc(100vh - 120px));
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      background: var(--chrome-canvas);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: var(--radius-modal);
+      box-shadow: var(--shadow-panel);
+      overflow: hidden;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 12px 10px;
+      background: var(--chrome-raised);
+      border-right: 1px solid var(--chrome-hairline);
+    }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px 10px;
+    }
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-row);
+      background: var(--graphite-base);
+      color: var(--paper-sheet);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .brand-name { font-size: 14px; font-weight: 650; letter-spacing: -0.02em; }
+    .new-task {
+      appearance: none;
+      border: 1px solid var(--chrome-hairline);
+      background: var(--paper-sheet);
+      color: var(--graphite-base);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 520;
+      text-align: left;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin: 2px 0 8px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--graphite-soft);
+    }
+    .nav-item.active {
+      background: color-mix(in srgb, var(--paper-sheet) 80%, transparent);
+      color: var(--graphite-base);
+    }
+    .nav-label {
+      margin: 14px 10px 4px;
+      font-size: 11px;
+      color: var(--graphite-fade);
+    }
+    .sidebar-spacer { flex: 1; }
+    .sidebar-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--graphite-fade);
+    }
+
+    .stage {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: var(--chrome-canvas);
+    }
+    .titlebar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 13px;
+      color: var(--graphite-soft);
+    }
+
+    .home {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px 32px 8px;
+    }
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--graphite-base);
+      color: var(--paper-sheet);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 18px;
+    }
+    .hero h2 {
+      margin: 0;
+      max-width: 28rem;
+      font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+      font-weight: 650;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+    }
+    .hero .lede {
+      margin: 10px 0 0;
+      max-width: 26rem;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--graphite-soft);
+    }
+    .connect-btn {
+      appearance: none;
+      margin-top: 22px;
+      border: 1px solid color-mix(in srgb, var(--graphite-base) 14%, transparent);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 520;
+      letter-spacing: 0.01em;
+      color: var(--graphite-base);
+      background: transparent;
+      cursor: pointer;
+    }
+    .connect-btn:hover {
+      background: color-mix(in srgb, var(--graphite-base) 7%, transparent);
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 22px;
+    }
+    .card {
+      appearance: none;
+      border: 1px solid var(--chrome-hairline);
+      background: var(--paper-sheet);
+      color: var(--graphite-soft);
+      font: inherit;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .composer-dock {
+      padding: 0 48px 36px;
+    }
+    .composer {
+      background: var(--control-composer);
+      border: 1px solid var(--chrome-hairline);
+      border-radius: 16px;
+      min-height: 132px;
+      padding: 16px 16px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .composer .placeholder {
+      font-size: 14px;
+      color: var(--graphite-fade);
+    }
+    .composer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--graphite-fade);
+      font-size: 12px;
+    }
+    .send {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--graphite-mute);
+      color: var(--paper-sheet);
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+    }
+
+    /* 未连接：不渲染输入框。已连接：隐藏连接入口，露出 Composer。 */
+    [data-connected="false"] .state-connected,
+    [data-connected="true"] .state-disconnected { display: none; }
+
+    .note {
+      width: min(1160px, 100%);
+      font-size: 12px;
+      color: var(--graphite-fade);
+    }
+    .note code { font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="chrome">
+    <div>
+      <h1>无模型首页</h1>
+      <p>没连接模型时不出现输入框。只留标题和连接入口；接通后才出现大 Composer。不做临时配置表单。</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button type="button" class="active" data-tab="false" aria-selected="true">未连接</button>
+      <button type="button" data-tab="true" aria-selected="false">已接通</button>
+    </div>
+  </div>
+
+  <div class="window" id="app" data-connected="false">
+    <aside class="sidebar" aria-label="侧栏">
+      <div class="brand-row">
+        <div class="brand-mark">P</div>
+        <div class="brand-name">Peer</div>
+      </div>
+      <button class="new-task" type="button">+ 新建任务</button>
+      <div class="nav-item active">工作台</div>
+      <div class="nav-item">自动化</div>
+      <div class="nav-item">插件</div>
+      <div class="nav-label">工作区</div>
+      <div class="nav-item">+ 添加工作区</div>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-foot">
+        <span>设置</span>
+        <span>v0.0.5</span>
+      </div>
+    </aside>
+
+    <main class="stage">
+      <div class="titlebar">新对话</div>
+      <section class="home">
+        <div class="hero">
+          <div class="logo">P</div>
+          <h2 class="state-disconnected">先连接 AI 服务，再开始任务</h2>
+          <h2 class="state-connected">下午好，接下来想推进什么？</h2>
+          <p class="lede state-disconnected">没有可用模型时，首页不必摆一个不能用的输入框。连上之后，这里才会变成任务入口。</p>
+          <button class="connect-btn state-disconnected" id="connect" type="button">连接 AI 服务</button>
+          <div class="cards state-connected">
+            <button class="card" type="button">梳理现状</button>
+            <button class="card" type="button">推进目标</button>
+            <button class="card" type="button">排查问题</button>
+          </div>
+        </div>
+
+        <div class="composer-dock state-connected">
+          <div class="composer" id="composer">
+            <div class="placeholder">描述任务，或告诉 Peer 你想完成什么…</div>
+            <div class="composer-bar">
+              <span>Agent · 每次询问</span>
+              <div class="send">↑</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <p class="note">
+    文件：<code>design/product/empty-home-no-provider-preview.html</code>
+    · 未连接态 <code>data-connected="false"</code> 不渲染 Composer
+    · 连接入口只打开完整设置，不在首页填密钥
+  </p>
+
+  <script>
+    var app = document.getElementById("app");
+    var tabs = document.querySelectorAll(".tabs button");
+
+    function setConnected(on) {
+      app.setAttribute("data-connected", on ? "true" : "false");
+      tabs.forEach(function (tab) {
+        var active = tab.getAttribute("data-tab") === String(on);
+        tab.classList.toggle("active", active);
+        tab.setAttribute("aria-selected", String(active));
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        setConnected(tab.getAttribute("data-tab") === "true");
+      });
+    });
+
+    document.getElementById("connect").addEventListener("click", function () {
+      setConnected(true);
+    });
+  </script>
+</body>
+</html>

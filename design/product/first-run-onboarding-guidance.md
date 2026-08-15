@@ -1,15 +1,16 @@
 # 用户首次使用引导（情境式 Onboarding）产品方案
 
 创建时间：2026-07-27  
-最后更新：2026-07-27  
-状态：Draft（仅产品方案，**本轮不改代码**）  
+最后更新：2026-08-15  
+状态：落地中（空会话是首启主路径；设置只是闸门）  
 范围：Peer Agent Desktop 主窗口首启与早期使用路径  
 
 关联文档：
 
 - `knowledge/specifications/14-product-design-language.md` §4.1 新会话首屏、§7.2 首屏空状态
 - `design/product/desktop-cold-start-brand-startup-loader.md`（冷启动品牌页，非产品引导）
-- 代码现状锚点（只读参考，本方案不落地实现）：
+- `design/product/peer-2-0-workbench-flow.md`（工作台是日常 IA 主入口，不是首启教育落点）
+- 代码现状锚点：
   - `apps/desktop/renderer/src/chat/components/ChatSurface.tsx`（`hasProvider`、`chat-empty-state`、starter cards）
   - `apps/desktop/renderer/src/chat/components/ComposerDraftControls.tsx`（未配置时 placeholder / disabled）
   - `apps/desktop/renderer/src/app/components/McpSettingsPanel.tsx`、`capabilities/components/SkillsInstalledPanel.tsx`（能力空态）
@@ -38,10 +39,11 @@
 
 ### 2.2 目标（用户结果）
 
-1. **5 分钟内完成「配置模型 → 发出第一条任务」**，无需阅读说明文档。
+1. **5 分钟内完成「接通模型 → 看清工作区 → 发出第一条任务」**，无需阅读说明文档。
 2. 首屏**不空、不营销、不像 demo**，符合 Peer Frost「高端、简约、克制、强大」。
 3. 进阶能力按需露出，可跳过、只出现一次，不打断主任务流。
 4. 引导状态可持久化、可重置（设置里「重置引导」可选，P1）。
+5. **空会话是首启主路径**。工作台仍是日常 Delegation OS 主入口；整页设置只是闸门。首启**不再自动打开整页设置**。
 
 ### 2.3 非目标（本方案明确不做）
 
@@ -80,14 +82,14 @@
 
 ```text
 [冷启动 BrandStartupLoader]
-        │ bootstrap 完成
+        │ bootstrap 完成（不教育）
         ▼
-[主界面 · 空会话]
+[主界面 · 空会话]          ← 首启唯一落点；工作台零任务时让路
         │
-        ├─ !hasProvider  ──────────────►  Gate A：配置模型（强引导）
-        │                                      │ 配置成功并关闭设置
+        ├─ !hasProvider  ──────────────►  Gate A：空会话内嵌窄路径接通模型
+        │                                      │ 接通成功后留在空会话
         │                                      ▼
-        ├─ hasProvider && messages==0  ─►  Gate B：Welcome 空态 + starter
+        ├─ hasProvider && messages==0  ─►  Gate B：任务邀请 + 可见工作区 + starter
         │                                      │ 发出第一条消息
         │                                      ▼
         └─ 已有消息 / 已有会话列表 ─────►  正常使用
@@ -111,24 +113,27 @@
 
 **触发**：主界面可见且 `!hasProvider`（含首次安装、清空全部模型配置后）。
 
+**落地裁决**：Gate A 发生在空会话里，不跳整页 Settings。用户手动打开设置仍可用；首启**不再自动打开整页设置**。
+
 **体验**：
 
 | 区域 | 行为 |
 |---|---|
 | 空态标题 | 保持任务邀请语气，例如「先接通模型，再开始任务」；避免纯错误页 |
-| 空态正文 | 主 CTA 按钮：「配置模型」→ `onOpenSettings` 并定位到模型 / Provider 面板 |
-| Composer | 继续 disabled；placeholder「请先配置模型」；可选：点击输入区同样打开设置 |
-| 设置内 | 首启时顶部一条短说明：「添加 Provider 并填写 API Key，保存后即可对话」；保存成功后 toast / 内联成功态 |
+| 空态正文 | 一句说明 Agent 会自驱规划并执行，必要时才打断 |
+| 空态主路径 | 内嵌窄路径：选一个常用服务、填密钥或登录、接通后留在空会话 |
+| 次要出口 | 「打开完整设置」才进入整页 Settings / 服务商 |
+| Composer | 继续 disabled；placeholder「请先接通模型」；点击输入区聚焦内嵌接通，不弹整页设置 |
 | 关闭设置回到主界面 | 若已 `hasProvider`，空态自动切到 Gate B（starter cards 出现，Composer 可用） |
 
 **不要**：
 
-- 自动全屏弹设置且无法关闭（可默认打开一次，但允许关掉；关掉后空态仍保留强 CTA）。
+- 自动打开整页设置 / 服务商。
 - 同时推销 MCP / Skills。
 
 **验收**：
 
-- 全新安装 → 空态可见配置入口 → 完成至少一个 `apiKeyConfigured` Provider → 无需重启即可发送消息。
+- 全新安装 → 留在空会话内嵌引导中接通模型 → 看清工作区 → 无需重启即可发出第一条任务。
 
 ### 5.2 Gate B — 已配置、空会话欢迎态（P0，增强现有）
 
@@ -185,7 +190,7 @@
 | 会话列表空 | 「No chats yet」类 | 一句 + 「新建会话」主按钮即可，不讲模型配置（配置已在主区处理） |
 | MCP 空 | 「还没有 MCP 连接」 | 保留；叠加 Gate C banner |
 | Skills 空 | 「暂无本地技能」 | 保留；叠加 Gate C banner |
-| Workbench / 计划空 | 「暂无计划」等 | 不纳入首启主路径 |
+| Workbench / 计划空 | 「暂无计划」等 | 不纳入首启主路径；零任务时只保留一个「发起任务」入口，不讲 0/0/0 |
 
 ### 5.5 与冷启动的边界
 
@@ -201,14 +206,14 @@
 
 ```text
 onboarding.v1
-  setupModelAutoOpened: boolean     // 是否已自动打开过一次设置
+  setupModelAutoOpened: boolean     // 历史字段；现实现不再用它自动打开整页设置
   dismissedTips: string[]           // tip id 列表
   firstMessageAt: number | null     // 首次成功发送时间（分析用，可选）
   completedAt: number | null        // 视为完成首启（hasProvider 且发送过）
 ```
 
 - 存储位置：与现有 desktop preferences / user settings 同级，避免只写 `localStorage` 导致多窗口不一致（具体以代码仓既有偏好方案为准）。
-- 「重置引导」：清除 `dismissedTips` 与 `setupModelAutoOpened`（设置 → 高级，P1）。
+- 「重置引导」：清除 `dismissedTips`（设置 → 高级，P1）。不再依赖 `setupModelAutoOpened` 抢首启。
 
 ---
 
@@ -217,9 +222,9 @@ onboarding.v1
 ### 旅程 1：全新用户（主路径）
 
 1. 安装并打开 → 冷启动页 → 主界面空会话。  
-2. 看到 Gate A：配置模型 CTA；Composer 不可用。  
-3. 进入设置，添加 Provider + API Key，保存。  
-4. 回到主界面：Gate B，starter 可见，Composer 可用。  
+2. 看到 Gate A：空会话内嵌接通模型；Composer 不可用。不再自动弹出整页设置。  
+3. 在空会话里选一个服务并接通。  
+4. 留在空会话：Gate B，工作区可见，starter 可见，Composer 可用。  
 5. 点 starter 或自写任务，发出第一条消息。  
 6. 首启完成；之后不再强引导。
 
@@ -312,15 +317,16 @@ Starter 标题保持任务向（示例，可与现网对齐）：梳理现状 / 
 
 ### 本轮交付边界
 
-- **只产出本产品方案文档**  
-- **不修改 `peer_agent` 代码**  
-- **不修改设计语言规范正文**（实现时再决定是否回写 §4.1 与 Gate A 文案差异）
+- 落地 Desktop 首启主路径：空会话内嵌接通模型，看清工作区后发出第一条任务  
+- 不再自动打开整页设置  
+- 工作台零任务给首启让路，只保留一个发起任务入口  
+- Gate C tip 框架、埋点、重置引导仍可后置
 
 ---
 
 ## 十二、开放问题（实现前可再定）
 
-1. 首启是否**自动打开一次**模型设置，还是仅空态 CTA？（建议：仅当 `!setupModelAutoOpened && !hasProvider` 时自动打开一次，可关。）  
+1. 首启是否自动打开整页设置？**已裁决：否。** 空会话内嵌窄路径接通；设置只是闸门。  
 2. Starter P0 保持卡片还是提前改建议行？（建议：P0 卡片，P1 收敛。）  
 3. 企业预置 Provider（已配置 Key）用户是否跳过一切引导？→ 是，直接 Gate B。  
 
@@ -332,9 +338,9 @@ Peer Agent 的首启体验应是：
 
 ```text
 冷启动就绪
-  → 主界面空态
-      → 没模型：情境强引导配置
-      → 有模型：任务邀请 + starter + 大 Composer
+  → 主界面空会话
+      → 没模型：空会话内嵌窄路径接通（不再自动打开整页设置）
+      → 有模型：任务邀请 + 可见工作区 + starter + 大 Composer
       → 用到进阶能力时：一次性轻 tip
 ```
 

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Peer Agent · 首启引导预览（Settings 整页）</title>
+  <title>Peer Agent · 首启引导预览（空会话内嵌接通）</title>
   <style>
     /*
       Peer Frost preview — aligned to tokens.css
-      Gate A CTA → Settings page (LlmSettingsPanel), NOT centered modal.
+      First-run stays on empty chat. Settings is a side door, never auto-opened.
     */
     :root {
       --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
@@ -716,6 +716,10 @@
     .view-settings .chat-shell { display: none; }
     .view-settings .settings-page { display: block; }
     .view-settings .app-sidebar { opacity: 0.55; }
+    .view-workbench .chat-shell,
+    .view-workbench .settings-page { display: none; }
+    .view-workbench .workbench-page { display: block; }
+    .workbench-page { display: none; padding: 36px 40px 40px; }
 
     .state-a .gate-b,
     .state-a .gate-c,
@@ -723,6 +727,89 @@
     .state-b .gate-c,
     .state-c .gate-a,
     .state-c .gate-b { display: none; }
+
+    .first-run-setup {
+      display: grid;
+      gap: 12px;
+      width: min(100%, 420px);
+      margin: 20px auto 0;
+      text-align: left;
+    }
+    .first-run-setup-copy,
+    .chat-empty-workspace {
+      margin: 10px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--graphite-fade);
+    }
+    .first-run-setup-services { display: flex; flex-wrap: wrap; gap: 8px; }
+    .first-run-setup-service {
+      appearance: none;
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--graphite-base);
+      font: inherit;
+      font-size: 12px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .first-run-setup-service.is-active {
+      background: color-mix(in srgb, var(--graphite-base) 8%, transparent);
+    }
+    .first-run-setup-field {
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--graphite-fade);
+    }
+    .first-run-setup-field input {
+      appearance: none;
+      border: 1px solid color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      border-radius: 10px;
+      background: var(--paper-sheet);
+      color: var(--graphite-base);
+      font: inherit;
+      font-size: 13px;
+      padding: 9px 12px;
+    }
+    .first-run-setup-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .first-run-setup-secondary {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--graphite-fade);
+      font: inherit;
+      font-size: 12px;
+      padding: 0;
+      cursor: pointer;
+    }
+    .workbench-hero h2 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .workbench-hero p {
+      margin: 10px 0 0;
+      color: var(--graphite-fade);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 36rem;
+    }
+    .workbench-empty {
+      margin-top: 28px;
+      padding: 20px;
+      border: 1px dashed color-mix(in srgb, var(--graphite-hairline) 90%, transparent);
+      border-radius: var(--radius-panel);
+      color: var(--graphite-fade);
+      font-size: 13px;
+      line-height: 1.55;
+    }
 
     .state-c .stage {
       padding-top: 5%;
@@ -746,13 +833,13 @@
 <body>
   <div class="chrome">
     <div>
-      <h1>首启引导 · Settings 整页路径</h1>
-      <p>配置模型 = <code>setActivePage('settings')</code> → <code>LlmSettingsPanel</code> · 不是居中弹窗</p>
+      <h1>首启引导 · 空会话内嵌接通</h1>
+      <p>主路径留在空会话。整页设置只是闸门，<strong>不再自动打开整页设置</strong>。</p>
     </div>
     <div class="tabs" role="tablist" aria-label="引导状态">
-      <button type="button" class="active" data-state="a" role="tab" aria-selected="true">Gate A · 未配置模型</button>
-      <button type="button" data-state="b" role="tab" aria-selected="false">Gate B · Welcome + starter</button>
-      <button type="button" data-state="c" role="tab" aria-selected="false">Gate C · 一次性 tip</button>
+      <button type="button" class="active" data-state="a" role="tab" aria-selected="true">Gate A · 内嵌接通</button>
+      <button type="button" data-state="b" role="tab" aria-selected="false">Gate B · 第一条任务</button>
+      <button type="button" data-state="workbench" role="tab" aria-selected="false">工作台 · 零任务让路</button>
     </div>
   </div>
 
@@ -770,7 +857,7 @@
       <div class="nav-btn"><span class="ico">⌕</span>搜索</div>
       <div class="nav-btn"><span class="ico">◇</span>插件 / MCP</div>
       <div class="section-label">会话</div>
-      <div class="conv-empty">No chats yet<br />配置模型后开始第一条任务</div>
+      <div class="conv-empty">还没有会话<br />接通后发出第一条任务</div>
       <div class="sidebar-foot" id="open-settings-foot" title="打开设置">
         <div class="avatar" aria-hidden="true"></div>
         <div>
@@ -798,18 +885,26 @@
               </svg>
             </div>
             <h2>先接通模型，再开始任务</h2>
-            <p class="sub">
-              请先
-              <button type="button" class="chat-link" id="open-settings-link">配置模型</button>
-              后开始对话。
-            </p>
-            <div class="cta-row">
-              <button class="btn btn-primary" id="open-settings" type="button">配置模型</button>
-              <button class="btn btn-ghost" type="button" id="dismiss-auto-settings" title="setupModelAutoOpened=true，之后不再自动进设置">稍后再说</button>
+            <p class="chat-empty-workspace">文件和命令会落在 PeerAgent。发送第一条任务时才会真正创建这个目录。</p>
+            <div class="first-run-setup">
+              <p class="first-run-setup-copy">Peer 会先自己规划并执行。只有需要你决策、授权或验收时，才会停下来问你。</p>
+              <div class="first-run-setup-services" role="tablist" aria-label="选择服务">
+                <button type="button" class="first-run-setup-service is-active" data-service="openai">OpenAI</button>
+                <button type="button" class="first-run-setup-service" data-service="anthropic">Anthropic</button>
+                <button type="button" class="first-run-setup-service" data-service="compatible">OpenAI 兼容</button>
+              </div>
+              <label class="first-run-setup-field">
+                <span>API Key</span>
+                <input type="password" id="first-run-key" placeholder="粘贴密钥后即可开始" autocomplete="off" />
+              </label>
+              <div class="first-run-setup-actions">
+                <button class="btn btn-primary" id="connect-inline" type="button">接通并开始</button>
+                <button class="first-run-setup-secondary" id="open-settings" type="button">打开完整设置</button>
+              </div>
             </div>
             <div class="composer-wrap">
               <div class="composer disabled" aria-disabled="true">
-                <div class="placeholder">请先配置模型</div>
+                <div class="placeholder">请先接通模型</div>
                 <div class="composer-bar">
                   <div class="chips">
                     <span class="chip">模型未就绪</span>
@@ -819,7 +914,7 @@
                 </div>
               </div>
             </div>
-            <p class="hint-line" id="gate-a-hint">首启自动进入 Settings 一次（可返回）· 主路径不是弹窗</p>
+            <p class="hint-line" id="gate-a-hint">不再自动打开整页设置 · 完整设置只是次要出口</p>
           </div>
 
           <!-- Gate B -->
@@ -861,7 +956,7 @@
                 </div>
               </div>
             </div>
-            <p class="hint-line">默认工作区 ~/PeerAgent · 可随时换成真实项目目录 · 不挡发送</p>
+            <p class="hint-line">文件和命令会落在 PeerAgent · 发送第一条任务时才会真正创建这个目录</p>
           </div>
 
           <!-- Gate C -->
@@ -965,12 +1060,22 @@
           </section>
         </div>
       </div>
+      <div class="workbench-page" id="workbench-page">
+        <div class="workbench-hero">
+          <h2>先发出第一条任务</h2>
+          <p>工作台用来看进行中的委托。现在还没有任务，不讲 0/0/0，只保留一个发起入口。</p>
+        </div>
+        <div class="workbench-empty">还没有任务。发出第一条后，这里会显示需要你处理的事项。</div>
+        <div class="cta-row" style="justify-content:flex-start;margin-top:20px">
+          <button class="btn btn-primary" id="workbench-new-task" type="button">发起新任务</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <p class="note">
-    路径对齐真产品：Chat 空态 CTA → <code>settings-page</code> / <code>Llm</code> 面板 → 保存 → Gate B。
-    默认工作区 <code>PeerAgent</code> · <code>setupModelAutoOpened</code> 只自动进设置一次。
+    路径对齐真产品：空会话内嵌接通 → 看清工作区 → 发出第一条任务。
+    整页设置只是闸门，<strong>不再自动打开整页设置</strong>。
     文件：<code>design/product/first-run-onboarding-preview.html</code>
   </p>
 
@@ -985,53 +1090,32 @@
       var composerText = document.getElementById("composer-text");
       var gateAHint = document.getElementById("gate-a-hint");
 
-      var setupModelAutoOpened = false;
-      var autoOpenTimer = null;
-      var chatState = "a"; // last chat gate while visiting settings
-
-      function markSetupOpened() {
-        setupModelAutoOpened = true;
-        if (gateAHint) {
-          gateAHint.textContent = "setupModelAutoOpened = true · 之后只靠空态 CTA 进 Settings，不再自动进入";
-        }
-      }
+      var chatState = "a";
 
       function setView(view) {
-        app.classList.remove("view-chat", "view-settings");
-        app.classList.add(view === "settings" ? "view-settings" : "view-chat");
+        app.classList.remove("view-chat", "view-settings", "view-workbench");
+        if (view === "settings") app.classList.add("view-settings");
+        else if (view === "workbench") app.classList.add("view-workbench");
+        else app.classList.add("view-chat");
         app.dataset.view = view;
         if (view === "settings") {
           modeLabel.textContent = "Settings";
           topbarTitle.textContent = "设置";
+        } else if (view === "workbench") {
+          modeLabel.textContent = "工作台";
+          topbarTitle.textContent = "工作台";
         } else {
-          modeLabel.textContent = chatState === "c" ? "Settings" : "Chat";
-          topbarTitle.textContent = chatState === "c" ? "能力" : "新会话";
+          modeLabel.textContent = "Chat";
+          topbarTitle.textContent = "新会话";
         }
       }
 
-      function openSettings(fromAuto) {
+      function openSettings() {
         setView("settings");
-        if (fromAuto) markSetupOpened();
-        else markSetupOpened();
       }
 
       function closeSettings() {
         setView("chat");
-        markSetupOpened();
-      }
-
-      function maybeAutoOpenSettings() {
-        if (autoOpenTimer) {
-          clearTimeout(autoOpenTimer);
-          autoOpenTimer = null;
-        }
-        if (chatState !== "a") return;
-        if (setupModelAutoOpened) return;
-        autoOpenTimer = setTimeout(function () {
-          if (chatState === "a" && !setupModelAutoOpened && app.dataset.view !== "settings") {
-            openSettings(true);
-          }
-        }, 420);
       }
 
       function setState(state) {
@@ -1046,15 +1130,12 @@
         });
 
         wsName.textContent = "PeerAgent";
-
-        // tabs always show chat gates; leave settings if switching
-        setView("chat");
-
-        if (state === "a") {
-          maybeAutoOpenSettings();
-        } else if (state === "c") {
-          if (tipBanner) tipBanner.style.display = "";
+        if (state === "workbench") {
+          setView("workbench");
+          return;
         }
+        setView("chat");
+        if (state === "c" && tipBanner) tipBanner.style.display = "";
       }
 
       tabs.forEach(function (btn) {
@@ -1063,25 +1144,32 @@
         });
       });
 
-      [
-        "open-settings",
-        "open-settings-link",
-        "open-settings-foot"
-      ].forEach(function (id) {
+      ["open-settings", "open-settings-foot"].forEach(function (id) {
         var el = document.getElementById(id);
-        if (el) el.addEventListener("click", function () { openSettings(false); });
+        if (el) el.addEventListener("click", function () { openSettings(); });
       });
 
-      document.getElementById("dismiss-auto-settings").addEventListener("click", function () {
-        markSetupOpened();
-        if (app.dataset.view === "settings") closeSettings();
+      document.querySelectorAll(".first-run-setup-service").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".first-run-setup-service").forEach(function (item) {
+            item.classList.toggle("is-active", item === btn);
+          });
+        });
       });
+
+      document.getElementById("connect-inline").addEventListener("click", function () {
+        setState("b");
+      });
+
+      var workbenchNewTask = document.getElementById("workbench-new-task");
+      if (workbenchNewTask) {
+        workbenchNewTask.addEventListener("click", function () { setState("b"); });
+      }
 
       document.getElementById("settings-back").addEventListener("click", closeSettings);
       document.getElementById("settings-cancel").addEventListener("click", closeSettings);
 
       document.getElementById("save-settings").addEventListener("click", function () {
-        markSetupOpened();
         setState("b");
       });
 
@@ -1097,8 +1185,8 @@
         tipBanner.style.display = "none";
       });
 
-      // 首屏：Gate A，并自动进入 Settings 一次
-      setState("a");
+      var initial = new URLSearchParams(location.search).get("state") || "a";
+      setState(initial);
     })();
   </script>
 </body>
