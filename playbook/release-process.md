@@ -1,7 +1,7 @@
 # Peer Agent 发布流程
 
 创建时间：2026-07-27
-最后更新：2026-08-11
+最后更新：2026-08-15
 
 > 用途：记录 Peer Agent Desktop、CLI 和开放 Runtime 的人工发版 SOP、职责边界与检查清单。
 > 执行型 Skill：`/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
@@ -101,13 +101,14 @@ git diff --stat <previous-tag>..HEAD
 
 #### `docs/changelog.html` 硬门禁（禁止 stamp / tag 前跳过）
 
-`release-notes/v<version>.md` 写了**不等于**站点已更新。`docs/changelog.html` 当前是静态嵌入 `var ENTRIES = [...]`，不会自动读取 `release-notes/`。
+`release-notes/v<version>.md` 写了**不等于**站点已更新。站点数据是**生成式**的：`pnpm build:changelog` 从 `release-notes/` 解析出 `docs/changelog-data/manifest.json` 与各版本 JSON；`docs/changelog.html` 只是按需加载的页面外壳，禁止手工维护数据（旧的 `var ENTRIES = [...]` 内嵌结构已废弃，`check:changelog` 会拒绝其回归）。
 
 发版前必须同时满足：
 
-1. `CHANGELOG.md` 含本版标题（如 `## 0.0.1-beta.N`）
-2. `docs/changelog.html` 的 `ENTRIES[0].version` / `label` 为本版（页面「最新」徽章依赖 `idx === 0`）
+1. `CHANGELOG.md` 含本版标题（如 `## 0.0.4-beta.N`）
+2. `pnpm build:changelog` 成功，随后 `pnpm check:changelog` 通过
 3. 本版中英段落与 notes 事实一致
+4. `docs/changelog-data/manifest.json` 的 `generatedAt` 为真实时间戳：生成器从 `release-notes/` 最近一次提交派生；`check:changelog` 拒绝 epoch 占位 `1970-01-01T00:00:00.000Z`（2026-08-15 前的旧生成器曾写死 epoch 0，线上曾长期携带该坏值）
 
 本地核验失败则**禁止**进入 stamp / tag。不要用“先发版再补站点”绕过。
 
@@ -117,11 +118,13 @@ git diff --stat <previous-tag>..HEAD
 
 每次发版至少扫：
 
-1. 版本表述（是否仍写过时 early-development / 旧版本号）
-2. 安装路径（`@peer-agent/cli`、`peer`、Desktop 开发/打包命令）
+1. 版本表述（是否仍写过时 early-development / 旧版本号；**不得引用尚未发布的版本**——无 git tag 且无 release note 的版本只能写「开发中」，不能写「当前 beta 通道」）
+2. 安装路径（`@peer-agent/cli`、`peer`、Desktop 开发/打包命令）与 **CLI 平台矩阵**（README 表述必须与 `packages/npm-cli/lib/platform.mjs` 的 `supported` 矩阵一致；当前仅 darwin-arm64 一等支持）
 3. 入口面（Desktop / TUI / CLI）
 4. 核心能力（Agent / Plan / Goal / Quick Chat / Browser·Workbench / MCP / Skills 等）
 5. 链接存活（相对链接与文档入口；禁止代码仓内 architecture 死链）
+6. 站点版本与发布态文案（`docs/docs.html` / `docs/index.html` 不得残留旧版本示例如 `v0.0.1-beta.*`，或未发布态文案如 `install (when published)`）
+7. 新用户可见能力闭环（本轮 CHANGELOG / notes 新增的能力必须显式决策：进 README 与落地页，或记录为有意暂不写）
 
 仅在命中触发条件时更新 README：
 
@@ -140,6 +143,21 @@ git diff --stat <previous-tag>..HEAD
 - `README: updated` — 本轮已改并随发版准备提交
 
 非目标：不要把每条 bugfix 写进 README；不要把 README 当 CHANGELOG 用；不要在发版流程里维护 `peer-knowledge` 架构长文。
+
+### 4.2.2 开启开发线（与「发布」严格区分）
+
+开启 `x.y.z` 开发线（如 stamp `0.0.5-beta.1`）不是发布，只允许最小动作集：
+
+- `node scripts/stamp-version.mjs x.y.z-beta.1` 回写 `VERSION` / manifests；
+- `CHANGELOG.md` 顶部写 `## x.y.z-beta.1 - <date>` 段并注明「开启开发线」。
+
+禁止：
+
+- 写 `release-notes/vx.y.z-beta.1.md`；
+- 运行 `build:changelog` / 提交 `docs/changelog-data` 变更；
+- 把该版本写进 README / 站点任何「当前 beta 通道 / latest」表述（只能写「开发中（尚未发布）」）。
+
+「当前 beta 通道」只允许引用**已有 tag 且已有 release note**的版本。2026-08-15 曾因未定义本动作，出现「README 称 beta 通道为 0.0.5-beta.1、站点 manifest `latest.beta` 仍为 v0.0.4-beta.4」的分裂，已随本次修订记录。
 
 ### 4.3 更新知识库
 
@@ -182,8 +200,9 @@ node scripts/check-version.mjs
 - CLI 产物与 npm 安装路径可验证。
 - Runtime 公开包的 tarball 内容与外部宿主 smoke 通过。
 - release notes、CHANGELOG 和用户文档站已同步。
-- **硬门禁**：`docs/changelog.html` 的 `ENTRIES[0]` 为本版（「最新」徽章落在本版）；核验失败不得 stamp/tag。
+- **硬门禁**：`pnpm build:changelog && pnpm check:changelog` 通过；manifest 的 `generatedAt` 非 epoch 占位且 `latest.<channel>` 与本版一致；核验失败不得 stamp/tag。
 - 根 `README.md` 已完成漂移检查；若命中触发条件已更新，否则记录 `README: no-op`。
+- 若有「开启开发线」动作：仅做了 4.2.2 允许的最小动作，未伪造发布态。
 - 本轮架构或流程变化已同步到 `peer-knowledge`。
 
 失败时停止后续 tag，不得用“先发布再补文档”绕过门禁。
@@ -229,7 +248,7 @@ git push origin v<version>
 3. Desktop 安装包与更新清单可下载。
 4. CLI 归档和 npm 安装面可用。
 5. Beta/Stable 通道与版本格式一致。
-6. `docs/` 用户站点展示新版本和更新日志；changelog 页「最新」为本版。
+6. `docs/` 用户站点展示新版本和更新日志；线上 `changelog-data/manifest.json` 的 `latest.<channel>` 为本版、`generatedAt` 非 epoch 占位。
 7. 根 `README.md` 检查结果已明确（`no-op` 或 `updated`）；若已更新，入口/安装/能力描述与本轮产品一致。
 8. 如修改了知识库，确认 `peer-knowledge` 的文档提交已推送。
 
@@ -240,7 +259,9 @@ git push origin v<version>
 | 版本检查失败 | 修正 `VERSION` 与受管 package 版本，不打 tag |
 | Tag 未触发 CI | 检查 tag 是否为 `v*`、是否已推送到正确 remote |
 | Release 缺资产 | 检查对应平台 job、打包步骤和上传权限 |
-| Pages 仍显示旧版本 / 「最新」仍是上版 | **硬门禁未过**：补 `CHANGELOG.md` + 把本版插入 `docs/changelog.html` `ENTRIES[0]`，再推 Pages 源分支；不要假设 notes 会自动进站点 |
+| Pages 仍显示旧版本 / 「最新」仍是上版 | **硬门禁未过**：补 `CHANGELOG.md` + 重跑 `pnpm build:changelog && pnpm check:changelog`，再推 Pages 源分支；不要假设 notes 会自动进站点，也不要手工改 `docs/changelog-data/` |
+| `manifest.json` 的 `generatedAt` 为 `1970-01-01` | 旧生成器曾写死 epoch 0：升级 `scripts/build-changelog.mjs` 后重跑 `pnpm build:changelog && pnpm check:changelog` |
+| README 的 beta 通道与站点 manifest `latest.beta` 不一致 | 核对该版本是否有 git tag + release note；未发布开发线只能写「开发中」（见 4.2.2） |
 | 根 README 仍写旧入口/死链 | 执行 4.2.1 漂移检查；命中触发条件则更新，勿用 notes 顶替 |
 | Skill 在错误项目出现 | 检查是否错误安装到了 `~/.peer-agent/skills`，项目 Skill 应回到 `<workspace>/skills` |
 | 当前项目看不到 `release-process` | 确认活动工作空间是 `peer_agent`，不是 `peer-knowledge` |
@@ -252,10 +273,11 @@ git push origin v<version>
 - [ ] 版本号与通道已确认
 - [ ] `release-notes/v<version>.md` 已更新
 - [ ] `CHANGELOG.md` 已更新
-- [ ] **硬门禁**：`docs/changelog.html` 的 `ENTRIES[0]` 为本版（「最新」徽章落在本版）
+- [ ] **硬门禁**：`pnpm build:changelog && pnpm check:changelog` 通过，manifest `latest.<channel>` 为本版且 `generatedAt` 非 epoch 占位
 - [ ] 用户文档站已同步
-- [ ] 已完成根 `README.md` 漂移检查（版本 / 安装 / 入口 / 能力 / 链接）
+- [ ] 已完成根 `README.md` 漂移检查（版本口径 / 安装与 CLI 平台矩阵 / 入口 / 能力 / 链接 / 站点版本文案 / 新能力闭环）
 - [ ] 若命中 README 触发条件：已更新并随发版提交；否则记录 `README: no-op`
+- [ ] 若有「开启开发线」动作：仅做了 4.2.2 允许的最小动作
 - [ ] 相关架构、规范和 Playbook 已同步到 `peer-knowledge`
 - [ ] 版本一致性检查通过
 - [ ] 受影响测试、typecheck 和构建通过
