@@ -1,7 +1,7 @@
 # Goal / Plan / Run 执行图技术设计
 
 > 创建时间：2026-07-06
-> 最后更新：2026-08-14
+> 最后更新：2026-08-15
 > 状态：设计草案（目标线投影、分组展示与追问派生路由已落地，见 §13）
 > 关联代码：`peer_agent`
 > 关联文档：
@@ -613,8 +613,8 @@ Plan step 与 Run action 会有重叠。规则是：
 | --- | --- | --- |
 | 协议 | `packages/protocol/src/task-overview.ts` | `GoalPlanProjectionSnapshot` / `TaskOverviewItem` 新增可选关系字段：`rootPlanId` / `parentPlanId` / `relationType`('derived') / `depth` / `round` / `rootPlanTitle`；`projectGoalPlan` 条件透传（缺事实不携带键） |
 | 聚合 | `apps/desktop/electron/main/task-overview-aggregator.mjs` | 新增 `buildGoalThreadRelationIndex`：优先读 store 水合的关系字段，`sourceTaskId` 链兜底；解析线根、轮次（同根按 createdAt 排序）、根标题；孤立计划不参与线。`toGoalPlanSnapshot` 接收索引并透传 |
-| UI | `apps/desktop/renderer/src/app/pages/TaskOverviewPage.tsx` | 结果待验收区 `groupResultCardsByGoalThread`：同 `rootPlanId` ≥2 张归组为一条线（线头标题 + N 轮 + 竖向轮次列表），卡片标题挂 `R2` 轮次徽标与「↳ 追问派生」文字徽标；单张线归属卡与旧数据仍平铺（向后兼容） |
-| 样式 | `apps/desktop/renderer/src/styles/task-overview.css` | `.goal-thread-group` / `.goal-thread-badge`，全部走 `--za-*` token，徽标用文字而非仅颜色表达关系 |
+| UI | `apps/desktop/renderer/src/app/pages/TaskOverviewPage.tsx` | 结果待验收区 `groupResultCardsByGoalThread`：同 `rootPlanId` ≥2 张归组为一条线（线头标题 + N 轮 + 竖向轮次列表），卡片标题挂 `R2` 轮次徽标与「↳ 追问派生」文字徽标；单张线归属卡与旧数据仍平铺（向后兼容）。卡内压缩树按父子分组，但线性追问不按 `depth` 写 inline 缩进 |
+| 样式 | `apps/desktop/renderer/src/styles/task-overview.css` | `.goal-thread-group` / `.goal-thread-badge` / `.thread-tree-row.is-child`，全部走 `--za-*` token；子行共用一条左边距/脊线，不按层级叠台阶 |
 
 关键设计决策：
 
