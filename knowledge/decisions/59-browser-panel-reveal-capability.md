@@ -1,7 +1,7 @@
 # 59. Browser 面板主动打开与可见工作现场闭环
 
 创建时间：2026-08-03
-最后更新：2026-08-03
+最后更新：2026-08-15
 
 ## 状态
 
@@ -129,11 +129,13 @@ browser_navigate(url)
 
 `browser_click`、`browser_type`、`browser_screenshot`、`browser_read_dom` 第一阶段保持现有行为：有已注册同会话 Browser 时直接执行；没有时可复用同一 ensure seam，确保所有可见浏览器工具的前置条件一致。
 
-### 五、前台表达与后台验证分离
+### 五、前台表达与后台调度分离
 
-主动 reveal 仅适用于明确要求用户可见的 Browser 工具链。后台 Computer Use / 无头验证不得复用 `focus: true` 的通道，也不得抢占用户当前 Workbench。
+后台 Task 可以把本会话浏览器当作一等可调度能力：即使用户当前没有打开该会话的 Browser 面板、也没有切到该会话，任务仍应拉起本会话 WebContents 并完成打开标签、导航和验证。
 
-第一阶段 `browser_open_panel` 与现有 `browser_*` 均属于前台工具，要求 Tool Context 的 Conversation 与 renderer 当前前台 Conversation 一致；不自动切换到后台 Conversation。后台运行若需要可见接管，应先通过既有任务通知和用户交接流程进入前台。
+主动 reveal 只在「请求会话就是当前前台会话，并且明确要求 focus」时打开/切到 Browser 面板。后台调度不得抢当前前台会话的工作台，也不得改窗口菜单绑定的前台 Browser 目标。
+
+`browser_open_panel` 仍可对当前前台会话请求可见接管；后台 Goal 调用同一工具时默认只准备本会话工作现场，不自动把用户切过去。
 
 ### 六、Conversation 与 Session 隔离不变
 
@@ -234,8 +236,8 @@ Renderer / Preload：
 ## 非目标
 
 - 不用系统默认浏览器作为可见工具失败时的自动回退；
-- 不新增隐藏无头浏览器执行路径；
-- 不自动切换到其他 Conversation；
+- 不新增独立无头浏览器运行时；后台 Task 仍复用同一套会话级 `<webview>`，只是可以离屏挂载；
+- 不自动把用户切到其他 Conversation 的工作台；
 - 不把 Workbench UI 状态复制到 Main；
 - 不模拟用户点击 Browser 标签；
 - 不在本次实现 Browser Profile、标签拖拽或跨会话移动。
