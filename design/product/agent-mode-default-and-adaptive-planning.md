@@ -1,11 +1,12 @@
 # Agent 默认模式重构：自适应规划（L0–L3）
 
 > 创建时间：2026-07-28
-> 最后更新：2026-07-28
+> 最后更新：2026-08-13
 > 状态：设计定稿（待实现）— 产品方案 **A**：默认模式正名为 **Agent**，执行哲学对齐现有 Goal 自驱闭环，并引入任务复杂度分级规划
 > 关联代码仓：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
 > - `design/product/goal-mode-ultrathink-workflow.md`（Goal 自驱闭环、DoD-as-Code、hooks、Runner）
+> - `design/product/goal-quality-review-repair-loop.md`（质量评审与自我修复环：verify 之后对照产物再裁判）
 > - `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（Goal→Plan 正名与执行段合一）
 > - `knowledge/specifications/15-goal-plan-lifecycle-governance.md`（防僵尸计划）
 > - `knowledge/specifications/engineering-rigor-paradigm.md`（工程严谨范式与落地闸门）
@@ -90,7 +91,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | **L0** | Direct | 纯问答、解释、只读查阅、无副作用 | 无 | 否 | 否 | 答对即可 |
 | **L1** | Micro-plan | 单点低风险修改、范围清晰、1–2 文件级 | **会话内短计划**（3–6 步，可 ephemeral） | 默认否（可折叠摘要） | 否 | 轻量自检 + 必要 evidence |
-| **L2** | Auto Goal | 多步骤功能/修复、跨文件、需闭环验证 | **正式 GoalPlan 脚手架** | 是 | **否**（自驱） | successCriteria + evidence + 现有完成门 |
+| **L2** | Auto Goal | 多步骤功能/修复、跨文件、需闭环验证 | **正式 GoalPlan 脚手架** | 是 | **否**（自驱） | successCriteria + evidence + 完成门 + 质量评审过线 + 确认验收 |
 | **L3** | Gated Plan | 高风险、需求模糊需关键决策、大范围重构、不可逆操作 | **正式 Plan** | 是 | **是** | 批准后执行 + 同 L2 验证 |
 
 ### 3.3 路由规则（产品契约）
@@ -134,7 +135,7 @@ else:
 | --- | --- |
 | 自动形成执行序列 | L1 micro-plan / L2 GoalPlan |
 | 不没事就问 | 最少打扰；仅缺关键决策/高风险时打断 |
-| 边做边用工具证据校正 | act → verify → adjust；evidence 完成门 |
+| 边做边用工具证据校正 | act → verify → 质量评审 → adjust；evidence 完成门只证明过程完成 |
 | 卡住才打断 | no-progress / 升级 L3 / request_user_input |
 
 ---

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Peer · 质量评审 Demo</title>
+<style>
+:root{color-scheme:light;--glass:rgba(248,252,255,.72);--soft:#f3f7fa;--line:#d7e1e8;--line2:#e6edf2;--text:#17242d;--muted:#697b87;--faint:#94a4ae;--blue:#277cab;--blue2:#e7f3fa;--cyan:#68b8d8;--green:#277d5f;--green2:#e8f6ef;--amber:#aa7024;--amber2:#fff4df;--shadow:0 24px 70px rgba(44,74,92,.14);--r:20px}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 78% 3%,rgba(101,183,218,.2),transparent 30%),linear-gradient(145deg,#edf4f8,#f9fbfd 58%,#e8f1f5);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",Inter,system-ui,sans-serif}
+.app{min-height:100vh;display:grid;grid-template-rows:62px 1fr}
+.topbar{display:flex;align-items:center;padding:0 24px;border-bottom:1px solid rgba(190,207,218,.72);background:var(--glass);backdrop-filter:blur(28px) saturate(1.25)}
+.brand{display:flex;gap:10px;align-items:center;font-size:16px;font-weight:720}
+.mark{width:29px;height:29px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(145deg,#216f99,#7ac7e3);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.42),0 5px 14px rgba(36,119,160,.2)}
+.crumb{margin-left:22px;color:var(--muted);font-size:12px}
+.demo{margin-left:auto;padding:6px 9px;border-radius:8px;background:var(--blue2);color:var(--blue);font-size:10px;font-weight:700}
+.shell{width:min(1120px,calc(100% - 36px));margin:0 auto;padding:38px 0 70px;display:grid;grid-template-columns:minmax(0,1fr) 238px;gap:20px}
+.user{display:flex;justify-content:flex-end;margin-bottom:22px}
+.bubble{max-width:650px;background:#24333d;color:#fff;padding:13px 17px;border-radius:18px 18px 5px 18px;line-height:1.55;box-shadow:0 8px 24px rgba(31,50,62,.16)}
+.peer-label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;margin:0 0 9px 5px}
+.peer-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 5px rgba(104,184,216,.12)}
+.work-card{border:1px solid var(--line);background:rgba(252,254,255,.94);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.card-main{padding:22px}
+.status-row{display:flex;align-items:center;gap:9px;margin-bottom:15px}
+.status-icon{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--blue2);color:var(--blue)}
+.spinner{width:15px;height:15px;border-radius:50%;border:2px solid #b7d8e8;border-top-color:var(--blue);animation:spin .9s linear infinite}
+.status-copy{font-weight:700}
+.status-copy small{display:block;color:var(--faint);font-weight:500;font-size:10px;margin-top:2px}
+.status-badge{margin-left:auto;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:700;background:var(--blue2);color:var(--blue)}
+h1{font-size:21px;letter-spacing:-.02em;margin:0 0 7px}
+.summary{color:var(--muted);line-height:1.55;margin:0}
+.current{margin:18px 0 0;padding:14px;border:1px solid var(--line2);border-radius:14px;background:var(--soft)}
+.current-head{display:flex;justify-content:space-between;gap:15px;align-items:center}
+.current strong{font-size:12px}.current span{font-size:10px;color:var(--faint)}
+.progress{height:5px;margin-top:11px;border-radius:99px;background:#e5edf2;overflow:hidden}
+.progress i{display:block;height:100%;width:10%;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .65s ease}
+.activity{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.activity-item{padding:10px;border-radius:11px;background:#fff;border:1px solid var(--line2)}
+.activity-item b{display:block;font-size:11px;margin-bottom:4px}
+.activity-item span{font-size:9px;color:var(--faint)}
+.footer{display:flex;align-items:center;gap:9px;border-top:1px solid var(--line2);padding:12px 18px;background:rgba(246,249,251,.72)}
+button{font:inherit}
+.link-btn{border:0;background:transparent;color:var(--muted);font-size:11px;padding:7px 8px;border-radius:8px;cursor:pointer}
+.link-btn:hover{background:#eaf1f5;color:var(--text)}
+.stop{margin-left:auto}
+.primary{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:650;cursor:pointer}
+.ghost{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:10px;padding:9px 14px;font-size:12px;cursor:pointer}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.details{max-height:0;overflow:hidden;transition:max-height .35s ease;background:#f7fafc}
+.details.open{max-height:640px;border-top:1px solid var(--line2)}
+.detail-inner{padding:17px 22px 21px}
+.detail-title{display:flex;justify-content:space-between;margin-bottom:13px}
+.detail-title b{font-size:12px}.detail-title span{font-size:10px;color:var(--faint)}
+.gates{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+.gate{padding:9px;border-radius:10px;background:#fff;border:1px solid var(--line2)}
+.gate b{display:block;font-size:10px;margin-bottom:4px}
+.gate span{font-size:9px;color:var(--faint)}
+.gate.pass{border-color:#cfe8d9;background:#f4fbf7}
+.gate.fail{border-color:#efd6ad;background:#fffaf0}
+.timeline{position:relative;padding-left:20px}
+.timeline:before{content:"";position:absolute;left:5px;top:7px;bottom:8px;width:1px;background:var(--line)}
+.event{position:relative;margin-bottom:14px}
+.event:last-child{margin-bottom:0}
+.event:before{content:"";position:absolute;left:-20px;top:3px;width:9px;height:9px;border:2px solid #f7fafc;border-radius:50%;background:#bdcbd3}
+.event.live:before{background:var(--blue)}
+.event.done:before{background:var(--green)}
+.event b{font-size:11px;display:block;margin-bottom:3px}
+.event span{font:10px "SFMono-Regular",Consolas,monospace;color:var(--faint);line-height:1.45}
+.ready,.review,.result,.exception,.chatback{display:none}
+.composer-dock{display:none;margin-top:14px}
+.work-card.rejecting ~ .composer-dock{display:block}
+.work-card.ready-state .running,.work-card.reviewing .running,.work-card.complete .running,.work-card.needs-you .running,.work-card.rejecting .running{display:none}
+.work-card.ready-state .ready{display:block}
+.work-card.reviewing .review{display:block}
+.work-card.complete .result{display:block}
+.work-card.needs-you .exception{display:block}
+.work-card.rejecting .chatback{display:block}
+.ready-state .status-icon,.reviewing .status-icon,.rejecting .status-icon{background:var(--amber2);color:var(--amber)}
+.ready-state .status-badge,.reviewing .status-badge,.rejecting .status-badge{background:var(--amber2);color:var(--amber)}
+.complete .status-icon{background:var(--green2);color:var(--green)}
+.complete .status-badge{background:var(--green2);color:var(--green)}
+.needs-you .status-icon{background:var(--amber2);color:var(--amber)}
+.needs-you .status-badge{background:var(--amber2);color:var(--amber)}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}
+.metric{padding:12px;border:1px solid var(--line2);border-radius:12px;background:var(--soft)}
+.metric b{display:block;font-size:15px;margin-bottom:3px}
+.metric span{font-size:9px;color:var(--faint)}
+.done-note{margin-top:13px;padding:10px 12px;border-radius:10px;background:var(--green2);color:#3c745f;font-size:10px}
+.ready-note{margin-top:13px;padding:10px 12px;border-radius:10px;background:var(--amber2);color:#7c633e;font-size:10px}
+.question{margin-top:17px;padding:16px;border-radius:14px;background:var(--amber2);border:1px solid #efd6ad}
+.question b{display:block;margin-bottom:7px}
+.question p{font-size:11px;line-height:1.55;color:#7c633e;margin:0}
+.choices{display:grid;gap:8px;margin-top:13px}
+.choice{display:flex;gap:10px;text-align:left;border:1px solid #e5c792;background:#fffdf9;border-radius:11px;padding:11px 12px;cursor:pointer;color:var(--text)}
+.choice:hover{border-color:#c99950;box-shadow:0 4px 12px rgba(133,94,32,.08)}
+.radio{flex:none;width:16px;height:16px;border-radius:50%;border:1px solid #c49b5f;margin-top:1px}
+.choice b{font-size:11px;margin:0 0 3px}
+.choice small{color:var(--faint);font-size:9px}
+.composer{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:16px;background:rgba(252,254,255,.96);box-shadow:0 10px 24px rgba(44,74,92,.08)}
+.composer input{flex:1;border:0;outline:0;padding:8px 4px;font:13px/1.5 inherit;background:transparent}
+.rail-card{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.68);padding:15px;margin-bottom:12px}
+.rail-card h3{font-size:11px;margin:0 0 10px}
+.rail-card p{font-size:10px;color:var(--muted);line-height:1.55;margin:0}
+.scenario{width:100%;display:flex;align-items:center;gap:9px;border:0;background:transparent;padding:9px;border-radius:10px;color:var(--muted);cursor:pointer;text-align:left}
+.scenario:hover,.scenario.active{background:#fff;color:var(--text);box-shadow:0 4px 14px rgba(55,84,101,.08)}
+.scenario-icon{width:25px;height:25px;border-radius:8px;background:var(--soft);display:grid;place-items:center;font-size:10px}
+.scenario strong{display:block;font-size:10px}
+.scenario small{display:block;color:var(--faint);font-size:8px;margin-top:2px}
+.notice{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;background:#18313f;color:#fff;border-radius:11px;padding:10px 14px;box-shadow:var(--shadow);font-size:11px;transition:.22s;pointer-events:none}
+.notice.show{opacity:1;transform:translate(-50%,0)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:800px){.shell{display:block;width:min(100% - 24px,720px);padding-top:22px}.rail{margin-top:14px}.crumb{display:none}.activity,.result-grid,.gates{grid-template-columns:1fr 1fr}.bubble{max-width:90%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div class="brand"><div class="mark">P</div>Peer</div><div class="crumb">对话 · 质量评审与确认验收</div><span class="demo">质量环 Demo</span></header>
+<main class="shell">
+<section>
+<div class="user"><div class="bubble">按知识仓里的方案，把 Task 隔离交付做到代码仓。</div></div>
+<div class="peer-label"><span class="peer-dot"></span>Peer 已接手这个目标</div>
+<article class="work-card" id="workCard">
+<div class="card-main">
+<div class="status-row">
+  <div class="status-icon" id="statusIcon"><div class="spinner"></div></div>
+  <div class="status-copy"><span id="statusText">Peer 正在处理</span><small id="statusSub">结果不够好时会自己再改一轮</small></div>
+  <span class="status-badge" id="statusBadge">执行中</span>
+</div>
+<div class="running">
+  <h1>实现 Task 隔离交付</h1>
+  <p class="summary">Peer 先做完并自检。可以交卷后请你先看结果，再确认验收；这不是让你当第一轮质检。</p>
+  <div class="current">
+    <div class="current-head"><strong id="currentAction">正在理解目标和现有执行链路</strong><span id="progressText">10%</span></div>
+    <div class="progress"><i id="progressBar"></i></div>
+    <div class="activity">
+      <div class="activity-item"><b>实现与测试</b><span id="act1s">进行中</span></div>
+      <div class="activity-item"><b>过程验证</b><span id="act2s">等待中</span></div>
+      <div class="activity-item"><b>结果检查</b><span id="act3s">等待中</span></div>
+    </div>
+  </div>
+</div>
+<div class="ready">
+  <h1>结果待你验收</h1>
+  <p class="summary" id="readySummary">Peer 已自检。测试 152 项通过 · 取消后恢复漏了，已补上。</p>
+  <div class="result-grid">
+    <div class="metric"><b>152 / 152</b><span>测试通过</span></div>
+    <div class="metric"><b>12 个文件</b><span>已改完</span></div>
+    <div class="metric"><b>1 处</b><span>漏了，已补上</span></div>
+  </div>
+  <div class="ready-note" id="readyNote">请先看结果。没看过，不能确认，也不能说还不行。</div>
+  <div class="actions">
+    <button class="primary" id="viewReadyBtn">查看结果</button>
+  </div>
+</div>
+<div class="review" id="reviewPane">
+  <h1>交卷前查过</h1>
+  <p class="summary">看过这些之后，再决定收不收。</p>
+  <div class="result-grid">
+    <div class="metric"><b>对照你的目标</b><span>主结果有了</span></div>
+    <div class="metric"><b>测试</b><span>152 / 152 通过</span></div>
+    <div class="metric"><b>改动复查</b><span>取消后恢复不了，已补上</span></div>
+  </div>
+  <div class="ready-note">取消任务后没法恢复，漏了；已补上再验过。合入后复验已通过。</div>
+  <div class="actions">
+    <button class="primary" id="acceptBtn">确认验收</button>
+    <button class="ghost" id="rejectBtn">还不行</button>
+  </div>
+</div>
+<div class="chatback">
+  <h1>结果已收起</h1>
+  <p class="summary">焦点已回到这条任务的会话。直接说明哪里不对，Peer 按这句话返工。不另开意见表。</p>
+</div>
+<div class="exception">
+  <h1>需要你决定一个产品规则</h1>
+  <p class="summary">Peer 已处理完代码层问题。取消后的处理方式是业务选择，无法只靠测试判断。</p>
+  <div class="question">
+    <b>用户取消任务后，尚未交付的改动应该怎么处理？</b>
+    <p>这会影响恢复能力与磁盘占用。Peer 只问这个产品选择，不会把内部检查细节摊给你。</p>
+    <div class="choices">
+      <button class="choice" data-answer="保留执行环境，稍后可恢复"><span class="radio"></span><span><b>保留执行环境，稍后可恢复</b><small>更安全，默认 24 小时后自动清理</small></span></button>
+      <button class="choice" data-answer="立即清理未交付环境"><span class="radio"></span><span><b>立即清理未交付环境</b><small>节省空间，但任务改动不可恢复</small></span></button>
+    </div>
+  </div>
+</div>
+<div class="result">
+  <h1>已完成</h1>
+  <p class="summary" id="resultSummary">你已确认验收。这是意图收口，不是 Peer 自己盖章。</p>
+  <div class="result-grid">
+    <div class="metric"><b>152 / 152</b><span>相关检查通过</span></div>
+    <div class="metric"><b>已验收</b><span>resultAcceptance 已写入</span></div>
+    <div class="metric"><b>0</b><span>已知未处理风险</span></div>
+  </div>
+  <div class="done-note" id="doneNote">确认验收后才算完成。</div>
+</div>
+</div>
+<div class="footer">
+  <button class="link-btn" id="detailsBtn">查看执行详情</button>
+  <button class="link-btn stop" id="stopBtn">停止</button>
+</div>
+<div class="details" id="details">
+  <div class="detail-inner">
+    <div class="detail-title"><b>交卷前查过</b><span>只读 · 检查记录</span></div>
+    <div class="gates" id="gates">
+      <div class="gate" id="gIntent"><b>对照你的目标</b><span>等待中</span></div>
+      <div class="gate" id="gMech"><b>测试</b><span>等待中</span></div>
+      <div class="gate" id="gArt"><b>改动复查</b><span>等待中</span></div>
+      <div class="gate" id="gInt"><b>合入后复验</b><span>等待中</span></div>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</div>
+</article>
+<div class="composer-dock">
+  <div class="composer">
+    <input id="rejectText" type="text" placeholder="说说哪里不对" />
+    <button class="primary" id="sendRejectBtn">发送</button>
+  </div>
+</div>
+</section>
+<aside class="rail">
+  <div class="rail-card">
+    <h3>体验场景</h3>
+    <button class="scenario active" id="normalBtn"><span class="scenario-icon">✓</span><span><strong>正常路径</strong><small>先看结果，再确认验收</small></span></button>
+    <button class="scenario" id="rejectSceneBtn"><span class="scenario-icon">↩</span><span><strong>演示「还不行」</strong><small>看过结果后回到会话</small></span></button>
+    <button class="scenario" id="exceptionBtn"><span class="scenario-icon">?</span><span><strong>演示「需要你」</strong><small>执行中只问一个问题</small></span></button>
+  </div>
+  <div class="rail-card">
+    <h3>两层都要人，但职责不同</h3>
+    <p>确认验收是盖章；还不行是接着聊。盖章发生在结果页，说话回到会话。</p>
+  </div>
+  <div class="rail-card">
+    <h3>这个 Demo 不做什么</h3>
+    <p>不另开意见表。测试失败和改动缺口由 Peer 自己处理；你看过结果后再确认，或回会话说明哪里不对。</p>
+  </div>
+</aside>
+</main>
+</div>
+<div class="notice" id="notice"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const card=$('#workCard');
+let timers=[];
+let lastNote='Peer 已自检。取消后恢复漏了，已补上。';
+function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+function later(fn,ms){timers.push(setTimeout(fn,ms))}
+function toast(text){const n=$('#notice');n.textContent=text;n.classList.add('show');clearTimeout(n.t);n.t=setTimeout(()=>n.classList.remove('show'),1900)}
+function setScenario(el){$$('.scenario').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+function setProgress(v,action){$('#progressBar').style.width=v+'%';$('#progressText').textContent=v+'%';$('#currentAction').textContent=action}
+function setActs(a,b,c){$('#act1s').textContent=a;$('#act2s').textContent=b;$('#act3s').textContent=c}
+function setGate(id,cls,text){const el=$(id);el.className='gate '+cls;el.querySelector('span').textContent=text}
+function setTimeline(html){$('#timeline').innerHTML=html}
+function running(){
+  card.className='work-card';
+  $('#statusIcon').innerHTML='<div class="spinner"></div>';
+  $('#statusText').textContent='Peer 正在处理';
+  $('#statusSub').textContent='结果不够好时会自己再改一轮';
+  $('#statusBadge').textContent='执行中';
+  $('#stopBtn').hidden=false;
+  setProgress(10,'正在理解目标和现有执行链路');
+  setActs('进行中','等待中','等待中');
+  ['#gIntent','#gMech','#gArt','#gInt'].forEach(id=>setGate(id,'','等待中'));
+  setTimeline('<div class="event live"><b>已接手目标</b><span>对照知识仓方案实现代码仓能力</span></div><div class="event"><b>过程验证</b><span>等待实现完成</span></div><div class="event"><b>质量评审</b><span>尚未开始</span></div>');
+}
+function showReady(note){
+  lastNote=note;
+  card.className='work-card ready-state';
+  $('#statusIcon').textContent='✓';
+  $('#statusText').textContent='结果待你验收';
+  $('#statusSub').textContent='请先看结果，再决定收不收';
+  $('#statusBadge').textContent='待验收';
+  $('#stopBtn').hidden=true;
+  $('#readyNote').textContent=note+' 请先看结果。';
+  setGate('#gIntent','pass','主结果有了');
+  setGate('#gMech','pass','152 / 152 通过');
+  setGate('#gArt','pass','取消后恢复不了，已补上');
+  setGate('#gInt','pass','已通过');
+}
+function showReview(){
+  card.className='work-card reviewing';
+  $('#statusIcon').textContent='✓';
+  $('#statusText').textContent='结果待你验收';
+  $('#statusSub').textContent='已看过结果，可以确认或回会话说明';
+  $('#statusBadge').textContent='已看过结果';
+  $('#stopBtn').hidden=true;
+}
+function finish(){
+  card.className='work-card complete';
+  $('#statusIcon').textContent='✓';
+  $('#statusText').textContent='已完成';
+  $('#statusSub').textContent='你已确认验收';
+  $('#statusBadge').textContent='已验收';
+  $('#stopBtn').hidden=true;
+  $('#doneNote').textContent='确认验收后写入 resultAcceptance，任务才算完成。';
+}
+function startNormal(){
+  clearTimers();setScenario($('#normalBtn'));running();
+  later(()=>{setProgress(34,'正在实现隔离执行与交付绑定');setActs('进行中','等待中','等待中')},700);
+  later(()=>{setProgress(52,'正在运行相关检查');setActs('已完成','进行中','等待中');setGate('#gMech','','检查中');setTimeline('<div class="event done"><b>实现已完成</b><span>12 files · related tests running</span></div><div class="event live"><b>过程验证</b><span>verificationGate · 152 checks</span></div><div class="event"><b>质量评审</b><span>等待完成门</span></div>')},1500);
+  later(()=>{setProgress(68,'正在对照目标和改动检查结果');setActs('已完成','已完成','进行中');setGate('#gMech','pass','152 / 152');setGate('#gIntent','pass','主结果有了');setGate('#gArt','fail','发现缺口');setTimeline('<div class="event done"><b>测试已通过</b><span>152 / 152</span></div><div class="event live"><b>改动复查未通过</b><span>取消后没法恢复，漏了</span></div><div class="event"><b>自行返工</b><span>不用你开始检查</span></div>')},2500);
+  later(()=>{setProgress(79,'发现结果缺口，正在自行补齐');setActs('返工中','已完成','进行中');setTimeline('<div class="event done"><b>测试已通过</b><span>152 / 152</span></div><div class="event done"><b>改动复查</b><span>取消后没法恢复，漏了</span></div><div class="event live"><b>自行补上</b><span>同一目标里继续改，不打扰你</span></div>')},3600);
+  later(()=>{setProgress(91,'正在重新检查补上的改动');setGate('#gArt','','复验中');setTimeline('<div class="event done"><b>已补上取消后恢复</b><span>同一目标内返工</span></div><div class="event live"><b>再验一遍</b><span>测试 + 改动复查 + 合入后复验</span></div>')},4700);
+  later(()=>{
+    showReady('Peer 已自检。取消后恢复漏了，已补上。');
+    setTimeline('<div class="event done"><b>测试</b><span>152 / 152 通过</span></div><div class="event done"><b>改动复查第一次</b><span>取消后没法恢复，漏了</span></div><div class="event done"><b>自行补上</b><span>主界面仍是「正在处理」</span></div><div class="event done"><b>再验过</b><span>对照你的目标 / 测试 / 改动复查 / 合入后复验</span></div><div class="event live"><b>请先看结果</b><span>没看过不能确认验收</span></div>');
+  },5800);
+}
+function startRejectScene(){
+  setScenario($('#rejectSceneBtn'));
+  showReview();
+  setTimeline('<div class="event done"><b>已看过结果</b><span>可以确认或回会话说明</span></div><div class="event live"><b>等待你的决定</b><span>还不行打开对应会话</span></div>');
+}
+function startException(){
+  clearTimers();setScenario($('#exceptionBtn'));running();
+  setProgress(58,'正在对照目标和改动检查结果');
+  setActs('已完成','已完成','进行中');
+  later(()=>{
+    card.className='work-card needs-you';
+    $('#statusIcon').textContent='?';
+    $('#statusText').textContent='需要你';
+    $('#statusSub').textContent='只需决定一个业务规则';
+    $('#statusBadge').textContent='等待你的决定';
+    $('#stopBtn').hidden=true;
+    setGate('#gMech','pass','代码层已处理');
+    setGate('#gArt','fail','业务语义无法自判');
+    setTimeline('<div class="event done"><b>测试已通过</b><span>代码层问题已处理</span></div><div class="event live"><b>需要一个产品决定</b><span>取消后未交付改动怎么处理</span></div>');
+  },800);
+}
+function resumeAfterReject(reason){
+  running();
+  setProgress(62,'已在会话里收到说明，正在返工');
+  setActs('返工中','等待中','等待中');
+  setTimeline('<div class="event done"><b>你在会话里说还不行</b><span>'+reason+'</span></div><div class="event live"><b>按这句话返工</b><span>不另开意见表，不新开 Goal</span></div>');
+  later(()=>{setProgress(84,'正在按你的说明调整并复验');setActs('已完成','进行中','进行中')},900);
+  later(()=>{
+    showReady('已按你在会话里说的改完，请再看一次结果。');
+    setTimeline('<div class="event done"><b>会话里说明了哪里不对</b><span>'+reason+'</span></div><div class="event done"><b>已按这句话改完并再验</b><span>请再看一次结果</span></div><div class="event live"><b>请先看结果</b><span>确认验收仍是收口</span></div>');
+  },2000);
+}
+$('#detailsBtn').addEventListener('click',()=>{
+  const open=$('#details').classList.toggle('open');
+  $('#detailsBtn').textContent=open?'收起执行详情':'查看执行详情';
+});
+$('#normalBtn').addEventListener('click',startNormal);
+$('#rejectSceneBtn').addEventListener('click',startRejectScene);
+$('#exceptionBtn').addEventListener('click',startException);
+$('#acceptBtn').addEventListener('click',()=>{
+  finish();
+  setTimeline((document.getElementById('timeline').innerHTML)+'<div class="event done"><b>用户确认验收</b><span>resultAcceptance 已写入 · 任务完成</span></div>');
+  toast('已确认验收，任务完成');
+});
+$('#rejectBtn').addEventListener('click',()=>{
+  card.className='work-card rejecting';
+  $('#statusText').textContent='回到会话';
+  $('#statusSub').textContent='在对话里说明哪里不对';
+  $('#statusBadge').textContent='会话已打开';
+  $('#rejectText').value='';
+  later(()=>$('#rejectText').focus(),30);
+});
+$('#sendRejectBtn').addEventListener('click',()=>{
+  const reason=($('#rejectText').value||'').trim()||'取消后我希望默认保留环境';
+  toast('已在会话里说明，Peer 继续改');
+  resumeAfterReject(reason);
+});
+$('#rejectText').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){$('#sendRejectBtn').click();}
+});
+$('#viewReadyBtn').addEventListener('click',()=>{showReview();toast('已打开结果。看过之后才能确认或回会话说明')});
+$$('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+  const answer=btn.dataset.answer;
+  toast('已采用：'+answer);
+  running();
+  setProgress(76,'已应用你的决定，正在继续验证');
+  setActs('已完成','进行中','进行中');
+  setTimeline('<div class="event done"><b>已采用你的决定</b><span>'+answer+'</span></div><div class="event live"><b>继续自检</b><span>可以交卷后仍要先看结果</span></div>');
+  later(()=>setProgress(90,'正在完成结果检查'),700);
+  later(()=>{
+    showReady('已按你的决定改完：'+answer+'。');
+    setTimeline('<div class="event done"><b>例外已收敛</b><span>'+answer+'</span></div><div class="event done"><b>自检完成</b><span>对照你的目标 / 测试 / 改动复查 / 合入后复验</span></div><div class="event live"><b>请先看结果</b><span>确认验收仍是收口</span></div>');
+  },1600);
+}));
+$('#stopBtn').addEventListener('click',()=>toast('停止会保留当前改动，稍后可恢复'));
+startNormal();
+</script>
+</body>
+</html>

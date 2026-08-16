@@ -3,514 +3,413 @@
   目标线（Goal Thread）验收 Demo
   创建时间：2026-08-14
   最后更新：2026-08-14
-  说明：回应「追问产生的新 plan 平铺、看不出关系」的产品形态提案。
-  数据对应真实截图：统一工具栏圆角（R1）→ 截图验收工具栏圆角（R2），另加一个独立目标做对照。
+  说明：一格一线。独立目标仍是原样结果卡；同一 rootPlanId 的 OpenRouter
+  线只占一格，卡内嵌父子压缩树。线性追问共用同一条左边距/脊线，不按深度叠台阶。
+  提交节点未进验收队列，只作为谱系上下文。
   Tokens 遵循 design/visual/previews/workbench/CONTRACT.md（Peer Frost 八条红线）。
 -->
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>待验收 · 目标线 Demo</title>
+<title>待验收 · 一格一线 Demo</title>
 <style>
   :root {
     --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
-    --font-mono: "IBM Plex Mono", "JetBrains Mono", "SF Mono", Menlo, monospace;
-
     --chrome-canvas: #FAFBFC;
+    --chrome-raised: #F3F5F8;
     --chrome-hairline: #DCE0E8;
+    --paper-base: #EDF1F6;
     --paper-sheet: #F7F9FC;
-    --paper-sunken: #DDE3EB;
     --paper-hover: #EAEEF4;
     --graphite-base: #1A1D21;
+    --graphite-hover: #2A2D33;
     --graphite-soft: #525660;
     --graphite-fade: #878B95;
     --graphite-mute: #B0B4BC;
+    --state-success: #3E7A6B;
+    --state-success-soft: #E7F1EC;
     --azure-seal: #3B7FAB;
-    --azure-trace: #D8E4EE;
-
-    --signal-ok: #2F7D4F;
-    --signal-ok-soft: #E3F0E8;
-
     --radius-sm: 6px;
     --radius-md: 8px;
     --radius-lg: 12px;
-
-    --shadow-card: 0 1px 2px rgba(26,29,33,.05), 0 4px 16px rgba(26,29,33,.05);
+    --radius-xl: 16px;
+    --shadow-soft: 0 1px 2px rgba(26,29,33,.06), 0 6px 18px rgba(26,29,33,.08);
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
   body {
     font-family: var(--font-sans);
+    background: var(--paper-base);
     color: var(--graphite-base);
-    background:
-      radial-gradient(1100px 460px at 88% -8%, var(--azure-trace), transparent 60%),
-      radial-gradient(860px 420px at -8% 30%, var(--paper-sunken), transparent 55%),
-      var(--chrome-canvas);
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
   }
-  .stage { max-width: 880px; margin: 0 auto; padding: 44px 24px 72px; }
-
-  /* ---------- 页头 ---------- */
-  .eyebrow {
-    font-size: 10.5px; letter-spacing: .08em; font-weight: 600;
+  .stage { max-width: 1120px; margin: 0 auto; padding: 28px 20px 48px; }
+  .kicker {
+    font-size: 11px; letter-spacing: .08em; font-weight: 600;
     color: var(--graphite-mute); text-transform: uppercase;
   }
-  h1 { font-size: 30px; letter-spacing: -.035em; font-weight: 600; margin: 8px 0 6px; }
-  .lede { font-size: 13.5px; line-height: 1.6; color: var(--graphite-soft); max-width: 640px; }
+  h1 {
+    margin: 6px 0 8px; font-size: 30px; letter-spacing: -.035em; font-weight: 600;
+  }
+  .lead {
+    margin: 0 0 18px; max-width: 46rem; font-size: 13.5px; line-height: 1.55;
+    letter-spacing: -.01em; color: var(--graphite-soft);
+  }
+  .lead b { color: var(--graphite-base); font-weight: 600; }
 
-  .demo-controls {
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px;
-  }
-  .seg {
-    display: inline-flex; padding: 3px; gap: 2px;
-    background: var(--paper-sunken); border-radius: 10px;
-  }
-  .seg button {
-    font: inherit; font-size: 12.5px; font-weight: 500;
-    border: 0; background: transparent; color: var(--graphite-soft);
-    padding: 6px 14px; border-radius: var(--radius-md); cursor: pointer;
-  }
-  .seg button.on {
-    background: var(--paper-sheet); color: var(--graphite-base); font-weight: 600;
-    box-shadow: var(--shadow-card);
-  }
-  .btn {
-    font: inherit; font-size: 12.5px; font-weight: 500;
-    border-radius: var(--radius-md); padding: 7px 14px; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .btn-primary {
-    background: var(--graphite-base); color: var(--paper-sheet); border: 1px solid var(--graphite-base);
-  }
-  .btn-primary:hover { background: #2A2D33; }
-  .btn-ghost {
-    background: var(--paper-sheet); color: var(--graphite-base);
-    border: 1px solid var(--chrome-hairline);
-  }
-  .btn-ghost:hover { background: var(--paper-hover); }
-  .btn-text {
-    background: none; border: 0; color: var(--graphite-fade);
-    font-size: 12px; padding: 7px 4px;
-  }
-  .btn-text:hover { color: var(--graphite-soft); }
-
-  /* ---------- 区块 ---------- */
-  .sec-head {
-    display: flex; align-items: baseline; gap: 10px; margin: 30px 0 12px;
-  }
-  .sec-head h2 { font-size: 17px; letter-spacing: -.025em; font-weight: 600; }
-  .sec-head .sub { font-size: 12px; color: var(--graphite-fade); }
-  .count {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-    background: var(--paper-sunken); color: var(--graphite-soft);
-    border-radius: 999px; padding: 2px 8px;
-  }
-
-  .card {
+  .panel {
     background: var(--paper-sheet);
     border: 1px solid var(--chrome-hairline);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    padding: 22px 22px 20px;
   }
-
-  /* ---------- 平铺卡片（现状） ---------- */
-  .accept-card {
-    display: grid; grid-template-columns: 92px 1fr auto; align-items: center;
-    gap: 16px; padding: 16px 18px; margin-bottom: 10px;
+  .panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 16px;
   }
-  .st { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
-  .st-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 11px; font-weight: 600; letter-spacing: .02em;
-    background: var(--signal-ok-soft); color: var(--signal-ok);
-    border-radius: 999px; padding: 3px 10px 3px 8px;
+  .panel-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 17px; letter-spacing: -.025em; font-weight: 600;
   }
-  .st-badge svg { width: 11px; height: 11px; }
-  .st-sub { font-size: 11px; color: var(--graphite-fade); padding-left: 2px; }
-  .c-body { min-width: 0; }
-  .c-title { font-size: 15px; letter-spacing: -.02em; font-weight: 600; margin-bottom: 7px; }
-  .c-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .tag-ws {
-    font-size: 11.5px; font-weight: 500; letter-spacing: .01em;
-    color: var(--azure-seal); background: var(--azure-trace);
-    border-radius: var(--radius-sm); padding: 2px 8px;
+  .count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 22px; padding: 0 7px;
+    border-radius: 999px; background: var(--chrome-raised);
+    color: var(--graphite-soft); font-size: 12px; font-weight: 600;
   }
-  .chip {
+  .panel-meta {
+    display: flex; align-items: center; gap: 10px;
     font-size: 12px; color: var(--graphite-fade);
-    background: var(--paper-hover); border-radius: var(--radius-sm); padding: 2px 8px;
   }
-  .c-acts { display: flex; gap: 8px; align-items: center; }
-
-  .accepted { opacity: .68; }
-  .accepted .c-acts .btn-primary { display: none; }
-
-  /* ---------- 目标线（提案） ---------- */
-  .thread { margin-bottom: 10px; overflow: hidden; }
-  .thread-head {
-    display: grid; grid-template-columns: 26px 1fr auto auto; align-items: center;
-    gap: 12px; padding: 15px 18px;
+  .panel-meta a {
+    color: var(--graphite-soft); text-decoration: none;
   }
-  .twirl {
-    font: inherit; width: 24px; height: 24px; border-radius: var(--radius-sm);
-    border: 1px solid var(--chrome-hairline); background: var(--paper-sheet);
-    color: var(--graphite-fade); cursor: pointer; display: grid; place-items: center;
-    transition: transform .18s ease;
-  }
-  .thread.closed .twirl { transform: rotate(-90deg); }
-  .twirl svg { width: 12px; height: 12px; }
-  .t-title { font-size: 15px; letter-spacing: -.02em; font-weight: 600; }
-  .t-meta { display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
-  .t-acts { display: flex; gap: 8px; align-items: center; }
+  .panel-meta a:hover { color: var(--graphite-base); }
 
-  .runs { list-style: none; border-top: 1px solid var(--chrome-hairline); }
-  .thread.closed .runs { display: none; }
-  .run {
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  @media (min-width: 860px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .result-card {
+    display: flex; flex-direction: column; min-width: 0;
+    padding: 14px 16px 12px;
+    border: 1px solid var(--chrome-hairline);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--paper-sheet) 82%, #fff 18%);
+  }
+  .card-top {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+  }
+  .state {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--state-success); font-size: 12px; font-weight: 600; white-space: nowrap;
+  }
+  .state i {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; border-radius: 999px;
+    background: var(--state-success-soft); font-size: 10px; font-style: normal; font-weight: 700;
+  }
+  .route {
+    max-width: 62%; text-align: right;
+    font-size: 11.5px; line-height: 1.4; color: var(--graphite-fade);
+  }
+  .result-card h3 {
+    margin: 10px 0 4px; font-size: 15px; letter-spacing: -.02em; font-weight: 600;
+  }
+  .sum {
+    margin: 0; font-size: 12.5px; color: var(--graphite-fade);
+  }
+  .bar {
+    height: 3px; margin: 12px 0 10px; border-radius: 999px;
+    background: color-mix(in srgb, var(--chrome-hairline) 70%, transparent);
+    overflow: hidden;
+  }
+  .bar > i {
+    display: block; height: 100%; border-radius: inherit; background: var(--graphite-base);
+  }
+  .card-foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    margin-top: auto;
+  }
+  .runtime {
+    font-size: 12px; color: var(--graphite-soft);
+  }
+  .btn-view {
+    appearance: none; border: 0; cursor: pointer;
+    height: 30px; padding: 0 14px; border-radius: 999px;
+    background: var(--graphite-base); color: var(--paper-sheet);
+    font: 600 12px/1 var(--font-sans);
+  }
+  .btn-view:hover { background: var(--graphite-hover); }
+
+  /* 一格一线：外壳仍是结果卡，谱系用压缩树，不再叠完整卡 */
+  .result-card.is-thread { padding-bottom: 10px; }
+  .thread-tree {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-top: 4px; padding-top: 12px;
+    border-top: 1px solid var(--chrome-hairline);
+  }
+  .thread-tree-row {
     position: relative;
-    display: grid; grid-template-columns: 46px 34px 1fr auto auto; align-items: center;
-    gap: 10px; padding: 12px 18px 12px 30px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+    align-items: center; gap: 8px;
+    min-height: 38px; padding: 6px 10px;
+    border: 0; border-radius: 10px;
+    background: color-mix(in srgb, var(--chrome-raised) 70%, var(--paper-sheet));
+    color: inherit; font: inherit; text-align: left; cursor: pointer;
   }
-  .run + .run { border-top: 1px dashed var(--chrome-hairline); }
-  .run::before {              /* 时间轴竖线 */
-    content: ""; position: absolute; left: 40px; top: 0; bottom: 0;
-    width: 1px; background: var(--chrome-hairline);
+  .thread-tree-row:hover { background: var(--paper-hover); }
+  /* 子行共用一条左边距，不按层级叠加。 */
+  .thread-tree-row.is-child { margin-left: 22px; }
+  .thread-tree-row.is-child::before {
+    content: ""; position: absolute; left: -14px; top: -12px;
+    width: 12px; height: 30px;
+    border-left: 1.5px solid var(--chrome-hairline);
+    border-bottom: 1.5px solid var(--chrome-hairline);
+    border-radius: 0 0 0 6px;
   }
-  .run:first-child::before { top: 18px; }
-  .run:last-child::before { bottom: auto; height: 26px; }
-  .rail-dot {
-    position: relative; z-index: 1; width: 18px; height: 18px; border-radius: 50%;
-    display: grid; place-items: center; background: var(--paper-sheet);
+  .thread-tree-row.is-current {
+    background: var(--paper-sheet);
+    box-shadow: inset 0 0 0 1px var(--chrome-hairline);
   }
-  .rail-dot.ring { border: 2px solid var(--graphite-mute); width: 14px; height: 14px; }
-  .rail-dot.fill { border: 2px solid var(--signal-ok); background: var(--signal-ok); }
-  .rail-dot svg { width: 9px; height: 9px; color: var(--paper-sheet); }
-  .run-no { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .03em; color: var(--graphite-mute); }
-  .r-title { font-size: 13px; font-weight: 500; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .derive {
-    font-size: 10.5px; font-weight: 500; color: var(--graphite-fade);
-    background: var(--paper-hover); border-radius: 999px; padding: 1px 8px;
+  .thread-tree-row.is-context { opacity: .82; }
+  .pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 22px; padding: 0 8px; border-radius: 999px;
+    background: var(--state-success-soft); color: var(--state-success);
+    font-size: 11px; font-weight: 600; white-space: nowrap;
   }
-  .r-meta { font-size: 11.5px; color: var(--graphite-fade); margin-top: 4px; display: flex; gap: 6px; flex-wrap: wrap; }
-  .r-state { font-size: 11px; font-weight: 600; }
-  .r-state.wait { color: var(--graphite-soft); }
-  .r-state.pass { color: var(--signal-ok); }
-  .r-state.run { color: var(--azure-seal); }
-  .run .btn { padding: 5px 11px; font-size: 12px; }
+  .pill.is-wait { background: color-mix(in srgb, var(--state-success) 12%, #fff); }
+  .row-title {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-size: 13px; font-weight: 600; letter-spacing: -.01em;
+  }
+  .row-note, .row-meta, .row-frac, .row-chevron {
+    font-size: 11.5px; color: var(--graphite-fade); white-space: nowrap;
+  }
+  .row-chevron { font-size: 16px; color: var(--graphite-mute); }
 
-  .thread.accepted .btn-accept-line { display: none; }
-  .thread.accepted .t-badge { background: var(--signal-ok-soft); color: var(--signal-ok); }
-
-  .t-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 11px; font-weight: 600;
-    border-radius: 999px; padding: 3px 10px 3px 8px;
-    background: var(--paper-hover); color: var(--graphite-soft);
+  .legend {
+    display: grid; grid-template-columns: 1fr; gap: 8px;
+    margin-top: 16px; font-size: 12.5px; line-height: 1.5; color: var(--graphite-soft);
   }
-  .t-badge svg { width: 11px; height: 11px; }
-  .thread-state { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
-
-  /* ---------- 新增项高亮 ---------- */
-  @keyframes flash {
-    0% { background: var(--azure-trace); }
-    100% { background: transparent; }
+  @media (min-width: 860px) {
+    .legend { grid-template-columns: 1fr 1fr; }
   }
-  .fresh { animation: flash 1.6s ease-out 2; }
-
-  /* ---------- 规则说明 ---------- */
-  .rules { margin-top: 34px; padding: 18px 20px; }
-  .rules h3 { font-size: 13px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 12px; }
-  .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-  .rule { display: flex; gap: 10px; }
-  .rule-no {
-    flex: none; width: 20px; height: 20px; border-radius: var(--radius-sm);
-    background: var(--paper-sunken); color: var(--graphite-soft);
-    font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
-    display: grid; place-items: center; margin-top: 1px;
+  .legend div {
+    padding: 10px 12px; border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--paper-sheet) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--chrome-hairline) 80%, transparent);
   }
-  .rule p { font-size: 12.5px; line-height: 1.55; color: var(--graphite-soft); }
-  .rule b { color: var(--graphite-base); font-weight: 600; }
+  .legend b { color: var(--graphite-base); font-weight: 600; }
 
-  .foot-note { margin-top: 22px; font-size: 12px; line-height: 1.6; color: var(--graphite-fade); }
-  .foot-note code { font-family: var(--font-mono); font-size: 11px; background: var(--paper-hover); border-radius: 4px; padding: 1px 5px; }
+  .toast {
+    position: fixed; right: 18px; bottom: 18px;
+    max-width: 320px; padding: 10px 12px;
+    border-radius: var(--radius-md); background: var(--graphite-base); color: var(--paper-sheet);
+    font-size: 12.5px; box-shadow: var(--shadow-soft);
+    opacity: 0; transform: translateY(8px); pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+  .toast.show { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
-<main class="stage">
+<div class="stage">
+  <div class="kicker">Peer · 任务总览 · 结果待验收</div>
+  <h1>一格一线：同一条目标只占一格</h1>
+  <p class="lead">
+    双列结果卡不变。独立目标仍是原样结果卡；OpenRouter 同一 <b>rootPlanId</b> 收成一张卡，
+    外壳绑在最新待签轮，卡内用压缩树表达父子。线性追问共用同一条左边距，不按深度叠台阶。未进队列的「提交 OpenRouter 渠道改动」只出现在树里。
+  </p>
 
-  <header>
-    <p class="eyebrow">产品形态 Demo · Plan 关系可视化</p>
-    <h1>待验收：从平铺卡片，到目标线</h1>
-    <p class="lede">同一份数据的两种呈现。左边是现状——追问产生的新 plan 平铺成孤立卡片，看不出「截图验收工具栏圆角」其实是「统一工具栏圆角」的第二轮；右边按目标线（rootPlanId）归组，一条线里的每一轮派生都能读出来。</p>
-    <div class="demo-controls">
-      <div class="seg" role="tablist">
-        <button id="tab-flat" class="on">平铺 · 现状</button>
-        <button id="tab-thread">目标线 · 提案</button>
-      </div>
-      <button id="btn-sim" class="btn btn-ghost">模拟：用户继续追问</button>
-      <button id="btn-reset" class="btn btn-text">重置 demo</button>
-    </div>
-  </header>
-
-  <!-- ============ 视图 A：平铺（现状） ============ -->
-  <section id="view-flat">
-    <div class="sec-head">
-      <h2>待验收</h2>
-      <span class="count" id="flat-count">2</span>
-      <span class="sub">两项之间看不出任何关系</span>
-    </div>
-
-    <div class="accept-card card" data-flat="r2">
-      <div class="st">
-        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
-        <span class="st-sub">待用户验收</span>
-      </div>
-      <div class="c-body">
-        <div class="c-title">截图验收工具栏圆角</div>
-        <div class="c-meta">
-          <span class="tag-ws">peer-knowledge</span>
-          <span class="chip">3 / 3</span>
-          <span class="chip">耗时 9m24s</span>
-          <span class="chip">12 分钟前</span>
-        </div>
-      </div>
-      <div class="c-acts">
-        <button class="btn btn-ghost">查看</button>
-        <button class="btn btn-primary" data-accept-card>确认验收</button>
+  <section class="panel" aria-label="结果待验收">
+    <div class="panel-head">
+      <div class="panel-title">结果待验收 <span class="count" id="pending-count">8</span></div>
+      <div class="panel-meta">
+        <span>7 张卡 · 6 条独立目标 · 1 条目标线</span>
+        <a href="#">查看历史 &gt;</a>
       </div>
     </div>
 
-    <div class="accept-card card" data-flat="cli">
-      <div class="st">
-        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
-        <span class="st-sub">待用户验收</span>
-      </div>
-      <div class="c-body">
-        <div class="c-title">修复 CLI 冷启动白屏</div>
-        <div class="c-meta">
-          <span class="tag-ws">peer_agent</span>
-          <span class="chip">1 / 1</span>
-          <span class="chip">耗时 6m12s</span>
-          <span class="chip">1 小时前</span>
+    <div class="grid">
+      <article class="result-card is-thread" data-open="对接 OpenRouter 渠道">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">目标线 · 3 轮 · 2 项待签 · 来源 peer-knowledge · 交付 peer_agent</span>
         </div>
-      </div>
-      <div class="c-acts">
-        <button class="btn btn-ghost">查看</button>
-        <button class="btn btn-primary" data-accept-card>确认验收</button>
-      </div>
-    </div>
-
-    <p class="foot-note">↑ 现状：第一轮「统一工具栏圆角」验收通过后已移出列表，它的派生关系随之丢失；新追问生成的 plan 只能靠标题猜。</p>
-  </section>
-
-  <!-- ============ 视图 B：目标线（提案） ============ -->
-  <section id="view-thread" hidden>
-    <div class="sec-head">
-      <h2>待验收</h2>
-      <span class="count">2</span>
-      <span class="sub">1 条目标线 + 1 项独立目标</span>
-    </div>
-
-    <article class="thread card" id="thread">
-      <header class="thread-head">
-        <button class="twirl" data-twirl aria-label="展开/收起">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div>
-          <div class="t-title">统一工具栏圆角</div>
-          <div class="t-meta">
-            <span class="tag-ws">peer-knowledge</span>
-            <span class="chip" id="t-rounds">2 轮</span>
-            <span class="chip" id="t-total">累计 27m24s</span>
-          </div>
+        <h3 id="thread-title">对接 OpenRouter 渠道</h3>
+        <p class="sum" id="thread-sum">6 项标准通过 · 6 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="thread-tree" role="tree" aria-label="OpenRouter 目标线">
+          <button type="button" class="thread-tree-row" role="treeitem" data-title="实测 OpenRouter 连通性" data-sum="4 项标准通过 · 3 项完成 · 无已知风险" data-runtime="GROK 官方 · grok-4.6 · 3m25s · 3 小时前完成">
+            <span class="pill is-wait">等待验收</span>
+            <span class="row-title">实测 OpenRouter 连通性</span>
+            <span class="row-meta">用时 3m25s</span>
+            <span class="row-frac">3/4</span>
+            <span class="row-chevron">›</span>
+          </button>
+          <button type="button" class="thread-tree-row is-child is-context" role="treeitem" data-title="提交 OpenRouter 渠道改动" data-sum="3 项标准通过 · 3 项完成 · 谱系上下文，未进验收队列" data-runtime="GROK 官方 · grok-4.6 · 4m31s · 已完成，未进队列">
+            <span class="pill">已完成</span>
+            <span class="row-title">提交 OpenRouter 渠道改动</span>
+            <span class="row-note">未进队列</span>
+            <span class="row-frac">3/3</span>
+            <span class="row-chevron">›</span>
+          </button>
+          <button type="button" class="thread-tree-row is-current" role="treeitem" aria-current="true" data-title="对接 OpenRouter 渠道" data-sum="6 项标准通过 · 6 项完成 · 无已知风险" data-runtime="GROK 官方 · grok-4.6 · 37m43s · 3 小时前完成">
+            <span class="pill is-wait">等待验收</span>
+            <span class="row-title">对接 OpenRouter 渠道</span>
+            <span class="row-meta">用时 37m43s</span>
+            <span class="row-frac">6/6</span>
+            <span class="row-chevron">›</span>
+          </button>
         </div>
-        <div class="thread-state">
-          <span class="t-badge" id="t-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>
-            <span id="t-badge-text">验收 · 最新一轮</span>
-          </span>
-          <span class="st-sub">待用户验收</span>
+        <div class="card-foot">
+          <span class="runtime" id="thread-runtime">GROK 官方 · grok-4.6 · 37m43s · 3 小时前完成</span>
+          <button type="button" class="btn-view" data-open="对接 OpenRouter 渠道">查看结果</button>
         </div>
-        <div class="t-acts">
-          <button class="btn btn-ghost">查看</button>
-          <button class="btn btn-primary btn-accept-line" data-accept-thread>验收整条线</button>
+      </article>
+
+      <article class="result-card" data-open="执行器自动补挂父计划">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">来源 peer-knowledge · 交付 peer_agent · PeerAgent/0.0.4 · 独立执行环境</span>
         </div>
-      </header>
-
-      <ol class="runs" id="runs">
-        <li class="run" data-run="r1">
-          <span class="rail-dot ring"></span>
-          <span class="run-no">R1</span>
-          <div>
-            <div class="r-title">统一工具栏圆角</div>
-            <div class="r-meta"><span>2 / 2</span><span>·</span><span>耗时 18m00s</span><span>·</span><span>29 分钟前</span></div>
-          </div>
-          <span class="r-state wait" data-state>待验收</span>
-          <button class="btn btn-ghost">查看</button>
-        </li>
-        <li class="run" data-run="r2">
-          <span class="rail-dot ring"></span>
-          <span class="run-no">R2</span>
-          <div>
-            <div class="r-title">截图验收工具栏圆角 <span class="derive">↳ 追问派生</span></div>
-            <div class="r-meta"><span>3 / 3</span><span>·</span><span>耗时 9m24s</span><span>·</span><span>12 分钟前</span></div>
-          </div>
-          <span class="r-state wait" data-state>待验收</span>
-          <button class="btn btn-ghost">查看</button>
-        </li>
-      </ol>
-    </article>
-
-    <div class="accept-card card" data-flat="cli2">
-      <div class="st">
-        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
-        <span class="st-sub">待用户验收 · 独立目标</span>
-      </div>
-      <div class="c-body">
-        <div class="c-title">修复 CLI 冷启动白屏</div>
-        <div class="c-meta">
-          <span class="tag-ws">peer_agent</span>
-          <span class="chip">1 / 1</span>
-          <span class="chip">耗时 6m12s</span>
-          <span class="chip">1 小时前</span>
+        <h3>执行器自动补挂父计划</h3>
+        <p class="sum">3 项标准通过 · 3 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="card-foot">
+          <span class="runtime">GROK 官方 · grok-4.6 · 4m49s · 28 分钟前完成</span>
+          <button type="button" class="btn-view">查看结果</button>
         </div>
-      </div>
-      <div class="c-acts">
-        <button class="btn btn-ghost">查看</button>
-        <button class="btn btn-primary" data-accept-card>确认验收</button>
-      </div>
-    </div>
+      </article>
 
-    <p class="foot-note">↑ 提案：追问不再生成平级新卡片，而是挂进同一条目标线成为新一轮（R2、R3…）；旧轮次保留为时间轴，验收可以按「整条线」一键完成。</p>
-  </section>
+      <article class="result-card" data-open="目标线 P0：追问自动挂靠父计划">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">peer-knowledge · 目标分支未确认</span>
+        </div>
+        <h3>目标线 P0：追问自动挂靠父计划</h3>
+        <p class="sum">5 项标准通过 · 5 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="card-foot">
+          <span class="runtime">GROK 官方 · grok-4.6 · 10m19s · 46 分钟前完成</span>
+          <button type="button" class="btn-view">查看结果</button>
+        </div>
+      </article>
 
-  <!-- ============ 规则 ============ -->
-  <section class="rules card">
-    <h3>背后的准入契约（P0，先于任何 UI）</h3>
-    <div class="rules-grid">
-      <div class="rule">
-        <span class="rule-no">1</span>
-        <p><b>验收前追问</b> → 同一 Plan 续接，不新增卡片、不新增轮次。</p>
-      </div>
-      <div class="rule">
-        <span class="rule-no">2</span>
-        <p><b>验收后追问且主题延续</b> → 新 Plan 必须带 <code style="font-family:var(--font-mono);font-size:11px">parentPlanId</code>，落进同一目标线成为新一轮。</p>
-      </div>
-      <div class="rule">
-        <span class="rule-no">3</span>
-        <p><b>明确的新需求</b> → 才允许新建顶层目标线。</p>
-      </div>
+      <article class="result-card" data-open="恢复 stash 并修复工作区块消失回回">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">peer-knowledge · 目标分支未确认</span>
+        </div>
+        <h3>恢复 stash 并修复工作区块消失回回</h3>
+        <p class="sum">4 项标准通过 · 4 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="card-foot">
+          <span class="runtime">GROK 官方 · grok-4.6 · 17m21s · 2 小时前完成</span>
+          <button type="button" class="btn-view">查看结果</button>
+        </div>
+      </article>
+
+      <article class="result-card" data-open="目标线（Goal Thread）全链路落地">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">peer-knowledge · 目标分支未确认</span>
+        </div>
+        <h3>目标线（Goal Thread）全链路落地</h3>
+        <p class="sum">5 项标准通过 · 5 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="card-foot">
+          <span class="runtime">GROK 官方 · grok-4.6 · 21m16s · 2 小时前完成</span>
+          <button type="button" class="btn-view">查看结果</button>
+        </div>
+      </article>
+
+      <article class="result-card" data-open="更新官网两页叙事">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">来源 peer-knowledge · 交付 peer_agent · PeerAgent/0.0.4 · 独立执行环境</span>
+        </div>
+        <h3>更新官网两页叙事</h3>
+        <p class="sum">3 项标准通过 · 3 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="card-foot">
+          <span class="runtime">QODER CLI · GLM-5.3 · 8m18s · 2 小时前完成</span>
+          <button type="button" class="btn-view">查看结果</button>
+        </div>
+      </article>
+
+      <article class="result-card" data-open="重写双语产品说明文档">
+        <div class="card-top">
+          <span class="state"><i>✓</i>等待验收</span>
+          <span class="route">来源 peer-knowledge · 交付 peer_agent · PeerAgent/0.0.4 · 独立执行环境</span>
+        </div>
+        <h3>重写双语产品说明文档</h3>
+        <p class="sum">5 项标准通过 · 5 项完成 · 无已知风险</p>
+        <div class="bar" aria-hidden="true"><i style="width:100%"></i></div>
+        <div class="card-foot">
+          <span class="runtime">QODER CLI · GLM-5.3 · 13m57s · 3 小时前完成</span>
+          <button type="button" class="btn-view">查看结果</button>
+        </div>
+      </article>
     </div>
   </section>
 
-  <p class="foot-note">Demo 数据映射真实关系：<code>统一工具栏圆角</code>（rootPlanId = 自身）→ <code>截图验收工具栏圆角</code>（parentPlanId = 前者，relationType = derived）。投影层只需把这四个字段从 <code>GoalPlanProjectionSnapshot</code> 透传出来，UI 即可分组；历史数据缺字段时自然降级为平铺。</p>
-
-</main>
-
+  <div class="legend">
+    <div><b>计数仍是 8 轮。</b>顶栏 8 是待签轮次：OpenRouter 里 2 轮待签 + 6 张独立卡。少一张卡，不是少一轮。</div>
+    <div><b>树不是再画三张结果卡。</b>提交节点从未进入验收队列，只作为子 plan 出现在压缩树里。</div>
+    <div><b>主按钮只打开当前待签轮。</b>点某一行的 › 才切到那一轮；默认绑在「对接 OpenRouter 渠道」。</div>
+    <div><b>独立目标不加线头。</b>只有 ≥2 个 plan 的同一 rootPlanId 才收成一格，避免「目标线 · 1 轮」空包。</div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
 <script>
-  const $ = (s, el = document) => el.querySelector(s);
-  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const toast = document.getElementById('toast');
+  const titleEl = document.getElementById('thread-title');
+  const sumEl = document.getElementById('thread-sum');
+  const runtimeEl = document.getElementById('thread-runtime');
+  const threadBtn = document.querySelector('.is-thread .btn-view');
+  let hideTimer = 0;
 
-  /* ----- 视图切换 ----- */
-  const tabFlat = $('#tab-flat'), tabThread = $('#tab-thread');
-  const viewFlat = $('#view-flat'), viewThread = $('#view-thread');
-  function showView(mode) {
-    const flat = mode === 'flat';
-    viewFlat.hidden = !flat; viewThread.hidden = flat;
-    tabFlat.classList.toggle('on', flat); tabThread.classList.toggle('on', !flat);
-  }
-  tabFlat.addEventListener('click', () => showView('flat'));
-  tabThread.addEventListener('click', () => showView('thread'));
-
-  /* ----- 展开 / 收起 ----- */
-  $$('[data-twirl]').forEach(btn => btn.addEventListener('click', () => {
-    $('#thread').classList.toggle('closed');
-  }));
-
-  /* ----- 单卡验收（平铺行为） ----- */
-  $$('[data-accept-card]').forEach(btn => btn.addEventListener('click', () => {
-    const card = btn.closest('.accept-card');
-    card.classList.add('accepted');
-    card.querySelector('.st-sub').textContent = '已通过验收';
-    refreshFlatCount();
-  }));
-
-  function refreshFlatCount() {
-    const pending = $$('#view-flat .accept-card:not(.accepted)').length;
-    $('#flat-count').textContent = pending;
+  function showToast(text) {
+    toast.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => toast.classList.remove('show'), 1800);
   }
 
-  /* ----- 验收整条线 ----- */
-  $('[data-accept-thread]').addEventListener('click', () => {
-    const thread = $('#thread');
-    thread.classList.add('accepted');
-    $('#t-badge-text').textContent = '已通过';
-    thread.querySelector('.st-sub').textContent = '2 轮全部验收';
-    $$('#runs .run').forEach(run => {
-      const dot = run.querySelector('.rail-dot');
-      dot.className = 'rail-dot fill';
-      dot.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M4 12.5l5 5L20 7"/></svg>';
-      const state = run.querySelector('[data-state]');
-      state.textContent = '已通过'; state.className = 'r-state pass';
+  function openResult(name) {
+    showToast('打开结果：' + name);
+  }
+
+  document.querySelectorAll('.result-card').forEach((card) => {
+    card.querySelector('.btn-view')?.addEventListener('click', () => {
+      openResult(card.dataset.open || card.querySelector('h3')?.textContent || '结果');
     });
-    $('#t-rounds').textContent = '2 轮 · 全部通过';
   });
 
-  /* ----- 模拟：用户继续追问 ----- */
-  let simUsed = false;
-  $('#btn-sim').addEventListener('click', () => {
-    if (simUsed) return;
-    simUsed = true;
-    $('#btn-sim').textContent = '已生成 R3（切到另一视图看差异）';
-
-    /* 平铺视图：又多一张孤立卡片 */
-    const card = document.createElement('div');
-    card.className = 'accept-card card fresh';
-    card.innerHTML = `
-      <div class="st">
-        <span class="st-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5 5L20 7"/></svg>验收</span>
-        <span class="st-sub">待用户验收</span>
-      </div>
-      <div class="c-body">
-        <div class="c-title">把工具栏圆角从 12px 调到 10px</div>
-        <div class="c-meta">
-          <span class="tag-ws">peer-knowledge</span>
-          <span class="chip">5 / 5</span>
-          <span class="chip">耗时 4m05s</span>
-          <span class="chip">刚刚</span>
-        </div>
-      </div>
-      <div class="c-acts">
-        <button class="btn btn-ghost">查看</button>
-        <button class="btn btn-primary" data-accept-card>确认验收</button>
-      </div>`;
-    card.querySelector('[data-accept-card]').addEventListener('click', () => {
-      card.classList.add('accepted');
-      card.querySelector('.st-sub').textContent = '已通过验收';
-      refreshFlatCount();
+  document.querySelectorAll('.thread-tree-row').forEach((row) => {
+    row.addEventListener('click', () => {
+      document.querySelectorAll('.thread-tree-row').forEach((item) => {
+        item.classList.toggle('is-current', item === row);
+        item.toggleAttribute('aria-current', item === row);
+      });
+      titleEl.textContent = row.dataset.title;
+      sumEl.textContent = row.dataset.sum;
+      runtimeEl.textContent = row.dataset.runtime;
+      threadBtn.dataset.open = row.dataset.title;
+      threadBtn.closest('.result-card').dataset.open = row.dataset.title;
+      openResult(row.dataset.title);
     });
-    viewFlat.insertBefore(card, viewFlat.querySelector('.accept-card'));
-    refreshFlatCount();
-
-    /* 目标线视图：同一条线多一轮 */
-    const run = document.createElement('li');
-    run.className = 'run fresh';
-    run.innerHTML = `
-      <span class="rail-dot ring"></span>
-      <span class="run-no">R3</span>
-      <div>
-        <div class="r-title">把工具栏圆角从 12px 调到 10px <span class="derive">↳ 追问派生</span></div>
-        <div class="r-meta"><span>5 / 5</span><span>·</span><span>耗时 4m05s</span><span>·</span><span>刚刚</span></div>
-      </div>
-      <span class="r-state wait" data-state>待验收</span>
-      <button class="btn btn-ghost">查看</button>`;
-    $('#runs').appendChild(run);
-    $('#t-rounds').textContent = '3 轮';
-    $('#t-total').textContent = '累计 31m29s';
-    $('#thread').classList.remove('closed');
   });
-
-  /* ----- 重置 ----- */
-  $('#btn-reset').addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>

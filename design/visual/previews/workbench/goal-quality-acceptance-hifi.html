@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Peer · 质量验收高保真稿</title>
+<style>
+:root{
+  --chrome-canvas:#11141A;--chrome-raised:#181C24;--chrome-sunken:#0C0F14;--chrome-hover:#1E232C;--chrome-hairline:#2A303B;
+  --za-app-bg:#11141A;--za-surface-0:#1E232C;--za-surface-1:#181C24;--za-line:#2A303B;--za-line-strong:#494D58;
+  --za-text:#EDF1F6;--za-text-soft:#B0B4BC;--za-text-muted:#7B7F8A;--za-text-faint:#494D58;
+  --azure-seal:#5D9CBF;--state-success:#6EAA9B;--state-warn:#C9A36A;--state-danger:#AA6E80;
+  --radius:14px;--shadow:0 1px 2px rgba(0,0,0,.30),0 12px 30px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--chrome-canvas);color:var(--za-text);font:13px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",sans-serif}
+.app{min-height:100vh;display:grid;grid-template-columns:220px 1fr}
+.side{padding:18px 14px;border-right:1px solid var(--chrome-hairline);background:var(--chrome-sunken)}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;margin:8px 8px 22px}
+.mark{width:22px;height:22px;border-radius:7px;background:linear-gradient(145deg,#3d6e8e,#5d9cbf)}
+.nav{display:grid;gap:4px}.nav b{display:block;padding:8px 10px;border-radius:8px;color:var(--za-text-muted);font-weight:500}
+.nav b.on{background:var(--chrome-hover);color:var(--za-text)}
+.main{min-width:0;padding:28px 36px 80px}
+.kicker{color:var(--za-text-muted);font-size:11px;letter-spacing:.04em;margin-bottom:8px}
+h1{font-size:28px;font-weight:620;margin:0 0 6px;letter-spacing:-.03em}
+.lede{color:var(--za-text-soft);max-width:46rem;margin:0 0 28px}
+.stats{display:flex;gap:28px;margin:0 0 28px;color:var(--za-text-muted);font-size:12px}
+.stats strong{color:var(--za-text);font-size:18px;margin-right:6px}
+.section{margin:0 0 28px}
+.section h2{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:620;margin:0 0 12px}
+.count{min-width:18px;height:18px;padding:0 6px;border-radius:999px;background:var(--chrome-hover);color:var(--za-text-soft);font-size:11px;display:inline-grid;place-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,28rem),1fr));gap:12px}
+.card{background:var(--za-surface-0);border:1px solid color-mix(in srgb,var(--za-line) 78%,transparent);border-radius:var(--radius);padding:14px 16px 12px;box-shadow:var(--shadow);min-width:0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.state{display:flex;align-items:center;gap:7px;color:var(--za-text-soft);font-size:12px}
+.dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--azure-seal)}
+.dot.spin{border-top-color:transparent;animation:spin .9s linear infinite}
+.dot.ok{background:color-mix(in srgb,#3f9a6f 18%,var(--za-surface-0));border-color:#3f9a6f;color:#6EAA9B;font-size:8px;display:grid;place-items:center}
+.dot.warn{border-color:var(--state-warn);background:color-mix(in srgb,var(--state-warn) 18%,transparent)}
+.meta{color:var(--za-text-muted);font-size:11px;white-space:nowrap}
+.card h3{margin:0 0 6px;font-size:16px;font-weight:620}
+.sub{color:var(--za-text-muted);font-size:12px;margin:0 0 4px}
+.plan{color:var(--za-text-muted);font-size:12px;margin:0 0 12px}
+.step{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 0 10px}
+.step-l{display:flex;align-items:center;gap:8px}
+.step i{width:8px;height:8px;border-radius:50%;background:var(--azure-seal);box-shadow:0 0 0 4px color-mix(in srgb,var(--azure-seal) 16%,transparent)}
+.step span{color:var(--za-text-muted);font-size:12px}
+.bar{height:2px;border-radius:99px;background:color-mix(in srgb,var(--za-line) 80%,transparent);overflow:hidden;margin:0 0 12px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#3d6e8e,#5d9cbf)}
+.foot{display:flex;justify-content:flex-end;gap:8px}
+.btn{border:1px solid var(--za-line);background:transparent;color:var(--za-text-soft);border-radius:999px;padding:5px 12px;font:12px/1.2 inherit;cursor:default}
+.btn.primary{background:color-mix(in srgb,#3f9a6f 16%,var(--za-surface-0));border-color:color-mix(in srgb,#3f9a6f 38%,var(--za-line));color:#8ecfb8}
+.btn.ghost{color:var(--za-text-muted)}
+.note{margin:8px 0 12px;padding:8px 10px;border-radius:8px;background:color-mix(in srgb,var(--state-warn) 10%,var(--za-surface-0));color:#d4b57a;font-size:12px}
+.q{margin:8px 0 12px;padding:10px 12px;border-radius:10px;border:1px solid color-mix(in srgb,var(--state-warn) 28%,var(--za-line));background:color-mix(in srgb,var(--state-warn) 8%,var(--za-surface-0))}
+.q b{display:block;margin-bottom:4px}
+.q p{margin:0;color:var(--za-text-muted);font-size:12px}
+.choices{display:grid;gap:6px;margin-top:10px}
+.choice{padding:8px 10px;border-radius:8px;border:1px solid var(--za-line);color:var(--za-text-soft);font-size:12px}
+.drawer{display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start}
+.detail{background:var(--chrome-raised);border:1px solid var(--za-line);border-radius:16px;padding:16px;min-height:280px}
+.detail h4{margin:0 0 12px;font-size:13px}
+.gate{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--za-line);color:var(--za-text-soft);font-size:12px}
+.gate:last-child{border:0}
+.ok{color:var(--state-success)}
+.caption{margin:6px 0 0;color:var(--za-text-faint);font-size:11px}
+.anno{margin:18px 0 0;color:var(--za-text-muted);font-size:12px;max-width:52rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){.app{display:block}.side{display:none}.drawer{grid-template-columns:1fr}.main{padding:20px 16px 48px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="mark"></span>Peer</div>
+    <nav class="nav"><b>首页</b><b class="on">工作台</b><b>对话</b><b>自动化</b></nav>
+  </aside>
+  <main class="main">
+    <div class="kicker">HIGH-FIDELITY · DARK WORKBENCH</div>
+    <h1>今天还有 3 件事需要你过目</h1>
+    <p class="lede">对齐当前工作台深色推进卡。自检发生在「Peer 正在推进」内；可以交卷后进入第三桶「结果待你验收」。卡片主按钮是查看结果；确认验收和还不行只出现在看过结果之后。</p>
+    <div class="stats"><span><strong>1</strong>需要你</span><span><strong>1</strong>正在推进</span><span><strong>1</strong>待验收</span></div>
+
+    <section class="section">
+      <h2>需要你处理 <span class="count">1</span></h2>
+      <div class="grid">
+        <article class="card">
+          <div class="top"><span class="state"><i class="dot warn"></i>需要你</span><span class="meta">执行中 · 无法自判</span></div>
+          <h3>实现 Task 隔离交付</h3>
+          <p class="sub">Peer 已处理完代码层问题，只需你拍一个产品板。</p>
+          <div class="q">
+            <b>取消任务后，尚未交付的改动怎么处理？</b>
+            <p>这是业务选择，不是质检清单。</p>
+            <div class="choices">
+              <div class="choice">保留执行环境，稍后可恢复</div>
+              <div class="choice">立即清理未交付环境</div>
+            </div>
+          </div>
+          <div class="foot"><span class="btn">去处理</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Peer 正在推进 <span class="count">1</span></h2>
+      <div class="grid">
+        <article class="card">
+          <div class="top">
+            <span class="state"><i class="dot spin"></i>正在执行</span>
+            <span class="meta">CHATGPT 订阅 · GPT-5.6 Sol · 7m36s · 6 分钟前</span>
+          </div>
+          <h3>实现 Task 隔离交付</h3>
+          <p class="sub">当前目标 · 正在对照目标和改动检查结果</p>
+          <p class="plan">计划 2 / 3 · Peer 正在推进</p>
+          <div class="step">
+            <div class="step-l"><i></i>复查取消后能不能恢复</div>
+            <span>进行中</span>
+          </div>
+          <div class="bar"><i style="width:68%"></i></div>
+          <div class="foot"><span class="btn ghost">取消</span></div>
+        </article>
+      </div>
+      <p class="caption">与现网推进卡同构：状态点、标题、当前目标、计划进度、步骤、细进度条、取消。自检不另开向导。</p>
+    </section>
+
+    <section class="section">
+      <h2>结果待你验收 <span class="count">1</span></h2>
+      <div class="grid">
+        <article class="card">
+          <div class="top">
+            <span class="state"><i class="dot ok">✓</i>等待验收</span>
+            <span class="meta">READY · 刚刚</span>
+          </div>
+          <h3>实现 Task 隔离交付</h3>
+          <p class="sub">Peer 已自检 · 测试 152 项通过 · 取消后恢复漏了，已补上</p>
+          <p class="plan">3 项完成 · 请先看结果，再决定收不收</p>
+          <div class="bar"><i style="width:100%"></i></div>
+          <div class="foot">
+            <span class="btn primary">查看结果</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>结果详情 · 查看结果后</h2>
+      <div class="drawer">
+        <article class="card">
+          <div class="top"><span class="state"><i class="dot ok">✓</i>等待验收</span><span class="meta">peer_agent</span></div>
+          <h3>实现 Task 隔离交付</h3>
+          <p class="sub">当前目标 · 请确认这是不是你要的</p>
+          <p class="plan">计划 3 / 3 · 已看过结果，可以验收或打回</p>
+          <div class="step"><div class="step-l"><i></i>实现隔离执行与交付绑定</div><span>已完成</span></div>
+          <div class="step"><div class="step-l"><i></i>跑测试并复查改动</div><span>已完成</span></div>
+          <div class="step"><div class="step-l"><i></i>补上取消后恢复，再验过</div><span>已完成</span></div>
+          <div class="note">看过结果之后，才能确认验收或说还不行。还不行打开这条任务对应的会话，在对话里说明哪里不对。</div>
+          <div class="foot">
+            <span class="btn ghost">还不行 · 回到会话</span>
+            <span class="btn primary">确认验收</span>
+          </div>
+        </article>
+        <aside class="detail">
+          <h4>交卷前查过</h4>
+          <div class="gate"><span>对照你的目标</span><b class="ok">主结果有了</b></div>
+          <div class="gate"><span>测试</span><b class="ok">152 / 152 通过</b></div>
+          <div class="gate"><span>改动复查</span><b class="ok">取消后恢复不了，已补上</b></div>
+          <div class="gate"><span>合入后复验</span><b class="ok">已通过</b></div>
+          <p class="caption">取消任务后没法恢复，漏了；已补上再验过。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>已完成</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="top"><span class="state"><i class="dot ok">✓</i>验收完成，任务已圆满结束</span><span class="meta">刚刚</span></div>
+          <h3>实现 Task 隔离交付</h3>
+          <p class="sub">你已确认验收 · resultAcceptance 已写入</p>
+          <p class="plan">3 项标准通过 · 无已知风险</p>
+          <div class="foot"><span class="btn ghost">查看结果</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>还不行之后</h2>
+      <article class="card">
+        <p class="sub">结果收起，焦点回到这条任务的会话输入框。不另开意见表，也不自动代发空消息。</p>
+        <p class="plan">说说哪里不对，Peer 按这句话返工。</p>
+        <div class="q">
+          <b>对话输入已聚焦</b>
+          <p>取消后我希望默认保留环境，不要立刻清掉。</p>
+        </div>
+      </article>
+    </section>
+
+    <p class="anno">第三桶主按钮是查看结果。确认验收仍是收口，但必须先看见结果。还不行打开对应会话，不另开意见表。</p>
+  </main>
+</div>
+</body>
+</html>

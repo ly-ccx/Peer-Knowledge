@@ -1,7 +1,7 @@
 # 真正的 Goal 模式设计：ultrathink + workflow 自驱闭环（完整技术文档）
 
 > 创建时间：2026-06-30
-> 最后更新：2026-07-04
+> 最后更新：2026-08-13
 > 状态：已定稿（Approved）— 首批落地已完成（2026-07-03，三态 ChatMode、wire 值迁移、防偏航 re-anchor/drift/verification gate；ADR 41 已按 B2-b 修订为 plan/goal 批准后执行段合一，共用自驱 Runner）。**自驱编排两切片已落地（2026-07-03）：Slice A（DoD-as-Code：结构化 SuccessCriterion[] + 完成门吃可自动验证 criterion 结果 + 弱 DoD 告警）、Slice B（hooks 阶段一：goal 模式 pre-act 写盘范围守卫 + 不可逆动作逐动作确认）。详见第十八章「实现落地记录」。**
 > 关联代码：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
@@ -9,6 +9,7 @@
 > - `knowledge/specifications/15-goal-plan-lifecycle-governance.md`（生命周期治理 / 防僵尸计划）
 > - `knowledge/specifications/09-high-risk-write-scope.md`（高风险写盘范围）
 > - `design/product/goal-runner-explorer-task-list.md`（Runner + Explorer 实施切片，含现状记录）
+> - `design/product/goal-quality-review-repair-loop.md`（质量评审与自我修复环：完成门之后对照目标与产物再裁判；确认验收仍是收口，不再承担第一轮质检）
 
 ---
 
@@ -29,6 +30,8 @@
 
 Plan 模式以“**批准计划**”为中心；Goal 模式以“**验证完成**”为中心。这是两者最本质的分界。
 
+这里的「满足」分成三层。`verificationGate` 证明过程完成；对照目标与产物的质量评审证明结果够好、可以交卷；有副作用的 Goal 还须用户确认验收，才算完成。详见 `design/product/goal-quality-review-repair-loop.md`。
+
 ### 1.2 与 Plan 模式的根本差异
 
 | 维度 | Plan 模式（现状/正名后） | Goal 模式（本设计） |
@@ -42,7 +45,7 @@ Plan 模式以“**批准计划**”为中心；Goal 模式以“**验证完成*
 | 纠错 | 依赖用户介入 | **自我验证 + 自我纠错** |
 | 子任务调查 | 顺带 | **subagent 并行隔离上下文** |
 | 确定性约束 | Prompt 软约束 | **hooks 式硬约束**（确定性闸门） |
-| 完成依据 | 子任务完成记录 + 审批 | DoD 达标 + Evidence + Verification Gate |
+| 完成依据 | 子任务完成记录 + 审批 | DoD 达标 + Evidence + Verification Gate + 质量评审过线 + 确认验收 |
 
 灵感来源是 Claude Code 的工作流范式（explore-plan-code-commit + subagents + hooks + thinking budget），但落到 Peer Agent 自己的 System Context 分层、`GoalPlan + runner` 状态模型与运行时闸门体系上。
 
@@ -385,6 +388,7 @@ runner **不**做的事：不把每步伪装成用户消息；不绕过权限审
 - 进入 Goal 模式时，目标须附带**可验证的成功标准**（`SuccessCriterion[]`，见 3.3）。
 - 每轮 VERIFY 用工具**实测**成功标准（跑测试 / 跑 lint / 读文件 / 查退出码），以 **Tool Result 作为达标证据**，而非自我断言。这与项目 Evidence discipline 一脉相承。
 - 未达标则带失败证据回循环纠错；达标才允许收口。
+- 完成门通过只等于过程完成。进入待验收前，还须对照原始目标与实际产物做质量评审；不够好就生成修复项再进入 Do。有副作用的 Goal 确认验收仍是收口，但不替代质量评审。详见 `design/product/goal-quality-review-repair-loop.md`。
 
 ### 8.2 Verification Gate（完成前的硬门）
 
