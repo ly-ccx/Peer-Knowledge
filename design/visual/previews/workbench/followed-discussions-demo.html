@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Peer · 关注的讨论 Demo</title>
+<style>
+  :root {
+    --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+    --chrome-canvas: #FAFBFC;
+    --chrome-raised: #F3F5F8;
+    --chrome-sunken: #EBEEF3;
+    --chrome-hover: #E7EBF0;
+    --chrome-hairline: #E2E6EC;
+    --paper-base: #FFFFFF;
+    --paper-sunken: #F4F6F8;
+    --graphite-base: #1C2430;
+    --graphite-soft: #5B6573;
+    --graphite-mute: #8A93A0;
+    --graphite-fade: #A8B0BA;
+    --accent: #2F6FED;
+    --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+    --green: #2F7D57;
+    --amber: #9A6B12;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 2px rgba(28, 36, 48, .04), 0 8px 24px rgba(28, 36, 48, .04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--graphite-base);
+    background:
+      radial-gradient(900px 420px at 12% -10%, rgba(47,111,237,.06), transparent 60%),
+      var(--chrome-canvas);
+  }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .page { max-width: 1180px; margin: 0 auto; padding: 28px 28px 80px; }
+
+  .hero { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; margin-bottom: 18px; }
+  .eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--graphite-mute); font-weight: 600; }
+  h1 { font-size: 26px; letter-spacing: -.03em; margin: 6px 0 8px; }
+  .lead { max-width: 640px; color: var(--graphite-soft); }
+  .file { font-size: 12px; color: var(--graphite-mute); }
+  .file code { font-size: 11.5px; background: var(--chrome-raised); padding: 2px 6px; border-radius: 6px; }
+
+  .scenes { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 14px; }
+  .scene {
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--chrome-hairline);
+    background: var(--paper-base);
+    color: var(--graphite-soft);
+  }
+  .scene.is-on { background: var(--graphite-base); border-color: var(--graphite-base); color: #fff; }
+
+  .note {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 12px; margin-bottom: 22px;
+    border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md);
+    background: var(--paper-base); color: var(--graphite-soft);
+  }
+  .note b { color: var(--graphite-base); font-weight: 600; }
+
+  .legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 22px; }
+  .legend article {
+    padding: 12px 14px; border-radius: var(--radius-md);
+    background: var(--paper-base); border: 1px solid var(--chrome-hairline);
+  }
+  .legend h3 { font-size: 13px; margin-bottom: 4px; }
+  .legend p { color: var(--graphite-soft); font-size: 12.5px; }
+
+  .home {
+    padding: 22px 22px 16px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(250,251,252,.92));
+    border: 1px solid rgba(226,230,236,.9);
+    box-shadow: var(--shadow);
+  }
+  .home-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .home-head h2 { font-size: 18px; letter-spacing: -.02em; }
+  .home-head span { color: var(--graphite-mute); font-size: 12px; }
+
+  .home-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(240px, .82fr);
+    gap: 22px;
+    align-items: start;
+  }
+  .home-main, .home-side { min-width: 0; }
+  .home-side {
+    padding: 14px 14px 10px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--chrome-raised) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--chrome-hairline) 80%, transparent);
+  }
+
+  .bucket { margin-bottom: 18px; }
+  .bucket:last-child { margin-bottom: 0; }
+  .sec-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .sec-head h3 { font-size: 14.5px; }
+  .count {
+    min-width: 20px; height: 20px; padding: 0 6px;
+    border-radius: 999px; background: var(--chrome-sunken);
+    color: var(--graphite-soft); font-size: 11px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .all {
+    margin-left: auto; color: var(--graphite-mute); font-size: 12px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .all:hover { color: var(--accent); }
+  .sec-head.is-minor h3 { color: var(--graphite-soft); font-weight: 600; font-size: 13px; }
+
+  .action-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .action-row .bucket { margin-bottom: 0; }
+  .task-grid, .disc-grid { display: grid; gap: 12px; }
+  .task-grid, .action-row .task-grid { grid-template-columns: minmax(0, 1fr); }
+  .disc-grid { grid-template-columns: 1fr; }
+
+  .follow-list, .unread-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .task, .disc {
+    min-height: 128px; padding: 14px 14px 12px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--chrome-hairline);
+    background: var(--paper-base);
+    display: flex; flex-direction: column;
+  }
+  .task { min-height: 142px; }
+
+  .follow-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 12px;
+    row-gap: 2px;
+    align-items: center;
+    min-height: 52px;
+    padding: 9px 11px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--chrome-hairline);
+    background: var(--paper-base);
+  }
+  .follow-row h4 { grid-column: 1; grid-row: 1; }
+  .follow-row .follow-meta { grid-column: 1; grid-row: 2; }
+  .follow-row .ghost { grid-column: 2; grid-row: 1 / span 2; margin-right: 0; }
+  .follow-row .go { grid-column: 3; grid-row: 1 / span 2; }
+  .unread-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--chrome-hairline);
+    background: color-mix(in srgb, var(--paper-base) 70%, transparent);
+  }
+  .unread-dot { grid-column: 1; grid-row: 1 / span 2; }
+  .unread-row h4 { grid-column: 2; grid-row: 1; }
+  .unread-row .unread-meta { grid-column: 2; grid-row: 2; }
+  .unread-row .go { grid-column: 3; grid-row: 1 / span 2; }
+  .follow-row h4, .unread-row h4 {
+    font-size: 13px; letter-spacing: -.01em; line-height: 1.35;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .follow-meta, .unread-meta {
+    color: var(--graphite-mute); font-size: 12px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .unread-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .kicker { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--graphite-mute); font-size: 12px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 500;
+    background: var(--paper-sunken); color: var(--graphite-soft);
+  }
+  .pill i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .45; }
+  .pill.is-unread { color: var(--accent); background: var(--accent-soft); }
+  .pill.is-unread i { opacity: 1; background: var(--accent); }
+  .pill.is-you { color: var(--amber); background: #F8F1DE; }
+  .pill.is-you i { opacity: 1; background: var(--amber); }
+  .pill.is-run { color: var(--green); background: #E7F4ED; }
+  .pill.is-run i { opacity: 1; background: var(--green); }
+  .task h4, .disc h4 {
+    margin: 12px 0 0; font-size: 14px; letter-spacing: -.015em; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .why { margin-top: 6px; color: var(--graphite-soft); font-size: 12.5px; }
+  .foot { margin-top: auto; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .ws { color: var(--graphite-mute); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .go { color: var(--accent); font-weight: 600; font-size: 12.5px; }
+  .ghost { color: var(--graphite-mute); font-size: 12px; margin-right: 8px; }
+  .ghost:hover { color: var(--graphite-base); }
+  .empty {
+    padding: 14px; border: 1px dashed var(--chrome-hairline); border-radius: var(--radius-md);
+    color: var(--graphite-mute); text-align: center; font-size: 12.5px;
+  }
+  .side-empty { padding: 10px 2px 6px; color: var(--graphite-mute); font-size: 12.5px; }
+
+  .wrong { outline: 1px dashed #C9842A; outline-offset: 4px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(12px);
+    background: var(--graphite-base); color: #fff; padding: 10px 14px; border-radius: 999px;
+    opacity: 0; pointer-events: none; transition: .2s ease;
+  }
+  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 960px) {
+    .legend, .action-row { grid-template-columns: 1fr; }
+    .home-layout { grid-template-columns: 1fr; }
+    .hero { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Workbench projection</div>
+        <h1>关注的讨论</h1>
+        <p class="lead">主区域仍是行动权三桶；关注进主区，但做成一行一条的紧凑列表。正在讨论留在次级区，收成瘦未读条，避免大卡把下面顶没。</p>
+      </div>
+      <p class="file">演示稿 · 不改产品代码<br><code>design/visual/previews/workbench/followed-discussions-demo.html</code></p>
+    </div>
+
+    <div class="scenes" id="scenes"></div>
+    <div class="note" id="note"></div>
+
+    <div class="legend">
+      <article>
+        <h3>主区域 · 任务三桶</h3>
+        <p>系统判定下一步在谁手里。同一会话一旦进桶，讨论区不再出现。</p>
+      </article>
+      <article>
+        <h3>主区域 · 关注的讨论</h3>
+        <p>你声明这条线还开着。读完还在；用紧凑列表，不和三桶抢大卡。</p>
+      </article>
+      <article>
+        <h3>次级区 · 正在讨论</h3>
+        <p>只收未关注、未进桶的未读。瘦条提醒，读完离开，无未读则整块隐藏。</p>
+      </article>
+    </div>
+
+    <section class="home" id="home"></section>
+  </div>
+  <div class="toast" id="toast"></div>
+
+<script>
+const SCENES = [
+  { id: "split", label: "日常分流" },
+  { id: "followUnread", label: "关注有未读" },
+  { id: "promoted", label: "升级成任务" },
+  { id: "quiet", label: "没有讨论墙" },
+  { id: "oldWall", label: "错误对照：已读墙" },
+];
+
+const NOTES = {
+  split: "<b>日常分流。</b> 左侧主区：三桶 + 关注列表。右侧次级区只剩一条未读瘦条。侧边栏置顶了 10 条，不会灌进首页。",
+  followUnread: "<b>关注优先于未读入口。</b> 「决策状态口径」有了新回复，只在主区关注列表打未读，不进右侧「正在讨论」。点打开后角标消失，这一行还在。",
+  promoted: "<b>任务桶优先。</b> 这条线已经变成委托，只出现在「Peer 正在推进」。关注订阅还在，但首页不再双开。",
+  quiet: "<b>可整块隐藏。</b> 没有未读、也没有关注时，主区只剩三桶，次级区整块不出现。不要用最近会话填空。",
+  oldWall: "<b>这是现状对照，不是方案。</b> 次级区用三张已读大卡，下面立刻被顶没。方案禁止这种投影。",
+};
+
+const BASE = [
+  { id: "approve", title: "验收文案再收一版", why: "计划已给出，等你确认范围", ws: "peer-knowledge", time: "8 分钟前", actionRight: "needs_you", followed: false, unread: false, pinned: false },
+  { id: "tests", title: "补齐投影互斥测试", why: "正在写 task-overview 用例", ws: "peer_agent", time: "进行中", actionRight: "peer_advancing", followed: false, unread: false, pinned: false },
+  { id: "result", title: "工作树交付结果", why: "12 个文件待你验收", ws: "peer_agent", time: "刚完成", actionRight: "result_ready", followed: false, unread: false, pinned: false },
+  { id: "green", title: "这个为什么会有一圈绿色？", why: "", ws: "peer-knowledge", time: "46 分钟前", actionRight: null, followed: false, unread: true, pinned: false },
+  { id: "remote", title: "远程连接方案怎么落地", why: "", ws: "peer-knowledge", time: "昨天", actionRight: null, followed: true, unread: false, pinned: true },
+  { id: "decision", title: "决策状态口径还要对齐", why: "", ws: "peer-knowledge", time: "3 天前", actionRight: null, followed: true, unread: false, pinned: false },
+  { id: "noise1", title: "思考一下远程连接怎么做，你可以联…", why: "", ws: "peer-knowledge", time: "11 小时前", actionRight: null, followed: false, unread: false, pinned: true },
+  { id: "noise2", title: "这个明明在跑，为什么是决策状态？", why: "", ws: "peer-knowledge", time: "11 小时前", actionRight: null, followed: false, unread: false, pinned: true },
+];
+
+let scene = "split";
+let items = [];
+
+const $ = (id) => document.getElementById(id);
+
+function clone(list) { return list.map((x) => ({ ...x })); }
+
+function applyScene(id) {
+  scene = id;
+  items = clone(BASE);
+  if (id === "followUnread") {
+    items = items.map((x) => x.id === "decision" ? { ...x, unread: true, time: "刚刚" } : x);
+  }
+  if (id === "promoted") {
+    items = items.map((x) => x.id === "decision"
+      ? { ...x, actionRight: "peer_advancing", why: "已创建计划，正在拆步骤", time: "进行中" }
+      : x);
+  }
+  if (id === "quiet") {
+    items = items.map((x) => (x.id === "green" || x.id === "remote" || x.id === "decision")
+      ? { ...x, unread: false, followed: false }
+      : x);
+  }
+  render();
+}
+
+function homeOf(item) {
+  if (item.actionRight) return item.actionRight;
+  if (scene === "oldWall") {
+    if (!item.actionRight) return "old_wall";
+  }
+  if (item.followed) return "followed";
+  if (item.unread) return "unread";
+  return null;
+}
+
+function toast(text) {
+  const el = $("toast");
+  el.textContent = text;
+  el.classList.add("on");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove("on"), 2200);
+}
+
+function openItem(id) {
+  const item = items.find((x) => x.id === id);
+  if (!item) return;
+  if (scene === "oldWall") {
+    toast("旧墙上点开也不会改变投影，已读卡还在。");
+    return;
+  }
+  if (item.unread) {
+    item.unread = false;
+    if (item.followed) toast("已读。关注列表这一行还在，只去掉未读角标。");
+    else toast("已读。次级区「正在讨论」不再收这条。");
+    render();
+    return;
+  }
+  toast(item.followed ? "打开长期讨论。读完它仍留在主区关注列表。" : "打开任务。");
+}
+
+function unfollow(id) {
+  const item = items.find((x) => x.id === id);
+  if (!item) return;
+  item.followed = false;
+  toast("已取消关注。会话还在，只是离开主区关注列表。");
+  render();
+}
+
+function pill(item, kind) {
+  if (kind === "needs_you") return '<span class="pill is-you"><i></i>需要你</span>';
+  if (kind === "peer_advancing") return '<span class="pill is-run"><i></i>推进中</span>';
+  if (kind === "result_ready") return '<span class="pill"><i></i>待验收</span>';
+  if (item.unread) return '<span class="pill is-unread"><i></i>未读</span>';
+  if (kind === "old_wall") return '<span class="pill"><i></i>已读</span>';
+  return "";
+}
+
+function card(item, kind) {
+  const action = kind === "needs_you" ? "去处理" : kind === "result_ready" ? "查看结果" : "打开";
+  const why = item.why && (kind === "needs_you" || kind === "peer_advancing" || kind === "result_ready")
+    ? `<p class="why">${item.why}</p>` : "";
+  const klass = kind === "needs_you" || kind === "peer_advancing" || kind === "result_ready" ? "task" : "disc";
+  return `
+    <article class="${klass}">
+      <div class="kicker">${pill(item, kind) || "<span></span>"}<time>${item.time}</time></div>
+      <h4>${item.title}</h4>
+      ${why}
+      <div class="foot">
+        <span class="ws">${item.ws}</span>
+        <button class="go" data-open="${item.id}">${action}</button>
+      </div>
+    </article>`;
+}
+
+function followRow(item) {
+  const badge = item.unread ? ' · <span class="pill is-unread"><i></i>未读</span>' : "";
+  return `
+    <article class="follow-row">
+      <h4>${item.title}</h4>
+      <div class="follow-meta">${item.ws} · ${item.time}${badge}</div>
+      <button class="ghost" data-unfollow="${item.id}">取消关注</button>
+      <button class="go" data-open="${item.id}">打开</button>
+    </article>`;
+}
+
+function unreadRow(item) {
+  return `
+    <article class="unread-row">
+      <span class="unread-dot" aria-hidden="true"></span>
+      <h4>${item.title}</h4>
+      <div class="unread-meta">${item.ws} · ${item.time}</div>
+      <button class="go" data-open="${item.id}">打开</button>
+    </article>`;
+}
+
+function section(title, count, inner, opts = {}) {
+  if (!inner && opts.hideEmpty) return "";
+  const minor = opts.minor ? " is-minor" : "";
+  const wrong = opts.wrong ? " wrong" : "";
+  const all = opts.all || "";
+  return `
+    <section class="bucket${wrong}">
+      <div class="sec-head${minor}">
+        <h3>${title}</h3>
+        <span class="count">${count}</span>
+        ${all ? `<button class="all" data-all="${opts.allKey || ""}">查看全部 ${all} ›</button>` : ""}
+      </div>
+      ${inner || `<div class="empty">${opts.empty || ""}</div>`}
+    </section>`;
+}
+
+function render() {
+  $("scenes").innerHTML = SCENES.map((s) =>
+    `<button class="scene${s.id === scene ? " is-on" : ""}" data-scene="${s.id}">${s.label}</button>`
+  ).join("");
+  $("note").innerHTML = `<div>${NOTES[scene]}</div>`;
+
+  const grouped = { needs_you: [], peer_advancing: [], result_ready: [], unread: [], followed: [], old_wall: [] };
+  items.forEach((item) => {
+    const home = homeOf(item);
+    if (home && grouped[home]) grouped[home].push(item);
+  });
+
+  const pinnedCount = items.filter((x) => x.pinned).length;
+  const followCount = grouped.followed.length;
+  const unreadCount = grouped.unread.length;
+  const wallCount = grouped.old_wall.length;
+  const preview = (list, n = 3) => list.slice(0, n);
+
+  const followInner = followCount
+    ? `<div class="follow-list">${preview(grouped.followed).map(followRow).join("")}</div>`
+    : "";
+  const unreadInner = unreadCount
+    ? `<div class="unread-list">${preview(grouped.unread, 2).map(unreadRow).join("")}</div>`
+    : "";
+  const wallInner = wallCount
+    ? `<div class="disc-grid">${preview(grouped.old_wall).map((x) => card(x, "old_wall")).join("")}</div>`
+    : "";
+
+  const side = scene === "oldWall"
+    ? section("正在讨论", wallCount, wallInner, { all: 166, allKey: "old", wrong: true, minor: true })
+    : unreadCount
+      ? section("正在讨论", unreadCount, unreadInner, { hideEmpty: true, all: unreadCount > 2 ? unreadCount : "", allKey: "unread", minor: true })
+      : `<p class="side-empty">次级区空着。没有未读时，「正在讨论」整块隐藏，下面露得出来。</p>`;
+
+  $("home").innerHTML = `
+    <div class="home-head">
+      <h2>现在需要关注什么</h2>
+      <span>侧边栏另有置顶 ${pinnedCount} 条 · 不自动进首页</span>
+    </div>
+    <div class="home-layout">
+      <div class="home-main">
+        <div class="action-row">
+          ${section("需要你", grouped.needs_you.length, grouped.needs_you.length ? `<div class="task-grid">${grouped.needs_you.map((x) => card(x, "needs_you")).join("")}</div>` : "", { empty: "没有等你处理的事" })}
+          ${section("Peer 正在推进", grouped.peer_advancing.length, grouped.peer_advancing.length ? `<div class="task-grid">${grouped.peer_advancing.map((x) => card(x, "peer_advancing")).join("")}</div>` : "", { empty: "Peer 此刻没有在推进的任务" })}
+          ${section("结果待验收", grouped.result_ready.length, grouped.result_ready.length ? `<div class="task-grid">${grouped.result_ready.map((x) => card(x, "result_ready")).join("")}</div>` : "", { empty: "没有待验收的结果" })}
+        </div>
+        ${scene === "oldWall" ? "" : section("关注的讨论", followCount, followInner, { hideEmpty: true, all: followCount > 3 ? `${Math.min(followCount, 3)} / ${followCount}` : "", allKey: "followed", minor: true })}
+      </div>
+      <aside class="home-side">${side}</aside>
+    </div>
+  `;
+}
+
+document.addEventListener("click", (e) => {
+  const sceneBtn = e.target.closest("[data-scene]");
+  if (sceneBtn) { applyScene(sceneBtn.dataset.scene); return; }
+  const openBtn = e.target.closest("[data-open]");
+  if (openBtn) { openItem(openBtn.dataset.open); return; }
+  const unBtn = e.target.closest("[data-unfollow]");
+  if (unBtn) { unfollow(unBtn.dataset.unfollow); return; }
+  const allBtn = e.target.closest("[data-all]");
+  if (allBtn) {
+    const key = allBtn.dataset.all;
+    if (key === "old") toast("旧实现把查看全部接到任务页，数字接近全部会话。方案禁止。");
+    else if (key === "unread") toast("查看全部 = 未读沟通列表，不是全部会话。");
+    else if (key === "followed") toast("查看全部 = 已关注列表，最多 8 条。");
+  }
+});
+
+applyScene("split");
+</script>
+</body>
+</html>

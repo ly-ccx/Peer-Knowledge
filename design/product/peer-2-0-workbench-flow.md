@@ -1,14 +1,16 @@
 # Peer 2.0 工作台完整动线与语义
 
 > 创建时间：2026-08-08  
-> 最后更新：2026-08-10（继续讨论 = 会话 Drawer，可关闭）  
+> 最后更新：2026-08-15（交叉引用任务身份收口；零任务给首启空会话让路）  
 > 文档状态：**对齐真源（Work-in-Progress / 与实现对照）**  
 > 适用范围：Desktop 工作台（TaskOverview）、任务抽屉、历史抽屉、会话抽屉、GoalPlan / Automation 行动权投影  
 > 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
 > 关联文档：  
+> - `design/product/first-run-onboarding-guidance.md`（首启主路径是空会话，不是工作台）  
 > - `design/product/peer-2-0-product-system.md`（产品总纲）  
 > - `design/product/peer-2-0-gap-analysis.md`（Gap 与 §11 映射契约）  
-> - `design/visual/previews/peer-2-0/`（高保真原型）
+> - `design/visual/previews/peer-2-0/`（高保真原型）  
+> - `design/product/task-identity-conversation-carrier.md`（身份层：打开的是任务现场，主键仍是 conversationId）
 
 ---
 
@@ -67,6 +69,8 @@
 侧栏不出现「任务 / 历史」一级 tab
 Canvas / Result / Automation 中心不抢工作台主轴
 继续讨论不跳主 Chat，用会话 Drawer 浮层
+零任务时工作台给首启让路：只保留一个「发起任务」入口，不讲 0/0/0
+首启教育落在空会话，工作台仍是日常 Delegation OS 主入口
 ```
 
 ### 2.2 【现状】导航
@@ -549,9 +553,16 @@ Workbench / Result View = 上述事实的操作投影
 
 ## 15. Task 上下文与无计划讨论态
 
+> **【覆盖】2026-08-15**：本节早期把「无 GoalPlan 的 Conversation」也写成 Task，并建议 `actionRight = paused`。这已被 `design/product/task-identity-conversation-carrier.md` 覆盖。
+>
+> - Conversation 仍是**载体主键**，不是用户心智上的任务。
+> - 无 GoalPlan 的沟通只是讨论，最多进「正在讨论」；**不进任务桶，也不标成暂停任务**。
+> - 委托成立（有持久化 GoalPlan / 明确要推进的工作）之后，这条 Conversation 才作为该 Task 的现场。
+> - 不另起 Task 表。下面 15.2–15.5 里与此冲突的句子以身份层为准。
+
 ### 15.1 展示目标
 
-Conversation 既是 Task 的事实身份，也是讨论与执行共享的持续上下文。即使当前没有 GoalPlan，界面也应让用户看见这是一个仍可继续的 Task，而不是用虚构计划填补空白。
+Conversation 是讨论与执行共享的持续上下文。没有 GoalPlan 时，界面应让用户看见这是一段仍可继续的**讨论**，而不是用虚构计划填补空白，也不要把它说成「暂停中的任务」。
 
 ```text
 Conversation / Task
@@ -563,22 +574,22 @@ Conversation / Task
 
 ### 15.2 TaskOverview 投影契约
 
-普通 Conversation 通过既有 TaskOverview 投影 seam 进入工作台，不新增 Task 存储实体：
+无计划 Conversation 可以通过既有 TaskOverview 投影 seam 出现在「正在讨论」，不新增 Task 存储实体：
 
-- `taskId = conversationId`，Task 身份继续由 Conversation 提供；
+- 投影主键仍可用 `conversationId`，这是载体 id，不是「这就是一个 Task」；
 - `source = conversation`，明确它不是 GoalPlan 或 Automation 状态机产物；
-- `actionRight = paused`，表示当前没有 Peer 执行占用行动权；
+- **不要**再标 `actionRight = paused`。无计划沟通没有任务行动权，只是讨论；
 - `statusLabel = 讨论中`，`planProgress` 与 `planSteps` 必须为空；
-- `conversationId` 必须保留，用于任务详情和继续讨论；
-- 同一 Conversation 存在可见 GoalPlan 投影时，Conversation 基础投影必须去重，避免一个 Task 在工作台重复成两张卡；
-- Automation 仍按独立来源投影，不因本规则伪装成 Conversation Task。
+- `conversationId` 必须保留，用于打开讨论现场；
+- 同一 Conversation 存在可见 GoalPlan 投影时，Conversation 基础投影必须去重，且退出「正在讨论」；
+- Automation 仍按独立来源投影，不伪装成 Conversation。
 
 Renderer 只消费聚合后的 `TaskOverviewItem`，不得自行扫描 GoalPlan 判断讨论态。
 
 ### 15.3 标题与详情规则
 
-- Task 标题来自 Conversation 标题，是跨多个 GoalPlan 的稳定标题；
-- GoalPlan 标题只作为 Task 内的“当前目标”或“历史目标”，不得覆盖 Task 标题；
+- 委托成立后，用户可见标题以 GoalPlan.title / 目标线名为准；Conversation 标题只是载体草稿；
+- 无计划讨论继续用 Conversation 标题，不要假装成任务名；
 - 聊天页头部展示轻量 Task 状态与“任务详情”入口；
 - 无计划详情展示“当前没有执行计划”的空态；
 - 有计划详情展示当前 GoalPlan、步骤进度和同一 Conversation 下的历史 GoalPlan；

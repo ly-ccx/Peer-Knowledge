@@ -7,6 +7,8 @@
 > 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 >
 > 验证日期：2026-08-11
+>
+> 身份层补充：`design/product/task-identity-conversation-carrier.md`（委托成立才有 Task 心智；会话仍是载体，不另起 Task 表）
 
 ## 1. 问题与目标
 

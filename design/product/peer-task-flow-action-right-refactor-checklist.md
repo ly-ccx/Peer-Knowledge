@@ -1,9 +1,10 @@
 # 任务流纠偏改造清单（命名 / 首页投影 / 行动权分桶）
 
 > 创建时间：2026-08-09  
-> 最后更新：2026-08-10  
+> 最后更新：2026-08-13  
 > 文档状态：**实现清单（对照 `peer_agent` 现状）**  
 > 产品真源：`design/product/peer-task-flow-action-right-correction.md`  
+> 关注的讨论：`design/product/followed-discussions.md`  
 > 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
 > 对照基线：`design/product/peer-2-0-gap-analysis.md` §11、`peer-2-0-workbench-flow.md`
 
@@ -227,6 +228,32 @@
 
 ---
 
+### P3 — 关注的讨论（另案，不阻塞 P0/P1）
+
+完整规则见 `design/product/followed-discussions.md`。本清单只挂实现入口，避免和「正在讨论」混改。
+
+#### P3-1 未读入口先收口
+
+- **文件**：`TaskOverviewPage.tsx`、`GlobalWorkbenchPage.tsx`、aggregator
+- 「正在讨论」只留 `isUnread &&` 无活跃行动权；已读离开；无未读则隐藏
+- 全局工作台去掉「最近讨论」文案
+- **验收**：不再出现已读卡填满讨论区、三位数会话墙
+
+#### P3-2 独立订阅字段
+
+- **文件**：`packages/conversation-store`
+- 新增 `followedAt` / `followedOrder` + follow / unfollow / reorder
+- **禁止**复用 `pinnedAt`；follow 不得改 `updatedAt` / `lastReadAt`
+- 硬顶 8 条；归档清空字段
+
+#### P3-3 首页主区域关注列表
+
+- 主区域三桶之下增加「关注的讨论」紧凑列表；预览 3 条；查看全部 = 已关注列表
+- 「正在讨论」留在次级区，改成瘦未读条
+- 与任务桶、「正在讨论」互斥（纠偏文档 §7.3）
+
+---
+
 ## 4. 建议落地顺序
 
 ```text
@@ -238,6 +265,7 @@
 6. P1-1 讨论区降级
 7. P1-5/6 验收与 needs_you 文案
 8. P2 协议与提示词
+9. P3-1 未读入口收口后再做 P3-2/P3-3 关注区
 ```
 
 ---
@@ -251,6 +279,9 @@
 | Goal 执行中 | 仅 peer_advancing 一桶一条；「正在讨论」无此会话（即使有未读） |
 | 无任务会话有未读 | 可出现在「正在讨论」；打开读完后消失 |
 | 无任务会话已读 | 不出现在「正在讨论」 |
+| 用户关注一条已读讨论 | 只出现在「关注的讨论」；读完还在；不进「正在讨论」 |
+| 已关注讨论产生未读 | 仍只在关注区打角标，不与「正在讨论」双开 |
+| 第 9 条关注 | 被拒绝；已有 8 条不少 |
 | Goal completed 未验收 | 仅 result_ready；不进历史 |
 | 用户点确认验收 | 离开工作台，进历史 |
 | conversation.title 很脏、plan.title 正常 | 卡片显示 plan.title |
@@ -271,6 +302,7 @@
 - 不把首页做成全部 Goal 仓库
 - 不在本清单内改 Cloud Runtime
 - 不把知识库文档当运行时代码
+- 不把侧边栏 `pinnedAt` 倒进首页冒充关注区（见 `followed-discussions.md`）
 
 ---
 
@@ -310,5 +342,6 @@
 | §4 对象关系 / 一任务一投影 | P1-2, P0-3 |
 | §6 命名规则 | P0-1, P0-2, P0-3, P1-3, P2-2 |
 | §7 首页投影 | P0-4, P1-1, P1-2 |
+| §7.3 关注分流 | P3-1, P3-2, P3-3 |
 | §8 卡片文案 | P0-4, P1-6 |
 | §12 落地顺序 | §4 建议落地顺序 |

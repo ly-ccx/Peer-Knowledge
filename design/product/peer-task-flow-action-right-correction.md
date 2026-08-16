@@ -1,7 +1,7 @@
 # 任务流纠偏：行动权是主轴，不是讨论容器
 
 > 创建时间：2026-08-09  
-> 最后更新：2026-08-10  
+> 最后更新：2026-08-15  
 > 文档状态：**产品纠偏真源（纠偏决策已确认）**  
 > 适用范围：Desktop 工作台首页、任务/历史抽屉、GoalPlan 命名与投影  
 > 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
@@ -10,6 +10,8 @@
 > - `design/product/peer-2-0-workbench-flow.md`（工作台语义与动线）  
 > - `design/product/peer-2-0-gap-analysis.md`（行动权投影映射契约 §11）  
 > - `design/visual/previews/peer-2-0/DESIGN.md`（高保真原型命题）  
+> - `design/product/followed-discussions.md`（关注的讨论：用户订阅的长期沟通线）  
+> - `design/product/task-identity-conversation-carrier.md`（身份层：流转是任务，承载仍是会话）  
 > 配套清单：`design/product/peer-task-flow-action-right-refactor-checklist.md`
 
 ---
@@ -354,14 +356,17 @@ Peer 正在推进
 
 ```text
 同一 conversationId：
-  无活跃行动权 + 有未读 → 可出现在「正在讨论」
-  无活跃行动权 + 已读无新内容 → 不出现在首页讨论区
   有 needs_you / peer_advancing / result_ready / paused → 只出现在对应任务桶
+  无活跃行动权 + 用户已关注 → 只出现在「关注的讨论」（读完也留；未读只打角标）
+  无活跃行动权 + 未关注 + 有未读 → 可出现在「正在讨论」
+  无活跃行动权 + 未关注 + 已读无新内容 → 首页不出现
   terminal（已验收/归档） → 离开工作台，进历史
 ```
 
 去重规则服务于行动权，**不能**反过来定义产品。  
-**一会话一投影**：任务桶优先；任务桶已占有的 conversation，永不并行出现在「正在讨论」。
+**一会话一投影**：任务桶优先；任务桶已占有的 conversation，永不并行出现在「正在讨论」或「关注的讨论」。
+
+「关注的讨论」是用户手选的主区域轻列表，**不是**把「正在讨论」改名，也不是侧边栏置顶上首页。完整方案见 `design/product/followed-discussions.md`。
 
 ---
 
@@ -403,13 +408,16 @@ GoalPlan 0 / 1 · Peer 正在推进
 | `peer-2-0-workbench-flow.md` | 工作台三入口与 `completed≠历史` 仍有效；本文件补强「讨论不得并列主轴」与命名纪律 |
 | `peer-2-0-gap-analysis.md` §11 | 行动权映射契约仍是协议真源；本文件不改映射表，改**产品叙事与首页陈列优先级** |
 | `DESIGN.md`（peer-2-0 原型） | 「行动权迁移做成第一视觉层」继续有效 |
+| `followed-discussions.md` | 长期沟通线的用户订阅层；不改变本文件的三桶主轴与「正在讨论 = 未读入口」 |
+| `task-identity-conversation-carrier.md` | 身份层收口：Task 是心智，Conversation 是载体；不另起 Task 表。无 GoalPlan 的沟通不是任务桶里的「暂停任务」 |
 
 冲突时优先级：
 
 1. **本纠偏文档**（首页主轴 / 命名 / 讨论降级）  
-2. workbench-flow（入口语义与验收分界）  
-3. gap-analysis §11（状态 → actionRight 映射）  
-4. 总纲（品类与闭环）
+2. `task-identity-conversation-carrier.md`（身份层：什么时候才算任务）  
+3. workbench-flow（入口语义与验收分界；§15 中「无计划也是 Task」已被身份层覆盖）  
+4. gap-analysis §11（状态 → actionRight 映射）  
+5. 总纲（品类与闭环）
 
 ---
 
@@ -444,7 +452,8 @@ GoalPlan 0 / 1 · Peer 正在推进
 2. **投影去重**：活跃行动权 conversation 退出「正在讨论」  
 3. **文案**：去掉 GoalPlan 系统腔与「当前目标 · 确认语」  
 4. **分桶**：继续对齐 §11 映射；验收字段补齐（`resultAcceptance`）  
-5. **讨论区定稿**：区块改名「正在讨论」；只投影未读 + 无活跃行动权（§7.2 已定 A） 
+5. **讨论区定稿**：区块改名「正在讨论」；只投影未读 + 无活跃行动权（§7.2 已定 A）  
+6. **关注的讨论**（另案，不阻塞上条）：用户手选的长期沟通线，读完不消失；不得复用 `pinnedAt` 或未读投影。见 `design/product/followed-discussions.md`
 
 详细改造点见：
 
