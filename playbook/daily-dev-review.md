@@ -1,17 +1,17 @@
 # 每日开发进度回顾
 
 创建时间：2026-08-05
-最后更新：2026-08-05
+最后更新：2026-08-17
 
 > 用途：按固定流程回顾「昨天」在 `peer_agent` 与 `peer-knowledge` 的开发进度，产出一页可扫读的进度摘要。
 > 适用场景：晨会前自检、跨日续作、给 Agent 下达「回顾昨天进度」时复用同一格式。
 
 ## 一、覆盖范围
 
-| 仓库 | 本地路径 | 回顾内容 |
+| 仓库 | 本机根目录 | 回顾内容 |
 |---|---|---|
-| `peer_agent` | `/Users/liangyin/Documents/DEV/github/peer_agent` | 产品代码、测试、发版脚本、用户文档站、release notes 等可执行/可交付改动 |
-| `peer-knowledge` | `/Users/liangyin/Documents/MiaoYan/peer-knowledge` | 架构决策、设计文档、规范、Playbook、经验记录等知识改动 |
+| `peer_agent` | 按 `AGENTS.md` 解析为 `$PEER_AGENT_ROOT` | 产品代码、测试、发版脚本、用户文档站、release notes 等可执行/可交付改动 |
+| `peer-knowledge` | 按 `AGENTS.md` 解析为 `$PEER_KNOWLEDGE_ROOT` | 架构决策、设计文档、规范、Playbook、经验记录等知识改动 |
 
 原则：
 
@@ -64,10 +64,18 @@ REVIEW_DATE=$(date -v-1d +%Y-%m-%d)
 echo "REVIEW_DATE=$REVIEW_DATE"
 ```
 
+先按 `AGENTS.md` 解析出两个根目录，再执行后面的命令。不要把解析结果写回本仓库。
+
+```bash
+# 若未导出环境变量：用同级目录或 .peer-workspace.local.json
+: "${PEER_AGENT_ROOT:?set PEER_AGENT_ROOT or resolve the code repo first}"
+: "${PEER_KNOWLEDGE_ROOT:?set PEER_KNOWLEDGE_ROOT or resolve the knowledge repo first}"
+```
+
 ### 4.2 回顾 peer_agent
 
 ```bash
-cd /Users/liangyin/Documents/DEV/github/peer_agent
+cd "$PEER_AGENT_ROOT"
 
 echo "=== peer_agent branch ==="
 git rev-parse --abbrev-ref HEAD
@@ -89,7 +97,7 @@ git diff --stat
 ### 4.3 回顾 peer-knowledge
 
 ```bash
-cd /Users/liangyin/Documents/MiaoYan/peer-knowledge
+cd "$PEER_KNOWLEDGE_ROOT"
 
 echo "=== peer-knowledge branch ==="
 git rev-parse --abbrev-ref HEAD
@@ -195,5 +203,6 @@ Agent 应：跑第四节命令 → 只基于工具输出归纳 → 按「输出�
 
 - `AGENTS.md`（双仓职责与目录约定）
 - `playbook/release-process.md`（发版 SOP；日回顾不替代发版检查）
-- 代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
-- 知识库：`/Users/liangyin/Documents/MiaoYan/peer-knowledge`
+- 代码仓：`https://github.com/ly-ccx/Peer-Agent`（本机根目录按 `AGENTS.md` 解析）
+- 知识库：`https://github.com/ly-ccx/Peer-Knowledge`（本机根目录按 `AGENTS.md` 解析）
+- 入口纪律：`playbook/change-intake.md`

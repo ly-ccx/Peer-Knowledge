@@ -1,19 +1,19 @@
 # Peer Agent 发布流程
 
 创建时间：2026-07-27
-最后更新：2026-08-15
+最后更新：2026-08-17
 
 > 用途：记录 Peer Agent Desktop、CLI 和开放 Runtime 的人工发版 SOP、职责边界与检查清单。
-> 执行型 Skill：`/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
+> 执行型 Skill：代码仓内 `skills/release-process/SKILL.md`（本机根目录按 `AGENTS.md` 解析）
 
 ## 一、仓库职责
 
 Peer Agent 发布涉及两个解耦仓库：
 
-| 仓库 | 本地路径 | 发布职责 |
+| 仓库 | 本机根目录 | 发布职责 |
 |---|---|---|
-| `peer_agent` | `/Users/liangyin/Documents/DEV/github/peer_agent` | 代码、版本戳、测试、构建、release notes、CHANGELOG、根 README 漂移检查、用户文档站、tag、CI 与 GitHub Release |
-| `peer-knowledge` | `/Users/liangyin/Documents/MiaoYan/peer-knowledge` | 架构决策、版本规范、人工发布 SOP、故障经验与运维知识 |
+| `peer_agent` | 按 `AGENTS.md` 解析为 `$PEER_AGENT_ROOT` | 代码、版本戳、测试、构建、release notes、CHANGELOG、根 README 漂移检查、用户文档站、tag、CI 与 GitHub Release |
+| `peer-knowledge` | 按 `AGENTS.md` 解析为 `$PEER_KNOWLEDGE_ROOT` | 架构决策、版本规范、人工发布 SOP、故障经验与运维知识 |
 
 原则：
 
@@ -53,11 +53,7 @@ knowledge/decisions/58-local-skill-scope-and-workspace-mounting.md
 
 ## 三、开始前确认
 
-1. Peer Agent 当前活动工作空间应为：
-
-   ```text
-   /Users/liangyin/Documents/DEV/github/peer_agent
-   ```
+1. Peer Agent 当前活动工作空间应为已解析的代码仓根目录（`$PEER_AGENT_ROOT`），不要把本机绝对路径写进仓库。
 
 2. Skills 页面中的 `release-process` 应出现在“工作空间 · peer_agent”，不得出现在“全局”。
 3. 确认目标版本与通道：
@@ -291,4 +287,5 @@ git push origin v<version>
 - `knowledge/decisions/48-cli-first-class-release.md`
 - `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md`
 - `knowledge/decisions/58-local-skill-scope-and-workspace-mounting.md`
-- `/Users/liangyin/Documents/DEV/github/peer_agent/skills/release-process/SKILL.md`
+- 代码仓 `skills/release-process/SKILL.md`
+- `playbook/change-intake.md`
