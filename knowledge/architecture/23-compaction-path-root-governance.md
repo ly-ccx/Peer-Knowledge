@@ -232,7 +232,7 @@ R5 合同未定型:_compaction marker、compaction 事件 stage、手动/自动�
 
 背景:同会话 Desktop 15% vs CLI 51% 对照暴露两个事实——TUI 无 Layer 1(下一请求真发 255k 全文);而 Desktop microcompact 是「有损截断」(800 字符预览,无回来的路,四类误解风险:中段黑洞、魔数无语义、预览堆积、Layer 2 二次失真)。经用户拍板,按 17 号文档 P1/P2 原设计补完:
 
-1. **Layer 0 通用材料化**(`runtime-node/tool-artifact-store.ts`):超 6000 字符工具输出落盘 `~/.peer-agent/artifacts/<conv>/`,provider 消息只留 `local_tool_result_ref` 骨架(head/tail + keyFindings + suggestedRetrieval + 勿重跑提示);错误结果双倍预览;已是 local_*_ref 的跳过;写盘失败降级 inline。Desktop tool-orchestrator 与 TUI executionContent 同源接入,UI 流不受影响。
+1. **Layer 0 通用材料化**(`runtime-node/tool-artifact-store.ts` + `tool-result-encoder.ts`):无结构输出超 6000 字符落盘 `~/.peer-agent/artifacts/<conv>/`,provider 消息只留 `local_tool_result_ref` 骨架;已是 local_*_ref 的跳过。`read_file` 工作集在 32KB 内 inline,回捞指向工作区路径。TUI 不得把 `output + outputPreview` 捆后再切。Desktop tool-orchestrator 与 TUI `encodeProviderToolResult` 同源,UI 流不受影响。
 2. **Layer 1 单源化**:microcompact 下沉 `runtime-core/microcompact.ts`(含 ref 骨架保留、可回捞线索抽取);Desktop re-export(legacy 块待删);TUI runTurn 发送切片接入,state 保留原文,requestProjection 改发送口径——**两端占用收敛 + CLI 每轮真实节省 ~180k tokens**。
 3. **级联清理**:conversations:delete 同时清理会话 artifact 目录(ADR 34 同口径)。
 

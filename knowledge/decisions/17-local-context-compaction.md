@@ -109,6 +109,8 @@ type LocalToolResultRef = {
 - artifact 是事实承载。
 - summary 是导航，不是事实本体。
 - retrieval command 是恢复能力。
+- **工作集文件读（`read_file` / `local.file.read`）在约 32KB 内保持 inline。** 这是当下事实上下文，不是冷历史。不要把 `output` 和 `outputPreview` 捆成一份 JSON 再按 6000 字符二次材料化。
+- 超大/无结构残留（整仓测试日志、MCP）才走通用兜底落盘。回捞指向 shell stdout 或工作区路径，不要指向 `~/.peer-agent/artifacts/**/tool-tui-tool-*.txt`。
 
 ### 3.2 Microcompact 历史工具结果
 
@@ -283,6 +285,8 @@ Local compaction 的摘要不是越像自然语言越好，而是越可恢复越
 - UI 可展开 artifact preview。
 
 （2026-07-24 落地：shell/file/batch_search 早已有结构化 local_*_ref 落盘体系；本日补齐「其余大输出」的通用兜底材料化 —— `runtime-node tool-artifact-store`：超阈值输出落盘 `~/.peer-agent/artifacts/<conversationId>/`，provider 消息只留 `local_tool_result_ref` 骨架（head/tail 预览 + keyFindings + suggestedRetrieval + 勿重跑提示）；错误结果双倍预览；写盘失败降级 inline 交给 Layer 1；会话删除级联清理。Desktop tool-orchestrator 与 TUI executionContent 同源接入，UI 展示流不受影响。）
+
+（2026-08-18 澄清：TUI `executionContent` 曾把 `output + outputPreview` 整包再切，导致一次普通源文件读也落成 `tool-tui-tool-N.txt`，模型下一轮去 sed 自家 JSON。现经 `encodeProviderToolResult`：已是 `local_*_ref` 原样通过；`read_file` 工作集 inline 至 32KB；shell 日志仍 4KB 预览并回捞 shell artifact。兜底材料化只服务无结构大输出。）
 
 ### P2：引入 microcompact
 
