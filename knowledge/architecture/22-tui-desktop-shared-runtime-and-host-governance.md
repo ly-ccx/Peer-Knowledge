@@ -1,7 +1,7 @@
 # TUI 与 Desktop 共享运行时与宿主治理
 
 创建时间：2026-07-23  
-最后更新：2026-07-25
+最后更新：2026-08-18
 状态：架构总览 / 长期治理基线  
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 
@@ -24,6 +24,7 @@
 - `knowledge/specifications/06-version-management.md` — 版本与发版面
 - `knowledge/specifications/15-goal-plan-lifecycle-governance.md` — Goal 生命周期
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
+- `knowledge/decisions/65-cli-headless-exec.md` — CLI 无头发起（`peer exec`，Proposed）
 - `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md` — 开放 Runtime 公开包与版本/发布策略
 - `knowledge/decisions/35-mode-scoped-tool-projection.md` — 模式工具投影
 - `knowledge/decisions/37-provider-channel-and-wire-protocol-separation.md` — channel / wire 分离

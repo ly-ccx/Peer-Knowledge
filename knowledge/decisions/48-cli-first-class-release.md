@@ -99,7 +99,8 @@ peer
 - 本地能力对齐：`knowledge/architecture/desktop-cli-local-capability-parity.md`  
 - Provider 分叉：`knowledge/architecture/tui-desktop-provider-wire-gap-map.md`  
 
-本 ADR **只规范发布与安装面**；共享内核 / 宿主分叉细节以 `22` 为准。
+本 ADR **只规范发布与安装面**；共享内核 / 宿主分叉细节以 `22` 为准。  
+脚本面（`peer exec` 无头发起）见 `knowledge/decisions/65-cli-headless-exec.md`。
 
 ## Implementation notes（摘要，指向代码仓）
 

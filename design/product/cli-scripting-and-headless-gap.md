@@ -2,14 +2,15 @@
 
 创建时间：2026-08-18
 最后更新：2026-08-18
-文档状态：调研与分期建议 / 尚未立项实现
+文档状态：调研与分期建议 / P0 契约已起草为 ADR 65（Proposed）
 代码审计基线：`peer_agent` / `PeerAgent/0.0.5` / `5e3074ce`（`apps/tui/src/index.tsx`、`cli-version.ts`）
 对照来源（外部，以各官方文档当时页为准）：
 - Claude Code：[CLI reference](https://code.claude.com/docs/en/cli-reference)、[Headless / Agent SDK CLI](https://code.claude.com/docs/en/headless)
 - Codex：[Non-interactive mode](https://developers.openai.com/codex/noninteractive)（`codex exec`）
 适用范围：Peer CLI/TUI 产品面、Harbor / Pier 评测接入、CI 无头任务
 关联：
-- `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布（安装面已有，脚本面未做）
+- `knowledge/decisions/65-cli-headless-exec.md` — P0 `peer exec` 实现契约（Proposed）
+- `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布（安装面已有，脚本面见 ADR 65）
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主共享内核
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — 本地能力对齐（工具面，不是 argv）
 - `knowledge/architecture/20-architecture-governance.md` — 主链不可旁路
@@ -235,8 +236,9 @@ P0 清单：
 
 5. **`--access ask|session|full`**  
    映射已有 `ask_before_local` / `session_local` / `full_local`。  
-   无头且 TTY 不存在时，`ask` 必须失败退出，不能挂起等按键。  
-   评测容器用 `full`。不要引入名为 skip-permissions 的旁路；权限仍走 PermissionGrant，只是自动 grant。
+   交互 `peer` 默认仍是 `ask`。`peer exec` 默认 `session`（沿用现网会话档自动批准，高风险无 TTY 则 deny，不挂起）。  
+   无头且显式 `--access ask` 时必须失败退出，不能挂起等按键。  
+   评测容器必须显式 `--access full`。不要把命令行发起当成 Full，也不要引入名为 skip-permissions 的旁路；权限仍走 PermissionGrant，只是自动 grant。
 
 6. **`--tools`**  
    限制 Runtime Projection 可见工具。评测最小集：`bash,file`（或现网 capability 名）。  
@@ -274,7 +276,7 @@ P0 清单：
 
 ---
 
-## 7. 推荐命令草图（实现时再立 ADR）
+## 7. 推荐命令草图（P0 契约见 ADR 65）
 
 建议学 **Codex 的子命令拆分**，不要学 Claude 把几十个旗标全挂在同一个 `peer` 上。
 
@@ -303,7 +305,7 @@ System Context 组装
 - renderer/TUI 状态当权限真值
 - 把题集 pass/fail 写进 Peer 退出码（那是 verifier 的事）
 
-实现落点优先复用 `@peer-agent/runtime-sdk` + 现有 TUI host 的 provider/tool 装配，而不是从 Desktop 抄一条 IPC。这是 B 级：CLI 表面 + 权限在无头下的默认策略。若 `exec` 改变 Projection/权限语义，升 A 级并先改 ADR。
+实现落点优先复用 `@peer-agent/runtime-sdk` + 现有 TUI host 的 provider/tool 装配，而不是从 Desktop 抄一条 IPC。P0 契约已收成 `knowledge/decisions/65-cli-headless-exec.md`（Proposed）。接受该 ADR 后再在代码仓按 B 级实现；实现若改 Projection / 权限语义，先回写 ADR 65。
 
 ---
 
@@ -337,7 +339,7 @@ Peer 不判卷。
 | **P1** | resume、stream-json、bare、ephemeral | 5 题 × 3 次可复现，轨迹可归档 |
 | **P2** | 子命令生态 | 不阻塞评测 |
 
-**第一步就是 P0。** 不要先做 auth 子命令、不要先做云、不要先对齐 Claude 全旗标表。
+**第一步就是 P0。** 不要先做 auth 子命令、不要先做云、不要先对齐 Claude 全旗标表。实现前先接受 ADR 65。
 
 ---
 
