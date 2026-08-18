@@ -74,6 +74,7 @@ Capability Provider
 - `System Context Assembly` 第一阶段骨架。
 - `PromptSourceRegistry`。
 - `core.identity` / `runtime.workspace` / `runtime.attachments` / `runtime.reminders` / `runtime.continuity` / `project.instructions` 默认 Context Source；`runtime.mode` 是 mode reminder 的兼容 section id。
+- 2026-08-18 补充：默认 registry 增加 `agent.construction-falsification`（L1，仅 chat/goal）与 `runtime.task-acceptance`（L7，无 `taskAcceptance` 输入则不渲染）。前者是建设型交叉证伪政策，与 Diagnosis Gate 并列，不把诊断门兼管新功能。后者是宿主钉住的原始题面事实，供压缩后回锚；不升格为系统禁令，也不替代 Tool Result / Evidence。L1 装配顺序：`agent.brainstorming`（priority 0）→ `agent.adaptive-planning` → `agent.construction-falsification` → `agent.diagnosis-gate` → `agent.mcp-host`（后四者 priority 1，按 id 字典序）。
 - section 的 layer、priority、trust、checksum。
 - prompt snapshot 的 `sectionRefs`、`renderedHash` 和 `~/.peer-agent/prompt-snapshots` debug dump。
 - workspace root `AGENTS.md` / `CLAUDE.md` 的项目指令注入。
@@ -1438,6 +1439,8 @@ System Context
     - execution boundary
   L1_AGENT
     - selected agent role
+    - construction falsification (cross-axis matrix)
+    - diagnosis gate
   L2_RUNTIME
     - workspace
     - model
@@ -1455,6 +1458,7 @@ System Context
   L6_MODE_REMINDER
     - plan / compact / structured output / max steps
   L7_CONTINUITY
+    - host-pinned task acceptance
     - compaction summary
     - artifact refs
 

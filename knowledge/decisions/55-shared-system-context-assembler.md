@@ -1,7 +1,7 @@
 # ADR 55：Desktop 与 TUI 统一 System Context Assembler
 
 创建时间：2026-07-25
-最后更新：2026-07-25
+最后更新：2026-08-18
 状态：Accepted / Implemented
 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
@@ -51,7 +51,7 @@ Desktop 与 TUI 不再拥有各自的 assembler 或基础 system prompt。
 
 ### 2.2 默认 Source 统一
 
-共享默认 registry 包含 core、brainstorming、workspace、provider/model、attachments、project instructions、controlled extensions、runtime/mode reminders、Goal plan/runner、MCP host、Explorer、Verifier 和 continuity Source。
+共享默认 registry 包含 core、brainstorming、adaptive planning、construction falsification、diagnosis gate、workspace、provider/model、attachments、project instructions、controlled extensions、runtime/mode reminders、Goal plan/runner/checkpoint、task acceptance、MCP host、Explorer、Verifier 和 continuity Source。
 
 Source 根据输入事实自行决定是否产生 section；宿主不通过删减 Source 来维护另一套认知策略。
 
@@ -67,6 +67,7 @@ Desktop 与 TUI Adapter 只负责把宿主事实投影为 assembler input：
 | Goal | Desktop `goalPlanStore` | TUI `goalBridge.store` |
 | MCP | Desktop `mcpRegistry` | TUI `skillMcpBridge.mcpRegistry` |
 | continuity | Desktop compaction context | TUI controller turn context |
+| task acceptance | 首条 user 消息（压缩后回退会话正文） | `send()` 钉住的首条 user 正文 |
 
 Adapter 不改变 layer、priority、section id、render 或 hash 规则。
 

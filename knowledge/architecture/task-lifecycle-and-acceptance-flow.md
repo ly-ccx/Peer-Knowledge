@@ -242,7 +242,7 @@ Plan 成为 `completed` 且没有 `resultAcceptance` 后：
 
 ### 9.2 模型引导
 
-同步 System Context 的自适应规划说明：L1 可以使用 Micro GoalPlan，但只要要执行副作用操作，就不再是“formal GoalPlan optional”。模型在首次写入前应创建最小持久化计划，并声明机器可验证的完成标准。
+同步 System Context 的自适应规划说明：L1 可以使用 Micro GoalPlan，但只要要执行副作用操作，就不再是“formal GoalPlan optional”。模型在首次写入前应创建最小持久化计划，并声明机器可验证的完成标准。L1 只给单轴低风险修改；多轴行为、库契约、代码生成或序列化/配置交叉默认 L2，必须有结构化 `successCriteria`。文件数不是分级信号。
 
 ### 9.3 状态与首页
 
