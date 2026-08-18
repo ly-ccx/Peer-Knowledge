@@ -188,7 +188,7 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 - 消歧用 `--provider openai-1 --model gpt-4o`，或 `--model openai-1::gpt-4o`
 - `--provider` 与 `--model provider::model` 指向不同提供商时，用法错误
 
-`exec` 默认不设回合上限。需要防飞时由调用方显式传 `--max-turns`。交互 TUI 的默认循环策略仍以 ADR 26 为准，不因本文改成默认有界。
+`exec` 默认不设回合上限。未传 `--max-turns` 时，无头入口向 RuntimePipeline 传入 `Infinity`，覆盖内核默认 64。需要防飞时由调用方显式传 `--max-turns`。交互 TUI 的默认循环策略仍以 ADR 26 为准，不因本文改成默认有界。
 
 ### 9. P0 明确不做
 
