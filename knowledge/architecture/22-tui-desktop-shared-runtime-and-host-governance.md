@@ -3,7 +3,7 @@
 创建时间：2026-07-23  
 最后更新：2026-08-18
 状态：架构总览 / 长期治理基线  
-关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
+关联代码仓：`peer_agent`
 
 > **硬约束（发布与依赖）**  
 > CLI **必须**可单独通过 npm 安装并独立运行，**完全不依赖 Desktop 客户端**是否安装。  
@@ -24,7 +24,8 @@
 - `knowledge/specifications/06-version-management.md` — 版本与发版面
 - `knowledge/specifications/15-goal-plan-lifecycle-governance.md` — Goal 生命周期
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
-- `knowledge/decisions/65-cli-headless-exec.md` — CLI 无头发起（`peer exec`，Proposed）
+- `knowledge/decisions/65-cli-headless-exec.md` — CLI 无头发起（`peer exec`）
+- `knowledge/decisions/66-persistent-shell-session.md` — 会话级持久 Shell；UserTurn / ModelStep / ToolCall
 - `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md` — 开放 Runtime 公开包与版本/发布策略
 - `knowledge/decisions/35-mode-scoped-tool-projection.md` — 模式工具投影
 - `knowledge/decisions/37-provider-channel-and-wire-protocol-separation.md` — channel / wire 分离
@@ -84,6 +85,16 @@ Capability Provider
         -> PermissionGrant
           -> Evidence
 ```
+
+认知循环在两端同一 `RuntimePipeline` 上分三层，不要另开 Agent：
+
+```text
+UserTurn    一次用户提交 / 一次 peer exec
+  ModelStep 一次 provider.stream
+    ToolCall 受治理执行
+```
+
+一次 UserTurn 内 System Context 与 tools schema 的字节钉死。整批 ToolCall 都是 `local.file.read` / `list` / `search` 时可以并行，结果仍按 calls 顺序回灌。`local.shell.exec` 永不并行进同一会话；持久形态见 ADR 66。
 
 **禁止：**
 
