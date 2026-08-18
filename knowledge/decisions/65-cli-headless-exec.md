@@ -1,9 +1,9 @@
 # 65. CLI 无头发起（`peer exec`）
 
 创建时间：2026-08-18
-最后更新：2026-08-18
+最后更新：2026-08-18（补充 `--provider` 与 `provider::model` 消歧）
 
-状态：Accepted（P0 实现中）
+状态：Accepted（P0 已落地；补充提供商/模型消歧）
 
 级别：A 级（新增命令面、无头权限默认策略、Runtime Projection 裁剪入口）
 
@@ -171,13 +171,22 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 
 | 旗标 | 语义 |
 |---|---|
-| `--model <id>` | 只覆盖本轮；不写全局设置 |
+| `--provider <id>` | 只覆盖本轮；匹配目录里的 `providerId`（Desktop groupId / credential id）或 `entryId` |
+| `--model <id>` | 只覆盖本轮。可以是裸 `modelId`，或协议复合名 `providerId::modelId` |
 | `--effort <level>` | 只覆盖本轮；取值走现网 provider 已支持的 effort |
 | `--mode chat\|plan\|goal` | 默认 `chat`；投影仍受 ADR 35 约束 |
 | `--workspace <path>` | 覆盖 `PEER_WORKSPACE_ROOT`；必须是已存在目录 |
 | `--max-turns <n>` | 无头硬上限。默认 **40**；评测可加大（对照缺口文档常用 80） |
 
-未传 `--model`：沿用现有 TUI 模型解析（环境变量 + `~/.peer-agent` 设置，路径由运行时解析，不写进文档）。
+未传 `--provider` / `--model`：沿用现有 TUI 模型解析（环境变量 + Desktop 默认）。
+
+模型身份与协议一致：`providerId::modelId`（`contextAccountingModelKey`）。**不要用 `/` 拼接**——OpenRouter 等模型 id 本身含斜杠。
+
+同 `modelId` 被两家提供商共用时：
+
+- 裸 `--model gpt-4o` 必须失败（退出码 `2`），并列出 `providerId::modelId` 候选
+- 消歧用 `--provider openai-1 --model gpt-4o`，或 `--model openai-1::gpt-4o`
+- `--provider` 与 `--model provider::model` 指向不同提供商时，用法错误
 
 `exec` 必须有默认回合上限。交互 TUI 的默认循环策略仍以 ADR 26 为准，不因本文改成默认有界。
 
@@ -270,6 +279,9 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 peer exec --access full --tools bash,file \
   --output-format json --max-turns 80 \
   --workspace /workspace \
-  --model "$MODEL" --effort max \
+  --provider "$PROVIDER" --model "$MODEL" --effort max \
   - < /instruction.md
+
+# 等价复合写法。分隔符是 ::，不要用 /。
+peer exec --model openai-1::gpt-4o "summarize this repo"
 ```
