@@ -3,7 +3,7 @@
 创建时间：2026-08-18
 最后更新：2026-08-18
 
-状态：Proposed（先立契约，再改 `runtime-node` / Desktop adapter）
+状态：Accepted
 
 级别：A 级（能力执行形态、权限粒度、Evidence 切分、进程生命周期）
 
@@ -234,4 +234,4 @@ Desktop 现有 login-env snapshot 可以用来 **播种** 会话的初始环境�
 | TUI `provider-chat-model` | 切片 1：钉前缀、复用 system、按阈值跳过 exact count |
 | Desktop shell adapter | 同一会话语义；可用 snapshot 播种初始 env |
 
-代码未合入前，本文保持 Proposed。合入并通过上表验证后改为 Accepted。
+代码已合入 `runtime-node` Session Module、`shell-provider`、TUI host 与 Desktop adapter，验证表已覆盖。本文改为 Accepted。

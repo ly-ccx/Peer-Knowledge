@@ -26,6 +26,7 @@
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
 - `knowledge/decisions/65-cli-headless-exec.md` — CLI 无头发起（`peer exec`）
 - `knowledge/decisions/66-persistent-shell-session.md` — 会话级持久 Shell；UserTurn / ModelStep / ToolCall
+- `knowledge/decisions/67-read-file-line-range.md` — `read_file` 的 `start_line` / `end_line`
 - `knowledge/decisions/54-open-runtime-public-packages-and-release-policy.md` — 开放 Runtime 公开包与版本/发布策略
 - `knowledge/decisions/35-mode-scoped-tool-projection.md` — 模式工具投影
 - `knowledge/decisions/37-provider-channel-and-wire-protocol-separation.md` — channel / wire 分离
