@@ -1,9 +1,9 @@
 # 65. CLI 无头发起（`peer exec`）
 
 创建时间：2026-08-18
-最后更新：2026-08-18（补充 `--provider` 与 `provider::model` 消歧）
+最后更新：2026-08-18（`exec` 默认不再设 `--max-turns` 上限）
 
-状态：Accepted（P0 已落地；补充提供商/模型消歧）
+状态：Accepted（P0 已落地；补充提供商/模型消歧；默认无回合上限）
 
 级别：A 级（新增命令面、无头权限默认策略、Runtime Projection 裁剪入口）
 
@@ -176,7 +176,7 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 | `--effort <level>` | 只覆盖本轮；取值走现网 provider 已支持的 effort |
 | `--mode chat\|plan\|goal` | 默认 `chat`；投影仍受 ADR 35 约束 |
 | `--workspace <path>` | 覆盖 `PEER_WORKSPACE_ROOT`；必须是已存在目录 |
-| `--max-turns <n>` | 无头硬上限。默认 **40**；评测可加大（对照缺口文档常用 80） |
+| `--max-turns <n>` | 可选无头硬上限。未传则不设回合上限，跑到模型终局、取消或运行时错误为止。传入正整数时，触达即退出码 `5`。 |
 
 未传 `--provider` / `--model`：沿用现有 TUI 模型解析（环境变量 + Desktop 默认）。
 
@@ -188,7 +188,7 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 - 消歧用 `--provider openai-1 --model gpt-4o`，或 `--model openai-1::gpt-4o`
 - `--provider` 与 `--model provider::model` 指向不同提供商时，用法错误
 
-`exec` 必须有默认回合上限。交互 TUI 的默认循环策略仍以 ADR 26 为准，不因本文改成默认有界。
+`exec` 默认不设回合上限。需要防飞时由调用方显式传 `--max-turns`。交互 TUI 的默认循环策略仍以 ADR 26 为准，不因本文改成默认有界。
 
 ### 9. P0 明确不做
 
@@ -231,7 +231,7 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 - [ ] 无 TTY + `session` 下，`L5_destructive` shell 被 deny 且进程不挂起（有测试）
 - [ ] `--tools bash,file` 时模型看不到 web / mcp / skill / browser（有测试）
 - [ ] 工具调用仍有 PermissionGrant + Evidence（有测试）
-- [ ] 触达 `--max-turns` 退出 `5`，`ok=false`
+- [ ] 未传 `--max-turns` 时 `exec` 不因回合预算结束；显式传入后触达退出 `5`，`ok=false`
 - [ ] Harbor 或手工容器：一题 `instruction.md` → exec → 官方测试能跑；Peer 退出码不表示题过没过
 
 ---
@@ -277,7 +277,7 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 
 ```bash
 peer exec --access full --tools bash,file \
-  --output-format json --max-turns 80 \
+  --output-format json \
   --workspace /workspace \
   --provider "$PROVIDER" --model "$MODEL" --effort max \
   - < /instruction.md
