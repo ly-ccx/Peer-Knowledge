@@ -41,7 +41,7 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 本地一旦 commit，必须在同一轮立刻 push 到当前跟踪的远程分支。多设备以 `origin` 为准；不要把提交只留在本机。
 
 更短的入口说明见 `playbook/change-intake.md`。
-当前改造总纲见 `design/product/peer-transformation-charter.md`（任务壳 + 工作台雷达；阶段 A 已交付）。
+当前改造总纲见 `design/product/peer-transformation-charter.md`（任务壳 + 工作台雷达；阶段 A/B 已交付）。
 CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。
 

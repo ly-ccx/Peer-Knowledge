@@ -12,7 +12,7 @@
 >
 > 身份层补充：`design/product/task-identity-conversation-carrier.md`（委托成立才有 Task 心智；会话仍是载体，不另起 Task 表）
 >
-> 壳层与验收对照页：`design/product/peer-transformation-charter.md`（阶段 A 已交付「先看依据」；关闭时 evidenceRefs 强制校验仍是阶段 B）
+> 壳层与验收对照页：`design/product/peer-transformation-charter.md`（阶段 A 先看依据；阶段 B 关闭时强制 evidenceRefs 校验）
 
 ## 1. 问题与目标
 
@@ -81,6 +81,17 @@ resultAcceptance?: {
 ```
 
 验收事实属于具体 GoalPlan，而不是 Conversation。一个会话存在多个未验收 Plan 时，应逐 Plan 展示，不能按 conversation 去重吞掉验收项。
+
+阶段 B 起，**新写入** `resultAcceptance.acceptedAt` 必须先过关闭闸门（`packages/protocol/src/acceptance-close-gate.ts`）：
+
+```text
+∀ successCriterion
+  ∃ 可解析的 evidenceRef（计划持有引用或 EvidenceIndex）
+    且对照通过
+  或（manual 标准）后来的 manual_dod 批准
+```
+
+空成功标准集合视为通过。闸门在 `revisePlan` 里执行，不在 renderer。界面禁用「确认验收」只是预检。
 
 ## 4. 标准状态流转
 

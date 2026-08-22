@@ -38,4 +38,4 @@ A 级 —— 锁的是产品信息架构与用户称谓，不是运行时契约�
 - 任务顶栏不再挂「待用户验收 · 任务详情」平行入口。
 - 验收抽屉是对照页，不是第二套聊天或计划说明书。
 - 「确认验收」写 `resultAcceptance`；有隔离工作树时，签字才是交回闸门。
-- Git `baseBranch`、关闭时 evidenceRefs 强制校验，不在本 ADR 的交付范围内。
+- Git `baseBranch` 不在本 ADR 的交付范围内。关闭时 evidenceRefs 强制校验已在阶段 B 落地，见改造总纲与 `acceptance-close-gate.ts`。
