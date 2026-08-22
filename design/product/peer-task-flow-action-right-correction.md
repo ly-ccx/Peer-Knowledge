@@ -1,13 +1,14 @@
 # 任务流纠偏：行动权是主轴，不是讨论容器
 
 > 创建时间：2026-08-09  
-> 最后更新：2026-08-15  
+> 最后更新：2026-08-22  
 > 文档状态：**产品纠偏真源（纠偏决策已确认）**  
 > 适用范围：Desktop 工作台首页、任务/历史抽屉、GoalPlan 命名与投影  
-> 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
+> 关联代码仓：`peer_agent`  
 > 关联文档：  
-> - `design/product/peer-2-0-product-system.md`（产品总纲）  
-> - `design/product/peer-2-0-workbench-flow.md`（工作台语义与动线）  
+> - `design/product/peer-transformation-charter.md`（当前改造总纲 v2；壳层以它为准）  
+> - `design/product/peer-2-0-product-system.md`（更早的 2.0 产品总纲）  
+> - `design/product/peer-2-0-workbench-flow.md`（工作台语义与动线；壳层已被总纲覆盖）  
 > - `design/product/peer-2-0-gap-analysis.md`（行动权投影映射契约 §11）  
 > - `design/visual/previews/peer-2-0/DESIGN.md`（高保真原型命题）  
 > - `design/product/followed-discussions.md`（关注的讨论：用户订阅的长期沟通线）  

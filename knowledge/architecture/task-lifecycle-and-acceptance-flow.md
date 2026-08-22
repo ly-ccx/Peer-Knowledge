@@ -4,11 +4,15 @@
 >
 > 适用范围：Desktop Agent、GoalPlan、首页工作台、任务详情与最近讨论
 >
-> 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
+> 关联代码仓：`peer_agent`
 >
 > 验证日期：2026-08-11
 >
+> 最后更新：2026-08-22（去掉本机绝对路径；交叉引用改造总纲）
+>
 > 身份层补充：`design/product/task-identity-conversation-carrier.md`（委托成立才有 Task 心智；会话仍是载体，不另起 Task 表）
+>
+> 壳层与验收对照页：`design/product/peer-transformation-charter.md`（阶段 A 已交付「先看依据」；关闭时 evidenceRefs 强制校验仍是阶段 B）
 
 ## 1. 问题与目标
 

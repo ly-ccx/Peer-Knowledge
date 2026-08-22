@@ -1,16 +1,20 @@
 # Peer 2.0 工作台完整动线与语义
 
 > 创建时间：2026-08-08  
-> 最后更新：2026-08-15（交叉引用任务身份收口；零任务给首启空会话让路）  
-> 文档状态：**对齐真源（Work-in-Progress / 与实现对照）**  
-> 适用范围：Desktop 工作台（TaskOverview）、任务抽屉、历史抽屉、会话抽屉、GoalPlan / Automation 行动权投影  
-> 关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）  
+> 最后更新：2026-08-22（壳层以改造总纲为准；本文仍管分桶与行动权投影）  
+> 文档状态：**分桶 / 行动权投影真源；壳层目标态已被覆盖**  
+> 适用范围：Desktop 工作台（TaskOverview）、任务抽屉、历史抽屉、GoalPlan / Automation 行动权投影  
+> 关联代码仓：`peer_agent`  
 > 关联文档：  
-> - `design/product/first-run-onboarding-guidance.md`（首启主路径是空会话，不是工作台）  
-> - `design/product/peer-2-0-product-system.md`（产品总纲）  
+> - `design/product/peer-transformation-charter.md`（**当前改造总纲 v2**：任务是家，工作台是雷达）  
+> - `knowledge/decisions/67-task-shell-workbench-radar.md`（原型 A 锁定）  
+> - `design/product/first-run-onboarding-guidance.md`（首启主路径是空任务，不是工作台）  
+> - `design/product/peer-2-0-product-system.md`（更早的 2.0 战略总纲）  
 > - `design/product/peer-2-0-gap-analysis.md`（Gap 与 §11 映射契约）  
 > - `design/visual/previews/peer-2-0/`（高保真原型）  
 > - `design/product/task-identity-conversation-carrier.md`（身份层：打开的是任务现场，主键仍是 conversationId）
+
+> **2026-08-22 覆盖说明：** 下列目标态已作废，以总纲与 ADR 67 为准——「工作台是唯一主入口」「继续讨论用会话抽屉、不切主区」「结果抽屉只读可选」。阶段 A 已交付：主区默认当前任务；从雷达点 `result_ready` 进验收对照抽屉，其余进原任务；点工作区只激活落点。本文 §2.1 / §14 的会话抽屉目标态不要再当实现合同。分桶（需要你 / 待验收）与 `actionRight` 投影仍以本文为准。
 
 ---
 
@@ -54,9 +58,11 @@
 
 ### 2.1 【目标态】导航
 
+> 壳层目标态已迁到 `peer-transformation-charter.md`。下面这段是 2026-08-15 旧稿，**不再作为实现合同**。
+
 ```
 侧栏（一级）
- └─ 工作台                    ← 唯一主入口（Delegation OS 首页）
+ └─ 工作台                    ← （旧）唯一主入口（Delegation OS 首页）
       ├─ 需要你处理
       ├─ Peer 正在推进
       └─ 结果待验收

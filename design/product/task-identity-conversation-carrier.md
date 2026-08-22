@@ -1,9 +1,9 @@
 # 任务形态收口：流转是任务，承载仍是会话
 
 创建时间：2026-08-15
-最后更新：2026-08-15
-状态：设计草案（可评审；本仓库只落知识，代码改动在 `peer_agent`）
-关联代码仓：`peer_agent`（`/Users/liangyin/Documents/DEV/github/peer_agent`）
+最后更新：2026-08-22（产品面只说任务；壳层以改造总纲为准）
+状态：身份层合同仍有效；壳层「会话抽屉」目标态已被覆盖
+关联代码仓：`peer_agent`
 关联实现：
 - `packages/protocol/src/task-overview.ts`
 - `apps/desktop/electron/main/task-overview-aggregator.mjs`
@@ -11,14 +11,18 @@
 - `apps/desktop/renderer/src/chat/state/conversationStore.ts`
 - `packages/runtime-node/src/goal-intake-convergence.mjs`
 关联文档：
+- `design/product/peer-transformation-charter.md`（当前改造总纲 v2：产品面只说任务）
+- `knowledge/decisions/67-task-shell-workbench-radar.md`（原型 A）
 - `design/product/peer-2-0-product-system.md`（对象模型：Task 是心智，Conversation 是载体）
 - `design/product/peer-task-flow-action-right-correction.md`（首页主轴是行动权，不是讨论容器）
-- `design/product/peer-2-0-workbench-flow.md`（工作台 / 抽屉 / 会话现场）
+- `design/product/peer-2-0-workbench-flow.md`（工作台分桶；壳层以总纲为准）
 - `knowledge/architecture/task-lifecycle-and-acceptance-flow.md`（副作用必须先有 GoalPlan）
 - `knowledge/architecture/intake-convergence.md`（intake 契约：未成立的委托不能当任务）
 - `design/product/goal-plan-run-execution-graph-technical-design.md`（Goal Thread）
 - `design/product/composer-at-context-picker.md`（`@` 仍停在会话层）
 - `design/product/followed-discussions.md`（讨论区与任务桶互斥）
+
+**2026-08-22：** 身份层不变——用户见任务，主键仍是 `conversationId`，不另起 Task 表。壳层不再追求「从工作台续接一律会话抽屉、主区保持工作台」。阶段 A：主区就是当前任务；`result_ready` 进验收对照抽屉。
 
 ---
 
@@ -71,7 +75,7 @@ Peer 2.0 总纲已经定过：不虚构 `Project → Task → Conversation` 三�
 - 纯问答走 intake 收敛：回合正常结束且未升级为 GoalPlan，契约删除，不进任务桶。
 - 验收后追问可挂 `parentPlanId` + `sourceTaskId`，形成 Goal Thread，不再默认平铺成新的顶层目标。
 - 侧栏一级入口只剩工作台；任务 / 历史是抽屉，不是第二套会话列表。
-- 「继续讨论」的目标态是会话抽屉，不把主区硬切成 Chat。
+- 「继续讨论」旧目标态是会话抽屉。2026-08-22 起：主区就是当前任务；`result_ready` 进验收对照抽屉。见 `peer-transformation-charter.md`。
 
 ### 1.2 还停在会话上的
 
@@ -210,7 +214,7 @@ Automation 是另一条源（`source: 'automation'`），进同一块行动权�
 
 | 现状 | 目标态 |
 | --- | --- |
-| 部分入口关抽屉、切主 Chat | 从工作台 / 任务 / 历史 / 结果进来，一律会话抽屉；主区仍是工作台 |
+| 部分入口关抽屉、切主 Chat | **已覆盖（2026-08-22）：** 主区就是当前任务；`result_ready` 进验收对照抽屉。不再追求「一律会话抽屉、主区保持工作台」 |
 | 深链只有 `conversationId` | 深链继续用 `conversationId`（载体主键不变），但打开的是「任务现场」：消息 + Goal 面板 + 当前行动权 |
 | 有 `planId` 的通知只跳会话顶部 | 能落到对应 plan / 验收卡 / 提问点 |
 
@@ -293,14 +297,16 @@ Desktop / TUI / CLI 共用 Conversation + GoalPlan。从 Desktop 切到 CLI，**
 
 ### P0 — 先把「打开」收成任务现场
 
+> **2026-08-22：** 第 1 条与文末验收已被 `peer-transformation-charter.md` 覆盖。打开的是任务现场这一点仍成立；容器改成主区任务 + 验收对照抽屉，不再要求主区保持工作台。
+
 目标：用户从工作台点一张卡，感觉是在处理这件事，而不是被丢进一个聊天页。
 
-1. 所有从工作台 / 任务抽屉 / 历史 / 结果 / 通知进来的续接，走会话抽屉；主区保持工作台。
+1. ~~所有从工作台 / 任务抽屉 / 历史 / 结果 / 通知进来的续接，走会话抽屉；主区保持工作台。~~ 主区进当前任务；`result_ready` 先进验收对照。
 2. 抽屉标题用任务名（GoalPlan.title 或目标线名），副文案用行动权，不露 `conversationId`。
 3. 能带 `planId` 的入口落到对应计划 / 验收点。
 4. 搜索结果带行动权标签；无 plan 的会话标明「讨论」。
 
-验收：从首页点「需要你处理 / 待验收」，关抽屉后还在工作台；标题不是裸会话 id。
+验收：从首页点「需要你」进原任务；点「待验收」先进依据对照。标题不是裸会话 id。
 
 ### P1 — 创建与命名
 
