@@ -1,7 +1,7 @@
 # Peer 改造总纲
 
 创建时间：2026-08-22
-最后更新：2026-08-22（阶段 D 已在代码仓落地并行隔离）
+最后更新：2026-08-22（阶段 E 已在代码仓落地开发体验与可嵌入）
 
 > 版本：v2  
 > 状态：产品与架构改造真源（草案 v1 已吸收；阶段 A 已在代码仓交付）  
@@ -196,11 +196,19 @@ Workspace 源头分支是 settings 层的 `baseBranch`，不是新的 protocol �
 - 交回成功后只 `worktree remove`，保留 `taskBranch`；未改动的 automation 线仍整段清掉
 - 「删除这条线」以及取消推进后的第二次确认，才会删隔离目录和未合入的本地分支
 
-未纳入 D：默认对所有任务建 worktree、自动 stash、清理已合入远端分支、阶段 E
+未纳入 D：默认对所有任务建 worktree、自动 stash、清理已合入远端分支
 
-### 阶段 E · 开发体验与可嵌入
+### 阶段 E · 开发体验与可嵌入 — **已交付（2026-08-22）**
 
-Capability 热替换、证据导出、runtime-sdk 样例。先迁能力注册层；不动 protocol、Evidence 白名单、Goal 状态机、Projection 核心规则。
+先迁能力注册层。不改 protocol 字段、Evidence 白名单、Goal 状态机、Projection 核心规则。
+
+已交付：
+
+- `CapabilityProviderRegistry` 增加 `unregister` / `replace`；Desktop 网关包装层同步，热替换不必重建进程
+- Evidence 导出只打包已承认的 refs 与索引记录；验收页「导出依据」由 main 选路径写 JSON
+- `examples/external-host` 演示 Provider 热替换 + 导出文档，不依赖 Desktop / CLI
+
+未纳入 E：插件市场热加载、把产物文件打成 zip、密码学证据链、默认对所有任务建 worktree
 
 ---
 
@@ -250,6 +258,8 @@ UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；任务�
 | 成功标准 | 待批准时可编辑 | 已交付 B |
 | 验收默认合入 | 当前 Workspace `baseBranch` | 已交付 C |
 | 自动 worktree | 不默认；用户声明隔离时挂到已有任务线 | 已交付 D |
+| 能力热替换 | 注册层 `replace`，不重建 Runtime | 已交付 E |
+| 证据导出 | 只打包已承认 refs | 已交付 E |
 | 证据密码学 | 后置 | 保持 |
 | Cordis | 先能力层，不整核替换 | 保持 |
 

@@ -7,7 +7,7 @@
 > 关联设计：`knowledge/specifications/tui-and-hook-design-standard.md`、`knowledge/specifications/hook-phase1-implementation-design.md`、`knowledge/specifications/hook-phase1-code-walk.md`
 > 关联治理：`knowledge/architecture/20-architecture-governance.md`
 > 关联双宿主总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md`
-> 目标代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
+> 目标代码仓：`peer_agent`（远程 `https://github.com/ly-ccx/Peer-Agent`）
 
 > 关联发布：`knowledge/decisions/48-cli-first-class-release.md` — CLI npm 安装不依赖 Desktop App
 ---
@@ -54,6 +54,11 @@ Electron 路径与 UI                       OpenTUI 路径与审批 UI
 - `@peer-agent/runtime-sdk` / `@peer-agent/runtime-node` 仍为 monorepo 私有包，独立发布和兼容性矩阵尚未收口。
 - Desktop 仍有部分会话、模型和宿主编排未迁移到公共 Pipeline。
 - TUI 已有真实模型、File/Shell、审批与 Hook 纵向切片，但会话恢复、多模式、非交互 CLI 与完整分发仍待建设。
+
+### 0A.5 阶段 E 已落地（2026-08-22）
+
+- `CapabilityProviderRegistry` 支持 `unregister` / `replace`，宿主可热替换 Provider，不必重建 Runtime 或改 Projection 规则。
+- Evidence 导出只打包已承认的 refs/records，不扩大白名单、不扫描模型输出。
 
 ---
 
