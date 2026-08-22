@@ -1,7 +1,7 @@
 # Peer 改造总纲
 
 创建时间：2026-08-22
-最后更新：2026-08-22（阶段 B 已在代码仓落地关闭闸门）
+最后更新：2026-08-22（阶段 C 已在代码仓落地 Git 工作线 MVP）
 
 > 版本：v2  
 > 状态：产品与架构改造真源（草案 v1 已吸收；阶段 A 已在代码仓交付）  
@@ -147,12 +147,12 @@ Drawer：全部任务 / 历史 / 验收对照
 - 默认落地保持任务页（`chat`）
 - 去掉任务顶栏「待用户验收 · 任务详情」胶囊（与工作台雷达重复）
 
-确认验收的作用：在 GoalPlan 上写下 `resultAcceptance`（谁、何时认了这笔结果）。签字后离开待验收；若该线在隔离工作树里改过代码，签字才是交回目标分支的闸门。它不批准计划、不继续推进。
+确认验收的作用：在 GoalPlan 上写下 `resultAcceptance`（谁、何时认了这笔结果）。签字后离开待验收；若该线已经拉出任务子分支并改过代码，签字才是交回**当前** Workspace 源头分支的闸门。它不批准计划、不继续推进。
 
 未纳入 A、也不该回退的：
 
-- Git `baseBranch` / 子分支标签 / 验收合入（阶段 C）
 - 独立工单页、Cordis、把默认落地改回工作台
+- 默认 worktree / 并行隔离（阶段 D）
 
 ### 阶段 B · 关闭闸门变硬 — **已交付（2026-08-22）**
 
@@ -168,15 +168,21 @@ A 级：关闭时强制 `evidenceRefs` 校验。写 `resultAcceptance` 必须经
 
 未纳入 B：Git 工作线、独立依据页、密码学证据链
 
-### 阶段 C · Git 工作线 MVP — **下一期**
+### 阶段 C · Git 工作线 MVP — **已交付（2026-08-22）**
 
-- Workspace 源头分支 `baseBranch`
-- 任务子分支（先无 worktree）
-- 验收展示 diff，默认合入**当前** `baseBranch`
-- 切换源头只影响之后新建的线
-- 纯聊不自动建分支
+Workspace 源头分支是 settings 层的 `baseBranch`，不是新的 protocol 字段。绑定仍走已有 `deliveryBinding`；任务子分支先写 ref，不建 worktree。
 
-第一期拍板仍有效：用户明确选择隔离线，或 Plan 批准且将写入仓库时才建线。不要一打字就建 worktree。
+已交付：
+
+- Git 设置里为当前工作区选择源头分支；未固定时绑定当前 HEAD，不猜 `main`
+- 切换源头只写 settings，不改已有 plan 的 `targetBranch` / `baseCommit`
+- Plan 批准或 `accepted_goal` 且将写入仓库时，按分支前缀建任务子分支；工作区干净才 checkout
+- 纯聊 / intake / 待批准不建线
+- `executionIsolation === 'none'` 不再默认建 worktree；只有显式 `worktree` 才走隔离目录
+- 验收页展示 `taskBranch · from <创建时源头>`、当前建议合入分支，以及 `baseCommit..taskBranch` 的 range diff
+- 确认验收后的交回目标是**当时**的 Workspace `baseBranch`，创建时快照只作对照
+
+未纳入 C：默认 worktree、清理策略、IDE/Finder 打开现场、中途升级为隔离线（阶段 D）
 
 ### 阶段 D · 并行隔离
 
@@ -188,7 +194,7 @@ Capability 热替换、证据导出、runtime-sdk 样例。先迁能力注册层
 
 ---
 
-## 6. Git 工作线（已拍板、尚未实现）
+## 6. Git 工作线（阶段 C 已交付 MVP）
 
 | 议题 | 默认 |
 |------|------|
@@ -198,7 +204,7 @@ Capability 热替换、证据导出、runtime-sdk 样例。先迁能力注册层
 | 切换源头 | 只影响之后新建任务线 |
 | 拒收 / 取消 | 停 runner；删除 worktree / 分支要二次确认 |
 
-UI 最小露出（C 期才做）：Workspace 主开发分支下拉；任务行 `feat/… · from develop`；待验收卡展示 diff 与建议合入分支。
+UI 最小露出（C 已交付）：Workspace 主开发分支下拉；任务行 `feat/… · from develop`；待验收卡展示 diff 与建议合入分支。
 
 ---
 
@@ -232,8 +238,8 @@ UI 最小露出（C 期才做）：Workspace 主开发分支下拉；任务行 `
 | 待验收入口 | 先看依据，看过再确认验收 | 已交付 A |
 | 关闭闸门 | 成功标准都有可解析证据才写 `resultAcceptance` | 已交付 B |
 | 成功标准 | 待批准时可编辑 | 已交付 B |
-| 验收默认合入 | 当前 Workspace `baseBranch` | 已拍板，待 C |
-| 自动 worktree | 不默认 | 已拍板，待 C/D |
+| 验收默认合入 | 当前 Workspace `baseBranch` | 已交付 C |
+| 自动 worktree | 不默认 | 已交付 C（仅显式 isolation 才建）；并行隔离待 D |
 | 证据密码学 | 后置 | 保持 |
 | Cordis | 先能力层，不整核替换 | 保持 |
 
