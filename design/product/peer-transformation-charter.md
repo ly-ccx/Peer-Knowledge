@@ -202,6 +202,7 @@ Workspace 源头分支是 settings 层的 `baseBranch`，不是新的 protocol �
 
 已交付：
 
+- 新任务可在草稿 composer 勾选「隔离执行」；默认关闭，意图先记在任务上，有可写交付线后再走既有 `isolatePlan`
 - 「隔离执行」把当前任务线升级为独立 worktree；主工作区若正占用该分支且干净，先切回源头
 - 主工作区占用任务分支且有未提交改动时，拒绝隔离，不自动 stash
 - 「打开现场 / 在编辑器打开」走 `goalPlans:open-site`，隔离目录优先，否则打开目标仓
@@ -230,11 +231,11 @@ Workspace 源头分支是 settings 层的 `baseBranch`，不是新的 protocol �
 |------|------|
 | 默认合入 | 验收时的当前 Workspace `baseBranch` |
 | 创建时源头 | 对比基线与说明，不是默认合入目标 |
-| 自动 worktree | 不默认；批准后或用户声明隔离时 |
+| 自动 worktree | 不默认；新任务勾选或任务卡声明隔离时 |
 | 切换源头 | 只影响之后新建任务线 |
 | 拒收 / 取消 | 停 runner；删除 worktree / 分支要二次确认 |
 
-UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；任务行 `feat/… · from develop`；待验收卡展示 diff 与建议合入分支；任务卡可「隔离执行 / 打开现场 / 删除这条线」。
+UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；新任务草稿可勾选隔离执行；任务标题与输入栏可见绑定/源头分支；任务行 `feat/… · from develop`；待验收卡展示 diff 与建议合入分支；任务卡可「隔离执行 / 打开现场 / 删除这条线」。
 
 ---
 
@@ -269,7 +270,7 @@ UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；任务�
 | 关闭闸门 | 成功标准都有可解析证据才写 `resultAcceptance` | 已交付 B |
 | 成功标准 | 待批准时可编辑 | 已交付 B |
 | 验收默认合入 | 当前 Workspace `baseBranch` | 已交付 C |
-| 自动 worktree | 不默认；用户声明隔离时挂到已有任务线 | 已交付 D |
+| 自动 worktree | 不默认；新任务勾选或任务卡声明隔离时挂到已有任务线 | 已交付 D |
 | 能力热替换 | 注册层 `replace`，不重建 Runtime | 已交付 E |
 | 证据导出 | 只打包已承认 refs | 已交付 E |
 | 证据密码学 | 后置 | 保持 |
