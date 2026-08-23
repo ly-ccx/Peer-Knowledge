@@ -1,7 +1,7 @@
 # Peer Agent 工程结构设计
 
 创建时间：2026-06-10  
-最后更新：2026-07-23  
+最后更新：2026-08-23  
 
 > 状态：工程结构基线（持续修订）  
 > 目标：定义 Peer Agent 的仓库组织、模块边界与双宿主落地路径。  
@@ -238,24 +238,21 @@ Renderer
         → Rust cu-proxy-core health stub
 ```
 
-后续混合运行时：
+后续混合运行时（认知可云可本地，能力始终本地）：
 
 ```text
-Cloud CEO Agent Runtime
-  → Client Gateway
-    → outbound client session
-      → Rust CU Proxy Core
-        → Electron Review card
-          → user approval
-            → local tool execution
-              → Evidence
-                → Cloud Ledger
+模型 / Provider Runtime
+  → Desktop / TUI host
+    → Runtime Projection
+      → Review card
+        → PermissionGrant
+          → Local Capability Runtime
+            → Evidence
 ```
 
 边界规则：
 
-- Cloud 不直接访问本地端口。
-- Rust Core 主动维持 cloud session。
+- 模型不直接访问本地端口，也不绕过授权执行。
 - Electron Renderer 只展示和请求，不执行高权限能力。
 - Electron Main 只做桌面胶水和安全 IPC 转发。
 - 本地工具必须进入 Manifest / Projection / ToolCall / Evidence 主链路。

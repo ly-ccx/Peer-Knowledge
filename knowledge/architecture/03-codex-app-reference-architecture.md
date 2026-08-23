@@ -7,7 +7,7 @@
 
 ## 一、采用 Codex.app 的原因
 
-Peer Agent 要解决的不是“把 Web 小二搬到桌面”，而是让云端 CEO Agent Runtime 可以在客户端场景里可靠调用本地能力。
+Peer Agent 要解决的不是“把聊天窗搬到桌面”，而是让用户能把真实工作托付给本机代理：目标被签收，能力在授权下执行，完成用证据关闭。
 
 因此客户端形态应该更接近 Codex.app：
 
@@ -80,19 +80,19 @@ App Shell
 
 ## 三、Peer Agent 的差异
 
-Codex.app 可以作为交互参考，但 Peer Agent 不是代码执行器，也不是本地 Agent。
+Codex.app 可以作为交互参考，但 Peer Agent 不是只写代码的执行器。它是本机上的任务委托系统：本地拥有能力、授权与 Evidence，模型只负责认知。
 
 Peer Agent 的差异：
 
 | 维度 | Codex.app 参考 | Peer Agent 约束 |
 |---|---|---|
-| 认知来源 | Agent task runtime | Cloud CEO Agent Runtime |
+| 认知来源 | Agent task runtime | 模型 / Chat Runtime（角色，非部署位置） |
 | 本地执行 | 本地 workspace / tool | Local Capability Runtime |
 | 工具暴露 | work locally / tools | Manifest / Runtime Projection |
 | 权限确认 | hooks / access review | PermissionGrant + policy gates |
 | 结果解释 | task output / patch / artifact | Evidence + audit event |
-| 个人上下文 | project / local work | 云端为准，个人为辅 |
-| 业务治理 | product-level safety | 组织策略 + 云端治理 + 本地授权 |
+| 个人上下文 | project / local work | 本机 Workspace / 任务上下文，不自动升格为系统指令 |
+| 业务治理 | product-level safety | 本地授权 + Evidence；组织策略是远期 |
 
 所以 Peer Agent 的产品气质可以像 Codex.app，但运行时对象必须是 Peer Agent 的对象。
 
@@ -105,7 +105,7 @@ Peer Agent 的差异：
 ```text
 User intent
   → Composer context
-    → Cloud CEO Agent Runtime
+    → 模型 / Chat Runtime
       → Capability selection
         → Runtime Projection
           → Client Tool Call
@@ -116,13 +116,12 @@ User intent
                     → Tool Result
                       → Evidence
                         → Task Thread
-                          → Cloud Ledger
 ```
 
 关键原则：
 
-- Cloud 负责为什么做、做什么、选择哪个能力。
-- Client 负责本地是否存在、是否授权、如何执行、返回什么证据。
+- 模型负责为什么做、做什么、选择哪个能力。
+- 本机负责本地是否存在、是否授权、如何执行、返回什么证据。
 - UI 负责把每一步变成用户能理解、能确认、能回放的事件。
 - 所有本地能力都必须经过 `Capability Provider → Manifest → Runtime Projection → Tool Call → Evidence`。
 
@@ -246,16 +245,15 @@ Renderer state
 
 不能照搬：
 
-- 把本地 workspace 当成唯一运行世界。
-- 把 shell / bash 作为默认核心能力。
-- 把代码 diff / patch 作为所有任务的默认结果形态。
-- 把本地项目历史直接当成云端认知更新。
+- 把摘要当成完成证明。
+- 把本地项目历史直接当成系统指令或共享认知。
 - 把插件和工具调用绕过 Manifest / Projection / Evidence。
+- 把产品做成企业工单台或多 Agent 角色扮演。
 
-Peer Agent 的本地能力更泛化，目标用户也不只写代码。因此必须保持：
+Peer Agent 的本地能力更泛化，第一用户也不只写代码。因此必须保持：
 
 ```text
-云端为准，个人为辅。
+本机持有能力、授权与 Evidence。
 协议先于 SDK。
 Evidence 先于最终解释。
 权限前门先于能力扩展。

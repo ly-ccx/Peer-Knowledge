@@ -36,7 +36,7 @@ opencode 的关键设计不是"终端界面本身"，而是**它把 TUI 做成�
 - **client/server 分离**：`opencode` 命令启动 TUI 的同时起一个 headless HTTP server（`opencode serve` 可单独跑）。TUI 只是众多客户端之一，desktop app、IDE 扩展都连同一个 server。
 - **OpenAPI 3.1 契约**：server 暴露 `/doc` 的 OpenAPI spec，SDK 由此自动生成 —— 协议即契约，客户端不手写请求类型。
 - **可远程驱动**：`--hostname`/`--port` 固定端口后，`/tui` 端点可以 prefill/run prompt，IDE 插件正是靠这个驱动 TUI。
-- **对我们的启示**：这与我们"云端 CEO Runtime + 多客户端（Electron / 未来 CLI）"的形态天然同构。**我们的独立 CLI 应当是连到同一 Runtime 的瘦客户端，而不是自带一套本地推理/工具编排**。opencode 用 OpenAPI 生成 SDK 的做法，对应我们应复用 `packages/protocol` 作为唯一契约，CLI 不另立协议。
+- **对我们的启示**：这与我们「本机共享 Runtime + 多宿主（Desktop / TUI / CLI）」的形态同构。**独立 CLI 连到同一套本地 Runtime 契约，而不是自带一套推理/工具编排旁路**。opencode 用 OpenAPI 生成 SDK 的做法，对应我们应复用 `packages/protocol` 作为唯一契约，CLI 不另立协议。
 
 ### 抽象出的 TUI 公认设计标准
 

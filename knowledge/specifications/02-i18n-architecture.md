@@ -11,7 +11,7 @@ Peer Agent 的 i18n 不是普通多语言文案工程。
 
 它需要同时服务三类对象：
 
-- 一线小二和业务用户看到的中文产品表达。
+- 一线用户看到的中文产品表达。
 - 国际化、研发、协议和诊断场景需要的英文表达。
 - 跨 Runtime、客户端和协议边界必须稳定的系统对象名。
 
@@ -87,7 +87,7 @@ Evidence.locale
 
 这些对象是协议和工程边界，默认保留英文：
 
-- `Cloud CEO Agent Runtime`
+- `Chat Runtime` / 模型 provider
 - `CU Proxy`
 - `Capability Provider`
 - `Manifest`

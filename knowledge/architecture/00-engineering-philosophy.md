@@ -1,7 +1,7 @@
 # 工程哲学与设计原则
 
 > 创建时间：2026-06-23  
-> 最后更新：2026-06-23  
+> 最后更新：2026-08-23  
 > 适用范围：所有 Peer Agent 相关项目（peer_agent、xiaoer_design 等）
 
 ## 第一原则：优雅
@@ -177,11 +177,11 @@ Peer Agent 不照搬 Codex.app 的代码执行假设；本地能力必须继续�
 
 ---
 
-## 三、Harness 优先
+## 三、Harness 是本机能力层，不是云端薄壳
 
-Peer Agent 不是只写一个桌面应用，而是在为云端 Agent 设计一个客户端 Harness。
+Peer Agent 不是为某个云端 Agent 做的客户端外壳，也不是企业协作台。它是本机上的任务委托系统：模型负责认知，本地 Harness 负责把委托做成可授权、可证明的工作。
 
-工程目标不是“功能越多越好”，而是提升 Agent 在客户端场景中的真实能力上限：
+工程目标不是“功能越多越好”，而是提高委托在本机场景里的真实能力上限：
 
 - 渐进上下文：Composer chips、Local Reference、artifact ref，而不是一次性塞全量数据。
 - 机械化约束：Manifest、schema、access level、permission gates，而不是靠提示词提醒。
@@ -193,37 +193,38 @@ Peer Agent 不是只写一个桌面应用，而是在为云端 Agent 设计一�
 
 ```text
 Agent 能力 = 模型 + Harness。
-Peer Agent 是客户端 Harness，不是本地大脑。
+Harness 在本机：发现、授权、执行、Evidence。
+模型是认知角色，不是部署位置，更不是产品主语。
 ```
+
+已作废：把 Peer 写成「Cloud CEO / 宙斯员工版的客户端 Harness，不是本地大脑」。桌面持有能力与授权；Electron main 仍然只是组合层，不是把认知塞进 UI。
 
 ---
 
-## 四、三种真相不能混
+## 四、四种真相不能混
 
 Peer Agent 运行态里有一个关键判断：不同层持有不同真相。
 
-Peer Agent 中也必须保持这个边界：
-
 | 真相 | 持有者 | 说明 |
 |---|---|---|
-| 认知真相 | Cloud CEO Agent Runtime | 为什么做、做什么、用哪个能力 |
+| 认知真相 | 模型 / Chat Runtime | 为什么做、做什么、用哪个能力；模型可云可本地 |
 | 执行真相 | Local Capability Runtime | 本地是否有能力、是否授权、执行结果是什么 |
-| 放权真相 | Cloud policy + local permission | 当前用户、组织、Agent、scope 是否允许 |
-| 交互真相 | Electron task thread | 用户看到的过程、确认、结果、证据 |
+| 放权真相 | PermissionGrant（本地；组织策略是远期） | 当前用户、任务、scope 是否允许 |
+| 交互真相 | 任务线程 | 用户看到的过程、确认、结果、证据 |
 
 禁止把这些真相混成一个黑盒：
 
 - UI 不能成为权限事实源。
 - Plugin 不能成为治理事实源。
 - MCP 不能成为权限模型。
-- 本地个人经验不能成为云端认知 Patch。
-- Cloud Runtime 不能假装直接拥有用户机器。
+- 本地个人经验不能自动升格为系统指令或共享认知。
+- 模型不能假装直接拥有用户机器。
 
 ---
 
 ## 五、运行链和进化链分离
 
-Peer Agent 允许个人经验参与本次任务，但不能把个人经验自动推入云端认知。
+Peer Agent 允许个人经验参与本次任务，但不能把个人经验自动变成系统指令、共享本体或云端 Patch。
 
 正确链路是：
 
@@ -231,16 +232,15 @@ Peer Agent 允许个人经验参与本次任务，但不能把个人经验自动
 Local Personal Memory
   → user-approved auxiliary context
     → Runtime Projection
-      → Cloud CEO Agent Runtime
+      → 模型 / Chat Runtime
 ```
 
 错误链路是：
 
 ```text
 Local Personal Memory
-  → Cloud Patch
-    → Business Overlay
-      → 1688 cognition ontology
+  → 自动 Patch / 系统 prompt
+    → 共享认知本体
 ```
 
 除非未来有显式提交、审核和治理流程，否则个人经验默认只留在本地。
@@ -342,10 +342,10 @@ Evidence 记录生成语言。
 
 ```text
 用户能否在一个任务线程里看到：
-云端 Agent 为什么请求本地能力、
+目标如何被签收、
 本地能力是否被授权、
 执行结果是什么、
-什么 Evidence 回到了云端。
+什么 Evidence 用来关闭完成。
 ```
 
 如果不能，工程还没有进入正确轨道。

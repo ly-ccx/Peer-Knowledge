@@ -17,14 +17,14 @@
 
 这里的「模型」是**角色**而非**部署位置**：认知可以来自云端 provider，也可以来自未来的本地推理 runtime。无论模型在哪里，能力执行、授权与 Evidence 始终留在本地。
 
-Peer Agent 可以学习 Claude Code、Codex、OpenCode 的实现经验，但不能退化成普通 Electron 聊天壳、本地 Agent、工具拼装平台或靠 prompt 兜底的自动化脚本集合。
+Peer Agent 可以学习 Claude Code、Codex、OpenCode 的实现经验，但不能退化成普通 Electron 聊天壳、无治理的工具拼装、企业工单台，或靠 prompt 兜底的自动化脚本集合。
 
 ## 一、治理目标
 
 架构治理要解决四件事：
 
 1. 防止能力旁路：任何本地能力都必须进入统一主链路。
-2. 防止认知下沉：客户端不承担云端 Agent Runtime 的认知、规划、调度和治理职责。
+2. 防止认知与能力混层：桌面不替代模型做规划，也不把授权 / Evidence 交给模型口头完成。
 3. 防止 UI 变成事实源：权限、执行、Evidence、协议状态不能只存在 renderer state。
 4. 防止模块浅化：新增代码必须提升 Locality 和 Leverage，而不是把复杂度摊到更多文件。
 

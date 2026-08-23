@@ -78,7 +78,7 @@ Capability Provider -> Manifest -> Runtime Projection -> client_tool_call -> Per
 ## 阶段二：把核心 Runtime 层抽成公共 SDK
 
 ### 目标
-把云端 CEO Runtime 的核心能力（会话、能力投影、工具调用、权限、Evidence、事件流）沉淀为一个**独立、版本化、契约清晰的公共 SDK**，供 Electron GUI、未来 CLI、可能的 IDE 扩展共用。
+把本机共享 Runtime 的核心能力（任务、能力投影、工具调用、权限、Evidence、事件流）沉淀为一个**独立、版本化、契约清晰的公共 SDK**，供 Desktop、TUI/CLI、可能的 IDE 扩展共用。
 
 ### 对齐的社区标准
 - **client/server 分离 + 契约即协议**（对齐 opencode：server 暴露 OpenAPI 3.1，SDK 由 spec 自动生成，客户端不手写请求类型）。

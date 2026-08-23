@@ -1,16 +1,18 @@
-# 宙斯客户端 Runtime Gateway 调用生命周期
+# Peer Agent Runtime 调用生命周期
+
+> 状态：本地能力链仍有效。原文写的「宙斯客户端 / Cloud CEO Gateway」已作废，不再是产品主语。  
+> 当前边界：认知可来自任意模型 provider；能力执行、授权与 Evidence 始终本地。云端 Gateway 推送 `client_tool_call` 若仍存在，只是可选通道，不是 Peer 的身份。
 
 这份文档替代旧的本地 `tool:dispatch` / Adapter Server 设计。客户端不再作为本地
-WebSocket server 等待 Node Service 连接；正式主链路统一为客户端主动连接云端
-Gateway WS。
+WebSocket server 等待 Node Service 连接。
 
 ## 架构边界
 
 | 层 | 职责 |
 |---|---|
-| 云端 CEO Agent Runtime | 认知、规划、工具选择、组织策略、执行账本 |
-| Runtime Gateway WS | 向已登录客户端推送被 Runtime Projection 允许的 `client_tool_call` |
-| 桌面客户端 Runtime Gateway Client | 主动 outbound 连接云端、ack、resume、回传 result |
+| 模型 / Chat Runtime | 认知、规划、工具选择 |
+| Runtime Gateway WS（可选） | 向已登录宿主推送被 Runtime Projection 允许的 `client_tool_call` |
+| 桌面 Runtime Gateway Client | 本地 outbound 连接、ack、resume、回传 result |
 | Local Tool Host | 统一接收被 projection 允许的本地调用，并交给 Capability Provider Registry |
 | Capability Provider Registry | 按 capabilityId 路由到具体本地 Provider，禁止 Bash / MCP / Plugin 另起旁路 |
 | PermissionReview | 本地授权、PermissionRule、用户确认和执行时约束的统一入口 |
@@ -28,7 +30,7 @@ sequenceDiagram
     autonumber
     participant C as Client
     participant G as Cloud Gateway WS
-    participant R as CEO Agent Runtime
+    participant R as Model / Chat Runtime
     participant H as Local Tool Host
     participant P as Capability Provider
 

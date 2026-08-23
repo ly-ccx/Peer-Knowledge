@@ -1,6 +1,6 @@
 # Peer Agent 产品设计语言
 
-> 状态：设计治理基准草案
+> 状态：设计治理基准（2026-08-23 已清掉宙斯 / Cloud CEO / Channel 员工台旧身份；以任务壳 + 工作台雷达为准）
 > 适用范围：Peer Agent Desktop 的产品结构、视觉语言、交互状态和组件实现。
 > 目标：先固定统一审美和交互契约，再继续改 UI，避免每次补丁都把产品推向不同方向。
 
@@ -13,11 +13,11 @@ Peer Agent Desktop 不是 Web 后台，不是普通聊天壳，也不是把调�
 它应该是：
 
 ```text
-1688 宙斯员工版
-  + Cloud CEO Agent 的任务工作台
-  + Channel 会话索引
+个人本机上的任务委托系统
+  + 任务线程（家）
+  + 工作台行动权雷达
   + 本地能力代理的执行入口
-  + 可解释、可回放、可治理的任务线程
+  + 可解释、可回放、可治理的 Evidence
 ```
 
 产品气质：
@@ -51,16 +51,16 @@ Peer Agent Desktop 不是 Web 后台，不是普通聊天壳，也不是把调�
 
 不照搬：
 
-- 不出现项目工程概念。
-- 不暴露模型选择。
-- 不把本地代码执行假设带进 Peer Agent。
-- 不出现 Codex 的 Review / Git / Workspace 语义，除非 Peer Agent 有等价业务对象。
+- 不把产品做成纯 Coding Agent 的工程 IDE。
+- 不把 Git / Review 做成离开任务线程的独立后台。
+- 不把 Workspace 当成企业空间；它是一个人的执行世界。
+- 不把 Codex 的项目工程概念直接当 Peer 的一级对象。
 
 ### 2.2 借鉴 Claude Desktop / Cowork
 
 借鉴点：
 
-- 新会话首屏需要有明确的中心重心，而不是空白。
+- 新任务首屏需要有明确的中心重心，而不是空白。
 - Composer 可以成为视觉核心。
 - 建议任务应该像能力提示，不像营销卡片。
 - 账户入口在左下角，与 Settings 融合。
@@ -73,48 +73,48 @@ Peer Agent Desktop 不是 Web 后台，不是普通聊天壳，也不是把调�
 
 ---
 
-## 三、Zeus 的产品特色
+## 三、Peer 的产品特色
 
 上一节只说明“参考谁”，这一节定义 Peer Agent 自己的识别度。
 
 Peer Agent 的特色不应该来自装饰图形，而应该来自三个产品机制：
 
 ```text
-Channel Command
+Task Index
   + Executive Thread
   + Evidence-aware Execution
 ```
 
-### 3.1 Channel Command
+### 3.1 Task Index
 
-Codex 的左侧是 Project / Chat 索引，Zeus 的左侧是组织沟通 Channel。
+Codex 的左侧是 Project / Chat 索引。Peer 的左侧是任务索引，工作台是跨任务雷达——不是组织 IM 的 Channel，也不是企业工单台。
 
 这不是换个名字，而是产品重心不同：
 
 ```text
-Channel 代表业务入口。
-Conversation 代表一次业务任务。
-Thread 代表任务执行现场。
+工作台代表行动权雷达。
+任务代表一件被托付的工作。
+线程代表这条任务的执行现场。
 ```
 
 设计特色：
 
-- Channel 是左侧的一级对象，视觉上像“信号频段”，不是普通菜单。
-- Channel 展开后，会话列表嵌在其下方，形成“当前信号源下的任务队列”。
-- 会话元信息使用 `channel · cloud id · time · count`，强化它来自真实业务会话。
+- 工作台是跨任务的一级雷达，不是默认落地页。
+- 任务列表是「当前正在住的家」，视觉上像工作线索，不是后台导航。
+- 任务元信息强化目标、行动权和时间，而不是云端会话 ID。
 - 侧栏滚动时，账户入口永远留在底部，像工作台的固定身份锚点。
 
 视觉细节：
 
 ```text
-selected channel:
+selected task:
   background: barely lifted graphite
-  left icon: hash / channel glyph
+  left icon: task glyph
   count: right aligned, muted
   no border unless focused by keyboard
 
-expanded conversation:
-  padding-left: channel text start + 24px
+expanded task:
+  padding-left: task text start + 24px
   title: one line, 13px
   meta: 11px, low contrast
   row actions: hover only
@@ -122,7 +122,7 @@ expanded conversation:
 
 ### 3.2 Executive Thread
 
-Zeus 的主区域不是 IM 聊天，也不是表单页，而是“高层决策线程”。
+Peer 的主区域不是 IM 聊天，也不是表单页，而是任务线程。
 
 设计特色：
 
@@ -160,7 +160,7 @@ large card
 
 ### 3.3 Evidence-aware Execution
 
-Zeus 的强大感来自“我知道 Agent 在做什么”，不是来自按钮多。
+Peer 的强大感来自“我知道 Agent 在做什么”，不是来自按钮多。
 
 执行态必须有三层：
 
@@ -179,7 +179,7 @@ Zeus 的强大感来自“我知道 Agent 在做什么”，不是来自按钮�
 
 ### 3.4 指令台 Composer
 
-Composer 是 Zeus 的产品核心，应该像“指令台”，不是普通输入框。
+Composer 是 Peer 的产品核心，应该像“指令台”，不是普通输入框。
 
 特色结构：
 
@@ -196,7 +196,7 @@ bottom status rail only when needed
 - 会话中 Composer 固定在底部，像持续下达指令。
 - 输入框圆角比普通控件更柔，但边界必须薄。
 - Send / Stop 永远是同一个位置，不制造额外停止按钮。
-- 内部对象名不进入 placeholder；placeholder 要像业务助理：
+- 内部对象名不进入 placeholder；placeholder 要像任务委托：
   `继续交代任务或补充信息...`
 
 ### 3.5 账户按钮
@@ -228,13 +228,13 @@ Usage / permission
 Log out
 ```
 
-这会成为 Zeus 左侧栏的稳定收口，避免右上角散落用户信息。
+这会成为 Peer 左侧栏的稳定收口，避免右上角散落用户信息。
 
 ---
 
 ## 四、关键屏幕设计
 
-### 4.1 新会话首屏
+### 4.1 新任务首屏
 
 目标：不要空，不要营销，不要像 demo。
 
@@ -257,13 +257,13 @@ main surface center
 | suggestion row | 36px height, no card |
 | vertical position | viewport top 28%-34% |
 
-建议任务文案应该贴近 1688 员工工作：
+建议任务文案应该贴近独立开发者 / 技术负责人的可验证委托：
 
-- 梳理今天的业务风险。
-- 把这段聊天整理成待办。
-- 根据会议记录生成纪要。
-- 帮我拆一个执行方案。
-- 查一个业务问题的证据链。
+- 定位这个报错并给出可验证的修复。
+- 规划一次跨文件改造，并标出回归风险。
+- 根据当前仓库写一份发布前检查清单。
+- 把这次调研收成带引用的文档。
+- 查清这条任务线已经改了什么、证据在哪。
 
 禁止：
 
@@ -549,7 +549,7 @@ Peer Agent 需要有自己的味道，但不能靠 logo 堆砌。
 只保留少量能形成识别度的细节：
 
 - Composer 顶部极细高光线，表达“指令台”。
-- selected Channel 使用内凹感，而不是外发光。
+- selected 任务行使用内凹感，而不是外发光。
 - Agent briefing 的左侧可以有 1px 低对比执行线。
 - Evidence / Tool 使用小型 monospaced tag。
 - 账户按钮使用头像 + 姓名 + chevron，成为侧栏底部锚点。
@@ -564,7 +564,7 @@ Peer Agent 需要有自己的味道，但不能靠 logo 堆砌。
 
 ### 6.3 Appearance 与主题系统
 
-Peer Agent 必须支持黑白配色和用户自定义主题，类似 Codex 的 Appearance，但要更贴近 Zeus 的产品语义。
+Peer Agent 必须支持黑白配色和用户自定义主题，类似 Codex 的 Appearance，但要更贴近 Peer 的产品语义。
 
 主题不是装饰面板，而是长时间办公产品的基础能力：
 
@@ -673,19 +673,19 @@ Appearance
 
 细节：
 
-- Preview 不能用代码 diff 假图；Zeus 应用自己的真实对象预览：Channel、会话行、Agent message、Composer、Tool tag。
+- Preview 不能用代码 diff 假图；Peer 应用自己的真实对象预览：工作台雷达、任务行、Agent message、Composer、Tool tag。
 - Light / Dark 两套配置并列存在，System 模式根据系统选择其中一套。
 - 支持 `Import theme` 和 `Copy theme`，方便团队共享。
 - 导入主题必须校验 contrast，低于可读阈值时给出提示并自动修正 muted text / border。
 
 #### 6.3.5 黑白主题原则
 
-黑白主题不是“无品牌”，而是 Zeus 的专业模式。
+黑白主题不是“无品牌”，而是 Peer 的专业模式。
 
 黑白主题要求：
 
 - Accent 降低到最少，只用于焦点和可执行动作。
-- Channel selected 使用灰阶内凹面。
+- 选中任务行使用灰阶内凹面。
 - Composer 用柔和高光表达可输入状态。
 - Agent briefing 更像文档阅读面，减少色彩干扰。
 - 表格、Evidence、Tool tag 优先靠边界和字体层级区分。

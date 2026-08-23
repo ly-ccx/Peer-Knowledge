@@ -1,15 +1,15 @@
 # 用户首次使用引导（情境式 Onboarding）产品方案
 
 创建时间：2026-07-27  
-最后更新：2026-08-15  
-状态：落地中（空会话是首启主路径；设置只是闸门）  
+最后更新：2026-08-23  
+状态：落地中（空任务是首启主路径；设置只是闸门）  
 范围：Peer Agent Desktop 主窗口首启与早期使用路径  
 
 关联文档：
 
-- `knowledge/specifications/14-product-design-language.md` §4.1 新会话首屏、§7.2 首屏空状态
+- `knowledge/specifications/14-product-design-language.md` §4.1 新任务首屏、§7.2 首屏空状态
 - `design/product/desktop-cold-start-brand-startup-loader.md`（冷启动品牌页，非产品引导）
-- `design/product/peer-2-0-workbench-flow.md`（工作台是日常 IA 主入口，不是首启教育落点）
+- `design/product/peer-2-0-workbench-flow.md`（工作台是跨任务雷达，不是唯一入口，也不是默认落地页）
 - 代码现状锚点：
   - `apps/desktop/renderer/src/chat/components/ChatSurface.tsx`（`hasProvider`、`chat-empty-state`、starter cards）
   - `apps/desktop/renderer/src/chat/components/ComposerDraftControls.tsx`（未配置时 placeholder / disabled）
@@ -43,7 +43,7 @@
 2. 首屏**不空、不营销、不像 demo**，符合 Peer Frost「高端、简约、克制、强大」。
 3. 进阶能力按需露出，可跳过、只出现一次，不打断主任务流。
 4. 引导状态可持久化、可重置（设置里「重置引导」可选，P1）。
-5. **空会话是首启主路径**。工作台仍是日常 Delegation OS 主入口；整页设置只是闸门。首启**不再自动打开整页设置**。
+5. **空任务是首启主路径**。任务是家，工作台是雷达，不是唯一入口；整页设置只是闸门。首启**不再自动打开整页设置**。
 
 ### 2.3 非目标（本方案明确不做）
 

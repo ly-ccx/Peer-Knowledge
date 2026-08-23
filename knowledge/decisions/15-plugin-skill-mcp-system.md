@@ -6,7 +6,7 @@
 
 本文定义 Peer Agent 的能力扩展体系。这里刻意区分三个经常被混在一起的对象：
 
-- `Skill`：云端编排对象。
+- `Skill`：可被发现、签收、在授权下执行的能力包（本地持有）。
 - `Plugin`：本地能力打包和分发对象。
 - `MCP`：工具传输协议，需要区分云端 MCP 和本地 MCP。
 - `Local Shell`：客户端内置的本地命令执行 Provider，不属于 Plugin，也不是 MCP。
@@ -50,35 +50,33 @@ Runtime Gateway Session
 
 ## 一、产品边界
 
-Peer Agent 不是插件市场壳，也不是本地 Agent Runtime。它是云端认知 Runtime 的客户端 Harness。
+Peer Agent 不是插件市场壳，也不是某个云端 Agent 的薄客户端。它是本机上的任务委托系统：模型负责认知，本地负责发现、授权、执行与 Evidence。
 
-云端负责：
+模型负责：
 
 - 认知。
 - 规划。
-- `Skill` 选择。
 - 工具选择。
-- 组织和业务策略。
-- 执行账本。
 
-客户端负责：
+本地负责：
 
-- 本地能力发现。
-- 本地安装和启用。
-- 本地权限确认。
+- 能力发现、安装和启用。
+- `Skill` 的本地持有与签收。
+- 权限确认。
 - 本地执行。
-- 本地 Evidence 采集和脱敏。
-- 把 Evidence 回传云端。
+- Evidence 采集、脱敏与关闭完成。
 
-云端不能直接访问本地端口。任何本地执行都必须通过客户端主动建立的 Gateway WS / outbound runtime session 接收 `client_tool_call`；`poll` 只能作为断线恢复或兼容兜底。
+组织策略、共享 Skill、共同验收是个人闭环稳定之后的远期能力，不是当前产品主语。
+
+模型不能直接访问本地端口。任何本地执行都必须经过 `Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence`。Gateway WS / outbound runtime session 若存在，只是投递 `client_tool_call` 的通道，不是 Peer 的身份。
 
 ## 二、对象模型
 
 ### 2.1 Skill
 
-`Skill` 是云端编排对象。
+`Skill` 是可被发现、签收、在授权下执行的能力包，由本机持有。
 
-它描述云端 Agent 如何解决某一类工作：
+它描述如何解决某一类工作：
 
 - 意图模式。
 - 规划步骤。
@@ -246,7 +244,7 @@ Local Shell Provider
 
 `claude-code` 的本地命令实现可以拆成以下可迁移设计点：
 
-| `claude-code` 模块 | 迁移到宙斯客户端的设计 |
+| `claude-code` 模块 | 迁到 Peer 桌面的设计 |
 |---|---|
 | `BashTool.inputSchema` | `LocalShellExecInput`，只暴露 command、cwd、timeout、description、background 等必要字段 |
 | `bashPermissions.ts` | `ShellPermissionClassifier`，负责 command AST / wrapper / redirect / env prefix / heredoc 风险分类 |
@@ -274,7 +272,7 @@ MCP、Plugin、FileRead、FileWrite 都必须以 Provider adapter 形式注册�
 `LocalToolHost` 里增加新的 capabilityId 分支。
 
 后台 Bash 任务不能只返回“已启动”。`Local Shell Provider` 必须在任务结束时通过
-Runtime Gateway follow-up result 回传最终状态和 Evidence，保证云端 Agent Runtime 的执行账本闭环。
+Runtime Gateway follow-up result 回传最终状态和 Evidence，保证任务线程的执行账本闭环。
 
 Shell PermissionRule 的写入必须经过 `PermissionReview`。`allow` rule 不能使用 wildcard，
 必须绑定 workspace 内 cwd，并声明不超过 `L4_privileged` 的 `maxRiskLevel`。原始
@@ -1286,10 +1284,10 @@ Composer：
 
 ## 十六、本地安装和信任
 
-由 Cloud Runtime 提供的 `Skill` 与 `Cloud MCP` 不做“安装”。
+由模型 provider / 可选云端 catalog 提供的远程 `Skill` 与远程 MCP 不做“安装到本机当二进制”。
 
-- `Skill` 是云端编排对象，只做 catalog 可见、租户授权、用户启用或禁用。
-- `Cloud MCP` 是云端托管服务，只做 cloud policy / tenant binding。
+- `Skill` 由本机持有与签收。若存在远程 catalog，也只做可见与启用，不能绕过本地授权与 Evidence。
+- 远程 MCP 只做 policy / binding，不替代本地 PermissionGrant。
 - 需要安装的只有本地服务：`Plugin`、`Local MCP Server`、以及某个 `Skill` 依赖的本地 Plugin / Local MCP。
 
 因此“一键安装 Skill”在产品语义上应该表达为：
