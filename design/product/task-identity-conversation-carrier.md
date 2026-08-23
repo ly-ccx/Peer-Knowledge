@@ -11,6 +11,7 @@
 - `apps/desktop/renderer/src/chat/state/conversationStore.ts`
 - `packages/runtime-node/src/goal-intake-convergence.mjs`
 关联文档：
+- `design/product/peer-product-alignment.md`（产品链路唯一对齐方向）
 - `design/product/peer-transformation-charter.md`（当前改造总纲 v2：产品面只说任务）
 - `knowledge/decisions/67-task-shell-workbench-radar.md`（原型 A）
 - `design/product/peer-2-0-product-system.md`（对象模型：Task 是心智，Conversation 是载体）

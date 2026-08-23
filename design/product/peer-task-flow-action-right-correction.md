@@ -6,6 +6,7 @@
 > 适用范围：Desktop 工作台首页、任务/历史抽屉、GoalPlan 命名与投影  
 > 关联代码仓：`peer_agent`  
 > 关联文档：  
+> - `design/product/peer-product-alignment.md`（产品链路唯一对齐方向）  
 > - `design/product/peer-transformation-charter.md`（当前改造总纲 v2；壳层以它为准）  
 > - `design/product/peer-2-0-product-system.md`（更早的 2.0 产品总纲）  
 > - `design/product/peer-2-0-workbench-flow.md`（工作台语义与动线；壳层已被总纲覆盖）  

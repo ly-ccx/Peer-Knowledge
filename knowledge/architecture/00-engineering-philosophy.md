@@ -2,7 +2,8 @@
 
 > 创建时间：2026-06-23  
 > 最后更新：2026-08-23  
-> 适用范围：所有 Peer Agent 相关项目（peer_agent、xiaoer_design 等）
+> 适用范围：所有 Peer Agent 相关项目（peer_agent、xiaoer_design 等）  
+> 产品理念：`design/product/peer-product-alignment.md`（本文只锁工程哲学，不另立品类）
 
 ## 第一原则：优雅
 

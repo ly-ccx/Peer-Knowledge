@@ -1,10 +1,11 @@
 # Peer 2.0 产品体系说明书
 
 > 创建时间：2026-08-01  
-> 最后更新：2026-08-22（当前改造镜头见总纲 v2；本文仍是更早的 2.0 战略总纲）  
-> 文档状态：2.0 产品总纲 / 战略与实施基线  
-> 适用范围：Peer Desktop、CLI/TUI、Local Runtime、Cloud Runtime 与后续协作能力  
+> 最后更新：2026-08-23（理念冲突以 `peer-product-alignment.md` 为准；本文是更早的战略库存）  
+> 文档状态：2.0 战略与实施基线（**不再作为产品链路对齐真源**）  
+> 适用范围：Peer Desktop、CLI/TUI、Local Runtime 与后续协作能力  
 > 关联代码仓：`peer_agent`  
+> 产品对齐：`design/product/peer-product-alignment.md`  
 > 当前改造总纲：`design/product/peer-transformation-charter.md`  
 > 壳层决策：`knowledge/decisions/67-task-shell-workbench-radar.md`
 

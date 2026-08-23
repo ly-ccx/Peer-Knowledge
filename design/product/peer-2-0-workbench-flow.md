@@ -7,6 +7,7 @@
 > 关联代码仓：`peer_agent`  
 > 关联文档：  
 > - `design/product/peer-transformation-charter.md`（**当前改造总纲 v2**：任务是家，工作台是雷达）  
+> - `design/product/peer-product-alignment.md`（产品链路唯一对齐方向）  
 > - `knowledge/decisions/67-task-shell-workbench-radar.md`（原型 A 锁定）  
 > - `design/product/first-run-onboarding-guidance.md`（首启主路径是空任务，不是工作台）  
 > - `design/product/peer-2-0-product-system.md`（更早的 2.0 战略总纲）  

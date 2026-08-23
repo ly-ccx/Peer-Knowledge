@@ -57,4 +57,4 @@ C 级升 A/B 的条件：改着改着碰到了能力执行、权限真值、Evid
 按 playbook/change-intake.md 给这条需求分级，并决定从哪开、写到哪、交到哪。
 ```
 
-Agent 应先给出 A/B/C 和入口，再开始改文件。
+Agent 应先给出 A/B/C 和入口，再开始改文件。产品方向以 `design/product/peer-product-alignment.md` 为准，不要另写一套品类故事。

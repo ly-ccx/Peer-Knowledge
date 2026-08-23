@@ -1,6 +1,7 @@
 # README 产品叙事主线（2026-08 重写）
 
-> 目的：沉淀 peer_agent 双语 README 重写（2026-08-14）采用的叙事结构与事实依据，供后续文档（docs 站点、changelog 文案、功能页）沿用同一主线，避免产品口径漂移。
+> 目的：沉淀 peer_agent 双语 README 重写（2026-08-14）采用的叙事结构与事实依据，供后续文档（docs 站点、changelog 文案、功能页）沿用同一主线，避免产品口径漂移。  
+> **产品理念以 `design/product/peer-product-alignment.md` 为准。** 本文只锁 README 章节结构；与对齐文档冲突的旧口径（云端派发、圆桌当品类）不要再写进对外叙事。
 
 ## 叙事主线
 

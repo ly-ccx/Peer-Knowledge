@@ -1,10 +1,10 @@
 # Peer 改造总纲
 
 创建时间：2026-08-22
-最后更新：2026-08-23（清掉宙斯 / Cloud CEO / 企业 Agent OS 旧身份）
+最后更新：2026-08-23（产品理念对齐见 `peer-product-alignment.md`）
 
 > 版本：v2  
-> 状态：产品与架构改造真源（草案 v1 已吸收；阶段 A 已在代码仓交付）  
+> 状态：壳层与改造阶段真源（理念以 `peer-product-alignment.md` 为准；阶段 A 已在代码仓交付）  
 > 范围：产品动线、信息架构、任务治理、证据链、Workspace Git 工作线、运行时演进  
 > 原则：改造服务于「可治理的任务闭环」，不为追插件热度或对标而改。  
 > 关联代码仓：`peer_agent`（远程 `https://github.com/ly-ccx/Peer-Agent`）  
@@ -15,12 +15,13 @@
 > - `apps/desktop/renderer/src/App.tsx`  
 > - `packages/protocol/src/task-overview.ts`  
 > 关联文档：  
-> - `design/product/peer-2-0-product-system.md`（更早的 2.0 战略总纲，本文件管当前改造镜头）  
+> - `design/product/peer-product-alignment.md`（**产品链路唯一对齐方向**：理念、人群、价值、委托链路）  
+> - `design/product/peer-2-0-product-system.md`（更早的 2.0 战略总纲；与对齐文档冲突时以对齐文档为准）  
 > - `design/product/peer-2-0-workbench-flow.md`（工作台分桶；壳层以本文为准）  
 > - `design/product/task-identity-conversation-carrier.md`（产品面说任务，存储主键仍是 conversation）  
 > - `knowledge/architecture/task-lifecycle-and-acceptance-flow.md`（副作用必须先有 GoalPlan）
 
-前身是本机草案 v1（2026-08-22）。v2 写入本仓后，以本文为准。
+前身是本机草案 v1（2026-08-22）。v2 写入本仓后，壳层与改造阶段以本文为准；产品理念以 `peer-product-alignment.md` 为准。
 
 ---
 
@@ -274,11 +275,13 @@ UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；任务�
 | 证据密码学 | 后置 | 保持 |
 | Cordis | 先能力层，不整核替换 | 保持 |
 
-与本文冲突的需求，先改本文决策表，再改代码。
+与壳层决策冲突的需求，先改本文决策表，再改代码。与理念、人群、品类、主轴冲突的需求，先改 `peer-product-alignment.md`。
 
 ---
 
 ## 9. 文档使用
+
+产品理念、人群、品类、价值点和委托链路以 `design/product/peer-product-alignment.md` 为准。本文只锁当前壳层与改造阶段。
 
 本文是改造总纲，不是 sprint 票。拆票时写清：改的是任务壳、工作台、Plan 闸门、证据，还是 Git 线；是否触碰三条证据不变量；是否改变「任务是家」。
 
