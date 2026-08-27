@@ -45,8 +45,8 @@ triageTaskLine({ repositoryRoot, taskBranch, targetBranch, baseCommit }) -> {
 
 | verdict | 判定条件 | 语义 |
 |---|---|---|
-| `AUTO_CLEAN` | `ahead === 0`（变更集为空，或任务线已被目标线包含） | 空壳：改动早已合进，静默标「已进」并清线 |
-| `BLOCKED_ENV` | tracked 工作区脏（modified/staged/deleted）、git lock、merge-base/diff 命令失败 | 环境挡：不丢数据但需用户先处理环境 |
+| `AUTO_CLEAN` | `ahead === 0`（变更集为空，或任务线已被目标线包含）。**先于脏检查**：目标工作区 tracked 脏挡不住空壳「已进」事实 | 空壳：改动早已合进，静默标「已进」并清线 |
+| `BLOCKED_ENV` | 仅在 ahead>0 时：tracked 工作区脏（modified/staged/deleted）、git lock、merge-base/diff 命令失败 | 环境挡：不丢数据但需用户先处理环境 |
 | `CONFLICT` | 存在碰撞未跟踪文件且内容与任务线版本**不同** | 真冲突：合并会覆盖工作区内容，必须用户决断 |
 | `AUTO_MERGE` | 有变更集，无 tracked 脏，碰撞仅同内容未跟踪文件（或无碰撞） | 可自动合：暂移同内容碰撞后 ff-only 合入 |
 | `STALE` | `behind` 超过阈值（暂定 ≥20）且 `changedFiles` 与目标线当前内容 diff 为空（改动已失效） | 已过时：置灰一键清理，不打扰 |
