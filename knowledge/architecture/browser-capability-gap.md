@@ -1,6 +1,6 @@
 # 内置浏览器能力缺口（对 Playwright 水位）
 
-> 状态：诊断（Draft）；P1 动作面见 [ADR 70](../decisions/70-l1-browser-action-surface.md)
+> 状态：诊断（Draft）；P1 动作面见 [ADR 70](../decisions/70-l1-browser-action-surface.md)；P2 外部浏览器见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)
 > 范围：L1 内嵌 Browser（`local.web.control.*`）
 > 基准：Playwright 元素定位 / auto-wait / frame / download / dialog / 多页能力面
 > 目标：说明「为什么现有内置浏览器点不准、能力弱」，并给出修 L1 vs 加 L2 的边界结论。
@@ -112,7 +112,8 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - 坐标规范化 + auto-wait 已 commit：`46b3b05c`（已 push `origin/PeerAgent/sept-1-changes`）。
 > - 元素级定位 + frame 支持（buildElementJs）已 commit：`d9ab02c6`（已 push 同分支）。
 > - P1 动作面：决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。**P1a hover+scroll 与 P1b key+drag 均已落地**（契约、capability json、工具 schema、provider、动作路径测试）。
-> - 剩余：P2 加 L2 Playwright Adapter（另开 ADR）。
+> - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)（Proposed）。本轮不改 `peer_agent` 产品代码。
+> - 剩余：P2 实现（ADR 71 通过后，先 temporary Peer-managed profile）。
 
 **P1 —— 补齐 L1 缺失动作（对齐 Playwright 单页语义）**
 
@@ -122,8 +123,11 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 6. 给 `browser_read_dom` 增加 `role` / `accessibility` 观测，方便模型选元素而非猜坐标。**不在 ADR 70 范围**（观察面，不是动作面）。
 
 **P2 —— 加 L2 Playwright Adapter（补多页/下载/对话框/独立登录态）**
-7. 引入 `ExternalBrowserAdapter`（Playwright 优先，CDP 兜底），独立 profile / 显式 attach。
-8. 落地前先补 ADR：profile 与 attach 安全模型、download/dialog 权限分级、artifact 敏感分级。
+
+> 设计已写入 **ADR 71**（Proposed）。本轮不改 `peer_agent` 产品代码。Playwright 不得接管 L1 内嵌页，也不得向模型暴露 Playwright/CDP。
+
+7. 引入 `ExternalBrowserAdapter`（Playwright 优先，CDP 仅 Adapter 内受限底层），独立 Peer-managed profile / 显式 attach / 临时 context。
+8. 安全模型、download/dialog 权限、artifact 敏感分级见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。实现顺序：temporary profile → 持久 Peer-managed profile → 最后评估 attach。
 
 ### 验收口径
 
