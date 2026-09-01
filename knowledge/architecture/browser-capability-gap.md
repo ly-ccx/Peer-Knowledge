@@ -112,6 +112,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - 坐标规范化 + auto-wait 已 commit：`46b3b05c`（已 push `origin/PeerAgent/sept-1-changes`）。
 > - 元素级定位 + frame 支持（buildElementJs）已 commit：`d9ab02c6`（已 push 同分支）。
 > - P1 动作面：决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。**P1a hover+scroll 与 P1b key+drag 均已落地**（契约、capability json、工具 schema、provider、动作路径测试）。
+> - L1 观察面：`browser_read_dom` 已支持 `format=roles`（role/name/selector 快照，支持 `frame:N`）。**不在 ADR 70 范围**。
 > - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。**L2 第一刀已落地**：temporary Peer-managed Playwright 会话、独立 `browser_external_*` / `local.web.external.*`，不接管 L1 webview，不向模型暴露 Playwright/CDP。download/dialog 本切片拒绝并给出可恢复错误。
 > - 剩余：持久 Peer-managed profile、Explicit attach、L2 download/dialog capability。
 
@@ -120,7 +121,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > 设计见 **ADR 70**。P1a（`browser_hover` / `browser_scroll`）与 P1b（`browser_key` / `browser_drag`）均已实现。
 
 5. 新增 `hover`、`scroll`、`key`(press/tab/enter/escape/组合键)、`drag` 动作；必须同步 `DESKTOP_ONLY_LOCAL_TOOL_CONTRACTS`、capability json、provider、reveal 白名单与 parity 测试。实现切 P1a（hover+scroll，已落地）/ P1b（key+drag，已落地）。
-6. 给 `browser_read_dom` 增加 `role` / `accessibility` 观测，方便模型选元素而非猜坐标。**不在 ADR 70 范围**（观察面，不是动作面）。
+6. 给 `browser_read_dom` 增加 `role` / `accessibility` 观测，方便模型选元素而非猜坐标。**不在 ADR 70 范围**（观察面，不是动作面）。**已落地**：`format=roles` 产出 role/name/selector 快照，支持 `frame:N`。
 
 **P2 —— 加 L2 Playwright Adapter（补多页/下载/对话框/独立登录态）**
 
