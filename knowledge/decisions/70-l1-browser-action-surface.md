@@ -5,7 +5,7 @@
 
 ## 状态
 
-Accepted。P1a（hover + scroll）已在 `peer_agent` 落地；P1b（key + drag）尚未实现。
+Accepted。P1a（hover + scroll）与 P1b（key + drag）均已在 `peer_agent` 落地。
 
 ## 级别
 
