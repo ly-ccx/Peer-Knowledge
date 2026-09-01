@@ -5,7 +5,7 @@
 
 ## 状态
 
-Proposed。评审通过后再在 `peer_agent` 实现；本轮只落决策，不改产品代码。
+Accepted。L2 第一刀已在 `peer_agent` 落地：temporary Peer-managed Playwright 会话、独立 `browser_external_*` / `local.web.external.*` 契约与 capability。持久 Peer-managed profile 与 Explicit attach 仍未实现。
 
 ## 级别
 
@@ -159,17 +159,24 @@ dialog：
 - 不向模型暴露裸 Playwright API 或任意 CDP command。
 - 不默认附着用户日常浏览器 Profile。
 - 不扫描并静默 attach 本机调试端口。
-- 本轮不改 `peer_agent` 产品代码。
 - 不做 L3 macOS OS UI（另开 ADR）。
 
-## 实现时必做（评审通过后）
+## 实现进度
 
-1. `ExternalBrowserAdapter`：temporary Peer-managed profile 先行。
-2. Environment / Target 句柄绑定 conversation；停止与销毁。
-3. 受控浏览器可见状态与立即停止。
-4. download/dialog 的 PermissionGrant + artifact 分级。
-5. 现有 `browser_*` 按 environment 路由；L2 专属动作另登契约。
-6. 同步 `desktop-cli-local-capability-parity.md`：L2 仍为 Desktop 专属。
+第一刀已落地（Desktop-only）：
+
+1. `ExternalBrowserAdapter`：temporary Peer-managed profile；conversation 绑定；`open` / `close` 启停销毁。
+2. 独立工具面 `browser_external_*` → `local.web.external.*`，**不**把 L1 `browser_*` 路由进 Playwright。
+3. 默认白名单：navigate / click / type / screenshot / readDom / hover / scroll。
+4. download / dialog 本切片拒绝并给出可恢复错误；页面事件会 cancel/dismiss，不向模型暴露 CDP。
+5. L2 仍登记在 `DESKTOP_ONLY_LOCAL_TOOL_CONTRACTS`，CLI/TUI 不执行该 Adapter。
+
+尚未落地：
+
+- 持久 Peer-managed profile。
+- Explicit attach。
+- L2 专属 download / dialog capability 与 PermissionGrant。
+- 受控浏览器可见状态面板 / 立即停止 UI。
 
 ## 参考
 

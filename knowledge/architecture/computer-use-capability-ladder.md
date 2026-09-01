@@ -435,7 +435,7 @@ CLI/TUI 继续是一等宿主，但没有可视桌面环境时不得投影 L1/L3
 
 ### Phase 2：受控外部浏览器
 
-- 先实现 Peer-managed temporary profile；
+- 先实现 Peer-managed temporary profile（第一刀已落地：独立 `browser_external_*` / `local.web.external.*`，见 ADR 71）；
 - 再实现持久 Peer-managed profile；
 - 最后评估 Explicit attach 用户浏览器；
 - 默认走 Playwright，CDP 只作为受限底层；

@@ -112,8 +112,8 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - 坐标规范化 + auto-wait 已 commit：`46b3b05c`（已 push `origin/PeerAgent/sept-1-changes`）。
 > - 元素级定位 + frame 支持（buildElementJs）已 commit：`d9ab02c6`（已 push 同分支）。
 > - P1 动作面：决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。**P1a hover+scroll 与 P1b key+drag 均已落地**（契约、capability json、工具 schema、provider、动作路径测试）。
-> - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)（Proposed）。本轮不改 `peer_agent` 产品代码。
-> - 剩余：P2 实现（ADR 71 通过后，先 temporary Peer-managed profile）。
+> - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。**L2 第一刀已落地**：temporary Peer-managed Playwright 会话、独立 `browser_external_*` / `local.web.external.*`，不接管 L1 webview，不向模型暴露 Playwright/CDP。download/dialog 本切片拒绝并给出可恢复错误。
+> - 剩余：持久 Peer-managed profile、Explicit attach、L2 download/dialog capability。
 
 **P1 —— 补齐 L1 缺失动作（对齐 Playwright 单页语义）**
 
@@ -124,7 +124,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 
 **P2 —— 加 L2 Playwright Adapter（补多页/下载/对话框/独立登录态）**
 
-> 设计已写入 **ADR 71**（Proposed）。本轮不改 `peer_agent` 产品代码。Playwright 不得接管 L1 内嵌页，也不得向模型暴露 Playwright/CDP。
+> 设计见 **ADR 71**。L2 第一刀（temporary Peer-managed profile + 白名单动作）已实现。Playwright 不得接管 L1 内嵌页，也不得向模型暴露 Playwright/CDP。
 
 7. 引入 `ExternalBrowserAdapter`（Playwright 优先，CDP 仅 Adapter 内受限底层），独立 Peer-managed profile / 显式 attach / 临时 context。
 8. 安全模型、download/dialog 权限、artifact 敏感分级见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。实现顺序：temporary profile → 持久 Peer-managed profile → 最后评估 attach。
