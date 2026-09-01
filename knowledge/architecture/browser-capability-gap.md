@@ -111,14 +111,14 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > **提交现状**
 > - 坐标规范化 + auto-wait 已 commit：`46b3b05c`（已 push `origin/PeerAgent/sept-1-changes`）。
 > - 元素级定位 + frame 支持（buildElementJs）已 commit：`d9ab02c6`（已 push 同分支）。
-> - P1 动作面（hover/scroll/key/drag）：先写 ADR，评审后再实现。决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。
-> - 剩余：P1 实现（ADR 70 通过后）；P2 加 L2 Playwright Adapter（另开 ADR）。
+> - P1 动作面：决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。**P1a hover+scroll 已落地**（契约、capability json、工具 schema、provider、动作路径测试）。P1b key+drag 未做。
+> - 剩余：P1b（key/drag）；P2 加 L2 Playwright Adapter（另开 ADR）。
 
 **P1 —— 补齐 L1 缺失动作（对齐 Playwright 单页语义）**
 
-> 设计已写入 **ADR 70**（Proposed）。本轮不改 `peer_agent` 产品代码。
+> 设计见 **ADR 70**。P1a（`browser_hover` / `browser_scroll`）已实现；P1b 未做。
 
-5. 新增 `hover`、`scroll`、`key`(press/tab/enter/escape/组合键)、`drag` 动作；必须同步 `DESKTOP_ONLY_LOCAL_TOOL_CONTRACTS`、capability json、provider、reveal 白名单与 parity 测试。实现切 P1a（hover+scroll）/ P1b（key+drag）。
+5. 新增 `hover`、`scroll`、`key`(press/tab/enter/escape/组合键)、`drag` 动作；必须同步 `DESKTOP_ONLY_LOCAL_TOOL_CONTRACTS`、capability json、provider、reveal 白名单与 parity 测试。实现切 P1a（hover+scroll，已落地）/ P1b（key+drag，未做）。
 6. 给 `browser_read_dom` 增加 `role` / `accessibility` 观测，方便模型选元素而非猜坐标。**不在 ADR 70 范围**（观察面，不是动作面）。
 
 **P2 —— 加 L2 Playwright Adapter（补多页/下载/对话框/独立登录态）**

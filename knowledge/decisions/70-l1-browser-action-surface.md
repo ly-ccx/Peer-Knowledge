@@ -5,7 +5,7 @@
 
 ## 状态
 
-Proposed。评审通过后再在 `peer_agent` 实现；本轮只落决策，不改产品代码。
+Accepted。P1a（hover + scroll）已在 `peer_agent` 落地；P1b（key + drag）尚未实现。
 
 ## 级别
 
