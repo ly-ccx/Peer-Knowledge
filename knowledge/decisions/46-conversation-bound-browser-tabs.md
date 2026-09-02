@@ -1,7 +1,7 @@
 # 46. 会话绑定的 Workbench 与多标签浏览器
 
 创建时间：2026-07-15
-最后更新：2026-07-15
+最后更新：2026-09-02
 
 ## 状态
 
@@ -48,8 +48,10 @@ interface BrowserSession {
 - 关闭最后一个标签时立即补一个新的空白标签，BrowserView 始终至少有一个页面。
 - 当前会话内的多个 `<webview>` 同时保持挂载，仅活跃标签可见，以保留页面 DOM、滚动位置和
   前进后退历史。
-- 切换 conversation 时可以卸载该会话的 WebContents；返回时按持久化的 URL 元数据重建。
-  因此跨会话切换恢复标签集合和 URL，但不承诺恢复页面 DOM 与 history stack。
+- 进程内切换 conversation 时，最近用过的非空白会话浏览器可继续挂着同一批 WebContents
+  （上限 8 个，LRU）。点回来复用同一个 BrowserView，不按 URL 拆掉重建。超出上限的最旧项、
+  以及应用重启后，仍按持久化的 URL 元数据重建；不承诺恢复页面 DOM、滚动位置与 history stack。
+  空白 `about:blank` 不占活页名额。登录分区仍是共享的 `persist:peer-browser`。
 - BrowserSession 元数据随现有 workbench settings 防抖持久化；不把网页正文、表单内容或
   history stack 写入 settings。
 
