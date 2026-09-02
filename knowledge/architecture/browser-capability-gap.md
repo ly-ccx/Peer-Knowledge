@@ -114,6 +114,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - `buildRolesSnapshotJs` 同样注入 helper；角色采集显式走 `current.shadowRoot.children` 再走 `current.children`。
 > - click 路径测试：selector `#go`（mouseDown/Up + viewport）、坐标点（跳过 lookup）、`frame:0 #submit`。
 > - 单测：element + actions + coordinate **35/35** 全绿。**closed shadow 仍不可达**（本切片非目标）。
+> - 代码 commit：`eab5f3dc`（已 push `origin/PeerAgent/sept-1-changes`）。
 >
 > **提交现状**
 > - 坐标规范化 + auto-wait 已 commit：`46b3b05c`（已 push `origin/PeerAgent/sept-1-changes`）。
