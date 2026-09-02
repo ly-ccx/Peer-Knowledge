@@ -1,11 +1,11 @@
 # 72. 网页任务默认入口：L1 内置浏览器（`browser_*`）
 
 创建时间：2026-09-02
-最后更新：2026-09-02
+最后更新：2026-09-02（第一刀系统提示落地）
 
 ## 状态
 
-Proposed。本 ADR 只钉死产品与执行面边界；不改 `peer_agent` 代码。后续投影、提示词与 L1 缺口补齐另开实现切片。
+Accepted（第一刀已落地：系统提示）。产品边界钉死为 L1 `browser_*`。`peer_agent` 已增加 `runtime.web-entry` Context Source，并在 `browser_external_open` 提示中写明 L2 不是默认网页入口。本切片**不**删除 `browser_external_*` 投影。locator / 等待补全仍属后续切片。
 
 ## 级别
 
@@ -91,7 +91,7 @@ L1 接得住的上限：Workbench 内、Peer 分区、当前 conversation 的网
 
 本 ADR 落地后的代码切片按这个顺序，不得颠倒成「先把默认切到 Playwright」：
 
-1. **投影与提示**：网页任务默认只强调 `browser_*`；L2 不得在系统提示里被写成常规网页入口。
+1. **投影与提示**：网页任务默认只强调 `browser_*`；L2 不得在系统提示里被写成常规网页入口。**已落地**：`runtime.web-entry` Context Source + `browser_external_open` 提示降权。尚未从模型可见列表删除 L2。
 2. **L1 正确性**：locator（text / role / nth）、等待补全（enabled / 遮挡 / stale）、减少纯几何中心点击、真机 Retina+缩放验收。
 3. **L1 单页加分**：check、双击、右键、文件选择器。dialog / download 若要进 L1，必须另开 A 级 ADR，不得 silently 塞进本决策。
 4. **L2**：仅在决策二的显式条件下继续（持久 Peer-managed profile、attach、download/dialog capability）。
@@ -105,14 +105,14 @@ L1 接得住的上限：Workbench 内、Peer 分区、当前 conversation 的网
 
 ## 不做（Non-goals）
 
-- 本轮不改 `peer_agent` 产品代码、不改工具投影、不删 `browser_external_*`。
+- 本 ADR 原文不改代码；第一刀实现只加系统提示，不删 `browser_external_*`。
 - 不把 L1 做成用户日常浏览器的替身。
 - 不在本 ADR 里规定 dialog / download 必须进 L1。
 - 不重开「用 Playwright 接手内置页」的讨论。
 
 ## 实现时必改（评审通过后的代码切片，不在本轮）
 
-- 系统提示 / Context Source：网页任务默认入口写成 `browser_*`。
+- 系统提示 / Context Source：网页任务默认入口写成 `browser_*`（第一刀已落地：`packages/system-context/src/sources/web-entry-source.mjs`）。
 - 若选择隐藏 L2：Runtime Projection 与 Desktop-only 契约的模型可见集合。
 - L1 缺口实现仍走 `local.web.control.*` Provider，不走 ExternalBrowserAdapter。
 
