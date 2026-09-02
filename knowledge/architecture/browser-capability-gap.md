@@ -15,7 +15,7 @@ Capability Provider(`local.web.control.*`) → Manifest → Tool(`browser-tool-d
 |---|---|---|---|
 | browser_open_panel | local.web.control.openPanel | 无 | reveal Workbench Browser |
 | browser_navigate | local.web.control.navigate | url | `loadURL` |
-| browser_click | local.web.control.click | selector 或 x/y | `document.querySelector` + `getBoundingClientRect` 中心点 + `sendInputEvent` |
+| browser_click | local.web.control.click | selector 或 x/y | `queryDeep`（主文档 / iframe / open shadowRoot）+ `getBoundingClientRect` 中心点 + `sendInputEvent` |
 | browser_type | local.web.control.type | selector + text | focus + `sendInputEvent(char)` |
 | browser_screenshot | local.web.control.screenshot | - | `capturePage` |
 | browser_read_dom | local.web.control.readDom | selector | `executeJavaScript` 采集 innerText/outerHTML |
@@ -27,9 +27,9 @@ Capability Provider(`local.web.control.*`) → Manifest → Tool(`browser-tool-d
 
 `browser_click` 不是元素级点击，而是「先找中心点，再打像素」，整条链都脆：
 
-1. **定位方式**：`document.querySelector` 只在**主 frame** 里查，且只按 CSS 选择器命中**第一个**节点。
-   - iframe / shadow DOM 里的目标根本查不到，或算错框；
-   - 选择器命中不到预期节点（重复类名、动态 id）时直接点错元素。
+1. **定位方式**：原先 `document.querySelector` 只在**主 frame** 里查，且只按 CSS 选择器命中**第一个**节点。
+   - iframe 已可用 `frame:N` 前缀下钻；open shadowRoot 已由 `queryDeep` 递归进入。**closed shadow 仍查不到**。
+   - 选择器命中不到预期节点（重复类名、动态 id）时仍会点错元素。
 2. **坐标来源**：取 `getBoundingClientRect()` 的**几何中心点**，再通过 `sendInputEvent` 向该点打 `mouseDown/mouseUp`。
    - 几何中心 ≠ 可点击热区（圆形按钮、内边距、绝对定位覆盖层）；
    - 该点若被遮罩/浮动层覆盖，点击落到遮罩而非目标；
@@ -41,7 +41,7 @@ Capability Provider(`local.web.control.*`) → Manifest → Tool(`browser-tool-d
    - Retina 屏 / 网页缩放下，CSS 坐标与 `sendInputEvent` 期望的物理/逻辑坐标不一致 → 偏移；
    - 存在头部/侧栏偏移时，中心点没换算到 webContents 的视图坐标系。
 5. **无目标漂移防护**：观察（读 DOM/截图）和点击之间页面可能变化，没有 `stale observation` 检测。
-6. **无回归测试**：provider 测试只覆盖面板打开与导航，**点击路径没有测试**，坐标算法改坏也无法发现。
+6. **回归测试**：click 路径已补 selector / 坐标 / `frame:N` 三条测试；坐标换算与 `buildElementJs`/`queryDeep` 另有单测。live Retina+缩放页面的端到端点击稳定性仍待人工验收。
 
 **结论：这是 L1 执行器的问题，不是「没用 Playwright」这个口号能自动修好的。**坐标错是坐标系/等待/主 frame 限制同时作用的结果。
 
@@ -51,14 +51,14 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 
 | 维度 | Playwright 水位 | 当前 L1 状态 | 缺失性质 |
 |---|---|---|---|
-| 元素定位 | locator（text/role/testid/nth）+ 任意 CSS | 仅 `querySelector` 主 frame | **功能缺口**：iframe/shadow/多匹配不可用 |
-| 等待 | 默认 auto-wait（visible/stable/enabled）+ 显式 waitFor | 无 | **正确性缺口**：点空白根因 |
-| 坐标/缩放 | 统一逻辑坐标，维护 DPR/scale | 仅 CSS 中心点，无 DPR/zoom/滚动换算 | **正确性缺口**：点偏根因 |
-| 多动作 | hover / drag / key / scroll / check 等 | 无 | **能力缺口** |
-| hover | 悬停以触发 tooltip/子菜单 | 无 | 能力缺口 |
-| scroll | 元素滚动 / 增量滚动 | 无 | 能力缺口 |
-| key 键盘 | press / type / shortcut | 仅 type 文本 | 能力缺口（无组合键/tab/enter/escape） |
-| frame | frameLocator 跨 iframe | 仅主 frame | 功能缺口 |
+| 元素定位 | locator（text/role/testid/nth）+ 任意 CSS | CSS + `frame:N` + open shadowRoot（`queryDeep`）；`format=roles` 可扫 shadow | **剩余缺口**：closed shadow、text/role/testid/nth locator、多匹配 |
+| 等待 | 默认 auto-wait（visible/stable/enabled）+ 显式 waitFor | `waitForElementStable`（click/type 接入） | **剩余缺口**：enabled/遮挡/stale observation |
+| 坐标/缩放 | 统一逻辑坐标，维护 DPR/scale | 逻辑 CSS 坐标 + Evidence 记录 dpr/scale/scroll | **剩余缺口**：live Retina+缩放端到端验收 |
+| 多动作 | hover / drag / key / scroll / check 等 | hover / scroll / key / drag 已落地 | **剩余缺口**：check 等 |
+| hover | 悬停以触发 tooltip/子菜单 | `browser_hover` | 已落地（ADR 70） |
+| scroll | 元素滚动 / 增量滚动 | `browser_scroll` | 已落地（ADR 70） |
+| key 键盘 | press / type / shortcut | `browser_key` 白名单 + 修饰键 | 已落地（ADR 70）；文本仍走 type |
+| frame | frameLocator 跨 iframe | `frame:N` 前缀 | 已落地；无 CSS iframe locator |
 | dialog | 自动 accept/dismiss | 无 | 能力缺口 |
 | download | 下载事件 / 文件保存 | 无 | 能力缺口 |
 | 多页/多上下文 | 多 page / 多 context | 单 WebContents | 能力缺口（L1 不需要，L2 需要） |
@@ -89,7 +89,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 
 **P0 —— 修 L1 点击正确性（直接治「点不准」）**
 1. 坐标换算：读取 `devicePixelRatio`、`visualViewport`、zoom、页面滚动偏移，把 CSS 中心点正确映射到 webContents 视图坐标。✅ `computeViewportPoint()`（按契约保留逻辑坐标，记录 dpr/scale/scroll 观测字段）
-2. 元素级定位：允许 CDP `Runtime.evaluate` + `getBoundingClientRect`，优先元素级动作；用 playwright 的 `ElementHandle` 语义替代纯坐标。✅ `buildElementJs(selector, body)` 统一元素定位（click/type/readDom/waitForElementStable 共用），按 selector 原生 querySelector 命中元素，代替纯 CSS 中心点。
+2. 元素级定位：允许 CDP `Runtime.evaluate` + `getBoundingClientRect`，优先元素级动作；用 playwright 的 `ElementHandle` 语义替代纯坐标。✅ `buildElementJs(selector, body)` 统一元素定位（click/type/readDom/waitForElementStable 共用）。现用 `queryDeep` 在主文档 / iframe / **open shadowRoot** 里查第一个匹配；**closed shadow 仍不可达**。
 3. auto-wait：点击/输入前等待目标 visible + stable + enabled（限定 timeout）。✅ `waitForElementStable()`（click/type 接入）
 4. frame 支持：能跨主 frame / iframe 定位（固定 selector 前缀如 `frame:index`）。✅ `parseFrameSelector()` 解析 `frame:N` 前缀 + `buildElementJs()` 沿 `window.frames[i].document` 下钻跨 iframe 定位。
 
@@ -108,20 +108,27 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - 统一替换：click（取中心点+视口字段）、type（focus+clear）、readDom（取 innerText/outerHTML）、waitForElementStable（采样 boundingRect）四处原裸 `document.querySelector` 全部改用 `buildElementJs`，消除重复、支持跨 iframe。
 > - 测试：`local-browser-control-provider.element.test.mjs` 9 用例（parseFrameSelector 4 + buildElementJs 5，含下钻/转义防注入），全绿。全量 22/22（坐标 6 + provider 7 + element 9）。
 >
+> **P0 三阶段（open shadowRoot + click 路径测试）已落地**
+> 改动文件：`local-browser-control-provider.mjs` + `local-browser-control-provider.element.test.mjs` + `local-browser-control-provider.actions.test.mjs`
+> - `buildElementJs` 注入 `DEEP_QUERY_HELPER` / `queryDeep`：先 `querySelector`，再遍历 `*` 并递归进入 **open** `node.shadowRoot`。
+> - `buildRolesSnapshotJs` 同样注入 helper；角色采集显式走 `current.shadowRoot.children` 再走 `current.children`。
+> - click 路径测试：selector `#go`（mouseDown/Up + viewport）、坐标点（跳过 lookup）、`frame:0 #submit`。
+> - 单测：element + actions + coordinate **35/35** 全绿。**closed shadow 仍不可达**（本切片非目标）。
+>
 > **提交现状**
 > - 坐标规范化 + auto-wait 已 commit：`46b3b05c`（已 push `origin/PeerAgent/sept-1-changes`）。
 > - 元素级定位 + frame 支持（buildElementJs）已 commit：`d9ab02c6`（已 push 同分支）。
 > - P1 动作面：决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。**P1a hover+scroll 与 P1b key+drag 均已落地**（契约、capability json、工具 schema、provider、动作路径测试）。
-> - L1 观察面：`browser_read_dom` 已支持 `format=roles`（role/name/selector 快照，支持 `frame:N`）。**不在 ADR 70 范围**。
+> - L1 观察面：`browser_read_dom` 已支持 `format=roles`（role/name/selector 快照，支持 `frame:N` 与 open shadowRoot）。**不在 ADR 70 范围**。
 > - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。**L2 第一刀已落地**：temporary Peer-managed Playwright 会话、独立 `browser_external_*` / `local.web.external.*`，不接管 L1 webview，不向模型暴露 Playwright/CDP。download/dialog 本切片拒绝并给出可恢复错误。
-> - 剩余：持久 Peer-managed profile、Explicit attach、L2 download/dialog capability。
+> - 剩余：L1 closed shadow / text-role-testid locator；live Retina+缩放端到端验收；L2 持久 Peer-managed profile、Explicit attach、download/dialog capability。
 
 **P1 —— 补齐 L1 缺失动作（对齐 Playwright 单页语义）**
 
 > 设计见 **ADR 70**。P1a（`browser_hover` / `browser_scroll`）与 P1b（`browser_key` / `browser_drag`）均已实现。
 
 5. 新增 `hover`、`scroll`、`key`(press/tab/enter/escape/组合键)、`drag` 动作；必须同步 `DESKTOP_ONLY_LOCAL_TOOL_CONTRACTS`、capability json、provider、reveal 白名单与 parity 测试。实现切 P1a（hover+scroll，已落地）/ P1b（key+drag，已落地）。
-6. 给 `browser_read_dom` 增加 `role` / `accessibility` 观测，方便模型选元素而非猜坐标。**不在 ADR 70 范围**（观察面，不是动作面）。**已落地**：`format=roles` 产出 role/name/selector 快照，支持 `frame:N`。
+6. 给 `browser_read_dom` 增加 `role` / `accessibility` 观测，方便模型选元素而非猜坐标。**不在 ADR 70 范围**（观察面，不是动作面）。**已落地**：`format=roles` 产出 role/name/selector 快照，支持 `frame:N` 与 open shadowRoot。
 
 **P2 —— 加 L2 Playwright Adapter（补多页/下载/对话框/独立登录态）**
 
@@ -138,7 +145,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 | auto-wait | 懒加载/动画页面，等待目标稳定后再点，不再点空白 |
 | 补充动作 | hover 能触发子菜单，scroll 能滚动到目标，key 能发送 Tab/Enter |
 | L1 边界 | 模型仍只看到 `browser_*` 工具，无裸 Playwright 暴露 |
-| 回归 | 新增点击路径测试（DPR/zoom/frame 用例），provider 测试全绿 |
+| 回归 | click selector / 坐标 / `frame:N` 路径测试存在；element+actions+coordinate 单测全绿 |
 
 ### 明确不做（Non-goals）
 - **不**用 Playwright 接管 L1 内嵌页面执行面；
