@@ -92,7 +92,7 @@ L1 接得住的上限：Workbench 内、Peer 分区、当前 conversation 的网
 本 ADR 落地后的代码切片按这个顺序，不得颠倒成「先把默认切到 Playwright」：
 
 1. **投影与提示**：网页任务默认只强调 `browser_*`；L2 不得在系统提示里被写成常规网页入口。**已落地**：`runtime.web-entry` Context Source + `browser_external_open` 提示降权。尚未从模型可见列表删除 L2。
-2. **L1 正确性**：locator（text / role / nth）、等待补全（enabled / 遮挡 / stale）、减少纯几何中心点击、真机 Retina+缩放验收。**部分落地**：`browser_click` / `browser_type` / `browser_hover` 已可按 `role`/`name`、可见文字 `hasText`、`testid` 定位，并用 0 起 `nth` 消歧；等待补全与真机验收仍属后续切片。
+2. **L1 正确性**：locator（text / role / nth）、等待补全（enabled / 遮挡 / stale）、减少纯几何中心点击、真机 Retina+缩放验收。**部分落地**：`browser_click` / `browser_type` / `browser_hover` 已可按 `role`/`name`、可见文字 `hasText`、`testid` 定位，并用 0 起 `nth` 消歧；动手前等待几何稳定、enabled、未被挡住、节点仍在，超时仍不可点则失败。真机 Retina+缩放验收仍属后续切片。
 3. **L1 单页加分**：check、双击、右键、文件选择器。dialog / download 若要进 L1，必须另开 A 级 ADR，不得 silently 塞进本决策。
 4. **L2**：仅在决策二的显式条件下继续（持久 Peer-managed profile、attach、download/dialog capability）。
 
