@@ -1,7 +1,7 @@
 # Peer Agent Computer Use 分层能力架构
 
 创建时间：2026-07-28
-最后更新：2026-07-28
+最后更新：2026-09-02
 状态：Proposed / 架构基线
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 
@@ -94,7 +94,7 @@ Desktop Workbench 内由 Peer 创建并显示的 Electron `<webview>`。它是�
 
 #### 优势与边界
 
-L1 可见、隔离、容易审计，风险最低，应作为网页任务默认入口。但它只覆盖 Workbench 内页面，不能代表用户外部浏览器的 Profile、扩展、现有标签和登录上下文，也不能操控原生 UI。
+L1 可见、隔离、容易审计，风险最低，**网页任务默认入口**是 L1 `browser_*`（见 [ADR 72](../decisions/72-l1-default-web-entry.md)）。L2 不是默认执行面。L1 只覆盖 Workbench 内页面与 `persist:peer-browser` 分区，不能代表用户外部浏览器的 Profile、扩展、现有标签和登录上下文，也不能操控原生 UI。
 
 ### 5.2 L2：受控外部浏览器（Playwright / CDP）
 
@@ -499,6 +499,9 @@ AX 元素有角色、名称、状态和 frame，更适合验证动作目标。�
 
 - `knowledge/decisions/40-embedded-browser-and-agent-control.md` — L1 内嵌 Browser 载体、直控桥与安全基线
 - `knowledge/decisions/46-conversation-bound-browser-tabs.md` — conversation / browser tab 目标隔离
+- `knowledge/decisions/70-l1-browser-action-surface.md` — L1 hover/scroll/key/drag
+- `knowledge/decisions/71-l2-playwright-external-browser.md` — L2 Playwright 安全模型（非默认入口）
+- `knowledge/decisions/72-l1-default-web-entry.md` — 网页任务默认入口为 L1 `browser_*`
 - `knowledge/architecture/20-architecture-governance.md` — Capability、PermissionGrant、Evidence 主链
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — Desktop / CLI 宿主边界
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — Desktop-only 可视浏览器能力与 CLI 诚实投影
@@ -510,7 +513,7 @@ AX 元素有角色、名称、状态和 frame，更适合验证动作目标。�
 本文确认能力阶梯与共享边界，但下列实现决策应各自形成 ADR：
 
 1. Computer Action / Observation 协议及旧 `browser_*` 迁移；
-2. Playwright/CDP ExternalBrowserAdapter、Profile 与 attach 安全模型；
+2. Playwright/CDP ExternalBrowserAdapter、Profile 与 attach 安全模型（ADR 71 已覆盖第一刀；默认入口见 ADR 72）；
 3. macOS Accessibility / ScreenCaptureKit / CGEvent Adapter 与系统权限 UX；
 4. Computer Use artifact 敏感分级、保留期和删除策略；
 5. 高风险动作分类与 human-in-the-loop 规则。

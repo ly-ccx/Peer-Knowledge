@@ -91,7 +91,7 @@ Capability Provider
 | 载体 | Workbench `<webview>` | 独立 Chromium 进程 |
 | 执行 | `webContents` + `sendInputEvent` / `executeJavaScript` | Playwright page/context（CDP 仅 Adapter 内部） |
 | 登录态 | `persist:peer-browser` 分区 | Peer-managed User Data Dir 或用户批准的 attach |
-| 默认入口 | 网页任务默认走 L1 | 仅当任务需要独立 Profile / 多页 / download / dialog / 长任务不占布局 |
+| 默认入口 | 网页任务默认走 L1 `browser_*`（钉死见 [ADR 72](72-l1-default-web-entry.md)） | 仅当任务需要独立 Profile / 多页 / download / dialog / 长任务不占布局；**不得**因 L1 缺口默默切到 L2 |
 
 - Playwright **不得** 接手 L1 内嵌页。
 - L2 需要可见状态：当前实例、Profile 类型（temporary / persistent / attached）、页面 URL、控制中、**立即停止**。后台执行 ≠ 不可见；用户可打开预览或切到目标窗口。
@@ -184,5 +184,6 @@ dialog：
 - ADR 40 内嵌浏览器
 - ADR 63 用户产物与 Evidence 边界
 - ADR 70 L1 动作面（hover/scroll/key/drag）
+- ADR 72 网页任务默认入口（L1 `browser_*`；本 ADR 的 L2 不是默认执行面）
 - `knowledge/architecture/browser-capability-gap.md` P2
 - `knowledge/architecture/desktop-cli-local-capability-parity.md`（可视浏览器 Desktop 专属）

@@ -1,9 +1,9 @@
 # 内置浏览器能力缺口（对 Playwright 水位）
 
-> 状态：诊断（Draft）；P1 动作面见 [ADR 70](../decisions/70-l1-browser-action-surface.md)；P2 外部浏览器见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)
+> 状态：诊断（Draft）；P1 动作面见 [ADR 70](../decisions/70-l1-browser-action-surface.md)；P2 外部浏览器见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)；**网页任务默认入口见 [ADR 72](../decisions/72-l1-default-web-entry.md)**
 > 范围：L1 内嵌 Browser（`local.web.control.*`）
 > 基准：Playwright 元素定位 / auto-wait / frame / download / dialog / 多页能力面
-> 目标：说明「为什么现有内置浏览器点不准、能力弱」，并给出修 L1 vs 加 L2 的边界结论。
+> 目标：说明「为什么现有内置浏览器点不准、能力弱」，并给出修 L1 vs 加 L2 的边界结论。**默认入口已钉死为 L1 `browser_*`，不得用 L2 短路 L1 缺口。**
 
 ## 1. 现状：能力清单
 
@@ -122,6 +122,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - P1 动作面：决策见 [ADR 70](../decisions/70-l1-browser-action-surface.md)。**P1a hover+scroll 与 P1b key+drag 均已落地**（契约、capability json、工具 schema、provider、动作路径测试）。
 > - L1 观察面：`browser_read_dom` 已支持 `format=roles`（role/name/selector 快照，支持 `frame:N` 与 open shadowRoot）。**不在 ADR 70 范围**。
 > - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。**L2 第一刀已落地**：temporary Peer-managed Playwright 会话、独立 `browser_external_*` / `local.web.external.*`，不接管 L1 webview，不向模型暴露 Playwright/CDP。download/dialog 本切片拒绝并给出可恢复错误。
+> - **默认入口**：见 [ADR 72](../decisions/72-l1-default-web-entry.md)。网页任务默认走 L1 `browser_*`；L2 不再作为默认执行面。L1 缺口优先补 L1，不得默默切到 Playwright。
 > - 剩余：L1 closed shadow / text-role-testid locator；live Retina+缩放端到端验收；L2 持久 Peer-managed profile、Explicit attach、download/dialog capability。
 
 **P1 —— 补齐 L1 缺失动作（对齐 Playwright 单页语义）**
@@ -150,6 +151,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 
 ### 明确不做（Non-goals）
 - **不**用 Playwright 接管 L1 内嵌页面执行面；
+- **不**把 L2 `browser_external_*` 当作网页任务默认入口（见 [ADR 72](../decisions/72-l1-default-web-entry.md)）；
 - **不**向模型暴露裸 Playwright API 或任意 CDP command；
 - **不**在 peer_agent 代码仓库 `docs/` 下重建架构知识（已按规则落 peer-knowledge）。
 
