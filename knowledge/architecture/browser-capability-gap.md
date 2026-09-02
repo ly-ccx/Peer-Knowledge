@@ -51,7 +51,7 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 
 | 维度 | Playwright 水位 | 当前 L1 状态 | 缺失性质 |
 |---|---|---|---|
-| 元素定位 | locator（text/role/testid/nth）+ 任意 CSS | CSS + `frame:N` + open shadowRoot（`queryDeep`）；`format=roles` 可扫 shadow；`browser_click` / `browser_type` / `browser_hover` 可按 `role`/`name` 定位，并用 0 起 `nth` 消歧 | **剩余缺口**：closed shadow、text/testid locator |
+| 元素定位 | locator（text/role/testid/nth）+ 任意 CSS | CSS + `frame:N` + open shadowRoot（`queryDeep`）；`format=roles` 可扫 shadow；`browser_click` / `browser_type` / `browser_hover` 可按 `role`/`name`、可见文字 `hasText`、`testid`（`data-testid` / `data-test-id` / `data-test`）定位，并用 0 起 `nth` 消歧 | **剩余缺口**：closed shadow |
 | 等待 | 默认 auto-wait（visible/stable/enabled）+ 显式 waitFor | `waitForElementStable`（click/type 接入） | **剩余缺口**：enabled/遮挡/stale observation |
 | 坐标/缩放 | 统一逻辑坐标，维护 DPR/scale | 逻辑 CSS 坐标 + Evidence 记录 dpr/scale/scroll | **剩余缺口**：live Retina+缩放端到端验收 |
 | 多动作 | hover / drag / key / scroll / check 等 | hover / scroll / key / drag 已落地 | **剩余缺口**：check 等 |
@@ -124,9 +124,10 @@ schema 层面 `browser_*` 全部是**单向动作**（一个 capacity 一个动�
 > - P2 外部浏览器：决策见 [ADR 71](../decisions/71-l2-playwright-external-browser.md)。**L2 第一刀已落地**：temporary Peer-managed Playwright 会话、独立 `browser_external_*` / `local.web.external.*`，不接管 L1 webview，不向模型暴露 Playwright/CDP。download/dialog 本切片拒绝并给出可恢复错误。
 > - **默认入口**：见 [ADR 72](../decisions/72-l1-default-web-entry.md)。网页任务默认走 L1 `browser_*`；L2 不再作为默认执行面。L1 缺口优先补 L1，不得默默切到 Playwright。
 > - **L1 角色定位第一刀已落地**：`browser_click` / `browser_type` 可按 `format=roles` 快照的唯一 `role`/`name` 定位；0 个或多个匹配可恢复失败；CSS 与坐标路径保持。
-> - **L1 角色 nth 消歧已落地**：`browser_click` / `browser_type` / `browser_hover` 可用 0 起 `nth` 点第几个同名角色；省略 nth 仍要求唯一命中；越界可恢复失败。本轮不做 text/testid。
+> - **L1 角色 nth 消歧已落地**：`browser_click` / `browser_type` / `browser_hover` 可用 0 起 `nth` 点第几个同名角色；省略 nth 仍要求唯一命中；越界可恢复失败。
+> - **L1 文字/testid 定位已落地**：`browser_click` / `browser_type` / `browser_hover` 可按精确可见文字 `hasText` 或 `testid` 找唯一元素；`type` 的 `text` 仍是输入内容；省略 nth 仍要求唯一命中；CSS / 坐标 / role 路径保持。本轮不做 closed shadow、等待补全、真机验收。
 > - **切会话回来不重载已落地**：离开非空白会话时当帧记进活页名单；root 工作台用同一批稳定 key 的 BrowserView 复用 webview；最多 8 个，超出才按 URL 重建。不改登录分区，不恢复应用重启后的 DOM。
-> - 剩余：L1 closed shadow / text-testid locator；live Retina+缩放端到端验收；L2 持久 Peer-managed profile、Explicit attach、download/dialog capability。
+> - 剩余：L1 closed shadow；等待补全（enabled / 遮挡 / stale）；live Retina+缩放端到端验收；L2 持久 Peer-managed profile、Explicit attach、download/dialog capability。
 
 **P1 —— 补齐 L1 缺失动作（对齐 Playwright 单页语义）**
 
