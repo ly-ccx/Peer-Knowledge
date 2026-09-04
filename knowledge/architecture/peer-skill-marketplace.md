@@ -119,6 +119,14 @@ SkillHub API (pageSize <= 100)
 
 Ed25519 平台签名证明发布内容由 SkillHub 平台签发，不等同于 Peer Agent 安全审核，也不授予再分发许可证。未知 `key_id`、非 active key、issuer 变化或新 `hash_version` 必须 fail closed；公钥轮换由平台 keys 接口按 key ID 选择，不把当前 key 固化为永久唯一密钥。
 
+## 工作区安装目标
+
+市场安装可以选择全局目录，或从 Desktop 已登记工作区中选择一个明确目标。选择其他工作区只影响本次安装，不得为了复用现有逻辑而切换应用的活动工作区；Skill Store 仍负责根据安装作用域和单次目标解析实际 `skills/` 写入目录。
+
+Renderer 的工作区选择只表达用户意图，不等于路径授权。安装请求在 `scope = workspace` 时必须携带目标工作区路径；Desktop 主进程必须以自己的工作区登记表重新校验该路径，拒绝空路径、未登记路径和仅由 Renderer 构造的任意路径，校验通过后才可把目标交给 SkillHub/Qoder 安装服务与 Skill Store。`scope = global` 时忽略工作区目标并保持现有全局写入行为。
+
+该边界保持既有能力链：远程市场提供包，Protocol 表达目标，Desktop 主进程授权，Skill Store 执行写入，结构化安装结果与 Evidence 记录最终作用域；Renderer 不持有安装权限真相。
+
 ## 验证要求
 
 每次改动至少验证：
