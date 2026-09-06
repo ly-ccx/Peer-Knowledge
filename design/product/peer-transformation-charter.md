@@ -1,7 +1,7 @@
 # Peer 改造总纲
 
 创建时间：2026-08-22
-最后更新：2026-08-23（产品理念对齐见 `peer-product-alignment.md`）
+最后更新：2026-09-06（文档使用增补路线图指针；阶段状态未改）
 
 > 版本：v2  
 > 状态：壳层与改造阶段真源（理念以 `peer-product-alignment.md` 为准；阶段 A 已在代码仓交付）  
@@ -282,7 +282,7 @@ UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；新任�
 
 ## 9. 文档使用
 
-产品理念、人群、品类、价值点和委托链路以 `design/product/peer-product-alignment.md` 为准。本文只锁当前壳层与改造阶段。
+产品理念、人群、品类、价值点和委托链路以 `design/product/peer-product-alignment.md` 为准。本文只锁当前壳层与改造阶段。近/中/远景与部署面排期见 `design/product/peer-product-roadmap.md`。
 
 本文是改造总纲，不是 sprint 票。拆票时写清：改的是任务壳、工作台、Plan 闸门、证据，还是 Git 线；是否触碰三条证据不变量；是否改变「任务是家」。
 
