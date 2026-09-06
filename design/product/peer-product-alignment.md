@@ -1,12 +1,12 @@
 # Peer 产品理念与价值对齐
 
 创建时间：2026-08-23
-最后更新：2026-08-23
+最后更新：2026-09-06（文档分工增补路线图；理念未改）
 
 > 状态：**产品链路唯一对齐方向**  
 > 适用范围：Peer Desktop、TUI、CLI、本机 Runtime、一切产品面文案与设计讨论  
 > 关联代码仓：`peer_agent`  
-> 冲突规则：理念、人群、品类、主轴、价值点与委托链路以**本文为准**。壳层交付与改造阶段见 `peer-transformation-charter.md`。更早的战略库存见 `peer-2-0-product-system.md`。工程治理见 `knowledge/architecture/20-architecture-governance.md`。
+> 冲突规则：理念、人群、品类、主轴、价值点与委托链路以**本文为准**。壳层交付与改造阶段见 `peer-transformation-charter.md`。近/中/远景与有序赌注见 `peer-product-roadmap.md`。更早的战略库存见 `peer-2-0-product-system.md`。工程治理见 `knowledge/architecture/20-architecture-governance.md`。
 
 本文不是功能清单，不是 sprint 票，也不是把 Chat、Canvas、Memory、Skill、Automation 拼在一起的愿望图。它只锁定一件事：
 
@@ -359,6 +359,7 @@ Memory / Skill 沉淀是复利，不是主路径上的必经站。未验证的�
 |---|---|---|
 | **本文** | 理念、人群、品类、价值、主轴、对象、委托链路 | 具体阶段票、协议字段、UI 像素 |
 | `peer-transformation-charter.md` | 当前壳层与改造阶段（原型 A、验收抽屉、Git 线） | 另立品类或人群 |
+| `peer-product-roadmap.md` | 活的产品路线图：现状、近/中/远景、有序赌注、非目标 | 另立理念、人群或品类 |
 | `peer-2-0-product-system.md` | 更早的战略库存与对象细目 | 与本文冲突时不再当对齐真源 |
 | `peer-task-flow-action-right-correction.md` | 首页为何是行动权交接板 | 另立主轴 |
 | `task-identity-conversation-carrier.md` | 心智是任务、主键仍是会话 | 另起 Task 表 |
