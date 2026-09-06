@@ -461,7 +461,7 @@ tool count
 账户、更多操作、删除确认都使用同一 popover 语言：
 
 - 深色半透明 surface。
-- 18px radius。
+- 16px radius，复用 `--radius-xl`，与 Frost 上限一致（2026-09-05 后台运行设计评审收敛）；不新增业务局部圆角值。
 - 1px low contrast border。
 - 轻微 shadow。
 - 菜单项高度 36-40px。
@@ -970,7 +970,8 @@ Textarea
 准入规则：
 
 - 所有模态 / 浮层必须经由统一基座组件 `app/components/Overlay.tsx` 挂载，不允许在业务组件里手写 backdrop `<div>`。
-- 基座统一提供：backdrop 冷调遮罩 + 淡入（`za-content-reveal`）、面板入场（`za-panel-in`，位移 < 12px）、ESC 关闭、点击遮罩关闭、`role="dialog"` + `aria-modal`。
+- 基座默认模态路径继续提供遮罩、入退场、Esc 与遮罩关闭，使用 `role="dialog"` 和 `aria-modal="true"`，保持现有调用兼容。
+- 非模态锚定变体同样必须由 `Overlay` 承接：不声明 `aria-modal`、不拦截背景操作、不建立焦点陷阱；统一管理视口边缘定位、点击外部关闭、Esc、入退场和焦点恢复。业务不得通过透明遮罩冒充非模态。后台运行使用这一变体（2026-09-05 评审批准）。
 - 入场 / 退场动效只在基座定义，业务侧 CSS 不得再写 `animation`；`prefers-reduced-motion` 由 `tokens.css` 全局兜底降级，无需各处重写。
 - 基座样式 `styles/overlay.css`（`.pa-overlay-backdrop` / `.pa-overlay-panel`）必须经 `styles.css` 注册。
 
