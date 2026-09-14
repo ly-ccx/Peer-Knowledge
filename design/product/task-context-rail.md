@@ -109,6 +109,8 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 结论：产出分区的**全部逻辑已存在**，P0 只需把 `taskOverviewArtifacts.ts` 的投影接到会话作用域（当前它挂在任务总览页的 step 上）。
 
+**实施陷阱（必须知道）**：不能用 `item.taskId === conversationId` 去挑"本会话那一条"。`TaskOverviewItem.taskId` 是**稳定投影身份**，取值可能是 conversationId、planId 或 automationId+runId；而聚合器对「有活跃计划的会话」只推 goal_plan 投影，并用 `projectedPlanConversationIds` 跳过同会话的 conversation 投影——**恰恰在长任务会话里 `taskId` 就是 planId**。正确做法是取并集：`taskId === conversationId` 或 `item.conversationId === conversationId`（后者是 goal_plan / automation 投影的深链字段）。另有两点：产物挂在 `planSteps[].artifacts` 而非 item 上；多条命中时应优先有产物的一条。实现见 `taskContextRail.ts` 的 `selectConversationTaskOverviewItem()`。
+
 ### 3.5 网页查阅
 
 | 字段 | Peer Agent 数据源 | 状态 |
