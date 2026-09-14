@@ -53,11 +53,11 @@ node --test \
 
 ## 另一台电脑开始步骤
 
-知识库当前实际 origin 是 yinLiangDream/Peer-Knowledge，与旧文档里的 ly-ccx 别名不同。本轮沿用实际 tracked remote，不擅自改 origin。两个仓库并排克隆，目录名不限：
+本机知识库 origin 仍使用 yinLiangDream/Peer-Knowledge；本次推送成功且 GitHub 明确返回仓库已迁至 ly-ccx/Peer-Knowledge。本轮不修改本机 origin，新电脑直接使用新地址。两个仓库并排克隆，目录名不限：
 
 ```sh
 git clone git@github.com:ly-ccx/Peer-Agent.git peer_agent
-git clone git@github.com:yinLiangDream/Peer-Knowledge.git peer-knowledge
+git clone git@github.com:ly-ccx/Peer-Knowledge.git peer-knowledge
 cd peer_agent
 git switch 0.0.13
 git pull --ff-only origin 0.0.13
