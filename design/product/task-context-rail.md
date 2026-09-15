@@ -1,11 +1,11 @@
-# 任务上下文栏（Task Context Rail）产品与信息架构设计
+# 任务监控栏（Task Monitor Rail）产品与信息架构设计
 
 创建时间：2026-09-14
-最后更新：2026-09-14
+最后更新：2026-09-15（按用户修正重定位：环境信息归中间对话面板，本栏为任务监控栏）
 
 ## 1. 文档定位
 
-本文回答一个问题：**参照 Qoder 的任务右侧面板，Peer Agent 需要在主交互区右侧常驻哪些任务上下文信息，这些信息各自来自哪里。**
+本文回答一个问题：**参照 Qoder 的任务右侧面板，Peer Agent 需要在主交互区右侧常驻哪些任务监控信息，这些信息各自来自哪里。**
 
 三份文档的分工（本文不重复它们的内容）：
 
@@ -13,11 +13,16 @@
 | --- | --- |
 | [`right-workbench-panel.md`](./right-workbench-panel.md) | Workbench 窗口级容器：开合、宽度、Tab 切换、快捷键 |
 | [`goal-right-status-panel.md`](./goal-right-status-panel.md) | Goal（计划）专题：目标、进度、阻塞、验收的层级与状态反馈 |
-| **本文** | **任务上下文分区：环境信息 / 后台进程 / 技能与 MCP / 产出 / 网页查阅 / 来源 / 进展摘要** |
+| **本文** | **任务监控栏分区：后台任务 / 产出；以及环境信息为何归中间对话面板** |
 
-核心结论：Qoder 右侧面板的价值不在视觉，而在于**把一个长任务运行期间"散落在各处的运行事实"收敛到同一处**——用户不用翻聊天记录、不用切 Tab，就能回答"我现在在哪个分支""后台还有没有在跑的进程""这次动了哪些文件""agent 查过哪些网页"。
+核心结论：Qoder 右侧面板的价值不在视觉，而在于**把一个长任务运行期间"散落在各处的运行事实"收敛到同一处**——用户不用翻聊天记录、不用切 Tab，就能回答"后台还有没有在跑的进程""这次动了哪些文件"。
 
-Peer Agent 已经有这些事实，但它们**分散在不同 surface**：后台进程在 ChatHeader 弹层、产出在任务总览页、技能与 MCP 在 ChatHeader 弹层、分支只在会话初始化时读一次。本设计的目标是新增一个**会话作用域的分区栏**，把这些事实按同一套分区模型投影出来，而不是再造数据源。
+**信息归属的边界（2026-09-15 用户修正，本设计的定位性结论）**：
+
+- **环境信息（分支/本地/提交推送）归中间的对话面板**——它是"当前会话在哪个环境里工作"的常驻语境，贴着输入框（Qoder 底部状态条：`cbu-xiaoer-node-nexus · 本地 · PeerAgent/nexus-upload-media-…`）。Peer Agent 对应物是 composer 的环境胶囊（`ChatSurface.tsx` 的 `envCapsule` / `formatComposerEnvCapsule` + 下拉），**不进右栏、不重复展示**。
+- **右栏是任务监控栏**——只回答"这个任务正在/已经产生了什么"：后台任务（含内联详情）+ 产出。Qoder 右栏顶部按钮就叫"隐藏任务监控"。
+
+Peer Agent 已经有这些事实，但它们**分散在不同 surface**：后台进程在 ChatHeader 弹层、产出在任务总览页。本设计的目标是新增一个**会话作用域的监控栏**，把这些事实按同一套分区模型投影出来，而不是再造数据源。
 
 ### 1.1 变更分级（按仓库 AGENTS.md）
 
@@ -73,7 +78,7 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 | `本地` / 远端 运行位置 | 会话工作区概念已存在（`goal-worktree-adapter.mjs` 的 `currentBranch(root)`、worktree 隔离） | 需聚合 |
 | `提交或推送` 动作 | `file-access-application-service.mjs` → `createGitBranch` / `pushGitBranch`；IPC `git:create-branch` | 已具备（动作通道在，未在此栏暴露） |
 
-结论：环境信息是**唯一一项数据链路需要小补的分区**——git status（dirty 状态）目前没有 IPC。P0 先落地「分支名 + 运行位置」，dirty 状态在补 `git:status` 通道后再接。
+结论：环境信息**不进任务监控栏**（2026-09-15 用户修正：它是中间对话面板的语境，贴着输入框）。上表数据源全部已有归宿——composer 环境胶囊（`ChatSurface.tsx` 的 `envCapsule`，含分支/隔离分支切换）已消费 `useWorkspaceGit`；剩余缺口（git status 的 dirty 态）留待补 `git:status` IPC 后接入胶囊，与本栏无关。历史版本曾把「分支名 + 运行位置」放进右栏 P0，已随重构移除。
 
 ### 3.2 后台进程
 
@@ -84,7 +89,7 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 | 运行状态（运行中/已完成/失败…） | 同上 `ManagedShellTask.status`、`exitCode`、`startedAt`、`completedAt` | 已具备（位置错） |
 | 状态文案映射 | `apps/desktop/renderer/src/workbench/backgroundTaskPresentation.ts`（`运行中`/`停止中`/`已完成`/`失败`/`已停止`/`超时`，含测试 `backgroundTaskPresentation.test.ts`） | 已具备（复用即可） |
 
-现状：`BackgroundRuntimePanel.tsx` 已经是完整的运行列表（含 `background-run-row`、点击进入 `BackgroundRunDetails`），入口是 `GlobalBackgroundTasksButton.tsx` 的 **ChatHeader 弹层**。结论：**零新增数据工作**，本设计只把它从"弹层"提升为"常驻分区"。
+现状：`BackgroundRuntimePanel.tsx` 已经是完整的运行列表（含 `background-run-row`、点击进入 `BackgroundRunDetails`），入口是 `GlobalBackgroundTasksButton.tsx` 的 **ChatHeader 弹层**。结论：**零新增数据工作**，本设计把它**合并**为监控栏的常驻分区：栏内点击任务行直接内联展开 `BackgroundRunDetails`（含两段式停止确认：本地 confirm 态 → `reconcileStopRequest` 调停 → `stops.stop`），不再跳去弹层；ChatHeader 全局入口保留（跨会话视角与监控栏的会话作用域视角并存）。
 
 ### 3.3 技能与 MCP
 
@@ -109,7 +114,7 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 结论：产出分区的**全部逻辑已存在**，P0 只需把 `taskOverviewArtifacts.ts` 的投影接到会话作用域（当前它挂在任务总览页的 step 上）。
 
-**实施陷阱（必须知道）**：不能用 `item.taskId === conversationId` 去挑"本会话那一条"。`TaskOverviewItem.taskId` 是**稳定投影身份**，取值可能是 conversationId、planId 或 automationId+runId；而聚合器对「有活跃计划的会话」只推 goal_plan 投影，并用 `projectedPlanConversationIds` 跳过同会话的 conversation 投影——**恰恰在长任务会话里 `taskId` 就是 planId**。正确做法是取并集：`taskId === conversationId` 或 `item.conversationId === conversationId`（后者是 goal_plan / automation 投影的深链字段）。另有两点：产物挂在 `planSteps[].artifacts` 而非 item 上；多条命中时应优先有产物的一条。实现见 `taskContextRail.ts` 的 `selectConversationTaskOverviewItem()`。
+**实施陷阱（必须知道）**：不能用 `item.taskId === conversationId` 去挑"本会话那一条"。`TaskOverviewItem.taskId` 是**稳定投影身份**，取值可能是 conversationId、planId 或 automationId+runId；而聚合器对「有活跃计划的会话」只推 goal_plan 投影，并用 `projectedPlanConversationIds` 跳过同会话的 conversation 投影——**恰恰在长任务会话里 `taskId` 就是 planId**。正确做法是取并集：`taskId === conversationId` 或 `item.conversationId === conversationId`（后者是 goal_plan / automation 投影的深链字段）。另有两点：产物挂在 `planSteps[].artifacts` 而非 item 上；多条命中时应优先有产物的一条。实现见 `taskMonitorRail.ts` 的 `selectConversationTaskOverviewItem()`。
 
 ### 3.5 网页查阅
 
@@ -144,29 +149,28 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 ## 4. 落地顺序
 
-### P0（本次实施）：数据已具备的三区
+### P0（已实施）：任务监控栏两区
 
-实施记录（2026-09-14）：三区已落地为 **Workbench 新增一级视图「上下文」**（`WorkbenchTabId` 增加 `'context'`）。
+实施记录（2026-09-15 重构）：右栏已落地为 **Workbench 一级视图「监控」**（`WorkbenchTabId` 为 `'monitor'`；旧 `'context'` 持久化值由 `normalizeWorkbenchTab` 归一迁移，测试断言锁定）。**只含 后台任务 + 产出 两区**——环境信息按用户修正移回中间对话面板的 composer 环境胶囊，本栏不重复展示。
 
-| 分区 | 为什么是 P0 | 复用点 |
-| --- | --- | --- |
-| 环境信息 | 会话一开始就能确定，零异步风险 | `useWorkspaceGit` |
-| 后台进程 | 数据链路完整且有测试 | `ManagedShellTask` + `backgroundTaskPresentation` + `BackgroundRuntimePanel` |
-| 产出 | 全部投影逻辑已存在 | `deriveTaskArtifacts` + `taskOverviewArtifacts.ts` |
+| 分区 | 复用点 |
+| --- | --- |
+| 后台任务（内联详情） | `ManagedShellTask` + `backgroundTaskPresentation` + `BackgroundRunDetails`（内联合并，含两段式停止确认） |
+| 产出 | `deriveTaskArtifacts` + `taskOverviewArtifacts.ts` |
 
-三区共同点：**不新增数据通道、不新增协议类型、不改权限与 Evidence 语义**。纯投影迁移。
+两区共同点：**不新增数据通道、不新增协议类型、不改权限与 Evidence 语义**。纯投影与宿主迁移。
 
 已成文的实现位置：
 
-- 投影（纯函数，可测）：`apps/desktop/renderer/src/workbench/taskContextRail.ts`
-- UI：`apps/desktop/renderer/src/workbench/views/TaskContextRailView.tsx`
-- 测试：`apps/desktop/renderer/src/workbench/taskContextRail.test.ts`（14 项）
+- 投影（纯函数，可测）：`apps/desktop/renderer/src/workbench/taskMonitorRail.ts`
+- UI：`apps/desktop/renderer/src/workbench/views/TaskMonitorRailView.tsx`
+- 测试：`apps/desktop/renderer/src/workbench/taskMonitorRail.test.ts`（11 项，含「环境投影导出不存在」的迁移锁定断言）
 
-实施期发现的三条硬约束（与 §5 的初版设想不同，以此处为准）：
+实施期发现的硬约束（与 §5 的初版设想不同，以此处为准）：
 
-1. **不复活已退役的后台管理面。** 提交 `bd9fd0b4` 已把后台运行**管理**收敛到 ChatHeader，并让 `normalizeWorkbenchTab` 把 `background`/`shell`/`threads` 一律归一到 `plan`，测试也断言退役 tab 不得恢复成"空白重复的管理面"。因此本栏的后台进程区是**会话作用域的只读投影**，删除/停止等写操作仍只在 ChatHeader 面板内。
-2. **必须复用同一个轮询 reader。** `BackgroundRunsProvider` 持有唯一的 Runtime 轮询；上下文栏通过新增的 `useBackgroundRunsContext()` 消费同一份快照，并用 `requestRunDetails(taskId)` + `BackgroundRuntimePanel` 的 `initialTaskId` 深链到既有详情视图 —— 不新建第二个 poller，也不新建第二套详情。
-3. **常挂载的视图槽必须显式门控轮询。** Workbench 视图槽是常挂载的（只靠 `data-active` 显隐），若不门控，用户从未打开本 tab 也会多挂一路 `taskOverview` 轮询与广播订阅 —— 这正是 `useTaskOverview.performance.test.ts` 在守的调用点成本（仓库甚至把侧栏计数拆成 `SidebarWorkbenchCounts` 来隔离挂载点）。实现取 `active = open && activeTab === 'context'` 并传入 `useTaskOverview({ enabled: active && !!conversationId })`；该不变量由 `useTaskOverview.performance.test.ts` 的用例 `the context rail polls only while its workbench tab is visible` 锁住。
+1. **不复活已退役的后台管理面。** 提交 `bd9fd0b4` 已把后台运行**管理**收敛到 ChatHeader，并让 `normalizeWorkbenchTab` 把 `background`/`shell`/`threads` 一律归一到 `plan`，测试也断言退役 tab 不得恢复成"空白重复的管理面"。因此监控栏的后台任务区是**会话作用域的合并视图**（本会话过滤），不是跨会话全局管理面；ChatHeader 全局入口保留。停止等写操作与弹层走**同一条 stops 链路**（单一请求状态，两处入口共享）。
+2. **必须复用同一个轮询 reader。** `BackgroundRunsProvider` 持有唯一的 Runtime 轮询；监控栏通过 `useBackgroundRunsContext()` 消费同一份快照 —— 不新建第二个 poller。`requestRunDetails(taskId)` 深链机制保留在 ChatHeader 全局入口。
+3. **常挂载的视图槽必须显式门控轮询。** Workbench 视图槽是常挂载的（只靠 `data-active` 显隐），若不门控，用户从未打开本 tab 也会多挂一路 `taskOverview` 轮询与广播订阅 —— 这正是 `useTaskOverview.performance.test.ts` 在守的调用点成本（仓库甚至把侧栏计数拆成 `SidebarWorkbenchCounts` 来隔离挂载点）。实现取 `active = open && activeTab === 'monitor'` 并传入 `useTaskOverview({ enabled: active && !!conversationId })`；该不变量由 `useTaskOverview.performance.test.ts` 的用例 `the monitor rail polls only while its workbench tab is visible` 锁住。
 
 ### P1：网页查阅
 
@@ -180,21 +184,24 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 ## 5. 栏位与容器约束
 
-- **宿主（已实施）**：作为 **Workbench 的一级视图**接入，与 计划 / 浏览器 / 文件 / 文档 并列（`WorkbenchPanel.tsx` 的 `TABS` 中新增 `context`，视图槽 `workbench-view--context`），复用 Workbench 既有的开合、宽度、最大化与持久化能力。
+- **宿主（已实施）**：作为 **Workbench 的一级视图「监控」**接入，与 计划 / 浏览器 / 文件 / 文档 并列（`WorkbenchPanel.tsx` 的 `TABS` 中 `monitor` 项，视图槽 `workbench-view--monitor`），复用 Workbench 既有的开合、宽度、最大化与持久化能力。旧 `'context'` tab id 由 `normalizeWorkbenchTab` 归一为 `'monitor'`（用户既有选择无损迁移）。
 - **与计划面板的关系**：计划（Goal）仍是独立的一级视图，两者由 Workbench tab 切换，同屏只显示一个 —— 比"在同一个右栏里抢位置"更简单，也不需要新增显示优先级规则。
-- **只读约束**：本栏所有项均为只读展示 + 跳转动作；不在此栏内提供写操作（如切分支、杀进程）。写操作留在各自既有的、受权限闸门约束的入口。
+- **写操作边界**：后台任务的停止走与 ChatHeader 弹层**同一条 stops 链路**（`useBackgroundRunsContext` 的 `stops.stop`，含两段式确认）；本栏不新增任何写通道，也不绕过弹层的确认语义。
 - **空态**：分区为空时整段不渲染（对齐 Qoder 空分区行为，不写占位文案）。
-- **样式**：分区样式追加在 `apps/desktop/renderer/src/styles/workbench.css` 末尾的 `@layer components` 内，复用 `--za-*` / `--ui-*` token；不新增本地 `@keyframes`（架构治理脚本禁止）。
+- **样式**：分区样式在 `apps/desktop/renderer/src/styles/workbench.css` 末尾的 `@layer components` 内（`task-monitor-*`），复用 `--za-*` / `--ui-*` token；不新增本地 `@keyframes`（架构治理脚本禁止）。
 
 ### 5.1 曾经的候选方案（已否决，留档）
 
-初版设想是复用 `WorkbenchContext` 的 `goalSlot`（`ChatSurface.tsx` L1724-1727 的右栏 portal 宿主，`GoalPlanPanel` 通过 `sidePanelContainer` 挂载）。否决原因：`goalSlot` 是**单节点** portal 宿主且已被计划面板占用，两者共存需要引入"同一时刻显示哪一个"的抢占规则；而 Workbench tab 体系本来就提供并行的多视图切换，成本更低且不动计划面板的既有行为。
+初版设想是复用 `WorkbenchContext` 的 `goalSlot`（`ChatSurface.tsx` 的右栏 portal 宿主，`GoalPlanPanel` 通过 `sidePanelContainer` 挂载）。否决原因：`goalSlot` 是**单节点** portal 宿主且已被计划面板占用，两者共存需要引入"同一时刻显示哪一个"的抢占规则；而 Workbench tab 体系本来就提供并行的多视图切换，成本更低且不动计划面板的既有行为。
+
+另一处已否决：初版曾把「环境信息（分支/运行位置）」作为右栏 P0 分区落地（2026-09-14 提交 `0e43f14e`）。2026-09-15 用户修正指出环境信息应与中间对话面板在一起（Qoder 底部状态条语义），该分区已随重构移除，代码见 `taskMonitorRail.ts`（测试用「环境投影导出不存在」锁定不回潮）。
 
 ## 6. 验收标准
 
-1. 环境信息、后台进程、产出三区在桌面端会话右侧实际可见。
-2. 每区每一项都可点击打开对应详情：分支 → 分支信息；后台进程 → `BackgroundRunDetails`；产出 → 文件/变更/截图。
-3. 产出区遵守既有过滤规则：不展示 `tool-result://`、`local-shell-artifact://`、`goal-plan://` 等治理 ref。
-4. 后台进程区的状态文案与 `backgroundTaskPresentation` 一致（含"运行中/已完成/失败/超时"）。
-5. `cd apps/desktop && pnpm typecheck` 与 `pnpm test` 通过。
-6. 分区为空时不出现占位文案，标题保留。
+1. 任务监控栏（Workbench「监控」视图）在桌面端会话右侧实际可见，只含 后台任务 + 产出 两区。
+2. 后台任务区：只显示本会话的运行；点击行在**栏内**展开 `BackgroundRunDetails`（含日志与两段式停止确认），无需跳去 ChatHeader 弹层。
+3. 产出区每一项可点击打开对应详情（文件/变更/截图）；遵守既有过滤规则：不展示 `tool-result://`、`local-shell-artifact://`、`goal-plan://` 等治理 ref。
+4. 环境信息（分支/本地/提交推送）**不出现在本栏**——它在中间对话面板的 composer 环境胶囊中（迁移锁定测试防回潮）。
+5. 后台任务区的状态文案与 `backgroundTaskPresentation` 一致（含"运行中/已完成/失败/超时"）。
+6. `cd apps/desktop && pnpm typecheck` 与 `pnpm test` 通过。
+7. 分区为空时不出现占位文案，标题保留。
