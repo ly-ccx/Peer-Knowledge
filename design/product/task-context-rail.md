@@ -160,12 +160,13 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 - 投影（纯函数，可测）：`apps/desktop/renderer/src/workbench/taskContextRail.ts`
 - UI：`apps/desktop/renderer/src/workbench/views/TaskContextRailView.tsx`
-- 测试：`apps/desktop/renderer/src/workbench/taskContextRail.test.ts`（9 项）
+- 测试：`apps/desktop/renderer/src/workbench/taskContextRail.test.ts`（14 项）
 
-实施期发现的两条硬约束（与 §5 的初版设想不同，以此处为准）：
+实施期发现的三条硬约束（与 §5 的初版设想不同，以此处为准）：
 
 1. **不复活已退役的后台管理面。** 提交 `bd9fd0b4` 已把后台运行**管理**收敛到 ChatHeader，并让 `normalizeWorkbenchTab` 把 `background`/`shell`/`threads` 一律归一到 `plan`，测试也断言退役 tab 不得恢复成"空白重复的管理面"。因此本栏的后台进程区是**会话作用域的只读投影**，删除/停止等写操作仍只在 ChatHeader 面板内。
 2. **必须复用同一个轮询 reader。** `BackgroundRunsProvider` 持有唯一的 Runtime 轮询；上下文栏通过新增的 `useBackgroundRunsContext()` 消费同一份快照，并用 `requestRunDetails(taskId)` + `BackgroundRuntimePanel` 的 `initialTaskId` 深链到既有详情视图 —— 不新建第二个 poller，也不新建第二套详情。
+3. **常挂载的视图槽必须显式门控轮询。** Workbench 视图槽是常挂载的（只靠 `data-active` 显隐），若不门控，用户从未打开本 tab 也会多挂一路 `taskOverview` 轮询与广播订阅 —— 这正是 `useTaskOverview.performance.test.ts` 在守的调用点成本（仓库甚至把侧栏计数拆成 `SidebarWorkbenchCounts` 来隔离挂载点）。实现取 `active = open && activeTab === 'context'` 并传入 `useTaskOverview({ enabled: active && !!conversationId })`；该不变量由 `useTaskOverview.performance.test.ts` 的用例 `the context rail polls only while its workbench tab is visible` 锁住。
 
 ### P1：网页查阅
 
