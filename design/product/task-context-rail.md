@@ -1,11 +1,11 @@
 # 任务监控栏（Task Monitor Rail）产品与信息架构设计
 
 创建时间：2026-09-14
-最后更新：2026-09-15（按用户修正重定位：环境信息归中间对话面板，本栏为任务监控栏）
+最后更新：2026-09-16（按用户截图纠偏：监控栏归当前会话面板，不是独立 Workbench 视图）
 
 ## 1. 文档定位
 
-本文回答一个问题：**参照 Qoder 的任务右侧面板，Peer Agent 需要在主交互区右侧常驻哪些任务监控信息，这些信息各自来自哪里。**
+本文回答一个问题：**参照 Qoder 的任务信息区，Peer Agent 如何把任务监控能力嵌入当前会话面板，并让它与独立 Workbench 保持清晰边界。**
 
 三份文档的分工（本文不重复它们的内容）：
 
@@ -13,7 +13,7 @@
 | --- | --- |
 | [`right-workbench-panel.md`](./right-workbench-panel.md) | Workbench 窗口级容器：开合、宽度、Tab 切换、快捷键 |
 | [`goal-right-status-panel.md`](./goal-right-status-panel.md) | Goal（计划）专题：目标、进度、阻塞、验收的层级与状态反馈 |
-| **本文** | **任务监控栏分区：后台任务 / 产出；以及环境信息为何归中间对话面板** |
+| **本文** | **会话内任务监控栏：宿主边界、环境 / 进度 / 后台任务 / 产出分区，以及与独立 Workbench 的共存** |
 
 核心结论：Qoder 右侧面板的价值不在视觉，而在于**把一个长任务运行期间"散落在各处的运行事实"收敛到同一处**——用户不用翻聊天记录、不用切 Tab，就能回答"后台还有没有在跑的进程""这次动了哪些文件"。
 
@@ -149,28 +149,38 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 ## 4. 落地顺序
 
-### P0（已实施）：任务监控栏两区
+### P0（已实施）：会话内任务监控卡片
 
-实施记录（2026-09-15 重构）：右栏已落地为 **Workbench 一级视图「监控」**（`WorkbenchTabId` 为 `'monitor'`；旧 `'context'` 持久化值由 `normalizeWorkbenchTab` 归一迁移，测试断言锁定）。**只含 后台任务 + 产出 两区**——环境信息按用户修正移回中间对话面板的 composer 环境胶囊，本栏不重复展示。
+实施记录（2026-09-16 二次纠偏，按用户确认的 demo 定稿）：任务监控以**悬浮卡片**形态挂在 `ChatSurface` 内部（`.chat-surface` 的 absolute 子元素），不是分栏、不是 Workbench 视图。打开时 `.chat-surface--with-monitor` 给正文列（thread+composer，均为 in-flow）加 `padding-right` 让位，会话内容向左收窄；`.chat-header` 是 absolute 整行定位，不受 padding 影响，**头部永远不被挤压**。关闭时不占任何布局。会话标题栏的清单按钮只控制本卡片；最右侧 `WorkbenchToggle` 继续独立控制计划 / 浏览器 / 文件 / 文档。旧 `'context'` / `'monitor'` Workbench 持久化值统一回退到 `plan`。
+
+| 布局契约 | 实现 |
+| --- | --- |
+| 卡片宽度单一事实源 | `--task-monitor-card: clamp(280px, 24%, 340px)`；卡片 `width` 与正文 `padding-right`（卡片宽 + 双侧 space-3 边距）同源，正文右缘恒等于卡片左缘减边距，绝不重叠 |
+| 卡片形态 | absolute、`top: calc(40px + space-2)`（头部之下）、右缘留边、圆角 `--ui-radius-panel`、双层阴影、220ms 滑入动画（prefers-reduced-motion 降级） |
+| 与独立 Workbench 并存 | `:has(.chat-surface > .task-monitor-rail)` 钳制 Workbench 实际显示宽度（卡片 372px + 正文 360px 预留），不改持久化宽度，任一侧关闭自动恢复 |
 
 | 分区 | 复用点 |
 | --- | --- |
-| 后台任务（内联详情） | `ManagedShellTask` + `backgroundTaskPresentation` + `BackgroundRunDetails`（内联合并，含两段式停止确认） |
+| 环境信息 | `ChatSurface` 已有 `workspaceGit` / `workspaceIsGit` / `workspacePath`，与 composer 环境胶囊共享事实 |
+| 任务进度 | 当前会话唯一 `TaskOverviewItem.planProgress` / `statusLabel` |
+| 后台任务（内联详情） | `ManagedShellTask` + `backgroundTaskPresentation` + `BackgroundRunDetails`（含两段式停止确认） |
 | 产出 | `deriveTaskArtifacts` + `taskOverviewArtifacts.ts` |
 
-两区共同点：**不新增数据通道、不新增协议类型、不改权限与 Evidence 语义**。纯投影与宿主迁移。
+四区共同点：**不新增数据通道、不新增协议类型、不改权限与 Evidence 语义**。这是既有事实的会话作用域投影与宿主迁移。
 
-已成文的实现位置：
+实现位置：
 
-- 投影（纯函数，可测）：`apps/desktop/renderer/src/workbench/taskMonitorRail.ts`
+- 投影：`apps/desktop/renderer/src/workbench/taskMonitorRail.ts`
 - UI：`apps/desktop/renderer/src/workbench/views/TaskMonitorRailView.tsx`
-- 测试：`apps/desktop/renderer/src/workbench/taskMonitorRail.test.ts`（11 项，含「环境投影导出不存在」的迁移锁定断言）
+- 会话宿主：`apps/desktop/renderer/src/chat/components/ChatSurface.tsx`
+- 所有权与四格测试：`taskMonitorOwnership.test.ts`、`taskMonitorRail.test.ts`、`useTaskOverview.performance.test.ts`
 
-实施期发现的硬约束（与 §5 的初版设想不同，以此处为准）：
+实施硬约束：
 
-1. **不复活已退役的后台管理面。** 提交 `bd9fd0b4` 已把后台运行**管理**收敛到 ChatHeader，并让 `normalizeWorkbenchTab` 把 `background`/`shell`/`threads` 一律归一到 `plan`，测试也断言退役 tab 不得恢复成"空白重复的管理面"。因此监控栏的后台任务区是**会话作用域的合并视图**（本会话过滤），不是跨会话全局管理面；ChatHeader 全局入口保留。停止等写操作与弹层走**同一条 stops 链路**（单一请求状态，两处入口共享）。
-2. **必须复用同一个轮询 reader。** `BackgroundRunsProvider` 持有唯一的 Runtime 轮询；监控栏通过 `useBackgroundRunsContext()` 消费同一份快照 —— 不新建第二个 poller。`requestRunDetails(taskId)` 深链机制保留在 ChatHeader 全局入口。
-3. **常挂载的视图槽必须显式门控轮询。** Workbench 视图槽是常挂载的（只靠 `data-active` 显隐），若不门控，用户从未打开本 tab 也会多挂一路 `taskOverview` 轮询与广播订阅 —— 这正是 `useTaskOverview.performance.test.ts` 在守的调用点成本（仓库甚至把侧栏计数拆成 `SidebarWorkbenchCounts` 来隔离挂载点）。实现取 `active = open && activeTab === 'monitor'` 并传入 `useTaskOverview({ enabled: active && !!conversationId })`；该不变量由 `useTaskOverview.performance.test.ts` 的用例 `the monitor rail polls only while its workbench tab is visible` 锁住。
+1. **不复活全局后台管理面。** 后台任务只作为当前会话监控栏的会话作用域视图；旧 ChatHeader 全局弹层入口已删除。
+2. **必须复用同一个 Runtime reader 与 stops 链路。** `BackgroundRunsProvider` 持有唯一轮询；监控栏通过 `useBackgroundRunsContext()` 消费同一快照并复用两段式停止确认。
+3. **只在监控栏打开且会话可见时轮询 TaskOverview。** `ChatSurface` 只在 `taskMonitorOpen` 时挂载监控栏；栏内继续使用 `enabled: active && !!conversationId` 门控隐藏会话。
+4. **会话监控栏与独立 Workbench 可以同时打开。** 外层网格只钳制 Workbench 的实际显示宽度，不改用户持久化宽度；在 1280px 真机验证中分别保留聊天正文 360px、会话监控栏 248px、Workbench 408px。
 
 ### P1：网页查阅
 
@@ -184,24 +194,24 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 ## 5. 栏位与容器约束
 
-- **宿主（已实施）**：作为 **Workbench 的一级视图「监控」**接入，与 计划 / 浏览器 / 文件 / 文档 并列（`WorkbenchPanel.tsx` 的 `TABS` 中 `monitor` 项，视图槽 `workbench-view--monitor`），复用 Workbench 既有的开合、宽度、最大化与持久化能力。旧 `'context'` tab id 由 `normalizeWorkbenchTab` 归一为 `'monitor'`（用户既有选择无损迁移）。
-- **与计划面板的关系**：计划（Goal）仍是独立的一级视图，两者由 Workbench tab 切换，同屏只显示一个 —— 比"在同一个右栏里抢位置"更简单，也不需要新增显示优先级规则。
-- **写操作边界**：后台任务的停止走与 ChatHeader 弹层**同一条 stops 链路**（`useBackgroundRunsContext` 的 `stops.stop`，含两段式确认）；本栏不新增任何写通道，也不绕过弹层的确认语义。
+- **宿主（已实施）**：悬浮卡片挂在 `.chat-surface` 内部（absolute）；打开时正文列 `padding-right` 让位、头部（absolute 整行）不被挤压，关闭时不占布局。清单按钮独占控制，独立 `WorkbenchToggle` 不参与该状态。
+- **与计划面板的关系**：计划（Goal）仍属于独立 Workbench；两者可同屏并存，DOM 和状态互不嵌套，宽度调停保证聊天正文不归零。
+- **写操作边界**：后台任务停止继续走 `useBackgroundRunsContext` 的同一条 `stops.stop` 链路（含两段式确认）；本栏不新增写通道。
 - **空态**：分区为空时整段不渲染（对齐 Qoder 空分区行为，不写占位文案）。
 - **样式**：分区样式在 `apps/desktop/renderer/src/styles/workbench.css` 末尾的 `@layer components` 内（`task-monitor-*`），复用 `--za-*` / `--ui-*` token；不新增本地 `@keyframes`（架构治理脚本禁止）。
 
-### 5.1 曾经的候选方案（已否决，留档）
+### 5.1 已否决方案（留档）
 
-初版设想是复用 `WorkbenchContext` 的 `goalSlot`（`ChatSurface.tsx` 的右栏 portal 宿主，`GoalPlanPanel` 通过 `sidePanelContainer` 挂载）。否决原因：`goalSlot` 是**单节点** portal 宿主且已被计划面板占用，两者共存需要引入"同一时刻显示哪一个"的抢占规则；而 Workbench tab 体系本来就提供并行的多视图切换，成本更低且不动计划面板的既有行为。
-
-另一处已否决：初版曾把「环境信息（分支/运行位置）」作为右栏 P0 分区落地（2026-09-14 提交 `0e43f14e`）。2026-09-15 用户修正指出环境信息应与中间对话面板在一起（Qoder 底部状态条语义），该分区已随重构移除，代码见 `taskMonitorRail.ts`（测试用「环境投影导出不存在」锁定不回潮）。
+- **Workbench 一级「监控」Tab**：物理归属错误。它会把当前会话事实误建模为窗口级工作区内容，并与截图中的两个独立开关冲突。
+- **`goalSlot` / portal 抢占**：计划面板与任务监控栏争用单节点宿主，无法表达两者同屏并存。
+- **只保留 composer 胶囊**：胶囊适合输入区紧凑入口，但不能替代栏内完整环境详情。正确做法是两处共享 `workspaceGit` / `workspacePath` 事实。
 
 ## 6. 验收标准
 
-1. 任务监控栏（Workbench「监控」视图）在桌面端会话右侧实际可见，只含 后台任务 + 产出 两区。
-2. 后台任务区：只显示本会话的运行；点击行在**栏内**展开 `BackgroundRunDetails`（含日志与两段式停止确认），无需跳去 ChatHeader 弹层。
-3. 产出区每一项可点击打开对应详情（文件/变更/截图）；遵守既有过滤规则：不展示 `tool-result://`、`local-shell-artifact://`、`goal-plan://` 等治理 ref。
-4. 环境信息（分支/本地/提交推送）**不出现在本栏**——它在中间对话面板的 composer 环境胶囊中（迁移锁定测试防回潮）。
-5. 后台任务区的状态文案与 `backgroundTaskPresentation` 一致（含"运行中/已完成/失败/超时"）。
-6. `cd apps/desktop && pnpm typecheck` 与 `pnpm test` 通过。
-7. 分区为空时不出现占位文案，标题保留。
+1. 任务监控栏 DOM 直接属于当前 `.chat-workspace`，不属于 `.workbench-panel`，Workbench 中也不存在 `monitor` Tab。
+2. 会话监控开关与独立 Workbench 开关覆盖四格组合；两者同时打开时聊天正文、监控栏和 Workbench 均保持可用且不重叠。
+3. 环境信息在栏内显示分支 / 工作区 / 本地运行位置，composer 环境胶囊仍保留；两处共享同一事实源。
+4. 后台任务只显示本会话运行；点击行在栏内展开 `BackgroundRunDetails`，并复用同一停止确认链路。
+5. 任务进度来自当前会话 `TaskOverviewItem.planProgress`；产出遵守既有治理 ref 过滤与打开详情规则。
+6. `taskMonitorOwnership.test.ts` 四格全部通过，desktop typecheck / build 与相关 Workbench 布局测试通过。
+7. 真机截图覆盖四格，且同时打开时正文宽度不归零。
