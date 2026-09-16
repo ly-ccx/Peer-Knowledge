@@ -19,7 +19,7 @@ Landed in the current implementation:
 - Blocker audit fingerprints are reset on Runner start/resume and when progress advances, so stale blockers do not pollute a new attempt.
 - Recoverable Runner blockers are audited by fingerprint and only enter `blocked` after 3 consecutive matching occurrences.
 - Goal mode write scope now asks for scope expansion confirmation when a workspace write does not match path-like `inScope` boundaries and is not explicitly out-of-scope.
-- Goal mode high-risk non-irreversible actions ask for a dedicated high-risk confirmation before execution.
+- Goal mode extra confirmation is reserved for irreversible actions, out-of-scope writes, and L5 destructive actions. Observational L4 (for example `desktop_preview`) only uses the local PermissionGrant. The same source toolCall reuses that grant instead of asking twice.
 - MCP provider permission requests classify tool effects as `mutation` or `read` from manifest `riskLevel`, so non-file side effects get comparable risk treatment in the PermissionGrant path.
 - Goal UI has dedicated Manual DoD, blocker audit, verifier status strips, and separate high-risk / irreversible / scope-expansion confirmation cards.
 - Goal confirmation requests are routed through local capability permission, not file permission, so Goal confirmations use the right PermissionGrant surface.
@@ -673,7 +673,7 @@ Landed:
 - provider/MCP permission requests carry `scope.effect = mutation | read` and manifest-derived risk/data levels.
 - integration tests cover default MCP mutation classification and read-only MCP classification.
 - scope/high-risk/irreversible Goal confirmations route through local capability permission instead of the file-permission requester.
-- high-risk, irreversible, and scope-expansion Goal confirmations render as distinct PermissionGrant cards.
+- irreversible, L5 high-risk, and scope-expansion Goal confirmations render as distinct PermissionGrant cards. Observational L4 no longer prepends a Goal high-risk card in front of the local grant.
 
 ## Implementation Slices
 

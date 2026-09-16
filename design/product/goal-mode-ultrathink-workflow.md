@@ -1,7 +1,7 @@
 # 真正的 Goal 模式设计：ultrathink + workflow 自驱闭环（完整技术文档）
 
 > 创建时间：2026-06-30
-> 最后更新：2026-08-13
+> 最后更新：2026-09-16
 > 状态：已定稿（Approved）— 首批落地已完成（2026-07-03，三态 ChatMode、wire 值迁移、防偏航 re-anchor/drift/verification gate；ADR 41 已按 B2-b 修订为 plan/goal 批准后执行段合一，共用自驱 Runner）。**自驱编排两切片已落地（2026-07-03）：Slice A（DoD-as-Code：结构化 SuccessCriterion[] + 完成门吃可自动验证 criterion 结果 + 弱 DoD 告警）、Slice B（hooks 阶段一：goal 模式 pre-act 写盘范围守卫 + 不可逆动作逐动作确认）。详见第十八章「实现落地记录」。**
 > 关联代码：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
@@ -561,8 +561,9 @@ Goal 模式的 UI 应始终让用户“看得见方向、随时能打断”：
   - 越出 workspace（绝对路径越界或 `..` 逃逸）→ `goal_scope_out_of_workspace` **DENY**；
   - 命中活跃计划 `boundaries.outOfScope` → `goal_scope_out_of_bounds` **DENY**。仅对「像路径/glob」的边界条目匹配（含 `/`、`*`、`.ext`、或单 word-like token）；纯描述性文字（含空格 / CJK，如「不改审批语义」）豁免，避免误伤。
 - **② on-irreversible 不可逆动作确认**（`detectIrreversibleAction`）：`write_file` 带 `allow_overwrite=true`；`bash` 命中 `rm -rf`/`git push`/`git --force`/`git reset --hard`/`git clean`/`npm|yarn|pnpm|tnpm publish`/`git tag` → 标记 `requiresConfirmation`。执行体（`projected-tool-executor`）经 `requestPermission` 逐动作确认，未获批则复用 `buildGoalModeDenial` 以 `goal_irreversible_denied` 结构化失败。
-- **③ 完成门**：已由 Slice A 的 `evaluateVerificationGate` 落地，本切片不重复造。
-- **模式差异**：goal 模式**不施加**整模式「计划审批门」（那是 plan 模式独占，见 11.1）；goal 只做上述 pre-act 守卫 + 逐动作确认。闸门是 `PermissionGrant` 之前的能力准入判定，不绕过 Runtime Projection。
+- **③ L5 破坏性动作额外确认**：`isHighRiskGoalAction` 只对 `L5_destructive` 叠 Goal 高风险条。`desktop_preview` 观察、普通 `bash` 这类 L4 只走本地 `PermissionGrant`，不再先弹 Goal 再弹本地授权。同一 source `toolCallId` 批准后，本地闸门复用这次批准。
+- **④ 完成门**：已由 Slice A 的 `evaluateVerificationGate` 落地，本切片不重复造。
+- **模式差异**：goal 模式**不施加**整模式「计划审批门」（那是 plan 模式独占，见 11.1）；goal 只做上述 pre-act 守卫 + 不可逆/越界写入/L5 逐动作确认。闸门是 `PermissionGrant` 之前的能力准入判定，不绕过 Runtime Projection。
 - **接线**：`evaluateGoalModeGate` 补收 `args`/`workspacePath`/`boundaries`；新增 `resolveActivePlanBoundaries` 从 store 取活跃计划边界；`buildGoalModeDenial` 支持 `detail` + 新增 3 条中英 denial 文案。
 - **验证**：`goal-mode-gate.test.mjs` 36/36 pass（原 11 + 新增 25：`evaluateWriteScope` 9、`detectIrreversibleAction` 7、goal 模式 gate 6、`resolveActivePlanBoundaries` 3）。
 
