@@ -44,19 +44,22 @@ const nextStatus = hasUnconsumedInterruption ? 'failed' : derivePlanStatus(...);
 
 ### 2. persist 派生规则
 
-`persist` 中未消费中断改为派生为 `interrupted` 而非 `failed`：
+`persist` 中未消费中断改为派生为 `interrupted` 而非 `failed`，但只在工作已停时钉住：
 
 ```js
-const nextStatus = hasUnconsumedInterruption
-  ? 'interrupted'
-  : derivePlanStatus(...);
+const nextStatus = hasUnconsumedInterruption && derivedStatus !== 'completed'
+  ? (workContinues ? 'executing' : 'interrupted')
+  : derivedStatus;
 ```
 
+- `workContinues` = Runner 处于 running/exploring/compaction 等活跃态，或仍有叶子 `running`。pending 未开工不算继续执行。
 - 真实叶子失败仍派生 `failed`（`derivePlanStatus` 叶子失败分支不变）。
 - `derivePlanStatus` 对 `interrupted` 计划的派生规则：
   - 叶子全 completed → `completed`（中断不改变叶子事实，恢复后自然归位）;
   - 叶子有真实失败 → `failed`;
+  - 叶子被显式标为 running → `executing`;
   - 否则保持 `interrupted`。
+- `interrupted` 与 `paused` 一样停表；恢复为 `executing` 时重新开表。不能同时显示「已中断」和「运行中」。
 
 ### 3. re-arm 触发条件
 
