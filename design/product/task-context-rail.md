@@ -149,14 +149,15 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 ## 4. 落地顺序
 
-### P0（已实施）：会话内任务监控卡片
+### P0（已实施）：会话内任务监控卡片堆叠
 
-实施记录（2026-09-16 二次纠偏，按用户确认的 demo 定稿）：任务监控以**悬浮卡片**形态挂在 `ChatSurface` 内部（`.chat-surface` 的 absolute 子元素），不是分栏、不是 Workbench 视图。打开时 `.chat-surface--with-monitor` 给正文列（thread+composer，均为 in-flow）加 `padding-right` 让位，会话内容向左收窄；`.chat-header` 是 absolute 整行定位，不受 padding 影响，**头部永远不被挤压**。关闭时不占任何布局。会话标题栏的清单按钮只控制本卡片；最右侧 `WorkbenchToggle` 继续独立控制计划 / 浏览器 / 文件 / 文档。旧 `'context'` / `'monitor'` Workbench 持久化值统一回退到 `plan`。
+实施记录（2026-09-16 三次迭代定稿）：监控区是 **Apple 控制中心式多卡片堆叠**。外层 `.task-monitor-rail` 是无底色的堆叠容器（absolute 于 `.chat-surface`，头部之下，透明、无边框、无阴影）；每个分区是一张独立毛玻璃小卡（`.task-monitor-section`：14px 圆角、`blur(18px) saturate(1.15)`、自身阴影）。环境信息为 tile 半宽小卡矩阵（两两并排，对齐控制中心 Wi-Fi/蓝牙形态），进度/后台任务/产出为全宽卡。打开时 `.chat-surface--with-monitor` 给正文列（thread+composer，均为 in-flow）加 `padding-right` 让位，会话内容向左收窄；`.chat-header` 是 absolute 整行定位，不受 padding 影响，**头部永远不被挤压**。关闭时不占任何布局。清单按钮独占控制本区；`WorkbenchToggle` 独立控制 Workbench。旧 `'context'` / `'monitor'` 持久化值回退 `plan`。
 
 | 布局契约 | 实现 |
 | --- | --- |
-| 卡片宽度单一事实源 | `--task-monitor-card: clamp(280px, 24%, 340px)`；卡片 `width` 与正文 `padding-right`（卡片宽 + 双侧 space-3 边距）同源，正文右缘恒等于卡片左缘减边距，绝不重叠 |
-| 卡片形态 | absolute、`top: calc(40px + space-2)`（头部之下）、右缘留边、圆角 `--ui-radius-panel`、双层阴影、220ms 滑入动画（prefers-reduced-motion 降级） |
+| 堆叠容器 | `.task-monitor-rail`：absolute、transparent、无阴影；`--task-monitor-card: clamp(280px, 24%, 340px)` 与正文 `padding-right`（卡片+双侧 space-3 边距）同源，正文右缘恒等于卡片左缘减边距，绝不重叠 |
+| 独立小卡 | `.task-monitor-section`：14px 圆角、`color-mix` 半透明底 + `backdrop-filter: blur(18px) saturate(1.15)`、`0 6px 20px` 阴影、10px 间距堆叠；`--tile` 变体用于半宽小卡 |
+| tile 矩阵 | `.task-monitor-tiles`：`grid-template-columns: repeat(2, minmax(0,1fr))`，分支/工作区/运行位置各自成卡两两并排 |
 | 与独立 Workbench 并存 | `:has(.chat-surface > .task-monitor-rail)` 钳制 Workbench 实际显示宽度（卡片 372px + 正文 360px 预留），不改持久化宽度，任一侧关闭自动恢复 |
 
 | 分区 | 复用点 |
