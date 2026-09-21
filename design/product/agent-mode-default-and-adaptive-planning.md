@@ -1,10 +1,11 @@
 # Agent 默认模式重构：自适应规划（L0–L3）
 
 > 创建时间：2026-07-28
-> 最后更新：2026-08-13
+> 最后更新：2026-09-15
 > 状态：设计定稿（待实现）— 产品方案 **A**：默认模式正名为 **Agent**，执行哲学对齐现有 Goal 自驱闭环，并引入任务复杂度分级规划
 > 关联代码仓：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
+> - [Agent 产物验证与自主交付复盘](agent-outcome-verification-and-autonomous-delivery-review.md)（2026-09-15 固定版本审计与待评审建议，不改变本方案边界）
 > - `design/product/goal-mode-ultrathink-workflow.md`（Goal 自驱闭环、DoD-as-Code、hooks、Runner）
 > - `design/product/goal-quality-review-repair-loop.md`（质量评审与自我修复环：verify 之后对照产物再裁判）
 > - `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（Goal→Plan 正名与执行段合一）
