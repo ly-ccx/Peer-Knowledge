@@ -1,7 +1,7 @@
 # 任务监控栏（Task Monitor Rail）产品与信息架构设计
 
 创建时间：2026-09-14
-最后更新：2026-09-16（按用户截图纠偏：监控栏归当前会话面板，不是独立 Workbench 视图）
+最后更新：2026-09-21（环境控制集中到任务监控栏：当前工作区 HEAD 与任务源头拆行）
 
 ## 1. 文档定位
 
@@ -17,10 +17,10 @@
 
 核心结论：Qoder 右侧面板的价值不在视觉，而在于**把一个长任务运行期间"散落在各处的运行事实"收敛到同一处**——用户不用翻聊天记录、不用切 Tab，就能回答"后台还有没有在跑的进程""这次动了哪些文件"。
 
-**信息归属的边界（2026-09-15 用户修正，本设计的定位性结论）**：
+**信息归属的边界（2026-09-21 用户修正：环境控制集中到任务监控栏）**：
 
-- **环境信息（分支/本地/提交推送）归中间的对话面板**——它是"当前会话在哪个环境里工作"的常驻语境，贴着输入框（Qoder 底部状态条：`cbu-xiaoer-node-nexus · 本地 · PeerAgent/nexus-upload-media-…`）。Peer Agent 对应物是 composer 的环境胶囊（`ChatSurface.tsx` 的 `envCapsule` / `formatComposerEnvCapsule` + 下拉），**不进右栏、不重复展示**。
-- **右栏是任务监控栏**——只回答"这个任务正在/已经产生了什么"：后台任务（含内联详情）+ 产出。Qoder 右栏顶部按钮就叫"隐藏任务监控"。
+- **输入框只显示执行状态**——`formatComposerEnvCapsule` 说明「这次写在哪」，不再用下拉把「人在哪」和「下次从哪分叉」混成同一个「在 xxx」。
+- **右栏是任务监控栏**——同时回答「这个任务正在/已经产生了什么」和「当前环境」。环境区拆成当前工作区 HEAD 与任务源头两行；源头选择和 Worktree 开关只出现在这里。选源头不会 `checkout`。Qoder 右栏顶部按钮就叫"隐藏任务监控"。
 
 Peer Agent 已经有这些事实，但它们**分散在不同 surface**：后台进程在 ChatHeader 弹层、产出在任务总览页。本设计的目标是新增一个**会话作用域的监控栏**，把这些事实按同一套分区模型投影出来，而不是再造数据源。
 
@@ -78,7 +78,13 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 | `本地` / 远端 运行位置 | 会话工作区概念已存在（`goal-worktree-adapter.mjs` 的 `currentBranch(root)`、worktree 隔离） | 需聚合 |
 | `提交或推送` 动作 | `file-access-application-service.mjs` → `createGitBranch` / `pushGitBranch`；IPC `git:create-branch` | 已具备（动作通道在，未在此栏暴露） |
 
-结论：环境信息**不进任务监控栏**（2026-09-15 用户修正：它是中间对话面板的语境，贴着输入框）。上表数据源全部已有归宿——composer 环境胶囊（`ChatSurface.tsx` 的 `envCapsule`，含分支/隔离分支切换）已消费 `useWorkspaceGit`；剩余缺口（git status 的 dirty 态）留待补 `git:status` IPC 后接入胶囊，与本栏无关。历史版本曾把「分支名 + 运行位置」放进右栏 P0，已随重构移除。
+结论：环境信息**进任务监控栏，并且当前工作区与任务源头必须拆开**（2026-09-21 用户修正：输入框胶囊把「人在哪」和「下次从哪分叉」混成同一个「在 xxx」，选了源头会话里仍显示 HEAD）。
+
+- **当前工作区**：只读投影 `WorkspaceGitState.current`（真实 HEAD）。选源头**不会** `checkout`。
+- **任务源头**：草稿可选的 `workspace.baseBranch`；会话绑定后改为只读任务线。下拉与 Worktree 开关放在本栏，复用 `ChatSurface` 已有 `workspaceUpdate` / `preferredWorktree`，不新增写通道。
+- **输入框**：只留 `formatComposerEnvCapsule` 状态，不再提供源头下拉。
+
+剩余缺口（git status 的 dirty 态）仍待补 `git:status` IPC；补上后接入本栏当前工作区行，不回到输入框。
 
 ### 3.2 后台进程
 
@@ -156,13 +162,13 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 | 契约 | 实现 |
 | --- | --- |
 | 单卡片面 | `.task-monitor-card` 唯一承担底色/圆角/阴影；外层 rail 只定位 |
-| 分区数据源 | 环境=workspaceGit/workspacePath；技能与 MCP=listSkills+listCapabilities+mcpListCapabilities（与 ChatHeaderCapabilities 同链路）；进度/产出=taskOverview 会话投影；后台任务=BackgroundRunsContext 会话过滤；网页查阅=browserSession.tabs（host+首段路径短标签） |
+| 分区数据源 | 环境=当前工作区 HEAD（`workspaceGit.current`）+ 任务源头（`gitChrome.taskLine` / `baseBranch`）+ workspacePath；技能与 MCP=listSkills+listCapabilities+mcpListCapabilities（与 ChatHeaderCapabilities 同链路）；进度/产出=taskOverview 会话投影；后台任务=BackgroundRunsContext 会话过滤；网页查阅=browserSession.tabs（host+首段路径短标签） |
 | 查看更多 | hiddenTotal = 产出隐藏项 + 后台超限 + 网页超限；点击跳 Workbench documents |
 | 与独立 Workbench 并存 | `:has(.chat-surface > .task-monitor-rail)` 钳制 Workbench 实际显示宽度（卡片 372px + 正文 360px），不改持久化宽度 |
 
 | 分区 | 复用点 |
 | --- | --- |
-| 环境信息 | `ChatSurface` 已有 `workspaceGit` / `workspaceIsGit` / `workspacePath`，与 composer 环境胶囊共享事实 |
+| 环境信息 | 当前工作区 HEAD 与任务源头分行；源头/Worktree 控制复用 `ChatSurface` 已有 handler。输入框只留状态胶囊 |
 | 任务进度 | 当前会话唯一 `TaskOverviewItem.planProgress` / `statusLabel` |
 | 后台任务（内联详情） | `ManagedShellTask` + `backgroundTaskPresentation` + `BackgroundRunDetails`（含两段式停止确认） |
 | 产出 | `deriveTaskArtifacts` + `taskOverviewArtifacts.ts` |
@@ -197,7 +203,7 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 - **宿主（已实施）**：悬浮卡片挂在 `.chat-surface` 内部（absolute）；打开时正文列 `padding-right` 让位、头部（absolute 整行）不被挤压，关闭时不占布局。清单按钮独占控制，独立 `WorkbenchToggle` 不参与该状态。
 - **与计划面板的关系**：计划（Goal）仍属于独立 Workbench；两者可同屏并存，DOM 和状态互不嵌套，宽度调停保证聊天正文不归零。
-- **写操作边界**：后台任务停止继续走 `useBackgroundRunsContext` 的同一条 `stops.stop` 链路（含两段式确认）；本栏不新增写通道。
+- **写操作边界**：后台任务停止继续走 `useBackgroundRunsContext` 的同一条 `stops.stop` 链路（含两段式确认）；源头选择与 Worktree 开关复用 `ChatSurface` 已有 `workspaceUpdate` / `preferredWorktree`。本栏不新增写通道，也不 `git checkout`。
 - **空态**：分区为空时整段不渲染（对齐 Qoder 空分区行为，不写占位文案）。
 - **样式**：分区样式在 `apps/desktop/renderer/src/styles/workbench.css` 末尾的 `@layer components` 内（`task-monitor-*`），复用 `--za-*` / `--ui-*` token；不新增本地 `@keyframes`（架构治理脚本禁止）。
 
@@ -211,7 +217,7 @@ B 级：新增 renderer 侧的分区 surface，复用既有 protocol 类型与 I
 
 1. 任务监控栏 DOM 直接属于当前 `.chat-workspace`，不属于 `.workbench-panel`，Workbench 中也不存在 `monitor` Tab。
 2. 会话监控开关与独立 Workbench 开关覆盖四格组合；两者同时打开时聊天正文、监控栏和 Workbench 均保持可用且不重叠。
-3. 环境信息在栏内显示分支 / 工作区 / 本地运行位置，composer 环境胶囊仍保留；两处共享同一事实源。
+3. 环境信息在栏内拆成当前工作区 HEAD 与任务源头两行；源头选择和 Worktree 开关只出现在监控栏。输入框只留环境状态，不再用下拉选源头。
 4. 后台任务只显示本会话运行；点击行在栏内展开 `BackgroundRunDetails`，并复用同一停止确认链路。
 5. 任务进度来自当前会话 `TaskOverviewItem.planProgress`；产出遵守既有治理 ref 过滤与打开详情规则。
 6. `taskMonitorOwnership.test.ts` 四格全部通过，desktop typecheck / build 与相关 Workbench 布局测试通过。
