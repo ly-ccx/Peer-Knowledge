@@ -36,3 +36,12 @@
 - 分类器是启发式（中英文关键词 + 权重），存在漏判/误判面：漏判由「模型主动开预览 → 既有被动武装」兜底（原链路保留）；误判的代价是多一次视觉验收要求，不会阻塞非 UI goal 的机械完成路径。
 - meta-only 护栏防止「造验证机制本身」的 goal 被自我武装，这是本 seam 区别于朴素关键词匹配的关键规则。
 - 后续若引入模型参与的意图分类，替换点就是这个纯函数（seam 不变）。
+
+## 补充（2026-09-23 同日）：完成态自动生成验收报告
+
+武装链解决「验收被强制执行」；本段解决「验收结论可追溯、可分享」。
+
+- **触发点**：`goal-plan-store` persist 新增 `onPlanCompleted(plan, { prevStatus })` 宿主回调，仅在非 completed → completed 的迁移点触发一次；回调异常不影响已写盘的完成态。
+- **报告内容**：`goal-acceptance-report.mjs`（runtime-node 纯函数）汇总目标、任务完成情况（逐任务状态 + 证据数）、验收命令结果（criterionResults 回写状态 + 命令原文）、视觉判定结论（最近一条 passed/failed verifierRun；武装过但无判定时显式降级警告）、截图工件（证据索引中 `capabilityId=desktop_preview` 且 `local-desktop-preview-artifact://` 前缀的 artifactRefs，markdown 图片引用）、完整证据索引表。
+- **落盘**：desktop host 写入器把报告写到 `~/.peer-agent/goal-reports/<planId>.md`（同 plan 覆盖写，幂等）。写盘失败仅记日志。
+- **治理定位**：报告是 Evidence / VerifierRun 的视图，不是新证据，不参与任何门的判定；无截图 / 无视觉判定在报告中以显式警告呈现而非静默省略，缺口可见。
