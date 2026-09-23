@@ -1,7 +1,7 @@
 # 右侧工作面板（Workbench）设计规范
 
 创建时间：2026-06-23
-最后更新：2026-07-22
+最后更新：2026-09-21（文件区合并为 master-detail；文档区重定位为会话产物聚合）
 
 ## 背景
 
@@ -25,7 +25,9 @@ Peer Agent 当前的右侧空间只在 Goal 流程激活时被 `GoalPlanPanel` �
 ## 命名
 
 - 整体特性叫 **Workbench**（工作台），右侧那条可展开的栏叫 **Workbench Panel**。
-- 四个子视图叫 **GoalView / TerminalView / BrowserView / FilesView**。
+- 四个子视图叫 **GoalView / TerminalView / BrowserView / FilesPane**。
+  - **FilesPane** 是 master-detail 容器：左侧文件树（原 FilesView）+ 右侧文件预览（原 DocumentView 的 detail 部分，含 Preview/Source/Diff）。两者同屏常驻，不再互斥切换。
+- 第五个 tab「产物」（原「文档」tab 的重定位）承载 **SessionArtifactsView**：本会话产物的聚合列表，点击条目进入文件区的 detail 预览。
 - 顶部触发按钮叫 **WorkbenchToggle**。
 
 ## 入口与触发
@@ -45,7 +47,7 @@ Peer Agent 当前的右侧空间只在 Goal 流程激活时被 `GoalPlanPanel` �
 
 WorkbenchToggle 只控制"开/关"，不切视图。视图切换由 Panel 内部的 **Tab Rail**（左侧细条 tab 列表）负责：
 
-- Tab 顺序固定：**Goal / 终端 / 浏览器 / 文件**。
+- Tab 顺序固定：**Goal / 终端 / 浏览器 / 文件 / 产物**。
 - 默认选中：当前会话上次保留的 tab；首次打开默认为「终端」（Goal tab 仅在有活跃 GoalPlan 时才会作为新会话的默认）。
 - 不提供独立 tab 快捷键；唯一快捷键是 `⌘\` 控制 Panel 开合，tab 切换全部靠点击。
 
@@ -88,6 +90,32 @@ WorkbenchToggle 只控制"开/关"，不切视图。视图切换由 Panel 内部
 - TabRail：宽 56px，纵向排列；每个 tab 是 32×32 图标 + 8px label（label 跟随当前语言）。
 - ViewSlot：剩余空间，承载具体子视图。子视图自己处理顶部工具条。
 - Panel 顶部留 52px padding-top 与 ChatHeader 对齐（macOS hiddenInset 不需要再为红绿灯让位，AppHeader 已经在那里）。
+
+## 文件区（FilesPane，master-detail）
+
+2026-09-21 合并：原「文件」与「文档」两个互斥一级 tab 合并为一个「文件」区。动机：旧交互里点树中文件会强制把 activeTab 从 `files` 切到 `documents`，返回再手动切回，导航上下文（树）与内容（预览）被建模成两个平级世界，造成乒乓跳转。
+
+### 结构
+
+```
+┌─ FilesPane（「文件」tab 的 ViewSlot 内容）──────┐
+│ ┌─ master：文件树 ──┐ ┌─ detail：文件预览 ────┐ │
+│ │ FilesView（常驻） │ │ DocumentView detail    │ │
+│ │ 展开态/滚动/选中  │ │ Preview/Source/Diff    │ │
+│ └──────────────────┘ └───────────────────────┘ │
+└──────────────────────────────────────────────────┘
+```
+
+- **点文件不切 tab**：树点击走 `openFileInPlace`（只更新 detail 的文档会话），`activeTab` 保持 `files`，Workbench 只在关闭态被强制打开。
+- 树与预览**双向同步**：树选中项跟随 detail 当前文件；`revealInFiles` 从「跳转到 files tab」改为「在常驻树中定位并展开」。
+- 宽度自适应：容器 ≥ ~560px 时左右分栏（树约 40%）；更窄时 detail 覆盖树，detail 头部显示面包屑 + 返回按钮（Esc 同效）回到纯树。返回只隐藏 overlay，不改文档会话状态。
+- 窄覆盖态下再点树中其他文件 → 立即重新显示 detail（覆盖态解除）。
+
+### 「产物」tab（SessionArtifactsView）
+
+- 原「文档」tab 重定位为**会话产物聚合**：按任务分组列出本会话产物（复用 `taskOverviewArtifacts` 投影与治理过滤，不新增数据通道），轮询仅在 tab 激活时启用。
+- 点击产物条目 → `openFile`（落点改为 `files` tab 的 detail 预览），不在产物 tab 内嵌预览。
+- detail 组件（DocumentView）只此一份，宿主从 documents ViewSlot 迁至 FilesPane 右栏；「浏览文件」回跳按钮随宿主迁移消失，被窄覆盖态的返回按钮取代。
 
 ## 拖拽分隔线（Resizer）与挤压策略
 
@@ -217,7 +245,9 @@ GoalView 的产品定位、信息架构、状态交互与聊天流降噪规则�
 | Q4 | open / width 全局，activeTab 会话级 |
 | Q4.1 | 同 Q4 |
 | Q5 | TerminalView 只读，不开 pty |
-| Q6 | Tab 顺序：Goal / 终端 / 浏览器 / 文件 |
+| Q6 | Tab 顺序：Goal / 终端 / 浏览器 / 文件 / 产物 |
 | Q7 | 不为 tab 切换加快捷键，仅保留 `⌘\` |
 | Q8 | BrowserView 默认空白页 |
 | Q9 / Q9.1 | 主区被挤超过临界时自动收 sidebar，反向自动恢复，可被用户明示覆盖 |
+| Q10 | 文件区 master-detail：点文件走 `openFileInPlace`，不切一级 tab（2026-09-21） |
+| Q11 | `documents` tab 重定位为「会话产物」聚合；detail 组件唯一宿主是 FilesPane（2026-09-21） |
