@@ -25,6 +25,8 @@
 
 **2026-08-22：** 身份层不变——用户见任务，主键仍是 `conversationId`，不另起 Task 表。壳层不再追求「从工作台续接一律会话抽屉、主区保持工作台」。阶段 A：主区就是当前任务；`result_ready` 进验收对照抽屉。
 
+**2026-09-24（ADR 80，Proposed）：** 身份层补一条父子关系，红线不变。每个 Workspace 有一条 `role: 'project_agent'` 的 Conversation（项目代理）；它开出的任务是 `role: 'work_session'` 的 Conversation，以 `parentConversationId` 挂在项目代理下。§2 红线 1「不新建 Task / Project 表」仍然成立：Workspace 就是项目，父子关系只是会话元数据。§2 红线 4「一 Conversation 对应一条任务线」仍然成立，但新任务由项目代理开出，不再由用户点「新建任务」。项目代理这条 Conversation 本身不是任务，不进任务桶。
+
 ---
 
 ## 0. 一句话

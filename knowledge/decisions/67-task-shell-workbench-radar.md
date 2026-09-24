@@ -1,11 +1,13 @@
 # 67. 任务壳 + 工作台雷达（原型 A）
 
 创建时间：2026-08-22
-最后更新：2026-08-22
+最后更新：2026-09-24
 
 ## 状态
 
 Accepted。阶段 A 已在 `peer_agent` `0.0.6` 交付（C 级 UI，未改 protocol / Evidence / Git 闸门）。
+
+2026-09-24：拟被 `80-project-agent-delegation-model.md` 部分取代（主区、侧栏、点工作区的语义）。逐条对照见 ADR 80「被取代与保留」。ADR 80 转 Accepted 且阶段 F 默认开启前，本 ADR 仍约束线上壳。
 
 ## 级别
 

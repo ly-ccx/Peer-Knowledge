@@ -1,7 +1,7 @@
 # Peer 改造总纲
 
 创建时间：2026-08-22
-最后更新：2026-09-06（文档使用增补路线图指针；阶段状态未改）
+最后更新：2026-09-24（新增阶段 F：项目代理壳，ADR 80；决策表同步）
 
 > 版本：v2  
 > 状态：壳层与改造阶段真源（理念以 `peer-product-alignment.md` 为准；阶段 A 已在代码仓交付）  
@@ -38,6 +38,8 @@ Peer 不是又一个「左边项目、下面挂会话」的 Agent 桌面。
 > 目标带着边界被签收 → 能力在授权下执行 → 完成用证据关闭。
 
 壳层已锁定为**原型 A：任务壳 + 工作台雷达**。不要做成工单台（原型 B），也不要用顶栏雷达替代独立工作台页（原型 C 可偷计数，不能替代页面）。
+
+> **2026-09-24：** 阶段 F 将把壳层从原型 A 迁移到**项目代理壳**：每个项目一个只读 + 调度的项目代理，任务由它开出，工作台降级为角标与收件箱（ADR 80，`project-agent-workbench.md`）。阶段 F 默认开启前，§2、§3 仍描述线上壳。
 
 ---
 
@@ -223,6 +225,25 @@ Workspace 源头分支是 settings 层的 `baseBranch`，不是新的 protocol �
 
 未纳入 E：插件市场热加载、把产物文件打成 zip、密码学证据链、默认对所有任务建 worktree
 
+### 阶段 F · 项目代理壳 — **Proposed（2026-09-24）**
+
+A 级。决策见 `knowledge/decisions/80-project-agent-delegation-model.md`，运行时契约见 `knowledge/architecture/project-agent-delegation-runtime.md`，界面与分期见 `design/product/project-agent-workbench.md`。
+
+要交付的感觉：用户不再自己开任务、切任务、看雷达；只和项目代理说话，处理它递来的卡片，签收它交回的结果。
+
+范围：
+
+- 每个 Workspace 一条常驻项目代理对话；`project_agent` 模式严格白名单，只读 + 调度。
+- 调度能力走同一条能力链：`spawn_session` / `message_session` / `cancel_session` / `list_sessions` / `get_session_report` / `spawn_subagent`（只读）。
+- 任务 = 子 Conversation + GoalPlan，由现有 Goal Runner 推进；验收、关闭闸门、Git 线不变。
+- 权限、决策、计划批准以同一条待处理请求冒泡到代理对话；代理不能替用户批。
+- 多任务并行时第二条写仓库任务起强制 worktree。
+- 壳：侧栏项目列表 + 角标，主区代理对话，右栏本项目任务；独立工作台页、侧栏任务树、代理输入框的 Agent / Plan 切换器进入退场。
+
+分期 P0–P5 见产品稿 §5。P1 在 feature flag 后交付；P5 之前原型 A 仍是默认壳。
+
+不纳入 F：多个常驻专职代理、代理间群聊、代理直接做小改动、新建 Task / Project 存储实体。
+
 ---
 
 ## 6. Git 工作线（阶段 C / D）
@@ -262,9 +283,10 @@ UI 最小露出（C / D 已交付）：Workspace 主开发分支下拉；新任�
 | 议题 | 默认 | 状态 |
 |------|------|------|
 | 产品面称谓 | 只说任务，不说会话 | 已锁 |
-| 主壳 | 原型 A：任务壳 + 工作台雷达 | 已锁并交付 A |
-| 工作台 | 行动权雷达，非唯一入口、非默认落地 | 已锁并交付 A |
-| 模式切换器 | 仅 Agent / Plan | 保持 |
+| 主壳 | 原型 A：任务壳 + 工作台雷达 → 阶段 F 迁移到项目代理壳 | A 已交付；F Proposed（ADR 80） |
+| 工作台 | 行动权雷达，非唯一入口、非默认落地 → 阶段 F 降级为角标与收件箱 | A 已交付；F Proposed |
+| 项目代理 | 每个项目一个；只读 + 调度；任务由它开出；用户可介入任务 | F Proposed（用户已拍板 2026-09-24） |
+| 模式切换器 | 仅 Agent / Plan → 阶段 F 从代理输入框退场，由代理判断是否先批计划 | A 保持；F Proposed |
 | 计划完成 | 禁止 UI 手勾，Evidence 聚合 | 保持 |
 | 待验收入口 | 查看进度，看过再确认归档 | 已交付 A |
 | 关闭闸门 | 成功标准都有可解析证据才写 `resultAcceptance` | 已交付 B |

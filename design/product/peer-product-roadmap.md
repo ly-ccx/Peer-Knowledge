@@ -1,7 +1,7 @@
 # Peer 产品路线图
 
 创建时间：2026-09-06
-最后更新：2026-09-15（对齐本地交付状态与近期收口顺序）
+最后更新：2026-09-24（中景新增 #0 项目代理壳，ADR 80；#7 并入）
 
 > 状态：**活文档 / 规划真源（随发版修订）**  
 > 适用范围：Peer 整条产品链的近景、中景、远景与有序赌注  
@@ -126,6 +126,7 @@ Desktop / TUI / CLI 已经是同一 Runtime 的三个入口；手机伴随应用
 
 | # | 赌注 | 要交付的感觉 | 对照 | 未做 / 禁止假装已做 |
 |---|---|---|---|---|
+| 0 | **项目代理壳**（2026-09-24 插队，用户拍板） | 每个项目一个只读 + 调度的项目代理；你只和它说话，任务由它开出，需要你时递卡片，做完带证据汇报 | ADR 80；charter 阶段 F；`project-agent-workbench.md` | 多个常驻专职代理；代理有写能力；代理替用户批权限或签收；新建 Task / Project 表 |
 | 1 | **单机数据面理清** | 知道 `~/.peer-agent` 里什么是文件、什么可加 SQLite 索引、什么绝不能进库 | ADR 74 步骤 1 | 大爆炸迁库；密钥 / 知识 / Evidence 本体进 SQLite |
 | 2 | **可嵌入 Runtime host** | 同一套 Runtime 能被 Desktop、CLI、后续内网进程托管 | ADR 54；ADR 74 步骤 2 | 先写云端壳再倒逼内核 |
 | 3 | **内网 Gateway MVP** | 设备配对、会话路由；注册可关 | ADR 74 步骤 3 | 公网账号做成内网前提；Gateway 自己执行能力 |
@@ -133,7 +134,7 @@ Desktop / TUI / CLI 已经是同一 Runtime 的三个入口；手机伴随应用
 | 4b | **手机伴随应用** | 配对 Desktop / 内网节点；手机上走完整任务流 + 批准 / 需要你 / 待验收 | §2.1；ADR 74 远程面 | 薄云客户端；密钥默认同步到手机云；绕过 PermissionGrant |
 | 5 | **Memory 体系** | 受治理、本机、有权限意识的跨任务记忆 | README 规划；2.0 Phase 3 | 未验证经验自动变系统指令 |
 | 6 | **更强的自闭环 / 质量评审连续性** | 验证→返工不断档；过程完成 ≠ 结果够好 | README 规划；`goal-quality-review-repair-loop.md` | 用质量页替代人签收 |
-| 7 | **同一任务下的多 Agent** | explore / implement / review，一份 Evidence，一个家 | README；`goal-mode-multi-agent-orchestration-plan.md` | 多 Agent 角色扮演；用户管理虚拟团队 |
+| 7 | **同一任务下的多 Agent** | explore / implement / review，一份 Evidence，一个家。跨任务的并行调度已并入 #0，本条只管任务内部 | README；`goal-mode-multi-agent-orchestration-plan.md` | 多 Agent 角色扮演；用户管理虚拟团队 |
 | 8 | **Canvas 是真实对象的投影** | 看得见计划 / 证据 / 产物，不是第二份真相 | 2.0 Phase 5；alignment §6 | 无限白板当主语；Canvas 另存一套状态 |
 | 9 | **Computer Use 阶梯（本机的手）** | L1 加固 → L2 Profile / attach / 下载与对话框 → L3 更晚。这是对话 / 手机能「操作这台电脑」的物理手，不限于聊代码 | ADR 70 / 71 / 72；§2.1 | L2 抢默认入口；未做 Profile 却宣称登录态已治理；把 L3 提前当已交付 |
 | 10 | **Skill / playbook 从 Evidence 复利** | 可审阅的进化，从不静默改写信任 | 2.0 Phase 4；README 自进化 | 静默改权限或系统指令 |
@@ -215,6 +216,7 @@ Desktop / TUI / CLI 已经是同一 Runtime 的三个入口；手机伴随应用
 | 手机伴随应用 | 中景 #4b | 不覆盖 | 2.0 远期「多设备接力」的个人面 | 远程面的手机入口；零账号 Desktop 不变 |
 | Memory | 中景 #5 | 不覆盖 | **Phase 3** | 记忆仍在用户节点 |
 | 自闭环 / 质量评审 | 中景 #6 | B 闸门已硬；质量环未完 | Phase 1 验收场景的加厚 | 不覆盖 |
+| 项目代理壳 | 中景 #0 | **阶段 F（Proposed）** | — | 远程 / 手机入口对接项目代理 |
 | 多 Agent（一任务内） | 中景 #7 | 子 Agent 是手段不是主语 | Phase 2 Executor / Phase 5 协作 | 不覆盖 |
 | Canvas | 中景 #8 | 不覆盖 | **Phase 5** | 不覆盖 |
 | Computer Use L1→L2→L3（本机的手） | 中景 #9；L3 远景 | 不覆盖 | Phase 1 内嵌 / Phase 6 外部 | 不覆盖 |
