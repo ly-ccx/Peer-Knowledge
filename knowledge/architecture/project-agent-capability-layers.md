@@ -21,7 +21,7 @@ L7  表达层        Desktop 代理对话 / 右栏 / 卡片 · TUI · 远程 / �
                   ─────────────── 只读投影 + 已有 IPC 动作 ───────────────
 L6  代理编排层    ProjectAgentRunner（单线程 actor）· LocalDelegationProvider · 代理上下文来源
 L5  异常与恢复层  FailurePolicy · Watchdog · CircuitBreaker · 取消级联 · 重启恢复
-L4  结果与验收层  SessionReportBuilder · WorkSession 投影 · DeliveryTimeline · 依赖闸门 · 验收入口
+L4  结果与签收层  SessionReportBuilder · VerificationVerdict · AcceptancePolicy · 签收提交 · WorkSession 投影 · DeliveryTimeline · 依赖闸门
 L3  通讯层        DelegationEventMapper · ProjectInbox · SessionMessenger
 L2  派发与调度层  SessionSupervisor · ExecutionScheduler · IsolationPlanner
 L1  执行宿主层    AgentProfileRegistry · AgentTurnExecutor · TurnSink
@@ -80,7 +80,9 @@ L0  基座（已有）  能力链 · agent loop · Provider 协调与恢复 · c
 | L6 | ReplyComposer（回复挂靠 + 卡片生成） | runtime-node | 新建 |
 | L4 | SessionReportBuilder | runtime-node | 新建 |
 | L4 | DeliveryTimeline | runtime-node（投影） | 新建 |
-| L4 | 验收入口 | 已有 `goalPlansRevise` + `evaluateAcceptanceCloseGate` | 复用 |
+| L4 | VerificationVerdictBuilder | protocol / runtime-node（纯函数） | 新建：汇总已有验证事实，不做新验证 |
+| L4 | AcceptancePolicy `decideAcceptance` | protocol（纯函数） | 新建 |
+| L4 | 签收提交 | 已有 `goalPlansRevise` + `evaluateAcceptanceCloseGate` | 改造：`acceptedBy` 增加 `'policy'` |
 | L5 | FailurePolicy / Watchdog / CircuitBreaker | runtime-node | 新建；复用 `blockerAudit`、ADR 30、ADR 73 |
 | L6 | ProjectAgentRunner | runtime-node | 新建 |
 | L6 | LocalDelegationProvider | desktop runtime-gateway | 新建 |
@@ -261,16 +263,17 @@ interface SessionSupervisor {
 
 ---
 
-## 6. L4 结果与验收层
+## 6. L4 结果与签收层
 
-回答：**做到哪了、交回了什么、算不算完**。
+回答：**做到哪了、验证得怎么样、算不算完**。验证由代理负责（决定验证到什么程度、要不要追加核验），结论由运行时计算，签收由策略决定：低风险且验证通过时策略代签，其余请用户确认。
 
 ### 6.1 WorkSession 投影
 
 protocol 里的纯函数 `projectWorkSession(plan, pendingRequests, lineage) → WorkSession`。状态枚举在运行时契约的基础上补一个 `queued`：
 
 ```text
-queued → starting → awaiting_approval → running ⇄ needs_user → result_ready → accepted
+queued → starting → awaiting_approval → running ⇄ needs_user → verifying ─┬─ auto ────→ accepted（策略代签）
+                                            │                             └─ confirm → result_ready → accepted（用户确认）
                                             └──────────────→ failed / cancelled
 ```
 
@@ -305,12 +308,45 @@ queued → starting → awaiting_approval → running ⇄ needs_user → result_
 - 数据来自 GoalPlan run events 与收件箱，不新建真源。
 - 用途：右栏的已结束分组、代理回答「这周做了什么」、以后的项目记忆，以及诊断面板的吞吐与等待统计。
 
-### 6.5 验收入口
+### 6.5 验证结论：VerificationVerdictBuilder
 
-- 唯一写入口仍是 `goalPlansRevise` 写 `resultAcceptance`，经过关闭闸门。
-- 代理会话里的待验收卡打开的是已有的验收抽屉，调用同一个 IPC。
-- 代理没有任何验收工具：白名单里没有，Provider 里也没有这个方法。
-- 「全部验收」只是界面上的批量操作，每条仍各自过闸门。
+`computeVerificationVerdict(plan, evidenceIndex, hostAuthority) → VerificationVerdict`，纯函数，放 protocol / runtime-node。它不做新的验证，只把已有的验证事实汇成一个结论：
+
+| 输入 | 已有来源 |
+|---|---|
+| 叶子任务证据、成功标准、UI 交付 | `evaluateVerificationGate`（只认宿主状态） |
+| 独立复核 | `runner.verifierRuns` |
+| 视觉验证 | UI 交付闸门 / visual verifier |
+| 质量自检 | `plan.qualityReview` |
+| 验证报告 | 计划完成时已自动生成的 `goal-reports/<planId>.md` |
+
+输出 `passed / partial / failed`、覆盖统计和 `unverified` 清单（没有被自动验证覆盖、必须告诉用户的点）。
+
+### 6.6 签收策略：AcceptancePolicy
+
+`decideAcceptance(verdict, sideEffectProfile, projectPrefs, userSignals) → AcceptanceDecision`，纯函数，放 protocol。
+
+- `sideEffectProfile` 由任务 Evidence 汇总：写入路径是否都在工作区 / 任务分支 / worktree 内，有没有外部网络变更、MCP 变更、浏览器提交、删除、越界写。
+- `userSignals`：用户对这件事说过「给我看看再说」，或项目设置「每次都要我确认」。
+- `auto` 需要全部满足：结论 `passed`、无待确认人工标准、副作用只在工作区内、无外部 / 破坏性副作用、无用户过目要求、验证不低于下限。其余为 `confirm` 并列出原因。
+- 策略表是一个 Seam：以后按项目或按任务类型替换，不改调用方。
+
+### 6.7 签收提交
+
+- 唯一写入口仍是 `goalPlansRevise` 写 `resultAcceptance`，经过关闭闸门，不接受 `userOverride`。
+- **策略代签**：`auto` 时由运行时在代理为这条任务 `post_reply` 之后写入 `{ acceptedBy: 'policy', verdictRef }`。代签与汇报绑定：代理没说明情况就不会代签；代理追加核验（`verify_session`）期间暂缓，结束后重算。
+- **用户确认**：`confirm` 时代理回复附「需要你确认」卡，用户点确认走已有 IPC 写 `{ acceptedBy: 'user' }`。
+- **合入源头分支**：默认随回复附一键「合入」动作；项目设置 `autoHandoffOnPolicyAccept` 打开后随代签自动合入。推送远端永远走权限审查。
+- **重新打开**：用户说「不对」时代理开派生任务（`parentPlanId`），原签收记录保留并标 `reopenedBy`。
+- 代理没有任何直接签收工具：白名单里没有，Provider 里也没有这个方法。代理能做的只是追加核验和汇报。
+
+### 6.8 按需披露的数据面
+
+| 层 | 数据来源 | 代理怎么取 |
+|---|---|---|
+| 0 结论 | `keyFindings` + `VerificationVerdict` | 唤醒时 roster 快照里已有 |
+| 1 细节 | 标准逐条及验证方式、改动文件、测试摘要 | `get_session_report`、`get_verification_detail` |
+| 2 证据 | 测试输出、截图、diff、验证报告 | `evidenceRefs` 经 EvidenceIndex 解析后由 ReplyComposer 渲染为证据芯片 |
 
 ---
 
@@ -357,7 +393,7 @@ queued → starting → awaiting_approval → running ⇄ needs_user → result_
 |---|---|---|
 | 取消代理的当前回合 | 这一轮 | 所有任务 |
 | `cancel_session` | 任务 Runner、任务内子 agent（AbortSignal）、GoalPlan → `cancelled`；下游依赖 → `blocked` | 分支与 worktree（删除仍要二次确认） |
-| 取代（`supersedes`） | 新任务建成后，旧任务 Runner 停止、任务内子 agent 中止、GoalPlan → `paused` + `supersededBy`；新任务被验收或用户放弃旧任务时才 → `cancelled` | 旧任务分支与 worktree；旧任务的下游依赖改挂到新任务前先转 `blocked` 交代理决定 |
+| 取代（`supersedes`） | 新任务建成后，旧任务 Runner 停止、任务内子 agent 中止、GoalPlan → `paused` + `supersededBy`；新任务签收或用户放弃旧任务时才 → `cancelled` | 旧任务分支与 worktree；旧任务的下游依赖改挂到新任务前先转 `blocked` 交代理决定 |
 | 用户暂停任务 | 该任务 → `paused` | 其他任务 |
 | 关闭项目 / 切走工作区 | 无（ADR 27：切换不中断运行） | — |
 | 退出应用 | 所有任务 → `interrupted` | 数据 |
@@ -439,7 +475,9 @@ queued → starting → awaiting_approval → running ⇄ needs_user → result_
 
 - **挂靠**：用户回合的最终文本自动 `replyTo` 本轮用户消息；唤醒回合必须用 `post_reply` 指定回复对象，否则按「单一锚点触发就挂该锚点，否则作不挂靠备注」处理。
 - **整理**：唤醒回合的 roster 快照给出触发任务的 `SessionReport.keyFindings`；角色契约要求先结论、再必要细节，不照抄任务日志，未解决的问题和风险要说出来。
-- **来源与卡片**：回复带 `sourceSessionIds`；ReplyComposer 按这些任务的当前投影附卡片（待验收、需要你、失败），代理不能指定卡片类型。
+- **来源、结论标记与卡片**：回复带 `sourceSessionIds`；ReplyComposer 按这些任务的当前投影附结论标记（已验证 / 部分验证 / 未通过）和卡片（需要你、需要你确认、失败），代理不能指定。代理文字与结论标记冲突时，以标记为准。
+- **分层披露**：默认只给第 0 层（一两句结论 + 验证了什么 + 没验证什么）；用户追问才用 `get_session_report` / `get_verification_detail` 给第 1 层细节；用户要证据才附 `evidenceRefs` 给第 2 层证据芯片（§6.8）。结论为 `partial` / `failed` 时，第 0 层必须点出缺口。
+- **汇报即签收提交点**：对 `auto` 任务的 `post_reply` 触发策略代签（§6.7）。
 - **合并回复**：同一锚点下多条任务先后完成时，代理可以逐条回复，也可以等齐了回一次总的；ReplyComposer 不强制，但去重规则保证同一事件不会被回复两次（收件箱的 `reported` 标记）。
 
 ### 8.5 LocalDelegationProvider
@@ -454,9 +492,11 @@ L6 与 L2–L4 之间唯一的模型侧接口。每个工具方法只做参数�
 | `list_sessions` | `SessionSupervisor.list` |
 | `get_session_report` | `SessionReportBuilder.build` |
 | `spawn_subagent` | AgentTurnExecutor（`research_subagent` 画像，P3 优先级） |
-| `post_reply` | ReplyComposer |
+| `post_reply` | ReplyComposer（`auto` 任务汇报后触发签收提交） |
+| `verify_session` | 独立 Verifier（只读）/ SessionMessenger 要求补跑检查 / 视觉复核；暂缓签收 |
+| `get_verification_detail` | VerificationVerdictBuilder + EvidenceIndex（只读） |
 
-所有带 `anchorMessageId` 的调用先过 AnchorScopeResolver 的范围校验。Provider 里没有批准、验收、改预算、指定卡片的方法，这是结构性约束，不靠 prompt。
+所有带 `anchorMessageId` 的调用先过 AnchorScopeResolver 的范围校验。Provider 里没有批准、直接签收、改结论、下调验证下限、改预算、指定卡片的方法，这是结构性约束，不靠 prompt。
 
 ### 8.6 代理看到什么
 
@@ -496,10 +536,15 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
   EventMapper → session_needs_user → Inbox
   Runner：needs_user 立即唤醒 → wake_turn → post_reply({ replyTo: [M] }) + Runner 附「需要你」卡
 用户在代理会话里点允许 → 同一请求被解决 → 任务继续
-任务完成 → keyFindings 交回 → session_result_ready → 唤醒
-  → 代理整理 keyFindings → post_reply({ replyTo: [M], sourceSessionIds }) + Runner 附待验收卡
-  M 的状态标记：已回复
-用户打开验收抽屉 → goalPlansRevise → 关闭闸门 → accepted → session_ended
+任务完成 → keyFindings 交回 → 运行时算 VerificationVerdict（passed 3/3）+ AcceptanceDecision（auto）
+  → session_verified → 唤醒
+  → 代理判断验证够了（不够就 verify_session 追加核验，签收暂缓）
+  → post_reply({ replyTo: [M], sourceSessionIds })：「改好了，测试和截图都核对过。」+ Runner 附「已验证 3/3」
+  → 运行时代签：goalPlansRevise 写 resultAcceptance { acceptedBy: 'policy' } → 关闭闸门 → accepted
+  M 的状态标记：已完成 · 已验证
+用户追问「怎么验证的？」→ 代理 get_verification_detail → 回复第 1 层细节
+用户要看证据 → 代理附 evidenceRefs → 回复里出现测试输出 / 截图 / diff / 验证报告芯片
+（若 decision = confirm：回复附「需要你确认」卡，列出原因；用户确认才写 acceptedBy: 'user'）
 ```
 
 ### 11.2 插话取代
@@ -534,12 +579,12 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 
 | 步 | 模块 | 退出条件 | 对应分期 |
 |---|---|---|---|
-| M1 | 契约：`protocol/delegation.ts`（对象、事件、失败码、`DelegationOrigin`、`AgentReplyMeta`、`projectWorkSession`、`projectMessageDispositions`）；会话元数据 `role` / `parentConversationId` / `origin` | 纯函数单测；与 `projectGoalPlan` 一致性测试；处置投影覆盖七种处置 | P1 |
+| M1 | 契约：`protocol/delegation.ts`（对象、事件、失败码、`DelegationOrigin`、`AgentReplyMeta`、`VerificationVerdict`、`AcceptanceDecision`、`projectWorkSession`、`projectMessageDispositions`、`computeVerificationVerdict`、`decideAcceptance`）；会话元数据 `role` / `parentConversationId` / `origin`；`acceptedBy` 增加 `'policy'` | 纯函数单测；与 `projectGoalPlan` 一致性测试；处置投影覆盖七种处置；签收策略逐条覆盖 confirm 原因 | P1 |
 | M2 | 执行宿主：AgentProfileRegistry + AgentTurnExecutor + TurnSink；把 `runGoalTurn` / `runExplorer` / `runVerifier` 迁过去 | 关掉所有窗口 Goal Runner 仍能推进；已有 Goal / Explorer / Verifier 测试全绿 | P1 前置 |
 | M3 | 派发：从划词子会话抽出「带快照的子会话」原语；SessionSupervisor（锚点、快照、原话带入）+ `project_agent` 模式白名单 + LocalDelegationProvider（spawn / list / report / post_reply） | 深度、幂等、白名单、锚点必填测试；划词子会话回归全绿；代理无法调用写类工具 | P1 |
 | M4 | 通讯：EventMapper + ProjectInbox + SessionMessenger | 事件去重、游标推进、重放测试 | P1 |
-| M5 | 编排：ProjectAgentRunner + ReplyComposer + 两个上下文来源；renderer 的回复引用条、来源芯片、消息状态标记 | P1 验收场景跑通（调度器先用每项目上限 1 的简化版） | P1 |
-| M6 | 需要你冒泡 + 插话（回答 / 并入 / 停止）+ AnchorScopeResolver | 两处批准同一请求；代理无批准入口；引用插话越界返回 `out_of_scope`；多消息合并回合每条都有处置 | P2 |
+| M5 | 编排：ProjectAgentRunner + ReplyComposer + 两个上下文来源；结论标记与策略代签提交；renderer 的回复引用条、来源芯片、结论标记、消息状态标记 | P1 场景跑通：低风险任务汇报即代签；需确认任务出现确认卡（调度器先用每项目上限 1 的简化版） | P1 |
+| M6 | 需要你冒泡 + 插话（回答 / 并入 / 停止）+ AnchorScopeResolver；按需披露（`get_verification_detail`、证据芯片）与 `verify_session` | 两处批准同一请求；代理无批准入口；引用插话越界返回 `out_of_scope`；多消息合并回合每条都有处置；追问能逐层展开到证据；追加核验暂缓签收 | P2 |
 | M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试；取代原子性与恢复测试 | P3 |
 | M8 | 异常：FailurePolicy + Watchdog + CircuitBreaker + 取消级联 + 重启恢复顺序 | 失败分类表逐行有测试；重启恢复集成测试 | P1 做基础（失败事件唤醒代理），P3 做全 |
 | M9 | 结果跟踪：DeliveryTimeline + 汇报去重 + 项目记忆挂点 | 代理能基于时间线回答「这周做了什么」 | P4 |
@@ -557,3 +602,6 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 7. 被取代的旧任务进 `paused` 而不是直接 `cancelled`，直到新任务被验收或用户放弃（§8.3，运行时契约 §3）。
 8. 拿不准并入还是取代时默认并入（§8.3）。
 9. 引用插话在执行层强制限定范围（§5.4）。
+10. 签收策略 `auto` 的条件与验证下限表（§6.6，运行时契约 §2.7）。
+11. 合入源头分支默认仍需一键确认，`autoHandoffOnPolicyAccept` 默认关闭（§6.7）。
+12. 代签在代理汇报之后才提交，追加核验次数有上限（§6.7）。

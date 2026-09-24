@@ -46,8 +46,9 @@ type WorkSessionStatus =
   | 'awaiting_approval' // 计划待用户批准
   | 'running'
   | 'needs_user'      // 权限 / 决策 / 补充信息
-  | 'result_ready'    // 机器完成，待验收
-  | 'accepted'        // 用户已验收（resultAcceptance 已写）
+  | 'verifying'       // 机器完成，正在算结论 / 代理追加核验中
+  | 'result_ready'    // 签收策略 = confirm，等用户确认
+  | 'accepted'        // 已签收：策略代签（acceptedBy: 'policy'）或用户确认
   | 'cancelled'
   | 'failed';
 
@@ -90,7 +91,7 @@ type DelegationEvent =
   | { type: 'session_spawned'; session: WorkSession }
   | { type: 'session_progress'; sessionId: string; report: SessionReport }
   | { type: 'session_needs_user'; sessionId: string; report: SessionReport }
-  | { type: 'session_result_ready'; sessionId: string; report: SessionReport }
+  | { type: 'session_verified'; sessionId: string; report: SessionReport; verdict: VerificationVerdict; decision: AcceptanceDecision }
   | { type: 'session_ended'; sessionId: string; report: SessionReport }
   | { type: 'user_intervened'; sessionId: string; messageId: string };
 ```
@@ -126,13 +127,16 @@ interface DelegationOrigin {
 interface AgentReplyMeta {
   replyTo: string[];              // 被回复的用户消息 id，界面显示引用条
   sourceSessionIds: string[];     // 这条回复依据的任务，界面显示来源芯片
-  cards: { type: 'needs_user' | 'plan_approval' | 'result_ready' | 'session_failed'; sessionId: string }[];
+  verdictChips: { sessionId: string }[]; // 验证结论标记，渲染时读 VerificationVerdict 投影（§2.7）
+  evidenceRefs: string[];         // 追问时展开的证据；只保留能解析的引用
+  cards: { type: 'needs_user' | 'plan_approval' | 'confirm_result' | 'session_failed'; sessionId: string }[];
 }
 ```
 
 - **用户回合**：代理的最终文本自动 `replyTo` 本轮的用户消息。本轮有多条用户消息（插话排队合并）时，自动回复最后一条，前面的消息须由调度工具或 `post_reply` 给出处置。
 - **唤醒回合**：代理必须用 `post_reply` 显式指定回复哪条消息。唤醒回合里没有经过 `post_reply` 的文本，若本轮只由一个锚点的事件触发，就挂到该锚点；否则作为不挂靠的备注显示。
-- **卡片由 Runner 生成，代理不能伪造。** 代理只给 `sourceSessionIds`，Runner 按这些任务的当前投影自动附卡片：`result_ready` 的任务附待验收卡，有待处理请求的附需要你卡。代理无法给一条没完成的任务贴待验收卡。
+- **卡片与结论标记由 Runner 生成，代理不能伪造。** 代理只给 `sourceSessionIds`，Runner 按这些任务的当前投影自动附上：每条已结束的任务附验证结论标记（如「已验证 3/3」「部分验证 2/3」）；签收策略判定需要确认的附「需要你确认」卡；有待处理请求的附需要你卡。代理无法给一条没过线的任务贴「已验证」。
+- **证据引用按需展开。** `evidenceRefs` 只在用户追问细节时由代理附上，ReplyComposer 逐条经 EvidenceIndex 解析，解析不到的丢弃并记告警，渲染为可打开的证据芯片（测试输出、截图、diff、验证报告）。
 
 ### 2.6 处置：每条用户消息的下文
 
@@ -150,6 +154,76 @@ type MessageDisposition =
 - 不变量：用户回合结束后，本轮每条用户消息至少有一个处置。用户回合的最终文本自动构成 `answered`，所以结构上总能满足；测试要覆盖多条消息合并的回合。
 - **引用插话限定范围**：用户消息带引用（引用某条用户消息或某条代理回复）时，引用解析出一组相关任务（锚定在被引用消息上的任务，或被引用回复的 `sourceSessionIds`）。这条消息上的 `message_session` / `cancel_session` / `supersedes` 只能作用于这组任务，调度 Provider 在执行层校验，越界返回 `out_of_scope`。
 
+### 2.7 验证结论与签收策略
+
+用户不再逐条验收。验证由代理负责，结论由运行时计算，签收由策略决定，细节按需披露。
+
+```ts
+interface VerificationVerdict {
+  sessionId: string;
+  planId: string;
+  outcome: 'passed' | 'partial' | 'failed';
+  gate: { passed: boolean; unmet: { kind: string; reason: string; criterionId?: string }[] }; // evaluateVerificationGate
+  criteria: { total: number; passed: number; manualPending: number };
+  independentVerifier: 'passed' | 'failed' | 'not_required' | 'missing';  // runner.verifierRuns
+  visual: 'passed' | 'failed' | 'not_required' | 'missing';               // UI 交付闸门
+  qualityReview: 'passed' | 'failed' | 'not_required' | 'missing';
+  unverified: string[];        // 没有被自动验证覆盖的点，必须告诉用户
+  reportRef?: string;          // 已有的自动验收报告（goal-reports/<planId>.md）
+  computedAt: string;
+}
+
+interface AcceptanceDecision {
+  mode: 'auto' | 'confirm';
+  reasons: AcceptanceReason[];  // confirm 时列出原因，auto 时为空
+}
+
+type AcceptanceReason =
+  | 'verdict_not_passed' | 'manual_criteria_pending' | 'external_side_effects'
+  | 'destructive_operation' | 'out_of_scope_write' | 'project_requires_confirm'
+  | 'user_requested_review' | 'verification_below_floor';
+```
+
+- `VerificationVerdict` 由纯函数 `computeVerificationVerdict(plan, evidenceIndex, hostAuthority)` 计算，输入全部是宿主解析的事实（沿用 `evaluateVerificationGate` 只认宿主状态的约束），不接受模型参数。
+- `AcceptanceDecision` 由纯函数 `decideAcceptance(verdict, sideEffectProfile, projectPrefs, userSignals)` 计算。`sideEffectProfile` 来自任务的 Evidence（写了哪些路径、跑了什么命令、有没有外部网络变更、MCP 变更、浏览器提交、删除），不来自代理的描述。
+- `auto` 的条件（全部满足）：结论 `passed`；没有待确认的人工标准；副作用只在工作区 / 任务分支 / worktree 内；没有外部副作用和破坏性操作；项目没有设置「每次都要我确认」；用户没有对这件事说过「给我看看再说」。其余一律 `confirm`。
+
+**验证下限**（代理只能上调，不能下调）：
+
+| 改动类型 | 下限 |
+|---|---|
+| 改了代码 | 至少一条可执行成功标准（test / command）+ 验证闸门 + 质量自检 |
+| 改了界面 | 上一行 + 视觉验证（intake 时已按 UI 交付臂自动启用） |
+| 多文件或跨模块改动 | 上一行 + 独立 Verifier |
+| 只读调研 / 文档 | 验证闸门（叶子证据） |
+
+**签收的提交时机**：
+
+```text
+任务 completed → 运行时算 VerificationVerdict + AcceptanceDecision
+  → 事件 session_verified（带结论与决策）→ 唤醒代理
+  → 代理本轮可以 verify_session 追加核验（签收暂缓，核验结束后重算）
+  → 代理 post_reply 汇报这条任务：
+       auto    → 运行时写 resultAcceptance { acceptedBy: 'policy', verdictRef }，任务结束
+       confirm → 回复附「需要你确认」卡，任务停在 result_ready
+```
+
+代签与汇报绑定：代理没有向用户说明情况，就不会代签。代理不能在 `confirm` 时代签，也不能在 `auto` 时阻止代签以外的任何事（它可以追加核验推迟代签，但不能无限推迟：追加核验有次数上限）。
+
+**合入与推送**：合入源头分支默认 `confirm`（回复里附「合入 develop」一键动作），项目设置 `autoHandoffOnPolicyAccept` 打开后随代签自动合入；推送远端永远走权限审查，不自动。
+
+**重新打开**：用户说「不对」「这个有问题」时，代理开一条派生任务（Goal Thread，`parentPlanId` 指向原计划）修正；策略代签的记录保留并标注 `reopenedBy`，不改写历史。
+
+**分层披露**：
+
+| 层 | 什么时候 | 内容 | 数据 |
+|---|---|---|---|
+| 0 结论 | 默认 | 一两句：做成了什么、验证了什么、还有什么没验证 + 结论标记 | `keyFindings`、`VerificationVerdict` |
+| 1 细节 | 用户问「怎么验证的」「改了哪些」 | 成功标准逐条及验证方式、改动文件、测试结果摘要 | `get_session_report`、`get_verification_detail` |
+| 2 证据 | 用户要看证据 | 证据芯片：测试输出、截图、diff、验证报告 | `evidenceRefs` 经 EvidenceIndex 解析 |
+
+结论为 `partial` / `failed` 时，第 0 层必须说出没验证或没通过的点；结论标记由运行时渲染，代理的文字与标记冲突时以标记为准。
+
 ---
 
 ## 3. 调度能力
@@ -161,7 +235,9 @@ type MessageDisposition =
 | `spawn_session` | `local.delegation.spawn_session` | 开任务：锚定一条用户消息，建子 Conversation（首条 = 用户原话 + 任务说明 + 上下文快照），按参数结构化创建 GoalPlan；带 `supersedes` 时原子地取代旧任务 | 只创建会话与计划，不执行本地能力；按 `goal-create` 同类处理，self-grant，记 Evidence |
 | `message_session` | `local.delegation.message_session` | 并入：给任务追加指令或纠偏，作为该任务里的一条用户侧消息，来源标为项目代理，带 `anchorMessageId` | 同上 |
 | `cancel_session` | `local.delegation.cancel_session` | 停止：停 Runner，GoalPlan 进 `cancelled`，带 `anchorMessageId` 与原因 | 不删分支 / worktree；`result_ready` / `accepted` 的任务返回 `not_cancellable` |
-| `post_reply` | `local.delegation.post_reply` | 在代理会话里发一条回复，指定 `replyTo` 与 `sourceSessionIds`；卡片由 Runner 按投影附上 | 只写代理自己的会话；self-grant，记 Evidence |
+| `post_reply` | `local.delegation.post_reply` | 在代理会话里发一条回复，指定 `replyTo`、`sourceSessionIds`、可选 `evidenceRefs`；结论标记与卡片由 Runner 按投影附上；汇报已验证任务时触发签收提交（§2.7） | 只写代理自己的会话；self-grant，记 Evidence |
+| `verify_session` | `local.delegation.verify_session` | 追加核验：派独立 Verifier（只读）、要求任务补跑检查（经 `message_session`）、或要求视觉复核；核验期间暂缓签收 | 不直接执行能力；次数有上限 |
+| `get_verification_detail` | `local.delegation.get_verification_detail` | 取一条任务的验证细节：标准逐条、验证方式、证据引用摘要、未验证项 | 只读 |
 | `list_sessions` | `local.delegation.list_sessions` | 列出本项目任务与投影状态 | 只读 |
 | `get_session_report` | `local.delegation.get_session_report` | 取一条任务的 `SessionReport` | 只读 |
 | `spawn_subagent` | `local.delegation.spawn_subagent` | 开只读临时调研子 agent，复用 Explorer 执行路径，结果作为 Tool Result 返回 | 只读 profile；预算受 §5 约束 |
@@ -182,6 +258,12 @@ type MessageDisposition =
   dependsOnPolicy?: 'accepted' | 'result_ready'; // 默认 accepted
   supersedes?: string;           // 取代的旧任务
   inherit?: { report: boolean; branch: 'auto' | 'yes' | 'no' }; // 取代时继承什么；branch auto = 旧任务改动与新目标仍相关时继承
+  verification?: {               // 代理声明的验证要求；低于下限时按下限执行（§2.7）
+    independentVerifier?: boolean;
+    visual?: boolean;
+    extraChecks?: string[];      // 额外的可执行检查，会并入成功标准
+    requireUserConfirm?: boolean; // 代理判断这件事应当让用户过目
+  };
 }
 ```
 
@@ -190,7 +272,7 @@ type MessageDisposition =
 1. **原子**：先建新任务，成功后再停旧任务；新任务建失败，旧任务不受影响。
 2. **旧任务可恢复**：旧任务的 GoalPlan 进 `paused`，记 `supersededBy`，分支与 worktree 保留。用户点「恢复原任务」即恢复这份计划，新任务不受影响（要不要停新任务由用户或代理另行决定）。新任务被验收、或用户在旧任务上点「不要了」时，旧任务才转 `cancelled`。
 3. **继承**：`inherit.report` 把旧任务的 `SessionReport`（含 `keyFindings`）作为新任务的事实上下文；`inherit.branch` 为 `yes` 时新任务从旧任务分支继续，`no` 时从源头重新拉。
-4. **不能取代待验收或已验收的任务**：返回 `not_cancellable`。结果已经出来的东西由用户签收或拒收，代理只能另开。
+4. **不能取代等确认或已签收的任务**：返回 `not_cancellable`。结果已经出来的东西由用户确认或说「不对」，代理只能另开。
 
 `message_session` 输入：`{ sessionId, anchorMessageId, text }`。`cancel_session` 输入：`{ sessionId, anchorMessageId, reason }`。`post_reply` 输入：`{ replyTo: string[], body: string, sourceSessionIds: string[] }`。
 
@@ -237,7 +319,7 @@ type MessageDisposition =
 | 事件 | 是否唤醒 | 说明 |
 |---|---|---|
 | `session_needs_user` | 立即 | 代理把卡片递给用户，可附带自己的判断 |
-| `session_result_ready` | 立即 | 代理汇报结果，附验收卡 |
+| `session_verified` | 立即 | 代理决定是否追加核验，然后汇报结论；`auto` 时汇报即代签，`confirm` 时附「需要你确认」卡 |
 | `session_ended`（failed / cancelled） | 立即 | 代理决定重试、换方案或告诉用户 |
 | `session_progress` | 不单独唤醒 | 只更新 roster 快照；长时间无进展由 §5.3 处理 |
 | `user_intervened` | 不唤醒 | 下次代理回合时作为事实可见 |
@@ -286,7 +368,7 @@ type MessageDisposition =
 
 - 每次调度 Tool Call 产出 Evidence：谁（项目代理对话）、何时、开了 / 改了 / 取消了哪条任务、带了什么意图。
 - `SessionReport.evidenceRefs` 必须可解析；不可解析的引用在报告里标 `unresolved`，代理与界面都不能把它当证据。
-- 项目代理的助手消息不是证据。验收卡只读任务 GoalPlan 的关闭闸门结果。
+- 项目代理的助手消息不是证据。结论标记只读 `VerificationVerdict`，签收只看关闭闸门 + 结论 + 签收策略。
 - 临时子 agent 的报告沿用 Explorer 的 `allowedEvidenceRefs` 校验。
 
 ---
@@ -324,7 +406,7 @@ type MessageDisposition =
 
 - 新增 `delegation:list` / `delegation:changed`，payload 是 `WorkSession[]`，由 main 聚合；renderer 不自行扫描 GoalPlan 判断状态。
 - `taskOverview` 聚合增加按项目分组与 `projectAgentConversationId`，用于侧栏角标。
-- 卡片（开出任务 / 需要你 / 待验收）绑定 `sessionId` 与 `pendingRequestId`，交互调用已有的批准 / 验收 IPC，不新增绕过 main 的动作。
+- 卡片（需要你 / 需要你确认）与结论标记绑定 `sessionId` 与 `pendingRequestId`，交互调用已有的批准 / 验收 IPC，不新增绕过 main 的动作。
 
 ---
 
@@ -353,7 +435,7 @@ type MessageDisposition =
 - 并行写仓库任务第二条起强制 worktree；主工作区脏时拒绝。
 - 任务权限请求产生 `session_needs_user`，两处批准解决同一请求。
 - 代理没有任何批准权限的入口。
-- `session_result_ready` 唤醒代理；代理文本不影响 `resultAcceptance`。
+- `session_verified` 唤醒代理；代理文本不影响结论与 `resultAcceptance`。
 - 收件箱持久化，重启后积压事件被处理且不重复汇报。
 - 停滞检测产生唤醒；唤醒频率上限生效。
 - 用户直接在任务里发消息产生 `user_intervened`，任务 Goal 生命周期不受代理干扰。
@@ -362,8 +444,15 @@ type MessageDisposition =
 - 用户回合结束后每条用户消息至少一个处置；多条消息合并的回合同样成立。
 - 引用插话时对范围外任务的 `message_session` / `cancel_session` / `supersedes` 返回 `out_of_scope`。
 - 取代是原子的：新任务建失败时旧任务不变；旧任务进 `paused` 可恢复；`result_ready` / `accepted` 不可取代、不可停止。
-- 代理无法给未完成的任务贴待验收卡：卡片只由 Runner 按投影生成。
+- 代理无法给没过线的任务贴「已验证」：结论标记与卡片只由 Runner 按投影生成。
 - 唤醒回合中没有 `post_reply` 的文本按规则挂靠或作为备注，不会误挂到无关消息。
+- `VerificationVerdict` 只由宿主事实计算；模型参数无法影响结论。
+- `decideAcceptance`：逐条覆盖 confirm 原因；副作用画像来自 Evidence 而不是代理描述。
+- 代签只在 `auto` 且代理已 `post_reply` 汇报后发生；写入 `acceptedBy: 'policy'` 前必过关闭闸门，且不接受 `userOverride`。
+- `verify_session` 暂缓签收，核验结束后重算结论与决策；超过次数上限返回错误。
+- 代理无法下调验证下限：`spawn_session` 的验证声明低于下限时按下限执行。
+- 结论为 `partial` / `failed` 时，回复的结论标记如实显示；`evidenceRefs` 中解析不到的引用被丢弃。
+- 用户「不对」后派生任务挂 `parentPlanId`，原代签记录保留并标 `reopenedBy`。
 
 ---
 

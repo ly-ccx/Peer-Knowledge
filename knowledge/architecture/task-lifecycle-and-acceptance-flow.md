@@ -13,6 +13,8 @@
 > 身份层补充：`design/product/task-identity-conversation-carrier.md`（委托成立才有 Task 心智；会话仍是载体，不另起 Task 表）
 >
 > 壳层与验收对照页：`design/product/peer-transformation-charter.md`（阶段 A 先看依据；阶段 B 关闭时强制 evidenceRefs 校验）
+>
+> **2026-09-24（ADR 80 决策 8，Proposed）：** 项目代理模式下，§2 原则 2、4 的「用户验收」扩展为「签收」：验证通过且低风险时由验证策略代签（`resultAcceptance.acceptedBy = 'policy'`），例外时仍由用户确认。关闭闸门、`resultAcceptance` 作为唯一签收事实、不从聊天文本推断，这三条不变。细节见 `knowledge/architecture/project-agent-delegation-runtime.md` §2.7。
 
 ## 1. 问题与目标
 
