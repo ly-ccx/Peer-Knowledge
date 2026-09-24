@@ -116,6 +116,7 @@ interface DelegationOrigin {
   inherited?: { reportOf?: string; branchOf?: string }; // 从旧任务继承了什么
   memorySnapshotId?: string;      // 开任务时冻结的相关记忆（ADR 81）
   objectiveId?: string;           // 由项目目标推进开出时所属的目标（ADR 82）
+  modelSelection: ModelSelectionSnapshot; // 各角色模型，开任务时解析并冻结（ADR 83）
 }
 ```
 
@@ -244,6 +245,7 @@ type AcceptanceReason =
 | `get_verification_detail` | `local.delegation.get_verification_detail` | 取一条任务的验证细节：标准逐条、验证方式、证据引用摘要、未验证项 | 只读 |
 | `create_objective` / `update_objective` / `pause_objective` / `close_objective` / `list_objectives` / `get_objective` | `local.delegation.objective.*` | 项目目标与 watches（ADR 82） | 必须锚定用户消息；代理提议的目标走确认卡；`autonomy` 只能由用户消息上调 |
 | `set_proactivity` | `local.delegation.set_proactivity` | 改主动性档位与免打扰时段（ADR 80 决策 9） | 必须锚定用户消息；不影响必达项 |
+| `set_model_policy` | `local.delegation.set_model_policy` | 改档位映射、角色设置、项目模型范围（ADR 83） | 必须锚定用户消息；设置页可见可撤；范围只能在项目层收紧 |
 | `list_sessions` | `local.delegation.list_sessions` | 列出本项目任务与投影状态 | 只读 |
 | `get_session_report` | `local.delegation.get_session_report` | 取一条任务的 `SessionReport` | 只读 |
 | `spawn_subagent` | `local.delegation.spawn_subagent` | 开只读临时调研子 agent，复用 Explorer 执行路径，结果作为 Tool Result 返回 | 只读 profile；预算受 §5 约束 |
@@ -264,6 +266,8 @@ type AcceptanceReason =
   dependsOnPolicy?: 'accepted' | 'result_ready'; // 默认 accepted
   supersedes?: string;           // 取代的旧任务
   inherit?: { report: boolean; branch: 'auto' | 'yes' | 'no' }; // 取代时继承什么；branch auto = 旧任务改动与新目标仍相关时继承
+  modelPreference?: { role: 'worker' | 'verifier' | 'explorer'; model: string }[]; // 用户本次指定（ADR 83），须过能力与范围过滤
+  modelChoiceReason?: string;    // 角色为「自动」时代理的选择理由
   verification?: {               // 代理声明的验证要求；低于下限时按下限执行（§2.7）
     independentVerifier?: boolean;
     visual?: boolean;
@@ -500,6 +504,6 @@ function decideSurfacing(input: {
 ## 13. 未决问题
 
 1. 项目代理是否允许只读网页（`batch_search` / `web_fetch`）。
-2. 项目代理与任务是否默认用不同模型（代理用快模型）。需要看 Provider 绑定是否支持按 `role` 取默认。
+2. ~~项目代理与任务是否默认用不同模型~~ → 已由 ADR 83 回答：按档位 + 角色解析，代理默认「快」，任务默认「强」。
 3. 纯问答超出只读工具能力时（例如需要跑一次测试才能回答），是开一条轻量任务，还是让代理回答「需要开任务」并请用户确认。
 4. TUI 的呈现：TUI 是否也以项目代理为默认对话，还是保留直接任务入口。

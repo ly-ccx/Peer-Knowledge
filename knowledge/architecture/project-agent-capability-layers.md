@@ -66,6 +66,7 @@ L0  基座（已有）  能力链 · agent loop · Provider 协调与恢复 · c
 | 层 | 模块 | 包 | 现状 |
 |---|---|---|---|
 | L1 | AgentProfileRegistry | runtime-node | 新建 |
+| L1 | ModelRouter `resolveRoleModel(role, context)`（档位 + 角色 + 作用域 → 能力过滤 → 范围过滤 → 不同源复核 → 冻结） | runtime-node | 新建（ADR 83）；旧会话仍走 `resolveConversationModelProviderId` |
 | L1 | AgentTurnExecutor + TurnSink | runtime-node 接口 / desktop 适配器 | **改造**：收拢 `runGoalTurn`、`runExplorer`、`runVerifier` 的手工拼装 |
 | L2 | SessionSupervisor | runtime-node | 新建 |
 | L2 | ExecutionScheduler | runtime-node | 新建；接 Goal Runner 已预留但未接线的 `canRunPlan` |
@@ -114,7 +115,8 @@ interface AgentProfile {
   role: 'project_agent' | 'session_worker' | 'explorer' | 'verifier' | 'visual_verifier' | 'research_subagent';
   mode: 'project_agent' | 'goal' | 'explorer' | 'verifier';   // 决定工具投影（ADR 35）
   persistTranscript: boolean;       // false = ephemeral，不写会话正文
-  defaultModelBinding: 'conversation' | 'role_default';
+  modelRole: 'project_agent' | 'session_worker' | 'explorer' | 'verifier' | 'visual_verifier' | 'memory_curator' | 'objective_probe' | 'compactor'; // 由 ModelRouter 按档位 + 角色解析（ADR 83）
+  modelRequirements: { tools: boolean; vision?: boolean; minContextWindow?: number };
   budget: { maxToolCallsPerTurn?: number; maxDurationMs?: number };
   canSpawn: 'sessions_and_subagents' | 'subagents' | 'none';     // 深度限制的静态来源
 }
@@ -593,6 +595,7 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 | M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试；取代原子性与恢复测试 | P3 |
 | M8 | 异常：FailurePolicy + Watchdog + CircuitBreaker + 取消级联 + 重启恢复顺序 | 失败分类表逐行有测试；重启恢复集成测试 | P1 做基础（失败事件唤醒代理），P3 做全 |
 | M9 | 结果跟踪：DeliveryTimeline + 汇报去重 + 项目记忆挂点 | 代理能基于时间线回答「这周做了什么」 | P4 |
+| M2.1 | ModelRouter + 档位 / 角色设置 + `modelSelection` 冻结 + 故障切换约束 + 用量按角色记账 + 「模型分工」设置页 | 只有一个模型时行为与今天一致；视觉复核自动选能看图的模型；复核优先不同源且报告标明；故障切换不越出项目范围 | P1（与 M2 同批） |
 | M5.1 | SurfacingPolicy + 主动性档位 + `set_proactivity` + 每日小结 | 必达项不受档位影响；代理发起且无新内容的一律 silent；档位切换后送达方式按表变化 | P2 |
 | OB1–OB3 | 项目目标（ADR 82）：OB1 抽共享 Scheduler + ObjectiveStore + 目标工具 + 右栏「目标」；OB2 WatchRunner（定时 + 内部 / git / 文件事件）+ 确定性探测 + `objective_signal`；OB3 只读探测子 agent（CI / issue / 依赖）+ autonomy 三档 + 预算与熔断 | Automation 回归全绿；幂等与对账测试；只在 digest 变化时上报；`act` 开出的任务仍过签收策略；预算超限停止自动推进 | P3–P4 |
 | MM1–MM5 | 记忆体系（稳定 workspaceId → 存储与工具 → 事件卡与简报 → Curator 与准入 → 过期与冲突 → Skill Patch 候选） | 见 `project-agent-memory-system.md` §14；MM1 可在 M5 之后并行开工 | P2–P5 |

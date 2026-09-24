@@ -78,7 +78,7 @@ type ObjectiveProbe =
 
 - **定时**复用 ADR 62 的 Scheduler 模块：`nextRunAt` 是事实、timer 只是唤醒优化；幂等键 `objectiveId + watchId + scheduledAt`；missed 默认 `run_latest`，overlap 默认 `skip`；启动 / 唤醒 / 时间变化时对账。**共用 Scheduler 模块，不共用 AutomationDefinition**：目标触发不新开会话，只产生观察结果交给项目代理。
 - **事件**：P1 只做内部与本机来源（任务事件、本地 git、工作区文件），不开入站网络。外部状态（CI、issue、依赖发布）一律通过定时探测拉取，不做 webhook。
-- **探测一律只读**：确定性探测优先（git ref、文件哈希、只读命令的退出码与输出摘要）；需要理解的用只读探测子 agent（复用 Explorer 执行路径，`observe` 级授权，走能力链与 Evidence）。探测没有副作用，不能写文件、不能对外写。
+- **探测一律只读**：确定性探测优先（git ref、文件哈希、只读命令的退出码与输出摘要）；需要理解的用只读探测子 agent（复用 Explorer 执行路径，`observe` 级授权，走能力链与 Evidence；默认「省」档模型，ADR 83）。探测没有副作用，不能写文件、不能对外写。
 
 ### 3. 观察结果只在「变了」时往上报
 

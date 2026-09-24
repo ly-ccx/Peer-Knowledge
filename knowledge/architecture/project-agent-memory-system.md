@@ -174,7 +174,7 @@ interface MemoryEpisode {
 
 提取不在项目代理的回合里做，避免拖慢对话、挤占代理上下文。Curator 是一个后台只读子 agent：
 
-- 画像：新增 `memory_curator`（AgentProfileRegistry），只读工具 + 读取任务报告、证据摘要、事件卡；P3 优先级，走子 agent 池。
+- 画像：新增 `memory_curator`（AgentProfileRegistry），只读工具 + 读取任务报告、证据摘要、事件卡；P3 优先级，走子 agent 池；默认用「省」档模型（ADR 83），受项目模型范围约束。
 - 输入：一件事的事件卡、相关任务的 `SessionReport` 与 `VerificationVerdict`、现有相关记忆（去重与冲突检查用）。
 - 输出：结构化候选 JSON（`MemoryCandidate[]`），不直接写库。
 - 运行时校验：字段完整、`evidenceRefs` 可解析、`statement` 长度与格式、敏感信息扫描（复用 shell-redaction 的规则）、来源是否含不可信内容。校验不过的候选丢弃并记日志。
