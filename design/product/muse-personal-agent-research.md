@@ -3,7 +3,7 @@
 创建时间：2026-09-24
 最后更新：2026-09-24
 
-> 状态：调研（竞品参考，不是决策）  
+> 状态：调研（竞品参考，不是决策）。2026-09-24 用户选定采纳 §6 的 #1（值得打扰 + 主动性档位 → ADR 80 决策 9）与 #2（项目目标 + 定时 / 事件驱动 → ADR 82），其余暂不纳入。  
 > 调研对象：Meta Muse 个人 AI 代理（2026-09-08 美国上线）  
 > 关联：`knowledge/decisions/80-project-agent-delegation-model.md`、`knowledge/decisions/81-project-agent-memory-system.md`、`design/product/project-agent-workbench.md`  
 > 说明：以 Meta 两篇一手长文为主（设计篇、安全篇），辅以上手评测与 Reuters 报道。厂商描述的是设计意图，不等于实测效果。

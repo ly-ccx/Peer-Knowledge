@@ -78,6 +78,9 @@ L0  基座（已有）  能力链 · agent loop · Provider 协调与恢复 · c
 | L4 | WorkSession 投影 | protocol（纯函数） | 新建 |
 | L4 | 消息处置投影 `projectMessageDispositions` | protocol（纯函数） | 新建 |
 | L6 | ReplyComposer（回复挂靠 + 卡片生成） | runtime-node | 新建 |
+| L6 | SurfacingPolicy `decideSurfacing` + 每日小结队列 | protocol（纯函数）/ runtime-node | 新建（ADR 80 决策 9） |
+| L2 | 共享 Scheduler（从 Automation 抽出：`nextRunAt` 对账、幂等、missed / overlap） | runtime-node | **改造**：Automation 与项目目标共用 |
+| L2 | ObjectiveStore + WatchRunner（定时 / 事件源 → 只读探测 → WatchObservation） | runtime-node / desktop | 新建（ADR 82） |
 | 横向 | 记忆模块组：MemoryStore · MemoryAdmissionPolicy · MemoryCurator · EpisodeBuilder · MemoryRetriever · `project-memory-source` · MemoryMaintenance · LocalMemoryProvider | protocol / runtime-node / system-context / desktop | 新建，见 ADR 81 与 `project-agent-memory-system.md` §11 |
 | L4 | SessionReportBuilder | runtime-node | 新建 |
 | L4 | DeliveryTimeline | runtime-node（投影） | 新建 |
@@ -447,6 +450,7 @@ queued → starting → awaiting_approval → running ⇄ needs_user → verifyi
 2. **用户回合不被抢占。** 用户回合中来的新消息进入已有的消息队列；新事件只入箱。
 3. **回合后补处理。** 回合结束时，如果游标之后还有未汇报的唤醒类事件，立即排一次唤醒回合。
 4. **合并与限频。** `needs_user` 立即唤醒；其余唤醒类事件合并去抖（默认 3 秒）；两次自发唤醒最短间隔默认 30 秒；每小时自发唤醒次数有上限，超过后只更新角标，不再唤醒。
+4.1 **醒来不等于开口。** 代理醒来处理事件后，是否告诉用户、以什么方式告诉，由 SurfacingPolicy 决定（`interrupt` / `message` / `digest` / `silent`，运行时契约 §5.1.1）。必达项不受主动性档位影响；代理自己发起的内容先比新颖性，再按重要度与档位送达。
 5. **唤醒回合不伪造用户消息。** 触发内容作为 runtime reminder 和 roster 快照注入。
 6. **排队的插话合并成一个用户回合。** 用户回合进行中又来了几条消息，下一个用户回合一次性看到它们，并且要给每一条都做处置（§8.3）。
 
@@ -589,6 +593,8 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 | M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试；取代原子性与恢复测试 | P3 |
 | M8 | 异常：FailurePolicy + Watchdog + CircuitBreaker + 取消级联 + 重启恢复顺序 | 失败分类表逐行有测试；重启恢复集成测试 | P1 做基础（失败事件唤醒代理），P3 做全 |
 | M9 | 结果跟踪：DeliveryTimeline + 汇报去重 + 项目记忆挂点 | 代理能基于时间线回答「这周做了什么」 | P4 |
+| M5.1 | SurfacingPolicy + 主动性档位 + `set_proactivity` + 每日小结 | 必达项不受档位影响；代理发起且无新内容的一律 silent；档位切换后送达方式按表变化 | P2 |
+| OB1–OB3 | 项目目标（ADR 82）：OB1 抽共享 Scheduler + ObjectiveStore + 目标工具 + 右栏「目标」；OB2 WatchRunner（定时 + 内部 / git / 文件事件）+ 确定性探测 + `objective_signal`；OB3 只读探测子 agent（CI / issue / 依赖）+ autonomy 三档 + 预算与熔断 | Automation 回归全绿；幂等与对账测试；只在 digest 变化时上报；`act` 开出的任务仍过签收策略；预算超限停止自动推进 | P3–P4 |
 | MM1–MM5 | 记忆体系（稳定 workspaceId → 存储与工具 → 事件卡与简报 → Curator 与准入 → 过期与冲突 → Skill Patch 候选） | 见 `project-agent-memory-system.md` §14；MM1 可在 M5 之后并行开工 | P2–P5 |
 
 ---

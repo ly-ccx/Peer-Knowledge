@@ -93,7 +93,9 @@ type DelegationEvent =
   | { type: 'session_needs_user'; sessionId: string; report: SessionReport }
   | { type: 'session_verified'; sessionId: string; report: SessionReport; verdict: VerificationVerdict; decision: AcceptanceDecision }
   | { type: 'session_ended'; sessionId: string; report: SessionReport }
-  | { type: 'user_intervened'; sessionId: string; messageId: string };
+  | { type: 'user_intervened'; sessionId: string; messageId: string }
+  | { type: 'objective_signal'; objectiveId: string; observation: WatchObservation }   // ADR 82
+  | { type: 'digest_due'; scheduledAt: string };
 ```
 
 不变量：
@@ -113,6 +115,7 @@ interface DelegationOrigin {
   supersedes?: string;            // 取代的旧任务 sessionId
   inherited?: { reportOf?: string; branchOf?: string }; // 从旧任务继承了什么
   memorySnapshotId?: string;      // 开任务时冻结的相关记忆（ADR 81）
+  objectiveId?: string;           // 由项目目标推进开出时所属的目标（ADR 82）
 }
 ```
 
@@ -239,6 +242,8 @@ type AcceptanceReason =
 | `post_reply` | `local.delegation.post_reply` | 在代理会话里发一条回复，指定 `replyTo`、`sourceSessionIds`、可选 `evidenceRefs`；结论标记与卡片由 Runner 按投影附上；汇报已验证任务时触发签收提交（§2.7） | 只写代理自己的会话；self-grant，记 Evidence |
 | `verify_session` | `local.delegation.verify_session` | 追加核验：派独立 Verifier（只读）、要求任务补跑检查（经 `message_session`）、或要求视觉复核；核验期间暂缓签收 | 不直接执行能力；次数有上限 |
 | `get_verification_detail` | `local.delegation.get_verification_detail` | 取一条任务的验证细节：标准逐条、验证方式、证据引用摘要、未验证项 | 只读 |
+| `create_objective` / `update_objective` / `pause_objective` / `close_objective` / `list_objectives` / `get_objective` | `local.delegation.objective.*` | 项目目标与 watches（ADR 82） | 必须锚定用户消息；代理提议的目标走确认卡；`autonomy` 只能由用户消息上调 |
+| `set_proactivity` | `local.delegation.set_proactivity` | 改主动性档位与免打扰时段（ADR 80 决策 9） | 必须锚定用户消息；不影响必达项 |
 | `list_sessions` | `local.delegation.list_sessions` | 列出本项目任务与投影状态 | 只读 |
 | `get_session_report` | `local.delegation.get_session_report` | 取一条任务的 `SessionReport` | 只读 |
 | `spawn_subagent` | `local.delegation.spawn_subagent` | 开只读临时调研子 agent，复用 Explorer 执行路径，结果作为 Tool Result 返回 | 只读 profile；预算受 §5 约束 |
@@ -325,8 +330,42 @@ type AcceptanceReason =
 | `session_ended`（failed / cancelled） | 立即 | 代理决定重试、换方案或告诉用户 |
 | `session_progress` | 不单独唤醒 | 只更新 roster 快照；长时间无进展由 §5.3 处理 |
 | `user_intervened` | 不唤醒 | 下次代理回合时作为事实可见 |
+| `objective_signal`（ADR 82，`changed = true`） | 按 severity：`urgent` 立即；`notable` 合并去抖；`info` 不单独唤醒，攒到下一次唤醒或每日小结 | 代理按目标的 `autonomy` 决定汇报、提议或开任务 |
+| `digest_due`（每日小结时间到） | 立即 | 代理把 `digest` 项整理成一条「今日小结」 |
 
 代理被唤醒的回合不伪造用户消息：触发内容作为 runtime reminder + roster 快照注入，写入代理对话的是代理自己的助手消息与卡片。
+
+### 5.1.1 送达：SurfacingPolicy（ADR 80 决策 9）
+
+唤醒代理和打扰用户是两件事：代理可以醒来处理事件、更新目标与记忆，却不一定要告诉用户。代理每次 `post_reply` 前，ReplyComposer 调纯函数：
+
+```ts
+type Surfacing = 'interrupt' | 'message' | 'digest' | 'silent';
+
+function decideSurfacing(input: {
+  origin: 'user_request' | 'objective_signal' | 'agent_idea';
+  kind: 'needs_user' | 'confirm' | 'failure_needs_decision' | 'result' | 'observation' | 'idea' | 'objective_risk';
+  novelty: boolean;                 // 与上次送达给用户的同类内容摘要比较
+  severity: 'info' | 'notable' | 'urgent';
+  proactivity: 'off' | 'low' | 'normal' | 'high';
+  quietHours: boolean;              // 当前是否在免打扰时段
+}): Surfacing;
+```
+
+规则（自上而下）：
+
+| 条件 | 送达 |
+|---|---|
+| `needs_user` / `confirm` / `failure_needs_decision` / `objective_risk` | `interrupt`；免打扰时段内降为 `message`，但 `objective_risk` 且临近截止仍 `interrupt` |
+| 用户发起的任务结果（`origin = user_request`） | 至少 `message`；档位 `normal` / `high` 时 `interrupt` |
+| 代理发起的内容且 `novelty = false` | `silent` |
+| 代理发起的 `urgent` | `interrupt` |
+| 代理发起的 `notable` | `off` → `digest`；`low` → `digest`；`normal` → `message`；`high` → `interrupt` |
+| 代理发起的 `info` / `idea` | `off` → `silent`；`low` → `digest`；`normal` → `digest`；`high` → `message` |
+
+- 代理可以在 `post_reply` 里给出自己判断的 `severity`，但只能在确定性规则给出的下限之上上调，不能下调。
+- `digest` 项不写进对话，存入收件箱的小结队列，`digest_due` 时由代理合并成一条消息；`silent` 项只更新右栏与记忆。
+- 档位与免打扰时段是用户设置（项目级，可继承用户级默认），代理只能通过锚定用户消息的 `set_proactivity` 修改。
 
 ### 5.2 并发与预算
 
