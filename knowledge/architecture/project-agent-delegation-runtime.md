@@ -7,6 +7,7 @@
 > 级别：A 级运行时契约  
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`  
 > 关联产品稿：`design/product/project-agent-workbench.md`  
+> 模块分层与建设顺序：`knowledge/architecture/project-agent-capability-layers.md`（本文管对象、工具、白名单；分层文档管模块怎么拆，§5 的调度、异常细节以分层文档为准）  
 > 关联文档：
 > - `knowledge/architecture/20-architecture-governance.md`
 > - `knowledge/architecture/19-system-prompt-context-architecture.md`
@@ -40,6 +41,7 @@
 
 ```ts
 type WorkSessionStatus =
+  | 'queued'          // 已开出，等待依赖或并发槽位，Runner 未启动
   | 'starting'        // Conversation 已建，GoalPlan 尚未持久化
   | 'awaiting_approval' // 计划待用户批准
   | 'running'
@@ -117,6 +119,8 @@ type DelegationEvent =
   requiresApproval: boolean;     // true → 计划先进用户批准卡
   isolation?: 'auto' | 'none' | 'worktree'; // auto：已有其他写仓库任务在跑时用 worktree
   contextRefs?: string[];        // 代理已读过的文件 / 调研报告引用，交给任务作为事实上下文
+  dependsOn?: string[];          // 上游任务 sessionId；满足前保持 queued
+  dependsOnPolicy?: 'accepted' | 'result_ready'; // 默认 accepted
 }
 ```
 

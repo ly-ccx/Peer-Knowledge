@@ -6,6 +6,7 @@
 > 状态：Draft（产品方向已拍板，待评审分期）  
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`  
 > 关联运行时：`knowledge/architecture/project-agent-delegation-runtime.md`  
+> 模块分层：`knowledge/architecture/project-agent-capability-layers.md`  
 > 关联文档：
 > - `design/product/peer-product-alignment.md`（北极星，§3 / §6 / §8 已修订）
 > - `design/product/peer-transformation-charter.md`（阶段 F）
