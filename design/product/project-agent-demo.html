@@ -9,6 +9,9 @@
     - 引用某条消息再插话，只作用于那条消息对应的任务；
     - 任务结束后代理一两句话汇报，低风险且验证通过的汇报即策略代签；
     - 追问「怎么验证的」给细节，「给我看证据」给证据；对外操作走「需要你确认」。
+    - 主动性档位（ADR 80 决策 9）：每条代理消息标注送达方式（推送 / 只进对话 / 今日小结 / 不打扰）。
+    - 项目目标（ADR 82）：立目标、右栏「目标」标签、模拟 watch 事件（CI 失败 / 无变化 / 依赖更新 / 今日小结）、
+      自主档位「提议 → 直接动手」。
   关联：knowledge/decisions/80-project-agent-delegation-model.md
         design/product/project-agent-workbench.md
   Tokens 遵循 design/visual/previews/workbench/CONTRACT.md（Peer Frost 八条红线）。
@@ -267,6 +270,27 @@
   .report td, .report th { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--chrome-hairline); }
   .report th { font-size: 11px; color: var(--graphite-fade); font-weight: 600; }
 
+  @media (max-width: 1180px) {
+    .app { grid-template-columns: minmax(0, 1fr) 300px; }
+    .sidebar { display: none; }
+    .topbar .sub { display: none; }
+  }
+  .rail-tabs { display: flex; gap: 4px; }
+  .rail-tabs button { border: 0; background: transparent; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 12.5px; color: var(--graphite-soft); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+  .rail-tabs button.on { background: var(--chrome-canvas); color: var(--graphite-base); font-weight: 600; border: 1px solid var(--chrome-hairline); }
+  .obj { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; }
+  .obj .ot { font-size: 13.5px; font-weight: 600; letter-spacing: -.015em; }
+  .obj .oo { font-size: 12px; color: var(--graphite-soft); margin-top: 4px; line-height: 1.5; }
+  .obj .ms { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
+  .obj .ms div { font-size: 12px; color: var(--graphite-soft); display: grid; grid-template-columns: 14px 1fr; gap: 4px; }
+  .obj .watch { font-size: 11.5px; color: var(--graphite-fade); display: flex; gap: 6px; align-items: center; margin-top: 3px; }
+  .obj .obs { font-size: 12px; background: var(--chrome-raised); border-radius: var(--radius-sm); padding: 6px 8px; margin-top: 8px; color: var(--graphite-soft); line-height: 1.5; }
+  .obj .sim { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--chrome-hairline); }
+  .obj .sim .lbl { font-size: 10.5px; letter-spacing: .06em; color: var(--graphite-mute); width: 100%; text-transform: uppercase; font-weight: 600; }
+  .obj .sim button { border: 1px solid var(--chrome-hairline); background: var(--paper-sheet); color: var(--graphite-soft); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; cursor: pointer; }
+  .obj .sim button:hover { color: var(--graphite-base); background: var(--chrome-hover); }
+  .main-head .dial-wrap { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--graphite-fade); }
+  .digest-pill { font-size: 11.5px; color: var(--graphite-soft); background: var(--control-fill); border-radius: 999px; padding: 2px 8px; }
   .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--graphite-base); color: #fff; font-size: 12.5px; padding: 8px 14px; border-radius: var(--radius-md); opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 20; }
   .toast.on { opacity: 1; }
 </style>
@@ -301,6 +325,16 @@
     <div class="main-head">
       <div class="t">Peer-Agent · 项目代理</div>
       <div class="s" id="agentStatus"></div>
+      <div class="dial-wrap">
+        <span id="digestPill"></span>
+        <span>主动性</span>
+        <div class="seg" id="dial">
+          <button data-dial="off">关</button>
+          <button data-dial="low">少</button>
+          <button data-dial="normal" class="on">标准</button>
+          <button data-dial="high">多</button>
+        </div>
+      </div>
     </div>
     <div class="thread" id="thread"></div>
     <div class="composer-wrap">
@@ -339,7 +373,24 @@
     selected: null,
     timers: new Set(),
     usedReleaseSuggestion: false,
+    objectives: [],
+    proactivity: 'normal',
+    digest: [],
+    railTab: 'tasks',
   };
+  const O = (id) => state.objectives.find((x) => x.id === id);
+  const DIAL_LABEL = { off: '关', low: '少', normal: '标准', high: '多' };
+
+  // SurfacingPolicy（ADR 80 决策 9）：必达项不受档位影响；代理发起的先比新颖性，再按重要度与档位
+  function decideSurfacing({ origin, kind, severity, novelty, proactivity }) {
+    if (['needs_user', 'confirm', 'failure_needs_decision', 'objective_risk'].includes(kind)) return 'interrupt';
+    if (origin === 'user_request') return proactivity === 'normal' || proactivity === 'high' ? 'interrupt' : 'message';
+    if (!novelty) return 'silent';
+    if (severity === 'urgent') return 'interrupt';
+    if (severity === 'notable') return { off: 'digest', low: 'digest', normal: 'message', high: 'interrupt' }[proactivity];
+    return { off: 'silent', low: 'digest', normal: 'digest', high: 'message' }[proactivity];
+  }
+  const SURF_LABEL = { interrupt: '送达：推送通知', message: '送达：只进对话', digest: '送达：进今日小结', silent: '送达：不打扰' };
   let uid = 0;
   const nid = (p) => `${p}${++uid}`;
   const $ = (s) => document.querySelector(s);
@@ -399,6 +450,22 @@
       needsPermission: false, visual: false, outcome: 'confirm', verdict: 'partial', external: true, branch: null,
       unverified: ['发布页渲染未验证'],
       summary: '草稿写好了，覆盖 0.0.18 的 12 个改动。发布到 GitHub 是对外操作，发之前需要你确认。',
+    }),
+    bugs: () => ({
+      title: '修复已知 bug #1–#3',
+      criteria: ['#1 用量面板时区错位修复', '#2 更新弹窗重复弹出修复', '#3 引用预览截断修复', '相关测试通过'],
+      methods: ['回归用例覆盖', '回归用例覆盖', '回归用例覆盖', 'pnpm test 通过'],
+      files: ['UsageStatsPanel.tsx', 'auto-updater.mjs', 'composerQuote.ts'],
+      needsPermission: true, visual: false, outcome: 'auto', branch: 'fix/known-bugs-0.0.18',
+      summary: '三个已知 bug 都修好了，各补了回归用例，测试全过。',
+    }),
+    ciFix: () => ({
+      title: '修复 CI：desktop 单测失败',
+      criteria: ['3 个失败用例修复', 'CI 重新跑通'],
+      methods: ['本地复现并修复，用例通过', '重新触发 CI：全绿'],
+      files: ['goal-plan-store.test.mjs', 'task-overview-aggregator.mjs'],
+      needsPermission: true, visual: false, outcome: 'auto', branch: 'fix/ci-desktop-tests',
+      summary: 'CI 修好了：是 task-overview 聚合在空工作区时没兜底，补了判断和用例，CI 已重新跑通。',
     }),
     generic: (text) => ({
       title: shorten(text.replace(/[，。,.!！？?]/g, ' ').trim(), 14),
@@ -534,9 +601,87 @@
     return msg;
   }
 
-  function postReply({ replyTo = [], text, sources = [], verdictOf = null, cards = [], actions = [], detail = null, evidence = null }) {
-    addMsg({ role: 'agent', text, replyTo, sources, verdictOf, cards, actions, detail, evidence });
+  function postReply({ replyTo = [], text, sources = [], verdictOf = null, cards = [], actions = [], detail = null, evidence = null, objective = null, surf = null }) {
+    addMsg({ role: 'agent', text, replyTo, sources, verdictOf, cards, actions, detail, evidence, objective, surf });
+    if (surf === 'interrupt') toast(`系统通知 · Peer-Agent：${shorten(text.replace(/\n/g, ' '), 34)}`);
     render(true);
+  }
+
+  function setDial(v) {
+    state.proactivity = v;
+    for (const b of document.querySelectorAll('#dial button')) b.classList.toggle('on', b.dataset.dial === v);
+  }
+
+  // ---- 项目目标：模拟 watch 触发（ADR 82） ----
+  const SIGNALS = {
+    ci_fail: { text: 'CI 挂了：desktop 单测 3 个失败（goal-plan-store、task-overview-aggregator）。', kind: 'observation', severity: 'urgent', key: 'ci:red:3' },
+    ci_same: { text: 'CI 仍是同样 3 个失败。', kind: 'observation', severity: 'urgent', key: 'ci:red:3' },
+    dep: { text: '依赖 @electron/fuses 发布了小版本 1.8.1（补丁修复，无破坏性变更）。', kind: 'observation', severity: 'info', key: 'dep:fuses:1.8.1' },
+  };
+
+  function simulateSignal(oid, which) {
+    const o = O(oid);
+    if (!o) return;
+    const sig = SIGNALS[which];
+    const novelty = o.lastDigestKey !== sig.key;
+    o.log.push(`观察：${sig.text}${novelty ? '' : '（与上次相同）'}`);
+    if (!novelty) {
+      o.lastObs = { text: sig.text + '（与上次相同）', surf: 'silent' };
+      render();
+      toast('观察结果没有变化：只记录，不唤醒代理、不打扰你');
+      return;
+    }
+    o.lastDigestKey = sig.key;
+    state.busy++;
+    render();
+    later(1100, () => {
+      state.busy--;
+      const surf = decideSurfacing({ origin: 'objective_signal', kind: sig.kind, severity: sig.severity, novelty, proactivity: state.proactivity });
+      o.lastObs = { text: sig.text, surf };
+      if (surf === 'silent') { o.log.push('送达：不打扰（只更新右栏）'); render(); toast('按当前主动性：不打扰，只更新了目标卡'); return; }
+      if (surf === 'digest') { state.digest.push({ oid: o.id, text: sig.text }); o.log.push('送达：进今日小结'); render(); toast('按当前主动性：攒进今日小结'); return; }
+      if (which === 'ci_fail') {
+        if (o.autonomy === 'act') {
+          const s = spawnSession(TPL.ciFix(), o.origin, { objectiveId: o.id });
+          o.milestones[1].sid = s.id;
+          o.log.push('自主档位「直接动手」：开任务修 CI');
+          postReply({ replyTo: [o.origin], text: sig.text + '\n按你说的，我已经开了一条任务直接修，修完告诉你。', sources: [s.id], objective: o.id, surf });
+        } else {
+          postReply({ replyTo: [o.origin], text: sig.text + '\n看起来是 task-overview 聚合在空工作区时没兜底。要我开一条任务修吗？', objective: o.id, surf, cards: [{ type: 'propose', oid: o.id }] });
+        }
+      } else {
+        postReply({ replyTo: [o.origin], text: sig.text + '\n不影响这次发版，先记着，发版后再评估升级。', objective: o.id, surf });
+      }
+      render();
+    });
+  }
+
+  function acceptProposal(oid, yes) {
+    const o = O(oid);
+    if (!o || o.proposalResolved) return;
+    o.proposalResolved = yes ? 'started' : 'declined';
+    if (yes) {
+      const s = spawnSession(TPL.ciFix(), o.origin, { objectiveId: o.id });
+      o.milestones[1].sid = s.id;
+      o.log.push('你点了「开始」：开任务修 CI');
+      postReply({ replyTo: [o.origin], text: '好，开了一条任务修 CI。', sources: [s.id], objective: o.id });
+    } else {
+      o.log.push('你选择先不修');
+      render();
+    }
+  }
+
+  function flushDigest() {
+    if (!state.digest.length) { toast('今日小结没有待发内容'); return; }
+    const items = state.digest.splice(0);
+    const lines = items.map((it, i) => `${i + 1}. ${it.text}`).join('\n');
+    state.busy++;
+    render();
+    later(900, () => {
+      state.busy--;
+      addMsg({ role: 'agent', text: `今日小结（${items.length} 条，不急）：\n${lines}`, replyTo: [], sources: [], surf: 'message', digest: true });
+      render(true);
+    });
   }
 
   function agentWake(s, kind) {
@@ -551,6 +696,7 @@
           text: `要跑一次 pnpm test 验证「${s.title}」，需要你允许。`,
           sources: [s.id],
           cards: [{ type: 'needs', sid: s.id }],
+          surf: 'interrupt',
         });
       } else if (kind === 'verified') {
         if (s.status !== 'verifying') { render(); return; }
@@ -559,12 +705,19 @@
           s.status = 'accepted';
           s.acceptedBy = 'policy';
           s.log.push({ t: '代理已汇报 → 运行时过关闭闸门，策略代签（acceptedBy: policy）', k: 'a' });
+          if (s.objectiveId) {
+            const o = O(s.objectiveId);
+            const ms = o && o.milestones.find((x) => x.sid === s.id);
+            if (ms) ms.done = true;
+          }
           postReply({
             replyTo: [s.anchor],
             text: s.tpl.summary + amendNote,
             sources: [s.id],
             verdictOf: s.id,
             actions: s.tpl.branch ? [{ type: 'merge', sid: s.id }] : [],
+            objective: s.objectiveId || null,
+            surf: decideSurfacing({ origin: 'user_request', kind: 'result', severity: 'notable', novelty: true, proactivity: state.proactivity }),
           });
         } else {
           s.status = 'result_ready';
@@ -576,6 +729,7 @@
             sources: [s.id],
             verdictOf: s.id,
             cards: [{ type: 'confirm', sid: s.id }],
+            surf: 'interrupt',
           });
         }
       }
@@ -608,6 +762,10 @@
   }
 
   function classify(text) {
+    if (/少打扰|别打扰|别老|安静点/.test(text)) return 'dial_low';
+    if (/多提醒|多告诉|及时告诉/.test(text)) return 'dial_high';
+    if (/直接修|自己修|直接动手/.test(text)) return 'autonomy_act';
+    if (/发版前|CI 挂了|盯着/.test(text)) return 'objective';
     if (/不对|有问题|错了/.test(text)) return 'wrong';
     if (/用量面板/.test(text) && !/算了|不按/.test(text)) return 'usage';
     if (/怎么验证|怎么测|改了哪些|验证了什么|细节/.test(text)) return 'detail';
@@ -641,6 +799,41 @@
     };
 
     switch (intent) {
+      case 'dial_low':
+      case 'dial_high': {
+        setDial(intent === 'dial_low' ? 'low' : 'high');
+        m.disp = { type: 'answer' };
+        return postReply({ replyTo: [m.id], text: intent === 'dial_low'
+          ? '好，主动性调到「少」：我自己发现的事除非紧急都攒进今日小结；需要你批准或确认的照常马上找你。'
+          : '好，主动性调到「多」：我发现的新情况会更及时地告诉你。' });
+      }
+      case 'autonomy_act': {
+        const o = state.objectives[state.objectives.length - 1];
+        m.disp = { type: 'answer' };
+        if (!o) return postReply({ replyTo: [m.id], text: '现在没有在盯的目标。' });
+        o.autonomy = 'act';
+        o.log.push('你把自主档位调到「直接动手」');
+        return postReply({ replyTo: [m.id], text: `好，「${o.title}」改为发现问题直接动手修，修完告诉你。开出的任务照样过验证和签收，对外操作仍会先问你。`, objective: o.id });
+      }
+      case 'objective': {
+        const o = {
+          id: nid('G'), title: '0.0.18 发版前清掉已知 bug', origin: m.id,
+          outcome: '已知 bug #1–#3 修复并验证；CI 全绿；可以打 0.0.18 tag',
+          milestones: [{ t: '修复已知 bug #1–#3', sid: null }, { t: 'CI 全绿', sid: null }, { t: '打 tag 发版（对外，需你确认）', sid: null }],
+          watches: ['CI 状态 · 每 30 分钟只读探测', 'develop 有新提交 · 事件'],
+          autonomy: 'propose', lastObs: null, log: ['项目代理立下目标'], ciState: 'green', lastDigestKey: null,
+        };
+        state.objectives.push(o);
+        const s = spawnSession(TPL.bugs(), m.id, { objectiveId: o.id });
+        o.milestones[0].sid = s.id;
+        m.disp = { type: 'spawn', sid: s.id };
+        state.railTab = 'objectives';
+        return postReply({
+          replyTo: [m.id],
+          text: `立了一个目标「${o.title}」，先开一条任务修已知的三个 bug。之后我每 30 分钟只读检查一次 CI，develop 有新提交也会看。发现问题我先告诉你并提出下一步，你点「开始」我再动手。`,
+          sources: [s.id], objective: o.id,
+        });
+      }
       case 'amend': {
         const running = pickTarget(scope, ['running', 'needs_user']);
         if (!running) return spawn(TPL.generic(m.text));
@@ -793,6 +986,13 @@
   }
 
   function cardHtml(c) {
+    if (c.type === 'propose') {
+      const o = O(c.oid);
+      if (!o) return '';
+      if (o.proposalResolved) return `<div class="card resolved"><div class="ct"><b>${o.proposalResolved === 'started' ? '已开始修复' : '先不修'}</b>目标「${esc(o.title)}」</div></div>`;
+      return `<div class="card"><div class="ct"><b>下一步：开任务修 CI</b>目标「${esc(o.title)}」· 自主档位「提议」，你点了才动手</div>
+        <button class="btn primary" data-propose-yes="${o.id}">开始</button><button class="btn" data-propose-no="${o.id}">先不用</button></div>`;
+    }
     const s = S(c.sid);
     if (!s) return '';
     if (c.type === 'needs') {
@@ -855,7 +1055,9 @@
       items.push(['report', '验证报告']);
       ev = `<div class="under">${items.map(([k, l]) => `<span class="chip click" data-evidence="${k}" data-sid="${s.id}">${esc(l)}</span>`).join('')}</div>`;
     }
-    const under = [vs, sourcesHtml(m.sources), ...(m.actions || []).map(actionHtml)].filter(Boolean).join('');
+    const objChip = m.objective && O(m.objective) ? `<span class="chip click" data-rail-tab="objectives">目标：${esc(O(m.objective).title)}</span>` : '';
+    const surfChip = m.surf ? `<span class="chip muted">${SURF_LABEL[m.surf]}</span>` : '';
+    const under = [vs, objChip, sourcesHtml(m.sources), ...(m.actions || []).map(actionHtml), surfChip].filter(Boolean).join('');
     return `<div class="row agent" id="${m.id}">
       <div class="who">项目代理<button class="quote-btn" data-quote="${m.id}">引用</button></div>
       <div class="bubble">${target ? `<div class="reply-bar" data-jump="${target.id}">回复「${esc(shorten(target.text, 36))}」</div>` : ''}${esc(m.text)}${detail}${ev}${(m.cards || []).map(cardHtml).join('')}</div>
@@ -877,6 +1079,7 @@
     if (state.busy > 0) el.innerHTML = `<span class="spin"></span>思考中`;
     else if (running) el.innerHTML = `<span class="spin"></span>推进中 · ${running} 条任务`;
     else el.innerHTML = `<span class="ico-ring"></span>空闲`;
+    $('#digestPill').innerHTML = state.digest.length ? `<span class="digest-pill">今日小结待发 ${state.digest.length} 条</span>` : '';
   }
 
   function renderProjects() {
@@ -900,12 +1103,41 @@
 
   function sessHtml(s) {
     const dim = ['paused', 'cancelled'].includes(s.status);
-    const extra = s.supersedes ? `<span class="sl">取代「${esc(S(s.supersedes).title)}」</span>` : (s.parentOf ? `<span class="sl">修正「${esc(S(s.parentOf).title)}」</span>` : '');
+    const extra = s.supersedes ? `<span class="sl">取代「${esc(S(s.supersedes).title)}」</span>`
+      : s.parentOf ? `<span class="sl">修正「${esc(S(s.parentOf).title)}」</span>`
+      : s.objectiveId && O(s.objectiveId) ? `<span class="sl">目标「${esc(O(s.objectiveId).title)}」</span>` : '';
     return `<div class="sess ${dim ? 'dim' : ''}" data-open-session="${s.id}">
       <div class="st">${esc(s.title)}</div>
       <div class="sl">${statusChip(s, false)}${s.verdict ? verdictChip(s, true) : ''}</div>
       ${extra}
       ${ACTIVE.includes(s.status) ? `<div class="bar"><i style="width:${s.progress}%"></i></div>${phasesHtml(s)}` : ''}
+    </div>`;
+  }
+
+  function objectiveHtml(o) {
+    const doneN = o.milestones.filter((x) => x.done).length;
+    const ms = o.milestones.map((x) => {
+      const s = x.sid ? S(x.sid) : null;
+      const mark = x.done ? '■' : s && ACTIVE.includes(s.status) ? '◐' : '□';
+      return `<div><span>${mark}</span><span>${esc(x.t)}${s && !x.done ? ` · <span class="link" data-open-session="${s.id}" style="text-decoration:underline;cursor:pointer">${s.title === x.t ? '查看任务' : esc(s.title)}</span>` : ''}</span></div>`;
+    }).join('');
+    const autonomy = { report_only: '只汇报', propose: '提议（点了才动手）', act: '直接动手' }[o.autonomy];
+    const obs = o.lastObs ? `<div class="obs">最近观察：${esc(o.lastObs.text)}<br/><span style="color:var(--graphite-fade)">${SURF_LABEL[o.lastObs.surf]}</span></div>` : '<div class="obs">还没有观察结果</div>';
+    return `<div class="obj">
+      <div class="ot">${esc(o.title)}</div>
+      <div class="oo">达成：${esc(o.outcome)}</div>
+      <div class="rail-group" style="padding:10px 0 2px">里程碑 ${doneN}/${o.milestones.length}</div>
+      <div class="ms">${ms}</div>
+      <div class="rail-group" style="padding:10px 0 2px">检查</div>
+      ${o.watches.map((w) => `<div class="watch"><span class="ico-ring"></span>${esc(w)}</div>`).join('')}
+      <div class="watch"><span class="ico-square"></span>自主档位：${autonomy}</div>
+      ${obs}
+      <div class="sim"><span class="lbl">模拟事件</span>
+        <button data-sim="ci_fail" data-oid="${o.id}">CI 失败</button>
+        <button data-sim="ci_same" data-oid="${o.id}">CI 仍失败（无变化）</button>
+        <button data-sim="dep" data-oid="${o.id}">依赖小版本更新</button>
+        <button data-digest="1">到点：今日小结</button>
+      </div>
     </div>`;
   }
 
@@ -916,6 +1148,17 @@
       if (s) { rail.innerHTML = detailHtml(s); return; }
       state.selected = null;
     }
+    const tabs = `<div class="rail-tabs">
+      <button class="${state.railTab === 'tasks' ? 'on' : ''}" data-rail-tab="tasks">任务 <span class="badge soft">${state.sessions.length}</span></button>
+      <button class="${state.railTab === 'objectives' ? 'on' : ''}" data-rail-tab="objectives">目标 <span class="badge soft">${state.objectives.length}</span></button>
+    </div>`;
+    if (state.railTab === 'objectives') {
+      const body = state.objectives.length
+        ? state.objectives.slice().reverse().map(objectiveHtml).join('')
+        : `<div class="empty-rail">还没有目标。<br/>说一件持续性的事，比如「发 0.0.18 之前把已知 bug 修掉，CI 挂了就告诉我」，代理会立成目标并定时检查。</div>`;
+      rail.innerHTML = `<div class="rail-head">${tabs}</div><div class="rail-body">${body}</div>`;
+      return;
+    }
     const groups = [
       ['需要你', state.sessions.filter((s) => ['needs_user', 'result_ready'].includes(s.status))],
       ['进行中', state.sessions.filter((s) => ['running', 'verifying'].includes(s.status))],
@@ -925,7 +1168,7 @@
     const body = state.sessions.length
       ? groups.filter(([, l]) => l.length).map(([g, l]) => `<div class="rail-group">${g}<span class="badge soft">${l.length}</span></div>${l.slice().reverse().map(sessHtml).join('')}`).join('')
       : `<div class="empty-rail">还没有任务。<br/>你对代理说要做的事，它会锚定那条消息开任务，这里显示进度和验证结论。</div>`;
-    rail.innerHTML = `<div class="rail-head"><span class="t">本项目的任务</span><span class="badge soft">${state.sessions.length}</span></div><div class="rail-body">${body}</div>`;
+    rail.innerHTML = `<div class="rail-head">${tabs}</div><div class="rail-body">${body}</div>`;
   }
 
   function detailHtml(s) {
@@ -966,6 +1209,11 @@
     else if (hasDone) items = ['怎么验证的？', '给我看看证据', '不对，跨月的时候分组错了'];
     if (!state.usedReleaseSuggestion && hasAny) items.push('把 release notes 发到 GitHub Release');
     if (!hasAny) items.push('把 release notes 发到 GitHub Release');
+    if (!state.objectives.length) items.push('发 0.0.18 之前把已知 bug 修掉，CI 挂了就告诉我');
+    else {
+      if (state.objectives.some((o) => o.autonomy !== 'act')) items.push('以后 CI 挂了就直接修');
+      items.push(state.proactivity === 'low' ? '多提醒我一点' : '少打扰点');
+    }
     $('#suggest').innerHTML = `<span class="lbl">试试</span>` + items.map((t) => `<button class="sg" data-say="${esc(t)}">${esc(t)}</button>`).join('');
   }
 
@@ -1050,9 +1298,15 @@ $ pnpm typecheck
   // Events
   // ------------------------------------------------------------------
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-say],[data-quote],[data-unquote],[data-allow],[data-deny],[data-confirm],[data-reject],[data-merge],[data-open-session],[data-back],[data-restore],[data-evidence],[data-close],[data-jump],[data-intervene],[data-other]');
+    const t = e.target.closest('[data-say],[data-quote],[data-unquote],[data-allow],[data-deny],[data-confirm],[data-reject],[data-merge],[data-open-session],[data-back],[data-restore],[data-evidence],[data-close],[data-jump],[data-intervene],[data-other],[data-rail-tab],[data-sim],[data-digest],[data-propose-yes],[data-propose-no],[data-dial]');
     if (!t) { if (e.target.id === 'modal') $('#modal').classList.remove('on'); return; }
     const d = t.dataset;
+    if (d.railTab) { state.railTab = d.railTab; state.selected = null; renderRail(); return; }
+    if (d.sim) { simulateSignal(d.oid, d.sim); return; }
+    if (d.digest) { flushDigest(); return; }
+    if (d.proposeYes) { acceptProposal(d.proposeYes, true); return; }
+    if (d.proposeNo) { acceptProposal(d.proposeNo, false); return; }
+    if (d.dial) { setDial(d.dial); toast(`主动性：${DIAL_LABEL[d.dial]}（需要你批准 / 确认的事不受影响）`); renderSuggest(); return; }
     if (d.say) { onUserSend(d.say); return; }
     if (d.quote) { state.quote = d.quote; renderQuote(); $('#input').focus(); return; }
     if (d.unquote) { state.quote = null; renderQuote(); return; }
@@ -1119,7 +1373,8 @@ $ pnpm typecheck
   function reset() {
     for (const id of state.timers) clearTimeout(id);
     state.timers.clear();
-    Object.assign(state, { messages: [], sessions: [], busy: 0, quote: null, granted: false, selected: null, usedReleaseSuggestion: false });
+    Object.assign(state, { messages: [], sessions: [], busy: 0, quote: null, granted: false, selected: null, usedReleaseSuggestion: false, objectives: [], digest: [], railTab: 'tasks' });
+    setDial('normal');
     addMsg({ role: 'system', text: '我是 Peer-Agent 的项目代理。你说要做什么，我来开任务、盯进度，验证好了再用一两句话告诉你结论；想看细节随时问。任务跑着的时候你可以随时插话。' });
     render(true);
   }
