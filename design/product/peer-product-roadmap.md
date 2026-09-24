@@ -132,7 +132,7 @@ Desktop / TUI / CLI 已经是同一 Runtime 的三个入口；手机伴随应用
 | 3 | **内网 Gateway MVP** | 设备配对、会话路由；注册可关 | ADR 74 步骤 3 | 公网账号做成内网前提；Gateway 自己执行能力 |
 | 4 | **注册 + 远程连接** | 身份、设备绑定、capability 委派；**手机 / 消息对话能驱动已配对的桌面节点** | ADR 74 步骤 4；§2.1；`remote-connection-exploration.md` 只作调研 | 默认云同步密钥 / Evidence；第三方 IM 桥当第一刀；远端另起执行内核 |
 | 4b | **手机伴随应用** | 配对 Desktop / 内网节点；手机上走完整任务流 + 批准 / 需要你 / 待验收 | §2.1；ADR 74 远程面 | 薄云客户端；密钥默认同步到手机云；绕过 PermissionGrant |
-| 5 | **Memory 体系** | 受治理、本机、有权限意识的跨任务记忆 | README 规划；2.0 Phase 3 | 未验证经验自动变系统指令 |
+| 5 | **Memory 体系**（随 #0 提前，ADR 81） | 项目代理记得这个项目和这个人：带来源的事实、决策、约定、踩坑、做法与偏好；已验证 / 用户明说自动生效，推断攒够证据才生效，一切可撤 | ADR 81；`project-agent-memory-system.md`；2.0 §13 | 未验证经验自动变系统指令；记忆放宽权限；记忆上云 |
 | 6 | **更强的自闭环 / 质量评审连续性** | 验证→返工不断档；过程完成 ≠ 结果够好 | README 规划；`goal-quality-review-repair-loop.md` | 用质量页替代人签收 |
 | 7 | **同一任务下的多 Agent** | explore / implement / review，一份 Evidence，一个家。跨任务的并行调度已并入 #0，本条只管任务内部 | README；`goal-mode-multi-agent-orchestration-plan.md` | 多 Agent 角色扮演；用户管理虚拟团队 |
 | 8 | **Canvas 是真实对象的投影** | 看得见计划 / 证据 / 产物，不是第二份真相 | 2.0 Phase 5；alignment §6 | 无限白板当主语；Canvas 另存一套状态 |

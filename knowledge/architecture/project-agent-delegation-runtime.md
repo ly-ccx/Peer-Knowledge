@@ -112,6 +112,7 @@ interface DelegationOrigin {
   contextSnapshotId: string;      // 截至锚点的代理对话上下文快照
   supersedes?: string;            // 取代的旧任务 sessionId
   inherited?: { reportOf?: string; branchOf?: string }; // 从旧任务继承了什么
+  memorySnapshotId?: string;      // 开任务时冻结的相关记忆（ADR 81）
 }
 ```
 
@@ -289,6 +290,7 @@ type AcceptanceReason =
 - 只读：`list_files`、`read_file`、`search_files`、`goal_get_plan`
 - 调度：§3 全部
 - 交互：`request_user_input`
+- 记忆（ADR 81）：`memory_search`、`memory_remember`、`memory_forget`、`memory_explain`（任务侧只投影 `memory_search`）
 - 可选只读网页：`batch_search` / `web_fetch`，需要评审是否把外网读取算作代理职责
 
 明确不投影：`edit_file`、`write_file`、`bash`、`goal_create_plan`、`goal_update_task`、`request_explorer`、有副作用的 MCP / 浏览器 / 桌面控制 / Automation 提案。
@@ -379,7 +381,7 @@ type AcceptanceReason =
 |---|---|---|---|
 | `project-agent-source` | `L1_AGENT` | 角色契约：只读 + 调度；什么时候直接回答、什么时候开任务；不替用户做判断；汇报必须引用任务报告 | `mode === 'project_agent'` |
 | `project-roster-source` | `L7_CONTINUITY` | 本项目任务快照：标题、投影状态、需要你项、最近报告摘要、收件箱积压 | 同上；只注入快照，不注入任务全文 |
-| `project-memory-source` | `L7_CONTINUITY` | 项目级长期记忆（分期 P4） | 同上；未验证的经验不进入 |
+| `project-memory-source` | `L7_CONTINUITY` | 项目简报 + 用户偏好 + 按本轮检索到的记忆与事件卡，每条带来源标签（ADR 81） | 项目代理每轮；任务按冻结的 `memorySnapshotId`；只在事实层，不升为指令 |
 | 现有 `project-instructions-source` | `L3_INSTRUCTIONS` | 项目 AGENTS.md 等 | 不变 |
 
 任务侧：`spawn_session` 的 `goal` / `boundaries` 作为该任务首条用户意图与 GoalPlan 字段进入，不作为系统指令；`contextRefs` 作为附件类事实上下文。

@@ -18,6 +18,7 @@ A 级。改变用户的对话对象、任务的创建者、能力暴露（新增
 - `design/product/project-agent-workbench.md`（产品动线与分期）
 - `knowledge/architecture/project-agent-delegation-runtime.md`（运行时契约）
 - `knowledge/architecture/project-agent-capability-layers.md`（七层模块拆分、并发模型、异常分类、建设顺序 M1–M9）
+- `knowledge/decisions/81-project-agent-memory-system.md`（项目代理的记忆体系）
 - `knowledge/decisions/67-task-shell-workbench-radar.md`（本 ADR 部分取代）
 - `design/product/task-identity-conversation-carrier.md`（身份层：补父子关系，仍不建 Task 表）
 - `design/product/goal-mode-multi-agent-orchestration-plan.md`（任务内 Explorer / Verifier，原样保留）

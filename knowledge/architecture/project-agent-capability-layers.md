@@ -78,6 +78,7 @@ L0  基座（已有）  能力链 · agent loop · Provider 协调与恢复 · c
 | L4 | WorkSession 投影 | protocol（纯函数） | 新建 |
 | L4 | 消息处置投影 `projectMessageDispositions` | protocol（纯函数） | 新建 |
 | L6 | ReplyComposer（回复挂靠 + 卡片生成） | runtime-node | 新建 |
+| 横向 | 记忆模块组：MemoryStore · MemoryAdmissionPolicy · MemoryCurator · EpisodeBuilder · MemoryRetriever · `project-memory-source` · MemoryMaintenance · LocalMemoryProvider | protocol / runtime-node / system-context / desktop | 新建，见 ADR 81 与 `project-agent-memory-system.md` §11 |
 | L4 | SessionReportBuilder | runtime-node | 新建 |
 | L4 | DeliveryTimeline | runtime-node（投影） | 新建 |
 | L4 | VerificationVerdictBuilder | protocol / runtime-node（纯函数） | 新建：汇总已有验证事实，不做新验证 |
@@ -500,7 +501,7 @@ L6 与 L2–L4 之间唯一的模型侧接口。每个工具方法只做参数�
 
 ### 8.6 代理看到什么
 
-每一轮的上下文 = 代理会话历史（经压缩）+ `project-agent-source`（`L1_AGENT` 角色契约，含 §8.3 的处置倾向与 §8.4 的回复规矩）+ `project-roster-source`（`L7_CONTINUITY`：在跑任务及其锚点摘要、引用范围、游标之后的新事件与 `keyFindings`、熔断状态）+ 项目指令（`L3_INSTRUCTIONS`）。roster 每一轮重新生成，不进压缩摘要。
+每一轮的上下文 = 代理会话历史（经压缩）+ `project-agent-source`（`L1_AGENT` 角色契约，含 §8.3 的处置倾向与 §8.4 的回复规矩）+ `project-roster-source`（`L7_CONTINUITY`：在跑任务及其锚点摘要、引用范围、游标之后的新事件与 `keyFindings`、熔断状态）+ `project-memory-source`（`L7_CONTINUITY`：项目简报、用户偏好、按本轮检索到的记忆与事件卡，带来源标签，ADR 81）+ 项目指令（`L3_INSTRUCTIONS`）。roster 与记忆每一轮重新生成，不进压缩摘要。
 
 ---
 
@@ -588,6 +589,7 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 | M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试；取代原子性与恢复测试 | P3 |
 | M8 | 异常：FailurePolicy + Watchdog + CircuitBreaker + 取消级联 + 重启恢复顺序 | 失败分类表逐行有测试；重启恢复集成测试 | P1 做基础（失败事件唤醒代理），P3 做全 |
 | M9 | 结果跟踪：DeliveryTimeline + 汇报去重 + 项目记忆挂点 | 代理能基于时间线回答「这周做了什么」 | P4 |
+| MM1–MM5 | 记忆体系（稳定 workspaceId → 存储与工具 → 事件卡与简报 → Curator 与准入 → 过期与冲突 → Skill Patch 候选） | 见 `project-agent-memory-system.md` §14；MM1 可在 M5 之后并行开工 | P2–P5 |
 
 ---
 
