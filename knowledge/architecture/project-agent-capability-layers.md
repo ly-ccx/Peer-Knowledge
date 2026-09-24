@@ -14,7 +14,7 @@
 
 ## 0. 一句话
 
-把「一个项目代理带多条任务、任务里再带临时子 agent」拆成七层：下层只提供能力，上层只做决策；命令向下走，事件向上走，查询只读投影；每一份状态只有一个真源。
+交互模式是锚定回复：每条用户消息被代理接住，要干活的就锚定这条消息开任务，任务交回的关键信息由代理整理后回复原消息，插话由代理自主决定并入、取代或另开（产品稿 §2.3、§3.5）。支撑它的模块，把「一个项目代理带多条任务、任务里再带临时子 agent」拆成七层：下层只提供能力，上层只做决策；命令向下走，事件向上走，查询只读投影；每一份状态只有一个真源。
 
 ```text
 L7  表达层        Desktop 代理对话 / 右栏 / 卡片 · TUI · 远程 / 手机
@@ -73,7 +73,11 @@ L0  基座（已有）  能力链 · agent loop · Provider 协调与恢复 · c
 | L3 | DelegationEventMapper | runtime-node（纯函数） | 新建 |
 | L3 | ProjectInbox | runtime-node | 新建 |
 | L3 | SessionMessenger | runtime-node | 新建 |
+| L3 | AnchorScopeResolver | runtime-node（纯函数） | 新建：引用插话 → 可作用的任务范围 |
+| L2 | 带快照的子会话原语 | conversation-store | **改造**：从划词子会话（`SelectionOrigin` + `buildInheritedBackground`）抽出，任务与划词共用 |
 | L4 | WorkSession 投影 | protocol（纯函数） | 新建 |
+| L4 | 消息处置投影 `projectMessageDispositions` | protocol（纯函数） | 新建 |
+| L6 | ReplyComposer（回复挂靠 + 卡片生成） | runtime-node | 新建 |
 | L4 | SessionReportBuilder | runtime-node | 新建 |
 | L4 | DeliveryTimeline | runtime-node（投影） | 新建 |
 | L4 | 验收入口 | 已有 `goalPlansRevise` + `evaluateAcceptanceCloseGate` | 复用 |
@@ -165,13 +169,14 @@ interface SessionSupervisor {
 
 `spawn` 的实现步骤：
 
-1. **校验调用方**：`lineage(caller).role === 'project_agent'`，否则 `depth_limit`。
+1. **校验调用方**：`lineage(caller).role === 'project_agent'`，否则 `depth_limit`。校验 `anchorMessageId` 是代理会话里的用户消息；引用插话时校验范围（§5.4）。
 2. **幂等**：键为 `(caller.conversationId, toolCallId, hash(req))`，复用 `runtime-core` 的 `goal-idempotency` 账本。压缩续跑后模型重发同一个 `spawn_session`，返回已存在的任务，不开第二条。
-3. **建会话**：`role: 'work_session'`，`parentConversationId = caller`，首条消息 `origin: project_agent`。
+3. **建会话**：用「带快照的子会话」原语：`role: 'work_session'`，`parentConversationId = caller`，main 捕获截至锚点的上下文快照；首条消息 = 锚点原话（逐字）+ 代理写的任务说明，`origin: project_agent`。有 `supersedes` 时附上旧任务报告，按 `inherit.branch` 决定分支来源。
 4. **结构化建 GoalPlan**：用 `title / goal / successCriteria / boundaries` 直接创建计划；`requiresApproval` 决定 `workflowKind` 为 `plan_approval` 还是 `goal_self_driven`。不在任务里再跑一轮 intake，任务第一轮直接进入 Goal Runner 已有的 `orient → inspect → plan_scaffold`。
 5. **隔离决策**：交给 IsolationPlanner。
 6. **入队**：交给 ExecutionScheduler；有 `dependsOn` 时状态为 `queued`。
-7. **记证据**：调度 Tool Result 进 EvidenceIndex。
+7. **取代收尾**：有 `supersedes` 时，新任务建成后才把旧任务 GoalPlan 置 `paused` + `supersededBy`（先建后停，保证原子）；旧任务是 `result_ready` / `accepted` 时第 1 步就拒绝。
+8. **记证据**：调度 Tool Result（含 `anchorMessageId`）进 EvidenceIndex，它同时是消息处置投影的输入。
 
 ### 4.2 ExecutionScheduler（调度）
 
@@ -240,9 +245,19 @@ interface SessionSupervisor {
 
 消息来源字段：在会话消息元数据上新增 `origin`，不复用旧协议里给「硅基员工」用的 `sender` 字段。
 
-### 5.4 卡片的存储
+### 5.4 AnchorScopeResolver（引用插话的路由）
 
-代理会话里的卡片存成一条消息，`renderData: { kind: 'delegation_card', sessionId, pendingRequestId?, cardType }`。消息只存引用，渲染时读实时投影，所以卡片状态永远和真源一致（在任务里批准后，代理对话里的卡片同步收起）。
+纯函数：`resolveScope(quotedMessageId, facts) → sessionId[] | null`。
+
+- 引用的是用户消息：范围 = 锚定在这条消息上的任务（含被取代链上的后继任务）。
+- 引用的是代理回复：范围 = 这条回复的 `sourceSessionIds`。
+- 没有引用：`null`，代理自行判断，不限范围。
+
+范围在两处生效：写进本轮 roster 快照告诉代理「这条消息只关于这些任务」；调度 Provider 在执行层校验，越界的 `message_session` / `cancel_session` / `supersedes` 返回 `out_of_scope`。引用是用户给出的硬约束，不靠代理自觉。
+
+### 5.5 卡片的存储
+
+卡片是代理回复的一部分：`AgentReplyMeta.cards` 只存 `{ type, sessionId }`，渲染时读实时投影，所以卡片状态永远和真源一致（在任务里批准后，代理对话里的卡片同步收起）。卡片由 L6 的 ReplyComposer 按任务投影生成，代理不能自己指定卡片类型。
 
 ---
 
@@ -274,14 +289,23 @@ queued → starting → awaiting_approval → running ⇄ needs_user → result_
 | `summary` | Runner `synthesize` 阶段的输出，明确标注为叙述，不是证据 |
 | `needsUser` | 权限待处理队列 / 计划批准状态 |
 
-### 6.3 DeliveryTimeline（结果跟踪）
+### 6.3 消息处置投影（按消息的结果跟踪）
+
+`projectMessageDispositions(agentConversation, delegationEvidence, sessions) → Map<messageId, MessageDisposition[]>`，纯函数，放 protocol。
+
+- 输入：带 `anchorMessageId` 的调度 Tool Call 证据、回复的 `replyTo`、任务当前状态。
+- 输出驱动用户消息上的状态标记：处理中（锚定任务在跑）、需要你（锚定任务有待处理请求）、已回复、已并入「…」、已停掉「…」改开「…」。
+- 取代链：旧任务 → 新任务 → 更新的任务，标记显示链尾的状态，点开可以看整条链。
+- 不单独存储；想知道「这条消息后来怎么样了」永远现算。
+
+### 6.4 DeliveryTimeline（按项目的结果跟踪）
 
 按项目投影出每条任务的时间线：开出、首次运行、需要你（次数与等待时长）、机器完成、验收、交回、失败 / 取消。
 
 - 数据来自 GoalPlan run events 与收件箱，不新建真源。
 - 用途：右栏的已结束分组、代理回答「这周做了什么」、以后的项目记忆，以及诊断面板的吞吐与等待统计。
 
-### 6.4 验收入口
+### 6.5 验收入口
 
 - 唯一写入口仍是 `goalPlansRevise` 写 `resultAcceptance`，经过关闭闸门。
 - 代理会话里的待验收卡打开的是已有的验收抽屉，调用同一个 IPC。
@@ -333,6 +357,7 @@ queued → starting → awaiting_approval → running ⇄ needs_user → result_
 |---|---|---|
 | 取消代理的当前回合 | 这一轮 | 所有任务 |
 | `cancel_session` | 任务 Runner、任务内子 agent（AbortSignal）、GoalPlan → `cancelled`；下游依赖 → `blocked` | 分支与 worktree（删除仍要二次确认） |
+| 取代（`supersedes`） | 新任务建成后，旧任务 Runner 停止、任务内子 agent 中止、GoalPlan → `paused` + `supersededBy`；新任务被验收或用户放弃旧任务时才 → `cancelled` | 旧任务分支与 worktree；旧任务的下游依赖改挂到新任务前先转 `blocked` 交代理决定 |
 | 用户暂停任务 | 该任务 → `paused` | 其他任务 |
 | 关闭项目 / 切走工作区 | 无（ADR 27：切换不中断运行） | — |
 | 退出应用 | 所有任务 → `interrupted` | 数据 |
@@ -386,8 +411,38 @@ queued → starting → awaiting_approval → running ⇄ needs_user → result_
 3. **回合后补处理。** 回合结束时，如果游标之后还有未汇报的唤醒类事件，立即排一次唤醒回合。
 4. **合并与限频。** `needs_user` 立即唤醒；其余唤醒类事件合并去抖（默认 3 秒）；两次自发唤醒最短间隔默认 30 秒；每小时自发唤醒次数有上限，超过后只更新角标，不再唤醒。
 5. **唤醒回合不伪造用户消息。** 触发内容作为 runtime reminder 和 roster 快照注入。
+6. **排队的插话合并成一个用户回合。** 用户回合进行中又来了几条消息，下一个用户回合一次性看到它们，并且要给每一条都做处置（§8.3）。
 
-### 8.3 LocalDelegationProvider
+### 8.3 插话处置（代理自主决定停、并、开）
+
+用户回合里，代理对本轮每条用户消息做一次处置判断。输入是这条消息、它的引用范围（§5.4）、roster 快照里在跑的任务（每条带锚点原话摘要、状态、最近的 `keyFindings`）。
+
+| 处置 | 调用 | 约束 |
+|---|---|---|
+| 回答 | 无调度调用，最终文本自动回复 | — |
+| 开任务 / 并行 | `spawn_session({ anchorMessageId })` | 受并发上限 |
+| 排队 | `spawn_session({ anchorMessageId, dependsOn })` | 依赖必须是本项目任务 |
+| 并入 | `message_session({ sessionId, anchorMessageId })` | 在引用范围内；任务未终态 |
+| 取代 | `spawn_session({ anchorMessageId, supersedes, inherit })` | 在引用范围内；旧任务不是 `result_ready` / `accepted`；原子 |
+| 停止 | `cancel_session({ sessionId, anchorMessageId, reason })` | 同上 |
+
+判断由代理（模型）做，这是用户要的自主性；约束由 Provider 在执行层强制，这是治理。判断倾向写进 `project-agent-source`：
+
+- 目标没变、只是补充或纠偏 → 并入，不要为了干净重开。
+- 目标变了且旧任务的继续执行会白费 → 取代，并在回复里说一句为什么。
+- 拿不准是并入还是取代 → 并入，并在回复里说明「如果你是想换方向，告诉我我就重开」。
+- 用户说停 → 停止，不追问。
+
+每个处置都投影到用户消息的状态标记上（§6.3），取代附「恢复原任务」入口，所以误判的代价是一次点击。
+
+### 8.4 ReplyComposer（整理回复）
+
+- **挂靠**：用户回合的最终文本自动 `replyTo` 本轮用户消息；唤醒回合必须用 `post_reply` 指定回复对象，否则按「单一锚点触发就挂该锚点，否则作不挂靠备注」处理。
+- **整理**：唤醒回合的 roster 快照给出触发任务的 `SessionReport.keyFindings`；角色契约要求先结论、再必要细节，不照抄任务日志，未解决的问题和风险要说出来。
+- **来源与卡片**：回复带 `sourceSessionIds`；ReplyComposer 按这些任务的当前投影附卡片（待验收、需要你、失败），代理不能指定卡片类型。
+- **合并回复**：同一锚点下多条任务先后完成时，代理可以逐条回复，也可以等齐了回一次总的；ReplyComposer 不强制，但去重规则保证同一事件不会被回复两次（收件箱的 `reported` 标记）。
+
+### 8.5 LocalDelegationProvider
 
 L6 与 L2–L4 之间唯一的模型侧接口。每个工具方法只做参数校验和转发：
 
@@ -399,12 +454,13 @@ L6 与 L2–L4 之间唯一的模型侧接口。每个工具方法只做参数�
 | `list_sessions` | `SessionSupervisor.list` |
 | `get_session_report` | `SessionReportBuilder.build` |
 | `spawn_subagent` | AgentTurnExecutor（`research_subagent` 画像，P3 优先级） |
+| `post_reply` | ReplyComposer |
 
-Provider 里没有批准、验收、改预算的方法，这是结构性约束，不靠 prompt。
+所有带 `anchorMessageId` 的调用先过 AnchorScopeResolver 的范围校验。Provider 里没有批准、验收、改预算、指定卡片的方法，这是结构性约束，不靠 prompt。
 
-### 8.4 代理看到什么
+### 8.6 代理看到什么
 
-每一轮的上下文 = 代理会话历史（经压缩）+ `project-agent-source`（`L1_AGENT` 角色契约）+ `project-roster-source`（`L7_CONTINUITY`：任务快照 + 游标之后的新事件 + 熔断状态）+ 项目指令（`L3_INSTRUCTIONS`）。roster 每一轮重新生成，不进压缩摘要。
+每一轮的上下文 = 代理会话历史（经压缩）+ `project-agent-source`（`L1_AGENT` 角色契约，含 §8.3 的处置倾向与 §8.4 的回复规矩）+ `project-roster-source`（`L7_CONTINUITY`：在跑任务及其锚点摘要、引用范围、游标之后的新事件与 `keyFindings`、熔断状态）+ 项目指令（`L3_INSTRUCTIONS`）。roster 每一轮重新生成，不进压缩摘要。
 
 ---
 
@@ -429,21 +485,37 @@ Provider 里没有批准、验收、改预算的方法，这是结构性约束�
 ### 11.1 正常路径
 
 ```text
-用户 → 代理：「把用量面板改成按天分组」
+用户发消息 M：「把用量面板改成按天分组」
   ProjectAgentRunner idle → user_turn
-  代理调用 spawn_session
-    Supervisor：校验深度 → 幂等 → 建子会话 → 建 GoalPlan → IsolationPlanner → 入队 → 证据
-  代理回复用户 + 开出任务卡；user_turn 结束
+  代理处置 M = 开任务：spawn_session({ anchorMessageId: M })
+    Supervisor：校验深度与锚点 → 幂等 → 带快照建子会话（首条 = M 原话 + 任务说明）
+               → 建 GoalPlan → IsolationPlanner → 入队 → 证据
+  M 的状态标记：处理中 · 用量面板按天分组；user_turn 结束（代理可以只说一句「在做了」，也可以不说）
 Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
   任务要跑 pnpm test → 权限审查产生待处理请求
   EventMapper → session_needs_user → Inbox
-  Runner：needs_user 立即唤醒 → wake_turn → 代理递「需要你」卡
+  Runner：needs_user 立即唤醒 → wake_turn → post_reply({ replyTo: [M] }) + Runner 附「需要你」卡
 用户在代理会话里点允许 → 同一请求被解决 → 任务继续
-任务完成 → session_result_ready → 唤醒 → 代理汇报 + 待验收卡
+任务完成 → keyFindings 交回 → session_result_ready → 唤醒
+  → 代理整理 keyFindings → post_reply({ replyTo: [M], sourceSessionIds }) + Runner 附待验收卡
+  M 的状态标记：已回复
 用户打开验收抽屉 → goalPlansRevise → 关闭闸门 → accepted → session_ended
 ```
 
-### 11.2 失败路径
+### 11.2 插话取代
+
+```text
+任务 S1（锚定 M）在跑，用户发 N：「算了，不按天，改成按模型分组」（未引用）
+  唤醒回合被抢占（若有）→ user_turn
+  代理对照 roster：N 与 S1 相关，目标变了 → 取代
+  spawn_session({ anchorMessageId: N, supersedes: S1, inherit: { report: true, branch: 'auto' } })
+    Supervisor：校验 S1 可取代 → 带快照建 S2（首条 = N 原话 + 说明 + S1 报告）→ S2 建成后 S1 → paused + supersededBy
+  代理回复 N：「原来按天分组的任务已停，改成按模型分组重新做；已有的面板结构沿用。」
+  N 的状态标记：已停掉「按天分组」，改开「按模型分组」· 恢复原任务
+  M 的状态标记：已被新消息取代
+```
+
+### 11.3 失败路径
 
 ```text
 任务 A 连续三次同一测试失败 → blockerAudit → blocked
@@ -462,13 +534,13 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 
 | 步 | 模块 | 退出条件 | 对应分期 |
 |---|---|---|---|
-| M1 | 契约：`protocol/delegation.ts`（对象、事件、失败码、`projectWorkSession`）；会话元数据 `role` / `parentConversationId` / `origin` | 纯函数单测；与 `projectGoalPlan` 一致性测试 | P1 |
+| M1 | 契约：`protocol/delegation.ts`（对象、事件、失败码、`DelegationOrigin`、`AgentReplyMeta`、`projectWorkSession`、`projectMessageDispositions`）；会话元数据 `role` / `parentConversationId` / `origin` | 纯函数单测；与 `projectGoalPlan` 一致性测试；处置投影覆盖七种处置 | P1 |
 | M2 | 执行宿主：AgentProfileRegistry + AgentTurnExecutor + TurnSink；把 `runGoalTurn` / `runExplorer` / `runVerifier` 迁过去 | 关掉所有窗口 Goal Runner 仍能推进；已有 Goal / Explorer / Verifier 测试全绿 | P1 前置 |
-| M3 | 派发：SessionSupervisor + `project_agent` 模式白名单 + LocalDelegationProvider（spawn / list / report） | 深度、幂等、白名单测试；代理无法调用写类工具 | P1 |
+| M3 | 派发：从划词子会话抽出「带快照的子会话」原语；SessionSupervisor（锚点、快照、原话带入）+ `project_agent` 模式白名单 + LocalDelegationProvider（spawn / list / report / post_reply） | 深度、幂等、白名单、锚点必填测试；划词子会话回归全绿；代理无法调用写类工具 | P1 |
 | M4 | 通讯：EventMapper + ProjectInbox + SessionMessenger | 事件去重、游标推进、重放测试 | P1 |
-| M5 | 编排：ProjectAgentRunner + 两个上下文来源 + 卡片消息 | P1 验收场景跑通（调度器先用每项目上限 1 的简化版） | P1 |
-| M6 | 需要你冒泡：权限、决策、计划批准映射；两处同步解决 | 两处批准同一请求；代理无批准入口 | P2 |
-| M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan` | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试 | P3 |
+| M5 | 编排：ProjectAgentRunner + ReplyComposer + 两个上下文来源；renderer 的回复引用条、来源芯片、消息状态标记 | P1 验收场景跑通（调度器先用每项目上限 1 的简化版） | P1 |
+| M6 | 需要你冒泡 + 插话（回答 / 并入 / 停止）+ AnchorScopeResolver | 两处批准同一请求；代理无批准入口；引用插话越界返回 `out_of_scope`；多消息合并回合每条都有处置 | P2 |
+| M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试；取代原子性与恢复测试 | P3 |
 | M8 | 异常：FailurePolicy + Watchdog + CircuitBreaker + 取消级联 + 重启恢复顺序 | 失败分类表逐行有测试；重启恢复集成测试 | P1 做基础（失败事件唤醒代理），P3 做全 |
 | M9 | 结果跟踪：DeliveryTimeline + 汇报去重 + 项目记忆挂点 | 代理能基于时间线回答「这周做了什么」 | P4 |
 
@@ -482,3 +554,6 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 4. 事件至少投递一次 + 去重，游标在代理回合成功后才推进（§5.2）。
 5. 默认数值：全局 4 个回合槽位、每项目 3 条运行中任务、熔断阈值 3、去抖 3 秒、自发唤醒最短间隔 30 秒。
 6. M2（执行宿主去窗口依赖）属于 chat runtime 的 B 级改动，是否先于 ADR 80 转 Accepted 单独做。
+7. 被取代的旧任务进 `paused` 而不是直接 `cancelled`，直到新任务被验收或用户放弃（§8.3，运行时契约 §3）。
+8. 拿不准并入还是取代时默认并入（§8.3）。
+9. 引用插话在执行层强制限定范围（§5.4）。

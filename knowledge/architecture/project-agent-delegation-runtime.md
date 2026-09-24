@@ -19,7 +19,7 @@
 
 ## 0. 一句话
 
-项目代理是一条常驻 Conversation，以 `project_agent` 模式运行，只拿到只读工具和调度工具；它开出的任务是子 Conversation + GoalPlan，由现有 Goal Runner 推进；任务的状态变化以结构化事件回到项目代理的收件箱，由 `ProjectAgentRunner` 唤醒代理跑一轮。
+项目代理是一条常驻 Conversation，以 `project_agent` 模式运行，只拿到只读工具和调度工具；它开出的任务锚定在触发它的用户消息上，是子 Conversation + GoalPlan，由现有 Goal Runner 推进；任务的状态变化以结构化事件回到项目代理的收件箱，由 `ProjectAgentRunner` 唤醒代理跑一轮，代理把任务交回的关键信息整理成一条回复挂回原消息。每条用户消息都有可投影的处置。
 
 ---
 
@@ -61,6 +61,8 @@ interface WorkSession {
   spawnedAt: string;
   spawnedByToolCallId: string;  // 项目代理那次 spawn_session 的 Tool Call
   isolation: 'none' | 'worktree';
+  origin: DelegationOrigin;     // 锚定到哪条用户消息，见 §2.4
+  supersededBy?: string;        // 被哪条新任务取代
 }
 
 interface SessionReport {
@@ -68,6 +70,12 @@ interface SessionReport {
   planId: string | null;
   status: WorkSessionStatus;
   summary: string;              // 任务侧生成的摘要，只是说明，不是证据
+  keyFindings: {                // 任务 synthesize 阶段的结构化交回，供代理重新整理回复
+    conclusions: string[];
+    changes: { path: string; summary: string }[];
+    openQuestions: string[];
+    risks: string[];
+  };                            // 同样是叙述，不是证据
   evidenceRefs: string[];       // 必须能在 EvidenceIndex / 计划持有引用里解析
   criteriaProgress: { passed: number; total: number };
   needsUser?: {
@@ -93,6 +101,55 @@ type DelegationEvent =
 2. `SessionReport.summary` 只能以 Tool Result 或事件事实进入项目代理上下文，不能进入 `L0`–`L6`。
 3. `needsUser.pendingRequestId` 引用的是同一个待处理请求。无论用户在代理对话还是任务里批准，解决的都是同一条请求。
 
+### 2.4 锚定：任务从哪条消息来
+
+```ts
+interface DelegationOrigin {
+  parentConversationId: string;   // 项目代理会话
+  anchorMessageId: string;        // 触发这条任务的用户消息
+  anchorText: string;             // 用户原话，逐字写入任务首条消息，不只给代理转述
+  contextSnapshotId: string;      // 截至锚点的代理对话上下文快照
+  supersedes?: string;            // 取代的旧任务 sessionId
+  inherited?: { reportOf?: string; branchOf?: string }; // 从旧任务继承了什么
+}
+```
+
+- 上下文快照复用划词子会话的机制：`buildInheritedBackground` + `background-snapshot-store`。快照由 main 按运行时事实捕获（不接受 renderer 传入的历史），有字数上限，覆盖范围和截断显式标注。
+- 任务首条消息 = 用户原话 + 代理写的任务说明（目标、成功标准、边界）。快照作为事实类上下文进入任务，不作为系统指令。
+- 划词子会话的 `SelectionOrigin { parentConversationId, reference, snapshotId }` 与 `DelegationOrigin` 同构；实现时抽出公共的「带快照的子会话」原语，两者共用，不复制。
+
+### 2.5 回复：代理的话挂在哪条消息上
+
+代理会话里的助手消息增加回复元数据：
+
+```ts
+interface AgentReplyMeta {
+  replyTo: string[];              // 被回复的用户消息 id，界面显示引用条
+  sourceSessionIds: string[];     // 这条回复依据的任务，界面显示来源芯片
+  cards: { type: 'needs_user' | 'plan_approval' | 'result_ready' | 'session_failed'; sessionId: string }[];
+}
+```
+
+- **用户回合**：代理的最终文本自动 `replyTo` 本轮的用户消息。本轮有多条用户消息（插话排队合并）时，自动回复最后一条，前面的消息须由调度工具或 `post_reply` 给出处置。
+- **唤醒回合**：代理必须用 `post_reply` 显式指定回复哪条消息。唤醒回合里没有经过 `post_reply` 的文本，若本轮只由一个锚点的事件触发，就挂到该锚点；否则作为不挂靠的备注显示。
+- **卡片由 Runner 生成，代理不能伪造。** 代理只给 `sourceSessionIds`，Runner 按这些任务的当前投影自动附卡片：`result_ready` 的任务附待验收卡，有待处理请求的附需要你卡。代理无法给一条没完成的任务贴待验收卡。
+
+### 2.6 处置：每条用户消息的下文
+
+```ts
+type MessageDisposition =
+  | { kind: 'answered'; replyMessageIds: string[] }
+  | { kind: 'spawned'; sessionIds: string[] }                  // 开任务（含并行）
+  | { kind: 'queued'; sessionId: string; dependsOn: string[] } // 开任务但挂依赖
+  | { kind: 'amended'; sessionId: string }                     // 并入在跑的任务
+  | { kind: 'superseded'; oldSessionId: string; newSessionId: string; reason: string }
+  | { kind: 'stopped'; sessionIds: string[]; reason: string };
+```
+
+- 处置是**投影**，不单独存：由带 `anchorMessageId` 的调度 Tool Call 证据 + 回复的 `replyTo` + 任务状态计算，函数放在 protocol（`projectMessageDispositions`）。一条消息可以有多个处置（同时并入一条、并行开一条）。
+- 不变量：用户回合结束后，本轮每条用户消息至少有一个处置。用户回合的最终文本自动构成 `answered`，所以结构上总能满足；测试要覆盖多条消息合并的回合。
+- **引用插话限定范围**：用户消息带引用（引用某条用户消息或某条代理回复）时，引用解析出一组相关任务（锚定在被引用消息上的任务，或被引用回复的 `sourceSessionIds`）。这条消息上的 `message_session` / `cancel_session` / `supersedes` 只能作用于这组任务，调度 Provider 在执行层校验，越界返回 `out_of_scope`。
+
 ---
 
 ## 3. 调度能力
@@ -101,9 +158,10 @@ type DelegationEvent =
 
 | 工具 | capabilityId（草案） | 作用 | 副作用与授权 |
 |---|---|---|---|
-| `spawn_session` | `local.delegation.spawn_session` | 开任务：建子 Conversation，写入首条用户意图，走现有 intake 创建 GoalPlan | 只创建会话与计划，不执行本地能力；按 `goal-create` 同类处理，self-grant，记 Evidence |
-| `message_session` | `local.delegation.message_session` | 给任务追加指令或纠偏，作为该任务里的一条用户侧消息，标注来源为项目代理 | 同上 |
-| `cancel_session` | `local.delegation.cancel_session` | 取消任务：停 Runner，GoalPlan 进 `cancelled` | 不删分支 / worktree；删除仍走现有二次确认 |
+| `spawn_session` | `local.delegation.spawn_session` | 开任务：锚定一条用户消息，建子 Conversation（首条 = 用户原话 + 任务说明 + 上下文快照），按参数结构化创建 GoalPlan；带 `supersedes` 时原子地取代旧任务 | 只创建会话与计划，不执行本地能力；按 `goal-create` 同类处理，self-grant，记 Evidence |
+| `message_session` | `local.delegation.message_session` | 并入：给任务追加指令或纠偏，作为该任务里的一条用户侧消息，来源标为项目代理，带 `anchorMessageId` | 同上 |
+| `cancel_session` | `local.delegation.cancel_session` | 停止：停 Runner，GoalPlan 进 `cancelled`，带 `anchorMessageId` 与原因 | 不删分支 / worktree；`result_ready` / `accepted` 的任务返回 `not_cancellable` |
+| `post_reply` | `local.delegation.post_reply` | 在代理会话里发一条回复，指定 `replyTo` 与 `sourceSessionIds`；卡片由 Runner 按投影附上 | 只写代理自己的会话；self-grant，记 Evidence |
 | `list_sessions` | `local.delegation.list_sessions` | 列出本项目任务与投影状态 | 只读 |
 | `get_session_report` | `local.delegation.get_session_report` | 取一条任务的 `SessionReport` | 只读 |
 | `spawn_subagent` | `local.delegation.spawn_subagent` | 开只读临时调研子 agent，复用 Explorer 执行路径，结果作为 Tool Result 返回 | 只读 profile；预算受 §5 约束 |
@@ -112,8 +170,9 @@ type DelegationEvent =
 
 ```ts
 {
+  anchorMessageId: string;       // 必填：这条任务回应哪条用户消息
   title: string;
-  goal: string;                  // 交给任务的完整意图
+  goal: string;                  // 代理写的任务说明；用户原话由 Supervisor 从锚点逐字带上
   successCriteria: string[];     // 可为空，但产品上要求代理尽量给出
   boundaries?: string[];
   requiresApproval: boolean;     // true → 计划先进用户批准卡
@@ -121,8 +180,19 @@ type DelegationEvent =
   contextRefs?: string[];        // 代理已读过的文件 / 调研报告引用，交给任务作为事实上下文
   dependsOn?: string[];          // 上游任务 sessionId；满足前保持 queued
   dependsOnPolicy?: 'accepted' | 'result_ready'; // 默认 accepted
+  supersedes?: string;           // 取代的旧任务
+  inherit?: { report: boolean; branch: 'auto' | 'yes' | 'no' }; // 取代时继承什么；branch auto = 旧任务改动与新目标仍相关时继承
 }
 ```
+
+取代语义（`supersedes`）：
+
+1. **原子**：先建新任务，成功后再停旧任务；新任务建失败，旧任务不受影响。
+2. **旧任务可恢复**：旧任务的 GoalPlan 进 `paused`，记 `supersededBy`，分支与 worktree 保留。用户点「恢复原任务」即恢复这份计划，新任务不受影响（要不要停新任务由用户或代理另行决定）。新任务被验收、或用户在旧任务上点「不要了」时，旧任务才转 `cancelled`。
+3. **继承**：`inherit.report` 把旧任务的 `SessionReport`（含 `keyFindings`）作为新任务的事实上下文；`inherit.branch` 为 `yes` 时新任务从旧任务分支继续，`no` 时从源头重新拉。
+4. **不能取代待验收或已验收的任务**：返回 `not_cancellable`。结果已经出来的东西由用户签收或拒收，代理只能另开。
+
+`message_session` 输入：`{ sessionId, anchorMessageId, text }`。`cancel_session` 输入：`{ sessionId, anchorMessageId, reason }`。`post_reply` 输入：`{ replyTo: string[], body: string, sourceSessionIds: string[] }`。
 
 用户提问复用现有 `request_user_input`（`local.interaction.request_user_input`），不新增 `ask_user`。
 
@@ -288,6 +358,12 @@ type DelegationEvent =
 - 停滞检测产生唤醒；唤醒频率上限生效。
 - 用户直接在任务里发消息产生 `user_intervened`，任务 Goal 生命周期不受代理干扰。
 - 历史会话（无 `role`）迁移后可见且不被改写。
+- `spawn_session` 缺 `anchorMessageId` 被拒；任务首条消息逐字包含锚点原话；上下文快照由 main 捕获，覆盖到锚点为止。
+- 用户回合结束后每条用户消息至少一个处置；多条消息合并的回合同样成立。
+- 引用插话时对范围外任务的 `message_session` / `cancel_session` / `supersedes` 返回 `out_of_scope`。
+- 取代是原子的：新任务建失败时旧任务不变；旧任务进 `paused` 可恢复；`result_ready` / `accepted` 不可取代、不可停止。
+- 代理无法给未完成的任务贴待验收卡：卡片只由 Runner 按投影生成。
+- 唤醒回合中没有 `post_reply` 的文本按规则挂靠或作为备注，不会误挂到无关消息。
 
 ---
 
