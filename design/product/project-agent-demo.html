@@ -1,184 +1,111 @@
 <!doctype html>
 <!--
-  项目代理 Demo：锚定回复 · 代理验证 · 按需披露
+  Peer 项目代理 · 完整产品 Demo
   创建时间：2026-09-24
-  最后更新：2026-09-24
-  说明：纯前端模拟，数据与耗时都是假的。演示 ADR 80 的交互合同：
-    - 每条消息被代理接住，要干活的锚定这条消息开任务（右栏）；
-    - 任务的「需要你」冒泡到原消息下；插话由代理自主处置（并入 / 取代 / 并行 / 停止 / 回答）；
-    - 引用某条消息再插话，只作用于那条消息对应的任务；
-    - 任务结束后代理一两句话汇报，低风险且验证通过的汇报即策略代签；
-    - 追问「怎么验证的」给细节，「给我看证据」给证据；对外操作走「需要你确认」。
-    - 主动性档位（ADR 80 决策 9）：每条代理消息标注送达方式（推送 / 只进对话 / 今日小结 / 不打扰）。
-    - 项目目标（ADR 82）：立目标、右栏「目标」标签、模拟 watch 事件（CI 失败 / 无变化 / 依赖更新 / 今日小结）、
-      自主档位「提议 → 直接动手」。
-  关联：knowledge/decisions/80-project-agent-delegation-model.md
-        design/product/project-agent-workbench.md
+  最后更新：2026-09-25（完整版：首启 → 添加项目 → 熟悉项目 → 日常委托 → 记忆 → 目标 → 模型分工）
+  说明：纯前端模拟，模型、数据、耗时都是假的。串起以下决策：
+    ADR 80 项目代理（锚定回复、插话处置、验证归代理 + 策略签收、按需披露、主动性档位）
+    ADR 81 记忆体系（来源与可信度、自动但可撤、参考了哪些记忆、推断 3 次生效）
+    ADR 82 项目目标（定时 / 事件、只报变化、自主档位、今日小结）
+    ADR 83 模型分工（档位 + 角色、本次指定、不同源复核、项目范围只能收紧、开任务冻结）
+  关联：design/product/project-agent-workbench.md
   Tokens 遵循 design/visual/previews/workbench/CONTRACT.md（Peer Frost 八条红线）。
 -->
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>项目代理 Demo · 锚定回复 · 代理验证</title>
+<title>Peer 项目代理 · 完整产品 Demo</title>
 <style>
   :root {
     --font-sans: "Inter", -apple-system, "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", system-ui, sans-serif;
     --font-mono: "IBM Plex Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-    --chrome-canvas: #FAFBFC;
-    --chrome-raised: #F3F5F8;
-    --chrome-sunken: #EBEEF3;
-    --chrome-hover: #F0F2F6;
-    --chrome-active: #E5E8EE;
-    --chrome-hairline: #DCE0E8;
-    --paper-base: #EDF1F6;
-    --paper-sheet: #F7F9FC;
-    --paper-hover: #EAEEF4;
-    --control-composer: #EFF2F6;
-    --control-fill: #EAEDF2;
-    --control-fill-hover: #DFE3EA;
-    --graphite-base: #1A1D21;
-    --graphite-hover: #2A2D33;
-    --graphite-soft: #525660;
-    --graphite-fade: #878B95;
-    --graphite-mute: #B0B4BC;
-    --azure-seal: #3B7FAB;
-    --azure-trace: #D8E4EE;
-    --state-thinking: #6B7FA0;
-    --state-confirm: #1F6B9B;
-    --state-success: #3E7A6B;
-    --state-success-soft: #E7F1EC;
-    --state-warn: #9A6A2A;
-    --state-warn-soft: #F5EEE2;
-    --state-danger: #7A3E50;
-    --state-danger-soft: #F3E8EC;
-    --radius-xs: 2px;
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
-    --shadow-soft: 0 1px 2px rgba(26,29,33,.06), 0 6px 18px rgba(26,29,33,.08);
+    --chrome-canvas: #FAFBFC; --chrome-raised: #F3F5F8; --chrome-sunken: #EBEEF3; --chrome-hover: #F0F2F6; --chrome-hairline: #DCE0E8;
+    --paper-base: #EDF1F6; --paper-sheet: #F7F9FC;
+    --control-composer: #EFF2F6; --control-fill: #EAEDF2; --control-fill-hover: #DFE3EA;
+    --graphite-base: #1A1D21; --graphite-hover: #2A2D33; --graphite-soft: #525660; --graphite-fade: #878B95; --graphite-mute: #B0B4BC;
+    --azure-seal: #3B7FAB; --azure-trace: #D8E4EE; --state-confirm: #1F6B9B;
+    --state-success: #3E7A6B; --state-success-soft: #E7F1EC; --state-warn: #9A6A2A; --state-warn-soft: #F5EEE2;
+    --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px;
     --shadow-popover: 0 2px 12px rgba(26,29,33,.06);
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
-  body {
-    font-family: var(--font-sans);
-    background: var(--paper-base);
-    color: var(--graphite-base);
-    font-size: 13.5px;
-    letter-spacing: -.01em;
-    display: flex; flex-direction: column;
-  }
+  body { font-family: var(--font-sans); background: var(--paper-base); color: var(--graphite-base); font-size: 13.5px; letter-spacing: -.01em; display: flex; flex-direction: column; }
   button { font-family: inherit; }
+  .link { text-decoration: underline; cursor: pointer; }
 
-  /* ---------- top bar ---------- */
-  .topbar {
-    display: flex; align-items: center; gap: 14px;
-    padding: 10px 18px;
-    background: var(--chrome-canvas);
-    border-bottom: 1px solid var(--chrome-hairline);
-    flex-shrink: 0;
-  }
+  .topbar { display: flex; align-items: center; gap: 14px; padding: 9px 18px; background: var(--chrome-canvas); border-bottom: 1px solid var(--chrome-hairline); flex-shrink: 0; }
   .topbar .kicker { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; }
   .topbar .title { font-size: 14px; font-weight: 600; letter-spacing: -.015em; }
   .topbar .sub { font-size: 12px; color: var(--graphite-fade); }
-  .topbar .spacer { flex: 1; }
+  .spacer { flex: 1; }
   .seg { display: inline-flex; background: var(--control-fill); border-radius: var(--radius-sm); padding: 2px; }
-  .seg button {
-    border: 0; background: transparent; padding: 3px 9px; border-radius: 5px;
-    font-size: 11.5px; color: var(--graphite-soft); cursor: pointer;
-  }
+  .seg button { border: 0; background: transparent; padding: 3px 9px; border-radius: 5px; font-size: 11.5px; color: var(--graphite-soft); cursor: pointer; }
   .seg button.on { background: var(--chrome-canvas); color: var(--graphite-base); font-weight: 600; }
-  .btn {
-    border: 1px solid var(--chrome-hairline); background: var(--chrome-canvas);
-    color: var(--graphite-base); border-radius: var(--radius-sm);
-    padding: 4px 10px; font-size: 12px; cursor: pointer;
-  }
+  .btn { border: 1px solid var(--chrome-hairline); background: var(--chrome-canvas); color: var(--graphite-base); border-radius: var(--radius-sm); padding: 4px 10px; font-size: 12px; cursor: pointer; white-space: nowrap; }
   .btn:hover { background: var(--chrome-hover); }
   .btn.primary { background: var(--graphite-base); color: #fff; border-color: var(--graphite-base); }
   .btn.primary:hover { background: var(--graphite-hover); }
   .btn.ghost { border-color: transparent; background: transparent; color: var(--graphite-soft); }
-  .btn.ghost:hover { background: var(--chrome-hover); }
-  .btn:disabled { opacity: .5; cursor: default; }
+  .btn:disabled { opacity: .45; cursor: default; }
 
-  /* ---------- app shell ---------- */
-  .app { flex: 1; display: grid; grid-template-columns: 220px minmax(0, 1fr) 320px; min-height: 0; }
+  .app { flex: 1; display: grid; grid-template-columns: 228px minmax(0, 1fr) 330px; min-height: 0; }
+  @media (max-width: 1180px) { .app { grid-template-columns: 200px minmax(0, 1fr) 290px; } .topbar .sub { display: none; } }
 
-  .sidebar {
-    background: var(--chrome-raised);
-    border-right: 1px solid var(--chrome-hairline);
-    padding: 14px 10px; display: flex; flex-direction: column; gap: 4px; min-height: 0;
-  }
-  .brand { display: flex; align-items: center; gap: 8px; padding: 2px 8px 12px; font-weight: 600; font-size: 14px; letter-spacing: -.02em; }
+  .sidebar { background: var(--chrome-raised); border-right: 1px solid var(--chrome-hairline); padding: 14px 10px; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+  .brand { display: flex; align-items: center; gap: 8px; padding: 2px 8px 12px; font-weight: 600; font-size: 14px; }
   .brand-mark { width: 20px; height: 20px; border-radius: 6px; background: var(--graphite-base); color: #fff; display: grid; place-items: center; font-size: 11px; }
-  .group-title { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; padding: 10px 8px 4px; }
-  .proj {
-    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px;
-    padding: 8px 8px; border-radius: var(--radius-md); cursor: pointer;
-  }
+  .group-title { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; padding: 10px 8px 4px; display: flex; justify-content: space-between; align-items: center; }
+  .group-title button { border: 0; background: transparent; color: var(--graphite-soft); cursor: pointer; font-size: 12px; }
+  .proj { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 6px; padding: 8px; border-radius: var(--radius-md); cursor: pointer; border: 1px solid transparent; }
   .proj:hover { background: var(--chrome-hover); }
-  .proj.on { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); padding: 7px; }
+  .proj.on { background: var(--chrome-canvas); border-color: var(--chrome-hairline); }
   .proj .name { font-size: 13px; font-weight: 500; }
   .proj .meta { grid-column: 1 / -1; font-size: 11.5px; color: var(--graphite-fade); display: flex; align-items: center; gap: 6px; }
-  .badge {
-    min-width: 18px; height: 18px; padding: 0 6px; border-radius: 999px;
-    background: var(--graphite-base); color: #fff; font-size: 10.5px; font-weight: 600;
-    display: inline-flex; align-items: center; justify-content: center;
-  }
+  .badge { min-width: 18px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--graphite-base); color: #fff; font-size: 10.5px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; }
   .badge.soft { background: var(--control-fill); color: var(--graphite-soft); }
-  .sidebar .foot { margin-top: auto; padding: 10px 8px; font-size: 11.5px; color: var(--graphite-fade); border-top: 1px solid var(--chrome-hairline); }
+  .side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: 1px solid var(--chrome-hairline); }
+  .side-item { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: var(--radius-md); font-size: 12.5px; color: var(--graphite-soft); cursor: pointer; }
+  .side-item:hover { background: var(--chrome-hover); color: var(--graphite-base); }
+  .side-item .spacer { flex: 1; }
 
-  /* ---------- main ---------- */
   .main { display: flex; flex-direction: column; min-height: 0; background: var(--paper-sheet); }
-  .main-head {
-    display: flex; align-items: center; gap: 10px; padding: 12px 22px;
-    border-bottom: 1px solid var(--chrome-hairline); background: var(--paper-sheet);
-  }
+  .main-head { display: flex; align-items: center; gap: 10px; padding: 11px 22px; border-bottom: 1px solid var(--chrome-hairline); }
   .main-head .t { font-size: 15px; font-weight: 600; letter-spacing: -.02em; }
   .main-head .s { font-size: 12px; color: var(--graphite-fade); display: flex; align-items: center; gap: 6px; }
-  .thread { flex: 1; overflow-y: auto; padding: 18px 22px 8px; display: flex; flex-direction: column; gap: 14px; scroll-behavior: smooth; }
+  .main-head .right { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--graphite-fade); }
+  .digest-pill { font-size: 11.5px; color: var(--graphite-soft); background: var(--control-fill); border-radius: 999px; padding: 2px 8px; }
+  .thread { flex: 1; overflow-y: auto; padding: 18px 22px 8px; display: flex; flex-direction: column; gap: 14px; }
+
+  .gate { margin: auto; max-width: 460px; text-align: center; padding: 30px; }
+  .gate h2 { font-size: 22px; letter-spacing: -.03em; margin: 0 0 8px; }
+  .gate p { color: var(--graphite-soft); line-height: 1.6; margin: 0 0 18px; }
+  .gate .steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 18px; font-size: 11.5px; color: var(--graphite-mute); }
+  .gate .steps span.on { color: var(--graphite-base); font-weight: 600; }
 
   .row { display: flex; flex-direction: column; max-width: 720px; }
   .row.user { align-self: flex-end; align-items: flex-end; }
   .row.agent { align-self: flex-start; align-items: flex-start; }
   .who { font-size: 11px; color: var(--graphite-mute); margin: 0 4px 4px; display: flex; gap: 8px; align-items: center; }
-  .who .quote-btn { visibility: hidden; border: 0; background: transparent; color: var(--graphite-fade); font-size: 11px; cursor: pointer; padding: 0 4px; border-radius: 4px; }
-  .row:hover .who .quote-btn { visibility: visible; }
-  .who .quote-btn:hover { background: var(--chrome-hover); color: var(--graphite-base); }
-
-  .bubble { border-radius: var(--radius-lg); padding: 10px 13px; line-height: 1.6; font-size: 13.5px; white-space: pre-wrap; }
+  .quote-btn { visibility: hidden; border: 0; background: transparent; color: var(--graphite-fade); font-size: 11px; cursor: pointer; padding: 0 4px; border-radius: 4px; }
+  .row:hover .quote-btn { visibility: visible; }
+  .bubble { border-radius: var(--radius-lg); padding: 10px 13px; line-height: 1.6; white-space: pre-wrap; }
   .row.user .bubble { background: var(--graphite-base); color: #F5F6F8; border-bottom-right-radius: 4px; }
-  .row.agent .bubble { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); color: var(--graphite-base); border-bottom-left-radius: 4px; }
-  .bubble .user-quote { font-size: 12px; color: #B8BCC4; border-left: 2px solid #5A5F69; padding-left: 8px; margin-bottom: 6px; }
-
-  .reply-bar {
-    display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--graphite-fade);
-    padding: 0 0 7px; margin-bottom: 7px; border-bottom: 1px solid var(--chrome-hairline); cursor: pointer;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 560px;
-  }
+  .row.agent .bubble { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-bottom-left-radius: 4px; }
+  .user-quote { font-size: 12px; color: #B8BCC4; border-left: 2px solid #5A5F69; padding-left: 8px; margin-bottom: 6px; }
+  .reply-bar { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--graphite-fade); padding: 0 0 7px; margin-bottom: 7px; border-bottom: 1px solid var(--chrome-hairline); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 560px; }
   .reply-bar::before { content: ""; width: 2px; height: 14px; background: var(--azure-seal); border-radius: 1px; flex-shrink: 0; }
-  .reply-bar:hover { color: var(--graphite-base); }
-
   .detail-list { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
   .detail-list li { display: grid; grid-template-columns: 18px 1fr; gap: 4px; font-size: 13px; }
-  .detail-list li .k { color: var(--graphite-fade); }
-
   .under { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; align-items: center; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 999px;
-    font-size: 11.5px; letter-spacing: .01em; font-weight: 500;
-    background: var(--control-fill); color: var(--graphite-soft); border: 1px solid transparent;
-    white-space: nowrap;
-  }
-  .chip.click { cursor: pointer; }
-  .chip.click:hover { background: var(--control-fill-hover); color: var(--graphite-base); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 500; background: var(--control-fill); color: var(--graphite-soft); border: 1px solid transparent; white-space: nowrap; }
+  .chip.click { cursor: pointer; } .chip.click:hover { background: var(--control-fill-hover); color: var(--graphite-base); }
   .chip.ok { background: var(--state-success-soft); color: var(--state-success); }
   .chip.warn { background: var(--state-warn-soft); color: var(--state-warn); }
   .chip.need { background: var(--graphite-base); color: #fff; }
   .chip.run { background: var(--azure-trace); color: var(--state-confirm); }
   .chip.muted { background: transparent; border-color: var(--chrome-hairline); color: var(--graphite-fade); }
-  .chip .link { text-decoration: underline; cursor: pointer; margin-left: 2px; }
   .ico-square { width: 9px; height: 9px; border-radius: 2px; background: currentColor; display: inline-block; }
   .ico-ring { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; display: inline-block; }
   .ico-half { width: 9px; height: 9px; border-radius: 2px; border: 1.5px solid currentColor; background: linear-gradient(90deg, currentColor 50%, transparent 50%); display: inline-block; }
@@ -186,112 +113,108 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
   .ico-bang { width: 12px; height: 12px; border-radius: 50%; background: #fff; color: var(--graphite-base); font-size: 9px; font-weight: 700; display: inline-grid; place-items: center; }
-
-  .card {
-    margin-top: 9px; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md);
-    background: var(--paper-sheet); padding: 10px 12px; display: flex; align-items: center; gap: 10px;
-  }
-  .card .ct { flex: 1; font-size: 12.5px; color: var(--graphite-soft); }
+  .card { margin-top: 9px; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); background: var(--paper-sheet); padding: 10px 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card .ct { flex: 1; min-width: 200px; font-size: 12.5px; color: var(--graphite-soft); }
   .card .ct b { color: var(--graphite-base); font-weight: 600; display: block; font-size: 13px; margin-bottom: 2px; }
   .card.resolved { opacity: .75; }
-
   .typing { align-self: flex-start; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--graphite-fade); padding: 4px 6px; }
   .dots span { display: inline-block; width: 5px; height: 5px; margin: 0 1.5px; border-radius: 50%; background: var(--graphite-mute); animation: blink 1.2s infinite; }
   .dots span:nth-child(2) { animation-delay: .2s; } .dots span:nth-child(3) { animation-delay: .4s; }
   @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
 
-  .composer-wrap { padding: 10px 22px 16px; border-top: 1px solid var(--chrome-hairline); background: var(--paper-sheet); }
+  .composer-wrap { padding: 10px 22px 14px; border-top: 1px solid var(--chrome-hairline); }
   .suggest { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-  .suggest .lbl { font-size: 11px; color: var(--graphite-mute); align-self: center; margin-right: 2px; }
+  .suggest .lbl { font-size: 11px; color: var(--graphite-mute); align-self: center; }
   .sg { border: 1px solid var(--chrome-hairline); background: var(--chrome-canvas); color: var(--graphite-soft); border-radius: 999px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
   .sg:hover { color: var(--graphite-base); background: var(--chrome-hover); }
   .composer { background: var(--control-composer); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-lg); padding: 8px 10px; }
   .quote-chip { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--graphite-soft); background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-sm); padding: 4px 8px; margin-bottom: 6px; }
   .quote-chip::before { content: ""; width: 2px; height: 14px; background: var(--azure-seal); border-radius: 1px; }
-  .quote-chip .x { margin-left: auto; cursor: pointer; color: var(--graphite-fade); border: 0; background: transparent; font-size: 13px; }
+  .quote-chip .x { margin-left: auto; cursor: pointer; color: var(--graphite-fade); border: 0; background: transparent; }
   .composer-row { display: flex; align-items: flex-end; gap: 8px; }
-  textarea { flex: 1; border: 0; outline: 0; resize: none; background: transparent; font-family: inherit; font-size: 13.5px; line-height: 1.5; color: var(--graphite-base); min-height: 22px; max-height: 120px; }
+  textarea { flex: 1; border: 0; outline: 0; resize: none; background: transparent; font-family: inherit; font-size: 13.5px; line-height: 1.5; min-height: 22px; max-height: 120px; }
   .hint { font-size: 11px; color: var(--graphite-mute); margin-top: 6px; }
 
-  /* ---------- rail ---------- */
   .rail { background: var(--chrome-raised); border-left: 1px solid var(--chrome-hairline); display: flex; flex-direction: column; min-height: 0; }
-  .rail-head { padding: 13px 16px 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--chrome-hairline); }
-  .rail-head .t { font-size: 13px; font-weight: 600; }
+  .rail-head { padding: 10px 12px; border-bottom: 1px solid var(--chrome-hairline); }
+  .rail-tabs { display: flex; gap: 4px; }
+  .rail-tabs button { border: 1px solid transparent; background: transparent; padding: 4px 9px; border-radius: var(--radius-sm); font-size: 12.5px; color: var(--graphite-soft); cursor: pointer; display: inline-flex; gap: 5px; align-items: center; }
+  .rail-tabs button.on { background: var(--chrome-canvas); color: var(--graphite-base); font-weight: 600; border-color: var(--chrome-hairline); }
   .rail-body { flex: 1; overflow-y: auto; padding: 8px 10px 16px; }
-  .rail-group { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; padding: 12px 6px 6px; display: flex; gap: 6px; align-items: center; }
-  .sess { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 10px 11px; margin-bottom: 8px; cursor: pointer; }
-  .sess:hover { border-color: var(--graphite-mute); }
-  .sess.dim { opacity: .62; }
-  .sess .st { font-size: 13px; font-weight: 600; letter-spacing: -.015em; margin-bottom: 4px; display: flex; gap: 6px; align-items: center; }
-  .sess .sl { font-size: 11.5px; color: var(--graphite-fade); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .rail-group { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; padding: 12px 4px 6px; display: flex; gap: 6px; align-items: center; }
+  .sess, .obj, .mem { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 10px 11px; margin-bottom: 8px; }
+  .sess { cursor: pointer; } .sess:hover { border-color: var(--graphite-mute); } .sess.dim { opacity: .62; }
+  .sess .st { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .sl { font-size: 11.5px; color: var(--graphite-fade); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
   .bar { height: 3px; background: var(--chrome-sunken); border-radius: 2px; margin-top: 8px; overflow: hidden; }
-  .bar i { display: block; height: 100%; background: var(--graphite-soft); border-radius: 2px; transition: width .5s ease; }
+  .bar i { display: block; height: 100%; background: var(--graphite-soft); transition: width .5s ease; }
   .phases { display: flex; gap: 4px; margin-top: 7px; }
-  .phases span { font-size: 10px; letter-spacing: .02em; color: var(--graphite-mute); padding: 1px 5px; border-radius: 4px; background: var(--chrome-raised); }
+  .phases span { font-size: 10px; color: var(--graphite-mute); padding: 1px 5px; border-radius: 4px; background: var(--chrome-raised); }
   .phases span.on { color: var(--graphite-base); background: var(--control-fill-hover); font-weight: 600; }
   .phases span.done { color: var(--graphite-soft); }
-  .empty-rail { font-size: 12px; color: var(--graphite-fade); padding: 18px 8px; line-height: 1.6; }
-
-  .detail { padding: 12px 14px 16px; }
+  .empty-rail { font-size: 12px; color: var(--graphite-fade); padding: 18px 6px; line-height: 1.6; }
+  .detail { padding: 4px 4px 12px; }
   .detail .back { font-size: 12px; color: var(--graphite-fade); cursor: pointer; border: 0; background: transparent; padding: 0; margin-bottom: 10px; }
   .detail h3 { margin: 0 0 6px; font-size: 15px; letter-spacing: -.02em; }
   .detail .anchor { font-size: 12px; color: var(--graphite-soft); border-left: 2px solid var(--azure-seal); padding-left: 8px; margin: 8px 0 10px; }
-  .detail .sec { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; margin: 14px 0 6px; }
+  .sec { font-size: 10.5px; letter-spacing: .08em; font-weight: 600; color: var(--graphite-mute); text-transform: uppercase; margin: 14px 0 6px; }
+  .kv { display: grid; grid-template-columns: 70px 1fr; gap: 4px 8px; font-size: 12px; color: var(--graphite-soft); }
+  .kv b { font-weight: 500; color: var(--graphite-base); }
   .crit { display: grid; grid-template-columns: 16px 1fr; gap: 6px; font-size: 12.5px; padding: 3px 0; color: var(--graphite-soft); }
-  .crit .m { color: var(--graphite-mute); }
   .crit.ok .m { color: var(--state-success); }
   .log { display: flex; flex-direction: column; gap: 6px; }
   .log div { font-size: 12px; color: var(--graphite-soft); padding-left: 10px; border-left: 1px solid var(--chrome-hairline); line-height: 1.5; }
   .log div.u { color: var(--graphite-base); border-left-color: var(--graphite-base); }
   .log div.a { color: var(--state-confirm); border-left-color: var(--azure-seal); }
   .intervene { margin-top: 12px; display: flex; gap: 6px; }
-  .intervene input { flex: 1; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-sm); padding: 6px 8px; font-size: 12.5px; font-family: inherit; background: var(--chrome-canvas); }
-
-  /* ---------- modal ---------- */
-  .modal { position: fixed; inset: 0; background: rgba(26,29,33,.28); display: none; align-items: center; justify-content: center; z-index: 10; }
-  .modal.on { display: flex; }
-  .sheet { width: min(680px, 92vw); max-height: 82vh; overflow: auto; background: var(--chrome-canvas); border-radius: var(--radius-xl); box-shadow: var(--shadow-popover); border: 1px solid var(--chrome-hairline); }
-  .sheet-head { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--chrome-hairline); font-weight: 600; font-size: 13.5px; }
-  .sheet-head .x { margin-left: auto; }
-  .sheet-body { padding: 14px 16px 18px; }
-  pre.term { margin: 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; background: var(--graphite-base); color: #D7DAE0; padding: 12px 14px; border-radius: var(--radius-md); white-space: pre-wrap; }
-  .diff { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); overflow: hidden; }
-  .diff div { padding: 0 10px; white-space: pre; }
-  .diff .f { background: var(--chrome-raised); color: var(--graphite-soft); padding: 4px 10px; font-weight: 600; }
-  .diff .add { background: #E7F1EC; color: #2F5F53; }
-  .diff .del { background: #F3E8EC; color: #6A3444; }
-  .shot { border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 14px; background: var(--paper-sheet); }
-  .shot .h { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between; }
-  .shot .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; align-items: end; height: 120px; }
-  .shot .days div { background: var(--graphite-soft); border-radius: 4px 4px 0 0; position: relative; }
-  .shot .lbls { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; font-size: 10.5px; color: var(--graphite-fade); text-align: center; margin-top: 6px; }
-  .shot .cap { font-size: 11px; color: var(--graphite-fade); margin-top: 10px; }
-  .report table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-  .report td, .report th { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--chrome-hairline); }
-  .report th { font-size: 11px; color: var(--graphite-fade); font-weight: 600; }
-
-  @media (max-width: 1180px) {
-    .app { grid-template-columns: minmax(0, 1fr) 300px; }
-    .sidebar { display: none; }
-    .topbar .sub { display: none; }
-  }
-  .rail-tabs { display: flex; gap: 4px; }
-  .rail-tabs button { border: 0; background: transparent; padding: 4px 10px; border-radius: var(--radius-sm); font-size: 12.5px; color: var(--graphite-soft); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
-  .rail-tabs button.on { background: var(--chrome-canvas); color: var(--graphite-base); font-weight: 600; border: 1px solid var(--chrome-hairline); }
-  .obj { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; }
-  .obj .ot { font-size: 13.5px; font-weight: 600; letter-spacing: -.015em; }
+  .intervene input { flex: 1; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-sm); padding: 6px 8px; font-size: 12.5px; font-family: inherit; }
+  .obj .ot { font-size: 13.5px; font-weight: 600; }
   .obj .oo { font-size: 12px; color: var(--graphite-soft); margin-top: 4px; line-height: 1.5; }
-  .obj .ms { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; }
-  .obj .ms div { font-size: 12px; color: var(--graphite-soft); display: grid; grid-template-columns: 14px 1fr; gap: 4px; }
+  .obj .ms div { font-size: 12px; color: var(--graphite-soft); display: grid; grid-template-columns: 14px 1fr; gap: 4px; margin-top: 3px; }
   .obj .watch { font-size: 11.5px; color: var(--graphite-fade); display: flex; gap: 6px; align-items: center; margin-top: 3px; }
   .obj .obs { font-size: 12px; background: var(--chrome-raised); border-radius: var(--radius-sm); padding: 6px 8px; margin-top: 8px; color: var(--graphite-soft); line-height: 1.5; }
-  .obj .sim { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--chrome-hairline); }
-  .obj .sim .lbl { font-size: 10.5px; letter-spacing: .06em; color: var(--graphite-mute); width: 100%; text-transform: uppercase; font-weight: 600; }
-  .obj .sim button { border: 1px solid var(--chrome-hairline); background: var(--paper-sheet); color: var(--graphite-soft); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; cursor: pointer; }
-  .obj .sim button:hover { color: var(--graphite-base); background: var(--chrome-hover); }
-  .main-head .dial-wrap { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--graphite-fade); }
-  .digest-pill { font-size: 11.5px; color: var(--graphite-soft); background: var(--control-fill); border-radius: 999px; padding: 2px 8px; }
-  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--graphite-base); color: #fff; font-size: 12.5px; padding: 8px 14px; border-radius: var(--radius-md); opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 20; }
+  .sim { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--chrome-hairline); }
+  .sim .lbl { font-size: 10.5px; letter-spacing: .06em; color: var(--graphite-mute); width: 100%; font-weight: 600; }
+  .sim button { border: 1px solid var(--chrome-hairline); background: var(--paper-sheet); color: var(--graphite-soft); border-radius: 999px; padding: 3px 9px; font-size: 11.5px; cursor: pointer; }
+  .mem { padding: 9px 10px; }
+  .mem .ms-t { font-size: 12.5px; line-height: 1.5; }
+  .mem .ms-m { font-size: 11px; color: var(--graphite-fade); margin-top: 4px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .mem .ms-a { display: flex; gap: 8px; margin-top: 6px; font-size: 11.5px; }
+  .mem .ms-a span { color: var(--graphite-soft); cursor: pointer; text-decoration: underline; }
+  .mem.revoked { opacity: .55; }
+  .brief { background: var(--chrome-canvas); border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 10px 11px; font-size: 12px; line-height: 1.6; color: var(--graphite-soft); }
+  .trust { font-size: 10.5px; padding: 1px 6px; border-radius: 4px; background: var(--control-fill); color: var(--graphite-soft); }
+  .trust.verified { background: var(--state-success-soft); color: var(--state-success); }
+  .trust.stated { background: var(--azure-trace); color: var(--state-confirm); }
+  .trust.inferred { background: var(--state-warn-soft); color: var(--state-warn); }
+
+  .modal { position: fixed; inset: 0; background: rgba(26,29,33,.28); display: none; align-items: center; justify-content: center; z-index: 10; }
+  .modal.on { display: flex; }
+  .sheet { width: min(760px, 94vw); max-height: 86vh; overflow: auto; background: var(--chrome-canvas); border-radius: var(--radius-xl); box-shadow: var(--shadow-popover); border: 1px solid var(--chrome-hairline); }
+  .sheet-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--chrome-hairline); font-weight: 600; font-size: 13.5px; position: sticky; top: 0; background: var(--chrome-canvas); }
+  .sheet-head .x { margin-left: auto; }
+  .sheet-body { padding: 14px 16px 18px; }
+  .stabs { display: flex; gap: 4px; padding: 10px 16px 0; }
+  .stabs button { border: 0; background: transparent; padding: 6px 10px; font-size: 12.5px; color: var(--graphite-soft); cursor: pointer; border-bottom: 2px solid transparent; }
+  .stabs button.on { color: var(--graphite-base); font-weight: 600; border-bottom-color: var(--graphite-base); }
+  table.tb { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .tb td, .tb th { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--chrome-hairline); vertical-align: middle; }
+  .tb th { font-size: 11px; color: var(--graphite-fade); font-weight: 600; }
+  select { font-family: inherit; font-size: 12.5px; padding: 4px 6px; border-radius: var(--radius-sm); border: 1px solid var(--chrome-hairline); background: var(--chrome-canvas); }
+  .tag { font-size: 10.5px; padding: 1px 6px; border-radius: 4px; background: var(--control-fill); color: var(--graphite-soft); margin-left: 4px; }
+  .note { font-size: 12px; color: var(--graphite-fade); line-height: 1.6; margin: 8px 0; }
+  pre.term { margin: 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; background: var(--graphite-base); color: #D7DAE0; padding: 12px 14px; border-radius: var(--radius-md); white-space: pre-wrap; }
+  .diff { font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); overflow: hidden; }
+  .diff div { padding: 0 10px; white-space: pre; } .diff .f { background: var(--chrome-raised); font-weight: 600; padding: 4px 10px; }
+  .diff .add { background: #E7F1EC; color: #2F5F53; } .diff .del { background: #F3E8EC; color: #6A3444; }
+  .shot { border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); padding: 14px; background: var(--paper-sheet); }
+  .shot .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; align-items: end; height: 120px; }
+  .shot .days div { background: var(--graphite-soft); border-radius: 4px 4px 0 0; }
+  .shot .lbls { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; font-size: 10.5px; color: var(--graphite-fade); text-align: center; margin-top: 6px; }
+  .picker-item { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--chrome-hairline); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; }
+  .picker-item:hover { background: var(--chrome-hover); }
+  .picker-item .pp { font-size: 11.5px; color: var(--graphite-fade); font-family: var(--font-mono); }
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--graphite-base); color: #fff; font-size: 12.5px; padding: 8px 14px; border-radius: var(--radius-md); opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 20; max-width: 80vw; }
   .toast.on { opacity: 1; }
 </style>
 </head>
@@ -299,57 +222,20 @@
 
 <div class="topbar">
   <div>
-    <div class="kicker">Demo · ADR 80</div>
-    <div class="title">项目代理：锚定回复 · 代理验证 · 按需披露</div>
+    <div class="kicker">完整产品 Demo · ADR 80–83</div>
+    <div class="title">Peer 项目代理</div>
   </div>
-  <div class="sub">数据与耗时均为模拟；点下方建议或直接输入</div>
+  <div class="sub">模型、数据与耗时均为模拟；从首次安装开始，也可以一键跳过首启</div>
   <div class="spacer"></div>
   <span class="sub">速度</span>
-  <div class="seg" id="speed">
-    <button data-v="1" class="on">1×</button>
-    <button data-v="2">2×</button>
-    <button data-v="4">4×</button>
-  </div>
-  <button class="btn" id="reset">重置</button>
+  <div class="seg" id="speed"><button data-v="1" class="on">1×</button><button data-v="2">2×</button><button data-v="4">4×</button></div>
+  <button class="btn" id="skip">跳过首启</button>
+  <button class="btn" id="reset">从头开始</button>
 </div>
 
 <div class="app">
-  <aside class="sidebar">
-    <div class="brand"><span class="brand-mark">P</span>Peer</div>
-    <div class="group-title">项目</div>
-    <div id="projects"></div>
-    <div class="foot">每个项目一个项目代理。角标 = 需要你处理的事。</div>
-  </aside>
-
-  <main class="main">
-    <div class="main-head">
-      <div class="t">Peer-Agent · 项目代理</div>
-      <div class="s" id="agentStatus"></div>
-      <div class="dial-wrap">
-        <span id="digestPill"></span>
-        <span>主动性</span>
-        <div class="seg" id="dial">
-          <button data-dial="off">关</button>
-          <button data-dial="low">少</button>
-          <button data-dial="normal" class="on">标准</button>
-          <button data-dial="high">多</button>
-        </div>
-      </div>
-    </div>
-    <div class="thread" id="thread"></div>
-    <div class="composer-wrap">
-      <div class="suggest" id="suggest"></div>
-      <div class="composer">
-        <div id="quoteSlot"></div>
-        <div class="composer-row">
-          <textarea id="input" rows="1" placeholder="对项目代理说点什么… Enter 发送，Shift+Enter 换行"></textarea>
-          <button class="btn primary" id="send">发送</button>
-        </div>
-      </div>
-      <div class="hint">悬停任意消息点「引用」可以指定插话针对哪件事；右栏点任务可以查看现场并直接介入。</div>
-    </div>
-  </main>
-
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main" id="main"></main>
   <aside class="rail" id="rail"></aside>
 </div>
 
@@ -360,588 +246,605 @@
 (() => {
   'use strict';
 
-  // ------------------------------------------------------------------
-  // State
-  // ------------------------------------------------------------------
-  const state = {
-    messages: [],
-    sessions: [],
-    busy: 0,
-    quote: null,
-    speed: 1,
-    granted: false,
-    selected: null,
-    timers: new Set(),
-    usedReleaseSuggestion: false,
-    objectives: [],
-    proactivity: 'normal',
-    digest: [],
-    railTab: 'tasks',
-  };
-  const O = (id) => state.objectives.find((x) => x.id === id);
-  const DIAL_LABEL = { off: '关', low: '少', normal: '标准', high: '多' };
-
-  // SurfacingPolicy（ADR 80 决策 9）：必达项不受档位影响；代理发起的先比新颖性，再按重要度与档位
-  function decideSurfacing({ origin, kind, severity, novelty, proactivity }) {
-    if (['needs_user', 'confirm', 'failure_needs_decision', 'objective_risk'].includes(kind)) return 'interrupt';
-    if (origin === 'user_request') return proactivity === 'normal' || proactivity === 'high' ? 'interrupt' : 'message';
-    if (!novelty) return 'silent';
-    if (severity === 'urgent') return 'interrupt';
-    if (severity === 'notable') return { off: 'digest', low: 'digest', normal: 'message', high: 'interrupt' }[proactivity];
-    return { off: 'silent', low: 'digest', normal: 'digest', high: 'message' }[proactivity];
-  }
-  const SURF_LABEL = { interrupt: '送达：推送通知', message: '送达：只进对话', digest: '送达：进今日小结', silent: '送达：不打扰' };
+  // ================================================================
+  // 基础
+  // ================================================================
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const shorten = (s, n) => (s.length > n ? s.slice(0, n) + '…' : s);
   let uid = 0;
   const nid = (p) => `${p}${++uid}`;
-  const $ = (s) => document.querySelector(s);
-  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const shorten = (s, n) => (s.length > n ? s.slice(0, n) + '…' : s);
-  const S = (id) => state.sessions.find((x) => x.id === id);
-  const M = (id) => state.messages.find((x) => x.id === id);
-
+  const timers = new Set();
+  let speed = 1;
   function later(ms, fn, owner) {
-    const id = setTimeout(() => {
-      state.timers.delete(id);
-      if (owner) owner.timers.delete(id);
-      fn();
-    }, ms / state.speed);
-    state.timers.add(id);
-    if (owner) owner.timers.add(id);
+    const id = setTimeout(() => { timers.delete(id); owner?.timers?.delete(id); fn(); }, ms / speed);
+    timers.add(id); owner?.timers?.add(id);
     return id;
   }
-  function clearOwner(owner) {
-    for (const id of owner.timers) { clearTimeout(id); state.timers.delete(id); }
-    owner.timers.clear();
-  }
+  function clearOwner(o) { for (const id of o.timers) { clearTimeout(id); timers.delete(id); } o.timers.clear(); }
+  function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('on'), 2600); }
 
-  // ------------------------------------------------------------------
-  // Task templates (all simulated)
-  // ------------------------------------------------------------------
-  const TPL = {
-    usageDay: () => ({
-      title: '用量面板按天分组',
-      criteria: ['用量按本地日期分组', '跨时区边界正确', '面板渲染与预期一致'],
-      methods: ['单测 usage-by-day.test.ts 通过（12 个用例）', '补了 UTC+8 / UTC-5 两个跨日边界用例', '视觉验证：截图与预期布局一致'],
-      files: ['UsageStatsPanel.tsx', 'usage-day.mjs', 'usage-by-day.test.ts', 'usage-panel.css'],
-      needsPermission: true, visual: true, outcome: 'auto', branch: 'feat/usage-by-day',
-      summary: '改好了，按天分组放在面板顶部。测试、类型检查都过了，界面截图也核对过。',
-    }),
-    usageModel: () => ({
-      title: '用量面板按模型分组',
-      criteria: ['按模型聚合用量', '模型名与 Provider 目录一致', '面板渲染与预期一致'],
-      methods: ['单测 usage-by-model.test.ts 通过（9 个用例）', '对照 models.dev 目录校验了 14 个模型名', '视觉验证：截图与预期布局一致'],
-      files: ['UsageStatsPanel.tsx', 'usage-by-model.mjs', 'usage-by-model.test.ts'],
-      needsPermission: true, visual: true, outcome: 'auto', branch: 'feat/usage-by-model', inherited: true,
-      summary: '改成按模型分组了，沿用了原来按天分组时搭好的面板结构。测试和截图都核对过。',
-    }),
-    loginCopy: () => ({
-      title: '登录页文案调整',
-      criteria: ['文案按新口径更新', '中英文 i18n 键齐全'],
-      methods: ['快照测试 LoginPage.test.tsx 更新并通过', 'i18n 键完整性检查通过（zh-CN / en）'],
-      files: ['LoginPage.tsx', 'packages/i18n/src/index.ts'],
-      needsPermission: false, visual: false, outcome: 'auto', branch: 'feat/login-copy',
-      summary: '登录页文案改好了，中英文都补齐，i18n 检查通过。',
-    }),
-    release: () => ({
-      title: '发布 0.0.18 Release',
-      criteria: ['release notes 覆盖本版 12 个改动', '版本号与 VERSION 一致', '发布页渲染正确'],
-      methods: ['对照 git log v0.0.17..HEAD 逐条核对', 'VERSION = 0.0.18，tag 草稿一致', '未验证：发布页只有真正发布后才能看到'],
-      files: ['release-notes/0.0.18.md'],
-      needsPermission: false, visual: false, outcome: 'confirm', verdict: 'partial', external: true, branch: null,
-      unverified: ['发布页渲染未验证'],
-      summary: '草稿写好了，覆盖 0.0.18 的 12 个改动。发布到 GitHub 是对外操作，发之前需要你确认。',
-    }),
-    bugs: () => ({
-      title: '修复已知 bug #1–#3',
-      criteria: ['#1 用量面板时区错位修复', '#2 更新弹窗重复弹出修复', '#3 引用预览截断修复', '相关测试通过'],
-      methods: ['回归用例覆盖', '回归用例覆盖', '回归用例覆盖', 'pnpm test 通过'],
-      files: ['UsageStatsPanel.tsx', 'auto-updater.mjs', 'composerQuote.ts'],
-      needsPermission: true, visual: false, outcome: 'auto', branch: 'fix/known-bugs-0.0.18',
-      summary: '三个已知 bug 都修好了，各补了回归用例，测试全过。',
-    }),
-    ciFix: () => ({
-      title: '修复 CI：desktop 单测失败',
-      criteria: ['3 个失败用例修复', 'CI 重新跑通'],
-      methods: ['本地复现并修复，用例通过', '重新触发 CI：全绿'],
-      files: ['goal-plan-store.test.mjs', 'task-overview-aggregator.mjs'],
-      needsPermission: true, visual: false, outcome: 'auto', branch: 'fix/ci-desktop-tests',
-      summary: 'CI 修好了：是 task-overview 聚合在空工作区时没兜底，补了判断和用例，CI 已重新跑通。',
-    }),
-    generic: (text) => ({
-      title: shorten(text.replace(/[，。,.!！？?]/g, ' ').trim(), 14),
-      criteria: ['按描述完成改动', '相关测试通过'],
-      methods: ['改动点逐条对照描述', '相关单测通过'],
-      files: ['（模拟）'],
-      needsPermission: false, visual: false, outcome: 'auto', branch: 'feat/demo-task',
-      summary: `「${shorten(text, 18)}」做好了，相关测试都过了。`,
-    }),
-    fix: (orig, text) => ({
-      title: `修正：${orig.title}`,
-      criteria: [...orig.criteria, '补上：' + shorten(text.replace(/^不对[，,]?/, ''), 14)],
-      methods: [...orig.methods, '新增回归用例覆盖你指出的情况'],
-      files: orig.files.slice(0, 2),
-      needsPermission: false, visual: orig.visual, outcome: 'auto', branch: orig.branch ? orig.branch + '-fix' : null,
-      summary: `修好了：${shorten(text.replace(/^不对[，,]?/, ''), 20)}。补了回归用例，原来的三条标准也重新跑过。`,
-    }),
+  // ================================================================
+  // 模型目录（模拟）与分工（ADR 83）
+  // ================================================================
+  const CATALOG = [
+    { id: 'opus', name: 'Claude Opus 5.5', family: 'Anthropic', vision: true, local: false, key: /opus|claude/i },
+    { id: 'gpt', name: 'GPT-5.6', family: 'OpenAI', vision: true, local: false, key: /gpt/i },
+    { id: 'flash', name: 'Gemini 3.8 Flash', family: 'Google', vision: true, local: false, key: /gemini|flash/i },
+    { id: 'qwen', name: 'Qwen3 Coder 32B（本地）', family: '本地 · Ollama', vision: false, local: true, key: /qwen|本地模型/i },
+  ];
+  const TIERS = [['strong', '强', '写代码、复杂推理、复核'], ['fast', '快', '对话、分诊、汇报'], ['economy', '省', '探测、记忆提取、压缩、只读探查'], ['vision', '视觉', '截图对比、看界面']];
+  const ROLES = [
+    ['project_agent', '项目代理', 'tier:fast', '工具调用'],
+    ['session_worker', '任务（干活）', 'tier:strong', '工具调用；界面任务要能看图'],
+    ['explorer', '只读探查', 'tier:economy', '长上下文'],
+    ['verifier', '独立复核', 'tier:strong', '优先与执行模型不同源'],
+    ['visual_verifier', '视觉复核', 'tier:vision', '必须能看图'],
+    ['memory_curator', '记忆提取', 'tier:economy', '结构化输出'],
+    ['objective_probe', '目标探测', 'tier:economy', '工具调用'],
+    ['compactor', '上下文压缩', 'tier:economy', '长上下文'],
+  ];
+  const MD = (id) => CATALOG.find((m) => m.id === id);
+
+  // ================================================================
+  // 项目预设（「熟悉项目」读到的内容，模拟）
+  // ================================================================
+  const PRESETS = {
+    'Peer-Agent': {
+      path: '~/Documents/Develop/Peer-Agent',
+      reads: ['读目录结构：apps/desktop、apps/tui、packages/*', '读 AGENTS.md 与 README', '读 package.json 脚本与 pnpm-workspace', '读最近 30 条 git 记录'],
+      facts: [
+        { kind: 'fact', s: 'pnpm 10 monorepo：apps/desktop（Electron）、apps/tui、packages/*', tags: ['structure'] },
+        { kind: 'pitfall', s: '测试前要先 build 各包 dist，测试直接 import dist', tags: ['test'] },
+        { kind: 'fact', s: '桌面端测试：pnpm --filter @peer-agent/desktop test', tags: ['test'] },
+        { kind: 'convention', s: 'A 级改动先在 peer-knowledge 写 ADR，架构文档不放代码仓', tags: ['docs'] },
+        { kind: 'fact', s: 'Node 需 ≥ 22.18（测试直接跑 .ts）', tags: ['env'] },
+        { kind: 'state', s: '最近在做 0.0.18：自动更新与引用消息', tags: ['release'] },
+      ],
+      question: { q: '发版从哪个分支拉？（git 记录里 develop 和 main 都有发版提交）', options: ['develop', 'main'], mem: (a) => `发版源头分支是 ${a}` },
+      intro: 'pnpm monorepo，桌面端是 Electron，测试要先 build 各包；最近在做 0.0.18。',
+      suggestions: ['把设置页的用量面板改成按天分组', '发 0.0.18 之前把已知 bug 修掉，CI 挂了就告诉我', '现在用的是哪个图表库？'],
+    },
+    'Peer-Knowledge': {
+      path: '~/Documents/Develop/Peer-Knowledge',
+      reads: ['读目录结构：knowledge/、design/、playbook/', '读 AGENTS.md', '读最近的 ADR 编号与状态', '读最近 30 条 git 记录'],
+      facts: [
+        { kind: 'fact', s: 'Markdown + Git 知识库，只存知识不存代码', tags: ['structure'] },
+        { kind: 'convention', s: '文档开头写创建时间与最后更新；不写本机绝对路径', tags: ['docs'] },
+        { kind: 'fact', s: 'ADR 按编号递增，最新是 83', tags: ['docs'] },
+        { kind: 'convention', s: '本地 commit 后同一轮必须 push', tags: ['git'] },
+      ],
+      question: { q: '新 ADR 默认写 Proposed 还是 Accepted？', options: ['Proposed', 'Accepted'], mem: (a) => `新 ADR 默认状态写 ${a}` },
+      intro: 'Markdown 知识库，ADR 编到 83；提交后要立刻 push。',
+      suggestions: ['把 ADR 80–83 整理成一页总览', '检查所有文档里的失效链接'],
+    },
+    'deepseek-harness': {
+      path: '~/Documents/Develop/deepseek-harness',
+      reads: ['读目录结构：harness/、evals/、tests/', '读 pyproject.toml 与 uv.lock', '读 README', '读最近 30 条 git 记录'],
+      facts: [
+        { kind: 'fact', s: 'Python 项目，uv 管理依赖', tags: ['structure'] },
+        { kind: 'fact', s: '测试命令：uv run pytest', tags: ['test'] },
+        { kind: 'fact', s: 'CLI 入口：harness/cli.py', tags: ['structure'] },
+      ],
+      question: { q: '评测结果默认保存到哪？', options: ['results/', '不保存'], mem: (a) => `评测结果默认保存到 ${a}` },
+      intro: 'Python + uv，测试用 pytest，CLI 入口在 harness/cli.py。',
+      suggestions: ['给评测加一个 JSON 报告输出', '现在支持哪些评测集？'],
+    },
   };
 
-  // ------------------------------------------------------------------
-  // Sessions
-  // ------------------------------------------------------------------
-  function buildSteps(tpl) {
-    const steps = [];
-    if (tpl.inherited) {
-      steps.push({ phase: 'inspect', text: '继承旧任务的报告、已读材料与面板结构', ms: 900, p: 20 });
-    } else {
-      steps.push({ phase: 'orient', text: '理解目标、成功标准与边界', ms: 1100, p: 8 });
-      steps.push({ phase: 'inspect', text: '派 2 个 Explorer 只读探查相关代码', ms: 1600, p: 22 });
-    }
-    steps.push({ phase: 'act', text: `修改 ${tpl.files.length} 个文件：${tpl.files.slice(0, 2).join('、')}${tpl.files.length > 2 ? ' 等' : ''}`, ms: 2000, p: 48 });
-    if (tpl.needsPermission) steps.push({ phase: 'act', text: '需要运行 pnpm test', gate: true, ms: 400, p: 58 });
-    steps.push({ phase: 'act', text: tpl.needsPermission ? '运行 pnpm test：全部通过' : '运行相关检查：通过', ms: 1400, p: 72 });
-    steps.push({ phase: 'verify', text: '验证闸门：叶子任务证据齐全', ms: 1000, p: 84 });
-    steps.push({ phase: 'verify', text: tpl.visual ? '独立 Verifier 复核 · 视觉验证截图对比' : '独立 Verifier 复核', ms: 1500, p: 95 });
-    return steps;
+  // ================================================================
+  // 全局状态
+  // ================================================================
+  let S0;
+  const G = {};
+  function freshState() {
+    return {
+      models: [], tiers: { strong: null, fast: null, economy: null, vision: null },
+      roles: Object.fromEntries(ROLES.map(([k, , d]) => [k, d])),
+      proactivity: 'normal', quietHours: false, memoryOn: true, learnPrefs: true,
+      userPrefs: [], detailAsks: 0,
+      projects: [], active: null,
+      modal: null, settingsTab: 'models',
+    };
+  }
+  const P = () => G.projects.find((p) => p.id === G.active) || null;
+  const PBy = (id) => G.projects.find((p) => p.id === id);
+
+  function newProject(name) {
+    return {
+      id: nid('P'), name, preset: PRESETS[name], messages: [], sessions: [], objectives: [], memory: [], digest: [],
+      railTab: 'tasks', selected: null, quote: null, busy: 0, granted: false, modelScope: 'all', visionException: false,
+      usedRelease: false, bootstrapped: false, timers: new Set(), lastLearned: [],
+    };
   }
 
-  function spawnSession(tpl, anchorId, extra = {}) {
+  // ================================================================
+  // 模型解析（ADR 83）
+  // ================================================================
+  function recommendTiers() {
+    const has = (id) => G.models.includes(id);
+    const first = G.models[0] || null;
+    G.tiers.strong = has('opus') ? 'opus' : has('gpt') ? 'gpt' : first;
+    G.tiers.fast = has('flash') ? 'flash' : first;
+    G.tiers.economy = has('qwen') ? 'qwen' : has('flash') ? 'flash' : first;
+    G.tiers.vision = ['opus', 'gpt', 'flash'].find(has) || first;
+  }
+  function candidates(setting) {
+    if (setting.startsWith('model:')) return [setting.slice(6)].filter((id) => G.models.includes(id));
+    if (setting === 'auto') return [...G.models];
+    const t = G.tiers[setting.slice(5)];
+    return [t, ...G.models.filter((m) => m !== t)].filter(Boolean);
+  }
+  function scopeOk(p, id, role) {
+    if (p.modelScope !== 'local') return true;
+    if (MD(id).local) return true;
+    return role === 'visual_verifier' && p.visionException;
+  }
+  function resolveRole(p, role, override) {
+    const setting = override ? `model:${override}` : G.roles[role];
+    let list = candidates(setting);
+    if (role === 'visual_verifier') list = list.filter((id) => MD(id).vision);
+    list = list.filter((id) => scopeOk(p, id, role));
+    const src = override ? '本次指定' : setting === 'auto' ? '自动（池内挑选）' : setting.startsWith('model:') ? '固定' : `全局 · ${TIERS.find((t) => t[0] === setting.slice(5))[1]}档`;
+    return list.length ? { id: list[0], src: p.modelScope === 'local' && !override ? src + ' · 项目只用本地' : src } : null;
+  }
+  function resolveSelection(p, tpl, pref) {
+    const worker = resolveRole(p, 'session_worker', pref);
+    const explorer = resolveRole(p, 'explorer');
+    let verifier = null, same = true;
+    const vlist = candidates(G.roles.verifier).filter((id) => scopeOk(p, id, 'verifier'));
+    if (worker) {
+      const diff = vlist.find((id) => MD(id).family !== MD(worker.id).family);
+      verifier = diff || vlist[0] || worker.id;
+      same = MD(verifier).family === MD(worker.id).family;
+    }
+    const visual = tpl.visual ? resolveRole(p, 'visual_verifier') : null;
+    return { worker, explorer, verifier, same, visual, needVisual: !!tpl.visual };
+  }
+  const mname = (id) => (id ? MD(id).name : '—');
+
+  // ================================================================
+  // 记忆（ADR 81）
+  // ================================================================
+  function addMem(target, { kind, s, trust, source, tags = [], pinned = false }) {
+    const m = { id: nid('K'), kind, s, trust, source, tags, pinned, status: 'active', uses: 0, lastUsed: null, at: Date.now() };
+    target.push(m);
+    return m;
+  }
+  function pickMemory(p, tpl) {
+    if (!G.memoryOn) return [];
+    const act = p.memory.filter((m) => m.status === 'active' && m.kind !== 'state');
+    const hit = act.filter((m) => m.pinned || m.tags.some((t) => (tpl.tags || []).includes(t)));
+    const chosen = hit.slice(0, 3);
+    for (const m of chosen) { m.uses++; m.lastUsed = Date.now(); }
+    return chosen.map((m) => m.id);
+  }
+  const memById = (p, id) => p.memory.find((m) => m.id === id) || G.userPrefs.find((m) => m.id === id);
+  const prefActive = (re) => G.userPrefs.some((m) => m.status === 'active' && re.test(m.s));
+
+  // ================================================================
+  // 任务模板（模拟）
+  // ================================================================
+  const TPL = {
+    usageDay: () => ({ title: '用量面板按天分组', tags: ['test', 'ui', 'usage'], criteria: ['用量按本地日期分组', '跨时区边界正确', '面板渲染与预期一致'], methods: ['单测 usage-by-day.test.ts 通过', '补了 UTC+8 / UTC-5 跨日用例', '视觉复核：截图与预期一致'], files: ['UsageStatsPanel.tsx', 'usage-day.mjs', 'usage-by-day.test.ts', 'usage-panel.css'], needsPermission: true, visual: true, outcome: 'auto', branch: 'feat/usage-by-day', summary: '改好了，按天分组放在面板顶部。测试、类型检查都过了，截图也核对过。', learn: { kind: 'pitfall', s: '用量按日期分组要用本地时区；按 UTC 切会在跨日时错位', tags: ['usage'] } }),
+    usageModel: () => ({ title: '用量面板按模型分组', tags: ['test', 'ui', 'usage'], criteria: ['按模型聚合用量', '模型名与 Provider 目录一致', '面板渲染与预期一致'], methods: ['单测 usage-by-model.test.ts 通过', '对照目录校验 14 个模型名', '视觉复核：截图与预期一致'], files: ['UsageStatsPanel.tsx', 'usage-by-model.mjs', 'usage-by-model.test.ts'], needsPermission: true, visual: true, outcome: 'auto', branch: 'feat/usage-by-model', inherited: true, summary: '改成按模型分组了，沿用原来搭好的面板结构。测试和截图都核对过。', learn: { kind: 'fact', s: '模型名以 models.dev 目录为准', tags: ['usage'] } }),
+    loginCopy: () => ({ title: '登录页文案调整', tags: ['i18n', 'ui'], criteria: ['文案按新口径更新', '中英文 i18n 键齐全'], methods: ['快照测试更新并通过', 'i18n 键完整性检查通过'], files: ['LoginPage.tsx', 'packages/i18n/src/index.ts'], needsPermission: false, visual: false, outcome: 'auto', branch: 'feat/login-copy', summary: '登录页文案改好了，中英文都补齐，i18n 检查通过。', learn: { kind: 'convention', s: '文案改动要同时补 zh-CN 与 en 两套 i18n 键', tags: ['i18n'] } }),
+    release: () => ({ title: '发布 0.0.18 Release', tags: ['release', 'docs'], criteria: ['release notes 覆盖 12 个改动', '版本号与 VERSION 一致', '发布页渲染正确'], methods: ['对照 git log 逐条核对', 'VERSION = 0.0.18', '未验证：发布后才能看到'], files: ['release-notes/0.0.18.md'], needsPermission: false, visual: false, outcome: 'confirm', verdict: 'partial', external: true, branch: null, unverified: ['发布页渲染未验证'], summary: '草稿写好了，覆盖 12 个改动。发布到 GitHub 是对外操作，发之前需要你确认。' }),
+    bugs: () => ({ title: '修复已知 bug #1–#3', tags: ['test'], criteria: ['#1 时区错位修复', '#2 更新弹窗重复弹出修复', '#3 引用预览截断修复', '相关测试通过'], methods: ['回归用例覆盖', '回归用例覆盖', '回归用例覆盖', 'pnpm test 通过'], files: ['UsageStatsPanel.tsx', 'auto-updater.mjs', 'composerQuote.ts'], needsPermission: true, visual: false, outcome: 'auto', branch: 'fix/known-bugs-0.0.18', summary: '三个已知 bug 都修好了，各补了回归用例，测试全过。', learn: { kind: 'procedure', s: '修 bug 先补回归用例再改代码', tags: ['test'] } }),
+    ciFix: () => ({ title: '修复 CI：desktop 单测失败', tags: ['test', 'ci'], criteria: ['3 个失败用例修复', 'CI 重新跑通'], methods: ['本地复现并修复', '重新触发 CI：全绿'], files: ['task-overview-aggregator.mjs', 'goal-plan-store.test.mjs'], needsPermission: true, visual: false, outcome: 'auto', branch: 'fix/ci-desktop-tests', summary: 'CI 修好了：task-overview 聚合在空工作区时没兜底，补了判断和用例，CI 已重新跑通。', learn: { kind: 'pitfall', s: 'task-overview 聚合在空工作区时要兜底', tags: ['ci', 'test'] } }),
+    generic: (text) => ({ title: shorten(text.replace(/[，。,.!！？?]/g, ' ').trim(), 14), tags: ['test'], criteria: ['按描述完成改动', '相关检查通过'], methods: ['改动逐条对照描述', '相关检查通过'], files: ['（模拟）'], needsPermission: false, visual: false, outcome: 'auto', branch: 'feat/demo-task', summary: `「${shorten(text, 18)}」做好了，相关检查都过了。` }),
+    fix: (orig, text) => ({ title: `修正：${orig.title}`, tags: orig.tags, criteria: [...orig.criteria, '补上：' + shorten(text.replace(/^不对[，,]?/, ''), 14)], methods: [...orig.methods, '新增回归用例'], files: orig.files.slice(0, 2), needsPermission: false, visual: false, outcome: 'auto', branch: orig.branch ? orig.branch + '-fix' : null, summary: `修好了：${shorten(text.replace(/^不对[，,]?/, ''), 20)}。补了回归用例，原来的标准也重新跑过。` }),
+  };
+
+  // ================================================================
+  // 任务运行
+  // ================================================================
+  const ACTIVE = ['running', 'needs_user', 'verifying'];
+  function buildSteps(tpl) {
+    if (tpl.bootstrap) return tpl.reads.map((t, i) => ({ phase: i < 2 ? 'orient' : 'inspect', text: t, ms: 900, p: 20 + i * 20 }));
+    const st = [];
+    if (tpl.inherited) st.push({ phase: 'inspect', text: '继承旧任务的报告与已读材料', ms: 900, p: 20 });
+    else { st.push({ phase: 'orient', text: '理解目标、成功标准与边界', ms: 1000, p: 8 }); st.push({ phase: 'inspect', text: '派 2 个 Explorer 只读探查相关代码', ms: 1400, p: 22 }); }
+    st.push({ phase: 'act', text: `修改 ${tpl.files.length} 个文件：${tpl.files.slice(0, 2).join('、')}${tpl.files.length > 2 ? ' 等' : ''}`, ms: 1800, p: 48 });
+    if (tpl.needsPermission) st.push({ phase: 'act', text: '需要运行测试', gate: true, ms: 300, p: 58 });
+    st.push({ phase: 'act', text: tpl.needsPermission ? '运行测试：全部通过' : '运行相关检查：通过', ms: 1300, p: 72 });
+    st.push({ phase: 'verify', text: '验证闸门：叶子任务证据齐全', ms: 900, p: 84 });
+    st.push({ phase: 'verify', text: tpl.visual ? '独立复核 · 视觉复核截图对比' : '独立复核', ms: 1300, p: 95 });
+    return st;
+  }
+  function spawnSession(p, tpl, anchorId, extra = {}) {
     const s = {
-      id: nid('S'), tpl, title: tpl.title, anchor: anchorId,
-      status: 'running', phase: 'orient', progress: 2,
-      steps: buildSteps(tpl), stepIndex: 0, log: [], timers: new Set(),
-      amendments: [], acceptedBy: null, supersededBy: null, supersedes: null,
-      needs: null, verdict: null, merged: false, ...extra,
+      id: nid('S'), pid: p.id, tpl, title: tpl.title, anchor: anchorId, status: 'running', phase: 'orient', progress: 2,
+      steps: buildSteps(tpl), stepIndex: 0, log: [], timers: new Set(), amendments: [], acceptedBy: null,
+      supersededBy: null, supersedes: null, needs: null, verdict: null, merged: false, memUsed: [], sel: null, ...extra,
     };
-    s.log.push({ t: `项目代理开出任务，锚定消息「${shorten(M(anchorId)?.text || '', 22)}」`, k: 'a' });
-    state.sessions.push(s);
-    later(500, () => advance(s), s);
+    if (!tpl.bootstrap) {
+      s.memUsed = pickMemory(p, tpl);
+      s.sel = extra.sel || resolveSelection(p, tpl, extra.pref);
+      s.log.push({ t: `开出任务，锚定「${shorten(M(p, anchorId)?.text || '', 20)}」· 执行 ${mname(s.sel.worker?.id)} · 复核 ${mname(s.sel.verifier)}${s.sel.same ? '（同源）' : '（不同源）'}`, k: 'a' });
+      if (s.memUsed.length) s.log.push({ t: `带上 ${s.memUsed.length} 条相关记忆（已冻结）`, k: 'a' });
+    } else {
+      s.sel = { worker: resolveRole(p, 'explorer'), verifier: null, same: true };
+      s.log.push({ t: `只读任务 · ${mname(s.sel.worker?.id)}（省档）`, k: 'a' });
+    }
+    p.sessions.push(s);
+    later(400, () => advance(p, s), s);
     return s;
   }
-
-  function advance(s) {
+  function advance(p, s) {
     if (s.status !== 'running') return;
     const step = s.steps[s.stepIndex];
-    if (!step) return finishSession(s);
-    s.phase = step.phase;
-    s.progress = step.p;
+    if (!step) return finish(p, s);
+    s.phase = step.phase; s.progress = step.p;
     if (step.gate) {
-      if (!state.granted) {
-        s.log.push({ t: '需要运行 pnpm test，等待授权' });
-        s.status = 'needs_user';
-        s.needs = { resolved: false, result: null };
-        render();
-        agentWake(s, 'needs');
-        return;
-      }
-      s.log.push({ t: 'pnpm test 在本项目已允许过，直接运行' });
-      s.stepIndex++;
-      render();
-      later(300, () => advance(s), s);
-      return;
+      if (!p.granted) { s.log.push({ t: '需要运行测试，等待授权' }); s.status = 'needs_user'; s.needs = { resolved: false }; render(); wake(p, s, 'needs'); return; }
+      s.log.push({ t: '本项目已允许运行测试，直接运行' }); s.stepIndex++; render(); later(250, () => advance(p, s), s); return;
     }
-    s.log.push({ t: step.text });
-    render();
-    later(step.ms, () => { s.stepIndex++; advance(s); }, s);
+    s.log.push({ t: step.text }); render();
+    later(step.ms, () => { s.stepIndex++; advance(p, s); }, s);
   }
-
-  function finishSession(s) {
-    s.status = 'verifying';
-    s.phase = 'verify';
-    s.progress = 100;
+  function finish(p, s) {
+    if (s.tpl.bootstrap) return finishBootstrap(p, s);
+    s.status = 'verifying'; s.phase = 'verify'; s.progress = 100;
     const total = s.tpl.criteria.length + s.amendments.length;
     const partial = s.tpl.verdict === 'partial';
     s.verdict = { outcome: partial ? 'partial' : 'passed', passed: partial ? total - 1 : total, total, unverified: s.tpl.unverified || [] };
-    s.decision = (s.tpl.outcome === 'confirm' || partial) ? 'confirm' : 'auto';
-    s.log.push({ t: `运行时算出结论：${partial ? '部分验证' : '已验证'} ${s.verdict.passed}/${total} · 签收策略 ${s.decision === 'auto' ? 'auto（低风险）' : 'confirm'}` });
-    render();
-    agentWake(s, 'verified');
+    s.decision = s.tpl.outcome === 'confirm' || partial ? 'confirm' : 'auto';
+    s.log.push({ t: `运行时结论：${partial ? '部分验证' : '已验证'} ${s.verdict.passed}/${total} · 签收策略 ${s.decision}` });
+    render(); wake(p, s, 'verified');
   }
-
-  function resolveNeeds(sid, allow) {
-    const s = S(sid);
+  function resolveNeeds(p, sid, allow) {
+    const s = p.sessions.find((x) => x.id === sid);
     if (!s || !s.needs || s.needs.resolved) return;
-    s.needs.resolved = true;
-    s.needs.result = allow ? 'allowed' : 'denied';
-    if (s.status !== 'needs_user') {
-      if (allow) state.granted = true;
-      render();
-      toast(allow ? '已允许 pnpm test（原任务已不在等待，授权留给本项目后续任务）' : '已拒绝');
-      return;
-    }
+    s.needs.resolved = true; s.needs.result = allow ? 'allowed' : 'denied';
+    if (s.status !== 'needs_user') { if (allow) p.granted = true; render(); return; }
     if (allow) {
-      state.granted = true;
-      const waiting = state.sessions.filter((x) => x.status === 'needs_user' && x.needs && (!x.needs.resolved || x === s));
-      for (const w of waiting) {
-        w.needs.resolved = true;
-        w.needs.result = 'allowed';
-        w.log.push({ t: w === s ? '你允许了 pnpm test（同一条请求，在任务里和代理对话里同步）' : '本项目已允许 pnpm test，继续', k: 'u' });
-        w.status = 'running';
-        w.stepIndex++;
-        later(300, () => advance(w), w);
+      p.granted = true;
+      for (const w of p.sessions.filter((x) => x.status === 'needs_user' && x.needs && (!x.needs.resolved || x === s))) {
+        w.needs.resolved = true; w.needs.result = 'allowed';
+        w.log.push({ t: w === s ? '你允许了运行测试（同一条请求）' : '本项目已允许运行测试，继续', k: 'u' });
+        w.status = 'running'; w.stepIndex++; later(250, () => advance(p, w), w);
       }
-      render();
-      toast('已允许 · 本项目后续任务不再重复询问 pnpm test');
+      toast('已允许 · 本项目后续任务不再重复询问');
     } else {
-      s.log.push({ t: '你拒绝了 pnpm test', k: 'u' });
-      s.status = 'running';
-      s.steps.splice(s.stepIndex + 1, 1, { phase: 'act', text: '跳过测试，改用类型检查', ms: 1200, p: 72 });
-      s.tpl = { ...s.tpl, verdict: 'partial', outcome: 'confirm', unverified: ['单测未运行（你拒绝了 pnpm test）'] };
-      s.stepIndex++;
-      render();
-      later(300, () => advance(s), s);
+      s.log.push({ t: '你拒绝了运行测试', k: 'u' }); s.status = 'running';
+      s.steps.splice(s.stepIndex + 1, 1, { phase: 'act', text: '跳过测试，改用类型检查', ms: 1000, p: 72 });
+      s.tpl = { ...s.tpl, verdict: 'partial', outcome: 'confirm', unverified: ['单测未运行（你拒绝了）'] };
+      s.stepIndex++; later(250, () => advance(p, s), s);
     }
+    render();
   }
 
-  // ------------------------------------------------------------------
-  // Messages
-  // ------------------------------------------------------------------
-  function addMsg(m) {
-    const msg = { id: nid('M'), time: Date.now(), ...m };
-    state.messages.push(msg);
-    return msg;
+  // ================================================================
+  // 消息与送达（ADR 80 决策 9）
+  // ================================================================
+  const M = (p, id) => p.messages.find((m) => m.id === id);
+  function addMsg(p, m) { const msg = { id: nid('M'), ...m }; p.messages.push(msg); return msg; }
+  function decideSurfacing(input) {
+    const r = baseSurfacing(input);
+    return G.quietHours && r === 'interrupt' && !['needs_user', 'confirm', 'failure_needs_decision'].includes(input.kind) ? 'message' : r;
   }
-
-  function postReply({ replyTo = [], text, sources = [], verdictOf = null, cards = [], actions = [], detail = null, evidence = null, objective = null, surf = null }) {
-    addMsg({ role: 'agent', text, replyTo, sources, verdictOf, cards, actions, detail, evidence, objective, surf });
-    if (surf === 'interrupt') toast(`系统通知 · Peer-Agent：${shorten(text.replace(/\n/g, ' '), 34)}`);
+  function baseSurfacing({ origin, kind, severity, novelty }) {
+    const pr = G.proactivity;
+    if (['needs_user', 'confirm', 'failure_needs_decision'].includes(kind)) return 'interrupt';
+    if (origin === 'user_request') return pr === 'normal' || pr === 'high' ? 'interrupt' : 'message';
+    if (!novelty) return 'silent';
+    if (severity === 'urgent') return 'interrupt';
+    if (severity === 'notable') return { off: 'digest', low: 'digest', normal: 'message', high: 'interrupt' }[pr];
+    return { off: 'silent', low: 'digest', normal: 'digest', high: 'message' }[pr];
+  }
+  const SURF = { interrupt: '推送通知', message: '只进对话', digest: '进今日小结', silent: '不打扰' };
+  function post(p, o) {
+    const m = addMsg(p, { role: 'agent', replyTo: [], sources: [], cards: [], actions: [], ...o });
+    if (o.surf === 'interrupt') toast(`${p.id === G.active ? '' : p.name + ' · '}系统通知：${shorten(o.text.replace(/\n/g, ' '), 34)}`);
     render(true);
+    return m;
   }
-
-  function setDial(v) {
-    state.proactivity = v;
-    for (const b of document.querySelectorAll('#dial button')) b.classList.toggle('on', b.dataset.dial === v);
-  }
-
-  // ---- 项目目标：模拟 watch 触发（ADR 82） ----
-  const SIGNALS = {
-    ci_fail: { text: 'CI 挂了：desktop 单测 3 个失败（goal-plan-store、task-overview-aggregator）。', kind: 'observation', severity: 'urgent', key: 'ci:red:3' },
-    ci_same: { text: 'CI 仍是同样 3 个失败。', kind: 'observation', severity: 'urgent', key: 'ci:red:3' },
-    dep: { text: '依赖 @electron/fuses 发布了小版本 1.8.1（补丁修复，无破坏性变更）。', kind: 'observation', severity: 'info', key: 'dep:fuses:1.8.1' },
-  };
-
-  function simulateSignal(oid, which) {
-    const o = O(oid);
-    if (!o) return;
-    const sig = SIGNALS[which];
-    const novelty = o.lastDigestKey !== sig.key;
-    o.log.push(`观察：${sig.text}${novelty ? '' : '（与上次相同）'}`);
-    if (!novelty) {
-      o.lastObs = { text: sig.text + '（与上次相同）', surf: 'silent' };
-      render();
-      toast('观察结果没有变化：只记录，不唤醒代理、不打扰你');
-      return;
-    }
-    o.lastDigestKey = sig.key;
-    state.busy++;
-    render();
+  function wake(p, s, kind) {
+    p.busy++; render();
     later(1100, () => {
-      state.busy--;
-      const surf = decideSurfacing({ origin: 'objective_signal', kind: sig.kind, severity: sig.severity, novelty, proactivity: state.proactivity });
-      o.lastObs = { text: sig.text, surf };
-      if (surf === 'silent') { o.log.push('送达：不打扰（只更新右栏）'); render(); toast('按当前主动性：不打扰，只更新了目标卡'); return; }
-      if (surf === 'digest') { state.digest.push({ oid: o.id, text: sig.text }); o.log.push('送达：进今日小结'); render(); toast('按当前主动性：攒进今日小结'); return; }
-      if (which === 'ci_fail') {
-        if (o.autonomy === 'act') {
-          const s = spawnSession(TPL.ciFix(), o.origin, { objectiveId: o.id });
-          o.milestones[1].sid = s.id;
-          o.log.push('自主档位「直接动手」：开任务修 CI');
-          postReply({ replyTo: [o.origin], text: sig.text + '\n按你说的，我已经开了一条任务直接修，修完告诉你。', sources: [s.id], objective: o.id, surf });
-        } else {
-          postReply({ replyTo: [o.origin], text: sig.text + '\n看起来是 task-overview 聚合在空工作区时没兜底。要我开一条任务修吗？', objective: o.id, surf, cards: [{ type: 'propose', oid: o.id }] });
-        }
-      } else {
-        postReply({ replyTo: [o.origin], text: sig.text + '\n不影响这次发版，先记着，发版后再评估升级。', objective: o.id, surf });
-      }
-      render();
-    });
-  }
-
-  function acceptProposal(oid, yes) {
-    const o = O(oid);
-    if (!o || o.proposalResolved) return;
-    o.proposalResolved = yes ? 'started' : 'declined';
-    if (yes) {
-      const s = spawnSession(TPL.ciFix(), o.origin, { objectiveId: o.id });
-      o.milestones[1].sid = s.id;
-      o.log.push('你点了「开始」：开任务修 CI');
-      postReply({ replyTo: [o.origin], text: '好，开了一条任务修 CI。', sources: [s.id], objective: o.id });
-    } else {
-      o.log.push('你选择先不修');
-      render();
-    }
-  }
-
-  function flushDigest() {
-    if (!state.digest.length) { toast('今日小结没有待发内容'); return; }
-    const items = state.digest.splice(0);
-    const lines = items.map((it, i) => `${i + 1}. ${it.text}`).join('\n');
-    state.busy++;
-    render();
-    later(900, () => {
-      state.busy--;
-      addMsg({ role: 'agent', text: `今日小结（${items.length} 条，不急）：\n${lines}`, replyTo: [], sources: [], surf: 'message', digest: true });
-      render(true);
-    });
-  }
-
-  function agentWake(s, kind) {
-    state.busy++;
-    render();
-    later(1300, () => {
-      state.busy--;
+      p.busy--;
       if (kind === 'needs') {
-        if (s.status !== 'needs_user') { render(); return; }
-        postReply({
-          replyTo: [s.anchor],
-          text: `要跑一次 pnpm test 验证「${s.title}」，需要你允许。`,
-          sources: [s.id],
-          cards: [{ type: 'needs', sid: s.id }],
-          surf: 'interrupt',
-        });
-      } else if (kind === 'verified') {
-        if (s.status !== 'verifying') { render(); return; }
-        const amendNote = s.amendments.length ? `你补充的「${s.amendments.map((a) => shorten(a, 10)).join('、')}」也一起做了。` : '';
+        if (s.status === 'needs_user') post(p, { replyTo: [s.anchor], text: `要跑一次测试验证「${s.title}」，需要你允许。`, sources: [s.id], cards: [{ type: 'needs', sid: s.id }], surf: 'interrupt' });
+      } else if (kind === 'verified' && s.status === 'verifying') {
+        const amend = s.amendments.length ? `你补充的「${s.amendments.map((a) => shorten(a, 10)).join('、')}」也一起做了。` : '';
+        const vline = prefActive(/验证方式/) ? `\n验证：${s.tpl.methods.slice(0, 2).join('；')}。` : '';
+        let learnedIds = [];
+        if (s.tpl.learn && G.memoryOn) {
+          const same = p.memory.find((x) => x.status === 'active' && x.s === s.tpl.learn.s);
+          if (same) { same.confirmed = (same.confirmed || 1) + 1; s.log.push({ t: `已有记忆再次被验证：「${shorten(same.s, 18)}」`, k: 'a' }); }
+          else learnedIds = [addMem(p.memory, { ...s.tpl.learn, trust: 'verified', source: `任务「${s.title}」` }).id];
+        }
+        if (s.objectiveId) { const o = p.objectives.find((x) => x.id === s.objectiveId); const ms = o?.milestones.find((x) => x.sid === s.id); if (ms) ms.done = true; }
         if (s.decision === 'auto') {
-          s.status = 'accepted';
-          s.acceptedBy = 'policy';
-          s.log.push({ t: '代理已汇报 → 运行时过关闭闸门，策略代签（acceptedBy: policy）', k: 'a' });
-          if (s.objectiveId) {
-            const o = O(s.objectiveId);
-            const ms = o && o.milestones.find((x) => x.sid === s.id);
-            if (ms) ms.done = true;
-          }
-          postReply({
-            replyTo: [s.anchor],
-            text: s.tpl.summary + amendNote,
-            sources: [s.id],
-            verdictOf: s.id,
-            actions: s.tpl.branch ? [{ type: 'merge', sid: s.id }] : [],
-            objective: s.objectiveId || null,
-            surf: decideSurfacing({ origin: 'user_request', kind: 'result', severity: 'notable', novelty: true, proactivity: state.proactivity }),
-          });
+          s.status = 'accepted'; s.acceptedBy = 'policy';
+          s.log.push({ t: '代理已汇报 → 过关闭闸门 → 策略代签', k: 'a' });
+          post(p, { replyTo: [s.anchor], text: s.tpl.summary + amend + vline, sources: [s.id], verdictOf: s.id, actions: s.tpl.branch ? [{ type: 'merge', sid: s.id }] : [], objective: s.objectiveId, memUsed: s.memUsed, learned: learnedIds, surf: decideSurfacing({ origin: 'user_request', kind: 'result' }) });
         } else {
           s.status = 'result_ready';
-          s.log.push({ t: '需要你确认，任务停在 result_ready', k: 'a' });
-          const gap = s.verdict.unverified.length ? `没验证的：${s.verdict.unverified.join('；')}。` : '';
-          postReply({
-            replyTo: [s.anchor],
-            text: s.tpl.summary + (gap ? '\n' + gap : '') + amendNote,
-            sources: [s.id],
-            verdictOf: s.id,
-            cards: [{ type: 'confirm', sid: s.id }],
-            surf: 'interrupt',
-          });
+          const gap = s.verdict.unverified.length ? `\n没验证的：${s.verdict.unverified.join('；')}。` : '';
+          post(p, { replyTo: [s.anchor], text: s.tpl.summary + gap + amend, sources: [s.id], verdictOf: s.id, cards: [{ type: 'confirm', sid: s.id }], memUsed: s.memUsed, learned: learnedIds, surf: 'interrupt' });
         }
       }
       render();
     });
   }
 
-  // ------------------------------------------------------------------
-  // Triage (the "agent")
-  // ------------------------------------------------------------------
-  const ACTIVE = ['running', 'needs_user', 'verifying'];
+  // ================================================================
+  // 熟悉项目（首次）
+  // ================================================================
+  function startBootstrap(p) {
+    const intro = addMsg(p, { role: 'agent', text: `我是 ${p.name} 的项目代理。先花一分钟熟悉一下项目：只读目录、说明文档、脚本和最近的提交，不改任何东西。` });
+    const tpl = { bootstrap: true, title: '熟悉项目（只读）', reads: p.preset.reads, tags: [], criteria: [], methods: [], files: [] };
+    const s = spawnSession(p, tpl, intro.id);
+    p.bootSid = s.id;
+    render(true);
+  }
+  function finishBootstrap(p, s) {
+    s.status = 'accepted'; s.acceptedBy = 'policy'; s.phase = 'verify'; s.progress = 100;
+    s.log.push({ t: '只读完成：写入项目记忆与项目简报', k: 'a' });
+    const ids = [];
+    if (G.memoryOn) for (const f of p.preset.facts) ids.push(addMem(p.memory, { ...f, trust: 'verified', source: '熟悉项目' }).id);
+    p.bootstrapped = true;
+    post(p, {
+      replyTo: [], text: `我看过这个项目了：${p.preset.intro}\n有一点我不确定：${p.preset.question.q}\n有什么要做的直接说。`,
+      sources: [s.id], learned: ids, cards: [{ type: 'question' }], surf: 'message',
+    });
+  }
 
-  function scopeFor(quoteId) {
-    if (!quoteId) return null;
-    const q = M(quoteId);
-    if (!q) return null;
-    let ids = [];
-    if (q.role === 'user') ids = state.sessions.filter((s) => s.anchor === q.id).map((s) => s.id);
-    else ids = q.sources || [];
-    // follow supersede chain
-    const out = new Set(ids);
+  // ================================================================
+  // 项目目标（ADR 82）
+  // ================================================================
+  const SIGNALS = {
+    ci_fail: { text: 'CI 挂了：desktop 单测 3 个失败（task-overview-aggregator）。', severity: 'urgent', key: 'ci:red' },
+    ci_same: { text: 'CI 仍是同样 3 个失败。', severity: 'urgent', key: 'ci:red' },
+    dep: { text: '依赖 @electron/fuses 发布了小版本 1.8.1（补丁修复）。', severity: 'info', key: 'dep:fuses' },
+  };
+  function simulate(p, oid, which) {
+    const o = p.objectives.find((x) => x.id === oid); if (!o) return;
+    const sig = SIGNALS[which];
+    const novelty = o.lastKey !== sig.key;
+    if (!novelty) { o.lastObs = { text: sig.text + '（与上次相同）', surf: 'silent' }; render(); toast('观察结果没有变化：只记录，不唤醒代理、不打扰你'); return; }
+    o.lastKey = sig.key;
+    p.busy++; render();
+    later(1000, () => {
+      p.busy--;
+      const surf = decideSurfacing({ origin: 'objective_signal', kind: 'observation', severity: sig.severity, novelty });
+      o.lastObs = { text: sig.text, surf };
+      if (surf === 'silent') { render(); toast('按当前主动性：不打扰，只更新目标卡'); return; }
+      if (surf === 'digest') { p.digest.push(sig.text); render(); toast('按当前主动性：攒进今日小结'); return; }
+      if (which === 'ci_fail') {
+        if (o.autonomy === 'act') {
+          const s = spawnSession(p, TPL.ciFix(), o.origin, { objectiveId: o.id });
+          o.milestones[1].sid = s.id;
+          post(p, { replyTo: [o.origin], text: sig.text + '\n按你说的，已经开任务直接修，修完告诉你。', sources: [s.id], objective: o.id, surf, memUsed: s.memUsed });
+        } else post(p, { replyTo: [o.origin], text: sig.text + '\n要我开一条任务修吗？', objective: o.id, surf, cards: [{ type: 'propose', oid: o.id }] });
+      } else post(p, { replyTo: [o.origin], text: sig.text + '\n不影响这次发版，发版后再评估。', objective: o.id, surf });
+    });
+  }
+  function flushDigest(p) {
+    if (!p.digest.length) { toast('今日小结没有待发内容'); return; }
+    const items = p.digest.splice(0);
+    post(p, { text: `今日小结（${items.length} 条，不急）：\n${items.map((t, i) => `${i + 1}. ${t}`).join('\n')}`, surf: 'message' });
+  }
+
+  // ================================================================
+  // 分诊（项目代理）
+  // ================================================================
+  function scopeFor(p, qid) {
+    if (!qid) return null;
+    const q = M(p, qid); if (!q) return null;
+    const out = new Set(q.role === 'user' ? p.sessions.filter((s) => s.anchor === q.id).map((s) => s.id) : q.sources || []);
     let grew = true;
-    while (grew) {
-      grew = false;
-      for (const s of state.sessions) {
-        if (s.supersedes && out.has(s.supersedes) && !out.has(s.id)) { out.add(s.id); grew = true; }
-      }
-    }
+    while (grew) { grew = false; for (const s of p.sessions) if (s.supersedes && out.has(s.supersedes) && !out.has(s.id)) { out.add(s.id); grew = true; } }
     return [...out];
   }
-
-  function classify(text) {
-    if (/少打扰|别打扰|别老|安静点/.test(text)) return 'dial_low';
-    if (/多提醒|多告诉|及时告诉/.test(text)) return 'dial_high';
-    if (/直接修|自己修|直接动手/.test(text)) return 'autonomy_act';
-    if (/发版前|CI 挂了|盯着/.test(text)) return 'objective';
-    if (/不对|有问题|错了/.test(text)) return 'wrong';
-    if (/用量面板/.test(text) && !/算了|不按/.test(text)) return 'usage';
-    if (/怎么验证|怎么测|改了哪些|验证了什么|细节/.test(text)) return 'detail';
-    if (/证据|截图|测试输出|给我看/.test(text)) return 'evidence';
-    if (/先别|停下|停掉|别弄|取消/.test(text)) return 'stop';
-    if (/算了|改成|换成|不要按/.test(text)) return 'supersede';
-    if (/另外|还有一件|再开/.test(text)) return 'parallel';
-    if (/顺便|也加上|补充|再加/.test(text)) return 'amend';
-    if (/发布|release/i.test(text)) return 'release';
-    if (/用量|按天/.test(text)) return 'usage';
-    if (/[?？]$|哪个|是什么|在哪|多少/.test(text)) return 'question';
+  const pick = (p, scope, st) => p.sessions.filter((s) => st.includes(s.status) && !s.tpl.bootstrap && (!scope || scope.includes(s.id))).pop() || null;
+  function classify(t) {
+    if (/少打扰|别打扰|安静点/.test(t)) return 'dial_low';
+    if (/多提醒|及时告诉/.test(t)) return 'dial_high';
+    if (/复核.*用|用.*复核/.test(t) && /以后/.test(t)) return 'model_policy';
+    if (/只用本地模型/.test(t)) return 'scope_local';
+    if (/直接修|直接动手/.test(t)) return 'autonomy_act';
+    if (/为什么/.test(t)) return 'explain';
+    if (/^忘掉|^忘了/.test(t)) return 'forget';
+    if (/^记住|^以后(都|要|别|汇报)/.test(t)) return 'remember';
+    if (/发版前|CI 挂了|盯着/.test(t)) return 'objective';
+    if (/不对|有问题|错了/.test(t)) return 'wrong';
+    if (/用量面板/.test(t) && !/算了|不按/.test(t)) return 'usage';
+    if (/怎么验证|改了哪些|细节/.test(t)) return 'detail';
+    if (/证据|截图|测试输出|给我看/.test(t)) return 'evidence';
+    if (/先别|停下|停掉|别弄/.test(t)) return 'stop';
+    if (/算了|改成|换成|不要按/.test(t)) return 'supersede';
+    if (/另外|还有一件/.test(t)) return 'parallel';
+    if (/顺便|也加上|补充/.test(t)) return 'amend';
+    if (/发布|release/i.test(t)) return 'release';
+    if (/[?？]$|哪个|是什么|哪些/.test(t)) return 'question';
     return 'task';
   }
-
-  function pickTarget(scope, statuses) {
-    const pool = state.sessions.filter((s) => statuses.includes(s.status) && (!scope || scope.includes(s.id)));
-    return pool[pool.length - 1] || null;
+  function parseModelPref(t) {
+    const m = t.match(/用\s*(Opus|Claude|GPT|Gemini|Flash|Qwen)[^\s，,]*\s*(做|来|跑)?/i);
+    if (!m) return { text: t, pref: null };
+    const c = CATALOG.find((x) => x.key.test(m[1]));
+    return { text: t.replace(m[0], '').replace(/^[，,\s]+/, '') || t, pref: c ? c.id : null, prefName: m[1] };
   }
 
-  function triage(m) {
-    const scope = scopeFor(m.quote);
-    const intent = classify(m.text);
-    const running = pickTarget(scope, ACTIVE);
-    const done = pickTarget(scope, ['accepted', 'result_ready']);
+  function triage(p, m) {
+    const scope = scopeFor(p, m.quote);
+    const intent0 = classify(m.text);
+    const isPolicy = ['model_policy', 'scope_local', 'remember', 'forget', 'explain', 'dial_low', 'dial_high'].includes(intent0);
+    const mp = isPolicy ? { text: m.text, pref: null } : parseModelPref(m.text);
+    const intent = isPolicy ? intent0 : classify(mp.text);
+    const running = pick(p, scope, ACTIVE);
+    const done = pick(p, scope, ['accepted', 'result_ready']);
+    const reply = (text, extra = {}) => post(p, { replyTo: [m.id], text, ...extra });
+    const answer = (text, extra) => { m.disp = { type: 'answer' }; return reply(text, extra); };
 
-    const spawn = (tpl, note, extra) => {
-      const s = spawnSession(tpl, m.id, extra);
+    if (mp.pref && !G.models.includes(mp.pref)) return answer(`${MD(mp.pref).name} 还没接入，可以在设置 → 模型里添加；这次先按默认分工。`);
+
+    const spawn = (tpl, note, extra = {}) => {
+      const sel = resolveSelection(p, tpl, mp.pref);
+      if (!sel.worker) return answer('本项目的模型范围里没有可用的执行模型，请在设置 → 模型分工里调整。');
+      if (sel.needVisual && !sel.visual) {
+        m.disp = { type: 'answer' };
+        const vt = G.tiers.vision;
+        return reply(`这个任务要做视觉复核，但本项目只允许本地模型，而本地没有能看图的模型。我不会悄悄换别的模型。`, { cards: [{ type: 'vision', tplKey: tpl.title, vt, mid: m.id }], pendingTpl: tpl, pendingNote: note });
+      }
+      const s = spawnSession(p, tpl, m.id, { ...extra, sel, pref: mp.pref });
       m.disp = { type: 'spawn', sid: s.id };
-      postReply({ replyTo: [m.id], text: note || `在做了。完成标准：${tpl.criteria.join(' / ')}。`, sources: [s.id] });
+      const modelNote = mp.pref ? `按你说的，这次用 ${MD(mp.pref).name} 执行；` : '';
+      reply(`${modelNote}${note || `在做了。完成标准：${tpl.criteria.join(' / ')}。`}`, { sources: [s.id], memUsed: s.memUsed });
       return s;
     };
 
     switch (intent) {
-      case 'dial_low':
-      case 'dial_high': {
+      case 'dial_low': case 'dial_high':
         setDial(intent === 'dial_low' ? 'low' : 'high');
-        m.disp = { type: 'answer' };
-        return postReply({ replyTo: [m.id], text: intent === 'dial_low'
-          ? '好，主动性调到「少」：我自己发现的事除非紧急都攒进今日小结；需要你批准或确认的照常马上找你。'
-          : '好，主动性调到「多」：我发现的新情况会更及时地告诉你。' });
+        return answer(intent === 'dial_low' ? '好，主动性调到「少」：我自己发现的事除非紧急都攒进今日小结；需要你批准或确认的照常马上找你。' : '好，主动性调到「多」：我发现的新情况会更及时地告诉你。');
+      case 'model_policy': {
+        const c = CATALOG.find((x) => x.key.test(m.text) && G.models.includes(x.id));
+        if (!c) return answer('你说的模型还没接入，可以在设置 → 模型里添加。');
+        G.roles.verifier = `model:${c.id}`;
+        return answer(`好，以后独立复核固定用 ${c.name}。设置 → 模型分工里能看到和撤销。`);
       }
+      case 'scope_local':
+        p.modelScope = 'local'; p.visionException = false;
+        return answer(`好，${p.name} 以后只用本地模型（所有角色，包括后台探测和记忆提取）。本地模型做不了的事我会先告诉你，不会悄悄换。`);
       case 'autonomy_act': {
-        const o = state.objectives[state.objectives.length - 1];
-        m.disp = { type: 'answer' };
-        if (!o) return postReply({ replyTo: [m.id], text: '现在没有在盯的目标。' });
+        const o = p.objectives[p.objectives.length - 1];
+        if (!o) return answer('现在没有在盯的目标。');
         o.autonomy = 'act';
-        o.log.push('你把自主档位调到「直接动手」');
-        return postReply({ replyTo: [m.id], text: `好，「${o.title}」改为发现问题直接动手修，修完告诉你。开出的任务照样过验证和签收，对外操作仍会先问你。`, objective: o.id });
+        return answer(`好，「${o.title}」改为发现问题直接动手，修完告诉你。开出的任务照样过验证和签收。`, { objective: o.id });
+      }
+      case 'explain': {
+        const s = [...p.sessions].reverse().find((x) => !x.tpl.bootstrap);
+        if (!s) return answer('还没有做过决定可以解释。');
+        const mems = s.memUsed.map((id) => memById(p, id)).filter(Boolean);
+        return answer(`「${s.title}」我依据了这些：\n${mems.length ? mems.map((x, i) => `${i + 1}. 记忆：${x.s}（${TRUST[x.trust]}${x.source !== '你说的' ? ' · 来源 ' + x.source : ''}）`).join('\n') : '（没有用到记忆）'}\n执行模型 ${mname(s.sel.worker?.id)}（${s.sel.worker?.src}），复核模型 ${mname(s.sel.verifier)}${s.sel.same ? '（同源：没有第二家可用）' : '（不同源）'}。`, { sources: [s.id] });
+      }
+      case 'forget': {
+        const kw = m.text.replace(/^忘掉|^忘了/, '').replace(/[「」"'。]/g, '').trim();
+        const all = [...p.memory, ...G.userPrefs].filter((x) => x.status === 'active');
+        const hit = all.find((x) => kw && (x.s.includes(kw) || kw.split(/\s+/).some((w) => w.length > 1 && x.s.includes(w))));
+        if (!hit) return answer('没找到对应的记忆。可以在右栏「记忆」里直接撤销。');
+        hit.status = 'revoked';
+        return answer(`好，忘掉了：「${hit.s}」。右栏「记忆」→ 已撤销里可以恢复。`);
+      }
+      case 'remember': {
+        const body = m.text.replace(/^记住[：:，,]?/, '').trim();
+        if (/不用确认|自动发布|跳过验证|不用问我/.test(body)) return answer('这类事不能靠记忆放宽：记忆只能让确认和权限更严，不能更松。想改的话在设置里调，我不会自己改。');
+        const isPref = /汇报|回复|说话|结论|让我.*看|先问我|中文|英文|简短/.test(body);
+        const k = addMem(isPref ? G.userPrefs : p.memory, { kind: isPref ? 'preference' : 'convention', s: body, trust: 'stated', source: '你说的', tags: ['test', 'ui', 'docs', 'release'] });
+        const tighten = /让我.*看|先问我|确认/.test(body) ? '\n这条只会让确认更严：对外操作本来就会先问你，以后同类的内部改动也会先给你过目。' : '';
+        return answer(`记住了：${body}${isPref ? '（你的偏好，跨项目生效）' : `（${p.name} 的约定）`}${tighten}`, { learned: [k.id] });
       }
       case 'objective': {
-        const o = {
-          id: nid('G'), title: '0.0.18 发版前清掉已知 bug', origin: m.id,
-          outcome: '已知 bug #1–#3 修复并验证；CI 全绿；可以打 0.0.18 tag',
-          milestones: [{ t: '修复已知 bug #1–#3', sid: null }, { t: 'CI 全绿', sid: null }, { t: '打 tag 发版（对外，需你确认）', sid: null }],
-          watches: ['CI 状态 · 每 30 分钟只读探测', 'develop 有新提交 · 事件'],
-          autonomy: 'propose', lastObs: null, log: ['项目代理立下目标'], ciState: 'green', lastDigestKey: null,
-        };
-        state.objectives.push(o);
-        const s = spawnSession(TPL.bugs(), m.id, { objectiveId: o.id });
-        o.milestones[0].sid = s.id;
-        m.disp = { type: 'spawn', sid: s.id };
-        state.railTab = 'objectives';
-        return postReply({
-          replyTo: [m.id],
-          text: `立了一个目标「${o.title}」，先开一条任务修已知的三个 bug。之后我每 30 分钟只读检查一次 CI，develop 有新提交也会看。发现问题我先告诉你并提出下一步，你点「开始」我再动手。`,
-          sources: [s.id], objective: o.id,
-        });
+        const o = { id: nid('G'), title: '0.0.18 发版前清掉已知 bug', origin: m.id, outcome: '已知 bug 修复并验证；CI 全绿；可以打 tag', milestones: [{ t: '修复已知 bug #1–#3', sid: null }, { t: 'CI 全绿', sid: null }, { t: '打 tag 发版（对外，需你确认）', sid: null }], watches: ['CI 状态 · 每 30 分钟只读探测', 'develop 有新提交 · 事件'], autonomy: 'propose', lastObs: null, lastKey: null };
+        p.objectives.push(o);
+        const s = spawn(TPL.bugs(), `立了目标「${o.title}」，先开一条任务修已知的三个 bug。之后我每 30 分钟只读检查一次 CI，develop 有新提交也会看。发现问题先告诉你、提出下一步，你点「开始」我再动手。`, { objectiveId: o.id });
+        if (s && s.pid) o.milestones[0].sid = s.id;
+        p.railTab = 'objectives';
+        return;
       }
       case 'amend': {
-        const running = pickTarget(scope, ['running', 'needs_user']);
-        if (!running) return spawn(TPL.generic(m.text));
-        running.amendments.push(m.text.replace(/^顺便/, ''));
-        running.log.push({ t: `项目代理并入补充：「${m.text}」`, k: 'a' });
-        m.disp = { type: 'amend', sid: running.id };
-        postReply({ replyTo: [m.id], text: `目标没变，我把这条并进了「${running.title}」，完成标准加一条。`, sources: [running.id] });
-        return;
+        const r = pick(p, scope, ['running', 'needs_user']);
+        if (!r) return spawn(TPL.generic(mp.text));
+        r.amendments.push(mp.text.replace(/^顺便/, '')); r.log.push({ t: `并入补充：「${mp.text}」`, k: 'a' });
+        m.disp = { type: 'amend', sid: r.id };
+        return reply(`目标没变，我把这条并进了「${r.title}」，完成标准加一条。`, { sources: [r.id] });
       }
       case 'supersede': {
-        if (!running) return spawn(/模型/.test(m.text) ? TPL.usageModel() : TPL.generic(m.text));
+        if (!running) return spawn(/模型/.test(mp.text) ? TPL.usageModel() : TPL.generic(mp.text));
         const old = running;
-        const tpl = /模型/.test(m.text) ? TPL.usageModel() : { ...TPL.generic(m.text), inherited: true };
-        const s = spawnSession(tpl, m.id, { supersedes: old.id });
-        clearOwner(old);
-        old.status = 'paused';
-        old.supersededBy = s.id;
-        old.log.push({ t: `被新任务「${s.title}」取代：暂停，分支保留，可恢复`, k: 'a' });
+        const tpl = /模型/.test(mp.text) ? TPL.usageModel() : { ...TPL.generic(mp.text), inherited: true };
+        const s = spawnSession(p, tpl, m.id, { supersedes: old.id, pref: mp.pref });
+        clearOwner(old); old.status = 'paused'; old.supersededBy = s.id;
+        old.log.push({ t: `被「${s.title}」取代：暂停，分支保留，可恢复`, k: 'a' });
         m.disp = { type: 'supersede', old: old.id, sid: s.id };
-        postReply({
-          replyTo: [m.id],
-          text: `目标变了，继续按原来的做是浪费。我停了「${old.title}」，改开「${s.title}」，沿用已经搭好的面板结构。想回到原来的做法，点「恢复原任务」。`,
-          sources: [s.id, old.id],
-        });
-        return;
+        return reply(`目标变了，继续按原来的做是浪费。我停了「${old.title}」，改开「${s.title}」，沿用已经搭好的结构。想回到原来的做法，点「恢复原任务」。`, { sources: [s.id, old.id], memUsed: s.memUsed });
       }
-      case 'stop': {
-        if (!running) {
-          m.disp = { type: 'answer' };
-          return postReply({ replyTo: [m.id], text: '现在没有在跑的任务。' });
-        }
-        clearOwner(running);
-        running.status = 'cancelled';
-        running.log.push({ t: '按你的要求停止（分支保留）', k: 'a' });
+      case 'stop':
+        if (!running) return answer('现在没有在跑的任务。');
+        clearOwner(running); running.status = 'cancelled'; running.log.push({ t: '按你的要求停止（分支保留）', k: 'a' });
         m.disp = { type: 'stop', sid: running.id };
-        return postReply({ replyTo: [m.id], text: `好，「${running.title}」停了，已改的部分留在分支上。`, sources: [running.id] });
-      }
+        return reply(`好，「${running.title}」停了，已改的部分留在分支上。`, { sources: [running.id] });
       case 'parallel': {
-        const tpl = /登录/.test(m.text) ? TPL.loginCopy() : TPL.generic(m.text.replace(/^另外/, ''));
+        const tpl = /登录/.test(mp.text) ? TPL.loginCopy() : TPL.generic(mp.text.replace(/^另外/, ''));
         return spawn(tpl, `这是另一件事，单独开一条并行做。完成标准：${tpl.criteria.join(' / ')}。`);
       }
       case 'detail': {
-        const s = done || pickTarget(scope, ['accepted', 'result_ready', 'verifying', 'running']);
-        m.disp = { type: 'answer' };
-        if (!s) return postReply({ replyTo: [m.id], text: '还没有完成的任务可以讲细节。' });
+        const s = done || pick(p, scope, ['accepted', 'result_ready', 'verifying', 'running']);
+        if (!s) return answer('还没有完成的任务可以讲细节。');
+        G.detailAsks++;
         const crit = [...s.tpl.criteria, ...s.amendments.map((a) => '补充：' + a)];
         const methods = [...s.tpl.methods, ...s.amendments.map(() => '补充项单测通过')];
-        return postReply({
-          replyTo: [m.id],
-          text: `「${s.title}」的验证：`,
-          sources: [s.id],
-          detail: { crit, methods, files: s.tpl.files, unverified: s.verdict?.unverified || [] },
-        });
+        answer(`「${s.title}」的验证：`, { sources: [s.id], detail: { crit, methods, files: s.tpl.files, unverified: s.verdict?.unverified || [], sel: s.sel } });
+        if (G.detailAsks === 3 && G.learnPrefs && !prefActive(/验证方式/)) {
+          const k = addMem(G.userPrefs, { kind: 'preference', s: '汇报时默认附一行验证方式', trust: 'inferred', source: '你连续 3 次问验证细节' });
+          post(p, { text: '我注意到你连续几次都问验证细节，以后汇报默认附一行验证方式。不需要的话撤销就行。', learned: [k.id], surf: 'message' });
+        }
+        return;
       }
       case 'evidence': {
-        const s = done || pickTarget(scope, ['accepted', 'result_ready']);
-        m.disp = { type: 'answer' };
-        if (!s) return postReply({ replyTo: [m.id], text: '还没有可以给你看的证据。' });
-        return postReply({ replyTo: [m.id], text: `「${s.title}」的证据：`, sources: [s.id], evidence: { sid: s.id } });
+        const s = done || pick(p, scope, ['accepted', 'result_ready']);
+        if (!s) return answer('还没有可以给你看的证据。');
+        return answer(`「${s.title}」的证据：`, { sources: [s.id], evidence: { sid: s.id } });
       }
       case 'wrong': {
-        const s = done || pickTarget(null, ['accepted']);
-        if (!s) return spawn(TPL.generic(m.text));
-        s.log.push({ t: `你说「${m.text}」→ 代理开派生任务修正；原签收记录保留并标 reopened`, k: 'u' });
-        s.reopened = true;
-        const fix = TPL.fix(s.tpl, m.text);
-        return spawn(fix, `收到，我开一条修正任务，挂在「${s.title}」下面。原来的签收记录保留。`, { parentOf: s.id });
+        const s = done || pick(p, null, ['accepted']);
+        if (!s) return spawn(TPL.generic(mp.text));
+        s.reopened = true; s.log.push({ t: `你说「${m.text}」→ 开派生任务修正，原签收记录保留`, k: 'u' });
+        const k = G.memoryOn ? addMem(p.memory, { kind: 'pitfall', s: `「${s.title}」曾漏掉：${shorten(m.text.replace(/^不对[，,]?/, ''), 20)}`, trust: 'stated', source: '你的纠正', tags: s.tpl.tags }) : null;
+        for (const id of s.memUsed) { const x = memById(p, id); if (x) x.harmful = (x.harmful || 0) + 1; }
+        return spawn(TPL.fix(s.tpl, m.text), `收到，开一条修正任务挂在「${s.title}」下面，原来的签收记录保留。这个坑我记下了。`, { parentOf: s.id, learnedFix: k?.id });
       }
-      case 'release':
-        return spawn(TPL.release(), '在准备。发布是对外操作，草稿好了会先给你确认，不会自动发。');
-      case 'usage':
-        return spawn(TPL.usageDay());
+      case 'release': p.usedRelease = true; return spawn(TPL.release(), '在准备。发布是对外操作，草稿好了会先给你确认，不会自动发。');
+      case 'usage': return spawn(TPL.usageDay());
       case 'question': {
-        m.disp = { type: 'answer' };
-        let a = '这个我读了代码直接回答：';
-        if (/图表/.test(m.text)) a = '用的是 recharts 2.12（apps/desktop/renderer/package.json），面板在 UsageStatsPanel.tsx。';
-        else if (running) a = `「${running.title}」正在${phaseName(running.phase)}，进度约 ${running.progress}%。这个问题不影响它。`;
-        else a = '（Demo）这类问题代理用只读能力直接回答，不开任务。';
-        return postReply({ replyTo: [m.id], text: a });
+        if (/图表/.test(mp.text)) return answer('用的是 recharts 2.12（apps/desktop/renderer/package.json），面板在 UsageStatsPanel.tsx。');
+        if (/评测集/.test(mp.text)) return answer('目前有 3 个：humaneval-lite、swe-mini、tool-use-basic（evals/ 下，模拟）。');
+        if (running) return answer(`「${running.title}」正在推进，进度约 ${running.progress}%。这个问题不影响它。`);
+        return answer('（Demo）这类问题代理用只读能力直接回答，不开任务。');
       }
-      default:
-        return spawn(TPL.generic(m.text));
+      default: return spawn(TPL.generic(mp.text));
     }
   }
 
-  function phaseName(p) {
-    return { orient: '理解目标', inspect: '探查代码', act: '修改与运行', verify: '验证' }[p] || p;
+  function onSend(text) {
+    const p = P(); text = text.trim();
+    if (!p || !text || !G.models.length) return;
+    if (!p.bootstrapped) { toast('代理正在熟悉项目，稍等几秒'); return; }
+    const quote = p.quote; p.quote = null;
+    const m = addMsg(p, { role: 'user', text, quote });
+    p.busy++; render(true);
+    later(900, () => { p.busy--; triage(p, m); render(true); });
   }
 
-  function onUserSend(text) {
-    text = text.trim();
-    if (!text) return;
-    const quote = state.quote;
-    state.quote = null;
-    const m = addMsg({ role: 'user', text, quote });
-    if (/发布|release/i.test(text)) state.usedReleaseSuggestion = true;
-    state.busy++;
-    render(true);
-    later(1000, () => {
-      state.busy--;
-      triage(m);
-      render(true);
-    });
+  // ================================================================
+  // 渲染：侧栏
+  // ================================================================
+  const needCount = (p) => p.sessions.filter((s) => ['needs_user', 'result_ready'].includes(s.status)).length;
+  function renderSidebar() {
+    const projs = G.projects.map((p) => {
+      const run = p.sessions.filter((s) => ACTIVE.includes(s.status)).length;
+      const n = needCount(p);
+      return `<div class="proj ${p.id === G.active ? 'on' : ''}" data-proj="${p.id}"><span class="name">${esc(p.name)}</span>${n ? `<span class="badge">${n}</span>` : ''}
+        <span class="meta">${run ? `<span class="spin"></span>推进中 ${run} 条` : p.bootstrapped ? '代理空闲' : '代理就位中'}${p.modelScope === 'local' ? ' · 只用本地模型' : ''}</span></div>`;
+    }).join('');
+    const total = G.projects.reduce((a, p) => a + needCount(p), 0);
+    $('#sidebar').innerHTML = `<div class="brand"><span class="brand-mark">P</span>Peer</div>
+      <div class="group-title">项目 ${G.models.length ? '<button data-add-project="1">+ 添加</button>' : ''}</div>
+      ${projs || '<div class="empty-rail" style="padding:6px 8px">还没有项目</div>'}
+      <div class="side-foot">
+        <div class="side-item" data-inbox="1">需要你<span class="spacer"></span>${total ? `<span class="badge">${total}</span>` : '<span class="badge soft">0</span>'}</div>
+        <div class="side-item" data-settings="models">设置 · 模型与分工</div>
+      </div>`;
   }
 
-  // ------------------------------------------------------------------
-  // Render helpers
-  // ------------------------------------------------------------------
+  // ================================================================
+  // 渲染：主区
+  // ================================================================
+  const TRUST = { verified: '已验证', stated: '你说的', inferred: '推断' };
   function statusChip(s, withTitle = true) {
     const t = withTitle ? ` · ${esc(s.title)}` : '';
     switch (s.status) {
@@ -949,437 +852,457 @@
       case 'verifying': return `<span class="chip run"><span class="spin"></span>验证中${t}</span>`;
       case 'needs_user': return `<span class="chip need"><span class="ico-bang">!</span>需要你${t}</span>`;
       case 'result_ready': return `<span class="chip need"><span class="ico-bang">!</span>需要你确认${t}</span>`;
-      case 'accepted': return s.acceptedBy === 'user'
-        ? `<span class="chip ok"><span class="ico-square"></span>已签收（你确认）</span>`
-        : `<span class="chip ok"><span class="ico-square"></span>已完成 · 已验证</span>`;
-      case 'paused': return s.supersededBy
-        ? `<span class="chip muted"><span class="ico-ring"></span>已被新消息取代</span>`
-        : `<span class="chip muted"><span class="ico-ring"></span>已暂停</span>`;
+      case 'accepted': return s.acceptedBy === 'user' ? `<span class="chip ok"><span class="ico-square"></span>已签收（你确认）</span>` : `<span class="chip ok"><span class="ico-square"></span>已完成 · 已验证</span>`;
+      case 'paused': return `<span class="chip muted"><span class="ico-ring"></span>${s.supersededBy ? '已被新消息取代' : '已暂停'}</span>`;
       case 'cancelled': return `<span class="chip muted"><span class="ico-ring"></span>已停止</span>`;
       default: return '';
     }
   }
-
-  function verdictChip(s, short = false) {
+  function verdictChip(s, short) {
     if (!s || !s.verdict) return '';
     const v = s.verdict;
     if (v.outcome === 'passed') return `<span class="chip ok click" data-open-session="${s.id}"><span class="ico-square"></span>已验证 ${v.passed}/${v.total}</span>`;
-    const gap = !short && v.unverified.length ? '：' + esc(v.unverified[0]) : '';
-    return `<span class="chip warn click" data-open-session="${s.id}"><span class="ico-half"></span>部分验证 ${v.passed}/${v.total}${gap}</span>`;
+    return `<span class="chip warn click" data-open-session="${s.id}"><span class="ico-half"></span>部分验证 ${v.passed}/${v.total}${!short && v.unverified.length ? '：' + esc(v.unverified[0]) : ''}</span>`;
   }
-
-  function dispositionHtml(m) {
+  function dispHtml(p, m) {
     const d = m.disp;
+    const S = (id) => p.sessions.find((x) => x.id === id);
     if (!d) return `<span class="chip muted"><span class="spin"></span>代理接住中…</span>`;
     if (d.type === 'answer') return `<span class="chip muted">已回复</span>`;
-    if (d.type === 'spawn') { const s = S(d.sid); return s ? statusChip(s) : ''; }
-    if (d.type === 'amend') { const s = S(d.sid); return `<span class="chip">已并入「${esc(s.title)}」</span>${statusChip(s, false)}`; }
-    if (d.type === 'stop') { const s = S(d.sid); return `<span class="chip muted">已停掉「${esc(s.title)}」</span>`; }
+    if (d.type === 'spawn') return statusChip(S(d.sid));
+    if (d.type === 'amend') return `<span class="chip">已并入「${esc(S(d.sid).title)}」</span>${statusChip(S(d.sid), false)}`;
+    if (d.type === 'stop') return `<span class="chip muted">已停掉「${esc(S(d.sid).title)}」</span>`;
     if (d.type === 'supersede') {
       const old = S(d.old), nw = S(d.sid);
-      const suffix = old.status === 'paused' && old.supersededBy
-        ? ` · <span class="link" data-restore="${old.id}">恢复原任务</span>`
-        : (old.restored ? ' · 原任务已恢复' : '');
-      return `<span class="chip">已停掉「${esc(old.title)}」，改开「${esc(nw.title)}」${suffix}</span>${statusChip(nw, false)}`;
+      const suf = old.status === 'paused' && old.supersededBy ? ` · <span class="link" data-restore="${old.id}">恢复原任务</span>` : old.restored ? ' · 原任务已恢复' : '';
+      return `<span class="chip">已停掉「${esc(old.title)}」，改开「${esc(nw.title)}」${suf}</span>${statusChip(nw, false)}`;
     }
     return '';
   }
-
-  function cardHtml(c) {
-    if (c.type === 'propose') {
-      const o = O(c.oid);
-      if (!o) return '';
-      if (o.proposalResolved) return `<div class="card resolved"><div class="ct"><b>${o.proposalResolved === 'started' ? '已开始修复' : '先不修'}</b>目标「${esc(o.title)}」</div></div>`;
-      return `<div class="card"><div class="ct"><b>下一步：开任务修 CI</b>目标「${esc(o.title)}」· 自主档位「提议」，你点了才动手</div>
-        <button class="btn primary" data-propose-yes="${o.id}">开始</button><button class="btn" data-propose-no="${o.id}">先不用</button></div>`;
+  function cardHtml(p, c, m) {
+    const S = (id) => p.sessions.find((x) => x.id === id);
+    if (c.type === 'question') {
+      if (p.answered) return `<div class="card resolved"><div class="ct"><b>已记住</b>${esc(p.preset.question.mem(p.answered))}</div></div>`;
+      return `<div class="card"><div class="ct"><b>${esc(p.preset.question.q)}</b>回答会记进项目记忆（你说的）</div>${p.preset.question.options.map((o) => `<button class="btn" data-answer="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;
     }
-    const s = S(c.sid);
-    if (!s) return '';
+    if (c.type === 'vision') {
+      if (m.visionResolved) return `<div class="card resolved"><div class="ct"><b>${m.visionResolved === 'allow' ? '已允许本项目用 ' + esc(mname(c.vt)) + ' 做视觉复核' : '已跳过视觉复核'}</b></div></div>`;
+      return `<div class="card"><div class="ct"><b>视觉复核怎么办？</b>项目范围只能由你放宽</div>
+        <button class="btn primary" data-vision="allow" data-mid="${m.id}">允许本项目用 ${esc(mname(c.vt))} 做视觉复核</button>
+        <button class="btn" data-vision="skip" data-mid="${m.id}">跳过视觉复核（结论会标部分验证）</button></div>`;
+    }
+    if (c.type === 'propose') {
+      const o = p.objectives.find((x) => x.id === c.oid);
+      if (o.proposalResolved) return `<div class="card resolved"><div class="ct"><b>${o.proposalResolved === 'started' ? '已开始修复' : '先不修'}</b></div></div>`;
+      return `<div class="card"><div class="ct"><b>下一步：开任务修 CI</b>自主档位「提议」：你点了才动手</div><button class="btn primary" data-propose="yes" data-oid="${o.id}">开始</button><button class="btn" data-propose="no" data-oid="${o.id}">先不用</button></div>`;
+    }
+    const s = S(c.sid); if (!s) return '';
     if (c.type === 'needs') {
-      if (s.needs?.resolved) {
-        return `<div class="card resolved"><div class="ct"><b>运行 pnpm test</b>${s.needs.result === 'allowed' ? '已允许（在任务里或这里批准的是同一条请求）' : '已拒绝'}</div></div>`;
-      }
-      return `<div class="card"><div class="ct"><b>需要你：运行 pnpm test</b>任务「${esc(s.title)}」要跑测试来验证改动</div>
-        <button class="btn primary" data-allow="${s.id}">允许</button><button class="btn" data-deny="${s.id}">拒绝</button></div>`;
+      if (s.needs?.resolved) return `<div class="card resolved"><div class="ct"><b>运行测试</b>${s.needs.result === 'allowed' ? '已允许（同一条请求）' : '已拒绝'}</div></div>`;
+      return `<div class="card"><div class="ct"><b>需要你：运行测试</b>任务「${esc(s.title)}」要跑测试验证改动</div><button class="btn primary" data-allow="${s.id}">允许</button><button class="btn" data-deny="${s.id}">拒绝</button></div>`;
     }
     if (c.type === 'confirm') {
-      if (s.status === 'accepted') return `<div class="card resolved"><div class="ct"><b>已确认</b>你确认了这项结果（acceptedBy: user）</div></div>`;
-      if (s.reopened) return `<div class="card resolved"><div class="ct"><b>已打回</b>代理开了修正任务</div></div>`;
-      const why = s.tpl.external ? '对外发布' : '验证没完全过线';
-      return `<div class="card"><div class="ct"><b>需要你确认：${why}</b>${s.verdict.unverified.length ? '没验证的：' + esc(s.verdict.unverified.join('；')) : ''}</div>
-        <button class="btn primary" data-confirm="${s.id}">确认</button><button class="btn" data-reject="${s.id}">不对</button></div>`;
+      if (s.status === 'accepted') return `<div class="card resolved"><div class="ct"><b>已确认</b>acceptedBy: user</div></div>`;
+      if (s.reopened) return `<div class="card resolved"><div class="ct"><b>已打回</b>开了修正任务</div></div>`;
+      return `<div class="card"><div class="ct"><b>需要你确认：${s.tpl.external ? '对外发布' : '验证没完全过线'}</b>${s.verdict.unverified.length ? '没验证的：' + esc(s.verdict.unverified.join('；')) : ''}</div><button class="btn primary" data-confirm="${s.id}">确认</button><button class="btn" data-reject="${s.id}">不对</button></div>`;
     }
     return '';
   }
-
-  function actionHtml(a) {
-    const s = S(a.sid);
-    if (!s || a.type !== 'merge') return '';
-    if (s.merged) return `<span class="chip muted"><span class="ico-square"></span>已合入 develop · ${s.mergeSha}</span>`;
-    if (s.status !== 'accepted') return '';
-    return `<span class="chip click" data-merge="${s.id}">合入 develop</span>`;
-  }
-
-  function sourcesHtml(ids) {
-    if (!ids || !ids.length) return '';
-    return ids.map((id) => { const s = S(id); return s ? `<span class="chip click" data-open-session="${id}">来源：${esc(s.title)}</span>` : ''; }).join('');
-  }
-
-  function msgHtml(m) {
-    if (m.role === 'system') {
-      return `<div class="row agent" id="${m.id}"><div class="who">项目代理</div><div class="bubble">${esc(m.text)}</div></div>`;
-    }
+  function msgHtml(p, m) {
+    const S = (id) => p.sessions.find((x) => x.id === id);
     if (m.role === 'user') {
-      const q = m.quote ? M(m.quote) : null;
-      return `<div class="row user" id="${m.id}">
-        <div class="who"><button class="quote-btn" data-quote="${m.id}">引用</button>你</div>
-        <div class="bubble">${q ? `<div class="user-quote">引用：${esc(shorten(q.text, 40))}</div>` : ''}${esc(m.text)}</div>
-        <div class="under">${dispositionHtml(m)}</div>
-      </div>`;
+      const q = m.quote ? M(p, m.quote) : null;
+      return `<div class="row user" id="${m.id}"><div class="who"><button class="quote-btn" data-quote="${m.id}">引用</button>你</div>
+        <div class="bubble">${q ? `<div class="user-quote">引用：${esc(shorten(q.text, 40))}</div>` : ''}${esc(m.text)}</div><div class="under">${dispHtml(p, m)}</div></div>`;
     }
-    const target = m.replyTo && m.replyTo[0] ? M(m.replyTo[0]) : null;
-    const vs = m.verdictOf ? verdictChip(S(m.verdictOf)) : '';
+    const target = m.replyTo?.[0] ? M(p, m.replyTo[0]) : null;
     let detail = '';
     if (m.detail) {
       const d = m.detail;
-      detail = `<ul class="detail-list">${d.crit.map((c, i) => `<li><span class="k">${'①②③④⑤⑥'[i] || '·'}</span><span>${esc(c)} —— ${esc(d.methods[i] || '')}</span></li>`).join('')}</ul>
-        <div style="margin-top:6px">改了 ${d.files.length} 个文件，主要在 ${esc(d.files[0])}。${d.unverified.length ? '没验证的：' + esc(d.unverified.join('；')) + '。' : ''}想看证据就说一声。</div>`;
+      detail = `<ul class="detail-list">${d.crit.map((c, i) => `<li><span>${'①②③④⑤⑥'[i] || '·'}</span><span>${esc(c)} —— ${esc(d.methods[i] || '')}</span></li>`).join('')}</ul>
+        <div style="margin-top:6px">改了 ${d.files.length} 个文件，主要在 ${esc(d.files[0])}。执行 ${esc(mname(d.sel?.worker?.id))}，复核 ${esc(mname(d.sel?.verifier))}${d.sel?.same ? '（同源）' : '（不同源）'}。${d.unverified.length ? '没验证的：' + esc(d.unverified.join('；')) + '。' : ''}想看证据就说一声。</div>`;
     }
     let ev = '';
     if (m.evidence) {
       const s = S(m.evidence.sid);
-      const items = [];
-      if (s.tpl.visual) items.push(['shot', '截图 usage-panel.png']);
-      items.push(['test', s.tpl.needsPermission ? '测试输出 pnpm test' : '检查输出']);
-      items.push(['diff', `diff · ${s.tpl.files.length} 个文件`]);
-      items.push(['report', '验证报告']);
+      const items = [...(s.tpl.visual ? [['shot', '截图 · 视觉复核']] : []), ['test', '测试输出'], ['diff', `diff · ${s.tpl.files.length} 个文件`], ['report', '验证报告']];
       ev = `<div class="under">${items.map(([k, l]) => `<span class="chip click" data-evidence="${k}" data-sid="${s.id}">${esc(l)}</span>`).join('')}</div>`;
     }
-    const objChip = m.objective && O(m.objective) ? `<span class="chip click" data-rail-tab="objectives">目标：${esc(O(m.objective).title)}</span>` : '';
-    const surfChip = m.surf ? `<span class="chip muted">${SURF_LABEL[m.surf]}</span>` : '';
-    const under = [vs, objChip, sourcesHtml(m.sources), ...(m.actions || []).map(actionHtml), surfChip].filter(Boolean).join('');
-    return `<div class="row agent" id="${m.id}">
-      <div class="who">项目代理<button class="quote-btn" data-quote="${m.id}">引用</button></div>
-      <div class="bubble">${target ? `<div class="reply-bar" data-jump="${target.id}">回复「${esc(shorten(target.text, 36))}」</div>` : ''}${esc(m.text)}${detail}${ev}${(m.cards || []).map(cardHtml).join('')}</div>
-      ${under ? `<div class="under">${under}</div>` : ''}
-    </div>`;
+    const chips = [];
+    if (m.verdictOf) chips.push(verdictChip(S(m.verdictOf)));
+    if (m.objective) { const o = p.objectives.find((x) => x.id === m.objective); if (o) chips.push(`<span class="chip click" data-rail-tab="objectives">目标：${esc(o.title)}</span>`); }
+    for (const id of m.sources || []) { const s = S(id); if (s) chips.push(`<span class="chip click" data-open-session="${id}">来源：${esc(s.title)}</span>`); }
+    if (m.memUsed?.length) chips.push(`<span class="chip click" data-mem-list="used" data-mid="${m.id}">参考了 ${m.memUsed.length} 条记忆</span>`);
+    if (m.learned?.length) chips.push(`<span class="chip click" data-mem-list="learned" data-mid="${m.id}">新记住 ${m.learned.length} 条</span>`);
+    for (const a of m.actions || []) { const s = S(a.sid); if (s && a.type === 'merge') chips.push(s.merged ? `<span class="chip muted">已合入 develop · ${s.mergeSha}</span>` : s.status === 'accepted' ? `<span class="chip click" data-merge="${s.id}">合入 develop</span>` : ''); }
+    if (m.surf) chips.push(`<span class="chip muted">送达：${SURF[m.surf]}</span>`);
+    return `<div class="row agent" id="${m.id}"><div class="who">${esc(p.name)} 的代理<button class="quote-btn" data-quote="${m.id}">引用</button></div>
+      <div class="bubble">${target ? `<div class="reply-bar" data-jump="${target.id}">回复「${esc(shorten(target.text, 36))}」</div>` : ''}${esc(m.text)}${detail}${ev}${(m.cards || []).map((c) => cardHtml(p, c, m)).join('')}</div>
+      ${chips.filter(Boolean).length ? `<div class="under">${chips.join('')}</div>` : ''}</div>`;
   }
-
-  function renderThread(scroll) {
-    const el = $('#thread');
-    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
-    el.innerHTML = state.messages.map(msgHtml).join('') +
-      (state.busy > 0 ? `<div class="typing"><span class="dots"><span></span><span></span><span></span></span>项目代理正在思考…</div>` : '');
-    if (scroll || nearBottom) el.scrollTop = el.scrollHeight;
-  }
-
-  function renderStatus() {
-    const running = state.sessions.filter((s) => ACTIVE.includes(s.status)).length;
-    const el = $('#agentStatus');
-    if (state.busy > 0) el.innerHTML = `<span class="spin"></span>思考中`;
-    else if (running) el.innerHTML = `<span class="spin"></span>推进中 · ${running} 条任务`;
-    else el.innerHTML = `<span class="ico-ring"></span>空闲`;
-    $('#digestPill').innerHTML = state.digest.length ? `<span class="digest-pill">今日小结待发 ${state.digest.length} 条</span>` : '';
-  }
-
-  function renderProjects() {
-    const need = state.sessions.filter((s) => ['needs_user', 'result_ready'].includes(s.status)).length;
-    const running = state.sessions.filter((s) => ACTIVE.includes(s.status)).length;
-    $('#projects').innerHTML = `
-      <div class="proj on"><span class="name">Peer-Agent</span>${need ? `<span class="badge">${need}</span>` : ''}
-        <span class="meta">${running ? `<span class="spin"></span>推进中 ${running} 条` : '代理空闲'}</span></div>
-      <div class="proj" data-other="Peer-Knowledge"><span class="name">Peer-Knowledge</span><span class="badge soft">1</span>
-        <span class="meta">1 项需要你确认</span></div>
-      <div class="proj" data-other="deepseek-harness"><span class="name">deepseek-harness</span>
-        <span class="meta">代理空闲</span></div>`;
-  }
-
-  const PHASES = ['orient', 'inspect', 'act', 'verify'];
-  function phasesHtml(s) {
-    const idx = PHASES.indexOf(s.phase);
-    const finished = ['accepted', 'result_ready'].includes(s.status);
-    return `<div class="phases">${PHASES.map((p, i) => `<span class="${finished || i < idx ? 'done' : i === idx ? 'on' : ''}">${p}</span>`).join('')}</div>`;
-  }
-
-  function sessHtml(s) {
-    const dim = ['paused', 'cancelled'].includes(s.status);
-    const extra = s.supersedes ? `<span class="sl">取代「${esc(S(s.supersedes).title)}」</span>`
-      : s.parentOf ? `<span class="sl">修正「${esc(S(s.parentOf).title)}」</span>`
-      : s.objectiveId && O(s.objectiveId) ? `<span class="sl">目标「${esc(O(s.objectiveId).title)}」</span>` : '';
-    return `<div class="sess ${dim ? 'dim' : ''}" data-open-session="${s.id}">
-      <div class="st">${esc(s.title)}</div>
-      <div class="sl">${statusChip(s, false)}${s.verdict ? verdictChip(s, true) : ''}</div>
-      ${extra}
-      ${ACTIVE.includes(s.status) ? `<div class="bar"><i style="width:${s.progress}%"></i></div>${phasesHtml(s)}` : ''}
-    </div>`;
-  }
-
-  function objectiveHtml(o) {
-    const doneN = o.milestones.filter((x) => x.done).length;
-    const ms = o.milestones.map((x) => {
-      const s = x.sid ? S(x.sid) : null;
-      const mark = x.done ? '■' : s && ACTIVE.includes(s.status) ? '◐' : '□';
-      return `<div><span>${mark}</span><span>${esc(x.t)}${s && !x.done ? ` · <span class="link" data-open-session="${s.id}" style="text-decoration:underline;cursor:pointer">${s.title === x.t ? '查看任务' : esc(s.title)}</span>` : ''}</span></div>`;
-    }).join('');
-    const autonomy = { report_only: '只汇报', propose: '提议（点了才动手）', act: '直接动手' }[o.autonomy];
-    const obs = o.lastObs ? `<div class="obs">最近观察：${esc(o.lastObs.text)}<br/><span style="color:var(--graphite-fade)">${SURF_LABEL[o.lastObs.surf]}</span></div>` : '<div class="obs">还没有观察结果</div>';
-    return `<div class="obj">
-      <div class="ot">${esc(o.title)}</div>
-      <div class="oo">达成：${esc(o.outcome)}</div>
-      <div class="rail-group" style="padding:10px 0 2px">里程碑 ${doneN}/${o.milestones.length}</div>
-      <div class="ms">${ms}</div>
-      <div class="rail-group" style="padding:10px 0 2px">检查</div>
-      ${o.watches.map((w) => `<div class="watch"><span class="ico-ring"></span>${esc(w)}</div>`).join('')}
-      <div class="watch"><span class="ico-square"></span>自主档位：${autonomy}</div>
-      ${obs}
-      <div class="sim"><span class="lbl">模拟事件</span>
-        <button data-sim="ci_fail" data-oid="${o.id}">CI 失败</button>
-        <button data-sim="ci_same" data-oid="${o.id}">CI 仍失败（无变化）</button>
-        <button data-sim="dep" data-oid="${o.id}">依赖小版本更新</button>
-        <button data-digest="1">到点：今日小结</button>
-      </div>
-    </div>`;
-  }
-
-  function renderRail() {
-    const rail = $('#rail');
-    if (state.selected) {
-      const s = S(state.selected);
-      if (s) { rail.innerHTML = detailHtml(s); return; }
-      state.selected = null;
+  function suggestions(p) {
+    if (!p.bootstrapped) return [];
+    const act = p.sessions.some((s) => ACTIVE.includes(s.status) && /用量/.test(s.title));
+    const doneAny = p.sessions.some((s) => s.status === 'accepted' && !s.tpl.bootstrap);
+    let items = [];
+    if (act) items = ['顺便把周视图也加上', '算了，不按天，改成按模型分组', '另外把登录页的文案也改一下', '先别弄了'];
+    else if (doneAny) items = ['怎么验证的？', '给我看看证据', '你为什么这么做？', '不对，跨月的时候分组错了'];
+    else items = [...p.preset.suggestions];
+    if (p.name === 'Peer-Agent') {
+      if (!p.usedRelease && doneAny) items.push('把 release notes 发到 GitHub Release');
+      if (!act && !doneAny) items.push('用 GPT 把设置页的用量面板改成按天分组');
+      if (doneAny) items.push('记住：发布前一定让我先看一眼');
+      if (p.objectives.length && p.objectives.some((o) => o.autonomy !== 'act')) items.push('以后 CI 挂了就直接修');
+      if (doneAny && p.modelScope !== 'local') items.push('这个项目只用本地模型');
+      if (p.modelScope === 'local') items.unshift('把设置页的用量面板改成按天分组');
+      if (doneAny) items.push('以后复核都用 GPT');
     }
-    const tabs = `<div class="rail-tabs">
-      <button class="${state.railTab === 'tasks' ? 'on' : ''}" data-rail-tab="tasks">任务 <span class="badge soft">${state.sessions.length}</span></button>
-      <button class="${state.railTab === 'objectives' ? 'on' : ''}" data-rail-tab="objectives">目标 <span class="badge soft">${state.objectives.length}</span></button>
-    </div>`;
-    if (state.railTab === 'objectives') {
-      const body = state.objectives.length
-        ? state.objectives.slice().reverse().map(objectiveHtml).join('')
-        : `<div class="empty-rail">还没有目标。<br/>说一件持续性的事，比如「发 0.0.18 之前把已知 bug 修掉，CI 挂了就告诉我」，代理会立成目标并定时检查。</div>`;
-      rail.innerHTML = `<div class="rail-head">${tabs}</div><div class="rail-body">${body}</div>`;
+    return [...new Set(items)].slice(0, 6);
+  }
+  function renderMain() {
+    const main = $('#main');
+    const p = P();
+    if (!G.models.length) {
+      main.innerHTML = `<div class="gate"><div class="steps"><span class="on">① 接入模型</span><span>② 添加项目</span><span>③ 代理熟悉项目</span></div>
+        <h2>先接入一个模型</h2><p>项目代理要靠模型思考。接入一个就能开始；接入多个时可以在「模型分工」里让不同的事用不同的模型。</p>
+        <button class="btn primary" data-settings="models">接入模型</button></div>`;
       return;
     }
-    const groups = [
-      ['需要你', state.sessions.filter((s) => ['needs_user', 'result_ready'].includes(s.status))],
-      ['进行中', state.sessions.filter((s) => ['running', 'verifying'].includes(s.status))],
-      ['已完成', state.sessions.filter((s) => s.status === 'accepted')],
-      ['已停止 · 被取代', state.sessions.filter((s) => ['paused', 'cancelled'].includes(s.status))],
-    ];
-    const body = state.sessions.length
-      ? groups.filter(([, l]) => l.length).map(([g, l]) => `<div class="rail-group">${g}<span class="badge soft">${l.length}</span></div>${l.slice().reverse().map(sessHtml).join('')}`).join('')
-      : `<div class="empty-rail">还没有任务。<br/>你对代理说要做的事，它会锚定那条消息开任务，这里显示进度和验证结论。</div>`;
+    if (!p) {
+      main.innerHTML = `<div class="gate"><div class="steps"><span>① 接入模型 ✓</span><span class="on">② 添加项目</span><span>③ 代理熟悉项目</span></div>
+        <h2>添加第一个项目</h2><p>选一个项目文件夹。每个项目有自己的项目代理，添加后它会先只读熟悉项目，不改任何东西。</p>
+        <button class="btn primary" data-add-project="1">选择文件夹</button></div>`;
+      return;
+    }
+    const run = p.sessions.filter((s) => ACTIVE.includes(s.status)).length;
+    const status = p.busy > 0 ? '<span class="spin"></span>思考中' : run ? `<span class="spin"></span>推进中 · ${run} 条任务` : '<span class="ico-ring"></span>空闲';
+    const agentModel = resolveRole(p, 'project_agent');
+    const sg = suggestions(p);
+    const qm = p.quote ? M(p, p.quote) : null;
+    main.innerHTML = `<div class="main-head"><div class="t">${esc(p.name)} · 项目代理</div><div class="s">${status}</div>
+        <div class="right">${p.digest.length ? `<span class="digest-pill">今日小结待发 ${p.digest.length} 条</span>` : ''}
+          <span title="项目代理的模型（快档）">${esc(mname(agentModel?.id))}</span>
+          <span>主动性</span><div class="seg" id="dial">${['off', 'low', 'normal', 'high'].map((v) => `<button data-dial="${v}" class="${G.proactivity === v ? 'on' : ''}">${{ off: '关', low: '少', normal: '标准', high: '多' }[v]}</button>`).join('')}</div></div></div>
+      <div class="thread" id="thread">${p.messages.map((m) => msgHtml(p, m)).join('')}${p.busy > 0 ? '<div class="typing"><span class="dots"><span></span><span></span><span></span></span>项目代理正在思考…</div>' : ''}</div>
+      <div class="composer-wrap">
+        ${sg.length ? `<div class="suggest"><span class="lbl">试试</span>${sg.map((t) => `<button class="sg" data-say="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : ''}
+        <div class="composer">${qm ? `<div class="quote-chip">引用：${esc(shorten(qm.text, 48))}<button class="x" data-unquote="1">×</button></div>` : ''}
+          <div class="composer-row"><textarea id="input" rows="1" placeholder="${p.bootstrapped ? '对项目代理说点什么… Enter 发送' : '代理正在熟悉项目，稍等…'}"></textarea><button class="btn primary" id="send">发送</button></div></div>
+        <div class="hint">悬停消息点「引用」可指定插话针对哪件事；右栏看任务、目标和记忆；说「用 GPT 做…」只影响这一次。</div>
+      </div>`;
+  }
+
+  // ================================================================
+  // 渲染：右栏
+  // ================================================================
+  const PH = ['orient', 'inspect', 'act', 'verify'];
+  function phasesHtml(s) {
+    const idx = PH.indexOf(s.phase);
+    return `<div class="phases">${PH.map((x, i) => `<span class="${i < idx ? 'done' : i === idx ? 'on' : ''}">${x}</span>`).join('')}</div>`;
+  }
+  function sessHtml(p, s) {
+    const S = (id) => p.sessions.find((x) => x.id === id);
+    const extra = s.supersedes ? `取代「${esc(S(s.supersedes).title)}」` : s.parentOf ? `修正「${esc(S(s.parentOf).title)}」` : s.objectiveId ? `目标「${esc(p.objectives.find((o) => o.id === s.objectiveId)?.title || '')}」` : s.tpl.bootstrap ? '首次熟悉项目 · 零副作用' : '';
+    return `<div class="sess ${['paused', 'cancelled'].includes(s.status) ? 'dim' : ''}" data-open-session="${s.id}"><div class="st">${esc(s.title)}</div>
+      <div class="sl">${statusChip(s, false)}${verdictChip(s, true)}</div>${extra ? `<div class="sl">${extra}</div>` : ''}
+      ${ACTIVE.includes(s.status) ? `<div class="bar"><i style="width:${s.progress}%"></i></div>${phasesHtml(s)}` : ''}</div>`;
+  }
+  function detailHtml(p, s) {
+    const anchor = M(p, s.anchor);
+    const crit = [...s.tpl.criteria, ...s.amendments.map((a) => '补充：' + a)];
+    const sel = s.sel || {};
+    const memHtml = s.memUsed.map((id) => memById(p, id)).filter(Boolean).map((x) => `<div class="crit"><span class="m">·</span><span>${esc(x.s)} <span class="trust ${x.trust}">${TRUST[x.trust]}</span></span></div>`).join('');
+    const needs = s.status === 'needs_user' && s.needs && !s.needs.resolved ? `<div class="card"><div class="ct"><b>需要你：运行测试</b>和对话里是同一条请求</div><button class="btn primary" data-allow="${s.id}">允许</button></div>` : '';
+    return `<div class="detail"><button class="back" data-back="1">← 返回</button><h3>${esc(s.title)}</h3>
+      <div class="under">${statusChip(s, false)}${verdictChip(s, true)}</div>
+      ${anchor ? `<div class="anchor">锚定：「${esc(shorten(anchor.text, 40))}」</div>` : ''}
+      ${ACTIVE.includes(s.status) ? `<div class="bar"><i style="width:${s.progress}%"></i></div>${phasesHtml(s)}` : ''}${needs}
+      <div class="sec">模型（开任务时冻结）</div>
+      <div class="kv"><span>执行</span><b>${esc(mname(sel.worker?.id))} <span class="tag">${esc(sel.worker?.src || '')}</span></b>
+        ${s.tpl.bootstrap ? '' : `<span>复核</span><b>${esc(mname(sel.verifier))} <span class="tag">${sel.same ? '同源' : '不同源'}</span></b>
+        <span>探查</span><b>${esc(mname(sel.explorer?.id))}</b>
+        ${sel.needVisual ? `<span>视觉复核</span><b>${sel.visual ? esc(mname(sel.visual.id)) : '未做'}</b>` : ''}`}</div>
+      ${crit.length ? `<div class="sec">成功标准</div>${crit.map((c, i) => `<div class="crit ${s.verdict && i < s.verdict.passed ? 'ok' : ''}"><span class="m">${s.verdict && i < s.verdict.passed ? '■' : '□'}</span><span>${esc(c)}</span></div>`).join('')}` : ''}
+      ${memHtml ? `<div class="sec">参考的记忆</div>${memHtml}` : ''}
+      <div class="sec">过程</div><div class="log">${s.log.map((l) => `<div class="${l.k || ''}">${esc(l.t)}</div>`).join('')}</div>
+      ${ACTIVE.includes(s.status) && !s.tpl.bootstrap ? `<div class="sec">直接介入</div><div class="intervene"><input id="intervene" placeholder="对这条任务直接说…" /><button class="btn" data-intervene="${s.id}">发送</button></div>` : ''}</div>`;
+  }
+  function objHtml(p, o) {
+    const S = (id) => p.sessions.find((x) => x.id === id);
+    const ms = o.milestones.map((x) => { const s = x.sid ? S(x.sid) : null; return `<div><span>${x.done ? '■' : s && ACTIVE.includes(s.status) ? '◐' : '□'}</span><span>${esc(x.t)}${s && !x.done ? ` · <span class="link" data-open-session="${s.id}">查看任务</span>` : ''}</span></div>`; }).join('');
+    return `<div class="obj"><div class="ot">${esc(o.title)}</div><div class="oo">达成：${esc(o.outcome)}</div>
+      <div class="rail-group">里程碑 ${o.milestones.filter((x) => x.done).length}/${o.milestones.length}</div><div class="ms">${ms}</div>
+      <div class="rail-group">检查</div>${o.watches.map((w) => `<div class="watch"><span class="ico-ring"></span>${esc(w)}</div>`).join('')}
+      <div class="watch"><span class="ico-square"></span>自主档位：${{ report_only: '只汇报', propose: '提议（点了才动手）', act: '直接动手' }[o.autonomy]} · 探测用 ${esc(mname(resolveRole(p, 'objective_probe')?.id))}</div>
+      <div class="obs">${o.lastObs ? `最近观察：${esc(o.lastObs.text)}<br/><span style="color:var(--graphite-fade)">送达：${SURF[o.lastObs.surf]}</span>` : '还没有观察结果'}</div>
+      <div class="sim"><span class="lbl">模拟事件</span><button data-sim="ci_fail" data-oid="${o.id}">CI 失败</button><button data-sim="ci_same" data-oid="${o.id}">CI 仍失败（无变化）</button><button data-sim="dep" data-oid="${o.id}">依赖小版本更新</button><button data-digest="1">到点：今日小结</button></div></div>`;
+  }
+  function memItemHtml(x, scope) {
+    return `<div class="mem ${x.status === 'revoked' ? 'revoked' : ''}"><div class="ms-t">${esc(x.s)}</div>
+      <div class="ms-m"><span class="trust ${x.trust}">${TRUST[x.trust]}</span><span>来源：${esc(x.source)}</span>${x.uses ? `<span>用过 ${x.uses} 次</span>` : ''}${x.confirmed > 1 ? `<span>验证过 ${x.confirmed} 次</span>` : ''}${x.harmful ? `<span>被纠正 ${x.harmful} 次 · 待复核</span>` : ''}${x.pinned ? '<span>已固定进简报</span>' : ''}</div>
+      <div class="ms-a">${x.status === 'revoked' ? `<span data-mem-act="restore" data-kid="${x.id}" data-scope="${scope}">恢复</span>` : `<span data-mem-act="pin" data-kid="${x.id}" data-scope="${scope}">${x.pinned ? '取消固定' : '固定'}</span><span data-mem-act="revoke" data-kid="${x.id}" data-scope="${scope}">撤销</span>`}</div></div>`;
+  }
+  function memoryTab(p) {
+    if (!G.memoryOn) return '<div class="empty-rail">本项目记忆已关闭（设置 → 记忆）。</div>';
+    const act = p.memory.filter((m) => m.status === 'active');
+    const brief = act.filter((m) => m.pinned).concat(act.filter((m) => !m.pinned)).slice(0, 5);
+    const group = (title, kinds) => { const l = act.filter((m) => kinds.includes(m.kind)); return l.length ? `<div class="rail-group">${title}<span class="badge soft">${l.length}</span></div>${l.map((x) => memItemHtml(x, 'p')).join('')}` : ''; };
+    const prefs = G.userPrefs.filter((m) => m.status === 'active');
+    const revoked = [...p.memory, ...G.userPrefs].filter((m) => m.status === 'revoked');
+    return `<div class="rail-group">项目简报（自动生成）</div><div class="brief">${brief.length ? brief.map((m) => '· ' + esc(m.s)).join('<br/>') : '还没有内容'}</div>
+      ${group('事实与约定', ['fact', 'convention'])}${group('踩过的坑', ['pitfall'])}${group('做法', ['procedure'])}${group('当前局面', ['state'])}
+      ${prefs.length ? `<div class="rail-group">你的偏好（跨项目）<span class="badge soft">${prefs.length}</span></div>${prefs.map((x) => memItemHtml(x, 'u')).join('')}` : ''}
+      ${revoked.length ? `<div class="rail-group">已撤销<span class="badge soft">${revoked.length}</span></div>${revoked.map((x) => memItemHtml(x, G.userPrefs.includes(x) ? 'u' : 'p')).join('')}` : ''}
+      <div class="note">记忆只作为带来源的事实进入模型，不是指令；只能让确认与权限更严，不能更松。</div>`;
+  }
+  function renderRail() {
+    const rail = $('#rail');
+    const p = P();
+    if (!p) { rail.innerHTML = `<div class="rail-head"><div class="rail-tabs"><button class="on">任务</button><button>目标</button><button>记忆</button></div></div><div class="rail-body"><div class="empty-rail">添加项目后，这里显示代理开出的任务、在盯的目标，以及它记住的东西。</div></div>`; return; }
+    if (p.selected) { const s = p.sessions.find((x) => x.id === p.selected); if (s) { rail.innerHTML = `<div class="rail-head"><span style="font-weight:600;font-size:13px">任务现场</span></div><div class="rail-body">${detailHtml(p, s)}</div>`; return; } p.selected = null; }
+    const memN = p.memory.filter((m) => m.status === 'active').length + G.userPrefs.filter((m) => m.status === 'active').length;
+    const tabs = `<div class="rail-tabs">${[['tasks', '任务', p.sessions.length], ['objectives', '目标', p.objectives.length], ['memory', '记忆', memN]].map(([k, l, n]) => `<button class="${p.railTab === k ? 'on' : ''}" data-rail-tab="${k}">${l} <span class="badge soft">${n}</span></button>`).join('')}</div>`;
+    let body = '';
+    if (p.railTab === 'objectives') body = p.objectives.length ? p.objectives.slice().reverse().map((o) => objHtml(p, o)).join('') : '<div class="empty-rail">还没有目标。说一件持续性的事，比如「发 0.0.18 之前把已知 bug 修掉，CI 挂了就告诉我」。</div>';
+    else if (p.railTab === 'memory') body = memoryTab(p);
+    else {
+      const gs = [['需要你', ['needs_user', 'result_ready']], ['进行中', ['running', 'verifying']], ['已完成', ['accepted']], ['已停止 · 被取代', ['paused', 'cancelled']]];
+      body = p.sessions.length ? gs.map(([g, st]) => { const l = p.sessions.filter((s) => st.includes(s.status)); return l.length ? `<div class="rail-group">${g}<span class="badge soft">${l.length}</span></div>${l.slice().reverse().map((s) => sessHtml(p, s)).join('')}` : ''; }).join('') : '<div class="empty-rail">还没有任务。</div>';
+    }
     rail.innerHTML = `<div class="rail-head">${tabs}</div><div class="rail-body">${body}</div>`;
   }
 
-  function detailHtml(s) {
-    const anchor = M(s.anchor);
-    const crit = [...s.tpl.criteria, ...s.amendments.map((a) => '补充：' + a)];
-    const passedN = s.verdict ? s.verdict.passed : 0;
-    const critHtml = crit.map((c, i) => {
-      const ok = s.verdict && i < passedN;
-      return `<div class="crit ${ok ? 'ok' : ''}"><span class="m">${ok ? '■' : '□'}</span><span>${esc(c)}</span></div>`;
-    }).join('');
-    const canIntervene = ACTIVE.includes(s.status) || s.status === 'needs_user';
-    const needs = s.status === 'needs_user' && s.needs && !s.needs.resolved
-      ? `<div class="card"><div class="ct"><b>需要你：运行 pnpm test</b>和代理对话里是同一条请求</div><button class="btn primary" data-allow="${s.id}">允许</button></div>` : '';
-    return `<div class="rail-head"><span class="t">任务现场</span></div>
-      <div class="rail-body"><div class="detail">
-        <button class="back" data-back="1">← 返回任务清单</button>
-        <h3>${esc(s.title)}</h3>
-        <div class="under" style="flex-wrap:wrap">${statusChip(s, false)}${verdictChip(s, true)}</div>
-        ${s.verdict && s.verdict.unverified.length ? `<div style="font-size:12px;color:var(--state-warn);margin-top:6px">没验证的：${esc(s.verdict.unverified.join('；'))}</div>` : ''}
-        ${anchor ? `<div class="anchor">锚定：「${esc(shorten(anchor.text, 40))}」</div>` : ''}
-        ${ACTIVE.includes(s.status) ? `<div class="bar"><i style="width:${s.progress}%"></i></div>${phasesHtml(s)}` : ''}
-        ${needs}
-        <div class="sec">成功标准</div>${critHtml}
-        ${s.tpl.branch ? `<div class="sec">分支</div><div style="font-size:12px;color:var(--graphite-soft);font-family:var(--font-mono)">${esc(s.tpl.branch)} · from develop</div>` : ''}
-        <div class="sec">过程</div>
-        <div class="log">${s.log.map((l) => `<div class="${l.k || ''}">${esc(l.t)}</div>`).join('')}</div>
-        ${canIntervene ? `<div class="sec">直接介入</div><div class="intervene"><input id="intervene" placeholder="对这条任务直接说…" /><button class="btn" data-intervene="${s.id}">发送</button></div>` : ''}
-      </div></div>`;
-  }
-
-  function renderSuggest() {
-    const hasActiveUsage = state.sessions.some((s) => ACTIVE.includes(s.status) && /用量/.test(s.title));
-    const hasDone = state.sessions.some((s) => s.status === 'accepted');
-    const hasAny = state.sessions.length > 0;
-    let items = [];
-    if (!hasAny) items = ['把设置页的用量面板改成按天分组', '现在用的是哪个图表库？'];
-    if (hasActiveUsage) items = ['顺便把周视图也加上', '算了，不按天，改成按模型分组', '另外把登录页的文案也改一下', '先别弄了'];
-    else if (hasDone) items = ['怎么验证的？', '给我看看证据', '不对，跨月的时候分组错了'];
-    if (!state.usedReleaseSuggestion && hasAny) items.push('把 release notes 发到 GitHub Release');
-    if (!hasAny) items.push('把 release notes 发到 GitHub Release');
-    if (!state.objectives.length) items.push('发 0.0.18 之前把已知 bug 修掉，CI 挂了就告诉我');
-    else {
-      if (state.objectives.some((o) => o.autonomy !== 'act')) items.push('以后 CI 挂了就直接修');
-      items.push(state.proactivity === 'low' ? '多提醒我一点' : '少打扰点');
+  // ================================================================
+  // 渲染：弹层（设置 / 选文件夹 / 证据 / 记忆列表 / 收件箱）
+  // ================================================================
+  function settingsHtml() {
+    const p = P();
+    const tab = G.settingsTab;
+    let body = '';
+    if (tab === 'models') {
+      body = `<div class="note">接入方式可以是 API Key、订阅登录或本机 CLI（此处模拟，一键接入）。</div>
+        <table class="tb"><tr><th>模型</th><th>来源</th><th>能力</th><th></th></tr>
+        ${CATALOG.map((c) => `<tr><td>${esc(c.name)}</td><td>${esc(c.family)}</td><td>${c.vision ? '<span class="tag">能看图</span>' : ''}${c.local ? '<span class="tag">本地</span>' : ''}<span class="tag">工具调用</span></td>
+          <td>${G.models.includes(c.id) ? `<button class="btn" data-model-remove="${c.id}">移除</button>` : `<button class="btn primary" data-model-add="${c.id}">接入</button>`}</td></tr>`).join('')}</table>
+        ${G.models.length === 1 ? `<div class="note">只接入了一个模型：强 / 快 / 省 / 视觉四个档位都指向 ${esc(mname(G.models[0]))}，所有角色都用它。</div>` : ''}`;
+    } else if (tab === 'routing') {
+      const opt = (sel, allowAuto, tierDefault) => {
+        const opts = [];
+        if (tierDefault) opts.push(`<option value="${tierDefault}" ${sel === tierDefault ? 'selected' : ''}>跟随「${TIERS.find((t) => t[0] === tierDefault.slice(5))[1]}」档（${esc(mname(G.tiers[tierDefault.slice(5)]))}）</option>`);
+        for (const id of G.models) opts.push(`<option value="model:${id}" ${sel === 'model:' + id ? 'selected' : ''}>固定：${esc(mname(id))}</option>`);
+        if (allowAuto) opts.push(`<option value="auto" ${sel === 'auto' ? 'selected' : ''}>自动（代理在已接入模型里按难度挑）</option>`);
+        return opts.join('');
+      };
+      body = G.models.length ? `<div class="sec" style="margin-top:0">档位</div>
+        <table class="tb"><tr><th>档位</th><th>用途</th><th>模型</th></tr>${TIERS.map(([k, l, d]) => `<tr><td><b>${l}</b></td><td>${d}</td><td><select data-tier="${k}">${G.models.filter((id) => k !== 'vision' || MD(id).vision).map((id) => `<option value="${id}" ${G.tiers[k] === id ? 'selected' : ''}>${esc(mname(id))}</option>`).join('') || '<option>没有能看图的模型</option>'}</select></td></tr>`).join('')}</table>
+        <div style="margin:8px 0"><button class="btn" data-recommend="1">按推荐分配档位</button></div>
+        <div class="sec">角色</div>
+        <table class="tb"><tr><th>角色</th><th>要求</th><th>用什么</th></tr>${ROLES.map(([k, l, d, req]) => `<tr><td>${l}</td><td style="color:var(--graphite-fade)">${req}</td><td><select data-role="${k}">${opt(G.roles[k], k !== 'visual_verifier', d)}</select></td></tr>`).join('')}</table>
+        ${p ? `<div class="sec">本项目（${esc(p.name)}）的模型范围</div><select data-scope="1"><option value="all" ${p.modelScope === 'all' ? 'selected' : ''}>全部已接入模型</option><option value="local" ${p.modelScope === 'local' ? 'selected' : ''}>只用本地模型</option></select>
+          <div class="note">项目范围只能在全局基础上收紧；故障切换也不会越出范围。范围内没有合适模型时，代理会告诉你，而不是悄悄换。</div>` : ''}
+        <div class="note">独立复核优先用与执行模型不同源的模型；没有第二家时用同一个模型，但开独立上下文并标明「同源」。任务开出时模型就定下，中途不自动换。</div>`
+        : '<div class="note">先在「模型」里接入至少一个模型。</div>';
+    } else if (tab === 'proactivity') {
+      body = `<div class="sec" style="margin-top:0">主动性档位</div><div class="seg">${['off', 'low', 'normal', 'high'].map((v) => `<button data-dial="${v}" class="${G.proactivity === v ? 'on' : ''}">${{ off: '关', low: '少', normal: '标准', high: '多' }[v]}</button>`).join('')}</div>
+        <table class="tb" style="margin-top:12px"><tr><th>情况</th><th>怎么送达</th></tr>
+          <tr><td>需要你批准 / 确认 / 拍板的失败</td><td>永远推送（不受档位影响）</td></tr>
+          <tr><td>你让它做的事完成了</td><td>一定回你；标准 / 多：推送；关 / 少：只进对话</td></tr>
+          <tr><td>它自己发现的事，但和上次一样</td><td>不打扰</td></tr>
+          <tr><td>它自己发现的紧急情况</td><td>推送</td></tr>
+          <tr><td>它自己发现的一般情况</td><td>关：不打扰；少 / 标准：进今日小结；多：进对话</td></tr></table>
+        <div style="margin-top:12px"><label><input type="checkbox" data-quiet="1" ${G.quietHours ? 'checked' : ''}/> 免打扰时段 22:00–08:00（推送降为只进对话，临近截止的风险除外）</label></div>`;
+    } else if (tab === 'memory') {
+      body = `<label style="display:block;margin-bottom:10px"><input type="checkbox" data-mem-on="1" ${G.memoryOn ? 'checked' : ''}/> 启用记忆（关闭后不再写入也不再使用；已有记忆保留）</label>
+        <label style="display:block;margin-bottom:10px"><input type="checkbox" data-learn="1" ${G.learnPrefs ? 'checked' : ''}/> 从我的习惯里学偏好（同类现象 3 次才生效，生效时告诉我）</label>
+        <div class="note">记忆存在本机 ~/.peer-agent/memory/，不写进代码仓，不上云。已验证的事实和你亲口说的自动生效；密钥等敏感信息、想放宽权限的内容、来自网页或文件里的「以后都这样做」一律不记。</div>
+        <button class="btn" data-export="1">导出记忆</button>`;
     }
-    $('#suggest').innerHTML = `<span class="lbl">试试</span>` + items.map((t) => `<button class="sg" data-say="${esc(t)}">${esc(t)}</button>`).join('');
+    return `<div class="sheet-head">设置<button class="btn ghost x" data-close="1">完成</button></div>
+      <div class="stabs">${[['models', '模型'], ['routing', '模型分工'], ['proactivity', '主动性'], ['memory', '记忆']].map(([k, l]) => `<button class="${tab === k ? 'on' : ''}" data-stab="${k}">${l}</button>`).join('')}</div>
+      <div class="sheet-body">${body}</div>`;
   }
-
-  function renderQuote() {
-    const q = state.quote ? M(state.quote) : null;
-    $('#quoteSlot').innerHTML = q ? `<div class="quote-chip">引用：${esc(shorten(q.text, 48))}<button class="x" data-unquote="1">×</button></div>` : '';
+  function pickerHtml() {
+    const left = Object.keys(PRESETS).filter((n) => !G.projects.some((p) => p.name === n));
+    return `<div class="sheet-head">选择项目文件夹<button class="btn ghost x" data-close="1">取消</button></div><div class="sheet-body">
+      ${left.length ? left.map((n) => `<div class="picker-item" data-pick="${esc(n)}"><div><div style="font-weight:600">${esc(n)}</div><div class="pp">${esc(PRESETS[n].path)}</div></div></div>`).join('') : '<div class="note">演示用的三个文件夹都已添加。</div>'}
+      <div class="note">添加后生成稳定的项目 id（记忆与目标都挂在它上面），项目代理自动就位，先只读熟悉项目。</div></div>`;
+  }
+  function evidenceHtml(kind, sid) {
+    const p = P(); const s = p.sessions.find((x) => x.id === sid);
+    const byModel = /模型/.test(s.title);
+    let title = '', body = '';
+    if (kind === 'shot') {
+      title = `截图 · 视觉复核（${mname(s.sel?.visual?.id)}）`;
+      const h = [42, 68, 55, 90, 74, 38, 61];
+      const lbl = byModel ? ['GPT', 'Opus', 'Sonnet', 'Gemini', 'DeepSeek', 'Qwen', 'GLM'] : ['09-19', '09-20', '09-21', '09-22', '09-23', '09-24', '09-25'];
+      body = `<div class="shot"><div style="font-weight:600;margin-bottom:10px">用量 · ${byModel ? '按模型' : '按天'}</div><div class="days">${h.map((v) => `<div style="height:${v}%"></div>`).join('')}</div><div class="lbls">${lbl.map((d) => `<span>${d}</span>`).join('')}</div><div class="note">与预期布局对比，差异 0 处（模拟）</div></div>`;
+    } else if (kind === 'test') {
+      title = '测试输出';
+      body = `<pre class="term">$ pnpm --filter @peer-agent/desktop test\n\n ✔ groups usage by local date\n ✔ splits at local midnight (UTC+8)\n ✔ splits at local midnight (UTC-5)\n ✔ keeps totals equal before and after grouping\n …\n ℹ tests 12  ℹ pass 12  ℹ fail 0\n\n$ pnpm typecheck\n ✔ no errors</pre>`;
+    } else if (kind === 'diff') {
+      title = `diff · ${s.tpl.files.length} 个文件`;
+      body = `<div class="diff"><div class="f">${esc(s.tpl.files[0])}</div><div>   const rows = useUsageRows(range);</div><div class="del">-  return &lt;UsageList rows={rows} /&gt;;</div><div class="add">+  const groups = ${byModel ? 'groupUsageByModel(rows, catalog)' : 'groupUsageByLocalDay(rows, tz)'};</div><div class="add">+  return &lt;UsageGroupedChart groups={groups} /&gt;;</div></div>`;
+    } else {
+      title = '验证报告';
+      const crit = [...s.tpl.criteria, ...s.amendments.map((a) => '补充：' + a)];
+      body = `<table class="tb"><tr><th>成功标准</th><th>验证方式</th><th>结果</th></tr>${crit.map((c, i) => `<tr><td>${esc(c)}</td><td>${esc(s.tpl.methods[i] || '补充项单测')}</td><td>${s.verdict && i < s.verdict.passed ? '通过' : '未验证'}</td></tr>`).join('')}</table>
+        <div class="kv" style="margin-top:12px"><span>执行</span><b>${esc(mname(s.sel?.worker?.id))}</b><span>复核</span><b>${esc(mname(s.sel?.verifier))}（${s.sel?.same ? '同源' : '不同源'}）</b><span>签收</span><b>${s.acceptedBy === 'policy' ? '策略代签（结论通过 · 只改任务分支 · 无外部操作）' : s.acceptedBy === 'user' ? '你确认' : '尚未签收'}</b></div>`;
+    }
+    return `<div class="sheet-head">${esc(title)}<button class="btn ghost x" data-close="1">关闭</button></div><div class="sheet-body">${body}</div>`;
+  }
+  function memListHtml(kind, mid) {
+    const p = P(); const m = M(p, mid);
+    const ids = kind === 'used' ? m.memUsed : m.learned;
+    const items = ids.map((id) => memById(p, id)).filter(Boolean);
+    return `<div class="sheet-head">${kind === 'used' ? '这次参考的记忆' : '新记住的'}<button class="btn ghost x" data-close="1">关闭</button></div><div class="sheet-body">
+      ${items.map((x) => memItemHtml(x, G.userPrefs.includes(x) ? 'u' : 'p')).join('')}
+      <div class="note">${kind === 'used' ? '开任务时冻结了这组记忆，任务运行中记忆变化不影响它。' : '可以撤销；撤销后可在右栏「记忆」里恢复。'}</div></div>`;
+  }
+  function inboxHtml() {
+    const rows = [];
+    for (const p of G.projects) for (const s of p.sessions) if (['needs_user', 'result_ready'].includes(s.status)) rows.push(`<div class="picker-item" data-inbox-go="${p.id}" data-sid="${s.id}"><div><div style="font-weight:600">${esc(s.title)}</div><div class="pp">${esc(p.name)} · ${s.status === 'needs_user' ? '需要你批准' : '需要你确认结果'}</div></div></div>`);
+    return `<div class="sheet-head">需要你（跨项目）<button class="btn ghost x" data-close="1">关闭</button></div><div class="sheet-body">${rows.join('') || '<div class="note">现在没有需要你处理的事。</div>'}</div>`;
+  }
+  function renderModal() {
+    const md = $('#modal');
+    if (!G.modal) { md.classList.remove('on'); return; }
+    const [type, a, b] = G.modal;
+    $('#sheet').innerHTML = type === 'settings' ? settingsHtml() : type === 'picker' ? pickerHtml() : type === 'evidence' ? evidenceHtml(a, b) : type === 'memlist' ? memListHtml(a, b) : inboxHtml();
+    md.classList.add('on');
   }
 
   function render(scroll) {
-    renderThread(scroll);
-    renderStatus();
-    renderProjects();
-    renderRail();
-    renderSuggest();
-    renderQuote();
+    const th = $('#thread');
+    const nearBottom = th ? th.scrollHeight - th.scrollTop - th.clientHeight < 140 : true;
+    const focused = document.activeElement?.id === 'input';
+    const draft = $('#input')?.value || '';
+    renderSidebar(); renderMain(); renderRail();
+    if (!G.modal) $('#modal').classList.remove('on');
+    else if (G.modal[0] === 'inbox') renderModal();
+    const nth = $('#thread');
+    if (nth && (scroll || nearBottom)) nth.scrollTop = nth.scrollHeight;
+    const inp = $('#input');
+    if (inp) { inp.value = draft; if (focused) inp.focus(); }
   }
+  function setDial(v) { G.proactivity = v; }
 
-  // ------------------------------------------------------------------
-  // Modal
-  // ------------------------------------------------------------------
-  function openEvidence(kind, sid) {
-    const s = S(sid);
-    let title = '', body = '';
-    if (kind === 'shot') {
-      title = '截图 · usage-panel.png（视觉验证）';
-      const h = [42, 68, 55, 90, 74, 38, 61];
-      const day = /模型/.test(s.title) ? ['GPT-6', 'Opus', 'Sonnet', 'Gemini', 'DeepSeek', 'Qwen', 'GLM'] : ['09-18', '09-19', '09-20', '09-21', '09-22', '09-23', '09-24'];
-      body = `<div class="shot"><div class="h"><span>用量 · ${/模型/.test(s.title) ? '按模型' : '按天'}</span><span style="font-weight:400;color:var(--graphite-fade);font-size:11.5px">本地时区 UTC+8</span></div>
-        <div class="days">${h.map((v) => `<div style="height:${v}%"></div>`).join('')}</div>
-        <div class="lbls">${day.map((d) => `<span>${d}</span>`).join('')}</div>
-        <div class="cap">视觉验证：与预期布局对比，差异 0 处（模拟）</div></div>`;
-    } else if (kind === 'test') {
-      title = s.tpl.needsPermission ? '测试输出 · pnpm test' : '检查输出';
-      body = `<pre class="term">$ pnpm --filter @peer-agent/desktop test -- ${esc(s.tpl.files.find((f) => /test/.test(f)) || 'related')}
-
- ✔ groups usage by local date (4ms)
- ✔ splits at local midnight for UTC+8 (2ms)
- ✔ splits at local midnight for UTC-5 (2ms)
- ✔ keeps totals equal before and after grouping (1ms)
- ✔ renders empty days as zero bars (3ms)
- …
- ℹ tests 12  ℹ pass 12  ℹ fail 0
- ℹ duration_ms 418
-
-$ pnpm typecheck
- ✔ no errors</pre>`;
-    } else if (kind === 'diff') {
-      title = `diff · ${s.tpl.files.length} 个文件`;
-      body = `<div class="diff">
-        <div class="f">apps/desktop/renderer/src/settings/${esc(s.tpl.files[0])}</div>
-        <div>   const rows = useUsageRows(range);</div>
-        <div class="del">-  return &lt;UsageList rows={rows} /&gt;;</div>
-        <div class="add">+  const groups = ${/模型/.test(s.title) ? 'groupUsageByModel(rows, catalog)' : 'groupUsageByLocalDay(rows, tz)'};</div>
-        <div class="add">+  return &lt;UsageGroupedChart groups={groups} /&gt;;</div>
-        <div class="f">${esc(s.tpl.files[1] || '')}</div>
-        <div class="add">+export function ${/模型/.test(s.title) ? 'groupUsageByModel(rows, catalog)' : 'groupUsageByLocalDay(rows, tz)'} {</div>
-        <div class="add">+  // …（模拟）</div>
-        <div class="add">+}</div>
-      </div>`;
-    } else if (kind === 'report') {
-      title = '验证报告（复用已有的自动验收报告）';
-      const crit = [...s.tpl.criteria, ...s.amendments.map((a) => '补充：' + a)];
-      body = `<div class="report"><table>
-        <tr><th>成功标准</th><th>验证方式</th><th>结果</th></tr>
-        ${crit.map((c, i) => `<tr><td>${esc(c)}</td><td>${esc(s.tpl.methods[i] || '补充项单测')}</td><td>${s.verdict && i < s.verdict.passed ? '通过' : '未验证'}</td></tr>`).join('')}
-      </table>
-      <p style="font-size:12px;color:var(--graphite-fade);margin-top:12px">签收：${s.acceptedBy === 'policy' ? '策略代签（结论通过 · 副作用只在任务分支 · 无外部操作）' : s.acceptedBy === 'user' ? '你确认' : '尚未签收'}</p></div>`;
-    }
-    $('#sheet').innerHTML = `<div class="sheet-head">${esc(title)}<button class="btn ghost x" data-close="1">关闭</button></div><div class="sheet-body">${body}</div>`;
-    $('#modal').classList.add('on');
+  // ================================================================
+  // 事件
+  // ================================================================
+  function addProject(name) {
+    const p = newProject(name);
+    G.projects.push(p); G.active = p.id; G.modal = null;
+    render(true);
+    later(500, () => startBootstrap(p));
   }
-
-  function toast(t) {
-    const el = $('#toast');
-    el.textContent = t;
-    el.classList.add('on');
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => el.classList.remove('on'), 2200);
-  }
-
-  // ------------------------------------------------------------------
-  // Events
-  // ------------------------------------------------------------------
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-say],[data-quote],[data-unquote],[data-allow],[data-deny],[data-confirm],[data-reject],[data-merge],[data-open-session],[data-back],[data-restore],[data-evidence],[data-close],[data-jump],[data-intervene],[data-other],[data-rail-tab],[data-sim],[data-digest],[data-propose-yes],[data-propose-no],[data-dial]');
-    if (!t) { if (e.target.id === 'modal') $('#modal').classList.remove('on'); return; }
-    const d = t.dataset;
-    if (d.railTab) { state.railTab = d.railTab; state.selected = null; renderRail(); return; }
-    if (d.sim) { simulateSignal(d.oid, d.sim); return; }
-    if (d.digest) { flushDigest(); return; }
-    if (d.proposeYes) { acceptProposal(d.proposeYes, true); return; }
-    if (d.proposeNo) { acceptProposal(d.proposeNo, false); return; }
-    if (d.dial) { setDial(d.dial); toast(`主动性：${DIAL_LABEL[d.dial]}（需要你批准 / 确认的事不受影响）`); renderSuggest(); return; }
-    if (d.say) { onUserSend(d.say); return; }
-    if (d.quote) { state.quote = d.quote; renderQuote(); $('#input').focus(); return; }
-    if (d.unquote) { state.quote = null; renderQuote(); return; }
-    if (d.allow) { resolveNeeds(d.allow, true); return; }
-    if (d.deny) { resolveNeeds(d.deny, false); return; }
-    if (d.confirm) {
-      const s = S(d.confirm);
-      s.status = 'accepted'; s.acceptedBy = 'user';
-      s.log.push({ t: '你确认了结果（acceptedBy: user）', k: 'u' });
-      render(); toast('已确认 · 签收记录 acceptedBy: user'); return;
-    }
-    if (d.reject) {
-      const s = S(d.reject);
-      const m = addMsg({ role: 'user', text: '不对，先别发，发布页的截图要补上' });
-      s.reopened = true; s.status = 'cancelled';
-      s.log.push({ t: '你打回了结果', k: 'u' });
-      render(true);
-      state.busy++;
-      later(900, () => { state.busy--; const fix = TPL.fix(s.tpl, '补上发布页截图'); fix.outcome = 'confirm'; fix.external = true; fix.verdict = null;
-        const ns = spawnSession(fix, m.id, { parentOf: s.id }); m.disp = { type: 'spawn', sid: ns.id };
-        postReply({ replyTo: [m.id], text: '收到，先不发。我开一条修正任务补发布页截图，好了再给你确认。', sources: [ns.id] }); render(true); });
+    if (e.target.id === 'modal') { G.modal = null; renderModal(); return; }
+    const t = e.target.closest('[data-say],[data-quote],[data-unquote],[data-allow],[data-deny],[data-confirm],[data-reject],[data-merge],[data-open-session],[data-back],[data-restore],[data-evidence],[data-close],[data-jump],[data-intervene],[data-rail-tab],[data-sim],[data-digest],[data-propose],[data-dial],[data-settings],[data-stab],[data-model-add],[data-model-remove],[data-recommend],[data-add-project],[data-pick],[data-proj],[data-answer],[data-mem-list],[data-mem-act],[data-inbox],[data-inbox-go],[data-export],[data-vision]');
+    if (!t) return;
+    const d = t.dataset; const p = P();
+    if (d.settings) { G.modal = ['settings']; G.settingsTab = d.settings; renderModal(); return; }
+    if (d.stab) { G.settingsTab = d.stab; renderModal(); return; }
+    if (d.modelAdd) { G.models.push(d.modelAdd); recommendTiers(); toast(G.models.length === 1 ? `已接入 ${mname(d.modelAdd)}：四个档位都指向它` : `已接入 ${mname(d.modelAdd)}：可以在「模型分工」里按推荐分配`); render(); renderModal(); return; }
+    if (d.modelRemove) { G.models = G.models.filter((x) => x !== d.modelRemove); for (const k of Object.keys(G.roles)) if (G.roles[k] === 'model:' + d.modelRemove) G.roles[k] = ROLES.find((r) => r[0] === k)[2]; recommendTiers(); render(); renderModal(); return; }
+    if (d.recommend) { recommendTiers(); toast('已按推荐分配：强=主力，快=Flash，省=本地或 Flash，视觉=能看图的'); renderModal(); render(); return; }
+    if (d.close) { G.modal = null; renderModal(); render(); if (G.models.length && !G.projects.length) toast('下一步：添加项目'); return; }
+    if (d.addProject) { if (!G.models.length) { toast('先接入模型'); return; } G.modal = ['picker']; renderModal(); return; }
+    if (d.pick) { addProject(d.pick); return; }
+    if (d.proj) { G.active = d.proj; render(true); return; }
+    if (d.inbox) { G.modal = ['inbox']; renderModal(); return; }
+    if (d.inboxGo) { G.active = d.inboxGo; const pp = P(); pp.selected = d.sid; G.modal = null; renderModal(); render(true); return; }
+    if (d.export) { toast('已导出到 ~/Downloads/peer-memory-export.json（模拟）'); return; }
+    if (!p) return;
+    if (d.say) { onSend(d.say); return; }
+    if (d.quote) { p.quote = d.quote; render(); $('#input')?.focus(); return; }
+    if (d.unquote) { p.quote = null; render(); return; }
+    if (d.allow) { resolveNeeds(p, d.allow, true); return; }
+    if (d.deny) { resolveNeeds(p, d.deny, false); return; }
+    if (d.answer) {
+      p.answered = d.answer;
+      const m = addMsg(p, { role: 'user', text: `${d.answer}` });
+      m.disp = { type: 'answer' };
+      const k = addMem(p.memory, { kind: 'fact', s: p.preset.question.mem(d.answer), trust: 'stated', source: '你说的', tags: ['release', 'docs'], pinned: true });
+      post(p, { replyTo: [m.id], text: `记住了：${p.preset.question.mem(d.answer)}。已固定进项目简报。`, learned: [k.id] });
       return;
     }
-    if (d.merge) {
-      const s = S(d.merge);
-      s.merged = true; s.mergeSha = Math.random().toString(16).slice(2, 9);
-      s.log.push({ t: `合入 develop · ${s.mergeSha}`, k: 'u' });
-      render(); toast('已合入 develop（推送远端仍需另行授权）'); return;
+    if (d.vision) {
+      const m = M(p, d.mid); if (!m || m.visionResolved) return;
+      m.visionResolved = d.vision;
+      const user = M(p, m.replyTo[0]);
+      let tpl = m.pendingTpl;
+      if (d.vision === 'allow') { p.visionException = true; }
+      else tpl = { ...tpl, visual: false, verdict: 'partial', outcome: 'confirm', unverified: ['视觉复核未做（项目只用本地模型）'] };
+      const s = spawnSession(p, tpl, user.id);
+      user.disp = { type: 'spawn', sid: s.id };
+      post(p, { replyTo: [user.id], text: d.vision === 'allow' ? `好，本项目放宽一项：视觉复核可以用 ${mname(G.tiers.vision)}，其余角色仍只用本地模型。开始做了。` : '好，跳过视觉复核；结论会如实标成部分验证，做完请你确认。', sources: [s.id], memUsed: s.memUsed });
+      return;
     }
-    if (d.openSession) { state.selected = d.openSession; renderRail(); return; }
-    if (d.back) { state.selected = null; renderRail(); return; }
-    if (d.restore) {
-      const old = S(d.restore);
-      old.status = 'running'; old.restored = true; old.supersededBy = null;
-      old.log.push({ t: '你恢复了原任务，从暂停处继续', k: 'u' });
-      render(); later(300, () => advance(old), old); toast('原任务已恢复；新任务不受影响'); return;
+    if (d.confirm) { const s = p.sessions.find((x) => x.id === d.confirm); s.status = 'accepted'; s.acceptedBy = 'user'; s.log.push({ t: '你确认了结果（acceptedBy: user）', k: 'u' }); render(); toast('已确认'); return; }
+    if (d.reject) {
+      const s = p.sessions.find((x) => x.id === d.reject); s.reopened = true; s.status = 'cancelled';
+      const m = addMsg(p, { role: 'user', text: '不对，先别发，发布页截图要补上' });
+      p.busy++; render(true);
+      later(800, () => { p.busy--; const fx = { ...TPL.fix(s.tpl, '补上发布页截图'), outcome: 'confirm', external: true }; const ns = spawnSession(p, fx, m.id, { parentOf: s.id }); m.disp = { type: 'spawn', sid: ns.id }; post(p, { replyTo: [m.id], text: '收到，先不发。开一条修正任务补发布页截图，好了再给你确认。', sources: [ns.id] }); });
+      return;
     }
-    if (d.evidence) { openEvidence(d.evidence, d.sid); return; }
-    if (d.close) { $('#modal').classList.remove('on'); return; }
+    if (d.merge) { const s = p.sessions.find((x) => x.id === d.merge); s.merged = true; s.mergeSha = Math.random().toString(16).slice(2, 9); render(); toast('已合入 develop（推送远端仍需另行授权）'); return; }
+    if (d.openSession) { p.selected = d.openSession; renderRail(); return; }
+    if (d.back) { p.selected = null; renderRail(); return; }
+    if (d.restore) { const o = p.sessions.find((x) => x.id === d.restore); o.status = 'running'; o.restored = true; o.supersededBy = null; o.log.push({ t: '你恢复了原任务', k: 'u' }); render(); later(250, () => advance(p, o), o); toast('原任务已恢复；新任务不受影响'); return; }
+    if (d.evidence) { G.modal = ['evidence', d.evidence, d.sid]; renderModal(); return; }
+    if (d.memList) { G.modal = ['memlist', d.memList, d.mid]; renderModal(); return; }
+    if (d.memAct) {
+      const list = d.scope === 'u' ? G.userPrefs : p.memory; const x = list.find((k) => k.id === d.kid); if (!x) return;
+      if (d.memAct === 'revoke') { x.status = 'revoked'; toast('已撤销，可恢复'); }
+      if (d.memAct === 'restore') { x.status = 'active'; toast('已恢复'); }
+      if (d.memAct === 'pin') { x.pinned = !x.pinned; }
+      render(); if (G.modal) renderModal(); return;
+    }
     if (d.jump) { const el = document.getElementById(d.jump); if (el) { el.scrollIntoView({ block: 'center' }); el.animate([{ opacity: .4 }, { opacity: 1 }], { duration: 600 }); } return; }
-    if (d.intervene) {
-      const input = $('#intervene');
-      const v = input && input.value.trim();
-      if (!v) return;
-      const s = S(d.intervene);
-      s.log.push({ t: `你（直接介入）：${v}`, k: 'u' });
-      s.log.push({ t: '任务在下一轮开始时采纳；项目代理下次回合可见，不会覆盖你的指令', k: 'a' });
-      renderRail(); toast('已发给任务（user_intervened）'); return;
+    if (d.intervene) { const v = $('#intervene')?.value.trim(); if (!v) return; const s = p.sessions.find((x) => x.id === d.intervene); s.log.push({ t: `你（直接介入）：${v}`, k: 'u' }); s.log.push({ t: '下一轮采纳；代理可见，不会覆盖你的指令', k: 'a' }); renderRail(); toast('已发给任务'); return; }
+    if (d.railTab) { p.railTab = d.railTab; p.selected = null; renderRail(); return; }
+    if (d.sim) { simulate(p, d.oid, d.sim); return; }
+    if (d.digest) { flushDigest(p); return; }
+    if (d.propose) {
+      const o = p.objectives.find((x) => x.id === d.oid); if (!o || o.proposalResolved) return;
+      o.proposalResolved = d.propose === 'yes' ? 'started' : 'declined';
+      if (d.propose === 'yes') { const s = spawnSession(p, TPL.ciFix(), o.origin, { objectiveId: o.id }); o.milestones[1].sid = s.id; post(p, { replyTo: [o.origin], text: '好，开了一条任务修 CI。', sources: [s.id], objective: o.id, memUsed: s.memUsed }); }
+      else render();
+      return;
     }
-    if (d.other) { toast(`Demo 只演示 Peer-Agent；${d.other} 的代理在自己的对话里`); return; }
+    if (d.dial) { setDial(d.dial); render(); if (G.modal) renderModal(); toast(`主动性：${{ off: '关', low: '少', normal: '标准', high: '多' }[d.dial]}（需要你批准 / 确认的事不受影响）`); return; }
   });
+  document.addEventListener('change', (e) => {
+    const d = e.target.dataset; const p = P();
+    if (d.tier) { G.tiers[d.tier] = e.target.value; renderModal(); render(); }
+    if (d.role) { G.roles[d.role] = e.target.value; toast('已更新：之后开出的任务按新分工，进行中的任务不变'); }
+    if (d.scope && p) { p.modelScope = e.target.value; p.visionException = false; render(); }
+    if (d.quiet) G.quietHours = e.target.checked;
+    if (d.memOn) { G.memoryOn = e.target.checked; render(); }
+    if (d.learn) G.learnPrefs = e.target.checked;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.id === 'input' && e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); const v = e.target.value; e.target.value = ''; onSend(v); }
+    if (e.key === 'Escape' && G.modal) { G.modal = null; renderModal(); }
+  });
+  document.addEventListener('click', (e) => { if (e.target.id === 'send') { const v = $('#input').value; $('#input').value = ''; onSend(v); } });
+  $('#speed').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; speed = Number(b.dataset.v); for (const x of $('#speed').children) x.classList.toggle('on', x === b); });
+  $('#reset').addEventListener('click', () => reset(false));
+  $('#skip').addEventListener('click', () => reset(true));
 
-  $('#send').addEventListener('click', () => { const v = $('#input').value; $('#input').value = ''; onUserSend(v); });
-  $('#input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); const v = e.target.value; e.target.value = ''; onUserSend(v); }
-  });
-  $('#speed').addEventListener('click', (e) => {
-    const b = e.target.closest('button'); if (!b) return;
-    state.speed = Number(b.dataset.v);
-    for (const x of $('#speed').children) x.classList.toggle('on', x === b);
-  });
-  $('#reset').addEventListener('click', reset);
-
-  function reset() {
-    for (const id of state.timers) clearTimeout(id);
-    state.timers.clear();
-    Object.assign(state, { messages: [], sessions: [], busy: 0, quote: null, granted: false, selected: null, usedReleaseSuggestion: false, objectives: [], digest: [], railTab: 'tasks' });
-    setDial('normal');
-    addMsg({ role: 'system', text: '我是 Peer-Agent 的项目代理。你说要做什么，我来开任务、盯进度，验证好了再用一两句话告诉你结论；想看细节随时问。任务跑着的时候你可以随时插话。' });
-    render(true);
+  function reset(skip) {
+    for (const id of timers) clearTimeout(id);
+    timers.clear();
+    Object.assign(G, freshState());
+    if (skip) {
+      G.models = ['opus', 'gpt', 'flash', 'qwen']; recommendTiers();
+      render();
+      addProject('Peer-Agent');
+      toast('已跳过首启：接入 4 个模型并按推荐分配，添加了 Peer-Agent');
+    } else render();
   }
-
-  reset();
+  reset(false);
 })();
 </script>
 </body>
