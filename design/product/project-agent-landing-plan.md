@@ -5,6 +5,7 @@
 
 > 状态：计划（随发版修订）；不是发布认证，也不批准 ADR 80–83 以外的新能力或权限  
 > 覆盖决策：ADR 80（项目代理委托模型）、81（记忆体系）、82（项目目标与定时 / 事件驱动）、83（模型分工）  
+> 执行手册（派给其他模型时必须遵守）：`playbook/project-agent-implementation-handbook.md`  
 > 关联：`project-agent-workbench.md`（产品稿与 demo）、`knowledge/architecture/project-agent-capability-layers.md`（M / MM / OB 步骤）、`peer-product-roadmap.md` 中景 #0、`peer-transformation-charter.md` 阶段 F、`peer-delivery-status.md` D10  
 > 代码基线：`PeerAgent/dev/0.0.18` 的 `f12e15d8`，`VERSION=0.0.17`，工作区另有 32 个未提交文件（自动更新、引用消息等 0.0.18 在制改动）
 
