@@ -242,7 +242,7 @@ A 级。决策见 `knowledge/decisions/80-project-agent-delegation-model.md`，�
 - 验证归代理、签收按策略、细节按需：运行时算验证结论，低风险且通过时代理汇报即策略代签；例外时「需要你确认」；合入默认一键确认；关闭闸门不松。
 - 壳：侧栏项目列表 + 角标，主区代理对话，右栏本项目任务；独立工作台页、侧栏任务树、代理输入框的 Agent / Plan 切换器进入退场。
 
-分期 P0–P5 见产品稿 §5。P1 在 feature flag 后交付；P5 之前原型 A 仍是默认壳。
+分期 P0–P5 见产品稿 §5；按版本的落地节奏、第 1 阶段 PR 清单与各阶段验收证据见 `design/product/project-agent-landing-plan.md`。P1 在 feature flag 后交付；P5 之前原型 A 仍是默认壳。
 
 不纳入 F：多个常驻专职代理、代理间群聊、代理直接做小改动、新建 Task / Project 存储实体。
 

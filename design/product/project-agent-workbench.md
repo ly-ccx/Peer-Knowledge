@@ -8,6 +8,7 @@
 > 关联运行时：`knowledge/architecture/project-agent-delegation-runtime.md`  
 > 模块分层：`knowledge/architecture/project-agent-capability-layers.md`  
 > 交互 Demo：`design/product/project-agent-demo.html`（纯前端模拟，浏览器直接打开）  
+> 落地计划：`design/product/project-agent-landing-plan.md`（按版本的阶段、第 1 阶段 PR 清单、验收证据）  
 > 关联文档：
 > - `design/product/peer-product-alignment.md`（北极星，§3 / §6 / §8 已修订）
 > - `design/product/peer-transformation-charter.md`（阶段 F）

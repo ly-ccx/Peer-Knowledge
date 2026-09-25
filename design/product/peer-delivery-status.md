@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-09-15
+最后更新：2026-09-25（新增 D10 项目代理壳）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -32,6 +32,8 @@
 | D7 后台运行面板 | **未验收（完整生产 UI）**：有 fixture 截图、几何和生命周期测试记录；文档明确完整产品界面的人工视觉验收未完成 | 真实 ChatHeader、会话导航、重开与停止反馈、布局验收；不要重复把 fixture 绿灯写成生产面验收 | [后台运行设计及验收限制](background-runtime-product-design.md) |
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
+
+| D10 项目代理壳（ADR 80–83） | **未实现**：四份 ADR 为 Proposed，完整产品 demo 已在知识库（纯前端模拟，不是实现证据）。代码基线 `PeerAgent/dev/0.0.18` `f12e15d8`，另有 32 个 0.0.18 在制未提交文件 | 阶段 0：0.0.18 收口、ADR 转 Accepted、已知失败修掉或隔离；阶段 1 首证：关窗口后台 Goal 推进的测试与真实运行记录 | [落地计划](project-agent-landing-plan.md)、[产品稿与 demo](project-agent-workbench.md)、[ADR 80](../../knowledge/decisions/80-project-agent-delegation-model.md) |
 
 ## 3. 近期顺序与非目标
 
