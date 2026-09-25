@@ -4,7 +4,7 @@
 最后更新：2026-09-25
 
 > 用途：把项目代理（ADR 80–84）的落地工作派给任何模型时，执行方必须遵守的约定、任务卡和交接格式。  
-> 地位：执行层合同。方向与边界以 ADR 80–83 和落地计划为准；本手册与它们冲突时，以 ADR 为准，并提交「边界变更请求」（§9）。  
+> 地位：执行层合同。方向与边界以 ADR 80–84 和落地计划为准；本手册与它们冲突时，以 ADR 为准，并提交「边界变更请求」（§9）。  
 > 负责人：用户（仓库所有者）。执行方：被派发任务卡的模型。  
 > 关联：`design/product/project-agent-landing-plan.md`（阶段与节奏）、`knowledge/architecture/project-agent-capability-layers.md`（模块与步骤编号）、`knowledge/architecture/project-agent-delegation-runtime.md`（契约）、`knowledge/architecture/project-agent-memory-system.md`、ADR 80 / 81 / 82 / 83、代码仓 `AGENTS.md`
 
@@ -50,7 +50,7 @@
 7. **不加依赖。** 不新增 npm / cargo 依赖，不新增顶层 package，除非卡片明确允许。
 8. **不碰用户数据。** 不删除、不迁移真实的 `~/.peer-agent`；测试用临时目录。迁移逻辑必须可重复执行、写前备份或原子写。
 
-### 2.2 架构（来自代码仓 `AGENTS.md` 与 ADR 80–83，逐条可检查）
+### 2.2 架构（来自代码仓 `AGENTS.md` 与 ADR 80–84，逐条可检查）
 
 1. **一条能力链。** 任何新能力（调度、记忆、目标、探测）都走 Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。不另开执行通道。
 2. **Renderer 只做表达。** 不用 `fs` / `child_process`；权限、签收、调度、记忆的真值都在 main 进程或 `runtime-node`；renderer 只读投影、只发结构化命令。

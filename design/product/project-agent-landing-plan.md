@@ -3,7 +3,7 @@
 创建时间：2026-09-25
 最后更新：2026-09-25
 
-> 状态：计划（随发版修订）；不是发布认证，也不批准 ADR 80–83 以外的新能力或权限  
+> 状态：计划（随发版修订）；不是发布认证，也不批准 ADR 80–84 以外的新能力或权限  
 > 覆盖决策：ADR 80（项目代理委托模型）、81（记忆体系）、82（项目目标与定时 / 事件驱动）、83（模型分工）、84（机器人列表壳）  
 > 执行手册（派给其他模型时必须遵守）：`playbook/project-agent-implementation-handbook.md`  
 > 关联：`project-agent-workbench.md`（产品稿与 demo）、`knowledge/architecture/project-agent-capability-layers.md`（M / MM / OB 步骤）、`peer-product-roadmap.md` 中景 #0、`peer-transformation-charter.md` 阶段 F、`peer-delivery-status.md` D10  
@@ -13,7 +13,7 @@
 
 ## 0. 结论
 
-先地基、后壳层；全程功能开关；每个版本都可正常发布。第一块地基是执行宿主去掉窗口依赖（M2，B 级，可以不等 ADR 评审先做）；项目代理本身（第 2 阶段起）要等 ADR 80–83 转 Accepted 后再开工。节奏按版本排：每个阶段占 1–2 个版本。
+先地基、后壳层；全程功能开关；每个版本都可正常发布。第一块地基是执行宿主去掉窗口依赖（M2，B 级，可以不等 ADR 评审先做）；项目代理本身（第 2 阶段起）要等 ADR 80–84 转 Accepted 后再开工。节奏按版本排：每个阶段占 1–2 个版本。
 
 ---
 
