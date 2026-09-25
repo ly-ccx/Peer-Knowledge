@@ -3,7 +3,7 @@
 创建时间：2026-09-25
 最后更新：2026-09-25
 
-> 用途：把项目代理（ADR 80–83）的落地工作派给任何模型时，执行方必须遵守的约定、任务卡和交接格式。  
+> 用途：把项目代理（ADR 80–84）的落地工作派给任何模型时，执行方必须遵守的约定、任务卡和交接格式。  
 > 地位：执行层合同。方向与边界以 ADR 80–83 和落地计划为准；本手册与它们冲突时，以 ADR 为准，并提交「边界变更请求」（§9）。  
 > 负责人：用户（仓库所有者）。执行方：被派发任务卡的模型。  
 > 关联：`design/product/project-agent-landing-plan.md`（阶段与节奏）、`knowledge/architecture/project-agent-capability-layers.md`（模块与步骤编号）、`knowledge/architecture/project-agent-delegation-runtime.md`（契约）、`knowledge/architecture/project-agent-memory-system.md`、ADR 80 / 81 / 82 / 83、代码仓 `AGENTS.md`
@@ -131,7 +131,10 @@ pnpm architecture:check
 
 | 概念 | 产品面 | 代码名 | 说明 |
 |---|---|---|---|
-| 项目代理 | 项目代理 | `project_agent`（角色 / 模式），`ProjectAgentRunner` | 每个 Workspace 一个 |
+| 项目代理 | 机器人（界面称谓）/ 项目代理 | `project_agent`（角色 / 模式），`ProjectAgentRunner` | 每个 Workspace 一个；界面上叫「机器人」（ADR 84） |
+| 机器人身份 | 名字 · 头像 | 工作区条目 `displayName`、`avatar`、`managed` | ADR 84；头像由 `workspaceId` 确定性生成 |
+| 受管文件夹 | — | `~/Peer/<名字>/`（根目录可配置） | 新建空白机器人时创建；ADR 84 |
+| 档案 | 档案 | `BotProfileDrawer` | 按需滑出：概况 · 任务 · 目标 · 记忆 · 设置 |
 | 任务 | 任务 | `work_session`（会话 role）、`WorkSession`（投影） | 子 Conversation + GoalPlan |
 | 执行宿主 | — | `AgentTurnExecutor`、`TurnSink`（`BroadcastSink` / `CollectingSink`） | 跑一轮 agent，不依赖窗口 |
 | 回合画像 | — | `turnProfile`（`sendMessage` 唯一新参数） | 角色、模式、模型选择等 |
@@ -161,7 +164,7 @@ pnpm architecture:check
 第 1 阶段：
   串行（同改 main.mjs / 执行路径）：P1-PR1 → P1-PR2 → P1-PR3 → P1-PR6 → P1-PR7
   可与上面并行：P1-PR4、P1-PR5、P1-PR8
-第 2 阶段（进入条件：ADR 80 / 81 / 83 Accepted，第 1 阶段合入）：
+第 2 阶段（进入条件：ADR 80 / 81 / 83 / 84 Accepted，第 1 阶段合入）：
   P2-1 → P2-2 → P2-5 → P2-6
   P2-3、P2-4 可与 P2-2 并行；P2-7 在 P2-5 的 IPC 契约合入后开始
 ```
@@ -181,9 +184,9 @@ pnpm architecture:check
 - **目标**：当前开发线上的在制改动（自动更新、引用消息等）完成、提交、发版。
 - **退出条件**：`PeerAgent/dev/0.0.18` 工作区干净；0.0.18 发布；负责人指定第 1 阶段基线分支（如 `PeerAgent/dev/0.0.19`）。
 
-#### P0-2 ADR 80–83 评审
+#### P0-2 ADR 80–84 评审
 - **负责人**：用户。
-- **目标**：过一遍各文档「待评审点」，把 ADR 80 / 81 / 82 / 83 转为 `Accepted`，或写明修改意见。
+- **目标**：过一遍各文档「待评审点」，把 ADR 80 / 81 / 82 / 83 / 84 转为 `Accepted`，或写明修改意见。
 - **退出条件**：ADR 状态行更新；落地计划进入条件勾掉。
 
 #### P0-3 回归基线清零
@@ -316,7 +319,7 @@ pnpm architecture:check
 
 ### 第 2 阶段：骨架（开关后，0.0.20–0.0.21）
 
-进入条件（所有卡）：ADR 80、81、83 为 `Accepted`；第 1 阶段全部合入；负责人确认本阶段基线分支。所有行为受 `projectAgentMode` 控制，关闭时零变化。
+进入条件（所有卡）：ADR 80、81、83、84 为 `Accepted`；第 1 阶段全部合入；负责人确认本阶段基线分支。所有行为受 `projectAgentMode` 控制，关闭时零变化。
 
 #### P2-1 带快照的子会话原语
 - **目标**：把划词子会话的「父会话 + 继承背景快照」抽成通用原语，任务与划词共用。
@@ -354,18 +357,28 @@ pnpm architecture:check
 - **实现要点**：单线程 actor；用户消息抢占唤醒回合；代签只在 `auto` 且代理已 `post_reply` 后发生，不接受 `userOverride`；卡片与结论标记只由 ReplyComposer 按投影生成。
 - **必须新增的测试**：运行时契约 §12 与分层文档中和状态机、代签、卡片不可伪造、结论标记相关的条目。
 
-#### P2-6 项目代理生命周期与「熟悉项目」
-- **目标**：每个工作区懒创建项目代理对话；首次打开时发起只读「熟悉项目」任务并写入记忆。
-- **必读**：产品稿 §1.1。
-- **允许改动**：`project-agent-application-service.mjs`；工作区条目增加 `projectAgentConversationId`；熟悉项目的任务模板（只读画像，不能写文件）。
-- **必须新增的测试**：懒创建幂等；开关关闭时不创建；熟悉项目任务没有写能力；写入的记忆 `trust = verified` 且有证据引用。
+#### P2-6 机器人生命周期：身份、新建、「熟悉项目」
+- **目标**：每个工作区对应一个机器人（项目代理），懒创建其对话；机器人有名字与头像；新建机器人支持绑定已有文件夹与新建受管文件夹；首次打开发起只读「熟悉项目」任务并写入记忆。
+- **必读**：ADR 84；产品稿 §1.1。
+- **代码锚点**：`workspace-application-service.mjs`（`settings.workspaces` 条目）；P1-PR4 引入的 `workspaceId`；`DATA_STORE_ENTRIES`。
+- **允许改动**：`project-agent-application-service.mjs`；工作区条目增加 `projectAgentConversationId`、`displayName`、`avatar`、`managed`；受管文件夹创建逻辑与根目录设置（默认 `~/Peer/`，登记为用户可见目录而非数据目录）；熟悉项目的任务模板（只读画像，不能写文件）；对应 IPC（进 catalog）。
+- **实现要点**：
+  - 头像由 `workspaceId` 确定性生成（形状 × 颜色），用户可改；名字默认取文件夹名，可改。
+  - 新建空白机器人：名字 → 受管文件夹（重名追加序号）→ 注册为工作区；空文件夹的熟悉项目直接产出「这个机器人主要负责什么」的问题，回答写成 `stated` 职责记忆并固定进简报；建 README 只能由代理提议、用户同意后以任务执行。
+  - 删除机器人不自动删除文件夹；受管文件夹删除需要二次确认。
+- **必须新增的测试**：懒创建幂等；开关关闭时不创建；头像生成确定且不同 id 大概率不同；受管文件夹创建、重名、删除需二次确认；熟悉项目任务没有写能力；写入的记忆 `trust = verified` 且有证据引用；空白机器人的职责记忆为 `stated` 且固定。
 
-#### P2-7 项目代理界面
-- **目标**：代理对话（锚定回复、处置标记、来源 / 结论 / 记忆标记、卡片）、右栏任务标签。
-- **必读**：产品稿 §2；demo `design/product/project-agent-demo.html`（交互参照，不是实现代码）。
-- **允许改动**：新建 `apps/desktop/renderer/src/project-agent/*` 及样式与测试；`App.tsx` 中按开关切换入口（只加分支，不迁移旧逻辑）；i18n。
-- **不许改动**：`ChatSurface.tsx` 的功能代码；旧工作台与侧栏的行为（开关关闭时）。
-- **必须新增的测试**：状态与投影的纯函数测试；开关关闭时入口不出现；卡片动作只调用已有 IPC。
+#### P2-7 机器人列表、对话与档案界面
+- **目标**：即时通讯式机器人列表（取代旧侧栏与工作台页面）、机器人对话、按需滑出的档案。
+- **必读**：ADR 84；产品稿 §2；demo `design/product/project-agent-demo.html`（交互参照，不是实现代码）。
+- **允许改动**：新建 `apps/desktop/renderer/src/project-agent/*`（`BotList`、`BotConversation`、`BotProfileDrawer` 等）及样式与测试；`App.tsx` 中按开关切换入口（只加分支，不迁移旧逻辑）；i18n；`delegation:*` 与机器人身份相关 IPC 的 renderer 适配。
+- **不许改动**：`ChatSurface.tsx` 的功能代码；`Sidebar.tsx` 与工作台页面的行为（开关关闭时必须照旧）。
+- **实现要点**：
+  - 列表行：头像 · 名字 · 最后一条消息预览 · 时间 · 状态（需要你深色角标 / 未读小圆点 / 进行中）；按最近活动排序；顶部搜索、新建（+）、「需要你 N」筛选；底部我的头像与设置入口。没有市场入口。
+  - 对话：锚定回复、处置标记、来源 / 结论 / 记忆标记、卡片；主动消息带时间分隔。
+  - 档案：概况 · 任务 · 目标 · 记忆 · 设置（名字与头像、模型分工覆盖与范围、这个机器人的主动性），默认收起；点「来源：某任务」打开档案并定位任务现场。
+  - 所有状态来自 main 的投影；卡片动作只调用已有 IPC。
+- **必须新增的测试**：列表排序与筛选的纯函数测试；行状态（需要你 / 未读 / 进行中）由投影计算；开关关闭时新界面不出现、旧侧栏与工作台照旧；档案打开与定位；卡片动作只调用已有 IPC。
 
 ---
 
@@ -385,7 +398,7 @@ pnpm architecture:check
 | 4 | P4-3 | 项目目标 OB1–OB3（共享 Scheduler、WatchRunner、只读探测、自主档位） | ADR 82 |
 | 4 | P4-4 | 熔断、取消级联、重启恢复顺序（M8 完整） | 分层文档 §7.4–§7.6 |
 | 4 | P4-5 | 记忆过期、冲突、衰减（MM4） | 记忆文档 §7 |
-| 5 | P5-1 | 旧工作区与会话迁移；工作台降级；退掉代理输入框的模式切换器 | 产品稿 §5 P5 |
+| 5 | P5-1 | 旧工作区迁移为机器人、旧会话归为历史任务；旧侧栏与工作台页面退场；退掉代理输入框的模式切换器 | 产品稿 §5 P5；ADR 84 |
 | 5 | P5-2 | TUI 接入项目代理 | ADR 80；`apps/tui` |
 | 5 | P5-3 | 远程入口对接项目代理 | ADR 74；路线图 #4 |
 | 5 | P5-4 | 结果时间线（M9）、程序性记忆 → Skill Patch 候选（MM5） | 分层文档 §6.4；记忆文档 §14 |
