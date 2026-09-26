@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-09-26（D10 改为 0.1.0 目标与新基线）
+最后更新：2026-09-26（D10：`v0.1.0-beta.1` 已打 tag，机器人列表仍未实现）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **未实现**：M0 已完成。ADR 80、81、83、84、85 已 Accepted；ADR 75 已按代码补记；ADR 82 仍为 Proposed。开发线 `PeerAgent/dev/0.1.0` 已开，PR 必过 macOS 与 Linux CI。demo 仍是纯前端模拟 | beta.1 首证：关窗口后台 Goal 推进的测试与真实运行记录、重启后待批准可继续 | [0.1.0 版本计划](v0.1.0-release-plan.md)、[任务卡](../../playbook/v0.1.0/README.md)、[ADR 75](../../knowledge/decisions/75-remote-read-preflight.md)、[ADR 85](../../knowledge/decisions/85-project-agent-hosts-inputs-and-surfaces.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **未实现（壳）／未验收（beta.1 证据）**：`v0.1.0-beta.1` 已从开发线 `77c35f06` 打出。B1 地基已合入：关窗推进、待批准持久化、模型分工设置、子会话原语、开发者开关。开关打开后界面不变，机器人列表仍未实现。ADR 82 仍为 Proposed。真实关窗运行和视觉复核截图未附 | 补上 §12.1 未附的真实运行与截图；再开 beta.2 骨架 | [0.1.0 版本计划](v0.1.0-release-plan.md)、[任务卡](../../playbook/v0.1.0/README.md)、[ADR 75](../../knowledge/decisions/75-remote-read-preflight.md)、[ADR 85](../../knowledge/decisions/85-project-agent-hosts-inputs-and-surfaces.md) |
 
 ## 3. 近期顺序与非目标
 
