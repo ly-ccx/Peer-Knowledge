@@ -41,9 +41,9 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 本地一旦 commit，必须在同一轮立刻 push 到当前跟踪的远程分支。多设备以 `origin` 为准；不要把提交只留在本机。
 
 更短的入口说明见 `playbook/change-intake.md`。
-项目代理落地（ADR 80–83）的执行约定与任务卡见 `playbook/project-agent-implementation-handbook.md`；任何模型接手相关任务前必须先读。
+项目代理落地进入 0.1.0 大版本（ADR 80–85）：版本计划见 `design/product/v0.1.0-release-plan.md`，执行约定见 `playbook/project-agent-implementation-handbook.md`，任务卡见 `playbook/v0.1.0/`；任何模型接手相关任务前必须先读。
 产品理念与价值对齐见 `design/product/peer-product-alignment.md`（产品链路唯一对齐方向）。
-当前改造总纲见 `design/product/peer-transformation-charter.md`（任务壳 + 工作台雷达；阶段 A–E 已交付；阶段 F 项目代理壳 Proposed，见 ADR 80；记忆体系见 ADR 81；项目目标与定时 / 事件驱动见 ADR 82；模型分工见 ADR 83；机器人列表壳见 ADR 84）。
+当前改造总纲见 `design/product/peer-transformation-charter.md`（任务壳 + 工作台雷达；阶段 A–E 已交付；阶段 F 项目代理壳 Proposed，见 ADR 80；记忆体系见 ADR 81；项目目标与定时 / 事件驱动见 ADR 82；模型分工见 ADR 83；机器人列表壳见 ADR 84；宿主、输入与多入口见 ADR 85）。
 活的产品路线图（近/中/远景）见 `design/product/peer-product-roadmap.md`。
 CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。

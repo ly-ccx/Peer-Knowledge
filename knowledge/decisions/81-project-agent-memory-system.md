@@ -7,6 +7,8 @@
 
 Proposed。方向由用户提出（2026-09-24：「项目代理一定需要记忆体系」），细节待评审。实现未开工。
 
+落地修订见 ADR 85：`workspaceId` 的真源是 `projects/registry.json`，与远程委托共用；索引用运行时自带的 `node:sqlite` FTS5（trigram 分词，Electron 与 Bun 实测可用），不新增依赖。
+
 ## 级别
 
 A 级。新增上下文来源（`project-memory-source`，`L7_CONTINUITY`）、新增能力（`LocalMemoryProvider` 四个工具）、新增本机存储种类（`~/.peer-agent/memory/`）、新增稳定 `workspaceId`。
