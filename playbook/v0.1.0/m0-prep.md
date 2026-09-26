@@ -70,8 +70,4 @@
 
 ## P0-6 补 ADR 75 文件
 
-- **执行**：负责人或指派（知识库任务）。
-- **目标**：知识库缺 `knowledge/decisions/75-*.md`，但代码与 ADR 85 都引用它。
-- **依据**：`packages/protocol/src/remote-access.ts`（「ADR 75: preflight checks only」）、`apps/gateway/src/remote-task-router.mjs` 注释、`design/product/remote-access-simple-implementation.md`、`playbook/remote-access-handoff.md`。
-- **实现要点**：按现有代码事实补写（状态写实际情况：只读预检已实现），不引入新决策；在 ADR 85 关联里把「缺失」说明改为正式链接。
-- **退出条件**：知识库提交并 push。
+- **状态**：已完成（2026-09-26）。补记为 `knowledge/decisions/75-remote-read-preflight.md`，只记录 0.0.18 已实现的只读预检，不包含尚未实现的扫码方案。ADR 85 的关联已改为正式链接。

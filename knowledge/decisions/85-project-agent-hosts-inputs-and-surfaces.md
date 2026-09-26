@@ -19,7 +19,7 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 - `knowledge/decisions/81-project-agent-memory-system.md`（`workspaceId`、记忆存储）
 - `knowledge/decisions/84-bot-list-shell.md`（机器人列表壳、受管文件夹）
 - `knowledge/decisions/74-deployment-surfaces-and-local-storage.md`（部署面与本机存储）
-- ADR 75（远程只读预检；知识库中缺少该 ADR 文件，代码侧为 `packages/protocol/src/remote-access.ts`、`apps/gateway/src/remote-task-router.mjs`，规格见 `design/product/remote-access-simple-implementation.md` 与 `playbook/remote-access-handoff.md`）
+- `knowledge/decisions/75-remote-read-preflight.md`（远程只读预检，已按代码补记）
 - `knowledge/decisions/71-l2-playwright-external-browser.md`、`70-l1-browser-action-surface.md`
 - `knowledge/decisions/73-goal-interruption-suspension-vs-failure.md`
 - `design/product/v0.1.0-release-plan.md`（0.1.0 版本计划）
