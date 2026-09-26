@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **未实现**：ADR 80、81、83、84、85 已 Accepted（2026-09-26）；ADR 82 仍为 Proposed。开发线 `PeerAgent/dev/0.1.0` 已从 `main` a087988c 拉出。demo 仍是纯前端模拟 | M0 尚余 P0-3 基线核对、P0-5 CI、P0-6 补 ADR 75。beta.1 首证：关窗口后台 Goal 推进的测试与真实运行记录、重启后待批准可继续 | [0.1.0 版本计划](v0.1.0-release-plan.md)、[任务卡](../../playbook/v0.1.0/README.md)、[产品稿与 demo](project-agent-workbench.md)、[ADR 85](../../knowledge/decisions/85-project-agent-hosts-inputs-and-surfaces.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **未实现**：ADR 80、81、83、84、85 已 Accepted；ADR 75 已按代码补记；ADR 82 仍为 Proposed。开发线 `PeerAgent/dev/0.1.0` 已从 `main` a087988c 拉出。demo 仍是纯前端模拟 | M0 尚余 P0-3 基线核对、P0-4 代码仓入口、P0-5 CI。beta.1 首证：关窗口后台 Goal 推进的测试与真实运行记录、重启后待批准可继续 | [0.1.0 版本计划](v0.1.0-release-plan.md)、[任务卡](../../playbook/v0.1.0/README.md)、[ADR 75](../../knowledge/decisions/75-remote-read-preflight.md)、[ADR 85](../../knowledge/decisions/85-project-agent-hosts-inputs-and-surfaces.md) |
 
 ## 3. 近期顺序与非目标
 
