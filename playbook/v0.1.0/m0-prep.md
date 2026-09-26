@@ -27,9 +27,9 @@
 
 ## P0-3 回归基线核对与 `AGENTS.md` 更正
 
-- **级别**：C。**规模**：S。
-- **依赖**：P0-1。
-- **目标**：让仓库记录的「已知失败」与现实一致，作为 0.1.0 的回归基线。
+- **状态**：已完成（2026-09-26），与 P0-4、P0-5 合在 [PR 23](https://github.com/ly-ccx/Peer-Agent/pull/23)。
+- **结果**：macOS（Node 25）全绿。Linux CI 上旧的「5 个已知失败」并不成立；真正挡住的是 macOS 专有的拖拽浮层测试、只认 `target/debug` 的实验室测试，以及 Node 22 会取消「只靠 unref 计时器」的异步测试。CI 改用 Node 25，失败文件会单独重跑一次。代码仓 `AGENTS.md` 的旧失败清单已改掉。
+- **原目标**：让仓库记录的「已知失败」与现实一致，作为 0.1.0 的回归基线。
 - **代码锚点**：代码仓 `AGENTS.md`「Known pre-existing failures on `main`」一段。
 - **事实**（2026-09-26，macOS）：`pnpm build`、`pnpm typecheck`、`pnpm architecture:check`、`pnpm test` 全部通过；记录的 5 个失败测试单独运行全部通过；`goal.test.ts` 类型错误与 2 处 `@keyframes` 违规都已不存在。
 - **允许改动**：代码仓 `AGENTS.md`（只改这一段）。
@@ -41,7 +41,8 @@
 
 ## P0-4 代码仓入口指向 0.1.0 计划与手册
 
-- **级别**：C。**规模**：S。
+- **状态**：已完成（2026-09-26），见 PR 23。代码仓 `AGENTS.md` 已指向版本计划、执行手册和任务卡目录。
+- **原级别**：C。**规模**：S。
 - **依赖**：P0-1。
 - **允许改动**：代码仓 `AGENTS.md`（只新增一段）。
 - **实现要点**：新增「进行中的专项：0.1.0 机器人列表与项目代理」一段，内容：
@@ -53,7 +54,8 @@
 
 ## P0-5 PR CI 工作流
 
-- **级别**：B（改 `.github/workflows/`，手册 §2.1 第 6 条的例外，需负责人在派卡时明确授权）。**规模**：S。
+- **状态**：已完成（2026-09-26）。[PR 23](https://github.com/ly-ccx/Peer-Agent/pull/23) 上 `ci-macos-14` 与 `ci-ubuntu-latest` 都通过，并已设为 `PeerAgent/dev/0.1.0` 的必过检查。
+- **原级别**：B（改 `.github/workflows/`）。**规模**：S。
 - **依赖**：P0-1。
 - **目标**：每个 PR 自动跑构建与测试，替多模型并行派活兜底。
 - **代码锚点**：`.github/workflows/release.yml`（复用其 Node 22 / pnpm 10.22.0 / Rust 设置步骤）；根 `package.json` 的 `build`、`test`、`typecheck`、`architecture:check`。
