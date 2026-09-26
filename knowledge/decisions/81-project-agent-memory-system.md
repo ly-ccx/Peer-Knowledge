@@ -1,13 +1,21 @@
 # 81. 项目代理记忆体系：带来源的事实记录，只进事实层，自动但可撤
 
 创建时间：2026-09-24
-最后更新：2026-09-24
+最后更新：2026-09-26（P0-2 评审通过）
 
 ## 状态
 
-Proposed。方向由用户提出（2026-09-24：「项目代理一定需要记忆体系」），细节待评审。实现未开工。
+Accepted（2026-09-26，P0-2）。实现未开工。
 
-落地修订见 ADR 85：`workspaceId` 的真源是 `projects/registry.json`，与远程委托共用；索引用运行时自带的 `node:sqlite` FTS5（trigram 分词，Electron 与 Bun 实测可用），不新增依赖。
+落地修订见 ADR 85：`workspaceId` 的真源是 `projects/registry.json`，与远程委托共用；项目记忆在 `projects/<workspaceId>/memory/`，跨项目用户偏好在 `memory/`；索引用运行时自带的 `node:sqlite` FTS5（trigram 分词），不新增依赖。
+
+记忆架构文档 §16 的评审点按原文采纳，实现口径如下：
+
+1. 已验证事实与用户明说自动生效；推断偏好要在 3 个不同片段里出现才生效，生效时告知一次。
+2. 用户偏好跨项目共享；项目记忆按 `workspaceId` 隔离。
+3. 记忆只进 `L7_CONTINUITY`。提取由后台 Curator 做，不在代理回合里做。0.1.0 不做向量检索。
+4. 项目简报的可执行预算是 6000 字符（B3-06）。记忆文档 §6.1 的 token 数只作量级参考。
+5. 旧 `packages/protocol/src/memory.ts` 直接替换。替换前确认全仓无 `WorkingMemory` / `MemoryWiki` 引用。
 
 ## 级别
 

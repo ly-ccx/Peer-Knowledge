@@ -3,7 +3,7 @@
 创建时间：2026-09-24
 最后更新：2026-09-24
 
-> 状态：Draft（随 ADR 80 评审）  
+> 状态：随 ADR 80 Accepted（2026-09-26）。§13 已关闭。落点目录以 `playbook/v0.1.0/` 为准。  
 > 级别：A 级运行时契约  
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`  
 > 关联产品稿：`design/product/project-agent-workbench.md`  
@@ -300,7 +300,7 @@ type AcceptanceReason =
 - 调度：§3 全部
 - 交互：`request_user_input`
 - 记忆（ADR 81）：`memory_search`、`memory_remember`、`memory_forget`、`memory_explain`（任务侧只投影 `memory_search`）
-- 可选只读网页：`batch_search` / `web_fetch`，需要评审是否把外网读取算作代理职责
+- 不投影 `web_fetch` 与外网搜索（P0-2 关闭）。`batch_search` 是本机文件检索，在白名单内。需要上网的事开任务。
 
 明确不投影：`edit_file`、`write_file`、`bash`、`goal_create_plan`、`goal_update_task`、`request_explorer`、有副作用的 MCP / 浏览器 / 桌面控制 / Automation 提案。
 
@@ -503,7 +503,9 @@ function decideSurfacing(input: {
 
 ## 13. 未决问题
 
-1. 项目代理是否允许只读网页（`batch_search` / `web_fetch`）。
-2. ~~项目代理与任务是否默认用不同模型~~ → 已由 ADR 83 回答：按档位 + 角色解析，代理默认「快」，任务默认「强」。
-3. 纯问答超出只读工具能力时（例如需要跑一次测试才能回答），是开一条轻量任务，还是让代理回答「需要开任务」并请用户确认。
-4. TUI 的呈现：TUI 是否也以项目代理为默认对话，还是保留直接任务入口。
+已于 2026-09-26（P0-2）关闭，结论写在 ADR 80 的评审结论里：
+
+1. 不投影外网读取。
+2. 模型按 ADR 83：代理默认快档，任务默认强档。
+3. 只读工具不够时直接开任务，不先请示。
+4. 已绑定机器人的目录里，TUI 默认打开该机器人；`peer --classic` 保留直接任务。

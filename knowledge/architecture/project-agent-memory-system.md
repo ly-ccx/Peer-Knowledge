@@ -3,7 +3,7 @@
 创建时间：2026-09-24
 最后更新：2026-09-24
 
-> 状态：Draft（随 ADR 81 评审）  
+> 状态：随 ADR 81 Accepted（2026-09-26）。§16 已关闭。简报预算以 6000 字符为准。  
 > 级别：A 级（上下文准入、存储边界、System Context 来源、能力暴露）  
 > 关联决策：`knowledge/decisions/81-project-agent-memory-system.md`、`knowledge/decisions/80-project-agent-delegation-model.md`  
 > 关联文档：
@@ -403,10 +403,4 @@ interface DelegationOrigin {
 
 ## 16. 待评审点
 
-1. 已验证事实与用户明说自动生效，推断偏好 3 次生效（§5.3）。
-2. 用户偏好跨项目共享，项目记忆严格按项目隔离（§3）。
-3. 记忆只进 `L7_CONTINUITY`，约定与偏好也不升为指令（§6.3）。
-4. 提取由后台 Curator 做，不在代理回合里做（§5.2）。
-5. P1 不做向量检索，先用 FTS5 + subjects（§6.2）。
-6. 各角色记忆预算的默认值（§6.1）。
-7. 旧 `packages/protocol/src/memory.ts` 直接替换（§4）。
+已于 2026-09-26（P0-2）关闭，1–5 与 7 按原文采纳。第 6 点：项目简报的可执行预算是 6000 字符；§6.1 的 token 数只作量级参考。存储位置以 ADR 85 为准。
