@@ -518,7 +518,7 @@ function decideSurfacing(input: {
 - 项目代理及任务角色模型均通过现有聊天服务的 ModelRouter 解析，读取实时模型配置与机器人 `modelPolicy`。开任务时冻结任务角色选择；非 UI 任务在视觉模型不可用时可不设可选的 visualVerifier，UI 任务仍必须通过视觉能力筛选，不用空 catalog，也不在主进程复制路由逻辑。
 - 回合上下文袋包含任务名册和唤醒事件，注册的 `project-roster` Source 把它们放入 L7。历史对话使用会话事实投影，内部 agent 过程不作为可见回复或系统指令。每次回合有跨重启唯一 id。
 - 本次用户输入的稳定消息 id 与限长原文摘要作为 `inputAnchors` 事实进入同一个 L7 Source；任务名册保留其 `origin.anchorMessageId`。id 由宿主从已入队的 inputId 派生，模型不能生成或覆盖。摘要中和伪工具语法，不成为行为指令；调度执行仍对持久化父对话校验归属和用户消息类型。没有这些索引时不得通过猜测 id 绕过锚点校验。
-- 后台巡检在持有租约时消费持久输入队列，包括启动租约取得前与离线期间提交的输入；写入对话后推进游标，再入代理回合。复用同一队列、去重与单线程 Runner，不新增执行入口。
+- 后台巡检在持有租约时消费持久输入队列，包括启动租约取得前与离线期间提交的输入；写入对话后推进游标，再入代理回合。同一巡检还恢复持久收件箱中未确认的旧事件，即使本轮没有新事件也尝试既有 Runner 的 kick；空收件箱不产生模型回合，成功回合后才推进收件箱游标。复用同一队列、去重与单线程 Runner，不新增执行入口。
 - `spawn_session.successCriteria` 接受既有 GoalSuccessCriterion 的结构化形态（command / test / file-contains / file-exists / manual）和旧字符串。字符串仍归一为 manual，仍要求用户确认；不因为项目策略 auto 而绕过 DoD 闸门。结构化标准由既有 Goal 工具、权限和 Evidence 路径核验，非法或不完整字段在调度前拒绝。任务结果的独立复核和签收闸门保持原约束。
 - Goal Runner 的 L7 事实保留成功标准的稳定 id 和检查参数（command / path / expect）；过长参数省略并提示经既有 `goal_get_plan` 回查，不用截断后的值代替完整标准。`goal_get_plan` 的只读 Tool Result 保留白名单标准字段与既有 CriterionResult，供压缩后恢复；不回写计划，不替模型执行检查，也不扩大权限或替代证据闸门。
 - 只有成功的 `post_reply` Tool Result 可以生成回复。正式 ReplyComposer 返回已校验的结构化消息，收尾使用该消息，不重新采信模型参数；失败、拒绝与取消不得伪装成成功空回复。取消复用聊天服务已有的 stream abort 入口，不增加 `sendMessage` 的参数。
