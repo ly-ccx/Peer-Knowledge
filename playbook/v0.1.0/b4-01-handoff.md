@@ -15,6 +15,7 @@ B4-01 ExecutionScheduler（Beta4：槽位、优先级、依赖）。代码 #75/#
 - 7418e76：失败依赖卡片路径批准。
 - 分支：`PeerAgent/pa/b4-01-execution-scheduler` → `PeerAgent/dev/0.1.0`
 - 提交：`9c53bc69` feat(project-agent): implement Beta4 execution scheduler
+- Review 修复：`88a99466` fix(project-agent): start aging on admission and show missing dependencies
 - 代码 PR：[Peer-Agent #77](https://github.com/ly-ccx/Peer-Agent/pull/77)
 - 知识 PR：[Peer-Knowledge #8](https://github.com/ly-ccx/Peer-Knowledge/pull/8)；契约提交先于代码。
 
@@ -27,6 +28,7 @@ B4-01 ExecutionScheduler（Beta4：槽位、优先级、依赖）。代码 #75/#
 - `protocol/src/delegation.ts` 及测试、`drawerState.ts` 及测试、`TasksTab.tsx`：宿主 queuedBehind/queueReason 事实和展示。
 - `BotSettingsTab.tsx`、drawer 契约测试、settings application 测试、i18n：自定义 Dropdown 全局并发 1–8，所有机器人共享，经原 settings API 保存。
 - 既有 `tools/prompts/delegation/spawn_session.md` 同步调度说明。
+- Review 修复：新队列项按实际准入计龄，等待批准不计龄；有效入队时间重启后保留，损坏队列重建不虚构旧年龄。缺失前置任务即使没有 blocker 行也显示重新安排提示；状态文案集中在纯展示函数，中英一致。
 
 ## 与卡片的偏差
 - 原允许路径不足以接入全局回合、类型投影、生产装配及存储校验，三次清单补齐均获负责人明确批准并先写入知识实施契约。
@@ -34,11 +36,10 @@ B4-01 ExecutionScheduler（Beta4：槽位、优先级、依赖）。代码 #75/#
 - 全局租约是一次宿主 runTurn，内部 Provider 恢复保留同一租约。高优先级遵守硬上限；同步 verify_session 在宿主 seam 交接租约，避免上限 1 死锁。
 
 ## 验证
-- `pnpm build`：通过；`pnpm typecheck`：通过；`pnpm architecture:check`：通过。
-- `pnpm test`：全仓通过；runtime-node 851/851，desktop 5154 通过、5 既有跳过，system-context 29/29，TUI 712/712，其他包及 marketplace/changelog 均通过。
-- `node --test packages/protocol/src/*.test.ts`：172/172。
+- 初版 `9c53bc69`：完整 `pnpm test` 全仓通过；runtime-node 851/851，desktop 5154 通过、5 既有跳过，system-context 29/29，TUI 712/712，其他包及 marketplace/changelog 均通过；协议直跑 172/172。
+- Review 修复 `88a99466`：`pnpm build`、`pnpm typecheck`、`pnpm architecture:check` 通过；受影响包完整测试 runtime-node 852/852、desktop 5155 通过、5 既有跳过。定向测试 19/19；两个新回归先失败再通过。
 - 新增测试覆盖项目/全局上限、读写并行、真实 worktree 判定、优先级/防饿死、签收/失败/外项目依赖、重启 FIFO、取消等待和活动回合、核验交接、重复准入、启动失败、宿主共享装配、卡片和设置保存。
-- 双平台 CI：[run 36820249563](https://github.com/ly-ccx/Peer-Agent/actions/runs/36820249563) Ubuntu/macOS 均通过，验证代码 `9c53bc69f8cdcbdd571c94aa5c36e536a9c87cd5`；证据 [JSON](evidence/b4-01-validation-20261001.json)。未发布 Beta4，未运行 B4-02 的三 worktree 写任务合回验收。
+- 初版双平台 CI：[run 36820249563](https://github.com/ly-ccx/Peer-Agent/actions/runs/36820249563) Ubuntu/macOS 均通过；Review 修复双平台 CI：[run 36825934728](https://github.com/ly-ccx/Peer-Agent/actions/runs/36825934728) 验证 `88a9946606a897b5eabe92a16e46fd6c2828ec70`，Ubuntu/macOS 均通过。证据 [JSON](evidence/b4-01-validation-20261001.json)。未发布 Beta4，未运行 B4-02 的三 worktree 写任务合回验收。
 
 ## 架构影响
 - A 级：ExecutionScheduler 为深模块，监督者负责 Plan 转换；回合租约在宿主内共享。排序事实在已登记 device 根 `project-runtime/<workspaceId>/scheduler.json`；Plan、权限、签收与 Evidence 仍走原真源。
@@ -46,6 +47,7 @@ B4-01 ExecutionScheduler（Beta4：槽位、优先级、依赖）。代码 #75/#
 
 ## 文档偏差
 - 分层文档 §4.2 的旧额度、P0 借槽和依赖 result_ready 选项与 Accepted ADR 80/B4-01 不一致，本次知识 PR 对齐实施契约。
+- Review 的四条知识意见已修正：运行时依赖契约只保留 accepted，真源表分开持久化排序/Plan 占用/进程租约，执行示例使用 high/normal/low，各篇改动文档补齐或更新日期。
 - ADR 82 仍为 Proposed，本卡授权不表示接受项目目标决策。
 
 ## 未完成与后续
