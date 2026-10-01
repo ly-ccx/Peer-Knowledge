@@ -117,3 +117,12 @@ CI36903267497原inspector观测问题消失，Linux完整通过；macOS生产lis
 开发头 c2480c6f，测试merge 6cd0d271。两平台编译/类型/架构/全量测试通过，Linux窗口通过；Mac开场document.hidden=false、hasFocus=true，但第4次搜索清空fill超时15s。截图已清空并显示200列表，说明不能简单归因为未聚焦。保留原报告evidence/rc01-ci-mac-fill-failed-20261002.json与CI失败截图。未完成5个样本，不把部分样本宣布达标。
 
 继续仅在fixture加入Playwright tracing和RAF计数/动作前后时间、真实节点可见尺寸记录，保持所有动作/断言/预算/超时。Electron官方BrowserWindow文档说明macOS可受occlusion节流影响，但本地安装的Playwright1.62.1 loader已经设置disable-background-timer-throttling/backgrounding-occluded-windows/renderer-backgrounding，因此不重复加同样switch或据此宣布修复。https://www.electronjs.org/docs/latest/api/browser-window
+
+
+## Mac CI 主线程根因与最终复验（2026-10-02）
+
+第五至第七次 CI 失败原报告保留。第七次 36909719055 的真实 CPU profile 及 loop 探针捕获 68.2s/30.8s 主线程阻塞；调用栈集中 realpathSync → registry identity reconciliation → loadMigratedSettings → 高频 runtimeEnabled/ownsProject/Watch/队列策略读取。200 工作区在同一维护周期被反复整批校验，而 renderer 仍在动画。不是已证实的 Playwright/Chromium GC 故障。
+
+按 Accepted ADR86 修复 70b48669：SettingsStore.getRuntimePolicy 每次读原文件，只投影归一化 runtime/memory 策略；无跨调用缓存，不参与权限、租约或项目身份真源。旧 schema 仍走原迁移；getAll/merge 保留完整身份修复。main 原装配行净增 0。36 个定向回归通过，包括 200 次读取不修复损坏注册表、getAll 仍修复、外部设置实时可见、经典切换撤销全部 runner。
+
+CI36911411217（tip70b48669，merge c8cb79d6）：macOS/Linux 完整编译/类型/架构/测试/真窗口均 SUCCESS；Mac 窗口就绪 6.0s，列表 p5074.22ms、可见搜索130.60ms、Received216.10ms，全部九项检查，0错误，自有进程退出。随后关闭临时 CPU/CDP 调试开关，生产修复不变；最终 tip1884582d 的干净本机 live/scale/window 原报告附 evidence。GLM 五轮全 done，p505598.32ms，单轮9504.32/7208.34ms仍保留。规模八预算全部达标；窗口就绪2186ms/list18.37/search31.60/Received49.90ms，全九项通过、0错误。最终无调试两平台 CI36912497140 仍待结果，未提前标记完成。
