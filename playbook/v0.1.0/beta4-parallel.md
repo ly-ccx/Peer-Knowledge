@@ -22,7 +22,7 @@ B4-08（独立）
 
 ## B4-01 ExecutionScheduler：槽位、优先级、依赖
 
-代码已提交 [#77](https://github.com/ly-ccx/Peer-Agent/pull/77)，本地门禁通过，待双平台 CI/Review；交接见 [B4-01 报告](b4-01-handoff.md)。
+代码已提交 [#77](https://github.com/ly-ccx/Peer-Agent/pull/77)，本地门禁及双平台 CI 通过，待 Review/负责人合并；交接见 [B4-01 报告](b4-01-handoff.md)。
 
 实施边界与负责人批准的路径补齐见 [B4-01 实施契约](b4-01-execution-scheduler.md)。依据 ADR 80 推进本卡；项目目标卡 B4-04 至 B4-06 等待 ADR 82 Accepted。
 

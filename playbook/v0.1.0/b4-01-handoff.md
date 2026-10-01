@@ -11,7 +11,7 @@ B4-01 ExecutionScheduler（Beta4：槽位、优先级、依赖）。代码 #75/#
 - 分支：`PeerAgent/pa/b4-01-execution-scheduler` → `PeerAgent/dev/0.1.0`
 - 提交：`9c53bc69` feat(project-agent): implement Beta4 execution scheduler
 - 代码 PR：[Peer-Agent #77](https://github.com/ly-ccx/Peer-Agent/pull/77)
-- 知识实施边界：Peer-Knowledge 同名分支，先于实现提交；A 级依据 ADR 80 Accepted。
+- 知识 PR：[Peer-Knowledge #8](https://github.com/ly-ccx/Peer-Knowledge/pull/8)；契约提交先于代码。
 
 ## 改了什么
 - `runtime-node/src/project-agent/execution-scheduler.mjs` 及测试：每项目 1 原地写/2 只读槽，真实 worktree 独立；全局 4 回合（设置 1–8）、high/normal/low、FIFO、30 分钟升一级、原子排序持久化、依赖签收闸门、取消/finally 租约。
@@ -30,10 +30,10 @@ B4-01 ExecutionScheduler（Beta4：槽位、优先级、依赖）。代码 #75/#
 
 ## 验证
 - `pnpm build`：通过；`pnpm typecheck`：通过；`pnpm architecture:check`：通过。
-- `pnpm test`：全仓通过；runtime-node 851/851，desktop 5154 通过、5 既有跳过，system-context 29/29，其他包及 marketplace/changelog 均通过。
+- `pnpm test`：全仓通过；runtime-node 851/851，desktop 5154 通过、5 既有跳过，system-context 29/29，TUI 712/712，其他包及 marketplace/changelog 均通过。
 - `node --test packages/protocol/src/*.test.ts`：172/172。
 - 新增测试覆盖项目/全局上限、读写并行、真实 worktree 判定、优先级/防饿死、签收/失败/外项目依赖、重启 FIFO、取消等待和活动回合、核验交接、重复准入、启动失败、宿主共享装配、卡片和设置保存。
-- 双平台 CI：提交后检查。未发布 Beta4，未运行 B4-02 的三 worktree 写任务合回验收。
+- 双平台 CI：[run 36820249563](https://github.com/ly-ccx/Peer-Agent/actions/runs/36820249563) Ubuntu/macOS 均通过，验证代码 `9c53bc69f8cdcbdd571c94aa5c36e536a9c87cd5`；证据 [JSON](evidence/b4-01-validation-20261001.json)。未发布 Beta4，未运行 B4-02 的三 worktree 写任务合回验收。
 
 ## 架构影响
 - A 级：ExecutionScheduler 为深模块，监督者负责 Plan 转换；回合租约在宿主内共享。排序事实在已登记 device 根 `project-runtime/<workspaceId>/scheduler.json`；Plan、权限、签收与 Evidence 仍走原真源。
