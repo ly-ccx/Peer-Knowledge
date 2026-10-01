@@ -1,0 +1,342 @@
+{
+  "startedAt": "2026-10-01T13:53:05.186Z",
+  "root": "<lab-root>",
+  "model": "glm-5.3-flash",
+  "sourceHead": "dfb1e12cab6bdd6320daaa28afe581873d2adb3b",
+  "sourceDirty": false,
+  "steps": [
+    {
+      "step": "desktop owns / terminal is client",
+      "ready": true,
+      "workspaceId": "c9de2f31-320f-46fa-8d2c-a2aa8ac8d6b1",
+      "isHost": false
+    },
+    {
+      "step": "terminal queued input",
+      "receipt": {
+        "id": 1,
+        "result": {
+          "inputId": "b5-client-read",
+          "workspaceId": "c9de2f31-320f-46fa-8d2c-a2aa8ac8d6b1",
+          "surface": "tui",
+          "text": "用 read_file 读取 README.md，并用 post_reply 告诉我其中的 readback marker。只读，不开任务，不修改文件。",
+          "anchorRefs": [],
+          "quoteRefs": [],
+          "attachmentRefs": [],
+          "createdAt": "2026-10-01T13:53:06.163Z"
+        }
+      }
+    },
+    {
+      "step": "desktop quit / terminal owns",
+      "isHost": true
+    }
+  ],
+  "pageErrors": [],
+  "workspaceId": "c9de2f31-320f-46fa-8d2c-a2aa8ac8d6b1",
+  "desktopReply": {
+    "id": "reply:turn-15e3b1ec-1311-4874-b706-a29c54bb0355:2",
+    "role": "assistant",
+    "kind": "agent_reply",
+    "content": "已用 read_file 读取 README.md（只读，未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+    "replyTo": [
+      "input-b5-client-read"
+    ],
+    "sources": [],
+    "fallback": false,
+    "turnId": "turn-15e3b1ec-1311-4874-b706-a29c54bb0355",
+    "meta": {
+      "replyTo": [
+        "input-b5-client-read"
+      ],
+      "sources": [],
+      "memoryUsed": [],
+      "memoryLearned": [],
+      "surfacing": "interrupt",
+      "evidenceRefs": [
+        "tool-result://60e52d2f-d4f4-48e6-87a1-2c1cc940ed97"
+      ]
+    },
+    "marks": [],
+    "createdAt": "2026-10-01T13:53:46.718Z"
+  },
+  "desktopTurn": {
+    "id": "turn-15e3b1ec-1311-4874-b706-a29c54bb0355",
+    "role": "assistant",
+    "kind": "agent_turn",
+    "turnId": "turn-15e3b1ec-1311-4874-b706-a29c54bb0355",
+    "turnKind": "user",
+    "userInputs": [
+      {
+        "inputId": "b5-client-read",
+        "workspaceId": "c9de2f31-320f-46fa-8d2c-a2aa8ac8d6b1",
+        "surface": "tui",
+        "text": "用 read_file 读取 README.md，并用 post_reply 告诉我其中的 readback marker。只读，不开任务，不修改文件。",
+        "anchorRefs": [],
+        "quoteRefs": [],
+        "attachmentRefs": [],
+        "createdAt": "2026-10-01T13:53:06.163Z"
+      }
+    ],
+    "content": "",
+    "rounds": [
+      {
+        "text": "读取结果如上（breadth 标记：BETA5_HANDOFF_OK），参考回复已发送。",
+        "toolCalls": [
+          {
+            "name": "read_file",
+            "input": {
+              "path": "README.md"
+            },
+            "result": {
+              "kind": "local_file_ref",
+              "tool": "read_file",
+              "path": "<lab-root>/project/README.md",
+              "chars": 92,
+              "lines": 1,
+              "mtimeMs": 1790862784640.3674,
+              "sizeBytes": 92,
+              "contentHash": "758f0dccd2da3d1fc06f74a7cff3a9ca374db87193375d2c2c071f09ffd02c17",
+              "fullRead": true,
+              "preview": "Beta5 multi-entry read-only fixture. Readback marker: BETA5_HANDOFF_OK. Do not change files.",
+              "contextPreviewTruncated": false,
+              "suggestedRetrieval": [
+                "sed -n '1,160p' \"<lab-root>/project/README.md\"",
+                "rg -n \"<pattern>\" \"<lab-root>/project/README.md\""
+              ],
+              "evidenceRefs": [
+                "tool-result://60e52d2f-d4f4-48e6-87a1-2c1cc940ed97"
+              ]
+            }
+          },
+          {
+            "name": "post_reply",
+            "input": {
+              "text": "已用 read_file 读取 README.md（只读，未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+              "replyTo": [
+                "input-b5-client-read"
+              ]
+            },
+            "result": {
+              "ok": true,
+              "messageId": "reply:turn-15e3b1ec-1311-4874-b706-a29c54bb0355:2",
+              "message": {
+                "id": "reply:turn-15e3b1ec-1311-4874-b706-a29c54bb0355:2",
+                "role": "assistant",
+                "kind": "agent_reply",
+                "content": "已用 read_file 读取 README.md（只读，未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+                "replyTo": [
+                  "input-b5-client-read"
+                ],
+                "sources": [],
+                "fallback": false,
+                "turnId": "turn-15e3b1ec-1311-4874-b706-a29c54bb0355",
+                "meta": {
+                  "replyTo": [
+                    "input-b5-client-read"
+                  ],
+                  "sources": [],
+                  "memoryUsed": [],
+                  "memoryLearned": [],
+                  "surfacing": "interrupt"
+                },
+                "marks": []
+              },
+              "meta": {
+                "replyTo": [
+                  "input-b5-client-read"
+                ],
+                "sources": [],
+                "memoryUsed": [],
+                "memoryLearned": [],
+                "surfacing": "interrupt"
+              },
+              "surfacing": "interrupt",
+              "evidenceRefs": [
+                "tool-result://12cc2dc2-f1b5-4d98-94ae-67c1346c670d"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "createdAt": "2026-10-01T13:53:46.717Z"
+  },
+  "desktopStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 27332
+  },
+  "tuiReply": {
+    "id": "reply:turn-b2af91a4-c568-4b12-a108-dae97363d5a7:1",
+    "role": "assistant",
+    "kind": "agent_reply",
+    "content": "已用 read_file 读取 README.md（只读，未开任务、未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+    "replyTo": [
+      "input-b5-host-read"
+    ],
+    "sources": [],
+    "fallback": false,
+    "turnId": "turn-b2af91a4-c568-4b12-a108-dae97363d5a7",
+    "meta": {
+      "replyTo": [
+        "input-b5-host-read"
+      ],
+      "sources": [],
+      "memoryUsed": [],
+      "memoryLearned": [],
+      "surfacing": "interrupt"
+    },
+    "marks": [],
+    "createdAt": "2026-10-01T13:54:07.116Z"
+  },
+  "tuiTurn": {
+    "id": "turn-b2af91a4-c568-4b12-a108-dae97363d5a7",
+    "role": "assistant",
+    "kind": "agent_turn",
+    "turnId": "turn-b2af91a4-c568-4b12-a108-dae97363d5a7",
+    "turnKind": "user",
+    "userInputs": [
+      {
+        "inputId": "b5-host-read",
+        "workspaceId": "c9de2f31-320f-46fa-8d2c-a2aa8ac8d6b1",
+        "surface": "tui",
+        "text": "用 read_file 读取 README.md，并用 post_reply 告诉我其中的 readback marker。只读，不开任务，不修改文件。",
+        "anchorRefs": [],
+        "quoteRefs": [],
+        "attachmentRefs": [],
+        "createdAt": "2026-10-01T13:53:47.203Z"
+      }
+    ],
+    "content": "",
+    "rounds": [
+      {
+        "text": "已用 read_file 读取 README.md（只读，未开任务、未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+        "toolCalls": [
+          {
+            "name": "read_file",
+            "input": {
+              "path": "README.md"
+            },
+            "result": {
+              "path": "README.md",
+              "content": "Beta5 multi-entry read-only fixture. Readback marker: BETA5_HANDOFF_OK. Do not change files.",
+              "bytes": 92,
+              "contentHash": "758f0dccd2da3d1fc06f74a7cff3a9ca374db87193375d2c2c071f09ffd02c17"
+            }
+          },
+          {
+            "name": "post_reply",
+            "input": {
+              "text": "已用 read_file 读取 README.md（只读，未开任务、未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+              "replyTo": [
+                "input-b5-host-read"
+              ]
+            },
+            "result": {
+              "ok": true,
+              "messageId": "reply:turn-b2af91a4-c568-4b12-a108-dae97363d5a7:1",
+              "message": {
+                "id": "reply:turn-b2af91a4-c568-4b12-a108-dae97363d5a7:1",
+                "role": "assistant",
+                "kind": "agent_reply",
+                "content": "已用 read_file 读取 README.md（只读，未开任务、未修改文件）。其中的 readback marker 是：BETA5_HANDOFF_OK。",
+                "replyTo": [
+                  "input-b5-host-read"
+                ],
+                "sources": [],
+                "fallback": false,
+                "turnId": "turn-b2af91a4-c568-4b12-a108-dae97363d5a7",
+                "meta": {
+                  "replyTo": [
+                    "input-b5-host-read"
+                  ],
+                  "sources": [],
+                  "memoryUsed": [],
+                  "memoryLearned": [],
+                  "surfacing": "interrupt"
+                },
+                "marks": []
+              },
+              "meta": {
+                "replyTo": [
+                  "input-b5-host-read"
+                ],
+                "sources": [],
+                "memoryUsed": [],
+                "memoryLearned": [],
+                "surfacing": "interrupt"
+              },
+              "surfacing": "interrupt"
+            }
+          }
+        ]
+      }
+    ],
+    "createdAt": "2026-10-01T13:54:07.113Z"
+  },
+  "ok": true,
+  "terminalStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-2",
+    "pid": 27396
+  },
+  "credentialCopiesRemoved": true,
+  "finishedAt": "2026-10-01T13:54:07.226Z",
+  "scope": "actual Electron + independent Bun process + real configured model; no terminal product UI yet",
+  "followup": "After this clean dfb1e12c run, an admission-close race was reproduced and fixed with scripted regression; final code CI and Beta5 release acceptance cover the resulting tip.",
+  "evidenceIndex": [
+    {
+      "evidenceRef": "tool-result://60e52d2f-d4f4-48e6-87a1-2c1cc940ed97",
+      "createdAt": "2026-10-01T13:53:41.168Z",
+      "conversationId": "4883ef7e-1528-4eb6-9285-2842e22978c2",
+      "streamId": "turn-15e3b1ec-1311-4874-b706-a29c54bb0355",
+      "toolCallId": "60e52d2f-d4f4-48e6-87a1-2c1cc940ed97",
+      "capabilityId": "local.file.read",
+      "toolName": "read_file"
+    },
+    {
+      "evidenceRef": "tool-result://12cc2dc2-f1b5-4d98-94ae-67c1346c670d",
+      "createdAt": "2026-10-01T13:53:44.187Z",
+      "conversationId": "4883ef7e-1528-4eb6-9285-2842e22978c2",
+      "streamId": "turn-15e3b1ec-1311-4874-b706-a29c54bb0355",
+      "toolCallId": "12cc2dc2-f1b5-4d98-94ae-67c1346c670d",
+      "capabilityId": "local.delegation.post_reply",
+      "toolName": "post_reply"
+    },
+    {
+      "evidenceRef": "tool-result://5ce117fb-3d61-4bd1-8f02-07190844804e",
+      "createdAt": "2026-10-01T13:53:56.950Z",
+      "conversationId": "4883ef7e-1528-4eb6-9285-2842e22978c2",
+      "streamId": "turn-b2af91a4-c568-4b12-a108-dae97363d5a7",
+      "toolCallId": "5ce117fb-3d61-4bd1-8f02-07190844804e",
+      "capabilityId": "local.file.read",
+      "toolName": "read_file"
+    },
+    {
+      "evidenceRef": "tool-result://85e3c3e2-4110-4285-a91a-e07cafc4d389",
+      "createdAt": "2026-10-01T13:54:05.592Z",
+      "conversationId": "4883ef7e-1528-4eb6-9285-2842e22978c2",
+      "streamId": "turn-b2af91a4-c568-4b12-a108-dae97363d5a7",
+      "toolCallId": "85e3c3e2-4110-4285-a91a-e07cafc4d389",
+      "capabilityId": "local.delegation.post_reply",
+      "toolName": "post_reply"
+    }
+  ],
+  "priorFailures": [
+    {
+      "kind": "real run timeout after terminal lease acquisition",
+      "resolution": "isolated replay executed pending input once; instrumented repeated runs showed waiting_provider and then passed; upstream timeout also captured separately"
+    },
+    {
+      "kind": "upstream provider server_error timeout",
+      "resolution": "unavailable card was persisted; same real model then passed twice"
+    }
+  ]
+}
