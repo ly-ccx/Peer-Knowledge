@@ -536,3 +536,12 @@ function decideSurfacing(input: {
 - 落地范围与验收见 `playbook/v0.1.0/beta3-verification-consistency.md`。这不是 Beta3 发布认证，也不开放 Beta4 能力。
 - 档案增加可持久化的 `acceptancePolicy`（auto / confirm）、`planApproval`（never / writes / always）和既有 `modelPolicy`。更新经 `update-profile` 校验并保存；既有档案缺字段时读取默认值，不批量重写旧数据。模型覆盖只接受当前已配置的模型与允许角色。
 - 验证必须覆盖正式注册入口到模型调用、Provider 到监督者、完成事件到 L7、回复拒绝、错误终态、重启 id 与三种卡片动作。模块单测通过不能替代真实项目、安装迁移与连续日用验收。
+
+### 14.2 真实交付缺口补修（2026-10-01）
+
+- 结构化自动验收的同一用户委托按宿主执行身份幂等：项目/父对话、用户锚点集合、kind/readOnly、验收操作参数、dependsOn/supersedes；标题/brief/criterion 描述与 id 不改变身份。没有自动标准时保持严格请求身份。不同目标参数、新用户锚点、显式替代保持不同；不通过模糊文本相似度合并。持久化旧计划可重建身份匹配，保留原记录不批改。
+- 文件能力执行成功后，既有 EvidenceIndex 可追加 `bodyPreview: { kind: 'file', text: string, truncated: boolean }`，正文最多 4000 字符、复用既有秘密脱敏；披露最多 2000 字符并保留截断事实。来源是 Provider Tool Result，不是助手正文或 goal wrapper；读取展示执行时快照，不复读当前文件。旧无快照记录不得编造历史证据。
+- completed 无独立 verdict 时也产生 result_ready 唤醒事实，完成事件以稳定 completedAt 标识幂等，不把完成事实当核验/签收事实。项目代理仍按现有工具核验并关联回复，宿主再过关闭闸门。
+- 针对已完成但未交付任务的用户锚点，回复必须带对应 sources 与当前 statusClaims；漏来源拒绝并返回待引用 session 和宿主状态。正常纯问答与尚未完成任务的普通交流不受此规则影响。
+- memory Provider 从已有主机 toolContext 读取 mode/turnRole/workspace/messages，和 flat context 保持相同身份准入。模型工具参数不决定角色；worker 仍不可写记忆。熟悉项目沉淀沿用关联回复、宿主核验与 Evidence 准入，不以 stated 或源外回复绕过。
+- 范围及回归见 `playbook/v0.1.0/beta3-real-gaps.md`；沿用 ADR 80/81/85，无新的执行通道或存储目录，不开放 Beta4。
