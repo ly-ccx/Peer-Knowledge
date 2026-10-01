@@ -1,6 +1,6 @@
 # B5-05 逐机器人远程授权交接
 
-日期：2026-10-01。状态：实现/本机自测完成，代码PR #90双平台CI在途。代码 `8556ab36`，基线B5-04合并 `22c050ce`；实施边界见 [b5-05-remote-grants.md](b5-05-remote-grants.md)。
+日期：2026-10-01。状态：已完成并合入。代码PR #90在 `8556ab36` 通过双平台CI [36883768066](https://github.com/ly-ccx/Peer-Agent/actions/runs/36883768066)，知识PR #21合并 `0210b0d`。代码 `8556ab36`，基线B5-04合并 `22c050ce`；实施边界见 [b5-05-remote-grants.md](b5-05-remote-grants.md)。
 
 ## 交付与边界
 
