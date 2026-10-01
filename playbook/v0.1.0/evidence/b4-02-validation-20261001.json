@@ -1,0 +1,98 @@
+{
+  "createdAt": "2026-10-01",
+  "codeHead": "7819b883ffe7535d5422a737b85acce586713554",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/78",
+  "realGitScenario": {
+    "scenario": "B4-02 three writers",
+    "executor": "scripted production host; real Git and filesystem",
+    "peak": 3,
+    "baseline": "90102c002f9604d3a5ab2bd46ee7679f1b82cc2a",
+    "evidence": [
+      {
+        "session": "writer-1",
+        "isolated": true,
+        "targetBranch": "main",
+        "commitSha": "63a20d47f61d073e3b029f117c5787dc2400905f",
+        "cleaned": true,
+        "signedBy": "user"
+      },
+      {
+        "session": "writer-2",
+        "isolated": true,
+        "targetBranch": "main",
+        "commitSha": "c13e81c9b7685f8cd0ba86bbaba4c96c164e5edc",
+        "cleaned": true,
+        "signedBy": "user"
+      },
+      {
+        "session": "writer-3",
+        "isolated": true,
+        "targetBranch": "main",
+        "commitSha": "0da20471f4c09e3675493e34347909a89e0e37aa",
+        "cleaned": true,
+        "signedBy": "user"
+      }
+    ]
+  },
+  "checks": {
+    "build": "pass",
+    "runtimeNode": {
+      "pass": 864,
+      "fail": 0,
+      "skip": 0,
+      "head": "7819b883ffe7535d5422a737b85acce586713554"
+    },
+    "desktop": {
+      "pass": 5162,
+      "fail": 0,
+      "skip": 5,
+      "head": "7819b883ffe7535d5422a737b85acce586713554"
+    },
+    "protocol": {
+      "pass": 172,
+      "fail": 0,
+      "head": "7819b883ffe7535d5422a737b85acce586713554"
+    },
+    "typecheck": "pass",
+    "architecture": "pass",
+    "ipc": "pass",
+    "cleanupFeedbackRegression": {
+      "beforeFixExit": 1,
+      "afterFix": {
+        "pass": 17,
+        "fail": 0
+      }
+    },
+    "gateHead": "7819b883ffe7535d5422a737b85acce586713554",
+    "strictAdmissionRegression": {
+      "beforeFixExit": 1,
+      "afterFix": {
+        "pass": 12,
+        "fail": 0
+      }
+    },
+    "destinationVolumeRegression": {
+      "beforeFixExit": 1,
+      "afterFix": {
+        "pass": 22,
+        "fail": 0
+      }
+    }
+  },
+  "ci": {
+    "status": "completed",
+    "conclusion": "success",
+    "head": "7819b883ffe7535d5422a737b85acce586713554",
+    "runId": 36830424073,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36830424073",
+    "platforms": {
+      "ci-macos-14": "success",
+      "ci-ubuntu-latest": "success"
+    }
+  },
+  "limitations": [
+    "Scripted executor fixture, real Git and filesystem; no remote model invocation",
+    "Not Beta4 release or user daily-use evidence"
+  ],
+  "mergedCodeCommit": "faa25d9c3dd025af1ad7d77b53cf4d8db02774c9"
+}

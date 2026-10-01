@@ -22,7 +22,7 @@ B4-08（独立）
 
 ## B4-01 ExecutionScheduler：槽位、优先级、依赖
 
-代码已提交 [#77](https://github.com/ly-ccx/Peer-Agent/pull/77)，Review 的入队计龄与缺失依赖展示问题已修复，本地门禁通过；修复提交的双平台 CI 均通过，待负责人合并。交接见 [B4-01 报告](b4-01-handoff.md)。
+代码 [#77](https://github.com/ly-ccx/Peer-Agent/pull/77) 与知识 #8 已于 2026-10-01 按负责人授权合入；入队计龄与缺失依赖展示问题已修复，本地门禁与双平台 CI 均通过。交接见 [B4-01 报告](b4-01-handoff.md)。
 
 实施边界与负责人批准的路径补齐见 [B4-01 实施契约](b4-01-execution-scheduler.md)。依据 ADR 80 推进本卡；项目目标卡 B4-04 至 B4-06 等待 ADR 82 Accepted。
 
@@ -43,6 +43,8 @@ B4-08（独立）
 ---
 
 ## B4-02 IsolationPlanner、自动 worktree 与合回
+
+代码 [#78](https://github.com/ly-ccx/Peer-Agent/pull/78) 已于 2026-10-01 按负责人授权合入（`faa25d9c`），实施契约见 [B4-02 边界](b4-02-worktree-isolation.md)，验证与三 worktree 真实 Git 场景见 [交接](b4-02-handoff.md)。最终提交 `7819b883` 的本地门禁与双平台 CI 全部通过，Review 两条意见已处理；负责人已授权自行推进全部 B4。
 
 - **级别**：A。**规模**：L（可拆 B4-02a 决策与创建，B4-02b 合回与清理）。**依赖**：B4-01。
 - **目标**：并行的写任务各自在 worktree 里干活；验收后按现有交付流程合回；冲突变成需要你。
