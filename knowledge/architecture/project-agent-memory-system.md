@@ -1,7 +1,7 @@
 # 项目代理记忆体系
 
 创建时间：2026-09-24
-最后更新：2026-09-24
+最后更新：2026-10-01
 
 > 状态：随 ADR 81 Accepted（2026-09-26）。§16 已关闭。简报预算以 6000 字符为准。  
 > 级别：A 级（上下文准入、存储边界、System Context 来源、能力暴露）  
@@ -276,6 +276,14 @@ interface DelegationOrigin {
 - 用户「忘掉这个」→ `revoked`（可恢复）；「彻底删除」→ 物理删除该条及其版本，并记一条删除事件（不含内容）。
 
 ---
+
+### 7.1 Beta4 可执行边界（B4-08）
+
+- 日维护沿宿主小结时钟运行，由项目租约、机器人状态、经典界面与记忆开关控制；不调用模型。完成事实保存在 device `project-runtime/<workspaceId>/memory-maintenance.json`，失败不推进当日游标。
+- 存储只追加版本。到期或 90 天未使用的 inferred preference 进入 `expired`，固定项与职责不自动过期；运行时检索、新快照与简报在维护前也过滤实际到期项。
+- 单值主题用可选 `topicKey/topicValue`。按 ADR 81 决策 4，新且明确的 verified/stated 值取代旧值，旧记录保留 `supersededBy`；无法判定取代的矛盾进入 `conflicted`，关联 `conflictId/conflictsWith`。用户选择沿既有类型化 `project-memory:restore` 的 `resolveConflict` 字段，保留一条、撤销其余。陈述和来源在冲突卡与记忆页可见。
+- 文件有效性由 host adapter 读取工作区内真实路径并计算 `fileAnchors`（相对路径、内容哈希、HEAD），拒绝越界和大文件。Curator 只提出路径，不能提供权威哈希；这一接缝不新增模型可见文件能力。
+- 文件变化的 verified 条目标 `needsReverify`，退出有效检索与新快照，在 L7 简报独立区注明“可能已过时”。旧冻结快照不改写。再次 Curator 提取必须经新 Evidence 准入且重新取得实际锚点，维护本身不能宣布验证成功。
 
 ## 8. 治理红线
 
