@@ -1,7 +1,7 @@
 # Beta 1–3 桌面集成补修
 
 创建时间：2026-09-30
-最后更新：2026-09-30
+最后更新：2026-10-01
 
 来源：负责人要求复核前 3 个 Beta，并补齐发现的遗漏。
 
@@ -13,7 +13,20 @@ Beta 1–3 已接受能力的集成补修。范围包含生产装配、回复与
 
 - 代码与知识分支：`PeerAgent/pa/beta123-integration-repair`。
 - 代码目标分支：`PeerAgent/dev/0.1.0`；知识目标分支：`main`。
-- 具体提交与 PR 见对应仓库的交接 PR。
+- 代码 PR：[Peer-Agent #74](https://github.com/ly-ccx/Peer-Agent/pull/74)；知识 PR：[Peer-Knowledge #4](https://github.com/ly-ccx/Peer-Knowledge/pull/4)。
+- 代码提交（按顺序；原 228 / 6456 测试结果对应 `abc4ee76`，本文 6463 全量结果对应 `abb2f5af`）：
+  - `abc4ee769ce6b26fa95ce7901f093b883a1dfcb7` — `fix(project-agent): complete Beta 1-3 desktop integration`
+  - `aaf2b1374f6ec24e5127a9fa7d7b09c7250a0df4` — `fix(project-agent): recover queued inputs and expose anchored Goal criteria`
+  - `3ea49ce4b8401a9443dbbb022a5239c3299649e2` — `fix(goal): retain criterion IDs and checks in plan readback`
+  - `abb2f5af2259a40bfd9880db6944d7bbf77eb5f1` — `fix(project-agent): drain persisted inbox after lease recovery`
+  - `a6a2c7f862ddc84d390ebd895a031bd861aa6525` — `fix(project-agent): keep projected cards out of pagination cursors`
+
+## 合并前 Review 补修（2026-10-01）
+
+- 代码 PR 的分页评论已复现：未落盘的未解决卡片追加到首页后，`nextCursor` 错指该卡片，下一页找不到持久化消息编号而重复首页。现在在追加投影卡片前从持久化分页切片计算游标。
+- 新回归覆盖首页提示卡、已解决卡片不投影、下一页历史不重复及末页游标为 null；改动前失败，修复后通过。
+- `a6a2c7f8` 本地检查：受影响 runtime-node 包构建通过，完整测试 826 通过、0 失败、0 取消、0 跳过；`pnpm typecheck`、`pnpm architecture:check` 通过。该补修为 C 级局部错误修复，未改变协议、权限、上下文或存储边界。
+- 知识 PR 的时间字段已齐全；运行时架构文档已标注最后更新为 2026-09-30；本次补齐了交接文档的具体提交、消息和 PR 链接。GitHub 原 review threads 尚未标记 resolved，内容修复与界面状态需区分。
 
 ## 改了什么
 
