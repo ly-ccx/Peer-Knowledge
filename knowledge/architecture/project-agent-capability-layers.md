@@ -1,7 +1,7 @@
 # 项目代理能力分层与模块化建设
 
 创建时间：2026-09-24
-最后更新：2026-09-24
+最后更新：2026-10-01
 
 > 状态：随 ADR 80 Accepted（2026-09-26）。§13 已关闭。数值与任务卡不一致时以任务卡为准。  
 > 级别：A 级（执行宿主、调度、通讯、异常、结果追踪的模块边界）  
@@ -45,7 +45,9 @@ L0  基座（已有）  能力链 · agent loop · Provider 协调与恢复 · c
 | 权限待处理请求 | permission-review（main） | 引用 `pendingRequestId` |
 | 会话消息、父子关系、消息来源 | conversation-store | 投影 |
 | 事件投递进度 | ProjectInbox 游标 | — |
-| 调度队列、并发槽位 | ExecutionScheduler 内存态，可从 store 重建 | — |
+| 调度队列次序、入队时间 | `project-runtime/<workspaceId>/scheduler.json` | 调度器读取；缺失或损坏时按 Plan.createdAt 重建次序，新项从重建时刻计龄 |
+| 项目读写槽位占用 | GoalPlan store 中的阶段与执行绑定 | ExecutionScheduler 重建准入投影 |
+| 全局模型回合租约 | ExecutionScheduler 进程内内存态 | 不落盘；重启后重新申请 |
 | 证据 | EvidenceIndex | 引用 |
 
 4. **包的落点。**
@@ -188,29 +190,24 @@ interface SessionSupervisor {
 
 ### 4.2 ExecutionScheduler（调度）
 
-调度的粒度是**回合**，不是任务。长任务每一轮结束都归还槽位，下一轮重新排队，这样多条任务之间天然公平，用户的回合也不会被后台任务堵住。
-
-槽位：
+B4-01 实施契约（2026-10-01，ADR 80 Accepted）：[实施边界](../../playbook/v0.1.0/b4-01-execution-scheduler.md)。调度器负责准入与排序，Plan/DelegationOrigin、resultAcceptance 负责任务和签收真值。
 
 | 槽位 | 默认 | 说明 |
 |---|---|---|
-| 全局模型回合 | 4 | 同时在跑的 Provider 回合总数 |
-| 每项目运行中任务 | 3（硬上限 6） | 超出的 spawn 进 `queued` |
-| 每 Provider 并发 | 按 Provider 配置 | 429 由 ADR 30 恢复层退避，调度器同步降并发 |
-| 子 agent 池 | 沿用 Explorer 5 / 8 | Explorer、Verifier、调研子 agent 共用 |
+| 全局模型回合 | 4，可设 1–8 | AgentTurnExecutor 一次 runTurn 取得一次租约，异常与取消均归还；内部 Provider 恢复不重复取槽 |
+| 每项目原地写任务 | 1 | running 的非终态任务占槽；不可恢复失败让出 |
+| 每项目只读任务 | 2 | 与原地写槽独立 |
+| worktree 写任务 | 不占原地写槽 | 只有宿主真实 deliveryBinding.executionIsolation=worktree 且存在 worktreePath 才成立 |
 
-优先级：
+长任务每次宿主回合结束归还全局租约，下一次回合重新排队。priority 为 high > normal > low；同级 FIFO；从实际入队时刻等待 30 分钟临时提升一级，最高 high。等待批准不计龄，重启保留有效队列项的入队时间。用户直接触发的代理回合优先；所有优先级遵守全局硬上限。
 
-| 级 | 回合 | 规则 |
-|---|---|---|
-| P0 | 用户直接触发的回合：代理的用户回合、用户介入后的任务回合 | 不排在任何后台回合后面；槽位满时可以借一个 |
-| P1 | 代理的唤醒回合 | |
-| P2 | 任务的 Runner 回合 | 同级按上次运行时间轮转 |
-| P3 | 子 agent | |
+依赖闸门：dependsOn 只能引用本项目已存在任务，全部 completed 且 resultAcceptance.acceptedAt 已持久化才能启动。失败、取消或不可恢复中断使下游 runner 进入 waiting_user，宿主投影决策卡；用户回答交给代理取消或重新安排任务，不能自动跳过依赖。已完成但未签收仍排队。
 
-依赖闸门：`spawn_session({ dependsOn: [sessionId], dependsOnPolicy: 'accepted' | 'result_ready' })`。依赖满足前任务保持 `queued`，不启动 Runner。依赖任务失败或被取消时，下游任务转 `blocked`，产生事件交给代理决定。
+准入先预留 Plan，再启动 Runner；启动不等待任务生命周期。排队排序事实原子写入 project-runtime/<workspaceId>/scheduler.json，重启从 Plan 重建占用，回合租约不落盘。WorkSession.queuedBehind 和 queueReason 是宿主投影。
 
-接线：Goal Runner 的 `canRunPlan(plan)` 钩子由调度器实现（依赖与每项目上限）；每一轮的槽位由 AgentTurnExecutor 获取和归还。
+接线：Goal Runner 的 canRunPlan 同时检查宿主租约与调度准入；AgentTurnExecutor 和视觉核验共用一个调度器。同步 verify_session 等待独立核验时，调用方让出回合租约；核验结束后重新取槽再返回结果，避免并发为 1 时死锁。取消同时中止等待或活动回合。
+
+后续设计：每 Provider 自适应并发与项目 token 预算另卡实现。现有 Explorer 池保留自身上限，并同时遵守全局回合租约。
 
 ### 4.3 IsolationPlanner（在哪跑）
 
@@ -498,7 +495,7 @@ L6 与 L2–L4 之间唯一的模型侧接口。每个工具方法只做参数�
 | `cancel_session` | `SessionSupervisor.cancel` |
 | `list_sessions` | `SessionSupervisor.list` |
 | `get_session_report` | `SessionReportBuilder.build` |
-| `spawn_subagent` | AgentTurnExecutor（`research_subagent` 画像，P3 优先级） |
+| `spawn_subagent` | AgentTurnExecutor（`research_subagent` 画像，默认 normal；记忆整理回合为 low） |
 | `post_reply` | ReplyComposer（`auto` 任务汇报后触发签收提交） |
 | `verify_session` | 独立 Verifier（只读）/ SessionMessenger 要求补跑检查 / 视觉复核；暂缓签收 |
 | `get_verification_detail` | VerificationVerdictBuilder + EvidenceIndex（只读） |
@@ -538,7 +535,7 @@ L6 与 L2–L4 之间唯一的模型侧接口。每个工具方法只做参数�
     Supervisor：校验深度与锚点 → 幂等 → 带快照建子会话（首条 = M 原话 + 任务说明）
                → 建 GoalPlan → IsolationPlanner → 入队 → 证据
   M 的状态标记：处理中 · 用量面板按天分组；user_turn 结束（代理可以只说一句「在做了」，也可以不说）
-Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
+Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, 任务 priority；默认 normal)
   任务要跑 pnpm test → 权限审查产生待处理请求
   EventMapper → session_needs_user → Inbox
   Runner：needs_user 立即唤醒 → wake_turn → post_reply({ replyTo: [M] }) + Runner 附「需要你」卡
@@ -592,7 +589,7 @@ Scheduler 放行 → Goal Runner pump → AgentTurnExecutor(session_worker, P2)
 | M4 | 通讯：EventMapper + ProjectInbox + SessionMessenger | 事件去重、游标推进、重放测试 | P1 |
 | M5 | 编排：ProjectAgentRunner + ReplyComposer + 两个上下文来源；结论标记与策略代签提交；renderer 的回复引用条、来源芯片、结论标记、消息状态标记 | P1 场景跑通：低风险任务汇报即代签；需确认任务出现确认卡（调度器先用每项目上限 1 的简化版） | P1 |
 | M6 | 需要你冒泡 + 插话（回答 / 并入 / 停止）+ AnchorScopeResolver；按需披露（`get_verification_detail`、证据芯片）与 `verify_session` | 两处批准同一请求；代理无批准入口；引用插话越界返回 `out_of_scope`；多消息合并回合每条都有处置；追问能逐层展开到证据；追加核验暂缓签收 | P2 |
-| M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；P0 回合不被后台堵住；依赖闸门测试；取代原子性与恢复测试 | P3 |
+| M7 | 调度：ExecutionScheduler（槽位、优先级、依赖）+ IsolationPlanner；接 `canRunPlan`；插话补齐并行、排队、取代（原子 + 继承 + 恢复原任务） | 三任务并行互不污染；用户直接触发的回合优先且遵守硬上限；依赖闸门测试；取代原子性与恢复测试 | P3 |
 | M8 | 异常：FailurePolicy + Watchdog + CircuitBreaker + 取消级联 + 重启恢复顺序 | 失败分类表逐行有测试；重启恢复集成测试 | P1 做基础（失败事件唤醒代理），P3 做全 |
 | M9 | 结果跟踪：DeliveryTimeline + 汇报去重 + 项目记忆挂点 | 代理能基于时间线回答「这周做了什么」 | P4 |
 | M2.1 | ModelRouter + 档位 / 角色设置 + `modelSelection` 冻结 + 故障切换约束 + 用量按角色记账 + 「模型分工」设置页 | 只有一个模型时行为与今天一致；视觉复核自动选能看图的模型；复核优先不同源且报告标明；故障切换不越出项目范围 | P1（与 M2 同批） |

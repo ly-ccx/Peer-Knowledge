@@ -1,0 +1,143 @@
+{
+  "card": "B4-01",
+  "targetVersion": "0.1.0-beta.4",
+  "verifiedOn": "2026-10-01",
+  "codeHead": "9c53bc69f8cdcbdd571c94aa5c36e536a9c87cd5",
+  "codePullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/77",
+  "knowledgePullRequest": "https://github.com/ly-ccx/Peer-Knowledge/pull/8",
+  "environment": {
+    "node": "v25.9.0",
+    "pnpm": "10.22.0"
+  },
+  "checks": [
+    {
+      "command": "pnpm build",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm architecture:check",
+      "exitCode": 0
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "runtimeNode": {
+        "passed": 851,
+        "failed": 0
+      },
+      "desktop": {
+        "passed": 5154,
+        "failed": 0,
+        "skipped": 5
+      },
+      "tui": {
+        "passed": 712,
+        "failed": 0
+      },
+      "systemContext": {
+        "passed": 29,
+        "failed": 0
+      }
+    },
+    {
+      "command": "node --test packages/protocol/src/*.test.ts",
+      "exitCode": 0,
+      "passed": 172,
+      "failed": 0
+    }
+  ],
+  "ci": {
+    "runId": 36820249563,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36820249563",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success"
+      },
+      {
+        "name": "ci-macos-14",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "remaining": [
+    "Explicit merge authorization for PR 77 and knowledge PR 8; reported review findings addressed",
+    "B4-02 IsolationPlanner and actual parallel worktree merge-back",
+    "B4-03 replacement lineage and resume",
+    "B4-07 breaker and restart recovery",
+    "B4-04 to B4-06 wait for ADR 82 acceptance",
+    "Beta4 release not performed"
+  ],
+  "reviewRevision": {
+    "codeHead": "88a9946606a897b5eabe92a16e46fd6c2828ec70",
+    "verifiedOn": "2026-10-01",
+    "addressedCodeComments": [
+      4152190432,
+      4152190438
+    ],
+    "addressedKnowledgeComments": [
+      4152186369,
+      4152186372,
+      4152186378,
+      4152186388
+    ],
+    "checks": [
+      {
+        "command": "pnpm build",
+        "exitCode": 0
+      },
+      {
+        "command": "pnpm typecheck",
+        "exitCode": 0
+      },
+      {
+        "command": "pnpm architecture:check",
+        "exitCode": 0
+      },
+      {
+        "command": "pnpm --filter @peer-agent/runtime-node test",
+        "exitCode": 0,
+        "passed": 852,
+        "failed": 0
+      },
+      {
+        "command": "pnpm --filter @peer-agent/desktop test",
+        "exitCode": 0,
+        "passed": 5155,
+        "failed": 0,
+        "skipped": 5
+      },
+      {
+        "command": "node --test packages/runtime-node/src/project-agent/execution-scheduler.test.mjs apps/desktop/renderer/src/project-agent/state/drawerState.test.ts",
+        "exitCode": 0,
+        "passed": 19,
+        "failed": 0,
+        "beforeFix": {
+          "passed": 17,
+          "failed": 2
+        }
+      }
+    ],
+    "ci": {
+      "runId": 36825934728,
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36825934728",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "ci-ubuntu-latest",
+          "conclusion": "success"
+        },
+        {
+          "name": "ci-macos-14",
+          "conclusion": "success"
+        }
+      ]
+    }
+  }
+}
