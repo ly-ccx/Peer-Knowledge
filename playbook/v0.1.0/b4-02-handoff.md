@@ -10,6 +10,10 @@ B4-02 IsolationPlanner、自动 worktree 与合回（Beta4）。
 - 分支：`PeerAgent/pa/b4-02-worktree-isolation`
 - 提交：`105c1381` feat(project-agent): isolate delegated writes and govern merge-back decisions
 - 提交：`2bb9d198` fix(project-agent): keep failed merge cleanup decisions actionable
+- 提交：`9d8ad3ee` fix(project-agent): settle cancelled turns before worktree cleanup
+- 提交：`4e1da4a1` fix(project-agent): keep invalid workspace inspection blocked
+- 提交：`f039b4e9` fix(project-agent): inspect free space on the execution volume
+- 最终提交：`7819b883` fix(project-agent): keep worktree creation behind admission checks
 - 代码 PR：[Peer-Agent #78](https://github.com/ly-ccx/Peer-Agent/pull/78)。
 - 基线：B4-01 已合入的 `PeerAgent/dev/0.1.0`，`c2d997e7`。
 
@@ -28,13 +32,14 @@ B4-02 IsolationPlanner、自动 worktree 与合回（Beta4）。
 
 ## 验证
 - `pnpm build`：通过。
-- `pnpm --filter @peer-agent/runtime-node test`：863/863 通过。
-- `pnpm --filter @peer-agent/desktop test`：5159 通过、5 既有跳过，无新增跳过。
+- `pnpm --filter @peer-agent/runtime-node test`：864/864 通过。
+- `pnpm --filter @peer-agent/desktop test`：5162 通过、5 既有跳过，无新增跳过。
 - `node --test packages/protocol/src/*.test.ts`：172/172 通过。
 - `pnpm typecheck`、`pnpm architecture:check`、Desktop `ipc:check`、`git diff --check`：通过。
 - 新增覆盖：隔离矩阵/低磁盘恢复/七天保留，start/resume 不回退，租约拒绝，策略代签不擅自合回，当前用户卡作用域，冲突三种处置/重新验证，清理失败保留证据，设置原子保存，真实 Git 三 worktree 合回。
 - 自查修复：原应用服务对清理失败仍返回 ok，新增回归在旧实现失败（exit 1），修复后应用服务定向测试全部通过；不会把未清理的改动当作已放弃。真实 Git 场景与门禁见 [证据](evidence/b4-02-validation-20261001.json)。
-- CI：待当前提交双平台检查完成。
+- CI：最终提交 `7819b883` 的 [运行 36830424073](https://github.com/ly-ccx/Peer-Agent/actions/runs/36830424073) 双平台全部通过。以上本地门禁与真实 Git 场景均复核于此提交。
+- Review 两条意见已修复：合回/清理失败向界面返回失败；磁盘门槛读取实际 worktree 目标卷。另补齐取消等待工具结束、缺失/损坏仓库检查，以及 start/resume 不得绕过准入创建 worktree 的回归，旧实现失败、修复后通过。
 
 ## 架构影响
 - A 级，依据 Accepted ADR 80/69/79。实际隔离真值仍是 deliveryBinding 和 Git 事实；模型参数不能证明隔离或合回授权。
@@ -46,4 +51,4 @@ B4-02 IsolationPlanner、自动 worktree 与合回（Beta4）。
 
 ## 未完成与后续
 - 当前 PR 只交付 B4-02。B4-03 负责取代恢复，B4-07 负责跨进程重启与熔断；未发布 Beta4。
-- 双平台 CI 通过并处理 review 后，按负责人全部 B4 授权合入并继续下一卡。
+- 双平台 CI 与 Review 已完成，按负责人全部 B4 授权合入并继续下一卡。

@@ -44,7 +44,7 @@ B4-08（独立）
 
 ## B4-02 IsolationPlanner、自动 worktree 与合回
 
-代码 [#78](https://github.com/ly-ccx/Peer-Agent/pull/78) 已提交，实施契约见 [B4-02 边界](b4-02-worktree-isolation.md)，验证与三 worktree 真实 Git 场景见 [交接](b4-02-handoff.md)。本地门禁通过，当前提交等待双平台 CI；负责人已授权自行推进全部 B4，通过门禁与 review 后可合入并接下一卡。
+代码 [#78](https://github.com/ly-ccx/Peer-Agent/pull/78) 已提交，实施契约见 [B4-02 边界](b4-02-worktree-isolation.md)，验证与三 worktree 真实 Git 场景见 [交接](b4-02-handoff.md)。最终提交 `7819b883` 的本地门禁与双平台 CI 全部通过，Review 两条意见已处理；负责人已授权自行推进全部 B4。
 
 - **级别**：A。**规模**：L（可拆 B4-02a 决策与创建，B4-02b 合回与清理）。**依赖**：B4-01。
 - **目标**：并行的写任务各自在 worktree 里干活；验收后按现有交付流程合回；冲突变成需要你。
