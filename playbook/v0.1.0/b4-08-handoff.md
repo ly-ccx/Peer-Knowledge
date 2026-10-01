@@ -20,7 +20,7 @@ A 级 ADR 81 Accepted；接入、可选协议字段、数据清单先写实施�
 - Runtime 904 通过；System Context 31 通过；Protocol 173 通过。
 - Desktop 全量 5185 通过，1 个文件监听超时，5 既有跳过；按仓库规则隔离重跑 goal-plan-store.test.mjs，142 全部通过。未新增失败/skip。
 - 纯维护、截止/衰减/固定/职责、作用域/冲突选择重启、实际文件哈希和 symlink 越界、旧证据/缺锚点拒绝、有效检索与冻结历史、经典/无租约/关闭、typed IPC/renderer 边界均有定向验证。
-- 双平台 CI 和 PR Review 待完成后回填。
+- 最终 3116ea77 的双平台 [CI 36838779479](https://github.com/ly-ccx/Peer-Agent/actions/runs/36838779479) 全部通过；知识 Review 指出旧 canonical schema 不符，§4.1 与旧检索/维护措辞已对齐 Beta4，明确长期未实现能力。代码 Review 待完成。
 
 ## 架构影响
 MemoryStore、Curator、Provider 和 L7 Source 沿已有接缝；模型不提供权威哈希，不控制维护状态。projects/userMemory 追加可选元数据，projectRuntime 设备维护完成事实已登记。记忆架构 §7.4 对齐实际 Beta4 边界。
