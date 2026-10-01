@@ -533,18 +533,18 @@ function decideSurfacing(input: {
 - `post_reply.sources` 非空时，`statusClaims` 必须逐项声明对应任务当前投影状态。宿主不一致时拒绝该回复，并返回实际状态供模型重新组织解释。`accepted` 声明必须已存在持久化签收，不能根据通过的 verifier 或 auto 策略预测。
 - 宿主生成 `sessionStates` 快照，回复落盘后的策略签收完成或失败后再更新。Renderer 只表达事实；模型正文承载发现与解释，不承载签收真值。拒绝的 post_reply 不允许经 fallback 重新变成可见回复。
 - 对话读取把状态投影刷新为本项目任务的当前状态，用户后续确认后不继续显示旧的待确认快照；读取不重写历史正文与持久化快照。
-- 落地范围与验收见 `playbook/v0.1.0/beta3-verification-consistency.md`。这不是 Beta3 发布认证，也不开放 Beta4 能力。
+- 落地范围与验收见 `playbook/v0.1.0/beta3-verification-consistency.md`。这是已发布 Beta3 审查后的补修，交付 Beta4；不扩展 Beta4 的并行、隔离与项目目标能力。
 - 档案增加可持久化的 `acceptancePolicy`（auto / confirm）、`planApproval`（never / writes / always）和既有 `modelPolicy`。更新经 `update-profile` 校验并保存；既有档案缺字段时读取默认值，不批量重写旧数据。模型覆盖只接受当前已配置的模型与允许角色。
 - 验证必须覆盖正式注册入口到模型调用、Provider 到监督者、完成事件到 L7、回复拒绝、错误终态、重启 id 与三种卡片动作。模块单测通过不能替代真实项目、安装迁移与连续日用验收。
 
-### 14.2 真实交付缺口补修（2026-10-01）
+### 14.2 Beta4 发布前的真实交付缺口补修（2026-10-01）
 
 - 结构化自动验收的同一用户委托按宿主执行身份幂等：项目/父对话、用户锚点集合、kind/readOnly、验收操作参数、dependsOn/supersedes；标题/brief/criterion 描述与 id 不改变身份。没有自动标准时保持严格请求身份。不同目标参数、新用户锚点、显式替代保持不同；不通过模糊文本相似度合并。持久化旧计划可重建身份匹配，保留原记录不批改。
 - read_file/list_files/search_files 执行成功后，既有 EvidenceIndex 可追加 `bodyPreview: { kind: 'file', text: string, truncated: boolean }`，正文最多 4000 字符、复用既有秘密脱敏；披露最多 2000 字符并保留截断事实。来源是 Provider Tool Result，不是助手正文或 goal wrapper；读取展示执行时快照，不复读当前文件。旧无快照记录不得编造历史证据。
 - completed 无独立 verdict 时也产生 result_ready 唤醒事实，完成事件以稳定 completedAt 标识幂等，不把完成事实当核验/签收事实。项目代理仍按现有工具核验并关联回复，宿主再过关闭闸门。
 - 针对已完成但未交付任务的用户锚点，回复必须带对应 sources 与当前 statusClaims；漏来源拒绝并返回待引用 session 和宿主状态。正常纯问答与尚未完成任务的普通交流不受此规则影响。
 - memory Provider 从已有主机 toolContext 读取 mode/turnRole/workspace/messages，和 flat context 保持相同身份准入。模型工具参数不决定角色；worker 仍不可写记忆。熟悉项目沉淀沿用关联回复、宿主核验与 Evidence 准入，不以 stated 或源外回复绕过。
-- 范围及回归见 `playbook/v0.1.0/beta3-real-gaps.md`；沿用 ADR 80/81/85，无新的执行通道或存储目录，不开放 Beta4。
+- 范围及回归见 `playbook/v0.1.0/beta3-real-gaps.md`；沿用 ADR 80/81/85，无新的执行通道或存储目录，交付 Beta4，仅本补修范围，不开放并行/隔离/项目目标等其他功能。
 
 - 真实复跑补充：`independentVerifier=missing` 必须进入既有 `verificationBelowFloor` 签收闸门；`result_ready` 来源的 `post_reply` 若未补独立核验，返回 `verification_required`，由模型走既有 verify_session/Provider 链重试，不由生命周期直接运行核验。宿主保留的 `lifecycle-research-*` 锚点不能作为 memory_remember 的 stated 来源（它是文件熟悉请求，不是用户陈述文件事实）。
 
