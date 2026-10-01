@@ -109,3 +109,9 @@ CI36903267497原inspector观测问题消失，Linux完整通过；macOS生产lis
 头像可见性门控后，真实200头像只有11个活动、34段动画；source merge ad140d26、PR tip f0fc9431。两平台构建/类型/架构/完整测试通过，Linux窗口通过；Mac窗口列表p50 47.81ms、搜索80.2ms达标，第一次可见Received 185.2ms，但第二次textarea.press超时15s，观察Promise随后报缺少Received。不能视为通过，也不能宣称动画是全部根因。原失败记录见evidence/rc01-ci-mac-input-failed-20261002.json。
 
 允许文件补充：renderer/project-agent/state/useAvatarMotion.ts（共享可见性hook）。测试fixture在开始真实输入前显式bringToFront，记录document.hidden/hasFocus以及每次输入时composer数量；失败截图随CI产物保留。保持原生click/press、原预算/超时和全部九项断言。下一次CI验证前仍为未完成。
+
+### 第四次 macOS CI（36905600730）
+
+开发头 c2480c6f，测试merge 6cd0d271。两平台编译/类型/架构/全量测试通过，Linux窗口通过；Mac开场document.hidden=false、hasFocus=true，但第4次搜索清空fill超时15s。截图已清空并显示200列表，说明不能简单归因为未聚焦。保留原报告evidence/rc01-ci-mac-fill-failed-20261002.json与CI失败截图。未完成5个样本，不把部分样本宣布达标。
+
+继续仅在fixture加入Playwright tracing和RAF计数/动作前后时间、真实节点可见尺寸记录，保持所有动作/断言/预算/超时。Electron官方BrowserWindow文档说明macOS可受occlusion节流影响，但本地安装的Playwright1.62.1 loader已经设置disable-background-timer-throttling/backgrounding-occluded-windows/renderer-backgrounding，因此不重复加同样switch或据此宣布修复。https://www.electronjs.org/docs/latest/api/browser-window
