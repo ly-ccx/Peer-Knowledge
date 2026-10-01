@@ -1,6 +1,6 @@
 # B5-03 设备侧远程项目准入交接
 
-日期：2026-10-01。状态：实现与本机门禁完成，等待双平台 CI / Review。代码 `4c70636c`，基线 B5-02 `31527990`。实施合同见 [b5-03-remote-access.md](b5-03-remote-access.md)。
+日期：2026-10-01。状态：完成。代码 `4c70636c`，基线 B5-02 `31527990`；[CI 36879351025](https://github.com/ly-ccx/Peer-Agent/actions/runs/36879351025) macOS/Linux 均通过，Review 后 [PR #88](https://github.com/ly-ccx/Peer-Agent/pull/88) 合入 `43765d84`；知识 [PR #19](https://github.com/ly-ccx/Peer-Knowledge/pull/19) 合入 `6ccf239`。实施合同见 [b5-03-remote-access.md](b5-03-remote-access.md)。
 
 ## 交付与架构影响
 
