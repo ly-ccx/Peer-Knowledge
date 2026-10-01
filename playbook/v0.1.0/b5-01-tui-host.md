@@ -22,6 +22,8 @@
 4. TUI 的 `tui-project-client` 读目录与持久会话，提交输入队列。每秒检查变更戳；未变时不重复读正文。客户端批准只显示，由桌面处理；持有租约的 TUI 才可作本机批准。
 5. 在现有 TUI host 的 Provider seam 接入 delegation/memory；project_agent 投影与执行硬闸都调用共享 mode-policy。任务仍走普通 file/shell Provider、read-only Gate、持久 PendingApproval。没有真实 Grant/Evidence 不得声称工具已执行。
 6. 接管请求在下一次心跳交接；失去租约后取消旧模型流并停止任务泵送，新的宿主按既有恢复顺序启动。退出先停止执行再释放租约。
+7. 同一宿主内所有回合复用同一个 GoalPlanStore，避免独立 store 的 runner overlay 覆盖任务证据。跨进程读缓存和待刷进度按文件版本失效，不覆盖新宿主已写入的状态。工具调度在异步 Hook 返回后再次检查租约；delegation/memory 返回标准 ToolResult.output，同时保留已有兼容字段。事件唤醒省略新用户消息，事实仍经既有 Context Source 入场。
+8. 完整链路测试可以在模型 Adapter seam 注入脚本模型；它仍执行实际 Pipeline、Manifest、Provider、Grant、Evidence 和持久化。测试替身不能作为真实模型运行的证据。
 
 ## 路径清单补齐
 
