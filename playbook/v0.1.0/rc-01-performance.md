@@ -99,3 +99,5 @@ e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750�
 精确干净3be1110d真实源Electron完整窗口通过：200行列表p50=20.98ms（100），输入到完整语料命中可见p50=35.30ms（150），发送到可见Received p50=71.90ms（300）。扩展跨200行的更早分页、加载9500引用并居中到可见视口、返回最新全部通过；Quick Chat只写一条canonical quick_chat输入；档案与classic往返保留200身份；零renderer错误/窗口角色拒绝，owned进程已退出。完整窗口冷就绪单列，不替代核心inbox恢复指标。最终完整门禁/真实模型五轮/两平台CI尚待本HEAD核实。
 
 最终3be1110d本机完整build/test/typecheck/architecture全部通过；runtime987，desktop5265pass/5原有skip，TUI749pass，其余包零失败/取消。真实GLM五个独立机器人一回合均实际post_reply并落盘，p50=3819.20ms；单样本6091.55ms如实保留，标准为五次中位数<6000。复制的凭据已移除，自有Electron正常关闭。生产规模八项均通过：list16.72/search98.94/Received15.76/consume14.63/memory9.23/coldInbox318.44ms，增量RSS849592.32B/机器人；窗口计时独立按前述21/35/72ms记录。两平台CI仍在跑，不提前写RC-01完成。
+
+CI36902227505：Ubuntu完整门禁及Electron窗口通过；macOS完整门禁通过，但窗口观测readMain连续3次Resulting promise was garbage collected，未产生5轮list预算，不能视为产品失败或通过。sourceHead为PR测试merge cf64a14c，PRtip3be1110d。隔离观测改为entry定义的record函数：每条已有只读观测捕获样本后持久到本fixture的JSON，测试从文件读取，不再用inspector evaluate Promise取投影数组；不重放产品动作或延长预算。main生产文件仍净0；所有失败样本保留。Linux成功报告与mac失败同存。
