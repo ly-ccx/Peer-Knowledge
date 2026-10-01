@@ -23,10 +23,10 @@ B4-06 自主档位；负责人授权完成全部 B4、必要路径、Review、�
 
 ## 验证
 - 全仓串行 build、typecheck、architecture:check、IPC、diff check 通过；并行旧 dist 清理竞态在 B4-R 收口。
-- Runtime 941；Desktop 5196 通过、5 既有跳过；Protocol 173；System Context 32。
-- 针对 Provider/Supervisor/动作 81 通过；实际生产 Desktop SDK 文件观察→真实证据→提议/当前卡片输入→冻结任务 22 集成通过。
+- Runtime 946；Desktop 最终 5195 通过、1 个并行失败、5 既有跳过，失败文件独立重试 3 通过；Protocol 173；System Context 32。
+- 针对 Provider/Supervisor/动作 81 通过；Review 四条红→绿回归，修复后 70 通过；实际生产 Desktop SDK 文件观察→真实证据→提议/当前卡片输入→冻结任务 22 集成通过。
 - 未把 scripted model 的集成测试当作真实模型验收，真实模型/安装升级留 B4-R。
-- Review 和最终 macOS/Ubuntu CI 待完成。
+- 三个代码 Review 已修复：spawnedAt 排序、权限读取异常默认 confirm、过期提议退出容量。知识 task_event Review 补真实 SDK 无 optional probe 回归和契约澄清，已解决。最终 382091c1 的 CI 待完成。
 
 ## 架构影响
 A 级 ADR 82。actions-state.json 为设备运行态；GoalPlan objectiveActionId 连接真实创建与重启幂等。提议沿既有 submit-input/DelegationProvider，不新增执行路径。签收权限保留在宿主，renderer 仅交互/表达。
