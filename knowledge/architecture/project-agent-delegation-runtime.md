@@ -1,7 +1,7 @@
 # 项目代理委托运行时
 
 创建时间：2026-09-24
-最后更新：2026-09-30
+最后更新：2026-10-01
 
 > 状态：随 ADR 80 Accepted（2026-09-26）。§13 已关闭。落点目录以 `playbook/v0.1.0/` 为准。  
 > 级别：A 级运行时契约  
@@ -525,5 +525,14 @@ function decideSurfacing(input: {
 - 熟悉项目通过监督者创建只读 research 任务；空项目回答写为固定 stated 职责记忆，README 同意才开文档任务。系统生命周期触发先保存可回查的锚定消息，任务能力沿用统一权限链，确认过的事实只能带来源写入 verified 记忆。
 - 可见回复持久化后才按策略签收被引用的已完成任务。确认卡、重试卡、README 卡分别经 `project-agent:confirm-result`、`project-agent:retry`、`project-agent:accept-readme` IPC；宿主校验 workspace 归属、当前状态和重复点击。失效卡不能重新执行已完成操作。
 - `accepted` 投影以持久化的 `resultAcceptance` 为准；核验结束解除 `verifying`。小结保留已校验的来源、结论与 Evidence 引用，实际送达后才触发签收。模型的任务列表仍限 50 条，宿主的项目事实集合不得沿用分页上限做来源归属判断。
+
+### 14.1 核验格式与汇报状态一致性（2026-10-01）
+
+- 报告只准入最终助手段中的一个完整结构化报告。格式错误最多重跑一次既有只读 Verifier；合法核验失败、权限拒绝、取消和提供方失败不属于格式恢复。恢复失败仍保持关闭闸门失败，不补造验证或签收事实。
+- Explorer、文字 Verifier 及格式重试必须使用宿主持久化计划绑定的执行目录：有效 worktree delivery binding > targetWorkspacePath > 原任务会话 workspacePath > 既有宿主 workspaceRoot。沿用已存在的 sendMessage.workspacePath 参数传递，只读能力与授权不变；无会话核验不能因 conversationId 为 null 而继承另一个全局活跃项目。视觉复核沿用同一目录解析。
+- `post_reply.sources` 非空时，`statusClaims` 必须逐项声明对应任务当前投影状态。宿主不一致时拒绝该回复，并返回实际状态供模型重新组织解释。`accepted` 声明必须已存在持久化签收，不能根据通过的 verifier 或 auto 策略预测。
+- 宿主生成 `sessionStates` 快照，回复落盘后的策略签收完成或失败后再更新。Renderer 只表达事实；模型正文承载发现与解释，不承载签收真值。拒绝的 post_reply 不允许经 fallback 重新变成可见回复。
+- 对话读取把状态投影刷新为本项目任务的当前状态，用户后续确认后不继续显示旧的待确认快照；读取不重写历史正文与持久化快照。
+- 落地范围与验收见 `playbook/v0.1.0/beta3-verification-consistency.md`。这不是 Beta3 发布认证，也不开放 Beta4 能力。
 - 档案增加可持久化的 `acceptancePolicy`（auto / confirm）、`planApproval`（never / writes / always）和既有 `modelPolicy`。更新经 `update-profile` 校验并保存；既有档案缺字段时读取默认值，不批量重写旧数据。模型覆盖只接受当前已配置的模型与允许角色。
 - 验证必须覆盖正式注册入口到模型调用、Provider 到监督者、完成事件到 L7、回复拒绝、错误终态、重启 id 与三种卡片动作。模块单测通过不能替代真实项目、安装迁移与连续日用验收。
