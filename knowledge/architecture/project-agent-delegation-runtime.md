@@ -545,3 +545,5 @@ function decideSurfacing(input: {
 - 针对已完成但未交付任务的用户锚点，回复必须带对应 sources 与当前 statusClaims；漏来源拒绝并返回待引用 session 和宿主状态。正常纯问答与尚未完成任务的普通交流不受此规则影响。
 - memory Provider 从已有主机 toolContext 读取 mode/turnRole/workspace/messages，和 flat context 保持相同身份准入。模型工具参数不决定角色；worker 仍不可写记忆。熟悉项目沉淀沿用关联回复、宿主核验与 Evidence 准入，不以 stated 或源外回复绕过。
 - 范围及回归见 `playbook/v0.1.0/beta3-real-gaps.md`；沿用 ADR 80/81/85，无新的执行通道或存储目录，不开放 Beta4。
+
+- 真实复跑补充：`independentVerifier=missing` 必须进入既有 `verificationBelowFloor` 签收闸门；`result_ready` 来源的 `post_reply` 若未补独立核验，返回 `verification_required`，由模型走既有 verify_session/Provider 链重试，不由生命周期直接运行核验。宿主保留的 `lifecycle-research-*` 锚点不能作为 memory_remember 的 stated 来源（它是文件熟悉请求，不是用户陈述文件事实）。
