@@ -1,10 +1,11 @@
 {
   "createdAt": "2026-10-01",
-  "codeHead": "9fabdc346702a9bc5e45de5e3fa8c41078005fc8",
+  "codeHead": "f2a6d3214cea0124db04b072d698db79c49fe41b",
   "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/80",
   "checks": {
     "build": "pass", "typecheck": "pass", "architecture": "pass", "ipc": "pass",
-    "runtimeNode": { "pass": 890, "fail": 0, "skip": 0 },
+    "runtimeNode": { "pass": 892, "fail": 0, "skip": 0 },
+    "protocol": { "pass": 173, "fail": 0 },
     "desktop": { "pass": 5182, "fail": 0, "skip": 5 },
     "realProcessKill": {
       "pass": 11, "fail": 0,
@@ -15,6 +16,7 @@
       "invariants": { "userInputs": 1, "tasks": 1, "agentReplies": 1 }
     }
   },
-  "ci": { "status": "pending", "runId": 36835997612, "headSha": "9fabdc346702a9bc5e45de5e3fa8c41078005fc8" },
+  "ci": { "status": "pending", "runId": 36836813306, "headSha": "f2a6d3214cea0124db04b072d698db79c49fe41b" },
+  "review": { "fixed": ["transactional deletion intent and cleanup retry", "device storage inventory", "cancelled dependency waiting_user contract"], "threadsResolved": 3 },
   "limitations": ["No remote model or Beta4 release evidence", "Five existing desktop skips; no new skips", "Objective stop integration is delivered with B4-04/05"]
 }
