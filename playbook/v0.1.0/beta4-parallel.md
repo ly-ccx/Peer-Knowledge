@@ -80,7 +80,7 @@ B4-08（独立）
 
 ## B4-04 项目目标存储与工具（OB1）
 
-代码 [#82](https://github.com/ly-ccx/Peer-Agent/pull/82) 已完成实现与本地门禁，待 Review/CI 后合入；见 [实施契约](b4-04-objectives.md)与[交接](b4-04-handoff.md)。
+代码 [#82](https://github.com/ly-ccx/Peer-Agent/pull/82) 已于 2026-10-01 合入（2172597a），最终 bc55d53b 完整门禁、双平台 CI 与三条 Review 修复通过；见 [实施契约](b4-04-objectives.md)与[交接](b4-04-handoff.md)。
 
 - **级别**：A（ADR 82）。**规模**：M。**依赖**：B1-07、B2-03。
 - **目标**：用户可以给机器人一个持续性的目标；目标可查、可改、可暂停；目标与它触发的任务相互关联。
@@ -149,7 +149,7 @@ B4-08（独立）
 
 ## B4-08 记忆过期、冲突、衰减（MM4）
 
-代码 [#81](https://github.com/ly-ccx/Peer-Agent/pull/81) 与配套知识在途，实施契约、架构与设备存储清单已先写，完整门禁含规则允许的桌面单文件重试通过。见 [交接](b4-08-handoff.md)。最终 CI/Review 与合入事实待回填。
+代码 [#81](https://github.com/ly-ccx/Peer-Agent/pull/81) 已合入（8d607ea3），最终 8811af15 的完整门禁、双平台 CI 与 Review 修复通过。见 [交接](b4-08-handoff.md)。
 
 - **级别**：A（ADR 81）。**规模**：M。**依赖**：B3-07。
 - **目标**：记忆不会越积越乱：过期的自动失效，矛盾的会问用户，引用的文件变了会重新核实。
