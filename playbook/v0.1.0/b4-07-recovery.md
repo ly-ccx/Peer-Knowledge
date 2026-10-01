@@ -31,9 +31,11 @@ Recovery 深模块对每项目串行、并发调用合并，其他项目独立�
 
 取消中止该 Plan 的全局回合租约（含 worker、Explorer、Verifier），暂停并等工具结算后走既有隔离清理；失败/取消依赖仍沿既有 waiting_user 决策卡。已完成待验收/已签收不能被取消覆写。删除机器人先校验和确认受管目录，再取消进行中的全部任务、停止 Runner/Watch/小结/目标扩展口并释放租约，最后交既有 lifecycle 移除/归档。失败保留结构化结果以便重试；不碰真实用户数据。
 
+开路与不可用卡写入之间若强杀，沿持久的最后失败回合与输入描述补齐同 id 的回合/卡片，不调用模型；已有 canonical 消息只查存在，不改写。旧不可用卡若已被后续实际回合替代，按宿主事实投影为已解决，保留历史。输入队列锁新增 owner PID；只做存活检查，确认进程已退出才即时收回旧锁，否则沿已有过期机制。强杀测试租约过期设为一秒并等待过期，不能宣称生产租约立即接管。
+
 ## 必要路径
 
-原卡 circuit-breaker/recovery/runner/session-supervisor/project-agent-host；既有 input-queue、HostLease 的归档档案过滤、ExecutionScheduler、Goal Runner 与 Goal Host 恢复门；application service/bot-lifecycle 的删除与重试接缝；main.mjs 原租约/装配/恢复行替换；data-store projectRuntime device 登记说明；runtime-node 导出；project-facts/card-projection 的不可用卡事实与相关聚焦/生产集成测试、强杀子进程测试夹具。无新依赖、无新 IPC、无新工具；目标停止接口由 B4-04/05 接入。
+原卡 circuit-breaker/recovery/runner/session-supervisor/project-agent-host；既有 input-queue、HostLease 的归档档案过滤、ExecutionScheduler、Goal Runner 与 Goal Host 恢复门；application service/bot-lifecycle 的删除与重试接缝；agent-turn-plan 复用既有不可用卡构造；main.mjs 原租约/装配/恢复行替换；data-store projectRuntime device 登记说明；runtime-node 导出；project-facts/card-projection 的不可用卡事实与相关聚焦/生产集成测试、强杀子进程测试夹具。无新依赖、无新 IPC、无新工具；目标停止接口由 B4-04/05 接入。
 
 ## 验证与已发现文档偏差
 
