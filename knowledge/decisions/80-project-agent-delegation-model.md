@@ -22,6 +22,12 @@ Accepted（2026-09-26，P0-2）。实现未开工。
 
 ## 级别
 
+### RC补修：执行任务角色与准入事实（2026-10-02，Accepted）
+
+真实双写任务在本地批准且进入独立worktree后仍因重放父消息的编排/批准要求而waiting_user。任务是执行者，不是项目代理；父锚点原文与历史继续属于事实类上下文。新增 `work-session` Context Source：仅work_session角色进入L1_AGENT的静态执行角色规则，说明已有GoalPlan、当前执行工作区、投影工具及父编排职责；不把锚点/任务正文提升为系统指令。独立L7_CONTINUITY section仅渲染宿主从当前GoalPlan读取的有限准入phase，不从renderer/快照/父正文推断批准；running说明本地计划准入已经完成，不能表示任意能力授权或结果签收。Explorer/Verifier专项约束保持，权限和隔离仍由原执行链强制。
+
+Desktop与TUI共同接入该Source，事实由各自真实计划读取适配，经典/project_agent/非任务角色没有此section。允许System Context source、注册与导出/类型、相关测试、Desktop projectTurnSystemContext和TUI任务executor的窄装配与测试；不增加IPC/能力/依赖/main.mjs。先契约、再红测试/实现、完整门禁和真实批准后双任务复测，GA仍等待负责人。
+
 A 级。改变用户的对话对象、任务的创建者、能力暴露（新增调度能力与 `project_agent` 模式）、权限冒泡路径、System Context 新增来源、会话存储的父子关系。
 
 ## 关联
