@@ -529,6 +529,7 @@ function decideSurfacing(input: {
 ### 14.1 核验格式与汇报状态一致性（2026-10-01）
 
 - 报告只准入最终助手段中的一个完整结构化报告。格式错误最多重跑一次既有只读 Verifier；合法核验失败、权限拒绝、取消和提供方失败不属于格式恢复。恢复失败仍保持关闭闸门失败，不补造验证或签收事实。
+- Explorer、文字 Verifier 及格式重试必须使用宿主持久化计划绑定的执行目录：有效 worktree delivery binding > targetWorkspacePath > 原任务会话 workspacePath > 既有宿主 workspaceRoot。沿用已存在的 sendMessage.workspacePath 参数传递，只读能力与授权不变；无会话核验不能因 conversationId 为 null 而继承另一个全局活跃项目。视觉复核沿用同一目录解析。
 - `post_reply.sources` 非空时，`statusClaims` 必须逐项声明对应任务当前投影状态。宿主不一致时拒绝该回复，并返回实际状态供模型重新组织解释。`accepted` 声明必须已存在持久化签收，不能根据通过的 verifier 或 auto 策略预测。
 - 宿主生成 `sessionStates` 快照，回复落盘后的策略签收完成或失败后再更新。Renderer 只表达事实；模型正文承载发现与解释，不承载签收真值。拒绝的 post_reply 不允许经 fallback 重新变成可见回复。
 - 对话读取把状态投影刷新为本项目任务的当前状态，用户后续确认后不继续显示旧的待确认快照；读取不重写历史正文与持久化快照。
