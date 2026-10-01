@@ -37,6 +37,7 @@
 - runtime-node 的只读 file/search Manifest 补入 `project_agent` modeScope；写入和 Shell Manifest 不扩大。两端仍通过共享白名单和执行硬闸拒绝副作用能力。
 - desktop：`electron/main/project-agent/project-agent-host.mjs` 及被提取模块的兼容导出、测试；已有宿主租约装配与 typed takeover IPC；catalog/preload 类型；开发者设置和档案接管 UI 与 i18n。
 - TUI：`tui-host.ts`、`tui-mode.ts`、`tui-runtime.ts`、`tui-language.ts` 的共享模式/Context Source 接入；`goal-runner-adapter.ts` 与 tests；新模块的类型和构建入口所需最小适配。
+- 真实交接发现共享模型渠道仍被终端拒绝：补齐共享模型元数据的能力声明、wire override 及终端模型路由。OpenCode Go 的按模型选协议/端点算法提取为 runtime-node 的纯函数，桌面保留兼容导出；终端消费相同算法与现有请求编码 Adapter。API-key Responses 沿现有 Responses Provider seam 使用，不新增请求格式旁路。补入 provider-wire-matrix、tui-runtime、shared-model-config、provider-channels 及对应测试路径。
 - protocol：既有 `project-agent:takeover-host` 的 typed request/result 若尚未实现则补齐，不增加卡片外 IPC 操作。
 
 `main.mjs` 净增不大于零；`app.tsx` 的功能入口留给 B5-02，新界面另建文件；ChatSurface/Sidebar/LlmSettingsPanel 不增长。旧经典、peer exec、原会话文件兼容保持测试覆盖。
