@@ -1,0 +1,702 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-01T11:09:21.850659+00:00",
+  "model": "glm-5.3-flash",
+  "environment": "macOS arm64; isolated production Desktop SDK/preload/LocalToolHost, real configured model; source launch, not final packaged asset",
+  "initialSourceHead": "1ef4d1c399476199bd6a978aad83febca7d29023",
+  "resumeSourceHead": "b9026929034b0bd90a715d1f391a05e527f053cb",
+  "parallel": {
+    "sourceHead": "1ef4d1c399476199bd6a978aad83febca7d29023",
+    "recordedAt": "2026-10-01T10:53:21.448326+00:00",
+    "taskCount": 3,
+    "mainContents": {
+      "a.txt": "before",
+      "b.txt": "before",
+      "c.txt": "before"
+    },
+    "tasks": [
+      {
+        "title": "C: c.txt → after-c",
+        "sessionId": "cf1aa957-3bc5-4bf3-8f04-00d9baa17cbf",
+        "planId": "43683ac3-2aae-437b-adcf-5f13b65382dd",
+        "status": "executing",
+        "baseCommit": "1fef661a7352846b14917e2e0d5348a70cd70527",
+        "changedPaths": [
+          "c.txt"
+        ],
+        "contents": {
+          "a.txt": "before",
+          "b.txt": "before",
+          "c.txt": "after-c"
+        },
+        "criteria": [
+          {
+            "criterionId": "c1",
+            "passed": true,
+            "evidenceRef": "tool-result://13fc0276-a552-4c7a-b036-4ec9aad5f209",
+            "detail": "c.txt 内容为 \"after-c\\n\"，grep 命中 after-c；git status 仅 c.txt 被修改",
+            "checkedAt": "2026-10-01T10:52:51.591Z"
+          }
+        ]
+      },
+      {
+        "title": "B: b.txt → after-b",
+        "sessionId": "783c4645-aefe-4fd9-bbaa-fddabc4aef56",
+        "planId": "4cad93b8-d26f-43b0-8364-f0554c2b4ac3",
+        "status": "completed",
+        "baseCommit": "1fef661a7352846b14917e2e0d5348a70cd70527",
+        "changedPaths": [
+          "b.txt"
+        ],
+        "contents": {
+          "a.txt": "before",
+          "b.txt": "after-b",
+          "c.txt": "before"
+        },
+        "criteria": [
+          {
+            "criterionId": "c1",
+            "passed": true,
+            "evidenceRef": "tool-result://9bfca4ea-78b8-4d85-891a-5dd95538597f",
+            "detail": "b.txt 现为 after-b，符合 file-contains 核验",
+            "checkedAt": "2026-10-01T10:52:39.202Z"
+          }
+        ]
+      },
+      {
+        "title": "A: a.txt → after-a",
+        "sessionId": "c824fab0-43f9-4a78-8817-6ba0c6d08b61",
+        "planId": "19a9dfb5-4541-4957-abe9-d39a53c6ec7d",
+        "status": "completed",
+        "baseCommit": "1fef661a7352846b14917e2e0d5348a70cd70527",
+        "changedPaths": [
+          "a.txt"
+        ],
+        "contents": {
+          "a.txt": "after-a",
+          "b.txt": "before",
+          "c.txt": "before"
+        },
+        "criteria": [
+          {
+            "criterionId": "c1",
+            "passed": true,
+            "evidenceRef": "tool-result://fc4a498e-1dd2-4da4-9d55-d3e6b6dd942e",
+            "detail": "grep 确认 a.txt 包含 after-a；git status 只显示 a.txt 被修改",
+            "checkedAt": "2026-10-01T10:52:55.893Z"
+          }
+        ]
+      }
+    ],
+    "maxSimultaneouslyExecuting": 3
+  },
+  "delivery": {
+    "taskCountAfterExplicitReplacement": 4,
+    "tasks": [
+      {
+        "planId": "43683ac3-2aae-437b-adcf-5f13b65382dd",
+        "sessionId": "cf1aa957-3bc5-4bf3-8f04-00d9baa17cbf",
+        "title": "C: c.txt → after-c",
+        "acceptance": {
+          "acceptedAt": "2026-10-01T11:05:31.389Z",
+          "acceptedBy": "policy",
+          "verdictRef": "verdict:cf1aa957-3bc5-4bf3-8f04-00d9baa17cbf:passed"
+        },
+        "handoff": {
+          "status": "delivered",
+          "repoId": "Peer-Agent",
+          "targetBranch": "main",
+          "taskBranch": "PeerAgent/automation-43683ac3-2aae-437b-adcf-5f13b65382dd/run-43683ac3-2aae-437b-adcf-5f13b65382dd",
+          "commitSha": "ccb3f358c458179876308e85a5c942b30b2edb9f",
+          "updatedAt": "2026-10-01T11:07:36.562Z"
+        }
+      },
+      {
+        "planId": "4cad93b8-d26f-43b0-8364-f0554c2b4ac3",
+        "sessionId": "783c4645-aefe-4fd9-bbaa-fddabc4aef56",
+        "title": "B: b.txt → after-b",
+        "acceptance": {
+          "acceptedAt": "2026-10-01T10:53:21.609Z",
+          "acceptedBy": "user",
+          "verdictRef": "verdict:783c4645-aefe-4fd9-bbaa-fddabc4aef56:passed"
+        },
+        "handoff": {
+          "status": "delivered",
+          "repoId": "Peer-Agent",
+          "targetBranch": "main",
+          "taskBranch": "PeerAgent/automation-4cad93b8-d26f-43b0-8364-f0554c2b4ac3/run-4cad93b8-d26f-43b0-8364-f0554c2b4ac3",
+          "commitSha": "89368283f7b6a51268c90bd9c7b61fce226c1b24",
+          "updatedAt": "2026-10-01T10:54:38.216Z"
+        }
+      },
+      {
+        "planId": "19a9dfb5-4541-4957-abe9-d39a53c6ec7d",
+        "sessionId": "c824fab0-43f9-4a78-8817-6ba0c6d08b61",
+        "title": "A: a.txt → after-a",
+        "acceptance": {
+          "acceptedAt": "2026-10-01T10:53:56.350Z",
+          "acceptedBy": "policy",
+          "verdictRef": "verdict:c824fab0-43f9-4a78-8817-6ba0c6d08b61:passed"
+        },
+        "handoff": {
+          "status": "delivered",
+          "repoId": "Peer-Agent",
+          "targetBranch": "main",
+          "taskBranch": "PeerAgent/automation-19a9dfb5-4541-4957-abe9-d39a53c6ec7d/run-19a9dfb5-4541-4957-abe9-d39a53c6ec7d",
+          "commitSha": "58198766f0732656ff564efe69e113a7ec577f55",
+          "updatedAt": "2026-10-01T10:57:04.845Z"
+        }
+      }
+    ],
+    "mainContents": {
+      "a.txt": "after-a",
+      "b.txt": "after-b\n",
+      "c.txt": "after-c\n"
+    },
+    "handoffAuthorizedBy": "Actual UI button clicks; A/C accepted by policy, B accepted by user. No claim of three manual acceptances."
+  },
+  "continuity": {
+    "planId": "43683ac3-2aae-437b-adcf-5f13b65382dd",
+    "preservedFields": {
+      "planId": true,
+      "conversationId": true,
+      "title": true,
+      "goal": true,
+      "successCriteria": true,
+      "deliveryBinding": true,
+      "tasks": true,
+      "criterionResults": true
+    },
+    "originalAnchorPreserved": true,
+    "supersededPhase": "superseded",
+    "restoreAnchor": "input-b4-final-restore-retry",
+    "successfulResumeReceipts": [
+      {
+        "turnId": "turn-a35a7afa-32ca-4567-8b07-ac1e7561e747",
+        "at": "2026-10-01T11:05:31.376Z",
+        "input": {
+          "anchorMessageId": "input-b4-final-restore-retry",
+          "sessionId": "cf1aa957-3bc5-4bf3-8f04-00d9baa17cbf"
+        },
+        "result": {
+          "ok": true,
+          "sessionId": "cf1aa957-3bc5-4bf3-8f04-00d9baa17cbf",
+          "workspaceId": "6cbd1f8d-a841-43bf-9b14-481f12c02817",
+          "title": "C: c.txt → after-c",
+          "planId": "43683ac3-2aae-437b-adcf-5f13b65382dd",
+          "status": "result_ready",
+          "actionRight": "terminal",
+          "nextAction": "none",
+          "statusLabel": "已完成",
+          "spawnedAt": "2026-10-01T10:52:32.935Z",
+          "conversationId": "bb4aa40a-2ee2-48f8-b1e7-ce112eeb4728",
+          "origin": {
+            "anchorMessageId": "input-b4-final-three",
+            "inputId": "8903ce35-6d4d-4565-b24e-86da7d52fa48",
+            "surface": "desktop",
+            "memorySnapshotId": "snap-5abacf4f-a771-4fc4-9062-6f8b69f2d1f8",
+            "modelSelection": {
+              "worker": {
+                "providerId": "36ad8967-1f3b-401d-b158-6ca8b696d96c",
+                "modelId": "glm-5.3-flash",
+                "modelProviderId": "3a78fd0e-8110-4f6a-bc85-40166c595c49",
+                "family": "openai"
+              },
+              "explorer": {
+                "providerId": "36ad8967-1f3b-401d-b158-6ca8b696d96c",
+                "modelId": "glm-5.3-flash",
+                "modelProviderId": "3a78fd0e-8110-4f6a-bc85-40166c595c49",
+                "family": "openai"
+              },
+              "verifier": {
+                "providerId": "36ad8967-1f3b-401d-b158-6ca8b696d96c",
+                "modelId": "glm-5.3-flash",
+                "modelProviderId": "3a78fd0e-8110-4f6a-bc85-40166c595c49",
+                "family": "openai",
+                "sameFamilyAsWorker": true
+              },
+              "source": {
+                "worker": "global",
+                "explorer": "global",
+                "verifier": "global",
+                "visualVerifier": "global"
+              },
+              "resolvedAt": "2026-10-01T10:52:32.934Z",
+              "visualVerifier": {
+                "providerId": "36ad8967-1f3b-401d-b158-6ca8b696d96c",
+                "modelId": "glm-5.3-flash",
+                "modelProviderId": "3a78fd0e-8110-4f6a-bc85-40166c595c49",
+                "family": "openai"
+              }
+            },
+            "depth": 1,
+            "workspaceId": "6cbd1f8d-a841-43bf-9b14-481f12c02817",
+            "sessionId": "cf1aa957-3bc5-4bf3-8f04-00d9baa17cbf",
+            "idempotencyKey": "43f55cc3f2e997173b4982e3fe11483a71454beb7ef0a5387f2290cf1567ef7e",
+            "parentConversationId": "cefe27d7-8423-477b-9b80-17423c7a279a",
+            "lastResumeAnchorMessageId": "input-b4-final-restore-retry",
+            "readOnly": false,
+            "phase": "running",
+            "priority": "normal",
+            "isolation": "worktree"
+          },
+          "evidenceRefs": [
+            "tool-result://chatcmpl-tool-927d173dd322276f"
+          ]
+        }
+      }
+    ],
+    "worktreePreservedBeforeHandoff": true
+  },
+  "dedup": {
+    "actualSuppressedReceipts": [
+      {
+        "turnId": "turn-09408e27-f215-4bdc-b378-90e94a62cd95",
+        "at": "2026-10-01T10:54:39.428Z",
+        "result": {
+          "ok": true,
+          "suppressed": true,
+          "reason": "facts_already_reported",
+          "evidenceRefs": [
+            "tool-result://dec2b38e-b0da-4659-9b65-bd19b8239cea"
+          ]
+        }
+      },
+      {
+        "turnId": "turn-547cd1f6-71e3-468a-834e-c2c567a05716",
+        "at": "2026-10-01T10:56:28.967Z",
+        "result": {
+          "ok": true,
+          "suppressed": true,
+          "reason": "facts_already_reported",
+          "evidenceRefs": [
+            "tool-result://6e754526-5ee0-4646-9f76-81e5276476bc"
+          ]
+        }
+      },
+      {
+        "turnId": "turn-bc6bfcd4-7d61-4e85-8489-55736bd1e829",
+        "at": "2026-10-01T11:01:49.573Z",
+        "result": {
+          "ok": true,
+          "suppressed": true,
+          "reason": "facts_already_reported",
+          "evidenceRefs": [
+            "tool-result://chatcmpl-tool-b7bdfa6e4a3a4d39"
+          ]
+        }
+      },
+      {
+        "turnId": "turn-bc6bfcd4-7d61-4e85-8489-55736bd1e829",
+        "at": "2026-10-01T11:01:49.573Z",
+        "result": {
+          "ok": true,
+          "suppressed": true,
+          "reason": "facts_already_reported",
+          "evidenceRefs": [
+            "tool-result://chatcmpl-tool-9d40e205dcd4a0a5"
+          ]
+        }
+      },
+      {
+        "turnId": "turn-143191e5-56c6-4eb7-a9bf-50e7f250d3d8",
+        "at": "2026-10-01T11:06:03.309Z",
+        "result": {
+          "ok": true,
+          "suppressed": true,
+          "reason": "facts_already_reported",
+          "evidenceRefs": [
+            "tool-result://chatcmpl-tool-8bfa5fbafb68a413"
+          ]
+        }
+      },
+      {
+        "turnId": "turn-f849df0e-34a6-4121-ba1b-98e95bcf5520",
+        "at": "2026-10-01T11:06:35.170Z",
+        "result": {
+          "ok": true,
+          "suppressed": true,
+          "reason": "facts_already_reported",
+          "evidenceRefs": [
+            "tool-result://chatcmpl-tool-98d5f4fc41fa4f00"
+          ]
+        }
+      }
+    ],
+    "canonicalFactKeyReplyCount": 7
+  },
+  "closedWindows": {
+    "firstZeroSample": {
+      "at": "2026-10-01T11:08:03.379Z",
+      "count": 0
+    },
+    "lastZeroSample": {
+      "at": "2026-10-01T11:08:23.624Z",
+      "count": 0
+    },
+    "zeroSamples": 21,
+    "canonicalWritesWhileNoWindows": [
+      {
+        "id": "turn-d3f857f1-3e37-4c7c-bfd1-8f8250eec084",
+        "kind": "agent_turn",
+        "at": "2026-10-01T11:08:05.997Z"
+      },
+      {
+        "id": "reply:turn-d3f857f1-3e37-4c7c-bfd1-8f8250eec084:3",
+        "kind": "agent_reply",
+        "at": "2026-10-01T11:08:06.002Z"
+      }
+    ],
+    "reopened": {
+      "at": "2026-10-01T11:08:24.551Z",
+      "result": {
+        "ok": true
+      }
+    }
+  },
+  "ci": {
+    "fixtureBranch": "PeerAgent/pa/b4-r-ci-probe",
+    "workflow": "Beta4 probe fixture",
+    "failureRun": 36851994140,
+    "successRun": 36852488422,
+    "observations": [
+      {
+        "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+        "watchId": "ci-real",
+        "observedAt": "2026-10-01T10:57:58.102Z",
+        "digest": "45f6e4ea0450961ffe43dbf4c0ebb33ffbd29626f6df1653136d00918076be08",
+        "summary": "CI has failed runs",
+        "evidenceRefs": [
+          "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:7998503bd15641b448e3a9df4d2b1834b62004925572a92f2a0fe98267dd3ac5"
+        ],
+        "severity": "urgent",
+        "changed": true,
+        "succeeded": false,
+        "value": "failure",
+        "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T10:57:55.503Z:0758c3c5-9ec6-47d2-a236-f38b4305f45b"
+      },
+      {
+        "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+        "watchId": "ci-real",
+        "observedAt": "2026-10-01T10:58:28.064Z",
+        "digest": "45f6e4ea0450961ffe43dbf4c0ebb33ffbd29626f6df1653136d00918076be08",
+        "summary": "CI has failed runs",
+        "evidenceRefs": [
+          "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:17cc0f93e92e563a248393ac878b87ab316286c42fc494cb55b8366b5aa725a2"
+        ],
+        "severity": "urgent",
+        "changed": false,
+        "succeeded": false,
+        "value": "failure",
+        "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T10:58:20.411Z:0f2fda07-ab20-46b0-88c1-ec1ecc674a03"
+      },
+      {
+        "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+        "watchId": "ci-real",
+        "observedAt": "2026-10-01T10:59:56.901Z",
+        "digest": "1f71c57f0bbe76d5c6faba921fccaef1cad19032e00245455730132151e147e3",
+        "summary": "CI checks passed",
+        "evidenceRefs": [
+          "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:d9bdf9f6741b5c3cab74c81c79678e87b342ce9a5d55f5de791ace0839e1f4b2"
+        ],
+        "severity": "info",
+        "changed": true,
+        "succeeded": true,
+        "value": "success",
+        "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T10:59:54.307Z:8f9710e6-22c6-4b81-bd42-c11b5f4fb009"
+      },
+      {
+        "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+        "watchId": "ci-real",
+        "observedAt": "2026-10-01T11:03:10.972Z",
+        "digest": "1f71c57f0bbe76d5c6faba921fccaef1cad19032e00245455730132151e147e3",
+        "summary": "CI checks passed",
+        "evidenceRefs": [
+          "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:a0c3cd36b5bcc511858aaeb4de407f68b12dd1cb2bc09345d58af9b3466ca069"
+        ],
+        "severity": "info",
+        "changed": false,
+        "succeeded": true,
+        "value": "success",
+        "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T11:03:08.754Z:77d6c5da-6972-4460-afcd-5502470c96ba"
+      }
+    ],
+    "probes": [
+      {
+        "evidenceRef": "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:7998503bd15641b448e3a9df4d2b1834b62004925572a92f2a0fe98267dd3ac5",
+        "call": {
+          "toolCallId": "b625f049-317f-4efa-8d5b-a53cd53abfc3",
+          "capabilityId": "local.objective.observe",
+          "arguments": {
+            "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+            "watchId": "ci-real",
+            "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T10:57:55.503Z:0758c3c5-9ec6-47d2-a236-f38b4305f45b"
+          }
+        },
+        "grant": {
+          "grantId": "c5c4c5c5-dbe8-41ee-86f5-2027883c2ed4",
+          "toolCallId": "b625f049-317f-4efa-8d5b-a53cd53abfc3",
+          "granted": true,
+          "duration": "once",
+          "scope": "local.objective.observe",
+          "decidedAt": "2026-10-01T10:57:55.508Z",
+          "reason": "objective_observe",
+          "preset": "observe",
+          "workspaceId": "86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e",
+          "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+          "watchId": "ci-real"
+        },
+        "resultStatus": "success",
+        "evidenceId": "objective-probe-b625f049-317f-4efa-8d5b-a53cd53abfc3",
+        "runs": [
+          {
+            "databaseId": 36851994140,
+            "status": "completed",
+            "conclusion": "failure",
+            "headSha": "61f2b4d69f617328ea7e9d768fea3506307e2ce3",
+            "headBranch": "PeerAgent/pa/b4-r-ci-probe",
+            "workflowName": "Beta4 probe fixture"
+          }
+        ]
+      },
+      {
+        "evidenceRef": "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:17cc0f93e92e563a248393ac878b87ab316286c42fc494cb55b8366b5aa725a2",
+        "call": {
+          "toolCallId": "9c4ce7df-e19a-4013-920d-b63d40fc2cac",
+          "capabilityId": "local.objective.observe",
+          "arguments": {
+            "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+            "watchId": "ci-real",
+            "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T10:58:20.411Z:0f2fda07-ab20-46b0-88c1-ec1ecc674a03"
+          }
+        },
+        "grant": {
+          "grantId": "90534768-c239-44d7-898b-f5e5a1a51672",
+          "toolCallId": "9c4ce7df-e19a-4013-920d-b63d40fc2cac",
+          "granted": true,
+          "duration": "once",
+          "scope": "local.objective.observe",
+          "decidedAt": "2026-10-01T10:58:25.880Z",
+          "reason": "objective_observe",
+          "preset": "observe",
+          "workspaceId": "86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e",
+          "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+          "watchId": "ci-real"
+        },
+        "resultStatus": "success",
+        "evidenceId": "objective-probe-9c4ce7df-e19a-4013-920d-b63d40fc2cac",
+        "runs": [
+          {
+            "databaseId": 36851994140,
+            "status": "completed",
+            "conclusion": "failure",
+            "headSha": "61f2b4d69f617328ea7e9d768fea3506307e2ce3",
+            "headBranch": "PeerAgent/pa/b4-r-ci-probe",
+            "workflowName": "Beta4 probe fixture"
+          }
+        ]
+      },
+      {
+        "evidenceRef": "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:d9bdf9f6741b5c3cab74c81c79678e87b342ce9a5d55f5de791ace0839e1f4b2",
+        "call": {
+          "toolCallId": "1e088e83-94b2-4bc4-afa0-a804014bcce6",
+          "capabilityId": "local.objective.observe",
+          "arguments": {
+            "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+            "watchId": "ci-real",
+            "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T10:59:54.307Z:8f9710e6-22c6-4b81-bd42-c11b5f4fb009"
+          }
+        },
+        "grant": {
+          "grantId": "0ae6a428-5adb-4d42-b673-6e785099e140",
+          "toolCallId": "1e088e83-94b2-4bc4-afa0-a804014bcce6",
+          "granted": true,
+          "duration": "once",
+          "scope": "local.objective.observe",
+          "decidedAt": "2026-10-01T10:59:54.475Z",
+          "reason": "objective_observe",
+          "preset": "observe",
+          "workspaceId": "86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e",
+          "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+          "watchId": "ci-real"
+        },
+        "resultStatus": "success",
+        "evidenceId": "objective-probe-1e088e83-94b2-4bc4-afa0-a804014bcce6",
+        "runs": [
+          {
+            "databaseId": 36852488422,
+            "status": "completed",
+            "conclusion": "success",
+            "headSha": "4baac4755684830a13a0ee51777be13ebe8c2c64",
+            "headBranch": "PeerAgent/pa/b4-r-ci-probe",
+            "workflowName": "Beta4 probe fixture"
+          },
+          {
+            "databaseId": 36851994140,
+            "status": "completed",
+            "conclusion": "failure",
+            "headSha": "61f2b4d69f617328ea7e9d768fea3506307e2ce3",
+            "headBranch": "PeerAgent/pa/b4-r-ci-probe",
+            "workflowName": "Beta4 probe fixture"
+          }
+        ]
+      },
+      {
+        "evidenceRef": "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:a0c3cd36b5bcc511858aaeb4de407f68b12dd1cb2bc09345d58af9b3466ca069",
+        "call": {
+          "toolCallId": "ce8910b5-3e58-4f92-a678-5a68a1c47723",
+          "capabilityId": "local.objective.observe",
+          "arguments": {
+            "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+            "watchId": "ci-real",
+            "executionKey": "objective-watch:objective-111248b5-b75c-4387-9850-d6f764ba7685:ci-real:95a2a4edd684a686431ab1b62296395059c65fc2e037120e1b6e63b9221d9c3f:2026-10-01T11:03:08.754Z:77d6c5da-6972-4460-afcd-5502470c96ba"
+          }
+        },
+        "grant": {
+          "grantId": "00b4b39a-6abb-43f9-8348-d7158d4b1227",
+          "toolCallId": "ce8910b5-3e58-4f92-a678-5a68a1c47723",
+          "granted": true,
+          "duration": "once",
+          "scope": "local.objective.observe",
+          "decidedAt": "2026-10-01T11:03:08.822Z",
+          "reason": "objective_observe",
+          "preset": "observe",
+          "workspaceId": "86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e",
+          "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+          "watchId": "ci-real"
+        },
+        "resultStatus": "success",
+        "evidenceId": "objective-probe-ce8910b5-3e58-4f92-a678-5a68a1c47723",
+        "runs": [
+          {
+            "databaseId": 36852488422,
+            "status": "completed",
+            "conclusion": "success",
+            "headSha": "4baac4755684830a13a0ee51777be13ebe8c2c64",
+            "headBranch": "PeerAgent/pa/b4-r-ci-probe",
+            "workflowName": "Beta4 probe fixture"
+          },
+          {
+            "databaseId": 36851994140,
+            "status": "completed",
+            "conclusion": "failure",
+            "headSha": "61f2b4d69f617328ea7e9d768fea3506307e2ce3",
+            "headBranch": "PeerAgent/pa/b4-r-ci-probe",
+            "workflowName": "Beta4 probe fixture"
+          }
+        ]
+      }
+    ],
+    "objectiveSignalCount": 1,
+    "actualModelReplies": [
+      {
+        "id": "reply:turn-f08537b3-f53b-433b-a6b6-7a538448daed:2",
+        "at": "2026-10-01T10:58:02.717Z",
+        "content": "目标已创建（report_only，未开任何任务）：\n\n- objectiveId: objective-111248b5-b75c-4387-9850-d6f764ba7685\n- 标题：CI 挂了才告诉我（受控验收）\n- 状态：active\n- 预算：每日自动会话 0 次，探测运行 20 次，来源您本人请求\n- 观察（ci-real）：event 监听 ci-trigger.txt（5 秒防抖），触发确定式探测 gh_run_list（工作流 Beta4 probe fixture），仅失败时通知（failure_only）\n\n后续只在 CI 实际失败时才向您报告；不影响本地分支 PeerAgent/pa/b4-r-ci-probe，不推送。",
+        "meta": {
+          "replyTo": [
+            "input-b4-ci-real"
+          ],
+          "sources": [],
+          "memoryUsed": [
+            "mem-8920b4de-e5c9-429f-8a70-afba9b487d77"
+          ],
+          "memoryLearned": [],
+          "surfacing": "interrupt",
+          "evidenceRefs": [
+            "tool-result://872ec6d4-1ebb-47b2-85e4-f9401f25f94c"
+          ]
+        }
+      },
+      {
+        "id": "reply:turn-dacc5181-30e4-4d60-a4b7-6fda0e37aa1f:2",
+        "at": "2026-10-01T10:58:19.525Z",
+        "content": "CI 失败通知（目标“CI 挂了才告诉我（受控验收）”，report_only，未开任务）：\n\n- 监听 ci-real 观察到 ci-trigger.txt 触发，探测 gh_run_list（Beta4 probe fixture）返回：CI 存在失败的运行（severity: urgent，changed: true）。\n- 证据：objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:7998503bd15641b448e3a9df4d2b1834b62004925572a92f2a0fe98267dd3ac5，观察于 2026-10-01T10:57:58Z。\n- 按约定仅在失败时通知；本轮仅报告，未打开任何任务，未推送。\n\n如需查看具体运行详情或处理失败，请告知。",
+        "meta": {
+          "replyTo": [
+            "input-b4-ci-real"
+          ],
+          "sources": [],
+          "memoryUsed": [
+            "mem-8920b4de-e5c9-429f-8a70-afba9b487d77"
+          ],
+          "memoryLearned": [],
+          "evidenceRefs": [
+            "objective-probe:86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e:7998503bd15641b448e3a9df4d2b1834b62004925572a92f2a0fe98267dd3ac5",
+            "tool-result://c0a1ce6f-dbd8-4355-94ec-48ee5c48157d"
+          ],
+          "surfacing": "interrupt",
+          "reportFactKeys": [
+            "50ba541210b4dfd619dd1fc3684446e43c4c077842f80fbef440fc74d5948d73"
+          ]
+        }
+      }
+    ],
+    "pauseReceipt": {
+      "at": "2026-10-01T11:03:21.972Z",
+      "result": {
+        "ok": true,
+        "item": {
+          "workspaceId": "86c5d1de-b8f6-45d5-a7a2-1ee88f6a614e",
+          "projectAgentConversationId": "a988c53c-65ff-4fdd-b73e-6b2706387490",
+          "originMessageId": "input-b4-ci-real",
+          "title": "CI 挂了才告诉我（受控验收）",
+          "outcome": "只读观察实际 GitHub Actions Beta4 probe fixture 工作流，只有失败才通知，不开任务不推送",
+          "autonomy": "report_only",
+          "createdBy": "user_request",
+          "watches": [
+            {
+              "kind": "event",
+              "notificationPolicy": "failure_only",
+              "probe": {
+                "check": "command",
+                "spec": {
+                  "command": "gh_run_list",
+                  "workflow": "Beta4 probe fixture"
+                },
+                "type": "deterministic"
+              },
+              "source": {
+                "debounceMs": 5000,
+                "paths": [
+                  "ci-trigger.txt"
+                ],
+                "type": "files"
+              },
+              "watchId": "ci-real"
+            }
+          ],
+          "milestones": [],
+          "successSignals": [],
+          "budget": {
+            "maxAutoSessionsPerDay": 0,
+            "maxProbeRunsPerDay": 20
+          },
+          "status": "paused",
+          "objectiveId": "objective-111248b5-b75c-4387-9850-d6f764ba7685",
+          "createdAt": "2026-10-01T10:57:55.496Z",
+          "updatedAt": "2026-10-01T11:03:21.962Z",
+          "version": 2
+        }
+      }
+    },
+    "fixtureBranchDeleted": true
+  },
+  "limits": [
+    "Verifier format failure was fail-closed; C independently reverified and resumed through the original stored plan.",
+    "Readonly replacement manual condition remains unaccepted; no false claim of its verifier success.",
+    "Earlier failing diagnostic samples excluded. Five-day daily use and interactive Windows/Linux installation not performed."
+  ],
+  "ownedProcessCleanup": {
+    "at": "2026-10-01T11:09:11.754Z",
+    "stop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 52942
+    },
+    "credentialCopiesRemoved": true
+  }
+}
