@@ -32,3 +32,9 @@ main.mjs净增0；ChatSurface/Sidebar/LlmSettingsPanel/TUIapp不加功能。禁�
 1. 命名空间与source contract检查；有行为意义的键盘/时间值/focus纯测试。
 2. 实际源Electron：list Tab/方向/Home/End/Enter/Space，drawer各布局focus/tab/Esc恢复，卡片Enter不被壳拦截，Quick picker与quiet时间控件中文英文及持久值，超限草稿不丢；reduce没有位移动画，实际tokens对比记录。
 3. 完整受影响desktop tests、typecheck、architecture、mac/Linux CI；保留RC01搜索/Received/分页预算与停止反馈实际TCP回归。
+
+## 当前验证事实（未宣布整卡完成）
+
+2026-10-02 的真实源 Electron 运行：原有9项壳检查与10项可访问性检查均通过，10000记忆每页50项、前后页身份正确；列表小字在 Frost/Catppuccin 的浅深主题最小对比7.06:1；安静时段键盘修改持久化23:15，英文设置/档案/Quick Chat从保存语言刷新。减少动效下新增壳位移动画数为0。列表20.74ms、可见搜索34.30ms、可见Received67.10ms中位数达原预算。证据`evidence/rc02-accessibility-fixed-20261002.json`来自38bc685c加未提交修复，必须在最终干净HEAD复验，不能充作最终版本认证。
+
+真实首次低对比度与Catppuccin浅色单独失败保留为`rc02-memory-contrast-first-failed-20261002.json`、`rc02-catppuccin-first-failed-20261002.json`。修复后全量类型检查首先发现新测试夹具缺MemoryFilter完整字段，已按真实接口补齐，重跑typecheck通过。最终全量测试、真实停止回归和两平台CI仍在执行。
