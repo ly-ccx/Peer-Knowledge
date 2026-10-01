@@ -29,3 +29,9 @@ main.mjs净增0，不扩展ChatSurface/Sidebar/LlmSettingsPanel/TUIapp。验证�
 搜索修复首轮：5次 search 中位128.86ms，首次索引124.29ms，均<150ms；list54.98ms，其他模块预算通过。原始报告是实施中 dirty tree 的测量，最终精确HEAD仍须重跑。
 
 另外发现全量记忆索引重建3427ms：`fts-index.rebuild` 清空后仍对每行在 FTS 虚表按未索引 id 执行 DELETE，随着数据增长形成重复扫描。允许 `packages/runtime-node/src/sqlite/fts-index.mjs` 与测试做 B 级可丢弃索引性能修复：全量重建按 id 最后值去重后直接插入，保留普通 upsert 替换、短词/中文查询、失败 rollback 与缓存可重建语义。不改 SQLite schema、真源 JSONL、记忆准入或 Evidence；独立提交并报告冷重建改善，不把热查询伪称冷重建。
+
+冷FTS重建修复首轮：3427ms→42.29ms，warm memory9.26ms，search129.45ms，所有本机模块预算通过；报告 `rc01-perf-fts-first-20261002.json` 为实施中 dirty tree 事实，最终仍精确HEAD重跑。定向 FTS/memory15测试通过，含重复ID最后值、数值/字符串同ID、空内容清除旧索引、不可序列化meta失败时完整rollback。
+
+后台运行真实 Electron opt-in 重跑：13 pass / 0 skip，实际TCP服务、停止拒绝/等待/仅ack/终态 × 保持打开/关闭重开/header remount，释放端口全部通过。test-only trigger用于打开生产Panel，不宣称已删除的产品全局按钮仍存在。
+
+Responses修复代码PR #92已合入 5ef4659f（精确tip9fc18b78，CI36890401754 macOS/Ubuntu SUCCESS）；知识PR #23合入f69ca2e6。该依赖修复不改 beta.5 tag，最终RC安装包重复真实多入口验收。
