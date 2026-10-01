@@ -47,3 +47,5 @@ Responses修复代码PR #92已合入 5ef4659f（精确tip9fc18b78，CI3689040175
 真实快档测量增加允许脚本`apps/desktop/scripts/perf-project-agent-real-model.mjs`：明确选择本机已配置模型，只在mkdtemp隔离home复制该渠道配置与凭据引用，源生产Electron/host/Provider真实执行5轮简单post_reply，不替换认知，最后清除复制凭据。报告只保留模型名、耗时、turnId和终态，不输出密钥/配置正文；失败样本保留，p50<6s须实测。用户原始配置不写回。它是生产模型性能证据，不取代签名安装包或复杂任务验收。
 
 QuickChat设置修复后发现既有B3-11的project-agent:list/submit-input同样漏入角色目录。先更新ADR85 Accepted补充窗口准入边界，新增允许`electron/ipc/channels.mjs`（仅这两个channel加入quick-chat，popover保持拒绝）、`electron/main/ipc/trusted-window-registry.test.mjs`，按生成流程更新preload.cjs；main净增0、没有新channel或批准权限。真窗口须实际QuickChat发送并由租约宿主持久化一次。
+
+真窗口修复首轮通过（dirty tree，最终clean HEAD待重跑）：200机器人、五次输入可见Received中位57.2ms、真实QuickChat列表/quick_chat输入仅一条、10000消息向上加载、更改档案设置tab、经典↔机器人列表且200身份保留，pageErrors0、角色拒绝0、owned进程退出。完整应用从脚本launch到window ready约31s单列，不能写成模块cold inbox 311ms。测试脚本中首次30s启动等待、回复与列表预览的同文定位及设置覆盖经典侧栏的测试定位问题均已修正，没有改预算或删除初始产品失败。
