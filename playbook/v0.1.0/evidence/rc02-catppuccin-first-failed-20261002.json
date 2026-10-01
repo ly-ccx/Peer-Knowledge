@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "38bc685c7b7b058e8010a4496822534ed9a382aa",
+  "sourceDirty": true,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-01T18:25:20.603Z",
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "windowReadyMs": 29516,
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page",
+    "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+    "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+    "oversize input is rejected before submission and the editable draft is retained",
+    "10000 memory records render 50 at a time; next and previous retain distinct identities",
+    "reduced motion stops avatar/enter displacement animations while drawer remains usable"
+  ],
+  "metrics": {
+    "productionList": {
+      "samples": [
+        22.977624999999534,
+        21.191749999998137,
+        21.169459000000643,
+        20.210959000000003,
+        21.39025000000038
+      ],
+      "median": 21.191749999998137,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        79.5,
+        35.79999999701977,
+        33,
+        34.29999999701977,
+        34.8999999910593
+      ],
+      "median": 34.8999999910593,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        72.8999999910593,
+        71.5,
+        70.6000000089407,
+        70.29999999701977,
+        70.29999999701977
+      ],
+      "median": 70.6000000089407,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "contrast": [
+    {
+      "palette": "frost",
+      "theme": "light",
+      "selector": ".bot-row-name",
+      "ratio": 16.324778768937044
+    },
+    {
+      "palette": "frost",
+      "theme": "light",
+      "selector": ".bot-row-preview",
+      "ratio": 7.090179762215912
+    },
+    {
+      "palette": "frost",
+      "theme": "light",
+      "selector": ".bot-row-time",
+      "ratio": 7.090179762215912
+    },
+    {
+      "palette": "frost",
+      "theme": "dark",
+      "selector": ".bot-row-name",
+      "ratio": 16.257095960620354
+    },
+    {
+      "palette": "frost",
+      "theme": "dark",
+      "selector": ".bot-row-preview",
+      "ratio": 8.869493863366818
+    },
+    {
+      "palette": "frost",
+      "theme": "dark",
+      "selector": ".bot-row-time",
+      "ratio": 8.869493863366818
+    },
+    {
+      "palette": "catppuccin",
+      "theme": "light",
+      "selector": ".bot-row-name",
+      "ratio": 7.0619995573104415
+    },
+    {
+      "palette": "catppuccin",
+      "theme": "light",
+      "selector": ".bot-row-preview",
+      "ratio": 4.369496203897412
+    },
+    {
+      "palette": "catppuccin",
+      "theme": "light",
+      "selector": ".bot-row-time",
+      "ratio": 4.369496203897412
+    },
+    {
+      "palette": "catppuccin",
+      "theme": "dark",
+      "selector": ".bot-row-name",
+      "ratio": 11.341133436863977
+    },
+    {
+      "palette": "catppuccin",
+      "theme": "dark",
+      "selector": ".bot-row-preview",
+      "ratio": 7.367317896248123
+    },
+    {
+      "palette": "catppuccin",
+      "theme": "dark",
+      "selector": ".bot-row-time",
+      "ratio": 7.367317896248123
+    }
+  ],
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 42879
+  },
+  "finishedAt": "2026-10-01T18:26:14.174Z",
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "errorCode": "ACCESSIBILITY_ASSERTION_FAILED"
+}
