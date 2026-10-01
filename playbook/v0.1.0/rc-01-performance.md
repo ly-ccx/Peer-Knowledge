@@ -43,3 +43,5 @@ Responses修复代码PR #92已合入 5ef4659f（精确tip9fc18b78，CI3689040175
 允许B级修复既有分页接口适配与UI状态：`renderer/src/project-agent/state/useBotConversation.ts`、`botConversationState.ts`及测试、新`conversationPager.ts`及测试；`conversation/{BotConversation,BotMessageList,UserBubble}.tsx`与`styles/bot-conversation.css`；`renderer/src/preload/contracts/bootstrapPreloadApi.ts`补既有runtime已支持的`latest?:boolean`字段；`packages/i18n/src/index.ts`只追加收到/早期加载键。首屏读取最新50条，变化合并最新页，向上加载更早，引用可检索旧页；成功持久化回执才将同inputId从发送中变为已收到，失败保留同ID重试，收到不等于模型回答/任务签收。不改持久化协议、IPC channel、权限、Context或Evidence。
 
 同次窗口发现QuickChat误用其角色不允许的settings:get。允许`electron/preload/preload.source.cjs`、生成`preload.cjs`、`initial-settings.test.mjs`修复现有getSettings的传输适配：QuickChat使用既有已授权settings:get-sync读最新快照，主窗口保留invoke；公开Promise返回契约不变、catalog角色权限不扩大、main.mjs不改。测试含首次和设置变更后的刷新；Electron smoke要求没有角色拒绝日志。
+
+真实快档测量增加允许脚本`apps/desktop/scripts/perf-project-agent-real-model.mjs`：明确选择本机已配置模型，只在mkdtemp隔离home复制该渠道配置与凭据引用，源生产Electron/host/Provider真实执行5轮简单post_reply，不替换认知，最后清除复制凭据。报告只保留模型名、耗时、turnId和终态，不输出密钥/配置正文；失败样本保留，p50<6s须实测。用户原始配置不写回。它是生产模型性能证据，不取代签名安装包或复杂任务验收。
