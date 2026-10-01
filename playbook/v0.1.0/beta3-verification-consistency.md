@@ -54,7 +54,8 @@
 - 最后界面收敛后，`pnpm --filter @peer-agent/desktop build` 与 `pnpm --filter @peer-agent/desktop typecheck` 通过。
 - 最后候选解析审查加入“非法对象 + 合法报告”用例；`node --test apps/desktop/electron/main/agent-host/verifier-report.test.mjs`：5 通过。`git diff --check` 通过。
 - 新回归覆盖格式恢复与耗尽、类型错误、最终段准入、取消/拒绝、假签收、confirm/auto 策略、签收写入失败、后续确认刷新、跨项目来源、记忆保留与拒绝 fallback。
-- 本轮用隔离数据和脚本化模型；真实模型、手动桌面视觉未重跑，没有把历史真实样本计作本补修通过。开发线 CI 结果见 PR；Beta3 真实日用验收仍需后续卡，不进入 Beta4。
+- 当前代码提交的 [开发线 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/36805472170)：macOS 14 与 Ubuntu 全部通过，PR 无合并冲突。
+- 本轮用隔离数据和脚本化模型；真实模型、手动桌面视觉未重跑，没有把历史真实样本计作本补修通过；Beta3 真实日用验收仍需后续卡，不进入 Beta4。
 - 与卡片偏差：无；自由正文全部语义不可由结构化声明全面证明，下一步保留真实模型验收。
 
 ## 架构影响
