@@ -36,3 +36,5 @@ B4-01 至 B4-08 已合入代码 dev `30496b04`；知识 PR #15 已合入 main `4
 候选 c556fb52 的三个文本写任务实际各改一个文件且三条并行。Goal 说明里的“用户会在界面上确认并合回”被现有 UI intake 分类器当成界面交付，导致错误武装视觉门并停在 judgment-missing。此处属于 B 级：在既有 goal-intake-ui-delivery 纯分类模块中排除明确的签收 / 合回操作语句，再分类真实交付物；不关闭已武装的门、不替模型产出核验、不改变 Evidence 或授权规则。涉及该模块与测试，既有真实 UI 目标及其 fail-closed 门仍须通过回归。旧样本的持久标记保留，修复后使用新的隔离样本重验，不人工篡改其核验状态。
 
 真实 CI 失败送达验收使用仓库独立临时分支 `PeerAgent/pa/b4-r-ci-probe` 与专门的 `Beta4 probe fixture` workflow（明确标注故意失败），随后改为成功；不把夹具的失败写成产品 CI 回归。模型在本机隔离项目创建 failure_only 目标，既有只读 gh Provider 读取实际 Actions 结果。文件事件重复触发同一失败观察应只送达一次，成功结果应安静保留。该临时分支验证后删除，不合入开发线。
+
+生产真实取代成功后恢复返回 supervisor_unavailable，发现 Desktop 的 liveDelegationSupervisor 适配器只转接旧五个方法，漏接 B4-03 已实现的 resume / reprioritize。补入既有 delegation-port.mjs 和生产 SDK 集成回归（实际 LocalToolHost / Grant / Evidence），无新协议、IPC 或权限。修复后重启同一个隔离样本，恢复实际已取代任务，沿保留的原计划 / worktree / 历史重验，不重建历史事实。
