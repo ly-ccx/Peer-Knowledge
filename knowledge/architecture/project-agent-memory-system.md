@@ -1,7 +1,7 @@
 # 项目代理记忆体系
 
 创建时间：2026-09-24
-最后更新：2026-09-24
+最后更新：2026-10-01
 
 > 状态：随 ADR 81 Accepted（2026-09-26）。§16 已关闭。简报预算以 6000 字符为准。  
 > 级别：A 级（上下文准入、存储边界、System Context 来源、能力暴露）  
@@ -74,58 +74,44 @@
 
 ### 4.1 记忆条目
 
+Beta4 真源与跨层字段以 `packages/protocol/src/memory.ts` 与 MemoryStore 为准：
+
 ```ts
-type MemoryScope =
-  | { kind: 'project'; workspaceId: string }
-  | { kind: 'user' };
+type MemoryScope = 'project' | 'user';
+type MemoryKind = 'fact' | 'preference' | 'decision' | 'procedure' | 'responsibility';
+type MemoryTrust = 'verified' | 'stated' | 'inferred';
+type MemoryStatus = 'active' | 'forgotten' | 'expired' | 'conflicted';
 
-type MemoryKind =
-  | 'fact'        // 事实：命令、路径、结构、版本
-  | 'decision'    // 决策：为什么这么做
-  | 'convention'  // 约定：这个项目习惯怎么做
-  | 'pitfall'     // 踩坑：什么会出错、怎么避开
-  | 'procedure'   // 做法：被验证有效的步骤
-  | 'state'       // 局面：进行中的事、已知问题（短有效期）
-  | 'preference'; // 用户偏好（只在 user 作用域）
-
-type MemoryTrust =
-  | 'verified'    // 有可解析的 Evidence 支撑
-  | 'stated'      // 用户亲口说的
-  | 'inferred';   // 代理从现象推断
-
-type MemoryStatus = 'candidate' | 'active' | 'stale' | 'superseded' | 'revoked';
-
-interface MemoryItem {
+interface ProjectMemoryRecord {
   id: string;
   scope: MemoryScope;
+  workspaceId?: string;                 // project 必须有；preference 只在 user
   kind: MemoryKind;
-  statement: string;              // 一句陈述句，能单独读懂
-  detail?: string;                // 可选补充（markdown，限长）
-  subjects: string[];             // 检索锚点：路径、模块、主题词
-  provenance: {
-    origin: 'task_outcome' | 'user_statement' | 'user_correction' | 'agent_observation' | 'repeated_behavior';
-    sourceRefs: string[];         // messageId / sessionId / planId
-    evidenceRefs: string[];       // 必须能在 EvidenceIndex 解析；verified 至少一条
-    fromUntrustedContent: boolean; // 陈述来自网页 / MCP / 文件内容时为 true（§8.3）
-  };
+  text: string;                         // 限长陈述，旧草案 statement 已废止
   trust: MemoryTrust;
+  sourceRefs: string[];                 // 用户消息 / episode / Evidence 来源
+  pinned: boolean;
   status: MemoryStatus;
-  sensitivity: 'normal' | 'sensitive';
-  validity: {
-    observedAt: string;
-    lastConfirmedAt: string;
-    expiresAt?: string;           // state 类默认 14 天
-    anchors?: { path: string; contentHash: string }[]; // 文件变了就要复核（§7.1）
-  };
-  usage: { retrievedCount: number; lastUsedAt?: string; helpful: number; harmful: number };
-  pinned: boolean;                // 用户固定进项目简报
-  supersedes?: string[];
-  conflictsWith?: string[];
-  version: number;
+  confirmedCount: number;
   createdAt: string;
   updatedAt: string;
+  lastUsedAt?: string;
+  anchorMessageId?: string;
+  forgetReason?: string;
+  expiresAt?: string;
+  topicKey?: string;
+  topicValue?: string;
+  conflictId?: string;
+  conflictsWith?: string[];
+  supersededBy?: string;
+  needsReverify?: boolean;
+  fileAnchors?: { path: string; contentHash: string; commit: string | null }[];
+  maintenanceReason?: string;
 }
 ```
+
+候选存在 Curator episode/candidate 日志中，不是 MemoryStore 的 `candidate` 状态。取代与撤销用 `forgotten` 保留版本，取代另记 `supersededBy`；旧草案 `stale/superseded/revoked` 状态、`validity.anchors` 与 `needs_revalidation` 字段已由以上模型取代。长期统计、subject 精确检索、事件卡月度压缩及物理清除为后续设计，不属于 Beta4 可执行合同。
+
 
 ### 4.2 事件卡（对话事件记忆）
 
@@ -229,7 +215,7 @@ interface MemoryEpisode {
 - 记忆以 `ContextAttachmentItem { sourceKind: 'memory', scope: 'workspace' | 'user', lifecycle: 'durable_ref' }` 进入，由新的 `project-memory-source` 渲染到 **`L7_CONTINUITY`**，每条带来源标签：`[记忆 · 已验证 · 9/20 · 来源：任务「用量面板按天分组」]`。
 - 永远不进 `L0`–`L6`。约定和偏好也只是「这个用户 / 项目的习惯记录」，不是系统规则。
 - 优先级：当前用户消息 > 项目指令（L3）> 记忆。冲突时模型按高优先级来，代理顺带提示记忆可能过期。
-- 标为 `stale` 或带 `needs_revalidation` 的条目若被检索到，渲染时加「可能过期」。
+- `forgotten/expired/conflicted` 不进入有效检索、简报与新快照；`needsReverify` 不进入有效检索与新快照，仅在 L7 简报独立区注明“可能已过时”。
 
 ### 6.4 开任务时带上记忆
 
@@ -259,23 +245,31 @@ interface DelegationOrigin {
 
 ### 7.1 过期检测
 
-- **文件锚点**：fact / convention / procedure 写入时记录相关文件的内容哈希。Curator 空闲时比对：文件变了 → 条目标 `needs_revalidation`，下次被检索时标「可能过期」，Curator 用只读工具复核后转回 `active` 或 `stale`。
-- **有效期**：`state` 类默认 14 天过期；其他类无固定有效期，靠锚点与使用反馈。
-- **项目指令变更**：AGENTS.md 变了，重新跑一遍与项目指令的冲突检查。
+- **文件锚点**：verified fact / procedure 的实际宿主 `fileAnchors` 经日维护比对；文件变化标 `needsReverify`，L7 独立警示。下次相关任务得到新 Evidence 后，经 Curator 准入与实际锚点生成新 verified 记录，旧项 forgotten；日维护不调用模型，也不声称完成验证。
+- **有效期**：可选 `expiresAt` 到期为 expired；Beta4 没有 `state` kind 或自动 14 天默认，固定项与职责保护见 §7.4。
+- **项目指令变更**：Curator 新候选准入读取当前项目指令；全库按指令变更重审属于后续维护增强。
 
 ### 7.2 冲突
 
-- 同一 `subjects` 下出现矛盾陈述 → 按准入策略：新的 verified / stated 取代旧的；否则候选 + 冲突标记。
-- 取代保留旧版本（`superseded`），可以追溯「以前以为是 X，后来发现是 Y」。
+- 同一单值 `topicKey` 的互斥 `topicValue`：新的 verified / stated 按 ADR 81 取代较早项；不能确定取代时双方 conflicted 并生成用户选择卡。文字不同本身不构成矛盾。
+- 取代保留旧版本（forgotten + supersededBy），可追溯旧判断。
 
 ### 7.3 遗忘与衰减
 
-- 长期未用、低重要度的条目退出项目简报，仍可检索。
-- 事件卡按月卷成月度摘要，原卡保留可检索。
-- 每个项目有条目总数与简报长度上限，超出时按「最久未用 × 最低可信度」先退出简报。
-- 用户「忘掉这个」→ `revoked`（可恢复）；「彻底删除」→ 物理删除该条及其版本，并记一条删除事件（不含内容）。
+- Beta4 inferred preference 90 天未使用进入 expired，退出有效检索与简报；固定项与职责不自动过期。其他重要度统计衰减属于后续增强。
+- 后续增强：事件卡按月汇总；Beta4 不实现月度压缩。
+- Beta4 简报硬限 6000 字符，按固定/职责/最近 verified/偏好/待核实分组截断；全库条目总数与统计排序为后续增强。
+- 用户“忘掉这个”→ forgotten（可恢复）；Beta4 不提供单条物理清除，长期设计要求清除前留下无正文删除事件。
 
 ---
+
+### 7.4 Beta4 可执行边界（B4-08）
+
+- 日维护沿宿主小结时钟运行，由项目租约、机器人状态、经典界面与记忆开关控制；不调用模型。完成事实保存在 device `project-runtime/<workspaceId>/memory-maintenance.json`，失败不推进当日游标。
+- 存储只追加版本。到期或 90 天未使用的 inferred preference 进入 `expired`，固定项与职责不自动过期；运行时检索、新快照与简报在维护前也过滤实际到期项。
+- 单值主题用可选 `topicKey/topicValue`。按 ADR 81 决策 4，新且明确的 verified/stated 值取代旧值，旧记录保留 `supersededBy`；无法判定取代的矛盾进入 `conflicted`，关联 `conflictId/conflictsWith`。用户选择沿既有类型化 `project-memory:restore` 的 `resolveConflict` 字段，保留一条、撤销其余。陈述和来源在冲突卡与记忆页可见。
+- 文件有效性由 host adapter 读取工作区内真实路径并计算 `fileAnchors`（相对路径、内容哈希、HEAD），拒绝越界和大文件。Curator 只提出路径，不能提供权威哈希；这一接缝不新增模型可见文件能力。
+- 文件变化的 verified 条目标 `needsReverify`，退出有效检索与新快照，在 L7 简报独立区注明“可能已过时”。旧冻结快照不改写。再次 Curator 提取必须经新 Evidence 准入且重新取得实际锚点，维护本身不能宣布验证成功。
 
 ## 8. 治理红线
 
@@ -393,7 +387,7 @@ interface DelegationOrigin {
 - 放宽权限 / 签收 / 验证下限 / 预算的记忆被拒绝；「发布前让我看」能让对外操作变为 `confirm`。
 - 网页 / MCP / 文件内容里的「以后都这样做」无法成为约定或偏好。
 - 敏感信息扫描命中时拒绝落盘。
-- 文件内容变化 → 条目 `needs_revalidation` → 复核后转 `active` 或 `stale`。
+- 文件变化 → needsReverify → 新 Evidence 与实际锚点准入新 verified 记录，旧记录 forgotten。
 - 取代保留旧版本；撤销可恢复；物理删除只能从界面发起并留删除事件。
 - `memorySnapshotId` 冻结后，记忆变更不影响进行中的任务。
 - 索引文件删除后可从 jsonl 全量重建且检索结果一致。
