@@ -17,3 +17,11 @@
 - 达标需要的生产修复：先在本边界追加测量事实和具体文件，每个修复单独提交，说明对应预算及回归测试；涉及协议/权限/Context/存储边界时先更新架构决策。
 
 main.mjs净增0，不扩展ChatSurface/Sidebar/LlmSettingsPanel/TUIapp。验证全build→受影响包test→typecheck/architecture→mac/Linux精确HEADCI；各结果真实写handoff，性能偏差不能自行视为负责人接受。
+
+## 首轮测量与搜索修复（2026-10-02）
+
+基线 d90e58c2，200 bots / 10000 messages / 100000 inbox events / 10000 memories，经生产读取核对。五次中位数：list 56.62ms（<100，通过）；search 185.61ms（<150，失败）；received 15.17ms（<300，模块路径）；consume 14.26ms（<200）；warm memory 10.37ms（<50）；cold inbox 310.82ms（<1000）；idle incremental RSS 819118 bytes/bot（<2MiB，零模型调用）。首搜索188.11ms失败，记忆索引首次重建3434.37ms另列，不可混成热查询达标。
+
+搜索同一请求重复构建目录：directory.search 读取全部机器人；readSearchCorpus 再 directory.list。允许 B 级内部端口修复：directory.query 返回同一投影的 `{items,catalog}`；应用服务与 desktop corpus 消费该快照，保留 legacy search port 兼容与实时语料指纹失效。没有新的 IPC、存储、授权或 Context 契约。
+
+新增允许文件：`packages/runtime-node/src/project-agent/bot-directory.mjs` 及测试；`apps/desktop/electron/main/project-agent/project-agent-application-service.mjs` 及测试；`apps/desktop/electron/main/project-agent/project-agent-host.mjs` 与 `desktop-integration.test.mjs`（必要时）。每个性能修复单独提交，报告改前改后完整样本；不能删除初始失败。
