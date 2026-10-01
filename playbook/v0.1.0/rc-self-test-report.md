@@ -20,7 +20,7 @@
 | 候选签名、公证、安装 | 待执行 | 必须绑定本次不可变RC资产，旧Beta5验证不代替。 |
 | 候选复杂任务与多入口 | 待执行 | 必须使用本次安装Desktop实际模型和工具完成，不以脚本化执行器或源代码TUI后端代替安装CLI交互。 |
 
-最终文档分支干净 `005a5abb` 的实际源窗口9项壳、10项可访问性和7项诊断检查全部通过，0页面错误，owned进程退出。列表16.82ms、可见搜索24.80ms、Received48.50ms；200机器人诊断93312字节。见[原始报告](evidence/rc05-final-source-window-20261002.json)。与完整本机门禁通过的 `ce5bb7e4` 生产代码相同，仅同步真实滚轮smoke；desktop 5287项中5282通过、原有5项opt-in跳过，独立AST测试1项通过，其他包和19项矩阵通过，没有新增skip。
+最终文档分支干净 `005a5abb` 的实际源窗口9项壳、10项可访问性和7项诊断检查全部通过，0页面错误，owned进程退出。列表16.82ms、可见搜索24.80ms、Received48.50ms；200机器人诊断93312字节。见[原始报告](evidence/rc05-final-source-window-20261002.json)。与完整本机门禁通过的 `ce5bb7e4` 生产代码相同，仅同步真实滚轮smoke；desktop 5287项中5282通过、原有5项跳过（2项Electron opt-in已另跑、3项完成计划不适用的文本Verifier顺序检查），独立AST测试1项通过，其他包和19项矩阵通过，没有新增skip。
 
 ## 手册分组与自测方式
 
@@ -70,4 +70,11 @@
 
 真实Luna首轮双写进入两个已批准worktree，但模型将父对话编排指令重复用于执行角色，停在waiting_user。原文件未写、失败完整保留为[首轮证明](evidence/rc-work-session-context-first-failed-20261002.json)。按[Accepted架构补修](rc-fix-work-session-context.md)增加静态执行角色和当前真实GoalPlan准入phase，父正文仍为L7；不放宽工具权限或签收。源版本同样双写输入正在复验，候选安装仍须独立执行。
 
-本机29d43dec干净版本（与38eb6f95生产树相同，后者仅补依赖merge祖先）完整build/typecheck/architecture/test/release-readiness通过：Desktop5288项中5283通过、原有5项opt-in跳过，加独立AST1项通过；runtime-node997项通过；系统上下文、TUI和其他包通过，19项真实tag升级矩阵通过。最终两平台CI和本次安装包验证未完成，继续保持进行中。
+本机29d43dec干净版本（与38eb6f95生产树相同，后者仅补依赖merge祖先）完整build/typecheck/architecture/test/release-readiness通过：Desktop5288项中5283通过、原有5项跳过（2项Electron opt-in已另跑、3项完成计划不适用的文本Verifier顺序检查），加独立AST1项通过；runtime-node997项通过；系统上下文、TUI和其他包通过，19项真实tag升级矩阵通过。最终两平台CI和本次安装包验证未完成，继续保持进行中。
+
+
+### 候选源码和CI绑定
+
+全部代码卡PR94/95/96/98/97均已合入开发线。候选tag v0.1.0-rc.1 → 0beeb21f，原生/真实模型源码验收29d43dec；CI36918216680实际checkout GitHub临时merge6c04239c。三者Git tree均为1204b3eb1c57a29caa6f3af975c4d0e5fdef86b8，已用Git/GitHub对象核对，生产内容一致。证据[绑定](evidence/rc-candidate-source-binding-20261002.json)、[macOS CI](evidence/rc-candidate-ci-mac-20261002.json)、[Linux CI](evidence/rc-candidate-ci-linux-20261002.json)。Mac列表52.58ms/搜索95.50ms/Received196.60ms；Linux30.51/69.60/137.80ms，全部在原预算。
+
+原有skip边界：两个需PEER_BACKGROUND_UI_SMOKE的真实Electron用例已在13项独立后台回归中执行通过；三个已完成计划复用场景没有后续文本Verifier阶段，顺序断言不适用；ADR42旧双口径describe已由ADR52统一投影取代。不能将这5项统称opt-in，也没有新增skip。完整源码双任务与多入口已通过（见[复杂任务](evidence/rc-source-complex-passed-20261002.json)、[多入口](evidence/rc-source-multi-entry-passed-20261002.json)），安装候选仍在构建，Release36919331979。签收后的独立合回授权步骤已修正进测试脚本；先前夹具遗漏已保留，未修改生产授权门。
