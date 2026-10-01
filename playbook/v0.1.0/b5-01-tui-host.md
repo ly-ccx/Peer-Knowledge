@@ -27,6 +27,8 @@
 
 除卡片已有 TUI 新模块与锚点之外，现有装配分散在桌面主进程，必须补齐以下路径。用户的全部完成授权覆盖这些必要路径，不新增依赖或存储根目录。
 
+- 工具提示随 Manifest 共享：delegation/memory 的提示资产从桌面移动到 runtime-node；构建时生成内嵌文本模块，桌面与单文件终端二进制读取同一描述。不新建 System Context 拼接路径。共享证据正文投影和项目说明行比较也移动到 runtime-node；两端只注入受登记工件约束的本地读取端口。
+- 租约新增停止并等待端口；接管期间执行闸关闭而心跳继续，只有停止成功才能释放。批准恢复只触及新宿主持有租约的项目，不能把另一宿主的现场批准转为 stale。
 - runtime-node：`src/project-agent/runtime-host.mjs`、共享事实/回复/验证/Watch/工具适配模块与测试；`src/index.ts` 导出。
 - 任务宿主同样复用：提取 `agent-host/goal-runner-host`、work-session profile、verifier report/evidence、goal runner message persistence、preferred worktree、Goal/Automation worktree 与交付合回算法到 runtime-node；任务分支名称策略由宿主注入既有 System Context 的 resolver，runtime-node 不反向依赖 System Context 或 Electron。桌面旧入口保持兼容导出/适配，TUI 不复制任务推进或 worktree 实现。
 - runtime-node 的只读 file/search Manifest 补入 `project_agent` modeScope；写入和 Shell Manifest 不扩大。两端仍通过共享白名单和执行硬闸拒绝副作用能力。
