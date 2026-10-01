@@ -21,7 +21,7 @@ agent probe 复用既有 Explorer 临时回合路径和 objective_probe 省档�
 目标事件回合携带宿主决定的 objectiveIds，工具无法靠省略 objectiveId 绕过 report_only/propose。B4-05 的自动唤醒先保持禁止自动任务的护栏，B4-06 再接 act 配额、提议卡和用户确认；当前真实用户输入优先，旧目标 anchor 不授权新增工作。
 
 ## 必要路径
-原卡 WatchRunner/各 probe/Automation scheduler/event-mapper；补共享 scheduler-kernel、观察 Provider/Evidence store/设备状态内核、runtime exports、协议 watch 通知策略/事件字段、ObjectiveStore 校验与 typed views、Host recovery/watch/stop 装配及深模块 desktop probe-turn、已有 readonly mode gate/projection/临时 Explorer 路径与 permission-gate 的 objective_probe 类型能力闸（独立于 full-access/缓存；只授予受限项目文件读取，拒绝 shell/写入/外部能力）、AgentTurnExecutor 支持实际回合来源、DelegationProvider 防省略护栏、i18n/目标页降级与用量、reply-composer-port 与测试的宿主 objective_signal 来源/实际观察 Evidence 转交（不能用模型 replyTo 把自动观察伪装成用户请求）。更新 data-store 注释和发布清单注册子路径。无新依赖；main.mjs 净增≤0。
+原卡 WatchRunner/各 probe/Automation scheduler/event-mapper；补共享 scheduler-kernel、观察 Provider/Evidence store/设备状态内核、runtime exports、协议 watch 通知策略/事件字段、ObjectiveStore 校验与 typed views、Host recovery/watch/stop 装配及深模块 desktop probe-turn、已有 readonly mode gate/projection/临时 Explorer 路径与 permission-gate 的 objective_probe 类型能力闸（独立于 full-access/缓存；只授予受限项目文件读取，拒绝 shell/写入/外部能力）、AgentTurnExecutor 支持实际回合来源、DelegationProvider 防省略护栏、i18n/目标页降级与用量、agent-turn-plan 及测试保留宿主已附的观察 Evidence（后续工具引用合并而非覆盖）、reply-composer-port 与测试的宿主 objective_signal 来源/实际观察 Evidence 转交（不能用模型 replyTo 把自动观察伪装成用户请求）。更新 data-store 注释和发布清单注册子路径。无新依赖；main.mjs 净增≤0。
 
 ## 退出验证
 共享内核和完整 Automation 回归；真实 Git/文件变化及 symlink 越界；定时错过/重叠/幂等重启；不变化不唤醒、失败通知策略；预算/租约/经典/暂停/真实取消；CI 可用与缺 auth 降级；readonly agent tool Gate/Grant/Evidence；完整受影响包、build/typecheck/architecture/ipc、Review 与双平台 CI；使用真实 gh 只读查询运行一次“CI 挂了才告诉我”，脚本模型不替代真实模型发布验收。
