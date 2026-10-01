@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "synthetic": false,
+  "installed": false,
+  "startedAt": "2026-10-01T16:43:27.631Z",
+  "sourceHead": "d70eb87a60c6d5af74465687107c80545ac7875d",
+  "sourceDirty": false,
+  "samples": [
+    {
+      "model": "gpt-6-luna",
+      "inputId": "rc-live-0",
+      "outcome": "failed",
+      "durationMs": 7335.179917,
+      "code": "LIVE_TURN_FAILED"
+    },
+    {
+      "model": "gpt-6-luna",
+      "inputId": "rc-live-1",
+      "outcome": "failed",
+      "durationMs": 150017.445958,
+      "code": "LIVE_TURN_FAILED"
+    },
+    {
+      "model": "gpt-6-luna",
+      "inputId": "rc-live-2",
+      "outcome": "failed",
+      "durationMs": 150029.4905,
+      "code": "LIVE_TURN_FAILED"
+    },
+    {
+      "model": "gpt-6-luna",
+      "inputId": "rc-live-3",
+      "outcome": "failed",
+      "durationMs": 150028.37604199996,
+      "code": "LIVE_TURN_FAILED"
+    },
+    {
+      "model": "gpt-6-luna",
+      "inputId": "rc-live-4",
+      "outcome": "failed",
+      "durationMs": 150040.277834,
+      "code": "LIVE_TURN_FAILED"
+    }
+  ],
+  "pageErrors": [],
+  "scope": "Source production Electron, project host, live configured fast model and real post_reply tool; submission to committed turn and anchored reply",
+  "model": "gpt-6-luna",
+  "provider": "openai",
+  "metric": {
+    "samples": [
+      7335.179917,
+      150017.445958,
+      150029.4905,
+      150028.37604199996,
+      150040.277834
+    ],
+    "median": 150028.37604199996,
+    "budget": 6000,
+    "pass": false
+  },
+  "ok": false,
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 28306
+  },
+  "credentialCopiesRemoved": true,
+  "finishedAt": "2026-10-01T16:53:36.592Z",
+  "failureAnalysis": {
+    "firstRound": "Two live Responses requests returned empty message/no function call; input tokens 8427/8471, output tokens 4 each",
+    "remainingRounds": "Same bot parked after failure, subsequent inputs waited for explicit retry; not model-latency samples",
+    "action": "Preserve failures; sample five independent bots and benchmark another configured fast model"
+  }
+}

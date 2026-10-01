@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "7e6ab099538c206d8c0f539cf93f75db2ba5808a",
+  "sourceDirty": true,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-01T16:35:48.322Z",
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "pageErrors": [],
+  "receiptSamples": [
+    59.5,
+    55.80000000447035,
+    57.20000000298023,
+    57,
+    59.19999999552965
+  ],
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "windowReadyMs": 31356,
+  "metrics": {
+    "visibleReceived": {
+      "samples": [
+        59.5,
+        55.80000000447035,
+        57.20000000298023,
+        57,
+        59.19999999552965
+      ],
+      "median": 57.20000000298023,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "ok": true,
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 76752
+  },
+  "finishedAt": "2026-10-01T16:36:48.014Z",
+  "mainAuthorizationErrors": []
+}
