@@ -126,3 +126,6 @@ CI36903267497原inspector观测问题消失，Linux完整通过；macOS生产lis
 按 Accepted ADR86 修复 70b48669：SettingsStore.getRuntimePolicy 每次读原文件，只投影归一化 runtime/memory 策略；无跨调用缓存，不参与权限、租约或项目身份真源。旧 schema 仍走原迁移；getAll/merge 保留完整身份修复。main 原装配行净增 0。36 个定向回归通过，包括 200 次读取不修复损坏注册表、getAll 仍修复、外部设置实时可见、经典切换撤销全部 runner。
 
 CI36911411217（tip70b48669，merge c8cb79d6）：macOS/Linux 完整编译/类型/架构/测试/真窗口均 SUCCESS；Mac 窗口就绪 6.0s，列表 p5074.22ms、可见搜索130.60ms、Received216.10ms，全部九项检查，0错误，自有进程退出。随后关闭临时 CPU/CDP 调试开关，生产修复不变；最终 tip1884582d 的干净本机 live/scale/window 原报告附 evidence。GLM 五轮全 done，p505598.32ms，单轮9504.32/7208.34ms仍保留。规模八预算全部达标；窗口就绪2186ms/list18.37/search31.60/Received49.90ms，全九项通过、0错误。最终无调试两平台 CI36912497140 仍待结果，未提前标记完成。
+
+
+最终无调试 CI36912497140 两平台完整门禁与真窗口 SUCCESS，精确tip1884582d，Mac测试merge见附原报告。代码PR93已按匹配HEAD合入开发线80e42b5e；RC01退出条件完成。后续候选包必须在最终合并内容再跑安装证据，RC01源运行事实不代替安装包。

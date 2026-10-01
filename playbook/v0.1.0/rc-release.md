@@ -11,6 +11,8 @@
 
 ## RC-01 性能与规模预算验证
 
+**状态：完成（2026-10-02）**。代码PR93合入80e42b5e；最终两平台CI36912497140与干净源测量通过，详见[实施及全部证据](rc-01-performance.md)。
+
 - **级别**：B。**规模**：M。
 - **目标**：版本计划 §9.2 的每一项都有可重复的测量脚本与达标结果；新增机器人壳的 Electron smoke。
 - **代码锚点**：`apps/desktop/scripts/task-monitor-electron-smoke.mjs`（smoke 写法）、`lab-*.mjs`（隔离数据目录 `~/.peer-agent-lab`）；`dev:lab`。
