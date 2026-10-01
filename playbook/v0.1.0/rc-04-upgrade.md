@@ -1,7 +1,7 @@
 # RC-04 升级 / 降级矩阵实施边界
 
 创建时间：2026-10-02
-状态：Accepted；负责人已授权自主完成全部 RC，GA 仍须负责人全面测试后确认。
+状态：完成（2026-10-02）；负责人已授权自主完成全部 RC，GA 仍须负责人全面测试后确认。
 
 ## 范围与顺序
 
@@ -27,3 +27,8 @@ B级测试：不改变持久化或权限契约，不改生产数据迁移；如�
 初始夹具错误与校正保留：根script不能直接解析workspace包名，改用当前已build dist相对入口；automationId误取id与task误用role修正为实际公开字段；旧workspace adapter必须提供getDefaultWorkspacePath。共享catalog在合法新建会话/任务后会追加，原错误hash断言不能要求catalog仍字节不变，改为严格检查原记录前缀、原实体文件逐字节hash及旧实体仍可完整读取；plans/.changes.jsonl同样校验前缀。原会话/Goal/自动化本体、档案/记忆/目标保护未放宽，19条未删、超时未延长、无skip。第二至四轮失败与第五轮通过、最终干净报告均保存evidence。
 
 四个逐版升级间隙使用真实owned进程SIGKILL停在持久task创建之后、reply提交之前，沿现有生产租约/恢复/GoalRunner重启，输入1、任务2（含原legacy Goal）、reply1，workerCalls1；再次重启waiting_user workerCalls0。模型为脚本，不代表真实认知；安装包测试另列。更新器whole module在受控stable feed执行，明确autoDownload=false且不调用download/install，不代表GA已发布。
+
+
+## 最终交付
+
+代码PR96已合入开发线，merge `32ef36bf7d00de0638ec4685a1fbb0b7b2f7dbfa`，受验HEAD45df41a3，两平台CI36918174837均SUCCESS。最终本机全量门禁重复执行19项真实tag矩阵通过；保留全部原始失败与最终干净证据。源模块矩阵、受控更新feed及SIGKILL恢复不代替最终候选的实际安装轮换；实际macOS安装轮换将在RC05报告单独绑定。
