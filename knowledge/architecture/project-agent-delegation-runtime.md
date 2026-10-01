@@ -540,10 +540,12 @@ function decideSurfacing(input: {
 ### 14.2 真实交付缺口补修（2026-10-01）
 
 - 结构化自动验收的同一用户委托按宿主执行身份幂等：项目/父对话、用户锚点集合、kind/readOnly、验收操作参数、dependsOn/supersedes；标题/brief/criterion 描述与 id 不改变身份。没有自动标准时保持严格请求身份。不同目标参数、新用户锚点、显式替代保持不同；不通过模糊文本相似度合并。持久化旧计划可重建身份匹配，保留原记录不批改。
-- 文件能力执行成功后，既有 EvidenceIndex 可追加 `bodyPreview: { kind: 'file', text: string, truncated: boolean }`，正文最多 4000 字符、复用既有秘密脱敏；披露最多 2000 字符并保留截断事实。来源是 Provider Tool Result，不是助手正文或 goal wrapper；读取展示执行时快照，不复读当前文件。旧无快照记录不得编造历史证据。
+- read_file/list_files/search_files 执行成功后，既有 EvidenceIndex 可追加 `bodyPreview: { kind: 'file', text: string, truncated: boolean }`，正文最多 4000 字符、复用既有秘密脱敏；披露最多 2000 字符并保留截断事实。来源是 Provider Tool Result，不是助手正文或 goal wrapper；读取展示执行时快照，不复读当前文件。旧无快照记录不得编造历史证据。
 - completed 无独立 verdict 时也产生 result_ready 唤醒事实，完成事件以稳定 completedAt 标识幂等，不把完成事实当核验/签收事实。项目代理仍按现有工具核验并关联回复，宿主再过关闭闸门。
 - 针对已完成但未交付任务的用户锚点，回复必须带对应 sources 与当前 statusClaims；漏来源拒绝并返回待引用 session 和宿主状态。正常纯问答与尚未完成任务的普通交流不受此规则影响。
 - memory Provider 从已有主机 toolContext 读取 mode/turnRole/workspace/messages，和 flat context 保持相同身份准入。模型工具参数不决定角色；worker 仍不可写记忆。熟悉项目沉淀沿用关联回复、宿主核验与 Evidence 准入，不以 stated 或源外回复绕过。
 - 范围及回归见 `playbook/v0.1.0/beta3-real-gaps.md`；沿用 ADR 80/81/85，无新的执行通道或存储目录，不开放 Beta4。
 
 - 真实复跑补充：`independentVerifier=missing` 必须进入既有 `verificationBelowFloor` 签收闸门；`result_ready` 来源的 `post_reply` 若未补独立核验，返回 `verification_required`，由模型走既有 verify_session/Provider 链重试，不由生命周期直接运行核验。宿主保留的 `lifecycle-research-*` 锚点不能作为 memory_remember 的 stated 来源（它是文件熟悉请求，不是用户陈述文件事实）。
+
+- 核验器事实输入补充：既有 verifier user 请求可携带本计划叶子/标准引用对应的 EvidenceIndex 文件快照，总正文限 12000 字符。执行正文是 factual/untrusted context，不能成为系统指令。passed 报告的 evidenceRefs 必须非空且归属于这些已索引快照或本轮真实 Tool Result；缺失/伪造报告仅走现有一次格式修复，随后失败，不制造引用或弱化验收。
