@@ -18,7 +18,7 @@
 
 ## 必要路径
 
-原卡 supervisor/provider/tool-specs/GoalPlan store/提示/任务投影；Goal Runner 的 pause 同步委托 paused phase，避免用户手动暂停后被自动准入；agent-turn-plan 的当前输入事实及聚焦测试、llm-chat-service 现有 toolContext 装配（逐回合覆写锚点，无新 sendMessage 参数）、共享 user-priority 规则模块；新增深模块 `session-continuity.mjs` 集中作用域、取代链、暂停结算、恢复幂等和过期；Protocol 状态与元数据、Provider 模式注册、已注册提示及工具目录、project-agent host/application service、现有 IPC 注册与 channels/preload 类型、drawer 状态/任务页/详情/样式、i18n 和聚焦测试。必要 IPC 为 `project-agent:resume-session`；不增加依赖，main.mjs 净增为零。
+原卡 supervisor/provider/tool-specs/GoalPlan store/提示/任务投影；Goal Runner 的 pause 同步委托 paused phase，避免用户手动暂停后被自动准入；input-queue 现有消费者显式标记新用户消息 kind=user_input（旧 jsonl 不改写）、agent-turn-plan 的当前输入事实及聚焦测试、llm-chat-service 现有 toolContext 装配（逐回合覆写锚点，无新 sendMessage 参数）、共享 user-priority 规则模块；新增深模块 `session-continuity.mjs` 集中作用域、取代链、暂停结算、恢复幂等和过期；Protocol 状态与元数据、Provider 模式注册、已注册提示及工具目录、project-agent host/application service、现有 IPC 注册与 channels/preload 类型、drawer 状态/任务页/详情/样式、i18n 和聚焦测试。必要 IPC 为 `project-agent:resume-session`；不增加依赖，main.mjs 净增为零。
 
 ## 验证
 
