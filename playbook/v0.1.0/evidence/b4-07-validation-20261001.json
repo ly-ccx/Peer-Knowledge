@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-10-01",
+  "codeHead": "f2a6d3214cea0124db04b072d698db79c49fe41b",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/80",
+  "checks": {
+    "build": "pass", "typecheck": "pass", "architecture": "pass", "ipc": "pass",
+    "runtimeNode": { "pass": 892, "fail": 0, "skip": 0 },
+    "protocol": { "pass": 173, "fail": 0 },
+    "desktop": { "pass": 5182, "fail": 0, "skip": 5 },
+    "realProcessKill": {
+      "pass": 11, "fail": 0,
+      "scenarios": ["baseline", "lease", "inputs", "inbox", "queue", "tasks", "watch", "digest", "input_written", "task_created", "reply_written"],
+      "executor": "scripted production Goal host; actual fork/SIGKILL, temporary filesystem and persisted stores",
+      "leaseStaleMs": 1000,
+      "restartWaitMs": 1100,
+      "invariants": { "userInputs": 1, "tasks": 1, "agentReplies": 1 }
+    }
+  },
+  "ci": { "status": "success", "runId": 36836813306, "headSha": "f2a6d3214cea0124db04b072d698db79c49fe41b", "jobs": { "ci-macos-14": "success", "ci-ubuntu-latest": "success" } },
+  "mergeCommit": "54a937d542f533d0607e6cc37af12b9dfb1580b4",
+  "review": { "fixed": ["transactional deletion intent and cleanup retry", "device storage inventory", "cancelled dependency waiting_user contract"], "threadsResolved": 3 },
+  "limitations": ["No remote model or Beta4 release evidence", "Five existing desktop skips; no new skips", "Objective stop integration is delivered with B4-04/05"]
+}
