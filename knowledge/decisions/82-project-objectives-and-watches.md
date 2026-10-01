@@ -157,3 +157,7 @@ watches 的执行不经过代理：Scheduler 与事件源在 main 进程里运�
 便携目标声明与全部观察仍沿 projects 根保存；设备 `project-runtime/<workspaceId>/objectives/watch-state.json` 保存下一次/上次定时、探测预算预约、执行与 Inbox 投递幂等游标。真实观察能力的 Call、observe Grant、Result/Evidence 与 observation 保存在同目录 `probe-evidence/<execution-sha256>.json`，不能把模型摘要或调用者给的引用当作实际执行。新增子路径已登记版本计划 §7.1；导出不迁移预算、执行游标或设备探测记录。
 
 “CI 挂了才告诉我”以当前 canonical 用户语义保存 failure_only 通知策略，健康首次检查仍保存事实、不唤醒。预算在异步探测开始前落盘（目标 UTC 日限与项目滚动一小时 60 次），重启不重置。Evidence 后中断修复观察，观察后通知中断沿同一 eventId 补投递，不重复实际探测。代理探测使用 objective_probe 省档路由和既有临时 Explorer，Projection 与能力/路径硬闸独立于 full-access/权限缓存；读取必须限定真实项目路径，写入、shell、外部能力不可执行。
+
+## B4-06 自主动作运行态（2026-10-01）
+
+实施契约见 `playbook/v0.1.0/b4-06-autonomy.md`。设备 actions-state.json 持久化冻结提议、UTC 日自动任务预约、观察事实批次幂等和真实任务链接；GoalPlan origin 的 objectiveActionId 连接实际创建与恢复。用户点击沿既有 canonical 输入回答入口，执行仍沿 DelegationProvider 与既有 Grant/Evidence。显式 autoAccept 批准需真实用户锚点复核，缺失不生效。
