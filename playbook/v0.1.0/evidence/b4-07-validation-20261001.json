@@ -1,0 +1,20 @@
+{
+  "createdAt": "2026-10-01",
+  "codeHead": "9fabdc346702a9bc5e45de5e3fa8c41078005fc8",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/80",
+  "checks": {
+    "build": "pass", "typecheck": "pass", "architecture": "pass", "ipc": "pass",
+    "runtimeNode": { "pass": 890, "fail": 0, "skip": 0 },
+    "desktop": { "pass": 5182, "fail": 0, "skip": 5 },
+    "realProcessKill": {
+      "pass": 11, "fail": 0,
+      "scenarios": ["baseline", "lease", "inputs", "inbox", "queue", "tasks", "watch", "digest", "input_written", "task_created", "reply_written"],
+      "executor": "scripted production Goal host; actual fork/SIGKILL, temporary filesystem and persisted stores",
+      "leaseStaleMs": 1000,
+      "restartWaitMs": 1100,
+      "invariants": { "userInputs": 1, "tasks": 1, "agentReplies": 1 }
+    }
+  },
+  "ci": { "status": "pending", "runId": 36835997612, "headSha": "9fabdc346702a9bc5e45de5e3fa8c41078005fc8" },
+  "limitations": ["No remote model or Beta4 release evidence", "Five existing desktop skips; no new skips", "Objective stop integration is delivered with B4-04/05"]
+}
