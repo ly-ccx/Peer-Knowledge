@@ -51,3 +51,8 @@ CI36916523024 Linux通过、macOS列表中位132.02ms仍超100ms。允许补齐�
 
 
 最终 RC01 同步后干净HEAD c9020ec0 本机完整build/typecheck/architecture/test通过（代码树与此前40a57a09相同，仅增加合入开发线的merge祖先），真实Electron全部九项壳检查与十项可访问性检查通过；窗口0错误，owned进程退出，原报告见evidence/rc02-final-clean-window-20261002.json。包含10000记忆真实50条分页、五主题/语言、减少动效、键盘列表与焦点捕获。PR94与CI36913383937运行中；最终CI结果待确认，不提前宣布卡完成。
+
+
+### 当前任务批量投影复验
+
+CI36916523024 的 Linux 通过，macOS 列表中位132.02ms超过100ms；原始报告见 `evidence/rc02-ci-task-scan-failed-20261002.json`。按此前Accepted边界新增同次查询的新鲜任务批量投影，不跨请求缓存；对比原列表顺序/状态、50条边界和外部修改可见性，105项任务/目录/宿主 focused 测试通过。代码1909c38f干净源真实窗口全部9项壳与10项可访问性检查通过：列表14.12ms、搜索22.40ms、Received48.90ms，0页面错误、owned进程退出。原始报告 `evidence/rc02-task-batch-clean-window-20261002.json`；最终双平台CI36918085669待完成。预算与断言未放宽。
