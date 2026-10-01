@@ -5,7 +5,7 @@
 
 ## 卡片、分支与状态
 
-B5-02。Accepted 实施边界见 `b5-02-tui-surface.md`。基线 dev `f69691ac`，分支 `PeerAgent/pa/b5-02-tui-surface`，提交 `cf7b2dcf`、`111333a6` 已推送，[代码 PR #87](https://github.com/ly-ccx/Peer-Agent/pull/87)。本地验证完成，双平台 CI 待确认。
+B5-02。Accepted 实施边界见 `b5-02-tui-surface.md`。基线 dev `f69691ac`，分支 `PeerAgent/pa/b5-02-tui-surface`，提交 `cf7b2dcf`、`111333a6` 已推送，[代码 PR #87](https://github.com/ly-ccx/Peer-Agent/pull/87)。本地验证及最终双平台 CI 均通过，代码合入dev `31527990`（知识#18已合入）。
 
 ## 实现与架构影响
 
@@ -27,6 +27,6 @@ B5-02。Accepted 实施边界见 `b5-02-tui-surface.md`。基线 dev `f69691ac`�
 
 ## Review、偏差与后续
 
-首次完整终端测试暴露重复 copy 声明，导致 CLI/ACP 解析错误，已修复并全包通过。最后 Review 将消息回执提示改成「已收到」，避免让入队事实看起来像任务完成；新增实际键盘断言，最终终端全包749和typecheck通过。录屏对应前一提交，覆盖的绑定/导航/退出行为相同；最终CI针对111333a6重新运行。Review 将新项目 UI 静态导入改为交互分支动态加载，保留 ACP 首先分流。卡片外必要路径及 A 级批准范围先登记实施契约。
+首次完整终端测试暴露重复 copy 声明，导致 CLI/ACP 解析错误，已修复并全包通过。最后 Review 将消息回执提示改成「已收到」，避免让入队事实看起来像任务完成；新增实际键盘断言，最终终端全包749和typecheck通过。录屏对应前一提交，覆盖的绑定/导航/退出行为相同；最终CI针对111333a6重新运行，[36876082876](https://github.com/ly-ccx/Peer-Agent/actions/runs/36876082876)两平台通过。Review 将新项目 UI 静态导入改为交互分支动态加载，保留 ACP 首先分流。卡片外必要路径及 A 级批准范围先登记实施契约。
 
 B5-03–05远程协议/网关与手机页面/按机器人委托、Beta5预发布、RC全功能自测矩阵和详细用户测试文档继续执行。RC-06由用户进行正式发布前全面测试，未宣称已完成；不发布GA。
