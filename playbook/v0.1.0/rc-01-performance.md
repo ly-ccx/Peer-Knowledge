@@ -103,3 +103,9 @@ e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750�
 CI36902227505：Ubuntu完整门禁及Electron窗口通过；macOS完整门禁通过，但窗口观测readMain连续3次Resulting promise was garbage collected，未产生5轮list预算，不能视为产品失败或通过。sourceHead为PR测试merge cf64a14c，PRtip3be1110d。隔离观测改为entry定义的record函数：每条已有只读观测捕获样本后持久到本fixture的JSON，测试从文件读取，不再用inspector evaluate Promise取投影数组；不重放产品动作或延长预算。main生产文件仍净0；所有失败样本保留。Linux成功报告与mac失败同存。
 
 CI36903267497原inspector观测问题消失，Linux完整通过；macOS生产list60.58ms/search106.10ms均通过，但native click15000ms超时，故RC01仍不能完成；postmortem读到9950..9999说明产品动作已打开对话，不重放该动作充当成功。初始指示：200个SVG头像（含离屏）持续breathe/blink等动画，可能增加Intel macOS renderer事件负载。批准C级离屏动效治理：BotAvatar.tsx接可见性/窗口可见/系统reduce表达gate，共享IntersectionObserver Module；新增state/avatarMotionRegistry.ts及测试，CSS bot-list追加暂停离屏规则。只减少不可见动画，mood/头像身份/能力状态不变；实际窗口记录active avatar动画数量，原click超时与预算不放宽。新增脚本只读观测点记录数量，后续CI证明，不把假说先写成根因。
+
+### 第三次 macOS CI（36904625346）
+
+头像可见性门控后，真实200头像只有11个活动、34段动画；source merge ad140d26、PR tip f0fc9431。两平台构建/类型/架构/完整测试通过，Linux窗口通过；Mac窗口列表p50 47.81ms、搜索80.2ms达标，第一次可见Received 185.2ms，但第二次textarea.press超时15s，观察Promise随后报缺少Received。不能视为通过，也不能宣称动画是全部根因。原失败记录见evidence/rc01-ci-mac-input-failed-20261002.json。
+
+允许文件补充：renderer/project-agent/state/useAvatarMotion.ts（共享可见性hook）。测试fixture在开始真实输入前显式bringToFront，记录document.hidden/hasFocus以及每次输入时composer数量；失败截图随CI产物保留。保持原生click/press、原预算/超时和全部九项断言。下一次CI验证前仍为未完成。
