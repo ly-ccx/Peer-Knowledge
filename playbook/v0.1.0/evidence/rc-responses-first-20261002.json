@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "9a1f0925262580e50448e2779d6e0ab7dc235c40",
+  "sourceDirty": false,
+  "appVersion": "0.1.0-beta.5",
+  "installed": false,
+  "model": "gpt-6-luna",
+  "provider": "openai",
+  "packagedCredentialHelper": true,
+  "startedAt": "2026-10-01T16:04:48.062Z",
+  "finishedAt": "2026-10-01T16:07:40.969Z",
+  "checks": {
+    "desktopRealReadAndReply": true,
+    "remoteRealReadAndReply": true,
+    "sameInputReceiptAndOneCanonicalMessage": true,
+    "realSpawnAndLocalPlanApproval": true,
+    "remoteApprovalSummaryOnly": true,
+    "tuiTakeoverCompletion": false
+  },
+  "firstFailure": "Harness awaited takeover including unfinished model recovery with a 20 second RPC deadline; the deadline expired. Desktop was closed while the task-opening agent turn was still unfinished. Retest waits for its reply and separates model-duration allowance. No production timeout or validation weakened.",
+  "ownedProcessesExited": true,
+  "credentialCopiesRemoved": true,
+  "scope": "Source Electron and independent Bun host, production local task and approvals; real HTTP/WS/Ed25519 with validation-only account and loopback seam. Not installed candidate, production OIDC or physical phone."
+}
