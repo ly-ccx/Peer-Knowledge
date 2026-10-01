@@ -83,3 +83,7 @@ e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750�
 复核窗口搜索入口发现useBotList只消费search返回items（名称/预览/任务标题），忽略完整语料hits；与“搜索机器人、消息、任务”文案和预算规模不一致。允许B级既有renderer适配`state/useBotList.ts`、`botListState.ts`与测试：命中消息/任务/记忆的workspace ID与当前catalog归并去重，角标仍取当前目录；结果绑定query，旧请求结果不能瞬间充当新查询命中。不改IPC搜索协议或索引准入。先红后绿，并实测输入到可见结果五轮。
 
 切机器人时BotConversation未以workspace ID重新挂载，旧高亮和阅读锚点可能触发新项目无意义的全历史定位。允许BotListShell现有装配点仅追加React key（净增1行，不扩展业务逻辑）；每个workspace的窗口状态随组件生命周期隔离。
+
+精确a0fbbcef搜索窗口首轮p50=201.10ms（274.5/204.4/201.1/200.0/199.2）超过150，未执行后续消息/分页断言，owned进程正常关闭。不能以模块132ms代替。允许隔离application-service搜索点追加只读计时（目录投影、语料指纹、索引和同步总耗时），报告不得含用户正文。
+
+454fe34e只读分段证据：目录投影185–210ms，指纹9–11ms，热索引约1ms；窗口p50=223.1ms。生产directory的listClassicGoals对每个机器人重新读取registry、全部conversation metadata和Goal index，200行重复200次；此前perf注入无经典目标读取器，因此没有覆盖此成本。允许B级投影批次快照：新增desktop `classic-goal-projection.mjs`及测试，host装配采用batch；portable bot-directory及测试追加可选`readClassicGoalsBatch`内部端口，单项目get保留实时读取。每批只读一次registry/会话元数据/计划，逐项目按既有projectHistory/projectClassicGoals隔离过滤。没有跨调用缓存或执行授权用途，不改IPC/存储/main；完整窗口和模块预算重新测。新增integration读次数回归先红后绿。
