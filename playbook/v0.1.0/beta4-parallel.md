@@ -62,7 +62,7 @@ B4-08（独立）
 
 ## B4-03 取代、恢复、排队全链路
 
-代码 [#79](https://github.com/ly-ccx/Peer-Agent/pull/79) 已提交，实施契约见 [B4-03 边界](b4-03-session-continuity.md)，验证见 [交接](b4-03-handoff.md)。本地完整门禁通过，当前提交等待双平台 CI 与 Review。
+代码 [#79](https://github.com/ly-ccx/Peer-Agent/pull/79) 已于 2026-10-01 按负责人授权合入（`46c2af0e`），实施契约见 [B4-03 边界](b4-03-session-continuity.md)，验证见 [交接](b4-03-handoff.md)。最终提交 `910f456f` 的完整本地门禁及双平台 CI 通过，代码与知识三条 Review 意见均修复/解决。
 
 - **级别**：A（ADR 80 决策 7）。**规模**：M。**依赖**：B4-01、B4-02、B3-02。
 - **目标**：用户改主意时旧任务被取代但不丢；说「还是按原来的」可以恢复；排队的任务可以调整。

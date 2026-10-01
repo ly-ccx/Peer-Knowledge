@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-10-01",
-  "codeHead": "8868c207b6173061b3426c8ac220897d40dfe045",
+  "codeHead": "910f456f796c593b15ba44b0da13c6efdd5567d0",
   "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/79",
   "checks": {
     "build": "pass",
@@ -8,12 +8,12 @@
     "architecture": "pass",
     "ipc": "pass",
     "runtimeNode": {
-      "pass": 874,
+      "pass": 878,
       "fail": 0,
       "skip": 0
     },
     "desktop": {
-      "pass": 5166,
+      "pass": 5167,
       "fail": 0,
       "skip": 5
     },
@@ -36,10 +36,29 @@
     }
   },
   "ci": {
-    "status": "pending"
+    "status": "success",
+    "runId": 36833602054,
+    "headSha": "910f456f796c593b15ba44b0da13c6efdd5567d0",
+    "jobs": {
+      "ci-macos-14": "success",
+      "ci-ubuntu-latest": "success"
+    }
   },
   "limitations": [
     "No remote model run or Beta4 release evidence",
-    "Five existing desktop skips retained; no new skips"
-  ]
+    "Five existing desktop skips retained; no new skips",
+    "High priority recognizes explicit Chinese/English urgency phrases conservatively; ambiguous wording remains normal priority."
+  ],
+  "review": {
+    "codeThreads": 2,
+    "knowledgeThreads": 1,
+    "fixes": [
+      "paused approval denial preserved",
+      "current canonical user urgency enforced on spawn and reprioritize",
+      "current turn anchors never inherited on wake",
+      "canonical input kind and legacy queue ID compatibility",
+      "dependency graph includes B4-02"
+    ]
+  },
+  "mergeCommit": "46c2af0e7660f51671b1fb92e4d638ffc67493f4"
 }
