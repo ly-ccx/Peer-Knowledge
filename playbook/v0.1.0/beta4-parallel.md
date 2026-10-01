@@ -99,7 +99,7 @@ B4-08（独立）
 
 ## B4-05 WatchRunner 与触发器（OB2）
 
-实现已推送代码 #83、知识 #14；完整门禁与真实只读 CI 查询记录见 [交接](b4-05-handoff.md)。Review/双平台 CI 待最终提交，未合入。
+代码 [#83](https://github.com/ly-ccx/Peer-Agent/pull/83) 已合入 dev efb9ec9b；最终 517c5b4b 双平台 CI 36846361589 通过，三个 Review 已修复，实际只读 gh CI 证据已归档。见 [交接](b4-05-handoff.md)。
 
 - **级别**：A（ADR 82）。**规模**：L（可拆 B4-05a 定时与共享调度器，B4-05b git / 文件 / CI）。**依赖**：B4-04。
 - **目标**：目标按定时或事件检查；只在观察到变化时唤醒代理。
