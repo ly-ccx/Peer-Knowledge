@@ -1,0 +1,46 @@
+{
+  "steps": [
+    "both bots default closed; message disabled without read",
+    "read and message save version 3",
+    "revoking read revokes message",
+    "keyboard Space changes other bot; first remains revoked"
+  ],
+  "pageErrors": [],
+  "status": {
+    "ok": true,
+    "status": {
+      "settings": {
+        "enabled": false,
+        "gatewayOrigin": "https://peer.example",
+        "workspaceId": "11111111-1111-4111-8111-111111111110",
+        "projectGrants": [
+          {
+            "workspaceId": "11111111-1111-4111-8111-111111111110",
+            "allowProjectRead": false,
+            "allowProjectMessage": false
+          },
+          {
+            "workspaceId": "11111111-1111-4111-8111-111111111111",
+            "allowProjectRead": true,
+            "allowProjectMessage": false
+          }
+        ],
+        "workspaceIds": [
+          "11111111-1111-4111-8111-111111111111"
+        ],
+        "delegationVersion": 5
+      },
+      "active": false,
+      "online": false,
+      "deviceId": null,
+      "connectionEpoch": 0,
+      "lastFailure": null,
+      "pairing": null,
+      "lastAccess": null
+    }
+  },
+  "ok": true,
+  "sourceHead": "8556ab3623b815fbbe9c312a6ae1684f11abb93b",
+  "sourceDirty": false,
+  "fixture": "Two isolated bots, remote disabled, no model or keychain used; source Electron with built renderer, not packaged installation."
+}
