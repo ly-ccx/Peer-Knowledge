@@ -188,29 +188,24 @@ interface SessionSupervisor {
 
 ### 4.2 ExecutionScheduler（调度）
 
-调度的粒度是**回合**，不是任务。长任务每一轮结束都归还槽位，下一轮重新排队，这样多条任务之间天然公平，用户的回合也不会被后台任务堵住。
-
-槽位：
+B4-01 实施契约（2026-10-01，ADR 80 Accepted）：[实施边界](../../playbook/v0.1.0/b4-01-execution-scheduler.md)。调度器负责准入与排序，Plan/DelegationOrigin、resultAcceptance 负责任务和签收真值。
 
 | 槽位 | 默认 | 说明 |
 |---|---|---|
-| 全局模型回合 | 4 | 同时在跑的 Provider 回合总数 |
-| 每项目运行中任务 | 3（硬上限 6） | 超出的 spawn 进 `queued` |
-| 每 Provider 并发 | 按 Provider 配置 | 429 由 ADR 30 恢复层退避，调度器同步降并发 |
-| 子 agent 池 | 沿用 Explorer 5 / 8 | Explorer、Verifier、调研子 agent 共用 |
+| 全局模型回合 | 4，可设 1–8 | AgentTurnExecutor 一次 runTurn 取得一次租约，异常与取消均归还；内部 Provider 恢复不重复取槽 |
+| 每项目原地写任务 | 1 | running 的非终态任务占槽；不可恢复失败让出 |
+| 每项目只读任务 | 2 | 与原地写槽独立 |
+| worktree 写任务 | 不占原地写槽 | 只有宿主真实 deliveryBinding.executionIsolation=worktree 且存在 worktreePath 才成立 |
 
-优先级：
+长任务每次宿主回合结束归还全局租约，下一次回合重新排队。priority 为 high > normal > low；同级 FIFO；等待 30 分钟临时提升一级，最高 high。用户直接触发的代理回合优先；所有优先级遵守全局硬上限。
 
-| 级 | 回合 | 规则 |
-|---|---|---|
-| P0 | 用户直接触发的回合：代理的用户回合、用户介入后的任务回合 | 不排在任何后台回合后面；槽位满时可以借一个 |
-| P1 | 代理的唤醒回合 | |
-| P2 | 任务的 Runner 回合 | 同级按上次运行时间轮转 |
-| P3 | 子 agent | |
+依赖闸门：dependsOn 只能引用本项目已存在任务，全部 completed 且 resultAcceptance.acceptedAt 已持久化才能启动。失败、取消或不可恢复中断使下游 runner 进入 waiting_user，宿主投影决策卡；用户回答交给代理取消或重新安排任务，不能自动跳过依赖。已完成但未签收仍排队。
 
-依赖闸门：`spawn_session({ dependsOn: [sessionId], dependsOnPolicy: 'accepted' | 'result_ready' })`。依赖满足前任务保持 `queued`，不启动 Runner。依赖任务失败或被取消时，下游任务转 `blocked`，产生事件交给代理决定。
+准入先预留 Plan，再启动 Runner；启动不等待任务生命周期。排队排序事实原子写入 project-runtime/<workspaceId>/scheduler.json，重启从 Plan 重建占用，回合租约不落盘。WorkSession.queuedBehind 和 queueReason 是宿主投影。
 
-接线：Goal Runner 的 `canRunPlan(plan)` 钩子由调度器实现（依赖与每项目上限）；每一轮的槽位由 AgentTurnExecutor 获取和归还。
+接线：Goal Runner 的 canRunPlan 同时检查宿主租约与调度准入；AgentTurnExecutor 和视觉核验共用一个调度器。同步 verify_session 等待独立核验时，调用方让出回合租约；核验结束后重新取槽再返回结果，避免并发为 1 时死锁。取消同时中止等待或活动回合。
+
+后续设计：每 Provider 自适应并发与项目 token 预算另卡实现。现有 Explorer 池保留自身上限，并同时遵守全局回合租约。
 
 ### 4.3 IsolationPlanner（在哪跑）
 
