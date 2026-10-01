@@ -5,15 +5,23 @@
 
 
 
-## 卡片 / 分支
+## 卡片
+
+B4-R 发布 `0.1.0-beta.4`
+
+## 分支与提交
 
 负责人授权完成全部 B4、必要路径、Review 与发布。代码 PR #85，基线 dev 30496b04；最终候选 151b080c。知识分支 PeerAgent/pa/b4-r-release。实施契约先于代码登记，见 b4-r-release.md 与 ADR 80。
 
-## 改了什么 / 架构影响
+## 改了什么
 
 宿主事实键沿 canonical 回复持久化；普通事件唤醒无当前输入不得借旧锚点开任务，当前输入锚点严格匹配；文本任务的界面签收说明不误武装视觉门；生产 liveDelegationSupervisor 补齐 resume / reprioritize；重复自动报告返回实际 suppressed 结果并安静收尾，新的用户输入不压制。签收后记录最终事实；宿主处理的合回回答不重复成为任务授权；混合目标 / 任务唤醒的核验依据实际 session 事件。对话事实变化与完整分页重新投影；证据有界 + 展开 SVG；严格目标参数给出具体字段路径；根 build 串行。版本 / Cargo / README / release-notes / changelog 准备 beta.4。
 
 A 级先登记，无新 IPC、工具、依赖、存储路径；main.mjs 未改。模型文字不作为实际签收或合回证据。
+
+## 与卡片的偏差
+
+发布前实际验收补入事实去重、卡片刷新、授权范围、文本 UI 分类及生产恢复适配器；均先登记实施契约，负责人全 B4 授权涵盖必要路径。没有新工具、IPC、依赖或存储路径。
 
 ## 验证
 
@@ -25,8 +33,20 @@ A 级先登记，无新 IPC、工具、依赖、存储路径；main.mjs 未改�
 - 真实 Actions 夹具失败 run 36851994140 → 重复失败 → 成功 run 36852488422 → 重启同一健康，共四条观察；各有实际 Call/Grant/Result/Evidence，仅一个 objective_signal 和一条实际模型失败通知（另有创建确认回复）。failure_only 无任务开工，目标已实际暂停，独立临时远端分支已删除。见 [真实模型脱敏证据](evidence/b4-r-real-model-20261001.json)。夹具故意失败不算产品 CI 回归。
 - B4-07 的实际生产 SDK 子进程 SIGKILL 十个断点 + baseline 共 11 通过；使用脚本模型，不冒充真实模型强杀。
 - macOS arm64 本地安装包首启、beta3→候选beta4→0.0.18→候选beta4 已跑；旧 canonical 消息逐条保留。见 [安装证据](evidence/b4-r-install-20261001.json)。本地包候选4470a3a1（后续修复前），正式 tag 产物仍须重验。
-- b9026929 双平台 CI 36852890685 通过；仅测试时钟修复的最终151b080c CI 36853412270 待完成。两个代码 Review 与两项知识 Review 已修复并解决。
+- b9026929 双平台 CI 36852890685 通过；仅测试时钟修复的最终151b080c CI 36853412270 两平台通过。两个代码 Review 与两项知识 Review 已修复并解决。
 
 ## 发布状态
 
-真实功能验收及本机完整门禁已完成。尚待最终 CI / 合入、tag、实际 prerelease / npm beta 与正式签名包重验、版本计划 / D10 / 路线图回写。没有把五天负责人日用或 Windows/Linux 交互安装写为通过。
+代码 [PR #85](https://github.com/ly-ccx/Peer-Agent/pull/85) 已合入 dev `ca0736da83d0451099494cd7f30e532f174cef92`；`v0.1.0-beta.4` 已推送。[Release 工作流 36854035033](https://github.com/ly-ccx/Peer-Agent/actions/runs/36854035033) 正在构建。真实功能验收及本机完整门禁已完成。尚待实际 prerelease / npm beta 与正式签名包重验、版本计划 / D10 / 路线图回写。没有把五天负责人日用或 Windows/Linux 交互安装写为通过。
+
+## 架构影响
+
+A 级事实连续性先写 ADR 80 / b4-r-release.md；权限真值仍在宿主。普通任务 / 目标事件的核验与开工权限由 Provider 从实际回合事实判断，模型 prose 不提升权限。UI 仅投影既有 canonical 与卡片。B 级文本 UI 分类和 live supervisor 转接均保留原 seam。main.mjs 净增 0。
+
+## 文档偏差
+
+无未登记的运行时边界变化。五天日用与跨平台交互安装保留为未验收，不以测试代替。
+
+## 未完成与后续
+
+实际 Release 产物与 npm 查询、正式 macOS arm64 包启动/升级/降级重验以及版本计划回写；完成后可进入 Beta5 多入口，不代表 0.1.0 GA 验收完成。
