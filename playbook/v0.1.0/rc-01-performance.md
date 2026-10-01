@@ -91,3 +91,7 @@ e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750�
 真实Desktop完整投影d8fa3ea2 p50=137.05ms仍>100ms，不能用注入简化directory的55ms代替。批准实施ADR86的A级内部批量读取契约（先文档、后实现）：新增允许`packages/conversation-store/src/index.mjs`、`index.d.ts`及`persisted-batch.test.mjs`；已列bot-directory与测试追加可选readMessagesBatch；host与性能脚本接入。现有单条读取、streaming截断/runtime检查语义、跨入口刷新仍保留；不新增IPC/权限/Evidence/持久化格式。无跨调用缓存。测试逐条/批次等价、实际索引读次数、外部修改下次可见，完整窗口预算重新测。
 
 416addfc首轮夹具观测发生Node inspector promise被GC（没有重新执行产品动作，进程正常关闭）；readMain只对该观测错误最多重读3次，样本仍来自原动作、预算不变。复跑d8fa3ea2未触发观测重试，完整投影仍超预算。两次失败均保留。
+
+7d61baa0完整目录投影101.88ms仍失败（首投影97.53ms不能替代5轮p50），故继续沿ADR86补批准投影批次：新增允许`packages/runtime-node/src/project-agent/approval-store.mjs`及测试；directory、host及规模脚本接入可选readApprovalsBatch。listByWorkspaceIds保留全局fold去重与workspace过滤，只把一次扫描共享给同一投影，不参与批准执行或PermissionGrant。先红后绿扫描次数及fresh-state测试，保留当前失败。
+
+批准目录扫描计数回归先红（缺少batch Interface）后绿；20个approval/directory测试通过，验证200个项目一次catalog扫描、批准终态下次读取可见、未请求scope不混入、details与批次不可用时保留原实时路径。实现3be1110d已推送；实际窗口与最终完整门禁待验证。

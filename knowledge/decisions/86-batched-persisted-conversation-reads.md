@@ -24,3 +24,9 @@ Renderer仍只经已有IPC获取投影；没有新IPC、模型工具、能力、
 - 下一次读取能看到外部写入和终态落盘，没有跨调用缓存。
 - Desktop完整目录/搜索预算及消息分页实测；旧Adapter兼容。
 - 完整build/test/typecheck/architecture及两平台CI。
+
+## 同一准则应用于批准列表投影（2026-10-02，Accepted）
+
+7d61baa0完整目录投影仍为101.88ms。ApprovalStore.list({workspaceId})每次都会扫描全部项目批准目录；200行列表因此重复扫描200次。新增listByWorkspaceIds(ids)只做一次既有foldAll，再按workspaceId分桶，返回Map。合并同approvalId的规则、state及scope与既有list完全一致；空批次不扫描，下次调用重新读取。
+
+目录通过可选readApprovalsBatch消费此只读投影。批准决定、PermissionGrant与执行侧仍经原实时读取和验证，不能拿本批次作为授权真源。存储格式/落盘/状态迁移不变。测试批次目录扫描一次、与旧逐项目结果等价、状态变更下次可见、scope隔离。
