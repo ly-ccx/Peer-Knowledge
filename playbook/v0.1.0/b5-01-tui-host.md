@@ -28,6 +28,8 @@
 除卡片已有 TUI 新模块与锚点之外，现有装配分散在桌面主进程，必须补齐以下路径。用户的全部完成授权覆盖这些必要路径，不新增依赖或存储根目录。
 
 - runtime-node：`src/project-agent/runtime-host.mjs`、共享事实/回复/验证/Watch/工具适配模块与测试；`src/index.ts` 导出。
+- 任务宿主同样复用：提取 `agent-host/goal-runner-host`、work-session profile、verifier report/evidence、goal runner message persistence、preferred worktree、Goal/Automation worktree 与交付合回算法到 runtime-node；任务分支名称策略由宿主注入既有 System Context 的 resolver，runtime-node 不反向依赖 System Context 或 Electron。桌面旧入口保持兼容导出/适配，TUI 不复制任务推进或 worktree 实现。
+- runtime-node 的只读 file/search Manifest 补入 `project_agent` modeScope；写入和 Shell Manifest 不扩大。两端仍通过共享白名单和执行硬闸拒绝副作用能力。
 - desktop：`electron/main/project-agent/project-agent-host.mjs` 及被提取模块的兼容导出、测试；已有宿主租约装配与 typed takeover IPC；catalog/preload 类型；开发者设置和档案接管 UI 与 i18n。
 - TUI：`tui-host.ts`、`tui-mode.ts`、`tui-runtime.ts`、`tui-language.ts` 的共享模式/Context Source 接入；`goal-runner-adapter.ts` 与 tests；新模块的类型和构建入口所需最小适配。
 - protocol：既有 `project-agent:takeover-host` 的 typed request/result 若尚未实现则补齐，不增加卡片外 IPC 操作。
