@@ -1,9 +1,9 @@
 # 项目代理工作台：一个项目一个代理
 
 创建时间：2026-09-24
-最后更新：2026-09-26（机器人列表壳 ADR 84：工作台不再是页面、档案按需滑出、新建空白机器人、不做市场）
+最后更新：2026-10-02（补当前实现状态；下文保留历史产品设计）
 
-> 状态：Draft（产品方向已拍板，待评审分期）  
+> 当前事实：Beta1–5实现完成，Beta5已发布；默认机器人列表、按需档案、独立可动头像/颜色、任务与签收、记忆、目标和多入口已实现。RC01–05验证与候选交付见[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)，正式版仍等负责人全面测试和七天日用。下文是历史设计，不能以设计预期替代发布验收。上传头像为静态；远程文本与电脑批准、macOS设备身份等限制见候选说明。
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`、`knowledge/decisions/84-bot-list-shell.md`（壳层）  
 > 关联运行时：`knowledge/architecture/project-agent-delegation-runtime.md`  
 > 模块分层：`knowledge/architecture/project-agent-capability-layers.md`  

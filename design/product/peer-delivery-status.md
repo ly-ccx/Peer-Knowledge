@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-10-01（D10：Beta4 已发布；B4 全卡完成，真实功能与 macOS 正式包验收已回写；GA 日用等仍待验收）
+最后更新：2026-10-02（D10：Beta5 已发布，RC01–05 验证及候选包交付进行中；GA 等负责人全面测试及七天日用）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **整体未验收；Beta4 已交付**：`v0.1.0-beta.4` 从 dev `ca0736da` 发布，B4-01 至 B4-08 / B4-R 全部完成。并行调度、worktree 合回、取代恢复、项目目标与自主档位、熔断恢复、记忆维护已集成。真实三写任务同时隔离并合回、原任务取代恢复、CI 失败仅通知一次已验收；源码关窗期间有宿主 canonical 写入；前置补修已验收限定零窗口 Goal 核验/签收。正式 macOS arm64 包首启 / Beta3 升级 / 降回 0.0.18 / 返回 Beta4 的旧历史逐行保留，签名 / 公证 / Gatekeeper 通过。三平台 Desktop、两平台 CLI 发布 CI 全绿。默认机器人列表和经典切换保留；项目代理自身只读。ADR 82 Accepted | GA 与历史缺口仍独立保留：负责人连续日用 5 天、Windows/Linux 交互安装及完整升级矩阵、真实视觉复核等见版本计划 §12.1/§12.2；B5 与 RC 尚未开展。已做的 Beta4 bounded 验收不等同 0.1.0 GA | [0.1.0 版本计划](v0.1.0-release-plan.md)、[B4-R 交接](../../playbook/v0.1.0/b4-r-handoff.md)、[真实证据](../../playbook/v0.1.0/evidence/b4-r-real-model-20261001.json)、[正式包证据](../../playbook/v0.1.0/evidence/b4-r-release-20261001.json) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **整体待负责人验收；Beta5 已交付**：`v0.1.0-beta.5` 已发布，Beta1–5实现完成；并行、worktree合回、取代恢复、目标/主动性、记忆、TUI/远程沿同一租约与canonical输入。Beta5签名公证macOS包与发布CI通过；其复杂Responses调用失败已由PR92修复，RC安装包必须重新验证。RC01性能/规模合入；RC02无障碍和语言、RC03脱敏诊断、RC04真实tag升级降级19项、RC05详细手册及候选打包进行最终验证，见自测报告。项目代理只读，批准在电脑，经典界面保留。 | `0.1.0-rc.1` 不可变包和实际安装验收待收口；Windows/Linux交互安装、实体手机与生产账户、真实视觉核验及负责人七天日用尚需补验。GA须负责人全面测试、P0/P1清零及明确确认；源窗口/受控网络不能代替所有环境。 | [版本计划](v0.1.0-release-plan.md)、[Beta5交接](../../playbook/v0.1.0/b5-r-handoff.md)、[RC卡](../../playbook/v0.1.0/rc-release.md)、[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
 
 ## 3. 近期顺序与非目标
 
