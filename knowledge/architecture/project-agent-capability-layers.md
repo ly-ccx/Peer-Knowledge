@@ -388,7 +388,7 @@ queued → starting → awaiting_approval → running ⇄ needs_user → verifyi
 
 ### 7.4 CircuitBreaker
 
-按项目计数：窗口期内同一指纹失败 ≥ 3 条任务就熔断。熔断期间 `spawn` 返回 `breaker_open`，自动重试暂停，代理会话里出现一张卡片说明原因。用户确认后半开：先放行一条任务，成功再闭合。
+按项目代理完整回合计数：连续失败五次后打开十分钟（Accepted ADR 80、B4-07）。提供方内部重试只算一个回合，用户抢占/主动中止不计失败；成功重置。开路抑制自动唤醒，输入仍入队；状态持久化。用户手动重试或冷却到期半开只试一次，成功闭合、失败重新打开。沿既有不可用卡表达。
 
 ### 7.5 取消级联
 
@@ -404,15 +404,16 @@ queued → starting → awaiting_approval → running ⇄ needs_user → verifyi
 ### 7.6 重启恢复顺序
 
 ```text
-1. 加载 store（conversation / goal-plan / inbox）
-2. Goal Runner recoverContextCheckpoints + interrupted 续跑（已有）
-3. ExecutionScheduler 从 store 重建队列：queued、依赖、每项目计数
-4. ProjectInbox 从游标重放未消费事件
-5. 有未汇报的唤醒类事件的项目代理排一次唤醒回合
-6. 窗口打开后按 ADR 22 重连在跑的流
+1. 获取/确认每项目宿主租约
+2. 输入队列消费者：canonical 消息送达与未执行输入恢复
+3. ProjectInbox 按游标重放事实（不先确认）
+4. ExecutionScheduler 重建本项目排队（暂不执行）
+5. 进行中的 Goal 按 ADR 73 恢复状态/checkpoint（暂不执行）
+6. 激活项目 Watch
+7. 激活小结定时器
 ```
 
-顺序本身要有集成测试：调度器必须在收件箱重放之前重建，否则代理会基于不完整的任务清单做决策。
+完成七阶段后才开放执行准入；任何一步失败只影响该项目并写诊断。经典 Goal 保持原恢复链；项目委托 Goal 由项目链负责。窗口重连继续沿 ADR 22。输入送达 cursor 不能代替执行确认，回复落盘到确认之间的崩溃从 canonical replyTo 重建已回复事实。实施细节与强杀验收见 `playbook/v0.1.0/b4-07-recovery.md`。
 
 ---
 
