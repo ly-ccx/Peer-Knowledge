@@ -14,6 +14,8 @@ A 级，ADR 82 已 Accepted。负责人授权全部 B4、必要接入、修复�
 ## 能力与安全
 确定性检查作为本地观察 Provider：Manifest→Runtime Projection→Tool Call→observe PermissionGrant→实际 ToolResult/Evidence，Grant 校验有效目标/项目租约/只读探测白名单。单独的 probe adapter 只接受宿主固定 git/文件哈希/gh run list 参数，不转交任意 shell。生产进程子命令无 shell，超时/取消等待进程真实退出。文件真实路径限定工作区、拒绝 symlink 越界/绝对/.. 路径，有界读取；fs.watch 忽略 .git、node_modules、构建目录并 5 秒防抖。git 每 60 秒检查；CI 缺 gh/auth 时显示不可用原因并保留失败事实，其他目标继续。
 
+agent probe 的能力闸先检查请求路径的词法边界，再检查项目内组件；拒绝所有符号链接，禁止通过外部路径的存在性/大小错误形成侧信道。真实 SDK 的 success/completed 终态均可作为读取证据，partial completed 保留其实际检查明细。
+
 agent probe 复用既有 Explorer 临时回合路径和 objective_probe 省档路由，readonly Projection 与运行时能力闸独立于模型提示；实际工具 Evidence 与观察关联。暂停/归档/删除/经典/丢租约时 abort，等待真实工具终止，不释放未结束任务槽。
 
 预算计数与幂等在 device projectRuntime/<workspaceId>/objectives/，目标每天探测数与项目滚动一小时 60 次硬限；预约在执行前落盘，重启不重置。相同 scheduledAt 重试幂等，已执行不重复探测；未完成检查保留失败事实并按实际恢复策略处理。暂不声称 maxTokensPerDay 可用（B4-04 拒绝该配置）。
