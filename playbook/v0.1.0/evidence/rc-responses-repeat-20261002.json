@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "9a1f0925262580e50448e2779d6e0ab7dc235c40",
+  "sourceDirtyAtLaunch": false,
+  "appVersion": "0.1.0-beta.5",
+  "installed": false,
+  "model": "gpt-6-luna",
+  "provider": "openai",
+  "packagedCredentialHelper": true,
+  "startedAt": "2026-10-01T16:08:31.270Z",
+  "finishedAt": "2026-10-01T16:11:51.906Z",
+  "ok": true,
+  "checks": {
+    "desktopRealReadAndReply": true,
+    "remoteRealReadAndReply": true,
+    "sameInputReceiptAndOneCanonicalMessage": true,
+    "realSpawnAndLocalPlanApproval": true,
+    "remoteApprovalKeys": [
+      "state",
+      "summary",
+      "needsDesktopApproval"
+    ],
+    "remoteNeedsDesktopApproval": true,
+    "tuiTakeoverAndRealReadAndReply": true
+  },
+  "turns": {
+    "desktopTurn": {
+      "turnId": "turn-d36b145e-c564-4f54-8f02-11c4a8b14621",
+      "tools": [
+        {
+          "name": "read_file",
+          "success": null
+        },
+        {
+          "name": "post_reply",
+          "success": true
+        }
+      ]
+    },
+    "remoteTurn": {
+      "turnId": "turn-99a31ce1-21b0-42fe-9e29-6d9f3789c311",
+      "tools": [
+        {
+          "name": "read_file",
+          "success": null
+        },
+        {
+          "name": "post_reply",
+          "success": true
+        }
+      ]
+    },
+    "tuiTurn": {
+      "turnId": "turn-ab2b4e20-48e0-4ef7-9bcb-e67f3546b250",
+      "tools": [
+        {
+          "name": "read_file",
+          "success": null
+        },
+        {
+          "name": "post_reply",
+          "success": true
+        }
+      ]
+    }
+  },
+  "pageErrors": [],
+  "ownedProcessesExited": true,
+  "credentialCopiesRemoved": true,
+  "scope": "Source Electron + independent Bun host; desktop encoder at exact source HEAD, portable provider from prior built beta.5. Production local host, stores, permissions and approvals. Remote real HTTP/WS/Ed25519 uses validation-only account and loopback seam; not installed RC, deployed OIDC or physical phone. Additional portable encoding repair is separately regression tested and repeats installed final candidate."
+}
