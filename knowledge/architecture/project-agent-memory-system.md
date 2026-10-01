@@ -277,7 +277,7 @@ interface DelegationOrigin {
 
 ---
 
-### 7.1 Beta4 可执行边界（B4-08）
+### 7.4 Beta4 可执行边界（B4-08）
 
 - 日维护沿宿主小结时钟运行，由项目租约、机器人状态、经典界面与记忆开关控制；不调用模型。完成事实保存在 device `project-runtime/<workspaceId>/memory-maintenance.json`，失败不推进当日游标。
 - 存储只追加版本。到期或 90 天未使用的 inferred preference 进入 `expired`，固定项与职责不自动过期；运行时检索、新快照与简报在维护前也过滤实际到期项。
