@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "6cd0d271ac9ba50360b671347c491e9f9850eddf",
+  "sourceDirty": false,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-01T18:20:36.284Z",
+  "checks": [
+    "200 real bot rows; no idle model turns"
+  ],
+  "pageErrors": [],
+  "receiptSamples": [],
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "windowReadyMs": 58696,
+  "initialWindowState": {
+    "hidden": false,
+    "focused": true
+  },
+  "avatarAnimation": {
+    "avatars": 200,
+    "activeAvatars": 11,
+    "animations": 34
+  },
+  "listInitialMs": 46.17337499999849,
+  "metrics": {
+    "productionList": {
+      "samples": [
+        68.91841600000043,
+        69.12166600000637,
+        102.26404100000218,
+        133.47499999999127,
+        70.58424999999988
+      ],
+      "median": 70.58424999999988,
+      "budget": 100,
+      "pass": true
+    }
+  },
+  "searchSamples": [
+    424.80000000004657,
+    170.30000000004657,
+    122.20000000006985
+  ],
+  "error": "locator.fill: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('.bot-search')\n    - locator resolved to <input type=\"search\" class=\"bot-search\" value=\"unique-needle\" aria-label=\"搜索机器人、消息、任务\" placeholder=\"搜索机器人、消息、任务\"/>\n    - fill(\"\")\n  - attempting fill action\n    - waiting for element to be visible, enabled and editable\n\n    at <checkout>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:127:39",
+  "paging": [],
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 31768
+  },
+  "finishedAt": "2026-10-01T18:22:34.641Z",
+  "mainAuthorizationErrors": [],
+  "ciRun": 36905600730,
+  "testedPullRequestHead": "c2480c6f6e3b76a756f021e3c53db1df7a9cfbc8"
+}
