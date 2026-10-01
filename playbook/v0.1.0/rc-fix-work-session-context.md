@@ -8,3 +8,6 @@
 
 
 源码29d43dec复验两任务实际完成、精确文件内容、独立Verifier通过、代理来源与Evidence真实、用户签收成功。全程仍未合回：测试脚本错误假定签收等于合回，漏答独立“合回改动”卡，等待180s失败。这是夹具流程缺失；不能删除合回授权闸门。报告 `evidence/rc-source-complex-merge-fixture-failed-20261002.json` 保留；补齐卡片回答后再跑完整流程。27项系统上下文/Desktop focused、9项TUI focused及最终全量门禁通过（报告有绑定），最终CI待完成。
+
+
+同输入源码29d43dec完整复验通过：两真实Luna写任务、两计划本机批准、两独立worktree精确文件、真实独立Verifier/Evidence、用户签收后原项目保持不变、回答两张独立合回卡后只a.txt/b.txt变更。原始证据 `evidence/rc-source-complex-passed-20261002.json`。最终worker修复HEAD8fb68de1两平台CI36918177534与候选HEAD29d43dec两平台CI36918216680均SUCCESS。多入口源码同HEAD真实模型/工具/HTTP/WS/签名/去重/desktop-only批准/TUI接管亦通过，`evidence/rc-source-multi-entry-passed-20261002.json`；其TUI是实际后端源进程，不能充作安装CLI UI通过。代码补修PR98 merge2c6b558a和文档候选PR97 merge0beeb21f均合入开发线，生产树与受验29d43dec完全相同。
