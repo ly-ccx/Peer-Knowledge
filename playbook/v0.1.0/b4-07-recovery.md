@@ -33,7 +33,7 @@ Recovery 深模块对每项目串行、并发调用合并，其他项目独立�
 
 ## 必要路径
 
-原卡 circuit-breaker/recovery/runner/session-supervisor/project-agent-host；既有 input-queue、ExecutionScheduler、Goal Runner 与 Goal Host 恢复门；application service/bot-lifecycle 的删除与重试接缝；main.mjs 原租约/装配/恢复行替换；data-store projectRuntime device 登记说明；runtime-node 导出；project-facts/card-projection 的不可用卡事实与相关聚焦/生产集成测试、强杀子进程测试夹具。无新依赖、无新 IPC、无新工具；目标停止接口由 B4-04/05 接入。
+原卡 circuit-breaker/recovery/runner/session-supervisor/project-agent-host；既有 input-queue、HostLease 的归档档案过滤、ExecutionScheduler、Goal Runner 与 Goal Host 恢复门；application service/bot-lifecycle 的删除与重试接缝；main.mjs 原租约/装配/恢复行替换；data-store projectRuntime device 登记说明；runtime-node 导出；project-facts/card-projection 的不可用卡事实与相关聚焦/生产集成测试、强杀子进程测试夹具。无新依赖、无新 IPC、无新工具；目标停止接口由 B4-04/05 接入。
 
 ## 验证与已发现文档偏差
 
