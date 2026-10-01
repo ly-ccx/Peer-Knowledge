@@ -1,0 +1,83 @@
+{
+  "startedAt": "2026-10-01T15:31:46.976Z",
+  "finishedAt": "2026-10-01T15:33:17.611Z",
+  "sourceHead": "31aa7fffcf9e8ec9d214b829861e6be9d96fdd07",
+  "sourceDirty": false,
+  "appVersion": "0.1.0-beta.5",
+  "installed": false,
+  "model": "glm-5.3-flash",
+  "workspaceId": "13382afc-c4fc-49c3-833b-5a1937079b87",
+  "steps": [
+    {
+      "step": "desktop owns / terminal is client",
+      "ready": true,
+      "workspaceId": "13382afc-c4fc-49c3-833b-5a1937079b87",
+      "isHost": false
+    },
+    {
+      "step": "terminal queued input",
+      "receipt": {
+        "id": 1,
+        "result": {
+          "inputId": "b5-client-read",
+          "workspaceId": "13382afc-c4fc-49c3-833b-5a1937079b87",
+          "surface": "tui",
+          "text": "用 read_file 读取 README.md，并用 post_reply 告诉我其中的 readback marker。只读，不开任务，不修改文件。",
+          "anchorRefs": [],
+          "quoteRefs": [],
+          "attachmentRefs": [],
+          "createdAt": "2026-10-01T15:31:48.369Z"
+        }
+      }
+    },
+    {
+      "step": "Desktop + TUI client + remote simultaneously: real model reply and deduplicated receipt",
+      "remoteInputId": "remote-d49a135b5c0f658694717437b393051cbc78b4c0c66e9ce9db25e8aea747bc70"
+    },
+    {
+      "step": "desktop quit / terminal owns",
+      "isHost": true
+    }
+  ],
+  "pageErrors": [],
+  "remoteInputId": "remote-d49a135b5c0f658694717437b393051cbc78b4c0c66e9ce9db25e8aea747bc70",
+  "remoteBoundary": "Real HTTP/WebSocket/Ed25519 + production device adapter sharing actual host facts; validation-only test account, memory identity, loopback socket seam; not deployed OIDC or physical phone.",
+  "ok": true,
+  "credentialCopiesRemoved": true,
+  "turnEvidence": {
+    "desktop": {
+      "turnId": "turn-9cfae34d-f06d-4b8c-b706-9f96427349ac",
+      "tools": [
+        "read_file",
+        "post_reply"
+      ],
+      "realReadMarker": true,
+      "replyTo": [
+        "input-b5-client-read"
+      ]
+    },
+    "remote": {
+      "turnId": "turn-aa1acb1d-4d9b-494c-ba92-5788f90419de",
+      "tools": [
+        "read_file",
+        "post_reply"
+      ],
+      "realReadMarker": true,
+      "replyTo": [
+        "input-remote-d49a135b5c0f658694717437b393051cbc78b4c0c66e9ce9db25e8aea747bc70"
+      ]
+    },
+    "tui": {
+      "turnId": "turn-44c64627-ac50-4726-bf28-df1423cdde33",
+      "tools": [
+        "read_file",
+        "post_reply"
+      ],
+      "realReadMarker": true,
+      "replyTo": [
+        "input-b5-host-read"
+      ]
+    }
+  },
+  "scope": "Source Electron + independent Bun host + real HTTP/WS project device adapter with test account and loopback seam; not packaged installation, production OIDC or physical phone. Input and replies originate from the configured real model."
+}
