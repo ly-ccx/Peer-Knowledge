@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "3f9f3075d504ce181972cdaa9372ed160fde4561",
+  "sourceDirty": true,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-01T16:22:10.322Z",
+  "checks": [
+    "200 real bot rows; no idle model turns"
+  ],
+  "pageErrors": [],
+  "receiptSamples": [],
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "error": "page.evaluate: Error: Visible received marker missing: [\"发送中\"]\n    at eval (eval at evaluate (:311:30), <anonymous>:16:54)\n    at /Users/yinliang/Documents/Develop/Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:94:31",
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 73220
+  },
+  "finishedAt": "2026-10-01T16:22:50.598Z",
+  "mainAuthorizationErrors": [
+    "Error occurred in handler for 'settings:get': DesktopIpcAuthorizationError: IPC channel is not allowed for this window role\n    at authorize (file:///private/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-bot-shell-smoke-2J9G5P/data/isolated-workspace/apps/desktop/electron/main/ipc/trusted-window-registry.mjs:140:13)\n    at runAuthorization (file:///private/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-bot-shell-smoke-2J9G5P/data/isolated-workspace/apps/desktop/electron/main/ipc/catalog-ipc-main.mjs:19:18)\n    at wrapped (file:///private/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-bot-shell-smoke-2J9G5P/data/isolated-workspace/apps/desktop/electron/main/ipc/catalog-ipc-main.mjs:62:7)\n    at Session.<anonymous> (node:electron/js2c/browser_init:2:116372)\n    at Session.emit (node:events:509:28) {\n  code: 'ERR_PEER_DESKTOP_IPC_UNAUTHORIZED',\n  details: { channel: 'settings:get', role: 'quick-chat' }\n}\n"
+  ]
+}

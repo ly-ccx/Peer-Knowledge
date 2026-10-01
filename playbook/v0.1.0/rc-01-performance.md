@@ -35,3 +35,11 @@ main.mjs净增0，不扩展ChatSurface/Sidebar/LlmSettingsPanel/TUIapp。验证�
 后台运行真实 Electron opt-in 重跑：13 pass / 0 skip，实际TCP服务、停止拒绝/等待/仅ack/终态 × 保持打开/关闭重开/header remount，释放端口全部通过。test-only trigger用于打开生产Panel，不宣称已删除的产品全局按钮仍存在。
 
 Responses修复代码PR #92已合入 5ef4659f（精确tip9fc18b78，CI36890401754 macOS/Ubuntu SUCCESS）；知识PR #23合入f69ca2e6。该依赖修复不改 beta.5 tag，最终RC安装包重复真实多入口验收。
+
+## 真窗口消息与快捷聊天修复边界（2026-10-02）
+
+首轮200机器人/10000消息Electron失败：发送后只显示「发送中」；实际队列与conversation均已持久化输入和回复。原因是renderer按forward读取最早40×50条，漏掉末尾新消息，且没有展示已有submit-input成功回执。初始失败保存在evidence；不能修改脚本去等待虚假的模型文本标记。
+
+允许B级修复既有分页接口适配与UI状态：`renderer/src/project-agent/state/useBotConversation.ts`、`botConversationState.ts`及测试、新`conversationPager.ts`及测试；`conversation/{BotConversation,BotMessageList,UserBubble}.tsx`与`styles/bot-conversation.css`；`renderer/src/preload/contracts/bootstrapPreloadApi.ts`补既有runtime已支持的`latest?:boolean`字段；`packages/i18n/src/index.ts`只追加收到/早期加载键。首屏读取最新50条，变化合并最新页，向上加载更早，引用可检索旧页；成功持久化回执才将同inputId从发送中变为已收到，失败保留同ID重试，收到不等于模型回答/任务签收。不改持久化协议、IPC channel、权限、Context或Evidence。
+
+同次窗口发现QuickChat误用其角色不允许的settings:get。允许`electron/preload/preload.source.cjs`、生成`preload.cjs`、`initial-settings.test.mjs`修复现有getSettings的传输适配：QuickChat使用既有已授权settings:get-sync读最新快照，主窗口保留invoke；公开Promise返回契约不变、catalog角色权限不扩大、main.mjs不改。测试含首次和设置变更后的刷新；Electron smoke要求没有角色拒绝日志。
