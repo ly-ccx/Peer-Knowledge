@@ -24,3 +24,5 @@ main.mjs 净增 0；不增依赖/模型工具/Context 来源，不修改真实�
 ## 必须证据
 
 脱敏/边界/无副作用/损坏与 unknown/原子失败/取消/窗口准入测试；完整受影响测试、build/typecheck/architecture/IPC check、中英文一致；真实 Electron 保存到隔离文件，检查 JSON 并附脱敏样本。未运行/失败必须保留。
+
+新增允许 packages/runtime-node/src/project-registry.mjs 与测试：按 ADR85 的 diagnosticSnapshot 只读接口执行。必须先红后绿，验证损坏原文件字节及目录清单不变，原 get 仍可恢复；Desktop 实际装配损坏读取不得改变 registry 或触发模型。
