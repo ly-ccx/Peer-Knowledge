@@ -99,6 +99,8 @@ B4-08（独立）
 
 ## B4-05 WatchRunner 与触发器（OB2）
 
+实现已推送代码 #83、知识 #14；完整门禁与真实只读 CI 查询记录见 [交接](b4-05-handoff.md)。Review/双平台 CI 待最终提交，未合入。
+
 - **级别**：A（ADR 82）。**规模**：L（可拆 B4-05a 定时与共享调度器，B4-05b git / 文件 / CI）。**依赖**：B4-04。
 - **目标**：目标按定时或事件检查；只在观察到变化时唤醒代理。
 - **代码锚点**：`packages/runtime-node/src/automation-scheduler.mjs`（reconcile、错过策略、重叠策略、全局暂停，60 起）；`automation-schedule.mjs`（时间表种类）；`packages/protocol/src/automation.ts`（只有时间表触发，无事件）；`goal-delivery-binding.mjs` `resolveWorkspaceHead`。
