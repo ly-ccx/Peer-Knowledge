@@ -18,3 +18,12 @@ B级测试：不改变持久化或权限契约，不改生产数据迁移；如�
 - 全矩阵进入 CI。数据模块测试与真实安装包启动证据分别说明；测试标签依赖的转译/装配只能改变模块定位，不能改旧源码行为。
 
 全部在临时数据根执行。不能读写负责人真实 `~/.peer-agent`；失败记录保留，不新增 skip 或放宽验收。
+
+
+## 实测与退出证据
+
+实现c1d8c0be；同步RC03/RC01后干净d2708024。完整本机build/typecheck/architecture/test通过，矩阵19项全部通过，源码依赖均记录不可变commit和原文件SHA256。两平台CI36913659093完整门禁与包含无障碍/诊断的真实窗口均SUCCESS。代码PR96依赖PR94/95合入后仍须同步开发线；未提前宣布依赖卡完成。
+
+初始夹具错误与校正保留：根script不能直接解析workspace包名，改用当前已build dist相对入口；automationId误取id与task误用role修正为实际公开字段；旧workspace adapter必须提供getDefaultWorkspacePath。共享catalog在合法新建会话/任务后会追加，原错误hash断言不能要求catalog仍字节不变，改为严格检查原记录前缀、原实体文件逐字节hash及旧实体仍可完整读取；plans/.changes.jsonl同样校验前缀。原会话/Goal/自动化本体、档案/记忆/目标保护未放宽，19条未删、超时未延长、无skip。第二至四轮失败与第五轮通过、最终干净报告均保存evidence。
+
+四个逐版升级间隙使用真实owned进程SIGKILL停在持久task创建之后、reply提交之前，沿现有生产租约/恢复/GoalRunner重启，输入1、任务2（含原legacy Goal）、reply1，workerCalls1；再次重启waiting_user workerCalls0。模型为脚本，不代表真实认知；安装包测试另列。更新器whole module在受控stable feed执行，明确autoDownload=false且不调用download/install，不代表GA已发布。
