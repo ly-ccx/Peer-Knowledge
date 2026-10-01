@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-01T20:22:56.978737+00:00",
+  "candidate": "0.1.0-rc.1",
+  "scope": "Actual npm install in isolated prefix; published postinstall downloads and installed CLI --version. Does not assert real model or keychain access.",
+  "installCommand": "npm install --prefix <isolated-prefix> --prefer-online @peer-agent/cli@0.1.0-rc.1",
+  "installExitCode": 0,
+  "installLog": "\nadded 1 package in 4s\n",
+  "packageName": "@peer-agent/cli",
+  "packageVersion": "0.1.0-rc.1",
+  "postinstallScript": "node scripts/postinstall.mjs",
+  "installedVersion": "peer 0.1.0-rc.1",
+  "registry": {
+    "version": "0.1.0-rc.1",
+    "dist-tags": {
+      "latest": "0.0.18",
+      "beta": "0.1.0-beta.5",
+      "rc": "0.1.0-rc.1"
+    },
+    "dist.integrity": "sha512-AtFid/gfc3St0OJWvGa92nHZtTWz8PCxywXaNA6tueeAXSpTCjgLkpeyfs6evVyN51hPFOibtYHw3BapJiE74A=="
+  },
+  "binaryChecks": [
+    {
+      "file": "peer",
+      "sha256": "0f83023d9a0defa46a348664bec8edc25eed8b5b5ca13fee0a74488acd6a05ad",
+      "matchesReleaseArchive": true,
+      "executable": true
+    },
+    {
+      "file": "peer-credential-helper",
+      "sha256": "2b8e4a2bfdf9b30cb1b53c84fe58eea91dfee7f8a524de8c6a2509072dd7bc7b",
+      "matchesReleaseArchive": true,
+      "executable": true
+    }
+  ],
+  "initialRegistryObservation": "First post-publication requests returned E404/ETARGET; no republishing. Metadata became available at 2026-10-01T20:19:27Z and actual installation then succeeded.",
+  "realModelResult": "blocked pending Mac unlock and fresh default-helper retest"
+}

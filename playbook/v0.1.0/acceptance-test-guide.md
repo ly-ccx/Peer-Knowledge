@@ -16,7 +16,16 @@
 | macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/peer-darwin-arm64.tar.gz) | `a68778c97180afd76185195e5477035458758dc601e71541e8364847c79d5947` |
 | Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/peer-linux-x64.tar.gz) | `358076f1781d3457caafba43ae55ac9b0bf8ac94bfcfd51463a0f052ae6947a1` |
 
-macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中完全相同。CLI解压后可执行文件在 `peer-darwin-arm64/` 或 `peer-linux-x64/` 内；`peer` 与 `peer-credential-helper` 保持同一目录。桌面和CLI均用rc.1，先运行 `peer --version` 确认。npm rc通道的实际安装验证见自测报告，未验证前不把“发布日志成功”当成安装通过。
+macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中完全相同。CLI解压后可执行文件在 `peer-darwin-arm64/` 或 `peer-linux-x64/` 内；`peer` 与 `peer-credential-helper` 保持同一目录。桌面和CLI均用rc.1，先运行 `peer --version` 确认。
+
+npm安装已经开发者实际验证；macOS Apple Silicon/Linux x64可固定版本安装：
+
+```sh
+npm install -g @peer-agent/cli@0.1.0-rc.1
+peer --version
+```
+
+预期输出 `peer 0.1.0-rc.1`。本次开发者使用隔离prefix安装，两个二进制SHA与发布CLI归档相同；安装CLI真实模型复验仍受Mac锁屏阻塞。`@rc`可用于跟随后续候选版，正式测试记录必须写实际版本；`latest`目前仍为0.0.18。Windows此次没有CLI发布资产，M组CLI用例使用macOS或Linux环境。
 
 ## 1. 测试与发布顺序
 
@@ -37,11 +46,44 @@ macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Wind
 
 ### 三个项目
 
-- A：可以删除的Git项目，README.md写“验收标记 PEER_ACCEPT_A”，src/counter.js提供一个加法函数，package.json的test脚本校验该函数；初始提交并保持干净。用于写入、并行、隔离与合回。
+- A：可以删除的Git项目，README.md写“验收标记 PEER_ACCEPT_A”，src/sum.js提供加法函数，package.json的test脚本运行test/sum.test.js；初始提交并保持干净。用于写入、并行、隔离与合回。
 - B：可以删除的普通文档目录，README.md写“验收标记 PEER_ACCEPT_B”，放两份不含个人信息的短文本。用于只读研究、记忆和非Git拒绝。
 - C：由“新建机器人”创建的受管项目。用于身份、新建、管理和连续日用。
 
 至少设置一个支持工具的模型与一个快档模型。视觉项目需要一个支持图片的模型；缺条件时只标该用例Blocked，不把它误记为通过。使用你的账户接入远程Gateway；电脑在线，同版本桌面/CLI/Gateway。不要把生产仓库、凭据或个人文件当写入测试夹具。
+
+### 项目A的可复制准备步骤
+
+macOS/Linux终端执行下面命令，创建一次性的目录；不需要安装npm依赖。Windows可在Git Bash执行相同步骤。需要Node.js和Git已安装。
+
+```sh
+TASK_PROJECTS_ROOT=$(mktemp -d "${TMPDIR:-/tmp}/peer-acceptance.XXXXXX")
+mkdir -p "$TASK_PROJECTS_ROOT/A/src" "$TASK_PROJECTS_ROOT/A/test" "$TASK_PROJECTS_ROOT/B"
+cd "$TASK_PROJECTS_ROOT/A"
+cat > README.md <<'EOF'
+验收标记 PEER_ACCEPT_A
+测试命令：npm test
+EOF
+cat > package.json <<'EOF'
+{"name":"peer-acceptance-a","private":true,"type":"module","scripts":{"test":"node --test test/*.test.js"}}
+EOF
+cat > src/sum.js <<'EOF'
+export const sum = (a, b) => a + b;
+EOF
+cat > test/sum.test.js <<'EOF'
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { sum } from '../src/sum.js';
+test('sum adds two numbers', () => assert.equal(sum(2, 3), 5));
+EOF
+npm test
+git init
+git add README.md package.json src/sum.js test/sum.test.js
+git commit -m "Acceptance fixture"
+git status --short
+```
+
+首次提交若提示缺少Git身份，只为该目录运行 `git config user.name "Acceptance"` 和 `git config user.email "acceptance@example.invalid"`，然后重试提交。基线要求npm test退出0、Git已提交且状态为空。记下终端变量 `TASK_PROJECTS_ROOT` 指向的路径，绑定其中A目录；不要将临时变量的字面名称填入界面。在B目录建立README.md及两份短文本后绑定B；C从产品“新建机器人”入口建立。
 
 ### 数据隔离与备份
 
@@ -443,12 +485,12 @@ RC版本、代码提交、安装文件SHA256：
 ### 流程 2：批准 → 修改 → 测试 → 核验 → 签收 → 合回
 
 1. A 项目提交干净基线，将计划批准设为每次，签收设为手动。
-2. 发指令：“修改 src/sum.js 使 sum(2,3)=5，运行 npm test；只改该文件，成功标准为测试退出码0。”
+2. 发指令：“在 src/sum.js 导出 subtract(a,b)，在 test/sum.test.js 新增 subtract(5,3)=2 的测试并保留原sum测试；只改这两个文件，运行 npm test，成功标准为两项测试都通过且退出码0。先给出计划与成功标准。”
 3. 计划待批准时先看 git diff。未授权前不应执行。拒绝一次；新发当前有效请求后批准。
 4. 工具权限请求检查命令/范围，按需批准；观察真实独立 worktree。
 5. 查看实际测试 Evidence（命令、退出码、输出/读回），并确认核验结果；不以模型文字代替。
 6. 签收前应保持待签收；从一处签收，另一处状态同步。
-7. 用产品合回入口交付；核对主目录 diff、运行测试；重启保留已接受和交付事实。
+7. 用产品合回入口交付；核对主目录diff仅含src/sum.js和test/sum.test.js，亲自运行npm test确认两项测试通过；重启保留已接受和交付事实。
 
 通过依据：批准前无执行、权限拒绝无副作用、唯一任务、真实变更和测试、核验/签收/合回各有依据。
 
