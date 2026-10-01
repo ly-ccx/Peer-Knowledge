@@ -27,6 +27,10 @@ main.mjs净增0；ChatSurface/Sidebar/LlmSettingsPanel/TUIapp不加功能。禁�
 
 窗口检查前两轮窄布局阈值/标签定位错误保留为测试夹具失败；真实cover阈值960px，900px模拟viewport通过Tab/Shift+Tab/Escape恢复，不能称为Electron物理900px窗口（产品minWidth1040）。单元全量首次增量订阅8s超时，独立文件142项通过，初次失败不可抹去。
 
+## 搜索性能复核边界（2026-10-02）
+
+CI36913383937 首轮列表122.69ms、复跑可见搜索157ms分别超过100/150ms门限；保留两次失败。复跑搜索阶段表显示每次 corpusStamp 另读全部200份profile两遍，占28–53ms。允许应用服务将本次 directory.query 已读取的 catalog 传给 corpusStamp，宿主用同一次新鲜投影的 workspaceId/agentConversationId 生成文件戳；仍逐次 stat 所有正文、profile、记忆及计划变化日志，不引入持久缓存、不改变授权或存储。无 catalog 时保留原端口兼容。涉及 project-agent-application-service.mjs、project-agent-host.mjs 及 focused tests，B级内部查询端口复用；不增加 IPC 或 main.mjs。必须验证查询间外部写入仍触发索引更新、原性能预算及两平台CI。
+
 ## 验证
 
 1. 命名空间与source contract检查；有行为意义的键盘/时间值/focus纯测试。
