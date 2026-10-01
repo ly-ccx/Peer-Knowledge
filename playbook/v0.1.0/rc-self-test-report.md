@@ -78,3 +78,8 @@
 全部代码卡PR94/95/96/98/97均已合入开发线。候选tag v0.1.0-rc.1 → 0beeb21f，原生/真实模型源码验收29d43dec；CI36918216680实际checkout GitHub临时merge6c04239c。三者Git tree均为1204b3eb1c57a29caa6f3af975c4d0e5fdef86b8，已用Git/GitHub对象核对，生产内容一致。证据[绑定](evidence/rc-candidate-source-binding-20261002.json)、[macOS CI](evidence/rc-candidate-ci-mac-20261002.json)、[Linux CI](evidence/rc-candidate-ci-linux-20261002.json)。Mac列表52.58ms/搜索95.50ms/Received196.60ms；Linux30.51/69.60/137.80ms，全部在原预算。
 
 原有skip边界：两个需PEER_BACKGROUND_UI_SMOKE的真实Electron用例已在13项独立后台回归中执行通过；三个已完成计划复用场景没有后续文本Verifier阶段，顺序断言不适用；ADR42旧双口径describe已由ADR52统一投影取代。不能将这5项统称opt-in，也没有新增skip。完整源码双任务与多入口已通过（见[复杂任务](evidence/rc-source-complex-passed-20261002.json)、[多入口](evidence/rc-source-multi-entry-passed-20261002.json)），安装候选仍在构建，Release36919331979。签收后的独立合回授权步骤已修正进测试脚本；先前夹具遗漏已保留，未修改生产授权门。
+
+
+### 首次安装CLI真实凭据测试受阻
+
+实际Release构建CLI归档SHA256 a68778c9…5947 与发布资产digest相同，100×30 PTY版本/新目录Y绑定/帮助/机器人列表/持久输入与可见Received/Ctrl-C退出0通过。真实模型未执行工具：报“The credential helper timed out”。电脑工具另外确认当前Mac锁屏且自动解锁失败，已请求负责人手动解锁；是否钥匙串等待所致需同安装助手复验，不能先宣布根因或通过。证明[首轮](evidence/rc-installed-cli-locked-first-20261002.json)。仅本轮凭据副本已清除，项目README未改。源码后端多入口Pass仍不能替代这个安装CLI检查。
