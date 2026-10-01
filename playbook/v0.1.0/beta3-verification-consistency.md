@@ -14,6 +14,7 @@
 3. 第二次仍不合法时返回明确失败，既有 Goal 闸门继续阻塞；不得补造 Evidence、criterionResults 或签收记录。
 4. `post_reply` 引用任务时必须提供结构化 `statusClaims[{sessionId,status}]`，恰好覆盖 sources。宿主以当前任务投影逐项校验；不一致或缺失返回结构化错误及当前状态，不生成可见回复。`accepted` 投影仍只来自持久化 `resultAcceptance`，通过验证或未来可代签均不等于已经签收。
 5. 回复携带宿主生成的 `sessionStates`；回复持久化后仍按既有流程尝试签收，再以持久化真值更新状态快照。模型正文用于发现和解释，不承担签收声明；L1 明确此规则，L7 提供当前状态。Renderer 只表达快照，不计算签收。
+   - 用户稍后确认或取消任务时，对话读取按当前宿主投影刷新状态，避免历史回复继续显示待确认。只改读取投影，不重写历史正文或历史快照；逐页缓存任务查询，并校验项目归属。
 6. 被拒绝的 `post_reply` 不允许经用户回合最终文本 fallback 重新显示。正常未调用 post_reply 的既有 fallback 保留；自由正文的所有语义无法由结构化状态校验全面证明，不宣称能消除全部模型幻觉。
 
 ## 允许改动
@@ -21,7 +22,7 @@
 - 桌面 `agent-host/goal-runner-host.mjs` 及测试、新报告解析 Module 与测试；`agent-turn-executor.mjs` 仅处理现有 signal/abort seam，必要时补测试。
 - `project-agent/project-facts.mjs`、`reply-composer-port.mjs`、`project-lifecycle-effects.mjs` 及相关集成测试。
 - 既有 `tools/prompts/delegation/post_reply.md` 工具说明，沿用已登记的工具提示准入。
-- runtime-node `project-agent/reply-composer.mjs`、`tool-specs.mjs`、`agent-turn-plan.mjs`、`delegation-provider.mjs`（透传已校验的状态错误事实）及相关测试。
+- runtime-node `project-agent/reply-composer.mjs`、`tool-specs.mjs`、`agent-turn-plan.mjs`、`delegation-provider.mjs`（透传已校验的状态错误事实）、`bot-directory.mjs`（只读状态投影刷新）及相关测试。
 - protocol `delegation.ts` 的回复状态快照类型；system-context 项目规则和任务名册 Source 及测试。
 - Renderer `conversation/ReplyBubble.tsx`、相关消息类型及测试；仅显示宿主状态。既有 i18n 没有完整的任务签收状态键，补同一组中英文状态文案，不显示原始状态码。
 - 本交接与 `knowledge/architecture/project-agent-delegation-runtime.md` 补修契约。
@@ -38,7 +39,23 @@
 
 - 分支：`PeerAgent/pa/beta3-verification-consistency`。
 - 代码基线：`f67ea97b92392b19dc5d440c1f939ad69d1d906c`；知识基线：`bec2313e25bcc4a621d67887ccf83714f5621377`。
-- 实现与检查结果待补；没有把历史真实样本计作本补修通过。
+- 实施前契约提交：`9917556`。
+- 代码提交：`cd3d1283e405dab74916011a99f4de2365206a93` — `fix(project-agent): govern verifier reports and reply acceptance states`。
+- 代码 PR：[Peer-Agent #75](https://github.com/ly-ccx/Peer-Agent/pull/75)，目标 `PeerAgent/dev/0.1.0`；尚未合入。
+
+## 实现与验证交接
+
+- 新 Verifier 报告 Module 接收最终助手段中的单个合法 JSON，拒绝重复、非法或不完整候选；只对格式失败做一次同权限重试，保留提供方失败、取消、拒绝和真实未通过路径。
+- `post_reply` 的引用任务声明逐项核对当前宿主状态；错误返回真实状态，拒绝回复不能经最终文本 fallback 冒充成功。宿主生成状态快照，Renderer 在来源按钮表达当前状态。
+- 签收尝试后按持久化投影更新快照；签收写入失败保留未签收状态与已写入的记忆。后续用户确认由对话读取刷新状态，历史正文及快照不改写；校验项目归属并逐页缓存查询。
+- `pnpm build`、`pnpm typecheck`、`pnpm architecture:check`：通过。
+- `pnpm test`：6478 项 Node 测试与 712 项 TUI 测试通过；0 失败、0 取消，保留 5 项既有 skip，无新增 skip。
+- `pnpm --filter @peer-agent/desktop test`：5134 通过、5 项既有 skip；`pnpm --filter @peer-agent/system-context test`：29 通过。
+- 最后界面收敛后，`pnpm --filter @peer-agent/desktop build` 与 `pnpm --filter @peer-agent/desktop typecheck` 通过。
+- 最后候选解析审查加入“非法对象 + 合法报告”用例；`node --test apps/desktop/electron/main/agent-host/verifier-report.test.mjs`：5 通过。`git diff --check` 通过。
+- 新回归覆盖格式恢复与耗尽、类型错误、最终段准入、取消/拒绝、假签收、confirm/auto 策略、签收写入失败、后续确认刷新、跨项目来源、记忆保留与拒绝 fallback。
+- 本轮用隔离数据和脚本化模型；真实模型、手动桌面视觉未重跑，没有把历史真实样本计作本补修通过。开发线 CI 结果见 PR；Beta3 真实日用验收仍需后续卡，不进入 Beta4。
+- 与卡片偏差：无；自由正文全部语义不可由结构化声明全面证明，下一步保留真实模型验收。
 
 ## 架构影响
 
