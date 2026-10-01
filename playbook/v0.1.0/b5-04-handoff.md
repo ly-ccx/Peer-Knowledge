@@ -1,6 +1,6 @@
 # B5-04 网关与手机网页交接
 
-日期：2026-10-01。状态：实现、本机门禁与浏览器证据完成，等待 Review / 双平台 CI。代码 `a24e009c`，基线 B5-03 `43765d84`；契约见 [b5-04-project-web.md](b5-04-project-web.md)。
+日期：2026-10-01。状态：已完成并合入。代码PR #89以 `a24e009c` 通过双平台CI [36881974383](https://github.com/ly-ccx/Peer-Agent/actions/runs/36881974383)，合并提交 `22c050ce`；知识PR #20合并 `9213733`。代码 `a24e009c`，基线 B5-03 `43765d84`；契约见 [b5-04-project-web.md](b5-04-project-web.md)。
 
 ## 实现
 
