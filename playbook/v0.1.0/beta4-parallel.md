@@ -120,6 +120,8 @@ B4-08（独立）
 
 ## B4-06 自主档位（OB3）
 
+代码 [#84](https://github.com/ly-ccx/Peer-Agent/pull/84) 的完整本地门禁通过，Review 与双平台 CI 运行中。见 [实施契约](b4-06-autonomy.md) 与 [交接](b4-06-handoff.md)。
+
 - **级别**：A（ADR 82）。**规模**：S。**依赖**：B4-05。
 - **目标**：每个目标可以设「只报告 / 先提议 / 直接做」。
 - **允许改动**：`project-agent-source.mjs`（规则）；`delegation-provider.mjs`（`spawn_session` 带 `objectiveId` 时的校验）；`acceptance.mjs`；`card-projection.mjs`（提议卡）。
