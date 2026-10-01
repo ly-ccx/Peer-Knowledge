@@ -16,7 +16,7 @@
 
 ## 必要路径
 
-原卡 router/http-server/web-surface 之外补 account-http（认证组成）、device-websocket（逐类型帧、投影、真实连接结果关联）、main/package 描述（删除已过时“路由未开放”文案）、gateway package/lock（内部 protocol 引用）。protocol remote-access/index/test 与 runtime-node remote-device-connection/test 补共享投影校验和关联信封。新 remote-project-http、project-web-surface 与对应单元/真实 socket/网页脚本/截图测试。无新增本机存储/IPC，desktop main 不改。
+原卡 router/http-server/web-surface 之外补 account-http（认证组成）、device-websocket（逐类型帧、投影、真实连接结果关联）、main/package 描述（删除已过时“路由未开放”文案）、gateway package/lock（内部 protocol 引用）。protocol remote-access/index/test/package 与 runtime-node remote-device-connection/test 补共享投影校验和关联信封；protocol test script 纳入根测试/CI，避免新增协议矩阵未执行。新 remote-project-http、project-web-surface 与对应单元/真实 socket/网页脚本/截图测试；测试专用 fixture 与手动 browser-smoke 不带认证旁路进入生产。无新增本机存储/IPC，desktop main 不改。
 
 ## 验证
 
