@@ -33,6 +33,8 @@ CI36913383937 首轮列表122.69ms、复跑可见搜索157ms分别超过100/150m
 
 ## 验证
 
+后续CI36915594542 macOS通过；Linux所有性能指标通过，但第二次翻旧页未触发读取，报告停在9900、scrollTop3992，busy=false。脚本在同一JS调用里先到底再到顶，未经过浏览器滚动输入帧，可能被虚拟列表几何保持覆盖；不能据此宣布真人滚动失败或忽略断言。允许现有smoke用真实鼠标滚轮逐页上滚，保留首次翻页、全部旧消息ID、跨页引用和回最新的同样断言/15s超时；失败若仍在真实输入重现，须修生产滚动状态并补行为测试。失败报告保留为 `evidence/rc02-ci-scroll-first-failed-20261002.json`，首轮列表超预算报告补齐为 `rc02-ci-list-first-failed-20261002.json`。
+
 1. 命名空间与source contract检查；有行为意义的键盘/时间值/focus纯测试。
 2. 实际源Electron：list Tab/方向/Home/End/Enter/Space，drawer各布局focus/tab/Esc恢复，卡片Enter不被壳拦截，Quick picker与quiet时间控件中文英文及持久值，超限草稿不丢；reduce没有位移动画，实际tokens对比记录。
 3. 完整受影响desktop tests、typecheck、architecture、mac/Linux CI；保留RC01搜索/Received/分页预算与停止反馈实际TCP回归。
