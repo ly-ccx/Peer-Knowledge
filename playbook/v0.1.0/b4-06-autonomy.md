@@ -9,7 +9,7 @@ A 级，ADR 82。B4-05 代码 #83 已合入 dev efb9ec9b，知识 #14 已合入 
 ## 权限与事实
 report_only 在运行时拒绝目标任务。propose 与达到限额的 act 保存冻结任务意图并投影真实「开始 / 暂不」卡；只有当前 canonical 用户输入的 answerTo 匹配卡片且肯定同意，才沿既有 DelegationProvider→Supervisor 开任务。批准任务使用冻结意图，模型不能借批准换工作。暂停、改档、改目标、丢租约、经典模式后陈旧提议不授权任务。
 
-act 自动开任务必须来自 Host 的 objective_signal、实际成功探测 Evidence、同项目活动目标。省略 objectiveId 时只允许唯一宿主目标，多个目标须明确指定。旧原始用户锚点仅引用，不是新增任务授权；当前用户输入优先。独立 verify_session 只允许当前观察目标下的实际同项目任务；暂停目标恢复默认 confirm。提议七日后无效，损坏运行态结构化拒绝。自动任务低优先级，每个目标每个 UTC 日最多 min(3, configured budget) 次，执行前持久化预约；同一事实批次只能创建一个任务，重启、重试不重复计数或创建。失败创建保守保留预约，真实 GoalPlan 的 objectiveActionId 用于恢复链接；连续三个目标任务失败后降为提议。
+act 自动开任务必须来自 Host 的 objective_signal、实际成功观察 Evidence、同项目活动目标。内部 task_event 不需 optional probe：既有观察 Provider 读取真实目标任务事实，并经 SDK 产生 observe Grant 与成功 ToolResult/Evidence，失败任务本身仍是 failed，不要求任务成功。拒绝的是缺实际观察 Evidence 的模型事件。省略 objectiveId 时只允许唯一宿主目标，多个目标须明确指定。旧原始用户锚点仅引用，不是新增任务授权；当前用户输入优先。独立 verify_session 只允许当前观察目标下的实际同项目任务；暂停目标恢复默认 confirm。提议七日后无效，损坏运行态结构化拒绝。自动任务低优先级，每个目标每个 UTC 日最多 min(3, configured budget) 次，执行前持久化预约；同一事实批次只能创建一个任务，重启、重试不重复计数或创建。失败创建保守保留预约，真实 GoalPlan 的 objectiveActionId 用于恢复链接；连续三个目标任务失败后降为提议。
 
 签收默认 confirm。只有目标上的显式当前用户自动签收同意，保存 canonical approval anchor，Host 验证真实用户事实后才允许 auto；独立核验与外部/破坏性操作规则仍适用。模型不能靠 autoAccept 或摘要授权。
 
