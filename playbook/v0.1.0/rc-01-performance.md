@@ -6,6 +6,8 @@
 
 不改 capability/permission/Evidence/Context/storage 协议。新脚本只操作 mkdtemp 隔离目录，显式区分生产数据读取、脚本执行器、真实模型和发布包。原始个人数据不重置，凭据不进入证据。每指标5次中位数并保留所有样本；规模必须200 bot/10000 messages/100000 inbox events/10000 memories，经生产读取核对。脚本回合不得充当真实快档p50。报告非全达标时exit1；供应商失败样本不能静默删除。
 
+补充已接受边界：Mac主线程profile证明高频策略读取反复做全项目身份修复。按ADR86新增SettingsStore.getRuntimePolicy的只读策略投影，每次读原文件，无缓存、无身份/权限真源。新增允许settings-store.mjs/测试与原main.mjs装配行仅inline注入（净增0），project-agent-host现有政策读取点与真实integration测试。所有原getAll/merge、Registry、Lease、Grant验证保留。
+
 列表/搜索测生产应用服务投影及完整语料（首索引和热查询分列），不能仅测索引数组循环。收到/消费在实际IPC/UI或生产queue→conversation→wake链测量并写清计时边界；UI可见收到由Electron smoke额外测。收件箱冷恢复用新reader读取全部规模事件并还原游标；不能只读最后一条。空闲用独立进程初始化200宿主并稳定GC取增量RSS/heap，记录没有模型流；不是仅除以一个空数组大小。真实模型5轮要记录模型/每轮耗时/终态。
 
 ## 允许路径
