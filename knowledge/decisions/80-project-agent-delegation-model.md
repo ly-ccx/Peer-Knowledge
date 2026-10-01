@@ -111,3 +111,7 @@ A 级。改变用户的对话对象、任务的创建者、能力暴露（新增
 - 不为项目代理另开执行通道：调度能力同样走 Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。
 - 不把任务报告、代理摘要提升为系统指令。
 - 不因为引入项目代理而新建 Task / Project 存储实体。
+
+## B4-R 回复事实连续性（2026-10-01）
+
+真实模型会对同一任务事实重复 post_reply。宿主沿已持久化的 agent_reply.meta 记录由任务状态 / 独立核验引用与目标真实观察 Evidence 产生的 reportFactKeys；同回合已成功工具结果也参与判重。仅自动唤醒或同一用户回合重复工具报告受限；新的用户输入始终可得到回答。无事实不做文本相似去重。重复调用返回真实成功 suppressed 回执，回合安静结束，不生成助手回复或不可用卡。沿既有能力链、对话追加存储；不新增执行路径和权限真值。实施与验证见 playbook/v0.1.0/b4-r-release.md。
