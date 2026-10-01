@@ -1,7 +1,7 @@
 # RC-03 诊断实施边界
 
 创建时间：2026-10-02
-状态：Accepted，负责人授权自主完成全部 RC；GA 仍等全面测试。
+状态：完成（2026-10-02），负责人授权自主完成全部 RC；GA 仍等全面测试。
 
 ## 级别与范围
 
@@ -26,3 +26,8 @@ main.mjs 净增 0；不增依赖/模型工具/Context 来源，不修改真实�
 脱敏/边界/无副作用/损坏与 unknown/原子失败/取消/窗口准入测试；完整受影响测试、build/typecheck/architecture/IPC check、中英文一致；真实 Electron 保存到隔离文件，检查 JSON 并附脱敏样本。未运行/失败必须保留。
 
 新增允许 packages/runtime-node/src/project-registry.mjs 与测试：按 ADR85 的 diagnosticSnapshot 只读接口执行。必须先红后绿，验证损坏原文件字节及目录清单不变，原 get 仍可恢复；Desktop 实际装配损坏读取不得改变 registry 或触发模型。
+
+
+## 最终交付
+
+代码PR95合入开发线，merge `d77d4ff2cc06913e8daaa4601e31de4b938d9e65`；受验HEADef2a9d12，两平台CI36918148370均SUCCESS。损坏registry零写入、原子导出/取消/失败、IPC与allowlist脱敏测试以及实际200机器人源窗口导出已通过并保留原始样本。最终RC05生产树的完整build/typecheck/architecture/test亦通过。安装候选的具体验证在最终自测报告绑定，不能拿早期源码导出代替实际安装验证。
