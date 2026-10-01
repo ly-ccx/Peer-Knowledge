@@ -23,7 +23,7 @@
 - 日预算计数、探测幂等与运行时诊断沿 device projectRuntime 注册子路径；B4-04 不启动后台探测，B4-05 接 Recovery/watch/stop seam，B4-06 接最终自主执行限制与卡片。
 
 ## 必要路径
-原卡 ObjectiveStore/工具定义/Provider/白名单/data-store/IPC/ObjectivesTab/i18n；补 protocol objectives/delegation/project 与导出、ObjectiveService+测试、runtime exports、Host/project-facts/live port/LocalToolHost装配、typed preload/clientApi/API methods/IPC catalog生成、tools prompts、BotProfileDrawer/TasksTab/drawerState与样式及聚焦/集成测试。main.mjs 净增不超过零；不加依赖。路径以 rg 确认实际位置。
+原卡 ObjectiveStore/工具定义/Provider/白名单/data-store/IPC/ObjectivesTab/i18n；补 protocol objectives/delegation/project 与导出、ObjectiveService+测试、objective-tool-specs schema/validator（从中心 tool-specs 导入）、runtime exports、Host/project-facts/live port/LocalToolHost装配、typed preload/clientApi/API methods/IPC catalog生成、tools prompts、BotProfileDrawer/TasksTab/drawerState与样式及聚焦/集成测试。main.mjs 净增不超过零；不加依赖。路径以 rg 确认实际位置。
 
 ## 退出验证
 纯存储/原子重启/幂等/作用域/坏配置；无锚点、旧锚点、非用户提权拒绝；代理提议确认；状态与真实信号/Evidence；目标/任务互链；typed IPC/UI命令真实事实；经典/无租约无后台写；完整受影响包和 build/typecheck/architecture/ipc；PR Review/双平台 CI。
