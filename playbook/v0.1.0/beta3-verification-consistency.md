@@ -55,10 +55,20 @@
 - 最后界面收敛后，`pnpm --filter @peer-agent/desktop build` 与 `pnpm --filter @peer-agent/desktop typecheck` 通过。
 - 最后候选解析审查加入“非法对象 + 合法报告”用例；`node --test apps/desktop/electron/main/agent-host/verifier-report.test.mjs`：5 通过。`git diff --check` 通过。
 - 新回归覆盖格式恢复与耗尽、类型错误、最终段准入、取消/拒绝、假签收、confirm/auto 策略、签收写入失败、后续确认刷新、跨项目来源、记忆保留与拒绝 fallback。
-- 当前代码提交的 [开发线 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/36805472170)：macOS 14 与 Ubuntu 全部通过，PR 无合并冲突。
-- 本轮用隔离数据和脚本化模型；真实模型、手动桌面视觉未重跑，没有把历史真实样本计作本补修通过；Beta3 真实日用验收仍需后续卡，不进入 Beta4。
+- 首个代码提交 `cd3d128` 的 [开发线 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/36805472170)：macOS 14 与 Ubuntu 全部通过，PR 无合并冲突。
+- 初次交接用隔离数据和脚本化模型；当时真实模型、手动桌面视觉未重跑，没有把历史真实样本计作本补修通过；Beta3 真实日用验收仍需后续卡，不进入 Beta4。
 - 与卡片偏差：无；自由正文全部语义不可由结构化声明全面证明，下一步保留真实模型验收。
 
 ## 架构影响
 
 收紧既有报告准入与回复状态声明，不新增能力与执行路径。权限、Evidence 和签收闸门不变；状态声明是模型请求，状态快照是宿主事实。`main.mjs`、sendMessage 参数、依赖、真实用户数据均不扩展。
+
+## 真实验收后补修交接（2026-10-01）
+
+- 实施前目录绑定契约：`8cc1da0`，只改本卡及 delegation runtime §14.1；实现：`6a4c5ecd7477a951ba5bbda1c6c532551abe3c00`，只改允许的 goal-runner-host 与测试。
+- Explorer、文本 Verifier（含格式恢复）与视觉复核统一使用 worktree → target → conversation → workspaceRoot，重用既有 workspacePath 参数。
+- 新回归先在旧实现失败，补修后 host/report 14 passed；desktop 5135 passed / 5 existing skipped；`pnpm --filter @peer-agent/desktop build`、`pnpm typecheck`、`pnpm architecture:check`、`pnpm test` 通过（6479 Node + 712 TUI，0 failed / 0 cancelled）；`git diff --check` 通过。
+- 最新 `6a4c5ecd` [macOS/Ubuntu CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/36806599692) 全通过。此前自动 Review 对象为 `cd3d128`，不冒充最新提交已重审。
+- 真实模型完整零窗口样本：85 个采样均为 0，任务在此区间创建并 policy 签收；项目副本无改动。详细证据与余下缺口见 [真实验收 PR #6](https://github.com/ly-ccx/Peer-Knowledge/pull/6)。
+- 三个 P1 未修：同一输入重复派发相似任务、文件 Evidence 披露 NOT_FOUND、熟悉项目人工确认及 Goal 核验通过后仍未签收/写 verified 记忆。确认 UI 普通点击失败另记，不把 preload 接口通过当 UI 通过。
+- 范围偏差：目录错误在本卡既有允许范围内补修，契约先于实现；真实验收卡只保留证据。Beta3 未全部通过，不进入 Beta4、不发版、未自行合并。
