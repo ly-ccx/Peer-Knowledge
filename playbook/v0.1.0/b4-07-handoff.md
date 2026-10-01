@@ -29,7 +29,7 @@ B4-07 熔断、取消级联、重启恢复。
 - 夹具采用真实临时磁盘、HostLease、ConversationStore、Scheduler、生产 Goal host/Executor/Provider/Grant/Evidence；模型为脚本执行器。测试租约一秒，强杀后等待过期；不代表生产租约即时接管。
 - 缺失熔断卡片、旧重试卡、排队期间失去准入三回归先失败后通过；其余屏障、取消/删除、经典界面/归档/无租约聚焦覆盖通过。
 - Protocol 173 通过；Review 补修后的 build/typecheck/architecture 与完整受影响包再次通过。
-- 首提交双平台 CI 36835997612 已通过；当前补修提交双平台 [CI 36836813306](https://github.com/ly-ccx/Peer-Agent/actions/runs/36836813306) 运行中，合入前必须完成。
+- 首提交双平台 CI 36835997612 已通过；最终补修提交双平台 [CI 36836813306](https://github.com/ly-ccx/Peer-Agent/actions/runs/36836813306) 全部通过，匹配 f2a6d321。
 
 ## 架构影响
 输入送达与执行分账，canonical reply 与 Plan 仍为执行事实真源；新状态位于已登记的 projectRuntime device 存储。BotProfile 可选 deletionCleanup 保存已授权删除的剩余清理步骤。恢复、取消与卡片走现有治理接缝；旧 jsonl 不重写。
@@ -38,4 +38,4 @@ B4-07 熔断、取消级联、重启恢复。
 分层文档旧失败阈值/恢复顺序已按 Accepted ADR 与 B4-07 对齐。知识写入 companion repo。
 
 ## 未完成与后续
-目标停止扩展口留 B4-04/05。本卡 CI/Review 完成后合入；继续 B4-08 与项目目标卡、发布卡。Beta4 尚未发布；真实模型/打包/UI 证据不由脚本场景替代。
+目标停止扩展口留 B4-04/05。本卡代码 #80 已按负责人授权合入 dev（54a937d5）；代码一条与知识两条 Review 均修复/解决。继续 B4-08 与项目目标卡、发布卡。Beta4 尚未发布；真实模型/打包/UI 证据不由脚本场景替代。
