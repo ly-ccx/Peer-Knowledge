@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "38bc685c7b7b058e8010a4496822534ed9a382aa",
+  "sourceDirty": true,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-01T18:20:56.723Z",
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "windowReadyMs": 29198,
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page",
+    "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+    "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+    "oversize input is rejected before submission and the editable draft is retained",
+    "reduced motion stops avatar/enter displacement animations while drawer remains usable"
+  ],
+  "metrics": {
+    "productionList": {
+      "samples": [
+        22.7210840000007,
+        20.429707999999664,
+        20.805167000002257,
+        20.16716699999961,
+        19.874750000002678
+      ],
+      "median": 20.429707999999664,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        75.09999999403954,
+        34.30000001192093,
+        33.5,
+        34,
+        33
+      ],
+      "median": 34,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        72.3999999910593,
+        70.3999999910593,
+        69.70000000298023,
+        68.29999999701977,
+        68.3999999910593
+      ],
+      "median": 69.70000000298023,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "contrast": [
+    {
+      "selector": ".bot-row-name",
+      "ratio": 16.324778768937044
+    },
+    {
+      "selector": ".bot-row-preview",
+      "ratio": 3.2919648467311524
+    },
+    {
+      "selector": ".bot-row-time",
+      "ratio": 2.00672633314093
+    }
+  ],
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 41569
+  },
+  "finishedAt": "2026-10-01T18:22:16.958Z",
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "errorCode": "ACCESSIBILITY_ASSERTION_FAILED"
+}
