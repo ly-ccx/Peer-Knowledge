@@ -22,7 +22,7 @@ B4-01 代码 #77 与知识 #8 已合入，代码基线 `c2d997e7`，知识基线
 
 原卡路径：`project-agent/isolation-planner.mjs` 及测试、supervisor、goal-runner-host、acceptance、card-projection。
 
-完成生产接入还包括 runtime-node index、Goal Runner（委托隔离失败关闭执行）、GoalPlan store 的新 origin 字段校验、scheduler 的准备闸门、tool-specs 与 spawn-identity（隔离输入/幂等）、protocol DelegationOrigin/排队事实、Goal worktree/task branch/handoff adapters、project-agent-host/project-facts/application service（事实与用户决策）、bot profile/settings（自动合回默认关闭）、renderer 抽屉/状态/卡片与 i18n，以及对应聚焦测试、已注册 spawn 提示。main.mjs 仅允许装配替换且净增不大于零；优先在现有宿主 seam 装配。
+完成生产接入还包括 runtime-node index、Goal Runner（委托隔离失败关闭执行）、GoalPlan store 的新 origin 字段校验、scheduler 的准备闸门、tool-specs 与 spawn-identity（隔离输入/幂等）、protocol DelegationOrigin/排队事实、Goal worktree/task branch/handoff adapters、`session-handoff.mjs`（深模块，集中合回用户决策）、project-agent-host/project-facts/application service（事实与用户决策）、bot profile/settings（自动合回默认关闭）、renderer 抽屉/状态/卡片与 i18n，以及对应聚焦测试、已注册 spawn 提示。main.mjs 仅允许装配替换且净增不大于零；优先在现有宿主 seam 装配。
 
 ## 验证与退出
 

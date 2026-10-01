@@ -1,0 +1,72 @@
+{
+  "createdAt": "2026-10-01",
+  "codeHead": "2bb9d19810a1379958ece519d1a5409d779a6f58",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/78",
+  "realGitScenario": {
+    "scenario": "B4-02 three writers",
+    "executor": "scripted production host; real Git and filesystem",
+    "peak": 3,
+    "baseline": "c4b86d5c1d9e3639b99774622c78c8b3b49d2850",
+    "evidence": [
+      {
+        "session": "writer-1",
+        "isolated": true,
+        "targetBranch": "main",
+        "commitSha": "ba6dcc275e3a435c7bcb03e674e986580cb2f1ec",
+        "cleaned": true,
+        "signedBy": "user"
+      },
+      {
+        "session": "writer-2",
+        "isolated": true,
+        "targetBranch": "main",
+        "commitSha": "bd8db32a8d658db50a51523ecfd1a7036a4e3432",
+        "cleaned": true,
+        "signedBy": "user"
+      },
+      {
+        "session": "writer-3",
+        "isolated": true,
+        "targetBranch": "main",
+        "commitSha": "5482864a81322463daf38debd234aaed9215f9c2",
+        "cleaned": true,
+        "signedBy": "user"
+      }
+    ]
+  },
+  "checks": {
+    "build": "pass",
+    "runtimeNode": {
+      "pass": 863,
+      "fail": 0,
+      "skip": 0
+    },
+    "desktop": {
+      "pass": 5158,
+      "fail": 0,
+      "skip": 5,
+      "head": "105c13817ff73f30208004bfa71d011c85aabd3f"
+    },
+    "protocol": {
+      "pass": 172,
+      "fail": 0
+    },
+    "typecheck": "pass",
+    "architecture": "pass",
+    "ipc": "pass",
+    "cleanupFeedbackRegression": {
+      "beforeFixExit": 1,
+      "afterFix": {
+        "pass": 17,
+        "fail": 0
+      }
+    }
+  },
+  "ci": {
+    "status": "pending"
+  },
+  "limitations": [
+    "Scripted executor fixture, real Git and filesystem; no remote model invocation",
+    "Not Beta4 release or user daily-use evidence"
+  ]
+}
