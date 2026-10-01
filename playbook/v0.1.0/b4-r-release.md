@@ -12,11 +12,11 @@ B4-01 至 B4-08 已合入代码 dev `30496b04`；知识 PR #15 已合入 main `4
 
 沿现有 canonical agent_reply.meta 增加宿主事实指纹，不新增存储路径、不重写旧消息；仅既有 onReplied 更新本次新回复的最终签收状态时同步事实键。指纹只由实际项目任务状态 / 独立核验引用及实际目标观察 Evidence 得出；模型文本、statusClaims 与任意引用不能生成事实。沿 ReplyComposer / post_reply 的既有 Provider / Grant / Evidence 路径执行。跨回合 / 重启读取已落盘回复，同一回合读取已成功工具结果；同一批事实只汇报一次，新状态 / 新观察 / 新用户输入仍可回复。无可核对事实时不做文本相似去重。
 
-重复 post_reply 返回成功的 suppressed 回执并保留实际 Tool Result；finishAgentTurn 将其作为安静收尾，不生成假回复或“代理不可用”。不改变签收权限、不压制用户当前问题、不把模型 prose 当交付真值。宿主已处理的合回卡片回答是具体任务的决策，不能再次作为新任务授权；Provider 在当前 canonical 输入全为合回回答时拒绝任务变更工具，查询 / 汇报仍可用。
+重复 post_reply 返回成功的 suppressed 回执并保留实际 Tool Result；finishAgentTurn 将其作为安静收尾，不生成假回复或“代理不可用”。不改变签收权限、不压制用户当前问题、不把模型 prose 当交付真值。宿主已处理的合回卡片回答是具体任务的决策，不能再次作为新任务授权；Provider 在当前 canonical 输入全为合回回答时拒绝任务变更工具，查询 / 汇报仍可用。目标事件与普通任务事件同批唤醒时，普通任务的独立核验依据该批真实 session 事件仍可运行；无任务事件仍按目标范围拒绝。
 
 ## 实施路径
 
-- runtime-node/project-agent：新的回复事实纯模块、delegation-provider 决策授权闸、reply-composer / agent-turn-plan 与定向测试；objective-tool-specs 校验失败返回具体字段路径以便模型修正，不接受坏字段或放宽权限。
+- runtime-node/project-agent：新的回复事实纯模块、delegation-provider 决策授权闸、llm-chat-service 既有 turnProfile 事件投影（不增参数）、reply-composer / agent-turn-plan 与定向测试；objective-tool-specs 校验失败返回具体字段路径以便模型修正，不接受坏字段或放宽权限。
 - Desktop project-agent：reply-composer-port / project-facts / project-lifecycle-effects / 集成测试；renderer state/useBotConversation 与纯刷新协调模块、BotMessageList / ReplyBubble / CardView / ui/icons 的必要表达路径。既有 changed 与 conversation-changed 通道触发真实最新投影，虚拟卡片不得作为 canonical 游标，已解决卡片及时更新。证据默认有界显示，可展开全部；SVG 与自定义控件。
 - i18n 必要中英文键；root package build 顺序修复，不新增依赖；main.mjs 净增 0。
 - VERSION / package / Cargo / pnpm lock / README 标记 / release-notes / CHANGELOG 及既有发布脚本要求的文件。
