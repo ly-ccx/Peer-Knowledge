@@ -45,3 +45,5 @@ Responses修复代码PR #92已合入 5ef4659f（精确tip9fc18b78，CI3689040175
 同次窗口发现QuickChat误用其角色不允许的settings:get。允许`electron/preload/preload.source.cjs`、生成`preload.cjs`、`initial-settings.test.mjs`修复现有getSettings的传输适配：QuickChat使用既有已授权settings:get-sync读最新快照，主窗口保留invoke；公开Promise返回契约不变、catalog角色权限不扩大、main.mjs不改。测试含首次和设置变更后的刷新；Electron smoke要求没有角色拒绝日志。
 
 真实快档测量增加允许脚本`apps/desktop/scripts/perf-project-agent-real-model.mjs`：明确选择本机已配置模型，只在mkdtemp隔离home复制该渠道配置与凭据引用，源生产Electron/host/Provider真实执行5轮简单post_reply，不替换认知，最后清除复制凭据。报告只保留模型名、耗时、turnId和终态，不输出密钥/配置正文；失败样本保留，p50<6s须实测。用户原始配置不写回。它是生产模型性能证据，不取代签名安装包或复杂任务验收。
+
+QuickChat设置修复后发现既有B3-11的project-agent:list/submit-input同样漏入角色目录。先更新ADR85 Accepted补充窗口准入边界，新增允许`electron/ipc/channels.mjs`（仅这两个channel加入quick-chat，popover保持拒绝）、`electron/main/ipc/trusted-window-registry.test.mjs`，按生成流程更新preload.cjs；main净增0、没有新channel或批准权限。真窗口须实际QuickChat发送并由租约宿主持久化一次。

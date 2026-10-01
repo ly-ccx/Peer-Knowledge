@@ -105,3 +105,11 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 - 不做两端同时运行同一项目，也不静默抢占租约（心跳过期除外）。
 - 不把机器人档案或记忆写进 `settings.json`。
 - 不在后台任务里驱动用户眼前的内嵌浏览器。
+
+## RC 验证补齐：快捷聊天窗口准入（2026-10-02，Accepted）
+
+真实Electron验证发现B3-11机器人快捷聊天已调用project-agent:list和project-agent:submit-input，但catalog未授予quick-chat角色，导致列表与发送被拒绝。按既有产品入口补齐这两个通道的quick-chat角色；这属于A级窗口准入修复，负责人已授权自主收口全部RC，未引入新能力/工具/IPC。主进程仍以已注册窗口、顶层frame和精确本地origin为准，renderer的URL或role字符串不构成授权真源。
+
+快捷窗口只获机器人目录及输入提交权限；档案修改/删除、任务批准、证据读取、诊断仍为主窗口专属。settings:get仍不开放，沿已有settings:get-sync获取最新只读设置，公开getSettings保持Promise契约。quick-chat-popover角色不继承机器人通道。输入surface为quick_chat，经原inputQueue→租约宿主→Capability/PermissionGrant/Evidence链，成功回执仅代表持久化。
+
+验证必须覆盖合法QuickChat列表/实际输入消费、陌生窗口/子frame/错误origin拒绝、Popover拒绝、批准等通道拒绝，并在真实Electron smoke中不出现角色拒绝日志。
