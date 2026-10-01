@@ -117,3 +117,8 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 - 桌面 Adapter 由 main 原生保存对话框选择目标，先脱敏投影后原子写单个 JSON；取消不写，失败保留原目标，不返回原始错误。renderer 仅显示脱敏投影/结果，不使用 fs 或权限真值。输出不是新的自动存储目录；现有数据登记不变。
 
 验证：真实来源含密钥模式/绝对路径/原文的恶意夹具、损坏源、旧回合缺字段、200/20 边界、原状态文件与游标校验和不变；IPC 合法 main 与外来窗口/frame 拒绝；保存取消/失败/原子写；真实 Electron 导出脱敏样本。
+
+
+## RC03 只读注册表补充（2026-10-02，Accepted）
+
+诊断自审发现 Registry.get/list 在注册表损坏时会备份并修复，这不符合诊断只读合同。新增 Registry.diagnosticSnapshot：每次读取及完整验证原文件，缺失返回空数组，损坏抛出固定 CORRUPT_REGISTRY；不备份、不修复、不创建目录、不更新内存身份。返回条目副本。原 get/list/sync 的恢复行为保持。Desktop 诊断只从该快照与只读 active profile ID 交集读取项目；注册表损坏投影 PROJECTS_UNAVAILABLE，导出本身不得触发修复。原 resolveConversationId 已有只读 profile 查询可沿用。
