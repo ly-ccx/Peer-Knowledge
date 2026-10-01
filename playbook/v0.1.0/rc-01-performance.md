@@ -59,3 +59,7 @@ QuickChat设置修复后发现既有B3-11的project-agent:list/submit-input同�
 ## 真实快档首轮与测量隔离补充（2026-10-02）
 
 Luna首轮真实生产请求两次返回HTTP200但均无文字/工具（input tokens8427/8471，output4），canonical生成agent_unavailable empty_model_response；失败后该runner按既有策略等待用户重试，后续测量输入排队。因此不能将后续150秒等候当作模型响应性能。保留全部首轮失败样本；测量脚本改为同一隔离home的5个独立机器人各1轮，避免一个供应商失败阻塞其它样本。报告明确独立项目，不代替同机器人连续聊天验收。失败只输出受控错误码/阶段/终态，不复制用户正文或密钥；SIGINT/SIGTERM只取消当前测量并经finally关闭本轮登记进程、清除凭据副本。允许该脚本及同目录纯测量辅助模块/聚焦测试。预算仍6秒，不能以测试独立作为达标。
+
+## 正确保留宿主后的收到预算回归（2026-10-02）
+
+精确e760819d窗口复测可见Received p50717.8ms >300，5轮均约715–732ms，必须修复。局部sync保留200runner后，每次清退检查200次ownsProject→getSettings→loadMigratedSettings→registry.sync200工作区，重复settings身份校验形成平方开销。新增B级内部只读端口`readOwnedWorkspaceIds(inventory)`，只给当前sync清退扫描使用：desktop一次读全局开关、同批active-profile inventory、逐项目读真实host lease。它不是权限或执行依据；recovery/runner/supervisor仍用原ownsProject逐次校验。fallback宿主保持原行为。允许既有runtime-host及测试、desktop装配及integration测试补入此端口；main净增0、无IPC或持久化变化。测试含200项目定向唤醒全局设置读取次数恒定、全局classic切换仍清退、真实租约失效仍拒绝执行。保留本轮Failed窗口证据，不删初始失败或提高300ms预算。
