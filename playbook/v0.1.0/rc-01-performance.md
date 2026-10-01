@@ -95,3 +95,7 @@ e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750�
 7d61baa0完整目录投影101.88ms仍失败（首投影97.53ms不能替代5轮p50），故继续沿ADR86补批准投影批次：新增允许`packages/runtime-node/src/project-agent/approval-store.mjs`及测试；directory、host及规模脚本接入可选readApprovalsBatch。listByWorkspaceIds保留全局fold去重与workspace过滤，只把一次扫描共享给同一投影，不参与批准执行或PermissionGrant。先红后绿扫描次数及fresh-state测试，保留当前失败。
 
 批准目录扫描计数回归先红（缺少batch Interface）后绿；20个approval/directory测试通过，验证200个项目一次catalog扫描、批准终态下次读取可见、未请求scope不混入、details与批次不可用时保留原实时路径。实现3be1110d已推送；实际窗口与最终完整门禁待验证。
+
+精确干净3be1110d真实源Electron完整窗口通过：200行列表p50=20.98ms（100），输入到完整语料命中可见p50=35.30ms（150），发送到可见Received p50=71.90ms（300）。扩展跨200行的更早分页、加载9500引用并居中到可见视口、返回最新全部通过；Quick Chat只写一条canonical quick_chat输入；档案与classic往返保留200身份；零renderer错误/窗口角色拒绝，owned进程已退出。完整窗口冷就绪单列，不替代核心inbox恢复指标。最终完整门禁/真实模型五轮/两平台CI尚待本HEAD核实。
+
+最终3be1110d本机完整build/test/typecheck/architecture全部通过；runtime987，desktop5265pass/5原有skip，TUI749pass，其余包零失败/取消。真实GLM五个独立机器人一回合均实际post_reply并落盘，p50=3819.20ms；单样本6091.55ms如实保留，标准为五次中位数<6000。复制的凭据已移除，自有Electron正常关闭。生产规模八项均通过：list16.72/search98.94/Received15.76/consume14.63/memory9.23/coldInbox318.44ms，增量RSS849592.32B/机器人；窗口计时独立按前述21/35/72ms记录。两平台CI仍在跑，不提前写RC-01完成。
