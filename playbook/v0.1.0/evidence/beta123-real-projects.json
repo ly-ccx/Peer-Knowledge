@@ -1,0 +1,143 @@
+{
+  "recordedAt": "2026-09-30",
+  "model": "glm-5.3-flash",
+  "sourceHead": "3ea49ce4",
+  "recoveryPackageHead": "abb2f5af",
+  "credentialHelper": "existing development helper; recovery package selected via PEER_CREDENTIAL_HELPER_PATH",
+  "isolation": "tracked git archive snapshots and separate app data. The original Knowledge repo received this task’s own handoff edits during the test.",
+  "startedAt": "2026-09-30T15:22:10.175Z",
+  "firstRunFinishedAt": "2026-09-30T15:33:12.037Z",
+  "recoveryStartedAt": "2026-09-30T15:40:58.281Z",
+  "finishedAt": "2026-09-30T15:42:40.487Z",
+  "windowClosure": {
+    "startedAt": "2026-09-30T15:22:18.271Z",
+    "windowsAfterClose": [],
+    "visibleWindows": 0,
+    "endedAt": "2026-09-30T15:23:05.886Z"
+  },
+  "projects": [
+    {
+      "name": "Peer-Agent",
+      "snapshotHead": "3ea49ce4b8401a9443dbbb022a5239c3299649e2",
+      "trackedSnapshotChanges": [],
+      "sessionId": "fd96cea9-8058-42b1-af54-398df94b3610",
+      "planId": "40e0eaa4-400d-496a-a417-b7df96c0a42a",
+      "finalStatus": "accepted",
+      "criteria": [
+        {
+          "id": "c1",
+          "kind": "file-contains",
+          "path": "packages/protocol/src/project.ts",
+          "expect": "readonly acceptancePolicy"
+        }
+      ],
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_151ed34aefba4baaa4e93f95",
+          "detail": "read_file 第 20–45 行实际返回：第 36 行为 readonly acceptancePolicy?: 'auto' | 'confirm';，期望子串 readonly acceptancePolicy 命中（file-contains 核验通过，全程只读未改工作区）",
+          "checkedAt": "2026-09-30T15:29:06.111Z"
+        }
+      ],
+      "allResultEvidenceIndexed": true,
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "glm-5.3-flash",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:fd96cea9-8058-42b1-af54-398df94b3610:passed"
+      },
+      "resultAcceptance": {
+        "acceptedAt": "2026-09-30T15:42:38.834Z",
+        "acceptedBy": "policy",
+        "verdictRef": "verdict:fd96cea9-8058-42b1-af54-398df94b3610:passed"
+      },
+      "newTaskCountAfterRestart": 0
+    },
+    {
+      "name": "Peer-Knowledge",
+      "snapshotHead": "4438fd3fc652b5bfa3119024c06b4097134f6971",
+      "trackedSnapshotChanges": [],
+      "sessionId": "9291d0a9-f14d-490e-8e00-76f240765f29",
+      "planId": "775ecc7f-808f-407c-b6aa-09013dfa4002",
+      "finalStatus": "accepted",
+      "criteria": [
+        {
+          "id": "c1",
+          "kind": "file-contains",
+          "path": "design/product/v0.1.0-release-plan.md",
+          "expect": "0.1.0-beta.3"
+        }
+      ],
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_9290eb48f3f24b70ab6b7791",
+          "detail": "search_files 大小写敏感匹配 \"0.1.0-beta.3\"，在该文件命中 5 处（L168/L174/L180/L267/L487），read_file L168 亦可见该字符串。",
+          "checkedAt": "2026-09-30T15:23:49.619Z"
+        }
+      ],
+      "allResultEvidenceIndexed": true,
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "glm-5.3-flash",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:9291d0a9-f14d-490e-8e00-76f240765f29:passed"
+      },
+      "resultAcceptance": {
+        "acceptedAt": "2026-09-30T15:30:59.242Z",
+        "acceptedBy": "policy",
+        "verdictRef": "verdict:9291d0a9-f14d-490e-8e00-76f240765f29:passed"
+      },
+      "newTaskCountAfterRestart": 0
+    },
+    {
+      "name": "SillyTavern",
+      "snapshotHead": "7c399419636c4df3d6d035fcddf9ccbb8248b432",
+      "trackedSnapshotChanges": [],
+      "sessionId": "02aea9f9-9d61-42af-a5fd-887562fa88d9",
+      "planId": "645234c9-e2c0-4dd1-a5bf-41893664c1f7",
+      "finalStatus": "accepted",
+      "criteria": [
+        {
+          "id": "c1",
+          "kind": "file-contains",
+          "path": "package.json",
+          "expect": "node"
+        }
+      ],
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_9bb37d96aff041789f6d8057",
+          "detail": "package.json 内容包含 \"node\"：L101 \"node\": \">= 20\"（engines），L121 \"start\": \"node server.js\"；全文读取（call_6016f4572ebd4bb089684b47）与检索交叉确认。",
+          "checkedAt": "2026-09-30T15:26:49.578Z"
+        }
+      ],
+      "allResultEvidenceIndexed": true,
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "glm-5.3-flash",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:02aea9f9-9d61-42af-a5fd-887562fa88d9:passed"
+      },
+      "resultAcceptance": {
+        "acceptedAt": "2026-09-30T15:30:59.278Z",
+        "acceptedBy": "policy",
+        "verdictRef": "verdict:02aea9f9-9d61-42af-a5fd-887562fa88d9:passed"
+      },
+      "newTaskCountAfterRestart": 0
+    }
+  ],
+  "ownedSourceProcessExited": true,
+  "ownedRecoveryProcessExited": true,
+  "credentialCopiesRemoved": true,
+  "noFollowupUserInputDuringRecovery": true,
+  "limitations": [
+    "First bounded source run finished with two accepted sessions and one result_ready session. The failed recovery on 3ea49ce4 reproduced the durable inbox gap. abb2f5af recovered it without a new user message or new task.",
+    "An additional packaged fresh SillyTavern run passed file criteria and delegated verification, but a Goal verifier returned no structured report and the Goal remained blocked. Its assistant text claimed acceptance; no host resultAcceptance was written. It is not counted as a successful run.",
+    "This covers read-only tasks, not parallel write tasks, visual delivery, verified familiarization memory, or five-day daily use."
+  ]
+}

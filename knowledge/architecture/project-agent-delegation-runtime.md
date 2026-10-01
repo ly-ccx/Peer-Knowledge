@@ -1,7 +1,7 @@
 # 项目代理委托运行时
 
 创建时间：2026-09-24
-最后更新：2026-09-24
+最后更新：2026-09-30
 
 > 状态：随 ADR 80 Accepted（2026-09-26）。§13 已关闭。落点目录以 `playbook/v0.1.0/` 为准。  
 > 级别：A 级运行时契约  
@@ -509,3 +509,21 @@ function decideSurfacing(input: {
 2. 模型按 ADR 83：代理默认快档，任务默认强档。
 3. 只读工具不够时直接开任务，不先请示。
 4. 已绑定机器人的目录里，TUI 默认打开该机器人；`peer --classic` 保留直接任务。
+
+## 14. Beta 1–3 桌面集成修复契约（2026-09-30）
+
+范围是补齐 ADR 80、81、83、84、85 已接受的装配与交互。对应代码修复分支 `PeerAgent/pa/beta123-integration-repair`；不扩展 Beta4 的并行、隔离与目标能力。
+
+- 桌面装配提供一个可重装、调用时读取的调度端口给统一 Local Tool Host，包含 SessionSupervisor 和已登记的幂等账本目录。宿主退出时释放端口和定时器。Provider 仍通过 Manifest、Projection、PermissionGrant 和 Evidence 执行；Renderer 不调用监督者。
+- 项目代理及任务角色模型均通过现有聊天服务的 ModelRouter 解析，读取实时模型配置与机器人 `modelPolicy`。开任务时冻结任务角色选择；非 UI 任务在视觉模型不可用时可不设可选的 visualVerifier，UI 任务仍必须通过视觉能力筛选，不用空 catalog，也不在主进程复制路由逻辑。
+- 回合上下文袋包含任务名册和唤醒事件，注册的 `project-roster` Source 把它们放入 L7。历史对话使用会话事实投影，内部 agent 过程不作为可见回复或系统指令。每次回合有跨重启唯一 id。
+- 本次用户输入的稳定消息 id 与限长原文摘要作为 `inputAnchors` 事实进入同一个 L7 Source；任务名册保留其 `origin.anchorMessageId`。id 由宿主从已入队的 inputId 派生，模型不能生成或覆盖。摘要中和伪工具语法，不成为行为指令；调度执行仍对持久化父对话校验归属和用户消息类型。没有这些索引时不得通过猜测 id 绕过锚点校验。
+- 后台巡检在持有租约时消费持久输入队列，包括启动租约取得前与离线期间提交的输入；写入对话后推进游标，再入代理回合。同一巡检还恢复持久收件箱中未确认的旧事件，即使本轮没有新事件也尝试既有 Runner 的 kick；空收件箱不产生模型回合，成功回合后才推进收件箱游标。复用同一队列、去重与单线程 Runner，不新增执行入口。
+- `spawn_session.successCriteria` 接受既有 GoalSuccessCriterion 的结构化形态（command / test / file-contains / file-exists / manual）和旧字符串。字符串仍归一为 manual，仍要求用户确认；不因为项目策略 auto 而绕过 DoD 闸门。结构化标准由既有 Goal 工具、权限和 Evidence 路径核验，非法或不完整字段在调度前拒绝。任务结果的独立复核和签收闸门保持原约束。
+- Goal Runner 的 L7 事实保留成功标准的稳定 id 和检查参数（command / path / expect）；过长参数省略并提示经既有 `goal_get_plan` 回查，不用截断后的值代替完整标准。`goal_get_plan` 的只读 Tool Result 保留白名单标准字段与既有 CriterionResult，供压缩后恢复；不回写计划，不替模型执行检查，也不扩大权限或替代证据闸门。
+- 只有成功的 `post_reply` Tool Result 可以生成回复。正式 ReplyComposer 返回已校验的结构化消息，收尾使用该消息，不重新采信模型参数；失败、拒绝与取消不得伪装成成功空回复。取消复用聊天服务已有的 stream abort 入口，不增加 `sendMessage` 的参数。
+- 熟悉项目通过监督者创建只读 research 任务；空项目回答写为固定 stated 职责记忆，README 同意才开文档任务。系统生命周期触发先保存可回查的锚定消息，任务能力沿用统一权限链，确认过的事实只能带来源写入 verified 记忆。
+- 可见回复持久化后才按策略签收被引用的已完成任务。确认卡、重试卡、README 卡分别经 `project-agent:confirm-result`、`project-agent:retry`、`project-agent:accept-readme` IPC；宿主校验 workspace 归属、当前状态和重复点击。失效卡不能重新执行已完成操作。
+- `accepted` 投影以持久化的 `resultAcceptance` 为准；核验结束解除 `verifying`。小结保留已校验的来源、结论与 Evidence 引用，实际送达后才触发签收。模型的任务列表仍限 50 条，宿主的项目事实集合不得沿用分页上限做来源归属判断。
+- 档案增加可持久化的 `acceptancePolicy`（auto / confirm）、`planApproval`（never / writes / always）和既有 `modelPolicy`。更新经 `update-profile` 校验并保存；既有档案缺字段时读取默认值，不批量重写旧数据。模型覆盖只接受当前已配置的模型与允许角色。
+- 验证必须覆盖正式注册入口到模型调用、Provider 到监督者、完成事件到 L7、回复拒绝、错误终态、重启 id 与三种卡片动作。模块单测通过不能替代真实项目、安装迁移与连续日用验收。
