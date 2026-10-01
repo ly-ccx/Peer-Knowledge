@@ -35,6 +35,8 @@ Recovery 深模块对每项目串行、并发调用合并，其他项目独立�
 
 ## 必要路径
 
+删除 Review 补修：暂停后先原子保存 archived 与 `BotProfile.deletionCleanup`（目录、trashPending/removePending），再执行不可逆目录清理；失败返回 archived/cleanupPending 的结构化事实并可重试，不能留活动僵尸机器人。若归档提交失败，恢复项目准入与租约；已取消任务不伪造复活。补入 protocol/project.ts 的可选清理字段，沿已有 BotProfile portable 边界。应用服务对归档的部分失败也广播目录变化。
+
 原卡 circuit-breaker/recovery/runner/session-supervisor/project-agent-host；既有 input-queue、HostLease 的归档档案过滤、ExecutionScheduler、Goal Runner 与 Goal Host 恢复门；application service/bot-lifecycle 的删除与重试接缝；agent-turn-plan 复用既有不可用卡构造；main.mjs 原租约/装配/恢复行替换；data-store projectRuntime device 登记说明；runtime-node 导出；project-facts/card-projection 的不可用卡事实与相关聚焦/生产集成测试、强杀子进程测试夹具。无新依赖、无新 IPC、无新工具；目标停止接口由 B4-04/05 接入。
 
 ## 验证与已发现文档偏差

@@ -369,7 +369,7 @@ queued → starting → awaiting_approval → running ⇄ needs_user → verifyi
 | `stalled` | 长时间无新证据或状态变化 | Watchdog | 合成停滞事件 | 代理 `message_session` 纠偏或取消 |
 | `host_interruption` | 退出、崩溃、重启 | 进程生命周期 | `interrupted`，启动后按已有上限自动续跑 | 超过续跑上限 → 代理 |
 | `isolation_conflict` | 主工作区脏、worktree 创建失败 | IsolationPlanner | spawn 同步返回失败 | 代理告诉用户 |
-| `dependency_failed` | 上游任务失败 / 取消 | 调度器 | 下游 `blocked` | 代理 |
+| `dependency_failed` | 上游任务失败 / 取消 | 调度器 | 下游 `waiting_user` 与依赖决策卡 | 代理 |
 | `agent_misuse` | 参数非法、越深度、超配额 | Supervisor | 同步 Tool Error 给代理 | — |
 | `agent_turn_failure` | 代理自己的回合失败 | 执行宿主 | 游标不推进，退避重试；界面提示 | 连续失败 → 用户 |
 | `systemic` | 窗口期内多条任务同一指纹失败 | CircuitBreaker | 熔断：本项目停止新开任务和自动重试 | 用户 |
@@ -395,7 +395,7 @@ queued → starting → awaiting_approval → running ⇄ needs_user → verifyi
 | 动作 | 影响 | 不影响 |
 |---|---|---|
 | 取消代理的当前回合 | 这一轮 | 所有任务 |
-| `cancel_session` | 任务 Runner、任务内子 agent（AbortSignal）、GoalPlan → `cancelled`；下游依赖 → `blocked` | 分支与 worktree（删除仍要二次确认） |
+| `cancel_session` | 任务 Runner、任务内子 agent（AbortSignal）、GoalPlan → `cancelled`；下游依赖 → `waiting_user` 与依赖决策卡 | 分支与 worktree（删除仍要二次确认） |
 | 取代（`supersedes`） | 新任务建成后，旧任务 Runner 停止、任务内子 agent 中止、GoalPlan → `paused` + `supersededBy`；新任务签收或用户放弃旧任务时才 → `cancelled` | 旧任务分支与 worktree；旧任务的下游依赖改挂到新任务前先转 `blocked` 交代理决定 |
 | 用户暂停任务 | 该任务 → `paused` | 其他任务 |
 | 关闭项目 / 切走工作区 | 无（ADR 27：切换不中断运行） | — |
