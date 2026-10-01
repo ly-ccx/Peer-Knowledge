@@ -110,7 +110,7 @@ B4-08（独立）
   - git：每 60 秒读 HEAD 与分支引用（宿主只读函数，不调用模型）；变化 = 新提交 / 切分支。
   - 文件：`fs.watch` 监听目标声明的路径模式（限定在工作区内，忽略 `node_modules`、`.git`、构建产物目录），5 秒防抖。
   - CI：`gh` 可用且已登录时，用只读命令（`gh run list --json …`）按间隔查询；不可用时该触发器状态为「不可用：原因」，不报错。探测命令由宿主执行，不经模型，不经 Shell Provider 的询问流程（只读白名单，写在代码里并有测试）。
-  - 观察：每次探测产生 `WatchObservation`（带 `digest`）；`diffWatchObservation` 判定有变化才写 `observations.jsonl` 并发事件；没有变化什么都不做。
+  - 观察：每次探测产生 `WatchObservation`（带 `digest`）；`diffWatchObservation` 判定有变化才进入 Inbox 并唤醒；按 ADR 82 每次实际检查都写 `observations.jsonl` 与真实 Evidence，未变化只保存事实，不进 Inbox（见 B4-05 实施契约）。
   - 预算：每个项目每小时最多 60 次探测；需要解读内容（如 CI 失败日志）时由代理决定是否开只读任务或用 `objective_probe` 角色做一次临时解读。
   - 目标暂停 / 机器人删除 / 经典界面下均停止探测。
 - **必须新增的测试**：每种触发器的变化判定；无变化不唤醒；预算上限；CI 不可用降级；Automation 回归全绿（抽内核后行为不变）；路径限定在工作区内。
