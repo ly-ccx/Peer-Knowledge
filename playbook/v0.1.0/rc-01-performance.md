@@ -87,3 +87,7 @@ e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750�
 精确a0fbbcef搜索窗口首轮p50=201.10ms（274.5/204.4/201.1/200.0/199.2）超过150，未执行后续消息/分页断言，owned进程正常关闭。不能以模块132ms代替。允许隔离application-service搜索点追加只读计时（目录投影、语料指纹、索引和同步总耗时），报告不得含用户正文。
 
 454fe34e只读分段证据：目录投影185–210ms，指纹9–11ms，热索引约1ms；窗口p50=223.1ms。生产directory的listClassicGoals对每个机器人重新读取registry、全部conversation metadata和Goal index，200行重复200次；此前perf注入无经典目标读取器，因此没有覆盖此成本。允许B级投影批次快照：新增desktop `classic-goal-projection.mjs`及测试，host装配采用batch；portable bot-directory及测试追加可选`readClassicGoalsBatch`内部端口，单项目get保留实时读取。每批只读一次registry/会话元数据/计划，逐项目按既有projectHistory/projectClassicGoals隔离过滤。没有跨调用缓存或执行授权用途，不改IPC/存储/main；完整窗口和模块预算重新测。新增integration读次数回归先红后绿。
+
+真实Desktop完整投影d8fa3ea2 p50=137.05ms仍>100ms，不能用注入简化directory的55ms代替。批准实施ADR86的A级内部批量读取契约（先文档、后实现）：新增允许`packages/conversation-store/src/index.mjs`、`index.d.ts`及`persisted-batch.test.mjs`；已列bot-directory与测试追加可选readMessagesBatch；host与性能脚本接入。现有单条读取、streaming截断/runtime检查语义、跨入口刷新仍保留；不新增IPC/权限/Evidence/持久化格式。无跨调用缓存。测试逐条/批次等价、实际索引读次数、外部修改下次可见，完整窗口预算重新测。
+
+416addfc首轮夹具观测发生Node inspector promise被GC（没有重新执行产品动作，进程正常关闭）；readMain只对该观测错误最多重读3次，样本仍来自原动作、预算不变。复跑d8fa3ea2未触发观测重试，完整投影仍超预算。两次失败均保留。
