@@ -1,6 +1,22 @@
 # Peer Agent 0.1.0 发布前全面测试手册
 
-> 当前候选：0.1.0-rc.1，提交0beeb21f46c4c40bc076b414471c086aeb9a28a4。发布产物/安装自测进行中；下载与SHA256将在完成后填入。未执行项不能填写通过，开发者范围见[自测报告](rc-self-test-report.md)。
+> 当前候选：0.1.0-rc.1，提交0beeb21f46c4c40bc076b414471c086aeb9a28a4。安装自测进行中，请等开发者给出Ready结论再开始全面测试。未执行项不能填写通过，开发者范围见[自测报告](rc-self-test-report.md)。
+
+### 确定版本的下载与校验
+
+[RC1发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.1)，发布工作流36919331979全部成功；这是预发布候选，正式0.1.0尚未发布。macOS包实际下载SHA与发布digest相同；应用Developer ID签名、公证票据和Gatekeeper验证通过。Windows/Linux下面的SHA来自发布资产digest，尚未在这两种系统交互安装。
+
+| 平台/文件 | 下载 | SHA256 |
+|---|---|---|
+| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-arm64.dmg) | `e168b64370622dfbf6f5fc31776d7100c1f01c3597bb968f1d22259cbe0e69f3` |
+| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-arm64.zip) | `775b8791306800a4b9691ede8f8433ddf85e0f205b0e82425e91d17c2dac969b` |
+| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-Setup-0.1.0-rc.1.exe) | `822fb4ec6902ae40445e7f05eed6fe6b22850bf1abe075fb316f14f13611ed14` |
+| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-x64.AppImage) | `2b56b039fbff662206f4a96cbf95eeb63afecdc39f8a4f547a4382bf97ce6b9e` |
+| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-x64.deb) | `15df32fdcbaf506b0d5812303675741b2c07fb486278fbe7c1eb0930193f18b4` |
+| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/peer-darwin-arm64.tar.gz) | `a68778c97180afd76185195e5477035458758dc601e71541e8364847c79d5947` |
+| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/peer-linux-x64.tar.gz) | `358076f1781d3457caafba43ae55ac9b0bf8ac94bfcfd51463a0f052ae6947a1` |
+
+macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中完全相同。CLI解压后可执行文件在 `peer-darwin-arm64/` 或 `peer-linux-x64/` 内；`peer` 与 `peer-credential-helper` 保持同一目录。桌面和CLI均用rc.1，先运行 `peer --version` 确认。npm rc通道的实际安装验证见自测报告，未验证前不把“发布日志成功”当成安装通过。
 
 ## 1. 测试与发布顺序
 

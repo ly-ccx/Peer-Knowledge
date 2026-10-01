@@ -83,3 +83,9 @@
 ### 首次安装CLI真实凭据测试受阻
 
 实际Release构建CLI归档SHA256 a68778c9…5947 与发布资产digest相同，100×30 PTY版本/新目录Y绑定/帮助/机器人列表/持久输入与可见Received/Ctrl-C退出0通过。真实模型未执行工具：报“The credential helper timed out”。电脑工具另外确认当前Mac锁屏且自动解锁失败，已请求负责人手动解锁；是否钥匙串等待所致需同安装助手复验，不能先宣布根因或通过。证明[首轮](evidence/rc-installed-cli-locked-first-20261002.json)。仅本轮凭据副本已清除，项目README未改。源码后端多入口Pass仍不能替代这个安装CLI检查。
+
+### 实际安装轮换
+
+本次发布RC1的真实macOS应用已完成 `0.0.18 → beta.5 → rc.1 → 0.0.18 → rc.1` 五次实际客户端启动、窗口及生产API检查，全部通过、0页面错误，每个owned进程均退出。使用真实v0.0.18源模块生成旧数据，旧conversation/Goal/automation实体逐文件SHA未变，新增canonical输入原行未改，再升级workspaceId相同。[完整证据](evidence/rc-installed-upgrade-passed-20261002.json)。这轮不配置模型、不复制凭据，因此没有验证真实模型与钥匙串，也不代替Windows/Linux实际安装。
+
+下载ZIP/DMG/CLI SHA与GitHub资产digest相符。应用codesign严格及深层验证、Team82672N97RP、.app stapled ticket、spctl Notarized Developer ID均通过。DMG自身没有单独staple票据（校验返回65）；产品配置是在公证并staple.app之后包装ZIP/DMG，不把.app通过写为DMG自身票据通过。DMG完整性验证通过，其内部应用另行验证。npm发布日志20:15:23显示RC1发布成功，但本机首轮及后续查询404，安装尚未通过，继续核验注册表可用性。
