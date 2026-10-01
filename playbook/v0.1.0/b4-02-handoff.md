@@ -29,7 +29,7 @@ B4-02 IsolationPlanner、自动 worktree 与合回（Beta4）。
 ## 验证
 - `pnpm build`：通过。
 - `pnpm --filter @peer-agent/runtime-node test`：863/863 通过。
-- `pnpm --filter @peer-agent/desktop test`：5158 通过、5 既有跳过，无新增跳过。
+- `pnpm --filter @peer-agent/desktop test`：5159 通过、5 既有跳过，无新增跳过。
 - `node --test packages/protocol/src/*.test.ts`：172/172 通过。
 - `pnpm typecheck`、`pnpm architecture:check`、Desktop `ipc:check`、`git diff --check`：通过。
 - 新增覆盖：隔离矩阵/低磁盘恢复/七天保留，start/resume 不回退，租约拒绝，策略代签不擅自合回，当前用户卡作用域，冲突三种处置/重新验证，清理失败保留证据，设置原子保存，真实 Git 三 worktree 合回。

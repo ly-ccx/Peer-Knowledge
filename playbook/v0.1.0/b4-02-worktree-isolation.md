@@ -13,6 +13,7 @@ B4-01 代码 #77 与知识 #8 已合入，代码基线 `c2d997e7`，知识基线
 
 - IsolationPlanner 消费宿主事实，不另写 Git 执行链。只读为 none；非 Git 写任务为 none 并占原地写槽；Git 写任务在其他写任务进行中或工作区脏时 auto 选择 worktree。显式 none 遵守原地写槽，不能抢占。显式 worktree 在 Git 中必须获得真实隔离。
 - 持久化 requested isolation 与准备阻塞原因属于 DelegationOrigin；实际执行真值仍是 deliveryBinding。只有成功创建并验证的 worktreePath 才能绕过原地写槽。磁盘可用不足 2 GiB 或创建失败时保持 queued，后续重算可重试，不能回退到原工作区写入。
+- 磁盘闸门读取实际 worktree 目标卷，不以源仓库卷代替。目标目录还不存在时读取最近已存在的父目录卷。Automation worktree adapter 只新增只读 `getRootDir` 事实端口，让 Goal 创建与检查使用同一执行根；不改变 Automation 执行/权限链。
 - Supervisor 在准入前准备实际执行工作区，并串行保留其决策事实，随后才交给 B4-01 排序/预留/启动。宿主 start/resume 与每轮执行也检查隔离事实；隔离故障不静默回退。已有经典 Goal 路径保持原语义。
 - ADR 79 的目标分支从创建时实时 HEAD 固化，复用现有 Goal task branch/worktree adapter；不自动 stash 用户改动。
 - 复用现有 handoff。委托任务必须签收后才能合回；ADR 80 优先于卡片的简写，策略签收默认只产生合回确认，`autoHandoffOnPolicyAccept` 默认 false；用户明确确认合回或项目明确开启自动合回才执行。不会推送远端。
