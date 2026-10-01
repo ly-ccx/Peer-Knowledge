@@ -1,4 +1,4 @@
-# B4-R 发布交接（进行中）
+# B4-R 发布交接（完成）
 
 创建时间：2026-10-01
 最后更新：2026-10-01
@@ -39,12 +39,12 @@ A 级先登记，无新 IPC、工具、依赖、存储路径；main.mjs 未改�
 - 真实重复自动报告返回 suppressed 六次；关窗期间连续 0 BrowserWindow，宿主仍写入 canonical 回合和回复，重开正常。Owned 实例退出，临时凭据副本清理。
 - 真实 Actions 夹具失败 run 36851994140 → 重复失败 → 成功 run 36852488422 → 重启同一健康，共四条观察；各有实际 Call/Grant/Result/Evidence，仅一个 objective_signal 和一条实际模型失败通知（另有创建确认回复）。failure_only 无任务开工，目标已实际暂停，独立临时远端分支已删除。见 [真实模型脱敏证据](evidence/b4-r-real-model-20261001.json)。夹具故意失败不算产品 CI 回归。
 - B4-07 的实际生产 SDK 子进程 SIGKILL 十个断点 + baseline 共 11 通过；使用脚本模型，不冒充真实模型强杀。
-- macOS arm64 本地安装包首启、beta3→候选beta4→0.0.18→候选beta4 已跑；旧 canonical 消息逐条保留。见 [安装证据](evidence/b4-r-install-20261001.json)。本地包候选4470a3a1（后续修复前），正式 tag 产物仍须重验。
+- macOS arm64 本地安装包首启、beta3→候选beta4→0.0.18→候选beta4 已跑；旧 canonical 消息逐条保留。见 [安装证据](evidence/b4-r-install-20261001.json)。本地包候选4470a3a1（后续修复前）。正式 tag 产物已补首启 / beta3→beta4→0.0.18→beta4 五段验收，旧行逐条保留；签名/公证/Gatekeeper accepted，真实模型通过 packaged helper 回读任务 accepted，见 [正式包证据](evidence/b4-r-release-20261001.json)。
 - b9026929 双平台 CI 36852890685 通过；仅测试时钟修复的最终151b080c CI 36853412270 两平台通过。两个代码 Review 与两项知识 Review 已修复并解决。
 
 ## 发布状态
 
-代码 [PR #85](https://github.com/ly-ccx/Peer-Agent/pull/85) 已合入 dev `ca0736da83d0451099494cd7f30e532f174cef92`；`v0.1.0-beta.4` 已推送。[Release 工作流 36854035033](https://github.com/ly-ccx/Peer-Agent/actions/runs/36854035033) 正在构建。真实功能验收及本机完整门禁已完成。尚待实际 prerelease / npm beta 与正式签名包重验、版本计划 / D10 / 路线图回写。没有把五天负责人日用或 Windows/Linux 交互安装写为通过。
+代码 [PR #85](https://github.com/ly-ccx/Peer-Agent/pull/85) 已合入 dev `ca0736da83d0451099494cd7f30e532f174cef92`；[v0.1.0-beta.4](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-beta.4) 已于 2026-10-01T11:20:08Z 发布。[Release 工作流 36854035033](https://github.com/ly-ccx/Peer-Agent/actions/runs/36854035033) 全成功；三平台 Desktop、两平台 CLI、正式签名/公证和 npm job 均通过，14 个资产齐全。开发线 CI 36853990644 双平台成功。正式 macOS 包安装 / 配置模型回读及版本计划 §5.2 / §12.1、D10、路线图 #0 已回写。CLI npm 安装实际 `peer --version` 为 0.1.0-beta.4；四个包 `@peer-agent/protocol` / `runtime-core` / `runtime-sdk` / `cli` 已在公开 registry 核对 version 和 beta dist-tag 均为 `0.1.0-beta.4`。npm 初次可见性延迟来自发布日志明确的 processing，已解决，未重复发布或改 tag。五天负责人日用与 Windows/Linux 交互安装没有冒充通过。
 
 ## 架构影响
 
@@ -56,4 +56,4 @@ A 级事实连续性先写 ADR 80 / b4-r-release.md；权限真值仍在宿主�
 
 ## 未完成与后续
 
-实际 Release 产物与 npm 查询、正式 macOS arm64 包启动/升级/降级重验以及版本计划回写；完成后可进入 Beta5 多入口，不代表 0.1.0 GA 验收完成。
+B4-01 至 B4-08 / B4-R 功能、合入、prerelease、四个 npm beta 包和正式 macOS 包验收全部完成。接下来可进入 Beta5 多入口；五天日用、跨平台交互安装和 RC/GA 门禁继续保留。

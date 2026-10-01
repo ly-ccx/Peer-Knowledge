@@ -171,6 +171,8 @@ B4-08（独立）
 
 ## B4-R 发布 `0.1.0-beta.4`
 
+代码 [#85](https://github.com/ly-ccx/Peer-Agent/pull/85) 已合入 dev `ca0736da`，最终151b080c的 PR 双平台 CI 与合入后开发线 CI 均通过。[v0.1.0-beta.4](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-beta.4) 已于 2026-10-01T11:20:08Z 发布，Release 36854035033 全成功，14个资产齐全。真实三写任务并行/合回、取代恢复、失败 CI 去重、正式 macOS 安装升级降级证据见 [交接](b4-r-handoff.md)。版本计划 §5.2 / §12.1、D10、路线图 #0 已回写，GA 缺口未冒充通过。
+
 - **步骤**：版本计划 §10 检查单。
 - **证据**：版本计划 §12.1 beta.4 一行。
 - **退出条件**：prerelease 生成；版本计划 §5.2 更新。
