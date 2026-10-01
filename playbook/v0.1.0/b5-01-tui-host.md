@@ -25,6 +25,7 @@
 7. 同一宿主内所有回合复用同一个 GoalPlanStore，避免独立 store 的 runner overlay 覆盖任务证据。跨进程读缓存和待刷进度按文件版本失效，不覆盖新宿主已写入的状态。工具调度在异步 Hook 返回后再次检查租约；delegation/memory 返回标准 ToolResult.output，同时保留已有兼容字段。事件唤醒省略新用户消息，事实仍经既有 Context Source 入场。
 8. 完整链路测试可以在模型 Adapter seam 注入脚本模型；它仍执行实际 Pipeline、Manifest、Provider、Grant、Evidence 和持久化。测试替身不能作为真实模型运行的证据。
 9. 补齐只读工作会话的执行约束：从持久 GoalPlan 的 delegationOrigin 读取 readOnly，不依赖模型自述或提示。共享工作会话 Gate 拒绝写入、Shell、浏览器控制和未知副作用能力；只读工具及任务事实登记/提问仍可用。两端在投影阶段隐藏被拒绝的能力，并在 Provider 调度前（异步 Hook/批准之后）重查持久身份与租约。Skill 的说明读取不产生执行权限；MCP 未声明只读时按有副作用处理。
+10. 交接只挂起实际执行中的任务，不改写已完成、等待用户、待批准或用户手动暂停的状态。新宿主只自动恢复持久 `blockedReason: host_handoff`、原 phase 为 running 的交接暂停，并保留原执行 intent；普通暂停继续等待用户。补入共享 session-host-handoff 状态判定和 supervisor 恢复测试。
 
 ## 路径清单补齐
 
