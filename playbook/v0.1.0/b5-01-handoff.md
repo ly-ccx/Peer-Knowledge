@@ -5,7 +5,7 @@
 
 ## 卡片、分支与状态
 
-B5-01 TUI 运行时接入。基线 dev `ca0736da`；代码分支 `PeerAgent/pa/b5-01-tui-host`，代码 [PR #86](https://github.com/ly-ccx/Peer-Agent/pull/86)。实施契约见 `b5-01-tui-host.md`，先于代码登记。状态：Review / 最终双平台 CI 待完成，尚未合入。
+B5-01 TUI 运行时接入。基线 dev `ca0736da`；代码分支 `PeerAgent/pa/b5-01-tui-host`，代码 [PR #86](https://github.com/ly-ccx/Peer-Agent/pull/86)。实施契约见 `b5-01-tui-host.md`，先于代码登记。状态：本地 Review 与最终双平台 CI 通过，按负责人既有授权合入。
 
 提交：`220078bb` 共享宿主；`23761c4f` 恢复屏障；`dfb1e12c` 构造类型适配；`ea948630` 退出和切换项目的准入关闭。每次提交均已推送。
 
@@ -35,4 +35,4 @@ A 级共享提取及必要模型兼容、恢复、只读路径先在 Accepted �
 
 ## Review 与未完成
 
-本轮本地 Review 已修复恢复屏障和退出竞争。最终提交的 macOS / Linux CI 尚待完成；通过后按负责人已有授权合入。终端产品 UI / 录屏、手机页面 / 远程准入、完整 RC 自测矩阵、安装候选版与详细用户测试文档属于后续卡片，均继续执行。正式版本等待用户全面测试后明确确认。
+本轮本地 Review 已修复恢复屏障和退出竞争。最终 `ea948630` 的 [CI 36872310737](https://github.com/ly-ccx/Peer-Agent/actions/runs/36872310737) 已通过（macOS 4m9s、Linux 3m4s）。本地 Review 的两项缺陷均有先红后绿的回归记录，按负责人既有授权合入。终端产品 UI / 录屏、手机页面 / 远程准入、完整 RC 自测矩阵、安装候选版与详细用户测试文档属于后续卡片，均继续执行。正式版本等待用户全面测试后明确确认。
