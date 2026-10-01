@@ -11,6 +11,15 @@ A 级 provider wire 契约修复；ADR 28 §9 已 Accepted，先于代码变更�
 与 `responses-encoder.test.mjs`。若真实集成揭示另一处原因，应单独记录边界与修复。
 不改已发布 beta.5 tag；修复随 RC 候选包交付。
 
+2026-10-02 搜索真实 TUI 路径后补齐范围：
+`packages/runtime-node/src/chatgpt-responses-provider.ts` 及其测试、
+`packages/runtime-node/src/provider-encoders/responses-encoder.mjs`、
+`packages/runtime-node/src/provider-encoder.test.mjs`、
+`packages/runtime-node/src/model-provider-contracts.ts`（只新增选填 `strict?: boolean`）。
+共享 provider request 的 strict 策略与 ADR 28 §9 相同，不改变 Capability Manifest、
+Projection 或 Tool Call 的执行协议。TUI 真实调用走该共享 provider；漏修会导致入口语义分裂。
+现有重复 encoder 的后续 seam 是合并到共享实现，本卡不做整套消息编码迁移。
+
 ## 必须证明
 
 1. 先写失败测试：未声明 strict 的嵌套 / 扁平工具均显式非 strict，选填字段与 required 不被改写。
