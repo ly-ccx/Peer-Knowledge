@@ -25,7 +25,7 @@ ADR 82 Accepted，高于卡片旧 successCondition/trigger 草图；每次观察
 - Runtime 完整 915 通过；Desktop 完整 5190 通过、0 失败、5 既有跳过；Protocol 原生完整 173 通过。
 - 生产宿主 / LocalToolHost 的集成：真实输入创建、UI 权限事实、重试与后续修改、跨项目/伪造拒绝、Goal 绑定、默认确认签收后实际 Evidence 达成；经典/无租约无写入。
 - 最初白名单快照因新增七个工具失败，已更新明确预期并完整回归；未删除断言/新增 skip。
-- [代码 #82](https://github.com/ly-ccx/Peer-Agent/pull/82) 的三条 Review 已红→绿修复并解决，最终提交 bc55d53b 的双平台 CI 36843004699 待完成；真实模型/UI/发布验收留 B4-R，测试使用脚本模型。
+- [代码 #82](https://github.com/ly-ccx/Peer-Agent/pull/82) 的三条 Review 已红→绿修复并解决，最终提交 bc55d53b 的双平台 CI [36843004699](https://github.com/ly-ccx/Peer-Agent/actions/runs/36843004699) 全部通过，2026-10-01 合入 dev 2172597a；真实模型/UI/发布验收留 B4-R，测试使用脚本模型。
 
 ## Review 修复
 - 普通暂停/已达成目标也要求明确恢复；代理提议识别英语 not/cannot/won’t 拒绝。
@@ -39,4 +39,4 @@ A 级 ADR 82 与配套知识 #13 先审。目标为跨任务计划，GoalPlan �
 配套知识 #13 与数据子路径清单同步；旧 Automation 与目标并存。背景检查留 B4-05、自主回合及提议卡留 B4-06。
 
 ## 未完成与后续
-Review/CI 后按已获授权合入，继续 B4-05、B4-06、B4-R；Beta4 未发布。
+已按负责人授权合入代码 #82（2172597a）；继续 B4-05、B4-06、B4-R；Beta4 未发布。
