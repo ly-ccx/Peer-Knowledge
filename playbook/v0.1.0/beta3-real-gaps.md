@@ -13,7 +13,7 @@
 ## 契约与实现要点
 1. 对结构化自动标准，派发身份由项目/父会话、用户锚点集合、任务种类、只读属性、验收操作参数、依赖及 supersedes 确定；标题、brief、标准描述/id 的措辞不产生新任务。没有自动标准时保留原严格请求幂等。不同标准、不同锚点或显式 supersedes 不合并；旧记录从持久化 Plan 重建匹配，不批量迁移。不得用模糊文本相似度推断权限或任务等价。
 2. 成功 read_file/list_files/search_files 的已有 Provider Tool Result 在既有 EvidenceIndex 追加限长、脱敏的 `bodyPreview`（kind=file、text、truncated）；仅从真实执行结果采集，不采信 assistant/goal wrapper 声明。正文披露使用执行时快照，不重新读取当前文件；历史无快照记录保留 NOT_FOUND。不得索引取消、失败或伪证据正文。核验器沿既有 user 事实输入接缝接收本计划叶子/标准引用的索引快照（总正文最多 12000 字符），明确为非可信指令的执行事实，不提升到系统层；passed 报告必须含可归属索引快照或本轮真实 Tool Result 的引用，缺失/伪造按现有一次格式修复处理。
-3. Goal completed 的事实必须唤醒项目代理，不要求先有由 settle 产生的 verdict。该事件只说明有结果待核验/汇报，不证明签收。事件幂等以稳定完成时间标识，不因后续 acceptance 更新重复唤醒。
+3. Goal completed 的事实必须唤醒项目代理，不要求先有由 settle 产生的 verdict。该事件只说明有结果待核验/汇报，不证明签收。事件幂等以稳定完成时间及最新 runner verifier 终态修订标识；完成标识先于核验落盘时，核验终态另唤醒一次，不因后续 acceptance/updatedAt 更新重复唤醒。
 4. 代理对话中针对已完成、尚未关联交付的用户锚点回复，必须引用相应 session，宿主返回缺失引用及当前状态，沿用 statusClaims 校验；不把模型正文当来源。正式独立核验仍走 verify_session，缺少独立核验不允许 policy 签收；针对 result_ready 的交付回复若独立核验缺失，返回 verification_required 让模型沿既有工具补核验。回复落盘后才签收；人工标准及 confirm 策略仍走用户确认。开始执行时的回复不算已交付，只有引用相应 session 且持久化状态为 result_ready/accepted 的回复才算。
 5. 熟悉项目 verified 记忆只来自已关联回复、真实核验结论及可解析 Evidence；来源集合中无法读取的 wrapper 引用不进入 verified 记忆，完全无可读取来源时不写记忆。真实的 project_agent 画像在 memory Provider 通过既有嵌套 toolContext 准入，worker 仍不能写记忆；宿主保留的 lifecycle-research 锚点只代表熟悉项目请求，不能被 memory_remember 用来把文件事实写成 stated；来源事实不能自动变成 stated 或指令。所有记忆继续经过现有准入与撤销机制。
 

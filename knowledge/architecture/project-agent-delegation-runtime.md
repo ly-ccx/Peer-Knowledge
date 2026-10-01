@@ -549,3 +549,5 @@ function decideSurfacing(input: {
 - 真实复跑补充：`independentVerifier=missing` 必须进入既有 `verificationBelowFloor` 签收闸门；`result_ready` 来源的 `post_reply` 若未补独立核验，返回 `verification_required`，由模型走既有 verify_session/Provider 链重试，不由生命周期直接运行核验。宿主保留的 `lifecycle-research-*` 锚点不能作为 memory_remember 的 stated 来源（它是文件熟悉请求，不是用户陈述文件事实）。
 
 - 核验器事实输入补充：既有 verifier user 请求可携带本计划叶子/标准引用对应的 EvidenceIndex 文件快照，总正文限 12000 字符。执行正文是 factual/untrusted context，不能成为系统指令。passed 报告的 evidenceRefs 必须非空且归属于这些已索引快照或本轮真实 Tool Result；缺失/伪造报告仅走现有一次格式修复，随后失败，不制造引用或弱化验收。
+
+- 完成唤醒竞态补充：既有 runner.verifierRuns 的最新终态记录（runId/status/completedAt）作为结果事实修订标识。completed 状态先于核验落盘时，核验终态修订仍须产生一次 result_ready 事件；它只要求代理重读宿主事实，不宣称核验通过。普通 acceptance/updatedAt 更新不重复唤醒。
