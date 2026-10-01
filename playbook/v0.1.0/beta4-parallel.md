@@ -11,8 +11,7 @@
 并行关系：
 
 ```text
-B4-01 → B4-02
-B4-01 → B4-03
+B4-01 → B4-02 → B4-03
 B4-01 → B4-07
 B4-04 → B4-05 → B4-06
 B4-08（独立）
@@ -65,13 +64,13 @@ B4-08（独立）
 
 代码 [#79](https://github.com/ly-ccx/Peer-Agent/pull/79) 已提交，实施契约见 [B4-03 边界](b4-03-session-continuity.md)，验证见 [交接](b4-03-handoff.md)。本地完整门禁通过，当前提交等待双平台 CI 与 Review。
 
-- **级别**：A（ADR 80 决策 7）。**规模**：M。**依赖**：B4-01、B3-02。
+- **级别**：A（ADR 80 决策 7）。**规模**：M。**依赖**：B4-01、B4-02、B3-02。
 - **目标**：用户改主意时旧任务被取代但不丢；说「还是按原来的」可以恢复；排队的任务可以调整。
 - **允许改动**：`session-supervisor.mjs`、`delegation-provider.mjs`、`tool-specs.mjs` 与测试；`goal-plan-store.mjs`（`supersededBy` 字段）；`tools/prompts/delegation/*.md`；渲染层处置标记与任务分组。
 - **实现要点**：
   - `spawn_session.supersedes: sessionId`：旧任务暂停（不取消），状态 `superseded`，记录 `supersededBy`；工作成果保留（worktree 不删）。
   - 新工具 `resume_session { sessionId, anchorMessageId }`：恢复被取代或暂停的任务，同时暂停取代它的任务（若仍在进行）。
-  - 新工具 `reprioritize_session { sessionId, priority }`。
+  - 新工具 `reprioritize_session { sessionId, priority, anchorMessageId? }`。
   - 取代链在档案任务页可见（「被『Y』取代」「恢复」按钮）。
   - 被取代超过 7 天未恢复 → 自动取消并清理，事件通知代理（静默送达）。
 - **必须新增的测试**：取代 → 恢复 → 再取代；成果保留；7 天自动清理；排队调整。
