@@ -25,3 +25,7 @@ main.mjs净增0，不扩展ChatSurface/Sidebar/LlmSettingsPanel/TUIapp。验证�
 搜索同一请求重复构建目录：directory.search 读取全部机器人；readSearchCorpus 再 directory.list。允许 B 级内部端口修复：directory.query 返回同一投影的 `{items,catalog}`；应用服务与 desktop corpus 消费该快照，保留 legacy search port 兼容与实时语料指纹失效。没有新的 IPC、存储、授权或 Context 契约。
 
 新增允许文件：`packages/runtime-node/src/project-agent/bot-directory.mjs` 及测试；`apps/desktop/electron/main/project-agent/project-agent-application-service.mjs` 及测试；`apps/desktop/electron/main/project-agent/project-agent-host.mjs` 与 `desktop-integration.test.mjs`（必要时）。每个性能修复单独提交，报告改前改后完整样本；不能删除初始失败。
+
+搜索修复首轮：5次 search 中位128.86ms，首次索引124.29ms，均<150ms；list54.98ms，其他模块预算通过。原始报告是实施中 dirty tree 的测量，最终精确HEAD仍须重跑。
+
+另外发现全量记忆索引重建3427ms：`fts-index.rebuild` 清空后仍对每行在 FTS 虚表按未索引 id 执行 DELETE，随着数据增长形成重复扫描。允许 `packages/runtime-node/src/sqlite/fts-index.mjs` 与测试做 B 级可丢弃索引性能修复：全量重建按 id 最后值去重后直接插入，保留普通 upsert 替换、短词/中文查询、失败 rollback 与缓存可重建语义。不改 SQLite schema、真源 JSONL、记忆准入或 Evidence；独立提交并报告冷重建改善，不把热查询伪称冷重建。
