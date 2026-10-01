@@ -55,3 +55,7 @@ QuickChat设置修复后发现既有B3-11的project-agent:list/submit-input同�
 复查真实入口时发现runtime-host.sync([workspaceId])把本次requested集合当作全局注册表，drop其它已就绪runner。Desktop多个原入口都用单项目sync，可能令其它正在运行机器人丢掉临时回合/Watch状态。必须补齐B级内部宿主修复，不改变租约/存储/调度协议：允许`packages/runtime-node/src/project-agent/runtime-host.mjs`及新`runtime-host.test.mjs`。局部sync只推进指定项目；清退仍依据完整有效项目目录及当前真实租约。全量sync行为保持。测试须先红：局部唤醒B保持A同一runner且在途回合能提交、未请求但租约失效/目录移除仍清退、零额外模型回合。独立修复提交并复跑真实窗口/全门禁。
 
 局部唤醒修复回归已先红后绿：在A回合等待执行器返回时唤醒B，A保留同一runner、signal未取消、A/B各提交一次真实canonical回复、后续全量sync不重跑；未请求的B失去租约或被移出目录仍清退。两个隔离回归测试通过。初始新测试fixture未传rootDir，误用了默认路径并生成a/b测试运行目录；发现后按单条fixture输入ID/正文/时间及完整文件白名单核对并仅移除本次生成的两目录，未改既有UUID项目或设置；测试改mkdtemp隔离并再次完成先红后绿。此fixture错误与修复保留，不能称首次自测毫无失败。生产修复单独提交d70eb87a，追加preload测试进入全仓门禁；最终完整门禁与精确HEAD真实/脚本性能继续重跑。
+
+## 真实快档首轮与测量隔离补充（2026-10-02）
+
+Luna首轮真实生产请求两次返回HTTP200但均无文字/工具（input tokens8427/8471，output4），canonical生成agent_unavailable empty_model_response；失败后该runner按既有策略等待用户重试，后续测量输入排队。因此不能将后续150秒等候当作模型响应性能。保留全部首轮失败样本；测量脚本改为同一隔离home的5个独立机器人各1轮，避免一个供应商失败阻塞其它样本。报告明确独立项目，不代替同机器人连续聊天验收。失败只输出受控错误码/阶段/终态，不复制用户正文或密钥；SIGINT/SIGTERM只取消当前测量并经finally关闭本轮登记进程、清除凭据副本。允许该脚本及同目录纯测量辅助模块/聚焦测试。预算仍6秒，不能以测试独立作为达标。
