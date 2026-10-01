@@ -106,6 +106,23 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 - 不把机器人档案或记忆写进 `settings.json`。
 - 不在后台任务里驱动用户眼前的内嵌浏览器。
 
+## RC-03 诊断导出边界（2026-10-02，Accepted）
+
+负责人已授权自主完成所有 RC 修复和自测。本节在代码实现前确定新的 IPC/元数据边界（A级）；装配与投影实现为 B级。诊断是用户发起的本机可观测性操作，不能改变租约、输入消费、批准、调度或探测状态，也不向模型投影工具。
+
+- `project-agent:diagnostics`只授予已登记 main 窗口顶层 frame 与精确本地 origin；Quick Chat、Popover、远程均拒绝。协议请求只选择读取/导出，不能提供文件路径、工作区路径或任意文件名；scope 来自当前已登记机器人。
+- 可移植诊断 Module 投影每个机器人的租约持有方、输入深度与游标、收件箱游标/最近 200 事件、待批准、调度槽位与排队、目标/Watch 状态、最近 20 次代理回合耗时/结果。深投影只允许固定枚举/数字/经校验时间，标识与文本以长度+SHA256 表示；绝对路径、正文、工具参数/结果、凭据、原错误文本永不进入导出。工作区自身路径投影为`.`，范围内的引用仅保留相对路径；范围外路径不导出。
+- 数据来自既有 store/host 的只读快照，不调用 consume、commit、recover、reconcile、reserve 或模型。没有宿主/旧记录缺少时间字段时返回明确 unknown/null，不能估算或冒充已测量。损坏来源以固定错误码标注，不能返回携带路径/正文的异常 message。
+- 从本版开始，既有`agent_turn`消息的 meta 追加可选`diagnosticTiming`：startedAt/finishedAt/durationMs/outcome。在同一代理作业内实测，包含该作业中的模型重试，结果限 done/error/preempted；不改写已有历史，不把回合完成当用户签收/Evidence。已处置且没有可写消息的作业不会生成虚假的持久完成事实。
+- 桌面 Adapter 由 main 原生保存对话框选择目标，先脱敏投影后原子写单个 JSON；取消不写，失败保留原目标，不返回原始错误。renderer 仅显示脱敏投影/结果，不使用 fs 或权限真值。输出不是新的自动存储目录；现有数据登记不变。
+
+验证：真实来源含密钥模式/绝对路径/原文的恶意夹具、损坏源、旧回合缺字段、200/20 边界、原状态文件与游标校验和不变；IPC 合法 main 与外来窗口/frame 拒绝；保存取消/失败/原子写；真实 Electron 导出脱敏样本。
+
+
+## RC03 只读注册表补充（2026-10-02，Accepted）
+
+诊断自审发现 Registry.get/list 在注册表损坏时会备份并修复，这不符合诊断只读合同。新增 Registry.diagnosticSnapshot：每次读取及完整验证原文件，缺失返回空数组，损坏抛出固定 CORRUPT_REGISTRY；不备份、不修复、不创建目录、不更新内存身份。返回条目副本。原 get/list/sync 的恢复行为保持。Desktop 诊断只从该快照与只读 active profile ID 交集读取项目；注册表损坏投影 PROJECTS_UNAVAILABLE，导出本身不得触发修复。原 resolveConversationId 已有只读 profile 查询可沿用。
+
 ## RC 验证补齐：快捷聊天窗口准入（2026-10-02，Accepted）
 
 真实Electron验证发现B3-11机器人快捷聊天已调用project-agent:list和project-agent:submit-input，但catalog未授予quick-chat角色，导致列表与发送被拒绝。按既有产品入口补齐这两个通道的quick-chat角色；这属于A级窗口准入修复，负责人已授权自主收口全部RC，未引入新能力/工具/IPC。主进程仍以已注册窗口、顶层frame和精确本地origin为准，renderer的URL或role字符串不构成授权真源。
