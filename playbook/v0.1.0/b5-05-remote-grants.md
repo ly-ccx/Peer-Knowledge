@@ -12,7 +12,7 @@ renderer只读取已有projectAgentList与remoteAccess状态、通过已有updat
 
 ## 必要路径
 
-RemoteAccessPanel、拆出的状态纯函数/子面板/CSS/测试；SettingsPage只传i18n；已有boolean-controls Checkbox/Switch与BotAvatar复用，不改。bootstrapPreloadApi typed合同、register-remote-access-ipc和测试；controller/setup及测试补最近访问只读状态；main仅依赖注入readLastAccess，净增≤0。i18n补remoteAccess资源模块与index接缝（两语言相同key，不继续堆巨大字典）。不碰LlmSettingsPanel/ChatSurface/Sidebar；无新依赖/存储/模型能力。
+RemoteAccessPanel、拆出的状态纯函数/子面板/CSS/测试；SettingsPage只传i18n；已有boolean-controls Checkbox/Switch与BotAvatar复用，不改。protocol新增remote-access-settings.ts及index导出（设置/patch/访问摘要契约，bootstrapPreloadApi改为协议type alias，不继续在renderer扩展合同）；register-remote-access-ipc和测试；controller/setup及测试补最近访问只读状态；main仅依赖注入readLastAccess，净增≤0。i18n补remoteAccess资源模块与index接缝（两语言相同key，不继续堆巨大字典）。不碰LlmSettingsPanel/ChatSurface/Sidebar；无新依赖/存储/模型能力。B5-04的protocol index导出先待CI/合入，再补本卡导出，避免同文件在制冲突。
 
 ## 验证
 
