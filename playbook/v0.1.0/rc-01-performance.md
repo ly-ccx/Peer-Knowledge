@@ -49,3 +49,7 @@ Responses修复代码PR #92已合入 5ef4659f（精确tip9fc18b78，CI3689040175
 QuickChat设置修复后发现既有B3-11的project-agent:list/submit-input同样漏入角色目录。先更新ADR85 Accepted补充窗口准入边界，新增允许`electron/ipc/channels.mjs`（仅这两个channel加入quick-chat，popover保持拒绝）、`electron/main/ipc/trusted-window-registry.test.mjs`，按生成流程更新preload.cjs；main净增0、没有新channel或批准权限。真窗口须实际QuickChat发送并由租约宿主持久化一次。
 
 真窗口修复首轮通过（dirty tree，最终clean HEAD待重跑）：200机器人、五次输入可见Received中位57.2ms、真实QuickChat列表/quick_chat输入仅一条、10000消息向上加载、更改档案设置tab、经典↔机器人列表且200身份保留，pageErrors0、角色拒绝0、owned进程退出。完整应用从脚本launch到window ready约31s单列，不能写成模块cold inbox 311ms。测试脚本中首次30s启动等待、回复与列表预览的同文定位及设置覆盖经典侧栏的测试定位问题均已修正，没有改预算或删除初始产品失败。
+
+## 定向唤醒跨机器人丢宿主问题（2026-10-02）
+
+复查真实入口时发现runtime-host.sync([workspaceId])把本次requested集合当作全局注册表，drop其它已就绪runner。Desktop多个原入口都用单项目sync，可能令其它正在运行机器人丢掉临时回合/Watch状态。必须补齐B级内部宿主修复，不改变租约/存储/调度协议：允许`packages/runtime-node/src/project-agent/runtime-host.mjs`及新`runtime-host.test.mjs`。局部sync只推进指定项目；清退仍依据完整有效项目目录及当前真实租约。全量sync行为保持。测试须先红：局部唤醒B保持A同一runner且在途回合能提交、未请求但租约失效/目录移除仍清退、零额外模型回合。独立修复提交并复跑真实窗口/全门禁。
