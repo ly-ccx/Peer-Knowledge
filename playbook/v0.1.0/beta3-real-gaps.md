@@ -35,4 +35,31 @@ main.mjs 净增 0；无 sendMessage 新参数、IPC、新存储路径、新依�
 先红后绿：跨回合/重启同标准不同措辞重放、不同锚点/标准/supersedes不合并；成功文件读取/列表/搜索的脱敏限长快照可披露，失败/取消与 wrapper 不伪造；completed 无 verdict 唤醒只一次；漏引用结果拒绝、普通问答不受影响；熟悉项目实际完成事件→核验→关联回复→签收/确认→verified记忆及查撤恢复；嵌套 project_agent 画像通过但 worker 拒绝。定向、受影响包、typecheck、architecture、build、CI通过，隔离真实模型复跑三场景、清理拥有的实例与凭据。未满足项明确列出，不伪造 Beta3 全面完成。
 
 ## 实现交接
-待实施。
+
+### 卡片
+三个原始 P1 已修复并通过限定实机验收；整个 Beta3 发布验收仍未完成。
+
+### 分支与提交
+代码最新 `b084c1b85fb9b0ea92322b77eebb49dec69696a3`，代码 PR [#76](https://github.com/ly-ccx/Peer-Agent/pull/76)。两仓分支均为 `PeerAgent/pa/beta3-real-gaps`，全部提交已推送。
+
+### 改了什么
+结构化自动任务幂等；文件执行 Evidence 快照与披露；完整委派事实巡检与完成/核验终态唤醒；来源及独立核验闸门；熟悉项目 verified 记忆、嵌套角色准入及 research 锚点来源约束；核验 user 事实输入有界快照与真实引用校验。未增加执行通道。
+
+### 与卡片的偏差
+前置 #75/#5 未合入，依赖候选堆叠与代码 CI base 调整见上方。真实复跑额外暴露核验正文/引用与完成先于核验落盘的竞态，均在本卡允许的接缝内修复；不更改 Goal pump、权限或人工 DoD。
+
+### 验证
+- 最新代码 pnpm build、typecheck、architecture:check、pnpm test 全通过；runtime-node 835/835、desktop 5146 通过/原有 5 skipped、system-context 29/29、TUI 712 通过；无新增跳过或失败。
+- 定向来源/核验/记忆 60/60、核验事实与引用 16/16、完成核验唤醒 11/11；对应新增故障先红后绿。
+- 最新 SHA 双平台 CI [macOS](https://github.com/ly-ccx/Peer-Agent/actions/runs/36813719626/job/110214127295)、[Ubuntu](https://github.com/ly-ccx/Peer-Agent/actions/runs/36813719626/job/110214127511) 全通过。
+- 隔离生产 Electron + GLM-5.3-flash：一个自动任务保持一个，零窗口时核验/代签并继续保持 83.2 秒；原始文件 Evidence 可披露。熟悉项目先守住人工 DoD 闸门，经既有确认接口批准后核验、关联回复、policy 签收与 1 条 verified 记忆落盘；6 个来源正文全部可读，忘记后 active 查询为空、恢复后为一条。拥有的进程退出，隔离凭据副本已删除，未修改日常 ~/.peer-agent。
+- 脱敏事实证据：`evidence/beta3-real-gaps-20261001.json`。旧候选失败仍保留，不能当作本次通过。
+
+### 架构影响
+A 级契约先行。EvidenceIndex 可选有界 file 正文；独立核验、结果来源、记忆身份及签收由宿主事实约束。System Context 仍走既有 Source/adapter；main.mjs 净增 0，无新 IPC/存储路径/依赖/sendMessage 参数。
+
+### 文档偏差
+耐久契约与复跑证据均在 Peer-Knowledge。原真实验收 PR #6 不改写；无代码仓知识目录新增。
+
+### 未完成与后续
+真实复跑仍出现同一结果重复汇报、正文状态及会话名称表述不准确；熟悉 worker 还调用既有只读 shell 工具，未严格遵守 file-tool-only brief。本卡不宣称这些已解决。五日使用、人工确认按钮界面验收、Beta4 与发布另行完成；未合并任何 PR。

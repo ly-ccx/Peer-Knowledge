@@ -1,0 +1,182 @@
+{
+  "date": "2026-10-01",
+  "runId": "peer-beta3-real-ukKAMs",
+  "sourceHead": "b084c1b85fb9b0ea92322b77eebb49dec69696a3",
+  "model": "glm-5.3-flash",
+  "method": {
+    "application": "production Electron in an isolated temporary PEER_AGENT_HOME",
+    "project": "git archive HEAD; nonempty tracked project, without .git",
+    "credentials": "encrypted configuration copied only for replay; copies removed after owned stop",
+    "confirmation": "existing preload goalPlansRecordManualConfirmation + goalRunnerResume, interface acceptance rather than UI button acceptance"
+  },
+  "automatic": {
+    "planCount": 1,
+    "sessionId": "73b55595-a33c-4d2e-bd7a-9cfb70059009",
+    "successCriteria": [
+      {
+        "id": "c1",
+        "kind": "file-contains",
+        "description": "根目录 package.json 内容包含项目名 peer-agent",
+        "path": "package.json",
+        "expect": "peer-agent"
+      }
+    ],
+    "hostVerification": {
+      "independentVerifier": "passed",
+      "verifierModel": "glm-5.3-flash",
+      "sameFamilyAsWorker": true,
+      "verdictRef": "verdict:73b55595-a33c-4d2e-bd7a-9cfb70059009:passed"
+    },
+    "resultAcceptance": {
+      "acceptedAt": "2026-10-01T04:09:19.198Z",
+      "acceptedBy": "policy",
+      "verdictRef": "verdict:73b55595-a33c-4d2e-bd7a-9cfb70059009:passed"
+    },
+    "replyCount": 5,
+    "acceptedWhileZeroWindows": true,
+    "zeroWindowSamples": 83,
+    "zeroWindowFrom": "2026-10-01T04:09:18.652Z",
+    "reopenedAt": "2026-10-01T04:10:42.371Z",
+    "holdAfterAcceptanceSeconds": 83.2,
+    "noAdditionalAutomaticPlan": true
+  },
+  "fileDisclosure": {
+    "evidenceRef": "tool-result://chatcmpl-tool-a004344d7b5c0625",
+    "ok": true,
+    "kind": "file",
+    "summaryChars": 2000,
+    "summaryExcerpt": "{\n  \"name\": \"peer-agent\",\n  \"version\": \"0.1.0-beta.3\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"packageManager\": \"pnpm@10.22.0\",\n",
+    "truncated": true
+  },
+  "familiarity": {
+    "sessionId": "05e5021e-fd4e-4b8b-9adf-75385de72d91",
+    "manualGateBeforeApproval": {
+      "reason": "manual_dod_confirmation_required",
+      "acceptance": null,
+      "manualCount": 0
+    },
+    "manualConfirmations": [
+      {
+        "confirmationId": "9d450ba1-b9da-4de2-968b-42285cf9d6e8",
+        "kind": "manual_dod",
+        "decision": "approve",
+        "criterionIds": [
+          "c1",
+          "c2"
+        ],
+        "decidedAt": "2026-10-01T04:10:59.332Z",
+        "decidedBy": "user",
+        "feedback": "Isolated replay: actual indexed read-only Tool Results inspected."
+      }
+    ],
+    "hostVerification": {
+      "independentVerifier": "passed",
+      "verifierModel": "glm-5.3-flash",
+      "sameFamilyAsWorker": true,
+      "verdictRef": "verdict:05e5021e-fd4e-4b8b-9adf-75385de72d91:passed"
+    },
+    "resultAcceptance": {
+      "acceptedAt": "2026-10-01T04:11:17.499Z",
+      "acceptedBy": "policy",
+      "verdictRef": "verdict:05e5021e-fd4e-4b8b-9adf-75385de72d91:passed"
+    },
+    "memoryRecorded": true,
+    "acceptedReplyCount": 1,
+    "linkedLearnedMemoryIds": [
+      "mem-e9540ff3-425e-41a1-8bea-4cb52636e0aa"
+    ]
+  },
+  "verifiedMemory": [
+    {
+      "id": "mem-e9540ff3-425e-41a1-8bea-4cb52636e0aa",
+      "trust": "verified",
+      "status": "active",
+      "textExcerpt": "只读熟悉「Peer-Agent 验收」已完成并通过独立验证（verdict passed，2026-10-01T04:11:08Z）。\n\n已确认事实（证据：会话 双系统-deskpu 的 tool-result 引用 a170c9aa… 等）：\n- 根目录 package.json：项目名 name",
+      "sourceRefs": [
+        "tool-result://chatcmpl-tool-a170c9aa4f168c8f",
+        "tool-result://chatcmpl-tool-aabeecf15cddb9e1",
+        "tool-result://chatcmpl-tool-952a8d789dc1cda2",
+        "tool-result://chatcmpl-tool-b6a5892edffc1ba7",
+        "tool-result://chatcmpl-tool-a023d1aad9eb22ce",
+        "local-shell-artifact://shell_0ac58185-d8c2-4f0b-8d1c-d03a782695a2/stdout"
+      ],
+      "allSourceBodiesReadable": true,
+      "sourceBodyKinds": {
+        "tool-result://chatcmpl-tool-a170c9aa4f168c8f": "file",
+        "tool-result://chatcmpl-tool-aabeecf15cddb9e1": "file",
+        "tool-result://chatcmpl-tool-952a8d789dc1cda2": "file",
+        "tool-result://chatcmpl-tool-b6a5892edffc1ba7": "file",
+        "tool-result://chatcmpl-tool-a023d1aad9eb22ce": "command",
+        "local-shell-artifact://shell_0ac58185-d8c2-4f0b-8d1c-d03a782695a2/stdout": "command"
+      }
+    }
+  ],
+  "memoryReversal": {
+    "forgetOk": true,
+    "activeCountAfterForget": 0,
+    "restoreOk": true,
+    "activeCountAfterRestore": 1,
+    "viaExistingProjectMemoryPreload": true
+  },
+  "cleanup": {
+    "ownedStopOk": true,
+    "ownedProcessExited": true,
+    "credentialCopiesRemoved": true
+  },
+  "validation": {
+    "build": true,
+    "typecheck": true,
+    "architectureCheck": true,
+    "fullTest": {
+      "runtimeNodePass": 835,
+      "desktopPass": 5146,
+      "desktopExistingSkipped": 5,
+      "systemContextPass": 29,
+      "tuiPass": 712,
+      "fail": 0
+    },
+    "focusedPass": 60,
+    "verifierFocusedPass": 16,
+    "completionWakeFocusedPass": 11,
+    "ci": [
+      {
+        "name": "ci-macos-14",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36813719626/job/110214127295"
+      },
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "SUCCESS",
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36813719626/job/110214127511"
+      }
+    ]
+  },
+  "priorReplayFindings": {
+    "candidate": "c5e08c10",
+    "policyAcceptedWithoutIndependentVerification": true,
+    "verifiedMemoryMissing": true,
+    "fileFactsMisclassifiedAsStated": true,
+    "fixedBy": "197b11d7; verifier snapshots completed in 92ae5a88",
+    "regressionTests": "three focused cases failed before the corresponding fixes, then passed"
+  },
+  "verifierInputGapReplay": {
+    "candidate": "197b11d7",
+    "emptyReferencePassRejectedByGoalRunner": true,
+    "indexedBodiesAbsentFromVerifierInput": true,
+    "fixedBy": "92ae5a88"
+  },
+  "completionWakeGapReplay": {
+    "candidate": "92ae5a88",
+    "completedEventConsumedBeforeVerifierFinish": true,
+    "noWakeAfterTerminalVerifier": true,
+    "fixedBy": "b084c1b8"
+  },
+  "limits": [
+    "One bounded real GLM replay, not a five-day usage observation.",
+    "Equivalent-prose and restart behavior is covered by scripted tests; real replay only proves one automatic task remained one.",
+    "Manual DoD was confirmed through the existing interface; confirmation-button layout was not validated.",
+    "Repeated result reports and prose acceptance-status phrasing still need product work; task identity, host state and memory provenance are the asserted facts.",
+    "The familiarity worker also called existing read-only shell tools despite the file-tool-only brief; this card does not claim file-tool-only execution.",
+    "No Beta4, release or PR merge performed."
+  ]
+}
