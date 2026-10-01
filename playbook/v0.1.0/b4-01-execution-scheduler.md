@@ -24,5 +24,7 @@
 - 既有 spawn priority 已暴露：tool-specs.mjs 与测试仅收敛为 high/normal/low，工具提示的同一已登记 adapter 同步说明；不新增工具。
 负责人于 2026-10-01 明确批准：“允许，按实施边界完成 B4-01”。上述路径属于本卡已授权范围。
 
+补充：2026-10-01 负责人批准 goal-plan-store.mjs 及测试，修复存储归一化丢弃 priority 的问题，只保留 high/normal/low，不新增阶段值。
+
 ## 验证与退出
 必须覆盖项目/全局上限、只读与写任务并行、真实 worktree 判定、优先级与防饿死、依赖未签收/成功/失败、重启 FIFO、异常/取消归还、等待取消不执行、同一任务不重复启动、宿主生产装配和设置保存。完整 build、typecheck、architecture、受影响包测试与双平台 CI，通过后交接 PR，不自行合并。
