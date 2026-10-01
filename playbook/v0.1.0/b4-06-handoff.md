@@ -7,7 +7,7 @@
 B4-06 自主档位；负责人授权完成全部 B4、必要路径、Review、合入及发布。
 
 ## 分支与提交
-- 代码 PR #84；知识 PR #15；代码 441d22fb，Review/CI 运行中。
+- 代码 PR #84；知识 PR #15；代码 441d22fb + 后续自身复核修复（实际同目标独立核验、暂停签收及陈旧提议），最终 CI/Review 待确认。
 - PeerAgent/pa/b4-06-autonomy；基线 dev efb9ec9b（B4-05 已合入）。
 - feat(objectives): enforce durable autonomy and frozen user proposals
 
@@ -23,7 +23,7 @@ B4-06 自主档位；负责人授权完成全部 B4、必要路径、Review、�
 
 ## 验证
 - 全仓串行 build、typecheck、architecture:check、IPC、diff check 通过；并行旧 dist 清理竞态在 B4-R 收口。
-- Runtime 940；Desktop 5196 通过、5 既有跳过；Protocol 173；System Context 32。
+- Runtime 941；Desktop 5196 通过、5 既有跳过；Protocol 173；System Context 32。
 - 针对 Provider/Supervisor/动作 81 通过；实际生产 Desktop SDK 文件观察→真实证据→提议/当前卡片输入→冻结任务 22 集成通过。
 - 未把 scripted model 的集成测试当作真实模型验收，真实模型/安装升级留 B4-R。
 - Review 和最终 macOS/Ubuntu CI 待完成。
