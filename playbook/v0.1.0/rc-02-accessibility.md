@@ -38,3 +38,6 @@ main.mjs净增0；ChatSurface/Sidebar/LlmSettingsPanel/TUIapp不加功能。禁�
 2026-10-02 的真实源 Electron 运行：原有9项壳检查与10项可访问性检查均通过，10000记忆每页50项、前后页身份正确；列表小字在 Frost/Catppuccin 的浅深主题最小对比7.06:1；安静时段键盘修改持久化23:15，英文设置/档案/Quick Chat从保存语言刷新。减少动效下新增壳位移动画数为0。列表20.74ms、可见搜索34.30ms、可见Received67.10ms中位数达原预算。证据`evidence/rc02-accessibility-fixed-20261002.json`来自38bc685c加未提交修复，必须在最终干净HEAD复验，不能充作最终版本认证。
 
 真实首次低对比度与Catppuccin浅色单独失败保留为`rc02-memory-contrast-first-failed-20261002.json`、`rc02-catppuccin-first-failed-20261002.json`。修复后全量类型检查首先发现新测试夹具缺MemoryFilter完整字段，已按真实接口补齐，重跑typecheck通过。最终全量测试、真实停止回归和两平台CI仍在执行。
+
+
+最终 RC01 同步后干净HEAD c9020ec0 本机完整build/typecheck/architecture/test通过（代码树与此前40a57a09相同，仅增加合入开发线的merge祖先），真实Electron全部九项壳检查与十项可访问性检查通过；窗口0错误，owned进程退出，原报告见evidence/rc02-final-clean-window-20261002.json。包含10000记忆真实50条分页、五主题/语言、减少动效、键盘列表与焦点捕获。PR94与CI36913383937运行中；最终CI结果待确认，不提前宣布卡完成。
