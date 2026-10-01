@@ -1,0 +1,45 @@
+{
+  "createdAt": "2026-10-01",
+  "codeHead": "8868c207b6173061b3426c8ac220897d40dfe045",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/79",
+  "checks": {
+    "build": "pass",
+    "typecheck": "pass",
+    "architecture": "pass",
+    "ipc": "pass",
+    "runtimeNode": {
+      "pass": 874,
+      "fail": 0,
+      "skip": 0
+    },
+    "desktop": {
+      "pass": 5166,
+      "fail": 0,
+      "skip": 5
+    },
+    "protocol": {
+      "pass": 173,
+      "fail": 0
+    },
+    "systemContext": {
+      "pass": 29,
+      "fail": 0
+    },
+    "realGit": {
+      "pass": 2,
+      "fail": 0,
+      "executor": "scripted production Goal host; real temporary Git/filesystem",
+      "scenarios": [
+        "three concurrent worktrees with explicit handoff",
+        "superseded uncommitted edits retained and original worktree reused on restore"
+      ]
+    }
+  },
+  "ci": {
+    "status": "pending"
+  },
+  "limitations": [
+    "No remote model run or Beta4 release evidence",
+    "Five existing desktop skips retained; no new skips"
+  ]
+}
