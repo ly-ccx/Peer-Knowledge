@@ -139,6 +139,26 @@ Responses 传输"这一组合。
 "拿不到真正模型列表"的 bug。`source: 'remote' | 'fallback'` 字段如实标注来源,
 UI 可据此提示用户当前为兜底清单。
 
+### 9. Responses 必须显式保留 Manifest 的选填语义（2026-10-02 RC 修复）
+
+Beta.5 安装包的真实模型多入口自测中，`spawn_session` 连续携带空的
+`objectiveId` / `supersedes` 或手工核验条件的 `command`，被本地校验正确拒绝。
+Requests encoder 省略了 `strict`。OpenAI 的官方契约说明 Responses 在省略时
+可能把 schema 规范化为 strict，而 Chat Completions 默认非 strict。
+这提供了与观测相符的原因；最终修复效果仍以真实模型回归为准。
+
+Accepted 决策：Responses encoder 对未显式声明 `strict` 的 function tool
+发送 `strict: false`，保留已投影 Manifest 原有的 required、选填字段与嵌套
+schema；若工具显式声明 boolean `strict`，原样透传。不要把选填字段补进
+required，不要把空 ID / null 转成缺省值，也不要放宽本地参数校验。
+
+该 wire 差异只位于既有 provider encoder seam。执行仍经 Runtime Projection、
+PermissionGrant 与 Evidence，云端 schema 约束不构成本地授权或验证的替代。
+新增 IPC、工具、依赖或存储路径均不在本修复范围。
+
+依据：[OpenAI Function calling — Strict mode](https://developers.openai.com/api/docs/guides/function-calling)
+（2026-10-02 核对）。
+
 ## Layering
 
 ```
