@@ -67,3 +67,19 @@ Luna首轮真实生产请求两次返回HTTP200但均无文字/工具（input to
 局部清退扫描的只读批次快照修复3e276eed：200项目设置读取次数回归先红后绿，28个integration/host测试通过；完整build/test/type/architecture通过（desktop5255pass/5既有skip）。精确HEAD真实GLM五轮p504402.73ms、规模八预算全达标；窗口Received75.4ms（717.8→75.4），七项通过，零pageerror/角色拒绝。完整窗口冷就绪29.61秒单列，不能冒充核心inbox312ms。
 
 代码自审另发现已有分页修复在两次刷新之间新增超过50条时会漏中间页，以及加载更早后虚拟窗口沿用数字索引而丢掉原阅读锚点。继续在已允许的conversationPager/BotMessageList/botConversationState及测试中修复：最新页与上一份快照无ID交集时向前补齐到交集；失败时整批不发布、不推进游标；更早页按原row身份保持窗口锚点。测试新增110条突发和中间页失败重试、超过200行的前插锚点。没有新接口/权限/存储协议。最终精确HEAD继续复测，保留3e性能证据。
+
+长对话更早页按cursor方向保持顺序（同一时间戳也正确），刷新按110条突发跨页补齐，投影卡片不能充当canonical页交集，失败整批保留旧快照。14聚焦测试通过。c3c98c33真实窗口首次扩展多页测试在第二次滚动超时；首轮怀疑前一次DOM出现时loadOlder的rAF滚动补偿尚未完成，下一次滚动被busy合并；加aria-busy后仍在同一9830目标超时，故该推断不能视为根因。增加真实aria-busy加载状态，让测试等待分页完成再滚动；不增加超时、不改变加载预算。初始扩展失败保留。
+
+继续观察多页fixture：实际新增输入/turn也计入50条分页，不能假定每页固定rc-message编号。允许在隔离复制的application-service只读返回点收集before/nextCursor/count/firstID/lastID，报告实际游标和DOM范围；不替换读取结果或削弱断言。
+
+确认另一个B级刷新循环：每次renderer刷新后markRead；application-service对成功结果无条件广播changed；随后又触发读取/markRead，既有cursor相同仍重写与通知。允许已列bot-directory及application-service和测试令相同read-cursor返回内部changed:false（不重写）；service保持原公开响应形状、只在实际游标变化或legacy端口未知时广播，onViewing仍每次更新。无新增IPC/权限/存储格式。须验证首次标读一次通知、同游标不写/不通知、新消息推进及仍有viewing回调。
+
+只读游标实测4d0da5aa：读取已到9800页，但跨200行虚拟化后，DOM从9933开始且总滚动高度从13251骤降6586；占位div在flex列中默认可收缩到0，破坏虚拟滚动几何。另未虚拟化时scroll未更新阅读索引，跨阈值沿用末尾索引。按已允许BotMessageList/styles修复：占位及消息子项禁止纵向收缩，所有滚动都维护阅读锚点；继续真实多页及返回最新测试。引用跳转须先把目标窗口提交，再定位DOM，取消自动pin-bottom避免覆盖跳转。没有新IPC/权限/数据契约。
+
+e2b76d70首次几何修复后的扩展测试推进到9780仍失败：更早9750页已读到，但固定72px估算与实际约80px行高、前插后的总高度补偿令目标移出窗口。必须把窗口计算集中为renderer深Module，实际测量行高、按row ID保留视口位置，前插补偿不再用总高度差。新增允许`state/conversationWindow.ts`、聚焦测试、`conversation/useConversationWindow.ts`；既有BotMessageList调用接口，BotConversation只传引用跳转序号，CSS为可测量行容器。无新运行时协议/权限/存储/Context边界。真实Electron仍验证跨200行、更早分页、引用远处消息及返回最新。
+
+搜索预算补上输入→可见结果的5轮窗口计时，不用应用服务计时冒充完整UI。保留初始服务达标事实；若窗口失效/超预算，先定位再修复，预算仍150ms。
+
+复核窗口搜索入口发现useBotList只消费search返回items（名称/预览/任务标题），忽略完整语料hits；与“搜索机器人、消息、任务”文案和预算规模不一致。允许B级既有renderer适配`state/useBotList.ts`、`botListState.ts`与测试：命中消息/任务/记忆的workspace ID与当前catalog归并去重，角标仍取当前目录；结果绑定query，旧请求结果不能瞬间充当新查询命中。不改IPC搜索协议或索引准入。先红后绿，并实测输入到可见结果五轮。
+
+切机器人时BotConversation未以workspace ID重新挂载，旧高亮和阅读锚点可能触发新项目无意义的全历史定位。允许BotListShell现有装配点仅追加React key（净增1行，不扩展业务逻辑）；每个workspace的窗口状态随组件生命周期隔离。
