@@ -263,7 +263,7 @@ type AcceptanceReason =
   isolation?: 'auto' | 'none' | 'worktree'; // auto：已有其他写仓库任务在跑时用 worktree
   contextRefs?: string[];        // 代理已读过的文件 / 调研报告引用，交给任务作为事实上下文
   dependsOn?: string[];          // 上游任务 sessionId；满足前保持 queued
-  dependsOnPolicy?: 'accepted' | 'result_ready'; // 默认 accepted
+  dependsOnPolicy?: 'accepted'; // 唯一策略：全部 completed 且 resultAcceptance.acceptedAt 已持久化；result_ready 不放行
   supersedes?: string;           // 取代的旧任务
   inherit?: { report: boolean; branch: 'auto' | 'yes' | 'no' }; // 取代时继承什么；branch auto = 旧任务改动与新目标仍相关时继承
   modelPreference?: { role: 'worker' | 'verifier' | 'explorer'; model: string }[]; // 用户本次指定（ADR 83），须过能力与范围过滤

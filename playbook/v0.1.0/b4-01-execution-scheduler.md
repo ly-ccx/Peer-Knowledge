@@ -1,6 +1,9 @@
 # B4-01 ExecutionScheduler 实施边界
 
-创建：2026-10-01。目标版本：0.1.0-beta.4。分支：`PeerAgent/pa/b4-01-execution-scheduler`。
+创建时间：2026-10-01
+最后更新：2026-10-01
+
+目标版本：0.1.0-beta.4。分支：`PeerAgent/pa/b4-01-execution-scheduler`。
 
 ## 授权与基线
 负责人已授权合入代码 #75/#76、知识 #5/#7 后继续 B4-01；四个 PR 已合入。以更新后的开发线实施本卡。依据 Accepted ADR 80 的调度决策；ADR 82 仍为 Proposed，负责人指定本卡不等于接受项目目标决策，不实施 B4-04 至 B4-06。
@@ -10,9 +13,9 @@
 - 原地写槽每项目 1、只读槽 2；真实 worktree 写任务不占原地写槽。不能仅凭模型 isolation 参数绕过写槽；B4-02 之前不新增创建 worktree 能力。
 - 全局 AgentTurnExecutor 回合上限默认 4，settings.projectAgent.concurrency 为 1–8 的整数。一次宿主 runTurn 为租约单元，内部提供方恢复不重复取槽；正常返回、抛错、取消均归还。等待租约取消时不调用提供方。高优先级不突破上限。
 - 同步 verify_session 工具等待独立核验时，宿主暂时归还调用方的回合租约，核验按同一全局队列取槽；核验结束后调用方重新取槽再返回工具结果。仅该宿主同步入口可让出，后台启动任务不继承租约，避免并发值 1 时互相等待或突破硬上限。
-- high > normal > low；同级按持久化入队时间与稳定次序 FIFO。等待满 30 分钟提升一级（low→normal、normal→high），不无限提升。Provider 回合每次结束归还并重新排队，不能为一个长任务保留模型槽。
+- high > normal > low；同级按持久化入队时间与稳定次序 FIFO。新队列项从实际准入时刻计时，等待批准的时间不算排队年龄；有效的持久化队列项保留原入队时间。等待满 30 分钟提升一级（low→normal、normal→high），不无限提升。Provider 回合每次结束归还并重新排队，不能为一个长任务保留模型槽。
 - dependsOn 全部 accepted 才放行。依赖仅允许当前项目的已存在任务；缺失拒绝，失败/取消/不可恢复中断转 waiting_user，不默认继续。已完成但未签收不得当作依赖成功。
-- 排队次序写入已登记 device 根 project-runtime/<workspaceId>/scheduler.json，原子替换；重启从 Plan 重建运行计数、校验队列，只保存排序事实而不复制权限/签收真值。旧或损坏队列可由 Plan 的 createdAt 重建，不保留进程内回合租约。
+- 排队次序写入已登记 device 根 project-runtime/<workspaceId>/scheduler.json，原子替换；重启从 Plan 重建运行计数、校验队列，只保存排序事实而不复制权限/签收真值。旧或损坏队列按 Plan.createdAt 重建稳定次序，新增队列项的年龄从重建时刻开始，不从任务创建时间推算。不保留进程内回合租约。
 - 派发与晋升先写入 Plan 槽位预留，再启动 Runner；不 await 整个任务生命周期，避免串行锁把并行变回串行。批准、取消、终态和签收都触发调度重算；依赖签收可唤醒另一项目的巡检但不会越项目放行。
 - WorkSession 的 queuedBehind 只来自宿主，保存被等待任务的 id/title；Renderer 显示排队原因，不推导槽位。档案里的全局并发项明确标注所有机器人共享，沿现有 settings API 保存，不增加 IPC。
 
