@@ -63,3 +63,7 @@ Luna首轮真实生产请求两次返回HTTP200但均无文字/工具（input to
 ## 正确保留宿主后的收到预算回归（2026-10-02）
 
 精确e760819d窗口复测可见Received p50717.8ms >300，5轮均约715–732ms，必须修复。局部sync保留200runner后，每次清退检查200次ownsProject→getSettings→loadMigratedSettings→registry.sync200工作区，重复settings身份校验形成平方开销。新增B级内部只读端口`readOwnedWorkspaceIds(inventory)`，只给当前sync清退扫描使用：desktop一次读全局开关、同批active-profile inventory、逐项目读真实host lease。它不是权限或执行依据；recovery/runner/supervisor仍用原ownsProject逐次校验。fallback宿主保持原行为。允许既有runtime-host及测试、desktop装配及integration测试补入此端口；main净增0、无IPC或持久化变化。测试含200项目定向唤醒全局设置读取次数恒定、全局classic切换仍清退、真实租约失效仍拒绝执行。保留本轮Failed窗口证据，不删初始失败或提高300ms预算。
+
+局部清退扫描的只读批次快照修复3e276eed：200项目设置读取次数回归先红后绿，28个integration/host测试通过；完整build/test/type/architecture通过（desktop5255pass/5既有skip）。精确HEAD真实GLM五轮p504402.73ms、规模八预算全达标；窗口Received75.4ms（717.8→75.4），七项通过，零pageerror/角色拒绝。完整窗口冷就绪29.61秒单列，不能冒充核心inbox312ms。
+
+代码自审另发现已有分页修复在两次刷新之间新增超过50条时会漏中间页，以及加载更早后虚拟窗口沿用数字索引而丢掉原阅读锚点。继续在已允许的conversationPager/BotMessageList/botConversationState及测试中修复：最新页与上一份快照无ID交集时向前补齐到交集；失败时整批不发布、不推进游标；更早页按原row身份保持窗口锚点。测试新增110条突发和中间页失败重试、超过200行的前插锚点。没有新接口/权限/存储协议。最终精确HEAD继续复测，保留3e性能证据。
