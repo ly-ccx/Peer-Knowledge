@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-01T15:56:46.874Z",
+  "fixture": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "sourceHead": "d90e58c275f56e5414363fc5df42734c14e16cab",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "25.9.0",
+  "metrics": {
+    "list": {
+      "samples": [
+        56.621666000000005,
+        57.375332999999955,
+        55.129791999999725,
+        61.195583000000624,
+        56.12304200000017
+      ],
+      "median": 56.621666000000005,
+      "budget": 100,
+      "pass": true
+    },
+    "search": {
+      "samples": [
+        182.46150000000034,
+        186.37537499999962,
+        185.78266600000006,
+        185.6088749999999,
+        183.9417080000003
+      ],
+      "median": 185.6088749999999,
+      "budget": 150,
+      "pass": false
+    },
+    "received": {
+      "samples": [
+        18.275499999999738,
+        15.126541999999972,
+        15.182749999999942,
+        15.019374999999854,
+        15.165208000000348
+      ],
+      "median": 15.165208000000348,
+      "budget": 300,
+      "pass": true
+    },
+    "consume": {
+      "samples": [
+        14.343082999999751,
+        14.3182910000005,
+        14.257916999999907,
+        14.259707999999591,
+        14.258125000000291
+      ],
+      "median": 14.259707999999591,
+      "budget": 200,
+      "pass": true
+    },
+    "memory": {
+      "samples": [
+        10.37183400000049,
+        11.368542000000161,
+        9.10858300000018,
+        12.303499999999985,
+        9.355999999999767
+      ],
+      "median": 10.37183400000049,
+      "budget": 50,
+      "pass": true
+    },
+    "coldInbox": {
+      "samples": [
+        330.460084,
+        313.461417,
+        310.82020800000004,
+        307.899583,
+        308.793
+      ],
+      "median": 310.82020800000004,
+      "budget": 1000,
+      "pass": true
+    },
+    "idleBytesPerBot": {
+      "samples": [
+        989265.92,
+        816578.56,
+        818872.32,
+        819118.08,
+        819363.84
+      ],
+      "median": 819118.08,
+      "budget": 2097152,
+      "pass": true
+    }
+  },
+  "idle": [
+    {
+      "coldInbox": 330.460084,
+      "heapBytesPerBot": 6086.24,
+      "rssBytesPerBot": 989265.92,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 313.461417,
+      "heapBytesPerBot": 6076.12,
+      "rssBytesPerBot": 816578.56,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 310.82020800000004,
+      "heapBytesPerBot": 6078.88,
+      "rssBytesPerBot": 818872.32,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 307.899583,
+      "heapBytesPerBot": 6049.44,
+      "rssBytesPerBot": 819118.08,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 308.793,
+      "heapBytesPerBot": 6049.68,
+      "rssBytesPerBot": 819363.84,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    }
+  ],
+  "scope": {
+    "list": "Production directory and application service projection of all 200 bots; fresh reader each sample",
+    "search": "Production service includes full message/memory corpus; first rebuild separately recorded",
+    "received": "Application receipt includes queue durability and synchronous fixture wake/consume; UI rendering measured by Electron smoke",
+    "consume": "Online lease-owning production queue to canonical conversation and onCommitted wake; no model latency",
+    "memory": "Warm production capability search, scope filtering, use accounting and Evidence envelope; rebuild separately recorded",
+    "coldInbox": "Fresh independent process: real host recovery and idle sync of 200 bots after 100000 persisted/consumed events",
+    "idle": "Five fresh processes, aggregate incremental RSS per initialized bot; heap and zero model calls also reported"
+  },
+  "searchInitialRebuildMs": 188.10683299999982,
+  "memoryInitialRebuildMs": 3434.365833,
+  "realModel": {
+    "status": "not_measured",
+    "reason": "Live configured-model benchmark required before ready; scripted replies do not satisfy it"
+  },
+  "localPass": false,
+  "ready": false,
+  "requestedScope": "local_only",
+  "ok": false,
+  "finishedAt": "2026-10-01T15:56:55.035Z"
+}

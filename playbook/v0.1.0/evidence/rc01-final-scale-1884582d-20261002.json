@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-01T19:12:28.979Z",
+  "fixture": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "sourceHead": "1884582df9776b03cab5acb0167d873fb1e94aec",
+  "sourceDirty": false,
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "25.9.0",
+  "metrics": {
+    "list": {
+      "samples": [
+        14.467333999999937,
+        15.894917000000078,
+        18.387125000000196,
+        15.577041000000008,
+        16.454749999999876
+      ],
+      "median": 15.894917000000078,
+      "budget": 100,
+      "pass": true
+    },
+    "search": {
+      "samples": [
+        96.50666600000022,
+        97.12750000000005,
+        93.982708,
+        93.675209,
+        92.603208
+      ],
+      "median": 93.982708,
+      "budget": 150,
+      "pass": true
+    },
+    "received": {
+      "samples": [
+        15.931833000000097,
+        15.482084000000214,
+        15.059584000000086,
+        15.25570899999957,
+        15.206624999999804
+      ],
+      "median": 15.25570899999957,
+      "budget": 300,
+      "pass": true
+    },
+    "consume": {
+      "samples": [
+        14.417332999999871,
+        14.393708999999944,
+        14.235707999999704,
+        14.474166999999852,
+        14.36791600000015
+      ],
+      "median": 14.393708999999944,
+      "budget": 200,
+      "pass": true
+    },
+    "memory": {
+      "samples": [
+        9.05487499999981,
+        8.999291999999969,
+        11.280749999999898,
+        11.49350000000004,
+        11.564041999999972
+      ],
+      "median": 11.280749999999898,
+      "budget": 50,
+      "pass": true
+    },
+    "coldInbox": {
+      "samples": [
+        308.044708,
+        315.70425,
+        311.3175,
+        307.162417,
+        312.744833
+      ],
+      "median": 311.3175,
+      "budget": 1000,
+      "pass": true
+    },
+    "idleBytesPerBot": {
+      "samples": [
+        851394.56,
+        847052.8,
+        835256.32,
+        843120.64,
+        849018.88
+      ],
+      "median": 847052.8,
+      "budget": 2097152,
+      "pass": true
+    },
+    "realModel": {
+      "samples": [
+        9504.320917,
+        3625.514083,
+        2967.5205829999977,
+        7208.344000000001,
+        5598.322541000001
+      ],
+      "median": 5598.322541000001,
+      "budget": 6000,
+      "pass": true
+    }
+  },
+  "idle": [
+    {
+      "coldInbox": 308.044708,
+      "heapBytesPerBot": 6053.8,
+      "rssBytesPerBot": 851394.56,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 315.70425,
+      "heapBytesPerBot": 6084.24,
+      "rssBytesPerBot": 847052.8,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 311.3175,
+      "heapBytesPerBot": 6051.28,
+      "rssBytesPerBot": 835256.32,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 307.162417,
+      "heapBytesPerBot": 6055.36,
+      "rssBytesPerBot": 843120.64,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 312.744833,
+      "heapBytesPerBot": 6051.44,
+      "rssBytesPerBot": 849018.88,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    }
+  ],
+  "scope": {
+    "list": "Production directory and application service projection of all 200 bots; fresh reader each sample",
+    "search": "Production service includes full message/memory corpus; first rebuild separately recorded",
+    "received": "Application receipt includes queue durability and synchronous fixture wake/consume; UI rendering measured by Electron smoke",
+    "consume": "Online lease-owning production queue to canonical conversation and onCommitted wake; no model latency",
+    "memory": "Warm production capability search, scope filtering, use accounting and Evidence envelope; rebuild separately recorded",
+    "coldInbox": "Fresh independent process: real host recovery and idle sync of 200 bots after 100000 persisted/consumed events",
+    "idle": "Five fresh processes, aggregate incremental RSS per initialized bot; heap and zero model calls also reported"
+  },
+  "searchInitialRebuildMs": 93.16691600000013,
+  "memoryInitialRebuildMs": 41.90954200000033,
+  "realModel": {
+    "schemaVersion": 1,
+    "synthetic": false,
+    "installed": false,
+    "startedAt": "2026-10-01T19:11:58.506Z",
+    "sourceHead": "1884582df9776b03cab5acb0167d873fb1e94aec",
+    "sourceDirty": false,
+    "samples": [
+      {
+        "model": "glm-5.3-flash",
+        "inputId": "rc-live-0",
+        "turnId": "turn-3d0b1e29-1e21-41b6-b45a-fd6c13a55207",
+        "outcome": "done",
+        "durationMs": 9504.320917
+      },
+      {
+        "model": "glm-5.3-flash",
+        "inputId": "rc-live-1",
+        "turnId": "turn-5894bbe0-7d17-4ae7-9623-07652ad3fb48",
+        "outcome": "done",
+        "durationMs": 3625.514083
+      },
+      {
+        "model": "glm-5.3-flash",
+        "inputId": "rc-live-2",
+        "turnId": "turn-63a4610e-60b7-4d61-a6e8-99f6bfb7afb5",
+        "outcome": "done",
+        "durationMs": 2967.5205829999977
+      },
+      {
+        "model": "glm-5.3-flash",
+        "inputId": "rc-live-3",
+        "turnId": "turn-1df9a170-ab33-40da-8087-c06802df0f6a",
+        "outcome": "done",
+        "durationMs": 7208.344000000001
+      },
+      {
+        "model": "glm-5.3-flash",
+        "inputId": "rc-live-4",
+        "turnId": "turn-795fa288-b442-4ff7-a7af-a7b6b509d7f4",
+        "outcome": "done",
+        "durationMs": 5598.322541000001
+      }
+    ],
+    "pageErrors": [],
+    "scope": "Source production Electron, project host, live configured fast model and real post_reply tool; submission to committed turn and anchored reply; five independent bots, one turn per bot, so a parked failure cannot block another sample",
+    "model": "glm-5.3-flash",
+    "provider": "openai",
+    "metric": {
+      "samples": [
+        9504.320917,
+        3625.514083,
+        2967.5205829999977,
+        7208.344000000001,
+        5598.322541000001
+      ],
+      "median": 5598.322541000001,
+      "budget": 6000,
+      "pass": true
+    },
+    "ok": true,
+    "ownedStop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 44697
+    },
+    "credentialCopiesRemoved": true,
+    "finishedAt": "2026-10-01T19:12:28.844Z"
+  },
+  "localPass": true,
+  "ready": true,
+  "requestedScope": "complete",
+  "ok": true,
+  "finishedAt": "2026-10-01T19:12:32.989Z",
+  "originalReportSha256": "7a8c36996e9d55ccf8ef7f60c5a97e7015f8916a1491a503d86b93f02cc19fa9"
+}
