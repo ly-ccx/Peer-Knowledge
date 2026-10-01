@@ -1,0 +1,72 @@
+{
+  "candidate": "4470a3a1f6311095b1a8f9a38fdc15f0b8adc5ae",
+  "platform": "macOS arm64",
+  "package": "local ad-hoc directory app, not final signed release",
+  "at": "2026-10-01",
+  "baselineRelease": "v0.1.0-beta.3",
+  "baselineWorkspaceId": "a20f8833-cfdf-475e-a68e-3f69cb65ee4f",
+  "sequence": [
+    {
+      "name": "first-beta4",
+      "version": "0.1.0-beta.4",
+      "botWorkspaceId": null,
+      "canonicalBaselineInputReadBack": false,
+      "wholeHistoryHashUnchanged": true,
+      "error": null,
+      "ownedExited": true
+    },
+    {
+      "name": "upgrade-beta4",
+      "version": "0.1.0-beta.4",
+      "botWorkspaceId": "a20f8833-cfdf-475e-a68e-3f69cb65ee4f",
+      "canonicalBaselineInputReadBack": true,
+      "wholeHistoryHashUnchanged": false,
+      "error": null,
+      "ownedExited": true
+    },
+    {
+      "name": "downgrade-stable",
+      "version": "0.0.18",
+      "botWorkspaceId": null,
+      "canonicalBaselineInputReadBack": false,
+      "wholeHistoryHashUnchanged": true,
+      "error": null,
+      "ownedExited": true
+    },
+    {
+      "name": "return-beta4",
+      "version": "0.1.0-beta.4",
+      "botWorkspaceId": "a20f8833-cfdf-475e-a68e-3f69cb65ee4f",
+      "canonicalBaselineInputReadBack": true,
+      "wholeHistoryHashUnchanged": false,
+      "error": null,
+      "ownedExited": true
+    }
+  ],
+  "existingRowsRecheck": [
+    {
+      "version": "0.1.0-beta.3",
+      "beforeCount": 7,
+      "afterCount": 7,
+      "changedOldIds": [],
+      "baselineUserContent": "这是隔离升级样本，请保留这条历史消息。",
+      "error": null,
+      "ownedExited": true
+    },
+    {
+      "version": "0.1.0-beta.4",
+      "beforeCount": 7,
+      "afterCount": 9,
+      "changedOldIds": [],
+      "baselineUserContent": "这是隔离升级样本，请保留这条历史消息。",
+      "error": null,
+      "ownedExited": true
+    }
+  ],
+  "notes": [
+    "Startup in this unconfigured fixture appends unavailable turn/cards. Full history hash changes are not reported as unchanged.",
+    "Second beta3→beta4 run compares every pre-existing canonical row byte-for-byte: no changed old rows; beta4 adds two rows.",
+    "Fresh app shows model setup UI; a real configured model is verified separately.",
+    "No cross-platform interactive installation or five-day owner use is claimed."
+  ]
+}

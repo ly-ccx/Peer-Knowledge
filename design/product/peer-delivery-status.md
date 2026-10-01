@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-10-01（D10：Beta3 已发布；B4-01/02/03/04/07/08 已合入，B4-05/06 与发布验收推进中）
+最后更新：2026-10-01（D10：Beta4 已发布；B4 全卡完成，真实功能与 macOS 正式包验收已回写；GA 日用等仍待验收）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **未验收（默认机器人列表已合入）**：`v0.1.0-beta.3` 已从 `PeerAgent/dev/0.1.0` 的 `283c7493` 打出。B3-01 至 B3-11 已合入。默认界面是机器人列表；设置 → 通用 → 界面 可以切回经典界面。旧会话在各机器人的档案 → 任务 → 历史对话。代理不能写文件。ADR 82 已于 2026-10-01 转 Accepted（负责人全 B4 授权下的执行代理开工技术评审，非额外人工评审票）。三个真实项目的全链路、负责人连续日用 5 天，以及 `dev:lab` 安装包冒烟未附 | 三个真实项目各一次「一句话 → 锚定任务 → 策略代签汇报」；负责人连续日用 5 天的问题清单；`dev:lab` 首启、从 beta.2 升级、降回 0.0.18 的安装包冒烟 | [0.1.0 版本计划](v0.1.0-release-plan.md)、[任务卡](../../playbook/v0.1.0/README.md)、[ADR 75](../../knowledge/decisions/75-remote-read-preflight.md)、[ADR 85](../../knowledge/decisions/85-project-agent-hosts-inputs-and-surfaces.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **整体未验收；Beta4 已交付**：`v0.1.0-beta.4` 从 dev `ca0736da` 发布，B4-01 至 B4-08 / B4-R 全部完成。并行调度、worktree 合回、取代恢复、项目目标与自主档位、熔断恢复、记忆维护已集成。真实三写任务同时隔离并合回、原任务取代恢复、CI 失败仅通知一次已验收；源码关窗期间有宿主 canonical 写入；前置补修已验收限定零窗口 Goal 核验/签收。正式 macOS arm64 包首启 / Beta3 升级 / 降回 0.0.18 / 返回 Beta4 的旧历史逐行保留，签名 / 公证 / Gatekeeper 通过。三平台 Desktop、两平台 CLI 发布 CI 全绿。默认机器人列表和经典切换保留；项目代理自身只读。ADR 82 Accepted | GA 与历史缺口仍独立保留：负责人连续日用 5 天、Windows/Linux 交互安装及完整升级矩阵、真实视觉复核等见版本计划 §12.1/§12.2；B5 与 RC 尚未开展。已做的 Beta4 bounded 验收不等同 0.1.0 GA | [0.1.0 版本计划](v0.1.0-release-plan.md)、[B4-R 交接](../../playbook/v0.1.0/b4-r-handoff.md)、[真实证据](../../playbook/v0.1.0/evidence/b4-r-real-model-20261001.json)、[正式包证据](../../playbook/v0.1.0/evidence/b4-r-release-20261001.json) |
 
 ## 3. 近期顺序与非目标
 

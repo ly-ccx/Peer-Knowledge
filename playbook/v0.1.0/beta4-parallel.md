@@ -110,7 +110,7 @@ B4-08（独立）
   - git：每 60 秒读 HEAD 与分支引用（宿主只读函数，不调用模型）；变化 = 新提交 / 切分支。
   - 文件：`fs.watch` 监听目标声明的路径模式（限定在工作区内，忽略 `node_modules`、`.git`、构建产物目录），5 秒防抖。
   - CI：`gh` 可用且已登录时，用只读命令（`gh run list --json …`）按间隔查询；不可用时该触发器状态为「不可用：原因」，不报错。探测命令由宿主执行，不经模型，不经 Shell Provider 的询问流程（只读白名单，写在代码里并有测试）。
-  - 观察：每次探测产生 `WatchObservation`（带 `digest`）；`diffWatchObservation` 判定有变化才写 `observations.jsonl` 并发事件；没有变化什么都不做。
+  - 观察：每次探测产生 `WatchObservation`（带 `digest`）；`diffWatchObservation` 判定有变化才进入 Inbox 并唤醒；按 ADR 82 每次实际检查都写 `observations.jsonl` 与真实 Evidence，未变化只保存事实，不进 Inbox（见 B4-05 实施契约）。
   - 预算：每个项目每小时最多 60 次探测；需要解读内容（如 CI 失败日志）时由代理决定是否开只读任务或用 `objective_probe` 角色做一次临时解读。
   - 目标暂停 / 机器人删除 / 经典界面下均停止探测。
 - **必须新增的测试**：每种触发器的变化判定；无变化不唤醒；预算上限；CI 不可用降级；Automation 回归全绿（抽内核后行为不变）；路径限定在工作区内。
@@ -170,6 +170,8 @@ B4-08（独立）
 ---
 
 ## B4-R 发布 `0.1.0-beta.4`
+
+代码 [#85](https://github.com/ly-ccx/Peer-Agent/pull/85) 已合入 dev `ca0736da`，最终151b080c的 PR 双平台 CI 与合入后开发线 CI 均通过。[v0.1.0-beta.4](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-beta.4) 已于 2026-10-01T11:20:08Z 发布，Release 36854035033 全成功，14个资产齐全。真实三写任务并行/合回、取代恢复、失败 CI 去重、正式 macOS 安装升级降级证据见 [交接](b4-r-handoff.md)。版本计划 §5.2 / §12.1、D10、路线图 #0 已回写，GA 缺口未冒充通过。
 
 - **步骤**：版本计划 §10 检查单。
 - **证据**：版本计划 §12.1 beta.4 一行。
