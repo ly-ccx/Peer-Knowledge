@@ -14,6 +14,8 @@
 
 配套：[全面测试手册](acceptance-test-guide.md)、[RC 卡](rc-release.md)。正式版由负责人全面测试和七天日用后决定；本报告不代替负责人签收。
 
+2026-10-02 后续：PR108 已合入1de232b3，最终两平台CI36978709629全成功，源/CI/合入tree一致；真实GPT61 Desktop/远程提交/TUI接管的只读工具和canonical回复均通过，默认安装包复验仍待RC3。[补修交接](rc-post-reply-terminal.md)。RC3版本准备4d97ff6d已推送并开始最终门禁，21项矩阵保留RC1/2；尚未发布，不代表已替换原用户应用。
+
 ## 交付版本
 
 候选 `0.1.0-rc.2` 已预发布：[下载页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.2)。不可变提交 `be65fb73ce672f87a144a68ed5a1622f5d632ae8`，Release36960577284全部成功、14项资产；SHA见[手册](acceptance-test-guide.md)。npm rc=0.1.0-rc.2，latest=0.0.18、beta=0.1.0-beta.5。RC1历史版本与失败证据保持不变，正式0.1.0未发布。

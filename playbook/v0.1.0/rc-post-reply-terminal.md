@@ -25,3 +25,7 @@ PR108 源提交 ca56024d95bed1ab00769ca26ff60ad001e1eb19（tree 0d673ef65de7b0fe
 Review 补修后源 HEAD a8d7058e52a706b778fc466fee52035908fcde6a（tree bb6426c10a4463a733382f0bd890c0b065677e4f），TUI 定向正确夹具先红 10pass/1fail（真实工具 success 但回合 false），后绿11/11；最初测试传入未支持的 idempotencyKey 导致 invalid_input 的夹具失败另存，未当作红证据。TUI 全量755/755、构建、全类型与架构通过。最终 CI36978709629 进行中；旧 HEAD CI36977994241 已通过但不替代最终门禁。
 
 真实 GPT61 [多入口源码复验](evidence/rc-post-reply-source-multi-passed-20261002.json)通过：终端客户端/远程分别由 Desktop 消费，退出 Desktop 后 TUI 接管并完成真实只读文件工具和 canonical marker 回复；输入去重、独占租约、无写工具与页面错误，owned 两进程退出、凭据副本清除。源码 TUI 后端和 loopback 测试身份的范围保留，不写成新包或实体手机通过。
+
+最终 CI36978709629 两平台全成功，macOS/Linux 原生 smoke 报告均 ok、干净且无页面错误；源/CI/最终 merge tree 完全相同，PR108 已按负责人持续授权合入1de232b3。[绑定证据](evidence/rc-post-reply-ci-binding-20261002.json)。五个允许代码路径交付完成，新 RC3 签名安装包由 RC05 继续验证。
+
+额外真实 GPT61 双写首轮文件内容与 criterion 均通过，但 B 独立核验因缺“仅指定文件变化”的基线 diff 证据拒绝，未签收/合回；[失败保留](evidence/rc-post-reply-source-complex-scope-failed-20261002.json)。这是任务证据要求未在原测试 brief 中明确，不放宽核验门；补齐实际只读 Bash baseline diff 要求后复验中。
