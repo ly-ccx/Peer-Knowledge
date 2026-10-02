@@ -18,6 +18,7 @@
 - apps/desktop/renderer/src/project-agent/styles/bot-conversation.css
 - packages/i18n/src/index.ts：已有过程/通知方式文案，以及必要的通知方式静态标签。
 - apps/desktop/scripts/bot-shell-electron-smoke.mjs、bot-shell-reply-checks.mjs：在已有隔离窗口验收中复用真实回复夹具与已有跳转/引用/过程入口，检查颜色/边框/焦点/长文本布局和回调效果。不替代或弱化现有检查。
+- apps/desktop/scripts/bot-shell-updater-checks.mjs：同一真实窗口验收再次遭遇旧主进程CDP evaluate发送合成更新事件时Promise被GC；以隔离入口中的显式测试命令/回执文件传递同一事件，沿生产updater:event通道返回Renderer，保持原72项布局和全部动作断言。仅测试宿主改动，不新增产品IPC或持久化路径。依负责人持续自主修复/自测授权补齐此必要路径，不重复请求已获授权。
 - 本卡、自测报告及本卡脱敏证据；第三方私有消息原截图留本机，不提交知识仓。
 
 ## 门禁与交付
