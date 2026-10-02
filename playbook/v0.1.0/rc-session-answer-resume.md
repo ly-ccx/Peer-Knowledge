@@ -23,3 +23,6 @@
 
 
 最终PR102两平台CI通过，Mac仅同提交重跑失败任务一次，预算与断言未变。2026-10-02T03:04:44Z已合入开发线fca715e8，[CI绑定](evidence/rc-session-answer-ci-20261002.json)。不把限定恢复人工签收升格为严格复杂验收。
+
+
+新鲜源码6c42a903隔离双任务经一次实际CUA回答/Retry后完成，两次最终独立hostVerifier均passed、本轮canonical来源回复、签收返回independentVerifier=passed、单独授权合回，原项目只a.txt/b.txt精确改变。Verifier与worker同模型家族，不声称不同源。末尾夹具错误查找agent-turn rounds/Bash，实际worker保存segments/bash；保留原exit1，另用不可变收据精确匹配toolCallId、成功exit0与实际stdout重新校验通过，[严格流程与后验记录](evidence/rc-source-strict-complex-validated-20261002.json)。安装候选脚本已修正真实格式，不放宽证据门。仍不能将这轮写成无用户干预通过或安装包通过。

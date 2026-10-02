@@ -103,3 +103,10 @@ npm发布日志UTC20:15:23显示RC1发布成功，最初本机注册表返回E40
 ### 等待任务回答恢复补修
 
 见[补修卡](rc-session-answer-resume.md)、[修复前真实失败](evidence/rc-session-answer-real-failed-20261002.json)、[限定恢复证明](evidence/rc-session-answer-recovery-scoped-20261002.json)。等待answer恢复、真实Bash字节检查、TaskRunner核验、人工签收与单独合回已实际执行；严格双独立Verifier和新来源汇报仍需新夹具/新安装候选复验。PR102 Mac CI首轮工具evaluate异常已按同提交重跑一次通过，Linux首轮通过；已合入fca715e8。GPT-6.1 Sol目录兼容另卡实施，真实订阅请求进行中。所有这些源码/装配证明不代替rc.2实际下载包。
+
+
+### rc.2候选与严格复杂流程
+
+设置/CLI助手/命令快照/回答恢复/新模型目录PR99–103已全部合入。rc.2版本源码b1cae373完整build/typecheck/architecture/test、版本/changelog/readiness通过；20项矩阵保留旧19项及六版真实tag来源，增加rc.2更新毕业行。最终两平台CI/native源窗口进行中，未发布/未宣布Ready。
+
+[严格源码流程](evidence/rc-source-strict-complex-validated-20261002.json)实际达到两次独立核验、本轮来源回复、用户签收和独立授权合回，含一次真实用户回答/Retry。原脚本末尾误用历史格式失败已保留，实际segments/bash收据post-validation通过；安装候选重新跑已修正的断言。GPT-6.1 Sol目录已通过两平台CI并合入，但真实首轮和显式Retry均空响应，账号可用仍未通过，两个语言发布说明披露；不得把目录项等同真实工具可用。
