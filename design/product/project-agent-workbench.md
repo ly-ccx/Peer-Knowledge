@@ -3,7 +3,7 @@
 创建时间：2026-09-24
 最后更新：2026-10-02（补当前实现状态；下文保留历史产品设计）
 
-> 当前事实：Beta1–5实现完成，Beta5及RC1已预发布；默认机器人列表、按需档案、独立可动头像/颜色、任务与签收、记忆、目标和多入口已实现。RC01–04、最终CI及完整回归通过，RC05手册与安装轮换/npm安装通过；Mac已解锁，安装CLI默认助手仍超时、安装Desktop复验中，详见[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)。正式版仍等负责人全面测试和七天日用。下文是历史设计，不能以设计预期替代发布验收。上传头像为静态；远程文本与电脑批准、macOS设备身份等限制见候选说明。
+> 当前事实：Beta1–5已实现，Beta5及RC1已预发布。设置页PR99、同次签名CLI助手PR100、命令快照PR101、等待answer恢复PR102与GPT-6.1 Sol目录PR103均已通过两平台CI并合入。rc.2候选PR104最终两平台CI36960002970通过，tag v0.1.0-rc.2固定到be65fb73ce672f87a144a68ed5a1622f5d632ae8，Release36960577284构建中。20项升级矩阵及完整源码门禁、9壳/11可访问性/7诊断通过；严格源码双写保留真实用户回答与一次重试，两任务独立核验、签收和单独授权合回通过。经典GPT61 low/default实际读文件回复通过；机器人同模型仍空响应，摘要请求也失败，尚无已确认根因。新安装包默认CLI、复杂任务与多入口待复验，尚未Ready；GA仍等负责人全面测试、七天日用和明确批准。 证据见[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)与[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md)。下文保留历史设计背景，不能代替当前验收。
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`、`knowledge/decisions/84-bot-list-shell.md`（壳层）  
 > 关联运行时：`knowledge/architecture/project-agent-delegation-runtime.md`  
 > 模块分层：`knowledge/architecture/project-agent-capability-layers.md`  

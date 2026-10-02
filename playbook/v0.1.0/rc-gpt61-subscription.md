@@ -24,3 +24,6 @@ focused目录/配置/encoder测试、Desktop受影响包全量及build/typecheck
 
 
 自然中文的bot原文回读请求仍实际空响应，[记录](evidence/rc-gpt61-bot-natural-failed-20261002.json)。经典default也通过，排除仅默认强度不兼容的猜测。原文回读可能与既有“概括工具事实”角色规则冲突，后续摘要请求保留实际read_file结果精确检查，再验证post_reply，不放宽工具证据要求；目前不主张已知根因。
+
+
+摘要请求也返回真实空消息，原文规则冲突的猜测未得到支持：[失败记录](evidence/rc-gpt61-bot-summary-failed-20261002.json)。请求HTTP200，0工具，output_text长度0，parseErrors为空；不是UI漏显示。保留两次经典成功的范围，继续定位机器人角色请求。

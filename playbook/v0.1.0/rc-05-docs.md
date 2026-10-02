@@ -20,3 +20,6 @@ rc.2追加范围（Accepted）：同时纳入真实等待answer恢复PR102与负
 
 
 rc.2源码b1cae373干净门禁通过：[全量记录](evidence/rc2-source-gates-20261002.json)、[实际源窗口](evidence/rc2-source-window-passed-20261002.json)。Desktop5294项中5289通过/原5skip＋AST1，runtime1006、TUI751；全构建/typecheck/architecture/test/version/changelog/readiness通过。9壳/11可访问性/7诊断、0页面错误、owned退出；列表15.87ms、搜索25ms、Received54.5ms均在原预算。20项矩阵保留六版真实tag来源与旧检查。PR104两平台CI进行中，安装候选未发布，GPT61实际调用未通过，总交付尚未Ready。
+
+
+设置页PR99、同次签名CLI助手PR100、命令快照PR101、等待answer恢复PR102与GPT-6.1 Sol目录PR103均已通过两平台CI并合入。rc.2候选PR104最终两平台CI36960002970通过，tag v0.1.0-rc.2固定到be65fb73ce672f87a144a68ed5a1622f5d632ae8，Release36960577284构建中。20项升级矩阵及完整源码门禁、9壳/11可访问性/7诊断通过；严格源码双写保留真实用户回答与一次重试，两任务独立核验、签收和单独授权合回通过。经典GPT61 low/default实际读文件回复通过；机器人同模型仍空响应，摘要请求也失败，尚无已确认根因。新安装包默认CLI、复杂任务与多入口待复验，尚未Ready；GA仍等负责人全面测试、七天日用和明确批准。 [最终CI与源码绑定](evidence/rc2-candidate-ci-binding-20261002.json)。
