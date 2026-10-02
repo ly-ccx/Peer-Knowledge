@@ -1,0 +1,106 @@
+{
+  "expectedRegressionReproductions": true,
+  "failures": [
+    {
+      "sourceHead": "6bdbaf8c5ccfd8b1da625465a1051d76cbb684de",
+      "sourceDirty": true,
+      "startedAt": "2026-10-02T05:29:36.652Z",
+      "finishedAt": "2026-10-02T05:30:02.388Z",
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 48192
+      },
+      "pageErrors": [],
+      "name": "red",
+      "failure": "locator.waitFor: Timeout 5000ms exceeded.",
+      "updater": []
+    },
+    {
+      "sourceHead": "6bdbaf8c5ccfd8b1da625465a1051d76cbb684de",
+      "sourceDirty": true,
+      "startedAt": "2026-10-02T05:37:13.287Z",
+      "finishedAt": "2026-10-02T05:37:40.148Z",
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 68850
+      },
+      "pageErrors": [],
+      "name": "sync-red",
+      "failure": "Error: Shell acceptance timed out",
+      "updater": [
+        "visible current version; SVG custom channel menu opens upwards, Escape restores focus; all three preferences persist through production IPC",
+        "version button opens the existing update modal and Escape closes it"
+      ]
+    },
+    {
+      "sourceHead": "6bdbaf8c5ccfd8b1da625465a1051d76cbb684de",
+      "sourceDirty": true,
+      "startedAt": "2026-10-02T05:32:28.806Z",
+      "finishedAt": "2026-10-02T05:32:53.652Z",
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 50876
+      },
+      "pageErrors": [],
+      "name": "ui-layout",
+      "failure": "AssertionError [ERR_ASSERTION]: every footer control must remain visible inside the narrow column",
+      "updater": [
+        "visible current version; SVG custom channel menu opens upwards, Escape restores focus; all three preferences persist through production IPC",
+        "version button opens the existing update modal and Escape closes it"
+      ],
+      "lastLayout": {
+        "controls": [
+          {
+            "text": "v41.7.1",
+            "width": 44.5546875,
+            "height": 28,
+            "left": 16,
+            "right": 60.5546875,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "\u5b89\u88c5",
+            "width": 32.911399841308594,
+            "height": 23.0379638671875,
+            "left": 68.09899139404297,
+            "right": 101.01039123535156,
+            "top": 822.4810180664062,
+            "bottom": 845.5189819335938,
+            "transform": "matrix(0.822785, 0, 0, 0.822785, 0, 0)"
+          },
+          {
+            "text": "\u81ea\u52a8",
+            "width": 57,
+            "height": 28,
+            "left": 166,
+            "right": 223,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      }
+    }
+  ]
+}

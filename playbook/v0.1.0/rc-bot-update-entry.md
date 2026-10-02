@@ -26,4 +26,9 @@
 
 ## 当前状态
 
-实施中。尚无完成证据。
+本机修复与回归通过，PR [106](https://github.com/ly-ccx/Peer-Agent/pull/106) 已推送并附到任务；两平台 CI 进行中，尚未合入。源码 `6360c4039da5bb9448df771373c247248081a3d2`，tree `3cc892774acace7f5f46bd89db646acb2d7382e5`。
+
+- [失败复现](evidence/rc-bot-update-regressions-failed-20261002.json)：缺失入口、设置页修改后旧渠道、安装按钮入场缩放使点击目标短暂不足24px。失败均保留，owned进程退出。
+- [本机实际窗口](evidence/rc-bot-update-local-window-passed-20261002.json)：5组 updater、9壳、11可访问性、7诊断，36种阶段/布局组合全部通过，0页面错误。列表15.29ms、搜索23.30ms、Received51.30ms，原预算未放宽。
+- [完整本机门禁](evidence/rc-bot-update-local-gates-20261002.json)：完整构建、最终桌面构建、typecheck、architecture、5292桌面测试通过（总5297，原5 skip），独立i18n AST1项通过。
+- 用户当前安装应用仍为 `0.1.0-beta.5`；已发布RC2不含本修复。下一不可变安装候选必须复验，不能把源码与注入阶段表达写成真实下载/安装已通过。
