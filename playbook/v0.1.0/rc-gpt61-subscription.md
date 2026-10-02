@@ -12,3 +12,6 @@ focused目录/配置/encoder测试、Desktop受影响包全量及build/typecheck
 ## 实施与本机证据
 
 代码6c42a903/PR103已提交并推送。目录/配置/encoder focused123/123；Desktop5294项中5289通过、5项原有跳过，独立AST1项通过；全量build/typecheck/architecture通过。实际首轮请求gpt-6.1-sol到订阅端点HTTP200，两次空流、无工具与canonical回复；[失败证据](evidence/rc-gpt61-source-first-failed-20261002.json)已保留。该轮目录在提交前，sourceDirty=true；不能把sourceHead412303当作完整目录树绑定。干净6c42a903的新夹具通过现有产品Retry再测，尚未计作可用。API官方页与用户账号可用陈述不能替代本机工具请求成功。
+
+
+干净6c42a903的显式产品Retry仍空响应，[失败证据](evidence/rc-gpt61-source-retry-failed-20261002.json)。准确模型id已到HTTP200订阅端点、无parseErrors；没有修改encoder或提示去伪造成功。复制凭据已清除。另一次源CLI经典输入自动化未进入模型请求，退出0、清除副本，不计作供应商或产品模型失败/成功。当前只完成目录与持久化支持，账号实际工具调用尚未通过。

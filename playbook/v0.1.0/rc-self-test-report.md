@@ -102,4 +102,4 @@ npm发布日志UTC20:15:23显示RC1发布成功，最初本机注册表返回E40
 
 ### 等待任务回答恢复补修
 
-见[补修卡](rc-session-answer-resume.md)、[修复前真实失败](evidence/rc-session-answer-real-failed-20261002.json)、[限定恢复证明](evidence/rc-session-answer-recovery-scoped-20261002.json)。等待answer恢复、真实Bash字节检查、TaskRunner核验、人工签收与单独合回已实际执行；严格双独立Verifier和新来源汇报仍需新夹具/新安装候选复验。PR102 Mac CI首轮工具evaluate异常已按同提交重跑一次，结果待定。GPT-6.1 Sol目录兼容另卡实施，真实订阅请求进行中。所有这些源码/装配证明不代替rc.2实际下载包。
+见[补修卡](rc-session-answer-resume.md)、[修复前真实失败](evidence/rc-session-answer-real-failed-20261002.json)、[限定恢复证明](evidence/rc-session-answer-recovery-scoped-20261002.json)。等待answer恢复、真实Bash字节检查、TaskRunner核验、人工签收与单独合回已实际执行；严格双独立Verifier和新来源汇报仍需新夹具/新安装候选复验。PR102 Mac CI首轮工具evaluate异常已按同提交重跑一次通过，Linux首轮通过；已合入fca715e8。GPT-6.1 Sol目录兼容另卡实施，真实订阅请求进行中。所有这些源码/装配证明不代替rc.2实际下载包。

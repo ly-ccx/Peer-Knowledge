@@ -20,3 +20,6 @@
 源码412303b4：先完成2项真实红测试（answer不恢复、前置排队回答未拒绝），focused65/65、runtime-node1006/1006、build/typecheck/architecture均通过，生成提示已同步。PR102 Linux CI通过；Mac首轮在quick-chat自动化evaluate遇到“Resulting promise was garbage collected”，三项性能中位数55.19/88.40/154.40ms均在原预算，已按同提交重跑失败任务一次，未改断言或预算。
 
 [真实修复前失败](evidence/rc-session-answer-real-failed-20261002.json)与[同夹具恢复的限定证明](evidence/rc-session-answer-recovery-scoped-20261002.json)均保留。修复后真实answer唤醒B、Bash字节核验/tool-result引用与TaskRunner Verifier通过；实际手动签收、单独授权合回只修改a.txt/b.txt且内容精确。B的最终hostVerification仍missing，手动签收返回verification_below_floor，因此这轮仅证明恢复、命令事实与人工签收/合回，不能记作双独立Verifier复杂流程通过。测试夹具将补强“两个hostVerifier实际passed＋本轮新来源回复＋签收返回passed”后对新候选重跑；总RC状态继续未Ready。
+
+
+最终PR102两平台CI通过，Mac仅同提交重跑失败任务一次，预算与断言未变。2026-10-02T03:04:44Z已合入开发线fca715e8，[CI绑定](evidence/rc-session-answer-ci-20261002.json)。不把限定恢复人工签收升格为严格复杂验收。
