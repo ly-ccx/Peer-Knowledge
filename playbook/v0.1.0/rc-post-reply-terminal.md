@@ -29,3 +29,5 @@ Review 补修后源 HEAD a8d7058e52a706b778fc466fee52035908fcde6a（tree bb6426c
 最终 CI36978709629 两平台全成功，macOS/Linux 原生 smoke 报告均 ok、干净且无页面错误；源/CI/最终 merge tree 完全相同，PR108 已按负责人持续授权合入1de232b3。[绑定证据](evidence/rc-post-reply-ci-binding-20261002.json)。五个允许代码路径交付完成，新 RC3 签名安装包由 RC05 继续验证。
 
 额外真实 GPT61 双写首轮文件内容与 criterion 均通过，但 B 独立核验因缺“仅指定文件变化”的基线 diff 证据拒绝，未签收/合回；[失败保留](evidence/rc-post-reply-source-complex-scope-failed-20261002.json)。这是任务证据要求未在原测试 brief 中明确，不放宽核验门；补齐实际只读 Bash baseline diff 要求后复验中。
+
+补齐 fresh baseline diff brief 的[源码复验通过](evidence/rc-post-reply-source-complex-scope-passed-20261002.json)：同一干净PR108源/真实GPT61所有角色、两独立worktree精确输出、各自本地批准事实、fresh实际Bash/read_file证据、两项独立核验 passed、两次签收且原项目暂不变、两个单独合回决定后仅a.txt/b.txt改变。没有关闭任何准入/核验门；owned退出、凭据副本清除。此轮为新的可丢弃夹具，不改写首轮失败，也不宣称无干预恢复原任务。

@@ -6,6 +6,8 @@
 
 允许新 release-notes/v0.1.0-rc.3.md；既有 stamp-version 覆盖的 VERSION、12 个包清单、Cargo.toml/lock、两个 README 候选标记和发布说明链接；changelog 生成物及 build-changelog.test.mjs 当前候选断言；rc-upgrade-matrix.mjs 及其测试保留 RC1/RC2 并加当前 RC3 毕业行（21 项，六版真实旧 tag 来源不变）。本卡不改更新器实现、依赖、签名配置或工作流。
 
+RC3准备提交4d97ff6d（tree bab3d33454c92e54e63dd28fc43c6767e4cce828）干净完整门禁通过：[源码门禁](evidence/rc3-source-gates-20261002.json)、[实际源窗口](evidence/rc3-source-window-passed-20261002.json)。Desktop5302项中5297pass/原5skip、独立AST1；runtime1014、TUI755与其他包通过；21项矩阵通过。9壳/11可访问性/7诊断无页面错误且owned退出；列表14.55ms、搜索23ms、Received51.70ms在原预算。PR109最终CI36979821056进行中，尚未发布。PR108真实GPT61双写补明确基线diff证据后的完整独立核验/签收/授权合回通过，首轮证据不足拒绝保留：[源码复杂通过](evidence/rc-post-reply-source-complex-scope-passed-20261002.json)。新包默认helper与复杂任务仍须实测。
+
 候选干净源完整构建/类型/架构/测试、版本及发布门禁、21 项矩阵和最终两平台 CI 必须通过。发布后验证正式签名公证包与资产 SHA、401 旧计划历史双机器人启动/切换、GPT61 真实 canonical 回复及无额外模型请求、默认 packaged helper、复杂任务和多入口。安装包通过前不能把源码通过写成用户已修复。Beta→RC 真实自动发现与错误降级仍是独立未解决发布阻塞；本次说明明确提供手动安装升级路径，不宣传自动更新已可用。
 
 2026-10-02，Accepted；负责人授权自主完成实现、自测、详细手册及 RC 预发布。GA 必须等待负责人全面测试与明确确认。C 级文档与发布编排；不增加能力或权限。
