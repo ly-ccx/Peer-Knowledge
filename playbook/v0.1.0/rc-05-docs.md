@@ -52,3 +52,6 @@ rc.2源码b1cae373干净门禁通过：[全量记录](evidence/rc2-source-gates-
 最终准备提交 eaabfa98（tree 2cc939ae6df77ee36e251a4d82d7b69f39319724）全部本机源码门禁再次通过；干净实际源窗口9壳/11可访问性/7诊断通过，无页面/授权错误、owned退出。Accepted追加仅修正测试菜单动画采样时机，原几何/状态/性能断言保持。最终CI36981399115进行中。见[最终源码门禁](evidence/rc3-final-source-gates-20261002.json)、[最终源窗口](evidence/rc3-final-source-window-passed-20261002.json)。
 
 PR109最终CI36981399115两平台完整通过，9壳/11可访问性/7诊断、0页面/授权错误、owned退出，原性能预算通过。eaabfa98、CI合成528e7054与实际合入78178d0c的tree完全一致（2cc939ae…）。已按负责人授权合入；新不可变tag v0.1.0-rc.3指向78178d0c，正式Release构建与安装实测待完成。见[最终CI绑定](evidence/rc3-candidate-ci-binding-20261002.json)。
+
+
+RC4候选准备acf19ee3/tree10707e13：本机完整build/typecheck/architecture/test及releaseReadiness通过；Desktop5320项5315pass/原5skip＋AST1，runtime1014，22项矩阵保留RC1–3与六版旧tag来源。干净源实际窗口9壳/11可访问性/7诊断、0页面/授权错误、owned退出与原性能预算通过。[源门禁](evidence/rc4-source-gates-20261002.json)。PR112最终两平台CI36995512881进行中，尚未发布或替换原应用，不改判复杂任务阻塞。
