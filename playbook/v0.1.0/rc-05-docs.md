@@ -1,5 +1,15 @@
 # RC05 用户文档与候选包交付
 
+## rc.4 候选准备（2026-10-02，Accepted）
+
+负责人要求自主完成RC收口，本轮再次指出实际rc.3提示旧beta.5更新；允许依赖PR110侧栏排版及PR111真实更新发现/防降级通过最终两平台CI并合入后，从开发线准备PeerAgent/pa/rc4-candidate。发布修复候选以解决实际安装客户端；复杂任务命令描述快照仍为独立A类未完成项，RC4不得据此宣称总体Ready。GA继续等待负责人全面测试、七天日用及明确批准。
+
+允许新release-notes/v0.1.0-rc.4.md，既有stamp-version覆盖的VERSION、12个package.json、Cargo.toml/lock及两个README版本/链接；changelog生成物及build-changelog.test.mjs候选断言；rc-upgrade-matrix.mjs保留RC1–3并新增当前RC4，测试期望22项。不得移旧tag/资产、改依赖、签名、发布工作流或更新器实现。
+
+新候选需完整构建/类型/架构/测试、版本/changelog/readiness和最终两平台CI、真实源窗口。发布后下载实际资产比对digest、验证同Team签名/Gatekeeper/公证，再用实际macOS签名包原生更新检查：Beta及auto不提供旧Beta/同版本，显式stable不提供旧0.0.18。旧Beta5/RC3先人工安装新候选，实测后才能称旧客户端迁移完成；不假称旧冻结更新器已修。平台清单和模型/多入口/复杂任务的已有范围单列，Windows/Linux互动安装及未发生的未来RC自动安装不写Pass。
+
+原用户应用替换前可回滚备份当前app和完整数据，保留canonical记录、机器人身份与原模型偏好；实际确认新版本、侧栏渠道只在设置内、版本右对齐、无错误旧版红点，再更新详细测试文档和事实报告。
+
 ## rc.3 候选准备（2026-10-02，Accepted）
 
 RC3 窗口门禁追加范围（2026-10-02，Accepted）：PR109 同提交一次重跑后 Linux 全通过，macOS 在菜单进入动画尚未结束时读取几何，trace 记录 trigger.top=820、menu.bottom=822.0625；失败截图进入完成后正常向上。允许本卡仅修改 apps/desktop/scripts/bot-shell-updater-checks.mjs，使用既有有界 until 等候原几何条件成立并保留原断言、事件状态及性能预算，记录最终几何；不改产品样式或运行时。首轮两平台 GC transport 失败和二轮 macOS 几何失败分别保留，不推断产品根因，不无限重跑。新提交需本机真实窗口与最终两平台 CI 完整通过。
