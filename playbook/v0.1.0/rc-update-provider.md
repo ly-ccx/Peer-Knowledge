@@ -15,6 +15,7 @@
 - apps/desktop/electron/main/auto-updater.mjs及auto-updater.test.mjs
 - 新建apps/desktop/electron/main/update-github-provider.mjs及update-github-provider.test.mjs
 - 新建apps/desktop/scripts/update-discovery-live-probe.mjs（显式联网，运行真实Provider/AppUpdater资格判断，记录实际清单和资产URL/SHA，不下载包或安装）
+- scripts/rc-upgrade-matrix.mjs：全量测试发现既有VM导入白名单未接新Provider模块，允许加入真实模块并给受控feed声明generic配置；仅适配测试Seam，保留全部升级/毕业断言，不用受控矩阵代替真实发现。
 - 本卡、诊断、RC报告/指南/证据；ADR61实施说明可补当前预览映射澄清，不改变毕业决策。
 
 不改main.mjs、IPC、renderer、存储、依赖、版本文件、发布工作流或已发布tag/资产。需要新签名候选时另走RC发布卡。新源码不能修正冻结的旧Beta5/RC3客户端：它们先人工安装修复候选，后续升级再验证自动发现；不宣称旧客户端已经自动可达。
