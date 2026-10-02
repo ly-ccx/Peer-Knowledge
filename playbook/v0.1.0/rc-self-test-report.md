@@ -110,3 +110,6 @@ npm发布日志UTC20:15:23显示RC1发布成功，最初本机注册表返回E40
 设置/CLI助手/命令快照/回答恢复/新模型目录PR99–103已全部合入。rc.2版本源码b1cae373完整build/typecheck/architecture/test、版本/changelog/readiness通过；20项矩阵保留旧19项及六版真实tag来源，增加rc.2更新毕业行。最终两平台CI/native源窗口进行中，未发布/未宣布Ready。
 
 [严格源码流程](evidence/rc-source-strict-complex-validated-20261002.json)实际达到两次独立核验、本轮来源回复、用户签收和独立授权合回，含一次真实用户回答/Retry。原脚本末尾误用历史格式失败已保留，实际segments/bash收据post-validation通过；安装候选重新跑已修正的断言。GPT-6.1 Sol目录已通过两平台CI并合入，但真实首轮和显式Retry均空响应，账号可用仍未通过，两个语言发布说明披露；不得把目录项等同真实工具可用。
+
+
+GPT61最新范围更正：经典入口low与default均真实工具读回通过，故账号/模型通用可用不是阻塞结论；失败目前局限于先前机器人代理请求，机器人自然输入正在复验，真实旧失败保留。不能用经典通过替代bot post_reply通过。

@@ -18,3 +18,6 @@ focused目录/配置/encoder测试、Desktop受影响包全量及build/typecheck
 
 
 最终两平台CI36958180552通过，PR103于03:08:08Z合入7277ca61，源码6c42a903与合入Git tree均60b93cd4，[CI绑定](evidence/rc-gpt61-ci-20261002.json)。只宣布目录/持久化支持完成；空响应实际账号可用性仍未通过，rc.2双语说明明确披露。
+
+
+诊断缩小：干净rc.2 b1cae373的经典对话生产conversations/chatSend路径，在low和default两种effort均实际read_file并精确回读成功，非伪造Tool Result；[low](evidence/rc-gpt61-classic-low-passed-20261002.json)、[default](evidence/rc-gpt61-classic-default-passed-20261002.json)。因此不能再概括“本机账号不可用”，也不能把effort默认映射当作根因。先前机器人代理请求真实空响应仍保留，改用自然中文的同一bot工具链进一步定位。两个源码成功均非实际安装包，复制凭据已清除、owned退出。

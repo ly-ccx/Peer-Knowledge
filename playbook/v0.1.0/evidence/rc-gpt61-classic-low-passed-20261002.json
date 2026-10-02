@@ -1,0 +1,42 @@
+{
+  "sourceHead": "b1cae3734b8a477c9dc098f65e18735d41b76672",
+  "sourceDirty": false,
+  "startedAt": "2026-10-02T03:19:50.751Z",
+  "finishedAt": "2026-10-02T03:20:03.350Z",
+  "version": "0.1.0-rc.2",
+  "installed": false,
+  "model": "gpt-6.1-sol",
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 45960
+  },
+  "credentialCopiesRemoved": true,
+  "steps": [
+    "actual classic chat API with supported low effort: real file read and exact reply; this does not replace bot post_reply verification"
+  ],
+  "ok": true,
+  "effort": "low",
+  "scope": "Actual source canonical classic conversation/chatSend pipeline, GPT-6.1 Sol subscription, real read_file and exact content reply. Not bot post_reply or installed proof.",
+  "classic": {
+    "content": "Disposable RC acceptance project. Only a.txt and b.txt may change.\nGPT61_CLASSIC_OK",
+    "calls": [
+      {
+        "tool": "read_file",
+        "toolCallId": "call_gZDSqVc53JltI9NGzF0lqaTH"
+      }
+    ],
+    "results": [
+      {
+        "toolCallId": "call_gZDSqVc53JltI9NGzF0lqaTH",
+        "result": "{\n  \"kind\": \"local_file_ref\",\n  \"tool\": \"read_file\",\n  \"path\": \"/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-KuNdd7/project/README.md\",\n  \"chars\": 66,\n  \"lines\": 1,\n  \"mtimeMs\": 1790911190669.8225,\n  \"sizeBytes\": 66,\n  \"contentHash\": \"1de43edd244a90d9b29b303bbafd7b1518ab24b5e5243d71a247f8e295dec31d\",\n  \"fullRead\": true,\n  \"preview\": \"Disposable RC acceptance project. Only a.txt and b.txt may change.\",\n  \"contextPreviewTruncated\": false,\n  \"suggestedRetrieval\": [\n    \"sed -n '1,160p' \\\"/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-KuNdd7/project/README.md\\\"\",\n    \"rg -n \\\"<pattern>\\\" \\\"/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-KuNdd7/project/README.md\\\"\"\n  ],\n  \"evidenceRefs\": [\n    \"tool-result://call_gZDSqVc53JltI9NGzF0lqaTH\"\n  ]\n}"
+      }
+    ],
+    "errors": [],
+    "done": true
+  }
+}
