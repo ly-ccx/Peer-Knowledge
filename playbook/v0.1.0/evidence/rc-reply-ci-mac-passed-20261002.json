@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "533885edf418ca191ce8f7f4b1435508aba6c0c2",
+  "sourceDirty": false,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "startedAt": "2026-10-02T15:02:29.179Z",
+  "finishedAt": "2026-10-02T15:04:53.222Z",
+  "ok": true,
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "replyInteraction": [
+    "quote is a context button with SVG; delivery policy is explicitly readonly",
+    "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+    "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+    "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+    "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+  ],
+  "replyStyles": [
+    {
+      "theme": "dark",
+      "quote": {
+        "background": "rgb(30, 35, 44)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 76.390625
+      },
+      "action": {
+        "background": "rgb(30, 35, 44)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 32
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(176, 180, 188)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    },
+    {
+      "theme": "light",
+      "quote": {
+        "background": "rgb(247, 249, 252)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 76.390625
+      },
+      "action": {
+        "background": "rgb(247, 249, 252)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 32
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(82, 86, 96)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    }
+  ],
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page",
+    "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+    "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+    "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+    "oversize input is rejected before submission and the editable draft is retained",
+    "10000 memory records render 50 at a time; next and previous retain distinct identities",
+    "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+    "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+    "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+    "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+  ],
+  "metrics": {
+    "productionList": {
+      "samples": [
+        48.891083000002254,
+        51.875,
+        45.16254199999821,
+        40.90316700000403,
+        46.916958000001614
+      ],
+      "median": 46.916958000001614,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        188.40000000002328,
+        59,
+        44.699999999953434,
+        60.5,
+        57.59999999997672
+      ],
+      "median": 59,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        176.80000000004657,
+        146,
+        167.70000000006985,
+        176.69999999995343,
+        136.30000000004657
+      ],
+      "median": 167.70000000006985,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "updaterReceipts": [
+    {
+      "seq": 1,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 2,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 3,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 4,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 5,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 6,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 7,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 8,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 9,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 10,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 11,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 12,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 13,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 14,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 15,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 16,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 17,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 18,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 19,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 20,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 21,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 22,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 23,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 24,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 25,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 26,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 27,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 28,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 29,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 30,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 31,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 32,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 33,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 34,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 35,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 36,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    }
+  ],
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 55814
+  },
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "diagnosticChecks": [
+    "read actual stores",
+    "reject renderer destination",
+    "refresh real Developer panel",
+    "save redacted JSON",
+    "bounded events/turns",
+    "actual turn timing",
+    "no absolute paths, IDs or message text"
+  ],
+  "updaterLayoutCount": 72,
+  "runId": 37023512022,
+  "attempt": 1,
+  "jobId": 110892591527,
+  "artifactId": 11235435030,
+  "scopeNote": "Production source native shell with scripted cognition, synthetic durable inputs and acknowledged controlled updater display events; not a published signed candidate, real model or actual update installation."
+}
