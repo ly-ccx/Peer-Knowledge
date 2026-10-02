@@ -25,4 +25,8 @@
 
 复查实际截图：[深色首屏](evidence/rc-settings-default-dark-20261002.png)、[浅色首屏](evidence/rc-settings-default-light-20261002.png)、[更多角色](evidence/rc-settings-advanced-20261002.png)、[运行与全局](evidence/rc-settings-runtime-20261002.png)、[窄抽屉](evidence/rc-settings-narrow-20261002.png)。这些图片仅含隔离的合成项目和消息。
 
-检查器修正亦保留证据：[首轮](evidence/rc-settings-checker-first-failed-20261002.json)误要求flex item的computed display为inline-flex，依CSS blockification修正为flex，实际图标居中断言保留；主题截图最初抓到过渡帧，等待全页面过渡又被离屏动画挂起，主动退出owned测试窗口并[保留中断](evidence/rc-settings-checker-transition-interrupted-20261002.json)。最终检查等待可见开关实际主题颜色稳定，5秒上限，未改产品动效或性能预算。两平台CI进行中，尚未合入或更新负责人的安装应用。
+检查器修正亦保留证据：[首轮](evidence/rc-settings-checker-first-failed-20261002.json)误要求flex item的computed display为inline-flex，依CSS blockification修正为flex，实际图标居中断言保留；主题截图最初抓到过渡帧，等待全页面过渡又被离屏动画挂起，主动退出owned测试窗口并[保留中断](evidence/rc-settings-checker-transition-interrupted-20261002.json)。最终检查等待可见开关实际主题颜色稳定，5秒上限，未改产品动效或性能预算。
+
+## 合入
+
+2026-10-02 PR99已合入`7368c8e86c5fcfe9a0b2ece8de5efeda40533636`。[两平台CI36952885532](evidence/rc-settings-ci-20261002.json)全部通过，8项主题/状态对比均通过。macOS列表99.11ms/搜索70.00ms/Received113.00ms，Linux22.09/38.80/77.10ms；预算未改。源提交、CI临时merge与交付merge的tree均为`db66fb3165d1ba1222160595aad5ea135557089c`。本卡代码完成；负责人的安装应用尚未更新，修复须进入rc.2后独立验包。
