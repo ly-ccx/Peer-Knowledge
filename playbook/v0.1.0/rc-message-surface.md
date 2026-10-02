@@ -33,3 +33,10 @@ bot-conversation.css的bot-card、bot-composer及focus-within使用graphite-base
 ## 首轮CI窗口通信失败保留
 
 CI37017510987首轮两平台的完整build/typecheck/architecture/test均通过；原生窗口在发送合成更新状态时均报Playwright主进程evaluate的“Resulting promise was garbage collected”，还未进入消息界面检查。页面/主进程授权错误均零、自有进程退出。保留[macOS原失败](evidence/rc-message-ci-mac-transport-failed-20261002.json)与[Linux原失败](evidence/rc-message-ci-linux-transport-failed-20261002.json)及对应不可变artifact；同源仅重跑失败job一次（attempt2）。再失败则修复具体观察Seam，不无限重跑。尚未合入或更新签名应用。
+
+
+## 最终交付
+
+PR113已按负责人持续授权合入6ce13434。最终CI37017510987 attempt2两平台完整成功：9壳/11可访问性/7诊断、72既有布局、无页面/授权错误、自有进程退出、原性能预算保持。两平台首轮通信失败及同源唯一重跑保留，产品代码与断言没有随重跑改变。26904009、CI实际f058c1fe及合入6ce13434的tree同为7442e2d0，主工作区已同步开发线。[提交与CI绑定](evidence/rc-message-ci-binding-20261002.json)、[macOS最终窗口](evidence/rc-message-ci-mac-final-passed-20261002.json)、[Linux最终窗口](evidence/rc-message-ci-linux-final-passed-20261002.json)。
+
+本卡源码修复完成。原签名RC4安装包仍是旧样式，没有移动tag、修改签名.app或宣称新候选发布；下一RC按独立候选卡收口。总体Ready与复杂任务独立阻塞保持。
