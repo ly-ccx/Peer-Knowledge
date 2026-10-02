@@ -10,11 +10,17 @@
 
 启动阻塞也已确定是本轮 net::ERR_FAILED 的根因：相同 Electron41.7.1、新鲜 profile、401 计划和双机器人，旧主进程阻塞约22秒，网络子进程15秒连接超时自行退出，三次默认 session 请求均立即失败；修复约3.8秒 ready，三次请求返回正常 HTTP405。[实测](evidence/rc-startup-network-diagnosis-20261002.json)。无需重置原 Chromium profile，原数据和配置未清除。
 
-联网恢复后，真实模型成功 post_reply 却多请求一段空文字，暴露内层 Provider loop 缺终结控制；PR108 沿既有本地 ToolResult control 修复。真实 GPT61 同夹具一次请求、4889ms canonical 回复通过，Grant/Evidence 和失败护栏保持。[卡片与前后证据](rc-post-reply-terminal.md)。PR108 两平台 CI 及新的 RC3 签名安装包仍待完成，原 RC2 安装包不据此改判通过；真实 Beta→RC 自动发现和错误降级仍未解决。
+联网恢复后，真实模型成功 post_reply 却多请求一段空文字，暴露内层 Provider loop 缺终结控制；PR108 沿既有本地 ToolResult control 修复。真实 GPT61 同夹具一次请求、4889ms canonical 回复通过，Grant/Evidence 和失败护栏保持。[卡片与前后证据](rc-post-reply-terminal.md)。PR108 最终两平台 CI 已通过并合入；新的 RC3 签名安装包仍待完成，原 RC2 安装包不据此改判通过；真实 Beta→RC 自动发现和错误降级仍未解决。
 
 配套：[全面测试手册](acceptance-test-guide.md)、[RC 卡](rc-release.md)。正式版由负责人全面测试和七天日用后决定；本报告不代替负责人签收。
 
 2026-10-02 后续：PR108 已合入1de232b3，最终两平台CI36978709629全成功，源/CI/合入tree一致；真实GPT61 Desktop/远程提交/TUI接管的只读工具和canonical回复均通过，默认安装包复验仍待RC3。[补修交接](rc-post-reply-terminal.md)。RC3版本准备4d97ff6d已推送并开始最终门禁，21项矩阵保留RC1/2；尚未发布，不代表已替换原用户应用。
+
+### RC3 最终源码与候选构建
+
+PR109最终CI36981399115两平台全通过，eaabfa98/CI528e7054/实际merge78178d0c tree均2cc939ae6df77ee36e251a4d82d7b69f39319724。完整build/typecheck/architecture/test/readiness/source-check再次通过；Desktop5302项中5297pass/原5skip，独立AST1、runtime1014、TUI755，21项矩阵保留六版真实旧tag和RC1/RC2。两平台实际窗口9壳/11可访问性/7诊断、无页面/授权错误、owned退出，原预算不变。[最终源码](evidence/rc3-final-source-gates-20261002.json)、[最终窗口](evidence/rc3-final-source-window-passed-20261002.json)、[CI绑定](evidence/rc3-candidate-ci-binding-20261002.json)。
+
+窗口测试首轮GC transport失败与一次重跑macOS菜单动画中几何失败分别保留；只修测试有界等待原几何条件，不跳过断言。新不可变tag v0.1.0-rc.3指向78178d0c；Release36982183664构建中，实际签名包及用户安装复验尚未完成。源码严格GPT61双写首轮基线diff证据不足拒绝保留；明确要求fresh baseline diff的后续夹具通过两worktree精确改动、真实Bash/read证据、两次独立核验、用户签收和分别授权合回，见[首轮失败](evidence/rc-post-reply-source-complex-scope-failed-20261002.json)、[后续通过](evidence/rc-post-reply-source-complex-scope-passed-20261002.json)。仍不能记为安装包通过。自动更新真实发现与错误降级保持未解决发布阻塞；GA等待负责人全面测试、七天日用和明确批准。
 
 ## 交付版本
 
