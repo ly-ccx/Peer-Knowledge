@@ -23,6 +23,12 @@
 
 原窗口 net::ERR_FAILED 单独追查。新进程 GPT-6.1 Sol 已有真实 post_reply 成功，不能据此把原窗口错误、复杂任务或总体 RC 标为 Ready。
 
+### 网络报错根因收敛（2026-10-02）
+
+原会话 GET 0–2ms 失败，而同进程内新内存会话 GET 返回 405。此前复制 profile / 简单数据能联网，不能据此断言原 profile 损坏。随后相同历史/401 计划的单机器人旧版本 13.5s ready、三次 GET 405；双机器人旧版本 24.7s ready、三次 GET 1ms ERR_FAILED，Chromium 日志明确为“15 seconds with no connection”后退出 NetworkService。相同 Electron 41.7.1 的修复源码双机器人 3.8s ready、三次 GET 405，无此退出。主进程重复历史读取使初始连接超时，NetworkService 重启后默认会话请求仍失败；Electron 官方 [PR49887](https://github.com/electron/electron/pull/49887)也记录这一后续故障，但本卡未升级依赖或绕到 Node fetch。
+
+[原窗口与控制对比证据](evidence/rc-startup-network-diagnosis-20261002.json)。仅 unauth GET，不能替代真实模型和新签名包验证；原数据/配置未重置。
+
 ## 交付与验证
 
 代码 PR107，源提交 `3a1069d0`，两平台 CI `36975763494` SUCCESS。下载的 macOS/Linux bot-shell 报告均 ok、无 pageErrors，源为合成 merge `9dfb194c`；source/CI/合入 Git tree 均 `c468c7fa231f7f7c6b07dd4577c32243f5b9d1a0`。已授权合入 `68b9689e`，主开发工作区已快进同步。

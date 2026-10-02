@@ -568,3 +568,7 @@ ApprovalStore压缩保留approved的plan_approval折叠历史，避免新决定�
 ### RC 用户回答恢复补正（2026-10-02，Accepted）
 
 message_session(intent:answer)的原文是用户侧事实。当任务已准入且确实能消费等待用户输入时，运行时消费该回答并沿既有GoalRunner恢复；不能只落盘而让任务继续waiting_user。answer在非等待会话保持追加语义，amend在运行中仍作为下一回合纠正；等待中的两种intent都沿同一回答消费接口。暂停/取代/前置失败排队以及未批准计划的门不因文字声明批准而打开。证据由实际message_session Tool Result与原GoalPlan事件/Runner产生，不从代理文字推断恢复成功。见rc-session-answer-resume实施卡。
+
+### 2026-10-02 成功回复的内层循环收尾
+
+成功 post_reply 的回合终结必须覆盖 Provider 内层循环。Delegation Provider 在已有 ToolResult.outputPreview.control 返回 terminal；控制属于本地结构化结果，失败/拒绝/取消不得携带此成功控制。成功 suppressed 或幂等重放仍结束本轮。现有 terminal tool pipeline 先应用 Tool Result/计费与 Context accounting，再统一 done，由外层 Runner 落 canonical 回复或安静抑制；不要求模型再生成文字，不放宽空响应错误护栏。权限/Projection/Evidence 与持久化边界保持。见 playbook/v0.1.0/rc-post-reply-terminal.md。
