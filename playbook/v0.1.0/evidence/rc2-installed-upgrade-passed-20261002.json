@@ -1,0 +1,318 @@
+{
+  "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj",
+  "startedAt": "2026-10-02T03:49:53.112Z",
+  "scope": "Actual installed macOS 0.0.18 -> beta.5 -> rc.1 -> rc.2 -> 0.0.18 -> rc.2; real tagged legacy fixture, no model/credential copies. No claim about Windows/Linux installers.",
+  "tagged": {
+    "ref": "v0.0.18",
+    "commit": "a087988cc3a4382d780db62f7247d4b9d355636e",
+    "sourceFiles": [
+      {
+        "file": "apps/desktop/electron/main/settings-store.mjs",
+        "sha256": "0de1c188f808f975ae0ab53329f89fc69ffc705c46b6a983ec2fdda4ae55fd3e"
+      },
+      {
+        "file": "apps/desktop/electron/main/data-store.mjs",
+        "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+      },
+      {
+        "file": "packages/runtime-node/src/index.ts",
+        "sha256": "8d4033333bd3fbf744cb9d4903b0adf1e29d43b5cd86d3c1407bb3d793964c47"
+      },
+      {
+        "file": "packages/runtime-node/src/data-store.mjs",
+        "sha256": "e0ab7979c6ccbcccce58ace87ff8279492a3e22976c6cd6235074c7098621289"
+      },
+      {
+        "file": "packages/conversation-store/src/index.mjs",
+        "sha256": "a44b8f26c3c15b26df66f40f892bf9e35bd16958fd19ca9a63fa1829967fc097"
+      },
+      {
+        "file": "packages/conversation-store/src/persisted-history.mjs",
+        "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+      },
+      {
+        "file": "packages/conversation-store/src/inherited-background.mjs",
+        "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+      },
+      {
+        "file": "packages/conversation-store/src/selection-reference.mjs",
+        "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+      },
+      {
+        "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+        "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+      },
+      {
+        "file": "packages/protocol/src/index.ts",
+        "sha256": "650968488fbc5a7bd0549e5d801a59c4cc44f0d5973c1aa9e01bbb8f3aece99c"
+      },
+      {
+        "file": "packages/protocol/src/execution.ts",
+        "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+      },
+      {
+        "file": "packages/protocol/src/chat.ts",
+        "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+      },
+      {
+        "file": "packages/protocol/src/compaction.ts",
+        "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+      },
+      {
+        "file": "packages/protocol/src/context-accounting.ts",
+        "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+      },
+      {
+        "file": "packages/runtime-node/src/goal-plan-store.mjs",
+        "sha256": "23b3d49a7b5d342008354ba4e31bb55eb71da036a4c44b735f686ff6f6a55cb3"
+      },
+      {
+        "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+        "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+      },
+      {
+        "file": "packages/runtime-core/src/index.ts",
+        "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+      },
+      {
+        "file": "packages/runtime-core/src/contracts.ts",
+        "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+      },
+      {
+        "file": "packages/runtime-core/src/decision.ts",
+        "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+      },
+      {
+        "file": "packages/runtime-core/src/evidence.ts",
+        "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+      },
+      {
+        "file": "packages/runtime-core/src/hooks.ts",
+        "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+      },
+      {
+        "file": "packages/runtime-core/src/permission.ts",
+        "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+      },
+      {
+        "file": "packages/runtime-core/src/capability-registry.ts",
+        "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+      },
+      {
+        "file": "packages/runtime-core/src/projection.ts",
+        "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+      },
+      {
+        "file": "packages/runtime-core/src/projection-materializers.ts",
+        "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+      },
+      {
+        "file": "packages/runtime-core/src/local-tool-contracts.ts",
+        "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+      },
+      {
+        "file": "packages/runtime-core/src/context-compaction.ts",
+        "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+      },
+      {
+        "file": "packages/runtime-core/src/goal-keep-policy.ts",
+        "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+      },
+      {
+        "file": "packages/runtime-core/src/goal-checkpoint.ts",
+        "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+      },
+      {
+        "file": "packages/runtime-core/src/iso-crypto.ts",
+        "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+      },
+      {
+        "file": "packages/protocol/src/memory.ts",
+        "sha256": "a8e3b7fdb035a79418aa5269ec1fde686d4d9132ff9953953f4f3b4bad74b5ca"
+      },
+      {
+        "file": "packages/protocol/src/system-context.ts",
+        "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+      },
+      {
+        "file": "packages/protocol/src/goal.ts",
+        "sha256": "77b8ae582789252ad4cf5041d422bc0d36c5426bfde9a710955238ce1774d1fe"
+      },
+      {
+        "file": "packages/protocol/src/acceptance-close-gate.ts",
+        "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+      },
+      {
+        "file": "packages/protocol/src/desktop-preview.ts",
+        "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+      },
+      {
+        "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+        "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+      },
+      {
+        "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+        "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+      },
+      {
+        "file": "packages/protocol/src/ui-delivery-verification.ts",
+        "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+      },
+      {
+        "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+        "sha256": "f4c83829a0e2ed39d2975a24a2a5cbdf7d5e3e7ad2d8405070801ace49c5d167"
+      },
+      {
+        "file": "packages/runtime-node/src/automation-store.mjs",
+        "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+      }
+    ],
+    "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+  },
+  "classicId": "6db10236-8196-4fea-ab2e-efdff9c7c97f",
+  "goalId": "13c8ee38-7211-449c-9376-3528e4fbfa26",
+  "automationId": "546693d4-51ba-4d13-babb-561e82b2ee0b",
+  "checks": [
+    {
+      "name": "stable-before",
+      "startedAt": "2026-10-02T03:49:53.112Z",
+      "pageErrors": [],
+      "version": "0.0.18",
+      "workspacePaths": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj/project"
+      ],
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 58474
+      },
+      "finishedAt": "2026-10-02T03:49:55.786Z"
+    },
+    {
+      "name": "beta-before",
+      "startedAt": "2026-10-02T03:49:55.786Z",
+      "pageErrors": [],
+      "version": "0.1.0-beta.5",
+      "workspacePaths": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj/project"
+      ],
+      "workspaceId": "6e8303b1-5165-4f8d-a5e1-13966d9f1f2d",
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-2",
+        "pid": 59059
+      },
+      "finishedAt": "2026-10-02T03:49:58.544Z"
+    },
+    {
+      "name": "previous-rc",
+      "startedAt": "2026-10-02T03:49:58.544Z",
+      "pageErrors": [],
+      "version": "0.1.0-rc.1",
+      "workspacePaths": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj/project"
+      ],
+      "workspaceId": "6e8303b1-5165-4f8d-a5e1-13966d9f1f2d",
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-3",
+        "pid": 59842
+      },
+      "finishedAt": "2026-10-02T03:50:02.217Z"
+    },
+    {
+      "name": "candidate-upgrade",
+      "startedAt": "2026-10-02T03:50:02.217Z",
+      "pageErrors": [],
+      "version": "0.1.0-rc.2",
+      "workspacePaths": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj/project"
+      ],
+      "workspaceId": "6e8303b1-5165-4f8d-a5e1-13966d9f1f2d",
+      "canonicalReadViaApi": true,
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-4",
+        "pid": 60563
+      },
+      "finishedAt": "2026-10-02T03:50:04.479Z"
+    },
+    {
+      "name": "stable-downgrade",
+      "startedAt": "2026-10-02T03:50:04.479Z",
+      "pageErrors": [],
+      "version": "0.0.18",
+      "workspacePaths": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj/project"
+      ],
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-5",
+        "pid": 61232
+      },
+      "finishedAt": "2026-10-02T03:50:06.595Z"
+    },
+    {
+      "name": "candidate-return",
+      "startedAt": "2026-10-02T03:50:06.595Z",
+      "pageErrors": [],
+      "version": "0.1.0-rc.2",
+      "workspacePaths": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-upgrade-bG8Cfj/project"
+      ],
+      "workspaceId": "6e8303b1-5165-4f8d-a5e1-13966d9f1f2d",
+      "canonicalReadViaApi": true,
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-6",
+        "pid": 61964
+      },
+      "finishedAt": "2026-10-02T03:50:08.854Z"
+    }
+  ],
+  "protectedFiles": [
+    {
+      "file": "conversations/6db10236-8196-4fea-ab2e-efdff9c7c97f.jsonl",
+      "sha256": "62e03f2e644781c51c640553fe84994b436afaac85dae90441bbc2c64e2f5b95",
+      "unchanged": true
+    },
+    {
+      "file": "goal-plans/13c8ee38-7211-449c-9376-3528e4fbfa26.json",
+      "sha256": "7645138de7041dab2eec8c89720e425c5eaeedd93d515f948a9a07527f125657",
+      "unchanged": true
+    },
+    {
+      "file": "automations/definitions.json",
+      "sha256": "b357f59c0b179d59c567c5ac4c7063fe87ad898f3692a0a50499d7e6361df49a",
+      "unchanged": true
+    }
+  ],
+  "workspaceId": "6e8303b1-5165-4f8d-a5e1-13966d9f1f2d",
+  "canonicalRowUnchanged": true,
+  "ok": true,
+  "finishedAt": "2026-10-02T03:50:08.855Z"
+}

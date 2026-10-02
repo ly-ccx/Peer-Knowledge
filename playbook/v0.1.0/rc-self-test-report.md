@@ -6,9 +6,9 @@
 
 ## 交付版本
 
-候选版 `0.1.0-rc.1` 已预发布：[下载页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.1)。不可变提交 `0beeb21f46c4c40bc076b414471c086aeb9a28a4`，Release工作流36919331979全部成功，14项资产；安装文件SHA256见[手册](acceptance-test-guide.md)。npm `rc=0.1.0-rc.1`，`latest=0.0.18`、`beta=0.1.0-beta.5`；正式0.1.0未发布。源码窗口通过不能填作安装包通过；旧Beta安装结果不能移用为RC结果。
+候选 `0.1.0-rc.2` 已预发布：[下载页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.2)。不可变提交 `be65fb73ce672f87a144a68ed5a1622f5d632ae8`，Release36960577284全部成功、14项资产；SHA见[手册](acceptance-test-guide.md)。npm rc=0.1.0-rc.2，latest=0.0.18、beta=0.1.0-beta.5。RC1历史版本与失败证据保持不变，正式0.1.0未发布。
 
-**当前验收：** 设置页PR99、同次签名CLI助手PR100、命令快照PR101、等待answer恢复PR102与GPT-6.1 Sol目录PR103均已通过两平台CI并合入。rc.2候选PR104最终两平台CI36960002970通过，tag v0.1.0-rc.2固定到be65fb73ce672f87a144a68ed5a1622f5d632ae8，Release36960577284构建中。20项升级矩阵及完整源码门禁、9壳/11可访问性/7诊断通过；严格源码双写保留真实用户回答与一次重试，两任务独立核验、签收和单独授权合回通过。经典GPT61 low/default实际读文件回复通过；机器人同模型仍空响应，摘要请求也失败，尚无已确认根因。新安装包默认CLI、复杂任务与多入口待复验，尚未Ready；GA仍等负责人全面测试、七天日用和明确批准。 RC1默认CLI与首轮复杂任务失败保留在下方历史证据；源通过不代填新安装通过。
+**当前验收：** rc.2包含PR99–103，最终两平台CI与本机全部门禁、20项矩阵、9壳/11可访问性/7诊断通过。实际macOS信任、六次安装轮换、归档CLI与npm默认助手读文件/回复通过。安装双任务首轮与恢复失败均保留：A通过answer恢复，B没有达到实际完成标准，被独立核验拒绝；未签收/合回。Astra重跑两文件及新鲜证据正确，A仍被核验拒绝：要求的计划拆分未达成，且已发生的本地批准历史未投影。未签收/合回，批准事实补修中。多入口限定范围已通过。GPT61经典low/default通过，机器人真实空响应未解决。整体尚未Ready，GA等负责人全面测试、七天日用及批准。
 
 ## 已有证据与适用范围
 
@@ -17,10 +17,10 @@
 | RC01 规模与真实性能 | 通过 | [RC01 完整记录](rc-01-performance.md)。200机器人、10000消息、100000事件、10000记忆，8项预算通过；干净源 Electron 的9项壳检查通过。真实GLM五回合中位5598.32ms，真实工具回复；不是安装包测试。 |
 | RC02 中英文、键盘、焦点、动效 | 本机及最终两平台CI通过 | 干净源1909c38f列表14.12ms、搜索22.40ms、Received48.90ms，9项壳/10项可访问性检查通过；新鲜任务批量投影105项focused测试通过。[窗口报告](evidence/rc02-task-batch-clean-window-20261002.json)。50条记忆分页、减少动效、中文英文、设置持久化与实际颜色对比检查通过。最终候选CI见下方绑定记录。 |
 | RC03 诊断 | 本机及最终两平台CI通过 | 严格IPC调用方与载荷、逐字段脱敏、边界数量、原子写入/取消/失败、损坏registry只读测试；最终候选200机器人窗口导出93312字节，7项诊断检查通过。保存位置由夹具控制，系统保存对话框的手动交互留给负责人。 |
-| RC04 跨版本矩阵 | 19项及最终两平台CI通过 | 真正执行不可变0.0.18及Beta1–5源码；升级、逐版、实际SIGKILL恢复、降级读回和再升级、备份失败、六版用户毕业正式通道、显式beta与回退。自动更新网络/时钟受控；不宣称未发布的GA已实际安装。另有五次真实macOS安装版轮换证据。 |
-| RC05 完整构建与回归 | 本机门禁及最终两平台CI通过 | Desktop5288项中5283通过、原有5项跳过，独立AST1项及runtime-node997项通过；其他包和19项矩阵通过。未发布GA草案从changelog排除并有测试，两个README和真实源截图。示意对话不作为真实模型证据。 |
+| RC04 跨版本矩阵 | 20项（RC2）及最终两平台CI通过 | 真正执行不可变0.0.18及Beta1–5源码；升级、逐版、实际SIGKILL恢复、降级读回和再升级、备份失败、六版用户毕业正式通道、显式beta与回退。自动更新网络/时钟受控；不宣称未发布的GA已实际安装。另有RC2六次真实macOS安装版轮换证据。 |
+| RC05 完整构建与回归 | 本机门禁及最终两平台CI通过 | Desktop5294项中5289通过、原有5项跳过，独立AST1项及runtime-node1006项通过；其他包和20项矩阵通过。未发布GA草案从changelog排除并有测试，两个README和真实源截图。示意对话不作为真实模型证据。 |
 | 候选签名、公证、安装 | macOS信任、安装轮换及npm安装通过 | 本次RC下载SHA与资产digest相符；ZIP/.app与DMG内.app签名、公证、Gatekeeper通过；实际五次版本轮换通过；npm安装CLI二进制及助手与发布归档逐文件SHA相同。Windows/Linux交互安装尚未执行。 |
-| 候选复杂任务与多入口 | 较早源码真实模型通过；本次安装RC1失败待rc.2复验 | 源码双写/独立核验/签收/单独授权合回、多入口/去重/电脑批准/接管通过。Mac已解锁，安装Desktop复验进行中，CLI默认助手仍超时，不以源码结果代填通过。 |
+| 候选复杂任务与多入口 | RC2多入口限定范围通过；严格安装复杂任务失败待修复 | 真实归档/npm默认CLI助手通过。实际Desktop＋源码TUI后端＋本机远程夹具多入口通过，范围明确。RC2双任务三轮原失败保留；默认Astra两文件及新鲜证据正确，但计划拆分和批准历史核验失败，未签收/合回。 |
 | 设置页补修 | 本机源码及两平台CI通过、PR99已合入 | 外观/工作方式/模型分工、折叠运行与全局、Switch与SVG、固定页签及窄抽屉。9壳/11可访问性/7诊断通过，8项滑块对比度最低6.035:1，实际保存读回与原预算通过。详见[补修卡与截图](rc-settings-polish.md)；尚未更新安装应用。 |
 
 较早文档阶段干净 `005a5abb` 的实际源窗口9项壳、10项可访问性和7项诊断检查全部通过，0页面错误，owned进程退出。列表16.82ms、可见搜索24.80ms、Received48.50ms；200机器人诊断93312字节。见[原始报告](evidence/rc05-final-source-window-20261002.json)。与完整本机门禁通过的 `ce5bb7e4` 生产代码相同，仅同步真实滚轮smoke；desktop 5287项中5282通过、原有5项跳过（2项Electron opt-in已另跑、3项完成计划不适用的文本Verifier顺序检查），独立AST测试1项通过，其他包和19项矩阵通过，没有新增skip。
@@ -118,3 +118,13 @@ GPT61最新范围更正：经典入口low与default均真实工具读回通过�
 ### rc.2最终候选与新模型范围
 
 设置页PR99、同次签名CLI助手PR100、命令快照PR101、等待answer恢复PR102与GPT-6.1 Sol目录PR103均已通过两平台CI并合入。rc.2候选PR104最终两平台CI36960002970通过，tag v0.1.0-rc.2固定到be65fb73ce672f87a144a68ed5a1622f5d632ae8，Release36960577284构建中。20项升级矩阵及完整源码门禁、9壳/11可访问性/7诊断通过；严格源码双写保留真实用户回答与一次重试，两任务独立核验、签收和单独授权合回通过。经典GPT61 low/default实际读文件回复通过；机器人同模型仍空响应，摘要请求也失败，尚无已确认根因。新安装包默认CLI、复杂任务与多入口待复验，尚未Ready；GA仍等负责人全面测试、七天日用和明确批准。 [CI绑定](evidence/rc2-candidate-ci-binding-20261002.json)、[GPT61摘要失败](evidence/rc-gpt61-bot-summary-failed-20261002.json)。源码与交付merge Git tree均e2874486c28826ca378c8c64d814e4115b4b19fc。仅变更生成清单时间戳的未提交漂移已恢复，摘要测试原始sourceDirty=true仍如实保留，不伪称干净。
+
+
+### rc.2实际安装检查
+
+[发布记录](evidence/rc2-published-release-20261002.json)、[macOS信任](evidence/rc2-installed-trust-passed-20261002.json)、[六次安装轮换](evidence/rc2-installed-upgrade-passed-20261002.json)通过。归档CLI和npm shim均用默认同次签名助手，实际读取README、post_reply、canonical回复与退出0通过：[CLI](evidence/rc2-installed-cli-passed-20261002.json)、[npm](evidence/rc2-installed-npm-cli-passed-20261002.json)。PEER_AGENT_HOME隔离正确，测试凭据副本已清除，原用户应用未替换。首次npm ETARGET为注册表短暂同步延迟，随后固定版本安装成功。
+
+首轮双任务及一次恢复失败均保留。A误读批准后，通过实际answer恢复并独立核验通过；B只完成初始检查，未满足改动标准，最终独立核验failed，未签收/合回。不能把执行状态completed计为任务目标通过。默认Astra重验仍失败：两文件及新鲜证据正确，但A没有按要求拆出编辑/检查任务，核验上下文也缺实际本地批准历史；保持失败且未签收/合回。[失败](evidence/rc2-installed-complex-astra-failed-20261002.json)、[实际批准诊断](evidence/rc2-local-plan-approval-diagnostic-20261002.json)。已Accepted批准事实补修卡，不能将修复代码或文件正确代替完整验收。GPT61实际准备请求观察确认当前user输入、25工具（含read_file/post_reply）及medium思考档；该观察在网络前中止，不能作实际模型通过：[观察范围](evidence/rc-gpt61-request-observed-20261002.json)。
+
+
+rc.2 multi-entry [actual proof](evidence/rc2-installed-multi-entry-passed-20261002.json) passed: installed Desktop uses default signed helper; source TUI backend client/takeover uses candidate signed helper explicitly; production HTTP/WS adapter and loopback fixture Ed25519 identity. Genuine read_file and canonical replies on all three surfaces, duplicate input rejection, remote approval summary only, Desktop quit -> TUI lease/tool/reply passed. This does not certify a physical phone, production OIDC or installed CLI UI; archive and npm CLI UI are separately verified above. Owned processes exited and credential copies removed.

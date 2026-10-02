@@ -1,0 +1,105 @@
+{
+  "status": "passed",
+  "scope": "Actual npm-installed rc.2 shim -> vendor binary, default adjacent signed helper, 100x30 PTY, binding/input/Received/read_file/post_reply/exit0. Disposable home.",
+  "version": "peer 0.1.0-rc.2",
+  "sourceCommit": "be65fb73ce672f87a144a68ed5a1622f5d632ae8",
+  "helperOverride": false,
+  "model": "gpt-6-luna",
+  "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-cli-wEhyrf",
+  "calls": [
+    {
+      "name": "read_file",
+      "input": {
+        "path": "README.md"
+      },
+      "result": {
+        "path": "README.md",
+        "content": "RC_CLI_REAL_READ_OK\n",
+        "bytes": 20,
+        "contentHash": "bd51f81b4e41667fdd14872cb02f5b38e0c6e73f00055060e93e4655944fbb0a"
+      }
+    },
+    {
+      "name": "post_reply",
+      "input": {
+        "replyTo": [
+          "input-29c8c54e-b2c1-40a6-8caf-107d95c44cf4"
+        ],
+        "text": "`README.md` contains the marker `RC_CLI_REAL_READ_OK`.",
+        "proactive": false
+      },
+      "result": {
+        "ok": true,
+        "messageId": "reply:turn-44b8c22f-a874-4382-b84c-c344d8600d4f:1",
+        "message": {
+          "id": "reply:turn-44b8c22f-a874-4382-b84c-c344d8600d4f:1",
+          "role": "assistant",
+          "kind": "agent_reply",
+          "content": "`README.md` contains the marker `RC_CLI_REAL_READ_OK`.",
+          "replyTo": [
+            "input-29c8c54e-b2c1-40a6-8caf-107d95c44cf4"
+          ],
+          "sources": [],
+          "fallback": false,
+          "turnId": "turn-44b8c22f-a874-4382-b84c-c344d8600d4f",
+          "meta": {
+            "replyTo": [
+              "input-29c8c54e-b2c1-40a6-8caf-107d95c44cf4"
+            ],
+            "sources": [],
+            "memoryUsed": [],
+            "memoryLearned": [],
+            "surfacing": "interrupt"
+          },
+          "marks": []
+        },
+        "meta": {
+          "replyTo": [
+            "input-29c8c54e-b2c1-40a6-8caf-107d95c44cf4"
+          ],
+          "sources": [],
+          "memoryUsed": [],
+          "memoryLearned": [],
+          "surfacing": "interrupt"
+        },
+        "surfacing": "interrupt"
+      }
+    }
+  ],
+  "reply": {
+    "id": "reply:turn-44b8c22f-a874-4382-b84c-c344d8600d4f:1",
+    "role": "assistant",
+    "kind": "agent_reply",
+    "content": "`README.md` contains the marker `RC_CLI_REAL_READ_OK`.",
+    "replyTo": [
+      "input-29c8c54e-b2c1-40a6-8caf-107d95c44cf4"
+    ],
+    "sources": [],
+    "fallback": false,
+    "turnId": "turn-44b8c22f-a874-4382-b84c-c344d8600d4f",
+    "meta": {
+      "replyTo": [
+        "input-29c8c54e-b2c1-40a6-8caf-107d95c44cf4"
+      ],
+      "sources": [],
+      "memoryUsed": [],
+      "memoryLearned": [],
+      "surfacing": "interrupt"
+    },
+    "marks": [],
+    "createdAt": "2026-10-02T03:49:40.918Z"
+  },
+  "projectUnchanged": true,
+  "exitCode": 0,
+  "shaBinding": {
+    "ok": true,
+    "version": "0.1.0-rc.2",
+    "binaryHashes": {
+      "peer": "415b0fc3c200fb3d2aa2611f5f719a91b75cf140e6baa82274def7207e42d32d",
+      "peer-credential-helper": "d55f1b35fc40e1d0a40e60bf606af499b394136aa6c0c6d7a9b439a7ad3b29c4"
+    },
+    "matchesReleaseArchive": true,
+    "scope": "Actual npm installation/version/SHA; runtime CLI archive tested separately"
+  },
+  "credentialCopiesRemoved": true
+}

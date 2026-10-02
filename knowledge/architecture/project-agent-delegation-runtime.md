@@ -559,6 +559,10 @@ function decideSurfacing(input: {
 - 既有Evidence展示command种类直接呈现执行快照，不以读取当前文件覆盖历史事实。权限、核验、签收及独立交付授权的闸门保留。实施范围、原失败与验收见 `playbook/v0.1.0/rc-command-evidence.md`；依ADR80，不开放额外能力或存储。
 
 
+### RC 本地计划批准历史（2026-10-02，Accepted）
+
+本地计划批准先落盘ApprovalStore，然后监督者回读真实approved/local_ui且workspace/session/plan/conversation、capability/kind/approvalId绑定一致的记录，将既有GoalApproval闭合字段decision=approve、confirmationId、decidedBy、decidedAt冻结进计划，再排队或启动。非人工、未批准或错绑定不能生成该事实；写失败不执行。批准已落盘但未启动时可重放完成准入。重启和ApprovalStore压缩不会删除已冻结的计划历史；旧计划没有历史保持unknown。Verifier Source把该有限历史加入现有L7事实brief，不能作为PermissionGrant、工具Evidence引用或结果签收。任务通过既有goal_get_plan读取。见rc-local-plan-approval-facts实施卡。
+
 ### RC 用户回答恢复补正（2026-10-02，Accepted）
 
 message_session(intent:answer)的原文是用户侧事实。当任务已准入且确实能消费等待用户输入时，运行时消费该回答并沿既有GoalRunner恢复；不能只落盘而让任务继续waiting_user。answer在非等待会话保持追加语义，amend在运行中仍作为下一回合纠正；等待中的两种intent都沿同一回答消费接口。暂停/取代/前置失败排队以及未批准计划的门不因文字声明批准而打开。证据由实际message_session Tool Result与原GoalPlan事件/Runner产生，不从代理文字推断恢复成功。见rc-session-answer-resume实施卡。

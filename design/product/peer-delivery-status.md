@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-10-02（D10：rc.2构建中，源码修复已合入，新安装候选复验及GPT61机器人空响应待收口；GA等负责人验收）
+最后更新：2026-10-02（D10：rc.2已预发布，安装复杂任务及GPT61待收口）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **整体待负责人验收；rc.2构建中**：Beta1–5已实现。设置页PR99、同次签名CLI助手PR100、命令快照PR101、等待answer恢复PR102与GPT-6.1 Sol目录PR103均已通过两平台CI并合入。rc.2候选PR104最终两平台CI36960002970通过，tag v0.1.0-rc.2固定到be65fb73ce672f87a144a68ed5a1622f5d632ae8，Release36960577284构建中。20项升级矩阵及完整源码门禁、9壳/11可访问性/7诊断通过；严格源码双写保留真实用户回答与一次重试，两任务独立核验、签收和单独授权合回通过。经典GPT61 low/default实际读文件回复通过；机器人同模型仍空响应，摘要请求也失败，尚无已确认根因。新安装包默认CLI、复杂任务与多入口待复验，尚未Ready；GA仍等负责人全面测试、七天日用和明确批准。 项目代理只读，批准在电脑，经典入口保留。 | 完成rc.2实际默认CLI/严格双写/多入口、升级与信任校验，定位GPT61机器人空响应。Windows/Linux交互安装、实体手机与生产账户、真实视觉核验及负责人七天日用仍需明确补验。RC1失败保持历史证据。 | [版本计划](v0.1.0-release-plan.md)、[Beta5交接](../../playbook/v0.1.0/b5-r-handoff.md)、[RC卡](../../playbook/v0.1.0/rc-release.md)、[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | Beta1–5已实现，RC1及RC2已预发布。PR99–104均通过两平台CI并合入；rc.2固定be65fb73，Release36960577284全成功。20项源码矩阵、完整回归、9壳/11可访问性/7诊断通过；实际macOS签名公证、六次安装轮换、归档与npm CLI默认助手读文件/回复通过。多入口复验通过（实际安装Desktop＋源码TUI后端＋本机远程网关夹具，非实体手机/生产OIDC）；严格安装双任务仍失败。Astra两文件和新鲜证据正确，A因计划拆分及缺批准历史被核验拒绝，未签收/合回；批准事实补修中。GPT61机器人仍空响应，尚未Ready。GA仍等负责人195用例、6流程、七天日用及明确批准。 | 完成安装复杂任务和多入口复验，定位GPT61机器人空响应。Windows/Linux交互安装、实体手机、生产账户与负责人七天日用仍需补验。 | [版本计划](v0.1.0-release-plan.md)、[Beta5交接](../../playbook/v0.1.0/b5-r-handoff.md)、[RC卡](../../playbook/v0.1.0/rc-release.md)、[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
 
 ## 3. 近期顺序与非目标
 

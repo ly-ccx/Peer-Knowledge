@@ -1,31 +1,31 @@
 # Peer Agent 0.1.0 发布前全面测试手册
 
-> 当前候选：0.1.0-rc.1，提交0beeb21f46c4c40bc076b414471c086aeb9a28a4。安装自测进行中，请等开发者给出Ready结论再开始全面测试。未执行项不能填写通过，开发者范围见[自测报告](rc-self-test-report.md)。
+> 当前候选：0.1.0-rc.2，提交be65fb73ce672f87a144a68ed5a1622f5d632ae8。开发者复杂任务与多入口复验尚未收口，GPT61机器人空响应仍未解决；请等Ready结论再开始全面测试。实际证据见[自测报告](rc-self-test-report.md)。
 
 ### 确定版本的下载与校验
 
-[RC1发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.1)，发布工作流36919331979全部成功；这是预发布候选，正式0.1.0尚未发布。macOS包实际下载SHA与发布digest相同；应用Developer ID签名、公证票据和Gatekeeper验证通过。Windows/Linux下面的SHA来自发布资产digest，尚未在这两种系统交互安装。
+[RC2发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.2)，Release36960577284全部成功，14项资产。正式0.1.0尚未发布。macOS三个文件实际SHA与发布digest一致，ZIP/.app及只读DMG内.app的严格签名、公证和Gatekeeper均通过，DMG校验通过且已卸载。Windows/Linux下面的SHA来自发布资产digest，尚未在这两种系统交互安装。RC1历史资产保持不变。
 
 | 平台/文件 | 下载 | SHA256 |
 |---|---|---|
-| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-arm64.dmg) | `e168b64370622dfbf6f5fc31776d7100c1f01c3597bb968f1d22259cbe0e69f3` |
-| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-arm64.zip) | `775b8791306800a4b9691ede8f8433ddf85e0f205b0e82425e91d17c2dac969b` |
-| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-Setup-0.1.0-rc.1.exe) | `822fb4ec6902ae40445e7f05eed6fe6b22850bf1abe075fb316f14f13611ed14` |
-| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-x64.AppImage) | `2b56b039fbff662206f4a96cbf95eeb63afecdc39f8a4f547a4382bf97ce6b9e` |
-| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/Peer-Agent-0.1.0-rc.1-x64.deb) | `15df32fdcbaf506b0d5812303675741b2c07fb486278fbe7c1eb0930193f18b4` |
-| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/peer-darwin-arm64.tar.gz) | `a68778c97180afd76185195e5477035458758dc601e71541e8364847c79d5947` |
-| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.1/peer-linux-x64.tar.gz) | `358076f1781d3457caafba43ae55ac9b0bf8ac94bfcfd51463a0f052ae6947a1` |
+| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/Peer-Agent-0.1.0-rc.2-arm64.dmg) | `297e8cfc1e6481d0053770328349d1de6e5fd88f9d282f092a0392e12aab4c37` |
+| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/Peer-Agent-0.1.0-rc.2-arm64.zip) | `f2151a7493e17618f1495cf523ea2afe6022222841e9ea4996f2845d5c662aa8` |
+| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/Peer-Agent-Setup-0.1.0-rc.2.exe) | `3cdaae1a2f5ba572edb5988717b065ae49019ab889e036044a92eba8be72443f` |
+| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/Peer-Agent-0.1.0-rc.2-x64.AppImage) | `0116aa7133ee6061488d96d7c8dd2f943bb590b90f56b28d6d3ef124893d13cd` |
+| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/Peer-Agent-0.1.0-rc.2-x64.deb) | `2ae3851508e53925d2e8fbe7102edbac7604aeaa5ee1bec42a8eb901f9c07287` |
+| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/peer-darwin-arm64.tar.gz) | `a2d71441664afe7ec412c02af92ca14fdc5699e95c96e95bdcb4434e1ee4acab` |
+| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/peer-linux-x64.tar.gz) | `8190c2e64a45dc1db9e31ab33df5fe1a60fdde7f38bd36e9a1a44caecedecafc` |
 
-macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中完全相同。CLI解压后可执行文件在 `peer-darwin-arm64/` 或 `peer-linux-x64/` 内；`peer` 与 `peer-credential-helper` 保持同一目录。桌面和CLI均用rc.1，先运行 `peer --version` 确认。
+macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中相同。CLI的 `peer` 和 `peer-credential-helper` 保持同一目录。桌面和CLI均用rc.2。
 
-npm安装已经开发者实际验证；macOS Apple Silicon/Linux x64可固定版本安装：
+固定版本npm安装：
 
 ```sh
-npm install -g @peer-agent/cli@0.1.0-rc.1
+npm install -g @peer-agent/cli@0.1.0-rc.2
 peer --version
 ```
 
-预期输出 `peer 0.1.0-rc.1`。本次开发者使用隔离prefix安装，两个二进制SHA与发布CLI归档相同；Mac解锁后安装CLI默认凭据助手仍超时，修复与下一候选复验完成前不启动负责人全面测试。`@rc`可用于跟随后续候选版，正式测试记录必须写实际版本；`latest`目前仍为0.0.18。Windows此次没有CLI发布资产，M组CLI用例使用macOS或Linux环境。
+预期 `peer 0.1.0-rc.2`。开发者实际隔离prefix安装，两份二进制SHA与发布CLI归档相同；归档CLI和npm shim使用默认签名助手均实际read_file/post_reply通过，测试数据隔离，退出0。`@rc`跟随后续候选，正式测试须记录实际版本；latest仍0.0.18，beta仍0.1.0-beta.5。Windows无CLI资产，M组使用macOS/Linux。GPT61目录、持久化及经典low/default实际读文件回复通过；机器人入口仍空响应，不得移用经典通过结果。
 
 ## 1. 测试与发布顺序
 

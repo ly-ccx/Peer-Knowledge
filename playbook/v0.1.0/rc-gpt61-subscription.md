@@ -27,3 +27,6 @@ focused目录/配置/encoder测试、Desktop受影响包全量及build/typecheck
 
 
 摘要请求也返回真实空消息，原文规则冲突的猜测未得到支持：[失败记录](evidence/rc-gpt61-bot-summary-failed-20261002.json)。请求HTTP200，0工具，output_text长度0，parseErrors为空；不是UI漏显示。保留两次经典成功的范围，继续定位机器人角色请求。
+
+
+实际准备请求在网络前观察确认当前user文本、25工具及medium档均在，不是历史读取时序丢失。[观察](evidence/rc-gpt61-request-observed-20261002.json)不代表模型通过。

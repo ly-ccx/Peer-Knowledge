@@ -22,6 +22,10 @@ Accepted（2026-09-26，P0-2）。实现未开工。
 
 ## 级别
 
+### RC补修：本地计划批准历史（2026-10-02，Accepted）
+
+实际rc.2核验器缺少已发生的本地计划批准事实。复用既有GoalApproval：本地桌面/TUI先持久化真实approved/local_ui决定，监督者从ApprovalStore回读并校验workspace/session/plan/conversation及批准记录身份，冻结到GoalPlan.approval，再执行准入。批准重放可恢复落盘与启动之间的崩溃窗口；写失败、错误绑定及非人工批准不启动。既有Verifier Source仅在L7事实brief投影闭合批准字段；缺失历史保持unknown，running不升级为人工批准。它不授予能力权限，不是工具Evidence引用或签收事实；所有核验/关闭/合回门保留，旧被压缩记录不补造。范围与验证见 `playbook/v0.1.0/rc-local-plan-approval-facts.md`。
+
 ### RC补修：命令结果核验快照（2026-10-02，Accepted）
 
 真实RC1任务的Bash精确检查引用已持久化，但核验器只见旧文件快照，无法核对该引用。沿负责人已授权的RC功能收口补齐既有Evidence事实链：EvidenceIndex.bodyPreview可追加command快照，由实际local.shell.exec成功终态、exit0且allow的Provider结果生成。结构化stdout/stderr/退出码脱敏后限4000字符；拒绝、失败、运行中、超时、中断、助手正文或goal wrapper不能生成成功快照。旧记录不补造。Verifier只从本计划引用读取，显式外国plan不能借相同conversation准入；标准引用优先、总12000字符，保留时间戳与截断事实。正文仅是既有user请求里的不可信事实；不增加能力、权限、系统来源、IPC或存储目录，核验/签收闸门不变。实施清单与验证见 `playbook/v0.1.0/rc-command-evidence.md`。

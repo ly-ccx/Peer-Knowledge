@@ -1,0 +1,147 @@
+{
+  "scope": "Actual immutable rc.2 failure diagnostics; existing local approval journal versus persisted GoalPlan and verifier report. No execution state is changed. File correctness alone does not satisfy the requested task decomposition.",
+  "releaseVersion": "0.1.0-rc.2",
+  "overallReady": false,
+  "rows": [
+    {
+      "planId": "e07e7243-65d2-4ff5-af85-5715e9087f82",
+      "sessionId": "23e1db1d-92b9-4d9b-9e03-e17cd540833d",
+      "actualApproval": {
+        "approvalId": "plan:23e1db1d-92b9-4d9b-9e03-e17cd540833d",
+        "workspaceId": "2e814f32-542e-4645-9e72-7c846c8e1fae",
+        "conversationId": "0e59cea0-6206-408a-96eb-240df6de0271",
+        "streamId": null,
+        "planId": "e07e7243-65d2-4ff5-af85-5715e9087f82",
+        "sessionId": "23e1db1d-92b9-4d9b-9e03-e17cd540833d",
+        "capabilityId": "goal.plan",
+        "summary": "Task B: isolated b.txt edit\uff1bIn another isolated worktree, change ONLY b.txt to exactly RC_B_DONE followed by one newline. Preserve the local approval gate: present a plan and wait for the user's local plan approval before writing; do not ap",
+        "riskLevel": "plan",
+        "argsDigest": "6752673fd38190f067b0b51ccdc31c42bca9da2986df0231d0514bd7a428a5b0",
+        "createdAt": "2026-10-02T03:55:21.809Z",
+        "state": "approved",
+        "decidedAt": "2026-10-02T03:55:22.435Z",
+        "decidedBy": "local_ui",
+        "kind": "plan_approval",
+        "taskName": "Task B: isolated b.txt edit"
+      },
+      "persistedPlanApproval": null,
+      "status": "completed",
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_JveTG6JwiHcm5BVsZAE0zHjb",
+          "detail": "\u5b9e\u9645\u5199\u5165\u4e4b\u540e\u8fd0\u884c Bash\uff0c\u4ee5 read_bytes() == b\"RC_B_DONE\\n\" \u6821\u9a8c\u5b8c\u6574\u5b57\u8282\u5185\u5bb9\uff0c\u5e76\u65ad\u8a00 git status \u4ec5\u542b b.txt\uff1b\u9000\u51fa\u7801 0\u3002",
+          "checkedAt": "2026-10-02T03:56:21.788Z"
+        }
+      ],
+      "verifierRuns": [
+        {
+          "verifierRunId": "verifier:e07e7243-65d2-4ff5-af85-5715e9087f82:1790913390396:e365d62e63745",
+          "planId": "e07e7243-65d2-4ff5-af85-5715e9087f82",
+          "target": {
+            "kind": "plan"
+          },
+          "status": "passed",
+          "evidenceRefs": [
+            "tool-result://call_JveTG6JwiHcm5BVsZAE0zHjb",
+            "tool-result://call_0bd30cbded9f4378b140b11108a11b1f"
+          ],
+          "createdAt": "2026-10-02T03:56:44.747Z",
+          "updatedAt": "2026-10-02T03:56:44.747Z",
+          "report": {
+            "passed": true,
+            "failedCriteria": [],
+            "missingEvidence": [],
+            "risks": [
+              "The supplied plan lists only an orientation leaf task, so it does not demonstrate the brief's separately requested explicit edit and post-edit check tasks. This does not invalidate the verified c1 file outcome."
+            ],
+            "evidenceRefs": [
+              "tool-result://call_JveTG6JwiHcm5BVsZAE0zHjb",
+              "tool-result://call_0bd30cbded9f4378b140b11108a11b1f"
+            ],
+            "recommendedNextAction": "c1 is supported: the fresh read confirms exactly RC_B_DONE followed by one newline (10 bytes), and the attached successful Bash snapshot, timestamped after the file modification, reports byte-exact content and only b.txt changed. Proceed to downstream review; reconcile the planning-structure discrepancy before final acceptance."
+          },
+          "summary": "Verifier passed.",
+          "completedAt": "2026-10-02T03:56:44.747Z"
+        }
+      ],
+      "originalProjectUnchanged": true
+    },
+    {
+      "planId": "b5cb7bee-0953-41ee-af13-b88223292214",
+      "sessionId": "294ff5d0-6d7a-4cfd-84d1-31469fc570e0",
+      "actualApproval": {
+        "approvalId": "plan:294ff5d0-6d7a-4cfd-84d1-31469fc570e0",
+        "workspaceId": "2e814f32-542e-4645-9e72-7c846c8e1fae",
+        "conversationId": "d50016a7-22ee-4dae-a423-f9667fc743e1",
+        "streamId": null,
+        "planId": "b5cb7bee-0953-41ee-af13-b88223292214",
+        "sessionId": "294ff5d0-6d7a-4cfd-84d1-31469fc570e0",
+        "capabilityId": "goal.plan",
+        "summary": "Task A: isolated a.txt edit\uff1bIn an isolated worktree, change ONLY a.txt to exactly RC_A_DONE followed by one newline. Preserve the local approval gate: present a plan and wait for the user's local plan approval before writing; do not approve",
+        "riskLevel": "plan",
+        "argsDigest": "7ca0a7ac6bd3acf472f3f12c2dbe1dbb2c416a98b65cd11cd059398308fc546f",
+        "createdAt": "2026-10-02T03:54:55.037Z",
+        "state": "approved",
+        "decidedAt": "2026-10-02T03:55:22.179Z",
+        "decidedBy": "local_ui",
+        "kind": "plan_approval",
+        "taskName": "Task A: isolated a.txt edit"
+      },
+      "persistedPlanApproval": null,
+      "status": "executing",
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_CUsHw7VFkNHGPFVDvqyQ3ION",
+          "detail": "Fresh successful read_file AFTER edit returned full preview RC_A_DONE\\n, sizeBytes=10. Supplemental Bash assertion confirmed exact bytes and git status contains only a.txt.",
+          "checkedAt": "2026-10-02T03:56:09.527Z"
+        }
+      ],
+      "verifierRuns": [
+        {
+          "verifierRunId": "verifier:b5cb7bee-0953-41ee-af13-b88223292214:1790913377798:affd842e92e688",
+          "planId": "b5cb7bee-0953-41ee-af13-b88223292214",
+          "target": {
+            "kind": "plan"
+          },
+          "status": "failed",
+          "evidenceRefs": [
+            "tool-result://call_CUsHw7VFkNHGPFVDvqyQ3ION",
+            "tool-result://call_Xnl0q5jJ2xo24H8faAPd1oOJ",
+            "tool-result://call_qAB4JPRoaI74btF08HfaXyDs"
+          ],
+          "createdAt": "2026-10-02T03:56:43.195Z",
+          "updatedAt": "2026-10-02T03:56:43.195Z",
+          "report": {
+            "passed": false,
+            "failedCriteria": [],
+            "missingEvidence": [
+              {
+                "reason": "The supplied plan lists only an orientation task. It does not demonstrate the explicitly required scoped edit and post-edit check tasks or the user's local approval of that plan before writing. Running admission alone does not establish this approval history.",
+                "evidenceRefs": [],
+                "taskId": "orient"
+              }
+            ],
+            "risks": [
+              "File criterion c1 is supported: the attached read_file snapshot contains the exact requested content, the later successful Bash snapshot reports exact bytes and only a.txt changed, and the current read independently confirms 10 bytes containing RC_A_DONE followed by one newline.",
+              "The required planning and pre-write approval process remains unproven; correct file contents alone do not establish full goal completion."
+            ],
+            "evidenceRefs": [
+              "tool-result://call_CUsHw7VFkNHGPFVDvqyQ3ION",
+              "tool-result://call_Xnl0q5jJ2xo24H8faAPd1oOJ",
+              "tool-result://call_qAB4JPRoaI74btF08HfaXyDs"
+            ],
+            "recommendedNextAction": "Provide the existing pre-write plan and user approval history showing explicit edit and verification tasks. If those steps were omitted, report the process violation rather than manufacturing retrospective approval. No content repair is indicated."
+          },
+          "summary": "Verifier found issues.",
+          "failureReason": "Verifier found issues.",
+          "completedAt": "2026-10-02T03:56:43.195Z"
+        }
+      ],
+      "originalProjectUnchanged": true
+    }
+  ]
+}
