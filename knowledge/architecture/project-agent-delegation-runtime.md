@@ -561,6 +561,8 @@ function decideSurfacing(input: {
 
 ### RC 本地计划批准历史（2026-10-02，Accepted）
 
+ApprovalStore压缩保留approved的plan_approval折叠历史，避免新决定在监督者回读前即被丢弃，并支持崩溃后重放；普通已终结工具批准压缩规则不变。旧版本已经删除的历史仍unknown。
+
 本地计划批准先落盘ApprovalStore，然后监督者回读真实approved/local_ui且workspace/session/plan/conversation、capability/kind/approvalId绑定一致的记录，将既有GoalApproval闭合字段decision=approve、confirmationId、decidedBy、decidedAt冻结进计划，再排队或启动。非人工、未批准或错绑定不能生成该事实；写失败不执行。批准已落盘但未启动时可重放完成准入。重启和ApprovalStore压缩不会删除已冻结的计划历史；旧计划没有历史保持unknown。Verifier Source把该有限历史加入现有L7事实brief，不能作为PermissionGrant、工具Evidence引用或结果签收。任务通过既有goal_get_plan读取。见rc-local-plan-approval-facts实施卡。
 
 ### RC 用户回答恢复补正（2026-10-02，Accepted）
