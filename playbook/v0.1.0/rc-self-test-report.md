@@ -24,9 +24,13 @@ PR109最终CI36981399115两平台全通过，eaabfa98/CI528e7054/实际merge7817
 
 ## 交付版本
 
-候选 `0.1.0-rc.2` 已预发布：[下载页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.2)。不可变提交 `be65fb73ce672f87a144a68ed5a1622f5d632ae8`，Release36960577284全部成功、14项资产；SHA见[手册](acceptance-test-guide.md)。npm rc=0.1.0-rc.2，latest=0.0.18、beta=0.1.0-beta.5。RC1历史版本与失败证据保持不变，正式0.1.0未发布。
+当前候选`0.1.0-rc.3`已发布：[发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.3)。不可变commit78178d0c/tree2cc939ae，Release36982183664全部成功、14项资产；[发布/信任证据](evidence/rc3-published-assets-trust-20261002.json)。四包npm rc=rc.3；latest=0.0.18、beta=beta.5。正式0.1.0未发布，旧tag/失败证据保持。
 
-**当前验收：** rc.2包含PR99–103，最终两平台CI与本机全部门禁、20项矩阵、9壳/11可访问性/7诊断通过。实际macOS信任、六次安装轮换、归档CLI与npm默认助手读文件/回复通过。安装双任务首轮与恢复失败均保留：A通过answer恢复，B没有达到实际完成标准，被独立核验拒绝；未签收/合回。Astra重跑两文件及新鲜证据正确，A仍被核验拒绝：要求的计划拆分未达成，且已发生的本地批准历史未投影。未签收/合回，批准事实PR105已合入6bdbaf8c并通过两平台CI；源码Luna代理＋冻结Astra任务/核验的同夹具恢复全流程通过，首轮Astra空响应保留。新安装候选待复验。多入口限定范围已通过。GPT61经典low/default通过，机器人真实空响应未解决。真实Beta→RC发现与禁止降级新增发布阻塞，整体尚未Ready，GA等负责人全面测试、七天日用及批准。
+**实际安装复验：** RC3 signed macOS包已完成七次安装轮换，旧conversation/Goal/automation哈希和新canonical行保持、身份不变、无页面错误、所有owned退出。[矩阵](evidence/rc3-installed-upgrade-passed-20261002.json)。401旧计划副本ready5250ms、八次切换45–250ms、主进程50ms timer最大66ms、三次默认session探测正常HTTP405。[启动/网络](evidence/rc3-installed-startup-network-passed-20261002.json)。GPT61默认packaged helper、9118ms、一次HTTP200/一次post_reply、无额外空请求、canonical“连接正常”。[模型](evidence/rc3-installed-gpt61-passed-20261002.json)。归档及npm CLI实际PTY真实读文件/回复退出0，[CLI](evidence/rc3-installed-cli-passed-20261002.json)。安装Desktop＋当前源码TUI后端＋本机远程认证夹具通过去重、三真实工具回复与接管；不是实体手机/生产OIDC，[多入口](evidence/rc3-installed-multi-entry-passed-20261002.json)。
+
+**原用户应用已更新RC3并保持打开。** 未重置原数据/profile，原canonical记录全部保留；默认Astra与角色偏好不变，仅产品正常刷新OAuth过期时间和模型元数据。旧“你能做什么？”在startup恢复后已正常回答，真实UI八次切换完成。[安装/原数据](evidence/rc3-original-user-install-passed-20261002.json)。之前“RC2待安装”“GPT61机器人空响应未解决”等段落为历史记录，现以上述新版本实测为准。
+
+**仍未Ready。** RC3严格安装双任务中两个worktree文件正确，真实Bash exit0、原项目未动；其中核验器指出命令快照只有stdout/stderr/exitCode，没有实际执行的字节检查与基线命令，无法核实静默assert。保留独立拒绝、未签收/未合回，不以源码旧Pass覆盖：[失败](evidence/rc3-installed-complex-command-descriptor-failed-20261002.json)。另有Beta→RC发现/旧Beta错误降级阻塞；Windows/Linux交互安装、生产远程环境与七天日用未验证。修复进入新候选，GA继续等负责人195用例、6流程、七天日用及明确批准。
 
 ## 已有证据与适用范围
 

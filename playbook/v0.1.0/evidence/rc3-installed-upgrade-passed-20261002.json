@@ -1,0 +1,61 @@
+{
+  "scope": "Actual macOS 0.0.18 -> beta.5 -> rc.1 -> rc.2 -> rc.3 -> 0.0.18 -> rc.3; real tagged legacy fixture. No model/credential copies, no Windows/Linux install claim.",
+  "legacyRef": "v0.0.18",
+  "legacyCommit": "a087988cc3a4382d780db62f7247d4b9d355636e",
+  "checks": [
+    {
+      "name": "stable-before",
+      "version": "0.0.18",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    },
+    {
+      "name": "beta-before",
+      "version": "0.1.0-beta.5",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    },
+    {
+      "name": "previous-rc",
+      "version": "0.1.0-rc.1",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    },
+    {
+      "name": "previous-rc2",
+      "version": "0.1.0-rc.2",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    },
+    {
+      "name": "candidate-upgrade",
+      "version": "0.1.0-rc.3",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    },
+    {
+      "name": "stable-downgrade",
+      "version": "0.0.18",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    },
+    {
+      "name": "candidate-return",
+      "version": "0.1.0-rc.3",
+      "ok": true,
+      "pageErrors": [],
+      "ownedExited": true
+    }
+  ],
+  "allProtectedFileHashesUnchanged": true,
+  "protectedFileCount": 3,
+  "canonicalRowUnchanged": true,
+  "workspaceIdentityUnchanged": true,
+  "ok": true
+}

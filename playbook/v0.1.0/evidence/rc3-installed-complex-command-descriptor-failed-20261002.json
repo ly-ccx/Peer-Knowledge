@@ -1,0 +1,28 @@
+{
+  "version": "0.1.0-rc.3",
+  "model": "gpt-6.1-sol",
+  "installedUsesDefaultHelper": true,
+  "result": "failed",
+  "failure": "Independent verifier cannot establish the fresh exact-byte assertion and explicit baseline command from command Evidence snapshot, because executed command is omitted. The execution was successful and scoped files were correct; no acceptance or merge occurred.",
+  "toolCallId": "call_1h9O6TghLr0onxajHeB6COfW",
+  "evidenceRef": "tool-result://call_1h9O6TghLr0onxajHeB6COfW",
+  "actualSnapshot": {
+    "kind": "command",
+    "text": "{\"exitCode\":0,\"stdout\":\"b.txt\\ndiff --git a/b.txt b/b.txt\\nindex a4871dc..83c41a9 100644\\n--- a/b.txt\\n+++ b/b.txt\\n@@ -1 +1 @@\\n-before b\\n+RC_B_DONE\\n\",\"stderr\":\"\"}",
+    "truncated": false
+  },
+  "snapshotKeys": [
+    "exitCode",
+    "stdout",
+    "stderr"
+  ],
+  "actualSuccessfulBashInCanonical": true,
+  "originalProjectUnchanged": true,
+  "localPlansApproved": 2,
+  "accepted": false,
+  "merged": false,
+  "pageErrors": [],
+  "ownedExited": true,
+  "credentialCopiesRemoved": true,
+  "historicalSourcePassDoesNotOverrideThisFailure": true
+}
