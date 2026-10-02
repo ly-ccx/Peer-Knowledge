@@ -37,4 +37,6 @@
 
 `pnpm --filter @peer-agent/desktop build`、`pnpm typecheck`、`pnpm architecture:check`通过。桌面完整5302项中5296pass、1订阅计时超时、原5skip；按仓库规则独立重跑goal-plan-store文件142/142pass，另跑i18n AST 1/1pass，未新增skip或放宽条件。[本机门禁](evidence/rc-footer-local-gates-20261002.json)。初始SVG失败、旧设计一次GC通信异常、最新通道缺陷失败及误用旧dist的首轮失败保留；旧设计有界原样重跑通过，最新修改重新构建后通过。[失败历史](evidence/rc-footer-failure-history-20261002.json)。
 
-状态：本机补修通过，CI/评审中。实际安装应用仍为RC3旧底部；新排版进入下一不可变候选。自动发现和复杂核验仍有独立阻塞，整体尚未Ready。GA仍等待负责人全面测试、七天日用与明确批准。
+最终CI36991456384两平台完整build/typecheck/architecture/test/native smoke成功。两个实际窗口均空闲45px、72次布局通过、0页面/授权错误、自有进程退出，性能保持原预算。评审六个允许代码路径，无新增运行时或跨层边界；按负责人持续授权合入PR110为`b2a9049f`。源`9aa202ba`、CI`204ec748`与实际合入tree相同；[CI与合入绑定](evidence/rc-footer-ci-binding-20261002.json)。
+
+状态：源码补修交付完成。实际安装应用仍为RC3旧底部；新排版进入下一不可变候选。自动发现和复杂核验仍有独立阻塞，整体尚未Ready。GA仍等待负责人全面测试、七天日用与明确批准。
