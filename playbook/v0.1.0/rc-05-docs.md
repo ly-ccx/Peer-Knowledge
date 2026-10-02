@@ -17,3 +17,6 @@
 
 
 rc.2追加范围（Accepted）：同时纳入真实等待answer恢复PR102与负责人本轮要求的GPT-6.1 Sol目录PR103，均须先通过两平台CI并按依赖合入。升级矩阵新增当前rc.2的受控GA更新毕业行，保留rc.1和五个Beta，预期20项，真实旧tag模块仍六版。模型实际空响应按真实环境失败记录，不能宣传账号可用；发布说明准确写实现与验收状态，负责人交付仍须完成新包可行实测。
+
+
+rc.2源码b1cae373干净门禁通过：[全量记录](evidence/rc2-source-gates-20261002.json)、[实际源窗口](evidence/rc2-source-window-passed-20261002.json)。Desktop5294项中5289通过/原5skip＋AST1，runtime1006、TUI751；全构建/typecheck/architecture/test/version/changelog/readiness通过。9壳/11可访问性/7诊断、0页面错误、owned退出；列表15.87ms、搜索25ms、Received54.5ms均在原预算。20项矩阵保留六版真实tag来源与旧检查。PR104两平台CI进行中，安装候选未发布，GPT61实际调用未通过，总交付尚未Ready。
