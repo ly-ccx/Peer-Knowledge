@@ -1,5 +1,13 @@
 # RC05 用户文档与候选包交付
 
+## rc.3 候选准备（2026-10-02，Accepted）
+
+负责人自主修复、自测及 RC 预发布授权继续适用。新候选纳入已合入的批准事实 PR105、侧栏更新入口 PR106、启动历史读取 PR107，以及待最终两平台 CI 合入的回复终结 PR108；依赖齐全后从开发线开 PeerAgent/pa/rc3-candidate。旧 RC1/RC2 tag 和资产保持不变，GA 等负责人全面测试、七天日用与明确批准。
+
+允许新 release-notes/v0.1.0-rc.3.md；既有 stamp-version 覆盖的 VERSION、12 个包清单、Cargo.toml/lock、两个 README 候选标记和发布说明链接；changelog 生成物及 build-changelog.test.mjs 当前候选断言；rc-upgrade-matrix.mjs 及其测试保留 RC1/RC2 并加当前 RC3 毕业行（21 项，六版真实旧 tag 来源不变）。本卡不改更新器实现、依赖、签名配置或工作流。
+
+候选干净源完整构建/类型/架构/测试、版本及发布门禁、21 项矩阵和最终两平台 CI 必须通过。发布后验证正式签名公证包与资产 SHA、401 旧计划历史双机器人启动/切换、GPT61 真实 canonical 回复及无额外模型请求、默认 packaged helper、复杂任务和多入口。安装包通过前不能把源码通过写成用户已修复。Beta→RC 真实自动发现与错误降级仍是独立未解决发布阻塞；本次说明明确提供手动安装升级路径，不宣传自动更新已可用。
+
 2026-10-02，Accepted；负责人授权自主完成实现、自测、详细手册及 RC 预发布。GA 必须等待负责人全面测试与明确确认。C 级文档与发布编排；不增加能力或权限。
 
 允许代码路径：release-notes/v0.1.0.md（未发布草案）与 v0.1.0-rc.1.md；README 两种语言及真实界面截图；既有 stamp-version 覆盖的 VERSION、包清单及 Cargo 文件；changelog 生成物。允许 build-changelog.mjs 及测试识别显式 draft marker 并跳过未发布 GA 草案，避免更新摘要伪称正式版已发布。版本门禁与发布源约束保持。

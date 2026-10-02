@@ -6,6 +6,12 @@
 
 用户已从 Beta5 升到实际 rc.2；原窗口重启 CPU 约 100%、峰值约 1GB。401 条旧计划在宿主 readFacts 反复读完整历史已定位并修复；PR107 已合入 `68b9689e`，两平台 CI `36975763494` 通过且 tree 与本机源一致。本机完整桌面回归及构建/类型/架构通过；相同只读副本中位耗时 4085.458→0.506ms，正文读取 401→0；真实源码八次双机器人切换 75–167ms。[范围与证据](rc-startup-facts-performance.md)。已发布 rc.2 仍无此修复，原用户网络 net::ERR_FAILED 和 GPT61 空响应继续追查，不能据此宣布安装版或总体 Ready。
 
+### 追加：网络错误与成功回复后误报
+
+启动阻塞也已确定是本轮 net::ERR_FAILED 的根因：相同 Electron41.7.1、新鲜 profile、401 计划和双机器人，旧主进程阻塞约22秒，网络子进程15秒连接超时自行退出，三次默认 session 请求均立即失败；修复约3.8秒 ready，三次请求返回正常 HTTP405。[实测](evidence/rc-startup-network-diagnosis-20261002.json)。无需重置原 Chromium profile，原数据和配置未清除。
+
+联网恢复后，真实模型成功 post_reply 却多请求一段空文字，暴露内层 Provider loop 缺终结控制；PR108 沿既有本地 ToolResult control 修复。真实 GPT61 同夹具一次请求、4889ms canonical 回复通过，Grant/Evidence 和失败护栏保持。[卡片与前后证据](rc-post-reply-terminal.md)。PR108 两平台 CI 及新的 RC3 签名安装包仍待完成，原 RC2 安装包不据此改判通过；真实 Beta→RC 自动发现和错误降级仍未解决。
+
 配套：[全面测试手册](acceptance-test-guide.md)、[RC 卡](rc-release.md)。正式版由负责人全面测试和七天日用后决定；本报告不代替负责人签收。
 
 ## 交付版本

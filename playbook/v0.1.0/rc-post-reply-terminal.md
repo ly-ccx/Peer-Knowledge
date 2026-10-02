@@ -11,3 +11,9 @@
 允许代码：packages/runtime-node/src/project-agent/delegation-provider.mjs 与 .test.mjs；apps/desktop/electron/main/project-agent/desktop-integration.test.mjs（真实 OpenAI Responses loop + default LocalToolHost + production host 的回归）。知识：本卡、脱敏失败/恢复证据与自测报告。新分支 PeerAgent/pa/rc-post-reply-terminal，从开发线 68b9689e 起。
 
 退出：先红测试重现控制缺失/Provider 多请求；补修后成功/抑制/重放终结，负面不终结。真实生产 loop 的一次模型工具请求即 canonical 回复，ToolResult 在 done 前、Grant/Evidence 保留且无不可用卡/重复回复/额外模型请求。受影响 runtime-node 与 desktop 完整测试、build/typecheck/architecture、两平台 CI；真实 GPT61 复验。已安装 rc.2 未变，GA 等负责人。
+
+## 源码验证与交接
+
+PR108 源提交 ca56024d95bed1ab00769ca26ff60ad001e1eb19（tree 0d673ef65de7b0fe6a2c365435c0df8d42e21ce6）已推送。三个允许路径完成；先红测试确认控制缺失且真实 production loop 请求 3 次，补修后定向 58/58、runtime-node 1014/1014、desktop 5302 项中 5297 通过/原 5 skip 与独立 i18n 1/1，构建/类型/架构全部通过。没有新增 skip，没有放宽 empty-response guard。CI36977994241 进行中，尚未合入或发布。
+
+相同 401 旧计划/历史双机器人副本、真实 GPT-6.1 Sol 与生产输入路径：[补修前失败](evidence/rc-post-reply-model-failed-20261002.json)保留四次 HTTP200、未落 canonical；[补修后通过](evidence/rc-post-reply-model-passed-20261002.json)仅一次 HTTP200 工具请求，4889ms 落下「连接正常」canonical 回复，无错误/项目改动。此轮在源码使用明确指定的既有签名 helper，不冒充新安装包默认 helper 测试。凭据副本已清除，owned 进程已退出，原用户数据与配置不变。
