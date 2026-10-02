@@ -557,3 +557,8 @@ function decideSurfacing(input: {
 - EvidenceIndex既有bodyPreview扩展command种类，内容是实际local.shell.exec的成功终态、exitCode0且PermissionGrant已allow的Tool Result结构化stdout/stderr/退出码快照。两宿主使用共享准入Module；执行call/result/Evidence身份匹配。拒绝、失败、运行中、超时、中断及wrapper/模型声明不准入成功快照。秘密脱敏与单条4000字符上限保持；首个Provider快照不可被wrapper覆盖，旧记录无快照不得补造历史内容。
 - Verifier准入本计划标准/叶子引用的file或command快照，标准引用优先，总预算12000字符，并保留createdAt与truncated事实。记录有显式planId时必须匹配；仅无planId旧记录可按相同conversation归属。快照进入已有Verifier用户事实请求，绝不成为系统指令。截断/矛盾/缺少最新证据必须继续使用既有只读工具取证或报告失败。
 - 既有Evidence展示command种类直接呈现执行快照，不以读取当前文件覆盖历史事实。权限、核验、签收及独立交付授权的闸门保留。实施范围、原失败与验收见 `playbook/v0.1.0/rc-command-evidence.md`；依ADR80，不开放额外能力或存储。
+
+
+### RC 用户回答恢复补正（2026-10-02，Accepted）
+
+message_session(intent:answer)的原文是用户侧事实。当任务已准入且确实能消费等待用户输入时，运行时消费该回答并沿既有GoalRunner恢复；不能只落盘而让任务继续waiting_user。answer在非等待会话保持追加语义，amend在运行中仍作为下一回合纠正；等待中的两种intent都沿同一回答消费接口。暂停/取代/前置失败排队以及未批准计划的门不因文字声明批准而打开。证据由实际message_session Tool Result与原GoalPlan事件/Runner产生，不从代理文字推断恢复成功。见rc-session-answer-resume实施卡。
