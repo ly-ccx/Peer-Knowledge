@@ -1,0 +1,51 @@
+{
+  "startedAt": "2026-10-02T05:54:18.011Z",
+  "scope": "Production electron-updater GitHubProvider and AppUpdater eligibility logic, real published GitHub metadata; Node HTTP adapter only, no installer download or application mutation",
+  "dependencyVersion": "6.8.9",
+  "requests": [
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases.atom",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-beta.5/beta-mac.yml",
+      "status": 200
+    }
+  ],
+  "checks": [
+    {
+      "installedVersion": "0.1.0-beta.5",
+      "channel": "beta",
+      "allowPrerelease": true,
+      "allowDowngrade": true,
+      "selectedReleaseTag": "v0.1.0-beta.5",
+      "manifestVersion": "0.1.0-beta.5",
+      "strictlyNewer": false,
+      "updateAvailable": false
+    },
+    {
+      "installedVersion": "0.1.0-rc.2",
+      "channel": "beta",
+      "allowPrerelease": true,
+      "allowDowngrade": true,
+      "selectedReleaseTag": "v0.1.0-beta.5",
+      "manifestVersion": "0.1.0-beta.5",
+      "strictlyNewer": false,
+      "updateAvailable": true
+    }
+  ],
+  "ok": true,
+  "finishedAt": "2026-10-02T05:54:19.835Z",
+  "expectedBehaviorPassed": false,
+  "providerBinding": {
+    "installedBeta5DependencyVersion": "6.8.9",
+    "installedProviderSha256": "17c0ae98c1fb7943057fe88c0cc951a84acc81988813dba1aca20e911f82f601",
+    "currentDependencyProviderSha256": "17c0ae98c1fb7943057fe88c0cc951a84acc81988813dba1aca20e911f82f601",
+    "byteIdentical": true
+  },
+  "publishedRC2Manifest": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.2/beta-mac.yml",
+    "version": "0.1.0-rc.2",
+    "readVia": "gh release download; network verified separately"
+  }
+}
