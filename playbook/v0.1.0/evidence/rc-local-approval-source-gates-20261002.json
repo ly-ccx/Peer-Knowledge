@@ -1,0 +1,64 @@
+{
+  "scope": "Final local source gates for actual PR105 repair, not installation or model success. Four red regressions preserved before repair.",
+  "sourceHead": "1d73ac694306f08331b642dc29ce45441cf4bb00",
+  "sourceClean": true,
+  "commands": {
+    "pnpm build": "passed",
+    "pnpm typecheck": "passed",
+    "pnpm architecture:check": "passed",
+    "pnpm test": "passed"
+  },
+  "focused": {
+    "node": 119,
+    "tuiHost": 10,
+    "hostVerifierIncludedInNode": 12
+  },
+  "full": {
+    "desktopTotal": 5297,
+    "desktopPassed": 5292,
+    "desktopExistingSkipped": 5,
+    "desktopAST": 1,
+    "runtime": 1012,
+    "tui": 753,
+    "systemContext": 35,
+    "upgradeMatrixRows": 20
+  },
+  "logs": {
+    "build": {
+      "sha256": "2ab5fc3a652808a44138a2f346569639f3f46bf204b0a5c3cda4937ee5a3f0c9",
+      "bytes": 19097
+    },
+    "typecheck": {
+      "sha256": "36acfbce4fc0683f323cdb97b66a6023631cb72c64ac719c9a760585bededace",
+      "bytes": 1185
+    },
+    "architecture": {
+      "sha256": "24421cadd6ed9cfa892d57b6db711cee9355547eabfb386f32a3e82b08d902b3",
+      "bytes": 196
+    },
+    "test-final": {
+      "sha256": "bb7709f0807fca168b563f89fff1a8c25f005f4bb567524db95fc91af677d771",
+      "bytes": 905407
+    },
+    "focused": {
+      "sha256": "a0081bd004db422057e31f7e60f4e751a0f686d798d3be811f65f5d22651eaba",
+      "bytes": 10637
+    },
+    "tui-focused": {
+      "sha256": "f2fc4d4d4153c2595a34ede9b5da2c1e00c97d858c14e3a5de905cff6b7bed63",
+      "bytes": 1772
+    },
+    "verifier-host": {
+      "sha256": "132021e0924e1672dd36416a63ce6bf070114bbe90cc3d19beb1a9c8ad981d7c",
+      "bytes": 1341
+    },
+    "red": {
+      "sha256": "dd325aa946939a0fbd79bd5672322df33b5b2956fabfa8ed3ec512a2116c3619",
+      "bytes": 4453
+    }
+  },
+  "ciRun": 36963764691,
+  "ciStatus": "in_progress",
+  "ready": false,
+  "firstModelFlow": "Actual Astra tasks and final host verifiers passed, but project bot received genuine empty responses and did not produce required current canonical report. User acceptance/delivery not reached. First failure retained; scoped recovery now in progress."
+}

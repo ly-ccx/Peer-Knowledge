@@ -37,3 +37,7 @@
 代码1d73ac694306f08331b642dc29ce45441cf4bb00已推送，PR105。四项红测试复现；修复后focused119/119（含host verifier12），TUI host10/10；最终build/typecheck/architecture和pnpm test全部通过。Desktop5297项中5292通过/原5skip＋AST1、runtime1012、TUI753、system-context35，20项升级矩阵保持。没有增加skip、修改预算或原用户数据。CI36963764691 macOS/Linux进行中。
 
 真实源码默认Astra双任务已冻结两条actual local_ui批准，均已得到新鲜工具证据及TaskRunner Verifier passed；最终独立host核验、来源汇报、用户签收和合回仍在本次流程中，不能提前记整体Pass。已失败的安装Astra分解要求仍保留，本次新任务验收对应两项实际文件目标及编辑后检查，未要求额外任务树形状。新安装候选仍待发版/复验，总RC未Ready。
+
+最终PR105两平台CI36963764691均SUCCESS，2026-10-02T04:25:13Z合入6bdbaf8c5ccfd8b1da625465a1051d76cbb684de。源码、CI临时merge88901d73和交付merge Git tree均69ae658500025e56d37bb5926a67cc0d985f88d3。实际两平台源窗口9壳/11可访问性/7诊断、0页面错误与owned退出通过；Mac列表93.28/搜索99.8/Received162.6ms，Linux31.56/57.2/117.8ms均在原100/150/300预算。UI cognition为脚本夹具，见[evidence/rc-local-approval-ci-binding-20261002.json](evidence/rc-local-approval-ci-binding-20261002.json)。
+
+首轮全Astra真实源码：两任务及最终host独立核验通过，但项目代理随后真实空响应，未完成本轮来源汇报，因此未签收/合回，保留[首轮失败](evidence/rc-local-approval-source-first-failed-20261002.json)。同一已批准持久夹具恢复，项目代理改用已配置Luna，冻结worker/verifier仍Astra；通过新canonical用户输入重新独立核验与两来源汇报、用户签收和单独授权合回。原项目仅a.txt/b.txt，精确内容正确；无本次Retry，owned退出与凭据副本清除。[恢复通过](evidence/rc-local-approval-source-recovery-passed-20261002.json)。这是源码/有模型配置切换的恢复证明，不是首次无干预或安装包全流程通过。原用户默认Astra未改，GPT61机器人空输出也未解决。后续新RC安装复验仍须完成，GA不发布。

@@ -3,7 +3,7 @@
 创建时间：2026-09-24
 最后更新：2026-10-02（补当前实现状态；下文保留历史产品设计）
 
-> 当前事实：Beta1–5已实现，RC1及RC2已预发布。PR99–104均通过两平台CI并合入；rc.2固定be65fb73，Release36960577284全成功。20项源码矩阵、完整回归、9壳/11可访问性/7诊断通过；实际macOS签名公证、六次安装轮换、归档与npm CLI默认助手读文件/回复通过。多入口复验通过（实际安装Desktop＋源码TUI后端＋本机远程网关夹具，非实体手机/生产OIDC）；严格安装双任务仍失败。Astra两文件和新鲜证据正确，A因计划拆分及缺批准历史被核验拒绝，未签收/合回；批准事实补修中。GPT61机器人仍空响应，尚未Ready。GA仍等负责人195用例、6流程、七天日用及明确批准。 [RC自测报告](../../playbook/v0.1.0/rc-self-test-report.md)记录证据与边界。下文保留历史设计。
+> 当前事实：Beta1–5已实现，RC1及RC2已预发布。PR99–104均通过两平台CI并合入；rc.2固定be65fb73，Release36960577284全成功。20项源码矩阵、完整回归、9壳/11可访问性/7诊断通过；实际macOS签名公证、六次安装轮换、归档与npm CLI默认助手读文件/回复通过。多入口复验通过（实际安装Desktop＋源码TUI后端＋本机远程网关夹具，非实体手机/生产OIDC）；严格安装双任务仍失败。Astra两文件和新鲜证据正确，A因计划拆分及缺批准历史被核验拒绝，未签收/合回；批准事实PR105已合入6bdbaf8c并通过两平台CI；源码Luna代理＋冻结Astra任务/核验的同夹具恢复全流程通过，首轮Astra空响应保留。新安装候选待复验。GPT61机器人仍空响应，尚未Ready。GA仍等负责人195用例、6流程、七天日用及明确批准。 [RC自测报告](../../playbook/v0.1.0/rc-self-test-report.md)记录证据与边界。下文保留历史设计。
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`、`knowledge/decisions/84-bot-list-shell.md`（壳层）  
 > 关联运行时：`knowledge/architecture/project-agent-delegation-runtime.md`  
 > 模块分层：`knowledge/architecture/project-agent-capability-layers.md`  

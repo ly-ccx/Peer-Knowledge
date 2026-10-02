@@ -8,7 +8,7 @@
 
 候选 `0.1.0-rc.2` 已预发布：[下载页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.2)。不可变提交 `be65fb73ce672f87a144a68ed5a1622f5d632ae8`，Release36960577284全部成功、14项资产；SHA见[手册](acceptance-test-guide.md)。npm rc=0.1.0-rc.2，latest=0.0.18、beta=0.1.0-beta.5。RC1历史版本与失败证据保持不变，正式0.1.0未发布。
 
-**当前验收：** rc.2包含PR99–103，最终两平台CI与本机全部门禁、20项矩阵、9壳/11可访问性/7诊断通过。实际macOS信任、六次安装轮换、归档CLI与npm默认助手读文件/回复通过。安装双任务首轮与恢复失败均保留：A通过answer恢复，B没有达到实际完成标准，被独立核验拒绝；未签收/合回。Astra重跑两文件及新鲜证据正确，A仍被核验拒绝：要求的计划拆分未达成，且已发生的本地批准历史未投影。未签收/合回，批准事实补修中。多入口限定范围已通过。GPT61经典low/default通过，机器人真实空响应未解决。整体尚未Ready，GA等负责人全面测试、七天日用及批准。
+**当前验收：** rc.2包含PR99–103，最终两平台CI与本机全部门禁、20项矩阵、9壳/11可访问性/7诊断通过。实际macOS信任、六次安装轮换、归档CLI与npm默认助手读文件/回复通过。安装双任务首轮与恢复失败均保留：A通过answer恢复，B没有达到实际完成标准，被独立核验拒绝；未签收/合回。Astra重跑两文件及新鲜证据正确，A仍被核验拒绝：要求的计划拆分未达成，且已发生的本地批准历史未投影。未签收/合回，批准事实PR105已合入6bdbaf8c并通过两平台CI；源码Luna代理＋冻结Astra任务/核验的同夹具恢复全流程通过，首轮Astra空响应保留。新安装候选待复验。多入口限定范围已通过。GPT61经典low/default通过，机器人真实空响应未解决。整体尚未Ready，GA等负责人全面测试、七天日用及批准。
 
 ## 已有证据与适用范围
 
@@ -128,3 +128,9 @@ GPT61最新范围更正：经典入口low与default均真实工具读回通过�
 
 
 rc.2 multi-entry [actual proof](evidence/rc2-installed-multi-entry-passed-20261002.json) passed: installed Desktop uses default signed helper; source TUI backend client/takeover uses candidate signed helper explicitly; production HTTP/WS adapter and loopback fixture Ed25519 identity. Genuine read_file and canonical replies on all three surfaces, duplicate input rejection, remote approval summary only, Desktop quit -> TUI lease/tool/reply passed. This does not certify a physical phone, production OIDC or installed CLI UI; archive and npm CLI UI are separately verified above. Owned processes exited and credential copies removed.
+
+### RC2之后：批准历史补修
+
+PR105已于04:25:13Z合入6bdbaf8c，CI36963764691两平台SUCCESS；源码/CI/合入tree69ae6585一致。[本机门禁](evidence/rc-local-approval-source-gates-20261002.json)：focused119＋TUI host10，完整build/typecheck/architecture/test通过；Desktop5297中5292通过/原5skip＋AST1、runtime1012、TUI753、system-context35。两平台9壳/11可访问性/7诊断、原性能预算和owned退出通过，见[CI绑定](evidence/rc-local-approval-ci-binding-20261002.json)。既有GoalApproval按实际本地决定冻结，Source只准入批准事实，不是工具Evidence或签收。
+
+[首轮真实源码](evidence/rc-local-approval-source-first-failed-20261002.json)两任务及最终独立核验通过，但Astra项目代理真实空响应使本轮来源汇报缺失，保持全流程失败。[同夹具恢复](evidence/rc-local-approval-source-recovery-passed-20261002.json)仅将项目代理配置换为Luna，已冻结worker/verifier仍Astra：重新独立核验、当前canonical两来源汇报、用户签收、单独授权合回均通过；原项目仅a/b精确变化，原用户默认未变，凭据副本清除。不能记为全Astra首次无干预或安装包通过。新候选须实际安装复验，GPT61机器人空响应未解决；总体尚未Ready，正式版继续等待负责人全面测试与批准。
