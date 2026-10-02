@@ -1,0 +1,25 @@
+{
+  "runId": 36979821056,
+  "attempt": 2,
+  "sourceHead": "4d97ff6d5c955ffac0d1b69b53507d375852fca4",
+  "ciMergeHead": "88daff2344de442da488e9f140b0d72b91c0c987",
+  "tree": "bab3d33454c92e54e63dd28fc43c6767e4cce828",
+  "linux": {
+    "ok": true,
+    "checks": 9,
+    "accessibility": 11,
+    "diagnostics": 7,
+    "pageErrors": []
+  },
+  "macos": {
+    "ok": false,
+    "failure": "upward menu geometry checked during its entry animation",
+    "observed": {
+      "triggerTop": 820,
+      "menuBottom": 822.0625
+    },
+    "eventualScreenshot": "menu above the trigger after animation",
+    "pageErrors": []
+  },
+  "scope": "Same-head one bounded retry. Original GC failures retained separately; no product assertion skipped. New bounded animation-aware test change requires full final CI."
+}

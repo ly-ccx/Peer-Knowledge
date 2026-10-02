@@ -2,6 +2,8 @@
 
 ## rc.3 候选准备（2026-10-02，Accepted）
 
+RC3 窗口门禁追加范围（2026-10-02，Accepted）：PR109 同提交一次重跑后 Linux 全通过，macOS 在菜单进入动画尚未结束时读取几何，trace 记录 trigger.top=820、menu.bottom=822.0625；失败截图进入完成后正常向上。允许本卡仅修改 apps/desktop/scripts/bot-shell-updater-checks.mjs，使用既有有界 until 等候原几何条件成立并保留原断言、事件状态及性能预算，记录最终几何；不改产品样式或运行时。首轮两平台 GC transport 失败和二轮 macOS 几何失败分别保留，不推断产品根因，不无限重跑。新提交需本机真实窗口与最终两平台 CI 完整通过。
+
 负责人自主修复、自测及 RC 预发布授权继续适用。新候选纳入已合入的批准事实 PR105、侧栏更新入口 PR106、启动历史读取 PR107，以及待最终两平台 CI 合入的回复终结 PR108；依赖齐全后从开发线开 PeerAgent/pa/rc3-candidate。旧 RC1/RC2 tag 和资产保持不变，GA 等负责人全面测试、七天日用与明确批准。
 
 允许新 release-notes/v0.1.0-rc.3.md；既有 stamp-version 覆盖的 VERSION、12 个包清单、Cargo.toml/lock、两个 README 候选标记和发布说明链接；changelog 生成物及 build-changelog.test.mjs 当前候选断言；rc-upgrade-matrix.mjs 及其测试保留 RC1/RC2 并加当前 RC3 毕业行（21 项，六版真实旧 tag 来源不变）。本卡不改更新器实现、依赖、签名配置或工作流。
