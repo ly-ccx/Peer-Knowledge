@@ -21,3 +21,6 @@ focused目录/配置/encoder测试、Desktop受影响包全量及build/typecheck
 
 
 诊断缩小：干净rc.2 b1cae373的经典对话生产conversations/chatSend路径，在low和default两种effort均实际read_file并精确回读成功，非伪造Tool Result；[low](evidence/rc-gpt61-classic-low-passed-20261002.json)、[default](evidence/rc-gpt61-classic-default-passed-20261002.json)。因此不能再概括“本机账号不可用”，也不能把effort默认映射当作根因。先前机器人代理请求真实空响应仍保留，改用自然中文的同一bot工具链进一步定位。两个源码成功均非实际安装包，复制凭据已清除、owned退出。
+
+
+自然中文的bot原文回读请求仍实际空响应，[记录](evidence/rc-gpt61-bot-natural-failed-20261002.json)。经典default也通过，排除仅默认强度不兼容的猜测。原文回读可能与既有“概括工具事实”角色规则冲突，后续摘要请求保留实际read_file结果精确检查，再验证post_reply，不放宽工具证据要求；目前不主张已知根因。
