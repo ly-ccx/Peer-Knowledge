@@ -2,6 +2,20 @@
 
 最后更新：2026-10-02。状态：验收进行中，尚未宣布全部 Ready。
 
+## 当前交付：RC4 已发布并安装（2026-10-02）
+
+实际候选为 **0.1.0-rc.4**，不可变提交 `11b5f645f0ec87f9800ac1c749a38871d5d3aeca`、tree `10707e13a7f43505ff345d864c89f937912ce37c`。[发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.4)。PR110–112已合入；最终两平台CI36995512881成功，完整本机门禁、32项更新定向测试、22项受控升级矩阵及9壳/11可访问性/7诊断通过。Release36997106815八个job成功、14项资产。[CI/提交绑定](evidence/rc4-candidate-ci-binding-20261002.json)。macOS原生窗口CI一次GC transport失败和同提交一次有限重跑分别保留，没有放宽产品断言。
+
+**真实更新发现已补齐。** 三平台实际发布清单12项通过：生产Provider为Beta5/RC2选择RC4，当前RC4不提供同版本、旧Beta5或旧正式0.0.18。该探查使用真实SDK与Node HTTP，受控rollout资格用于隔离版本选择，未在物理Win/Linux安装。[联网证据](evidence/rc4-update-live-discovery-passed-20261002.json)。已下载签名RC4使用生产Electron HTTP实测beta→auto→stable→beta：均为not-available、无availableVersion，allowDowngrade=false；无新版本时下载与安装入口拒绝、退出安装关闭，真实包Provider字节与源码相同。没有注入更新事件；无页面错误、自有进程退出。[实际签名包](evidence/rc4-installed-updater-passed-20261002.json)、[模块绑定](evidence/rc4-packaged-provider-binding-20261002.json)。首轮仅观察脚本动态import回调缺失，改用Node builtin读取原SDK后重跑；产品代码未变，[原失败](evidence/rc4-installed-updater-harness-failed-20261002.json)。
+
+**原用户应用已由RC3人工升级为RC4并保持打开。** 先退出、完整备份应用与数据，再替换同Team签名官方应用；未重置数据或Chromium profile。实际窗口版本RC4，重新检查显示“当前已是最新版本”，旧Beta5提示消失；SVG账户左、版本右、渠道只在设置内，原Beta偏好保持。43份canonical对话文件（不含index）的旧行全部保留；设置/模型配置字节、机器人身份、角色分工不变，原机器人对话可打开。[安装与数据](evidence/rc4-original-user-install-passed-20261002.json)。旧冻结Beta5/RC3更新器本身仍须这次人工迁移，不能宣称它们已自动发现RC。
+
+ZIP/DMG/macOS CLI实际下载SHA256匹配发布digest；ZIP应用和只读DMG内应用严格签名、同Team82672N97RP、公证与Gatekeeper通过；DMG完整性及卸载通过，容器staple65如实保留（票据在.app）。归档CLI及助手签名、`peer --version`为RC4通过；npm四包固定RC4与rc标签已可见，latest仍0.0.18/beta仍beta.5。[发布信任](evidence/rc4-published-assets-trust-20261002.json)、[CLI范围](evidence/rc4-cli-version-passed-20261002.json)、[npm元数据](evidence/rc4-npm-metadata-passed-20261002.json)。RC3真实模型、完整CLI PTY、多入口与七次数据轮换仍是对应旧候选的历史证据，未伪称本轮RC4全重跑。
+
+**总体仍未Ready。** 严格复杂任务的命令描述Evidence快照缺口继续保持独立A类阻塞；未来更高RC的真实自动下载/安装、Windows/Linux互动安装、实体手机/生产远程以及负责人七天日用尚未发生，不能写Pass。详细手册仍为195用例/6流程；GA等待开发者收口后负责人全面测试、七天日用及明确批准。
+
+## 历史记录（RC1—RC3及RC4发布前；以以上当前事实为准）
+
 ### 更新发现补修进展（2026-10-02）
 
 PR111 f2bef5eb沿SDK Provider Seam选最高有效预览并关闭降级，32项定向、全量本机门禁及21项受控矩阵通过，真实发布12项检查Beta5/RC2→RC3正常且RC3不提示旧版。[诊断与范围](rc-update-discovery-diagnosis.md)。最终两平台CI36994414880全部成功，PR111已合入29df4439且源/CI/合入tree一致；新签名RC4与原用户安装尚未完成，旧安装RC3不可据此改判；复杂任务命令描述快照及其他平台/日用边界继续保留。

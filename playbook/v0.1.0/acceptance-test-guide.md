@@ -1,33 +1,33 @@
 # Peer Agent 0.1.0 发布前全面测试手册
 
-> 当前候选：0.1.0-rc.3，提交78178d0c0533c6ff9a6b523a765a5c15d602e428。启动/切换卡顿、net::ERR_FAILED、成功post_reply后的多余空请求已修复并通过实际安装复验。严格复杂任务的命令描述快照缺失及自动更新发现/错误降级仍阻塞Ready，请等自测收口再开始全面测试。实际证据见[自测报告](rc-self-test-report.md)。
+> 当前候选：0.1.0-rc.4，提交11b5f645f0ec87f9800ac1c749a38871d5d3aeca。更新发现/防降级及侧栏排版已通过签名macOS包和原用户实际复验。严格复杂任务的命令描述Evidence快照仍阻塞Ready，请等开发者自测收口再开始全面测试。当前证据与历史范围见[自测报告](rc-self-test-report.md)。
 
 ### 确定版本的下载与校验
 
-[RC3发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.3)，Release36982183664全部成功，14项资产。正式0.1.0尚未发布。macOS安装文件与CLI实际下载SHA匹配发布digest；ZIP/.app及只读DMG内.app严格签名、公证和Gatekeeper均通过，DMG完整性验证通过并已卸载（DMG容器无独立staple票据，票据在.app）。Windows/Linux下面SHA来自发布资产digest，尚未在两种系统交互安装。旧候选tag/资产不修改。
+[RC4发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.4)，Release36997106815八个job全部成功、14项资产。正式0.1.0尚未发布。macOS安装文件与CLI实际下载SHA匹配发布digest；ZIP应用及只读DMG内应用严格签名、公证和Gatekeeper通过，DMG完整性通过且已卸载（容器staple65，票据在.app）。Windows/Linux下面SHA来自发布digest，尚未在两系统交互安装。[信任证据](evidence/rc4-published-assets-trust-20261002.json)。
 
-当前自动更新仍有已复现缺陷：Beta5会跳过RC，RC3的Beta通道还可能提示旧Beta5降级。先从此确定版本发布页手动更新；不要同意降回Beta5。PR111的真实发布探查及本机门禁已通过，修复将进入新的不可变RC4候选；当前安装RC3仍是旧实现。
+**旧Beta5/RC1–3先手动安装RC4。** 旧更新器会跳过RC、甚至把旧Beta5当更新，冻结安装包不会因为新发布自动得到修复。完全退出桌面/CLI/Gateway宿主、备份数据，从以上固定官方发布页安装同架构RC4，再启动查看实际版本；不要在旧RC界面同意降回Beta5。原用户RC3→RC4已这样完成，历史和模型偏好保持。RC4会在Beta预览池中选择最高有效Alpha/Beta/RC，所有入口要求候选严格更高。实际RC4三渠道检查均无旧版可用；未来更高RC的真实自动下载/安装另记录，不以合成事件代替。
 
 | 平台/文件 | 下载 | SHA256 |
 |---|---|---|
-| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/Peer-Agent-0.1.0-rc.3-arm64.dmg) | `eee1ed769b18b8fbac08c4d66c00d1934d69b2a3c03955f19210bf53a4251676` |
-| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/Peer-Agent-0.1.0-rc.3-arm64.zip) | `a590b5114741466a4fb4d4a9b67caafd4ff5d4084df31ca80180a6adb14bd5ad` |
-| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/Peer-Agent-Setup-0.1.0-rc.3.exe) | `1c2e86f177f51398e009d9e5bf124c369389050c601a0e7a4288b30a1cb5a85f` |
-| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/Peer-Agent-0.1.0-rc.3-x64.AppImage) | `90b655659752703ba3478853ec240faae0106b4dc4a7b7a785431626043490d9` |
-| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/Peer-Agent-0.1.0-rc.3-x64.deb) | `959c811e4eaefa5290832480e0991a958985d1c4712f20d2cd56020abc5f5c52` |
-| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/peer-darwin-arm64.tar.gz) | `11bba6618d256d8025350019cdddfcd0524a7b6efe2bb1c9c534a3f76041b37d` |
-| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.3/peer-linux-x64.tar.gz) | `c48f07e534038ef7884cc90ad7d583925d82cd2224d6aeb8ea21947f1294bc5a` |
+| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-arm64.dmg) | `014cc8245f65723fd45fe0f3171aa02f037c8a4ec0762abfe666010cf23629c1` |
+| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-arm64.zip) | `b53ed82bf74ccc9122d0cf0717f26c2ce3c9b673464536b4b5565ebd8af38729` |
+| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-Setup-0.1.0-rc.4.exe) | `2678b8e05644326b642baa6283c09a02b557036a027791c26f5265b55f3a9841` |
+| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-x64.AppImage) | `1648c049a95306ec9051d6594ba5972fb8962a6949904571dcff7031a27c57ad` |
+| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-x64.deb) | `577bb4bf1b732d43be1b71027828eda500e1b79b46b99acb720469ac5456c3bc` |
+| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/peer-darwin-arm64.tar.gz) | `66f92fda0aceeaec50cd671a5a1d2b7a5652e0c3a0c6cb6699cb2d035def5d41` |
+| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/peer-linux-x64.tar.gz) | `6b47d42d9d600d5c5418592da2dfaef46d06c3faf96a8dbe82d7245f92bfe75e` |
 
-macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中相同。CLI的 `peer` 和 `peer-credential-helper` 保持同一目录。桌面和CLI均用rc.3。
+macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中相同。CLI的 `peer` 和 `peer-credential-helper` 保持同一目录，桌面和CLI均用RC4；macOS归档CLI及助手签名和 `peer --version` 为RC4已经实测。
 
 固定版本npm安装：
 
 ```sh
-npm install -g @peer-agent/cli@0.1.0-rc.3
+npm install -g @peer-agent/cli@0.1.0-rc.4
 peer --version
 ```
 
-预期 `peer 0.1.0-rc.3`。开发者已实际隔离安装npm CLI，二进制及助手与发布归档相同；归档CLI和npm shim使用默认签名助手，在100×30 PTY实际绑定新机器人、可见Received、真实read_file/post_reply均通过，项目未改，退出0。`@rc`跟随后续候选，正式测试须记录实际版本；latest仍0.0.18、beta仍0.1.0-beta.5。Windows无CLI资产，M组使用macOS/Linux。GPT61订阅机器人实际一次HTTP200及canonical回复通过，原用户默认Astra也已恢复回复；不得推广为所有渠道/模型通过。
+预期 `peer 0.1.0-rc.4`。四包固定RC4版本与rc标签已在公共npm元数据可见；latest仍0.0.18、beta仍0.1.0-beta.5。`@rc`跟随后续候选，全面测试须记录确定版本。RC4本轮CLI范围为发布归档SHA/签名/版本及npm元数据，没有重跑npm安装、完整模型或PTY流；RC3曾实际隔离npm安装并验证默认助手的PTY read_file/post_reply，以及GPT61订阅和原默认Astra回复恢复，均保留为RC3历史证据，不混写为RC4全功能通过。Windows无CLI资产，M组用macOS/Linux。
 
 ## 1. 测试与发布顺序
 
@@ -276,7 +276,7 @@ A 项目先提交干净基线。准备三个互不重叠文件 a.txt、b.txt、c
 
 ## I 模型分工与用量
 
-先记录四档的模型名称和渠道，不记录密钥。GPT订阅目录应可选GPT-6.1 Sol（精确id gpt-6.1-sol），提供low/medium/high/xhigh/max和400K/1M档位；原默认保持。选择该模型、重启读回后，分别在经典对话和机器人请求读取项目文件并回复。空文本/无工具即失败；RC2自测经典low/default通过而机器人空响应未解决，不能合并计Pass。API参考价格不能作为订阅账单。复核模型与工作模型来自不同源的场景需要两条可用渠道；只有一条时如实记为环境未具备。
+先记录四档的模型名称和渠道，不记录密钥。GPT订阅目录应可选GPT-6.1 Sol（精确id gpt-6.1-sol），提供low/medium/high/xhigh/max和400K/1M档位；原默认保持。选择该模型、重启读回后，分别在经典对话和机器人请求读取项目文件并回复。空文本/无工具即失败；RC2曾出现经典low/default通过而机器人空响应失败；RC3修复post_reply终结后实际默认签名助手、一次HTTP200/唯一canonical回复通过，保留前后证据。RC4本轮未重跑该模型流程，不能把旧候选结果当RC4实测。API参考价格不能作为订阅账单。复核模型与工作模型来自不同源的场景需要两条可用渠道；只有一条时如实记为环境未具备。
 
 | 编号 | 操作步骤 | 预期与检查点 |
 |---|---|---|
@@ -342,8 +342,8 @@ A 用临时 git 仓库；CI 目标使用专门测试仓库/分支，禁止修改
 | L07 | 在同一隔离数据目录逐版 beta1→2→3→4→5→RC。 | 迁移幂等；运行状态按恢复规则处理；不会重复创建项目身份。 |
 | L08 | 安装 0.0.18 打开升级后的隔离数据，进入旧/机器人/任务子会话。 | 应用可启动和阅读；旧版本不理解的新功能不要求出现；无崩溃或数据改写。 |
 | L09 | 再装候选版，比较 workspaceId、conversationId、记忆、目标、档案。 | 同一个身份与真源，先前完成的任务仍存在；重建索引不会造新 ID。 |
-| L10 | 分别读取桌面、peer --version、npm beta 与安装包版本。 | 同一候选版本；发布说明要求桌面和 CLI 同时升级；stable/latest 未提前改变。 |
-| L11 | 在机器人底部查看最右侧版本、点击版本入口；确认底部不显示“自动/Beta/正式”通道。到“我→设置→更新与关于”切换三种渠道并重启，核对持久化；用键盘打开/关闭设置渠道菜单。在240px侧栏、中英文与深浅主题检查更新提示/下载进度/安装按钮。运行更新通道毕业自动化测试。先用真实旧Beta5/RC3确认旧更新器缺陷，再从固定新候选发布页人工安装；新候选分别以Beta/自动/正式偏好检查真实发布源。预览池覆盖Alpha/Beta/RC，所有渠道不向同版本或旧Beta/正式版降级；未来RC发布后再验证真实下载与安装。 | 左侧SVG账户和右侧版本空闲一行，版本与主进程一致；渠道只在设置中显示且重启后保留；SVG图标、焦点和Escape可用，按钮可达、不重叠或溢出。底部新排版见[补修卡](rc-footer-polish.md)，已发布RC3保留旧排版，下一候选才复验。旧冻结客户端先人工安装修复候选的迁移步骤单列，不宣称旧Beta5自动发现已修；真实下载/安装另记录实际发布包，不能用事件注入替代；必须核验真实Provider的发布标签、平台清单及可用版本，不能仅靠受控矩阵宣称Beta→RC通过；beta→正式的选择与数据无迁移逻辑经过测试，此阶段实际不发布0.1.0。 |
+| L10 | 分别读取桌面、peer --version、npm固定候选版本/rc标签及安装包版本，另查latest与beta标签。 | 桌面/CLI/固定候选均为RC4；发布说明要求桌面和CLI同时升级。rc=0.1.0-rc.4，latest仍0.0.18、beta仍0.1.0-beta.5，不能要求beta标签等于RC候选。 |
+| L11 | 在机器人底部查看最右侧版本、点击版本入口；确认底部不显示“自动/Beta/正式”通道。到“我→设置→更新与关于”切换三种渠道并重启，核对持久化；用键盘打开/关闭设置渠道菜单。在240px侧栏、中英文与深浅主题检查更新提示/下载进度/安装按钮。运行更新通道毕业自动化测试。先用真实旧Beta5/RC3确认旧更新器缺陷，再从固定新候选发布页人工安装；新候选分别以Beta/自动/正式偏好检查真实发布源。预览池覆盖Alpha/Beta/RC，所有渠道不向同版本或旧Beta/正式版降级；未来RC发布后再验证真实下载与安装。 | 左侧SVG账户和右侧版本空闲一行，版本与主进程一致；渠道只在设置中显示且重启后保留；SVG图标、焦点和Escape可用，按钮可达、不重叠或溢出。底部新排版见[补修卡](rc-footer-polish.md)，已在官方签名RC4及原用户窗口复验；旧RC3保留旧排版。旧冻结客户端先人工安装修复候选的迁移步骤单列，不宣称旧Beta5自动发现已修；真实下载/安装另记录实际发布包，不能用事件注入替代；必须核验真实Provider的发布标签、平台清单及可用版本，不能仅靠受控矩阵宣称Beta→RC通过；auto预览→严格更高正式的毕业选择与数据无迁移逻辑经过受控测试；显式beta保持预览池。此阶段实际不发布0.1.0。 |
 
 
 ## M TUI 终端入口

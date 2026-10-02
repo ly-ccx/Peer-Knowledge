@@ -29,4 +29,4 @@
 
 ## 合入事实
 
-PR111最终源f2bef5eb、CI合成facc67fe及合入29df4439的tree一致（66e91b52）；两平台CI36994414880全部成功，9壳/11可访问性/7诊断、0页面/授权错误、owned退出，原100/150/300ms预算通过。[绑定](evidence/rc-update-ci-binding-20261002.json)。本机全量及32项定向、21项矩阵与真实发布12项通过。修复已合入开发线，RC4签名候选准备中；实际安装RC3仍旧实现，须人工安装后实测，未来更新下载安装未发生不写Pass。
+PR111最终源f2bef5eb、CI合成facc67fe及合入29df4439的tree一致（66e91b52）；两平台CI36994414880全部成功，9壳/11可访问性/7诊断、0页面/授权错误、owned退出，原100/150/300ms预算通过。[绑定](evidence/rc-update-ci-binding-20261002.json)。本机全量及32项定向、21项矩阵与真实发布12项通过。修复已进入官方RC4。实际签名包原生三渠道检查、防降级入口及原用户备份后人工升级通过：[实际检查](evidence/rc4-installed-updater-passed-20261002.json)、[真实迁移](evidence/rc4-original-user-install-passed-20261002.json)。不改旧冻结客户端、不宣称未来更高RC自动下载安装已发生。整体复杂任务核验阻塞另卡。

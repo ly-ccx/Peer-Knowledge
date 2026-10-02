@@ -39,4 +39,6 @@
 
 最终CI36991456384两平台完整build/typecheck/architecture/test/native smoke成功。两个实际窗口均空闲45px、72次布局通过、0页面/授权错误、自有进程退出，性能保持原预算。评审六个允许代码路径，无新增运行时或跨层边界；按负责人持续授权合入PR110为`b2a9049f`。源`9aa202ba`、CI`204ec748`与实际合入tree相同；[CI与合入绑定](evidence/rc-footer-ci-binding-20261002.json)。
 
-状态：源码补修交付完成。实际安装应用仍为RC3旧底部；新排版进入下一不可变候选。自动发现和复杂核验仍有独立阻塞，整体尚未Ready。GA仍等待负责人全面测试、七天日用与明确批准。
+状态：源码与RC4实际安装补修交付完成。原用户窗口已升级RC4，底部SVG账户居左、版本居右、渠道仅设置内，实际重新检查没有旧Beta提示；原设置不变。[真实安装](evidence/rc4-original-user-install-passed-20261002.json)。下面截图来自官方签名RC4的隔离新数据夹具（浅色；45px一行），不是开发Electron版本：[原生检查](evidence/rc4-installed-updater-passed-20261002.json)。复杂核验仍独立阻塞总体Ready；GA等负责人全面测试、七天日用与明确批准。
+
+![RC4实际签名包底部](evidence/rc4-installed-footer-20261002.png)

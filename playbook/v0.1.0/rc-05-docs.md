@@ -61,3 +61,10 @@ RC4最终CI首轮：Linux完整通过；macOS构建/类型/架构/回归通过�
 
 
 PR112最终CI36995512881两平台全部成功；macOS同提交一次有限重跑窗口通过，原失败保留。acf19ee3、CI合成eb4b0e40及合入11b5f645的tree一致10707e13，已合入。新不可变tag v0.1.0-rc.4固定11b5f645，Release36997106815构建中；尚未验证签名资产及安装，不将源码/CI通过等同实际用户修复。[绑定](evidence/rc4-candidate-ci-binding-20261002.json)。
+
+
+### RC4 实际发布与原用户迁移完成
+
+Release36997106815八个job全部成功，2026-10-02T10:53:11Z发布14项资产，固定tag11b5f645不变。ZIP/DMG/macOS CLI下载SHA匹配，ZIP与DMG内.app同Team严格签名/公证/Gatekeeper通过；DMG容器staple65保留、应用票据通过。[发布信任](evidence/rc4-published-assets-trust-20261002.json)。四npm包RC4固定版本/rc标签可见，旧latest/beta标签保持；第一轮部分元数据尚不可见记录保留，不推断原因或重发包。归档CLI/助手签名和版本RC4通过，本轮未重跑RC3模型/完整PTY多入口。
+
+三平台真实发布清单12项、实际签名RC4生产Electron HTTP三渠道和无候选下载/安装拒绝通过；第一轮观察脚本动态import限制只修脚本观察Seam，产品与断言不变。原用户RC3完全退出后完整备份app与数据，人工替换官方RC4；43份canonical文件旧行、模型/角色/项目身份和设置字节保持，未重置profile。实际版本RC4，主动检查显示当前最新，旧Beta5提示消失，底部账户左/版本右/渠道设置内。原机器人对话已打开，应用保持运行。[实际包](evidence/rc4-installed-updater-passed-20261002.json)、[原数据迁移](evidence/rc4-original-user-install-passed-20261002.json)。旧客户端人工升级已证明可达，不宣称旧冻结更新器自动可达；未发生未来候选下载安装、物理Win/Linux安装、实体手机/生产远程和七天日用不写Pass。复杂任务Evidence命令描述仍独立A类阻塞，整体未Ready。全面测试手册更新为RC4与真实SHA，195用例和6流程不减少。
