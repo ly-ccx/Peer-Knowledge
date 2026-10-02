@@ -55,3 +55,6 @@ PR109最终CI36981399115两平台完整通过，9壳/11可访问性/7诊断、0�
 
 
 RC4候选准备acf19ee3/tree10707e13：本机完整build/typecheck/architecture/test及releaseReadiness通过；Desktop5320项5315pass/原5skip＋AST1，runtime1014，22项矩阵保留RC1–3与六版旧tag来源。干净源实际窗口9壳/11可访问性/7诊断、0页面/授权错误、owned退出与原性能预算通过。[源门禁](evidence/rc4-source-gates-20261002.json)。PR112最终两平台CI36995512881进行中，尚未发布或替换原应用，不改判复杂任务阻塞。
+
+
+RC4最终CI首轮：Linux完整通过；macOS构建/类型/架构/回归通过，窗口阶段发送合成更新事件的Playwright主进程transport报Resulting promise was garbage collected，页面/授权错误为零，owned退出。[原失败](evidence/rc4-ci-window-transport-failed-20261002.json)。保留失败日志/截图，同提交仅重跑该失败job一次，未改产品代码或断言；再次失败则修复具体测试Seam，不无限重跑。新签名包仍待原生实际更新检查。
