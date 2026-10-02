@@ -14,6 +14,10 @@
 
 ## 源码验证与交接
 
+### Review 范围追加（Accepted）
+
+PR108 Review 发现 TUI 的现有 Adapter 未读取 outputPreview.control，也未把 project_agent_reply 的 stopped 结果作为成功。负责人自主完成授权覆盖必要补齐；允许追加 apps/tui/src/project-agent/tui-turn-executor.ts 与 .test.ts，在既有工具结果控制入口读取该事实、保留 request_user_input 和工具预算失败语义。先用真实 Delegation Provider/Grant/Evidence 写红测试：成功/抑制/重放一次模型请求且 done；失败不终结。补齐后定向与 TUI 完整测试、类型/构建/架构及最终新 HEAD 两平台 CI 重跑。本卡不修改经典 chat-controller、不新增共享契约或 Module。
+
 PR108 源提交 ca56024d95bed1ab00769ca26ff60ad001e1eb19（tree 0d673ef65de7b0fe6a2c365435c0df8d42e21ce6）已推送。三个允许路径完成；先红测试确认控制缺失且真实 production loop 请求 3 次，补修后定向 58/58、runtime-node 1014/1014、desktop 5302 项中 5297 通过/原 5 skip 与独立 i18n 1/1，构建/类型/架构全部通过。没有新增 skip，没有放宽 empty-response guard。CI36977994241 进行中，尚未合入或发布。
 
 相同 401 旧计划/历史双机器人副本、真实 GPT-6.1 Sol 与生产输入路径：[补修前失败](evidence/rc-post-reply-model-failed-20261002.json)保留四次 HTTP200、未落 canonical；[补修后通过](evidence/rc-post-reply-model-passed-20261002.json)仅一次 HTTP200 工具请求，4889ms 落下「连接正常」canonical 回复，无错误/项目改动。此轮在源码使用明确指定的既有签名 helper，不冒充新安装包默认 helper 测试。凭据副本已清除，owned 进程已退出，原用户数据与配置不变。
