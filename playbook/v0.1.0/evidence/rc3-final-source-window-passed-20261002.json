@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "eaabfa98effca048c9de928555973fd62d4790d3",
+  "sourceDirty": false,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "pageErrors": [],
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "windowReadyMs": 2392,
+  "updater": [
+    "visible current version; SVG custom channel menu opens upwards, Escape restores focus; all three preferences persist through production IPC",
+    "version button opens the existing update modal and Escape closes it",
+    "changing the channel in Updates & about refreshes the already mounted footer from confirmed main status",
+    "available SVG indicator, 42% progress and install control fit 240–360px columns in both locales and themes",
+    "reload restores production update state and persisted channel without duplicate badges"
+  ],
+  "updaterMenuGeometry": {
+    "trigger": {
+      "top": 820
+    },
+    "menu": {
+      "top": 691.61376953125,
+      "bottom": 820.62939453125
+    },
+    "height": 860
+  },
+  "updaterPhaseScope": "Synthetic updater events verify renderer states only; no release download or install is performed",
+  "ok": true,
+  "mainAuthorizationErrors": [],
+  "accessibilityChecks": 11,
+  "diagnosticChecks": 7,
+  "ownedExit": true
+}
