@@ -28,3 +28,8 @@ bot-conversation.css的bot-card、bot-composer及focus-within使用graphite-base
 [干净源码门禁](evidence/rc-message-source-gates-20261002.json)与实际窗口9壳/11可访问性/7诊断通过，72既有更新布局通过、无页面/授权错误、自有进程退出，列表/搜索/Received在原预算。
 
 代码[PR113](https://github.com/ly-ccx/Peer-Agent/pull/113)与最终CI37017510987进行中；原签名RC4未改变，此预览不冒充原应用安装结果。
+
+
+## 首轮CI窗口通信失败保留
+
+CI37017510987首轮两平台的完整build/typecheck/architecture/test均通过；原生窗口在发送合成更新状态时均报Playwright主进程evaluate的“Resulting promise was garbage collected”，还未进入消息界面检查。页面/主进程授权错误均零、自有进程退出。保留[macOS原失败](evidence/rc-message-ci-mac-transport-failed-20261002.json)与[Linux原失败](evidence/rc-message-ci-linux-transport-failed-20261002.json)及对应不可变artifact；同源仅重跑失败job一次（attempt2）。再失败则修复具体观察Seam，不无限重跑。尚未合入或更新签名应用。
