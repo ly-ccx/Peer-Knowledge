@@ -22,3 +22,9 @@
 先红测试复现 readFacts 扫描正文；修复后同会话多计划只读一次元数据、不读正文，归属隔离正确且外部 store 写入立即生效。覆盖真实 host 唤醒及各会话角色、归档/缺失会话；保留原结构化依赖事实。安装版副本首次 profile 因选到 quick-chat 窗口触发 IPC 角色拒绝，属于测量夹具失败，不能记通过；CPU profile 仍能定位生产热路径。修复后用正确主窗口复测启动/空闲/切换，记录所有样本及 owned 退出。focused/受影响包完整测试/build/typecheck/architecture 与两平台 CI 通过后交付。
 
 原窗口 net::ERR_FAILED 单独追查。新进程 GPT-6.1 Sol 已有真实 post_reply 成功，不能据此把原窗口错误、复杂任务或总体 RC 标为 Ready。
+
+## 交付与验证
+
+代码 PR107，源提交 `3a1069d0`，两平台 CI `36975763494` SUCCESS。下载的 macOS/Linux bot-shell 报告均 ok、无 pageErrors，源为合成 merge `9dfb194c`；source/CI/合入 Git tree 均 `c468c7fa231f7f7c6b07dd4577c32243f5b9d1a0`。已授权合入 `68b9689e`，主开发工作区已快进同步。
+
+本机 focused 35/35、完整桌面 5301 中 5296 通过/5 既有 skip/0 新增、i18n 1/1；完整 build/typecheck/architecture 通过。同一只读副本五次测量中位数 4085.458→0.506ms，正文读取 401→0 且事实一致；真实源码窗口启动 ready 3480ms，八次实际双机器人切换 75–167ms，50ms 主进程探针最大间隔 104ms。保留前两次夹具失败，不计通过。详见[测量证据](evidence/rc-startup-facts-performance-20261002.json)。尚未更新已安装 rc.2，须新候选包复测；原网络故障另行追查，总体未 Ready。
