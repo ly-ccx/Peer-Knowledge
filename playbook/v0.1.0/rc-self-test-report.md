@@ -8,7 +8,7 @@
 
 候选版 `0.1.0-rc.1` 已预发布：[下载页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.1)。不可变提交 `0beeb21f46c4c40bc076b414471c086aeb9a28a4`，Release工作流36919331979全部成功，14项资产；安装文件SHA256见[手册](acceptance-test-guide.md)。npm `rc=0.1.0-rc.1`，`latest=0.0.18`、`beta=0.1.0-beta.5`；正式0.1.0未发布。源码窗口通过不能填作安装包通过；旧Beta安装结果不能移用为RC结果。
 
-**当前验收：** Mac解锁后RC1默认CLI助手仍超时，安装Desktop双写也出现Bash检查引用未进入Verifier快照、代理一次真正空文本响应的失败，未签收/合回。[CLI失败](evidence/rc-installed-cli-unlocked-failed-20261002.json)、[复杂任务失败](evidence/rc-installed-complex-first-failed-20261002.json)均保留。设置页PR99与CLI签名助手装配PR100已通过两平台CI并合入；真实RC1 CLI+同次签名助手的正确隔离装配read_file/post_reply通过，仅证明方案，不替代新安装包。命令快照PR101正在CI；源码双写首轮A独立核验通过、B误读已批准要求而等待用户，180秒等待失败已保留，现验证真实Retry和插话恢复。下一候选rc.2，尚未全部Ready；负责人全面测试应在新候选复验完成后开始。
+**当前验收：** Mac解锁后RC1默认CLI助手仍超时，安装Desktop双写也出现Bash检查引用未进入Verifier快照、代理一次真正空文本响应的失败，未签收/合回。[CLI失败](evidence/rc-installed-cli-unlocked-failed-20261002.json)、[复杂任务失败](evidence/rc-installed-complex-first-failed-20261002.json)均保留。设置页PR99与CLI签名助手装配PR100已通过两平台CI并合入；真实RC1 CLI+同次签名助手的正确隔离装配read_file/post_reply通过，仅证明方案，不替代新安装包。命令快照PR101已通过两平台CI并合入；源码双写首轮A独立核验通过、B误读已批准要求而等待用户，首轮失败已保留。真实恢复进一步发现answer仅追加、不唤醒等待任务的遗漏，PR102已修复；限定恢复证明通过，但B使用低于独立核验门槛的人工签收，不能计作双独立Verifier通过。下一候选rc.2，尚未全部Ready；负责人全面测试应在新候选复验完成后开始。
 
 ## 已有证据与适用范围
 
@@ -98,3 +98,8 @@
 ### 实际npm安装
 
 npm发布日志UTC20:15:23显示RC1发布成功，最初本机注册表返回E404/ETARGET；没有重新发布。UTC20:19:27元数据已可读，随后在隔离prefix实际安装成功，`peer --version`为`peer 0.1.0-rc.1`；postinstall取得的`peer`与默认同目录`peer-credential-helper`，逐文件SHA256与本次发布CLI归档相同。四个公开包protocol/runtime-core/runtime-sdk/cli的`version`与`rc`均为RC1，`latest`仍为0.0.18、`beta`仍为beta.5。[完整安装证明](evidence/rc-installed-npm-passed-20261002.json)、[四包注册表证明](evidence/rc-npm-four-packages-20261002.json)。此项证明npm实际安装与版本，不代替真实模型/钥匙串测试；安装CLI仍需解锁后复验。
+
+
+### 等待任务回答恢复补修
+
+见[补修卡](rc-session-answer-resume.md)、[修复前真实失败](evidence/rc-session-answer-real-failed-20261002.json)、[限定恢复证明](evidence/rc-session-answer-recovery-scoped-20261002.json)。等待answer恢复、真实Bash字节检查、TaskRunner核验、人工签收与单独合回已实际执行；严格双独立Verifier和新来源汇报仍需新夹具/新安装候选复验。PR102 Mac CI首轮工具evaluate异常已按同提交重跑一次，结果待定。GPT-6.1 Sol目录兼容另卡实施，真实订阅请求进行中。所有这些源码/装配证明不代替rc.2实际下载包。

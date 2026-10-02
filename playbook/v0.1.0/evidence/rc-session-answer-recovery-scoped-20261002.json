@@ -1,0 +1,150 @@
+{
+  "sourceHead": "412303b4ace843f52d55c918e9cec56848c8aa73",
+  "startedAt": "2026-10-02T02:51:21.658Z",
+  "finishedAt": "2026-10-02T02:52:08.142Z",
+  "model": "gpt-6-luna",
+  "version": "0.1.0-rc.1",
+  "installed": false,
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 75455
+  },
+  "credentialCopiesRemoved": true,
+  "ok": true,
+  "scope": "Actual same-fixture answer recovery, task-runner command checks, explicit manual acceptance and separate authorized worktree merge only. Does NOT prove both final independent host verifiers passed.",
+  "rawProof": "recovery-fixed-answer-proof.json",
+  "finalFiles": {
+    "a.txt": "RC_A_DONE\n",
+    "b.txt": "RC_B_DONE\n"
+  },
+  "changedFiles": [
+    "a.txt",
+    "b.txt"
+  ],
+  "acceptance": [
+    {
+      "ok": true,
+      "accepted": true,
+      "verdict": {
+        "outcome": "passed",
+        "independentVerifier": "missing",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "checks": [
+          {
+            "name": "leaf_evidence",
+            "passed": true
+          },
+          {
+            "name": "independent_verifier",
+            "passed": false,
+            "reason": "missing"
+          }
+        ],
+        "evidenceRefs": [
+          "tool-result://call_yuXf6Ljo4COdf5J8kL998qor"
+        ]
+      },
+      "verdictRef": "verdict:bbd0437f-0d4d-4a55-9771-bee904f1d153:passed",
+      "mode": "confirm",
+      "acceptedBy": "user",
+      "reasons": [
+        "project_requires_confirm",
+        "verification_below_floor"
+      ],
+      "reported": true,
+      "closeGatePassed": true,
+      "resultAcceptance": {
+        "acceptedAt": "2026-10-02T02:52:07.131Z",
+        "acceptedBy": "user",
+        "verdictRef": "verdict:bbd0437f-0d4d-4a55-9771-bee904f1d153:passed"
+      }
+    },
+    {
+      "ok": true,
+      "accepted": true,
+      "verdict": {
+        "outcome": "passed",
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "checks": [
+          {
+            "name": "leaf_evidence",
+            "passed": true
+          },
+          {
+            "name": "independent_verifier",
+            "passed": true
+          }
+        ],
+        "evidenceRefs": [
+          "tool-result://call_96XBhg88IwgRtgdoP8ybC0Hf",
+          "tool-result://call_23dd44Q9gIZK6Hue9mTQ1Fjn",
+          "tool-result://call_uEcg6InTMuZYvrunNtbbwWyP"
+        ]
+      },
+      "verdictRef": "verdict:2d75ac8f-c524-4273-b78a-70a0ab7f0821:passed",
+      "mode": "confirm",
+      "acceptedBy": "user",
+      "reasons": [
+        "project_requires_confirm"
+      ],
+      "reported": true,
+      "closeGatePassed": true,
+      "resultAcceptance": {
+        "acceptedAt": "2026-10-02T02:52:07.137Z",
+        "acceptedBy": "user",
+        "verdictRef": "verdict:2d75ac8f-c524-4273-b78a-70a0ab7f0821:passed"
+      }
+    }
+  ],
+  "plans": [
+    {
+      "planId": "c58b26fc-d570-4ea0-80df-a60e062961ea",
+      "sessionId": "bbd0437f-0d4d-4a55-9771-bee904f1d153",
+      "status": "completed",
+      "runnerStatus": "completed",
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_yuXf6Ljo4COdf5J8kL998qor",
+          "detail": "Bash byte comparison confirmed actual b'RC_B_DONE\\n' equals expected b'RC_B_DONE\\n'.",
+          "checkedAt": "2026-10-02T02:51:51.937Z"
+        }
+      ],
+      "taskVerifierStatus": "passed",
+      "hostVerification": null
+    },
+    {
+      "planId": "c674d65d-5025-49cf-97ef-b56587fe6783",
+      "sessionId": "2d75ac8f-c524-4273-b78a-70a0ab7f0821",
+      "status": "completed",
+      "runnerStatus": "completed",
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_uEcg6InTMuZYvrunNtbbwWyP",
+          "detail": "a.txt 内容为 RC_A_DONE 后跟一个换行（10 字节）。",
+          "checkedAt": "2026-10-02T02:32:22.342Z"
+        }
+      ],
+      "taskVerifierStatus": "passed",
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:2d75ac8f-c524-4273-b78a-70a0ab7f0821:passed"
+      }
+    }
+  ],
+  "strictComplexReady": false,
+  "remaining": "Fresh harness must require both hostVerification independentVerifier=passed and a fresh source-linked final reply before acceptance; B below-floor user confirmation cannot satisfy that gate."
+}

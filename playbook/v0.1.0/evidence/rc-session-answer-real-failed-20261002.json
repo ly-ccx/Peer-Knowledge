@@ -1,0 +1,61 @@
+{
+  "sourceHead": "35f4606d0caae44126034cd0e68215a8a6829e49",
+  "startedAt": "2026-10-02T02:42:06.979Z",
+  "finishedAt": "2026-10-02T02:50:55.776Z",
+  "model": "gpt-6-luna",
+  "version": "0.1.0-rc.1",
+  "installed": false,
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-already-exited",
+    "signaled": false,
+    "handleId": "owned-1",
+    "pid": 70656
+  },
+  "credentialCopiesRemoved": true,
+  "ok": false,
+  "scope": "Actual same-fixture recovery before answer fix: Retry consumed queued user input, three real message_session(answer) calls did not resume waiting worker.",
+  "rawProof": "recovery-with-input-proof.json",
+  "error": "Timed out: real answer messages returned successfully but waiting task was never resumed.",
+  "lastSample": {
+    "at": "2026-10-02T02:50:55.370Z",
+    "plans": [
+      {
+        "id": "c58b26fc-d570-4ea0-80df-a60e062961ea",
+        "status": "executing",
+        "runner": "waiting_user",
+        "phase": "running",
+        "binding": {
+          "repoId": "project",
+          "targetBranch": "main",
+          "targetBranchSource": "workspace_head",
+          "executionIsolation": "worktree",
+          "boundAt": "2026-10-02T02:31:54.667Z",
+          "targetWorkspacePath": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-16KTay/project",
+          "baseCommit": "672dd57e9d80bb6aa6e12b103709b83353b202e2",
+          "taskBranch": "PeerAgent/automation-c58b26fc-d570-4ea0-80df-a60e062961ea/run-c58b26fc-d570-4ea0-80df-a60e062961ea",
+          "worktreePath": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-16KTay/data/goal-plans/worktrees/c58b26fc-d570-4ea0-80df-a60e062961ea/c58b26fc-d570-4ea0-80df-a60e062961ea"
+        }
+      },
+      {
+        "id": "c674d65d-5025-49cf-97ef-b56587fe6783",
+        "status": "completed",
+        "runner": "completed",
+        "phase": "running",
+        "binding": {
+          "repoId": "project",
+          "targetBranch": "main",
+          "targetBranchSource": "workspace_head",
+          "executionIsolation": "worktree",
+          "boundAt": "2026-10-02T02:31:49.649Z",
+          "targetWorkspacePath": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-16KTay/project",
+          "baseCommit": "672dd57e9d80bb6aa6e12b103709b83353b202e2",
+          "taskBranch": "PeerAgent/automation-c674d65d-5025-49cf-97ef-b56587fe6783/run-c674d65d-5025-49cf-97ef-b56587fe6783",
+          "worktreePath": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-16KTay/data/goal-plans/worktrees/c674d65d-5025-49cf-97ef-b56587fe6783/c674d65d-5025-49cf-97ef-b56587fe6783"
+        }
+      }
+    ]
+  },
+  "originalProjectUnchanged": true
+}
