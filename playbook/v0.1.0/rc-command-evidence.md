@@ -38,3 +38,6 @@
 源码HEAD35f4606d已推送，代码PR101。build、typecheck、architecture通过；六文件focused45/45、runtime-node1002/1002、TUI751/751及i18n AST1/1通过。Desktop全量5292项：5286通过、原有5项skip、一项goal-plan-store增量订阅超时；按现有回归规则单文件隔离重跑142/142通过，未增加skip或放宽超时。两平台CI36956003447待macOS窗口末段，Linux已通过。
 
 同HEAD真实双写首轮：A完成且host独立核验通过，B实际收到L1执行角色与L7 phase=running，但仍误把父历史批准要求作为新批准，自己标waiting_user；180秒等待失败，原项目未写、未签收、未合回。完整失败保存 `evidence/rc-command-source-first-failed-20261002.json`。另一次背景回合为空响应，沿既有agent_unavailable处理；正在同一持久夹具通过真实Retry和用户插话恢复，不将重跑计为无干预首轮通过。
+
+
+PR101已于2026-10-02T02:39:46Z合入c104ee0f。CI36956003447 macOS/Linux均SUCCESS；CI临时merge2ed69f56与交付merge tree均11b14d6d，包含PR100发布装配。原源码branch只含生产核验代码，不伪称其tree与集成merge一致。两平台真实壳/设置/诊断及性能原预算通过，见 `evidence/rc-command-evidence-ci-20261002.json`。实际模型首轮与恢复仍单列，尚未Ready。

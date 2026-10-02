@@ -1,0 +1,135 @@
+{
+  "sourceHead": "35f4606d0caae44126034cd0e68215a8a6829e49",
+  "ciMergeHead": "2ed69f567c879bf2d6e0954b4e0a24dcf42cfc2d",
+  "deliveryMerge": "c104ee0f0a298fa9b89765bee3cbb7a4620a444a",
+  "ciAndDeliveryTree": "11b14d6da8fa38a7dbac87bf4329b136857a54d6",
+  "sourceBranchParent": "7368c8e86c5fcfe9a0b2ece8de5efeda40533636",
+  "ciBaseIncludesCliRepair": "352649e216bddaaf776f5edeb4670b46015e24e4",
+  "binding": "CI checks integrated source and CLI helper release assembly repair; source branch head alone excludes PR100, CI merge and delivery tree verified equal through GitHub git objects.",
+  "workflowRun": 36956003447,
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "ci-macos-14",
+      "conclusion": "success",
+      "startedAt": "2026-10-02T02:31:20Z",
+      "completedAt": "2026-10-02T02:38:40Z",
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36956003447/job/110678973200"
+    },
+    {
+      "name": "ci-ubuntu-latest",
+      "conclusion": "success",
+      "startedAt": "2026-10-02T02:31:14Z",
+      "completedAt": "2026-10-02T02:36:13Z",
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/36956003447/job/110678973419"
+    }
+  ],
+  "smokes": [
+    {
+      "sourceHead": "2ed69f567c879bf2d6e0954b4e0a24dcf42cfc2d",
+      "sourceDirty": false,
+      "platform": "darwin",
+      "ok": true,
+      "metrics": {
+        "productionList": {
+          "samples": [
+            70.26354199999878,
+            86.85579200000029,
+            51.246250000000146,
+            58.52504200000112,
+            55.67525000000023
+          ],
+          "median": 58.52504200000112,
+          "budget": 100,
+          "pass": true
+        },
+        "visibleSearch": {
+          "samples": [
+            286,
+            203.5,
+            89.59999999997672,
+            112.19999999995343,
+            130.89999999990687
+          ],
+          "median": 130.89999999990687,
+          "budget": 150,
+          "pass": true
+        },
+        "visibleReceived": {
+          "samples": [
+            173.69999999995343,
+            158.5,
+            264.30000000004657,
+            163,
+            119.29999999993015
+          ],
+          "median": 163,
+          "budget": 300,
+          "pass": true
+        }
+      },
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 34258
+      },
+      "pageErrors": []
+    },
+    {
+      "sourceHead": "2ed69f567c879bf2d6e0954b4e0a24dcf42cfc2d",
+      "sourceDirty": false,
+      "platform": "linux",
+      "ok": true,
+      "metrics": {
+        "productionList": {
+          "samples": [
+            30.446351000000504,
+            23.28235499999937,
+            29.9327659999999,
+            22.457080999998652,
+            28.89476200000172
+          ],
+          "median": 28.89476200000172,
+          "budget": 100,
+          "pass": true
+        },
+        "visibleSearch": {
+          "samples": [
+            126.89999999996508,
+            39.600000000034925,
+            40,
+            40.29999999998836,
+            39.70000000001164
+          ],
+          "median": 40,
+          "budget": 150,
+          "pass": true
+        },
+        "visibleReceived": {
+          "samples": [
+            98.59999999997672,
+            96,
+            157.20000000001164,
+            90,
+            85.30000000004657
+          ],
+          "median": 96,
+          "budget": 300,
+          "pass": true
+        }
+      },
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 16819
+      },
+      "pageErrors": []
+    }
+  ]
+}
