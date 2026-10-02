@@ -58,3 +58,6 @@ RC4候选准备acf19ee3/tree10707e13：本机完整build/typecheck/architecture/
 
 
 RC4最终CI首轮：Linux完整通过；macOS构建/类型/架构/回归通过，窗口阶段发送合成更新事件的Playwright主进程transport报Resulting promise was garbage collected，页面/授权错误为零，owned退出。[原失败](evidence/rc4-ci-window-transport-failed-20261002.json)。保留失败日志/截图，同提交仅重跑该失败job一次，未改产品代码或断言；再次失败则修复具体测试Seam，不无限重跑。新签名包仍待原生实际更新检查。
+
+
+PR112最终CI36995512881两平台全部成功；macOS同提交一次有限重跑窗口通过，原失败保留。acf19ee3、CI合成eb4b0e40及合入11b5f645的tree一致10707e13，已合入。新不可变tag v0.1.0-rc.4固定11b5f645，Release36997106815构建中；尚未验证签名资产及安装，不将源码/CI通过等同实际用户修复。[绑定](evidence/rc4-candidate-ci-binding-20261002.json)。
