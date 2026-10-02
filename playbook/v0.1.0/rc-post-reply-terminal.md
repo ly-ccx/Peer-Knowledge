@@ -21,3 +21,7 @@ PR108 Review 发现 TUI 的现有 Adapter 未读取 outputPreview.control，也�
 PR108 源提交 ca56024d95bed1ab00769ca26ff60ad001e1eb19（tree 0d673ef65de7b0fe6a2c365435c0df8d42e21ce6）已推送。三个允许路径完成；先红测试确认控制缺失且真实 production loop 请求 3 次，补修后定向 58/58、runtime-node 1014/1014、desktop 5302 项中 5297 通过/原 5 skip 与独立 i18n 1/1，构建/类型/架构全部通过。没有新增 skip，没有放宽 empty-response guard。CI36977994241 进行中，尚未合入或发布。
 
 相同 401 旧计划/历史双机器人副本、真实 GPT-6.1 Sol 与生产输入路径：[补修前失败](evidence/rc-post-reply-model-failed-20261002.json)保留四次 HTTP200、未落 canonical；[补修后通过](evidence/rc-post-reply-model-passed-20261002.json)仅一次 HTTP200 工具请求，4889ms 落下「连接正常」canonical 回复，无错误/项目改动。此轮在源码使用明确指定的既有签名 helper，不冒充新安装包默认 helper 测试。凭据副本已清除，owned 进程已退出，原用户数据与配置不变。
+
+Review 补修后源 HEAD a8d7058e52a706b778fc466fee52035908fcde6a（tree bb6426c10a4463a733382f0bd890c0b065677e4f），TUI 定向正确夹具先红 10pass/1fail（真实工具 success 但回合 false），后绿11/11；最初测试传入未支持的 idempotencyKey 导致 invalid_input 的夹具失败另存，未当作红证据。TUI 全量755/755、构建、全类型与架构通过。最终 CI36978709629 进行中；旧 HEAD CI36977994241 已通过但不替代最终门禁。
+
+真实 GPT61 [多入口源码复验](evidence/rc-post-reply-source-multi-passed-20261002.json)通过：终端客户端/远程分别由 Desktop 消费，退出 Desktop 后 TUI 接管并完成真实只读文件工具和 canonical marker 回复；输入去重、独占租约、无写工具与页面错误，owned 两进程退出、凭据副本清除。源码 TUI 后端和 loopback 测试身份的范围保留，不写成新包或实体手机通过。
