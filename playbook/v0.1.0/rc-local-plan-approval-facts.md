@@ -31,3 +31,9 @@
 ## 测试与退出条件
 
 先红测试复现已批准任务GoalPlan缺历史、Source缺准入事实及Desktop/TUI先启动后落盘。覆盖绑定/无批准拒绝/写失败/批准重放/排队与暂停保留，实际store重启与压缩后事实不丢、两宿主冻结顺序、Source仅事实层及未知状态、核验工具引用白名单不放宽。focused、受影响包全测试、build/typecheck/architecture与两平台CI通过。真实源码双任务完整独立核验/来源汇报/签收/单独授权合回；新不可变候选再实际安装复验。GPT61机器人空输出仍另列，不将本修复宣传为其根因。
+
+## 本机门禁与当前状态
+
+代码1d73ac694306f08331b642dc29ce45441cf4bb00已推送，PR105。四项红测试复现；修复后focused119/119（含host verifier12），TUI host10/10；最终build/typecheck/architecture和pnpm test全部通过。Desktop5297项中5292通过/原5skip＋AST1、runtime1012、TUI753、system-context35，20项升级矩阵保持。没有增加skip、修改预算或原用户数据。CI36963764691 macOS/Linux进行中。
+
+真实源码默认Astra双任务已冻结两条actual local_ui批准，均已得到新鲜工具证据及TaskRunner Verifier passed；最终独立host核验、来源汇报、用户签收和合回仍在本次流程中，不能提前记整体Pass。已失败的安装Astra分解要求仍保留，本次新任务验收对应两项实际文件目标及编辑后检查，未要求额外任务树形状。新安装候选仍待发版/复验，总RC未Ready。
