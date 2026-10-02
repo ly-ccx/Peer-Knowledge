@@ -31,3 +31,10 @@
 ## 测试/退出条件
 
 先红测试复现command标准引用丢失；覆盖Desktop和Node两种Provider结果、PermissionGrant/ToolResult绑定、拒绝/失败/运行/超时/取消、秘密脱敏/截断/4000与12000预算、索引重启/不可伪造覆盖、跨plan拒绝、标准引用优先、真实两个宿主工具到索引及Verifier准入。受影响包完整测试/build/typecheck/architecture与两平台CI。合入后rc.2重新下载，实际批准双任务、独立核验、关联汇报、用户签收及单独合回授权均通过才Ready；真实空响应的Retry恢复也需留下证据。
+
+
+## 源码与门禁记录
+
+源码HEAD35f4606d已推送，代码PR101。build、typecheck、architecture通过；六文件focused45/45、runtime-node1002/1002、TUI751/751及i18n AST1/1通过。Desktop全量5292项：5286通过、原有5项skip、一项goal-plan-store增量订阅超时；按现有回归规则单文件隔离重跑142/142通过，未增加skip或放宽超时。两平台CI36956003447待macOS窗口末段，Linux已通过。
+
+同HEAD真实双写首轮：A完成且host独立核验通过，B实际收到L1执行角色与L7 phase=running，但仍误把父历史批准要求作为新批准，自己标waiting_user；180秒等待失败，原项目未写、未签收、未合回。完整失败保存 `evidence/rc-command-source-first-failed-20261002.json`。另一次背景回合为空响应，沿既有agent_unavailable处理；正在同一持久夹具通过真实Retry和用户插话恢复，不将重跑计为无干预首轮通过。

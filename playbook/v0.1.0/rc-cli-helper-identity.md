@@ -20,3 +20,7 @@ RC1 npm安装CLI使用默认同目录助手，Mac解锁后仍超时。相同隔�
 ## 同轮另一个未完成验收
 
 实际RC1 Desktop默认签名助手可以读凭据。双写真实任务已获计划批准、独立worktree有正确输出；A使用Bash精确字节核对作为criterion Evidence，Verifier上下文只见旧read_file快照，最终仍执行中/核验失败。同时项目代理背景回合收到HTTP200的真正空文本/零工具响应，带来源汇报等待超时；未签收/合回。[失败证明](evidence/rc-installed-complex-first-failed-20261002.json)。这些事实继续独立定位，不把两个文件已写等同全流程通过。
+
+## 本轮实施
+
+[PR100](https://github.com/ly-ccx/Peer-Agent/pull/100)已合入 `352649e216bddaaf776f5edeb4670b46015e24e4`；[CI36955000092](evidence/rc-cli-helper-ci-20261002.json)macOS/Linux均通过。实际RC1 CLI二进制保持SHA不变，隔离装配同次签名助手、无helper覆盖后，真实read_file与post_reply成功；临时凭据已清除。[装配证明](evidence/rc-cli-signed-assembly-passed-20261002.json)。首次启动隔离变量错误已作废，自己的可见fixture行已清除、无关registry/conversation行保持相同，审计日志保留。代码补修完成，实际rc.2资产/npm默认助手复验尚未完成，不能宣称Ready。

@@ -1,0 +1,131 @@
+{
+  "ok": false,
+  "sourceHead": "35f4606d0caae44126034cd0e68215a8a6829e49",
+  "startedAt": "2026-10-02T02:31:39.165Z",
+  "finishedAt": "2026-10-02T02:34:55.484Z",
+  "scope": "Actual source candidate Electron cognition/tools/plan approvals/two worktrees/verification/user acceptance/delivery; disposable project and copied configured model only",
+  "error": "180-second wait expired: one locally approved task completed and independently verified; other incorrectly self-marked waiting_user for already admitted plan",
+  "originalProjectUnchanged": true,
+  "plans": [
+    {
+      "planId": "c674d65d-5025-49cf-97ef-b56587fe6783",
+      "sessionId": "2d75ac8f-c524-4273-b78a-70a0ab7f0821",
+      "status": "completed",
+      "runnerStatus": "completed",
+      "admissionPhase": "running",
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_uEcg6InTMuZYvrunNtbbwWyP",
+          "detail": "a.txt 内容为 RC_A_DONE 后跟一个换行（10 字节）。",
+          "checkedAt": "2026-10-02T02:32:22.342Z"
+        }
+      ],
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:2d75ac8f-c524-4273-b78a-70a0ab7f0821:passed"
+      }
+    },
+    {
+      "planId": "c58b26fc-d570-4ea0-80df-a60e062961ea",
+      "sessionId": "bbd0437f-0d4d-4a55-9771-bee904f1d153",
+      "status": "executing",
+      "runnerStatus": "waiting_user",
+      "admissionPhase": "running",
+      "criterionResults": [],
+      "hostVerification": null
+    }
+  ],
+  "workSessionContext": [
+    {
+      "record": "prompt-record-c3541cbe-931e-4828-9bde-4753a8b5e13c.json",
+      "sections": [
+        {
+          "id": "work-session",
+          "layer": "L1_AGENT",
+          "sourcePhase": null,
+          "hasExecutorRule": true,
+          "hasCurrentRunningFact": false
+        },
+        {
+          "id": "work-session-admission",
+          "layer": "L7_CONTINUITY",
+          "sourcePhase": "running",
+          "hasExecutorRule": false,
+          "hasCurrentRunningFact": true
+        }
+      ]
+    },
+    {
+      "record": "prompt-record-cbf71172-3bae-4842-b12a-a3ccd10f58e3.json",
+      "sections": [
+        {
+          "id": "work-session",
+          "layer": "L1_AGENT",
+          "sourcePhase": null,
+          "hasExecutorRule": true,
+          "hasCurrentRunningFact": false
+        },
+        {
+          "id": "work-session-admission",
+          "layer": "L7_CONTINUITY",
+          "sourcePhase": "running",
+          "hasExecutorRule": false,
+          "hasCurrentRunningFact": true
+        }
+      ]
+    },
+    {
+      "record": "prompt-record-d264e634-94cc-49ee-9783-a4e4b50476c1.json",
+      "sections": [
+        {
+          "id": "work-session",
+          "layer": "L1_AGENT",
+          "sourcePhase": null,
+          "hasExecutorRule": true,
+          "hasCurrentRunningFact": false
+        },
+        {
+          "id": "work-session-admission",
+          "layer": "L7_CONTINUITY",
+          "sourcePhase": "running",
+          "hasExecutorRule": false,
+          "hasCurrentRunningFact": true
+        }
+      ]
+    },
+    {
+      "record": "prompt-record-b53756e1-0731-45fb-ad79-2dad151c22cd.json",
+      "sections": [
+        {
+          "id": "work-session",
+          "layer": "L1_AGENT",
+          "sourcePhase": null,
+          "hasExecutorRule": true,
+          "hasCurrentRunningFact": false
+        },
+        {
+          "id": "work-session-admission",
+          "layer": "L7_CONTINUITY",
+          "sourcePhase": "running",
+          "hasExecutorRule": false,
+          "hasCurrentRunningFact": true
+        }
+      ]
+    }
+  ],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 67798
+  },
+  "credentialCopiesRemoved": true,
+  "rawProof": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-16KTay/proof.json",
+  "recovery": "Same fixture restored through product Retry and user input; separate proof pending. This failure is retained and is not counted as a pass."
+}
