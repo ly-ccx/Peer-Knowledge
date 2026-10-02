@@ -3,7 +3,7 @@
 创建时间：2026-09-24
 最后更新：2026-10-02（补当前实现状态；下文保留历史产品设计）
 
-> 当前事实：Beta1–5实现完成，Beta5及RC1已预发布；默认机器人列表、按需档案、独立可动头像/颜色、任务与签收、记忆、目标和多入口已实现。RC01–04、最终CI及完整回归通过，RC05手册与安装轮换/npm安装通过；安装版真实模型复验受Mac锁屏阻塞，详见[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)。正式版仍等负责人全面测试和七天日用。下文是历史设计，不能以设计预期替代发布验收。上传头像为静态；远程文本与电脑批准、macOS设备身份等限制见候选说明。
+> 当前事实：Beta1–5实现完成，Beta5及RC1已预发布；默认机器人列表、按需档案、独立可动头像/颜色、任务与签收、记忆、目标和多入口已实现。RC01–04、最终CI及完整回归通过，RC05手册与安装轮换/npm安装通过；Mac已解锁，安装CLI默认助手仍超时、安装Desktop复验中，详见[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)。正式版仍等负责人全面测试和七天日用。下文是历史设计，不能以设计预期替代发布验收。上传头像为静态；远程文本与电脑批准、macOS设备身份等限制见候选说明。
 > 关联决策：`knowledge/decisions/80-project-agent-delegation-model.md`、`knowledge/decisions/84-bot-list-shell.md`（壳层）  
 > 关联运行时：`knowledge/architecture/project-agent-delegation-runtime.md`  
 > 模块分层：`knowledge/architecture/project-agent-capability-layers.md`  

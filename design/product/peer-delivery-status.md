@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-10-02（D10：RC1已预发布，开发者安装版真实模型复验待Mac解锁；GA等负责人全面测试及七天日用）
+最后更新：2026-10-02（D10：RC1已预发布，开发者Mac已解锁，安装版凭据访问仍需修复复验；GA等负责人全面测试及七天日用）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **整体待负责人验收；RC1已预发布**：Beta1–5实现完成；并行、worktree合回、取代恢复、目标/主动性、记忆、TUI/远程沿同一租约与canonical输入。RC01–04、19项真实tag矩阵、完整回归及最终两平台CI通过；RC05的195用例/6流程手册、签名公证、macOS五次安装轮换、npm安装通过，版本绑定0beeb21f。源码真实双写和多入口通过；安装版真实模型仍待解锁复验，尚未Ready。项目代理只读，批准在电脑，经典界面保留。 | Mac锁屏阻塞安装版双写、多入口和CLI真实工具回复；解锁后先完成开发者复验。Windows/Linux交互安装、实体手机与生产账户、真实视觉核验及负责人七天日用尚需补验。GA须负责人全面测试、P0/P1清零及明确确认；源窗口/受控网络不能代替所有环境。 | [版本计划](v0.1.0-release-plan.md)、[Beta5交接](../../playbook/v0.1.0/b5-r-handoff.md)、[RC卡](../../playbook/v0.1.0/rc-release.md)、[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | **整体待负责人验收；RC1已预发布**：Beta1–5实现完成；并行、worktree合回、取代恢复、目标/主动性、记忆、TUI/远程沿同一租约与canonical输入。RC01–04、19项真实tag矩阵、完整回归及最终两平台CI通过；RC05的195用例/6流程手册、签名公证、macOS五次安装轮换、npm安装通过，版本绑定0beeb21f。源码真实双写和多入口通过；Mac已解锁，安装版真实模型修复复验中，尚未Ready。项目代理只读，批准在电脑，经典界面保留。 | Mac已解锁，CLI默认助手仍超时；已定位签名助手与ad-hoc助手访问差异，Desktop复验中，先完成开发者复验。Windows/Linux交互安装、实体手机与生产账户、真实视觉核验及负责人七天日用尚需补验。GA须负责人全面测试、P0/P1清零及明确确认；源窗口/受控网络不能代替所有环境。 | [版本计划](v0.1.0-release-plan.md)、[Beta5交接](../../playbook/v0.1.0/b5-r-handoff.md)、[RC卡](../../playbook/v0.1.0/rc-release.md)、[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
 
 ## 3. 近期顺序与非目标
 
