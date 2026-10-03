@@ -10,7 +10,7 @@ A 级：ADR85 本日 Accepted 补充；B 级 runner/宿主/IPC 装配；C 级表
 
 - protocol/src/project.ts、index.ts：Activity 与 StopResponse 类型及测试。
 - runtime-node/src/project-agent/{runner,runtime-host,agent-turn-plan,project-facts,card-projection}.mjs 与测试；新 turn-activity.mjs 与测试。保留租约/输入/真实工具及停止系统卡；无新持久存储路径。
-- runtime-node/src/provider-adapters/tool-arg-progress.mjs、新 reply-text-preview.mjs 与测试；runtime-node/src/index.mjs：共享进度实现导出。
+- runtime-node/src/provider-adapters/tool-arg-progress.mjs、新 reply-text-preview.mjs、src/reply-text-preview.test.mjs（现有包测试 glob 覆盖）；runtime-node/src/index.ts：共享进度实现导出。
 - desktop/electron/main/provider-adapters/tool-arg-progress.mjs 与测试：改用共享 Module，覆盖 Responses/Chat/Anthropic/Gemini 原事件 seam。
 - desktop/electron/main/project-agent/{project-agent-host,project-agent-application-service}.mjs 与测试；ipc/register-project-agent-ipc.mjs 与测试；electron/ipc/channels.mjs 及生成 catalog；preload/preload.source.cjs 及既有生成物。
 - renderer/src/{clientApi.ts,preload/contracts/bootstrapPreloadApi.ts}：类型化接口。
@@ -27,3 +27,7 @@ A 级：ADR85 本日 Accepted 补充；B 级 runner/宿主/IPC 装配；C 级表
 ## 退出条件
 
 定向及受影响完整包测试、build/typecheck/architecture/ipc、真实原生窗口流式状态及所有上述交互；两平台 CI 通过后按授权合入。详细报告区分受控流式和真实模型，不能把最终文本截图当首片证明。当前 RC5 不变，GA 仍等待原整体 Ready 与负责人完整评测。
+
+## 本机交付记录
+
+代码 PR #118，最终 afbc5342；本机工程、全仓测试、最终停止过程定向测试和原生流式/无障碍验收通过。详情见 `rc-chat-streaming-validation.md` 和同目录 evidence 报告；两平台最终 CI 仍在进行。停止卡保留引用及精确回合过程入口。签名安装版仍为 RC5，本卡无发布。

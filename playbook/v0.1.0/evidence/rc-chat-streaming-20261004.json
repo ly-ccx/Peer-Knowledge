@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-04",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/118",
+  "codeHead": "afbc5342510f349063f1df8cb8517b4e240ce187",
+  "sourceDirty": false,
+  "native": {
+    "platform": "darwin",
+    "ok": true,
+    "syntheticCognition": true,
+    "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+    "scale": {
+      "bots": 200,
+      "messages": 10000,
+      "inboxEvents": 100000,
+      "memories": 10000
+    },
+    "checks": [
+      "200 real bot rows; no idle model turns",
+      "five input-to-visible searches across the real message corpus under budget",
+      "five real UI sends, visible durable Received under budget, scripted replies",
+      "real Quick Chat window lists bots and submits one canonical quick_chat input",
+      "scrolling up loads older messages from a 10000-message conversation",
+      "a quoted older message loads across pages, enters viewport, then returns to latest",
+      "profile opens and settings tab works",
+      "classic shell opens through settings",
+      "bot shell returns with all persisted identities"
+    ],
+    "streaming": [
+      "receipt below user body; anchored waiting state and SVG stop control",
+      "real delta visible while controlled provider remains pending, before canonical reply",
+      "switching bots hides the other stream and restores the active snapshot",
+      "root post_reply text streams via shared parser; tools use compact SVG; no reasoning, arguments or results leak; history holds",
+      "completion replaces preview once, preserves Markdown and follows latest",
+      "stop preserves incomplete text, exact-turn process and draft; explicit retry creates one new reply",
+      "failure retracts unaccepted preview and offers explicit retry without duplicate replies"
+    ],
+    "accessibility": [
+      "focusable list: Home/End, arrows, Enter open the selected bot",
+      "Space opens the selected bot without scrolling the page",
+      "bot model is first: configured choices save and survive reopen; fixed switch and inherit preserve other roles, bots and global routing",
+      "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+      "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+      "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+      "oversize input is rejected before submission and the editable draft is retained",
+      "10000 memory records render 50 at a time; next and previous retain distinct identities",
+      "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+      "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+      "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+      "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+    ],
+    "reply": [
+      "quote is a context button with SVG; delivery policy is explicitly readonly",
+      "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+      "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+      "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+      "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+    ],
+    "pageErrors": [],
+    "mainAuthorizationErrors": []
+  },
+  "localTests": {
+    "fullWorkspace": {
+      "head": "509f4c33ff41ada9616938695f1fd332ad492299",
+      "command": "pnpm test",
+      "exit": 0
+    },
+    "protocol": {
+      "pass": 227,
+      "fail": 0
+    },
+    "runtimeNode": {
+      "pass": 1024,
+      "fail": 0
+    },
+    "desktop": {
+      "head": "509f4c33ff41ada9616938695f1fd332ad492299",
+      "pass": 5318,
+      "skip": 5,
+      "fail": 0
+    },
+    "stopProcessFocused": {
+      "head": "afbc5342510f349063f1df8cb8517b4e240ce187",
+      "pass": 14,
+      "fail": 0
+    },
+    "build": "pass",
+    "typecheck": "pass",
+    "architecture": "pass",
+    "ipc": "pass"
+  },
+  "ci": {
+    "head": "afbc5342510f349063f1df8cb8517b4e240ce187",
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37141663756",
+    "status": "in_progress"
+  },
+  "notValidatedByFixture": [
+    "live cloud latency and semantics",
+    "actual tool execution from synthetic fixture",
+    "new signed installer/release",
+    "overall GA readiness"
+  ]
+}
