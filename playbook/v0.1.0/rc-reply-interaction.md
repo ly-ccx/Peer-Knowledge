@@ -44,3 +44,9 @@ PR114按负责人持续授权于15:07:57Z合入9df7d292。源8dbbd283、CI实际
 ## 2026-10-03：按负责人要求取消左侧强调线
 
 负责人明确不需要引用块左边的线。C级样式调整，分支PeerAgent/pa/rc-reply-no-accent；仅修改既有允许路径bot-conversation.css：回复上下文和输入框引用保留均匀细边框，用户消息内引用保留背景，三处均取消单独的border-left强调。点击定位、取消引用保留草稿、SVG和键盘焦点沿原入口。复用原窗口检查，不新增与实现镜像的测试；按手册执行构建、受影响包完整测试、类型、架构及两平台CI。原签名RC4和总体Ready范围不变。
+
+修正PR115/4bd7be95已合入53eac2d2，主工作区已同步。最终CI37080741194 attempt1两平台完整构建/类型/架构/测试/原生窗口成功；各9壳/11可访问性/7诊断/5回复检查、72原更新布局、36合成事件回执，无页面和主进程授权错误、自有进程退出。source/CI实际71652806/合入tree均2e14046158cf6f432e7a710115c2b28f33545fe4。[最终绑定](evidence/rc-reply-no-accent-ci-binding-20261003.json)。
+
+本机构建、类型、架构及独立AST通过，原生窗口9壳/5回复及72更新布局通过；本机该次命令未请求可选可访问性/诊断检查，完整11/7由最终两平台CI验证。实际深浅色回复截图和760px输入框截图已检查，没有单独左侧强调线，取消引用保留草稿。本机首轮完整桌面5320项中5304pass/8fail/3cancel/原5skip，存在进程计时超时与一次浏览器动作状态失败，具体时间拉长原因尚未确认；四个原失败文件各一次顺序独立复验196/196通过，未改测试或时间预算。[首轮失败与有限复验](evidence/rc-reply-no-accent-test-first-failed-20261003.json)、[本机最终窗口](evidence/rc-reply-no-accent-source-passed-20261003.json)。实际签名RC4未更换，无新候选或总体Ready声明。
+
+截图：[深色无强调线](evidence/rc-reply-no-accent-dark-20261003.png)、[浅色无强调线](evidence/rc-reply-no-accent-light-20261003.png)、[760px输入引用](evidence/rc-reply-no-accent-narrow-quote-20261003.png)。

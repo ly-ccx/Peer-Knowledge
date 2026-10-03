@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "4bd7be95c90371a26c6443a7cb982beb4ebcc2bf",
+  "sourceDirty": false,
+  "initialFullDesktop": {
+    "tests": 5320,
+    "pass": 5304,
+    "fail": 8,
+    "cancelled": 3,
+    "originalSkip": 5,
+    "durationMs": 1607044.305583,
+    "originalFailureSummary": "✖ failing tests:\n\ntest at electron/main/goal-plan-store.test.mjs:1247:1\n✖ subscribeChanges: 已运行的 Desktop store 能收到独立 CLI 进程的持久化变更 (593722.278209ms)\n  Error: CLI writer timed out: \n      at Timeout._onTimeout (file://Peer-Agent/apps/desktop/electron/main/goal-plan-store.test.mjs:1284:14)\n      at listOnTimeout (node:internal/timers:605:17)\n      at process.processTimers (node:internal/timers:541:7)\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ inputs (24413.478958ms)\n  Error: fixture timed out : \n      at Timeout._onTimeout (file://Peer-Agent/apps/desktop/electron/main/project-agent/recovery-crash.test.mjs:23:68)\n      at listOnTimeout (node:internal/timers:605:17)\n      at process.processTimers (node:internal/timers:541:7)\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ tasks (485006.543959ms)\n  Error: fixture timed out : \n      at Timeout._onTimeout (file://Peer-Agent/apps/desktop/electron/main/project-agent/recovery-crash.test.mjs:23:68)\n      at listOnTimeout (node:internal/timers:605:17)\n      at process.processTimers (node:internal/timers:541:7)\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ watch (10.845417ms)\n  'test did not finish before its parent and was cancelled'\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:35:1\n✖ real kill -9 at every recovery phase and durable write gap preserves one input, one task and one reply (518348.470333ms)\n  'test timed out after 120000ms'\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ digest (2324.278584ms)\n  'test could not be started because its parent finished'\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ input_written (1788.206292ms)\n  'test could not be started because its parent finished'\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ task_created (3507.386416ms)\n  'test could not be started because its parent finished'\n\ntest at electron/main/project-agent/recovery-crash.test.mjs:39:103\n✖ reply_written (2453.129459ms)\n  'test could not be started because its parent finished'\n\ntest at electron/main/project-agent/worktree-integration.test.mjs:15:1\n✖ three real Git worktrees run concurrently through the production host and merge back after explicit decisions (30066.020209ms)\n  'test timed out after 30000ms'\n\ntest at electron/main/runtime-gateway/local-browser-control-provider.actions.test.mjs:375:1\n✖ click by role nth=0 picks the first of several same-named roles (21234.565708ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'failed'\n  - 'success'\n  \n      at TestContext.<anonymous> (file://Peer-Agent/apps/desktop/electron/main/runtime-gateway/local-browser-control-provider.actions.test.mjs:394:10)\n      at async Test.run (node:internal/test_runner/test:1208:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'failed',\n    expected: 'success',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\nPeer-Agent/apps/desktop:\n ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @peer-agent/desktop@0.1.0-rc.4 test: `pnpm ipc:check && node --test \"electron/main/**/*.test.mjs\" \"renderer/src/**/*.test.ts\" \"scripts/webview-keepalive-probe.test.mjs\" \"scripts/lab-process-identity.test.mjs\" \"scripts/lab-workspace-isolate.test.mjs\" \"scripts/lab-experiment-idle.test.mjs\" \"scripts/seed-bot-shell-home.test.mjs\" \"scripts/perf-project-agent.test.mjs\" \"electron/preload/*.test.mjs\" && node --test scripts/check-project-agent-i18n.test.mjs`\nExit status 1\n"
+  },
+  "boundedFileRetry": {
+    "command": "node --test --test-concurrency=1 --test-reporter=tap <the four unchanged failing test files>",
+    "files": [
+      "apps/desktop/electron/main/goal-plan-store.test.mjs",
+      "apps/desktop/electron/main/project-agent/recovery-crash.test.mjs",
+      "apps/desktop/electron/main/project-agent/worktree-integration.test.mjs",
+      "apps/desktop/electron/main/runtime-gateway/local-browser-control-provider.actions.test.mjs"
+    ],
+    "tests": 196,
+    "pass": 196,
+    "fail": 0,
+    "cancelled": 0,
+    "skip": 0,
+    "durationMs": 30028.361833,
+    "retryCountPerFile": 1
+  },
+  "independentI18nAST": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0
+  },
+  "sourceChange": "Only three CSS accent declarations removed; test/runtime/assertion/time-budget/skip changes: none. First run showed process/timer timeouts and one browser action failed status; exact cause of time dilation not confirmed. All four unchanged files passed once sequentially and final identical-tree two-platform full CI passed."
+}

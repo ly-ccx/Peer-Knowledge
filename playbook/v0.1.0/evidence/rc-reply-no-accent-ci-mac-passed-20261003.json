@@ -1,0 +1,167 @@
+{
+  "sourceHead": "7165280605af5b2505f37aafaf5ad6672fd9fc67",
+  "sourceDirty": false,
+  "synthetic": true,
+  "platform": "darwin",
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "ok": true,
+  "startedAt": "2026-10-03T00:12:04.298Z",
+  "finishedAt": "2026-10-03T00:14:04.975Z",
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page",
+    "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+    "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+    "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+    "oversize input is rejected before submission and the editable draft is retained",
+    "10000 memory records render 50 at a time; next and previous retain distinct identities",
+    "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+    "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+    "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+    "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+  ],
+  "replyInteraction": [
+    "quote is a context button with SVG; delivery policy is explicitly readonly",
+    "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+    "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+    "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+    "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+  ],
+  "replyStyles": [
+    {
+      "theme": "dark",
+      "quote": {
+        "background": "rgb(30, 35, 44)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 76.390625
+      },
+      "action": {
+        "background": "rgb(30, 35, 44)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 32
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(176, 180, 188)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    },
+    {
+      "theme": "light",
+      "quote": {
+        "background": "rgb(247, 249, 252)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 76.390625
+      },
+      "action": {
+        "background": "rgb(247, 249, 252)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 32
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(82, 86, 96)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    }
+  ],
+  "metrics": {
+    "productionList": {
+      "samples": [
+        78.83616600000096,
+        57.05108399999881,
+        54.868249999999534,
+        27.4442080000008,
+        26.2557500000039
+      ],
+      "median": 54.868249999999534,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        169.10000000003492,
+        107.90000000002328,
+        52.70000000001164,
+        45.59999999997672,
+        68.79999999998836
+      ],
+      "median": 68.79999999998836,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        176.30000000004657,
+        142.20000000001164,
+        111.39999999996508,
+        94,
+        120.39999999996508
+      ],
+      "median": 120.39999999996508,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 41088
+  },
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "diagnosticChecks": [
+    "read actual stores",
+    "reject renderer destination",
+    "refresh real Developer panel",
+    "save redacted JSON",
+    "bounded events/turns",
+    "actual turn timing",
+    "no absolute paths, IDs or message text"
+  ],
+  "updaterLayoutCount": 72,
+  "updaterReceiptCount": 36,
+  "runId": 37080741194,
+  "attempt": 1,
+  "jobId": 111080471164,
+  "artifactId": 11259280796,
+  "scopeNote": "Isolated production source Electron window, synthetic cognition and controlled updater display events. Not signed RC4 or real release download/install."
+}

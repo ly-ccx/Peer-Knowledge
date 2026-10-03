@@ -1,0 +1,156 @@
+{
+  "sourceHead": "4bd7be95c90371a26c6443a7cb982beb4ebcc2bf",
+  "sourceDirty": false,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "startedAt": "2026-10-03T03:06:29.795Z",
+  "finishedAt": "2026-10-03T03:07:13.259Z",
+  "ok": true,
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "replyInteraction": [
+    "quote is a context button with SVG; delivery policy is explicitly readonly",
+    "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+    "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+    "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+    "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+  ],
+  "replyStyles": [
+    {
+      "theme": "dark",
+      "quote": {
+        "background": "rgb(30, 35, 44)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 76.3984375
+      },
+      "action": {
+        "background": "rgb(30, 35, 44)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 32
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(176, 180, 188)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    },
+    {
+      "theme": "light",
+      "quote": {
+        "background": "rgb(247, 249, 252)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 76.3984375
+      },
+      "action": {
+        "background": "rgb(247, 249, 252)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 32
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(82, 86, 96)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    }
+  ],
+  "metrics": {
+    "productionList": {
+      "samples": [
+        22.31566699999894,
+        22.395708000000013,
+        22.227582999999868,
+        22.89666600000055,
+        24.578709000001254
+      ],
+      "median": 22.395708000000013,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        113.2000000178814,
+        36.69999998807907,
+        32.900000005960464,
+        33.79999998211861,
+        32.599999994039536
+      ],
+      "median": 33.79999998211861,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        78,
+        76.40000000596046,
+        74.39999997615814,
+        74.7999999821186,
+        74.2000000178814
+      ],
+      "median": 74.7999999821186,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 89967
+  },
+  "updaterLayoutCount": 72,
+  "updaterReceiptCount": 36,
+  "localGates": {
+    "desktopBuildExit": 0,
+    "workspaceTypesExit": 0,
+    "architectureExit": 0,
+    "independentI18nASTExit": 0,
+    "fullDesktopFirstFailure": "rc-reply-no-accent-test-first-failed-20261003.json",
+    "boundedRetry": "four unchanged failing files, once each sequentially; 196/196 passed",
+    "nativeExit": 0,
+    "nativeScope": "9 shell + 5 reply interaction + 72 updater layouts. Optional full accessibility/diagnostic native suites not requested in this local invocation; both final CI jobs ran all 11 + 7 successfully."
+  },
+  "visualReview": "Actual rendered dark/light reply and 760px composer screenshots inspected: no left accent, uniform fine outline, SVG and quoted excerpt intact. Cancel preserves draft. Synthetic content only; raw source Electron v41.7.1 badge is not a signed product candidate.",
+  "screenshots": {
+    "rc-reply-no-accent-dark-20261003.png": "bef2620197a8ade97271710afcba9dd4a7dd184206cbcaa35b33d91d99f50597",
+    "rc-reply-no-accent-light-20261003.png": "0c8ee3cbe510644117c69f351da47c3a09cdb9a1cea344f6fafdd437490c70f7",
+    "rc-reply-no-accent-narrow-quote-20261003.png": "ca51e0e9753acd418cdd642e6fdc3d2fc6fb4f38b15286cedc1c516a6f93ff00"
+  }
+}
