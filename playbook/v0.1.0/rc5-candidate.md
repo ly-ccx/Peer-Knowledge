@@ -22,3 +22,9 @@ C级发布卡；基于开发线94c31ce6，纳入已经两平台CI并合入的PR1
 ## 退出条件
 
 新版本完整build/typecheck/architecture/test与版本/changelog/readiness通过；干净源原生9壳/12可访问性/7诊断/5回复检查通过；最终两平台CI，通过后按既有授权合入并固定tag。Release全部job成功，核对三平台Desktop及两CLI归档/更新清单/npm固定版本；Mac实际下载SHA、Developer ID/公证、版本和关键UI检查。实际新候选发现/下载与安装证据分列，不注入事件代替真实更新；用户安装数据不得重置。发布与手册链接、现存限制可直接交给负责人评测。
+
+## 源码门禁（2026-10-04）
+
+发布PR[117](https://github.com/ly-ccx/Peer-Agent/pull/117)，干净最终源a402d130d26929ebf7345decb3f2bbefdbeec527。完整build/typecheck/architecture/test、独立AST、版本/changelog/readiness/source-check均通过；桌面5320项中5315pass、原5skip，无首次失败或取消。23项受控升级矩阵保留六个真实旧tag来源；实际源码窗口9壳/12可访问性/7诊断/5回复、72更新布局和36回执通过，Bot模型保存/重开/切换/继承与其他角色、机器人、全局隔离全部通过。中位列表14.579ms、搜索22.6ms、Received52.8ms，原预算不变。见[门禁](evidence/rc5-source-gates-20261004.json)、[窗口](evidence/rc5-source-window-passed-20261004.json)、[矩阵](evidence/rc5-upgrade-matrix-passed-20261004.json)。
+
+最终两平台CI37135649368运行中。以上是源码范围，签名发布包和真实更新发现尚待后续验证；不宣布已发布或总体Ready。
