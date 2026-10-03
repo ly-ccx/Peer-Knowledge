@@ -30,4 +30,4 @@ A 级：ADR85 本日 Accepted 补充；B 级 runner/宿主/IPC 装配；C 级表
 
 ## 本机交付记录
 
-代码 PR #118，最终 afbc5342；本机工程、全仓测试、最终停止过程定向测试和原生流式/无障碍验收通过。详情见 `rc-chat-streaming-validation.md` 和同目录 evidence 报告；两平台最终 CI 仍在进行。停止卡保留引用及精确回合过程入口。签名安装版仍为 RC5，本卡无发布。
+代码 PR [#118](https://github.com/ly-ccx/Peer-Agent/pull/118)，最终测试源码 afbc5342，2026-10-04 已合入 dev，合并提交 `5aafde23e16115ff606ea004be6679e8f250f660`；本机工程、全仓测试、最终停止过程定向测试和原生流式/无障碍验收通过。最终 afbc5342 的两平台 CI 均通过，包含 Mac 实际窗口门禁。详情见 `rc-chat-streaming-validation.md` 和同目录 evidence 报告。停止卡保留引用及精确回合过程入口。签名安装版仍为 RC5，本卡无发布。

@@ -48,7 +48,7 @@ node scripts/rc-response-interaction-smoke.mjs --accessibility --output /tmp/pee
 | S16 | 中文输入法选词、Shift+Enter、多行粘贴 | 选词 Enter 不发送；Shift+Enter 换行；输入框自动增高至上限后内部滚动，不挤满窗口；空白不能发送。 |
 | S17 | 生成期间再次发送一个问题 | 第二条先收到，按项目串行队列执行；第一轮结束不能误称第二条已回答。 |
 | S18 | 760px 窄窗口、明/暗主题、键盘 Tab/Enter | 无横向溢出；引用、停止、发送、最新按钮都有 SVG 和可读标签；焦点可见，键盘停止保留草稿。 |
-| S19 | 打开“查看过程” | 仍可查看正式回合的结构化过程；Evidence 引用、记忆披露和任务入口按原事实展示。 |
+| S19 | 对正式回复或停止回复打开“查看过程” | 展示对应精确 turn 的结构化过程，不借用邻近回合；Evidence 引用、记忆披露和任务入口按原事实展示。 |
 | S20 | 自动唤醒/安静/小结场景 | 不泄漏静默草稿；宿主允许投递后才进入正式消息；没有通过流式绕开档位或去重规则。 |
 
 填写每项：通过/失败/未测、模型与渠道、实际版本/提交、触发步骤、录屏起止、错误内容。真实模型没有发出文本 delta 时，应记录所用适配器和事件事实，不把提供方不支持流式解释为已经验证通过。
@@ -60,6 +60,7 @@ node scripts/rc-response-interaction-smoke.mjs --accessibility --output /tmp/pee
 - 509f4c33：本机全仓 `pnpm test` 通过；protocol 227、runtime-node 1024、desktop 5318 通过，desktop 5 个原有条件跳过；i18n 完整性独立通过。
 - 最终源码 afbc5342，clean：追加停止后精确回合过程入口；14 个定向状态/过程测试、最终 desktop build/typecheck、architecture/IPC 通过。
 - afbc5342 的隔离原生窗口：7 组流式交互、既有壳/更新/回复及 12 组无障碍场景通过，0 pageerror、0 IPC 越权；包含 200 个机器人、10000 条对话、760px 明暗主题、键盘停止、真实增量首片、停止/重试/失败、切换恢复、更新后阅读位置断言。
-- 两平台 CI [37141663756](https://github.com/ly-ccx/Peer-Agent/actions/runs/37141663756) 正在执行最终 afbc5342；完成后补记。
+- 两平台 CI [37141663756](https://github.com/ly-ccx/Peer-Agent/actions/runs/37141663756) 已对最终 afbc5342 完整通过：Linux `ci-ubuntu-latest`、Mac `ci-macos-14`，含 Mac 实际窗口门禁。
+- PR #118 于 2026-10-04 合入 `PeerAgent/dev/0.1.0`，合并提交 `5aafde23e16115ff606ea004be6679e8f250f660`。当前签名安装版 RC5 尚不含本修复，需后续候选安装包承载；本次无版本发布。
 
 总体 GA Ready 仍沿既有 RC 验收总表判断；本卡通过不关闭复杂写任务命令 Evidence 的既有缺口。
