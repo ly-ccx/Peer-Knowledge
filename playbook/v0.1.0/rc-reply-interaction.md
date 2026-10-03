@@ -40,3 +40,7 @@
 最终CI37023512022 attempt1两平台完整构建、类型、架构、测试及生产窗口全部成功。Mac/Linux均9壳、11可访问性、7诊断、5回复交互、72原更新布局、36合成事件回执通过；无页面或主进程授权错误，自有进程退出。Mac列表/搜索/Received中位46.917/59.0/167.7ms；Linux27.053/41.0/71.1ms，原预算不变。[Mac窗口证明](evidence/rc-reply-ci-mac-passed-20261002.json)、[Linux窗口证明](evidence/rc-reply-ci-linux-passed-20261002.json)。
 
 PR114按负责人持续授权于15:07:57Z合入9df7d292。源8dbbd283、CI实际checkout533885ed及合入的Git tree均b70d2ab56d5f95bed632cf8ae81f6d308df6a705，已逐一验证。[绑定证明](evidence/rc-reply-ci-binding-20261002.json)。主工作区已同步；本卡局部修复完成，实际签名RC4、后续安装候选和整体Ready仍按独立门禁判断。
+
+## 2026-10-03：按负责人要求取消左侧强调线
+
+负责人明确不需要引用块左边的线。C级样式调整，分支PeerAgent/pa/rc-reply-no-accent；仅修改既有允许路径bot-conversation.css：回复上下文和输入框引用保留均匀细边框，用户消息内引用保留背景，三处均取消单独的border-left强调。点击定位、取消引用保留草稿、SVG和键盘焦点沿原入口。复用原窗口检查，不新增与实现镜像的测试；按手册执行构建、受影响包完整测试、类型、架构及两平台CI。原签名RC4和总体Ready范围不变。
