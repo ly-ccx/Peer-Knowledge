@@ -33,4 +33,8 @@ C级：已有 BotProfile.modelPolicy、主进程模型列表投影、update-prof
 
 首轮原生断言同样通过，但“light”截图当时未实际切换浅色，末尾截图又受键盘焦点滚动影响遮到标题。仅修正检查器在真实主题端点和滚动归零后取图，产品CSS不变；[首轮报告保留](evidence/rc-bot-model-source-first-passed-20261003.json)。复查实际截图：[深色首屏](evidence/rc-bot-model-dark-20261003.png)、[浅色首屏](evidence/rc-bot-model-light-20261003.png)、[配置模型菜单](evidence/rc-bot-model-picker-20261003.png)、[窄抽屉下部与固定页签](evidence/rc-bot-model-narrow-20261003.png)。
 
-两平台最终CI37134027413进行中。实际签名RC4尚未更换，不声明新候选或整体Ready。
+## 最终 CI 与合入
+
+[CI37134027413](https://github.com/ly-ccx/Peer-Agent/actions/runs/37134027413) attempt1两平台完整构建、类型、架构、测试和原生窗口全部成功。各9壳/12可访问性/7诊断/5回复、72更新布局及36事件回执通过；新增模型保存与Bot/角色/全局隔离检查两平台均通过，0页面/主进程授权错误，自有进程退出。Mac列表/搜索/Received中位58.289/77.0/148.1ms，Linux31.183/54.0/102.6ms，原预算均通过。[Mac窗口证明](evidence/rc-bot-model-ci-mac-passed-20261003.json)、[Linux窗口证明](evidence/rc-bot-model-ci-linux-passed-20261003.json)。
+
+PR116按负责人既有授权于15:49:39Z合入`94c31ce6c5bcdcfd91dfeb75f62787e0bbfdef2f`。源87d2945c、CI实际checkout58656ffc及合入tree均`c6a73754713732eca74f318893778e2ac6c5a099`，[逐一绑定](evidence/rc-bot-model-ci-binding-20261003.json)。主工作区已同步且干净，重新构建renderer通过。本卡完成；实际签名RC4尚未更换，不声明新候选或整体Ready。
