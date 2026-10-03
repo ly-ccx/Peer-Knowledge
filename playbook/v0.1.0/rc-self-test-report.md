@@ -1,8 +1,20 @@
 # 0.1.0 RC 开发者自测报告
 
-最后更新：2026-10-02。状态：验收进行中，尚未宣布全部 Ready。
+最后更新：2026-10-04。状态：RC5已交付负责人评测，尚未宣布全部Ready。
 
-## 当前交付：RC4 已发布并安装（2026-10-02）
+## 当前交付：RC5已发布（2026-10-04）
+
+不可变候选**0.1.0-rc.5**、commit`64d20d3409fe406c3cae4044acff9f8b5a7fe45e`、tree`a57b0fb1bcffc0c2d19764bc0fd1788099d45c6d`。[发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.5)。PR117按授权合入，source/CI合成merge/实际merge同tree；CI37135649368 attempt1 Mac/Linux全成功。完整本机build/typecheck/architecture/test、AST/readiness/source-check通过，桌面5320项中5315pass、原5skip，无首次失败/取消；23项受控升级保留六个真实旧tag来源。源码与两平台实际窗口均9壳/12可访问性/7诊断/5回复、72更新布局、36回执通过，模型保存/重开/切换/继承及角色/其他Bot/全局隔离通过。原性能预算保持。[源码门禁](evidence/rc5-source-gates-20261004.json)、[源码窗口](evidence/rc5-source-window-passed-20261004.json)、[升级矩阵](evidence/rc5-upgrade-matrix-passed-20261004.json)、[CI与最终发布绑定](evidence/rc5-candidate-ci-binding-20261004.json)。
+
+Release37136323530八个job全成功，14资产；Mac签名、公证、打包运行时校验与两CLI构建均保留。实际下载Mac ZIP/DMG/CLI的SHA匹配发布digest；两.app严格签名、Team82672N97RP、Gatekeeper Notarized Developer ID与staple通过，DMG完整性/卸载通过，容器staple65记录。CLI助手与Desktop同Team，peer保持Bun生成的adhoc签名；两者严格校验和版本RC5通过。首轮验证脚本误假定peer也有Developer ID Team，失败记录保留，随后按已有发布契约核对，产品和签名未改变。[首轮脚本假设](evidence/rc5-cli-trust-assumption-first-20261004.json)。npm四包固定RC5与rc标签可见，latest0.0.18/beta beta.5未改。[信任与资产](evidence/rc5-published-assets-trust-20261004.json)、[CLI范围](evidence/rc5-cli-version-passed-20261004.json)、[npm元数据](evidence/rc5-npm-metadata-passed-20261004.json)。
+
+签名RC5使用新隔离数据、合成对话与两个无密钥模型目录进行实际界面检查：版本、无光晕/无左侧强调线、引用定位与过程操作、首屏机器人模型选择及持久化分别记录；没有把合成消息作为模型/Evidence通过。[签名包界面](evidence/rc5-published-ui-passed-20261004.json)。生产Provider+SDK+实际三平台manifest联网检查通过，与物理Win/Linux安装分开：[联网发现](evidence/rc5-update-live-discovery-passed-20261004.json)。原用户实际签名RC4通过当前生产更新入口发现RC5并完成下载，保持未安装、原应用仍RC4，便于负责人自行升级；没有注入更新事件或替换真实用户数据。[实际RC4发现/下载](evidence/rc5-original-rc4-update-download-20261004.json)。
+
+**仍未全部Ready。** 严格复杂写任务命令描述Evidence快照缺口未关闭；新RC5真实复杂写任务/真实模型/完整CLI PTY、自动安装后的数据保全、物理Windows/Linux交互安装、实体手机/生产OIDC/远程部署和七天日用本轮未执行，旧RC3/RC4历史证明不冒充本轮Pass。负责人明确要求先发RC详细评测，195用例/6流程现可按[手册](acceptance-test-guide.md)填写实际结果；GA仍等缺口收口、负责人测试/七天日用和明确批准。[本轮范围](rc5-candidate.md)。
+
+发布后首次公共npm查询尚未看到RC5版本，[原查询](evidence/rc5-npm-metadata-first-20261004.json)保留；后续四包固定版本和rc标签全部可见，不重复发布。同次实际包Provider及项目应用服务字节与tag源一致，三平台manifest版本/文件名/size及Mac下载SHA512匹配：[包与清单绑定](evidence/rc5-packaged-provider-binding-20261004.json)。Windows/Linux的SHA512只检查清单格式和发布size，未下载执行或互动安装。
+
+## 历史交付：RC4已发布并安装（2026-10-02）
 
 实际候选为 **0.1.0-rc.4**，不可变提交 `11b5f645f0ec87f9800ac1c749a38871d5d3aeca`、tree `10707e13a7f43505ff345d864c89f937912ce37c`。[发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.4)。PR110–112已合入；最终两平台CI36995512881成功，完整本机门禁、32项更新定向测试、22项受控升级矩阵及9壳/11可访问性/7诊断通过。Release36997106815八个job成功、14项资产。[CI/提交绑定](evidence/rc4-candidate-ci-binding-20261002.json)。macOS原生窗口CI一次GC transport失败和同提交一次有限重跑分别保留，没有放宽产品断言。
 

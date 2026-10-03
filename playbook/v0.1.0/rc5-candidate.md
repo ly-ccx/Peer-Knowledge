@@ -28,3 +28,8 @@ C级发布卡；基于开发线94c31ce6，纳入已经两平台CI并合入的PR1
 发布PR[117](https://github.com/ly-ccx/Peer-Agent/pull/117)，干净最终源a402d130d26929ebf7345decb3f2bbefdbeec527。完整build/typecheck/architecture/test、独立AST、版本/changelog/readiness/source-check均通过；桌面5320项中5315pass、原5skip，无首次失败或取消。23项受控升级矩阵保留六个真实旧tag来源；实际源码窗口9壳/12可访问性/7诊断/5回复、72更新布局和36回执通过，Bot模型保存/重开/切换/继承与其他角色、机器人、全局隔离全部通过。中位列表14.579ms、搜索22.6ms、Received52.8ms，原预算不变。见[门禁](evidence/rc5-source-gates-20261004.json)、[窗口](evidence/rc5-source-window-passed-20261004.json)、[矩阵](evidence/rc5-upgrade-matrix-passed-20261004.json)。
 
 最终两平台CI37135649368 attempt1全部通过，实际窗口同为9/12/7/5，无页面/授权错误、自有进程退出。PR117已合入64d20d3409fe406c3cae4044acff9f8b5a7fe45e；source/CI合成merge/实际merge的tree均a57b0fb1bcffc0c2d19764bc0fd1788099d45c6d。合入后readiness/source-check及干净状态再次通过，按授权创建新不可变v0.1.0-rc.5。[CI绑定](evidence/rc5-candidate-ci-binding-20261004.json)。以上是源码范围，签名发布包和真实更新发现尚待后续验证；不宣布已发布或总体Ready。
+
+
+## 发布完成（2026-10-04）
+
+Release37136323530八job成功、14资产，实际Mac签名/公证及关键界面、CLI版本、npm固定RC5、真实三平台清单、原用户RC4发现并下载RC5已验证；原用户应用保持RC4未安装。完整范围见[当前自测报告](rc-self-test-report.md)。本卡作为评测候选交付完成；复杂任务独立Evidence阻塞和GA门禁继续保持。

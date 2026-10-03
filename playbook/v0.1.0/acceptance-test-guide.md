@@ -1,37 +1,37 @@
 # Peer Agent 0.1.0 发布前全面测试手册
 
-> 当前候选：0.1.0-rc.4，提交11b5f645f0ec87f9800ac1c749a38871d5d3aeca。更新发现/防降级及侧栏排版已通过签名macOS包和原用户实际复验。严格复杂任务的命令描述Evidence快照仍阻塞Ready，请等开发者自测收口再开始全面测试。当前证据与历史范围见[自测报告](rc-self-test-report.md)。
+> 当前评测候选：**0.1.0-rc.5**，提交`64d20d3409fe406c3cae4044acff9f8b5a7fe45e`。负责人已要求先发布RC进行详细评测；可按本手册记录结果。复杂写任务的命令描述Evidence快照缺口仍未关闭，不能视为全部Ready；正式版仍等待修复收口、全面测试、七天日用和明确批准。各版本自测范围见[开发者报告](rc-self-test-report.md)。
 
 ### 确定版本的下载与校验
 
-[RC4发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.4)，Release36997106815八个job全部成功、14项资产。正式0.1.0尚未发布。macOS安装文件与CLI实际下载SHA匹配发布digest；ZIP应用及只读DMG内应用严格签名、公证和Gatekeeper通过，DMG完整性通过且已卸载（容器staple65，票据在.app）。Windows/Linux下面SHA来自发布digest，尚未在两系统交互安装。[信任证据](evidence/rc4-published-assets-trust-20261002.json)。
+[RC5发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.5)，Release37136323530八个job全部成功、14项资产。正式0.1.0尚未发布。Mac ZIP/DMG/CLI已实际下载校验SHA，ZIP应用及只读DMG内应用的Developer ID Team82672N97RP、严格签名、公证和Gatekeeper通过；DMG完整性及卸载通过，容器staple65如实保留（票据在.app）。Windows/Linux下面SHA来自发布digest，尚未在两系统交互安装。[发布信任](evidence/rc5-published-assets-trust-20261004.json)。
 
-**旧Beta5/RC1–3先手动安装RC4。** 旧更新器会跳过RC、甚至把旧Beta5当更新，冻结安装包不会因为新发布自动得到修复。完全退出桌面/CLI/Gateway宿主、备份数据，从以上固定官方发布页安装同架构RC4，再启动查看实际版本；不要在旧RC界面同意降回Beta5。原用户RC3→RC4已这样完成，历史和模型偏好保持。RC4会在Beta预览池中选择最高有效Alpha/Beta/RC，所有入口要求候选严格更高。实际RC4三渠道检查均无旧版可用；未来更高RC的真实自动下载/安装另记录，不以合成事件代替。
+**RC4：设置 → 更新与关于 → 自动或Beta → 检查更新 → 更新/下载 → 安装并重启。** RC4更新器能发现严格更高的RC5；本次真实原用户RC4已发现并下载候选，未执行安装，当前应用仍RC4。也可手动安装本页同架构包。**旧Beta5/RC1–3先手动升级RC5**，这些冻结版本的选版错误不会随新发布自行修复，拒绝旧Beta降级提示。先完全退出桌面/CLI/Gateway，备份完整数据，再安装；保留原身份、对话与模型偏好，不需要重置数据。Desktop/CLI/TUI/Gateway使用同一版本。[实际发现与下载](evidence/rc5-original-rc4-update-download-20261004.json)。
 
 | 平台/文件 | 下载 | SHA256 |
 |---|---|---|
-| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-arm64.dmg) | `014cc8245f65723fd45fe0f3171aa02f037c8a4ec0762abfe666010cf23629c1` |
-| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-arm64.zip) | `b53ed82bf74ccc9122d0cf0717f26c2ce3c9b673464536b4b5565ebd8af38729` |
-| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-Setup-0.1.0-rc.4.exe) | `2678b8e05644326b642baa6283c09a02b557036a027791c26f5265b55f3a9841` |
-| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-x64.AppImage) | `1648c049a95306ec9051d6594ba5972fb8962a6949904571dcff7031a27c57ad` |
-| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/Peer-Agent-0.1.0-rc.4-x64.deb) | `577bb4bf1b732d43be1b71027828eda500e1b79b46b99acb720469ac5456c3bc` |
-| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/peer-darwin-arm64.tar.gz) | `66f92fda0aceeaec50cd671a5a1d2b7a5652e0c3a0c6cb6699cb2d035def5d41` |
-| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.4/peer-linux-x64.tar.gz) | `6b47d42d9d600d5c5418592da2dfaef46d06c3faf96a8dbe82d7245f92bfe75e` |
+| macOS Apple Silicon DMG | [安装盘](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/Peer-Agent-0.1.0-rc.5-arm64.dmg) | `4c1c91d360ec155b6e3c40072771b7ff2949eb89dab61217d44ccf53f2f1578f` |
+| macOS Apple Silicon ZIP | [应用归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/Peer-Agent-0.1.0-rc.5-arm64.zip) | `e7a4cadfb47fac4c5294dd70a398db817aa125ccb60c1a35fc758509680c2293` |
+| Windows安装包 | [安装器](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/Peer-Agent-Setup-0.1.0-rc.5.exe) | `772af06c1b9dbddcecd82ed90d1a8e3a0bd6cab1222cbb9fcce891c6c5c9b86a` |
+| Linux AppImage | [应用](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/Peer-Agent-0.1.0-rc.5-x64.AppImage) | `fe272d9f0e43d66da107f200bee0d08f03a355f8a1902f4142af104c7bdfe315` |
+| Linux DEB | [安装包](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/Peer-Agent-0.1.0-rc.5-x64.deb) | `26034c7cd8dae3277b8023f413dc9c903990b5c7b17863e68b9cec36e85e0ab8` |
+| macOS CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/peer-darwin-arm64.tar.gz) | `a9904e467a794f76c0231fac16dde675871244de7ee9b99fffb89ceebbfa0dc6` |
+| Linux CLI | [归档](https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.5/peer-linux-x64.tar.gz) | `403dbda8d8e851b870782ba96776c41eddead474c89f7ae7305881c3481d93ef` |
 
-macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中相同。CLI的 `peer` 和 `peer-credential-helper` 保持同一目录，桌面和CLI均用RC4；macOS归档CLI及助手签名和 `peer --version` 为RC4已经实测。
+macOS用 `shasum -a 256 下载文件`；Linux用 `sha256sum 下载文件`；Windows PowerShell用 `Get-FileHash 下载文件 -Algorithm SHA256`。结果必须与表中相同。CLI归档中`peer`和`peer-credential-helper`保持同一目录；macOS归档的签名和`peer --version`为RC5已实测。
 
 固定版本npm安装：
 
 ```sh
-npm install -g @peer-agent/cli@0.1.0-rc.4
+npm install -g @peer-agent/cli@0.1.0-rc.5
 peer --version
 ```
 
-预期 `peer 0.1.0-rc.4`。四包固定RC4版本与rc标签已在公共npm元数据可见；latest仍0.0.18、beta仍0.1.0-beta.5。`@rc`跟随后续候选，全面测试须记录确定版本。RC4本轮CLI范围为发布归档SHA/签名/版本及npm元数据，没有重跑npm安装、完整模型或PTY流；RC3曾实际隔离npm安装并验证默认助手的PTY read_file/post_reply，以及GPT61订阅和原默认Astra回复恢复，均保留为RC3历史证据，不混写为RC4全功能通过。Windows无CLI资产，M组用macOS/Linux。
+预期`peer 0.1.0-rc.5`。四包固定版本及`rc`标签已在公共npm可见；`latest`仍0.0.18、`beta`仍0.1.0-beta.5。`@rc`跟随后续候选，评测须记录确定版本。[npm证据](evidence/rc5-npm-metadata-passed-20261004.json)。本轮CLI范围为实际归档SHA/签名/版本及npm元数据，未重跑npm安装、完整模型或PTY流；旧RC3真实模型和CLI证据保持历史范围。Windows无CLI归档，M组在macOS/Linux测试。
 
 ## 1. 测试与发布顺序
 
-开发者先完成 Beta1–5、RC01–05、自测与问题修复，给你一套确定版本的可安装 RC 包、本文和自测报告。你再做全面测试与七天日用。任何 P0/P1 尚未修好，或你未明确批准，都不发布正式版。模型一句“完成了”不是通过；核对结构化任务状态、实际文件、验证结果与 Evidence。
+本次按负责人要求先交付RC5评测包、本文与自测报告；开发者已经完成本轮源码门禁、两平台CI及下述安装包检查。195用例和6流程可开始记录，已知复杂任务核验缺口及未执行的平台范围保持Fail/Blocked，不预填Pass。正式版前开发者仍须完成缺口修复与自测收口，再结合你的全面测试与七天日用判断。任何 P0/P1 尚未修好，或你未明确批准，都不发布正式版。模型一句“完成了”不是通过；核对结构化任务状态、实际文件、验证结果与 Evidence。
 
 ### 版本与结果填写
 
