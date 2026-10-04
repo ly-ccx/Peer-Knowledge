@@ -76,5 +76,33 @@
     "原生运行记录基线 sourceHead + dirty 工作树；同一代码内容随后提交并由两平台 CI 对提交验证"
   ],
   "committedWorkingTreeContent": "de7220eb066b429109dd05a1efc66cc65ffd13b3",
-  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/119"
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/119",
+  "ci": {
+    "runId": 37169201065,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37169201065",
+    "headSha": "0f321d015c232d32d2a123184addf08d4128d2a6",
+    "conclusion": "success",
+    "jobs": {
+      "ci-macos-14": "success",
+      "ci-ubuntu-latest": "success"
+    },
+    "nativeScope": "两平台标准壳/无障碍/诊断；完整 streaming/chatDetails 由本报告隔离本机验证"
+  },
+  "initialCi": {
+    "runId": 37168654965,
+    "mac": "goal-plan-store subscribeChanges incremental event timeout after file retry",
+    "linux": "success",
+    "remediation": "deterministic lost fs.watch regression failed before fix; same incremental drain gets 250ms unref fallback and unsubscribe cancellation"
+  },
+  "localTests": {
+    "desktopPass": 5325,
+    "desktopConditionalSkip": 5,
+    "runtimeNodePass": 1027,
+    "goalPlanStorePass": 143,
+    "i18n": "passed",
+    "build": "passed",
+    "typecheck": "passed",
+    "architectureIpc": "passed"
+  },
+  "mergeCommit": "e2fa5e5de9ec82017e34dbfcd10bb656a9a69481"
 }

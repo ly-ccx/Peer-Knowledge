@@ -28,3 +28,7 @@
 Mac CI 37168654965 在已有 goal-plan-store 半行 journal 订阅测试中失败，单文件重试仍失败；Linux 完整通过。本机相同文件曾通过，不能忽略 CI 的持续失败。沿负责人“直接自己推进全部”的授权补齐必要门禁修复：允许 `packages/runtime-node/src/goal-plan-store.mjs` 与已有 desktop/electron/main/goal-plan-store.test.mjs，B 级仅修复已有订阅适配器在文件通知丢失/合并时的最终送达，追加有界读尾兜底并正确取消。不修改存储格式、订阅 API、任务契约、权限或 Evidence；无 ADR 边界移动。此项不得通过延长测试超时或重复 rerun 掩盖。
 
 补充修复 0f321d01：确定性遗漏通知测试先失败；同一读尾 drain 添加 250ms unref 兜底，取消订阅停止 watcher/timer。计划存储 143、desktop 5325（另 5 条件跳过）、runtime-node 1027、typecheck/architecture/IPC 通过。最终 CI 37169201065 执行中。
+
+## 完成
+
+最终 0f321d01 的 CI 37169201065 在 Mac/Linux 均成功，含两平台实际窗口检查。PR #119 合入 dev，merge `e2fa5e5de9ec82017e34dbfcd10bb656a9a69481`。初次 Mac 失败与补充复现/修复已保留在验收记录，不以 rerun 隐去。当前签名安装包 RC5 仍不含本卡；不发布版本，不改变整体 GA 验收状态。
