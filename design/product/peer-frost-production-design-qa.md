@@ -71,7 +71,7 @@
 - 工作区 `pnpm typecheck`、`pnpm architecture:check`、Desktop build、`git diff --check` 通过。完整回归后最后仅改录制框边框/键帽两条 CSS，重新 build 成功。
 - 首轮新增页标题放入 LlmSettingsPanel 超出既有 2265 行门槛，已改为 SettingsPage 外部装配；隔离 7 项和完整 Desktop 回归通过，没有放宽行数门槛。
 - 原生 smoke 更新对应批准设计的视觉断言：单个引用 SVG、27 px 弱操作、40×23 开关、15 px 圆点和当前 Frost 状态色。保留对比度、保存、键盘、隔离、模型与附件契约验收。
-- 最终 CI：[37220072567](https://github.com/ly-ccx/Peer-Agent/actions/runs/37220072567)，源 `10c943d1`。Linux 全部通过，Mac 构建/类型/架构/完整测试通过，窗口验收仍在运行；状态完成后补记。前一个 `2160ece1` run 被最终提交自动取消，不作为通过证据。
+- 最终 CI：[37220072567](https://github.com/ly-ccx/Peer-Agent/actions/runs/37220072567)，源 `10c943d1`；Mac 与 Linux 的构建、类型、架构、完整测试及 Electron 窗口验收全部通过。两份窗口报告 `ok=true`、`pageErrors=[]`、`mainAuthorizationErrors=[]`，源码无脏改动。CI 检出合成合并提交 `fa162e65`，其父提交包含 `10c943d1`；[脱敏结果与检查清单](assets/peer-frost-production/production-ci-20261005.json)记录精确绑定。前一个 `2160ece1` run 被最终提交自动取消，不作为通过证据。
 
 ## 7. 负责人复核路线
 

@@ -1,0 +1,605 @@
+{
+  "recordedAt": "2026-10-05",
+  "sourceHead": "10c943d1f98271e1a42849013bbd2d8e59aa2955",
+  "uiHead": "2160ece1e770a1117e1c7a1c545a0a5ee11c94b6",
+  "ciRun": "37220072567",
+  "ciUrl": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37220072567",
+  "conclusion": "success",
+  "checkout": {
+    "sha": "fa162e652cfa69f4091e3cfaad7796f15c2345b3",
+    "kind": "GitHub PR synthetic merge",
+    "parents": [
+      "7b793640b662a2c9583d52b3ca072c1a40110df5",
+      "10c943d1f98271e1a42849013bbd2d8e59aa2955"
+    ]
+  },
+  "scope": "Production source build, types, architecture, full tests and isolated Electron window smoke on macOS/Linux. Controlled fixture cognition; no real cloud quality or physical installer certification.",
+  "platforms": [
+    {
+      "platform": "linux",
+      "sourceHead": "fa162e652cfa69f4091e3cfaad7796f15c2345b3",
+      "sourceDirty": false,
+      "synthetic": true,
+      "ok": true,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "scale": {
+        "bots": 200,
+        "messages": 10000,
+        "inboxEvents": 100000,
+        "memories": 10000
+      },
+      "checks": [
+        "200 real bot rows; no idle model turns",
+        "five input-to-visible searches across the real message corpus under budget",
+        "five real UI sends, visible durable Received under budget, scripted replies",
+        "real Quick Chat window lists bots and submits one canonical quick_chat input",
+        "scrolling up loads older messages from a 10000-message conversation",
+        "a quoted older message loads across pages, enters viewport, then returns to latest",
+        "profile opens and settings tab works",
+        "classic shell opens through settings",
+        "bot shell returns with all persisted identities"
+      ],
+      "accessibility": [
+        "focusable list: Home/End, arrows, Enter open the selected bot",
+        "Space opens the selected bot without scrolling the page",
+        "bot models and declared reasoning strength save and survive reopen; cascading switch and inherit preserve other roles, bots and global routing",
+        "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+        "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+        "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+        "oversize input is rejected before submission and the editable draft is retained",
+        "10000 memory records render 50 at a time; next and previous retain distinct identities",
+        "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+        "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+        "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+        "returning to General reads saved quiet hours instead of the initial bootstrap snapshot",
+        "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+      ],
+      "replyInteraction": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light quotes retain paper boundaries; secondary actions stay compact and both surfaces have no outer glow",
+        "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+        "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+        "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+      ],
+      "replyStyles": [
+        {
+          "theme": "dark",
+          "quote": {
+            "background": "rgb(30, 35, 44)",
+            "color": "rgb(176, 180, 188)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 59.390625
+          },
+          "action": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(176, 180, 188)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 27.390625
+          },
+          "delivery": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(176, 180, 188)",
+            "border": "0px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 16.5
+          }
+        },
+        {
+          "theme": "light",
+          "quote": {
+            "background": "rgb(247, 249, 252)",
+            "color": "rgb(82, 86, 96)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 59.390625
+          },
+          "action": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(82, 86, 96)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 27.390625
+          },
+          "delivery": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(82, 86, 96)",
+            "border": "0px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 16.5
+          }
+        }
+      ],
+      "contrast": [
+        {
+          "palette": "frost",
+          "theme": "light",
+          "selector": ".bot-row-name",
+          "ratio": 16.324778768937044
+        },
+        {
+          "palette": "frost",
+          "theme": "light",
+          "selector": ".bot-row-preview",
+          "ratio": 7.090179762215912
+        },
+        {
+          "palette": "frost",
+          "theme": "light",
+          "selector": ".bot-row-time",
+          "ratio": 7.090179762215912
+        },
+        {
+          "palette": "frost",
+          "theme": "dark",
+          "selector": ".bot-row-name",
+          "ratio": 16.257095960620354
+        },
+        {
+          "palette": "frost",
+          "theme": "dark",
+          "selector": ".bot-row-preview",
+          "ratio": 8.869493863366818
+        },
+        {
+          "palette": "frost",
+          "theme": "dark",
+          "selector": ".bot-row-time",
+          "ratio": 8.869493863366818
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "light",
+          "selector": ".bot-row-name",
+          "ratio": 7.0619995573104415
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "light",
+          "selector": ".bot-row-preview",
+          "ratio": 7.0619995573104415
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "light",
+          "selector": ".bot-row-time",
+          "ratio": 7.0619995573104415
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "dark",
+          "selector": ".bot-row-name",
+          "ratio": 11.341133436863977
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "dark",
+          "selector": ".bot-row-preview",
+          "ratio": 7.367317896248123
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "dark",
+          "selector": ".bot-row-time",
+          "ratio": 7.367317896248123
+        }
+      ],
+      "botModelSettings": {
+        "fixedSelectionSaved": true,
+        "effortSaved": true,
+        "effortRetained": true,
+        "reopenRetained": true,
+        "modelSwitchSaved": true,
+        "inheritanceRestored": true,
+        "independentRoles": true,
+        "otherBotUnchanged": true,
+        "globalConfigUnchanged": true,
+        "scope": "Production model catalogue projection, settings DOM, IPC validation and durable profile; no real model request"
+      },
+      "ciStages": {
+        "build": "success",
+        "typecheck": "success",
+        "architecture": "success",
+        "fullTests": "success",
+        "electronWindowSmoke": "success"
+      },
+      "settingsLayout": {
+        "switchPaint": {
+          "track": {
+            "width": 40,
+            "height": 23
+          },
+          "thumb": {
+            "width": 15,
+            "height": 15
+          },
+          "trackColor": "rgb(17, 20, 26)",
+          "thumbColor": "rgb(176, 180, 188)"
+        },
+        "globalSettingRestored": true,
+        "themedSwitches": [
+          {
+            "theme": "light",
+            "palette": "catppuccin",
+            "checked": false,
+            "track": "rgb(220, 224, 232)",
+            "thumb": "rgb(108, 111, 133)",
+            "contrast": 3.734181578851159
+          },
+          {
+            "theme": "light",
+            "palette": "catppuccin",
+            "checked": true,
+            "track": "rgb(76, 79, 105)",
+            "thumb": "rgb(239, 241, 245)",
+            "contrast": 7.0619995573104415
+          },
+          {
+            "theme": "dark",
+            "palette": "catppuccin",
+            "checked": false,
+            "track": "rgb(17, 17, 27)",
+            "thumb": "rgb(166, 173, 200)",
+            "contrast": 8.423392822715284
+          },
+          {
+            "theme": "dark",
+            "palette": "catppuccin",
+            "checked": true,
+            "track": "rgb(205, 214, 244)",
+            "thumb": "rgb(30, 30, 46)",
+            "contrast": 11.341133436863977
+          },
+          {
+            "theme": "light",
+            "palette": "frost",
+            "checked": false,
+            "track": "rgb(221, 227, 235)",
+            "thumb": "rgb(82, 86, 96)",
+            "contrast": 5.688316915072725
+          },
+          {
+            "theme": "light",
+            "palette": "frost",
+            "checked": true,
+            "track": "rgb(26, 29, 33)",
+            "thumb": "rgb(247, 249, 252)",
+            "contrast": 16.035991545092926
+          },
+          {
+            "theme": "dark",
+            "palette": "frost",
+            "checked": false,
+            "track": "rgb(17, 20, 26)",
+            "thumb": "rgb(176, 180, 188)",
+            "contrast": 8.869493863366818
+          },
+          {
+            "theme": "dark",
+            "palette": "frost",
+            "checked": true,
+            "track": "rgb(237, 241, 246)",
+            "thumb": "rgb(30, 35, 44)",
+            "contrast": 13.89938230736716
+          }
+        ],
+        "scope": "Actual isolated source UI and persistence, no model or permission grant exercised"
+      },
+      "diagnostics": {
+        "bots": 200,
+        "errors": 0,
+        "scope": "Real source Electron UI/preload/IPC/atomic export; native save destination controlled in isolated fixture; OS dialog interaction is an owner check",
+        "checks": [
+          "read actual stores",
+          "reject renderer destination",
+          "refresh real Developer panel",
+          "save redacted JSON",
+          "bounded events/turns",
+          "actual turn timing",
+          "no absolute paths, IDs or message text"
+        ]
+      }
+    },
+    {
+      "platform": "darwin",
+      "sourceHead": "fa162e652cfa69f4091e3cfaad7796f15c2345b3",
+      "sourceDirty": false,
+      "synthetic": true,
+      "ok": true,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "scale": {
+        "bots": 200,
+        "messages": 10000,
+        "inboxEvents": 100000,
+        "memories": 10000
+      },
+      "checks": [
+        "200 real bot rows; no idle model turns",
+        "five input-to-visible searches across the real message corpus under budget",
+        "five real UI sends, visible durable Received under budget, scripted replies",
+        "real Quick Chat window lists bots and submits one canonical quick_chat input",
+        "scrolling up loads older messages from a 10000-message conversation",
+        "a quoted older message loads across pages, enters viewport, then returns to latest",
+        "profile opens and settings tab works",
+        "classic shell opens through settings",
+        "bot shell returns with all persisted identities"
+      ],
+      "accessibility": [
+        "focusable list: Home/End, arrows, Enter open the selected bot",
+        "Space opens the selected bot without scrolling the page",
+        "bot models and declared reasoning strength save and survive reopen; cascading switch and inherit preserve other roles, bots and global routing",
+        "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+        "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+        "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+        "oversize input is rejected before submission and the editable draft is retained",
+        "10000 memory records render 50 at a time; next and previous retain distinct identities",
+        "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+        "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+        "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+        "returning to General reads saved quiet hours instead of the initial bootstrap snapshot",
+        "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+      ],
+      "replyInteraction": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light quotes retain paper boundaries; secondary actions stay compact and both surfaces have no outer glow",
+        "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+        "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+        "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+      ],
+      "replyStyles": [
+        {
+          "theme": "dark",
+          "quote": {
+            "background": "rgb(30, 35, 44)",
+            "color": "rgb(176, 180, 188)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 59.390625
+          },
+          "action": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(176, 180, 188)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 27.390625
+          },
+          "delivery": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(176, 180, 188)",
+            "border": "0px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 16.5
+          }
+        },
+        {
+          "theme": "light",
+          "quote": {
+            "background": "rgb(247, 249, 252)",
+            "color": "rgb(82, 86, 96)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 59.390625
+          },
+          "action": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(82, 86, 96)",
+            "border": "1px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 27.390625
+          },
+          "delivery": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(82, 86, 96)",
+            "border": "0px",
+            "borderStyle": "solid",
+            "shadow": "none",
+            "height": 16.5
+          }
+        }
+      ],
+      "contrast": [
+        {
+          "palette": "frost",
+          "theme": "light",
+          "selector": ".bot-row-name",
+          "ratio": 16.324778768937044
+        },
+        {
+          "palette": "frost",
+          "theme": "light",
+          "selector": ".bot-row-preview",
+          "ratio": 7.090179762215912
+        },
+        {
+          "palette": "frost",
+          "theme": "light",
+          "selector": ".bot-row-time",
+          "ratio": 7.090179762215912
+        },
+        {
+          "palette": "frost",
+          "theme": "dark",
+          "selector": ".bot-row-name",
+          "ratio": 16.257095960620354
+        },
+        {
+          "palette": "frost",
+          "theme": "dark",
+          "selector": ".bot-row-preview",
+          "ratio": 8.869493863366818
+        },
+        {
+          "palette": "frost",
+          "theme": "dark",
+          "selector": ".bot-row-time",
+          "ratio": 8.869493863366818
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "light",
+          "selector": ".bot-row-name",
+          "ratio": 7.0619995573104415
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "light",
+          "selector": ".bot-row-preview",
+          "ratio": 7.0619995573104415
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "light",
+          "selector": ".bot-row-time",
+          "ratio": 7.0619995573104415
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "dark",
+          "selector": ".bot-row-name",
+          "ratio": 11.341133436863977
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "dark",
+          "selector": ".bot-row-preview",
+          "ratio": 7.367317896248123
+        },
+        {
+          "palette": "catppuccin",
+          "theme": "dark",
+          "selector": ".bot-row-time",
+          "ratio": 7.367317896248123
+        }
+      ],
+      "botModelSettings": {
+        "fixedSelectionSaved": true,
+        "effortSaved": true,
+        "effortRetained": true,
+        "reopenRetained": true,
+        "modelSwitchSaved": true,
+        "inheritanceRestored": true,
+        "independentRoles": true,
+        "otherBotUnchanged": true,
+        "globalConfigUnchanged": true,
+        "scope": "Production model catalogue projection, settings DOM, IPC validation and durable profile; no real model request"
+      },
+      "ciStages": {
+        "build": "success",
+        "typecheck": "success",
+        "architecture": "success",
+        "fullTests": "success",
+        "electronWindowSmoke": "success"
+      },
+      "settingsLayout": {
+        "switchPaint": {
+          "track": {
+            "width": 40,
+            "height": 23
+          },
+          "thumb": {
+            "width": 15,
+            "height": 15
+          },
+          "trackColor": "rgb(17, 20, 26)",
+          "thumbColor": "rgb(176, 180, 188)"
+        },
+        "globalSettingRestored": true,
+        "themedSwitches": [
+          {
+            "theme": "light",
+            "palette": "catppuccin",
+            "checked": false,
+            "track": "rgb(220, 224, 232)",
+            "thumb": "rgb(108, 111, 133)",
+            "contrast": 3.734181578851159
+          },
+          {
+            "theme": "light",
+            "palette": "catppuccin",
+            "checked": true,
+            "track": "rgb(76, 79, 105)",
+            "thumb": "rgb(239, 241, 245)",
+            "contrast": 7.0619995573104415
+          },
+          {
+            "theme": "dark",
+            "palette": "catppuccin",
+            "checked": false,
+            "track": "rgb(17, 17, 27)",
+            "thumb": "rgb(166, 173, 200)",
+            "contrast": 8.423392822715284
+          },
+          {
+            "theme": "dark",
+            "palette": "catppuccin",
+            "checked": true,
+            "track": "rgb(205, 214, 244)",
+            "thumb": "rgb(30, 30, 46)",
+            "contrast": 11.341133436863977
+          },
+          {
+            "theme": "light",
+            "palette": "frost",
+            "checked": false,
+            "track": "rgb(221, 227, 235)",
+            "thumb": "rgb(82, 86, 96)",
+            "contrast": 5.688316915072725
+          },
+          {
+            "theme": "light",
+            "palette": "frost",
+            "checked": true,
+            "track": "rgb(26, 29, 33)",
+            "thumb": "rgb(247, 249, 252)",
+            "contrast": 16.035991545092926
+          },
+          {
+            "theme": "dark",
+            "palette": "frost",
+            "checked": false,
+            "track": "rgb(17, 20, 26)",
+            "thumb": "rgb(176, 180, 188)",
+            "contrast": 8.869493863366818
+          },
+          {
+            "theme": "dark",
+            "palette": "frost",
+            "checked": true,
+            "track": "rgb(237, 241, 246)",
+            "thumb": "rgb(30, 35, 44)",
+            "contrast": 13.89938230736716
+          }
+        ],
+        "scope": "Actual isolated source UI and persistence, no model or permission grant exercised"
+      },
+      "diagnostics": {
+        "bots": 200,
+        "errors": 0,
+        "scope": "Real source Electron UI/preload/IPC/atomic export; native save destination controlled in isolated fixture; OS dialog interaction is an owner check",
+        "checks": [
+          "read actual stores",
+          "reject renderer destination",
+          "refresh real Developer panel",
+          "save redacted JSON",
+          "bounded events/turns",
+          "actual turn timing",
+          "no absolute paths, IDs or message text"
+        ]
+      }
+    }
+  ]
+}
