@@ -1706,6 +1706,60 @@
       "macos": "build/typecheck/architecture/full tests passed; native smoke failed at bot setting switch color settling before General selector checks",
       "error": "settleColorTransitions: Timeout 5000ms exceeded at checkSettings; pageErrors=[]"
     },
-    "retry": "failed macOS job requested, pending"
+    "retry": "macOS attempt2 passed build/typecheck/architecture/full tests/native smoke; run overall success, Linux attempt1 retained",
+    "attempt2": {
+      "conclusion": "success",
+      "macos": "all gates passed; native report verified ok=true, pageErrors=[], sourceDirty=false"
+    },
+    "reports": {
+      "linux": {
+        "artifactId": 11305490840,
+        "attempt": 1,
+        "sourceHead": "e0eeceb71b6f79b99f54d5d0759c39c60fbcc8f6",
+        "sourceDirty": false,
+        "ok": true,
+        "pageErrors": [],
+        "finishedAt": "2026-10-04T13:49:17.386Z",
+        "accessibility": [
+          "focusable list: Home/End, arrows, Enter open the selected bot",
+          "Space opens the selected bot without scrolling the page",
+          "bot models and declared reasoning strength save and survive reopen; cascading switch and inherit preserve other roles, bots and global routing",
+          "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+          "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+          "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+          "oversize input is rejected before submission and the editable draft is retained",
+          "10000 memory records render 50 at a time; next and previous retain distinct identities",
+          "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+          "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+          "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+          "returning to General reads saved quiet hours instead of the initial bootstrap snapshot",
+          "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+        ]
+      },
+      "macos": {
+        "artifactId": 11305462083,
+        "attempt": 2,
+        "sourceHead": "e0eeceb71b6f79b99f54d5d0759c39c60fbcc8f6",
+        "sourceDirty": false,
+        "ok": true,
+        "pageErrors": [],
+        "finishedAt": "2026-10-04T14:00:51.635Z",
+        "accessibility": [
+          "focusable list: Home/End, arrows, Enter open the selected bot",
+          "Space opens the selected bot without scrolling the page",
+          "bot models and declared reasoning strength save and survive reopen; cascading switch and inherit preserve other roles, bots and global routing",
+          "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+          "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+          "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+          "oversize input is rejected before submission and the editable draft is retained",
+          "10000 memory records render 50 at a time; next and previous retain distinct identities",
+          "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+          "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+          "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+          "returning to General reads saved quiet hours instead of the initial bootstrap snapshot",
+          "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+        ]
+      }
+    }
   }
 }
