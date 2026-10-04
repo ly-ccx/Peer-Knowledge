@@ -421,3 +421,25 @@ Frost 的视觉母题是「清晨冰面上的工具集」：冷玻璃外壳、�
 i18n build、Desktop typecheck、architecture:check、7 项现有设置/下拉/时间字段测试及脚本语法检查通过。桌面完整回归 5337 通过，5 项既有跳过；该完整回归在回显补修之前执行，回显新增场景由最新两平台窗口验收检查。最终 `ac269215` 的 [CI 37204596237](https://github.com/ly-ccx/Peer-Agent/actions/runs/37204596237) 在 macOS / Linux 均通过 build、typecheck、architecture、完整测试和窗口验收；两平台窗口报告均为 ok=true、pageErrors=[]。新增回归确认切换分区后读取当前已保存的安静时段。CI 实际检出 GitHub PR 合成合并提交 `24223ab2`，其父提交包含当前代码 HEAD `ac269215`，两份报告记录该检出 SHA。
 
 最终浅色、菜单和深色大字号截图来自 `ac269215` 的干净源码重建；英文保存后返回截图来自 `802163db`。原生 Demo 继续带此前对话 Frost 提案 overlay 和受控模型渠道，通用页没有额外样式 overlay。源码、窗口测量与各截图来源见[本轮记录](../../playbook/v0.1.0/evidence/general-settings-native-20261004.json)。安装包尚未发布，原安装应用未被替换；此记录不证明 760 px 以下规则、全部设置分区、全部读屏/主题组合、真实模型或正式版整体 Ready。
+
+### 选择入口的轻量修订
+
+负责人继续指出“机器人列表”的常驻框显得粗糙。本轮在相同原生窗口重新捕获该设置行：旧控件的底色、描边和长空白让简单选值像一个待填写的输入框。修订保留右列和实际点击区域，默认以右对齐选值及相距 8 px 的 SVG 箭头呈现；取消常驻底色、描边和阴影。悬停/展开时使用中性浅底与细边界，键盘聚焦时保留 2 px 清晰轮廓。时间组合字段维持其 HH:mm 编辑语义。
+
+1. **默认入口：已复查。** 同尺寸前后比较，四个主选值均融入设置行；实际点击区仍为 208×36 px。浅色/深色的 SVG 箭头对比度约 6.13:1 / 8.34:1，选值文字约 16.32:1 / 16.26:1，深色大字号无根节点横向溢出。
+2. **悬停与展开：已复查。** 悬停出现轻边界；展开后菜单保持 208 px 宽，与触发区域对齐，已选项可见。界面菜单包含机器人列表和经典界面；不因文字入口变轻而缩成难点选的小菜单。
+3. **键盘与保存：已复查。** Enter 打开，Escape 关闭并返回原按钮；Tab 定位主动性，方向键与 Enter 将标准改为少，菜单收起、页面显示少、已有配置实际保存 low。之后通过鼠标恢复标准。聚焦截图使用完整窗口，避免截断轮廓。
+
+![本轮修改前：常驻长框](assets/peer-frost-demo/general-select-before.png)
+
+![本轮修改后：选值与箭头融入设置行](assets/peer-frost-demo/general-select-after.png)
+
+![悬停时的交互边界](assets/peer-frost-demo/general-select-hover.png)
+
+![展开的既有菜单](assets/peer-frost-demo/general-select-menu.png)
+
+![完整窗口的键盘焦点](assets/peer-frost-demo/general-select-focus.png)
+
+![深色大字号的轻量入口](assets/peer-frost-demo/general-select-dark-large.png)
+
+生产代码 `ec03318e914b3f3ad3240f25fcd61149e04679cf`，仅修改通用页四个主下拉的样式，不改变 Dropdown 的行为、运行时、IPC、权限或存储边界。原生 Demo 来自该提交的干净源码，修改前截图为 `ac269215`。本机 Desktop typecheck、architecture:check、7 项已有设置/下拉/时间测试、隔离原生构建及 diff 检查通过；本轮 [CI 37206608460](https://github.com/ly-ccx/Peer-Agent/actions/runs/37206608460) 首次执行的 Linux 全部通过；Mac 构建/类型/架构/完整测试通过，窗口验收在机器人设置开关的主题颜色等待中超过 5 秒，尚未进入通用下拉检查，pageErrors=[]。已请求重跑失败的 Mac 任务，结果待核；不把首次失败抹去，也不把前一轮 CI 的成功作为本提交的通过证据。详情见[本轮选择入口记录](../../playbook/v0.1.0/evidence/general-select-native-20261004.json)。未验证 760 px 以下布局、全部语言/字号组合或完整读屏流程；原安装应用及已发布 RC5 不包含该修订。
