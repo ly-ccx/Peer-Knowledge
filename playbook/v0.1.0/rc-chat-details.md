@@ -22,3 +22,9 @@
 ## 实施记录
 
 代码 PR [#119](https://github.com/ly-ccx/Peer-Agent/pull/119)，代码 de7220eb。先行回归、受影响包完整测试、构建/类型/architecture、真实源码窗口通过，详见 `rc-chat-details-validation.md` 与对应机器报告。两平台 CI 执行中；合入后补合并提交。不发布版本。
+
+## CI 阻断补充边界
+
+Mac CI 37168654965 在已有 goal-plan-store 半行 journal 订阅测试中失败，单文件重试仍失败；Linux 完整通过。本机相同文件曾通过，不能忽略 CI 的持续失败。沿负责人“直接自己推进全部”的授权补齐必要门禁修复：允许 `packages/runtime-node/src/goal-plan-store.mjs` 与已有 desktop/electron/main/goal-plan-store.test.mjs，B 级仅修复已有订阅适配器在文件通知丢失/合并时的最终送达，追加有界读尾兜底并正确取消。不修改存储格式、订阅 API、任务契约、权限或 Evidence；无 ADR 边界移动。此项不得通过延长测试超时或重复 rerun 掩盖。
+
+补充修复 0f321d01：确定性遗漏通知测试先失败；同一读尾 drain 添加 250ms unref 兜底，取消订阅停止 watcher/timer。计划存储 143、desktop 5325（另 5 条件跳过）、runtime-node 1027、typecheck/architecture/IPC 通过。最终 CI 37169201065 执行中。

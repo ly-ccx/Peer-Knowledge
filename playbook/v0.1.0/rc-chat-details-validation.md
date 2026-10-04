@@ -43,12 +43,13 @@ node scripts/rc-response-interaction-smoke.mjs --accessibility --output /tmp/pee
 
 ## 本轮结果
 
-代码 PR [#119](https://github.com/ly-ccx/Peer-Agent/pull/119)，最终代码 `de7220eb066b429109dd05a1efc66cc65ffd13b3`。报告：`evidence/rc-chat-details-20261004.json`。
+代码 PR [#119](https://github.com/ly-ccx/Peer-Agent/pull/119)，对话代码 `de7220eb066b429109dd05a1efc66cc65ffd13b3`，含 journal 通知补充修复的最终代码 `0f321d015c232d32d2a123184addf08d4128d2a6`。报告：`evidence/rc-chat-details-20261004.json`。
 
 - 回归先证明精确过程关联、选择归属、旧手输答案解决状态失败，再完成修复；最终 30 个宿主定向投影测试通过。
 - desktop build、全仓 typecheck、architecture/IPC 与 diff check 通过。
-- runtime-node 1027 通过；desktop 5324 通过、5 个原有条件跳过；独立 i18n 完整性通过。
+- runtime-node 1027 通过；desktop 5325 通过、5 个原有条件跳过；独立 i18n 完整性通过。
 - 最终原生工作树内容随后提交为 de7220eb：4 组本卡交互、7 组流式、5 组回复、12 组无障碍与既有更新/分页检查通过；0 pageerror、0 IPC 越权。截图已经目视检查；过程状态和关闭按钮在抽屉展开结束后完整可见。
-- 两平台 CI 正在执行 [37168654965](https://github.com/ly-ccx/Peer-Agent/actions/runs/37168654965)，完成后记录。CI 的标准原生壳检查不带 streaming 参数；本卡完整交互由上述本机隔离原生运行验证。
+- 首轮 CI [37168654965](https://github.com/ly-ccx/Peer-Agent/actions/runs/37168654965)：Linux 全部通过；Mac 已有 journal 半行订阅测试在全量与单文件重试均超时。补充确定性丢失通知测试先失败，既有订阅增加同一增量 drain 的 250ms unref 兜底，unsubscribe 取消两者；未调整测试超时。计划存储完整 143 项通过。最终 0f321d01 已重新通过本机 desktop/runtime-node 完整测试、typecheck、architecture/IPC，正在执行两平台 CI [37169201065](https://github.com/ly-ccx/Peer-Agent/actions/runs/37169201065)。
+- CI 的标准原生壳检查不带 streaming 参数；本卡完整交互由上述本机隔离原生运行验证。
 
 安装包评测仍由负责人执行；当前签名 RC5 不含本卡，整体 GA Ready 和既有复杂命令 Evidence 缺口没有在本卡关闭。
