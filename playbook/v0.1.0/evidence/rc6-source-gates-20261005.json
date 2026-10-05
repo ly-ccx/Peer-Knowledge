@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-05",
+  "candidate": "0.1.0-rc.6",
+  "finalSource": "2b3864d653b5494effed241b9dc88da35ab6a6f8",
+  "fullRegressionSource": "8ebd24108df04a92ab61b04d0729d86fa3a3ce5f",
+  "desktop": {
+    "tests": 5342,
+    "pass": 5337,
+    "skip": 5,
+    "fail": 0,
+    "cancelled": 0
+  },
+  "upgradeRows": 24,
+  "commands": [
+    "pnpm build",
+    "pnpm typecheck",
+    "pnpm architecture:check",
+    "pnpm test",
+    "pnpm release:readiness-check",
+    "RELEASE_TAG=v0.1.0-rc.6 pnpm release:source-check",
+    "pnpm --filter @peer-agent/desktop smoke:bots --accessibility --diagnostics"
+  ],
+  "result": "passed",
+  "finalChangeNote": "After full regression, final changes only adjust answer-choice CSS and footer geometry assertions; rebuilt desktop and ran clean-source Electron window checks. Final CI repeats all gates.",
+  "firstFailures": [
+    {
+      "phase": "candidate full regression",
+      "reason": "Changelog regression assertion still bound to RC5",
+      "resolution": "Bind expectations to RC6, then repeat full workspace test successfully."
+    },
+    {
+      "run": 37261560629,
+      "phase": "Mac/Linux Electron window",
+      "reason": "Full-width footer divisor changed coordinate origin; old test compared version to outer edge instead of padded content edge.",
+      "resolution": "Measure computed content edge and add full-width divider assertion without removing existing visibility/nonoverlap checks."
+    }
+  ],
+  "localLogHashes": {
+    "peer-rc6-final-build.log": "5f4b2de3fdde2cbf0a2ace2e08b3b18726ac3a0217bb70f5e40872c6e477b2f7",
+    "peer-rc6-typecheck.log": "a756b5113a2d598ba85a6516d3a25fb20c4365f769be6dac066a41b46c902006",
+    "peer-rc6-verified-test.log": "c3a650f799cbcb1026c4838d527a9de310553cb04358cd2ba21d7d34211d1169",
+    "peer-rc6-options-build.log": "b11d40077d2cb43d42dbd237e9d0790d972ac899392fdcca07b4c71b09f18479",
+    "peer-rc6-options-architecture.log": "a02c9fbdea5667c158c95560740e34f7e3e7403ba71fa8dd84b30f33654bb271",
+    "peer-rc6-final-clean-bot-shell.log": "4d15b65d0afa29e9d3f7f1e7a9c37e232cef4118deb128d3beb619d106bd6e16"
+  }
+}

@@ -126,3 +126,8 @@ Demo 展示的是这一结构的部件与密度；新增机器人、第二机器
 ![生产对话与机器人详情](assets/peer-frost-production/28-chat-drawer-production-final-1x.jpg)
 
 代码已推送，当前 PR 仍未合并，未发布新 RC；现有 RC5 不包含这些待合入变化。正式版仍等待既有自测门槛、负责人全面评测和明确批准。
+
+
+## RC6 灰底与曲线落地（2026-10-05）
+
+负责人批准连续曲线与灰底方案，并要求测试发布RC6。当前正式组件的共同表面、状态、消息与模型细节及截图见[本轮QA](peer-frost-radius-rc6-design-qa.md)；旧PR121记录作为历史保留，最新发布绑定见[RC6交接](../../playbook/v0.1.0/rc6-candidate.md)。

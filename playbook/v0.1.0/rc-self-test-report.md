@@ -1,8 +1,16 @@
 # 0.1.0 RC 开发者自测报告
 
-最后更新：2026-10-04。状态：RC5已交付负责人评测，尚未宣布全部Ready。
+最后更新：2026-10-05。状态：RC6候选交付，尚未宣布全部Ready。
 
-## 当前交付：RC5已发布（2026-10-04）
+## 当前交付：RC6
+
+[RC6范围与精确发布绑定](rc6-candidate.md)、[正式组件设计QA](../../design/product/peer-frost-radius-rc6-design-qa.md)、[完整测试手册](acceptance-test-guide.md)。本机完整build/typecheck/architecture/test通过，5342桌面测试中5337通过、5项既有跳过；24行升级矩阵通过。原生受控Provider实测同条增量回复、实际停止保留正文/未完成/草稿、自由输入收起选项/需要你计数和配置重开；不同环境与未执行项目保持清楚范围。
+
+首轮RC6测试在changelog固定RC5断言处失败，修正为RC6后完整回归成功。首轮两平台窗口在底栏旧对齐假设处失败，按新的全宽分隔线与内边缘语义修正，保留72种状态/窄栏检查。正式表面共用灰底/分级连续曲线；发现的档案/头像动作及选择题旧描边已统一并复验。完整CI、实际签名包、真实更新与npm注册表核对记录在交接。
+
+**总体仍未Ready。** 命令描述Evidence快照的复杂写任务阻塞、真实云渠道质量/网络、跨应用拖放与大附件、全部读屏、Windows/Linux交互安装、实体手机/生产远程、完整真实CLI/PTY和7天日用不是本轮受控原生通过。GA仍待开发者收口、负责人全面测试/日用和明确批准。
+
+## 历史交付：RC5已发布（2026-10-04）
 
 不可变候选**0.1.0-rc.5**、commit`64d20d3409fe406c3cae4044acff9f8b5a7fe45e`、tree`a57b0fb1bcffc0c2d19764bc0fd1788099d45c6d`。[发布页](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.5)。PR117按授权合入，source/CI合成merge/实际merge同tree；CI37135649368 attempt1 Mac/Linux全成功。完整本机build/typecheck/architecture/test、AST/readiness/source-check通过，桌面5320项中5315pass、原5skip，无首次失败/取消；23项受控升级保留六个真实旧tag来源。源码与两平台实际窗口均9壳/12可访问性/7诊断/5回复、72更新布局、36回执通过，模型保存/重开/切换/继承及角色/其他Bot/全局隔离通过。原性能预算保持。[源码门禁](evidence/rc5-source-gates-20261004.json)、[源码窗口](evidence/rc5-source-window-passed-20261004.json)、[升级矩阵](evidence/rc5-upgrade-matrix-passed-20261004.json)、[CI与最终发布绑定](evidence/rc5-candidate-ci-binding-20261004.json)。
 
