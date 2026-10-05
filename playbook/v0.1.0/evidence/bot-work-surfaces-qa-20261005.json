@@ -205,7 +205,9 @@
       "passed": 5344,
       "skipped": 5,
       "failed": 0,
-      "testedSourceCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2"
+      "testedSourceCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
+      "ciHeadCommit": "b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3",
+      "ciFullTestGate": "success"
     },
     "focused": {
       "passed": 9,
@@ -255,7 +257,7 @@
     }
   ],
   "ci": {
-    "status": "pending",
+    "status": "success",
     "runId": 37305218500,
     "headSha": "b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3",
     "previous": {
@@ -281,6 +283,139 @@
       "correctionCommit": "b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3",
       "regression": "Memory curator and objective probe cannot emit interactive stream events or consume the first interactive failure."
     },
-    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500"
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500",
+    "checkedOutCommit": "81aca2723569b75fd68ccdb09d7d62806e2bd03f",
+    "checkedOutTree": "f0bf8f2a8fb46873b322865fa61dd700673e8c13",
+    "testedTreeMatchesSource": true,
+    "jobs": [
+      {
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "startedAt": "2026-10-05T11:47:43Z",
+        "completedAt": "2026-10-05T11:57:10Z"
+      },
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "startedAt": "2026-10-05T11:47:39Z",
+        "completedAt": "2026-10-05T11:54:51Z"
+      }
+    ],
+    "platforms": [
+      {
+        "platform": "darwin",
+        "ok": true,
+        "startedAt": "2026-10-05T11:52:31.354Z",
+        "finishedAt": "2026-10-05T11:56:53.082Z",
+        "sourceHead": "81aca2723569b75fd68ccdb09d7d62806e2bd03f",
+        "sourceDirty": false,
+        "fixtureRoleIsolation": true,
+        "readingPosition": {
+          "before": 5311,
+          "after": 5311,
+          "eventDeliveryDelayed": true
+        },
+        "streamingInteraction": [
+          "receipt below user body; anchored waiting state and SVG stop control",
+          "real delta visible while controlled provider remains pending, before canonical reply",
+          "switching bots hides the other stream and restores the active snapshot",
+          "running tool scans over actual target; keyboard opens step and parameters before result; reduced motion remains readable",
+          "root post_reply text streams; actual result expands after arrival; hidden reasoning and credentials stay redacted; history holds",
+          "delegated work retains its expanded progress when the streamed reply becomes canonical",
+          "completion preserves expanded process, step and parameters without continuing animation",
+          "completion replaces preview once, preserves Markdown and follows latest",
+          "next turn hands completed process to persisted history with disclosure and bounded redacted details preserved",
+          "stop preserves incomplete text, stopped running tool, exact-turn process and draft; explicit retry creates one new reply",
+          "failure retracts unaccepted preview and offers explicit retry without duplicate replies"
+        ],
+        "workSurfaces": [
+          "named running work scans visibly and expands by keyboard to its actual progress",
+          "main-side notifications update running to waiting, accepted and unavailable; old reply snapshots never revive running",
+          "evidence has its own detail view; returning shows bot identity and responsibility, with no execution log",
+          "memory starts with saved content, keeps settings and provenance on demand and contains no process view",
+          "process is isolated from profile tabs and returns to the previous memory tab",
+          "classified reply and delegated work fit a 760px viewport in both themes"
+        ],
+        "effortStability": {
+          "settings": {
+            "delayMs": 650,
+            "successFrames": 20,
+            "failureFrames": 20,
+            "successHeld": true,
+            "failureHeldThenRolledBack": true,
+            "stableTriggerAndPanel": true,
+            "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+          },
+          "composer": {
+            "delayMs": 650,
+            "successFrames": 16,
+            "failureFrames": 21,
+            "successHeld": true,
+            "failureHeldThenRolledBack": true,
+            "stableTriggerAndPanel": true,
+            "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+          }
+        },
+        "pageErrors": [],
+        "mainAuthorizationErrors": []
+      },
+      {
+        "platform": "linux",
+        "ok": true,
+        "startedAt": "2026-10-05T11:51:48.836Z",
+        "finishedAt": "2026-10-05T11:54:41.654Z",
+        "sourceHead": "81aca2723569b75fd68ccdb09d7d62806e2bd03f",
+        "sourceDirty": false,
+        "fixtureRoleIsolation": true,
+        "readingPosition": {
+          "before": 5337,
+          "after": 5337,
+          "eventDeliveryDelayed": true
+        },
+        "streamingInteraction": [
+          "receipt below user body; anchored waiting state and SVG stop control",
+          "real delta visible while controlled provider remains pending, before canonical reply",
+          "switching bots hides the other stream and restores the active snapshot",
+          "running tool scans over actual target; keyboard opens step and parameters before result; reduced motion remains readable",
+          "root post_reply text streams; actual result expands after arrival; hidden reasoning and credentials stay redacted; history holds",
+          "delegated work retains its expanded progress when the streamed reply becomes canonical",
+          "completion preserves expanded process, step and parameters without continuing animation",
+          "completion replaces preview once, preserves Markdown and follows latest",
+          "next turn hands completed process to persisted history with disclosure and bounded redacted details preserved",
+          "stop preserves incomplete text, stopped running tool, exact-turn process and draft; explicit retry creates one new reply",
+          "failure retracts unaccepted preview and offers explicit retry without duplicate replies"
+        ],
+        "workSurfaces": [
+          "named running work scans visibly and expands by keyboard to its actual progress",
+          "main-side notifications update running to waiting, accepted and unavailable; old reply snapshots never revive running",
+          "evidence has its own detail view; returning shows bot identity and responsibility, with no execution log",
+          "memory starts with saved content, keeps settings and provenance on demand and contains no process view",
+          "process is isolated from profile tabs and returns to the previous memory tab",
+          "classified reply and delegated work fit a 760px viewport in both themes"
+        ],
+        "effortStability": {
+          "settings": {
+            "delayMs": 650,
+            "successFrames": 20,
+            "failureFrames": 17,
+            "successHeld": true,
+            "failureHeldThenRolledBack": true,
+            "stableTriggerAndPanel": true,
+            "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+          },
+          "composer": {
+            "delayMs": 650,
+            "successFrames": 24,
+            "failureFrames": 22,
+            "successHeld": true,
+            "failureHeldThenRolledBack": true,
+            "stableTriggerAndPanel": true,
+            "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+          }
+        },
+        "pageErrors": [],
+        "mainAuthorizationErrors": []
+      }
+    ]
   }
 }

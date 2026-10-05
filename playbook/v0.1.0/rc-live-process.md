@@ -2,11 +2,11 @@
 
 创建时间：2026-10-05
 最后更新：2026-10-05
-状态：InProgress（两批本机交互验收已通过；追加提交待双平台 CI）
+状态：ReadyForOwner（最终源码、本机与 Mac/Linux CI 全部通过；待负责人合并）
 分支：PeerAgent/pa/rc-live-process
 源码提交：b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3（夹具角色隔离）；621cab19e2af67ad5386f8cfdd6b388a43d491c2（阅读位置修复）；bcd154232e86e0576a7b20aab099f7cb6a3a9c20（追加）；第一批 d943be3aeae89fb6826bcf8e301a3c4e34d910b8
 源码 PR：https://github.com/ly-ccx/Peer-Agent/pull/122
-CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37292590731（双平台通过）
+CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500（最终双平台通过）；第一批 37292590731
 派单来源：负责人 RC6 实测截图与交互修复要求。
 
 ## 范围
@@ -100,4 +100,6 @@ CI 37302055812 的 Linux 全部通过，Mac 在子任务展开后的流式历史
 
 CI 37303838740 的 Linux 全部通过，Mac 的延迟 scroll 回归通过（5311 → 5311），随后首次失败场景错误地生成正式回复。流式夹具把所有认知角色按最后一条用户文本共用 attempts；后台记忆整理/目标探查也可能读取同样的对话。将交互场景只限定 project_agent，补启动前的后台角色不发流式事件、不占用首轮失败计数的确定性断言。仅修改同卡允许的两个验收脚本，不改产品 Runtime。
 
-夹具修正提交 `b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3`；正式 Electron 11 项流式、6 项信息归属和新增角色隔离断言通过。最终源码 26 个追加文件 blob 与截图身份重新核对，最终 CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500（待完成）。
+夹具修正提交 `b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3`；正式 Electron 11 项流式、6 项信息归属和新增角色隔离断言通过。最终源码 26 个追加文件 blob 与截图身份重新核对，最终 CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500（双平台通过）。
+
+最终 Mac/Linux CI 全部通过，测试合并提交 `81aca2723569b75fd68ccdb09d7d62806e2bd03f` 的文件树与源码 b8d280d9 一致。两平台 11 项流式、6 项信息归属、650ms 档位与角色隔离回归通过。按实施手册交付原 PR，等待负责人合并；不在本卡发布新版本。

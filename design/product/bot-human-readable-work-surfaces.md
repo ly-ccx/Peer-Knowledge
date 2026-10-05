@@ -73,4 +73,6 @@
 
 ## 交付状态
 
-本机验收通过。首次追加 CI [37302055812](https://github.com/ly-ccx/Peer-Agent/actions/runs/37302055812) 的 Linux 通过，Mac 暴露阅读位置竞态；已补确定性回归并修复，第二次 CI [37303838740](https://github.com/ly-ccx/Peer-Agent/actions/runs/37303838740) 阅读位置通过、Linux 全部通过；Mac 后续首次失败夹具计数受后台认知影响。已限定交互角色并补隔离断言，本机正式 Electron 全项再次通过，最终 CI [37305218500](https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500) 待完成。仍交付原开发线 PR，本次未发布新版本或替换已安装应用。
+本机验收通过。首次追加 CI [37302055812](https://github.com/ly-ccx/Peer-Agent/actions/runs/37302055812) 的 Linux 通过，Mac 暴露阅读位置竞态；已补确定性回归并修复，第二次 CI [37303838740](https://github.com/ly-ccx/Peer-Agent/actions/runs/37303838740) 阅读位置通过、Linux 全部通过；Mac 后续首次失败夹具计数受后台认知影响。已限定交互角色并补隔离断言，本机正式 Electron 全项再次通过，最终 CI [37305218500](https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500) 的 Mac/Linux 构建、类型、架构、完整测试与窗口回归全部通过。测试 merge commit `81aca2723569b75fd68ccdb09d7d62806e2bd03f` 的文件树与最终源码一致。仍交付原开发线 PR，本次未发布新版本或替换已安装应用。
+
+最终 CI 的延迟 scroll 回归：Mac 5311 → 5311，Linux 5337 → 5337；两平台均通过 11 项流式与 6 项信息归属检查，角色隔离断言通过，无页面异常或主进程授权错误。
