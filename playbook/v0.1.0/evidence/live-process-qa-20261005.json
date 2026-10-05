@@ -1,0 +1,117 @@
+{
+  "schema": "peer.live-process-qa.v1",
+  "date": "2026-10-05",
+  "baseHead": "f0b9b14eb7cc410e8f2ce9ec51e8f755b269093a",
+  "workingTree": true,
+  "sourceFileDigests": {
+    ".github/workflows/ci.yml": "6d148110dde67802b6ec1417ddaaca2ad8e98b54c4d9014d65b8f2faace918b5",
+    "apps/desktop/renderer/src/chat/components/thread/ReasoningEffortSlider.tsx": "57fbeebee1caccbb6a70c874c3d105e428287029bb5e2449bbe9bb8908e77d3f",
+    "apps/desktop/renderer/src/chat/styles/chat-surface.css": "477baffada99d2e27f2a67de84d35c634aac098275105ab45abbe77b06bf3212",
+    "apps/desktop/renderer/src/project-agent/BotModelControls.tsx": "121d8fee9191d65c84aa4a1b637b5bb2b48084c86c104ea4ed26bc3109c481ae",
+    "apps/desktop/renderer/src/project-agent/conversation/BotConversation.tsx": "f6751c3caecb8291539b85975a42cbdb8d5ec67ff45019a5ed758d352e9a0f41",
+    "apps/desktop/renderer/src/project-agent/conversation/BotMessageList.tsx": "40d605fadae535d5b41078b5f47e9846ea5047ddd7702f6431e3af44f1a4e84b",
+    "apps/desktop/renderer/src/project-agent/conversation/BotProcess.tsx": "8bdf2769b7634d4f4bd05413f7248bcc1644078a55f2254c12dc199351481a95",
+    "apps/desktop/renderer/src/project-agent/conversation/LiveReply.tsx": "a233172f3af7a69ce867c6c663bb4a5b8e43e811a8aaad7f2b558c5f0b7d7c7a",
+    "apps/desktop/renderer/src/project-agent/conversation/ReplyBubble.tsx": "511521f0bdd1048a5f4f9127e50fba7f33ce26cf5e0531e4be39a12754bfaa49",
+    "apps/desktop/renderer/src/project-agent/drawer/AgentProcessView.tsx": "3426ba88f5005a0918b2798c239acc70b1a00dbacd067276347c99ef0e3bee63",
+    "apps/desktop/renderer/src/project-agent/drawer/BotPolicyFields.tsx": "d7637ce3ba944cbfbddd9af977cc5268a16ba8e45e78ae10e90bf8b503dd93f1",
+    "apps/desktop/renderer/src/project-agent/drawer/BotSettingsTab.tsx": "f8a1783b8d6ab89a4854e79461b2a0a0beb371d6bd27073a4c4fb359ce9bc50d",
+    "apps/desktop/renderer/src/project-agent/drawer/agentProcess.test.ts": "904b6b9c056ef8e61886b882285be006b954721a19861447e6eeb169f4b84bbc",
+    "apps/desktop/renderer/src/project-agent/drawer/agentProcess.ts": "442fcf7c5c4db60c1d9ea58c45a79559ed3a6a922fe3f17a9b02441973909c49",
+    "apps/desktop/renderer/src/project-agent/state/botActivityState.test.ts": "cd1cf1af4c11c23e62d125e2acb1f0a3eaca58cc5f0cc6d332ab8050aa0ec83d",
+    "apps/desktop/renderer/src/project-agent/state/botActivityState.ts": "e99ef8f004bcbebe9a1d965ff8b48a0f564a5b03f99b9fa2ef64b3f963c31fbc",
+    "apps/desktop/renderer/src/project-agent/state/botConversationState.ts": "a27b22cd7fe325b7491f8f3ebb7a6e4e99190f627957995c4ec20d4f20c13bf7",
+    "apps/desktop/renderer/src/project-agent/state/useBotConversation.ts": "86c5c9a4271c62340e17ac1f94fcddef6e711f1561fd028b8f478ae9752f88fb",
+    "apps/desktop/renderer/src/project-agent/styles/bot-model-controls.css": "c16ca8cf4474617ca6f765206ef0658ef73ce1cad2ca0c554129f333f7797fcd",
+    "apps/desktop/renderer/src/project-agent/styles/bot-process.css": "a0c4a97b9f001d669acf7827e1de94566d7c57d0684586a2b6cfcbf6497a7324",
+    "apps/desktop/scripts/bot-effort-stability-checks.mjs": "c1e1d45fa56cec14aa17813b847453f003e370718a08bf7ca22ec372e57420eb",
+    "apps/desktop/scripts/bot-shell-accessibility-checks.mjs": "258938a200b41b368d5646d0ae238b3c4ceadcaaad733a518690c06a73497d3d",
+    "apps/desktop/scripts/bot-shell-electron-smoke.mjs": "6d0ba2b42fe736e05fe8ffe3ccef13ba967c2198584a736638447b43fcb58d24",
+    "packages/i18n/src/index.ts": "4b03aa4b4d016d5973319a59800c153ebbfaf4d1398466095c02a987dfc6d4f4",
+    "packages/protocol/src/index.ts": "fdec03a675531bab74b098e6ccea6e08a384763deb44043c6deacf91f599f164",
+    "packages/protocol/src/project.ts": "017b6ab43e96d6d9a9a8b6381331f0e42a2a98c71e3ff47ff4e7f4f217258919",
+    "packages/protocol/src/tool-activity-preview.ts": "17eaafbb014007ef729fa251bbb4d1dfbafc6aa8de98d0f0aee40e5bb8a550c7",
+    "packages/runtime-node/src/project-agent/runner.mjs": "87443bdcaef8aa1525e10278557212dc5be6d9c90e8ac369af14d4791cb6332a",
+    "packages/runtime-node/src/project-agent/turn-activity.mjs": "035e4260a5efd1fec446786ae6c4ce44c42b49d06f6c8606c11bb3092285f01c",
+    "packages/runtime-node/src/project-agent/turn-activity.test.mjs": "f65bb65de84211e571446703bec233e93ce14bdc233b4b8056b4ae905828e732",
+    "scripts/rc-response-interaction-smoke.mjs": "2232201de3306052d6b60c6583a34c0bb5e3eabfbe0ffaae51fc563145633ab6"
+  },
+  "ok": true,
+  "platform": "darwin",
+  "syntheticCognition": true,
+  "scope": "Production Electron main, preload, renderer, IPC and durable profiles; controlled cognition events and save latency/failure. This does not verify actual file capability execution or live model response timing.",
+  "startedAt": "2026-10-05T09:46:11.345Z",
+  "finishedAt": "2026-10-05T09:47:25.686Z",
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 2807
+  },
+  "streamingInteraction": [
+    "receipt below user body; anchored waiting state and SVG stop control",
+    "real delta visible while controlled provider remains pending, before canonical reply",
+    "switching bots hides the other stream and restores the active snapshot",
+    "running tool scans over actual target; keyboard opens step and parameters before result; reduced motion remains readable",
+    "root post_reply text streams; actual result expands after arrival; hidden reasoning and credentials stay redacted; history holds",
+    "completion preserves expanded process, step and parameters without continuing animation",
+    "completion replaces preview once, preserves Markdown and follows latest",
+    "next turn hands completed process to persisted history with disclosure and bounded redacted details preserved",
+    "stop preserves incomplete text, stopped running tool, exact-turn process and draft; explicit retry creates one new reply",
+    "failure retracts unaccepted preview and offers explicit retry without duplicate replies"
+  ],
+  "effortStability": {
+    "settings": {
+      "delayMs": 650,
+      "successFrames": 51,
+      "failureFrames": 51,
+      "successHeld": true,
+      "failureHeldThenRolledBack": true,
+      "stableTriggerAndPanel": true,
+      "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+    },
+    "composer": {
+      "delayMs": 650,
+      "successFrames": 52,
+      "failureFrames": 52,
+      "successHeld": true,
+      "failureHeldThenRolledBack": true,
+      "stableTriggerAndPanel": true,
+      "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+    }
+  },
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "build": true,
+  "workspaceTypecheck": true,
+  "architectureCheck": true,
+  "runtimeTests": {
+    "tests": 1042,
+    "pass": 1042,
+    "fail": 0
+  },
+  "protocolTests": {
+    "tests": 229,
+    "pass": 229,
+    "fail": 0
+  },
+  "desktopTests": {
+    "tests": 5344,
+    "pass": 5339,
+    "fail": 0,
+    "skipped": 5
+  },
+  "screenshots": {
+    "stream-tool-running-expanded.png": "2e82bbc9bf7c3d3dbb80aa4f6b1159b9c4803eaa5ad72168729a7f2182de9c80",
+    "stream-tool-and-draft.png": "2baaa1836b21bfe696acac89c0b496c1b97549bafefecb803dce66509402535b",
+    "stream-complete.png": "768e96fea2dc25c122cdf9e1130dbaefd28427c9ff953e7c3789a786a70ff7fe",
+    "stream-stopped.png": "08ed0a241460b4d186f02aafcd29763e1b76fec595aed1863ce67ce51e26c2ef",
+    "stream-waiting.png": "a79e1541d69a4c652621e2567008ff95db5ac1ce6618d885f81ca1544fff35bc",
+    "effort-settings-save-rollback.png": "770c3abd9e7f6145b6a6408157cbe4ccac4c21f8ba25fc8bc0cc2ecb0752c1ab",
+    "effort-composer-save-rollback.png": "a654d34eee0ef2415c6653e590da1e0169e3ce1f91c1d4af0179fe553fbba5bd",
+    "stream-expanded-narrow-dark.png": "f69f31bd1a3d074ecea1b7c342d2dfd441d161025109081bb9669ff451df7924",
+    "stream-expanded-narrow-light.png": "f41bbbecb6453a838374a10bba43c7bfc1b7ba2760fedd46745ea6fdca50638a"
+  }
+}
