@@ -2,7 +2,7 @@
 
 创建时间：2026-10-05
 最后更新：2026-10-05
-状态：本机验证通过，开发线 CI 待提交后运行。
+状态：本机与 macOS/Linux 开发线 CI 均通过；待负责人合并。
 关联：[工作卡](../../playbook/v0.1.0/rc-live-process.md)、[ADR 87](../../knowledge/decisions/87-user-turn-live-process-presentation.md)。
 
 ## 交互结论
@@ -39,7 +39,11 @@ Electron 使用正式主进程、preload、renderer、IPC 和持久配置。认�
 - runtime-node：1,042 / 1,042 通过；protocol：229 / 229 通过；desktop：5,344 项，5,339 通过，5 项既有跳过；i18n 命名空间检查通过。
 - Electron：进行中扫光位置变化、键盘逐层展开、reduced-motion 无移动且可读、深浅主题 760px 窗口无横向溢出、流式正文及历史阅读位置、完成/下一回合交接、停止/失败与重试，均通过。
 - 设置栏和输入栏分别覆盖 650ms 延迟保存、失败回退、每帧按钮/弹层几何采样，以及保存期间 Escape 返回焦点。帧数与截图哈希见 [机器报告](../../playbook/v0.1.0/evidence/live-process-qa-20261005.json)。
-- CI 增加 macOS / Linux 的 streaming 与 effort-stability 检查。最终结果以对应源码 PR 的检查为准。
+- CI 增加 macOS / Linux 的 streaming 与 effort-stability 检查。[CI 37292590731](https://github.com/ly-ccx/Peer-Agent/actions/runs/37292590731) 的双平台构建、类型、架构、全量测试与实际窗口交互回归全部通过。
+
+## 源码身份
+
+源码 PR 为 [#122](https://github.com/ly-ccx/Peer-Agent/pull/122)，提交为 `d943be3aeae89fb6826bcf8e301a3c4e34d910b8`。CI 测试合成合并提交 `e77d22a2d571f8bf90a16e1238074a26636f96e8`，其树与源码提交均为 `9fe52ff3e186c8c1e3246ecf257d2f7d498b8eff`；本机源文件与截图 SHA-256 已在机器报告固定。
 
 ## 交付范围
 

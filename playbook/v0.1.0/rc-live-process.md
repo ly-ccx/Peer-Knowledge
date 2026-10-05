@@ -2,8 +2,11 @@
 
 创建时间：2026-10-05
 最后更新：2026-10-05
-状态：ReviewReady（本机通过，提交后等待开发线 CI）
+状态：ReviewReady（本机与 macOS/Linux CI 通过，待负责人合并）
 分支：PeerAgent/pa/rc-live-process
+源码提交：d943be3aeae89fb6826bcf8e301a3c4e34d910b8
+源码 PR：https://github.com/ly-ccx/Peer-Agent/pull/122
+CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37292590731（双平台通过）
 派单来源：负责人 RC6 实测截图与交互修复要求。
 
 ## 范围
