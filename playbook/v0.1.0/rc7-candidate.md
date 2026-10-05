@@ -74,4 +74,11 @@ Mac ZIP/DMG 与两 CLI 的 hash 已实际下载验证；Windows/Linux Desktop �
 
 ### 发布后的验收采样修正（C 级）
 
-为消除 Node→CDP 往返延迟与 650ms 受控失败窗口的竞态，允许只修改 `apps/desktop/scripts/bot-effort-stability-checks.mjs`，在实际 keyup 前于 renderer 中注册采样，随后收集本机帧；失败用例强制延迟 900ms 才从 Node 收集结果，确定性覆盖“回退后读取仍保留此前 pending 帧”的情况。保留原有至少 5 帧、每帧档位值、触发器/弹层各轴 <0.5px、错误提示与持久配置回退断言。该修正只影响验收脚本，产品 Runtime/协议/权限/Evidence/存储均不改变，发布 tag 与产物保持不可变。单独 PR 完成验证并合入开发线，结果随后记录。
+为消除 Node→CDP 往返延迟与 650ms 受控失败窗口的竞态，允许只修改 `apps/desktop/scripts/bot-effort-stability-checks.mjs`，在实际 keyup 前于 renderer 中注册采样，随后收集本机帧；失败用例强制延迟 900ms 才从 Node 收集结果，确定性覆盖“回退后读取仍保留此前 pending 帧”的情况。保留原有至少 5 帧、每帧档位值、触发器/弹层各轴 <0.5px、错误提示与持久配置回退断言。该修正只影响验收脚本，产品 Runtime/协议/权限/Evidence/存储均不改变，发布 tag 与产物保持不可变。单独 PR123 已完成精确验证并合入开发线，结果见下一节。
+
+
+### 验收采样修正已完成
+
+源码 [PR123](https://github.com/ly-ccx/Peer-Agent/pull/123)，提交 `6779bbe9141c2cd231e9966ee6f0785fda8d5418`，精确 [CI37312552880](https://github.com/ly-ccx/Peer-Agent/actions/runs/37312552880) Mac/Linux 构建、类型、架构、完整测试与原生窗口回归全部通过。两端原始窗口报告 sourceHead 均为合成合入 `19d231710adaa06d71eee656e6ff74a99cc9e162`，sourceDirty=false，11 项流式和 6 项信息归属通过，无页面或授权错误。设置/输入区均验证 650ms 失败窗口及 900ms 延迟收集，原档位保持、失败回退和 <0.5px 几何断言不变；Mac 成功18/21帧、失败16/19帧，Linux 成功15/17帧、失败18/21帧。阅读位置 Mac5311→5311，Linux5337→5337。[本机采样报告](evidence/rc7-effort-sampling-local-20261005.json)、[Mac 原始窗口](evidence/rc7-sampling-ci-macos-window-20261005.json)、[Linux 原始窗口](evidence/rc7-sampling-ci-linux-window-20261005.json)、[CI 工作流](evidence/rc7-sampling-ci-workflow-20261005.json)。
+
+PR123 于 2026-10-05T13:02:44Z 合入开发线 `7276b5e6f5f8b03fc47022cebaa303e163b1abc3`。源码、CI 合成合入与实际合入 tree 均为 `550098f78a8a5da609345f19c62ab600fe754f7a`；相对固定 RC7 标签只有允许的测试脚本变更，所有产品文件保持原字节。本机干净并同步远端，tag 仍指向 `4549f307ea43b249500d4425d9c14f1d1f1dd837`，没有重发或改写 RC7 产物。[精确绑定与范围](evidence/rc7-sampling-ci-merge-binding-20261005.json)。发布工作完成，独立 GA 门槛保持原状态。
