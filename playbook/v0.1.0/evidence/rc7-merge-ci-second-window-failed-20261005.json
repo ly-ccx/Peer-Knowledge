@@ -1,0 +1,5172 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "4549f307ea43b249500d4425d9c14f1d1f1dd837",
+  "sourceDirty": false,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-05T12:42:58.037Z",
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "pageErrors": [],
+  "receiptSamples": [
+    217.09999999997672,
+    140.40000000002328,
+    99.29999999993015,
+    108.40000000002328,
+    100.30000000004657
+  ],
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "fixtureRoleIsolation": true,
+  "windowReadyMs": 4806,
+  "initialWindowState": {
+    "hidden": false,
+    "focused": true
+  },
+  "updater": [
+    "SVG settings entry and right-aligned update metadata form a compact footer without a fake account avatar",
+    "settings replaces the identity placeholder; all four SVG menu items support arrows, Home/End, Escape focus return and Tab to version",
+    "current version aligns with settings in one row; update channel is absent from the footer",
+    "version button opens the existing update modal and Escape closes it",
+    "Updates & about retains its SVG channel selector, keyboard focus and all three persisted preferences through production IPC",
+    "available SVG indicator, 42% progress and install control fit 240–360px columns in both locales and themes, including a temporarily measured long candidate label",
+    "reload restores production update state and persisted channel without duplicate badges"
+  ],
+  "updaterFooterHeight": 49,
+  "footerEscapeFocus": {
+    "tag": "BUTTON",
+    "className": "bot-app-menu-button",
+    "text": "设置"
+  },
+  "updaterPhaseScope": "Synthetic updater events verify renderer states only; no release download or install is performed",
+  "updaterReceipts": [
+    {
+      "seq": 1,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 2,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 3,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 4,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 5,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 6,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 7,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 8,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 9,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 10,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 11,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 12,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 13,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 14,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 15,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 16,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 17,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 18,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 19,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 20,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 21,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 22,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 23,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 24,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 25,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 26,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 27,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 28,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 29,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 30,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 31,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 32,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 33,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    },
+    {
+      "seq": 34,
+      "ok": true,
+      "windows": 3,
+      "type": "update-available"
+    },
+    {
+      "seq": 35,
+      "ok": true,
+      "windows": 3,
+      "type": "download-progress"
+    },
+    {
+      "seq": 36,
+      "ok": true,
+      "windows": 3,
+      "type": "update-downloaded"
+    }
+  ],
+  "updaterLayouts": [
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 129.34375,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 89.953125,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 103.640625,
+          "right": 180.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 108.34375,
+          "right": 185,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 189,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 189,
+          "right": 225,
+          "top": 820,
+          "bottom": 848,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 181.34375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 141.953125,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 155.640625,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 116.25,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 160.34375,
+          "right": 237,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 241,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 120.953125,
+          "right": 237,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 241,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 249.34375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 209.953125,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 223.640625,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 184.25,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 228.34375,
+          "right": 305,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 309,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 188.953125,
+          "right": 305,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 309,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 129.34375,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 89.953125,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 103.640625,
+          "right": 180.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 108.34375,
+          "right": 185,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 189,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 189,
+          "right": 225,
+          "top": 820,
+          "bottom": 848,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 181.34375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 141.953125,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 155.640625,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 116.25,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 160.34375,
+          "right": 237,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 241,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 120.953125,
+          "right": 237,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 241,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 249.34375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 209.953125,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 223.640625,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 184.25,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 228.34375,
+          "right": 305,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 309,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "设置",
+          "width": 64,
+          "height": 36,
+          "left": 14,
+          "right": 78,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 188.953125,
+          "right": 305,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "安装",
+          "width": 36,
+          "height": 28,
+          "left": 309,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 78,
+      "versionLeft": 86,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 129.34375,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.234375,
+          "height": 28,
+          "left": 108.765625,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 148.34375,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 148.34375,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 180.9375,
+          "right": 225,
+          "top": 820,
+          "bottom": 848,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 180.9375,
+          "right": 225,
+          "top": 820,
+          "bottom": 848,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 181.34375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 141.953125,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 155.640625,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 116.25,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 152.28125,
+          "right": 228.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 232.9375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 112.890625,
+          "right": 228.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 232.9375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 249.34375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 209.953125,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 223.640625,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 184.25,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 220.28125,
+          "right": 296.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 300.9375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 180.890625,
+          "right": 296.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 300.9375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 129.34375,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.234375,
+          "height": 28,
+          "left": 108.765625,
+          "right": 225,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 148.34375,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 148.34375,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 180.9375,
+          "right": 225,
+          "top": 820,
+          "bottom": 848,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 800,
+          "bottom": 836,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 108.953125,
+          "right": 225,
+          "top": 788,
+          "bottom": 816,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 180.9375,
+          "right": 225,
+          "top": 820,
+          "bottom": 848,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 225,
+      "footerLeft": 0,
+      "footerRight": 239,
+      "contentRight": 225,
+      "column": {
+        "left": 0,
+        "right": 240
+      },
+      "viewport": 860,
+      "scrollWidth": 239,
+      "clientWidth": 239,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 181.34375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 141.953125,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 155.640625,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 116.25,
+          "right": 232.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 152.28125,
+          "right": 228.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 232.9375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 112.890625,
+          "right": 228.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 232.9375,
+          "right": 277,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 277,
+      "footerLeft": 0,
+      "footerRight": 291,
+      "contentRight": 277,
+      "column": {
+        "left": 0,
+        "right": 292
+      },
+      "viewport": 860,
+      "scrollWidth": 291,
+      "clientWidth": 291,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 95.65625,
+          "height": 28,
+          "left": 249.34375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 135.046875,
+          "height": 28,
+          "left": 209.953125,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 223.640625,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 184.25,
+          "right": 300.296875,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0RC 7",
+          "width": 76.65625,
+          "height": 28,
+          "left": 220.28125,
+          "right": 296.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 300.9375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359
+    },
+    {
+      "controls": [
+        {
+          "text": "Settings",
+          "width": 86.765625,
+          "height": 36,
+          "left": 14,
+          "right": 100.765625,
+          "top": 812,
+          "bottom": 848,
+          "transform": "none"
+        },
+        {
+          "text": "v0.1.0-rc.999RC 7",
+          "width": 116.046875,
+          "height": 28,
+          "left": 180.890625,
+          "right": 296.9375,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        },
+        {
+          "text": "Install",
+          "width": 44.0625,
+          "height": 28,
+          "left": 300.9375,
+          "right": 345,
+          "top": 816,
+          "bottom": 844,
+          "transform": "none"
+        }
+      ],
+      "settingsRight": 100.765625,
+      "versionLeft": 108.765625,
+      "versionRight": 345,
+      "footerLeft": 0,
+      "footerRight": 359,
+      "contentRight": 345,
+      "column": {
+        "left": 0,
+        "right": 360
+      },
+      "viewport": 860,
+      "scrollWidth": 359,
+      "clientWidth": 359,
+      "longVersionLabel": true
+    }
+  ],
+  "avatarAnimation": {
+    "avatars": 200,
+    "activeAvatars": 11,
+    "animations": 34
+  },
+  "listInitialMs": 37.78520800000024,
+  "metrics": {
+    "productionList": {
+      "samples": [
+        30.727166000004217,
+        25.11195900000166,
+        37.23979200000031,
+        23.8706250000032,
+        35.72666599999502
+      ],
+      "median": 30.727166000004217,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        167.19999999995343,
+        37.09999999997672,
+        46.800000000046566,
+        46.5,
+        61.29999999993015
+      ],
+      "median": 46.800000000046566,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        217.09999999997672,
+        140.40000000002328,
+        99.29999999993015,
+        108.40000000002328,
+        100.30000000004657
+      ],
+      "median": 108.40000000002328,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "searchSamples": [
+    167.19999999995343,
+    37.09999999997672,
+    46.800000000046566,
+    46.5,
+    61.29999999993015
+  ],
+  "interactionBefore": {
+    "phase": "send-4",
+    "at": 1791204232843,
+    "hidden": false,
+    "focused": true
+  },
+  "searchTimings": [
+    {
+      "projectionMs": 37.10062499999913,
+      "stampMs": 16.179917000001296,
+      "indexMs": 105.54541700000118,
+      "totalMs": 158.84529099999781
+    },
+    {
+      "projectionMs": 22.025500000003376,
+      "stampMs": 4.853209000000788,
+      "indexMs": 1.7353340000045137,
+      "totalMs": 28.621832999997423
+    },
+    {
+      "projectionMs": 28.61366600000474,
+      "stampMs": 6.028500000000349,
+      "indexMs": 2.657166999997571,
+      "totalMs": 37.329499999999825
+    },
+    {
+      "projectionMs": 25.568624999999884,
+      "stampMs": 8.179749999995693,
+      "indexMs": 1.5948330000028363,
+      "totalMs": 35.34945799999696
+    },
+    {
+      "projectionMs": 33.54816600000049,
+      "stampMs": 12.24033299999428,
+      "indexMs": 3.166832999995677,
+      "totalMs": 48.96729100000084
+    }
+  ],
+  "inputWindowStates": [
+    {
+      "hidden": false,
+      "focused": true,
+      "composer": 1
+    },
+    {
+      "hidden": false,
+      "focused": true,
+      "composer": 1
+    },
+    {
+      "hidden": false,
+      "focused": true,
+      "composer": 1
+    },
+    {
+      "hidden": false,
+      "focused": true,
+      "composer": 1
+    },
+    {
+      "hidden": false,
+      "focused": true,
+      "composer": 1
+    }
+  ],
+  "paging": [
+    {
+      "phase": "initial older page",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9957",
+          "count": 50,
+          "firstId": "rc-message-9957",
+          "lastId": "input-3ce5d388-765a-441b-b8a3-e916855f9e75"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9960",
+          "count": 50,
+          "firstId": "rc-message-9960",
+          "lastId": "input-7bddaf5e-2797-4d67-8c99-853390ec6b6c"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9963",
+          "count": 50,
+          "firstId": "rc-message-9963",
+          "lastId": "input-17c2601a-f133-436f-bf93-27a0f2581353"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9966",
+          "count": 50,
+          "firstId": "rc-message-9966",
+          "lastId": "input-qc-muv8r5w9-g2hktd"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": "rc-message-9950",
+          "nextCursor": "rc-message-9900",
+          "count": 50,
+          "firstId": "rc-message-9900",
+          "lastId": "rc-message-9949"
+        }
+      ],
+      "view": {
+        "top": 5682,
+        "height": 13413,
+        "viewport": 617,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9900",
+          "bot-msg-rc-message-9901",
+          "bot-msg-rc-message-9902",
+          "bot-msg-rc-message-9903",
+          "bot-msg-rc-message-9904",
+          "bot-msg-rc-message-9905",
+          "bot-msg-rc-message-9906",
+          "bot-msg-rc-message-9907",
+          "bot-msg-rc-message-9908",
+          "bot-msg-rc-message-9909",
+          "bot-msg-rc-message-9910",
+          "bot-msg-rc-message-9911",
+          "bot-msg-rc-message-9912",
+          "bot-msg-rc-message-9913",
+          "bot-msg-rc-message-9914",
+          "bot-msg-rc-message-9915",
+          "bot-msg-rc-message-9916",
+          "bot-msg-rc-message-9917",
+          "bot-msg-rc-message-9918",
+          "bot-msg-rc-message-9919",
+          "bot-msg-rc-message-9920",
+          "bot-msg-rc-message-9921",
+          "bot-msg-rc-message-9922",
+          "bot-msg-rc-message-9923",
+          "bot-msg-rc-message-9924",
+          "bot-msg-rc-message-9925",
+          "bot-msg-rc-message-9926",
+          "bot-msg-rc-message-9927",
+          "bot-msg-rc-message-9928",
+          "bot-msg-rc-message-9929",
+          "bot-msg-rc-message-9930",
+          "bot-msg-rc-message-9931",
+          "bot-msg-rc-message-9932",
+          "bot-msg-rc-message-9933",
+          "bot-msg-rc-message-9934",
+          "bot-msg-rc-message-9935",
+          "bot-msg-rc-message-9936",
+          "bot-msg-rc-message-9937",
+          "bot-msg-rc-message-9938",
+          "bot-msg-rc-message-9939",
+          "bot-msg-rc-message-9940",
+          "bot-msg-rc-message-9941",
+          "bot-msg-rc-message-9942",
+          "bot-msg-rc-message-9943",
+          "bot-msg-rc-message-9944",
+          "bot-msg-rc-message-9945",
+          "bot-msg-rc-message-9946",
+          "bot-msg-rc-message-9947",
+          "bot-msg-rc-message-9948",
+          "bot-msg-rc-message-9949",
+          "bot-msg-rc-message-9950",
+          "bot-msg-rc-message-9951",
+          "bot-msg-rc-message-9952",
+          "bot-msg-rc-message-9953",
+          "bot-msg-rc-message-9954",
+          "bot-msg-rc-message-9955",
+          "bot-msg-rc-message-9956",
+          "bot-msg-rc-message-9957",
+          "bot-msg-rc-message-9958",
+          "bot-msg-rc-message-9959",
+          "bot-msg-rc-message-9960",
+          "bot-msg-rc-message-9961",
+          "bot-msg-rc-message-9962",
+          "bot-msg-rc-message-9963",
+          "bot-msg-rc-message-9964",
+          "bot-msg-rc-message-9965",
+          "bot-msg-rc-message-9966",
+          "bot-msg-rc-message-9967",
+          "bot-msg-rc-message-9968",
+          "bot-msg-rc-message-9969",
+          "bot-msg-rc-message-9970",
+          "bot-msg-rc-message-9971",
+          "bot-msg-rc-message-9972",
+          "bot-msg-rc-message-9973",
+          "bot-msg-rc-message-9974",
+          "bot-msg-rc-message-9975",
+          "bot-msg-rc-message-9976",
+          "bot-msg-rc-message-9977",
+          "bot-msg-rc-message-9978",
+          "bot-msg-rc-message-9979",
+          "bot-msg-rc-message-9980",
+          "bot-msg-rc-message-9981",
+          "bot-msg-rc-message-9982",
+          "bot-msg-rc-message-9983",
+          "bot-msg-rc-message-9984",
+          "bot-msg-rc-message-9985",
+          "bot-msg-rc-message-9986",
+          "bot-msg-rc-message-9987",
+          "bot-msg-rc-message-9988",
+          "bot-msg-rc-message-9989",
+          "bot-msg-rc-message-9990",
+          "bot-msg-rc-message-9991",
+          "bot-msg-rc-message-9992",
+          "bot-msg-rc-message-9993",
+          "bot-msg-rc-message-9994",
+          "bot-msg-rc-message-9995",
+          "bot-msg-rc-message-9996",
+          "bot-msg-rc-message-9997",
+          "bot-msg-rc-message-9998",
+          "bot-msg-rc-message-9999",
+          "bot-msg-input-8f748f04-1945-44d0-af87-d08e8ca30996",
+          "bot-msg-turn-e028189d-a439-4fdc-923d-189d0f8f38d8-reply",
+          "bot-msg-input-980641fe-e4f7-4fb2-93f1-96fa35e37834",
+          "bot-msg-turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply",
+          "bot-msg-input-3ce5d388-765a-441b-b8a3-e916855f9e75",
+          "bot-msg-turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply",
+          "bot-msg-input-7bddaf5e-2797-4d67-8c99-853390ec6b6c",
+          "bot-msg-turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply",
+          "bot-msg-input-17c2601a-f133-436f-bf93-27a0f2581353",
+          "bot-msg-turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply",
+          "bot-msg-input-qc-muv8r5w9-g2hktd",
+          "bot-msg-turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        ]
+      }
+    },
+    {
+      "phase": "request 9880",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9957",
+          "count": 50,
+          "firstId": "rc-message-9957",
+          "lastId": "input-3ce5d388-765a-441b-b8a3-e916855f9e75"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9960",
+          "count": 50,
+          "firstId": "rc-message-9960",
+          "lastId": "input-7bddaf5e-2797-4d67-8c99-853390ec6b6c"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9963",
+          "count": 50,
+          "firstId": "rc-message-9963",
+          "lastId": "input-17c2601a-f133-436f-bf93-27a0f2581353"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9966",
+          "count": 50,
+          "firstId": "rc-message-9966",
+          "lastId": "input-qc-muv8r5w9-g2hktd"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": "rc-message-9950",
+          "nextCursor": "rc-message-9900",
+          "count": 50,
+          "firstId": "rc-message-9900",
+          "lastId": "rc-message-9949"
+        },
+        {
+          "before": "rc-message-9900",
+          "nextCursor": "rc-message-9850",
+          "count": 50,
+          "firstId": "rc-message-9850",
+          "lastId": "rc-message-9899"
+        }
+      ],
+      "view": {
+        "top": 5682,
+        "height": 19096,
+        "viewport": 617,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9850",
+          "bot-msg-rc-message-9851",
+          "bot-msg-rc-message-9852",
+          "bot-msg-rc-message-9853",
+          "bot-msg-rc-message-9854",
+          "bot-msg-rc-message-9855",
+          "bot-msg-rc-message-9856",
+          "bot-msg-rc-message-9857",
+          "bot-msg-rc-message-9858",
+          "bot-msg-rc-message-9859",
+          "bot-msg-rc-message-9860",
+          "bot-msg-rc-message-9861",
+          "bot-msg-rc-message-9862",
+          "bot-msg-rc-message-9863",
+          "bot-msg-rc-message-9864",
+          "bot-msg-rc-message-9865",
+          "bot-msg-rc-message-9866",
+          "bot-msg-rc-message-9867",
+          "bot-msg-rc-message-9868",
+          "bot-msg-rc-message-9869",
+          "bot-msg-rc-message-9870",
+          "bot-msg-rc-message-9871",
+          "bot-msg-rc-message-9872",
+          "bot-msg-rc-message-9873",
+          "bot-msg-rc-message-9874",
+          "bot-msg-rc-message-9875",
+          "bot-msg-rc-message-9876",
+          "bot-msg-rc-message-9877",
+          "bot-msg-rc-message-9878",
+          "bot-msg-rc-message-9879",
+          "bot-msg-rc-message-9880",
+          "bot-msg-rc-message-9881",
+          "bot-msg-rc-message-9882",
+          "bot-msg-rc-message-9883",
+          "bot-msg-rc-message-9884",
+          "bot-msg-rc-message-9885",
+          "bot-msg-rc-message-9886",
+          "bot-msg-rc-message-9887",
+          "bot-msg-rc-message-9888",
+          "bot-msg-rc-message-9889",
+          "bot-msg-rc-message-9890",
+          "bot-msg-rc-message-9891",
+          "bot-msg-rc-message-9892",
+          "bot-msg-rc-message-9893",
+          "bot-msg-rc-message-9894",
+          "bot-msg-rc-message-9895",
+          "bot-msg-rc-message-9896",
+          "bot-msg-rc-message-9897",
+          "bot-msg-rc-message-9898",
+          "bot-msg-rc-message-9899",
+          "bot-msg-rc-message-9900",
+          "bot-msg-rc-message-9901",
+          "bot-msg-rc-message-9902",
+          "bot-msg-rc-message-9903",
+          "bot-msg-rc-message-9904",
+          "bot-msg-rc-message-9905",
+          "bot-msg-rc-message-9906",
+          "bot-msg-rc-message-9907",
+          "bot-msg-rc-message-9908",
+          "bot-msg-rc-message-9909",
+          "bot-msg-rc-message-9910",
+          "bot-msg-rc-message-9911",
+          "bot-msg-rc-message-9912",
+          "bot-msg-rc-message-9913",
+          "bot-msg-rc-message-9914",
+          "bot-msg-rc-message-9915",
+          "bot-msg-rc-message-9916",
+          "bot-msg-rc-message-9917",
+          "bot-msg-rc-message-9918",
+          "bot-msg-rc-message-9919",
+          "bot-msg-rc-message-9920",
+          "bot-msg-rc-message-9921",
+          "bot-msg-rc-message-9922",
+          "bot-msg-rc-message-9923",
+          "bot-msg-rc-message-9924",
+          "bot-msg-rc-message-9925",
+          "bot-msg-rc-message-9926",
+          "bot-msg-rc-message-9927",
+          "bot-msg-rc-message-9928",
+          "bot-msg-rc-message-9929",
+          "bot-msg-rc-message-9930",
+          "bot-msg-rc-message-9931",
+          "bot-msg-rc-message-9932",
+          "bot-msg-rc-message-9933",
+          "bot-msg-rc-message-9934",
+          "bot-msg-rc-message-9935",
+          "bot-msg-rc-message-9936",
+          "bot-msg-rc-message-9937",
+          "bot-msg-rc-message-9938",
+          "bot-msg-rc-message-9939",
+          "bot-msg-rc-message-9940",
+          "bot-msg-rc-message-9941",
+          "bot-msg-rc-message-9942",
+          "bot-msg-rc-message-9943",
+          "bot-msg-rc-message-9944",
+          "bot-msg-rc-message-9945",
+          "bot-msg-rc-message-9946",
+          "bot-msg-rc-message-9947",
+          "bot-msg-rc-message-9948",
+          "bot-msg-rc-message-9949",
+          "bot-msg-rc-message-9950",
+          "bot-msg-rc-message-9951",
+          "bot-msg-rc-message-9952",
+          "bot-msg-rc-message-9953",
+          "bot-msg-rc-message-9954",
+          "bot-msg-rc-message-9955",
+          "bot-msg-rc-message-9956",
+          "bot-msg-rc-message-9957",
+          "bot-msg-rc-message-9958",
+          "bot-msg-rc-message-9959",
+          "bot-msg-rc-message-9960",
+          "bot-msg-rc-message-9961",
+          "bot-msg-rc-message-9962",
+          "bot-msg-rc-message-9963",
+          "bot-msg-rc-message-9964",
+          "bot-msg-rc-message-9965",
+          "bot-msg-rc-message-9966",
+          "bot-msg-rc-message-9967",
+          "bot-msg-rc-message-9968",
+          "bot-msg-rc-message-9969",
+          "bot-msg-rc-message-9970",
+          "bot-msg-rc-message-9971",
+          "bot-msg-rc-message-9972",
+          "bot-msg-rc-message-9973",
+          "bot-msg-rc-message-9974",
+          "bot-msg-rc-message-9975",
+          "bot-msg-rc-message-9976",
+          "bot-msg-rc-message-9977",
+          "bot-msg-rc-message-9978",
+          "bot-msg-rc-message-9979",
+          "bot-msg-rc-message-9980",
+          "bot-msg-rc-message-9981",
+          "bot-msg-rc-message-9982",
+          "bot-msg-rc-message-9983",
+          "bot-msg-rc-message-9984",
+          "bot-msg-rc-message-9985",
+          "bot-msg-rc-message-9986",
+          "bot-msg-rc-message-9987",
+          "bot-msg-rc-message-9988",
+          "bot-msg-rc-message-9989",
+          "bot-msg-rc-message-9990",
+          "bot-msg-rc-message-9991",
+          "bot-msg-rc-message-9992",
+          "bot-msg-rc-message-9993",
+          "bot-msg-rc-message-9994",
+          "bot-msg-rc-message-9995",
+          "bot-msg-rc-message-9996",
+          "bot-msg-rc-message-9997",
+          "bot-msg-rc-message-9998",
+          "bot-msg-rc-message-9999",
+          "bot-msg-input-8f748f04-1945-44d0-af87-d08e8ca30996",
+          "bot-msg-turn-e028189d-a439-4fdc-923d-189d0f8f38d8-reply",
+          "bot-msg-input-980641fe-e4f7-4fb2-93f1-96fa35e37834",
+          "bot-msg-turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply",
+          "bot-msg-input-3ce5d388-765a-441b-b8a3-e916855f9e75",
+          "bot-msg-turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply",
+          "bot-msg-input-7bddaf5e-2797-4d67-8c99-853390ec6b6c",
+          "bot-msg-turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply",
+          "bot-msg-input-17c2601a-f133-436f-bf93-27a0f2581353",
+          "bot-msg-turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply",
+          "bot-msg-input-qc-muv8r5w9-g2hktd",
+          "bot-msg-turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        ]
+      }
+    },
+    {
+      "phase": "request 9830",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9957",
+          "count": 50,
+          "firstId": "rc-message-9957",
+          "lastId": "input-3ce5d388-765a-441b-b8a3-e916855f9e75"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9960",
+          "count": 50,
+          "firstId": "rc-message-9960",
+          "lastId": "input-7bddaf5e-2797-4d67-8c99-853390ec6b6c"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9963",
+          "count": 50,
+          "firstId": "rc-message-9963",
+          "lastId": "input-17c2601a-f133-436f-bf93-27a0f2581353"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9966",
+          "count": 50,
+          "firstId": "rc-message-9966",
+          "lastId": "input-qc-muv8r5w9-g2hktd"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": "rc-message-9950",
+          "nextCursor": "rc-message-9900",
+          "count": 50,
+          "firstId": "rc-message-9900",
+          "lastId": "rc-message-9949"
+        },
+        {
+          "before": "rc-message-9900",
+          "nextCursor": "rc-message-9850",
+          "count": 50,
+          "firstId": "rc-message-9850",
+          "lastId": "rc-message-9899"
+        },
+        {
+          "before": "rc-message-9850",
+          "nextCursor": "rc-message-9800",
+          "count": 50,
+          "firstId": "rc-message-9800",
+          "lastId": "rc-message-9849"
+        }
+      ],
+      "view": {
+        "top": 5682,
+        "height": 24778,
+        "viewport": 617,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9829",
+          "bot-msg-rc-message-9830",
+          "bot-msg-rc-message-9831",
+          "bot-msg-rc-message-9832",
+          "bot-msg-rc-message-9833",
+          "bot-msg-rc-message-9834",
+          "bot-msg-rc-message-9835",
+          "bot-msg-rc-message-9836",
+          "bot-msg-rc-message-9837",
+          "bot-msg-rc-message-9838",
+          "bot-msg-rc-message-9839",
+          "bot-msg-rc-message-9840",
+          "bot-msg-rc-message-9841",
+          "bot-msg-rc-message-9842",
+          "bot-msg-rc-message-9843",
+          "bot-msg-rc-message-9844",
+          "bot-msg-rc-message-9845",
+          "bot-msg-rc-message-9846",
+          "bot-msg-rc-message-9847",
+          "bot-msg-rc-message-9848",
+          "bot-msg-rc-message-9849",
+          "bot-msg-rc-message-9850",
+          "bot-msg-rc-message-9851",
+          "bot-msg-rc-message-9852",
+          "bot-msg-rc-message-9853",
+          "bot-msg-rc-message-9854",
+          "bot-msg-rc-message-9855",
+          "bot-msg-rc-message-9856",
+          "bot-msg-rc-message-9857",
+          "bot-msg-rc-message-9858",
+          "bot-msg-rc-message-9859",
+          "bot-msg-rc-message-9860",
+          "bot-msg-rc-message-9861",
+          "bot-msg-rc-message-9862",
+          "bot-msg-rc-message-9863",
+          "bot-msg-rc-message-9864",
+          "bot-msg-rc-message-9865",
+          "bot-msg-rc-message-9866",
+          "bot-msg-rc-message-9867",
+          "bot-msg-rc-message-9868",
+          "bot-msg-rc-message-9869",
+          "bot-msg-rc-message-9870",
+          "bot-msg-rc-message-9871",
+          "bot-msg-rc-message-9872",
+          "bot-msg-rc-message-9873",
+          "bot-msg-rc-message-9874",
+          "bot-msg-rc-message-9875",
+          "bot-msg-rc-message-9876",
+          "bot-msg-rc-message-9877",
+          "bot-msg-rc-message-9878",
+          "bot-msg-rc-message-9879",
+          "bot-msg-rc-message-9880",
+          "bot-msg-rc-message-9881",
+          "bot-msg-rc-message-9882",
+          "bot-msg-rc-message-9883",
+          "bot-msg-rc-message-9884",
+          "bot-msg-rc-message-9885",
+          "bot-msg-rc-message-9886",
+          "bot-msg-rc-message-9887",
+          "bot-msg-rc-message-9888",
+          "bot-msg-rc-message-9889",
+          "bot-msg-rc-message-9890",
+          "bot-msg-rc-message-9891",
+          "bot-msg-rc-message-9892",
+          "bot-msg-rc-message-9893",
+          "bot-msg-rc-message-9894",
+          "bot-msg-rc-message-9895",
+          "bot-msg-rc-message-9896",
+          "bot-msg-rc-message-9897",
+          "bot-msg-rc-message-9898",
+          "bot-msg-rc-message-9899",
+          "bot-msg-rc-message-9900",
+          "bot-msg-rc-message-9901",
+          "bot-msg-rc-message-9902",
+          "bot-msg-rc-message-9903",
+          "bot-msg-rc-message-9904",
+          "bot-msg-rc-message-9905",
+          "bot-msg-rc-message-9906",
+          "bot-msg-rc-message-9907",
+          "bot-msg-rc-message-9908"
+        ]
+      }
+    },
+    {
+      "phase": "request 9780",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9956",
+          "count": 50,
+          "firstId": "rc-message-9956",
+          "lastId": "turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9957",
+          "count": 50,
+          "firstId": "rc-message-9957",
+          "lastId": "input-3ce5d388-765a-441b-b8a3-e916855f9e75"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9960",
+          "count": 50,
+          "firstId": "rc-message-9960",
+          "lastId": "input-7bddaf5e-2797-4d67-8c99-853390ec6b6c"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9963",
+          "count": 50,
+          "firstId": "rc-message-9963",
+          "lastId": "input-17c2601a-f133-436f-bf93-27a0f2581353"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9966",
+          "count": 50,
+          "firstId": "rc-message-9966",
+          "lastId": "input-qc-muv8r5w9-g2hktd"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": "rc-message-9950",
+          "nextCursor": "rc-message-9900",
+          "count": 50,
+          "firstId": "rc-message-9900",
+          "lastId": "rc-message-9949"
+        },
+        {
+          "before": "rc-message-9900",
+          "nextCursor": "rc-message-9850",
+          "count": 50,
+          "firstId": "rc-message-9850",
+          "lastId": "rc-message-9899"
+        },
+        {
+          "before": "rc-message-9850",
+          "nextCursor": "rc-message-9800",
+          "count": 50,
+          "firstId": "rc-message-9800",
+          "lastId": "rc-message-9849"
+        }
+      ],
+      "view": {
+        "top": 5682,
+        "height": 30460,
+        "viewport": 617,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9779",
+          "bot-msg-rc-message-9780",
+          "bot-msg-rc-message-9781",
+          "bot-msg-rc-message-9782",
+          "bot-msg-rc-message-9783",
+          "bot-msg-rc-message-9784",
+          "bot-msg-rc-message-9785",
+          "bot-msg-rc-message-9786",
+          "bot-msg-rc-message-9787",
+          "bot-msg-rc-message-9788",
+          "bot-msg-rc-message-9789",
+          "bot-msg-rc-message-9790",
+          "bot-msg-rc-message-9791",
+          "bot-msg-rc-message-9792",
+          "bot-msg-rc-message-9793",
+          "bot-msg-rc-message-9794",
+          "bot-msg-rc-message-9795",
+          "bot-msg-rc-message-9796",
+          "bot-msg-rc-message-9797",
+          "bot-msg-rc-message-9798",
+          "bot-msg-rc-message-9799",
+          "bot-msg-rc-message-9800",
+          "bot-msg-rc-message-9801",
+          "bot-msg-rc-message-9802",
+          "bot-msg-rc-message-9803",
+          "bot-msg-rc-message-9804",
+          "bot-msg-rc-message-9805",
+          "bot-msg-rc-message-9806",
+          "bot-msg-rc-message-9807",
+          "bot-msg-rc-message-9808",
+          "bot-msg-rc-message-9809",
+          "bot-msg-rc-message-9810",
+          "bot-msg-rc-message-9811",
+          "bot-msg-rc-message-9812",
+          "bot-msg-rc-message-9813",
+          "bot-msg-rc-message-9814",
+          "bot-msg-rc-message-9815",
+          "bot-msg-rc-message-9816",
+          "bot-msg-rc-message-9817",
+          "bot-msg-rc-message-9818",
+          "bot-msg-rc-message-9819",
+          "bot-msg-rc-message-9820",
+          "bot-msg-rc-message-9821",
+          "bot-msg-rc-message-9822",
+          "bot-msg-rc-message-9823",
+          "bot-msg-rc-message-9824",
+          "bot-msg-rc-message-9825",
+          "bot-msg-rc-message-9826",
+          "bot-msg-rc-message-9827",
+          "bot-msg-rc-message-9828",
+          "bot-msg-rc-message-9829",
+          "bot-msg-rc-message-9830",
+          "bot-msg-rc-message-9831",
+          "bot-msg-rc-message-9832",
+          "bot-msg-rc-message-9833",
+          "bot-msg-rc-message-9834",
+          "bot-msg-rc-message-9835",
+          "bot-msg-rc-message-9836",
+          "bot-msg-rc-message-9837",
+          "bot-msg-rc-message-9838",
+          "bot-msg-rc-message-9839",
+          "bot-msg-rc-message-9840",
+          "bot-msg-rc-message-9841",
+          "bot-msg-rc-message-9842",
+          "bot-msg-rc-message-9843",
+          "bot-msg-rc-message-9844",
+          "bot-msg-rc-message-9845",
+          "bot-msg-rc-message-9846",
+          "bot-msg-rc-message-9847",
+          "bot-msg-rc-message-9848",
+          "bot-msg-rc-message-9849",
+          "bot-msg-rc-message-9850",
+          "bot-msg-rc-message-9851",
+          "bot-msg-rc-message-9852",
+          "bot-msg-rc-message-9853",
+          "bot-msg-rc-message-9854",
+          "bot-msg-rc-message-9855",
+          "bot-msg-rc-message-9856",
+          "bot-msg-rc-message-9857",
+          "bot-msg-rc-message-9858"
+        ]
+      }
+    },
+    {
+      "phase": "request 9730",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9957",
+          "count": 50,
+          "firstId": "rc-message-9957",
+          "lastId": "input-3ce5d388-765a-441b-b8a3-e916855f9e75"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9959",
+          "count": 50,
+          "firstId": "rc-message-9959",
+          "lastId": "turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9960",
+          "count": 50,
+          "firstId": "rc-message-9960",
+          "lastId": "input-7bddaf5e-2797-4d67-8c99-853390ec6b6c"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9963",
+          "count": 50,
+          "firstId": "rc-message-9963",
+          "lastId": "input-17c2601a-f133-436f-bf93-27a0f2581353"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9966",
+          "count": 50,
+          "firstId": "rc-message-9966",
+          "lastId": "input-qc-muv8r5w9-g2hktd"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": "rc-message-9950",
+          "nextCursor": "rc-message-9900",
+          "count": 50,
+          "firstId": "rc-message-9900",
+          "lastId": "rc-message-9949"
+        },
+        {
+          "before": "rc-message-9900",
+          "nextCursor": "rc-message-9850",
+          "count": 50,
+          "firstId": "rc-message-9850",
+          "lastId": "rc-message-9899"
+        },
+        {
+          "before": "rc-message-9850",
+          "nextCursor": "rc-message-9800",
+          "count": 50,
+          "firstId": "rc-message-9800",
+          "lastId": "rc-message-9849"
+        },
+        {
+          "before": "rc-message-9800",
+          "nextCursor": "rc-message-9750",
+          "count": 50,
+          "firstId": "rc-message-9750",
+          "lastId": "rc-message-9799"
+        }
+      ],
+      "view": {
+        "top": 5682,
+        "height": 36142,
+        "viewport": 617,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9729",
+          "bot-msg-rc-message-9730",
+          "bot-msg-rc-message-9731",
+          "bot-msg-rc-message-9732",
+          "bot-msg-rc-message-9733",
+          "bot-msg-rc-message-9734",
+          "bot-msg-rc-message-9735",
+          "bot-msg-rc-message-9736",
+          "bot-msg-rc-message-9737",
+          "bot-msg-rc-message-9738",
+          "bot-msg-rc-message-9739",
+          "bot-msg-rc-message-9740",
+          "bot-msg-rc-message-9741",
+          "bot-msg-rc-message-9742",
+          "bot-msg-rc-message-9743",
+          "bot-msg-rc-message-9744",
+          "bot-msg-rc-message-9745",
+          "bot-msg-rc-message-9746",
+          "bot-msg-rc-message-9747",
+          "bot-msg-rc-message-9748",
+          "bot-msg-rc-message-9749",
+          "bot-msg-rc-message-9750",
+          "bot-msg-rc-message-9751",
+          "bot-msg-rc-message-9752",
+          "bot-msg-rc-message-9753",
+          "bot-msg-rc-message-9754",
+          "bot-msg-rc-message-9755",
+          "bot-msg-rc-message-9756",
+          "bot-msg-rc-message-9757",
+          "bot-msg-rc-message-9758",
+          "bot-msg-rc-message-9759",
+          "bot-msg-rc-message-9760",
+          "bot-msg-rc-message-9761",
+          "bot-msg-rc-message-9762",
+          "bot-msg-rc-message-9763",
+          "bot-msg-rc-message-9764",
+          "bot-msg-rc-message-9765",
+          "bot-msg-rc-message-9766",
+          "bot-msg-rc-message-9767",
+          "bot-msg-rc-message-9768",
+          "bot-msg-rc-message-9769",
+          "bot-msg-rc-message-9770",
+          "bot-msg-rc-message-9771",
+          "bot-msg-rc-message-9772",
+          "bot-msg-rc-message-9773",
+          "bot-msg-rc-message-9774",
+          "bot-msg-rc-message-9775",
+          "bot-msg-rc-message-9776",
+          "bot-msg-rc-message-9777",
+          "bot-msg-rc-message-9778",
+          "bot-msg-rc-message-9779",
+          "bot-msg-rc-message-9780",
+          "bot-msg-rc-message-9781",
+          "bot-msg-rc-message-9782",
+          "bot-msg-rc-message-9783",
+          "bot-msg-rc-message-9784",
+          "bot-msg-rc-message-9785",
+          "bot-msg-rc-message-9786",
+          "bot-msg-rc-message-9787",
+          "bot-msg-rc-message-9788",
+          "bot-msg-rc-message-9789",
+          "bot-msg-rc-message-9790",
+          "bot-msg-rc-message-9791",
+          "bot-msg-rc-message-9792",
+          "bot-msg-rc-message-9793",
+          "bot-msg-rc-message-9794",
+          "bot-msg-rc-message-9795",
+          "bot-msg-rc-message-9796",
+          "bot-msg-rc-message-9797",
+          "bot-msg-rc-message-9798",
+          "bot-msg-rc-message-9799",
+          "bot-msg-rc-message-9800",
+          "bot-msg-rc-message-9801",
+          "bot-msg-rc-message-9802",
+          "bot-msg-rc-message-9803",
+          "bot-msg-rc-message-9804",
+          "bot-msg-rc-message-9805",
+          "bot-msg-rc-message-9806",
+          "bot-msg-rc-message-9807",
+          "bot-msg-rc-message-9808"
+        ]
+      }
+    },
+    {
+      "phase": "quoted old message located inside viewport",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9962",
+          "count": 50,
+          "firstId": "rc-message-9962",
+          "lastId": "turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9963",
+          "count": 50,
+          "firstId": "rc-message-9963",
+          "lastId": "input-17c2601a-f133-436f-bf93-27a0f2581353"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9965",
+          "count": 50,
+          "firstId": "rc-message-9965",
+          "lastId": "turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9966",
+          "count": 50,
+          "firstId": "rc-message-9966",
+          "lastId": "input-qc-muv8r5w9-g2hktd"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9968",
+          "count": 50,
+          "firstId": "rc-message-9968",
+          "lastId": "turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply"
+        },
+        {
+          "before": "rc-message-9950",
+          "nextCursor": "rc-message-9900",
+          "count": 50,
+          "firstId": "rc-message-9900",
+          "lastId": "rc-message-9949"
+        },
+        {
+          "before": "rc-message-9900",
+          "nextCursor": "rc-message-9850",
+          "count": 50,
+          "firstId": "rc-message-9850",
+          "lastId": "rc-message-9899"
+        },
+        {
+          "before": "rc-message-9850",
+          "nextCursor": "rc-message-9800",
+          "count": 50,
+          "firstId": "rc-message-9800",
+          "lastId": "rc-message-9849"
+        },
+        {
+          "before": "rc-message-9800",
+          "nextCursor": "rc-message-9750",
+          "count": 50,
+          "firstId": "rc-message-9750",
+          "lastId": "rc-message-9799"
+        },
+        {
+          "before": "rc-message-9750",
+          "nextCursor": "rc-message-9700",
+          "count": 50,
+          "firstId": "rc-message-9700",
+          "lastId": "rc-message-9749"
+        },
+        {
+          "before": "rc-message-9700",
+          "nextCursor": "rc-message-9650",
+          "count": 50,
+          "firstId": "rc-message-9650",
+          "lastId": "rc-message-9699"
+        },
+        {
+          "before": "rc-message-9650",
+          "nextCursor": "rc-message-9600",
+          "count": 50,
+          "firstId": "rc-message-9600",
+          "lastId": "rc-message-9649"
+        },
+        {
+          "before": "rc-message-9600",
+          "nextCursor": "rc-message-9550",
+          "count": 50,
+          "firstId": "rc-message-9550",
+          "lastId": "rc-message-9599"
+        },
+        {
+          "before": "rc-message-9550",
+          "nextCursor": "rc-message-9500",
+          "count": 50,
+          "firstId": "rc-message-9500",
+          "lastId": "rc-message-9549"
+        },
+        {
+          "before": "rc-message-9500",
+          "nextCursor": "rc-message-9450",
+          "count": 50,
+          "firstId": "rc-message-9450",
+          "lastId": "rc-message-9499"
+        }
+      ],
+      "view": {
+        "top": 5682,
+        "height": 59572,
+        "viewport": 617,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9479",
+          "bot-msg-rc-message-9480",
+          "bot-msg-rc-message-9481",
+          "bot-msg-rc-message-9482",
+          "bot-msg-rc-message-9483",
+          "bot-msg-rc-message-9484",
+          "bot-msg-rc-message-9485",
+          "bot-msg-rc-message-9486",
+          "bot-msg-rc-message-9487",
+          "bot-msg-rc-message-9488",
+          "bot-msg-rc-message-9489",
+          "bot-msg-rc-message-9490",
+          "bot-msg-rc-message-9491",
+          "bot-msg-rc-message-9492",
+          "bot-msg-rc-message-9493",
+          "bot-msg-rc-message-9494",
+          "bot-msg-rc-message-9495",
+          "bot-msg-rc-message-9496",
+          "bot-msg-rc-message-9497",
+          "bot-msg-rc-message-9498",
+          "bot-msg-rc-message-9499",
+          "bot-msg-rc-message-9500",
+          "bot-msg-rc-message-9501",
+          "bot-msg-rc-message-9502",
+          "bot-msg-rc-message-9503",
+          "bot-msg-rc-message-9504",
+          "bot-msg-rc-message-9505",
+          "bot-msg-rc-message-9506",
+          "bot-msg-rc-message-9507",
+          "bot-msg-rc-message-9508",
+          "bot-msg-rc-message-9509",
+          "bot-msg-rc-message-9510",
+          "bot-msg-rc-message-9511",
+          "bot-msg-rc-message-9512",
+          "bot-msg-rc-message-9513",
+          "bot-msg-rc-message-9514",
+          "bot-msg-rc-message-9515",
+          "bot-msg-rc-message-9516",
+          "bot-msg-rc-message-9517",
+          "bot-msg-rc-message-9518",
+          "bot-msg-rc-message-9519",
+          "bot-msg-rc-message-9520",
+          "bot-msg-rc-message-9521",
+          "bot-msg-rc-message-9522",
+          "bot-msg-rc-message-9523",
+          "bot-msg-rc-message-9524",
+          "bot-msg-rc-message-9525",
+          "bot-msg-rc-message-9526",
+          "bot-msg-rc-message-9527",
+          "bot-msg-rc-message-9528",
+          "bot-msg-rc-message-9529",
+          "bot-msg-rc-message-9530",
+          "bot-msg-rc-message-9531",
+          "bot-msg-rc-message-9532",
+          "bot-msg-rc-message-9533",
+          "bot-msg-rc-message-9534",
+          "bot-msg-rc-message-9535",
+          "bot-msg-rc-message-9536",
+          "bot-msg-rc-message-9537",
+          "bot-msg-rc-message-9538",
+          "bot-msg-rc-message-9539",
+          "bot-msg-rc-message-9540",
+          "bot-msg-rc-message-9541",
+          "bot-msg-rc-message-9542",
+          "bot-msg-rc-message-9543",
+          "bot-msg-rc-message-9544",
+          "bot-msg-rc-message-9545",
+          "bot-msg-rc-message-9546",
+          "bot-msg-rc-message-9547",
+          "bot-msg-rc-message-9548",
+          "bot-msg-rc-message-9549",
+          "bot-msg-rc-message-9550",
+          "bot-msg-rc-message-9551",
+          "bot-msg-rc-message-9552",
+          "bot-msg-rc-message-9553",
+          "bot-msg-rc-message-9554",
+          "bot-msg-rc-message-9555",
+          "bot-msg-rc-message-9556",
+          "bot-msg-rc-message-9557",
+          "bot-msg-rc-message-9558"
+        ]
+      }
+    },
+    {
+      "phase": "failure",
+      "reads": [
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": null,
+          "count": 0
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": "rc-message-9999",
+          "nextCursor": "rc-message-9949",
+          "count": 50,
+          "firstId": "rc-message-9949",
+          "lastId": "rc-message-9998"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": null,
+          "count": 0
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        },
+        {
+          "before": null,
+          "nextCursor": "rc-message-9999",
+          "count": 50,
+          "firstId": "rc-message-9999",
+          "lastId": "turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        }
+      ],
+      "view": {
+        "top": 5099,
+        "height": 5690,
+        "viewport": 591,
+        "busy": "false",
+        "ids": [
+          "bot-msg-rc-message-9999",
+          "bot-msg-input-8f748f04-1945-44d0-af87-d08e8ca30996",
+          "bot-msg-turn-e028189d-a439-4fdc-923d-189d0f8f38d8-reply",
+          "bot-msg-input-980641fe-e4f7-4fb2-93f1-96fa35e37834",
+          "bot-msg-turn-206bd139-4b88-495e-8f41-7b02dff47c5b-reply",
+          "bot-msg-input-3ce5d388-765a-441b-b8a3-e916855f9e75",
+          "bot-msg-turn-8db075ec-59c1-4792-a3dd-b4a34232e757-reply",
+          "bot-msg-input-7bddaf5e-2797-4d67-8c99-853390ec6b6c",
+          "bot-msg-turn-5dfc0c29-ce2d-4fd9-bec8-0b2579147af5-reply",
+          "bot-msg-input-17c2601a-f133-436f-bf93-27a0f2581353",
+          "bot-msg-turn-645b852d-35f2-48b3-8c0c-15833327b5a3-reply",
+          "bot-msg-input-qc-muv8r5w9-g2hktd",
+          "bot-msg-turn-ec264986-5be0-4b68-8022-fce51323e3d6-reply",
+          "bot-msg-input-61080da0-0c14-48f6-abf4-240d38c77d42",
+          "bot-msg-turn-a11fa379-0a55-4514-aee2-9cfbd9a0cd17-reply-1",
+          "bot-msg-input-939fef09-6eb4-4cca-aaa0-367f5e9b6e87",
+          "bot-msg-turn-9890ec6c-8657-4b72-a211-ab708918a040-stopped",
+          "bot-msg-turn-a69c821f-fb8f-4960-9f94-86c8a5ea82a7-reply-1",
+          "bot-msg-input-2b2effcc-dd57-4d2d-9033-d498d4402428",
+          "bot-msg-turn-25153d79-32cc-4fb6-8651-95718442c5a2-card",
+          "bot-msg-turn-aec7abb5-9f82-4425-8085-30c04150f370-reply-1",
+          "bot-msg-input-671c7e30-b3ca-477c-8c32-893d2e73561b",
+          "bot-msg-turn-0f647ee8-1ed3-428b-8c39-0224177380cf-reply-1",
+          "bot-msg-input-1220e6e4-d14e-4f79-a465-7937624d6a39",
+          "bot-msg-turn-e000413c-f3ca-407c-a422-fd26f1298e09-reply",
+          "bot-msg-input-4e96f6ce-007a-4da3-978b-e0a2041a7105",
+          "bot-msg-turn-3be29ff4-10d2-4fb4-96c3-3ab9a3266599-reply-1",
+          "bot-msg-input-a81917a7-3b4b-4b46-853e-a4394130d6c7",
+          "bot-msg-turn-edf65feb-e9c2-4bc6-8472-247e82ec4fdf-reply",
+          "bot-msg-input-9b9735b6-e368-4d59-9714-1d550d9a0723",
+          "bot-msg-turn-dde3c8af-ee1c-4e93-9008-3bfc26fc22a9-reply-1",
+          "bot-msg-input-610ffd1f-b826-461c-bf16-8c30886b09e8",
+          "bot-msg-turn-73055bf1-f55c-433e-85f3-c049f2c884ae-reply"
+        ]
+      }
+    }
+  ],
+  "replyInteraction": [
+    "quote is a context button with SVG; delivery policy is explicitly readonly",
+    "real dark/light quotes retain paper boundaries; secondary actions stay compact and both surfaces have no outer glow",
+    "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+    "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+    "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+  ],
+  "replyStyles": [
+    {
+      "theme": "dark",
+      "quote": {
+        "background": "rgb(44, 52, 64)",
+        "color": "rgb(176, 180, 188)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 59.390625
+      },
+      "action": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(176, 180, 188)",
+        "border": "0px",
+        "borderStyle": "none",
+        "shadow": "none",
+        "height": 29.1875
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(176, 180, 188)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    },
+    {
+      "theme": "light",
+      "quote": {
+        "background": "rgb(233, 237, 242)",
+        "color": "rgb(82, 86, 96)",
+        "border": "1px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 59.390625
+      },
+      "action": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(82, 86, 96)",
+        "border": "0px",
+        "borderStyle": "none",
+        "shadow": "none",
+        "height": 29.1875
+      },
+      "delivery": {
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(82, 86, 96)",
+        "border": "0px",
+        "borderStyle": "solid",
+        "shadow": "none",
+        "height": 16.5
+      }
+    }
+  ],
+  "replyFocus": {
+    "active": true,
+    "visible": true,
+    "outline": "solid",
+    "width": "2px",
+    "actualActive": "<button class=\"bot-context-process\" type=\"button\"><svg class=\"peer-icon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"3\"></rect><path d=\"m7 9 3 3-3 3m6 0h4\"></path></svg>查看过程</button>",
+    "documentFocused": true
+  },
+  "streamingInteraction": [
+    "receipt below user body; anchored waiting state and SVG stop control",
+    "real delta visible while controlled provider remains pending, before canonical reply",
+    "switching bots hides the other stream and restores the active snapshot",
+    "running tool scans over actual target; keyboard opens step and parameters before result; reduced motion remains readable",
+    "root post_reply text streams; actual result expands after arrival; hidden reasoning and credentials stay redacted; history holds",
+    "delegated work retains its expanded progress when the streamed reply becomes canonical",
+    "completion preserves expanded process, step and parameters without continuing animation",
+    "completion replaces preview once, preserves Markdown and follows latest",
+    "next turn hands completed process to persisted history with disclosure and bounded redacted details preserved",
+    "stop preserves incomplete text, stopped running tool, exact-turn process and draft; explicit retry creates one new reply",
+    "failure retracts unaccepted preview and offers explicit retry without duplicate replies"
+  ],
+  "readingPosition": {
+    "before": 5311,
+    "after": 5311,
+    "eventDeliveryDelayed": true
+  },
+  "chatDetails": [
+    "exact current-turn process uses localized operations; raw JSON is collapsed and keyboard accessible",
+    "freeform reply durably binds to its question and removes only those choices",
+    "failed freeform send retains choices; retry retains exact answer association and creates one canonical input",
+    "option click follows the same durable answer path; switching back does not restore answered choices"
+  ],
+  "workSurfaces": [
+    "named running work scans visibly and expands by keyboard to its actual progress",
+    "main-side notifications update running to waiting, accepted and unavailable; old reply snapshots never revive running",
+    "evidence has its own detail view; returning shows bot identity and responsibility, with no execution log",
+    "memory starts with saved content, keeps settings and provenance on demand and contains no process view",
+    "process is isolated from profile tabs and returns to the previous memory tab",
+    "classified reply and delegated work fit a 760px viewport in both themes"
+  ],
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page"
+  ],
+  "effortStability": {
+    "settings": {
+      "delayMs": 650,
+      "successFrames": 20,
+      "failureFrames": 26,
+      "successHeld": true,
+      "failureHeldThenRolledBack": true,
+      "stableTriggerAndPanel": true,
+      "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
+    }
+  },
+  "error": "AssertionError [ERR_ASSERTION]: selected effort must stay put throughout the delayed save\n    at sample (file:///Users/runner/work/Peer-Agent/Peer-Agent/apps/desktop/scripts/bot-effort-stability-checks.mjs:27:12)\n    at async checkEffortStability (file:///Users/runner/work/Peer-Agent/Peer-Agent/apps/desktop/scripts/bot-effort-stability-checks.mjs:40:25)\n    at async checkBotModels (file:///Users/runner/work/Peer-Agent/Peer-Agent/apps/desktop/scripts/bot-shell-accessibility-checks.mjs:353:5)\n    at async checkSettings (file:///Users/runner/work/Peer-Agent/Peer-Agent/apps/desktop/scripts/bot-shell-accessibility-checks.mjs:178:3)\n    at async checkBotShellAccessibility (file:///Users/runner/work/Peer-Agent/Peer-Agent/apps/desktop/scripts/bot-shell-accessibility-checks.mjs:30:3)\n    at async file:///Users/runner/work/Peer-Agent/Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:399:49",
+  "interactionAfter": {
+    "at": 1791204328568,
+    "hidden": false,
+    "focused": true,
+    "search": [
+      {
+        "value": "",
+        "width": 269,
+        "height": 34.75,
+        "visibility": "visible",
+        "display": "block"
+      }
+    ],
+    "composers": 1
+  },
+  "ownedStop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 49701
+  },
+  "finishedAt": "2026-10-05T12:45:47.170Z",
+  "mainAuthorizationErrors": []
+}
