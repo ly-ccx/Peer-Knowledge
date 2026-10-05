@@ -1,0 +1,55 @@
+{
+  "scope": "Actual downloaded DMG mounted read-only; embedded application trust. No installation or user data writes.",
+  "checks": [
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "--verbose=2",
+        "<release-check>/dmg-mount/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": "--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/.\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/Helpers/chrome_crashpad_handler\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/Helpers/chrome_crashpad_handler\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/.\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Mantle.framework/Versions/Current/.\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Mantle.framework/Versions/Current/.\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (GPU).app\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (GPU).app\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Plugin).app\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Plugin).app\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Renderer).app\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Renderer).app\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper.app\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Peer Agent Helper.app\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current/.\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current/.\n--prepared:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Squirrel.framework/Versions/Current/.\n--validated:<release-check>/dmg-mount/Peer Agent.app/Contents/Frameworks/Squirrel.framework/Versions/Current/.\n<release-check>/dmg-mount/Peer Agent.app: valid on disk\n<release-check>/dmg-mount/Peer Agent.app: satisfies its Designated Requirement\n"
+    },
+    {
+      "command": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "<release-check>/dmg-mount/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": "Executable=<release-check>/dmg-mount/Peer Agent.app/Contents/MacOS/Peer Agent\nIdentifier=com.peeragent.desktop\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=641 flags=0x10000(runtime) hashes=9+7 location=embedded\nVersionPlatform=1\nVersionMin=786432\nVersionSDK=1704448\nHash type=sha256 size=32\nCandidateCDHash sha256=71c2adf777e63362793afb1053a6ae3e58e6e985\nCandidateCDHashFull sha256=71c2adf777e63362793afb1053a6ae3e58e6e98562c86c54cc81127a661302fb\nHash choices=sha256\nCMSDigest=71c2adf777e63362793afb1053a6ae3e58e6e98562c86c54cc81127a661302fb\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=71c2adf777e63362793afb1053a6ae3e58e6e985\nSignature size=9032\nAuthority=Developer ID Application: Xu Chu (82672N97RP)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Oct 5, 2026 at 12:24:14\nNotarization Ticket=stapled\nInfo.plist entries=32\nTeamIdentifier=82672N97RP\nRuntime Version=26.2.0\nSealed Resources version=2 rules=13 files=52\nInternal requirements count=1 size=184\nTotal signatures=1\nChosen signature=1\n"
+    },
+    {
+      "command": [
+        "spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=4",
+        "<release-check>/dmg-mount/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": "<release-check>/dmg-mount/Peer Agent.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "stapler",
+        "validate",
+        "<release-check>/dmg-mount/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "Processing: <release-check>/dmg-mount/Peer Agent.app\nThe validate action worked!\n",
+      "stderr": ""
+    }
+  ],
+  "ok": true,
+  "detached": true
+}

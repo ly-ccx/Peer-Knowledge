@@ -1,5 +1,7 @@
 # RC6 连续曲线与灰底正式组件验收
 
+创建时间：2026-10-05。最后更新：2026-10-05。
+
 2026-10-05。C级表面修订；不改变运行时、授权、Evidence或存储边界。以负责人已批准的连续曲线/灰底 Demo 为目标，生产 Renderer 原样加载到隔离 Electron 宿主，不向实机注入 CSS。
 
 ## 目标与比较
@@ -25,5 +27,11 @@
 ## 未计为通过的范围
 
 真实云模型质量、网络稳定性、剪贴板图片的所有格式、跨应用拖放、超大附件、实体手机、生产远程、全量读屏、Windows/Linux交互安装和七天日用。本轮产品语义未简化：回复来源不是一律硬编码为你，任务执行和复核配置独立，通知方式是只读事实。
+
+## 实际发布包复验
+
+不可变RC6发布后，直接下载已签名ZIP并以隔离数据/profile运行原包，不修改asar或CSS。以下为实际发布包截图：[通用设置](assets/peer-frost-radius-rc6/20-signed-rc6-general-native.jpg)、[版本与实际检查更新](assets/peer-frost-radius-rc6/21-signed-rc6-update-native.jpg)、[对话与抽屉](assets/peer-frost-radius-rc6/22-signed-rc6-conversation-drawer-native.jpg)、[引用定位](assets/peer-frost-radius-rc6/23-signed-rc6-quote-locate-native.jpg)。检查更新显示“已是最新·v0.1.0-rc.6”，无旧Beta弹窗；灰底层级、紧凑控件、左右消息/下方回执、滑动分段与原消息定位符合方案。
+
+签名包两条合成历史仅验证表达；未配置模型，模型字段合法禁用，不冒充真实模型执行或Evidence。实际签名与关键模块字节独立核对。自有窗口已退出，原用户应用/数据未替换。[版本绑定、范围与截图hash](../../playbook/v0.1.0/evidence/rc6-published-ui-passed-20261005.json)。
 
 final result: passed
