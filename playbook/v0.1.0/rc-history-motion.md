@@ -45,7 +45,7 @@
 
 ## 分支与提交
 
-代码分支 PeerAgent/pa/rc-history-motion，提交 ed9281c8a4c03240542eb4c6b3dba2cea9a9ee79，源 tree 7a4453615be4b1efc2ed2602c05df91260e12d64；基线 7276b5e6。提交已推送。本机原生报告 sourceDirty=true 如实保留，验收源在提交前已固定，提交 tree 与之相同。
+代码分支 PeerAgent/pa/rc-history-motion，提交 30c6430242bfca0fd12a648796958a4a6ad5ce8d，源 tree 316ac4bb87257841f628953b523e290ce95d0dec；基线 7276b5e6。提交已推送。本机原生报告 sourceDirty=true 如实保留，验收源在提交前已固定，提交 tree 与之相同。
 
 ## 改了什么
 
@@ -64,9 +64,10 @@
 - desktop 完整 5353 用例：5348 通过、5 个既有跳过，0 失败/取消；额外 i18n 1/1。
 - 生产 Electron/main/preload + 隔离数据完成 60 项壳/界面检查，本卡新增 5 组；0 页面错误、0 窗口授权错误、专属测试进程已退出。
 - 真实历史投影：40→48 行、标题搜索/无匹配/清除、键盘打开、Markdown 预览/返回、保留查询/焦点、实际空与暂时不可读/重试、关闭/Escape、深浅主题、390px 大字号无横向溢出。继续在选定机器人只追加一条 canonical input，含原历史引用与快照；原历史消息和 contentRevision 不变。
-- 226 帧原生 CDP 屏幕录制与 5 段 rAF 高度采样：外层 26.5→62.5px、内层 32→117.390625px，展开/关闭都有中间帧；85ms 时反向连续收起；关闭最终内容隐藏且不能接收 Tab，SVG 最终旋转 180°，减少动态效果直接切换。GIF 从原生帧按时间线取样、10ms 时间分辨率、末帧停留 1 秒；不以 GIF 编码时长代替实际 CSS/采样验收。
+- 263 帧原生 CDP 屏幕录制与 5 段 rAF 高度采样：外层 26.5→62.5px、内层 32→117.390625px，展开/关闭都有中间帧；驱动等待 85ms 后再次实际点击反向连续收起；关闭最终内容隐藏且不能接收 Tab，SVG 最终旋转 180°，减少动态效果直接切换。GIF 从原生帧按时间线取样、10ms 时间分辨率、末帧停留 1 秒；不以 GIF 编码时长代替实际 CSS/采样验收。
 - [深色历史](../../design/product/assets/peer-frost-history-motion/history-dark.png)、[浅色历史](../../design/product/assets/peer-frost-history-motion/history-light.png)、[预览](../../design/product/assets/peer-frost-history-motion/history-preview.png)、[窄窗大字](../../design/product/assets/peer-frost-history-motion/history-narrow-large.png)、[实机折叠录制](../../design/product/assets/peer-frost-history-motion/task-disclosure-native.gif)。
 - 本机保留原生报告、追踪包、原始帧/时间线及失败检查记录。受控认知与任务只证明 UI 和既有入口，不代表真实模型或任务工具执行/Evidence 验收。
+- 初次双平台 CI（ed9281c8，[run 37339491168](https://github.com/ly-ccx/Peer-Agent/actions/runs/37339491168)）Linux 通过；Mac 的四段展开/收起通过，在快速反向的最终隐藏断言失败。旧采样从远端点击指令前起算 480ms，可能在第二次实际点击的过渡结束前截止。30c6430 只修正测试计时：预先安装采样器，确认实际点击次数，再保留最后一次实际点击后的完整 480ms，6 秒总边界和原高度/中间帧/无整段跳跃/隐藏断言不变。修改后本机完整原生 60 项再次通过；Renderer 与产品样式未变。最终提交双平台 [run 37341105993](https://github.com/ly-ccx/Peer-Agent/actions/runs/37341105993) 进行中，完成后回填。
 
 ## 架构影响
 
