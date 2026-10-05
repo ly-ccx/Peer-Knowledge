@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
-  "sourceTree": "f4c1afc357d35215bbe28bc0e6ceb220efb1a52a",
+  "sourceCommit": "b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3",
+  "sourceTree": "f0bf8f2a8fb46873b322865fa61dd700673e8c13",
   "capturedBeforeCommit": true,
-  "captureBaseCommit": "bcd154232e86e0576a7b20aab099f7cb6a3a9c20",
+  "captureBaseCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
   "allSourceBlobsVerified": true,
   "sourceFiles": [
     {
@@ -113,8 +113,8 @@
     },
     {
       "path": "apps/desktop/scripts/bot-shell-electron-smoke.mjs",
-      "sha256": "c19ba39453ebc377693740e2fe1854bcd0ce9ef6932453313a2a313f69f23c33",
-      "gitBlob": "719bf365c9199101e4a11083eeeab7492c33555d"
+      "sha256": "f6cd32abc89364046b9dba583841d372ca8c40f8453150b1089233b4e1b89fe0",
+      "gitBlob": "f0cb50c99821ef06a3015d469570af1a4d8265c0"
     },
     {
       "path": "apps/desktop/scripts/bot-shell-reply-checks.mjs",
@@ -133,15 +133,15 @@
     },
     {
       "path": "scripts/rc-response-interaction-smoke.mjs",
-      "sha256": "565d2c452c16cfaba5bc7d12447404d368ed0046886f22c4a4bc2753ab2ec9d9",
-      "gitBlob": "cce307aee5f851dfe828c622fad3a28fce69e818"
+      "sha256": "57b7aa98d65d37238ff26d203db4301d7dc241dd26c66e620f542905608afd17",
+      "gitBlob": "d416ac63199548ede4747be0914c8613ff995a33"
     }
   ],
   "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing; main-side session snapshots and notifications are controlled fixtures, not proof of real delegated execution.",
   "local": {
     "platform": "darwin",
-    "startedAt": "2026-10-05T11:30:41.676Z",
-    "finishedAt": "2026-10-05T11:32:04.640Z",
+    "startedAt": "2026-10-05T11:45:30.726Z",
+    "finishedAt": "2026-10-05T11:46:53.864Z",
     "ok": true,
     "pageErrors": [],
     "mainAuthorizationErrors": [],
@@ -175,7 +175,7 @@
     "effortStability": {
       "settings": {
         "delayMs": 650,
-        "successFrames": 51,
+        "successFrames": 52,
         "failureFrames": 51,
         "successHeld": true,
         "failureHeldThenRolledBack": true,
@@ -196,14 +196,16 @@
       "before": 5311.5,
       "after": 5311.5,
       "eventDeliveryDelayed": true
-    }
+    },
+    "fixtureRoleIsolation": true
   },
   "unitTests": {
     "desktop": {
       "total": 5349,
       "passed": 5344,
       "skipped": 5,
-      "failed": 0
+      "failed": 0,
+      "testedSourceCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2"
     },
     "focused": {
       "passed": 9,
@@ -225,7 +227,7 @@
   "images": [
     {
       "path": "design/product/assets/bot-human-readable-work/work-running.png",
-      "sha256": "9507c1e42ddfcce3b3db9e1c4c9c148199b37efe00df80b7dd67365626420ae5"
+      "sha256": "85ae62f1fbfd75be735fcc7329f0f9d6afc35287a20d7472aab94e428954fa54"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/work-waiting.png",
@@ -233,7 +235,7 @@
     },
     {
       "path": "design/product/assets/bot-human-readable-work/bot-overview.png",
-      "sha256": "df6f2e9343188a0bb551b6ac3458d9d7128606a1e543162468a18153661bcedb"
+      "sha256": "d7a9e182f39e845aeb2c56ef20975309b03711d611fa1c4227c907743adbd74d"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/bot-memory.png",
@@ -241,22 +243,21 @@
     },
     {
       "path": "design/product/assets/bot-human-readable-work/work-narrow-light.png",
-      "sha256": "c320ea7e90c5a9522e88899293c0842243fa490da0b5a123b9985539af2d60da"
+      "sha256": "0a3b330daa0f9ea74e3ce62a80d49e78e75e5ad74b7670efbcc7ba93f1ff4840"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/stream-tool-running-expanded.png",
-      "sha256": "1c13bc4343acfa91ab59fa9d62b03dac759badadd4d95cc7e5ca4abf38be4b45"
+      "sha256": "99aa7566687668c35a8cbb7ea570963c5072431b14604b110864cf70174ad6d8"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/stream-complete.png",
-      "sha256": "d0e67b5b2cf0e6cc8b481751f604a6f5066966db124552f307b0a86e5bc0fde2"
+      "sha256": "181f5d330a7488319cd6c7165591817a78db6a56ce1875c740944df88479cb63"
     }
   ],
   "ci": {
     "status": "pending",
-    "runId": 37303838740,
-    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37303838740",
-    "headSha": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
+    "runId": 37305218500,
+    "headSha": "b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3",
     "previous": {
       "runId": 37302055812,
       "headSha": "bcd154232e86e0576a7b20aab099f7cb6a3a9c20",
@@ -265,6 +266,21 @@
       "failure": "New streamed content overwrote a delayed upward scroll after expanded task details.",
       "correctionCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
       "regression": "Delayed DOM scroll event; before and after reading offset must remain within 2px."
-    }
+    },
+    "previousScrollFix": {
+      "runId": 37303838740,
+      "headSha": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
+      "linux": "success",
+      "macos": "failure",
+      "readingPosition": {
+        "before": 5311,
+        "after": 5311,
+        "eventDeliveryDelayed": true
+      },
+      "failure": "Global fixture attempt counter was shared by interactive and background cognition. First-error check saw a canonical reply.",
+      "correctionCommit": "b8d280d9a053a49cee1126f68aacc2f7fe0b0ee3",
+      "regression": "Memory curator and objective probe cannot emit interactive stream events or consume the first interactive failure."
+    },
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37305218500"
   }
 }
