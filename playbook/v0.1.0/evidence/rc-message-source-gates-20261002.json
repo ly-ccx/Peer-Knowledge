@@ -1,0 +1,109 @@
+{
+  "sourceCommit": "2690400957b54ac090dedb24f74ad6b6abc65390",
+  "sourceTree": "7442e2d0204e077976291d3bf9594ed95f3a46ea",
+  "dirty": false,
+  "scope": "Local CSS correction, production source Electron window with scripted cognition and controlled updater display states; isolated synthetic visual before/after, not published signed RC4.",
+  "gates": {
+    "desktopBuild": 0,
+    "desktopTest": 0,
+    "workspaceTypecheck": 0,
+    "architectureCheck": 0,
+    "nativeWindow": 0
+  },
+  "desktop": {
+    "tests": 5320,
+    "pass": 5315,
+    "fail": 0,
+    "cancelled": 0,
+    "skip": 5,
+    "newSkips": 0,
+    "astPass": 1
+  },
+  "sourceWindow": {
+    "ok": true,
+    "startedAt": "2026-10-02T14:08:38.040Z",
+    "finishedAt": "2026-10-02T14:09:21.358Z",
+    "shellChecks": [
+      "200 real bot rows; no idle model turns",
+      "five input-to-visible searches across the real message corpus under budget",
+      "five real UI sends, visible durable Received under budget, scripted replies",
+      "real Quick Chat window lists bots and submits one canonical quick_chat input",
+      "scrolling up loads older messages from a 10000-message conversation",
+      "a quoted older message loads across pages, enters viewport, then returns to latest",
+      "profile opens and settings tab works",
+      "classic shell opens through settings",
+      "bot shell returns with all persisted identities"
+    ],
+    "accessibility": [
+      "focusable list: Home/End, arrows, Enter open the selected bot",
+      "Space opens the selected bot without scrolling the page",
+      "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+      "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+      "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+      "oversize input is rejected before submission and the editable draft is retained",
+      "10000 memory records render 50 at a time; next and previous retain distinct identities",
+      "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+      "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+      "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+      "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+    ],
+    "diagnosticChecks": [
+      "read actual stores",
+      "reject renderer destination",
+      "refresh real Developer panel",
+      "save redacted JSON",
+      "bounded events/turns",
+      "actual turn timing",
+      "no absolute paths, IDs or message text"
+    ],
+    "pageErrors": [],
+    "mainAuthorizationErrors": [],
+    "ownedExited": true,
+    "metrics": {
+      "productionList": {
+        "samples": [
+          14.675499999997555,
+          15.509083000000828,
+          15.139541000000463,
+          15.041416000000027,
+          15.102584000000206
+        ],
+        "median": 15.102584000000206,
+        "budget": 100,
+        "pass": true
+      },
+      "visibleSearch": {
+        "samples": [
+          68.19999998807907,
+          25.599999994039536,
+          24.400000005960464,
+          24.899999976158142,
+          23.700000017881393
+        ],
+        "median": 24.899999976158142,
+        "budget": 150,
+        "pass": true
+      },
+      "visibleReceived": {
+        "samples": [
+          55.20000001788139,
+          53.80000001192093,
+          53.900000005960464,
+          54.30000001192093,
+          55.900000005960464
+        ],
+        "median": 54.30000001192093,
+        "budget": 300,
+        "pass": true
+      }
+    },
+    "updaterLayoutCount": 72
+  },
+  "ci": {
+    "runId": 37017510987,
+    "attempt": 2,
+    "conclusion": "success"
+  },
+  "installedRC4Changed": false,
+  "cssSha256": "27e574a96039f0596d86a55900beb20b3f47524a33d867a8e5744bc25792f74c"
+}

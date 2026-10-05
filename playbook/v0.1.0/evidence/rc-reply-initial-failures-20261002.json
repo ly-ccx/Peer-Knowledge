@@ -1,0 +1,131 @@
+{
+  "failures": [
+    {
+      "sourceHead": "6ce134345c540fd51bc92dc4cf029a4b16d493b8",
+      "sourceDirty": true,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 6724
+      },
+      "originalError": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at checkBotShellReply (file://Peer-Agent/apps/desktop/scripts/bot-shell-reply-checks.mjs:47:10)\n    at async file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:248:3",
+      "replyChecksBeforeFailure": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow"
+      ],
+      "resolution": "Initial keyboard focus sequence failed."
+    },
+    {
+      "sourceHead": "6ce134345c540fd51bc92dc4cf029a4b16d493b8",
+      "sourceDirty": true,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 21836
+      },
+      "originalError": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at checkBotShellReply (file://Peer-Agent/apps/desktop/scripts/bot-shell-reply-checks.mjs:49:10)\n    at async file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:248:3",
+      "replyChecksBeforeFailure": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow"
+      ],
+      "resolution": "Locator.press refocused the locator; corrected to natural quote-to-process Tab."
+    },
+    {
+      "sourceHead": "6ce134345c540fd51bc92dc4cf029a4b16d493b8",
+      "sourceDirty": true,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 24689
+      },
+      "originalError": "electronApplication.evaluate: Resulting promise was garbage collected.\n    at emit (Peer-Agent/apps/desktop/scripts/bot-shell-updater-checks.mjs:58:29)\n    at checkBotShellUpdater (Peer-Agent/apps/desktop/scripts/bot-shell-updater-checks.mjs:118:15)\n    at async file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:130:3",
+      "replyChecksBeforeFailure": [],
+      "resolution": "Old test CDP main-process event injection Promise was garbage collected before reply checks; repaired isolated test transport with explicit same-event receipts."
+    },
+    {
+      "sourceHead": "6618cc982027bff6c4d8da930664d0644b8d8d57",
+      "sourceDirty": false,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 26690
+      },
+      "originalError": "Error: Shell acceptance timed out\n    at until (file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:136:9)\n    at async checkBotShellReply (file://Peer-Agent/apps/desktop/scripts/bot-shell-reply-checks.mjs:56:3)\n    at async file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:278:3",
+      "replyChecksBeforeFailure": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow"
+      ],
+      "resolution": "Hover assertion timed out; initial pointer state was investigated."
+    },
+    {
+      "sourceHead": "fafcc10843a2343226d16959b8c27fd24f7fc7db",
+      "sourceDirty": false,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 28111
+      },
+      "originalError": "Error: Shell acceptance timed out\n    at until (file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:136:9)\n    at async checkBotShellReply (file://Peer-Agent/apps/desktop/scripts/bot-shell-reply-checks.mjs:58:3)\n    at async file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:278:3",
+      "replyChecksBeforeFailure": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow"
+      ],
+      "resolution": "Hover still timed out with pointer outside: dark chrome-hover equaled paper-sheet; product hover now uses existing paper-hover."
+    },
+    {
+      "sourceHead": "630b30642164b3f89a98099c77f3d057f8dffc62",
+      "sourceDirty": false,
+      "pageErrors": [],
+      "mainAuthorizationErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 46311
+      },
+      "originalError": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at checkBotShellReply (file://Peer-Agent/apps/desktop/scripts/bot-shell-reply-checks.mjs:94:10)\n    at async file://Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:278:3",
+      "replyChecksBeforeFailure": [
+        "quote is a context button with SVG; delivery policy is explicitly readonly",
+        "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+        "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+        "memory disclosure retrieves the canonical memory and collapses without a nested status pill"
+      ],
+      "resolution": "Cancel focus assertion failed because locator.press refocused before each key; consecutive keys now use page.keyboard, retaining strict active focus/outline checks."
+    }
+  ],
+  "assertionsWeakened": false,
+  "performanceBudgetsChanged": false,
+  "newSkips": 0,
+  "unitRetry": {
+    "initial": "Concurrent desktop full run: 5320 tests, 5314 pass, 1 failure, 5 original skips, 0 cancelled; unchanged goal-plan-store subscribeChanges watcher exceeded its timeout.",
+    "boundedRetry": "Same unchanged file once in isolation: 142 tests, 142 pass, 0 fail, 2499ms.",
+    "previousFull": "Initial full desktop: 5320 tests, 5315 pass, 0 fail, 5 original skips; independent AST 1 pass."
+  }
+}

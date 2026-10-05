@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "scope": "Actual RC1 CLI binary + same-release signed Desktop helper in owned build staging; proves assembly repair, NOT published RC2/npm installation",
+  "completedAt": "2026-10-02T02:18:10.900Z",
+  "sourceHead": "3acf89eae95924c1eb3ad077ef04e4a802788fe3",
+  "cliVersion": "peer 0.1.0-rc.1",
+  "cliBinaryUnchanged": true,
+  "cliSha256": "0f83023d9a0defa46a348664bec8edc25eed8b5b5ca13fee0a74488acd6a05ad",
+  "helperSha256": "dd4fca6b79e0aa969040f31a4736f31adafe248638fc1c32e8a0181b06a8dcf7",
+  "helperIdentifier": "peer-credential-helper",
+  "teamIdentifier": "82672N97RP",
+  "helperOverride": false,
+  "isolationVariable": "PEER_AGENT_HOME",
+  "workspaceId": "5ae9a181-76b2-4527-a664-16230cdfbcac",
+  "conversationId": "32810887-5d8d-4441-90f1-10233f9a69cc",
+  "model": "gpt-6-luna",
+  "calls": [
+    {
+      "name": "read_file",
+      "input": {
+        "path": "README.md"
+      },
+      "result": {
+        "path": "README.md",
+        "content": "RC_CLI_REAL_READ_OK\n",
+        "bytes": 20,
+        "contentHash": "bd51f81b4e41667fdd14872cb02f5b38e0c6e73f00055060e93e4655944fbb0a"
+      }
+    },
+    {
+      "name": "post_reply",
+      "input": {
+        "replyTo": [
+          "input-db18e514-d34e-4893-ad59-3d51db9e100c"
+        ],
+        "text": "README.md exact content:\n\n```text\nRC_CLI_REAL_READ_OK\n```",
+        "sources": [],
+        "statusClaims": []
+      },
+      "result": {
+        "ok": true,
+        "messageId": "reply:turn-37ddc656-6a69-4dcb-8484-cde05e6fa8dd:1",
+        "message": {
+          "id": "reply:turn-37ddc656-6a69-4dcb-8484-cde05e6fa8dd:1",
+          "role": "assistant",
+          "kind": "agent_reply",
+          "content": "README.md exact content:\n\n```text\nRC_CLI_REAL_READ_OK\n```",
+          "replyTo": [
+            "input-db18e514-d34e-4893-ad59-3d51db9e100c"
+          ],
+          "sources": [],
+          "fallback": false,
+          "turnId": "turn-37ddc656-6a69-4dcb-8484-cde05e6fa8dd",
+          "meta": {
+            "replyTo": [
+              "input-db18e514-d34e-4893-ad59-3d51db9e100c"
+            ],
+            "sources": [],
+            "memoryUsed": [],
+            "memoryLearned": [],
+            "surfacing": "interrupt"
+          },
+          "marks": []
+        },
+        "meta": {
+          "replyTo": [
+            "input-db18e514-d34e-4893-ad59-3d51db9e100c"
+          ],
+          "sources": [],
+          "memoryUsed": [],
+          "memoryLearned": [],
+          "surfacing": "interrupt"
+        },
+        "surfacing": "interrupt"
+      }
+    }
+  ],
+  "originalReadmeUnchanged": true,
+  "processExited": true,
+  "credentialCopiesRemoved": true,
+  "discardedAttempt": "Wrong isolation variable run stopped and own visible rows removed; unrelated rows unchanged, audit logs retained"
+}

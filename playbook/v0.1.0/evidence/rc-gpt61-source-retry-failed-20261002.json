@@ -1,0 +1,545 @@
+{
+  "startedAt": "2026-10-02T03:01:54.336Z",
+  "finishedAt": "2026-10-02T03:04:58.291Z",
+  "sourceHead": "6c42a9030df364bb46f4208a698a16d5dec41e6e",
+  "sourceDirty": false,
+  "model": "gpt-6.1-sol",
+  "version": "0.1.0-rc.1",
+  "installed": false,
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 96396
+  },
+  "credentialCopiesRemoved": true,
+  "retries": [
+    {
+      "turnId": "turn-423154ea-ad56-4095-adbd-c013fd30395c",
+      "result": {
+        "ok": false,
+        "code": "TURN_FAILED"
+      }
+    }
+  ],
+  "ok": false,
+  "scope": "Clean source actual GPT-6.1 Sol subscription test with one explicit product Retry. No read_file/post_reply canonical result; request failure retained.",
+  "originalProjectUnchanged": true,
+  "traces": [
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "events": [
+        {
+          "type": "response.created",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.in_progress",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.added",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.added",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_text.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "logprobs",
+            "output_index",
+            "sequence_number",
+            "text",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.done",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.completed",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": {
+            "inputTokens": 9033,
+            "outputTokens": 4,
+            "cacheCreationInputTokens": null,
+            "cacheReadInputTokens": null
+          },
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        }
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "events": [
+        {
+          "type": "response.created",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.in_progress",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.added",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.added",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_text.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "logprobs",
+            "output_index",
+            "sequence_number",
+            "text",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.done",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.completed",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": {
+            "inputTokens": 9538,
+            "outputTokens": 4,
+            "cacheCreationInputTokens": null,
+            "cacheReadInputTokens": null
+          },
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        }
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "events": [
+        {
+          "type": "response.created",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.in_progress",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.added",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.added",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_text.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "logprobs",
+            "output_index",
+            "sequence_number",
+            "text",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.done",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.completed",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": {
+            "inputTokens": 9036,
+            "outputTokens": 4,
+            "cacheCreationInputTokens": null,
+            "cacheReadInputTokens": null
+          },
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        }
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "events": [
+        {
+          "type": "response.created",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.in_progress",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.added",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.added",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_text.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "logprobs",
+            "output_index",
+            "sequence_number",
+            "text",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.done",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.completed",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": {
+            "inputTokens": 9686,
+            "outputTokens": 4,
+            "cacheCreationInputTokens": null,
+            "cacheReadInputTokens": null
+          },
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        }
+      ]
+    }
+  ]
+}

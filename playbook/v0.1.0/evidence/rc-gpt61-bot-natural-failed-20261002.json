@@ -1,0 +1,85 @@
+{
+  "sourceHead": "b1cae3734b8a477c9dc098f65e18735d41b76672",
+  "sourceDirty": false,
+  "startedAt": "2026-10-02T03:22:20.166Z",
+  "finishedAt": "2026-10-02T03:25:24.140Z",
+  "model": "gpt-6.1-sol",
+  "version": "0.1.0-rc.2",
+  "installed": false,
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 48644
+  },
+  "credentialCopiesRemoved": true,
+  "retries": [
+    {
+      "turnId": "turn-f80461ce-5458-4f3c-877c-3bff30607b87",
+      "result": {
+        "ok": false,
+        "code": "TURN_FAILED"
+      }
+    }
+  ],
+  "ok": false,
+  "scope": "Actual natural-language Chinese request in bot role still yielded empty responses; classic same-model low/default read replies passed. Full raw readback request may conflict with role summary policy, so a summary-only probe follows. No root cause asserted.",
+  "originalProjectUnchanged": true,
+  "traces": [
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream"
+    }
+  ]
+}

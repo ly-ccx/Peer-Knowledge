@@ -1,0 +1,20 @@
+{
+  "ciRun": 36995512881,
+  "attempt": 1,
+  "sourceHead": "eb4b0e40c15858cfcb4dc4bd4f675937eb925b61",
+  "sourceDirty": false,
+  "result": "failed",
+  "stage": "Synthetic updater-event test transport",
+  "error": "electronApplication.evaluate: Resulting promise was garbage collected.\n    at emit (apps/desktop/scripts/bot-shell-updater-checks.mjs:58:29)\n    at checkBotShellUpdater (apps/desktop/scripts/bot-shell-updater-checks.mjs:113:15)\n    at async file://apps/desktop/scripts/bot-shell-electron-smoke.mjs:126:3",
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "updaterChecksCompleted": [
+    "SVG account mark, account menu and update metadata form one compact group without a duplicate character icon",
+    "current version aligns with the account in one row; update channel is absent from the footer",
+    "version button opens the existing update modal and Escape closes it",
+    "Updates & about retains its SVG channel selector, keyboard focus and all three persisted preferences through production IPC"
+  ],
+  "layoutSamplesCompleted": 2,
+  "ownedExited": true,
+  "boundedRetry": "One rerun of the same commit and failed job only; no product code or assertion changes. Actual signed-binary checks still required."
+}

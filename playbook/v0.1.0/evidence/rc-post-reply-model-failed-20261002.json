@@ -1,0 +1,175 @@
+{
+  "startedAt": "2026-10-02T07:12:46.164Z",
+  "model": "gpt-6.1-sol",
+  "channel": "ChatGPT 订阅",
+  "scope": "Fixed source, all 401 old plans and histories copied read-only, two disposable bots, copied existing configured credential used only with its configured ChatGPT destination, disposable project, production bot input and reply; original configuration/data unchanged",
+  "version": "0.1.0-rc.2",
+  "proxy": "PROXY 127.0.0.1:7890",
+  "submit": {
+    "ok": true,
+    "input": {
+      "inputId": "model-health-readonly",
+      "workspaceId": "ec4d6012-d9b9-4b29-b614-d49e7a261f2d",
+      "surface": "desktop",
+      "text": "你好，请用 post_reply 回复「连接正常」。不要读取或修改文件，不创建任务。",
+      "anchorRefs": [],
+      "quoteRefs": [],
+      "attachmentRefs": [],
+      "createdAt": "2026-10-02T07:12:47.298Z"
+    },
+    "delivery": "queued"
+  },
+  "durationMs": 19129,
+  "reply": [],
+  "errors": [
+    {
+      "kind": "system_card",
+      "content": "代理暂时不可用：empty_model_response: 模型没有返回任何文本或工具调用，请检查当前模型、baseUrl、API 兼容性或模型是否支持当前请求格式。"
+    }
+  ],
+  "ok": false,
+  "projectUnchanged": true,
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1"
+  },
+  "traces": [
+    {
+      "model": "gpt-6.1-sol",
+      "status": 200,
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 1,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": null,
+      "httpError": null,
+      "parseErrors": [],
+      "eventTypes": [
+        "response.created",
+        "response.in_progress",
+        "response.output_item.added",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.done",
+        "response.output_item.done",
+        "response.completed"
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "status": 200,
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "httpError": null,
+      "parseErrors": [],
+      "eventTypes": [
+        "response.created",
+        "response.in_progress",
+        "response.output_item.added",
+        "response.content_part.added",
+        "response.output_text.done",
+        "response.content_part.done",
+        "response.output_item.done",
+        "response.completed"
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "status": 200,
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 1,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": null,
+      "httpError": null,
+      "parseErrors": [],
+      "eventTypes": [
+        "response.created",
+        "response.in_progress",
+        "response.output_item.added",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.delta",
+        "response.function_call_arguments.done",
+        "response.output_item.done",
+        "response.completed"
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "status": 200,
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "httpError": null,
+      "parseErrors": [],
+      "eventTypes": [
+        "response.created",
+        "response.in_progress",
+        "response.output_item.added",
+        "response.content_part.added",
+        "response.output_text.done",
+        "response.content_part.done",
+        "response.output_item.done",
+        "response.completed"
+      ]
+    }
+  ],
+  "copiedCredentialsRemoved": true,
+  "finishedAt": "2026-10-02T07:13:06.665Z",
+  "sourceScope": "Fixed startup source with 401 copied old plans/histories, two disposable bots, genuine GPT61 via configured ChatGPT channel; original data/config unchanged; signed installed helper explicitly reused",
+  "gitScope": "68b9689e before terminal repair",
+  "committedRepair": {
+    "sourceHead": "ca56024d95bed1ab00769ca26ff60ad001e1eb19",
+    "sourceTree": "0d673ef65de7b0fe6a2c365435c0df8d42e21ce6",
+    "pr": 108,
+    "bindingScope": "same three production/test file changes measured before commit; measurement gitScope retained"
+  }
+}

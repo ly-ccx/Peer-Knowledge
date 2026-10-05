@@ -1,0 +1,184 @@
+{
+  "scope": "Same local read-only data copy, actual 401 persisted plans and histories; old readFacts expression versus candidate reader; original data untouched; no model or task execution",
+  "plans": 401,
+  "samples": [
+    {
+      "baselineMs": 4088.3834580000002,
+      "candidateMs": 0.6841249999997672,
+      "baselineBodyReads": 401,
+      "candidateBodyReads": 0,
+      "factsEqual": true
+    },
+    {
+      "baselineMs": 4079.805125,
+      "candidateMs": 0.5057500000002619,
+      "baselineBodyReads": 401,
+      "candidateBodyReads": 0,
+      "factsEqual": true
+    },
+    {
+      "baselineMs": 4085.458290999999,
+      "candidateMs": 0.4175839999988966,
+      "baselineBodyReads": 401,
+      "candidateBodyReads": 0,
+      "factsEqual": true
+    },
+    {
+      "baselineMs": 4080.1064589999987,
+      "candidateMs": 0.6477919999997539,
+      "baselineBodyReads": 401,
+      "candidateBodyReads": 0,
+      "factsEqual": true
+    },
+    {
+      "baselineMs": 4085.640958,
+      "candidateMs": 0.4292920000007143,
+      "baselineBodyReads": 401,
+      "candidateBodyReads": 0,
+      "factsEqual": true
+    }
+  ],
+  "baselineMedianMs": 4085.458290999999,
+  "candidateMedianMs": 0.5057500000002619,
+  "sourceCommit": "3a1069d0ef1380d9b873d4ebcd5d475f06136f35",
+  "pr": 107,
+  "measuredAt": "2026-10-02",
+  "originalNativeSample": {
+    "launch": "installed rc.2 normal restart",
+    "mainCpuPercent": 101.2,
+    "peakFootprintMiB": 1024,
+    "sampleSeconds": 20
+  },
+  "firstFixtureFailure": {
+    "reason": "quick-chat window selected; IPC role denied",
+    "launchMs": 13404,
+    "ownedExited": true,
+    "profileFinding": "getConversation full history reads under project-agent-host readFacts filter"
+  },
+  "sourceWindow": {
+    "scope": "Candidate source on current build with local history/plan copies; no credentials, automation or input queue; copied execution records disabled and workspace paths remapped to disposable project",
+    "startedAt": "2026-10-02T06:49:20.308Z",
+    "launchMs": 1274,
+    "bootstrapMs": 1422,
+    "readyMs": 3541,
+    "main": {
+      "maxTickMs": 87,
+      "ticks": 721,
+      "memory": {
+        "rss": 305545216,
+        "heapTotal": 41844736,
+        "heapUsed": 36523064,
+        "external": 4048728,
+        "arrayBuffers": 0
+      }
+    },
+    "ok": true,
+    "stop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 29956
+    },
+    "finishedAt": "2026-10-02T06:49:59.137Z"
+  },
+  "firstSwitchFixtureFailure": {
+    "scope": "Candidate source on current build with local history/plan copies; no credentials, automation or input queue; copied execution records disabled and workspace paths remapped to disposable project",
+    "startedAt": "2026-10-02T06:55:50.882Z",
+    "launchMs": 1641,
+    "bootstrapMs": 1674,
+    "readyMs": 3945,
+    "switches": [],
+    "error": "Fixture selector timed out; no passing switch measurement",
+    "stop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 32335
+    },
+    "finishedAt": "2026-10-02T06:56:05.261Z"
+  },
+  "sourceSwitchWindow": {
+    "scope": "Candidate source on current build with local history/plan copies; no credentials, automation or input queue; copied execution records disabled and workspace paths remapped to disposable project",
+    "startedAt": "2026-10-02T06:56:31.536Z",
+    "launchMs": 1192,
+    "bootstrapMs": 1283,
+    "readyMs": 3480,
+    "switches": [
+      100,
+      167,
+      76,
+      83,
+      84,
+      75,
+      83,
+      84
+    ],
+    "main": {
+      "maxTickMs": 104,
+      "ticks": 289,
+      "memory": {
+        "rss": 417939456,
+        "heapTotal": 112361472,
+        "heapUsed": 44984920,
+        "external": 4048728,
+        "arrayBuffers": 0
+      }
+    },
+    "ok": true,
+    "stop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 33082
+    },
+    "finishedAt": "2026-10-02T06:56:48.099Z"
+  },
+  "localGates": {
+    "build": "PASS",
+    "typecheck": "PASS",
+    "architecture": "PASS",
+    "focused": {
+      "tests": 35,
+      "pass": 35
+    },
+    "desktop": {
+      "tests": 5301,
+      "pass": 5296,
+      "skip": 5,
+      "newSkip": 0
+    },
+    "i18n": {
+      "tests": 1,
+      "pass": 1
+    },
+    "ci": {
+      "run": 36975763494,
+      "headSha": "3a1069d0ef1380d9b873d4ebcd5d475f06136f35",
+      "conclusion": "SUCCESS",
+      "jobs": {
+        "macos14": "SUCCESS",
+        "ubuntuLatest": "SUCCESS"
+      },
+      "smoke": {
+        "sourceHead": "9dfb194cc0e07a4bbc638adbb6bcd61af27fff8c",
+        "sourceDirty": false,
+        "macosOk": true,
+        "linuxOk": true,
+        "pageErrors": 0
+      },
+      "tree": "c468c7fa231f7f7c6b07dd4577c32243f5b9d1a0"
+    }
+  },
+  "merge": {
+    "commit": "68b9689ec683ffeaf13e9cefae5b489e2cb98a49",
+    "tree": "c468c7fa231f7f7c6b07dd4577c32243f5b9d1a0",
+    "mergedAt": "2026-10-02T07:06:00Z"
+  },
+  "installedRC2": "Not yet updated; net::ERR_FAILED is a separate unresolved issue"
+}

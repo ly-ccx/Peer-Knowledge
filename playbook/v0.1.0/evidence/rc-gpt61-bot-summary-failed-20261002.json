@@ -1,0 +1,125 @@
+{
+  "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-installed-complex-yMuvQA",
+  "startedAt": "2026-10-02T03:25:34.094Z",
+  "scope": "Source rc.2 GPT-6.1 Sol bot summary request; genuine read_file/post_reply requirements; failed, not Ready",
+  "sourceDirty": true,
+  "sourceHead": "7dfb8f3a3504a567d528b50b39c8863d4a5932a5",
+  "model": "gpt-6.1-sol",
+  "provider": "openai",
+  "originalHead": "8198afca63aed7216fa6a81a7fc04306d589114a",
+  "steps": [],
+  "pageErrors": [],
+  "samples": [],
+  "installed": false,
+  "version": "0.1.0-rc.2",
+  "workspaceId": "a115377f-52be-43bd-b923-094998476c44",
+  "submit": {
+    "ok": true,
+    "input": {
+      "inputId": "rc-gpt61-real-read",
+      "workspaceId": "a115377f-52be-43bd-b923-094998476c44",
+      "surface": "desktop",
+      "text": "请用 read_file 读取 README.md，然后调用 post_reply 简要概括文件说了什么，并带上 GPT61_SUBSCRIPTION_OK。只读，不开任务，不修改文件。",
+      "anchorRefs": [],
+      "quoteRefs": [],
+      "attachmentRefs": [],
+      "createdAt": "2026-10-02T03:25:37.685Z"
+    },
+    "delivery": "queued"
+  },
+  "retries": [
+    {
+      "turnId": "turn-03fad217-f516-4057-940a-66f41fcd79a5",
+      "result": {
+        "ok": false,
+        "code": "TURN_FAILED"
+      }
+    }
+  ],
+  "error": "Error: RC acceptance timed out\n    at until (file:///private/tmp/peer-rc-gpt61-bot-summary.mjs:20:212)\n    at async file:///private/tmp/peer-rc-gpt61-bot-summary.mjs:32:56",
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 50144
+  },
+  "credentialCopiesRemoved": true,
+  "finishedAt": "2026-10-02T03:28:38.198Z",
+  "providerTraceSummary": [
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "default",
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "httpError": null,
+      "response": {
+        "status": 200,
+        "ok": true
+      }
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "default",
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "httpError": null,
+      "response": {
+        "status": 200,
+        "ok": true
+      }
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "default",
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "httpError": null,
+      "response": {
+        "status": 200,
+        "ok": true
+      }
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "default",
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "httpError": null,
+      "response": {
+        "status": 200,
+        "ok": true
+      }
+    }
+  ],
+  "sourceDirtyExplanation": "Only owned generated manifest generatedAt drift; no production source edit. Raw first failure preserved."
+}

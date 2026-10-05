@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "scope": "Actual published rc.2 CLI archive, default helper, 100x30 PTY, Y bind + bracketed paste + Enter + visible Received/reply + Ctrl-C exit0; disposable home. First discarded launcher inherited heredoc stdin, no model input, stopped owned only.",
+  "version": "peer 0.1.0-rc.2",
+  "sourceCommit": "be65fb73ce672f87a144a68ed5a1622f5d632ae8",
+  "helperOverride": false,
+  "model": "gpt-6-luna",
+  "isolationVariable": "PEER_AGENT_HOME",
+  "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-cli-zdHktk",
+  "calls": [
+    {
+      "name": "read_file",
+      "input": {
+        "path": "README.md"
+      },
+      "result": {
+        "path": "README.md",
+        "content": "RC_CLI_REAL_READ_OK\n",
+        "bytes": 20,
+        "contentHash": "bd51f81b4e41667fdd14872cb02f5b38e0c6e73f00055060e93e4655944fbb0a"
+      }
+    },
+    {
+      "name": "post_reply",
+      "input": {
+        "replyTo": [
+          "input-7f6d8444-8015-4141-a764-4fcef72c288d"
+        ],
+        "text": "README.md contains the marker `RC_CLI_REAL_READ_OK`.",
+        "proactive": false
+      },
+      "result": {
+        "ok": true,
+        "messageId": "reply:turn-4c2a1850-9b59-4107-b60c-abf7cb1f1d7d:1",
+        "message": {
+          "id": "reply:turn-4c2a1850-9b59-4107-b60c-abf7cb1f1d7d:1",
+          "role": "assistant",
+          "kind": "agent_reply",
+          "content": "README.md contains the marker `RC_CLI_REAL_READ_OK`.",
+          "replyTo": [
+            "input-7f6d8444-8015-4141-a764-4fcef72c288d"
+          ],
+          "sources": [],
+          "fallback": false,
+          "turnId": "turn-4c2a1850-9b59-4107-b60c-abf7cb1f1d7d",
+          "meta": {
+            "replyTo": [
+              "input-7f6d8444-8015-4141-a764-4fcef72c288d"
+            ],
+            "sources": [],
+            "memoryUsed": [],
+            "memoryLearned": [],
+            "surfacing": "interrupt"
+          },
+          "marks": []
+        },
+        "meta": {
+          "replyTo": [
+            "input-7f6d8444-8015-4141-a764-4fcef72c288d"
+          ],
+          "sources": [],
+          "memoryUsed": [],
+          "memoryLearned": [],
+          "surfacing": "interrupt"
+        },
+        "surfacing": "interrupt"
+      }
+    }
+  ],
+  "reply": {
+    "id": "reply:turn-4c2a1850-9b59-4107-b60c-abf7cb1f1d7d:1",
+    "role": "assistant",
+    "kind": "agent_reply",
+    "content": "README.md contains the marker `RC_CLI_REAL_READ_OK`.",
+    "replyTo": [
+      "input-7f6d8444-8015-4141-a764-4fcef72c288d"
+    ],
+    "sources": [],
+    "fallback": false,
+    "turnId": "turn-4c2a1850-9b59-4107-b60c-abf7cb1f1d7d",
+    "meta": {
+      "replyTo": [
+        "input-7f6d8444-8015-4141-a764-4fcef72c288d"
+      ],
+      "sources": [],
+      "memoryUsed": [],
+      "memoryLearned": [],
+      "surfacing": "interrupt"
+    },
+    "marks": [],
+    "createdAt": "2026-10-02T03:45:21.660Z"
+  },
+  "projectUnchanged": true,
+  "exitCode": 0,
+  "assembly": {
+    "helperSameAsDesktop": true,
+    "helperSha256": "d55f1b35fc40e1d0a40e60bf606af499b394136aa6c0c6d7a9b439a7ad3b29c4",
+    "identifier": "peer-credential-helper",
+    "teamIdentifier": "82672N97RP",
+    "strictSignaturePassed": true,
+    "cliSha256": "415b0fc3c200fb3d2aa2611f5f719a91b75cf140e6baa82274def7207e42d32d"
+  },
+  "credentialCopiesRemoved": true
+}

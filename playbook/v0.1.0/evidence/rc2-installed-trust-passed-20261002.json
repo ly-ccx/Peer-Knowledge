@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "scope": "Actual downloaded macOS rc.2 ZIP/app and read-only DMG inner app; published SHA binding, strict Developer ID signature, notarization staple, Gatekeeper, hdiutil checksum; no Windows/Linux interactive claim",
+  "releaseCommit": "be65fb73ce672f87a144a68ed5a1622f5d632ae8",
+  "digests": [
+    {
+      "name": "Peer-Agent-0.1.0-rc.2-arm64.dmg",
+      "sha256": "297e8cfc1e6481d0053770328349d1de6e5fd88f9d282f092a0392e12aab4c37",
+      "size": 143995724,
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "peer-darwin-arm64.tar.gz",
+      "sha256": "a2d71441664afe7ec412c02af92ca14fdc5699e95c96e95bdcb4434e1ee4acab",
+      "size": 23878052,
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.2-arm64.zip",
+      "sha256": "f2151a7493e17618f1495cf523ea2afe6022222841e9ea4996f2845d5c662aa8",
+      "size": 141477133,
+      "matchesPublishedDigest": true
+    }
+  ],
+  "zipAppChecks": [
+    "codesign --verify --deep --strict exit0",
+    "xcrun stapler validate exit0",
+    "spctl Notarized Developer ID exit0"
+  ],
+  "dmgChecks": [
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "stapler",
+        "validate"
+      ],
+      "exitCode": 0,
+      "stdout": "Processing: /tmp/peer-rc2-release-assets/dmg-mount/Peer Agent.app\nThe validate action worked!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "spctl",
+        "--assess",
+        "--type"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "/tmp/peer-rc2-release-assets/dmg-mount/Peer Agent.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    {
+      "command": [
+        "hdiutil",
+        "detach",
+        "owned-mount"
+      ],
+      "exitCode": 0
+    }
+  ]
+}

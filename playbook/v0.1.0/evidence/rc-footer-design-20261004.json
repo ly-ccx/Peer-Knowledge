@@ -1,0 +1,2924 @@
+{
+  "card": "RC footer design",
+  "date": "2026-10-04",
+  "codeHead": "a09256b60f102a4714db345b63f2f204338ac510",
+  "pullRequest": 120,
+  "native": {
+    "ok": true,
+    "platform": "darwin",
+    "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+    "scale": {
+      "bots": 200,
+      "messages": 10000,
+      "inboxEvents": 100000,
+      "memories": 10000
+    },
+    "startedAt": "2026-10-04T03:21:38.866Z",
+    "finishedAt": "2026-10-04T03:22:32.557Z",
+    "sourceHead": "a09256b60f102a4714db345b63f2f204338ac510",
+    "sourceDirty": false,
+    "checks": [
+      "200 real bot rows; no idle model turns",
+      "five input-to-visible searches across the real message corpus under budget",
+      "five real UI sends, visible durable Received under budget, scripted replies",
+      "real Quick Chat window lists bots and submits one canonical quick_chat input",
+      "scrolling up loads older messages from a 10000-message conversation",
+      "a quoted older message loads across pages, enters viewport, then returns to latest",
+      "profile opens and settings tab works",
+      "classic shell opens through settings",
+      "bot shell returns with all persisted identities"
+    ],
+    "updater": [
+      "SVG settings entry and right-aligned update metadata form a compact footer without a fake account avatar",
+      "settings replaces the identity placeholder; all four SVG menu items support arrows, Home/End, Escape focus return and Tab to version",
+      "current version aligns with settings in one row; update channel is absent from the footer",
+      "version button opens the existing update modal and Escape closes it",
+      "Updates & about retains its SVG channel selector, keyboard focus and all three persisted preferences through production IPC",
+      "available SVG indicator, 42% progress and install control fit 240–360px columns in both locales and themes, including a temporarily measured long candidate label",
+      "reload restores production update state and persisted channel without duplicate badges"
+    ],
+    "updaterPhaseScope": "Synthetic updater events verify renderer states only; no release download or install is performed",
+    "updaterFooterHeight": 44,
+    "footerEscapeFocus": {
+      "tag": "BUTTON",
+      "className": "bot-app-menu-button",
+      "text": "设置"
+    },
+    "updaterLayouts": [
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 128.9296875,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 89.5390625,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 103.2265625,
+            "right": 180.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 108.5390625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 107.9296875,
+            "right": 185,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 189,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 108.5390625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 189,
+            "right": 225,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 180.9296875,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 141.5390625,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 155.2265625,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 115.8359375,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 159.9296875,
+            "right": 237,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 241,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 120.5390625,
+            "right": 237,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 241,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 248.9296875,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 209.5390625,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 223.2265625,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 183.8359375,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 227.9296875,
+            "right": 305,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 309,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 188.5390625,
+            "right": 305,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 309,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 128.9296875,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 89.5390625,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 103.2265625,
+            "right": 180.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 108.5390625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 107.9296875,
+            "right": 185,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 189,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 108.5390625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 189,
+            "right": 225,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 180.9296875,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 141.5390625,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 155.2265625,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 115.8359375,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 159.9296875,
+            "right": 237,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 241,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 120.5390625,
+            "right": 237,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 241,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 248.9296875,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 209.5390625,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 223.2265625,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 183.8359375,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 227.9296875,
+            "right": 305,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 309,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "设置",
+            "width": 64,
+            "height": 36,
+            "left": 14,
+            "right": 78,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 188.5390625,
+            "right": 305,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "安装",
+            "width": 36,
+            "height": 28,
+            "left": 309,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 78,
+        "versionLeft": 86,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 128.9296875,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.234375,
+            "height": 28,
+            "left": 108.765625,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 147.9296875,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.234375,
+            "height": 28,
+            "left": 108.765625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 147.9296875,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 180.9453125,
+            "right": 225,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.234375,
+            "height": 28,
+            "left": 108.765625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 180.9453125,
+            "right": 225,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 180.9296875,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 141.5390625,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 155.2265625,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 115.8359375,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 151.875,
+            "right": 228.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 232.9453125,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 112.484375,
+            "right": 228.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 232.9453125,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 248.9296875,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 209.5390625,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 223.2265625,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 183.8359375,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 219.875,
+            "right": 296.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 300.9453125,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 180.484375,
+            "right": 296.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 300.9453125,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 128.9296875,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.234375,
+            "height": 28,
+            "left": 108.765625,
+            "right": 225,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 147.9296875,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.234375,
+            "height": 28,
+            "left": 108.765625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 147.9296875,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 180.9453125,
+            "right": 225,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 800,
+            "bottom": 836,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.234375,
+            "height": 28,
+            "left": 108.765625,
+            "right": 225,
+            "top": 788,
+            "bottom": 816,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 180.9453125,
+            "right": 225,
+            "top": 820,
+            "bottom": 848,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 225,
+        "footerRight": 229,
+        "column": {
+          "left": 0,
+          "right": 240
+        },
+        "viewport": 860,
+        "scrollWidth": 219,
+        "clientWidth": 219,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 180.9296875,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 141.5390625,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 155.2265625,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 115.8359375,
+            "right": 232.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 151.875,
+            "right": 228.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 232.9453125,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 112.484375,
+            "right": 228.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 232.9453125,
+            "right": 277,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 277,
+        "footerRight": 281,
+        "column": {
+          "left": 0,
+          "right": 292
+        },
+        "viewport": 860,
+        "scrollWidth": 271,
+        "clientWidth": 271,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 96.0703125,
+            "height": 28,
+            "left": 248.9296875,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 135.4609375,
+            "height": 28,
+            "left": 209.5390625,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 223.2265625,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 183.8359375,
+            "right": 300.296875,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0RC 5",
+            "width": 77.0703125,
+            "height": 28,
+            "left": 219.875,
+            "right": 296.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 300.9453125,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339
+      },
+      {
+        "controls": [
+          {
+            "text": "Settings",
+            "width": 86.765625,
+            "height": 36,
+            "left": 14,
+            "right": 100.765625,
+            "top": 812,
+            "bottom": 848,
+            "transform": "none"
+          },
+          {
+            "text": "v0.1.0-rc.999RC 5",
+            "width": 116.4609375,
+            "height": 28,
+            "left": 180.484375,
+            "right": 296.9453125,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          },
+          {
+            "text": "Install",
+            "width": 44.0546875,
+            "height": 28,
+            "left": 300.9453125,
+            "right": 345,
+            "top": 816,
+            "bottom": 844,
+            "transform": "none"
+          }
+        ],
+        "settingsRight": 100.765625,
+        "versionLeft": 108.765625,
+        "versionRight": 345,
+        "footerRight": 349,
+        "column": {
+          "left": 0,
+          "right": 360
+        },
+        "viewport": 860,
+        "scrollWidth": 339,
+        "clientWidth": 339,
+        "longVersionLabel": true
+      }
+    ],
+    "replyInteraction": [
+      "quote is a context button with SVG; delivery policy is explicitly readonly",
+      "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+      "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+      "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+      "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+    ],
+    "accessibility": [
+      "focusable list: Home/End, arrows, Enter open the selected bot",
+      "Space opens the selected bot without scrolling the page",
+      "bot model is first: configured choices save and survive reopen; fixed switch and inherit preserve other roles, bots and global routing",
+      "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+      "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+      "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+      "oversize input is rejected before submission and the editable draft is retained",
+      "10000 memory records render 50 at a time; next and previous retain distinct identities",
+      "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+      "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+      "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+      "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+    ],
+    "pageErrors": [],
+    "mainAuthorizationErrors": []
+  },
+  "nativeSourceNote": "Capture ran on the clean final candidate. Product version is supplied from desktop package.json to the bare Electron test entry. Update phase events are synthetic; no real release download or install.",
+  "sourceHashes": {
+    "apps/desktop/renderer/src/project-agent/AppMenu.tsx": "58925408734ba47ba0b7b6699662015ee5816b76a5d781a5f7c0258ba439c89d",
+    "apps/desktop/renderer/src/project-agent/BotListShell.tsx": "158294f04d3982d21bb9d5ed5e1ac9777b8fd2c57d2e9ede9d1c029aa27506f3",
+    "apps/desktop/renderer/src/project-agent/styles/bot-list.css": "a9d9dbf7ca976b7343c1e8e8e5ab902807b4a56dbb6388cc3aa6fefc65a5bef6",
+    "apps/desktop/renderer/src/app/components/VersionBadge.tsx": "082fdc0a367bc827d102b057b41e0d463481ccfbb8d5754f64bca8bdd61a77b9",
+    "apps/desktop/renderer/src/app/components/versionBadgeLabel.ts": "52490e467f8997ced4f4fdccab3b18bfe2e33f4652ea40ba1a784eca87684d82",
+    "apps/desktop/scripts/bot-shell-updater-checks.mjs": "445f53510fe3b0ac06d616f11ec87a1e65584c5272f0b46f75abf74c1d6ec804",
+    "apps/desktop/scripts/bot-shell-electron-smoke.mjs": "453b8f5ea410c4b440597c39ae2b7682bd1fba2488441f2fa03e85c53eb9a9a8"
+  },
+  "localGates": {
+    "desktop": {
+      "passed": 5327,
+      "existingConditionalSkipped": 5,
+      "failed": 0,
+      "cancelled": 0
+    },
+    "projectI18n": {
+      "passed": 1
+    },
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "ipc": true,
+    "unitTestNote": "The final head adds only the menu shadow removal after the full desktop test run; final build/native validation use the exact final clean head, and CI repeats the complete test suite."
+  },
+  "ci": {
+    "run": 37173813949,
+    "head": "a09256b60f102a4714db345b63f2f204338ac510",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": {
+      "ci-macos-14": "success",
+      "ci-ubuntu-latest": "success"
+    }
+  },
+  "earlierFailures": "Native keyboard check reproduced lost focus after menu dismissal. Shell capture handler removed the menu before its keyboard handler. Delegating Escape to the menu and applying return focus after DOM commit resolves it; assertions remain strict.",
+  "supersededCi": {
+    "run": 37173601283,
+    "head": "855749507a53dfd83556c3dccb98424f12d5e18d",
+    "note": "Cancelled after the footer menu shadow refinement superseded this candidate."
+  },
+  "screenshotHashes": {
+    "bot-footer-idle-dark.png": "c5a7ee625814decd2f15abecda9b5f755163847856ef1806f58993831de77179",
+    "bot-footer-menu-dark.png": "e02505f9d6cac8a2d2c15934deb89d7ccec256cb344b7487411bf0e55bb6c3df",
+    "bot-footer-install-dark-narrow.png": "e33a5812ee9e7657dcdddca7f2fcc7cfda095e97a5958b457ef248997702a8b7",
+    "bot-footer-available-dark-narrow.png": "2eedae336063b48bed7d10c33570b0db9f16e63ba007a09dfe69105b969d0995",
+    "bot-footer-progress-dark-narrow.png": "d9fc293da99645cbef75a5417e2aae970f4c3aa42169a7cc78c52b0799ddc805",
+    "bot-footer-settings-dark.png": "c2a0bc23534c3d0414791bf11ce53e413620eb12c12bd952e6b6c5b446afd0d2"
+  },
+  "merge": {
+    "commit": "7b793640b662a2c9583d52b3ca072c1a40110df5",
+    "base": "PeerAgent/dev/0.1.0",
+    "mergedAt": "2026-10-04T03:30:26Z"
+  }
+}

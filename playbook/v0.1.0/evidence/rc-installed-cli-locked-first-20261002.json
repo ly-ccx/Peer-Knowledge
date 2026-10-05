@@ -1,0 +1,60 @@
+{
+  "candidate": "0.1.0-rc.1",
+  "releaseCommit": "0beeb21f46c4c40bc076b414471c086aeb9a28a4",
+  "releaseRun": 36919331979,
+  "cliArchiveSha256": "a68778c97180afd76185195e5477035458758dc601e71541e8364847c79d5947",
+  "scope": "Actual release-build compiled peer + sibling helper in 100x30 PTY; published asset digest matches. Not source TUI backend.",
+  "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-rc-cli-BObEGr",
+  "model": "gpt-6-luna",
+  "checks": [
+    {
+      "name": "version",
+      "ok": true,
+      "value": "peer 0.1.0-rc.1"
+    },
+    {
+      "name": "new directory binding Y key",
+      "ok": true
+    },
+    {
+      "name": "help and bots keyboard commands",
+      "ok": true
+    },
+    {
+      "name": "durable input and visible Received",
+      "ok": true
+    },
+    {
+      "name": "real cognition/tools reply",
+      "status": "blocked",
+      "reason": "credential helper timed out; native tool separately observes Mac locked, automatic unlock unavailable; cause requires unlock and repeat"
+    },
+    {
+      "name": "Ctrl-C exit",
+      "ok": true,
+      "exitCode": 0
+    }
+  ],
+  "rows": [
+    {
+      "id": "input-8032216a-a0b0-4570-a068-cf95ba935be7",
+      "kind": "user_input",
+      "role": "user",
+      "content": "Use read_file to read README.md and post_reply with the exact marker. Do not create a task or modify files."
+    },
+    {
+      "id": "turn-7887be5b-fdb5-4278-8065-6321c9d1601e",
+      "kind": "agent_turn",
+      "role": "assistant",
+      "content": ""
+    },
+    {
+      "id": "turn-7887be5b-fdb5-4278-8065-6321c9d1601e-card",
+      "kind": "system_card",
+      "role": "assistant",
+      "content": "代理暂时不可用：The credential helper timed out."
+    }
+  ],
+  "sourceFileUnchanged": true,
+  "credentialCopiesRemoved": true
+}

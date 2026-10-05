@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "4d97ff6d5c955ffac0d1b69b53507d375852fca4",
+  "sourceDirty": false,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-02T07:40:06.544Z",
+  "finishedAt": "2026-10-02T07:40:50.238Z",
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "pageErrors": [],
+  "metrics": {
+    "productionList": {
+      "samples": [
+        14.354583000000275,
+        14.549542000000656,
+        14.401999999998225,
+        14.576208000002225,
+        14.665125000003172
+      ],
+      "median": 14.549542000000656,
+      "budget": 100,
+      "pass": true
+    },
+    "visibleSearch": {
+      "samples": [
+        64.5,
+        23,
+        26.299999997019768,
+        22.600000008940697,
+        23
+      ],
+      "median": 23,
+      "budget": 150,
+      "pass": true
+    },
+    "visibleReceived": {
+      "samples": [
+        54.5,
+        53.30000001192093,
+        49,
+        51.70000000298023,
+        49.8999999910593
+      ],
+      "median": 51.70000000298023,
+      "budget": 300,
+      "pass": true
+    }
+  },
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page",
+    "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+    "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+    "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+    "oversize input is rejected before submission and the editable draft is retained",
+    "10000 memory records render 50 at a time; next and previous retain distinct identities",
+    "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+    "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+    "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+    "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+  ],
+  "diagnostics": {
+    "bots": 200,
+    "bytes": 135123,
+    "errors": 0,
+    "scope": "Real source Electron UI/preload/IPC/atomic export; native save destination controlled in isolated fixture; OS dialog interaction is an owner check",
+    "checks": [
+      "read actual stores",
+      "reject renderer destination",
+      "refresh real Developer panel",
+      "save redacted JSON",
+      "bounded events/turns",
+      "actual turn timing",
+      "no absolute paths, IDs or message text"
+    ]
+  },
+  "mainAuthorizationErrors": [],
+  "ok": true,
+  "ownedExited": true
+}

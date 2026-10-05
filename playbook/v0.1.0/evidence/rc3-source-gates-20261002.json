@@ -1,0 +1,47 @@
+{
+  "sourceHead": "4d97ff6d5c955ffac0d1b69b53507d375852fca4",
+  "sourceTree": "bab3d33454c92e54e63dd28fc43c6767e4cce828",
+  "sourceDirty": false,
+  "version": "0.1.0-rc.3",
+  "commands": [
+    {
+      "command": "pnpm build",
+      "result": "passed"
+    },
+    {
+      "command": "pnpm typecheck",
+      "result": "passed"
+    },
+    {
+      "command": "pnpm architecture:check",
+      "result": "passed"
+    },
+    {
+      "command": "pnpm test",
+      "result": "passed"
+    },
+    {
+      "command": "pnpm release:readiness-check",
+      "result": "passed"
+    },
+    {
+      "command": "RELEASE_TAG=v0.1.0-rc.3 pnpm release:source-check",
+      "result": "passed"
+    }
+  ],
+  "tests": {
+    "desktop": {
+      "total": 5302,
+      "passed": 5297,
+      "skipped": 5,
+      "failed": 0,
+      "skipScope": "unchanged historical five; no new skips"
+    },
+    "desktopAst": 1,
+    "runtimeNode": 1014,
+    "tui": 755,
+    "upgradeMatrix": 21,
+    "actualOldTags": 6
+  },
+  "scope": "Actual clean RC3 local full source gates; native window, final two-platform CI, tagged binaries and installed checks recorded separately."
+}

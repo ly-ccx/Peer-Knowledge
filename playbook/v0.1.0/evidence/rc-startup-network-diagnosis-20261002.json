@@ -1,0 +1,191 @@
+{
+  "measuredAt": "2026-10-02",
+  "scope": "Actual installed rc.2 on user data plus controlled read-only history/plan copies; unauthenticated GET probes only; originals not reset",
+  "originalSession": {
+    "scope": "Installed RC2, original Chromium session, unauthenticated GET probes only; no settings or profile reset",
+    "startedAt": "2026-10-02T07:06:46.068Z",
+    "proxy": "PROXY 127.0.0.1:7890",
+    "probes": [
+      {
+        "url": "https://chatgpt.com/backend-api/codex/responses",
+        "error": "net::ERR_FAILED",
+        "ms": 2
+      },
+      {
+        "url": "https://api.github.com",
+        "error": "net::ERR_FAILED",
+        "ms": 0
+      },
+      {
+        "url": "http://example.com",
+        "error": "net::ERR_FAILED",
+        "ms": 0
+      },
+      {
+        "partition": "isolated-memory",
+        "status": 405,
+        "ms": 598
+      }
+    ],
+    "stop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 36727
+    },
+    "finishedAt": "2026-10-02T07:07:09.701Z"
+  },
+  "controlled": {
+    "planCount": 401,
+    "oneBotBaseline": {
+      "scope": "Candidate source on current build with local history/plan copies; no credentials, automation or input queue; copied execution records disabled and workspace paths remapped to disposable project",
+      "startedAt": "2026-10-02T07:09:04.409Z",
+      "launchMs": 11224,
+      "bootstrapMs": 11322,
+      "readyMs": 13477,
+      "baseline": true,
+      "probes": [
+        {
+          "status": 405,
+          "ms": 582
+        },
+        {
+          "status": 405,
+          "ms": 340
+        },
+        {
+          "status": 405,
+          "ms": 211
+        }
+      ],
+      "main": {
+        "maxTickMs": 53,
+        "ticks": 262,
+        "memory": {
+          "rss": 697335808,
+          "heapTotal": 113934336,
+          "heapUsed": 59723656,
+          "external": 25464476,
+          "arrayBuffers": 0
+        }
+      },
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 37651
+      },
+      "finishedAt": "2026-10-02T07:09:29.322Z"
+    },
+    "twoBotBaseline": {
+      "scope": "Candidate source on current build with local history/plan copies; no credentials, automation or input queue; copied execution records disabled and workspace paths remapped to disposable project",
+      "startedAt": "2026-10-02T07:09:57.273Z",
+      "launchMs": 22423,
+      "bootstrapMs": 22530,
+      "readyMs": 24684,
+      "baseline": true,
+      "probes": [
+        {
+          "error": "net::ERR_FAILED",
+          "ms": 1
+        },
+        {
+          "error": "net::ERR_FAILED",
+          "ms": 1
+        },
+        {
+          "error": "net::ERR_FAILED",
+          "ms": 1
+        }
+      ],
+      "main": {
+        "maxTickMs": 64,
+        "ticks": 240,
+        "memory": {
+          "rss": 308117504,
+          "heapTotal": 35291136,
+          "heapUsed": 33285036,
+          "external": 4030345,
+          "arrayBuffers": 0
+        }
+      },
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 39623
+      },
+      "finishedAt": "2026-10-02T07:10:32.252Z"
+    },
+    "twoBotFixed": {
+      "scope": "Candidate source on current build with local history/plan copies; no credentials, automation or input queue; copied execution records disabled and workspace paths remapped to disposable project",
+      "startedAt": "2026-10-02T07:10:53.787Z",
+      "launchMs": 1527,
+      "bootstrapMs": 1654,
+      "readyMs": 3803,
+      "baseline": false,
+      "probes": [
+        {
+          "status": 405,
+          "ms": 628
+        },
+        {
+          "status": 405,
+          "ms": 279
+        },
+        {
+          "status": 405,
+          "ms": 236
+        }
+      ],
+      "main": {
+        "maxTickMs": 78,
+        "ticks": 261,
+        "memory": {
+          "rss": 413646848,
+          "heapTotal": 115507200,
+          "heapUsed": 46288524,
+          "external": 4050324,
+          "arrayBuffers": 0
+        }
+      },
+      "ok": true,
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 40833
+      },
+      "finishedAt": "2026-10-02T07:11:09.051Z"
+    }
+  },
+  "networkPassed": {
+    "oneBotBaseline": true,
+    "twoBotBaseline": false,
+    "twoBotFixed": true
+  },
+  "fixtureOkMeaning": "Original scripts ok indicates harness completed and owned process exited, not network success; probe status/error is authoritative",
+  "baselineChromiumLog": [
+    "Terminating current process after 15 seconds with no connection.",
+    "Network service crashed or was terminated, restarting service."
+  ],
+  "finding": "Two-bot baseline main blocks ~22.4s. Network child exits after 15s without connection; default-session requests then fail persistently. Same Electron 41.7.1 with metadata reader fixed launches ~1.5s, UI ready ~3.8s and three GETs return HTTP 405. A copied profile with small data and an in-memory session succeeding did not imply original profile corruption.",
+  "upstream": {
+    "url": "https://github.com/electron/electron/pull/49887",
+    "scope": "Known permanent net.fetch failure after Network Service restart; upstream corroboration, not a dependency upgrade performed here"
+  },
+  "sourceCommit": "3a1069d0ef1380d9b873d4ebcd5d475f06136f35",
+  "mergeCommit": "68b9689ec683ffeaf13e9cefae5b489e2cb98a49",
+  "installedFix": "pending candidate package",
+  "overallReady": false
+}

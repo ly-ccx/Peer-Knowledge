@@ -1,0 +1,214 @@
+{
+  "sourceHead": "6c42a9030df364bb46f4208a698a16d5dec41e6e",
+  "sourceDirty": false,
+  "startedAt": "2026-10-02T03:06:05.644Z",
+  "finishedAt": "2026-10-02T03:11:26.883Z",
+  "model": "gpt-6-luna",
+  "version": "0.1.0-rc.1",
+  "installed": false,
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 98191
+  },
+  "credentialCopiesRemoved": true,
+  "steps": [
+    "two canonical real plans awaiting local approval; original files unchanged",
+    "two actual model write tasks produced exact outputs in distinct worktrees and task runner checks passed; final host verification/acceptance still required",
+    "both actual final host independent verifiers passed; a fresh canonical reply references both results and this verification input",
+    "user acceptance recorded while original project remains unchanged pending explicit merge decision",
+    "real verification references, local user acceptance and worktree delivery back to original project completed"
+  ],
+  "finalFiles": {
+    "a.txt": "RC_A_DONE\n",
+    "b.txt": "RC_B_DONE\n"
+  },
+  "changedFiles": [
+    "a.txt",
+    "b.txt"
+  ],
+  "verificationStartedAt": "2026-10-02T03:09:15.774Z",
+  "verificationRetries": [
+    {
+      "turnId": "turn-13d5d49c-7468-47b2-b061-188dbac33bb9",
+      "result": {
+        "ok": false,
+        "code": "TURN_FAILED"
+      }
+    }
+  ],
+  "acceptance": [
+    {
+      "ok": true,
+      "accepted": true,
+      "verdict": {
+        "outcome": "passed",
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "checks": [
+          {
+            "name": "leaf_evidence",
+            "passed": true
+          },
+          {
+            "name": "independent_verifier",
+            "passed": true
+          }
+        ],
+        "evidenceRefs": [
+          "tool-result://call_89VZCGVWiuP1A8oG9is7nveW",
+          "tool-result://call_6TWbfKSiMj840CzLOCL2A32B"
+        ]
+      },
+      "verdictRef": "verdict:eef96000-1b31-42a3-aa74-15bc196fa569:passed",
+      "mode": "confirm",
+      "acceptedBy": "user",
+      "reasons": [
+        "project_requires_confirm"
+      ],
+      "reported": true,
+      "closeGatePassed": true,
+      "resultAcceptance": {
+        "acceptedAt": "2026-10-02T03:11:26.020Z",
+        "acceptedBy": "user",
+        "verdictRef": "verdict:eef96000-1b31-42a3-aa74-15bc196fa569:passed"
+      }
+    },
+    {
+      "ok": true,
+      "accepted": true,
+      "verdict": {
+        "outcome": "passed",
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "checks": [
+          {
+            "name": "leaf_evidence",
+            "passed": true
+          },
+          {
+            "name": "independent_verifier",
+            "passed": true
+          }
+        ],
+        "evidenceRefs": [
+          "tool-result://call_OfU9JbVC1LGAzz4lloRXnZEi",
+          "tool-result://call_YAEveyDSK1aQ4HmqCXJDg3Eo",
+          "tool-result://call_Nd6MmPDYqOdV9bDUwttMif9j"
+        ]
+      },
+      "verdictRef": "verdict:6e9180ca-af35-4d3e-9083-8de3a83e5f31:passed",
+      "mode": "confirm",
+      "acceptedBy": "user",
+      "reasons": [
+        "project_requires_confirm"
+      ],
+      "reported": true,
+      "closeGatePassed": true,
+      "resultAcceptance": {
+        "acceptedAt": "2026-10-02T03:11:26.026Z",
+        "acceptedBy": "user",
+        "verdictRef": "verdict:6e9180ca-af35-4d3e-9083-8de3a83e5f31:passed"
+      }
+    }
+  ],
+  "mergeDecisions": [
+    {
+      "cardId": "card:question:eef96000-1b31-42a3-aa74-15bc196fa569:handoff-3027b08395887615",
+      "decision": {
+        "ok": true,
+        "input": {
+          "inputId": "rc-merge-eef96000-1b31-42a3-aa74-15bc196fa569",
+          "workspaceId": "f30278f6-24ed-4c54-b2e6-10f05fe9e836",
+          "surface": "desktop",
+          "text": "合回改动",
+          "anchorRefs": [],
+          "quoteRefs": [],
+          "attachmentRefs": [],
+          "createdAt": "2026-10-02T03:11:26.046Z",
+          "answerTo": "card:question:eef96000-1b31-42a3-aa74-15bc196fa569:handoff-3027b08395887615"
+        },
+        "delivery": "queued"
+      }
+    },
+    {
+      "cardId": "card:question:6e9180ca-af35-4d3e-9083-8de3a83e5f31:handoff-bfea89bd0663a1b1",
+      "decision": {
+        "ok": true,
+        "input": {
+          "inputId": "rc-merge-6e9180ca-af35-4d3e-9083-8de3a83e5f31",
+          "workspaceId": "f30278f6-24ed-4c54-b2e6-10f05fe9e836",
+          "surface": "desktop",
+          "text": "合回改动",
+          "anchorRefs": [],
+          "quoteRefs": [],
+          "attachmentRefs": [],
+          "createdAt": "2026-10-02T03:11:26.361Z",
+          "answerTo": "card:question:6e9180ca-af35-4d3e-9083-8de3a83e5f31:handoff-bfea89bd0663a1b1"
+        },
+        "delivery": "queued"
+      }
+    }
+  ],
+  "ok": true,
+  "harnessExit": 1,
+  "harnessError": "Last evidence assertion incorrectly looked for agent-turn rounds/Bash rather than persisted worker segments/bash. Original raw failure retained.",
+  "postValidation": {
+    "passed": true,
+    "tool": "bash",
+    "toolCallId": "call_6TWbfKSiMj840CzLOCL2A32B",
+    "evidenceRef": "tool-result://call_6TWbfKSiMj840CzLOCL2A32B",
+    "status": "success",
+    "exitCode": 0,
+    "stdout": "PASS exact bytes: b'RC_B_DONE\\n'\n"
+  },
+  "scope": "Real source flow with local plan approval, one actual UI user answer and product Retry for waiting B, both final independent verifiers and fresh sourced reply, explicit acceptance and separate authorized merge. Independent runs used the same model family; no different-source claim.",
+  "rawProof": "peer-rc-installed-complex-8qok10/proof.json",
+  "userIntervention": "Actual CUA composer answer submitted and visible Received; actual Retry consumed queued input. This is not a no-intervention pass.",
+  "plans": [
+    {
+      "planId": "0d1b0898-15cf-43fb-a0c8-1027051979c3",
+      "sessionId": "eef96000-1b31-42a3-aa74-15bc196fa569",
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:eef96000-1b31-42a3-aa74-15bc196fa569:passed"
+      },
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_6TWbfKSiMj840CzLOCL2A32B",
+          "detail": "Bash 读取 b.txt 字节并确认恰为 b'RC_B_DONE\\n'，退出码 0。",
+          "checkedAt": "2026-10-02T03:09:08.610Z"
+        }
+      ]
+    },
+    {
+      "planId": "6e2c5f49-3bbc-49fa-b167-966afaf9d51c",
+      "sessionId": "6e9180ca-af35-4d3e-9083-8de3a83e5f31",
+      "hostVerification": {
+        "independentVerifier": "passed",
+        "verifierModel": "gpt-6-luna",
+        "sameFamilyAsWorker": true,
+        "verdictRef": "verdict:6e9180ca-af35-4d3e-9083-8de3a83e5f31:passed"
+      },
+      "criterionResults": [
+        {
+          "criterionId": "c1",
+          "passed": true,
+          "evidenceRef": "tool-result://call_Nd6MmPDYqOdV9bDUwttMif9j",
+          "detail": "a.txt 的实际读取内容精确显示 RC_A_DONE 后跟换行。",
+          "checkedAt": "2026-10-02T03:07:02.749Z"
+        }
+      ]
+    }
+  ]
+}

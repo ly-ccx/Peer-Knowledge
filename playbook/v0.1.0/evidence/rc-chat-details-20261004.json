@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "5aafde23e16115ff606ea004be6679e8f250f660",
+  "sourceDirty": true,
+  "synthetic": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "platform": "darwin",
+  "startedAt": "2026-10-04T01:36:08.224Z",
+  "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing",
+  "windowReadyMs": 2518,
+  "checks": [
+    "200 real bot rows; no idle model turns",
+    "five input-to-visible searches across the real message corpus under budget",
+    "five real UI sends, visible durable Received under budget, scripted replies",
+    "real Quick Chat window lists bots and submits one canonical quick_chat input",
+    "scrolling up loads older messages from a 10000-message conversation",
+    "a quoted older message loads across pages, enters viewport, then returns to latest",
+    "profile opens and settings tab works",
+    "classic shell opens through settings",
+    "bot shell returns with all persisted identities"
+  ],
+  "receiptSamples": [
+    56.30000001192093,
+    52.5,
+    52.39999997615814,
+    50.80000001192093,
+    50.400000005960464
+  ],
+  "replyInteraction": [
+    "quote is a context button with SVG; delivery policy is explicitly readonly",
+    "real dark/light context and action surfaces retain borders, readable hierarchy and no outer glow",
+    "process action has hover and visible keyboard focus; Enter opens the existing process drawer",
+    "memory disclosure retrieves the canonical memory and collapses without a nested status pill",
+    "selected quote uses the same context treatment, fits a 760px viewport and cancels by keyboard without losing the draft"
+  ],
+  "streamingInteraction": [
+    "receipt below user body; anchored waiting state and SVG stop control",
+    "real delta visible while controlled provider remains pending, before canonical reply",
+    "switching bots hides the other stream and restores the active snapshot",
+    "root post_reply text streams via shared parser; tools use compact SVG; no reasoning, arguments or results leak; history holds",
+    "completion replaces preview once, preserves Markdown and follows latest",
+    "stop preserves incomplete text, exact-turn process and draft; explicit retry creates one new reply",
+    "failure retracts unaccepted preview and offers explicit retry without duplicate replies"
+  ],
+  "chatDetails": [
+    "exact current-turn process uses localized operations; raw JSON is collapsed and keyboard accessible",
+    "freeform reply durably binds to its question and removes only those choices",
+    "failed freeform send retains choices; retry retains exact answer association and creates one canonical input",
+    "option click follows the same durable answer path; switching back does not restore answered choices"
+  ],
+  "accessibility": [
+    "focusable list: Home/End, arrows, Enter open the selected bot",
+    "Space opens the selected bot without scrolling the page",
+    "bot model is first: configured choices save and survive reopen; fixed switch and inherit preserve other roles, bots and global routing",
+    "settings groups, keyboard disclosures, visible switches, policy/local-model/global-concurrency persistence and sticky tabs",
+    "docked drawer enters selected tab, roves with arrows/endpoints, closes with focus returned; hidden dock is inert",
+    "900px emulated viewport modal drawer constrains Tab in both directions, Escape returns focus",
+    "oversize input is rejected before submission and the editable draft is retained",
+    "10000 memory records render 50 at a time; next and previous retain distinct identities",
+    "reduced motion stops avatar/enter displacement animations while drawer remains usable",
+    "actual list name/preview/time contrast reaches 4.5:1 in both light/dark and Frost/Catppuccin",
+    "custom quiet switch and HH:mm field use keyboard, save canonical values and expose independent labels",
+    "English settings/drawer/Quick Chat labels refresh from persisted locale; bot picker is custom"
+  ],
+  "pageErrors": [],
+  "mainAuthorizationErrors": [],
+  "finishedAt": "2026-10-04T01:37:11.646Z",
+  "limitations": [
+    "源码隔离 Electron；不是签名安装包评测",
+    "认知、工具回执、提交失败来自受控夹具；不证明真实渠道或工具执行成功",
+    "原生运行记录基线 sourceHead + dirty 工作树；同一代码内容随后提交并由两平台 CI 对提交验证"
+  ],
+  "committedWorkingTreeContent": "de7220eb066b429109dd05a1efc66cc65ffd13b3",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/119",
+  "ci": {
+    "runId": 37169201065,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37169201065",
+    "headSha": "0f321d015c232d32d2a123184addf08d4128d2a6",
+    "conclusion": "success",
+    "jobs": {
+      "ci-macos-14": "success",
+      "ci-ubuntu-latest": "success"
+    },
+    "nativeScope": "两平台标准壳/无障碍/诊断；完整 streaming/chatDetails 由本报告隔离本机验证"
+  },
+  "initialCi": {
+    "runId": 37168654965,
+    "mac": "goal-plan-store subscribeChanges incremental event timeout after file retry",
+    "linux": "success",
+    "remediation": "deterministic lost fs.watch regression failed before fix; same incremental drain gets 250ms unref fallback and unsubscribe cancellation"
+  },
+  "localTests": {
+    "desktopPass": 5325,
+    "desktopConditionalSkip": 5,
+    "runtimeNodePass": 1027,
+    "goalPlanStorePass": 143,
+    "i18n": "passed",
+    "build": "passed",
+    "typecheck": "passed",
+    "architectureIpc": "passed"
+  },
+  "mergeCommit": "e2fa5e5de9ec82017e34dbfcd10bb656a9a69481"
+}

@@ -1,0 +1,78 @@
+{
+  "startedAt": "2026-10-02T07:28:47.002Z",
+  "finishedAt": "2026-10-02T07:30:23.747Z",
+  "sourceHead": "a8d7058e52a706b778fc466fee52035908fcde6a",
+  "sourceDirty": false,
+  "appVersion": "0.1.0-rc.2",
+  "installed": false,
+  "ok": true,
+  "model": "gpt-6.1-sol",
+  "provider": "openai",
+  "terminalScope": "Source TUI backend with signed candidate helper explicitly configured; real installed CLI UI tested separately.",
+  "remoteBoundary": "Real HTTP/WebSocket/Ed25519 + production device adapter sharing actual host facts; validation-only test account, memory identity, loopback socket seam; not deployed OIDC or physical phone.",
+  "pageErrors": [],
+  "credentialCopiesRemoved": true,
+  "steps": [
+    {
+      "step": "desktop owns / terminal is client",
+      "ready": true,
+      "workspaceId": "eed7bd03-035e-4fd6-93f1-b94df967e929",
+      "isHost": false
+    },
+    {
+      "step": "terminal queued input",
+      "receipt": {
+        "id": 1,
+        "result": {
+          "inputId": "b5-client-read",
+          "workspaceId": "eed7bd03-035e-4fd6-93f1-b94df967e929",
+          "surface": "tui",
+          "text": "用 read_file 读取 README.md，并用 post_reply 告诉我其中的 readback marker。只读，不开任务，不修改文件。",
+          "anchorRefs": [],
+          "quoteRefs": [],
+          "attachmentRefs": [],
+          "createdAt": "2026-10-02T07:28:48.363Z"
+        }
+      }
+    },
+    {
+      "step": "Desktop + TUI client + remote simultaneously: real model reply and deduplicated receipt",
+      "remoteInputId": "remote-d33c10007b90a08ac2eacf8b830ef585c88836256e7c7e355afb96ee3585fc91"
+    },
+    {
+      "step": "desktop quit / terminal owns",
+      "isHost": true
+    }
+  ],
+  "scope": "Clean source a8d7058e, genuine GPT61 Desktop + source TUI backend + loopback remote adapter; signed existing helper explicitly configured. Not new installed candidate / actual phone / deployed OIDC.",
+  "turns": {
+    "desktop": {
+      "rounds": 1,
+      "toolNames": [
+        "read_file",
+        "post_reply"
+      ],
+      "canonicalMarker": true
+    },
+    "remote": {
+      "rounds": 1,
+      "toolNames": [
+        "read_file",
+        "post_reply"
+      ],
+      "canonicalMarker": true
+    },
+    "tui": {
+      "rounds": 1,
+      "toolNames": [
+        "read_file",
+        "post_reply"
+      ],
+      "canonicalMarker": true
+    }
+  },
+  "ownedProcessesExited": {
+    "desktopStop": true,
+    "terminalStop": true
+  }
+}

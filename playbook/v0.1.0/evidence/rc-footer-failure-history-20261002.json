@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "failures": [
+    {
+      "reason": "Initial SVG guard reproduced the original character mark",
+      "error": "AssertionError [ERR_ASSERTION]: the account mark must use an SVG icon\n\n0 !== 1\n\n    at checkBotShellUpdater (file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-updater-checks.mjs:10:10)\n    at async file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:126:3",
+      "ownedExit": true,
+      "pageErrors": []
+    },
+    {
+      "reason": "Pre-correction layout GC transport error, bounded unchanged-source retry passed",
+      "error": "electronApplication.evaluate: Resulting promise was garbage collected.\n    at emit (<CODE_ROOT>/apps/desktop/scripts/bot-shell-updater-checks.mjs:65:29)\n    at checkBotShellUpdater (<CODE_ROOT>/apps/desktop/scripts/bot-shell-updater-checks.mjs:120:15)\n    at async file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:126:3",
+      "ownedExit": true,
+      "pageErrors": []
+    },
+    {
+      "reason": "Owner settings-only requirement failed before correction",
+      "error": "AssertionError [ERR_ASSERTION]: update channel belongs in settings only\n\n1 !== 0\n\n    at checkBotShellUpdater (file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-updater-checks.mjs:16:10)\n    at async file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:126:3",
+      "ownedExit": true,
+      "pageErrors": []
+    },
+    {
+      "reason": "First post-correction launch used stale dist; rebuilt production renderer and reran",
+      "error": "AssertionError [ERR_ASSERTION]: update channel belongs in settings only\n\n1 !== 0\n\n    at checkBotShellUpdater (file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-updater-checks.mjs:16:10)\n    at async file://<CODE_ROOT>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:126:3",
+      "ownedExit": true,
+      "pageErrors": []
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "startedAt": "2026-10-02T02:58:25.148Z",
+  "finishedAt": "2026-10-02T03:01:29.059Z",
+  "sourceHead": "412303b4ace843f52d55c918e9cec56848c8aa73",
+  "model": "gpt-6.1-sol",
+  "version": "0.1.0-rc.1",
+  "installed": false,
+  "pageErrors": [],
+  "stop": {
+    "ok": true,
+    "code": "stop-owned",
+    "signaled": true,
+    "exited": true,
+    "handleId": "owned-1",
+    "pid": 94421
+  },
+  "credentialCopiesRemoved": true,
+  "ok": false,
+  "scope": "Source catalog patch before commit; actual GPT-6.1 Sol OAuth request returned HTTP200 with empty output twice under existing recovery. No tools or canonical reply; not usable proof.",
+  "sourceDirty": true,
+  "modelCatalogCommit": "6c42a9030df364bb46f4208a698a16d5dec41e6e",
+  "originalProjectUnchanged": true,
+  "traces": [
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "events": [
+        {
+          "type": "response.created",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.in_progress",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.added",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.added",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_text.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "logprobs",
+            "output_index",
+            "sequence_number",
+            "text",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.done",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.completed",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": {
+            "inputTokens": 9054,
+            "outputTokens": 4,
+            "cacheCreationInputTokens": null,
+            "cacheReadInputTokens": null
+          },
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        }
+      ]
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "httpStatus": 200,
+      "parseErrors": [],
+      "result": {
+        "ok": true,
+        "hasContent": false,
+        "toolCallCount": 0,
+        "hasUsage": true,
+        "pseudoToolTextDetected": false
+      },
+      "anomaly": "empty_stream",
+      "events": [
+        {
+          "type": "response.created",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.in_progress",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.added",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.added",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_text.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "logprobs",
+            "output_index",
+            "sequence_number",
+            "text",
+            "type"
+          ]
+        },
+        {
+          "type": "response.content_part.done",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "content_index",
+            "item_id",
+            "output_index",
+            "part",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.output_item.done",
+          "itemType": "message",
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": null,
+          "keys": [
+            "item",
+            "output_index",
+            "sequence_number",
+            "type"
+          ]
+        },
+        {
+          "type": "response.completed",
+          "itemType": null,
+          "deltaChars": 0,
+          "hasDelta": false,
+          "usage": {
+            "inputTokens": 9585,
+            "outputTokens": 4,
+            "cacheCreationInputTokens": null,
+            "cacheReadInputTokens": null
+          },
+          "keys": [
+            "response",
+            "sequence_number",
+            "type"
+          ]
+        }
+      ]
+    }
+  ]
+}

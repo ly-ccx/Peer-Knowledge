@@ -551,3 +551,24 @@ function decideSurfacing(input: {
 - 核验器事实输入补充：既有 verifier user 请求可携带本计划叶子/标准引用对应的 EvidenceIndex 文件快照，总正文限 12000 字符。执行正文是 factual/untrusted context，不能成为系统指令。passed 报告的 evidenceRefs 必须非空且归属于这些已索引快照或本轮真实 Tool Result；缺失/伪造报告仅走现有一次格式修复，随后失败，不制造引用或弱化验收。
 
 - 完成唤醒竞态补充：既有 runner.verifierRuns 的最新终态记录（runId/status/completedAt）作为结果事实修订标识。completed 状态先于核验落盘时，核验终态修订仍须产生一次 result_ready 事件；它只要求代理重读宿主事实，不宣称核验通过。普通 acceptance/updatedAt 更新不重复唤醒。
+
+### 14.3 RC命令证据核验补修（2026-10-02）
+
+- EvidenceIndex既有bodyPreview扩展command种类，内容是实际local.shell.exec的成功终态、exitCode0且PermissionGrant已allow的Tool Result结构化stdout/stderr/退出码快照。两宿主使用共享准入Module；执行call/result/Evidence身份匹配。拒绝、失败、运行中、超时、中断及wrapper/模型声明不准入成功快照。秘密脱敏与单条4000字符上限保持；首个Provider快照不可被wrapper覆盖，旧记录无快照不得补造历史内容。
+- Verifier准入本计划标准/叶子引用的file或command快照，标准引用优先，总预算12000字符，并保留createdAt与truncated事实。记录有显式planId时必须匹配；仅无planId旧记录可按相同conversation归属。快照进入已有Verifier用户事实请求，绝不成为系统指令。截断/矛盾/缺少最新证据必须继续使用既有只读工具取证或报告失败。
+- 既有Evidence展示command种类直接呈现执行快照，不以读取当前文件覆盖历史事实。权限、核验、签收及独立交付授权的闸门保留。实施范围、原失败与验收见 `playbook/v0.1.0/rc-command-evidence.md`；依ADR80，不开放额外能力或存储。
+
+
+### RC 本地计划批准历史（2026-10-02，Accepted）
+
+ApprovalStore压缩保留approved的plan_approval折叠历史，避免新决定在监督者回读前即被丢弃，并支持崩溃后重放；普通已终结工具批准压缩规则不变。旧版本已经删除的历史仍unknown。
+
+本地计划批准先落盘ApprovalStore，然后监督者回读真实approved/local_ui且workspace/session/plan/conversation、capability/kind/approvalId绑定一致的记录，将既有GoalApproval闭合字段decision=approve、confirmationId、decidedBy、decidedAt冻结进计划，再排队或启动。非人工、未批准或错绑定不能生成该事实；写失败不执行。批准已落盘但未启动时可重放完成准入。重启和ApprovalStore压缩不会删除已冻结的计划历史；旧计划没有历史保持unknown。Verifier Source把该有限历史加入现有L7事实brief，不能作为PermissionGrant、工具Evidence引用或结果签收。任务通过既有goal_get_plan读取。见rc-local-plan-approval-facts实施卡。
+
+### RC 用户回答恢复补正（2026-10-02，Accepted）
+
+message_session(intent:answer)的原文是用户侧事实。当任务已准入且确实能消费等待用户输入时，运行时消费该回答并沿既有GoalRunner恢复；不能只落盘而让任务继续waiting_user。answer在非等待会话保持追加语义，amend在运行中仍作为下一回合纠正；等待中的两种intent都沿同一回答消费接口。暂停/取代/前置失败排队以及未批准计划的门不因文字声明批准而打开。证据由实际message_session Tool Result与原GoalPlan事件/Runner产生，不从代理文字推断恢复成功。见rc-session-answer-resume实施卡。
+
+### 2026-10-02 成功回复的内层循环收尾
+
+成功 post_reply 的回合终结必须覆盖 Provider 内层循环。Delegation Provider 在已有 ToolResult.outputPreview.control 返回 terminal；控制属于本地结构化结果，失败/拒绝/取消不得携带此成功控制。成功 suppressed 或幂等重放仍结束本轮。现有 terminal tool pipeline 先应用 Tool Result/计费与 Context accounting，再统一 done，由外层 Runner 落 canonical 回复或安静抑制；不要求模型再生成文字，不放宽空响应错误护栏。权限/Projection/Evidence 与持久化边界保持。见 playbook/v0.1.0/rc-post-reply-terminal.md。

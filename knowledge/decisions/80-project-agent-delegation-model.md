@@ -22,6 +22,20 @@ Accepted（2026-09-26，P0-2）。实现未开工。
 
 ## 级别
 
+### RC补修：本地计划批准历史（2026-10-02，Accepted）
+
+实际rc.2核验器缺少已发生的本地计划批准事实。复用既有GoalApproval：本地桌面/TUI先持久化真实approved/local_ui决定，监督者从ApprovalStore回读并校验workspace/session/plan/conversation及批准记录身份，冻结到GoalPlan.approval，再执行准入。批准重放可恢复落盘与启动之间的崩溃窗口；写失败、错误绑定及非人工批准不启动。既有Verifier Source仅在L7事实brief投影闭合批准字段；缺失历史保持unknown，running不升级为人工批准。它不授予能力权限，不是工具Evidence引用或签收事实；所有核验/关闭/合回门保留，旧被压缩记录不补造。范围与验证见 `playbook/v0.1.0/rc-local-plan-approval-facts.md`。
+
+### RC补修：命令结果核验快照（2026-10-02，Accepted）
+
+真实RC1任务的Bash精确检查引用已持久化，但核验器只见旧文件快照，无法核对该引用。沿负责人已授权的RC功能收口补齐既有Evidence事实链：EvidenceIndex.bodyPreview可追加command快照，由实际local.shell.exec成功终态、exit0且allow的Provider结果生成。结构化stdout/stderr/退出码脱敏后限4000字符；拒绝、失败、运行中、超时、中断、助手正文或goal wrapper不能生成成功快照。旧记录不补造。Verifier只从本计划引用读取，显式外国plan不能借相同conversation准入；标准引用优先、总12000字符，保留时间戳与截断事实。正文仅是既有user请求里的不可信事实；不增加能力、权限、系统来源、IPC或存储目录，核验/签收闸门不变。实施清单与验证见 `playbook/v0.1.0/rc-command-evidence.md`。
+
+### RC补修：执行任务角色与准入事实（2026-10-02，Accepted）
+
+真实双写任务在本地批准且进入独立worktree后仍因重放父消息的编排/批准要求而waiting_user。任务是执行者，不是项目代理；父锚点原文与历史继续属于事实类上下文。新增 `work-session` Context Source：仅work_session角色进入L1_AGENT的静态执行角色规则，说明已有GoalPlan、当前执行工作区、投影工具及父编排职责；不把锚点/任务正文提升为系统指令。独立L7_CONTINUITY section仅渲染宿主从当前GoalPlan读取的有限准入phase，不从renderer/快照/父正文推断批准；running说明本地计划准入已经完成，不能表示任意能力授权或结果签收。Explorer/Verifier专项约束保持，权限和隔离仍由原执行链强制。
+
+Desktop与TUI共同接入该Source，事实由各自真实计划读取适配，经典/project_agent/非任务角色没有此section。允许System Context source、注册与导出/类型、相关测试、Desktop projectTurnSystemContext和TUI任务executor的窄装配与测试；不增加IPC/能力/依赖/main.mjs。先契约、再红测试/实现、完整门禁和真实批准后双任务复测，GA仍等待负责人。
+
 A 级。改变用户的对话对象、任务的创建者、能力暴露（新增调度能力与 `project_agent` 模式）、权限冒泡路径、System Context 新增来源、会话存储的父子关系。
 
 ## 关联
