@@ -2,7 +2,7 @@
 
 创建时间：2026-10-05
 最后更新：2026-10-05
-状态：Preparing
+状态：ReleaseBuilding
 
 负责人明确授权“发布 rc”。目标 `0.1.0-rc.7`，在开发线发布 Desktop 三平台、CLI 两平台和公开 Runtime npm 四包；npm rc 通道前进，稳定版与 beta dist-tag 保持原版本。
 
@@ -32,6 +32,10 @@
 - 发布准备提交 `d59af116a9e05845b19149e445918ccbab63014d`，树 `2301b4aad94b2f08f0c60d149065bef2d3e66925`，25 个发布文件。源码与发布准备均已推送。
 - 本机完整 build/typecheck/architecture/test、25 项升级/恢复矩阵、公开 Runtime pack-check/外部宿主 smoke、release source tests 和 version/readiness/source 门禁通过。
 - 正式原生窗口：11 项流式、6 项信息归属、档位保存/失败和阅读位置检查通过；无页面或授权错误。受控夹具仅验证展示链；详见 [本机门禁报告](evidence/rc7-source-gates-20261005.json)。
-- 精确候选 [CI 37307997001](https://github.com/ly-ccx/Peer-Agent/actions/runs/37307997001) 运行中，发布前要求两平台通过。
+- 精确候选 [CI 37307997001](https://github.com/ly-ccx/Peer-Agent/actions/runs/37307997001) Mac/Linux 全部门禁通过。
 - README: updated；docs/docs.html 同步当前 Bot 流程，经典界面有明确标识；docs/index.html 安装与入口检查 no-op。生成 changelog 86 个版本通过检查，稳定 latest 为 v0.0.18，候选 beta 为 v0.1.0-rc.7。
-- 合入、tag 与公开资产尚未发生，后续根据真实结果追加。
+- PR122 已合入开发线 `4549f307ea43b249500d4425d9c14f1d1f1dd837`；实际合入、CI 合成 merge 和源码准备的 tree 均为上述值。干净合入提交 readiness/source 门禁再次通过；固定 tag `v0.1.0-rc.7` 已推送，发布工作流待完成。公开资产尚未核验。
+
+## 候选绑定
+
+[精确源码/CI/合入绑定](evidence/rc7-candidate-ci-binding-20261005.json)，[Mac 原始窗口报告](evidence/rc7-ci-macos-window-20261005.json)，[Linux 原始窗口报告](evidence/rc7-ci-linux-window-20261005.json)。两端各 11 项流式 / 6 项信息归属通过，页面与授权错误均为零；Mac 阅读位置 5311→5311，Linux 5337→5337。真实云模型、实际子任务与对应 Evidence 不由受控夹具验收替代。
