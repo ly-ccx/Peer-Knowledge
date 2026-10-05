@@ -2,7 +2,7 @@
 
 创建时间：2026-10-05
 最后更新：2026-10-05
-状态：InReview（实现、本机验收与推送完成；双平台 CI 运行中）
+状态：InReview（实现、本机验收、推送与双平台 CI 全部完成；待审阅合并）
 派单来源：负责人 RC7 实测指出普通接续回复重复引用、用户消息外框，以及全局禁止字符图标。
 级别：C。分支：PeerAgent/pa/rc-message-polish；基线 PR123 已合入的开发线。
 
@@ -60,7 +60,7 @@ SVG 清单见上表；AGENTS.md 固化图标规则。replyReferenceState 只决�
 - desktop 最终全量：5358 个用例，5353 通过、5 个既有跳过，0 失败/取消。先前 SVG 忙态替换额外占了一行，触发行数冻结门禁；改为在原有表达行内替换并复测，既有门禁未放宽。该次原始失败日志与最终成功日志均保留。
 - 原生 Electron 最终验收：55 项通过，0 页面错误、0 窗口授权错误，专属测试进程确认退出。包含 200 Bot/10000 消息、普通等待/增量/正式/历史/停止/失败无重复引用、较早锚点分页定位/高亮退出/重复定位、显式划词引用及草稿、SVG 嵌套详情、深浅主题、760px 窄窗口、键盘、减少动态效果、模型/档位、工作/记忆分区。
 - 外部证据目录：`$CODEX_HOME/visualizations/2026/10/05/rc-message-polish/`；verification.json、electron-report.json、electron-trace.zip、完整测试/类型检查/构建日志与八张实际窗口截图。原生报告的 sourceDirty=true 如实保留（验收先于提交），提交 tree 已与验收源 tree 对齐。
-- [PR 全量 CI37318451492](https://github.com/ly-ccx/Peer-Agent/actions/runs/37318451492) 对 401f27ff 的 macOS/Linux 检查运行中。
+- [PR 全量 CI37318451492](https://github.com/ly-ccx/Peer-Agent/actions/runs/37318451492) 对 401f27ff 的 macOS/Linux 全量构建、类型、架构、测试与原生窗口检查全部成功。Actions 测试的合成合并提交 a58511c0e1a7a887abff77d019ce178a6f0a187a，tree 同为 c2491e2fd335d9fad65af0dd20c776efbad20c90；本机、PR 提交与 CI 候选 tree 一致。
 - 未运行本卡范围外的真实模型耗时与任务工具执行验收；受控认知与会话事实夹具只证明本机表达链和真实宿主/IPC/存储交互。
 
 ### 架构影响
