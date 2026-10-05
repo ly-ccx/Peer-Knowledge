@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "bcd154232e86e0576a7b20aab099f7cb6a3a9c20",
-  "sourceTree": "d321d72c0c53c86f6292d6f4020dd990082bfd1b",
+  "sourceCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
+  "sourceTree": "f4c1afc357d35215bbe28bc0e6ceb220efb1a52a",
   "capturedBeforeCommit": true,
-  "captureBaseCommit": "d943be3aeae89fb6826bcf8e301a3c4e34d910b8",
+  "captureBaseCommit": "bcd154232e86e0576a7b20aab099f7cb6a3a9c20",
   "allSourceBlobsVerified": true,
   "sourceFiles": [
     {
@@ -52,6 +52,11 @@
       "gitBlob": "417ec84d7da5f84915783f75e8939853191169c9"
     },
     {
+      "path": "apps/desktop/renderer/src/project-agent/conversation/useConversationWindow.ts",
+      "sha256": "67ba81bfce79462ebedb53642cbf42805bb77db52a6032445cf5d5c5cee79e46",
+      "gitBlob": "537a60495535db637ae452435a9bad3f3cbe07a8"
+    },
+    {
       "path": "apps/desktop/renderer/src/project-agent/drawer/BotProfileDrawer.tsx",
       "sha256": "b870ec89ff5511ede3f449acada573fce99b1f15757d38214a4febb87da96572",
       "gitBlob": "ed8d973257a5457210d365965dae0d2fc216e17b"
@@ -85,6 +90,11 @@
       "path": "apps/desktop/renderer/src/project-agent/state/useBotWorkSessions.ts",
       "sha256": "6f8fb22c379c63c2536134f2c31c82d7d135691dcc6c6ecd6af7823d80219c32",
       "gitBlob": "426e51d08b7f93675a0265ce6d3edc943fca4c18"
+    },
+    {
+      "path": "apps/desktop/renderer/src/project-agent/styles/bot-conversation.css",
+      "sha256": "da6df1b4338d827e6b96467ca9adf5f90fcf504eae44d7f003cc50bcab2e32e9",
+      "gitBlob": "83e78f561f09e8f92099a85f66b8d7a9b2e15bd7"
     },
     {
       "path": "apps/desktop/renderer/src/project-agent/styles/bot-drawer.css",
@@ -123,15 +133,15 @@
     },
     {
       "path": "scripts/rc-response-interaction-smoke.mjs",
-      "sha256": "6fad6bd9ef2b4a0e6166ce9ad6a2154f85656e649f9366cf4047236d1f32252e",
-      "gitBlob": "79db97603533c5c09cb16f0c57daa19fd9c9e08f"
+      "sha256": "565d2c452c16cfaba5bc7d12447404d368ed0046886f22c4a4bc2753ab2ec9d9",
+      "gitBlob": "cce307aee5f851dfe828c622fad3a28fce69e818"
     }
   ],
   "scope": "Real source Electron main/preload/renderer and durable input; scripted cognition only; not installed or real-model timing; main-side session snapshots and notifications are controlled fixtures, not proof of real delegated execution.",
   "local": {
     "platform": "darwin",
-    "startedAt": "2026-10-05T11:15:52.806Z",
-    "finishedAt": "2026-10-05T11:17:15.730Z",
+    "startedAt": "2026-10-05T11:30:41.676Z",
+    "finishedAt": "2026-10-05T11:32:04.640Z",
     "ok": true,
     "pageErrors": [],
     "mainAuthorizationErrors": [],
@@ -165,7 +175,7 @@
     "effortStability": {
       "settings": {
         "delayMs": 650,
-        "successFrames": 52,
+        "successFrames": 51,
         "failureFrames": 51,
         "successHeld": true,
         "failureHeldThenRolledBack": true,
@@ -181,6 +191,11 @@
         "stableTriggerAndPanel": true,
         "scope": "Production settings slider and durable profile over actual IPC; controlled latency and failure"
       }
+    },
+    "readingPosition": {
+      "before": 5311.5,
+      "after": 5311.5,
+      "eventDeliveryDelayed": true
     }
   },
   "unitTests": {
@@ -196,6 +211,10 @@
     },
     "i18nNamespace": {
       "passed": 1
+    },
+    "scrollAndWorkFocused": {
+      "passed": 8,
+      "failed": 0
     }
   },
   "checks": {
@@ -206,7 +225,7 @@
   "images": [
     {
       "path": "design/product/assets/bot-human-readable-work/work-running.png",
-      "sha256": "f09618e3ef98b21ea0fcb24fee7cebbc6a5c07a954327694b23a149f83b53221"
+      "sha256": "9507c1e42ddfcce3b3db9e1c4c9c148199b37efe00df80b7dd67365626420ae5"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/work-waiting.png",
@@ -214,7 +233,7 @@
     },
     {
       "path": "design/product/assets/bot-human-readable-work/bot-overview.png",
-      "sha256": "e54603e8e703235959458b7b4f0604f11b8265267e70f04b56c349f915db86a8"
+      "sha256": "df6f2e9343188a0bb551b6ac3458d9d7128606a1e543162468a18153661bcedb"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/bot-memory.png",
@@ -222,18 +241,30 @@
     },
     {
       "path": "design/product/assets/bot-human-readable-work/work-narrow-light.png",
-      "sha256": "7b82e907084b65664b0ef721a134b7902da691c4b95d5137360c6c6ae1ce69d1"
+      "sha256": "c320ea7e90c5a9522e88899293c0842243fa490da0b5a123b9985539af2d60da"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/stream-tool-running-expanded.png",
-      "sha256": "4c00b087e2113da741650d7b7a2e6eedb3a375de8151421f8bc5fcb91f7e5b44"
+      "sha256": "1c13bc4343acfa91ab59fa9d62b03dac759badadd4d95cc7e5ca4abf38be4b45"
     },
     {
       "path": "design/product/assets/bot-human-readable-work/stream-complete.png",
-      "sha256": "4fc88f2e93a16748514f1e303a7de5ab949b2086f6ce38ab84b6feb6983b1fac"
+      "sha256": "d0e67b5b2cf0e6cc8b481751f604a6f5066966db124552f307b0a86e5bc0fde2"
     }
   ],
   "ci": {
-    "status": "pending"
+    "status": "pending",
+    "runId": 37303838740,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37303838740",
+    "headSha": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
+    "previous": {
+      "runId": 37302055812,
+      "headSha": "bcd154232e86e0576a7b20aab099f7cb6a3a9c20",
+      "linux": "success",
+      "macos": "failure",
+      "failure": "New streamed content overwrote a delayed upward scroll after expanded task details.",
+      "correctionCommit": "621cab19e2af67ad5386f8cfdd6b388a43d491c2",
+      "regression": "Delayed DOM scroll event; before and after reading offset must remain within 2px."
+    }
   }
 }

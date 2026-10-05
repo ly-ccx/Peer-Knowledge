@@ -4,7 +4,7 @@
 最后更新：2026-10-05
 状态：InProgress（两批本机交互验收已通过；追加提交待双平台 CI）
 分支：PeerAgent/pa/rc-live-process
-源码提交：bcd154232e86e0576a7b20aab099f7cb6a3a9c20（追加）；第一批 d943be3aeae89fb6826bcf8e301a3c4e34d910b8
+源码提交：621cab19e2af67ad5386f8cfdd6b388a43d491c2（阅读位置修复）；bcd154232e86e0576a7b20aab099f7cb6a3a9c20（追加）；第一批 d943be3aeae89fb6826bcf8e301a3c4e34d910b8
 源码 PR：https://github.com/ly-ccx/Peer-Agent/pull/122
 CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37292590731（双平台通过）
 派单来源：负责人 RC6 实测截图与交互修复要求。
@@ -56,6 +56,7 @@ CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37292590731（双平台�
 - `apps/desktop/renderer/src/project-agent/BotListShell.tsx`
 - `apps/desktop/renderer/src/project-agent/conversation/ReplyContext.tsx`
 - `apps/desktop/renderer/src/project-agent/conversation/ReplyAnchors.tsx`
+- `apps/desktop/renderer/src/project-agent/conversation/useConversationWindow.ts`
 - `apps/desktop/renderer/src/project-agent/conversation/DelegatedWork.tsx`
 - `apps/desktop/renderer/src/project-agent/state/botWorkState.ts`
 - `apps/desktop/renderer/src/project-agent/state/botWorkState.test.ts`
@@ -88,3 +89,9 @@ Mac/Linux 开发线 CI 接入 streaming 与 effort-stability 回归。测试只�
 ## 负责人追加反馈验收
 
 详见 [消息与档案的信息归属及实机截图](../../design/product/bot-human-readable-work-surfaces.md) 与 [机器报告](evidence/bot-work-surfaces-qa-20261005.json)。追加仅为 C 级展示修正；子任务状态来自既有本机读取/通知，缺失或失败时说明不可用，展开状态随同一回合保留。
+
+### 追加 CI 暴露的阅读位置竞态
+
+CI 37302055812 的 Linux 全部通过，Mac 在子任务展开后的流式历史阅读位置检查失败（视图回到底部）。将 `useConversationWindow.ts` 纳入同卡 C 级展示修正：在新的布局处理前识别已发生但 React 滚动事件尚未处理的上翻；由既有窗口 Hook 独占锚点恢复，关闭浏览器自动锚定。补确定性的延迟滚动事件回归，继续保持原来的阅读位置断言。
+
+修复提交 `621cab19e2af67ad5386f8cfdd6b388a43d491c2` 的正式 Electron 全项通过，延迟 scroll 事件时 5311.5 → 5311.5。最终 26 个追加文件 blob 核对一致；新 CI：https://github.com/ly-ccx/Peer-Agent/actions/runs/37303838740（待完成）。

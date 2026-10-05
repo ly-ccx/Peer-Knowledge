@@ -41,11 +41,12 @@
 
 验收脚本覆盖正式 Electron main / preload / renderer 和既有 IPC。认知事件和会话状态使用隔离数据夹具；展示检查不代表真实云模型时延、真实文件执行或任务结果验收。
 
-源码追加提交：`bcd154232e86e0576a7b20aab099f7cb6a3a9c20`。窗口测试在提交前完成，捕获基线为 `d943be3a`；24 个追加源文件 blob 已逐项核对，与该提交一致。源码 PR 为 [#122](https://github.com/ly-ccx/Peer-Agent/pull/122)。第一批 CI 只属于第一批提交，追加 CI 单独记录。
+源码追加提交：`bcd154232e86e0576a7b20aab099f7cb6a3a9c20`，阅读位置修复：`621cab19e2af67ad5386f8cfdd6b388a43d491c2`。最终窗口测试在修复提交前完成，捕获基线为 `bcd15423`；26 个追加源文件 blob 已逐项核对，与最终提交一致。源码 PR 为 [#122](https://github.com/ly-ccx/Peer-Agent/pull/122)。第一批 CI 只属于第一批提交，追加 CI 单独记录。
 
 - desktop build、workspace typecheck、architecture:check：通过。
 - desktop：5,349 项，5,344 通过、5 项既有 skip；focused 9 项通过；i18n 命名空间检查通过。
 - Electron：11 项流式/工具/停止/失败/交接检查；6 项任务状态/信息归属检查；键盘、深浅主题 760px、附件/粘贴、650ms 档位保存与失败回退通过。
+- 延迟原生 scroll 事件，让增量先抵达布局的确定性回归通过：上翻后的 scrollTop 为 5311.5，增量后仍为 5311.5；没有放宽原有 2px 断言。窗口 Hook 独占锚点恢复。
 - 子任务的展开进展在流式预览接替为正式回复、进入下一回合后保留；状态仍使用最新本机记录。无页面异常或主进程授权错误。
 - 截图与源文件 SHA-256、状态切换/回归结果见 [机器报告](../../playbook/v0.1.0/evidence/bot-work-surfaces-qa-20261005.json)。
 
@@ -71,4 +72,4 @@
 
 ## 交付状态
 
-本机验收通过；追加 CI 待完成。仍交付原开发线 PR，本次未发布新版本或替换已安装应用。
+本机验收通过。首次追加 CI [37302055812](https://github.com/ly-ccx/Peer-Agent/actions/runs/37302055812) 的 Linux 通过，Mac 暴露阅读位置竞态；已补确定性回归并修复，新 CI [37303838740](https://github.com/ly-ccx/Peer-Agent/actions/runs/37303838740) 待完成。仍交付原开发线 PR，本次未发布新版本或替换已安装应用。
