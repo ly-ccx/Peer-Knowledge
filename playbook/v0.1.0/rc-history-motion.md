@@ -2,7 +2,7 @@
 
 创建时间：2026-10-05
 最后更新：2026-10-06
-状态：InReview；本机通过，双平台 CI 待回填，等待人工审阅
+状态：InReview；本机及最终提交双平台 CI 通过，等待人工审阅
 派单来源：负责人实测指出历史对话卡片粗糙、任务展开和关闭无过渡。
 级别：C；代码分支 PeerAgent/pa/rc-history-motion，基线 PeerAgent/dev/0.1.0 的 7276b5e6。
 
@@ -67,7 +67,7 @@
 - 263 帧原生 CDP 屏幕录制与 5 段 rAF 高度采样：外层 26.5→62.5px、内层 32→117.390625px，展开/关闭都有中间帧；驱动等待 85ms 后再次实际点击反向连续收起；关闭最终内容隐藏且不能接收 Tab，SVG 最终旋转 180°，减少动态效果直接切换。GIF 从原生帧按时间线取样、10ms 时间分辨率、末帧停留 1 秒；不以 GIF 编码时长代替实际 CSS/采样验收。
 - [深色历史](../../design/product/assets/peer-frost-history-motion/history-dark.png)、[浅色历史](../../design/product/assets/peer-frost-history-motion/history-light.png)、[预览](../../design/product/assets/peer-frost-history-motion/history-preview.png)、[窄窗大字](../../design/product/assets/peer-frost-history-motion/history-narrow-large.png)、[实机折叠录制](../../design/product/assets/peer-frost-history-motion/task-disclosure-native.gif)。
 - 本机保留原生报告、追踪包、原始帧/时间线及失败检查记录。受控认知与任务只证明 UI 和既有入口，不代表真实模型或任务工具执行/Evidence 验收。
-- 初次双平台 CI（ed9281c8，[run 37339491168](https://github.com/ly-ccx/Peer-Agent/actions/runs/37339491168)）Linux 通过；Mac 的四段展开/收起通过，在快速反向的最终隐藏断言失败。旧采样从远端点击指令前起算 480ms，可能在第二次实际点击的过渡结束前截止。30c6430 只修正测试计时：预先安装采样器，确认实际点击次数，再保留最后一次实际点击后的完整 480ms，6 秒总边界和原高度/中间帧/无整段跳跃/隐藏断言不变。修改后本机完整原生 60 项再次通过；Renderer 与产品样式未变。最终提交双平台 [run 37341105993](https://github.com/ly-ccx/Peer-Agent/actions/runs/37341105993) 进行中，完成后回填。
+- 初次双平台 CI（ed9281c8，[run 37339491168](https://github.com/ly-ccx/Peer-Agent/actions/runs/37339491168)）Linux 通过；Mac 的四段展开/收起通过，在快速反向的最终隐藏断言失败。旧采样从远端点击指令前起算 480ms，可能在第二次实际点击的过渡结束前截止。30c6430 只修正测试计时：预先安装采样器，确认实际点击次数，再保留最后一次实际点击后的完整 480ms，6 秒总边界和原高度/中间帧/无整段跳跃/隐藏断言不变。修改后本机完整原生 60 项再次通过；Renderer 与产品样式未变。最终提交双平台 [run 37341105993](https://github.com/ly-ccx/Peer-Agent/actions/runs/37341105993) 已成功；head 30c6430，Mac 和 Linux 均通过。
 
 ## 架构影响
 
@@ -79,4 +79,4 @@ C 级：Renderer 表达与交互；Runtime、协议、权限、Evidence、System
 
 ## 未完成与后续
 
-双平台 CI 待回填最终结果；人工审阅未完成，不自行合并或发布 RC。PR124 的背景任务 SVG 与本卡重叠，合并时保留 SVG 和本卡过渡规则。PR125 任务详情双平台 CI 已通过，独立等待审阅。
+最终提交双平台 CI [run 37341105993](https://github.com/ly-ccx/Peer-Agent/actions/runs/37341105993) 已成功；head 30c6430242bfca0fd12a648796958a4a6ad5ce8d，Mac 和 Linux 均通过。人工审阅未完成，不自行合并或发布 RC。PR124 的背景任务 SVG 与本卡重叠，合并时保留 SVG 和本卡过渡规则。PR125 任务详情双平台 CI 已通过，独立等待审阅。
