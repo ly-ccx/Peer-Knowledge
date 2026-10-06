@@ -1,8 +1,8 @@
 # RC7 消息引用、定位与 SVG 图标修正
 
 创建时间：2026-10-05
-最后更新：2026-10-05
-状态：InReview（实现、本机验收、推送与双平台 CI 全部完成；待审阅合并）
+最后更新：2026-10-06
+状态：InReview（引用修订、本机验收、推送与最终 head 双平台 CI 完成；上一版记录保留）
 派单来源：负责人 RC7 实测指出普通接续回复重复引用、用户消息外框，以及全局禁止字符图标。
 级别：C。分支：PeerAgent/pa/rc-message-polish；基线 PR123 已合入的开发线。
 
@@ -18,6 +18,12 @@
 ## 验证与退出
 
 先复现普通流式引用与永久描边，再验证修复：定向状态与图标扫描、desktop build/完整测试、workspace typecheck/architecture；原生 Electron 深浅主题、普通流式到正式/历史、显式引用、旧消息分页定位、临时高亮退出、SVG 展开状态、键盘与窄窗口。受控模型夹具仅验证表达链，不等同真实模型或任务执行验收。代码提交同轮 push，PR 回开发线；本卡不发布新 tag。
+
+### 2026-10-06 引用视觉修订
+
+负责人否定当前「回复 / 摘录 / 右箭头」的大块灰底卡片。沿用本卡代码分支和 PR124，C 级表达修订：引用为正文上方的来源名称与最多两行摘录；去掉独立填色容器、常驻右箭头和泛化“回复”标题，保持小字号与紧凑间距。正常连续回复仍不显示引用；显式引用和较早关联仍可通过鼠标或键盘回到真实原消息。用户消息内引用复用同一预览，来源按实际已加载消息角色判断，未加载来源不猜作者、不显示 UUID。完整原文和引用关联不随显示截断改变。
+
+允许文件沿用上文 renderer 状态/界面/样式与定向测试范围，原生验收扩展 `apps/desktop/scripts/bot-shell-reply-checks.mjs`；知识截图保存到 `design/product/assets/peer-frost-quote-refinement/`。不修改引用存储、消息事件或执行边界。先验证来源投影，再核验深浅主题、长文本、760px 窄窗口、键盘定位、划词发送、普通流式到正式不重复引用；构建、受影响包完整测试、类型/架构门禁及最终提交双平台 CI 完成后交接。
 
 
 ## 全局排查清单
@@ -37,7 +43,7 @@
 
 475 个 renderer、共享 UI、语言源码文件经过全局 AST/CSS 门禁。该门禁识别 JSX/状态分支、emoji、ASCII 图标、CSS 生成内容及 Unicode 转义；以夹具验证注释、快捷键、正常路径说明、数学计数、diff 与截断文案不会被误当作图标。唯一 HTML 预览另行检查，无字符图标。用户内容与工具原文不改写。
 
-## 交接报告
+## 2026-10-05 交接报告（历史）
 
 ### 卡片
 RC7 消息引用、定位与 SVG 图标修正，C 级。
@@ -71,3 +77,53 @@ SVG 规则已写代码仓 AGENTS.md，具体排查与验收事实写本知识卡
 
 ### 未完成与后续
 PR124 待审阅；按实施手册不自行合并。本卡没有新 RC 发布授权，不改写已发布 RC7 的 tag/资产。
+
+## 2026-10-06 引用修订交接报告
+
+### 卡片
+
+负责人实机截图追加“这个引用一点都不高级”。沿用 RC7 消息修正卡，C 级；只调整引用表达与对应验收。
+
+### 分支与提交
+
+- 代码分支 `PeerAgent/pa/rc-message-polish`，仍在 [PR124](https://github.com/ly-ccx/Peer-Agent/pull/124)。
+- 引用实现 `16107c55`；三个验收补修提交 `ee8d38ee`、`d1c72ccc`、`8a888f8c`。
+- 最终 head `8a888f8c6d6c5d963e6388b6889f0e089164a200`，tree `af2c2b20391ac071bdbe0b0df0412943d99d4567`。
+
+### 改了什么
+
+- 正文上方的引用改为透明、无边框、无阴影的紧凑来源与摘录，去掉泛化“回复”标题和常驻右箭头。来源 11px、摘录 13px，摘录最多两行、宽度不超过 360px；保留至少 44px 点击区域与键盘焦点。悬停/聚焦只提升文字和下划线提示，不画新的卡片。
+- 来源基于实际已加载消息角色：用户显示“你”，Bot 回复显示真实 Bot 名称；未知或未加载来源使用“引用”标签，不猜作者、不露出 UUID。显示截断交给 CSS，完整原文留在提示与关联里。
+- Bot、流式、停止/失败及用户气泡内引用复用同一预览；普通接续回复继续不显示冗余引用，replyTo 与 quoteRefs 原关联不改。实际发送、草稿取消和分页定位走原有宿主/IPC 链。
+
+### 与卡片的偏差
+
+无。追加 10 个代码文件的修改均在 renderer、纯投影测试及原生验收许可范围；PR 累计 50 个文件，包含上一轮 SVG 排查与消息定位修正。没有依赖或版本变更。
+
+### 验证
+
+- 新来源投影测试先红；最终引用/图标定向检查 10/10，475 个源码文件 SVG 门禁通过。完整原文、未知来源、实际角色、英语标签和不变更 canonical 内容均有覆盖。
+- 最终 head 的 desktop build、workspace typecheck、architecture、diff 检查通过；desktop 完整测试 5359 个，5354 通过、5 个既有跳过、0 失败/取消；另 i18n 1/1。
+- 受控原生 Electron 57 项通过（10 主流程、7 更新器、6 引用、11 流式、4 问题卡、6 工作面、13 无障碍），0 页面异常与权限异常，测试进程确认退出。引用包括鼠标/键盘旧消息分页定位、真实作者、完整提示、深浅色、两行截断、760px 窄窗、划词取消/发送与用户引用回跳，正常等待/流式/正式/停止/失败没有新增引用框。
+- 本机原始报告如实保留 `sourceHead=d1c72ccc`、`sourceDirty=true`：最后一份滚动验收补修已暂存后运行，受验候选 tree `af2c2b20` 与最终提交 tree 完全相同。提交前后没有产品代码变化。[最终 head CI37409351891](https://github.com/ly-ccx/Peer-Agent/actions/runs/37409351891) 的 Mac/Linux 构建、类型、架构、完整测试和原生窗口门禁全部成功；实际 CI 合成合入 `44ed6e30f708bb3537bfea2e6349f00cb3865095` 的父提交为基线 `7276b5e6` 与最终 head `8a888f8c`，tree 同为 `af2c2b20`。
+- 三次前置实机失败及日志均保留：旧消息定位后原回复重挂载，原脚本仍假定详情展开；用鼠标重开详情改变键盘焦点模式；新增实际引用对话后旧工作回复移出虚拟窗口。修正脚本通过键盘重开详情、通过实际滚动找回回复，既有焦点、过程、工作与动态效果断言均保留；失败测试进程也确认退出。被新提交取代的 CI 三次取消，不列为成功证据。
+- 证据目录 `$CODEX_HOME/visualizations/2026/10/06/rc-quote-refinement/` 保存原始报告、前置失败、构建/完整测试/类型/架构日志及六张原生截图。受控认知只证明表达、真实宿主/IPC/存储与导航，不声称真实模型耗时或工具执行。
+- 已下载并检查两平台实际窗口报告：`sourceHead=44ed6e30`、`sourceDirty=false`、`ok=true`、0 页面/权限异常、测试进程均确认退出；`verification.json` 绑定本机候选 tree、最终 head、CI 合成合入 tree、job 与平台报告。隔离 canonical 文件也确认只创建一条对应用户输入，`quoteRefs[0]=rc-message-9999`，不是仅验证乐观显示。
+
+### 架构影响
+
+C 级，来源预览投影只驻留 renderer。Runtime、能力暴露、协议、权限、Evidence、System Context、IPC 和存储边界均未移动。
+
+### 文档偏差
+
+上一版低对比填色预览的视觉规格已由负责人本次截图评审修订为透明文字上下文；具体尺寸、行为和事实记于本卡，产品北极星不变。截图归档在 `design/product/assets/peer-frost-quote-refinement/`。
+
+### 未完成与后续
+
+最终 head 的双平台 CI 已完成；PR124 仍待审阅，不自行合并或重写 RC7。
+
+### 实机截图
+
+- [深色引用](../../design/product/assets/peer-frost-quote-refinement/reply-dark.png)、[浅色引用](../../design/product/assets/peer-frost-quote-refinement/reply-light.png)
+- [窄窗引用草稿](../../design/product/assets/peer-frost-quote-refinement/reply-narrow-quote.png)、[发送后的用户引用](../../design/product/assets/peer-frost-quote-refinement/reply-narrow-sent.png)
+- [普通等待无引用](../../design/product/assets/peer-frost-quote-refinement/stream-waiting.png)、[普通流式转正式无引用](../../design/product/assets/peer-frost-quote-refinement/stream-complete.png)
