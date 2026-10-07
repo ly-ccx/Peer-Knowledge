@@ -33,4 +33,8 @@ RC8 新 authority/model_review/协调字段在旧写入中可能丢失。回退�
 
 ## 发布记录
 
-版本与发布说明已准备。最终源码、CI、不可变标签、工作流与资产核验将在实际完成后补充。
+候选源码 `52ab510a3f76f9dc246a6218b55c14ad3ea0e3f3`，tree `ab8112a5e05fe37eb808215d0aa9907703332a77` 已推送，源码 [PR124](https://github.com/ly-ccx/Peer-Agent/pull/124)。完整本机 build/typecheck/architecture/IPC/test 与 Runtime package contents / external-host smoke 通过；desktop 5413 项测试，5408 通过、5 项既有跳过、0 失败。版本、changelog、readiness/source 检查通过。
+
+RC8 最终源码 Capture `7ee16a70-76cd-4d54-a9b4-418cfd98850b`：66 张必查截图实际逐张查看并写出观察，Verify passed；fingerprint `4f01eed4a3e30da7060ca3724c42a1df350585e9405189d7bade5ac658248935`。提交后再次 Verify passed，源码字节未变。实施者自审 `independent=false`。[产品审查](evidence/rc8-product-review-20261007.json)。
+
+实际旧 tag 模块与受控 updater、真实 SIGKILL/恢复矩阵 26 项通过，sourceDirty=false；不冒充旧安装客户端 GUI 升级。[升级与恢复](evidence/rc8-upgrade-matrix-20261007.json)。[精确候选 CI37619750146](https://github.com/ly-ccx/Peer-Agent/actions/runs/37619750146) 正在跑 Mac/Linux 最终窗口门禁；合入、标签和实际发布产物尚未写成成功。
