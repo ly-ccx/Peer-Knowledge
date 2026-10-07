@@ -94,6 +94,16 @@ TaskOverview 只展示 EvidenceIndex 中的 UserArtifact：
 
 ## 失败与兼容
 
+### 2026-10-07：回复依据的只读查看契约（A 级补充）
+
+回复详情里的 Evidence 不等于用户产物。沿用 `project-agent:read-evidence`，在 protocol 定义单条内容与有界批量来源描述；批量只返回索引中的工具名和记录时间，不批量加载正文。界面用这些真实来源表达“读取文件 / 查看工作会话”等名称，内部 URI 与错误码默认收起。
+
+单条读取区分：内容可读、来源存在但正文未保存、引用未登记、读取失败。不能把后面三种统一伪装成 `NOT_FOUND`，也不能把只有来源的回执说成完成证明。详情说明这是当时的操作记录，缺失内容不能据此验证结论；用户可返回回复，不要求用户去操作子任务或重新验收。
+
+旧委托查询记录可能只保存了索引，但正式 `agent_turn.rounds[].toolCalls[].result` 仍有当时结果。允许只读兼容恢复 `get_session`、`list_sessions`、`get_verification_detail`：必须绑定索引登记的 conversationId、streamId、toolName，且该 Tool Result 的 evidenceRefs 含精确引用；仅投影已保存的标题、状态说明与报告摘要，经过既有脱敏和限额。不能使用 assistant text、相邻操作、当前会话状态或当前工作区文件补历史事实。缺失或不匹配则保留缺失状态，不写回索引、不执行新操作。
+
+此补充只调整本机读取与表达契约；Capability Provider、Manifest、Runtime Projection、PermissionGrant、完成验证与 UserArtifact 归属不变。验收需覆盖精确历史绑定、来源缺正文、未知引用、读取异常、批量上限、默认隐藏诊断、真实侧栏返回与窄窗口。
+
 - 旧 Evidence 无 UserArtifact：继续可审计，但验收卡不显示伪产物。
 - UserArtifact 路径不存在：保留审计元数据，界面不提供打开动作或不投影。
 - 未知类型：不展示，待 Provider 契约升级。

@@ -360,10 +360,21 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 不知道谁决定、谁执行、谁授权、谁证明。
 ```
 
+## 十四、项目代理公开进展的显示与持久边界（2026-10-06，A 级）
+
+用户回合的主 Bot 可以发布简短公开进展；进展属于对话表达，既不执行能力，也不证明完成。结论和可操作问题继续走经过宿主校验的 `post_reply`，PermissionGrant 与 Evidence 链不变。
+
+- `ProjectAgentActivity.segments` 的 `kind=text` 只接收普通公开 assistant delta；`chat:stream:thinking` 的内容不得进入公开进展记录。工具调用之后收到新的公开文字时，新建 text segment；同一段内的字词 delta 仍追加，不能按字符制造新消息。
+- Runtime 在已有 `agent_turn` 记录中新增可选 `publicUpdates: {id,text}[]`。值只能来自本用户回合的宿主 Activity 投影；至多 100 段、总计 32000 字符，保留真实顺序。此字段不进入模型 System Context，也不转换为 Tool Result、Evidence、任务状态或独立签收消息。
+- `rounds[].text` 仍是内部回合记录，不升级为公开表达。旧记录缺少 `publicUpdates` 时不回填、不猜测、不把内部文本重新展示给用户；wake 回合不保存公开进展。历史原始记录保持原样。
+- 流式内容转为正式回复、下一回合开始或重新读取历史时，renderer 使用同一组公开进展；只有最后进展与兜底结论或停止卡片全文相同时去掉重复末段。失败撤回未通过校验的回复草稿，已到达的公开进展仍可与失败卡片一同保留。
+- provider 恢复会清除当前尝试的公开投影，防止把废弃尝试的段落拼到新尝试。dispose 清空投影；stop 保留已经到达的公开段落并标明未完成。
+
+实施位置：protocol 定义公开文字 segment；共享 runtime 的 TurnActivity 划分与限额、agentTurnMessage 持久投影；renderer 只负责显示、去重、淡入与阅读位置。表达规则由现有 `project-agent` Context Source 提供，层序不变；不增加工具、执行旁路或授权机制。
+
 ## 相关文档
 
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — Desktop 与 TUI/CLI 共享运行时边界与长期治理
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
 - `knowledge/specifications/runtime-sdk-boundary-architecture.md` — Runtime SDK 分层边界
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — 本地能力对齐
-

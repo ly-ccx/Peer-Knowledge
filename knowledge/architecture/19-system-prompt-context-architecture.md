@@ -2,6 +2,8 @@
 
 日期：2026-06-10
 状态：技术方案 / 第一阶段已落地
+
+2026-10-06 补充：现有 `project-agent` L1 Context Source 允许多步用户回合在工具前后发布简短公开进展，简单问答直接 `post_reply`，wake 继续仅在有必要时用 `post_reply` 说话。公开进展不承担结果交付、问题选项、完成或签收判断；原有宿主校验继续生效。规则仍由资源正文及其嵌入模块提供，不散落在 provider encoder 中，不改变层序。公开 delta 与旧内部 round 文本分开，新增持久投影见 [工程治理 §十四](20-architecture-governance.md)。
 关联总览：`knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主共享与 Prompt 分叉治理
 
 本文定义 Peer Agent 后续的系统提示词体系。这里故意不把问题理解成“把一段更好的 system prompt 写长一点”，而是把它升级为一套可组合、可追踪、可测试、可演进的 `System Context` 组装机制。
