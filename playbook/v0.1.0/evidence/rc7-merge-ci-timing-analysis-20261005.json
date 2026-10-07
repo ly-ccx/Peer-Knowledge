@@ -1,0 +1,959 @@
+{
+  "configuredFailureDelayMs": 650,
+  "events": [
+    {
+      "type": "before",
+      "callId": "call@1799",
+      "startTime": 374230.849,
+      "class": "Frame",
+      "method": "press",
+      "params": {
+        "selector": "internal:role=slider",
+        "strict": true,
+        "key": "Home",
+        "timeout": 15000
+      },
+      "pageId": "page@558855bbc33d859b1180b8448d170b0d",
+      "beforeSnapshot": "before@call@1799"
+    },
+    {
+      "type": "after",
+      "callId": "call@1799",
+      "endTime": 376012.697,
+      "afterSnapshot": "after@call@1799"
+    },
+    {
+      "type": "before",
+      "callId": "call@1801",
+      "startTime": 377250.433,
+      "class": "Frame",
+      "method": "evaluateExpression",
+      "params": {
+        "expression": "selector => new Promise(resolve => {\n      const frames = [], start = performance.now();\n      const capture = () => {\n        const slider = document.querySelector('.reasoning-effort-slider');\n        const trigger = document.querySelector(selector);\n        const panel = document.querySelector('.reasoning-effort-panel');\n        const rect = node => { const { x, y, width, height } = node.getBoundingClientRect(); return { x, y, width, height }; };\n        frames.push({ value: slider.value, trigger: rect(trigger), panel: rect(panel) });\n        if (performance.now() - start < 420) requestAnimationFrame(capture); else resolve(frames);\n      };\n      requestAnimationFrame(capture);\n    })",
+        "isFunction": true,
+        "arg": {
+          "value": {
+            "s": ".bot-model-settings-row .reasoning-effort-trigger"
+          },
+          "handles": []
+        }
+      },
+      "pageId": "page@558855bbc33d859b1180b8448d170b0d",
+      "beforeSnapshot": "before@call@1801"
+    },
+    {
+      "type": "after",
+      "callId": "call@1801",
+      "endTime": 378033.431,
+      "result": {
+        "value": {
+          "a": [
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 3
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 4
+                  }
+                }
+              ],
+              "id": 2
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 6
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 7
+                  }
+                }
+              ],
+              "id": 5
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 9
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 10
+                  }
+                }
+              ],
+              "id": 8
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 12
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 13
+                  }
+                }
+              ],
+              "id": 11
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 15
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 16
+                  }
+                }
+              ],
+              "id": 14
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 18
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 19
+                  }
+                }
+              ],
+              "id": 17
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 21
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 22
+                  }
+                }
+              ],
+              "id": 20
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 24
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 25
+                  }
+                }
+              ],
+              "id": 23
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 27
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 28
+                  }
+                }
+              ],
+              "id": 26
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 30
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 31
+                  }
+                }
+              ],
+              "id": 29
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 33
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 34
+                  }
+                }
+              ],
+              "id": 32
+            },
+            {
+              "o": [
+                {
+                  "k": "value",
+                  "v": {
+                    "s": "100"
+                  }
+                },
+                {
+                  "k": "trigger",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1133
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 256.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 112
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 34
+                        }
+                      }
+                    ],
+                    "id": 36
+                  }
+                },
+                {
+                  "k": "panel",
+                  "v": {
+                    "o": [
+                      {
+                        "k": "x",
+                        "v": {
+                          "n": 1032
+                        }
+                      },
+                      {
+                        "k": "y",
+                        "v": {
+                          "n": 175.96875
+                        }
+                      },
+                      {
+                        "k": "width",
+                        "v": {
+                          "n": 240
+                        }
+                      },
+                      {
+                        "k": "height",
+                        "v": {
+                          "n": 75.078125
+                        }
+                      }
+                    ],
+                    "id": 37
+                  }
+                }
+              ],
+              "id": 35
+            }
+          ],
+          "id": 1
+        }
+      },
+      "afterSnapshot": "after@call@1801"
+    }
+  ],
+  "analysis": "The Home key action starts at 374230.849 ms; frame sampling starts at 377250.433 ms, 3019.584 ms later. Sampling occurs after the 650 ms controlled failure has returned; failure screenshot shows expected error notice and restored high effort. This timing observation does not establish a pre-response UI rollback."
+}

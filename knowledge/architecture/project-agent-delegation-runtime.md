@@ -1,7 +1,47 @@
 # 项目代理委托运行时
 
 创建时间：2026-09-24
-最后更新：2026-10-01
+最后更新：2026-10-06
+
+## 2026-10-06：受阻循环修复契约
+
+`SessionReport.summary` 来自工作会话最后一段持久化的可见 assistant 正文，`keyFindings` 来自已完成叶任务的 result；没有结果时返回空值。不得把 goal 或成功标准当成调查结论。`taskBrief` 单独保存原任务说明，界面说明区域只使用该字段，不把报告换个标题当说明。报告附 `contentSource` 标记正文来源；工作者正文是未验证的结果陈述，不能代替 Evidence 或独立核验，不改变签收状态。主机器人据此读取实际报告并继续核对，避免因为目标投影为空而反复另开任务。
+
+UI 完成门针对界面交付。提交记录的“hash、主题”属于 Git 元数据，不能因词语“主题”自动武装视觉门；实际界面主题、颜色、组件修改仍须通过原有视觉门。本修复不撤销已存在的视觉要求，不自动签收 manual 成功标准。旧任务的错误验收事实保留可查，新任务使用修复后的分类。
+
+### 完成前核对与结果签收（2026-10-06）
+
+两者是不同事实。Runner 因 `manual_dod_confirmation_required` 停在 executing 时，主 Bot 对话投影“核对报告”卡，展示具体待人工核对标准，并提供右侧完整报告。不能生成完成后的 `confirm_result` 动作。人工核对通过后才继续原 Runner 的 verify；不写 `resultAcceptance`，不豁免自动检查、Verifier、权限或 Evidence。
+
+既有 `project-agent:confirm-result` IPC 的请求由协议声明为两种明确 stage：兼容旧请求的 `result_acceptance`，以及带 `reviewToken` 的 `manual_completion`。应用服务回读 workspace/session 归属，监督者串行回读当前报告、成功标准与核验结果；核对 token 绑定这些事实，过期或任务状态变化则拒绝。仅本地用户点击记录既有 GoalManualConfirmation（decidedBy=local_ui），模型普通回答或自述不构成确认。重复点击同一 token 幂等；持久化失败不恢复 Runner，恢复失败保留确认供重试。完整报告只投影可见输出，不包含私有思考。
+
+已完成的任务只有在 Runner 不再执行/复核时才公开结果签收。临时 completed 状态随后回到 executing 时，最新主对话刷新必须撤销已消失的宿主卡片，不保留旧的可操作缓存。服务端点击失败同样触发事实刷新，界面把状态变化解释为自然语言；原始错误码只作诊断数据。
+
+### 主对话执行预算与复核收尾（2026-10-06）
+
+ProjectAgentRunner 的既有用户/唤醒预算必须传入每次 AgentTurnExecutor 请求，成为 request-scoped executionBudget；不能只在整次 Provider Agent Loop 返回后计数。共享 Runtime Pipeline 在开始工具批次之前检查剩余工具调用额度，批次超额时不派发该批次；每个模型请求同时消耗模型轮次额度。耗尽属于未完成的结构化 exhausted 终态，保留已有工具结果、Evidence、公开进展及 usage，经宿主错误收尾停止当前回复；不能自动重试耗尽回合、伪造完成或继续循环。没有显式预算的普通聊天保持既有配置。Capability Provider → Runtime Projection → PermissionGrant → Evidence 链路不变。
+
+预算耗尽是本次尝试结束，不计为提供方不可用，也不进入提供方自动退避/熔断重试。失败卡和回合先落盘，再提交本次收件箱游标及输入执行确认；提交只确认这些事件已尝试处理，不写任务完成、结果签收或验证通过。手动重试沿既有路径重新执行，新用户消息可开启新回合。重启不得因未提交同批收件箱而重新消费已持久化的耗尽回合。界面使用共享错误分类，明确提示检查达到上限、回复尚未完成；完整诊断仍在右侧详情。
+
+手动重试属于用户正在等待的交互：即使原回合是 wake，也必须经既有 ProjectAgentActivity 立即显示等待、公开进展及工具过程，并支持既有停止回复动作。原 kind、事件、预算与授权边界保持；不能把重试点击伪装为新的用户任务授权。自动 wake 仍不披露中间正文。手动重试的公开段落随 agent_turn.publicUpdates 持久化，私有思考不进入该投影；停止后重试携带原事件批继续，不能丢弃空 userInputs 的 wake。重试 IPC 仍等待本次执行收尾，不以按钮变灰代表任务完成。
+
+项目代理固定 restricted_local：文件 Provider 对已准入目录以外的只读搜索/列举请求，应经原 PermissionGrant 与 Evidence 路径及时拒绝，不进入普通聊天的人工授权等待。它不继承全局 full/session 授权，也不因手动重试扩大目录范围。普通聊天仍按原授权策略处理越界请求，但权限调用必须保留 Manifest 对应的 read/list/search capability 与 L1_local_read 类型，不能伪装为文件写入。停止回合也保存原事件批到既有 meta.recovery，重启后只允许显式重试，不自动重放。
+
+失败卡的 retried 解决记录必须由新的 canonical 回合成功收尾支持。关闭窗口、宿主退出、租约丢失或停止回复不能单凭等待结束就写成重试成功。旧版已写入 retried、但没有后续宿主回合的卡片继续保留重试动作；追加记录仍保留，不改历史事实。
+
+耗尽 agent_turn.meta.recovery 采用 ProjectAgentTurnRecovery 契约保存宿主 events 与 throughSeq，供明确的手动重试及写入后、游标提交前的崩溃恢复。恢复只认最新宿主回合对应的预算错误卡，历史恢复资料不进入新授权。旧耗尽记录缺少批次事实时只停住自动推进，不能盲目提交当前收件箱；手动重试或新用户输入可携带当前真实事件重新处理。
+
+post_reply 锚点失败通过现有 Tool Result 返回被拒绝的 messageIds，以及当前对话最近最多 5 条真实用户消息的 id/短摘要（每条最多 120 字）。这些是事实恢复材料，不是新用户指令、授权或 System Context。端口不能丢弃这些字段；模型须重新选择并提交经过原校验的锚点。不得自动替换未知 id、公开被拒绝的回复正文，或把历史锚点当作唤醒回合开新任务的授权。权限、来源状态、Evidence 与独立核验校验保持有效。
+
+显式重试通过既有 project-roster L7 Source 准入原 canonical 回合的工具执行摘录（最多 16 项、总 12000 字符），包含 turnId、工具名、参数/结果的限长预览、原 Evidence refs 与截断事实。只读原记录，不重新执行旧工具；不准入 private thinking 或 round.text。摘录是未验证的历史事实，不成为系统指令、当前任务状态或新的 Tool Result/Evidence；来源截断、事实变化仍须经原工具回查。只绑定当前被重试回合，普通新输入及自动 wake 不继承这些摘录。重试仍使用原预算与授权，但模型应接续已经取得的结果，不反复从头调查。
+
+独立复核的 verifying 标记只表示复核仍在进行。通过、未通过、异常、取消和不可用都必须收尾；未产生有效结论时清除标记并保留此前验证事实，不写虚假的 passed/failed verdict。成功完成调用返回本次实际结论，不再返回 verifying。记录结论失败同样结束暂态，并保留可诊断错误。
+
+核验输入同时准入 buildSessionReport 读取的实际工作者可见报告及 contentSource，作为用户消息中的未验证事实材料。报告缺失/截断必须明示，不能拿 goal 填充。核验器对报告断言与执行快照进行比较，报告本身不是执行 Evidence；除成功标准明确要求文件交付外，对话中的报告不得被误判为“必须写入报告文件”。已有 readonly、引用准入及输出 JSON 校验不变。
+
+工具过程计时使用 Tool Call/Result 事件的宿主 startedAtMs/endedAtMs。Activity 接收事件时钟仅作旧事件兼容兜底；agent_turn.rounds[].toolCalls 可持久化同一时间，经过 Runner、历史读取与 renderer 投影仍保留。缺失计时不制造 0 秒；已知小于一秒显示“少于 1 秒”。计时是展示元数据，不改变 Evidence 或完成事实。
+
+委托背景按任务锚点准入的 A 级变更见 `project-agent-input-attachments.md`。指定历史快照继续保留完整性确认，普通模型提问不充当历史遗漏授权。
 
 > 状态：随 ADR 80 Accepted（2026-09-26）。§13 已关闭。落点目录以 `playbook/v0.1.0/` 为准。  
 > 级别：A 级运行时契约  
@@ -214,6 +254,8 @@ type AcceptanceReason =
 ```
 
 代签与汇报绑定：代理没有向用户说明情况，就不会代签。代理不能在 `confirm` 时代签，也不能在 `auto` 时阻止代签以外的任何事（它可以追加核验推迟代签，但不能无限推迟：追加核验有次数上限）。
+
+**失败后复核的完成衔接（2026-10-07，B 级修复）**：主 Bot 的 `verify_session` 使用现有本机 Verifier、Evidence 索引和完成闸门。只读任务若仅停在旧的 `verifier_failed`，复核通过且核验对象未改变，Runner 应重新检查叶子证据、成功标准、人工确认及 UI 门；全部通过后清除旧阻塞并发布原有 completed 事件，再由原签收策略判定。核验记录在现有 `hostVerification` 内绑定任务/标准/报告的内容指纹；对象变化、运行中、暂停、取消、缺证据或其他阻塞均不能被旧核验放行。旧记录缺指纹时需再复核，不能补造通过事实。此衔接不授予模型签收能力，不写记忆，不代替人工 DoD 或项目 confirm 策略。真实确认动作仍在主对话的宿主卡片里呈现；模型不得自行编造「去卡片亲手验收」选项或把自然语言回复称作宿主签收。
 
 **合入与推送**：合入源头分支默认 `confirm`（回复里附「合入 develop」一键动作），项目设置 `autoHandoffOnPolicyAccept` 打开后随代签自动合入；推送远端永远走权限审查，不自动。
 

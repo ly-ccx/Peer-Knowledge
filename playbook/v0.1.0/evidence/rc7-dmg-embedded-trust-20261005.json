@@ -1,0 +1,83 @@
+{
+  "version": "0.1.0-rc.7",
+  "startedAt": "2026-10-05T12:38:38.157Z",
+  "scope": "Actual readonly mounted RC7 DMG and embedded app strict signature, Developer ID team, Gatekeeper and notarization ticket.",
+  "commands": [
+    {
+      "command": "hdiutil",
+      "args": [
+        "attach",
+        "<release-check>/Peer-Agent-0.1.0-rc.7-arm64.dmg",
+        "-readonly",
+        "-nobrowse",
+        "-noautoopen",
+        "-mountpoint",
+        "<release-check>/dmg-mounted"
+      ],
+      "status": 0,
+      "stdout": "正在检查“Protective Master Boot Record (MBR : 0)”的校验和…\nProtective Master Boot Record (MBR :：已验证CRC32 $54E6B3F0\n正在检查“GPT Header (Primary GPT Header : 1)”的校验和…\n GPT Header (Primary GPT Header : 1)：已验证CRC32 $1E8601B0\n正在检查“GPT Partition Data (Primary GPT Table : 2)”的校验和…\nGPT Partition Data (Primary GPT Tabl：已验证CRC32 $8DBA8D3B\n正在检查“ (Apple_Free : 3)”的校验和…\n                    (Apple_Free : 3)：已验证CRC32 $00000000\n正在检查“disk image (Apple_HFS : 4)”的校验和…\n          disk image (Apple_HFS : 4)：已验证CRC32 $18434E98\n正在检查“ (Apple_Free : 5)”的校验和…\n                    (Apple_Free : 5)：已验证CRC32 $00000000\n正在检查“GPT Partition Data (Backup GPT Table : 6)”的校验和…\nGPT Partition Data (Backup GPT Table：已验证CRC32 $8DBA8D3B\n正在检查“GPT Header (Backup GPT Header : 7)”的校验和…\n  GPT Header (Backup GPT Header : 7)：已验证CRC32 $537EDAEB\n已验证CRC32 $5816AF86\n/dev/disk4          \tGUID_partition_scheme          \t\n/dev/disk4s1        \tApple_HFS                      \t/private/tmp/peer-rc7-release-verify/dmg-mounted\n",
+      "stderr": "hdiutil: WARNING: 'hdiutil attach -readonly -nobrowse -mountpoint ...' is deprecated. Please use 'diskutil image attach --readOnly --mountOptions nobrowse --mountPoint ...' instead.\n"
+    },
+    {
+      "command": "codesign",
+      "args": [
+        "--verify",
+        "--deep",
+        "--strict",
+        "--verbose=2",
+        "<release-check>/dmg-mounted/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": "--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/.\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/Helpers/chrome_crashpad_handler\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/Helpers/chrome_crashpad_handler\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Electron Framework.framework/Versions/Current/.\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Mantle.framework/Versions/Current/.\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Mantle.framework/Versions/Current/.\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (GPU).app\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (GPU).app\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Plugin).app\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Plugin).app\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Renderer).app\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper (Renderer).app\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper.app\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Peer Agent Helper.app\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current/.\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current/.\n--prepared:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Squirrel.framework/Versions/Current/.\n--validated:/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/Frameworks/Squirrel.framework/Versions/Current/.\n/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app: valid on disk\n/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app: satisfies its Designated Requirement\n"
+    },
+    {
+      "command": "codesign",
+      "args": [
+        "-dv",
+        "--verbose=4",
+        "<release-check>/dmg-mounted/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": "Executable=/private/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app/Contents/MacOS/Peer Agent\nIdentifier=com.peeragent.desktop\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=641 flags=0x10000(runtime) hashes=9+7 location=embedded\nVersionPlatform=1\nVersionMin=786432\nVersionSDK=1704448\nHash type=sha256 size=32\nCandidateCDHash sha256=da5ffb06e11471333f4774b8b1bca87f92a44105\nCandidateCDHashFull sha256=da5ffb06e11471333f4774b8b1bca87f92a4410598fe11a164e6b493cb34bb89\nHash choices=sha256\nCMSDigest=da5ffb06e11471333f4774b8b1bca87f92a4410598fe11a164e6b493cb34bb89\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=da5ffb06e11471333f4774b8b1bca87f92a44105\nSignature size=9033\nAuthority=Developer ID Application: Xu Chu (82672N97RP)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Oct 5, 2026 at 20:27:31\nNotarization Ticket=stapled\nInfo.plist entries=32\nTeamIdentifier=82672N97RP\nRuntime Version=26.2.0\nSealed Resources version=2 rules=13 files=52\nInternal requirements count=1 size=184\nTotal signatures=1\nChosen signature=1\n"
+    },
+    {
+      "command": "spctl",
+      "args": [
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=4",
+        "<release-check>/dmg-mounted/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "",
+      "stderr": "/tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    {
+      "command": "xcrun",
+      "args": [
+        "stapler",
+        "validate",
+        "<release-check>/dmg-mounted/Peer Agent.app"
+      ],
+      "status": 0,
+      "stdout": "Processing: /tmp/peer-rc7-release-verify/dmg-mounted/Peer Agent.app\nThe validate action worked!\n",
+      "stderr": ""
+    },
+    {
+      "command": "hdiutil",
+      "args": [
+        "detach",
+        "<release-check>/dmg-mounted"
+      ],
+      "status": 0,
+      "stdout": "\"disk4\" ejected.\n",
+      "stderr": "hdiutil: WARNING: 'hdiutil detach ...' is deprecated. Please use 'diskutil eject ...' instead.\n"
+    }
+  ],
+  "ok": true,
+  "detached": true,
+  "finishedAt": "2026-10-05T12:38:44.301Z"
+}

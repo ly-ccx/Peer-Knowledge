@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "adr": 88,
+  "date": "2026-10-07",
+  "status": "local-implementation-verified",
+  "source": {
+    "head": "8a888f8c6d6c5d963e6388b6889f0e089164a200",
+    "dirty": true,
+    "fingerprint": "a0369a1fce8be2d38e98f486ccdd17e75de1f3bde60a8600f3edbdae6b0d55c6",
+    "candidateRevision": 36,
+    "platform": "darwin"
+  },
+  "productReview": {
+    "runId": "d49d65be-c590-47ef-b67a-9e133d087141",
+    "sourceFingerprint": "a0369a1fce8be2d38e98f486ccdd17e75de1f3bde60a8600f3edbdae6b0d55c6",
+    "requiredScreenshotCount": 63,
+    "reviewedScreenshotCount": 63,
+    "verdict": "passed",
+    "reviewer": {
+      "kind": "ai",
+      "independent": false
+    },
+    "unresolvedBlockingFindings": 0,
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "deterministicGates": {
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "desktopIpc": "passed",
+    "fullTests": "passed",
+    "continuityTests": {
+      "passed": 14,
+      "failed": 0,
+      "cancelled": 0
+    },
+    "logHashes": {
+      "build": {
+        "sha256": "70d131cd933faaf5727b91545ed874ad3067e4b4aafc06d5293af7e9886b3f71"
+      },
+      "typecheck": {
+        "sha256": "fb780193c0df028f91509651c248dd40c79e4535e6dc6766aa4d2cfaace983d2"
+      },
+      "architecture": {
+        "sha256": "1a79f2fad0397ee2c1351d79b3de6c92c21fc319dfd294a7cc3718df25f75a7a"
+      },
+      "ipc": {
+        "sha256": "fdbe312ad66026766f62a8765f56da0283c8327df372735f8bfd217d57cc6a6d"
+      },
+      "facts": {
+        "sha256": "9f70d7a0573b711be40b5a7a86eac74df100c100240204766f1e5d9d933a6e09"
+      },
+      "test": {
+        "sha256": "28ad080096dc9558194ee7effd8eb018cb64d7cfce5ec110b83ed089be53fd38"
+      },
+      "candidate": {
+        "sha256": "4974432a50c4415030fc3caed38bdaf310db87e16d7b6970be1e813caa49c6cc"
+      }
+    }
+  },
+  "liveModels": {
+    "candidateRevision": 35,
+    "grok": {
+      "ok": true,
+      "model": "grok-4.6",
+      "actualScenarioCount": 4,
+      "credentialCopiesRemoved": true,
+      "startedAt": "2026-10-07T10:15:38.098Z",
+      "finishedAt": "2026-10-07T10:21:36.273Z",
+      "sha256": "10dbc006e1561db3dd27d17dcd0f6a13f94972218acc39b6914dd129d039136e",
+      "samples": [
+        {
+          "scenario": "familiarize",
+          "outcome": "done",
+          "durationMs": 116978.229,
+          "replyCount": 1,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [
+            [
+              "get_session",
+              "get_verification_detail",
+              "read_file",
+              "post_reply"
+            ]
+          ],
+          "capturedFailureMessages": []
+        },
+        {
+          "scenario": "runtime-investigation",
+          "outcome": "done",
+          "durationMs": 76033.502,
+          "replyCount": 2,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [
+            [
+              "list_sessions",
+              "search_files",
+              "list_files",
+              "search_files",
+              "spawn_session",
+              "post_reply"
+            ],
+            [
+              "get_session",
+              "get_verification_detail",
+              "post_reply"
+            ]
+          ],
+          "capturedFailureMessages": []
+        },
+        {
+          "scenario": "user-interjection",
+          "outcome": "done",
+          "durationMs": 84455.621,
+          "replyCount": 3,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [
+            [
+              "list_files",
+              "search_files",
+              "memory_search",
+              "spawn_session",
+              "post_reply"
+            ],
+            [
+              "post_reply"
+            ],
+            [
+              "get_session",
+              "get_verification_detail",
+              "read_file",
+              "read_file",
+              "post_reply"
+            ]
+          ],
+          "capturedFailureMessages": []
+        },
+        {
+          "scenario": "restart-during-child",
+          "outcome": "done",
+          "durationMs": 78706.656,
+          "replyCount": 2,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [
+            [
+              "post_reply"
+            ],
+            [
+              "get_session",
+              "get_verification_detail",
+              "post_reply"
+            ]
+          ],
+          "capturedFailureMessages": []
+        }
+      ],
+      "pageErrorCount": 0
+    },
+    "deepseek": {
+      "ok": false,
+      "model": "deepseek-flash",
+      "actualScenarioCount": 4,
+      "credentialCopiesRemoved": true,
+      "startedAt": "2026-10-07T10:12:19.121Z",
+      "finishedAt": "2026-10-07T10:18:18.633Z",
+      "sha256": "2720b37531621a2edc58a9a132e9fc4ec820418ffb09f47894cec5707869140a",
+      "samples": [
+        {
+          "scenario": "familiarize",
+          "outcome": "failed",
+          "durationMs": 70084.809,
+          "replyCount": null,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": "PARENT_FAILURE:代理暂时不可用：HTTP 403: {\"error\":{\"type\":\"server_error\",\"message\":\"Upstream request failed: An active OpenCode Go subscription is required to use Go models.\"}}",
+          "parentToolCalls": [],
+          "capturedFailureMessages": []
+        },
+        {
+          "scenario": "runtime-investigation",
+          "outcome": "failed",
+          "durationMs": 60054.142,
+          "replyCount": null,
+          "initialSessionCount": null,
+          "finalSessionCount": 0,
+          "sameSessionIds": null,
+          "error": "Live model acceptance timed out",
+          "parentToolCalls": [],
+          "capturedFailureMessages": []
+        },
+        {
+          "scenario": "user-interjection",
+          "outcome": "done",
+          "durationMs": 95730.85,
+          "replyCount": 3,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [
+            [
+              "list_files",
+              "search_files",
+              "spawn_session",
+              "post_reply"
+            ],
+            [
+              "get_session",
+              "search_files",
+              "post_reply"
+            ],
+            [
+              "get_session",
+              "read_file",
+              "read_file",
+              "post_reply"
+            ]
+          ],
+          "capturedFailureMessages": []
+        },
+        {
+          "scenario": "restart-during-child",
+          "outcome": "done",
+          "durationMs": 129730.286,
+          "replyCount": 2,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [
+            [
+              "get_session",
+              "post_reply"
+            ],
+            [
+              "get_session",
+              "read_file",
+              "verify_session",
+              "get_session",
+              "post_reply"
+            ]
+          ],
+          "capturedFailureMessages": []
+        }
+      ],
+      "pageErrorCount": 0
+    },
+    "recheck": {
+      "ok": true,
+      "model": "deepseek-flash",
+      "actualScenarioCount": 1,
+      "credentialCopiesRemoved": true,
+      "startedAt": "2026-10-07T09:52:37.394Z",
+      "finishedAt": "2026-10-07T09:53:26.868Z",
+      "sha256": "b66cb3ce2568f5ba6ba3e6b57808189636fb175417d89416068d2ef9018d5064",
+      "samples": [
+        {
+          "scenario": "failed-verifier-rechecked",
+          "outcome": "done",
+          "durationMs": 46825.028,
+          "replyCount": 1,
+          "initialSessionCount": 1,
+          "finalSessionCount": 1,
+          "sameSessionIds": true,
+          "error": null,
+          "parentToolCalls": [],
+          "capturedFailureMessages": []
+        }
+      ],
+      "pageErrorCount": 0,
+      "candidateRevision": 31,
+      "scopeCorrection": "Original scope string says candidate27; executable path in the actual script is candidate31. Original evidence is unchanged."
+    }
+  },
+  "realTaskRecovery": {
+    "audit": {
+      "ok": true,
+      "sha256": "2c1bdcaa507fcc83e1630936f147f8cea9c82a997d8009d5dd15938b2dfcb17f",
+      "samples": [],
+      "repairedCriteria": [
+        "c4",
+        "c5"
+      ],
+      "accepted": false,
+      "recheckRequired": true,
+      "memoryWritten": false,
+      "pageErrorCount": 0
+    },
+    "recheck": {
+      "ok": true,
+      "startedAt": "2026-10-07T10:00:45.081Z",
+      "finishedAt": "2026-10-07T10:03:54.061Z",
+      "sha256": "6a669d5697dae712142d4ffbd86003ebe8a5c9721a051459b6231feab3cd2b11",
+      "samples": [],
+      "status": "completed",
+      "acceptedAt": "2026-10-07T10:03:53.973Z",
+      "memoryUnchanged": true,
+      "verifierStatuses": [
+        "passed",
+        "passed"
+      ],
+      "resultDeliveryCount": 1,
+      "candidateRevision": 34,
+      "pageErrorCount": 0
+    },
+    "latestReopen": {
+      "ok": true,
+      "sha256": "0f45958e6de28bfed2be9a02a0b4f512b4fe9fe354ef3860343ebb2a54bffb84",
+      "samples": [],
+      "originalAcceptanceRetained": true,
+      "manualHistoryUnchanged": true,
+      "memoryUnchanged": true,
+      "deliveryIdsUnchanged": true,
+      "sessionStatus": "accepted",
+      "candidateRevision": 36,
+      "pageErrorCount": 0
+    },
+    "postReopenIdleRead": {
+      "acceptanceRetained": true,
+      "resultDeliveryCount": 1,
+      "noDuplicateDelivery": true
+    }
+  },
+  "downgrade": {
+    "ok": true,
+    "sha256": "96998db24879c4bad9490737d2161f65632d11f51e7b6e040c28ff97036f10e3",
+    "samples": [],
+    "directDowngradeSafe": false,
+    "oldReadKind": "manual",
+    "authorityPreserved": false,
+    "workBindingPreserved": false,
+    "retainedNewDataReadable": true,
+    "fixtureRemoved": true,
+    "oldRef": "v0.1.0-rc.6",
+    "oldCommit": "f0b9b14eb7cc410e8f2ce9ec51e8f755b269093a",
+    "pageErrorCount": 0
+  },
+  "coverageLimits": [
+    "Live cognition scenarios ran on candidate35; final candidate36 additionally canonicalizes duplicate and reordered read observations and passed deterministic integration tests, full suite, fresh product capture and actual data cold start.",
+    "Provider usage fields were unavailable; no measured token or billing-cost acceptance.",
+    "Worker and verifier models were from the same provider family; no cross-vendor quality independence claim.",
+    "macOS arm64 packaged candidate is ad-hoc signed; no notarized release or installation into Applications.",
+    "No Windows/Linux installed-build acceptance, full screen-reader or long-duration soak.",
+    "RC.6 module compatibility probe used immutable same-tag modules; no running installed older client.",
+    "No scheduled or unattended AI product reviewer was deployed."
+  ]
+}

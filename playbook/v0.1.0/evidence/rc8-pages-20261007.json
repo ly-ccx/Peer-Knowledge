@@ -1,0 +1,34 @@
+{
+  "version": "0.1.0-rc.8",
+  "sourceCommit": "8e17a9a12d09eb3466b0a7d151e0f60ef06ec0a9",
+  "scope": "Actual HTTP docs/changelog content binding; dynamic manifest generation timestamp verified separately",
+  "initialByteComparison": {
+    "ok": false,
+    "file": "changelog-data/manifest.json",
+    "reason": "Only generatedAt differs; documented commit-derived generation stamp in Pages shallow checkout, not changed release content"
+  },
+  "checks": [
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/docs.html",
+      "status": 200,
+      "sha256": "831e25c92bbc068c513ea59263125854bf3c655e0257e1a53017b9549ad5db1b",
+      "tagContentMatches": true
+    },
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/changelog-data/manifest.json",
+      "status": 200,
+      "sha256": "c1ab6dca1f99350af732ce7155ec8e7bab0dce4b593710fe361af0e09a1f78e4",
+      "tagContentMatches": true,
+      "generatedAt": "2026-10-07T20:32:36+08:00",
+      "generationStamp": "Pages shallow checkout uses tag commit date, as defined by build-changelog.mjs"
+    },
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/changelog-data/v0.1.0-rc.8.json",
+      "status": 200,
+      "sha256": "8b1d880d52ad238799624dd92f186b6aeab5601c72bd67778b808b93039f74cc",
+      "tagContentMatches": true
+    }
+  ],
+  "ok": true,
+  "checkedAt": "2026-10-07T12:41:22.952Z"
+}

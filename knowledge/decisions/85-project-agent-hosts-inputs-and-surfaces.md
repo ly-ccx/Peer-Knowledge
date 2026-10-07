@@ -127,9 +127,19 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 
 真实Electron验证发现B3-11机器人快捷聊天已调用project-agent:list和project-agent:submit-input，但catalog未授予quick-chat角色，导致列表与发送被拒绝。按既有产品入口补齐这两个通道的quick-chat角色；这属于A级窗口准入修复，负责人已授权自主收口全部RC，未引入新能力/工具/IPC。主进程仍以已注册窗口、顶层frame和精确本地origin为准，renderer的URL或role字符串不构成授权真源。
 
-快捷窗口只获机器人目录及输入提交权限；档案修改/删除、任务批准、证据读取、诊断仍为主窗口专属。settings:get仍不开放，沿已有settings:get-sync获取最新只读设置，公开getSettings保持Promise契约。quick-chat-popover角色不继承机器人通道。输入surface为quick_chat，经原inputQueue→租约宿主→Capability/PermissionGrant/Evidence链，成功回执仅代表持久化。
+快捷窗口只获机器人目录及输入提交权限；档案修改/删除、任务批准、证据读取、诊断仍为主窗口专属（下文模型选择窄接口补充除外）。settings:get仍不开放，沿已有settings:get-sync获取最新只读设置，公开getSettings保持Promise契约。quick-chat-popover角色不继承机器人通道。输入surface为quick_chat，经原inputQueue→租约宿主→Capability/PermissionGrant/Evidence链，成功回执仅代表持久化。
 
 验证必须覆盖合法QuickChat列表/实际输入消费、陌生窗口/子frame/错误origin拒绝、Popover拒绝、批准等通道拒绝，并在真实Electron smoke中不出现角色拒绝日志。
+
+### 2026-10-07：Bot 快捷入口的模型选择（A 级补充）
+
+用户要求快捷入口只选择 Bot、模型及思考强度。Bot 模式不再展示工作区、Agent 模式和权限策略选择；项目归属来自所选 Bot。经典壳保留既有入口。
+
+- 已登记 Quick Chat 顶层窗口可调用既有 `project-agent:get`，只读所选 Bot 的档案和宿主模型选项、角色资格投影。沿用精确本地 origin、顶层 frame 与窗口登记授权。
+- 新增协议化 `project-agent:update-model-selection`，仅接收 `workspaceId`、`modelProviderId` 和可选 `reasoningEffort`。宿主校验 Bot 存在且未归档、模型可用且属于该 Bot 的 `project_agent` 资格集合、强度属于模型支持集合。额外字段、非法值一律拒绝。
+- 宿主合并当前档案，只更新 `modelPolicy.overrides.project_agent` 的固定选择，经既有档案验证及保存路径提交；保留范围约束、其他角色、权限、主动性和签收策略。Quick Chat 不获得通用 `update-profile`、删除、批准、任务处置、证据读取或诊断权限。Popover 不获得 Bot 读取或设置权限。
+- 快捷窗口的显示以持久化成功回执为准，保存过程中禁止发送和切 Bot；失败保留已提交配置并说明。提交仍是 `surface=quick_chat` 的既有持久输入队列，不透传本次临时模型、不另建执行路径；配置用于后续回复，已运行的回合不改模型。
+- 验证包含登记/顶层/origin 准入和 Popover 拒绝、额外字段及越界选择拒绝、其他策略保留、保存失败恢复、不同 Bot 的配置隔离、真实窗口快捷输入的规范落点，以及深浅主题截图自审。受控模型、原生菜单回调替身不能宣称覆盖真实 Provider 质量或操作系统菜单完整键盘行为。
 
 ## RC 对话流式投影与停止边界（2026-10-04，Accepted）
 
@@ -142,3 +152,8 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 - Renderer 只表达这些事实：发送/收件回执在正文下方；生成中的段落与 SVG 工具提示在消息流内；正文到达就替代初始等待；输入框保留草稿且支持 IME/换行；生成时可停止。靠近底部才跟随，回看时保持位置并提供 SVG 回到最新入口，主动发送可回到底部。引用无左侧强调线、消息无光晕。工具进行中不得称已完成，正式过程/Evidence 控件在正式回复后出现。
 
 验证覆盖首片早于完成、增量 JSON/转义/分片 unicode、校验失败/抑制、空文本/重试、停止竞态/租约/新输入/重启游标、切换和重连乱序、完成交接无重复、回看位置、真实窗口等待/流式/工具/停止/失败/长 Markdown。不能只用完整回复截图宣布流式已验证。
+
+
+## RC 实时过程展示补充（2026-10-05）
+
+负责人要求进行中的动作可展开到参数与返回内容。流式摘要中“参数、结果、路径不进入”的限制由 [ADR 87](87-user-turn-live-process-presentation.md) 的有界脱敏展示预览取代；thinking 内部内容仍不展示，执行、PermissionGrant、Evidence 与持久历史继续由原链路负责。

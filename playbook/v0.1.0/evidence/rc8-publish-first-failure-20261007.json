@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.8",
+  "workflow": 37621929750,
+  "attempt": 1,
+  "headSha": "8e17a9a12d09eb3466b0a7d151e0f60ef06ec0a9",
+  "conclusion": "failure",
+  "failedJob": "build (macos-14, mac, --mac)",
+  "failedStep": "Build (electron-builder, no publish)",
+  "failure": {
+    "at": "2026-10-07T12:40:06Z",
+    "service": "api.apple-cloudkit.com",
+    "status": 503,
+    "code": "THROTTLED",
+    "retryAfterSeconds": 13,
+    "action": "staple notarization ticket",
+    "staplerExitCode": 65
+  },
+  "recovery": "Rerun failed jobs from the same immutable tag; no source or tag changes",
+  "jobs": [
+    {
+      "name": "meta",
+      "conclusion": "success"
+    },
+    {
+      "name": "build (windows-latest, win, --win)",
+      "conclusion": "success"
+    },
+    {
+      "name": "build (macos-14, mac, --mac)",
+      "conclusion": "failure"
+    },
+    {
+      "name": "build (ubuntu-latest, linux, --linux --x64)",
+      "conclusion": "success"
+    },
+    {
+      "name": "build-cli",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "release",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "publish-npm",
+      "conclusion": "skipped"
+    }
+  ],
+  "recordedAt": "2026-10-07T12:43:19.755Z"
+}
