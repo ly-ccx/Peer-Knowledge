@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.8",
+  "scope": "Unmodified downloaded signed Mac application with isolated data/profile and synthetic history/memory; no live credentials, tool execution or long-term acceptance.",
+  "startedAt": "2026-10-07T12:58:15.050Z",
+  "checks": [
+    "52px header with SVG Bot settings entry opens Settings directly",
+    "Overview and saved Memory remain readable in right sidebar",
+    "Chat uses named Bot composer and contained synthetic assistant replies; real-turn details/streaming are covered by source packet, not this seed",
+    "Published RC8 updater checks real Beta feed with no downgrade offered"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    {
+      "name": "signed-bot-settings.png",
+      "sha256": "7fde41af6dababf8af2743007065b650055cbd618e8e0c37a53480b2cc745bf7",
+      "path": "rc8-published-ui-20261007/signed-bot-settings.png"
+    },
+    {
+      "name": "signed-bot-overview.png",
+      "sha256": "da8153861da336f7fac6e9b8a0151d5d64269c10dd3e527f02eb53522cb2edfc",
+      "path": "rc8-published-ui-20261007/signed-bot-overview.png"
+    },
+    {
+      "name": "signed-bot-memory.png",
+      "sha256": "a75ca861bedf292a50a67dbd3eb38694e0624d48f6780b46182f278fca6a823a",
+      "path": "rc8-published-ui-20261007/signed-bot-memory.png"
+    },
+    {
+      "name": "signed-chat.png",
+      "sha256": "1f88304c49d53b6eaac9a38a650c13e1fc9f6ed0cacd1819f91052e2e53e0c42",
+      "path": "rc8-published-ui-20261007/signed-chat.png"
+    }
+  ],
+  "userInstalledAppOrDataModified": false,
+  "main": {
+    "version": "0.1.0-rc.8",
+    "packaged": true,
+    "isolatedHome": "<isolated-ui>/data",
+    "chromiumProfile": "<isolated-ui>/chromium"
+  },
+  "initialScreen": {
+    "url": "file://<assets>/mac/Peer%20Agent.app/Contents/Resources/app.asar/dist/index.html",
+    "text": "Peer Agent\nPeer Agent"
+  },
+  "headerHeight": 52,
+  "updaterStatus": {
+    "currentVersion": "0.1.0-rc.8",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "not-available"
+  },
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-07T12:58:22.077Z",
+  "binding": {
+    "tag": "v0.1.0-rc.8",
+    "commit": "8e17a9a12d09eb3466b0a7d151e0f60ef06ec0a9",
+    "appAsarSha256": "06753743602422527789f2d885375deeba192ee1b177b93d68e651e00f1a5b62"
+  },
+  "aiReview": {
+    "reviewedAt": "2026-10-07T12:59:35.912Z",
+    "reviewer": "Codex implementer",
+    "independent": false,
+    "status": "passed",
+    "observations": [
+      {
+        "screenshot": "signed-bot-settings.png",
+        "finding": "The compact 52px header has an SVG and explicit 机器人设置 button. It opens the Settings tab directly; the sidebar and conversation fit 1280×860. Empty model choices match the credential-free fixture."
+      },
+      {
+        "screenshot": "signed-bot-overview.png",
+        "finding": "The selected Overview tab shows Bot identity, bound folder, no active tasks, proactivity and automatic acceptance. Folder path is contained and the conversation remains visible."
+      },
+      {
+        "screenshot": "signed-bot-memory.png",
+        "finding": "Three synthetic saved facts are visible with filters, a SVG disclosure and actions. Pagination shows 1–3 / 3. Main chat stays aligned while the sidebar is open."
+      },
+      {
+        "screenshot": "signed-chat.png",
+        "finding": "Closing the sidebar completes its transition and restores the full chat width. Named Bot placeholder, assistant bubbles and their smaller details entries share the composer alignment. Footer visibly shows RC 8."
+      }
+    ],
+    "limits": "Actual signed macOS arm64 application launched from downloaded ZIP with isolated data/profile. Synthetic history/memory, no configured model or tool execution; installer drag/drop, live cognition, full screen reader and long-term daily use not covered. Windows/Linux builds and update metadata were checked, not interactive installs."
+  },
+  "verificationSetupHistory": [
+    {
+      "attempt": 1,
+      "status": "timeout",
+      "cause": "Harness waited for Bot header without opening any seeded Bot; the application correctly showed its initial model connection page."
+    },
+    {
+      "attempt": 2,
+      "status": "timeout",
+      "cause": "Diagnostic screenshot confirmed seeded Bots were present; no Bot was selected."
+    },
+    {
+      "attempt": 3,
+      "status": "machine-pass-recapture-required",
+      "cause": "Human image review caught capture during sidebar/tab transitions. Capture timing was corrected with finite transition settling; source/application bytes unchanged."
+    },
+    {
+      "attempt": 4,
+      "status": "passed",
+      "cause": "Existing Bot explicitly opened, tab state checked, transitions settled before all four reviewed screenshots. Actual production Beta updater check passed."
+    }
+  ]
+}
