@@ -1,7 +1,7 @@
 # 88 项目代理连续执行与结果交付方案
 
 创建时间：2026-10-07
-最后更新：2026-10-07
+最后更新：2026-10-10（补充 §20 请求失败恢复契约）
 
 状态：Accepted。2026-10-07 仓库所有者明确批准本方案并授权实施。以下契约按 R88-01 至 R88-08 逐项落地；批准不代表实现或验收已完成，也不改变已有 ADR 的 Accepted 状态。
 
@@ -592,3 +592,49 @@ DeepSeek 同一候选的四场景只有后两项通过：插话 95.731 秒、中
 隔离降级使用 immutable `v0.1.0-rc.6`（`f0b9b14eb7cc410e8f2ce9ec51e8f755b269093a`）Store 与同版本依赖，证实旧 Store 读取 model_review 会降为 manual，旧写入会丢 authority 与工作绑定。演练本身通过，新数据保留可读；结论是直接降级不安全。回退只能按第 16 节使用升级前兼容备份，另外保留新账本与产物，不能只关闭开关后让旧版本改写真数据。未执行旧安装客户端的 GUI 降级验收。
 
 本次安装构建覆盖 macOS arm64 的本地打包候选和冷启动/执行中重启，采用 ad-hoc 签名；未替换 Applications 安装，未做正式证书签名、公证或发布。未覆盖 Windows/Linux 安装、完整屏幕阅读器、长期运行以及跨供应商 verifier 独立性。没有部署定时或无人值守 AI 审查服务；产品图片的 AI 审查在本次工作中实际完成。上述真实 Provider 失败和缺失覆盖仍保留，正式 RC 发布不得把本机验收摘要当作已完成这些门禁。
+
+## 20 请求失败后的完整恢复方案（2026-10-10）
+
+状态：Accepted。用户在确认根因及修复方向后明确要求“落成完整的方案，然后实施落地”。本节扩展恢复契约；实现与验收另记录，不以批准代替完成。
+
+### 20.1 已确认的事实
+
+RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请求在等待响应头时失败，诊断为 `connect timeout after 20000ms (ConnectTimeoutError)`。完整原生工具消息已写入 native checkpoint，但工作停在没有预约的 `retry_wait`。内存 `failedJob` 在熔断器 closed 时挡住 kick 和新输入；手动重试使用新鲜 job 而未装入原生 checkpoint，重启可能把原输入重新入队。实际物理网络重试没有完整遥测，不能把 7 个请求说成 7 次重试，也不能从该错误定位具体 DNS、TLS、代理或上游故障。
+
+### 20.2 请求层的唯一重试所有者
+
+受管模型请求在 canonical provider request seam 内执行最多 4 次真实派发，退避沿用 500/1500/3000ms。每次实际派发前检查取消与工作预算并扣请求计数；真实 usage 按返回事实结算，缺失保持 unknown。逻辑 round 不因 HTTP 重试增加。压缩请求也使用同一预算入口。
+
+受管请求关闭 transport、Responses wrapper 与外层整轮 recovery 的重复重试。经典路径没有工作预算时仍经过同一请求政策；非模型 transport 的原有接口保持兼容。当前请求已出现正文、推理或工具意图时禁止静默重放；先前请求已确认的工具结果不阻止下一请求恢复。
+
+响应头等待与流式中断分别分类。现有 20 秒 time-to-headers 和 120 秒 stream idle 默认值保持有界；不靠无界放宽超时掩盖恢复缺口。抛出的异常和返回的 HTTP/stream failure 进入同一宿主分类。取消、认证/权限、参数或格式、预算、证书配置、结果不明不能按普通网络错误自动重试；429、5xx 和可恢复网络失败可以按政策恢复。Provider/model 原生历史的身份兼容仍由 Encoder/Loop 强制。
+
+### 20.3 工作恢复的持久身份
+
+`ProjectWorkReceipt.schemaVersion=1` 增加可选 `recovery`：typed failureKind、retryable、autoAttempts、failedTurnId、retryAt、reservationId 和恢复周期的截止时间。旧记录可读；缺预约的旧 `retry_wait` 不在启动时盲目重放。明确手动恢复可根据已保存的工作与工具账目补预约或直接继续。
+
+同 work 自动恢复最多再试两次，延迟 2 秒、5 秒，恢复周期最长 5 分钟；手动恢复可开启新有界周期，但绝不清除工作预算、unknown usage、pendingTools 或 uncertainDispatches。`retryAt` 是时间真源，`waitFor.retry_timer.id` 绑定同一 reservationId。start 原子消费匹配预约；状态、revision、租约或预约变化后旧 timer 失效。暂停、取消、预算耗尽或失去租约时不执行。
+
+自动、手动和重启共用 `turnId → workId → 最新 durable job/native checkpoint` 的恢复入口。旧 turn 不能恢复另一件工作。所有 completed Tool Call/Result 对和受保护的 provider history 保留，继续下一请求；摘要只作辅助。恢复已有交付提交时只补交付/签收，不再请求模型。没有可验证的原生检查点且曾执行工具时，明确交接，不默默重放整件事。
+
+### 20.4 调度与新输入
+
+新用户输入优先于到期自动恢复和普通 wake，独立建立新责任，不继承旧 checkpoint。旧网络失败不能挡住入队或模型调度；现有新目标对旧责任的暂停规则扩展到 retry_wait，阻止旧恢复突然插入新目标。不是用户输入的结果事件保留原责任并按既有优先级处理。
+
+宿主 pending input 回放排除已由 coordination anchorInputIds 持有的输入，不将失败原输入再当新工作。工作恢复不使用裸 enqueue 原文本的逃生路径。重复按钮、timer 与 sync 竞争时，同 work 只有一个 active attempt；拒绝码如 EXECUTION_OUTCOME_UNKNOWN、STALE_TURN 保留到表达层。
+
+### 20.5 工具和权限边界
+
+工具派发先记录 pendingTools，Tool Result 应用并原生 checkpoint 持久化成功才清除。检查点写盘失败时同 attempt 也不得发下次模型请求或新工具；finish 将不确定派发保留为 uncertainDispatches。任何恢复都不清此账目以换取可运行。
+
+检查点不授予权限。恢复后的新动作继续经过 Projection、PermissionGrant 和 Evidence；撤回或过期授权按原路径拒绝。已发生但结果不明的写操作不能自动或普通手动重放，必须先核对实际结果；无法核对时具体交接。
+
+### 20.6 用户表达
+
+主对话保留已公开的进展。正在实际重试时表达“连接暂时中断，我会接着刚才的进度继续”；预约耗尽后表达“连接还没有恢复，已有进展已保留。你可以继续尝试，也可以先发新消息”。按钮称“继续尝试”，不暗示原消息重新发送。认证、预算、未知执行结果各有对应说明；技术错误留在回复详情。不存在实际预约时不显示仍在恢复。
+
+### 20.7 实施卡 R88-09
+
+级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
+
+必须验证：19 个结果后断线继续而不重做；4 次物理派发有界并实际扣预算；当前请求 partial 不重放；新输入独立执行；手动/timer 竞争幂等；重启保留预约且原输入不重入队；旧预约/暂停/取消/租约/预算阻断；checkpoint 失败和未知写结果不重放；权限仍校验；原生 provider/model 不兼容拒绝；已提交回复只补交付。UI Capture/逐张 AI 审查/Verify 后交付，明确自审、真实 Provider 和安装版本覆盖限制。
