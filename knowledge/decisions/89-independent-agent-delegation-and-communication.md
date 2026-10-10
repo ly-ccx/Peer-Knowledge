@@ -44,6 +44,7 @@ Protocol 定义加法式结构：
 | direction | `parent_to_child` 或 `child_to_parent` |
 | senderConversationId / recipientConversationId | 宿主解析，不由模型指定 |
 | purpose | `update`、`question`、`answer`；是工作信息，不是批准动作 |
+| replyTo | 父 Agent 回答工作问题时指向原 question 的 messageId；不关联人类问题 |
 | text | 有界正文，作为事实上下文与未验证模型内容 |
 | at | 宿主持久化时间 |
 
@@ -109,7 +110,7 @@ sequenceDiagram
 
 ## 6. 等待、取消和故障语义
 
-工作 Agent 的 `question` 是专门的协调等待：宿主记录 `agentWaitMessageId`，结束当前模型切片，进入 `waiting_agent`（等待主 Bot 答复），不生成用户问题。主 Bot 用 `answer` 加 `replyTo` 指向该消息；收件方消息先落盘，宿主再持久化 `agentResumePending`，等当前执行安全收尾后恢复同一计划。恢复前再次核对租约、终态、暂停与真实用户问题；有任何人类批准/回答待处理就不继续。执行入口为父 Agent 答复返回明确的 `resumeAdmission`（`admitted` / `deferred` / `human_wait` / `closed`）。只有 `admitted` 才清理待恢复标记；宿主尚未就绪或租约不可用时保留原问题与答复，待原计划重新具备执行条件后补偿。普通状态快照不能充当执行器已接手的证据。回复标记在启动成功后清理；如果同一安全边界已有真实人类等待，保留回答事实并清理内部协调标记，不调用 resume，也不消耗人类问题，避免旧回信在将来重复唤醒；重启补偿从持久标记恢复，不丢回答也不重开任务。等待信息和回答均为工作范围内的协调，不构成人类权限。
+工作 Agent 的 `question` 是专门的协调等待：宿主记录 `agentWaitMessageId`，结束当前模型切片，进入 `waiting_agent`（等待主 Bot 答复），不生成用户问题。主 Bot 用 `answer` 加 `replyTo` 指向该消息；收件方消息先落盘，宿主再持久化 `agentResumePending`，等当前执行安全收尾后恢复同一计划。恢复前再次核对租约、终态、暂停与真实用户问题；有任何人类批准/回答待处理就不继续。执行入口为父 Agent 答复返回明确的 `resumeAdmission`（`admitted` / `deferred` / `human_wait` / `closed`）。只有 `admitted` 才清理待恢复标记；宿主尚未就绪或租约不可用时保留原问题与答复，待原计划重新具备执行条件后补偿。普通状态快照不能充当执行器已接手的证据。清理时只消费本次答复的恢复标记；如果执行器接手期间已有新的工作问题或答复，保留新标记，不由上一轮的收尾覆盖。回复标记在启动成功后清理；如果同一安全边界已有真实人类等待，保留回答事实并清理内部协调标记，不调用 resume，也不消耗人类问题，避免旧回信在将来重复唤醒；重启补偿从持久标记恢复，不丢回答也不重开任务。等待信息和回答均为工作范围内的协调，不构成人类权限。
 
 | 情况 | 处理 |
 | --- | --- |
