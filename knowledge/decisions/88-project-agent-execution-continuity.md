@@ -648,3 +648,19 @@ Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result �
 级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Runtime SDK pipeline contract/checkpoint 和测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；TUI Turn Executor 的关键 checkpoint 装配与测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
 
 必须验证：19 个结果后断线继续而不重做；4 次物理派发有界并实际扣预算；当前请求 partial 不重放；新输入独立执行；手动/timer 竞争幂等；重启保留预约且原输入不重入队；旧预约/暂停/取消/租约/预算阻断；checkpoint 失败和未知写结果不重放；权限仍校验；原生 provider/model 不兼容拒绝；已提交回复只补交付。UI Capture/逐张 AI 审查/Verify 后交付，明确自审、真实 Provider 和安装版本覆盖限制。
+
+### 20.8 R88-09 实施与验收记录
+
+代码交付为 [PR #138](https://github.com/ly-ccx/Peer-Agent/pull/138)，最终源码 `28ddb755f3069ca68f2ccd8d7250f0c868347894`。实现覆盖第 20 节的请求、工作、调度、检查点和表达契约；没有改动 RC 版本、安装应用、用户真实工作账本或历史消息。架构影响为 A 级可选持久恢复字段及关键 checkpoint seam，包含 B 级宿主调度与请求装配、C 级表达；Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence 链和存储根保持现有边界。
+
+独立代码审查发现并复核修正了未知工具结果误清派发、损坏或缺失检查点的历史保留、手动继续与新输入竞争。产品集成又复现了旧 wake 事件绕过恢复预约的窗口，修正后经同一独立审查者复核。旧事件仍保留未 handled，使用工作归属排除新的 wake 派发；新独立事件继续可执行。产品夹具另修正了屏幕外重复打开详情、旧无持久工作种子和缺原生结果的直接认知夹具，未通过放宽生产门禁或提前 handled 事件让验收通过。
+
+本机 `pnpm build`、最终 `pnpm typecheck`、`pnpm architecture:check` 与产品审查 gate 6/6 通过。此前完整 `pnpm test` 为 8189 passed、5 项现有跳过、0 fail/cancel；最终调度变化再运行 Runtime 全包 1154/1154，独立恢复与持久夹具集成 25/25 通过。Desktop 后续全包曾有一项通知风暴测试跨越真实时钟窗口而失败；按仓库要求隔离重跑该文件 14/14 通过，保留原失败日志，不将它抹成全包首次成功。
+
+两个完整流式交互变体（带后台工作及默认模式）均通过：partial 失败没有自动整轮重放；显式继续装入原生 ToolCall/Result，已完成 read_file 只派发一次，回复只交付一次；持久 wake 从原事件批次继续，原预算 12 增至 13 而非清零。独立于 UI 截图包的权限组合集成重建 runner/store 并实际读盘恢复，再发出新的 local.file.read，覆盖有效授权、once、full_local 撤回至 ask_before_local 后拒绝新请求，以及真实 one-time book 的过期拒绝。调用仍经过生产 Projection、Runtime SDK、Desktop permission gate 和新 grant/Evidence；未投影能力在 Projection 返回拒绝 Evidence，不进入 PermissionGrant 或 provider。权限 gate/book 留在注入宿主内存中，未覆盖完整应用进程重启或真实模型权限弹窗。
+
+标准 Capture v5 的独立逐图审查保留两处未通过：任务展开动画尚未结束时拍到半行文字，以及默认 surface screenshot 临时清掉真实鼠标的 hover 状态而漏拍详情入口。定向红绿实验确认两者是采集问题；最终只修正回归脚本，分别等待实际有限动画结束并断言文字被父层完整容纳、使用实际视图截图并断言捕获前后 hovered/opacity/几何/滚动位置保持及原生 DPR 下完整视口尺寸。未修改生产 CSS、强制显示按钮或减弱验收断言。v5 没有作为通过包交付。
+
+最终标准 Capture v6 的 runId 为 `0d177b39-8ea7-47bd-aa47-93b3862018de`，源码指纹 `df41481800b5b9895d7ee755d2f407bdabfffaffe02a4d1f57001fc2c6d0facf`。隔离 Electron 的 main、selection、shared 三段通过，page/authorization errors 为 0，三个 owned process 正常退出。六类恢复状态覆盖深浅主题共 12 张；机器证据核对公开进展保留、实际预约、旧状态退出、unknown 和 missing checkpoint 不重放。未参与实现的 AI 审查者重新逐张查看全部 127 张截图，127/127 pass，两处 v5 blocker 在新像素中确认解决，reviewer.independent=true。正式 Verify 在 `2026-10-10T06:07:59.263Z` 通过，绑定相同 runId、源码指纹和截图哈希。最终源码双平台完整 CI [38029282618](https://github.com/ly-ccx/Peer-Agent/actions/runs/38029282618) 的 macOS/Linux 构建、类型、架构、全套测试及 Electron smoke 均通过。
+
+覆盖限制：认知、原生 provider history 和工具内容为受控夹具；请求网络使用 loopback/fake fetch。没有真实 Provider、真实网络恢复、已安装应用、完整屏幕阅读器或长期运行验收。Quick Chat 的透明 PNG 不足以确认原生透明背景对比度；侧栏旧失败摘要表达是本轮未修改的相邻限制。不会把受控交互、独立代码审查或机器断言称为真实模型质量验收或定时无人值守 AI 审查。
