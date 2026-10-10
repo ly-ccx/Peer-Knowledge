@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.12",
+  "scope": "Unmodified downloaded signed Mac application with isolated data/profile and synthetic history/memory; no live credentials, tool execution or long-term acceptance.",
+  "startedAt": "2026-10-10T17:06:52.023Z",
+  "checks": [
+    "52px header with SVG Bot settings entry opens Settings directly",
+    "Published Bot settings saves a generated-avatar identity color using the real local profile",
+    "Overview and saved Memory remain readable in right sidebar",
+    "Chat uses named Bot composer and contained synthetic assistant replies; real-turn details/streaming are covered by source packet, not this seed",
+    "Signed application renders saved avatar identity tint in actual assistant bubbles",
+    "Published RC12 updater checks real Beta feed with no downgrade offered"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    {
+      "name": "signed-bot-settings.png",
+      "sha256": "f6ebc0aeecac2dd8849c538f022019b09b6da8b6cdf14ee7a6f428b5ac319a5b",
+      "verdict": "pass",
+      "notes": "52px页头与机器人设置入口清楚，右侧直接进入设置；模型控件在隔离无模型配置下禁用，外观内容可继续滚动，消息保持间距。"
+    },
+    {
+      "name": "signed-bot-overview.png",
+      "sha256": "008aad60ad5b452f7a296b8554a5d1cabe37af5ffb697e208471e0fe62d30eb9",
+      "verdict": "pass",
+      "notes": "保存红色身份后头像和实际消息气泡同步变化；概况分组、绑定目录与空任务状态可读，无多余技术说明。"
+    },
+    {
+      "name": "signed-bot-memory.png",
+      "sha256": "b18dd3ef45bd8ac79c45fc64dc1654c6e56a44cec198540a80ee19adfbc89952",
+      "verdict": "pass",
+      "notes": "三条已保存记忆及筛选、操作、分页布局完整，侧栏没有裁切正文或遮挡操作。"
+    },
+    {
+      "name": "signed-chat.png",
+      "sha256": "e623431c049c28315666325bb16eaf1acb440bcad9cf22824e860098cfaa6825",
+      "verdict": "pass",
+      "notes": "关闭侧栏后对话与输入区恢复共同左边缘；红色Bot身份气泡与用户右侧消息分开，页脚显示RC12，机器人设置恢复默认状态。"
+    }
+  ],
+  "userInstalledAppOrDataModified": false,
+  "main": {
+    "version": "0.1.0-rc.12",
+    "packaged": true,
+    "isolatedHome": "/tmp/peer-rc12-published-ui4/data",
+    "chromiumProfile": "/private/tmp/peer-rc12-published-ui4/chromium"
+  },
+  "initialScreen": {
+    "url": "file:///private/tmp/peer-rc12-assets/mac/Peer%20Agent.app/Contents/Resources/app.asar/dist/index.html",
+    "text": "Peer Agent\nPeer Agent"
+  },
+  "headerHeight": 52,
+  "messageColor": {
+    "accent": "#f36d63",
+    "avatar": "#f36d63",
+    "background": "color(srgb 0.923294 0.852392 0.865882)",
+    "bodyColor": "rgb(26, 29, 33)"
+  },
+  "updaterStatus": {
+    "currentVersion": "0.1.0-rc.12",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "not-available"
+  },
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-10T17:06:58.439Z",
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex implementation self-review",
+    "independent": false
+  }
+}

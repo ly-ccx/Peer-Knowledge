@@ -1,0 +1,155 @@
+{
+  "version": "0.1.0-rc.12",
+  "scope": "Actual unmodified signed RC11 application and production updater discover and download RC12 via real HTTP. Test-only cache isolation and disabling automatic Squirrel handoff prevent replacing the daily installation; installer execution is not covered.",
+  "startedAt": "2026-10-10T17:10:43.381Z",
+  "progress": [
+    {
+      "at": "2026-10-10T17:10:48.592Z",
+      "phase": "downloading",
+      "percent": 0
+    },
+    {
+      "at": "2026-10-10T17:10:50.624Z",
+      "phase": "downloading",
+      "percent": 7
+    },
+    {
+      "at": "2026-10-10T17:10:51.641Z",
+      "phase": "downloading",
+      "percent": 15
+    },
+    {
+      "at": "2026-10-10T17:10:52.660Z",
+      "phase": "downloading",
+      "percent": 22
+    },
+    {
+      "at": "2026-10-10T17:10:53.676Z",
+      "phase": "downloading",
+      "percent": 29
+    },
+    {
+      "at": "2026-10-10T17:10:54.692Z",
+      "phase": "downloading",
+      "percent": 37
+    },
+    {
+      "at": "2026-10-10T17:10:55.455Z",
+      "phase": "downloading",
+      "percent": 44
+    },
+    {
+      "at": "2026-10-10T17:10:56.472Z",
+      "phase": "downloading",
+      "percent": 51
+    },
+    {
+      "at": "2026-10-10T17:10:57.492Z",
+      "phase": "downloading",
+      "percent": 59
+    },
+    {
+      "at": "2026-10-10T17:10:58.512Z",
+      "phase": "downloading",
+      "percent": 66
+    },
+    {
+      "at": "2026-10-10T17:10:59.529Z",
+      "phase": "downloading",
+      "percent": 74
+    },
+    {
+      "at": "2026-10-10T17:11:00.552Z",
+      "phase": "downloading",
+      "percent": 82
+    },
+    {
+      "at": "2026-10-10T17:11:01.573Z",
+      "phase": "downloading",
+      "percent": 89
+    },
+    {
+      "at": "2026-10-10T17:11:02.591Z",
+      "phase": "downloading",
+      "percent": 90
+    },
+    {
+      "at": "2026-10-10T17:11:03.610Z",
+      "phase": "downloading",
+      "percent": 98
+    },
+    {
+      "at": "2026-10-10T17:11:03.863Z",
+      "phase": "downloading",
+      "percent": 100
+    },
+    {
+      "at": "2026-10-10T17:11:04.117Z",
+      "phase": "downloaded",
+      "percent": 100
+    }
+  ],
+  "pageErrors": [],
+  "userInstalledAppOrDataModified": false,
+  "main": {
+    "version": "0.1.0-rc.11",
+    "packaged": true,
+    "autoInstallOnAppQuit": false
+  },
+  "discovered": {
+    "currentVersion": "0.1.0-rc.11",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "available",
+    "availableVersion": "0.1.0-rc.12",
+    "releaseNotesSha256": "41636c846f663f9605040cf1f145a0c9a4369b4c5fb29b7ffea3aeb19c956607"
+  },
+  "downloaded": {
+    "currentVersion": "0.1.0-rc.11",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "downloaded",
+    "availableVersion": "0.1.0-rc.12",
+    "percent": 100,
+    "releaseNotesSha256": "41636c846f663f9605040cf1f145a0c9a4369b4c5fb29b7ffea3aeb19c956607"
+  },
+  "cached": {
+    "file": "/tmp/peer-rc12-old-updater2/cache/@peer-agentdesktop-updater/pending/Peer-Agent-0.1.0-rc.12-arm64.zip",
+    "info": {
+      "fileName": "Peer-Agent-0.1.0-rc.12-arm64.zip",
+      "sha512": "h3ExdXe3TGQ5aDrXTpfRBWq8cke1piUh4xE6ff0po/txAjTyX+TOgjMds/28WxWhxCkY3f4cmB+NyqTfDpbG4A==",
+      "isAdminRightsRequired": false
+    }
+  },
+  "downloadSha256": "de378fe3a93d186a2c0fbd44013963a54a458344b688b3d21d9018d77044e56a",
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-10T17:11:04.666Z",
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex implementation self-review",
+    "independent": false
+  },
+  "screenshots": [
+    {
+      "name": "old-rc11-update-available.png",
+      "sha256": "d4b30a26fb2da05af126712c0ff13f54ec675611bb4e2edd7d07d5988e0d864c",
+      "verdict": "pass",
+      "notes": "真实签名RC11显示RC12版本与对应中文发布说明，稍后/更新操作清楚。"
+    },
+    {
+      "name": "old-rc11-downloading.png",
+      "sha256": "a88dbafcabd405903ace4fcf6d37e6fd387a0bcb09f722cd334ba4de76ade2d0",
+      "verdict": "pass",
+      "notes": "点击更新后捕获动画初段：弹窗仍挂载并开始收起；真实主进程进度随后从0推进至100，截图不代表全部动画帧。"
+    },
+    {
+      "name": "old-rc11-update-ready.png",
+      "sha256": "c85e576c694b4d8723ca00a2c28f415000f96fe9b3c3779c7b1a4b891d84de1a",
+      "verdict": "pass",
+      "notes": "下载完成后弹窗关闭，左下角安装入口可见；未点击安装，隔离空模型配置提示符合本次种子。"
+    }
+  ]
+}
