@@ -1,0 +1,41 @@
+{
+  "version": "0.1.0-rc.11",
+  "scope": "Read-only mount of actual published DMG; embedded application signature/notarization and app.asar matches ZIP",
+  "commands": [
+    {
+      "name": "read-only mount",
+      "status": 0,
+      "output": "预计CRC32 $6AF09A10\n/dev/disk5          \tGUID_partition_scheme          \t\n/dev/disk5s1        \tApple_HFS                      \t/private<assets>/dmg-mount\nhdiutil: WARNING: 'hdiutil attach -readonly -nobrowse -mountpoint ...' is deprecated. Please use 'diskutil image attach --readOnly --mountOptions nobrowse --mountPoint ...' instead."
+    },
+    {
+      "name": "DMG strict application signature",
+      "status": 0,
+      "output": ""
+    },
+    {
+      "name": "DMG Developer ID",
+      "status": 0,
+      "output": "Executable=/private<assets>/dmg-mount/Peer Agent.app/Contents/MacOS/Peer Agent\nIdentifier=com.peeragent.desktop\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=641 flags=0x10000(runtime) hashes=9+7 location=embedded\nVersionPlatform=1\nVersionMin=786432\nVersionSDK=1704448\nHash type=sha256 size=32\nCandidateCDHash sha256=7e9a385f5fd789ae4b3838edd0d8abf0e22a10e7\nCandidateCDHashFull sha256=7e9a385f5fd789ae4b3838edd0d8abf0e22a10e7e4a30ffbbee4812ba6719082\nHash choices=sha256\nCMSDigest=7e9a385f5fd789ae4b3838edd0d8abf0e22a10e7e4a30ffbbee4812ba6719082\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=7e9a385f5fd789ae4b3838edd0d8abf0e22a10e7\nSignature size=9032\nAuthority=Developer ID Application: Xu Chu (82672N97RP)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Oct 10, 2026 at 19:49:20\nNotarization Ticket=stapled\nInfo.plist entries=32\nTeamIdentifier=82672N97RP\nRuntime Version=26.2.0\nSealed Resources version=2 rules=13 files=52\nInternal requirements count=1 size=184\nTotal signatures=1\nChosen signature=1"
+    },
+    {
+      "name": "DMG stapled ticket",
+      "status": 0,
+      "output": "Processing: <assets>/dmg-mount/Peer Agent.app\nThe validate action worked!"
+    },
+    {
+      "name": "DMG Gatekeeper",
+      "status": 0,
+      "output": "<assets>/dmg-mount/Peer Agent.app: accepted\nsource=Notarized Developer ID\norigin=Developer ID Application: Xu Chu (82672N97RP)"
+    },
+    {
+      "name": "unmount",
+      "status": 0,
+      "output": "\"disk5\" ejected.\nhdiutil: WARNING: 'hdiutil detach ...' is deprecated. Please use 'diskutil eject ...' instead."
+    }
+  ],
+  "appAsarSha256": "6964a47757d3ac76c0ffe2b0fd040db80e58385971fd2cf79ec7d7632d1c4803",
+  "zipAndDmgApplicationMatch": true,
+  "ok": true,
+  "unmounted": true,
+  "checkedAt": "2026-10-10T11:58:03.081Z"
+}

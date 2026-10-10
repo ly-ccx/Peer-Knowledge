@@ -1,0 +1,836 @@
+{
+  "schemaVersion": 1,
+  "runId": "afe62d9d-78e1-4772-a29f-e025b5ed8722",
+  "sourceFingerprint": "12ea42cf0790342279a1d84d226ca3f6ddd42b5b8bab8368cd8467a82d86dadc",
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex implementer self-review",
+    "independent": false
+  },
+  "screenshots": [
+    {
+      "id": "ui-diagnostics-1280-dark.png",
+      "sha256": "bab2b9f09c11bef26e3b540c88908d232e5f17d885dd14ecb0d94a59de847a45",
+      "verdict": "pass",
+      "notes": "Developer diagnostics separates runtime ownership and redacted JSON into rounded cards; keyboard focus is visible on the disclosure."
+    },
+    {
+      "id": "ui-diagnostics-760-light.png",
+      "sha256": "919c073a725c96713712877ca51ff1b5cd43bef1f39a8d265c00f5dd76779acc",
+      "verdict": "pass",
+      "notes": "At 760px diagnostics metrics reflow to two columns; redacted JSON stays inside its card with visible disclosure focus."
+    },
+    {
+      "id": "ui-appearance-1280-dark.png",
+      "sha256": "ba53f63f119770ef66762cde738d728f942e0cfce3bc43d4a68cc6aa7493696f",
+      "verdict": "pass",
+      "notes": "Dark appearance settings show three equal theme previews, aligned code previews and compact size controls."
+    },
+    {
+      "id": "ui-appearance-760-light.png",
+      "sha256": "b4bd2fdb955dd022f20d890f65aa163bf3fd071f4d8f7b9097fa2bc2863e86a3",
+      "verdict": "pass",
+      "notes": "Light narrow appearance panel keeps all three theme choices in one row; preview text and size controls fit the panel."
+    },
+    {
+      "id": "ui-automation-list-1280-dark.png",
+      "sha256": "65bf24f222cf7b01d256e981c24dcd395d7abad5e8ff6f7ba28cc3440576b46f",
+      "verdict": "pass",
+      "notes": "Dark automation list presents counters, a single paused entry and distinct create/pause actions with rounded surfaces."
+    },
+    {
+      "id": "ui-automation-list-760-light.png",
+      "sha256": "f7627aea589e0940d5f7da121d729eb646ee083a7242297065ae68f5ff36c47e",
+      "verdict": "pass",
+      "notes": "Narrow automation list wraps counter labels and retains the create action and paused entry without horizontal clipping."
+    },
+    {
+      "id": "ui-automation-receipt-1280-dark.png",
+      "sha256": "fe4a5482421c9a7cf7f4b1a8f584e65a658e0a6e2a9404bbbf0f55c9b85cabd5",
+      "verdict": "pass",
+      "notes": "Automation receipt groups summary, prior result, run facts and usage; existing keyboard focus remains visible."
+    },
+    {
+      "id": "ui-automation-receipt-760-light.png",
+      "sha256": "847a7eb7869cbae2b60e61a812dc2612c52516abac06619906b3417d34416421",
+      "verdict": "pass",
+      "notes": "Narrow receipt reflows facts and usage vertically and moves the rerun action under the title; reading order remains clear."
+    },
+    {
+      "id": "ui-automation-editor-1280-dark.png",
+      "sha256": "3b3ab6ac0109fe61bb4406cf84277d25faeb6ec82737223fe994ced1eca0b3fd",
+      "verdict": "pass",
+      "notes": "Dark automation editor has a full-width task field and separate plan card; workspace text stays subordinate."
+    },
+    {
+      "id": "ui-automation-editor-760-light.png",
+      "sha256": "89f8c450aa5bfc3ddb626d85944f7a3f332bff9e476fe90c896949dc7e7817d1",
+      "verdict": "pass",
+      "notes": "Light narrow editor contains the task field and frequency selector; long workspace context is truncated instead of overflowing."
+    },
+    {
+      "id": "ui-classic-chat-1280-dark.png",
+      "sha256": "4b273ce9cfcf340f4226d6a813b5867c5030165c7966699146d6e116dce799d6",
+      "verdict": "pass",
+      "notes": "Classic dark chat contains the local image preview and renamed-file reference; task strip and composer stay aligned."
+    },
+    {
+      "id": "ui-classic-chat-760-light.png",
+      "sha256": "f7d51a58d0d51584aaabaae2fa83c226694a7fa9b045c9d8043ff15860059b03",
+      "verdict": "pass",
+      "notes": "Classic light narrow chat retains the image preview, file link, task strip and composer without horizontal overflow."
+    },
+    {
+      "id": "ui-classic-image-lightbox-1280-dark.png",
+      "sha256": "91ac81f6d5a11d138227f743cb12b006a814346aa9e18ced9b5e6c9bb5505058",
+      "verdict": "pass",
+      "notes": "Dark image lightbox centers the image with a compact SVG toolbar and distinct close action; background is dimmed."
+    },
+    {
+      "id": "ui-classic-image-lightbox-760-light.png",
+      "sha256": "1f7914e9adb76985f23fd1d61f0a66fd2ae965cda852507dabfd701cdcfa8d47",
+      "verdict": "pass",
+      "notes": "Light narrow image lightbox fits both image and toolbar in the viewport and preserves visible keyboard focus."
+    },
+    {
+      "id": "ui-classic-artifacts-1280-dark.png",
+      "sha256": "c471edfcc074df4dc3162b550d24bf9a887409ce7d457e80380334e4f7bc7823",
+      "verdict": "pass",
+      "notes": "Dark artifact review shows renamed file, small change counts and a readable inline diff inside rounded cards."
+    },
+    {
+      "id": "ui-classic-artifacts-760-light.png",
+      "sha256": "b1f19fd4beb9e1a5af8f8d15087448be498bf63d33d8551b20723d16bf662333",
+      "verdict": "pass",
+      "notes": "Light narrow artifact review preserves filename, change counts and wrapped diff presentation within its panel."
+    },
+    {
+      "id": "ui-classic-diff-1280-dark.png",
+      "sha256": "fec609f8ffd101855c29cfc6cca9456fa268b20ec04a2d8b1c65949d12bd33f3",
+      "verdict": "pass",
+      "notes": "Dark diff popup stays beneath its trigger and shows added/removed lines with distinct tint and keyboard focus."
+    },
+    {
+      "id": "ui-classic-diff-760-light.png",
+      "sha256": "2d1fed878c66323bb008e8d091089819ccbf2a5cbb363aaa51a7f1d1366eb7f8",
+      "verdict": "pass",
+      "notes": "Light narrow diff popup fits under its trigger; line content and change colors are readable without spilling into another panel."
+    },
+    {
+      "id": "agent-activity-1280-dark.png",
+      "sha256": "263d4aed5cef16ee16e1008aca07adce567ad62b33316bf7fd15d411278cf89c",
+      "verdict": "pass",
+      "notes": "Independent agent start, problem, result and verifier-start events appear as compact named rows between main Bot messages."
+    },
+    {
+      "id": "agent-activity-detail-1280-dark.png",
+      "sha256": "5104cdbcf08673d01bbf3a03034fbd51279f930859ad5de44d8975893eeac205",
+      "verdict": "pass",
+      "notes": "Agent detail opens in the right drawer with task name and main Bot ownership; process events remain visible in conversation."
+    },
+    {
+      "id": "agent-activity-760-light.png",
+      "sha256": "f40950d7091c1e0e51b3f842fbd3cc74731d36bc8afb0dab7eaa04f32002f6fa",
+      "verdict": "pass",
+      "notes": "At 760px agent activity rows and the main Bot bubble fit the narrow conversation, with distinct SVG identities."
+    },
+    {
+      "id": "agent-activity-detail-760-light.png",
+      "sha256": "b537f38cecdf1c28c7802ffa150de8d9dba173b8f99f48ea50ba788a2c976288",
+      "verdict": "pass",
+      "notes": "Narrow agent detail drawer states that the main Bot follows up and offers a conversation link; technical task information is folded."
+    },
+    {
+      "id": "quick-chat-bots-dark.png",
+      "sha256": "ad53f353350eb0b15ca58b66414cc72e7207f2c771383c5d06538b19d74734c0",
+      "verdict": "pass",
+      "notes": "Quick chat has only Bot, model and effort selectors plus the right send button; native transparency is not captured in PNG."
+    },
+    {
+      "id": "quick-chat-bots-light.png",
+      "sha256": "1e3abdb0dfea77e4677b116d9f598fa41c33f38aad82b2812706a87e49a974b8",
+      "verdict": "pass",
+      "notes": "Light quick chat keeps three compact selectors with no Project or Agent mode; native-background capture limitation is recorded."
+    },
+    {
+      "id": "evidence-list-dark.png",
+      "sha256": "b7983e714ebab135049e3c3727b0824c6d16f618aa51a41accaf3e21d070856e",
+      "verdict": "pass",
+      "notes": "Reply details separates associated work and named sources into cards with timestamps; no numbered evidence dump."
+    },
+    {
+      "id": "evidence-file-dark.png",
+      "sha256": "4a8f5f3c563a274ab9eb3f190850cd9f4b164472061dfa199e1224aa14d7babc",
+      "verdict": "pass",
+      "notes": "File source names README.md and displays saved content; technical disclosure starts closed and return navigation is clear."
+    },
+    {
+      "id": "evidence-history-dark.png",
+      "sha256": "2416e503fca5db3c1f46220d867ca631aef222ec5f419042e5ae6a224e976145",
+      "verdict": "pass",
+      "notes": "History source shows the read-only familiarity task and its blocked result inside the saved-content card."
+    },
+    {
+      "id": "evidence-missing-dark.png",
+      "sha256": "9d4a93525415b524c175d4a5ceedf56e62a4912dbd6d9151f735ef688b937a38",
+      "verdict": "pass",
+      "notes": "Unavailable evidence explains that the source remains but details were not saved; NOT_FOUND is hidden by closed diagnostics."
+    },
+    {
+      "id": "evidence-missing-760-light.png",
+      "sha256": "f0f9a581baf036101c44b5745c94eecdfe6bb01ee4c701baa626da4dd7a06c90",
+      "verdict": "pass",
+      "notes": "760 light evidence panel wraps the missing-content explanation within the drawer, keeping Back and Close above it."
+    },
+    {
+      "id": "pending-reply-1600-dark.png",
+      "sha256": "2290e2dd4cff73c4963cea751a6f237371b694ae91f94575e9659bfd28ef453c",
+      "verdict": "pass",
+      "notes": "Wide pending reply, background work and composer share a left edge; stop remains visible and replies fit the conversation column."
+    },
+    {
+      "id": "pending-reply-docked-light.png",
+      "sha256": "f7345384aca9ff77703db5ddc27f51ee8d16ad48fe710b765fd511e869b08012",
+      "verdict": "pass",
+      "notes": "Docked light pending progress and composer stay aligned in the narrower column; preparation card fits the side panel."
+    },
+    {
+      "id": "pending-reply-760-light.png",
+      "sha256": "0104267caddc27b8a222347e45dd556530b046f655ea1a77843ea7bf5be4fc5d",
+      "verdict": "pass",
+      "notes": "760 light pending progress, work and composer fit horizontally; keyboard-focused Details has a visible outline."
+    },
+    {
+      "id": "history-dark.png",
+      "sha256": "fa51ba1992061ef5aeec0fcb9bab51a1d2e6d3db4733e74d346288e692ce148b",
+      "verdict": "pass",
+      "notes": "Dark history groups Today, Yesterday and last seven days, with search and Close above and a 48-item count below."
+    },
+    {
+      "id": "history-light.png",
+      "sha256": "12b1db4ee1ddd90a2dc2df58dec01a7b1e973e9f9291d906d829e297b1809c18",
+      "verdict": "pass",
+      "notes": "Light history keeps date groups and right timestamps, a gentle selected row background and no clipped navigation."
+    },
+    {
+      "id": "history-preview.png",
+      "sha256": "96b1db7dbd37c454b7a2cef26f939b23960996916c8cd0f666a39a1717ffffe1",
+      "verdict": "pass",
+      "notes": "History preview names the selected conversation, separates user and Bot content and places explicit Bot continuation controls below."
+    },
+    {
+      "id": "history-narrow-large.png",
+      "sha256": "a9053897749d1b63320483ba26084c3daf5e0a8f7702981e17904f108b2ee7d7",
+      "verdict": "pass",
+      "notes": "Large-text narrow history keeps readable title groups, search focus and a fixed count while the list scrolls below."
+    },
+    {
+      "id": "choice-send-1280-dark-before.png",
+      "sha256": "65b12b6088cdbbd567901160f763ee1b7421543f606c8e7eedcfe91b9f556ed1",
+      "verdict": "pass",
+      "notes": "Before dark choice send, two response options sit below the Bot question, with a stable composer below the task row."
+    },
+    {
+      "id": "choice-send-1280-dark-after.png",
+      "sha256": "8a6de477c62b889b5282b95086f5c0a7adfac31c8f55d20b92cb1d9f93df47a2",
+      "verdict": "pass",
+      "notes": "After dark choice send, the chosen option is a right user bubble with one receipt; Bot response and bubble-edge Details remain below."
+    },
+    {
+      "id": "choice-send-760-light-before.png",
+      "sha256": "cab1f43df5b036c2ad8d10577e5874ab3d5579f6c34b88d33b2deb930cb87f5f",
+      "verdict": "pass",
+      "notes": "760 light choice screen wraps two options below the question without clipping or colliding with the composer."
+    },
+    {
+      "id": "choice-send-760-light-after.png",
+      "sha256": "d9a38741d4997d2135d2eaeffe2c8693f8016af19b985957de081a81f6a6f7ab",
+      "verdict": "pass",
+      "notes": "760 light after choice keeps one right-aligned user reply and one tinted Bot response; selected controls are gone."
+    },
+    {
+      "id": "updater-minimize-1280-dark-before.png",
+      "sha256": "d4292e58c60ef2f445ba930b7731b35fd2b445bf10ba816b92b749c97c133325",
+      "verdict": "pass",
+      "notes": "Dark updater modal names candidate RC99, current RC11 and Update/Later actions; content is contained and the background dims."
+    },
+    {
+      "id": "updater-minimize-1280-dark-after.png",
+      "sha256": "31d7a4dca665e87b9c960d88d6130e9c61043f77a9c680c9ce1c64bcd1bd5f40",
+      "verdict": "pass",
+      "notes": "After dark updater dismissal, the main screen returns and actual 42 percent progress sits in the bottom-left version footer."
+    },
+    {
+      "id": "updater-minimize-760-light-before.png",
+      "sha256": "4d5858a6f53fb3f57deb60134addf4e3efe41b64adfdfa23b857539481f94f44",
+      "verdict": "pass",
+      "notes": "760 light updater modal fits with both actions visible and readable content; synthetic current-version fixture is distinguishable."
+    },
+    {
+      "id": "updater-minimize-760-light-after.png",
+      "sha256": "f49ea0a00471a811feb47b625a660dc8c2f8d5a430acdc2e9e5f1a1085e43b3f",
+      "verdict": "pass",
+      "notes": "760 light post-update view keeps the horizontal 42 percent footer progress beside the settings area without overflow."
+    },
+    {
+      "id": "bot-footer-progress-dark-narrow.png",
+      "sha256": "6d06ada27a4bc9bac6d8a712fe7d5522a85de27c6ffd01487164d3d7515d86f6",
+      "verdict": "pass",
+      "notes": "Narrow dark footer separates settings from RC11 version and places a short progress bar plus 42 percent beneath version."
+    },
+    {
+      "id": "task-report-loading.png",
+      "sha256": "a454a5ffef92a595c0e8fce687bb76f318878002d4ae20f91b7c886f9d61565a",
+      "verdict": "pass",
+      "notes": "Loading task drawer names the task and recent progress, preserves Bot explanation and offers cancellation and return actions."
+    },
+    {
+      "id": "task-report-unavailable.png",
+      "sha256": "42e512ccffcec2993a4939b499eedd5656779f36d5ab1fb191d6bffacdcbf130",
+      "verdict": "pass",
+      "notes": "Unavailable task report keeps current execution state, cancellation and the Bot explanation; a Retry action explains failed loading."
+    },
+    {
+      "id": "task-report-stale.png",
+      "sha256": "dc0a95d4fe4c42c1fb10811354ee4d0c33b1bfe3c6872628a5505bc2f6c315cd",
+      "verdict": "pass",
+      "notes": "Stale task report retains the previous readable content while the current task says queued and a refresh failure is explained below."
+    },
+    {
+      "id": "conversation-updates-dark.png",
+      "sha256": "4eebe8fb66389045eff0230cdaa961c508594a001923c8978a2f682e2982f085",
+      "verdict": "pass",
+      "notes": "Dark streaming conversation keeps two separated tinted paragraphs, a progress label beneath and Details at the latest bubble edge."
+    },
+    {
+      "id": "conversation-updates-light.png",
+      "sha256": "0b35923a176a7b7a5858568f5e9efe29b47db091a5643cf3c07c841c991702bf",
+      "verdict": "pass",
+      "notes": "Light streaming conversation retains the same two paragraphs and left alignment with composer; status is outside the bubbles."
+    },
+    {
+      "id": "conversation-complete.png",
+      "sha256": "1d6340a958c1d663e89242fb8dc3817ec57b3d0ba4227473b7a302703c545997",
+      "verdict": "pass",
+      "notes": "Completed dark turn keeps three public progress paragraphs and a final conclusion card, without a live spinner or lost narration."
+    },
+    {
+      "id": "conversation-complete-light.png",
+      "sha256": "3b3e6a1dbf9eec04b9252415ae6b6d2467980f6447efe0d022671c744d473a52",
+      "verdict": "pass",
+      "notes": "Completed light turn keeps paragraph spacing and a readable final list; Details follows the final bubble instead of the full column."
+    },
+    {
+      "id": "conversation-details.png",
+      "sha256": "864abe2b7049304f9b17735cb2b24adfd5b8cfb7a7a514d0148531730ca07f20",
+      "verdict": "pass",
+      "notes": "Reply drawer groups real file reading and related work; README.md and a redacted argument are contained in the process card."
+    },
+    {
+      "id": "task-main-note.png",
+      "sha256": "11f272761ab68b832f2b3c361ff7edf84dc0129d44ab950771a90335ac6c1ac4",
+      "verdict": "pass",
+      "notes": "Main task note is visible as a complete conversation bubble; the clipped technical summary from task cards is not the only report."
+    },
+    {
+      "id": "task-follow-up-draft.png",
+      "sha256": "73e76107247e1e02577dbb02b0092fd5155cd36f8780dd113e14c38e13fb82db",
+      "verdict": "pass",
+      "notes": "Follow-up draft preserves an embedded task reference above a concrete progress question, with send and model controls visible."
+    },
+    {
+      "id": "task-decision.png",
+      "sha256": "4901252d9cc758048978331a674080e6cd51dbbebcdffce599df18e09773c90e",
+      "verdict": "pass",
+      "notes": "Waiting task detail states the concrete decision, offers an explicit conversation destination and keeps Cancel available."
+    },
+    {
+      "id": "task-main-question.png",
+      "sha256": "04086479d8efcbffa22335c3fed8a2e622e2bae68197ff7d76a7da7613242df0",
+      "verdict": "pass",
+      "notes": "The main conversation shows the same concrete task question and a keyboard-focused choice below it, rather than forcing card acceptance."
+    },
+    {
+      "id": "task-detail-running.png",
+      "sha256": "4cb24c4163eab4b3797600c2be774e3d847ff492b35f4d14be8328ff7519298d",
+      "verdict": "pass",
+      "notes": "Running task detail separates latest progress, next-step ownership and the Bot explanation; cancellation is directly available."
+    },
+    {
+      "id": "task-detail-waiting_user.png",
+      "sha256": "a0c76f1f5b79ea2bffc3e077fcdff98cfcc53ed0ea095a4afac14c3fef70bbeb",
+      "verdict": "pass",
+      "notes": "Waiting detail explicitly labels follow-up, keeps Cancel and makes the Bot conversation the next-step destination."
+    },
+    {
+      "id": "task-detail-accepted.png",
+      "sha256": "35aa6b01e42f13ef1c1babef682ff6d47081298e22097046bb6ca0caccc21a31",
+      "verdict": "pass",
+      "notes": "Accepted detail displays accepted in heading and latest-progress card, removes cancellation and permits further conversation questions."
+    },
+    {
+      "id": "task-detail-failed.png",
+      "sha256": "fed003c779115d1585c86fbff34d2eadd4a7918487faba20ba05a3d36cf0e129",
+      "verdict": "pass",
+      "notes": "Failed detail states incomplete failure rather than success, while retaining Bot ownership and the last explanation."
+    },
+    {
+      "id": "task-detail-1280-dark.png",
+      "sha256": "3ee0ce954dc2a489890441ceb18e935927a125586703f95c8df44900fd9a10fc",
+      "verdict": "pass",
+      "notes": "Long-title 1280 dark detail wraps task goal in two lines with Cancel, current wait and next action beneath."
+    },
+    {
+      "id": "task-detail-1280-light.png",
+      "sha256": "703d84b4631b80f6aacc215b61ac3422559a26c83b10f780748b5d8b45c56137",
+      "verdict": "pass",
+      "notes": "Long-title 1280 light detail keeps the same clear current wait and contained explanation, with no raw internal IDs by default."
+    },
+    {
+      "id": "task-detail-760-dark.png",
+      "sha256": "d2ee49acbd0976be3cac49aba84aa7037452b3573b4efcff5204811224c04671",
+      "verdict": "pass",
+      "notes": "760 dark long task title and next-step copy wrap inside the narrow drawer; report navigation remains reachable."
+    },
+    {
+      "id": "task-detail-760-light.png",
+      "sha256": "2748e7554cf3c711bd795c70de0db30eb97f1b259ca652ee8d57b33437712c95",
+      "verdict": "pass",
+      "notes": "760 light long task detail keeps readable sections and an explicit full-conversation destination; metadata starts collapsed."
+    },
+    {
+      "id": "work-running.png",
+      "sha256": "78216937b345a9f60d2444302b22d96d22191a3743da7a69949382b5fe4d22ca",
+      "verdict": "pass",
+      "notes": "Running reply details offers task details and cancellation alongside named sources, keeping task and evidence separate."
+    },
+    {
+      "id": "work-waiting.png",
+      "sha256": "99a2ccf4bed65befb3cac5aa8449ec27eaed9671d8773cc1080fae2c9161d610",
+      "verdict": "pass",
+      "notes": "Waiting task in main chat and drawer both offer direct cancellation; question is visible without requiring another generic follow-up."
+    },
+    {
+      "id": "work-waiting-760-light.png",
+      "sha256": "1a23197c34eaa5ffad7fd93bb72b9f08a99355683dfdbcb1ba56209b781edd75",
+      "verdict": "pass",
+      "notes": "760 light waiting drawer shows contained task question, Cancel and four named sources; no horizontal overflow."
+    },
+    {
+      "id": "bot-overview.png",
+      "sha256": "9d015c5bf7845d582eafcf3ebc5f78a343e01e3db032e8ae214e717183585db9",
+      "verdict": "pass",
+      "notes": "Bot overview separates identity, bound folder, one active task and model policy in a compact sidebar."
+    },
+    {
+      "id": "bot-memory.png",
+      "sha256": "38987719ae1ab55e25b30883f452b634d30c031fab14c9ee6553a58dd82efddb",
+      "verdict": "pass",
+      "notes": "Memory tab shows category/trust/state filters and individually contained saved memories with explicit edit and revoke actions."
+    },
+    {
+      "id": "chat-process-summary.png",
+      "sha256": "0ed875540460c9985ea1d540b7fed6ba74dc16c7822dc840c8941c2d43e83f26",
+      "verdict": "pass",
+      "notes": "Ended reply process lists named query/read/view/send activities with closed technical disclosures; public answer and options remain in chat."
+    },
+    {
+      "id": "task-cancel-failed-dark.png",
+      "sha256": "383a0d88905e2f9272a2735f8c79917612c6c94ea665a09c007e0ad6d48faa7b",
+      "verdict": "pass",
+      "notes": "Failed cancellation shows an explicit retry explanation in both the waiting card and related-task drawer, with Cancel still available."
+    },
+    {
+      "id": "task-cancelled-dark.png",
+      "sha256": "745c24390aecc9329cea3c6fdfce8d5043be7d42365105141827f34015eecb3d",
+      "verdict": "pass",
+      "notes": "Successful cancellation removes the follow-up card from active work, shows cancelled in related history and leaves the unrelated running task."
+    },
+    {
+      "id": "task-cancel-detail-760-light.png",
+      "sha256": "57d341efd7b71c08578f6baa0e63413eaedb045d8f7f53e5ed835a00594a2992",
+      "verdict": "pass",
+      "notes": "760 light task details exposes a direct Cancel button before the wait description, with the task report still readable."
+    },
+    {
+      "id": "long-error-760-dark.png",
+      "sha256": "d9f1695cab1b0b2d8adbb8ba456b03bbc9f3d8d8d4ce84bc7d55f833a53046ad",
+      "verdict": "pass",
+      "notes": "Long failure remains a short readable Bot bubble on narrow dark chat; Details contains raw diagnostics rather than flooding the body."
+    },
+    {
+      "id": "long-error-docked-light.png",
+      "sha256": "5e4d287665660c445b94c15d87df394c8b5487617ae306b0381482cd80663588",
+      "verdict": "pass",
+      "notes": "Docked light error puts the lengthy provider record in a bounded wrapping sidebar, keeping normal chat and composer readable."
+    },
+    {
+      "id": "background-work-1600-dark.png",
+      "sha256": "1fa200b0b42cb004e83f66aac7513756b8da0f3449bf3da975eab4e759d8c615",
+      "verdict": "pass",
+      "notes": "Wide background work and composer share edges; the work row remains compact and model/effort/send controls are grouped below."
+    },
+    {
+      "id": "background-work-760-light.png",
+      "sha256": "7ecddba90e058de952979bbaab3a878f88c94fc841b46d91ab3ebf8b079d1178",
+      "verdict": "pass",
+      "notes": "760 light background row and expanded row align to the composer; SVG terminal/disclosure indicators fit without text-glyph icons."
+    },
+    {
+      "id": "fallback-vision-1280-dark.png",
+      "sha256": "89389733d856053f670a3e360764e77710a3ce07ea05b0d89b978bb37b83e26f",
+      "verdict": "pass",
+      "notes": "1280 dark image-recognition setting separates label/help from the selected fallback model and channel on the right."
+    },
+    {
+      "id": "fallback-vision-1280-light.png",
+      "sha256": "8fd81fd263a95790b2c49c4cbc883d9471a5d1e3ac04a192dcb0c87cf660fe8e",
+      "verdict": "pass",
+      "notes": "1280 light image-recognition setting keeps the same compact aligned row with a subdued explanation and SVG navigation."
+    },
+    {
+      "id": "fallback-vision-760-dark.png",
+      "sha256": "aab041fdfe710a698f7c63533d823f82dc2723403add82156044a595bef11c2f",
+      "verdict": "pass",
+      "notes": "760 dark image fallback row retains complete label and model/channel text inside the narrow setting width."
+    },
+    {
+      "id": "fallback-vision-760-light.png",
+      "sha256": "e7f92ef3706e03c1d8c2ebb60e6fada2abc8f34ca59dfb81f240958e7e4daec8",
+      "verdict": "pass",
+      "notes": "760 light fallback setting fits the two-level label/help and model/channel groups without clipping or a bright native select."
+    },
+    {
+      "id": "providers-1280-dark.png",
+      "sha256": "59c557a4166014338916094588e9f3fe9a3009b36dbd4267712ec55155fbeb7c",
+      "verdict": "pass",
+      "notes": "Providers screen shows one connected service and two models; image recognition remains a separate compact row below the service."
+    },
+    {
+      "id": "providers-expanded-1280-dark.png",
+      "sha256": "fd1fd23c22bf6a4681706128efcdb70ff9ceae61b4ed225fbbff43d4c4c978cb",
+      "verdict": "pass",
+      "notes": "Expanded image fallback uses a contained model selector below the highlighted row, without a white native control or clipped labels."
+    },
+    {
+      "id": "composer-empty-1280-dark.png",
+      "sha256": "d4979e83bf4d9c9fbd5915df0f4553e213fd61d93fd8a7aa92597ed4cffab807",
+      "verdict": "pass",
+      "notes": "Empty 1280 dark composer separates editable space from plus/model/effort/send controls in a single bottom row."
+    },
+    {
+      "id": "composer-empty-1280-light.png",
+      "sha256": "8cc2fbd2299f1a33382924db1d9641759fc8d0b6e0d80401bd43980772b58d31",
+      "verdict": "pass",
+      "notes": "Empty light composer keeps subdued placeholder and grouped controls on a distinct white input surface."
+    },
+    {
+      "id": "composer-empty-760-dark.png",
+      "sha256": "85ac37b355e96846d0899b327807da729d66951e073c936b986700c65dd77dd1",
+      "verdict": "pass",
+      "notes": "760 dark composer fits Bot placeholder and all bottom controls; send has a filled circular treatment."
+    },
+    {
+      "id": "composer-multiline-760-light.png",
+      "sha256": "37faaa3ecd149e95bbb8248151c15aba6769ce8dde7751d65d576ac81362f8c7",
+      "verdict": "pass",
+      "notes": "760 light multiline composer scrolls long text inside the input while plus/model/effort/send remain fixed beneath it."
+    },
+    {
+      "id": "composer-attachment-1280-dark.png",
+      "sha256": "fb178cd29834d26d29d204f9db5950de916271578a28b04b2235f013f477f26d",
+      "verdict": "pass",
+      "notes": "Attached-image composer contains a rectangular thumbnail and explicit remove action above text, leaving a readable control row."
+    },
+    {
+      "id": "reply-dark.png",
+      "sha256": "1e282c26962dc2daf27fa3223fac3ebeb671091a426411739167d5b6e00a8527",
+      "verdict": "pass",
+      "notes": "Dark Bot reply embeds the user quote horizontally at the top; body/list remain inside one tinted bubble and Details follows its edge."
+    },
+    {
+      "id": "reply-light.png",
+      "sha256": "d345b1c9e91873d3f872ccc363044480aed8821c4ceb1f55147b04c19a1780cb",
+      "verdict": "pass",
+      "notes": "Light reply embeds the same quote without a vertical stripe; selected Details focus is outside the bubble at its right edge."
+    },
+    {
+      "id": "reply-narrow-quote.png",
+      "sha256": "83ca0cb0583ae260ee76563046d47563f9c98d3c418c0a6b2f4de1edaca45ca3",
+      "verdict": "pass",
+      "notes": "760 quote draft keeps existing draft text beneath a removable source reference, with all send controls inside the composer."
+    },
+    {
+      "id": "reply-narrow-sent.png",
+      "sha256": "0bd4b451b526c549588f83952caa7b3e8a8e481b03afdd3aeee4bcf8c7742415",
+      "verdict": "pass",
+      "notes": "760 sent quote is embedded inside the right user message; one receipt and one related Bot reply remain distinct."
+    },
+    {
+      "id": "bot-message-purple-dark.png",
+      "sha256": "488db865e15e8e5c1faa00e8f4a41873bf825762cacde7912d7f112086254472",
+      "verdict": "pass",
+      "notes": "Purple identity yields a softly purple Bot bubble and avatar; quoted content is integrated without a detached tiny card."
+    },
+    {
+      "id": "bot-message-purple-light.png",
+      "sha256": "74110f58563008145f765c3e0189bbc9750339172bb4f8c65b48096f4fd595ba",
+      "verdict": "pass",
+      "notes": "Purple light reply uses a pale identity tint with readable quote/source label and two-list body, without a stripe."
+    },
+    {
+      "id": "bot-message-pink-dark.png",
+      "sha256": "105654cd91fcb254adaf367e6d0df90590490d6a55dbe00cb8e08d013702af47",
+      "verdict": "pass",
+      "notes": "Pink dark reply tint matches the avatar; quote and body remain legible against the muted background."
+    },
+    {
+      "id": "bot-message-pink-light.png",
+      "sha256": "dab90698892c9e566751eb30cad4f9e6df6050afb985c19e3def82c7a482a693",
+      "verdict": "pass",
+      "notes": "Pink light reply keeps a restrained pink background and dark text rather than a saturated solid panel."
+    },
+    {
+      "id": "bot-message-green-dark.png",
+      "sha256": "13f574447e70bc6defac753a20b649a9432a966295258233ab5c09d85191473d",
+      "verdict": "pass",
+      "notes": "Green dark reply has the same compact geometry with green tint and readable source/navigation text."
+    },
+    {
+      "id": "bot-message-green-light.png",
+      "sha256": "8d2b84bfe151b6663c38c9d90e891a40cda46aedc6f798a0be6580519531c30c",
+      "verdict": "pass",
+      "notes": "Green light reply uses a pale green identity surface while retaining neutral surrounding chat background."
+    },
+    {
+      "id": "quote-sent-1280-dark.png",
+      "sha256": "b0bf37d2cea65e07e6bfd59144bea918a2321afa56a3ed04f5bd2bcf6cf65093",
+      "verdict": "pass",
+      "notes": "1280 dark sent quote is inside the user bubble above new text; receipt belongs to that same message."
+    },
+    {
+      "id": "quote-sent-1280-light.png",
+      "sha256": "a1a1c9bf474b0020d4b061b131ab8414b1694864bf1eb86e80c52684b99b8e7a",
+      "verdict": "pass",
+      "notes": "1280 light sent quote keeps the embedded reference horizontally contained and separates the following Bot reply."
+    },
+    {
+      "id": "quote-reply-1280-dark.png",
+      "sha256": "a9b671ce380f029a599c84191880c43756ee605372f5e3e629f45c338204634c",
+      "verdict": "pass",
+      "notes": "1280 dark familiarity reply embeds the brief user quote within the main tinted bubble; four findings and memory question fit."
+    },
+    {
+      "id": "quote-reply-1280-light.png",
+      "sha256": "cf3ca3c015aabd4728de707d06a944633547f945d3903d4ab463a40c5bbbf5b3",
+      "verdict": "pass",
+      "notes": "1280 light familiarity reply keeps the source row within the bubble and retains paragraph/list separation and a following failure state."
+    },
+    {
+      "id": "quote-reply-760-dark.png",
+      "sha256": "4b90db900baec7a340fdb532bcbf64d7f2a9e11a028b3cf1483fed26bdc6d18a",
+      "verdict": "pass",
+      "notes": "760 dark short quote and long Bot report wrap naturally within the same bubble, with no detached tiny source block."
+    },
+    {
+      "id": "quote-reply-760-light.png",
+      "sha256": "39bfc05b2142750eafbd98f3ba36e004e1d8afc8c2dec439033a4ae602f2185f",
+      "verdict": "pass",
+      "notes": "760 light quote and four-item report remain inside the narrow tinted reply; retry for the separate unfinished turn remains visible."
+    },
+    {
+      "id": "selection-quote-1280-dark.png",
+      "sha256": "38dc5b21421910858ed838bf01eb20c1cc2615886786928d06f2e4f1a6cfcb62",
+      "verdict": "pass",
+      "notes": "Selection quote action floats beside the selected text within the message instead of appearing below the entire reply."
+    },
+    {
+      "id": "selection-quote-760-light.png",
+      "sha256": "b30b961eb0ca1793e6615e94aa6384d436b118d7c79f55c7fb3e2590ef87a1f5",
+      "verdict": "pass",
+      "notes": "Narrow selection quote action stays near selected text and leaves the existing composer draft visible."
+    },
+    {
+      "id": "selection-quote-docked-light.png",
+      "sha256": "9eb753368aab8867d448dd74d7bf8ca4030521eaa0f3de3a326b1d6749a43ebe",
+      "verdict": "pass",
+      "notes": "With settings docked, selection quote action remains within the message; draft and settings controls retain their layout."
+    },
+    {
+      "id": "completion-review-card.png",
+      "sha256": "5df5ce82a5694107511d37b85d68a331bae5b36c00dd21d8c5a207439c05eba9",
+      "verdict": "pass",
+      "notes": "Completion card explains that a report has been generated, links the report and exposes a concrete confirmation action separate from task status."
+    },
+    {
+      "id": "completion-review-report.png",
+      "sha256": "8dd038231f733cf1ce8262214b401b462100f163a5373b9aa9249320cb851d22",
+      "verdict": "pass",
+      "notes": "Report opens in a separate right panel, with full findings and file evidence; close is reachable by keyboard."
+    },
+    {
+      "id": "completion-review-760-light.png",
+      "sha256": "fe6d28f0178afe485c6464ab825ffb81118166f00013aee41b514a6060c3be05",
+      "verdict": "pass",
+      "notes": "Light narrow completion card keeps report and confirmation actions inside the card, with a visible keyboard focus ring."
+    },
+    {
+      "id": "process-timing-dark.png",
+      "sha256": "1fc0e4bff2d667532aa40fec30ce82b2e6a5236f97d34b5490515e6392fc2183",
+      "verdict": "pass",
+      "notes": "Dark process drawer shows less-than-one-second and two-second timings, plus an unavailable timing without inventing zero."
+    },
+    {
+      "id": "process-timing-light.png",
+      "sha256": "bc1423ce13422e36bdf3698451b86f88fca24ef42511980f8050b91c70368185",
+      "verdict": "pass",
+      "notes": "Light narrow process drawer uses the same three timing meanings and retains a compact readable process list."
+    },
+    {
+      "id": "budget-exhausted-dark.png",
+      "sha256": "99a114f3476b70fc3bd5dc859cedbb33198befa32cea59a565e2fa9f522b96e9",
+      "verdict": "pass",
+      "notes": "Budget exhaustion is stated in a normal Bot bubble with a continue action; provider diagnostics are not mixed into the public copy."
+    },
+    {
+      "id": "budget-exhausted-light.png",
+      "sha256": "bf3d162afab51a8f3d9f1d53d34251fc8fd9e007c339583f6f3b4223fb13b200",
+      "verdict": "pass",
+      "notes": "Light narrow budget warning wraps within the bubble and keeps its continue action separate from the composer."
+    },
+    {
+      "id": "manual-wake-retry-dark.png",
+      "sha256": "a0d5f6509ba8352c352d1c1c7e58032ad171315600553eaca0083f8e03cb9953",
+      "verdict": "pass",
+      "notes": "Dark manual wake shows preserved progress, a follow-up card and retry narration; active processing has a compact status."
+    },
+    {
+      "id": "manual-wake-retry-light.png",
+      "sha256": "ab9f8a6ddff3b46e6f24dad316954a6683986970e031e57f162d0a1cb93414ce",
+      "verdict": "pass",
+      "notes": "Light manual wake preserves the same task and retry narration; the action and composer remain within the narrow column."
+    },
+    {
+      "id": "recovery-missing-checkpoint-dark.png",
+      "sha256": "0e1ec890ed019af83fbd72bf82aec3d90b667784d7ac6f9347113afdff212a57",
+      "verdict": "pass",
+      "notes": "Missing recovery record is visible in a normal dark Bot bubble with no blind replay action; retained narration beneath has a clear 8px gap."
+    },
+    {
+      "id": "recovery-missing-checkpoint-light.png",
+      "sha256": "e6fad9e82dec43f5099824133d9439aa43d45bb9ec28ea06586483456727f059",
+      "verdict": "pass",
+      "notes": "At 760px the missing-record message wraps within its light bubble; the visible detail action stays at that bubble edge and retained narration is separated."
+    },
+    {
+      "id": "recovery-scheduled-dark.png",
+      "sha256": "254b17d33dac1f22fa6ec86ca845e1595072a591db94d1099efff8c1d0572f83",
+      "verdict": "pass",
+      "notes": "Scheduled recovery visibly says the connection was interrupted and progress will continue; prior narration is retained in separate spaced bubbles."
+    },
+    {
+      "id": "recovery-scheduled-light.png",
+      "sha256": "51ecb751c61b240b12290d449ba7541a7847053ce4bd4642a1adfb2a17edb9ca",
+      "verdict": "pass",
+      "notes": "Light narrow scheduled recovery shows both retained narration bubbles and continuation text; detail action remains below the corresponding bubble edge."
+    },
+    {
+      "id": "recovery-exhausted-dark.png",
+      "sha256": "8edbe7711f1227a4d0d6ade104da923fbd93927b9689ee03430fbabaabc18545",
+      "verdict": "pass",
+      "notes": "Dark exhausted recovery states the connection has not recovered, preserves progress, and exposes an explicit continue action."
+    },
+    {
+      "id": "recovery-exhausted-light.png",
+      "sha256": "608369a897a835d9ba326570290750f7317c559e168c4804b0c684a45af4c07e",
+      "verdict": "pass",
+      "notes": "Light exhausted recovery wraps clearly; retained narration and the continue action have distinct spacing."
+    },
+    {
+      "id": "recovery-authentication-dark.png",
+      "sha256": "f7dbb0d44af048eb11cd2f86c360d3e197a29087bb9193e9b6e798cd771c7d1b",
+      "verdict": "pass",
+      "notes": "Dark authentication failure asks for login or connection configuration before continuing; no raw HTTP error is shown publicly."
+    },
+    {
+      "id": "recovery-authentication-light.png",
+      "sha256": "3c33b6753791edf828f1afd240718bf8fef16338b37fb83a55c611cdaf836844",
+      "verdict": "pass",
+      "notes": "Light authentication failure wraps within the bubble and retains the continue action beneath it."
+    },
+    {
+      "id": "recovery-unknown-dark.png",
+      "sha256": "d5c89a2094dc3a1d8ea780f7692e9239508acf938e63e73c3d7cc18f96bca88c",
+      "verdict": "pass",
+      "notes": "Unknown operation result is stated as requiring verification with preserved progress; that message offers no blind replay action."
+    },
+    {
+      "id": "recovery-unknown-light.png",
+      "sha256": "548b363480c947b44e793887f4f3aad8d23f07fb6c41fe4284ca68a533673ca2",
+      "verdict": "pass",
+      "notes": "Light unknown-result message has no retry action and keeps both uncertainty and retained progress in plain copy."
+    },
+    {
+      "id": "recovery-resolved-dark.png",
+      "sha256": "77d55b47a2b899a3d0a049746dda0ce641577383297fa36f583549e3d32069cd",
+      "verdict": "pass",
+      "notes": "Resolved interruption is visibly subdued and points to the latest reply; the resolved bubble has no retry action."
+    },
+    {
+      "id": "recovery-resolved-light.png",
+      "sha256": "ea2a0de62fde00259e081afca78d2064d5a00a8613b17cb5e9edd9381223376a",
+      "verdict": "pass",
+      "notes": "Light resolved message remains readable and separate from the latest ordinary reply and active task strip."
+    },
+    {
+      "id": "work-verifying.png",
+      "sha256": "9df76df4597a6d47f9f8a6d3651e2520aeaa9e12f2fb2bbaa00c2e67fb087911",
+      "verdict": "pass",
+      "notes": "Verifying task strip and its right drawer agree on the current verification phase and offer cancellation."
+    },
+    {
+      "id": "reply-presence-progress-dark.png",
+      "sha256": "19ab3ae27ad6cce86464f094f604c12f6099c6cb6d663a80813b470775be779e",
+      "verdict": "pass",
+      "notes": "Pending reply has a readable progress status at the left and a detail action at the bubble edge; drawer explains preparation."
+    },
+    {
+      "id": "reply-entry-idle-dark.png",
+      "sha256": "20c68a65a301f185a52dd60d4e5abfebdf4700e46f8728071b76f2b36a4eff29",
+      "verdict": "pass",
+      "notes": "Dark idle reply hides the detail action without removing its layout space; question choices remain readable."
+    },
+    {
+      "id": "reply-entry-hover-dark.png",
+      "sha256": "ec91c6b13cfe989a09bcbec4248bd7693543ae3b33e74e8b553d2d1e30378387",
+      "verdict": "pass",
+      "notes": "Dark actual hover reveals the detail action below the short question at the bubble edge, not the full column edge."
+    },
+    {
+      "id": "reply-entry-idle-light.png",
+      "sha256": "b286add5061e4235f74e7a2a62b2ea20b620b12375365c654d1eeec038a4895f",
+      "verdict": "pass",
+      "notes": "Light idle reply keeps the detail action quiet and retains stable question and choice positioning."
+    },
+    {
+      "id": "reply-entry-hover-light.png",
+      "sha256": "862f1c56e86e8940a39b5ecc2215f7be2c9cd0fd3fd10dd5c92c4847009cc30c",
+      "verdict": "pass",
+      "notes": "Light actual hover reveals the short question detail action at its right edge with no competing status text."
+    }
+  ],
+  "findings": [
+    {
+      "screenshot": "recovery-scheduled-light.png",
+      "description": "Earlier rejected capture happened before drawer resizing settled. The new capture waits for visible finite animations and checks text hit visibility after screenshot; actual target narration is visible in both themes.",
+      "severity": "blocking",
+      "disposition": "resolved"
+    },
+    {
+      "screenshot": "quick-chat-bots-light.png",
+      "description": "Native transparent window background is absent from PNG capture; these images verify control layout, not OS-background contrast.",
+      "severity": "minor",
+      "disposition": "accepted-limitation"
+    }
+  ]
+}

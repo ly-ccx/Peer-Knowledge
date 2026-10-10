@@ -41,3 +41,9 @@ ADR §10 矩阵；焦点单测、受影响包、build/typecheck/architecture；�
 ADR 89 §12 记录完整验收矩阵与覆盖限制。build、typecheck、architecture:check、全量 test、131 张截图自审与 product verify 通过。产品 runId `0f19ee48-945f-496c-9e2c-b45eb5ae24b5`，sourceFingerprint `ddb1862ac7049383e2cb3b68e7067838879a7b51fc1e4e14b96ac942ba67190f`。
 
 真实模型、安装版、长期后台和全面无障碍尚未验收；未自动合并或发布。原工作区在制文件未修改。
+
+## 发布整合记录（2026-10-10）
+
+用户另行授权检查待合入工作并发布RC。PR140先合入139，再由139合入138，PR138实际合入开发线294ba4d；知识PR30/31已合入main。发布准备PR141合入438d1a6，并以该head发布 `0.1.0-rc.11`。最终135张源码截图自审、候选/合入两平台CI与正式签名Mac包关键UI自审通过。[RC11发布与证据](rc11-candidate.md)。
+
+原完成记录描述当时的交付状态，予以保留。正式签名Mac包验收使用隔离合成历史，未实连真实Agent模型；长期后台和全面无障碍缺口继续保留，不将实现者自审称为独立审查。
