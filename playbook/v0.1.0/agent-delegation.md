@@ -24,6 +24,8 @@
 
 必要范围扩展（实现前记录）：`packages/runtime-node/src/goal-runner.mjs`、`goal-plan-store.mjs`、`packages/protocol/src/session-facts*`、`packages/protocol/src/goal*`，以及 renderer 的工作状态投影。理由：区别等待主 Bot 与等待人类，持久化协调等待/恢复标记，防止自动 kick 空转，补足 ADR §6 的真实执行闭环；不改用户授权闸门。
 
+必要范围扩展（验证前记录）：`packages/protocol/src/task-overview*`、`apps/desktop/electron/main/task-overview-aggregator.mjs`、`scripts/product-regression.mjs`。理由：统一主 Bot 等待状态的操作归属，增加真实工作动态与连续气泡间距的产品验收门禁。
+
 实现按 ADR §8 Module 分工，不扩 god module。任何发现的必要路径扩展先在本卡记录原因再改；不覆盖原工作区未提交修改。
 
 ## 退出条件
