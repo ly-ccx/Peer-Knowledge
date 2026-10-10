@@ -627,6 +627,8 @@ RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请�
 
 宿主 pending input 回放排除已由 coordination anchorInputIds 持有的输入，不将失败原输入再当新工作。工作恢复不使用裸 enqueue 原文本的逃生路径。重复按钮、timer 与 sync 竞争时，同 work 只有一个 active attempt；拒绝码如 EXECUTION_OUTCOME_UNKNOWN、STALE_TURN 保留到表达层。
 
+同样，协调账本已由 work 的 pendingEventIds/consumedEventIds 持有的旧事件不能再组成新的 wake job。失败、预约等待、暂停或预算受限时，原事件只通过该 work 的检查点恢复入口继续；启动或普通 kick 不能以“事件未 handled”为理由绕过预约、用户意图和原生历史。新的独立事件仍可唤醒，新用户输入仍优先。产品夹具必须保留旧事件未 handled 的真实失败窗口，不能提前标记 handled 来掩盖这条边界。
+
 ### 20.5 工具和权限边界
 
 工具派发先记录 pendingTools，Tool Result 应用并原生 checkpoint 持久化成功才清除。检查点写盘失败时同 attempt 也不得发下次模型请求或新工具；finish 将不确定派发保留为 uncertainDispatches。任何恢复都不清此账目以换取可运行。
