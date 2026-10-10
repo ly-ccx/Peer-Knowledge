@@ -1,10 +1,16 @@
 # ADR 89：独立 Agent 接手、双向通信与真实工作动态
 
 日期：2026-10-10  
+创建时间：2026-10-10
+
+最后更新：2026-10-10（补充 ADR 91 自主协调设计引用）
+
 状态：Accepted（用户明确要求先完善 ADR、再实施；本决策在实现之前记录）  
 变更级别：A（通信契约、能力准入与上下文来源），B（执行及事件装配），C（消息间距与工作动态）  
 依赖：ADR 80、83、85、88；产品北极星 `design/product/peer-product-alignment.md`  
 实现卡：`playbook/v0.1.0/agent-delegation.md`
+
+后续设计：[ADR 91](91-project-bot-autonomous-coordination.md) 增加主 Bot 自主调度、目标修订、取消重派、资源释放与版本化接手；设计 Accepted，实施未开始。本文已有通信、身份、权限与真实状态契约保留，不把 ADR 91 的计划计入本 ADR 已完成的验收证据。
 
 ## 1. 用户目标与已核实的问题
 
