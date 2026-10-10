@@ -1,7 +1,7 @@
 # 0.1.0 任务卡总目录
 
 创建时间：2026-09-26
-最后更新：2026-09-26
+最后更新：2026-10-10（补充 ADR 91 自主协调实施卡）
 
 > 用途：把 0.1.0 的全部工作拆成可以单独派给任何模型执行的任务卡。  
 > 地位：执行层合同。方向与范围以 `design/product/v0.1.0-release-plan.md` 与 ADR 80–85 为准；执行规矩以 `playbook/project-agent-implementation-handbook.md` 为准（本目录取代手册 §7 的旧卡片）。  
@@ -20,6 +20,7 @@
 | `beta4-parallel.md` | B4-01 … B4-08、B4-R：并行、隔离、项目目标、恢复、记忆维护 |
 | `beta5-surfaces.md` | B5-01 … B5-05、B5-R：TUI 与远程入口 |
 | `rc-release.md` | RC-01 … RC-06、GA |
+| `autonomous-coordination.md` | R91-01 … R91-05：主 Bot 自主协调、并行资源、取消重派、事件推进与安装版验收；ADR 91 已认可，实施未开始 |
 
 ---
 
