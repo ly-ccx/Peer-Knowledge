@@ -627,6 +627,8 @@ RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请�
 
 工具派发先记录 pendingTools，Tool Result 应用并原生 checkpoint 持久化成功才清除。检查点写盘失败时同 attempt 也不得发下次模型请求或新工具；finish 将不确定派发保留为 uncertainDispatches。任何恢复都不清此账目以换取可运行。
 
+Runtime SDK 的 `model.checkpoint` 是 Tool Result 应用后的关键提交 Seam，失败进入结构化 failed 终态，不能被展示层 lifecycle observer 的容错吞掉；终止工具同样先提交 checkpoint 再返回 stopped。桌面各 Provider Adapter 在此保存原生格式，展示投影继续使用非关键 observer。
+
 检查点不授予权限。恢复后的新动作继续经过 Projection、PermissionGrant 和 Evidence；撤回或过期授权按原路径拒绝。已发生但结果不明的写操作不能自动或普通手动重放，必须先核对实际结果；无法核对时具体交接。
 
 ### 20.6 用户表达
@@ -635,6 +637,6 @@ RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请�
 
 ### 20.7 实施卡 R88-09
 
-级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
+级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Runtime SDK pipeline contract/checkpoint 和测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
 
 必须验证：19 个结果后断线继续而不重做；4 次物理派发有界并实际扣预算；当前请求 partial 不重放；新输入独立执行；手动/timer 竞争幂等；重启保留预约且原输入不重入队；旧预约/暂停/取消/租约/预算阻断；checkpoint 失败和未知写结果不重放；权限仍校验；原生 provider/model 不兼容拒绝；已提交回复只补交付。UI Capture/逐张 AI 审查/Verify 后交付，明确自审、真实 Provider 和安装版本覆盖限制。
