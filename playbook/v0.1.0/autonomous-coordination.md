@@ -5,7 +5,7 @@
 
 负责人：用户。设计依据：用户要求并行自主调度，并明确主 Bot 可识别补充/纠正、取消错误执行和重派；[ADR 91](../../knowledge/decisions/91-project-bot-autonomous-coordination.md) Accepted。
 
-状态：设计已记录，实施未开始。本轮交付知识设计；不得把此卡或 Accepted 状态当作实现、测试或发布完成。
+状态：实施中。2026-10-10 用户明确授权“按照这个思路来实施”；按 R91-01 至 R91-05 顺序推进。已推送 ADR 91 / 知识 PR #33 是本次批准的设计依据，允许从已合入 RC11 的 clean HEAD 建逐卡堆叠 PR；后续卡可沿前卡已推送提交继续，合入时按依赖顺序。实施授权不等于测试或发布完成，不自动合并或发布 RC。
 
 级别：A/B/C。依赖：已发布 RC11 的 ADR 88/89 连续执行与双向通信、现有能力代理链、宿主租约、GoalPlan、验证与结果政策。
 
@@ -61,3 +61,13 @@
 ## 6. 本轮设计交付
 
 完整 ADR 已覆盖主 Bot 自主选择推进方式与取消重派、原目标授权、输入路由、短片段、公平资源、双向通信、版本交接、未知结果和验收矩阵。与 ADR 80/89 的覆盖关系已登记。运行时代码和产品验收未开始。
+
+## 7. 实施前补充定位与接口收敛
+
+- `runner-coordination.start` 当前会暂停其他 runnable/retry_wait work；稳定目标身份和每次协调回合必须分开，新输入不自动停止独立目标。
+- `session-supervisor.cancelLocked` 在全实例 exclusive 队列内等待执行 idle；取消请求登记与异步收尾拆开，避免 A 的停止挡住 B 的调度/通信。
+- R91-01 在既有 coordination journal/reducer 上增加目标、命令与 transition 记录；目标完成状态仍来自 GoalPlan。Protocol 用 `delegation-coordination.ts` 与必要出口，不新增存储路径。
+- 模型命令不携带宿主权限、执行 epoch 或签发 mandate；受信的授权/材料/任务身份由 Provider 与宿主端口装配。纯内核只接纳结构化命令并输出 effect 描述，执行仍由既有能力入口负责。
+- R91-02 安全让出利用已有 providerCheckpoint 与 slice budget；进入内层执行 pipeline，已调用但结果未知的操作继续遵守恢复闸门。
+
+本节在实现前记录，后续按卡补充实际提交、命令结果与覆盖限制。
