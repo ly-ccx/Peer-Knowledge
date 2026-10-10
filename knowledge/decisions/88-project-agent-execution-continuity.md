@@ -639,6 +639,8 @@ Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result �
 
 主对话保留已公开的进展。正在实际重试时表达“连接暂时中断，我会接着刚才的进度继续”；预约耗尽后表达“连接还没有恢复，已有进展已保留。你可以继续尝试，也可以先发新消息”。按钮称“继续尝试”，不暗示原消息重新发送。认证、预算、未知执行结果各有对应说明；技术错误留在回复详情。不存在实际预约时不显示仍在恢复。
 
+历史无 turnId 的回复只在同一用户输入边界内兼容关联最近过程；新的 user_input 清空 legacy fallback。明确 turnId 的恢复回复仍按真实身份关联，不因排序变化丢掉过程。标准恢复夹具暴露了旧关联跨新用户输入的缺口，此项 C 级修复避免将旧工作工具记录挂到后续无关回复，不改写历史存储。
+
 ### 20.7 实施卡 R88-09
 
 级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Runtime SDK pipeline contract/checkpoint 和测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；TUI Turn Executor 的关键 checkpoint 装配与测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
