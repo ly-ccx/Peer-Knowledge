@@ -1,0 +1,41 @@
+{
+  "version": "0.1.0-rc.9",
+  "scope": "Read-only mount of actual published DMG; embedded application signature/notarization and app.asar matches ZIP",
+  "commands": [
+    {
+      "name": "read-only mount",
+      "status": 0,
+      "output": "正在检查“Protective Master Boot Record (MBR : 0)”的校验和…\nProtective Master Boot Record (MBR :：已验证CRC32 $78972436\n正在检查“GPT Header (Primary GPT Header : 1)”的校验和…\n GPT Header (Primary GPT Header : 1)：已验证CRC32 $0B76415A\n正在检查“GPT Partition Data (Primary GPT Table : 2)”的校验和…\nGPT Partition Data (Primary GPT Tabl：已验证CRC32 $AB335F3F\n正在检查“ (Apple_Free : 3)”的校验和…\n                    (Apple_Free : 3)：已验证CRC32 $00000000\n正在检查“disk image (Apple_HFS : 4)”的校验和…\n          disk image (Apple_HFS : 4)：已验证CRC32 $9D8F6204\n正在检查“ (Apple_Free : 5)”的校验和…\n                    (Apple_Free : 5)：已验证CRC32 $00000000\n正在检查“GPT Partition Data (Backup GPT Table : 6)”的校验和…\nGPT Partition Data (Backup GPT Table：已验证CRC32 $AB335F3F\n正在检查“GPT Header (Backup GPT Header : 7)”的校验和…\n  GPT Header (Backup GPT Header : 7)：已验证CRC32 $23B40FAC\n已验证CRC32 $D15185D9\n/dev/disk5          \tGUID_partition_scheme          \t\n/dev/disk5s1        \tApple_HFS                      \t/private<assets>/dmg-mount\nhdiutil: WARNING: 'hdiutil attach -readonly -nobrowse -mountpoint ...' is deprecated. Please use 'diskutil image attach --readOnly --mountOptions nobrowse --mountPoint ...' instead."
+    },
+    {
+      "name": "DMG strict application signature",
+      "status": 0,
+      "output": ""
+    },
+    {
+      "name": "DMG Developer ID",
+      "status": 0,
+      "output": "Executable=/private<assets>/dmg-mount/Peer Agent.app/Contents/MacOS/Peer Agent\nIdentifier=com.peeragent.desktop\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=641 flags=0x10000(runtime) hashes=9+7 location=embedded\nVersionPlatform=1\nVersionMin=786432\nVersionSDK=1704448\nHash type=sha256 size=32\nCandidateCDHash sha256=47380b73a63d1ba2f70cf0f0749ec2b7a26b018b\nCandidateCDHashFull sha256=47380b73a63d1ba2f70cf0f0749ec2b7a26b018bbc58dee4c8036140384ab16b\nHash choices=sha256\nCMSDigest=47380b73a63d1ba2f70cf0f0749ec2b7a26b018bbc58dee4c8036140384ab16b\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=47380b73a63d1ba2f70cf0f0749ec2b7a26b018b\nSignature size=9033\nAuthority=Developer ID Application: Xu Chu (82672N97RP)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Oct 8, 2026 at 17:03:41\nNotarization Ticket=stapled\nInfo.plist entries=32\nTeamIdentifier=82672N97RP\nRuntime Version=26.2.0\nSealed Resources version=2 rules=13 files=52\nInternal requirements count=1 size=184\nTotal signatures=1\nChosen signature=1"
+    },
+    {
+      "name": "DMG stapled ticket",
+      "status": 0,
+      "output": "Processing: <assets>/dmg-mount/Peer Agent.app\nThe validate action worked!"
+    },
+    {
+      "name": "DMG Gatekeeper",
+      "status": 0,
+      "output": "<assets>/dmg-mount/Peer Agent.app: accepted\nsource=Notarized Developer ID\norigin=Developer ID Application: Xu Chu (82672N97RP)"
+    },
+    {
+      "name": "unmount",
+      "status": 0,
+      "output": "\"disk5\" ejected.\nhdiutil: WARNING: 'hdiutil detach ...' is deprecated. Please use 'diskutil eject ...' instead."
+    }
+  ],
+  "appAsarSha256": "bc0408941e53b054e07e8d1179a0770fbf72cbff510501c1a51e2ed49eb725fb",
+  "zipAndDmgApplicationMatch": true,
+  "ok": true,
+  "unmounted": true,
+  "checkedAt": "2026-10-08T09:13:29.650Z"
+}

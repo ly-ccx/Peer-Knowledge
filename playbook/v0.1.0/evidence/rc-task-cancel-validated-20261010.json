@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-10",
+  "card": "rc-task-cancel",
+  "classification": "C",
+  "sourceHead": "78965d80187633f414142431270176cae5a4db6d",
+  "pullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/136",
+  "productionRoute": "Renderer client API -> existing project-agent:cancel-session IPC -> Application Service -> Session Supervisor",
+  "beforeFix": {
+    "sourceHead": "013a0a17d644d491f59a07471ee85598ccda372b",
+    "actualCancelButtons": 0,
+    "expectedCancelButtons": 1,
+    "sourceElectron": true
+  },
+  "product": {
+    "status": "passed",
+    "runId": "c8433f3e-ed2b-404e-913d-0bb3250dcd1f",
+    "sourceFingerprint": "527e65b263edc2ff63fe1d48eb68a20d958614edad00fb365dad5e9269188b14",
+    "reviewedAt": "2026-10-09T17:17:38.706Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review; all 118 required screenshots visually inspected",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 118,
+    "review": "rc-task-cancel-product-review-20261010.json",
+    "taskCancellation": {
+      "directWaitingAction": true,
+      "keyboard": true,
+      "detailAction": true,
+      "sharedPending": true,
+      "failureRetry": true,
+      "latestReceipt": true,
+      "noDuplicate": true,
+      "unrelatedPreserved": true,
+      "narrowFits": true,
+      "focusReturned": true
+    },
+    "pageErrors": [],
+    "mainAuthorizationErrors": [],
+    "ownedProcessExited": true
+  },
+  "localGates": {
+    "build": "passed",
+    "typecheck": "passed",
+    "architectureCheck": "passed",
+    "desktop": {
+      "total": 5433,
+      "passed": 5428,
+      "skipped": 5,
+      "failed": 0
+    },
+    "i18n": {
+      "passed": 1,
+      "failed": 0
+    },
+    "runtimeNode": {
+      "passed": 1129,
+      "failed": 0
+    },
+    "focused": {
+      "passed": 88,
+      "failed": 0
+    },
+    "productGateTests": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "ci": {
+    "conclusion": "success",
+    "headSha": "78965d80187633f414142431270176cae5a4db6d",
+    "jobs": [
+      {
+        "completedAt": "2026-10-09T17:22:45Z",
+        "conclusion": "success",
+        "databaseId": 113934048232,
+        "name": "ci-macos-14",
+        "startedAt": "2026-10-09T17:08:24Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-09T17:08:27Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-09T17:08:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:31Z",
+            "conclusion": "success",
+            "name": "Checkout",
+            "number": 2,
+            "startedAt": "2026-10-09T17:08:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:36Z",
+            "conclusion": "success",
+            "name": "Setup pnpm",
+            "number": 3,
+            "startedAt": "2026-10-09T17:08:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:49Z",
+            "conclusion": "success",
+            "name": "Setup Node",
+            "number": 4,
+            "startedAt": "2026-10-09T17:08:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:49Z",
+            "conclusion": "success",
+            "name": "Require Node >= 24",
+            "number": 5,
+            "startedAt": "2026-10-09T17:08:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:52Z",
+            "conclusion": "success",
+            "name": "Setup Bun",
+            "number": 6,
+            "startedAt": "2026-10-09T17:08:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:59Z",
+            "conclusion": "success",
+            "name": "Setup Rust",
+            "number": 7,
+            "startedAt": "2026-10-09T17:08:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:59Z",
+            "conclusion": "skipped",
+            "name": "Install Linux credential-helper build deps",
+            "number": 8,
+            "startedAt": "2026-10-09T17:08:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:09:02Z",
+            "conclusion": "success",
+            "name": "Install dependencies",
+            "number": 9,
+            "startedAt": "2026-10-09T17:08:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:09:48Z",
+            "conclusion": "success",
+            "name": "Build",
+            "number": 10,
+            "startedAt": "2026-10-09T17:09:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:10:08Z",
+            "conclusion": "success",
+            "name": "Typecheck",
+            "number": 11,
+            "startedAt": "2026-10-09T17:09:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:10:10Z",
+            "conclusion": "success",
+            "name": "Architecture check",
+            "number": 12,
+            "startedAt": "2026-10-09T17:10:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:12:27Z",
+            "conclusion": "success",
+            "name": "Test",
+            "number": 13,
+            "startedAt": "2026-10-09T17:10:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:18Z",
+            "conclusion": "success",
+            "name": "Bot shell Electron smoke (macOS)",
+            "number": 14,
+            "startedAt": "2026-10-09T17:12:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:18Z",
+            "conclusion": "skipped",
+            "name": "Bot shell Electron smoke (Linux)",
+            "number": 15,
+            "startedAt": "2026-10-09T17:22:18Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:38Z",
+            "conclusion": "success",
+            "name": "Preserve bot shell report",
+            "number": 16,
+            "startedAt": "2026-10-09T17:22:18Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:38Z",
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "number": 29,
+            "startedAt": "2026-10-09T17:22:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:38Z",
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "number": 30,
+            "startedAt": "2026-10-09T17:22:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:38Z",
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "number": 31,
+            "startedAt": "2026-10-09T17:22:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:39Z",
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "number": 32,
+            "startedAt": "2026-10-09T17:22:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:22:42Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 33,
+            "startedAt": "2026-10-09T17:22:39Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37964118366/job/113934048232"
+      },
+      {
+        "completedAt": "2026-10-09T17:20:19Z",
+        "conclusion": "success",
+        "databaseId": 113934048412,
+        "name": "ci-ubuntu-latest",
+        "startedAt": "2026-10-09T17:08:19Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-09T17:08:22Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-09T17:08:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:24Z",
+            "conclusion": "success",
+            "name": "Checkout",
+            "number": 2,
+            "startedAt": "2026-10-09T17:08:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:29Z",
+            "conclusion": "success",
+            "name": "Setup pnpm",
+            "number": 3,
+            "startedAt": "2026-10-09T17:08:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:38Z",
+            "conclusion": "success",
+            "name": "Setup Node",
+            "number": 4,
+            "startedAt": "2026-10-09T17:08:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:38Z",
+            "conclusion": "success",
+            "name": "Require Node >= 24",
+            "number": 5,
+            "startedAt": "2026-10-09T17:08:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:39Z",
+            "conclusion": "success",
+            "name": "Setup Bun",
+            "number": 6,
+            "startedAt": "2026-10-09T17:08:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:40Z",
+            "conclusion": "success",
+            "name": "Setup Rust",
+            "number": 7,
+            "startedAt": "2026-10-09T17:08:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:48Z",
+            "conclusion": "success",
+            "name": "Install Linux credential-helper build deps",
+            "number": 8,
+            "startedAt": "2026-10-09T17:08:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:08:50Z",
+            "conclusion": "success",
+            "name": "Install dependencies",
+            "number": 9,
+            "startedAt": "2026-10-09T17:08:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:09:50Z",
+            "conclusion": "success",
+            "name": "Build",
+            "number": 10,
+            "startedAt": "2026-10-09T17:08:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:10:15Z",
+            "conclusion": "success",
+            "name": "Typecheck",
+            "number": 11,
+            "startedAt": "2026-10-09T17:09:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:10:17Z",
+            "conclusion": "success",
+            "name": "Architecture check",
+            "number": 12,
+            "startedAt": "2026-10-09T17:10:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:12:28Z",
+            "conclusion": "success",
+            "name": "Test",
+            "number": 13,
+            "startedAt": "2026-10-09T17:10:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:12:28Z",
+            "conclusion": "skipped",
+            "name": "Bot shell Electron smoke (macOS)",
+            "number": 14,
+            "startedAt": "2026-10-09T17:12:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:02Z",
+            "conclusion": "success",
+            "name": "Bot shell Electron smoke (Linux)",
+            "number": 15,
+            "startedAt": "2026-10-09T17:12:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:16Z",
+            "conclusion": "success",
+            "name": "Preserve bot shell report",
+            "number": 16,
+            "startedAt": "2026-10-09T17:20:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:16Z",
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "number": 29,
+            "startedAt": "2026-10-09T17:20:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:16Z",
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "number": 30,
+            "startedAt": "2026-10-09T17:20:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:16Z",
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "number": 31,
+            "startedAt": "2026-10-09T17:20:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:17Z",
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "number": 32,
+            "startedAt": "2026-10-09T17:20:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-09T17:20:17Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 33,
+            "startedAt": "2026-10-09T17:20:17Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/37964118366/job/113934048412"
+      }
+    ],
+    "status": "completed"
+  },
+  "ciCancellation": {
+    "macos": {
+      "directWaitingAction": true,
+      "keyboard": true,
+      "detailAction": true,
+      "sharedPending": true,
+      "failureRetry": true,
+      "latestReceipt": true,
+      "noDuplicate": true,
+      "unrelatedPreserved": true,
+      "narrowFits": true,
+      "focusReturned": true
+    },
+    "linux": {
+      "directWaitingAction": true,
+      "keyboard": true,
+      "detailAction": true,
+      "sharedPending": true,
+      "failureRetry": true,
+      "latestReceipt": true,
+      "noDuplicate": true,
+      "unrelatedPreserved": true,
+      "narrowFits": true,
+      "focusReturned": true
+    }
+  },
+  "priorCheckFailures": [
+    {
+      "stage": "product-v1",
+      "reason": "Checker clicked already-open disclosure and hid the direct action",
+      "accepted": false
+    },
+    {
+      "stage": "product-v2",
+      "reason": "Historical focus check expected one button after a second real action was added",
+      "accepted": false
+    },
+    {
+      "stage": "CI Linux on 03ddbbf0",
+      "runId": 37962108588,
+      "reason": "New checker waited for innerText of task rows hidden by a closed outer disclosure",
+      "fixedBy": "78965d80"
+    }
+  ],
+  "limits": [
+    "Window cancellation uses controlled receipts at the Application Service seam; actual durable host cancellation tested separately in Supervisor",
+    "Implementation screenshot self-review, independent=false",
+    "No installed RC, real-model quality, full screen-reader or long-duration acceptance",
+    "Transparent light Quick Chat screenshot does not establish OS-composited contrast",
+    "Personal user task data was not changed; RC10 does not include this PR"
+  ]
+}

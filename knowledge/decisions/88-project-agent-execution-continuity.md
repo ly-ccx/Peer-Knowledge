@@ -1,7 +1,7 @@
 # 88 项目代理连续执行与结果交付方案
 
 创建时间：2026-10-07
-最后更新：2026-10-07
+最后更新：2026-10-10（补充 §20 请求失败恢复契约）
 
 状态：Accepted。2026-10-07 仓库所有者明确批准本方案并授权实施。以下契约按 R88-01 至 R88-08 逐项落地；批准不代表实现或验收已完成，也不改变已有 ADR 的 Accepted 状态。
 
@@ -592,3 +592,75 @@ DeepSeek 同一候选的四场景只有后两项通过：插话 95.731 秒、中
 隔离降级使用 immutable `v0.1.0-rc.6`（`f0b9b14eb7cc410e8f2ce9ec51e8f755b269093a`）Store 与同版本依赖，证实旧 Store 读取 model_review 会降为 manual，旧写入会丢 authority 与工作绑定。演练本身通过，新数据保留可读；结论是直接降级不安全。回退只能按第 16 节使用升级前兼容备份，另外保留新账本与产物，不能只关闭开关后让旧版本改写真数据。未执行旧安装客户端的 GUI 降级验收。
 
 本次安装构建覆盖 macOS arm64 的本地打包候选和冷启动/执行中重启，采用 ad-hoc 签名；未替换 Applications 安装，未做正式证书签名、公证或发布。未覆盖 Windows/Linux 安装、完整屏幕阅读器、长期运行以及跨供应商 verifier 独立性。没有部署定时或无人值守 AI 审查服务；产品图片的 AI 审查在本次工作中实际完成。上述真实 Provider 失败和缺失覆盖仍保留，正式 RC 发布不得把本机验收摘要当作已完成这些门禁。
+
+## 20 请求失败后的完整恢复方案（2026-10-10）
+
+状态：Accepted。用户在确认根因及修复方向后明确要求“落成完整的方案，然后实施落地”。本节扩展恢复契约；实现与验收另记录，不以批准代替完成。
+
+### 20.1 已确认的事实
+
+RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请求在等待响应头时失败，诊断为 `connect timeout after 20000ms (ConnectTimeoutError)`。完整原生工具消息已写入 native checkpoint，但工作停在没有预约的 `retry_wait`。内存 `failedJob` 在熔断器 closed 时挡住 kick 和新输入；手动重试使用新鲜 job 而未装入原生 checkpoint，重启可能把原输入重新入队。实际物理网络重试没有完整遥测，不能把 7 个请求说成 7 次重试，也不能从该错误定位具体 DNS、TLS、代理或上游故障。
+
+### 20.2 请求层的唯一重试所有者
+
+受管模型请求在 canonical provider request seam 内执行最多 4 次真实派发，退避沿用 500/1500/3000ms。每次实际派发前检查取消与工作预算并扣请求计数；真实 usage 按返回事实结算，缺失保持 unknown。逻辑 round 不因 HTTP 重试增加。压缩请求也使用同一预算入口。
+
+受管请求关闭 transport、Responses wrapper 与外层整轮 recovery 的重复重试。经典路径没有工作预算时仍经过同一请求政策；非模型 transport 的原有接口保持兼容。当前请求已出现正文、推理或工具意图时禁止静默重放；先前请求已确认的工具结果不阻止下一请求恢复。
+
+保留 ADR30/83 已有的明确域名/security-gateway 阻断路由政策：无公开输出、无已执行工具、无受保护 native checkpoint 时，403 加明确路由阻断诊断可尝试既有授权候选；默认同模型，角色显式候选池沿原授权范围。普通认证 403、网络失败、429/5xx 不因此开放外层整轮重试；同 Provider 的重试仍只归 canonical request 所有。每个候选的实际派发均受原工作预算。不能把恢复历史换到另一 Provider/model。
+
+当前请求存在 partial output、`replaySafe=false` 时，工作层也不自动预约相同请求，防止换一个恢复层绕过安全门。保留公开进展和工具结果，用户明确“继续尝试”后才从已确认检查点继续；普通按钮仍不能重复未知副作用。
+
+响应头等待与流式中断分别分类。现有 20 秒 time-to-headers 和 120 秒 stream idle 默认值保持有界；不靠无界放宽超时掩盖恢复缺口。抛出的异常和返回的 HTTP/stream failure 进入同一宿主分类。取消、认证/权限、参数或格式、预算、证书配置、结果不明不能按普通网络错误自动重试；429、5xx 和可恢复网络失败可以按政策恢复。Provider/model 原生历史的身份兼容仍由 Encoder/Loop 强制。
+
+### 20.3 工作恢复的持久身份
+
+`ProjectWorkReceipt.schemaVersion=1` 增加可选 `recovery`：typed failureKind、retryable、autoAttempts、failedTurnId、retryAt、reservationId 和恢复周期的截止时间。旧记录可读；缺预约的旧 `retry_wait` 不在启动时盲目重放。明确手动恢复可根据已保存的工作与工具账目补预约或直接继续。
+
+同 work 自动恢复最多再试两次，延迟 2 秒、5 秒，自动恢复预约的启动窗口最长 5 分钟；开始后的请求和工具仍受各自超时、工作预算及取消约束。手动恢复可开启新有界周期，但绝不清除工作预算、unknown usage、pendingTools 或 uncertainDispatches。`retryAt` 是时间真源，`waitFor.retry_timer.id` 绑定同一 reservationId。start 原子消费匹配预约；状态、revision、租约或预约变化后旧 timer 失效。暂停、取消、预算耗尽或失去租约时不执行。额度耗尽后，只有宿主实际提高限制且原有计数及 unknown 账目仍满足新限制，才允许手动继续。
+
+自动、手动和重启共用 `turnId → workId → 最新 durable job/native checkpoint` 的恢复入口。旧 turn 不能恢复另一件工作。所有 completed Tool Call/Result 对和受保护的 provider history 保留，继续下一请求；摘要只作辅助。恢复已有交付提交时只补交付/签收，不再请求模型。没有可验证的原生检查点且曾执行工具时，明确交接，不默默重放整件事。主检查点和 native 文件必须实际读取验证；缺失或损坏时撤销预约，以可选 typed `recovery.blockedCode=RECOVERY_CHECKPOINT_UNAVAILABLE` 表达阻碍，并保留旧检查点与结果账目。恢复读取失败不能写入空 rounds，使下一次手动恢复误判为从未执行工具。
+
+### 20.4 调度与新输入
+
+新用户输入优先于到期自动恢复和普通 wake，独立建立新责任，不继承旧 checkpoint。旧网络失败不能挡住入队或模型调度；现有新目标对旧责任的暂停规则扩展到 retry_wait，阻止旧恢复突然插入新目标。不是用户输入的结果事件保留原责任并按既有优先级处理。
+
+宿主 pending input 回放排除已由 coordination anchorInputIds 持有的输入，不将失败原输入再当新工作。工作恢复不使用裸 enqueue 原文本的逃生路径。重复按钮、timer 与 sync 竞争时，同 work 只有一个 active attempt；拒绝码如 EXECUTION_OUTCOME_UNKNOWN、STALE_TURN 保留到表达层。
+
+同样，协调账本已由 work 的 pendingEventIds/consumedEventIds 持有的旧事件不能再组成新的 wake job。失败、预约等待、暂停或预算受限时，原事件只通过该 work 的检查点恢复入口继续；启动或普通 kick 不能以“事件未 handled”为理由绕过预约、用户意图和原生历史。新的独立事件仍可唤醒，新用户输入仍优先。产品夹具必须保留旧事件未 handled 的真实失败窗口，不能提前标记 handled 来掩盖这条边界。
+
+### 20.5 工具和权限边界
+
+工具派发先记录 pendingTools，Tool Result 应用并原生 checkpoint 持久化成功才清除。检查点写盘失败时同 attempt 也不得发下次模型请求或新工具；finish 将不确定派发保留为 uncertainDispatches。任何恢复都不清此账目以换取可运行。
+
+Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result 应用后的关键提交 Seam，失败进入结构化 failed 终态，不能被展示层 lifecycle observer 的容错吞掉；终止工具同样先提交 checkpoint 再返回 stopped。桌面各 Provider Adapter 与 TUI 在此保存原生格式，展示投影继续使用非关键 observer。写盘成功只清除具有明确配对结果的 pendingTools；结构化 `execution_outcome_unknown` 或 `cancelled_outcome_unknown` 的工具结果仍保留不确定账目，不能将错误记录当成副作用已确认。
+
+检查点不授予权限。恢复后的新动作继续经过 Projection、PermissionGrant 和 Evidence；撤回或过期授权按原路径拒绝。已发生但结果不明的写操作不能自动或普通手动重放，必须先核对实际结果；无法核对时具体交接。
+
+### 20.6 用户表达
+
+主对话保留已公开的进展。正在实际重试时表达“连接暂时中断，我会接着刚才的进度继续”；预约耗尽后表达“连接还没有恢复，已有进展已保留。你可以继续尝试，也可以先发新消息”。按钮称“继续尝试”，不暗示原消息重新发送。认证、预算、未知执行结果各有对应说明；技术错误留在回复详情。不存在实际预约时不显示仍在恢复。
+
+历史无 turnId 的回复只在同一用户输入边界内兼容关联最近过程；新的 user_input 清空 legacy fallback。明确 turnId 的恢复回复仍按真实身份关联，不因排序变化丢掉过程。标准恢复夹具暴露了旧关联跨新用户输入的缺口，此项 C 级修复避免将旧工作工具记录挂到后续无关回复，不改写历史存储。
+
+### 20.7 实施卡 R88-09
+
+级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Runtime SDK pipeline contract/checkpoint 和测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；TUI Turn Executor 的关键 checkpoint 装配与测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
+
+必须验证：19 个结果后断线继续而不重做；4 次物理派发有界并实际扣预算；当前请求 partial 不重放；新输入独立执行；手动/timer 竞争幂等；重启保留预约且原输入不重入队；旧预约/暂停/取消/租约/预算阻断；checkpoint 失败和未知写结果不重放；权限仍校验；原生 provider/model 不兼容拒绝；已提交回复只补交付。UI Capture/逐张 AI 审查/Verify 后交付，明确自审、真实 Provider 和安装版本覆盖限制。
+
+### 20.8 R88-09 实施与验收记录
+
+代码交付为 [PR #138](https://github.com/ly-ccx/Peer-Agent/pull/138)，最终源码 `28ddb755f3069ca68f2ccd8d7250f0c868347894`。实现覆盖第 20 节的请求、工作、调度、检查点和表达契约；没有改动 RC 版本、安装应用、用户真实工作账本或历史消息。架构影响为 A 级可选持久恢复字段及关键 checkpoint seam，包含 B 级宿主调度与请求装配、C 级表达；Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence 链和存储根保持现有边界。
+
+独立代码审查发现并复核修正了未知工具结果误清派发、损坏或缺失检查点的历史保留、手动继续与新输入竞争。产品集成又复现了旧 wake 事件绕过恢复预约的窗口，修正后经同一独立审查者复核。旧事件仍保留未 handled，使用工作归属排除新的 wake 派发；新独立事件继续可执行。产品夹具另修正了屏幕外重复打开详情、旧无持久工作种子和缺原生结果的直接认知夹具，未通过放宽生产门禁或提前 handled 事件让验收通过。
+
+本机 `pnpm build`、最终 `pnpm typecheck`、`pnpm architecture:check` 与产品审查 gate 6/6 通过。此前完整 `pnpm test` 为 8189 passed、5 项现有跳过、0 fail/cancel；最终调度变化再运行 Runtime 全包 1154/1154，独立恢复与持久夹具集成 25/25 通过。Desktop 后续全包曾有一项通知风暴测试跨越真实时钟窗口而失败；按仓库要求隔离重跑该文件 14/14 通过，保留原失败日志，不将它抹成全包首次成功。
+
+两个完整流式交互变体（带后台工作及默认模式）均通过：partial 失败没有自动整轮重放；显式继续装入原生 ToolCall/Result，已完成 read_file 只派发一次，回复只交付一次；持久 wake 从原事件批次继续，原预算 12 增至 13 而非清零。独立于 UI 截图包的权限组合集成重建 runner/store 并实际读盘恢复，再发出新的 local.file.read，覆盖有效授权、once、full_local 撤回至 ask_before_local 后拒绝新请求，以及真实 one-time book 的过期拒绝。调用仍经过生产 Projection、Runtime SDK、Desktop permission gate 和新 grant/Evidence；未投影能力在 Projection 返回拒绝 Evidence，不进入 PermissionGrant 或 provider。权限 gate/book 留在注入宿主内存中，未覆盖完整应用进程重启或真实模型权限弹窗。
+
+标准 Capture v5 的独立逐图审查保留两处未通过：任务展开动画尚未结束时拍到半行文字，以及默认 surface screenshot 临时清掉真实鼠标的 hover 状态而漏拍详情入口。定向红绿实验确认两者是采集问题；最终只修正回归脚本，分别等待实际有限动画结束并断言文字被父层完整容纳、使用实际视图截图并断言捕获前后 hovered/opacity/几何/滚动位置保持及原生 DPR 下完整视口尺寸。未修改生产 CSS、强制显示按钮或减弱验收断言。v5 没有作为通过包交付。
+
+最终标准 Capture v6 的 runId 为 `0d177b39-8ea7-47bd-aa47-93b3862018de`，源码指纹 `df41481800b5b9895d7ee755d2f407bdabfffaffe02a4d1f57001fc2c6d0facf`。隔离 Electron 的 main、selection、shared 三段通过，page/authorization errors 为 0，三个 owned process 正常退出。六类恢复状态覆盖深浅主题共 12 张；机器证据核对公开进展保留、实际预约、旧状态退出、unknown 和 missing checkpoint 不重放。未参与实现的 AI 审查者重新逐张查看全部 127 张截图，127/127 pass，两处 v5 blocker 在新像素中确认解决，reviewer.independent=true。正式 Verify 在 `2026-10-10T06:07:59.263Z` 通过，绑定相同 runId、源码指纹和截图哈希。最终源码双平台完整 CI [38029282618](https://github.com/ly-ccx/Peer-Agent/actions/runs/38029282618) 的 macOS/Linux 构建、类型、架构、全套测试及 Electron smoke 均通过。
+
+覆盖限制：认知、原生 provider history 和工具内容为受控夹具；请求网络使用 loopback/fake fetch。没有真实 Provider、真实网络恢复、已安装应用、完整屏幕阅读器或长期运行验收。Quick Chat 的透明 PNG 不足以确认原生透明背景对比度；侧栏旧失败摘要表达是本轮未修改的相邻限制。不会把受控交互、独立代码审查或机器断言称为真实模型质量验收或定时无人值守 AI 审查。

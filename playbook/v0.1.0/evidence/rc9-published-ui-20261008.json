@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.9",
+  "scope": "Unmodified downloaded signed Mac application with isolated data/profile and synthetic history/memory; no live credentials, tool execution or long-term acceptance.",
+  "startedAt": "2026-10-08T09:13:23.271Z",
+  "checks": [
+    "52px header with SVG Bot settings entry opens Settings directly",
+    "Overview and saved Memory remain readable in right sidebar",
+    "Chat uses named Bot composer and contained synthetic assistant replies; real-turn details/streaming are covered by source packet, not this seed",
+    "Published RC9 updater checks real Beta feed with no downgrade offered"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    {
+      "name": "signed-bot-settings.png",
+      "sha256": "ccc9556c6bf49155f7500fd36c2f13f95a42344aa1d49f7eb72ed9413de3dc67"
+    },
+    {
+      "name": "signed-bot-overview.png",
+      "sha256": "a58b8a272310333f97afb9d97b2ddc8b9d15b7c2f39f8884b03bdd968153ed63"
+    },
+    {
+      "name": "signed-bot-memory.png",
+      "sha256": "0e8880a4654926e95059c723a230826a38c84827229483425898fd6c3c278c48"
+    },
+    {
+      "name": "signed-chat.png",
+      "sha256": "0f5560f80b688f74eeb7a475c3aaf26a77390f0625657aa9c4d909b50bdfa9fe"
+    }
+  ],
+  "userInstalledAppOrDataModified": false,
+  "main": {
+    "version": "0.1.0-rc.9",
+    "packaged": true,
+    "isolatedHome": "<isolated-published-ui>/data",
+    "chromiumProfile": "/private<isolated-published-ui>/chromium"
+  },
+  "initialScreen": {
+    "url": "file:///private<assets>/mac/Peer%20Agent.app/Contents/Resources/app.asar/dist/index.html",
+    "text": "Peer Agent\nPeer Agent"
+  },
+  "headerHeight": 52,
+  "updaterStatus": {
+    "currentVersion": "0.1.0-rc.9",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "not-available"
+  },
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-08T09:13:32.789Z",
+  "visualReview": {
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex RC9 published Mac visual review",
+      "independent": false
+    },
+    "actuallyViewedScreenshots": 4,
+    "observations": [
+      {
+        "name": "signed-chat.png",
+        "observation": "RC9 footer visible; 52px header with named bot and Bot settings action. Assistant bubbles and composer share the left edge after sidebar closure. Details links sit below bubbles; composer remains within the window with no overlap."
+      },
+      {
+        "name": "signed-bot-settings.png",
+        "observation": "Bot settings opens directly to active Settings tab in right sidebar. Model roles and appearance are grouped in bordered sections; message column and composer contract to the same width. No clipping of names or selectors."
+      },
+      {
+        "name": "signed-bot-overview.png",
+        "observation": "Overview displays bot identity, bound folder and empty active-task state before compact policy information. Long fixture path is contained with ellipsis; sidebar close control and tabs stay visible."
+      },
+      {
+        "name": "signed-bot-memory.png",
+        "observation": "Memory filters align in the sidebar; three saved synthetic entries have rectangular cards, consistent radii, SVG disclosures and readable actions. Pagination remains at the sidebar footer, without covering the composer."
+      }
+    ],
+    "blockingFindings": [],
+    "limits": [
+      "Synthetic history and memory; no live model response acceptance",
+      "Four key installed Mac views; does not repeat all 95 source scenarios",
+      "No interactive Windows/Linux installation or full screen-reader acceptance"
+    ]
+  }
+}

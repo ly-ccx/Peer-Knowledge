@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.10",
+  "scope": "Unmodified downloaded signed Mac application with isolated data/profile and synthetic history/memory; no live credentials, tool execution or long-term acceptance.",
+  "startedAt": "2026-10-09T13:52:26.191Z",
+  "checks": [
+    "52px header with SVG Bot settings entry opens Settings directly",
+    "Published Bot settings saves a generated-avatar identity color using the real local profile",
+    "Overview and saved Memory remain readable in right sidebar",
+    "Chat uses named Bot composer and contained synthetic assistant replies; real-turn details/streaming are covered by source packet, not this seed",
+    "Signed application renders saved avatar identity tint in actual assistant bubbles",
+    "Published RC10 updater checks real Beta feed with no downgrade offered"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    {
+      "name": "signed-bot-settings.png",
+      "sha256": "f8dd54bac39ac9986b3cf82084c656fe86ac905f244a6bbdc966b3cd4eb4d3f4"
+    },
+    {
+      "name": "signed-bot-overview.png",
+      "sha256": "30879601b5fd2e5f2c65e5809e4903a8209f4e0cbfa9587813230a94389606b1"
+    },
+    {
+      "name": "signed-bot-memory.png",
+      "sha256": "bdc3406cf3419097e059a8cb6449a0be6c9abff72e9c3109b1302daa2c621a39"
+    },
+    {
+      "name": "signed-chat.png",
+      "sha256": "0add5ac164969cc79047cc4f9d08d3f36ec218f04fc5b41a5fd3e7af840971ef"
+    }
+  ],
+  "userInstalledAppOrDataModified": false,
+  "main": {
+    "version": "0.1.0-rc.10",
+    "packaged": true,
+    "isolatedHome": "<temporary-root>/peer-rc10-published-ui4/data",
+    "chromiumProfile": "<temporary-root>/peer-rc10-published-ui4/chromium"
+  },
+  "initialScreen": {
+    "url": "file://<temporary-root>/peer-rc10-assets/mac/Peer%20Agent.app/Contents/Resources/app.asar/dist/index.html",
+    "text": "Peer Agent\nPeer Agent"
+  },
+  "headerHeight": 52,
+  "messageColor": {
+    "accent": "#f36d63",
+    "avatar": "#f36d63",
+    "background": "color(srgb 0.923294 0.852392 0.865882)",
+    "bodyColor": "rgb(26, 29, 33)"
+  },
+  "updaterStatus": {
+    "currentVersion": "0.1.0-rc.10",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "not-available"
+  },
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-09T13:52:36.091Z",
+  "review": {
+    "reviewer": "Codex implementer self-review",
+    "independent": false,
+    "verdict": "pass",
+    "observations": [
+      {
+        "name": "signed-bot-settings.png",
+        "sha256": "f8dd54bac39ac9986b3cf82084c656fe86ac905f244a6bbdc966b3cd4eb4d3f4",
+        "notes": "52px紧凑页头的机器人设置直达设置，模型分工与外观分卡；无模型是隔离初始设置状态，RC10页脚可见。"
+      },
+      {
+        "name": "signed-bot-overview.png",
+        "sha256": "30879601b5fd2e5f2c65e5809e4903a8209f4e0cbfa9587813230a94389606b1",
+        "notes": "保存头像色后左侧列表、消息头像和回复气泡同时变色，概况的文件夹与任务状态清晰；用户气泡保持中性。"
+      },
+      {
+        "name": "signed-bot-memory.png",
+        "sha256": "bdc3406cf3419097e059a8cb6449a0be6c9abff72e9c3109b1302daa2c621a39",
+        "notes": "真实正式包记忆页三条合成事实完整可读，过滤器、详情与编辑动作可见，无横向溢出。"
+      },
+      {
+        "name": "signed-chat.png",
+        "sha256": "0add5ac164969cc79047cc4f9d08d3f36ec218f04fc5b41a5fd3e7af840971ef",
+        "notes": "关闭侧栏后恢复对话宽度；珊瑚色机器人气泡使用柔和对应底色，用户消息中性，输入框和回复列左边线一致。"
+      }
+    ]
+  }
+}
