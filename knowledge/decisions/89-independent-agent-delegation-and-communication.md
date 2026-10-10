@@ -170,3 +170,23 @@ Desktop 与 TUI 共享工具契约和通信 Module。Desktop 具备新动态表�
 回滚只撤新工具投影和动态表达，不删除旧消息、Agent 报告、权限记录或 Evidence。历史通信保留为内部事实。若新上下文来源不可用，工具必须保持结构化失败/排队可查询，不伪装成直接发消息。
 
 首版不做跨 Bot 群聊、任意 Agent 寻址、递归派发、独立可编辑人设、自动扩大权限或运行无限消息循环。这些是独立架构决策，不能随本次 UI 调整隐含加入。
+
+## 12. 落地与验收证据（2026-10-10）
+
+实现代码：[Peer-Agent #139](https://github.com/ly-ccx/Peer-Agent/pull/139)，提交 `fd8160ed3fc51b28a3dbb7b3e709fe42fd4060f6`，PR base 为回复恢复依赖 `codex/reply-recovery`（#138）。实施前 ADR 与卡已提交推送；本次代码没有合并或发布 RC。
+
+已落地：持久工作消息与角色准入、父子双向交付、真实主 Bot 事件唤醒、同计划协调等待/恢复、具名宿主事实动态、连续气泡 8px 间距。Desktop 与 TUI 复用通信 Module；不新增数据库或执行路径。`question` 和 `answer` 不消费真正的人类等待或权限确认。
+
+| 验收项 | 证据与结果 |
+| --- | --- |
+| 真实独立执行与双向工作通信 | 实际 ConversationStore、Inbox、GoalRunner 和 Portable Project Host 集成测试通过；主 Bot 从工作事件唤醒，答复继续同一计划 |
+| 身份与权限边界 | 父子身份、项目、租约、角色、终态拒绝；Provider 的 PermissionGrant / Evidence；经典和临时审查角色投影排除，通过 |
+| 上下文边界 | L7 有界、JSON 引用且未验证的工作事实；普通历史排除内部消息；临时审查不读取正文，通过 |
+| 交付和恢复竞态 | 12 项通信测试包含重复调用、写入后崩溃/重启补偿、宿主未就绪后补偿、人类等待在安全边界到达、新问题/答复在恢复接手中到达不被旧收尾覆盖，通过 |
+| 界面 | 连续进展与恢复气泡实际间距 8px；1280 深色和 760 浅色具名 SVG、稳定身份、任务详情与等待主 Bot/用户区分，通过 |
+| 工程门禁 | `pnpm build`、`pnpm typecheck`、`pnpm architecture:check`、`pnpm test` 全部通过；UI 圆角/SVG 和版本升级矩阵通过 |
+| 产品门禁 | `qa:product:capture`、131 张必查截图逐张查看、绑定源码/截图 SHA 的 `review.json`、`qa:product:verify` 全部通过 |
+
+产品包 runId：`0f19ee48-945f-496c-9e2c-b45eb5ae24b5`；sourceFingerprint：`ddb1862ac7049383e2cb3b68e7067838879a7b51fc1e4e14b96ac942ba67190f`。包在工作机器临时目录保留，不提交机器路径或截图到仓库。审查为实现者自审，`independent=false`。
+
+覆盖限制：受控认知/隔离动态事实、源码 Electron；未做真实模型质量/网络时序、安装 RC、长时间后台或全面屏幕阅读器验收。Agent 执行与通信的真实性另由实际执行器/宿主集成测试证明，截图不单独充当执行证据。Quick Chat 透明 PNG 不能证明原生合成背景对比度；相邻基线侧栏旧失败预览仍有 response 片段，未声称本次修复。

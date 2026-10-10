@@ -33,3 +33,11 @@
 ## 退出条件
 
 ADR §10 矩阵；焦点单测、受影响包、build/typecheck/architecture；产品 capture、逐张观察、review.json、verify。测试与文档同轮 push，交付独立 PR 与明确的覆盖限制。不得将实现自审写成独立审查。
+
+## 完成记录（2026-10-10）
+
+状态：已实现、已验证、已推送，待按依赖顺序审查合入。代码 PR [#139](https://github.com/ly-ccx/Peer-Agent/pull/139)，提交 `fd8160ed3fc51b28a3dbb7b3e709fe42fd4060f6`，base `codex/reply-recovery`。
+
+ADR 89 §12 记录完整验收矩阵与覆盖限制。build、typecheck、architecture:check、全量 test、131 张截图自审与 product verify 通过。产品 runId `0f19ee48-945f-496c-9e2c-b45eb5ae24b5`，sourceFingerprint `ddb1862ac7049383e2cb3b68e7067838879a7b51fc1e4e14b96ac942ba67190f`。
+
+真实模型、安装版、长期后台和全面无障碍尚未验收；未自动合并或发布。原工作区在制文件未修改。
