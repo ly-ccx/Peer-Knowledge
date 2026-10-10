@@ -26,6 +26,8 @@
 
 必要范围扩展（验证前记录）：`packages/protocol/src/task-overview*`、`apps/desktop/electron/main/task-overview-aggregator.mjs`、`scripts/product-regression.mjs`。理由：统一主 Bot 等待状态的操作归属，增加真实工作动态与连续气泡间距的产品验收门禁。
 
+必要范围扩展（模型投影验证前记录）：`apps/tui/src/provider-chat-model.ts`。理由：复用角色画像的通信准入规则，令经典 Goal / Explorer / Verifier 的模型工具投影排除通信能力，执行端身份门禁仍保留；不新增执行路径。
+
 实现按 ADR §8 Module 分工，不扩 god module。任何发现的必要路径扩展先在本卡记录原因再改；不覆盖原工作区未提交修改。
 
 ## 退出条件
