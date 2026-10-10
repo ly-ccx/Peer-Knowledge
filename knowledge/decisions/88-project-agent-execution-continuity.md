@@ -615,9 +615,9 @@ RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请�
 
 `ProjectWorkReceipt.schemaVersion=1` 增加可选 `recovery`：typed failureKind、retryable、autoAttempts、failedTurnId、retryAt、reservationId 和恢复周期的截止时间。旧记录可读；缺预约的旧 `retry_wait` 不在启动时盲目重放。明确手动恢复可根据已保存的工作与工具账目补预约或直接继续。
 
-同 work 自动恢复最多再试两次，延迟 2 秒、5 秒，恢复周期最长 5 分钟；手动恢复可开启新有界周期，但绝不清除工作预算、unknown usage、pendingTools 或 uncertainDispatches。`retryAt` 是时间真源，`waitFor.retry_timer.id` 绑定同一 reservationId。start 原子消费匹配预约；状态、revision、租约或预约变化后旧 timer 失效。暂停、取消、预算耗尽或失去租约时不执行。
+同 work 自动恢复最多再试两次，延迟 2 秒、5 秒，自动恢复预约的启动窗口最长 5 分钟；开始后的请求和工具仍受各自超时、工作预算及取消约束。手动恢复可开启新有界周期，但绝不清除工作预算、unknown usage、pendingTools 或 uncertainDispatches。`retryAt` 是时间真源，`waitFor.retry_timer.id` 绑定同一 reservationId。start 原子消费匹配预约；状态、revision、租约或预约变化后旧 timer 失效。暂停、取消、预算耗尽或失去租约时不执行。额度耗尽后，只有宿主实际提高限制且原有计数及 unknown 账目仍满足新限制，才允许手动继续。
 
-自动、手动和重启共用 `turnId → workId → 最新 durable job/native checkpoint` 的恢复入口。旧 turn 不能恢复另一件工作。所有 completed Tool Call/Result 对和受保护的 provider history 保留，继续下一请求；摘要只作辅助。恢复已有交付提交时只补交付/签收，不再请求模型。没有可验证的原生检查点且曾执行工具时，明确交接，不默默重放整件事。
+自动、手动和重启共用 `turnId → workId → 最新 durable job/native checkpoint` 的恢复入口。旧 turn 不能恢复另一件工作。所有 completed Tool Call/Result 对和受保护的 provider history 保留，继续下一请求；摘要只作辅助。恢复已有交付提交时只补交付/签收，不再请求模型。没有可验证的原生检查点且曾执行工具时，明确交接，不默默重放整件事。主检查点和 native 文件必须实际读取验证；缺失或损坏时撤销预约，以可选 typed `recovery.blockedCode=RECOVERY_CHECKPOINT_UNAVAILABLE` 表达阻碍，并保留旧检查点与结果账目。恢复读取失败不能写入空 rounds，使下一次手动恢复误判为从未执行工具。
 
 ### 20.4 调度与新输入
 
@@ -629,7 +629,7 @@ RC10 的一个用户回合完成 19 次只读工具调用，第 7 个模型请�
 
 工具派发先记录 pendingTools，Tool Result 应用并原生 checkpoint 持久化成功才清除。检查点写盘失败时同 attempt 也不得发下次模型请求或新工具；finish 将不确定派发保留为 uncertainDispatches。任何恢复都不清此账目以换取可运行。
 
-Runtime SDK 的 `model.checkpoint` 是 Tool Result 应用后的关键提交 Seam，失败进入结构化 failed 终态，不能被展示层 lifecycle observer 的容错吞掉；终止工具同样先提交 checkpoint 再返回 stopped。桌面各 Provider Adapter 在此保存原生格式，展示投影继续使用非关键 observer。
+Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result 应用后的关键提交 Seam，失败进入结构化 failed 终态，不能被展示层 lifecycle observer 的容错吞掉；终止工具同样先提交 checkpoint 再返回 stopped。桌面各 Provider Adapter 与 TUI 在此保存原生格式，展示投影继续使用非关键 observer。写盘成功只清除具有明确配对结果的 pendingTools；结构化 `execution_outcome_unknown` 或 `cancelled_outcome_unknown` 的工具结果仍保留不确定账目，不能将错误记录当成副作用已确认。
 
 检查点不授予权限。恢复后的新动作继续经过 Projection、PermissionGrant 和 Evidence；撤回或过期授权按原路径拒绝。已发生但结果不明的写操作不能自动或普通手动重放，必须先核对实际结果；无法核对时具体交接。
 
@@ -639,6 +639,6 @@ Runtime SDK 的 `model.checkpoint` 是 Tool Result 应用后的关键提交 Seam
 
 ### 20.7 实施卡 R88-09
 
-级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Runtime SDK pipeline contract/checkpoint 和测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
+级别 A（protocol/持久恢复契约），实现含 B runtime、C 表达。分支 `codex/reply-recovery`，基线 RC10 开发线。允许改动：protocol failure/work-coordination 及导出/测试；runtime-node project-agent 的恢复政策、runner、coordination、work-budget、runtime-host 及测试；Runtime SDK pipeline contract/checkpoint 和测试；Desktop request coordinator、transport、Responses adapter、Loop/pipeline/compactor 的装配和测试；TUI Turn Executor 的关键 checkpoint 装配与测试；现有 response-retry、CardView/投影、i18n、标准产品回归夹具及测试。新模块需集中政策和恢复身份，保持既有能力链、存储根和 IPC 通道，不增加依赖或改发版物。
 
 必须验证：19 个结果后断线继续而不重做；4 次物理派发有界并实际扣预算；当前请求 partial 不重放；新输入独立执行；手动/timer 竞争幂等；重启保留预约且原输入不重入队；旧预约/暂停/取消/租约/预算阻断；checkpoint 失败和未知写结果不重放；权限仍校验；原生 provider/model 不兼容拒绝；已提交回复只补交付。UI Capture/逐张 AI 审查/Verify 后交付，明确自审、真实 Provider 和安装版本覆盖限制。
