@@ -1,0 +1,1286 @@
+{
+  "schemaVersion": 1,
+  "installed": false,
+  "synthetic": true,
+  "scope": "Actual immutable tagged data modules; controlled updater feed and real SIGKILL/recovery with scripted cognition. Installed clients tested separately.",
+  "startedAt": "2026-10-11T05:51:43.267Z",
+  "sourceHead": "88ee465519eb16239180f27c4fc8c014340ce839",
+  "sourceDirty": false,
+  "checks": [
+    {
+      "name": "0.0.18 -> v0.1.0-beta.1",
+      "ok": true,
+      "durationMs": 15,
+      "details": {
+        "schemaVersion": 2,
+        "legacyFiles": 9,
+        "backupExact": true
+      }
+    },
+    {
+      "name": "0.0.18 -> v0.1.0-beta.2",
+      "ok": true,
+      "durationMs": 9,
+      "details": {
+        "schemaVersion": 2,
+        "legacyFiles": 9,
+        "backupExact": true
+      }
+    },
+    {
+      "name": "0.0.18 -> v0.1.0-beta.3",
+      "ok": true,
+      "durationMs": 7,
+      "details": {
+        "schemaVersion": 3,
+        "legacyFiles": 9,
+        "backupExact": true
+      }
+    },
+    {
+      "name": "0.0.18 -> v0.1.0-beta.4",
+      "ok": true,
+      "durationMs": 10,
+      "details": {
+        "schemaVersion": 3,
+        "legacyFiles": 9,
+        "backupExact": true
+      }
+    },
+    {
+      "name": "0.0.18 -> v0.1.0-beta.5",
+      "ok": true,
+      "durationMs": 8,
+      "details": {
+        "schemaVersion": 3,
+        "legacyFiles": 9,
+        "backupExact": true
+      }
+    },
+    {
+      "name": "0.0.18 -> v0.1.0-beta.1; restart",
+      "ok": true,
+      "durationMs": 2,
+      "details": {
+        "stableIdentity": true,
+        "realCrashRecovery": false
+      }
+    },
+    {
+      "name": "v0.1.0-beta.1 -> v0.1.0-beta.2; restart",
+      "ok": true,
+      "durationMs": 1952,
+      "details": {
+        "stableIdentity": true,
+        "realCrashRecovery": true
+      }
+    },
+    {
+      "name": "v0.1.0-beta.2 -> v0.1.0-beta.3; restart",
+      "ok": true,
+      "durationMs": 1956,
+      "details": {
+        "stableIdentity": true,
+        "realCrashRecovery": true
+      }
+    },
+    {
+      "name": "v0.1.0-beta.3 -> v0.1.0-beta.4; restart",
+      "ok": true,
+      "durationMs": 1959,
+      "details": {
+        "stableIdentity": true,
+        "realCrashRecovery": true
+      }
+    },
+    {
+      "name": "v0.1.0-beta.4 -> v0.1.0-beta.5; restart",
+      "ok": true,
+      "durationMs": 1977,
+      "details": {
+        "stableIdentity": true,
+        "realCrashRecovery": true
+      }
+    },
+    {
+      "name": "beta.5 -> 0.0.18 reader/write -> RC re-upgrade preserves all new data",
+      "ok": true,
+      "durationMs": 15,
+      "details": {
+        "classicAndNewConversationsReadable": 3,
+        "protectedFiles": 15
+      }
+    },
+    {
+      "name": "migration backup failure keeps original settings and legacy data",
+      "ok": true,
+      "durationMs": 5
+    },
+    {
+      "name": "0.1.0-beta.1 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 54
+    },
+    {
+      "name": "0.1.0-beta.2 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 11
+    },
+    {
+      "name": "0.1.0-beta.3 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 10
+    },
+    {
+      "name": "0.1.0-beta.4 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 10
+    },
+    {
+      "name": "0.1.0-beta.5 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 10
+    },
+    {
+      "name": "0.1.0-rc.1 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 10
+    },
+    {
+      "name": "0.1.0-rc.2 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 9
+    },
+    {
+      "name": "0.1.0-rc.3 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 9
+    },
+    {
+      "name": "0.1.0-rc.4 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 9
+    },
+    {
+      "name": "0.1.0-rc.5 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 9
+    },
+    {
+      "name": "0.1.0-rc.6 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "0.1.0-rc.7 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "0.1.0-rc.8 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "0.1.0-rc.9 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 9
+    },
+    {
+      "name": "0.1.0-rc.10 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "0.1.0-rc.11 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "0.1.0-rc.12 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "0.1.0-rc.13 auto -> GA stable updater graduation",
+      "ok": true,
+      "durationMs": 8
+    },
+    {
+      "name": "explicit beta stays beta; older stable feed falls back without download",
+      "ok": true,
+      "durationMs": 18
+    }
+  ],
+  "tags": [
+    {
+      "ref": "v0.0.18",
+      "commit": "a087988cc3a4382d780db62f7247d4b9d355636e",
+      "sourceFiles": [
+        {
+          "file": "apps/desktop/electron/main/settings-store.mjs",
+          "sha256": "0de1c188f808f975ae0ab53329f89fc69ffc705c46b6a983ec2fdda4ae55fd3e"
+        },
+        {
+          "file": "apps/desktop/electron/main/data-store.mjs",
+          "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+        },
+        {
+          "file": "packages/runtime-node/src/index.ts",
+          "sha256": "8d4033333bd3fbf744cb9d4903b0adf1e29d43b5cd86d3c1407bb3d793964c47"
+        },
+        {
+          "file": "packages/runtime-node/src/data-store.mjs",
+          "sha256": "e0ab7979c6ccbcccce58ace87ff8279492a3e22976c6cd6235074c7098621289"
+        },
+        {
+          "file": "packages/conversation-store/src/index.mjs",
+          "sha256": "a44b8f26c3c15b26df66f40f892bf9e35bd16958fd19ca9a63fa1829967fc097"
+        },
+        {
+          "file": "packages/conversation-store/src/persisted-history.mjs",
+          "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+        },
+        {
+          "file": "packages/conversation-store/src/inherited-background.mjs",
+          "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+        },
+        {
+          "file": "packages/conversation-store/src/selection-reference.mjs",
+          "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+        },
+        {
+          "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+          "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+        },
+        {
+          "file": "packages/protocol/src/index.ts",
+          "sha256": "650968488fbc5a7bd0549e5d801a59c4cc44f0d5973c1aa9e01bbb8f3aece99c"
+        },
+        {
+          "file": "packages/protocol/src/execution.ts",
+          "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+        },
+        {
+          "file": "packages/protocol/src/chat.ts",
+          "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+        },
+        {
+          "file": "packages/protocol/src/compaction.ts",
+          "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+        },
+        {
+          "file": "packages/protocol/src/context-accounting.ts",
+          "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+        },
+        {
+          "file": "apps/desktop/electron/main/workspace-application-service.mjs",
+          "sha256": "1966a48d140f4f110f70fd208a7eb19a614edf3654d1aa87aa926e5cd98727f1"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-plan-store.mjs",
+          "sha256": "23b3d49a7b5d342008354ba4e31bb55eb71da036a4c44b735f686ff6f6a55cb3"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+          "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+        },
+        {
+          "file": "packages/runtime-core/src/index.ts",
+          "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+        },
+        {
+          "file": "packages/runtime-core/src/contracts.ts",
+          "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+        },
+        {
+          "file": "packages/runtime-core/src/decision.ts",
+          "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+        },
+        {
+          "file": "packages/runtime-core/src/evidence.ts",
+          "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+        },
+        {
+          "file": "packages/runtime-core/src/hooks.ts",
+          "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+        },
+        {
+          "file": "packages/runtime-core/src/permission.ts",
+          "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+        },
+        {
+          "file": "packages/runtime-core/src/capability-registry.ts",
+          "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+        },
+        {
+          "file": "packages/runtime-core/src/projection.ts",
+          "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+        },
+        {
+          "file": "packages/runtime-core/src/projection-materializers.ts",
+          "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+        },
+        {
+          "file": "packages/runtime-core/src/local-tool-contracts.ts",
+          "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+        },
+        {
+          "file": "packages/runtime-core/src/context-compaction.ts",
+          "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-keep-policy.ts",
+          "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-checkpoint.ts",
+          "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+        },
+        {
+          "file": "packages/runtime-core/src/iso-crypto.ts",
+          "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+        },
+        {
+          "file": "packages/protocol/src/memory.ts",
+          "sha256": "a8e3b7fdb035a79418aa5269ec1fde686d4d9132ff9953953f4f3b4bad74b5ca"
+        },
+        {
+          "file": "packages/protocol/src/system-context.ts",
+          "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+        },
+        {
+          "file": "packages/protocol/src/goal.ts",
+          "sha256": "77b8ae582789252ad4cf5041d422bc0d36c5426bfde9a710955238ce1774d1fe"
+        },
+        {
+          "file": "packages/protocol/src/acceptance-close-gate.ts",
+          "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+        },
+        {
+          "file": "packages/protocol/src/desktop-preview.ts",
+          "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+          "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+          "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+        },
+        {
+          "file": "packages/protocol/src/ui-delivery-verification.ts",
+          "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+          "sha256": "f4c83829a0e2ed39d2975a24a2a5cbdf7d5e3e7ad2d8405070801ace49c5d167"
+        },
+        {
+          "file": "packages/runtime-node/src/automation-store.mjs",
+          "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+        }
+      ],
+      "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+    },
+    {
+      "ref": "v0.1.0-beta.1",
+      "commit": "77c35f06bdfa75482816f85e18e1c1af2f5b0944",
+      "sourceFiles": [
+        {
+          "file": "apps/desktop/electron/main/settings-store.mjs",
+          "sha256": "5b4c647e1cb7b3b9594515e438735898183389121be7cf496d0b0f6d2413513a"
+        },
+        {
+          "file": "packages/runtime-node/src/index.ts",
+          "sha256": "2d660a9c5dc524ab9b8f7a84116b8e188b3941c0d300066dbadf2ccaf7ceb1d1"
+        },
+        {
+          "file": "packages/runtime-node/src/settings-migrations.mjs",
+          "sha256": "26052e0c3aca33816fb87f3240ec84a93cce7d48a7502ed2c02623fcb9963f43"
+        },
+        {
+          "file": "packages/runtime-node/src/project-registry.mjs",
+          "sha256": "9a2d31a7971bd49ef48f45b8e2fde12e6b4075ff49394a2401e0f98ae96d0ac1"
+        },
+        {
+          "file": "packages/runtime-node/src/data-store.mjs",
+          "sha256": "996e794348a44c2341f516c76dd4008f0fddbcce28d0898bfcbcedd79c26b349"
+        },
+        {
+          "file": "apps/desktop/electron/main/data-store.mjs",
+          "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+        },
+        {
+          "file": "packages/conversation-store/src/index.mjs",
+          "sha256": "7f1506819b3513dc48f4a451620e9f290638ab4f452b46982e8c0986b35b3c6a"
+        },
+        {
+          "file": "packages/conversation-store/src/persisted-history.mjs",
+          "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+        },
+        {
+          "file": "packages/conversation-store/src/inherited-background.mjs",
+          "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+        },
+        {
+          "file": "packages/conversation-store/src/selection-reference.mjs",
+          "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+        },
+        {
+          "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+          "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+        },
+        {
+          "file": "packages/protocol/src/index.ts",
+          "sha256": "605e2ec77faef62f97c9dfb0101a599b8d248595c05bc882d45fff6c673dacaa"
+        },
+        {
+          "file": "packages/protocol/src/execution.ts",
+          "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+        },
+        {
+          "file": "packages/protocol/src/chat.ts",
+          "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+        },
+        {
+          "file": "packages/protocol/src/compaction.ts",
+          "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+        },
+        {
+          "file": "packages/protocol/src/context-accounting.ts",
+          "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+        },
+        {
+          "file": "apps/desktop/electron/main/workspace-application-service.mjs",
+          "sha256": "9890f4be98c5aa8a1b83d57f7612168f85c35a269bdea0c2eda1c041fe72f3cc"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-plan-store.mjs",
+          "sha256": "23b3d49a7b5d342008354ba4e31bb55eb71da036a4c44b735f686ff6f6a55cb3"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+          "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+        },
+        {
+          "file": "packages/runtime-core/src/index.ts",
+          "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+        },
+        {
+          "file": "packages/runtime-core/src/contracts.ts",
+          "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+        },
+        {
+          "file": "packages/runtime-core/src/decision.ts",
+          "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+        },
+        {
+          "file": "packages/runtime-core/src/evidence.ts",
+          "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+        },
+        {
+          "file": "packages/runtime-core/src/hooks.ts",
+          "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+        },
+        {
+          "file": "packages/runtime-core/src/permission.ts",
+          "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+        },
+        {
+          "file": "packages/runtime-core/src/capability-registry.ts",
+          "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+        },
+        {
+          "file": "packages/runtime-core/src/projection.ts",
+          "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+        },
+        {
+          "file": "packages/runtime-core/src/projection-materializers.ts",
+          "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+        },
+        {
+          "file": "packages/runtime-core/src/local-tool-contracts.ts",
+          "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+        },
+        {
+          "file": "packages/runtime-core/src/context-compaction.ts",
+          "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-keep-policy.ts",
+          "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-checkpoint.ts",
+          "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+        },
+        {
+          "file": "packages/runtime-core/src/iso-crypto.ts",
+          "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+        },
+        {
+          "file": "packages/protocol/src/memory.ts",
+          "sha256": "3be40e0aa43200b6f2955b4aa79557eb85eef43d763fc0ded30d7bb62acf9076"
+        },
+        {
+          "file": "packages/protocol/src/system-context.ts",
+          "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+        },
+        {
+          "file": "packages/protocol/src/goal.ts",
+          "sha256": "77b8ae582789252ad4cf5041d422bc0d36c5426bfde9a710955238ce1774d1fe"
+        },
+        {
+          "file": "packages/protocol/src/acceptance-close-gate.ts",
+          "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+        },
+        {
+          "file": "packages/protocol/src/desktop-preview.ts",
+          "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+          "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+          "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+        },
+        {
+          "file": "packages/protocol/src/ui-delivery-verification.ts",
+          "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+          "sha256": "f4c83829a0e2ed39d2975a24a2a5cbdf7d5e3e7ad2d8405070801ace49c5d167"
+        },
+        {
+          "file": "packages/runtime-node/src/automation-store.mjs",
+          "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+        }
+      ],
+      "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+    },
+    {
+      "ref": "v0.1.0-beta.2",
+      "commit": "73f38c7a3e19e1b4a6f27c5c48e0c63d6c745ffc",
+      "sourceFiles": [
+        {
+          "file": "apps/desktop/electron/main/settings-store.mjs",
+          "sha256": "5b4c647e1cb7b3b9594515e438735898183389121be7cf496d0b0f6d2413513a"
+        },
+        {
+          "file": "packages/runtime-node/src/index.ts",
+          "sha256": "57083bc03117527b35fd78f6d0f58f183c6f6402587a5048761805cbd95e5ae3"
+        },
+        {
+          "file": "packages/runtime-node/src/settings-migrations.mjs",
+          "sha256": "26052e0c3aca33816fb87f3240ec84a93cce7d48a7502ed2c02623fcb9963f43"
+        },
+        {
+          "file": "packages/runtime-node/src/project-registry.mjs",
+          "sha256": "9a2d31a7971bd49ef48f45b8e2fde12e6b4075ff49394a2401e0f98ae96d0ac1"
+        },
+        {
+          "file": "packages/runtime-node/src/data-store.mjs",
+          "sha256": "2ce151e5dbcbd616ced2f787bbfd92a4633ddcb7d0d85e2686225e6fb7757dfd"
+        },
+        {
+          "file": "apps/desktop/electron/main/data-store.mjs",
+          "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+        },
+        {
+          "file": "packages/conversation-store/src/index.mjs",
+          "sha256": "7f1506819b3513dc48f4a451620e9f290638ab4f452b46982e8c0986b35b3c6a"
+        },
+        {
+          "file": "packages/conversation-store/src/persisted-history.mjs",
+          "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+        },
+        {
+          "file": "packages/conversation-store/src/inherited-background.mjs",
+          "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+        },
+        {
+          "file": "packages/conversation-store/src/selection-reference.mjs",
+          "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+        },
+        {
+          "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+          "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+        },
+        {
+          "file": "packages/protocol/src/index.ts",
+          "sha256": "605e2ec77faef62f97c9dfb0101a599b8d248595c05bc882d45fff6c673dacaa"
+        },
+        {
+          "file": "packages/protocol/src/execution.ts",
+          "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+        },
+        {
+          "file": "packages/protocol/src/chat.ts",
+          "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+        },
+        {
+          "file": "packages/protocol/src/compaction.ts",
+          "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+        },
+        {
+          "file": "packages/protocol/src/context-accounting.ts",
+          "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+        },
+        {
+          "file": "apps/desktop/electron/main/workspace-application-service.mjs",
+          "sha256": "9890f4be98c5aa8a1b83d57f7612168f85c35a269bdea0c2eda1c041fe72f3cc"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-plan-store.mjs",
+          "sha256": "52feacce8ac3e04249dc45e719a12ce5e62c6990216766c0f4bcb6f1de71466a"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+          "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+        },
+        {
+          "file": "packages/runtime-core/src/index.ts",
+          "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+        },
+        {
+          "file": "packages/runtime-core/src/contracts.ts",
+          "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+        },
+        {
+          "file": "packages/runtime-core/src/decision.ts",
+          "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+        },
+        {
+          "file": "packages/runtime-core/src/evidence.ts",
+          "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+        },
+        {
+          "file": "packages/runtime-core/src/hooks.ts",
+          "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+        },
+        {
+          "file": "packages/runtime-core/src/permission.ts",
+          "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+        },
+        {
+          "file": "packages/runtime-core/src/capability-registry.ts",
+          "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+        },
+        {
+          "file": "packages/runtime-core/src/projection.ts",
+          "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+        },
+        {
+          "file": "packages/runtime-core/src/projection-materializers.ts",
+          "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+        },
+        {
+          "file": "packages/runtime-core/src/local-tool-contracts.ts",
+          "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+        },
+        {
+          "file": "packages/runtime-core/src/context-compaction.ts",
+          "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-keep-policy.ts",
+          "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-checkpoint.ts",
+          "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+        },
+        {
+          "file": "packages/runtime-core/src/iso-crypto.ts",
+          "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+        },
+        {
+          "file": "packages/protocol/src/memory.ts",
+          "sha256": "3be40e0aa43200b6f2955b4aa79557eb85eef43d763fc0ded30d7bb62acf9076"
+        },
+        {
+          "file": "packages/protocol/src/system-context.ts",
+          "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+        },
+        {
+          "file": "packages/protocol/src/goal.ts",
+          "sha256": "77b8ae582789252ad4cf5041d422bc0d36c5426bfde9a710955238ce1774d1fe"
+        },
+        {
+          "file": "packages/protocol/src/acceptance-close-gate.ts",
+          "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+        },
+        {
+          "file": "packages/protocol/src/desktop-preview.ts",
+          "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+          "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+          "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+        },
+        {
+          "file": "packages/protocol/src/ui-delivery-verification.ts",
+          "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+          "sha256": "f4c83829a0e2ed39d2975a24a2a5cbdf7d5e3e7ad2d8405070801ace49c5d167"
+        },
+        {
+          "file": "packages/runtime-node/src/automation-store.mjs",
+          "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+        }
+      ],
+      "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+    },
+    {
+      "ref": "v0.1.0-beta.3",
+      "commit": "283c74936bef5ea647c252eab38201caf41071e9",
+      "sourceFiles": [
+        {
+          "file": "apps/desktop/electron/main/settings-store.mjs",
+          "sha256": "5b4c647e1cb7b3b9594515e438735898183389121be7cf496d0b0f6d2413513a"
+        },
+        {
+          "file": "packages/runtime-node/src/index.ts",
+          "sha256": "ff5e27846d4fb15aa92f9b1490da252e8390facc925a10644b84d67322317f0f"
+        },
+        {
+          "file": "packages/runtime-node/src/settings-migrations.mjs",
+          "sha256": "a09612a6a8d3bd61e32476972d6a66275a7c0da1cfb600176473f20cd36b2f13"
+        },
+        {
+          "file": "packages/runtime-node/src/project-registry.mjs",
+          "sha256": "9a2d31a7971bd49ef48f45b8e2fde12e6b4075ff49394a2401e0f98ae96d0ac1"
+        },
+        {
+          "file": "packages/runtime-node/src/data-store.mjs",
+          "sha256": "2ce151e5dbcbd616ced2f787bbfd92a4633ddcb7d0d85e2686225e6fb7757dfd"
+        },
+        {
+          "file": "apps/desktop/electron/main/data-store.mjs",
+          "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+        },
+        {
+          "file": "packages/conversation-store/src/index.mjs",
+          "sha256": "b38f5cf644402cee2fea5cfe2b290fee03b9e64b75d927622fb598191d1eef23"
+        },
+        {
+          "file": "packages/conversation-store/src/persisted-history.mjs",
+          "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+        },
+        {
+          "file": "packages/conversation-store/src/inherited-background.mjs",
+          "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+        },
+        {
+          "file": "packages/conversation-store/src/selection-reference.mjs",
+          "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+        },
+        {
+          "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+          "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+        },
+        {
+          "file": "packages/protocol/src/index.ts",
+          "sha256": "605e2ec77faef62f97c9dfb0101a599b8d248595c05bc882d45fff6c673dacaa"
+        },
+        {
+          "file": "packages/protocol/src/execution.ts",
+          "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+        },
+        {
+          "file": "packages/protocol/src/chat.ts",
+          "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+        },
+        {
+          "file": "packages/protocol/src/compaction.ts",
+          "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+        },
+        {
+          "file": "packages/protocol/src/context-accounting.ts",
+          "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+        },
+        {
+          "file": "apps/desktop/electron/main/workspace-application-service.mjs",
+          "sha256": "9fd7c98d1c358deb4fcb28bfb3c3860fcbaafc6c8c0b0df287d7264d98dd2ead"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-plan-store.mjs",
+          "sha256": "cacf1355c4de47f36bd9a8e3ae6a8505b2d9e789c8821687789de8becf7b74eb"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+          "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+        },
+        {
+          "file": "packages/runtime-core/src/index.ts",
+          "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+        },
+        {
+          "file": "packages/runtime-core/src/contracts.ts",
+          "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+        },
+        {
+          "file": "packages/runtime-core/src/decision.ts",
+          "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+        },
+        {
+          "file": "packages/runtime-core/src/evidence.ts",
+          "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+        },
+        {
+          "file": "packages/runtime-core/src/hooks.ts",
+          "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+        },
+        {
+          "file": "packages/runtime-core/src/permission.ts",
+          "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+        },
+        {
+          "file": "packages/runtime-core/src/capability-registry.ts",
+          "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+        },
+        {
+          "file": "packages/runtime-core/src/projection.ts",
+          "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+        },
+        {
+          "file": "packages/runtime-core/src/projection-materializers.ts",
+          "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+        },
+        {
+          "file": "packages/runtime-core/src/local-tool-contracts.ts",
+          "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+        },
+        {
+          "file": "packages/runtime-core/src/context-compaction.ts",
+          "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-keep-policy.ts",
+          "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-checkpoint.ts",
+          "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+        },
+        {
+          "file": "packages/runtime-core/src/iso-crypto.ts",
+          "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+        },
+        {
+          "file": "packages/protocol/src/memory.ts",
+          "sha256": "302a209532882bb3a5ba256f18fb00c461805ca45e5ad0fdaaeedcffa5b54d3c"
+        },
+        {
+          "file": "packages/protocol/src/system-context.ts",
+          "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+        },
+        {
+          "file": "packages/protocol/src/goal.ts",
+          "sha256": "77b8ae582789252ad4cf5041d422bc0d36c5426bfde9a710955238ce1774d1fe"
+        },
+        {
+          "file": "packages/protocol/src/acceptance-close-gate.ts",
+          "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+        },
+        {
+          "file": "packages/protocol/src/desktop-preview.ts",
+          "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+          "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+          "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+        },
+        {
+          "file": "packages/protocol/src/ui-delivery-verification.ts",
+          "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+          "sha256": "f4c83829a0e2ed39d2975a24a2a5cbdf7d5e3e7ad2d8405070801ace49c5d167"
+        },
+        {
+          "file": "packages/runtime-node/src/automation-store.mjs",
+          "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+        }
+      ],
+      "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+    },
+    {
+      "ref": "v0.1.0-beta.4",
+      "commit": "ca0736da83d0451099494cd7f30e532f174cef92",
+      "sourceFiles": [
+        {
+          "file": "apps/desktop/electron/main/settings-store.mjs",
+          "sha256": "5b4c647e1cb7b3b9594515e438735898183389121be7cf496d0b0f6d2413513a"
+        },
+        {
+          "file": "packages/runtime-node/src/index.ts",
+          "sha256": "fd64fc15f4f812146e58de3642fa0e3ef18b9f1bfe4549120690d52c988da398"
+        },
+        {
+          "file": "packages/runtime-node/src/settings-migrations.mjs",
+          "sha256": "a09612a6a8d3bd61e32476972d6a66275a7c0da1cfb600176473f20cd36b2f13"
+        },
+        {
+          "file": "packages/runtime-node/src/project-registry.mjs",
+          "sha256": "9a2d31a7971bd49ef48f45b8e2fde12e6b4075ff49394a2401e0f98ae96d0ac1"
+        },
+        {
+          "file": "packages/runtime-node/src/data-store.mjs",
+          "sha256": "ba700340be9ce0693b7371295661ad707d7fd8fb573d8fe119190e303715f529"
+        },
+        {
+          "file": "apps/desktop/electron/main/data-store.mjs",
+          "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+        },
+        {
+          "file": "packages/conversation-store/src/index.mjs",
+          "sha256": "b38f5cf644402cee2fea5cfe2b290fee03b9e64b75d927622fb598191d1eef23"
+        },
+        {
+          "file": "packages/conversation-store/src/persisted-history.mjs",
+          "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+        },
+        {
+          "file": "packages/conversation-store/src/inherited-background.mjs",
+          "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+        },
+        {
+          "file": "packages/conversation-store/src/selection-reference.mjs",
+          "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+        },
+        {
+          "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+          "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+        },
+        {
+          "file": "packages/protocol/src/index.ts",
+          "sha256": "605e2ec77faef62f97c9dfb0101a599b8d248595c05bc882d45fff6c673dacaa"
+        },
+        {
+          "file": "packages/protocol/src/execution.ts",
+          "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+        },
+        {
+          "file": "packages/protocol/src/chat.ts",
+          "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+        },
+        {
+          "file": "packages/protocol/src/compaction.ts",
+          "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+        },
+        {
+          "file": "packages/protocol/src/context-accounting.ts",
+          "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+        },
+        {
+          "file": "apps/desktop/electron/main/workspace-application-service.mjs",
+          "sha256": "9fd7c98d1c358deb4fcb28bfb3c3860fcbaafc6c8c0b0df287d7264d98dd2ead"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-plan-store.mjs",
+          "sha256": "84b7654f449ddf2ad4e0f9654b8f1fec0c20e5d4e264d799554d38aaaf12cc20"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+          "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+        },
+        {
+          "file": "packages/runtime-core/src/index.ts",
+          "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+        },
+        {
+          "file": "packages/runtime-core/src/contracts.ts",
+          "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+        },
+        {
+          "file": "packages/runtime-core/src/decision.ts",
+          "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+        },
+        {
+          "file": "packages/runtime-core/src/evidence.ts",
+          "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+        },
+        {
+          "file": "packages/runtime-core/src/hooks.ts",
+          "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+        },
+        {
+          "file": "packages/runtime-core/src/permission.ts",
+          "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+        },
+        {
+          "file": "packages/runtime-core/src/capability-registry.ts",
+          "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+        },
+        {
+          "file": "packages/runtime-core/src/projection.ts",
+          "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+        },
+        {
+          "file": "packages/runtime-core/src/projection-materializers.ts",
+          "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+        },
+        {
+          "file": "packages/runtime-core/src/local-tool-contracts.ts",
+          "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+        },
+        {
+          "file": "packages/runtime-core/src/context-compaction.ts",
+          "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-keep-policy.ts",
+          "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-checkpoint.ts",
+          "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+        },
+        {
+          "file": "packages/runtime-core/src/iso-crypto.ts",
+          "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+        },
+        {
+          "file": "packages/protocol/src/memory.ts",
+          "sha256": "46633711e317d627a40982b34e0e89f0e47984bf37f5910444c97fa23e6dd07c"
+        },
+        {
+          "file": "packages/protocol/src/system-context.ts",
+          "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+        },
+        {
+          "file": "packages/protocol/src/goal.ts",
+          "sha256": "91fe43af64fac079d7e4cac6ce7d25c91fd762e414dabf170c1ab96d5eb5c2bd"
+        },
+        {
+          "file": "packages/protocol/src/acceptance-close-gate.ts",
+          "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+        },
+        {
+          "file": "packages/protocol/src/desktop-preview.ts",
+          "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+          "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+          "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+        },
+        {
+          "file": "packages/protocol/src/ui-delivery-verification.ts",
+          "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+          "sha256": "ed6783cea9d4f7709635735826564575c00a8b0e7cca66dd18131a3ac86f692b"
+        },
+        {
+          "file": "packages/runtime-node/src/automation-store.mjs",
+          "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+        }
+      ],
+      "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+    },
+    {
+      "ref": "v0.1.0-beta.5",
+      "commit": "d90e58c275f56e5414363fc5df42734c14e16cab",
+      "sourceFiles": [
+        {
+          "file": "apps/desktop/electron/main/settings-store.mjs",
+          "sha256": "5b4c647e1cb7b3b9594515e438735898183389121be7cf496d0b0f6d2413513a"
+        },
+        {
+          "file": "packages/runtime-node/src/index.ts",
+          "sha256": "bc5c0e6e9f11abd5494de6dd3f4f18e8b7d7cbd14514921efc7b16a36de125b4"
+        },
+        {
+          "file": "packages/runtime-node/src/settings-migrations.mjs",
+          "sha256": "a09612a6a8d3bd61e32476972d6a66275a7c0da1cfb600176473f20cd36b2f13"
+        },
+        {
+          "file": "packages/runtime-node/src/project-registry.mjs",
+          "sha256": "9a2d31a7971bd49ef48f45b8e2fde12e6b4075ff49394a2401e0f98ae96d0ac1"
+        },
+        {
+          "file": "packages/runtime-node/src/data-store.mjs",
+          "sha256": "25ecc3e129853e11183e70c65bae0f6ffaccb72585f4dbeb379ae202f2dfc46c"
+        },
+        {
+          "file": "apps/desktop/electron/main/data-store.mjs",
+          "sha256": "10d4192aa722771b63d04985e193eac19b27c8a27fd0b64067c7e4e4280d842f"
+        },
+        {
+          "file": "packages/conversation-store/src/index.mjs",
+          "sha256": "b38f5cf644402cee2fea5cfe2b290fee03b9e64b75d927622fb598191d1eef23"
+        },
+        {
+          "file": "packages/conversation-store/src/persisted-history.mjs",
+          "sha256": "17ccafb64cbae86508b4831f87a54552bfc531ac7a81824e0c1f3ce228712c43"
+        },
+        {
+          "file": "packages/conversation-store/src/inherited-background.mjs",
+          "sha256": "b0c6a657b9985afb3c1de0e4f5a4e1af389982b035747819748d7cf02910765b"
+        },
+        {
+          "file": "packages/conversation-store/src/selection-reference.mjs",
+          "sha256": "94c048367d3b68cb0d4fe42fa49246e667c31efbc3396be1643db702068b1447"
+        },
+        {
+          "file": "packages/conversation-store/src/background-snapshot-store.mjs",
+          "sha256": "d7d09584ed34a21f5162457492a12097dc08cc0c8efd930dd4fec62329cc5ecb"
+        },
+        {
+          "file": "packages/protocol/src/index.ts",
+          "sha256": "99fbb8f91b76cdada211561289ef3565feb118d405f14ae0bde83a1bea3066d9"
+        },
+        {
+          "file": "packages/protocol/src/execution.ts",
+          "sha256": "b51bb7a287b62eb116d573db2cb6ede91344b624dfa4cd5261bbe75a2a581544"
+        },
+        {
+          "file": "packages/protocol/src/chat.ts",
+          "sha256": "85bd3f6c87aee48c5ee8e3c842e2bc89946365beaa60f3a49ae836c27b3f0a00"
+        },
+        {
+          "file": "packages/protocol/src/compaction.ts",
+          "sha256": "12e0fa6e07f0aeb43972669dd0c3f73a0cbaba8983dbdb26034db72def47b12a"
+        },
+        {
+          "file": "packages/protocol/src/context-accounting.ts",
+          "sha256": "d3deca939329d76acca15f5cc8dd4887426716acc08a594b5f290af67f6509c4"
+        },
+        {
+          "file": "apps/desktop/electron/main/workspace-application-service.mjs",
+          "sha256": "9fd7c98d1c358deb4fcb28bfb3c3860fcbaafc6c8c0b0df287d7264d98dd2ead"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-plan-store.mjs",
+          "sha256": "6e408428fc34d7a525f800773be2f5622b9831c31650dfd07beb4cb73fa2b5c8"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-delivery-binding.mjs",
+          "sha256": "8e94d54dbd9c8e0f886fd6e6faa45f04c91fa37510f19434c017783e852278a0"
+        },
+        {
+          "file": "packages/runtime-core/src/index.ts",
+          "sha256": "54c32d7263803e925c43b3fa77fca98a43c0b62b8d32af7ca16eee3da1e9cc3a"
+        },
+        {
+          "file": "packages/runtime-core/src/contracts.ts",
+          "sha256": "20bf43d1c8ef98c021aecd07244ff0237edcd5c04b96dbeb4ef17c6d6d4198d9"
+        },
+        {
+          "file": "packages/runtime-core/src/decision.ts",
+          "sha256": "0e8e6f1a29605ffc10aad6e4d374bd001b0e72778055ade14c8a3076c8afae52"
+        },
+        {
+          "file": "packages/runtime-core/src/evidence.ts",
+          "sha256": "ad006043c2e46b747151030f5b76e66b8bd44e70138f4ecd5b1ffd2b9efd1747"
+        },
+        {
+          "file": "packages/runtime-core/src/hooks.ts",
+          "sha256": "f69d177833cf648f4f915fc8de6492e5a070c44156acdb02f1dacf758599f9ff"
+        },
+        {
+          "file": "packages/runtime-core/src/permission.ts",
+          "sha256": "f5cf4d05be037147d3535e7eda06c82fafbc2944d4c674dc9eb465428d46fc4e"
+        },
+        {
+          "file": "packages/runtime-core/src/capability-registry.ts",
+          "sha256": "a1cfdee6d6da9cc11572cae4bc39bcb69b565cb30bc87d95f08adae508465cc8"
+        },
+        {
+          "file": "packages/runtime-core/src/projection.ts",
+          "sha256": "098687955957bd697e42b57217ee3818b8af33e4c5323a443e10733785bed7b9"
+        },
+        {
+          "file": "packages/runtime-core/src/projection-materializers.ts",
+          "sha256": "2f2de0d0f1f385ecd5de1db707a3ff86555eb712af251c588604e279561824ad"
+        },
+        {
+          "file": "packages/runtime-core/src/local-tool-contracts.ts",
+          "sha256": "78cc59f9478c4cdad8f29e1e036a4387c5d2ff7b964da41a5e226d2a55ad5988"
+        },
+        {
+          "file": "packages/runtime-core/src/context-compaction.ts",
+          "sha256": "103e291ece3566d02ee6d9c7030681e31660a11c7e2f3efd41043811a42e0502"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-keep-policy.ts",
+          "sha256": "cb2d721c618d0e50629e2464915ef76ae9676c1f6f75f2c18274ce10d50b225c"
+        },
+        {
+          "file": "packages/runtime-core/src/goal-checkpoint.ts",
+          "sha256": "5da1f612b4fe45a950308687eb502a34bf34273537efb0ecb21af7db34c1c788"
+        },
+        {
+          "file": "packages/runtime-core/src/iso-crypto.ts",
+          "sha256": "79d3685e6181920b7189fac694321fc210c22749011685272dafc2f4c2a9fb9a"
+        },
+        {
+          "file": "packages/protocol/src/memory.ts",
+          "sha256": "46633711e317d627a40982b34e0e89f0e47984bf37f5910444c97fa23e6dd07c"
+        },
+        {
+          "file": "packages/protocol/src/system-context.ts",
+          "sha256": "e881fabd7d0f6f0929fb0eee3adc02bb2e420b0d286807051d72a9ee57ee18b4"
+        },
+        {
+          "file": "packages/protocol/src/goal.ts",
+          "sha256": "91fe43af64fac079d7e4cac6ce7d25c91fd762e414dabf170c1ab96d5eb5c2bd"
+        },
+        {
+          "file": "packages/protocol/src/acceptance-close-gate.ts",
+          "sha256": "fc34326e201c4852abe7736f129a6980e204e3ec14663456dfa33102f4f482ad"
+        },
+        {
+          "file": "packages/protocol/src/desktop-preview.ts",
+          "sha256": "7e87d5222c0bba2b13b3dd35753daf975d7e3a292a4fc2eb1f99e0fd3b3100da"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-visual-repair.mjs",
+          "sha256": "b695121e2a795d140146ee01419bc3ca24e66a70f7a81d19154c9a985c76e75d"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-ui-completion.mjs",
+          "sha256": "b13b536322d07b07926f8fa3fb731523faf88895c8d9284f686d3037d425cc37"
+        },
+        {
+          "file": "packages/protocol/src/ui-delivery-verification.ts",
+          "sha256": "7af91fa9668afd726acda306b060a00a6e8f523bf5246c0a9fee85cca1a6f240"
+        },
+        {
+          "file": "packages/runtime-node/src/goal-intake-ui-delivery.mjs",
+          "sha256": "ed6783cea9d4f7709635735826564575c00a8b0e7cca66dd18131a3ac86f692b"
+        },
+        {
+          "file": "packages/runtime-node/src/automation-store.mjs",
+          "sha256": "3c6f378bf761dc2bedf1a89105c1e75ba72d1fc6f7bf3878974d408d5eff4ff1"
+        }
+      ],
+      "toolchain": "TypeScript 5.9.3; runtime named exports routed to unchanged same-tag modules"
+    }
+  ],
+  "ok": true,
+  "finishedAt": "2026-10-11T05:52:04.871Z",
+  "fixtureRemoved": true
+}

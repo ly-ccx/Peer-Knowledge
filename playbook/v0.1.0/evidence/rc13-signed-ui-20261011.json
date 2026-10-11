@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.13",
+  "scope": "Unmodified downloaded signed Mac application with isolated data/profile and synthetic history/memory; no live credentials, tool execution or long-term acceptance.",
+  "startedAt": "2026-10-11T06:53:36.485Z",
+  "checks": [
+    "52px header with SVG Bot settings entry opens Settings directly",
+    "Published Bot settings saves a generated-avatar identity color using the real local profile",
+    "Overview and saved Memory remain readable in right sidebar",
+    "Chat uses named Bot composer and contained synthetic assistant replies; real-turn details/streaming are covered by source packet, not this seed",
+    "Signed application renders saved avatar identity tint in actual assistant bubbles",
+    "Published RC13 updater checks real Beta feed with no downgrade offered"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    {
+      "name": "signed-bot-settings.png",
+      "sha256": "2451f059d8e7d0a007cfee7bb7d3550453d5e5631637fdd95ed558d578dd2621"
+    },
+    {
+      "name": "signed-bot-overview.png",
+      "sha256": "f00395cfd91225129fdf8f88a82b3223c0ded1192144c7bf97a5b85d7b21d216"
+    },
+    {
+      "name": "signed-bot-memory.png",
+      "sha256": "b73276ab5259ade672393112f2bbb41dff2d75c8320ce489c4cc00c551b638ea"
+    },
+    {
+      "name": "signed-chat.png",
+      "sha256": "8f883c3af0bf8c90f14528826b3982346f8070232c213a2027e3eff96c5de49c"
+    }
+  ],
+  "userInstalledAppOrDataModified": false,
+  "main": {
+    "version": "0.1.0-rc.13",
+    "packaged": true,
+    "isolatedHome": "<temp>/peer-rc13-published-ui4/data",
+    "chromiumProfile": "<temp>/peer-rc13-published-ui4/chromium"
+  },
+  "initialScreen": {
+    "url": "file://<temp>/peer-rc13-assets/mac/Peer%20Agent.app/Contents/Resources/app.asar/dist/index.html",
+    "text": "Peer Agent\nPeer Agent"
+  },
+  "headerHeight": 52,
+  "messageColor": {
+    "accent": "#f36d63",
+    "avatar": "#f36d63",
+    "background": "color(srgb 0.923294 0.852392 0.865882)",
+    "bodyColor": "rgb(26, 29, 33)"
+  },
+  "updaterStatus": {
+    "currentVersion": "0.1.0-rc.13",
+    "channel": "beta",
+    "preference": "auto",
+    "enabled": true,
+    "phase": "not-available"
+  },
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-11T06:53:44.702Z",
+  "visualReview": {
+    "reviewer": "Codex implementer",
+    "independent": false,
+    "observations": {
+      "signed-bot-settings.png": "52px header and selected Settings tab; model roles grouped and disabled because isolated fixture has no channel; avatar color controls stay within the drawer.",
+      "signed-bot-overview.png": "Saved coral Bot color matches header and reply tint; bound project and no-running-task facts readable in sidebar.",
+      "signed-bot-memory.png": "Three memory cards and category/trust/state filters remain inside the drawer; pagination and actions visible.",
+      "signed-chat.png": "Coral generated avatar and lightly tinted bubbles agree; composer aligned with message column and actual RC13 footer visible."
+    }
+  }
+}
