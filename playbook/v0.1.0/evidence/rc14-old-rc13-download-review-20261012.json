@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceTag": "v0.1.0-rc.13",
+  "targetTag": "v0.1.0-rc.14",
+  "reviewer": "Codex implementer self-review",
+  "independent": false,
+  "reportSha256": "7741606d9908f937f3ea41de55f09d04b7ff236e1c625fd04ae0538c008b8759",
+  "screenshots": [
+    {
+      "name": "old-rc13-update-available.png",
+      "sha256": "06b0bf793c1be0a857585510c4acc58e8344fbedefff59ef724f3e5bac56a168",
+      "observation": "旧 RC13 显示发现 v0.1.0-rc.14、来源 RC13 和更新内容；截图恰在入场动画中，不能作为最终稳定态对比度的证据。",
+      "reviewed": true,
+      "blockingFindings": []
+    },
+    {
+      "name": "old-rc13-downloading.png",
+      "sha256": "42d2381a2cfb5b764d3808621e8334491e73d73b4dcc455419044fd3f74937f1",
+      "observation": "点击更新后的截图仍在原弹窗退场阶段，左下角已出现 0% 下载进度；不能以这一张静态图替代完整动效连续帧验收。连续帧由完整产品包覆盖。",
+      "reviewed": true,
+      "blockingFindings": []
+    },
+    {
+      "name": "old-rc13-update-ready.png",
+      "sha256": "01668bdbc9385cd3b7b81880ef31ab2d98ff30f29cf678563198c7c435d20125",
+      "observation": "下载完成后原弹窗已关闭，左下角显示安装按钮；无错误弹窗，旧 RC13 身份仍明确，未自动安装。",
+      "reviewed": true,
+      "blockingFindings": []
+    }
+  ],
+  "accepted": true,
+  "limitations": [
+    "The first two captures are transition snapshots, not a settled contrast or full animation acceptance. Final product packet separately verifies updater motion. Actual installer execution is excluded."
+  ],
+  "blockingFindings": []
+}

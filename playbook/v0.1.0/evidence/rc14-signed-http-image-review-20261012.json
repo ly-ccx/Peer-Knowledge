@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "Codex implementer self-review",
+  "independent": false,
+  "sourceTag": "v0.1.0-rc.14",
+  "sourceHead": "f931664783e08ea7673519d72e6ded1369e3d1ee",
+  "reportSha256": "5b91e01e1626930c51bea200f01aab96431b793e353d1faf2b5a6a30c24338d8",
+  "coverage": "Unmodified official signed Mac package, real view_image and HTTP provider adapter; controlled loopback model intent, no cloud vision quality claim. Every one of the twelve captured screenshots was inspected.",
+  "screenshots": [
+    {
+      "name": "signed-image-allow-waiting.png",
+      "sha256": "6e381782811bed58507027c7a90895db96021aacd3fbb9a8d7a41966888ff2ec",
+      "reviewed": true,
+      "observation": "深色宽窗权限卡自动出现，显示具体 PNG 路径、当前模型接收范围、30 分钟任务许可与五分钟等待期限；四个动作完整，回复状态静态等待授权。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-allow-ended.png",
+      "sha256": "15b13c5801f35458e6f1375d3b6e2c8e3ca51836284863cfc26afad33219dc48",
+      "reviewed": true,
+      "observation": "仅这一次批准后卡片保留已授权与具体路径，操作按钮关闭，真实像素读取后的回复正常完成，发送控件恢复。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-task-waiting.png",
+      "sha256": "6724b7c5d1652393d6d6be47913eafb6f25725babef884e0c6be14db34c6faad",
+      "reviewed": true,
+      "observation": "浅色 760px 窄窗四个权限按钮在卡片内完整可读，路径换行未溢出，任务内授权范围明确。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-task-ended.png",
+      "sha256": "5a3bbd9673aef375140cb4e8f6cb7a1cb3cf74c94da8079d0ba3f24b1db378b9",
+      "reviewed": true,
+      "observation": "窄窗批准后已授权卡片与完成回复有明显间距，无第二张重复权限请求；机器断言另核对两次真实调用使用一个批准。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-deny-waiting.png",
+      "sha256": "fb17034ebc882f7a44918652f9f038eb2881550ebe9242c5c9e27163b731c74c",
+      "reviewed": true,
+      "observation": "深色界面显示本次新图片的四个授权动作，原任务授权未误用到不同路径。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-deny-ended.png",
+      "sha256": "bbb9b8d57f12da76c431edd20c4cec32a9454ee4ed8cf7d88927a7343638b623",
+      "reviewed": true,
+      "observation": "卡片明确已拒绝本次读取、保留路径且无继续按钮，完成回复说明未读取图片。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-cancel-waiting.png",
+      "sha256": "ffb93153ab6efeb158a84412c3987ae0f8c117173edcddc8434d1a17518ff09e",
+      "reviewed": true,
+      "observation": "待授权图片路径与四个动作完整可见，取消本次读取的入口直接在主对话。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-cancel-ended.png",
+      "sha256": "b69d5b38d0d8e138fc6d5396d478ae510b887bd24717bfe4cbab966c09623f75",
+      "reviewed": true,
+      "observation": "本次图片读取已取消，授权按钮消失，回复说明未读取；仍可正常发起下一条消息。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-stop-waiting.png",
+      "sha256": "289596b37f95bb064bb625452ed93d595fa4cb2025f1da716735677712303765",
+      "reviewed": true,
+      "observation": "停止生成入口在发送栏，当前权限卡仍标明五分钟上限与读取范围。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-stop-ended.png",
+      "sha256": "893d15bc17423008981084846369379737ed8444fea666beb9de2f4fdf537911",
+      "reviewed": true,
+      "observation": "停止生成同时关闭图片授权卡，回复标记生成已停止及以上内容未完成；保留继续尝试而未声称任务已完成。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-timeout-waiting.png",
+      "sha256": "0d01a7d448d685ebb5020cafa3e30468f9265db4f7b1f8b6e0d06f9882ba522a",
+      "reviewed": true,
+      "observation": "等待授权静态状态与四个按钮保持可读，卡片明示最多五分钟，停止入口可用。",
+      "blockingFindings": []
+    },
+    {
+      "name": "signed-image-timeout-ended.png",
+      "sha256": "4b3c01748f6831c48c16d5a52872c7489e355c611e95d2ce5d3cbee92681a629",
+      "reviewed": true,
+      "observation": "真实五分钟后卡片明确等待授权已超时、本次未读取、可重新发起；无旧授权按钮，完成回复与发送控件正常。",
+      "blockingFindings": []
+    }
+  ],
+  "accepted": true,
+  "blockingFindings": []
+}
