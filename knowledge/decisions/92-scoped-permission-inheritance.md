@@ -89,3 +89,52 @@ AI 实施者实际检查全部 145 张必需截图，逐图记录观察；`indep
 两项既有次要限制记录在 review.json：透明 Quick Chat 的离屏 PNG 无法证明原生浅色合成对比度；旧侧栏失败摘要仍可能带 response_ 技术前缀。均不改变本次图片权限真值或阻止授权动作。
 
 覆盖为源码 Electron、隔离数据和受控模型。键盘与 reduced motion 场景通过，未覆盖完整读屏、真实 Provider 的网络时序、安装版 RC 或长期运行。用户日常源码、当前 RC12 与真实用户授权/任务数据未修改。
+
+## 8. 活跃权限请求的完整生命周期（2026-10-11）
+
+状态：Accepted。用户明确授权补齐权限卡展示、授权续跑、取消、超时，并要求真实看图调用验证。
+
+### 8.1 已确认的根因
+
+RC13 的主 Bot 读项目外图片时，PermissionGate 已追加 open 批准记录，但 Bot 收集式 TurnSink 没有窗口，Activity 又忽略 permission-request；ApprovalStore 写入不发布事实变化。LLM Chat Service 与 Desktop Bot Host 还分别创建了批准存储实例，仅给 Bot 存储加通知不能收到权限门的实时追加。界面因此无法及时取得权限卡，把等待用户误显示为正在查看图片。等待 Promise 无期限，单次读图可悬挂数小时。旧界面测试预先注入卡片，未覆盖真实调用到卡片的链路。
+
+### 8.2 Module 与不变量
+
+沿用 Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。新增 PendingPermissionWait Module 管理宿主内活跃请求、截止时间、AbortSignal、唯一领取和清理；PermissionGate 负责策略、批准与资源继承，ApprovalStore 负责持久事实。Renderer 只提交决定。
+
+- 每个请求在宿主登记后发布卡片事实变化和 Activity 的 awaiting_permission。工具段显示等待授权，不声称正在解码；授权恢复时回到工具执行。并发等待逐项管理，不因一项决定消除另一项等待。
+- 默认等待期限为 5 分钟。期限只限制尚未获准的权限等待，不限制获准后的图片执行，不构成 30 分钟资源授权的续期。宿主测试可注入短期限和时钟。截止时间持久化为 deadlineAt；超时写 expired、decisionReason=permission_timeout。
+- 允许一次或本轮此图片从同一请求继续实际读取，不重跑整个任务、不要求重复发送；只有获准后才解码像素。具体文件身份、取消、主体、资源授权与解码限制仍按 ADR 90/92 重检。
+- 拒绝写 denied；卡片取消或停止所属回复写 cancelled；宿主无法呈现/保存请求时明确失败。每项决定只领取一次，清除计时器、AbortSignal 监听和待处理索引，发布 permission-settled；所有出口均携带结构化原因。
+- 已过期、取消、停止或丢失现场请求的旧 open 卡不得签发许可。迟到和重复动作返回最新宿主事实，不覆盖终态，也不创建可继承授权。允许动作先领取活跃请求，再保存授权；保存失败不返回像素。重启的 stale 仍沿既有恢复路径，但已经超过 deadlineAt 的请求先变 expired。
+- 保存批准事实后通知 Desktop 刷新相应 workspace，Bot 和经典会话均获得收口事件。后台子执行者使用同一批准日志和宿主权限门；不能依赖真实 BrowserWindow 才能发布等待。
+- Desktop 在组合入口把 Bot Host 的 ApprovalStore 注入 LLM PermissionGate，使用一个实例发布落盘后的事实变化。沿现有 ConversationStore 保存、更新同一 cardId 的 system_card 展示回执；批准日志压缩后，历史卡也不得留下可点击的 open 外观。回执只表达宿主决定，不能签发权限或代替 ApprovalStore 真值。
+- Provider 将权限取消和超时分别返回 cancelled / timeout ToolResult，Evidence 记录真实失败原因；失败不含视觉侧带。不把普通聊天同意推断为本地许可。
+
+### 8.3 产品表达与验收
+
+活跃图片卡显示具体文件、将像素交给当前模型、等待授权说明、允许一次、本轮此图片、拒绝、取消本次读取。超时和取消卡关闭动作并说明本次没有读取图片；需要重新发起时使用新的调用，不让旧按钮复活。
+
+新增测试必须从真实 view_image Runtime Projection 调用产生请求，自动出现生产权限卡，经 UI → IPC → ApplicationService → PermissionGate 决定；确认实际 Desktop 图片解码器产出像素并进入模型视觉侧带。覆盖允许一次、本轮许可、拒绝、卡片取消、回复停止、超时、并发互不干扰、重复/晚到批准、落盘失败和重启过期。控制模型只用于提出调用和接收像素，不伪称真实云模型语义理解；已安装 RC 的长期运行另记覆盖限制。
+
+标准产品截图包加入真实调用产生的授权等待、授权后结果、拒绝、取消和超时，实施者逐图审阅并 verify。禁止通过注入预制权限卡替代这条完整路径。
+
+### 8.4 实施与真实调用验证
+
+代码：Peer-Agent PR #156，提交 `05d04526`。新增 `PendingPermissionWait` 与 `ApprovalConversation`，在 Desktop 组合入口注入同一 ApprovalStore；协议扩展请求截止时间、取消与结束原因，Activity 表达 awaiting_permission。权限决定保存后才释放 Provider，停止回复也把结构化取消结果与 Evidence 引用送回原 TurnSink。
+
+构建、全量测试、类型检查、架构 / SVG / 圆角检查与产品验收规则测试通过。工作区测试日志包含 7515 项通过（Desktop 主测试 5518 项通过，5 项显式跳过），升级与流式脚本测试也通过。权限、继承、批准存储和应用服务聚焦回归 74 项通过；工具与详情回归 24 项通过。覆盖并发等待隔离、超时领取竞争、读取 session 期间截止时间跨越、AbortSignal 监听清理、展示 / 落盘失败、重启过期与日志压缩后的历史回执。
+
+隔离源码 Electron 实际执行生产 `view_image` Runtime Projection → ToolHost → PermissionGate → CardView / IPC → ApplicationService → PermissionGate → LocalImageProvider → Electron nativeImage 解码 → 视觉侧带。六个用例为允许一次、本轮图片授权、拒绝、卡片取消、停止回复与超时；均由真实调用自动产生卡片，未注入预制批准。成功用例校验实际 PNG 字节 SHA-256、1×1 尺寸、PermissionGrant 与 Evidence，本轮许可再次读取同一图片复用原 grantId；其余用例不返回像素，清空活跃等待，迟到的批准返回原终态。停止回复仍向生产 TurnSink 返回取消原因和 Evidence 引用。
+
+超时界面测试注入 2.5 秒期限，宿主单元测试注入时钟，生产默认 5 分钟。模型调用意图由受控认知执行器提供，因此证明真实本地图片调用与原生解码，不证明云模型语义理解、网络时序或安装版 RC 已升级。数据与截图均在临时隔离目录，未修改用户真实任务或授权记录。
+
+### 8.5 产品回归验收
+
+标准 `qa:product:capture` 与 `qa:product:verify` 通过；包为 `/tmp/peer-image-permission-product-v2`，Run ID `4cb5be54-c016-436f-9ef4-9d50640a9aca`，源码提交 `05d04526961098641f44c1f5552625622f86636d`，文件指纹 `801d5b9c45ca5debdfb4c16bdd8dc0494391aa955c9f64c107dc39440cb99b56`。最终 Verify 于 `2026-10-11T15:37:06.208Z` 通过；机器回归无页面异常或授权事件异常。
+
+实施者实际审阅全部 152 张必需截图，逐图记录具体观察，`independent=false`。新增 7 张真实请求截图覆盖深色宽窗 / 浅色窄窗等待、授权后续跑、拒绝、卡片取消、停止回复和超时；另以原尺寸检查这 7 张的路径、按钮、提示与关闭状态。长路径在窄窗完整换行，等待不再误显示为正在查看图片；授权后原调用继续，拒绝 / 取消 / 超时卡移除旧操作。另一项操作保持单独等待，未被当前图片授权一并批准。
+
+同一包记录两个既有次要限制：透明 Quick Chat 离屏图无法证明原生浅色合成对比度；旧侧栏失败摘要仍带 `response_` 前缀。无未解决的阻断发现。键盘与 reduced motion 交互在机器回归覆盖，完整读屏、真实云模型与网络时序、日常安装版和长期运行未覆盖；不以源码包通过宣称安装的 RC13 已更新。
+
+[CI run 38151003913](https://github.com/ly-ccx/Peer-Agent/actions/runs/38151003913) 的 macOS 与 Linux 均通过构建、类型检查、架构检查、全量测试及 Electron 冒烟；新增真实图片权限生命周期随标准 `--work-surfaces` 用例执行。
