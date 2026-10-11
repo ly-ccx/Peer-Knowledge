@@ -1,0 +1,523 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-11T06:52:06.587Z",
+  "scope": "Real production Provider and SDK eligibility; Node HTTP adapter; real published metadata. Platform manifests are checked without downloading/installing executables or mutating user settings.",
+  "probeAdapter": "Temporary copy of repository live probe with absolute module references and additional RC9/RC10 installed-version cases; production Provider and SDK remain unchanged.",
+  "sdkVersion": "6.8.9",
+  "providerSourceSha256": "870cde8d6a89a4e85f3b60f8d722c06fc092cd1817edc24e0d7ebc98011868a9",
+  "releaseSource": {
+    "owner": "ly-ccx",
+    "repo": "Peer-Agent",
+    "host": "github.com"
+  },
+  "requests": [
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases.atom",
+      "status": 200,
+      "sha256": "591e4aeba8b51695b7f613843a7af9e8cd59f86d186d093ad65a5d7d81637f11"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/beta-mac.yml",
+      "status": 200,
+      "sha256": "a3f038c5d4a30687f85accdec6087fb4feef76cd00a0fde548cc5ec0f19017dc"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/latest",
+      "status": 200,
+      "sha256": "10ba3e95f1c9777abb1f66cd391a1ebd181a1266022c3b7cf9c569d068dc4c55"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/latest-mac.yml",
+      "status": 200,
+      "sha256": "10b5efa4f8095609d56a1a9583bc6f0ad2b89c635953e0853e9fbb43a6f20774"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/beta.yml",
+      "status": 200,
+      "sha256": "3ea93186d0f9424089ae3f9f8f5acb0ef6af96474f818266a6b7877380fc230f"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/latest.yml",
+      "status": 200,
+      "sha256": "176d88ed8208057bfb72c4225b916509dfa217d417718122721491fa33e51cbd"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/beta-linux.yml",
+      "status": 200,
+      "sha256": "21ca535230e331c54371fe182d72955c23c11e9f5cdffebf72b3711381ffe2fe"
+    },
+    {
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/latest-linux.yml",
+      "status": 200,
+      "sha256": "e6f3f7352e2636a83a1a6f74fbb51c6bc2fa962d1a3829202936a06165798f44"
+    }
+  ],
+  "checks": [
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-beta.5",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.2",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.9",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.10",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.11",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.12",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.13",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": false,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.zip",
+          "sha512": "0UsrPv+DJSVJ9ZgqULBYtBMKYxdgveJyrvVuQt5s4qhbmF5kIS9ZEQ/Q6Ugm02EcxL9c8evPpONcOFbVzZukHQ==",
+          "size": 141622760
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-arm64.dmg",
+          "sha512": "Kd+LN2KKX3cHalHKka9YrzvntOOQ6Mex4ul32Yi+RvQgbZ2Wscx+XdpeTI0n06uuSIFAn/fkuZKWWsFTp9DXVA==",
+          "size": 144135457
+        }
+      ]
+    },
+    {
+      "platform": "darwin",
+      "installedVersion": "0.1.0-rc.13",
+      "channel": "latest",
+      "allowDowngrade": false,
+      "selectedTag": "v0.0.18",
+      "manifestVersion": "0.0.18",
+      "updateAvailable": false,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/Peer-Agent-0.0.18-arm64.zip",
+          "sha512": "XoKjoh24Wy4j9xx9Ns0ELSXGQeQ9A9heWH0WqLslTxyBRhZqXf3iRUZEr6B8Z/c899wmaQi79khEkC7xz8vMOQ==",
+          "size": 141124627
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/Peer-Agent-0.0.18-arm64.dmg",
+          "sha512": "MbpbcKHABlbUE3wpzP0vvyeJXmSYzZ4TbbYtEnKImU+UV5/3IKIzUHomJv4LR2wqQ/GbEHzCgZuq0DNDwu2IWA==",
+          "size": 143649132
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-beta.5",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.2",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.9",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.10",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.11",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.12",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.13",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": false,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-Setup-0.1.0-rc.13.exe",
+          "sha512": "3ezGhDokVZbmvUBhZFTdeB/drjqx8+21EJWGqXZ/U/5s+1Jup4OuuGz0t8Xp7yTBSgYQ/APqx95tPumx9dzZkg==",
+          "size": 222031374
+        }
+      ]
+    },
+    {
+      "platform": "win32",
+      "installedVersion": "0.1.0-rc.13",
+      "channel": "latest",
+      "allowDowngrade": false,
+      "selectedTag": "v0.0.18",
+      "manifestVersion": "0.0.18",
+      "updateAvailable": false,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/Peer-Agent-Setup-0.0.18.exe",
+          "sha512": "44kJvyBr3c6RLiBsXDQT7V3DiPduGWruOeN+qJZPzjFDkfM+RPYEf/g+VAlzfMSoYkqdHPUaI6RlI6dhskKPOQ==",
+          "size": 221585842
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-beta.5",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.2",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.9",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.10",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.11",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.12",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": true,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.13",
+      "channel": "beta",
+      "allowDowngrade": false,
+      "selectedTag": "v0.1.0-rc.13",
+      "manifestVersion": "0.1.0-rc.13",
+      "updateAvailable": false,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.AppImage",
+          "sha512": "24YPTybguAOatkJQC33yFDRrjJbeALNS6hjl8EqYktFNFmxUtDSQezcn5S7chPxCrEjxewQf6C0T5rJUValSMA==",
+          "size": 144101128
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.13/Peer-Agent-0.1.0-rc.13-x64.deb",
+          "sha512": "tUnHPn4GUq0175KqB5Oqz74xNxXEY2oX8TMQ7nrFgZ2s12oDUwubeC0mpNRf7tD4kQ9XtsFUpMoAgiVgyFih6w==",
+          "size": 115309100
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "installedVersion": "0.1.0-rc.13",
+      "channel": "latest",
+      "allowDowngrade": false,
+      "selectedTag": "v0.0.18",
+      "manifestVersion": "0.0.18",
+      "updateAvailable": false,
+      "files": [
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/Peer-Agent-0.0.18-x64.AppImage",
+          "sha512": "CYK5msiX+2ytmM5WfNCTkSwgunUHb7xJyv9hk6M+qFgzLNkbuOGqm01YQd7KCAqkhzY8YH+psHRBH6F1c+47Ww==",
+          "size": 143580817
+        },
+        {
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.0.18/Peer-Agent-0.0.18-x64.deb",
+          "sha512": "T5xcTSs+JFqqz6aPGBPZCsqEjiz/81LysSKCCKbj7z0BJBKi4b8nZPu7wP/iS7tZmxkf/omoqB7YjaWP0vkb7g==",
+          "size": 114897592
+        }
+      ]
+    }
+  ],
+  "ok": true,
+  "finishedAt": "2026-10-11T06:52:14.803Z"
+}

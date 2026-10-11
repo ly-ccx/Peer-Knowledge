@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.13",
+  "startedAt": "2026-10-11T06:55:03.845Z",
+  "scope": "Unmodified official signed Mac application, isolated synthetic pending approvals; production CardView/IPC/ApplicationService saves exact image grant. No live model, worker image execution or personal data modification.",
+  "screenshots": [
+    {
+      "name": "signed-image-approval-1280-dark.png",
+      "sha256": "e738607db64b48d6e341aae6548373cfe73d194eb6a3b9ac4b30b61260e551e8"
+    },
+    {
+      "name": "signed-image-approval-760-light.png",
+      "sha256": "6b21ab404f6834f5e7458cc879ddb25557a00c803342054c8d6abd79c2853b1e"
+    }
+  ],
+  "checks": [
+    "Keyboard approval through the signed application persists an exact image grant while another pending operation stays unapproved",
+    "Signed application restart retains the original grant and does not approve unrelated operations"
+  ],
+  "pageErrors": [],
+  "packagedIdentity": {
+    "version": "0.1.0-rc.13",
+    "packaged": true
+  },
+  "grant": {
+    "grantId": "image-a8ab874b-ba95-40ac-b1ac-941c640f9967",
+    "scope": {
+      "capabilityId": "local.image.read",
+      "action": "read_image_for_model",
+      "path": "<temp>/peer-rc13-published-permission-v2/approved-picture.png",
+      "workspacePath": "<temp>/peer-rc13-published-permission-v2/data/fixture-projects/project-000",
+      "fileIdentity": {
+        "dev": 16777233,
+        "ino": 47791860,
+        "size": 68,
+        "mtimeMs": 1791701703842.8225,
+        "ctimeMs": 1791701703842.8225
+      }
+    },
+    "workspaceId": "70e8c693-8271-4200-bc90-094807d8dc4e",
+    "conversationId": "0f2c3464-8047-4e7a-ba13-89533340e4cf",
+    "expiresAt": 1791703507094
+  },
+  "ok": true,
+  "ownedApplicationExited": true,
+  "finishedAt": "2026-10-11T06:55:10.697Z",
+  "visualReview": {
+    "independent": false,
+    "reviewer": "Codex implementer",
+    "observations": [
+      "Dark 1280: exact image path, admission to current model, current Bot/tasks and 30-minute scope fit in one permission card; unrelated file-write request is a separate card.",
+      "Light 760: full path wraps within the card and all three choices remain visible without horizontal overflow."
+    ]
+  }
+}
