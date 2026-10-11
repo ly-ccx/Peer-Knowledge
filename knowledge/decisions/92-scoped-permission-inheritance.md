@@ -1,9 +1,12 @@
 # ADR 92：具体资源授权与执行链继承
 
 创建时间：2026-10-11
+最后更新：2026-10-12
 状态：Accepted（用户明确要求补齐图片授权，并全局检查权限继承；先记录决策再实现）
 级别：A（权限、协议、批准记录），B（Desktop/TUI 执行与恢复），C（授权入口文案）
-依赖：ADR 85、88、89、90、91
+依赖：ADR 49、85、88、89、90、91
+
+当前完全授权语义以 §9 为准。§2–6 的具体图片批准与 30 分钟资源许可用于需要逐项审批的模式；历史实施记录保留原行为与证据。
 
 ## 1. 已确认的断点
 
@@ -17,7 +20,7 @@ RC12 的主 Bot 在用户通过普通问题选项表示同意后，读取五张�
 
 本次资源继承限定为 `local.image.read` 的单一真实图片文件。许可绑定 workspaceId、机器人父会话、真实路径、文件身份（设备、inode、大小、mtime、ctime）、`read_image_for_model` 动作与 30 分钟有效期。无 workspace 身份的普通会话只能在自身会话内复用。委派执行者须从 GoalPlan 的 delegationOrigin 回读 workspace/session/父会话，并检查当前计划没有取消、暂停或被取代；核验者和恢复执行者走同一判断。独立任务不能从另一机器人会话继承。许可不扩大 readableRoots，也不授权目录、其他文件、文本读取、Shell、写入、浏览器、MCP 或密钥。
 
-Provider 在范围外图片读取时进入既有结构化权限入口。项目代理仍限制为只读图片；global full/session 设置不能偷偷批准项目外读图。无人工审批者时先检查有效宿主许可，未命中立即结构化拒绝；不能等待不存在的确认窗口。图片读取前后仍检查真实文件身份、取消和大小/解码上限。
+Provider 在范围外图片读取时进入既有结构化权限入口。项目代理的工具职责仍由角色与 Runtime Projection 约束；已开启的 `full_local` 按 §9 覆盖其获准使用的本地能力，项目外读图不再额外逐张审批。非 Full 模式继续按具体资源许可审批。无人工审批者时先检查有效宿主许可，未命中立即结构化拒绝；不能等待不存在的确认窗口。图片读取前后仍检查真实文件身份、取消和大小/解码上限。
 
 ## 3. 用户决定与复用
 
@@ -138,3 +141,36 @@ RC13 的主 Bot 读项目外图片时，PermissionGate 已追加 open 批准记�
 同一包记录两个既有次要限制：透明 Quick Chat 离屏图无法证明原生浅色合成对比度；旧侧栏失败摘要仍带 `response_` 前缀。无未解决的阻断发现。键盘与 reduced motion 交互在机器回归覆盖，完整读屏、真实云模型与网络时序、日常安装版和长期运行未覆盖；不以源码包通过宣称安装的 RC13 已更新。
 
 [CI run 38151003913](https://github.com/ly-ccx/Peer-Agent/actions/runs/38151003913) 的 macOS 与 Linux 均通过构建、类型检查、架构检查、全量测试及 Electron 冒烟；新增真实图片权限生命周期随标准 `--work-surfaces` 用例执行。
+
+
+## 9. 完全授权遵循统一访问策略（2026-10-12）
+
+状态：Accepted。用户明确指出逐张图片授权不可接受，要求完全授权。现场只读核对确认其已有 `settings.localAccessLevel = full_local`，本节在实现前修改 ADR92 的权限决策。
+
+### 9.1 根因与纠正范围
+
+Desktop PermissionGate 的通用本地能力请求器在 `full_local` 分支显式排除 `project_agent` 和 `agentKind=verifier`。文件及 Shell 请求遵循 Full，主 Bot 与核验者的项目外图片却降为逐图审批；30 分钟资源授权仍只匹配同一真实文件。RC14 的请求展示、取消和超时补齐了等待生命周期，未消除这一访问策略冲突。用户界面已经选择完全授权，无须要求再批准每张图片。
+
+### 9.2 权限策略与角色职责分开
+
+- `full_local` 是用户已持久保存的本地授权策略，统一用于通过 Runtime Projection 和角色能力检查的本地调用。主 Bot、子执行 Agent、只读核验 Agent 及恢复回合不因角色名称被额外排除。
+- Full 下项目内外的可用图片直接沿 PermissionGate 生成本次 Tool Call 的 PermissionGrant；多个文件、同一文件新调用、并行调用及重启后的调用无需逐图弹卡。用户继续保持 Full 时，不受逐图资源批准的 30 分钟期限限制。
+- 自动生成的 grant 仍对应真实调用与结构化资源范围；grant 的 once 表示这次实际执行的凭据，不表示用户必须再次点击。不伪造 local_ui 批准记录，不把所有路径扩成图片缓存授权，也不把 renderer 状态作为权限真值。
+- Role/Mode/Goal 决定能使用哪些能力及执行职责；LocalAccessLevel 决定这些已准入能力是否需要逐项审批。Full 不改变 Verifier 与主 Bot 的只读职责、明确的 objective probe/automation 策略、取消信号、计划执行准入与既有拒绝规则。这些条件沿原 Provider 链执行。
+- 降为非 Full 后，新调用立即按当前策略处理；自动图片许可在文件读取前及像素返回前校验同一策略 epoch，降权后不能继续把尚未交出的像素返回模型。已执行副作用或已进入模型上下文的内容不能被撤回事实抹除。
+- `ask_before_local` / `session_local` / `restricted_local` 继续保留需要批准的真实请求卡与 §8 的拒绝、取消、停止、超时闭环；一张图片的单次/本轮批准不会被误升级为 Full。只修正已开启的 Full，不静默把现有审慎配置改为 Full。
+
+### 9.3 Module、存储与实现
+
+复用现有 `settings.localAccessLevel` 真源、PermissionGate 自动许可分支、每次调用 grant 与 ImageProvider 的 validate 回调，不增加 Bot 档案权限字段、存储目录、工具或审批旁路。Full 与读图资源审批共用 Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。主进程依当前策略生成许可，ImageProvider 仍核对真实文件、取消、大小、类型及解码限制。
+
+A 级权限决策；Desktop 门与 Provider 校验为 B 级实现，窗口回归与文案为 C 级。本次无需新的 Protocol 字段或 System Context Source，角色约束不变。
+
+### 9.4 必须验证
+
+1. 先复现已有 Full 下主 Bot / 无审批窗口 Verifier 项目外读图被拒绝。
+2. Full 下连续读取至少四个不同项目外真实 PNG，验证像素 SHA-256、PermissionGrant 与 Evidence；没有权限等待、open 批准记录或逐图卡片。
+3. 主 Bot、Worker、Verifier、恢复与重新初始化宿主均遵循已保存的 Full；同一图片变化后新的正常调用可重新读取，无旧资源批准期限造成的提示。
+4. Non-Full 仍需授权；拒绝、取消、停止、超时与迟到批准闭环不退化。单次批准不授权其他图片。
+5. Full 不能覆盖 objective probe、显式自动化许可、角色写闸和取消；实际读取过程中降权不返回未获准的像素。
+6. 实际源码 Electron / HTTP Provider 调用验证多图无卡与设置重启读取，另跑受影响测试、构建、类型和架构门禁。新无卡场景进入标准产品包，逐图自审及 verify，并明确受控模型与日常安装版覆盖范围。
