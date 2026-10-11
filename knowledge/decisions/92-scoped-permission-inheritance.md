@@ -76,6 +76,10 @@ TUI 的本次验收重点是具体操作许可、恢复和角色边界；默认 
 
 初次全仓重跑暴露旧测试仍期待宽泛文件授权，已改为具体文件批准并追加不同文件重新询问断言；并发重建 dist 曾引起缺导出，单文件及稳定源码串行完整重跑后通过。未放宽权限闸或把失败记为预期通过。
 
+### CI
+
+[CI run 38112740621](https://github.com/ly-ccx/Peer-Agent/actions/runs/38112740621) 最终 Linux 与 macOS 均通过 build、typecheck、architecture、全仓测试和 Electron 冒烟。首次 macOS 失败发生在本次未改动的引用跳转场景：等待 `#bot-msg-rc-message-9500.is-anchored` 超过 15 秒，尚未进入图片授权卡场景。只重跑失败 job，未修改源码、放宽断言或跳过用例，第二次通过。首次 trace 中 Enter 操作耗时约 3 秒，而高亮存续 1.8 秒，提示瞬时状态观察的时序风险；这是调查推断，未据此宣称生产引用跳转根因已修复。
+
 ### 产品回归
 
 正式产物包 `/tmp/peer-permission-product-v4`，`qa:product:capture` 与 `qa:product:verify` 均通过。Run ID：`d777c2df-d9d8-4667-821a-dfc6ab7eca16`；源码指纹：`da28c147c6c5e9c5bc23c51f14a881f559e87fa02657f3eeeb2302f9ab0fe7d9`。捕获期间代码文件稳定；main 场景启动时记录前一 Git HEAD，期间仅提交相同文件，后续独立场景记录当前提交，最终文件指纹校验通过。
