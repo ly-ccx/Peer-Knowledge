@@ -1,0 +1,57 @@
+{
+  "version": "0.1.0-rc.14",
+  "candidate": "983ff6469955fb3cfb322b1142ed16f7faa97418",
+  "checkedAt": "2026-10-11T16:15:28.071912+00:00",
+  "checks": {
+    "build": {
+      "passed": true,
+      "logSha256": "791212dde16d11143c57141124a331a1b0773731db2957fc6cfe3e4ae61e8ad6",
+      "outputTail": "pm --filter @peer-agent/runtime-core build && pnpm --filter @peer-agent/runtime-sdk build && pnpm --filter @peer-agent/runtime-node build && pnpm --filter @peer-agent/credential-helper build && pnpm --filter @peer-agent/conversation-store build && node ../../scripts/build-credential-helper.mjs --profile release --copy-to apps/tui/dist && node scripts/build-peer.mjs && node scripts/finalize-binary.mjs\n\n\n> @peer-agent/protocol@0.1.0-rc.14 build <code-worktree>/packages/protocol\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-core@0.1.0-rc.14 build <code-worktree>/packages/runtime-core\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-sdk@0.1.0-rc.14 build <code-worktree>/packages/runtime-sdk\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-node@0.1.0-rc.14 build <code-worktree>/packages/runtime-node\n> node scripts/embed-project-tool-prompts.mjs && tsc -p tsconfig.build.json\n\n\n> @peer-agent/credential-helper@0.1.0 build <code-worktree>/packages/credential-helper\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/conversation-store@0.1.0 build <code-worktree>/packages/conversation-store\n> node scripts/build.mjs\n\n   Compiling peer-credential-helper v0.1.0-rc.14 (<code-worktree>/crates/peer-credential-helper)\n    Finished `release` profile [optimized] target(s) in 1.38s\nCredential helper ready: <code-worktree>/target/release/peer-credential-helper\nCredential helper copied: <code-worktree>/apps/tui/dist/peer-credential-helper\n  [46ms]  minify  -12.38 MB (estimate)\n  [13ms]  bundle  775 modules\n  [62ms] compile  <code-worktree>/apps/tui/dist/peer\nBuilt peer CLI 0.1.0-rc.14 → <code-worktree>/apps/tui/dist/peer\n<code-worktree>/apps/tui/dist/peer: replacing existing signature\n<code-worktree>/apps/tui/dist/peer: valid on disk\n<code-worktree>/apps/tui/dist/peer: satisfies its Designated Requirement\n<code-worktree>/apps/tui/dist/peer-credential-helper: replacing existing signature\n<code-worktree>/apps/tui/dist/peer-credential-helper: valid on disk\n<code-worktree>/apps/tui/dist/peer-credential-helper: satisfies its Designated Requirement\n"
+    },
+    "typecheck": {
+      "passed": true,
+      "logSha256": "b6b068029c88cc554e8301c233140ac0a536f5ad727f748cc12d51e4551b05d9",
+      "outputTail": "\n> peer-agent@0.1.0-rc.14 typecheck <code-worktree>\n> pnpm -r typecheck\n\nScope: 15 of 16 workspace projects\npackages/credential-helper typecheck$ tsc -p tsconfig.json\npackages/protocol typecheck$ tsc -p tsconfig.json\npackages/credential-helper typecheck: Done\npackages/protocol typecheck: Done\npackages/chat-kernel typecheck$ tsc -p tsconfig.json\npackages/i18n typecheck$ tsc -p tsconfig.json\npackages/runtime-core typecheck$ tsc -p tsconfig.json\npackages/i18n typecheck: Done\npackages/chat-kernel typecheck: Done\npackages/runtime-core typecheck: Done\npackages/runtime-sdk typecheck$ tsc -p tsconfig.json\npackages/system-context typecheck$ node --check src/index.mjs\npackages/ui typecheck$ tsc -p tsconfig.json\npackages/task-thread typecheck$ tsc -p tsconfig.json\npackages/system-context typecheck: Done\npackages/task-thread typecheck: Done\npackages/ui typecheck: Done\npackages/runtime-sdk typecheck: Done\npackages/runtime-node typecheck$ tsc -p tsconfig.json\npackages/runtime-node typecheck: Done\napps/tui typecheck$ tsc -p tsconfig.json\napps/desktop typecheck$ tsc -p tsconfig.json\napps/tui typecheck: Done\napps/desktop typecheck: Done\n"
+    },
+    "architecture_ui": {
+      "passed": true,
+      "logSha256": "8b677540b6f5cc6ef6029719afbf4c910485039b4b1249bde08960c5bbc34d5c",
+      "outputTail": "\n> peer-agent@0.1.0-rc.14 architecture:check <code-worktree>\n> node scripts/check-architecture-governance.mjs && pnpm ui:check\n\nArchitecture governance check passed.\n\n> peer-agent@0.1.0-rc.14 ui:check <code-worktree>\n> node scripts/check-ui-conventions.mjs\n\nUI radius and SVG conventions passed.\n"
+    },
+    "runtime_pack_contents": {
+      "passed": true,
+      "logSha256": "1d1ed3c9cae3309a4157d63c62b4a42fea23ad0ffa56a0b5a1f2f7b6b981e866",
+      "outputTail": "\n> peer-agent@0.1.0-rc.14 runtime:pack-check <code-worktree>\n> node scripts/check-runtime-packages.mjs --contents\n\n\n> @peer-agent/protocol@0.1.0-rc.14 build <code-worktree>/packages/protocol\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-core@0.1.0-rc.14 build <code-worktree>/packages/runtime-core\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-sdk@0.1.0-rc.14 build <code-worktree>/packages/runtime-sdk\n> tsc -p tsconfig.build.json\n\nRuntime package contents check passed (0.1.0-rc.14).\n"
+    },
+    "external_runtime_host_smoke": {
+      "passed": true,
+      "logSha256": "752c3da887b023f39094e7c7d83a71ec99ff41899e4fb321da6945a3b0cb1fc9",
+      "outputTail": "\n> peer-agent@0.1.0-rc.14 runtime:pack-smoke <code-worktree>\n> node scripts/check-runtime-packages.mjs --smoke\n\n\n> @peer-agent/protocol@0.1.0-rc.14 build <code-worktree>/packages/protocol\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-core@0.1.0-rc.14 build <code-worktree>/packages/runtime-core\n> tsc -p tsconfig.build.json\n\n\n> @peer-agent/runtime-sdk@0.1.0-rc.14 build <code-worktree>/packages/runtime-sdk\n> tsc -p tsconfig.build.json\n\nnpm warn Unknown env config \"npm-globalconfig\". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.\nnpm warn Unknown env config \"verify-deps-before-run\". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.\nnpm warn Unknown env config \"_jsr-registry\". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.\nnpm warn Unknown env config \"electron-mirror\". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.\n\nadded 3 packages, and audited 4 packages in 1s\n\nfound 0 vulnerabilities\nexternal host smoke ok\nRuntime package smoke test passed (0.1.0-rc.14).\n"
+    },
+    "readiness": {
+      "passed": true,
+      "logSha256": "04c11ec45e4e070c832a2a636e954c91797861d795f5edb7dd8a654c7437bf7b",
+      "outputTail": "\n> peer-agent@0.1.0-rc.14 release:readiness-check <code-worktree>\n> node scripts/check-release-readiness.mjs\n\nVersion check passed: 0.1.0-rc.14\nchangelog data is current (93 releases, 94 JSON files)\nStamped version 0.1.0-rc.14 into:\n  - VERSION\nRelease readiness check passed: v0.1.0-rc.14\n"
+    },
+    "source_check": {
+      "passed": true,
+      "logSha256": "acf0980d53fb6c63f2bb2e3dac641d987489a702f043150dd97bda912b1a7485",
+      "outputTail": "\n> peer-agent@0.1.0-rc.14 release:source-check <code-worktree>\n> node scripts/check-release-source.mjs\n\nRelease source check passed: v0.1.0-rc.14 -> 983ff6469955fb3cfb322b1142ed16f7faa97418 (prerelease branch allowed)\n"
+    }
+  },
+  "finalCandidate": "fa75a8d31cd7ba9296310dc202bab4d09bcc08cc",
+  "releaseHead": "f931664783e08ea7673519d72e6ded1369e3d1ee",
+  "candidateAndReleaseGitTreeIdentical": true,
+  "finalChecks": {
+    "candidateCI": "38155979769: macOS and Linux full success",
+    "productPacket": "152 screenshots individually self-reviewed; verify passed, independent=false",
+    "upgradeMatrix": "32/32 pass",
+    "signedHttpImageFlow": "6/6 with actual default timeout 300463ms",
+    "publicAssets": "14/14 downloaded SHA256/size verified",
+    "publicUpdateChecks": "24/24 across three platforms",
+    "officialRelease": "38157279556: 8/8 jobs successful",
+    "oldRC13": "Actual update discover/download complete, hash matched; installer execution excluded",
+    "signedUI": "4 screenshots self-reviewed, real updater no downgrade",
+    "pages": "5 actual HTTP pages/JSON matched source"
+  }
+}
