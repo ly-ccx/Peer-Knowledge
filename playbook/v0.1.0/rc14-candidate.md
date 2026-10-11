@@ -2,7 +2,7 @@
 
 创建时间：2026-10-12
 最后更新：2026-10-12
-状态：RC14 已发布，正式包验收通过；合入后 CI 收尾中
+状态：RC14 已发布，正式包验收完成；后续 QA 修正的相同 Git tree 两平台完整 CI 通过
 
 ## 范围与源码绑定
 
@@ -34,7 +34,7 @@
 
 ### 合入后 CI 收尾
 
-[CI38157270109](https://github.com/ly-ccx/Peer-Agent/actions/runs/38157270109) 的首轮 Linux build、typecheck、architecture 和完整单测均通过；Electron smoke 在原有任务资料再次展开后点击“打开现场”，等待 nested scene 15 秒超时（`bot-task-detail-checks.mjs:132`），页面错误为空。失败报告和实际截图已保留。该失败发生在新增图片权限用例之前，同一 Git tree 的候选两平台完整 CI 与本机 152 图验收已通过；源码仅表明入口同步 setSceneOpen，截图/日志不足以证明是应用缺陷或点击与折叠过渡的竞态。未删除断言或改动已发布标签；macOS 首轮已于 17:14:08 UTC 完整通过；随后只原样重跑 Linux 失败 job，保留首次失败事实，第二次结果待补齐。
+[CI38157270109](https://github.com/ly-ccx/Peer-Agent/actions/runs/38157270109) 的首轮 Linux build、typecheck、architecture 和完整单测均通过；Electron smoke 在原有任务资料再次展开后点击“打开现场”，等待 nested scene 15 秒超时（`bot-task-detail-checks.mjs:132`），页面错误为空。失败报告和实际截图已保留。该失败发生在新增图片权限用例之前，同一 Git tree 的候选两平台完整 CI 与本机 152 图验收已通过；源码仅表明入口同步 setSceneOpen，截图/日志不足以证明是应用缺陷或点击与折叠过渡的竞态。未删除断言或改动已发布标签；macOS 首轮已于 17:14:08 UTC 完整通过。相同源码 Linux 第二次在更新弹窗到达目标位置断言失败，保存的 RAF 采样显示最后一个挂载帧距目标 36px，下一帧已卸载；这不足以区分漏采 animationend 终点与真实提前卸载。补充仅验收脚本的原生 animationend 捕获和 animation currentTime/endTime/pending 状态，保留原几何与生命周期断言；[仅验收脚本 PR158](https://github.com/ly-ccx/Peer-Agent/pull/158) 候选 `ebd7f9ecb039ce3c198347796d608fd1d8bc6d54` 的本机桌面 smoke 通过；[CI38159961790](https://github.com/ly-ccx/Peer-Agent/actions/runs/38159961790) macOS / Linux build、typecheck、architecture、全仓测试和完整桌面 smoke 全部通过，两平台六个图片权限场景均通过。macOS 捕获正常动效的真实 animationend；Linux RAF 实测位置距目标约 0.029px，减少动态效果通过。第一轮任务现场超时未再次复现，日志不足以最终归因，不声称对应产品实现已改。PR158 已于 17:49:22 UTC 合入 `69b6a2c9d4397b02d86f830fa87d3b68eef9c9fd`，与候选和实际 CI 合并引用 `3c7b60e97eb0e222e057ca2ab037da874a74a17b` 的 Git tree 完全相同；与已发布 tag 相比仅一个 QA 脚本改变，产品和 Runtime 源码未变化。未移动或替换 RC14 标签及公开资产。合入额外触发的 push CI 状态另存，不将排队/执行中的新 run 写成通过；本轮验收依据是相同 Git tree 的完整两平台 CI 及原装签名包实际验证。两次原失败事实均保留。
 
 ### 固定下载摘要
 
