@@ -697,6 +697,8 @@ Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result �
 
 ### 21.4 实施与本机验证记录
 
+代码交付为 [PR #151](https://github.com/ly-ccx/Peer-Agent/pull/151)，源码 `6d3210ca`；本节知识变更为 [PR #35](https://github.com/ly-ccx/Peer-Knowledge/pull/35)。本机验证不代替 CI、安装版或真实 Provider 验收。
+
 共享生命周期已接入语义和视觉核验，Desktop/TUI 对冻结委托核验画像应用执行预算。实时 `Tool Result` 中的权限拒绝取消核验；既有事件集合中的拒绝即使伴随通用 stream failure 也保留权限分类。`verify_session` 的结构化失败继续通过原 Provider finally 清理临时 `verifying`，不会替签或写入成功结论。
 
 定向测试覆盖底层不返回、格式修复共用截止时间、父取消、并发上限为 1 时父回合恢复、视觉适配器忽略取消、真实委托画像、实时拒绝、迟到成功不写验证真值、focus 传递和 TUI 非协作 Provider。先加入 focus 断言并确认旧实现失败，再修复后通过。
