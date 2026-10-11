@@ -149,7 +149,7 @@ RC13 的主 Bot 读项目外图片时，PermissionGate 已追加 open 批准记�
 
 ### 9.1 根因与纠正范围
 
-Desktop PermissionGate 的通用本地能力请求器在 `full_local` 分支显式排除 `project_agent` 和 `agentKind=verifier`。文件及 Shell 请求遵循 Full，主 Bot 与核验者的项目外图片却降为逐图审批；30 分钟资源授权仍只匹配同一真实文件。RC14 的请求展示、取消和超时补齐了等待生命周期，未消除这一访问策略冲突。用户界面已经选择完全授权，无须要求再批准每张图片。
+Desktop PermissionGate 的通用本地能力请求器在 `full_local` 分支显式排除 `project_agent` 和 `agentKind=verifier`。另有 ProjectAgentPermission 包装器把权限门返回的 Full/session 自动许可改为拒绝，并在外部文本读取到达权限门前硬拒绝。文件及 Shell 权限门遵循 Full，主 Bot 的角色适配器与核验者例外却造成策略分叉；30 分钟资源授权仍只匹配同一真实文件。RC14 的请求展示、取消和超时补齐了等待生命周期，未消除这一访问策略冲突。用户界面已经选择完全授权，无须要求再批准每张图片。
 
 ### 9.2 权限策略与角色职责分开
 
@@ -162,7 +162,7 @@ Desktop PermissionGate 的通用本地能力请求器在 `full_local` 分支显�
 
 ### 9.3 Module、存储与实现
 
-复用现有 `settings.localAccessLevel` 真源、PermissionGate 自动许可分支、每次调用 grant 与 ImageProvider 的 validate 回调，不增加 Bot 档案权限字段、存储目录、工具或审批旁路。Full 与读图资源审批共用 Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。主进程依当前策略生成许可，ImageProvider 仍核对真实文件、取消、大小、类型及解码限制。
+复用现有 `settings.localAccessLevel` 真源、PermissionGate 自动许可分支、每次调用 grant 与 ImageProvider 的 validate 回调；移除 ProjectAgentPermission 对已准入只读调用的重复路径/自动批准否定包装，角色写闸仍在执行请求前，不增加 Bot 档案权限字段、存储目录、工具或审批旁路。Full 与读图资源审批共用 Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。主进程依当前策略生成许可，ImageProvider 仍核对真实文件、取消、大小、类型及解码限制。
 
 A 级权限决策；Desktop 门与 Provider 校验为 B 级实现，窗口回归与文案为 C 级。本次无需新的 Protocol 字段或 System Context Source，角色约束不变。
 
