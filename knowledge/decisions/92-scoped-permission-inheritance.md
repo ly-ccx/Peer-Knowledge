@@ -182,3 +182,17 @@ A 级权限决策；Desktop 门与 Provider 校验为 B 级实现，窗口回归
 沿既有 LocalImageCheckpoint Module 增加受限的进程内继续上下文。Provider 发行的真实 observation 以本地 WeakMap 绑定模型图块，原权限 validate 闭包跟随发行证明。主动让出时仍只落盘无像素 checkpoint，加不含数据的随机恢复定位符；相同宿主内恢复按会话 / 项目 / 计划 / Provider / 模型身份及无像素消息指纹查找，验证原许可仍有效，才恢复已解码图块。模型文字、普通 JSON、复制的 observation 或 renderer 不能登记发行证明或构造可恢复上下文。
 
 缓存有条目 / 字节总量与有效期上限，单次领取并清理，过期、降权、来源不匹配或进程重启均只保留无像素 checkpoint 与原重读提示。它不是新权限或跨进程授权存储，不让缓存定位符代替 PermissionGrant；新调用继续按当前 Gate 执行。四种 Provider loop 在同一 seam 创建 / 恢复继续上下文，持久保存始终不含本地像素。验证必须跨主 Bot 的真实主动让出边界，确认四张不同图片均实际进入 HTTP Provider 请求，并覆盖伪造、篡改、撤权、过期与重启。
+
+### 9.6 实施与验收记录
+
+代码 [Peer-Agent PR #159](https://github.com/ly-ccx/Peer-Agent/pull/159)，提交 `bf5dd64a`（统一 Full）与 `12deec9e`（继续上下文）。ADR 在对应实现前分别提交。已移除两处否定 Full 的角色例外，复用同一 PermissionGate；未更改用户已保存的权限级别、日常任务数据或安装 App。
+
+先加入真实 Provider 测试得到 Full 下主 Bot / Verifier 拒绝的红灯（7 项中 4 项失败）；移除第一处角色例外后，原生 Electron Full 场景仍失败，从实际 projected executor 定位到第二处角色包装器。两处移除后权限、资源继承、生命周期、角色、objective probe 聚焦 57 项通过。继续上下文、实际 Provider 和视觉投影 23 项通过，验证普通 JSON / 复制 observation 无发行证明、跨会话 / 项目 / 计划 / Provider / 模型隔离、消息篡改、图块字节更换、撤权、过期、容量与 fresh-host 退回无像素状态。
+
+正常源码 Electron 的 HTTP Provider 入口进一步复现主动切片丢图：四个真实 ToolResult 成功，模型只收到第 1 / 3 张。修复 LocalImageCheckpoint 后，在持久 `full_local` 设置下，初次运行与关闭再启动两轮各产生四个不同项目外 PNG 的原调用。共八个调用均有持久 Evidence；四种 PNG 字节 SHA-256 在两轮各自实际 HTTP 请求中全部出现，跨越主 Bot 每两轮主动让出的边界，没有逐图权限卡、权限等待或批准记录。HTTP 模型只控制调用意图及回包，使用正常编码、原生图片解码和 PermissionGate；没有注入成功 ToolResult 或预制授权。临时验证凭据已清理。
+
+继续上下文缓存默认 5 分钟、16 条、128 MiB 上限，单次领取；其过期只影响缓存图块，Full 下新调用仍直接获准。缓存进程内发行证明不跨重启，重启测试是按已保存 Full 正常发起新读图，不声称旧图片字节被持久化恢复。
+
+`pnpm build`、`typecheck`、`architecture:check` 和完整 `test` 均退出 0。标准产品包 `/tmp/peer-full-local-product` Capture / Verify 通过，Run ID `23d8f48c-7136-4102-9397-e69af11a643d`，源码 `12deec9e8021c8a1eb5f2b7ce3c269ba49241753`，指纹 `2b47719fd95f2ce607a0f19a89f6d7e765ea39aa0b204b09b551c97c8660de96`，Verify 时间 `2026-10-12T00:03:11.591Z`。实施者实际查看全部 154 张必需截图，逐图记录具体观察，`independent=false`。新增宽深 / 窄浅 Full 场景没有新增图片授权卡，已有另一项旧写入审批保持独立；原需要询问模式的允许、本轮图片许可、拒绝、卡片取消、停止、超时六个真实调用分支仍通过。
+
+两项既有次要限制仍记录：透明 Quick Chat 离屏截图不能证明原生浅色合成对比度，另一机器人旧失败摘要仍可能带 `response_` 前缀。键盘和 reduced motion 在机器回归覆盖；完整读屏、真实云模型视觉语义质量、日常安装版与长期运行未覆盖。本次验收不声称 RC14 安装包已包含新代码。
