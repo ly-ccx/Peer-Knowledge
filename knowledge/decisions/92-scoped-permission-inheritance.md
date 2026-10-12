@@ -196,3 +196,5 @@ A 级权限决策；Desktop 门与 Provider 校验为 B 级实现，窗口回归
 `pnpm build`、`typecheck`、`architecture:check` 和完整 `test` 均退出 0。标准产品包 `/tmp/peer-full-local-product` Capture / Verify 通过，Run ID `23d8f48c-7136-4102-9397-e69af11a643d`，源码 `12deec9e8021c8a1eb5f2b7ce3c269ba49241753`，指纹 `2b47719fd95f2ce607a0f19a89f6d7e765ea39aa0b204b09b551c97c8660de96`，Verify 时间 `2026-10-12T00:03:11.591Z`。实施者实际查看全部 154 张必需截图，逐图记录具体观察，`independent=false`。新增宽深 / 窄浅 Full 场景没有新增图片授权卡，已有另一项旧写入审批保持独立；原需要询问模式的允许、本轮图片许可、拒绝、卡片取消、停止、超时六个真实调用分支仍通过。
 
 两项既有次要限制仍记录：透明 Quick Chat 离屏截图不能证明原生浅色合成对比度，另一机器人旧失败摘要仍可能带 `response_` 前缀。键盘和 reduced motion 在机器回归覆盖；完整读屏、真实云模型视觉语义质量、日常安装版与长期运行未覆盖。本次验收不声称 RC14 安装包已包含新代码。
+
+CI 首次 [run 38185946323](https://github.com/ly-ccx/Peer-Agent/actions/runs/38185946323) 两平台构建、类型、架构和全量测试通过，界面回归失败。macOS 在新增读图之前可见搜索 p50 为 152.4ms（预算 150ms）；Linux 已通过 Full 四图和需要询问的六个图片生命周期，随后历史固定“今天”断言在 UTC 日期切换后只得到“昨天 / 最近 7 天 / 更早”。两条失败所在界面路径本次均未修改，已保存原始报告并复跑，未降低性能门槛。此记录不把本地产品 Verify 当成 CI 通过，复跑结论另补。
