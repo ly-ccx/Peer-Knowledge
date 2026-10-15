@@ -724,13 +724,13 @@ Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result �
 1. **结果提交**：已派发批次收尾、应用 Tool Result 后先提交关键原生 checkpoint，再响应 abort；不启动下一工具/模型请求。SDK 的 checkpoint 异常继续失败，不被 observer 吞掉。所有 Provider 与 TUI 共用此 seam；原有 unknown 结果仍留账。
 2. **核验核对 Module**：共享 Runtime 新增 `verification-dispatch-recovery`，小 Interface 接收协调 Store、真实历史、活跃 attempt 集和宿主核验查询端口。它只核对已经结束的 `verify_session` 调用，不执行工具、不重新派发核验、不生成 passed 或 Evidence。
 3. **绑定**：新 dispatch 记录最小核验目标（sessionId）；宿主验证目标属于同 workspace、同 parent conversation、同 work 关联 session。必须已退出原父 attempt，且宿主确认该计划没有活跃核验，才可记录 `verification_interrupted`。活跃、跨范围、未知能力、身份缺失或无法核对时保持未知。
-4. **历史兼容**：旧 dispatch 无目标时，仅接受同 work 的结构化 `agent_turn.rounds.toolCalls` 中唯一可匹配的中断核验目标，且该 work 只有一个待核清核验调用。模糊、多个候选、普通 assistant 正文或模型自报不能作为恢复凭据。没有可信历史时保持阻断。
+4. **历史兼容**：旧 dispatch 无目标时，仅接受协调追加账本中原 attempt / toolCallId 对应的准确 turn，再读取该结构化 `agent_turn.rounds.toolCalls` 中唯一可匹配的中断核验目标（新历史已有可信 workId 时可直接绑定），且该 work 只有一个待核清核验调用。模糊、多个候选、普通 assistant 正文或模型自报不能作为恢复凭据。没有可信历史时保持阻断。
 5. **持久与租约**：核对前后都校验 owner；回写前重读最新 work，保留并发新增调用、预算、待处理事件与用户停止。将该调用从未知集合移动到有界的宿主核对记录；追加账本保留全部旧记录，不删除旧调用，不将“中断核验”标为“成功核验”。写盘失败或租约更换则不恢复。
 6. **工作继续**：启动、具体子任务事件、原工作显式继续入口先进行幂等核对。核清系统阻断后可恢复原受保护 checkpoint；用户 paused/cancelled、工作级停止、预算耗尽与新目标优先级仍生效。新独立输入不继承旧责任。通用文件写入、Shell、外部发送及未知副作用不能通过此模块放行或普通重放。
 7. **上下文事实**：主 Bot 通过既有 L7 project-roster Context Source 读取有界的宿主核对记录，内容只表明原核验已中断、结论未确认及关联 session。它不是 Tool Result、PermissionGrant、Evidence、签收或新的系统指令。后续重新核验须以新调用重新经过原权限与当前版本检查。
 8. **表达**：沿用主线未知执行结果提示，未知副作用不提供无效重试。可核对的旧核验由宿主处理；核对失败返回明确原错误码。保留原始诊断及历史，不用改报错文案或清空预算掩盖问题。
 
-Desktop/TUI 仅装配 SessionVerification 查询端口；查询只读取当前计划和进程内核验所有权，清理已证实失效的 verifying 标记，不改验证标准和签收。Renderer 不获得恢复真值写权限。无新能力、IPC、依赖或持久化根目录。
+Desktop/TUI 仅装配 SessionVerification 查询端口；查询只读取当前计划和进程内核验所有权，不改计划、核验结论、标准和签收；陈旧 verifying 标记仍由既有 SessionFactSnapshot 按进程所有权处理。Renderer 不获得恢复真值写权限。无新能力、IPC、依赖或持久化根目录。
 
 ### 22.3 必须验证与交付
 
