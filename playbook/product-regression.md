@@ -4,6 +4,12 @@
 
 产品判断沿用 [Peer 产品理念](../design/product/peer-product-alignment.md)：用户交代目标，机器人推进工作并交付结论；细节按需披露。此流程不改变 Runtime、权限或 Evidence 契约。
 
+### 完全授权的多图执行（2026-10-12）
+
+按 ADR92 §9，在宿主实际 `full_local` 下读取多张不同项目外 PNG；主 Bot、子执行者、Verifier 和恢复应继承当前访问策略，不逐图弹权限卡。真实 Runtime Projection / ToolHost / PermissionGate / nativeImage 读取和像素 SHA-256、PermissionGrant、Evidence 仍须成立。宽窗深色、窄窗浅色及恢复后的无权限卡完成态进入标准包，检查没有静态“等待你的授权”或多张批准回执占据主对话。截图不得代替像素与审批记录的机器核对。
+
+旧六分支权限卡用例明确使用 ask_before_local；Full 无卡与需要批准的拒绝/取消/超时分支分别保留。不能为让测试继续出现卡片而把 Full 的 Bot/Verifier 排除重新写回权限门。
+
 ### 活跃图片请求的权限生命周期（2026-10-11）
 
 按 ADR 92 §8，从生产 `view_image` Runtime Projection → ToolHost → PermissionGate 实际发起项目外 PNG 读取，让权限事实自动生成主 Bot 卡片；不以注入预制卡片代替。生产 CardView → IPC → ApplicationService 决定后，同一调用继续通过 LocalImageProvider 与 Electron nativeImage 返回视觉侧带。验证返回字节的 SHA-256、尺寸、PermissionGrant 与 Evidence，以及本轮同一图片再次读取复用原 grantId。
