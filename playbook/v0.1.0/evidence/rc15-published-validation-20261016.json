@@ -487,6 +487,36 @@
     "No interactive Windows/Linux installer or complete screen-reader acceptance",
     "Old RC14 production updater discovery/download only; Squirrel installation handoff disabled",
     "Daily user application and real data roots unchanged",
-    "No long-duration or GA acceptance"
-  ]
+    "No long-duration or GA acceptance",
+    "Extra post-merge macOS CI remains failed at controlled stream phase deadline; candidate same-tree CI and formal package checks passed separately."
+  ],
+  "postMergeCI": {
+    "runId": 38841936973,
+    "attempt": 2,
+    "conclusion": "failure",
+    "linux": "success",
+    "macOS": {
+      "build": "success",
+      "typecheck": "success",
+      "architecture": "success",
+      "fullTests": "success",
+      "electronSmoke": "failure"
+    },
+    "firstFailure": "Native Quick Chat menu evaluate Promise was garbage collected; page errors empty.",
+    "secondFailure": {
+      "assertion": "Narrow pending stream expected one SVG stop control; actual count zero.",
+      "location": "scripts/rc-response-interaction-smoke.mjs:265",
+      "screenshot": "rc15-postmerge-ci-macos-failure-20261016.png",
+      "screenshotSha256": "386c7416fb23b2c749d3db8554e62da66bb9e18aacc473f976791678e33b2515",
+      "actualScreenshotError": "Controlled stream was not advanced",
+      "observation": "Controlled provider phase deadline was reached during preflight layout checks, so the stream settled before the stop-control assertion. This extra run is not green. Same-tree candidate CI and source/signed-package acceptance are separate facts.",
+      "pageErrors": [],
+      "mainAuthorizationErrors": []
+    },
+    "reruns": 1,
+    "furtherReruns": false,
+    "sourceModified": false,
+    "tagMoved": false,
+    "followup": "Maintain coordination between controlled cognition phase deadline and preflight layout checks in a separate change."
+  }
 }

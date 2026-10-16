@@ -40,7 +40,7 @@ Release 工作流 [38842028963](https://github.com/ly-ccx/Peer-Agent/actions/run
 
 Release38842028963 的所有 meta、三平台 Desktop、两平台 CLI、集中 release 和 npm 发布作业全部成功。预发布已于 `2026-10-16T02:53:15Z` 公开，共 14 个资产；Pages38842029087 全部成功，五个实际 HTTP 页面/JSON 与标签内容一致，manifest 指向 RC15，正式版仍为 0.0.18。四个 npm 固定版本及 rc dist-tag 已核实，隔离真实 npm install/postinstall、CLI --version 和两个公开二进制哈希检查通过。Mac 发布包验收结果如下。
 
-合入后额外触发的 CI38841936973 首轮 Linux 全部成功；macOS 构建、类型、架构和全量测试成功，原生 Quick Chat 菜单测试的 Electron evaluate Promise 被回收（`Resulting promise was garbage collected`），页面异常为空。此为与已验候选同 Git tree 的额外 run；未修改生产源码或公开标签，保留失败后只对失败平台原样重跑一次，结果另补。不能将这次失败说成实际图片调用或模型恢复失败。
+合入后额外触发的 CI38841936973 首轮 Linux 全部成功；macOS 构建、类型、架构和全量测试成功，原生 Quick Chat 菜单测试的 Electron evaluate Promise 被回收（`Resulting promise was garbage collected`），页面异常为空。此为与已验候选同 Git tree 的额外 run；未修改生产源码或公开标签，保留失败后只对失败平台原样重跑一次，attempt 2 的构建/类型/架构/全量测试仍通过，窗口回归在窄窗停止图标断言处失败（期望 1，实际 0）。已实际查看该轮失败截图：原始错误为 `Controlled stream was not advanced`，受控流已在布局检查期间达到阶段等待上界，随后停止控件消失；不是图片权限或真实模型请求。没有第三次重跑，也没有修改标签或生产源码。此附加 run 最终为 failure，不能称所有 CI 全绿；受控场景阶段时限与前置布局检查的协调仍待单独维护。发布前同 Git tree 的候选双平台 CI、本机标准 Capture/Verify 和正式包真实 HTTP 看图/更新验收结果各自保留，不相互替代。
 
 ## 发布后原装包与真实 HTTP 验收
 
