@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "candidate": "46155894ea777ae6be4322f5dfbd3efe99c6f220",
+  "product": {
+    "status": "passed",
+    "runId": "5cd6dc0d-fb0a-42cf-8a9f-173231397070",
+    "sourceFingerprint": "bb7362be4e0ac54f218d39918b978a0dc6e1ca7886ac61e5e5e5d5be617bb830",
+    "reviewedAt": "2026-10-16T02:30:07.105Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "upgrade": {
+    "ok": true,
+    "checks": 33,
+    "scope": "Actual immutable tagged data modules; controlled updater feed and real SIGKILL/recovery with scripted cognition. Installed clients tested separately."
+  },
+  "passedCommands": [
+    "pnpm build",
+    "pnpm typecheck",
+    "pnpm architecture:check",
+    "pnpm qa:product:test",
+    "pnpm test",
+    "pnpm runtime:pack-smoke",
+    "pnpm check:changelog",
+    "node scripts/check-version.mjs"
+  ],
+  "realUserDataModified": false,
+  "reviewIndependent": false
+}
