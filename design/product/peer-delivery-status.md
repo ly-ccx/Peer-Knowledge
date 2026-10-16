@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-10-02（D10：rc.2已预发布，安装复杂任务及GPT61待收口）
+最后更新：2026-10-16（D10：RC15 发布准备与验收）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | Beta1–5已实现，RC1及RC2已预发布。PR99–104均通过两平台CI并合入；rc.2固定be65fb73，Release36960577284全成功。20项源码矩阵、完整回归、9壳/11可访问性/7诊断通过；实际macOS签名公证、六次安装轮换、归档与npm CLI默认助手读文件/回复通过。多入口复验通过（实际安装Desktop＋源码TUI后端＋本机远程网关夹具，非实体手机/生产OIDC）；严格安装双任务仍失败。Astra两文件和新鲜证据正确，A因计划拆分及缺批准历史被核验拒绝，未签收/合回；批准事实PR105已合入6bdbaf8c并通过两平台CI；源码Luna代理＋冻结Astra任务/核验的同夹具恢复全流程通过，首轮Astra空响应保留。新安装候选待复验。GPT61机器人仍空响应，尚未Ready。GA仍等负责人195用例、6流程、七天日用及明确批准。 | 完成安装复杂任务和多入口复验，定位GPT61机器人空响应。Windows/Linux交互安装、实体手机、生产账户与负责人七天日用仍需补验。 | [版本计划](v0.1.0-release-plan.md)、[Beta5交接](../../playbook/v0.1.0/b5-r-handoff.md)、[RC卡](../../playbook/v0.1.0/rc-release.md)、[自测报告](../../playbook/v0.1.0/rc-self-test-report.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | Beta1–5、RC1–14 已预发布。RC15 候选已合入小猫图标、Full 连续看图与中断核验核清，发布准备 PR161；组合源码门禁与标准产品审查执行中，尚未发布。此前复杂任务和模型语义问题的历史记录保留，不凭新源码测试宣布全面验收。 | 完成 RC15 候选、签名发布物与安装流程验收；真实模型质量、Windows/Linux 交互安装、完整读屏、负责人七天日用与 GA 仍需各自证据。 | [RC15 验收记录](../../playbook/v0.1.0/rc15-candidate.md)、[版本计划](v0.1.0-release-plan.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
 
 ## 3. 近期顺序与非目标
 
