@@ -11,7 +11,7 @@
 
 代码候选头 `46155894ea777ae6be4322f5dfbd3efe99c6f220`。本机构建、类型、架构、完整测试、产品门禁单测、包外 Runtime 宿主冒烟和版本/更新日志门禁通过。真实不可变标签升级恢复矩阵 33/33 通过。标准产品包 Capture 成功，154 张必需截图全部实际查看并写逐图观察，Verify 通过；实施者自审 independent=false。Run ID `5cd6dc0d-fb0a-42cf-8a9f-173231397070`，源码指纹 `bb7362be4e0ac54f218d39918b978a0dc6e1ca7886ac61e5e5e5d5be617bb830`。窗口机器报告的 Full 四图、图片权限六生命周期与所有其他必要场景通过，页面和宿主授权异常均为空。
 
-版本为 `0.1.0-rc.15`，使用 beta 自动更新通道和 npm rc dist-tag；正式版保持 `0.0.18`。不可变标签已推送，Release、签名包、npm、Pages 和安装验收结果发布后补齐。README updated：Full 与 ask 模式区别、候选说明链接与版本；docs/docs.html 与生成的中英文 changelog 同步。落地页现有任务、授权和下载叙述继续适用。
+版本为 `0.1.0-rc.15`，使用 beta 自动更新通道和 npm rc dist-tag；正式版保持 `0.0.18`。不可变标签、Release、签名包、npm 和 Pages 均已发布，Mac 原装包及旧版本更新下载验收完成，具体覆盖见下文。README updated：Full 与 ask 模式区别、候选说明链接与版本；docs/docs.html 与生成的中英文 changelog 同步。落地页现有任务、授权和下载叙述继续适用。
 
 ## 行为与边界
 
@@ -34,10 +34,30 @@
 
 发布准备 PR161 已合入 `549ea1b2c76b74d3ba5acfa3d825ea52b555a22a`。合入后的 Git tree `203adcc79276e25946c5c28042f282fd914169cf` 与候选 `46155894` 完全相同；再运行 release readiness/source check 和产品 Verify 通过，源码指纹未变。不可变 annotated tag `v0.1.0-rc.15` 已推送并绑定该合入提交。
 
-Release 工作流 [38842028963](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842028963) 与 Pages [38842029087](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842029087) 已触发，当前构建中，不把标签推送说成公开安装包已完成。合入额外触发的 CI38841936973 单列状态；发布前依据为候选同 Git tree 的双平台完整 CI 和本机全部门禁。
+Release 工作流 [38842028963](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842028963) 与 Pages [38842029087](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842029087) 全部成功。[RC15 公开预发布](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.15) 含 14 个资产。合入额外触发的 CI38841936973 单列状态；发布前依据为候选同 Git tree 的双平台完整 CI 和本机全部门禁。
 
 ## 公开渠道与合入后附加 CI
 
-Release38842028963 的所有 meta、三平台 Desktop、两平台 CLI、集中 release 和 npm 发布作业全部成功。预发布已于 `2026-10-16T02:53:15Z` 公开，共 14 个资产；Pages38842029087 全部成功，五个实际 HTTP 页面/JSON 与标签内容一致，manifest 指向 RC15，正式版仍为 0.0.18。四个 npm 固定版本及 rc dist-tag 已核实，隔离真实 npm install/postinstall、CLI --version 和两个公开二进制哈希检查通过。Mac 发布包验收执行中。
+Release38842028963 的所有 meta、三平台 Desktop、两平台 CLI、集中 release 和 npm 发布作业全部成功。预发布已于 `2026-10-16T02:53:15Z` 公开，共 14 个资产；Pages38842029087 全部成功，五个实际 HTTP 页面/JSON 与标签内容一致，manifest 指向 RC15，正式版仍为 0.0.18。四个 npm 固定版本及 rc dist-tag 已核实，隔离真实 npm install/postinstall、CLI --version 和两个公开二进制哈希检查通过。Mac 发布包验收结果如下。
 
 合入后额外触发的 CI38841936973 首轮 Linux 全部成功；macOS 构建、类型、架构和全量测试成功，原生 Quick Chat 菜单测试的 Electron evaluate Promise 被回收（`Resulting promise was garbage collected`），页面异常为空。此为与已验候选同 Git tree 的额外 run；未修改生产源码或公开标签，保留失败后只对失败平台原样重跑一次，结果另补。不能将这次失败说成实际图片调用或模型恢复失败。
+
+## 发布后原装包与真实 HTTP 验收
+
+- 14 个公开资产全部实际下载，文件长度及 SHA-256 与 GitHub 公开记录一致；三份 beta 更新清单中的 SHA-512 和文件大小逐项匹配真实下载文件。
+- Mac ZIP 的 Developer ID、Team ID `82672N97RP`、严格签名、stapled 公证及 Gatekeeper 通过。DMG 只读挂载，内置 App 同样通过签名、公证和 Gatekeeper，app.asar 与 ZIP 完全相同，挂载已释放。CLI/helper 签名和版本通过。
+- 原装 app-update.yml 存在且指向正确仓库。六个关键 Runtime/SDK 模块与已验候选编译结果逐字节相同，含中断核验恢复、协调、核验、预算、图片上下文和先提交结果再取消的 SDK；小猫 16/32 PNG 与源码资产哈希一致。
+- 正式签名包首次运行和退出重启后，各经正常 HTTP Provider 入口读取四张不同项目外 PNG；总计 8 次实际 view_image 原调用，四种 PNG 字节的 SHA-256 在两轮请求中都真实出现。Full 持久设置生效，无图片权限卡/批准记录，Evidence 持久化；未注入 Tool Results 或绕过权限层。两个实际窗口截图自审通过，测试专用凭证已清理。认知由受控 loopback 服务提供，不代表云模型图像理解质量。
+- 原装包 6 项设置/概况/记忆/聊天/配色/实际更新检查通过，当前 RC15 不提供降级。4 张实际 UI 截图自审通过。
+- 原装 RC14 通过生产更新入口实际发现并下载 RC15，缓存 ZIP 的 SHA-256 与公开资产一致，实际可用/下载/安装就绪三张截图自审。缓存与数据隔离，关闭自动安装交接，未替换用户日常应用或执行 Squirrel 安装；不能把下载验收称为安装器交接验收。
+- 三平台 27 项真实公开元数据资格检查通过，RC14 在 macOS/Windows/Linux 均选择 RC15；检查不下载执行 Windows/Linux 安装器。
+- 四个 npm 固定版本/rc 标签与正式版 0.0.18 核对通过，隔离 npm install/postinstall、CLI --version 及安装后的 peer/helper 与公开归档二进制哈希一致。Pages 五项公开 HTTP 页面/JSON 验证通过。
+
+详细记录和 9 张实际发布包截图见 `evidence/rc15-published-validation-20261016.json`，逐图审查为实施者自审，不称独立审查。
+
+### Mac 资产固定摘要
+
+| 资产 | SHA-256 |
+|---|---|
+| `Peer-Agent-0.1.0-rc.15-arm64.zip` | `2d828aa0a6d62c4ce68b30192cc3e5115fca56969bbf38a01e81d80a109e4078` |
+| `Peer-Agent-0.1.0-rc.15-arm64.dmg` | `c66b497517dea181221ffe3968fd1bbb6a9397cdbd64c79c24204d44518d70b3` |
