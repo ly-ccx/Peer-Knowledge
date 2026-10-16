@@ -35,3 +35,9 @@
 发布准备 PR161 已合入 `549ea1b2c76b74d3ba5acfa3d825ea52b555a22a`。合入后的 Git tree `203adcc79276e25946c5c28042f282fd914169cf` 与候选 `46155894` 完全相同；再运行 release readiness/source check 和产品 Verify 通过，源码指纹未变。不可变 annotated tag `v0.1.0-rc.15` 已推送并绑定该合入提交。
 
 Release 工作流 [38842028963](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842028963) 与 Pages [38842029087](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842029087) 已触发，当前构建中，不把标签推送说成公开安装包已完成。合入额外触发的 CI38841936973 单列状态；发布前依据为候选同 Git tree 的双平台完整 CI 和本机全部门禁。
+
+## 公开渠道与合入后附加 CI
+
+Release38842028963 的所有 meta、三平台 Desktop、两平台 CLI、集中 release 和 npm 发布作业全部成功。预发布已于 `2026-10-16T02:53:15Z` 公开，共 14 个资产；Pages38842029087 全部成功，五个实际 HTTP 页面/JSON 与标签内容一致，manifest 指向 RC15，正式版仍为 0.0.18。四个 npm 固定版本及 rc dist-tag 已核实，隔离真实 npm install/postinstall、CLI --version 和两个公开二进制哈希检查通过。Mac 发布包验收执行中。
+
+合入后额外触发的 CI38841936973 首轮 Linux 全部成功；macOS 构建、类型、架构和全量测试成功，原生 Quick Chat 菜单测试的 Electron evaluate Promise 被回收（`Resulting promise was garbage collected`），页面异常为空。此为与已验候选同 Git tree 的额外 run；未修改生产源码或公开标签，保留失败后只对失败平台原样重跑一次，结果另补。不能将这次失败说成实际图片调用或模型恢复失败。
