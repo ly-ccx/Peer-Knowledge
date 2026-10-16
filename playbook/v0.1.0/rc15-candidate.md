@@ -11,7 +11,7 @@
 
 代码候选头 `46155894ea777ae6be4322f5dfbd3efe99c6f220`。本机构建、类型、架构、完整测试、产品门禁单测、包外 Runtime 宿主冒烟和版本/更新日志门禁通过。真实不可变标签升级恢复矩阵 33/33 通过。标准产品包 Capture 成功，154 张必需截图全部实际查看并写逐图观察，Verify 通过；实施者自审 independent=false。Run ID `5cd6dc0d-fb0a-42cf-8a9f-173231397070`，源码指纹 `bb7362be4e0ac54f218d39918b978a0dc6e1ca7886ac61e5e5e5d5be617bb830`。窗口机器报告的 Full 四图、图片权限六生命周期与所有其他必要场景通过，页面和宿主授权异常均为空。
 
-版本为 `0.1.0-rc.15`，使用 beta 自动更新通道和 npm rc dist-tag；正式版保持 `0.0.18`。发布标签、Release、签名包、npm、Pages 和安装验收结果发布后补齐。README updated：Full 与 ask 模式区别、候选说明链接与版本；docs/docs.html 与生成的中英文 changelog 同步。落地页现有任务、授权和下载叙述继续适用。
+版本为 `0.1.0-rc.15`，使用 beta 自动更新通道和 npm rc dist-tag；正式版保持 `0.0.18`。不可变标签已推送，Release、签名包、npm、Pages 和安装验收结果发布后补齐。README updated：Full 与 ask 模式区别、候选说明链接与版本；docs/docs.html 与生成的中英文 changelog 同步。落地页现有任务、授权和下载叙述继续适用。
 
 ## 行为与边界
 
@@ -26,6 +26,12 @@
 
 ## 候选 CI 的首轮失败
 
-[CI38839346073](https://github.com/ly-ccx/Peer-Agent/actions/runs/38839346073) 首轮 Linux 全部通过；macOS 构建、类型、架构和完整测试通过，窗口场景在首段流式文字等待处超时。已取实际失败截图与报告：右栏原始错误明确为 `Controlled stream was not advanced`，来自受控执行器每阶段 30 秒等待上界，不是真实模型连接或图片授权错误；本机相同提交的完整场景已通过。没有改生产实现、删除断言或扩大权限；保留首轮失败后仅对原提交失败的平台重跑一次，attempt 2 结果待补。
+[CI38839346073](https://github.com/ly-ccx/Peer-Agent/actions/runs/38839346073) 首轮 Linux 全部通过；macOS 构建、类型、架构和完整测试通过，窗口场景在首段流式文字等待处超时。已取实际失败截图与报告：右栏原始错误明确为 `Controlled stream was not advanced`，来自受控执行器每阶段 30 秒等待上界，不是真实模型连接或图片授权错误；本机相同提交的完整场景已通过。没有改生产实现、删除断言或扩大权限；保留首轮失败后仅对原提交失败的平台重跑一次，attempt 2 同一提交的 macOS 构建/类型/架构/全量测试和完整窗口回归全部通过；最终两平台检查全绿。首轮失败保留，不声称真实模型发生网络错误。
 
 源码产品自审仍保留两项既有非阻断限制：Quick Chat 透明窗口的离屏浅色合成不能代替原生合成验证；历史侧栏摘要的旧 response_ 错误前缀尚未统一表达。详见逐图 review 与完整候选边界，不将标准截图通过称为安装版或独立验收。
+
+## 标签与发布流水线
+
+发布准备 PR161 已合入 `549ea1b2c76b74d3ba5acfa3d825ea52b555a22a`。合入后的 Git tree `203adcc79276e25946c5c28042f282fd914169cf` 与候选 `46155894` 完全相同；再运行 release readiness/source check 和产品 Verify 通过，源码指纹未变。不可变 annotated tag `v0.1.0-rc.15` 已推送并绑定该合入提交。
+
+Release 工作流 [38842028963](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842028963) 与 Pages [38842029087](https://github.com/ly-ccx/Peer-Agent/actions/runs/38842029087) 已触发，当前构建中，不把标签推送说成公开安装包已完成。合入额外触发的 CI38841936973 单列状态；发布前依据为候选同 Git tree 的双平台完整 CI 和本机全部门禁。
