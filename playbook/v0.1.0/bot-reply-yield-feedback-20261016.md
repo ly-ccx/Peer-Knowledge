@@ -36,7 +36,7 @@
 - 保留两项既有非阻断限制：Quick Chat离屏浅色合成为黑色、合成历史侧栏仍有旧错误前缀；不把这些截图认证为安装版或原生合成。
 - CI38847435698：Linux成功；macOS构建/类型/架构/测试成功，首轮原生快捷菜单窗口检查的Electron evaluate Promise被回收；同一提交失败平台原样重跑一次，既有模拟流30秒等待先于多宽度/主题截图检查到期，新场景未运行。
 - 修正测试驱动：受控认知的交互阶段保留有限120秒等待，与生产Provider截止时间分开；新增虚拟时钟反例确认超过30秒检查仍可推进，120秒不推进仍失败，共3项测试通过。未改生产时限或CI性能预算。
-- 最终源码CI39045306803首轮：两端构建/类型/架构/完整测试通过；Linux停在更新窗口主进程evaluate Promise被回收；macOS搜索可见结果p50为178.7ms，超过原150ms预算。首轮两端均未进入新场景，保留失败事实并仅原样重跑一次；重跑Linux全部通过，macOS窗口检查仍在运行，因此代码PR保持草稿，不宣称跨平台CI已通过。
+- 最终源码CI39045306803首轮：两端构建/类型/架构/完整测试通过；Linux停在更新窗口主进程evaluate Promise被回收；macOS搜索可见结果p50为178.7ms，超过原150ms预算。首轮两端均未进入新场景，保留失败事实并仅原样重跑一次；重跑Linux与macOS均全部通过，包括构建、类型、架构、完整测试及窗口回归。最终源码CI通过不抹除首轮失败事实，也不扩大真实模型或安装版覆盖。
 - [最终源码156图逐图审查](evidence/bot-reply-yield-feedback-review-20261017.json)、[最终验证摘要与两张新场景截图](evidence/bot-reply-yield-feedback-validation-20261017.json)已保存。
 - [先前候选审查](evidence/bot-reply-yield-feedback-review-20261016.json)和[先前候选验证](evidence/bot-reply-yield-feedback-validation-20261016.json)是67693282的历史证据，不能替代最终源码验收。
 
