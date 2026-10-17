@@ -2,7 +2,7 @@
 
 创建：2026-10-16；验收记录更新：2026-10-17
 级别：B（Runtime / 渲染投影 / 既有 Context Source 修复）
-代码：[PR162](https://github.com/ly-ccx/Peer-Agent/pull/162)，候选 `67693282d42434e67671aab7553b5742ff320264`。
+代码：[PR162](https://github.com/ly-ccx/Peer-Agent/pull/162)，候选 `5bc4aab7d44fc4d2d419e6de79503b5bb7f08cf5`。
 
 ## 真实记录与根因
 
@@ -32,9 +32,12 @@
 - Runtime1250/1250、System Context41/41通过。
 - Desktop5534项首轮仅1项目标文件观察事件新鲜度断言失败；保留首轮事实，失败文件串行重跑及i18n共36项通过，没有改断言或生产目标观察实现。
 - 新增窗口场景使用真实 Runner、正常预算及原生检查点让出/继续，公开开场白保留且仅一次，真实续跑可停止，最终答复不丢前段；私有思考保持隐藏。认知是受控测试服务。
-- 标准产品包新增1280深色、760浅色两张截图；156张必需图已全部实际查看，逐图观察及SHA-256齐全，Verify通过。Run `85336749-7293-4922-9949-781206b3bfae`，源码指纹 `4c9a0f8522f8ab6cb041d56c3e8eb55750050b2f8cf1aa9be460ee5c6cd2bd6f`。
+- 标准产品包新增1280深色、760浅色两张截图；156张必需图已全部实际查看，逐图观察及SHA-256齐全，Verify通过。最终稳定源码Run `608d568b-9fa9-4080-a6c1-70cd69ae149e`，源码指纹 `0df9e4005d3a8f6ea4aaa5ac7938cb8af7ef8ad9ad8e624d9d1e5633a0ea6abe`。Capture开始与Verify时均为候选 `5bc4aab7` 的相同干净内容。
 - 保留两项既有非阻断限制：Quick Chat离屏浅色合成为黑色、合成历史侧栏仍有旧错误前缀；不把这些截图认证为安装版或原生合成。
-- CI38847435698：Linux成功；macOS构建/类型/架构/测试成功，原生快捷菜单窗口检查中Electron evaluate Promise被回收。只对同一提交失败平台原样重跑一次，结果待补。
-- [完整逐图审查](evidence/bot-reply-yield-feedback-review-20261016.json)、[验证摘要与两张本轮截图](evidence/bot-reply-yield-feedback-validation-20261016.json)已保存。
+- CI38847435698：Linux成功；macOS构建/类型/架构/测试成功，首轮原生快捷菜单窗口检查的Electron evaluate Promise被回收；同一提交失败平台原样重跑一次，既有模拟流30秒等待先于多宽度/主题截图检查到期，新场景未运行。
+- 修正测试驱动：受控认知的交互阶段保留有限120秒等待，与生产Provider截止时间分开；新增虚拟时钟反例确认超过30秒检查仍可推进，120秒不推进仍失败，共3项测试通过。未改生产时限或CI性能预算。
+- 最终源码CI39045306803首轮：两端构建/类型/架构/完整测试通过；Linux停在更新窗口主进程evaluate Promise被回收；macOS搜索可见结果p50为178.7ms，超过原150ms预算。两端均未进入新场景，保留首轮事实并仅原样重跑一次，结果待补。
+- [最终源码156图逐图审查](evidence/bot-reply-yield-feedback-review-20261017.json)、[最终验证摘要与两张新场景截图](evidence/bot-reply-yield-feedback-validation-20261017.json)已保存。
+- [先前候选审查](evidence/bot-reply-yield-feedback-review-20261016.json)和[先前候选验证](evidence/bot-reply-yield-feedback-validation-20261016.json)是67693282的历史证据，不能替代最终源码验收。
 
 用户日常应用、真实数据和原任务均未修改或重启；所有代码和窗口回归在独立检出与隔离数据中完成。审查为实施者自审，非独立审查；不覆盖安装版修复、真实云模型质量/延时、完整读屏或长期运行。

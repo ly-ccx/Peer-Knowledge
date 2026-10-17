@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "codePR": "https://github.com/ly-ccx/Peer-Agent/pull/162",
+  "codeHead": "5bc4aab7d44fc4d2d419e6de79503b5bb7f08cf5",
+  "codeTree": "c4bd72b466265be896c426f77609998cbc55cd1e",
+  "capture": {
+    "runId": "608d568b-9fa9-4080-a6c1-70cd69ae149e",
+    "sourceFingerprint": "0df9e4005d3a8f6ea4aaa5ac7938cb8af7ef8ad9ad8e624d9d1e5633a0ea6abe",
+    "sourceHeadAtCaptureStart": "5bc4aab7d44fc4d2d419e6de79503b5bb7f08cf5",
+    "capturedAt": "2026-10-17T15:35:51.508Z",
+    "screenshots": 156,
+    "sourceClean": true
+  },
+  "productVerify": {
+    "status": "passed",
+    "runId": "608d568b-9fa9-4080-a6c1-70cd69ae149e",
+    "sourceFingerprint": "0df9e4005d3a8f6ea4aaa5ac7938cb8af7ef8ad9ad8e624d9d1e5633a0ea6abe",
+    "reviewedAt": "2026-10-17T15:39:05.912Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "machine": {
+    "ok": true,
+    "pageErrors": [],
+    "mainAuthorizationErrors": [],
+    "yieldFeedback": {
+      "passed": true,
+      "source": "real Runner cooperative yield and persisted publicUpdates",
+      "controlledCognition": true,
+      "openingPreserved": true,
+      "privateReasoningHidden": true,
+      "canonicalReplyDelivered": true
+    }
+  },
+  "tests": {
+    "focused": {
+      "passed": 87,
+      "failed": 0
+    },
+    "productAndReference": {
+      "passed": 14,
+      "failed": 0
+    },
+    "finalReferenceFile": {
+      "passed": 8,
+      "failed": 0
+    },
+    "runtime": {
+      "passed": 1250,
+      "failed": 0
+    },
+    "systemContext": {
+      "passed": 41,
+      "failed": 0
+    },
+    "desktopFirst": {
+      "tests": 5534,
+      "failed": 1,
+      "failure": "Objective file observation event freshness assertion: actual event id equaled previous event id."
+    },
+    "desktopFailedFileAndI18nRerun": {
+      "passed": 36,
+      "failed": 0,
+      "sourceChangedForRetry": false
+    },
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "controlledPhaseWatchdog": {
+      "passed": 3,
+      "failed": 0,
+      "scope": "Fake-clock regression preserves >30s UI inspection and a finite 120s test driver watchdog; production provider deadlines unchanged."
+    }
+  },
+  "ci": {
+    "runId": 39045306803,
+    "head": "5bc4aab7d44fc4d2d419e6de79503b5bb7f08cf5",
+    "attempt1": {
+      "linux": "failure",
+      "linuxFailure": "Electron main evaluation Promise garbage collected in updater-minimize test; new yield case not reached.",
+      "macOS": "failure",
+      "macOSFailure": "Visible full-corpus search p50 178.7ms exceeds unchanged 150ms budget; new yield case not reached.",
+      "pageErrors": [],
+      "mainAuthorizationErrors": []
+    },
+    "attempt2": "in_progress",
+    "unchangedFailedPlatformReruns": 1,
+    "previousCandidateRun": 38847435698
+  },
+  "screenshots": [
+    {
+      "file": "bot-yield-feedback-1280-dark-20261017.png",
+      "sha256": "321559a9a8b3b123387b738a2e237dcfee3f6c038c8078dc87592b0e13510479"
+    },
+    {
+      "file": "bot-yield-feedback-760-light-20261017.png",
+      "sha256": "fbd82091c028e441c4e6a065b5d46b858c5fec1499e54dfc65577828f1576ac4"
+    }
+  ],
+  "limits": [
+    "Implementer self-review; no independent review",
+    "Controlled cognition only; no cloud provider quality or latency acceptance",
+    "Source Electron; unpatched daily installed application unchanged",
+    "No full screen-reader, Windows/Linux interactive installation or long-duration acceptance"
+  ]
+}
