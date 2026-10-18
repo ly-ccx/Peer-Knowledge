@@ -65,10 +65,18 @@ Journal recovery 只在文件版本变化且确需尾记录修复时读取正文
 
 ## 7. 实施与工程记录
 
-代码提交 `c7dd40575184d6002e2d968a0a42b65931e7ba3b`：新增 Reasoning Replay、Continuation Custody、Reported Wait 与 Session Observation Revision Module。旧后台记录通过原子 continuations_coalesced 追加事件转移自动处理责任；旧检查点和预算记录保留。未知新 journal 事件的旧版本仍拒绝恢复，不能保证降级后可继续。用户续接按真实输入时间优先，不能仅按不断更新的执行时间排队。
+最终代码提交 `31cb84184c74e2224c7f47042f532f546dcb568a`，实现 [Peer-Agent #167](https://github.com/ly-ccx/Peer-Agent/pull/167)。新增 Reasoning Replay、Continuation Custody、Reported Wait 与 Session Observation Revision Module。旧后台记录通过原子 continuations_coalesced 追加事件转移自动处理责任；旧检查点和预算记录保留。未知新 journal 事件的旧版本拒绝恢复，不能保证降级后继续。用户续接按真实输入时间优先。
 
-已用现场日志和检查点的只读副本检验收敛：约152MB journal，30条 runnable 收敛后剩6条；27条重复后台记录转移责任，用户工作和取消/暂停/系统阻塞记录不变，重启幂等。roster 为冻结身份夹具，不据此宣称用户真实任务已经恢复。
+真实验收与跨平台集成又发现两处缺口，已在最终源码修复：原生检查点覆盖当前 System Context；canonical 回复组装与签收丢失 observationRevision，导致有效交付被误判过期。当前宿主观察版本完整穿过回复组装、持久交付、签收和展示。未放宽交付校验；模型声明的版本不能覆盖宿主事实。
 
-代码 PR：[Peer-Agent #167](https://github.com/ly-ccx/Peer-Agent/pull/167)。完整 build / typecheck / architecture / pnpm test 已通过；最后观察者等待与 observationRevision 改动后，572 项定向测试和 typecheck / architecture 再次通过。标准 Capture 的180张截图逐张实现者自审，Verify通过（不是独立视觉评审）。
+工程验证：完整 build / typecheck / architecture / pnpm test 在前候选通过；最后协调修改后572项定向测试通过；最终上下文与交付版本修复后桌面集成66项、终端集成10项通过，typecheck / architecture再次通过。最终 CI 的 macOS/Linux 测试阶段通过，桌面交互检查仍在进行。
 
-真实模型完整流程仍在验收。已经确认 DeepSeek 多次原生工具续跑 HTTP200，实际推理字段齐全；保留 GPT 空 SSE 响应、DeepSeek 主 Bot 未调用正式交付工具而触发无进展保护等失败，不把子任务通过当成主回复通过。最终结果补录在[验收记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/validation.json)。日常安装及真实任务未修改。
+标准 Capture 的180张截图逐张实现者自审（24张与前候选完全相同 SHA-256，156张重新检查），最终 Verify通过，runId `48915e2b-a6b4-4114-8402-0d58a7bd2153`。不是独立视觉审查；保留三个既有非阻塞局限，见 review.json。
+
+已用现场日志和检查点只读副本检验收敛：约152MB journal，30条 runnable 收敛后剩6条；27条重复后台记录转移责任，用户工作和取消/暂停/系统阻塞记录不变，重启幂等。roster 为冻结身份夹具，不据此宣称用户真实任务已经恢复。
+
+最终源码的全 DeepSeek 真实任务完整通过：主 Bot 派发独立子 Agent、读取并修复隔离项目、实际 node --test 从0通过/1失败变为1通过/0失败、独立复核上下文通过、主对话正式交付并签收。执行中询问获得独立回复；取消另一真实只读任务后能继续回复且没有重跑。捕获27次 DeepSeek 请求，其中26次HTTP200（20次工具结果续跑），一次在取消前未完成；原生推理字段缺失0次、HTTP400为0。
+
+真实 post_reply 去重收据产生持久 reportedWait，指向实际 delivered 消息与当前观察版本；重启后30条人工构造旧结果事件复用实际验收结果，29条转移责任，新用户问题得到回复；静默观察12秒新增模型请求0。执行期间333次操作，输入到绘制p95约5.2ms，帧间隔p95约9.9ms。复核会话独立、模型同源；不把同源性隐藏为跨模型独立审查。
+
+GPT主 Bot / DeepSeek子 Agent组合补验仍在进行。保留所有早期失败尝试，不把它们覆盖成成功。详见[验收记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/validation.json)及[真实任务记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/real-model.json)。日常安装及真实任务未修改；本轮未发布RC。

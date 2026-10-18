@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "c7dd40575184d6002e2d968a0a42b65931e7ba3b",
-  "sourceFingerprint": "09322464603d9a7c0e268188fdbdd8054f1a618c86d5739b3419dba70499ecff",
+  "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a",
+  "sourceFingerprint": "ff37532907b188a903c79d09de67b872b069df7ce8959c0691701506ac666561",
   "codePR": "https://github.com/ly-ccx/Peer-Agent/pull/167",
-  "status": "real-model-acceptance-in-progress",
+  "status": "final-real-model-and-product-passed-ci-running",
   "product": {
     "status": "passed",
-    "runId": "1839db45-3b04-4576-aebf-44839ff6c6fb",
+    "runId": "48915e2b-a6b4-4114-8402-0d58a7bd2153",
     "requiredScreenshots": 180,
     "reviewer": {
       "kind": "ai",
@@ -32,18 +32,18 @@
         "description": "已有 accepted 状态夹具仍携带旧失败摘要；状态标题可辨，本次不以它证明真实验收。"
       },
       {
-        "screenshot": "long-error-760-dark.png",
-        "severity": "minor",
-        "disposition": "accepted-limitation",
-        "description": "窄窗返回最新消息浮层与部分预算文字重叠，已有局部布局问题，不影响本次协调状态链验收。"
-      },
-      {
         "screenshot": "quote-reply-760-light.png",
         "severity": "minor",
         "disposition": "accepted-limitation",
         "description": "窄窗引用画面返回最新浮层局部遮挡预算说明，记录为既有布局限制。"
       }
-    ]
+    ],
+    "reviewMethod": {
+      "matchingPriorBytes": 24,
+      "newCapturesInspected": 156,
+      "priorRunId": "1839db45-3b04-4576-aebf-44839ff6c6fb",
+      "method": "SHA-256 verified identical images retain their observed findings; every changed capture reinspected with additional full-size error/child-state samples."
+    }
   },
   "engineering": {
     "build": "passed",
@@ -55,7 +55,22 @@
       "fail": 0,
       "scope": "Coordinator tests and production Desktop DeepSeek loop after final code refinements"
     },
-    "CI": "running for exact PR head"
+    "CI": {
+      "status": "in_progress",
+      "tests": "passed on macOS and Linux",
+      "remaining": "Bot shell Electron smoke",
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39131356653"
+    },
+    "finalDesktopIntegration": {
+      "pass": 66,
+      "fail": 0
+    },
+    "finalTerminalIntegration": {
+      "pass": 10,
+      "fail": 0
+    },
+    "finalTypecheck": "passed",
+    "finalArchitecture": "passed"
   },
   "journalReplay": {
     "ok": true,
@@ -70,17 +85,20 @@
     "restartIdempotent": true
   },
   "realModel": {
-    "status": "in-progress",
+    "status": "passed all-DeepSeek complete flow; GPT coordinator combination running",
     "scope": "Source Electron, configured real providers, isolated fixture project, governed tools, actual HTTP. No injected Tool Results.",
     "failedAttempts": [
       "Missing source helper prevented credential lookup; no model call",
       "Ad hoc helper keychain lookup timed out; switched isolated fixture to installed signed helper without changing permission policy",
       "Earlier GPT/DeepSeek run completed actual task and final reply, but global-fetch instrumentation missed Electron net.fetch; not accepted as wire verification",
       "GPT coordinator returned genuinely empty final-answer SSE messages after bounded existing retry; child completed; not accepted as complete-flow success",
-      "DeepSeek coordinator completed and verified child but narrated an already-delivered result without post_reply; no-progress guard stopped, not accepted as complete-flow success"
+      "DeepSeek coordinator completed and verified child but narrated an already-delivered result without post_reply; no-progress guard stopped, not accepted as complete-flow success",
+      "Final integration exposed observationRevision being dropped in canonical reply composition/settlement; corrected and Desktop plus terminal complete flow rerun passed."
     ],
     "installedBuild": false,
-    "liveTasksModified": false
+    "liveTasksModified": false,
+    "evidence": "real-model.json",
+    "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a"
   },
   "logs": [
     {
@@ -106,6 +124,34 @@
     {
       "name": "peer-custody-product-verify.log",
       "sha256": "19a1dd5031cdefad07de0fbe72884c1f91bb431dc3e7a33d073e54d896d8b8c9"
+    },
+    {
+      "name": "peer-custody-system-refresh-integration-final.log",
+      "sha256": "ee6c57c54cab513b0524c20d69baff9f4f3abd61e6c6ad7528dff464a2b65610"
+    },
+    {
+      "name": "peer-custody-tui-integration.log",
+      "sha256": "3c4eb5389d5d054091a8f448a0399c3cea30dc9ce9fdc427378c892e6d1bc484"
+    },
+    {
+      "name": "peer-custody-final-head-typecheck.log",
+      "sha256": "786bc89b0a5175475443907fe120f079fb10380d24bbbc0006be336679ee4841"
+    },
+    {
+      "name": "peer-custody-final-head-architecture.log",
+      "sha256": "9026d6b8da2ac55ab1148b2d91556a0084f395f511f5d66910245961231ed152"
+    },
+    {
+      "name": "peer-custody-product-final-verify.log",
+      "sha256": "7511a83b6e76fa60c1d15a1d52ef485a7d02d0e09cc3b3225f9ca5fea29cbfd6"
+    }
+  ],
+  "candidateHistory": [
+    {
+      "sourceHead": "c7dd40575184d6002e2d968a0a42b65931e7ba3b",
+      "productRunId": "1839db45-3b04-4576-aebf-44839ff6c6fb",
+      "status": "superseded after real-model and cross-platform CI revealed stale checkpoint System Context and missing canonical observation identity",
+      "CI": "macOS and Linux terminal composition regression failed; no complete acceptance claimed for that candidate"
     }
   ]
 }
