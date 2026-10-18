@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "codePR": "https://github.com/ly-ccx/Peer-Agent/pull/162",
+  "codeHead": "67693282d42434e67671aab7553b5742ff320264",
+  "codeTree": "209d1c4949cc6501882d275d7e714cf5015da694",
+  "capture": {
+    "runId": "85336749-7293-4922-9949-781206b3bfae",
+    "sourceFingerprint": "4c9a0f8522f8ab6cb041d56c3e8eb55750050b2f8cf1aa9be460ee5c6cd2bd6f",
+    "sourceHeadAtCaptureStart": "549ea1b2c76b74d3ba5acfa3d825ea52b555a22a",
+    "capturedAt": "2026-10-16T03:58:10.843Z",
+    "screenshots": 156,
+    "note": "Capture began before committing the candidate; Verify after commit confirms unchanged source content."
+  },
+  "productVerify": {
+    "status": "passed",
+    "runId": "85336749-7293-4922-9949-781206b3bfae",
+    "sourceFingerprint": "4c9a0f8522f8ab6cb041d56c3e8eb55750050b2f8cf1aa9be460ee5c6cd2bd6f",
+    "reviewedAt": "2026-10-17T15:15:37.036Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "machine": {
+    "ok": true,
+    "pageErrors": [],
+    "mainAuthorizationErrors": [],
+    "yieldFeedback": {
+      "passed": true,
+      "source": "real Runner cooperative yield and persisted publicUpdates",
+      "controlledCognition": true,
+      "openingPreserved": true,
+      "privateReasoningHidden": true,
+      "canonicalReplyDelivered": true
+    }
+  },
+  "tests": {
+    "focused": {
+      "passed": 87,
+      "failed": 0
+    },
+    "productAndReference": {
+      "passed": 14,
+      "failed": 0
+    },
+    "finalReferenceFile": {
+      "passed": 8,
+      "failed": 0
+    },
+    "runtime": {
+      "passed": 1250,
+      "failed": 0
+    },
+    "systemContext": {
+      "passed": 41,
+      "failed": 0
+    },
+    "desktopFirst": {
+      "tests": 5534,
+      "failed": 1,
+      "failure": "Objective file observation event freshness assertion: actual event id equaled previous event id."
+    },
+    "desktopFailedFileAndI18nRerun": {
+      "passed": 36,
+      "failed": 0,
+      "sourceChangedForRetry": false
+    },
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed"
+  },
+  "ci": {
+    "runId": 38847435698,
+    "linux": "success",
+    "macOSAttempt1": "failure",
+    "failure": "Electron native Quick Chat menu evaluation: Resulting promise was garbage collected; pageErrors and mainAuthorizationErrors empty.",
+    "macOSAttempt2": "failure",
+    "failedPlatformReruns": 1,
+    "secondFailure": "Controlled stream was not advanced: 30-second simulated cognition phase expired during multi-width and theme screenshot checks. No new yield case was reached."
+  },
+  "screenshots": [
+    {
+      "file": "bot-yield-feedback-1280-dark-20261016.png",
+      "sha256": "d4489d5f6a197665c24ef1f3c5379445ecf1575691842b5f22b2dc7ba8dd6fd3"
+    },
+    {
+      "file": "bot-yield-feedback-760-light-20261016.png",
+      "sha256": "0a96c518eaadc74e55c6a256c680572396b30fb0cdb8922c38903dc2af04887c"
+    }
+  ],
+  "limits": [
+    "Implementer self-review; no independent review",
+    "Controlled cognition only; no cloud provider quality or latency acceptance",
+    "Source Electron; unpatched daily installed application unchanged",
+    "No full screen-reader, Windows/Linux interactive installation or long-duration acceptance"
+  ]
+}
