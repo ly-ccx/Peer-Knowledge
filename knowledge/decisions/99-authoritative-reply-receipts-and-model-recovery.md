@@ -42,6 +42,8 @@ The Desktop connection-timeout adapter also removed its parent abort forwarding 
 
 详情选择按 canonical message identity / turnId 从已加载消息建立展示投影，不依赖该行是否因历史折叠而出现在聊天 rows；未加载的实体通过现有 conversation pager 定位。保持权限/Evidence读取入口不变，不让 renderer 读存储。暂时缺失仅在确实找不到或读取失败时显示。
 
+标准产品回归发现，流式详情的 turnId 也可能命中 canonical 中的内部 agent_turn。选择器必须先使用可见/正式回复实体，不能因内部 turn 的同 ID 遮住流式到正式消息的交接。已补充 red→green 测试，覆盖正式回复在可见行和虚拟卸载两种状态；抽屉关闭仍返回当前回复入口，不以放宽焦点断言解决。
+
 ## 3. 实施顺序与约束
 
 1. 先加入真实失败形状的红灯测试：超过4000字符且多 sources 的有效 post_reply，拒绝/伪造回执，structured wait，正式交付及重启。
