@@ -3,7 +3,7 @@
   "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a",
   "sourceFingerprint": "ff37532907b188a903c79d09de67b872b069df7ce8959c0691701506ac666561",
   "codePR": "https://github.com/ly-ccx/Peer-Agent/pull/167",
-  "status": "implementation-and-local-real-acceptance-complete-ci-smoke-running",
+  "status": "passed",
   "product": {
     "status": "passed",
     "runId": "48915e2b-a6b4-4114-8402-0d58a7bd2153",
@@ -56,10 +56,22 @@
       "scope": "Coordinator tests and production Desktop DeepSeek loop after final code refinements"
     },
     "CI": {
-      "status": "in_progress",
-      "tests": "passed on macOS and Linux",
-      "remaining": "Bot shell Electron smoke",
-      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39131356653"
+      "headSha": "31cb84184c74e2224c7f47042f532f546dcb568a",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39131356653",
+      "jobs": [
+        {
+          "name": "ci-ubuntu-latest",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "ci-macos-14",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
     },
     "finalDesktopIntegration": {
       "pass": 66,

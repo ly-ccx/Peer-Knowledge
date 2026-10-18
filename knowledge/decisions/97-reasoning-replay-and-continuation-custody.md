@@ -69,7 +69,7 @@ Journal recovery 只在文件版本变化且确需尾记录修复时读取正文
 
 真实验收与跨平台集成又发现两处缺口，已在最终源码修复：原生检查点覆盖当前 System Context；canonical 回复组装与签收丢失 observationRevision，导致有效交付被误判过期。当前宿主观察版本完整穿过回复组装、持久交付、签收和展示。未放宽交付校验；模型声明的版本不能覆盖宿主事实。
 
-工程验证：完整 build / typecheck / architecture / pnpm test 在前候选通过；最后协调修改后572项定向测试通过；最终上下文与交付版本修复后桌面集成66项、终端集成10项通过，typecheck / architecture再次通过。最终 CI 的 macOS/Linux 测试阶段通过，桌面交互检查仍在进行。
+工程验证：完整 build / typecheck / architecture / pnpm test 在前候选通过；最后协调修改后572项定向测试通过；最终上下文与交付版本修复后桌面集成66项、终端集成10项通过，typecheck / architecture再次通过。最终 [CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/39131356653) 的 macOS/Linux 完整构建、类型检查、架构检查、测试及桌面交互检查全部通过，绑定同一最终源码提交。
 
 标准 Capture 的180张截图逐张实现者自审（24张与前候选完全相同 SHA-256，156张重新检查），最终 Verify通过，runId `48915e2b-a6b4-4114-8402-0d58a7bd2153`。不是独立视觉审查；保留三个既有非阻塞局限，见 review.json。
 
