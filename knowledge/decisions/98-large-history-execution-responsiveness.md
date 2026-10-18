@@ -157,3 +157,5 @@ CPU调用栈定位到两条未收敛的路径：`post_reply → deliveryFacts �
 这是B级Module接口与缓存Locality修复，不新增持久化真源、不改协议、权限、Evidence或原日志格式。先补计数、失效、调用者污染和严格错误测试，再实现；之后重新跑大历史真实调用与交互，不将诊断带采样器的统计冒充最终无采样器验收。
 
 单工作读取补充后的对照仍出现410ms窗口，不能记为性能根治。剩余调用栈为每个会话的`coordination-lifecycle.forSession → read`，它只需要mandates/transitions/decisions和工作停止状态，却复制了完整works预算及历史events/deliveries。Journal Reader补充独立命名的`readLifecycleFacts` Interface，返回当前完整验证后的控制记录及最小workStates，不暴露私有缓存；仅纯facts/forSession使用。coordinate/recover/effect和内核admit仍读原完整状态，不能使用这种展示投影授权执行。该补充仍须同场景对照，不将410ms标为已消除。
+
+进一步追踪到Desktop的Bot Directory把完整`history.messages`作为列表/get/markRead读取端口，版本缓存命中后仍反复structuredClone约9.6MB内部rounds。补充明确的Summary Messages / Batch Interface，仅给列表、get和未读游标提供预览、提问/回答和时间事实；原readMessages继续给聊天分页和完整回复详情，绝不以摘要代替执行或Evidence。摘要Module复用版本投影工厂，丢弃rounds/segments/附件像素，只保留列表算法实际读取的字段；跨文件变化与损坏仍严格处理。不增加IPC或持久化真源，默认未接入的宿主继续原读取行为。
