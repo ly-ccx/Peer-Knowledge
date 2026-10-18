@@ -136,3 +136,8 @@ GPT-6.1 Sol 最大强度在 1,100 计划、185MB journal、9.6MB 父会话与 46
 附带 CPU 采样的真实任务中，多个 233～394ms 主循环窗口由 `runtime-host.sync → hasContinuation → recoverJob → resolveRoster → delegated-plan-catalog` 主导；单个窗口内 stat 系统调用采样可累计约 82～114ms，目录枚举另占约 25～36ms。12 Bot 夹具中空 Bot 的恢复检查仍无条件取得 roster，形成跨 Bot 的扫描乘法。此证据补上了之前只测 conversation/cards/sessions 热查询漏掉的后台执行入口。
 
 此前包装 JSON 的诊断运行在 Playwright evaluate 上下文，未证明覆盖 Node 模块使用的全部 JSON 调用；因此“没有任何慢 JSON”不能作为结论。CPU 采样用于归因，采样器自身 stop/start 的时间另行识别；最终性能验收仍须关闭采样器。
+
+
+### 验收采样器自身成本
+
+旧采样器每次等待都会全文重新解析约9MB的隔离对话，可能污染自动化往返时延。现按文件 dev/ino/size/mtimeNs/ctimeNs 复用采样器自己的只读结果，变化时重读，变化中或不完整尾行等待下一次采样；不缓存执行授权。滚轮超过100ms的样本另记录自动化派发等待与 rAF 等待，原始总体分布与通过门槛不变。该调整属于测量工具，不能冒充产品性能优化，也不据此将旧失败改为通过。
