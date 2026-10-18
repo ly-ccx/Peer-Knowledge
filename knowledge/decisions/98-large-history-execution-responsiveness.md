@@ -37,6 +37,8 @@ SessionSupervisor 的同步展示 Query Scope 在一次调用内复用 Catalog�
 
 scope 中的复用仅节省同一同步观察内的重复工作。取消、派发、amend、恢复、签收等命令继续沿原 exclusive/lease/PermissionGrant 路径，不能借旧展示快照执行。
 
+后台恢复的调用边界也纳入 P1：`hasContinuation → recoverJob → resolveRoster → Supervisor.list` 不得对没有候选工作的 Bot 无条件查询任务目录。遗留预算恢复和 continuation custody 的 Interface 接受数组或惰性读取函数；Implementation 先检查本地 work、预算与 checkpoint 候选，确实需要子任务事实时才调用读取函数。一次 custody 的分组阶段共享同一只读 roster，写阶段沿原规则执行；不跨恢复操作保存 roster，不缓存权限或执行准入。定向测试覆盖空 Bot、paused/delivered 历史、真实候选、失效与 coalesce 结果，不能用跳过恢复提速。
+
 ### 3.2 Session Conversation Facts 与 Recovery Card Admission（P2）
 
 任务投影只请求报告、干预 ID 和创建时间所需的紧凑事实，避免为了 createdAt 调用合并流式正文的 getConversation。报告计算必须沿用 buildSessionReport 的可见正文选择、provisional tail 排除、Evidence refs 和 sourceRevision 语义，不把 thinking/tool 参数升为报告。
@@ -128,3 +130,9 @@ GPT-6.1 Sol 最大强度在 1,100 计划、185MB journal、9.6MB 父会话与 46
 功能成功不等于性能通过：输入往返 p95 20.79ms、p99 21.59ms、max 545.56ms；滚轮往返 p95 27.21ms、max 696.64ms；主循环 p95 1.38ms、max 699.40ms；renderer 帧间隔 p95 9.70ms、long task 0。最大输入延迟超过 500ms 门槛，因此此轮明确不通过性能验收，保留失败，不放宽阈值。46MB 历史终态提交经真实 worker 约 105ms，但该步骤的并发输入覆盖仍须补强。
 
 隔离副本上的后续压力诊断（无 Provider，不算真实任务验收）显示：会话 append 后触发展示投影重建时，主线程出现约 75～79ms 阻塞；46MB 终态提交后首次投影重建约 70～75ms。单次 append 本身约 16～18ms；不能把整个重建成本说成磁盘写入。该短诊断没有复现 700ms 尖峰，继续以真实任务记录长调用堆栈，禁止据此宣称尖峰已解决。
+
+### 周期性尖峰的进一步归因
+
+附带 CPU 采样的真实任务中，多个 233～394ms 主循环窗口由 `runtime-host.sync → hasContinuation → recoverJob → resolveRoster → delegated-plan-catalog` 主导；单个窗口内 stat 系统调用采样可累计约 82～114ms，目录枚举另占约 25～36ms。12 Bot 夹具中空 Bot 的恢复检查仍无条件取得 roster，形成跨 Bot 的扫描乘法。此证据补上了之前只测 conversation/cards/sessions 热查询漏掉的后台执行入口。
+
+此前包装 JSON 的诊断运行在 Playwright evaluate 上下文，未证明覆盖 Node 模块使用的全部 JSON 调用；因此“没有任何慢 JSON”不能作为结论。CPU 采样用于归因，采样器自身 stop/start 的时间另行识别；最终性能验收仍须关闭采样器。
