@@ -1,0 +1,1303 @@
+{
+  "schemaVersion": 1,
+  "runId": "fee97141-fc23-4771-b969-65a46c2a253f",
+  "sourceFingerprint": "85315f851acd0df20d37cbde5055a1e7937ed83a490df851f6cdb227ee2c45de",
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex implementer visual self-review",
+    "independent": false
+  },
+  "screenshots": [
+    {
+      "id": "ui-diagnostics-1280-dark.png",
+      "path": "screenshots/ui-diagnostics-1280-dark.png",
+      "sha256": "693fd751fa55277924a7c482c2c23f441735382b31012c67252c089a0b285837",
+      "verdict": "pass",
+      "notes": "诊断页按设置、环境与检查结果分区，宽屏和窄屏内容均在卡片边界内，未出现新增横向溢出。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-diagnostics-760-light.png",
+      "path": "screenshots/ui-diagnostics-760-light.png",
+      "sha256": "7eaab47405f76c16d6d6000a565c08f622de6c772c7c69921fb9fe987817f512",
+      "verdict": "pass",
+      "notes": "诊断页按设置、环境与检查结果分区，宽屏和窄屏内容均在卡片边界内，未出现新增横向溢出。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-appearance-1280-dark.png",
+      "path": "screenshots/ui-appearance-1280-dark.png",
+      "sha256": "ba53f63f119770ef66762cde738d728f942e0cfce3bc43d4a68cc6aa7493696f",
+      "verdict": "pass",
+      "notes": "外观设置的主题选择和说明层级清楚，深浅主题文字可辨，窄窗控件没有互相遮挡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-appearance-760-light.png",
+      "path": "screenshots/ui-appearance-760-light.png",
+      "sha256": "b4bd2fdb955dd022f20d890f65aa163bf3fd071f4d8f7b9097fa2bc2863e86a3",
+      "verdict": "pass",
+      "notes": "外观设置的主题选择和说明层级清楚，深浅主题文字可辨，窄窗控件没有互相遮挡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-automation-list-1280-dark.png",
+      "path": "screenshots/ui-automation-list-1280-dark.png",
+      "sha256": "0f730ce076ecf17abcd5b5832c833888a9d9c414b6449831e1a702f5814ef09f",
+      "verdict": "pass",
+      "notes": "自动化列表的标题、状态和时间分行排列，窄窗卡片能容纳操作入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-automation-list-760-light.png",
+      "path": "screenshots/ui-automation-list-760-light.png",
+      "sha256": "69d041e1c50baab558a0f1fcbc69a5db02c95da1ef1744140a459b5b61888ba2",
+      "verdict": "pass",
+      "notes": "自动化列表的标题、状态和时间分行排列，窄窗卡片能容纳操作入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-automation-receipt-1280-dark.png",
+      "path": "screenshots/ui-automation-receipt-1280-dark.png",
+      "sha256": "2e0962aa780e803969d117154fd1fe7f7a9054731b49bc1964df319f395db0eb",
+      "verdict": "pass",
+      "notes": "自动化执行回执保留状态和结果摘要，时间与操作位置独立，浅色窄窗仍可阅读。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-automation-receipt-760-light.png",
+      "path": "screenshots/ui-automation-receipt-760-light.png",
+      "sha256": "7852f1bc94188e336b1d5ef04fa1b5c602c687f9c894759a834e562297b25a32",
+      "verdict": "pass",
+      "notes": "自动化执行回执保留状态和结果摘要，时间与操作位置独立，浅色窄窗仍可阅读。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-automation-editor-1280-dark.png",
+      "path": "screenshots/ui-automation-editor-1280-dark.png",
+      "sha256": "33c2fcfef36736f559f9793b8d6bece6186515eeede86cba08ddd3e10c25f69a",
+      "verdict": "pass",
+      "notes": "自动化编辑页的字段标题、输入区和保存操作顺序清楚，滚动内容没有覆盖页头。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-automation-editor-760-light.png",
+      "path": "screenshots/ui-automation-editor-760-light.png",
+      "sha256": "cf9a8f01b7ceb2b35ee508562e9279ae5a75e5939054d657c2447e35579b4bad",
+      "verdict": "pass",
+      "notes": "自动化编辑页的字段标题、输入区和保存操作顺序清楚，滚动内容没有覆盖页头。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-classic-chat-1280-dark.png",
+      "path": "screenshots/ui-classic-chat-1280-dark.png",
+      "sha256": "7f6e706c630aafed9d0752679d576c14dc41ed11a59ae3f5b26583f86c646120",
+      "verdict": "pass",
+      "notes": "经典聊天的消息与工具活动分组可辨，深色宽窗和浅色窄窗均保留气泡间距。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-classic-chat-760-light.png",
+      "path": "screenshots/ui-classic-chat-760-light.png",
+      "sha256": "29a210806940ac4c721ac46d4c83d32cb9503ac40f73286f31a9fa5d2beb6c8b",
+      "verdict": "pass",
+      "notes": "经典聊天的消息与工具活动分组可辨，深色宽窗和浅色窄窗均保留气泡间距。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-classic-image-lightbox-1280-dark.png",
+      "path": "screenshots/ui-classic-image-lightbox-1280-dark.png",
+      "sha256": "1de23edd009d2237f2e05c171faa8f736111200bb513bee98796a4f5473580b6",
+      "verdict": "pass",
+      "notes": "图片查看器居中显示图片并压暗背景，关闭入口与图片分离，未把图片内容当作系统提示。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-classic-image-lightbox-760-light.png",
+      "path": "screenshots/ui-classic-image-lightbox-760-light.png",
+      "sha256": "1e2a86efa75112663ab6cf939f88de8abe4b6db39da80b798d0d27c50031769b",
+      "verdict": "pass",
+      "notes": "图片查看器居中显示图片并压暗背景，关闭入口与图片分离，未把图片内容当作系统提示。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "ui-classic-artifacts-1280-dark.png",
+      "path": "screenshots/ui-classic-artifacts-1280-dark.png",
+      "sha256": "c471edfcc074df4dc3162b550d24bf9a887409ce7d457e80380334e4f7bc7823",
+      "verdict": "pass",
+      "notes": "产物列表和文件预览有独立层级，长名称限制在面板内，窄窗可滚动。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "ui-classic-artifacts-760-light.png",
+      "path": "screenshots/ui-classic-artifacts-760-light.png",
+      "sha256": "b1f19fd4beb9e1a5af8f8d15087448be498bf63d33d8551b20723d16bf662333",
+      "verdict": "pass",
+      "notes": "产物列表和文件预览有独立层级，长名称限制在面板内，窄窗可滚动。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "ui-classic-diff-1280-dark.png",
+      "path": "screenshots/ui-classic-diff-1280-dark.png",
+      "sha256": "fec609f8ffd101855c29cfc6cca9456fa268b20ec04a2d8b1c65949d12bd33f3",
+      "verdict": "pass",
+      "notes": "差异预览保留文件名和变更行区域，操作入口没有混入代码正文。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "ui-classic-diff-760-light.png",
+      "path": "screenshots/ui-classic-diff-760-light.png",
+      "sha256": "2d1fed878c66323bb008e8d091089819ccbf2a5cbb363aaa51a7f1d1366eb7f8",
+      "verdict": "pass",
+      "notes": "差异预览保留文件名和变更行区域，操作入口没有混入代码正文。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "coordination-stopping-1280-dark.png",
+      "path": "screenshots/coordination-stopping-1280-dark.png",
+      "sha256": "97bf998dad44ea262530cb0042f849aa05b2aa5d7043605342a508dc48ace908",
+      "verdict": "pass",
+      "notes": "停止中状态明确显示等待执行结束；没有提前显示已取消或完成。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-awaiting_outcome-1280-dark.png",
+      "path": "screenshots/coordination-awaiting_outcome-1280-dark.png",
+      "sha256": "60c70dde0f6199e959c41bb96cc7e49d9069ac992d88192985f14ecf7e2abfe9",
+      "verdict": "pass",
+      "notes": "执行结果待确认时提示核实实际影响，未知结果没有被误报为成功。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-cancelled-1280-dark.png",
+      "path": "screenshots/coordination-cancelled-1280-dark.png",
+      "sha256": "8c13b209e260288d93f89afc808e5c138a8384e1ae0392fa9f980a4ed9c05b7c",
+      "verdict": "pass",
+      "notes": "取消后的终态与运行态区别清楚，已取消任务不再显示继续运行的主操作。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-handoff-1280-dark.png",
+      "path": "screenshots/coordination-handoff-1280-dark.png",
+      "sha256": "4f07c2bf58a412f1d636cda82b0c435fbaad631f8e565863a8401fc599e8c9a7",
+      "verdict": "pass",
+      "notes": "接手流程显示新旧任务之间的交接关系，提示等待旧执行收尾。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-stopping-760-light.png",
+      "path": "screenshots/coordination-stopping-760-light.png",
+      "sha256": "ddc2e6925b33ccd93b51ce2476db1e174706339a9e32199c5b432d75fba05b1f",
+      "verdict": "pass",
+      "notes": "浅色窄窗停止面板位于遮罩前，状态文本和操作仍在可见范围。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-awaiting_outcome-760-light.png",
+      "path": "screenshots/coordination-awaiting_outcome-760-light.png",
+      "sha256": "295fbaa20cfd61cc266ca3e77000bbc21efc553c8beb8e595edac4c2d79a96e1",
+      "verdict": "pass",
+      "notes": "浅色窄窗保留结果待确认的说明，背景变暗符合抽屉模态层级。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-cancelled-760-light.png",
+      "path": "screenshots/coordination-cancelled-760-light.png",
+      "sha256": "6680bb749f3b96f71e17b85c9a209e81d57d6733cf3539c589fbf7429985ec87",
+      "verdict": "pass",
+      "notes": "浅色窄窗取消终态可见，没有以成功签收替代取消状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "coordination-handoff-760-light.png",
+      "path": "screenshots/coordination-handoff-760-light.png",
+      "sha256": "0a1b9f844f06b5f4d5e59d36b207e1269a0e64325721324cb045201dba6a5d15",
+      "verdict": "pass",
+      "notes": "浅色窄窗交接说明没有溢出面板，旧任务收尾和新任务接手仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "agent-activity-1280-dark.png",
+      "path": "screenshots/agent-activity-1280-dark.png",
+      "sha256": "733b806a52243de36ae606f629459c8c95ff0f7b53599a5af91772ae1fca3c02",
+      "verdict": "pass",
+      "notes": "独立 Agent 活动行保留任务身份和阶段；主回复错误及缺失检查点的详情单独呈现，不覆盖子任务运行状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "agent-activity-detail-1280-dark.png",
+      "path": "screenshots/agent-activity-detail-1280-dark.png",
+      "sha256": "edb7de09e9da0d41c668d14c141301e4770a42e77bb7e1c06696fc761bdce7eb",
+      "verdict": "pass",
+      "notes": "独立 Agent 活动行保留任务身份和阶段；主回复错误及缺失检查点的详情单独呈现，不覆盖子任务运行状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "agent-activity-760-light.png",
+      "path": "screenshots/agent-activity-760-light.png",
+      "sha256": "37c48a651f24a4e7868f5ddbc75dbfb0f9f440eab3c29ff4c7e18a3b8652aa19",
+      "verdict": "pass",
+      "notes": "独立 Agent 活动行保留任务身份和阶段；主回复错误及缺失检查点的详情单独呈现，不覆盖子任务运行状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "agent-activity-detail-760-light.png",
+      "path": "screenshots/agent-activity-detail-760-light.png",
+      "sha256": "ba4bf720fd88033b250c0bac66e68331357e026bb41f8b404a91b466fc5f5cda",
+      "verdict": "pass",
+      "notes": "独立 Agent 活动行保留任务身份和阶段；主回复错误及缺失检查点的详情单独呈现，不覆盖子任务运行状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quick-chat-bots-dark.png",
+      "path": "screenshots/quick-chat-bots-dark.png",
+      "sha256": "ad53f353350eb0b15ca58b66414cc72e7207f2c771383c5d06538b19d74734c0",
+      "verdict": "pass",
+      "notes": "快捷聊天的机器人列表和输入入口可见；透明离屏窗口背景偏黑，不能据此证明原生浅色窗口外观。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "quick-chat-bots-light.png",
+      "path": "screenshots/quick-chat-bots-light.png",
+      "sha256": "1e3abdb0dfea77e4677b116d9f598fa41c33f38aad82b2812706a87e49a974b8",
+      "verdict": "pass",
+      "notes": "快捷聊天的机器人列表和输入入口可见；透明离屏窗口背景偏黑，不能据此证明原生浅色窗口外观。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "evidence-list-dark.png",
+      "path": "screenshots/evidence-list-dark.png",
+      "sha256": "15bd4678f2ad763c2ad26fc27ba06bf296ba6fd47daed1ea9e0da58cca0dbdfc",
+      "verdict": "pass",
+      "notes": "证据列表显示来源和读取入口，事实条目与聊天正文分开。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "evidence-file-dark.png",
+      "path": "screenshots/evidence-file-dark.png",
+      "sha256": "4a8f5f3c563a274ab9eb3f190850cd9f4b164472061dfa199e1224aa14d7babc",
+      "verdict": "pass",
+      "notes": "文件证据预览保留来源说明和正文边界，未把当前文件冒充历史结果。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "evidence-history-dark.png",
+      "path": "screenshots/evidence-history-dark.png",
+      "sha256": "2416e503fca5db3c1f46220d867ca631aef222ec5f419042e5ae6a224e976145",
+      "verdict": "pass",
+      "notes": "历史证据页面保留检索上下文，阅读内容与继续任务入口分开。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "evidence-missing-dark.png",
+      "path": "screenshots/evidence-missing-dark.png",
+      "sha256": "9d4a93525415b524c175d4a5ceedf56e62a4912dbd6d9151f735ef688b937a38",
+      "verdict": "pass",
+      "notes": "缺失证据明确给出不可用提示和下一步，深浅主题没有伪造已读取或已通过结论。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "evidence-missing-760-light.png",
+      "path": "screenshots/evidence-missing-760-light.png",
+      "sha256": "532b7ba37c268ffacff926c3ab561c5de9833241c7f4120cc704a920514e274a",
+      "verdict": "pass",
+      "notes": "缺失证据明确给出不可用提示和下一步，深浅主题没有伪造已读取或已通过结论。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "pending-reply-1600-dark.png",
+      "path": "screenshots/pending-reply-1600-dark.png",
+      "sha256": "461f095c601e9b6cf2c514d9029112234cfc82921716adcd7a6be93ef358147a",
+      "verdict": "pass",
+      "notes": "待回复状态放在对应 Bot 回合下，停止入口仍可访问，详情位于消息气泡右边界附近。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "pending-reply-docked-light.png",
+      "path": "screenshots/pending-reply-docked-light.png",
+      "sha256": "f73a44accc0deb1c93abf2a6105d4018a19d67561b9124ea28fca89ef1bd9093",
+      "verdict": "pass",
+      "notes": "待回复状态放在对应 Bot 回合下，停止入口仍可访问，详情位于消息气泡右边界附近。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "pending-reply-760-light.png",
+      "path": "screenshots/pending-reply-760-light.png",
+      "sha256": "ee9ae630d0184d11609eac18eeb3efdac1a999154a636afb52348a689231802d",
+      "verdict": "pass",
+      "notes": "待回复状态放在对应 Bot 回合下，停止入口仍可访问，详情位于消息气泡右边界附近。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "history-dark.png",
+      "path": "screenshots/history-dark.png",
+      "sha256": "73e4d4f2dd36eaf82772d957da8119322d1ba275fc26d39a2903dba3bbcf68d1",
+      "verdict": "pass",
+      "notes": "历史列表保留搜索与日期分组，深浅色行间层级可辨。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "history-light.png",
+      "path": "screenshots/history-light.png",
+      "sha256": "8c90ed2fa20766e611fd82804cf9b5a798ce4cc0c19dc621047c5cc810585008",
+      "verdict": "pass",
+      "notes": "历史列表保留搜索与日期分组，深浅色行间层级可辨。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "history-preview.png",
+      "path": "screenshots/history-preview.png",
+      "sha256": "96b1db7dbd37c454b7a2cef26f939b23960996916c8cd0f666a39a1717ffffe1",
+      "verdict": "pass",
+      "notes": "历史预览有返回列表入口，正文不与侧栏历史项混合。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "history-narrow-large.png",
+      "path": "screenshots/history-narrow-large.png",
+      "sha256": "b2a7ec0c3d5f30220be9a9fc2764679d2ff173b433518ae6b304f5ede3956338",
+      "verdict": "pass",
+      "notes": "窄窗历史预览的较大字号仍在容器内，未选择机器人时继续入口禁用且含说明。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "choice-send-1280-dark-before.png",
+      "path": "screenshots/choice-send-1280-dark-before.png",
+      "sha256": "f659fce6da1ac4bc4c5d5520a9c1c0176fb77ff3f022016ecf110df7887d52ad",
+      "verdict": "pass",
+      "notes": "选择前展示问题和答案选项，选项与正文之间留有间隔。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "choice-send-1280-dark-after.png",
+      "path": "screenshots/choice-send-1280-dark-after.png",
+      "sha256": "6144115875625bc5be5dd874f7109bd19d07a1740baf2322368911dd2f00fb5a",
+      "verdict": "pass",
+      "notes": "选择后出现用户发送气泡，原选项不再作为可重复提交按钮存在；静帧仅证明布局终态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "choice-send-760-light-before.png",
+      "path": "screenshots/choice-send-760-light-before.png",
+      "sha256": "5b79bafb2265b57f41f59ff9d6f0dc0a99e40b17f08d0bbc7deaf32707622e86",
+      "verdict": "pass",
+      "notes": "浅色窄窗的问题与选项可以换行，未挤压消息正文。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "choice-send-760-light-after.png",
+      "path": "screenshots/choice-send-760-light-after.png",
+      "sha256": "fedb2cccc254c2a857286f3d14bab0e8a9dc21782244c0883847e91ecd10658b",
+      "verdict": "pass",
+      "notes": "浅色窄窗选择后用户气泡有独立间距，没有选项与发送气泡叠在一起。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "updater-minimize-1280-dark-before.png",
+      "path": "screenshots/updater-minimize-1280-dark-before.png",
+      "sha256": "9f57e88ce05bf9d8bdb481d8ab439e162e53534a6394694a899342e2c8ec1324",
+      "verdict": "pass",
+      "notes": "更新前版本弹窗层级清楚，操作按钮和说明没有重叠。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "updater-minimize-1280-dark-after.png",
+      "path": "screenshots/updater-minimize-1280-dark-after.png",
+      "sha256": "71b919ae6e1740b9dd7fc6995825e93a09dd3b67cb287016fb2ddb40f5af0143",
+      "verdict": "pass",
+      "notes": "更新后底部入口显示 42% 进度，弹窗已收起；这是受控更新场景，不代表真实下载安装。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "updater-minimize-760-light-before.png",
+      "path": "screenshots/updater-minimize-760-light-before.png",
+      "sha256": "1f91a7c38b605d84d007bc49ae7e05647661714a19ef44d1823f9ee407e1dadb",
+      "verdict": "pass",
+      "notes": "浅色窄窗更新弹窗内容可读且按钮在可见区。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "updater-minimize-760-light-after.png",
+      "path": "screenshots/updater-minimize-760-light-after.png",
+      "sha256": "4cc9b2230b2b8d80c635c79465b93234cbbfc67742c842e432aa528a51b2c55a",
+      "verdict": "pass",
+      "notes": "窄窗更新进度收纳到左下入口，百分比仍清楚，没有遮住聊天输入。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-footer-progress-dark-narrow.png",
+      "path": "screenshots/bot-footer-progress-dark-narrow.png",
+      "sha256": "86a65b6ad4b06e6777f6b01820befd3e4608ef0f4768599dd5243164b974ea7a",
+      "verdict": "pass",
+      "notes": "窄窗更新进度收纳到左下入口，百分比仍清楚，没有遮住聊天输入。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-report-loading.png",
+      "path": "screenshots/task-report-loading.png",
+      "sha256": "b8d7fe02b120cdf75fe3e848a590e8047b376b9ba3059e0a75fc53a5fd833c23",
+      "verdict": "pass",
+      "notes": "报告加载状态有明确占位，没有拿旧报告冒充当前结果。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-report-unavailable.png",
+      "path": "screenshots/task-report-unavailable.png",
+      "sha256": "ac457ab33fadab62324e375417dc7eb0d46f4664392a9f94e49837104de3f9cc",
+      "verdict": "pass",
+      "notes": "报告不可用状态给出读取失败及重试说明，没有出现空白成功卡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-report-stale.png",
+      "path": "screenshots/task-report-stale.png",
+      "sha256": "a50cb828010a6c9337f503adf01f12102ac42bd00f0ded6971d7d6a9642a1f2b",
+      "verdict": "pass",
+      "notes": "过期报告标明历史来源和当前状态差异，避免把旧结果当成最新验收。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "conversation-updates-dark.png",
+      "path": "screenshots/conversation-updates-dark.png",
+      "sha256": "5dccb20377ac7a0663334781be8474a94dec6768f7635d29d5dee0c7d7b6f60b",
+      "verdict": "pass",
+      "notes": "同一回合的多条进展消息仍有间距，深浅色背景能辨识不同气泡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "conversation-updates-light.png",
+      "path": "screenshots/conversation-updates-light.png",
+      "sha256": "7fdba80cb11da69211644b7c100c9921e53993c29d62992ed85c9fba7a2a3011",
+      "verdict": "pass",
+      "notes": "同一回合的多条进展消息仍有间距，深浅色背景能辨识不同气泡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "conversation-complete.png",
+      "path": "screenshots/conversation-complete.png",
+      "sha256": "071c182496f10710edf5199b293d28c127c2dc63012c0c14b855fff4fc622c24",
+      "verdict": "pass",
+      "notes": "完成总结在进展消息之后单独显示，详情入口遵循消息边界；不以这些合成文本证明真实任务已完成。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "conversation-complete-light.png",
+      "path": "screenshots/conversation-complete-light.png",
+      "sha256": "a6e5ecee58a08770540baf191689901765cb52a1183cc6a1a4c1428825a6c0cd",
+      "verdict": "pass",
+      "notes": "完成总结在进展消息之后单独显示，详情入口遵循消息边界；不以这些合成文本证明真实任务已完成。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "conversation-details.png",
+      "path": "screenshots/conversation-details.png",
+      "sha256": "addb0559d27551ae98a43c702be5de22e545b388144c29fdc53e7fd0b5615152",
+      "verdict": "pass",
+      "notes": "回复过程按步骤分组，参数预览已脱敏，原始结果和面向用户的摘要分开。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-main-note.png",
+      "path": "screenshots/task-main-note.png",
+      "sha256": "bc85edae81e2384ad3402adfe4ea9dc800ae2f7485aea9d0e9f6c1606deedc32",
+      "verdict": "pass",
+      "notes": "任务主说明显示来源引用，说明和后续操作不挤在一行。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-follow-up-draft.png",
+      "path": "screenshots/task-follow-up-draft.png",
+      "sha256": "bde42a4e89c92bb076d534fdf59cebb4a471e1ec99c6ed030be88028fe184a26",
+      "verdict": "pass",
+      "notes": "跟进草稿保留用户编辑区域，未把草稿直接当成已发送消息。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-decision.png",
+      "path": "screenshots/task-decision.png",
+      "sha256": "4901252d9cc758048978331a674080e6cd51dbbebcdffce599df18e09773c90e",
+      "verdict": "pass",
+      "notes": "待用户决定的问题出现在主对话中，选项和任务细节有独立边界。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "task-main-question.png",
+      "path": "screenshots/task-main-question.png",
+      "sha256": "2518ad7982a673717bc31a953dd17b4ece7890c71b3d69b770c40bd7b064a825",
+      "verdict": "pass",
+      "notes": "待用户决定的问题出现在主对话中，选项和任务细节有独立边界。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-running.png",
+      "path": "screenshots/task-detail-running.png",
+      "sha256": "1ceaf7a0404c6c24747e7cc80d49429e78d230662438ae67db7c2977a518ebfd",
+      "verdict": "pass",
+      "notes": "任务运行和等待用户状态都有明确标签，下一步与当前执行权分别表达。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-waiting_user.png",
+      "path": "screenshots/task-detail-waiting_user.png",
+      "sha256": "a977a93b00a70314d764f10599bc924d31de2dc5bb3ba9debd3507bc9223bf77",
+      "verdict": "pass",
+      "notes": "任务运行和等待用户状态都有明确标签，下一步与当前执行权分别表达。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-accepted.png",
+      "path": "screenshots/task-detail-accepted.png",
+      "sha256": "e727b69292dee5ae44248df6682631a89eb383e9f0b6bb9bb7f29c06ab2e8f29",
+      "verdict": "pass",
+      "notes": "已验收标题和签收区域明确；样例最近说明仍残留核查未通过旧摘要，此项作为既有夹具局限记录，不作为真实验收凭据。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-failed.png",
+      "path": "screenshots/task-detail-failed.png",
+      "sha256": "8e8026a4442f72c104b8902a834a0faad93d1394b577c0aa7d968a5064eefe74",
+      "verdict": "pass",
+      "notes": "失败状态保留具体问题与后续入口，没有误报成已验收。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-1280-dark.png",
+      "path": "screenshots/task-detail-1280-dark.png",
+      "sha256": "db0603069c855417dc39a0c7416ec76c3e9a4fe323c38774e544bc239df1387c",
+      "verdict": "pass",
+      "notes": "任务详情在宽窄窗及深浅主题中保持标题、状态、结果和操作的顺序，窄窗采用独立抽屉。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-1280-light.png",
+      "path": "screenshots/task-detail-1280-light.png",
+      "sha256": "00d2cdb341765b220f573e4e6ead689500fbc2a1938a7330cb4c9a74d2b3b37e",
+      "verdict": "pass",
+      "notes": "任务详情在宽窄窗及深浅主题中保持标题、状态、结果和操作的顺序，窄窗采用独立抽屉。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-760-dark.png",
+      "path": "screenshots/task-detail-760-dark.png",
+      "sha256": "f4790b38a624570c6de82879e63a2859c146d2613f3bfa73f0d7001216ca020b",
+      "verdict": "pass",
+      "notes": "任务详情在宽窄窗及深浅主题中保持标题、状态、结果和操作的顺序，窄窗采用独立抽屉。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-detail-760-light.png",
+      "path": "screenshots/task-detail-760-light.png",
+      "sha256": "c0a863ad66d6171c84f5d6e79705297b32fe9f2558429dd533d96212698c9d99",
+      "verdict": "pass",
+      "notes": "任务详情在宽窄窗及深浅主题中保持标题、状态、结果和操作的顺序，窄窗采用独立抽屉。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "work-running.png",
+      "path": "screenshots/work-running.png",
+      "sha256": "1788377960ef747a567bffdd4baf01267730f534cc3e4f788ad5c447da7d9e84",
+      "verdict": "pass",
+      "notes": "工作运行与等待状态放在任务行内，窄窗保留取消和查看任务详情入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "work-waiting.png",
+      "path": "screenshots/work-waiting.png",
+      "sha256": "1288417f4e3febad9ffa85bf31b394ff387932c6836381ade68308a4ffdeb6c8",
+      "verdict": "pass",
+      "notes": "工作运行与等待状态放在任务行内，窄窗保留取消和查看任务详情入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "work-waiting-760-light.png",
+      "path": "screenshots/work-waiting-760-light.png",
+      "sha256": "13a98a00901cf777220ca24ff4e4417eb711d19c7b64a0c09c6b030a44c4b428",
+      "verdict": "pass",
+      "notes": "工作运行与等待状态放在任务行内，窄窗保留取消和查看任务详情入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-overview.png",
+      "path": "screenshots/bot-overview.png",
+      "sha256": "ce1a452cc6da653f1115e9712afffa01a01c8060e85ed97c682e67c98eff39ad",
+      "verdict": "pass",
+      "notes": "机器人概览的配置与任务概述分区清楚，按钮文字表达设置用途。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-memory.png",
+      "path": "screenshots/bot-memory.png",
+      "sha256": "38987719ae1ab55e25b30883f452b634d30c031fab14c9ee6553a58dd82efddb",
+      "verdict": "pass",
+      "notes": "机器人记忆以条目展示，编辑入口没有混入对话消息。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "chat-process-summary.png",
+      "path": "screenshots/chat-process-summary.png",
+      "sha256": "3312e0456ed1a2ffbaf38c778823a60b94a6ed29f6aaef8671601253c33f8867",
+      "verdict": "pass",
+      "notes": "聊天过程摘要展示已结束步骤和耗时，完成态没有持续转圈。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-cancel-failed-dark.png",
+      "path": "screenshots/task-cancel-failed-dark.png",
+      "sha256": "82aefec6357cd40e344d2497e499e96b6288318f2b4aecc35baf20d7327fe5b1",
+      "verdict": "pass",
+      "notes": "取消失败保留具体说明和可重试入口，没有把失败吞成已取消。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-cancelled-dark.png",
+      "path": "screenshots/task-cancelled-dark.png",
+      "sha256": "9abbd00e2a91f4ab83711132485bdf5f30ce633ff519e62f05af0bdf97149d12",
+      "verdict": "pass",
+      "notes": "取消成功的任务终止操作收起，另一独立任务仍显示运行，窄窗抽屉也保持相同语义。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "task-cancel-detail-760-light.png",
+      "path": "screenshots/task-cancel-detail-760-light.png",
+      "sha256": "39aadcbf81e9430e7da54efbe6ab9b9c23cf7c769faf72b819fd3b645107676d",
+      "verdict": "pass",
+      "notes": "取消成功的任务终止操作收起，另一独立任务仍显示运行，窄窗抽屉也保持相同语义。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "long-error-760-dark.png",
+      "path": "screenshots/long-error-760-dark.png",
+      "sha256": "37a0f1206b731b9aca35992382c33b83702d9f62b865ddf6932e19ed86f5f691",
+      "verdict": "pass",
+      "notes": "窄窗中错误摘要和引用气泡正常换行，预算来源单独一行；本帧未显示返回最新浮层，未复现前次局部遮挡。原始错误在对应的停靠详情图内单独检查。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "long-error-docked-light.png",
+      "path": "screenshots/long-error-docked-light.png",
+      "sha256": "8cf64b5f0af04e11c45f717b5a48b85709cb5c559055f020b7cf17c0bd4ccaa4",
+      "verdict": "pass",
+      "notes": "长原始错误在右侧详情面板内折行，没有撑宽整个窗口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "background-work-1600-dark.png",
+      "path": "screenshots/background-work-1600-dark.png",
+      "sha256": "1fa200b0b42cb004e83f66aac7513756b8da0f3449bf3da975eab4e759d8c615",
+      "verdict": "pass",
+      "notes": "后台工作页脚与主 Bot 回复区分开，窄窗也保留任务名称和实际状态。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "background-work-760-light.png",
+      "path": "screenshots/background-work-760-light.png",
+      "sha256": "b7a51b073943d91d1a4a976c43309a4f226b42a0785189cf22882bc2c1349f1b",
+      "verdict": "pass",
+      "notes": "后台工作页脚与主 Bot 回复区分开，窄窗也保留任务名称和实际状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "fallback-vision-1280-dark.png",
+      "path": "screenshots/fallback-vision-1280-dark.png",
+      "sha256": "05bc6651eafdf85ec8d76e28491383c55f9590a3006d07d5bfcd9b60bd174d0d",
+      "verdict": "pass",
+      "notes": "视觉回退提示说明当前模型和能力限制，深浅主题及窄窗均可读，没有伪称已看图。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "fallback-vision-1280-light.png",
+      "path": "screenshots/fallback-vision-1280-light.png",
+      "sha256": "a577bb17bbf8b646c00f466eb583ce172784e55d7560d3d77614881525cfb3c1",
+      "verdict": "pass",
+      "notes": "视觉回退提示说明当前模型和能力限制，深浅主题及窄窗均可读，没有伪称已看图。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "fallback-vision-760-dark.png",
+      "path": "screenshots/fallback-vision-760-dark.png",
+      "sha256": "49ccbee18d1e3b43a08f9b3235e86d06786f14580d58859482c4af5ec376151c",
+      "verdict": "pass",
+      "notes": "视觉回退提示说明当前模型和能力限制，深浅主题及窄窗均可读，没有伪称已看图。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "fallback-vision-760-light.png",
+      "path": "screenshots/fallback-vision-760-light.png",
+      "sha256": "9fb9df11374419e9fa760dd4a7f1fa29038abc1d94eb451f7de58e4b5f02ea92",
+      "verdict": "pass",
+      "notes": "视觉回退提示说明当前模型和能力限制，深浅主题及窄窗均可读，没有伪称已看图。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "providers-1280-dark.png",
+      "path": "screenshots/providers-1280-dark.png",
+      "sha256": "d863c447588f22342404abb1d1f76ef5ac177e328d1223a772b4f9935aa8a328",
+      "verdict": "pass",
+      "notes": "模型通道配置行与展开详情分级清楚，能力和通道状态没有重叠。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "providers-expanded-1280-dark.png",
+      "path": "screenshots/providers-expanded-1280-dark.png",
+      "sha256": "636f0ca78ad026bf14ab530bb532e133255713f866d63e46defdec6233b97216",
+      "verdict": "pass",
+      "notes": "模型通道配置行与展开详情分级清楚，能力和通道状态没有重叠。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "composer-empty-1280-dark.png",
+      "path": "screenshots/composer-empty-1280-dark.png",
+      "sha256": "92e5254d7708e9c437136269e731f7b9523d88f88c8632b566d70df4095bc941",
+      "verdict": "pass",
+      "notes": "空输入框的附件入口、模型和发送按钮位置稳定，窄窗没有互相覆盖。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "composer-empty-1280-light.png",
+      "path": "screenshots/composer-empty-1280-light.png",
+      "sha256": "8cc2fbd2299f1a33382924db1d9641759fc8d0b6e0d80401bd43980772b58d31",
+      "verdict": "pass",
+      "notes": "空输入框的附件入口、模型和发送按钮位置稳定，窄窗没有互相覆盖。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "composer-empty-760-dark.png",
+      "path": "screenshots/composer-empty-760-dark.png",
+      "sha256": "85ac37b355e96846d0899b327807da729d66951e073c936b986700c65dd77dd1",
+      "verdict": "pass",
+      "notes": "空输入框的附件入口、模型和发送按钮位置稳定，窄窗没有互相覆盖。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "composer-multiline-760-light.png",
+      "path": "screenshots/composer-multiline-760-light.png",
+      "sha256": "37faaa3ecd149e95bbb8248151c15aba6769ce8dde7751d65d576ac81362f8c7",
+      "verdict": "pass",
+      "notes": "多行输入框向上扩展且保留底部控制区，浅色窄窗文字不被发送按钮遮挡。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "composer-attachment-1280-dark.png",
+      "path": "screenshots/composer-attachment-1280-dark.png",
+      "sha256": "fb178cd29834d26d29d204f9db5950de916271578a28b04b2235f013f477f26d",
+      "verdict": "pass",
+      "notes": "附件预览保留文件身份和 SVG 移除入口，预览不挤占输入正文。 RC18 图像与已审查来源 SHA-256 相同，保留原观察。"
+    },
+    {
+      "id": "reply-dark.png",
+      "path": "screenshots/reply-dark.png",
+      "sha256": "e75e3e06f13b70697a174573c7348e02cd6b8781ae0b29894f86647162271782",
+      "verdict": "pass",
+      "notes": "回复气泡在深浅主题中采用机器人颜色，正文对比度可读，详情跟随气泡边界。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-light.png",
+      "path": "screenshots/reply-light.png",
+      "sha256": "ce653ec8eac67b80d643618d71eb3817d0466758fee90339113fbeb421377bbe",
+      "verdict": "pass",
+      "notes": "回复气泡在深浅主题中采用机器人颜色，正文对比度可读，详情跟随气泡边界。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-narrow-quote.png",
+      "path": "screenshots/reply-narrow-quote.png",
+      "sha256": "aa92ae67bdedc5836dc936c27920bc8b8e8c58008b1e4d50630790241c0be737",
+      "verdict": "pass",
+      "notes": "窄窗引用草稿嵌入输入区，引用作者与正文有层级，没有漂到消息列表底部。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-narrow-sent.png",
+      "path": "screenshots/reply-narrow-sent.png",
+      "sha256": "19bb333a97f6fc79dfa0afff287ca1498957c44ad500638c22fd59e3e8c2e5d9",
+      "verdict": "pass",
+      "notes": "窄窗发送后的引用和用户消息整合在同一气泡中，消息间距保留。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-message-purple-dark.png",
+      "path": "screenshots/bot-message-purple-dark.png",
+      "sha256": "7ec1ce9202912bf2fd97e624f637240f8777c29d4bd45b3fbd1a2aac6c976e4a",
+      "verdict": "pass",
+      "notes": "紫色、粉色和绿色机器人气泡分别跟随身份色，深浅主题正文与背景仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-message-purple-light.png",
+      "path": "screenshots/bot-message-purple-light.png",
+      "sha256": "6c1e858327688b853b20e174939a6785a62a7978e4a76d7799f65c94ddf6165e",
+      "verdict": "pass",
+      "notes": "紫色、粉色和绿色机器人气泡分别跟随身份色，深浅主题正文与背景仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-message-pink-dark.png",
+      "path": "screenshots/bot-message-pink-dark.png",
+      "sha256": "403d00e51820508b3be9ff6ebf78be7949aacb341d5d4609af0cf017a066b2b3",
+      "verdict": "pass",
+      "notes": "紫色、粉色和绿色机器人气泡分别跟随身份色，深浅主题正文与背景仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-message-pink-light.png",
+      "path": "screenshots/bot-message-pink-light.png",
+      "sha256": "0b6ed46840759618615b715360c274235c182086357c3785a432656092509743",
+      "verdict": "pass",
+      "notes": "紫色、粉色和绿色机器人气泡分别跟随身份色，深浅主题正文与背景仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-message-green-dark.png",
+      "path": "screenshots/bot-message-green-dark.png",
+      "sha256": "7ea5df9adcf42e4f513f9e106c0948ff8e9822b119a2f5676f34b9a5ce0d6787",
+      "verdict": "pass",
+      "notes": "紫色、粉色和绿色机器人气泡分别跟随身份色，深浅主题正文与背景仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "bot-message-green-light.png",
+      "path": "screenshots/bot-message-green-light.png",
+      "sha256": "c23fc21b79e15586b614e1916c697166067361423cce44b3c83eca9e427d5a45",
+      "verdict": "pass",
+      "notes": "紫色、粉色和绿色机器人气泡分别跟随身份色，深浅主题正文与背景仍可区分。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quote-sent-1280-dark.png",
+      "path": "screenshots/quote-sent-1280-dark.png",
+      "sha256": "6120295badce91cf43bc3a2baa684135c76c7290f147fa7782f75368ad5a4735",
+      "verdict": "pass",
+      "notes": "发送的引用保留作者和原文，与用户补充文字在同一消息容器中。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quote-sent-1280-light.png",
+      "path": "screenshots/quote-sent-1280-light.png",
+      "sha256": "177c5f8fe7818cfe87f704325e2a4b7cf728f2c635d5ec0a945608395e18db48",
+      "verdict": "pass",
+      "notes": "发送的引用保留作者和原文，与用户补充文字在同一消息容器中。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quote-reply-1280-dark.png",
+      "path": "screenshots/quote-reply-1280-dark.png",
+      "sha256": "a93b8b6e3f333d0394e2660af701fbbf301c712b816ec821642dcb4b0a117bdf",
+      "verdict": "pass",
+      "notes": "机器人引用回复将引用作为气泡内的上下文区，不产生独立漂浮卡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quote-reply-1280-light.png",
+      "path": "screenshots/quote-reply-1280-light.png",
+      "sha256": "84c26b0bcabc042dc7101e1f26a3dfe97215b49a2c5039ef6ce80b747c47ebbe",
+      "verdict": "pass",
+      "notes": "机器人引用回复将引用作为气泡内的上下文区，不产生独立漂浮卡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quote-reply-760-dark.png",
+      "path": "screenshots/quote-reply-760-dark.png",
+      "sha256": "d547cc1ea77e6bb224c54ba345bba623202729351c5cbe686bb310cb8123cd5e",
+      "verdict": "pass",
+      "notes": "机器人引用回复将引用作为气泡内的上下文区，不产生独立漂浮卡。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "quote-reply-760-light.png",
+      "path": "screenshots/quote-reply-760-light.png",
+      "sha256": "a5dffa7a9902783cef62e8e7b2c3fd9c8be1a1b2a605a44f94b0195d82133917",
+      "verdict": "pass",
+      "notes": "浅色窄窗引用正文能换行；返回最新浮层局部遮挡预算文字，作为既有非阻塞局限记录。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "selection-quote-1280-dark.png",
+      "path": "screenshots/selection-quote-1280-dark.png",
+      "sha256": "49f68832eeaea15dc8f30d9d738080857c652f5474375a70d0eb9c389f980744",
+      "verdict": "pass",
+      "notes": "选中文字后的引用入口靠近选择区域，宽窄窗和停靠布局均保留当前草稿。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "selection-quote-760-light.png",
+      "path": "screenshots/selection-quote-760-light.png",
+      "sha256": "aad8c93188baa22bf8101299bd85b7c6f8213b219273418b67e1d8481bf50961",
+      "verdict": "pass",
+      "notes": "选中文字后的引用入口靠近选择区域，宽窄窗和停靠布局均保留当前草稿。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "selection-quote-docked-light.png",
+      "path": "screenshots/selection-quote-docked-light.png",
+      "sha256": "f7b9aefb74fe198c97608b411138d57cb7c43b452e2644df29d6f51ade786942",
+      "verdict": "pass",
+      "notes": "选中文字后的引用入口靠近选择区域，宽窄窗和停靠布局均保留当前草稿。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "completion-review-card.png",
+      "path": "screenshots/completion-review-card.png",
+      "sha256": "68f567a59a95aa4b3da996a17632f3b653a7a69582599716d7abdd37ca3e5fd8",
+      "verdict": "pass",
+      "notes": "完成审查的卡片、报告和确认入口展示各自职责；此受控夹具不代表真实独立评审已完成。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "completion-review-report.png",
+      "path": "screenshots/completion-review-report.png",
+      "sha256": "17b352cddb20bf877007b57ffaa219f00c7eb57921216a84b612fdce6aea6a19",
+      "verdict": "pass",
+      "notes": "完成审查的卡片、报告和确认入口展示各自职责；此受控夹具不代表真实独立评审已完成。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "completion-review-760-light.png",
+      "path": "screenshots/completion-review-760-light.png",
+      "sha256": "1e823dab1df58d6fc3f4b72d97ad96db3f9e46257046e0f27d2cace3fe28567b",
+      "verdict": "pass",
+      "notes": "完成审查的卡片、报告和确认入口展示各自职责；此受控夹具不代表真实独立评审已完成。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-wait-1280-dark.png",
+      "path": "screenshots/image-live-wait-1280-dark.png",
+      "sha256": "31d05624718fb7302becce345140c508474ad715825466e5675f4d33f34807a5",
+      "verdict": "pass",
+      "notes": "图片权限等待卡展示当前图片范围及允许、拒绝、取消操作，宽窄窗均有明确等待状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-wait-760-light.png",
+      "path": "screenshots/image-live-wait-760-light.png",
+      "sha256": "e536721612c4e1cf638b42edac7a53b5e80ef8c0bb955482ae677363fdd4ed9d",
+      "verdict": "pass",
+      "notes": "图片权限等待卡展示当前图片范围及允许、拒绝、取消操作，宽窄窗均有明确等待状态。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-full-1280-dark.png",
+      "path": "screenshots/image-full-1280-dark.png",
+      "sha256": "952056669385c57085bb08a1ba7db1fe5c10bc20e2ba54281f319ab5ba62174a",
+      "verdict": "pass",
+      "notes": "完全本地授权场景不再逐图弹出读取审批，无关写入审批仍保留。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-full-760-light.png",
+      "path": "screenshots/image-full-760-light.png",
+      "sha256": "4bd5131cb7d00c3865b01a48dbe8213e0b41955ee0ce4771702a6123da3d5662",
+      "verdict": "pass",
+      "notes": "完全本地授权场景不再逐图弹出读取审批，无关写入审批仍保留。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-allow-1280-dark.png",
+      "path": "screenshots/image-live-allow-1280-dark.png",
+      "sha256": "889af838fc9e740c688b6015d3a7b53b4426be803b2f66c0519d959668404819",
+      "verdict": "pass",
+      "notes": "允许图片后权限卡变为已授权收据，后续结果仍由真实执行链返回。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-deny-1280-dark.png",
+      "path": "screenshots/image-live-deny-1280-dark.png",
+      "sha256": "bb9e643d124b3a3cecec7fe7bcc7c83f1052ea890e390c6b9b5a997b7d99dcdf",
+      "verdict": "pass",
+      "notes": "拒绝图片后给出拒绝终态，没有把拒绝当读取成功。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-cancel-1280-dark.png",
+      "path": "screenshots/image-live-cancel-1280-dark.png",
+      "sha256": "ebc2e8c85700ca9cf4cdc8472ae3a994a8f2f8b5c4e6834619c0d2b32da58e9c",
+      "verdict": "pass",
+      "notes": "取消读取后卡片停止等待，拒绝和取消文字有区别。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-stop-1280-dark.png",
+      "path": "screenshots/image-live-stop-1280-dark.png",
+      "sha256": "d8c8d82e72093d7e5a6aefa7174f4c7383f586cabfd80d4ff43c1d2867b455c5",
+      "verdict": "pass",
+      "notes": "停止任务后图片权限等待终止，没有留下持续运行的图片步骤。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-live-timeout-1280-dark.png",
+      "path": "screenshots/image-live-timeout-1280-dark.png",
+      "sha256": "a6d857ec8ed6a95f1d772a487036321baf6f865ce5287f2792c94202862644e9",
+      "verdict": "pass",
+      "notes": "图片授权超时显示超时原因及重试路径，没有无限等待占位。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-approval-1280-dark.png",
+      "path": "screenshots/image-approval-1280-dark.png",
+      "sha256": "f520539f805a7424a8d4afe7f2c853471e7c480ee7f70d9fdfa527d601050e84",
+      "verdict": "pass",
+      "notes": "图片审批卡保留读取范围和按钮层级，浅色窄窗长路径可以换行。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "image-approval-760-light.png",
+      "path": "screenshots/image-approval-760-light.png",
+      "sha256": "acd4878c967f0cdc35e45c2401c404c8b6b8253db6d4e4b3987bdba08a8dff42",
+      "verdict": "pass",
+      "notes": "图片审批卡保留读取范围和按钮层级，浅色窄窗长路径可以换行。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "process-timing-dark.png",
+      "path": "screenshots/process-timing-dark.png",
+      "sha256": "1318d24b0db7140568e076d96860ea976d9a1dea0c4b8b30fbad6d4b21227e91",
+      "verdict": "pass",
+      "notes": "已完成的过程步骤停止计时，单步时长与整体时长分开显示。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "process-timing-light.png",
+      "path": "screenshots/process-timing-light.png",
+      "sha256": "c2109f51765482a95f104ebdae388e27f31cc554e08c078871ef6b99eb51cfa1",
+      "verdict": "pass",
+      "notes": "已完成的过程步骤停止计时，单步时长与整体时长分开显示。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "budget-exhausted-dark.png",
+      "path": "screenshots/budget-exhausted-dark.png",
+      "sha256": "bc260f26cb5e40f17ca6ca361b354f2ba68e9d4a8d9babf85db211b13566da6a",
+      "verdict": "pass",
+      "notes": "预算耗尽样例明确展示 256/256 及配置来源，不把样例上限冒充产品默认限制。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "budget-exhausted-light.png",
+      "path": "screenshots/budget-exhausted-light.png",
+      "sha256": "ef2a16d8a580773afea744deb3f4a2c7aadcb27ecad991084eee59c3dd8b4d87",
+      "verdict": "pass",
+      "notes": "预算耗尽样例明确展示 256/256 及配置来源，不把样例上限冒充产品默认限制。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "manual-wake-retry-dark.png",
+      "path": "screenshots/manual-wake-retry-dark.png",
+      "sha256": "a5fe4f1b98d86efb9d7063d162b05cb9799af1ae15ca003470aa5c35f0fcdbe4",
+      "verdict": "pass",
+      "notes": "手动继续后有当前回合反馈，历史失败没有替代本轮运行说明。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "manual-wake-retry-light.png",
+      "path": "screenshots/manual-wake-retry-light.png",
+      "sha256": "763a9ad697543dd95b71c1e6614e4872d3ad7970c92aece67a18b64ec70e035c",
+      "verdict": "pass",
+      "notes": "手动继续后有当前回合反馈，历史失败没有替代本轮运行说明。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-missing-checkpoint-dark.png",
+      "path": "screenshots/recovery-missing-checkpoint-dark.png",
+      "sha256": "8049a555d23c6f27dd9d5defe58d6b972985ad7fc8efa69b5050660cd9c5c13a",
+      "verdict": "pass",
+      "notes": "缺少检查点给出具体原因和安全继续说明，深浅主题不再只有笼统无法回复。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-missing-checkpoint-light.png",
+      "path": "screenshots/recovery-missing-checkpoint-light.png",
+      "sha256": "8c139275a93bee61c7afd1b0eb17de014aa748decb38d1fad65cf361b45917f1",
+      "verdict": "pass",
+      "notes": "缺少检查点给出具体原因和安全继续说明，深浅主题不再只有笼统无法回复。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-scheduled-dark.png",
+      "path": "screenshots/recovery-scheduled-dark.png",
+      "sha256": "b321dfb973669c35bf68daa0500e4298890ccb71ccdc813ddbdcb13d55718ee6",
+      "verdict": "pass",
+      "notes": "计划恢复显示等待恢复状态，没有提前宣称执行成功。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-scheduled-light.png",
+      "path": "screenshots/recovery-scheduled-light.png",
+      "sha256": "7b94dfbdea33498226404cdc661c273becfe8feaaaf710db3fe3c27d7725731b",
+      "verdict": "pass",
+      "notes": "计划恢复显示等待恢复状态，没有提前宣称执行成功。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-exhausted-dark.png",
+      "path": "screenshots/recovery-exhausted-dark.png",
+      "sha256": "8e0af50588f609994febd0a735713ade16d2a0124586da0ab7a4253eb4d88034",
+      "verdict": "pass",
+      "notes": "恢复次数耗尽给出具体条件和可采取的动作，未清空已有进展。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-exhausted-light.png",
+      "path": "screenshots/recovery-exhausted-light.png",
+      "sha256": "5170d18066586c7f596a33ff4dede73e08efd7cd2adb77f20330587f4aefc601",
+      "verdict": "pass",
+      "notes": "恢复次数耗尽给出具体条件和可采取的动作，未清空已有进展。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-authentication-dark.png",
+      "path": "screenshots/recovery-authentication-dark.png",
+      "sha256": "a6aace99b792eebef004b8fb2ce834f5afd7236537854696a9712596779de0ef",
+      "verdict": "pass",
+      "notes": "认证失败提示检查登录或通道配置，未错误归咎于子任务运行。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-authentication-light.png",
+      "path": "screenshots/recovery-authentication-light.png",
+      "sha256": "6c76a55d45b0003b00e8f8411db5681adf85aa3b49c2fdfc0b0bbf67b40479a4",
+      "verdict": "pass",
+      "notes": "认证失败提示检查登录或通道配置，未错误归咎于子任务运行。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-unknown-dark.png",
+      "path": "screenshots/recovery-unknown-dark.png",
+      "sha256": "5b59ca6d23aeb190c0836c282c1833a261ee5c39bb764cd04909602b65e830b8",
+      "verdict": "pass",
+      "notes": "执行影响未知时要求先核实，已有进展保留，没有直接重跑可能已产生影响的操作。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-unknown-light.png",
+      "path": "screenshots/recovery-unknown-light.png",
+      "sha256": "d92677fafa44b90c9dd808d690ad418bfa48ce3829887306f0172e31d6fa7508",
+      "verdict": "pass",
+      "notes": "执行影响未知时要求先核实，已有进展保留，没有直接重跑可能已产生影响的操作。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-resolved-dark.png",
+      "path": "screenshots/recovery-resolved-dark.png",
+      "sha256": "8695e62a7a2ea55d66575b5dc8b9a6d869c4763a0c7f48cdb3ab05743d60ac64",
+      "verdict": "pass",
+      "notes": "已恢复的旧中断折叠到历史区，明确说明新的回复已送达，当前对话继续显示。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-resolved-light.png",
+      "path": "screenshots/recovery-resolved-light.png",
+      "sha256": "9216c1ba26c80ff74d23ed2a2962ca06742ef8a74ff852578e1f8ad969596a59",
+      "verdict": "pass",
+      "notes": "已恢复的旧中断折叠到历史区，明确说明新的回复已送达，当前对话继续显示。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-no-progress-dark.png",
+      "path": "screenshots/recovery-no-progress-dark.png",
+      "sha256": "0ec8193d586cbab759e2c1c7d47decd7532ad074da8e6f1f749091ed8b186a04",
+      "verdict": "pass",
+      "notes": "无进展循环被停止并保留已有结果，Agent 活动开始、发现问题和返回记录仍单独存在。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-no-progress-light.png",
+      "path": "screenshots/recovery-no-progress-light.png",
+      "sha256": "03bf2aaa56a5485e28504f69256a6afa4da5c68858c1f784730ea17a54d0a4a2",
+      "verdict": "pass",
+      "notes": "无进展循环被停止并保留已有结果，Agent 活动开始、发现问题和返回记录仍单独存在。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-child-running-dark.png",
+      "path": "screenshots/recovery-child-running-dark.png",
+      "sha256": "bf5e4c0009b62d4d28958d6d6039f689ece0356077faa82b12aa972d2ce2bddb",
+      "verdict": "pass",
+      "notes": "主模型空响应有独立错误说明，同时明确另有一项子任务仍在推进；子任务运行行没有变成失败。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-child-running-light.png",
+      "path": "screenshots/recovery-child-running-light.png",
+      "sha256": "5a2a9ce268620fab0f051a9b3082cc6e5f3cfe83838cf39c5699258d7f10bd11",
+      "verdict": "pass",
+      "notes": "主模型空响应有独立错误说明，同时明确另有一项子任务仍在推进；子任务运行行没有变成失败。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-historical-dark.png",
+      "path": "screenshots/recovery-historical-dark.png",
+      "sha256": "8e6e6c6ea48295ed3b95273ccf46c51d68712b2c2442fa86f0ed2c0c62762390",
+      "verdict": "pass",
+      "notes": "旧主 Bot 回复失败标为历史记录，与当前子任务运行分离，没有继续尝试的重复错误堆积。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-historical-light.png",
+      "path": "screenshots/recovery-historical-light.png",
+      "sha256": "56c35017dd32a1aca027ac40ecf67c74c46c3b3de91c04e13633a9195680f2e0",
+      "verdict": "pass",
+      "notes": "旧主 Bot 回复失败标为历史记录，与当前子任务运行分离，没有继续尝试的重复错误堆积。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-paused-dark.png",
+      "path": "screenshots/recovery-paused-dark.png",
+      "sha256": "10076d67be07356a1d2a323df04c5dca2a3bde63bfe23c77fb1c730005fb521b",
+      "verdict": "pass",
+      "notes": "主 Bot 暂停使用明确文字，子任务运行状态仍单独保留，不把暂停当取消全部任务。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-paused-light.png",
+      "path": "screenshots/recovery-paused-light.png",
+      "sha256": "4b1dec5fba4cc2909303b6e6c40e1e8f11a1483ce782b7a3a87c799af92e199c",
+      "verdict": "pass",
+      "notes": "主 Bot 暂停使用明确文字，子任务运行状态仍单独保留，不把暂停当取消全部任务。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-cancelled-dark.png",
+      "path": "screenshots/recovery-cancelled-dark.png",
+      "sha256": "1230b2d4da1443a81080f72becc4520e76cdb9d8c1ca4a50cfbf347d001795a8",
+      "verdict": "pass",
+      "notes": "主 Bot 取消标为取消，新的合成普通消息仍能出现，历史记录不锁住输入。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-cancelled-light.png",
+      "path": "screenshots/recovery-cancelled-light.png",
+      "sha256": "7d8515a7460d49afb827b8f28b11b394632c1bea3160c8ffcdfe473a33802b39",
+      "verdict": "pass",
+      "notes": "主 Bot 取消标为取消，新的合成普通消息仍能出现，历史记录不锁住输入。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-unknown-dark.png",
+      "path": "screenshots/recovery-budget-unknown-dark.png",
+      "sha256": "aa2a30fd428327852f25664f263a281dcf364b9cd1f5041a793f1551aac8b41a",
+      "verdict": "pass",
+      "notes": "费用用量无法确认时说明未知，不把未知数当零继续执行或自动声明成功。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-unknown-light.png",
+      "path": "screenshots/recovery-budget-unknown-light.png",
+      "sha256": "30c3a749a7ad26e771999de312aeab2401122dba9979154d5764799e5ae22bfd",
+      "verdict": "pass",
+      "notes": "费用用量无法确认时说明未知，不把未知数当零继续执行或自动声明成功。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-ready-dark.png",
+      "path": "screenshots/recovery-budget-ready-dark.png",
+      "sha256": "6abfecffcf82ec612b88fa5628269b9e123b7f20ed134407d1b0d9097dad9e3c",
+      "verdict": "pass",
+      "notes": "预算调整后的继续入口和历史预算说明区分，已有进展保留。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-ready-light.png",
+      "path": "screenshots/recovery-budget-ready-light.png",
+      "sha256": "84b461d22f39d3614eb543cced68e3834ce0d4cfa5cf17443bdad329b53a95eb",
+      "verdict": "pass",
+      "notes": "预算调整后的继续入口和历史预算说明区分，已有进展保留。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-migrating-dark.png",
+      "path": "screenshots/recovery-budget-migrating-dark.png",
+      "sha256": "cbe1a6bcd155dc5c8fef640b4adfad46f239aebb35a43b4162881bbcea4ac941",
+      "verdict": "pass",
+      "notes": "预算迁移中的继续状态明确，主回复等待仍与后台子任务分开。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-migrating-light.png",
+      "path": "screenshots/recovery-budget-migrating-light.png",
+      "sha256": "8bd2af0dcc46e45f1b9f8b35cfc93facb11c2ed1d81fb00c42ae1b9897c4f97f",
+      "verdict": "pass",
+      "notes": "预算迁移中的继续状态明确，主回复等待仍与后台子任务分开。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-reserved-dark.png",
+      "path": "screenshots/recovery-budget-reserved-dark.png",
+      "sha256": "bf58ca6e5d5c676e059d752dbd5f2fef077e53a2a40dcbc7cbb38bf6bc223927",
+      "verdict": "pass",
+      "notes": "预算被另一执行占用时显示占用原因，预算释放后给出继续入口，没有凭空增加额度。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-reserved-light.png",
+      "path": "screenshots/recovery-budget-reserved-light.png",
+      "sha256": "35889821c1fdf39c099fc62a1ab24954210cd7230f9733cce92d5a2bfc2184fc",
+      "verdict": "pass",
+      "notes": "预算被另一执行占用时显示占用原因，预算释放后给出继续入口，没有凭空增加额度。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-available-dark.png",
+      "path": "screenshots/recovery-budget-available-dark.png",
+      "sha256": "fb8d258eee80f6156a186a733f84736b34ffb75f1a83bc78ccffda62e6ee1e24",
+      "verdict": "pass",
+      "notes": "预算可用的后续状态可辨，历史预算阻塞不再冒充当前执行错误。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "recovery-budget-available-light.png",
+      "path": "screenshots/recovery-budget-available-light.png",
+      "sha256": "04fcf65be869f33de8747a3a2b2a4cbbbd2bae9ae8523419194b564cad5bc9d1",
+      "verdict": "pass",
+      "notes": "预算可用的后续状态可辨，历史预算阻塞不再冒充当前执行错误。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "work-verifying.png",
+      "path": "screenshots/work-verifying.png",
+      "sha256": "12201481db56a09763f3c2aa7991d2f87be9c2d9a1ffd9435e7de79b23664334",
+      "verdict": "pass",
+      "notes": "任务核验中在关联任务区单独显示，过程里的已结束工具步骤没有继续计时。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "work-repair-1280-dark.png",
+      "path": "screenshots/work-repair-1280-dark.png",
+      "sha256": "242baa8d8ab4a6111e30c3853efa767a998ef27b389bceecf5c0f319d498209a",
+      "verdict": "pass",
+      "notes": "修复推进状态标为主 Bot 推进，调用过程和关联任务拆成两个卡片；窄窗仍有关闭与取消入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "work-repair-760-light.png",
+      "path": "screenshots/work-repair-760-light.png",
+      "sha256": "f0d6a98d734e5b6835f5876331e1b92f962e7ed9ef27fa39f104c53dff2b5bb4",
+      "verdict": "pass",
+      "notes": "修复推进状态标为主 Bot 推进，调用过程和关联任务拆成两个卡片；窄窗仍有关闭与取消入口。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-presence-progress-dark.png",
+      "path": "screenshots/reply-presence-progress-dark.png",
+      "sha256": "e302c60c76880bf3cda5753b260f3af94c7de55b235873c1083643170cca149e",
+      "verdict": "pass",
+      "notes": "主回复显示正在准备回复，同时关联任务标为执行中，过程与任务身份清楚分开。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-entry-idle-dark.png",
+      "path": "screenshots/reply-entry-idle-dark.png",
+      "sha256": "fea99237687cbff2737d6580a5e88b601d986e10f71ae80cabd8456d0e7ebbe1",
+      "verdict": "pass",
+      "notes": "未悬停时问题下的查看详情入口隐藏，不紧挨选择按钮。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-entry-hover-dark.png",
+      "path": "screenshots/reply-entry-hover-dark.png",
+      "sha256": "e6a6e6892eb2a64a304b77a91287fa999c195cae58e85049c49387624c7b5133",
+      "verdict": "pass",
+      "notes": "悬停后查看详情出现在消息容器右侧，未跑到整个窗口边缘。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-entry-idle-light.png",
+      "path": "screenshots/reply-entry-idle-light.png",
+      "sha256": "d66389b9c44a9b0db75a7079ce45d1459a10acbb7b2f25cad40d744a244da2a0",
+      "verdict": "pass",
+      "notes": "浅色主题未悬停时详情入口同样隐藏，问题和选项之间有分隔。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "reply-entry-hover-light.png",
+      "path": "screenshots/reply-entry-hover-light.png",
+      "sha256": "dbcfbb0e21bed8effa02589f80af55cc3e83303898289f6e5f5b26fc18678b49",
+      "verdict": "pass",
+      "notes": "浅色主题悬停后详情出现在气泡边界右侧，输入区没有被推挤。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "yield-feedback-1280-dark.png",
+      "path": "screenshots/yield-feedback-1280-dark.png",
+      "sha256": "e77d2e21aa5be66061080d04beb4a333be7ff3ee1c56d763b0009ea35ec83678",
+      "verdict": "pass",
+      "notes": "执行让出时间片后显示正在准备下一步，已有进展保留，没有闪成笼统无法回复。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "yield-feedback-760-light.png",
+      "path": "screenshots/yield-feedback-760-light.png",
+      "sha256": "0ab26d738feaa2ab16f78bf5c5f7d974738db39afe5d3f1ba253f15db7834dff",
+      "verdict": "pass",
+      "notes": "执行让出时间片后显示正在准备下一步，已有进展保留，没有闪成笼统无法回复。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "retry-history-1280-dark.png",
+      "path": "screenshots/retry-history-1280-dark.png",
+      "sha256": "b97c2cf2ecee5d204841fb8be559b1933f89f7eff8678d8bec40b5a9d4674ce5",
+      "verdict": "pass",
+      "notes": "新回复送达后之前失败折叠进历史记录，主对话保留最新消息，宽窄窗语义一致。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    },
+    {
+      "id": "retry-history-760-light.png",
+      "path": "screenshots/retry-history-760-light.png",
+      "sha256": "9484e520cf6fc31a12f6fb2057d2ed7505f355dbfaaae72c13362e8e5a10618d",
+      "verdict": "pass",
+      "notes": "新回复送达后之前失败折叠进历史记录，主对话保留最新消息，宽窄窗语义一致。 已查看 RC18 本次捕获，布局、文字边界与状态语义符合上述观察。"
+    }
+  ],
+  "findings": [
+    {
+      "screenshot": "quick-chat-bots-light.png",
+      "severity": "minor",
+      "disposition": "accepted-limitation",
+      "description": "透明离屏快捷窗口浅色背景偏黑，不构成原生浅色窗口验收证据；本次未修改该表面。"
+    },
+    {
+      "screenshot": "task-detail-accepted.png",
+      "severity": "minor",
+      "disposition": "accepted-limitation",
+      "description": "已有 accepted 状态夹具仍携带旧失败摘要；状态标题可辨，本次不以它证明真实验收。"
+    },
+    {
+      "screenshot": "quote-reply-760-light.png",
+      "severity": "minor",
+      "disposition": "accepted-limitation",
+      "description": "窄窗引用画面返回最新浮层局部遮挡预算说明，记录为既有布局限制。"
+    }
+  ],
+  "coverageLimits": [
+    "实现者视觉自审，未进行独立视觉审查。",
+    "受控模型的源码 Electron 回归，非安装包或真实更新验收。",
+    "完整读屏与长期使用未覆盖；真实模型验证另附记录。"
+  ],
+  "reviewMethod": {
+    "matchingPriorBytes": 22,
+    "newCapturesInspected": 158,
+    "priorRunId": "48915e2b-a6b4-4114-8402-0d58a7bd2153",
+    "method": "Every changed screenshot inspected as generated; copied final packet SHA-256 checked against viewed images. Byte-identical earlier reviewed screenshots retain their specific observations."
+  }
+}
