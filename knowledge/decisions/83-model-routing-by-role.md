@@ -135,3 +135,13 @@ interface ModelSelectionSnapshot {
 - 不在任务运行中自动换模型（故障切换除外，且只在过滤后的候选里）。
 - 不为了「能跑」而静默突破项目的模型范围。
 - 不做按 token 实时比价的动态路由；「自动」只在用户给定的池内按任务难度选。
+
+## 2026-10-18 补充：子任务会话的强度投影
+
+现场任务快照 worker/verifier 为 `max`，而子会话 metadata effort 为从父会话继承的 `high`。执行器优先取冻结角色的 reasoningEffort，任务输入框却读取会话 metadata，造成界面与执行配置矛盾。
+
+- 新建 work_session 时，SessionSupervisor 必须同时传递冻结的 modelProviderId 和 reasoningEffort；Conversation Store 的内部 createChildConversation 接受可选 effort，未提供时保留普通子会话的父级继承。
+- 打开现有 work_session 时，Desktop 的会话读取 Module 以与 conversationId、sessionId、workspaceId 匹配的持久任务快照投影模型/强度；不读取当前 Bot 策略冒充旧任务配置，不修改任务执行快照，不批量回写用户数据。
+- 同一读取 Module 保留原有 Context Accounting window 投影。Renderer 继续使用既有 conversations:get 契约，不新增能力入口或权限路径。
+- 无快照的历史任务保留既有 metadata；普通会话和选区子会话的显式偏好不变。角色快照不是 Provider 实际执行证明；请求编码与回合记录仍应分别核对。
+- 验证：父级 high / worker max / verifier low；冻结后改 Bot 配置；重启加载；旧会话 high 投影为冻结 max；跨任务/跨项目不得串配置；Provider 编码仍保留原生 max。
