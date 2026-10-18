@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "scope": "Generated isolated history and real configured Providers. Preserved failing runs; no personal transcript, credentials or hidden reasoning.",
+  "runs": [
+    {
+      "id": "peer-history-real-task-sol-v2.json",
+      "sourceHead": "ece475f88e6cd07c19844e23a407e6b566ddc8f0",
+      "ok": false,
+      "taskPassed": true,
+      "elapsedMs": 751861,
+      "interactions": 2688,
+      "display": {
+        "dpr": 2,
+        "width": 1280,
+        "height": 860
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 2688,
+          "p50": 19.422749999910593,
+          "p95": 20.79383300000336,
+          "p99": 21.591208999991068,
+          "max": 545.5564169999998
+        },
+        "wheelRoundTripMs": {
+          "n": 2688,
+          "p50": 25.691915999981575,
+          "p95": 27.21333400000003,
+          "p99": 27.68962499999907,
+          "max": 696.6442500000121
+        },
+        "scrollMovedSamples": 2688,
+        "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+      },
+      "mainLoop": {
+        "p95": 1.379327,
+        "p99": 4.104191,
+        "max": 699.400191
+      },
+      "renderer": {
+        "frames": {
+          "n": 90218,
+          "p50": 8.30000000000291,
+          "p95": 9.700000000004366,
+          "p99": 10.200000000011642,
+          "max": 17.90000000000873
+        },
+        "inputPaintMs": {
+          "n": 2915,
+          "p50": 1.399999976158142,
+          "p95": 8.300000011920929,
+          "p99": 8.900000035762787,
+          "max": 9.699999988079071
+        },
+        "wheelPaintMs": {
+          "n": 2688,
+          "p50": 25.100000023841858,
+          "p95": 26.599999964237213,
+          "p99": 27,
+          "max": 617.1999999880791
+        },
+        "longTasks": [],
+        "hidden": false,
+        "focused": true
+      },
+      "cancelRecovery": {
+        "cancelled": true,
+        "replied": true
+      },
+      "credentialsRemoved": true
+    },
+    {
+      "id": "peer-history-deepseek-v3.json",
+      "sourceHead": "b8477df9461e6c60a543deeec4dd42b3c9511953",
+      "sourceDirty": false,
+      "ok": false,
+      "taskPassed": true,
+      "error": "Error: ACCEPTANCE_TIMEOUT",
+      "elapsedMs": 815382,
+      "interactions": 2619,
+      "display": {
+        "dpr": 2,
+        "width": 1280,
+        "height": 860
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 2619,
+          "p50": 17.577290999994148,
+          "p95": 21.676707999999053,
+          "p99": 26.179791999980807,
+          "max": 209.25145799998427
+        },
+        "wheelRoundTripMs": {
+          "n": 2619,
+          "p50": 25.296958999999333,
+          "p95": 27.193333000061102,
+          "p99": 27.71974999998929,
+          "max": 616.6081659999909
+        },
+        "scrollMovedSamples": 2619
+      },
+      "renderer": {
+        "frames": {
+          "n": 97784,
+          "p50": 8.299999999999272,
+          "p95": 9.900000000023283,
+          "p99": 10.299999999988358,
+          "max": 25.20000000001164
+        },
+        "inputPaintMs": {
+          "n": 2839,
+          "p50": 5.5,
+          "p95": 7.700000047683716,
+          "p99": 8.600000023841858,
+          "max": 9.300000011920929
+        },
+        "wheelPaintMs": {
+          "n": 2619,
+          "p50": 24.69999998807907,
+          "p95": 26.600000023841858,
+          "p99": 27,
+          "max": 183.19999998807907
+        },
+        "longTasks": [],
+        "hidden": false,
+        "focused": true
+      },
+      "credentialsRemoved": true
+    },
+    {
+      "id": "peer-history-deepseek-recovery.json",
+      "sourceHead": "8b4b417952a4361f77c2cec829786e50c9127e25",
+      "sourceDirty": false,
+      "ok": false,
+      "taskPassed": true,
+      "resumedTask": true,
+      "error": "Error: ACCEPTANCE_TIMEOUT",
+      "elapsedMs": 121112,
+      "interactions": 500,
+      "display": {
+        "dpr": 2,
+        "width": 1280,
+        "height": 860
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 500,
+          "p50": 18.83370799999102,
+          "p95": 21.025457999996434,
+          "p99": 23.834625000003143,
+          "max": 53.853667000000314
+        },
+        "wheelRoundTripMs": {
+          "n": 500,
+          "p50": 25.52483399999619,
+          "p95": 27.289999999993597,
+          "p99": 56.90545900000143,
+          "max": 108.41691699999956
+        },
+        "scrollMovedSamples": 499
+      },
+      "renderer": {
+        "frames": {
+          "n": 14522,
+          "p50": 8.30000000000291,
+          "p95": 10,
+          "p99": 10.299999999999272,
+          "max": 25.099999999998545
+        },
+        "inputPaintMs": {
+          "n": 541,
+          "p50": 5.300000011920929,
+          "p95": 8.5,
+          "p99": 9.100000023841858,
+          "max": 9.300000011920929
+        },
+        "wheelPaintMs": {
+          "n": 500,
+          "p50": 24.900000035762787,
+          "p95": 26.599999964237213,
+          "p99": 26.899999976158142,
+          "max": 92.89999997615814
+        },
+        "longTasks": [],
+        "hidden": false,
+        "focused": true
+      },
+      "credentialsRemoved": true
+    },
+    {
+      "id": "peer-history-recovery-wire.json",
+      "sourceHead": "8b4b417952a4361f77c2cec829786e50c9127e25",
+      "sourceDirty": false,
+      "ok": false,
+      "taskPassed": true,
+      "resumedTask": true,
+      "error": "Error: ACCEPTANCE_TIMEOUT",
+      "elapsedMs": 121162,
+      "interactions": 500,
+      "display": {
+        "dpr": 2,
+        "width": 1280,
+        "height": 860
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 500,
+          "p50": 18.87729100001161,
+          "p95": 20.974042000001646,
+          "p99": 23.784415999994962,
+          "max": 88.33945800000038
+        },
+        "wheelRoundTripMs": {
+          "n": 500,
+          "p50": 25.60304200000246,
+          "p95": 27.27179199999955,
+          "p99": 57.483000000000175,
+          "max": 101.5406669999993
+        },
+        "scrollMovedSamples": 499
+      },
+      "renderer": {
+        "frames": {
+          "n": 14528,
+          "p50": 8.30000000000291,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 18.600000000002183
+        },
+        "inputPaintMs": {
+          "n": 541,
+          "p50": 5.399999976158142,
+          "p95": 8.399999976158142,
+          "p99": 8.899999976158142,
+          "max": 9.399999976158142
+        },
+        "wheelPaintMs": {
+          "n": 500,
+          "p50": 25,
+          "p95": 26.69999998807907,
+          "p99": 27.100000023841858,
+          "max": 92
+        },
+        "longTasks": [],
+        "hidden": false,
+        "focused": true
+      },
+      "credentialsRemoved": true
+    },
+    {
+      "id": "peer-history-sse-recovery.json",
+      "sourceHead": "c205f44facbc9ff7c82300b4955b07934cb88280",
+      "sourceDirty": false,
+      "ok": false,
+      "taskPassed": true,
+      "resumedTask": true,
+      "error": "Error: ACCEPTANCE_TIMEOUT",
+      "elapsedMs": 323095,
+      "interactions": 1270,
+      "display": {
+        "dpr": 2,
+        "width": 1280,
+        "height": 860
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 1270,
+          "p50": 17.196083000002545,
+          "p95": 24.55449999999837,
+          "p99": 26.064083999983268,
+          "max": 91.1180000000004
+        },
+        "wheelRoundTripMs": {
+          "n": 1270,
+          "p50": 25.552250000007916,
+          "p95": 27.263417000009213,
+          "p99": 28.519333000003826,
+          "max": 631.6650420000078
+        },
+        "scrollMovedSamples": 1270
+      },
+      "renderer": {
+        "frames": {
+          "n": 38752,
+          "p50": 8.299999999995634,
+          "p95": 10,
+          "p99": 10.299999999988358,
+          "max": 25.400000000001455
+        },
+        "inputPaintMs": {
+          "n": 1537,
+          "p50": 5.300000011920929,
+          "p95": 10.599999964237213,
+          "p99": 14.899999976158142,
+          "max": 16.099999964237213
+        },
+        "wheelPaintMs": {
+          "n": 1270,
+          "p50": 25,
+          "p95": 26.69999998807907,
+          "p99": 27,
+          "max": 43
+        },
+        "longTasks": [],
+        "hidden": false,
+        "focused": true
+      },
+      "cancelRecovery": {
+        "cancelled": true,
+        "replied": true
+      },
+      "credentialsRemoved": true
+    }
+  ]
+}

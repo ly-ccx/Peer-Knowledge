@@ -66,7 +66,7 @@ scope 中的复用仅节省同一同步观察内的重复工作。取消、派�
 3. P3：Renderer 刷新、稳定身份、虚拟窗口与动效；补端到端测量。
 4. 全部受影响包测试、typecheck、architecture、标准产品 capture → AI 自审全部必查图片 → verify；随后真实模型大历史任务。
 
-允许改动为上述 runtime-node/conversation-store Module 与类型/构建清单、Desktop project-agent 装配与 renderer/state/styles、测试/验收脚本。main.mjs 只允许净零或减少的装配替换；不改版本、发版配置、权限策略、Provider 编码和认知提示。需要 worker 时只负责持久化内容的纯投影准备，不能执行工具。无新增依赖或持久化真源。可分别回退 P1/P2/P3，不删除历史、不自动重跑未知执行。
+允许改动为上述 runtime-node/conversation-store Module 与类型/构建清单、Desktop project-agent 装配与 renderer/state/styles、测试/验收脚本。main.mjs 只允许净零或减少的装配替换；性能修复本身不改版本、发版配置、权限策略、Provider 编码和认知提示；后续负责人追加授权的 RC19 发布与 ADR99 记录的回复恢复修复单独说明。需要 worker 时只负责持久化内容的纯投影准备，不能执行工具。无新增依赖或持久化真源。可分别回退 P1/P2/P3，不删除历史、不自动重跑未知执行。
 
 ## 5. 验收矩阵与通过门槛
 
@@ -94,7 +94,7 @@ scope 中的复用仅节省同一同步观察内的重复工作。取消、派�
 
 ### 5.3 交付事实
 
-产品回归为实施者自审，明确 independent=false；真实模型、源码 Electron、签名安装包、无障碍覆盖分别列出。此次授权不含发布新 RC 或替换日常安装；准备可审阅 PR 后交付实际结果。没有通过本 ADR 的大历史真实任务，不宣称已经根治。
+产品回归为实施者自审，明确 independent=false；真实模型、源码 Electron、签名安装包、无障碍覆盖分别列出。初始性能授权不含发布；负责人随后明确追加查明连续失败、修复、自主验收并发布 RC19 的授权，按 ADR99 与 RC 发布门禁执行。替换日常安装仍不属于测试范围。没有通过本 ADR 的大历史真实任务，不宣称已经根治。
 
 ## 6. 实施记录
 
