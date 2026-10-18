@@ -79,4 +79,4 @@ Journal recovery 只在文件版本变化且确需尾记录修复时读取正文
 
 真实 post_reply 去重收据产生持久 reportedWait，指向实际 delivered 消息与当前观察版本；重启后30条人工构造旧结果事件复用实际验收结果，29条转移责任，新用户问题得到回复；静默观察12秒新增模型请求0。执行期间333次操作，输入到绘制p95约5.2ms，帧间隔p95约9.9ms。复核会话独立、模型同源；不把同源性隐藏为跨模型独立审查。
 
-GPT主 Bot / DeepSeek子 Agent组合补验仍在进行。保留所有早期失败尝试，不把它们覆盖成成功。详见[验收记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/validation.json)及[真实任务记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/real-model.json)。日常安装及真实任务未修改；本轮未发布RC。
+GPT主 Bot / DeepSeek子 Agent组合中，两次复核因模型在正文输出伪工具协议而失败；6分钟观察窗结束时下一次复核仍在推进，因此不把首次观察窗记为自动完成。关闭源码测试应用后，用同一持久数据重启并追加“只核验原结果”的继续指令，最终原任务通过复核、正式回复并签收。任务数仍为1，实现文件哈希及mtime未变，证明未重跑已完成写入。这个恢复场景通过，不冒充首次无中断混合模型成功。保留所有早期失败尝试，不把它们覆盖成成功。详见[验收记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/validation.json)及[真实任务记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/real-model.json)。日常安装及真实任务未修改；本轮未发布RC。

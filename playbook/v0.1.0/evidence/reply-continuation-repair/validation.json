@@ -3,7 +3,7 @@
   "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a",
   "sourceFingerprint": "ff37532907b188a903c79d09de67b872b069df7ce8959c0691701506ac666561",
   "codePR": "https://github.com/ly-ccx/Peer-Agent/pull/167",
-  "status": "final-real-model-and-product-passed-ci-running",
+  "status": "implementation-and-local-real-acceptance-complete-ci-smoke-running",
   "product": {
     "status": "passed",
     "runId": "48915e2b-a6b4-4114-8402-0d58a7bd2153",
@@ -85,7 +85,7 @@
     "restartIdempotent": true
   },
   "realModel": {
-    "status": "passed all-DeepSeek complete flow; GPT coordinator combination running",
+    "status": "passed all-DeepSeek complete flow and mixed GPT/DeepSeek restart/explicit-continuation recovery; initial mixed 6-minute window not passed",
     "scope": "Source Electron, configured real providers, isolated fixture project, governed tools, actual HTTP. No injected Tool Results.",
     "failedAttempts": [
       "Missing source helper prevented credential lookup; no model call",
@@ -98,7 +98,8 @@
     "installedBuild": false,
     "liveTasksModified": false,
     "evidence": "real-model.json",
-    "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a"
+    "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a",
+    "mixedEvidence": "real-model-mixed-recovery.json"
   },
   "logs": [
     {
