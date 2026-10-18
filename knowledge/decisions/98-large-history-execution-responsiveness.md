@@ -155,3 +155,5 @@ CPU调用栈定位到两条未收敛的路径：`post_reply → deliveryFacts �
 3. 恢复协调器一次同步判定内复用观察到的协调快照；本判定内一旦写入必须失效重读。异步或跨判定绝不复用授权/执行真相。
 
 这是B级Module接口与缓存Locality修复，不新增持久化真源、不改协议、权限、Evidence或原日志格式。先补计数、失效、调用者污染和严格错误测试，再实现；之后重新跑大历史真实调用与交互，不将诊断带采样器的统计冒充最终无采样器验收。
+
+单工作读取补充后的对照仍出现410ms窗口，不能记为性能根治。剩余调用栈为每个会话的`coordination-lifecycle.forSession → read`，它只需要mandates/transitions/decisions和工作停止状态，却复制了完整works预算及历史events/deliveries。Journal Reader补充独立命名的`readLifecycleFacts` Interface，返回当前完整验证后的控制记录及最小workStates，不暴露私有缓存；仅纯facts/forSession使用。coordinate/recover/effect和内核admit仍读原完整状态，不能使用这种展示投影授权执行。该补充仍须同场景对照，不将410ms标为已消除。

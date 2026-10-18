@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "scope": "Same isolated large history, actual DeepSeek-to-GPT reasoning recovery, no fake response or tool results. R1 incorrectly treated a fresh model-requested readonly read as replay; R2/R3 CDP main observation reads failed with promise-GC errors, so restart coverage was incomplete. R4 used passive request-shape files (no secrets) for observation and completed the normal Stop/Profile/Retry/restart flow. Native prior call batches and execution receipt identities must not replay; a fresh model may make new readonly calls.",
+  "attempts": [
+    {
+      "id": "source-recovery-matrix",
+      "ok": false,
+      "startedAt": "2026-10-18T18:33:25.223Z",
+      "finishedAt": "2026-10-18T18:33:44.623Z",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+      "sameWork": true,
+      "readsBefore": 1,
+      "controlledTransportPause": true,
+      "credentialsRemoved": true
+    },
+    {
+      "id": "source-recovery-matrix-r2",
+      "ok": false,
+      "startedAt": "2026-10-18T18:35:01.556Z",
+      "finishedAt": "2026-10-18T18:35:19.859Z",
+      "error": "electronApplication.evaluate: Resulting promise was garbage collected.",
+      "sameWork": true,
+      "readsBefore": 1,
+      "freshModelReads": 1,
+      "replayedReadReceipts": 0,
+      "controlledTransportPause": true,
+      "credentialsRemoved": true
+    },
+    {
+      "id": "source-recovery-matrix-r3",
+      "ok": false,
+      "startedAt": "2026-10-18T18:38:34.584Z",
+      "finishedAt": "2026-10-18T18:38:40.718Z",
+      "error": "electronApplication.evaluate: Resulting promise was garbage collected.",
+      "controlledTransportPause": true,
+      "credentialsRemoved": true
+    },
+    {
+      "id": "source-recovery-matrix-r4",
+      "ok": true,
+      "startedAt": "2026-10-18T18:40:17.852Z",
+      "finishedAt": "2026-10-18T18:40:57.430Z",
+      "sameWork": true,
+      "readsBefore": 1,
+      "freshModelReads": 1,
+      "replayedNativeBatch": false,
+      "replayedReadReceipts": 0,
+      "restartReplied": true,
+      "acceptedPreserved": true,
+      "controlledTransportPause": true,
+      "credentialsRemoved": true,
+      "wire": [
+        {
+          "model": "deepseek-v4.1-flash",
+          "toolResults": 0,
+          "nativeCallIds": []
+        },
+        {
+          "model": "deepseek-v4.1-flash",
+          "toolResults": 1,
+          "nativeCallIds": [
+            "call_262e420e078c5376729e08eb7253c185"
+          ]
+        },
+        {
+          "model": "deepseek-v4.1-flash",
+          "toolResults": 0,
+          "nativeCallIds": []
+        },
+        {
+          "model": "deepseek-v4.1-flash",
+          "toolResults": 1,
+          "nativeCallIds": [
+            "call_b5c28c5896d23d4bc092aacabaf61199"
+          ]
+        },
+        {
+          "model": "gpt-6.1-sol",
+          "toolResults": 0,
+          "nativeCallIds": []
+        },
+        {
+          "model": "gpt-6.1-sol",
+          "toolResults": 1,
+          "nativeCallIds": [
+            "call_1b313ae29478412a84fea31ccf49d5e5"
+          ]
+        }
+      ]
+    }
+  ]
+}
