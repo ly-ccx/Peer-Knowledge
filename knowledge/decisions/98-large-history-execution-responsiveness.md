@@ -141,3 +141,17 @@ GPT-6.1 Sol 最大强度在 1,100 计划、185MB journal、9.6MB 父会话与 46
 ### 验收采样器自身成本
 
 旧采样器每次等待都会全文重新解析约9MB的隔离对话，可能污染自动化往返时延。现按文件 dev/ino/size/mtimeNs/ctimeNs 复用采样器自己的只读结果，变化时重读，变化中或不完整尾行等待下一次采样；不缓存执行授权。滚轮超过100ms的样本另记录自动化派发等待与 rAF 等待，原始总体分布与通过门槛不变。该调整属于测量工具，不能冒充产品性能优化，也不据此将旧失败改为通过。
+
+### 真实交付路径的残余放大（2026-10-19，实施前补充）
+
+最终阶段已真实完成三文件修复、18项原有测试、独立上下文复核、宿主accepted与正式交付，取消后回复也通过。但持续采样仍记录到411ms主循环尖峰。额外诊断重现332ms/418ms连续窗口和约30秒一次的96ms窗口；原始性能通过不等于这些停顿已经消失。
+
+CPU调用栈定位到两条未收敛的路径：`post_reply → deliveryFacts → acceptance → parentMessages → getPersistedConversationHistory` 对多个会话重复读取/解析同一主对话；`beforeTool / coordination lifecycle / recoverJob → coordination-journal-reader.read → structuredClone` 多次复制整个已验证协调状态。另有恢复名册的重复归一化。凭据助手本轮约23ms、元数据采样约0.35ms，都不能解释400ms尖峰。
+
+补充设计：
+
+1. Acceptance Parent Facts复用已有版本校验History Projection，只保留锚点正文、消息身份及正式引用事实；同步Read Query内同父会话只取一次。不把正文预览当Evidence，不改变签收规则；跨查询仍校验文件版本，错误严格传播。
+2. Journal Reader增加单工作读取Interface，在相同完整日志验证与文件版本检查后，仅克隆指定work。默认read仍返回完整隔离副本；readWork不返回私有缓存引用。Work Budget及saveWork只取需要的work，不复制全部历史工作。
+3. 恢复协调器一次同步判定内复用观察到的协调快照；本判定内一旦写入必须失效重读。异步或跨判定绝不复用授权/执行真相。
+
+这是B级Module接口与缓存Locality修复，不新增持久化真源、不改协议、权限、Evidence或原日志格式。先补计数、失效、调用者污染和严格错误测试，再实现；之后重新跑大历史真实调用与交互，不将诊断带采样器的统计冒充最终无采样器验收。
