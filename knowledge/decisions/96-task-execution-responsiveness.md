@@ -35,7 +35,7 @@ Interface 保留 `createWorkCoordinationStore(...).read()` 返回独立快照，
 
 - 采用 byte offset，保留 UTF-8 分片正确性；不以 JavaScript 字符数定位文件。
 - 只有完整且通过 reducer/schema/revision 校验的记录才推进缓存。尾部半行和内部坏行不被静默当作成功事实；写者既有 recover 路径继续治理损坏尾部。
-- 缩短、替换、同长度改写及无法证明为追加的修改使缓存失效；重建与新实例结果一致。重建失败不能返回旧的“成功”快照。
+- 缩短、替换、同长度改写使缓存失效；增大时核对文件身份、已消费前缀的首尾边界锚点及行边界，再重放追加记录。此优化依赖既有 append-only 写入契约，边界锚点不是任意内部篡改的密码学证明；重建与新实例结果一致。重建失败不能返回旧的“成功”快照。
 - writer append 后将同一已校验 next 状态和新的文件身份交给 reader；不能先推进缓存后 fsync。
 - 不把已有 `coordination-snapshot.json` 直接当作可信状态。它缺少可验证的 journal checkpoint，仍是可丢弃缓存；本修复不通过盲信快照加速。
 
@@ -139,3 +139,30 @@ Conversation Store 新 committer/worker 与类型/构建清单、消息写锁接
 ## 7. 实施与验收记录
 
 待实施。此状态行不能作为已修复、已发布或真实任务流畅度达标的证据。
+
+
+## 8. 2026-10-18 实施与测量记录
+
+代码审阅：[Peer-Agent #165](https://github.com/ly-ccx/Peer-Agent/pull/165)。知识审阅：[Peer-Knowledge #45](https://github.com/ly-ccx/Peer-Knowledge/pull/45)。依次提交日志读取、头像动效、终态 worker/barrier；随后根据本轮新反馈补齐 ADR 83 的冻结强度投影。main.mjs 净减少 15 行。
+
+### 已通过的验证
+
+- 全仓 build/test/typecheck/architecture 通过；后续强度投影改动的受影响 112 项测试、Provider 编码/执行器测试、类型与架构检查通过。存储/聊天聚焦批次 183 项通过。
+- ASAR 内运行实际 Conversation Store worker，而非以普通 Node 文件路径代替打包环境；Electron 41.7.1 / Node 24.15.0。46,697,583 字节历史的 5 次终态提交，总耗时中位 104ms、最慢 112ms；主线程入队 p95 0.11ms，主事件循环最长停顿 4.43ms。
+- 同样的 75,522,325 字节 / 5000 记录合成协调历史，30 次无变化热读：读取正文 0 字节，p95 0.13ms；30 次外部小追加共读 26,330 字节（含边界锚点），p95 0.16ms。冷重建约 51ms 仍保留，不将它称为零成本。
+- 当前真实历史的受限隔离副本：协调日志增长至 99,938,883 字节，冷重建 346ms、热读 p95 0.88ms；46,233,417 字节对话、约 200KB 实际末条 patch，5 次 worker 提交总耗时中位 300ms，主事件循环最长间隔 4.00ms。副本在 finally 中删除，日常数据未被改动。
+- 相同合成 28 头像窗口：候选正常空闲 GPU 进程 CPU 约单核 3.51%，仅暂停头像对照约 3.22%，减少动态效果约 3.42%。RC16 对应正常窗口约 63%。这些是短窗口进程 CPU 时间，非 GPU 硬件利用率。
+
+### 真实 Provider 执行
+
+使用已配置 GPT-6.1 Sol、独立数据根与测试项目，经主 Bot 正常派工。子 Agent 冻结 worker=max、其他角色 medium，实际调用 list_files/read_file/edit_file/bash、运行 node --test、与父 Bot 通讯，模型复核 passed 后主 Bot 返回结果，宿主签收 accepted。20 个持久化工具段都有结果；8 个复核 Evidence 引用。测试未注入 Tool Results 或替换执行器。
+
+随后经正常输入启动另一只读子任务，调用既有取消入口，观察到 cancelled；再输入新的继续对话请求，获得 CANCEL_RECOVERY_OK，旧任务保持 cancelled。子任务读接口实际返回 worker=max / conversation=max，验证冻结强度传递。
+
+整个执行及取消/继续窗口 241,753ms：459 次交互，500 个输入绘制样本 p95 7.7ms、最长 9.5ms；29,011 个 rAF 帧间隔 p95 9.9ms、最长 16.19ms；>50ms 渲染长任务 0。窗口可见且有焦点，执行期间打开/关闭任务详情、滚动和输入草稿。该窗口 GPU 进程 CPU 约单核 26%、主进程约 4.85%、渲染约 25.86%，工作动效仍有成本，不能套用空闲 CPU 数字。
+
+首轮真实任务本身已成功交付并签收，但测量脚本错误检查 WorkSession 上不存在的 accepted 布尔字段，等到 8 分钟窗口结束而记为未通过；修正为结构化 status 与 canonical reply/verdict 关联后重跑通过。保留首轮失败记录，不将其误报成 Provider 或产品执行失败。ASAR 压测脚本也保留初次导出导入、启动等待和 evaluate 动态导入失败记录，修正后重跑实际包内 worker 通过。
+
+### 剩余范围说明
+
+标准产品 Capture/逐张审查/Verify 与最终 CI 结果待回填。真实测量与当前 PR 的产品代码一致，之后提交仅补充测试与验收脚本；具体源 HEAD、模型和作用域保留在各测量 JSON。实现者自审不称独立评审。真实修复窗口不代表任意项目、任意网络或任意输出内容；冷恢复及旧同步读写 API 仍可能阻塞。未替换日常安装、未发布新 RC，也未进行完整读屏或长期使用验收。
