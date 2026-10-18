@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "c7dd40575184d6002e2d968a0a42b65931e7ba3b",
+  "sourceFingerprint": "09322464603d9a7c0e268188fdbdd8054f1a618c86d5739b3419dba70499ecff",
+  "codePR": "https://github.com/ly-ccx/Peer-Agent/pull/167",
+  "status": "real-model-acceptance-in-progress",
+  "product": {
+    "status": "passed",
+    "runId": "1839db45-3b04-4576-aebf-44839ff6c6fb",
+    "requiredScreenshots": 180,
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer visual self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "findings": [
+      {
+        "screenshot": "quick-chat-bots-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "透明离屏快捷窗口浅色背景偏黑，不构成原生浅色窗口验收证据；本次未修改该表面。"
+      },
+      {
+        "screenshot": "task-detail-accepted.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "已有 accepted 状态夹具仍携带旧失败摘要；状态标题可辨，本次不以它证明真实验收。"
+      },
+      {
+        "screenshot": "long-error-760-dark.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "窄窗返回最新消息浮层与部分预算文字重叠，已有局部布局问题，不影响本次协调状态链验收。"
+      },
+      {
+        "screenshot": "quote-reply-760-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "窄窗引用画面返回最新浮层局部遮挡预算说明，记录为既有布局限制。"
+      }
+    ]
+  },
+  "engineering": {
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "fullSuite": "passed before last observer-wait and observation-revision refinements",
+    "finalFocused": {
+      "pass": 572,
+      "fail": 0,
+      "scope": "Coordinator tests and production Desktop DeepSeek loop after final code refinements"
+    },
+    "CI": "running for exact PR head"
+  },
+  "journalReplay": {
+    "ok": true,
+    "sourceBytes": 152071996,
+    "sourceUsedReadOnly": true,
+    "liveTasksModified": false,
+    "roster": "frozen identity fixture over actual copied journal/checkpoints; not a current session verdict",
+    "beforeRunnable": 30,
+    "afterRunnable": 6,
+    "coalesced": 27,
+    "protectedUserAndTerminalWorksUnchanged": true,
+    "restartIdempotent": true
+  },
+  "realModel": {
+    "status": "in-progress",
+    "scope": "Source Electron, configured real providers, isolated fixture project, governed tools, actual HTTP. No injected Tool Results.",
+    "failedAttempts": [
+      "Missing source helper prevented credential lookup; no model call",
+      "Ad hoc helper keychain lookup timed out; switched isolated fixture to installed signed helper without changing permission policy",
+      "Earlier GPT/DeepSeek run completed actual task and final reply, but global-fetch instrumentation missed Electron net.fetch; not accepted as wire verification",
+      "GPT coordinator returned genuinely empty final-answer SSE messages after bounded existing retry; child completed; not accepted as complete-flow success",
+      "DeepSeek coordinator completed and verified child but narrated an already-delivered result without post_reply; no-progress guard stopped, not accepted as complete-flow success"
+    ],
+    "installedBuild": false,
+    "liveTasksModified": false
+  },
+  "logs": [
+    {
+      "name": "peer-custody-full-build.log",
+      "sha256": "88914206daa6156888d33df7d5308546c5192161dfb4e367c7d3daea56704ad6"
+    },
+    {
+      "name": "peer-custody-final-typecheck.log",
+      "sha256": "6063cbcf831b9f728b7d1ea14ff79281d06c6534c4f362418c656b83bcefd23a"
+    },
+    {
+      "name": "peer-custody-final-architecture.log",
+      "sha256": "9026d6b8da2ac55ab1148b2d91556a0084f395f511f5d66910245961231ed152"
+    },
+    {
+      "name": "peer-custody-all-tests.log",
+      "sha256": "016e10aa3df04829c2a855493a24dce92564cbb42bc73898292c2a48eae21517"
+    },
+    {
+      "name": "peer-custody-final-runtime.log",
+      "sha256": "c349c581f5eaa9683c4995fef1ea1c2a9bd5e14e25b76aebcac98c9222db8e4a"
+    },
+    {
+      "name": "peer-custody-product-verify.log",
+      "sha256": "19a1dd5031cdefad07de0fbe72884c1f91bb431dc3e7a33d073e54d896d8b8c9"
+    }
+  ]
+}

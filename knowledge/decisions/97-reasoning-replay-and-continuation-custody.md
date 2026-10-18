@@ -1,6 +1,7 @@
 # ADR 97：推理回传、续接归属与已汇报等待
 
-日期：2026-10-18
+创建时间：2026-10-18
+最后更新：2026-10-18
 状态：Accepted（用户要求修复三条链路并用真实任务验收）
 级别：A（Provider 上下文、持久协调状态），B（主 Bot 调度）；继承 ADR19、88、91、93–96。
 
@@ -32,6 +33,10 @@ post_reply 去重返回已汇报的 canonical reply IDs 和当前源版本。协
 
 去重基于宿主事实，文字改写不是新进展；新的用户问题或需要用户决策的不同问题不能只凭相同任务版本隐藏。
 
+验收所用 sourceRevision 与汇报所用 observationRevision 分开：后者包含稳定的实际核验错误、阻塞原因和结果说明，排除尝试 ID、时间与随机请求编号。超时变为 HTTP400 必须成为新事实；同因重复尝试不能续租。策略签收不改变本次汇报版本，避免交付收据自行失效。
+
+后台观察者与创建子任务的工作拥有不同 workId。等待工具仅在同项目/父会话且协调账本已把该事件交给当前工作时承认观察归属；模型传入一个 sessionId 或伪造事件不能获得此资格。这只允许等待，不授予子任务执行或文件权限。
+
 ## 5. 热路径与边界
 
 Journal recovery 只在文件版本变化且确需尾记录修复时读取正文，不能每次 kick 全读151MB journal。沿用增量 reader、租约、fsync、严格 reducer 与损坏拒绝；不另建权限、执行、IPC 或 System Context 旁路。Renderer 本次无需新增权限真值。
@@ -49,3 +54,13 @@ Journal recovery 只在文件版本变化且确需尾记录修复时读取正文
 - 使用真实配置模型在临时项目走主 Bot → 子 Agent → 读取/修改/测试 → 复核 → 主回复，并发送进度问题、验证取消后可对话；真实请求必须包含 DeepSeek 工具续跑。日志不得保存密钥或用户历史。
 
 实现者自验必须明确标注；源码 Electron、正式安装包、真实模型与受控场景各自说明覆盖。当前用户数据只读用于定位；不手工清库、不取消用户真实任务。发布或替换日常安装不属于本次请求。
+
+## 7. 实施与工程记录
+
+代码提交 `c7dd40575184d6002e2d968a0a42b65931e7ba3b`：新增 Reasoning Replay、Continuation Custody、Reported Wait 与 Session Observation Revision Module。旧后台记录通过原子 continuations_coalesced 追加事件转移自动处理责任；旧检查点和预算记录保留。未知新 journal 事件的旧版本仍拒绝恢复，不能保证降级后可继续。用户续接按真实输入时间优先，不能仅按不断更新的执行时间排队。
+
+已用现场日志和检查点的只读副本检验收敛：约152MB journal，30条 runnable 收敛后剩6条；27条重复后台记录转移责任，用户工作和取消/暂停/系统阻塞记录不变，重启幂等。roster 为冻结身份夹具，不据此宣称用户真实任务已经恢复。
+
+代码 PR：[Peer-Agent #167](https://github.com/ly-ccx/Peer-Agent/pull/167)。完整 build / typecheck / architecture / pnpm test 已通过；最后观察者等待与 observationRevision 改动后，572 项定向测试和 typecheck / architecture 再次通过。标准 Capture 的180张截图逐张实现者自审，Verify通过（不是独立视觉评审）。
+
+真实模型完整流程仍在验收。已经确认 DeepSeek 多次原生工具续跑 HTTP200，实际推理字段齐全；保留 GPT 空 SSE 响应、DeepSeek 主 Bot 未调用正式交付工具而触发无进展保护等失败，不把子任务通过当成主回复通过。最终结果补录在[验收记录](../../playbook/v0.1.0/evidence/reply-continuation-repair/validation.json)。日常安装及真实任务未修改。
