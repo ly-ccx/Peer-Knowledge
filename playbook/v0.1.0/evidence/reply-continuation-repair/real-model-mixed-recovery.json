@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a",
+  "syntheticCognition": false,
+  "installedBuild": false,
+  "mainModel": "gpt-6.1-sol",
+  "workerModel": "deepseek-v4.1-flash",
+  "initialObservation": {
+    "taskPassed": false,
+    "progressReplied": true,
+    "observationWindowMs": 360506,
+    "reason": "Two verifier attempts produced unsupported_tool_response; the next attempt was still advancing when the 6-minute fixture observation window ended. Not counted as initial automatic completion.",
+    "wire": {
+      "http200": 18,
+      "toolFollowups": 14,
+      "missingNativeReasoning": 0,
+      "http400": 0
+    },
+    "credentialCopiesRemoved": true
+  },
+  "recovery": {
+    "sourceHead": "31cb84184c74e2224c7f47042f532f546dcb568a",
+    "syntheticCognition": false,
+    "installedBuild": false,
+    "mainModel": "gpt-6.1-sol",
+    "worker": "deepseek-v4.1-flash",
+    "startedAt": "2026-10-18T13:37:13.612Z",
+    "purpose": "Resume same isolated task after acceptance harness observation window closed; do not replay completed writes.",
+    "queryAt": "2026-10-18T13:37:16.962Z",
+    "ok": true,
+    "accepted": true,
+    "formalReply": true,
+    "currentInputReplied": true,
+    "completedWritesReplayed": false,
+    "newSessionCount": 0,
+    "credentialCopiesRemoved": true,
+    "finishedAt": "2026-10-18T13:39:09.707Z"
+  },
+  "screenshot": {
+    "name": "mixed-recovered.png",
+    "sha256": "ef1f1df53ed616948c0d931193670be82c2949bc1cc820919005e714f764cdae",
+    "reviewed": true
+  },
+  "limits": [
+    "Not initial uninterrupted mixed-model success: source app restarted and an explicit continuation query was submitted after the fixture window.",
+    "Same actual session and unchanged implementation mtime/hash verified; no replacement task or completed write replay.",
+    "Model protocol/content quality errors are retained; no pseudo tool text was executed or accepted as verification."
+  ]
+}
