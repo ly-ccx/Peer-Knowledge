@@ -167,3 +167,7 @@ Conversation Store 新 committer/worker 与类型/构建清单、消息写锁接
 ### 剩余范围说明
 
 标准产品 Capture 已生成 180 张必查截图，实施者逐张检查并写入 review.json，Verify 通过。RunId：549c767f-b9e4-4d24-a90e-94d00ac7c248；源码指纹：0c0649f976b8bb5141942d95856d4b932534484bc02cdcb1a7ddd1941080dd01。记录了原生透明快捷窗口截图不含系统合成底色的轻微验收范围限制；未以截图宣称实际桌面合成色彩覆盖。最终 macOS / Linux 双平台 CI 全部通过，包含 build/test/typecheck/architecture 与 Electron smoke（[运行 39115984145](https://github.com/ly-ccx/Peer-Agent/actions/runs/39115984145)，HEAD ab66c0178ce78343fbe58da1bfa6ecd9acdc1721）。真实测量与当前 PR 的产品代码一致，之后提交仅补充测试与验收脚本；具体源 HEAD、模型和作用域保留在各测量 JSON。实现者自审不称独立评审。真实修复窗口不代表任意项目、任意网络或任意输出内容；冷恢复及旧同步读写 API 仍可能阻塞。未替换日常安装、未发布新 RC，也未进行完整读屏或长期使用验收。
+
+## 9. RC17 发布落地
+
+2026-10-18 发布不可变标签 v0.1.0-rc.17（3ef21360），正式签名包完成实际 worker 和真实 GPT-6.1 Sol 派工、工具、模型复核、宿主签收、取消后继续对话及冻结强度 max/max 验证。完整来源、测量与限制见 [RC17 发布验收](../../playbook/v0.1.0/rc17-candidate.md)。§8 的“未发布”描述只对应当时源码测量阶段，不代表当前发布状态。
