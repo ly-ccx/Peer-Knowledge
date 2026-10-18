@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "3689e82d2c04c2ad01e3588054fda0e7f674b7d6",
+  "sourceFingerprint": "42e95a392cf0776c2331569c256dc50930a27d7e1f15ce7ce227bf14efb06f58",
+  "runId": "4af349e1-c664-46cd-932c-696932a6e458",
+  "product": {
+    "status": "passed",
+    "reviewedAt": "2026-10-18T04:49:17.326Z",
+    "requiredScreenshots": 166,
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "tests": {
+    "localRuntimeFull": {
+      "pass": 1275,
+      "fail": 0,
+      "scope": "Before final activity identity refinement; final focused integration rerun covers that refinement"
+    },
+    "activityIdentityIntegration": {
+      "pass": 19,
+      "fail": 0
+    },
+    "focusedBoundarySuite": {
+      "pass": 68,
+      "fail": 0
+    },
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "nativeFixture": {
+      "pass": 1,
+      "fail": 0,
+      "scope": "At-most-once native menu command, failed receipt and popup restoration"
+    }
+  },
+  "scenarioSources": [
+    "packages/runtime-node/src/project-agent/continuity.integration.test.mjs",
+    "packages/runtime-node/src/project-agent/wake-wait.test.mjs",
+    "packages/runtime-node/src/project-agent/reply-failure-facts.test.mjs",
+    "apps/desktop/electron/main/chat-runtime/openai-responses-empty-recovery.test.mjs",
+    "apps/desktop/renderer/src/project-agent/state/botConversationState.test.ts"
+  ],
+  "scenarios": [
+    "Main reply failure does not stop advancing child",
+    "Host routine wake makes zero model requests and preserves waitFor through restart",
+    "Accepted waiting Tool Result ends actual Responses loop without an empty-response retry",
+    "Repeated failed attempts remain historical, not recovered",
+    "Only same-work delivered canonical reply proves recovery",
+    "Prepared, invalidated, cross-work replies and silent waits do not prove recovery",
+    "Human waits, repair, cancellation and unknown outcomes retain existing guards",
+    "Expired and consumed retry reservations cannot promise recovery"
+  ],
+  "candidateHistory": [
+    {
+      "source": "8e7399e6",
+      "result": "capture cancelled to correct silent wake activity identity"
+    },
+    {
+      "source": "ad690e82",
+      "result": "capture cancelled; test expected a visible activity for a deliberately invisible wake; assertion corrected and 19 integration tests rerun"
+    },
+    {
+      "source": "a04909a332b0dfc421788eebf11f5fa4674571ab",
+      "result": "first full capture failed at QuickChat native select with resulting promise garbage collected; 22 reply-state samples passed, no product acceptance claimed"
+    },
+    {
+      "source": "a04909a332b0dfc421788eebf11f5fa4674571ab",
+      "result": "same-source complete capture, 166 screenshot self-review and Verify passed"
+    },
+    {
+      "source": "a04909a332b0dfc421788eebf11f5fa4674571ab",
+      "result": "Local complete Capture and Verify passed; macOS CI failed twice at Quick Chat inspector native evaluation, Linux and both-platform full tests passed; superseded by a fixture-only correction"
+    },
+    {
+      "source": "3689e82d2c04c2ad01e3588054fda0e7f674b7d6",
+      "result": "Quick Chat controls moved into isolated native command/receipt fixture; fresh Capture, 166 screenshot self-review and Verify passed"
+    }
+  ],
+  "logs": [
+    {
+      "name": "peer-reply-status-runtime-final.log",
+      "sha256": "0e2b8f6927462d9d086fff52326c276020f94ab1d5f9bb55d419c421774a1ee8"
+    },
+    {
+      "name": "peer-reply-status-typecheck-final.log",
+      "sha256": "d0eb476a9cfd1c875422e6301e914bee46a4817a063cb5f33bc6bda748c45169"
+    },
+    {
+      "name": "peer-reply-status-architecture-final.log",
+      "sha256": "66bdef890b7a3750e548288fb55c68bb91070e132b2b436d9d6fdf4904d63aed"
+    },
+    {
+      "name": "peer-reply-status-activity-identity-final.log",
+      "sha256": "e9ace68d728c47b3683160d13c3c4e2ac903eb40edcf6a7a2a91fe10dc1267c2"
+    },
+    {
+      "name": "peer-reply-status-boundaries-final.log",
+      "sha256": "c30f32238ed616f699f4c338a9c6e8d436aa73cade99070f32b022b455706b33"
+    },
+    {
+      "name": "peer-reply-native-architecture.log",
+      "sha256": "66bdef890b7a3750e548288fb55c68bb91070e132b2b436d9d6fdf4904d63aed"
+    },
+    {
+      "name": "peer-reply-attempts-native-capture.log",
+      "sha256": "bd03364f899c6ccde1f9f9aebcb79abba49732acde303a72d258ff8103c0d1f8"
+    },
+    {
+      "name": "peer-reply-status-macos-retry.log",
+      "sha256": "8f09db2aac49d9b61af60d28839497bf645266648583e7de1c9c4715f6eb83ef"
+    },
+    {
+      "name": "peer-reply-native-ci-result.json",
+      "sha256": "e3c224baeba75717f3c078a8c7e29ab2b51476a6e56b445e8e37b98b3df693a8"
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "recovery-child-running-dark.png",
+      "sha256": "a648962a9f8f14121a4a6ffbc4897657445e4d1b0f3da353f6ee0176917af6e3"
+    },
+    {
+      "id": "recovery-child-running-light.png",
+      "sha256": "0f88a302f255750060919f4e3bf29a44affb4df239735a9e942e75fd163c9138"
+    },
+    {
+      "id": "recovery-historical-light.png",
+      "sha256": "f4931f346c31552dfde284896da1560d0fd9c6d9a3ee4143ef408953c456f655"
+    },
+    {
+      "id": "recovery-resolved-dark.png",
+      "sha256": "1ea162dcf81f4f5259ccf89d4b811fc0554b06939d247fcef6760d7964dd6e49"
+    },
+    {
+      "id": "recovery-paused-light.png",
+      "sha256": "fbb575ed079a646bf2653bb45c02442b42bd3b9318c5393d58898cc2c4a29a57"
+    },
+    {
+      "id": "recovery-cancelled-dark.png",
+      "sha256": "19c572a26f08774932aea0337e09f2e6180feec954f86c6612a1bcf5a6ccf9bc"
+    }
+  ],
+  "ci": {
+    "attempt": 1,
+    "conclusion": "success",
+    "headSha": "3689e82d2c04c2ad01e3588054fda0e7f674b7d6",
+    "jobs": [
+      {
+        "completedAt": "2026-10-18T05:03:23Z",
+        "conclusion": "success",
+        "databaseId": 117588195600,
+        "name": "ci-macos-14",
+        "startedAt": "2026-10-18T04:41:25Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T04:41:28Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T04:41:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:31Z",
+            "conclusion": "success",
+            "name": "Checkout",
+            "number": 2,
+            "startedAt": "2026-10-18T04:41:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:36Z",
+            "conclusion": "success",
+            "name": "Setup pnpm",
+            "number": 3,
+            "startedAt": "2026-10-18T04:41:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:52Z",
+            "conclusion": "success",
+            "name": "Setup Node",
+            "number": 4,
+            "startedAt": "2026-10-18T04:41:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:53Z",
+            "conclusion": "success",
+            "name": "Require Node >= 24",
+            "number": 5,
+            "startedAt": "2026-10-18T04:41:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:54Z",
+            "conclusion": "success",
+            "name": "Setup Bun",
+            "number": 6,
+            "startedAt": "2026-10-18T04:41:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:42:04Z",
+            "conclusion": "success",
+            "name": "Setup Rust",
+            "number": 7,
+            "startedAt": "2026-10-18T04:41:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:42:04Z",
+            "conclusion": "skipped",
+            "name": "Install Linux credential-helper build deps",
+            "number": 8,
+            "startedAt": "2026-10-18T04:42:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:42:08Z",
+            "conclusion": "success",
+            "name": "Install dependencies",
+            "number": 9,
+            "startedAt": "2026-10-18T04:42:04Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:42:58Z",
+            "conclusion": "success",
+            "name": "Build",
+            "number": 10,
+            "startedAt": "2026-10-18T04:42:08Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:43:19Z",
+            "conclusion": "success",
+            "name": "Typecheck",
+            "number": 11,
+            "startedAt": "2026-10-18T04:42:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:43:22Z",
+            "conclusion": "success",
+            "name": "Architecture check",
+            "number": 12,
+            "startedAt": "2026-10-18T04:43:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:46:01Z",
+            "conclusion": "success",
+            "name": "Test",
+            "number": 13,
+            "startedAt": "2026-10-18T04:43:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:02:47Z",
+            "conclusion": "success",
+            "name": "Bot shell Electron smoke (macOS)",
+            "number": 14,
+            "startedAt": "2026-10-18T04:46:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:02:47Z",
+            "conclusion": "skipped",
+            "name": "Bot shell Electron smoke (Linux)",
+            "number": 15,
+            "startedAt": "2026-10-18T05:02:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:03:17Z",
+            "conclusion": "success",
+            "name": "Preserve bot shell report",
+            "number": 16,
+            "startedAt": "2026-10-18T05:02:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:03:17Z",
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "number": 29,
+            "startedAt": "2026-10-18T05:03:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:03:17Z",
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "number": 30,
+            "startedAt": "2026-10-18T05:03:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:03:17Z",
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "number": 31,
+            "startedAt": "2026-10-18T05:03:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:03:18Z",
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "number": 32,
+            "startedAt": "2026-10-18T05:03:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T05:03:20Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 33,
+            "startedAt": "2026-10-18T05:03:18Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39097955532/job/117588195600"
+      },
+      {
+        "completedAt": "2026-10-18T04:57:23Z",
+        "conclusion": "success",
+        "databaseId": 117588195706,
+        "name": "ci-ubuntu-latest",
+        "startedAt": "2026-10-18T04:41:20Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T04:41:22Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T04:41:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:26Z",
+            "conclusion": "success",
+            "name": "Checkout",
+            "number": 2,
+            "startedAt": "2026-10-18T04:41:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:34Z",
+            "conclusion": "success",
+            "name": "Setup pnpm",
+            "number": 3,
+            "startedAt": "2026-10-18T04:41:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:42Z",
+            "conclusion": "success",
+            "name": "Setup Node",
+            "number": 4,
+            "startedAt": "2026-10-18T04:41:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:42Z",
+            "conclusion": "success",
+            "name": "Require Node >= 24",
+            "number": 5,
+            "startedAt": "2026-10-18T04:41:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:43Z",
+            "conclusion": "success",
+            "name": "Setup Bun",
+            "number": 6,
+            "startedAt": "2026-10-18T04:41:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:41:53Z",
+            "conclusion": "success",
+            "name": "Setup Rust",
+            "number": 7,
+            "startedAt": "2026-10-18T04:41:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:42:07Z",
+            "conclusion": "success",
+            "name": "Install Linux credential-helper build deps",
+            "number": 8,
+            "startedAt": "2026-10-18T04:41:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:42:09Z",
+            "conclusion": "success",
+            "name": "Install dependencies",
+            "number": 9,
+            "startedAt": "2026-10-18T04:42:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:43:09Z",
+            "conclusion": "success",
+            "name": "Build",
+            "number": 10,
+            "startedAt": "2026-10-18T04:42:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:43:34Z",
+            "conclusion": "success",
+            "name": "Typecheck",
+            "number": 11,
+            "startedAt": "2026-10-18T04:43:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:43:35Z",
+            "conclusion": "success",
+            "name": "Architecture check",
+            "number": 12,
+            "startedAt": "2026-10-18T04:43:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:45:52Z",
+            "conclusion": "success",
+            "name": "Test",
+            "number": 13,
+            "startedAt": "2026-10-18T04:43:35Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:45:52Z",
+            "conclusion": "skipped",
+            "name": "Bot shell Electron smoke (macOS)",
+            "number": 14,
+            "startedAt": "2026-10-18T04:45:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:56:59Z",
+            "conclusion": "success",
+            "name": "Bot shell Electron smoke (Linux)",
+            "number": 15,
+            "startedAt": "2026-10-18T04:45:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:57:20Z",
+            "conclusion": "success",
+            "name": "Preserve bot shell report",
+            "number": 16,
+            "startedAt": "2026-10-18T04:56:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:57:20Z",
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "number": 29,
+            "startedAt": "2026-10-18T04:57:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:57:20Z",
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "number": 30,
+            "startedAt": "2026-10-18T04:57:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:57:20Z",
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "number": 31,
+            "startedAt": "2026-10-18T04:57:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:57:20Z",
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "number": 32,
+            "startedAt": "2026-10-18T04:57:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T04:57:20Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 33,
+            "startedAt": "2026-10-18T04:57:20Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39097955532/job/117588195706"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39097955532",
+    "scope": "Final commit: Linux and macOS build, typecheck, architecture, full tests and Electron smoke passed. Prior macOS inspector fixture failures on run 39096019681 are preserved in candidate history; final run passed on its first attempt."
+  }
+}

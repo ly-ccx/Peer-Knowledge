@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "25b49d8f7783f22387b52faf1853d93efad53429",
+  "sourceFingerprint": "4efbdaf93b8d8b7b1ae3f8e718bfe70daac76c4ba35d9a8f5be8c08932bfd60e",
+  "runId": "07fe7350-1873-4e9f-bcf9-2e02b88e1b8f",
+  "product": {
+    "status": "passed",
+    "runId": "07fe7350-1873-4e9f-bcf9-2e02b88e1b8f",
+    "sourceFingerprint": "4efbdaf93b8d8b7b1ae3f8e718bfe70daac76c4ba35d9a8f5be8c08932bfd60e",
+    "reviewedAt": "2026-10-18T05:44:08.444Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 176,
+    "nonBlockingFindings": 5
+  },
+  "tests": {
+    "runtime": {
+      "pass": 1285,
+      "fail": 0
+    },
+    "desktop": {
+      "pass": 5535,
+      "fail": 0,
+      "skipped": 5
+    },
+    "i18n": {
+      "pass": 1,
+      "fail": 0
+    },
+    "productHarness": {
+      "pass": 6,
+      "fail": 0
+    },
+    "finalDesktopBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed"
+  },
+  "controlledScenarios": {
+    "productiveWork": {
+      "requests": 301,
+      "pairedToolResults": 2100,
+      "restarted": true,
+      "deliveredReplies": 1,
+      "realToolExecutions": false
+    },
+    "verification": {
+      "requests": 289,
+      "tools": 2304,
+      "simulatedElapsedMinutes": 24,
+      "earliestEvidenceRetained": true,
+      "realCloudCalls": false
+    },
+    "fileProvider": {
+      "realFiles": 13,
+      "requests": 14,
+      "uniqueToolCalls": 13,
+      "controlledCognition": true
+    },
+    "legacyMigration": {
+      "requestCounterBefore": 256,
+      "requestCounterAfter": 257,
+      "toolCounterUnchanged": 468,
+      "checkpointRetained": true,
+      "replay": false
+    }
+  },
+  "budgetPresentation": {
+    "reasonVisible": true,
+    "diagnosticInDrawer": true,
+    "retrySuppressed": true,
+    "limitVisible": true,
+    "narrowFits": true
+  },
+  "recoveryCases": [
+    {
+      "state": "budget-unknown",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-ready",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-migrating",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-reserved",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-available",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "missing-checkpoint",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "scheduled",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "exhausted",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "authentication",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "unknown",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "resolved",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "child-running",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "historical",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "paused",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "cancelled",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "no-progress",
+      "width": 1280,
+      "appearance": "dark",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-unknown",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-ready",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-migrating",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-reserved",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "budget-available",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "missing-checkpoint",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "scheduled",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "exhausted",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "authentication",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "unknown",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "resolved",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "child-running",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "historical",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "paused",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "cancelled",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": false,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    },
+    {
+      "state": "no-progress",
+      "width": 760,
+      "appearance": "light",
+      "exactCopy": true,
+      "retryVisible": true,
+      "diagnosticsInDrawer": true,
+      "fits": true
+    }
+  ],
+  "ci": {
+    "attempt": 2,
+    "firstMacFailure": {
+      "jobId": 117597294895,
+      "stage": "Bot shell Electron smoke (macOS)",
+      "assertion": "visible receipt p50 must stay below 300ms",
+      "observedMedianMs": 386.4000000000233,
+      "thresholdMs": 300,
+      "receiptSamplesMs": [
+        168,
+        386.4000000000233,
+        1223.1000000000931,
+        795,
+        254.40000000002328
+      ],
+      "localMedianMs": 57.19999998807907,
+      "budgetAndRecoveryAssertionsPassed": true,
+      "sameSourceRerun": true,
+      "assertionRelaxed": false
+    },
+    "runId": 39100990065,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39100990065",
+    "sourceHead": "25b49d8f7783f22387b52faf1853d93efad53429",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "status": "completed",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Require Node >= 24",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Bun",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install Linux credential-helper build deps",
+            "status": "completed",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Typecheck",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Architecture check",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bot shell Electron smoke (macOS)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bot shell Electron smoke (Linux)",
+            "status": "completed",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Preserve bot shell report",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Bun",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "status": "completed",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Require Node >= 24",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Bun",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install Linux credential-helper build deps",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Typecheck",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Architecture check",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bot shell Electron smoke (macOS)",
+            "status": "completed",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Bot shell Electron smoke (Linux)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve bot shell report",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Bun",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "finalMacReceipt": {
+      "jobId": 117600361371,
+      "reportOk": true,
+      "testedMergeHead": "ce3bc3cefa08705d563e8756e95647da57c63b55",
+      "receiptSamplesMs": [
+        239.30000000004657,
+        161.59999999997672,
+        185.09999999997672,
+        125.80000000004657,
+        144
+      ],
+      "medianMs": 161.59999999997672,
+      "budgetFailure": {
+        "reasonVisible": true,
+        "diagnosticInDrawer": true,
+        "retrySuppressed": true,
+        "limitVisible": true,
+        "narrowFits": true
+      },
+      "recoveryCaseCount": 32
+    },
+    "testedMergeHead": "ce3bc3cefa08705d563e8756e95647da57c63b55"
+  },
+  "candidateHistory": [
+    {
+      "source": "49b59697",
+      "result": "First capture failed: a synthetic presentation card was incorrectly passed through live work resolution, losing supplied budget facts; no acceptance claimed."
+    },
+    {
+      "source": "003fc36e",
+      "result": "Presentation fixture fixed. Capture intentionally stopped before acceptance to add the discovered explicit-budget reservation/release boundary; no old screenshot reuse."
+    },
+    {
+      "source": "25b49d8f7783f22387b52faf1853d93efad53429",
+      "result": "Fresh source-bound capture, all 176 required screenshots inspected by the implementer; Verify passed. CI recorded separately."
+    }
+  ],
+  "preservedUserState": {
+    "installedBuild": "0.1.0-rc.15",
+    "realTasksModified": false,
+    "realPermissionsModified": false,
+    "installedBuildReplaced": false,
+    "merged": false,
+    "rcPublished": false
+  },
+  "logs": [
+    {
+      "name": "peer-progress-runtime-v2.log",
+      "sha256": "5c7640569ade8b45cbbe2e1ec9afac04926b747c54b8006c414b70a498a9dbf0"
+    },
+    {
+      "name": "peer-progress-desktop-v2.log",
+      "sha256": "1b6a755d187458b30c201b9f4c08d6a2a39935220839e91337f044c656d12d65"
+    },
+    {
+      "name": "peer-progress-focused-final.log",
+      "sha256": "b5e6d33c583c8fa40d4832a4dc94681a0f9d61b861d59852290dfe3b43d1ea4c"
+    },
+    {
+      "name": "peer-progress-reservation-final.log",
+      "sha256": "f66437d4db666b05541e6b462d771ea8e723477cb26191ecd6b329aa03a440d9"
+    },
+    {
+      "name": "peer-progress-product-tests-v2.log",
+      "sha256": "32dcd94db1eba3100b2f29c36f9aaad8ca253989e9e26727d5798469db5741db"
+    },
+    {
+      "name": "peer-progress-typecheck-reservation.log",
+      "sha256": "8cc74a1b0d8a3376e798e0f623d6aad957e9abee091fecf34729a5490e35da2e"
+    },
+    {
+      "name": "peer-progress-architecture-reservation.log",
+      "sha256": "66bdef890b7a3750e548288fb55c68bb91070e132b2b436d9d6fdf4904d63aed"
+    },
+    {
+      "name": "peer-progress-verify-v2.log",
+      "sha256": "7048837c421ffafe846f3b40769ce4d9ff05ed53f4713d265e0bf331b2beba9f"
+    },
+    {
+      "name": "peer-progress-ci-mac-v2-clean.log",
+      "sha256": "2990a36f00c88119839c8a3bf3f1ef5f1161543f81837d9209d3afdb6891fde7"
+    },
+    {
+      "name": "peer-progress-ci-mac-v2-retry-clean.log",
+      "sha256": "8db9d91949fe27ca3cf4fd150c30153c42fb79b959790f97bf30030e92a7e779"
+    }
+  ],
+  "savedScreenshots": [
+    {
+      "name": "budget-exhausted-dark.png",
+      "sha256": "66e3b6325101380a5265b8426cda565f405c9e483044a68ae6dd03bed509a123"
+    },
+    {
+      "name": "budget-exhausted-light.png",
+      "sha256": "f3fad2e6e630943d67598f801c80a48aed8f40a459b035d7ccdef5af6acae181"
+    },
+    {
+      "name": "recovery-budget-unknown-light.png",
+      "sha256": "8ec83426da2c052c9e7b7e45bc6aa0b517e9a24f0a22aa192360bcf38ae739af"
+    },
+    {
+      "name": "recovery-budget-ready-dark.png",
+      "sha256": "c55c2b5e7a209d70ca0062966df72e300a029b4f69c2a21898eb8e894f89259e"
+    },
+    {
+      "name": "recovery-budget-migrating-light.png",
+      "sha256": "30dfcbf9c28f903f7ed35f2956c5f2e49782029e1a006c4a09ce81ed540e33cc"
+    },
+    {
+      "name": "recovery-budget-reserved-dark.png",
+      "sha256": "1afad0b32b90795e8bc844949630674594cbac8e750d0f5e8f5d07da53457230"
+    },
+    {
+      "name": "recovery-budget-available-light.png",
+      "sha256": "3e9f517da822fc85d995bb72fb57ad27f28873269f577312a4a9b1e96266390f"
+    },
+    {
+      "name": "quote-reply-760-light.png",
+      "sha256": "7475452fb2ea66193b414a79d66631f747b762479959ece1d3d318836b669966"
+    }
+  ],
+  "limits": [
+    "Scripted model cognition; no real provider quality or network timing",
+    "Source Electron; not an installed RC",
+    "No full screen-reader or long-duration acceptance",
+    "Implementer self-review; no independent reviewer",
+    "Large-count tool batches are controlled executor outcomes, not the same number of filesystem operations or billed provider requests",
+    "Five nonblocking visual/fixture limitations recorded in review.json"
+  ]
+}

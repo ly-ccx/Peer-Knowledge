@@ -1,0 +1,621 @@
+{
+  "independent": false,
+  "controlledProviderTransport": true,
+  "installedBuild": false,
+  "realCloudModel": false,
+  "logs": {
+    "build": {
+      "sha256": "f523a9c2eeef9479f4298b98593c1a3bee9a3be5fa3381c53f517f0fb12749d8",
+      "counts": {
+        "tests": [],
+        "pass": [],
+        "fail": [],
+        "skipped": []
+      }
+    },
+    "runtime": {
+      "sha256": "b3fb0a3e3b43626e03bfe0a1928d0c6e4b92586a4877a9a94c4a4d9c3de6b2b6",
+      "counts": {
+        "tests": [
+          1268
+        ],
+        "pass": [
+          1268
+        ],
+        "fail": [
+          0
+        ],
+        "skipped": [
+          0
+        ]
+      }
+    },
+    "desktop": {
+      "sha256": "911201412b2a55928dbb29cb6a73dc8828db6d1289d8b601207b7ca36da28147",
+      "counts": {
+        "tests": [
+          5536,
+          1
+        ],
+        "pass": [
+          5531,
+          1
+        ],
+        "fail": [
+          0,
+          0
+        ],
+        "skipped": [
+          5,
+          0
+        ]
+      }
+    },
+    "typecheck": {
+      "sha256": "b1b20569ad33f6407df28293806f53a7f32426cab6bbdc24045e98ea9cbb080e",
+      "counts": {
+        "tests": [],
+        "pass": [],
+        "fail": [],
+        "skipped": []
+      }
+    },
+    "architecture": {
+      "sha256": "66bdef890b7a3750e548288fb55c68bb91070e132b2b436d9d6fdf4904d63aed",
+      "counts": {
+        "tests": [],
+        "pass": [],
+        "fail": [],
+        "skipped": []
+      }
+    },
+    "product_gate": {
+      "sha256": "d39d48f21a837032f6888a3b8c8d0810f1dd6a15f6f375e1a5737997f786d272",
+      "counts": {
+        "tests": [
+          6
+        ],
+        "pass": [
+          6
+        ],
+        "fail": [
+          0
+        ],
+        "skipped": [
+          0
+        ]
+      }
+    },
+    "full_before_final_stop_receipt": {
+      "sha256": "729e4caf180aefcd77b96ac4f3ec0d1906cfbedfeaace14f0436d1807f62f99e",
+      "counts": {
+        "tests": [
+          8,
+          10,
+          20,
+          235,
+          27,
+          87,
+          111,
+          200,
+          41,
+          1,
+          40,
+          1267,
+          5535,
+          1,
+          6,
+          27,
+          1
+        ],
+        "pass": [
+          8,
+          10,
+          20,
+          235,
+          27,
+          87,
+          111,
+          200,
+          41,
+          1,
+          40,
+          1267,
+          5530,
+          1,
+          6,
+          27,
+          1
+        ],
+        "fail": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "skipped": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "localSuiteSourceCommit": "3162b151b75d5e2c4f75949709fb7c7ecb534bcf",
+  "localSuiteSourceTree": "d4ead4946e693c66de4f18d033d5c08b5303e519",
+  "sourceCommit": "7720e17428fe54b7e8b85178dff3a2ae8df13e2f",
+  "sourceTree": "c3c62b0af971cc63f0c12884db714710fd890255",
+  "sourceNote": "Runtime and Desktop full local suites/build/typecheck/architecture at3162b151. Later changes:29ab666b product retry expectation;57076c36 controlled fixture120s phase/10s image timeout;110bebd2 native Quick Chat inspection focus;7720e174 UI fallback waits native animation readiness. Final source has a fresh complete Capture/Review/Verify and final two-platform CI.",
+  "productionIntegration": {
+    "fileReads": 13,
+    "physicalProviderRequests": 14,
+    "uniqueToolCalls": 13,
+    "duplicateReads": 0,
+    "workBudgetRequests": 14,
+    "workBudgetTools": 13,
+    "transport": "controlled Responses SSE",
+    "tools": "production readonly File Provider with PermissionGrant and Evidence"
+  },
+  "product": {
+    "runId": "092e5c62-d349-4ef5-8666-9de054e2c44f",
+    "sourceFingerprint": "e1b30beba24716f60891fe228ce3fde2b86d9b4088a32729173af7081975bedb",
+    "screenshots": 158,
+    "reviewIndependent": false,
+    "verify": "passed",
+    "supersededOrRejected": [
+      "29ab666b first product gate rejected missing no-progress retry expectation; corrected and recaptured with158-shot review/Verify passed. That packet was superseded by later fixes.",
+      "57076c36 capture rejected Quick Chat save-error visibility; retry rejected hidden native window screenshot timeout. No acceptance reused.",
+      "110bebd2 full machine capture passed; superseded before complete review due repeated Linux native-animation fallback defect.",
+      "7720e174 first capture timed out observing short reply hover opacity; retry at the identical source completed all scenarios, then158-shot actual self-review and Verify passed. Failed capture was not accepted."
+    ]
+  },
+  "ci": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39092913859",
+    "status": "passed",
+    "result": {
+      "attempt": 1,
+      "conclusion": "success",
+      "databaseId": 39092913859,
+      "headSha": "7720e17428fe54b7e8b85178dff3a2ae8df13e2f",
+      "jobs": [
+        {
+          "completedAt": "2026-10-18T03:29:57Z",
+          "conclusion": "success",
+          "databaseId": 117573346346,
+          "name": "ci-ubuntu-latest",
+          "startedAt": "2026-10-18T03:15:02Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-18T03:15:03Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-18T03:15:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:06Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-18T03:15:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:10Z",
+              "conclusion": "success",
+              "name": "Setup pnpm",
+              "number": 3,
+              "startedAt": "2026-10-18T03:15:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:19Z",
+              "conclusion": "success",
+              "name": "Setup Node",
+              "number": 4,
+              "startedAt": "2026-10-18T03:15:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:19Z",
+              "conclusion": "success",
+              "name": "Require Node >= 24",
+              "number": 5,
+              "startedAt": "2026-10-18T03:15:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:20Z",
+              "conclusion": "success",
+              "name": "Setup Bun",
+              "number": 6,
+              "startedAt": "2026-10-18T03:15:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:29Z",
+              "conclusion": "success",
+              "name": "Setup Rust",
+              "number": 7,
+              "startedAt": "2026-10-18T03:15:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:37Z",
+              "conclusion": "success",
+              "name": "Install Linux credential-helper build deps",
+              "number": 8,
+              "startedAt": "2026-10-18T03:15:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:39Z",
+              "conclusion": "success",
+              "name": "Install dependencies",
+              "number": 9,
+              "startedAt": "2026-10-18T03:15:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:16:40Z",
+              "conclusion": "success",
+              "name": "Build",
+              "number": 10,
+              "startedAt": "2026-10-18T03:15:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:17:05Z",
+              "conclusion": "success",
+              "name": "Typecheck",
+              "number": 11,
+              "startedAt": "2026-10-18T03:16:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:17:07Z",
+              "conclusion": "success",
+              "name": "Architecture check",
+              "number": 12,
+              "startedAt": "2026-10-18T03:17:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:19:25Z",
+              "conclusion": "success",
+              "name": "Test",
+              "number": 13,
+              "startedAt": "2026-10-18T03:17:07Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:19:25Z",
+              "conclusion": "skipped",
+              "name": "Bot shell Electron smoke (macOS)",
+              "number": 14,
+              "startedAt": "2026-10-18T03:19:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:37Z",
+              "conclusion": "success",
+              "name": "Bot shell Electron smoke (Linux)",
+              "number": 15,
+              "startedAt": "2026-10-18T03:19:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:55Z",
+              "conclusion": "success",
+              "name": "Preserve bot shell report",
+              "number": 16,
+              "startedAt": "2026-10-18T03:29:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:55Z",
+              "conclusion": "success",
+              "name": "Post Setup Bun",
+              "number": 29,
+              "startedAt": "2026-10-18T03:29:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:55Z",
+              "conclusion": "success",
+              "name": "Post Setup Node",
+              "number": 30,
+              "startedAt": "2026-10-18T03:29:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:55Z",
+              "conclusion": "success",
+              "name": "Post Setup pnpm",
+              "number": 31,
+              "startedAt": "2026-10-18T03:29:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:55Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 32,
+              "startedAt": "2026-10-18T03:29:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:29:55Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 33,
+              "startedAt": "2026-10-18T03:29:55Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39092913859/job/117573346346"
+        },
+        {
+          "completedAt": "2026-10-18T03:29:01Z",
+          "conclusion": "success",
+          "databaseId": 117573346474,
+          "name": "ci-macos-14",
+          "startedAt": "2026-10-18T03:15:06Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-18T03:15:10Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-18T03:15:07Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:13Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-18T03:15:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:16Z",
+              "conclusion": "success",
+              "name": "Setup pnpm",
+              "number": 3,
+              "startedAt": "2026-10-18T03:15:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:28Z",
+              "conclusion": "success",
+              "name": "Setup Node",
+              "number": 4,
+              "startedAt": "2026-10-18T03:15:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:28Z",
+              "conclusion": "success",
+              "name": "Require Node >= 24",
+              "number": 5,
+              "startedAt": "2026-10-18T03:15:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:31Z",
+              "conclusion": "success",
+              "name": "Setup Bun",
+              "number": 6,
+              "startedAt": "2026-10-18T03:15:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:38Z",
+              "conclusion": "success",
+              "name": "Setup Rust",
+              "number": 7,
+              "startedAt": "2026-10-18T03:15:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:38Z",
+              "conclusion": "skipped",
+              "name": "Install Linux credential-helper build deps",
+              "number": 8,
+              "startedAt": "2026-10-18T03:15:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:15:41Z",
+              "conclusion": "success",
+              "name": "Install dependencies",
+              "number": 9,
+              "startedAt": "2026-10-18T03:15:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:16:21Z",
+              "conclusion": "success",
+              "name": "Build",
+              "number": 10,
+              "startedAt": "2026-10-18T03:15:41Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:16:43Z",
+              "conclusion": "success",
+              "name": "Typecheck",
+              "number": 11,
+              "startedAt": "2026-10-18T03:16:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:16:45Z",
+              "conclusion": "success",
+              "name": "Architecture check",
+              "number": 12,
+              "startedAt": "2026-10-18T03:16:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:19:11Z",
+              "conclusion": "success",
+              "name": "Test",
+              "number": 13,
+              "startedAt": "2026-10-18T03:16:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:35Z",
+              "conclusion": "success",
+              "name": "Bot shell Electron smoke (macOS)",
+              "number": 14,
+              "startedAt": "2026-10-18T03:19:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:35Z",
+              "conclusion": "skipped",
+              "name": "Bot shell Electron smoke (Linux)",
+              "number": 15,
+              "startedAt": "2026-10-18T03:28:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:55Z",
+              "conclusion": "success",
+              "name": "Preserve bot shell report",
+              "number": 16,
+              "startedAt": "2026-10-18T03:28:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:55Z",
+              "conclusion": "success",
+              "name": "Post Setup Bun",
+              "number": 29,
+              "startedAt": "2026-10-18T03:28:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:56Z",
+              "conclusion": "success",
+              "name": "Post Setup Node",
+              "number": 30,
+              "startedAt": "2026-10-18T03:28:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:56Z",
+              "conclusion": "success",
+              "name": "Post Setup pnpm",
+              "number": 31,
+              "startedAt": "2026-10-18T03:28:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:56Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 32,
+              "startedAt": "2026-10-18T03:28:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-18T03:28:58Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 33,
+              "startedAt": "2026-10-18T03:28:56Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39092913859/job/117573346474"
+        }
+      ],
+      "status": "completed"
+    },
+    "priorRuns": [
+      {
+        "run": 39090119504,
+        "attempt": 1,
+        "buildTypecheckArchitectureTests": "both passed",
+        "linuxSmoke": "native modal fallback detached before animation endpoint",
+        "macosSmoke": "synthetic permission expired before pending text inspection"
+      },
+      {
+        "run": 39090119504,
+        "attempt": 2,
+        "macosSmoke": "controlled phase expired during multi-window checks; failure screenshot confirmed Controlled stream was not advanced",
+        "linuxSmoke": "cancelled by later commit; not accepted"
+      },
+      {
+        "run": 39092049547,
+        "status": "cancelled by later commit; not accepted"
+      },
+      {
+        "run": 39092441738,
+        "linuxSmoke": "native animation endpoint failed again; fixed in7720e174",
+        "macosSmoke": "cancelled by later commit; not accepted"
+      }
+    ]
+  },
+  "evidence": {
+    "review.json": "167c03162822a216323637d4a3b27677193c3200f7256045cb96b454a2de30a8",
+    "result.json": "b2afa0a4bba7212ab9add4369e331c09c683d9122ecd008c0b3b1ddce56e6f7a",
+    "work-repair-1280-dark.png": "753769c5daf882bc71de295d263baedd444f69dfbcdef011620e0c1ce39625b0",
+    "work-repair-760-light.png": "f483ff68b0f44491bdd398ef28e911a9311e6e457ae4a5aa385eaa19dd2ec381",
+    "recovery-no-progress-dark.png": "828e65431be12c5f3ac2fddda4b4ccb5d18ad5c8026d8d9774e6821aba8926d7",
+    "recovery-no-progress-light.png": "8af5918da9a26e602e8ec58f685155fe44d54e06be701fba13aa9de238f17d02"
+  },
+  "limits": [
+    "Implementation self-review, not independent product review",
+    "Controlled provider responses, no real cloud semantic-quality acceptance",
+    "Source Electron, no installed RC or upgrade acceptance",
+    "Deterministic accessibility/focus checks, no complete screen-reader or long-duration acceptance",
+    "Old Quick Chat light offscreen alpha composite and legacy sidebar error prefix are recorded minor limitations",
+    "Narrow background-work cropped image caught a height-transition frame and cannot establish settled vertical layout; other full task views are complete. Recorded minor capture coverage limit, not claimed as settled-frame acceptance."
+  ],
+  "additionalVerification": {
+    "controlledFixtureTests": {
+      "passed": 3,
+      "failed": 0,
+      "sha256": "2e88ffe63aac55e93a4747c7750010963127929fc5d8e679950ef59b924ad506"
+    },
+    "overlayDesktopTypecheck": {
+      "passed": true,
+      "sha256": "f33afe1f83354295acc80da02415ea8076d6482e6441b84885c4fdc20901ff9f"
+    }
+  }
+}
