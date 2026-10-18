@@ -1,7 +1,7 @@
 # Peer 交付状态清单
 
 创建时间：2026-09-15
-最后更新：2026-10-16（D10：RC15 已发布及原装包验收）
+最后更新：2026-10-18（D10：RC16 已发布及正式包验收）
 
 > 状态：本地证据盘点；不是发布认证，也不批准新的能力或权限。
 > 规划顺序以 [产品路线图](peer-product-roadmap.md) 为准；本文维护交付事实和下一项所需证据。
@@ -33,7 +33,7 @@
 | D8 Browser 后续能力 | **未实现（明确延期范围）**：持久 Profile、受控 attach、下载/对话框治理不能由临时隔离会话代替 | 按 ADR 分期评审能力、权限和证据，不直接移除现有拒绝逻辑 | [ADR 71](../../knowledge/decisions/71-l2-playwright-external-browser.md) |
 | D9 版本、Linux 包装及 keep-alive | **文档过期／验收与发布待核实**：当前历史已有 keep-alive 修复、Linux 包装及 v0.0.12 stamp；不再列为“未开始”。本次不认证安装包、更新链或线上发布 | 运行验收、CI 产物及线上渠道分别补证，不由 commit 标题推定已发布 | [keep-alive](https://github.com/ly-ccx/Peer-Agent/commit/3a1c57a7f069867cb577e6cd624b0a66bdcea27c)、[Linux 包装](https://github.com/ly-ccx/Peer-Agent/commit/d2a61a735ae80b8cdc9d0621f0671faee4c7a6e5)、[v0.0.12 stamp](https://github.com/ly-ccx/Peer-Agent/commit/52086dff046a7ea1703ebd7c53c96de9fa262fe6) |
 
-| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | Beta1–5、RC1–15 已预发布。RC15 固定 549ea1b2，候选双平台 CI、本机完整门禁、33 项升级恢复、154 图自审/Verify 通过。Release/Pages/npm 全成功，14 个资产已下载验摘要，Mac 签名公证、原装包 Full 首次/重启 8 次图片调用及旧 RC14 真实更新下载通过。此前复杂任务和模型语义问题的历史记录保留，不凭新源码测试宣布全面验收。 | 持续补齐安装器交接及真实模型质量；Windows/Linux 交互安装、完整读屏、负责人七天日用与 GA 仍需各自证据。 | [RC15 验收记录](../../playbook/v0.1.0/rc15-candidate.md)、[版本计划](v0.1.0-release-plan.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
+| D10 项目代理壳 / 机器人列表（ADR 80–85，目标版本 0.1.0） | Beta1–5、RC1–16 已预发布。RC16 固定 e2fa8e69，ADR93–95 持续推进、回复/子任务/历史错误分离、无默认累计执行限制与安全迁移已交付。180 图自审/Verify、34 项升级恢复、最终候选双平台 CI、正式 8 job、14 资产、Mac 签名公证、正式包 Full 首次/重启 8 次真实图片调用及实际策略、RC15 真实更新下载通过。QA 首次失败和 6 项次要限制保留，不凭确定性认知测试宣布模型语义全面验收。 | 持续补齐安装器交接及真实模型质量；Windows/Linux 交互安装、完整读屏、负责人七天日用与 GA 仍需各自证据。 | [RC16 验收记录](../../playbook/v0.1.0/rc16-candidate.md)、[版本计划](v0.1.0-release-plan.md)、[全面测试手册](../../playbook/v0.1.0/acceptance-test-guide.md) |
 
 ## 3. 近期顺序与非目标
 
