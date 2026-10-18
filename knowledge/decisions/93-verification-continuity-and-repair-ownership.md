@@ -43,6 +43,24 @@ RC15 的实际任务已经完成代码与隔离产品回归，却在独立复核
 
 ## 4. 状态与处理责任
 
+```mermaid
+flowchart TD
+    A[用户交代目标] --> B[保存工作责任与授权来源]
+    B --> C[工作 Agent 执行并保存 Evidence]
+    C --> D[独立核验]
+    D -->|软切片| E[保存已配对结果和原生现场]
+    E --> D
+    D -->|通过完整闸门| F[交付结论与按政策签收]
+    D -->|具体问题| G[主 Bot 检查原因与安排修复]
+    G --> H[可选的进展汇报]
+    G -->|需要修改或补充证据| C
+    H --> I[保留处理责任]
+    I -->|继续核验| D
+    G -->|真实人工请求| J[等待具体用户决定]
+    J -->|决定落盘| B
+    G -->|停止或硬边界| K[保留结果并说明停止原因]
+```
+
 1. cancelled / failed、已签收、取消或接手等待未知结果等权威终态沿用原优先级。
 2. 有真实未解决的人类请求才是 waiting_user。`runner.waiting_user` 与宿主 `waitingOnUser` 继续表示真实请求；普通 blocked 不生成 question。
 3. 活跃核验显示 verifying，即使之前的 runner 仍记录旧复核阻塞。持久 verifying 标志不证明活跃执行。
@@ -61,6 +79,8 @@ RC15 的实际任务已经完成代码与隔离产品回归，却在独立复核
 12 轮改成核验软切片：Provider Loop 在一批工具结果配对后返回 yielded 与原生 checkpoint，不抛出“任务失败”。宿主在同一次独立核验责任内继续该上下文。每个核验责任另有有限累计请求 / 工具额度与原有最多 5 分钟总截止时间；格式修复也计入同一额度。有关联工作预算时仍经既有 WorkBudgetGuard 累计，不为重查、重启或切片重置真实 allowance。
 
 默认核验责任最多 96 个模型轮次、512 次工具调用；这是最后的安全边界，不是每片重置的额度。用户或全局工作预算更小则先停止。不能声称请求数可以精确限定 Provider 费用；真实物理 dispatch 仍由原计量入口预约。
+
+续跑元数据在 dispatch 前保存预约计数；存储或全局预算在后续准入拒绝时，预约可以保守计入已花额度，不能把未知计量当零。只支持旧 Adapter 结果计量的端口在片尾保守扣除；Desktop 的正式链路覆盖每次物理 dispatch。
 
 ### 5.2 恢复状态
 
@@ -111,3 +131,21 @@ coordinate_work query 只读回当前主 Bot 所属 Session 的当前事实与�
 ## 10. 取舍
 
 没有选择直接增大每次 Verifier 轮数：它仍会在下一次上限处丢现场。没有选择让 prompt 说“你必须继续”承担执行保证：持久责任、调度与权限必须由宿主落实。没有选择复核失败就让用户重新发消息：这会把技术恢复工作转嫁给人。有限切片与累计限制增加了状态校验，但将调试集中在两个 Module，能够实际验证何时继续、何时停止以及谁负责。
+
+## 11. 实施落点（2026-10-18）
+
+代码：[Peer-Agent PR #163](https://github.com/ly-ccx/Peer-Agent/pull/163)。独立基于 RC15 开发线，不混入尚未合并的 PR162。
+
+| 决策 | 实施与验证 |
+| --- | --- |
+| 真实处理责任 | Protocol / Runtime Session Facts 区分真人与技术阻塞；Watchdog 不为空技术阻塞合成问题，稳定 repairRevision 触发主 Bot 跟进事件 |
+| 汇报后继续 | RepairOwnership Module 和 ProjectWorkReceipt.repairSessionIds 持有责任；父 Runner 已完整发出的进展回复之后继续新的推理步骤，读取当前事实，不重放旧工具 |
+| 真正无进展时说明原因 | 进展话术不参与修复进展指纹；反复换说法仍被识别为同一阻碍。停下时保存明确的 agent_no_progress 回执，界面说明停止重复执行和已保留结果 |
+| 核验软切片 | VerificationContinuation Module；Executor 合并原 WorkBudgetGuard 与续跑预约，不覆盖原 guard；既有 Provider Loop 的 yieldAtTurnLimit 和 providerCheckpoint 负责原生恢复 |
+| 持久化与恢复 | GoalPlan.runner.verificationContinuation 与已登记的协调 checkpoint 存储；续跑端口检查来源、主体、模型、租约、原预算、未配对工具及截止时间；损坏元数据保留并拒绝，避免静默重置 allowance |
+| 诊断与发现 | SessionVerification 保留具体 message、nextAction 和失败审计。coordinate_work query 不写协调日志、不签发 mandate，可先发现当前 goalRevision。focus 500 字上限进入模型可见 schema |
+| 安全收口 | completeRecheck 用 settlement authority 重算完整 gate；所有叶子完成、目标与报告未变的写任务也可关闭纯验证阻塞。用户问题、人工标准、产品交付、停止及版本条件保留 |
+
+生产链路集成测试实际通过 Verifier → Executor → Responses Loop → 只读文件 Provider 读取 13 个临时文件；12 轮让出后，第 14 个物理模型请求返回合法带证据结论。首片 Tool Result 保留在第二片请求中，13 个调用身份均唯一；核验累计与所属工作预算同为 14 请求、13 工具。传输响应由测试控制，文件读取、PermissionGrant / Evidence 和原生恢复使用实际执行链；不能称为真实云模型判断质量验收。
+
+聚焦回归验证旧伪 waiting_user 恢复、父汇报后的继续执行、同一故障换话术仍停止、真正人工请求不被消耗、源版本变化、并发、取消、超时、拒绝、存储失败、缺失/损坏 checkpoint、格式重试累计扣除、旧失败历史保留及写任务无 Worker 重放收口。当前代码不修改真实用户数据，不为旧任务制造 mandate。
