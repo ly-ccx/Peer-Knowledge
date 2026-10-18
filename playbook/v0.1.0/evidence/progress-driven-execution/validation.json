@@ -370,16 +370,35 @@
     }
   ],
   "ci": {
+    "attempt": 2,
+    "firstMacFailure": {
+      "jobId": 117597294895,
+      "stage": "Bot shell Electron smoke (macOS)",
+      "assertion": "visible receipt p50 must stay below 300ms",
+      "observedMedianMs": 386.4000000000233,
+      "thresholdMs": 300,
+      "receiptSamplesMs": [
+        168,
+        386.4000000000233,
+        1223.1000000000931,
+        795,
+        254.40000000002328
+      ],
+      "localMedianMs": 57.19999998807907,
+      "budgetAndRecoveryAssertionsPassed": true,
+      "sameSourceRerun": true,
+      "assertionRelaxed": false
+    },
     "runId": 39100990065,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39100990065",
     "sourceHead": "25b49d8f7783f22387b52faf1853d93efad53429",
-    "status": "in_progress",
-    "conclusion": "",
+    "status": "completed",
+    "conclusion": "success",
     "jobs": [
       {
         "name": "ci-macos-14",
-        "conclusion": "",
-        "status": "in_progress",
+        "conclusion": "success",
+        "status": "completed",
         "steps": [
           {
             "name": "Set up job",
@@ -448,45 +467,50 @@
           },
           {
             "name": "Bot shell Electron smoke (macOS)",
-            "status": "in_progress",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Bot shell Electron smoke (Linux)",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "skipped"
           },
           {
             "name": "Preserve bot shell report",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Setup Bun",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Setup Node",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Setup pnpm",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Checkout",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
           }
         ]
       },
       {
         "name": "ci-ubuntu-latest",
-        "conclusion": "",
-        "status": "in_progress",
+        "conclusion": "success",
+        "status": "completed",
         "steps": [
           {
             "name": "Set up job",
@@ -560,37 +584,64 @@
           },
           {
             "name": "Bot shell Electron smoke (Linux)",
-            "status": "in_progress",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Preserve bot shell report",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Setup Bun",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Setup Node",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Setup pnpm",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
           },
           {
             "name": "Post Checkout",
-            "status": "pending",
-            "conclusion": ""
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
           }
         ]
       }
-    ]
+    ],
+    "finalMacReceipt": {
+      "jobId": 117600361371,
+      "reportOk": true,
+      "testedMergeHead": "ce3bc3cefa08705d563e8756e95647da57c63b55",
+      "receiptSamplesMs": [
+        239.30000000004657,
+        161.59999999997672,
+        185.09999999997672,
+        125.80000000004657,
+        144
+      ],
+      "medianMs": 161.59999999997672,
+      "budgetFailure": {
+        "reasonVisible": true,
+        "diagnosticInDrawer": true,
+        "retrySuppressed": true,
+        "limitVisible": true,
+        "narrowFits": true
+      },
+      "recoveryCaseCount": 32
+    },
+    "testedMergeHead": "ce3bc3cefa08705d563e8756e95647da57c63b55"
   },
   "candidateHistory": [
     {
@@ -646,6 +697,14 @@
     {
       "name": "peer-progress-verify-v2.log",
       "sha256": "7048837c421ffafe846f3b40769ce4d9ff05ed53f4713d265e0bf331b2beba9f"
+    },
+    {
+      "name": "peer-progress-ci-mac-v2-clean.log",
+      "sha256": "2990a36f00c88119839c8a3bf3f1ef5f1161543f81837d9209d3afdb6891fde7"
+    },
+    {
+      "name": "peer-progress-ci-mac-v2-retry-clean.log",
+      "sha256": "8db9d91949fe27ca3cf4fd150c30153c42fb79b959790f97bf30030e92a7e779"
     }
   ],
   "savedScreenshots": [
