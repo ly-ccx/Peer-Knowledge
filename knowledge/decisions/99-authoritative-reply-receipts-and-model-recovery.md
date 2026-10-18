@@ -34,6 +34,8 @@ The recovery run admitted a new user work but remained in one Provider request w
 
 The shared SSE reader Module settles on the first protocol terminal, EOF, cancellation, timeout or error. Cleanup must not hold the business terminal open; late data must not emit events or dispatch tools. Chat Completions, Responses, Anthropic and Gemini share the read/cancel Seam. Preserve authentic usage, paired calls, partial output and replaySafe; partial failures cannot automatically replay. End a Chat stream on `[DONE]` without waiting for TCP EOF. This changes no permission or Evidence authority.
 
+The Desktop connection-timeout adapter also removed its parent abort forwarding as soon as headers arrived. A deterministic test confirms that later caller cancellation never reached the response-body signal. Compose the connection deadline and caller lifetime with AbortSignal.any so cancellation remains authoritative through the complete body while the connection timer still stops at headers.
+
 ### 2.6 Historical Reply Details
 
 详情选择按 canonical message identity / turnId 从已加载消息建立展示投影，不依赖该行是否因历史折叠而出现在聊天 rows；未加载的实体通过现有 conversation pager 定位。保持权限/Evidence读取入口不变，不让 renderer 读存储。暂时缺失仅在确实找不到或读取失败时显示。
