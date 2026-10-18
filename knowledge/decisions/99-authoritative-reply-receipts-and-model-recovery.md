@@ -20,7 +20,11 @@
 
 Provider 的原生跨模型拒绝保持。协调层比较当前已解析 selection 与检查点 provider/providerId/model。完全相同则原生续接；不同且所有历史工具均已配对、账本无未知副作用时，启动同一 work 的新认知步，沿用实际 Tool Result/Evidence 的 bounded retryContinuity、当前上下文和用量，不回放旧调用、不重建原生 reasoning。未配对/未知派发继续阻止自动续接。旧 checkpoint 保留以供追溯。新模型自己依据当前事实决定后续操作，不能冒认旧轮交付成功。
 
-### 2.3 Historical Reply Details
+### 2.3 Terminal Response Guard
+
+真实大历史验收再次出现 unsupported_tool_response。追查共享终态守卫发现其把“tool result / exitCode / I verified / 我检查了”等普通复核报告用词一律当成未执行工具声称，完全不看前面实际配对的 Tool Result。它不只检测协议标签；因此原报错“协议文本”也不准确。使用真实工具结果后的普通总结必须可以进入报告解码与 Evidence 校验；没有工具结果的空执行声称、下一步行动旁白、正文伪工具标签仍拦截。事实真实性仍由 CapabilityExecution、Evidence、Verifier decoder 和 host acceptance 判断，不能由一个正文关键词充当完成门禁。共享 kernel 向守卫传入原生历史中是否存在结构化工具结果；不解析普通正文为工具，不把允许文本等同验收通过。
+
+### 2.4 Historical Reply Details
 
 详情选择按 canonical message identity / turnId 从已加载消息建立展示投影，不依赖该行是否因历史折叠而出现在聊天 rows；未加载的实体通过现有 conversation pager 定位。保持权限/Evidence读取入口不变，不让 renderer 读存储。暂时缺失仅在确实找不到或读取失败时显示。
 
