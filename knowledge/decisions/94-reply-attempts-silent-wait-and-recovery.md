@@ -65,7 +65,7 @@ RC15 的后台唤醒收到 HTTP 200 和 response.completed，但正文为空、�
 | 保守恢复判定 | 新 agent_turn、静默等待、跨工作回复、prepared、invalidated、过期/消费预约均不能证明恢复；暂停、取消、当前失败分别投影，通过 |
 | 本地工程 | Runtime 全包 1275 项通过；最后 Activity 身份修正后 19 项集成重跑通过；68 项边界测试通过；build/typecheck/architecture 检查通过。全包记录早于最后 Activity 小修，最终全包以 CI 对应提交为准 |
 | 产品回归 | 完整 Capture 后，166 张必查截图经 28 张联系表逐图检查，关键状态另看原图；实现者自审 independent=false；Verify passed，2026-10-18T04:49:17.326Z |
-| CI | 最终提交 3689e82d 的 build/typecheck/architecture/全量 Test 在 Linux 与 macOS 均通过，桌面烟测仍运行；前一提交 macOS 两次原生夹具失败见第 8 节，不计作通过 |
+| CI | [最终 CI 39097955532](https://github.com/ly-ccx/Peer-Agent/actions/runs/39097955532) 首次运行通过：Linux/macOS 的 build、typecheck、architecture、全量 Test、Electron 桌面烟测全部通过；前一提交 macOS 两次原生夹具失败见第 8 节，不计作通过 |
 
 产品包 runId：`4af349e1-c664-46cd-932c-696932a6e458`。源码指纹：`42e95a392cf0776c2331569c256dc50930a27d7e1f15ce7ce227bf14efb06f58`。审查和摘要见 [验收证据](../../playbook/v0.1.0/evidence/reply-attempts-state/validation.json)、[逐图审查](../../playbook/v0.1.0/evidence/reply-attempts-state/review.json)。
 
@@ -78,3 +78,5 @@ RC15 的后台唤醒收到 HTTP 200 和 response.completed，但正文为空、�
 候选 a04909a3 的本地标准包 166 图自审及 Verify 通过，Linux CI 通过；macOS 首次与单次复跑均在既有 Quick Chat 原生夹具的 `ElectronApplication.evaluate` 报 `Resulting promise was garbage collected`，分别发生于菜单准备与清理步骤；新增 22 组回复状态场景和两平台全量测试均通过。两次失败均保留，不将失败 CI 计为成功。
 
 提交 3689e82d 将隔离原生窗口/菜单控制移到已有测试入口的一次性命令/回执方式，宿主在原生事件循环消费单调序列，仅首次消费执行动作；读取回执不重放选择。生产 Menu 构造与回调、正式 Renderer IPC、模型/思考强度的持久保存、失败回滚及发送参数断言保留，未增加产品 IPC 或放宽权限。聚焦测试验证去重、失败回执和菜单恢复。修正后重新 Capture、逐图审查和 CI，旧包不重绑定新源码。
+
+最终提交 3689e82d 的完整 CI 两平台通过（run 39097955532，attempt 1）；重新采集的 166 张截图均已检查，Verify passed。此记录不扩大源码 Electron、受控认知与实现者自审的覆盖边界。
