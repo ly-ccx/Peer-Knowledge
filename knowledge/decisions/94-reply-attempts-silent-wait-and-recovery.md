@@ -56,7 +56,7 @@ RC15 的后台唤醒收到 HTTP 200 和 response.completed，但正文为空、�
 
 ## 7. 验收记录
 
-代码：[Peer-Agent #163](https://github.com/ly-ccx/Peer-Agent/pull/163)，当前提交 `a04909a332b0dfc421788eebf11f5fa4674571ab`。ADR 先行提交 `f61dd6a`。本轮未合并、安装或发布 RC。
+代码：[Peer-Agent #163](https://github.com/ly-ccx/Peer-Agent/pull/163)，当前提交 `3689e82d2c04c2ad01e3588054fda0e7f674b7d6`。ADR 先行提交 `f61dd6a`。本轮未合并、安装或发布 RC。
 
 | 检查 | 结果及边界 |
 | --- | --- |
@@ -64,11 +64,17 @@ RC15 的后台唤醒收到 HTTP 200 和 response.completed，但正文为空、�
 | 模型静默等待 | 实际 Responses 循环、Runtime Projection、Tool Host、Delegation Provider 返回配对结果、PermissionGrant、Evidence 与 terminal control；只发一次模型请求，未因空正文重试，通过 |
 | 保守恢复判定 | 新 agent_turn、静默等待、跨工作回复、prepared、invalidated、过期/消费预约均不能证明恢复；暂停、取消、当前失败分别投影，通过 |
 | 本地工程 | Runtime 全包 1275 项通过；最后 Activity 身份修正后 19 项集成重跑通过；68 项边界测试通过；build/typecheck/architecture 检查通过。全包记录早于最后 Activity 小修，最终全包以 CI 对应提交为准 |
-| 产品回归 | 完整 Capture 后，166 张必查截图经 28 张联系表逐图检查，关键状态另看原图；实现者自审 independent=false；Verify passed，2026-10-18T04:18:35.095Z |
-| CI | Linux 当前提交已通过；macOS 首次 Quick Chat 原生菜单夹具发生 Resulting promise was garbage collected，正在同源码单独复跑，尚未宣称通过 |
+| 产品回归 | 完整 Capture 后，166 张必查截图经 28 张联系表逐图检查，关键状态另看原图；实现者自审 independent=false；Verify passed，2026-10-18T04:49:17.326Z |
+| CI | 最终提交 3689e82d 的 build/typecheck/architecture/全量 Test 在 Linux 与 macOS 均通过，桌面烟测仍运行；前一提交 macOS 两次原生夹具失败见第 8 节，不计作通过 |
 
-产品包 runId：`31c5e713-99c4-4fde-88e3-f585cdd9a7c0`。源码指纹：`39f9120e43b0e946fadb70b79d0e6de6216679b082418bbc5b6c5840daaecc4e`。审查和摘要见 [验收证据](../../playbook/v0.1.0/evidence/reply-attempts-state/validation.json)、[逐图审查](../../playbook/v0.1.0/evidence/reply-attempts-state/review.json)。
+产品包 runId：`4af349e1-c664-46cd-932c-696932a6e458`。源码指纹：`42e95a392cf0776c2331569c256dc50930a27d7e1f15ce7ce227bf14efb06f58`。审查和摘要见 [验收证据](../../playbook/v0.1.0/evidence/reply-attempts-state/validation.json)、[逐图审查](../../playbook/v0.1.0/evidence/reply-attempts-state/review.json)。
 
 保留 4 项非阻断发现：Quick Chat 透明离屏浅图不能证明原生浅色对比度；预置旧失败侧栏摘要仍有技术前缀；合成签收场景沿用旧“最近说明”，不用于证明实际签收语义；窄窗暂停帧的回到底部浮钮与详情焦点局部交叠，详情左侧及键盘仍可进入。具体说明在 review.json。不能据这些帧宣称完整读屏或所有窗口原生外观已经验收。
 
 候选过程保留：初稿为 Activity 身份修正取消；中间测试对隐藏 Activity 的断言修正后 19 项通过；最终提交第一次完整 Capture 在 Quick Chat 句柄回收处失败，未接受；同源码完整重试、逐图自审和 Verify 才被接受。真实云模型质量、安装版升级、完整读屏和长期运行仍未覆盖。
+
+## 8. 验收夹具修正
+
+候选 a04909a3 的本地标准包 166 图自审及 Verify 通过，Linux CI 通过；macOS 首次与单次复跑均在既有 Quick Chat 原生夹具的 `ElectronApplication.evaluate` 报 `Resulting promise was garbage collected`，分别发生于菜单准备与清理步骤；新增 22 组回复状态场景和两平台全量测试均通过。两次失败均保留，不将失败 CI 计为成功。
+
+提交 3689e82d 将隔离原生窗口/菜单控制移到已有测试入口的一次性命令/回执方式，宿主在原生事件循环消费单调序列，仅首次消费执行动作；读取回执不重放选择。生产 Menu 构造与回调、正式 Renderer IPC、模型/思考强度的持久保存、失败回滚及发送参数断言保留，未增加产品 IPC 或放宽权限。聚焦测试验证去重、失败回执和菜单恢复。修正后重新 Capture、逐图审查和 CI，旧包不重绑定新源码。
