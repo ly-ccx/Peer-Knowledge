@@ -28,6 +28,8 @@ Provider 的原生跨模型拒绝保持。协调层比较当前已解析 selecti
 
 第二轮大历史真实任务完成修改、18项测试、两层实际复核、正式回复与 accepted；随后后台 wake 已在发请求，新用户消息虽入队，却要等该后台请求返回才有机会执行，取消验收两分钟未派发。新输入须能抢占无活跃工具派发的后台认知请求：调用既有 AbortSignal，旧工作按 yielded 保存保护检查点，事件继续归原 work；新输入不能继承旧批次，已完成工具不重放。有活跃工具或未知副作用时不擅自中断派发，仍由既有完整结果/取消/超时及 ledger 收尾。此变化不取消子任务，也不把正常调度抢占当成用户可见错误。
 
+真实取消后的长回复验收发现同一问题还存在于自动续接的旧 user job：它保留原 kind=user，不能仅凭 kind=wake 判断后台身份。自动 continuation 的无活跃工具认知请求同样允许新输入抢占，原用户工作的事实与检查点保持独立。首次执行的前台用户回合仍在工具结果安全点让出；不将所有用户请求无条件取消。foreground-input 的中断原因在异常和普通终态两条路径均归类为调度让出，不计入失败熔断。
+
 ### 2.5 Provider Stream Lifecycle
 
 The recovery run admitted a new user work but remained in one Provider request with zero tool dispatches. The compatibility Chat consumer records `[DONE]` without ending its read loop. A connection that remains open therefore withholds already received tool calls from execution. Reads also do not race AbortSignal, and cancellation/idle cleanup awaits reader.cancel indefinitely. A reader that never closes and never settles cancel reproduces both defects deterministically.
