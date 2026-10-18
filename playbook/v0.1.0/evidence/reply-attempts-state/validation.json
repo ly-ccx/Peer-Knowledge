@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "a04909a332b0dfc421788eebf11f5fa4674571ab",
+  "sourceFingerprint": "39f9120e43b0e946fadb70b79d0e6de6216679b082418bbc5b6c5840daaecc4e",
+  "runId": "31c5e713-99c4-4fde-88e3-f585cdd9a7c0",
+  "product": {
+    "status": "passed",
+    "reviewedAt": "2026-10-18T04:18:35.095Z",
+    "requiredScreenshots": 166,
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "tests": {
+    "localRuntimeFull": {
+      "pass": 1275,
+      "fail": 0,
+      "scope": "Before final activity identity refinement; final focused integration rerun covers that refinement"
+    },
+    "activityIdentityIntegration": {
+      "pass": 19,
+      "fail": 0
+    },
+    "focusedBoundarySuite": {
+      "pass": 68,
+      "fail": 0
+    },
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed"
+  },
+  "scenarioSources": [
+    "packages/runtime-node/src/project-agent/continuity.integration.test.mjs",
+    "packages/runtime-node/src/project-agent/wake-wait.test.mjs",
+    "packages/runtime-node/src/project-agent/reply-failure-facts.test.mjs",
+    "apps/desktop/electron/main/chat-runtime/openai-responses-empty-recovery.test.mjs",
+    "apps/desktop/renderer/src/project-agent/state/botConversationState.test.ts"
+  ],
+  "scenarios": [
+    "Main reply failure does not stop advancing child",
+    "Host routine wake makes zero model requests and preserves waitFor through restart",
+    "Accepted waiting Tool Result ends actual Responses loop without an empty-response retry",
+    "Repeated failed attempts remain historical, not recovered",
+    "Only same-work delivered canonical reply proves recovery",
+    "Prepared, invalidated, cross-work replies and silent waits do not prove recovery",
+    "Human waits, repair, cancellation and unknown outcomes retain existing guards",
+    "Expired and consumed retry reservations cannot promise recovery"
+  ],
+  "candidateHistory": [
+    {
+      "source": "8e7399e6",
+      "result": "capture cancelled to correct silent wake activity identity"
+    },
+    {
+      "source": "ad690e82",
+      "result": "capture cancelled; test expected a visible activity for a deliberately invisible wake; assertion corrected and 19 integration tests rerun"
+    },
+    {
+      "source": "a04909a332b0dfc421788eebf11f5fa4674571ab",
+      "result": "first full capture failed at QuickChat native select with resulting promise garbage collected; 22 reply-state samples passed, no product acceptance claimed"
+    },
+    {
+      "source": "a04909a332b0dfc421788eebf11f5fa4674571ab",
+      "result": "same-source complete capture, 166 screenshot self-review and Verify passed"
+    }
+  ],
+  "logs": [
+    {
+      "name": "peer-reply-status-runtime-final.log",
+      "sha256": "0e2b8f6927462d9d086fff52326c276020f94ab1d5f9bb55d419c421774a1ee8"
+    },
+    {
+      "name": "peer-reply-status-typecheck-final.log",
+      "sha256": "d0eb476a9cfd1c875422e6301e914bee46a4817a063cb5f33bc6bda748c45169"
+    },
+    {
+      "name": "peer-reply-status-architecture-final.log",
+      "sha256": "66bdef890b7a3750e548288fb55c68bb91070e132b2b436d9d6fdf4904d63aed"
+    },
+    {
+      "name": "peer-reply-status-activity-identity-final.log",
+      "sha256": "e9ace68d728c47b3683160d13c3c4e2ac903eb40edcf6a7a2a91fe10dc1267c2"
+    },
+    {
+      "name": "peer-reply-status-boundaries-final.log",
+      "sha256": "c30f32238ed616f699f4c338a9c6e8d436aa73cade99070f32b022b455706b33"
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "recovery-child-running-dark.png",
+      "sha256": "0c94f4d8737b5fb2340d4d13aa6b9e7aa4559082140fb948275fd3441e4c238c"
+    },
+    {
+      "id": "recovery-child-running-light.png",
+      "sha256": "5f6f89559b44b16cc7d9c39cfb94fc6f1229d7544fd04c267dbe886cc4c7f285"
+    },
+    {
+      "id": "recovery-historical-light.png",
+      "sha256": "c2a99f441c395cab8e9d9bace70a06d130e720377f954402ce7cccd895877623"
+    },
+    {
+      "id": "recovery-resolved-dark.png",
+      "sha256": "eb89418db51075c07591583299051365edfa452a00d4a680db323c70cf5468d8"
+    },
+    {
+      "id": "recovery-paused-light.png",
+      "sha256": "38e01d92dd0c7a43da4e8d32d372abb971ee795c5e06ea97e43cb198278db760"
+    },
+    {
+      "id": "recovery-cancelled-dark.png",
+      "sha256": "f8ff38986b159955439968ba045c1e1f16ea95dab85dc4cc9359086baf621a6e"
+    }
+  ]
+}
