@@ -1,0 +1,17 @@
+{
+  "run": 39105392210,
+  "attempt": 1,
+  "job": 117610269776,
+  "sourceMergeHead": "abe3b8260bcd3bf3604ba307c7d3087e2370674f",
+  "error": "locator.isDisabled: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('.bot-background-work').locator('.bot-work-row[data-status=waiting_user]').locator('.bot-task-cancel button')\n\n    at <repo>/apps/desktop/scripts/bot-task-cancel-checks.mjs:46:64\n    at until (<repo>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:433:55)\n    at checkBotTaskCancellation (<repo>/apps/desktop/scripts/bot-task-cancel-checks.mjs:46:9)\n    at async file://<repo>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:709:5",
+  "finishedAt": "2026-10-18T07:10:56.292Z",
+  "receiptSamples": [
+    165.19999999995343,
+    177.30000000004657,
+    212.90000000002328,
+    152.80000000004657,
+    144.70000000006985
+  ],
+  "failureScreenshot": "rc16-candidate-macos-first-failure-20261018.png",
+  "observation": "Host already cancelled the target while driver still searched waiting_user disabled action within a nominal 650ms pending fixture interval. Screenshot shows correct cancelled receipt and unrelated work preserved. Both independent CI failures demonstrate fixed-timer fixture races, motivating explicit driver/host stage handshakes. No production cancellation change."
+}

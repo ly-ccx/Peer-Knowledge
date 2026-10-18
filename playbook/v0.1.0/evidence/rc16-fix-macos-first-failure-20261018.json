@@ -1,0 +1,21 @@
+{
+  "run": 39105393764,
+  "attempt": 1,
+  "job": 117610278962,
+  "sourceMergeHead": "c1b65fdd712556ad8e1d5cd079056738892e1993",
+  "sourceDirty": false,
+  "error": "AssertionError [ERR_ASSERTION]: the stop receipt does not remove the action before the final host fact\n\n0 !== 1\n\n    at checkBotTaskCancellation (file://<repo>/apps/desktop/scripts/bot-task-cancel-checks.mjs:79:10)\n    at async file://<repo>/apps/desktop/scripts/bot-shell-electron-smoke.mjs:709:5",
+  "finishedAt": "2026-10-18T07:07:00.137Z",
+  "receiptSamples": [
+    207.90000000002328,
+    240.90000000002328,
+    325.9000000000233,
+    253.90000000002328,
+    257.0999999999767
+  ],
+  "all32RecoveryCasesPassed": true,
+  "recoveryCases": 32,
+  "failureScreenshot": "rc16-fix-macos-first-failure-20261018.png",
+  "observation": "Screenshot shows final cancelled task with cancellation action removed and focus on Back. Fixture advances stopping to cancelled after 500 ms; driver expected an action still mounted after a previous status observation. Same-source failed-platform rerun requested once; no product/assertion change.",
+  "unitGate": "Initial full-load watch-runner debounce test expected 2 events, observed 1. CI isolated-file retry passed and Test step succeeded; original failure retained in logs."
+}
