@@ -149,3 +149,36 @@ coordinate_work query 只读回当前主 Bot 所属 Session 的当前事实与�
 生产链路集成测试实际通过 Verifier → Executor → Responses Loop → 只读文件 Provider 读取 13 个临时文件；12 轮让出后，第 14 个物理模型请求返回合法带证据结论。首片 Tool Result 保留在第二片请求中，13 个调用身份均唯一；核验累计与所属工作预算同为 14 请求、13 工具。传输响应由测试控制，文件读取、PermissionGrant / Evidence 和原生恢复使用实际执行链；不能称为真实云模型判断质量验收。
 
 聚焦回归验证旧伪 waiting_user 恢复、父汇报后的继续执行、同一故障换话术仍停止、真正人工请求不被消耗、源版本变化、并发、取消、超时、拒绝、存储失败、缺失/损坏 checkpoint、格式重试累计扣除、旧失败历史保留及写任务无 Worker 重放收口。当前代码不修改真实用户数据，不为旧任务制造 mandate。
+
+## 12. 实施验收记录
+
+最终候选提交为 `29ab666bf021a4598b9bbbafea42dea730e1d6c9`。完整机器记录和日志摘要见 [validation.json](../../playbook/v0.1.0/evidence/verification-continuity/validation.json)。
+
+| 范围 | 实际结果 |
+| --- | --- |
+| Runtime Node 全包 | 1268 通过，0 失败，0 跳过 |
+| Desktop 全包 | 5531 通过、5 个既有跳过；另 1 项 i18n 检查通过 |
+| build / typecheck / architecture | 全部通过；架构检查包含 SVG 图标与圆角规则 |
+| 产品闸门测试 | 6 项通过 |
+| 生产入口集成 | 主 Bot 汇报后无需新用户消息便继续处理并交付；反复同义汇报在无进展保护下产生一条明确的停止回执 |
+| Verifier 与真实工具 | 13 个临时文件、14 个物理模型请求、13 个唯一工具调用；跨 12 轮继续，无重复文件读取，累计工作预算保持一致 |
+| 产品 Capture → Review → Verify | 158 张必需截图全部逐图实施者自审，最终 Verify 通过 |
+
+本机最终包测试与 build/typecheck/architecture 对应 `3162b151`；随后 `29ab666b` 仅修正产品闸门对新无进展场景的预期重试状态。此前截图包因缺少该预期而被闸门拒绝，没有改写旧包绑定来放行；修正后从最终提交重新生成全部截图并重新审阅。
+
+最终产品包：runId `532e4485-447a-4314-ad8d-3791ff3e276e`，sourceFingerprint `fabdb0de64f113fe40564dcfa749ec81b0981e37ac1876038520b5865bf4a2fc`。逐图观察、两个次要覆盖限制及哈希见 [review.json](../../playbook/v0.1.0/evidence/verification-continuity/review.json)，Verify 回执见 [result.json](../../playbook/v0.1.0/evidence/verification-continuity/result.json)。
+
+新增状态的实际截图：
+
+| 技术阻塞由主 Bot 跟进 | 无进展时明确停止原因 |
+| --- | --- |
+| ![深色跟进卡](../../playbook/v0.1.0/evidence/verification-continuity/work-repair-1280-dark.png) | ![深色无进展回执](../../playbook/v0.1.0/evidence/verification-continuity/recovery-no-progress-dark.png) |
+| ![浅色窄窗跟进卡](../../playbook/v0.1.0/evidence/verification-continuity/work-repair-760-light.png) | ![浅色无进展回执](../../playbook/v0.1.0/evidence/verification-continuity/recovery-no-progress-light.png) |
+
+CI 记录在最终检查结束后补齐。
+
+### 覆盖边界
+
+这份产品审查的 `independent=false`：由实现者自审，不是另一位审查者或独立模型的结论。测试中的认知响应受控；文件读取、权限、Evidence、原生续跑和桌面主进程/Preload/Renderer 使用生产入口，但没有测试真实云模型的判断质量和网络时序。未替换安装版、未安装或发布 RC，也没有完整读屏器或长期使用验收。
+
+截图审阅记录了两个既有次要限制：Quick Chat 浅色离屏透明图的黑底合成不能证明原生浅色对比度；预置旧失败会话的侧栏摘要仍含技术前缀。本次新增的主 Bot 跟进和无进展主消息均使用明确中文。完整权限等待、允许后继续、拒绝、取消、停止、超时、完全授权多图，以及预算/未知结果的既有机器场景也通过，但不据此宣称所有真实模型行为已经穷尽。

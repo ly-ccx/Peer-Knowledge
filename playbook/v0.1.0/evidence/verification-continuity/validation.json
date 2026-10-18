@@ -1,0 +1,213 @@
+{
+  "independent": false,
+  "controlledProviderTransport": true,
+  "installedBuild": false,
+  "realCloudModel": false,
+  "logs": {
+    "build": {
+      "sha256": "f523a9c2eeef9479f4298b98593c1a3bee9a3be5fa3381c53f517f0fb12749d8",
+      "counts": {
+        "tests": [],
+        "pass": [],
+        "fail": [],
+        "skipped": []
+      }
+    },
+    "runtime": {
+      "sha256": "b3fb0a3e3b43626e03bfe0a1928d0c6e4b92586a4877a9a94c4a4d9c3de6b2b6",
+      "counts": {
+        "tests": [
+          1268
+        ],
+        "pass": [
+          1268
+        ],
+        "fail": [
+          0
+        ],
+        "skipped": [
+          0
+        ]
+      }
+    },
+    "desktop": {
+      "sha256": "911201412b2a55928dbb29cb6a73dc8828db6d1289d8b601207b7ca36da28147",
+      "counts": {
+        "tests": [
+          5536,
+          1
+        ],
+        "pass": [
+          5531,
+          1
+        ],
+        "fail": [
+          0,
+          0
+        ],
+        "skipped": [
+          5,
+          0
+        ]
+      }
+    },
+    "typecheck": {
+      "sha256": "b1b20569ad33f6407df28293806f53a7f32426cab6bbdc24045e98ea9cbb080e",
+      "counts": {
+        "tests": [],
+        "pass": [],
+        "fail": [],
+        "skipped": []
+      }
+    },
+    "architecture": {
+      "sha256": "66bdef890b7a3750e548288fb55c68bb91070e132b2b436d9d6fdf4904d63aed",
+      "counts": {
+        "tests": [],
+        "pass": [],
+        "fail": [],
+        "skipped": []
+      }
+    },
+    "product_gate": {
+      "sha256": "d39d48f21a837032f6888a3b8c8d0810f1dd6a15f6f375e1a5737997f786d272",
+      "counts": {
+        "tests": [
+          6
+        ],
+        "pass": [
+          6
+        ],
+        "fail": [
+          0
+        ],
+        "skipped": [
+          0
+        ]
+      }
+    },
+    "full_before_final_stop_receipt": {
+      "sha256": "729e4caf180aefcd77b96ac4f3ec0d1906cfbedfeaace14f0436d1807f62f99e",
+      "counts": {
+        "tests": [
+          8,
+          10,
+          20,
+          235,
+          27,
+          87,
+          111,
+          200,
+          41,
+          1,
+          40,
+          1267,
+          5535,
+          1,
+          6,
+          27,
+          1
+        ],
+        "pass": [
+          8,
+          10,
+          20,
+          235,
+          27,
+          87,
+          111,
+          200,
+          41,
+          1,
+          40,
+          1267,
+          5530,
+          1,
+          6,
+          27,
+          1
+        ],
+        "fail": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "skipped": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "localSuiteSourceCommit": "3162b151b75d5e2c4f75949709fb7c7ecb534bcf",
+  "localSuiteSourceTree": "d4ead4946e693c66de4f18d033d5c08b5303e519",
+  "sourceCommit": "29ab666bf021a4598b9bbbafea42dea730e1d6c9",
+  "sourceTree": "b90f6b986d30c3842cb6d8f8dc53d70922babacf",
+  "sourceNote": "Local final package suites/build/typecheck/architecture used 3162b151; final 29ab666b only corrects the product gate expected retry=true for the new no-progress case. The complete product packet is freshly captured at final source.",
+  "productionIntegration": {
+    "fileReads": 13,
+    "physicalProviderRequests": 14,
+    "uniqueToolCalls": 13,
+    "duplicateReads": 0,
+    "workBudgetRequests": 14,
+    "workBudgetTools": 13,
+    "transport": "controlled Responses SSE",
+    "tools": "production readonly File Provider with PermissionGrant and Evidence"
+  },
+  "product": {
+    "runId": "532e4485-447a-4314-ad8d-3791ff3e276e",
+    "sourceFingerprint": "fabdb0de64f113fe40564dcfa749ec81b0981e37ac1876038520b5865bf4a2fc",
+    "screenshots": 158,
+    "reviewIndependent": false,
+    "verify": "passed",
+    "earlierGateFailure": "The first final-candidate packet was rejected because the new no-progress retry case was absent from the gate allowlist. The expectation was corrected and a completely new final-source capture and review passed."
+  },
+  "ci": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39090119504",
+    "status": "pending final smoke/retry"
+  },
+  "evidence": {
+    "review.json": "1df779daacc3baf668aecc43af9f9aab3bf727c21ec312df1cbc519c2abe0081",
+    "result.json": "bb491432f755e721e7d1d8d5576787a22feb26ee68a231b6e736ee85a8200ea7",
+    "work-repair-1280-dark.png": "01418a3a215018285913da3facc468cd45405a340e228bae210b1b4705057086",
+    "work-repair-760-light.png": "ff16af99639d5b8e8e95a6d9db153bfbaf9e4af21114b0ca4dc3ea5edf40329b",
+    "recovery-no-progress-dark.png": "a8b3b0a869ece06c24389e2b77987579127128709261ecb9d30b28718812ed6a",
+    "recovery-no-progress-light.png": "c95b13313bd35d2798acb3203495f710d46c537be054c55b6db244745573a090"
+  },
+  "limits": [
+    "Implementation self-review, not independent product review",
+    "Controlled provider responses, no real cloud semantic-quality acceptance",
+    "Source Electron, no installed RC or upgrade acceptance",
+    "Deterministic accessibility/focus checks, no complete screen-reader or long-duration acceptance",
+    "Old Quick Chat light offscreen alpha composite and legacy sidebar error prefix are recorded minor limitations"
+  ]
+}
