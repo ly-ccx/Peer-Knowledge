@@ -37,7 +37,7 @@ SessionSupervisor 的同步展示 Query Scope 在一次调用内复用 Catalog�
 
 scope 中的复用仅节省同一同步观察内的重复工作。取消、派发、amend、恢复、签收等命令继续沿原 exclusive/lease/PermissionGrant 路径，不能借旧展示快照执行。
 
-后台恢复的调用边界也纳入 P1：`hasContinuation → recoverJob → resolveRoster → Supervisor.list` 不得对没有候选工作的 Bot 无条件查询任务目录。遗留预算恢复和 continuation custody 的 Interface 接受数组或惰性读取函数；Implementation 先检查本地 work、预算与 checkpoint 候选，确实需要子任务事实时才调用读取函数。一次 custody 的分组阶段共享同一只读 roster，写阶段沿原规则执行；不跨恢复操作保存 roster，不缓存权限或执行准入。定向测试覆盖空 Bot、paused/delivered 历史、真实候选、失效与 coalesce 结果，不能用跳过恢复提速。
+后台恢复的调用边界也纳入 P1：`hasContinuation → recoverJob → resolveRoster → Supervisor.list` 不得对没有候选工作的 Bot 无条件查询任务目录。遗留预算恢复和 continuation custody 的 Interface 接受数组或惰性读取函数；Implementation 先检查本地 work、预算与 checkpoint 候选，确实需要子任务事实时才调用读取函数。一次 custody 的分组阶段共享同一只读 roster，写阶段沿原规则执行；不跨恢复操作保存 roster，不缓存权限或执行准入。恢复候选先按 runnable、到期 reservation 和已核对的 system block 筛选，再为这些候选读取 user input 检查点计算优先级；paused/delivered/cancelled 历史不因排序读取正文，候选间用户优先级及原恢复顺序不变。定向测试覆盖空 Bot、paused/delivered 历史、真实候选、失效与 coalesce 结果，不能用跳过恢复提速。
 
 ### 3.2 Session Conversation Facts 与 Recovery Card Admission（P2）
 
