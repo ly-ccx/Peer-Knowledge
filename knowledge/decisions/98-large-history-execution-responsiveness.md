@@ -47,6 +47,8 @@ scope 中的复用仅节省同一同步观察内的重复工作。取消、派�
 
 恢复卡先判断结构化历史关系、终态和廉价准入条件。已 superseded/recovered/cancelled/paused 的历史卡不读取检查点；无法恢复的终态也不加载恢复正文。仅当前可继续候选按需读取所需检查点。复用只可针对已校验文件内容；实际恢复命令重新检查当前 lease、预算策略、未结算工具与检查点，不能使用展示 canContinue 直接放行。
 
+追加写入的 Interface 增加可选 `returnMessages:false`：只返回已持久化的会话元数据，不为了被忽略的返回值重新读取整份 JSONL；默认返回完整会话的旧契约保持不变。Desktop Project Agent 的 append 适配器使用该选项，通知仍在原持久化调用成功之后发出。该元数据不是新 Evidence 或成功签收凭据；幂等检查、执行读取、锁、contentRevision、标题与计数更新沿用原路径。定向测试必须证明不读正文、正常追加、默认兼容、空消息规则及写失败不通知。
+
 ### 3.3 Presentation Refresh 与 Activity Rendering（P3）
 
 使用有界的合并刷新 Module，合并同一 Bot 的 changed/conversation-changed 突发，最多一个在途读取和一个待刷新标记；异常可重试，卸载取消待调度，不积累 Promise 队列。最终状态和输入关联仍由成功读取确认，不能用静默吞事件提速。
