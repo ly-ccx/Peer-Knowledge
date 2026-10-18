@@ -1,0 +1,574 @@
+{
+  "schemaVersion": 1,
+  "scope": "Diagnostic profiler overhead is present; these runs explain remaining pauses and do not replace final unprofiled real-task acceptance. 411/424/410/396ms pauses were retained, never relabeled eliminated. Read facts/metadata improvements alone were not treated as a complete fix.",
+  "runs": [
+    {
+      "id": "peer-rc19-stall-diagnostic.json",
+      "sourceHead": "9bffa558280bf829faf91efc7f947e97ef14b0f8",
+      "sourceDirty": false,
+      "diagnosticOnly": true,
+      "mainLoop": {
+        "p95": 1.432575,
+        "p99": 4.374527,
+        "max": 424.411135
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 1555,
+          "p50": 17.98758299999463,
+          "p95": 20.84233299999869,
+          "p99": 21.873292000003858,
+          "max": 109.41483299999982
+        },
+        "wheelRoundTripMs": {
+          "n": 1555,
+          "p50": 24.917166999992332,
+          "p95": 27.037083000002895,
+          "p99": 27.458291000002646,
+          "max": 110.76954199999454
+        },
+        "wheelOutliers": [
+          {
+            "at": "2026-10-18T18:35:57.231Z",
+            "dispatchMs": 8.391499999999724,
+            "paintWaitMs": 92.46891700000015,
+            "totalMs": 100.86041699999987
+          },
+          {
+            "at": "2026-10-18T18:37:21.872Z",
+            "dispatchMs": 101.85779199999524,
+            "paintWaitMs": 8.911749999999302,
+            "totalMs": 110.76954199999454
+          }
+        ],
+        "scrollMovedSamples": 1555,
+        "scrollCoverage": {
+          "topVisits": 4,
+          "bottomVisits": 5,
+          "liveReplyVisibleSamples": 1
+        },
+        "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+      },
+      "diagnostic": {
+        "ops": [
+          {
+            "name": "readFileSync",
+            "ms": 19.489125000000058,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:100:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.846166999999696,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:100:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.439957999999933,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:100:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.535915999999816,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:100:84"
+            ]
+          },
+          {
+            "name": "spawnSync",
+            "ms": 22.74054100000012,
+            "category": "peer-credential-helper",
+            "stage": "task",
+            "stack": [
+              "    at file://<code>/packages/credential-helper/dist/index.js:42:72",
+              "    at Object.invoke (file://<code>/packages/credential-helper/dist/index.js:46:28)",
+              "    at CredentialHelperClient.getSecret (file://<code>/packages/credential-helper/dist/index.js:94:41)",
+              "    at readApiKey (file://<isolated-large-history>/recovery-launch-1792348549097/isolated-workspace/apps/desktop/electron/main/llm-config-store.mjs:310:32)",
+              "    at Object.getDecryptedApiKey (file://<isolated-large-history>/recovery-launch-1792348549097/isolated-workspace/apps/desktop/electron/main/llm-config-store.mjs:1580:12)"
+            ]
+          }
+        ],
+        "gaps": [
+          {
+            "at": 6807.954583,
+            "ms": 44.68579199999931,
+            "stage": "baseline"
+          },
+          {
+            "at": 6881.957333,
+            "ms": 48.20850000000064,
+            "stage": "task"
+          },
+          {
+            "at": 7117.930416,
+            "ms": 84.33283300000039,
+            "stage": "task"
+          },
+          {
+            "at": 7311.935791,
+            "ms": 77.92408299999988,
+            "stage": "task"
+          },
+          {
+            "at": 7508.477166,
+            "ms": 79.01154099999985,
+            "stage": "task"
+          },
+          {
+            "at": 7706.160291,
+            "ms": 85.32816600000024,
+            "stage": "task"
+          },
+          {
+            "at": 8070.993083,
+            "ms": 332.79925000000003,
+            "stage": "task"
+          },
+          {
+            "at": 8198.393916,
+            "ms": 127.4008330000006,
+            "stage": "task"
+          },
+          {
+            "at": 8323.382958,
+            "ms": 41.168541999999434,
+            "stage": "task"
+          },
+          {
+            "at": 8466.985666,
+            "ms": 50.89283299999988,
+            "stage": "task"
+          },
+          {
+            "at": 15338.317208,
+            "ms": 417.99783300000126,
+            "stage": "task"
+          },
+          {
+            "at": 15428.452083,
+            "ms": 90.13487499999974,
+            "stage": "task"
+          },
+          {
+            "at": 15699.141291,
+            "ms": 52.568999999999505,
+            "stage": "task"
+          },
+          {
+            "at": 32147.961375,
+            "ms": 98.41908399999738,
+            "stage": "task"
+          },
+          {
+            "at": 62242.716625,
+            "ms": 96.299417000002,
+            "stage": "task"
+          },
+          {
+            "at": 92338.162916,
+            "ms": 95.58058300000266,
+            "stage": "task"
+          },
+          {
+            "at": 122433.815208,
+            "ms": 96.21566699999676,
+            "stage": "task"
+          }
+        ],
+        "metadata": {
+          "nativeMs": 0.3175829999963753
+        }
+      },
+      "credentialsRemoved": true
+    },
+    {
+      "id": "peer-rc19-stall-after.json",
+      "sourceHead": "4c46073283134145b12069c2f743b84e6c755fe8",
+      "sourceDirty": false,
+      "diagnosticOnly": true,
+      "mainLoop": {
+        "p95": 1.429503,
+        "p99": 4.530175,
+        "max": 410.517503
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 1564,
+          "p50": 18.722416999997222,
+          "p95": 20.931916999994428,
+          "p99": 22.25291599999764,
+          "max": 103.5502919999999
+        },
+        "wheelRoundTripMs": {
+          "n": 1564,
+          "p50": 24.504707999993116,
+          "p95": 26.96570900000006,
+          "p99": 27.385624999995343,
+          "max": 49.58141699999942
+        },
+        "wheelOutliers": [],
+        "scrollMovedSamples": 1564,
+        "scrollCoverage": {
+          "topVisits": 3,
+          "bottomVisits": 5,
+          "liveReplyVisibleSamples": 1
+        },
+        "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+      },
+      "diagnostic": {
+        "ops": [
+          {
+            "name": "readFileSync",
+            "ms": 18.765542000000096,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.185999999999694,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.41187499999978,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 17.85450000000037,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "spawnSync",
+            "ms": 24.08195799999976,
+            "category": "peer-credential-helper",
+            "stage": "task",
+            "stack": [
+              "    at file://<code>/packages/credential-helper/dist/index.js:42:72",
+              "    at Object.invoke (file://<code>/packages/credential-helper/dist/index.js:46:28)",
+              "    at CredentialHelperClient.getSecret (file://<code>/packages/credential-helper/dist/index.js:94:41)",
+              "    at readApiKey (file://<isolated-large-history>/recovery-launch-1792349187878/isolated-workspace/apps/desktop/electron/main/llm-config-store.mjs:310:32)",
+              "    at Object.getDecryptedApiKey (file://<isolated-large-history>/recovery-launch-1792349187878/isolated-workspace/apps/desktop/electron/main/llm-config-store.mjs:1580:12)"
+            ]
+          }
+        ],
+        "gaps": [
+          {
+            "at": 6918.497292,
+            "ms": 48.56487500000003,
+            "stage": "baseline"
+          },
+          {
+            "at": 6984.714792,
+            "ms": 45.61945800000012,
+            "stage": "task"
+          },
+          {
+            "at": 7190.282417,
+            "ms": 65.95587500000056,
+            "stage": "task"
+          },
+          {
+            "at": 7371.240167,
+            "ms": 61.94787499999984,
+            "stage": "task"
+          },
+          {
+            "at": 7540.9965,
+            "ms": 60.766625000000204,
+            "stage": "task"
+          },
+          {
+            "at": 7715.908792,
+            "ms": 60.516083000000435,
+            "stage": "task"
+          },
+          {
+            "at": 8148.274042,
+            "ms": 345.67004199999974,
+            "stage": "task"
+          },
+          {
+            "at": 8291.712417,
+            "ms": 143.43837500000063,
+            "stage": "task"
+          },
+          {
+            "at": 14749.757459,
+            "ms": 410.27183400000104,
+            "stage": "task"
+          },
+          {
+            "at": 14837.999292,
+            "ms": 88.24183300000004,
+            "stage": "task"
+          },
+          {
+            "at": 32202.749042,
+            "ms": 100.79612500000076,
+            "stage": "task"
+          },
+          {
+            "at": 62302.853959,
+            "ms": 100.99654200000077,
+            "stage": "task"
+          },
+          {
+            "at": 92401.543792,
+            "ms": 99.75824999999895,
+            "stage": "task"
+          },
+          {
+            "at": 122495.538042,
+            "ms": 95.05825000000186,
+            "stage": "task"
+          }
+        ],
+        "metadata": {
+          "nativeMs": 0.45587499999965075
+        }
+      },
+      "credentialsRemoved": true
+    },
+    {
+      "id": "peer-rc19-stall-lifecycle.json",
+      "sourceHead": "f10bd8cc5dcc38ad381d7a5239db640b37cdcfb2",
+      "sourceDirty": false,
+      "diagnosticOnly": true,
+      "mainLoop": {
+        "p95": 1.431551,
+        "p99": 4.636671,
+        "max": 396.361727
+      },
+      "interaction": {
+        "keyRoundTripMs": {
+          "n": 1575,
+          "p50": 18.418291999994835,
+          "p95": 21.021708000000217,
+          "p99": 22.097874999999476,
+          "max": 120.07549999999173
+        },
+        "wheelRoundTripMs": {
+          "n": 1575,
+          "p50": 24.564916999996058,
+          "p95": 26.97812500000873,
+          "p99": 27.473708000001352,
+          "max": 49.87316699999974
+        },
+        "wheelOutliers": [],
+        "scrollMovedSamples": 1575,
+        "scrollCoverage": {
+          "topVisits": 3,
+          "bottomVisits": 5,
+          "liveReplyVisibleSamples": 1
+        },
+        "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+      },
+      "diagnostic": {
+        "ops": [
+          {
+            "name": "readFileSync",
+            "ms": 18.88079199999993,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.00116700000035,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 18.282124999999724,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "readFileSync",
+            "ms": 19.129124999999476,
+            "category": "a54845c4-9e30-4c97-8e1b-c7126d302ab5.jsonl",
+            "stage": "task",
+            "stack": [
+              "    at readText (file://<code>/packages/conversation-store/dist/persisted-history.mjs:8:16)",
+              "    at readPersistedHistoryFiles (file://<code>/packages/conversation-store/dist/persisted-history.mjs:18:16)",
+              "    at attempt (file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:17:48)",
+              "    at file://<code>/packages/conversation-store/dist/history-projection-reader.mjs:32:20",
+              "    at file://<code>/packages/runtime-node/dist/project-agent/session-supervisor.mjs:102:84"
+            ]
+          },
+          {
+            "name": "spawnSync",
+            "ms": 21.95866600000045,
+            "category": "peer-credential-helper",
+            "stage": "task",
+            "stack": [
+              "    at file://<code>/packages/credential-helper/dist/index.js:42:72",
+              "    at Object.invoke (file://<code>/packages/credential-helper/dist/index.js:46:28)",
+              "    at CredentialHelperClient.getSecret (file://<code>/packages/credential-helper/dist/index.js:94:41)",
+              "    at readApiKey (file://<isolated-large-history>/recovery-launch-1792349542731/isolated-workspace/apps/desktop/electron/main/llm-config-store.mjs:310:32)",
+              "    at Object.getDecryptedApiKey (file://<isolated-large-history>/recovery-launch-1792349542731/isolated-workspace/apps/desktop/electron/main/llm-config-store.mjs:1580:12)"
+            ]
+          }
+        ],
+        "gaps": [
+          {
+            "at": 6877.665833,
+            "ms": 50.298249999999825,
+            "stage": "baseline"
+          },
+          {
+            "at": 6962.651917,
+            "ms": 58.61637500000052,
+            "stage": "task"
+          },
+          {
+            "at": 7176.871708,
+            "ms": 67.07162499999959,
+            "stage": "task"
+          },
+          {
+            "at": 7345.77925,
+            "ms": 59.41270799999984,
+            "stage": "task"
+          },
+          {
+            "at": 7513.113917,
+            "ms": 58.72062499999993,
+            "stage": "task"
+          },
+          {
+            "at": 7678.908,
+            "ms": 58.54766700000073,
+            "stage": "task"
+          },
+          {
+            "at": 8045.598542,
+            "ms": 336.53883399999995,
+            "stage": "task"
+          },
+          {
+            "at": 8180.969958,
+            "ms": 135.37141599999995,
+            "stage": "task"
+          },
+          {
+            "at": 14368.753667,
+            "ms": 394.0930840000001,
+            "stage": "task"
+          },
+          {
+            "at": 14454.883083,
+            "ms": 86.12941599999976,
+            "stage": "task"
+          },
+          {
+            "at": 32191.463083,
+            "ms": 101.12862499999756,
+            "stage": "task"
+          },
+          {
+            "at": 62290.069833,
+            "ms": 99.38208300000406,
+            "stage": "task"
+          },
+          {
+            "at": 92390.877042,
+            "ms": 101.5331249999872,
+            "stage": "task"
+          },
+          {
+            "at": 122487.109375,
+            "ms": 96.90891699999338,
+            "stage": "task"
+          }
+        ],
+        "metadata": {
+          "nativeMs": 0.3917090000031749
+        }
+      },
+      "credentialsRemoved": true
+    }
+  ]
+}

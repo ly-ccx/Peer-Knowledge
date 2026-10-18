@@ -22,9 +22,9 @@
 - 与现场相当的 1100 计划、约185MB日志、9.6MB主会话和46MB子会话，真实模型执行、取消后继续、长回复、重启和模型变更恢复。
 - 正式 RC19 工作流与公开资产、更新、签名公证、隔离签名包与 npm / Pages。
 
-### 已完成的精确候选门禁
+### 已完成的中间冻结候选门禁（不是当前最终源码）
 
-代码候选 `675313b0835523fc2ab51b406d3f14d700f01340`。完整 build / typecheck / architecture / test、37 项升级恢复、版本及 release source-check、runtime pack-check / pack-smoke 通过。标准四组产品交互全部通过；180 张必查图由实施者逐图审查，`independent=false`。产品 Verify 通过，runId `3ca48196-013d-4ba2-b894-66c4bf2eeb2f`，sourceFingerprint `2705a6857cb0e2417da742a82bb802fb94c82628c98d40a2590cbd693250b7d4`。这组截图使用受控认知和真实本地执行，不代表真实云模型质量或正式安装包。
+中间代码候选 `675313b0835523fc2ab51b406d3f14d700f01340`。完整 build / typecheck / architecture / test、37 项升级恢复、版本及 release source-check、runtime pack-check / pack-smoke 通过。标准四组产品交互全部通过；180 张必查图由实施者逐图审查，`independent=false`。产品 Verify 通过，runId `3ca48196-013d-4ba2-b894-66c4bf2eeb2f`，sourceFingerprint `2705a6857cb0e2417da742a82bb802fb94c82628c98d40a2590cbd693250b7d4`。后续又修复了真实交付路径的读取放大，最终源码必须重新Capture/Verify，不能复用这个旧通过结论。这组截图使用受控认知和真实本地执行，不代表真实云模型质量或正式安装包。
 
 保留四项非阻塞限制：离屏透明 Quick Chat 的浅色合成未由截图证明、两张窄窗恢复页的浮动最新按钮接近气泡/详情、已签收任务夹具的最近说明仍含旧核查摘录。未据此宣称完整读屏或长时间日用通过。
 

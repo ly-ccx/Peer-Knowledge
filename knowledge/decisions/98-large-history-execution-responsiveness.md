@@ -159,3 +159,5 @@ CPU调用栈定位到两条未收敛的路径：`post_reply → deliveryFacts �
 单工作读取补充后的对照仍出现410ms窗口，不能记为性能根治。剩余调用栈为每个会话的`coordination-lifecycle.forSession → read`，它只需要mandates/transitions/decisions和工作停止状态，却复制了完整works预算及历史events/deliveries。Journal Reader补充独立命名的`readLifecycleFacts` Interface，返回当前完整验证后的控制记录及最小workStates，不暴露私有缓存；仅纯facts/forSession使用。coordinate/recover/effect和内核admit仍读原完整状态，不能使用这种展示投影授权执行。该补充仍须同场景对照，不将410ms标为已消除。
 
 进一步追踪到Desktop的Bot Directory把完整`history.messages`作为列表/get/markRead读取端口，版本缓存命中后仍反复structuredClone约9.6MB内部rounds。补充明确的Summary Messages / Batch Interface，仅给列表、get和未读游标提供预览、提问/回答和时间事实；原readMessages继续给聊天分页和完整回复详情，绝不以摘要代替执行或Evidence。摘要Module复用版本投影工厂，丢弃rounds/segments/附件像素，只保留列表算法实际读取的字段；跨文件变化与损坏仍严格处理。不增加IPC或持久化真源，默认未接入的宿主继续原读取行为。
+
+摘要拆分后的诊断仍有357ms连续窗口。CPU样本分散在多次有界查询、fsync和状态提交，而不是一个单独400ms文件操作：连续Promise微任务把几段同步本地工作串成一次长占用。补充调度公平性：Desktop执行器在进入新认知步之前、完整工具批次及原生检查点成功持久化之后、用量/未决结果完成登记之后，使用原生事件循环让出。同步PermissionGrant、执行和Evidence提交中间不得让出；不把未配对结果留给后台重试。所有下一次请求/派发继续经过原signal、lease、版本和权限检查；让出本身不可变成checkpoint_persistence_failed。补充真正macrotask心跳及“检查点完成后取消，不发下一次请求”测试。内部同步接口保持，既有async Seam增加公平调度，不引入新的执行路径。
