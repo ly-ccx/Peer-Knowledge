@@ -152,7 +152,7 @@ coordinate_work query 只读回当前主 Bot 所属 Session 的当前事实与�
 
 ## 12. 实施验收记录
 
-最终候选提交为 `29ab666bf021a4598b9bbbafea42dea730e1d6c9`。完整机器记录和日志摘要见 [validation.json](../../playbook/v0.1.0/evidence/verification-continuity/validation.json)。
+最终候选提交为 `7720e17428fe54b7e8b85178dff3a2ae8df13e2f`。完整机器记录和日志摘要见 [validation.json](../../playbook/v0.1.0/evidence/verification-continuity/validation.json)。
 
 | 范围 | 实际结果 |
 | --- | --- |
@@ -164,9 +164,9 @@ coordinate_work query 只读回当前主 Bot 所属 Session 的当前事实与�
 | Verifier 与真实工具 | 13 个临时文件、14 个物理模型请求、13 个唯一工具调用；跨 12 轮继续，无重复文件读取，累计工作预算保持一致 |
 | 产品 Capture → Review → Verify | 158 张必需截图全部逐图实施者自审，最终 Verify 通过 |
 
-本机最终包测试与 build/typecheck/architecture 对应 `3162b151`；随后 `29ab666b` 仅修正产品闸门对新无进展场景的预期重试状态。此前截图包因缺少该预期而被闸门拒绝，没有改写旧包绑定来放行；修正后从最终提交重新生成全部截图并重新审阅。
+本机最终包测试与 build/typecheck/architecture 对应 `3162b151`；随后 `29ab666b` 修正产品闸门对新无进展场景的预期重试状态；`57076c36` 与 `110bebd2` 修正受控夹具及原生快捷窗口的检查时序；`7720e174` 修复验收中重复发现的浮层动画提前卸载。此前截图包因缺少该预期而被闸门拒绝，没有改写旧包绑定来放行；修正后从最终提交重新生成全部截图并重新审阅。
 
-最终产品包：runId `532e4485-447a-4314-ad8d-3791ff3e276e`，sourceFingerprint `fabdb0de64f113fe40564dcfa749ec81b0981e37ac1876038520b5865bf4a2fc`。逐图观察、两个次要覆盖限制及哈希见 [review.json](../../playbook/v0.1.0/evidence/verification-continuity/review.json)，Verify 回执见 [result.json](../../playbook/v0.1.0/evidence/verification-continuity/result.json)。
+最终产品包：runId `092e5c62-d349-4ef5-8666-9de054e2c44f`，sourceFingerprint `e1b30beba24716f60891fe228ce3fde2b86d9b4088a32729173af7081975bedb`。逐图观察、三个次要覆盖限制及哈希见 [review.json](../../playbook/v0.1.0/evidence/verification-continuity/review.json)，Verify 回执见 [result.json](../../playbook/v0.1.0/evidence/verification-continuity/result.json)。
 
 新增状态的实际截图：
 
@@ -175,10 +175,14 @@ coordinate_work query 只读回当前主 Bot 所属 Session 的当前事实与�
 | ![深色跟进卡](../../playbook/v0.1.0/evidence/verification-continuity/work-repair-1280-dark.png) | ![深色无进展回执](../../playbook/v0.1.0/evidence/verification-continuity/recovery-no-progress-dark.png) |
 | ![浅色窄窗跟进卡](../../playbook/v0.1.0/evidence/verification-continuity/work-repair-760-light.png) | ![浅色无进展回执](../../playbook/v0.1.0/evidence/verification-continuity/recovery-no-progress-light.png) |
 
-CI 记录在最终检查结束后补齐。
+[最终 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/39092913859) 两平台通过：build、typecheck、architecture、全量 Test 和各自桌面烟测均通过。早期运行并非全绿：Linux 两次遇到更新弹窗在动画实际启动前便开始计算兜底期限，实际提前卸载；macOS 遇到合成图片授权在读取等待文案前到期、受控流式夹具在多窗口检查时超过其 30 秒等待。失败记录与取消的旧候选均保留在 validation.json，未冒称通过。
+
+验收发现的附加 C 级修复集中在表达和夹具：Overlay 仍由既有基座表达，兜底先等 native animation.ready 再计算剩余时长，保留动画永不启动时的 2 秒退出上限；受控流式阶段的防死锁期限改为 120 秒、合成权限超时改为 10 秒；检查快捷原生窗口前显式 show/focus，不发送会重置被测状态的 shown 事件。正式 Provider/权限预算、超时及存储契约没有随夹具调整。相关 3 项夹具测试与最终桌面类型检查通过，最终产品包及 CI 覆盖实际桌面交互。
+
+新候选均完整重新 Capture：保存失败提示或原生截图超时的候选没有放行；`110bebd2` 机器包虽通过，但在 Linux 动画缺陷修复后被取代，没有把其未完成的审阅冒称最终验收。`7720e174` 第一轮采集在短回复 hover 观察处超时，同源复跑完整通过，再审阅全部截图并 Verify；第一轮失败包未放行。
 
 ### 覆盖边界
 
 这份产品审查的 `independent=false`：由实现者自审，不是另一位审查者或独立模型的结论。测试中的认知响应受控；文件读取、权限、Evidence、原生续跑和桌面主进程/Preload/Renderer 使用生产入口，但没有测试真实云模型的判断质量和网络时序。未替换安装版、未安装或发布 RC，也没有完整读屏器或长期使用验收。
 
-截图审阅记录了两个既有次要限制：Quick Chat 浅色离屏透明图的黑底合成不能证明原生浅色对比度；预置旧失败会话的侧栏摘要仍含技术前缀。本次新增的主 Bot 跟进和无进展主消息均使用明确中文。完整权限等待、允许后继续、拒绝、取消、停止、超时、完全授权多图，以及预算/未知结果的既有机器场景也通过，但不据此宣称所有真实模型行为已经穷尽。
+截图审阅记录了三个次要限制：Quick Chat 浅色离屏透明图的黑底合成不能证明原生浅色对比度；预置旧失败会话的侧栏摘要仍含技术前缀。一张窄窗后台任务局部裁剪图抓到高度过渡，第二行局部截断，此图不作为稳定态纵向布局验收依据，其他完整任务截图中行文完整。本次新增的主 Bot 跟进和无进展主消息均使用明确中文。完整权限等待、允许后继续、拒绝、取消、停止、超时、完全授权多图，以及预算/未知结果的既有机器场景也通过，但不据此宣称所有真实模型行为已经穷尽。
