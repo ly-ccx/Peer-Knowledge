@@ -883,7 +883,7 @@
     },
     "scope": "CSV classification repair: genuine fresh generated-history task, all functional stages passed. Wheel max575ms and main-loop max735ms exceed unchanged500ms gate; performance failed. No tag or release."
   },
-  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider.",
+  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider. receiptRealModelAttempt follows the same generated-history credential cleanup scope.",
   "completeStageProfile": {
     "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
     "scope": "Fresh generated-history real task; CPU profiler and slow synchronous I/O tracing. All functional stages passed; diagnostic only, not performance acceptance.",
@@ -923,6 +923,122 @@
       "skipped": 5,
       "additionalPassed": 3
     },
-    "performance": "Fresh no-profiler full large-history real task running; no acceptance claimed."
+    "performance": "Completed full functional flow, retained peak input failure below; no acceptance."
+  },
+  "receiptRealModelAttempt": {
+    "sourceHead": "70e00f132d05393018f12aa2de546b0077815171",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:45:08.123Z",
+    "finishedAt": "2026-10-19T16:50:14.168Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 298173,
+    "taskPassed": true,
+    "interactions": 1196,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 103.24158299999544,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 101.45600000000559,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 102.11533299996518,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 101.69895799999358,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "80def19b-b378-4f15-a434-815ecbf0fef9"
+    },
+    "longReply": {
+      "messageId": "reply:turn-ab946848-f629-41c7-aeb7-cbefb57fd981:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.412095,
+      "p99": 5.861375,
+      "max": 419.168255
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1196,
+        "p50": 19.217540999990888,
+        "p95": 23.57275000000118,
+        "p99": 33.148624999994354,
+        "max": 530.5552499999976
+      },
+      "wheelRoundTripMs": {
+        "n": 1196,
+        "p50": 25.455667000001995,
+        "p95": 27.238083000000188,
+        "p99": 35.50266600000032,
+        "max": 253.55683299999873
+      },
+      "scrollMovedSamples": 1196,
+      "scrollCoverage": {
+        "topVisits": 2,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 4
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 35768,
+        "p50": 8.299999999999272,
+        "p95": 9.900000000008731,
+        "p99": 10.200000000011642,
+        "max": 25
+      },
+      "inputPaintMs": {
+        "n": 1339,
+        "p50": 4.099999964237213,
+        "p95": 8.200000047683716,
+        "p99": 9,
+        "max": 9.5
+      },
+      "wheelPaintMs": {
+        "n": 1196,
+        "p50": 24.899999976158142,
+        "p95": 26.599999964237213,
+        "p99": 27,
+        "max": 99.69999998807907
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "scope": "Fresh no-profiler same-scale real workflow; every functional stage passed. Main max419ms and wheel max254ms improved, but input max531ms still exceeds unchanged500ms gate. Not accepted or published."
   }
 }
