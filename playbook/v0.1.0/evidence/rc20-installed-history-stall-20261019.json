@@ -687,7 +687,7 @@
       "retry": "All three files pass after dependency build completes. Initial overlap with desktop dependency rebuild produced missing-export import errors; no code or assertions relaxed."
     },
     "releaseReadiness": "passed",
-    "performance": "New no-profiler large-history real task still running; not accepted yet."
+    "performance": "Fresh same-scale real runs retained below; performance has not passed."
   },
   "sharedInputRealModelAttempt": {
     "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
@@ -766,5 +766,122 @@
       "gate": "ui-artifact:judgment-missing",
       "criterion": "command: node --test"
     }
-  }
+  },
+  "csvRepairRealModelAttempt": {
+    "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:19:41.219Z",
+    "finishedAt": "2026-10-19T16:26:34.677Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 405497,
+    "taskPassed": true,
+    "interactions": 1618,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 99.53224999998929,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 108.53262500005076,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 102.81199999997625,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 103.83745900000213,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "16eb9e4f-061b-4951-9dd5-7bcef49b6a86"
+    },
+    "longReply": {
+      "messageId": "reply:turn-ee1be9b0-2252-4b07-bf84-e3b0dcc66f6c:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.416191,
+      "p99": 6.041599,
+      "max": 734.527487
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1618,
+        "p50": 19.348041000019293,
+        "p95": 24.471708999946713,
+        "p99": 49.84712499997113,
+        "max": 273.2702500000014
+      },
+      "wheelRoundTripMs": {
+        "n": 1618,
+        "p50": 25.383458000000246,
+        "p95": 27.36120800000208,
+        "p99": 35.64270899999974,
+        "max": 574.632917000039
+      },
+      "scrollMovedSamples": 1618,
+      "scrollCoverage": {
+        "topVisits": 4,
+        "bottomVisits": 7,
+        "liveReplyVisibleSamples": 4
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 48638,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 25.200000000004366
+      },
+      "inputPaintMs": {
+        "n": 1796,
+        "p50": 4.699999988079071,
+        "p95": 8.199999988079071,
+        "p99": 8.900000035762787,
+        "max": 9.800000011920929
+      },
+      "wheelPaintMs": {
+        "n": 1618,
+        "p50": 24.80000001192093,
+        "p95": 26.799999952316284,
+        "p99": 27.19999998807907,
+        "max": 475.80000001192093
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "scope": "CSV classification repair: genuine fresh generated-history task, all functional stages passed. Wheel max575ms and main-loop max735ms exceed unchanged500ms gate; performance failed. No tag or release."
+  },
+  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider."
 }
