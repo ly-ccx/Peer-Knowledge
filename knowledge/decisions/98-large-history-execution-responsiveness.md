@@ -179,3 +179,64 @@ CPU调用栈定位到两条未收敛的路径：`post_reply → deliveryFacts �
 ### 正式包收口
 
 RC19公开签名包补测通过：250条生成历史身份字段修正后，1511组真实调用期间交互，输入/滚动p95为20.75/27.17ms、最大114.02/71.70ms；渲染帧p95为10.1ms、最大25ms，渲染长任务0，输入/滚动绘制最大9.7/27.2ms，主循环仍有285ms峰值。四次46MB持久提交约103–106ms且有并发交互。正式包的自身助手、实际模型恢复/重启、45秒无新派发观察、原正式验收回复展示均通过。完整范围、六项产品限制、保留失败和公开资产在[最终证据](../../playbook/v0.1.0/evidence/rc19-published-validation-20261019.json)中；此结果不代表零延迟峰值或长期日用。
+
+## RC19 安装后全局停顿：真实状态分布复现与修复补充（2026-10-19，B 级）
+
+负责人反馈 RC19 安装后所有操作间歇停顿，滚动只放大症状。此前规模夹具虽覆盖日志、对话、计划大小，没有充分覆盖实际恢复记录和未处理事件分布；上一轮性能通过不能代表本次场景已解决。
+
+### 新证据
+
+已安装 RC19 的主进程采样显示同步文件访问和对象序列化集中在定时器执行链，三个 Renderer 在采样窗口大部分空闲（该窗口未证明包含每次用户手势，不能据此排除全部渲染问题）。实际数据中约 190.9MB coordination journal、2.9GB 历史 checkpoint。体积本身不是根因。
+
+仅在本地、无凭据/Provider/工具执行的隔离副本中，以生产 Desktop 装配和原查询/恢复入口复现：热 host.sync 815–865ms，事件循环连续间隙约 832–901ms；首次冷恢复 2485ms。CPU 样本 structuredClone 自占约 7.90s，stat 4.64s；主要上层为 runner-coordination.transfer（反复 resolveRoster）及 verification-dispatch-recovery.reconcileAll（每个 work 复制完整 state）。此运行带采样器，只作归因和前后同条件对照。
+
+### 实施 Interface 与边界
+
+1. Verification Dispatch Recovery 发现工作 ID 后，使用已有 readWork Interface 读取单项，并在实际状态提交前再次读该项及检查 lease/active attempt。未实现 readWork 的旧 Adapter 兼容原 read。不可共享可变全量状态、跳过当前状态复核、改变未知执行或核验判定。
+2. 一次 transfer 的只读事件分类共享一个惰性 roster；没有需要分类的恢复事件时不取。复用仅活在本次同步分类内，提交/下一次调用不复用，不能变成授权缓存。
+3. 先补“历史工作增长不导致重复全量克隆”“多事件多恢复工作仅一次 roster、下一批重新读取”“回调期间取消/租约丢失不可提交”的失败测试，再实施并重跑本地真实副本。若仍有明显长占用，继续按 CPU 调用链收敛，不以平均/P95 合格宣称消除峰值。
+
+权限、Evidence、Tool Result、持久化格式与认知策略不变。修改范围为上述 runtime-node Module、必要的调度公平性 seam 和诊断/回归脚本；不改日常历史、清空任务、关闭主 Bot、停用权限，亦不把私有历史发给云模型。最终验证分别报告真实历史本地副本、可分享夹具真实模型、正式安装包覆盖；未重新验证不称修复完成。
+
+首轮两处修复后，同场景热 sync 从 815–865ms 降至 184–197ms，但仍不可验收。后续 CPU 样本显示：历史送达回执的 onRecovered 逐条复制整份 works；熔断卡的存在性判断每轮复制完整对话。补充收敛：Runner Coordination 的单 work 读取统一使用已有 readWork；恢复卡的两个消息 ID 判断统一使用已有 hasMessage（旧 Adapter 仍回退完整消息）。空 pendingExecution 时不读取完整对话；非空仍按原历史答复/停止事实进行持久确认，不用内存已拥有代替完成。上述均为已有 Interface 的消费修复，不新增协议或缓存真源。
+
+第二轮热 sync 为 141–153ms，仍不能表示日用流畅。补充两个已有 seam 的收口：
+
+- Host 增加可选本地 readInputFacts（默认沿用 readMessages），Desktop 用现有严格文件版本投影，只保留 pendingExecution 实际读取的回复锚点、停止 turnId、用户 inputId。完整 Runner 上下文、执行和详情仍用原 readMessages；投影不得传入模型或充当 Evidence。非空队列仍依据持久化事实完成确认。
+- Host 的输入归属核对、watch/continuation 观察、kick 之间，以及 Runner pump 选取下一工作之前，在原 async seam 使用 Node macrotask 让出。让出后重新检查 disposed/lease；工具执行/授权/Evidence 原子区间内不插入让出。单轮旧读取结果不能越过恢复/执行的原守卫。验证让出期间取消或租约失效不会发请求；不能以延迟后台运行/停用功能代替公平调度。
+
+冷启动 journal 回放仍单列，不将热优化冒充冷恢复无阻塞。最终必须关掉 CPU profiler 测量连续主循环停顿、原生交互和最大值，不能只报告 P95。
+
+CPU 第三轮确认剩余热占用还包含 custody 发现阶段反复解析数 MB checkpoint。补充明确的 readContinuationCheckpoint Interface：以严格文件版本校验的有界内存投影，仅返回 job 的身份、kind、interactive、用户 inputId/createdAt 与事件 eventId/kind/sessionId；仅作候选发现和优先级。真正合并写入与执行选中项必须重新 readCheckpoint 原文，保留原始 outcome、完整 events 和 native batch；不可把发现投影用作续跑检查点。旧 Adapter 缺此端口仍按原文读取。该派生缓存不改磁盘真源，损坏/替换/删除严格失效，计数与冷/热读取测试必须覆盖。
+
+首次原生 DPR=2、1440px 真实历史界面对照（各65秒，均无 CPU profiler）：修复前输入 max1010ms、滚轮983ms、主循环985ms，P95 却仅22/62ms；说明旧 P95 闸门遗漏间歇停顿。修复后首轮输入207ms、滚轮213ms、主循环103ms，仍不能宣布无卡顿。继续将 Runner 本地 takeNext 异步化，在用户续接发现、未处理事件筛选与后台续接发现之间使用1ms计时器让出；每次让出后重新检查 disposed/lease/新用户输入，实际派发仍走原 runJob。1ms 是事件循环公平调度，不延迟或停用后台工作；重试与执行预算保持原值。Verification reconcileAll 只发现含未决 verification dispatch 的工作 ID，再以 readWork 校验当前项，历史无关工作不逐项 stat/复制。
+
+完整窗口 profiler（本地实际历史副本，55秒）定位剩余三处具体放大，未将该带 profiler 运行作为性能通过：
+
+1. publishWatch → delegation-facts-reader 调用 listPlans，后者的 projectUiMeta 会在过滤项目归属前 hydrate 大量 completed plan。新增 listPlanMetadata Interface：只返回规范化索引发现元数据的隔离副本；Watcher 用该口先过滤归属，再对选中计划 getPlan，保留原 watchFacts 及完成门；原 listPlans UI 语义不变。
+2. Bot readConversation 热刷新仍从完整历史投影复制内部 rounds，单次 clone 约10–12ms，之后还要按页重复传输。新增可选 readConversationMessages 本地口：Desktop 以严格版本的有界历史投影排除内部 rounds，保留公开段落、正文、附件和卡片；readMessage/回复详情与 Runner 继续完整原文。Renderer 不以展示投影认定执行/权限；不得损失点击后的完整过程。
+3. input-queue.readInputs 每次消费/确认都会重新解析并校验历史图片的 base64。新增队列内部有界规范化缓存，严格文件身份/版本及 strict 模式分别命中，冷读仍完整校验；返回扁平规范记录和数组/附件对象的隔离副本（不可变字符串可共享），不缓存 lease、游标或执行权限。外部修改、同长改写/恢复mtime、删除、损坏、严格/宽松隔离、调用者污染均须覆盖。
+
+这三处是已有持久化真源上的读取/投影 Interface 调整（B级），无协议新通道、权限放宽、工具旁路或持久格式变动。
+
+展示投影的兼容收口：既有 read-conversation 增加可选 `presentationOnly: true`（常规聊天刷新）与 `processFor: messageId`（用户显式打开某次过程，禁止与 presentationOnly 混用）。旧调用默认仍返回原完整页。processFor 从完整历史按既有精确 turnId/旧版当前输入内最近 turn 规则选出该回复及其源 turn，不把整段聊天交给 Renderer。Renderer 的详情读取 Module 只在打开历史详情时请求、隔离过期响应，失败明确不可用；活动详情继续真实 Activity。完整过程不混回聊天分页缓存，不每帧重取，也不改变权限/Evidence/消息身份。输入参数类型和定向/窗口测试同步补齐。
+
+常规页仍需保留用户输入上的“已派发/排队/取消/取代”等真实处置。新增明确的 `dispositionCalls` 展示事实字段：仅由宿主从实际持久化 spawn/message/cancel 调用投影所需的最小 input/result 字段，并覆盖任何同名存储字段；Renderer 只用它计算处置和任务名字，不将它渲染为完整执行过程。完整 rounds 仍仅由详情按需获取。旧页没有该字段时继续原 rounds 规则；模型提供的 dispositions 字段仍不采用。定向测试比较原调用和投影的全部处置结果，并保留真实失败、嵌套回执、依赖及标题。
+
+恢复选择收敛为 `RunnerCoordination.selectNext`：原 takeNext 的 recoverUserJob → pending（再次 coalesce）→ recoverJob 三阶段重复准备，在同一次同步观察内只执行一次核验回执协调、reservation 到期、旧预算迁移、custody 与已报告等待核对；随后按原优先级选择用户续接、未处理事件、后台续接。没有跨 await 或跨调用缓存；任何本阶段 work 写入使 decision snapshot 失效，缺失 checkpoint 的阻塞写入后也重新读取。独立 recoverJob/pending Interface 保留兼容；实际选中仍原文读取、原 prepare/runJob、当前 lease/版本/权限门。新增计数及选中次序/写后重读测试，不能将 stale job 当作可执行事实。
+
+可分享的大历史真实模型夹具同时补足状态分布：默认200项历史work，其中100项已送达、100项明确work级暂停，并包含对应的已送达回执；维持1100计划、185MB日志及大主/子会话。所有历史均明确synthetic，只增加负载，不给新任务注入结果、权限或Evidence；历史计划保持取消，不安排旧任务执行。生成agent_turn正式写入其自身turnId，避免再次漏掉公开旁白渲染负载。小规模单元夹具可缩减数量，必须验证实际重放状态数、终态和回执数。性能门禁覆盖单次峰值与P99，不能只以平均或P95通过。
+
+834组无采样操作仍有输入231ms、主循环102ms峰值（P99输入59ms，滚动53ms），保留为未收口轮次。后续55秒CPU归因未见单次>8ms的慢文件/克隆，但发现大量短操作串联：SessionSupervisor在一次无排队变化的promote中多次做1100文件严格版本发现，pendingInputs又逐输入复制整份work ledger。补充仅以下已有seam收口：
+
+- Coordination提供ownedInputIds批量只读身份集合；Host一次读取用于当前pending过滤，原单input口保留。只表示持久归属，不能当已完成确认；新调用重新读取，执行仍由原prepare核对。
+- promote在没有await和写入的同步段共享一次全量计划观察；任何实际prepare await、阻塞/派发持久化后重新发现，不跨这些边界复用。目录仍严格逐文件版本检查，外部改写不漏报，不改缓存过期规则。
+- SessionSupervisor的后台恢复阶段在进入过期扫描、持久队列核对和调度观察前在已有async Interface让出一次事件循环；之后仍从当前磁盘事实和lease判断。授权、工具和Evidence提交原子区内不加让出。目的为切断连续微任务中的多轮同步发现，不停用调度或延长原重试间隔。
+
+上述Supervisor新增让出方案在既有测试发现启动恢复/批准冻结和终态队列推进时序回归，已撤回这三处让出，不调整测试等待来掩盖行为变化。保留无await/写入同步段的观察复用和input归属批量读取；原Host/Runner既有async seam的公平调度及lease/dispose守卫继续保留。该失败不记作通过，不将调度语义变更混入性能修复。
+
+本地真实历史第8轮（125秒、871组、native DPR=2，无采样器/凭据/Provider）：输入往返P95/P99/max=33.16/101.28/127.07ms，滚轮27.25/57.55/100.05ms；输入事件到绘制max9.5ms、滚轮max69.5ms、帧max26.4ms，渲染长任务0，主循环max88.34ms。对应RC19前测为输入max1010.27ms、滚轮983.08ms、主循环985.14ms。完整保留中间未收口轮次，不把这些本地离线操作统计写成真实任务、正式包或长期日用通过；候选完整门禁、真实模型和公开包验收另记录。逐轮数值见[安装后停顿复现](../../playbook/v0.1.0/evidence/rc20-installed-history-stall-20261019.json)。
+
+Desktop集成隔离重试仍发现Host额外让出改变目标观察事件入账的可见时序，并增加fallback设置读取。该两处Host让出亦撤回，保留读取批处理/投影与Runner原prepare前的async让出。不能以等待更多时间或放宽settings读取计数来掩盖本次回归。撤回后须重跑集成和本地实际历史性能，前述第8轮数字仅代表当时中间候选。
+
+撤回Host额外让出后的第9轮：125秒841组，输入P95/P99/max=26.33/107.81/137.04ms，滚轮27.74/92.95/107.99ms；输入绘制max9.7ms、滚轮max65.8ms、帧max25.1ms，无渲染长任务，主循环max100.34ms。35项Desktop集成隔离重跑通过。保留约100ms峰值，不声称完全没有峰值；原近1秒重复阻塞在本轮未再出现。第8轮改标中间候选，不能作为最终回归语义通过。

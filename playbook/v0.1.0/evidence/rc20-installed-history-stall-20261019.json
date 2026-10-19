@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate_validation_in_progress",
+  "version": "0.1.0-rc.20",
+  "date": "2026-10-19",
+  "privacy": {
+    "privateHistoryOnlyLocal": true,
+    "credentialsCopied": false,
+    "providersConfigured": false,
+    "userInstalledAppOrDataModified": false,
+    "shareableTaskUsesSyntheticHistory": true
+  },
+  "scope": "Offline local full-history snapshot, production app/background recovery, native DPR=2, 1440px window. These runs do not execute a real model task. Round trips include automation transport, not hardware latency. Panel timings include three actions and intended transitions.",
+  "cause": "Repeated full-ledger clones, repeated roster discovery, unnecessary plan hydration, repeated checkpoint and image validation, and full internal rounds in chat refresh. Byte volume alone did not explain the stall.",
+  "runs": [
+    {
+      "name": "installed-rc19",
+      "elapsedMs": 65001,
+      "keys": {
+        "n": 230,
+        "p95": 22.306040999999823,
+        "p99": 978.064833000004,
+        "max": 1010.2746249999982,
+        "over50": 5,
+        "over100": 4
+      },
+      "wheels": {
+        "n": 230,
+        "p95": 62.123208000000886,
+        "p99": 974.9312499999942,
+        "max": 983.0791660000032,
+        "over50": 18,
+        "over100": 5
+      },
+      "panels": {
+        "n": 8,
+        "p95": 1875.7420829999974,
+        "p99": 1875.7420829999974,
+        "max": 1875.7420829999974,
+        "over50": 8,
+        "over100": 8
+      },
+      "mainLoop": {
+        "p95": 1.436671,
+        "p99": 5.292031,
+        "max": 985.137151
+      },
+      "renderer": {
+        "frames": {
+          "n": 7763,
+          "p95": 9.700000000004366,
+          "p99": 10.299999999995634,
+          "max": 183,
+          "over50": 1,
+          "over100": 1
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "full scope above; final candidate/public package gates recorded separately"
+    },
+    {
+      "name": "partial-1",
+      "elapsedMs": 65021,
+      "keys": {
+        "n": 416,
+        "p95": 25.44220800000039,
+        "p99": 194.9325830000016,
+        "max": 206.80099999999948,
+        "over50": 7,
+        "over100": 6
+      },
+      "wheels": {
+        "n": 416,
+        "p95": 60.16474999999991,
+        "p99": 198.801833000005,
+        "max": 213.0016670000041,
+        "over50": 26,
+        "over100": 12
+      },
+      "panels": {
+        "n": 14,
+        "p95": 606.3264999999956,
+        "p99": 606.3264999999956,
+        "max": 606.3264999999956,
+        "over50": 14,
+        "over100": 14
+      },
+      "mainLoop": {
+        "p95": 1.442815,
+        "p99": 6.725631,
+        "max": 103.219199
+      },
+      "renderer": {
+        "frames": {
+          "n": 7775,
+          "p95": 9.900000000001455,
+          "p99": 10.299999999999272,
+          "max": 26,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-5",
+      "elapsedMs": 125009,
+      "keys": {
+        "n": 806,
+        "p95": 38.79566599999089,
+        "p99": 115.98000000001048,
+        "max": 220.16075000001,
+        "over50": 29,
+        "over100": 16
+      },
+      "wheels": {
+        "n": 806,
+        "p95": 43.82183300000179,
+        "p99": 98.01516599999741,
+        "max": 123.38983400000143,
+        "over50": 37,
+        "over100": 6
+      },
+      "panels": {
+        "n": 27,
+        "p95": 1130.7220420000012,
+        "p99": 1160.700084000011,
+        "max": 1160.700084000011,
+        "over50": 27,
+        "over100": 27
+      },
+      "mainLoop": {
+        "p95": 1.469439,
+        "p99": 12.271615,
+        "max": 119.668735
+      },
+      "renderer": {
+        "frames": {
+          "n": 14969,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 25.5,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 27
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-6",
+      "elapsedMs": 125448,
+      "keys": {
+        "n": 841,
+        "p95": 38.29400000000169,
+        "p99": 95.77429200000188,
+        "max": 224.86699999999837,
+        "over50": 20,
+        "over100": 6
+      },
+      "wheels": {
+        "n": 841,
+        "p95": 27.520624999975553,
+        "p99": 57.91037500000675,
+        "max": 92.34758400000283,
+        "over50": 19,
+        "over100": 0
+      },
+      "panels": {
+        "n": 29,
+        "p95": 1076.614459000004,
+        "p99": 1095.7667499999952,
+        "max": 1095.7667499999952,
+        "over50": 29,
+        "over100": 29
+      },
+      "mainLoop": {
+        "p95": 1.457151,
+        "p99": 8.331263,
+        "max": 82.771967
+      },
+      "renderer": {
+        "frames": {
+          "n": 15029,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 32.29999999999927,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-7",
+      "elapsedMs": 125069,
+      "keys": {
+        "n": 834,
+        "p95": 22.71166699999594,
+        "p99": 58.75145900000098,
+        "max": 231.23733399999037,
+        "over50": 9,
+        "over100": 7
+      },
+      "wheels": {
+        "n": 834,
+        "p95": 27.182749999992666,
+        "p99": 53.47350000000006,
+        "max": 108.70233300000837,
+        "over50": 16,
+        "over100": 2
+      },
+      "panels": {
+        "n": 28,
+        "p95": 1020.6479169999948,
+        "p99": 1056.9545839999919,
+        "max": 1056.9545839999919,
+        "over50": 28,
+        "over100": 28
+      },
+      "mainLoop": {
+        "p95": 1.436671,
+        "p99": 5.988351,
+        "max": 102.367231
+      },
+      "renderer": {
+        "frames": {
+          "n": 14982,
+          "p95": 9.900000000008731,
+          "p99": 10.200000000011642,
+          "max": 25,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-8",
+      "elapsedMs": 125234,
+      "keys": {
+        "n": 871,
+        "p95": 33.16075000001001,
+        "p99": 101.28091599998879,
+        "max": 127.07162499999686,
+        "over50": 14,
+        "over100": 9
+      },
+      "wheels": {
+        "n": 871,
+        "p95": 27.250584000001254,
+        "p99": 57.5537089999998,
+        "max": 100.04633399999875,
+        "over50": 17,
+        "over100": 1
+      },
+      "panels": {
+        "n": 30,
+        "p95": 942.8612910000011,
+        "p99": 1018.640957999989,
+        "max": 1018.640957999989,
+        "over50": 30,
+        "over100": 30
+      },
+      "mainLoop": {
+        "p95": 1.617919,
+        "p99": 7.221247,
+        "max": 88.342527
+      },
+      "renderer": {
+        "frames": {
+          "n": 14995,
+          "p95": 9.899999999997817,
+          "p99": 10.299999999995634,
+          "max": 26.399999999997817,
+          "over50": 0,
+          "over100": 0
+        },
+        "inputs": {
+          "n": 930,
+          "p95": 8.100000023841858,
+          "p99": 9,
+          "max": 9.5,
+          "over50": 0,
+          "over100": 0
+        },
+        "wheels": {
+          "n": 871,
+          "p95": 26.19999998807907,
+          "p99": 26.900000035762787,
+          "max": 69.5,
+          "over50": 2,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "Intermediate candidate; additional Host yields subsequently withdrawn after integration failures."
+    },
+    {
+      "name": "candidate-9",
+      "elapsedMs": 125275,
+      "keys": {
+        "n": 841,
+        "p95": 26.332625000002736,
+        "p99": 107.81433300000208,
+        "max": 137.03670799999963,
+        "over50": 20,
+        "over100": 13
+      },
+      "wheels": {
+        "n": 841,
+        "p95": 27.736500000006345,
+        "p99": 92.94875000001048,
+        "max": 107.99041700000816,
+        "over50": 22,
+        "over100": 3
+      },
+      "panels": {
+        "n": 29,
+        "p95": 1052.4933750000055,
+        "p99": 1056.9010830000043,
+        "max": 1056.9010830000043,
+        "over50": 29,
+        "over100": 29
+      },
+      "mainLoop": {
+        "p95": 1.455103,
+        "p99": 6.279167,
+        "max": 100.335615
+      },
+      "renderer": {
+        "frames": {
+          "n": 15006,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 25.099999999998545,
+          "over50": 0,
+          "over100": 0
+        },
+        "inputs": {
+          "n": 898,
+          "p95": 8.699999988079071,
+          "p99": 9.5,
+          "max": 9.699999988079071,
+          "over50": 0,
+          "over100": 0
+        },
+        "wheels": {
+          "n": 841,
+          "p95": 26.5,
+          "p99": 39.80000001192093,
+          "max": 65.80000001192093,
+          "over50": 4,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "Local history reproduction; functional integration restored. Real model and published package gates remain separate."
+    }
+  ]
+}
