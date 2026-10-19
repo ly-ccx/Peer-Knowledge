@@ -883,7 +883,7 @@
     },
     "scope": "CSV classification repair: genuine fresh generated-history task, all functional stages passed. Wheel max575ms and main-loop max735ms exceed unchanged500ms gate; performance failed. No tag or release."
   },
-  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider. receiptRealModelAttempt follows the same generated-history credential cleanup scope.",
+  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider. receiptRealModelAttempt follows the same generated-history credential cleanup scope. immutableSnapshotRealModelAttempt follows the same generated-history credential cleanup scope.",
   "completeStageProfile": {
     "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
     "scope": "Fresh generated-history real task; CPU profiler and slow synchronous I/O tracing. All functional stages passed; diagnostic only, not performance acceptance.",
@@ -1064,6 +1064,85 @@
       "additionalPassed": 3
     },
     "compatibility": "Default mutable reads, mutable event/callback outputs and old Adapter fallback retained. Recovery count tests still require four preparation/decision reads, now check immutable port and legacy fallback, plus zero full copies.",
-    "performance": "Fresh no-profiler same-scale real task running; no acceptance yet."
+    "performance": "Retained functional timeout and wheel-peak failure below; no acceptance."
+  },
+  "immutableSnapshotRealModelAttempt": {
+    "sourceHead": "391d0cfa6f0222ec2addf422064669b9ea08f966",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:59:32.570Z",
+    "finishedAt": "2026-10-19T17:09:40.981Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 600606,
+    "taskPassed": false,
+    "interactions": 2435,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "mainLoop": {
+      "p95": 1.412095,
+      "p99": 5.959679,
+      "max": 480.247807
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2435,
+        "p50": 18.069415999983903,
+        "p95": 24.89112500002375,
+        "p99": 26.70470900001237,
+        "max": 477.26366699999926
+      },
+      "wheelRoundTripMs": {
+        "n": 2435,
+        "p50": 25.490125000011176,
+        "p95": 27.254957999975886,
+        "p99": 27.6942080000008,
+        "max": 567.5066250000382
+      },
+      "scrollMovedSamples": 2435,
+      "scrollCoverage": {
+        "topVisits": 6,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 1
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 72044,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999995634,
+        "max": 23.599999999998545
+      },
+      "inputPaintMs": {
+        "n": 2638,
+        "p50": 4.600000023841858,
+        "p95": 8.199999988079071,
+        "p99": 8.900000035762787,
+        "max": 9.600000023841858
+      },
+      "wheelPaintMs": {
+        "n": 2435,
+        "p50": 24.900000035762787,
+        "p95": 26.69999998807907,
+        "p99": 27.099999964237213,
+        "max": 133.5
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "scope": "No-profiler generated-history task timed out at600s. 18 unchanged tests and independent review passed, but quoted CSV field header armed the UI gate; no host acceptance or terminal/cancel/receipt stages. Wheel max568ms also exceeds unchanged500ms gate; no performance acceptance.",
+    "classificationCounterexample": "renderCsv(groups) outputs header `category,count,total`; no UI source files. The previous lookahead did not accept Markdown quoting."
   }
 }
