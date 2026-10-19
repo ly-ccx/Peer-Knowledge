@@ -1766,5 +1766,24 @@
       }
     },
     "scope": "Fresh generated-history no-profiler full workflow. Every functional stage passed and CSV UI false gate absent. A main gap978ms/input1085ms at late cancel dispatch still violates unchanged500ms limits; no performance acceptance or release."
+  },
+  "lateAndFreshCpuDiagnosis": {
+    "sourceHead": "b158360f",
+    "diagnosticOnly": true,
+    "lateResumeMainMaxMs": 482.87,
+    "freshFullMainMaxMs": 414.19,
+    "freshFunctionallyPassed": true,
+    "clockCalibrated": true,
+    "scope": "Separate diagnostic runs, not no-profiler acceptance. No~978ms peak reproduced. Both confirm synchronous badge roster reads in runtime event broadcasts (~43ms), plus multiple canonical parent reads during spawn. No permission/persistence/scheduler guards relaxed."
+  },
+  "trayRegression": {
+    "sourceHead": "f6bd1bbd",
+    "redOldCode": true,
+    "targetedPass": 17,
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "readiness": true,
+    "scope": "Bound100ms presentation refresh; future events do not postpone deadline, forced menu reads latest immediately, disposal removes queued work. Runtime unchanged; original event broadcasts and execution chain retained."
   }
 }
