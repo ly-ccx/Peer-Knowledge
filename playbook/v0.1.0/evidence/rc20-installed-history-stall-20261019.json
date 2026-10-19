@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "source_private_product_ci_passed_public_release_checks_pending",
+  "status": "published_artifact_checks_passed_public_performance_pending",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -1952,5 +1952,75 @@
     "runId": 39299492661,
     "macOS": "success",
     "linux": "success"
+  },
+  "release": {
+    "tag": "v0.1.0-rc.20",
+    "commit": "04c7001b34086ad393ace8c8028e2a509990938a",
+    "testedSourceCommit": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "identicalTrees": true,
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.20",
+    "workflow": 39302752066,
+    "workflowJobsPassed": 8,
+    "prerelease": true,
+    "stable": "0.0.18"
+  },
+  "publicArtifactChecks": {
+    "ok": true,
+    "all14PublishedAssetDigests": true,
+    "criticalModuleHashes": 38,
+    "changedModuleHashes": 30,
+    "desktopModuleHashes": 12,
+    "moduleSetsMayOverlap": true,
+    "macDeveloperIdTeam": "82672N97RP",
+    "strictSignature": true,
+    "stapledTicket": true,
+    "gatekeeperNotarized": true,
+    "dmgVerifiedReadOnlyMountedAndUnmounted": true,
+    "dmgAndZipAsarMatch": true,
+    "all3UpdateManifestSha512Match": true,
+    "packagedAppUpdateConfig": true,
+    "npmPackages": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      }
+    ],
+    "isolatedNpmPostinstallAndCliVersion": "peer 0.1.0-rc.20",
+    "cliBinaryHashesMatchPublicArchive": true,
+    "pagesHttpAndTaggedSourceHashes": 5,
+    "firstNpmMetadataCheckIncomplete": true,
+    "npmPublishingLog": "runtime-sdk publish returned success and explicitly reported server processing. First query lacked version; later all4 fixed versions/tags and real postinstall succeeded. No republish or dist-tag workaround."
   }
 }
