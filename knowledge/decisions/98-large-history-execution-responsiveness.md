@@ -317,3 +317,5 @@ Journal Reader增加显式readSnapshot Interface：每次仍执行原readState�
 391d0cfa的新鲜任务再次被相同视觉门阻断：实际goal为`renderCsv(groups)…输出以 header \`category,count,total\` 开头`，原46项回归只覆盖未包裹字段行，withoutDataHeaders的lookahead未接受反引号。18项原断言与独立复核已通过，主Bot读取详情并在原任务继续核对，宿主仍不能凭其“written skip”解除已武装门。该轮不记完整成功，不删除门、不修改夹具措辞。
 
 只在已有“唯一视觉线索为header、明确CSV/TSV语境、无其他UI/renderer/preview/visual线索”的窄分支补字段列表的引号/Markdown分隔符及冒号/等号写法；实际页面header、CSV界面组件和混合UI仍保留。先补本轮实际完整契约及带反引号/单双引号字段行、真实界面反例，再改纯分类；已武装的旧计划继续保留失败。最终新鲜完整任务必须真正签收，不能靠局部指标收尾。
+
+格式消歧以同一逻辑段落内的CSV契约为边界，允许普通换行和代码分隔符包裹字段列表；不把另一段落的CSV提及扩散成全目标豁免。独立段落中的真实header，以及任何额外UI线索，继续保留完成门。
