@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "published_artifact_checks_passed_public_performance_pending",
+  "status": "published_signed_private_history_passed_public_real_workflow_pending",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -2022,5 +2022,55 @@
     "pagesHttpAndTaggedSourceHashes": 5,
     "firstNpmMetadataCheckIncomplete": true,
     "npmPublishingLog": "runtime-sdk publish returned success and explicitly reported server processing. First query lacked version; later all4 fixed versions/tags and real postinstall succeeded. No republish or dist-tag workaround."
+  },
+  "publicPrivateHistoryAcceptance": {
+    "application": {
+      "version": "0.1.0-rc.20",
+      "packaged": true
+    },
+    "elapsedMs": 125069,
+    "display": {
+      "dpr": 2,
+      "width": 1440,
+      "height": 949
+    },
+    "keys": {
+      "n": 825,
+      "p95": 36.877624999993714,
+      "p99": 91.9117499999993,
+      "max": 124.42637499999546,
+      "over50": 18,
+      "over100": 3
+    },
+    "wheels": {
+      "n": 825,
+      "p95": 32.65683400000853,
+      "p99": 85.85416699999769,
+      "max": 122.22124999999869,
+      "over50": 29,
+      "over100": 3
+    },
+    "panels": {
+      "n": 28,
+      "p95": 985.8924160000024,
+      "p99": 996.3724999999977,
+      "max": 996.3724999999977,
+      "over50": 28,
+      "over100": 28
+    },
+    "mainLoop": {
+      "p95": 1.433599,
+      "p99": 5.738495,
+      "max": 90.505215
+    },
+    "errors": [],
+    "ok": true,
+    "artifactUnmodified": true,
+    "dailyInstalledAppModified": false,
+    "credentialsRemoved": true,
+    "providerChannelsEmpty": true,
+    "collectionRetries": 0,
+    "rendererLongTasks": [],
+    "scope": "Unmodified publicly downloaded signed RC20 app in isolated directory; complete offline private-history COW snapshot.825 input/wheel pairs and repeated settings actions,125s nativeDPR2. Not an in-place upgrade of the daily installation."
   }
 }
