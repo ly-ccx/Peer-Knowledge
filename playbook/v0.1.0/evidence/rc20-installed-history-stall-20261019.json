@@ -490,24 +490,6 @@
       "mountedRows": 24
     }
   },
-  "productReview": {
-    "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
-    "runId": "b4281b5b-9994-4e98-bcac-2572d2b67fce",
-    "sourceFingerprint": "29a37eb1734675ab348afec02243e23e67275fed62d87c439d8e7f03167fc82b",
-    "requiredScreenshots": 180,
-    "newlyInspectedChangedScreenshots": 157,
-    "exactPixelMatchesToPreviouslyInspectedRC19": 23,
-    "reviewer": "implementer",
-    "independent": false,
-    "verification": "passed",
-    "minorAcceptedLimitations": 7,
-    "supplementaryStoppedStep": "Actual stopped Activity retained in exact-turn lazy reply details; supplemental screenshot inspected.",
-    "limits": [
-      "Controlled cognition, source Electron only; does not prove Provider quality or native installed package performance.",
-      "No full screen-reader or long-term daily acceptance.",
-      "Existing floating latest-message button overlaps, old accepted fixture excerpt and transparent offscreen quick-chat capture limits retained."
-    ]
-  },
   "windowConnectionFailure": {
     "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
     "sourceDirty": false,
@@ -649,5 +631,140 @@
     ],
     "cause": "Multiple synchronous phases and separate cold history projections; same large parent file reread by identity/summary/cards/parent facts/chat views. No individual recorded fs/JSON/clone operation above40ms in the captured stage.",
     "response": "Shared strictly versioned parsed input, explicitly frozen pure callbacks, bounded memory, isolated default callbacks and outputs; ADR updated before implementation."
+  },
+  "previousProductReview": {
+    "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
+    "runId": "b4281b5b-9994-4e98-bcac-2572d2b67fce",
+    "sourceFingerprint": "29a37eb1734675ab348afec02243e23e67275fed62d87c439d8e7f03167fc82b",
+    "requiredScreenshots": 180,
+    "newlyInspectedChangedScreenshots": 157,
+    "exactPixelMatchesToPreviouslyInspectedRC19": 23,
+    "reviewer": "implementer",
+    "independent": false,
+    "verification": "passed",
+    "minorAcceptedLimitations": 7,
+    "supplementaryStoppedStep": "Actual stopped Activity retained in exact-turn lazy reply details; supplemental screenshot inspected.",
+    "limits": [
+      "Controlled cognition, source Electron only; does not prove Provider quality or native installed package performance.",
+      "No full screen-reader or long-term daily acceptance.",
+      "Existing floating latest-message button overlaps, old accepted fixture excerpt and transparent offscreen quick-chat capture limits retained."
+    ]
+  },
+  "productReview": {
+    "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
+    "runId": "8152c547-c4e0-4ede-b25e-7155edf0ef6f",
+    "sourceFingerprint": "d7f38f5acc9a6107409d8ca0d074ef02f46999dce44aded603966288490cf595",
+    "requiredScreenshots": 180,
+    "newlyInspectedChangedScreenshots": 158,
+    "exactPixelMatchesToPreviouslyInspectedRC20": 22,
+    "reviewer": "implementer",
+    "independent": false,
+    "verification": "passed",
+    "minorAcceptedLimitations": 7,
+    "limits": [
+      "Controlled cognition and source Electron only; no real-provider or public-package claim.",
+      "Existing floating latest-message button overlaps, old accepted fixture excerpt and offscreen transparent Quick Chat limits retained.",
+      "Full screen reader and long-term daily use not covered."
+    ]
+  },
+  "sharedInputRegression": {
+    "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
+    "strictStoreTestsPassed": 103,
+    "projectionConsumerTestsPassed": 6,
+    "desktopIntegrationTestsPassed": 51,
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "runtimeParallelRun": {
+      "passed": 1344,
+      "failed": 2,
+      "retry": "Both affected files pass in isolation; no assertions changed."
+    },
+    "desktopParallelRun": {
+      "passed": 5421,
+      "failedFiles": 3,
+      "skipped": 5,
+      "retry": "All three files pass after dependency build completes. Initial overlap with desktop dependency rebuild produced missing-export import errors; no code or assertions relaxed."
+    },
+    "releaseReadiness": "passed",
+    "performance": "New no-profiler large-history real task still running; not accepted yet."
+  },
+  "sharedInputRealModelAttempt": {
+    "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:00:08.207Z",
+    "finishedAt": "2026-10-19T16:10:16.575Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 600548,
+    "taskPassed": false,
+    "interactions": 2420,
+    "mainLoop": {
+      "p95": 1.418239,
+      "p99": 6.033407,
+      "max": 645.922815
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2420,
+        "p50": 17.68541599996388,
+        "p95": 25.10708399998839,
+        "p99": 27.010958999977447,
+        "max": 257.54099999996834
+      },
+      "wheelRoundTripMs": {
+        "n": 2420,
+        "p50": 25.42908399999942,
+        "p95": 27.21670799999265,
+        "p99": 27.776333000016166,
+        "max": 246.42708400002448
+      },
+      "scrollMovedSamples": 2420,
+      "scrollCoverage": {
+        "topVisits": 6,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 1
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 72044,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 26.39999999999418
+      },
+      "inputPaintMs": {
+        "n": 2622,
+        "p50": 5,
+        "p95": 7.399999976158142,
+        "p99": 8.699999988079071,
+        "max": 9.800000011920929
+      },
+      "wheelPaintMs": {
+        "n": 2420,
+        "p50": 24.899999976158142,
+        "p95": 26.600000023841858,
+        "p99": 27.099999964237213,
+        "max": 91.89999997615814
+      },
+      "longTasks": [],
+      "mountedRows": 24
+    },
+    "scope": "Task timed out at600s: 18 unchanged tests and independent verification passed, but a CSV header-only text match armed a UI artifact gate and prevented host acceptance. No complete task or performance acceptance; main-loop max646ms also remains failed. No long-terminal/cancel/receipt stages reached.",
+    "classifierEvidence": {
+      "reasons": [
+        "ui-surface:header"
+      ],
+      "score": 2,
+      "required": true,
+      "context": "renderCsv outputs header category,count,total",
+      "gate": "ui-artifact:judgment-missing",
+      "criterion": "command: node --test"
+    }
   }
 }

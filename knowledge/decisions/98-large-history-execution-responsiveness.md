@@ -266,3 +266,11 @@ Conversation Store 增加独立的严格历史输入 Module，在每个 Store �
 先补多投影单次正文读取、默认回调污染隔离、不可变回调拒绝写入、侧车/替换/损坏失效、竞争与容量测试，再接入明确纯投影。不得用Host/Supervisor时序让出掩盖重复解析，原被撤回的让出保持撤回。重新运行完整门禁、标准产品回归和同规模无Profiler真实任务，失败峰值保留。
 
 既有 Desktop botHistory 端口也通过 createHistoryProjection 保留完整 canonical messages/rounds，Runner 已经使用这一严格版本缓存。本次共享解析不裁剪该端口、不把列表或卡片摘要传入认知上下文；其输出继续完整复制隔离。getPersistedConversationHistory 的直接读取不接入新缓存，权限/执行命令仍依赖原lease、signal及本地准入，绝不以共享输入证明许可。
+
+### 真实验收捕获的 CSV header 误判（A 级，完成门准入）
+
+ac5e4ea6 的生成历史真实 Node 任务已经完成三文件修复、18项原断言及独立复核，仍被 ui-artifact:judgment-missing 阻止签收。宿主事实确认：唯一成功标准为 command/node --test；Intake 分类仅命中 ui-surface:header、score=2。该词来自 renderCsv 契约中的“输出 header category,count,total”，指CSV字段行，并非界面。主Bot如实提出截图不适用并查询原任务，不能靠这句话解除宿主视觉完成门。这是完整验收揭露的产品误判，不将其当Provider失败，也不修改生成任务描述来绕过。
+
+在原纯分类 Module 中仅补数据字段语境消歧：当唯一正向视觉信号是英文header，且无其他界面表层、渲染层、预览或视觉验收信号时，识别明确CSV/TSV header或CSV/renderCsv行内header后跟逗号分隔字段名的语句。其他header及混合界面任务保持原判定；不新增模型自报的“免视觉”标志，不改变Evidence、视觉判断或权限执行链。先补真实契约复现、CSV字段行、真实页眉、CSV界面组件/配色和混合交付回归，再改分类。
+
+已持久化武装的视觉门不由本补丁自动撤销；这轮失败保留，新鲜完整任务重新验证。若未来要纠正旧误判，必须另以明确的宿主事实/决策路径设计，不能复用此次文本分类悄悄删除已武装门。
