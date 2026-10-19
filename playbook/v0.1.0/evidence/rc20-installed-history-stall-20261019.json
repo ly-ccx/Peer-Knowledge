@@ -1428,5 +1428,67 @@
     "readinessAfterCommit": true,
     "redRegressionProved": true,
     "case": "real Desktop assembly uses current profile name despite corrupt chat, observes external rename, rejects archived/deleted/invalid identity"
+  },
+  "notificationNameRealModelAttempt": {
+    "sourceHead": "9d7eda60e03dfcd7b6135e6ecc953329491f9927",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T17:34:59.842Z",
+    "finishedAt": "2026-10-19T17:45:08.123Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 600476,
+    "taskPassed": false,
+    "interactions": 2439,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "mainLoop": {
+      "p95": 1.416191,
+      "p99": 5.853183,
+      "max": 689.438719
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2439,
+        "p50": 19.287125000031665,
+        "p95": 23.735249999999724,
+        "p99": 28.240083000040613,
+        "max": 194.825916999951
+      },
+      "wheelRoundTripMs": {
+        "n": 2439,
+        "p50": 25.5964999999851,
+        "p95": 27.332750000001397,
+        "p99": 28.058458999999857,
+        "max": 229.8930420000106
+      }
+    },
+    "scope": "Fresh generated-history no-profiler task timed out at600s. Tests18 passed; Unicode-quoted CSV field header falsely armed UI gate. No host acceptance or terminal/cancel/long-receipt stages. Input max195ms and wheel230ms improved, but main689ms remains failed; incomplete workflow cannot be accepted."
+  },
+  "unicodeHeaderRegression": {
+    "sourceHead": "b158360f",
+    "runtimeTests": {
+      "pass": 1357,
+      "fail": 0,
+      "skip": 0
+    },
+    "targeted": {
+      "pass": 17,
+      "fail": 0,
+      "redOldCode": true
+    },
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "readiness": true,
+    "scope": "Unicode Quotation_Mark and opening punctuation only in existing explicit CSV field-row disambiguation; remaining real UI cues retain gate. Frozen old markers are not removed."
   }
 }
