@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "candidate_validation_in_progress",
+  "status": "real_task_performance_gate_failed_investigating",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -374,5 +374,120 @@
       "errors": [],
       "acceptance": "Local history reproduction; functional integration restored. Real model and published package gates remain separate."
     }
-  ]
+  ],
+  "realModelAttempt": {
+    "sourceHead": "6d672beab8102b1bac95b0413b8dcbd77602775c",
+    "sourceDirty": false,
+    "model": "deepseek-v4.1-flash",
+    "provider": "openai",
+    "effort": "max",
+    "elapsedMs": 571913,
+    "taskPassed": true,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "frozenEffort": {
+      "worker": "max",
+      "conversation": "max"
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 105.47479200002272,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 101.52595899999142,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 103.825708999997,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 100.40595799998846,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "c701f0bb-c5d8-48bf-aaee-3464416e3b97"
+    },
+    "longReply": {
+      "messageId": "reply:turn-c5835fe2-7d17-46a1-ad97-59c282273e03:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.440767,
+      "p99": 5.419007,
+      "max": 762.839039
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "scope": "Production RC20 source with unmodified signed RC19 credential helper; generated history only. Functional flow passed, performance gate failed. Not installed-build acceptance.",
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2314,
+        "p50": 19.04216599999927,
+        "p95": 21.319916999986162,
+        "p99": 26.232374999963213,
+        "max": 631.166292000009
+      },
+      "wheelRoundTripMs": {
+        "n": 2314,
+        "p50": 25.53112499997951,
+        "p95": 27.20504199998686,
+        "p99": 27.622459000034723,
+        "max": 301.15608300000895
+      },
+      "scrollMovedSamples": 2314,
+      "scrollCoverage": {
+        "topVisits": 5,
+        "bottomVisits": 7,
+        "liveReplyVisibleSamples": 4
+      }
+    },
+    "renderer": {
+      "frames": {
+        "n": 68612,
+        "p50": 8.299999999988358,
+        "p95": 9.900000000023283,
+        "p99": 10.299999999988358,
+        "max": 25.599999999998545
+      },
+      "inputPaintMs": {
+        "n": 2550,
+        "p50": 4.5,
+        "p95": 8.5,
+        "p99": 9.099999964237213,
+        "max": 9.800000011920929
+      },
+      "wheelPaintMs": {
+        "n": 2314,
+        "p50": 24.900000035762787,
+        "p95": 26.600000023841858,
+        "p99": 27.099999964237213,
+        "max": 258.5999999642372
+      },
+      "longTasks": [],
+      "mountedRows": 24
+    }
+  }
 }
