@@ -254,3 +254,15 @@ Desktop集成隔离重试仍发现Host额外让出改变目标观察事件入账
 CI界面门禁同时揭示详情兼容遗漏：按需过程读取保留完整rounds后，还必须传递同一workspace响应中的真实Activity。停止时可能有准备中但从未派发、因此未进入持久rounds的步骤；既有attachBotProcesses已经按精确turnId隔离这种Activity，新的读取Module应复用该投影。不得把准备显示成执行/Evidence，不得给历史回复附上另一turn的活动。补充停止/错误及不同turn回归。
 
 Linux的真实pointer hover测试在循环中每50ms移出再移入，反复重置120ms的透明度过渡，导致15秒仍无法满足opacity===1。仅修正测试等待：真实指针命中后等有限CSS过渡完成，再检查hover与opacity；断言、实际指针和虚拟列表命中要求保持，不能强制按钮可见或放宽布局。
+
+### RC20 冷投影共享输入的收口设计（A 级，只读存储 Interface）
+
+48c72109 完整真实任务在功能上再次通过，但输入最大674ms、主循环552ms仍超过原500ms门槛，不发布。新鲜任务第一阶段的采样显示391ms派发窗口、349ms回复交付窗口、334ms定时观察窗口，均由多段同步工作串联；没有发现单次超过40ms的文件/JSON/克隆操作。多个独立投影在同一父会话变化后分别重读并解析同一9.6MB JSONL：消息身份、列表摘要、卡片、父任务事实、聊天分页。原投影输出缓存虽有效，冷输入没有共享。`dispatchOrigin`全文读取仍是遗留候选，但此轮栈未证明它主导，不能据静态代码将其宣称为本次根因。
+
+Conversation Store 增加独立的严格历史输入 Module，在每个 Store 内按会话ID和完整已校验文件版本缓存解析后的只读输入；最多8会话、合计64MiB，不写磁盘。所有投影仍先 describe 索引、正文和sidecar的严格版本，读取后再核对；替换、同长改写、删除、稳定损坏、写入竞争继续走原错误/最多3次重试，不能命中旧成功。
+
+已有 createHistoryProjection 保持默认可变输入的兼容性：回调获得隔离副本。新增显式 immutableInput 选项，仅经核对的纯投影使用深冻结共享输入，且投影输出仍结构化复制隔离。深冻结在首次解析后执行一次；调用者无法污染其他投影。缓存逐出/超限只影响成本，不能截断历史。该输入缓存仅供既有展示/事实投影，getPersistedConversationHistory、权限、Evidence及真正执行读取 Interface 不改，不将缓存当作权限或完成证明。
+
+先补多投影单次正文读取、默认回调污染隔离、不可变回调拒绝写入、侧车/替换/损坏失效、竞争与容量测试，再接入明确纯投影。不得用Host/Supervisor时序让出掩盖重复解析，原被撤回的让出保持撤回。重新运行完整门禁、标准产品回归和同规模无Profiler真实任务，失败峰值保留。
+
+既有 Desktop botHistory 端口也通过 createHistoryProjection 保留完整 canonical messages/rounds，Runner 已经使用这一严格版本缓存。本次共享解析不裁剪该端口、不把列表或卡片摘要传入认知上下文；其输出继续完整复制隔离。getPersistedConversationHistory 的直接读取不接入新缓存，权限/执行命令仍依赖原lease、signal及本地准入，绝不以共享输入证明许可。
