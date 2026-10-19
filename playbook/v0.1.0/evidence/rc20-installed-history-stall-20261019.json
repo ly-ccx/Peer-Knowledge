@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "source_real_workflow_passed_private_and_product_package_checks_pending",
+  "status": "source_real_and_private_history_passed_product_and_public_checks_pending",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -1873,5 +1873,58 @@
       }
     },
     "scope": "Fresh generated-history real full workflow without CPU profiler or function wrappers. Includes lightweight anomaly timestamps. Original18 tests unchanged, functional stages and unchanged P99/500ms peak gates passed. Source acceptance only; public package and private-history latest checks pending."
+  },
+  "latestPrivateHistoryAcceptance": {
+    "elapsedMs": 125071,
+    "display": {
+      "dpr": 2,
+      "width": 1440,
+      "height": 949
+    },
+    "keys": {
+      "n": 866,
+      "p95": 37.81974999999511,
+      "p99": 87.21083400000498,
+      "max": 97.93524999999863,
+      "over50": 16,
+      "over100": 0
+    },
+    "wheels": {
+      "n": 866,
+      "p95": 33.72908399999142,
+      "p99": 84.41720900000655,
+      "max": 109.7387920000001,
+      "over50": 27,
+      "over100": 1
+    },
+    "panels": {
+      "n": 29,
+      "p95": 948.8551670000015,
+      "p99": 1009.902875000007,
+      "max": 1009.902875000007,
+      "over50": 29,
+      "over100": 29
+    },
+    "mainLoop": {
+      "p95": 1.457151,
+      "p99": 6.463487,
+      "max": 61.308927
+    },
+    "errors": [],
+    "ok": true,
+    "sourceHead": "f6bd1bbd",
+    "credentialFilesRemoved": true,
+    "providerChannelsEmpty": true,
+    "collectionRetries": 0,
+    "rendererLongTasks": [],
+    "scope": "Complete local offline private-history COW snapshot; five older pages,866 continuous typing/wheel pairs plus29 open-settings/tab/close sequences. Panel spans include three actions and intended transitions. Script success alone is not performance acceptance; input/wheel/main peaks checked separately. No personal history sent to model."
+  },
+  "privateCollectionFailure": {
+    "sourceHead": "f6bd1bbd",
+    "elapsedMs": 125348,
+    "interactions": 842,
+    "error": "Final main-loop metrics collection: Resulting promise was garbage collected. No main-loop report. Cause not established.",
+    "accepted": false,
+    "scope": "First offline run retained as incomplete; subsequent complete run uses bounded exact-error collection retry without resetting monitor and needed0retries."
   }
 }
