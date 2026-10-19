@@ -383,3 +383,5 @@ RC20公开包新鲜真实流程294.606秒1166组功能全通过，输入P99/max3
 只复用“文件是否具有delegationOrigin.sessionId”的发现元信息；每次返回每个候选仍调用当前GoalPlanStore.getPlan，继续运行overlay、UI完成门、权限、租约、调度和独立核验，不缓存Plan、PermissionGrant或Evidence。所有正常跨进程写入走既有persist/index/change journal，因此下次查询立即发现新的派发身份。未经过Store写入且没有index/journal变更的旧工具手工原地改文件，发现元信息最多保留5秒，之后全目录复核；默认严格Adapter仍逐次检测。此5秒仅约束未治理写入的发现延迟，不延迟当前已知任务状态或用户取消，也不是权限有效期。不给Host/Supervisor新增任意yield，不把整个异步操作中的Plan当快照权威，不改变持久格式或迁移用户历史。
 
 Module locality集中于catalog及其失效读取器，两处生产装配显式选择同一Adapter。先补真实GoalPlanStore双实例写入、已知候选当前overlay、1100文件温查询不得重复全量stat、日志截断/替换/损坏/部分行、index无日志变更、成员变更、5秒旧文件复核、换数据根及缓存容量回归；默认严格测试保持。验收仍用原18断言/同规模完整真实任务和原500ms门槛，诊断不能算通过。任何剩余峰值继续按栈查因，不放宽门槛。
+
+增量发现修复442700ee已实现，版本准备da834443尚未发布。13项catalog回归通过，1100计划温查询5次共0次逐计划stat，变更只重新分类目标文件；真实双Store变更立即可见，所有已知候选仍读当前getPlan。默认严格模式回归保留。全Desktop5583通过/5原skip/附加3通过；Runtime1368中1367通过，原runtime-host抢占时序用例并行负载失败，原文件隔离7通过，未改断言；类型/架构通过。7bc诊断的最终main指标采集另报精确协议错误Resulting promise was garbage collected，因此虽CPU/交互及全部功能阶段有记录，仍不是完整性能通过；新采集器只对该精确错误最多重取两次，不重置monitor、不修改任何门槛，并记录重取次数。

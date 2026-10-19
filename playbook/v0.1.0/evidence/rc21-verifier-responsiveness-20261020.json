@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-10-20",
   "targetVersion": "0.1.0-rc.21",
-  "status": "diagnosing_remaining_public_main_loop_peak",
+  "status": "candidate_implemented_pending_full_real_acceptance",
   "previousEvidence": "rc20-installed-history-stall-20261019.json",
   "codePR": 171,
   "rootFixCommit": "7bc4372f",
@@ -13,10 +13,11 @@
     "additionalPass": 3
   },
   "runtime": {
-    "total": 1358,
-    "pass": 1356,
-    "parallelTimingFailures": 2,
-    "isolatedOriginalFilesPass": 35
+    "total": 1368,
+    "pass": 1367,
+    "parallelTimingFailures": 1,
+    "isolatedOriginalFilesPass": 7,
+    "assertionsChanged": false
   },
   "typecheck": true,
   "architecture": true,
@@ -38,5 +39,31 @@
     "journalUnchanged": true,
     "modified": false
   },
-  "rootFixIsNotClaimedAsPerformanceRootCause": true
+  "rootFixIsNotClaimedAsPerformanceRootCause": true,
+  "candidateCommit": "da834443",
+  "catalogFixCommit": "442700ee",
+  "diagnostic": {
+    "sourceCommit": "7bc4372f",
+    "acceptance": false,
+    "taskPassed": true,
+    "unchangedTestAssertions": 18,
+    "interactions": 1830,
+    "independentContextVerification": true,
+    "largeCommits": 4,
+    "cancelledWithoutReplayAndReplied": true,
+    "authoritativeLongReceipt": true,
+    "generatedConversations": 22,
+    "globalArtifactDirectories": 0,
+    "calibratedCpuGapMs": 591.7341,
+    "mainMetricCollectionError": "Resulting promise was garbage collected; no complete main-loop result, not an acceptance pass",
+    "cause": "Repeated 1100-file synchronous discovery inventories across reconciliation, queue promotion and host watch; three scans about113/110/109ms inside the worst gap"
+  },
+  "catalogRegression": {
+    "tests": 13,
+    "warm1100FilesStatCalls": 0,
+    "readsPerCandidateAlwaysCurrent": true,
+    "crossStoreChangesImmediate": true,
+    "unmanagedLegacyRecheckSeconds": 5,
+    "journalCorruptionReplacementTruncationPartialOversizeFallback": true
+  }
 }
