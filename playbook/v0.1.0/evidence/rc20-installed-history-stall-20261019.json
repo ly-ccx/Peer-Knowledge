@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "published_signed_private_history_passed_public_real_workflow_pending",
+  "status": "rc20_public_performance_failed_followup_required",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -2072,5 +2072,93 @@
     "collectionRetries": 0,
     "rendererLongTasks": [],
     "scope": "Unmodified publicly downloaded signed RC20 app in isolated directory; complete offline private-history COW snapshot.825 input/wheel pairs and repeated settings actions,125s nativeDPR2. Not an in-place upgrade of the daily installation."
+  },
+  "publicRealWorkflowFailedPerformance": {
+    "application": {
+      "version": "0.1.0-rc.20",
+      "packaged": true
+    },
+    "sourceHead": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "sourceDirty": false,
+    "taskPassed": true,
+    "elapsedMs": 294606,
+    "interactions": 1166,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "9d915588-1459-4087-b4ff-30fa0bb747f1"
+    },
+    "longReply": {
+      "messageId": "reply:turn-f29bf8dd-82c8-4b93-84dc-e21f8c361e3b:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 105.09333399997558,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 101.90837499999907,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 99.53137499996228,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 101.95675000001211,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "credentialCopiesRemoved": true,
+    "ok": false,
+    "mainLoop": {
+      "p95": 1.431551,
+      "p99": 6.631423,
+      "max": 568.852479
+    },
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1166,
+        "p50": 18.4939999999915,
+        "p95": 25.632541999977548,
+        "p99": 30.030583999992814,
+        "max": 266.0817079999979
+      },
+      "wheelRoundTripMs": {
+        "n": 1166,
+        "p50": 25.425834000023315,
+        "p95": 27.338457999998354,
+        "p99": 49.71349999999802,
+        "max": 324.2541249999995
+      }
+    },
+    "scope": "Actual unmodified public signed RC20 app and bundled helper, fresh generated history, all functional stages passed. Main loop568.85ms exceeds unchanged500ms gate; input266ms/wheel324ms pass. No complete public performance acceptance."
+  },
+  "isolationCorrection": {
+    "genericToolArtifactStoreIgnoredDataHome": true,
+    "testArtifactsAddedToDefaultGlobalCache": true,
+    "originalConversationProjectCredentialRecordsOrDailyInstallationOverwritten": false,
+    "priorBlanketNoOriginalDataMutationClaimTooBroad": true,
+    "cleanup": "Only verified generated test identities will be quarantined; unrelated artifact directories must not be scanned for deletion or migrated. Root wiring will use the existing canonical data-home registry."
   }
 }
