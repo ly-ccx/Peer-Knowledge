@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-10-20",
   "targetVersion": "0.1.0-rc.21",
-  "status": "candidate_implemented_pending_full_real_acceptance",
+  "status": "source_acceptance_passed_pending_product_and_public_build",
   "previousEvidence": "rc20-installed-history-stall-20261019.json",
   "codePR": 171,
   "rootFixCommit": "7bc4372f",
@@ -40,7 +40,7 @@
     "modified": false
   },
   "rootFixIsNotClaimedAsPerformanceRootCause": true,
-  "candidateCommit": "da834443",
+  "candidateCommit": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
   "catalogFixCommit": "442700ee",
   "diagnostic": {
     "sourceCommit": "7bc4372f",
@@ -65,5 +65,155 @@
     "crossStoreChangesImmediate": true,
     "unmanagedLegacyRecheckSeconds": 5,
     "journalCorruptionReplacementTruncationPartialOversizeFallback": true
-  }
+  },
+  "ci": {
+    "runId": 39310130219,
+    "macOS": "success",
+    "Linux": "success"
+  },
+  "sourceReal": {
+    "sourceHead": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
+    "sourceDirty": false,
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 178109,
+    "interactions": 712,
+    "taskPassed": true,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "bde3b1a3-15c3-4311-8b67-3317d67b69eb"
+    },
+    "longReply": {
+      "messageId": "reply:turn-567b0a11-f255-40fa-9309-691adfe5b128:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "artifactIsolation": {
+      "generatedConversations": 22,
+      "globalArtifactDirectories": 0
+    },
+    "credentialCopiesRemoved": true,
+    "mainLoop": {
+      "p95": 1.428479,
+      "p99": 4.923391,
+      "max": 379.060223
+    },
+    "input": {
+      "n": 712,
+      "p50": 19.034125000005588,
+      "p95": 25.19029200001387,
+      "p99": 66.38258300000234,
+      "max": 177.98566700000083
+    },
+    "wheel": {
+      "n": 712,
+      "p50": 25.462457999994513,
+      "p95": 27.280542000000423,
+      "p99": 49.28454199999396,
+      "max": 277.54383300000336
+    },
+    "metricTransportRetries": 0
+  },
+  "privateOffline": {
+    "sourceHead": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
+    "elapsedMs": 125034,
+    "keys": {
+      "n": 869,
+      "p95": 27.331124999996973,
+      "p99": 60.6765000000014,
+      "max": 100.39941700000054,
+      "over50": 14,
+      "over100": 1
+    },
+    "wheels": {
+      "n": 869,
+      "p95": 27.465958000000683,
+      "p99": 57.39416699999856,
+      "max": 66.97249999998894,
+      "over50": 14,
+      "over100": 0
+    },
+    "panels": {
+      "n": 29,
+      "p95": 990.1742079999967,
+      "p99": 993.4026249999952,
+      "max": 993.4026249999952,
+      "over50": 29,
+      "over100": 29
+    },
+    "mainLoop": {
+      "p95": 1.439743,
+      "p99": 5.509119,
+      "max": 47.906815
+    },
+    "errors": [],
+    "credentialIsolation": {
+      "configuredChannels": 0,
+      "configuredModels": 0,
+      "copiedVaultRemovedBeforeLaunch": true,
+      "copiedIdentityRemovedBeforeLaunch": true,
+      "newBootstrapIdentityRemovedAfterClose": true,
+      "vaultAndIdentityAbsentAfterCleanup": true
+    },
+    "renderer": {
+      "frames": {
+        "n": 14979,
+        "p95": 10,
+        "p99": 10.30000000000291,
+        "max": 33.39999999999782,
+        "over50": 0,
+        "over100": 0
+      },
+      "inputs": {
+        "n": 927,
+        "p95": 9,
+        "p99": 9.5,
+        "max": 16.400000035762787,
+        "over50": 0,
+        "over100": 0
+      },
+      "wheels": {
+        "n": 869,
+        "p95": 26.5,
+        "p99": 32.69999998807907,
+        "max": 41.80000001192093,
+        "over50": 0,
+        "over100": 0
+      },
+      "longTasks": [],
+      "rows": 24
+    },
+    "collectionRetries": []
+  },
+  "incompleteRunsRetained": [
+    {
+      "kind": "launch_configuration_error",
+      "accepted": false,
+      "cause": "Operator omitted explicit max effort; unsupported fallback medium was rejected locally before Provider execution. Owned isolated instance stopped, credentials removed and no global artifacts. Fresh max run uses identical assertions and gates."
+    },
+    {
+      "kind": "private_history_short_probe",
+      "elapsedMs": 65304,
+      "samples": 452,
+      "acceptedAsFull125SecondRun": false
+    },
+    {
+      "kind": "private_history_startup_metric_transport_error",
+      "samples": 0,
+      "accepted": false,
+      "cause": "Extra early app.version collection hit exact known GC protocol error before sampling. Removed unnecessary early metadata call; complete original scenario ran without collection retries."
+    }
+  ]
 }
