@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "real_task_performance_gate_failed_investigating",
+  "status": "source_real_workflow_passed_private_and_product_package_checks_pending",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -1791,5 +1791,87 @@
       "originalSkip": 5,
       "additionalPass": 3
     }
+  },
+  "trayCoalescingRealModelAcceptance": {
+    "sourceHead": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T18:05:08.332Z",
+    "finishedAt": "2026-10-19T18:11:10.008Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 353740,
+    "taskPassed": true,
+    "interactions": 1424,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 103.79975000000559,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 104.86154200002784,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 107.61995799996657,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 107.53362499998184,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "e8d4b41d-156c-4a21-8684-0b4a1a3720d0"
+    },
+    "longReply": {
+      "messageId": "reply:turn-9ff982c4-4d11-4d85-9c96-9ae5b3ef83a6:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.418239,
+      "p99": 5.910527,
+      "max": 402.915327
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1424,
+        "p50": 19.47025000001304,
+        "p95": 24.424915999989025,
+        "p99": 28.466125000006286,
+        "max": 139.0321249999979
+      },
+      "wheelRoundTripMs": {
+        "n": 1424,
+        "p50": 25.4898749999993,
+        "p95": 27.383166999999958,
+        "p99": 36.010291999999026,
+        "max": 304.98216700000194
+      }
+    },
+    "scope": "Fresh generated-history real full workflow without CPU profiler or function wrappers. Includes lightweight anomaly timestamps. Original18 tests unchanged, functional stages and unchanged P99/500ms peak gates passed. Source acceptance only; public package and private-history latest checks pending."
   }
 }
