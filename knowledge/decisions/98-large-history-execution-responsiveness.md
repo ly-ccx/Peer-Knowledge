@@ -283,3 +283,15 @@ ac5e4ea6 的生成历史真实 Node 任务已经完成三文件修复、18项原
 冻结f7b67b0a的新鲜DeepSeek/max任务已通过三文件修复、18项未修改断言、独立上下文复核、宿主签收、正式回复、四次46MB提交、主动取消后回复和5790字符完整回执。405秒1618组交互，输入P95/P99/max=24.47/49.85/273.27ms，滚轮27.36/35.64/574.63ms，主循环max734.53ms；Renderer帧max25.2ms、long task 0。功能阻断已消失，但峰值再次失败，仍不打tag或发布。
 
 继续以完整新鲜流程采样并记录Profiler.start/stop前后的performance.now时钟边界、各阶段标记与主循环间隙；先前hrtime与CPU profile时基不同，不得据错误对齐归因。诊断运行只作调用栈归因，最终门禁仍用无Profiler同规模真实任务。保留原500ms上限，不对失败阶段省略采样。
+
+### 完整阶段 CPU 采样后的写入与派发收口（A 级，内部存储 Interface）
+
+f7b67b0a完整诊断在派出取消验收任务时测得552ms间隙；工具准入窗口约372ms，其中beforeTool约206ms。以独立12ms命名时钟标记校准CPU样本，避免Profiler启动约52ms区间的不确定性。栈确认：工作记账append先复制全量ledger，committed再复制一次；Verifier continuation单项归属检查仍read完整ledger；Activity为幂等判断和被忽略的append返回值读取父对话全文。首次派发还出现GoalRunnerHost.currentPlans加载全部1100份计划约53ms，调度器实际只用delegationOrigin项目与session依赖。未据静态代码认定dispatchOrigin全文扫描是本轮热点。
+
+补充以下Interface，先写失败回归再实现：
+
+1. Coordination Journal Reader增加内部commitEntry：严格读取当前版本、用原Reducer构造下一状态，调用原同步persist回调，原append/fsync/目录fsync全部成功后才发布私有状态。内部构造的next不向调用方泄漏；既有committed/read与默认append/saveWork仍返回隔离副本。新增显式returnState:false仅供忽略返回值的宿主记账调用，避免复制其他历史work；失败不发布，重试仍严格重放已落盘记录。没有合并、丢弃、延迟预算/PermissionGrant/Evidence记录，没有跨await写入缓存。Verifier单work检查用readWork；binding核对用已有readLifecycleFacts，仍检查当前mandate/transition和lease。
+2. Activity发布器使用已有严格版本投影取得消息ID，旧Store无工厂时保持全文兼容；append显式returnMessages:false，事件持久化后再发changed。不能把内存去重当持久化、吞掉写失败或把Activity当Evidence。Coordination在一次无await的决策内只读一次同一父消息集；原当前用户、附件、锚点和作用域判断不变。
+3. GoalRunnerHost的调度观察复用已有DelegatedPlanCatalog，只对具有delegationOrigin的候选getPlan，保留已接受依赖、终态、同长度改写/替换/损坏失效及原getPlan完成门。非委托Goal仍走原canRunPlan路径；实际能力、执行权和当前宿主租约不缓存。
+
+不扩展为修改父上下文继承或降低签收条件；createChildConversation的当前完整背景和版本复核先保持。原被撤回的Host/Supervisor调度让出继续撤回。上述收口后重新完整受影响包测试、同规模无Profiler真实流程及冻结候选产品回归，所有峰值失败保留。
