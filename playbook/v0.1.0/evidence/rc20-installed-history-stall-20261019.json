@@ -883,7 +883,7 @@
     },
     "scope": "CSV classification repair: genuine fresh generated-history task, all functional stages passed. Wheel max575ms and main-loop max735ms exceed unchanged500ms gate; performance failed. No tag or release."
   },
-  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider. receiptRealModelAttempt follows the same generated-history credential cleanup scope. immutableSnapshotRealModelAttempt follows the same generated-history credential cleanup scope.",
+  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider. receiptRealModelAttempt follows the same generated-history credential cleanup scope. immutableSnapshotRealModelAttempt follows the same generated-history credential cleanup scope. formattedHeaderRealModelAttempt follows the same generated-history credential cleanup scope; late diagnostic uses the generated prior completed fixture and is not fresh full acceptance.",
   "completeStageProfile": {
     "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
     "scope": "Fresh generated-history real task; CPU profiler and slow synchronous I/O tracing. All functional stages passed; diagnostic only, not performance acceptance.",
@@ -1144,5 +1144,289 @@
     },
     "scope": "No-profiler generated-history task timed out at600s. 18 unchanged tests and independent review passed, but quoted CSV field header armed the UI gate; no host acceptance or terminal/cancel/receipt stages. Wheel max568ms also exceeds unchanged500ms gate; no performance acceptance.",
     "classificationCounterexample": "renderCsv(groups) outputs header `category,count,total`; no UI source files. The previous lookahead did not accept Markdown quoting."
+  },
+  "formattedHeaderRealModelAttempt": {
+    "sourceHead": "c207f2d09b49349314db308df0ce7987b67f0130",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T17:15:13.797Z",
+    "finishedAt": "2026-10-19T17:24:01.117Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 519398,
+    "taskPassed": true,
+    "interactions": 2093,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 104.33354199997848,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 189.90512499999022,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 122.49933399999281,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 102.7706659999676,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "c147a7f5-5655-4a93-9876-c7cc6dea361a"
+    },
+    "longReply": {
+      "messageId": "reply:turn-84f764a4-c87e-4444-ad4d-74a40c7066fc:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "scope": "Fresh generated-history real workflow, no profiler. All functional stages passed, but input max588.79ms and main max544.74ms exceed unchanged500ms peak gates; not accepted or published.",
+    "mainLoop": {
+      "p95": 1.425407,
+      "p99": 6.107135,
+      "max": 544.735231
+    },
+    "renderer": {
+      "frames": {
+        "n": 62305,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 25.30000000000291
+      },
+      "inputPaintMs": {
+        "n": 2311,
+        "p50": 4.599999964237213,
+        "p95": 8.200000047683716,
+        "p99": 9,
+        "max": 9.5
+      },
+      "wheelPaintMs": {
+        "n": 2093,
+        "p50": 24.899999976158142,
+        "p95": 26.599999964237213,
+        "p99": 27.099999964237213,
+        "max": 366.9000000357628
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true,
+      "avatars": [
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "true",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        }
+      ]
+    },
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2093,
+        "p50": 19.576833999948576,
+        "p95": 25.004375000018626,
+        "p99": 38.43037499999991,
+        "max": 588.7901249999995
+      },
+      "wheelRoundTripMs": {
+        "n": 2093,
+        "p50": 25.466917000012472,
+        "p95": 27.268792000002577,
+        "p99": 36.145125000002736,
+        "max": 452.38683299999684
+      }
+    }
+  },
+  "notificationIdentityDiagnosis": {
+    "sourceHead": "c207f2d09b49349314db308df0ce7987b67f0130",
+    "diagnosticOnly": true,
+    "freshFullWorkflow": false,
+    "durationMs": 120056,
+    "mainLoopMaxMs": 477.36,
+    "gapsMs": {
+      "cancelDispatch": 473.318,
+      "cancelReply": 304.812,
+      "longReceipt": 266.56
+    },
+    "confirmedStack": "notification handleAppended -> botName -> directory.get -> projectRow,35–40ms repeated per reply; reads full conversation/task facts solely to obtain displayName",
+    "decision": "Use existing BotProfileStore.read directly; preserve invalid/missing/archived empty-name behavior and live rename. No new cache or authority."
+  },
+  "notificationIdentityRegression": {
+    "sourceHead": "9d7eda60",
+    "desktop": {
+      "pass": 5580,
+      "fail": 0,
+      "originalSkip": 5,
+      "additionalPass": 3
+    },
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "readinessAfterCommit": true,
+    "redRegressionProved": true,
+    "case": "real Desktop assembly uses current profile name despite corrupt chat, observes external rename, rejects archived/deleted/invalid identity"
   }
 }

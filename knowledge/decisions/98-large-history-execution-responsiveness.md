@@ -327,3 +327,5 @@ c207f2d0首次完整新鲜模型流程已通过全部功能阶段：18项原断�
 栈确认通知handleAppended → botNameForWorkspace → Desktop.botName → directory.get → projectRow约35–40ms，且同一回复阶段多次发生；它只需要profile.displayName，却读取完整消息、任务、审批和未读状态，引发多次冷历史投影。改为直接消费同一dataRoot上已有BotProfileStore.read，并保留workspaceId校验、缺失/损坏/归档返回空串、最新displayName语义。无需新增缓存、IPC、存储或Module，不改通知决策、去重、前台抑制及权限/Evidence。
 
 先补真实Desktop装配用例：聊天损坏仍可取得档案名字、外部改名立即生效、归档/删除/非法身份仍空；再替换这一名称Adapter。父背景的完整继承和版本核对在本步保持，未据此放宽完成门。随后重跑同规模无Profiler完整流程，保留本轮失败，不用短诊断的477ms主循环冒充通过。
+
+通知名称Adapter冻结9d7eda60：真实Desktop装配用例旧实现失败、新实现通过；完整Desktop5580通过、原有5skip及附加3通过，完整构建/类型/架构/提交后readiness通过。Runtime源码未变，保留c207全包1356通过及一项时序文件隔离7通过记录。正以相同生成历史和原18断言重新启动无Profiler新鲜完整真实流程，不将尚未结束的运行算通过。
