@@ -1040,5 +1040,30 @@
       "focused": true
     },
     "scope": "Fresh no-profiler same-scale real workflow; every functional stage passed. Main max419ms and wheel max254ms improved, but input max531ms still exceeds unchanged500ms gate. Not accepted or published."
+  },
+  "immutableSnapshotRegression": {
+    "sourceHead": "391d0cfa6f0222ec2addf422064669b9ea08f966",
+    "focusedPassed": 47,
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "releaseReadiness": "passed",
+    "runtimeFull": {
+      "tests": 1357,
+      "passed": 1356,
+      "failed": 1,
+      "skipped": 0,
+      "isolatedRetryPassed": 7,
+      "retry": "The input-preemption timing file passes in isolation; original assertions unchanged."
+    },
+    "desktopFull": {
+      "tests": 5584,
+      "passed": 5579,
+      "failed": 0,
+      "skipped": 5,
+      "additionalPassed": 3
+    },
+    "compatibility": "Default mutable reads, mutable event/callback outputs and old Adapter fallback retained. Recovery count tests still require four preparation/decision reads, now check immutable port and legacy fallback, plus zero full copies.",
+    "performance": "Fresh no-profiler same-scale real task running; no acceptance yet."
   }
 }
