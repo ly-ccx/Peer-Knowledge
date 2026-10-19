@@ -1,0 +1,512 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "targetVersion": "0.1.0-rc.21",
+  "status": "rc21_public_build_full_acceptance_passed",
+  "previousEvidence": "rc20-installed-history-stall-20261019.json",
+  "codePR": 171,
+  "rootFixCommit": "7bc4372f",
+  "rootFixFocusedTests": 7,
+  "desktop": {
+    "pass": 5583,
+    "originalSkip": 5,
+    "additionalPass": 3
+  },
+  "runtime": {
+    "total": 1368,
+    "pass": 1367,
+    "parallelTimingFailures": 1,
+    "isolatedOriginalFilesPass": 7,
+    "assertionsChanged": false
+  },
+  "typecheck": true,
+  "architecture": true,
+  "cleanup": {
+    "generatedFixtureRoots": 15,
+    "directories": 14,
+    "files": 64,
+    "bytes": 745589,
+    "applied": true
+  },
+  "cleanupProof": "Generated fixture identities are absent from actual user conversation index; every moved regular file SHA256 verified before/after. Unrelated directories untouched, files preserved under original isolated fixture roots. Original conversations/projects/credential records and installed app not overwritten; blanket no-data-modification claim corrected.",
+  "recoverNegativeProbe": {
+    "journalBytes": 187073425,
+    "copies": 10,
+    "warmRecoverRangeMs": [
+      0.98,
+      2.39
+    ],
+    "journalUnchanged": true,
+    "modified": false
+  },
+  "rootFixIsNotClaimedAsPerformanceRootCause": true,
+  "candidateCommit": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
+  "catalogFixCommit": "442700ee",
+  "diagnostic": {
+    "sourceCommit": "7bc4372f",
+    "acceptance": false,
+    "taskPassed": true,
+    "unchangedTestAssertions": 18,
+    "interactions": 1830,
+    "independentContextVerification": true,
+    "largeCommits": 4,
+    "cancelledWithoutReplayAndReplied": true,
+    "authoritativeLongReceipt": true,
+    "generatedConversations": 22,
+    "globalArtifactDirectories": 0,
+    "calibratedCpuGapMs": 591.7341,
+    "mainMetricCollectionError": "Resulting promise was garbage collected; no complete main-loop result, not an acceptance pass",
+    "cause": "Repeated 1100-file synchronous discovery inventories across reconciliation, queue promotion and host watch; three scans about113/110/109ms inside the worst gap"
+  },
+  "catalogRegression": {
+    "tests": 13,
+    "warm1100FilesStatCalls": 0,
+    "readsPerCandidateAlwaysCurrent": true,
+    "crossStoreChangesImmediate": true,
+    "unmanagedLegacyRecheckSeconds": 5,
+    "journalCorruptionReplacementTruncationPartialOversizeFallback": true
+  },
+  "ci": {
+    "runId": 39310130219,
+    "macOS": "success",
+    "Linux": "success"
+  },
+  "sourceReal": {
+    "sourceHead": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
+    "sourceDirty": false,
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 178109,
+    "interactions": 712,
+    "taskPassed": true,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "bde3b1a3-15c3-4311-8b67-3317d67b69eb"
+    },
+    "longReply": {
+      "messageId": "reply:turn-567b0a11-f255-40fa-9309-691adfe5b128:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "artifactIsolation": {
+      "generatedConversations": 22,
+      "globalArtifactDirectories": 0
+    },
+    "credentialCopiesRemoved": true,
+    "mainLoop": {
+      "p95": 1.428479,
+      "p99": 4.923391,
+      "max": 379.060223
+    },
+    "input": {
+      "n": 712,
+      "p50": 19.034125000005588,
+      "p95": 25.19029200001387,
+      "p99": 66.38258300000234,
+      "max": 177.98566700000083
+    },
+    "wheel": {
+      "n": 712,
+      "p50": 25.462457999994513,
+      "p95": 27.280542000000423,
+      "p99": 49.28454199999396,
+      "max": 277.54383300000336
+    },
+    "metricTransportRetries": 0
+  },
+  "privateOffline": {
+    "sourceHead": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
+    "elapsedMs": 125034,
+    "keys": {
+      "n": 869,
+      "p95": 27.331124999996973,
+      "p99": 60.6765000000014,
+      "max": 100.39941700000054,
+      "over50": 14,
+      "over100": 1
+    },
+    "wheels": {
+      "n": 869,
+      "p95": 27.465958000000683,
+      "p99": 57.39416699999856,
+      "max": 66.97249999998894,
+      "over50": 14,
+      "over100": 0
+    },
+    "panels": {
+      "n": 29,
+      "p95": 990.1742079999967,
+      "p99": 993.4026249999952,
+      "max": 993.4026249999952,
+      "over50": 29,
+      "over100": 29
+    },
+    "mainLoop": {
+      "p95": 1.439743,
+      "p99": 5.509119,
+      "max": 47.906815
+    },
+    "errors": [],
+    "credentialIsolation": {
+      "configuredChannels": 0,
+      "configuredModels": 0,
+      "copiedVaultRemovedBeforeLaunch": true,
+      "copiedIdentityRemovedBeforeLaunch": true,
+      "newBootstrapIdentityRemovedAfterClose": true,
+      "vaultAndIdentityAbsentAfterCleanup": true
+    },
+    "renderer": {
+      "frames": {
+        "n": 14979,
+        "p95": 10,
+        "p99": 10.30000000000291,
+        "max": 33.39999999999782,
+        "over50": 0,
+        "over100": 0
+      },
+      "inputs": {
+        "n": 927,
+        "p95": 9,
+        "p99": 9.5,
+        "max": 16.400000035762787,
+        "over50": 0,
+        "over100": 0
+      },
+      "wheels": {
+        "n": 869,
+        "p95": 26.5,
+        "p99": 32.69999998807907,
+        "max": 41.80000001192093,
+        "over50": 0,
+        "over100": 0
+      },
+      "longTasks": [],
+      "rows": 24
+    },
+    "collectionRetries": []
+  },
+  "incompleteRunsRetained": [
+    {
+      "kind": "launch_configuration_error",
+      "accepted": false,
+      "cause": "Operator omitted explicit max effort; unsupported fallback medium was rejected locally before Provider execution. Owned isolated instance stopped, credentials removed and no global artifacts. Fresh max run uses identical assertions and gates."
+    },
+    {
+      "kind": "private_history_short_probe",
+      "elapsedMs": 65304,
+      "samples": 452,
+      "acceptedAsFull125SecondRun": false
+    },
+    {
+      "kind": "private_history_startup_metric_transport_error",
+      "samples": 0,
+      "accepted": false,
+      "cause": "Extra early app.version collection hit exact known GC protocol error before sampling. Removed unnecessary early metadata call; complete original scenario ran without collection retries."
+    },
+    {
+      "kind": "public_helper_launch_configuration_mismatch",
+      "accepted": false,
+      "cause": "Harness initially inherited source helper default. Stopped only owned isolated test application; retained report and credential cleanup. Final complete run fixes helper to actual published bundle before launch and records its SHA256. Application code, task, assertions and performance gates unchanged."
+    }
+  ],
+  "product": {
+    "status": "passed",
+    "runId": "25692dd3-d2aa-48b5-b5ba-814125250b12",
+    "sourceFingerprint": "d531c98916fabd717f40c7f68a1591834b5f14adc1b4d27f8857f3ccaacaeaab",
+    "reviewedAt": "2026-10-19T19:43:22.474Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer, RC21",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 180,
+    "newImagesActuallyViewed": 162,
+    "exactIdShaReuseOfPreviouslyViewed": 18,
+    "contactSheetsActuallyViewed": 21,
+    "retainedMinorFindings": 7
+  },
+  "release": {
+    "version": "0.1.0-rc.21",
+    "tag": "v0.1.0-rc.21",
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.21",
+    "mergedCodePR": 171,
+    "mergeCommit": "50de8b0f2dba7ceec1ee5d50af37f7d71b5e32f0",
+    "testedCandidate": "3d974e6637ff078c64aece5dab32ed28e8e6991d",
+    "mergedTreeMatchesTestedTree": true,
+    "workflow": 39313599349,
+    "successfulJobs": 8,
+    "oldRc20TagAndAssetsUnmodified": true
+  },
+  "publicReal": {
+    "application": {
+      "version": "0.1.0-rc.21",
+      "packaged": true
+    },
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "credentialHelper": {
+      "source": "unmodified published app bundle",
+      "sha256": "a51c84175b44585d40ba51ef06efd8543766b4056d8ec6ad308af47d06accbbe"
+    },
+    "elapsedMs": 356396,
+    "interactions": 1436,
+    "taskPassed": true,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "frozenEffort": {
+      "worker": "max",
+      "conversation": "max"
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "fe9de71e-3939-4aa2-8b1f-46175110ecc3"
+    },
+    "longReply": {
+      "messageId": "reply:turn-b987ab43-e599-41a8-be8f-a7aac5274c4c:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "artifactIsolation": {
+      "generatedConversations": 22,
+      "globalArtifactDirectories": 0
+    },
+    "credentialCopiesRemoved": true,
+    "mainLoop": {
+      "p95": 1.426431,
+      "p99": 4.878335,
+      "max": 396.623871
+    },
+    "input": {
+      "n": 1436,
+      "p50": 19.427083000002312,
+      "p95": 25.076791999978013,
+      "p99": 42.08237499999814,
+      "max": 211.40399999998044
+    },
+    "wheel": {
+      "n": 1436,
+      "p50": 25.47279100000742,
+      "p95": 27.31020899998839,
+      "p99": 52.54324999998789,
+      "max": 436.00949999998556
+    },
+    "scrollCoverage": {
+      "topVisits": 3,
+      "bottomVisits": 6,
+      "liveReplyVisibleSamples": 4
+    },
+    "renderer": {
+      "frames": {
+        "n": 42754,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 23.599999999998545
+      },
+      "inputPaintMs": {
+        "n": 1599,
+        "p50": 4.299999952316284,
+        "p95": 8.199999988079071,
+        "p99": 9.099999964237213,
+        "max": 9.5
+      },
+      "wheelPaintMs": {
+        "n": 1436,
+        "p50": 24.899999976158142,
+        "p95": 26.700000047683716,
+        "p99": 27.19999998807907,
+        "max": 235.5
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "metricTransportRetries": 0,
+    "applicationAndHelperUnmodifiedAfterTest": true
+  },
+  "publicPrivateOffline": {
+    "application": {
+      "version": "0.1.0-rc.21",
+      "packaged": true
+    },
+    "elapsedMs": 125018,
+    "keys": {
+      "n": 845,
+      "p95": 25.598582999999053,
+      "p99": 46.76808299997356,
+      "max": 96.49341700000514,
+      "over50": 7,
+      "over100": 0
+    },
+    "wheels": {
+      "n": 845,
+      "p95": 33.97079200000735,
+      "p99": 59.42695800001093,
+      "max": 83.6904579999973,
+      "over50": 16,
+      "over100": 0
+    },
+    "panels": {
+      "n": 29,
+      "p95": 963.0947500000038,
+      "p99": 974.3862500000032,
+      "max": 974.3862500000032,
+      "over50": 29,
+      "over100": 29
+    },
+    "mainLoop": {
+      "p95": 1.442815,
+      "p99": 5.537791,
+      "max": 91.815935
+    },
+    "errors": [],
+    "renderer": {
+      "frames": {
+        "n": 14971,
+        "p95": 10,
+        "p99": 10.30000000000291,
+        "max": 25,
+        "over50": 0,
+        "over100": 0
+      },
+      "inputs": {
+        "n": 902,
+        "p95": 8.900000035762787,
+        "p99": 9.5,
+        "max": 15.399999976158142,
+        "over50": 0,
+        "over100": 0
+      },
+      "wheels": {
+        "n": 845,
+        "p95": 26.600000023841858,
+        "p99": 34.10000002384186,
+        "max": 36.89999997615814,
+        "over50": 0,
+        "over100": 0
+      },
+      "longTasks": [],
+      "rows": 24
+    },
+    "ephemeralCredentialsRemoved": true,
+    "collectionRetries": [],
+    "configuredChannelsAndModels": 0
+  },
+  "publicArtifacts": {
+    "downloadedAndDigestsVerified": 14,
+    "criticalModulesMatched": 41,
+    "changedModulesMatched": 33,
+    "moduleSetsMayOverlap": true,
+    "desktopModulesMatched": 12,
+    "strictDeveloperIdSignature": true,
+    "teamId": "82672N97RP",
+    "stapledTicket": true,
+    "gatekeeper": true,
+    "updateManifestsSha512Verified": 3,
+    "packagedUpdaterConfig": {
+      "provider": "github",
+      "owner": "ly-ccx",
+      "repo": "Peer-Agent"
+    },
+    "dmgReadonlyVerifiedAndUnmounted": true,
+    "zipAndDmgAsarUpdaterAndHelperMatch": true
+  },
+  "npm": {
+    "fixedVersionsAndTagsVerified": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.21",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.21"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.21",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.21"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.21",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.21"
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.21",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.21"
+        }
+      }
+    ],
+    "realIsolatedInstall": true,
+    "cliVersion": "peer 0.1.0-rc.21",
+    "binaries": [
+      {
+        "name": "peer",
+        "sha256": "67e9a362db573592a7132c7c5af59115b9db1604a0d91fef9f1acfcac2cef484",
+        "matchesPublishedArchive": true
+      },
+      {
+        "name": "peer-credential-helper",
+        "sha256": "a51c84175b44585d40ba51ef06efd8543766b4056d8ec6ad308af47d06accbbe",
+        "matchesPublishedArchive": true
+      }
+    ],
+    "firstTwoRegistryReadFailuresRetained": true,
+    "publishLogsExplicitlyReportServerProcessing": true,
+    "republished": false
+  },
+  "pages": {
+    "ok": true,
+    "checkedPages": 5,
+    "sourceContentMatched": true,
+    "generatedAtIsDeploymentDerived": true
+  },
+  "coverageLimits": [
+    "Automation dispatch-to-rAF includes transport, not hardware-only latency",
+    "Public signed macOS build ran with isolated data; daily installed app not replaced",
+    "Product screenshot review is implementer self-review, not independent",
+    "No full screen-reader, interactive Windows/Linux install or long-term daily-use acceptance",
+    "Performance gates passed in recorded scenarios, not a universal zero-spike claim"
+  ]
+}

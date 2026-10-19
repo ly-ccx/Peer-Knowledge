@@ -1,0 +1,2164 @@
+{
+  "schemaVersion": 1,
+  "status": "rc20_public_performance_failed_followup_required",
+  "version": "0.1.0-rc.20",
+  "date": "2026-10-19",
+  "privacy": {
+    "privateHistoryOnlyLocal": true,
+    "credentialsCopied": false,
+    "providersConfigured": false,
+    "userInstalledAppOrDataModified": false,
+    "shareableTaskUsesSyntheticHistory": true
+  },
+  "scope": "Offline local full-history snapshot, production app/background recovery, native DPR=2, 1440px window. These runs do not execute a real model task. Round trips include automation transport, not hardware latency. Panel timings include three actions and intended transitions.",
+  "cause": "Repeated full-ledger clones, repeated roster discovery, unnecessary plan hydration, repeated checkpoint and image validation, and full internal rounds in chat refresh. Byte volume alone did not explain the stall.",
+  "runs": [
+    {
+      "name": "installed-rc19",
+      "elapsedMs": 65001,
+      "keys": {
+        "n": 230,
+        "p95": 22.306040999999823,
+        "p99": 978.064833000004,
+        "max": 1010.2746249999982,
+        "over50": 5,
+        "over100": 4
+      },
+      "wheels": {
+        "n": 230,
+        "p95": 62.123208000000886,
+        "p99": 974.9312499999942,
+        "max": 983.0791660000032,
+        "over50": 18,
+        "over100": 5
+      },
+      "panels": {
+        "n": 8,
+        "p95": 1875.7420829999974,
+        "p99": 1875.7420829999974,
+        "max": 1875.7420829999974,
+        "over50": 8,
+        "over100": 8
+      },
+      "mainLoop": {
+        "p95": 1.436671,
+        "p99": 5.292031,
+        "max": 985.137151
+      },
+      "renderer": {
+        "frames": {
+          "n": 7763,
+          "p95": 9.700000000004366,
+          "p99": 10.299999999995634,
+          "max": 183,
+          "over50": 1,
+          "over100": 1
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "full scope above; final candidate/public package gates recorded separately"
+    },
+    {
+      "name": "partial-1",
+      "elapsedMs": 65021,
+      "keys": {
+        "n": 416,
+        "p95": 25.44220800000039,
+        "p99": 194.9325830000016,
+        "max": 206.80099999999948,
+        "over50": 7,
+        "over100": 6
+      },
+      "wheels": {
+        "n": 416,
+        "p95": 60.16474999999991,
+        "p99": 198.801833000005,
+        "max": 213.0016670000041,
+        "over50": 26,
+        "over100": 12
+      },
+      "panels": {
+        "n": 14,
+        "p95": 606.3264999999956,
+        "p99": 606.3264999999956,
+        "max": 606.3264999999956,
+        "over50": 14,
+        "over100": 14
+      },
+      "mainLoop": {
+        "p95": 1.442815,
+        "p99": 6.725631,
+        "max": 103.219199
+      },
+      "renderer": {
+        "frames": {
+          "n": 7775,
+          "p95": 9.900000000001455,
+          "p99": 10.299999999999272,
+          "max": 26,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-5",
+      "elapsedMs": 125009,
+      "keys": {
+        "n": 806,
+        "p95": 38.79566599999089,
+        "p99": 115.98000000001048,
+        "max": 220.16075000001,
+        "over50": 29,
+        "over100": 16
+      },
+      "wheels": {
+        "n": 806,
+        "p95": 43.82183300000179,
+        "p99": 98.01516599999741,
+        "max": 123.38983400000143,
+        "over50": 37,
+        "over100": 6
+      },
+      "panels": {
+        "n": 27,
+        "p95": 1130.7220420000012,
+        "p99": 1160.700084000011,
+        "max": 1160.700084000011,
+        "over50": 27,
+        "over100": 27
+      },
+      "mainLoop": {
+        "p95": 1.469439,
+        "p99": 12.271615,
+        "max": 119.668735
+      },
+      "renderer": {
+        "frames": {
+          "n": 14969,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 25.5,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 27
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-6",
+      "elapsedMs": 125448,
+      "keys": {
+        "n": 841,
+        "p95": 38.29400000000169,
+        "p99": 95.77429200000188,
+        "max": 224.86699999999837,
+        "over50": 20,
+        "over100": 6
+      },
+      "wheels": {
+        "n": 841,
+        "p95": 27.520624999975553,
+        "p99": 57.91037500000675,
+        "max": 92.34758400000283,
+        "over50": 19,
+        "over100": 0
+      },
+      "panels": {
+        "n": 29,
+        "p95": 1076.614459000004,
+        "p99": 1095.7667499999952,
+        "max": 1095.7667499999952,
+        "over50": 29,
+        "over100": 29
+      },
+      "mainLoop": {
+        "p95": 1.457151,
+        "p99": 8.331263,
+        "max": 82.771967
+      },
+      "renderer": {
+        "frames": {
+          "n": 15029,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 32.29999999999927,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-7",
+      "elapsedMs": 125069,
+      "keys": {
+        "n": 834,
+        "p95": 22.71166699999594,
+        "p99": 58.75145900000098,
+        "max": 231.23733399999037,
+        "over50": 9,
+        "over100": 7
+      },
+      "wheels": {
+        "n": 834,
+        "p95": 27.182749999992666,
+        "p99": 53.47350000000006,
+        "max": 108.70233300000837,
+        "over50": 16,
+        "over100": 2
+      },
+      "panels": {
+        "n": 28,
+        "p95": 1020.6479169999948,
+        "p99": 1056.9545839999919,
+        "max": 1056.9545839999919,
+        "over50": 28,
+        "over100": 28
+      },
+      "mainLoop": {
+        "p95": 1.436671,
+        "p99": 5.988351,
+        "max": 102.367231
+      },
+      "renderer": {
+        "frames": {
+          "n": 14982,
+          "p95": 9.900000000008731,
+          "p99": 10.200000000011642,
+          "max": 25,
+          "over50": 0,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "diagnostic only; incomplete improvements retained"
+    },
+    {
+      "name": "partial-8",
+      "elapsedMs": 125234,
+      "keys": {
+        "n": 871,
+        "p95": 33.16075000001001,
+        "p99": 101.28091599998879,
+        "max": 127.07162499999686,
+        "over50": 14,
+        "over100": 9
+      },
+      "wheels": {
+        "n": 871,
+        "p95": 27.250584000001254,
+        "p99": 57.5537089999998,
+        "max": 100.04633399999875,
+        "over50": 17,
+        "over100": 1
+      },
+      "panels": {
+        "n": 30,
+        "p95": 942.8612910000011,
+        "p99": 1018.640957999989,
+        "max": 1018.640957999989,
+        "over50": 30,
+        "over100": 30
+      },
+      "mainLoop": {
+        "p95": 1.617919,
+        "p99": 7.221247,
+        "max": 88.342527
+      },
+      "renderer": {
+        "frames": {
+          "n": 14995,
+          "p95": 9.899999999997817,
+          "p99": 10.299999999995634,
+          "max": 26.399999999997817,
+          "over50": 0,
+          "over100": 0
+        },
+        "inputs": {
+          "n": 930,
+          "p95": 8.100000023841858,
+          "p99": 9,
+          "max": 9.5,
+          "over50": 0,
+          "over100": 0
+        },
+        "wheels": {
+          "n": 871,
+          "p95": 26.19999998807907,
+          "p99": 26.900000035762787,
+          "max": 69.5,
+          "over50": 2,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "Intermediate candidate; additional Host yields subsequently withdrawn after integration failures."
+    },
+    {
+      "name": "candidate-9",
+      "elapsedMs": 125275,
+      "keys": {
+        "n": 841,
+        "p95": 26.332625000002736,
+        "p99": 107.81433300000208,
+        "max": 137.03670799999963,
+        "over50": 20,
+        "over100": 13
+      },
+      "wheels": {
+        "n": 841,
+        "p95": 27.736500000006345,
+        "p99": 92.94875000001048,
+        "max": 107.99041700000816,
+        "over50": 22,
+        "over100": 3
+      },
+      "panels": {
+        "n": 29,
+        "p95": 1052.4933750000055,
+        "p99": 1056.9010830000043,
+        "max": 1056.9010830000043,
+        "over50": 29,
+        "over100": 29
+      },
+      "mainLoop": {
+        "p95": 1.455103,
+        "p99": 6.279167,
+        "max": 100.335615
+      },
+      "renderer": {
+        "frames": {
+          "n": 15006,
+          "p95": 10,
+          "p99": 10.30000000000291,
+          "max": 25.099999999998545,
+          "over50": 0,
+          "over100": 0
+        },
+        "inputs": {
+          "n": 898,
+          "p95": 8.699999988079071,
+          "p99": 9.5,
+          "max": 9.699999988079071,
+          "over50": 0,
+          "over100": 0
+        },
+        "wheels": {
+          "n": 841,
+          "p95": 26.5,
+          "p99": 39.80000001192093,
+          "max": 65.80000001192093,
+          "over50": 4,
+          "over100": 0
+        },
+        "longTasks": [],
+        "rows": 24
+      },
+      "errors": [],
+      "acceptance": "Local history reproduction; functional integration restored. Real model and published package gates remain separate."
+    }
+  ],
+  "realModelAttempt": {
+    "sourceHead": "6d672beab8102b1bac95b0413b8dcbd77602775c",
+    "sourceDirty": false,
+    "model": "deepseek-v4.1-flash",
+    "provider": "openai",
+    "effort": "max",
+    "elapsedMs": 571913,
+    "taskPassed": true,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "frozenEffort": {
+      "worker": "max",
+      "conversation": "max"
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 105.47479200002272,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 101.52595899999142,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 103.825708999997,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 100.40595799998846,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "c701f0bb-c5d8-48bf-aaee-3464416e3b97"
+    },
+    "longReply": {
+      "messageId": "reply:turn-c5835fe2-7d17-46a1-ad97-59c282273e03:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.440767,
+      "p99": 5.419007,
+      "max": 762.839039
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "scope": "Production RC20 source with unmodified signed RC19 credential helper; generated history only. Functional flow passed, performance gate failed. Not installed-build acceptance.",
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2314,
+        "p50": 19.04216599999927,
+        "p95": 21.319916999986162,
+        "p99": 26.232374999963213,
+        "max": 631.166292000009
+      },
+      "wheelRoundTripMs": {
+        "n": 2314,
+        "p50": 25.53112499997951,
+        "p95": 27.20504199998686,
+        "p99": 27.622459000034723,
+        "max": 301.15608300000895
+      },
+      "scrollMovedSamples": 2314,
+      "scrollCoverage": {
+        "topVisits": 5,
+        "bottomVisits": 7,
+        "liveReplyVisibleSamples": 4
+      }
+    },
+    "renderer": {
+      "frames": {
+        "n": 68612,
+        "p50": 8.299999999988358,
+        "p95": 9.900000000023283,
+        "p99": 10.299999999988358,
+        "max": 25.599999999998545
+      },
+      "inputPaintMs": {
+        "n": 2550,
+        "p50": 4.5,
+        "p95": 8.5,
+        "p99": 9.099999964237213,
+        "max": 9.800000011920929
+      },
+      "wheelPaintMs": {
+        "n": 2314,
+        "p50": 24.900000035762787,
+        "p95": 26.600000023841858,
+        "p99": 27.099999964237213,
+        "max": 258.5999999642372
+      },
+      "longTasks": [],
+      "mountedRows": 24
+    }
+  },
+  "windowConnectionFailure": {
+    "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T03:37:35.408Z",
+    "finishedAt": "2026-10-19T03:41:51.356Z",
+    "interactions": 1008,
+    "credentialCopiesRemoved": true,
+    "ok": false,
+    "error": "page.evaluate: Target page, context or browser has been closed\n    at <code>/apps/desktop/scripts/perf-execution-live.mjs:155:37",
+    "perfCaptureError": "page.evaluate: Target page, context or browser has been closed",
+    "scope": "Generated large-history source Electron task reached verifying; automation page/context closed before final performance capture. No complete performance or task acceptance claimed. Cause not established; no OS crash report observed. Next run adds lifecycle/connection diagnostics."
+  },
+  "secondRealModelAttempt": {
+    "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T15:15:01.953Z",
+    "finishedAt": "2026-10-19T15:19:36.856Z",
+    "interactions": 1057,
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 266952,
+    "taskPassed": true,
+    "taskDrawerOpened": true,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "frozenEffort": {
+      "worker": "max",
+      "conversation": "max"
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 116.4356250000128,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 239.84083400000236,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 118.68170899999677,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 106.73316600001999,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 5
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "0277f57b-6493-4b44-8575-ff6853e3d8b0"
+    },
+    "longReply": {
+      "messageId": "reply:turn-0812f8f5-1aad-4b24-bc6a-e709848a3c5c:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.272831,
+      "p99": 4.661247,
+      "max": 551.550975
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1057,
+        "p50": 19.653458000015235,
+        "p95": 21.31608399999095,
+        "p99": 60.71345899999142,
+        "max": 673.5176659999997
+      },
+      "wheelRoundTripMs": {
+        "n": 1057,
+        "p50": 25.61370899999747,
+        "p95": 26.712083000005805,
+        "p99": 43.4558749999851,
+        "max": 171.0317090000026
+      },
+      "scrollMovedSamples": 1056,
+      "scrollCoverage": {
+        "topVisits": 2,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 4
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 32025,
+        "p50": 8.30000000000291,
+        "p95": 9.19999999999709,
+        "p99": 9.300000000017462,
+        "max": 17.599999999998545
+      },
+      "inputPaintMs": {
+        "n": 1189,
+        "p50": 1.199999988079071,
+        "p95": 7.900000035762787,
+        "p99": 8.300000011920929,
+        "max": 8.5
+      },
+      "wheelPaintMs": {
+        "n": 1057,
+        "p50": 25,
+        "p95": 26.099999964237213,
+        "p99": 26.400000035762787,
+        "max": 150.5999999642372
+      },
+      "longTasks": [],
+      "mountedRows": 24
+    },
+    "scope": "Source Electron with signed RC19 helper; functional task/cancel/receipt passed but peak latency failed. No performance or package acceptance."
+  },
+  "freshTaskProfile": {
+    "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
+    "scope": "Generated fresh real task, diagnostic profiler only; interrupted deliberately after first-stage capture, not functional/performance acceptance.",
+    "longGapsMs": [
+      391.65,
+      349.46,
+      334.12
+    ],
+    "cause": "Multiple synchronous phases and separate cold history projections; same large parent file reread by identity/summary/cards/parent facts/chat views. No individual recorded fs/JSON/clone operation above40ms in the captured stage.",
+    "response": "Shared strictly versioned parsed input, explicitly frozen pure callbacks, bounded memory, isolated default callbacks and outputs; ADR updated before implementation."
+  },
+  "previousProductReview": {
+    "sourceHead": "48c721091af90a4bcb8aa3423278dc0712b7af07",
+    "runId": "b4281b5b-9994-4e98-bcac-2572d2b67fce",
+    "sourceFingerprint": "29a37eb1734675ab348afec02243e23e67275fed62d87c439d8e7f03167fc82b",
+    "requiredScreenshots": 180,
+    "newlyInspectedChangedScreenshots": 157,
+    "exactPixelMatchesToPreviouslyInspectedRC19": 23,
+    "reviewer": "implementer",
+    "independent": false,
+    "verification": "passed",
+    "minorAcceptedLimitations": 7,
+    "supplementaryStoppedStep": "Actual stopped Activity retained in exact-turn lazy reply details; supplemental screenshot inspected.",
+    "limits": [
+      "Controlled cognition, source Electron only; does not prove Provider quality or native installed package performance.",
+      "No full screen-reader or long-term daily acceptance.",
+      "Existing floating latest-message button overlaps, old accepted fixture excerpt and transparent offscreen quick-chat capture limits retained."
+    ]
+  },
+  "productReview": {
+    "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
+    "runId": "8152c547-c4e0-4ede-b25e-7155edf0ef6f",
+    "sourceFingerprint": "d7f38f5acc9a6107409d8ca0d074ef02f46999dce44aded603966288490cf595",
+    "requiredScreenshots": 180,
+    "newlyInspectedChangedScreenshots": 158,
+    "exactPixelMatchesToPreviouslyInspectedRC20": 22,
+    "reviewer": "implementer",
+    "independent": false,
+    "verification": "passed",
+    "minorAcceptedLimitations": 7,
+    "limits": [
+      "Controlled cognition and source Electron only; no real-provider or public-package claim.",
+      "Existing floating latest-message button overlaps, old accepted fixture excerpt and offscreen transparent Quick Chat limits retained.",
+      "Full screen reader and long-term daily use not covered."
+    ]
+  },
+  "sharedInputRegression": {
+    "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
+    "strictStoreTestsPassed": 103,
+    "projectionConsumerTestsPassed": 6,
+    "desktopIntegrationTestsPassed": 51,
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "runtimeParallelRun": {
+      "passed": 1344,
+      "failed": 2,
+      "retry": "Both affected files pass in isolation; no assertions changed."
+    },
+    "desktopParallelRun": {
+      "passed": 5421,
+      "failedFiles": 3,
+      "skipped": 5,
+      "retry": "All three files pass after dependency build completes. Initial overlap with desktop dependency rebuild produced missing-export import errors; no code or assertions relaxed."
+    },
+    "releaseReadiness": "passed",
+    "performance": "Fresh same-scale real runs retained below; performance has not passed."
+  },
+  "sharedInputRealModelAttempt": {
+    "sourceHead": "ac5e4ea652d8904b7b7f036aaf3101d4c5d1660e",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:00:08.207Z",
+    "finishedAt": "2026-10-19T16:10:16.575Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 600548,
+    "taskPassed": false,
+    "interactions": 2420,
+    "mainLoop": {
+      "p95": 1.418239,
+      "p99": 6.033407,
+      "max": 645.922815
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2420,
+        "p50": 17.68541599996388,
+        "p95": 25.10708399998839,
+        "p99": 27.010958999977447,
+        "max": 257.54099999996834
+      },
+      "wheelRoundTripMs": {
+        "n": 2420,
+        "p50": 25.42908399999942,
+        "p95": 27.21670799999265,
+        "p99": 27.776333000016166,
+        "max": 246.42708400002448
+      },
+      "scrollMovedSamples": 2420,
+      "scrollCoverage": {
+        "topVisits": 6,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 1
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 72044,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 26.39999999999418
+      },
+      "inputPaintMs": {
+        "n": 2622,
+        "p50": 5,
+        "p95": 7.399999976158142,
+        "p99": 8.699999988079071,
+        "max": 9.800000011920929
+      },
+      "wheelPaintMs": {
+        "n": 2420,
+        "p50": 24.899999976158142,
+        "p95": 26.600000023841858,
+        "p99": 27.099999964237213,
+        "max": 91.89999997615814
+      },
+      "longTasks": [],
+      "mountedRows": 24
+    },
+    "scope": "Task timed out at600s: 18 unchanged tests and independent verification passed, but a CSV header-only text match armed a UI artifact gate and prevented host acceptance. No complete task or performance acceptance; main-loop max646ms also remains failed. No long-terminal/cancel/receipt stages reached.",
+    "classifierEvidence": {
+      "reasons": [
+        "ui-surface:header"
+      ],
+      "score": 2,
+      "required": true,
+      "context": "renderCsv outputs header category,count,total",
+      "gate": "ui-artifact:judgment-missing",
+      "criterion": "command: node --test"
+    }
+  },
+  "csvRepairRealModelAttempt": {
+    "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:19:41.219Z",
+    "finishedAt": "2026-10-19T16:26:34.677Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 405497,
+    "taskPassed": true,
+    "interactions": 1618,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 99.53224999998929,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 108.53262500005076,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 102.81199999997625,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 103.83745900000213,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "16eb9e4f-061b-4951-9dd5-7bcef49b6a86"
+    },
+    "longReply": {
+      "messageId": "reply:turn-ee1be9b0-2252-4b07-bf84-e3b0dcc66f6c:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.416191,
+      "p99": 6.041599,
+      "max": 734.527487
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1618,
+        "p50": 19.348041000019293,
+        "p95": 24.471708999946713,
+        "p99": 49.84712499997113,
+        "max": 273.2702500000014
+      },
+      "wheelRoundTripMs": {
+        "n": 1618,
+        "p50": 25.383458000000246,
+        "p95": 27.36120800000208,
+        "p99": 35.64270899999974,
+        "max": 574.632917000039
+      },
+      "scrollMovedSamples": 1618,
+      "scrollCoverage": {
+        "topVisits": 4,
+        "bottomVisits": 7,
+        "liveReplyVisibleSamples": 4
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 48638,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 25.200000000004366
+      },
+      "inputPaintMs": {
+        "n": 1796,
+        "p50": 4.699999988079071,
+        "p95": 8.199999988079071,
+        "p99": 8.900000035762787,
+        "max": 9.800000011920929
+      },
+      "wheelPaintMs": {
+        "n": 1618,
+        "p50": 24.80000001192093,
+        "p95": 26.799999952316284,
+        "p99": 27.19999998807907,
+        "max": 475.80000001192093
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "scope": "CSV classification repair: genuine fresh generated-history task, all functional stages passed. Wheel max575ms and main-loop max735ms exceed unchanged500ms gate; performance failed. No tag or release."
+  },
+  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider. receiptRealModelAttempt follows the same generated-history credential cleanup scope. immutableSnapshotRealModelAttempt follows the same generated-history credential cleanup scope. formattedHeaderRealModelAttempt follows the same generated-history credential cleanup scope; late diagnostic uses the generated prior completed fixture and is not fresh full acceptance.",
+  "completeStageProfile": {
+    "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
+    "scope": "Fresh generated-history real task; CPU profiler and slow synchronous I/O tracing. All functional stages passed; diagnostic only, not performance acceptance.",
+    "longGapsMs": [
+      552.48,
+      435.52,
+      383.34,
+      372.01
+    ],
+    "calibration": "Named12ms main-process busy marker aligns profiler clock to performance.now within sampling uncertainty; raw Profiler.start call spans about52ms.",
+    "causes": [
+      "Receipt append clones full ledger on read and again at publication; verification ownership reads full ledger for a single work.",
+      "Activity identity check and discarded append return load the large parent history.",
+      "Delegated admission loads all1100plans although only delegated plans participate in session scheduling.",
+      "Multiple short operations concatenate within microtasks; no isolated recorded fs call above30ms."
+    ]
+  },
+  "receiptRegression": {
+    "sourceHead": "70e00f13",
+    "focusedPassed": 64,
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "releaseReadiness": "passed",
+    "runtimeFull": {
+      "tests": 1355,
+      "passed": 1353,
+      "failed": 2,
+      "skipped": 0,
+      "isolatedRetryPassed": 35,
+      "retry": "The two affected timing-sensitive files pass in isolation with unchanged assertions."
+    },
+    "desktopFull": {
+      "tests": 5584,
+      "passed": 5579,
+      "failed": 0,
+      "skipped": 5,
+      "additionalPassed": 3
+    },
+    "performance": "Completed full functional flow, retained peak input failure below; no acceptance."
+  },
+  "receiptRealModelAttempt": {
+    "sourceHead": "70e00f132d05393018f12aa2de546b0077815171",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:45:08.123Z",
+    "finishedAt": "2026-10-19T16:50:14.168Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 298173,
+    "taskPassed": true,
+    "interactions": 1196,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 103.24158299999544,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 101.45600000000559,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 102.11533299996518,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 101.69895799999358,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "80def19b-b378-4f15-a434-815ecbf0fef9"
+    },
+    "longReply": {
+      "messageId": "reply:turn-ab946848-f629-41c7-aeb7-cbefb57fd981:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.412095,
+      "p99": 5.861375,
+      "max": 419.168255
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1196,
+        "p50": 19.217540999990888,
+        "p95": 23.57275000000118,
+        "p99": 33.148624999994354,
+        "max": 530.5552499999976
+      },
+      "wheelRoundTripMs": {
+        "n": 1196,
+        "p50": 25.455667000001995,
+        "p95": 27.238083000000188,
+        "p99": 35.50266600000032,
+        "max": 253.55683299999873
+      },
+      "scrollMovedSamples": 1196,
+      "scrollCoverage": {
+        "topVisits": 2,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 4
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 35768,
+        "p50": 8.299999999999272,
+        "p95": 9.900000000008731,
+        "p99": 10.200000000011642,
+        "max": 25
+      },
+      "inputPaintMs": {
+        "n": 1339,
+        "p50": 4.099999964237213,
+        "p95": 8.200000047683716,
+        "p99": 9,
+        "max": 9.5
+      },
+      "wheelPaintMs": {
+        "n": 1196,
+        "p50": 24.899999976158142,
+        "p95": 26.599999964237213,
+        "p99": 27,
+        "max": 99.69999998807907
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "scope": "Fresh no-profiler same-scale real workflow; every functional stage passed. Main max419ms and wheel max254ms improved, but input max531ms still exceeds unchanged500ms gate. Not accepted or published."
+  },
+  "immutableSnapshotRegression": {
+    "sourceHead": "391d0cfa6f0222ec2addf422064669b9ea08f966",
+    "focusedPassed": 47,
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "releaseReadiness": "passed",
+    "runtimeFull": {
+      "tests": 1357,
+      "passed": 1356,
+      "failed": 1,
+      "skipped": 0,
+      "isolatedRetryPassed": 7,
+      "retry": "The input-preemption timing file passes in isolation; original assertions unchanged."
+    },
+    "desktopFull": {
+      "tests": 5584,
+      "passed": 5579,
+      "failed": 0,
+      "skipped": 5,
+      "additionalPassed": 3
+    },
+    "compatibility": "Default mutable reads, mutable event/callback outputs and old Adapter fallback retained. Recovery count tests still require four preparation/decision reads, now check immutable port and legacy fallback, plus zero full copies.",
+    "performance": "Retained functional timeout and wheel-peak failure below; no acceptance."
+  },
+  "immutableSnapshotRealModelAttempt": {
+    "sourceHead": "391d0cfa6f0222ec2addf422064669b9ea08f966",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T16:59:32.570Z",
+    "finishedAt": "2026-10-19T17:09:40.981Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 600606,
+    "taskPassed": false,
+    "interactions": 2435,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "mainLoop": {
+      "p95": 1.412095,
+      "p99": 5.959679,
+      "max": 480.247807
+    },
+    "pageErrors": [],
+    "ok": false,
+    "credentialCopiesRemoved": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2435,
+        "p50": 18.069415999983903,
+        "p95": 24.89112500002375,
+        "p99": 26.70470900001237,
+        "max": 477.26366699999926
+      },
+      "wheelRoundTripMs": {
+        "n": 2435,
+        "p50": 25.490125000011176,
+        "p95": 27.254957999975886,
+        "p99": 27.6942080000008,
+        "max": 567.5066250000382
+      },
+      "scrollMovedSamples": 2435,
+      "scrollCoverage": {
+        "topVisits": 6,
+        "bottomVisits": 6,
+        "liveReplyVisibleSamples": 1
+      },
+      "scope": "Automation dispatch through Browser and renderer to rAF, includes transport cost, not hardware latency. Wheel events target the actual bot-thread scroller."
+    },
+    "renderer": {
+      "frames": {
+        "n": 72044,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999995634,
+        "max": 23.599999999998545
+      },
+      "inputPaintMs": {
+        "n": 2638,
+        "p50": 4.600000023841858,
+        "p95": 8.199999988079071,
+        "p99": 8.900000035762787,
+        "max": 9.600000023841858
+      },
+      "wheelPaintMs": {
+        "n": 2435,
+        "p50": 24.900000035762787,
+        "p95": 26.69999998807907,
+        "p99": 27.099999964237213,
+        "max": 133.5
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true
+    },
+    "scope": "No-profiler generated-history task timed out at600s. 18 unchanged tests and independent review passed, but quoted CSV field header armed the UI gate; no host acceptance or terminal/cancel/receipt stages. Wheel max568ms also exceeds unchanged500ms gate; no performance acceptance.",
+    "classificationCounterexample": "renderCsv(groups) outputs header `category,count,total`; no UI source files. The previous lookahead did not accept Markdown quoting."
+  },
+  "formattedHeaderRealModelAttempt": {
+    "sourceHead": "c207f2d09b49349314db308df0ce7987b67f0130",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T17:15:13.797Z",
+    "finishedAt": "2026-10-19T17:24:01.117Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 519398,
+    "taskPassed": true,
+    "interactions": 2093,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 104.33354199997848,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 189.90512499999022,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 122.49933399999281,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 102.7706659999676,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "c147a7f5-5655-4a93-9876-c7cc6dea361a"
+    },
+    "longReply": {
+      "messageId": "reply:turn-84f764a4-c87e-4444-ad4d-74a40c7066fc:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "scope": "Fresh generated-history real workflow, no profiler. All functional stages passed, but input max588.79ms and main max544.74ms exceed unchanged500ms peak gates; not accepted or published.",
+    "mainLoop": {
+      "p95": 1.425407,
+      "p99": 6.107135,
+      "max": 544.735231
+    },
+    "renderer": {
+      "frames": {
+        "n": 62305,
+        "p50": 8.299999999988358,
+        "p95": 10,
+        "p99": 10.299999999988358,
+        "max": 25.30000000000291
+      },
+      "inputPaintMs": {
+        "n": 2311,
+        "p50": 4.599999964237213,
+        "p95": 8.200000047683716,
+        "p99": 9,
+        "max": 9.5
+      },
+      "wheelPaintMs": {
+        "n": 2093,
+        "p50": 24.899999976158142,
+        "p95": 26.599999964237213,
+        "p99": 27.099999964237213,
+        "max": 366.9000000357628
+      },
+      "longTasks": [],
+      "mountedRows": 24,
+      "hidden": false,
+      "focused": true,
+      "avatars": [
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "true",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        },
+        {
+          "animated": "false",
+          "animation": "none"
+        }
+      ]
+    },
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2093,
+        "p50": 19.576833999948576,
+        "p95": 25.004375000018626,
+        "p99": 38.43037499999991,
+        "max": 588.7901249999995
+      },
+      "wheelRoundTripMs": {
+        "n": 2093,
+        "p50": 25.466917000012472,
+        "p95": 27.268792000002577,
+        "p99": 36.145125000002736,
+        "max": 452.38683299999684
+      }
+    }
+  },
+  "notificationIdentityDiagnosis": {
+    "sourceHead": "c207f2d09b49349314db308df0ce7987b67f0130",
+    "diagnosticOnly": true,
+    "freshFullWorkflow": false,
+    "durationMs": 120056,
+    "mainLoopMaxMs": 477.36,
+    "gapsMs": {
+      "cancelDispatch": 473.318,
+      "cancelReply": 304.812,
+      "longReceipt": 266.56
+    },
+    "confirmedStack": "notification handleAppended -> botName -> directory.get -> projectRow,35–40ms repeated per reply; reads full conversation/task facts solely to obtain displayName",
+    "decision": "Use existing BotProfileStore.read directly; preserve invalid/missing/archived empty-name behavior and live rename. No new cache or authority."
+  },
+  "notificationIdentityRegression": {
+    "sourceHead": "9d7eda60",
+    "desktop": {
+      "pass": 5580,
+      "fail": 0,
+      "originalSkip": 5,
+      "additionalPass": 3
+    },
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "readinessAfterCommit": true,
+    "redRegressionProved": true,
+    "case": "real Desktop assembly uses current profile name despite corrupt chat, observes external rename, rejects archived/deleted/invalid identity"
+  },
+  "notificationNameRealModelAttempt": {
+    "sourceHead": "9d7eda60e03dfcd7b6135e6ecc953329491f9927",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T17:34:59.842Z",
+    "finishedAt": "2026-10-19T17:45:08.123Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 600476,
+    "taskPassed": false,
+    "interactions": 2439,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "mainLoop": {
+      "p95": 1.416191,
+      "p99": 5.853183,
+      "max": 689.438719
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 2439,
+        "p50": 19.287125000031665,
+        "p95": 23.735249999999724,
+        "p99": 28.240083000040613,
+        "max": 194.825916999951
+      },
+      "wheelRoundTripMs": {
+        "n": 2439,
+        "p50": 25.5964999999851,
+        "p95": 27.332750000001397,
+        "p99": 28.058458999999857,
+        "max": 229.8930420000106
+      }
+    },
+    "scope": "Fresh generated-history no-profiler task timed out at600s. Tests18 passed; Unicode-quoted CSV field header falsely armed UI gate. No host acceptance or terminal/cancel/long-receipt stages. Input max195ms and wheel230ms improved, but main689ms remains failed; incomplete workflow cannot be accepted."
+  },
+  "unicodeHeaderRegression": {
+    "sourceHead": "b158360f",
+    "runtimeTests": {
+      "pass": 1357,
+      "fail": 0,
+      "skip": 0
+    },
+    "targeted": {
+      "pass": 17,
+      "fail": 0,
+      "redOldCode": true
+    },
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "readiness": true,
+    "scope": "Unicode Quotation_Mark and opening punctuation only in existing explicit CSV field-row disambiguation; remaining real UI cues retain gate. Frozen old markers are not removed."
+  },
+  "unicodeHeaderRealModelAttempt": {
+    "sourceHead": "b158360f917a9e9b6d30b8bbd05ce6cb169fc2d6",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T17:47:08.539Z",
+    "finishedAt": "2026-10-19T17:54:02.482Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 405977,
+    "taskPassed": true,
+    "interactions": 1631,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 106.79991599998903,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 202.49379199999385,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 107.349916999985,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 103.14016700000502,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 5
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "ced34c54-2341-4572-b2d9-e280bb2a2214"
+    },
+    "longReply": {
+      "messageId": "reply:turn-63228fa6-7bd0-4199-b7af-d67e22f8f896:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.425407,
+      "p99": 6.262783,
+      "max": 978.321407,
+      "gaps": [
+        {
+          "at": "2026-10-19T17:47:16.290Z",
+          "ms": 229.40037500000017
+        },
+        {
+          "at": "2026-10-19T17:47:29.492Z",
+          "ms": 107.9998749999977
+        },
+        {
+          "at": "2026-10-19T17:47:36.903Z",
+          "ms": 108.00383300000249
+        },
+        {
+          "at": "2026-10-19T17:48:04.080Z",
+          "ms": 172.74491699999635
+        },
+        {
+          "at": "2026-10-19T17:48:04.376Z",
+          "ms": 271.7748750000028
+        },
+        {
+          "at": "2026-10-19T17:48:04.503Z",
+          "ms": 126.760749999994
+        },
+        {
+          "at": "2026-10-19T17:48:05.286Z",
+          "ms": 113.77062499999738
+        },
+        {
+          "at": "2026-10-19T17:48:09.832Z",
+          "ms": 155.169624999995
+        },
+        {
+          "at": "2026-10-19T17:49:20.325Z",
+          "ms": 117.67758400000457
+        },
+        {
+          "at": "2026-10-19T17:49:23.396Z",
+          "ms": 120.62620899998001
+        },
+        {
+          "at": "2026-10-19T17:49:27.807Z",
+          "ms": 160.8061250000028
+        },
+        {
+          "at": "2026-10-19T17:49:46.595Z",
+          "ms": 129.28216699999757
+        },
+        {
+          "at": "2026-10-19T17:49:46.799Z",
+          "ms": 113.941124999983
+        },
+        {
+          "at": "2026-10-19T17:49:54.044Z",
+          "ms": 110.30987500000629
+        },
+        {
+          "at": "2026-10-19T17:49:55.228Z",
+          "ms": 114.10962499998277
+        },
+        {
+          "at": "2026-10-19T17:50:02.144Z",
+          "ms": 142.98379200001364
+        },
+        {
+          "at": "2026-10-19T17:50:06.056Z",
+          "ms": 121.07554200000595
+        },
+        {
+          "at": "2026-10-19T17:50:08.503Z",
+          "ms": 145.17333300001337
+        },
+        {
+          "at": "2026-10-19T17:50:11.563Z",
+          "ms": 125.8792919999978
+        },
+        {
+          "at": "2026-10-19T17:50:32.291Z",
+          "ms": 149.7239160000172
+        },
+        {
+          "at": "2026-10-19T17:50:53.467Z",
+          "ms": 117.87099999998463
+        },
+        {
+          "at": "2026-10-19T17:50:57.835Z",
+          "ms": 104.84383299999172
+        },
+        {
+          "at": "2026-10-19T17:51:09.586Z",
+          "ms": 150.89120899999398
+        },
+        {
+          "at": "2026-10-19T17:51:13.757Z",
+          "ms": 142.52270800000406
+        },
+        {
+          "at": "2026-10-19T17:51:19.762Z",
+          "ms": 133.56916600000113
+        },
+        {
+          "at": "2026-10-19T17:51:23.513Z",
+          "ms": 174.16150000001653
+        },
+        {
+          "at": "2026-10-19T17:51:31.100Z",
+          "ms": 108.22858300001826
+        },
+        {
+          "at": "2026-10-19T17:51:45.793Z",
+          "ms": 109.5276250000461
+        },
+        {
+          "at": "2026-10-19T17:51:57.778Z",
+          "ms": 109.41729100001976
+        },
+        {
+          "at": "2026-10-19T17:52:46.628Z",
+          "ms": 106.25829200004227
+        },
+        {
+          "at": "2026-10-19T17:52:48.667Z",
+          "ms": 145.08350000000792
+        },
+        {
+          "at": "2026-10-19T17:52:50.781Z",
+          "ms": 125.53229100001045
+        },
+        {
+          "at": "2026-10-19T17:53:10.056Z",
+          "ms": 972.3102500000386
+        },
+        {
+          "at": "2026-10-19T17:53:10.371Z",
+          "ms": 121.92074999999022
+        },
+        {
+          "at": "2026-10-19T17:53:22.893Z",
+          "ms": 114.94458299997495
+        },
+        {
+          "at": "2026-10-19T17:53:24.054Z",
+          "ms": 112.23679200001061
+        },
+        {
+          "at": "2026-10-19T17:53:35.130Z",
+          "ms": 278.6606669999892
+        },
+        {
+          "at": "2026-10-19T17:53:35.237Z",
+          "ms": 107.01183299999684
+        },
+        {
+          "at": "2026-10-19T17:53:35.353Z",
+          "ms": 116.12699999997858
+        },
+        {
+          "at": "2026-10-19T17:53:36.238Z",
+          "ms": 104.89675000001444
+        },
+        {
+          "at": "2026-10-19T17:53:37.129Z",
+          "ms": 143.68087500002002
+        },
+        {
+          "at": "2026-10-19T17:53:43.706Z",
+          "ms": 408.52150000003166
+        },
+        {
+          "at": "2026-10-19T17:53:47.075Z",
+          "ms": 129.8752080000122
+        },
+        {
+          "at": "2026-10-19T17:53:55.126Z",
+          "ms": 239.28141699999105
+        },
+        {
+          "at": "2026-10-19T17:53:55.346Z",
+          "ms": 122.62891600001603
+        },
+        {
+          "at": "2026-10-19T17:53:55.903Z",
+          "ms": 144.35324999998556
+        },
+        {
+          "at": "2026-10-19T17:54:01.388Z",
+          "ms": 150.1801249999553
+        },
+        {
+          "at": "2026-10-19T17:54:01.607Z",
+          "ms": 118.4047089999658
+        }
+      ]
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": false,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1631,
+        "p50": 19.329666000034194,
+        "p95": 26.03479199996218,
+        "p99": 39.872707999980776,
+        "max": 1085.3372500000405
+      },
+      "wheelRoundTripMs": {
+        "n": 1631,
+        "p50": 25.32820799999172,
+        "p95": 27.328959000005852,
+        "p99": 41.32833400001982,
+        "max": 182.94166700000642
+      }
+    },
+    "scope": "Fresh generated-history no-profiler full workflow. Every functional stage passed and CSV UI false gate absent. A main gap978ms/input1085ms at late cancel dispatch still violates unchanged500ms limits; no performance acceptance or release."
+  },
+  "lateAndFreshCpuDiagnosis": {
+    "sourceHead": "b158360f",
+    "diagnosticOnly": true,
+    "lateResumeMainMaxMs": 482.87,
+    "freshFullMainMaxMs": 414.19,
+    "freshFunctionallyPassed": true,
+    "clockCalibrated": true,
+    "scope": "Separate diagnostic runs, not no-profiler acceptance. No~978ms peak reproduced. Both confirm synchronous badge roster reads in runtime event broadcasts (~43ms), plus multiple canonical parent reads during spawn. No permission/persistence/scheduler guards relaxed."
+  },
+  "trayRegression": {
+    "sourceHead": "f6bd1bbd",
+    "redOldCode": true,
+    "targetedPass": 18,
+    "build": true,
+    "typecheck": true,
+    "architecture": true,
+    "readiness": true,
+    "scope": "Bound100ms presentation refresh; future events do not postpone deadline, forced menu reads latest immediately, disposal removes queued work. Runtime unchanged; original event broadcasts and execution chain retained.",
+    "desktop": {
+      "pass": 5583,
+      "fail": 0,
+      "originalSkip": 5,
+      "additionalPass": 3
+    }
+  },
+  "trayCoalescingRealModelAcceptance": {
+    "sourceHead": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "sourceDirty": false,
+    "startedAt": "2026-10-19T18:05:08.332Z",
+    "finishedAt": "2026-10-19T18:11:10.008Z",
+    "model": "deepseek-v4.1-flash",
+    "effort": "max",
+    "elapsedMs": 353740,
+    "taskPassed": true,
+    "interactions": 1424,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 103.79975000000559,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 104.86154200002784,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 107.61995799996657,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 107.53362499998184,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "e8d4b41d-156c-4a21-8684-0b4a1a3720d0"
+    },
+    "longReply": {
+      "messageId": "reply:turn-9ff982c4-4d11-4d85-9c96-9ae5b3ef83a6:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "mainLoop": {
+      "p95": 1.418239,
+      "p99": 5.910527,
+      "max": 402.915327
+    },
+    "credentialCopiesRemoved": true,
+    "pageErrors": [],
+    "ok": true,
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1424,
+        "p50": 19.47025000001304,
+        "p95": 24.424915999989025,
+        "p99": 28.466125000006286,
+        "max": 139.0321249999979
+      },
+      "wheelRoundTripMs": {
+        "n": 1424,
+        "p50": 25.4898749999993,
+        "p95": 27.383166999999958,
+        "p99": 36.010291999999026,
+        "max": 304.98216700000194
+      }
+    },
+    "scope": "Fresh generated-history real full workflow without CPU profiler or function wrappers. Includes lightweight anomaly timestamps. Original18 tests unchanged, functional stages and unchanged P99/500ms peak gates passed. Source acceptance only; public package and private-history latest checks pending."
+  },
+  "latestPrivateHistoryAcceptance": {
+    "elapsedMs": 125071,
+    "display": {
+      "dpr": 2,
+      "width": 1440,
+      "height": 949
+    },
+    "keys": {
+      "n": 866,
+      "p95": 37.81974999999511,
+      "p99": 87.21083400000498,
+      "max": 97.93524999999863,
+      "over50": 16,
+      "over100": 0
+    },
+    "wheels": {
+      "n": 866,
+      "p95": 33.72908399999142,
+      "p99": 84.41720900000655,
+      "max": 109.7387920000001,
+      "over50": 27,
+      "over100": 1
+    },
+    "panels": {
+      "n": 29,
+      "p95": 948.8551670000015,
+      "p99": 1009.902875000007,
+      "max": 1009.902875000007,
+      "over50": 29,
+      "over100": 29
+    },
+    "mainLoop": {
+      "p95": 1.457151,
+      "p99": 6.463487,
+      "max": 61.308927
+    },
+    "errors": [],
+    "ok": true,
+    "sourceHead": "f6bd1bbd",
+    "credentialFilesRemoved": true,
+    "providerChannelsEmpty": true,
+    "collectionRetries": 0,
+    "rendererLongTasks": [],
+    "scope": "Complete local offline private-history COW snapshot; five older pages,866 continuous typing/wheel pairs plus29 open-settings/tab/close sequences. Panel spans include three actions and intended transitions. Script success alone is not performance acceptance; input/wheel/main peaks checked separately. No personal history sent to model."
+  },
+  "privateCollectionFailure": {
+    "sourceHead": "f6bd1bbd",
+    "elapsedMs": 125348,
+    "interactions": 842,
+    "error": "Final main-loop metrics collection: Resulting promise was garbage collected. No main-loop report. Cause not established.",
+    "accepted": false,
+    "scope": "First offline run retained as incomplete; subsequent complete run uses bounded exact-error collection retry without resetting monitor and needed0retries."
+  },
+  "frozenProductReview": {
+    "status": "passed",
+    "runId": "57ff2135-5764-4f48-a2d8-2fa99489275e",
+    "sourceFingerprint": "6b5b3c8bc4065e0ed116500b467d03c433937165955ac689deac5cec3b0c2d2d",
+    "reviewedAt": "2026-10-19T18:27:03.006Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 180,
+    "changedActuallyInspected": 160,
+    "exactIdAndHashReuseOfPreviouslyInspected": 20,
+    "minorAcceptedLimitations": 7
+  },
+  "latestCI": {
+    "sourceHead": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "runId": 39299492661,
+    "macOS": "success",
+    "linux": "success"
+  },
+  "release": {
+    "tag": "v0.1.0-rc.20",
+    "commit": "04c7001b34086ad393ace8c8028e2a509990938a",
+    "testedSourceCommit": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "identicalTrees": true,
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.20",
+    "workflow": 39302752066,
+    "workflowJobsPassed": 8,
+    "prerelease": true,
+    "stable": "0.0.18"
+  },
+  "publicArtifactChecks": {
+    "ok": true,
+    "all14PublishedAssetDigests": true,
+    "criticalModuleHashes": 38,
+    "changedModuleHashes": 30,
+    "desktopModuleHashes": 12,
+    "moduleSetsMayOverlap": true,
+    "macDeveloperIdTeam": "82672N97RP",
+    "strictSignature": true,
+    "stapledTicket": true,
+    "gatekeeperNotarized": true,
+    "dmgVerifiedReadOnlyMountedAndUnmounted": true,
+    "dmgAndZipAsarMatch": true,
+    "all3UpdateManifestSha512Match": true,
+    "packagedAppUpdateConfig": true,
+    "npmPackages": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.20",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.20"
+        }
+      }
+    ],
+    "isolatedNpmPostinstallAndCliVersion": "peer 0.1.0-rc.20",
+    "cliBinaryHashesMatchPublicArchive": true,
+    "pagesHttpAndTaggedSourceHashes": 5,
+    "firstNpmMetadataCheckIncomplete": true,
+    "npmPublishingLog": "runtime-sdk publish returned success and explicitly reported server processing. First query lacked version; later all4 fixed versions/tags and real postinstall succeeded. No republish or dist-tag workaround."
+  },
+  "publicPrivateHistoryAcceptance": {
+    "application": {
+      "version": "0.1.0-rc.20",
+      "packaged": true
+    },
+    "elapsedMs": 125069,
+    "display": {
+      "dpr": 2,
+      "width": 1440,
+      "height": 949
+    },
+    "keys": {
+      "n": 825,
+      "p95": 36.877624999993714,
+      "p99": 91.9117499999993,
+      "max": 124.42637499999546,
+      "over50": 18,
+      "over100": 3
+    },
+    "wheels": {
+      "n": 825,
+      "p95": 32.65683400000853,
+      "p99": 85.85416699999769,
+      "max": 122.22124999999869,
+      "over50": 29,
+      "over100": 3
+    },
+    "panels": {
+      "n": 28,
+      "p95": 985.8924160000024,
+      "p99": 996.3724999999977,
+      "max": 996.3724999999977,
+      "over50": 28,
+      "over100": 28
+    },
+    "mainLoop": {
+      "p95": 1.433599,
+      "p99": 5.738495,
+      "max": 90.505215
+    },
+    "errors": [],
+    "ok": true,
+    "artifactUnmodified": true,
+    "dailyInstalledAppModified": false,
+    "credentialsRemoved": true,
+    "providerChannelsEmpty": true,
+    "collectionRetries": 0,
+    "rendererLongTasks": [],
+    "scope": "Unmodified publicly downloaded signed RC20 app in isolated directory; complete offline private-history COW snapshot.825 input/wheel pairs and repeated settings actions,125s nativeDPR2. Not an in-place upgrade of the daily installation."
+  },
+  "publicRealWorkflowFailedPerformance": {
+    "application": {
+      "version": "0.1.0-rc.20",
+      "packaged": true
+    },
+    "sourceHead": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "sourceDirty": false,
+    "taskPassed": true,
+    "elapsedMs": 294606,
+    "interactions": 1166,
+    "contractIntegrity": {
+      "files": [
+        "group-events.test.mjs",
+        "render-csv.test.mjs",
+        "sum.test.mjs"
+      ],
+      "unchanged": true
+    },
+    "cancelRecovery": {
+      "cancelled": true,
+      "oldTaskReplayed": false,
+      "replied": true,
+      "sessionId": "9d915588-1459-4087-b4ff-30fa0bb747f1"
+    },
+    "longReply": {
+      "messageId": "reply:turn-f29bf8dd-82c8-4b93-84dc-e21f8c361e3b:1",
+      "bodyChars": 1879,
+      "receiptChars": 5790,
+      "authoritative": true,
+      "failureCard": false
+    },
+    "largeTerminal": {
+      "commits": [
+        {
+          "durationMs": 105.09333399997558,
+          "messageId": "scale-report",
+          "contentRevision": 2
+        },
+        {
+          "durationMs": 101.90837499999907,
+          "messageId": "scale-report",
+          "contentRevision": 3
+        },
+        {
+          "durationMs": 99.53137499996228,
+          "messageId": "scale-report",
+          "contentRevision": 4
+        },
+        {
+          "durationMs": 101.95675000001211,
+          "messageId": "scale-report",
+          "contentRevision": 5
+        }
+      ],
+      "concurrentInteractions": 6
+    },
+    "credentialCopiesRemoved": true,
+    "ok": false,
+    "mainLoop": {
+      "p95": 1.431551,
+      "p99": 6.631423,
+      "max": 568.852479
+    },
+    "interaction": {
+      "keyRoundTripMs": {
+        "n": 1166,
+        "p50": 18.4939999999915,
+        "p95": 25.632541999977548,
+        "p99": 30.030583999992814,
+        "max": 266.0817079999979
+      },
+      "wheelRoundTripMs": {
+        "n": 1166,
+        "p50": 25.425834000023315,
+        "p95": 27.338457999998354,
+        "p99": 49.71349999999802,
+        "max": 324.2541249999995
+      }
+    },
+    "scope": "Actual unmodified public signed RC20 app and bundled helper, fresh generated history, all functional stages passed. Main loop568.85ms exceeds unchanged500ms gate; input266ms/wheel324ms pass. No complete public performance acceptance."
+  },
+  "isolationCorrection": {
+    "genericToolArtifactStoreIgnoredDataHome": true,
+    "testArtifactsAddedToDefaultGlobalCache": true,
+    "originalConversationProjectCredentialRecordsOrDailyInstallationOverwritten": false,
+    "priorBlanketNoOriginalDataMutationClaimTooBroad": true,
+    "cleanup": "Only verified generated test identities will be quarantined; unrelated artifact directories must not be scanned for deletion or migrated. Root wiring will use the existing canonical data-home registry."
+  }
+}

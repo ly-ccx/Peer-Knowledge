@@ -1,9 +1,11 @@
 # ADR 98：大历史规模下的任务执行响应性
 
 创建时间：2026-10-18
-最后更新：2026-10-19
+最后更新：2026-10-20
 状态：Accepted（负责人要求先完成 ADR，再按 P1 → P2 → P3 实施；验收结果另记，不以本状态宣称实施完成）
 级别：A。关联 ADR 80、85、92、94、95、96、97；产品北极星和工程治理继续生效。
+
+交付结果：RC21公开签名包已完成本ADR规定的生成大历史真实任务及实际私有历史离线验收。实现见代码PR171，完整数值、失败记录与覆盖边界见[RC21最终证据](../../playbook/v0.1.0/evidence/rc21-verifier-responsiveness-20261020.json)。RC20公开性能失败保留，未覆盖旧tag或产物。
 
 ## 1. 决策背景与可复现证据
 
@@ -32,6 +34,8 @@ RC18 用户反馈：任务执行时输入、滚动同时卡顿。只读现场采
 ### 3.1 Delegated Plan Catalog 与 Read Query Scope（P1）
 
 新增独立 Catalog Module，Interface 提供当前委托计划目录；Implementation 按文件身份、大小、纳秒 mtime/ctime 校验候选文件，缓存其是否委托及所属项目，只有相关候选进入现有 getPlan 归一化/overlay/完成门。新增、删除、同长度改写、替换、跨进程写及损坏必须重新判断；目录 mtime 本身不足以证明文件未变。缓存有界，逐出不改变事实。已有完整 getPlan 不成为可变共享全局缓存。
+
+RC21生产增量Adapter以现有index/变更日志失效提示减少温查询逐文件stat，所有候选仍读取当前getPlan；异常完整重查，未治理的原地旧文件编辑最多5秒复核。默认严格Adapter保留逐次版本校验。完整Interface与故障回退见文末“RC21：计划发现必须增量失效”。
 
 SessionSupervisor 的同步展示 Query Scope 在一次调用内复用 Catalog、按 sessionId 查找、会话投影和协调投影。嵌套读取共享最外层 scope；退出或异常立即释放，不跨 await 延续，不承载写操作。批量卡片投影显式进入此 seam；单项公开读接口也建立 scope。返回值不能泄漏可污染下一查询的内部引用。
 
@@ -179,3 +183,226 @@ CPU调用栈定位到两条未收敛的路径：`post_reply → deliveryFacts �
 ### 正式包收口
 
 RC19公开签名包补测通过：250条生成历史身份字段修正后，1511组真实调用期间交互，输入/滚动p95为20.75/27.17ms、最大114.02/71.70ms；渲染帧p95为10.1ms、最大25ms，渲染长任务0，输入/滚动绘制最大9.7/27.2ms，主循环仍有285ms峰值。四次46MB持久提交约103–106ms且有并发交互。正式包的自身助手、实际模型恢复/重启、45秒无新派发观察、原正式验收回复展示均通过。完整范围、六项产品限制、保留失败和公开资产在[最终证据](../../playbook/v0.1.0/evidence/rc19-published-validation-20261019.json)中；此结果不代表零延迟峰值或长期日用。
+
+## RC19 安装后全局停顿：真实状态分布复现与修复补充（2026-10-19，B 级）
+
+负责人反馈 RC19 安装后所有操作间歇停顿，滚动只放大症状。此前规模夹具虽覆盖日志、对话、计划大小，没有充分覆盖实际恢复记录和未处理事件分布；上一轮性能通过不能代表本次场景已解决。
+
+### 新证据
+
+已安装 RC19 的主进程采样显示同步文件访问和对象序列化集中在定时器执行链，三个 Renderer 在采样窗口大部分空闲（该窗口未证明包含每次用户手势，不能据此排除全部渲染问题）。实际数据中约 190.9MB coordination journal、2.9GB 历史 checkpoint。体积本身不是根因。
+
+仅在本地、无凭据/Provider/工具执行的隔离副本中，以生产 Desktop 装配和原查询/恢复入口复现：热 host.sync 815–865ms，事件循环连续间隙约 832–901ms；首次冷恢复 2485ms。CPU 样本 structuredClone 自占约 7.90s，stat 4.64s；主要上层为 runner-coordination.transfer（反复 resolveRoster）及 verification-dispatch-recovery.reconcileAll（每个 work 复制完整 state）。此运行带采样器，只作归因和前后同条件对照。
+
+### 实施 Interface 与边界
+
+1. Verification Dispatch Recovery 发现工作 ID 后，使用已有 readWork Interface 读取单项，并在实际状态提交前再次读该项及检查 lease/active attempt。未实现 readWork 的旧 Adapter 兼容原 read。不可共享可变全量状态、跳过当前状态复核、改变未知执行或核验判定。
+2. 一次 transfer 的只读事件分类共享一个惰性 roster；没有需要分类的恢复事件时不取。复用仅活在本次同步分类内，提交/下一次调用不复用，不能变成授权缓存。
+3. 先补“历史工作增长不导致重复全量克隆”“多事件多恢复工作仅一次 roster、下一批重新读取”“回调期间取消/租约丢失不可提交”的失败测试，再实施并重跑本地真实副本。若仍有明显长占用，继续按 CPU 调用链收敛，不以平均/P95 合格宣称消除峰值。
+
+权限、Evidence、Tool Result、持久化格式与认知策略不变。修改范围为上述 runtime-node Module、必要的调度公平性 seam 和诊断/回归脚本；不改日常历史、清空任务、关闭主 Bot、停用权限，亦不把私有历史发给云模型。最终验证分别报告真实历史本地副本、可分享夹具真实模型、正式安装包覆盖；未重新验证不称修复完成。
+
+首轮两处修复后，同场景热 sync 从 815–865ms 降至 184–197ms，但仍不可验收。后续 CPU 样本显示：历史送达回执的 onRecovered 逐条复制整份 works；熔断卡的存在性判断每轮复制完整对话。补充收敛：Runner Coordination 的单 work 读取统一使用已有 readWork；恢复卡的两个消息 ID 判断统一使用已有 hasMessage（旧 Adapter 仍回退完整消息）。空 pendingExecution 时不读取完整对话；非空仍按原历史答复/停止事实进行持久确认，不用内存已拥有代替完成。上述均为已有 Interface 的消费修复，不新增协议或缓存真源。
+
+第二轮热 sync 为 141–153ms，仍不能表示日用流畅。补充两个已有 seam 的收口：
+
+- Host 增加可选本地 readInputFacts（默认沿用 readMessages），Desktop 用现有严格文件版本投影，只保留 pendingExecution 实际读取的回复锚点、停止 turnId、用户 inputId。完整 Runner 上下文、执行和详情仍用原 readMessages；投影不得传入模型或充当 Evidence。非空队列仍依据持久化事实完成确认。
+- Host 的输入归属核对、watch/continuation 观察、kick 之间，以及 Runner pump 选取下一工作之前，在原 async seam 使用 Node macrotask 让出。让出后重新检查 disposed/lease；工具执行/授权/Evidence 原子区间内不插入让出。单轮旧读取结果不能越过恢复/执行的原守卫。验证让出期间取消或租约失效不会发请求；不能以延迟后台运行/停用功能代替公平调度。
+
+冷启动 journal 回放仍单列，不将热优化冒充冷恢复无阻塞。最终必须关掉 CPU profiler 测量连续主循环停顿、原生交互和最大值，不能只报告 P95。
+
+CPU 第三轮确认剩余热占用还包含 custody 发现阶段反复解析数 MB checkpoint。补充明确的 readContinuationCheckpoint Interface：以严格文件版本校验的有界内存投影，仅返回 job 的身份、kind、interactive、用户 inputId/createdAt 与事件 eventId/kind/sessionId；仅作候选发现和优先级。真正合并写入与执行选中项必须重新 readCheckpoint 原文，保留原始 outcome、完整 events 和 native batch；不可把发现投影用作续跑检查点。旧 Adapter 缺此端口仍按原文读取。该派生缓存不改磁盘真源，损坏/替换/删除严格失效，计数与冷/热读取测试必须覆盖。
+
+首次原生 DPR=2、1440px 真实历史界面对照（各65秒，均无 CPU profiler）：修复前输入 max1010ms、滚轮983ms、主循环985ms，P95 却仅22/62ms；说明旧 P95 闸门遗漏间歇停顿。修复后首轮输入207ms、滚轮213ms、主循环103ms，仍不能宣布无卡顿。继续将 Runner 本地 takeNext 异步化，在用户续接发现、未处理事件筛选与后台续接发现之间使用1ms计时器让出；每次让出后重新检查 disposed/lease/新用户输入，实际派发仍走原 runJob。1ms 是事件循环公平调度，不延迟或停用后台工作；重试与执行预算保持原值。Verification reconcileAll 只发现含未决 verification dispatch 的工作 ID，再以 readWork 校验当前项，历史无关工作不逐项 stat/复制。
+
+完整窗口 profiler（本地实际历史副本，55秒）定位剩余三处具体放大，未将该带 profiler 运行作为性能通过：
+
+1. publishWatch → delegation-facts-reader 调用 listPlans，后者的 projectUiMeta 会在过滤项目归属前 hydrate 大量 completed plan。新增 listPlanMetadata Interface：只返回规范化索引发现元数据的隔离副本；Watcher 用该口先过滤归属，再对选中计划 getPlan，保留原 watchFacts 及完成门；原 listPlans UI 语义不变。
+2. Bot readConversation 热刷新仍从完整历史投影复制内部 rounds，单次 clone 约10–12ms，之后还要按页重复传输。新增可选 readConversationMessages 本地口：Desktop 以严格版本的有界历史投影排除内部 rounds，保留公开段落、正文、附件和卡片；readMessage/回复详情与 Runner 继续完整原文。Renderer 不以展示投影认定执行/权限；不得损失点击后的完整过程。
+3. input-queue.readInputs 每次消费/确认都会重新解析并校验历史图片的 base64。新增队列内部有界规范化缓存，严格文件身份/版本及 strict 模式分别命中，冷读仍完整校验；返回扁平规范记录和数组/附件对象的隔离副本（不可变字符串可共享），不缓存 lease、游标或执行权限。外部修改、同长改写/恢复mtime、删除、损坏、严格/宽松隔离、调用者污染均须覆盖。
+
+这三处是已有持久化真源上的读取/投影 Interface 调整（B级），无协议新通道、权限放宽、工具旁路或持久格式变动。
+
+展示投影的兼容收口：既有 read-conversation 增加可选 `presentationOnly: true`（常规聊天刷新）与 `processFor: messageId`（用户显式打开某次过程，禁止与 presentationOnly 混用）。旧调用默认仍返回原完整页。processFor 从完整历史按既有精确 turnId/旧版当前输入内最近 turn 规则选出该回复及其源 turn，不把整段聊天交给 Renderer。Renderer 的详情读取 Module 只在打开历史详情时请求、隔离过期响应，失败明确不可用；活动详情继续真实 Activity。完整过程不混回聊天分页缓存，不每帧重取，也不改变权限/Evidence/消息身份。输入参数类型和定向/窗口测试同步补齐。
+
+常规页仍需保留用户输入上的“已派发/排队/取消/取代”等真实处置。新增明确的 `dispositionCalls` 展示事实字段：仅由宿主从实际持久化 spawn/message/cancel 调用投影所需的最小 input/result 字段，并覆盖任何同名存储字段；Renderer 只用它计算处置和任务名字，不将它渲染为完整执行过程。完整 rounds 仍仅由详情按需获取。旧页没有该字段时继续原 rounds 规则；模型提供的 dispositions 字段仍不采用。定向测试比较原调用和投影的全部处置结果，并保留真实失败、嵌套回执、依赖及标题。
+
+恢复选择收敛为 `RunnerCoordination.selectNext`：原 takeNext 的 recoverUserJob → pending（再次 coalesce）→ recoverJob 三阶段重复准备，在同一次同步观察内只执行一次核验回执协调、reservation 到期、旧预算迁移、custody 与已报告等待核对；随后按原优先级选择用户续接、未处理事件、后台续接。没有跨 await 或跨调用缓存；任何本阶段 work 写入使 decision snapshot 失效，缺失 checkpoint 的阻塞写入后也重新读取。独立 recoverJob/pending Interface 保留兼容；实际选中仍原文读取、原 prepare/runJob、当前 lease/版本/权限门。新增计数及选中次序/写后重读测试，不能将 stale job 当作可执行事实。
+
+可分享的大历史真实模型夹具同时补足状态分布：默认200项历史work，其中100项已送达、100项明确work级暂停，并包含对应的已送达回执；维持1100计划、185MB日志及大主/子会话。所有历史均明确synthetic，只增加负载，不给新任务注入结果、权限或Evidence；历史计划保持取消，不安排旧任务执行。生成agent_turn正式写入其自身turnId，避免再次漏掉公开旁白渲染负载。小规模单元夹具可缩减数量，必须验证实际重放状态数、终态和回执数。性能门禁覆盖单次峰值与P99，不能只以平均或P95通过。
+
+834组无采样操作仍有输入231ms、主循环102ms峰值（P99输入59ms，滚动53ms），保留为未收口轮次。后续55秒CPU归因未见单次>8ms的慢文件/克隆，但发现大量短操作串联：SessionSupervisor在一次无排队变化的promote中多次做1100文件严格版本发现，pendingInputs又逐输入复制整份work ledger。补充仅以下已有seam收口：
+
+- Coordination提供ownedInputIds批量只读身份集合；Host一次读取用于当前pending过滤，原单input口保留。只表示持久归属，不能当已完成确认；新调用重新读取，执行仍由原prepare核对。
+- promote在没有await和写入的同步段共享一次全量计划观察；任何实际prepare await、阻塞/派发持久化后重新发现，不跨这些边界复用。目录仍严格逐文件版本检查，外部改写不漏报，不改缓存过期规则。
+- SessionSupervisor的后台恢复阶段在进入过期扫描、持久队列核对和调度观察前在已有async Interface让出一次事件循环；之后仍从当前磁盘事实和lease判断。授权、工具和Evidence提交原子区内不加让出。目的为切断连续微任务中的多轮同步发现，不停用调度或延长原重试间隔。
+
+上述Supervisor新增让出方案在既有测试发现启动恢复/批准冻结和终态队列推进时序回归，已撤回这三处让出，不调整测试等待来掩盖行为变化。保留无await/写入同步段的观察复用和input归属批量读取；原Host/Runner既有async seam的公平调度及lease/dispose守卫继续保留。该失败不记作通过，不将调度语义变更混入性能修复。
+
+本地真实历史第8轮（125秒、871组、native DPR=2，无采样器/凭据/Provider）：输入往返P95/P99/max=33.16/101.28/127.07ms，滚轮27.25/57.55/100.05ms；输入事件到绘制max9.5ms、滚轮max69.5ms、帧max26.4ms，渲染长任务0，主循环max88.34ms。对应RC19前测为输入max1010.27ms、滚轮983.08ms、主循环985.14ms。完整保留中间未收口轮次，不把这些本地离线操作统计写成真实任务、正式包或长期日用通过；候选完整门禁、真实模型和公开包验收另记录。逐轮数值见[安装后停顿复现](../../playbook/v0.1.0/evidence/rc20-installed-history-stall-20261019.json)。
+
+Desktop集成隔离重试仍发现Host额外让出改变目标观察事件入账的可见时序，并增加fallback设置读取。该两处Host让出亦撤回，保留读取批处理/投影与Runner原prepare前的async让出。不能以等待更多时间或放宽settings读取计数来掩盖本次回归。撤回后须重跑集成和本地实际历史性能，前述第8轮数字仅代表当时中间候选。
+
+撤回Host额外让出后的第9轮：125秒841组，输入P95/P99/max=26.33/107.81/137.04ms，滚轮27.74/92.95/107.99ms；输入绘制max9.7ms、滚轮max65.8ms、帧max25.1ms，无渲染长任务，主循环max100.34ms。35项Desktop集成隔离重跑通过。保留约100ms峰值，不声称完全没有峰值；原近1秒重复阻塞在本轮未再出现。第8轮改标中间候选，不能作为最终回归语义通过。
+
+### RC20 首轮真实模型：功能通过，性能未通过，不发布
+
+冻结源码6d672bea，以DeepSeek/max、200项工作及100条已送达回执的生成历史跑完三文件18项原断言、独立上下文复核、宿主签收和正式回复。取消后新回复成功、旧任务未重跑；1879字符正文、5790字符完整工具回执成功，四次46MB持久提交约100–105ms，复制凭据已移除。
+
+但572秒2314组交互测得输入max631ms、主循环max763ms，超过既有500ms上限；滚轮max301ms、绘制max259ms。输入/滚轮P99虽仅26/28ms，仍不得通过。该轮ok=false保留，RC20不打tag。继续使用带操作栈与阶段标记的实际模型诊断，区分持久提交/恢复/请求装配与采样器开销；不放宽门槛，不将功能成功冒充执行流畅。再次根因收口及无采样器同规模复测通过后，才进入产品和公开包门禁。
+
+### 真实提交阶段收口设计（B级）
+
+带阶段标记的真实模型续跑诊断中，append累计约985ms，反复writeFileSync coordination-snapshot.json.tmp单次约12–13ms；一次工作用量/工具/检查点连续提交会叠加此开销。源码全仓检索确认该快照只有writer，没有任何恢复reader；coordination journal reader始终以日志重放及严格版本为真源。补充：停止每次append写这一未被消费的可重建缓存；保留原journal append、文件fsync、目录fsync、lease复核和cache发布顺序，不改日志格式、不合并或丢弃预算/派发/Evidence提交。已有旧快照不删除也不再当当前事实。新增“无快照/伪造旧快照均以当前日志恢复、旧缓存不被重写、丢租约不追加”的测试。若此后仍不满足原峰值门禁，继续归因，不能据累计热点直接宣称通过。
+
+CI界面门禁同时揭示详情兼容遗漏：按需过程读取保留完整rounds后，还必须传递同一workspace响应中的真实Activity。停止时可能有准备中但从未派发、因此未进入持久rounds的步骤；既有attachBotProcesses已经按精确turnId隔离这种Activity，新的读取Module应复用该投影。不得把准备显示成执行/Evidence，不得给历史回复附上另一turn的活动。补充停止/错误及不同turn回归。
+
+Linux的真实pointer hover测试在循环中每50ms移出再移入，反复重置120ms的透明度过渡，导致15秒仍无法满足opacity===1。仅修正测试等待：真实指针命中后等有限CSS过渡完成，再检查hover与opacity；断言、实际指针和虚拟列表命中要求保持，不能强制按钮可见或放宽布局。
+
+### RC20 冷投影共享输入的收口设计（A 级，只读存储 Interface）
+
+48c72109 完整真实任务在功能上再次通过，但输入最大674ms、主循环552ms仍超过原500ms门槛，不发布。新鲜任务第一阶段的采样显示391ms派发窗口、349ms回复交付窗口、334ms定时观察窗口，均由多段同步工作串联；没有发现单次超过40ms的文件/JSON/克隆操作。多个独立投影在同一父会话变化后分别重读并解析同一9.6MB JSONL：消息身份、列表摘要、卡片、父任务事实、聊天分页。原投影输出缓存虽有效，冷输入没有共享。`dispatchOrigin`全文读取仍是遗留候选，但此轮栈未证明它主导，不能据静态代码将其宣称为本次根因。
+
+Conversation Store 增加独立的严格历史输入 Module，在每个 Store 内按会话ID和完整已校验文件版本缓存解析后的只读输入；最多8会话、合计64MiB，不写磁盘。所有投影仍先 describe 索引、正文和sidecar的严格版本，读取后再核对；替换、同长改写、删除、稳定损坏、写入竞争继续走原错误/最多3次重试，不能命中旧成功。
+
+已有 createHistoryProjection 保持默认可变输入的兼容性：回调获得隔离副本。新增显式 immutableInput 选项，仅经核对的纯投影使用深冻结共享输入，且投影输出仍结构化复制隔离。深冻结在首次解析后执行一次；调用者无法污染其他投影。缓存逐出/超限只影响成本，不能截断历史。该输入缓存仅供既有展示/事实投影，getPersistedConversationHistory、权限、Evidence及真正执行读取 Interface 不改，不将缓存当作权限或完成证明。
+
+先补多投影单次正文读取、默认回调污染隔离、不可变回调拒绝写入、侧车/替换/损坏失效、竞争与容量测试，再接入明确纯投影。不得用Host/Supervisor时序让出掩盖重复解析，原被撤回的让出保持撤回。重新运行完整门禁、标准产品回归和同规模无Profiler真实任务，失败峰值保留。
+
+既有 Desktop botHistory 端口也通过 createHistoryProjection 保留完整 canonical messages/rounds，Runner 已经使用这一严格版本缓存。本次共享解析不裁剪该端口、不把列表或卡片摘要传入认知上下文；其输出继续完整复制隔离。getPersistedConversationHistory 的直接读取不接入新缓存，权限/执行命令仍依赖原lease、signal及本地准入，绝不以共享输入证明许可。
+
+### 真实验收捕获的 CSV header 误判（A 级，完成门准入）
+
+ac5e4ea6 的生成历史真实 Node 任务已经完成三文件修复、18项原断言及独立复核，仍被 ui-artifact:judgment-missing 阻止签收。宿主事实确认：唯一成功标准为 command/node --test；Intake 分类仅命中 ui-surface:header、score=2。该词来自 renderCsv 契约中的“输出 header category,count,total”，指CSV字段行，并非界面。主Bot如实提出截图不适用并查询原任务，不能靠这句话解除宿主视觉完成门。这是完整验收揭露的产品误判，不将其当Provider失败，也不修改生成任务描述来绕过。
+
+在原纯分类 Module 中仅补数据字段语境消歧：当唯一正向视觉信号是英文header，且无其他界面表层、渲染层、预览或视觉验收信号时，识别明确CSV/TSV header或CSV/renderCsv行内header后跟逗号分隔字段名的语句。其他header及混合界面任务保持原判定；不新增模型自报的“免视觉”标志，不改变Evidence、视觉判断或权限执行链。先补真实契约复现、CSV字段行、真实页眉、CSV界面组件/配色和混合交付回归，再改分类。
+
+已持久化武装的视觉门不由本补丁自动撤销；这轮失败保留，新鲜完整任务重新验证。若未来要纠正旧误判，必须另以明确的宿主事实/决策路径设计，不能复用此次文本分类悄悄删除已武装门。
+
+本次新增Intake误判修复先经过46项分类/视觉完成门定向检查及构建/集成，再运行同规模新鲜真实任务确认阻断和峰值；候选冻结后重新完整产品capture/逐图自审/verify，仍须全部门禁通过才能发布。该顺序调整避免在已知功能阻断尚未收敛时反复生成视觉包，不删减任何最终验收范围。
+
+
+### CSV 消歧后的完整真实任务仍未过性能门槛
+
+冻结f7b67b0a的新鲜DeepSeek/max任务已通过三文件修复、18项未修改断言、独立上下文复核、宿主签收、正式回复、四次46MB提交、主动取消后回复和5790字符完整回执。405秒1618组交互，输入P95/P99/max=24.47/49.85/273.27ms，滚轮27.36/35.64/574.63ms，主循环max734.53ms；Renderer帧max25.2ms、long task 0。功能阻断已消失，但峰值再次失败，仍不打tag或发布。
+
+继续以完整新鲜流程采样并记录Profiler.start/stop前后的performance.now时钟边界、各阶段标记与主循环间隙；先前hrtime与CPU profile时基不同，不得据错误对齐归因。诊断运行只作调用栈归因，最终门禁仍用无Profiler同规模真实任务。保留原500ms上限，不对失败阶段省略采样。
+
+### 完整阶段 CPU 采样后的写入与派发收口（A 级，内部存储 Interface）
+
+f7b67b0a完整诊断在派出取消验收任务时测得552ms间隙；工具准入窗口约372ms，其中beforeTool约206ms。以独立12ms命名时钟标记校准CPU样本，避免Profiler启动约52ms区间的不确定性。栈确认：工作记账append先复制全量ledger，committed再复制一次；Verifier continuation单项归属检查仍read完整ledger；Activity为幂等判断和被忽略的append返回值读取父对话全文。首次派发还出现GoalRunnerHost.currentPlans加载全部1100份计划约53ms，调度器实际只用delegationOrigin项目与session依赖。未据静态代码认定dispatchOrigin全文扫描是本轮热点。
+
+补充以下Interface，先写失败回归再实现：
+
+1. Coordination Journal Reader增加内部commitEntry：严格读取当前版本、用原Reducer构造下一状态，调用原同步persist回调，原append/fsync/目录fsync全部成功后才发布私有状态。内部构造的next不向调用方泄漏；既有committed/read与默认append/saveWork仍返回隔离副本。新增显式returnState:false仅供忽略返回值的宿主记账调用，避免复制其他历史work；失败不发布，重试仍严格重放已落盘记录。没有合并、丢弃、延迟预算/PermissionGrant/Evidence记录，没有跨await写入缓存。Verifier单work检查用readWork；binding核对用已有readLifecycleFacts，仍检查当前mandate/transition和lease。
+2. Activity发布器使用已有严格版本投影取得消息ID，旧Store无工厂时保持全文兼容；append显式returnMessages:false，事件持久化后再发changed。不能把内存去重当持久化、吞掉写失败或把Activity当Evidence。Coordination在一次无await的决策内只读一次同一父消息集；原当前用户、附件、锚点和作用域判断不变。
+3. GoalRunnerHost的调度观察复用已有DelegatedPlanCatalog，只对具有delegationOrigin的候选getPlan，保留已接受依赖、终态、同长度改写/替换/损坏失效及原getPlan完成门。非委托Goal仍走原canRunPlan路径；实际能力、执行权和当前宿主租约不缓存。
+
+不扩展为修改父上下文继承或降低签收条件；createChildConversation的当前完整背景和版本复核先保持。原被撤回的Host/Supervisor调度让出继续撤回。上述收口后重新完整受影响包测试、同规模无Profiler真实流程及冻结候选产品回归，所有峰值失败保留。
+
+
+上述写入/派发收口冻结为70e00f13：完整build、typecheck、architecture、release-readiness通过；64项定向检查通过。Runtime全包1355项中1353通过、2项输入抢占时序在并行负载下失败，对应两文件隔离35项全通过，未改断言。Desktop5579通过、5项原有skip及3项附加检查通过。私有next不通过persist泄漏；Reducer中transition patch也复制其嵌套handoff，补齐输入/输出污染、写前失败、写入后确认失败的重放，以及单work取消复核测试。无Profiler新鲜完整模型任务另测，尚不声称性能通过。
+
+### 调度观察的只读完整快照（A 级，原状态的不可变 Interface）
+
+70e00f13无Profiler新鲜流程仍全功能通过；1196组交互输入max530.56ms（dispatch523.88ms）、滚轮253.56ms、主循环419.17ms，原峰值门槛仍失败，不发布。完整阶段采样已证明recoverySelection/custody/送达恢复继续多次read整份ledger，产生短克隆与GC放大；仅消除写入两次复制没有清除观察链的复制。
+
+Journal Reader增加显式readSnapshot Interface：每次仍执行原readState严格文件版本检查，返回完整canonical state的深冻结快照，不截字段、不提供许可或签收结论。未变化时可以共享该不可变对象；落盘并发布的新revision得到新快照；旧快照保持旧值。默认read仍返回可变隔离副本，readWork仍返回单项隔离副本。冻结在冷回放成功或持久提交发布时执行一次，仅遍历新的对象，跳过已冻结子树；Reducer始终copy-on-write，不可修改旧state或保留可变entry别名。
+
+仅RunnerCoordination、ContinuationCustody和ReplyDelivery经逐项审查的只读观察消费此端口，旧Adapter缺省继续read。它们原有await/写入后的重新读取、prepare、lease/版本/取消/未知执行守卫保持；不能把过去快照跨操作当最新事实。命令和PermissionGrant/Evidence提交不新增缓存真源。先测试深层写入拒绝、默认copy隔离、外部append/替换/损坏失效、旧快照稳定及相关消费者完整恢复/取消，再完整回归及新鲜真实任务；不以放宽530ms门槛收尾。
+
+同一只读观察审查还包括recoverLegacyBudgetWorks和VerificationDispatchRecovery的候选筛选；真正候选继续readWork/当前lease及原记录提交。既有pendingEvents内部可消费快照，但返回仍复制实际事件数组，保留可变副本兼容，不能将冻结引用意外传给旧消费者。新增取消/核验/旧预算/continuation/送达完整测试共同保护这些范围。
+
+
+完整不可变快照收口冻结391d0cfa：47项相关定向检查及全build/typecheck/architecture/readiness通过；Runtime1357中1356通过、1项并行输入抢占时序失败，原文件隔离7项通过；Desktop5579通过、原有5skip及3项附加检查通过。原调度计数仍严格要求4次准备/决策观察，新增不可变端口、旧Adapter回退与0次整账本副本检查。送达回调和pendingEvents保持可变副本，不能让冻结引用泄漏改变旧回调契约。最终无Profiler新鲜模型流程仍在进行，未发布。
+
+### Markdown 数据表头的真实反例
+
+391d0cfa的新鲜任务再次被相同视觉门阻断：实际goal为`renderCsv(groups)…输出以 header \`category,count,total\` 开头`，原46项回归只覆盖未包裹字段行，withoutDataHeaders的lookahead未接受反引号。18项原断言与独立复核已通过，主Bot读取详情并在原任务继续核对，宿主仍不能凭其“written skip”解除已武装门。该轮不记完整成功，不删除门、不修改夹具措辞。
+
+只在已有“唯一视觉线索为header、明确CSV/TSV语境、无其他UI/renderer/preview/visual线索”的窄分支补字段列表的引号/Markdown分隔符及冒号/等号写法；实际页面header、CSV界面组件和混合UI仍保留。先补本轮实际完整契约及带反引号/单双引号字段行、真实界面反例，再改纯分类；已武装的旧计划继续保留失败。最终新鲜完整任务必须真正签收，不能靠局部指标收尾。
+
+格式消歧以同一逻辑段落内的CSV契约为边界，允许普通换行和代码分隔符包裹字段列表；不把另一段落的CSV提及扩散成全目标豁免。独立段落中的真实header，以及任何额外UI线索，继续保留完成门。
+
+### 通知身份查询的读取放大（B 级，既有档案 Adapter）
+
+c207f2d0首次完整新鲜模型流程已通过全部功能阶段：18项原断言、独立复核/宿主签收、正式回复、四次大提交、主动取消后回复和5790字符回执；519秒2093组交互仍测得输入max588.79ms、主循环544.74ms，因此不发布。随后的120秒带时钟校准续跑诊断只针对后半段（非完整新鲜验收），捕获取消派发473ms、取消回复305ms、长回执267ms窗口。
+
+栈确认通知handleAppended → botNameForWorkspace → Desktop.botName → directory.get → projectRow约35–40ms，且同一回复阶段多次发生；它只需要profile.displayName，却读取完整消息、任务、审批和未读状态，引发多次冷历史投影。改为直接消费同一dataRoot上已有BotProfileStore.read，并保留workspaceId校验、缺失/损坏/归档返回空串、最新displayName语义。无需新增缓存、IPC、存储或Module，不改通知决策、去重、前台抑制及权限/Evidence。
+
+先补真实Desktop装配用例：聊天损坏仍可取得档案名字、外部改名立即生效、归档/删除/非法身份仍空；再替换这一名称Adapter。父背景的完整继承和版本核对在本步保持，未据此放宽完成门。随后重跑同规模无Profiler完整流程，保留本轮失败，不用短诊断的477ms主循环冒充通过。
+
+通知名称Adapter冻结9d7eda60：真实Desktop装配用例旧实现失败、新实现通过；完整Desktop5580通过、原有5skip及附加3通过，完整构建/类型/架构/提交后readiness通过。Runtime源码未变，保留c207全包1356通过及一项时序文件隔离7通过记录。正以相同生成历史和原18断言重新启动无Profiler新鲜完整真实流程，不将尚未结束的运行算通过。
+
+### 中文书名式引号不能改变交付物类型（同一准入 Interface）
+
+9d7eda60的新鲜完整任务仍被CSV-only目标误武装：18项原断言已实测通过，但实际契约使用`输出 header「category,count,total」加换行结尾的数据行`，可见本地ui-delivery marker与blocked verifier；之前仅枚举ASCII/Markdown引号的补丁不足。保留该轮失败及完整超时采样，不删旧门、不改模型目标或验收断言。
+
+将字段前的语法分隔符识别提升到Unicode quotation-mark / opening-punctuation类别（仍需明确CSV/TSV/renderCsv同段落、ASCII字段逗号列表、且唯一视觉线索为header）。这是纯分类的标点兼容，不是模型“无UI”声明或command标准覆盖真实UI。不同段落/同段落的真实header、组件、样式、颜色、预览等继续视觉验收；已有武装标记不自动撤销。先以本轮完整目标及多种中文/英文/日文/Markdown引号表驱动回归，再实现相同窄分支，重新完整新鲜真实流程。
+
+Unicode字段引号兼容冻结b158360f：本轮实际目标在旧代码失败，修复后含多国语言引号/括号与真实UI反例的17项分类/视觉检查通过；完整Runtime1357全通过（未重跑或改断言），runtime构建、完整类型/架构与提交后readiness通过。Desktop未变，沿用9d7的5580通过及5原skip/附加3通过。9d7的新鲜600秒失败完整保留：2439组输入P99/max28.24/194.83ms、滚轮28.06/229.89ms，主循环689.44ms且未签收，故非验收成功；测试18通过不能覆盖错误视觉门。新一轮增加轻量主循环异常时间戳（无CPU Profiler/函数包装），便于定位孤立峰值，原门槛不变。
+
+b158360f新鲜完整流程405.977秒1631组：18原断言不变、宿主签收/正式回复、4次大提交、主动取消无重放及5790字符权威回执全部通过，CSV误加视觉门消失；仍保留性能失败：输入P95/P99/max26.03/39.87/1085.34ms、滚轮27.33/41.33/182.94ms、主循环978.32ms。轻量异常时间戳将唯一近一秒停顿定位到后半段取消派发附近。再次以已完成生成夹具续跑后半段CPU诊断作栈归因（非新鲜验收），不因其余分位数好转而发布。
+
+### 托盘角标不能同步占用每条运行事件（B 级，表示层订阅）
+
+后半段校准CPU诊断再次确认broadcast(project-agent:changed)同步调用refreshBadge→getNeedsYouCount→directory.rows，单次约43ms；菜单已有5秒退避，但角标路径每条事件都读取完整Bot事实，绕开了该退避。这是托盘表达查询，不能在能力提交/派发调用栈内重复执行。
+
+保持现有角标Interface，但订阅用refreshBadge只安排一个100ms有界、不会被后续事件推迟的刷新；回调真正执行时读取最新shell/开关/count，不缓存权限或needsYou事实。启动和用户点击/右键的refresh仍立即读取，并取消已排队的重复角标刷新；destroy清理队列且此后不再读取。只合并显示刷新，不合并或延迟IPC事件、任务状态、PermissionGrant、Evidence或持久化，也不在Runner/Host/Supervisor新增await让出。测试须证明事件风暴不触发同步目录扫描、连续事件不会饿死角标、打开菜单立即最新、切shell清空、异常及销毁后无残留回调。
+
+同时继续新鲜完整CPU诊断定位978ms峰值，不用较短后半段482ms诊断声称问题已解决。
+
+托盘收口冻结f6bd1bbd，旧实现事件风暴用例失败，新实现通过；完整Desktop构建/测试、类型/架构/提交后readiness通过，Runtime源码未变（b158的1357全通过）。两轮带时钟校准的CPU诊断均功能通过，后半段main483ms、新鲜全流程414ms，但未重现无Profiler978ms峰值，因此不把诊断当性能通过。均确认同步角标目录查询约43ms叠加；本步仅安排表示刷新，执行事件与权限/持久化无延迟。重新启动无Profiler新鲜完整流程。
+
+f6bd1bbd新鲜无Profiler完整流程353.740秒1424组通过原门槛：输入P95/P99/max24.42/28.47/139.03ms，滚轮27.38/36.01/304.98ms，主循环402.92ms。18项原断言不变、完整宿主签收/正式回复、四次大提交、主动取消无重放和5790字符权威回执均通过，凭据副本已移除。保留之前全部峰值失败和诊断范围，不声称零停顿或正式包已通过；接着验证最新源码私有历史离线125秒及冻结产品回归、CI和公开签名包。
+
+最新源码的真实私有历史本地离线副本125.071秒866组完整通过：输入P95/P99/max37.82/87.21/97.94ms、滚轮33.73/84.42/109.74ms、主循环61.31ms，无页面错误/长任务/采集重试。共29轮设置打开、tab切换、关闭序列，整段耗时包含三操作及设计过渡，不能当单输入延迟。副本明确移除vault/identity并置空Provider。上一轮125秒842组虽输入112/滚轮99ms，但最终app.evaluate报Resulting promise was garbage collected，缺失main指标，保留为不完整且原因未定，不计通过。临时采集器仅对该精确协议错误有最多两次重试、不重置monitor；完整通过轮未重试。冻结f6bd1bbd后执行新产品capture/逐图自审，正式公开包仍待验收。
+
+冻结候选标准产品回归通过：run57ff2135-5764-4f48-a2d8-2fa99489275e，sourceFingerprint6b5b3c8bc4065e0ed116500b467d03c433937165955ac689deac5cec3b0c2d2d，180必需截图；160变化图本轮全部实际逐张查看，20图ID和SHA256均与本会话已看图相同。review/verify通过，实施者自审independent=false，7项既有minor限制保留（浮钮局部遮盖、夹具旧摘要、透明离屏Quick Chat合成限制）。无新增阻断；不称完整读屏/长期日用或独立产品审查。最新macOS/Linux CI39299492661均成功。后续只合入已测树并发布，再检查实际公开签名包，不能用源码结果代替正式包验收。
+
+RC20已由04c7001b合并树发布（与f6bd已测树相同），发布流水线39302752066八job全成功。14公开产物全部独立下载并核对GitHub digest；38关键模块/30变更模块（集合可重叠）与12桌面模块含托盘均匹配候选。Mac严格签名/Team82672N97RP/Staple/Gatekeeper、DMG校验与只读挂载/ZIP同asar、3更新清单SHA512及包内app-update配置通过。npm四包固定版本和rc标签20、stable18/beta5保持，独立prefix真实安装postinstall后CLI版本/二进制hash通过；第一次SDK元数据尚未可见，发布日志明确server processing，随后复查完整通过，无重发/换标签。公开站点5页HTTP及源码哈希通过。现在以未修改公开签名app做私有历史离线与生成历史真实任务，未完成前不称正式包性能通过；日常安装不替换。
+
+未修改公开签名RC20 app（app.getVersion20/isPackaged=true）以完整私有历史离线副本125.069秒825组通过：输入P95/P99/max36.88/91.91/124.43ms、滚轮32.66/85.85/122.22ms、主循环90.51ms，无页面错误/长任务/采集重试。凭据和Provider均为空，原安装不改；此为独立目录中的实际公开构建，不冒称原地升级验收。继续用同一未修改公开app及包内helper跑生成大历史新鲜真实流程，未结束前不称正式包任务链路已验收。
+
+### RC20公开包未过主循环门槛，继续修复（不得覆盖已发tag）
+
+RC20公开包新鲜真实流程294.606秒1166组功能全通过，输入P99/max30.03/266.08ms、滚轮49.71/324.25ms，但main568.85ms超过原500ms门槛，因此不记完整性能通过。最大间隙在核验返回与turn持久提交附近，不是截图捕获（截图晚约50秒）；要继续采样归因，不把任意新优化或测试噪声说成已证实根因。后续代码改动必须新RC，RC20 tag/产物保持不可变。
+
+#### 先修验收发现的通用材料化隔离遗漏（A：既有统一数据根）
+
+通用ToolArtifactStore默认硬编码用户全局cache，未使用PEER_AGENT_HOME；隔离任务部分新artifact因此落入默认全局artifacts目录。原会话、项目、凭据记录和日常安装未被改写，但之前笼统“原数据不修改”的声明过宽，需明确修正。此问题独立于568ms峰值，尚不能据静态代码归因性能。
+
+默认材料化与删除路径改用既有Data Store的pathOf('toolArtifacts')，注册为artifacts/cache；显式baseDir不变，不新增另一个env或真源。现有默认用户仍解析同一目录；自定义数据根/测试/多环境才收口到所属根。旧持久ref不迁移不重写，权限检查和Evidence索引不变。用两个独立自定义根验证写入、LRU、删除及显式覆盖；不能删除另一环境的同名会话artifact。对已落入全局的测试材料，仅以本轮生成夹具和真实记录双重核实的UUID/文件白名单迁回对应隔离根，保留证据，不触碰无关历史。完成隔离修复后再继续新鲜诊断和完整性能验收。
+
+数据根遗漏修复7bc4372f已推送至后续草稿代码PR171。7项材料化回归及构建/类型/架构通过；Desktop5583通过/5原skip/附加3通过。Runtime1358中1356通过，两项抢占时序并行负载失败，原两文件隔离35项全通过，未改断言。已以15个本轮生成夹具的index身份和真实用户index不包含该身份双重核对，迁回14个新增测试目录、64文件/745589字节，逐文件SHA256前后相同；只移动到原隔离根下的专用保存目录，未删除无关缓存、未重写旧ref。明确替换此前过宽的原数据不改声明。
+
+另对公开失败夹具进行只读recover测量，10次温读取各1～2.4ms，虽确认返回值被丢弃仍有10次clone，但这不足以解释568ms峰值，因此未修改该路径或据此归因。当前以修复后完整新鲜生成夹具采样CPU/慢clone栈，不作为性能验收；增加生成身份不得在全局cache出现的独立检查。原500ms门槛保持。
+
+### RC21：计划发现必须增量失效，执行事实始终当前读取（A/B）
+
+7bc4372f后的完整新鲜CPU诊断功能全部通过（18项断言、独立核验签收、正式回复、大提交、取消无重放、长回执），22个生成会话在全局artifact目录均无泄漏。但采样仍捕获591.73ms间隙，时间校准后栈明确显示reconcileExpired/reconcilePersistedQueues/promote/sweepWatch重复调用delegated-plan-catalog，每次对约1100个文件逐一stat；三个目录发现分别约113/110/109ms。不是单一图片、动画或流式绘制问题。另有417.71ms取消派发间隙含多次完整父历史读取；先修证实的目录扫描放大，再按完整真实流程决定是否仍需更深历史接口，不能预设任意优化为根因。
+
+决策：保留catalog默认严格扫描Adapter及现有同步Interface；生产GoalPlanStore装配显式启用增量发现Adapter。它首次完整校验候选，此后每次读取目录成员、index与既有.changes.jsonl的严格文件身份/长度/纳秒时间；日志按有界尾部增量消费，只使已变化planId的候选分类失效。新增/删除成员立即反映，index变而日志没有有效变化、日志替换/缩短/损坏/部分行、超出尾部限额或读取竞态均退回完整扫描，不能沿用不可信旧观察。目录内容/缓存容量仍有界，数据根变更清空观察。
+
+只复用“文件是否具有delegationOrigin.sessionId”的发现元信息；每次返回每个候选仍调用当前GoalPlanStore.getPlan，继续运行overlay、UI完成门、权限、租约、调度和独立核验，不缓存Plan、PermissionGrant或Evidence。所有正常跨进程写入走既有persist/index/change journal，因此下次查询立即发现新的派发身份。未经过Store写入且没有index/journal变更的旧工具手工原地改文件，发现元信息最多保留5秒，之后全目录复核；默认严格Adapter仍逐次检测。此5秒仅约束未治理写入的发现延迟，不延迟当前已知任务状态或用户取消，也不是权限有效期。不给Host/Supervisor新增任意yield，不把整个异步操作中的Plan当快照权威，不改变持久格式或迁移用户历史。
+
+Module locality集中于catalog及其失效读取器，两处生产装配显式选择同一Adapter。先补真实GoalPlanStore双实例写入、已知候选当前overlay、1100文件温查询不得重复全量stat、日志截断/替换/损坏/部分行、index无日志变更、成员变更、5秒旧文件复核、换数据根及缓存容量回归；默认严格测试保持。验收仍用原18断言/同规模完整真实任务和原500ms门槛，诊断不能算通过。任何剩余峰值继续按栈查因，不放宽门槛。
+
+增量发现修复442700ee已实现，版本准备da834443尚未发布。13项catalog回归通过，1100计划温查询5次共0次逐计划stat，变更只重新分类目标文件；真实双Store变更立即可见，所有已知候选仍读当前getPlan。默认严格模式回归保留。全Desktop5583通过/5原skip/附加3通过；Runtime1368中1367通过，原runtime-host抢占时序用例并行负载失败，原文件隔离7通过，未改断言；类型/架构通过。7bc诊断的最终main指标采集另报精确协议错误Resulting promise was garbage collected，因此虽CPU/交互及全部功能阶段有记录，仍不是完整性能通过；新采集器只对该精确错误最多重取两次，不重置monitor、不修改任何门槛，并记录重取次数。
+
+冻结候选3d974e66的新鲜无Profiler完整任务178.109秒712组全通过：输入P95/P99/max25.19/66.38/177.99ms、滚轮27.28/49.28/277.54ms、mainP99/max4.92/379.06ms，页面无长任务/错误，main采集重取0次。18断言原样、独立上下文核验/宿主签收、正式回复、四次大提交、主动取消无重放和1879字符正文/5790字符权威回执均通过；22生成身份全局artifact为0，凭据副本已移除。此前操作员漏传effort导致本地拒绝medium的失败启动完整保留，未计模型执行或性能通过；新采集器要求显式effort，使用原max配置重跑，没有改任务/断言/门槛。
+
+同一冻结候选的实际私有历史离线125.034秒869组通过：输入P95/P99/max27.33/60.68/100.40ms、滚轮27.47/57.39/66.97ms、main47.91ms，29次设置打开/tab/关闭序列，无页面错误/长任务/采集重取。启动前移除原vault/identity且Provider始终0；应用启动生成的新51字节隔离identity已在关闭后移除，不把它误称为复制来的凭据。之前65秒短探测及额外提前收集app.version遇到GC协议错误的0采样启动均保留，不计本次125秒验收。macOS/Linux CI39310130219全部成功；正在做最新冻结产品capture/逐图自审，公开21尚未发布，不称正式包通过。
+
+冻结候选标准产品回归run25692dd3-d2aa-48b5-b5ba-814125250b12、fingerprint d531c98916fabd717f40c7f68a1591834b5f14adc1b4d27f8857f3ccaacaeaab通过。180必需图中162本轮于全部21张联系表实际查看，18以同ID和SHA256复用本会话已审RC20像素；review/verify通过，independent=false，7项既有minor限制保留。源码/真实任务/私有历史/CI已过，公开21尚待发布与独立复验。
+
+
+### RC21公开产物最终验收（2026-10-20）
+
+PR171合并50de8b0f与冻结候选3d974e66树一致，release:source-check通过，新tag v0.1.0-rc.21 发布流水线39313599349八job全部成功。14公开产物独立下载并对GitHub digest，41关键模块/33变更模块（集合可重叠）及12桌面模块与已测构建匹配。Mac严格签名/Team82672N97RP、公证票据/Gatekeeper、3更新清单SHA512、包内更新配置通过；DMG只读挂载的asar、app-update.yml和包内helper与ZIP一致，签名/公证通过并已卸载。4个npm固定版本/rc21及stable18、beta5均核对，隔离prefix实际安装postinstall后CLI版本21，两个二进制哈希与公开归档一致。前两次protocol读回尚不可见，发布日志明确服务端处理中；随后公开固定端点与全部元数据通过，未重新发布或改标签。站点5页HTTP及内容核对通过，manifest仅将环境派生generatedAt排除字节比较，其余内容严格一致。
+
+未修改公开签名app（version21/isPackaged）实际私有历史无凭据/无Provider离线125.018秒845组通过：输入P95/P99/max25.60/46.77/96.49ms、滚轮33.97/59.43/83.69ms、mainP99/max5.54/91.82ms。29轮设置操作，无页面错误/长任务/采集重取；新生成隔离identity在退出后移除。日常安装没有替换，不能称原地升级日用验收。
+
+同一未修改公开app和其包内签名helper的新鲜完整真实DeepSeek max任务356.396秒1436组通过：输入P95/P99/max25.08/42.08/211.40ms、滚轮27.31/52.54/436.01ms、mainP99/max4.88/396.62ms，frameP95=10ms、无页面长任务/错误、主指标重取0次。1100计划、200历史工作/100已送达、185MB日志、9.6MB父历史、46MB子历史均保留。原18测试断言未变、独立上下文核验与宿主签收/正式回复、四次大记录提交、主动取消无重放及1879字符正文/5790字符权威回执全通过；22生成会话全局artifact为0，凭据副本移除。测试后asar与包内helper哈希仍与下载验证一致。
+
+公开真实任务首次启动曾误继承工作区helper默认值，预检后仅停止该隔离应用并保留失败/清理记录，未算通过。最终采集器在启动前固定公开包内helper并记录SHA256。没有修改应用、任务、断言或500ms门槛。至此源码、私有历史、产品逐图自审、CI、公开安装产物与完整公开包真实流程均有成功记录；原全部失败仍保留。产品审查independent=false，未覆盖完整读屏、Win/Linux交互安装或长期日用；自动化分发到rAF包含传输开销，不能写为硬件延迟或普遍零峰值。
