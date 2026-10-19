@@ -298,3 +298,11 @@ f7b67b0a完整诊断在派出取消验收任务时测得552ms间隙；工具准�
 
 
 上述写入/派发收口冻结为70e00f13：完整build、typecheck、architecture、release-readiness通过；64项定向检查通过。Runtime全包1355项中1353通过、2项输入抢占时序在并行负载下失败，对应两文件隔离35项全通过，未改断言。Desktop5579通过、5项原有skip及3项附加检查通过。私有next不通过persist泄漏；Reducer中transition patch也复制其嵌套handoff，补齐输入/输出污染、写前失败、写入后确认失败的重放，以及单work取消复核测试。无Profiler新鲜完整模型任务另测，尚不声称性能通过。
+
+### 调度观察的只读完整快照（A 级，原状态的不可变 Interface）
+
+70e00f13无Profiler新鲜流程仍全功能通过；1196组交互输入max530.56ms（dispatch523.88ms）、滚轮253.56ms、主循环419.17ms，原峰值门槛仍失败，不发布。完整阶段采样已证明recoverySelection/custody/送达恢复继续多次read整份ledger，产生短克隆与GC放大；仅消除写入两次复制没有清除观察链的复制。
+
+Journal Reader增加显式readSnapshot Interface：每次仍执行原readState严格文件版本检查，返回完整canonical state的深冻结快照，不截字段、不提供许可或签收结论。未变化时可以共享该不可变对象；落盘并发布的新revision得到新快照；旧快照保持旧值。默认read仍返回可变隔离副本，readWork仍返回单项隔离副本。冻结在冷回放成功或持久提交发布时执行一次，仅遍历新的对象，跳过已冻结子树；Reducer始终copy-on-write，不可修改旧state或保留可变entry别名。
+
+仅RunnerCoordination、ContinuationCustody和ReplyDelivery经逐项审查的只读观察消费此端口，旧Adapter缺省继续read。它们原有await/写入后的重新读取、prepare、lease/版本/取消/未知执行守卫保持；不能把过去快照跨操作当最新事实。命令和PermissionGrant/Evidence提交不新增缓存真源。先测试深层写入拒绝、默认copy隔离、外部append/替换/损坏失效、旧快照稳定及相关消费者完整恢复/取消，再完整回归及新鲜真实任务；不以放宽530ms门槛收尾。
