@@ -319,3 +319,11 @@ Journal Reader增加显式readSnapshot Interface：每次仍执行原readState�
 只在已有“唯一视觉线索为header、明确CSV/TSV语境、无其他UI/renderer/preview/visual线索”的窄分支补字段列表的引号/Markdown分隔符及冒号/等号写法；实际页面header、CSV界面组件和混合UI仍保留。先补本轮实际完整契约及带反引号/单双引号字段行、真实界面反例，再改纯分类；已武装的旧计划继续保留失败。最终新鲜完整任务必须真正签收，不能靠局部指标收尾。
 
 格式消歧以同一逻辑段落内的CSV契约为边界，允许普通换行和代码分隔符包裹字段列表；不把另一段落的CSV提及扩散成全目标豁免。独立段落中的真实header，以及任何额外UI线索，继续保留完成门。
+
+### 通知身份查询的读取放大（B 级，既有档案 Adapter）
+
+c207f2d0首次完整新鲜模型流程已通过全部功能阶段：18项原断言、独立复核/宿主签收、正式回复、四次大提交、主动取消后回复和5790字符回执；519秒2093组交互仍测得输入max588.79ms、主循环544.74ms，因此不发布。随后的120秒带时钟校准续跑诊断只针对后半段（非完整新鲜验收），捕获取消派发473ms、取消回复305ms、长回执267ms窗口。
+
+栈确认通知handleAppended → botNameForWorkspace → Desktop.botName → directory.get → projectRow约35–40ms，且同一回复阶段多次发生；它只需要profile.displayName，却读取完整消息、任务、审批和未读状态，引发多次冷历史投影。改为直接消费同一dataRoot上已有BotProfileStore.read，并保留workspaceId校验、缺失/损坏/归档返回空串、最新displayName语义。无需新增缓存、IPC、存储或Module，不改通知决策、去重、前台抑制及权限/Evidence。
+
+先补真实Desktop装配用例：聊天损坏仍可取得档案名字、外部改名立即生效、归档/删除/非法身份仍空；再替换这一名称Adapter。父背景的完整继承和版本核对在本步保持，未据此放宽完成门。随后重跑同规模无Profiler完整流程，保留本轮失败，不用短诊断的477ms主循环冒充通过。
