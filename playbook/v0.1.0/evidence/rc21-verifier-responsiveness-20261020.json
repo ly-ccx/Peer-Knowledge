@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "targetVersion": "0.1.0-rc.21",
+  "status": "diagnosing_remaining_public_main_loop_peak",
+  "previousEvidence": "rc20-installed-history-stall-20261019.json",
+  "codePR": 171,
+  "rootFixCommit": "7bc4372f",
+  "rootFixFocusedTests": 7,
+  "desktop": {
+    "pass": 5583,
+    "originalSkip": 5,
+    "additionalPass": 3
+  },
+  "runtime": {
+    "total": 1358,
+    "pass": 1356,
+    "parallelTimingFailures": 2,
+    "isolatedOriginalFilesPass": 35
+  },
+  "typecheck": true,
+  "architecture": true,
+  "cleanup": {
+    "generatedFixtureRoots": 15,
+    "directories": 14,
+    "files": 64,
+    "bytes": 745589,
+    "applied": true
+  },
+  "cleanupProof": "Generated fixture identities are absent from actual user conversation index; every moved regular file SHA256 verified before/after. Unrelated directories untouched, files preserved under original isolated fixture roots. Original conversations/projects/credential records and installed app not overwritten; blanket no-data-modification claim corrected.",
+  "recoverNegativeProbe": {
+    "journalBytes": 187073425,
+    "copies": 10,
+    "warmRecoverRangeMs": [
+      0.98,
+      2.39
+    ],
+    "journalUnchanged": true,
+    "modified": false
+  },
+  "rootFixIsNotClaimedAsPerformanceRootCause": true
+}
