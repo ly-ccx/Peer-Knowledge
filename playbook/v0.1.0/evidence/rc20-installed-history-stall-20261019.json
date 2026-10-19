@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "source_real_and_private_history_passed_product_and_public_checks_pending",
+  "status": "source_private_product_ci_passed_public_release_checks_pending",
   "version": "0.1.0-rc.20",
   "date": "2026-10-19",
   "privacy": {
@@ -1926,5 +1926,31 @@
     "error": "Final main-loop metrics collection: Resulting promise was garbage collected. No main-loop report. Cause not established.",
     "accepted": false,
     "scope": "First offline run retained as incomplete; subsequent complete run uses bounded exact-error collection retry without resetting monitor and needed0retries."
+  },
+  "frozenProductReview": {
+    "status": "passed",
+    "runId": "57ff2135-5764-4f48-a2d8-2fa99489275e",
+    "sourceFingerprint": "6b5b3c8bc4065e0ed116500b467d03c433937165955ac689deac5cec3b0c2d2d",
+    "reviewedAt": "2026-10-19T18:27:03.006Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 180,
+    "changedActuallyInspected": 160,
+    "exactIdAndHashReuseOfPreviouslyInspected": 20,
+    "minorAcceptedLimitations": 7
+  },
+  "latestCI": {
+    "sourceHead": "f6bd1bbd55c0ebe65a48c8a5cfa8a4807278a067",
+    "runId": 39299492661,
+    "macOS": "success",
+    "linux": "success"
   }
 }
