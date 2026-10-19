@@ -311,3 +311,9 @@ Journal Reader增加显式readSnapshot Interface：每次仍执行原readState�
 
 
 完整不可变快照收口冻结391d0cfa：47项相关定向检查及全build/typecheck/architecture/readiness通过；Runtime1357中1356通过、1项并行输入抢占时序失败，原文件隔离7项通过；Desktop5579通过、原有5skip及3项附加检查通过。原调度计数仍严格要求4次准备/决策观察，新增不可变端口、旧Adapter回退与0次整账本副本检查。送达回调和pendingEvents保持可变副本，不能让冻结引用泄漏改变旧回调契约。最终无Profiler新鲜模型流程仍在进行，未发布。
+
+### Markdown 数据表头的真实反例
+
+391d0cfa的新鲜任务再次被相同视觉门阻断：实际goal为`renderCsv(groups)…输出以 header \`category,count,total\` 开头`，原46项回归只覆盖未包裹字段行，withoutDataHeaders的lookahead未接受反引号。18项原断言与独立复核已通过，主Bot读取详情并在原任务继续核对，宿主仍不能凭其“written skip”解除已武装门。该轮不记完整成功，不删除门、不修改夹具措辞。
+
+只在已有“唯一视觉线索为header、明确CSV/TSV语境、无其他UI/renderer/preview/visual线索”的窄分支补字段列表的引号/Markdown分隔符及冒号/等号写法；实际页面header、CSV界面组件和混合UI仍保留。先补本轮实际完整契约及带反引号/单双引号字段行、真实界面反例，再改纯分类；已武装的旧计划继续保留失败。最终新鲜完整任务必须真正签收，不能靠局部指标收尾。
