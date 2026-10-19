@@ -295,3 +295,6 @@ f7b67b0a完整诊断在派出取消验收任务时测得552ms间隙；工具准�
 3. GoalRunnerHost的调度观察复用已有DelegatedPlanCatalog，只对具有delegationOrigin的候选getPlan，保留已接受依赖、终态、同长度改写/替换/损坏失效及原getPlan完成门。非委托Goal仍走原canRunPlan路径；实际能力、执行权和当前宿主租约不缓存。
 
 不扩展为修改父上下文继承或降低签收条件；createChildConversation的当前完整背景和版本复核先保持。原被撤回的Host/Supervisor调度让出继续撤回。上述收口后重新完整受影响包测试、同规模无Profiler真实流程及冻结候选产品回归，所有峰值失败保留。
+
+
+上述写入/派发收口冻结为70e00f13：完整build、typecheck、architecture、release-readiness通过；64项定向检查通过。Runtime全包1355项中1353通过、2项输入抢占时序在并行负载下失败，对应两文件隔离35项全通过，未改断言。Desktop5579通过、5项原有skip及3项附加检查通过。私有next不通过persist泄漏；Reducer中transition patch也复制其嵌套handoff，补齐输入/输出污染、写前失败、写入后确认失败的重放，以及单work取消复核测试。无Profiler新鲜完整模型任务另测，尚不声称性能通过。

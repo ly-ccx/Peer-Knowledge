@@ -883,5 +883,46 @@
     },
     "scope": "CSV classification repair: genuine fresh generated-history task, all functional stages passed. Wheel max575ms and main-loop max735ms exceed unchanged500ms gate; performance failed. No tag or release."
   },
-  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider."
+  "privacyScope": "Top-level offline credential/provider flags describe only the private-history local reproduction runs. realModelAttempt/secondRealModelAttempt/sharedInputRealModelAttempt/csvRepairRealModelAttempt use generated isolated history and real configured Provider; credential copies are removed in finally. Personal historical contents are never sent to the Provider.",
+  "completeStageProfile": {
+    "sourceHead": "f7b67b0a507d0ba37c714f4a1b7225340bbf9559",
+    "scope": "Fresh generated-history real task; CPU profiler and slow synchronous I/O tracing. All functional stages passed; diagnostic only, not performance acceptance.",
+    "longGapsMs": [
+      552.48,
+      435.52,
+      383.34,
+      372.01
+    ],
+    "calibration": "Named12ms main-process busy marker aligns profiler clock to performance.now within sampling uncertainty; raw Profiler.start call spans about52ms.",
+    "causes": [
+      "Receipt append clones full ledger on read and again at publication; verification ownership reads full ledger for a single work.",
+      "Activity identity check and discarded append return load the large parent history.",
+      "Delegated admission loads all1100plans although only delegated plans participate in session scheduling.",
+      "Multiple short operations concatenate within microtasks; no isolated recorded fs call above30ms."
+    ]
+  },
+  "receiptRegression": {
+    "sourceHead": "70e00f13",
+    "focusedPassed": 64,
+    "fullBuild": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "releaseReadiness": "passed",
+    "runtimeFull": {
+      "tests": 1355,
+      "passed": 1353,
+      "failed": 2,
+      "skipped": 0,
+      "isolatedRetryPassed": 35,
+      "retry": "The two affected timing-sensitive files pass in isolation with unchanged assertions."
+    },
+    "desktopFull": {
+      "tests": 5584,
+      "passed": 5579,
+      "failed": 0,
+      "skipped": 5,
+      "additionalPassed": 3
+    },
+    "performance": "Fresh no-profiler full large-history real task running; no acceptance claimed."
+  }
 }
