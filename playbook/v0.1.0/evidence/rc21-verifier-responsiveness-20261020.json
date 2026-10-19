@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-10-20",
   "targetVersion": "0.1.0-rc.21",
-  "status": "source_acceptance_passed_pending_product_and_public_build",
+  "status": "source_product_and_ci_accepted_pending_public_release",
   "previousEvidence": "rc20-installed-history-stall-20261019.json",
   "codePR": 171,
   "rootFixCommit": "7bc4372f",
@@ -215,5 +215,26 @@
       "accepted": false,
       "cause": "Extra early app.version collection hit exact known GC protocol error before sampling. Removed unnecessary early metadata call; complete original scenario ran without collection retries."
     }
-  ]
+  ],
+  "product": {
+    "status": "passed",
+    "runId": "25692dd3-d2aa-48b5-b5ba-814125250b12",
+    "sourceFingerprint": "d531c98916fabd717f40c7f68a1591834b5f14adc1b4d27f8857f3ccaacaeaab",
+    "reviewedAt": "2026-10-19T19:43:22.474Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer, RC21",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 180,
+    "newImagesActuallyViewed": 162,
+    "exactIdShaReuseOfPreviouslyViewed": 18,
+    "contactSheetsActuallyViewed": 21,
+    "retainedMinorFindings": 7
+  }
 }
