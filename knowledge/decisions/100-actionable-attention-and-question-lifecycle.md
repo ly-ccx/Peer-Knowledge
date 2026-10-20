@@ -73,6 +73,12 @@ PermissionGrant、Evidence、任务状态与接受闸门不变。Renderer 只表
 
 实际公开 Mac 应用使用隔离的 200 机器人、1 万消息、10 万事件、1 万记忆数据验收：单回执、左下详情、当前事项与通知接手定位通过，无 renderer 错误。RC22 实际发现并完整下载 RC23，文件哈希匹配；未执行安装接管或替换个人应用。另 10 张公开包与更新过程截图由实现者自审，非独立复核。
 
-发布状态有一项明确限制：GitHub 桌面与 CLI 压缩包发布成功，npm publish 两次返回 E404，四个包的 rc 标签仍为 RC22。GitHub NPM_TOKEN 最后更新为 7 月 22 日；与 90 天最大有效期高度吻合，但 secret 更新时间不等于令牌确切 expiry，尚需 npm 令牌页面确认。该问题没有被记为通过，也未通过修改工作流掩盖失败。凭据更新后仅重跑失败 npm job，再验证固定版本、dist-tags 与隔离安装。
+首次公开产物验收时有一项明确限制：GitHub 桌面与 CLI 压缩包发布成功，npm publish 两次返回 E404，四个包的 rc 标签仍为 RC22。GitHub NPM_TOKEN 最后更新为 7 月 22 日；与 90 天最大有效期高度吻合，但 secret 更新时间不等于令牌确切 expiry，尚需 npm 令牌页面确认。该问题没有被记为通过，也未通过修改工作流掩盖失败。凭据更新后仅重跑失败 npm job，再验证固定版本、dist-tags 与隔离安装。
 
 [公开发布验收证据](../../playbook/v0.1.0/evidence/rc23-release-20261020.json) 包含安装包、更新下载、合并 CI、npm 失败状态、官方规则和逐图观察。本轮不宣称新真实云模型任务、完整读屏、Windows/Linux 交互安装或长期日用验收。
+
+## npm 分发恢复验收（2026-10-21）
+
+用户更新 NPM_TOKEN 后首次重跑返回 EOTP；更新 CI 令牌的双重验证发布设置后，仅重跑失败 npm job，第 4 次 workflow 全部通过。四个公开包的固定版本与 rc 标签均为 `0.1.0-rc.23`，stable / beta 标签保持原值；在独立 prefix / cache 实际安装全部四个包，三个运行库根入口及 durable 子入口导入成功。CLI 返回 `peer 0.1.0-rc.23`，CLI 与 credential helper 二进制 SHA256 均匹配 GitHub 发布归档。
+
+公共 registry 短暂读取失败及 runtime-core 元数据传播延迟保留为失败记录；待传播完成后相同版本、标签、安装、导入及哈希断言通过，未降低验收要求。14 个既有发布附件哈希未改变，发布页双语 npm 暂缓说明已替换为发布完成。没有读取令牌值、改写代码、重打标签或重建安装包。[npm 恢复证据](../../playbook/v0.1.0/evidence/rc23-npm-recovery-20261021.json)。

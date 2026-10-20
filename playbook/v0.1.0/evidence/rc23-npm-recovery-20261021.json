@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "localDate": "2026-10-21",
+  "checkedAt": "2026-10-20T16:34:36.102666+00:00",
+  "version": "0.1.0-rc.23",
+  "release": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.23",
+  "sourceHead": "5005377dd9b58c3c3a6612f951bba983b07cc3b7",
+  "workflow": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054",
+    "attempt": 4,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "meta",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:46:17Z",
+        "completedAt": "2026-10-20T15:46:25Z"
+      },
+      {
+        "name": "publish-npm",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T16:27:21Z",
+        "completedAt": "2026-10-20T16:28:25Z"
+      },
+      {
+        "name": "build (macos-14, mac, --mac)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:46:34Z",
+        "completedAt": "2026-10-20T15:52:16Z"
+      },
+      {
+        "name": "build (ubuntu-latest, linux, --linux --x64)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:46:29Z",
+        "completedAt": "2026-10-20T15:50:05Z"
+      },
+      {
+        "name": "build-cli (ubuntu-latest, linux-x64)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:52:19Z",
+        "completedAt": "2026-10-20T15:53:26Z"
+      },
+      {
+        "name": "build-cli (macos-14, darwin-arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:52:24Z",
+        "completedAt": "2026-10-20T15:54:35Z"
+      },
+      {
+        "name": "release",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:54:38Z",
+        "completedAt": "2026-10-20T15:55:57Z"
+      },
+      {
+        "name": "build (windows-latest, win, --win)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-20T15:46:28Z",
+        "completedAt": "2026-10-20T15:50:10Z"
+      }
+    ]
+  },
+  "authorization": "User replaced NPM_TOKEN, then updated CI publishing token settings after EOTP; user authorized rerun and verification. No token value or OTP read or disclosed.",
+  "failureHistory": [
+    {
+      "attempts": [
+        1,
+        2
+      ],
+      "error": "E404 PUT @peer-agent/protocol",
+      "outcome": "No RC23 npm versions published; likely expired former token, exact expiry not visible."
+    },
+    {
+      "attempt": 3,
+      "error": "EOTP: one-time password required",
+      "outcome": "After first credential replacement, automated publishing still required 2FA. User updated CI token settings."
+    }
+  ],
+  "recovery": "Reran failed publish-npm job only after user update; no source, tag, desktop build or release asset changes.",
+  "validation": {
+    "schemaVersion": 1,
+    "version": "0.1.0-rc.23",
+    "checkedAt": "2026-10-20T16:32:44.394Z",
+    "registry": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.23",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.23"
+        },
+        "dist": {
+          "shasum": "abdc02d82d80f4d399bb79a8e475af6944cd090f",
+          "tarball": "https://registry.npmjs.org/@peer-agent/protocol/-/protocol-0.1.0-rc.23.tgz",
+          "fileCount": 77,
+          "integrity": "sha512-u3fMj7UkXRkV7zhh9vEvX0JK2tHRzrLRRvRN7uc6GomkqK1eQjWld23R9GYr6nVrhctw7gnv9BtaHlTUoYj40Q==",
+          "signatures": [
+            {
+              "sig": "MEQCIC7yazJz9X9S0x7SIuzi54hx557PrWOFZeDqxFPvWNWpAiBcYc/NWO+Gf4b5on7YVFtcM5TMQQxoet7ZwfU61c3rCQ==",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEUCIFTveuWVoaDcLQ8vKwOOhUrG/HEdRmd7+1xeDeOUWDHkAiEA4s+187jl19H/DmyShYvQWIW8kasE03RWBtLKpOlwXss="
+            }
+          ],
+          "unpackedSize": 345931
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.23",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.23"
+        },
+        "dist": {
+          "shasum": "51653f3ecce1b2dfce2a77ed208add9360853dc8",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-core/-/runtime-core-0.1.0-rc.23.tgz",
+          "fileCount": 53,
+          "integrity": "sha512-1NnRSPOvk87ThaGDbzSsP8rI5RAiWGMrCj1/Iu7nFLpXIu3NQghFznyBtZpbdwVRnLhrB5CxbGXWTArJC3V2zg==",
+          "signatures": [
+            {
+              "sig": "MEYCIQDvzmR081mnNLRVcgAvzd+6aAOrl4X7BTBB2n3mIzNIwgIhAOivSAzbEsvMA4AIQtP+osfPGhlwDept1Hbi61gKXd5y",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEUCIB/WXSJdJq7AzfbBPkve3TGMDboxuJcs/Upkk2eQ5ZltAiEA1hSB459z/zZAdM/XBHEwniXPhvC7FrhulolYIJbYemI="
+            }
+          ],
+          "unpackedSize": 262588
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.23",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.23"
+        },
+        "dist": {
+          "shasum": "3586092f64ff82174ebfc24f1c0924c9ea35cd96",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-sdk/-/runtime-sdk-0.1.0-rc.23.tgz",
+          "fileCount": 21,
+          "integrity": "sha512-oFfrPEK+KzY6zAGmeurY2OflC0dfABoLqYePzAbpcmdJS4SBq0FKJWI3zsQUnP9r69SF6aba8iZvyLppHLkg/Q==",
+          "signatures": [
+            {
+              "sig": "MEUCIEHdBRQ2nQ1S1qeQx4Q6q0IzmTT2vbbzqfobXr9IJFPNAiEAowfeFWht2izRGHDdS62n8NSb7twDHUPKz7grE38efgU=",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEYCIQCApXbs0xscB35+i2JobFoeZbPM7cbbuEwuF4hvHHA5tgIhANHoPvKvNY+Te68VQoRSYwgsgkh0NOOdjIBqzNi3bgVp"
+            }
+          ],
+          "unpackedSize": 60006
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.23",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.23"
+        },
+        "dist": {
+          "shasum": "5c1a5d0c98b52b4784c561a4fd350fe081e3c44f",
+          "tarball": "https://registry.npmjs.org/@peer-agent/cli/-/cli-0.1.0-rc.23.tgz",
+          "fileCount": 8,
+          "integrity": "sha512-FIYGzkvrUskgd9NXCj3uPcT1KoDWM9yiqN703bOv9NP8vujd2TngGgaRC0IiB6qMaugIikBDF1tuDugtmO7KEA==",
+          "signatures": [
+            {
+              "sig": "MEUCIBS0zhbK5MeK2OOJTA26bFUj3Ym3hua3riMMRlPkum6eAiEAnhMeZA1BwhDbLE0xCMZO0hL+ZsBsNKxjVIJGsrkI1zw=",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEQCIDp5IqAtYrRZq6ErpDcFOnvIYSw2nbiLZMY/tb+QzLrVAiB8ae+J7Zdhk70iKqCX0cQ0/fMC+DTZZ1WdfQJSytUFaA=="
+            }
+          ],
+          "unpackedSize": 18935
+        }
+      }
+    ],
+    "scope": "Public fixed versions and dist-tags; all four packages installed in an isolated prefix, runtime package imports, postinstall download, CLI version and binary hashes. Global npm and user data untouched.",
+    "install": {
+      "status": 0,
+      "output": "\n> @peer-agent/cli@0.1.0-rc.23 postinstall\n> node scripts/postinstall.mjs\n\n[@peer-agent/cli] downloading https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.23/peer-darwin-arm64.tar.gz\n[@peer-agent/cli] installed peer + peer-credential-helper → <temporary>/peer-rc23-npm-after-token-prefix/node_modules/@peer-agent/cli/vendor\n\nadded 4 packages in 18s\nnpm notice\nnpm notice New minor version of npm available! 11.12.1 -> 11.21.1\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.1\nnpm notice To update run: npm install -g npm@11.21.1\nnpm notice\n"
+    },
+    "cliVersion": "peer 0.1.0-rc.23",
+    "installedPackages": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.23",
+        "dependencies": {}
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.23",
+        "dependencies": {
+          "@peer-agent/protocol": "0.1.0-rc.23"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.23",
+        "dependencies": {
+          "@peer-agent/protocol": "^0.1.0-rc.23",
+          "@peer-agent/runtime-core": "^0.1.0-rc.23"
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.23",
+        "dependencies": {}
+      }
+    ],
+    "consumerImports": [
+      {
+        "name": "@peer-agent/protocol",
+        "exports": 76
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "exports": 110
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "exports": 5
+      },
+      {
+        "name": "@peer-agent/runtime-core/goal-idempotency-durable",
+        "exports": 2
+      }
+    ],
+    "binaries": [
+      {
+        "name": "peer",
+        "sha256": "3e6d7c08a9c72c4c0a4bf34a50bf8e674730a13d39a8e473d2f068a5e4d53ad1",
+        "matchesPublishedArchive": true
+      },
+      {
+        "name": "peer-credential-helper",
+        "sha256": "a9bafc1c0f1a936cb8f91919930adc60cb8b1d8e7930229369e6e5c410f77826",
+        "matchesPublishedArchive": true
+      }
+    ],
+    "ok": true,
+    "finishedAt": "2026-10-20T16:33:07.764Z"
+  },
+  "validationRetries": [
+    {
+      "result": "failed",
+      "error": "TypeError: fetch failed",
+      "retained": true
+    },
+    {
+      "result": "failed",
+      "error": "runtime-core version absent from cached metadata during propagation; other exact versions already visible",
+      "retained": true
+    },
+    {
+      "result": "passed",
+      "scope": "Same version/tag/install/import/hash assertions after registry propagation; no assertion weakened"
+    }
+  ],
+  "publicReleaseNotes": "Replaced npm pending notice with published-and-verified status in both locales.",
+  "assetHashesUnchanged": true,
+  "ok": true,
+  "limits": [
+    "Isolated macOS ARM64 npm installation and CLI version/hash acceptance; no new real cloud model task.",
+    "Existing RC23 desktop/product acceptance remains separate; no source changes in this recovery."
+  ]
+}

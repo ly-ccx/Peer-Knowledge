@@ -380,14 +380,14 @@
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451319432"
   },
   "releaseWorkflow": {
-    "attempt": 2,
-    "conclusion": "failure",
+    "attempt": 4,
+    "conclusion": "success",
     "headSha": "5005377dd9b58c3c3a6612f951bba983b07cc3b7",
     "jobs": [
       {
         "completedAt": "2026-10-20T15:46:25Z",
         "conclusion": "success",
-        "databaseId": 118733928742,
+        "databaseId": 118748343594,
         "name": "meta",
         "startedAt": "2026-10-20T15:46:17Z",
         "status": "completed",
@@ -473,12 +473,127 @@
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733928742"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748343594"
+      },
+      {
+        "completedAt": "2026-10-20T16:28:25Z",
+        "conclusion": "success",
+        "databaseId": 118748344076,
+        "name": "publish-npm",
+        "startedAt": "2026-10-20T16:27:21Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-20T16:27:23Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-20T16:27:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:25Z",
+            "conclusion": "success",
+            "name": "Checkout",
+            "number": 2,
+            "startedAt": "2026-10-20T16:27:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:26Z",
+            "conclusion": "success",
+            "name": "Setup Node / pnpm",
+            "number": 3,
+            "startedAt": "2026-10-20T16:27:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:26Z",
+            "conclusion": "success",
+            "name": "Enable corepack",
+            "number": 4,
+            "startedAt": "2026-10-20T16:27:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:39Z",
+            "conclusion": "success",
+            "name": "Install monorepo deps",
+            "number": 5,
+            "startedAt": "2026-10-20T16:27:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:40Z",
+            "conclusion": "success",
+            "name": "Stamp version onto managed packages",
+            "number": 6,
+            "startedAt": "2026-10-20T16:27:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:46Z",
+            "conclusion": "success",
+            "name": "Build open runtime libraries",
+            "number": 7,
+            "startedAt": "2026-10-20T16:27:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:27:59Z",
+            "conclusion": "success",
+            "name": "Guard runtime package manifests",
+            "number": 8,
+            "startedAt": "2026-10-20T16:27:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:28:20Z",
+            "conclusion": "success",
+            "name": "Publish open runtime libraries to npm",
+            "number": 9,
+            "startedAt": "2026-10-20T16:27:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:28:21Z",
+            "conclusion": "success",
+            "name": "Publish @peer-agent/cli to npm",
+            "number": 10,
+            "startedAt": "2026-10-20T16:28:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:28:22Z",
+            "conclusion": "success",
+            "name": "Post Setup Node / pnpm",
+            "number": 19,
+            "startedAt": "2026-10-20T16:28:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:28:22Z",
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "number": 20,
+            "startedAt": "2026-10-20T16:28:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T16:28:22Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 21,
+            "startedAt": "2026-10-20T16:28:22Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748344076"
       },
       {
         "completedAt": "2026-10-20T15:52:16Z",
         "conclusion": "success",
-        "databaseId": 118733929037,
+        "databaseId": 118748344116,
         "name": "build (macos-14, mac, --mac)",
         "startedAt": "2026-10-20T15:46:34Z",
         "status": "completed",
@@ -644,207 +759,183 @@
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733929037"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748344116"
       },
       {
-        "completedAt": "2026-10-20T15:54:35Z",
+        "completedAt": "2026-10-20T15:50:05Z",
         "conclusion": "success",
-        "databaseId": 118733930643,
-        "name": "build-cli (macos-14, darwin-arm64)",
-        "startedAt": "2026-10-20T15:52:24Z",
+        "databaseId": 118748344869,
+        "name": "build (ubuntu-latest, linux, --linux --x64)",
+        "startedAt": "2026-10-20T15:46:29Z",
         "status": "completed",
         "steps": [
           {
-            "completedAt": "2026-10-20T15:52:28Z",
+            "completedAt": "2026-10-20T15:46:31Z",
             "conclusion": "success",
             "name": "Set up job",
             "number": 1,
-            "startedAt": "2026-10-20T15:52:25Z",
+            "startedAt": "2026-10-20T15:46:29Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:52:31Z",
+            "completedAt": "2026-10-20T15:46:33Z",
             "conclusion": "success",
             "name": "Checkout",
             "number": 2,
-            "startedAt": "2026-10-20T15:52:28Z",
+            "startedAt": "2026-10-20T15:46:31Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:52:35Z",
+            "completedAt": "2026-10-20T15:46:41Z",
             "conclusion": "success",
             "name": "Setup pnpm",
             "number": 3,
-            "startedAt": "2026-10-20T15:52:31Z",
+            "startedAt": "2026-10-20T15:46:33Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:52:46Z",
+            "completedAt": "2026-10-20T15:46:45Z",
             "conclusion": "success",
             "name": "Setup Node",
             "number": 4,
-            "startedAt": "2026-10-20T15:52:35Z",
+            "startedAt": "2026-10-20T15:46:41Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:52:48Z",
-            "conclusion": "success",
-            "name": "Setup Bun",
-            "number": 5,
-            "startedAt": "2026-10-20T15:52:46Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:52:57Z",
+            "completedAt": "2026-10-20T15:46:55Z",
             "conclusion": "success",
             "name": "Setup Rust",
-            "number": 6,
-            "startedAt": "2026-10-20T15:52:48Z",
+            "number": 5,
+            "startedAt": "2026-10-20T15:46:45Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:52:57Z",
-            "conclusion": "skipped",
-            "name": "Install Linux credential-helper build deps",
-            "number": 7,
-            "startedAt": "2026-10-20T15:52:57Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:52:57Z",
+            "completedAt": "2026-10-20T15:46:55Z",
             "conclusion": "success",
             "name": "Cache cargo",
-            "number": 8,
-            "startedAt": "2026-10-20T15:52:57Z",
+            "number": 6,
+            "startedAt": "2026-10-20T15:46:55Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:52:58Z",
+            "completedAt": "2026-10-20T15:46:55Z",
             "conclusion": "success",
             "name": "Stamp version from tag",
-            "number": 9,
-            "startedAt": "2026-10-20T15:52:57Z",
+            "number": 7,
+            "startedAt": "2026-10-20T15:46:55Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:53:02Z",
+            "completedAt": "2026-10-20T15:47:12Z",
+            "conclusion": "success",
+            "name": "Install Linux desktop build deps",
+            "number": 8,
+            "startedAt": "2026-10-20T15:46:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:47:30Z",
             "conclusion": "success",
             "name": "Install dependencies",
+            "number": 9,
+            "startedAt": "2026-10-20T15:47:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:47:43Z",
+            "conclusion": "success",
+            "name": "Build Rust native binaries",
             "number": 10,
-            "startedAt": "2026-10-20T15:52:58Z",
+            "startedAt": "2026-10-20T15:47:30Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:53:16Z",
+            "completedAt": "2026-10-20T15:47:57Z",
             "conclusion": "success",
-            "name": "Build workspace packages for CLI",
+            "name": "Build frontend",
             "number": 11,
-            "startedAt": "2026-10-20T15:53:02Z",
+            "startedAt": "2026-10-20T15:47:43Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:53:45Z",
+            "completedAt": "2026-10-20T15:49:50Z",
             "conclusion": "success",
-            "name": "Build CLI (peer + credential helper)",
+            "name": "Build (electron-builder, no publish)",
             "number": 12,
-            "startedAt": "2026-10-20T15:53:16Z",
+            "startedAt": "2026-10-20T15:47:57Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:53:45Z",
-            "conclusion": "success",
-            "name": "Verify peer --version",
+            "completedAt": "2026-10-20T15:49:50Z",
+            "conclusion": "skipped",
+            "name": "Verify macOS Developer ID signature and notarization",
             "number": 13,
-            "startedAt": "2026-10-20T15:53:45Z",
+            "startedAt": "2026-10-20T15:49:50Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:17Z",
+            "completedAt": "2026-10-20T15:49:51Z",
             "conclusion": "success",
-            "name": "Download signed macOS desktop artifact",
+            "name": "Verify packaged runtime entries",
             "number": 14,
-            "startedAt": "2026-10-20T15:53:45Z",
+            "startedAt": "2026-10-20T15:49:50Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:20Z",
+            "completedAt": "2026-10-20T15:49:57Z",
             "conclusion": "success",
-            "name": "Prepare signed macOS CLI helper",
+            "name": "Upload build artifacts",
             "number": 15,
-            "startedAt": "2026-10-20T15:54:17Z",
+            "startedAt": "2026-10-20T15:49:51Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:22Z",
-            "conclusion": "success",
-            "name": "Package CLI archive",
-            "number": 16,
-            "startedAt": "2026-10-20T15:54:20Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:54:25Z",
-            "conclusion": "success",
-            "name": "Upload CLI artifacts",
-            "number": 17,
-            "startedAt": "2026-10-20T15:54:22Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:54:29Z",
+            "completedAt": "2026-10-20T15:49:59Z",
             "conclusion": "success",
             "name": "Post Cache cargo",
-            "number": 30,
-            "startedAt": "2026-10-20T15:54:25Z",
+            "number": 27,
+            "startedAt": "2026-10-20T15:49:57Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:31Z",
-            "conclusion": "success",
-            "name": "Post Setup Bun",
-            "number": 31,
-            "startedAt": "2026-10-20T15:54:29Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:54:31Z",
+            "completedAt": "2026-10-20T15:50:02Z",
             "conclusion": "success",
             "name": "Post Setup Node",
-            "number": 32,
-            "startedAt": "2026-10-20T15:54:31Z",
+            "number": 28,
+            "startedAt": "2026-10-20T15:49:59Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:31Z",
+            "completedAt": "2026-10-20T15:50:02Z",
             "conclusion": "success",
             "name": "Post Setup pnpm",
-            "number": 33,
-            "startedAt": "2026-10-20T15:54:31Z",
+            "number": 29,
+            "startedAt": "2026-10-20T15:50:02Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:32Z",
+            "completedAt": "2026-10-20T15:50:02Z",
             "conclusion": "success",
             "name": "Post Checkout",
-            "number": 34,
-            "startedAt": "2026-10-20T15:54:31Z",
+            "number": 30,
+            "startedAt": "2026-10-20T15:50:02Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:54:32Z",
+            "completedAt": "2026-10-20T15:50:02Z",
             "conclusion": "success",
             "name": "Complete job",
-            "number": 35,
-            "startedAt": "2026-10-20T15:54:32Z",
+            "number": 31,
+            "startedAt": "2026-10-20T15:50:02Z",
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733930643"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748344869"
       },
       {
         "completedAt": "2026-10-20T15:53:26Z",
         "conclusion": "success",
-        "databaseId": 118733930797,
+        "databaseId": 118748345595,
         "name": "build-cli (ubuntu-latest, linux-x64)",
         "startedAt": "2026-10-20T15:52:19Z",
         "status": "completed",
@@ -1034,127 +1125,207 @@
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733930797"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748345595"
       },
       {
-        "completedAt": "2026-10-20T16:00:06Z",
-        "conclusion": "failure",
-        "databaseId": 118733932012,
-        "name": "publish-npm",
-        "startedAt": "2026-10-20T15:59:25Z",
+        "completedAt": "2026-10-20T15:54:35Z",
+        "conclusion": "success",
+        "databaseId": 118748345965,
+        "name": "build-cli (macos-14, darwin-arm64)",
+        "startedAt": "2026-10-20T15:52:24Z",
         "status": "completed",
         "steps": [
           {
-            "completedAt": "2026-10-20T15:59:27Z",
+            "completedAt": "2026-10-20T15:52:28Z",
             "conclusion": "success",
             "name": "Set up job",
             "number": 1,
-            "startedAt": "2026-10-20T15:59:26Z",
+            "startedAt": "2026-10-20T15:52:25Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:59:30Z",
+            "completedAt": "2026-10-20T15:52:31Z",
             "conclusion": "success",
             "name": "Checkout",
             "number": 2,
-            "startedAt": "2026-10-20T15:59:27Z",
+            "startedAt": "2026-10-20T15:52:28Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:59:30Z",
+            "completedAt": "2026-10-20T15:52:35Z",
             "conclusion": "success",
-            "name": "Setup Node / pnpm",
+            "name": "Setup pnpm",
             "number": 3,
-            "startedAt": "2026-10-20T15:59:30Z",
+            "startedAt": "2026-10-20T15:52:31Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:59:30Z",
+            "completedAt": "2026-10-20T15:52:46Z",
             "conclusion": "success",
-            "name": "Enable corepack",
+            "name": "Setup Node",
             "number": 4,
-            "startedAt": "2026-10-20T15:59:30Z",
+            "startedAt": "2026-10-20T15:52:35Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:59:48Z",
+            "completedAt": "2026-10-20T15:52:48Z",
             "conclusion": "success",
-            "name": "Install monorepo deps",
+            "name": "Setup Bun",
             "number": 5,
-            "startedAt": "2026-10-20T15:59:30Z",
+            "startedAt": "2026-10-20T15:52:46Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:59:48Z",
+            "completedAt": "2026-10-20T15:52:57Z",
             "conclusion": "success",
-            "name": "Stamp version onto managed packages",
+            "name": "Setup Rust",
             "number": 6,
-            "startedAt": "2026-10-20T15:59:48Z",
+            "startedAt": "2026-10-20T15:52:48Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T15:59:52Z",
-            "conclusion": "success",
-            "name": "Build open runtime libraries",
+            "completedAt": "2026-10-20T15:52:57Z",
+            "conclusion": "skipped",
+            "name": "Install Linux credential-helper build deps",
             "number": 7,
-            "startedAt": "2026-10-20T15:59:48Z",
+            "startedAt": "2026-10-20T15:52:57Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T16:00:00Z",
+            "completedAt": "2026-10-20T15:52:57Z",
             "conclusion": "success",
-            "name": "Guard runtime package manifests",
+            "name": "Cache cargo",
             "number": 8,
-            "startedAt": "2026-10-20T15:59:52Z",
+            "startedAt": "2026-10-20T15:52:57Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T16:00:04Z",
-            "conclusion": "failure",
-            "name": "Publish open runtime libraries to npm",
+            "completedAt": "2026-10-20T15:52:58Z",
+            "conclusion": "success",
+            "name": "Stamp version from tag",
             "number": 9,
-            "startedAt": "2026-10-20T16:00:00Z",
+            "startedAt": "2026-10-20T15:52:57Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T16:00:04Z",
-            "conclusion": "skipped",
-            "name": "Publish @peer-agent/cli to npm",
+            "completedAt": "2026-10-20T15:53:02Z",
+            "conclusion": "success",
+            "name": "Install dependencies",
             "number": 10,
-            "startedAt": "2026-10-20T16:00:04Z",
+            "startedAt": "2026-10-20T15:52:58Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T16:00:04Z",
-            "conclusion": "skipped",
-            "name": "Post Setup Node / pnpm",
-            "number": 19,
-            "startedAt": "2026-10-20T16:00:04Z",
+            "completedAt": "2026-10-20T15:53:16Z",
+            "conclusion": "success",
+            "name": "Build workspace packages for CLI",
+            "number": 11,
+            "startedAt": "2026-10-20T15:53:02Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T16:00:04Z",
+            "completedAt": "2026-10-20T15:53:45Z",
+            "conclusion": "success",
+            "name": "Build CLI (peer + credential helper)",
+            "number": 12,
+            "startedAt": "2026-10-20T15:53:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:53:45Z",
+            "conclusion": "success",
+            "name": "Verify peer --version",
+            "number": 13,
+            "startedAt": "2026-10-20T15:53:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:17Z",
+            "conclusion": "success",
+            "name": "Download signed macOS desktop artifact",
+            "number": 14,
+            "startedAt": "2026-10-20T15:53:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:20Z",
+            "conclusion": "success",
+            "name": "Prepare signed macOS CLI helper",
+            "number": 15,
+            "startedAt": "2026-10-20T15:54:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:22Z",
+            "conclusion": "success",
+            "name": "Package CLI archive",
+            "number": 16,
+            "startedAt": "2026-10-20T15:54:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:25Z",
+            "conclusion": "success",
+            "name": "Upload CLI artifacts",
+            "number": 17,
+            "startedAt": "2026-10-20T15:54:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:29Z",
+            "conclusion": "success",
+            "name": "Post Cache cargo",
+            "number": 30,
+            "startedAt": "2026-10-20T15:54:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:31Z",
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "number": 31,
+            "startedAt": "2026-10-20T15:54:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:31Z",
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "number": 32,
+            "startedAt": "2026-10-20T15:54:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:31Z",
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "number": 33,
+            "startedAt": "2026-10-20T15:54:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-20T15:54:32Z",
             "conclusion": "success",
             "name": "Post Checkout",
-            "number": 20,
-            "startedAt": "2026-10-20T16:00:04Z",
+            "number": 34,
+            "startedAt": "2026-10-20T15:54:31Z",
             "status": "completed"
           },
           {
-            "completedAt": "2026-10-20T16:00:04Z",
+            "completedAt": "2026-10-20T15:54:32Z",
             "conclusion": "success",
             "name": "Complete job",
-            "number": 21,
-            "startedAt": "2026-10-20T16:00:04Z",
+            "number": 35,
+            "startedAt": "2026-10-20T15:54:32Z",
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733932012"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748345965"
       },
       {
         "completedAt": "2026-10-20T15:55:57Z",
         "conclusion": "success",
-        "databaseId": 118733932982,
+        "databaseId": 118748346488,
         "name": "release",
         "startedAt": "2026-10-20T15:54:38Z",
         "status": "completed",
@@ -1216,183 +1387,12 @@
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733932982"
-      },
-      {
-        "completedAt": "2026-10-20T15:50:05Z",
-        "conclusion": "success",
-        "databaseId": 118733989182,
-        "name": "build (ubuntu-latest, linux, --linux --x64)",
-        "startedAt": "2026-10-20T15:46:29Z",
-        "status": "completed",
-        "steps": [
-          {
-            "completedAt": "2026-10-20T15:46:31Z",
-            "conclusion": "success",
-            "name": "Set up job",
-            "number": 1,
-            "startedAt": "2026-10-20T15:46:29Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:46:33Z",
-            "conclusion": "success",
-            "name": "Checkout",
-            "number": 2,
-            "startedAt": "2026-10-20T15:46:31Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:46:41Z",
-            "conclusion": "success",
-            "name": "Setup pnpm",
-            "number": 3,
-            "startedAt": "2026-10-20T15:46:33Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:46:45Z",
-            "conclusion": "success",
-            "name": "Setup Node",
-            "number": 4,
-            "startedAt": "2026-10-20T15:46:41Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:46:55Z",
-            "conclusion": "success",
-            "name": "Setup Rust",
-            "number": 5,
-            "startedAt": "2026-10-20T15:46:45Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:46:55Z",
-            "conclusion": "success",
-            "name": "Cache cargo",
-            "number": 6,
-            "startedAt": "2026-10-20T15:46:55Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:46:55Z",
-            "conclusion": "success",
-            "name": "Stamp version from tag",
-            "number": 7,
-            "startedAt": "2026-10-20T15:46:55Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:47:12Z",
-            "conclusion": "success",
-            "name": "Install Linux desktop build deps",
-            "number": 8,
-            "startedAt": "2026-10-20T15:46:55Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:47:30Z",
-            "conclusion": "success",
-            "name": "Install dependencies",
-            "number": 9,
-            "startedAt": "2026-10-20T15:47:12Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:47:43Z",
-            "conclusion": "success",
-            "name": "Build Rust native binaries",
-            "number": 10,
-            "startedAt": "2026-10-20T15:47:30Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:47:57Z",
-            "conclusion": "success",
-            "name": "Build frontend",
-            "number": 11,
-            "startedAt": "2026-10-20T15:47:43Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:49:50Z",
-            "conclusion": "success",
-            "name": "Build (electron-builder, no publish)",
-            "number": 12,
-            "startedAt": "2026-10-20T15:47:57Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:49:50Z",
-            "conclusion": "skipped",
-            "name": "Verify macOS Developer ID signature and notarization",
-            "number": 13,
-            "startedAt": "2026-10-20T15:49:50Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:49:51Z",
-            "conclusion": "success",
-            "name": "Verify packaged runtime entries",
-            "number": 14,
-            "startedAt": "2026-10-20T15:49:50Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:49:57Z",
-            "conclusion": "success",
-            "name": "Upload build artifacts",
-            "number": 15,
-            "startedAt": "2026-10-20T15:49:51Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:49:59Z",
-            "conclusion": "success",
-            "name": "Post Cache cargo",
-            "number": 27,
-            "startedAt": "2026-10-20T15:49:57Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:50:02Z",
-            "conclusion": "success",
-            "name": "Post Setup Node",
-            "number": 28,
-            "startedAt": "2026-10-20T15:49:59Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:50:02Z",
-            "conclusion": "success",
-            "name": "Post Setup pnpm",
-            "number": 29,
-            "startedAt": "2026-10-20T15:50:02Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:50:02Z",
-            "conclusion": "success",
-            "name": "Post Checkout",
-            "number": 30,
-            "startedAt": "2026-10-20T15:50:02Z",
-            "status": "completed"
-          },
-          {
-            "completedAt": "2026-10-20T15:50:02Z",
-            "conclusion": "success",
-            "name": "Complete job",
-            "number": 31,
-            "startedAt": "2026-10-20T15:50:02Z",
-            "status": "completed"
-          }
-        ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733989182"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748346488"
       },
       {
         "completedAt": "2026-10-20T15:50:10Z",
         "conclusion": "success",
-        "databaseId": 118733989514,
+        "databaseId": 118748404121,
         "name": "build (windows-latest, win, --win)",
         "startedAt": "2026-10-20T15:46:28Z",
         "status": "completed",
@@ -1558,7 +1558,7 @@
             "status": "completed"
           }
         ],
-        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118733989514"
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39451472054/job/118748404121"
       }
     ],
     "status": "completed",
@@ -2777,54 +2777,178 @@
     "npm": {
       "schemaVersion": 1,
       "version": "0.1.0-rc.23",
-      "checkedAt": "2026-10-20T16:05:08.932Z",
+      "checkedAt": "2026-10-20T16:32:44.394Z",
       "registry": [
         {
           "name": "@peer-agent/protocol",
-          "fixedVersionExists": false,
+          "version": "0.1.0-rc.23",
           "distTags": {
             "latest": "0.0.18",
             "beta": "0.1.0-beta.5",
-            "rc": "0.1.0-rc.22"
+            "rc": "0.1.0-rc.23"
+          },
+          "dist": {
+            "shasum": "abdc02d82d80f4d399bb79a8e475af6944cd090f",
+            "tarball": "https://registry.npmjs.org/@peer-agent/protocol/-/protocol-0.1.0-rc.23.tgz",
+            "fileCount": 77,
+            "integrity": "sha512-u3fMj7UkXRkV7zhh9vEvX0JK2tHRzrLRRvRN7uc6GomkqK1eQjWld23R9GYr6nVrhctw7gnv9BtaHlTUoYj40Q==",
+            "signatures": [
+              {
+                "sig": "MEQCIC7yazJz9X9S0x7SIuzi54hx557PrWOFZeDqxFPvWNWpAiBcYc/NWO+Gf4b5on7YVFtcM5TMQQxoet7ZwfU61c3rCQ==",
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+              },
+              {
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                "sig": "MEUCIFTveuWVoaDcLQ8vKwOOhUrG/HEdRmd7+1xeDeOUWDHkAiEA4s+187jl19H/DmyShYvQWIW8kasE03RWBtLKpOlwXss="
+              }
+            ],
+            "unpackedSize": 345931
           }
         },
         {
           "name": "@peer-agent/runtime-core",
-          "fixedVersionExists": false,
+          "version": "0.1.0-rc.23",
           "distTags": {
             "latest": "0.0.18",
             "beta": "0.1.0-beta.5",
-            "rc": "0.1.0-rc.22"
+            "rc": "0.1.0-rc.23"
+          },
+          "dist": {
+            "shasum": "51653f3ecce1b2dfce2a77ed208add9360853dc8",
+            "tarball": "https://registry.npmjs.org/@peer-agent/runtime-core/-/runtime-core-0.1.0-rc.23.tgz",
+            "fileCount": 53,
+            "integrity": "sha512-1NnRSPOvk87ThaGDbzSsP8rI5RAiWGMrCj1/Iu7nFLpXIu3NQghFznyBtZpbdwVRnLhrB5CxbGXWTArJC3V2zg==",
+            "signatures": [
+              {
+                "sig": "MEYCIQDvzmR081mnNLRVcgAvzd+6aAOrl4X7BTBB2n3mIzNIwgIhAOivSAzbEsvMA4AIQtP+osfPGhlwDept1Hbi61gKXd5y",
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+              },
+              {
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                "sig": "MEUCIB/WXSJdJq7AzfbBPkve3TGMDboxuJcs/Upkk2eQ5ZltAiEA1hSB459z/zZAdM/XBHEwniXPhvC7FrhulolYIJbYemI="
+              }
+            ],
+            "unpackedSize": 262588
           }
         },
         {
           "name": "@peer-agent/runtime-sdk",
-          "fixedVersionExists": false,
+          "version": "0.1.0-rc.23",
           "distTags": {
             "latest": "0.0.18",
             "beta": "0.1.0-beta.5",
-            "rc": "0.1.0-rc.22"
+            "rc": "0.1.0-rc.23"
+          },
+          "dist": {
+            "shasum": "3586092f64ff82174ebfc24f1c0924c9ea35cd96",
+            "tarball": "https://registry.npmjs.org/@peer-agent/runtime-sdk/-/runtime-sdk-0.1.0-rc.23.tgz",
+            "fileCount": 21,
+            "integrity": "sha512-oFfrPEK+KzY6zAGmeurY2OflC0dfABoLqYePzAbpcmdJS4SBq0FKJWI3zsQUnP9r69SF6aba8iZvyLppHLkg/Q==",
+            "signatures": [
+              {
+                "sig": "MEUCIEHdBRQ2nQ1S1qeQx4Q6q0IzmTT2vbbzqfobXr9IJFPNAiEAowfeFWht2izRGHDdS62n8NSb7twDHUPKz7grE38efgU=",
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+              },
+              {
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                "sig": "MEYCIQCApXbs0xscB35+i2JobFoeZbPM7cbbuEwuF4hvHHA5tgIhANHoPvKvNY+Te68VQoRSYwgsgkh0NOOdjIBqzNi3bgVp"
+              }
+            ],
+            "unpackedSize": 60006
           }
         },
         {
           "name": "@peer-agent/cli",
-          "fixedVersionExists": false,
+          "version": "0.1.0-rc.23",
           "distTags": {
             "latest": "0.0.18",
             "beta": "0.1.0-beta.5",
-            "rc": "0.1.0-rc.22"
+            "rc": "0.1.0-rc.23"
+          },
+          "dist": {
+            "shasum": "5c1a5d0c98b52b4784c561a4fd350fe081e3c44f",
+            "tarball": "https://registry.npmjs.org/@peer-agent/cli/-/cli-0.1.0-rc.23.tgz",
+            "fileCount": 8,
+            "integrity": "sha512-FIYGzkvrUskgd9NXCj3uPcT1KoDWM9yiqN703bOv9NP8vujd2TngGgaRC0IiB6qMaugIikBDF1tuDugtmO7KEA==",
+            "signatures": [
+              {
+                "sig": "MEUCIBS0zhbK5MeK2OOJTA26bFUj3Ym3hua3riMMRlPkum6eAiEAnhMeZA1BwhDbLE0xCMZO0hL+ZsBsNKxjVIJGsrkI1zw=",
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+              },
+              {
+                "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+                "sig": "MEQCIDp5IqAtYrRZq6ErpDcFOnvIYSw2nbiLZMY/tb+QzLrVAiB8ae+J7Zdhk70iKqCX0cQ0/fMC+DTZZ1WdfQJSytUFaA=="
+              }
+            ],
+            "unpackedSize": 18935
           }
         }
       ],
-      "scope": "Public fixed versions and dist-tags inspected; npm publish failed twice. No isolated install possible until fixed RC23 versions exist.",
-      "ok": false,
-      "error": "AssertionError [ERR_ASSERTION]: @peer-agent/protocol fixed version\n    at file:///private<temporary>/peer-rc23-npm-verify.mjs:10:40\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
-      "finishedAt": "2026-10-20T16:05:13.627Z",
-      "blocked": true,
-      "publishAttempts": 2,
-      "publishError": "E404 PUT @peer-agent/protocol in GitHub Actions with configured NPM_TOKEN",
-      "installAttempted": false,
-      "nextAction": "Update repository Actions NPM_TOKEN with @peer-agent publish access, then rerun only failed publish-npm job"
+      "scope": "Public fixed versions and dist-tags; all four packages installed in an isolated prefix, runtime package imports, postinstall download, CLI version and binary hashes. Global npm and user data untouched.",
+      "install": {
+        "status": 0,
+        "output": "\n> @peer-agent/cli@0.1.0-rc.23 postinstall\n> node scripts/postinstall.mjs\n\n[@peer-agent/cli] downloading https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.23/peer-darwin-arm64.tar.gz\n[@peer-agent/cli] installed peer + peer-credential-helper → <temporary>/peer-rc23-npm-after-token-prefix/node_modules/@peer-agent/cli/vendor\n\nadded 4 packages in 18s\nnpm notice\nnpm notice New minor version of npm available! 11.12.1 -> 11.21.1\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.1\nnpm notice To update run: npm install -g npm@11.21.1\nnpm notice\n"
+      },
+      "cliVersion": "peer 0.1.0-rc.23",
+      "installedPackages": [
+        {
+          "name": "@peer-agent/protocol",
+          "version": "0.1.0-rc.23",
+          "dependencies": {}
+        },
+        {
+          "name": "@peer-agent/runtime-core",
+          "version": "0.1.0-rc.23",
+          "dependencies": {
+            "@peer-agent/protocol": "0.1.0-rc.23"
+          }
+        },
+        {
+          "name": "@peer-agent/runtime-sdk",
+          "version": "0.1.0-rc.23",
+          "dependencies": {
+            "@peer-agent/protocol": "^0.1.0-rc.23",
+            "@peer-agent/runtime-core": "^0.1.0-rc.23"
+          }
+        },
+        {
+          "name": "@peer-agent/cli",
+          "version": "0.1.0-rc.23",
+          "dependencies": {}
+        }
+      ],
+      "consumerImports": [
+        {
+          "name": "@peer-agent/protocol",
+          "exports": 76
+        },
+        {
+          "name": "@peer-agent/runtime-core",
+          "exports": 110
+        },
+        {
+          "name": "@peer-agent/runtime-sdk",
+          "exports": 5
+        },
+        {
+          "name": "@peer-agent/runtime-core/goal-idempotency-durable",
+          "exports": 2
+        }
+      ],
+      "binaries": [
+        {
+          "name": "peer",
+          "sha256": "3e6d7c08a9c72c4c0a4bf34a50bf8e674730a13d39a8e473d2f068a5e4d53ad1",
+          "matchesPublishedArchive": true
+        },
+        {
+          "name": "peer-credential-helper",
+          "sha256": "a9bafc1c0f1a936cb8f91919930adc60cb8b1d8e7930229369e6e5c410f77826",
+          "matchesPublishedArchive": true
+        }
+      ],
+      "ok": true,
+      "finishedAt": "2026-10-20T16:33:07.764Z"
     },
     "pages": {
       "version": "0.1.0-rc.23",
@@ -2945,7 +3069,7 @@
       "Updater installer handoff disabled; daily installation preserved"
     ]
   },
-  "releaseStatus": "Desktop/CLI GitHub assets published and verified; npm blocked by publish authentication",
+  "releaseStatus": "Desktop/CLI GitHub assets and four npm packages published and verified",
   "limits": [
     "Implementer self-review, not independent.",
     "Published app uses generated history at 200 bots, 10000 messages, 100000 events, 10000 memories. No new real cloud cognition quality acceptance.",
@@ -2965,6 +3089,61 @@
       "https://api-docs.npmjs.com/#tag/Tokens",
       "https://github.blog/changelog/2025-11-05-npm-security-update-classic-token-creation-disabled-and-granular-token-changes/"
     ],
-    "userAction": "Confirm expiry in npm token settings; update repository NPM_TOKEN with package publish access if expired. Never send token in chat."
-  }
+    "userAction": "Completed by user; failed job rerun passed and public installation verified.",
+    "status": "Resolved after user credential rotation and CI publishing-token settings update; historical expiry inference retained, not claimed as confirmed expiry."
+  },
+  "npmBeforeCredentialRotation": {
+    "schemaVersion": 1,
+    "version": "0.1.0-rc.23",
+    "checkedAt": "2026-10-20T16:05:08.932Z",
+    "registry": [
+      {
+        "name": "@peer-agent/protocol",
+        "fixedVersionExists": false,
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.22"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "fixedVersionExists": false,
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.22"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "fixedVersionExists": false,
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.22"
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "fixedVersionExists": false,
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.22"
+        }
+      }
+    ],
+    "scope": "Public fixed versions and dist-tags inspected; npm publish failed twice. No isolated install possible until fixed RC23 versions exist.",
+    "ok": false,
+    "error": "AssertionError [ERR_ASSERTION]: @peer-agent/protocol fixed version\n    at file:///private<temporary>/peer-rc23-npm-verify.mjs:10:40\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+    "finishedAt": "2026-10-20T16:05:13.627Z",
+    "blocked": true,
+    "publishAttempts": 2,
+    "publishError": "E404 PUT @peer-agent/protocol in GitHub Actions with configured NPM_TOKEN",
+    "installAttempted": false,
+    "nextAction": "Update repository Actions NPM_TOKEN with @peer-agent publish access, then rerun only failed publish-npm job"
+  },
+  "npmRecoveryEvidence": "rc23-npm-recovery-20261021.json",
+  "npmRecoveryCheckedAt": "2026-10-20T16:34:36.102666+00:00"
 }
