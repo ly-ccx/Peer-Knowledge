@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "decision": "ADR100",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/173",
+  "knowledgePr": "https://github.com/ly-ccx/Peer-Knowledge/pull/53",
+  "sourceHead": "ae268ff874f89235bada7efcf9fa0f9fabf3edc8",
+  "sourceFingerprint": "561d71f92ce22b3cf7574aad9e85f2759c873f6ebee2061f7f89345a7459a19b",
+  "product": {
+    "status": "passed",
+    "runId": "538e6803-d2bc-4e88-9685-377e7753e86b",
+    "sourceFingerprint": "561d71f92ce22b3cf7574aad9e85f2759c873f6ebee2061f7f89345a7459a19b",
+    "reviewedAt": "2026-10-20T13:47:10.528Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer visual self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 185,
+    "reviewFile": "attention-lifecycle-20261020-review.json",
+    "reviewSha256": "5fd1828e20d495963ac8c816cd73b4143e4428291573158b08275e94b7fe0972",
+    "reviewType": "implementer self-review, not independent",
+    "captureRecovery": {
+      "initialCommand": "pnpm qa:product:capture",
+      "supplementalScenario": "agent-activity-only",
+      "failure": "Electron evaluation promise garbage collected",
+      "retainedFailedAttempt": true,
+      "retryAttempts": 1,
+      "sourceChanged": false,
+      "allFourSourceRunsSucceeded": true,
+      "assembly": "Standard createReviewPacket export; all original machine gates and required screenshots enforced",
+      "verification": "pnpm qa:product:verify passed"
+    },
+    "acceptedMinorLimits": [
+      "Transparent Quick Chat screenshot compositing cannot establish light desktop backdrop contrast",
+      "Existing latest-message floating control can overlap historical budget text at some scroll positions",
+      "Legacy synthetic updater fixtures contain RC9 labels; not installed version evidence"
+    ]
+  },
+  "tests": {
+    "relatedRegression": {
+      "tests": 971,
+      "passed": 971,
+      "cancelled": 0,
+      "scope": "Runtime project-agent, protocol, Desktop project-agent and renderer state; candidate core"
+    },
+    "finalSupervisorAndAttention": {
+      "tests": 88,
+      "passed": 88,
+      "scope": "Final saved-review recovery boundary and attention projection"
+    },
+    "fullWorkspaceLocalRun": {
+      "initialResult": "one parallel-load timing failure in runtime-host preemption assertion",
+      "isolatedRetryTests": 7,
+      "isolatedRetryPassed": 7
+    },
+    "workspaceTypecheck": "passed",
+    "architectureAndUiConventions": "passed",
+    "productGateTests": {
+      "tests": 6,
+      "passed": 6
+    }
+  },
+  "ci": {
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39431086477",
+    "head": "ae268ff874f89235bada7efcf9fa0f9fabf3edc8",
+    "macos14": "passed",
+    "ubuntuLatest": "passed"
+  },
+  "attentionWindow": {
+    "passed": true,
+    "realDirectory": true,
+    "realQueue": true,
+    "duplicateRetired": true,
+    "staleClickRejected": true,
+    "keyboard": true,
+    "failureRecovery": true,
+    "crossBotIsolation": true,
+    "liveReplacement": true,
+    "countEqualsDetail": true,
+    "sourceLocated": true,
+    "expiresAutomatically": true,
+    "largeHistoryMessages": 10000
+  },
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "nativeImageFlow": {
+    "realCalls": true,
+    "attentionApproved": true,
+    "keyboard": true,
+    "controlledCognition": true,
+    "cases": [
+      {
+        "scenario": "ALLOW",
+        "realProjection": true,
+        "nativeDecode": true,
+        "pixels": true,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": false,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "TASK",
+        "realProjection": true,
+        "nativeDecode": true,
+        "pixels": true,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": false,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "DENY",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "CANCEL",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "STOP",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "TIMEOUT",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      }
+    ]
+  },
+  "personalReplay": {
+    "readOnly": true,
+    "canonicalHistoryBytes": 10653175,
+    "messages": 825,
+    "screenshotCountBefore": 4,
+    "screenshotCountAfter": 0,
+    "oldQuestionsClosed": true,
+    "oldQuestionStates": [
+      "superseded",
+      "superseded",
+      "superseded"
+    ],
+    "meanProjectionMs": 0.052305830000000025,
+    "personalStateWritten": false
+  },
+  "authority": {
+    "automaticApproval": false,
+    "personalTaskCancellation": false,
+    "personalHistoryRewrite": false,
+    "manualReviewSavedStopsUserCount": true,
+    "backgroundRecoveryRemainsBotOwned": true
+  },
+  "limits": [
+    "Controlled cognition validates application behavior; no real cloud model quality or provider network timing",
+    "Source Electron on macOS; no installed RC, release, upgrade or Windows/Linux UI acceptance",
+    "Keyboard and reduced-motion checked; no complete screen-reader or long-duration acceptance",
+    "Earlier failed/incomplete captures were not accepted or reused as final candidate acceptance"
+  ]
+}
