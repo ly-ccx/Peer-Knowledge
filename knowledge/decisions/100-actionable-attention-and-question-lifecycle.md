@@ -53,10 +53,16 @@ PermissionGrant、Evidence、任务状态与接受闸门不变。Renderer 只表
 
 ## 落地验收（2026-10-20）
 
-代码 [PR173](https://github.com/ly-ccx/Peer-Agent/pull/173)，最终提交 `ae268ff874f89235bada7efcf9fa0f9fabf3edc8`。相关 971 项回归及最终 Supervisor / Attention 88 项测试通过，macOS 与 Ubuntu CI 通过。个人历史仅只读重放，截图对应的 4 项收敛为 0；未改写个人消息、授权或任务终态。
+代码 [PR173](https://github.com/ly-ccx/Peer-Agent/pull/173)，首轮 Attention 候选提交 `ae268ff874f89235bada7efcf9fa0f9fabf3edc8`。相关 971 项回归及最终 Supervisor / Attention 88 项测试通过，macOS 与 Ubuntu CI 通过。个人历史仅只读重放，截图对应的 4 项收敛为 0；未改写个人消息、授权或任务终态。
 
 200 机器人、1 万消息、10 万事件、1 万记忆的源 Electron 完整流程通过：数字与明细一致、回答持久化一次、失败可重试、旧按钮拒绝、跨机器人隔离、原文定位和截止时间自动收尾。明细批准后实际图片读取完成解码、像素交付及 Evidence；拒绝、取消、停止、超时仍走原能力链。
 
 最终 185 张必查图逐张由实现者自审，`independent=false`，Verify 通过。一次补充 Agent 展示窗口的 Electron 评估连接异常在源码未变的条件下重跑成功；保留失败记录，所有标准机器闸门与图片哈希仍由原 createReviewPacket / Verify 校验。验收不覆盖安装版、真实云模型质量、完整读屏或长期运行。
 
 详见 [验收证据](../../playbook/v0.1.0/evidence/attention-lifecycle-20261020.json) 与 [逐图观察](../../playbook/v0.1.0/evidence/attention-lifecycle-20261020-review.json)。
+
+## RC23 发布前复核
+
+最终候选 `2519377f33bcf997d5b1da8ed7d404318faa1e29` 补齐真实子任务提问投影与通知/明细定位仲裁。48 项针对性测试、13 项发布与产品闸门、41 项旧数据升级矩阵通过；macOS / Ubuntu 全量 CI 通过。187 张必查图逐张由实现者自审，Verify 通过，`independent=false`。两次未变源码的捕获异常及重跑记录独立保留，未放宽机器或视觉闸门。
+
+[RC23 候选证据](../../playbook/v0.1.0/evidence/rc23-candidate-20261020.json) 与[逐图观察](../../playbook/v0.1.0/evidence/rc23-candidate-20261020-review.json)。此处仍为源码回归；公开安装包与更新链待发布后另验，未宣称真实云模型或完整读屏验收。

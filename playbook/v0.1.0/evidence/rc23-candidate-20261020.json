@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "version": "0.1.0-rc.23",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/173",
+  "sourceHead": "2519377f33bcf997d5b1da8ed7d404318faa1e29",
+  "sourceFingerprint": "a0da2bdeb7c62ee7aa71d64eec85224263cd888240a472b02514f8f92833dfce",
+  "changes": [
+    "Include actual open child request_user_input / dependency decisions from the shared lightweight task-question projection; terminal or resolved cards do not count. Quiet bot listings do not scan coordination, memory or full historical task cards.",
+    "Arbitrate attention and notification focus by the observed notification generation; separate local request identity allows repeated navigation to the same message.",
+    "Retain single input receipt and left-aligned reply details changes, with governed version stamping and bilingual release notes."
+  ],
+  "tests": {
+    "focused": {
+      "passed": 48,
+      "failed": 0
+    },
+    "releaseAndProductGates": {
+      "passed": 13,
+      "failed": 0
+    },
+    "upgradeMatrix": {
+      "passed": 41,
+      "failed": 0
+    },
+    "desktopTypecheck": "passed",
+    "architectureAndUiConventions": "passed"
+  },
+  "ci": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39447440262",
+    "macos14": "passed",
+    "ubuntuLatest": "passed",
+    "scope": "Build, full workspace typecheck/architecture/tests, platform Electron smoke"
+  },
+  "product": {
+    "runId": "44ee1696-d736-4133-a9d9-d9db2aff1200",
+    "status": "passed",
+    "screenshots": 187,
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer visual self-review",
+      "independent": false
+    },
+    "reviewSha256": "8f1cf80c6e4daa9a86014665f1f541497a91cd5e85560e71c2f6921a10b2318e",
+    "scope": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "captureRetries": [
+      "First complete attempt failed a hover capture precondition; retained as failed, unchanged-source full rerun passed.",
+      "Supplemental Agent evaluation promise was garbage collected; retained failed attempt and unchanged-source scoped rerun passed. Standard createReviewPacket and verify enforce all original gates."
+    ],
+    "acceptedMinorLimits": [
+      {
+        "screenshot": "quick-chat-bots-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "透明 Quick Chat 窗口被截图合成为黑底，不能据此确认真实浅色桌面背景下的对比；本次注意事项面板使用独立正常截图验证。"
+      },
+      {
+        "screenshot": "quote-reply-760-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "已有回到最新消息浮钮在历史滚动位置覆盖预算说明的局部文字；不遮挡此次事项明细、选项或授权操作，本次不扩展修改滚动控件。"
+      },
+      {
+        "screenshot": "updater-minimize-760-light-before.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "旧回归夹具部分端态仍显示 RC9 元数据，Footer 专项显示 RC23；这些截图只验证源组件布局，不是已安装候选或升级验收。"
+      }
+    ]
+  },
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "attention": {
+    "passed": true,
+    "realDirectory": true,
+    "realQueue": true,
+    "duplicateRetired": true,
+    "staleClickRejected": true,
+    "keyboard": true,
+    "notificationFocus": true,
+    "failureRecovery": true,
+    "crossBotIsolation": true,
+    "liveReplacement": true,
+    "countEqualsDetail": true,
+    "sourceLocated": true,
+    "expiresAutomatically": true,
+    "largeHistoryMessages": 10000
+  },
+  "userReceipt": {
+    "singleReceipt": true,
+    "noTaskDuplicates": true,
+    "sourcesRetained": true,
+    "keyboard": true,
+    "cases": [
+      {
+        "width": 1280,
+        "appearance": "dark",
+        "singleReceipt": true,
+        "sourcesRetained": true,
+        "keyboard": true,
+        "fits": true
+      },
+      {
+        "width": 760,
+        "appearance": "light",
+        "singleReceipt": true,
+        "sourcesRetained": true,
+        "keyboard": true,
+        "fits": true
+      }
+    ]
+  },
+  "nativeImageFlow": {
+    "cases": {
+      "cases": [
+        {
+          "scenario": "ALLOW",
+          "realProjection": true,
+          "nativeDecode": true,
+          "pixels": true,
+          "evidence": true,
+          "ended": true,
+          "lateGrantRejected": false,
+          "cardAutomatic": true,
+          "fits": true
+        },
+        {
+          "scenario": "TASK",
+          "realProjection": true,
+          "nativeDecode": true,
+          "pixels": true,
+          "evidence": true,
+          "ended": true,
+          "lateGrantRejected": false,
+          "cardAutomatic": true,
+          "fits": true
+        },
+        {
+          "scenario": "DENY",
+          "realProjection": true,
+          "nativeDecode": false,
+          "pixels": false,
+          "evidence": true,
+          "ended": true,
+          "lateGrantRejected": true,
+          "cardAutomatic": true,
+          "fits": true
+        },
+        {
+          "scenario": "CANCEL",
+          "realProjection": true,
+          "nativeDecode": false,
+          "pixels": false,
+          "evidence": true,
+          "ended": true,
+          "lateGrantRejected": true,
+          "cardAutomatic": true,
+          "fits": true
+        },
+        {
+          "scenario": "STOP",
+          "realProjection": true,
+          "nativeDecode": false,
+          "pixels": false,
+          "evidence": true,
+          "ended": true,
+          "lateGrantRejected": true,
+          "cardAutomatic": true,
+          "fits": true
+        },
+        {
+          "scenario": "TIMEOUT",
+          "realProjection": true,
+          "nativeDecode": false,
+          "pixels": false,
+          "evidence": true,
+          "ended": true,
+          "lateGrantRejected": true,
+          "cardAutomatic": true,
+          "fits": true
+        }
+      ],
+      "realCalls": true,
+      "attentionApproved": true,
+      "keyboard": true,
+      "controlledCognition": true
+    },
+    "realCalls": true,
+    "controlledCognition": true
+  },
+  "sourceIntegrity": {
+    "sourceDirty": false,
+    "pageErrors": [],
+    "mainAuthorizationErrors": []
+  },
+  "limits": [
+    "Implementer self-review, not independent",
+    "Source Electron and controlled cognition; not a new real cloud task",
+    "Public installer and updater validation pending release",
+    "No full screen-reader or long-duration acceptance"
+  ],
+  "priorEvidence": [
+    "attention-lifecycle-20261020.json",
+    "reply-receipts-20261020.json"
+  ]
+}
