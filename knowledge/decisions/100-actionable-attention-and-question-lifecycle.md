@@ -66,3 +66,13 @@ PermissionGrant、Evidence、任务状态与接受闸门不变。Renderer 只表
 最终候选 `2519377f33bcf997d5b1da8ed7d404318faa1e29` 补齐真实子任务提问投影与通知/明细定位仲裁。48 项针对性测试、13 项发布与产品闸门、41 项旧数据升级矩阵通过；macOS / Ubuntu 全量 CI 通过。187 张必查图逐张由实现者自审，Verify 通过，`independent=false`。两次未变源码的捕获异常及重跑记录独立保留，未放宽机器或视觉闸门。
 
 [RC23 候选证据](../../playbook/v0.1.0/evidence/rc23-candidate-20261020.json) 与[逐图观察](../../playbook/v0.1.0/evidence/rc23-candidate-20261020-review.json)。此处仍为源码回归；公开安装包与更新链待发布后另验，未宣称真实云模型或完整读屏验收。
+
+## RC23 公开产物验收
+
+[RC23](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.23) 已发布，合并提交 `5005377dd9b58c3c3a6612f951bba983b07cc3b7` 与最终候选的代码树一致，合并后的 macOS / Ubuntu CI 通过。14 个公开附件均已下载核对 GitHub SHA256；三平台更新清单的版本、大小与 SHA512 一致。Mac ZIP 与只读挂载 DMG 的签名、公证票据、Gatekeeper 验证通过，两份应用和更新配置一致；关键运行模块与已验收候选相符。
+
+实际公开 Mac 应用使用隔离的 200 机器人、1 万消息、10 万事件、1 万记忆数据验收：单回执、左下详情、当前事项与通知接手定位通过，无 renderer 错误。RC22 实际发现并完整下载 RC23，文件哈希匹配；未执行安装接管或替换个人应用。另 10 张公开包与更新过程截图由实现者自审，非独立复核。
+
+发布状态有一项明确限制：GitHub 桌面与 CLI 压缩包发布成功，npm publish 两次返回 E404，四个包的 rc 标签仍为 RC22。GitHub NPM_TOKEN 最后更新为 7 月 22 日；与 90 天最大有效期高度吻合，但 secret 更新时间不等于令牌确切 expiry，尚需 npm 令牌页面确认。该问题没有被记为通过，也未通过修改工作流掩盖失败。凭据更新后仅重跑失败 npm job，再验证固定版本、dist-tags 与隔离安装。
+
+[公开发布验收证据](../../playbook/v0.1.0/evidence/rc23-release-20261020.json) 包含安装包、更新下载、合并 CI、npm 失败状态、官方规则和逐图观察。本轮不宣称新真实云模型任务、完整读屏、Windows/Linux 交互安装或长期日用验收。
