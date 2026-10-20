@@ -1,0 +1,730 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "classification": "C-level presentation and focused regression coverage; no runtime contract or permission change",
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/173",
+  "knowledgePr": "https://github.com/ly-ccx/Peer-Knowledge/pull/53",
+  "sourceHead": "e8281d95ca731eeffc98ecdb88afb174ad721089",
+  "sourceFingerprint": "cd4e3edb5f9db7527726f0129c268af56f1b6a7f600436ce59384c89971e2a71",
+  "diagnosis": {
+    "personalHistoryReadOnly": true,
+    "formalReplies": 1,
+    "sourceTasks": 3,
+    "cause": "The renderer expanded an answered input disposition into one identically labeled button per source task, conflating reply delivery with task provenance.",
+    "personalHistoryMutation": false
+  },
+  "changes": [
+    "One plain replied receipt per user input, with answered source-task buttons omitted from the receipt; stopped and queued actions preserve their existing host meaning.",
+    "All three source tasks remain navigable in reply details; no lifecycle, permission or Evidence state is changed.",
+    "Reply details uses a shared SVG side-panel icon, aligned with the final bubble text inset below the left edge; completed labels appear on hover/focus, touch and forced colors remain visible.",
+    "During an active reply, the same clickable entry displays factual activity; a reserved 32px row prevents hover layout shift and reduced motion removes the transition.",
+    "Regression fixture repairs restore search context between receipt and cross-bot scenarios and provide required diffLines to the legacy code artifact preview fixture."
+  ],
+  "product": {
+    "status": "passed",
+    "runId": "136549f8-906d-40a1-bde0-9d3a235dffcb",
+    "sourceFingerprint": "cd4e3edb5f9db7527726f0129c268af56f1b6a7f600436ce59384c89971e2a71",
+    "reviewedAt": "2026-10-20T14:56:38.593Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer visual self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 187,
+    "reviewFile": "reply-receipts-20261020-review.json",
+    "reviewSha256": "288988c5fba6b3edac0869d53bfa84cd54b516b76c34b7de45af99b8ecfd01d0",
+    "reviewType": "implementer self-review, not independent",
+    "captureRecovery": {
+      "initialCommand": "pnpm qa:product:capture --output <temporary-directory-outside-repo>",
+      "supplementalScenario": "agent-activity-only",
+      "failure": "Electron evaluation promise garbage collected",
+      "retainedFailedAttempt": true,
+      "retryAttempts": 1,
+      "sourceChanged": false,
+      "allFourSourceRunsSucceeded": true,
+      "assembly": "Standard exported createReviewPacket; all original machine gates, source identity and required screenshots enforced",
+      "verification": "pnpm qa:product:verify passed"
+    },
+    "earlierRejectedCaptures": [
+      {
+        "head": "1d86c2f6",
+        "reason": "Old pending-layout assertion expected full-column status instead of the approved 14px text inset; assertion corrected."
+      },
+      {
+        "head": "6bb61f4c",
+        "reason": "Receipt fixture left a project search filter active, invalidating the following cross-bot precondition; fixture isolation corrected."
+      },
+      {
+        "head": "8ca8c6b3",
+        "reason": "Legacy code artifact fixture omitted required diffLines; hover raised a renderer exception. Complete preview fixture supplied and rerun."
+      }
+    ],
+    "acceptedMinorLimits": [
+      "Transparent Quick Chat screenshot compositing cannot establish light desktop backdrop contrast",
+      "Existing latest-message floating control can overlap historical budget text at some scroll positions",
+      "Legacy synthetic updater fixtures contain RC9 labels; not installed version evidence"
+    ]
+  },
+  "tests": {
+    "focused": {
+      "passed": 28,
+      "failed": 0,
+      "scope": "3 userReceiptState, 20 botConversationState, 5 product regression gate tests"
+    },
+    "desktopTypecheck": "passed",
+    "architectureAndUiConventions": "passed",
+    "desktopBuild": "passed via final product capture"
+  },
+  "ci": {
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39441317732",
+    "head": "e8281d95ca731eeffc98ecdb88afb174ad721089",
+    "macos14": "passed",
+    "ubuntuLatest": "passed",
+    "scope": "build, full workspace typecheck/architecture/tests and platform Electron smoke"
+  },
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "userReceipt": {
+    "singleReceipt": true,
+    "noTaskDuplicates": true,
+    "sourcesRetained": true,
+    "keyboard": true,
+    "cases": [
+      {
+        "width": 1280,
+        "appearance": "dark",
+        "singleReceipt": true,
+        "sourcesRetained": true,
+        "keyboard": true,
+        "fits": true
+      },
+      {
+        "width": 760,
+        "appearance": "light",
+        "singleReceipt": true,
+        "sourcesRetained": true,
+        "keyboard": true,
+        "fits": true
+      }
+    ]
+  },
+  "replyPresence": {
+    "cases": [
+      {
+        "state": "first-paragraph",
+        "bodyRight": 656,
+        "bodyLeft": 320,
+        "textLeft": 334,
+        "footerLeft": 334,
+        "actionLeft": 326,
+        "columnRight": 838,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "latest-paragraph-dark",
+        "bodyRight": 698,
+        "bodyLeft": 320,
+        "textLeft": 334,
+        "footerLeft": 334,
+        "actionLeft": 326,
+        "columnRight": 732,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 760,
+        "theme": "dark"
+      },
+      {
+        "state": "latest-paragraph-light",
+        "bodyRight": 698,
+        "bodyLeft": 320,
+        "textLeft": 334,
+        "footerLeft": 334,
+        "actionLeft": 326,
+        "columnRight": 732,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 760,
+        "theme": "light"
+      },
+      {
+        "state": "preparing-read",
+        "bodyRight": 698,
+        "bodyLeft": 320,
+        "textLeft": 334,
+        "footerLeft": 334,
+        "actionLeft": 326,
+        "columnRight": 838,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "reading-docked",
+        "bodyRight": 698,
+        "bodyLeft": 320,
+        "textLeft": 334,
+        "footerLeft": 334,
+        "actionLeft": 326,
+        "columnRight": 838,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "completed",
+        "bodyRight": 592,
+        "bodyLeft": 320,
+        "textLeft": 334,
+        "footerLeft": 334,
+        "actionLeft": 326,
+        "columnRight": 838,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "stopped",
+        "bodyRight": 764,
+        "bodyLeft": 386,
+        "textLeft": 400,
+        "footerLeft": 400,
+        "actionLeft": 392,
+        "columnRight": 1186,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "failed",
+        "bodyRight": 876,
+        "bodyLeft": 386,
+        "textLeft": 400,
+        "footerLeft": 400,
+        "actionLeft": 392,
+        "columnRight": 1186,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "short-question-dark",
+        "bodyRight": 554,
+        "bodyLeft": 386,
+        "textLeft": 400,
+        "footerLeft": 400,
+        "actionLeft": 392,
+        "columnRight": 1186,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "dark"
+      },
+      {
+        "state": "short-question-light",
+        "bodyRight": 554,
+        "bodyLeft": 386,
+        "textLeft": 400,
+        "footerLeft": 400,
+        "actionLeft": 392,
+        "columnRight": 1186,
+        "fits": true,
+        "aligned": true,
+        "unifiedActivity": true,
+        "stableHeight": true,
+        "singleAction": true,
+        "width": 1280,
+        "theme": "light"
+      }
+    ],
+    "labels": [
+      {
+        "state": "first-paragraph",
+        "label": "正在整理回复",
+        "shimmer": false,
+        "readableWithoutRepaintAnimation": true
+      },
+      {
+        "state": "latest-paragraph-dark",
+        "label": "正在整理回复",
+        "shimmer": false,
+        "readableWithoutRepaintAnimation": true
+      },
+      {
+        "state": "latest-paragraph-light",
+        "label": "正在整理回复",
+        "shimmer": false,
+        "readableWithoutRepaintAnimation": true
+      },
+      {
+        "state": "preparing-read",
+        "label": "准备阅读 README.md",
+        "shimmer": false,
+        "readableWithoutRepaintAnimation": true
+      },
+      {
+        "state": "reading-docked",
+        "label": "正在阅读 README.md",
+        "shimmer": false,
+        "readableWithoutRepaintAnimation": true
+      }
+    ]
+  },
+  "replyDetailsEntry": {
+    "themes": [
+      {
+        "theme": "dark",
+        "hiddenUntilHover": true,
+        "pointer": {
+          "x": 470,
+          "y": 477.1484375
+        },
+        "beforeCapture": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 386,
+            "y": 454.8984375,
+            "width": 800,
+            "height": 188.546875,
+            "top": 454.8984375,
+            "right": 1186,
+            "bottom": 643.4453125,
+            "left": 386
+          },
+          "top": 5645.5
+        },
+        "afterCapture": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 386,
+            "y": 454.8984375,
+            "width": 800,
+            "height": 188.546875,
+            "top": 454.8984375,
+            "right": 1186,
+            "bottom": 643.4453125,
+            "left": 386
+          },
+          "top": 5645.5
+        },
+        "capture": {
+          "method": "electron-webcontents",
+          "width": 2560,
+          "height": 1720,
+          "cssWidth": 1280,
+          "cssHeight": 860,
+          "density": 2
+        }
+      },
+      {
+        "theme": "light",
+        "hiddenUntilHover": true,
+        "pointer": {
+          "x": 470,
+          "y": 477.1484375
+        },
+        "beforeCapture": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 386,
+            "y": 454.8984375,
+            "width": 800,
+            "height": 188.546875,
+            "top": 454.8984375,
+            "right": 1186,
+            "bottom": 643.4453125,
+            "left": 386
+          },
+          "top": 5645.5
+        },
+        "afterCapture": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 386,
+            "y": 454.8984375,
+            "width": 800,
+            "height": 188.546875,
+            "top": 454.8984375,
+            "right": 1186,
+            "bottom": 643.4453125,
+            "left": 386
+          },
+          "top": 5645.5
+        },
+        "capture": {
+          "method": "electron-webcontents",
+          "width": 2560,
+          "height": 1720,
+          "cssWidth": 1280,
+          "cssHeight": 860,
+          "density": 2
+        }
+      }
+    ],
+    "keyboard": true,
+    "leftAligned": true,
+    "unifiedActivity": true,
+    "collapsedHeight": true
+  },
+  "pendingReplyLayout": [
+    {
+      "width": 1600,
+      "appearance": "dark",
+      "docked": false,
+      "aligned": true,
+      "row": {
+        "left": 546,
+        "right": 1346
+      },
+      "author": {
+        "left": 546,
+        "right": 1346
+      },
+      "status": {
+        "left": 560,
+        "right": 1332
+      },
+      "icon": {
+        "left": 560,
+        "right": 574
+      },
+      "composer": {
+        "left": 546,
+        "right": 1346
+      }
+    },
+    {
+      "width": 1600,
+      "appearance": "light",
+      "docked": false,
+      "aligned": true,
+      "row": {
+        "left": 546,
+        "right": 1346
+      },
+      "author": {
+        "left": 546,
+        "right": 1346
+      },
+      "status": {
+        "left": 560,
+        "right": 1332
+      },
+      "icon": {
+        "left": 560,
+        "right": 574
+      },
+      "composer": {
+        "left": 546,
+        "right": 1346
+      }
+    },
+    {
+      "width": 1280,
+      "appearance": "dark",
+      "docked": false,
+      "aligned": true,
+      "row": {
+        "left": 386,
+        "right": 1186
+      },
+      "author": {
+        "left": 386,
+        "right": 1186
+      },
+      "status": {
+        "left": 400,
+        "right": 1172
+      },
+      "icon": {
+        "left": 400,
+        "right": 414
+      },
+      "composer": {
+        "left": 386,
+        "right": 1186
+      }
+    },
+    {
+      "width": 1280,
+      "appearance": "dark",
+      "docked": true,
+      "aligned": true,
+      "row": {
+        "left": 320,
+        "right": 838
+      },
+      "author": {
+        "left": 320,
+        "right": 838
+      },
+      "status": {
+        "left": 334,
+        "right": 824
+      },
+      "icon": {
+        "left": 334,
+        "right": 348
+      },
+      "composer": {
+        "left": 320,
+        "right": 838
+      }
+    },
+    {
+      "width": 1280,
+      "appearance": "light",
+      "docked": false,
+      "aligned": true,
+      "row": {
+        "left": 386,
+        "right": 1186
+      },
+      "author": {
+        "left": 386,
+        "right": 1186
+      },
+      "status": {
+        "left": 400,
+        "right": 1172
+      },
+      "icon": {
+        "left": 400,
+        "right": 414
+      },
+      "composer": {
+        "left": 386,
+        "right": 1186
+      }
+    },
+    {
+      "width": 1280,
+      "appearance": "light",
+      "docked": true,
+      "aligned": true,
+      "row": {
+        "left": 320,
+        "right": 838
+      },
+      "author": {
+        "left": 320,
+        "right": 838
+      },
+      "status": {
+        "left": 334,
+        "right": 824
+      },
+      "icon": {
+        "left": 334,
+        "right": 348
+      },
+      "composer": {
+        "left": 320,
+        "right": 838
+      }
+    },
+    {
+      "width": 760,
+      "appearance": "dark",
+      "docked": false,
+      "aligned": true,
+      "row": {
+        "left": 320,
+        "right": 732
+      },
+      "author": {
+        "left": 320,
+        "right": 732
+      },
+      "status": {
+        "left": 334,
+        "right": 718
+      },
+      "icon": {
+        "left": 334,
+        "right": 348
+      },
+      "composer": {
+        "left": 320,
+        "right": 732
+      }
+    },
+    {
+      "width": 760,
+      "appearance": "light",
+      "docked": false,
+      "aligned": true,
+      "row": {
+        "left": 320,
+        "right": 732
+      },
+      "author": {
+        "left": 320,
+        "right": 732
+      },
+      "status": {
+        "left": 334,
+        "right": 718
+      },
+      "icon": {
+        "left": 334,
+        "right": 348
+      },
+      "composer": {
+        "left": 320,
+        "right": 732
+      }
+    }
+  ],
+  "attention": {
+    "passed": true,
+    "realDirectory": true,
+    "realQueue": true,
+    "duplicateRetired": true,
+    "staleClickRejected": true,
+    "keyboard": true,
+    "failureRecovery": true,
+    "crossBotIsolation": true,
+    "liveReplacement": true,
+    "countEqualsDetail": true,
+    "sourceLocated": true,
+    "expiresAutomatically": true,
+    "largeHistoryMessages": 10000
+  },
+  "nativeImageFlow": {
+    "cases": [
+      {
+        "scenario": "ALLOW",
+        "realProjection": true,
+        "nativeDecode": true,
+        "pixels": true,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": false,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "TASK",
+        "realProjection": true,
+        "nativeDecode": true,
+        "pixels": true,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": false,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "DENY",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "CANCEL",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "STOP",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      },
+      {
+        "scenario": "TIMEOUT",
+        "realProjection": true,
+        "nativeDecode": false,
+        "pixels": false,
+        "evidence": true,
+        "ended": true,
+        "lateGrantRejected": true,
+        "cardAutomatic": true,
+        "fits": true
+      }
+    ],
+    "realCalls": true,
+    "attentionApproved": true,
+    "keyboard": true,
+    "controlledCognition": true
+  },
+  "sourceIntegrity": {
+    "sourceDirty": false,
+    "pageErrors": [],
+    "mainAuthorizationErrors": []
+  },
+  "notClaimed": [
+    "Independent visual review",
+    "Installed RC or auto-update acceptance",
+    "Real cloud model quality or network timing",
+    "Full screen-reader acceptance",
+    "Long-duration performance acceptance",
+    "Personal task cancellation or history migration",
+    "Merge or RC release"
+  ],
+  "previousAttentionEvidence": "attention-lifecycle-20261020.json"
+}
