@@ -1,0 +1,534 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "sourceHead": "8da8b02bd963205f74875fc90ce26eeb0c46c014",
+  "baseCommit": "f7e1954a71c6fb7f2f5559603e0193e37bcb7e6a",
+  "codePullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/177",
+  "knowledgePullRequest": "https://github.com/ly-ccx/Peer-Knowledge/pull/56",
+  "dependency": {
+    "pullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/174",
+    "status": "merged",
+    "mergeCommit": "f7e1954a71c6fb7f2f5559603e0193e37bcb7e6a",
+    "codeBase": "PeerAgent/dev/0.1.0"
+  },
+  "review": {
+    "kind": "implementation self-review",
+    "independent": false,
+    "findings": [
+      {
+        "id": "R14",
+        "issue": "Bun 1.2.17 SQLite compatibility and a false-positive fixture",
+        "verification": "Real Bun 1.2.17 failure before repair; Node/Bun shared policy and CAS test after repair",
+        "status": "resolved"
+      },
+      {
+        "id": "R15",
+        "issue": "Policy expiry attribution and approval journal failures",
+        "verification": "Policy actor assertion; initial and final journal failure with queue recovery",
+        "status": "resolved"
+      },
+      {
+        "id": "R16",
+        "issue": "Image scope revalidation lost its policy revision",
+        "verification": "Source path inspection; no new TUI image Provider coverage claimed",
+        "status": "resolved"
+      },
+      {
+        "id": "R17",
+        "issue": "Queued shell command could run after revocation",
+        "verification": "Real TUI/Desktop queued command tests; no forbidden file; shared session bootstrap test",
+        "status": "resolved"
+      },
+      {
+        "id": "R18",
+        "issue": "Responsive drawer measured before React mode transition",
+        "verification": "Original failing product packet preserved; real streaming smoke and final standard product acceptance",
+        "status": "resolved"
+      },
+      {
+        "id": "R19",
+        "issue": "A newer host notification could be lost during policy save",
+        "verification": "Delayed write receipt race fails before repair and passes after; final full tests",
+        "status": "resolved"
+      },
+      {
+        "id": "R20",
+        "issue": "Unbounded stale animation Promise across virtualized history rows",
+        "verification": "Preserved trace; owned runner cleanup; bounded animation wait and real work surface smoke; final capture",
+        "status": "resolved"
+      },
+      {
+        "id": "R21",
+        "issue": "Diff fixture focus could race with resize dismissal of the previous preview",
+        "verification": "Failed supplemental packet preserved; wait for real portal dismissal; shared UI smoke and full final capture",
+        "status": "resolved"
+      }
+    ],
+    "unresolvedBlockingFindings": 0
+  },
+  "product": {
+    "status": "passed",
+    "runId": "c6f3adbb-d280-4a3a-b638-4f65838f802b",
+    "sourceFingerprint": "7afb4c4cd4c37526b88b7f95039d73ec070e483839fd2b03cea06bf78e35d29d",
+    "reviewedAt": "2026-10-21T13:02:38.935Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 193,
+    "reviewedScreenshots": 193,
+    "reviewSha256": "8f9c247aca64cb82c6f152296e0d520609e8bbe8a02777105dc831cc39e8e248",
+    "machinePassed": true,
+    "pageErrors": 0,
+    "mainAuthorizationErrors": 0,
+    "botAccessPolicy": {
+      "passed": true,
+      "realLocalIPC": true,
+      "durablePolicy": true,
+      "keyboard": true,
+      "isolatedBots": true,
+      "childMetadata": true,
+      "childReadOnly": true,
+      "returnsToBot": true,
+      "darkWideLightNarrow": true
+    },
+    "findings": [
+      {
+        "screenshot": "quick-chat-bots-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "Quick Chat 原生透明窗口在 webContents 截图中使用透明/黑色底，部分前景无法由此证明实际桌面合成对比度；其 Bot/模型/发送与无独立权限入口已核对。此次未修改 Quick Chat 主题，安装包与桌面合成对比度仍在覆盖限制内，不能宣称完整无障碍验收。"
+      }
+    ]
+  },
+  "tests": {
+    "passed": 8563,
+    "skipped": 6,
+    "failed": 0,
+    "nodePassed": 7797,
+    "bunPassed": 766,
+    "focusedCases": 34,
+    "bunVersion": "1.2.17",
+    "skipReasons": [
+      "Two opt-in Electron specialist cases",
+      "Three completed-plan reuse cases without a subsequent text-verifier stage",
+      "Existing Bun 1.2.17 FTS compatibility skip"
+    ],
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "ipc": "passed",
+    "productVerifierTests": 6
+  },
+  "ci": {
+    "runId": 39601970591,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39601970591",
+    "headSha": "8da8b02bd963205f74875fc90ce26eeb0c46c014",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39601970591/job/119228807576"
+      },
+      {
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39601970591/job/119228807921"
+      }
+    ]
+  },
+  "logs": [
+    {
+      "name": "peer-bot-access-review-build.log",
+      "sha256": "ec379e38c37f148a9e9df37bab658793f644b8927b2d762c135d2833919ab69c"
+    },
+    {
+      "name": "peer-bot-access-review-typecheck.log",
+      "sha256": "8ff833b4d53d445ac8622e8a9c654e3b091493b9dd414ee025983af97d6e3d63"
+    },
+    {
+      "name": "peer-bot-access-review-architecture.log",
+      "sha256": "c34fcf3c43a8faab12bec33681be6493ac963fc3a8255372324b5c50d21eeae9"
+    },
+    {
+      "name": "peer-bot-access-review-final-tests.log",
+      "sha256": "b0a325e51c0b1d66ede8c77f4c21e28ef2fc683d45811f80cb84c84dc2238880"
+    },
+    {
+      "name": "peer-bot-access-review-tui-focused.log",
+      "sha256": "46c7b202745efe8c4509c6157be40eb78286dc76467594976159c0fa611d6bda"
+    },
+    {
+      "name": "peer-bot-access-review-shell-focused.log",
+      "sha256": "a0341a9e4f9d053c9b831288b791a12dd58515849bba07ddfc6901b64852b057"
+    },
+    {
+      "name": "peer-bot-access-review-notification-before.log",
+      "sha256": "9ffd4214d1de3ecd1dee49bb09f105ccdea294c5b504deaf9a2c5d1451ac4d2b"
+    },
+    {
+      "name": "peer-bot-access-review-notification-after.log",
+      "sha256": "f50013bc8a28c2cabc61abf89263b80b56b1aef8df15f5f68119dde0edda6117"
+    },
+    {
+      "name": "peer-bot-access-review-verifier-tests.log",
+      "sha256": "cefd961d93cd4ead12a88db79cb221bd38decb6fd4023888cb482ab77a7bba51"
+    },
+    {
+      "name": "peer-bot-access-review-streaming.log",
+      "sha256": "978686afa66e45e91ad3a6b4b03ac11364cae057015f0a010b98eb68630b94da"
+    },
+    {
+      "name": "peer-bot-access-review-work-surfaces.log",
+      "sha256": "307874da458a1826e47f489f2eadd66a048c3f30194fe7469c7b36c1e51fc489"
+    },
+    {
+      "name": "peer-bot-access-review-shared-ui.log",
+      "sha256": "df7d53d5d66d49ae19c31cb075b44a8ee7520c09e4f325fac029812ba1fe8005"
+    },
+    {
+      "name": "peer-bot-access-review-bun-ci-before.log",
+      "sha256": "73c5ad8d4648183834ec011dbf909f853d19af6ef1a74f8adc09405f36affc5d"
+    },
+    {
+      "name": "peer-bot-access-review-policy-actor-before.log",
+      "sha256": "0b8152dc9a85c917031e2400a777be3c3100578cd01d24493b2c7af67ad62c07"
+    },
+    {
+      "name": "peer-bot-access-review-journal-before.log",
+      "sha256": "3afbcf8bc1fbcc1cfd1426a863fb6d5c215f1aa0d0ac8df04f386e0075f13be7"
+    },
+    {
+      "name": "peer-bot-access-review-shell-queue-before.log",
+      "sha256": "78d34dd5445dcae15516233d5901418df2470fc552a0b6e15f0391384040f461"
+    },
+    {
+      "name": "peer-bot-access-review-ci-before.log",
+      "sha256": "7dd1e225ae03bed494165b12bbd30518cc58af04a7a3a2feeec9eea14c7727f8"
+    },
+    {
+      "name": "capture.log",
+      "sha256": "fcbe3194e2ccf671dbc05243c77488de346d64eae71ad54fe4d566e31493c0d6"
+    },
+    {
+      "name": "machine.json",
+      "sha256": "b570f662e06373ea6ddc966da3e8ac132daf59c6f4f828aaf2fa9a9beb2f1848"
+    },
+    {
+      "name": "agent-activity.json",
+      "sha256": "bfb9c3573e23262cfc50b286022611006c2bcbc7fbcbb30ea536b1c17b76b9ef"
+    },
+    {
+      "name": "shared-ui-machine.json",
+      "sha256": "e54858ccb341562d26c1626d1d47e235241bde476ff6b1bc233dc3f0b929eb6b"
+    },
+    {
+      "name": "selection-machine.json",
+      "sha256": "fb35e6cc369de416fd1de31d9c89e76cec6e986d307a122bb0a763d6e2900970"
+    }
+  ],
+  "rejectedProductRuns": [
+    {
+      "name": "peer-bot-access-product-merge-review",
+      "machineSha256": "4553cf0049ed9454f6a91e9a74dd6227b89d61aca1726e63f0c38d1a39aa2d86",
+      "traceSha256": "517a21b0b880cdccd294ce842cd4c3261498952fb12f1ea32e2c371282d3ecc9"
+    },
+    {
+      "name": "peer-bot-access-product-merge-final",
+      "machineSha256": "971ae909c5a963dfe403dabe5696bdc29effb11290dd0fd68e0dbd9c3a35dae7",
+      "traceSha256": "c8cde1ce639a175b8d55438ae0052c950d2886a7d5afb73ec5a6f8901e20df57"
+    }
+  ],
+  "rejectedSupplementalRun": {
+    "name": "peer-bot-access-product-merge-accepted",
+    "machineSha256": "35677d1ca5b60dd8c29b5548a789485e1bba5c1cd7f257c20f4c67320530efab"
+  },
+  "screenshots": [
+    {
+      "file": "bot-access-1280-dark.png",
+      "sha256": "b82455c948b2b9f3c1267859bbd6debe24b293165fba23f04b4ff6044e7f8cb9"
+    },
+    {
+      "file": "bot-access-760-light.png",
+      "sha256": "c73e8f38cdee1b23d0dae54b2ef65694ebbdc184f97ea9d9808dae1bc9c421f2"
+    },
+    {
+      "file": "bot-access-child-1280-dark.png",
+      "sha256": "cf70ef56d7a2cdf4c156c7a996531c811e9afd8ef7f7130d0388c1341bfe24ca"
+    },
+    {
+      "file": "bot-access-child-760-light.png",
+      "sha256": "9915d16f2932513e7265031b4d4df0c8568f27acfebd26e9f07e1c3271f07559"
+    }
+  ],
+  "changedSourceFiles": [
+    {
+      "file": "apps/desktop/electron/ipc/channels.mjs",
+      "sha256": "67d9606ee9f3bd9d31a8b6f09743054e5cf4b4e81bdccbb5cdff27aebde46e0a"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/bot-access-policy.test.mjs",
+      "sha256": "5be0a0b0d4d8f792725d16a9dd15b8b8eed6714256b21a549a2e893c6b9ae335"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/permission-gate.mjs",
+      "sha256": "235b71a7de3f93644cf3eb2c35e8d5d69ab24777f0803217820c340dbc7d020b"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/projected-tool-executor.mjs",
+      "sha256": "5d58125fb0ee7793a3a2db1aac15e3c3f60b91e65f6e2d3ca4786a123d502a01"
+    },
+    {
+      "file": "apps/desktop/electron/main/ipc/register-project-agent-ipc.mjs",
+      "sha256": "ade7617fe4230657a834d5498fcb9e9eb88d0bef38483b5339ee44a3766ef4fd"
+    },
+    {
+      "file": "apps/desktop/electron/main/ipc/register-project-agent-ipc.test.mjs",
+      "sha256": "b07aa0e891931d86262a2ffb8bd367605fee786cf45b0ae898bcc61ba71b23ec"
+    },
+    {
+      "file": "apps/desktop/electron/main/llm-chat-service.mjs",
+      "sha256": "86de29c4b032c22164f7a53b1e45ad6eac636f82084a87d551c65de370aaf3a4"
+    },
+    {
+      "file": "apps/desktop/electron/main/llm-chat-service.test.mjs",
+      "sha256": "367473eec9fdaf9e1e1c11b2e3697d112e222720f760e955578c292b0e41976d"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/bot-access-policy-service.mjs",
+      "sha256": "7f44c4061b439e7e2f0d889aefb8e1b3bdf336f0257d6f277c70c886ce3b2a29"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/bot-access-policy-service.test.mjs",
+      "sha256": "fbd2448cf3cd4e6e48f373f0fc16c23750d6c97e3629621a3e7115cb9c2d453a"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/project-agent-application-service.mjs",
+      "sha256": "11617efad4c7dbb49043ca09de0bf785bf673d921245e99006392179971cf0bb"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/project-agent-host.mjs",
+      "sha256": "8f2277794cb3c784abfca8905dde970c7ac4ec8e771f240200cd5af08cc8b845"
+    },
+    {
+      "file": "apps/desktop/electron/main/runtime-gateway/local-file-provider.mjs",
+      "sha256": "ddabcffd6f649c93bac0098cc137c86ea0120977c574e23c36aa1128d49d16f7"
+    },
+    {
+      "file": "apps/desktop/electron/main/runtime-gateway/local-shell-provider.mjs",
+      "sha256": "9ce98b3339b00a5e3271f86e1e5394b57136e84703a3a98efc82df92634272b5"
+    },
+    {
+      "file": "apps/desktop/electron/preload/preload.cjs",
+      "sha256": "7b9edfceb38b0c27107987d926c15755ac2e0952f036841cfd114be31d6fd4a0"
+    },
+    {
+      "file": "apps/desktop/electron/preload/preload.source.cjs",
+      "sha256": "035228735171ab7631fa5b1722b2162fab602074b4e55348b3f3fb302b2a1b24"
+    },
+    {
+      "file": "apps/desktop/renderer/src/App.tsx",
+      "sha256": "3c2f77b7ac8343e5468ac5a60f23e2547d982bc49a492f28a2c687a02bcc8069"
+    },
+    {
+      "file": "apps/desktop/renderer/src/chat/components/ChatSurface.tsx",
+      "sha256": "844ce42467c25b7c7e99444209d9da2e48125c2cc0058e80212439d457e04558"
+    },
+    {
+      "file": "apps/desktop/renderer/src/chat/components/ConversationAccessControl.tsx",
+      "sha256": "791b2a7d215a322cffbfec2fce7e551503e5c09fa4a4721b4ed7c0143a66960f"
+    },
+    {
+      "file": "apps/desktop/renderer/src/clientApi.ts",
+      "sha256": "80a914ce1b1ee5f3e3c43d6b921e1a7223bef630036e184dc12e62fa97f2d263"
+    },
+    {
+      "file": "apps/desktop/renderer/src/preload/contracts/bootstrapPreloadApi.ts",
+      "sha256": "c0f8bad10ead9faa4c79dfef9e8fbb4b6acb4e5595f528ec1551aefa68d73fde"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/BotAccessControl.tsx",
+      "sha256": "087bc284e9bde4b2c75c5919140940a55dc829fc8dd622ab51724d6f69ace37d"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/BotComposer.tsx",
+      "sha256": "09762fe64d4e07a7d43f59c244e421f64cb622de0681bbffbc4e6ee2c2f22ac4"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/BotConversation.tsx",
+      "sha256": "0033bb50c07a5983878997b04c1116188d1d898eb16a32f432169b0ea549b6fe"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/CardView.tsx",
+      "sha256": "397a3d008c25a1bd57fbfc615fee3f3dc528068b35bc98b2c2d7b2559a8ff31e"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/drawer/BotProfileDrawer.tsx",
+      "sha256": "c0f8bd2e4e8fd1084c71d21830681c9dc24126af7e7759fb8476f7d2d04953ed"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/drawer/SessionDetail.tsx",
+      "sha256": "ff79089793039b912e015529d8bbdf3c763e754343d8f4261974a579af8d8a46"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/botAccessPolicyState.test.ts",
+      "sha256": "ad2901c69bbfa33427013e26a830197a0095f777cb287f16aa9562aa60702092"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/botAccessPolicyState.ts",
+      "sha256": "b4833fcaee673106b937c086e8f6e42595145f1f8d8a219f65f34883e0958a2e"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/useBotAccessPolicy.ts",
+      "sha256": "088ac76716c274fad5768ddbf98aeaaa904a07fbde52005e21d87582ac362ee1"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/styles/bot-access-control.css",
+      "sha256": "6c2b172bb1958e2d73384439356e225f34bbfa7665b38c1b99a8c513dbf9ba58"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-access-policy-checks.mjs",
+      "sha256": "d37eaac8c62b535a780a697b9c83f4c26ad5339097ab80597adc835baccf5b0e"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-composer-layout-checks.mjs",
+      "sha256": "f50357b996f85720a2cdc125f0697573e13c172ba17383188d37cbc85be338a4"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-full-access-image-checks.mjs",
+      "sha256": "2441204fc83f075c29a4a9635a8800ef235c736cfb913f6cf37834d8438398df"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-image-approval-checks.mjs",
+      "sha256": "bd36a78a3e754e2550ef87cba3ef9bac033f85716be11452a5abe1d09fb1bd19"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-image-lifecycle-checks.mjs",
+      "sha256": "d9f49a2a2a9d2121d010612d5cd8ae38364c8b408010846258515662b5732e53"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-reply-details-checks.mjs",
+      "sha256": "416aa818830f51ab2596c8f023f3edb2c1be4335abe6571d04eca9dee46a4966"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-shell-electron-smoke.mjs",
+      "sha256": "5a8f215bcfb05920b736755bad5aa9ba95465024da1f381dc3b14aa76051baf8"
+    },
+    {
+      "file": "apps/desktop/scripts/image-permission-fixture.mjs",
+      "sha256": "c9e237c2a35da5cade2842532b1de04cbe7c4f29d87f36df2b0b56a83bfe77f9"
+    },
+    {
+      "file": "apps/desktop/scripts/shared-ui-convention-checks.mjs",
+      "sha256": "be8c59281d393fa0d6a29da267610690e832fd17c2dbb9421aa48bbaddbcf9ad"
+    },
+    {
+      "file": "apps/tui/src/project-agent/bot-access-policy.test.ts",
+      "sha256": "bc119cba5e49dce415421df889848debf2214261351e2c8ca98447f45cbf164f"
+    },
+    {
+      "file": "apps/tui/src/project-agent/tui-turn-executor.test.ts",
+      "sha256": "1285614886ddc303effb98ca2b185aa3e5d4ea3347f190de1d3be914730529ce"
+    },
+    {
+      "file": "apps/tui/src/project-agent/tui-turn-executor.ts",
+      "sha256": "7c537357bbc7a1573c53d49f4be4fa335ca3a0a5a72789e23bb5f53e26c9a22b"
+    },
+    {
+      "file": "apps/tui/src/tui-host.ts",
+      "sha256": "e26fca21b4e2e8297615a8ab4197cb2631d4b9b89f13c991797e4ce9668ab8a3"
+    },
+    {
+      "file": "packages/i18n/src/index.ts",
+      "sha256": "c95e6dbce03e2e0b86851f9721937869018dcb42e8f1ffcbbdd840fbe223c64b"
+    },
+    {
+      "file": "packages/protocol/src/bot-access-policy.ts",
+      "sha256": "1b530267683f1582a9f7bcff91033e3c97ae8641c970ec35283b13131b039793"
+    },
+    {
+      "file": "packages/protocol/src/delegation.ts",
+      "sha256": "f1337f9c3461aec2dcd0cacd89138b3f0222c09453e9557c9ad613944581b18c"
+    },
+    {
+      "file": "packages/protocol/src/index.ts",
+      "sha256": "ad4dd8e7a2ae1de970358ea2fa88296e103d6aeba45b943ec21d55bc55fb89a5"
+    },
+    {
+      "file": "packages/protocol/src/local-image.ts",
+      "sha256": "b5a95d35df6eef4f69172fda9520bcf57983ddd1f8b134ef59c3f143eb69fe4c"
+    },
+    {
+      "file": "packages/runtime-node/src/data-store.mjs",
+      "sha256": "617da2b0d80e1750a0a011e01e5d7878ab4ef30ba3d142491905cd0576962aa7"
+    },
+    {
+      "file": "packages/runtime-node/src/file-provider.ts",
+      "sha256": "9b099fc37c70544d53f4b1594113a62bbead00509bddf97803c8dbe31a3f7f7c"
+    },
+    {
+      "file": "packages/runtime-node/src/index.ts",
+      "sha256": "fb48e55beac2e84357a13bc64a44fea305e379099e720b3a84d2951eea36e557"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/approval-store.mjs",
+      "sha256": "83d0767952ff33e45643e448082dcfd0fb3c633027d005908b05e5f287206cd6"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-access-policy.mjs",
+      "sha256": "9adc18fb6fbe5ae4c440631fe83473244ea25c67c7cca09c2f530c433dd16250"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-access-policy.test.mjs",
+      "sha256": "92fe1c8594e3be9b134f57ff1b034ea9659d5cad59363f93def76f6c44013deb"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/one-time-approval.mjs",
+      "sha256": "09ba5c8c71dc6313d71c391d146836e2c1a89fa98687dbf2d935a71d9c56d7f7"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/permission-inheritance.mjs",
+      "sha256": "d58e74c5b2944ddc9d92fab242ef78edbcfde608710c2e673bc6b678d8d2c10e"
+    },
+    {
+      "file": "packages/runtime-node/src/shell-provider.ts",
+      "sha256": "5c55aee7c7fcfaf71e84ff3aef89f30f9a874971d9107a88956b0576b9edf4a0"
+    },
+    {
+      "file": "packages/runtime-node/src/shell-session.test.ts",
+      "sha256": "5a6699345e98e45ac46e0ffb2f84d5e448db9dedaf23a2b3e497e5549a524d8b"
+    },
+    {
+      "file": "packages/runtime-node/src/shell-session.ts",
+      "sha256": "462c23886372ee6223d9ff719d29001544bae7da57c6dee122b685337dfea6a4"
+    },
+    {
+      "file": "scripts/product-regression.mjs",
+      "sha256": "3eb9e6705799adb79ed7b484bd09e87e2b6bcec64e1264d67ad817b974ffbb71"
+    },
+    {
+      "file": "scripts/rc-response-interaction-smoke.mjs",
+      "sha256": "5a4e6733eac66391e309bec44d09590d0c46c18fa36be8d15440fd258212df74"
+    }
+  ],
+  "limits": [
+    "Scripted model cognition; no real provider quality or network timing",
+    "Source Electron; not an installed RC",
+    "No full screen-reader or long-duration acceptance"
+  ],
+  "integration": {
+    "codePullRequestState": "MERGED",
+    "codeMergeCommit": "4e1a440aa0222861b638e98690a0340898830a09",
+    "codeMergedAt": "2026-10-21T13:06:19Z",
+    "targetBranch": "PeerAgent/dev/0.1.0",
+    "mergeTreeEqualsTestedHead": true,
+    "dependencyAncestryVerified": true
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "baseCommit": "8f0109d49e26346311d1e92dc8e2be0482f1b886",
+  "sourceHead": "c67758c78d348aeecef24685bd3a85ce7d05dbb5",
+  "codePullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/177",
+  "knowledgePullRequest": "https://github.com/ly-ccx/Peer-Knowledge/pull/56",
+  "basePullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/174",
+  "delivery": "Pushed stacked PR commit; excludes parallel UI changes and lifecycle refactor; no merge or installed-build replacement",
+  "product": {
+    "status": "passed",
+    "runId": "ff8e8f7f-9b42-4618-a72e-4b32f5b78c0f",
+    "sourceFingerprint": "60980ad3c2829e3d38786e63c7b9053f723ad2ead952bd9d786df57db5769805",
+    "reviewedAt": "2026-10-21T11:22:56.848Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 193,
+    "reviewedScreenshots": 193,
+    "reviewSha256": "78eb918331c95351a52a25105d0a87b57b1b0c37b984daed77a4d9f7cf98db86",
+    "machinePassed": true,
+    "pageErrors": 0,
+    "mainAuthorizationErrors": 0,
+    "botAccessPolicy": {
+      "passed": true,
+      "realLocalIPC": true,
+      "durablePolicy": true,
+      "keyboard": true,
+      "isolatedBots": true,
+      "childMetadata": true,
+      "childReadOnly": true,
+      "returnsToBot": true,
+      "darkWideLightNarrow": true
+    },
+    "findings": [
+      {
+        "screenshot": "quick-chat-bots-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "Quick Chat 原生透明窗口在 webContents 截图中使用透明/黑色底，部分前景无法由此证明实际桌面合成对比度；其 Bot/模型/发送与无独立权限入口已核对。此次未修改 Quick Chat 主题，安装包与桌面合成对比度仍在覆盖限制内，不能宣称完整无障碍验收。"
+      }
+    ]
+  },
+  "tests": {
+    "passed": 8557,
+    "skipped": 5,
+    "failed": 0,
+    "nodePassed": 7794,
+    "bunPassed": 763,
+    "newFocusedCases": 27,
+    "skipReasons": [
+      "Two explicitly enabled Electron specialist suites",
+      "Three completed-plan reuse cases without subsequent text-verifier stage"
+    ],
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "ipc": "passed"
+  },
+  "ci": {
+    "status": "not-triggered",
+    "reason": "Workflow only accepts main or PeerAgent/dev/** as pull request base; stacked base is codex/parallel-task-list"
+  },
+  "logs": [
+    {
+      "name": "peer-bot-access-pr-build.log",
+      "sha256": "47ef8b573779d448a6090f43e294a3b3de1f87406d5aa497ccb0d2df64a71baa"
+    },
+    {
+      "name": "peer-bot-access-pr-typecheck.log",
+      "sha256": "0ceddea5ffe01efe32591815519353c77f74b943641263b4a6b4b1d0981d5c20"
+    },
+    {
+      "name": "peer-bot-access-pr-architecture.log",
+      "sha256": "c34fcf3c43a8faab12bec33681be6493ac963fc3a8255372324b5c50d21eeae9"
+    },
+    {
+      "name": "peer-bot-access-pr-tests.log",
+      "sha256": "f967c79f47919cba13d4a0f75339d37ad5789d1bcb352a2149769dd320380dec"
+    },
+    {
+      "name": "capture.log",
+      "sha256": "2f6cc94fc8aa8708cf5680abb879e17a0225b3d34ccae891cfdc7d097b745e75"
+    },
+    {
+      "name": "build.log",
+      "sha256": "5cff52df6ba83b5be494c9837c783bf1cd966a08bfb56428bdb3ba17bf71deaa"
+    },
+    {
+      "name": "machine.json",
+      "sha256": "057eee438d294fe2eccd57a8716ae84f5efcc7594d79199e172c1819b528546c"
+    },
+    {
+      "name": "shared-ui-machine.json",
+      "sha256": "15c003b2586ff550feda5f8068709986846ebb29184afa739a1f7b3d280c28e6"
+    },
+    {
+      "name": "selection-machine.json",
+      "sha256": "eee9fe5c56211e01e9f61f787f83bb13602cf48d72d464f9252fac73b9a87e3b"
+    },
+    {
+      "name": "agent-activity.json",
+      "sha256": "ca917f1d9d4f117a29e6234d9d30427410c718dc2fcc043e8b2047242d7be911"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "bot-access-1280-dark.png",
+      "sha256": "4564000b15ca4b6b6d3d632a85799e00b680c94c196d16cc914480405f050a15"
+    },
+    {
+      "file": "bot-access-760-light.png",
+      "sha256": "699ea4ae926c79d00027a552ee77ca47f6e072bf57cf8c0f991ece0b86060c08"
+    },
+    {
+      "file": "bot-access-child-1280-dark.png",
+      "sha256": "1bcec5beff77a478a1a73b37883745a01c9424ca4670c0330c1633a5308b6e4c"
+    },
+    {
+      "file": "bot-access-child-760-light.png",
+      "sha256": "43b8cb38a030a396f5232a204d9fa5f7bd24a098a409a877fa731912e9421215"
+    }
+  ],
+  "changedSourceFiles": [
+    {
+      "file": "apps/desktop/electron/ipc/channels.mjs",
+      "sha256": "67d9606ee9f3bd9d31a8b6f09743054e5cf4b4e81bdccbb5cdff27aebde46e0a"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/bot-access-policy.test.mjs",
+      "sha256": "8908dd75cb16e0ac19ad39d4a4b55a44c012d089819bce285de1fec4abcbdab0"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/permission-gate.mjs",
+      "sha256": "235b71a7de3f93644cf3eb2c35e8d5d69ab24777f0803217820c340dbc7d020b"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/projected-tool-executor.mjs",
+      "sha256": "5d58125fb0ee7793a3a2db1aac15e3c3f60b91e65f6e2d3ca4786a123d502a01"
+    },
+    {
+      "file": "apps/desktop/electron/main/ipc/register-project-agent-ipc.mjs",
+      "sha256": "ade7617fe4230657a834d5498fcb9e9eb88d0bef38483b5339ee44a3766ef4fd"
+    },
+    {
+      "file": "apps/desktop/electron/main/ipc/register-project-agent-ipc.test.mjs",
+      "sha256": "b07aa0e891931d86262a2ffb8bd367605fee786cf45b0ae898bcc61ba71b23ec"
+    },
+    {
+      "file": "apps/desktop/electron/main/llm-chat-service.mjs",
+      "sha256": "86de29c4b032c22164f7a53b1e45ad6eac636f82084a87d551c65de370aaf3a4"
+    },
+    {
+      "file": "apps/desktop/electron/main/llm-chat-service.test.mjs",
+      "sha256": "367473eec9fdaf9e1e1c11b2e3697d112e222720f760e955578c292b0e41976d"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/bot-access-policy-service.mjs",
+      "sha256": "7f44c4061b439e7e2f0d889aefb8e1b3bdf336f0257d6f277c70c886ce3b2a29"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/bot-access-policy-service.test.mjs",
+      "sha256": "fbd2448cf3cd4e6e48f373f0fc16c23750d6c97e3629621a3e7115cb9c2d453a"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/project-agent-application-service.mjs",
+      "sha256": "11617efad4c7dbb49043ca09de0bf785bf673d921245e99006392179971cf0bb"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/project-agent-host.mjs",
+      "sha256": "8f2277794cb3c784abfca8905dde970c7ac4ec8e771f240200cd5af08cc8b845"
+    },
+    {
+      "file": "apps/desktop/electron/main/runtime-gateway/local-file-provider.mjs",
+      "sha256": "ddabcffd6f649c93bac0098cc137c86ea0120977c574e23c36aa1128d49d16f7"
+    },
+    {
+      "file": "apps/desktop/electron/main/runtime-gateway/local-shell-provider.mjs",
+      "sha256": "5abf443d941d6cadcfe6a57d4b74f6a1779972f41114b47908fbcbb8ffbc204a"
+    },
+    {
+      "file": "apps/desktop/electron/preload/preload.cjs",
+      "sha256": "7b9edfceb38b0c27107987d926c15755ac2e0952f036841cfd114be31d6fd4a0"
+    },
+    {
+      "file": "apps/desktop/electron/preload/preload.source.cjs",
+      "sha256": "035228735171ab7631fa5b1722b2162fab602074b4e55348b3f3fb302b2a1b24"
+    },
+    {
+      "file": "apps/desktop/renderer/src/App.tsx",
+      "sha256": "3c2f77b7ac8343e5468ac5a60f23e2547d982bc49a492f28a2c687a02bcc8069"
+    },
+    {
+      "file": "apps/desktop/renderer/src/chat/components/ChatSurface.tsx",
+      "sha256": "844ce42467c25b7c7e99444209d9da2e48125c2cc0058e80212439d457e04558"
+    },
+    {
+      "file": "apps/desktop/renderer/src/chat/components/ConversationAccessControl.tsx",
+      "sha256": "791b2a7d215a322cffbfec2fce7e551503e5c09fa4a4721b4ed7c0143a66960f"
+    },
+    {
+      "file": "apps/desktop/renderer/src/clientApi.ts",
+      "sha256": "80a914ce1b1ee5f3e3c43d6b921e1a7223bef630036e184dc12e62fa97f2d263"
+    },
+    {
+      "file": "apps/desktop/renderer/src/preload/contracts/bootstrapPreloadApi.ts",
+      "sha256": "c0f8bad10ead9faa4c79dfef9e8fbb4b6acb4e5595f528ec1551aefa68d73fde"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/BotAccessControl.tsx",
+      "sha256": "087bc284e9bde4b2c75c5919140940a55dc829fc8dd622ab51724d6f69ace37d"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/BotComposer.tsx",
+      "sha256": "09762fe64d4e07a7d43f59c244e421f64cb622de0681bbffbc4e6ee2c2f22ac4"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/BotConversation.tsx",
+      "sha256": "0033bb50c07a5983878997b04c1116188d1d898eb16a32f432169b0ea549b6fe"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/CardView.tsx",
+      "sha256": "397a3d008c25a1bd57fbfc615fee3f3dc528068b35bc98b2c2d7b2559a8ff31e"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/drawer/BotProfileDrawer.tsx",
+      "sha256": "c0f8bd2e4e8fd1084c71d21830681c9dc24126af7e7759fb8476f7d2d04953ed"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/drawer/SessionDetail.tsx",
+      "sha256": "ff79089793039b912e015529d8bbdf3c763e754343d8f4261974a579af8d8a46"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/botAccessPolicyState.test.ts",
+      "sha256": "c87d2ad55896bc5a03126416d0fd9f27ed9c4e7049412c143154bcf44e583856"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/botAccessPolicyState.ts",
+      "sha256": "7e5da8fb347748a10b4b356238ea9687ed104a6d53a79d4eab1cfa81b2825248"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/useBotAccessPolicy.ts",
+      "sha256": "088ac76716c274fad5768ddbf98aeaaa904a07fbde52005e21d87582ac362ee1"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/styles/bot-access-control.css",
+      "sha256": "6c2b172bb1958e2d73384439356e225f34bbfa7665b38c1b99a8c513dbf9ba58"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-access-policy-checks.mjs",
+      "sha256": "d37eaac8c62b535a780a697b9c83f4c26ad5339097ab80597adc835baccf5b0e"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-composer-layout-checks.mjs",
+      "sha256": "f50357b996f85720a2cdc125f0697573e13c172ba17383188d37cbc85be338a4"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-full-access-image-checks.mjs",
+      "sha256": "2441204fc83f075c29a4a9635a8800ef235c736cfb913f6cf37834d8438398df"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-image-approval-checks.mjs",
+      "sha256": "bd36a78a3e754e2550ef87cba3ef9bac033f85716be11452a5abe1d09fb1bd19"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-image-lifecycle-checks.mjs",
+      "sha256": "d9f49a2a2a9d2121d010612d5cd8ae38364c8b408010846258515662b5732e53"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-shell-electron-smoke.mjs",
+      "sha256": "5a8f215bcfb05920b736755bad5aa9ba95465024da1f381dc3b14aa76051baf8"
+    },
+    {
+      "file": "apps/desktop/scripts/image-permission-fixture.mjs",
+      "sha256": "c9e237c2a35da5cade2842532b1de04cbe7c4f29d87f36df2b0b56a83bfe77f9"
+    },
+    {
+      "file": "apps/tui/src/project-agent/bot-access-policy.test.ts",
+      "sha256": "7f09c66a0f61ef98afbcfb326cd838cc3430ef0a8572c3d0c3141308b15ac3fa"
+    },
+    {
+      "file": "apps/tui/src/project-agent/tui-turn-executor.test.ts",
+      "sha256": "1285614886ddc303effb98ca2b185aa3e5d4ea3347f190de1d3be914730529ce"
+    },
+    {
+      "file": "apps/tui/src/project-agent/tui-turn-executor.ts",
+      "sha256": "7c537357bbc7a1573c53d49f4be4fa335ca3a0a5a72789e23bb5f53e26c9a22b"
+    },
+    {
+      "file": "apps/tui/src/tui-host.ts",
+      "sha256": "e39aaf51d699187e6bc59f56d88650f44b84d3cfd60b834f9f08a9e22645a487"
+    },
+    {
+      "file": "packages/i18n/src/index.ts",
+      "sha256": "c95e6dbce03e2e0b86851f9721937869018dcb42e8f1ffcbbdd840fbe223c64b"
+    },
+    {
+      "file": "packages/protocol/src/bot-access-policy.ts",
+      "sha256": "1b530267683f1582a9f7bcff91033e3c97ae8641c970ec35283b13131b039793"
+    },
+    {
+      "file": "packages/protocol/src/delegation.ts",
+      "sha256": "f1337f9c3461aec2dcd0cacd89138b3f0222c09453e9557c9ad613944581b18c"
+    },
+    {
+      "file": "packages/protocol/src/index.ts",
+      "sha256": "ad4dd8e7a2ae1de970358ea2fa88296e103d6aeba45b943ec21d55bc55fb89a5"
+    },
+    {
+      "file": "packages/protocol/src/local-image.ts",
+      "sha256": "b5a95d35df6eef4f69172fda9520bcf57983ddd1f8b134ef59c3f143eb69fe4c"
+    },
+    {
+      "file": "packages/runtime-node/src/data-store.mjs",
+      "sha256": "617da2b0d80e1750a0a011e01e5d7878ab4ef30ba3d142491905cd0576962aa7"
+    },
+    {
+      "file": "packages/runtime-node/src/file-provider.ts",
+      "sha256": "9b099fc37c70544d53f4b1594113a62bbead00509bddf97803c8dbe31a3f7f7c"
+    },
+    {
+      "file": "packages/runtime-node/src/index.ts",
+      "sha256": "fb48e55beac2e84357a13bc64a44fea305e379099e720b3a84d2951eea36e557"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/approval-store.mjs",
+      "sha256": "83d0767952ff33e45643e448082dcfd0fb3c633027d005908b05e5f287206cd6"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-access-policy.mjs",
+      "sha256": "1b73c581ca5eea776c0ba8029d66886e9137a6046c84bfd550cee61c22cce22d"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-access-policy.test.mjs",
+      "sha256": "92fe1c8594e3be9b134f57ff1b034ea9659d5cad59363f93def76f6c44013deb"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/one-time-approval.mjs",
+      "sha256": "09ba5c8c71dc6313d71c391d146836e2c1a89fa98687dbf2d935a71d9c56d7f7"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/permission-inheritance.mjs",
+      "sha256": "d58e74c5b2944ddc9d92fab242ef78edbcfde608710c2e673bc6b678d8d2c10e"
+    },
+    {
+      "file": "packages/runtime-node/src/shell-provider.ts",
+      "sha256": "f031611dc68d44bba649363de8f73415bb3b6e607d2945ce3ba581fced29339a"
+    },
+    {
+      "file": "scripts/product-regression.mjs",
+      "sha256": "3eb9e6705799adb79ed7b484bd09e87e2b6bcec64e1264d67ad817b974ffbb71"
+    }
+  ],
+  "limits": [
+    "Scripted model cognition; no real provider quality or network timing",
+    "Source Electron; not an installed RC",
+    "No full screen-reader or long-duration acceptance"
+  ]
+}
