@@ -171,4 +171,4 @@ TUI Bot 宿主在每次 Provider 审批读取同一设备策略库；不能由 T
 
 ## 11. 评审与验收状态
 
-本 ADR 的设计与实现评审由实施者逐路径自审，不称为独立审查。实现已完成；固定源码副本全工作区测试 8,557 passed / 5 既有 skipped / 0 failed，build、typecheck、architecture、IPC 均通过；标准产品回归经 201 张逐图检查后 verify passed。实际文件清单、首次失败与修复、源码/截图指纹和真实模型、安装版、无障碍覆盖限制见[落实评审 §5](../../playbook/v0.1.0/bot-owned-access-policy.md#5-实际验证记录)。共享目录其他在途重构不包含在此通过结论内。发布、合并、替换用户日常安装版不由本 ADR 自动授权。
+本 ADR 的设计与实现评审由实施者逐路径自审，不称为独立审查。实现已完成；固定源码副本全工作区测试 8,557 passed / 5 既有 skipped / 0 failed，build、typecheck、architecture、IPC 均通过；原组合源码标准产品回归经 201 张逐图检查后 verify passed；最终代码 PR #177 独立提交重新全测，并完成 193 张逐图检查及 verify passed，提交与指纹见落实评审 §5.4。实际文件清单、首次失败与修复、源码/截图指纹和真实模型、安装版、无障碍覆盖限制见[落实评审 §5](../../playbook/v0.1.0/bot-owned-access-policy.md#5-实际验证记录)。共享目录其他在途重构不包含在此通过结论内。发布、合并、替换用户日常安装版不由本 ADR 自动授权。

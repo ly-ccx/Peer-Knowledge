@@ -81,7 +81,7 @@
 
 ## 5. 实际验证记录
 
-固定验证副本全工作区已按串行包执行通过：8,557 passed、5 skipped、0 failed。五项为既有 skip：两项需显式开启的 Electron 专项、三项“已完成计划复用不再经过文字核验阶段”的不适用场景；本轮没有新增 skip。Desktop 主测试 5,610 passed、5 skipped，补充脚本 3 passed；TUI 763 passed；Runtime Node 1,393 passed。产品回归已完成标准 capture、201 张逐图自审和 verify，结果 passed。初次失败和隔离依据保留，详见下列说明。
+固定验证副本全工作区已按串行包执行通过：8,557 passed、5 skipped、0 failed。五项为既有 skip：两项需显式开启的 Electron 专项、三项“已完成计划复用不再经过文字核验阶段”的不适用场景；本轮没有新增 skip。Desktop 主测试 5,610 passed、5 skipped，补充脚本 3 passed；TUI 763 passed；Runtime Node 1,393 passed。原组合源码产品回归完成 201 张逐图自审及 verify；最终独立 PR 提交另完成 193 张逐图自审及 verify，均 passed，指纹和范围分别见 §5.3、§5.4。初次失败和隔离依据保留，详见下列说明。
 
 | 实际命令 | 结果 | 范围 |
 |---|---|---|
@@ -137,4 +137,17 @@
 
 提交前已从隔离副本移除 #175 的过程留白和 #176 的文字层级/授权回执修改，没有改动原共享目录。权限变更关闭提示在既有 CardView 展示接缝中保留，不依赖新的 ApprovalReceipt；与 #176 后续整合时须保留该提示，原集成方案见 §5.3 对应源码与记录。生命周期重构 ADR102 及其代码不在本组 PR 中。
 
-独立 PR 范围重新执行全工作区 build、typecheck、architecture、IPC 和完整测试，8,557 passed / 5 既有 skipped / 0 failed。标准产品包正在按独立提交重新采集和逐图审查，完成后在本节回填；§5.3 的 201 图结果仅对应原组合源码，不冒充独立 PR 指纹的验收。
+独立 PR 范围重新执行全工作区 build、typecheck、architecture、IPC 和完整测试，8,557 passed / 5 既有 skipped / 0 failed。随后按该提交重新执行标准产品 capture，逐张检查全部 **193 张**截图，写入具体观察并执行 verify，结果 **passed**。本轮移除了 #175/#176 专有的八张截图，§5.3 的 201 图结果仍只对应原组合源码。
+
+- 最终 runId：`ff8e8f7f-9b42-4618-a72e-4b32f5b78c0f`。
+- 最终 sourceFingerprint：`60980ad3c2829e3d38786e63c7b9053f723ad2ead952bd9d786df57db5769805`，对应上述 `c67758c` 提交。
+- `machine.ok=true`、`pageErrors=0`、`mainAuthorizationErrors=0`；主 Bot 真实本地 IPC 保存、持久回读、跨 Bot 隔离、子任务只读、返回主 Bot 和键盘操作均通过。
+- 审查为实施者自审，`independent=false`；真实模型、安装版、完整读屏与长期使用未覆盖。Quick Chat 透明窗口合成对比度继续作为 minor accepted-limitation 记录。
+- 当前叠加 base 不在仓库 CI 的 PR 目标分支过滤范围内，GitHub 尚未触发检查；本地通过不表述为 CI 通过。#174 合入并将 base 调整到开发分支后须确认 CI。
+
+配套知识库 PR：[Peer-Knowledge #56](https://github.com/ly-ccx/Peer-Knowledge/pull/56)。最终持久记录：[提交与验收收据](evidence/bot-owned-access-policy-pr-20261021/receipt.json)、[全部 193 项截图观察](evidence/bot-owned-access-policy-pr-20261021/review.json)。收据包含全部 57 个变更文件的哈希及本轮日志哈希。
+
+| 最终提交关键界面 | 深色宽屏 | 浅色窄屏 |
+|---|---|---|
+| 主 Bot 权限选择 | [1280](evidence/bot-owned-access-policy-pr-20261021/bot-access-1280-dark.png) | [760](evidence/bot-owned-access-policy-pr-20261021/bot-access-760-light.png) |
+| 子 Agent 继承状态 | [1280](evidence/bot-owned-access-policy-pr-20261021/bot-access-child-1280-dark.png) | [760](evidence/bot-owned-access-policy-pr-20261021/bot-access-child-760-light.png) |
