@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "sourceCommit": "252753845b97a9ac557d91631407b2d475a747ea",
+  "sourceBase": "4e1a440aa0222861b638e98690a0340898830a09",
+  "sourceFingerprint": "548b42abf441067a4b9648c5b6a11b9cef3f5369c877cff50a76781e60370914",
+  "platform": "darwin-arm64",
+  "tests": {
+    "pr-runtime-test": {
+      "groups": [
+        {
+          "tests": 1403,
+          "passed": 1403,
+          "failed": 0,
+          "cancelled": 0,
+          "skipped": 0
+        }
+      ],
+      "log": "pr-runtime-test.log",
+      "sha256": "09d5ec2e768139ec5bd631f061b4066bb6ab306664f34bc7458b1470139953bf"
+    },
+    "pr-desktop-test": {
+      "groups": [
+        {
+          "tests": 5620,
+          "passed": 5615,
+          "failed": 0,
+          "cancelled": 0,
+          "skipped": 5
+        },
+        {
+          "tests": 3,
+          "passed": 3,
+          "failed": 0,
+          "cancelled": 0,
+          "skipped": 0
+        }
+      ],
+      "log": "pr-desktop-test.log",
+      "sha256": "2ebd30a494619139f4ca445a2bd9ac821d09ea8adaf1b7048e84d294acd6e323"
+    },
+    "pr-protocol-test": {
+      "groups": [
+        {
+          "tests": 235,
+          "passed": 235,
+          "failed": 0,
+          "cancelled": 0,
+          "skipped": 0
+        }
+      ],
+      "log": "pr-protocol-test.log",
+      "sha256": "cb7e280ca8d061f37a743fa390083d7682861f13832155a49680e05b6e6f43a4"
+    },
+    "pr-product-tests": {
+      "groups": [
+        {
+          "tests": 6,
+          "passed": 6,
+          "failed": 0,
+          "cancelled": 0,
+          "skipped": 0
+        }
+      ],
+      "log": "pr-product-tests.log",
+      "sha256": "e202ef60ec20cc9225007bbc5712deb340a2af53fd7696b1a6c032de1296282a"
+    }
+  },
+  "typecheck": true,
+  "architectureCheck": true,
+  "desktopProductionBuild": true,
+  "productReview": {
+    "requiredScreenshots": 193,
+    "status": "passed",
+    "runId": "c3f7b627-393d-4176-8748-de1e48adbe77",
+    "sourceFingerprint": "548b42abf441067a4b9648c5b6a11b9cef3f5369c877cff50a76781e60370914",
+    "reviewedAt": "2026-10-21T13:46:11.610Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "archiveSha256": "4c21a3e64f1e3323c8e05619f950034fdea151c48b1c254a26f3af48877f49d0",
+  "installed": false,
+  "published": false,
+  "realUserDataModified": false,
+  "realModelCoverage": false,
+  "independentReview": false,
+  "limitations": [
+    "Local ad-hoc build, not a notarized release or installed upgrade",
+    "Existing compiled credential helper reused; Cargo/Bun unavailable; Rust/TUI native binaries were not rebuilt",
+    "No real model quality, full screen-reader or long-duration acceptance"
+  ],
+  "packagedRuntime": {
+    "hashes": {
+      "verification-continuation": "85d395587600f8c74b04c94c75562e2372337b3e0f98cf6c6170e6ae8c7d0176",
+      "verification-progress": "6b5a8c78b08212eb79afa53c143aefcba175cf8435b514c08d1b2a3018373749",
+      "watchdog": "1694c42488730d880d02657f4bf76b30b4c5006a9ef5c756c8cc88e733033c3a",
+      "watch-publisher": "1a60ae0ab8d43ab3112f7bb1269ac3de15877f4d751adba626e64ec1fb2e4d83",
+      "session-takeover": "f017be1953b4e3fed65fd95e90ae061e9d26a222456755890457928a8eeb9d47"
+    },
+    "runtime": {
+      "checks": [
+        "format_repair_no_tools",
+        "verification_stall",
+        "idle_review_settlement",
+        "correction_handoff_execute"
+      ],
+      "passed": true
+    },
+    "installed": false
+  },
+  "evidenceScope": "Four representative activity screenshots and the complete 193-image review record; the full source-bound Capture packet is included in the local delivered validation directory."
+}
