@@ -1,0 +1,3083 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.24",
+  "checkedAt": "2026-10-21T16:46:03.151188+00:00",
+  "release": {
+    "tagName": "v0.1.0-rc.24",
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.24",
+    "publishedAt": "2026-10-21T16:33:46Z",
+    "isDraft": false,
+    "isPrerelease": true
+  },
+  "codePr": "https://github.com/ly-ccx/Peer-Agent/pull/179",
+  "includedPrs": [
+    174,
+    175,
+    176,
+    177,
+    178
+  ],
+  "adrPr": "https://github.com/ly-ccx/Peer-Knowledge/pull/57",
+  "candidate": "52714684e7b680c5c2839afec292f22e136e09e3",
+  "tagCommit": "976a27fc04de05c89acffaeab0a7cd2de435b3f5",
+  "mergeTreeIdenticalToCandidate": true,
+  "candidateCi": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39631987196",
+    "headSha": "52714684e7b680c5c2839afec292f22e136e09e3",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:20:04Z"
+      },
+      {
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:23:11Z"
+      }
+    ]
+  },
+  "mergeCi": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39634439291",
+    "headSha": "976a27fc04de05c89acffaeab0a7cd2de435b3f5",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:35:15Z"
+      },
+      {
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:38:28Z"
+      }
+    ]
+  },
+  "releaseWorkflow": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39634528166",
+    "headSha": "976a27fc04de05c89acffaeab0a7cd2de435b3f5",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "meta",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:25:01Z"
+      },
+      {
+        "name": "build (ubuntu-latest, linux, --linux --x64)",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:28:24Z"
+      },
+      {
+        "name": "build (windows-latest, win, --win)",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:30:59Z"
+      },
+      {
+        "name": "build (macos-14, mac, --mac)",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:30:54Z"
+      },
+      {
+        "name": "build-cli (macos-14, darwin-arm64)",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:33:23Z"
+      },
+      {
+        "name": "build-cli (ubuntu-latest, linux-x64)",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:32:26Z"
+      },
+      {
+        "name": "release",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:34:03Z"
+      },
+      {
+        "name": "publish-npm",
+        "conclusion": "success",
+        "completedAt": "2026-10-21T16:35:15Z"
+      }
+    ]
+  },
+  "product": {
+    "runId": "0e59a675-e0c3-4cc6-b0ce-1bac8258dc08",
+    "sourceFingerprint": "d760bf82b53169f1ff21c2aefea02a9230ba122ca50531f0caca5f209c9bcfb1",
+    "status": "passed",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer screenshot self-review",
+      "independent": false
+    },
+    "scale": {
+      "bots": 200,
+      "messages": 10000,
+      "inboxRecords": 100000,
+      "memories": 10000
+    },
+    "screenshots": [
+      {
+        "id": "bot-access-1280-dark.png",
+        "sha256": "1ea8272a83a3fae56de6a86384e598d7c39ac52ca60cc68fcbd60b9f554cf88d",
+        "verdict": "pass",
+        "notes": "主 Bot 输入区左侧显示完全访问，模型、思考强度与发送动作排列在右侧；权限状态与模型分区清楚，窄窗保留可操作宽度。"
+      },
+      {
+        "id": "bot-access-760-light.png",
+        "sha256": "4ac21d1e856e0623e3f019f623b9d568291022e3afa1dd5415b5bf13de639240",
+        "verdict": "pass",
+        "notes": "主 Bot 输入区左侧显示完全访问，模型、思考强度与发送动作排列在右侧；权限状态与模型分区清楚，窄窗保留可操作宽度。 发送图标处于禁用淡出过渡，本张不据此判断图标对比度。"
+      },
+      {
+        "id": "bot-access-child-1280-dark.png",
+        "sha256": "d077ebca66b3e02b06fb6af4bd25ac05f33ab04bbe9db404ae59bd031d3f1027",
+        "verdict": "pass",
+        "notes": "子任务详情的输入区显示继承自主 Bot 的完全访问，未出现可单独修改的权限菜单；任务标题与输入区仍有层次，窄窗控件没有横向越界。"
+      },
+      {
+        "id": "bot-access-child-760-light.png",
+        "sha256": "dd010fed8bdde06f3a04206416b296a9b1606915e0710d6300db8b597ae8ed4d",
+        "verdict": "pass",
+        "notes": "子任务详情的输入区显示继承自主 Bot 的完全访问，未出现可单独修改的权限菜单；任务标题与输入区仍有层次，窄窗控件没有横向越界。"
+      },
+      {
+        "id": "ui-diagnostics-1280-dark.png",
+        "sha256": "ecebffee44594dd0280c77df54ce3cabd27a2de14b307350ac68a853070d1625",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：执行宿主与诊断摘要分组，JSON 按需展开，窄窗换行可读，主导航和焦点轮廓保留。"
+      },
+      {
+        "id": "ui-diagnostics-760-light.png",
+        "sha256": "14bbbbbafeae5117cde31cc9c88f070da961d8452886c2e93fb4f04be4aec121",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：执行宿主与诊断摘要分组，JSON 按需展开，窄窗换行可读，主导航和焦点轮廓保留。"
+      },
+      {
+        "id": "ui-appearance-1280-dark.png",
+        "sha256": "ba53f63f119770ef66762cde738d728f942e0cfce3bc43d4a68cc6aa7493696f",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：主题选择与即时预览分组，窄窗仍能分辨跟随系统/浅色/深色，控件落在内容区。"
+      },
+      {
+        "id": "ui-appearance-760-light.png",
+        "sha256": "b4bd2fdb955dd022f20d890f65aa163bf3fd071f4d8f7b9097fa2bc2863e86a3",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：主题选择与即时预览分组，窄窗仍能分辨跟随系统/浅色/深色，控件落在内容区。"
+      },
+      {
+        "id": "ui-automation-list-1280-dark.png",
+        "sha256": "effaa5016104b42841c6fbeb89665aa5c72da69ee0c27db5da98dab39fee4911",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：自动化数量、创建入口和任务行有清晰层次，暂停状态没有被混成机器人问题数。"
+      },
+      {
+        "id": "ui-automation-list-760-light.png",
+        "sha256": "afdcce4b74ec816cb1a2c20b0adfd2282b454d9831fad05a9a933c39f8bdcb77",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：自动化数量、创建入口和任务行有清晰层次，暂停状态没有被混成机器人问题数。"
+      },
+      {
+        "id": "ui-automation-receipt-1280-dark.png",
+        "sha256": "451ae230c4bc990716211a35cb62cef4f07c3c7227f30d050545ef16b28434c6",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：本次摘要、上次结果、运行事实和用量分区，状态标记清楚；当前截图不代表真实调度执行。"
+      },
+      {
+        "id": "ui-automation-receipt-760-light.png",
+        "sha256": "01b4b866a0197638a9f8b609e2d19e4149a5fea38f4b5caaa6c6279a8c249c6c",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：本次摘要、上次结果、运行事实和用量分区，状态标记清楚；当前截图不代表真实调度执行。"
+      },
+      {
+        "id": "ui-automation-editor-1280-dark.png",
+        "sha256": "8e11dd14c2e32b7dd71f12a2b5102b6eafb5c06468cfff073a494b5fa314f3b9",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：说明和生成计划分区，文本框与 SVG 选择控件保持可操作宽度，窄窗无横向越界。"
+      },
+      {
+        "id": "ui-automation-editor-760-light.png",
+        "sha256": "5262fe1febb61e93b09ea9995f1bb2809f20e3056369bcff9dc9bf0460dbbac4",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：说明和生成计划分区，文本框与 SVG 选择控件保持可操作宽度，窄窗无横向越界。"
+      },
+      {
+        "id": "ui-classic-chat-1280-dark.png",
+        "sha256": "e5c091a28a1cd5c71616de55d3d4a7c1a86abeae6d20aad29261f51bf3bc40fd",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：经典聊天中的消息、图片和输入框层次清楚，文件路径属于已保存来源，没有伪造运行事实。"
+      },
+      {
+        "id": "ui-classic-chat-760-light.png",
+        "sha256": "487b19525c83db602726e64997c83d0ffb938467be39191dd2c91a2e64f7a5d5",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：经典聊天中的消息、图片和输入框层次清楚，文件路径属于已保存来源，没有伪造运行事实。"
+      },
+      {
+        "id": "ui-classic-image-lightbox-1280-dark.png",
+        "sha256": "96b0c525e34fe7bb4bc4c98072ecb88882cf0638ecd3b5a6490672820166aa0a",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：图片完整置于遮罩上，底部文件信息与 SVG 缩放/关闭操作分开，窄窗未挤出控制栏。"
+      },
+      {
+        "id": "ui-classic-image-lightbox-760-light.png",
+        "sha256": "c1b2483324592b8dd0e7dadf7fa819bd0cd01ed5ef2f5c7f37182e2982f83f09",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：图片完整置于遮罩上，底部文件信息与 SVG 缩放/关闭操作分开，窄窗未挤出控制栏。"
+      },
+      {
+        "id": "ui-classic-artifacts-1280-dark.png",
+        "sha256": "c471edfcc074df4dc3162b550d24bf9a887409ce7d457e80380334e4f7bc7823",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：隔离生产组件夹具显示文件重命名和改动，展开内容与主要产物分组清楚；不是当前任务完成证据。"
+      },
+      {
+        "id": "ui-classic-artifacts-760-light.png",
+        "sha256": "b1f19fd4beb9e1a5af8f8d15087448be498bf63d33d8551b20723d16bf662333",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：隔离生产组件夹具显示文件重命名和改动，展开内容与主要产物分组清楚；不是当前任务完成证据。"
+      },
+      {
+        "id": "ui-classic-diff-1280-dark.png",
+        "sha256": "fec609f8ffd101855c29cfc6cca9456fa268b20ec04a2d8b1c65949d12bd33f3",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：文件行聚焦与差异浮层可区分，增删行和文件名可读；属于隔离组件展示。"
+      },
+      {
+        "id": "ui-classic-diff-760-light.png",
+        "sha256": "2d1fed878c66323bb008e8d091089819ccbf2a5cbb363aaa51a7f1d1366eb7f8",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：文件行聚焦与差异浮层可区分，增删行和文件名可读；属于隔离组件展示。"
+      },
+      {
+        "id": "coordination-stopping-1280-dark.png",
+        "sha256": "5b1e8d4d6699e860405d4b42f556477e6e5b5a97abe7ea38294ae4853ea55a40",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-awaiting_outcome-1280-dark.png",
+        "sha256": "23e689d1958156c797596806e2c956e5f3cf43ad2eaca395d910e0bb523fdcca",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-cancelled-1280-dark.png",
+        "sha256": "e8906d68f5ddd16d990b237fa9c8d56e9e03857171e65cb03141136d02dddcfe",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-handoff-1280-dark.png",
+        "sha256": "45324f9f951a94b49c19d065bbe565831016976a349e8be644101c68bc8e743e",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-stopping-760-light.png",
+        "sha256": "9a6d0029dd2ae4b0dffb22291ccaf65e03fa2a906363765ae3f6c4dab04c0a7e",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-awaiting_outcome-760-light.png",
+        "sha256": "9f18f88b7ab40cc3a2ca9176ca82164fe85a83ef3f5a5f90058f4ce5f4a55a0b",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-cancelled-760-light.png",
+        "sha256": "946f5bb166ac43ad8812f0bf905f960873fa0be443767cad66ecb62817106928",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "coordination-handoff-760-light.png",
+        "sha256": "a605ed80fa3569e4d6c504ea91b5b385919af4950c6560cb4fa2665eb3514342",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：任务详情清楚区分停止、结果待核实、已取消与接手；下一步归主 Bot，动作和任务信息分区，未把技术等待计入角标。"
+      },
+      {
+        "id": "agent-activity-1280-dark.png",
+        "sha256": "d9077e511354904c0762dee7eea52862e19e42dd3a0016b5108cbe2a9fb69005",
+        "verdict": "pass",
+        "notes": "实现检查与独立核验使用不同形状和颜色的 SVG；实现检查的开始、提问、返回各保留一次，核验行清楚显示已检查 7 项事实，详情动作和取消入口可见。窄窗历史后续气泡在视口下方，仅按可见部分审查。"
+      },
+      {
+        "id": "agent-activity-detail-1280-dark.png",
+        "sha256": "7af7518653039bdb168774ba4962ca4ee78278a49dcbc4f24c68d4df1ab747fe",
+        "verdict": "pass",
+        "notes": "实现检查与独立核验使用不同形状和颜色的 SVG；实现检查的开始、提问、返回各保留一次，核验行清楚显示已检查 7 项事实，详情动作和取消入口可见。窄窗历史后续气泡在视口下方，仅按可见部分审查。"
+      },
+      {
+        "id": "agent-activity-760-light.png",
+        "sha256": "5e264be93faff20691a720de9625b503a329bc002a02323619d9ff684dd86f24",
+        "verdict": "pass",
+        "notes": "实现检查与独立核验使用不同形状和颜色的 SVG；实现检查的开始、提问、返回各保留一次，核验行清楚显示已检查 7 项事实，详情动作和取消入口可见。窄窗历史后续气泡在视口下方，仅按可见部分审查。"
+      },
+      {
+        "id": "agent-activity-detail-760-light.png",
+        "sha256": "6109fed1e1615be3b9f04e4f40d11f0f997caabb96e79184099b65241c73a971",
+        "verdict": "pass",
+        "notes": "实现检查与独立核验使用不同形状和颜色的 SVG；实现检查的开始、提问、返回各保留一次，核验行清楚显示已检查 7 项事实，详情动作和取消入口可见。窄窗历史后续气泡在视口下方，仅按可见部分审查。"
+      },
+      {
+        "id": "quick-chat-bots-dark.png",
+        "sha256": "ad53f353350eb0b15ca58b66414cc72e7207f2c771383c5d06538b19d74734c0",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：机器人名称、模型和推理强度分组，发送 SVG 位于右端；透明窗口截图黑底，浅色背景对比不在本图验收范围。"
+      },
+      {
+        "id": "quick-chat-bots-light.png",
+        "sha256": "1e3abdb0dfea77e4677b116d9f598fa41c33f38aad82b2812706a87e49a974b8",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：机器人名称、模型和推理强度分组，发送 SVG 位于右端；透明窗口截图黑底，浅色背景对比不在本图验收范围。"
+      },
+      {
+        "id": "evidence-list-dark.png",
+        "sha256": "50514413331b3e95ac5a7ac021bd24a40b3fe701153a882570cf5ddce580dfcc",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：回复依据以具名来源列表展示，与关联子任务及记忆元信息分开，详情动作明确。"
+      },
+      {
+        "id": "evidence-file-dark.png",
+        "sha256": "4a8f5f3c563a274ab9eb3f190850cd9f4b164472061dfa199e1224aa14d7babc",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：保存的 README 内容和读取来源分开，技术细节默认收起，未把内容当作授权。"
+      },
+      {
+        "id": "evidence-history-dark.png",
+        "sha256": "2416e503fca5db3c1f46220d867ca631aef222ec5f419042e5ae6a224e976145",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：历史工作会话的标题和执行受阻事实可读，技术信息按需披露。"
+      },
+      {
+        "id": "evidence-missing-dark.png",
+        "sha256": "9d4a93525415b524c175d4a5ceedf56e62a4912dbd6d9151f735ef688b937a38",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：明确保留来源但没有详细内容，没有把缺失资料显示成已读取；返回入口清楚。"
+      },
+      {
+        "id": "evidence-missing-760-light.png",
+        "sha256": "5f4b3784a72395e072de15b71fe5bff76b6a77efeea5c1f78abed29d86a6c9a2",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：明确保留来源但没有详细内容，没有把缺失资料显示成已读取；返回入口清楚。"
+      },
+      {
+        "id": "pending-reply-1600-dark.png",
+        "sha256": "2d82757c6e21fa0602a7adf7847e6e019d98aa97a23cb0e94d6dd02d6a0ffd19",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：准备回复状态与后台子任务分列，活动与详情合为左侧一个入口，保持未来气泡正文缩进，输入区和停止按钮保持可见。"
+      },
+      {
+        "id": "pending-reply-docked-light.png",
+        "sha256": "b1e6e925e29616b501ed529ecf3311f50401c537c4c6109393df05ccf2ca3143",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：准备回复状态与后台子任务分列，活动与详情合为左侧一个入口，保持未来气泡正文缩进，输入区和停止按钮保持可见。"
+      },
+      {
+        "id": "pending-reply-760-light.png",
+        "sha256": "8f5d6e57fdf22e67351db059ce2aedbc99ffe2c01de3ce487fc3be2bf17b199e",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：准备回复状态与后台子任务分列，活动与详情合为左侧一个入口，保持未来气泡正文缩进，输入区和停止按钮保持可见。"
+      },
+      {
+        "id": "history-dark.png",
+        "sha256": "6c4521eec6c4b0794d7b1bb5d4f2ed235d73837118c6e567b50c628d31d209ff",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：历史对话按日期分组，搜索、关闭与计数可读，窄窗长列表没有横向挤压。"
+      },
+      {
+        "id": "history-light.png",
+        "sha256": "84ab47d092c2fa0064a7613191c862041a4b5b38cd04030c1de6acef75975d1c",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：历史对话按日期分组，搜索、关闭与计数可读，窄窗长列表没有横向挤压。"
+      },
+      {
+        "id": "history-preview.png",
+        "sha256": "96b1db7dbd37c454b7a2cef26f939b23960996916c8cd0f666a39a1717ffffe1",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：历史对话正文与底部继续入口分开，未选择机器人时动作不假装可提交。"
+      },
+      {
+        "id": "history-narrow-large.png",
+        "sha256": "4d04c4326ad7be4b2dc6b9fe0799ce050c3f65e58ae3417ecee2dfd1f5c09a22",
+        "verdict": "pass",
+        "notes": "当前主题 窄窗：历史对话按日期分组，搜索、关闭与计数可读，窄窗长列表没有横向挤压。"
+      },
+      {
+        "id": "choice-send-1280-dark-before.png",
+        "sha256": "55af279579f48967a7101c59fc128f900b2695ee1a0772ff9235719099e124b3",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：选择前有一个有效问题角标，选择后选项退场并形成用户消息与单条回复，角标同步撤掉；动画连续性另由逐帧断言验证。"
+      },
+      {
+        "id": "choice-send-1280-dark-after.png",
+        "sha256": "24fde0a039ae2bde19bf45a68da6d47e037ae5a6e9df21e484eded845ff910df",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：选择前有一个有效问题角标，选择后选项退场并形成用户消息与单条回复，角标同步撤掉；动画连续性另由逐帧断言验证。"
+      },
+      {
+        "id": "choice-send-760-light-before.png",
+        "sha256": "1b81e499f3d330cd18ce458ef6ddd3ebff101ee6c532147fd1f354eecbbcfb02",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：选择前有一个有效问题角标，选择后选项退场并形成用户消息与单条回复，角标同步撤掉；动画连续性另由逐帧断言验证。"
+      },
+      {
+        "id": "choice-send-760-light-after.png",
+        "sha256": "be6729979980c3492d95a140c6f6a964f08fe6a7e20e613eca9aac6478ec12c7",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：选择前有一个有效问题角标，选择后选项退场并形成用户消息与单条回复，角标同步撤掉；动画连续性另由逐帧断言验证。"
+      },
+      {
+        "id": "updater-minimize-1280-dark-before.png",
+        "sha256": "ba602d08b5792492d5ea413a74a3ec5af03215134217ce1cfe076c1618cc4ac9",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：更新前弹窗与更新后左下进度各有明确落点，窄窗可读；静态截图只核对端态，动画及错误恢复由机器轨迹补证。"
+      },
+      {
+        "id": "updater-minimize-1280-dark-after.png",
+        "sha256": "cfcdfb0a45d3378372e3d51f1b4805bee293c04aa796682f53c765b800161f0f",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：更新前弹窗与更新后左下进度各有明确落点，窄窗可读；静态截图只核对端态，动画及错误恢复由机器轨迹补证。"
+      },
+      {
+        "id": "updater-minimize-760-light-before.png",
+        "sha256": "1393efc7b71abec1032947cf48e9f86df474123afccad5bdf4592e14a1b752e9",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：更新前弹窗与更新后左下进度各有明确落点，窄窗可读；静态截图只核对端态，动画及错误恢复由机器轨迹补证。"
+      },
+      {
+        "id": "updater-minimize-760-light-after.png",
+        "sha256": "e0700b0a483b2fb9d1066005682cfc6e0aa31053b93ab80ff3afefb5f6e56ef0",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：更新前弹窗与更新后左下进度各有明确落点，窄窗可读；静态截图只核对端态，动画及错误恢复由机器轨迹补证。"
+      },
+      {
+        "id": "bot-footer-progress-dark-narrow.png",
+        "sha256": "0cdc5f3e278f6421e91c39aec804db0798ce954314cb18b7e7c15194628c006e",
+        "verdict": "pass",
+        "notes": "深色 窄窗：设置、RC 标记与 42% 进度清楚对齐，局部窄栏内无裁切。"
+      },
+      {
+        "id": "task-report-loading.png",
+        "sha256": "ce12b98b31a27b12ec07ee451e5a5675f370631f7068627c25bb80443b9c2ebb",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：资料加载、不可用与保留旧资料的提示分别明确，重试入口和现有任务状态分开，未据加载失败制造新待办。"
+      },
+      {
+        "id": "task-report-unavailable.png",
+        "sha256": "18070a24e707367eb618ce9b4d4010d151f5e1382f26e2cdd95ce8fcb660ca7c",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：资料加载、不可用与保留旧资料的提示分别明确，重试入口和现有任务状态分开，未据加载失败制造新待办。"
+      },
+      {
+        "id": "task-report-stale.png",
+        "sha256": "615c9caccec329dd7f68df31dafe7ebd84c01b67b01dab1539b4e88e8782ffed",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：资料加载、不可用与保留旧资料的提示分别明确，重试入口和现有任务状态分开，未据加载失败制造新待办。"
+      },
+      {
+        "id": "conversation-updates-dark.png",
+        "sha256": "3bfb371a139526ddc51d90ae6d866a5c0d3a2d00da8156d7c626d50db65ff61c",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：两段公开进展保留且有分隔，活动说明与后台工作状态分别可见，输入区保持可用。"
+      },
+      {
+        "id": "conversation-updates-light.png",
+        "sha256": "79f8e4a222434a883df3887111aefd08c325c90aa65e68d4d8faff69a0390da1",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：两段公开进展保留且有分隔，活动说明与后台工作状态分别可见，输入区保持可用。"
+      },
+      {
+        "id": "conversation-complete.png",
+        "sha256": "abb5cb99638f24cf3fc38c0afca5989ec14ec14f3817e1eebbc82763d939c9b0",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：公开进展与正式答复均保留，背景任务独立显示；这里没有把普通回复结束当作整项工作验收。"
+      },
+      {
+        "id": "conversation-complete-light.png",
+        "sha256": "bb846ff3ae6cbb48baa4de459092286e4b6bc86022ea16e3456cdfdbc3cd78dc",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：公开进展与正式答复均保留，背景任务独立显示；这里没有把普通回复结束当作整项工作验收。"
+      },
+      {
+        "id": "conversation-details.png",
+        "sha256": "08ff0502f738c67bf9380fecf092e0acef546d03121a87bd4bdb64c282fe05aa",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：回复过程、脱敏调用参数及关联子任务分区，正文与过程没有混排。"
+      },
+      {
+        "id": "task-main-note.png",
+        "sha256": "7ae71eec8e6d900929bda79f484aac29fde0a55d89db73899e59d9b6fd813058",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：定位到主对话中的完整相关说明，长正文在气泡内换行，回复详情位于正文下方左侧。"
+      },
+      {
+        "id": "task-follow-up-draft.png",
+        "sha256": "6b713dae70eaa98ba49ade77970652707cfa509cb0b2b6e8ed59624c725f8d63",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：询问草稿保留引用任务标题且聚焦输入区，未自动发送，正文和已有回复分开。"
+      },
+      {
+        "id": "task-decision.png",
+        "sha256": "4901252d9cc758048978331a674080e6cd51dbbebcdffce599df18e09773c90e",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：任务详情展示具体需要回答的问题与回对话入口，任务信息默认收起，技术等待不冒充批准。"
+      },
+      {
+        "id": "task-main-question.png",
+        "sha256": "1b24c397cd749a6dfb8fac7b72ecd7b8292e72da198c7b5a1280a5d114db6e05",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：定位到对应主对话的具体问题与选项，焦点在选项；正文和任务摘要分开。"
+      },
+      {
+        "id": "task-detail-running.png",
+        "sha256": "80826fa9daa182fd86facc6b396586de2c8cfcce621de8d9f95fd304a108b0c3",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-waiting_user.png",
+        "sha256": "cae911ec43899551a47c389e9501796605bce18c1818c8561167ff8e5e0d12df",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-accepted.png",
+        "sha256": "29af813c89f79beac386c7225a3edb96e765fdcb49599ef9eeee62f6f792c462",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-failed.png",
+        "sha256": "6bce8b0e443a034bf31c217f44d028d95f2a656895ae60c33b2a986da515833a",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-1280-dark.png",
+        "sha256": "53856a5a58db73eef4362722ff7d9d7b171b88675946c4cd9ca8e039105118e6",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-1280-light.png",
+        "sha256": "780a042ceff3d88fe645f54dfe0bbe50761f5ece7aad1b6ab97cce393bf1371a",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-760-dark.png",
+        "sha256": "526f45290703e08342ddc47a1b2d024bdfd1f73fea766c923c1d2dfd6de64200",
+        "verdict": "pass",
+        "notes": "深色 窄窗：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "task-detail-760-light.png",
+        "sha256": "b8dd4c8f477ab2ab6ce9b84916891e76713a251097d2e1bfdc7c07349209e792",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：任务标题、当前状态、负责人、最近说明和任务信息有层次；接受与取消不要求再次决策。"
+      },
+      {
+        "id": "work-running.png",
+        "sha256": "446a0f0f90c600455caaa72e599d07097991e08a24dc2dfca7df1e70ccedcb2c",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：运行任务和回复依据分区，没有把执行中的状态算成需回答；主对话展开在动画途中拍摄，仅用 DOM 状态断言核对 open，不把裁切正文当作完整端态。"
+      },
+      {
+        "id": "work-waiting.png",
+        "sha256": "06dda8b3b88333d62a734a4cab407e92af01253eb5246950c61fafb77d310191",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：等待跟进明确由主机器人接手，两处入口与关联任务状态相符，原始等待不增加用户角标。"
+      },
+      {
+        "id": "work-waiting-760-light.png",
+        "sha256": "6f5b04611ceb1b6321bdf12a4639c03aac9b7cc1a922834598a860e58d0ff63b",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：等待跟进明确由主机器人接手，两处入口与关联任务状态相符，原始等待不增加用户角标。"
+      },
+      {
+        "id": "bot-overview.png",
+        "sha256": "4b0dcbfdd65adf07d325722ddd7e4397a8e945b842ae885095764877351fb270",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：机器人身份、绑定文件夹和执行中的任务分组，概要没有塞入完整历史。"
+      },
+      {
+        "id": "bot-memory.png",
+        "sha256": "38987719ae1ab55e25b30883f452b634d30c031fab14c9ee6553a58dd82efddb",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：已保存记忆与筛选控件分区，多条记忆列表可读，窄栏内容不越界。"
+      },
+      {
+        "id": "chat-process-summary.png",
+        "sha256": "2cdb297b3c1b9fcf64e1035ad930851aa08854104008ab5f9c65eac8bc23aec1",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：过程按步骤排列且技术信息按需展开，主对话当前问题与唯一角标相符。"
+      },
+      {
+        "id": "task-cancel-failed-dark.png",
+        "sha256": "15db8b166e31481b57ec0c369121d844e7425299ff96d59a2441ebe85f77b052",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：取消失败保留原任务与进展，清楚提示重试，没有把失败当成取消成功。"
+      },
+      {
+        "id": "task-cancelled-dark.png",
+        "sha256": "01f18626af8cefce789a2b02e9b61a3c7b25662327520a44a770c7657ed07871",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：取消后任务显示已取消，原有证据与另一个运行任务保留，未产生待用户确认角标。"
+      },
+      {
+        "id": "task-cancel-detail-760-light.png",
+        "sha256": "4fb1801acc78690d6de5dfe2c6cd1f362445c7b2d4d5a11b67309f45b1594fa3",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：取消与查看任务详情动作分开，窄窗详情中的责任说明和返回入口可读。"
+      },
+      {
+        "id": "long-error-760-dark.png",
+        "sha256": "32a29ebd04dc00d9fc9d5cb27447142a55683a9d6400e32c8e876530520b5e3a",
+        "verdict": "pass",
+        "notes": "深色窄窗：主气泡仅可读错误概述，长错误没有撑开正文；此图没有打开技术侧栏，侧栏换行由本轮 docked-light 图与机器边界断言补证。"
+      },
+      {
+        "id": "long-error-docked-light.png",
+        "sha256": "1a8443fd7848eb69fc51b0e892586a104a0cf5e3064ac3cb2c598bc44d9ed965",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：主气泡只有可读错误说明，长 JSON 只在所展开的侧栏换行展示，连续标识没有顶破内容边界。"
+      },
+      {
+        "id": "background-work-1600-dark.png",
+        "sha256": "5dd31d23511c6812155739b8da85b791a224319b19db1edce3211a49bbe4f343",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：中性“当前任务（1）”与输入框同列，折叠时不冒用运行任务身份或状态；本图只检查折叠摘要布局，同级展开由 parallel-work 场景补证。"
+      },
+      {
+        "id": "background-work-760-light.png",
+        "sha256": "df466c11385a0a89c9baad26bca76106f01b50cb2e6102ca6d83b97d3f4f91b5",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：中性“当前任务（1）”与输入框同列，折叠时不冒用运行任务身份或状态；本图只检查折叠摘要布局，同级展开由 parallel-work 场景补证。"
+      },
+      {
+        "id": "parallel-work-1280-dark.png",
+        "sha256": "523a958beb867b0edf3340c9e75b064a6d89d3f513e1e923fba7fa7e72ba334c",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：中性总览“当前任务（2）”没有借用任何任务名称；两条不同任务各出现一次、左边缘一致，第一项键盘展开且第二项关闭。深色图在展开动画途中拍摄，只验收任务分组与唯一性，不据此认定详情正文已完全展开；浅色窄窗另有完整展开端态。"
+      },
+      {
+        "id": "parallel-work-760-light.png",
+        "sha256": "cc48c422f855ddb38e04ba236df0d7d53c2e2d126c060811921b1b68d6f89780",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：中性总览“当前任务（2）”没有借用任何任务名称；两条不同任务各出现一次、左边缘一致，第一项键盘展开且第二项关闭。窄窗抽屉已关闭，第一项进展、详情与取消动作可见，没有被抽屉遮盖。"
+      },
+      {
+        "id": "fallback-vision-1280-dark.png",
+        "sha256": "dc06348199fa31697afa687efc1cbe3d83ee2329d62d551a65eba4cdce65e798",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：备用视觉模型的标签、说明与已保存服务摘要分组，说明字号更轻，左右内容垂直对齐。"
+      },
+      {
+        "id": "fallback-vision-1280-light.png",
+        "sha256": "bbc803ba9c8b8a50df114e5ce220f3d69d192b2e9491bddfef5d83131b5302e6",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：备用视觉模型的标签、说明与已保存服务摘要分组，说明字号更轻，左右内容垂直对齐。"
+      },
+      {
+        "id": "fallback-vision-760-dark.png",
+        "sha256": "4da046cc5876ad2a54af4f947db2c2a9de258a3594aae3ee71d3c4f98d2fd5a2",
+        "verdict": "pass",
+        "notes": "深色 窄窗：备用视觉模型的标签、说明与已保存服务摘要分组，说明字号更轻，左右内容垂直对齐。"
+      },
+      {
+        "id": "fallback-vision-760-light.png",
+        "sha256": "0add238079d0d7a6421ba2289d9489a807712b7d113d5c6edf94835c0329e1aa",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：备用视觉模型的标签、说明与已保存服务摘要分组，说明字号更轻，左右内容垂直对齐。"
+      },
+      {
+        "id": "providers-1280-dark.png",
+        "sha256": "d863c447588f22342404abb1d1f76ef5ac177e328d1223a772b4f9935aa8a328",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：服务商行与图像识别设置分组，默认/展开状态分别可读，连接菜单及选择控件保持独立。"
+      },
+      {
+        "id": "providers-expanded-1280-dark.png",
+        "sha256": "f23ef3c1559ed1e8fcc340fb2227d851c37f247b556c6df9619948d4a1958d96",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：服务商行与图像识别设置分组，默认/展开状态分别可读，连接菜单及选择控件保持独立。"
+      },
+      {
+        "id": "composer-empty-1280-dark.png",
+        "sha256": "f3b5799dd0b9e408a83b62be13dd3ed89aa8bb032f391d5103bb3b65835caed5",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：输入内容与底部模型/强度/发送控件分组；多行内容和附件没有挡住发送入口，空态视觉层次清楚。"
+      },
+      {
+        "id": "composer-empty-1280-light.png",
+        "sha256": "50a8750b572cbe8dd4caa39ad433f37cc848d9fc2d669705ad91318f17a0c9c1",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：输入内容与底部模型/强度/发送控件分组；多行内容和附件没有挡住发送入口，空态视觉层次清楚。"
+      },
+      {
+        "id": "composer-empty-760-dark.png",
+        "sha256": "d18071908ed889f106881cc1143ff8a7b62ea476bbbc68642ea4307003b54f51",
+        "verdict": "pass",
+        "notes": "深色 窄窗：输入内容与底部模型/强度/发送控件分组；多行内容和附件没有挡住发送入口，空态视觉层次清楚。"
+      },
+      {
+        "id": "composer-multiline-760-light.png",
+        "sha256": "57c821f00e286462de44bfba7202c9d3068dd666fd44454643926835960856ef",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：输入内容与底部模型/强度/发送控件分组；多行内容和附件没有挡住发送入口，空态视觉层次清楚。"
+      },
+      {
+        "id": "composer-attachment-1280-dark.png",
+        "sha256": "5c294c0b389384321febc952b2bdb56d691b29861c0db38fffc11cd3e16534ff",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：输入内容与底部模型/强度/发送控件分组；多行内容和附件没有挡住发送入口，空态视觉层次清楚。"
+      },
+      {
+        "id": "reply-dark.png",
+        "sha256": "fbe90e68f097d9f9656d5163464da0e6d0ed461e92244e47545d54d52bf7e650",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：回复内保留紧凑引用，正文和详情动作分开，未把引用变成独立冗余大卡。"
+      },
+      {
+        "id": "reply-light.png",
+        "sha256": "8367282552ee15372eb044f497eb3fa09fa7deaf783291186d86494487e23808",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：浅色回复内引用与正文可区分，详情图标与正文文字起点对齐，长摘录仅做摘要展示。"
+      },
+      {
+        "id": "reply-narrow-quote.png",
+        "sha256": "3ec6e3248b62ab95e28ea891dbe98045e766fdc802876650585093d340a235ba",
+        "verdict": "pass",
+        "notes": "当前主题 窄窗：窄窗引用与草稿或已发送消息保持在同一内容区，引用摘录没有挤出正文或发送按钮。"
+      },
+      {
+        "id": "reply-narrow-sent.png",
+        "sha256": "6e1fc37e59369eef19a633644b49161e92ac5dc583e6fbbb77ee3c708adc4170",
+        "verdict": "pass",
+        "notes": "当前主题 窄窗：窄窗引用与草稿或已发送消息保持在同一内容区，引用摘录没有挤出正文或发送按钮。"
+      },
+      {
+        "id": "bot-message-purple-dark.png",
+        "sha256": "40d5d5a411d3a6719644e049a76a984d009ccea2567208a3c84499e4d9003bd8",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：机器人头像与消息色对应，深浅主题正文和引用层次清楚，气泡内部没有文字溢出。"
+      },
+      {
+        "id": "bot-message-purple-light.png",
+        "sha256": "86ed4fa4d873ab84c640a56e81d69b8f0cf197d9382d391df720cffbc529f57d",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：机器人头像与消息色对应，深浅主题正文和引用层次清楚，气泡内部没有文字溢出。"
+      },
+      {
+        "id": "bot-message-pink-dark.png",
+        "sha256": "f516f5d630b641d28b18d9d7dc48e4639ddb36798a83442263602bd4494649eb",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：机器人头像与消息色对应，深浅主题正文和引用层次清楚，气泡内部没有文字溢出。"
+      },
+      {
+        "id": "bot-message-pink-light.png",
+        "sha256": "f884417e2b3c43f2bc2de26f6dbc1402e084e0379e114d8525dbc3e0a5a35561",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：机器人头像与消息色对应，深浅主题正文和引用层次清楚，气泡内部没有文字溢出。"
+      },
+      {
+        "id": "bot-message-green-dark.png",
+        "sha256": "3dbb0e5d10895246adeab8b96b506fbcf2797b13979f2234573a4cfb70178442",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：机器人头像与消息色对应，深浅主题正文和引用层次清楚，气泡内部没有文字溢出。"
+      },
+      {
+        "id": "bot-message-green-light.png",
+        "sha256": "e94b03d707d859e4b9031415183d0862b26e034ca0cf02a00b61eb51c5263f14",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：机器人头像与消息色对应，深浅主题正文和引用层次清楚，气泡内部没有文字溢出。"
+      },
+      {
+        "id": "quote-sent-1280-dark.png",
+        "sha256": "03b05f2b73ff915354223d07070caec6c7e5f1c75774e14825357607b0c14760",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：引用位于用户消息内部，原文摘要和用户补充正文分层，回执在气泡外右侧。"
+      },
+      {
+        "id": "quote-sent-1280-light.png",
+        "sha256": "6181074c7d5406f6aa01090bcb3ae0296dc36f967a032cfac51bfbfd26b8154d",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：引用位于用户消息内部，原文摘要和用户补充正文分层，回执在气泡外右侧。"
+      },
+      {
+        "id": "quote-reply-1280-dark.png",
+        "sha256": "aa38d60a2b18a18dd1bfa6882d53c6069c23718027e7cf32cedaef21fcb54502",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：短引用嵌入机器人气泡，保留原文与回复关系，窄窗正文完整换行；浮动回最新覆盖历史预算行的已知限制另记。"
+      },
+      {
+        "id": "quote-reply-1280-light.png",
+        "sha256": "1b5bf6e3e0f9174e45e819e9ad5e41a36afc47e926d45f65b5259f50fe03e0b3",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：短引用嵌入机器人气泡，保留原文与回复关系，窄窗正文完整换行；浮动回最新覆盖历史预算行的已知限制另记。"
+      },
+      {
+        "id": "quote-reply-760-dark.png",
+        "sha256": "9c07c89e8734f48660395c9a61a79aca1267b13f9e4bbc386ad9e0c0b183d52a",
+        "verdict": "pass",
+        "notes": "深色 窄窗：短引用嵌入机器人气泡，保留原文与回复关系，窄窗正文完整换行；浮动回最新覆盖历史预算行的已知限制另记。"
+      },
+      {
+        "id": "quote-reply-760-light.png",
+        "sha256": "de38fa5241385d43479310c543208108b6bf6fa1ea61fddeecbaccdcefaa5eb5",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：短引用嵌入机器人气泡，保留原文与回复关系，窄窗正文完整换行；浮动回最新覆盖历史预算行的已知限制另记。"
+      },
+      {
+        "id": "selection-quote-1280-dark.png",
+        "sha256": "7bcb0c3c081056971663357fab19ae632258833c2ce771b47cc55a9930866406",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：引用按钮位于实际选区旁而非消息底部，历史问题正文仍可引用，旧选项已收起；抽屉和窄窗下按钮均在聊天边界内。"
+      },
+      {
+        "id": "selection-quote-760-light.png",
+        "sha256": "13576180ac6d3aeb1c21b0d94c6cdb45086a6fa47ba0dd8c2cdf7dc64065b3e0",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：引用按钮位于实际选区旁而非消息底部，历史问题正文仍可引用，旧选项已收起；抽屉和窄窗下按钮均在聊天边界内。"
+      },
+      {
+        "id": "selection-quote-docked-light.png",
+        "sha256": "ec6748985a38b59ca83b56ba3d14016dca32e48b6b5f250cb20dc567b43f9cd9",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：引用按钮位于实际选区旁而非消息底部，历史问题正文仍可引用，旧选项已收起；抽屉和窄窗下按钮均在聊天边界内。"
+      },
+      {
+        "id": "completion-review-card.png",
+        "sha256": "1bd34b3b1b48c041d03549813ba6f230b617410d7276b0fe6716ec1852bd6092",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：人工完成检查展示报告目标、查看报告和确认已达成，完整报告另开侧栏，未直接替用户签收结果。"
+      },
+      {
+        "id": "completion-review-report.png",
+        "sha256": "685cd7494dd4462c42612da0333f3f34ffa2b9f21f88a3e47338f2e0080b29b0",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：人工完成检查展示报告目标、查看报告和确认已达成，完整报告另开侧栏，未直接替用户签收结果。"
+      },
+      {
+        "id": "completion-review-760-light.png",
+        "sha256": "d588b37bc11d1ed15167bbbc34562366a6a25109e1512cfb13313a51d19d7556",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：人工完成检查展示报告目标、查看报告和确认已达成，完整报告另开侧栏，未直接替用户签收结果。"
+      },
+      {
+        "id": "image-live-wait-1280-dark.png",
+        "sha256": "a8488c0ee15a7061a76ab0ec34e745314fa0939844f5809dc1570419479f03e9",
+        "verdict": "pass",
+        "notes": "图片读取明确等待授权，图片路径、30 分钟范围与等待期限清楚；允许、拒绝、取消动作完整，当前角标仅为这条图片授权。"
+      },
+      {
+        "id": "image-live-wait-760-light.png",
+        "sha256": "3d7544755028e9a1f8a624eea87daca385f81e8a9811be6ceee76df98d278b9d",
+        "verdict": "pass",
+        "notes": "图片读取明确等待授权，图片路径、30 分钟范围与等待期限清楚；允许、拒绝、取消动作完整，当前角标仅为这条图片授权。"
+      },
+      {
+        "id": "image-full-1280-dark.png",
+        "sha256": "c5b6d8ae3af34ae01f481b5c780609a53c13c403ec348acf86081648aadf13b5",
+        "verdict": "pass",
+        "notes": "完全访问模式下图片连续读取后保留两段公开进展，当前输入区显示完全访问；没有新图片授权卡或需处理数字。"
+      },
+      {
+        "id": "image-full-760-light.png",
+        "sha256": "94269e5b6c9d4a400ed7232d3af8c09ec1d2fc0809679d7d09530ac3f3357d40",
+        "verdict": "pass",
+        "notes": "完全访问模式下图片连续读取后保留两段公开进展，当前输入区显示完全访问；没有新图片授权卡或需处理数字。"
+      },
+      {
+        "id": "image-live-allow-1280-dark.png",
+        "sha256": "ea7cf6cf6c3a3cccb047021c1753177ab6d20dbc417fdd494e3a8378002b853a",
+        "verdict": "pass",
+        "notes": "对应授权、拒绝、取消、停止或超时的回执清楚，图片历史回执不增加角标；当前图片没有继续假运行。截图只表示源码本地解码流程，模型反馈使用受控夹具。"
+      },
+      {
+        "id": "image-live-deny-1280-dark.png",
+        "sha256": "b6647a3a5860c2ffbc8fef8c810944aa90f527819760732795c3aae8ebb5d166",
+        "verdict": "pass",
+        "notes": "对应授权、拒绝、取消、停止或超时的回执清楚，图片历史回执不增加角标；当前图片没有继续假运行。截图只表示源码本地解码流程，模型反馈使用受控夹具。"
+      },
+      {
+        "id": "image-live-cancel-1280-dark.png",
+        "sha256": "54f6053c62ffc112bb086ec1bab5474ce22377ae709aa19f87207bc80f3b00af",
+        "verdict": "pass",
+        "notes": "对应授权、拒绝、取消、停止或超时的回执清楚，图片历史回执不增加角标；当前图片没有继续假运行。截图只表示源码本地解码流程，模型反馈使用受控夹具。"
+      },
+      {
+        "id": "image-live-stop-1280-dark.png",
+        "sha256": "1d4402bcadaddd00e6b7baad71822668789f5aa94767f80c3a96ec52e89d6b3d",
+        "verdict": "pass",
+        "notes": "对应授权、拒绝、取消、停止或超时的回执清楚，图片历史回执不增加角标；当前图片没有继续假运行。截图只表示源码本地解码流程，模型反馈使用受控夹具。"
+      },
+      {
+        "id": "image-live-timeout-1280-dark.png",
+        "sha256": "5ce4f9d919ef401e3651ed3e1821ae2977f5e090359415065d58d146ba038f82",
+        "verdict": "pass",
+        "notes": "对应授权、拒绝、取消、停止或超时的回执清楚，图片历史回执不增加角标；当前图片没有继续假运行。截图只表示源码本地解码流程，模型反馈使用受控夹具。"
+      },
+      {
+        "id": "image-approval-1280-dark.png",
+        "sha256": "993cd247e6f7dc5cfd7c04005576b5d1615c7446c16cb1757b5fb70f196a7b7c",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：图片路径与作用范围清楚，允许、拒绝及取消操作与另一个写操作分开，窄窗路径自然折行。"
+      },
+      {
+        "id": "image-approval-760-light.png",
+        "sha256": "d5fd14d5554bd9c9c672f20d42b4816f0a73b6e4f5a31ee1276354d5e48dcec6",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：图片路径与作用范围清楚，允许、拒绝及取消操作与另一个写操作分开，窄窗路径自然折行。"
+      },
+      {
+        "id": "process-empty-1280-dark.png",
+        "sha256": "d989a9121bf2174cc154aef21dd3cb234abceb947f0f6a27eaf2e17afd3bedae",
+        "verdict": "pass",
+        "notes": "回复详情的过程空态紧贴过程标题下方，正文与标题使用相同左内边距，没有原来多余的段落上下空白；深浅主题及窄侧栏内文字完整换行。"
+      },
+      {
+        "id": "process-empty-1280-light.png",
+        "sha256": "22c3ca5eab8ae7c20481d498fb27091e4a8eaa59e11cd3de61d84ef0aaf69f77",
+        "verdict": "pass",
+        "notes": "回复详情的过程空态紧贴过程标题下方，正文与标题使用相同左内边距，没有原来多余的段落上下空白；深浅主题及窄侧栏内文字完整换行。"
+      },
+      {
+        "id": "process-empty-760-dark.png",
+        "sha256": "6bb44edaaee8434cc1f9c99928e901079cb35de4856aa36fa5df1cb494938f41",
+        "verdict": "pass",
+        "notes": "回复详情的过程空态紧贴过程标题下方，正文与标题使用相同左内边距，没有原来多余的段落上下空白；深浅主题及窄侧栏内文字完整换行。"
+      },
+      {
+        "id": "process-empty-760-light.png",
+        "sha256": "da71b84e4077b7b619334535262b285bd998503f01c404595344cf15cc6e5296",
+        "verdict": "pass",
+        "notes": "回复详情的过程空态紧贴过程标题下方，正文与标题使用相同左内边距，没有原来多余的段落上下空白；深浅主题及窄侧栏内文字完整换行。"
+      },
+      {
+        "id": "conversation-typography-1280-dark.png",
+        "sha256": "47fd6e9747dbf43388878daf9dd12c3c02a1829220c2f25cc453983cac6e1696",
+        "verdict": "pass",
+        "notes": "正文、加粗结论及小标题有清楚层次，列表与代码保留自然间距；已结束授权收成紧凑记录，待处理授权按钮仍直接可见，窄窗正文未横向溢出。"
+      },
+      {
+        "id": "approval-history-1280-dark.png",
+        "sha256": "063463994f17e628fa15a5a72fdaa7665d6940750de0354592823584aa8bdfb1",
+        "verdict": "pass",
+        "notes": "已授权记录可展开完整命令，拒绝和超时记录仍各自显示真实状态；展开内容自然换行，待处理授权按钮保持独立可见。"
+      },
+      {
+        "id": "conversation-typography-760-light.png",
+        "sha256": "7e87814cccea228e9d07ec5af16a3bf15c0b119147a82c77e7f0044ca36ed3a0",
+        "verdict": "pass",
+        "notes": "正文、加粗结论及小标题有清楚层次，列表与代码保留自然间距；已结束授权收成紧凑记录，待处理授权按钮仍直接可见，窄窗正文未横向溢出。"
+      },
+      {
+        "id": "approval-history-760-light.png",
+        "sha256": "783060f23fc4ba22d4deec752a362454e9299b3f5a64eba0b061a1afea9578f3",
+        "verdict": "pass",
+        "notes": "已授权记录可展开完整命令，拒绝和超时记录仍各自显示真实状态；展开内容自然换行，待处理授权按钮保持独立可见。"
+      },
+      {
+        "id": "process-timing-dark.png",
+        "sha256": "23ba1ff777a6119a1662966a1be586adc6c344072d009bd60d76712cee1fd363",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：过程条目分别显示结束状态和真实时长，少于一秒与两秒可区分，不保留假运行计时。"
+      },
+      {
+        "id": "process-timing-light.png",
+        "sha256": "36b9cf8d3bca52c1cc109ccb8152eca3be0d31749f673141ef280439ef83350c",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：过程条目分别显示结束状态和真实时长，少于一秒与两秒可区分，不保留假运行计时。"
+      },
+      {
+        "id": "budget-exhausted-dark.png",
+        "sha256": "8c540f4a8f2342ca86979005a4a55648327028c7b5d4c3136615602ef07256d0",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：配置预算上限、已用请求与来源明确，进展保留，错误诊断不混入正文；技术限制没有变成用户待回答问题。"
+      },
+      {
+        "id": "budget-exhausted-light.png",
+        "sha256": "bc129a3eef4e1326181ba7be986b7a160dc0422e08ae853d71165694242b0996",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：配置预算上限、已用请求与来源明确，进展保留，错误诊断不混入正文；技术限制没有变成用户待回答问题。"
+      },
+      {
+        "id": "manual-wake-retry-dark.png",
+        "sha256": "107596091fc618a120c434070f6fe3cbc255a95c8f42a1933b3c8a6f5d57ea9d",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：主 Bot 的继续安排与正在重试的公开进展分开，输入框停止入口仍可用，没有重复生成用户要求。"
+      },
+      {
+        "id": "manual-wake-retry-light.png",
+        "sha256": "5e5b579c982e32af6f0221701991abcd09897e0012b473193f4909e758a0b23e",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：主 Bot 的继续安排与正在重试的公开进展分开，输入框停止入口仍可用，没有重复生成用户要求。"
+      },
+      {
+        "id": "recovery-missing-checkpoint-dark.png",
+        "sha256": "cb98ad9f43daafd98e9e4542a81349d3707f612b10a8fa4169bea36635078741",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：说明恢复记录不完整，历史来源行和相邻无进展说明分开，当前恢复项没有直接重放按钮；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-missing-checkpoint-light.png",
+        "sha256": "666cff14f481c232bec9dbd34f9a36f2c30bdc1c820cc7d60b11435737827cb4",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：说明恢复记录不完整，历史来源行和相邻无进展说明分开，当前恢复项没有直接重放按钮；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-scheduled-dark.png",
+        "sha256": "57466a67fad49e26f2d04aa0fd4d05b88161be8e51a301bbc0e7352612a30eb3",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：两段公开进展独立保留，详情入口在左下；此截图未完整露出安排继续的底部说明，准确状态与动作由同轮机器断言补证；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-scheduled-light.png",
+        "sha256": "dcf0bea62d79b825176cfd654fdf5e387fb66b3938fc64b254bb027995aa8aff",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：两段公开进展独立保留，详情入口在左下；此截图未完整露出安排继续的底部说明，准确状态与动作由同轮机器断言补证；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-exhausted-dark.png",
+        "sha256": "5c4aed2c53215bac85a00c3b7df9c97a4b404becaf7c9025e17e4b374630d683",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：明确连接尚未恢复，继续尝试按钮与主气泡分开；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-exhausted-light.png",
+        "sha256": "c46f384693d6e20b381459eda17d41b6f7872fc82c41109f31c1646da6d21fe8",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：明确连接尚未恢复，继续尝试按钮与主气泡分开；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-authentication-dark.png",
+        "sha256": "178fff56893cee381cafc3ff0d348b55fea18d25f171544e97c2492cb42e3066",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：身份验证说明清楚，与此前连接失败记录分段保留；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-authentication-light.png",
+        "sha256": "5686bf8217f558fc2ef2217f9d691d10e5708484dcd3fff00460add96ed907ac",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：身份验证说明清楚，与此前连接失败记录分段保留；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-unknown-dark.png",
+        "sha256": "1972fc20fd8097b71f02d76d7694d70b8b01a8b0da3b47362f2f5574fcdd3bf4",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：操作结果待核对而非宣称失败重做，当前条目没有重放动作；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-unknown-light.png",
+        "sha256": "da0751dc14201caff637d51d022a99d94fa11deb205fc05cf49ce28cbf9f2e05",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：操作结果待核对而非宣称失败重做，当前条目没有重放动作；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-resolved-dark.png",
+        "sha256": "0bd2de01ca3381729f331eb2f73d957e5eac8b465c5b1b185ec2436e98c8785d",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：已恢复的旧主 Bot 回复收进历史行，详情可发现；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-resolved-light.png",
+        "sha256": "308494bc721bcd0675baa82837d44a25934d7896e24d4a51f42da799c05a7e1e",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：已恢复的旧主 Bot 回复收进历史行，详情可发现；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-no-progress-dark.png",
+        "sha256": "01fa4e88c5511dde21b03fd03ae2867f5b33e66eb4ee529a7bd7583ece16a804",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：明确停止重复执行，子 Agent 活动独立排列；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-no-progress-light.png",
+        "sha256": "92a6903bfc6b663efc068fcede4d4fa5856c82f1a146be4f342d288f4a6081ea",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：明确停止重复执行，子 Agent 活动独立排列；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-child-running-dark.png",
+        "sha256": "7631c640ecb36658c08ea7758fd425993333a43c3218de85731093e74cfe2bc2",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：主 Bot 本次未回复的说明与仍推进的子任务分开，没有把后台工作写成用户待办；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-child-running-light.png",
+        "sha256": "0d0a4828dcf1b31519a6ed9e96c13c1e254e65ad0fafabdb838f32db753be073",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：主 Bot 本次未回复的说明与仍推进的子任务分开，没有把后台工作写成用户待办；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-historical-dark.png",
+        "sha256": "c0f7b2bad7e4aa3f50a6a0ee719763c16fd325a4509adfb24decbc4c93ca20d5",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：此前主 Bot 未完成被标记为历史记录，与当前失败及后台任务区分；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-historical-light.png",
+        "sha256": "c326d295777109853aa727a44a88cc084fd1a5befcfd7a98c646972552217971",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：此前主 Bot 未完成被标记为历史记录，与当前失败及后台任务区分；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-paused-dark.png",
+        "sha256": "a0d7c3cd53166e409a5eeb8a6b7505cd745aa8017a80b381e695f59336ac2bc9",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：暂停说明没有继续按钮，旧错误在上方分开保留；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-paused-light.png",
+        "sha256": "f29f89642728fb83ff75f37ff8eba6053b245d77d777bef6834f47748fe26a9a",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：暂停说明没有继续按钮，旧错误在上方分开保留；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-cancelled-dark.png",
+        "sha256": "607da51747ac698a89cc5d2c279b2fa54db6ff17671dc924f3783f356f0d2171",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：取消说明与普通后续消息分开，没有把取消任务显示为待用户处理；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-cancelled-light.png",
+        "sha256": "13b5f78cd2495d0d57033ab85579474ef49d5ec2154c9bbbbabed24fea016676",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：取消说明与普通后续消息分开，没有把取消任务显示为待用户处理；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-unknown-dark.png",
+        "sha256": "829f621dee39f485867d874f8e3c14f413583ace811cef38d473f2f49eeca9c5",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：预算未知明确显示为未知，费用说明可读，当前项没有继续按钮；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-unknown-light.png",
+        "sha256": "2bd534078370dbccb172e6b1937eb84e2cb279962f9d6d016187ebef2886e69f",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：预算未知明确显示为未知，费用说明可读，当前项没有继续按钮；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-ready-dark.png",
+        "sha256": "cc228bfdabed20b876ef03d4e9d78d28e1ceea9a1b4006eb7c6696f8a46ea0b0",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：预算限制已调整，已有进展和继续入口可读；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-ready-light.png",
+        "sha256": "f530f05cc08076e897849034b210088310337387b5c20962f79f8793a8c35aca",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：预算限制已调整，已有进展和继续入口可读；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-migrating-dark.png",
+        "sha256": "a32a2f9199aa86d5d0b71fce8ce25dbf693a9caaa8be157ea2d043f20c1c21f5",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：已安排继续主 Bot，未制造新的回答要求；浮动回最新在部分位置覆盖历史行，见限制；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-migrating-light.png",
+        "sha256": "017691a26135674600dfca9c9c6d7661391a0f65725646945d2e34ce2101a3e9",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：已安排继续主 Bot，未制造新的回答要求；浮动回最新在部分位置覆盖历史行，见限制；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-reserved-dark.png",
+        "sha256": "b5e2ac1733325d30fb75da56e2e99b83d8ff7eeb5896b0aa93e59e851e6da479",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：说明另一项工作暂占预算，费用事实与回复分段；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-reserved-light.png",
+        "sha256": "328d9ca8721336d8682c33eeaa984be9122a2acbd8c2e3f77afada1cf156433b",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：说明另一项工作暂占预算，费用事实与回复分段；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-available-dark.png",
+        "sha256": "dc1c1755edb819cb0cc9f03e17ef688be77518e065ab90fa50f605955ae4333c",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：释放预算后显示继续入口，说明与动作各占清楚位置；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "recovery-budget-available-light.png",
+        "sha256": "2c7c454af6a63b093d8fdda2e26e9cc0659c5aee0a80a07ba5cd391d4c88b1ec",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：释放预算后显示继续入口，说明与动作各占清楚位置；主要文字在内容列内，未新增需要用户回答的角标。"
+      },
+      {
+        "id": "work-verifying.png",
+        "sha256": "6bea625406c8a101a6d5261f4d137776dd19bd00c377b1bb37e3c5ab47181d67",
+        "verdict": "pass",
+        "notes": "当前主题 宽窗或局部截图：核验状态优先显示，主对话和侧栏一致；未完成核验不被写成用户确认或完成。"
+      },
+      {
+        "id": "work-repair-1280-dark.png",
+        "sha256": "f9d548fd9e22fc4158b1e5f109747e1cde6b22cc0d9419da1ab180d4ce81c5be",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：未完成复核的后续责任归主 Bot，窄窗详情内说明和任务动作可读，不暗示用户要修复技术问题。"
+      },
+      {
+        "id": "work-repair-760-light.png",
+        "sha256": "9660f816877e3ee36bda653c706083319fd67e5858c11227aae6755ea6d103ac",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：未完成复核的后续责任归主 Bot，窄窗详情内说明和任务动作可读，不暗示用户要修复技术问题。"
+      },
+      {
+        "id": "reply-presence-progress-dark.png",
+        "sha256": "703f5bd7c76a8a7c58d368d41cad2714836ae30568e33dc5ef3914c13b8b68ee",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：活动“正在整理回复”与侧栏 SVG 共用气泡左下一个入口，右侧过程单独呈现，未再添加远端查看详情。"
+      },
+      {
+        "id": "reply-entry-idle-dark.png",
+        "sha256": "812b0ebe9c98b8405f9c717a3b269edf45437807ab882fdfb6f4978d811d1b67",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：消息未悬停时详情标签隐藏，问题选项与后续输入区各自清楚；下方预留行未挤压正文。"
+      },
+      {
+        "id": "reply-entry-hover-dark.png",
+        "sha256": "9b8e6ff089c6266c1377120d4cd2cfd51f6452f49bfc7cda2dd09b432a65db7e",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：实际悬停截图中，侧栏 SVG 与“回复详情”置于气泡下方左侧，入口轻于正文，未拉到整列最右端。"
+      },
+      {
+        "id": "reply-entry-idle-light.png",
+        "sha256": "c82ecd763f6e5a9e0e296522e2fef97b6f1115e27fbbf9e1bf9d7bcadebd8abd",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：消息未悬停时详情标签隐藏，问题选项与后续输入区各自清楚；下方预留行未挤压正文。"
+      },
+      {
+        "id": "reply-entry-hover-light.png",
+        "sha256": "51efd13b3928417831a492a87f356b35e9f212685ad7ded0979f9688f5084f58",
+        "verdict": "pass",
+        "notes": "浅色 宽窗或局部截图：实际悬停截图中，侧栏 SVG 与“回复详情”置于气泡下方左侧，入口轻于正文，未拉到整列最右端。"
+      },
+      {
+        "id": "yield-feedback-1280-dark.png",
+        "sha256": "e25ddb1f0dd30bd1622d5ba7775e841e139644124f0573f9c38d2690283334bd",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：主 Bot 继续准备下一步的状态保留，子任务仍在单独条目中，没有把后台让出执行误报成需要用户回答。"
+      },
+      {
+        "id": "yield-feedback-760-light.png",
+        "sha256": "05e3819dccb51e3db23c0f1810568c9d37bf143ae8b8289af343739365171918",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：主 Bot 继续准备下一步的状态保留，子任务仍在单独条目中，没有把后台让出执行误报成需要用户回答。"
+      },
+      {
+        "id": "retry-history-1280-dark.png",
+        "sha256": "c19d540ae2d31ddbe9dcd2647a2c6dfe179ec410a38f58cf18d4eb1ec57f136a",
+        "verdict": "pass",
+        "notes": "深色 宽窗或局部截图：两次旧中断收成历史行，公开进展和最新回复保留，没有残留操作失败回执或无效重试。"
+      },
+      {
+        "id": "retry-history-760-light.png",
+        "sha256": "2a98ab4e629ac81eedcff8abce45746522799e032f801269f7e13f6391220685",
+        "verdict": "pass",
+        "notes": "浅色 窄窗：两次旧中断收成历史行，公开进展和最新回复保留，没有残留操作失败回执或无效重试。"
+      },
+      {
+        "id": "attention-1280-dark.png",
+        "sha256": "7e782bad5f3288ba09283e418c2c183f751b8bf4d8e30239850b3795c06bcafd",
+        "verdict": "pass",
+        "notes": "深色明细仅列出 project-000 的当前一条交付选择，分组数量为 1；前面的重复提问没有残留，原文入口和两项选择分开。"
+      },
+      {
+        "id": "attention-760-light.png",
+        "sha256": "8b4f91fe45404a4b9f80492053824819f5aeae7ccdf6a2d76acabc1e543fe210",
+        "verdict": "pass",
+        "notes": "逐张检查：仅 project-001 的一条新决定，旧问题已被替代；两项回答和原文动作均在面板内，没有横向溢出。"
+      },
+      {
+        "id": "attention-empty-light.png",
+        "sha256": "e797b4e92ba06061fb6c04bf71e4be5cf432ad4c24f2f62088cb8f0acd0c2b0a",
+        "verdict": "pass",
+        "notes": "逐张检查：处理后出现清晰空态和 SVG 勾，明确机器人继续跟进工作，无残留选项。"
+      },
+      {
+        "id": "attention-expired-light.png",
+        "sha256": "e5380ba341996bca5fe42316d6b665cb3ac09df8e7ddd271bf96861554a8c2fb",
+        "verdict": "pass",
+        "notes": "逐张检查：明确期限结束后自动转为空态，没有可点的过期决定；时效行为由机器断言补证。"
+      },
+      {
+        "id": "attention-image-permission-dark.png",
+        "sha256": "74e0f52a71cc1d8ad4c4d2eb69a2869c9b6a8c5c3e29ffe50d762dbbe1c9a3e1",
+        "verdict": "pass",
+        "notes": "图片授权出现在需要你处理的明细内，project-000 分组计数为 1；图片路径、等待期限及允许、拒绝、取消动作完整显示。"
+      },
+      {
+        "id": "user-receipt-1280-dark.png",
+        "sha256": "d9caf1378c4eefe6f95796765f8a2cd64856f58d6bec368724e7d40f8fe04940",
+        "verdict": "pass",
+        "notes": "收尾输入的气泡下方只显示一条轻量已回复，三项来源没有生成三枚按钮；正式收尾回复完整保留，输入区无挤压。"
+      },
+      {
+        "id": "user-receipt-760-light.png",
+        "sha256": "6a09d6e37ebfadfb127f12fd3555b78dd1342f28c3e503707a339d4bea1f2d31",
+        "verdict": "pass",
+        "notes": "窄窗收尾输入下方只有一次已回复；回复在气泡内自然换行，没有横向溢出。任务来源和键盘打开、重开由本轮交互断言验证。"
+      }
+    ],
+    "findings": [
+      {
+        "screenshot": "parallel-work-1280-dark.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "深色截图处于内层展开过渡，标题、总数与同级唯一行可见；只据此核对任务关系，完整端态由浅色窄窗截图和真实交互断言补证。"
+      },
+      {
+        "screenshot": "quick-chat-bots-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "透明 Quick Chat 截图合成为黑底，不能据此确认真实浅色桌面背景对比；常规聊天的浅色主题另行检查。"
+      },
+      {
+        "screenshot": "quote-reply-760-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "已有回到最新消息浮钮在历史位置覆盖预算行局部文字；本轮修复的空态说明、授权和事项操作均未被遮挡，不把该历史行算作完整视觉覆盖。"
+      },
+      {
+        "screenshot": "updater-minimize-760-light-before.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "受控更新动画及部分连续场景保留 RC9 元数据，Footer 专项明确显示 RC24；仅验证组件与动画，不作为真实版本或安装升级验收。"
+      },
+      {
+        "screenshot": "agent-activity-760-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "窄窗活动截图的后续气泡部分位于可视区以下，回到最新浮钮遮住局部文字；核验事实数量、图标和状态在视区内清楚可见，完整气泡与间距由宽窗及独立会话场景补证。"
+      }
+    ],
+    "checks": {
+      "botAccessPolicy": {
+        "passed": true,
+        "realLocalIPC": true,
+        "durablePolicy": true,
+        "keyboard": true,
+        "isolatedBots": true,
+        "childMetadata": true,
+        "childReadOnly": true,
+        "returnsToBot": true,
+        "darkWideLightNarrow": true
+      },
+      "imageFullAccess": {
+        "realCalls": true,
+        "images": 4,
+        "pixels": true,
+        "evidence": true,
+        "noPermissionCards": true,
+        "noApprovalRecords": true
+      },
+      "attention": {
+        "passed": true,
+        "realDirectory": true,
+        "realQueue": true,
+        "duplicateRetired": true,
+        "staleClickRejected": true,
+        "keyboard": true,
+        "notificationFocus": true,
+        "failureRecovery": true,
+        "crossBotIsolation": true,
+        "liveReplacement": true,
+        "countEqualsDetail": true,
+        "sourceLocated": true,
+        "expiresAutomatically": true,
+        "largeHistoryMessages": 10000
+      },
+      "agentActivity": {
+        "cases": [
+          {
+            "width": 1280,
+            "appearance": "dark",
+            "named": true,
+            "svg": true,
+            "stableIdentity": true,
+            "distinctShapes": true,
+            "legacyReportDeduped": true,
+            "taskDestination": true,
+            "humanWaitDistinct": true,
+            "verificationProgress": true,
+            "fits": true
+          },
+          {
+            "width": 760,
+            "appearance": "light",
+            "named": true,
+            "svg": true,
+            "stableIdentity": true,
+            "distinctShapes": true,
+            "legacyReportDeduped": true,
+            "taskDestination": true,
+            "humanWaitDistinct": true,
+            "verificationProgress": true,
+            "fits": true
+          }
+        ],
+        "scope": "Production renderer and IPC with explicit isolated Agent facts; communication/Runner execution tested separately"
+      },
+      "parallelWork": {
+        "neutralGroup": true,
+        "cases": [
+          {
+            "width": 1280,
+            "appearance": "dark",
+            "sameLevel": true,
+            "uniqueRows": true,
+            "independentExpansion": true
+          },
+          {
+            "width": 760,
+            "appearance": "light",
+            "sameLevel": true,
+            "uniqueRows": true,
+            "independentExpansion": true
+          }
+        ]
+      },
+      "conversationTypography": {
+        "cases": [
+          {
+            "width": 1280,
+            "appearance": "dark",
+            "body": "15px",
+            "weight": "500",
+            "emphasis": "600",
+            "code": "13px",
+            "codeWeight": "400",
+            "fits": true,
+            "recordSpacing": [
+              4,
+              4
+            ],
+            "compactReceipt": true,
+            "fullCommandPreserved": true,
+            "pendingVisible": true
+          },
+          {
+            "width": 760,
+            "appearance": "light",
+            "body": "15px",
+            "weight": "500",
+            "emphasis": "600",
+            "code": "13px",
+            "codeWeight": "400",
+            "fits": true,
+            "recordSpacing": [
+              4,
+              4
+            ],
+            "compactReceipt": true,
+            "fullCommandPreserved": true,
+            "pendingVisible": true
+          }
+        ],
+        "keyboardDisclosure": true,
+        "truthfulApprovalStates": true
+      },
+      "userReceipt": {
+        "singleReceipt": true,
+        "noTaskDuplicates": true,
+        "sourcesRetained": true,
+        "keyboard": true,
+        "cases": [
+          {
+            "width": 1280,
+            "appearance": "dark",
+            "singleReceipt": true,
+            "sourcesRetained": true,
+            "keyboard": true,
+            "fits": true
+          },
+          {
+            "width": 760,
+            "appearance": "light",
+            "singleReceipt": true,
+            "sourcesRetained": true,
+            "keyboard": true,
+            "fits": true
+          }
+        ]
+      },
+      "processEmptyLayout": [
+        {
+          "width": 1280,
+          "appearance": "dark",
+          "top": 8,
+          "bottom": 8,
+          "left": 10,
+          "right": 10,
+          "headingOffset": 0,
+          "fits": true
+        },
+        {
+          "width": 1280,
+          "appearance": "light",
+          "top": 8,
+          "bottom": 8,
+          "left": 10,
+          "right": 10,
+          "headingOffset": 0,
+          "fits": true
+        },
+        {
+          "width": 760,
+          "appearance": "dark",
+          "top": 8,
+          "bottom": 8,
+          "left": 10,
+          "right": 10,
+          "headingOffset": 0,
+          "fits": true
+        },
+        {
+          "width": 760,
+          "appearance": "light",
+          "top": 8,
+          "bottom": 8,
+          "left": 10,
+          "right": 10,
+          "headingOffset": 0,
+          "fits": true
+        }
+      ]
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "upgrade": {
+    "sourceHead": "52714684e7b680c5c2839afec292f22e136e09e3",
+    "sourceDirty": false,
+    "fixtureRemoved": true,
+    "ok": true,
+    "checks": [
+      {
+        "name": "0.0.18 -> v0.1.0-beta.1",
+        "ok": true
+      },
+      {
+        "name": "0.0.18 -> v0.1.0-beta.2",
+        "ok": true
+      },
+      {
+        "name": "0.0.18 -> v0.1.0-beta.3",
+        "ok": true
+      },
+      {
+        "name": "0.0.18 -> v0.1.0-beta.4",
+        "ok": true
+      },
+      {
+        "name": "0.0.18 -> v0.1.0-beta.5",
+        "ok": true
+      },
+      {
+        "name": "0.0.18 -> v0.1.0-beta.1; restart",
+        "ok": true
+      },
+      {
+        "name": "v0.1.0-beta.1 -> v0.1.0-beta.2; restart",
+        "ok": true
+      },
+      {
+        "name": "v0.1.0-beta.2 -> v0.1.0-beta.3; restart",
+        "ok": true
+      },
+      {
+        "name": "v0.1.0-beta.3 -> v0.1.0-beta.4; restart",
+        "ok": true
+      },
+      {
+        "name": "v0.1.0-beta.4 -> v0.1.0-beta.5; restart",
+        "ok": true
+      },
+      {
+        "name": "beta.5 -> 0.0.18 reader/write -> RC re-upgrade preserves all new data",
+        "ok": true
+      },
+      {
+        "name": "migration backup failure keeps original settings and legacy data",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-beta.1 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-beta.2 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-beta.3 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-beta.4 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-beta.5 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.1 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.2 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.3 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.4 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.5 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.6 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.7 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.8 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.9 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.10 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.11 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.12 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.13 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.14 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.15 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.16 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.17 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.18 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.19 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.20 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.21 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.22 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.23 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "0.1.0-rc.24 auto -> GA stable updater graduation",
+        "ok": true
+      },
+      {
+        "name": "explicit beta stays beta; older stable feed falls back without download",
+        "ok": true
+      }
+    ]
+  },
+  "publishedAssets": [
+    {
+      "name": "beta.yml",
+      "size": 367,
+      "sha256": "271c3cb8f085ff5468fa27a4656e21b51d7326c89a6663f782f052cf506440a4",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "beta-linux.yml",
+      "size": 559,
+      "sha256": "e1a37688455c28436679a5612a77d1164bcb8a1694018cda980b0597a42d5a98",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "beta-mac.yml",
+      "size": 530,
+      "sha256": "82f68c9fba2b0d4daee5c7d8a3554ebe01f0b78a9900f8e2197bbc8f2972f8b9",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "builder-debug.yml",
+      "size": 1190,
+      "sha256": "5134a10eff1f5d27562b67234c8b8a3cd2249ac3b1bfaa391eac1ce578d22520",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.24-arm64.zip.blockmap",
+      "size": 146259,
+      "sha256": "264f768ea1d808d1d19185a954a416e7643c27b0dff1681498802b5bc8195ad7",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.24-arm64.dmg.blockmap",
+      "size": 149423,
+      "sha256": "9b4d0781c38e844e0566cbb43788037db0dcee047f8dbf2b645edc904dd57e33",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.24-arm64.dmg",
+      "size": 144205709,
+      "sha256": "e70efa42df9bde15e5bda80f7e66e55503d8d8689ca3e65462796663c86d0377",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.24-x64.AppImage",
+      "size": 144138404,
+      "sha256": "6baad8c5058b204eb0d8563010a3c3974a76b7c89515e2bccf0489c3ecec9a68",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-Setup-0.1.0-rc.24.exe.blockmap",
+      "size": 229569,
+      "sha256": "b97bacb37ff8ebf0ad91a93926dbce86dcc0285a55afb689832f1aae3a3c394c",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "peer-darwin-arm64.tar.gz",
+      "size": 23955867,
+      "sha256": "4c2aac3decd3ad8c477cebbe83ab97b5c09bed84a03e50b317b1e125ce5b589c",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.24-x64.deb",
+      "size": 115384400,
+      "sha256": "049b044ec1f8363f411df3ca49ede19728b0831cc7cf08f7807d7a8dd032306b",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.24-arm64.zip",
+      "size": 141691387,
+      "sha256": "eab698c05f9ada0c3110eabdff271b242263deec85f8b6cdbc59cd8163be0bf8",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "peer-linux-x64.tar.gz",
+      "size": 47627466,
+      "sha256": "b3071700733c01840f8155691bf7dad35b8eeeeada0f64072bd04632c64f6dca",
+      "matchesPublishedDigest": true
+    },
+    {
+      "name": "Peer-Agent-Setup-0.1.0-rc.24.exe",
+      "size": 222159524,
+      "sha256": "f3c7be7f661a64ebfd1273be1bb9e66989e80a8f6c96d57ec7c7f2d15fcfb349",
+      "matchesPublishedDigest": true
+    }
+  ],
+  "macTrust": {
+    "version": "0.1.0-rc.24",
+    "ok": true,
+    "checks": [
+      {
+        "name": "zip app strict signature",
+        "status": 0
+      },
+      {
+        "name": "zip Developer ID",
+        "status": 0
+      },
+      {
+        "name": "zip stapled notarization",
+        "status": 0
+      },
+      {
+        "name": "zip Gatekeeper",
+        "status": 0
+      },
+      {
+        "name": "DMG integrity",
+        "status": 0
+      },
+      {
+        "name": "Mac CLI version",
+        "status": 0
+      },
+      {
+        "name": "Mac CLI executable signature",
+        "status": 0
+      },
+      {
+        "name": "CLI helper strict signature",
+        "status": 0
+      },
+      {
+        "name": "CLI helper Developer ID",
+        "status": 0
+      }
+    ],
+    "manifests": [
+      {
+        "name": "beta-mac.yml",
+        "version": "0.1.0-rc.24",
+        "files": [
+          {
+            "url": "Peer-Agent-0.1.0-rc.24-arm64.zip",
+            "sha512": "Z2ofuZNQhd7U7a0GGrxVt2jLbrzEn5SrJK/36Oym0h27pYY+/SLdVxFN1xybmwXdeiaBT52fmQVjCMli+dDXHA==",
+            "size": 141691387
+          },
+          {
+            "url": "Peer-Agent-0.1.0-rc.24-arm64.dmg",
+            "sha512": "ELPCwUWa5oI98DruNGdebjPJcEDkDf/16/soGWcaLzKAZxsCMcMiSVFgHkDfDJtIodavhxeCnEfUszOyTc6r2g==",
+            "size": 144205709
+          }
+        ]
+      },
+      {
+        "name": "beta.yml",
+        "version": "0.1.0-rc.24",
+        "files": [
+          {
+            "url": "Peer-Agent-Setup-0.1.0-rc.24.exe",
+            "sha512": "dLXe2XKM/7gQgnz4czwcFlQJPzfuhy272yW3VYP41+2T2JuyAw1fH4mg4PD+8/phYhWSlR73q09ISkdrAdrwSg==",
+            "size": 222159524
+          }
+        ]
+      },
+      {
+        "name": "beta-linux.yml",
+        "version": "0.1.0-rc.24",
+        "files": [
+          {
+            "url": "Peer-Agent-0.1.0-rc.24-x64.AppImage",
+            "sha512": "qj6V3eUM6924nLtAvjBbQW9yqVi5xTm6freAj6HmwyGHbAza/oYVTgNOJS5w795CGyrN7d/08uFqBMvZKseK6g==",
+            "size": 144138404,
+            "blockMapSize": 151736
+          },
+          {
+            "url": "Peer-Agent-0.1.0-rc.24-x64.deb",
+            "sha512": "dhdTQgYkcwHcqQkbDsANnWGISANu8yIhn5D1qFyFm2zPFofkuA83v7JGe8fqm0VamBXf101knZ193xjgzFC1xA==",
+            "size": 115384400
+          }
+        ]
+      }
+    ],
+    "criticalPackagedModules": [
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/tool-artifact-store.js",
+        "sha256": "788698e806a723d03c235f484b6e01841569791aea94813d24c554dbe0b60f8b",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/data-store.mjs",
+        "sha256": "029d1c549faaf49e7b09f1ce0380a04ef122f91f43552de298a2078b53ea3067",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/plan-discovery-journal.mjs",
+        "sha256": "6592fdf079ea5d4346dacae49d89a87db6c2550d11b59b291ad0c5b2cc1a3c7e",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/bot-directory.mjs",
+        "sha256": "e8a35a38d435cb2654a6c4e64302645c42a1fd353e41ce51dbda9799bf64ebe0",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/runtime-host.mjs",
+        "sha256": "b026d95c51180247123792b02a1ec81d66abab542ac48db7fdb9499003f34897",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/bot-summary-history.mjs",
+        "sha256": "0b57dd8cb8717ba5ed69c461771c236dade8eec25e184b482c22be65f8311f9e",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/coordination-lifecycle.mjs",
+        "sha256": "26cf01dc5039748669eb8709d2d4c741709cc28fefcb476e487537d6977b3fa8",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-parent-facts.mjs",
+        "sha256": "4c6e5d4b7b1d34c5ff138c20d3948c95bb1b2620551bd95e3f51259d03b98000",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/work-coordination-store.mjs",
+        "sha256": "91e27e72ad3768440cc297d5cc77fb0f93cf717d68f9cdba2d4ef5d70456c214",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/delegated-plan-catalog.mjs",
+        "sha256": "0987821dd48447f020d80d01819214855613f028d5fae1665fd2c46285aacf98",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-read-query.mjs",
+        "sha256": "f78aa440f2851a00fac847969a1d2162cbaaccb6c86bee9d0549a373bb38a0c5",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/recovery-policy.mjs",
+        "sha256": "cde894e62ab0364e6a3421b5215478014a3d62f3948f8887cc0f63ecc3e79443",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/chat-runtime/response-guard.mjs",
+        "sha256": "44a5d42d5c0d2d5d51e58438a86bcc295eaf33c7327d8c9d12449a6ec8fe5ecc",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/conversation-store/dist/history-projection-reader.mjs",
+        "sha256": "dcbe7281322c8cfa92d3bec6c7888d37806f2ce52d6c5e60328200b183093a4d",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/provider-adapters/sse-line.mjs",
+        "sha256": "cabbffea197406f996e56b3217a2dbb4d7d65a5f90db2a313b8def94c90f35f9",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/provider-adapters/openai-chat-adapter.mjs",
+        "sha256": "9ddac0978d14bbe1f8c30c96120f0e0c27b1d06cf9442e0db1059eb9321610d6",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/openai-chat-stream.js",
+        "sha256": "1282a2af0dc726f4a030fbe4cd6d3033710031ed4d4b51e3a3ac053e550c8bb4",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/runner.mjs",
+        "sha256": "635c0852597796549cb51e096ad1b59cab3732592b03a172ab43e9432a52c011",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/provider-encoders/reasoning-replay.mjs",
+        "sha256": "e49bfccb9ed3c303b91dce32d3f989ec933fae8339672d0bd7e0a12d9a4571cc",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/continuation-custody.mjs",
+        "sha256": "5b418613a92873d61147a0eb1c2d72fd6b4f84f6c5a5d0763ac20b0659cc16fa",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/reported-wait.mjs",
+        "sha256": "ccf1d601ed91e65a3297ebadabe36cc44c30a34938d37c92056c34a916b4245f",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-observation-revision.mjs",
+        "sha256": "e7e4876683c019599aae7cdee60855eac4c52d28d30f6d76e702a3e2dde03eb2",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-dispatch-recovery.mjs",
+        "sha256": "69345d0c63040de406f1a9d3e960277bbffea53c6e5e36a46c2f8413632a07ff",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/work-budget-policy.mjs",
+        "sha256": "db9a2a9177bdfbc03242b27902c44f595dd7b4e71da46c490c3d8d623382e4c6",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-continuation.mjs",
+        "sha256": "85d395587600f8c74b04c94c75562e2372337b3e0f98cf6c6170e6ae8c7d0176",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/reply-recovery-admission.mjs",
+        "sha256": "a9e0c266c06c42bb084312843e77007a4a28ae44ad70c4c7545c343cfbe8a1ba",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/reply-failure-facts.mjs",
+        "sha256": "84ba777f4bd0dad75b99c2cb27d62e18bfc140b2041f4db969fc4cdd2c45969b",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/wake-wait.mjs",
+        "sha256": "f951bd5c8c8d6564b29e512643e81e1c1e6aa6b52124b7db3ffc9ac05289a5ee",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/repair-ownership.mjs",
+        "sha256": "93136e70059e86c9cabf9a37093407c0cac6084e55220fac2f911cbf46273dc7",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/runner-coordination.mjs",
+        "sha256": "abecd7661b500d2c445b78ffb7c3fac874d581e851a0df91232230f1965a66cd",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-verification.mjs",
+        "sha256": "80f403eb8c2cf4e2b5f4fd45c387ecdf7fed64a11015c596e0e33d2c1c59a381",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/work-budget.mjs",
+        "sha256": "3c0bae1634745e48aa176b80ff32a1bbdeecb15271abf1f138af5c0024421941",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/local-image-checkpoint.mjs",
+        "sha256": "1e3199bb52bcd297ef5da12064661e1d1d70ecb040aae8e118f703616573be2f",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-sdk/dist/pipeline.js",
+        "sha256": "486156e6337a7b7001d2bb003c0587dcbe73c13e6c360aa4ce867e0f378a61e6",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/coordination-journal-reader.mjs",
+        "sha256": "b21e5e40e11b4a0be43958cb684717058b1d1a074db97907d4d1517bbfa91f73",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/project-facts.mjs",
+        "sha256": "1c1eaa54bdee5f75a35e2fcdda829d403060f0ae9bb631e342a5f3e644bebedf",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-supervisor.mjs",
+        "sha256": "a080a39fa12f0e84ed7ca8d7040897d2c6375f1462692213f6d5dd119a1d1024",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/conversation-store/dist/index.mjs",
+        "sha256": "00720dc6adc9ba80f62bcdd9d3e7e37ed18e6d91abf133ca4d79d3c9acddd081",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/conversation-store/dist/terminal-message-committer.mjs",
+        "sha256": "ed7a664a64a71efa8156e4c862b27d5d2a6b826520fd88ec2f6ae2079ef9b6ba",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/conversation-store/dist/terminal-message-worker.cjs",
+        "sha256": "bb1f990c4db9c8dc14fcb31d6c8bcfd5b4a4557ea71d0f0a3c90e5ae6073218d",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/conversation-store/dist/conversation-file-lock.mjs",
+        "sha256": "ab7f502f95e22a20547002eb2db2db624ca2f4b526e2db04d29368822c19769b",
+        "matchesCandidateBuild": true
+      }
+    ],
+    "changedPackagedModules": [
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/data-store.mjs",
+        "sha256": "029d1c549faaf49e7b09f1ce0380a04ef122f91f43552de298a2078b53ea3067",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/agent-activity.mjs",
+        "sha256": "a8d3711905e3ba721e41f9afa95a754553b02d2fccf0268e2c2e87727cb9a7bb",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/approval-store.mjs",
+        "sha256": "46cbcba078998c947b379dee45880500950f4320cbbdac324a1a09f1129305bf",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/bot-access-policy.mjs",
+        "sha256": "712dae39d32d7872415cbea1c6bf671b97d8a10d0ad034c52d1c4895c1549892",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/event-mapper.mjs",
+        "sha256": "208e47220f1919655e628e5d3c7287019c7408f32cb2e1b86d25c1390b5d747d",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/goal-runner-host.mjs",
+        "sha256": "19706ca1ccc28fd75544d5e300f42a1ad2301d7f5fb5d7036ac311348a3e9a7e",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/one-time-approval.mjs",
+        "sha256": "b4944f0bee54e5ad700781659028fed9a6bddf60f775c96aaaa15bfc4a407352",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/permission-inheritance.mjs",
+        "sha256": "c3211005c52155ff0bfeecdcf9d48bc78d9c2ddfa9f67fb1dd36fbe42857b1d6",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-supervisor.mjs",
+        "sha256": "a080a39fa12f0e84ed7ca8d7040897d2c6375f1462692213f6d5dd119a1d1024",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-takeover.mjs",
+        "sha256": "f017be1953b4e3fed65fd95e90ae061e9d26a222456755890457928a8eeb9d47",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-verification.mjs",
+        "sha256": "80f403eb8c2cf4e2b5f4fd45c387ecdf7fed64a11015c596e0e33d2c1c59a381",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-continuation-port.mjs",
+        "sha256": "e90fd63c1ca0152fdfdc5abd2b54f8a74171822b17ee3d416c12e48bbfa53a25",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-continuation.mjs",
+        "sha256": "85d395587600f8c74b04c94c75562e2372337b3e0f98cf6c6170e6ae8c7d0176",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-failure.mjs",
+        "sha256": "08df779571870ef5fb72a3d34521a35aa994b544f0c9fd342eb67937f9a64376",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-progress.mjs",
+        "sha256": "6b5a8c78b08212eb79afa53c143aefcba175cf8435b514c08d1b2a3018373749",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/watch-publisher.mjs",
+        "sha256": "1a60ae0ab8d43ab3112f7bb1269ac3de15877f4d751adba626e64ec1fb2e4d83",
+        "matchesCandidateBuild": true
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/watchdog.mjs",
+        "sha256": "1694c42488730d880d02657f4bf76b30b4c5006a9ef5c756c8cc88e733033c3a",
+        "matchesCandidateBuild": true
+      }
+    ],
+    "desktopModules": [
+      {
+        "entry": "electron/main/tray-controller.mjs",
+        "sha256": "3924b7c14254c3ffc6f3e248ae688c43de1caffb94e1e8e203d36e45ea288eeb",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/project-agent/project-agent-host.mjs",
+        "sha256": "8f2277794cb3c784abfca8905dde970c7ac4ec8e771f240200cd5af08cc8b845",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/provider-transports/recovering-fetch.mjs",
+        "sha256": "c8879587340d1660dfab83ca0d61a6e9dda152b472abc1e30600bb0c2271100b",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/provider-adapters/openai-responses-adapter.mjs",
+        "sha256": "b0307ae239074a1a64bbb55fa4d3719f9680915035ec4fbd1e7bd8d87067abdb",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/provider-adapters/sse-line.mjs",
+        "sha256": "46a33e8e1abe50ea9429d643ecb57fa6e2eaea8f20ffcaecdd28905e022a98b6",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/agent-host/agent-turn-executor.mjs",
+        "sha256": "dce157942fb747cb6ddcc1e27c35451d13be9b94f4d5f3b7ac40e2982c8aae36",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/chat-runtime/runtime-pipeline-adapter.mjs",
+        "sha256": "f5e690be35f4f401dd87444134db8720cc03ebd94129ade1eb619286d335feaa",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/chat-runtime/agent-loop-kernel.mjs",
+        "sha256": "ded1dcbc5f3d6fe8db26eafc056bd6e23b84645935d8613f5f2a25ae351b0126",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/chat-runtime/openai-agent-loop.mjs",
+        "sha256": "772f70d8f413becf744992cf120a90bb392599155eb96b7bd8ba7d26c624abad",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/conversation-read-projection.mjs",
+        "sha256": "4148b28c2e50e90100f59e8c4d447ef8512747abfe4d6ba3082d28cac37d1490",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/chat-runtime/stream-terminal-delivery.mjs",
+        "sha256": "ec8759cd87a0b9a1ea8f1933230a1ae7c6be60342b09662cfbfca5d227b7dc13",
+        "matchesCandidateSource": true
+      },
+      {
+        "entry": "electron/main/llm-chat-service.mjs",
+        "sha256": "86de29c4b032c22164f7a53b1e45ad6eac636f82084a87d551c65de370aaf3a4",
+        "matchesCandidateSource": true
+      }
+    ],
+    "modelSelectionModules": [
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/verification-history.mjs",
+        "matchesCandidate": true,
+        "sha256": "832214a879b7153296866ac4c1b75763301ede27230293af7e6568ec379320f1"
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/session-verification.mjs",
+        "matchesCandidate": true,
+        "sha256": "80f403eb8c2cf4e2b5f4fd45c387ecdf7fed64a11015c596e0e33d2c1c59a381"
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/delegation-provider.mjs",
+        "matchesCandidate": true,
+        "sha256": "228a3cfee93736d8d26b75134b66c8144d0ade7f74089e9034e063122636b157"
+      },
+      {
+        "entry": "node_modules/@peer-agent/runtime-node/dist/project-agent/tool-prompts.generated.mjs",
+        "matchesCandidate": true,
+        "sha256": "ecf4a94fd3fc2c699b2055ac32ab1a3b9d9da2224a365db78de33462f37827e4"
+      },
+      {
+        "entry": "node_modules/@peer-agent/system-context/src/sources/project-agent-source.mjs",
+        "matchesCandidate": true,
+        "sha256": "3810d75980ef5edae3fb15af6f2fbc3fc0f74cbff331998f8951bc76ba146f50"
+      },
+      {
+        "entry": "node_modules/@peer-agent/system-context/src/sources/verifier-source.mjs",
+        "matchesCandidate": true,
+        "sha256": "bff15d91dd005e9af8c269d0025e62c42645ae618bda5d7b7585995bf4570a20"
+      }
+    ],
+    "trayAssets": [
+      {
+        "name": "trayTemplate.png",
+        "sha256": "2c99117e26a068a8884a488b8614506cd8ee7510462d72c1861bc5179fd214de",
+        "matchesSource": true
+      },
+      {
+        "name": "trayTemplate@2x.png",
+        "sha256": "26e7eb7dc5b0e10a5f8682c14add592f933b08f7501ae1df76f2ccde6de13acb",
+        "matchesSource": true
+      }
+    ]
+  },
+  "dmg": {
+    "ok": true,
+    "unmounted": true,
+    "appAsarSha256": "e6985157c45870f705daedd277465beea06aac9c24c874ca825dddbedeb9a016",
+    "zipAndDmgApplicationMatch": true,
+    "zipAndDmgUpdaterConfigMatch": true,
+    "zipAndDmgHelperMatch": true
+  },
+  "packagedRuntime": {
+    "hashes": {
+      "verification-continuation": "85d395587600f8c74b04c94c75562e2372337b3e0f98cf6c6170e6ae8c7d0176",
+      "verification-progress": "6b5a8c78b08212eb79afa53c143aefcba175cf8435b514c08d1b2a3018373749",
+      "watchdog": "1694c42488730d880d02657f4bf76b30b4c5006a9ef5c756c8cc88e733033c3a",
+      "watch-publisher": "1a60ae0ab8d43ab3112f7bb1269ac3de15877f4d751adba626e64ec1fb2e4d83",
+      "session-takeover": "f017be1953b4e3fed65fd95e90ae061e9d26a222456755890457928a8eeb9d47"
+    },
+    "runtime": {
+      "checks": [
+        "format_repair_no_tools",
+        "verification_stall",
+        "idle_review_settlement",
+        "correction_handoff_execute"
+      ],
+      "passed": true
+    },
+    "scope": "Published signed Mac application Electron/Node; isolated module checks with controlled cognition, no cloud model"
+  },
+  "publishedUi": {
+    "scope": "Unmodified downloaded signed Mac application; isolated 200-bot, 10k-message, 100k-event, 10k-memory generated history. UI and real IPC only; no cloud cognition or task execution. Three receipt source IDs are generated provenance, not fabricated execution evidence.",
+    "main": {
+      "version": "0.1.0-rc.24",
+      "packaged": true
+    },
+    "checks": [
+      "One lightweight reply receipt with three saved source refs; no duplicate buttons in both widths/themes",
+      "Left-aligned shared SVG reply details entry",
+      "Current decision only: global count, detail and retired old actions agree",
+      "Real preload notification after attention navigation locates the newer message"
+    ],
+    "pageErrors": [],
+    "screenshots": [
+      {
+        "name": "receipt-1280-dark.png",
+        "sha256": "93d10ebbc9246a18aa122d11077fe5a6f162f0be13c5f247cfdcf8132c2d9419"
+      },
+      {
+        "name": "details-1280-dark.png",
+        "sha256": "16bb455e558e01980275e5d66cfac5e6e55296070b30f82c4ae57ff47866fb1e"
+      },
+      {
+        "name": "attention-1280-dark.png",
+        "sha256": "36c62f1fe6739b3eae3b6890775131ad64d90397e1383de9c921f383f83209a7"
+      },
+      {
+        "name": "receipt-760-light.png",
+        "sha256": "9229baddf994737e014c1f88298e2f17e157e0417838ae70e43e940f3736d76c"
+      },
+      {
+        "name": "details-760-light.png",
+        "sha256": "1b3e66a86484d86b43fa7e05492b238ca9b9fcfd8ce6de8ec622e974f4047f61"
+      },
+      {
+        "name": "attention-760-light.png",
+        "sha256": "c1a992110741e677278d43ae3f963867ac8214064a470b181cc2a9f51657c88e"
+      },
+      {
+        "name": "notification-after-attention.png",
+        "sha256": "0a19da410659c47f3765f275a63202a0db000c50bb2162ca72de9bf3cb4e3931"
+      }
+    ],
+    "personalInstallationModified": false,
+    "ownedApplicationExited": true,
+    "ok": true,
+    "hoverCaptures": [
+      {
+        "name": "details-1280-dark.png",
+        "before": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 386,
+            "y": 195.5,
+            "width": 800,
+            "height": 93.5,
+            "top": 195.5,
+            "right": 1186,
+            "bottom": 289,
+            "left": 386
+          }
+        },
+        "after": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 386,
+            "y": 195.5,
+            "width": 800,
+            "height": 93.5,
+            "top": 195.5,
+            "right": 1186,
+            "bottom": 289,
+            "left": 386
+          }
+        },
+        "method": "native-webcontents"
+      },
+      {
+        "name": "details-760-light.png",
+        "before": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 320,
+            "y": 195.5,
+            "width": 412,
+            "height": 93.5,
+            "top": 195.5,
+            "right": 732,
+            "bottom": 289,
+            "left": 320
+          }
+        },
+        "after": {
+          "hovered": true,
+          "opacity": "1",
+          "bounds": {
+            "x": 320,
+            "y": 195.5,
+            "width": 412,
+            "height": 93.5,
+            "top": 195.5,
+            "right": 732,
+            "bottom": 289,
+            "left": 320
+          }
+        },
+        "method": "native-webcontents"
+      }
+    ],
+    "firstCaptureLimitation": "Ordinary Playwright screenshots discarded hover although DOM opacity assertion passed. Preserved first capture, then recaptured with native webContents and asserted hover/geometry before and after. No published source changes. Narrow native capture has unused black padding outside CSS viewport; no native desktop contrast claim for that padding."
+  },
+  "oldUpdater": {
+    "scope": "Actual unmodified signed RC23 application and production updater discover and download RC24 via real HTTP. Test-only cache isolation and disabling automatic Squirrel handoff prevent replacing the daily installation; installer execution is not covered.",
+    "main": {
+      "version": "0.1.0-rc.23",
+      "packaged": true,
+      "autoInstallOnAppQuit": false
+    },
+    "discovered": {
+      "currentVersion": "0.1.0-rc.23",
+      "channel": "beta",
+      "preference": "auto",
+      "enabled": true,
+      "phase": "available",
+      "availableVersion": "0.1.0-rc.24",
+      "releaseNotes": "<p>locale:zh-CN</p>\n<h2>发布状态</h2>\n<ul>\n<li><strong>0.1.0-rc.24</strong> 整合 Bot 权限继承、任务关系与图标、会话排版和核验停滞治理。正式版仍为 0.0.18。</li>\n</ul>\n<h2>修复与优化</h2>\n<ul>\n<li>\n<p>Bot 的访问模式由本地统一管理，子任务继承同一份权限策略。完全访问模式下连续读取图片不再逐张重复提问；切换模式、取消和权限回执保持可追溯。</p>\n</li>\n<li>\n<p>相互独立的任务按同级展示；子 Agent 使用可区分的图标，重复的结果返回记录合并呈现，保留真实任务来源。</p>\n</li>\n<li>\n<p>调整聊天正文、标题和代码的文字层级。已结束的授权收成可展开的紧凑记录，连续记录有间距；待处理授权仍直接显示操作按钮。</p>\n</li>\n<li>\n<p>修正回复详情中过程空态的多余留白。修复问题到期时被并发查询提前清除计时器，导致已打开的明细与计数未及时刷新的问题。</p>\n</li>\n<li>\n<p>核验只在取得新的事实时更新进度。回复入口可展示已检查事实数量；连续 10 分钟没有事实进展的核验会收口并把原因交回主 Bot，避免长时间假运行。</p>\n</li>\n<li>\n<p>核验报告格式修复最多补一次不带工具的请求，避免反复采集证据。更正任务交接后继续执行剩余工作，保留已有证据。</p>\n</li>\n<li>\n<p>同步用户文档、累积更新日志和网站的中英发布记录。</p>\n</li>\n</ul>\n<h2>升级与验收范围</h2>\n<ul>\n<li>产品回归使用 200 个机器人、1 万条消息、10 万条收件记录的隔离历史数据；发布前逐图自审并验证产品验收包。</li>\n<li>验收覆盖源码桌面交互、迁移恢复和发布产物。受控模型场景不代表所有真实模型的表现；实现者自审不称为独立复核。</li>\n<li>升级前备份完整数据根，并同步升级 Desktop、CLI/TUI 与 Gateway。完整读屏、Windows/Linux 交互安装和长期日用不在本轮验收范围内。</li>\n</ul>\n<p>locale:en-US</p>\n<h2>Release status</h2>\n<ul>\n<li><strong>0.1.0-rc.24</strong> integrates Bot access inheritance, task relationships and icons, conversation typography, and stalled verification settlement. Stable remains 0.0.18.</li>\n</ul>\n<h2>Fixes and improvements</h2>\n<ul>\n<li>\n<p>Bot access modes use one locally governed policy inherited by child tasks. Full access no longer asks separately for every image. Mode changes, cancellation and permission receipts remain traceable.</p>\n</li>\n<li>\n<p>Independent tasks appear as peers. Child Agents have distinguishable icons, and repeated result-return events are consolidated while retaining their actual task sources.</p>\n</li>\n<li>\n<p>Refine body, heading and code typography. Completed authorization records collapse into compact expandable receipts with spacing between records; pending permissions keep their action buttons visible.</p>\n</li>\n<li>\n<p>Remove excess whitespace from the reply-process empty state. Fix a race where a concurrent query cleared an expired-question timer before it refreshed the open attention list and count.</p>\n</li>\n<li>\n<p>Verification progress advances only when new facts arrive. Reply activity can show the number of facts checked. A verification with no factual progress for 10 minutes settles and returns its reason to the main Bot instead of appearing to run indefinitely.</p>\n</li>\n<li>\n<p>Malformed verification reports receive at most one tool-free format repair request. Corrected task handoffs execute the remaining work while preserving existing evidence.</p>\n</li>\n<li>\n<p>Synchronize user documentation, the cumulative changelog and bilingual website release records.</p>\n</li>\n</ul>\n<h2>Upgrade and validation scope</h2>\n<ul>\n<li>Isolated product regression uses history containing 200 bots, 10,000 messages and 100,000 inbox records, followed by screenshot self-review and product-packet verification.</li>\n<li>Acceptance covers source desktop interactions, migration recovery and release artifacts. Controlled model scenarios do not establish behavior for every real model; implementer self-review is not independent review.</li>\n<li>Back up the complete data root and upgrade Desktop, CLI/TUI and Gateway together. Full screen-reader coverage, interactive Windows/Linux installation and long-term use remain outside this acceptance scope.</li>\n</ul>"
+    },
+    "downloaded": {
+      "currentVersion": "0.1.0-rc.23",
+      "channel": "beta",
+      "preference": "auto",
+      "enabled": true,
+      "phase": "downloaded",
+      "availableVersion": "0.1.0-rc.24",
+      "percent": 100,
+      "releaseNotes": "<p>locale:zh-CN</p>\n<h2>发布状态</h2>\n<ul>\n<li><strong>0.1.0-rc.24</strong> 整合 Bot 权限继承、任务关系与图标、会话排版和核验停滞治理。正式版仍为 0.0.18。</li>\n</ul>\n<h2>修复与优化</h2>\n<ul>\n<li>\n<p>Bot 的访问模式由本地统一管理，子任务继承同一份权限策略。完全访问模式下连续读取图片不再逐张重复提问；切换模式、取消和权限回执保持可追溯。</p>\n</li>\n<li>\n<p>相互独立的任务按同级展示；子 Agent 使用可区分的图标，重复的结果返回记录合并呈现，保留真实任务来源。</p>\n</li>\n<li>\n<p>调整聊天正文、标题和代码的文字层级。已结束的授权收成可展开的紧凑记录，连续记录有间距；待处理授权仍直接显示操作按钮。</p>\n</li>\n<li>\n<p>修正回复详情中过程空态的多余留白。修复问题到期时被并发查询提前清除计时器，导致已打开的明细与计数未及时刷新的问题。</p>\n</li>\n<li>\n<p>核验只在取得新的事实时更新进度。回复入口可展示已检查事实数量；连续 10 分钟没有事实进展的核验会收口并把原因交回主 Bot，避免长时间假运行。</p>\n</li>\n<li>\n<p>核验报告格式修复最多补一次不带工具的请求，避免反复采集证据。更正任务交接后继续执行剩余工作，保留已有证据。</p>\n</li>\n<li>\n<p>同步用户文档、累积更新日志和网站的中英发布记录。</p>\n</li>\n</ul>\n<h2>升级与验收范围</h2>\n<ul>\n<li>产品回归使用 200 个机器人、1 万条消息、10 万条收件记录的隔离历史数据；发布前逐图自审并验证产品验收包。</li>\n<li>验收覆盖源码桌面交互、迁移恢复和发布产物。受控模型场景不代表所有真实模型的表现；实现者自审不称为独立复核。</li>\n<li>升级前备份完整数据根，并同步升级 Desktop、CLI/TUI 与 Gateway。完整读屏、Windows/Linux 交互安装和长期日用不在本轮验收范围内。</li>\n</ul>\n<p>locale:en-US</p>\n<h2>Release status</h2>\n<ul>\n<li><strong>0.1.0-rc.24</strong> integrates Bot access inheritance, task relationships and icons, conversation typography, and stalled verification settlement. Stable remains 0.0.18.</li>\n</ul>\n<h2>Fixes and improvements</h2>\n<ul>\n<li>\n<p>Bot access modes use one locally governed policy inherited by child tasks. Full access no longer asks separately for every image. Mode changes, cancellation and permission receipts remain traceable.</p>\n</li>\n<li>\n<p>Independent tasks appear as peers. Child Agents have distinguishable icons, and repeated result-return events are consolidated while retaining their actual task sources.</p>\n</li>\n<li>\n<p>Refine body, heading and code typography. Completed authorization records collapse into compact expandable receipts with spacing between records; pending permissions keep their action buttons visible.</p>\n</li>\n<li>\n<p>Remove excess whitespace from the reply-process empty state. Fix a race where a concurrent query cleared an expired-question timer before it refreshed the open attention list and count.</p>\n</li>\n<li>\n<p>Verification progress advances only when new facts arrive. Reply activity can show the number of facts checked. A verification with no factual progress for 10 minutes settles and returns its reason to the main Bot instead of appearing to run indefinitely.</p>\n</li>\n<li>\n<p>Malformed verification reports receive at most one tool-free format repair request. Corrected task handoffs execute the remaining work while preserving existing evidence.</p>\n</li>\n<li>\n<p>Synchronize user documentation, the cumulative changelog and bilingual website release records.</p>\n</li>\n</ul>\n<h2>Upgrade and validation scope</h2>\n<ul>\n<li>Isolated product regression uses history containing 200 bots, 10,000 messages and 100,000 inbox records, followed by screenshot self-review and product-packet verification.</li>\n<li>Acceptance covers source desktop interactions, migration recovery and release artifacts. Controlled model scenarios do not establish behavior for every real model; implementer self-review is not independent review.</li>\n<li>Back up the complete data root and upgrade Desktop, CLI/TUI and Gateway together. Full screen-reader coverage, interactive Windows/Linux installation and long-term use remain outside this acceptance scope.</li>\n</ul>"
+    },
+    "downloadSha256": "eab698c05f9ada0c3110eabdff271b242263deec85f8b6cdbc59cd8163be0bf8",
+    "progress": [
+      {
+        "at": "2026-10-21T16:40:28.638Z",
+        "phase": "downloading",
+        "percent": 0
+      },
+      {
+        "at": "2026-10-21T16:40:32.200Z",
+        "phase": "downloading",
+        "percent": 1
+      },
+      {
+        "at": "2026-10-21T16:40:36.271Z",
+        "phase": "downloading",
+        "percent": 2
+      },
+      {
+        "at": "2026-10-21T16:40:40.335Z",
+        "phase": "downloading",
+        "percent": 3
+      },
+      {
+        "at": "2026-10-21T16:40:44.658Z",
+        "phase": "downloading",
+        "percent": 4
+      },
+      {
+        "at": "2026-10-21T16:40:47.701Z",
+        "phase": "downloading",
+        "percent": 5
+      },
+      {
+        "at": "2026-10-21T16:40:51.772Z",
+        "phase": "downloading",
+        "percent": 6
+      },
+      {
+        "at": "2026-10-21T16:40:53.808Z",
+        "phase": "downloading",
+        "percent": 7
+      },
+      {
+        "at": "2026-10-21T16:40:56.857Z",
+        "phase": "downloading",
+        "percent": 8
+      },
+      {
+        "at": "2026-10-21T16:41:01.174Z",
+        "phase": "downloading",
+        "percent": 9
+      },
+      {
+        "at": "2026-10-21T16:41:03.214Z",
+        "phase": "downloading",
+        "percent": 10
+      },
+      {
+        "at": "2026-10-21T16:41:05.247Z",
+        "phase": "downloading",
+        "percent": 11
+      },
+      {
+        "at": "2026-10-21T16:41:07.284Z",
+        "phase": "downloading",
+        "percent": 12
+      },
+      {
+        "at": "2026-10-21T16:41:09.317Z",
+        "phase": "downloading",
+        "percent": 13
+      },
+      {
+        "at": "2026-10-21T16:41:12.368Z",
+        "phase": "downloading",
+        "percent": 14
+      },
+      {
+        "at": "2026-10-21T16:41:14.656Z",
+        "phase": "downloading",
+        "percent": 15
+      },
+      {
+        "at": "2026-10-21T16:41:16.686Z",
+        "phase": "downloading",
+        "percent": 16
+      },
+      {
+        "at": "2026-10-21T16:41:19.739Z",
+        "phase": "downloading",
+        "percent": 17
+      },
+      {
+        "at": "2026-10-21T16:41:22.794Z",
+        "phase": "downloading",
+        "percent": 18
+      },
+      {
+        "at": "2026-10-21T16:41:24.835Z",
+        "phase": "downloading",
+        "percent": 19
+      },
+      {
+        "at": "2026-10-21T16:41:26.869Z",
+        "phase": "downloading",
+        "percent": 20
+      },
+      {
+        "at": "2026-10-21T16:41:30.175Z",
+        "phase": "downloading",
+        "percent": 21
+      },
+      {
+        "at": "2026-10-21T16:41:33.229Z",
+        "phase": "downloading",
+        "percent": 22
+      },
+      {
+        "at": "2026-10-21T16:41:36.541Z",
+        "phase": "downloading",
+        "percent": 23
+      },
+      {
+        "at": "2026-10-21T16:41:39.602Z",
+        "phase": "downloading",
+        "percent": 24
+      },
+      {
+        "at": "2026-10-21T16:41:43.676Z",
+        "phase": "downloading",
+        "percent": 25
+      },
+      {
+        "at": "2026-10-21T16:41:46.730Z",
+        "phase": "downloading",
+        "percent": 26
+      },
+      {
+        "at": "2026-10-21T16:41:47.748Z",
+        "phase": "downloading",
+        "percent": 27
+      },
+      {
+        "at": "2026-10-21T16:41:48.765Z",
+        "phase": "downloading",
+        "percent": 30
+      },
+      {
+        "at": "2026-10-21T16:41:49.789Z",
+        "phase": "downloading",
+        "percent": 32
+      },
+      {
+        "at": "2026-10-21T16:41:50.806Z",
+        "phase": "downloading",
+        "percent": 34
+      },
+      {
+        "at": "2026-10-21T16:41:51.825Z",
+        "phase": "downloading",
+        "percent": 35
+      },
+      {
+        "at": "2026-10-21T16:41:52.842Z",
+        "phase": "downloading",
+        "percent": 37
+      },
+      {
+        "at": "2026-10-21T16:41:53.856Z",
+        "phase": "downloading",
+        "percent": 39
+      },
+      {
+        "at": "2026-10-21T16:41:54.874Z",
+        "phase": "downloading",
+        "percent": 40
+      },
+      {
+        "at": "2026-10-21T16:41:55.889Z",
+        "phase": "downloading",
+        "percent": 42
+      },
+      {
+        "at": "2026-10-21T16:41:56.905Z",
+        "phase": "downloading",
+        "percent": 44
+      },
+      {
+        "at": "2026-10-21T16:41:57.921Z",
+        "phase": "downloading",
+        "percent": 46
+      },
+      {
+        "at": "2026-10-21T16:41:58.932Z",
+        "phase": "downloading",
+        "percent": 47
+      },
+      {
+        "at": "2026-10-21T16:41:59.944Z",
+        "phase": "downloading",
+        "percent": 48
+      },
+      {
+        "at": "2026-10-21T16:42:00.960Z",
+        "phase": "downloading",
+        "percent": 50
+      },
+      {
+        "at": "2026-10-21T16:42:01.973Z",
+        "phase": "downloading",
+        "percent": 52
+      },
+      {
+        "at": "2026-10-21T16:42:02.737Z",
+        "phase": "downloading",
+        "percent": 54
+      },
+      {
+        "at": "2026-10-21T16:42:03.753Z",
+        "phase": "downloading",
+        "percent": 55
+      },
+      {
+        "at": "2026-10-21T16:42:04.770Z",
+        "phase": "downloading",
+        "percent": 57
+      },
+      {
+        "at": "2026-10-21T16:42:05.785Z",
+        "phase": "downloading",
+        "percent": 59
+      },
+      {
+        "at": "2026-10-21T16:42:06.798Z",
+        "phase": "downloading",
+        "percent": 60
+      },
+      {
+        "at": "2026-10-21T16:42:07.821Z",
+        "phase": "downloading",
+        "percent": 62
+      },
+      {
+        "at": "2026-10-21T16:42:08.838Z",
+        "phase": "downloading",
+        "percent": 64
+      },
+      {
+        "at": "2026-10-21T16:42:09.856Z",
+        "phase": "downloading",
+        "percent": 66
+      },
+      {
+        "at": "2026-10-21T16:42:10.871Z",
+        "phase": "downloading",
+        "percent": 67
+      },
+      {
+        "at": "2026-10-21T16:42:12.144Z",
+        "phase": "downloading",
+        "percent": 69
+      },
+      {
+        "at": "2026-10-21T16:42:13.162Z",
+        "phase": "downloading",
+        "percent": 71
+      },
+      {
+        "at": "2026-10-21T16:42:14.176Z",
+        "phase": "downloading",
+        "percent": 72
+      },
+      {
+        "at": "2026-10-21T16:42:15.194Z",
+        "phase": "downloading",
+        "percent": 74
+      },
+      {
+        "at": "2026-10-21T16:42:16.209Z",
+        "phase": "downloading",
+        "percent": 76
+      },
+      {
+        "at": "2026-10-21T16:42:17.227Z",
+        "phase": "downloading",
+        "percent": 77
+      },
+      {
+        "at": "2026-10-21T16:42:18.501Z",
+        "phase": "downloading",
+        "percent": 79
+      },
+      {
+        "at": "2026-10-21T16:42:19.263Z",
+        "phase": "downloading",
+        "percent": 81
+      },
+      {
+        "at": "2026-10-21T16:42:20.279Z",
+        "phase": "downloading",
+        "percent": 83
+      },
+      {
+        "at": "2026-10-21T16:42:21.298Z",
+        "phase": "downloading",
+        "percent": 85
+      },
+      {
+        "at": "2026-10-21T16:42:22.316Z",
+        "phase": "downloading",
+        "percent": 86
+      },
+      {
+        "at": "2026-10-21T16:42:23.329Z",
+        "phase": "downloading",
+        "percent": 88
+      },
+      {
+        "at": "2026-10-21T16:42:24.344Z",
+        "phase": "downloading",
+        "percent": 90
+      },
+      {
+        "at": "2026-10-21T16:42:25.364Z",
+        "phase": "downloading",
+        "percent": 91
+      },
+      {
+        "at": "2026-10-21T16:42:26.385Z",
+        "phase": "downloading",
+        "percent": 93
+      },
+      {
+        "at": "2026-10-21T16:42:27.399Z",
+        "phase": "downloading",
+        "percent": 95
+      },
+      {
+        "at": "2026-10-21T16:42:28.416Z",
+        "phase": "downloading",
+        "percent": 97
+      },
+      {
+        "at": "2026-10-21T16:42:29.428Z",
+        "phase": "downloading",
+        "percent": 98
+      },
+      {
+        "at": "2026-10-21T16:42:30.446Z",
+        "phase": "downloading",
+        "percent": 100
+      },
+      {
+        "at": "2026-10-21T16:42:30.699Z",
+        "phase": "downloaded",
+        "percent": 100
+      }
+    ],
+    "pageErrors": [],
+    "userInstalledAppOrDataModified": false,
+    "ownedApplicationExited": true,
+    "ok": true,
+    "screenshots": [
+      {
+        "name": "old-rc23-update-available.png",
+        "sha256": "afb1f2e328572abe13c22fb2fd39a98bf5de0939ed56efa7a9f9be79b4ae6084"
+      },
+      {
+        "name": "old-rc23-downloading.png",
+        "sha256": "e603b2233594cc6ca420fd591406d83a45195e26aaf520a89d953bbd7b0b2b36"
+      },
+      {
+        "name": "old-rc23-update-ready.png",
+        "sha256": "f297363df513fb6f9e7f4fbb4e752af0561dc7636479b735a7af4994c363fca2"
+      }
+    ]
+  },
+  "oldUpdaterFirstAttempt": {
+    "ok": false,
+    "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'downloading'\n- 'downloaded'\n           ^",
+    "lastProgress": {
+      "at": "2026-10-21T16:39:46.418Z",
+      "phase": "downloading",
+      "percent": 85
+    },
+    "ownedApplicationExited": true,
+    "disposition": "At 85% the five-minute test deadline expired while production updater was still downloading. Retained first result; fresh isolated run uses 15-minute network window. Published source and assets unchanged."
+  },
+  "npm": {
+    "registry": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.24",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.24"
+        },
+        "dist": {
+          "shasum": "175942e0cabb3f6bd88fbb462619dc8e8c7d9c3d",
+          "tarball": "https://registry.npmjs.org/@peer-agent/protocol/-/protocol-0.1.0-rc.24.tgz",
+          "fileCount": 79,
+          "integrity": "sha512-K60h0TFAaq5u+8j3hxOmySR9fsASUi4c4HmOcJ53nbjELVZZPpCMEIvml8s2XrrM0ynk00hZ90tzd68E6Nxu8w==",
+          "signatures": [
+            {
+              "sig": "MEYCIQDPZh5TJAILdf4WmeiwGDPOpBKhmwkmh4GPNM3OnMkukwIhAK7fRr2BcCtutPWZBX3tYWuqgGz1dXzc98Ky6STJ74Wy",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEYCIQCu5uWEpRMpuTnEOysGJO7TamLsGiQtn6TvEzeYs/+jqQIhAMsz0ixtBE+pqsbpsw8M0UqY+7imh8bIFsm0Ap2gt7J9"
+            }
+          ],
+          "unpackedSize": 348010
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.24",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.24"
+        },
+        "dist": {
+          "shasum": "47373a4661416c890d3bdf2bb5cba88d7223023d",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-core/-/runtime-core-0.1.0-rc.24.tgz",
+          "fileCount": 53,
+          "integrity": "sha512-w/MTDudtIE0P8wGXhaQLZdS6vmkPPa0kDr3lP7vFSGagjngmGyclQv37Kam2zcA0QlOcfCaIM6UQYZp0x99XRA==",
+          "signatures": [
+            {
+              "sig": "MEYCIQCEnU6DZeTWTJu+UUafNmST6SU2KTcQWiYQ6HRYRnAuEwIhAMWSlxC/Q4JxEFi2TDYCMBpfmrbuWPE3/acu+y/o4A0+",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEUCIQCUbkddAJkOn+YKqHx/sRrtichGwhZpAIRr+gpGjexPAQIgFKRfx9pOcCx+URwpNFeJrilyKHjl6+NimmhIIy24xWM="
+            }
+          ],
+          "unpackedSize": 262588
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.24",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.24"
+        },
+        "dist": {
+          "shasum": "42b48d1e576c50a69331263ee22e4113a7d1a5ce",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-sdk/-/runtime-sdk-0.1.0-rc.24.tgz",
+          "fileCount": 21,
+          "integrity": "sha512-6lM5sDnQAy5smrQiFPIk9GkJMikhYQy4OhTnoM+E+6uQgaVqDnFmu6aMIaEiEeeg2JnhRiIyTCPo6pwv0n64Ug==",
+          "signatures": [
+            {
+              "sig": "MEUCIQDjkAMojIYlf8OlSx4ql6L2VcrKwKK0QiG8ewP1Rd9hSAIgf+Qj+qeWBuWbwIncqYg/N1zphn+fx9SJopeS38Dm4Yo=",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEYCIQCVFsw0s9aHWu1JpsacWWBAnZNfJLE/Sh6akQWvTBZ0JwIhAODOpJgrj9pIex3hfzOvw9TKQA9m2KmPk8NTPrwTh/vf"
+            }
+          ],
+          "unpackedSize": 60006
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.24",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.24"
+        },
+        "dist": {
+          "shasum": "6f00214447d4711f9539dedad23290d0b0a05d9d",
+          "tarball": "https://registry.npmjs.org/@peer-agent/cli/-/cli-0.1.0-rc.24.tgz",
+          "fileCount": 8,
+          "integrity": "sha512-TQCFZpGZqNJ8JwM39/R5IR8R+w+lu71WMkWiuTr1wHAdqcRz7tUgCVfrjMDTu5xyidKglZftvIXUzl9Mu+IL/w==",
+          "signatures": [
+            {
+              "sig": "MEUCIFHMnxtLxer5LGzOMWq8Sn2YmLc+vFGklvlQX3F0UPhUAiEAuCtGzXdNKWiHPv6YBfhzP+cIIh/H2rLB9VxY66Jg+oo=",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+              "sig": "MEUCIQCBpdc8d0zKNseQ+clfZjYXEGvE41prjreaavf3eQWDPgIge0cS0ug4i3OgA5gf0XO3AS2Eupv04PbGxkEx7d5yk90="
+            }
+          ],
+          "unpackedSize": 18935
+        }
+      }
+    ],
+    "installedPackages": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.24",
+        "dependencies": {}
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.24",
+        "dependencies": {
+          "@peer-agent/protocol": "0.1.0-rc.24"
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.24",
+        "dependencies": {
+          "@peer-agent/protocol": "^0.1.0-rc.24",
+          "@peer-agent/runtime-core": "^0.1.0-rc.24"
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.24",
+        "dependencies": {}
+      }
+    ],
+    "consumerImports": [
+      {
+        "name": "@peer-agent/protocol",
+        "exports": 76
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "exports": 110
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "exports": 5
+      },
+      {
+        "name": "@peer-agent/runtime-core/goal-idempotency-durable",
+        "exports": 2
+      }
+    ],
+    "binaries": [
+      {
+        "name": "peer",
+        "sha256": "e0f82504999731d36f4fa772e6df76ef8ed9938e887240967850080744d01be5",
+        "matchesPublishedArchive": true
+      },
+      {
+        "name": "peer-credential-helper",
+        "sha256": "d7dba730f80f2f92e88d0bebf095de4b5019c496bbe0ff681d42d721ecccae15",
+        "matchesPublishedArchive": true
+      }
+    ],
+    "cliVersion": "peer 0.1.0-rc.24",
+    "ok": true,
+    "scope": "Public fixed versions and dist-tags; all four packages installed in an isolated prefix, runtime package imports, postinstall download, CLI version and binary hashes. Global npm and user data untouched."
+  },
+  "pages": {
+    "version": "0.1.0-rc.24",
+    "checkedAt": "2026-10-21T16:25:56.208Z",
+    "pages": [
+      {
+        "url": "https://ly-ccx.github.io/Peer-Agent/",
+        "status": 200,
+        "sha256": "a58567fb4bc3415deca1c462a04967c295365c3fa703d7ddc65abe493daa797b",
+        "matchesTaggedSource": true
+      },
+      {
+        "url": "https://ly-ccx.github.io/Peer-Agent/docs.html",
+        "status": 200,
+        "sha256": "d1a9c001a156507377fc10f18d617fe0df5ebfc0b2d18b1803630d46eb108411",
+        "matchesTaggedSource": true
+      },
+      {
+        "url": "https://ly-ccx.github.io/Peer-Agent/changelog.html",
+        "status": 200,
+        "sha256": "0a550de0b18db4580df7385a9f7783b9c7ac2792183560e5bad9c9534ad13e60",
+        "matchesTaggedSource": true
+      },
+      {
+        "url": "https://ly-ccx.github.io/Peer-Agent/changelog-data/manifest.json",
+        "status": 200,
+        "sha256": "05f344e73387b658990a58fd8d692fe8195e4c95ecd2b594be1baecf867fe27d",
+        "matchesTaggedSource": true,
+        "generatedAtScope": "Deployment environment git timestamp, excluded from content equality",
+        "latest": {
+          "stable": "v0.0.18",
+          "beta": "v0.1.0-rc.24"
+        },
+        "generatedAt": "2026-10-22T00:24:05+08:00"
+      },
+      {
+        "url": "https://ly-ccx.github.io/Peer-Agent/changelog-data/v0.1.0-rc.24.json",
+        "status": 200,
+        "sha256": "9279cf744d33ea7ba0c9487cf7b7d26bdc8aade9b53f50173504f9b4fd2bb6d8",
+        "matchesTaggedSource": true
+      }
+    ],
+    "scope": "Live public Pages HTTP responses compared with tagged source; not a browser accessibility review.",
+    "ok": true
+  },
+  "limits": [
+    "Implementer self-review is not independent review",
+    "Controlled cognition; no new real-cloud-model acceptance in this release run",
+    "No personal installation replacement or installer handoff",
+    "No interactive Windows/Linux install, full screen-reader or long-duration acceptance"
+  ],
+  "monitoringNote": "One gh run watch request ended with HTTP EOF while actual release jobs remained successful; watcher reconnected. No release rerun or tag replacement."
+}
