@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "baseCommit": "8f0109d49e26346311d1e92dc8e2be0482f1b886",
+  "delivery": "Working changes in primary code repository; fixed attached validation snapshot; no publish or installed-build replacement",
+  "product": {
+    "status": "passed",
+    "runId": "e82cb660-d436-4856-accf-a7c41f277259",
+    "sourceFingerprint": "b846c550f4cb9f947f3db655f2b7ac03cee24dd92a0e6b28355f0c732e5906fa",
+    "reviewedAt": "2026-10-21T09:10:37.290Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementation self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "requiredScreenshots": 201,
+    "reviewedScreenshots": 201,
+    "reviewSha256": "ba73559661e697ac524d3f9a3b8e1c852507cd3cc50aee2226b22dd46ce6af50",
+    "machinePassed": true,
+    "pageErrors": 0,
+    "mainAuthorizationErrors": 0,
+    "botAccessPolicy": {
+      "passed": true,
+      "realLocalIPC": true,
+      "durablePolicy": true,
+      "keyboard": true,
+      "isolatedBots": true,
+      "childMetadata": true,
+      "childReadOnly": true,
+      "returnsToBot": true,
+      "darkWideLightNarrow": true
+    },
+    "findings": [
+      {
+        "screenshot": "quick-chat-bots-light.png",
+        "severity": "minor",
+        "disposition": "accepted-limitation",
+        "description": "Quick Chat 原生透明窗口在 webContents 截图中使用透明/黑色底，部分前景无法由此证明实际桌面合成对比度；其 Bot/模型/发送与无独立权限入口已核对。此次未修改 Quick Chat 主题，安装包与桌面合成对比度仍在覆盖限制内，不能宣称完整无障碍验收。"
+      }
+    ]
+  },
+  "tests": {
+    "passed": 8557,
+    "skipped": 5,
+    "failed": 0,
+    "nodePassed": 7794,
+    "bunPassed": 763,
+    "newFocusedCases": 27,
+    "skipReasons": [
+      "Two explicitly enabled Electron specialist suites",
+      "Three completed-plan reuse cases without subsequent text-verifier stage"
+    ],
+    "build": "passed",
+    "typecheck": "passed",
+    "architecture": "passed",
+    "ipc": "passed",
+    "productVerifierTests": 6
+  },
+  "logs": [
+    {
+      "name": "peer-bot-access-isolated-build.log",
+      "sha256": "990106861d744facc9086863a7fc2702f47203b2b771b678e7155f061305edf3"
+    },
+    {
+      "name": "peer-bot-access-isolated-typecheck.log",
+      "sha256": "e9e20e3c209f570895ef0395c5fffb07dd35a10d47c9a29b5aa258899d1807f2"
+    },
+    {
+      "name": "peer-bot-access-isolated-architecture.log",
+      "sha256": "c34fcf3c43a8faab12bec33681be6493ac963fc3a8255372324b5c50d21eeae9"
+    },
+    {
+      "name": "peer-bot-access-isolated-final-tests.log",
+      "sha256": "fa23acf4f1add9515698d52d89bce47282db2880c2273eabe0ae4d088e74b128"
+    },
+    {
+      "name": "peer-bot-access-isolated-desktop.log",
+      "sha256": "092c86cb9d94183ee98a2bf1b06e025bcf3b3d641f7083194b3a5a4f2ec1a3ec"
+    },
+    {
+      "name": "peer-bot-access-isolated-tui.log",
+      "sha256": "7b3386bc12bed046c0ad422a672e0820b9a17a30f8c45c0bc3aabf4c940ca555"
+    },
+    {
+      "name": "peer-bot-access-isolated-product-tests.log",
+      "sha256": "675c4194973d3df8885069bd51132684e487bf814de66b91b8f7fe22ff9ed0a4"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "bot-access-1280-dark.png",
+      "sha256": "7b49bbb882a852eabd59de08959ee4b747e76ae1b70d7310d1d216df019388e5"
+    },
+    {
+      "file": "bot-access-760-light.png",
+      "sha256": "1417779430f092a32c36f93fce776585ef70dc4bc6bbce9885fd29b4b872314b"
+    },
+    {
+      "file": "bot-access-child-1280-dark.png",
+      "sha256": "cacbf1508f87811efa107088f365dd3639a94b5817c3d01dacdd09c7bf255a56"
+    },
+    {
+      "file": "bot-access-child-760-light.png",
+      "sha256": "9d97acd4dc76353434b0a330e5a4289b7bea08f188207d5c3e5a823a21b21e00"
+    }
+  ],
+  "validationExclusions": {
+    "reason": "Other ongoing lifecycle refactor excluded only from isolated validation; original shared workspace preserved",
+    "restoredToBase": [
+      "packages/protocol/src/session-facts.ts",
+      "packages/protocol/src/task-overview.ts",
+      "packages/runtime-node/src/project-agent/runner.mjs",
+      "packages/runtime-node/src/project-agent/session-facts.mjs",
+      "packages/runtime-node/src/project-agent/session-supervisor.mjs",
+      "apps/desktop/electron/main/task-overview-aggregator.mjs",
+      "apps/desktop/renderer/src/project-agent/state/TaskCancellation.tsx",
+      "apps/desktop/renderer/src/project-agent/state/botWorkState.ts"
+    ],
+    "partiallyRestored": "packages/protocol/src/delegation.ts (kept Bot policy approval fields)",
+    "excludedUntracked": [
+      "packages/protocol/src/lifecycle-projection.test.ts"
+    ]
+  },
+  "changedSourceFiles": [
+    {
+      "file": "apps/desktop/electron/ipc/channels.mjs",
+      "sha256": "67d9606ee9f3bd9d31a8b6f09743054e5cf4b4e81bdccbb5cdff27aebde46e0a",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/bot-access-policy.test.mjs",
+      "sha256": "8908dd75cb16e0ac19ad39d4a4b55a44c012d089819bce285de1fec4abcbdab0",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/permission-gate.mjs",
+      "sha256": "235b71a7de3f93644cf3eb2c35e8d5d69ab24777f0803217820c340dbc7d020b",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/chat-runtime/projected-tool-executor.mjs",
+      "sha256": "5d58125fb0ee7793a3a2db1aac15e3c3f60b91e65f6e2d3ca4786a123d502a01",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/ipc/register-project-agent-ipc.mjs",
+      "sha256": "ade7617fe4230657a834d5498fcb9e9eb88d0bef38483b5339ee44a3766ef4fd",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/ipc/register-project-agent-ipc.test.mjs",
+      "sha256": "b07aa0e891931d86262a2ffb8bd367605fee786cf45b0ae898bcc61ba71b23ec",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/llm-chat-service.mjs",
+      "sha256": "86de29c4b032c22164f7a53b1e45ad6eac636f82084a87d551c65de370aaf3a4",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/llm-chat-service.test.mjs",
+      "sha256": "367473eec9fdaf9e1e1c11b2e3697d112e222720f760e955578c292b0e41976d",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/bot-access-policy-service.mjs",
+      "sha256": "7f44c4061b439e7e2f0d889aefb8e1b3bdf336f0257d6f277c70c886ce3b2a29",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/bot-access-policy-service.test.mjs",
+      "sha256": "fbd2448cf3cd4e6e48f373f0fc16c23750d6c97e3629621a3e7115cb9c2d453a",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/project-agent-application-service.mjs",
+      "sha256": "11617efad4c7dbb49043ca09de0bf785bf673d921245e99006392179971cf0bb",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/project-agent/project-agent-host.mjs",
+      "sha256": "8f2277794cb3c784abfca8905dde970c7ac4ec8e771f240200cd5af08cc8b845",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/runtime-gateway/local-file-provider.mjs",
+      "sha256": "ddabcffd6f649c93bac0098cc137c86ea0120977c574e23c36aa1128d49d16f7",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/main/runtime-gateway/local-shell-provider.mjs",
+      "sha256": "5abf443d941d6cadcfe6a57d4b74f6a1779972f41114b47908fbcbb8ffbc204a",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/preload/preload.cjs",
+      "sha256": "7b9edfceb38b0c27107987d926c15755ac2e0952f036841cfd114be31d6fd4a0",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/electron/preload/preload.source.cjs",
+      "sha256": "035228735171ab7631fa5b1722b2162fab602074b4e55348b3f3fb302b2a1b24",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/App.tsx",
+      "sha256": "3c2f77b7ac8343e5468ac5a60f23e2547d982bc49a492f28a2c687a02bcc8069",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/chat/components/ChatSurface.tsx",
+      "sha256": "844ce42467c25b7c7e99444209d9da2e48125c2cc0058e80212439d457e04558",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/chat/components/ConversationAccessControl.tsx",
+      "sha256": "791b2a7d215a322cffbfec2fce7e551503e5c09fa4a4721b4ed7c0143a66960f",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/clientApi.ts",
+      "sha256": "80a914ce1b1ee5f3e3c43d6b921e1a7223bef630036e184dc12e62fa97f2d263",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/preload/contracts/bootstrapPreloadApi.ts",
+      "sha256": "c0f8bad10ead9faa4c79dfef9e8fbb4b6acb4e5595f528ec1551aefa68d73fde",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/BotAccessControl.tsx",
+      "sha256": "087bc284e9bde4b2c75c5919140940a55dc829fc8dd622ab51724d6f69ace37d",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/ApprovalReceipt.tsx",
+      "sha256": "b96b6ea5420c4db234a4648d5d035cf0e3b1626c824f3952848891b8105689e7",
+      "scope": "retained concurrent UI work"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/BotComposer.tsx",
+      "sha256": "09762fe64d4e07a7d43f59c244e421f64cb622de0681bbffbc4e6ee2c2f22ac4",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/BotConversation.tsx",
+      "sha256": "0033bb50c07a5983878997b04c1116188d1d898eb16a32f432169b0ea549b6fe",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/conversation/CardView.tsx",
+      "sha256": "8d867988de015dbb12b7fbb48ec57832ad273d0da38c7244d6cd1759ac5a7fdf",
+      "scope": "permission work plus retained UI changes"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/drawer/BotProfileDrawer.tsx",
+      "sha256": "c0f8bd2e4e8fd1084c71d21830681c9dc24126af7e7759fb8476f7d2d04953ed",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/drawer/SessionDetail.tsx",
+      "sha256": "ff79089793039b912e015529d8bbdf3c763e754343d8f4261974a579af8d8a46",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/botAccessPolicyState.test.ts",
+      "sha256": "c87d2ad55896bc5a03126416d0fd9f27ed9c4e7049412c143154bcf44e583856",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/botAccessPolicyState.ts",
+      "sha256": "7e5da8fb347748a10b4b356238ea9687ed104a6d53a79d4eab1cfa81b2825248",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/state/useBotAccessPolicy.ts",
+      "sha256": "088ac76716c274fad5768ddbf98aeaaa904a07fbde52005e21d87582ac362ee1",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/styles/bot-access-control.css",
+      "sha256": "6c2b172bb1958e2d73384439356e225f34bbfa7665b38c1b99a8c513dbf9ba58",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/styles/bot-conversation.css",
+      "sha256": "11fdf9510ba7176dcd5d5177560705d32832dc07badbc1e66ae5d39c5dcfeb05",
+      "scope": "permission work plus retained UI changes"
+    },
+    {
+      "file": "apps/desktop/renderer/src/project-agent/styles/bot-process.css",
+      "sha256": "3397a3155f9de28a1e3f1aef86aa1b7a83baddc6cca0e53abd9a42898c569b63",
+      "scope": "retained concurrent UI work"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-access-policy-checks.mjs",
+      "sha256": "d37eaac8c62b535a780a697b9c83f4c26ad5339097ab80597adc835baccf5b0e",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-composer-layout-checks.mjs",
+      "sha256": "f50357b996f85720a2cdc125f0697573e13c172ba17383188d37cbc85be338a4",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-conversation-typography-checks.mjs",
+      "sha256": "8556a3892493cb82c647c26111dd518b991addaa85a9028bfa5b5d0b89429c54",
+      "scope": "retained concurrent UI work"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-full-access-image-checks.mjs",
+      "sha256": "2441204fc83f075c29a4a9635a8800ef235c736cfb913f6cf37834d8438398df",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-image-approval-checks.mjs",
+      "sha256": "b2ed26f6dc76f13a9c3d193f1cff994aa3f11e8d2edec028b69df33fc7e41412",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-image-lifecycle-checks.mjs",
+      "sha256": "d9f49a2a2a9d2121d010612d5cd8ae38364c8b408010846258515662b5732e53",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/desktop/scripts/bot-shell-electron-smoke.mjs",
+      "sha256": "b46b231384f7208527b52943c63c7dd877870086fe13b6b1f9c3ae268274ee05",
+      "scope": "permission work plus retained UI changes"
+    },
+    {
+      "file": "apps/desktop/scripts/image-permission-fixture.mjs",
+      "sha256": "c9e237c2a35da5cade2842532b1de04cbe7c4f29d87f36df2b0b56a83bfe77f9",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/tui/src/project-agent/bot-access-policy.test.ts",
+      "sha256": "7f09c66a0f61ef98afbcfb326cd838cc3430ef0a8572c3d0c3141308b15ac3fa",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/tui/src/project-agent/tui-turn-executor.test.ts",
+      "sha256": "1285614886ddc303effb98ca2b185aa3e5d4ea3347f190de1d3be914730529ce",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/tui/src/project-agent/tui-turn-executor.ts",
+      "sha256": "7c537357bbc7a1573c53d49f4be4fa335ca3a0a5a72789e23bb5f53e26c9a22b",
+      "scope": "permission change"
+    },
+    {
+      "file": "apps/tui/src/tui-host.ts",
+      "sha256": "e39aaf51d699187e6bc59f56d88650f44b84d3cfd60b834f9f08a9e22645a487",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/i18n/src/index.ts",
+      "sha256": "0bcdfd86f1ea8bd9bd2ca86debeb13d14e91da96f3b60e1aec0975b7c2e739fa",
+      "scope": "permission work plus retained UI changes"
+    },
+    {
+      "file": "packages/protocol/src/bot-access-policy.ts",
+      "sha256": "1b530267683f1582a9f7bcff91033e3c97ae8641c970ec35283b13131b039793",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/protocol/src/delegation.ts",
+      "sha256": "f1337f9c3461aec2dcd0cacd89138b3f0222c09453e9557c9ad613944581b18c",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/protocol/src/index.ts",
+      "sha256": "ad4dd8e7a2ae1de970358ea2fa88296e103d6aeba45b943ec21d55bc55fb89a5",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/protocol/src/local-image.ts",
+      "sha256": "b5a95d35df6eef4f69172fda9520bcf57983ddd1f8b134ef59c3f143eb69fe4c",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/data-store.mjs",
+      "sha256": "617da2b0d80e1750a0a011e01e5d7878ab4ef30ba3d142491905cd0576962aa7",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/file-provider.ts",
+      "sha256": "9b099fc37c70544d53f4b1594113a62bbead00509bddf97803c8dbe31a3f7f7c",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/index.ts",
+      "sha256": "fb48e55beac2e84357a13bc64a44fea305e379099e720b3a84d2951eea36e557",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/approval-store.mjs",
+      "sha256": "83d0767952ff33e45643e448082dcfd0fb3c633027d005908b05e5f287206cd6",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-access-policy.mjs",
+      "sha256": "1b73c581ca5eea776c0ba8029d66886e9137a6046c84bfd550cee61c22cce22d",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-access-policy.test.mjs",
+      "sha256": "92fe1c8594e3be9b134f57ff1b034ea9659d5cad59363f93def76f6c44013deb",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/one-time-approval.mjs",
+      "sha256": "09ba5c8c71dc6313d71c391d146836e2c1a89fa98687dbf2d935a71d9c56d7f7",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/permission-inheritance.mjs",
+      "sha256": "d58e74c5b2944ddc9d92fab242ef78edbcfde608710c2e673bc6b678d8d2c10e",
+      "scope": "permission change"
+    },
+    {
+      "file": "packages/runtime-node/src/shell-provider.ts",
+      "sha256": "f031611dc68d44bba649363de8f73415bb3b6e607d2945ce3ba581fced29339a",
+      "scope": "permission change"
+    },
+    {
+      "file": "scripts/product-regression.mjs",
+      "sha256": "7f8d8b791cf8c4638a723c092effbc82de947fa4e3447de914f7ae7610f1342b",
+      "scope": "permission work plus retained UI changes"
+    },
+    {
+      "file": "scripts/rc-response-interaction-smoke.mjs",
+      "sha256": "1719194d758a4a52a6c96b5e8d56c6f52fb9508d9409917841541d4f4953e5a7",
+      "scope": "retained concurrent UI work"
+    }
+  ],
+  "limits": [
+    "Scripted model cognition; no real provider quality or network timing",
+    "Source Electron; not an installed RC",
+    "No full screen-reader or long-duration acceptance"
+  ]
+}
