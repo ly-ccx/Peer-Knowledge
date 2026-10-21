@@ -131,7 +131,7 @@
 | 主 Bot 权限选择 | [1280](evidence/bot-owned-access-policy-20261021/bot-access-1280-dark.png) | [760](evidence/bot-owned-access-policy-20261021/bot-access-760-light.png) |
 | 子 Agent 继承状态 | [1280](evidence/bot-owned-access-policy-20261021/bot-access-child-1280-dark.png) | [760](evidence/bot-owned-access-policy-20261021/bot-access-child-760-light.png) |
 
-### 5.4 PR 交付范围
+### 5.4 PR 初次交付范围
 
 代码 PR：[Peer-Agent #177](https://github.com/ly-ccx/Peer-Agent/pull/177)，提交 `c67758c78d348aeecef24685bd3a85ce7d05dbb5`。以现有 #174 的 `codex/parallel-task-list` 为叠加基线，PR 自身仅包含 57 个权限相关文件；#174 合入后应将 base 转到 `PeerAgent/dev/0.1.0`。
 
@@ -143,11 +143,54 @@
 - 最终 sourceFingerprint：`60980ad3c2829e3d38786e63c7b9053f723ad2ead952bd9d786df57db5769805`，对应上述 `c67758c` 提交。
 - `machine.ok=true`、`pageErrors=0`、`mainAuthorizationErrors=0`；主 Bot 真实本地 IPC 保存、持久回读、跨 Bot 隔离、子任务只读、返回主 Bot 和键盘操作均通过。
 - 审查为实施者自审，`independent=false`；真实模型、安装版、完整读屏与长期使用未覆盖。Quick Chat 透明窗口合成对比度继续作为 minor accepted-limitation 记录。
-- 当前叠加 base 不在仓库 CI 的 PR 目标分支过滤范围内，GitHub 尚未触发检查；本地通过不表述为 CI 通过。#174 合入并将 base 调整到开发分支后须确认 CI。
+- 首次交付时的叠加 base 不在仓库 CI 的 PR 目标分支过滤范围内，尚未触发检查；当时本地通过不表述为 CI 通过。#174 合入后的 base 与最终双平台 CI 结果见 §5.5。
 
-配套知识库 PR：[Peer-Knowledge #56](https://github.com/ly-ccx/Peer-Knowledge/pull/56)。最终持久记录：[提交与验收收据](evidence/bot-owned-access-policy-pr-20261021/receipt.json)、[全部 193 项截图观察](evidence/bot-owned-access-policy-pr-20261021/review.json)。收据包含全部 57 个变更文件的哈希及本轮日志哈希。
+配套知识库 PR：[Peer-Knowledge #56](https://github.com/ly-ccx/Peer-Knowledge/pull/56)。首次 PR 持久记录：[提交与验收收据](evidence/bot-owned-access-policy-pr-20261021/receipt.json)、[全部 193 项截图观察](evidence/bot-owned-access-policy-pr-20261021/review.json)。收据包含全部 57 个变更文件的哈希及本轮日志哈希。
 
-| 最终提交关键界面 | 深色宽屏 | 浅色窄屏 |
+| 首次 PR 提交关键界面 | 深色宽屏 | 浅色窄屏 |
 |---|---|---|
 | 主 Bot 权限选择 | [1280](evidence/bot-owned-access-policy-pr-20261021/bot-access-1280-dark.png) | [760](evidence/bot-owned-access-policy-pr-20261021/bot-access-760-light.png) |
 | 子 Agent 继承状态 | [1280](evidence/bot-owned-access-policy-pr-20261021/bot-access-child-1280-dark.png) | [760](evidence/bot-owned-access-policy-pr-20261021/bot-access-child-760-light.png) |
+
+### 5.5 合并前完整复查
+
+用户授权再次完整复查、修复并在检查通过后合并。复查以最终 PR 的实际文件和当前开发分支为准，实施者复查仍不称为独立审查。
+
+- 依赖 #174 的最新 `8f0109d4` 双平台 CI 均已通过；复查其任务分组、活动去重、SVG 身份及原生测试通知后，以 merge commit `f7e1954a` 合入开发分支。#177 已调整 base 到 `PeerAgent/dev/0.1.0` 并同步该 merge，保留依赖提交身份。
+- 发现 R14：CI 固定 Bun 1.2.17 没有 `node:sqlite`，原实现在该版本下无法建立 Bot 权限库。实际运行 TUI 三项权限测试得到 1 pass / 2 fail；第三项因初始化失败而提前拒绝，不能据此证明异步 Hook 撤权。修复要求：共享 authority 在 Bun 使用其内置 `bun:sqlite`，Node/Electron 保持 `node:sqlite`；同一 SQLite schema、事务、CAS 与拒绝语义不变。测试夹具必须先断言初始化及策略更新成功，并验证 Bun 与 Node 共同读写和重启。
+- 发现 R15：TUI 因策略变化自动关闭的批准被标为 `local_ui`；审批日志不可写时新 watcher 在持久化之前启动，且批准结算写入失败会阻断清理。前两项已用反例复现。修复要求：自动关闭由 policy 记账，日志不可用结构化拒绝，只有成功保存的待批准才能启动 watcher；结算持久化失败也必须清理队列、拒绝并完成 Promise。
+- 发现 R16：TUI 图片 scope 复用的二次校验漏传 policy revision，导致合法当前版本许可无法复用。重检必须重新解析宿主父链并带同一派发版本，外围版本闸继续阻止降权后使用；这不新增 TUI 图片 Provider。
+- 发现 R17：持久 Shell 同会话串行队列只在入队前验证，排队期间撤权后仍可能执行旧命令。共享 ShellSession 的 Interface 增加执行前回调，在队列真正领取命令及重建重试写 stdin 前调用；Desktop/TUI Provider 装配已有策略校验，拒绝返回结构化 denial。已启动命令不被回滚，尚未启动的旧命令不得写文件。
+- 发现 R18：首次修复后标准 capture 在流式回复第二次收窄窗口时失败；截图显示正在从停靠抽屉切换到浮层。该路径遗漏了同一夹具前一处已有的 React 响应式切换等待，原生 resize 返回后即测量仍占 414px 的离场布局。修复只等待停靠节点移除、窄屏浮层可见，再保留原来的严格溢出断言；不改生产布局、阈值或截图必查项。失败包保留，不作为验收通过。
+- 发现 R19：保存进行中收到的宿主变更通知原来直接丢弃。若另一窗口的较新策略在旧保存回执之前到达，界面可能长期停在旧回执，虽然执行仍受当前版本控制。状态控制器应记住刷新需求，保存收尾后回读最新事实；补充延迟回执与并发通知的 reducer 反例，不引入 renderer 权限真源。
+- 发现 R20：第二份采集包停在 `openReplyDetails` 的 `locator.evaluate(async → animation.finished)`。原生窗口仍可交互，历史行在抽屉收起时被虚拟化移除，但旧 DOM/动画 Promise 仍被 inspector 等待且不受 locator 超时约束。已通过关闭该隔离测试页让原 runner 用其真实 owned handle 清理，并保留 trace，未按搜索得到的 PID 杀进程。改为有界轮询当前壳内可见有限动画结束，再通过真实 scroller 重新定位历史行；不关闭虚拟化、不跳动画断言、不伪造状态。该旧包也因源码已更新而不得接受。
+- 发现 R21：第三份整包的主流程、活动、选区引用均通过，但共享 UI 的第二个 Diff 窄屏用例在旧预览响应 resize 关闭前就重新聚焦，关闭事件会清掉新预览。宽屏截图已证明预览正常；修复等待旧 portal 按生产行为关闭后，再进行新的键盘聚焦和同一组预览/重命名/边界断言。失败补充包保留；不改 Diff 生产行为或降低要求。
+- R14–R17 修复提交：`8d146ade363a6560d032e391f1b513a141b4b64c`；R18 夹具等待提交：`f04c917b5c335a88eb09fb2d9a9cb6f8c2a99408`。该阶段相对开发分支共 60 个变更文件，不包含被排除的并行产品改动。
+- 本地修复后全工作区：build、typecheck、architecture/UI、IPC 通过；Node 7,796 + Bun 1.2.17 的 766 = **8,562 passed / 6 existing skipped / 0 failed**。比原记录多出的第六项是 Bun 1.2.17 既有 FTS 条件跳过，本轮未新增 skip 或放宽断言。原 27 个 focused 用例外增加 6 个回归用例。
+- 新增回归包括 Node/Bun 同库 CAS、审批日志初始写入与结算失败、TUI/桌面真实排队 Shell 撤权，以及 Shell 被拒绝后 bootstrap 仍可执行。TUI 7 项 focused 和 Desktop/共享 Shell 12 项 targeted 均通过。图片 revision 二次校验为源代码路径复查修复，未据此声称增加了 TUI 真实图片 Provider 覆盖。
+- R18 修复后的真实 Electron 流式专项通过；严格宽度检查、主对话/工具结果/历史和取消重试断言均保留。产品验收校验程序的 6 个负向用例也通过。
+- 首次面向开发分支的双平台 CI（`1bbef619`，run `39595288253`）确实因 Bun SQLite 导致 TUI 测试失败，保留失败日志；不是以本地新工具链结果替代旧 CI 失败。最终本地、双平台 CI 与新产品包结果见下列验收记录；旧验收收据仅证明其各自源码指纹。
+
+R19 修复提交 `ee3ff154c55665550c2406ab91ed9892fe5404a4` 后，全工作区再次执行得到 **8,563 passed / 6 existing skipped / 0 failed**（Node 7,797 + Bun 766），新增 focused 回归累计为 34 个。状态控制器四项测试通过，含保存期间通知和旧回执竞争。R20 提交 `b1d443b418adb6814012cd59c36858b1b855ce51` 后工作区真实 Electron 专项通过，当时 PR 为 61 个文件。该阶段原产品包只作为历史证据保留。
+
+R21 共享 UI 专项亦已通过，所有 18 个深浅/宽窄场景、图片键盘操作、产物披露与重命名 Diff 严格断言保留。其提交 `8da8b02bd963205f74875fc90ce26eeb0c46c014` 将最终 PR 范围更新为 62 个文件；下述最终验收绑定该提交，前面的冻结记录仅代表该阶段状态，不替代最终指纹。
+
+
+#### 最终验收记录
+
+- 最终代码提交：`8da8b02bd963205f74875fc90ce26eeb0c46c014`；相对已合入 #174 的开发分支共 **62 个文件**。构建、类型、架构/UI、IPC 检查通过；全工作区 **8,563 passed / 6 existing skipped / 0 failed**，focused 共 34 个。最后两项提交仅修复真实窗口测试夹具的等待，双平台 CI 已在最终提交重新执行全套检查。
+- [最终 CI run 39601970591](https://github.com/ly-ccx/Peer-Agent/actions/runs/39601970591) 绑定同一 `8da8b02b`：`ci-macos-14`、`ci-ubuntu-latest` 均 success，各自 build、typecheck、architecture、test 和本平台 Electron smoke 均通过。早期失败与被后续推送取代的运行不作为最终通过依据。
+- 标准 capture 已完整完成；逐张核对全部 **193 张截图**，填写具体观察后执行 `pnpm qa:product:verify`，结果 **passed**。主流程及活动、选区、共享 UI 补充包均通过；`machine.ok=true`、`pageErrors=0`、`mainAuthorizationErrors=0`。隔离测试进程已由原 runner 的 owned handle 正常停止。
+- 最终 runId：`c6f3adbb-d280-4a3a-b638-4f65838f802b`；sourceFingerprint：`7afb4c4cd4c37526b88b7f95039d73ec070e483839fd2b03cea06bf78e35d29d`。
+- 主 Bot 的深色宽屏和浅色窄屏权限入口均清晰可用；子窗口显示“继承自主 Bot · 完全访问”，保持只读并能返回管理。真实本地 IPC 保存与持久回读、两个 Bot 隔离、子任务 metadata、键盘操作和跨宿主 SQLite 互操作均有对应机器断言。
+- R14–R21 已解决；没有遗留阻断发现或未解决的 PR 评审意见。知识库没有配置 CI 工作流，以 Markdown 相对链接、JSON、截图/评审和全部 62 个变更源码哈希校验作为本次文档验证，不能称作知识库 CI 通过。
+- 审查仍为实施者自审，`independent=false`。受控模型不证明真实供应商质量或网络时序；源码 Electron 不证明已安装 RC；未完成完整读屏或长期运行验收。Quick Chat 原生透明窗口在截图中的黑色底合成对比度保留为 minor accepted-limitation，本轮没有将其描述为完整无障碍通过。已启动副作用与已进入模型的内容不能由后续改档回滚。
+
+持久证据：[最终提交/依赖/CI/测试收据](evidence/bot-owned-access-policy-merge-20261021/receipt.json)、[最终 193 项逐图观察](evidence/bot-owned-access-policy-merge-20261021/review.json)。收据保存本轮真实失败日志及被拒绝采集包的哈希，和最终通过日志、四张关键图、62 个源码文件的哈希；历史证据不覆盖最终记录。
+
+| 最终提交关键界面 | 深色宽屏 | 浅色窄屏 |
+|---|---|---|
+| 主 Bot 权限选择 | [1280](evidence/bot-owned-access-policy-merge-20261021/bot-access-1280-dark.png) | [760](evidence/bot-owned-access-policy-merge-20261021/bot-access-760-light.png) |
+| 子 Agent 继承状态 | [1280](evidence/bot-owned-access-policy-merge-20261021/bot-access-child-1280-dark.png) | [760](evidence/bot-owned-access-policy-merge-20261021/bot-access-child-760-light.png) |
+
+合并事实：代码 PR [#177](https://github.com/ly-ccx/Peer-Agent/pull/177) 已于 `2026-10-21T13:06:19Z` 正常合入 `PeerAgent/dev/0.1.0`，merge commit `4e1a440aa0222861b638e98690a0340898830a09`。已从远端 fetch 并验证合并树与上述通过 CI 和产品验收的提交完全一致，#174 合并提交为其祖先；未绕过分支保护。知识库 PR [#56](https://github.com/ly-ccx/Peer-Knowledge/pull/56) 随后按本记录提交、推送并合并。

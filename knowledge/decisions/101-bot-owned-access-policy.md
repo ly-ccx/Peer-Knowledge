@@ -66,6 +66,8 @@ Module 深度在于集中处理跨进程持久权限、迁移、身份归属、�
 
 在已登记的 `project-runtime/` 下保存 `bot-access.sqlite`，在 DATA_STORE_ENTRIES 注释明确登记其设备本地用途。SQLite 使用已有 Node/Bun SQLite 能力，不增第三方依赖；事务 + `BEGIN IMMEDIATE` + CAS 提供多进程顺序、持久 revision 和更改历史。不得使用会把损坏库自动重建的缓存数据库 helper。损坏/未知 schema/磁盘写失败返回 unavailable，不重建成宽权限。
 
+运行时适配在 authority 的数据库连接 seam 收口：Node/Electron 使用 `node:sqlite`，Bun 使用内置 `bun:sqlite`，兼容 CI 的 Bun 1.2.17。两者共用同一数据库格式与版本，跨宿主读写和 CAS 不依赖各自内存缓存。
+
 每条策略绑定 workspaceId 与 agentConversationId；一张只追加版本表保留每个版本的档位、时间和来源（legacy_migration / local_ui / new_bot），最大 revision 投影当前快照。事务保证新版本与迁移标记一致，旧版本不被覆盖。历史是策略审计，不伪造具体 Tool Call 的 PermissionGrant 或 local_ui 操作批准。
 
 权限不存入可移植 BotProfile、模型记忆、会话文本、压缩摘要或 renderer localStorage。设置导出不能顺带向新设备签发 Bot Full。
@@ -103,6 +105,8 @@ Provider → Manifest → Runtime Projection → Tool Call
 持久事务提交是策略生效点。每个后续调用读取新版本，已创建 Worker 回合也不能一直使用回合开始时冻结的 Full。异步权限请求、文件读取、图片解码或等待期间版本发生变化，旧 grant 校验失败；尚未发生的副作用不得按旧许可启动。
 
 已经启动的 shell/外部进程不能靠修改权限撤回已发生行为；本次不默认杀掉正在运行的命令。后续执行与输出交付按现有 Provider 合同检查，UI 说明当前策略适用于后续操作。Provider 在危险副作用前沿现有 executionGate / validate seam 重检。不可取消 Provider 的覆盖限制必须如实写入交接，不承诺跨 Provider 原子撤销。
+
+持久 Shell 的队列接受不等于命令已经启动。共享 ShellSession Module 的 `beforeExecute` Interface 在队列领取命令后、写入 stdin 前和重建重试前同步调用宿主校验；回调抛错即不派发命令。Desktop/TUI Provider 将策略失效映射为结构化拒绝；被拒绝的调用不消费会话 bootstrap，也不阻塞后续合法调用。
 
 ### 6.2 缓存与批准
 
@@ -171,4 +175,4 @@ TUI Bot 宿主在每次 Provider 审批读取同一设备策略库；不能由 T
 
 ## 11. 评审与验收状态
 
-本 ADR 的设计与实现评审由实施者逐路径自审，不称为独立审查。实现已完成；固定源码副本全工作区测试 8,557 passed / 5 既有 skipped / 0 failed，build、typecheck、architecture、IPC 均通过；原组合源码标准产品回归经 201 张逐图检查后 verify passed；最终代码 PR #177 独立提交重新全测，并完成 193 张逐图检查及 verify passed，提交与指纹见落实评审 §5.4。实际文件清单、首次失败与修复、源码/截图指纹和真实模型、安装版、无障碍覆盖限制见[落实评审 §5](../../playbook/v0.1.0/bot-owned-access-policy.md#5-实际验证记录)。共享目录其他在途重构不包含在此通过结论内。发布、合并、替换用户日常安装版不由本 ADR 自动授权。
+本 ADR 的设计与实现评审由实施者逐路径自审，不称为独立审查。首次交付的组合源码 201 图、独立 PR 初版 193 图及其指纹分别保留于落实评审 §5.3、§5.4。用户随后明确授权完整复查、修复、处理 #174 依赖与 CI，并在检查通过后合并；R14–R21 的新发现、真实失败反例及最终验收以 [落实评审 §5.5](../../playbook/v0.1.0/bot-owned-access-policy.md#55-合并前完整复查) 为准。真实模型、安装版、完整读屏和长期验收仍有覆盖限制；其他在途重构不包含在通过结论内。发布和替换日常安装版不由本 ADR 自动授权。

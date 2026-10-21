@@ -1,6 +1,7 @@
 # Peer Agent 架构治理与开发准则
 
 日期：2026-06-10
+最后更新：2026-10-21
 状态：治理基线
 产品理念：`design/product/peer-product-alignment.md`（本文不另立品类，只锁工程如何实现那条委托链路）
 
