@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.24",
+  "reviewedAt": "2026-10-22",
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex implementer native screenshot self-review",
+    "independent": false
+  },
+  "screenshots": [
+    {
+      "file": "attention-1280-dark.png",
+      "sha256": "36c62f1fe6739b3eae3b6890775131ad64d90397e1383de9c921f383f83209a7",
+      "verdict": "pass",
+      "notes": "Only one current decision, matching count and detail; old question is absent; options and source action fit the viewport."
+    },
+    {
+      "file": "attention-760-light.png",
+      "sha256": "c1a992110741e677278d43ae3f963867ac8214064a470b181cc2a9f51657c88e",
+      "verdict": "pass",
+      "notes": "Only one current decision, matching count and detail; old question is absent; options and source action fit the viewport."
+    },
+    {
+      "file": "details-1280-dark.png",
+      "sha256": "16bb455e558e01980275e5d66cfac5e6e55296070b30f82c4ae57ff47866fb1e",
+      "verdict": "pass",
+      "notes": "Native capture preserves hover opacity 1 and geometry; SVG detail entry sits at the left under the bubble. Narrow raw frame includes unused black padding outside the CSS viewport."
+    },
+    {
+      "file": "details-760-light.png",
+      "sha256": "1b3e66a86484d86b43fa7e05492b238ca9b9fcfd8ce6de8ec622e974f4047f61",
+      "verdict": "pass",
+      "notes": "Native capture preserves hover opacity 1 and geometry; SVG detail entry sits at the left under the bubble. Narrow raw frame includes unused black padding outside the CSS viewport."
+    },
+    {
+      "file": "notification-after-attention.png",
+      "sha256": "0a19da410659c47f3765f275a63202a0db000c50bb2162ca72de9bf3cb4e3931",
+      "verdict": "pass",
+      "notes": "Navigation reaches project-001 and the expected newer message after attention navigation."
+    },
+    {
+      "file": "receipt-1280-dark.png",
+      "sha256": "93d10ebbc9246a18aa122d11077fe5a6f162f0be13c5f247cfdcf8132c2d9419",
+      "verdict": "pass",
+      "notes": "One lightweight reply receipt, with no duplicate buttons; retired question has no action, current decision retains actions."
+    },
+    {
+      "file": "receipt-760-light.png",
+      "sha256": "9229baddf994737e014c1f88298e2f17e157e0417838ae70e43e940f3736d76c",
+      "verdict": "pass",
+      "notes": "One lightweight reply receipt, with no duplicate buttons; retired question has no action, current decision retains actions."
+    },
+    {
+      "file": "old-rc23-downloading.png",
+      "sha256": "e603b2233594cc6ca420fd591406d83a45195e26aaf520a89d953bbd7b0b2b36",
+      "verdict": "pass",
+      "notes": "After update action, modal is gone and the sidebar has a progress strip; this frame is at 0 percent, complete progress is recorded separately."
+    },
+    {
+      "file": "old-rc23-update-available.png",
+      "sha256": "afb1f2e328572abe13c22fb2fd39a98bf5de0939ed56efa7a9f9be79b4ae6084",
+      "verdict": "pass",
+      "notes": "Actual RC23 discovers RC24 from the public feed and shows the matching release notes."
+    },
+    {
+      "file": "old-rc23-update-ready.png",
+      "sha256": "f297363df513fb6f9e7f4fbb4e752af0561dc7636479b735a7af4994c363fca2",
+      "verdict": "pass",
+      "notes": "Download ends with an install action. Downloaded ZIP hash equals the published asset. Installer was not executed."
+    }
+  ],
+  "scope": "Downloaded unmodified signed Mac applications, isolated generated data and production update feed. No cloud model, personal installation replacement, full screen-reader or Windows/Linux interactive install."
+}
