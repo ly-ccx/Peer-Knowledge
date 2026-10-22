@@ -219,6 +219,7 @@ manifest 声明 minimumReaderVersion/minimumWriterVersion；所有支持此契�
 - Conversation Store 增加 `readInteractionPage`、`readInteractionContext` 与 `readInteractionProcess`。公开交互索引放在 `cache/read-models/interactions/<store namespace>/`；worker 对当前父会话流式建索引，随后增量追尾。界面分页发生在可见交互集合上，主 Bot 的 Desktop/TUI 模型准备走公开交互查询。公开进展与处置回执保留薄投影，私有 rounds 不入默认页；显式打开过程时按 canonical 记录字节位置读取对应回复与 turn。
 - 模型历史当前保留全部公开用户输入/正式回复，交由原上下文机制处理，不新增启发式窗口以静默遗忘用户边界。§4 的 tokenBudget、超大公开正文分片和独立 audit/process 轮次分页仍是后续扩展 Interface，本轮不宣称这些概念 API 已全部落地；当前单 canonical 记录上限 64 MiB，界面按最多100条公开交互分页、另带关联薄投影，过程读取粒度为一个选定turn。
 - 主 Bot 的 turn roster 先按 work/session/输入锚点选取最多 24 个计划摘要，不构造子链报告或读取子会话正文。命令端仍保留权威生命周期核对，摘要不授权执行。项目指令、记忆、能力与权限仍沿原 Context Source/Projection 链。
+- Desktop/TUI 模型装配必须保留交互查询已准入的旧版公开 user/assistant 消息；缺少 kind 不代表内部过程。不得在宿主再次仅按新 kind 过滤，静默丢弃旧用户约束。私有 turn/round 的排除由统一交互查询负责；真实模型入参回归同时断言旧用户/助手交互保留、私有过程不进入请求。
 - Coordination Store 在原 Store 内提供 v1/v2 Adapter。v2 分段 journal、哈希链、持久 head、来源版本和 lease 检查共同约束恢复；小更新写差量，usage 精确去重单独索引，不在 WorkHead 或每次事件中复制累计 observations。语义无变更不写新记录。超出 60 KiB 的真实事件内容放到 content-addressed blob，journal 保留 hash/bytes 引用，回放校验原文。
 - 协调派生库放在每个项目 runtime 下的 `.read-models/coordination-<cacheId>.sqlite`（`coordination-current.json` 指向当前缓存代），属于本机可重建缓存，旧 reader 不会把它当 canonical。该布局让当前 Store 的所有权、原文、分段和重建发布保持在同一个 Module seam；缓存可以删除后重建，不能将其缺失解释为空状态。
 - 首次恢复等待 worker 完成后才开放 Guard 的同步查询；索引只在完整校验后发布。canonical fsync、head 持久化之后 SQL 提交失败，返回 `durable_pending_projection`。半截尾先 fsync 原文备份与恢复 intent，再替换有效前缀、重建并追加恢复回执；内部损坏、缺失已提交日志、hash 不符或旧 writer 改写均失败关闭。
