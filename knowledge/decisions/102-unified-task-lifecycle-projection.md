@@ -23,6 +23,12 @@ Runtime 负责事实，Protocol 负责纯投影，Renderer 负责表达。`runne
 
 不迁移、取消、删除或批量改写旧计划、对话、报告与 Evidence。未知状态通过投影和既有恢复链解释，不能按超时写回失败，也不能把持久化 running 当活执行。该变更不表示当前已安装进程已升级。
 
+## 报告与验收事实的依赖方向（RC25 整合修正）
+
+报告原文是核验输入，不得依赖核验或验收投影。合并验证在 TUI 完整链路复现循环：工作会话进入 result_ready 后，投影读取 acceptanceFacts → verification.facts → 通过 supervisor.get(report) 取报告 → 再次进入投影；回调捕获异常掩盖递归，导致主线程阻塞与超时。Desktop 使用同一装配，也必须修正。
+
+SessionSupervisor 的 `readReportSummary(sessionId)` Interface 只从指定计划/会话的 canonical 报告内容生成摘要，不读取验收 authority、不调用完整 session 投影。两宿主核验端口统一使用该入口；用户详情仍用既有 get(report)，但其核验回读已无环。报告身份、证据、核验与验收规则均保持，不能靠降级验收或延长超时修复循环。
+
 ## 验证与记录
 
 PR #180 已有协议生命周期矩阵、真实聚合器与三表面一致性、Runtime token/会话事实、监督者及 Renderer 取消事实测试；原 PR 双平台 CI 通过。RC25 合并审查发现兼容包装缺少 interruption 转发，须补真实回归后纳入最终候选。
