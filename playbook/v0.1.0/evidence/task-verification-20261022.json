@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "097b1cd30d4890acb49710f9a5e3f87de7e40fc5",
+  "sourceFingerprint": "9db0d27ecfb9ba5c02a53392a95b700a5b40713a0ab40e861c36f5bb65c3e4d4",
+  "reviewer": {
+    "kind": "ai",
+    "name": "implementer self-review",
+    "independent": false
+  },
+  "screenshots": [
+    {
+      "id": "verification-main-1280-dark.png",
+      "sha256": "f9280e9f284f9d610dd5e5602e7d8c9be53caa61b0c07d341fb56ac9c7b535ca",
+      "verdict": "pass",
+      "notes": "主对话保留主 Bot 的范围说明和任务结束入口；没有裸 verdict 卡或核验进展消息，正文在窄窗自然换行。"
+    },
+    {
+      "id": "verification-main-760-light.png",
+      "sha256": "5831643520665dddfadd95e6a076d1d78f1d38cdecc0073aded94b72df7c972d",
+      "verdict": "pass",
+      "notes": "主对话保留主 Bot 的范围说明和任务结束入口；没有裸 verdict 卡或核验进展消息，正文在窄窗自然换行。"
+    },
+    {
+      "id": "verification-task-failed-1280-dark.png",
+      "sha256": "da045329523dac77bf78d89f98ff6f513b5ae20d452872783b5af33bd897a3b6",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-failed-760-light.png",
+      "sha256": "7369197b4f040a14220d55240271d6b5828ddc4762900d140722dccd1674a636",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-partial-1280-dark.png",
+      "sha256": "e0c13d2c06c9760b6415e32e249cdc253952cee79384c876af22bc9e6b422fa7",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-partial-760-light.png",
+      "sha256": "deda789c66bdd083e381d7151c7aae4d2fa18bf0c9c1f6265a7d7377501b07dd",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-passed-1280-dark.png",
+      "sha256": "83df16a4b002222696b8320cf0967d387d57d733808b6c10a429668099319efb",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-passed-760-light.png",
+      "sha256": "ac154e10162f7e6abc65e46ca3f809c4d0c1d2690c275e018835f36c68275eff",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-unverifiable-1280-dark.png",
+      "sha256": "4a4d248783e135ec3ce201e8c24ce68a2812e03b49849c1d2307eb68cbfd389e",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "verification-task-unverifiable-760-light.png",
+      "sha256": "5c1a39344f88c794ace56b3f8e55d3e39cdee4d785fa009212ef3f71be6d94b8",
+      "verdict": "pass",
+      "notes": "任务中显示当前核验结论、检查项和历史诊断；历史失败与当前结果明确区分，键盘焦点可见，没有横向溢出。"
+    },
+    {
+      "id": "agent-activity-1280-dark.png",
+      "sha256": "3737eb0ff098f50aa4285d63dcf4e3a7badc559f360e709ce768287db9d3d547",
+      "verdict": "pass",
+      "notes": "其他任务活动、来源身份和用户交互保留；核验内部进展已从主对话移走，结果返回活动去重。"
+    },
+    {
+      "id": "agent-activity-760-light.png",
+      "sha256": "2117c39ae8677a68b2cdc026ed3c31582809aa9ca7224e1a4d50a836a54d1d7a",
+      "verdict": "pass",
+      "notes": "其他任务活动、来源身份和用户交互保留；核验内部进展已从主对话移走，结果返回活动去重。"
+    },
+    {
+      "id": "agent-activity-detail-1280-dark.png",
+      "sha256": "a949776a0598ba1bff09c160415d19bf659105f4c774fbeabdd16837d264c5c5",
+      "verdict": "pass",
+      "notes": "对应任务详情显示核验中及已检查 7 项事实；关闭和主对话跟进入口可见，窄窗布局完整。"
+    },
+    {
+      "id": "agent-activity-detail-760-light.png",
+      "sha256": "f4fbc90c4a0cf02cb4bcea382c8e3b785127b8e5089808d81e070dee4e7ab170",
+      "verdict": "pass",
+      "notes": "对应任务详情显示核验中及已检查 7 项事实；关闭和主对话跟进入口可见，窄窗布局完整。"
+    }
+  ],
+  "limits": [
+    "Synthetic cognition and isolated application-service facts; no real cloud-model or installed-build acceptance.",
+    "Focused product regression only; no release-wide packet acceptance."
+  ],
+  "findings": [],
+  "tests": {
+    "focusedUnitAndIntegration": 224,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "checks": {
+    "affectedBuilds": true,
+    "protocolRuntimeDesktopTuiTypes": true,
+    "architecture": true,
+    "ipc": true,
+    "uiConventions": true,
+    "i18n": true
+  },
+  "preservation": {
+    "canonicalConversationBytesUnchangedInRegression": true,
+    "legacyVerdictProcessRetrievable": true,
+    "evidenceAndTaskAuthoritySurviveStoreReopen": true,
+    "publicV2IndexRebuildsToV3": true,
+    "inboxAndStallWakePreserved": true,
+    "personalDataMigration": false,
+    "installedAppRestarted": false,
+    "otherWorkingTreeEditsUntouched": true
+  },
+  "earlierAttempts": [
+    {
+      "scope": "UI retry fixture",
+      "result": "failed",
+      "reason": "The fixture changed its observation revision when restoring availability, causing automatic refresh to unmount the retry button. The corrected fixture keeps the revision stable before exercising the keyboard retry. Original failure log and screenshot retained."
+    }
+  ],
+  "releaseGateRun": false,
+  "publishedOrInstalled": false
+}
