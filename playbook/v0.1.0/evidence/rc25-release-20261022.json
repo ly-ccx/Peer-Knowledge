@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.25",
+  "checkedAt": "2026-10-22T08:43:11.728369+00:00",
+  "baseTag": "v0.1.0-rc.24",
+  "tagCommit": "f88368e0171b154af4c01dafe66d4d5d7600394b",
+  "sourceTree": "27053d5fcb2c887df76c9376efcff3584545bfe4",
+  "sourceFingerprint": "19ce454c13ae698dc9761193479108fb2bd493df1478a5fc77de2a3b15dd1da7",
+  "includedPrs": [
+    {
+      "html_url": "https://github.com/ly-ccx/Peer-Agent/pull/185",
+      "merge_commit_sha": "f88368e0171b154af4c01dafe66d4d5d7600394b",
+      "merged_at": "2026-10-22T07:59:32Z",
+      "number": 185,
+      "title": "fix(tui): retain legacy public context before RC25"
+    },
+    {
+      "html_url": "https://github.com/ly-ccx/Peer-Agent/pull/184",
+      "merge_commit_sha": "39fed6cd8d6991eb125b1ed21bf4fa1824405593",
+      "merged_at": "2026-10-22T07:17:27Z",
+      "number": 184,
+      "title": "release: include every PR and verify RC25 lifecycle gates"
+    },
+    {
+      "html_url": "https://github.com/ly-ccx/Peer-Agent/pull/183",
+      "merge_commit_sha": "6e8f858aa0ca9874ff6410a70212fbb2e9361cd6",
+      "merged_at": "2026-10-22T06:33:27Z",
+      "number": 183,
+      "title": "release: RC25 progressive interaction and large-log recovery"
+    },
+    {
+      "html_url": "https://github.com/ly-ccx/Peer-Agent/pull/182",
+      "merge_commit_sha": "716ebff235b187f2882c26ff220755753ceb3ad3",
+      "merged_at": "2026-10-22T06:39:21Z",
+      "number": 182,
+      "title": "fix(desktop): 用同一套连续圆角统一界面"
+    },
+    {
+      "html_url": "https://github.com/ly-ccx/Peer-Agent/pull/181",
+      "merge_commit_sha": "9b28e9872290a84e217ff36445a0a280a635fd7a",
+      "merged_at": "2026-10-22T06:39:16Z",
+      "number": 181,
+      "title": "fix(desktop): 去掉机器人列表底部的分隔线"
+    },
+    {
+      "html_url": "https://github.com/ly-ccx/Peer-Agent/pull/180",
+      "merge_commit_sha": "21407e5d7cdc769d18139a13a1b2696703a511da",
+      "merged_at": "2026-10-22T06:39:11Z",
+      "number": 180,
+      "title": "feat(protocol): 用同一套生命周期决策投影任务状态"
+    }
+  ],
+  "knowledgePrs": [
+    59,
+    60,
+    61
+  ],
+  "preTagOpenCodePRs": [],
+  "preTagOpenKnowledgePRs": [],
+  "release": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.25",
+    "publishedAt": "2026-10-22T08:24:25Z",
+    "draft": false,
+    "prerelease": true
+  },
+  "releaseWorkflowFirstAttempt": {
+    "conclusion": "success",
+    "head_sha": "f88368e0171b154af4c01dafe66d4d5d7600394b",
+    "html_url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39746491134",
+    "id": 39746491134,
+    "run_attempt": 1,
+    "status": "completed"
+  },
+  "releaseWorkflowFirstAttemptJobs": [
+    {
+      "completed_at": "2026-10-22T08:16:29Z",
+      "conclusion": "success",
+      "id": 119716108636,
+      "name": "meta",
+      "started_at": "2026-10-22T08:16:15Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:22:03Z",
+      "conclusion": "success",
+      "id": 119716228215,
+      "name": "build (macos-14, mac, --mac)",
+      "started_at": "2026-10-22T08:16:36Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:19:19Z",
+      "conclusion": "success",
+      "id": 119716228272,
+      "name": "build (ubuntu-latest, linux, --linux --x64)",
+      "started_at": "2026-10-22T08:16:32Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:22:07Z",
+      "conclusion": "success",
+      "id": 119716228404,
+      "name": "build (windows-latest, win, --win)",
+      "started_at": "2026-10-22T08:16:33Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:23:54Z",
+      "conclusion": "success",
+      "id": 119718530766,
+      "name": "build-cli (ubuntu-latest, linux-x64)",
+      "started_at": "2026-10-22T08:22:10Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:23:51Z",
+      "conclusion": "success",
+      "id": 119718530888,
+      "name": "build-cli (macos-14, darwin-arm64)",
+      "started_at": "2026-10-22T08:22:43Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:24:41Z",
+      "conclusion": "success",
+      "id": 119719260627,
+      "name": "release",
+      "started_at": "2026-10-22T08:23:57Z",
+      "status": "completed"
+    },
+    {
+      "completed_at": "2026-10-22T08:25:47Z",
+      "conclusion": "success",
+      "id": 119719585719,
+      "name": "publish-npm",
+      "started_at": "2026-10-22T08:24:44Z",
+      "status": "completed"
+    }
+  ],
+  "candidateCi": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39741588579",
+    "conclusion": "success"
+  },
+  "mergeCi": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/39744430713",
+    "conclusion": "success",
+    "logSummary": [
+      {
+        "platform": "linux",
+        "bytes": 1661059,
+        "fullSuiteRetryTriggered": false,
+        "failureEntries": 0,
+        "botShellOk": true
+      },
+      {
+        "platform": "mac",
+        "bytes": 1643312,
+        "fullSuiteRetryTriggered": false,
+        "failureEntries": 0,
+        "botShellOk": true
+      }
+    ],
+    "scope": "Full build, typecheck, architecture/UI/IPC checks, tests and source Electron regression on macOS and Linux"
+  },
+  "product": {
+    "status": "passed",
+    "runId": "2913c0a5-c8c8-4ddd-83ce-d13c61a59185",
+    "sourceFingerprint": "19ce454c13ae698dc9761193479108fb2bd493df1478a5fc77de2a3b15dd1da7",
+    "reviewedAt": "2026-10-22T08:15:24.512Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer self-review",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ],
+    "screenshots": 213,
+    "reviewRef": "rc25-candidate-20261022-review.json",
+    "scale": {
+      "bots": 200,
+      "messages": 10000,
+      "inboxEvents": 100000,
+      "memories": 10000
+    },
+    "lifecycleHumanGateCases": 4,
+    "lifecycleScreenshots": 8,
+    "isolatedRetry": {
+      "sourceFingerprint": "19ce454c13ae698dc9761193479108fb2bd493df1478a5fc77de2a3b15dd1da7",
+      "initialCaptureFailed": "agent-activity: historical virtual row scroll locator timeout",
+      "initialLog": "agent-activity-capture.log",
+      "retryLog": "agent-activity-isolated-retry.log",
+      "unchangedIsolatedRetryPassed": true,
+      "assertionsAndTimeoutsUnchanged": true,
+      "continuation": "Canonical createReviewPacket and qa:product:verify; no gate bypass"
+    }
+  },
+  "officialPackage": {
+    "signature": {
+      "passed": true,
+      "version": "0.1.0-rc.25",
+      "teamIdentifier": "82672N97RP",
+      "developerId": true,
+      "codesignDeepStrict": true,
+      "stapledNotarization": true,
+      "gatekeeperNotarizedDeveloperId": true,
+      "installed": false
+    },
+    "recovery": {
+      "passed": true,
+      "installed": false,
+      "cloudCalls": 0,
+      "scope": "Actual candidate app.asar modules and bundled Electron runtime; private isolated copy; no application startup or task dispatch",
+      "hashes": {
+        "protocol/dist/session-facts.js": "d1dced7bfc0ac94236b275fb290ac0414ec4a16f2be20cae3847d1986eb0ede6",
+        "protocol/dist/task-overview.js": "efbf4ec169beb5bf19eb78f89049dcf831ddfecb742c2bbbbdcf0a77b17f3ede",
+        "protocol/dist/delegation.js": "048e0545e9781f2f77e927c9cad54239576724fe8d072601f904c8aa1457e26e",
+        "runtime-node/dist/project-agent/session-facts.mjs": "bf57e2992799eb97e88a9c4a6df067317ff8c3b3be34383e5f5df776968650d6",
+        "runtime-node/dist/project-agent/session-supervisor.mjs": "1a98176e8d32ec4c9c4ff3579502f0b3b059eb0fb38dee47721f26087db25111",
+        "runtime-node/dist/project-agent/runner.mjs": "a7beb555710d2fc43b263589cec23129c2101f0ee73bd1ba7aa864baff4a5833",
+        "runtime-node/dist/sqlite/connection.mjs": "34ee35779d9c42be5677d81ebe8b5362f18533582d7696bcdf27949c8d46abfe",
+        "runtime-node/dist/project-agent/coordination-storage-v2.mjs": "6d7347a12f29454464cb386be6ef706dafd7fec3c012af8a6b74192141a5fafc",
+        "runtime-node/dist/project-agent/coordination-worker-source.generated.mjs": "e1ebb2b60e6189e01018a6b646dc4c3fb6010b512c44a3f1f47ce117ff88beec",
+        "conversation-store/dist/interaction-reader.mjs": "48e5ace0455f3bd6300777105abe8d71adba6495eb90deb6b03c25bb905ba5ca",
+        "conversation-store/dist/sqlite-runtime.generated.mjs": "ac304ba9c9bc746a387eddf6f29c12db37056e4746a88bbdecad296f61b966b6",
+        "conversation-store/dist/interaction-worker-source.generated.mjs": "b7276f4116cb2bb9f27d46e15e5a99e9a24d7cd1005cbe958f6bc828e12e7905",
+        "electron/main/task-overview-aggregator.mjs": "d41bf5982026506b56b5513a2272dfaf51080f28b3b681bca3f58a21b4b737bf",
+        "electron/main/project-agent/project-agent-host.mjs": "49cf4c4c4d14b0a11332f0b41ff460e080c0af673e25d328bb34608ba7682450"
+      },
+      "reports": [
+        {
+          "phase": "initial",
+          "workspaces": 1,
+          "works": 9,
+          "publicMessages": 25,
+          "privateTurnsInContext": 0,
+          "selectedProcess": true,
+          "passed": true,
+          "elapsedMs": 6633.010125
+        },
+        {
+          "phase": "restart",
+          "exactStateMatch": true,
+          "passed": true,
+          "elapsedMs": 119.80445799999961
+        },
+        {
+          "phase": "rebuild",
+          "exactStateMatch": true,
+          "passed": true,
+          "elapsedMs": 4223.554417
+        },
+        {
+          "phase": "seed-crash",
+          "passed": true,
+          "elapsedMs": 220.25379199999952
+        },
+        {
+          "phase": "real-process-crash-after-durable-write",
+          "signal": "SIGKILL",
+          "passed": true
+        },
+        {
+          "phase": "recover-crash",
+          "passed": true,
+          "elapsedMs": 117.45641599999908
+        }
+      ]
+    },
+    "hostRecovery": {
+      "passed": true,
+      "actualArchive": true,
+      "bundledElectron": true,
+      "syntheticModel": true,
+      "cloudCalls": 0,
+      "installed": false,
+      "scope": "Existing release recovery fixture uses actual packaged host, GoalRunner, leases and queue; only the private synthetic child is killed",
+      "crash": "SIGKILL at task_created",
+      "counts": {
+        "inputs": 1,
+        "replies": 1,
+        "tasks": 2
+      },
+      "restoredWorkerCalls": 1,
+      "repeatedRestartWorkerCalls": 0
+    },
+    "entities": {
+      "passed": true,
+      "actualArchive": true,
+      "plans": 87,
+      "taskIds": 90,
+      "canonicalConversations": 10,
+      "allOriginalIdentitiesAndEvidenceRefsRetained": true,
+      "scope": "Actual packaged read APIs over the isolated retained snapshot; no model, task dispatch or application startup"
+    },
+    "preservation": {
+      "canonicalFiles": 5882,
+      "allBytesPreserved": true,
+      "goalPlanFiles": 90,
+      "goalReportFiles": 11,
+      "conversationFiles": 32,
+      "artifactFiles": 3413,
+      "coordinationCheckpointFiles": 2311
+    }
+  },
+  "assets": [
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-arm64.dmg",
+      "size": 144252083,
+      "digest": "sha256:7ec078ae9297e277607df9d4ddc730d55aa07ae176fecb4ccd9e793f7b862b50"
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-arm64.dmg.blockmap",
+      "size": 148421,
+      "digest": "sha256:36a06bbd6d8fd9be16470139feb518c123d93766cf2092fd1085d8381d3d6d54"
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-arm64.zip",
+      "size": 141739347,
+      "digest": "sha256:e3260e4f93d53d1e75707f8c0351ef085d1293fcff900fcd2537462496db121c"
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-arm64.zip.blockmap",
+      "size": 146606,
+      "digest": "sha256:cea3b470135a7a32f812de3f62835f2c64472f0a690bbd2fa3fdcf378504bd05"
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-x64.AppImage",
+      "size": 144228895,
+      "digest": "sha256:f125d6bfbaa367678233a12b4eb16eb3f6c5a6aebf8bd4cae7dcac854d9590e0"
+    },
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-x64.deb",
+      "size": 115387716,
+      "digest": "sha256:f297babfa6111f9efa2cee2155cb7054b46fe9f9f504b4119678715016178f91"
+    },
+    {
+      "name": "Peer-Agent-Setup-0.1.0-rc.25.exe",
+      "size": 222228819,
+      "digest": "sha256:b529f20ed124feab83868818170e55bed989b82460d32535d02ff000427cd83f"
+    },
+    {
+      "name": "Peer-Agent-Setup-0.1.0-rc.25.exe.blockmap",
+      "size": 229399,
+      "digest": "sha256:09addf5deddc1677fa9b8c8dcc305fc5555d8f82739b2db240140dccc06e5064"
+    },
+    {
+      "name": "beta-linux.yml",
+      "size": 559,
+      "digest": "sha256:30426778db6b7dadee02b26ed928e120c566df2fd408b31353929984aa4067b2"
+    },
+    {
+      "name": "beta-mac.yml",
+      "size": 530,
+      "digest": "sha256:33a1eb4b10fe05745782409d61029523c749e94cc5938fd0d299027118d71236"
+    },
+    {
+      "name": "beta.yml",
+      "size": 367,
+      "digest": "sha256:01da6351b27ad7dedd009fc973e54d7d6a354c23fd41cde076bc52afdca534e2"
+    },
+    {
+      "name": "builder-debug.yml",
+      "size": 9119,
+      "digest": "sha256:b8eb303da85851daee0b8b01a78b7bf7d987386231cae87beb5d9d813c8a0f3e"
+    },
+    {
+      "name": "peer-darwin-arm64.tar.gz",
+      "size": 23984952,
+      "digest": "sha256:36b1eaa519be58a8049941665baf1c17b8875fc8b72528144681bb2fba93c4b7"
+    },
+    {
+      "name": "peer-linux-x64.tar.gz",
+      "size": 47651501,
+      "digest": "sha256:c7080557eee9b0a1b659a07121f996571449273a6fd0e9525b1e5cc854041591"
+    }
+  ],
+  "updateManifests": [
+    {
+      "name": "beta-mac.yml",
+      "version": "0.1.0-rc.25",
+      "files": [
+        "Peer-Agent-0.1.0-rc.25-arm64.zip",
+        "Peer-Agent-0.1.0-rc.25-arm64.dmg"
+      ]
+    },
+    {
+      "name": "beta-linux.yml",
+      "version": "0.1.0-rc.25",
+      "files": [
+        "Peer-Agent-0.1.0-rc.25-x64.AppImage",
+        "Peer-Agent-0.1.0-rc.25-x64.deb"
+      ]
+    },
+    {
+      "name": "beta.yml",
+      "version": "0.1.0-rc.25",
+      "files": [
+        "Peer-Agent-Setup-0.1.0-rc.25.exe"
+      ]
+    }
+  ],
+  "downloadedAssetDigests": [
+    {
+      "name": "Peer-Agent-0.1.0-rc.25-arm64.zip",
+      "sha256": "e3260e4f93d53d1e75707f8c0351ef085d1293fcff900fcd2537462496db121c",
+      "matchesReleaseDigest": true
+    },
+    {
+      "name": "beta-linux.yml",
+      "sha256": "30426778db6b7dadee02b26ed928e120c566df2fd408b31353929984aa4067b2",
+      "matchesReleaseDigest": true
+    },
+    {
+      "name": "beta-mac.yml",
+      "sha256": "33a1eb4b10fe05745782409d61029523c749e94cc5938fd0d299027118d71236",
+      "matchesReleaseDigest": true
+    },
+    {
+      "name": "beta.yml",
+      "sha256": "01da6351b27ad7dedd009fc973e54d7d6a354c23fd41cde076bc52afdca534e2",
+      "matchesReleaseDigest": true
+    },
+    {
+      "name": "peer-darwin-arm64.tar.gz",
+      "sha256": "36b1eaa519be58a8049941665baf1c17b8875fc8b72528144681bb2fba93c4b7",
+      "matchesReleaseDigest": true
+    },
+    {
+      "name": "peer-linux-x64.tar.gz",
+      "sha256": "c7080557eee9b0a1b659a07121f996571449273a6fd0e9525b1e5cc854041591",
+      "matchesReleaseDigest": true
+    }
+  ],
+  "macZip": {
+    "sha256": "e3260e4f93d53d1e75707f8c0351ef085d1293fcff900fcd2537462496db121c",
+    "sha512MatchesManifest": true,
+    "sizeMatchesManifest": true
+  },
+  "npm": {
+    "registry": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.25",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.25"
+        },
+        "dist": {
+          "shasum": "8943db1aace220bd378a3414208b4d8e3cf419b2",
+          "tarball": "https://registry.npmjs.org/@peer-agent/protocol/-/protocol-0.1.0-rc.25.tgz",
+          "fileCount": 81,
+          "integrity": "sha512-dRlDhuA3zk8NGcK3Dm9ULdWld49QCp9IUdhbzik69b+N4lahoRxd3bfMd0PiJS+QSACT21Ufsfg5GE5gEQwTNg==",
+          "signatures": [
+            {
+              "sig": "MEYCIQDL7+EG1TdkAE2mWyTLqBty7PLl1vNCtJjlIkLqul57KAIhAKfvYOrmMddI1RnBZN0hXbLB8irvJfSpuNYSdauw9lAZ",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "sig": "MEUCIA9ihoOs5liR+pCI5NwCnNGdjaeQysJdkZUwpQQ7fAVkAiEA/hJDgD4ffu8a6JJ9qWAREfDD3WrCP39+RjpgwVthwxw=",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            }
+          ],
+          "unpackedSize": 362177
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.25",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.25"
+        },
+        "dist": {
+          "shasum": "26c6a30be8c9733a21093e8ab8e37ff823d6baa0",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-core/-/runtime-core-0.1.0-rc.25.tgz",
+          "fileCount": 53,
+          "integrity": "sha512-qQE78XVkqXfm99lZqllENZyy2tntms7eMyMuag/WXxCJIYQQfMe/PAonQ4MmmT1FhKOelg3whIqBulipzo7Nrg==",
+          "signatures": [
+            {
+              "sig": "MEYCIQC71pEOViC+QsTlOlqDBicANXdhSEES5mm7qvrB+yJTOwIhAL7aiIMjR3ne/KaQZMTSXyaqiGtQVTDDy07McQfP6GMO",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "sig": "MEQCIFLJD6Nh5r5Cb+7O23tRAhDt4URnT6pqHs3xH1DXh467AiA5OQLjuFJLbiDQT8l2ZxgoNyy/dCCxmn4OMCt+EaZOAA==",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            }
+          ],
+          "unpackedSize": 262588
+        }
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.25",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.25"
+        },
+        "dist": {
+          "shasum": "e531040e038e9a0309411eb06dbcbdf522d1840d",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-sdk/-/runtime-sdk-0.1.0-rc.25.tgz",
+          "fileCount": 21,
+          "integrity": "sha512-AeWAqeH0k1IHVPqRmxPSTbu1GuVHvbMOWapdGaix5dwJWOW/NtHYKEP2zY+Vzrb3swTjNu9JEgPzTTSoR9mzXA==",
+          "signatures": [
+            {
+              "sig": "MEYCIQCOIbqOuQi989GZ0UZmtaczcx6Vi5GNqEnnlDaFak74YQIhAJ6YuWZ7TSRAD86iEbcCzSvDjIxc3kSMpbxP37kNAhC3",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "sig": "MEQCIDfmyQUvoGNHHovkbkpmx+fE3M/dq3GQhTxKzbYlyjBXAiAV/tMKERBTiEvzC2lsNXLJz4iYk/pxvUB10stzSa1vDQ==",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            }
+          ],
+          "unpackedSize": 60006
+        }
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.25",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.25"
+        },
+        "dist": {
+          "shasum": "9c870ffa27ba0552f7a438d13939d03b6e41f1ba",
+          "tarball": "https://registry.npmjs.org/@peer-agent/cli/-/cli-0.1.0-rc.25.tgz",
+          "fileCount": 8,
+          "integrity": "sha512-/YKyOU3TW3SGMEroobU9/5FXB7POhNYL7b0tklydZSmdzdu1pal7ZEA0XdxyD4SDKpcCtSXRrtNSQLjB5u7FBw==",
+          "signatures": [
+            {
+              "sig": "MEQCIFYlhEKDxCYLEI9jZyzLvVPgZqfav/kc5jLVZK2F40QpAiB6l/0uyJMxSBG+cME5UtncwwwhoxYaSUcF626mk2SXJg==",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            },
+            {
+              "sig": "MEUCID82UowqzDiUH8n99ji28tz4P92cuB8wmNMJ0yHT+srsAiEA4LimmA7BE83eSGm7RNLdw17hpDMtVfb/XslWukFKi+k=",
+              "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+            }
+          ],
+          "unpackedSize": 18935
+        }
+      }
+    ],
+    "consumer": {
+      "ok": true,
+      "packages": [
+        {
+          "name": "@peer-agent/protocol",
+          "version": "0.1.0-rc.25",
+          "dependencies": {}
+        },
+        {
+          "name": "@peer-agent/runtime-core",
+          "version": "0.1.0-rc.25",
+          "dependencies": {
+            "@peer-agent/protocol": "0.1.0-rc.25"
+          }
+        },
+        {
+          "name": "@peer-agent/runtime-sdk",
+          "version": "0.1.0-rc.25",
+          "dependencies": {
+            "@peer-agent/protocol": "^0.1.0-rc.25",
+            "@peer-agent/runtime-core": "^0.1.0-rc.25"
+          }
+        },
+        {
+          "name": "@peer-agent/cli",
+          "version": "0.1.0-rc.25",
+          "dependencies": {}
+        }
+      ],
+      "imports": [
+        {
+          "name": "@peer-agent/protocol",
+          "exports": 77
+        },
+        {
+          "name": "@peer-agent/runtime-core",
+          "exports": 110
+        },
+        {
+          "name": "@peer-agent/runtime-sdk",
+          "exports": 5
+        },
+        {
+          "name": "@peer-agent/runtime-core/goal-idempotency-durable",
+          "exports": 2
+        }
+      ],
+      "globalInstall": false,
+      "postinstallExecuted": false,
+      "scope": "Published fixed-version packages in a private npm prefix with install scripts disabled; consumer imports only; no application or task startup"
+    },
+    "cli": {
+      "passed": true,
+      "cliVersion": "peer 0.1.0-rc.25",
+      "macArchiveContainsPeerAndHelper": true,
+      "helperDeveloperIdTeam": "82672N97RP",
+      "globalInstall": false,
+      "modelOrTaskStarted": false,
+      "linuxArchiveContainsPeerAndHelper": true,
+      "linuxBinaryHeaders": {
+        "peer": "7f454c46",
+        "peer-credential-helper": "7f454c46"
+      },
+      "linuxRunCoverage": "Official Linux workflow build and --version; no local macOS execution"
+    },
+    "publicationObservation": {
+      "firstAttempt": "All official jobs succeeded, including all four npm publish acknowledgements",
+      "publicVisibility": "Protocol metadata and tarball were temporarily unavailable; initial normal consumer attempts failed and were retained; final four-package normal consumer install/import passed",
+      "supplementalAttempt": "Reran only publish-npm once. Library steps skipped existing versions; CLI has no exact-version skip guard and immutable duplicate publication returned 403. No package/version overwritten. Current attempt2 is failed; first publication success and final public assets/consumer verification are distinct facts.",
+      "followUp": "Add an exact-version presence guard to CLI publication before a future release retry; do not modify or retag published RC25"
+    }
+  },
+  "pages": [
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/",
+      "status": 200,
+      "sha256": "a58567fb4bc3415deca1c462a04967c295365c3fa703d7ddc65abe493daa797b",
+      "matchesTaggedSource": true
+    },
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/docs.html",
+      "status": 200,
+      "sha256": "4dd57dbfb9fe0b007a5f772b2219c1b2f02dee6677c64fc0f32aa8c56554cf2d",
+      "matchesTaggedSource": true
+    },
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/changelog.html",
+      "status": 200,
+      "sha256": "0a550de0b18db4580df7385a9f7783b9c7ac2792183560e5bad9c9534ad13e60",
+      "matchesTaggedSource": true
+    },
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/changelog-data/manifest.json",
+      "status": 200,
+      "sha256": "6f7aad2c8f01d89423691e2de3865f961432db08adb09f1928cf55624e226324",
+      "latest": {
+        "stable": "v0.0.18",
+        "beta": "v0.1.0-rc.25"
+      },
+      "generatedAt": "2026-10-22T15:59:31+08:00",
+      "matchesTaggedSource": true
+    },
+    {
+      "url": "https://ly-ccx.github.io/Peer-Agent/changelog-data/v0.1.0-rc.25.json",
+      "status": 200,
+      "sha256": "c29a9a25445f868ab627330b949603095dbe83a16c25ee92841de1f31e5a512f",
+      "matchesTaggedSource": true
+    }
+  ],
+  "readme": "updated",
+  "sourceWorkPreservation": {
+    "recordedSourceFiles": 2912,
+    "unrelatedChanges": [],
+    "authorizedRuleChanges": [
+      "AGENTS.md"
+    ],
+    "checkedAt": "2026-10-22T08:38:49.234603+00:00"
+  },
+  "runtimeBoundary": {
+    "agentInstalledOrRestartedApp": false,
+    "actualUserDataMigratedByAgent": false,
+    "recoveryUsesPrivateSnapshotOnly": true,
+    "installedClientContinuityAccepted": false,
+    "observation": "A later local installed-client transition was observed; trigger awaiting user confirmation. No personal installation handoff or active-task migration acceptance is claimed."
+  },
+  "limits": [
+    "Implementer self-review; independent=false",
+    "Controlled cognition; no new real-cloud-model quality or network-timing acceptance",
+    "No interactive Windows/Linux installation, full screen-reader or long-duration acceptance",
+    "QuickChat transparent source screenshots reviewed with original pixels and theme-backdrop previews; native macOS material composition not accepted",
+    "No personal installed-client zero-interruption upgrade acceptance"
+  ]
+}
