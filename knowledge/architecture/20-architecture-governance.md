@@ -374,6 +374,18 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 
 实施位置：protocol 定义公开文字 segment；共享 runtime 的 TurnActivity 划分与限额、agentTurnMessage 持久投影；renderer 只负责显示、去重、淡入与阅读位置。表达规则由现有 `project-agent` Context Source 提供，层序不变；不增加工具、执行旁路或授权机制。
 
+## 十五、任务核验与主对话的边界（2026-10-22，A 级）
+
+用户明确要求内部核验状态收进对应任务的状态和详情，主对话由主 Bot 解释结果。此边界沿用现有委托、核验、签收与 Evidence 权威，不改变正在执行的任务。
+
+- `verify_session` 持久化任务的宿主核验权威、版本绑定和 verdictRef，通过结构化 Tool Result 返回 event/detail；不得再生成 `verdict` 对话卡或以 assistant 消息追加到父会话。核验通过不等于结果已签收。
+- 任务状态继续由统一生命周期投影；按需读取 `get_session(detail=report)` 时，以同一宿主 Evidence、核验权威和版本绑定生成 `SessionReport.verification`。模型工具与任务详情共用 Verification Detail Module，提供结论、检查、证据引用和有界历史诊断；不能将旧卡正文当作当前结论。
+- 主 Bot 仍通过原工具链读取核验详情，并用 `post_reply` 说明做成了什么、实际验证范围及未解决的问题。失败、部分通过、不可核验和需用户处理的真实请求不能因隐藏内部卡而被丢弃；原完成事件、唤醒、批准与签收链保留。
+- 旧 `system_card` 中的结构化 `verdict` 只在公开交互投影中排除；不能按正文出现 passed/failed 猜测、删除用户或 Bot 的真实发言。混合卡片保留其他可操作卡。原 Conversation JSONL、GoalPlan、Tool Result 和 Evidence 不迁移、不覆写；原始记录仍能通过按需过程读取调查。
+- 交互索引版本更新只重建可丢弃缓存，继续走既有异步大历史读取；不新增全量同步历史回退。renderer 对旧读取入口保留同样的结构化展示约束。
+- 内部 `verifying/verified` 活动也不再追加到主对话，旧记录只从公开投影排除。核验进展继续留在原任务状态和 `verificationProgress`，结果事件与进展事件仍完整入 Inbox、触发主 Bot 唤醒及任务界面刷新；不因收拢展示而取消核验或吞掉失败。
+- 本次实现不安装、不重启个人应用，不接管宿主租约；在独立临时数据目录验证历史完整性、缓存升级/重建、失败分支、任务详情与主 Bot 结果交还。日常只做定向回归，发布时再跑全量。
+
 ## 相关文档
 
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — Desktop 与 TUI/CLI 共享运行时边界与长期治理
