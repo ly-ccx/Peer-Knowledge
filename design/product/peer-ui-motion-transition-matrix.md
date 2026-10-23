@@ -6,6 +6,18 @@
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
 
+## 基础交互点查补充（2026-10-24）
+
+用户授权提前点查，代码 `a0ae1a33` / [PR213](https://github.com/ly-ccx/Peer-Agent/pull/213)；[路径与限制](../../playbook/v0.1.0/experience-ui-motion-transitions.md#用户授权的基础交互点查2026-10-24)。C 级渲染身份和入口修复，没有新增动效常数、组件体系或运行时边界。
+
+| 体系 | 本次实际确认 | 保留覆盖 |
+|---|---|---|
+| UI · U06/U08/U10/U11/U13/U15 | 修复消息/输入框重复 key 的内容叠影；12 个设置分区、五个档案标签、任务/Evidence、搜索、菜单和新建取消可操作；自动化新建到编辑器 | 未作全主题/200%/读屏/布局验收；真实写入/失败仍依各行 V |
+| 动效 · M01/M02/M04/M18 | 本机真实浏览器 request/cancel 首帧与退出用例通过；实际菜单/浮层/抽屉打开关闭完成，无再次崩溃 | 未切换减少动效、透明度或注入 WAAPI 异常；G11/G12 全覆盖仍待 E13，不能以正常开关替代降级验证 |
+| 过渡 · T01/T02/T06/T08/T09 | 页面往返保留本 bot 草稿和阅读模式；回最新只有单个入口；抽屉 Escape、模型/权限菜单及附件取消、Evidence 返回原入口；dirty 设置继续/舍弃 | 未验证跨 bot/窗口/真实 IME/未知回执，崩溃页恢复未重演；正常开发窗口重载能恢复首屏并重开对话 |
+
+三项针对性检查通过；无独立评审或发布验收。下文“未运行”为当批历史记录，本次只补充明确列出的路径，其他 U/M/T 覆盖不升级。
+
 ## E15–E17 本轮更新（2026-10-24）
 
 代码 `7f38f121c7bff5859e54ea98b25d315e07ad3cc8`；[PR212](https://github.com/ly-ccx/Peer-Agent/pull/212)（draft，叠加 PR211）、[实施交接](../../playbook/v0.1.0/experience-ui-motion-transitions.md)。**本批消费者实现已审阅，候选验证待发布**。起点 `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`，知识父提交 `572f153f3b3bd68b2e1f0a6fd0111b943f9f3b96`；两仓分支 `codex/experience-ui-motion-transitions`。只提交隔离分支的本批文件，未混入主工作区 dirty，也未合并 GitHub PR。
@@ -85,7 +97,7 @@ U01/U03/U05/U06/U07/U08/U14/U15 的设置、新建、模型、档案消费者已
 | U07 Checkbox/Switch/枚举/Slider | S boolean-controls 原生 checkbox/role=switch；AppearanceSlider/ReasoningEffort/EffortRange；S E15 C210 本地 radio、嵌套 Switch 键盘不触发卡片、真实开关回执与逐项 pending | E08/E15 当前消费者已审阅；V 真实设备/读屏/其他 slider/switch 与未知回执 | P1 · E06/E08/E15 |
 | U08 搜索/Dropdown/菜单/tooltip | S Dropdown/CascadingMenu/OverflowMenu/查找/tooltip 共用层级、IME/Tab/外点/归焦；过滤 radio、真实 listbox | S E08 C114 纳入共享层级/IME/roving，浏览不写入；G07 已审阅；V 无模型/失效与跨窗口 | P1 · E03/E06/E15 |
 | U09 tabs/分段/资源标签 | S Capability/Workbench/档案/Resource tabs 有键盘/roving/panel；昂贵视图手动激活，关闭回相邻；S E15 Capability/Skills tabs 改复用 C210，同 panel 关联、焦点/选择分离 | G05/E06/E15 当前消费者已审阅；V RTL/多实例/失效/动态关闭和 guest | P1 · E06/E15/E17 |
-| U10 行/列表/卡/表格/图表 | S BotRow/TasksTab/AttentionSheet、SettingsGroup、UsageStats/Automation 表格、WorkStream；E12 Desktop 四页续读、TUI 50 条公共投影、远程单页/ID 去重/显式缺口与锚点；S E15 installed/available 读失败保快照，文件创建原 scope，E16 FLIP 收尾 | 当前路径已审阅；V 跨列 remount 焦点/锚点与真实大列表，其他列表仍待核 | P1 · E05/E07/E11/E12/E15 |
+| U10 行/列表/卡/表格/图表 | S BotRow/TasksTab/AttentionSheet、SettingsGroup、UsageStats/Automation 表格、WorkStream；E12 Desktop 四页续读、TUI 50 条公共投影、远程单页/ID 去重/显式缺口与锚点；S E15 installed/available 读失败保快照，文件创建原 scope，E16 FLIP 收尾 | a0ae1a33 对话重复 key 修复，基础列表/对话点查通过；当前路径已审阅；V 跨列 remount 焦点/锚点与真实大列表，其他列表仍待核 | P1 · E05/E07/E11/E12/E15 |
 | U11 模态/抽屉/面板/原生弹选 | S modal/push/anchored 共用逻辑父子；Overlay native inert/Tab/focusin、允许自有 portal、幂等退场/恢复触发者；S E16/E17 共享 visualMotion 处理退出拒绝/无事件/隐藏，rail 重开取消旧退出 | 当前路径已审阅；V 嵌套/源消失/反向/归焦/原生窗口 | P1 · E06/E11/E15/E17 |
 | U12 消息/过程/决策/结果 | S CardView 不再 generic ok→done；实际 approval/current card + 当前核验/验收真源；TUI cancel 独立不授予执行；S E17 经典授权点击立即交原宿主回调，问题关闭只清显示 footprint | E04/E11/E16/E17 当前路径已审阅；V 迟到/过期/跨入口事实/实际焦点，不从动画造许可 | P0 事实 · E04；P1 表达 E11/E15/E17 |
 | U13 附件/引用/产物/媒体预览 | S QuoteChip/ReplyAnchors、BotAttachments、ImageLightbox、Markdown/Source/Diff viewers | S E09/G08 图片/文本/元信息、原 ID 定位、Evidence/文件分别可达和失败重读已审阅；V OS/解码/旧源/局部阅读/长内容与键盘 | P1 · E09/E15/E17 |
@@ -128,14 +140,14 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 
 | ID / 全链路场景 | 当前来源→目标、状态和实现基础 | 缺口与必须保留 | 排程 / 任务 |
 |---|---|---|---|
-| T01 导航/换机器人/任务 | S BotListShell/任务现场/HistorySheet、经典 activePage、TUI view、remote selected；E11 TUI 先保存后关闭/卸载切换，远程按 bot 保草稿/读位和旧请求隔离；S E17 tools 离开也经 dirty guard，MCP 表单当前编辑不静默丢失 | 当前路径已审阅；V 原生/旧源/跨窗口/未知与真实 IME；背景不夺焦点 | P0 输入 E02；P1 E05/E11/E17 |
+| T01 导航/换机器人/任务 | S BotListShell/任务现场/HistorySheet、经典 activePage、TUI view、remote selected；E11 TUI 先保存后关闭/卸载切换，远程按 bot 保草稿/读位和旧请求隔离；S E17 tools 离开也经 dirty guard，MCP 表单当前编辑不静默丢失 | 本机同 bot 的设置/能力/自动化往返、草稿保留点查通过；当前路径已审阅；V 原生/旧源/跨窗口/未知与真实 IME；背景不夺焦点 | P0 输入 E02；P1 E05/E11/E17 |
 | T02 模态/抽屉/嵌套 | S Overlay/Drawer/focus scope、档案→现场→Evidence、confirm；S E17 表单 dirty 在退场前决定；Overlay/档案/rail 中断共用清理 | 当前路径已审阅；V 嵌套/反向/源消失/原生关闭与归焦 | P1 · E06/E17 |
 | T03 菜单/提示/锚定 | S Dropdown/CascadingMenu/Tooltip、anchoredOverlay 与原生 QuickChat popover | S E08 统一模型菜单加入 shared owner/键盘/锚点失效关闭；V 定位/窄窗/真实跨窗口 | P1 · E06/E11/E17 |
 | T04 标签/分段/分区 | S SettingsPage、BotDrawerSegments、ResourceTabStrip、CapabilityTabs、模型面板；S E15/E17 Capability/Skills tabs 和 MCP radio 共用 C210；切离 MCP 经 guard | 当前消费者已审阅；V 快速竞争/失效选择/旧设置消费者与真实焦点 | P1 · E06/E08/E15/E17 |
 | T05 折叠/展开/详情 | S SettingsDisclosureContent、BotProcess、ReplyDetails、问题 dismissal；S G12/E16/E17 无 API/拒绝/无事件静态收尾，原问题持焦点才交本地 composer | 当前实现已审阅；V 反向/卸载/旧闭包/背景解决不夺焦点/真实系统 | P1 · E05/E06/E16/E17 |
 | T06 待发/接收/连续回复 | S shared recovery kernel + device store，完整 envelope 先保存；匹配 input/public echo 确认，同 ID retry；30秒只结束界面等待；E11 远程匹配原 requestId+ok+received 才确认、手动同 ID 重试；S E16 静态/后台直接交出已收到文本，停止显示泵；无新请求/正文 | E02/E11/E16 当前路径已审阅；V 正文/思考/工具交接/取消、未知与真实宿主 | P0 · E02/E03；P1 E11/E16/E17 |
 | T07 决策/执行/核验/交还 | S 结构化 approval/current card 与 lifecycle/verification/acceptance 真源分开；旧展示记录不盖当前授权/验收；S E17 经典授权立即交原回调，同展示对象防重；移除动画派发延迟 | E04/E16/E17 当前路径已审阅；V 宿主 grant/过期/拒绝/取消/未知/核验与签收分开 | P0 · E04；P1 E17 |
-| T08 列表增删/排序/分页 | S BotList/TasksTab/Memory/Files、MessageQueue、WorkStream/virtual pager；E12 Desktop 四页衔接、远程单页/显式缺口/锚点、TUI 同目标在途公共页合并；S E15/E17 文件名失焦保留/显式创建，原 scope 回执、失败留现场/条件归焦；E16 FLIP 中断 | 当前路径已审阅；V 完整树键盘/目录并发/跨列 remount 焦点与实际阅读，其他列表仍 V | P1 · E05/E06/E10/E11/E12/E17 |
+| T08 列表增删/排序/分页 | S BotList/TasksTab/Memory/Files、MessageQueue、WorkStream/virtual pager；E12 Desktop 四页衔接、远程单页/显式缺口/锚点、TUI 同目标在途公共页合并；S E15/E17 文件名失焦保留/显式创建，原 scope 回执、失败留现场/条件归焦；E16 FLIP 中断 | 本机历史阅读模式与单个回最新点查通过；当前路径已审阅；V 完整树键盘/目录并发/跨列 remount 焦点与实际阅读，其他列表仍 V | P1 · E05/E06/E10/E11/E12/E17 |
 | T09 预览/分栏/最大化 | S ImageLightbox/Document/Browser、WorkbenchResize、档案 push/cover；S E16 push 档案的隐藏/偏好与静态退出已接共享收尾 | 当前路径已审阅；V guest/resize/窄窗/旧源/真实辅助技术，PR204 待集成 | P1 · E06/E09/E17；共享元素 P2 E14 |
 | T10 启动/主题/升级/宿主恢复 | S bootstrap reader/真实就绪、AppearanceProvider、VersionBadge/updater、host lease/恢复投影；E12 删除 minHold、按真实就绪/失败重读保旧壳层，E11 模式/页面恢复使旧请求失效 | G10 当前实现已审阅；V 主题保编辑/徽标承接/关窗不取消、未知执行不重放、备份一致性/身份与安装包恢复 | P1 · E11/E12/E16/E17 |
 

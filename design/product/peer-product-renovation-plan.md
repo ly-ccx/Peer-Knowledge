@@ -7,6 +7,15 @@
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
 
+## 用户授权的基础交互点查与补修（2026-10-24）
+
+代码 `a0ae1a334292305161693b58bb87522322a6c3df` / [集成 PR213](https://github.com/ly-ccx/Peer-Agent/pull/213)，基于本地合并线 `ed0f81b4`。用户明确要求提前实机点查，本次执行范围内的手动交互及三项针对性检查；不是发布验收。详细路径、结果和限制见[实施交接的基础点查记录](../../playbook/v0.1.0/experience-ui-motion-transitions.md#用户授权的基础交互点查2026-10-24)。下文“未运行”是原批交付记录，本节只更新本次实际执行的部分。
+
+- E05/E12：消息列表和输入框原先作为同级节点使用相同 workspace key，更新后残留多个列表，造成内容叠影和多个“回到最新”。为两者分配独立身份，重进对话及窗口重载后复查通过；新增实际渲染树身份用例。
+- E10/E17：机器人壳的新建自动化误接经典聊天草稿，页面返回机器人后看不到模板。改用既有 AutomationCenter 编辑器；顶部及空态两个创建入口、舍弃返回均已点查。经典聊天入口保留原行为，无新增调度或授权路径。
+- 已点查打开对话、页面往返、12 个设置分区、五个档案标签、任务详情/Evidence 返回、记忆编辑取消、模型/权限菜单、需要你/历史浮层、新建机器人、附件选择取消、Skills/MCP 与自动化入口。草稿与阅读模式往返保留、dirty 设置继续/舍弃也已检查；临时草稿已清理。
+- `useConversationWindow.browser.test.ts`、`BotConversation.identity.test.ts`、`automationCreateNav.test.ts` 三项通过。仍须 E13 最终组合候选的全量 build/test/type/architecture/IPC 与产品 packet；本次没有真实模型发送、授权/执行、创建自动化或修改已保存配置。正常开发窗口重载已恢复首屏并可重新打开对话；崩溃页自身恢复仍未重演，不标修复。
+
 ## 本轮实施进度（2026-10-24）
 
 | 工作包 | 当前状态 | 交付与后续责任 |
@@ -25,7 +34,7 @@
 | E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执 |
 | E03 / R1 · IME | **实现已审阅；候选验证待发布** | 共享 composition/229/Process/keyup，候选 Escape 不删正文，菜单和全局动作先让给 IME；TUI 复用真实宿主键名/事件 seam。各系统 IME 与真实终端仍须取证，不宣称终端总能提供 composition 信号 |
 | E04 / R1 · 决策与结果一致性 | **实现已审阅；候选验证待发布** | generic ok 不制造 done；宿主真实 approval/current card 和当前核验/验收事实优先，旧 presentation resolution 不覆盖；TUI cancel 独立并拒绝执行。清单/生命周期/权限策略沿现有真源消费，核验/签收/Git交回不合并。跨消费者/迟到/过期/撤权对照归 E13 |
-| E13 | **发布前待执行** | 契约测试已随代码编写但未运行；没有 build/type/architecture/IPC check、截图/交互回归或测试 Pass。合并所有开放 PR 后，对最终候选完整执行 |
+| E13 | **发布前待执行** | 原批用例未全跑；本次用户授权的基础点查与三项检查见上节，不能替代发布证据。合并所有开放 PR 后，对最终候选完整执行 build/test/type/architecture/IPC 和产品 packet |
 
 代码 `7f38f121c7bff5859e54ea98b25d315e07ad3cc8`；[PR212](https://github.com/ly-ccx/Peer-Agent/pull/212)（draft，叠加 PR211）、[实施交接](../../playbook/v0.1.0/experience-ui-motion-transitions.md)。**本批消费者实现已审阅，候选验证待发布**。起点 `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`，知识父提交 `572f153f3b3bd68b2e1f0a6fd0111b943f9f3b96`；两仓分支 `codex/experience-ui-motion-transitions`。只提交隔离分支的本批文件，未混入主工作区 dirty，也未合并 GitHub PR。
 
