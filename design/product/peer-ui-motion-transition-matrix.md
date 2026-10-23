@@ -6,6 +6,12 @@
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
 
+## E02–E04 本轮更新（2026-10-23）
+
+代码 `b64337f3329539ac2fcc2a16220b62842cdf1ae0`；[交接与待验证项](../../playbook/v0.1.0/experience-p0-input-decisions.md)。U06/U08/U12/U15、M07、T01/T06/T07 的当前输入/决策路径已完成实现与内容/diff 审阅；**候选验证待发布**。沿用 Frost 控件/提示/消息载体，没有新增主题、动效常数或动画成功信号。其余 U/M/T 行及 G04–G12 仍按原排程，尤其 G12 的 WAAPI 降级没有被本次卡片事实修复自动关闭。
+
+本轮实施基线为 `7f900bdb`（RC26 + 已授权规范指令），不是下面原始登记的本地组合 `cb2f5695`；未复制 PR197/198/203/206 或主工作区 dirty 代码。新增 InputRecoveryNotice/InputRecoveryStatus 及 TS/IPC/storage seam 已登记主矩阵，所有新增适用状态仍须 E13 取证。
+
 ## 1. 三个体系怎样合作
 
 | 体系 | 回答什么 | 唯一规范 | 本表责任 |
@@ -25,16 +31,16 @@
 | U03 几何、间距与密度 | S 8/12/16 曲线、`superellipse(1.4)` 支持检测、space 与 SettingsGroup | V 老组件/自绘菜单/图表/原生窗口各状态同角色一致，边框变化不跳尺寸；特殊形状记录例外 | P1 · E07/E15 |
 | U04 表面、玻璃、边界与层级 | S chrome/paper/control/glass、overlay、共享 settings-floating；正文稳定底面 | V 嵌套 blur/透明降级/强制颜色、局部 z-index/portal 与模态的交互边界；原生材质需安装包实测 | P1 · E07/E15/E17 |
 | U05 按钮/图标/链接 | S PeerIcon/SVG、原生 button、stone/graphite 主操作与已有 focus token | V H/P/F/D/B/X、32px 默认目标/触控44px目标、紧凑例外、hover 操作键盘可发现；复制/打开失败不静默 | P1 · E06/E15；关键决定 E04 |
-| U06 输入/文本编辑/Composer | S BotComposer、ComposerDraftControls、textarea、引用/附件/停止控制 | G01/G02/G03；V 同份草稿与 pending envelope、IME、发送/停止位置、dirty/invalid、保留附件和引用 | P0 输入 · E02/E03；视觉 P1 E15 |
+| U06 输入/文本编辑/Composer | S 受控 BotComposer、Quick Chat/TUI shared recovery kernel；正文/引用/附件/pending 先保存，匹配 input 确认；经典沿旧持久 seam | G01–G03/E03 实现已审阅；V 跨目标/重开/写失败/冲突/未知同 ID/OS IME；视觉状态归 E15 | P0 输入 · E02/E03；视觉 P1 E15 |
 | U07 Checkbox/Switch/枚举/Slider | S boolean-controls 原生 checkbox/role=switch；AppearanceSlider/ReasoningEffort/EffortRange | V 受控实际值、S/D/B/X/R、标签关联、键盘范围与离散档、保存失败回读；不以移动旋钮制造保存成功 | P1 · E06/E08/E15 |
-| U08 搜索/Dropdown/菜单/tooltip | S Dropdown/CascadingMenu/OverflowMenu/搜索 palette、Tooltip portal | G07；V 无结果/加载/错误/旧响应、组合输入/方向键/Escape、disabled item 与关闭归焦 | P1 · E03/E06/E15 |
+| U08 搜索/Dropdown/菜单/tooltip | S Dropdown/CascadingMenu/OverflowMenu/搜索 palette、Tooltip portal | S E03 菜单先让给 IME；V 真终端/搜索组合输入与旧响应；G07 后置 | P1 · E03/E06/E15 |
 | U09 tabs/分段/资源标签 | S BotDrawerSegments 有 roving/方向键/手势；ResourceTabStrip、CapabilityTabs 有部分语义 | G05；V panel 名称关联、多实例/RTL/关闭当前标签、昂贵加载手动激活；选中事实先于指示器 | P1 · E06/E15/E17 |
 | U10 行/列表/卡/表格/图表 | S BotRow/TasksTab/AttentionSheet、SettingsGroup、UsageStats/Automation 表格、WorkStream | V Ø/L/X/T/R、选择与锚点/分页/长值；图表不只依 hover/颜色，提供文字与键盘入口 | P1 · E05/E07/E15 |
 | U11 模态/抽屉/面板/原生弹选 | S Overlay/Drawer/useFocusScope、BotProfileDrawer push/cover、QuickChatPopoverHost | V 真 modal 与 anchored 语义、背景隔离、命名、进出焦点、嵌套 Escape、退场不拖住操作 | P1 · E06/E15/E17 |
-| U12 消息/过程/决策/结果 | S 连续公共回复、CardView/ApprovalReceipt、统一核验详情/任务取消和 lifecycle 消费 | V 授权→执行→核验→签收→Git交回不混、未知与旧错误区分、已解决问题可收起；G12 降级 | P0 事实 · E04；P1 表达 E15/E17 |
+| U12 消息/过程/决策/结果 | S CardView 不再 generic ok→done；实际 approval/current card + 当前核验/验收真源；TUI cancel 独立不授予执行 | E04 实现已审阅；V 授权/执行/核验/签收/Git交回对照、迟到/过期/撤权；G12 后置 | P0 事实 · E04；P1 表达 E15/E17 |
 | U13 附件/引用/产物/媒体预览 | S QuoteChip/ReplyAnchors、BotAttachments、ImageLightbox、Markdown/Source/Diff viewers | G08；V 同一来源/失效/未支持/读失败、复制/打开错误与局部滚动，artifact 不冒充 Evidence | P1 · E09/E15/E17 |
 | U14 设置/资料/能力/自动化编辑 | S SettingsGroup、12 个公开设置分区、bot 五 tab、能力/自动化各表单 | G04/G09；V 表单一致结构：名称/作用域→当前值→编辑→提交/错误→恢复；dirty 离开和异步回读 | P1 · E07/E08/E10/E15/E17 |
-| U15 空/加载/失败/失效/恢复与通知 | S 对话渐进读取、pending/stop/error、updater phase、后台记录、受管 surfacing 与通知 | V 全页各错误类型有原因/保住什么/谁处理/下一步；Memory/G08 的真空与失败补分支；无假百分比 | P0 关键事实 E04；P1 E10/E12/E15 |
+| U15 空/加载/失败/失效/恢复与通知 | S 对话渐进读取、pending/stop/error、updater phase、后台记录、受管 surfacing 与通知 | S 草稿加载/保存失败/冲突/unknown 可见且同 ID 恢复；V 重开/晚回执/错误下一步；Memory/G08 后置 | P0 关键事实 E04；P1 E10/E12/E15 |
 | U16 跨宿主与可访问性 | S Desktop/TUI/CLI/Gateway 各现有实现；终端有主题 primitives、remote 有原生表单/status | V shared 语义映射、焦点/读屏/目标尺寸/软键盘/窄窗；CLI/ACP 无图形状态注明 N/A；不引第二设计系统 | P1 · E11/E13/E15 |
 
 UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”，不是一张默认截图。并非每个角色要新建通用组件；已有共享接口优先，临时例外标注范围/原因/替代路径/退出条件。不得为了统一布局更改权限、Context Source 或存储。
@@ -51,7 +57,7 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 | M04 fade/sink/pop 退场 | S motion exit 与 Overlay 自带 CSS/fallback、useMotionPresence | V 一次幂等收尾、animationcancel/缺事件/无 API、不把关闭回调当成功 | P1 · E16/E17 |
 | M05 fold/grid/height | S SettingsDisclosureContent、BotProcess/details、问题的 WAAPI 高度折叠 | G12；V hidden Tab 立即移除、焦点先退回/用户收起意图；不是零 layout | P1 · E06/E16/E17 |
 | M06 分段/选值指示器 | S BotDrawerSegments/PaletteSelect/模型强度相关 transform/transition | G05 是键盘差异；V 多实例隔离、选择先成立、反向不排队 | P1 · E06/E15/E16 |
-| M07 新消息/用户待发气泡 | S UserBubble arriving、连续回复/LiveReply 组合 | V 一条新消息最多一次、同身份接管、历史/reconnect 静态；G01 恢复先行 | P0 输入 E02；P1 E16/E17 |
+| M07 新消息/用户待发气泡 | S 保留 UserBubble/连续回复载体；恢复 kernel 延续 inputId，unknown 不制造进行中回复 | G01 实现已审阅；V arriving 最多一次、公共 echo/重开静态；未新增动画 | P0 输入 E02；P1 E16/E17 |
 | M08 执行状态循环 | S `motion-pulse-soft/attention`、spin/dots、真实 activity/status 消费 | V 只在真实非终态、不可见/后台停止无意义循环；状态文字和 reduce 静态 | P1 · E04/E16 |
 | M09 加载/骨架/不定进度 | S `motion-progress-slide/shimmer`、页面 loading 分支 | V 真实读取/几何稳定；无总量不造百分比、无权限不永远 skeleton | P1 · E12/E15/E16 |
 | M10 定位/引用短提示 | S `motion-flash` 与 BotConversation 高亮/ReplyAnchors | V 不抢回贴底、不持续闪烁，键盘/读屏有目标；失效引用有提示 | P1 · E05/E09/E16 |
@@ -72,13 +78,13 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 
 | ID / 全链路场景 | 当前来源→目标、状态和实现基础 | 缺口与必须保留 | 排程 / 任务 |
 |---|---|---|---|---|
-| T01 导航/换机器人/任务 | S BotListShell/任务现场/HistorySheet、经典 activePage、TUI view、remote selected | G01/G03；V 草稿/pending/选中身份/来源读位、旧响应隔离、失败回源可达 | P0 输入 E02；P1 E05/E11/E17 |
+| T01 导航/换机器人/任务 | S BotListShell/任务现场/HistorySheet、经典 activePage、TUI view、remote selected | S G01/G03 按 workspace+surface 恢复，迟到更新原目标；V source/focus/scroll、窗口与终端重开 | P0 输入 E02；P1 E05/E11/E17 |
 | T02 模态/抽屉/嵌套 | S Overlay/Drawer/focus scope、档案→现场→Evidence、confirm | V 初始/恢复焦点、最上层 Escape、背景边界、退场幂等和未保存选择 | P1 · E06/E17 |
 | T03 菜单/提示/锚定 | S Dropdown/CascadingMenu/Tooltip、anchoredOverlay 与原生 QuickChat popover | G07；V 锚点消失/越界/滚动、不同窗口焦点与关闭 | P1 · E06/E11/E17 |
 | T04 标签/分段/分区 | S SettingsPage、BotDrawerSegments、ResourceTabStrip、CapabilityTabs、模型面板 | G04/G05；V dirty 离开、方向键/tabpanel、昂贵读取手动激活、latest selection | P1 · E06/E08/E15/E17 |
 | T05 折叠/展开/详情 | S SettingsDisclosureContent、BotProcess、ReplyDetails、问题 dismissal | G12；V 退出时焦点/hidden controls、反向/取消/无 API、用户折叠优先 | P1 · E05/E06/E16/E17 |
-| T06 待发/接收/连续回复 | S useBotConversation pending/ack、UserBubble、ContinuousReply；remote 同 ID Map | G01/G02/G03；V 输入身份/引用附件恢复、晚到回执与历史静态 | P0 · E02/E03；P1 E16/E17 |
-| T07 决策/执行/核验/交还 | S CardView/Receipt、lifecycle、TaskVerification、CompletionReview、Git handoff | V 六种事实分别投影；旧卡失效/提交失败、接收决定不等成功、部分结论第一层 | P0 · E04；P1 E17 |
+| T06 待发/接收/连续回复 | S shared recovery kernel + device store，完整 envelope 先保存；匹配 input/public echo 确认，同 ID retry；30秒只结束界面等待 | G01/G02/G03 实现已审阅；V quote/附件/未知/迟到/重开和历史静态；不自动重发 | P0 · E02/E03；P1 E16/E17 |
+| T07 决策/执行/核验/交还 | S 结构化 approval/current card 与 lifecycle/verification/acceptance 真源分开；旧展示记录不盖当前授权/验收 | E04 实现已审阅；V 列表/卡片/详情、过期/取消/拒绝/未知、核验≠签收≠交回；G12 后置 | P0 · E04；P1 E17 |
 | T08 列表增删/排序/分页 | S BotList/TasksTab/Memory/Files、MessageQueue、WorkStream/virtual pager | G09；V 刷新/分页失败保数据、选中删除归处、拖动撤销/读位不跳 | P1 · E05/E06/E10/E17 |
 | T09 预览/分栏/最大化 | S ImageLightbox/Document/Browser、WorkbenchResize、档案 push/cover | G06/G08；V 源对象/焦点/缩放/滚动、guest 不误销毁、支持检测/普通打开 fallback | P1 · E06/E09/E17；共享元素 P2 E14 |
 | T10 启动/主题/升级/宿主恢复 | S bootstrap/minHold、AppearanceProvider、VersionBadge/updater、host lease/恢复投影 | G10；V 内容就绪即用、主题变更保编辑、窗口关闭不取消、未知执行不重放、徽标先承接 | P1 · E11/E12/E16/E17 |

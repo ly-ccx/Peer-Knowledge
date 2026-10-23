@@ -3,9 +3,22 @@
 创建时间：2026-10-23
 最后更新：2026-10-23
 
-> 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。本轮交付规范与计划，不执行下列全部实现、合并、安装或发布。
+> 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 的 P0 已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；本次不合并、安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
+
+## 本轮实施进度（2026-10-23）
+
+| 工作包 | 当前状态 | 交付与后续责任 |
+|---|---|---|
+| E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执 |
+| E03 / R1 · IME | **实现已审阅；候选验证待发布** | 共享 composition/229/Process/keyup，候选 Escape 不删正文，菜单和全局动作先让给 IME；TUI 复用真实宿主键名/事件 seam。各系统 IME 与真实终端仍须取证，不宣称终端总能提供 composition 信号 |
+| E04 / R1 · 决策与结果一致性 | **实现已审阅；候选验证待发布** | generic ok 不制造 done；宿主真实 approval/current card 和当前核验/验收事实优先，旧 presentation resolution 不覆盖；TUI cancel 独立并拒绝执行。清单/生命周期/权限策略沿现有真源消费，核验/签收/Git交回不合并。跨消费者/迟到/过期/撤权对照归 E13 |
+| E13 | **发布前待执行** | 契约测试已随代码编写但未运行；没有 build/type/architecture/IPC check、截图/交互回归或测试 Pass。合并所有开放 PR 后，对最终候选完整执行 |
+
+代码 `b64337f3329539ac2fcc2a16220b62842cdf1ae0`，实施父提交 `7f900bdb`，知识父提交 `9126ed5`；[存储/协议边界](../../knowledge/architecture/project-input-recovery.md)、[实施交接与覆盖限制](../../playbook/v0.1.0/experience-p0-input-decisions.md)、[矩阵本轮登记](peer-interaction-standardization-matrix.md)。本轮新声明的数据路径先写约束再实现；不新增工具、许可、Evidence 或 Context Source。原主工作区 dirty 文件未进入交付。下列旧源码事实仍作基线，不代表该实现已进入发布或主线。
+
+代码评审：[Peer-Agent PR207](https://github.com/ly-ccx/Peer-Agent/pull/207)（draft，未合并）。
 
 ## 1. 当前判断
 
@@ -96,11 +109,11 @@ Peer 已进入 **0.1.0 项目代理闭环的收敛期**。机器人壳、任务�
 
 本地 `cb2f5695` 中，`BotComposer.tsx` 使用局部 `useState` 保存文本，`useComposerAttachments.ts` 保存附件；`BotConversation.tsx` 以 `key={workspaceId}` 重建 Composer。发送回调是 void，Composer 发起调用后立即清空本地文本与附件。`useBotConversation.ts` 已有按 inputId 的 pending/failed/retry，**不能说所有发送失败都会丢失**；但 pending 在切换 workspace 的 effect 中清空，本次看到的路径没有承接未接收输入的跨切换恢复。
 
-因此 E02 首先明确文本、引用、附件、未确认发送的恢复责任。组件内保留草稿与增加持久存储不是同一级别：新增数据路径或跨宿主恢复必须先做 A 级契约，不能用 localStorage 私开持久真源。
+E02 本轮已先记录 A 级本机存储/协议约束，再用既有 projectRuntime device 目录恢复正文、引用、附件和未确认 envelope；renderer 不新增 fs 或 localStorage 真源。实际改造与待验证边缘见首页进度。
 
 ### C2：组合输入的共享事件边界
 
-BotComposer 目前有 `nativeEvent.isComposing` 与 `Process` 保护。现有保护应保留；本轮没有复现“中文必然误发”。E03 要梳理 composition、补全、Escape 与提交事件的优先级和兼容路径，并与经典输入/Quick Chat 对齐。不要从上游复制一个全引擎 500 ms 吞键窗口。
+初始源码已有 `nativeEvent.isComposing` 与 `Process`，没有证据证明“中文必然误发”。本轮 E03 已把 composition、229/Process、keyup 和 IME→补全→提交的优先级纳入共享 seam，主 Bot/经典/Quick Chat 已接入，候选 Escape 保留正文；TUI 依实际终端信号处理。未使用全引擎 500 ms 吞键窗口，行为验证留到发布。
 
 ### C3：验证记录与新规范覆盖不是同一个集合
 
@@ -122,9 +135,9 @@ RC26 有完整的当时发布验证；新规范新增的跨切换草稿、完整
 |---|---|---|---|
 | E00 / P0 | 本次事实基线、在途清单、规范集成、全产品 P/C/U/M/T 矩阵与旧文档收敛 | 本文；C 级文档 | 发布/远端/本地/草案分别标注；不把旧卡重新列为未实现 |
 | E01 / P0 | PR197–200 与 ADR106 的范围、冲突、来源和集成责任清单 | E00；沿原 PR A/B/C | 先完成 ADR 审查再集成对应 A 级实现；不把本地试用组合当发布候选 |
-| E02 / P0 | 草稿与发送恢复：`project-agent/conversation/BotComposer.tsx`、`state/useBotConversation.ts`、`BotConversation.tsx`、QuickChatWindow、TUI ProjectApp/client；复用输入队列/回执 | E00；状态编排 B；新增持久边界 A 先行 | 每机器人草稿隔离；失败后文本/引用/附件可继续；切换/重开不无声丢失未确认输入；未知送达仍按原目标/同 inputId 重试，消费真实 receipt；不因手工重试重新分配身份 |
-| E03 / P0 | 共享输入事件与 IME 处理：BotComposer、经典 Composer、Quick Chat、TUI 已有提交 seam | E02 的发送责任；C/B | Enter 确认候选不发送，补全/Escape 只消费当前层；正常快速键入与 Shift+Enter 可用；不重写 Provider |
-| E04 / P0 | 决策与结果一致性：CardView/ApprovalReceipt、TaskVerification、Attention/Lifecycle 消费者、BotAccessControl | E01；C/B；缺协议事实升级 A | 同一决定/任务的列表、卡片、详情一致；过期/拒绝/取消/未知独立表达；签收与 Git 交回分别显示 |
+| E02 / P0 | **实现已审阅，候选待发布验证**。草稿与发送恢复：`project-agent/conversation/BotComposer.tsx`、`state/useBotConversation.ts`、`BotConversation.tsx`、QuickChatWindow、TUI ProjectApp/client；复用输入队列/回执 | E00；状态编排 B；新增持久边界 A 先行 | 每机器人草稿隔离；失败后文本/引用/附件可继续；切换/重开不无声丢失未确认输入；未知送达仍按原目标/同 inputId 重试，消费真实 receipt；不因手工重试重新分配身份 |
+| E03 / P0 | **实现已审阅，候选待发布验证**。共享输入事件与 IME 处理：BotComposer、经典 Composer、Quick Chat、TUI 已有提交 seam | E02 的发送责任；C/B | Enter 确认候选不发送，补全/Escape 只消费当前层；正常快速键入与 Shift+Enter 可用；不重写 Provider |
+| E04 / P0 | **实现已审阅，候选待发布验证**。决策与结果一致性：CardView/ApprovalReceipt、TaskVerification、Attention/Lifecycle 消费者、BotAccessControl | E01；C/B；缺协议事实升级 A | 同一决定/任务的列表、卡片、详情一致；过期/拒绝/取消/未知独立表达；签收与 Git 交回分别显示 |
 | E05 / P1 | 滚动与导航控制：BotConversation、conversation scroll hook、`chat/state/threadScrollPolicy.ts` 与调度器 | E02；C/B | 上滚/引用定位不被新内容抢回；图像晚到与虚拟测量不改阅读意图；明确返回最新才恢复跟随 |
 | E06 / P1 | 焦点、菜单、抽屉、对话框、分段与分割条：共享 overlay/focus scope 和现有选择器 | E04/E05；C | 最上层 Escape、进出焦点、Tab、隐藏内容、拖动取消完整；正常背景更新不夺焦点 |
 | E07 / P1 | token/共享组件收敛：tokens、SettingsGroup、设置行、模型面板、档案与消息操作 | E01/E06；C | 同一角色同一尺寸/状态；深浅/字号/长值/窄容器可用；保留既有已批准材质，不重画全部界面 |
@@ -174,7 +187,7 @@ E05–E12、E15–E17 按触及范围穿插到功能修复，不要求先做一�
 | 一致性 | 同一事实在列表/对话/详情/入口含义相同 | 统一投影与消费者映射 |
 | 维护成本 | 同类控件和动画复用共享接口 | diff 中的重复与例外清单 |
 
-本轮完成全产品源码/状态责任矩阵，不做全产品实机审计，因此没有计算现有产品的“规范符合率”，也不把上述目标编成未经测量的百分比。首轮发布覆盖基线建立后再记录改善。
+矩阵已登记且本轮 E02–E04 已做实现审阅；未做全产品实机审计，因此没有计算现有产品的“规范符合率”，也不把上述目标编成未经测量的百分比。首轮发布覆盖基线建立后再记录改善。
 
 明确后置：团队/代理群聊、市场、无限 Canvas、额外默认云同步、远程批准/附件、L3 系统 UI、全新存储拓扑。它们必须另走既有路线图与 ADR；不能借“全面改造”获得实施授权。
 
@@ -189,7 +202,7 @@ E05–E12、E15–E17 按触及范围穿插到功能修复，不要求先做一�
 
 每次后续代码提交只更新自己触及的工作包及对应交付记录，写清来源 SHA、事实等级和未验证项。不要继续把新结论只追加到页尾、让首页保持过时状态。未由证据确认的缺口标为待核对；本轮之外的 dirty 文件保持原样。
 
-## 11. 矩阵任务如何关闭
+## 12. 矩阵任务如何关闭
 
 - 已登记：本轮完成页面/组件清单、状态模板、源码差异、U/M/T 体系和任务映射；提交文档只关闭这一层。
 - 实现已审阅：实际卡按允许文件落地，列影响的 P/C/U/M/T 与 G 编号，完成内容/diff 审阅，未运行项如实记录；不要求日常测试。
