@@ -6,7 +6,15 @@
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
 
-## E07–E08 本轮更新（2026-10-23）
+## E09–E10 本轮更新（2026-10-23）
+
+代码 `df25f859b71025a2173096d6a0bdda0c1fdfa4ee`；[PR210](https://github.com/ly-ccx/Peer-Agent/pull/210)（draft，基于 PR209）、[实施交接](../../playbook/v0.1.0/experience-previews-controls.md)。**当前路径实现已审阅，候选验证待发布**。新增 C207/ResourceFeedback、C208/ResourceEditor、C209/EvidencePreview，实际 Desktop 非测试 TSX 209、TUI 13；原主工作区其他未提交内容未进入交付。
+
+U05/U06/U10/U11/U13–U16：附件/引用/产物/Evidence 受控预览与真实读取/失败恢复，记忆/目标/自动化会话草稿、逐对象写回执和版本核对。M01/M02/M04/M16 沿既有按钮/Overlay/Drawer/motion，复制反馈不靠倒计时维持，图片未解码不开放原尺寸；本批没有新增动画常数或物理系统。T01/T02/T08/T09：引用定位有界且手势可打断，来源失效保引用；嵌套 Evidence 按原层级关闭/归焦，失败预览可重读；记忆修订关闭旧编辑并恢复焦点，后台刷新不重置提案展开或重复目标定位。
+
+G08/G09 的上述实现已审阅；G10–G12、真实系统/读屏/200%/reduce 与其他存量继续各行 V。新 kernel 用例未运行；没有 build/type/architecture/IPC、截图或交互回归、独立评审或发布验收。
+
+## E07–E08 前一批更新（2026-10-23）
 
 代码 `815ab1363143788aab3c672e850db96cb7685e45`；[PR209](https://github.com/ly-ccx/Peer-Agent/pull/209)、[实施交接](../../playbook/v0.1.0/experience-settings-closure.md)。**本批消费者实现已审阅，候选验证待发布**。基于 E05–E06 并保留提交身份复用 PR197/200；不把依赖代码说成重新开发，不混主工作区 dirty，不合并 GitHub PR。
 
@@ -52,9 +60,9 @@ U01/U03/U05/U06/U07/U08/U14/U15 的设置、新建、模型、档案消费者已
 | U10 行/列表/卡/表格/图表 | S BotRow/TasksTab/AttentionSheet、SettingsGroup、UsageStats/Automation 表格、WorkStream | V Ø/L/X/T/R、选择与锚点/分页/长值；图表不只依 hover/颜色，提供文字与键盘入口 | P1 · E05/E07/E15 |
 | U11 模态/抽屉/面板/原生弹选 | S modal/push/anchored 共用逻辑父子；Overlay native inert/Tab/focusin、允许自有 portal、幂等退场/恢复触发者 | E06 实现已审阅；V 嵌套/初始双层/外点/源消失/反向、原生窗口 | P1 · E06/E15/E17 |
 | U12 消息/过程/决策/结果 | S CardView 不再 generic ok→done；实际 approval/current card + 当前核验/验收真源；TUI cancel 独立不授予执行 | E04 实现已审阅；V 授权/执行/核验/签收/Git交回对照、迟到/过期/撤权；G12 后置 | P0 事实 · E04；P1 表达 E15/E17 |
-| U13 附件/引用/产物/媒体预览 | S QuoteChip/ReplyAnchors、BotAttachments、ImageLightbox、Markdown/Source/Diff viewers | G08；V 同一来源/失效/未支持/读失败、复制/打开错误与局部滚动，artifact 不冒充 Evidence | P1 · E09/E15/E17 |
-| U14 设置/资料/能力/自动化编辑 | S SettingsGroup、12 个公开设置分区、bot 五 tab、能力/自动化各表单 | S G04/E08 设置/连接/目录/模型/名称的 dirty 与真实保存恢复；V 其他能力/记忆/目标编辑仍 E08/E10 | P1 · E07/E08/E10/E15/E17 |
-| U15 空/加载/失败/失效/恢复与通知 | S 对话渐进读取、pending/stop/error、updater phase、后台记录、受管 surfacing 与通知 | S E08 读取失败保旧事实，失败保编辑/请求与重试；创建未知先核对列表；V G08/G09 与真实未知/部分写入 | P0 关键事实 E04；P1 E10/E12/E15 |
+| U13 附件/引用/产物/媒体预览 | S QuoteChip/ReplyAnchors、BotAttachments、ImageLightbox、Markdown/Source/Diff viewers | S E09/G08 图片/文本/元信息、原 ID 定位、Evidence/文件分别可达和失败重读已审阅；V OS/解码/旧源/局部阅读/长内容与键盘 | P1 · E09/E15/E17 |
+| U14 设置/资料/能力/自动化编辑 | S SettingsGroup、12 个公开设置分区、bot 五 tab、能力/自动化各表单 | S E08 与 E10 记忆/目标/自动化会话 draft、真实回执/失败恢复/版本核对已审阅；V 其他能力表单、外部变化/未知/部分写入 | P1 · E07/E08/E10/E15/E17 |
+| U15 空/加载/失败/失效/恢复与通知 | S 对话渐进读取、pending/stop/error、updater phase、后台记录、受管 surfacing 与通知 | S E09/E10/G08/G09 读取失败与真空分开、旧快照/取消/写回执独立、未知先核对已审阅；V 真实宿主故障/部分写入/送达 | P0 关键事实 E04；P1 E10/E12/E15 |
 | U16 跨宿主与可访问性 | S Desktop/TUI/CLI/Gateway 各现有实现；终端有主题 primitives、remote 有原生表单/status | V shared 语义映射、焦点/读屏/目标尺寸/软键盘/窄窗；CLI/ACP 无图形状态注明 N/A；不引第二设计系统 | P1 · E11/E13/E15 |
 
 UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”，不是一张默认截图。并非每个角色要新建通用组件；已有共享接口优先，临时例外标注范围/原因/替代路径/退出条件。不得为了统一布局更改权限、Context Source 或存储。
@@ -80,7 +88,7 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 | M13 品牌启动 | S `brand-startup-*` 与 BrandStartupLoader/minHold | G10；就绪不为品牌固定等待，静态错误/恢复完整 | P1 · E12/E16/E17 |
 | M14 头像凝视/呼吸/思考 | S `bot-avatar-*`、头像状态和 reduce CSS 重置 gaze | V JS 指针/帧任务/可见性与偏好变化，状态名不产生假行动权 | P1 · E15/E16 |
 | M15 结果庆祝/粒子 | S `result-card-*`、`gwb-item-*`、ParticleShatterOverlay | G11；先短路减少动效的 JS 工作。真实签收与消失分开，重连不重复庆祝 | P1 降级 E16；P2 装饰 E14 |
-| M16 图像缩放/拖动/尺寸 | S ImageLightbox fit/actual、分割条 rAF、浏览器挂载稳定 | S G06/E06 两侧分割条取消回原值、真实屏障/清理；G08 图像失败后置；V guest/窄窗/键盘 | P1 · E06/E09/E16/E17 |
+| M16 图像缩放/拖动/尺寸 | S ImageLightbox fit/actual、分割条 rAF、浏览器挂载稳定 | S G06/E06 分割条、E09/G08 加载/解码失败可重读，图片就绪后原尺寸；V guest/窄窗/真实键盘与 reduce | P1 · E06/E09/E16/E17 |
 | M17 sheen/halo/ripple/glow 等存量基元 | S motion.css 中有这些定义；**定义存在不等于所有组件都在用** | V 新调用先解释理解收益、循环开销与静态终态；不扩散 blur/shadow/background 循环；逐字模糊不采用 | P2 增强 E14；存量降级 P1 E16 |
 | M18 全局治理/偏好/API | S tokens 全局 reduce；集中 keyframe 架构检查；presence、Overlay、部分 WAAPI 各自处理 | G11/G12；V JS/WAAPI/smooth scroll、偏好变化/无事件/卸载。现有 checker 不覆盖所有语义/帧率/可达性 | P1 · E16/E13 |
 
@@ -99,8 +107,8 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 | T05 折叠/展开/详情 | S SettingsDisclosureContent、BotProcess、ReplyDetails、问题 dismissal | S E06 disclosure 收起归焦/inert；G12 问题 dismissal 仍待 E16；V 用户收起、反向/无 API/卸载 | P1 · E05/E06/E16/E17 |
 | T06 待发/接收/连续回复 | S shared recovery kernel + device store，完整 envelope 先保存；匹配 input/public echo 确认，同 ID retry；30秒只结束界面等待 | G01/G02/G03 实现已审阅；V quote/附件/未知/迟到/重开和历史静态；不自动重发 | P0 · E02/E03；P1 E16/E17 |
 | T07 决策/执行/核验/交还 | S 结构化 approval/current card 与 lifecycle/verification/acceptance 真源分开；旧展示记录不盖当前授权/验收 | E04 实现已审阅；V 列表/卡片/详情、过期/取消/拒绝/未知、核验≠签收≠交回；G12 后置 | P0 · E04；P1 E17 |
-| T08 列表增删/排序/分页 | S BotList/TasksTab/Memory/Files、MessageQueue、WorkStream/virtual pager | S E05 分页保锚点、恢复有界且可取消；S E06 资源关闭归相邻；G09 后置，V 来源丢失/动态列表 | P1 · E05/E06/E10/E17 |
-| T09 预览/分栏/最大化 | S ImageLightbox/Document/Browser、WorkbenchResize、档案 push/cover | G06/E06 resize 提交/撤销/恢复阶段与屏障已审阅；G08 后置；V guest 身份不误销毁、预览/窄窗 | P1 · E06/E09/E17；共享元素 P2 E14 |
+| T08 列表增删/排序/分页 | S BotList/TasksTab/Memory/Files、MessageQueue、WorkStream/virtual pager | S E05/E06 保阅读与邻项归焦；E10/G09 修订后结束旧记录编辑、后台保用户展开意图；V 动态增删/筛选/原生归焦 | P1 · E05/E06/E10/E17 |
+| T09 预览/分栏/最大化 | S ImageLightbox/Document/Browser、WorkbenchResize、档案 push/cover | S G06/E06 resize 与 E09/G08 受控预览、失败重读/关闭与回原入口已审阅；V guest/窄窗/旧源、真实辅助技术 | P1 · E06/E09/E17；共享元素 P2 E14 |
 | T10 启动/主题/升级/宿主恢复 | S bootstrap/minHold、AppearanceProvider、VersionBadge/updater、host lease/恢复投影 | G10；V 内容就绪即用、主题变更保编辑、窗口关闭不取消、未知执行不重放、徽标先承接 | P1 · E11/E12/E16/E17 |
 
 ## 5. 发布验收与进度记账
