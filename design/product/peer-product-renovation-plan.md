@@ -31,6 +31,8 @@
 
 流式显示泵的文本批次为 B 级影响：只交出已收到文本并保留顺序，不新增请求/合成正文；其余是 C 级表达。没有新增协议、IPC、存储、权限、Evidence、触发器或 Context Source。新增 C210/ChoiceStrip、C211/FileEntryInput，实际 Desktop 非测试 TSX **211**、TUI **13**。只做内容/diff 自审；边界用例已补写/调整但均未运行，测试、build/type/architecture/IPC、截图及交互回归留到 E13 最终合并候选。不是独立评审或发布 Pass。
 
+本地联调补修（2026-10-24）：用户点击机器人触发 `Illegal invocation`。代码 `ed0f81b4` / [集成 PR213](https://github.com/ly-ccx/Peer-Agent/pull/213) 已将 E05 `useConversationWindow` 的 request/cancel 包装为显式 `Window` 调用，保留原同帧调度、阅读意图与取消策略。C 级 UI 接线；新增真实 hook+有 receiver 约束的用例，未运行。仅确认重启该开发实例后可打开同一机器人、历史与输入框可见；未发消息或操作原任务，不等于全量回归。崩溃页原重载未恢复，采用重启恢复，reload 机制仍待 E12/E13 核对。
+
 E11–E12 前一批代码 `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211)（draft，叠加 PR210）、[实施交接](../../playbook/v0.1.0/experience-entry-recovery.md)。**当前路径实现已审阅，候选验证待发布**。本批起点 `df25f859`；知识父提交 `73faf96679306977acbbaa6b666986532e70bb83`。两仓分支 `codex/experience-entry-recovery`。通过真实分支 merge `546a81bf` 复用 PR198 head `86eb3fbbd055a4225ac4b74ac8dc6bcb3e1312d3`，保留原提交身份；未合并 GitHub PR，也未纳入 PR206 的 Markdown/System Context 或主工作区 dirty。B 级影响限 TUI client 的有界读取/关闭生命周期，Desktop/Gateway 为 C 级表达；没有新增协议、IPC、持久路径、权限、Evidence、触发器或 Context Source。本批无新增 TSX，实际 Desktop 209、TUI 13。测试用例已补写但未运行，构建/类型/架构/IPC 与回归留发布前。G11/G12 与其他存量继续 E16/E17/E13。
 
 E09–E10 前一批代码 `df25f859b71025a2173096d6a0bdda0c1fdfa4ee`；[PR210](https://github.com/ly-ccx/Peer-Agent/pull/210)（draft，基于 PR209）、[实施交接](../../playbook/v0.1.0/experience-previews-controls.md)。起点 `815ab136`；知识父提交 `b8206bd9781329d28dfc157a3b71fb0460f8d7d9`。只在隔离 worktree 实现 C 级表达与恢复，未新增 IPC、协议、存储、能力、许可、Evidence 或触发器；测试/回归继续留发布前，不合并其他 PR。

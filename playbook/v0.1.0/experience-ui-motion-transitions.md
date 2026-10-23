@@ -41,3 +41,9 @@ Gateway 是已有 standalone host adapter。它继续既有浅深 palette 和原
 已做源码/内容/diff 自审、空白和提交 allowlist 审阅。新写 `visualMotion.test.ts`、`choiceInputInteraction.test.ts`、`typewriterMotionPolicy.test.ts`、`permissionStripTiming.test.ts`，补写 `particleShatter.test.ts`，调整 TaskMonitor 两份既有用例；覆盖静态/拒绝/超时竞争/取消重开/偏好中断、粒子前置短路与停帧、tabs 显式激活与文件名 IME、显示文本顺序及授权无动画派发。**全部未运行**。没有 unit/integration、build/type/architecture/IPC、截图/交互回归、真实模型/安装包/辅助技术验证；没有独立评审或测试 Pass。
 
 E13 在重新盘点并正常合并全部开放 PR 后，绑定最终组合 commit/安装包，执行完整门禁与产品 packet/review/verify。优先核对：G11/G12 的 CSS+JS reduce、隐藏/恢复/无 API/异常/卸载/快速反向；源/目标/嵌套归焦；正文/思考/工具交接；授权/核验/签收事实；MCP 初读失败/dirty/凭据与 OAuth 部分失败；Skills scope/旧读与确认；文件重名/失败/候选 Enter/软键盘；跨列/窄窗/200%/强制颜色/真实读屏/原生跨窗口。经候选证据确认的关键链路缺陷先修；其余 V 保原责任，E14 装饰增强仍可选。
+
+## 本地点击对话崩溃补修（2026-10-24）
+
+本地联调补修（2026-10-24）：用户点击机器人触发 `Illegal invocation`。代码 `ed0f81b4` / [集成 PR213](https://github.com/ly-ccx/Peer-Agent/pull/213) 已将 E05 `useConversationWindow` 的 request/cancel 包装为显式 `Window` 调用，保留原同帧调度、阅读意图与取消策略。C 级 UI 接线；新增真实 hook+有 receiver 约束的用例，未运行。仅确认重启该开发实例后可打开同一机器人、历史与输入框可见；未发消息或操作原任务，不等于全量回归。崩溃页原重载未恢复，采用重启恢复，reload 机制仍待 E12/E13 核对。
+
+源码新增 `useConversationWindow.browser.test.ts`：用带 receiver 约束的 request/cancel 模拟器执行真实 hook 和调度器，覆盖进入对话的首帧与退出清理；旧接线会在首帧抛错。仅编写并内容审阅，未执行用例。原计划的候选门槛和其他 V 保持不变。

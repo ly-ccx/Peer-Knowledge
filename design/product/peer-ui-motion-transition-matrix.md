@@ -20,6 +20,8 @@
 
 Gateway 是已有 standalone host adapter：复用其 palette，并显式映射 8/12/16 几何、普通/紧凑高度、字号、focus 和现有 fast/easing；原生表单/强制颜色/粗指针负责宿主降级。它不能导入 renderer CSS，不宣称已经自动共享主题或全部视觉通过。退出条件是最终候选对照角色/主题/对比度；若后续需要自动分发 token，另按实际构建边界处理，不在本批添加第二套系统。
 
+本地联调补修（2026-10-24）：用户点击机器人触发 `Illegal invocation`。代码 `ed0f81b4` / [集成 PR213](https://github.com/ly-ccx/Peer-Agent/pull/213) 已将 E05 `useConversationWindow` 的 request/cancel 包装为显式 `Window` 调用，保留原同帧调度、阅读意图与取消策略。C 级 UI 接线；新增真实 hook+有 receiver 约束的用例，未运行。仅确认重启该开发实例后可打开同一机器人、历史与输入框可见；未发消息或操作原任务，不等于全量回归。崩溃页原重载未恢复，采用重启恢复，reload 机制仍待 E12/E13 核对。 对应 U10/M18/T01/T08 的原生帧接线，未调整任何动效数值或批量升级覆盖状态。
+
 ## E11–E12 前一批更新（2026-10-24）
 
 代码 `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211)（draft，叠加 PR210）、[实施交接](../../playbook/v0.1.0/experience-entry-recovery.md)。**当前路径实现已审阅，候选验证待发布**。PR198 `86eb3fbb` 通过真实分支 merge 保留原提交身份；未合并 GitHub PR 或复制原工作区 dirty。无新增 TSX，实际 Desktop 209、TUI 13。

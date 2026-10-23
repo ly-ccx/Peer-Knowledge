@@ -22,6 +22,8 @@
 
 UI 映射 U01/U03/U05–U12/U14–U16；动效 M01–M06/M08/M12/M14/M15/M18；过渡 T01/T02/T04–T09。覆盖下表对应 P/C 行和 §6 seam；G11/G12 标为“实现已审阅，候选验证待发布”，不把 211 个模块或所有三体系行批量标达标。
 
+本地联调补修（2026-10-24）：用户点击机器人触发 `Illegal invocation`。代码 `ed0f81b4` / [集成 PR213](https://github.com/ly-ccx/Peer-Agent/pull/213) 已将 E05 `useConversationWindow` 的 request/cancel 包装为显式 `Window` 调用，保留原同帧调度、阅读意图与取消策略。C 级 UI 接线；新增真实 hook+有 receiver 约束的用例，未运行。仅确认重启该开发实例后可打开同一机器人、历史与输入框可见；未发消息或操作原任务，不等于全量回归。崩溃页原重载未恢复，采用重启恢复，reload 机制仍待 E12/E13 核对。
+
 ## 前一批落地：E11–E12（2026-10-24）
 
 代码 `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211)（draft，叠加 PR210）、[实施交接](../../playbook/v0.1.0/experience-entry-recovery.md)。**当前路径实现已审阅，候选验证待发布**。在 E09–E10 上叠加，真实 merge 保留 PR198 `86eb3fbb` 的原提交；未合并 GitHub PR，未混入 PR206 的 Markdown/System Context 或主工作区未提交代码。
@@ -382,7 +384,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C135 · `project-agent/conversation/BotAttachments.tsx`<br>`BotAttachments` | Q/V/O · S 附件列表/移除和共享灯箱预览；事实：受控 props / 所属 hook（装配模块由子树承接） | E09 图片/文本/元信息受控预览与移除归焦已审阅；V 故障/晚图/真实键盘；只读预览不构成 Evidence | P1 · E02/E09 |
 | C136 · `project-agent/conversation/BotComposer.tsx`<br>`BotComposer` | I · S 受控正文/quote/附件、共享 IME、发送/停止；恢复责任在 kernel/store | E09 受控引用按消息 ID 定位、移除回输入已审阅；G01/E03 沿用；V 附件读完/保存失败/真实 IME | P0 · E02/E03/E09 |
 | C137 · `project-agent/conversation/BotConversation.tsx`<br>`BotConversation` | I/V/O · S 既有 quote/Evidence/配置恢复；E12 追读超批保消息，明确继续读取 | E02/E08/E09/E12 已审阅；V 多批/源失效/换 bot 与迟到，不制造连续历史 | P0 输入；P1 · E05/E08/E09/E12 |
-| C138 · `project-agent/conversation/BotMessageList.tsx`<br>`BotMessageList`, `SystemCard` | V/Q · S shared policy+有界 reading memory；恢复分批/取消、显式回最新、任务焦点只交接一次 | E09 消费有界定位的 loading/未找到/继续状态已审阅；E05/E06 沿用；V 手势取消/虚拟重测/晚图 | P1 · E05/E06/E09/E12/E17 |
+| C138 · `project-agent/conversation/BotMessageList.tsx`<br>`BotMessageList`, `SystemCard` | V/Q · S shared policy+有界 reading memory；恢复分批/取消、显式回最新、任务焦点只交接一次 | E09 定位状态与 E05/E06 沿用；本地 `ed0f81b4` 修复帧 API receiver，打开对话已作单路径恢复确认；V 手势取消/虚拟重测/晚图/完整恢复 | P1 · E05/E06/E09/E12/E17 |
 | C139 · `project-agent/conversation/BotNarration.tsx`<br>`BotNarration` | V · S 公共叙述和 aria-live；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核流式广播频率、停止/完成保留叙述、无私有思考 | P1 · E04/E05/E16 |
 | C140 · `project-agent/conversation/BotProcess.tsx`<br>`BotProcess`, `Preview` | V/O · S 过程预览/用时与真实记录；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核收起权、未知用时、历史重开不伪装进行中 | P1 · E04/E05/E16 |
 | C141 · `project-agent/conversation/BotSelectionQuote.tsx`<br>`BotSelectionQuote` | A/O · S 选区与浮动引用位置；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核键盘等价、Range 失效/滚动、引用源定位与 draft | P1 · E05/E06/E09 |
@@ -477,7 +479,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | runtime-node/project-agent/card-projection；r/project-agent/state/cardDecisionReceipt.ts；TUI host/card-actions | S 当前决定/核验/签收事实拥有投影；cancel 独立且不授予执行 | V 过期/迟到/旧记录/恢复、跨入口一致 · P0 E04 |
 | r/project-agent/state/useBotModels.ts/botModelState.ts；chat/components/thread/ModelSelectionPanel.tsx/model-selection.css | S workspace pending、当前 profile/运行快照分开、真实回执；retry 只应用原编辑字段且保留无关最新配置 | E08 实现已审阅；V scope/迟到/切换/未知与既有 host 校验 · P1 E08 |
 | r/ui/forms/editableResource.ts/useEditableResource.ts/useSettingsAction.ts/settingsNavigation.ts；app/hooks/useProviderCollection.ts/useProviderFormGuard.ts/useFallbackVisionSetting.ts；app/components/settings/routingDraft.ts | S 会话内非凭据 draft、真实读写回执/有界单次写、latest request、dirty 导航与 routing 最小 patch；敏感连接表单不入 cache | E07/E08 实现已审阅；V 宿主失败/外部配置/多阶段/OS 与进程重启限制；未新增 IPC/持久路径 · P1 E07/E08/E17 |
-| r/chat/state/threadScrollPolicy.ts/streamingScrollScheduler.ts/threadReadingRestore.ts；chat/hooks/useThreadScrollGesture.ts；project-agent/conversation/useConversationWindow.ts；state/conversationReadingMemory.ts/conversationPager.ts | S 用户意图与几何分开、同帧调度、有界会话内锚点、分批恢复/中断、真实 turn 定位 | E05 实现已审阅；V 晚图/虚拟/源失效/压缩、实际 OS 输入与恢复 · P1 E05 |
+| r/chat/state/threadScrollPolicy.ts/streamingScrollScheduler.ts/threadReadingRestore.ts；chat/hooks/useThreadScrollGesture.ts；project-agent/conversation/useConversationWindow.ts；state/conversationReadingMemory.ts/conversationPager.ts | S 用户意图与几何分开、同帧调度、有界会话内锚点、分批恢复/中断、真实 turn 定位 | E05 实现已审阅；`ed0f81b4` request/cancel 显式 Window 接线，挂载与清理的防回退用例未运行；V 晚图/虚拟/源失效/压缩、OS 输入与完整恢复 · P1 E05/E13 |
 | r/project-agent/conversation/useCardPresence.ts/useQuestionDismissal.ts；state/conversationMotion.ts | S G12/E16/E17 animateVisual 静态/缺 API/拒绝/fallback，反向与卸载取消旧收尾；只原持焦点才交本地 composer，真实 resolved 仍 props | 实现已审阅；V 连续卡片变化/旧 promise/静态终态/真实 IME 与焦点 · P1 E16/E17 |
 | r/workbench/workbenchResizeStages.ts、browserPanelReveal.ts、browserSessionState.ts | 窄窗/分栏阶段、稳定 browser 顺序、会话身份 | G06；V iframe 越界/卸载与取消恢复 · P1 E06/E17 |
 | r/app/fx/particleShatter.ts/useShatterExitCollapse.ts；styles/particle-shatter.css | S G11/E16 采样/引擎前置偏好检查，AbortSignal/隐藏停止捕获和帧，失败保真实源；collapse 使用共享终态/token | 实现已审阅；V 捕获/解码/CSP/API/卸载与实际签收事实独立 · P1 E16；装饰 P2 E14 |
