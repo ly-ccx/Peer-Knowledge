@@ -3,7 +3,7 @@
 创建时间：2026-10-23
 最后更新：2026-10-23
 
-> 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0 与后续 E05–E06 已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；本次不合并、安装或发布。
+> 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06 及 E07–E08 当前路径已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；本次不合并 GitHub PR、不安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
 
@@ -11,6 +11,8 @@
 
 | 工作包 | 当前状态 | 交付与后续责任 |
 |---|---|---|
+| E07 / R2 · token 与共享组件 | **本批消费者实现已审阅；候选验证待发布** | 共享普通/紧凑控件与焦点 token、SettingsRow/FormFeedback/按钮/输入；设置/新建/模型/档案消费者收敛，模型专属 keyframes 复用 motion。其他存量继续按矩阵 E15 分批迁移 |
+| E08 / R2 · 新建、模型、配置 | **当前路径实现已审阅；候选验证待发布** | 复用 PR197/200；新建名称/IME/未知创建；模型浏览不写入、真实配置与当轮快照分开；G04 与通用/Git/routing/vision/档案保存恢复、连接/目录/元数据 dirty 离开；新增只在会话内保留非凭据草稿 |
 | E05 / R2 · 滚动与导航 | **实现已审阅；候选验证待发布** | Bot/经典共享用户意图策略；布局碰到底不恢复跟随，发送/compaction/背景查找不抢回。按机器人保存有界会话内阅读锚点，旧页每批最多 4 页，可中断/继续/回最新；经典重用真实 turn 快照 |
 | E06 / R2 · 焦点与浮层 | **实现已审阅；候选验证待发布** | 模态/菜单/档案/查找/tooltip 共享逻辑层级，modal inert/Tab/focusin、最上层 Escape、单次外点/归焦；G05 tabs、G06 拖动撤销/屏障/清理、G07 tooltip 已实现；隐藏内容 inert，昂贵切换显式激活 |
 | E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执 |
@@ -18,7 +20,9 @@
 | E04 / R1 · 决策与结果一致性 | **实现已审阅；候选验证待发布** | generic ok 不制造 done；宿主真实 approval/current card 和当前核验/验收事实优先，旧 presentation resolution 不覆盖；TUI cancel 独立并拒绝执行。清单/生命周期/权限策略沿现有真源消费，核验/签收/Git交回不合并。跨消费者/迟到/过期/撤权对照归 E13 |
 | E13 | **发布前待执行** | 契约测试已随代码编写但未运行；没有 build/type/architecture/IPC check、截图/交互回归或测试 Pass。合并所有开放 PR 后，对最终候选完整执行 |
 
-E05–E06 本轮代码 `2a0ee98be84344b8ae6499ee48b6d25b281afa32`，父提交 `b64337f3`；[代码 PR208](https://github.com/ly-ccx/Peer-Agent/pull/208)（draft，依赖 PR207）、[实施交接](../../playbook/v0.1.0/experience-navigation-layers.md)。C 级 renderer/i18n 表达修改，不改运行时事实或增加持久阅读路径。测试和回归仍留到发布；TUI/远程与原生跨窗口适配归 E11，未随共享组件批量标达标。
+E07–E08 本轮代码 `815ab1363143788aab3c672e850db96cb7685e45`；[代码 PR209](https://github.com/ly-ccx/Peer-Agent/pull/209)、[实施交接](../../playbook/v0.1.0/experience-settings-closure.md)。基于 E05–E06，另 merge 复用 PR197 `21c3f424`、PR200 `132a0e47` 原提交；没有合并 GitHub PR 或复制 dirty。自身增量 C 级 renderer/i18n；依赖已有协议/runtime 变更归 PR197。没有新增持久草稿或配置事务协议；未知创建先查列表，部分宿主写入仍按现有契约恢复。测试与回归留到发布，矩阵仅标实现已审阅。
+
+E05–E06 前一批代码 `2a0ee98be84344b8ae6499ee48b6d25b281afa32`，父提交 `b64337f3`；[代码 PR208](https://github.com/ly-ccx/Peer-Agent/pull/208)（draft，依赖 PR207）、[实施交接](../../playbook/v0.1.0/experience-navigation-layers.md)。C 级 renderer/i18n 表达修改，不改运行时事实或增加持久阅读路径。测试和回归仍留到发布；TUI/远程与原生跨窗口适配归 E11，未随共享组件批量标达标。
 
 前一批代码 `b64337f3329539ac2fcc2a16220b62842cdf1ae0`，实施父提交 `7f900bdb`，知识父提交 `9126ed5`；[存储/协议边界](../../knowledge/architecture/project-input-recovery.md)、[实施交接与覆盖限制](../../playbook/v0.1.0/experience-p0-input-decisions.md)、[矩阵本轮登记](peer-interaction-standardization-matrix.md)。本轮新声明的数据路径先写约束再实现；不新增工具、许可、Evidence 或 Context Source。原主工作区 dirty 文件未进入交付。下列旧源码事实仍作基线，不代表该实现已进入发布或主线。
 
@@ -144,8 +148,8 @@ RC26 有完整的当时发布验证；新规范新增的跨切换草稿、完整
 | E04 / P0 | **实现已审阅，候选待发布验证**。决策与结果一致性：CardView/ApprovalReceipt、TaskVerification、Attention/Lifecycle 消费者、BotAccessControl | E01；C/B；缺协议事实升级 A | 同一决定/任务的列表、卡片、详情一致；过期/拒绝/取消/未知独立表达；签收与 Git 交回分别显示 |
 | E05 / P1 | **实现已审阅，候选待发布验证**。滚动与导航控制：BotConversation、conversation scroll hook、`chat/state/threadScrollPolicy.ts` 与调度器 | E02；C/B | 上滚/引用定位不被新内容抢回；图像晚到与虚拟测量不改阅读意图；明确返回最新才恢复跟随 |
 | E06 / P1 | **实现已审阅，候选待发布验证**。焦点、菜单、抽屉、对话框、分段与分割条：共享 overlay/focus scope 和现有选择器 | E04/E05；C | 最上层 Escape、进出焦点、Tab、隐藏内容、拖动取消完整；正常背景更新不夺焦点 |
-| E07 / P1 | token/共享组件收敛：tokens、SettingsGroup、设置行、模型面板、档案与消息操作 | E01/E06；C | 同一角色同一尺寸/状态；深浅/字号/长值/窄容器可用；保留既有已批准材质，不重画全部界面 |
-| E08 / P1 | 新建、模型与配置闭环：NewBotSheet、ModelSelectionPanel、BotModelControls、设置/机器人档案 | E01/E07；C/B | 名称与绑定明确，模型实际值/来源可读；保存失败保留编辑；当轮快照与下轮修改分开；不重复开发 PR197/200 |
+| E07 / P1 | **本批消费者实现已审阅，候选待发布验证**。token/共享组件收敛：tokens、SettingsGroup、设置行、模型面板、档案与消息操作 | E01/E06；C | 同一角色同一尺寸/状态；深浅/字号/长值/窄容器可用；保留既有已批准材质，不重画全部界面 |
+| E08 / P1 | **当前路径实现已审阅，候选待发布验证**。新建、模型与配置闭环：NewBotSheet、ModelSelectionPanel、BotModelControls、设置/机器人档案 | E01/E07；C/B | 名称与绑定明确，模型实际值/来源可读；保存失败保留编辑；当轮快照与下轮修改分开；复用 PR197/200，剩余消费者继续按矩阵；主机幂等/持久化若需新契约另立 A/B 卡 |
 | E09 / P1 | 附件、引用、产物与 Evidence/预览：BotAttachments、QuoteChip、TaskVerification、Workbench 现有 views | E02/E04/E06；C/B，准入变化 A | 读入/未支持/失效明确；产物和证据可分别到达；预览键盘和关闭可用；无 iframe/renderer 执行旁路 |
 | E10 / P1 | 记忆/目标/Automation 的可控性：MemoryTab、ObjectivesTab、既有主动性/通知入口 | E04/E07；C/B | 看懂来源、作用范围、触发、静音与撤回；普通进展不打扰；不扩大触发器和记忆权限 |
 | E11 / P1 | Desktop/TUI/CLI/远程/经典入口语义对照；复用 PR198 与共享 Runtime | E01–E04；C/B | 主入口和传统模式切换清理焦点/监听；回执与失败恢复一致；远程明确回电脑批准；不复制 Frost 像素到终端 |
@@ -212,4 +216,4 @@ E05–E12、E15–E17 按触及范围穿插到功能修复，不要求先做一�
 - 实现已审阅：实际卡按允许文件落地，列影响的 P/C/U/M/T 与 G 编号，完成内容/diff 审阅，未运行项如实记录；不要求日常测试。
 - 候选验证通过：E13 在合并全部 PR 的最终候选/包取证，覆盖适用状态、反向/取消/失败/恢复/减少动效及宿主限制。缺少证据的行继续待核，不从共享组件修改批量填 Pass。
 
-当前实现进度：R1 的 G01–G03、E04 及 R2 的 E05/E06（G05–G07）已审阅，均待 E13。后续优先处理 E07/E08/E09 的当前路径（G04/G08）与 E10/G09 → E16/E17 的 G10–G12 与可达性/恢复 → 非阻塞外观收敛 → E14 可选增强。经证据确认影响关键链路的故障按既有发布阻塞处理；没有把所有矩阵待核项升级成 GA 必交功能。
+当前实现进度：R1 的 G01–G03、E04，R2 的 E05/E06（G05–G07）与 E07/E08 当前路径（G04）已审阅，均待 E13。后续优先处理 E09/G08 与 E10/G09 → E16/E17 的 G10–G12 与可达性/恢复 → 非阻塞外观收敛 → E14 可选增强。经证据确认影响关键链路的故障按既有发布阻塞处理；没有把所有矩阵待核项升级成 GA 必交功能。
