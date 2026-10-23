@@ -12,6 +12,12 @@
 > 关联发布：`knowledge/decisions/48-cli-first-class-release.md` — CLI npm 安装不依赖 Desktop App
 ---
 
+## 2026-10-24：流式重试的草稿撤回事件
+
+合入 PR201 时发现 TUI 用类型强转向 Runtime SDK 发送未声明的 stream.discard。将该既有事件正式纳入 RuntimeSdkEvent/Input，字段为 streamId、textChars、reasoningChars，并继承 SDK 的事件身份、顺序和时间元数据；TUI 直接经现有 context.emit 发送，不能用 unknown 强转绕过契约。
+
+该事件仅撤回同一流的失败请求已显示草稿，发生在本次 provider 请求重试前；不撤回持久消息、工具结果、授权或 Evidence，不重新执行工具。计数非负，消费者不得越过流身份删除别的内容。Provider 请求重试次数/取消/失败仍沿已有实现，不新增执行旁路或第二套事件通道。此为合并现有功能所需的 A/B 级契约补齐；旧消费者可忽略不认识的展示事件，不改变协议版本与已有事件形状。
+
 ## 0A. 已落地边界补充（2026-07-12）
 
 本节记录代码已经形成的事实，优先级高于后文 2026-07-09 的前置调研描述。
