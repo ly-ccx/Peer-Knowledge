@@ -7,7 +7,7 @@
 
 ## 来源、允许范围与边界
 
-代码分支 `codex/experience-entry-recovery`，head `427d9041ecaced77cf6863ace83099c4d765f025`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211) 为叠加 E09–E10 [PR210](https://github.com/ly-ccx/Peer-Agent/pull/210) / `df25f859b71025a2173096d6a0bdda0c1fdfa4ee` 的 draft。知识父提交 `73faf96679306977acbbaa6b666986532e70bb83` / [PR71](https://github.com/ly-ccx/Peer-Knowledge/pull/71)。实现提交 `51c693da`，随后 `427d9041` 将可见轮询统一归 ProjectApp、关闭 client 自动计时器；两仓干净隔离 worktree 承接本批；原主工作区的 HEAD、分支、index 与未提交内容没有作为代码来源或提交内容。
+代码分支 `codex/experience-entry-recovery`，head `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211) 为叠加 E09–E10 [PR210](https://github.com/ly-ccx/Peer-Agent/pull/210) / `df25f859b71025a2173096d6a0bdda0c1fdfa4ee` 的 draft。知识父提交 `73faf96679306977acbbaa6b666986532e70bb83` / [PR71](https://github.com/ly-ccx/Peer-Knowledge/pull/71)。实现提交 `51c693da`，随后 `427d9041` 将可见轮询统一归 ProjectApp、关闭 client 自动计时器；`c6a8f82e` 将卡片 ID 的修改交回显式导航、刷新只调整索引，`ec1de36b` 保留选择自由回答前已有正文；两仓干净隔离 worktree 承接本批；原主工作区的 HEAD、分支、index 与未提交内容没有作为代码来源或提交内容。
 
 通过真实 merge `546a81bf855e198b947ec35d9010695d859a7929` 接入 [PR198](https://github.com/ly-ccx/Peer-Agent/pull/198) 精确 head `86eb3fbbd055a4225ac4b74ac8dc6bcb3e1312d3`，保留其原提交身份，复用 Enter、草稿恢复、经典切换卸载、公共对话与诊断；冲突保留此前 E02/E10 的 durable recovery、真实回执及失败快照。未合并 GitHub PR；没有接入 PR206 的 Markdown/System Context 改动或复制其他工作区 dirty。卡片 focus helper 是本批独立、局部实现，不宣称已集成 PR206。
 
@@ -20,7 +20,7 @@ B 级影响限 TUI client 的读取、在途合并与关闭生命周期；Deskto
 | 入口 / 用户目标 | 事实来源与状态 | 控制、恢复与限制 |
 |---|---|---|
 | Desktop Bot / Quick Chat 委托与查看 | 既有 shared input recovery、实际 input/public echo、approval/current card、任务核验与验收投影；本批 App 消费 bootstrap reader | 正文/引用/附件仍沿本机恢复；只以事实确认。bootstrap 失败可重读，已有 session 时保旧壳层；背景目录预取不挡主界面，不接受卸载/换源后的迟到结果；Quick Chat/托盘原生窗口行为仍发布待验 |
-| TUI Bot 继续编辑或选卡 | 原 textarea、shared recovery 的 ready/error/pending/flush 与 host receipt；card-actions 再核对宿主和作用域 | Tab 显式进入卡片，方向键选择，Enter 执行动作，Esc/Tab 回编辑；普通方向键留给输入。按原 cardId 保持焦点，卡消失回输入，不把后继索引当原卡；自由回答回编辑，重复/释放 Enter 不激活，IME 信号优先 |
+| TUI Bot 继续编辑或选卡 | 原 textarea、shared recovery 的 ready/error/pending/flush 与 host receipt；card-actions 再核对宿主和作用域 | Tab 显式进入卡片，方向键选择，Enter 执行动作，Esc/Tab 回编辑；普通方向键留给输入。按原 cardId 保持焦点，卡消失回输入，不把后继索引当原卡；自由回答回编辑并保留已有正文，重复/释放 Enter 不激活，IME 信号优先 |
 | TUI 切经典或退出 | `client.close` 先 await 各已有 recovery session 的 flush；成功后停止轮询、使旧读无效，随后卸载/关闭 host | 保存失败不卸载，原编辑器可继续保存；切换 single-flight。退出仍 finally 关闭 host/runtime，错误走原退出失败路径；只承诺已成功落盘内容。closed client 不再提交/决定，旧轮询不发布 |
 | TUI 经典 | PR198 的普通 composer-submit/runtime-controls、既有队列与权限真源 | Enter/return/LF/kpenter 统一；失败保正文，模式切换卸载旧 root，避免旧编辑器夺焦点。普通 composer 与 Bot 输入各有恢复链，不能以一个修复替代全部终端支持 |
 | CLI headless/帮助/更新 | 既有 cli-argv/exec/output/exit/update；exec 的 Runtime、Goal outcome 与 controller 状态 | 保留 text/json/stdout/stderr、非 TTY 的 ask 拒绝、SIGINT/SIGTERM 请求 controller cancel、退出码与 runtime.dispose；无图形 hover/motion，语义 N/A。没有本批新增 CLI 指令或重写安装/更新；部分结果/实际取消/安装仍发布待验 |

@@ -8,7 +8,7 @@
 
 ## 本轮落地：E11–E12（2026-10-24）
 
-代码 `427d9041ecaced77cf6863ace83099c4d765f025`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211)（draft，叠加 PR210）、[实施交接](../../playbook/v0.1.0/experience-entry-recovery.md)。**当前路径实现已审阅，候选验证待发布**。在 E09–E10 上叠加，真实 merge 保留 PR198 `86eb3fbb` 的原提交；未合并 GitHub PR，未混入 PR206 的 Markdown/System Context 或主工作区未提交代码。
+代码 `ec1de36b01d844497ea9ad663bc2e2b03bcfa0d9`；[PR211](https://github.com/ly-ccx/Peer-Agent/pull/211)（draft，叠加 PR210）、[实施交接](../../playbook/v0.1.0/experience-entry-recovery.md)。**当前路径实现已审阅，候选验证待发布**。在 E09–E10 上叠加，真实 merge 保留 PR198 `86eb3fbb` 的原提交；未合并 GitHub PR，未混入 PR206 的 Markdown/System Context 或主工作区未提交代码。
 
 | 工作包 / 范围 | 当前实现与事实来源 | 发布前仍须取证 |
 |---|---|---|
