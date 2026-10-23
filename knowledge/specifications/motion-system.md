@@ -1,7 +1,7 @@
 # Peer 动效体系规范
 
 创建时间：2026-07-01
-最后更新：2026-10-23
+最后更新：2026-10-24
 
 > 状态：现有集中式动效架构继续有效；本次补充语义选型、交接连续性、注意力与降级契约。不代表所有存量动画已经达标。
 > 关联：[Frost 体验规范](peer-product-experience-standard.md)、[人机交互契约](peer-human-agent-interaction-contract.md)、[ADR 44](../decisions/44-motion-system-consolidation.md)、[过渡体系](transition-system.md)。
@@ -52,9 +52,9 @@ styles/tokens.css       数值、缓动、全局减少动效兜底
 | 菜单、tooltip | `motion-enter-fade` 或轻量 `motion-enter-rise` | 从触发者附近出现；退场 fast；焦点不等退场才归还 |
 | 抽屉 | `motion-enter-slide-inline / motion-exit-slide-inline` | 遵从真实侧边与 RTL；避免整屏长距离滑动 |
 | 模态 | fade/rise；必要时克制使用 pop | 背景/焦点边界先成立；危险确认不做弹跳诱导 |
-| 折叠内容 | 已有高度/grid 过渡或共享组件 | 明确目标尺寸；无 layout 循环；折叠后移除不可见 Tab 停靠点 |
+| 折叠内容 | 已有高度/grid 过渡或共享组件 | 明确目标尺寸；无 layout 循环；折叠后移除不可见 Tab 停靠点；结束时先固定零占位终态，再等待 React/调用方移除，不能因取消 fill 回弹 |
 | 分段选择 | 共享选择器的指示器平移 | 选中值先更新，指示器追随；作用域隔离，避免同页多实例串动画 |
-| 新消息 | 首次必要时 fade/rise | 一条消息一次；不逐 token 入场；历史恢复不重播 |
+| 新消息 | 首次必要时 fade/rise；新输入与等待回复可用 `motion-enter-layout` 展开真实占位 | 复用 medium/standard token；身份保持，只对新输入/等待回复进入一次，历史恢复与虚拟重挂载不重播。无 intrinsic interpolation/动画 API、减少动效或后台用静态完整内容 |
 | 持续执行 | 小范围 `motion-pulse-soft / motion-dots / motion-spin` | 只有真实非终态才运行；保留状态文字；后台/不可见时停止无意义循环 |
 | 加载 | skeleton 或不定进度 | 沿用内容几何；结束后落到真实内容；不能显示伪百分比 |
 | 定位原文 | 一次性 `motion-flash` 或短背景提示 | 不能持续闪烁；读屏/键盘同样能识别目标 |

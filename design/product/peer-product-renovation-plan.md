@@ -3,9 +3,23 @@
 创建时间：2026-10-23
 最后更新：2026-10-24
 
-> 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06、E07–E08、E09–E10、E11–E12 及 E15–E17 本批消费者已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；本次不合并 GitHub PR、不安装或发布。
+> 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06、E07–E08、E09–E10、E11–E12 及 E15–E17 本批消费者已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；历史分批交付不等于合入开发线；本轮按用户授权合并全部开放 PR，状态见下节。不安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
+
+## 全部 PR 汇合与模型分工补修（2026-10-24）
+
+用户明确要求合并两个仓库全部开放 PR，并修复全局模型分工缺少思考强度。原清单为代码 16 项（197、198、199、200、201、203–213）、知识 7 项（67–73）；含 draft 与堆叠目标分支。逐项审阅、保留原提交身份，CI 阻塞修复推回原 PR，按真实检查结果正常合并，不绕过保护。合并状态与最终候选见[交接记录](../../playbook/v0.1.0/experience-ui-motion-transitions.md#全部-pr-汇合与模型强度补齐2026-10-24)。
+
+- 模型分工：八个角色在跟随档位、固定模型、自动池模式均可独立设置或清除强度；保留模型路由关系，只有一个模型也可设置。选项来自合格候选实际声明的交集，已保存预览显示最终强度；不兼容由宿主拒绝/保草稿，不静默改模型或降档。显式强度也约束恢复候选，已冻结任务不改变。
+- PR204 与 E06/E17 合并后：档案拖动保留原宽度记忆/双帧入场，同时接共享 usePointerResize 的 capture/遮罩、Esc/失焦/取消/卸载清理；关闭态分隔条不可交互。PR206 保留 Markdown、单行引用回显与卡片键盘，和 E02/E11 草稿/焦点恢复整合。
+- A/B 边界先登记 [ADR83](../../knowledge/decisions/83-model-routing-by-role.md) 与 [SDK 事件约束](../../knowledge/specifications/runtime-sdk-boundary-architecture.md)：RoleSetting 复用可选 reasoningEffort，SDK 正式声明既有 stream.discard。沿原设置/IPC/事件链，不新增能力、许可、Evidence 或 Context Source。
+- C114/C128 统一模型面板：浏览服务商不写配置，滑块保留到实际保存回执收尾；忙碌入口可接回焦点并阻止重复动作，失败保旧保存事实及待重试草稿。
+- E05 阅读保护：在原生 scroll 捕获阶段记录实际手势后的锚点，补 React 投递延迟的恢复与 listener 清理；打开会话的同帧最终几何再作一次有界复核，当前仍 pinned 才贴底，卸载取消、空闲不循环。检查脚本以真实滚轮表达意图，保留原位置门限。
+- C123 待处理期限：到期只请求宿主重读并刷新父计数，真实回读才更新清单；逐对象/期限有界，时钟偏差不反复轮询，失败保旧清单、离开清理 timer。
+- E02/E04 问题卡片：回执 unknown 保留选择和原 inputId/answerTo，只有 canonical/received 才收起；重试沿同一输入，检查真实持久记录仅一条。
+- E16/E17 发送/退场占位：新增 C213 复用集中式 motion-enter-layout、既有时长/缓动展开新输入与等待回复；历史/虚拟重挂载不重播，缺 API/reduce/后台静态；已解决问题先固定零占位再等待 React 移除；动作前记焦点归属，真实回执后交本地输入，reduce/正常一致，外移/后台撤销。
+- 本次合并门禁 CI 与此前基础点查分别记账；完整发布 packet、安装包、真实模型/授权和跨宿主验证继续 E13，不因 PR 合并自动完成。新增 C212/BotDrawerResizer、C213/ConversationRow 后实际 Desktop 非测试 TSX 213、TUI 13。
 
 ## 用户授权的基础交互点查与补修（2026-10-24）
 

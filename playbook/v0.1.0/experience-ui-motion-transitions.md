@@ -5,6 +5,85 @@
 
 > 状态：**本批消费者实现已审阅，候选验证待发布**。按用户授权优先处理 G11/G12，收敛当前可确认的 UI、动效和过渡差异，更新计划与矩阵并独立提交推送。已补用户授权的基础点查与三项针对性检查，见下节；实施者自审不是独立评审，全量构建/测试与产品回归仍归发布。
 
+## 全部 PR 汇合与模型强度补齐（2026-10-24）
+
+用户本轮授权：合并两个仓库全部开放 PR，并修复全局模型分工的思考强度。不是版本/RC 发布，也不吸收原工作区未提交文件。初始清单：代码 16 项、知识 7 项；包含 draft 与堆叠分支，均按原提交身份审阅和汇合。
+
+最终合并回执（2026-10-23 23:17 UTC）：原清单代码 **16/16**、知识 **7/7** 均为 GitHub 实际 MERGED，重新枚举两个仓库全部目标分支与 draft，开放 PR **0/0**。原清单每项 head 均已核对为对应开发线/main 的祖先，原提交身份保留。
+
+- 组合候选：`b4d774046d3dcdb76b8fde16e1292cf6c18a3f77`；最终开发线 `PeerAgent/dev/0.1.0`：`bf1d10d203a2bde0c72aaebda5be5a8c82a16682`；两者源树同为 `ccdb72e389639ecda2937e9a4eb508fc09eec30f`。
+- 合并门禁：最终 PR213 [CI 40037173238](https://github.com/ly-ccx/Peer-Agent/actions/runs/40037173238) 的当前组合候选 macOS/Linux 两项必需检查通过，包括构建、类型、架构、测试及隔离 Electron 场景。另保留 [PR197 源头检查](https://github.com/ly-ccx/Peer-Agent/actions/runs/40032957388)、[PR207 源头检查](https://github.com/ly-ccx/Peer-Agent/actions/runs/40032953270)、[PR198 源头检查](https://github.com/ly-ccx/Peer-Agent/actions/runs/40007128261) 各自的双平台成功及祖先身份。失败旧 head 不算通过；本轮没有另起本地测试套件。
+- 合并后 push 自动 CI 的记录：[40038711134](https://github.com/ly-ccx/Peer-Agent/actions/runs/40038711134) in_progress。这是本回执时点的自动状态，与上面的合并门禁分开；没有将运行中状态计为通过。
+- 本地开发实例已停止旧候选，先快进到组合候选 `b4d774046d3dcdb76b8fde16e1292cf6c18a3f77` 并用原命令启动；合并后工作树快进到最终开发线，源树与已启动代码一致。Vite HTTP 200，Electron 进程来自该工作树。启动所需依赖编译已完成，未另起本地测试；未重置个人数据、安装应用、发布或打标签。
+- 最新候选的亲自点击检查仍受本机 Mac 锁定阻塞；较早 `a0ae1a33` 的基础点查见下节，不转作当前候选通过。GitHub 的隔离窗口检查不代替个人数据、真实模型、IME、辅助技术或安装包验证。实施者自审，非独立评审；E13 发布门禁保留。
+- 原代码工作区 HEAD/分支/index/816 项内容指纹复核不变；本次使用独立工作树与知识克隆，仅提交本任务文件。
+
+| 仓库 / PR | 原始 head | GitHub 合并记录 |
+|---|---|---|
+| [Peer-Agent #197](https://github.com/ly-ccx/Peer-Agent/pull/197) | `21c3f4249046` | `0ed634ff11c6` |
+| [Peer-Agent #198](https://github.com/ly-ccx/Peer-Agent/pull/198) | `86eb3fbbd055` | `3ba8f66dd7d3` |
+| [Peer-Agent #199](https://github.com/ly-ccx/Peer-Agent/pull/199) | `b0767a163525` | `a1b97d4a8104` |
+| [Peer-Agent #200](https://github.com/ly-ccx/Peer-Agent/pull/200) | `132a0e47dc64` | `3403b15890bc` |
+| [Peer-Agent #201](https://github.com/ly-ccx/Peer-Agent/pull/201) | `3b8218a43889` | `0aa0bde58679` |
+| [Peer-Agent #203](https://github.com/ly-ccx/Peer-Agent/pull/203) | `71b7d993fb72` | `4aa0b7434abd` |
+| [Peer-Agent #204](https://github.com/ly-ccx/Peer-Agent/pull/204) | `8ce158711ba5` | `0d03b2f57b0c` |
+| [Peer-Agent #205](https://github.com/ly-ccx/Peer-Agent/pull/205) | `2d6af0d3e62e` | `a1b97d4a8104` |
+| [Peer-Agent #206](https://github.com/ly-ccx/Peer-Agent/pull/206) | `1269ce29b1f8` | `3ac22586e587` |
+| [Peer-Agent #207](https://github.com/ly-ccx/Peer-Agent/pull/207) | `b64337f33295` | `0ed634ff11c6` |
+| [Peer-Agent #208](https://github.com/ly-ccx/Peer-Agent/pull/208) | `2a0ee98be843` | `a4b55bb6a0bb` |
+| [Peer-Agent #209](https://github.com/ly-ccx/Peer-Agent/pull/209) | `815ab1363143` | `c8039a487a75` |
+| [Peer-Agent #210](https://github.com/ly-ccx/Peer-Agent/pull/210) | `df25f859b710` | `2fd4389012bd` |
+| [Peer-Agent #211](https://github.com/ly-ccx/Peer-Agent/pull/211) | `ec1de36b01d8` | `9945de9f4bed` |
+| [Peer-Agent #212](https://github.com/ly-ccx/Peer-Agent/pull/212) | `7f38f121c7bf` | `a5599a96104d` |
+| [Peer-Agent #213](https://github.com/ly-ccx/Peer-Agent/pull/213) | `a0ae1a334292` | `bf1d10d203a2` |
+| [Peer-Knowledge #67](https://github.com/ly-ccx/Peer-Knowledge/pull/67) | `f4e2bb77cf73` | `9be1917f07e6` |
+| [Peer-Knowledge #68](https://github.com/ly-ccx/Peer-Knowledge/pull/68) | `2f5da489f39a` | `b68da93438c8` |
+| [Peer-Knowledge #69](https://github.com/ly-ccx/Peer-Knowledge/pull/69) | `4392e2990140` | `a0d4876c8702` |
+| [Peer-Knowledge #70](https://github.com/ly-ccx/Peer-Knowledge/pull/70) | `b8206bd97813` | `39551c2221fe` |
+| [Peer-Knowledge #71](https://github.com/ly-ccx/Peer-Knowledge/pull/71) | `73faf9667930` | `5817d270c06e` |
+| [Peer-Knowledge #72](https://github.com/ly-ccx/Peer-Knowledge/pull/72) | `572f153f3b3b` | `3a20cbb72c79` |
+| [Peer-Knowledge #73](https://github.com/ly-ccx/Peer-Knowledge/pull/73) | `c0206f287bb1` | `98cbaf9d3193` |
+
+模型强度实现 `c4336a84`、恢复候选约束 `ec60b99a`，内容为 A/B 级可选契约补齐和 C 级表达。先提交知识 `2e03fff`，更新 ADR83 与 SDK 边界，再实施：
+
+- RoleSetting 的 reasoningEffort 可用于 tier/fixed/auto。未设用最终模型默认；显式值须由该模型支持，失败不静默降档。覆盖仍按请求/任务/项目/全局解析，已冻结任务不回写。单模型仍可调角色强度。
+- UI 根据当前角色合格候选声明的交集给选项，恢复模型默认会真正移除覆盖；模式/模型变化不会把 tier 变成 fixed，不兼容值保留并允许清除。已保存预览由主进程返回实际解析值，失败保本地草稿/原事实。恢复候选过滤显式强度，避免后续换成不支持的模型。
+- 沿原 model-routing get/update/preview IPC、settings 和共享 resolver，补可选预览字段，没有新增通道或持久目录。SDK 正式声明既有 stream.discard 的流身份/计数及统一事件元数据，移除 TUI 的强转旁路；只撤回失败请求的流式草稿，不撤回持久结果/工具/Evidence。
+
+统一模型面板补修：服务商浏览只移动本地浏览位置，不触发模型保存；模型/强度/快速通道读取受控配置。EffortRange 沿 onEffortChange 返回的实际保存 Promise 保留选中滑块，收到回执后再释放临时显示；失败仍以宿主旧保存值和既有待重试草稿反馈表达。触发按钮以 aria-disabled 与点击 guard 禁止忙碌时重复动作，同时保持 Escape 可归焦，不把焦点落到禁用按钮。脚本点查改为统一 dialog/provider/options/slider 路径，保留 650ms 延迟、失败不写、重选不写、其他 bot/角色/全局配置不变和真实保存核对，不再等待已替换的级联菜单或独立强度浮层。
+
+C031/Overlay 的真实归焦补修：Layer 清理先注销自身，此时旧 focusin 拦截器还未清理。原 ownsScope 将两个 undefined 比为相等，误把已退出的浮层当成焦点拥有者，重捕获归还给版本入口的焦点。现在要求自身 layer.current 仍存在且为 topInteractive 才能捕获焦点；不以延迟强抢目标，不改关闭动画或下载事实。新增 overlayFocusRestore.test.ts 在模拟 DOM/React 调度夹具中执行实际 Overlay、useInteractionLayer、useFocusScope 源码的挂载/清理顺序，覆盖旧 DOM 仍在但 layer 已注销的归焦；既有 updater-minimize 真实窗口检查保留全部焦点与终点断言。
+
+合并冲突保留 PR204 的 dock frame、宽度记忆、双帧入场，同时保留 E06/E17 的逻辑层级及静态/中断收尾。列表和新档案分隔条复用 usePointerResize，Esc/失焦/取消/卸载均释放真实屏障和光标状态，关闭态不残留可聚焦分隔条。PR206 的 Markdown/紧凑列表、单行引用回显、卡片键盘合入 E02/E11 的草稿、稳定卡片身份和焦点，输入框提示移出边框。
+
+CI 阻塞修复推回原 PR：197 两个严格行数断言改为不超过原 3306 行预算，并将稳定回调逻辑抽到既有 hooks seam（本候选 ChatSurface 3283 行，未放宽模块上限）；198/206 源码断言分别与其分支的 Enter/composer 实现一致，组合后跟随已有 shared submission 入口；199/205 复用既有 Git 类型修复、补实际运行模块输出并保留成功准入白名单字段的归一化/重载；201 将既有流撤回声明进 SDK。组合候选另修 E08/E15 测试夹具的 Promise/数组/字面量类型，以及运行中模型摘要引用未声明字段；保存值比较的两个 details 复用 PeerIcon、共享几何/焦点 token 和静态展开指示。Desktop 的脚本 cognition/集成夹具保留真实 Runtime Projection 的能力清单接口；未知能力仍拒绝。更新旧自动化、卡片、导航、开关和拖动源码断言以跟随已抽离的 reducer/hook/reader 接线，不提高模块预算、不放行未知工具。
+
+虚拟历史窗口检查补修：旧 scrollToBotMessage 直接写 scrollTop，未建立用户阅读意图，会被跟随最新策略拉回底部，导致尚未挂载的第 9960 条消息定位超时。现沿真实滚轮/键盘操作导航并等待虚拟测量，不关闭虚拟化、不放宽定位或页面错误断言，生产阅读策略保持不变。
+
+E05 阅读锚点补修 `3a6631c1`、`1bad790a`：真实 wheel/touch 意图先退出跟随。最初下一帧采样仍可能先于 compositor 的实际滚动，CI 记录 5340→5690，2px 门限未通过；最终改在原生 scroll 捕获阶段记录已应用的行锚点，先于延迟的 React/委托处理。只采纳已有手势，不由几何变化生成新意图；显式回最新仍沿原入口，卸载释放 listener 和原调度器。模拟 DOM/React 调度夹具执行实际 hook，覆盖“帧先执行、浏览器随后滚动、React scroll 尚未投递、几何提交仍保原位置”及清理；窗口脚本走真实滚轮，保留事件投递延迟和 2px 门限。
+
+TUI 输入/机器人页/卡片焦点集成夹具 `4802b08a`、`cd62e44a`：macOS 下在 React act 内启用真实系统主题 watcher，execSync 检测触发 Bun 调度重入并遗留轮询句柄。沿既有 systemThemeWatch:false 的测试 seam，在 act 外构造主题 store；保留直接/经典入口、图片+中文与 RETURN/LINEFEED/ctrl-m 的全部内容断言。主题轮询的独立用例仍保留，这些输入/键盘夹具不宣称覆盖真实 OS 外观。
+
+E02/E04 问题状态补修 `0abb187f`：hideAcknowledgedQuestions 原先只排除 failed/sending，把 unknown 也视作已收到回答，导致回执未知时提前关闭选择。改为只接受 canonical（无 pending）或明确 received 的输入；unknown 保留原问题与 inputId/answerTo。窗口脚本使用现有“重试同一消息”入口，新增未知文案/原 inputId/原问题关联和最终 canonical 仅一条的核对，不把失败注入改成成功、不放宽去重。
+
+发送/关闭占位补修 `dffc1b1d`：macOS/Linux 同样记录新输入与等待回复一次增加 175px，问题结束前又从 1px 回弹至 81px。新增 C213/ConversationRow 在既有集中式 motion.css 注册 motion-enter-layout，沿 medium/standard 与现有行间距，把新输入/等待回复的 intrinsic height/spacing 同步展开；不换原 DOM/key，不对历史恢复或虚拟重挂载重播。减少动效、隐藏或 API 不支持直接静态完整内容，偏好中断由 watchVisualMotion 收尾。已解决问题的 finish 先设置 display:none，再等待 React 移除，避免 cancel fill 露回自然高度；重新打开清理临时显示。新增模拟 DOM/React 的实际源码用例覆盖中断不重播、插值不支持的可读静态和关闭终态，窗口检查保留原 <80px 帧差、单一回执/身份和减少动效断言。
+
+减少动效归焦补修 `162387ee`：普通发送最大帧差已实测降至 30–61px，但 reduce 下卡片立即移除，旧 Promise 回调从 ref 查找 composer 时节点已空。改在动作禁用前记录卡片焦点归属，只在真实 resolved 回执、原焦点仍归该卡且文档可见/有焦点时交回可用 composer；用户点外部、移走焦点或后台取消交接。移除仅凭通用 ok 在 Promise 中无条件抢焦点的接线。临时 pointer/focus 监听器在交接、移走与卸载清理；模拟用例覆盖即时移除、背景点击、隐藏文档和清理。页脚初始几何检查改为同一浏览器帧读取两个矩形，并写报告；保持 <=64px 高度与 1px 对齐门限，避免两次远程坐标读取跨窗口布局时误判。
+
+交互层/夹具一致性补修 `6a7490f4`：C162 档案先登记 Layer 再进入 focus scope，自身 Layer 不存在时不拥有焦点，保留既有归焦策略。响应式父布局重挂载的窗口检查先等旧 scene 断开、有限可见动画结束及两帧布局，再判定是否重开；机器人切换按真实名称和 composer 对象确认，恢复阅读位置后显式点回最新才检查尾部。隔离宿主夹具的 conversationMessages 卡片与 cards 事实回读保持一致：失败保留，受控成功由真实回读移除，不用 generic ok 生成 UI 完成事实。更新下载快速完成由实际第四次 download 调用触发，先布置宿主事件再点击，保留退出期间完成、内容和焦点全部断言。回执文件原子替换，避免读取半个 JSON。均为 C 级表达/隔离测试 Adapter 修复，没有新增生产权限或 IPC 边界。
+
+状态/键盘驱动补修 `7259fc47`：6a 候选的 macOS/Linux 均走到授权排版场景，失败于旧脚本将 expired 要求为“已超时”；改按现行“已失效”回执。真实 TIMEOUT 场景另展开原详情核对“等待授权已超时，本次没有读取图片”，保留真实 timeout/Evidence/无像素/迟到批准拒绝的检查。档案标签驱动跟随 E06 的手动激活契约：方向键只移动焦点并保原 selected，Enter 后才确认目标 selected；不是改产品为自动激活或删掉状态断言。
+
+打开会话与到期反馈补修 `0ed634ff`：7259 候选有 macOS/Linux 完整通过，也有切回机器人时跟随状态仍为 true、实际停在历史顶部的失败画面。原前沿调度器会丢弃同帧后续请求，空壳先提交而消息/测量随后提交时可能没有最终贴底；C138 在原调度器重置后增加一个有界帧复核，仍读当前 pinned，用户已读历史则不执行，卸载释放两类帧，空闲不循环。原调度器契约保持不变。实际 hook 的模拟 DOM/调度用例补同帧最终几何、空闲和复核前用户滚轮，不宣称是真 React 窗口。
+
+同候选另一 Linux 失败在已打开 AttentionSheet 的限时项没有及时刷新。C123 对观察到的期限安排一次宿主重读，并请求父列表刷新计数；只以返回事实更新清单，不由本地 clock 关闭问题或生成授权。按对象/期限限制自动尝试，失败保旧清单与重读入口，时钟偏差不重复轮询同一已到期限，离开清理 timer；模拟组件用例核对回读前仍保行、真实空清单才移除、父计数刷新、时钟偏差及卸载。两项均为 C 级表达与读取恢复，不新增协议、权限、Evidence、执行或存储路径。
+
+动效度量与最终集成 `e6c241e6`：0ed 的 PR197、PR207 双平台全部通过，PR213 Linux 通过，macOS 只失败于点击后 650ms 卡片仍未进入关闭；稍后的失败截图已显示同一回答收到、回复完成且选项收起。原脚本将实际宿主回执等待混入关闭窗。现保留从点击开始的全部帧，记录首个渲染 resolved 事实的耗时，再完整观察原 650ms 关闭窗；<80px 帧差、动画/静态、同一输入、持久唯一回执及归焦断言不变。12s 仅为夹具死锁边界，不是产品性能验收结论，也不以 timer 改产品事实。该脚本修正只推最终集成 PR213；PR197/207 保留各自已通过的 0ed head，PR198 保留已通过的 d355 head，最终候选包含这些 source head 并单独完成双平台必需检查。
+
+嵌套现场驱动补修 `b4d77404`：e6 的 Linux 完整通过；macOS 已通过修正后的问题发送窗口，停在首个子会话现场入口。失败画面保留了已展开的父任务信息，子现场不在；原脚本没有等待注入的 conversationId 被宿主读取，并在原生 details 裁剪高度展开时立即点其内部按钮。现先核对真实 listSessions 的目标子会话，按任务标题定位，等待实际有限展开动画与两帧布局，再发出单次真实点击并核对现场可见；宽窄重开共用该入口。未重试业务动作、伪造继承事实或放宽权限/只读/主题/返回断言。该修正仍仅落最终集成 PR213，其余源 head 保留成功检查。
+
+新增用例覆盖：三模式强度/层级覆盖/不支持失败、存储重读/预览/单模型保存与拒绝、候选交集/恢复默认/模式不变、恢复候选不降强度、SDK 撤回事件身份和顺序、TUI 卡片打印字符回到草稿、准入记录保存/重载及幂等重放。PR197 曾快进到与 PR207/213 相同的组合 head，保留原提交身份；其旧分支 macOS 的折叠采样/权限抽屉失败不作通过，以组合源的实际检查结果替换，既有阈值与事实断言不删。PR198 自身检查已通过，其冲突在同一候选内解决并复核。合并所需 GitHub CI 与本地手动点查分别记录，不冒充正式发布验收、独立评审或全平台通过。未发布/打标签/安装，发布门禁 E13 继续保留。
+
 ## 用户授权的基础交互点查（2026-10-24）
 
 用户要求先亲自点查改造的基础交互，重点对话、页面切换、设置与抽屉，发现问题修好并独立提交推送。因此本次明确提前执行下表手动检查及三项针对性检查，不是发布全量验收。代码 `a0ae1a334292305161693b58bb87522322a6c3df`，父提交 `ed0f81b4e3da68462bb8c9383a5bc4c89f44d92e`，在同一 0.1.0 本地集成线运行；[PR213](https://github.com/ly-ccx/Peer-Agent/pull/213)。本节是后续记录，下文原批“未运行”保留其当时含义。
