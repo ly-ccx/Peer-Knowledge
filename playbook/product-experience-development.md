@@ -4,12 +4,12 @@
 最后更新：2026-10-23
 
 > 状态：生效。将体验规范接入后续需求、实现和评审；不新增逐日测试门槛。
-> 入口：[Frost 体验规范](../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../knowledge/specifications/motion-system.md)。
+> 入口：[Frost 体验规范](../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../knowledge/specifications/motion-system.md)、[过渡规范](../knowledge/specifications/transition-system.md)。
 
 ## 1. 开工时先定位
 
 1. 按代码仓 AGENTS 解析知识根，不提交本机路径。
-2. 读产品北极星和本次涉及的三份体验规范章节；找到现有同类界面、组件和 token。
+2. 读产品北极星和本次涉及的 UI、交互、动效、过渡规范章节；找到现有同类界面、组件和 token。
 3. 分级：纯表达为 C；涉及 chat/tool runtime、IPC、task-thread 为 B；移动权限、Evidence、协议、System Context 或存储边界为 A。规范落地不自动授予越界权。
 4. 一次只处理用户授权的范围；存量大文件不继续长大，共享逻辑放既有 reducer/kernel/组件 seam。
 
@@ -91,3 +91,13 @@ AI 必须逐图查看标准 packet 要求的全部截图并填写 `review.json`�
 后续按实际需求逐处收敛：先解决误发/草稿与决策事实，再解决焦点/滚动/恢复，再统一控件和状态，最后做可选动效。具体缺陷须有源码或复现依据，本列表不是对存量产品的未经验证缺陷宣告。
 
 新增类型、协议、事实投影或存储的工作仍按 A/B 分级先处理契约。要修改规范本身，写清用户收益、被替代条款和兼容影响，并更新两个仓库的入口；普通功能 PR 不悄悄另立一套规范。
+
+## 8. 全产品矩阵如何进入实际任务
+
+入口：[页面/组件交互矩阵](../design/product/peer-interaction-standardization-matrix.md)、[UI/动效/过渡覆盖表](../design/product/peer-ui-motion-transition-matrix.md)、[当前改造计划](../design/product/peer-product-renovation-plan.md)。页面用 P、组件用 C、体系用 U/M/T、源码差异用 G 编号；这些是文档索引，不是新业务 ID。
+
+每张实际实现卡引用涉及编号，记录允许文件、状态模板、事实来源、恢复责任和共享 seam。状态从已登记→待实现/待核→实现已审阅→候选验证通过推进；最后一项绑定 source/包/证据，不能由文档提交代填。
+
+E02–E12 承担具体闭环与宿主工作；E15 维护 UI 角色与组件状态收敛，E16 管动效终态/中断/减少动效，E17 管上下文过渡。复用同一次实现和 E13 发布证据，不分别建重复状态机、重复 PR 或三套验收系统。新增/拆分/移除页面组件同步矩阵；不以“这个文件已改过”代表全部状态已经合规。
+
+本轮矩阵只做内容、路径与 diff 审阅；测试/构建/类型/架构/IPC、截图和交互回归仍依最新 Validation Scope 留待发布或用户明确要求。

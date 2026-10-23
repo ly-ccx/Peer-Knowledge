@@ -77,6 +77,12 @@ peer --version
 
 预期`peer 0.1.0-rc.5`。四包固定版本及`rc`标签已在公共npm可见；`latest`仍0.0.18、`beta`仍0.1.0-beta.5。`@rc`跟随后续候选，评测须记录确定版本。[npm证据](evidence/rc5-npm-metadata-passed-20261004.json)。本轮CLI范围为实际归档SHA/签名/版本及npm元数据，未重跑npm安装、完整模型或PTY流；旧RC3真实模型和CLI证据保持历史范围。Windows无CLI归档，M组在macOS/Linux测试。
 
+## 当前规范覆盖入口（未预填验收结果）
+
+全量页面与组件范围见[交互状态矩阵](../../design/product/peer-interaction-standardization-matrix.md)（P01–P78、C001–C201、G01–G12）；UI、动效和过渡见[体系覆盖表](../../design/product/peer-ui-motion-transition-matrix.md)（U01–U16、M01–M18、T01–T10）。它们已纳入当前改造计划 E15–E17，规范包括新增[过渡体系](../../knowledge/specifications/transition-system.md)。
+
+发布卡按矩阵 §7 将编号映射到下文 A–P/六流程、现有 packet 字段或新增人工交互步骤，并绑定最终候选/安装包/证据。旧截图与 S（静态已有）不能标成新候选 Pass；草稿/未知送达、键盘/IME/焦点、拖动取消、JS 减少动效与无 API 恢复需要行为依据。缺覆盖记录限制或补齐，不虚构已自动覆盖。本次只补计划与文档，未运行验收。
+
 ## 1. 测试与发布顺序
 
 本次按负责人要求发布并验收RC12，源码门禁、两平台CI与本版正式产物检查已完成，范围见RC12交接。原200用例/6流程与新增协调路线按真实执行分别记录；既有报告保留历史归属，未执行的平台或复杂写入等范围保持Fail/Blocked，不预填Pass。正式版前仍须完成缺口修复与自测收口，再结合你的全面测试与七天日用判断。任何 P0/P1 尚未修好，或你未明确批准，都不发布正式版。模型一句“完成了”不是通过；核对结构化任务状态、实际文件、验证结果与 Evidence。

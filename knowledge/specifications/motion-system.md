@@ -4,7 +4,7 @@
 最后更新：2026-10-23
 
 > 状态：现有集中式动效架构继续有效；本次补充语义选型、交接连续性、注意力与降级契约。不代表所有存量动画已经达标。
-> 关联：[Frost 体验规范](peer-product-experience-standard.md)、[人机交互契约](peer-human-agent-interaction-contract.md)、[ADR 44](../decisions/44-motion-system-consolidation.md)。
+> 关联：[Frost 体验规范](peer-product-experience-standard.md)、[人机交互契约](peer-human-agent-interaction-contract.md)、[ADR 44](../decisions/44-motion-system-consolidation.md)、[过渡体系](transition-system.md)。
 
 ## 1. 动效只回答三个问题
 
@@ -100,3 +100,21 @@ styles/tokens.css       数值、缓动、全局减少动效兜底
 日常设计/实现完成后审阅改动内容、调用位置、状态归属和清理路径。**不自动运行测试、build/type/architecture/IPC 检查或截图/交互回归**；用户明确要求时才提前执行。版本/RC 发布前在合并全部 PR 的最终候选上运行完整门禁与产品回归，见代码仓 AGENTS 和 [产品回归规程](../../playbook/product-regression.md)。
 
 本次为文档规范修订，仅做内容/diff 审阅，测试推迟至发布；没有执行或宣称全产品动效验收。
+
+## 9. 播放、中断与过渡的统一责任
+
+UI 的选中/提交/结果由实际状态决定；表达可有 entering/present/exiting 等内部阶段。这些阶段只管理画面与挂载，不新增运行时生命周期。
+
+| 时点 | 表达层责任 | 保留的终态 |
+|---|---|---|
+| 首次出现 | 仅必要对象一次入场；稳定 ID，历史恢复直接呈现 | 可读内容、真实状态与可用控制 |
+| 连续更新 | 不逐 token 重新入场，不移动当前主操作；只更新局部 | 用户收起/阅读意图与焦点 |
+| 反向/重复操作 | 取消或反转当前表达，最新意图落定；同一次收尾幂等 | 正确来源/目标、无悬空遮罩 |
+| 用户取消手势 | 撤销本次几何预览，清 capture/监听/rAF/cursor/userSelect | 原顺序/比例与可用键盘替代 |
+| 失焦/隐藏/卸载 | 清理订阅/帧任务/动画；业务仍由宿主管理 | 无假停止/假成功、无待完成显示锁 |
+| 减少动效/偏好变化 | JS 与 CSS 同时处理，停止采样/循环/平滑移动；不能只把 canvas 藏起来 | 静态值、结果、错误与恢复入口 |
+| 动画 API 缺失/finished 拒绝/无 end 事件 | 直接静态完成表现，fallback 不再触发业务动作 | 透明文字/中间 mask/inert 占位均有退出 |
+
+focus、scroll、draft 和目标身份由[过渡规范](transition-system.md)约束。用[体系覆盖表 M01–M18](../../design/product/peer-ui-motion-transition-matrix.md)登记具体基元和消费者；仅把 keyframes 放进 motion.css 不等于调用处契约完成。
+
+共享 helper 与 Overlay/WAAPI 目前仍有实现差异；这是 E16/E17 的收敛任务，不宣称一个 helper 已经完全覆盖所有调用方。保留有语义的现有机制，避免为了“全套动画”统一添加 sheen、halo、粒子或共享元素特效。

@@ -15,7 +15,7 @@
 |---|---|
 | 为谁、交付什么价值、谁负责推进 | [产品北极星](../../design/product/peer-product-alignment.md) |
 | 能力、授权、Evidence、协议、存储、System Context | [架构治理](../architecture/20-architecture-governance.md)及对应 Accepted ADR |
-| 产品体验如何表达 | 本文、[人机交互契约](peer-human-agent-interaction-contract.md)、[动效规范](motion-system.md) |
+| 产品体验如何表达 | 本文、[人机交互契约](peer-human-agent-interaction-contract.md)、[动效规范](motion-system.md)、[过渡规范](transition-system.md) |
 | 已批准视觉方向 | [Frost 统一设计](../../design/product/peer-frost-unified-design.md)、[连续曲线方案](../../design/product/peer-frost-radius-rc6-design-qa.md) |
 | 当前可消费的 token 数值和基元 | 代码仓 `apps/desktop/renderer/src/styles/tokens.css`、`styles/motion.css` |
 | 何时执行测试和完整产品验收 | 代码仓 `AGENTS.md` 最新 Validation Scope 与 Release Gate |
@@ -129,3 +129,35 @@
 存量逐步收敛，触及一处就处理该路径的偏差，不发起无范围的全产品重写。例外必须记录适用组件、原因、替代体验、退出条件及对应代码/设计位置，不能只写“特殊处理”。
 
 研究依据及采用/拒绝原因见 [open-claude-ui 精读记录](../../design/product/open-claude-ui-study.md)。规范修改必须同步关联契约和开发入口；自动检查覆盖到哪里如实说明，人工条款不能宣称已被 CI 强制。
+
+## 9. 标准化 UI 体系的组成与状态责任
+
+以下是同一套 Frost 的角色分层，不是新建一套组件库。现有实现优先；没有共享 Module 时，先在本次路径收敛语义，重复需求成立后再提取有深度的 Interface。
+
+| 层 | 角色 / 现有基础 | 统一责任 |
+|---|---|---|
+| 基础 | tokens、主题注册、PeerIcon/SVG、字体/间距/几何/材质/焦点 | 语义数值单一来源；主题覆盖不改变状态与行动权；静态/实色/强制颜色可用 |
+| 原语 | button/link、input/textarea、Checkbox/Switch、Dropdown、slider、tooltip/menu | 名称、值、事件顺序、适用状态、键盘、禁用原因与错误；图标尺寸和点击区分开 |
+| 组合部件 | SettingsGroup/行、Composer、搜索/选择器、标签/分段、消息/附件/引用、列表/图表 | 同一角色同一状态语义；编辑、选择、阅读与恢复由明确责任方保留 |
+| 交互容器 | Overlay/Drawer、锚定层、Workbench、分栏/预览、独立 Quick Chat 窗口 | 命名、来源与目标、modal 边界、焦点/滚动、关闭/反向/卸载与窄窗降级 |
+| 领域表达 | 主 Bot/子任务、批准/问答/结果/核验、记忆/目标/自动化、设置/能力 | 只消费现有事实；授权、执行、验证、签收与交回分开；有明确下一步和恢复 |
+| 宿主适配 | Desktop、TUI、CLI/ACP、Remote、托盘/通知 | 同一行动与回执语义；宿主不支持的能力明示；命令行不伪造图形交互态 |
+
+### 9.1 每个组件的最小 Interface
+
+- 控件：受控实际值、onChange/提交事件的先后、busy 的范围、成功/失败/未知的事实来源。不能只给一组 className。
+- 操作：名称优先“动词 + 对象”，说明影响范围；disabled 说明为什么不可执行，busy 防同一动作重入但不冻结无关阅读/编辑；提交未确认保留恢复责任。
+- 表单：区分已保存值、草稿、dirty、校验、提交中、失败、失效与恢复；输入说明/错误有程序化关联，失败不清空。离开未保存编辑须保留或明确让用户选择保存/舍弃/取消；只在确有 dirty 时介入，不为普通导航增加确认。
+- 选择：选中值与焦点分开，按 tabs/radio/listbox 的实际语义实现键盘；远程/昂贵内容不要方向键一过就触发副作用。Switch/checkbox 移动不等于保存成功。
+- 阅读：有来源与稳定身份，缺数据/加载/失败/过期分开；复制、打开、定位有失败反馈。纯装饰不占焦点、不重复朗读外层标签。
+- 浮层/布局：进入、退出、嵌套、反向、失焦、卸载、无 API 的行为写清；隐藏内容不能留可聚焦子控件；状态终态不依赖动画。
+
+状态采用 default/hover/pressed/focus/selected/disabled/busy/empty/loading/error/stale/recovery；按照角色排除不适用项并写理由。逐页/逐组件使用[覆盖矩阵的状态模板](../../design/product/peer-interaction-standardization-matrix.md)，模板是要求，不是达标证明。
+
+### 9.2 页面组合规则
+
+页面以用户目标与行动权组织：页面标题/当前对象 → 必要说明与作用域 → 主内容/当前值 → 局部主操作 → 错误与恢复 → 按需细节。单一局部决定只有一个主操作；危险操作不因视觉醒目而变成默认选择。
+
+分组优先留白、标题和稳定表面；导航与阅读保持各自滚动范围。窄容器按元信息收缩/换行/辅栏覆盖的顺序适配，关键输入、停止和恢复可达。空态给原因与合法下一步；loading 使用真实读取；error 说清保住什么、谁能处理、如何继续；stale/unknown 不假装失败或成功。
+
+组件与页面转移遵循[过渡体系](transition-system.md)。U01–U16、M01–M18、T01–T10 的存量映射见[体系覆盖表](../../design/product/peer-ui-motion-transition-matrix.md)。所有新功能引用适用角色与状态，不另画一套孤立的默认 UI。
