@@ -1,5 +1,7 @@
 # Peer Frost：全局统一设计提案
 
+> 2026-10-23 规范衔接：本文保留负责人已批准方向、生产落地与版本证据。后续开发统一进入 [Frost 产品体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)和[动效规范](../../knowledge/specifications/motion-system.md)。本文历史尺寸、实现状态与测试结果仅适用于所记录版本；最新参数从共享 token 读取，验证时点服从代码仓 AGENTS。
+
 创建时间：2026-10-04
 最后更新：2026-10-05
 

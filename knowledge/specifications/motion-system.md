@@ -1,120 +1,120 @@
-# 全局动效体系规范（Motion System）
+# Peer 动效体系规范
 
-- 创建时间：2026-07-01
-- 最后更新：2026-07-01
-- 状态：**已落地**（typecheck + architecture:check + build 全绿）
-- 关联代码仓：`peer_agent`（`apps/desktop/renderer`）
-- 关联决策：`knowledge/decisions/44-motion-system-consolidation.md`
-- 设计溯源：本文由 `motion-system-design-draft.md` 定稿升级而来
+创建时间：2026-07-01
+最后更新：2026-10-23
 
----
+> 状态：现有集中式动效架构继续有效；本次补充语义选型、交接连续性、注意力与降级契约。不代表所有存量动画已经达标。
+> 关联：[Frost 体验规范](peer-product-experience-standard.md)、[人机交互契约](peer-human-agent-interaction-contract.md)、[ADR 44](../decisions/44-motion-system-consolidation.md)、[过渡体系](transition-system.md)。
 
-## 0. 为什么要有这套体系
+## 1. 动效只回答三个问题
 
-治理前的事实（基于代码实测）：同一语义的动画有十余种写法，**49 个 `@keyframes` 散落在 6 个文件**，`prefers-reduced-motion` 兜底重复散写在 8 个文件 11 处。典型症状：
+**什么发生了变化、变化去了哪里、现在能做什么。**
 
-- 升级弹窗点「更新」后直接消失，用户不知道进度已挪到左上角徽标（跨组件视觉断裂）。
-- 有的面板有入场动画、有的没有；同样是「淡入上移」有 5 种时长/位移写法。
+动效可以表达输入已响应、层级进入/退出、对象归属、真实运行状态；不能用来冒充进度、制造智能感或拖延操作。移除动效后，状态、因果关系和操作仍然成立。
 
-**核心结论**：问题不是缺动画，而是缺**单一真相**与**准入纪律**。本规范把动画收敛为一组语义基元，并用治理脚本强制准入。
+Peer 的动效气质是短、稳、连续：小控件轻响应，大阅读面稳定，权限决定与结果交还明确。上游的弹簧、光晕、逐字模糊和整组级联不是必须具备的装饰套件。
 
----
+## 2. 单一实现链
 
-## 1. 四层结构（单一真相）
-
-```
-Token 层     tokens.css      时长 / 缓动 / 位移变量（唯一数值来源）
-   ↓
-语义基元层   motion.css      @keyframes motion-* + utility class .motion-*（唯一动画定义源）
-   ↓
-编排层       useMotionPresence.ts   卸载时序 + reduced-motion 探测（JS，无第三方依赖）
-   ↓
-组件层       各组件 CSS/TSX   只引用基元，禁止散写 @keyframes
+```text
+styles/tokens.css       数值、缓动、全局减少动效兜底
+  → styles/motion.css  通用 keyframes 与语义类
+    → 共享编排 helper  挂载/退场收尾、必要的测量
+      → 组件           选择语义、提供方向参数、投影业务状态
 ```
 
-### Token 层（`styles/tokens.css`）
-- 时长：`--za-motion-fast 120ms` / `--za-motion-medium 200ms` / `--za-motion-slow 320ms`
-- 缓动：`--za-ease-out` / `-standard` / `-spring` / `-decelerate` / `-accelerate`
-- 位移：`--za-motion-shift-sm 6px` / `--za-motion-shift 12px` / `--za-motion-shift-lg 24px`
-- 全局 `prefers-reduced-motion` 兜底**仅此一处**（`animation-duration:1ms` 通配）。
+现有 `useMotionPresence` 负责退场完成/超时兜底与幂等卸载；不要在每个组件重造 timer。动画不得持有权限、业务重试、完成签收或副作用执行职责。业务先有真实状态，动效再表达它。
 
-### 语义基元层（`styles/motion.css`）
-18 个 `@keyframes motion-*` + 14 个 utility class，按 5 组语义组织：
+沿用无新增第三方动画依赖的实现方向。真实手势若需要新物理引擎，先证明现有 seam 无法满足，再单独评估，不为复刻上游一次性引入 Framer Motion。
 
-| 组 | 基元 | 用途 |
-| --- | --- | --- |
-| 入场 enter | `motion-enter-fade` / `motion-enter-rise` / `motion-enter-pop` | 纯淡入 / 淡入+位移（默认）/ 淡入+缩放回弹 |
-| 退场 exit | `motion-exit-fade` / `motion-exit-sink` / `motion-exit-collapse` | 纯淡出 / 淡出+下移 / 淡出+定向缩小 |
-| 脉冲 pulse | `motion-pulse-soft` / `motion-pulse-attention` | 循环呼吸 / 一次性注意力脉冲 |
-| 流光 sheen | `motion-sheen` / `motion-halo` / `motion-ripple` / `motion-glow` | 斜向扫光 / 外扩柔光环 / 涟漪 / 辉光 |
-| 进度 progress | `motion-spin` / `motion-dots` / `motion-progress-slide` / `motion-flash` / `motion-shimmer` | 旋转 / 加载点 / 进度滑动 / 一次性高亮 / 骨架微光 |
+## 3. 时长、缓动与位移
 
-> 注：实际落地为 18 个基元（草案计划 13 个）。迁移中发现 `ripple/glow/flash` 表达的机制与 sheen/pulse 不同，独立成基元更清晰——规范以落地事实为准。
+| 语义 | 现有 token | 用法 |
+|---|---|---|
+| 快速反馈 | `--za-motion-fast`，120 ms | hover/pressed 状态过渡、轻浮层退场、短距离选择指示 |
+| 常规变化 | `--za-motion-medium`，200 ms | 小面板、弹层、折叠展开、普通内容出现 |
+| 空间交接 | `--za-motion-slow`，320 ms | 较大抽屉、跨组件去向提示；需要说明空间关系时才用 |
+| 小/标准/大位移 | `--za-motion-shift-sm / shift / shift-lg`，6 / 12 / 24 px | 通用入退场位移的三级上限 |
+| 入场减速 | `--za-ease-decelerate / --za-ease-out` | 从触发点或相邻边缘稳定落位 |
+| 退场加速 | `--za-ease-accelerate` | 迅速退出当前关注面 |
+| 双向状态变化 | `--za-ease-standard` | 可逆选择、颜色与折叠变化 |
+| 有限回弹 | `--za-ease-spring` | 小控件一次性反馈；不用于长文、授权主操作或大面板反复弹跳 |
 
-**方向/参数通过 CSS 变量定制，不新增 keyframe**：
-- `motion-enter-rise` 位移由 `--motion-enter-from` 定制（正值从下方升入、负值从上方落下）。
-- `motion-exit-collapse` 方向由 `--motion-collapse-x/y` 定制（升级弹窗「飞向左上角」即此基元定向实例）。
-- `motion-flash` 颜色由 `--motion-flash-from/to/glow` 定制。
+`--za-*` 在这里是已存在的动效接口，不为“正名”另加一套值。循环状态节奏与入退场时长不是同一概念：不得直接把 320 ms 慢档当成所有呼吸周期。新增循环节奏需在共享 token 处有明确语义，并解释为什么必须循环。
 
-### 编排层（`app/hooks/useMotionPresence.ts`）
-纯 CSS 无法优雅处理两件事，故抽出极轻量 JS helper（无第三方依赖）：
-1. **退场卸载时序**：React 卸载组件时元素直接消失、退场动画播不完；helper 用 `onAnimationEnd` 后再卸载。
-2. **reduced-motion 探测**：统一读取偏好，避免各组件重复判断。
+通用入场位移不超过 24 px；真实拖动、图片平移缩放、测量目标的跨组件交接不受此空间距离限制，但必须单独说明坐标来源、边界、取消和减少动效路径。不能通过给每个大位移加“特效例外”逃避治理。
 
----
+## 4. 语义选型表
 
-## 2. 准入纪律（治理脚本强制）
+| 场景 | 优先基元/方式 | 编排与约束 |
+|---|---|---|
+| 按钮/图标响应 | token 驱动颜色、opacity；已有按压反馈 | 按下立即响应，操作不等动画播完；不对文本输入区做整体缩放 |
+| 菜单、tooltip | `motion-enter-fade` 或轻量 `motion-enter-rise` | 从触发者附近出现；退场 fast；焦点不等退场才归还 |
+| 抽屉 | `motion-enter-slide-inline / motion-exit-slide-inline` | 遵从真实侧边与 RTL；避免整屏长距离滑动 |
+| 模态 | fade/rise；必要时克制使用 pop | 背景/焦点边界先成立；危险确认不做弹跳诱导 |
+| 折叠内容 | 已有高度/grid 过渡或共享组件 | 明确目标尺寸；无 layout 循环；折叠后移除不可见 Tab 停靠点 |
+| 分段选择 | 共享选择器的指示器平移 | 选中值先更新，指示器追随；作用域隔离，避免同页多实例串动画 |
+| 新消息 | 首次必要时 fade/rise | 一条消息一次；不逐 token 入场；历史恢复不重播 |
+| 持续执行 | 小范围 `motion-pulse-soft / motion-dots / motion-spin` | 只有真实非终态才运行；保留状态文字；后台/不可见时停止无意义循环 |
+| 加载 | skeleton 或不定进度 | 沿用内容几何；结束后落到真实内容；不能显示伪百分比 |
+| 定位原文 | 一次性 `motion-flash` 或短背景提示 | 不能持续闪烁；读屏/键盘同样能识别目标 |
+| 对象去向 | 已有 `motion-exit-to-target` 或定向 collapse | 只在去向真实存在且测量有效时使用；目标先就绪；失败回退淡出 |
+| 结果交还 | 状态切换 + 克制一次性提示 | 绑定真实签收事件；重开/重连不重复庆祝；不掩盖部分通过 |
+| 媒体缩放、拖动 | 当前对象的受限 transform | 跟随手势；不在 pointermove 后叠加慢速 transition；松手才归位 |
 
-由 `scripts/check-architecture-governance.mjs` 的 `assertMotionPrimitivesAreCentralized()` 自动校验：
+并非每个场景都必须有动画。高频更新、长阅读面、减少动效偏好下，静态变化通常更合适。
 
-1. 组件 CSS **禁止新增 `@keyframes`**，必须引用语义基元。
-2. 时长/缓动只能用 `--za-motion-*` / `--za-ease-*` token，禁止 magic number。
-3. 位移类基元位移上限 **≤ 24px**（克制原则）。
-4. 循环动画只动合成层属性（`transform` / `opacity`），禁止触发 layout/paint。
-5. `prefers-reduced-motion` **只在 tokens.css 全局兜底一处**；组件级 media query 仅允许做「基元无法表达的终态修正」（如 shimmer 文字透明恢复），不得重复「关闭动画」的基础逻辑。
+## 5. 连续性契约
 
-### 受控例外白名单
-仅 3 个文件可定义 `@keyframes`（治理脚本 `keyframeAllowlist` 登记）：
+1. **触发有回执。** 用户点击后立即看到接收/处理中状态，不等待网络后才反应。
+2. **目标先就绪。** 弹窗收起后任务仍在推进时，承接状态先出现，再完成视觉交接，不能留无状态空窗。
+3. **同一对象持续存在。** 选中、展开、预览、流式更新沿用稳定身份；不能先生成临时副本再跳到正式对象。
+4. **中断可收尾。** 快速反向操作、主题切换、卸载、失焦和 animationend 缺失都有终态；不堆待执行动画队列。
+5. **失败不说成功。** 动效结束只结束表现；保存、授权、下载、执行、签收以真实回执收口。
+6. **用户控制优先。** 刚收起的过程不能被下一段流强制展开；上滚阅读不能在动画后自动贴底。
 
-| 文件 | 例外 keyframe | 为何不能通用化 |
-| --- | --- | --- |
-| `styles/motion.css` | 全部 `motion-*` | 语义基元层本身 |
-| `styles/tokens.css` | `za-loading-skeleton` / `za-message-shimmer` / `za-content-shimmer` | 双背景层扫过 / 一次性 opacity 淡出，基元不表达 |
-| `styles/llm-settings.css` | `card-sheen` / `badge-sheen` | 品牌默认卡/徽章艺术高光，机制不可通用化 |
+既有升级流程说明这一点：弹窗朝版本徽标收起时，徽标须先以 pending 状态接住，真正下载事件随后接管。pending 是展示中的请求回执，不是声称下载已经开始。
 
-**新增例外必须同时更新白名单**，确保「例外」是被治理登记的，而非随手散写。
+## 6. 性能与降级
 
----
+- 循环动画优先只改 transform/opacity；禁止新增长期循环的 layout、blur、box-shadow、background-position 重绘。既有重绘基元不等于允许新调用处无条件循环。
+- 短时 grid/height 展开可以有布局成本，限制在单个交互容器；不能把 CSS Grid 展开写成“零 layout”。CSS 也不天然等于 GPU 或恒定 120 Hz。
+- 玻璃只在小范围外壳/临时层使用，不嵌套 blur，不给每个滚动项加 blur，不动画 blur 半径。低性能/不支持/关闭透明时使用实色。
+- 同一组件每帧合并几何更新；已有流式滚动调度保持先定位再绘制的语义。不逐 token 强制同步测量，不永久滥用 will-change。
+- `prefers-reduced-motion` 的基础兜底集中在 tokens.css。JS 手势/共享转场同样要读取偏好；不能以“CSS 已关闭”忽略 JS 动画。
+- 减少动效时取消位移、缩放、循环和顺滑滚动，保留静态状态、终态与错误；卸载不能只等 animationend。透明字、mask 或内联动画初态必须恢复可读终态。
+- 现代 CSS、View Transitions、corner-shape、scroll timeline 必须支持检测并有普通展示路径。不支持新 API 不能失去操作。
 
-## 3. 跨组件连续性样板：升级流程
+具体帧率与耗电只能由实测确认；不能从属性名或上游形容词推导性能验收通过。
 
-「点更新 → 左上角进度 → 完成卡片」是跨组件连续性的**参考样板**。
+## 7. 实际治理覆盖
 
-### CSS 层（方向一致 + 时序衔接，方案 C1）
-- 弹窗退场：`motion-exit-collapse` + `transform-origin:top left` + `--motion-collapse-x/y` → 朝左上角版本徽标定向收缩淡出。
-- 徽标承接：进度环 `motion-pulse-attention` 脉冲 + `::before` `motion-halo` 外扩光环。
-- 完成卡片：右下角 `UpdateToast` 用 `motion-enter-rise` 入场 / `motion-exit-sink` 退场。
+代码仓 `scripts/check-architecture-governance.mjs` 的 `assertMotionPrimitivesAreCentralized()` 当前检查：motion.css 存在并被导入、包含必要基元、非白名单 CSS 不得定义 keyframes。研究时白名单包括 motion.css、tokens.css、llm-settings.css、global-workbench.css 和 chat/styles/chat-surface.css。
 
-### 状态层（真正的断裂点在这里）
-CSS 样板到位后，真正的断裂是 **React 状态时序空窗**：点「更新」后 `download()` 异步转调主进程，`phase` 要等首个 `download-progress` 事件才变 `downloading`，弹窗已飞走而进度环尚未挂载。
+这不等于它已自动检查时长、循环性能、位移上限、焦点、所有减少动效路径或本规范全部条款。后者目前仍需内容/diff 审阅和发布验收。白名单内也不允许任意新增专属动画，确需例外须有对应规范理由。
 
-**解法**：`VersionBadge` 加 `pendingDownload` 过渡态——点击瞬间即以 0% 点亮进度环（脉冲+光环就绪）接住飞来的弹窗，真实 downloading/终态到来后清除。
+通用机制优先加到 motion.css；可参数化就扩展现有基元。品牌专属机制记录用途与降级，不能成为普通 UI 的默认模板。不要把历史 keyframe 数量或“当时全绿”作为今天的通过证据。
 
-> **样板启示**：跨组件连续性 = CSS 方向/时序衔接 **＋** 状态就绪时序对齐。只做 CSS 不够，必须消除状态空窗。
+## 8. 开发与验证时点
 
----
+日常设计/实现完成后审阅改动内容、调用位置、状态归属和清理路径。**不自动运行测试、build/type/architecture/IPC 检查或截图/交互回归**；用户明确要求时才提前执行。版本/RC 发布前在合并全部 PR 的最终候选上运行完整门禁与产品回归，见代码仓 AGENTS 和 [产品回归规程](../../playbook/product-regression.md)。
 
-## 4. 范围边界
+本次为文档规范修订，仅做内容/diff 审阅，测试推迟至发布；没有执行或宣称全产品动效验收。
 
-- **In**：Token 校准、语义基元层（CSS + JS helper）、6 文件 keyframes 迁移收敛、升级流程连续性样板、治理脚本断言。
-- **Out**：不引第三方动画库（见 ADR 44）；不改动画的业务触发逻辑（只换实现）；不做全新动效创意（只收敛+补齐）；FLIP 共享布局动画（方案 C2）后置。
+## 9. 播放、中断与过渡的统一责任
 
----
+UI 的选中/提交/结果由实际状态决定；表达可有 entering/present/exiting 等内部阶段。这些阶段只管理画面与挂载，不新增运行时生命周期。
 
-## 5. 新增/修改动画时怎么做
+| 时点 | 表达层责任 | 保留的终态 |
+|---|---|---|
+| 首次出现 | 仅必要对象一次入场；稳定 ID，历史恢复直接呈现 | 可读内容、真实状态与可用控制 |
+| 连续更新 | 不逐 token 重新入场，不移动当前主操作；只更新局部 | 用户收起/阅读意图与焦点 |
+| 反向/重复操作 | 取消或反转当前表达，最新意图落定；同一次收尾幂等 | 正确来源/目标、无悬空遮罩 |
+| 用户取消手势 | 撤销本次几何预览，清 capture/监听/rAF/cursor/userSelect | 原顺序/比例与可用键盘替代 |
+| 失焦/隐藏/卸载 | 清理订阅/帧任务/动画；业务仍由宿主管理 | 无假停止/假成功、无待完成显示锁 |
+| 减少动效/偏好变化 | JS 与 CSS 同时处理，停止采样/循环/平滑移动；不能只把 canvas 藏起来 | 静态值、结果、错误与恢复入口 |
+| 动画 API 缺失/finished 拒绝/无 end 事件 | 直接静态完成表现，fallback 不再触发业务动作 | 透明文字/中间 mask/inert 占位均有退出 |
 
-1. 能用现有基元 → 加 utility class 或 `animation: motion-* ...`，用 `--motion-*` 变量定制方向/参数。
-2. 现有基元差一点 → 优先给基元加 CSS 变量参数，而非新建 keyframe。
-3. 确属全新机制 → 加到 `motion.css` 成为新基元；若是不可通用化的品牌特例 → 加到白名单文件并更新治理脚本 `keyframeAllowlist`。
-4. 涉及卸载退场 → 用 `useMotionPresence`，不要手写 `onAnimationEnd`。
-5. 提交前跑 `pnpm architecture:check` 确认未违反准入。
+focus、scroll、draft 和目标身份由[过渡规范](transition-system.md)约束。用[体系覆盖表 M01–M18](../../design/product/peer-ui-motion-transition-matrix.md)登记具体基元和消费者；仅把 keyframes 放进 motion.css 不等于调用处契约完成。
+
+共享 helper 与 Overlay/WAAPI 目前仍有实现差异；这是 E16/E17 的收敛任务，不宣称一个 helper 已经完全覆盖所有调用方。保留有语义的现有机制，避免为了“全套动画”统一添加 sheen、halo、粒子或共享元素特效。
