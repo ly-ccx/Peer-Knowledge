@@ -34,6 +34,8 @@ Implementation 位于 runtime-node，由 Desktop 与 TUI 的既有 Provider Regi
 
 成功准入只在新 Plan 保存所需能力、工具清单指纹、已知/声明标记和检查时间，不把完整工具清单反复复制进任务日志。完整可用清单仅在缺项诊断返回，沿既有大工具结果材料化路径保存。
 
+2026-10-24 合并补修：GoalPlan 的归一化与重载必须保留上述 `delegationOrigin.capabilityAdmission` 白名单字段（required、inventoryHash、inventoryKnown、requirementsDeclared、checkedAt），不能在保存时丢弃成功准入记录。无效记录舍弃，旧任务仍不补造记录；该快照只描述建立任务时的能力清单观察，不授予 PermissionGrant，也不免除实际执行时的投影与权限检查。
+
 检查位于新建子会话、GoalPlan、排队/隔离准备与替换旧任务之前。不匹配返回 `delegation_capability_unavailable` 或 `delegation_capability_unknown`，附 required/available/missing、criterionIds、stage=delegation_admission、retryable=false、userActionRequired=false。没有必要副作用，不建半成品任务，不取消旧任务，不擅自升级 readOnly/Full，不自动重复派同一不可能任务。请求幂等重放仍返回既有任务，不倒查新规则来改写历史。
 
 直接 spawn 与 coordinate_work 的 parallel/replace 共用准入函数。协调入口须在 store.decide（会变更 goalRevision/执行版本）之前检查；恢复尚未启动的 recorded 处置也在发出取消前检查。spawn 在真正建会话前再次核对，动态能力在预检后变化仍可能导致执行期受阻，不能承诺跨 Provider 配置事务。
