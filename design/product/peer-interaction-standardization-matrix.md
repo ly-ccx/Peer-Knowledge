@@ -6,6 +6,14 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 档案模型保存局部反馈（2026-10-24）
+
+P17/C114/C128/C161/C163，C 级表达修复，基线 `53eb9850`，实现提交 [6176ca67](https://github.com/ly-ccx/Peer-Agent/commit/6176ca67)。用户调整某个角色的模型/强度时，只在对应模型入口显示控件内忙态，模型设置组不插入正常“正在保存”段落；其他角色选择按钮保持亮度与位置。角色依据已有 pending policy 与受控已保存 policy 的逐角色差异判定，不新增保存真源或乐观成功。BotPolicyFields 将既有模型状态交给各 BotModelControls，组级反馈保留首次加载、失败和待恢复入口，正常保存留在当前控件。
+
+ModelSelectionPanel 将写入锁与不可用态分开：保存锁期间提供商仍可浏览，候选列表保持原亮度；候选项 aria-disabled 并在 chooseModel 阻止写入，滑块与请求通道继续禁用，真正不可用的模型仍沿原生 disabled 表达。原共享保存锁、重复提交保护、宿主回执、失败重试/舍弃、模型/强度原子写入与刷新沿既有路径。没有改权限、IPC、存储、运行时边界或抽屉身份，T03/T05/T06 不引入新动画和计时器。
+
+仅内容/diff 审阅并交当前开发实例热更新，供用户本地查看；未运行测试、构建或截图/交互回归。慢保存下的明暗/布局、失败后重开/重试/舍弃、键盘与跨角色阻写、投影迟到/换机器人和辅助技术仍待 E13，不宣称运行时逐帧或独立验收通过。
+
 ## 服务商设置布局局部补修（2026-10-24）
 
 P33/C002/C013/C026，C 级；代码基线 `7b6c9972`，实现提交 [53eb9850](https://github.com/ly-ccx/Peer-Agent/commit/53eb9850)。连接信息、模型与余额区域沿设置组统一 inset，移除模型/用量的叠加横向 padding；模型展开保持 paper-sheet，仅标题悬停使用 paper-hover；模型参数、分区标题和折叠图标使用 graphite-soft。来源采用设置帮助文字色，usageTime 显示简短本地同步时间，time/title 保留原时间。修改限于 ConfiguredModelRow.tsx、provider-settings.css 和 llm-settings.css，复用既有 token，无新增主题或动效。
