@@ -6,6 +6,12 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 档位参数、角色继承与通道覆盖（2026-10-24）
+
+P35/C050，依 [ADR83 补充](../../knowledge/decisions/83-model-routing-by-role.md) 扩展可选模型分工契约（A 级）。四个档位均可设置模型、已声明的公共思考强度和正常/快速通道；角色未提供值时继承其档位，null 强度明确模型默认、false 通道明确正常，固定/自动模式未提供时使用模型默认/正常。原显式值保留，模型/模式切换不静默清除参数，失效项可见并可恢复。新增 RoutingParameterFields 复用共享 Dropdown，候选能力交集与原 OAuth 准入决定可选项；无模型、无公共强度和不支持快速通道均给原因，未假造新 Provider 能力。
+
+主进程只校验本次修改的参数，失败保留草稿；已保存预览展示实际模型、强度与通道。共享解析、故障恢复候选、任务快照持久化/读取与 Desktop/TUI 执行保持同一参数，显式正常不会被请求旧值覆盖；已冻结任务保留原参数。沿原存储/typed IPC/Provider encoder，不新增权限、Evidence 或 Context Source。Bot 控件仅同步展示继承后的实际通道，未重写 Bot 配置。新增契约、继承/清除、能力拒绝、候选过滤、冻结持久化和执行传递用例，未运行；仅内容/diff 审阅，真实模型/订阅通道、失效保存、窄窗/键盘/读屏及完整产品验收继续 E13。其他本地修改保留，本轮按用户授权提交至既有 PR，不发布版本。
+
 ## 模型分工失效引用与列对齐（2026-10-24）
 
 P35/C050，C 级局部展示修复。用户需辨认现有模型分工并自行修复失效选择；当前模型目录缺少已保存 ID 时，主模型、固定模型与备选显示“原模型已不可用，请重新选择”，保留原 ID，不自动替换。角色跟随关系与解析结果取宿主 modelRoutingPreview 同一份已保存配置；无法解析时提示检查上方档位/重选固定模型，加载与读取失败不冒充无模型。沿 useEditableResource 保留选择草稿、预算编辑及保存失败恢复。
