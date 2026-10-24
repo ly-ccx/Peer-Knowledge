@@ -6,6 +6,18 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 模型菜单浏览位置连续性（2026-10-24）
+
+代码实现：[5c1394b7](https://github.com/ly-ccx/Peer-Agent/commit/5c1394b7)，包含本节定位与下节选项间距修复。
+
+P17/P34/C114，C 级本地补修：原 ResizeObserver 按每次内容高度重新判断上/下展开，浏览较短提供商时会把同一个浮层翻到触发器上方。定位收敛至 useModelSelectionPosition，复用 positionAnchoredOverlay，在每次真实打开时记录高度，后续定位以该高度作为基准；内容缩短保留打开时的最小高度，增长受视口剩余空间约束，在局部 model-selection-body 滚动。提供商入口与主浮层身份保留；关闭/重开重新测量，触发器移动、滚动与窗口 resize 仍按既有锚定规则避让边界。共享菜单层级、preventScroll 归焦、保存回执与错误恢复不变，没有新业务状态或动画计时器。
+
+本次仅内容/diff 审阅并交开发服务热更新，未运行测试或截图/交互回归；长短列表、选中后出现强度/通道、窄窗与缩放、滚动/重开/无 ResizeObserver 及辅助技术仍待 E13，不将源码定位视为真实逐帧验收。
+
+## 模型菜单相邻选项间距（2026-10-24）
+
+P17/P34/C114，C 级本地样式补修：服务商菜单与模型候选列表采用 column flex 和既有 space-1（4 px）间距，分开相邻选中/悬停背景。保留原 checked/aria-selected、浏览态与键盘焦点；不通过移除选中标记修正视觉粘连，不改保存、权限或动效。仅内容/diff 审阅并交开发服务热更新，未运行测试或截图/交互回归；多项/长名/滚动/窄窗与辅助技术继续 E13。
+
 ## 档案模型保存局部反馈（2026-10-24）
 
 P17/C114/C128/C161/C163，C 级表达修复，基线 `53eb9850`，实现提交 [6176ca67](https://github.com/ly-ccx/Peer-Agent/commit/6176ca67)。用户调整某个角色的模型/强度时，只在对应模型入口显示控件内忙态，模型设置组不插入正常“正在保存”段落；其他角色选择按钮保持亮度与位置。角色依据已有 pending policy 与受控已保存 policy 的逐角色差异判定，不新增保存真源或乐观成功。BotPolicyFields 将既有模型状态交给各 BotModelControls，组级反馈保留首次加载、失败和待恢复入口，正常保存留在当前控件。
