@@ -6,6 +6,10 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 机器人头像移除上传入口（2026-10-24）
+
+P17/C163，C 级设置交互收敛：按用户要求移除“上传自己的图片”按钮及 BotSettingsTab 的 chooseAvatar 请求分支，清理无人使用的中英文文案键；头像区域保留预览、重新生成和既有颜色选择。重新生成仍通过原 projectAgentUpdateProfile、动作忙态/防重、失败重试和宿主 profile 回执更新，不清除现有头像，不改存储/IPC/宿主兼容能力。内容/diff 已审阅并交本地开发服务，未运行测试或截图/交互回归；重新生成成功/失败、键盘与已有图片头像的展示仍待发布 E13。
+
 ## 机器人入口圆角局部统一（2026-10-24）
 
 P01/C126/C129、BotListShell 启动页，C 级样式调整：按用户指定，bot-row 与 bot-main-pick 从 12px 的 ui-radius-row 改用既有 16px ui-radius-panel，与回复气泡当前半径一致；保留统一连续曲线。只改这两处圆角引用，不改全局 token 或背景/边框/间距/导航/状态，现有本地修改保留。内容/diff 已审阅，交本地开发服务查看；测试及截图/交互回归留待用户明确要求或发布 E13。
@@ -519,7 +523,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C160 · `project-agent/drawer/BotHostDeveloperControl.tsx`<br>`BotHostDeveloperControl` | H/Q · S 开发页选择 bot/宿主控制；接口：`projectAgentList` | 待核空/读取失败/旧选择、与公开控制语义一致 | P1 · E08/E12 |
 | C161 · `project-agent/drawer/BotPolicyFields.tsx`<br>`BotApprovalFields`, `BotPolicyFields` | F · S E08 消费受控 profile/role models，失败保留模型请求；E08-F2 抽屉读写/恢复反馈归模型设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 配置路径已审阅；V 不支持项/作用域/保存失败，权限/验收仍按 E04 | P0 决策/P1 配置 · E04/E08/E10 |
 | C162 · `project-agent/drawer/BotProfileDrawer.tsx`<br>`BotProfileDrawer` | O/Q · S 五 tab、push/cover、focus scope、dock phase 与报告按需读；接口：`openPath`, `projectAgentGet`, `projectAgentListHistory` 等；S F5：cover 关闭按钮走 requestClose；push 观察真实 CSS motion 收尾，移除固定 360ms timer；保原宽度/双帧入场 | PR204 已汇入候选；先注册 Layer 再 autofocus，空 Layer 不拥有 scope；E06/E16/E17 push 可见性/偏好与退出 watcher 已审阅；V resize/反向/未保存与最终候选实机 | P1 · E06/E17 |
-| C163 · `project-agent/drawer/BotSettingsTab.tsx`<br>`BotSettingsTab` | F/A · S E08 名称会话内 draft/读写反馈、concurrency 回执与策略动作锁/重试；E08-F2 模型反馈归自身设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E08 实现已审阅；V 关闭返回、未知/删除归处/取消上传；其他记忆目标编辑归 E10 | P1 · E08/E10/E17 |
+| C163 · `project-agent/drawer/BotSettingsTab.tsx`<br>`BotSettingsTab` | F/A · S E08 名称会话内 draft/读写反馈、concurrency 回执与策略动作锁/重试；E08-F2 模型反馈归自身设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E08 实现已审阅；头像上传入口已按用户要求移除，保留重新生成/颜色；V 关闭返回、未知/删除归处/头像生成失败恢复；其他记忆目标编辑归 E10 | P1 · E08/E10/E17 |
 | C164 · `project-agent/drawer/CoordinationDetails.tsx`<br>`CoordinationDetails` | V · S 真实协调日志/等待与决策细节；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核增量读取失败/旧 revision、执行与报告不同事实 | P1 · E04/E12 |
 | C165 · `project-agent/drawer/EvidenceView.tsx`<br>`EvidenceView` | V/O · S Evidence/文件的受控详情；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E09 按 ref 读取/重读、元信息/缺失/不可用、错误保旧事实已审阅；V 权限/截断/旧源/局部阅读 | P1 · E09/E17 |
 | C166 · `project-agent/drawer/MemoryTab.tsx`<br>`MemoryTab`, `MemoryScope` | Q/F/A · S 筛选/分页/编辑/固定/忘记/恢复/学习开关；接口：`projectMemoryEdit`, `projectMemoryExport`, `projectMemoryForget` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | G09/E10 读失败保快照、逐项/开关/导出回执、修订后关闭旧编辑已审阅；V 冲突/外部变更/新 ID/草稿/OS取消 | P1 · E10/E15/E17 |
