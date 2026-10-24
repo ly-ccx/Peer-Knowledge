@@ -6,6 +6,41 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## PR214/215 汇合验证（2026-10-24）
+
+本次按用户明确要求提前本地测试。C031/Overlay、C114/C128 模型菜单、C212 档案、C214/MotionSurface 和 C215/MotionDetails 接线已补修：按真实打开/对象代次释放入场 fill，保存回读不重播；保留 busy 防重、失败恢复和锚点定位；退出保留终点并有界收尾。快照等值提前返回不跳过选中/高亮合法性核对，头像按实际资源变化读取。
+
+Quick Chat 独立菜单补上既有关闭事件向宿主的转发，隐藏即清旧 DOM，再开接新状态；B 级窗口事件接线，无新增 channel/payload 或能力边界。
+
+本地专项通过 12 设置分区、5 抽屉 tab、菜单 Escape/外点/快速重开、草稿/焦点、push/cover/减少动效，以及设置/composer 两处延迟成功与失败保存。每种保存观测 1100ms，包含回执后抽屉和浮层连续性；真实错误反馈可调整内容高度。详见[验证记录](../../playbook/v0.1.0/surface-motion-merge-validation.md)。本节只升级列明用例；以下历史 S/V 和未运行说明按对应批次理解，未覆盖的状态、IME/原生窗口/读屏和安装版继续 E13。
+
+## 菜单、浮层、抽屉与设置过渡全量源码复核（2026-10-24）
+
+E16/E17-F5，P1（草稿保存恢复沿 E02/E08 的关键链路优先）；**源码实现/内容审阅完成，候选验证待 E13**。代码基线 040a3e1b，知识基线 e4184b8；本批代码 [59451598](https://github.com/ly-ccx/Peer-Agent/commit/59451598dc513e0702bbacc961c1b366f73efbe3)；只在既有两仓隔离分支交付。逐源清单和边界见[实施记录](../../playbook/v0.1.0/surface-motion-sweep.md)，逐家族语义见[体系覆盖表](peer-ui-motion-transition-matrix.md#菜单浮层抽屉与设置过渡复核2026-10-24)。
+
+| 覆盖入口 | 当前实现/补齐 | 保留缺口与任务 |
+|---|---|---|
+| P04/P20/P21/P27/P34 · 应用/侧栏/页首/模型/配色/补全/查找菜单 | C214 承接 21 模块的 25 处轻层；关闭即停交互，视觉收尾不决定选择/导航；锚点预览随实际来源更新 | P1 E16/E17-F5 已实现；开关/子层/快速反向、ref/归焦/IME/读位/窄窗待 E13 |
+| P01–P03/P05/P08–P18/P24/P25/P36/P40/P43–P46 · 模态/抽屉 | 逐个盘点 Overlay/Drawer 挂载及内部关闭路径；补按钮绕过，档案 push/cover 与 rail 沿原身份；选区草稿保存成功后才退场，失败不藏编辑现场 | 保存期间新编辑/失败/旧代次、nested/anchor 移除/无事件/API 异常和跨窗口待 E13 |
+| P17/P28–P41/P45/P46 · 设置/配置/详情折叠 | 设置每分区只一次 fade；目录不逐卡级联；C215 承接 13 模块 17 处原生折叠，原生语义与受控值保留 | 字号/焦点/嵌套/溢出与动态高度、保存未知/dirty 离开、减少动效待 E13 |
+| P26/P55–P78 · 原生/远程/终端/兼容 | 原生 Quick Chat 入场轻 fade，关闭由主进程现有窗口语义承担；系统 select/dialog/context menu、终端与远程原生/行内面明确登记静态或宿主负责 | 原生退出不为动画延迟；不跨宿主导入 renderer CSS。真实宿主/辅助技术验证仍 E11/E13 |
+
+本批新增 C214/C215，实际 Desktop 非测试 TSX **215**；数量是源码登记。新增 closePreparation 仅为 UI 关闭前保存/校验，不新增协议、IPC、权限、Evidence、持久化或 System Context 边界。四个关闭准备边界测试已写未运行；没有测试、构建/类型/架构/IPC、截图或交互回归，不是独立评审或发布验收。
+
+## 回复进展与设置刷新补修（2026-10-24）
+
+E16/E17-F4，P1，P04/C122：设置应用菜单补共享 rise 入场与 fast 淡出，关闭立即 inert/aria-hidden，视觉保留经 watchVisualMotion 收尾，重开撤销旧收尾；原导航/关闭/归焦不等待动画，焦点使用 preventScroll。reduce/隐藏/API 缺失静态完成，无自建业务计时器。仅内容/diff 审阅，真实开关/快速反向/偏好/事件缺失与读屏待 E13。
+
+E07/E17-F3，P1，P06/C138/C144：回复身份头像用 32 px 共享间距 token、名称用 14 px 正文字号和主文字色，身份行后留 8 px。零高度别名锚点不再参与 flex gap，空正文载体不占位；原 ID、连续 DOM 与定位入口保留。内容/diff 已审阅，多别名/无正文失败/长名/200%/引用定位与阅读锚点待 E13。
+
+E08-F2，P1，P06/P17/P34：首次补修遗漏主动保存，模型保存仍向对话布局插字。现移除 C137 外层反馈，C128/C114 接控件内忙态、可重开的失败入口与浮层内恢复；C161/C163 把抽屉反馈归入模型组；C203 合并保存失败与 pending 的重复重试。仅反馈位置/表达变化，原配置和保存事实不变；慢保存、保存失败后关开、首次读取失败、窄窗与读屏等待 E13，不标已验收。
+
+E08/E11-F1，P0，P06/P17/P34/P58/P64/C159：TUI 角色路由投影补原声明的强度列表/支持标志/默认值，修复 `max` 误拒绝。现场实际执行权在旧终端包，桌面重试返回 `HOST_OFFLINE`，现给宿主接管指引；本地校验与服务端拒绝分开，不更改模型配置或绕过租约。B 级适配已审阅，声明/未知/真不支持、跨宿主和恢复测试待 E13。
+
+E04/E08-F1，P1；C137/C144/C152/C154/C203，P06/P13/P17/P34。删除 15 秒覆盖阶段的提示；公开正文承接进展，无正文投影真实活动，只有接收回执不显示思考；权限/恢复/停止/失败不混淆，未知状态只重读。对话不再接收设置加载小字，设置现场只首次读取显示加载，后台重读不变几何；真实读写失败/保存/无模型/待重试保留。已知宿主强度拒绝直接说明处理位置，原诊断保留详情。
+
+当前实现与内容/diff 已审阅；现场只读确认当前失败卡/详情/模型菜单，截图中的长等待未重演，未发送模型请求。新增边界测试与产品脚本待 E13；真实阶段流转、截图返回瞬间、读屏/reduce/跨窗口仍 V。详见[本轮记录](../../playbook/v0.1.0/reply-status-feedback-20261024.md)。
+
 ## 全 PR 合并与模型强度覆盖（2026-10-24）
 
 本轮范围、最终来源及真实合并状态见[交接记录](../../playbook/v0.1.0/experience-ui-motion-transitions.md#全部-pr-汇合与模型强度补齐2026-10-24)。全局模型分工补齐 role 的独立 reasoningEffort：tier/fixed/auto 均可设置/清除，主进程校验及已保存预览、默认与失效值明确；单模型不再整表禁用；实际能力声明/候选交集决定可选项。恢复候选也须满足显式强度，已冻结任务保持原快照。A/B 约束先写 ADR83 与 SDK 边界规范，非 Renderer 自造配置事实。E02/E04 另修 unknown 回执提前关闭问题卡片：只有 canonical/received 收起，保留原输入身份与问题关联，重试核对持久去重。
@@ -184,9 +219,9 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P01 启动、失败恢复、OS 权限门 | H/O；S E12 session 就绪即进入、reader 加载/失败重读/保旧壳层；App/ErrorBoundary/OS IPC | G10 实现已审阅；V 冷启/权限不可用/重试/窗口关闭/静态终态 | P1 · E12/E17 |
 | P02 首启/升级引导/经典迁移提示 | O/F；project-agent/onboarding、设置 shell 事实 | V 无模型/取消/返回/重复进入，不能误写迁移完成 | P1 · E08/E11 |
 | P03 新建机器人/绑定目录 | F/O；NewBotSheet、BotListShell，新建 lifecycle 回执；含 PR200 本地切片 | E08 名称/IME/单次创建、失败与未知回执已审阅；V 重名/真实受管目录/原生取消/列表读失败 | P1 · E01/E08 |
-| P04 机器人列表/搜索/行操作 | Q；BotList/BotRow、useBotList 与目录投影 | V 空/无结果/归档/对象删除/长名称/键盘选择 | P1 · E04/E07 |
+| P04 机器人列表/搜索/行操作 | Q；BotList/BotRow、useBotList 与目录投影；E16/E17-F4 左下角应用菜单接共享入退场 | V 空/无结果/归档/对象删除/长名称/键盘选择 | P1 · E04/E07 |
 | P05 需要你筛选与清单 | Q/O；S AttentionSheet 仍读 listAttention，CardView 决定依宿主事实 | 到期安排有界宿主重读及父计数刷新，回读前保原行；E04 实现已审阅；V 计数/原卡/详情、迟到/过期/读失败 | P0 · E04 |
-| P06 主机器人对话 | I/V；S 受控 draft + 本机 store + 真实 input receipt；重开不自动发送 | a0ae1a33 消息/输入框独立 key，基础打开/页面往返/草稿与阅读模式点查通过；E02/E03/E05 与 E09 引用来源/附件预览实现已审阅；V 切换/重开/未知、引用失效/四页后继续/手势取消、晚图与读位 | P0 输入 / P1 预览 · E02/E03/E05/E09 |
+| P06 主机器人对话 | I/V；S 受控 draft + 本机 store + 真实 input receipt；重开不自动发送；E08-F2 移除对话外层模型反馈段落；E07/E17-F3 身份可辨识、去除空节点间距 | a0ae1a33 消息/输入框独立 key，基础打开/页面往返/草稿与阅读模式点查通过；E02/E03/E05 与 E09 引用来源/附件预览实现已审阅；V 切换/重开/未知、引用失效/四页后继续/手势取消、晚图与读位 | P0 输入 / P1 预览 · E02/E03/E05/E09 |
 | P07 授权/计划/问答/项目熟悉 | A/F/V；S 宿主 approval 匹配回执、generic ok 回读卡；旧展示记录不盖授权/验收 | E04/E16/E17 实现已审阅，G12 见首页；V 过期/拒绝/取消/迟到/多卡、静态/反向/归焦 | P0 · E04/E16/E17 |
 | P08 档案框架与五个标签 | O/Q；BotProfileDrawer、Drawer、分栏/覆盖布局与 tab 记忆 | PR204 已汇入组合候选；先登记有效 Layer 再进入 scope，无 Layer 不拥有焦点；E06/E17 层级/tabs/手势与 push 静态/中断收尾已审阅；V resize/反向/源消失与最终候选实机 | P1 · E06/E16/E17 |
 | P09 档案·概况 | V/A；OverviewTab、profile、宿主/模型解析 | V 无模型/来源不可用/打开目录失败/长路径 | P1 · E08/E12 |
@@ -197,7 +232,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P14 Evidence 明细/文件/失效引用 | V/O；EvidenceView/EvidenceList、projectAgentReadEvidence | E09 读/重读、正文与元信息/缺失状态、100 条元数据窗口已审阅；V 权限/截断/旧来源/嵌套返回 | P1 · E09 |
 | P15 档案·目标 | F/Q；ObjectivesTab、objectives/automation 投影 | E10 逐对象动作、会话 draft/版本冲突、触发来源与 observation Evidence 已审阅；V 外部变化/重开/暂停/终态 | P1 · E10/E17 |
 | P16 档案·记忆 | F/Q；MemoryTab、memory CRUD 与 switches | G09/E10 读失败保快照、逐项回执/刷新、修订新 ID/草稿/导出恢复已审阅；V 冲突/来源/外部变化/取消/归焦 | P1 · E10/E15 |
-| P17 档案·设置/权限/模型/宿主 | F；BotSettingsTab/BotAccessControl/BotHostControl、受管设置与策略 | E08 名称草稿/模型/策略与并发反馈已审阅；V 权限/宿主/删除与跨窗口；其他字段按 E10 | P0 决策 / P1 配置 · E04/E08 |
+| P17 档案·设置/权限/模型/宿主 | F；BotSettingsTab/BotAccessControl/BotHostControl、受管设置与策略；E08-F2 模型读写/恢复反馈留模型设置组 | E08 名称草稿/模型/策略与并发反馈已审阅；V 权限/宿主/删除与跨窗口；其他字段按 E10 | P0 决策 / P1 配置 · E04/E08 |
 | P18 历史清单/预览/继续 | Q/O/V；HistorySheet/HistoryConversationList、listHistory/continueHistory | V 搜索无结果/分页/读取失败/重复继续/身份保持 | P1 · E05/E11/E12 |
 | P19 项目诊断 | V/A；ProjectDiagnosticsPanel、诊断报告 IPC | V 生成/复制失败、报告缺失、敏感值展示边界 | P1 · E12/E15 |
 | P20 经典壳/侧栏/项目编辑 | Q/F；Sidebar/EditProjectDialog、workspace 与 conversation store | V 重命名/归档/移除/切换的草稿和焦点；保留兼容 | P1 · E06/E11 |
@@ -214,7 +249,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P31 设置·个性化 | F；SystemInstructionsPanel、既有设置入口 | G04/E08 实现已审阅；V 读失败/保存未知/迟到与 dirty 离开；System Context 准入未变 | P1 · E08/E17 |
 | P32 设置·快捷键 | F；ShortcutsPanel、录制/冲突/注册状态 API | V 组合键/IME/取消录制/冲突/注册失败/恢复默认 | P1 · E03/E06/E08 |
 | P33 设置·服务商/渠道/模型 | F/Q/O；LlmSettingsPanel、ConfiguredModelRow、目录与模型弹层 | E07/E08 表单/目录/手动模型与错误/离开已审阅；V OAuth/凭据/配额/部分写入与多窗口 | P1 · E07/E08 |
-| P34 模型/强度/请求通道弹层 | F/Q/G；ModelSelectionPanel/BotModelControls、角色模型解析；含 PR197 | E07/E08 复用 PR197并补浏览/受控值/层级、失败恢复与当前/下轮分离；V 真实快照/继承/长值/窄窗 | P1 · E01/E07/E08 |
+| P34 模型/强度/请求通道弹层 | F/Q/G；ModelSelectionPanel/BotModelControls、角色模型解析；含 PR197；E08-F2 保存忙态归模型按钮，错误/待恢复在原浮层，收起后入口留提示 | E07/E08 复用 PR197并补浏览/受控值/层级、失败恢复与当前/下轮分离；V 慢保存/失败关开/首读失败、真实快照/继承/长值/窄窗与读屏 | P1 · E01/E07/E08 |
 | P35 设置·模型分工/视觉兜底 | F；ModelRoutingPanel/FallbackVisionSetting、router preview/update | 本轮补独立角色强度/单模型/候选能力约束、已保存预览；E08 routing patch/预算与 vision fallback 回执/保留已审阅；V 解析失败/范围/缺渠道/保存与当轮快照 | P1 · E08 |
 | P36 设置·用量/账号明细 | Q/V；UsageStatsPanel/AccountUsageDetails、用量/订阅 quota | V 空/过期/请求失败/未知单位、图表键盘替代 | P1 · E08/E15 |
 | P37 设置·Git | F；GitPanel、当前 workspace 配置 | E08 当前宿主前缀/显式保存/IME/dirty 保留已审阅；V 无项目/非法值/未知回执/离开 | P1 · E08/E17 |
@@ -266,7 +301,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 
 | ID / 源码（r/ 前缀）与具名子组件 | 状态模板 / 源码已有机制与事实 | 差异或具体待核项 | 排程 / 改造任务 |
 |---|---|---|---|
-| C001 · `App.tsx`<br>`App`, `MainApp` | H/O · S E08 dirty 导航；E12 真实 bootstrap 放行/失败重读/保旧壳层 | 基础设置 12 分区/dirty 继续与舍弃/正常重载点查通过；G10 实现已审阅；V 冷启/reduce/设置外导航/结果与窗口目标 | P1 · E08/E11/E12/E17 |
+| C001 · `App.tsx`<br>`App`, `MainApp` | H/O · S E08 dirty 导航；E12 真实 bootstrap 放行/失败重读/保旧壳层；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | 基础设置 12 分区/dirty 继续与舍弃/正常重载点查通过；G10 实现已审阅；V 冷启/reduce/设置外导航/结果与窗口目标 | P1 · E08/E11/E12/E17 |
 | C002 · `app/components/AccountUsageDetails.tsx`<br>`AccountUsageDetails` | V · S 受控 quota 明细/加载/过期信息；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核未知额度与过期不写成零，重试入口和长值 | P1 · E08/E15 |
 | C003 · `app/components/AppErrorBoundary.tsx`<br>`AppErrorBoundary` | H/A · S 渲染失败保留错误详情与 Reload；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核重载说明与保住的数据、无主题依赖的可读兜底 | P1 · E12/E15 |
 | C004 · `app/components/AppshotsPanel.tsx`<br>`AppshotsPanel` | F · S 截图权限、热键、OS 设置入口；当前设置导航隐藏；接口：`appshotCapture`, `appshotOpenScreenSettings`, `appshotPermissionStatus` 等 | 隐藏保留；未来开放前核对录屏权限/失败/热键冲突 | P2 · E00/E11 |
@@ -277,28 +312,28 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C009 · `app/components/BrandWordmark.tsx`<br>`BrandWordmark` | R · S 品牌字标 SVG/文字表达；事实：受控 props / 所属 hook（装配模块由子树承接） | 纯显示交互态 N/A；待核主题/放大和装饰命名 | P2 · E15 |
 | C010 · `app/components/CapabilitiesPanel.tsx`<br>`CapabilitiesPanel` | H/Q/F · S E15 catalog reader 的加载/失败/保快照/重读，独立入口仍可用；能力表单的 scoped UnsavedChangesProvider | E15 实现已审阅；V 初读失败/切页/外部配置/读屏，未知不当空 | P1 · E08/E15/E17 |
 | C011 · `app/components/CapabilityInventory.tsx`<br>`CapabilityInventory` | R/Q · S 能力清单的旧展示实现；事实：受控 props / 所属 hook（装配模块由子树承接） | 兼容/引用可达性待核；Manifest 与 Projection 含义不可混 | P2 · E00/E11 |
-| C012 · `app/components/CascadingMenu.tsx`<br>`CascadingMenu` | Q/O · S 共享 layer，root/sub Escape、IME、Home/End/禁用项、portal 焦点与单次外点 | E06 实现已审阅；V 根/子层切换、锚点丢失、位置/空/归焦 | P1 · E06/E17 |
-| C013 · `app/components/ConfiguredModelRow.tsx`<br>`ConfiguredModelRow` | F/A · S 受控模型行、编辑/错误/删除等操作；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核长模型名、保存中防重入、单行错误与焦点 | P1 · E07/E08 |
+| C012 · `app/components/CascadingMenu.tsx`<br>`CascadingMenu` | Q/O · S 共享 layer，root/sub Escape、IME、Home/End/禁用项、portal 焦点与单次外点；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | E06 实现已审阅；V 根/子层切换、锚点丢失、位置/空/归焦 | P1 · E06/E17 |
+| C013 · `app/components/ConfiguredModelRow.tsx`<br>`ConfiguredModelRow` | F/A · S 受控模型行、编辑/错误/删除等操作；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 待核长模型名、保存中防重入、单行错误与焦点 | P1 · E07/E08 |
 | C014 · `app/components/ConfirmProvider.tsx`<br>`ConfirmProvider` | O/A · S 共享确认请求与模态，替代 native confirm；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核危险动作初始安全焦点、并发请求与重复关闭 | P1 · E06/E17 |
 | C015 · `app/components/ConversationResultView.tsx`<br>`ConversationResultView`, `AcceptanceArtifactButton` | V/A · S GoalPlan、diff、artifact 按实际 API 读取；接口：`gitDiffRange`, `goalPlansGet`, `goalPlansList` 等 | 待核取数失败/部分证据、签收和交回分开、回原任务 | P0 · E04/E09 |
-| C016 · `app/components/Drawer.tsx`<br>`Drawer` | O · S Overlay 共享层级与可选真实 restoreFocusRef | E06 实现已审阅；V 各消费者 modal 语义/嵌套、关闭与读位 | P1 · E06/E17 |
-| C017 · `app/components/Dropdown.tsx`<br>`Dropdown` | Q/O · S 共享 layer/Tab 退出/归焦；实际 listbox+combobox、本地过滤 radio | E06 实现已审阅；V 无结果/旧选值/键盘滚动/触发者消失/多层 | P1 · E06/E15 |
+| C016 · `app/components/Drawer.tsx`<br>`Drawer` | O · S Overlay 共享层级与可选真实 restoreFocusRef；S F5：透传同一关闭准备契约，内部取消/关闭使用 requestClose | E06 实现已审阅；V 各消费者 modal 语义/嵌套、关闭与读位 | P1 · E06/E17 |
+| C017 · `app/components/Dropdown.tsx`<br>`Dropdown` | Q/O · S 共享 layer/Tab 退出/归焦；实际 listbox+combobox、本地过滤 radio；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | E06 实现已审阅；V 无结果/旧选值/键盘滚动/触发者消失/多层 | P1 · E06/E15 |
 | C018 · `app/components/FallbackComposer.tsx`<br>`FallbackComposer` | I · S 降级输入包装与受控提交；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核降级状态不误发、失败保草稿、禁用有原因 | P0 · E02/E03 |
 | C019 · `app/components/FallbackRuntimeView.tsx`<br>`FallbackRuntimeView` | V · S 降级 Runtime 信息展示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核不可用/恢复与真实执行结果区分 | P1 · E04/E12 |
 | C020 · `app/components/FallbackVisionSetting.tsx`<br>`FallbackVisionSetting` | F · S 展开式视觉兜底，E08 消费 useFallbackVisionSetting 的当前值/保存与错误恢复 | E08 保存已审阅；V 缺渠道/未知回执、折叠焦点与隐藏内容 | P1 · E08/E17 |
-| C021 · `app/components/FullDiskAccessStartupGate.tsx`<br>`FullDiskAccessStartupGate` | H/O · S OS 权限快照、打开系统设置、拖应用入口与错误；接口：`getStartupOsPermissions`, `openFullDiskAccessSettings`, `startAppDrag` | 待核权限不可用/往返/取消拖动/无 API、后台不抢焦点 | P1 · E08/E12/E17 |
+| C021 · `app/components/FullDiskAccessStartupGate.tsx`<br>`FullDiskAccessStartupGate` | H/O · S OS 权限快照、打开系统设置、拖应用入口与错误；接口：`getStartupOsPermissions`, `openFullDiskAccessSettings`, `startAppDrag`；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | 待核权限不可用/往返/取消拖动/无 API、后台不抢焦点 | P1 · E08/E12/E17 |
 | C022 · `app/components/GeneralPanel.tsx`<br>`GeneralPanel` | F · S E08 shared saved/draft/读写回执、最小字段 patch | E08 实现已审阅；V 静音作用域/时间/locale 回执、同帧与离开 | P1 · E08/E10 |
 | C023 · `app/components/GitPanel.tsx`<br>`GitPanel` | F · S E08 当前宿主值/显式保存/规范化回执、IME 与失败保留 | E08 实现已审阅；V 无项目/非法前缀/未知、离开与回读 | P1 · E08/E17 |
 | C024 · `app/components/HandoffConflictPanel.tsx`<br>`HandoffConflictPanel` | F/V · S 冲突选择、预览、busy/error 与 resolve API；接口：`goalPlansCleanupHandoffPreview`, `goalPlansPreviewHandoffMerge`, `goalPlansResolveHandoffConflicts` | 待核旧预览失效/部分失败/重复提交、关闭保留已发生事实 | P0 · E04/E09 |
 | C025 · `app/components/LlmBrandIcon.tsx`<br>`LlmBrandIcon` | R · S 模型服务商图标；事实：受控 props / 所属 hook（装配模块由子树承接） | 纯装饰操作态 N/A；待核 fallback/SVG 和外层名称 | P2 · E15 |
-| C026 · `app/components/LlmSettingsPanel.tsx`<br>`LlmSettingsPanel` | F/Q/O · S E08 catalog read 失败保旧事实、敏感表单 guard/写锁、视觉兜底恢复 | E08 实现已审阅；V OAuth/凭据/部分写入与回滚、多阶段/原生窗口 | P1 · E07/E08/E17 |
-| C027 · `app/components/McpSettingsPanel.tsx`<br>`McpSettingsPanel` | F/Q/O · S 原安装/启停/OAuth/资源/Prompt；E15 reader/共享反馈、同步操作锁、fieldset busy、本地 transport radio 与敏感编辑 guard | E15/E17 实现已审阅；V 部分写入/未知/认证晚回执/dirty 与真实退出；宿主契约未新增 | P1 · E08/E09/E15/E17 |
+| C026 · `app/components/LlmSettingsPanel.tsx`<br>`LlmSettingsPanel` | F/Q/O · S E08 catalog read 失败保旧事实、敏感表单 guard/写锁、视觉兜底恢复；S F5：目录与已连接视图一次 fade 交接，删除私有关闭 timer/逐卡级联；OAuth 不再向不可关闭浮层传 noop onClose，避免 Escape 留空壳 | E08 实现已审阅；V OAuth/凭据/部分写入与回滚、多阶段/原生窗口 | P1 · E07/E08/E17 |
+| C027 · `app/components/McpSettingsPanel.tsx`<br>`McpSettingsPanel` | F/Q/O · S 原安装/启停/OAuth/资源/Prompt；E15 reader/共享反馈、同步操作锁、fieldset busy、本地 transport radio 与敏感编辑 guard；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | E15/E17 实现已审阅；V 部分写入/未知/认证晚回执/dirty 与真实退出；宿主契约未新增 | P1 · E08/E09/E15/E17 |
 | C028 · `app/components/ModelCatalogDialog.tsx`<br>`ModelCatalogDialog` | Q/F/O · S E08 基于事实内容更新目录、保用户选择、导入锁/dirty、手动新增保旧模型 | E08 实现已审阅；V 空/迟到/部分失败与回滚、真正取消/归焦 | P1 · E06/E08 |
 | C029 · `app/components/ModelSettingsDialog.tsx`<br>`ModelSettingsDialog` | F/O · S E08 表单错误保留、单次保存、离开前 save/discard/stay、忙碌字段禁用 | E08 实现已审阅；V 无效 metadata/写失败/关闭/回执、读屏 | P1 · E08/E17 |
-| C030 · `app/components/OverflowMenu.tsx`<br>`OverflowMenu` | Q/O · S 共享 layer、方向/Home/End、跳过禁用项、roving 与触发者归焦 | E06 实现已审阅；V 空/全禁用、外点/Tab/相邻工作点 | P1 · E06 |
-| C031 · `app/components/Overlay.tsx`<br>`Overlay` | O · S layer ownership、native inert、Tab/focusin、portal 子层、幂等关闭/API 降级与真实归焦；E08 onRequestClose 在退场前处理 dirty | Layer 注销后 ownsScope 必须失效，避免卸载顺序让旧焦点拦截器重捕获归焦；E06/E08/E16/E17 实现已审阅；共享 visualMotion 处理 API/ready/finished/无事件/隐藏，保 dirty veto；V 嵌套/关闭竞态/归焦 | P1 · E06/E08/E16/E17 |
-| C032 · `app/components/QuickChatPopover.tsx`<br>`QuickChatPopover` | Q/O · S 原生弹选内容：目标/模型/强度、键盘索引；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核长列表/滚动、选中消失、返回窗口焦点及 IME 优先 | P1 · E03/E06/E11 |
-| C033 · `app/components/QuickChatPopoverHost.tsx`<br>`QuickChatPopoverHost` | H/O · S 窗口状态订阅与 structured select/hide IPC；接口：`onQuickChatPopoverState`, `quickChatHidePopover`, `quickChatSelectPopoverValue` | 待核跨窗口 Escape、卸载订阅和旧选择事件归属 | P1 · E11/E17 |
+| C030 · `app/components/OverflowMenu.tsx`<br>`OverflowMenu` | Q/O · S 共享 layer、方向/Home/End、跳过禁用项、roving 与触发者归焦；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | E06 实现已审阅；V 空/全禁用、外点/Tab/相邻工作点 | P1 · E06 |
+| C031 · `app/components/Overlay.tsx`<br>`Overlay` | O · S layer ownership、native inert、Tab/focusin、portal 子层、幂等关闭/API 降级与真实归焦；E08 onRequestClose 在退场前处理 dirty；S F5：关闭准备可同步或异步拒绝；在途合并，卸载失效旧结果；确认后退场即 inert，既有 watcher 有界收尾 | Layer 注销后 ownsScope 必须失效，避免卸载顺序让旧焦点拦截器重捕获归焦；E06/E08/E16/E17 实现已审阅；共享 visualMotion 处理 API/ready/finished/无事件/隐藏，保 dirty veto；V 嵌套/关闭竞态/归焦 | P1 · E06/E08/E16/E17 |
+| C032 · `app/components/QuickChatPopover.tsx`<br>`QuickChatPopover` | Q/O · S 原生弹选内容：目标/模型/强度、键盘索引；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生弹选 DOM 轻 fade 入场；退出/选择交主进程现有窗口生命周期，不等待 DOM 动画 | 待核长列表/滚动、选中消失、返回窗口焦点及 IME 优先 | P1 · E03/E06/E11 |
+| C033 · `app/components/QuickChatPopoverHost.tsx`<br>`QuickChatPopoverHost` | H/O · S 窗口状态订阅与 structured select/hide IPC；接口：`onQuickChatPopoverState`, `quickChatHidePopover`, `quickChatSelectPopoverValue`；S F5：订阅既有 closed 事件清旧视图，卸载清两项订阅；不新增 IPC | 待核跨窗口 Escape、卸载订阅和旧选择事件归属 | P1 · E11/E17 |
 | C034 · `app/components/QuickChatTaskCard.tsx`<br>`QuickChatTaskCard` | Q/A · S 目标卡选中与 disabled 展示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核目标删除/失效、实际选择与视觉一致 | P1 · E08/E11 |
 | C035 · `app/components/QuickChatWindow.tsx`<br>`QuickChatWindow` | I/O · S bot 按目标恢复 draft/pending、真实 receipt/同 ID retry；经典沿旧 localStorage；共享 IME | G02 实现已审阅；V 迟到换 bot/隐藏、重开与附件限制 | P0 · E02/E03/E11 |
 | C036 · `app/components/ReleaseNotesView.tsx`<br>`ReleaseNotesView` | V · S 发布说明只读展示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核空/长文/链接打开失败、版本身份与滚动 | P1 · E09/E12 |
@@ -306,11 +341,11 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C038 · `app/components/RemoteAccessPanel.tsx`<br>`RemoteAccessPanel` | F/Q · S gateway/controller 状态、加载/错误/重试；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核断联/撤回/授权范围、无 bot 与真实失败区分 | P1 · E08/E11 |
 | C039 · `app/components/RuntimeFacts.tsx`<br>`FactCard`, `RuntimeFacts` | R/V · S FactCard 汇总运行时事实；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核未知/过期事实、有来源入口，不从文本推导成功 | P1 · E04/E12 |
 | C040 · `app/components/SettingsDisclosureContent.tsx`<br>`SettingsDisclosureContent` | O · S 保留退场 DOM、立即 inert/aria-hidden，收起时交回真实控制按钮 | E06/E16/E17 收起 inert/归焦与 shared watcher 已审阅；V 快速反向/卸载/无 trigger/背景中断 | P1 · E06/E16/E17 |
-| C041 · `app/components/SettingsPage.tsx`<br>`SettingsPage` | Q/F · S E08 分区/返回/deep-link 与全局页面 guard；重挂载前明确编辑责任 | G04/E08 实现已审阅；V 快速导航/保存中/继续编辑/焦点、多实例 | P1 · E08/E17 |
+| C041 · `app/components/SettingsPage.tsx`<br>`SettingsPage` | Q/F · S E08 分区/返回/deep-link 与全局页面 guard；重挂载前明确编辑责任；S F5：12 个公开分区沿 key=section，仅当前内容一次 fade；移除整页与所有子项叠加 rise，后台数据刷新不重播 | G04/E08 实现已审阅；V 快速导航/保存中/继续编辑/焦点、多实例 | P1 · E08/E17 |
 | C042 · `app/components/ShortcutsPanel.tsx`<br>`ShortcutRow`, `ShortcutsPanel` | F · S 录制/注册状态、更新/恢复热键、aria-live；接口：`getShortcutStatus`, `resetShortcut`, `updateShortcut` | 待核 IME/冲突/系统拒绝/取消录制、合理广播频率 | P1 · E03/E06/E08 |
 | C043 · `app/components/SourceCheckoutPanel.tsx`<br>`SourceCheckoutPanel` | F/V/A · S 源头检查/文件、提交/拒绝/重试 handoff、busy/error；接口：`goalPlansCommitSourceCheckout`, `goalPlansDeclineSourceHandoffs`, `goalPlansInspectSourceCheckout` 等 | 待核真实 Git 事实与按钮回执、未知提交不盲重试、冲突恢复 | P0 · E04/E09 |
 | C044 · `app/components/SystemInstructionsPanel.tsx`<br>`SystemInstructionsPanel` | F · S E08 shared saved/draft、读取/保存错误/重试/还原、会话内保留 | G04 实现已审阅；V host 变化/未知回执/离开；Context Source 未变 | P1 · E08/E17 |
-| C045 · `app/components/Tooltip.tsx`<br>`Tooltip` | O/R · S Escape/hover 保持、短间隙宽限、原描述合并；passive layer 不抢焦点/Tab | G07 实现已审阅；V 鼠标/键盘切换、原描述/读屏、锚点失效 | P1 · E06/E15 |
+| C045 · `app/components/Tooltip.tsx`<br>`Tooltip` | O/R · S Escape/hover 保持、短间隙宽限、原描述合并；passive layer 不抢焦点/Tab；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | G07 实现已审阅；V 鼠标/键盘切换、原描述/读屏、锚点失效 | P1 · E06/E15 |
 | C046 · `app/components/UpdateModal.tsx`<br>`UpdateModal` | O/V/A · S updater 状态投影、关闭状态与真实操作；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核无新版本/错误/下载/安装分开、关闭不重复发请求 | P1 · E12/E17 |
 | C047 · `app/components/UpdatesPanel.tsx`<br>`ExternalLinkIcon`, `UpdatesPanel` | V/A · S 版本/更新状态与产品链接；接口：`openProductLink` | 待核离线/版本未知/打开失败、受支持安装方式提示 | P1 · E12/E15 |
 | C048 · `app/components/VersionBadge.tsx`<br>`VersionBadge` | V/O · S 徽标/弹层、pendingDownload 承接请求；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核下载前 pending 与真实 phase、closeTarget 消失降级 | P1 · E12/E17 |
@@ -320,7 +355,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C052 · `app/pages/GlobalWorkbenchPage.tsx`<br>`GlobalWorkbenchPage`, `InboxRow`, `ActionArrowIcon` | Q/V/A · S 全局雷达、InboxRow、实际 workspace/attention 事实；接口：`onConversationsChanged`, `workspaceList`, `workspaceSetActive` | E16 思考球隐藏/reduce 暂停已审阅；V 真实可见性/旧消费者事实文案与 G11 交互 | P1 · E04/E11/E16 |
 | C053 · `app/pages/HistoryPage.tsx`<br>`HistoryPage` | Q · S 经典历史过滤与查询；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核空/无结果/读失败区别、回原任务和位置 | P1 · E05/E11 |
 | C054 · `app/pages/HomePage.tsx`<br>`HomePage` | H/V · S 经典首页包装，委托 GlobalWorkbenchPage；事实：受控 props / 所属 hook（装配模块由子树承接） | 包装不另造主语；待核兼容入口与范围选择 | P1 · E11 |
-| C055 · `app/pages/TaskOverviewPage.tsx`<br>`WorkItemMeta`, `SectionLink`, `TaskOverviewPage`, `TopLine`, `HeroLayout`, `ListLayout`, `HandoffRow`, `DiscussionCard`, `WorkItem`, `ArtifactHoverPreview`, `ArtifactPreviewPortal`, `ArtifactList`, `ResultCard` | Q/V/O · S 多类任务/产物/交回/结果卡和预览，受控事实投影；接口：`openPath` | E16 显示阶段定时器改共享 watcher、静态中断已审阅；V 旧 lifecycle/预览键盘/真实签收 | P1 · E04/E09/E11/E16 |
+| C055 · `app/pages/TaskOverviewPage.tsx`<br>`WorkItemMeta`, `SectionLink`, `TaskOverviewPage`, `TopLine`, `HeroLayout`, `ListLayout`, `HandoffRow`, `DiscussionCard`, `WorkItem`, `ArtifactHoverPreview`, `ArtifactPreviewPortal`, `ArtifactList`, `ResultCard` | Q/V/O · S 多类任务/产物/交回/结果卡和预览，受控事实投影；接口：`openPath`；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定；悬停预览按锚点身份登记被动层，内容晚到重定位 | E16 显示阶段定时器改共享 watcher、静态中断已审阅；V 旧 lifecycle/预览键盘/真实签收 | P1 · E04/E09/E11/E16 |
 | C056 · `app/pages/TasksPage.tsx`<br>`TasksPage` | Q/A · S 任务筛选/搜索/标记已读/删除；接口：`goalPlansDelete`, `taskOverviewMarkRead` | 待核批处理失败、选择对象消失、删除确认/恢复 | P1 · E04/E06/E11 |
 | C057 · `app/pages/WorkStream.tsx`<br>根装配；无独立组件声明 | G/V · S E16 FLIP/塌缩复用 visualMotion/token；偏好/隐藏停止，缺 ResizeObserver 用 resize，缺帧 API 静态 | 实现已审阅；V 跨列 remount 焦点/选择/锚点/反向，未改成保 DOM 布局 | P1 · E05/E16/E17 |
 | C058 · `app/pages/actionLabelDisplay.tsx`<br>`ActionLabel` | R · S ActionLabel 的图文表达；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核动词/对象与真实动作一致，非装饰箭头用 SVG | P1 · E04/E15 |
@@ -328,8 +363,8 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C060 · `appearance/AppearancePanel.tsx`<br>`AppearancePanel`, `ThemeModeCards`, `ThemeLivePreview` | F/G · S 模式卡/实时预览、主题/材质/字号偏好；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核放大/强制颜色/减少透明、设置应用失败与读位保持 | P1 · E07/E15/E17 |
 | C061 · `appearance/AppearanceProvider.tsx`<br>`AppearanceProvider` | H · S 外观设置与系统 scheme 的统一投影；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核系统变更/多窗口/重挂载不丢草稿和 focus | P1 · E07/E17 |
 | C062 · `appearance/AppearanceSlider.tsx`<br>`AppearanceSlider` | F/G · S 受控外观连续值；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核范围值/键盘/取消、字体放大不压没关键操作 | P1 · E06/E15 |
-| C063 · `appearance/PaletteSelect.tsx`<br>`PaletteSelect` | Q/O · S phase/activeIndex、键盘与 transitionend；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核重复开合/丢 transitionend/当前选项消失/归焦 | P1 · E06/E16/E17 |
-| C064 · `automations/AutomationCenter.tsx`<br>`Icon`, `AutomationCenter`, `Metric`, `Editor`, `AutomationDetail`, `RunsTable`, `RunReceipt`, `PageBack`, `FormSection`, `Field`, `Choice`, `Review` | Q/F/V · S 列表/Editor/Detail/RunsTable/RunReceipt、草稿与运行 API；接口：`automationRunsCancel`, `automationRunsGet`, `automationRunsList` 等 | 机器人壳新建进入 Editor 及舍弃返回已点查；E10 会话草稿/冲突核对、各 view 独立读状态、真实回执与刷新分开已审阅；V 未知创建/取消/时区/送达 | P1 · E10/E17 |
+| C063 · `appearance/PaletteSelect.tsx`<br>`PaletteSelect` | Q/O · S phase/activeIndex、键盘与共享视觉收尾；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：移除私有退出 timer/强制 reflow，接 MotionSurface 和共享 layer/Tab/IME；原 ARIA listbox/选值保留 | 待核重复开合/丢 transitionend/当前选项消失/归焦 | P1 · E06/E16/E17 |
+| C064 · `automations/AutomationCenter.tsx`<br>`Icon`, `AutomationCenter`, `Metric`, `Editor`, `AutomationDetail`, `RunsTable`, `RunReceipt`, `PageBack`, `FormSection`, `Field`, `Choice`, `Review` | Q/F/V · S 列表/Editor/Detail/RunsTable/RunReceipt、草稿与运行 API；接口：`automationRunsCancel`, `automationRunsGet`, `automationRunsList` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 机器人壳新建进入 Editor 及舍弃返回已点查；E10 会话草稿/冲突核对、各 view 独立读状态、真实回执与刷新分开已审阅；V 未知创建/取消/时区/送达 | P1 · E10/E17 |
 | C065 · `capabilities/components/CapabilityCard.tsx`<br>`CapabilityCard` | Q/A · S 受控能力摘要与打开详情；事实：受控 props / 所属 hook（装配模块由子树承接） | E15 受控 aria-pressed 已审阅；V 键盘发现/禁用原因、来源与实际能力区分 | P1 · E08/E15 |
 | C066 · `capabilities/components/CapabilityDetailPanel.tsx`<br>`DetailList`, `CapabilityDetailPanel` | V/A · S 详情与展开 Manifest；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核长参数/缺字段、Manifest 不是当前授权、关闭回卡 | P1 · E08/E09 |
 | C067 · `capabilities/components/CapabilityEmptyState.tsx`<br>`CapabilityEmptyState` | R/A · S 能力空态/引导入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核真空与失败区分、主动作与原因明确 | P1 · E08/E15 |
@@ -343,18 +378,18 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C075 · `capabilities/components/SkillsInstalledPanel.tsx`<br>`SkillIcon`, `SkillSection`, `SkillsInstalledPanel` | Q/F · S E15 installed/available 独立 reader 保快照/真空，逐对象 pending/同步锁/真实回执；accept 失效旧读取，嵌套 Switch 键盘不激活卡 | 实现已审阅；V 外部变化/作用域/卸载/借用和未知回执；不新增幂等协议 | P1 · E08/E09/E15 |
 | C076 · `capabilities/components/SkillsPanel.tsx`<br>`SkillsPanel` | Q/H · S E15 C210 有 panel 关联/roving/显式激活，原 revision/上传成功后进入已安装 | 实现已审阅；V 视图重挂载/搜索与阅读状态、实际上传/安装回执 | P1 · E08/E15/E17 |
 | C077 · `chat/components/AutomationProposalCard.tsx`<br>`AutomationProposalCard`, `ProposalCard` | V/A · S 提案折叠、pendingAction/actionError；事实：受控 props / 所属 hook（装配模块由子树承接） | E10 同帧写锁/按提案隔离、后台不重置展开已审阅；V 提案失效/拒绝/真实创建回执 | P1 · E04/E10 |
-| C078 · `chat/components/ChatSurface.tsx`<br>`ChatSurface` | I/V/O · S 经典任务现场、流式/权限/模型/Goal/附件与恢复装配；接口：`approveLocalAction`, `automationProposalAct`, `chatAbort` 等 | S E05 手势/快照/真实 turn 恢复移至 hook/seam，净减文件；V 压缩/虚拟/旧消费者 | P0 输入/决策，P1 阅读 · E02/E03/E04/E05/E06/E11 |
-| C079 · `chat/components/ComposerDraftControls.tsx`<br>`ComposerDraftControls`, `ComposerDraftField` | I/Q · S 共享 composition guard、补全 Escape 保留正文；既有草稿 store/搜索接口 | E03 实现已审阅；V OS 事件、快速第二 Enter、旧异步结果 | P0 · E02/E03 |
+| C078 · `chat/components/ChatSurface.tsx`<br>`ChatSurface` | I/V/O · S 经典任务现场、流式/权限/模型/Goal/附件与恢复装配；接口：`approveLocalAction`, `automationProposalAct`, `chatAbort` 等；S F5：查找条保留表达载体，真实 open 决定交互层/查找高亮，关闭不等动画 | S E05 手势/快照/真实 turn 恢复移至 hook/seam，净减文件；V 压缩/虚拟/旧消费者 | P0 输入/决策，P1 阅读 · E02/E03/E04/E05/E06/E11 |
+| C079 · `chat/components/ComposerDraftControls.tsx`<br>`ComposerDraftControls`, `ComposerDraftField` | I/Q · S 共享 composition guard、补全 Escape 保留正文；既有草稿 store/搜索接口；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | E03 实现已审阅；V OS 事件、快速第二 Enter、旧异步结果 | P0 · E02/E03 |
 | C080 · `chat/components/ComposerTokenUsageDisplay.tsx`<br>`ComposerTokenUsageDisplay` | R/V · S 受控上下文用量；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核未知/估算/限制说明、不可用不渲染假零 | P1 · E08/E15 |
 | C081 · `chat/components/ConversationAccessControl.tsx`<br>`ConversationAccessControl` | F/O · S 经典会话权限控件的加载/错误/禁用投影；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核实际 scope/撤回/失效与旧决定，不在 renderer 造许可 | P0 · E04/E11 |
 | C082 · `chat/components/ConversationSearchPalette.tsx`<br>`BotSearchSections`, `ConversationSearchPalette` | Q/O · S 全局会话/机器人搜索、loading/activeIndex；接口：`conversationsList`, `projectAgentSearch` | S E06 保留 IME 优先和 Overlay 归焦；V 旧响应/无结果/来源定位 | P1 · E03/E05/E06 |
 | C083 · `chat/components/CreateBranchDialog.tsx`<br>`CreateBranchDialog` | F/O · S 分支源/名称/push/upstream 受控表单；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核非法/重复分支、提交失败/未知、未保存关闭 | P1 · E08/E09 |
 | C084 · `chat/components/EditProjectDialog.tsx`<br>`EditProjectDialog` | F/O · S 项目名/关联目录/主目录编辑与 busy/error；接口：`workspaceAddLinkedFolder`, `workspaceRemoveLinkedFolder`, `workspaceSetPrimary` 等 | 待核移除失败/dirty 关闭、当前 world 不被悄换 | P1 · E08/E11/E17 |
-| C085 · `chat/components/GoalPlanPanel.tsx`<br>`GoalTaskStatusIcon`, `GoalContractSection`, `PlanProjectionSection`, `RunTraceItem`, `RunTraceSection`, `TaskNode`, `RunnerSection`, `VerifierItem`, `ExplorerItem`, `CompactApprovalBar`, `PlanCard`, `GoalPlanPanel` | V/F/A · S Goal/Plan/RunTrace/Runner/Verifier/Explorer 与真实批准/暂停/交回 API；接口：`goalPlansDiscardLine`, `goalPlansIsolate`, `goalPlansList` 等 | 待核同事实投影、过期批准/手工标准、机器结束不等签收 | P0 · E04/E11 |
+| C085 · `chat/components/GoalPlanPanel.tsx`<br>`GoalTaskStatusIcon`, `GoalContractSection`, `PlanProjectionSection`, `RunTraceItem`, `RunTraceSection`, `TaskNode`, `RunnerSection`, `VerifierItem`, `ExplorerItem`, `CompactApprovalBar`, `PlanCard`, `GoalPlanPanel` | V/F/A · S Goal/Plan/RunTrace/Runner/Verifier/Explorer 与真实批准/暂停/交回 API；接口：`goalPlansDiscardLine`, `goalPlansIsolate`, `goalPlansList` 等；S F5：收起时长取共享 token/watchVisualMotion，反向/隐藏/卸载取消旧收尾；立即 inert/aria-hidden，卸载清宿主 data-closing | 待核同事实投影、过期批准/手工标准、机器结束不等签收 | P0 · E04/E11 |
 | C086 · `chat/components/MessageQueue.tsx`<br>`QueueDragHandle`, `EditIcon`, `TrashIcon`, `ForceSendIcon`, `MessageQueue`, `PEER_QUEUED_MESSAGE_DND_TYPE` | Q/G/F · S 待发消息拖动/编辑/删除/强发回调；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核键盘改序、pointercancel/卸载、强发作用域与去重 | P0 输入/P1 手势 · E02/E03/E06 |
-| C087 · `chat/components/SelectionChatWorkspace.tsx`<br>`SelectionChatWorkspace` | I/O · S 持久选区子会话、draft/保存/待发文本与 parent 来源；接口：`conversationsGet`, `onConversationsChanged`, `selectionCreateChild` 等 | 待核保存失败/原文失效、关闭回位/不覆盖已有草稿 | P1 · E02/E05/E09 |
-| C088 · `chat/components/SelectionQuoteAction.tsx`<br>`SelectionQuoteAction` | A/O · S 选区定位、引用 API、busy/error/confirmation；接口：`conversationsGet`, `selectionQuote` | 待核键盘等价入口、失效 Range/滚动重定位与恢复 | P1 · E05/E06/E09 |
-| C089 · `chat/components/Sidebar.tsx`<br>`PinIcon`, `Sidebar` | Q/F/O · S 经典 workspace/会话管理、搜索/菜单/改名/确认；接口：`onConversationsChanged`, `onWorkspacesChanged`, `openPath` 等 | 待核键盘/拖动/上下文菜单、切换草稿和删除后归处 | P1 · E06/E11 |
+| C087 · `chat/components/SelectionChatWorkspace.tsx`<br>`SelectionChatWorkspace` | I/O · S 持久选区子会话、draft/保存/待发文本与 parent 来源；接口：`conversationsGet`, `onConversationsChanged`, `selectionCreateChild` 等；S F5：真实草稿保存成功后才退场；失败/期间新编辑留现场与局部恢复，旧 parent/代次失效，重复关闭不重复保存 | 待核保存失败/原文失效、关闭回位/不覆盖已有草稿 | P1 · E02/E05/E09 |
+| C088 · `chat/components/SelectionQuoteAction.tsx`<br>`SelectionQuoteAction` | A/O · S 选区定位、引用 API、busy/error/confirmation；接口：`conversationsGet`, `selectionQuote`；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核键盘等价入口、失效 Range/滚动重定位与恢复 | P1 · E05/E06/E09 |
+| C089 · `chat/components/Sidebar.tsx`<br>`PinIcon`, `Sidebar` | Q/F/O · S 经典 workspace/会话管理、搜索/菜单/改名/确认；接口：`onConversationsChanged`, `onWorkspacesChanged`, `openPath` 等；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核键盘/拖动/上下文菜单、切换草稿和删除后归处 | P1 · E06/E11 |
 | C090 · `chat/components/SidebarConversationRow.tsx`<br>`PinIcon`, `SidebarConversationRow` | Q/A · S 受控行、pin/选中/键盘与禁用；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核 hover 操作 focus 可发现、长标题/重命名/失效对象 | P1 · E06/E15 |
 | C091 · `chat/components/SidebarWorkbenchCounts.tsx`<br>`SidebarWorkbenchCounts` | R · S 工作台数字摘要；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核计数与原清单同投影、过期不伪装最新 | P0 · E04/E11 |
 | C092 · `chat/components/gitGlyphs.tsx`<br>`GitBranchGlyph`, `GitWorktreeGlyph` | R · S Git branch/worktree SVG；事实：受控 props / 所属 hook（装配模块由子树承接） | 纯装饰交互态 N/A；外层动作名称/状态文本须明确 | P2 · E15 |
@@ -367,33 +402,33 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C099 · `chat/components/thread/AssistantContent.tsx`<br>`ToolProgressInline`, `LiveToolProgress`, `AssistantContentImpl`, `ProcessingDetailsSection`, `ThinkingTextGroup`, `TimelineGroups`, `ToolCallCard`, `CompactionSummaryCard`, `AssistantContent` | V/O · S 真实工具/思考/压缩详情、timeline 与 motion presence；事实：受控 props / 所属 hook（装配模块由子树承接） | E16 ThinkingOrb 按偏好/隐藏暂停已审阅；V 用户收起意图、真实工具/文本区分及其他状态循环 | P1 · E04/E05/E16 |
 | C100 · `chat/components/thread/AttachmentStrip.tsx`<br>`AttachmentStrip`, `ResolvedImageChip`, `AttachmentThumb`, `PEER_ATTACHMENT_DND_TYPE` | Q/G/V · S 附件重排/缩略图/读取失败和 pending；事实：受控 props / 所属 hook（装配模块由子树承接） | E09 失败图片可进共享灯箱、解码故障/来源缓存隔离已审阅；V 键盘重排/拖动/缺失图/移除 | P1 · E02/E06/E09 |
 | C101 · `chat/components/thread/BatchSearchToolCard.tsx`<br>`BatchSearchToolCard` | V/O · S 搜索调用批量展示、展开与 error/pending；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核失败/空结果分开、收起保留意图、参数证据可达 | P1 · E04/E09 |
-| C102 · `chat/components/thread/ChatFindBar.tsx`<br>`ChatFindBar` | Q/O · S 查找使用 shared layer/IME、用户导航修订与后台高亮分开，reduce 不 smooth | E05/E06/E17 实现已审阅；显式定位静态到位；V 未渲染范围/归焦/真实快捷键 | P1 · E05/E06 |
-| C103 · `chat/components/thread/ChatHeader.tsx`<br>`ChatHeader` | F/Q/O · S 标题改名、菜单与模型/任务操作受控；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核改名失败/dirty 退出、长标题与焦点 | P1 · E06/E08 |
-| C104 · `chat/components/thread/ChatHeaderCapabilities.tsx`<br>`ChatHeaderCapabilities` | Q/O · S 当前能力/Skills 列表、启停/卸载与错误；接口：`disableSkill`, `enableSkill`, `listCapabilities` 等 | 待核清单失败/实际 Projection、卸载后当前请求/焦点 | P1 · E08/E09 |
+| C102 · `chat/components/thread/ChatFindBar.tsx`<br>`ChatFindBar` | Q/O · S 查找使用 shared layer/IME、用户导航修订与后台高亮分开，reduce 不 smooth；S F5：查找条接 MotionSurface fade，关闭立即停 layer/高亮/检索并清查询；隐藏实例不清除别处高亮 | E05/E06/E17 实现已审阅；显式定位静态到位；V 未渲染范围/归焦/真实快捷键 | P1 · E05/E06 |
+| C103 · `chat/components/thread/ChatHeader.tsx`<br>`ChatHeader` | F/Q/O · S 标题改名、菜单与模型/任务操作受控；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核改名失败/dirty 退出、长标题与焦点 | P1 · E06/E08 |
+| C104 · `chat/components/thread/ChatHeaderCapabilities.tsx`<br>`ChatHeaderCapabilities` | Q/O · S 当前能力/Skills 列表、启停/卸载与错误；接口：`disableSkill`, `enableSkill`, `listCapabilities` 等；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核清单失败/实际 Projection、卸载后当前请求/焦点 | P1 · E08/E09 |
 | C105 · `chat/components/thread/ChatTurn.tsx`<br>`StreamingElapsedTime`, `ChatTurnImpl`, `ChatTurn` | V · S 稳定 turn 展示、elapsed 与受控子内容；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核流式到持久身份、停止不完整、历史不重播 | P1 · E05/E16/E17 |
 | C106 · `chat/components/thread/ContextAccountUsage.tsx`<br>`ContextAccountUsage` | V · S 订阅 quota 请求、状态与时间读数；接口：`llmGetSubscriptionQuota` | 待核过期/未知/请求失败与刷新，不推断计费 | P1 · E08/E15 |
-| C107 · `chat/components/thread/ContextUsagePanel.tsx`<br>`ContextUsagePanel` | O/V · S 上下文用量锚定面板与定位；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核无数据/过期、键盘入口/关闭归焦/长值 | P1 · E06/E08 |
+| C107 · `chat/components/thread/ContextUsagePanel.tsx`<br>`ContextUsagePanel` | O/V · S 上下文用量锚定面板与定位；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核无数据/过期、键盘入口/关闭归焦/长值 | P1 · E06/E08 |
 | C108 · `chat/components/thread/ImageLightbox.tsx`<br>`ImageLightbox` | O/V/G · S 统一图片预览、适应/原尺寸、复制路径/打开；接口：`openPath` | G08/E09 读/解码错误、手动重读、绝对路径动作/复制打开失败已审阅；V 原尺寸/晚图/窄窗/归焦 | P1 · E09/E17 |
 | C109 · `chat/components/thread/ImagePreviewBar.tsx`<br>`ImagePreviewBar` | Q/V · S 受控图片预览条；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核缺图/移除/文件名与外层可达名称 | P1 · E09/E15 |
 | C110 · `chat/components/thread/InteractionToolCard.tsx`<br>`InteractionToolCard` | V/F/A · S 结构化问答/交互卡与 optimisticAnswer；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核选项/自由输入/失效/提交失败、乐观态不冒充决定事实 | P0 · E04/E11 |
 | C111 · `chat/components/thread/MessageActionBar.tsx`<br>`MessageActionBar` | A/O · S 复制/删除确认反馈；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核复制失败、删除后焦点、hover 与 focus-within 可发现 | P1 · E06/E09/E15 |
 | C112 · `chat/components/thread/MessageRail.tsx`<br>`MessageRail` | R/V · S 消息操作/元信息侧轨；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核放大/窄窗、操作发现与正文阅读不冲突 | P1 · E07/E15 |
 | C113 · `chat/components/thread/MessageRichParts.tsx`<br>`MessageRichParts` | V/A · S 受控富消息片段与动作；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核部分数据/不可用操作、来源/Evidence 关系与长内容 | P1 · E04/E09 |
-| C114 · `chat/components/thread/ModelSelectionPanel.tsx`<br>`EffortRange`, `RequestChannelToggle`, `ModelSelectionPanel`, `AnchoredModelSelectionMenu`, `ComposerModelMenu` | F/Q/G/O · S E08 已接入 PR197；服务商浏览无写入、受控选中、共享层级/键盘/动效；滑块保持至保存 Promise 收尾，忙碌入口可归焦但 guard 禁止重复动作 | E08 实现已审阅；V 真实 slider/取消、继承/长名/窄窗和跨窗口 | P1 · E01/E06/E08 |
+| C114 · `chat/components/thread/ModelSelectionPanel.tsx`<br>`EffortRange`, `RequestChannelToggle`, `ModelSelectionPanel`, `AnchoredModelSelectionMenu`, `ComposerModelMenu` | F/Q/G/O · S E08 已接入 PR197；服务商浏览无写入、受控选中、共享层级/键盘/动效；滑块保持至保存 Promise 收尾；E08-F2 支持控件忙态/错误提示与浮层反馈，选择锁定和恢复菜单分开；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 实现已审阅；V 慢保存/失败关开/首读失败、真实 slider/取消、继承/长名/窄窗和跨窗口 | P1 · E01/E06/E08 |
 | C115 · `chat/components/thread/PermissionGateStrip.tsx`<br>`PermissionGateStrip` | V/A · S E17 点击立即交原 onApprove/onReject/onApproveAlways，原展示对象同步防重；移除 useExitAnimation 派发延迟 | 实现已审阅；V 原宿主 approval/范围/迟到/撤权/失败；点击不创造 grant | P0 · E04；P1 E17 |
-| C116 · `chat/components/thread/ReasoningEffortSlider.tsx`<br>`ReasoningEffortSlider` | F/G/O · S 强度选值、dragValue/dirty/saving 与浮层定位；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核离散档/键盘/失败回读/拖动取消，复用统一模型入口 | P1 · E06/E08/E15 |
+| C116 · `chat/components/thread/ReasoningEffortSlider.tsx`<br>`ReasoningEffortSlider` | F/G/O · S 强度选值、dragValue/dirty/saving 与浮层定位；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核离散档/键盘/失败回读/拖动取消，复用统一模型入口 | P1 · E06/E08/E15 |
 | C117 · `chat/components/thread/SkillCapsuleCard.tsx`<br>`SkillCapsuleCard` | V/O · S 技能摘要、展开与键盘；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核用户折叠意图/缺来源/长名，技能提示不是执行证明 | P1 · E08/E09 |
 | C118 · `chat/components/thread/ThinkingTimeline.tsx`<br>`ThinkingTimeline` | V · S 真实思考/工具 timeline 的受控展示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核等待/错误语义、不自动展开内部过程或重播历史 | P1 · E04/E05/E16 |
 | C119 · `chat/components/thread/TokenUsageDisplay.tsx`<br>`TokenUsageDisplay` | V/A · S lastKnownContext 与 token 提示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核 stale/估算/缺数据，不能把上一轮值当实时 | P1 · E08/E15 |
 | C120 · `chat/components/thread/VirtualChatTurnList.tsx`<br>`VirtualChatTurnList` | V/G · S 虚拟消息列表/测量 seam；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核旧 index/图片晚到/字体变化/定位，保持阅读意图 | P1 · E05/E17 |
 | C121 · `main.tsx`<br>根装配；无独立组件声明 | H · S 根挂载、主题和错误/确认 Provider 装配；事实：受控 props / 所属 hook（装配模块由子树承接） | 装配无独立交互态；待核启动失败仍有恢复入口 | P1 · E12/E15 |
-| C122 · `project-agent/AppMenu.tsx`<br>`AppMenu` | Q/O · S 机器人壳应用菜单与键盘；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核最上层 Escape/焦点、切经典/设置后返回 | P1 · E06/E11 |
+| C122 · `project-agent/AppMenu.tsx`<br>`AppMenu` | Q/O · S 机器人壳应用菜单与键盘；E16/E17-F4 受控 open 与视觉保留分开，shared rise/fast fade、关闭立即 inert/aria-hidden，watchVisualMotion 收尾/取消，焦点保读位；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 内容/diff 已审阅；V 开关/快速重开/reduce/隐藏/API 缺失、最上层 Escape/焦点、切经典/设置后返回 | P1 · E06/E11/E16/E17 |
 | C123 · `project-agent/AttentionSheet.tsx`<br>`AttentionSheet` | Q/O · S 真实 attention 清单、loading/error/retry、事实订阅；接口：`onProjectAgentChanged`, `onProjectAgentConversationChanged`, `projectAgentListAttention` | 到期只作一次宿主重读及父计数刷新，真实事实更新清单；时钟偏差不反复轮询，失败保旧行、卸载清理 timer；V 失效行/计数同步/点回原任务/空态与错误 | P0 · E04 |
 | C124 · `project-agent/BotAccessControl.tsx`<br>`BotAccessControl` | F/O · S 主 Bot 访问策略、加载/保存/失败/重试；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核继承/Full/Session/撤回真实范围，子任务不自造策略 | P0 · E04 |
 | C125 · `project-agent/BotAvatar.tsx`<br>`BotAvatar` | R · S 头像读取与状态 SVG/材质；接口：`projectAgentReadAvatar` | E16 共享 observer/偏好/隐藏与 gaze 短路已审阅；V 缺图/无 observer/离屏和实际能耗 | P1 · E15/E16 |
 | C126 · `project-agent/BotList.tsx`<br>`BotList` | Q · S 受控搜索/列表选择、组合输入保护；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核无结果/切换/搜索 Escape/长名称与选中消失 | P1 · E03/E06/E07 |
 | C127 · `project-agent/BotListShell.tsx`<br>`BotListShell` | H/Q/O · S 机器人壳/新建/档案/历史/任务上下文装配；接口：`projectAgentMarkRead` | PR204 列表分隔条接共享取消/屏障/清理；a0ae1a33 移除经典自动化草稿 callback，基础导航/抽屉往返点查通过；待核跨 bot 草稿、嵌套 drawer/focus 与旧请求；不增长大组件 | P1 · E02/E06/E17 |
-| C128 · `project-agent/BotModelControls.tsx`<br>`BotModelControls` | F/Q/O · S E08 配置与当前运行快照分开、受控下轮值/继承、atomic role patch | E08 实现已审阅；V 保存失败、投影迟到、范围收紧、running/next 对照 | P1 · E01/E08 |
+| C128 · `project-agent/BotModelControls.tsx`<br>`BotModelControls` | F/Q/O · S E08 配置与当前运行快照分开、受控下轮值/继承、atomic role patch；E08-F2 对话模型保存只在入口表达忙态，真实失败/待保存请求留提示，原浮层恢复 | 实现已审阅；V 保存失败关开/重试舍弃、投影迟到、范围收紧、running/next 对照 | P1 · E01/E08 |
 | C129 · `project-agent/BotRow.tsx`<br>`BotRow` | Q/A · S 受控机器人行、键盘与行动权入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核需要你/进行中语义、hover 操作可达与长名 | P0 事实/P1 视觉 · E04/E07 |
 | C130 · `project-agent/HistoryConversationList.tsx`<br>`HistoryConversationList` | Q · S 历史搜索/limit/加载/重试与键盘；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核空/无结果/加载失败区别、分页选择不跳 | P1 · E05/E11/E12 |
 | C131 · `project-agent/HistorySheet.tsx`<br>`HistorySheet` | Q/O/V · S 历史列表/预览、继续确认、读失败/重试；接口：`conversationsGet`, `projectAgentContinueHistory`, `projectAgentListHistory` | 待核双击继续/旧预览/原身份、关闭回列表位置 | P1 · E05/E11/E17 |
@@ -402,14 +437,14 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C134 · `project-agent/conversation/ApprovalReceipt.tsx`<br>`ApprovalReceipt` | V · S approval/plan 真实回执，批准/拒绝/过期/取消独立文字 | E04 实现已审阅；V 范围/历史对象、策略变更与迟到 | P0 · E04 |
 | C135 · `project-agent/conversation/BotAttachments.tsx`<br>`BotAttachments` | Q/V/O · S 附件列表/移除和共享灯箱预览；事实：受控 props / 所属 hook（装配模块由子树承接） | E09 图片/文本/元信息受控预览与移除归焦已审阅；V 故障/晚图/真实键盘；只读预览不构成 Evidence | P1 · E02/E09 |
 | C136 · `project-agent/conversation/BotComposer.tsx`<br>`BotComposer` | I · S 受控正文/quote/附件、共享 IME、发送/停止；恢复责任在 kernel/store | E09 受控引用按消息 ID 定位、移除回输入已审阅；G01/E03 沿用；V 附件读完/保存失败/真实 IME | P0 · E02/E03/E09 |
-| C137 · `project-agent/conversation/BotConversation.tsx`<br>`BotConversation` | I/V/O · S 既有 quote/Evidence/配置恢复；E12 追读超批保消息，明确继续读取 | a0ae1a33 修复消息/输入框同级重复 key；基础对话往返点查、渲染身份用例通过；E02/E08/E09/E12 已审阅；V 多批/源失效/换 bot 与迟到，不制造连续历史 | P0 输入；P1 · E05/E08/E09/E12 |
-| C138 · `project-agent/conversation/BotMessageList.tsx`<br>`BotMessageList`, `SystemCard` | V/Q · S shared policy+有界 reading memory；恢复分批/取消、显式回最新、任务焦点只交接一次 | 本轮补原生 scroll 捕获实际手势后的阅读锚点；同帧最终几何有界复核，仅当前 pinned 贴底，离开释放帧；React 投递延迟仍保位置，卸载释放 listener；原生帧 receiver 用例及较早基础历史阅读/回最新点查通过；E09 定位状态与 E05/E06 沿用；本地 `ed0f81b4` 修复帧 API receiver，打开对话已作单路径恢复确认；V 手势取消/虚拟重测/晚图/完整恢复 | P1 · E05/E06/E09/E12/E17 |
+| C137 · `project-agent/conversation/BotConversation.tsx`<br>`BotConversation` | I/V/O · S 既有 quote/Evidence/配置恢复；E12 追读超批保消息，明确继续读取；E08-F2 设置反馈从对话布局移回模型控件 | a0ae1a33 修复消息/输入框同级重复 key；基础对话往返点查、渲染身份用例通过；E02/E08/E09/E12 已审阅；V 多批/源失效/换 bot 与迟到，不制造连续历史 | P0 输入；P1 · E05/E08/E09/E12 |
+| C138 · `project-agent/conversation/BotMessageList.tsx`<br>`BotMessageList`, `SystemCard` | V/Q · S shared policy+有界 reading memory；恢复分批/取消、显式回最新、任务焦点只交接一次；E07/E17-F3 头像/名称与首段按共享 token 分组 | 本轮补原生 scroll 捕获实际手势后的阅读锚点；同帧最终几何有界复核，仅当前 pinned 贴底，离开释放帧；React 投递延迟仍保位置，卸载释放 listener；原生帧 receiver 用例及较早基础历史阅读/回最新点查通过；E09 定位状态与 E05/E06 沿用；本地 `ed0f81b4` 修复帧 API receiver，打开对话已作单路径恢复确认；V 手势取消/虚拟重测/晚图/完整恢复 | P1 · E05/E06/E09/E12/E17 |
 | C139 · `project-agent/conversation/BotNarration.tsx`<br>`BotNarration` | V · S 公共叙述和 aria-live；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核流式广播频率、停止/完成保留叙述、无私有思考 | P1 · E04/E05/E16 |
 | C140 · `project-agent/conversation/BotProcess.tsx`<br>`BotProcess`, `Preview` | V/O · S 过程预览/用时与真实记录；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核收起权、未知用时、历史重开不伪装进行中 | P1 · E04/E05/E16 |
-| C141 · `project-agent/conversation/BotSelectionQuote.tsx`<br>`BotSelectionQuote` | A/O · S 选区与浮动引用位置；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核键盘等价、Range 失效/滚动、引用源定位与 draft | P1 · E05/E06/E09 |
+| C141 · `project-agent/conversation/BotSelectionQuote.tsx`<br>`BotSelectionQuote` | A/O · S 选区与浮动引用位置；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核键盘等价、Range 失效/滚动、引用源定位与 draft | P1 · E05/E06/E09 |
 | C142 · `project-agent/conversation/CardView.tsx`<br>`CardView`, `CardDiagnostics`, `CardItem` | V/A/F · S busy/error；真实 approval 或回读当前卡；generic ok 只表示提交；新 props 优先 | 本轮 unknown 回执保留选择，canonical/received 才收起，沿原 inputId/answerTo 重试；动作前记焦点归属，reduce 即时移除也交本地输入，外移/后台撤销交接；E04/E16/E17 实现已审阅；G12 静态/异常收尾与原持焦点问题交本地输入；V 快速变化/过期/迟到/真实焦点 | P0 决策/P1 降级 · E04/E16/E17 |
 | C143 · `project-agent/conversation/CompletionReview.tsx`<br>`CompletionReview` | V/O · S 核验摘要展开与既有 review 投影；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核旧 attempt/partial/unverified 第一层可见、收起保意图 | P0 · E04/E09 |
-| C144 · `project-agent/conversation/ContinuousReply.tsx`<br>`ContinuousReply` | V · S 连续公共回复与 live 状态，稳定对象组合；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核段落身份/晚到持久消息/停止与失败不重放 | P1 · E05/E16/E17 |
+| C144 · `project-agent/conversation/ContinuousReply.tsx`<br>`ContinuousReply` | V · S 连续公共回复与 live 状态，稳定对象组合；E07/E17-F3 别名锚点保原 ID 并定位于回复起点，不参与 flex gap；空正文载体不占位 | 内容/diff 已审阅；V 多别名/无正文失败/引用定位/读位，以及段落身份/晚到持久消息/停止与失败不重放 | P1 · E05/E16/E17 |
 | C145 · `project-agent/conversation/DelegatedWork.tsx`<br>`DelegatedWork`, `WorkRow` | Q/V/A · S 子任务 WorkRow、状态与原任务入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核同 lifecycle/cancelable、并行分组不误归属、取消失败 | P0 · E04 |
 | C146 · `project-agent/conversation/EvidenceList.tsx`<br>`EvidenceList` | V/Q · S 按 Evidence 引用读取来源；接口：`projectAgentReadEvidence` | E09 读取/重读、100 条请求/更多与不可操作禁用已审阅；V 来源失效/无权限/缺失/重复引用 | P1 · E09 |
 | C147 · `project-agent/conversation/LiveReply.tsx`<br>`LiveReply` | V · S 真实活动和流式公共回复、aria-live；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核已停止/未知/持久接管不闪退/不重复播报 | P1 · E04/E05/E16 |
@@ -419,23 +454,23 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C151 · `project-agent/conversation/ReplyBubble.tsx`<br>`ReplyBubble` | V · S 稳定回复气泡与受控内容；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核首次/历史/重连身份、字号/窄窗和静态终态 | P1 · E05/E07/E16 |
 | C152 · `project-agent/conversation/ReplyContext.tsx`<br>`ReplyContext`, `ReplyDetailsContext`, `MemoryContext` | O/V/Q · S 回复详情/MemoryContext、pending/failed 和 memory 按需读取；接口：`projectMemoryList` | 待核来源 unavailable、收起/切 tab、返回同回复与焦点 | P1 · E06/E09/E10 |
 | C153 · `project-agent/conversation/ReplyDetails.tsx`<br>`ReplyDetails` | V/O · S 过程/工具/恢复等按需详情、loading/error；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核详情失败不抹正文、保持展开/原回复定位 | P1 · E04/E05/E09 |
-| C154 · `project-agent/conversation/ReplyPresence.tsx`<br>`ReplyPresence` | R/V · S 真实活动/等待/slow 提示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核计时只提示不造进度、结束清理与 reduce 静态 | P1 · E04/E16 |
+| C154 · `project-agent/conversation/ReplyPresence.tsx`<br>`ReplyPresence` | R/V · S replyPresenceState 复用 Activity/公开段落/回执；无 15 秒阶段覆盖，有正文普通过程静默，权限/恢复/停止明确；接收不冒充模型运行 | E04/E08-F1 已审阅；V 真实流转/未知/终态到卡、读屏/reduce；终态不转圈，未知刷新只重读 | P1 · E04/E08/E16 |
 | C155 · `project-agent/conversation/UserBubble.tsx`<br>`UserBubble` | V/A · S sending/received/unknown 独立；unknown 同 ID retry，不制造执行中回复 | G01 实现已审阅；V 迟到/公共 echo 去重、重开静态与 arriving | P0 · E02/E16/E17 |
-| C156 · `project-agent/diagnostics/ProjectDiagnosticsPanel.tsx`<br>`ProjectDiagnosticsPanel` | V/A · S 按需 diagnostics、busy/status/live 反馈；接口：`projectAgentDiagnostics` | 待核失败/复制、长报告/敏感值和任务来源定位 | P1 · E12/E15 |
-| C157 · `project-agent/drawer/AgentProcessView.tsx`<br>`AgentProcessView` | V · S 已命名代理的活动/错误过程视图；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核同一活动身份、后台不抢焦点/不展开私有过程 | P1 · E04/E05 |
+| C156 · `project-agent/diagnostics/ProjectDiagnosticsPanel.tsx`<br>`ProjectDiagnosticsPanel` | V/A · S 按需 diagnostics、busy/status/live 反馈；接口：`projectAgentDiagnostics`；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 待核失败/复制、长报告/敏感值和任务来源定位 | P1 · E12/E15 |
+| C157 · `project-agent/drawer/AgentProcessView.tsx`<br>`AgentProcessView` | V · S 已命名代理的活动/错误过程视图；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 待核同一活动身份、后台不抢焦点/不展开私有过程 | P1 · E04/E05 |
 | C158 · `project-agent/drawer/BotDrawerSegments.tsx`<br>`BotDrawerSegments` | Q/G · S roving/手动激活、RTL、手势死区、取消/失焦/lostcapture/Escape/卸载与 click 抑制 | E06 实现已审阅；V 手势结束竞态、多实例与 panel | P1 · E06/E15/E17 |
-| C159 · `project-agent/drawer/BotHostControl.tsx`<br>`BotHostControl` | H/A · S 宿主身份/接管、busy/status 与实际 takeover；接口：`projectAgentTakeoverHost` | 待核租约冲突/失效/错误；接管点击不能充当已取得租约 | P1 · E11/E12 |
+| C159 · `project-agent/drawer/BotHostControl.tsx`<br>`BotHostControl` | H/A · S 宿主身份/接管、busy/status 与实际 takeover；接口：`projectAgentTakeoverHost` | E08/E11-F1 实际旧 TUI→桌面交接，已读租约确认而非按点击判定；V 失效/拒绝/多进程竞争，未替换安装包 | P1 · E11/E12 |
 | C160 · `project-agent/drawer/BotHostDeveloperControl.tsx`<br>`BotHostDeveloperControl` | H/Q · S 开发页选择 bot/宿主控制；接口：`projectAgentList` | 待核空/读取失败/旧选择、与公开控制语义一致 | P1 · E08/E12 |
-| C161 · `project-agent/drawer/BotPolicyFields.tsx`<br>`BotApprovalFields`, `BotPolicyFields` | F · S E08 消费受控 profile/role models，失败保留模型请求 | E08 配置路径已审阅；V 不支持项/作用域/保存失败，权限/验收仍按 E04 | P0 决策/P1 配置 · E04/E08/E10 |
-| C162 · `project-agent/drawer/BotProfileDrawer.tsx`<br>`BotProfileDrawer` | O/Q · S 五 tab、push/cover、focus scope、dock phase 与报告按需读；接口：`openPath`, `projectAgentGet`, `projectAgentListHistory` 等 | PR204 已汇入候选；先注册 Layer 再 autofocus，空 Layer 不拥有 scope；E06/E16/E17 push 可见性/偏好与退出 watcher 已审阅；V resize/反向/未保存与最终候选实机 | P1 · E06/E17 |
-| C163 · `project-agent/drawer/BotSettingsTab.tsx`<br>`BotSettingsTab` | F/A · S E08 名称会话内 draft/读写反馈、concurrency 回执与策略动作锁/重试 | E08 实现已审阅；V 关闭返回、未知/删除归处/取消上传；其他记忆目标编辑归 E10 | P1 · E08/E10/E17 |
+| C161 · `project-agent/drawer/BotPolicyFields.tsx`<br>`BotApprovalFields`, `BotPolicyFields` | F · S E08 消费受控 profile/role models，失败保留模型请求；E08-F2 抽屉读写/恢复反馈归模型设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 配置路径已审阅；V 不支持项/作用域/保存失败，权限/验收仍按 E04 | P0 决策/P1 配置 · E04/E08/E10 |
+| C162 · `project-agent/drawer/BotProfileDrawer.tsx`<br>`BotProfileDrawer` | O/Q · S 五 tab、push/cover、focus scope、dock phase 与报告按需读；接口：`openPath`, `projectAgentGet`, `projectAgentListHistory` 等；S F5：cover 关闭按钮走 requestClose；push 观察真实 CSS motion 收尾，移除固定 360ms timer；保原宽度/双帧入场 | PR204 已汇入候选；先注册 Layer 再 autofocus，空 Layer 不拥有 scope；E06/E16/E17 push 可见性/偏好与退出 watcher 已审阅；V resize/反向/未保存与最终候选实机 | P1 · E06/E17 |
+| C163 · `project-agent/drawer/BotSettingsTab.tsx`<br>`BotSettingsTab` | F/A · S E08 名称会话内 draft/读写反馈、concurrency 回执与策略动作锁/重试；E08-F2 模型反馈归自身设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E08 实现已审阅；V 关闭返回、未知/删除归处/取消上传；其他记忆目标编辑归 E10 | P1 · E08/E10/E17 |
 | C164 · `project-agent/drawer/CoordinationDetails.tsx`<br>`CoordinationDetails` | V · S 真实协调日志/等待与决策细节；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核增量读取失败/旧 revision、执行与报告不同事实 | P1 · E04/E12 |
-| C165 · `project-agent/drawer/EvidenceView.tsx`<br>`EvidenceView` | V/O · S Evidence/文件的受控详情；事实：受控 props / 所属 hook（装配模块由子树承接） | E09 按 ref 读取/重读、元信息/缺失/不可用、错误保旧事实已审阅；V 权限/截断/旧源/局部阅读 | P1 · E09/E17 |
-| C166 · `project-agent/drawer/MemoryTab.tsx`<br>`MemoryTab`, `MemoryScope` | Q/F/A · S 筛选/分页/编辑/固定/忘记/恢复/学习开关；接口：`projectMemoryEdit`, `projectMemoryExport`, `projectMemoryForget` 等 | G09/E10 读失败保快照、逐项/开关/导出回执、修订后关闭旧编辑已审阅；V 冲突/外部变更/新 ID/草稿/OS取消 | P1 · E10/E15/E17 |
-| C167 · `project-agent/drawer/ObjectivesTab.tsx`<br>`ObjectivesTab`, `ObjectivesScope`, `ObjectiveCard` | Q/F/A · S 目标编辑/预算/自主性/暂停恢复、loading/error；接口：`automationsList`, `onProjectAgentChanged`, `projectObjectivesDelete` 等 | E10 逐目标写锁、会话 draft/expectedVersion、触发/观察 Evidence 与一次定位已审阅；V 冲突/失败/终态/送达 | P1 · E10/E17 |
+| C165 · `project-agent/drawer/EvidenceView.tsx`<br>`EvidenceView` | V/O · S Evidence/文件的受控详情；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E09 按 ref 读取/重读、元信息/缺失/不可用、错误保旧事实已审阅；V 权限/截断/旧源/局部阅读 | P1 · E09/E17 |
+| C166 · `project-agent/drawer/MemoryTab.tsx`<br>`MemoryTab`, `MemoryScope` | Q/F/A · S 筛选/分页/编辑/固定/忘记/恢复/学习开关；接口：`projectMemoryEdit`, `projectMemoryExport`, `projectMemoryForget` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | G09/E10 读失败保快照、逐项/开关/导出回执、修订后关闭旧编辑已审阅；V 冲突/外部变更/新 ID/草稿/OS取消 | P1 · E10/E15/E17 |
+| C167 · `project-agent/drawer/ObjectivesTab.tsx`<br>`ObjectivesTab`, `ObjectivesScope`, `ObjectiveCard` | Q/F/A · S 目标编辑/预算/自主性/暂停恢复、loading/error；接口：`automationsList`, `onProjectAgentChanged`, `projectObjectivesDelete` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E10 逐目标写锁、会话 draft/expectedVersion、触发/观察 Evidence 与一次定位已审阅；V 冲突/失败/终态/送达 | P1 · E10/E17 |
 | C168 · `project-agent/drawer/OverviewTab.tsx`<br>`OverviewTab` | V/A · S 项目/模型/主机概况与打开入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核未知/路径缺失/长值、跳转保留当前上下文 | P1 · E08/E12/E15 |
-| C169 · `project-agent/drawer/SessionDetail.tsx`<br>`SessionDetail`, `ConversationSceneDrawer` | V/O/I · S 任务报告与嵌套 ConversationSceneDrawer，旧配置按需读；接口：`getSettings`, `llmListProviders` | E09 原始 Evidence 预览入口已审阅；E05/E06 现场沿用；V stale/不可用报告、子现场草稿与读位 | P0 事实/P1 连续性 · E04/E05/E09/E17 |
-| C170 · `project-agent/drawer/TaskVerification.tsx`<br>`TaskVerification` | V · S 核验/attempt 历史投影；未知历史不默认 failed；不写签收事实 | E09 checks/outputs 原始 Evidence 与输出摘要分别可达，E04 核验真源不变；V 旧 attempt/缺失/截断/签收 | P0 · E04/E09 |
+| C169 · `project-agent/drawer/SessionDetail.tsx`<br>`SessionDetail`, `ConversationSceneDrawer` | V/O/I · S 任务报告与嵌套 ConversationSceneDrawer，旧配置按需读；接口：`getSettings`, `llmListProviders`；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | E09 原始 Evidence 预览入口已审阅；E05/E06 现场沿用；V stale/不可用报告、子现场草稿与读位 | P0 事实/P1 连续性 · E04/E05/E09/E17 |
+| C170 · `project-agent/drawer/TaskVerification.tsx`<br>`TaskVerification` | V · S 核验/attempt 历史投影；未知历史不默认 failed；不写签收事实；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E09 checks/outputs 原始 Evidence 与输出摘要分别可达，E04 核验真源不变；V 旧 attempt/缺失/截断/签收 | P0 · E04/E09 |
 | C171 · `project-agent/drawer/TasksTab.tsx`<br>`TasksTab` | Q/A · S 当前/历史/经典任务、resume 状态与错误；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核空/分页/恢复失败、生命周期判断不由名称推导 | P0 事实/P1 列表 · E04/E12 |
 | C172 · `project-agent/onboarding/BotOnboarding.tsx`<br>`BotOnboarding` | F/O · S 机器人首次使用引导与受控动作；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核无模型/中断重开/取消、不伪造完成熟悉 | P1 · E08 |
 | C173 · `project-agent/onboarding/ClassicShellNotice.tsx`<br>`ClassicShellNotice` | R/A · S 经典模式迁移提示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核切换取消/恢复入口、提示不改原数据/权限 | P1 · E08/E11 |
@@ -446,44 +481,48 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C178 · `ui/boolean-controls/Switch.tsx`<br>`Switch` | F/A · S button role=switch/aria-checked、受控值与 disabled；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核忙态/保存失败不谎报已生效、名称和键盘 | P1 · E06/E15 |
 | C179 · `ui/icons/PeerIcon.tsx`<br>`PeerIcon` | R · S 共享 SVG 图标注册；事实：受控 props / 所属 hook（装配模块由子树承接） | 装饰交互态 N/A；待核新图标来源/外层 aria-label 一致 | P1 · E15 |
 | C180 · `ui/settings/SettingsGroup.tsx`<br>`SettingsGroup` | R/F · S E07 复用共享分组并消费 token 尺寸/焦点，与 SettingsRow 配合 | 容器交互态 N/A；E07 样式已审阅，V 长文/值列/放大/主题 | P1 · E07/E15 |
-| C181 · `workbench/BackgroundRunDetails.tsx`<br>`BackgroundRunDetails` | V/A · S 后台运行结果/输出与复制错误；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核部分/截断/未知结果、来源回任务和复制恢复 | P1 · E04/E09/E12 |
+| C181 · `workbench/BackgroundRunDetails.tsx`<br>`BackgroundRunDetails` | V/A · S 后台运行结果/输出与复制错误；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 待核部分/截断/未知结果、来源回任务和复制恢复 | P1 · E04/E09/E12 |
 | C182 · `workbench/BackgroundRuntimePanel.tsx`<br>`BackgroundRuntimePanel` | Q/V/O · S 后台运行选中/历史 limit/确认、loading/error/stale；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核取消与重试范围、读失败保原记录、关闭恢复焦点 | P1 · E04/E06/E12 |
 | C183 · `workbench/GlobalBackgroundTasksButton.tsx`<br>`BackgroundRunsProvider` | H/A · S BackgroundRunsProvider 与全局运行入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核计数同投影、多窗口订阅清理、打开原任务 | P1 · E04/E11 |
-| C184 · `workbench/OpenTargetSplitButton.tsx`<br>`EditorAppIcon`, `OpenTargetSplitButton` | Q/O/A · S 编辑器选择与受控打开目标、键盘/禁用；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核编辑器失效/打开失败、菜单归焦/长应用名 | P1 · E06/E09 |
+| C184 · `workbench/OpenTargetSplitButton.tsx`<br>`EditorAppIcon`, `OpenTargetSplitButton` | Q/O/A · S 编辑器选择与受控打开目标、键盘/禁用；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | 待核编辑器失效/打开失败、菜单归焦/长应用名 | P1 · E06/E09 |
 | C185 · `workbench/ResourceTabStrip.tsx`<br>`CloseIcon`, `ResourceTabStrip` | Q/A · S Arrow/Home/End/roving、真实 tab/panel ID、Delete/close 后相邻焦点 | G05 实现已审阅；V 动态新增/最后一个/异步关闭/多实例 | P1 · E06/E15/E17 |
 | C186 · `workbench/SidebarResizer.tsx`<br>`SidebarResizer` | G · S shared resize session，capture/rAF/屏障、up 提交/其余撤销，键盘/范围/复原 | G06 实现已审阅；V guest/失焦/卸载/多指/重复收尾 | P1 · E06/E17 |
 | C187 · `workbench/SidebarToggle.tsx`<br>`SidebarToggle` | A · S 受控侧栏开关；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核 aria-expanded/控制对象、focus/快捷键与阅读位置 | P1 · E06/E15 |
 | C188 · `workbench/WorkbenchContext.tsx`<br>`WorkbenchProvider`, `WORKBENCH_DEFAULT_WIDTH`, `WORKBENCH_MIN_WIDTH`, `WORKBENCH_MAX_WIDTH`, `MAIN_MIN_WIDTH`, `MAIN_RESTORE_WIDTH`, `SIDEBAR_DEFAULT_WIDTH`, `SIDEBAR_MIN_WIDTH`, `SIDEBAR_MAX_WIDTH`, `SIDEBAR_COLLAPSE_THRESHOLD` | H/G · S 按 conversation 保存打开/标签/文档/浏览器、布局与 reveal；接口：`acknowledgeBrowserPanelReveal`, `initialSettings`, `onBrowserPanelRevealRequest` | 待核导航/resize/关闭保对象，不为视觉动作销毁 guest | P1 · E05/E12/E17 |
 | C189 · `workbench/WorkbenchPanel.tsx`<br>`MaximizeIcon`, `RestoreIcon`, `WorkbenchPanel` | O/Q/G · S shared resize 撤销恢复阶段；键盘/范围/复原，tabs/panel 与隐藏 inert；保留稳定 guest key | G05/G06 实现已审阅；V guest 不销毁、local/root 两宿主、最大化/窄窗 | P1 · E06/E17 |
 | C190 · `workbench/WorkbenchToggle.tsx`<br>`WorkbenchToggle` | A · S 受控工作台开关；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核名称/expanded、首次/重开 focus 与正确会话目标 | P1 · E06/E15 |
-| C191 · `workbench/file-preview/DiffViewer.tsx`<br>`DiffLines`, `DiffFilePreviewPortal`, `DiffFileIndex`, `DiffViewer` | V/Q/O · S diff 行/文件索引与 hover preview portal；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核空/二进制/截断、键盘等价预览/原行定位与局部滚动 | P1 · E05/E06/E09 |
+| C191 · `workbench/file-preview/DiffViewer.tsx`<br>`DiffLines`, `DiffFilePreviewPortal`, `DiffFileIndex`, `DiffViewer` | V/Q/O · S diff 行/文件索引与 hover preview portal；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定；悬停预览按当前锚点切换/移除，关闭销毁事件订阅 | 待核空/二进制/截断、键盘等价预览/原行定位与局部滚动 | P1 · E05/E06/E09 |
 | C192 · `workbench/file-preview/FileKindIcon.tsx`<br>`FileKindIcon` | R · S 文件类型 SVG；事实：受控 props / 所属 hook（装配模块由子树承接） | 装饰状态 N/A；待核未知类型 fallback 和非颜色识别 | P2 · E15 |
 | C193 · `workbench/file-preview/MarkdownDocument.tsx`<br>`Heading`, `CodeBlock`, `MarkdownDocument` | V/A · S 文档 Markdown、标题/代码块/复制；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核复制失败/长代码/链接、标题可定位与阅读保持 | P1 · E05/E09/E15 |
 | C194 · `workbench/file-preview/SourceViewer.tsx`<br>`SourceViewer` | V · S 受控源码行与语法展示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核超长/截断/行定位/200% 放大与局部横滚 | P1 · E05/E09/E15 |
 | C195 · `workbench/views/BackgroundThreadsView.tsx`<br>`BackgroundThreadsView` | Q/V/A · S shell tasks 列表、选中/停止 busy/error；接口：`listShellTasks`, `stopShellTask` | 待核停止未知/失败、不从输出文本推导终态、回原任务 | P1 · E04/E09/E12 |
-| C196 · `workbench/views/BrowserView.tsx`<br>`IconBack`, `IconForward`, `IconReload`, `IconStop`, `IconGo`, `IconOpenExternal`, `IconGlobe`, `IconPlus`, `IconMore`, `BrowserPage`, `BrowserView` | F/Q/H · S BrowserPage/webview 事件、地址/导航/标签、菜单/导入/密码入口；接口：`captureBrowserPage`, `clearBrowserSiteData`, `openBrowserExternal` 等 | S E06 资源 tab/panel、隐藏 guest；V Electron guest 焦点/拖动/生命周期、加载错误 | P1 · E06/E09/E12/E17 |
+| C196 · `workbench/views/BrowserView.tsx`<br>`IconBack`, `IconForward`, `IconReload`, `IconStop`, `IconGo`, `IconOpenExternal`, `IconGlobe`, `IconPlus`, `IconMore`, `BrowserPage`, `BrowserView` | F/Q/H · S BrowserPage/webview 事件、地址/导航/标签、菜单/导入/密码入口；接口：`captureBrowserPage`, `clearBrowserSiteData`, `openBrowserExternal` 等；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | S E06 资源 tab/panel、隐藏 guest；V Electron guest 焦点/拖动/生命周期、加载错误 | P1 · E06/E09/E12/E17 |
 | C197 · `workbench/views/DocumentView.tsx`<br>`DocumentIcon`, `AddIcon`, `DocumentView`, `DocumentPage` | Q/V/O · S 文档/图片/diff、editor 默认值与受管文件读取；接口：`gitDiff`, `listEditors`, `openPath` 等 | E09 文档/图片/diff 独立读、过期预览/解码和外部打开恢复已审阅；E06 tabs 沿用；V 长内容/局部读位/归焦 | P1 · E06/E09/E17 |
 | C198 · `workbench/views/FilesView.tsx`<br>`FileTreeIcon`, `RefreshIcon`, `NewFileIcon`, `NewFolderIcon`, `SearchIcon`, `TreeNode`, `FilesView` | Q/F/G · S 原 watch/readDir/mkdir/writeFile；E15/E17 C211 复用 IME，blur 不创建，显式创建/取消、同步锁/原 scope/失败留名/条件归焦 | 实现已审阅；V 目录读取/并发/重名/权限与完整树键盘；未新增跨项目持久草稿 | P1 · E06/E09/E15/E17 |
-| C199 · `workbench/views/PasswordManagerPanel.tsx`<br>`PasswordManagerPanel` | Q/F/O · S 凭据列表/筛选/揭示/填充/保存删除、loading/error；接口：`deletePasswordVaultEntry`, `fillPasswordVaultEntry`, `listPasswordVaultEntries` 等 | 待核锁定/揭示失败/超时与 dirty 离开，秘密不入日志 | P1 · E08/E09/E17 |
-| C200 · `workbench/views/SessionImportWizard.tsx`<br>`SessionImportWizard` | F/O/H · S preflight→来源→站点→导入，OS 设置/拖动与错误；接口：`getAppDragTarget`, `getBrowserSessionImportPreflight`, `importBrowserSiteSession` 等 | 待核取消/部分失败/过期权限/返回步骤保选择 | P1 · E08/E09/E17 |
-| C201 · `workbench/views/TaskMonitorRailView.tsx`<br>`BranchIcon`, `FolderIcon`, `DeviceIcon`, `TerminalIcon`, `HammerIcon`, `GlobeIcon`, `ArtifactIcon`, `CheckIcon`, `MonitorSection`, `MonitorRow`, `TaskMonitorRailView` | Q/V/O · S 真实任务/运行/产物 rail、展开和 motion presence；事实：受控 props / 所属 hook（装配模块由子树承接） | E16/E17 presence.cancelExit 防旧退出移除重开 rail 已审阅；V 当前对象失效/停止确认/真实反向 | P1 · E04/E05/E09/E16 |
+| C199 · `workbench/views/PasswordManagerPanel.tsx`<br>`PasswordManagerPanel` | Q/F/O · S 凭据列表/筛选/揭示/填充/保存删除、loading/error；接口：`deletePasswordVaultEntry`, `fillPasswordVaultEntry`, `listPasswordVaultEntries` 等；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | 待核锁定/揭示失败/超时与 dirty 离开，秘密不入日志 | P1 · E08/E09/E17 |
+| C200 · `workbench/views/SessionImportWizard.tsx`<br>`SessionImportWizard` | F/O/H · S preflight→来源→站点→导入，OS 设置/拖动与错误；接口：`getAppDragTarget`, `getBrowserSessionImportPreflight`, `importBrowserSiteSession` 等；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | 待核取消/部分失败/过期权限/返回步骤保选择 | P1 · E08/E09/E17 |
+| C201 · `workbench/views/TaskMonitorRailView.tsx`<br>`BranchIcon`, `FolderIcon`, `DeviceIcon`, `TerminalIcon`, `HammerIcon`, `GlobeIcon`, `ArtifactIcon`, `CheckIcon`, `MonitorSection`, `MonitorRow`, `TaskMonitorRailView` | Q/V/O · S 真实任务/运行/产物 rail、展开和 motion presence；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：保留现有可逆 presence，真实 visible=false 即 inert/aria-hidden，退出不保留可操作旧控件 | E16/E17 presence.cancelExit 防旧退出移除重开 rail 已审阅；V 当前对象失效/停止确认/真实反向 | P1 · E04/E05/E09/E16 |
 | C202 · `project-agent/conversation/InputRecoveryNotice.tsx`<br>`InputRecoveryNotice` | I/V/A · S 真实加载/保存错误/冲突和 unknown pending、原 ID 手动重试；事实：shared recovery snapshot | 实现已审阅；V 非就绪阻止提交、冲突保留、迟到与静态状态 | P0 · E02/E03 |
-| C203 · `project-agent/BotModelFeedback.tsx`<br>`BotModelFeedback` | F/V · S 当前 workspace 读取/保存错误、pending 请求与手动重试/舍弃；事实：useBotModels | E08 实现已审阅；V 换机器人/未知回执/当前范围变化，不把 pending 当 saved | P1 · E08/E15 |
+| C203 · `project-agent/BotModelFeedback.tsx`<br>`BotModelFeedback` | F/V · S useBotModels 当前 workspace 首读/保存/错误/pending；E08-F2 对话不挂模型反馈段落，浮层不显示正常读写小字；真实失败/无模型/待重试留原浮层，抽屉反馈归模型组；失败与 pending 只留一组重试/舍弃 | 实现已审阅；V 截图/回焦/通知、慢保存/失败关开与恢复、换机器人/未知/范围变化；不把 pending 当 saved | P1 · E08/E15 |
 | C204 · `ui/forms/FormFeedback.tsx`<br>`FormFeedback` | F/V · S 共享 loading/saving/dirty/error/stale/saved 与恢复；事实：传入结构化表达状态 | E07/E08 实现已审阅；V alert/status、重复通知/主题/读屏；不制造宿主成功 | P1 · E07/E08/E15 |
-| C205 · `ui/forms/UnsavedChanges.tsx`<br>`UnsavedChangesProvider` | F/O · S 编辑器注册 dirty/busy/save/discard，导航请求待处理，安全初始焦点；事实：各 form snapshot | E08 实现已审阅；V 保存并继续/舍弃/取消/忙碌变更、层级/归焦/OS 卸载；不是持久草稿仓 | P1 · E08/E17 |
+| C205 · `ui/forms/UnsavedChanges.tsx`<br>`UnsavedChangesProvider` | F/O · S 编辑器注册 dirty/busy/save/discard，导航请求待处理，安全初始焦点；事实：各 form snapshot；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | E08 实现已审阅；V 保存并继续/舍弃/取消/忙碌变更、层级/归焦/OS 卸载；不是持久草稿仓 | P1 · E08/E17 |
 | C206 · `ui/settings/SettingsRow.tsx`<br>`SettingsRow` | R/F · S 共享可收缩行/label、说明与真实 control ID 关联 | E07 实现已审阅；V 放大/长值/窄容器；容器 pressed/busy N/A，由控件承担 | P1 · E07/E15 |
 | C207 · `ui/resources/ResourceFeedback.tsx`<br>`ResourceFeedback` | V/A · S 共享读取/提交/取消/未确认/确认反馈；事实：传入 resource snapshot/action receipt | E09/E10 实现已审阅；V status/alert、后台不重复播报与恢复操作 | P1 · E09/E10/E15 |
-| C208 · `ui/resources/ResourceEditor.tsx`<br>`ResourceEditor` | F/V · S 复用 editableResource 的会话草稿/失败/旧读取/元数据版本与显式舍弃；保存期间禁改 | E10 实现已审阅；V 保存/收起返回/冲突/旧记录、焦点与 IME；不新建持久路径 | P1 · E10/E15/E17 |
-| C209 · `project-agent/drawer/EvidencePreview.tsx`<br>`EvidencePreview` | V/O · S 引用导航与共享 Drawer/EvidenceView，读取仍受既有 Evidence boundary 管理 | E09 实现已审阅；V 多层/源失效/关闭归焦/辅助技术；不执行 Evidence 内容 | P1 · E09/E17 |
+| C208 · `ui/resources/ResourceEditor.tsx`<br>`ResourceEditor` | F/V · S 复用 editableResource 的会话草稿/失败/旧读取/元数据版本与显式舍弃；保存期间禁改；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E10 实现已审阅；V 保存/收起返回/冲突/旧记录、焦点与 IME；不新建持久路径 | P1 · E10/E15/E17 |
+| C209 · `project-agent/drawer/EvidencePreview.tsx`<br>`EvidencePreview` | V/O · S 引用导航与共享 Drawer/EvidenceView，读取仍受既有 Evidence boundary 管理；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | E09 实现已审阅；V 多层/源失效/关闭归焦/辅助技术；不执行 Evidence 内容 | P1 · E09/E17 |
 | C210 · `ui/forms/ChoiceStrip.tsx`<br>`ChoiceStrip` | Q/F · S E15 共享 tabs/radio、受控值与焦点分开、方向/Home/End/RTL/disabled/IME；tabs 显式激活、radio 只更新本地选择 | 实现已审阅；V 多实例/选项消失/读屏/真实触控；选值不是写入回执 | P1 · E06/E15/E17 |
 | C211 · `workbench/views/FileEntryInput.tsx`<br>`FileEntryInput` | F/I · S E15/E17 composition/keyup、repeat、显式确认/取消、readonly busy 与错误关联；失焦保 draft | 实现已审阅；V 真实 IME/软键盘/待发重复/读屏与条件归焦；写入事实归父层原 IPC | P1 · E03/E15/E17 |
 | C212 · `project-agent/drawer/BotDrawerResizer.tsx`<br>`BotDrawerResizer` | G/O · S PR204 宽度/键盘/默认值，合并后 usePointerResize 承接 capture/真实遮罩、Esc/失焦/取消/卸载恢复；关闭态禁用 | 已审阅；V 真实跨 guest/窄窗/读屏/拖动取消与宽度恢复，沿 PR207/213 最终候选 | P1 · E06/E15/E17 |
 | C213 · `project-agent/conversation/ConversationRow.tsx`<br>`ConversationRow` | R/G · S 新输入/等待回复沿共享 motion-enter-layout 展开真实占位；原 key/DOM 保持，历史恢复/虚拟重挂载不重播 | 已审阅；V 最终候选帧连续性、窄窗与阅读锚点；reduce/隐藏/无 API 静态，终态不代表收到或执行 | P1 · E05/E16/E17 |
+| C214 · `app/components/MotionSurface.tsx`<br>`MotionSurface` | O · S F5 单个原生 DOM 元素的最后已提交内容保留，无额外布局节点；共享 rise/fade，关闭即 inert/aria-hidden；watchVisualMotion 收尾、重开/卸载取消、ref 合并 | 内容/diff 已审阅；V 快速反向/StrictMode/晚结束、ref 所有权/键盘/读屏、reduce/隐藏/API 缺失与拒绝；不拥有选择、焦点、portal 或业务 | P1 · E06/E16/E17 |
+| C215 · `app/components/MotionDetails.tsx`<br>`MotionDetails` | O/V · S F5 保留原生 details/summary、open/onToggle/ref，支持检测后的 intrinsic height/opacity/content-visibility 过渡；结束释放 overflow；旧收尾可取消 | 内容/diff 已审阅；V 嵌套/快速开合/动态内容/控件不裁切、原生键盘/辅助技术、reduce/隐藏/API 缺失；无支持直接原生静态 | P1 · E06/E16/E17 |
 
 ## 6. 非 TSX 交互 seam 与其他宿主
 
 | 源码入口（代码仓相对路径） | 当前实现/状态责任 | 缺口或待核 / 排程 / 任务 |
 |---|---|---|
+| r/app/hooks/useMotionSettled.ts；MotionSurface/Overlay/BotProfileDrawer | S F5-I 按真实打开/对象代次观察 CSS 动画，落定后释放入场 fill/过渡；反向/隐藏/卸载取消旧收尾，无组件固定 timer | 本地验证按专项记录；V 安装版/真实辅助技术和其他宿主 · P1 E16/E17/E13 |
+| r/app/state/closePreparation.ts；Overlay.tsx/Drawer.tsx | S F5 UI 关闭准备的 pending/代次隔离；同步 false、异常、拒绝均不启动退场，重复关闭合并；业务保存仍走既有 API | 四个纯关闭准备边界用例本次通过；V 真实编辑中关闭/旧 parent/卸载与迟到 · P1 E08/E16/E17 |
 | r/ui/resources/resourceState.ts/useResourceState.ts；ResourceEditor.tsx | S E15 同步 snapshot/accept 供 Skills 确认后失效旧读；reader 按身份/请求 ticket 保最新，失败保旧快照；动作逐对象同步锁、取消/真实回执独立；editableResource 保非凭据会话 draft | E09/E10 实现已审阅；V 迟到/卸载/读写与刷新失败/取消 · P1 E09/E10 |
 | r/chat/hooks/useTypewriterStream.ts；r/project-agent/state/useAvatarMotion.ts/avatarMotionRegistry.ts | S E16 静态/后台交出已有文本并停止帧；头像共享可见性/偏好与缺 API 静态，恢复不重放已结束退出 | B 级显示批次/顺序，其他 C 级；V 正文/思考/工具交接/取消与真实离屏 · P1 E16/E17 |
 | r/automations/automationEditorState.ts/useAutomationResources.ts | S editor 会话草稿及原版本、bootstrap/runs/receipt 身份隔离；宿主仍决定调度/写入/通知 | E10 实现已审阅；V 冲突核对/未知创建/晚读取/部分失败；不自动重放 · P1 E10 |

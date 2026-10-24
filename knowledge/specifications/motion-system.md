@@ -25,6 +25,12 @@ styles/tokens.css       数值、缓动、全局减少动效兜底
 
 现有 `useMotionPresence` 负责退场完成/超时兜底与幂等卸载；不要在每个组件重造 timer。动画不得持有权限、业务重试、完成签收或副作用执行职责。业务先有真实状态，动效再表达它。
 
+入场落定后，使用 useMotionSettled / visualMotion 清除临时 fill 或开场过渡；它以真实打开/对象身份为代次，普通数据刷新不启动新入场，不在组件中写固定清除 timer。CSS 退场的自然 finished Promise 与原生 end/React 提交是不同阶段；Overlay 保留实际终点至原生 end/下一帧再收口，仍用既有有界 fallback；不因此延迟权限、业务执行或伪造成功。
+
+实现接线（E16/E17-F5，2026-10-24）：受控菜单、tooltip 和轻浮层优先用 MotionSurface 保留单个原生 DOM 元素的最后已提交画面；它不添加布局节点、不拥有 portal、焦点、选择或业务，只负责入退场与关闭后立即 inert/aria-hidden。逻辑 open 改变时原交互层立即结束，反向/卸载取消旧视觉收尾；不得把复合组件或 Context Provider 当成该单 DOM 载体。需要模态、抽屉或关闭前保存的面，仍用 Overlay/Drawer 的 requestClose/onRequestClose，准备失败必须保留编辑现场。
+
+原生 details 在本次触及的设置/抽屉内优先复用 MotionDetails，保留 summary、open、onToggle 和 ref；支持检测通过才启用 intrinsic height/content-visibility 过渡，结束释放 overflow，缺支持或减少动效仍可原生开合。已有 SettingsDisclosureContent、push 档案、原生窗口与长期保留的 guest 继续承担各自语义，不为统一外观更换 DOM 身份。应用决定/导航/原生隐藏/真实流程完成不为视觉动画延迟。存量接入和有意静态路径见[覆盖表 F5](../../design/product/peer-ui-motion-transition-matrix.md#菜单浮层抽屉与设置过渡复核2026-10-24)，源代码审阅不等于行为通过。
+
 沿用无新增第三方动画依赖的实现方向。真实手势若需要新物理引擎，先证明现有 seam 无法满足，再单独评估，不为复刻上游一次性引入 Framer Motion。
 
 ## 3. 时长、缓动与位移
