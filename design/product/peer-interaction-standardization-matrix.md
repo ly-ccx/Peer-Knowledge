@@ -8,6 +8,8 @@
 
 ## 回复进展与设置刷新补修（2026-10-24）
 
+E08/E11-F1，P0，P06/P17/P34/P58/P64/C159：TUI 角色路由投影补原声明的强度列表/支持标志/默认值，修复 `max` 误拒绝。现场实际执行权在旧终端包，桌面重试返回 `HOST_OFFLINE`，现给宿主接管指引；本地校验与服务端拒绝分开，不更改模型配置或绕过租约。B 级适配已审阅，声明/未知/真不支持、跨宿主和恢复测试待 E13。
+
 E04/E08-F1，P1；C137/C144/C152/C154/C203，P06/P13/P17/P34。删除 15 秒覆盖阶段的提示；公开正文承接进展，无正文投影真实活动，只有接收回执不显示思考；权限/恢复/停止/失败不混淆，未知状态只重读。对话不再接收设置加载小字，设置现场只首次读取显示加载，后台重读不变几何；真实读写失败/保存/无模型/待重试保留。已知宿主强度拒绝直接说明处理位置，原诊断保留详情。
 
 当前实现与内容/diff 已审阅；现场只读确认当前失败卡/详情/模型菜单，截图中的长等待未重演，未发送模型请求。新增边界测试与产品脚本待 E13；真实阶段流转、截图返回瞬间、读屏/reduce/跨窗口仍 V。详见[本轮记录](../../playbook/v0.1.0/reply-status-feedback-20261024.md)。
@@ -430,7 +432,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C156 · `project-agent/diagnostics/ProjectDiagnosticsPanel.tsx`<br>`ProjectDiagnosticsPanel` | V/A · S 按需 diagnostics、busy/status/live 反馈；接口：`projectAgentDiagnostics` | 待核失败/复制、长报告/敏感值和任务来源定位 | P1 · E12/E15 |
 | C157 · `project-agent/drawer/AgentProcessView.tsx`<br>`AgentProcessView` | V · S 已命名代理的活动/错误过程视图；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核同一活动身份、后台不抢焦点/不展开私有过程 | P1 · E04/E05 |
 | C158 · `project-agent/drawer/BotDrawerSegments.tsx`<br>`BotDrawerSegments` | Q/G · S roving/手动激活、RTL、手势死区、取消/失焦/lostcapture/Escape/卸载与 click 抑制 | E06 实现已审阅；V 手势结束竞态、多实例与 panel | P1 · E06/E15/E17 |
-| C159 · `project-agent/drawer/BotHostControl.tsx`<br>`BotHostControl` | H/A · S 宿主身份/接管、busy/status 与实际 takeover；接口：`projectAgentTakeoverHost` | 待核租约冲突/失效/错误；接管点击不能充当已取得租约 | P1 · E11/E12 |
+| C159 · `project-agent/drawer/BotHostControl.tsx`<br>`BotHostControl` | H/A · S 宿主身份/接管、busy/status 与实际 takeover；接口：`projectAgentTakeoverHost` | E08/E11-F1 实际旧 TUI→桌面交接，已读租约确认而非按点击判定；V 失效/拒绝/多进程竞争，未替换安装包 | P1 · E11/E12 |
 | C160 · `project-agent/drawer/BotHostDeveloperControl.tsx`<br>`BotHostDeveloperControl` | H/Q · S 开发页选择 bot/宿主控制；接口：`projectAgentList` | 待核空/读取失败/旧选择、与公开控制语义一致 | P1 · E08/E12 |
 | C161 · `project-agent/drawer/BotPolicyFields.tsx`<br>`BotApprovalFields`, `BotPolicyFields` | F · S E08 消费受控 profile/role models，失败保留模型请求 | E08 配置路径已审阅；V 不支持项/作用域/保存失败，权限/验收仍按 E04 | P0 决策/P1 配置 · E04/E08/E10 |
 | C162 · `project-agent/drawer/BotProfileDrawer.tsx`<br>`BotProfileDrawer` | O/Q · S 五 tab、push/cover、focus scope、dock phase 与报告按需读；接口：`openPath`, `projectAgentGet`, `projectAgentListHistory` 等 | PR204 已汇入候选；先注册 Layer 再 autofocus，空 Layer 不拥有 scope；E06/E16/E17 push 可见性/偏好与退出 watcher 已审阅；V resize/反向/未保存与最终候选实机 | P1 · E06/E17 |
