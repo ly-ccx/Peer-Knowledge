@@ -6,6 +6,16 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 远程授权版本归入诊断（2026-10-24）
+
+P39/C038，C 级展示调整：按用户要求，RemoteAccessPanel 的机器人访问权限标题移除“授权版本”；原 delegationVersion 仅在页面底部默认收起的“诊断详情”内显示。沿用 MotionDetails、原生 summary 键盘语义和共享 SVG 展开图标，展开/收起不提交配置，状态轮询继续消费原宿主快照；补中英文诊断标题及可见焦点。后台授权修订递增、策略签名比较、旧版本拒绝、权限勾选与保存链完全沿原路径，不改协议、权限或存储边界。仅内容/diff 审阅并交开发服务，未运行测试或截图/交互回归；诊断开合/轮询保持展开、键盘/减少动效及实际撤回校验留待发布 E13。
+
+## 主 Bot 权限菜单展示层级（2026-10-24）
+
+P06/P17、C017/C124/C179，C 级展示调整：BotAccessControl 复用既有 Dropdown 的 portal、定位、listbox 键盘/归焦与 MotionSurface，仅按需增加菜单标题、选项图标和 description 展示；说明直接消费既有 accessLevelTitle，不改模式值、权限存储、宿主校验或 expectedRevision 保存链。权限菜单局部用图标/名称/说明三列组合，对勾在右侧，16px 连续圆角，受视口宽度限制并允许文字换行/局部滚动；其他 Dropdown 消费者保留原呈现。完全访问的标题、说明、盾牌图标、对勾与入口沿现有 state-danger 警示色，普通项保持中性。共享 PeerIcon 注册 Lucide hand/shield-alert，沿既有 ISC 许可；帮我批准复用 terminal 图标。
+
+事实源仍是 useBotAccessPolicy 的宿主读取/保存回执，加载、禁用、防重、失败与重试保持原样；图标隐藏于读屏，选项名称与说明通过 aria-describedby 关联。不改 PermissionGrant、角色职责、显式拒绝或子任务继承。内容/diff 已审阅并交开发服务，未运行测试、构建或截图/交互回归；发布 E13 需验证三模式/保存失败、真实键盘/读屏、主题/字号/窄窗与菜单避让。
+
 ## 机器人头像移除上传入口（2026-10-24）
 
 P17/C163，C 级设置交互收敛：按用户要求移除“上传自己的图片”按钮及 BotSettingsTab 的 chooseAvatar 请求分支，清理无人使用的中英文文案键；头像区域保留预览、重新生成和既有颜色选择。重新生成仍通过原 projectAgentUpdateProfile、动作忙态/防重、失败重试和宿主 profile 回执更新，不清除现有头像，不改存储/IPC/宿主兼容能力。内容/diff 已审阅并交本地开发服务，未运行测试或截图/交互回归；重新生成成功/失败、键盘与已有图片头像的展示仍待发布 E13。
