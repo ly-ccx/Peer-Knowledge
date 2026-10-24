@@ -6,6 +6,39 @@
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
 
+## 菜单、浮层、抽屉与设置过渡复核（2026-10-24）
+
+E16/E17-F5；基线 040a3e1b，本批代码 [59451598](https://github.com/ly-ccx/Peer-Agent/commit/59451598dc513e0702bbacc961c1b366f73efbe3)。全量按生产源码的 portal、menu/dialog/tooltip/listbox、共享 Overlay/Drawer、独立窗口、设置页和折叠区归类，补齐兼容经典入口；[逐文件清单与关闭例外](../../playbook/v0.1.0/surface-motion-sweep.md)。下表 S 均为内容/diff 自审，V 全部仍交 E13，不能沿用此前点查来验收本批代码。
+
+| 家族 / 对象 | UI 与入退场实现 | 交互/中断/静态责任 | 状态 / 排程 |
+|---|---|---|---|
+| F5-01 共享 Dropdown / CascadingMenu 根与子层 / OverflowMenu | C214 单 DOM 载体，medium rise 或 fade；fast fade 退场，原 token/方向 | 受控 open 立即停 layer/控件；portal 测量子层用 fade 防坐标受 transform 扰动；旧退出取消 | S；V 子层/全禁用/锚点消失/IME/Tab/反向 · E06/E16/E17 |
+| F5-02 设置应用菜单 AppMenu | 移除上次局部 watcher，直接复用 C214 | 保原菜单键盘/导航与 metadata 归焦；不等退场才导航 | S；V 设置/历史/能力往返与重开 · E16/E17 |
+| F5-03 Sidebar 目录弹层及项目/会话右键菜单 | 目录 rise；两个 context 分支共用一个 fade 载体/ref | 原操作立即派发；单所有者避免旧退场 ref 清掉新菜单 ref | S；V 目标切换/删除/外点/归焦 · E06/E17 |
+| F5-04 ChatHeader 与能力开关菜单 | C214 接既有 DOM 和 layer | 不重建会话/权限状态，背景刷新不重播 | S；V 快速切换/已禁用项/键盘 · E16/E17 |
+| F5-05 模型主面板及服务商子菜单 | 主面板 rise，服务商 fade，Context 保留在载体外 | 浏览/保存受控值与 Promise 回执保留，关闭即停用；旧退场不拥有新 ref | S；V 保存中重开/失败/子层/slider/窄窗 · E08/E16/E17 |
+| F5-06 独立强度/上下文用量面板 | C214；ResizeObserver 缺失可静态定位 | 原数据/选择和层级不变，异步回读不重新入场 | S；V API 缺失/窗口变化/键盘与归焦 · E16/E17 |
+| F5-07 配色选择 PaletteSelect | 移除私有 160ms timer、强制 reflow 和局部退出样式；共享载体 | 接共享 layer/Tab/IME，保 listbox/选值；aria-controls 对应真实打开面 | S；V 快速选值/主题/外点/归焦 · E06/E16/E17 |
+| F5-08 slash 命令、文件/会话 mention | 两处 C214，保原候选与输入边界 | 不以视觉缓存接收输入；关闭不改 composer 草稿或提交 | S；V IME/候选消失/读位/异步迟到 · E03/E16/E17 |
+| F5-09 页内查找条 | 单次 fade 入退场 | 真实 open 控制 layer/高亮/查询；隐藏实例不运行查找或清别处高亮 | S；V 多会话/关闭后重开/原焦点 · E05/E16/E17 |
+| F5-10 Tooltip / BotSelectionQuote / SelectionQuoteAction | fade；原悬停宽限/选区/确认保留 | 不夺焦点；选区失效不产生新引用，动画只保留旧画面 | S；V 锚点失效/确认/键盘/选区位置 · E06/E09/E17 |
+| F5-11 任务产物悬停与 Diff 文件预览 | C214 fade，锚点 identity 被动 layer；晚内容重定位 | anchor 移除/Escape 可关，不夺焦点；关闭清 scroll/resize/observer | S；V A→B 锚点/解码/窄窗/事件清理 · E09/E17 |
+| F5-12 外部打开 split / Browser overflow | C214，业务打开/导航仍立即 | 保原真实目标、外点/键盘与 guest 身份 | S；V webview/外部打开失败/归焦 · E09/E17 |
+| F5-13 全部共享模态/确认/Sheets | 28 个 Overlay JSX 点（含 Drawer 适配）；原 backdrop fade、panel rise/fast sink/目标交接 | 纯 close/cancel 统一 requestClose；异步准备失败不退场；接受后立即 inert，watcher 有界完成 | S；V 逐源清单的嵌套/dirty/保存/无事件 · E08/E16/E17 |
+| F5-14 会话/选区/Evidence/核验/MCP/档案 cover 抽屉 | 8 个 Drawer JSX 点；原 inline-slide、逻辑方向/RTL 边框 | 补内部绕过；选区 save 成功才退出，失败/新编辑留现场，旧代次失效 | S；V 保存失败/迟到/原焦点/窄窗/RTL · E02/E08/E17 |
+| F5-15 档案 push / TaskMonitor rail | 档案保原 width/opacity 与双帧入场，真实 CSS animation watcher 取代固定 360ms；rail 保 presence | 关闭即 inert/aria-hidden；重开撤销旧退出，原 width/ID/状态保留 | S；V push-cover/拖动/偏好/反向 · E06/E16/E17 |
+| F5-16 经典 GoalPlan 侧栏 | 移除私有 200ms 常量；共享 medium token/watchVisualMotion 承接现有宽度过渡 | 收起即 inert；反向/隐藏/卸载取消旧收尾，清宿主 data-closing；决定立即派发原回调 | S；V 强制展开/切会话/旧侧栏/焦点 · E04/E16/E17 |
+| F5-17 设置框架与 12 个公开分区 | settings-content key=section 一次 fade，移除整页+每子项叠加 rise | dirty guard 先处理编辑，async 数据刷新不重播、不新增状态小字 | S；V 搜索/深链/快速往返/焦点/读位 · E08/E16/E17 |
+| F5-18 服务目录/已连接视图 | 一次共享 fade 交接；移除 170ms 私有退场及逐组/逐卡延迟 | 已就绪视图直接承接，筛选不重新级联，模型设置/目录确认仍沿原 Overlay | S；V 长目录/过滤/返回/编辑状态 · E08/E16/E17 |
+| F5-19 设置高级区/视觉兜底/自动化高级表单 | 保既有 SettingsDisclosureContent/grid/reducer | 保原 expanded、收起后 inert、可取消收尾与焦点；不另造折叠状态 | S 沿用；V 反向/动态控件/保存中 · E08/E17 |
+| F5-20 原生 details：模型行、档案设置/任务/记忆/目标/Evidence/过程/诊断、资源旧值/自动化比较、后台日志 | C215：13 模块 17 处；CSS 支持检测后 height/opacity/content-visibility，完成释放 overflow | 保 details/summary/open/onToggle/ref；共享取消/降级；无支持保持原生静态 | S；V 嵌套/快速开合/默认 open/读屏/控件溢出 · E06/E16/E17 |
+| F5-21 原生 Quick Chat 弹选窗口 | DOM 一次 fade 入场；退出依主进程/OS 即时隐藏，closed 事件清旧内容 | 不延迟选择/失焦/hide IPC，不另造窗口许可/状态 | S；V 真窗口重开/焦点/旧事件/多屏 · E11/E13 |
+| F5-22 OAuth 授权码、保存完成/切页/目标交接 | 保共享入场；这些结束由真实流程或目标页面立即承接 | 删除 noop onClose，Escape 不再把待授权面淡为空壳；真实完成不为动画等待 | S；V 授权完成/失败/重复 Escape/目标消失 · E08/E13 |
+| F5-23 Workbench tabs/browser keepalive、历史正文/行内技术详情 | 保原局部 tabs/折叠/静态阅读，不额外 remount guest 或重播历史 | 这是内容/对象连续性；不因“全产品动效”给每条历史补入场 | S 沿用；V 真实 guest/读位/焦点 · E05/E11/E13 |
+| F5-24 Gateway 两网页、TUI/CLI/ACP、系统 select/dialog/context menu | Gateway 原生 select/行内面；终端无 DOM；系统窗口按宿主绘制 | DOM 动画 N/A/有意静态，无跨宿主 renderer CSS；业务与原生选择保持即时 | 源码登记；V 真宿主/辅助技术 · E11/E13 |
+
+本次 U08/U11/U13/U14、M02–M06/M18、T01–T04/T08/T09 的消费者补齐以本节为当前进度。减少动效/隐藏/缺 API/结束拒绝由既有 motionEnvironment/visualMotion 和 CSS 静态终态承接；没有新 keyframes、运动常数或动画库。支持检测后的原生尺寸过渡仍有短时布局成本，不宣称帧率或辅助技术通过。E13 必须在最终合并候选逐项核对反向、卸载、失焦/锚点移除、保存失败/期间新编辑/迟到、ref/读位/IME/RTL、reduce/隐藏/API 失效及原生窗口。
+
 ## 全 PR 汇合后的体系补充（2026-10-24）
 
 来源与合并门禁见[交接记录](../../playbook/v0.1.0/experience-ui-motion-transitions.md#全部-pr-汇合与模型强度补齐2026-10-24)。U06/U07/U08/U10：全局角色思考强度复用 Dropdown、既有 effort 文案/能力声明，tier/fixed/auto 选择与模型关系独立，单模型可设、失效可清除、宿主预览显示真实已保存强度。C114/C128 的统一面板保留受控模型/强度，滑块待真实回执收尾，忙碌入口保持归焦并阻止重复动作。U14/T09：C212 档案拖动保留宽度记忆，列表及档案均接共享 pointer resize，隐藏分隔条 inert。

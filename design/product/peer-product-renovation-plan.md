@@ -7,6 +7,19 @@
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
 
+## 菜单、浮层、抽屉和设置过渡补齐（2026-10-24）
+
+E16/E17-F5，P1；关键草稿保存恢复继续按 E02/E08 优先。**全量源码梳理与本批实现/diff 审阅完成，测试和产品回归待 E13 发布前**。基线代码 040a3e1b / 知识 e4184b8；本批代码 [59451598](https://github.com/ly-ccx/Peer-Agent/commit/59451598dc513e0702bbacc961c1b366f73efbe3)；沿既有隔离分支和 PR214/74 交付，不混原工作区 dirty。
+
+| 子任务 | 当前落地与范围 | 发布前保留 |
+|---|---|---|
+| F5-A 菜单/轻层 | C214 MotionSurface 接 21 模块 25 处；共享入退场/关闭停用/反向与 ref 所有权；含经典菜单、补全、查找、悬停预览 | 开关/子层/快速反向/原焦点/IME/读位/锚点移除/窄窗 |
+| F5-B 模态/抽屉 | 逐点盘点全部 Overlay/Drawer 和按钮关闭；补绕过、push/cover/rail、RTL；子会话先保存再退场，失败/期间新编辑保现场，旧代次与重复关闭隔离 | dirty/异步保存失败/迟到/反向、原生窗口/嵌套/无结束事件 |
+| F5-C 设置/折叠 | 12 分区一次 fade；移除服务目录级联与独立 timer；C215 MotionDetails 接 13 模块 17 处原生折叠；保原 SettingsDisclosureContent；修 OAuth 空壳关闭 | 原生折叠/嵌套/内容变化/溢出/减少动效/读屏 |
+| F5-D 宿主与例外 | Quick Chat 入场/closed 接线，关闭由主进程；系统表单/窗口、Gateway 原生与终端、内容历史明确静态/宿主负责，不重挂 guest | 实际 Electron/多屏/终端/远程与辅助技术；不以静态登记代替验收 |
+
+新增 C214/C215 后实际 Desktop 非测试 TSX 215，数量不是符合率。C 级表达与 UI 关闭准备，无协议、IPC、权限、Evidence、持久化或 System Context 变更。四个关闭准备边界用例已补写未运行。逐源清单见[实施记录](../../playbook/v0.1.0/surface-motion-sweep.md)；[交互矩阵](peer-interaction-standardization-matrix.md)和[UI/动效/过渡覆盖表](peer-ui-motion-transition-matrix.md)已同步，后续取证回写这些原行，不另开验收账本。
+
 ## 回复状态与设置后台读取补修（2026-10-24）
 
 E16/E17-F4（C 级菜单过渡补修，P1）：左下角设置应用菜单原为 open 条件直接挂载/移除，未接入退场保留或 motion class。C122 接共享 rise/淡入与 fast 淡出，位移消费 shift-sm；关闭即 inert/aria-hidden，视觉退场由 watchVisualMotion 有界收尾，重开取消旧收尾。导航及原 Escape/Tab/外点/归焦不等待动画，焦点调用保读位；reduce/隐藏/API 缺失沿静态终态。P04、U08/U11、M02/M04/M18、T03；内容/diff 已审阅，真实开关/反向/偏好与无结束事件待 E13。
@@ -49,7 +62,7 @@ E04/E08-F1（P1）：用户反馈“等待/耗时较久”占位与截图返回�
 | 工作包 | 当前状态 | 交付与后续责任 |
 |---|---|---|
 | E15 / R2–R3 · UI 消费者收敛 | **本批消费者实现已审阅；候选验证待发布** | ChoiceStrip 统一能力/Skills tabs 与 MCP 本地枚举；能力、已装 Skills/MCP 读失败保快照，未知数量不显示零，详情/开关按真实回执，嵌套控件不误开卡；文件新建显式确认/取消、失焦留名称/IME；Gateway 既有样式作角色适配 |
-| E16 / R2–R3 · 动效治理 | **G11/G12 当前实现已审阅；候选验证待发布** | 共享 motionEnvironment/visualMotion 统一偏好、隐藏、取消、无 API、finished 拒绝与有界收尾；粒子采样/帧可中止、捕获失败保真源；接入 Overlay/presence/disclosure/问题、档案/FLIP/塌缩、头像/思考球及流式显示泵 |
+| E16 / R2–R3 · 动效治理 | **G11/G12 与 F5 当前实现已审阅；候选验证待发布** | F5 轻层/设置/原生折叠补齐；共享 motionEnvironment/visualMotion 统一偏好、隐藏、取消、无 API、finished 拒绝与有界收尾；粒子采样/帧可中止、捕获失败保真源；接入 Overlay/presence/disclosure/问题、档案/FLIP/塌缩、头像/思考球及流式显示泵 |
 | E17 / R2–R3 · 过渡连续性 | **本批消费者实现已审阅；候选验证待发布** | 问题静态关闭及条件归焦，rail/折叠/档案反向取消旧收尾；MCP 编辑离开 guard，文件创建原作用域回执、显式取消/条件归焦；经典授权立即提交原回调，不等退场；显式查找/定位静态到位，不改变阅读意图 |
 | E11 / R3 · 跨入口一致性 | **当前路径实现已审阅；候选验证待发布** | 精确复用 PR198；终端卡片/编辑焦点分开，先保存后卸载/关闭，失败留原编辑器；远程 IME、原请求回执、阅读锚点、详情关闭与旧响应隔离；CLI/ACP 沿现有事实对照，原生宿主行为仍待发布取证 |
 | E12 / R3 · 启动、大历史与恢复 | **当前路径实现已审阅；候选验证待发布** | G10 固定品牌等待移除；bootstrap 重读/失败保旧壳层。Desktop 追读每批最多 4 页，可继续；TUI 50 条公共投影且不递归 stat 全部历史；远程每次一页、缺口明确。ADR104/105 恢复/备份身份不变，未知执行不自动重放 |
