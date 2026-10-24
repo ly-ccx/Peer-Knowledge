@@ -6,6 +6,12 @@
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
 
+## 服务商设置局部布局（2026-10-24）
+
+U02/U03/U04/U08/U14，P33/C002/C013/C026：基线 `7b6c9972`，实现 [53eb9850](https://github.com/ly-ccx/Peer-Agent/commit/53eb9850) 统一连接/模型/用量的内容边线，展开模型使用稳定 paper-sheet、局部 hover 使用 paper-hover，可读参数使用 graphite-soft。复制/删除收至既有 OverflowMenu，测试/设置留在操作区；来源/同步时间使用帮助文字色与紧凑本地时间，完整时间仍可查看。范围和状态责任见[交互矩阵](peer-interaction-standardization-matrix.md#服务商设置布局局部补修2026-10-24)。M05/T03/T05 沿用 MotionDetails/SettingsDisclosureContent/共享菜单层级，展开静态终态释放菜单溢出，未改展开事实、键盘、焦点、恢复和动画收尾。仅内容/diff 审阅；菜单开合/禁用/删除回执、各主题/200%/窄窗、辅助技术及发布验收继续 E13，不以热更新交付作为已验收证据。
+
+同范围 C013/U11/T02 复用 ConfirmProvider 给单模型删除增加具名确认，仅确认后调用原删除回调；取消/关闭不删。沿共享模态/归焦/退场，无新权限或业务状态。仅内容/diff 审阅，确认/取消/关闭、键盘与实际删除回执待 E13。
+
 ## PR214/215 合并与本地验证（2026-10-24）
 
 用户明确要求本次提前本地测试，覆盖范围不再沿用上批“未运行”的交付状态。PR214 修复共享 MotionDetails 的 ref 类型、测试夹具接线与 UI 退场终点；PR215 保留防闪烁与快照稳定性，并整合共享入口。没有修改原主工作区 dirty 或个人模型配置。
