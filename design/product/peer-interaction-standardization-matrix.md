@@ -6,6 +6,32 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 机器人入口圆角局部统一（2026-10-24）
+
+P01/C126/C129、BotListShell 启动页，C 级样式调整：按用户指定，bot-row 与 bot-main-pick 从 12px 的 ui-radius-row 改用既有 16px ui-radius-panel，与回复气泡当前半径一致；保留统一连续曲线。只改这两处圆角引用，不改全局 token 或背景/边框/间距/导航/状态，现有本地修改保留。内容/diff 已审阅，交本地开发服务查看；测试及截图/交互回归留待用户明确要求或发布 E13。
+
+## 暗色机器人列表当前项辨识（2026-10-24）
+
+P01、BotRow/bot-list.css，C 级局部样式补修。用户需在暗色侧栏辨认正在打开的机器人；Frost 暗色 chrome-canvas 与 chrome-raised 同为 #383838，旧 is-open 用前者填充，背景与侧栏相同。仅暗色 is-open 改用 chrome-active；按用户反馈移除额外侧边标记和加亮边框，沿用原边框/阴影，仅通过背景明暗区分当前项。普通悬停/键盘浏览继续 chrome-hover，浅色样式保留。事实源仍是 openedId，无新增选择状态、导航、权限或动效；焦点/草稿/阅读位置沿既有链。内容/diff 已审阅，未运行测试或截图/交互回归；Frost/Catppuccin 暗色、悬停与已打开项同时出现、减少动效/强制颜色仍待发布 E13。
+
+## 历史失败卡片与原回复归属（2026-10-24）
+
+P06/C137/C144、conversationSections，C 级展示修复。用户目标：新输入的结果和报错应对应本次回复。现场持久记录显示最新输入已 post_reply 成功并保存正式回复，而截图中的 HTTP400 request_id 对应较早的 DeepSeek 请求。独立 cards 快照将未在当前消息页内的旧 agent_unavailable/agent_stopped 追加到最新回复后，造成当前失败的错觉。
+
+卡片快照只按 cardId 或原 turnId 增补已加载的失败消息；当前页没有原消息的失败/停止卡不再合成新消息追加。分页读到原消息时仍显示原错误、时间和宿主 recoveryAction，当前真实失败仍在自己的消息位置，授权/任务决策卡沿原入口；不修改失败事实、恢复许可、交付记录或 Provider 请求。新增旧页缺席、加载历史、同轮部分回复后失败的用例，仅内容/diff 审阅，未运行测试或截图/交互回归；发布 E13 继续验证分页、当前失败及详情定位。
+
+## Composer 模型说明按需查看（2026-10-24）
+
+P06/P34/C128，C 级本地表达补修：移除模型控件下方随 activeSelection 出现的“本轮正在使用的模型……修改用于后续回复或新任务”段落，避免生成阶段改变输入区高度。当前回合模型仍取原 activeSelection，在模型控件既有 title/aria-label 内与已配置值、生效范围一并按需说明；设置页既有非 compact 来源行、保存/错误反馈、当前/后续模型事实与保存路径不变。仅内容/diff 审阅并交开发服务，未运行测试或截图/交互回归；悬停/读屏、生成前后高度与发布验证继续 E13。
+
+## 机器人设置默认收起与入口状态（2026-10-24）
+
+P01/P06/P08/P17、C127/C162，C 级本地补修。用户正常进入或切换机器人时优先看对话：既有 drawerState 的同一 localStorage 偏好键只写 tab/width，读回始终 closed、sessionId=null，并忽略旧 open/sessionId/objectiveId；手动打开沿原状态函数恢复记住的页签，主动任务/目标定位仍由当前交互指定。没有新增存储位置、运行时事实、IPC 或权限边界。
+
+BotListShell 将已加载偏好的 workspace 归属与抽屉状态一起提交，归属不匹配时先呈现收起态，避免切换首帧沿用上个机器人的已展开面板，也避免把旧机器人的偏好写入新键。机器人设置按钮默认透明，仅 hover 或实际 settings 展开且非 inspect 时高亮；键盘 focus-visible 继续可辨。仅触及 drawerState、其既有状态用例、壳层接线与按钮样式；其他本地改动保留。
+
+内容/diff 已审阅；更新了偏好恢复/旧版记录兼容用例，未运行测试、构建或截图/交互回归。当前交开发服务供用户查看；启动/普通切换不闪旧抽屉、手动打开/页签宽度、显式定位与焦点/静态终态仍待发布 E13，不宣称已完成实机验收。
+
 ## 模型菜单浏览位置连续性（2026-10-24）
 
 代码实现：[5c1394b7](https://github.com/ly-ccx/Peer-Agent/commit/5c1394b7)，包含本节定位与下节选项间距修复。
