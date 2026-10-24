@@ -6,6 +6,12 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 回复进展与设置刷新补修（2026-10-24）
+
+E04/E08-F1，P1；C137/C144/C152/C154/C203，P06/P13/P17/P34。删除 15 秒覆盖阶段的提示；公开正文承接进展，无正文投影真实活动，只有接收回执不显示思考；权限/恢复/停止/失败不混淆，未知状态只重读。对话不再接收设置加载小字，设置现场只首次读取显示加载，后台重读不变几何；真实读写失败/保存/无模型/待重试保留。已知宿主强度拒绝直接说明处理位置，原诊断保留详情。
+
+当前实现与内容/diff 已审阅；现场只读确认当前失败卡/详情/模型菜单，截图中的长等待未重演，未发送模型请求。新增边界测试与产品脚本待 E13；真实阶段流转、截图返回瞬间、读屏/reduce/跨窗口仍 V。详见[本轮记录](../../playbook/v0.1.0/reply-status-feedback-20261024.md)。
+
 ## 全 PR 合并与模型强度覆盖（2026-10-24）
 
 本轮范围、最终来源及真实合并状态见[交接记录](../../playbook/v0.1.0/experience-ui-motion-transitions.md#全部-pr-汇合与模型强度补齐2026-10-24)。全局模型分工补齐 role 的独立 reasoningEffort：tier/fixed/auto 均可设置/清除，主进程校验及已保存预览、默认与失效值明确；单模型不再整表禁用；实际能力声明/候选交集决定可选项。恢复候选也须满足显式强度，已冻结任务保持原快照。A/B 约束先写 ADR83 与 SDK 边界规范，非 Renderer 自造配置事实。E02/E04 另修 unknown 回执提前关闭问题卡片：只有 canonical/received 收起，保留原输入身份与问题关联，重试核对持久去重。
@@ -419,7 +425,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C151 · `project-agent/conversation/ReplyBubble.tsx`<br>`ReplyBubble` | V · S 稳定回复气泡与受控内容；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核首次/历史/重连身份、字号/窄窗和静态终态 | P1 · E05/E07/E16 |
 | C152 · `project-agent/conversation/ReplyContext.tsx`<br>`ReplyContext`, `ReplyDetailsContext`, `MemoryContext` | O/V/Q · S 回复详情/MemoryContext、pending/failed 和 memory 按需读取；接口：`projectMemoryList` | 待核来源 unavailable、收起/切 tab、返回同回复与焦点 | P1 · E06/E09/E10 |
 | C153 · `project-agent/conversation/ReplyDetails.tsx`<br>`ReplyDetails` | V/O · S 过程/工具/恢复等按需详情、loading/error；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核详情失败不抹正文、保持展开/原回复定位 | P1 · E04/E05/E09 |
-| C154 · `project-agent/conversation/ReplyPresence.tsx`<br>`ReplyPresence` | R/V · S 真实活动/等待/slow 提示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核计时只提示不造进度、结束清理与 reduce 静态 | P1 · E04/E16 |
+| C154 · `project-agent/conversation/ReplyPresence.tsx`<br>`ReplyPresence` | R/V · S replyPresenceState 复用 Activity/公开段落/回执；无 15 秒阶段覆盖，有正文普通过程静默，权限/恢复/停止明确；接收不冒充模型运行 | E04/E08-F1 已审阅；V 真实流转/未知/终态到卡、读屏/reduce；终态不转圈，未知刷新只重读 | P1 · E04/E08/E16 |
 | C155 · `project-agent/conversation/UserBubble.tsx`<br>`UserBubble` | V/A · S sending/received/unknown 独立；unknown 同 ID retry，不制造执行中回复 | G01 实现已审阅；V 迟到/公共 echo 去重、重开静态与 arriving | P0 · E02/E16/E17 |
 | C156 · `project-agent/diagnostics/ProjectDiagnosticsPanel.tsx`<br>`ProjectDiagnosticsPanel` | V/A · S 按需 diagnostics、busy/status/live 反馈；接口：`projectAgentDiagnostics` | 待核失败/复制、长报告/敏感值和任务来源定位 | P1 · E12/E15 |
 | C157 · `project-agent/drawer/AgentProcessView.tsx`<br>`AgentProcessView` | V · S 已命名代理的活动/错误过程视图；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核同一活动身份、后台不抢焦点/不展开私有过程 | P1 · E04/E05 |
@@ -468,7 +474,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C200 · `workbench/views/SessionImportWizard.tsx`<br>`SessionImportWizard` | F/O/H · S preflight→来源→站点→导入，OS 设置/拖动与错误；接口：`getAppDragTarget`, `getBrowserSessionImportPreflight`, `importBrowserSiteSession` 等 | 待核取消/部分失败/过期权限/返回步骤保选择 | P1 · E08/E09/E17 |
 | C201 · `workbench/views/TaskMonitorRailView.tsx`<br>`BranchIcon`, `FolderIcon`, `DeviceIcon`, `TerminalIcon`, `HammerIcon`, `GlobeIcon`, `ArtifactIcon`, `CheckIcon`, `MonitorSection`, `MonitorRow`, `TaskMonitorRailView` | Q/V/O · S 真实任务/运行/产物 rail、展开和 motion presence；事实：受控 props / 所属 hook（装配模块由子树承接） | E16/E17 presence.cancelExit 防旧退出移除重开 rail 已审阅；V 当前对象失效/停止确认/真实反向 | P1 · E04/E05/E09/E16 |
 | C202 · `project-agent/conversation/InputRecoveryNotice.tsx`<br>`InputRecoveryNotice` | I/V/A · S 真实加载/保存错误/冲突和 unknown pending、原 ID 手动重试；事实：shared recovery snapshot | 实现已审阅；V 非就绪阻止提交、冲突保留、迟到与静态状态 | P0 · E02/E03 |
-| C203 · `project-agent/BotModelFeedback.tsx`<br>`BotModelFeedback` | F/V · S 当前 workspace 读取/保存错误、pending 请求与手动重试/舍弃；事实：useBotModels | E08 实现已审阅；V 换机器人/未知回执/当前范围变化，不把 pending 当 saved | P1 · E08/E15 |
+| C203 · `project-agent/BotModelFeedback.tsx`<br>`BotModelFeedback` | F/V · S useBotModels 当前 workspace 首读/保存/错误/pending；E08-F1 对话隐藏设置加载、设置仅首读加载，后台保快照，无反馈不占位；无模型/真实失败/待重试保留 | 实现已审阅；V 截图/回焦/通知与失败恢复、换机器人/未知/范围变化；不把 pending 当 saved | P1 · E08/E15 |
 | C204 · `ui/forms/FormFeedback.tsx`<br>`FormFeedback` | F/V · S 共享 loading/saving/dirty/error/stale/saved 与恢复；事实：传入结构化表达状态 | E07/E08 实现已审阅；V alert/status、重复通知/主题/读屏；不制造宿主成功 | P1 · E07/E08/E15 |
 | C205 · `ui/forms/UnsavedChanges.tsx`<br>`UnsavedChangesProvider` | F/O · S 编辑器注册 dirty/busy/save/discard，导航请求待处理，安全初始焦点；事实：各 form snapshot | E08 实现已审阅；V 保存并继续/舍弃/取消/忙碌变更、层级/归焦/OS 卸载；不是持久草稿仓 | P1 · E08/E17 |
 | C206 · `ui/settings/SettingsRow.tsx`<br>`SettingsRow` | R/F · S 共享可收缩行/label、说明与真实 control ID 关联 | E07 实现已审阅；V 放大/长值/窄容器；容器 pressed/busy N/A，由控件承担 | P1 · E07/E15 |

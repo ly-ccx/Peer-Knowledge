@@ -7,6 +7,12 @@
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
 
+## 回复状态与设置后台读取补修（2026-10-24）
+
+E04/E08-F1（P1）：用户反馈“等待/耗时较久”占位与截图返回后的设置闪字。C 级表达修复：无公开正文时显示已有 Activity 真实阶段；有公开进展后普通过程留详情，权限/恢复/停止明确。删除固定 15 秒替换；仅接收回执不冒充模型运行。后台设置读取静默保留当前控件，真实失败/保存/待恢复反馈继续可见；已知强度拒绝在第一层说明原因和模型菜单位置。详见[状态、事实、恢复及验证缺口](../../playbook/v0.1.0/reply-status-feedback-20261024.md)。
+
+本轮现场只读观察了失败卡、原始详情及模型菜单；没有修改个人模型配置、重试或发送真实模型请求。状态边界测试已补，既有产品脚本收紧公共正文安静呈现的要求；本地测试与完整回归未运行，待 E13。界面提示修复不代表模型端速度或无输出问题已解决。
+
 ## 全部 PR 汇合与模型分工补修（2026-10-24）
 
 用户明确要求合并两个仓库全部开放 PR，并修复全局模型分工缺少思考强度。原清单为代码 16 项（197、198、199、200、201、203–213）、知识 7 项（67–73）；含 draft 与堆叠目标分支。逐项审阅、保留原提交身份，CI 阻塞修复推回原 PR，按真实检查结果正常合并，不绕过保护。合并状态与最终候选见[交接记录](../../playbook/v0.1.0/experience-ui-motion-transitions.md#全部-pr-汇合与模型强度补齐2026-10-24)。
