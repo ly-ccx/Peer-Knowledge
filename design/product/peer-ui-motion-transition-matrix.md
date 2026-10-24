@@ -32,6 +32,8 @@ M05/T04：问题收起的窗口从真实 resolved 投影开始，回执等待单
 
 ## 回复状态与后台刷新补修（2026-10-24）
 
+E16/E17-F4，P1；U08/U11、M02/M04/M18、T03：C122 设置应用菜单补 motion-enter-rise（medium/shift-sm）及 motion-exit-fade（fast），不另设运动常数。关闭态的静态 opacity 为 0，并立即 inert/aria-hidden；watchVisualMotion 处理结束/拒绝/有界兜底、reduce/隐藏/API 缺失与重开取消。焦点和导航沿真实 open 立即处理，不等动画，保阅读位置。只审阅内容/diff，实机开关、反向、偏好/无事件与归焦仍待 E13。
+
 E07/E17-F3，P1；U02/U03/U12、T06：回复身份恢复正文级名称、32 px 头像及 8 px 分组间距；别名定位节点脱离 flex，空正文载体不产生段落留白。原 ID、连续回复载体与阅读意图策略保留；M01/M18 无新动画/常数或偏好分支。仅 CSS 与内容/diff 审阅，多别名、无正文失败、长名/字号、引用与阅读锚点仍待 E13。
 
 E08-F2，P1；U08/U14/U15、M08、T02/T06：补齐主动保存的反馈归属，对话不再插入“正在保存”段落；原模型按钮沿共享 SVG/motion-spin 和 reduce 静态路径表达真实在途状态，原浮层接失败/重试/舍弃。选择锁定不阻止重开状态菜单，关闭后失败入口留标记；抽屉反馈归模型设置组。无新动画常数、成功计时器、自动开层或焦点跳转；保存事实与 pending 生命周期不变。只完成内容/diff 审阅，慢保存、失败后关闭/重开、窄窗/键盘/读屏与 reduce 均待 E13。
@@ -119,7 +121,7 @@ U01/U03/U05/U06/U07/U08/U14/U15 的设置、新建、模型、档案消费者已
 | U05 按钮/图标/链接 | S PeerIcon/SVG、原生 button、stone/graphite 主操作与已有 focus token；S E15 文件确认/取消 SVG、MCP 按钮/复制失败反馈、远程 focus/target | 当前消费者已审阅；V 读屏/实际目标尺寸/强制颜色及其他操作 | P1 · E06/E15；关键决定 E04 |
 | U06 输入/文本编辑/Composer | S 受控 BotComposer、Quick Chat/TUI shared recovery kernel；正文/引用/附件/pending 先保存，匹配 input 确认；经典沿旧持久 seam；E11 远程 composition/229、原请求回执与会话 draft，终端卡片焦点/编辑分开；S E15 C211 文件名 IME/keyup/repeat、失焦留名、明确确认/取消，写入失败保原编辑 | E02/E08/E11/E15 当前路径已审阅；V 真终端/软键盘/读屏/重开与原持久化限制 | P0 E02/E03；P1 E08/E11/E15 |
 | U07 Checkbox/Switch/枚举/Slider | S boolean-controls 原生 checkbox/role=switch；AppearanceSlider/ReasoningEffort/EffortRange；S E15 C210 本地 radio、嵌套 Switch 键盘不触发卡片、真实开关回执与逐项 pending | E08/E15 当前消费者已审阅；V 真实设备/读屏/其他 slider/switch 与未知回执 | P1 · E06/E08/E15 |
-| U08 搜索/Dropdown/菜单/tooltip | S Dropdown/CascadingMenu/OverflowMenu/查找/tooltip 共用层级、IME/Tab/外点/归焦；过滤 radio、真实 listbox；E08-F2 模型浮层承接配置失败恢复，入口保留状态提示 | S E08 C114 纳入共享层级/IME/roving，浏览不写入；G07 已审阅；V 无模型/失效与跨窗口 | P1 · E03/E06/E15 |
+| U08 搜索/Dropdown/菜单/tooltip | S Dropdown/CascadingMenu/OverflowMenu/查找/tooltip 共用层级、IME/Tab/外点/归焦；过滤 radio、真实 listbox；E08-F2 模型浮层承接配置失败恢复，入口保留状态提示；E16/E17-F4 AppMenu 共享入退场、关闭即停用 | S E08 C114 纳入共享层级/IME/roving，浏览不写入；G07 已审阅；V 无模型/失效与跨窗口 | P1 · E03/E06/E15 |
 | U09 tabs/分段/资源标签 | S Capability/Workbench/档案/Resource tabs 有键盘/roving/panel；昂贵视图手动激活，关闭回相邻；S E15 Capability/Skills tabs 改复用 C210，同 panel 关联、焦点/选择分离 | G05/E06/E15 当前消费者已审阅；V RTL/多实例/失效/动态关闭和 guest | P1 · E06/E15/E17 |
 | U10 行/列表/卡/表格/图表 | S BotRow/TasksTab/AttentionSheet、SettingsGroup、UsageStats/Automation 表格、WorkStream；E12 Desktop 四页续读、TUI 50 条公共投影、远程单页/ID 去重/显式缺口与锚点；S E15 installed/available 读失败保快照，文件创建原 scope，E16 FLIP 收尾 | a0ae1a33 对话重复 key 修复，基础列表/对话点查通过；当前路径已审阅；V 跨列 remount 焦点/锚点与真实大列表，其他列表仍待核 | P1 · E05/E07/E11/E12/E15 |
 | U11 模态/抽屉/面板/原生弹选 | S modal/push/anchored 共用逻辑父子；Overlay native inert/Tab/focusin、允许自有 portal、幂等退场/恢复触发者；S E16/E17 共享 visualMotion 处理退出拒绝/无事件/隐藏，rail 重开取消旧退出 | 当前路径已审阅；V 嵌套/源消失/反向/归焦/原生窗口 | P1 · E06/E11/E15/E17 |
@@ -138,9 +140,9 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 | ID / 语义 | 现有实现与适用消费者 | 差异/退出要求 | 排程 / 任务 |
 |---|---|---|---|
 | M01 控件即时回执 | S token 驱动 hover/pressed/focus、共享 button/switch/checkbox CSS；S E15 共享 ChoiceStrip/文件确认/MCP 反馈与远程 focus/pressed | 本批控件状态已审阅；V 对比度/目标尺寸/其他消费者 | P1 · E15/E16 |
-| M02 fade/rise/pop 入场 | S `motion-enter-fade/rise/pop`；settings/menu/轻层及部分页面；S E16 motionEnvironment/visualMotion 接入相关消费者 | 当前路径已审阅；V 静态偏好/重复打开/其他入场和动画 API | P1 · E16/E17 |
+| M02 fade/rise/pop 入场 | S `motion-enter-fade/rise/pop`；settings/menu/轻层及部分页面；S E16 motionEnvironment/visualMotion 接入相关消费者；E17-F4 C122 rise/shift-sm | 当前路径已审阅；V 静态偏好/重复打开/其他入场和动画 API | P1 · E16/E17 |
 | M03 inline slide 抽屉 | S `motion-enter/exit-slide-inline`；Drawer/档案覆盖层；S E16 档案 push 监听偏好/隐藏，关闭中断不留旧 out timer | 当前路径已审阅；V RTL/方向/push-cover/resize，PR204 未纳入 | P1 · E06/E16/E17 |
-| M04 fade/sink/pop 退场 | S motion exit 与 Overlay 自带 CSS/fallback、useMotionPresence；S E16 Overlay/presence 共用 watchVisualMotion，幂等 finish/cancel、有界 fallback | 当前路径已审阅；V 缺 API/无事件/拒绝/反向/嵌套/真实归焦 | P1 · E16/E17 |
+| M04 fade/sink/pop 退场 | S motion exit 与 Overlay 自带 CSS/fallback、useMotionPresence；S E16 Overlay/presence 共用 watchVisualMotion，幂等 finish/cancel、有界 fallback；E17-F4 C122 fast 淡出、关闭即 inert，重开取消旧收尾 | 当前路径已审阅；V 缺 API/无事件/拒绝/反向/嵌套/真实归焦 | P1 · E16/E17 |
 | M05 fold/grid/height | S SettingsDisclosureContent、BotProcess/details、问题的 WAAPI 高度折叠；S G12/E16 问题 animateVisual 静态/无 API/拒绝/fallback，disclosure 同收尾 | 当前实现已审阅；V 快速反向/无触发者/卸载/旧 promise 与实际焦点 | P1 · E06/E16/E17 |
 | M06 分段/选值指示器 | S BotDrawerSegments/PaletteSelect/模型强度相关 transform/transition；S E15 C210 本地 radio/手动 tabs，选择指示由受控值决定 | 当前消费者已审阅；V 真实键盘/RTL/快速反向/其他选择器 | P1 · E06/E15/E16 |
 | M07 新消息/用户待发气泡 | S 保留 UserBubble/连续回复载体；恢复 kernel 延续 inputId，unknown 不制造进行中回复 | G01 实现已审阅；V arriving 最多一次、公共 echo/重开静态；未新增动画 | P0 输入 E02；P1 E16/E17 |
@@ -166,7 +168,7 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 |---|---|---|---|
 | T01 导航/换机器人/任务 | S BotListShell/任务现场/HistorySheet、经典 activePage、TUI view、remote selected；E11 TUI 先保存后关闭/卸载切换，远程按 bot 保草稿/读位和旧请求隔离；S E17 tools 离开也经 dirty guard，MCP 表单当前编辑不静默丢失 | 本机同 bot 的设置/能力/自动化往返、草稿保留点查通过；当前路径已审阅；V 原生/旧源/跨窗口/未知与真实 IME；背景不夺焦点 | P0 输入 E02；P1 E05/E11/E17 |
 | T02 模态/抽屉/嵌套 | S Overlay/Drawer/focus scope、档案→现场→Evidence、confirm；S E17 表单 dirty 在退场前决定；Overlay/档案/rail 中断共用清理 | 当前路径已审阅；V 嵌套/反向/源消失/原生关闭与归焦 | P1 · E06/E17 |
-| T03 菜单/提示/锚定 | S Dropdown/CascadingMenu/Tooltip、anchoredOverlay 与原生 QuickChat popover | S E08 统一模型菜单加入 shared owner/键盘/锚点失效关闭；V 定位/窄窗/真实跨窗口 | P1 · E06/E11/E17 |
+| T03 菜单/提示/锚定 | S Dropdown/CascadingMenu/Tooltip、anchoredOverlay 与原生 QuickChat popover | S E08 统一模型菜单加入 shared owner/键盘/锚点失效关闭；E17-F4 设置应用菜单补入退场与静态终态，动作不等动画；V 定位/窄窗/真实跨窗口/反向与归焦 | P1 · E06/E11/E17 |
 | T04 标签/分段/分区 | S SettingsPage、BotDrawerSegments、ResourceTabStrip、CapabilityTabs、模型面板；S E15/E17 Capability/Skills tabs 和 MCP radio 共用 C210；切离 MCP 经 guard | 当前消费者已审阅；V 快速竞争/失效选择/旧设置消费者与真实焦点 | P1 · E06/E08/E15/E17 |
 | T05 折叠/展开/详情 | S SettingsDisclosureContent、BotProcess、ReplyDetails、问题 dismissal；S G12/E16/E17 无 API/拒绝/无事件静态收尾，原问题持焦点才交本地 composer | 当前实现已审阅；V 反向/卸载/旧闭包/背景解决不夺焦点/真实系统 | P1 · E05/E06/E16/E17 |
 | T06 待发/接收/连续回复 | S shared recovery kernel + device store，完整 envelope 先保存；匹配 input/public echo 确认，同 ID retry；30秒只结束界面等待；E11 远程匹配原 requestId+ok+received 才确认、手动同 ID 重试；S E16 静态/后台直接交出已收到文本，停止显示泵；无新请求/正文 | E07/E17-F3 连续回复别名定位保留且不占段落间距；E08-F2 模型设置不插入对话布局，保存反馈留原位置；E02/E11/E16 当前路径已审阅；V 正文/思考/工具交接/取消、未知与真实宿主 | P0 · E02/E03；P1 E11/E16/E17 |

@@ -8,6 +8,8 @@
 
 ## 回复进展与设置刷新补修（2026-10-24）
 
+E16/E17-F4，P1，P04/C122：设置应用菜单补共享 rise 入场与 fast 淡出，关闭立即 inert/aria-hidden，视觉保留经 watchVisualMotion 收尾，重开撤销旧收尾；原导航/关闭/归焦不等待动画，焦点使用 preventScroll。reduce/隐藏/API 缺失静态完成，无自建业务计时器。仅内容/diff 审阅，真实开关/快速反向/偏好/事件缺失与读屏待 E13。
+
 E07/E17-F3，P1，P06/C138/C144：回复身份头像用 32 px 共享间距 token、名称用 14 px 正文字号和主文字色，身份行后留 8 px。零高度别名锚点不再参与 flex gap，空正文载体不占位；原 ID、连续 DOM 与定位入口保留。内容/diff 已审阅，多别名/无正文失败/长名/200%/引用定位与阅读锚点待 E13。
 
 E08-F2，P1，P06/P17/P34：首次补修遗漏主动保存，模型保存仍向对话布局插字。现移除 C137 外层反馈，C128/C114 接控件内忙态、可重开的失败入口与浮层内恢复；C161/C163 把抽屉反馈归入模型组；C203 合并保存失败与 pending 的重复重试。仅反馈位置/表达变化，原配置和保存事实不变；慢保存、保存失败后关开、首次读取失败、窄窗与读屏等待 E13，不标已验收。
@@ -196,7 +198,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P01 启动、失败恢复、OS 权限门 | H/O；S E12 session 就绪即进入、reader 加载/失败重读/保旧壳层；App/ErrorBoundary/OS IPC | G10 实现已审阅；V 冷启/权限不可用/重试/窗口关闭/静态终态 | P1 · E12/E17 |
 | P02 首启/升级引导/经典迁移提示 | O/F；project-agent/onboarding、设置 shell 事实 | V 无模型/取消/返回/重复进入，不能误写迁移完成 | P1 · E08/E11 |
 | P03 新建机器人/绑定目录 | F/O；NewBotSheet、BotListShell，新建 lifecycle 回执；含 PR200 本地切片 | E08 名称/IME/单次创建、失败与未知回执已审阅；V 重名/真实受管目录/原生取消/列表读失败 | P1 · E01/E08 |
-| P04 机器人列表/搜索/行操作 | Q；BotList/BotRow、useBotList 与目录投影 | V 空/无结果/归档/对象删除/长名称/键盘选择 | P1 · E04/E07 |
+| P04 机器人列表/搜索/行操作 | Q；BotList/BotRow、useBotList 与目录投影；E16/E17-F4 左下角应用菜单接共享入退场 | V 空/无结果/归档/对象删除/长名称/键盘选择 | P1 · E04/E07 |
 | P05 需要你筛选与清单 | Q/O；S AttentionSheet 仍读 listAttention，CardView 决定依宿主事实 | 到期安排有界宿主重读及父计数刷新，回读前保原行；E04 实现已审阅；V 计数/原卡/详情、迟到/过期/读失败 | P0 · E04 |
 | P06 主机器人对话 | I/V；S 受控 draft + 本机 store + 真实 input receipt；重开不自动发送；E08-F2 移除对话外层模型反馈段落；E07/E17-F3 身份可辨识、去除空节点间距 | a0ae1a33 消息/输入框独立 key，基础打开/页面往返/草稿与阅读模式点查通过；E02/E03/E05 与 E09 引用来源/附件预览实现已审阅；V 切换/重开/未知、引用失效/四页后继续/手势取消、晚图与读位 | P0 输入 / P1 预览 · E02/E03/E05/E09 |
 | P07 授权/计划/问答/项目熟悉 | A/F/V；S 宿主 approval 匹配回执、generic ok 回读卡；旧展示记录不盖授权/验收 | E04/E16/E17 实现已审阅，G12 见首页；V 过期/拒绝/取消/迟到/多卡、静态/反向/归焦 | P0 · E04/E16/E17 |
@@ -399,7 +401,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C119 · `chat/components/thread/TokenUsageDisplay.tsx`<br>`TokenUsageDisplay` | V/A · S lastKnownContext 与 token 提示；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核 stale/估算/缺数据，不能把上一轮值当实时 | P1 · E08/E15 |
 | C120 · `chat/components/thread/VirtualChatTurnList.tsx`<br>`VirtualChatTurnList` | V/G · S 虚拟消息列表/测量 seam；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核旧 index/图片晚到/字体变化/定位，保持阅读意图 | P1 · E05/E17 |
 | C121 · `main.tsx`<br>根装配；无独立组件声明 | H · S 根挂载、主题和错误/确认 Provider 装配；事实：受控 props / 所属 hook（装配模块由子树承接） | 装配无独立交互态；待核启动失败仍有恢复入口 | P1 · E12/E15 |
-| C122 · `project-agent/AppMenu.tsx`<br>`AppMenu` | Q/O · S 机器人壳应用菜单与键盘；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核最上层 Escape/焦点、切经典/设置后返回 | P1 · E06/E11 |
+| C122 · `project-agent/AppMenu.tsx`<br>`AppMenu` | Q/O · S 机器人壳应用菜单与键盘；E16/E17-F4 受控 open 与视觉保留分开，shared rise/fast fade、关闭立即 inert/aria-hidden，watchVisualMotion 收尾/取消，焦点保读位 | 内容/diff 已审阅；V 开关/快速重开/reduce/隐藏/API 缺失、最上层 Escape/焦点、切经典/设置后返回 | P1 · E06/E11/E16/E17 |
 | C123 · `project-agent/AttentionSheet.tsx`<br>`AttentionSheet` | Q/O · S 真实 attention 清单、loading/error/retry、事实订阅；接口：`onProjectAgentChanged`, `onProjectAgentConversationChanged`, `projectAgentListAttention` | 到期只作一次宿主重读及父计数刷新，真实事实更新清单；时钟偏差不反复轮询，失败保旧行、卸载清理 timer；V 失效行/计数同步/点回原任务/空态与错误 | P0 · E04 |
 | C124 · `project-agent/BotAccessControl.tsx`<br>`BotAccessControl` | F/O · S 主 Bot 访问策略、加载/保存/失败/重试；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核继承/Full/Session/撤回真实范围，子任务不自造策略 | P0 · E04 |
 | C125 · `project-agent/BotAvatar.tsx`<br>`BotAvatar` | R · S 头像读取与状态 SVG/材质；接口：`projectAgentReadAvatar` | E16 共享 observer/偏好/隐藏与 gaze 短路已审阅；V 缺图/无 observer/离屏和实际能耗 | P1 · E15/E16 |

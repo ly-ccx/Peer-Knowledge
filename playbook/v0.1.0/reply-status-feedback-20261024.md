@@ -3,7 +3,15 @@
 创建时间：2026-10-24
 最后更新：2026-10-24
 
-> 基于开发线 `bf1d10d2`；代码 `8601ac98`（含前轮 `13965643` / `c5ab5fb5`）/ [PR214](https://github.com/ly-ccx/Peer-Agent/pull/214) 已推送，并 fast-forward 到现有本地试用工作树。首次 C 级表达修复后，用户追问发现 B 级终端模型路由适配缺字段；本轮补齐已有能力元数据的传递，不新增协议、权限、Evidence、模型降级或重试策略。实现与内容/diff 已审阅；测试和完整产品回归留到 E13。
+> 基于开发线 `bf1d10d2`；代码 `040a3e1b`/ [PR214](https://github.com/ly-ccx/Peer-Agent/pull/214) 已推送，并 fast-forward 到现有本地试用工作树。首次 C 级表达修复后，用户追问发现 B 级终端模型路由适配缺字段；本轮补齐已有能力元数据的传递，不新增协议、权限、Evidence、模型降级或重试策略。实现与内容/diff 已审阅；测试和完整产品回归留到 E13。
+
+## 设置应用菜单入退场补修：E16/E17-F4
+
+用户截图指向机器人列表左下角“设置”按钮展开的应用菜单。`AppMenu` 原为 `{open ? menu : null}`，没有 motion class 或退场保留，默认表现就是直接出现/消失；这条源码路径遗漏接入现有规范，不能仅凭截图归因为系统减少动效偏好。
+
+C 级修复：open 与仅用于视觉退场的 present 分开；展开使用共享 `motion-enter-rise` / medium 和 `--za-motion-shift-sm`，关闭使用共享 `motion-exit-fade` / fast。关闭立即 inert、aria-hidden、停用指针，静态 opacity=0 保证取消动画后不回闪；`watchVisualMotion` 负责结束/拒绝/兜底、reduce/隐藏/API 不可用的静态收尾，重开或卸载清理旧 watcher。没有组件自建 timer、运动常数或业务状态机。
+
+原导航、Escape/Tab/外点关闭和归焦基于真实 open，不等待退场；焦点调用加 preventScroll，不以菜单动画移动阅读位置。不新增权限、IPC、Evidence、执行或保存行为。覆盖 P04/C122、U08/U11、M02/M04/M18、T03；内容/diff 已审阅，未运行测试/构建或截图/交互回归。正常开关、快速重开、偏好切换、隐藏、API/结束事件缺失及实际归焦留 E13，不称动效实机验收通过。
 
 ## 回复身份与段落分组补修：E07/E17-F3
 
