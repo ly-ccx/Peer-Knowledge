@@ -7,6 +7,14 @@
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
 
+## PR214/215 汇合验证（2026-10-24）
+
+用户明确要求本次合并并提前本地测试。E16/E17-F5 增加入场落定释放与退出终点保护，PR215 防闪烁沿共享 useMotionSettled/visualMotion 收敛，保留保存防重、失败恢复和定位；原 PR214 的类型/测试夹具接线已修正。
+
+原生 Quick Chat 菜单的宿主漏收既有关闭事件也已补齐，使旧 DOM 退出后再接下一次入场；属于 B 级窗口事件接线，无新 IPC 契约或能力边界。
+
+本地已核对 12 设置分区、5 个抽屉 tab、菜单反向与归焦、草稿保留、宽窄窗和减少动效，以及两处强度保存/失败的回执后稳定性。源码头、完整冒烟/CI 结果及实际合并标识以[本次验证记录](../../playbook/v0.1.0/surface-motion-merge-validation.md)为准。E13 仍负责完整发布包、真实模型/安装版/辅助技术与其他宿主；本次局部通过不提升整个产品为已验收。
+
 ## 菜单、浮层、抽屉和设置过渡补齐（2026-10-24）
 
 E16/E17-F5，P1；关键草稿保存恢复继续按 E02/E08 优先。**全量源码梳理与本批实现/diff 审阅完成，测试和产品回归待 E13 发布前**。基线代码 040a3e1b / 知识 e4184b8；本批代码 [59451598](https://github.com/ly-ccx/Peer-Agent/commit/59451598dc513e0702bbacc961c1b366f73efbe3)；沿既有隔离分支和 PR214/74 交付，不混原工作区 dirty。

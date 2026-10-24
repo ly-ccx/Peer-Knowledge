@@ -6,6 +6,16 @@
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
 
+## PR214/215 合并与本地验证（2026-10-24）
+
+用户明确要求本次提前本地测试，覆盖范围不再沿用上批“未运行”的交付状态。PR214 修复共享 MotionDetails 的 ref 类型、测试夹具接线与 UI 退场终点；PR215 保留防闪烁与快照稳定性，并整合共享入口。没有修改原主工作区 dirty 或个人模型配置。
+
+入场收尾复用 useMotionSettled → visualMotion，不采用 PR215 初版 400/280ms 固定 timer；MotionSurface、Overlay 与档案 pane/push 在真实结束后解除入场 fill/过渡，普通数据刷新不重播。保留原 trigger resize 定位、保存期间的选择防重和失败恢复；头像读取按真实资源键，目录/模型/会话事实不变时保留引用，选中/高亮仍独立核对合法性。
+
+退出的 CSS finished Promise 不能抢在原生终点事件前取消 fill；Overlay 保留终点到原生 end/下一帧，并沿原有 2s 硬上界处理无事件/停帧，静态/拒绝/隐藏仍立即收尾。升级弹窗测试保留真实中点/去向/终点，额外观察原生 end 后 React 的关闭提交；没有放宽几何或制造成功事实。
+
+验证结果和实际合并标识见[本地验证记录](../../playbook/v0.1.0/surface-motion-merge-validation.md)。仍非完整发布包验收，真实服务、安装版、读屏及跨平台限制继续 E13。
+
 ## 菜单、浮层、抽屉与设置过渡复核（2026-10-24）
 
 E16/E17-F5；基线 040a3e1b，本批代码 [59451598](https://github.com/ly-ccx/Peer-Agent/commit/59451598dc513e0702bbacc961c1b366f73efbe3)。全量按生产源码的 portal、menu/dialog/tooltip/listbox、共享 Overlay/Drawer、独立窗口、设置页和折叠区归类，补齐兼容经典入口；[逐文件清单与关闭例外](../../playbook/v0.1.0/surface-motion-sweep.md)。下表 S 均为内容/diff 自审，V 全部仍交 E13，不能沿用此前点查来验收本批代码。
@@ -32,10 +42,12 @@ E16/E17-F5；基线 040a3e1b，本批代码 [59451598](https://github.com/ly-ccx
 | F5-18 服务目录/已连接视图 | 一次共享 fade 交接；移除 170ms 私有退场及逐组/逐卡延迟 | 已就绪视图直接承接，筛选不重新级联，模型设置/目录确认仍沿原 Overlay | S；V 长目录/过滤/返回/编辑状态 · E08/E16/E17 |
 | F5-19 设置高级区/视觉兜底/自动化高级表单 | 保既有 SettingsDisclosureContent/grid/reducer | 保原 expanded、收起后 inert、可取消收尾与焦点；不另造折叠状态 | S 沿用；V 反向/动态控件/保存中 · E08/E17 |
 | F5-20 原生 details：模型行、档案设置/任务/记忆/目标/Evidence/过程/诊断、资源旧值/自动化比较、后台日志 | C215：13 模块 17 处；CSS 支持检测后 height/opacity/content-visibility，完成释放 overflow | 保 details/summary/open/onToggle/ref；共享取消/降级；无支持保持原生静态 | S；V 嵌套/快速开合/默认 open/读屏/控件溢出 · E06/E16/E17 |
-| F5-21 原生 Quick Chat 弹选窗口 | DOM 一次 fade 入场；退出依主进程/OS 即时隐藏，closed 事件清旧内容 | 不延迟选择/失焦/hide IPC，不另造窗口许可/状态 | S；V 真窗口重开/焦点/旧事件/多屏 · E11/E13 |
+| F5-21 原生 Quick Chat 弹选窗口 | DOM 每次真实打开一次 fade 入场；退出依主进程/OS 即时隐藏，既有 closed 事件同时送达独立菜单宿主清旧内容 | 不延迟选择/失焦/hide IPC，不另造窗口许可/状态 | S；V 真窗口重开/焦点/旧事件/多屏 · E11/E13 |
 | F5-22 OAuth 授权码、保存完成/切页/目标交接 | 保共享入场；这些结束由真实流程或目标页面立即承接 | 删除 noop onClose，Escape 不再把待授权面淡为空壳；真实完成不为动画等待 | S；V 授权完成/失败/重复 Escape/目标消失 · E08/E13 |
 | F5-23 Workbench tabs/browser keepalive、历史正文/行内技术详情 | 保原局部 tabs/折叠/静态阅读，不额外 remount guest 或重播历史 | 这是内容/对象连续性；不因“全产品动效”给每条历史补入场 | S 沿用；V 真实 guest/读位/焦点 · E05/E11/E13 |
 | F5-24 Gateway 两网页、TUI/CLI/ACP、系统 select/dialog/context menu | Gateway 原生 select/行内面；终端无 DOM；系统窗口按宿主绘制 | DOM 动画 N/A/有意静态，无跨宿主 renderer CSS；业务与原生选择保持即时 | 源码登记；V 真宿主/辅助技术 · E11/E13 |
+
+本次专项已验证的 F5-02/05/13/15/17/20 子用例及源头见本文顶部 PR214/215 记录；不能将专项通过扩展到整行全部 V，以下为原始批次的完整待核列表。
 
 本次 U08/U11/U13/U14、M02–M06/M18、T01–T04/T08/T09 的消费者补齐以本节为当前进度。减少动效/隐藏/缺 API/结束拒绝由既有 motionEnvironment/visualMotion 和 CSS 静态终态承接；没有新 keyframes、运动常数或动画库。支持检测后的原生尺寸过渡仍有短时布局成本，不宣称帧率或辅助技术通过。E13 必须在最终合并候选逐项核对反向、卸载、失焦/锚点移除、保存失败/期间新编辑/迟到、ref/读位/IME/RTL、reduce/隐藏/API 失效及原生窗口。
 

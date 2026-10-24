@@ -6,6 +6,14 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## PR214/215 汇合验证（2026-10-24）
+
+本次按用户明确要求提前本地测试。C031/Overlay、C114/C128 模型菜单、C212 档案、C214/MotionSurface 和 C215/MotionDetails 接线已补修：按真实打开/对象代次释放入场 fill，保存回读不重播；保留 busy 防重、失败恢复和锚点定位；退出保留终点并有界收尾。快照等值提前返回不跳过选中/高亮合法性核对，头像按实际资源变化读取。
+
+Quick Chat 独立菜单补上既有关闭事件向宿主的转发，隐藏即清旧 DOM，再开接新状态；B 级窗口事件接线，无新增 channel/payload 或能力边界。
+
+本地专项通过 12 设置分区、5 抽屉 tab、菜单 Escape/外点/快速重开、草稿/焦点、push/cover/减少动效，以及设置/composer 两处延迟成功与失败保存。每种保存观测 1100ms，包含回执后抽屉和浮层连续性；真实错误反馈可调整内容高度。详见[验证记录](../../playbook/v0.1.0/surface-motion-merge-validation.md)。本节只升级列明用例；以下历史 S/V 和未运行说明按对应批次理解，未覆盖的状态、IME/原生窗口/读屏和安装版继续 E13。
+
 ## 菜单、浮层、抽屉与设置过渡全量源码复核（2026-10-24）
 
 E16/E17-F5，P1（草稿保存恢复沿 E02/E08 的关键链路优先）；**源码实现/内容审阅完成，候选验证待 E13**。代码基线 040a3e1b，知识基线 e4184b8；本批代码 [59451598](https://github.com/ly-ccx/Peer-Agent/commit/59451598dc513e0702bbacc961c1b366f73efbe3)；只在既有两仓隔离分支交付。逐源清单和边界见[实施记录](../../playbook/v0.1.0/surface-motion-sweep.md)，逐家族语义见[体系覆盖表](peer-ui-motion-transition-matrix.md#菜单浮层抽屉与设置过渡复核2026-10-24)。
@@ -513,7 +521,8 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 
 | 源码入口（代码仓相对路径） | 当前实现/状态责任 | 缺口或待核 / 排程 / 任务 |
 |---|---|---|
-| r/app/state/closePreparation.ts；Overlay.tsx/Drawer.tsx | S F5 UI 关闭准备的 pending/代次隔离；同步 false、异常、拒绝均不启动退场，重复关闭合并；业务保存仍走既有 API | 新增四个边界用例未运行；V 保存失败/编辑中关闭/旧 parent/卸载与迟到 · P1 E08/E16/E17 |
+| r/app/hooks/useMotionSettled.ts；MotionSurface/Overlay/BotProfileDrawer | S F5-I 按真实打开/对象代次观察 CSS 动画，落定后释放入场 fill/过渡；反向/隐藏/卸载取消旧收尾，无组件固定 timer | 本地验证按专项记录；V 安装版/真实辅助技术和其他宿主 · P1 E16/E17/E13 |
+| r/app/state/closePreparation.ts；Overlay.tsx/Drawer.tsx | S F5 UI 关闭准备的 pending/代次隔离；同步 false、异常、拒绝均不启动退场，重复关闭合并；业务保存仍走既有 API | 四个纯关闭准备边界用例本次通过；V 真实编辑中关闭/旧 parent/卸载与迟到 · P1 E08/E16/E17 |
 | r/ui/resources/resourceState.ts/useResourceState.ts；ResourceEditor.tsx | S E15 同步 snapshot/accept 供 Skills 确认后失效旧读；reader 按身份/请求 ticket 保最新，失败保旧快照；动作逐对象同步锁、取消/真实回执独立；editableResource 保非凭据会话 draft | E09/E10 实现已审阅；V 迟到/卸载/读写与刷新失败/取消 · P1 E09/E10 |
 | r/chat/hooks/useTypewriterStream.ts；r/project-agent/state/useAvatarMotion.ts/avatarMotionRegistry.ts | S E16 静态/后台交出已有文本并停止帧；头像共享可见性/偏好与缺 API 静态，恢复不重放已结束退出 | B 级显示批次/顺序，其他 C 级；V 正文/思考/工具交接/取消与真实离屏 · P1 E16/E17 |
 | r/automations/automationEditorState.ts/useAutomationResources.ts | S editor 会话草稿及原版本、bootstrap/runs/receipt 身份隔离；宿主仍决定调度/写入/通知 | E10 实现已审阅；V 冲突核对/未知创建/晚读取/部分失败；不自动重放 · P1 E10 |
