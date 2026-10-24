@@ -6,6 +6,12 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 机器人回复中使用三点提示（2026-10-24）
+
+P06/C137/C144、ReplyPresence/ReplyContext，C 级展示与客户端读快照交接修复。用户需简洁确认机器人仍在回复；已知运行中的普通 provider/正文/tool 阶段统一三点跳动与“正在回复”，有公开正文后也保持提示，过程沿原详情入口。普通接收回执及刷新按钮不再作为回复底部文案，回执由原输入承担；没有 Activity 不把文本或回执推成执行中。宿主 done 到正式 agent_reply 到达之间沿同一提示但三点静止，不显示“正在同步回复”；已知 done 且有 replyText 时不因内部 agent_turn 已持久化而提前移除预览。正式回复到达后替换提示，不保留旧忙态。授权、重连、正在停止、失败/停止、同步故障和重开未知状态各自保留。
+
+读取会话不再提前清除 Activity：renderer 捕获的 read/push fence 随完整分页快照一起发布，正文和活动在同一回调更新；迟读不得清除更新的推送，旧页/未完成或失败的补页不清运行态。该 fence 仅是客户端临时排序元数据，不新增 IPC/宿主事实/权限或持久字段。复用 PeerIcon ellipsis SVG、集中 motion-dots 与现有 token 错峰，执行结束及减少动效时静态三点；不新增 keyframes/计时器，正常文字不额外流光，沿原焦点与回复 DOM 身份。补状态、done 交接及分页发布/推送竞争用例，内容/diff 已审阅，未运行测试或截图/交互回归；真实流式/断联/重开、分页补读、键盘/读屏/减少动效验证留待 E13。本轮按用户授权提交至既有 PR，不发布版本。
+
 ## 无快速通道时隐藏选择器（2026-10-24）
 
 P35/C050、RoutingParameterFields，C 级展示收敛：按用户要求，候选未全部支持现有快速通道时，不渲染请求通道标题、下拉框或不支持说明；支持时才显示原正常/快速与角色继承选择。沿既有 modelSupportsFastMode 与候选交集，不改准入规则或自动清除保存值；宿主解析失败仍在原已保存预览中表达。档位仅剩思考强度时占满参数行，不留空列；隐藏控件不占键盘焦点，不新增动效。仅内容/diff 审阅，未运行测试或截图/交互回归，视口/能力变化与键盘验证留待 E13。本轮按用户授权提交至既有 PR，不发布版本。
