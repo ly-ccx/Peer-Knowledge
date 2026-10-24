@@ -32,6 +32,8 @@ M05/T04：问题收起的窗口从真实 resolved 投影开始，回执等待单
 
 ## 回复状态与后台刷新补修（2026-10-24）
 
+E07/E17-F3，P1；U02/U03/U12、T06：回复身份恢复正文级名称、32 px 头像及 8 px 分组间距；别名定位节点脱离 flex，空正文载体不产生段落留白。原 ID、连续回复载体与阅读意图策略保留；M01/M18 无新动画/常数或偏好分支。仅 CSS 与内容/diff 审阅，多别名、无正文失败、长名/字号、引用与阅读锚点仍待 E13。
+
 E08-F2，P1；U08/U14/U15、M08、T02/T06：补齐主动保存的反馈归属，对话不再插入“正在保存”段落；原模型按钮沿共享 SVG/motion-spin 和 reduce 静态路径表达真实在途状态，原浮层接失败/重试/舍弃。选择锁定不阻止重开状态菜单，关闭后失败入口留标记；抽屉反馈归模型设置组。无新动画常数、成功计时器、自动开层或焦点跳转；保存事实与 pending 生命周期不变。只完成内容/diff 审阅，慢保存、失败后关闭/重开、窄窗/键盘/读屏与 reduce 均待 E13。
 
 U12/U15/U16、T06/T10，E08/E11-F1：跨宿主同一模型能力投影补齐 TUI 强度元数据，修复已声明强度误拒绝；非执行宿主的重试说明接管位置。历史本地校验拦截不冒充模型服务拒绝，沿原租约交接，不增加动效或业务重试。B 级实现已审阅，实际 TUI/声明强度边界用例未运行，完整覆盖待 E13。
@@ -111,8 +113,8 @@ U01/U03/U05/U06/U07/U08/U14/U15 的设置、新建、模型、档案消费者已
 | ID / 角色与适用页面 | 标准要求 / 现有实现 | 差异或待核 | 排程 / 任务 |
 |---|---|---|---|
 | U01 语义 token 与主题 | S `styles/tokens.css` 的 `--ui-*`、Frost 语义色/材质/间距；AppearanceProvider/主题注册；S E15 Gateway 既有 palette 下加入角色适配，未引新系统 | S E07/E15 本批 token/角色实现已审阅；V 其他存量兼容、真实主题/远程对比度 | P1 · E07/E15；远程 E11 |
-| U02 字体与信息层级 | S sans/mono、12/13/14/15/16/20/26 等语义档，正文行高和阅读列已有 token | V 页面主标题/紧凑标题分工、200% 放大、中英长名/路径/代码；不靠缩小字号压进窄窗 | P1 · E07/E15 |
-| U03 几何、间距与密度 | S 8/12/16 曲线、`superellipse(1.4)` 支持检测、space 与 SettingsGroup；S E15 共享 ChoiceStrip/文件输入与远程普通/紧凑几何 | S E07/E15 当前消费者已审阅；V 200%/窄容器/长名和其他存量 | P1 · E07/E15 |
+| U02 字体与信息层级 | S sans/mono、12/13/14/15/16/20/26 等语义档，正文行高和阅读列已有 token；E07/E17-F3 回复名称采用正文字号/主文字色 | V 页面主标题/紧凑标题分工、200% 放大、中英长名/路径/代码；不靠缩小字号压进窄窗 | P1 · E07/E15 |
+| U03 几何、间距与密度 | S 8/12/16 曲线、`superellipse(1.4)` 支持检测、space 与 SettingsGroup；E07/E17-F3 回复头像/身份间距消费共享 token，别名/空正文不占 gap；S E15 共享 ChoiceStrip/文件输入与远程普通/紧凑几何 | S E07/E15 当前消费者已审阅；V 200%/窄容器/长名和其他存量 | P1 · E07/E15 |
 | U04 表面、玻璃、边界与层级 | S chrome/paper/control/glass、overlay、共享 settings-floating；正文稳定底面 | V 嵌套 blur/透明降级/强制颜色、局部 z-index/portal 与模态的交互边界；原生材质需安装包实测 | P1 · E07/E15/E17 |
 | U05 按钮/图标/链接 | S PeerIcon/SVG、原生 button、stone/graphite 主操作与已有 focus token；S E15 文件确认/取消 SVG、MCP 按钮/复制失败反馈、远程 focus/target | 当前消费者已审阅；V 读屏/实际目标尺寸/强制颜色及其他操作 | P1 · E06/E15；关键决定 E04 |
 | U06 输入/文本编辑/Composer | S 受控 BotComposer、Quick Chat/TUI shared recovery kernel；正文/引用/附件/pending 先保存，匹配 input 确认；经典沿旧持久 seam；E11 远程 composition/229、原请求回执与会话 draft，终端卡片焦点/编辑分开；S E15 C211 文件名 IME/keyup/repeat、失焦留名、明确确认/取消，写入失败保原编辑 | E02/E08/E11/E15 当前路径已审阅；V 真终端/软键盘/读屏/重开与原持久化限制 | P0 E02/E03；P1 E08/E11/E15 |
@@ -167,7 +169,7 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 | T03 菜单/提示/锚定 | S Dropdown/CascadingMenu/Tooltip、anchoredOverlay 与原生 QuickChat popover | S E08 统一模型菜单加入 shared owner/键盘/锚点失效关闭；V 定位/窄窗/真实跨窗口 | P1 · E06/E11/E17 |
 | T04 标签/分段/分区 | S SettingsPage、BotDrawerSegments、ResourceTabStrip、CapabilityTabs、模型面板；S E15/E17 Capability/Skills tabs 和 MCP radio 共用 C210；切离 MCP 经 guard | 当前消费者已审阅；V 快速竞争/失效选择/旧设置消费者与真实焦点 | P1 · E06/E08/E15/E17 |
 | T05 折叠/展开/详情 | S SettingsDisclosureContent、BotProcess、ReplyDetails、问题 dismissal；S G12/E16/E17 无 API/拒绝/无事件静态收尾，原问题持焦点才交本地 composer | 当前实现已审阅；V 反向/卸载/旧闭包/背景解决不夺焦点/真实系统 | P1 · E05/E06/E16/E17 |
-| T06 待发/接收/连续回复 | S shared recovery kernel + device store，完整 envelope 先保存；匹配 input/public echo 确认，同 ID retry；30秒只结束界面等待；E11 远程匹配原 requestId+ok+received 才确认、手动同 ID 重试；S E16 静态/后台直接交出已收到文本，停止显示泵；无新请求/正文 | E08-F2 模型设置不插入对话布局，保存反馈留原位置；E02/E11/E16 当前路径已审阅；V 正文/思考/工具交接/取消、未知与真实宿主 | P0 · E02/E03；P1 E11/E16/E17 |
+| T06 待发/接收/连续回复 | S shared recovery kernel + device store，完整 envelope 先保存；匹配 input/public echo 确认，同 ID retry；30秒只结束界面等待；E11 远程匹配原 requestId+ok+received 才确认、手动同 ID 重试；S E16 静态/后台直接交出已收到文本，停止显示泵；无新请求/正文 | E07/E17-F3 连续回复别名定位保留且不占段落间距；E08-F2 模型设置不插入对话布局，保存反馈留原位置；E02/E11/E16 当前路径已审阅；V 正文/思考/工具交接/取消、未知与真实宿主 | P0 · E02/E03；P1 E11/E16/E17 |
 | T07 决策/执行/核验/交还 | S 结构化 approval/current card 与 lifecycle/verification/acceptance 真源分开；旧展示记录不盖当前授权/验收；S E17 经典授权立即交原回调，同展示对象防重；移除动画派发延迟 | E04/E16/E17 当前路径已审阅；V 宿主 grant/过期/拒绝/取消/未知/核验与签收分开 | P0 · E04；P1 E17 |
 | T08 列表增删/排序/分页 | S BotList/TasksTab/Memory/Files、MessageQueue、WorkStream/virtual pager；E12 Desktop 四页衔接、远程单页/显式缺口/锚点、TUI 同目标在途公共页合并；S E15/E17 文件名失焦保留/显式创建，原 scope 回执、失败留现场/条件归焦；E16 FLIP 中断 | 本机历史阅读模式与单个回最新点查通过；当前路径已审阅；V 完整树键盘/目录并发/跨列 remount 焦点与实际阅读，其他列表仍 V | P1 · E05/E06/E10/E11/E12/E17 |
 | T09 预览/分栏/最大化 | S ImageLightbox/Document/Browser、WorkbenchResize、档案 push/cover；S E16 push 档案的隐藏/偏好与静态退出已接共享收尾 | 当前路径已审阅；V guest/resize/窄窗/旧源/真实辅助技术，PR204 待集成 | P1 · E06/E09/E17；共享元素 P2 E14 |
