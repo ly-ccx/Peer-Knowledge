@@ -6,6 +6,10 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 无快速通道时隐藏选择器（2026-10-24）
+
+P35/C050、RoutingParameterFields，C 级展示收敛：按用户要求，候选未全部支持现有快速通道时，不渲染请求通道标题、下拉框或不支持说明；支持时才显示原正常/快速与角色继承选择。沿既有 modelSupportsFastMode 与候选交集，不改准入规则或自动清除保存值；宿主解析失败仍在原已保存预览中表达。档位仅剩思考强度时占满参数行，不留空列；隐藏控件不占键盘焦点，不新增动效。仅内容/diff 审阅，未运行测试或截图/交互回归，视口/能力变化与键盘验证留待 E13。本轮按用户授权提交至既有 PR，不发布版本。
+
 ## 档位参数、角色继承与通道覆盖（2026-10-24）
 
 P35/C050，依 [ADR83 补充](../../knowledge/decisions/83-model-routing-by-role.md) 扩展可选模型分工契约（A 级）。四个档位均可设置模型、已声明的公共思考强度和正常/快速通道；角色未提供值时继承其档位，null 强度明确模型默认、false 通道明确正常，固定/自动模式未提供时使用模型默认/正常。原显式值保留，模型/模式切换不静默清除参数，失效项可见并可恢复。新增 RoutingParameterFields 复用共享 Dropdown，候选能力交集与原 OAuth 准入决定可选项；无模型、无公共强度和不支持快速通道均给原因，未假造新 Provider 能力。
