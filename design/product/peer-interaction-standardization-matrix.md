@@ -6,6 +6,12 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## 模型分工失效引用与列对齐（2026-10-24）
+
+P35/C050，C 级局部展示修复。用户需辨认现有模型分工并自行修复失效选择；当前模型目录缺少已保存 ID 时，主模型、固定模型与备选显示“原模型已不可用，请重新选择”，保留原 ID，不自动替换。角色跟随关系与解析结果取宿主 modelRoutingPreview 同一份已保存配置；无法解析时提示检查上方档位/重选固定模型，加载与读取失败不冒充无模型。沿 useEditableResource 保留选择草稿、预算编辑及保存失败恢复。
+
+角色、选择方式、档位/模型、思考强度、已保存解析、日花费上限统一六列，删除 Frost 外层旧五列覆盖。以组内实际可用宽度折成带字段标签的两列/单列，长解析换行、不挤掉预算。复用原 CascadingMenu/Dropdown 的键盘、归焦与 MotionSurface，不新增导航或动画，不改路由规则、能力、存储或权限。仅内容/diff 审阅，未运行测试、截图或交互回归；失效与重新选择、慢保存/失败、窄窗/字号/读屏留待发布 E13。
+
 ## 远程授权版本归入诊断（2026-10-24）
 
 P39/C038，C 级展示调整：按用户要求，RemoteAccessPanel 的机器人访问权限标题移除“授权版本”；原 delegationVersion 仅在页面底部默认收起的“诊断详情”内显示。沿用 MotionDetails、原生 summary 键盘语义和共享 SVG 展开图标，展开/收起不提交配置，状态轮询继续消费原宿主快照；补中英文诊断标题及可见焦点。后台授权修订递增、策略签名比较、旧版本拒绝、权限勾选与保存链完全沿原路径，不改协议、权限或存储边界。仅内容/diff 审阅并交开发服务，未运行测试或截图/交互回归；诊断开合/轮询保持展开、键盘/减少动效及实际撤回校验留待发布 E13。
