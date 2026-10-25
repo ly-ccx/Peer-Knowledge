@@ -6,6 +6,89 @@
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
 
+## Bot 回复文档引用可预览（2026-10-24）
+
+P06、Markdown FilePathCode 与新增 BotDocumentPreview，按 [ADR108](../../knowledge/decisions/108-bot-reply-document-preview.md) 扩展既有 file:read 的可选 Bot 引用契约（A 级）。用户点击回复中的 inline code 路径或 Markdown 文件链接，在原现场打开只读抽屉；Markdown 默认正文，可看源码，其他文本按源码显示。只在点击后读取，路径本身不证明文件存在，不自动打开、弹外部程序或写文件。复用 Drawer/归焦/减少动效、MarkdownDocument/SourceViewer 与资源读取取消/重试；切 Bot 重置临时预览，刷新失败保留已有正文，关闭回原触发处，不抢草稿/阅读位置。
+
+宿主按 workspaceId 查询真实项目根，接受已登记工作区及按既有配置顺序、Git origin 身份核对的 companion knowledge；按根名解析跨库引用，符号链接和 ../ 不得越界。前端不能提供新授权根，relativeTo 也受同一核对；不改用户/模型权限、Grant、Runtime Projection、Evidence 或 System Context。结果沿原大小/二进制检查，缺失/OS 权限不足/越界/歧义/根不可用在同一预览中明确提示并可重读。已补路径解析、边界及原读取管线用例，内容/diff 已审阅，未运行测试、构建检查或截图/交互回归；真实权限、跨库/软链接、Markdown 链接、焦点/键盘/读屏和窄窗验收继续 E13。本轮按用户授权提交并推送至现有 PR，不发布新版本；其他本地修改保留。
+
+2026-10-25 文档预览过渡补充（C 级）：用户点击路径后，同一只读抽屉用共享 slide-inline 320 ms 入场、200 ms 退场；读取及错误只更换内部内容，不重挂抽屉。修正共享入场观察器在开发 StrictMode 清理时取消 CSS 动画的问题：只解除旧监听，后续观察同一在播动画；完成与减少动效仍清理动画、达到静态终态，不新增组件计时器。关闭继续保留原触发处归焦。已补观察器重跑/偏好降级用例但未运行，内容/diff 审阅；其他本地改动保留，未发布，真实交互验收继续 E13。
+
+
+## 机器人回复中使用三点提示（2026-10-24）
+
+P06/C137/C144、ReplyPresence/ReplyContext，C 级展示与客户端读快照交接修复。用户需简洁确认机器人仍在回复；已知运行中的普通 provider/正文/tool 阶段统一三点跳动与“正在回复”，有公开正文后也保持提示，过程沿原详情入口。普通接收回执及刷新按钮不再作为回复底部文案，回执由原输入承担；没有 Activity 不把文本或回执推成执行中。宿主 done 到正式 agent_reply 到达之间沿同一提示但三点静止，不显示“正在同步回复”；已知 done 且有 replyText 时不因内部 agent_turn 已持久化而提前移除预览。正式回复到达后替换提示，不保留旧忙态。授权、重连、正在停止、失败/停止、同步故障和重开未知状态各自保留。
+
+读取会话不再提前清除 Activity：renderer 捕获的 read/push fence 随完整分页快照一起发布，正文和活动在同一回调更新；迟读不得清除更新的推送，旧页/未完成或失败的补页不清运行态。该 fence 仅是客户端临时排序元数据，不新增 IPC/宿主事实/权限或持久字段。复用 PeerIcon ellipsis SVG、集中 motion-dots 与现有 token 错峰，执行结束及减少动效时静态三点；不新增 keyframes/计时器，正常文字不额外流光，沿原焦点与回复 DOM 身份。补状态、done 交接及分页发布/推送竞争用例，内容/diff 已审阅，未运行测试或截图/交互回归；真实流式/断联/重开、分页补读、键盘/读屏/减少动效验证留待 E13。本轮按用户授权提交至既有 PR，不发布版本。
+
+## 无快速通道时隐藏选择器（2026-10-24）
+
+P35/C050、RoutingParameterFields，C 级展示收敛：按用户要求，候选未全部支持现有快速通道时，不渲染请求通道标题、下拉框或不支持说明；支持时才显示原正常/快速与角色继承选择。沿既有 modelSupportsFastMode 与候选交集，不改准入规则或自动清除保存值；宿主解析失败仍在原已保存预览中表达。档位仅剩思考强度时占满参数行，不留空列；隐藏控件不占键盘焦点，不新增动效。仅内容/diff 审阅，未运行测试或截图/交互回归，视口/能力变化与键盘验证留待 E13。本轮按用户授权提交至既有 PR，不发布版本。
+
+## 档位参数、角色继承与通道覆盖（2026-10-24）
+
+P35/C050，依 [ADR83 补充](../../knowledge/decisions/83-model-routing-by-role.md) 扩展可选模型分工契约（A 级）。四个档位均可设置模型、已声明的公共思考强度和正常/快速通道；角色未提供值时继承其档位，null 强度明确模型默认、false 通道明确正常，固定/自动模式未提供时使用模型默认/正常。原显式值保留，模型/模式切换不静默清除参数，失效项可见并可恢复。新增 RoutingParameterFields 复用共享 Dropdown，候选能力交集与原 OAuth 准入决定可选项；无模型、无公共强度和不支持快速通道均给原因，未假造新 Provider 能力。
+
+主进程只校验本次修改的参数，失败保留草稿；已保存预览展示实际模型、强度与通道。共享解析、故障恢复候选、任务快照持久化/读取与 Desktop/TUI 执行保持同一参数，显式正常不会被请求旧值覆盖；已冻结任务保留原参数。沿原存储/typed IPC/Provider encoder，不新增权限、Evidence 或 Context Source。Bot 控件仅同步展示继承后的实际通道，未重写 Bot 配置。新增契约、继承/清除、能力拒绝、候选过滤、冻结持久化和执行传递用例，未运行；仅内容/diff 审阅，真实模型/订阅通道、失效保存、窄窗/键盘/读屏及完整产品验收继续 E13。其他本地修改保留，本轮按用户授权提交至既有 PR，不发布版本。
+
+## 模型分工失效引用与列对齐（2026-10-24）
+
+P35/C050，C 级局部展示修复。用户需辨认现有模型分工并自行修复失效选择；当前模型目录缺少已保存 ID 时，主模型、固定模型与备选显示“原模型已不可用，请重新选择”，保留原 ID，不自动替换。角色跟随关系与解析结果取宿主 modelRoutingPreview 同一份已保存配置；无法解析时提示检查上方档位/重选固定模型，加载与读取失败不冒充无模型。沿 useEditableResource 保留选择草稿、预算编辑及保存失败恢复。
+
+角色、选择方式、档位/模型、思考强度、已保存解析、日花费上限统一六列，删除 Frost 外层旧五列覆盖。以组内实际可用宽度折成带字段标签的两列/单列，长解析换行、不挤掉预算。复用原 CascadingMenu/Dropdown 的键盘、归焦与 MotionSurface，不新增导航或动画，不改路由规则、能力、存储或权限。仅内容/diff 审阅，未运行测试、截图或交互回归；失效与重新选择、慢保存/失败、窄窗/字号/读屏留待发布 E13。
+
+## 远程授权版本归入诊断（2026-10-24）
+
+P39/C038，C 级展示调整：按用户要求，RemoteAccessPanel 的机器人访问权限标题移除“授权版本”；原 delegationVersion 仅在页面底部默认收起的“诊断详情”内显示。沿用 MotionDetails、原生 summary 键盘语义和共享 SVG 展开图标，展开/收起不提交配置，状态轮询继续消费原宿主快照；补中英文诊断标题及可见焦点。后台授权修订递增、策略签名比较、旧版本拒绝、权限勾选与保存链完全沿原路径，不改协议、权限或存储边界。仅内容/diff 审阅并交开发服务，未运行测试或截图/交互回归；诊断开合/轮询保持展开、键盘/减少动效及实际撤回校验留待发布 E13。
+
+## 主 Bot 权限菜单展示层级（2026-10-24）
+
+P06/P17、C017/C124/C179，C 级展示调整：BotAccessControl 复用既有 Dropdown 的 portal、定位、listbox 键盘/归焦与 MotionSurface，仅按需增加菜单标题、选项图标和 description 展示；说明直接消费既有 accessLevelTitle，不改模式值、权限存储、宿主校验或 expectedRevision 保存链。权限菜单局部用图标/名称/说明三列组合，对勾在右侧，16px 连续圆角，受视口宽度限制并允许文字换行/局部滚动；其他 Dropdown 消费者保留原呈现。完全访问的标题、说明、盾牌图标、对勾与入口沿现有 state-danger 警示色，普通项保持中性。共享 PeerIcon 注册 Lucide hand/shield-alert，沿既有 ISC 许可；帮我批准复用 terminal 图标。
+
+事实源仍是 useBotAccessPolicy 的宿主读取/保存回执，加载、禁用、防重、失败与重试保持原样；图标隐藏于读屏，选项名称与说明通过 aria-describedby 关联。不改 PermissionGrant、角色职责、显式拒绝或子任务继承。内容/diff 已审阅并交开发服务，未运行测试、构建或截图/交互回归；发布 E13 需验证三模式/保存失败、真实键盘/读屏、主题/字号/窄窗与菜单避让。
+
+## 机器人头像移除上传入口（2026-10-24）
+
+P17/C163，C 级设置交互收敛：按用户要求移除“上传自己的图片”按钮及 BotSettingsTab 的 chooseAvatar 请求分支，清理无人使用的中英文文案键；头像区域保留预览、重新生成和既有颜色选择。重新生成仍通过原 projectAgentUpdateProfile、动作忙态/防重、失败重试和宿主 profile 回执更新，不清除现有头像，不改存储/IPC/宿主兼容能力。内容/diff 已审阅并交本地开发服务，未运行测试或截图/交互回归；重新生成成功/失败、键盘与已有图片头像的展示仍待发布 E13。
+
+## 机器人入口圆角局部统一（2026-10-24）
+
+P01/C126/C129、BotListShell 启动页，C 级样式调整：按用户指定，bot-row 与 bot-main-pick 从 12px 的 ui-radius-row 改用既有 16px ui-radius-panel，与回复气泡当前半径一致；保留统一连续曲线。只改这两处圆角引用，不改全局 token 或背景/边框/间距/导航/状态，现有本地修改保留。内容/diff 已审阅，交本地开发服务查看；测试及截图/交互回归留待用户明确要求或发布 E13。
+
+## 暗色机器人列表当前项辨识（2026-10-24）
+
+P01、BotRow/bot-list.css，C 级局部样式补修。用户需在暗色侧栏辨认正在打开的机器人；Frost 暗色 chrome-canvas 与 chrome-raised 同为 #383838，旧 is-open 用前者填充，背景与侧栏相同。仅暗色 is-open 改用 chrome-active；按用户反馈移除额外侧边标记和加亮边框，沿用原边框/阴影，仅通过背景明暗区分当前项。普通悬停/键盘浏览继续 chrome-hover，浅色样式保留。事实源仍是 openedId，无新增选择状态、导航、权限或动效；焦点/草稿/阅读位置沿既有链。内容/diff 已审阅，未运行测试或截图/交互回归；Frost/Catppuccin 暗色、悬停与已打开项同时出现、减少动效/强制颜色仍待发布 E13。
+
+## 历史失败卡片与原回复归属（2026-10-24）
+
+P06/C137/C144、conversationSections，C 级展示修复。用户目标：新输入的结果和报错应对应本次回复。现场持久记录显示最新输入已 post_reply 成功并保存正式回复，而截图中的 HTTP400 request_id 对应较早的 DeepSeek 请求。独立 cards 快照将未在当前消息页内的旧 agent_unavailable/agent_stopped 追加到最新回复后，造成当前失败的错觉。
+
+卡片快照只按 cardId 或原 turnId 增补已加载的失败消息；当前页没有原消息的失败/停止卡不再合成新消息追加。分页读到原消息时仍显示原错误、时间和宿主 recoveryAction，当前真实失败仍在自己的消息位置，授权/任务决策卡沿原入口；不修改失败事实、恢复许可、交付记录或 Provider 请求。新增旧页缺席、加载历史、同轮部分回复后失败的用例，仅内容/diff 审阅，未运行测试或截图/交互回归；发布 E13 继续验证分页、当前失败及详情定位。
+
+## Composer 模型说明按需查看（2026-10-24）
+
+P06/P34/C128，C 级本地表达补修：移除模型控件下方随 activeSelection 出现的“本轮正在使用的模型……修改用于后续回复或新任务”段落，避免生成阶段改变输入区高度。当前回合模型仍取原 activeSelection，在模型控件既有 title/aria-label 内与已配置值、生效范围一并按需说明；设置页既有非 compact 来源行、保存/错误反馈、当前/后续模型事实与保存路径不变。仅内容/diff 审阅并交开发服务，未运行测试或截图/交互回归；悬停/读屏、生成前后高度与发布验证继续 E13。
+
+## 机器人设置默认收起与入口状态（2026-10-24）
+
+P01/P06/P08/P17、C127/C162，C 级本地补修。用户正常进入或切换机器人时优先看对话：既有 drawerState 的同一 localStorage 偏好键只写 tab/width，读回始终 closed、sessionId=null，并忽略旧 open/sessionId/objectiveId；手动打开沿原状态函数恢复记住的页签，主动任务/目标定位仍由当前交互指定。没有新增存储位置、运行时事实、IPC 或权限边界。
+
+BotListShell 将已加载偏好的 workspace 归属与抽屉状态一起提交，归属不匹配时先呈现收起态，避免切换首帧沿用上个机器人的已展开面板，也避免把旧机器人的偏好写入新键。机器人设置按钮默认透明，仅 hover 或机器人档案面板实际展开且非 inspect 时高亮；按用户后续反馈，展开态涵盖概况、任务、目标、记忆和设置全部页签，不再限定 settings。键盘 focus-visible 继续可辨；此次只修正展开态表达，点击入口仍沿原设置导航。仅触及 drawerState、其既有状态用例、壳层接线与按钮样式；其他本地改动保留。
+
+内容/diff 已审阅；更新了偏好恢复/旧版记录兼容用例，未运行测试、构建或截图/交互回归。当前交开发服务供用户查看；启动/普通切换不闪旧抽屉、手动打开/页签宽度、显式定位与焦点/静态终态仍待发布 E13，不宣称已完成实机验收。
+
+## 模型菜单浏览位置连续性（2026-10-24）
+
+代码实现：[5c1394b7](https://github.com/ly-ccx/Peer-Agent/commit/5c1394b7)，包含本节定位与下节选项间距修复。
+
+P17/P34/C114，C 级本地补修：原 ResizeObserver 按每次内容高度重新判断上/下展开，浏览较短提供商时会把同一个浮层翻到触发器上方。定位收敛至 useModelSelectionPosition，复用 positionAnchoredOverlay，在每次真实打开时记录高度，后续定位以该高度作为基准；内容缩短保留打开时的最小高度，增长受视口剩余空间约束，在局部 model-selection-body 滚动。提供商入口与主浮层身份保留；关闭/重开重新测量，触发器移动、滚动与窗口 resize 仍按既有锚定规则避让边界。共享菜单层级、preventScroll 归焦、保存回执与错误恢复不变，没有新业务状态或动画计时器。
+
+本次仅内容/diff 审阅并交开发服务热更新，未运行测试或截图/交互回归；长短列表、选中后出现强度/通道、窄窗与缩放、滚动/重开/无 ResizeObserver 及辅助技术仍待 E13，不将源码定位视为真实逐帧验收。
+
+## 模型菜单相邻选项间距（2026-10-24）
+
+P17/P34/C114，C 级本地样式补修：服务商菜单与模型候选列表采用 column flex 和既有 space-1（4 px）间距，分开相邻选中/悬停背景。保留原 checked/aria-selected、浏览态与键盘焦点；不通过移除选中标记修正视觉粘连，不改保存、权限或动效。仅内容/diff 审阅并交开发服务热更新，未运行测试或截图/交互回归；多项/长名/滚动/窄窗与辅助技术继续 E13。
+
 ## 档案模型保存局部反馈（2026-10-24）
 
 P17/C114/C128/C161/C163，C 级表达修复，基线 `53eb9850`，实现提交 [6176ca67](https://github.com/ly-ccx/Peer-Agent/commit/6176ca67)。用户调整某个角色的模型/强度时，只在对应模型入口显示控件内忙态，模型设置组不插入正常“正在保存”段落；其他角色选择按钮保持亮度与位置。角色依据已有 pending policy 与受控已保存 policy 的逐角色差异判定，不新增保存真源或乐观成功。BotPolicyFields 将既有模型状态交给各 BotModelControls，组级反馈保留首次加载、失败和待恢复入口，正常保存留在当前控件。
@@ -481,7 +564,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C160 · `project-agent/drawer/BotHostDeveloperControl.tsx`<br>`BotHostDeveloperControl` | H/Q · S 开发页选择 bot/宿主控制；接口：`projectAgentList` | 待核空/读取失败/旧选择、与公开控制语义一致 | P1 · E08/E12 |
 | C161 · `project-agent/drawer/BotPolicyFields.tsx`<br>`BotApprovalFields`, `BotPolicyFields` | F · S E08 消费受控 profile/role models，失败保留模型请求；E08-F2 抽屉读写/恢复反馈归模型设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | 配置路径已审阅；V 不支持项/作用域/保存失败，权限/验收仍按 E04 | P0 决策/P1 配置 · E04/E08/E10 |
 | C162 · `project-agent/drawer/BotProfileDrawer.tsx`<br>`BotProfileDrawer` | O/Q · S 五 tab、push/cover、focus scope、dock phase 与报告按需读；接口：`openPath`, `projectAgentGet`, `projectAgentListHistory` 等；S F5：cover 关闭按钮走 requestClose；push 观察真实 CSS motion 收尾，移除固定 360ms timer；保原宽度/双帧入场 | PR204 已汇入候选；先注册 Layer 再 autofocus，空 Layer 不拥有 scope；E06/E16/E17 push 可见性/偏好与退出 watcher 已审阅；V resize/反向/未保存与最终候选实机 | P1 · E06/E17 |
-| C163 · `project-agent/drawer/BotSettingsTab.tsx`<br>`BotSettingsTab` | F/A · S E08 名称会话内 draft/读写反馈、concurrency 回执与策略动作锁/重试；E08-F2 模型反馈归自身设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E08 实现已审阅；V 关闭返回、未知/删除归处/取消上传；其他记忆目标编辑归 E10 | P1 · E08/E10/E17 |
+| C163 · `project-agent/drawer/BotSettingsTab.tsx`<br>`BotSettingsTab` | F/A · S E08 名称会话内 draft/读写反馈、concurrency 回执与策略动作锁/重试；E08-F2 模型反馈归自身设置组；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E08 实现已审阅；头像上传入口已按用户要求移除，保留重新生成/颜色；V 关闭返回、未知/删除归处/头像生成失败恢复；其他记忆目标编辑归 E10 | P1 · E08/E10/E17 |
 | C164 · `project-agent/drawer/CoordinationDetails.tsx`<br>`CoordinationDetails` | V · S 真实协调日志/等待与决策细节；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核增量读取失败/旧 revision、执行与报告不同事实 | P1 · E04/E12 |
 | C165 · `project-agent/drawer/EvidenceView.tsx`<br>`EvidenceView` | V/O · S Evidence/文件的受控详情；事实：受控 props / 所属 hook（装配模块由子树承接）；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E09 按 ref 读取/重读、元信息/缺失/不可用、错误保旧事实已审阅；V 权限/截断/旧源/局部阅读 | P1 · E09/E17 |
 | C166 · `project-agent/drawer/MemoryTab.tsx`<br>`MemoryTab`, `MemoryScope` | Q/F/A · S 筛选/分页/编辑/固定/忘记/恢复/学习开关；接口：`projectMemoryEdit`, `projectMemoryExport`, `projectMemoryForget` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | G09/E10 读失败保快照、逐项/开关/导出回执、修订后关闭旧编辑已审阅；V 冲突/外部变更/新 ID/草稿/OS取消 | P1 · E10/E15/E17 |
@@ -598,3 +681,11 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 上表是现有入口到新要求的映射，不宣称现有脚本已包含新增场景。E13 在实际发布卡中注明每个 matrix ID → 用例/脚本字段/人工步骤 → 候选 commit/包 → 结果与证据；无覆盖写待覆盖，不能填 Pass。沿现有 packet/review/verify，不再造第二套验收账本。
 
 新增页面或组件时：先补对应 P/C 行、状态模板、事实源、失败恢复、UI/M/T 语义和工作包，再实现。拆分/移除组件时迁移原 ID 责任并记录原因；不按文件数量宣称规范符合率。日常只做内容/diff 审阅，完整测试与产品回归留到发布或用户明确要求。
+
+## 2026-10-25 文档候选与相对来源（P06／E09，ADR108）
+
+用户目的：点击回复中的真实文件引用，分支名不冒充文档入口，相对引用不因仓库归属不明而直接误报缺失。自动候选使用文件特征并尊重明确的分支语义；不在消息渲染时扫描磁盘。宿主先按 Bot 根解析裸相对路径，仅在 not_found 时检查已登记根／已确认 companion 的同一路径，返回至多 16 个经边界及真实文件检查的候选，正文为空，用户明确选择后沿原 file:read 重新校验。
+
+显式 ./、../、relativeTo、仓库前缀和绝对目标保持原基准，不能失败后换仓库。来源选择沿同一抽屉，用户选择时焦点交稳定标题，关闭回原对话触发者；无背景夺焦、草稿或阅读位置变动。没有候选、权限不足、配置无效与越界保留具体原因，不新增授权根、IPC channel、模型工具或执行路径。
+
+状态：实现与内容/diff 自审；文件识别、来源选择、候选再验证与读取管线用例已补未运行。已按明确授权正常重启实验室实例并确认原任务与成果保留，仅更新必要运行产物；本次提交限相关修复和文档，不发布。截图／交互及完整发布验收待 E13 或用户明确要求。
