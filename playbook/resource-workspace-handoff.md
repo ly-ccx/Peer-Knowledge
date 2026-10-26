@@ -2,7 +2,7 @@
 
 创建时间：2026-10-26
 最后更新：2026-10-26
-状态：Draft PR 交接；第一阶段已实现路径的测试与基础联调通过，未发布。
+状态：第一阶段开发交接；已实现路径的测试与基础联调通过，最终 CI 结果见验证记录；未发布。
 
 ## 领取的两条分支
 
@@ -11,7 +11,7 @@
 | Peer-Agent | `codex/resource-workspace-stage1` | `PeerAgent/dev/0.1.0`，起点 `008e149e` |
 | Peer-Knowledge | `codex/resource-workspace-stage1-docs` | `main`，起点 `7cf45f6` |
 
-代码交接提交：[`cf36905a4e313356b0cbb061be2f8fc250852784`](https://github.com/ly-ccx/Peer-Agent/commit/cf36905a4e313356b0cbb061be2f8fc250852784)，对应 [代码 Draft PR #220](https://github.com/ly-ccx/Peer-Agent/pull/220)。知识库提交身份以本文件所在配套 PR 为准；两个仓库都要获取。不要只获取最后一次查找/Diff 增量，那会遗漏工作区壳层、来源投影与适配器依赖。两仓按既有同级目录别名放置，或在本机设置 `PEER_KNOWLEDGE_ROOT` / gitignored `.peer-workspace.local.json`；不提交本机路径。
+代码交接提交：[`012a005e50784c1855ba815ad5ee5326f020fafb`](https://github.com/ly-ccx/Peer-Agent/commit/012a005e50784c1855ba815ad5ee5326f020fafb)，对应 [代码 PR #220](https://github.com/ly-ccx/Peer-Agent/pull/220)。知识库提交身份以本文件所在配套 PR 为准；两个仓库都要获取。不要只获取最后一次查找/Diff 增量，那会遗漏工作区壳层、来源投影与适配器依赖。两仓按既有同级目录别名放置，或在本机设置 `PEER_KNOWLEDGE_ROOT` / gitignored `.peer-workspace.local.json`；不提交本机路径。
 
 在新电脑自己的干净 checkout 中：
 
@@ -21,6 +21,8 @@ git switch --track origin/codex/resource-workspace-stage1
 ```
 
 知识库对应切换到 `origin/codex/resource-workspace-stage1-docs`。本地若已有同名分支，先检查其与远端差异，再切换；不要重置另一台设备未推送的工作。继续修改后提交并在同一轮推送各自分支，以 origin 对齐。
+
+若 PR 已合并且专题分支被清理，代码改取 `origin/PeerAgent/dev/0.1.0`、知识库改取 `origin/main`，先核对目标线包含上述代码交接提交和 PR #78 的文档，再继续开发；不要为了切分支重置本地改动。合并只转移源码和契约，仍不恢复源电脑任务。
 
 ## 先读这些内容
 
@@ -51,7 +53,7 @@ git switch --track origin/codex/resource-workspace-stage1
 
 ## 验证状态与后续
 
-用户本轮明确授权验证。当前候选完成依赖/Desktop 构建、类型/架构/UI/IPC 检查，40 文件 240 项模块测试（零跳过），明暗主题各 18 项真实 Electron main/preload/renderer 基础联调，16 张截图由实现者逐张审阅。修正了重复行定位的意图 ID 丢失和旧 body 最小宽度造成的紧凑页横移，并补回归；详见[验证记录](resource-workspace-stage1-validation.md)。此前 335 项测试与 20 个场景属于旧候选，不混计。
+用户明确授权验证。第一阶段固定 40 文件批次最终为 243 项模块测试（零跳过），最终重建的 main/preload/renderer 明暗各 19 项资源联调成功，查看报告专项七项行为通过；构建、Desktop 类型、架构/UI 检查通过。首轮 cf36905a 的 240 项/明暗各 18 项及 16 张截图自审另有精确记录，历史 335 项/20 场景不混计。合并前修复严格图标/无障碍脚本、收起态边框溢出和动画清理等待，并按 ADR109 §25 接上由宿主核对的隔离任务工作树只读来源；最终提交的全量 CI 结果单列于[验证记录](resource-workspace-stage1-validation.md)。
 
 结论仅覆盖本阶段已实现路径，不等于设计表中 G0–G8 全部通过。真实云模型、安装版、完整 IME/读屏/字体/逐帧动效组合及后续阶段未在本批验收；没有重启日常应用、恢复个人任务或重放写入。自动 CI 按对应 SHA 单列，不把本地通过当作 CI 通过。
 
@@ -59,7 +61,7 @@ git switch --track origin/codex/resource-workspace-stage1
 
 1. 接手先核对代码 SHA 与验证记录；代码或依赖改变后，重跑受影响组，不沿用旧日志。
 2. 继续补未覆盖的真实模型、安装版、任务来源跨层及 IME/读屏/字体/reduced-motion 等组合；必须使用隔离夹具，不用个人现场任务凑通过。
-3. 真正发布前按 Release Gate 合并所有 open PR、冻结最终候选并执行完整构建/测试/类型/架构/IPC/产品回归。此 Draft PR 不授权合并或发布。
+3. 真正发布前按 Release Gate 合并所有 open PR、冻结最终候选并执行完整构建/测试/类型/架构/IPC/产品回归。当前用户授权在评审无阻断且 CI 成功后合并 #220/#78，未授权发布。
 4. R5 及之后的强版本身份、独立窗口与协作编辑/条件写入继续依原方案分期；第一阶段不增加写入、窗口迁移或新模型工具。
 
 ## 本地启动与现场连续性

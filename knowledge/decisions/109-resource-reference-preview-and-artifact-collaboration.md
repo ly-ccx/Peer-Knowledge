@@ -1044,3 +1044,13 @@ OpenAI 的公开[Artifacts Viewer 文档](https://learn.chatgpt.com/docs/artifac
 - R4/R4c 的“具体 Diff 同排互切”不能只实现一个反复被覆盖的聚合入口：用户可将已读取的比较保留为独立标签。复用既有 DocumentSession，增加可选只读比较描述，身份包含来源、工作/暂存类型或已确认 SHA 两端；不同范围不按目录名去重。恢复和最近记录仍按当前 Bot 以目录 metadataOnly 重核来源，缺失/非法描述不读原始路径兜底；保留标签不构成历史正文快照，不引入新的物理存储或执行接口。
 
 上述状态来自现有解析/读取结果与呈现意图，按钮、布局或动画不创造权限和执行事实。本批仅继续实现及内容/diff 审阅；新增测试需按现有 Validation Scope 执行，尚未运行不登记通过。
+
+## 25. 任务隔离工作树的只读来源（合并前评审，2026-10-26）
+
+R4c 的任务比较不能把应用数据目录中的内部工作树当普通全局工作区，也不能只在 renderer 核对归属后放行。沿用既有 BotDocumentReference，追加可选 `task: { sessionId, planId }` 作为来源提示；提示本身不授予读取权。
+
+每次解析由宿主重新读取现有 Session 和 GoalPlan，要求 Session.workspaceId/sessionId/report.planId、Plan.planId/delegationOrigin 的 Bot 与 Session 完全一致，且存在完整 SHA 起点与 deliveryBinding。隔离执行必须有真实 worktreePath，不回退 targetWorkspacePath；非隔离来源只采用实际记录的 targetWorkspacePath。只有校验通过，才允许在该记录根内作已有的人类只读预览、相对链接和 Git 比较。路径 realpath 后仍须位于该根，符号链接逃逸、伪造/缺失/失配任务、已清理工作树明确拒绝；不得扫描所有内部工作树找同名文件，不增加应用数据根或其他任务目录为全局允许根。
+
+任务来源描述跟随比较标签、当前文件和文档内相对引用；metadataOnly、正文/图片/单文件 Diff 和刷新均重新校验。持久化/去重身份包含 task，非法恢复元数据失败关闭，不丢弃 task 后退为普通文件；关闭或恢复这些只读视图不启动任务，不重放写入。原有普通项目与已确认知识库来源不变，模型工具、PermissionGrant、Evidence 与执行权不因该提示改变。
+
+验证必须包含配置根以外的临时隔离工作树，从真实 main/preload 读取比较和当前文件；另覆盖串 Bot/Session/Plan、篡改路径、根清理、符号链接逃逸和恢复后的重新校验，不以 renderer 伪造成功结果替代宿主验证。
