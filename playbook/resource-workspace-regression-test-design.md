@@ -1,8 +1,8 @@
 # 右侧资源工作区：G0–G8 前后端回归用例设计
 
 创建时间：2026-10-25
-最后更新：2026-10-25（增加混合标签、启动器、最近资源及独立窗口/实例归属回归）
-状态：Proposed，测试设计，尚未编码或执行；已有测试入口不代表已覆盖本设计。
+最后更新：2026-10-26（补充第一阶段读取、导航和比较的实现映射）
+状态：Proposed，测试设计；部分第一阶段用例已有测试代码，当前候选未执行，不能视为覆盖或验收通过。
 归属：[ADR 109：内容引用、资源预览与产物协作契约](../knowledge/decisions/109-resource-reference-preview-and-artifact-collaboration.md)第 19 节。
 范围：网页、文档/代码、代码 Diff、独立目录，以及公共壳层、跨领域连续性和后续协作修改。
 
@@ -10,7 +10,22 @@
 
 本设计将 G0–G8 各阶段拆成前端、后端、跨层三组可实现用例。此处“后端”包括 Electron main、Protocol/IPC、本地 Runtime、Provider、权限、Evidence 与存储；受控网页服务器是测试夹具，不是新增产品云后端。
 
-当前只交付设计与内容/diff 审阅。用户未要求本轮执行测试，不运行单元/集成测试、构建、截图或交互回归。日常仍遵守当前 Validation Scope；后续用户明确要求提前验证，或准备版本/RC 时，再实现/执行相应范围。没有实现或没有运行的用例不能登记通过。
+本文规定用例设计；对应代码分批实现，状态以实施记录和实际执行回执为准。用户未要求本轮执行测试，不运行单元/集成测试、构建、截图或交互回归。日常仍遵守当前 Validation Scope；后续用户明确要求提前验证，或准备版本/RC 时，再实现/执行相应范围。没有实现或没有运行的用例不能登记通过。
+
+### 2026-10-26 第一阶段补充映射（均未运行）
+
+下列文件在代码 PR #220 中，路径均相对代码仓。它们补充 G1/G2/G3/G5/G6 基础范围，不能替代本设计中的真实 IPC、原生窗口、浏览器或完整前后端验收。
+
+| 不变量 | 测试代码位置 | 夹具与证明边界 |
+|---|---|---|
+| 静态 Markdown 外部图片不自动加载；短标签保留实际文件与行号 | `apps/desktop/renderer/src/chat/components/markdown/inlineMarkdownPreview.test.ts`、`documentReference.test.ts`（同目录） | 实际渲染函数的 SSR 与引用纯函数；不是实际网络/guest 记录 |
+| 先确认来源再读取，失败、切换或来源改变不续读旧路径 | `apps/desktop/renderer/src/workbench/ScopedDocumentPage.test.ts` | 实际组件的受控 hooks/读取夹具；不是 React DOM 或真实 preload/IPC |
+| 每模式读位分离、重复行定位响应、超范围不强制归零 | `apps/desktop/renderer/src/workbench/useDocumentReadingPosition.test.ts` | 内存状态与受控几何夹具；真实滚动/字体/缩放/IME 仍待验证 |
+| 比较首次确认 SHA 后刷新不追随分支；不同范围独立保留与恢复 | `apps/desktop/renderer/src/workbench/resourceComparisonState.test.ts`、`resourceWorkspaceState.test.ts`（同目录） | 纯状态与注入读取；未证明真实 Git/IPC 或历史正文快照 |
+| 目录迟到响应不回写新 owner/root；错误使用可理解文案 | `apps/desktop/renderer/src/workbench/views/filesTreeRefresh.test.ts`、`filesTreePresentation.test.ts`（同目录） | 请求代次和文案纯函数；不是实际文件监视交互 |
+| 宿主枚举在限额处停止、关闭句柄；缺读取 port 时不无界兜底 | `apps/desktop/electron/main/workspace-file-search.test.mjs`、`file-access-application-service.test.mjs`（同目录） | 目录句柄和 service 注入夹具；不等同真实 OS 权限或跨层联调 |
+
+本次只做内容与差异审阅。旧候选曾运行的数量或结果不得沿用到新增实现；G1–G5、G6 基础验收仍待对最终候选执行。
 
 | 代号 | 层次 | 可以证明什么 | 不能代替什么 |
 |---|---|---|---|

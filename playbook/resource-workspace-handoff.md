@@ -11,7 +11,7 @@
 | Peer-Agent | `codex/resource-workspace-stage1` | `PeerAgent/dev/0.1.0`，起点 `008e149e` |
 | Peer-Knowledge | `codex/resource-workspace-stage1-docs` | `main`，起点 `7cf45f6` |
 
-代码交接提交：[`3bdacd7289e75d5d19127d6edff74d9e469c9440`](https://github.com/ly-ccx/Peer-Agent/commit/3bdacd7289e75d5d19127d6edff74d9e469c9440)，对应 [代码 Draft PR #220](https://github.com/ly-ccx/Peer-Agent/pull/220)。知识库提交身份以本文件所在配套 PR 为准；两个仓库都要获取。不要只获取最后一次查找/Diff 增量，那会遗漏工作区壳层、来源投影与适配器依赖。两仓按既有同级目录别名放置，或在本机设置 `PEER_KNOWLEDGE_ROOT` / gitignored `.peer-workspace.local.json`；不提交本机路径。
+代码交接提交：[`0a239c259e6d985bd549c8af56aff2b7bb6b87d6`](https://github.com/ly-ccx/Peer-Agent/commit/0a239c259e6d985bd549c8af56aff2b7bb6b87d6)，对应 [代码 Draft PR #220](https://github.com/ly-ccx/Peer-Agent/pull/220)。知识库提交身份以本文件所在配套 PR 为准；两个仓库都要获取。不要只获取最后一次查找/Diff 增量，那会遗漏工作区壳层、来源投影与适配器依赖。两仓按既有同级目录别名放置，或在本机设置 `PEER_KNOWLEDGE_ROOT` / gitignored `.peer-workspace.local.json`；不提交本机路径。
 
 在新电脑自己的干净 checkout 中：
 
@@ -39,6 +39,7 @@ git switch --track origin/codex/resource-workspace-stage1
 - 显式文件名查找：Bot scoped resolver 先定根；查询 256 字符、40 结果、4000 条目、32 深度；不读正文、不跟随符号链接，部分扫描明确提示。旧服务无 scoped 回执失败关闭。
 - Diff 文件索引与完整正文、未暂存/暂存/提交比较、真实任务来源；任务 owner/session/plan 和完整基准 SHA 匹配才比较，缺少隔离工作树不回退项目根；目录导航有面包屑。
 - BrowserSession/真实 guest 保活与显式注意力规则沿既有 seam；后台请求不能把正在阅读的文档/目录/Diff 偷换成网页。
+- 收尾补充：本地 Markdown 外部图片只作显式入口；确认真实来源后串行刷新；引用支持起始行且模式各记读位；固定比较不追随移动分支，可保留多个独立比较标签；目录代次隔离与宿主有界枚举已补源码，尚未运行验收。
 
 代码主要入口：`renderer/src/workbench/ResourceWorkspaceContext.tsx`、`ResourceLauncher.tsx`、`ScopedDocumentPage.tsx`、`ScopedResourceNavigator.tsx`、`ResourceChanges.tsx`（均在 apps/desktop 下）；宿主在 `electron/main/bot-document-reference.mjs`、`file-access-application-service.mjs` 与既有 workspace IPC；来源提示归一在 protocol/resource-reference-hints、runtime turn-activity/history 与 conversation-store 的 reader/worker。
 
@@ -51,6 +52,8 @@ git switch --track origin/codex/resource-workspace-stage1
 ## 验证状态与后续
 
 当前提交只做内容/差异与依赖引用审阅，没有运行本候选的测试、构建、类型/架构/IPC 或截图回归。已补源码测试，不将“已写测试”登记为通过。此前首批组合的 335 项自动测试与明暗各 10 场景，是历史候选的有限验证，不覆盖当前拆分候选，也不等于 G0–G8 通过。自动 CI 若触发，单独看对应 SHA 的真实结果；不为日常交接主动重跑或等待工作流。
+
+收尾新增用例同样未运行，包括文档 SSR、几何/读位替身、读取顺序、比较元数据与目录句柄/代次测试。替身不等于真实浏览器、原生 IME、读屏或 Electron 交互验收；真实验证按当前授权和最终候选执行。
 
 接手优先级：
 
