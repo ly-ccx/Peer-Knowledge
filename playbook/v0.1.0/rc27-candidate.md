@@ -40,7 +40,7 @@ README: updated。中英发布说明、CHANGELOG、生成的站点数据、使�
 
 第一份合并后采集从本机 23:59 跨至 00:05，历史夹具在播种时生成的“今天”在检查时已正确变为“昨天”；硬编码四组标题的断言失败。保留失败包，日期稳定后从同一未改动源码完整重采集，不改生产分组或放宽断言。该失败不作为用户记录错误或任务丢失的事实。
 
-## Final combined source and checks (product review pending)
+## Final combined source and checks
 
 - Commit: `5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8` (merged code PR #221).
 - Tree: `857217d43e7f1f2baceb7a4079ce55429e73c016`.
@@ -65,4 +65,14 @@ README: updated。中英发布说明、CHANGELOG、生成的站点数据、使�
 | source | 0 | 0.3 |
 | readiness | 0 | 0.4 |
 
-These are the complete serial rerun results on the merged source, including the root upgrade matrix. Screenshot acceptance, expanded resource integration and publication are still pending and recorded separately below. No tag has been pushed at this checkpoint.
+These are the complete serial rerun results on the merged source, including the root upgrade matrix.
+
+## Final product acceptance (publication pending)
+
+- 标准产品包 runId：`c76b2741-03ae-4dbf-a236-81205493a9e5`；244 张必审原始截图全部逐张审阅，`qa:product:verify` 通过（2026-10-27T16:37:09.911Z）。
+- 资源组合：5 个生产 Electron 脚本 × 明暗 2 组，10/10 机器联调通过；89 张原始截图全部逐张审阅，原始与归档副本 SHA256 一致。包含正文/源码/固定历史、目录与 Diff 更新、独立来源、草稿与讨论引用、一次授权、拒绝/取消/冲突/未知结果对账、独立文档/目录/Diff/网页窗口。网页实际内容另外读取原生 guest 像素，不能把父容器空白截图当网页验收。
+- 两份验收均绑定上述最终合并提交与同一源码指纹，采集前后指纹未变；实现者 AI 自审，`independent=false`。可移交的逐图 SHA、观察、完整命令退出和覆盖限制见 [RC27 源码验收记录](evidence/rc27-source-acceptance.json)。
+- 接受的非阻断覆盖限制：旧自动化页面在低于原生主窗口最小 1040px 的 760px 压力图仍有宽内容；正常窗口宽度可读。透明 Quick Chat 原始 alpha 保留，并按 Frost 回退色合成检查；不代表原生系统 vibrancy 验收。旧完成报告抽屉仍为兼容入口；本次新增文件/目录/网页/Diff 使用工作区标签。
+- 认知为受控替身，文件/Git/SQLite/回环网页和主进程/preload/IPC 为真实隔离执行；不据此声称真实模型时延、所有平台安装交互、读屏或长期日用通过。资源脚本显示 Electron 41.7.1 属测试宿主版本，候选 manifests 为 RC27。
+- 合并前代码 PR #221 的 macOS/Linux CI 均通过；最终合并提交 push CI 的 Linux 通过，首轮 macOS 因 GitHub 托管 Runner 未分配而未执行，已重试并进入实际执行。标签前核对最终结果。
+- 本段记录时尚未推送标签；发布产物、npm 和 Pages 的真实结果另补，不能把源码验收写成发布完成。
