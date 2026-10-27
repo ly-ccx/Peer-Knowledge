@@ -1,0 +1,59 @@
+# R5a：统一详情承载与来源返回
+
+创建时间：2026-10-26
+最后更新：2026-10-26
+状态：当前 R5 / R5a / R6 定向组合验证通过；非完整阶段/发布验收。详情见文末组合验证补记。
+
+## 目标与依赖
+
+接续 R5 源码，把机器人资料、回复依据和任务详情并入同一右侧扩展位置。用户在任务/依据中打开资源后可返回原查看上下文，主 Bot 输入、任务事实、文件与网页领域状态保持。R5-01 的 PR 与验证不是本卡验收；R5-02/03 尚待验证。
+
+## 允许范围与边界
+
+新建临时详情引用 kernel、展示状态 hook 和稳定 portal 接线；修改 ResourceWorkspaceContext/Header、WorkbenchPanel/TabState 的呈现入口、BotListShell/BotProfileDrawer/SessionDetail、EvidencePreview 和必要的 DrawerSession/task 引用读取适配与目录意图/会话/树读取中 task 身份接线；新增详情/现场模块与相关用例、样式和本知识记录/矩阵。大组件仅组合，不继续堆叠新业务。
+
+不改主进程实现、IPC/Protocol 权限、System Context、模型/授权/任务调度、Evidence 读取规则或原文件；不发布、不重启、不恢复/重派当前任务，不认领其他本地改动。
+
+## 状态、控制与恢复
+
+启动/普通切 Bot 收起，页签与宽度仍沿原设置。信息、回复、任务、证据、过程分别取原结构化状态；呈现引用只有 workspaceId 及对应 id，不存正文或操作。临时 details 入口不跨启动恢复。一个外壳、一个 resizer、原 Frost/SVG/motion；隐藏内容 inert，非模态区域不锁焦点。
+
+文档/网页/目录/比较沿原会话；从详情打开保留一层返回入口，原详情挂载和滚动/草稿保留。返回只查看，不重新执行。任务现场须显式打开，绑定该子会话，主输入仍发主 Bot；文件引用在有真实 planId 时带原任务来源并由宿主重新验证。失败显示局部原因，缺来源不静默换目标。
+
+## 回归设计
+
+| 组 | 前端 | 宿主/跨层 |
+| --- | --- | --- |
+| E1 领域路由 | bot/task/reply/evidence/process 稳定引用；Bot 更换清除旧返回；启动不展开 | 原读取接口及 sessionId、EvidenceRef 不变，无新通道/授权 |
+| E2 返回来源 | 任务→文件→返回任务、回复依据→网页→返回依据；一层有界；原资源标签不清空 | 不调用 resume/spawn/approve/write；同一文件仍重核 scope/任务归属 |
+| E3 连续性 | 草稿/读位保留，隐藏 inert，按钮按实际领域高亮，IME/窄窗/减少动效按共享边界 | 根 Browser 注册保活，关闭面板不停止任务；当前任务与成果文件 hash 保全 |
+| E4 现场与证据 | 显式进入原会话现场，文件/证据在同一区域，无模态/嵌套可见 Workbench | 子会话收件对象不变；真实 task planId 传递，缺失不猜；Evidence 不改成当前文件 |
+
+用例编写后留待用户明确要求或发布运行，内容/diff 审阅不报告为功能通过。真实 Electron 焦点/IME、长回复、未保存字段、子会话 guest 与明暗/窄窗组合需实景验收。
+
+
+## 实施与差异审阅记录
+
+- 资源领域新增临时 `details` 呈现目的地与 typed ResourceDetailRef：Bot、任务、回复、证据、过程各自保留原状态来源。useResourceDetails 只记当前描述与一层返回来源，不持有正文、任务动作或权限。启动读取旧 activeTab 时把 details 还原为启动器；普通切 Bot 清理旧返回并由原规则收起。
+- WorkbenchPanel 中增加稳定详情 slot，原资源视图和 guest 保持原挂载位置；BotProfileDrawer 在该宿主下 portal 正文，停用原 push/cover 布局与焦点锁，非该宿主仍兼容原路径。共享一套纸面、resizer、宽度和开合动效；原 Bot 页签及旧宽度记录不删除，呈现尺寸以共享工作区为准。没有重复的详情关闭栏或空白回复标题条。
+- 机器人按钮依据当前实际可见的 Bot 信息领域高亮，文件/回复依据/任务详情不能借记住的设置页签常亮。文件、URL、目录、比较或查找入口记录一层来源；原详情正文、草稿与阅读 DOM 在资源查看期间不卸载，返回只改变呈现，不调用恢复/执行接口。
+- 工作现场拆成 ConversationScene Module：在统一工作区内显式内联打开，原子会话 conversationId、ChatSurface、配置读取与局部 WorkbenchProvider 保留，不渲染第二个可见 Workbench/Drawer。原根宿主继续接住子会话 browser reveal/Registry，详情阅读加入既有注意力保护；不认领子会话网页前台接续、guest 迁移或独立窗口，这些仍由 R5w2 负责。主 Bot 输入对象没有改变。
+- SessionDetail 按 sessionId 设置稳定 key，避免从任务 A 切到 B 时继承 A 的 sceneOpen/Evidence 选择；经典工作现场在明确切换详情时退出。EvidencePreview 在资源宿主内默认内联，覆盖任务核验、任务记录和目标的既有入口；其余宿主仍保留原 Drawer。EvidenceView 原读取边界不变；历史选择/恢复确认等独立操作 Overlay 不属于本包的阅读器迁移，不改其写入流程。
+- 结构化 Session/Report 的 planId 经 DrawerSession 保留，任务文档和目录读取传递原 sessionId+planId；目录 intent/导航元数据还保留 relativeTo，避免从嵌套文档跳目录时失去基准。FilesView 子目录读取和文件打开沿同一任务引用，原宿主逐次重核。任务/relativeTo 元数据非法时失败关闭，禁用无来源的重新读取；只能重新从原处打开或由用户明确选项目/知识库，不能悄悄降为普通 Bot 读取。各根/任务读位分别记忆。
+- 键盘退出沿共享非模态框架，在焦点位于右栏、内层未消费 Escape、无更上层交互时收起；不建立第二个焦点陷阱。隐藏详情 inert，减少动效沿原框架静态终态。实现使用原 Frost token、共享 Motion/SVG，没有新增设计系统或运行权限。
+
+### 用例落点与实际状态
+
+已编写：resourceDetailState / useResourceDetails 的领域身份、返回、旧 owner 迟到/切回与未就绪/隐藏反例；workbenchTabState 的临时详情启动兼容；detailSurface 的内联子会话/无模态无额外 Workbench、EvidenceRef 保持、任务文件不降为全局搜索；DrawerSession 的 planId 保留；DirectorySession 的任务隔离、非法来源拒绝及 relativeTo；原 FileAccess 服务的任务目录绑定/拒绝反例。用例没有运行，未报告通过数量。
+
+只完成内容/diff 自审与无空白错误复核。未运行 build、类型/单元/集成测试、Electron 或截图/交互回归，未沿用第一阶段或 R5-01 的验证背书。组合焦点/IME、未保存字段、缩窗、子会话 guest 和真实设置落盘仍待明确提前验证或发布前执行；自审非独立审查。
+
+未提交/推送、未改已有 PR 的远端提交，未发布、未安装或重启日常实例。原主进程、协议、模型/授权/执行/Evidence 运行实现与前包文件/版本读取保持；目录会话 seam 只增加上述来源接线。当前任务与完成写入没有被运行或重放。
+
+
+现场保全复核：本卡开始前保存两份隔离工作区的文件/索引快照；原日常代码工作区 3098 个路径、知识工作区 1247 个路径的内容 hash 均与原快照一致，两处索引未变，原 Vite/Electron 进程仍在。交付工作区未暂存/提交；两仓 diff 无空白错误。上述是文件保全与内容复核，不是应用联调或功能测试通过证据。
+
+
+## 2026-10-26 后续组合验证补记
+
+用户明确要求补跑后，当前 R5 / R5a / R6 组合已完成 Desktop 构建/类型检查、架构/UI/IPC 核对、338 项模块测试及明暗 30 组生产 Electron 联调；31 张图片逐张实现者自审。此记录更新上文“未运行”的实施时状态，不用旧 R5-01 结果背书。定向覆盖、实际修复、失败重跑、保存确认与未覆盖限制见 [组合验证记录](resource-workspace-r5-r6-validation.md)。未发布、未接入个人现场，不表示完整阶段或发布验收通过。

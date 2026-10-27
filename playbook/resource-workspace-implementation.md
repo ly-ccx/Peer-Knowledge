@@ -2,7 +2,7 @@
 
 创建时间：2026-10-25
 最后更新：2026-10-26
-状态：实施中；用户允许开工，本地交付，不发布、不自动测试、不重启已有运行任务。
+状态：本卡保留第一阶段的历史实施记录；R1–R10 当前累计源码状态、跨阶段修正与未验收边界见[源码覆盖表](resource-workspace-source-coverage.md)。普通继续不自动测试、不发布、不重启已有运行任务。
 依据：[ADR 109](../knowledge/decisions/109-resource-reference-preview-and-artifact-collaboration.md)、[回归设计](resource-workspace-regression-test-design.md)。
 
 ## 范围与分级
