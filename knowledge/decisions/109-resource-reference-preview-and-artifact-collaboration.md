@@ -1061,6 +1061,8 @@ R4c 的任务比较不能把应用数据目录中的内部工作树当普通全�
 
 既有 BotDocumentReference 可选 expectedObservation 仅约束本次文本/图片读取，不能授予读取权。宿主先沿已有 resolver 核对当前 Bot/任务/允许根；用当前 canonical root、Bot/任务归属生成 sourceId，用 sourceId 和 canonical 相对路径生成 resourceId。两个 worktree 即使 remote 相同也保持不同来源。本机路径派生身份只用于本机一致性，不是跨设备身份或授权票据。
 
+嵌套注册根重叠时，先按原引用所属根检查词法路径、符号链接及文件类型，再在该范围内选择包含实际目标的最深已注册物理根作为规范来源。限定名、显式相对、绝对及相对原文的同一目标因此获得一致身份；不得为了匹配身份放宽原限定根。任务根仍只用该任务的现存宿主绑定。撤销嵌套注册根后需重新核对来源，不能用旧 observation 继续读取。
+
 metadataOnly 保持解析/stat，不读取正文或算内容 hash。成功的文本/图片结果可选 observation（sourceId/resourceId/relativePath/contentVersion）；contentVersion 为本次实际读取字节的 SHA-256，不是 mtime/size。对 expectedObservation 的资源身份或内容版本不匹配分别返回 source_changed / version_changed，正文或 dataUrl 为空；不切根、不用旧缓存冒充重新授权。字节超限、二进制、权限失败沿原路径；未确认支持 observation 的旧宿主不能伪装版本已验证。
 
 renderer 只保存已接受的读取回执。刷新遭遇内容变化时保留原内存正文与阅读位置，并提供明确的“加载当前版本”；该动作重新走宿主校验，可放弃旧内容版本限制，但不能放弃原来源/资源身份限制。来源变化需要关闭标签后从合法来源重新定位。读取失败保留原内容但标明未确认最新；第一读/恢复无旧正文时不生成历史副本。Diff 的工作树/暂存区比较仍用原范围表达，不把当前文档 observation 说成固定 Diff 快照。
