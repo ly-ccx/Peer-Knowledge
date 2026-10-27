@@ -1,0 +1,258 @@
+{
+  "scope": "R5/R5a/R6 focused combined validation; not a full release or installed-build acceptance",
+  "sourceFingerprint": "c4b8d4f22efbe400516d043f7d034a1a3effabb22ae8cfc17cff3435b921a038",
+  "runtimeFingerprint": "edf7ef3a169c66403b091e4b84a3db0f4b7443cfc8759692e9f3a7063e1e7e6b",
+  "build": "pass",
+  "desktopTypecheck": "pass",
+  "architectureAndUiConventions": "pass",
+  "ipcCatalog": "pass (desktop build)",
+  "modules": {
+    "tests": 338,
+    "pass": 338,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "electron": [
+    {
+      "group": "r5-dark",
+      "checks": 6,
+      "screenshots": 5,
+      "ok": true,
+      "pageErrors": []
+    },
+    {
+      "group": "r5-light",
+      "checks": 6,
+      "screenshots": 6,
+      "ok": true,
+      "pageErrors": []
+    },
+    {
+      "group": "combo-dark",
+      "checks": 9,
+      "screenshots": 10,
+      "ok": true,
+      "pageErrors": []
+    },
+    {
+      "group": "combo-light",
+      "checks": 9,
+      "screenshots": 10,
+      "ok": true,
+      "pageErrors": []
+    }
+  ],
+  "screenshotsReviewed": 31,
+  "independentReview": false,
+  "limitations": [
+    "No real-model call or personal/installed profile",
+    "No full release regression, cross-device handoff or standalone-window acceptance",
+    "No full screen-reader/IME/reduced-motion/keyboard matrix",
+    "Native codec coverage is PNG; other admitted raster formats receive header-level module tests",
+    "Browser restart asserts saved metadata only, after actual settings acknowledgment; abrupt termination inside the pending debounce window is not covered",
+    "Task/Evidence routing receives module/host coverage; this UI packet focuses on Bot settings and resource reading, not a complete real-task/Evidence journey"
+  ],
+  "ok": true,
+  "sourceBase": "a81a049ce677d19c7b05f8fc8835e1d0d305d82f",
+  "sourceIncludesUncommittedWork": true,
+  "runnerScripts": {
+    "apps/desktop/scripts/resource-workspace-tests.mjs": "c5ffb658631a98602079c578fc61fb33768dcf1f860fa6926c5d63c8da1f22f4",
+    "apps/desktop/scripts/resource-workspace-r5-smoke.mjs": "950e7f85969817fd1a739108413e7420ba81410319116003501d6c0f48d3ad37",
+    "apps/desktop/scripts/resource-workspace-r5-r6-smoke.mjs": "f9c5dd2cd78706ebc3df54376c5e7605d5acb5fe028ca910b7a2589acff957f3"
+  },
+  "screenshotReceipts": [
+    {
+      "id": "r5-dark/01-initial-reading",
+      "sha256": "5aa5262d2d338d352b04dbc21541ac34dd16b9a42747f4ab5cd9c91489cd03d2",
+      "status": "pass",
+      "observation": "dark：左右纸面并排，原始正文标题与段落换行可读；主会话与未发送草稿可见。"
+    },
+    {
+      "id": "r5-dark/02-changed-keeps-old",
+      "sha256": "66c2571a5bc7ca9fd419f9ee5e1886567ae557e90406bea46fbf9cd7f7c5cd29",
+      "status": "pass",
+      "observation": "dark：版本变化在当前文档局部提示与显式加载按钮；旧正文仍在原第 2 节读位，没有遮罩。"
+    },
+    {
+      "id": "r5-dark/04-adopted-current",
+      "sha256": "d3f0fbfc0c028235f1fd61829b152cf8b7198453475979ca8d30d0ebc95bae27",
+      "status": "pass",
+      "observation": "dark：正文标题显示新版，旧版本提示已消失；同屏会话和草稿保持。"
+    },
+    {
+      "id": "r5-dark/05-failure-keeps-reading",
+      "sha256": "785575eb5b1c1fbb43b1fea76b418a1cea1f31c7ad9194436730207f793a8541",
+      "status": "pass",
+      "observation": "dark：文档头部显示定位失败原因，下方仍保留已采用的新版正文，错误未遮挡整个会话。"
+    },
+    {
+      "id": "r5-dark/06-restarted-source-position",
+      "sha256": "c1c3707ec6d77f8a99e22bff867005800198974602dd7d42602c50b643081338",
+      "status": "pass",
+      "observation": "dark：全新进程显示恢复的源码行 35 起附近，行号和高亮可见；长行溢出局限在源码阅读区域。"
+    },
+    {
+      "id": "r5-light/01-initial-reading",
+      "sha256": "b68d36aef8a28b8eb28882a92b065690daf0a5957a59b135534b4c96125b78e8",
+      "status": "pass",
+      "observation": "light：左右纸面并排，原始正文标题与段落换行可读；主会话与未发送草稿可见。"
+    },
+    {
+      "id": "r5-light/02-changed-keeps-old",
+      "sha256": "d0b568b45b20ac25c05e64778fbd8f5b65a829ac902895a7e23dda921ea26c5f",
+      "status": "pass",
+      "observation": "light：版本变化在当前文档局部提示与显式加载按钮；旧正文仍在原第 2 节读位，没有遮罩。"
+    },
+    {
+      "id": "r5-light/03-narrow-version-feedback",
+      "sha256": "4852727864789f1ed307f733372da850bb9a23f7e57116d3b5b368801f14e532",
+      "status": "pass",
+      "observation": "light：760px 窄窗切到同一资源纸面，顶部有返回对话；版本提示和正文可读，无整页横向溢出。"
+    },
+    {
+      "id": "r5-light/04-adopted-current",
+      "sha256": "afcb5b19783e2bbb4265057040c519ac084058a5bd127b277041012205993580",
+      "status": "pass",
+      "observation": "light：正文标题显示新版，旧版本提示已消失；同屏会话和草稿保持。"
+    },
+    {
+      "id": "r5-light/05-failure-keeps-reading",
+      "sha256": "e0e826a55b3b53982146bc0d49f12e0eb6708d2c4e7536632e478d98612c293d",
+      "status": "pass",
+      "observation": "light：文档头部显示定位失败原因，下方仍保留已采用的新版正文，错误未遮挡整个会话。"
+    },
+    {
+      "id": "r5-light/06-restarted-source-position",
+      "sha256": "9adb143a4c1528f8e3923b984e25362107100e6df47dcf005b0d20d9a439ad6a",
+      "status": "pass",
+      "observation": "light：全新进程显示恢复的源码行 35 起附近，行号和高亮可见；长行溢出局限在源码阅读区域。"
+    },
+    {
+      "id": "combo-dark/01-history-nested",
+      "sha256": "2b7fe50f2803d2eee0dee8fbdd6b9576c91f94b7233fa69e52a23d202729cc10",
+      "status": "pass",
+      "observation": "dark：历史嵌套正文、完整历史提交和打开当前文件入口同时可见；主会话仍保留，不出现模态层。"
+    },
+    {
+      "id": "combo-dark/02-details-draft-return",
+      "sha256": "a17e230409bfdde0a51bf7b7d49084d3f03c6f87169a887c4ef8f5f4456cae03",
+      "status": "pass",
+      "observation": "dark：同一个右侧框架显示设置；未保存名字和主输入草稿都可见，字段无重复挂载或覆盖层。无模型为合成 fixture 的预期状态。"
+    },
+    {
+      "id": "combo-dark/03-directory-restored",
+      "sha256": "10b9d2cdece63e863f5162288449d3b41353e79ba81b18b9a9c9e9d4a941016e",
+      "status": "pass",
+      "observation": "dark：目录筛选和文件树处于同一纸面；滚动后 item-12 起的子文件连续可读，不自动打开文件。"
+    },
+    {
+      "id": "combo-dark/04-static-markdown",
+      "sha256": "44d27816d77b1dd664abb8d3ed0d21b38ea6f9aa0310a4fd727752e0b0b21703",
+      "status": "pass",
+      "observation": "dark：Markdown 标题正常，外部图片是显式动作；script 内容按文字显示，没有图片自动嵌入或执行。"
+    },
+    {
+      "id": "combo-dark/05-raster",
+      "sha256": "c1be6da55d09c1e13e63147efe21aaa84b55993b2297ea623978b46cef3cf4ed",
+      "status": "pass",
+      "observation": "dark：真实 PNG 显示为蓝/金两色 160×96 图；缩放/适应宽度控件与图片分开，无铺满或遮罩。"
+    },
+    {
+      "id": "combo-dark/06-code-diff",
+      "sha256": "ec7ac6b72c99bd4d8a51d9544f990b4b3da80de6d378e9ec98b9d2bd0c6aa05d",
+      "status": "pass",
+      "observation": "dark：旧/新行分别红/绿显示，双方真实行号为 1；比较来源仍可见，没有把元数据画成正文。"
+    },
+    {
+      "id": "combo-dark/06b-mode-diff-raw",
+      "sha256": "4e4b7b90bfb2e855a065da62a982a5faa537d5a6ae7bd1100340ee03b8fc69d9",
+      "status": "pass",
+      "observation": "dark：说明退化为原始文本，old mode/new mode 保留，使用源码单列而不是虚构两侧 Diff 行号。"
+    },
+    {
+      "id": "combo-dark/07-web-keepalive",
+      "sha256": "330441ec6fbd416d546c79e25848ba78194a3ff6545e561d1791434de3dd4e42",
+      "status": "pass",
+      "observation": "dark：网页中文标题及未提交表单可读；网页占右侧区域，原会话保持。网页自己的浅色底面不被伪装成静态文档。"
+    },
+    {
+      "id": "combo-dark/08-web-url-recovery",
+      "sha256": "8b75378b80b6a1e59ccaf2fc4789445bcfc452e0784a20b162c6f1752fd95a32",
+      "status": "pass",
+      "observation": "dark：保存 URL 重新打开后表单为空，底部按网址恢复提示可见；没有声称表单或历史已恢复。"
+    },
+    {
+      "id": "combo-dark/09-directory-process-recovery",
+      "sha256": "e1688ce9e8ef67d391cdd1bb75d7c1b71025e25dacb2f78968b20ba00be1ab2f",
+      "status": "pass",
+      "observation": "dark：完整重启后回到相同目录滚动片段 item-12 起，无自动打开条目；选择与 440px 位置另外由真实 DOM 断言确认。"
+    },
+    {
+      "id": "combo-light/01-history-nested",
+      "sha256": "895d632afd4508ea38835c0ff4c13820c0b8b6e4d4cdb7f4c7effd2a8db53c8a",
+      "status": "pass",
+      "observation": "light：历史嵌套正文、完整历史提交和打开当前文件入口同时可见；主会话仍保留，不出现模态层。"
+    },
+    {
+      "id": "combo-light/02-details-draft-return",
+      "sha256": "014f7db21ff0198448f4ecf28cde1023c5ab4811d7a775cccbd8c7c7e72cc9a0",
+      "status": "pass",
+      "observation": "light：同一个右侧框架显示设置；未保存名字和主输入草稿都可见，字段无重复挂载或覆盖层。无模型为合成 fixture 的预期状态。"
+    },
+    {
+      "id": "combo-light/03-directory-restored",
+      "sha256": "40ae63f263573f19f410edb4ca3f1af36d2180f4ecd1d8e009b0cabbe1e2c01f",
+      "status": "pass",
+      "observation": "light：目录筛选和文件树处于同一纸面；滚动后 item-12 起的子文件连续可读，不自动打开文件。"
+    },
+    {
+      "id": "combo-light/04-static-markdown",
+      "sha256": "7ef023447412c8426e8b6aaee22b3d127054d23fd93fe6d61e172a4a48f1e30e",
+      "status": "pass",
+      "observation": "light：Markdown 标题正常，外部图片是显式动作；script 内容按文字显示，没有图片自动嵌入或执行。"
+    },
+    {
+      "id": "combo-light/05-raster",
+      "sha256": "d30c6a70a505db114c7a89196c6fed227230b9ffc666c3f1528cef8e200045ea",
+      "status": "pass",
+      "observation": "light：真实 PNG 显示为蓝/金两色 160×96 图；缩放/适应宽度控件与图片分开，无铺满或遮罩。"
+    },
+    {
+      "id": "combo-light/06-code-diff",
+      "sha256": "90c8cdae4532e837e599a23efd400e1abb456a765177b95f019988866c673db3",
+      "status": "pass",
+      "observation": "light：旧/新行分别红/绿显示，双方真实行号为 1；比较来源仍可见，没有把元数据画成正文。"
+    },
+    {
+      "id": "combo-light/06b-mode-diff-raw",
+      "sha256": "9cd2a21e1b68292f2dea91af1d6610fad79941b77de2160b1e7b36dc22c71fc5",
+      "status": "pass",
+      "observation": "light：说明退化为原始文本，old mode/new mode 保留，使用源码单列而不是虚构两侧 Diff 行号。"
+    },
+    {
+      "id": "combo-light/07-web-keepalive",
+      "sha256": "0eeec58eb3d92bac43070201712bd81a1cfb20a44f4a16d54ca916d5f0b2ad8e",
+      "status": "pass",
+      "observation": "light：网页中文标题及未提交表单可读；网页占右侧区域，原会话保持。网页自己的浅色底面不被伪装成静态文档。"
+    },
+    {
+      "id": "combo-light/08-web-url-recovery",
+      "sha256": "31ef511c2396114ae977a5be0eb5a7699ebe495690e855f489ba8405587c848d",
+      "status": "pass",
+      "observation": "light：保存 URL 重新打开后表单为空，底部按网址恢复提示可见；没有声称表单或历史已恢复。"
+    },
+    {
+      "id": "combo-light/09-directory-process-recovery",
+      "sha256": "b4023b90cf380a17072f1c81b1af71ccb24b397c20b9b973535973d39cfc08b6",
+      "status": "pass",
+      "observation": "light：完整重启后回到相同目录滚动片段 item-12 起，无自动打开条目；选择与 440px 位置另外由真实 DOM 断言确认。"
+    }
+  ],
+  "logs": {
+    "build-rerun.log": "a7c62fe90639e55ab42eff0cd4d5b3586403090679e478b6d7030d115834aa78",
+    "typecheck-final.log": "e68d33fd536e3bba0d2a56bdc492261ee6a6d1b64786ec4e14d84b2715d90549",
+    "modules-final.log": "7664266acf0ff148da9950665ac354b81b69de8a2bb7a3e119569d9bc1fa8d22",
+    "architecture.log": "42b320395c12bf6a3a32df6754496e3a81d360dba1b7d1eb6c4e132bb5e7c30c"
+  }
+}

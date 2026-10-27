@@ -1,8 +1,8 @@
 # ADR 109：内容引用、资源预览与产物协作契约
 
 创建时间：2026-10-25
-最后更新：2026-10-26（补充 §26 R5-01 本机文件身份、内容观察版本与阅读恢复边界）
-状态：Accepted（第一阶段 R1–R4d；2026-10-26 用户允许继续第二阶段，本批限定 R5-01）；Git 历史正文、网页/目录恢复增强、独立窗口与协作修改按后续包实施，不表示实现或验收通过。
+最后更新：2026-10-27（补充 §35：独立只读窗口的阅读连续性）
+状态：Accepted（第一阶段 R1–R4d、R5、R5a、R6 契约）；R5 / R5a / R6 当前组合已完成定向构建/类型、338 项模块与明暗 Electron 验证，完整阶段/发布验收未完成；独立窗口与协作修改按后续包实施，不表示实现或验收通过。
 级别：A。涉及跨层引用协议、资源版本、编辑存储、上下文准入及写入边界；落地中的会话投影和 IPC 属于 B 级，局部表达属于 C 级。
 范围：Bot 回复、任务交付物，以及统一资源工作区中的网页浏览、文档/代码阅读、代码 Diff、目录导航；覆盖右侧、专注视图与独立窗口的承载，随后围绕同一资源进行局部讨论和修改。现有任务详情与 Bot 信息面板的承载方式纳入迁移计划，业务规则保持原归属。
 
@@ -1068,3 +1068,370 @@ metadataOnly 保持解析/stat，不读取正文或算内容 hash。成功的文
 renderer 只保存已接受的读取回执。刷新遭遇内容变化时保留原内存正文与阅读位置，并提供明确的“加载当前版本”；该动作重新走宿主校验，可放弃旧内容版本限制，但不能放弃原来源/资源身份限制。来源变化需要关闭标签后从合法来源重新定位。读取失败保留原内容但标明未确认最新；第一读/恢复无旧正文时不生成历史副本。Diff 的工作树/暂存区比较仍用原范围表达，不把当前文档 observation 说成固定 Diff 快照。
 
 沿既有 DocumentSession 设置路径追加可选 observation、按内容版本/模式的有限阅读坐标；不增加物理存储路径、不保存正文，不改写规范会话、Tool Result 或 Evidence。旧会话缺字段时按当前来源读取；损坏观察/坐标丢弃或拒绝不安全目标；恢复时重核对，不把记录的 hash 当作历史正文。网页与目录不套用文件 hash，仍由各领域会话负责，R5-03 单列其增强。
+
+## 27. R5-02：不可变 Git 正文与同提交导航（2026-10-26）
+
+用户在 R5-01 独立提交后明确继续本包。既有 BotDocumentReference 增加可选 `revision: { kind: 'git', commit, repositoryId? }`，commit 必须是完整 40/64 位十六进制提交 SHA；不接受分支、短 SHA、rev:path 或任意 Git 表达式。无 revision 保持 live 文件语义；存在但无效的 revision 必须失败，不能删除字段后降级当前文件。观察回执和历史定位均不能授予权限。
+
+每次历史读取先由现有 Bot/任务/已确认知识库 resolver 重核允许根。历史路径可不存在于当前工作树，但词法定位必须在原范围内，已有路径/最近存在祖先的 realpath 不得逃逸；历史 relativeTo 也是同范围的虚拟文件定位，不以当前文件存在作为前提。该分支只供只读 Git 文件，不放宽目录、搜索、比较、写入或模型工具的路径规则，不枚举其他来源猜同名文件。
+
+历史读取 Module 在已核来源中解析仓库，核对完整提交仍可用，以 literal path 在该提交树查找**准确路径**，仅允许普通 blob。历史目录、符号链接、gitlink/submodule 不跟随；缺提交、缺路径、格式/大小不支持分别返回结构化失败，不以当前文件或其他提交补齐。读取使用有 timeout/maxBuffer 的本地 Git cat-file，不运行过滤器/外部 Diff、checkout、restore、show 的扩展命令，不抓取远端，不采用 replace-object 替换历史。
+
+命令显式要求 `--no-lazy-fetch` / `--no-replace-objects`，并设置对应环境约束；本机 Git 不支持时以 version_unavailable 失败关闭，不能忽略选项重试成可能联网的读取。选项语义及原始 blob 与 filters 的区别依 [Git 命令文档](https://git-scm.com/docs/git) 和 [git-cat-file 文档](https://git-scm.com/docs/git-cat-file)，不是模型提示的约定。
+
+metadataOnly 只读来源、提交和树/对象大小元数据，不读正文。宿主回传确认的完整 commit、repositoryId 和仓库相对路径；正文/图片 observation 仍从实际 blob 字节生成，身份包含来源、仓库、提交与路径。repositoryId 按已核 Bot/任务范围与物理仓库生成，后续读取/相对链接携带它，任何仓库漂移失败关闭；本机身份不充当跨设备映射。
+
+同一路径的 live、不同 commit 可并列标签，去重/恢复/最近记录均保留 revision；非法恢复不退回 live。标签与来源条明确历史提交；刷新只重读该完整提交，不跟随分支。Markdown 内本地链接在同一仓库、同一提交中解析，保留任务来源和行导航；跨仓库跳转不能沿用同一提交假装成功。外部网页仍经原浏览器入口；不自动加载外部图片。
+
+从已确认提交比较的文件提供起点/终点正文入口；缺侧仍由宿主明确判定不存在。live 文件提供完整 SHA 的显式打开入口，历史标签提供独立的“打开当前文件”动作；不得在历史失败时自动切回当前文件。历史正文只读，本包不新增编辑、应用 Patch、快照存储、上下文准入或执行/验收事实。阅读位置沿 §26，每版本/模式独立；普通切换、关闭和恢复不发送模型消息或重跑写入。
+
+
+## 28. R5-03：目录现场与网页恢复边界（2026-10-26）
+
+本节按用户继续推进 R5 的授权落地；沿 ADR46/47 的领域分离，不把文件树或网页转换为通用文档，也不改变任务执行、权限或 Evidence。分级 A（设置中的可选导航元数据契约）、B（会话接线）、C（局部表达）。
+
+- 目录恢复按 Bot workspaceId 隔离，沿现有 workbench settings 保存请求来源及最多 12 个已确认根的视图；每根最多 64 个展开目录、相对选择、筛选（256 字符）和有界坐标。不保存目录条目、文件正文、PermissionGrant、任务执行状态或待执行写入。
+- 恢复前由现有 metadataOnly/resolver 重核来源。根必须与先前确认的实际路径一致才使用旧树坐标；更换机器或根移动时不拿同名/其他来源替代。失效来源保留原目标和重试/显式选择入口。根内真实条目决定能恢复的分支与选择，不沿恢复字符串任意扫描目录。
+- 展开恢复按祖先到后代读取、数量/深度有界；不存在的分支不再被显示为仍存在。树加载完才恢复一次读位，用户开始滚动即交还控制；后台刷新不反复拉回选择或读位。切 Bot/根/卸载使旧读取失效。恢复不会打开选中文件、建立 watch、发送模型消息或触发创建动作。
+- BrowserSession 继续只保存 URL、标题、标签与当前项；新增可选已访问标记只用于解释恢复级别，不是执行证据。进程内已挂载 guest 保持 DOM、表单、读位与 history；重启或 LRU 淘汰后只能按保存 URL 重开，不能声称恢复原 guest。旧 schema 的非空 URL 按地址记录兼容。
+- 网页的按 URL 重开在当前网页的局部状态处提供简短标识和可展开的限制说明；仅本次 guest 的实际导航/加载事件提供运行反馈。guest 崩溃显示当前页失败与显式重试，不自动重放提交、脚本、任务或已完成写入。登录分区、主进程目标注册与能力链保持原状，不增加 DOM 注入或读取网页表单的旁路。
+- 以上都是阅读元数据，不是跨设备来源绑定、授权或完整网页快照；跨设备来源重新绑定、独立窗口和可写协作仍由后续卡负责。已有 workbench 开合/宽度、Composer 与任务恢复逻辑保持。
+
+日常只编写回归用例并作内容/diff 审阅；未运行构建、测试或截图，不沿用 R5-01 的验证为 R5-03 背书。实施和前后端回归设计见 [R5-03 卡](../../playbook/resource-workspace-r5-recovery.md)。
+
+
+## 29. R5a：详情承载与返回来源（2026-10-26）
+
+按用户继续推进的授权，迁移 §11.6 的既有机器人信息、回复/证据、任务详情和显式工作现场到同一右侧扩展承载。分级 B/C；只移动 renderer 呈现与导航，不新增任务/权限/Evidence/执行/存储协议。依赖 R5 的源码，不把尚未验证的 R5-02/03 称为已经验收。
+
+- 工作区增加临时 details 呈现入口；带 workspaceId 的 bot / task / reply / evidence / process 视图引用只负责路由，内容仍由 DrawerMemory、BotInspect、TaskReport、ReplyDetails、EvidenceView 和既有 ChatSurface 持有。引用不保存正文，不创建执行事实，不进入通用 Tab<any>。
+- 一个 Bot 页面只有一个扩展框架与尺寸控制；BotProfileDrawer 在该框架内通过稳定 portal 呈现，原 push/cover 仅保留非该宿主的兼容路径。信息页签草稿在文件浏览期间保持挂载，详情切换不卸载文档和真实 guest。启动/普通切 Bot 仍收起，详情引用不跨启动恢复，机器人按钮只按实际可见的信息领域高亮。
+- 从任务/回复依据打开文档、目录或网页时记住一层显式返回来源；返回只恢复原查看上下文，不重新定位执行、批准、恢复任务或发送消息。来源更换或 Bot 更换使旧返回失效；不能靠一层层侧栏累积嵌套。
+- 任务中的 Evidence 与显式工作现场在同一区域内展开，不再叠文档模态或第三套可见 Workbench。工作现场仍绑定原 conversationId，只有用户明确打开后才挂载该 ChatSurface；主 Bot Composer 保持原收件对象。子会话工具/浏览器注册仍由既有根宿主按原会话身份管理，不把人类打开的 URL 冒充子会话 guest。
+- 任务文件/目录引用只在结构化 Session/Report 给出 planId 时携带 sessionId+planId，宿主照常核验归属。目录意图和可选导航元数据保留这对任务身份及原引用的 relativeTo，各层重新读取仍经原 task resolver；来源选择中的“当前项目/知识库”是用户显式离开任务来源，不隐式继承旧任务。缺少任务来源时不猜隔离 cwd，不扩大允许根；普通 Bot 范围文件仍沿原 resolver。回复依据继续使用现有 Evidence 读取边界，不能把当前文件当历史证据。
+- 隐藏详情立即退出键盘/无障碍交互，不设新焦点锁；扩展框架继续负责开合、窄窗和过渡，内容切换不重放入场或重置主会话读位。详情中的动作仍需用户明确点击原控件，不为迁移自动调用任何修改 API。
+
+日常只进行内容/diff 审阅与用例编写，不自动运行测试、构建或截图。范围、恢复与前后端用例见 [R5a 实施卡](../../playbook/resource-workspace-details.md)。
+
+
+## 30. R6：只读适配、展示预算与安全退化（2026-10-26）
+
+按用户继续推进授权实施 §10 / R6，级别 B/C；只收口呈现策略和人类导航，不改变读取/执行/权限/Evidence 协议、模型上下文或磁盘存储。主进程和既有 byte/version/scope 读取事实仍由 R5 提供，renderer Adapter 不能将扩展名当成成功或格式鉴定。
+
+- 本地 HTML/SVG 统一只读源码；默认模式与旧 preview 恢复都不能创建 iframe/webview/object 或执行主动内容。真实网页仍进入原 BrowserView，不用静态文件充当网页实例，不自动启动服务或转换进程。
+- 文档 Markdown 使用现有安全解析器与显式 local-document 呈现策略：远程图片不自动请求，本地路径不因呈现批量探盘/加载缩略图。链接只负责显式导航，并保留当前文档来源；Classic 路径也须沿其原受控读取策略，不能从人类预览创建模型权限。
+- Markdown、源码、Diff 有独立的 renderer 展示预算。超限明确显示可见部分/退化原因，原文与版本未改；不把展示截断当空文件或完整正文。Markdown 超出富文本预算时落到受限源码，源码行号仍对应原文本，Diff 不支持 combined/binary、坐标/数量不符或无法可靠归组等结构时显示原始受限文本；混合重命名/模式等元数据也保留，不画假两侧行号或把元数据变更当空结果。
+- Raster Adapter 只接受有界本地 data URL 与已支持格式，核对声明 MIME、实际文件头和可确认尺寸（头部检查不是完整解码证明）；未知/矛盾/超限不挂载图片，解码失败局部反馈并保留刷新入口。SVG 使用源码。缩放只是人类阅读，沿原按钮/SVG/Frost，不开启模型看图权限或请求远端。
+- 无 PDF/Office 等 Adapter 时明确说明暂不支持正文，不假称可编辑/已转换；文本形式仍可按源码读取，二进制/读取限额维持原宿主错误。旧文档模式不悄悄改配置，仅按当前 Adapter 安全落位或说明不可呈现。
+- 网页错误区继续消费真实失败/guest 崩溃事件，重试为用户动作；本地呈现策略不会注入网页 DOM、重放表单或通过预览旁路访问网络/文件。
+
+日常编写用例、内容/diff 审阅；未运行测试/构建/截图，旧包通过不算本包证据。范围、预算与前后端回归见 [R6 实施卡](../../playbook/resource-workspace-rendering.md)。
+
+
+## 31. R5 / R5a / R6 当前组合验证补记（2026-10-26）
+
+按用户明确要求补跑组合验证，§26–30 的当前隔离源码组合完成 Desktop/依赖构建、类型、架构/UI/IPC 核对与 338 项模块测试；生产 Electron 明暗 30 组定向联调通过，31 张图片由实现者逐张审阅。修复了 Diff 呈现组件与解析模块大小写路径冲突；测试替身目标、跨进程 Locator 与落盘确认按真实语义修正。没有改变上述权限、版本、执行或 Evidence 契约。此前各节“未运行”的文字是实施时记录，当前实际结果以 [组合验证记录](../../playbook/resource-workspace-r5-r6-validation.md) 为准。
+
+此结论不等于完整第二阶段、安装包、真实模型、独立窗口或写入协作验收，不覆盖保存前强制结束的导航持久化窗口；不使用旧图片或 PR HEAD 代替本次未提交组合。原任务和已有成果、原个人应用继续保留，不重启/重放，不发布。
+
+
+## 32. R6a：辅助导航、受控动态检查与比较候选（2026-10-26）
+
+按继续推进授权，在 §11.12/11.15 与 R6a 范围落地 renderer 的 B/C 级联动，不增加存储、执行、权限、IPC 或 Evidence 真源。宽纸面内文件树/当前比较索引作为右侧辅助导航；同一领域实例保持挂载，窄栏保留独立入口。项目、知识库及任务比较沿原显式来源/完整基准，每个比较独立；索引消失时不替用户选择其他文件。
+
+动态更新不能借 legacy watchDirs 绕过 Bot/task 归属。此包采用显式开启、前台有界、无重叠的既有受控读取，目录只核已展开分支；比较新结果先候选提示、用户决定采用，失败保旧。完整不可变比较不轮询，分支既已确认的基准不重新跟随。计时器与布局不产生授权、写入或完成事实；后台/收起/不可见暂停，owner 变更和迟到结果失效。
+
+具体界面状态、前后端回归设计与未运行边界见 [R6a 实施卡](../../playbook/resource-workspace-navigation.md)。不重启当前应用/任务，不重跑已有写入，不发布；上一次组合验证不自动覆盖本包。
+
+
+## 33. R7：真实交付关联与历史表达（2026-10-26）
+
+用户在 R6a 定向验证通过后授权继续。分级 A/B：为既有只读 Evidence inspection 增加可选 Bot/任务归属与 UserArtifact 投影，DocumentSession 增加引用对；不改变 Provider 产物生成、EvidenceIndex、任务验收或授权真源，不新增执行入口。
+
+- inspection 请求可带 `context: { workspaceId, task?: { sessionId, planId } }`。宿主从真实索引记录查归属：有 planId 时核 Plan.delegationOrigin 和 Session.report.planId；无 planId 时只接受当前 Bot 的主会话。请求有任务时必须匹配该任务，不能降级 Bot。归属失败不读取正文/工件、不回退旧无 context 路径。旧调用仍按原协议读摘要，不额外返回交付物。
+- 交付关联只来自该记录中受治理的 `userArtifacts`，不解析 assistant、stdout、任意路径或普通 `artifactRefs`。投影限制种类、数量和字段，携带 evidenceRef+artifactRef 稳定引用对、显示名、原保存预览、当前文件定位；定位由既有 Bot/task file reader 在每次打开时再核对，不构成允许根或历史字节证明。范围外的图片等内部工件不为本包增加读取根；已保存安全缩略图可单独显示。
+- 文件/代码/图片交付显示实际存在的有界预览，并明确“未保存完整历史正文”或“保存的预览”。不从当前文件、当前工作树 Diff 或 Git HEAD 拼出交付时正文；存在保存的 Diff 摘要不声称具备完整旧文件。缺记录、归属失效、旧服务或读取失败须明确提示，不自动打开同名替代，也不重跑写入。
+- 从交付物明确打开当前文件时，用独立 DocumentSession 字段 `delivery: { evidenceRef, artifactRef }` 记录来源。它只参与标签身份/恢复/回链，不保存正文、不证明完成或授权；与普通当前文件、不同交付引用分开。恢复后重新查询原 Evidence 并核对路径和任务，只有匹配回执可展示已确认关联。无法确认时保留当前文件及“关联未确认”提示；不得拿恢复的标签元数据冒充事实。嵌套链接/另开 Git 历史不继承到无关资源。
+- 文档内可返回原 Evidence；主对话/任务草稿、阅读位置与执行现场不变。预览不会自动进入模型，不自动加载旧文件、不写索引、不创建快照或接受任务。直接编辑、条件写入、选区发送及独立窗口仍为后续包。
+
+前后端用例与实施状态见 [R7 实施卡](../../playbook/resource-workspace-deliveries.md)。R6a 的通过记录固定在其来源摘要，不能为 R7 新增代码背书。
+
+R7 兼容补充：既有 Objective Watch Evidence 有独立且不可覆盖的原登记记录，不属于 UserArtifact。新 scoped inspection 在 Goal EvidenceIndex 无记录时，仅可经专用只读 Adapter 用 Watch 的真实 evidenceRef/workspaceId 重核同 Bot、拒绝任务 context 后读取其原观察正文；不回退任意 legacy external reader，也不从 Watch 观察产生交付列表。未知或错属仍明确失败。
+
+
+## 34. R5w1：独立只读窗口的归属基座（2026-10-26）
+
+用户授权继续整体方案；R7 核心源码已收口但未验收，先推进仍欠缺的第二阶段独立窗口。按 §11.16 分三步落地，不能把基座当作独立窗口已经可用：01 强类型引用与宿主 Registry；02 原生窗口、最小 preload/IPC 与只读呈现；03 原上下文返回、独立读位及关闭恢复。分级 A/B，先补本节与实施卡，再实现。
+
+### 34.0 原生接线补充
+
+02 使用独立 `resource` 可信窗口角色、专用 preload 和有界只读 IPC；不挂载 MainApp，不继承主窗口读写、任务、模型、设置或浏览器 guest 接口。工厂只加载受信任的本地应用页，sandbox/contextIsolation 开启，禁用 Node 与 webview。来源经原 Bot/task resolver 确认，宿主保存实际允许根与目标；每次读取重新解析并核对根，引用与 Registry 均不是授权。
+
+文档窗口固定引用及完整历史提交；初始 observation 使用现有 `expectedObservation {resourceId, contentVersion?}`，不另创字段。目录窗口可显式读取实际目标的后代目录/文件，但须同时经过原 resolver 和真实路径包含性核对；不增加允许根，符号链接越界拒绝。比较使用已确认的完整 SHA 或显式 working/staged 基准，不在另开时重新跟随分支。目录、Markdown、源码、图片、Diff 复用现有只读 Adapter；主动本地内容不执行，远程图片不自动读取。嵌套链接不自动拓展原窗口范围。
+
+原 scoped Directory/Git 成功回执补充规范化 `resolvedPath`（单文件 Diff 同时回 `resolvedFrom`），供新窗口核对真实读取对象；不从 Git 的仓库根代替用户选定的子目录。Git 的文件/目录 pathspec 采用 literal 语义，避免文件名中的通配字符扩大比较范围；未跟踪文件单独保留，不因已跟踪 Diff 为空而宣称全部无改动。专用窗口仅接收七项公开外观值及其更新，不获得完整设置。原生加载最多等待 30 秒，失败/关闭/dispose 释放该视图，不操作任务。
+
+打开新窗口保留右侧视图、会话草稿与任务；局部读取失败保留已读内容并提供重试，窗口启动失败释放自身租约。关闭仅释放自己；返回仅向实际捕获的原主窗口发送绑定上下文并聚焦该窗口，来源消失明确提示。后续完整双向读位/导航恢复仍按 03 单独收口；恢复不重跑写入。默认入口继续右侧展开，独立窗口须用户明确点击。
+
+### 34.1 身份与边界
+
+`resource` 定位/版本与 `viewId`、`windowId`、`generation`、真实 sender 分开。首批仅文档、目录、比较的“另开只读视图”；原右侧视图保留，各自读位。网页 guest/移动、writer/draft 转移、任务与模型控制不在本包；未接通的动作保持隐藏。
+
+宿主 Registry 接受真实主窗口 sender，经过宿主 resolver 核对 Bot、主会话、task/session/plan、原文件/比较来源后才分配身份。Renderer 的 owner/windowId/路径不是授权事实。新 sender 由窗口工厂登记，不能用数字 webContentsId 或传入 windowId 自认其他窗口。descriptor 中只保留引用、版本/交付引用对及有界导航元数据，不复制正文、图片、差异、Evidence 或草稿。
+
+### 34.2 生命周期与恢复
+
+`prepared → attached → ready → released` 为呈现生命周期，ready 不代表文件读取、权限或任务成功。准备中也计入窗口数限额；异步核对期间 source 销毁、dispose、重复/错误 sender、旧 generation 均拒绝。关闭只释放对应租约/监听，不调用停止、取消、恢复或写入。主窗口换 Bot 不改绑既有窗口；原来源不存在时返回明确失败，不找另一个窗口代替。
+
+准备时的合法来源不是永久 grant；后续真实文件、目录与 Git 读取仍必须经旧 scoped FileAccessApplicationService/Bot-task resolver，每次重核。归属和引用由 Registry 注入，不能让新窗口自行传入其他 owner 或任意允许根。原生窗口阶段只能有受信应用 URL、安全配置及最小专用 preload；不把主窗口完整 API 授给资源窗口。
+
+首次先实现 01 的纯契约、进程内 Registry 和正反用例；尚不登记 IPC、创建 BrowserWindow、显示“新窗口”入口，不把未完成的 02/03 称为交付或验收。继续沿默认右侧展开，不自动最大化。范围与待验收场景见 [R5w1 实施卡](../../playbook/resource-workspace-windows.md)。
+
+R5w1-01 中断补充：宿主可给单次 prepare 提供 AbortSignal，以 `cancelled` 退役该次准备并立即释放名额；同来源其他视图不受影响。来源失效与应用 dispose 仍各自返回明确状态。中断只丢弃迟到的呈现接线结果，不重跑或取消任何任务/能力写入。所有未来 IPC 必须在进入 Registry 前先过 app-origin/top-frame 守卫。
+
+## 35. R5w1-03：独立阅读连续性（2026-10-26）
+
+分级 A/B/C。新增的是有界呈现元数据与窗口交接回执，不改变模型上下文、文件允许根、PermissionGrant、Evidence 或任务恢复。先补本节，再接原 SettingsStore、Registry 与已有目录/比较阅读 seam。默认右侧与独立视图副本语义不变。
+
+- 文档按模式、比较按所选文件保存最多 12 组坐标；目录复用现有 FilesView 的真实树、64 个展开提示、选择、筛选及坐标，不再维护第二套目录浏览器。恢复只遍历新列举结果中可达的已展开分支，不自动打开选中文件；失效选择明确说明，不代选其他文件。导航字段不接收正文或执行决定。
+- Registry 分开保留打开时的 `sourceNavigation` 和副本当前的 `navigation`。原视图仍存在时返回只激活原对象，保留原视图后续独立读位；需要重建比较时使用捕获的完整基准与原锚点。原文档标签已关闭则只返回会话并说明，不能静默重建为另一个版本。返回必须获得实际原 sender 的导航确认，旧请求、别的 sender、原窗口消失或超时均不能伪称已返回。
+- 副本的导航发送按租约和单调序号串行；迟到坐标不能覆盖新坐标。返回、显式关闭和原生关闭前采集当前阅读元数据并确认。早期只读副本曾在等待 500ms 超时后关闭；接入 R9 草稿后的统一规则以 §38.8 为准，未确认不得继续关闭。进程强退只承诺上次已保存位置，不把动效/计时器当保存成功。
+- SettingsStore 新增版本化 `resourceWindowReadingHistory` 命名空间，全机最多 24 条、每 Bot 最多 8 条，每条最多 16KiB、合计最多 256KiB；超限拒绝保存并说明，保留当前阅读和上次检查点。只保存宿主生成的恢复 ID、原 owner、规范化资源引用、来源绑定摘要、模式/读位及保存时间；不保存窗口/sender/代次、正文、图片、Diff、许可、任务运行态或待执行操作。未知未来版本禁止覆盖；持久化失败明确提示，其他设置与任务保持。
+- 重启不自动创建窗口或恢复工作。当前 Bot 的启动器提供“独立窗口阅读记录”，用户明确点击后重新核对 owner、任务、原物理来源和引用，生成全新租约与原生窗口；来源变化/离线/缺失时失败保留记录，不换同名文件。恢复得到的是当前受控读取，不冒充历史快照；已知文件版本变化仍需用户明确加载当前版本。可以明确移除阅读记录，不删除原文件。
+- 归属仍由真实 host resolver 决定。`onPrepared` 交给窗口工厂的是实际解析结果（含根/目标），规范化请求只用于协议比较；不能误把规范化请求当作来源回执。元数据恢复或窗口交接不得恢复任务、重发模型请求或重复已有写入。
+
+本包编写前后端状态、错属/旧序号、存储损坏/未来版本、来源变化、关闭/返回中断和恢复用例；普通开发仅内容/diff 审阅，未运行构建、测试或产品回归前不得登记验收通过。
+
+## 36. R5w2 网页独立窗口与实例归属（2026-10-27）
+
+本包把网页呈现接到现有 Browser Registry，不引入另一套 Agent 浏览器执行链。默认仍在会话右侧；用户明确选择“另开网址副本”才创建新窗口。副本读取原 guest 的真实 HTTP(S) 地址，分配新的 browserTabId/windowId/generation 与真实 WebContents；不复制 DOM、表单、后退历史或滚动，不称作移动。沿用 persist:peer-browser 登录分区。未证实同 guest 保活跨宿主安全前，隐藏迁移入口。
+
+### 36.1 宿主与安全边界
+
+采用受信本地 chrome BrowserWindow + 宿主拥有的 WebContentsView；远程页面不加载 preload、不启用 Node/webview，不向页面提供应用 IPC。chrome 使用独立 browser-resource role 与最小 peerBrowserWindow API：状态、HTTP(S) 导航/后退/前进/刷新/停止、受约束的内容视口、显式返回和关闭、公开外观。无任务、完整设置、文件、脚本执行、密码库、权限或通用 webContents API。新窗口、重定向、子框架导航不得打开 file/data/javascript/应用协议；弹窗默认拒绝，不自动打开外部应用。
+
+主窗口创建副本时必须提供现有 conversationId/tabId/webContentsId；宿主核对真实 embedded guest 的 hostWebContents 等于实际 sender，并重新读取会话存在性与 URL，不信任 renderer 的 URL 或窗口身份。每窗最多一个 guest，所有窗口和准备中的窗口合计最多八个；关闭/崩溃/dispose 释放自身 guest/Registry/监听，不取消或重跑任务。载入本地 chrome 设有截止，网页失败只表达真实读取失败，不改为成功。
+
+### 36.2 Registry 与注意力
+
+Registry 条目新增可选 native surface/windowId/generation；原有 embedded/headless 接口兼容。新实例身份不同，不抢占同 tabId。状态刷新只有当前活动实例可续订 active；切换目标由用户显式激活/窗口焦点或既有 reveal 决定，后台 URL/title 更新不能偷偷抢回。主 renderer 注册/注销须核对真实 guest 归属，不能冒用 native guest。
+
+ensureBrowserReady 先核当前会话 native 活动条目与存活窗口；仍同 generation 才可返回就绪。focus=false 不抢焦点；focus=true 也只在原主窗口当前就在该会话时才显示聚焦，不替后台 Bot 抢窗口。不能用主 renderer 的旧 ack 证明 native 已显示；native 路径由宿主确认，退出后回原 reveal 协议。返回捕获的原窗口仅由用户点击，带 sender/identity/请求截止的确认；原标签已关闭只回原会话并说明，不重新加载原页。打开副本不切换原会话标签，不自动将网页正文送入模型。
+
+### 36.3 恢复与验证
+
+网页副本不参与只读文档历史保存；重启只能显式按地址新建，不能暗示旧 guest、表单或历史恢复。源码包补角色隔离、错 sender/身份代次、限额、来源关闭/崩溃、重定向/非法地址、窗口感知 reveal、旧活动状态不得夺权及幂等清理用例。日常只作内容/diff 审阅与编写用例，测试/构建/截图仍待明确授权或发布；源代码存在不代表原生联调通过。
+
+36.2 的执行适配补充：现有 browser provider 把 reveal 失败全部吞掉后创建 headless；该兼容行为不能用于已经选定的 native 实例。原生 guest/外壳异常退役时保留 unavailable 的活动身份墓碑，不产生新的执行权限；用户明确切回其他标签或正常关闭才释放这一约束。resolveTarget 在 await 前后核同一 native window/generation/guest；失效、reveal 失败或中途换目标都返回结构化失败，不退回其他页面或 headless。普通 embedded 的既有后台策略不变。墓碑随用户新活动选择清理，只保留当前活动项；不恢复任务或重放浏览器副作用。
+
+## 37. R8：明确选区、收件对象和用户上下文准入（2026-10-27）
+
+A/B/C：新增的是用户选择的有限材料，不是工具调用、文件读写授权或新 System Context 注入。复用 InputDraft / UnconfirmedProjectInput / InputQueue / canonical history projector。实现顺序为契约、输入与恢复、资源选择与原生交接、用例；没有实际接线的格式不伪装可用。
+
+### 37.1 不可变的用户材料
+
+ResourceFeedback 含版本、宿主/界面生成的 ID、明确 recipient（workspaceId + 主 Bot conversationId）、捕获时间、typed resource、version 与有限 excerpt。文件当前版绑定实际 observation 的 resourceId/contentVersion；历史版绑定完整 Git commit；Diff 绑定完整比较基准与当次 Diff 文本摘要；目录绑定当次有界清单摘要；网页绑定真实 guest 的地址、标签与主文档代次，明确不是历史页面快照。只保留显式选区（每项 8192 字符），不借引用附带全文。每条最多 32KiB，每份输入最多 8 条/128KiB，超限明确拒绝，不截掉后假称完整。
+
+源码选区使用 UTF-16 位置和行列，必须来自当前已读文本及 source-line-text，排除行号 gutter；非法或无法定位的范围不能假称可精确替换。Markdown 渲染正文、Diff 和网页选区只作为 discussion 引用，源码范围不可靠时不制造坐标。目录反馈针对有界清单与选中路径，不递归读取。切标签/模式/Bot 不修改已捕获 resource/version/recipient。有限摘录仍是用户选取的非可信内容；协议形状、版本标识和用户选取记录不证明原文件当前存在或可修改，执行前仍需原工具/Provider 重新核对。
+
+### 37.2 草稿、发送与恢复
+
+“针对这段提问”只把引用附到捕获的 Bot 的 desktop Composer，保留原文字、附件与已有引用，不自动发送、切收件 Bot 或唤醒任务。卡片显示来源、版本、选区/讨论语义，可逐项移除；用户输入修改意图后明确发送。发送后沿既有 inputId 幂等接收与未知结果恢复，不重复生成 ID/写入。恢复草稿、未确认输入和重试保持同一引用；旧记录缺字段按空引用兼容，有非法引用拒绝而不是静默丢失。InputDraftStore 仍只保存本机意图，不提交队列、不改变原文件。
+
+InputQueue 在入队前同时核引用 recipient.workspaceId 与当前 resolveConversationId，已变化时拒绝并保留草稿/未确认输入，不把旧 Bot 引用转发给新会话。规范化引用按值复制，缓存/返回值不共享可变对象。显式用户发送才在持久 user_input 消息中携带资源材料；canonical history projector 将有限引用放入 user-role 文本块，带非可信材料/未重新读取核验声明和 JSON 编码元数据，不把正文升级为 system/developer 指令。项目代理 userInputs、新旧历史恢复及委托锚点沿同一投影，不能仅 UI 显示成功而模型丢材料；预览和选中未发送时绝不进入这些消息。
+
+### 37.3 跨窗口与网页
+
+独立文件窗口仍由原租约提供 owner/resource，只允许通过捕获的主窗口准备原 Bot 草稿；窗口换焦点或主窗口切到其他 Bot 不改收件对象。准备回执绑定真实主 sender、请求 ID、原窗口代次与截止；仅持久草稿确认后显示已准备，未确认/超时保留可重试摘录，不冒称已发送。准备不恢复任务、不附加执行权限。
+
+网页选区由宿主真实 context-menu 的 selectionText、当前 URL 与主文档代次生成，用户点击菜单后才准备草稿；不注入动态脚本、不调用模型或用一般网页内容伪造应用 IPC。embedded guest 核实际 hostWebContents，native guest 沿现有 controller 的真实来源。捕获后发生导航则请求过期，不偷偷用新页替代。远程页面得不到应用 preload。目录与网页没有可替换的源码范围，展示为讨论引用。
+
+### 37.4 验证责任
+
+编写协议限额/非法版本/范围/跨 Bot，恢复与幂等队列，user-role 准入/恶意材料不升级、原始消息保持、选择到发送的前端路径，以及原生 sender/代次/超时/导航变化用例。普通继续仍仅内容/diff 审阅与用例编写；测试、构建与前后端/截图验收依最新 Validation Scope，不把历史 R6a 的通过当作本包验证。R9/R10 的草稿正文、写者、快照和条件写入仍单独实现。
+
+输入恢复兼容：没有资源引用的 v1 清单照常读取；首次保存 ResourceFeedback 时写 v2 清单，后续不降回 v1。旧二进制会拒绝 v2，不把未知引用静默删掉；未来版本仍拒绝覆盖。单个本机输入恢复记录的引用总预算为 1MiB（含当前草稿和未确认输入），超额保留上次版本并报告保存失败。已有输入队列逐条 JSONL 保留可选字段，旧条目不变；引用材料只从明确委托锚点复制到子会话，不隐式复制其他消息。
+
+历史投影版本随本包升为 v2：相同消息只有明确携带 ResourceFeedback 才增加 user-role 材料；原持久消息不重写。历史指纹包含实际投影材料与版本，避免旧恢复缓存漏掉已发送的引用。
+
+固定收件对象的检查同样覆盖已接收输入的消费及未执行输入恢复：配置在接收后改变主会话时，不把摘录写到/重跑到新主会话；保留原队列/游标责任并返回 RESOURCE_FEEDBACK_RECIPIENT_CHANGED，由既有宿主错误路径显式报告。已有执行完成的确认仍可对账，不因呈现修改撤销成果。
+
+37.3 接线细化：跨窗口准备采用宿主 broker 的 request → claim → draft-persist → acknowledge，3 秒截止；真实原主 sender 必须先 claim，宿主再次核 owner/来源代次后才允许主窗口准备输入意图。claim 前导航或来源变更失效；claim 后已经捕获的材料不随新页面变化，结果仍只代表本机草稿保存，不代表发送。超时可能已保存，重试沿同一 feedback.id，不重发输入。网页 iframe 记录明确的 frame URL 和可选 pageUrl，核 Electron 原始 frame/导航代次；远程正文不经脚本抓取，不混作主页面内容。目录引用限当前已列举的一个有界清单和选中路径，明确部分清单/未读取内容，不递归取正文。
+
+网页收件人补充：工作会话或子会话的选区反馈由宿主沿已有会话索引 parentConversationId（最多 32 层、循环拒绝）找到仍有效的主 Bot，收件人为该主 Bot；网页资源自身保留实际子会话与标签身份。只读索引元数据，不读取历史正文、不回填消息数量、不恢复或重跑任务；不存在、归属冲突、归档或链条断裂时不提供准备动作。
+
+
+## 38. R9：本机正文草稿、版本存储与条件修改准备（2026-10-27）
+
+A/B/C；依赖 R8 的明确材料准入，但正文编辑草稿不能复用 Composer 的 InputDraft。后者是待发送消息，前者是待提交原文件的文本。R9 分三段：01 严格协议与纯状态转移；02 本机持久化/回收和宿主 sender/writer；03 读取/恢复/冲突的前端接线。R10 再把明确提交接入既有 Provider → Manifest → Projection → Tool Call → PermissionGrant → Evidence。未完成的接线不显示可用编辑入口。
+
+### 38.1 文本草稿和基础版本
+
+ResourceTextDraft 固定 draftId、recipient（workspaceId + 主 Bot conversationId）、宿主确认的规范绝对文件引用、base resourceId/contentVersion、baseText、text、revision 和时间。仅已受控读到的当前 UTF-8 文本可成为第一批直接编辑基础；历史 Git、Diff、目录、网页、图片/二进制和超限内容保持只读，不能被强转为可写路径。Markdown 与源码共用同一原文草稿，不把渲染后的 HTML/格式化 JSON 当原文。打开编辑必须由宿主重新核 source/realpath/当前 owner；引用和内容哈希不是权限票据。
+
+基础原文 hash 必须等于已读 contentVersion；草稿 text 改变只递增该草稿 revision，不推进任务/文件版本。相同 Bot、同 resourceId、同基础版本默认返回原草稿，保留后来文字；不同基础版本另存独立草稿，不能静默把旧输入重基。恢复显示未提交，原文件仍单一真源。每份 baseText/text 各最多 1MiB UTF-8，单 Bot 最多 16 个活跃草稿；超限明确拒绝并保留旧值。空正文合法，NUL/不配对 UTF-16 surrogate 拒绝以免存盘时静默替换字节。
+
+### 38.2 写者和持久化
+
+同 draftId 默认只有一个实际 writerView。宿主以真实 sender、viewId/windowId/generation 和不可复用 token 核每次编辑/CAS；界面自报身份无权夺取写者。用户显式接管才转移并递增 writer generation；旧视图的迟到保存/提交拒绝，其他视图可继续只读。租约只约束这份草稿，不锁文件、不封禁外部编辑器。窗口关闭释放写者，已持久正文保留；应用重启全部旧写者失效，绝不靠 settings 复活原生句柄。
+
+正文和内容寻址 blob 放设备绑定 project-runtime/<workspace>/resource-edits/，通用 settings 只允许有界导航引用；不默认同步/导出，不把正文写日志。manifest schema v1，未知版本/损坏清楚失败且禁止覆盖。原子 manifest 替换带 revision CAS；跨进程互斥和同进程串行不能伪称对外部文件实现 CAS。文件权限按本机私有资料处理，持久写入失败不显示已保存。此本机资料可能包含用户选取的敏感正文，按现有保留规则，不自动把其传给模型。
+
+manifest 不超过 2MiB；每个正文 blob 最多 1MiB；每 Bot 活跃草稿 16、修改记录 64、快照索引 64、所有 blob 合计 64MiB。达到上限时阻止新增，不静默清理未提交草稿或待核对操作。用户显式删除草稿不删原文件；显式清理无引用 blob/快照正文保留必要的操作引用和“正文已清理”。准备中的 base/proposed blob 是修改意图，不叫已执行历史；只有真实 ToolResult/Evidence 关联的前后版本或明确固定交付才形成历史快照。
+
+### 38.3 稳定提交与结果未知
+
+用户明确提交先持久 reserve requestId，固定 draftId/revision、providerId、实际目标身份、expectedVersion、proposedVersion 和修改摘要；同 ID 同请求查询原操作，同 ID 不同内容拒绝。prepared 表示尚未开始执行；running 只能在真实 Provider 准入前持久标记。恢复时旧进程的 running 显示 uncertain，必须先查询既有 Tool Call/Evidence 和受控目标版本，不能自动重跑。prepared 也不因恢复自动执行。
+
+settled 区分 applied/conflict/denied/cancelled/failed，实际成功必须关联原 Tool Call、Evidence 和 observedVersion；纯状态函数/草稿存储只记宿主提供的关联，不能创建 Grant、执行事实或验收。applied 观察版本必须匹配提交内容摘要，但“文件恰好一样”仅是核对材料，不能单独结算成功。重复真实回执幂等，矛盾回执拒绝；关闭面板/窗口不取消或撤销原操作。草稿在操作期间继续编辑产生新 revision；旧成功不能清空后来输入。
+
+R10 Provider 在实际写前重核 realpath/范围/授权和 expectedVersion，Peer 内按真实资源串行；原文件的不可控外部编辑仍存在检查→替换竞争窗口，界面和回执不得承诺跨进程原子 CAS。冲突保留原 base/text，提供三方比较；用户显式更新基础另建草稿，绝不自动模糊匹配或替换。回退也是新修改，不覆盖历史 Evidence 或无关文件。
+
+### 38.4 验证与实施状态
+
+编写旧 schema/非法目标/错 Bot/大小限额、同基础复用/不同基础隔离、revision CAS、双写者接管/迟到保存、进程恢复 running→uncertain、同 ID 不同摘要拒绝、真实回执幂等、后来草稿保留、显式清理不删原文件等前后端用例。按当前 Validation Scope 先编写和内容/diff 自审，不自动运行测试/构建/原生联调，不以 R8 源码收口冒称 R9 已完成。未经宿主和 Provider 实际接线的写入动作保持关闭。
+
+
+### 38.5 R9-02 存储实施细化
+
+正文 store 采用仓库已有 SQLite 适配层，不新增依赖。设备绑定 resource-edits/store.sqlite 中的 schema v1 manifest、内容寻址 blob、保留/清理标记和宿主占有元数据使用同一个 SQLite 事务；替代 38.2 的独立 JSON rename 方案，避免 manifest 与正文在多文件崩溃窗口中失配。使用 FULL 同步、事务 revision CAS、哈希校验和 UTF-8 字节限额；未来/损坏 schema 不覆盖。宿主和 store 不打开项目文件，原文件访问继续现有 Reader/Provider。
+
+一份 workspace 的活跃草稿由单个宿主进程占有；进程 PID + 随机 epoch 仅用于本机意图并发，不是权限事实。事务内核对存活进程，其他仍活跃宿主只能只读；只有能确认旧 PID 已退出才可原子接管。PID 复用/无法检查时保守拒绝，不靠超时推定死亡。各 draft 的真实 view/token/lease 仍只在当前宿主内存，不存盘复活；退出释放宿主，崩溃后旧 running 保留未知而不重跑。读者看到仍存活宿主的 running 不误称 crashed。
+
+活跃操作最多 64；用户显式归档 settled 操作时保留最多 1024 条有界 retired receipt（仍受 manifest 2MiB 限额），同 ID 重试继续查询旧事实，不能在清理后冒充新请求或复用旧 draftId。达到元数据上限停止新增，不静默丢历史。待执行记录在 reserve 时额外预留每项 32KiB 回执空间，保证真实执行结束不会因新增草稿挤满元数据而丢失结果。归档/清理只处理 settled 操作，不能删除待核对操作的恢复正文。
+
+操作前后快照由实际 applied 回执 + 已存在的 base/proposed blob 投影，每次索引返回最多 64 项（可分页），不是最多执行 32 次后禁止结算的硬门。固定交付快照另限 32 项，只能由宿主已有 Evidence 与受控读取产生。清理后即使相同 blob 因其他草稿仍物理存在，该历史版本仍显示已清理，不借哈希碰巧相同恢复其可见性。清理和归档在同一事务删除未引用 blob，永不访问/删除项目原文件。64MiB blob 总量含已清理前遗留及所有当前引用，不能只计算本次新输入。
+
+宿主服务在读取/取得写者/编辑/删除/恢复前重核实际 sender、原 Bot/会话、原生 view lease 和来源。renderer 不能提供任意 owner、绝对路径根、原生身份、baseText 或事实回执来创建草稿；草稿基础来自宿主已治理 Reader 的完整当前原文/观察版本。只读目录租约只能编辑其合法后代文本。当前普通 read 窗口仍有只读语义；新增“本机草稿”不直接写原文件，明确提交待 R10 接原能力链。旧 writer 在导航、view 退休或 sender 销毁后释放；保存/接管请求串行复核，迟到请求不取得新 lease。
+
+38.5 回收细化：同一草稿已被新 revision 取代、且既不被当前草稿/基础版也不被待执行或留存操作引用的旧自动保存 blob，可在保存新 revision 的同一事务内回收。这不是清理未提交草稿或历史快照；失败回滚保留原 revision。避免用户正常连续输入无端耗尽 64MiB。用户显式清理才撤掉历史操作的正文留存标记；仍有引用的正文不被物理回收。
+
+38.5 固定交付留存限额：同时保留正文的固定交付最多 32 条；清理后的元数据仍可分页查看，最多 1024 条且合计不超过 2MiB，不占用 32 个正文留存名额。达到元数据上限明确停止新增。所有固定版本都保留原 Evidence/Artifact 关联；清理不篡改或删除原执行依据。
+
+38.5 宿主释放补充：最后一个真实写者视图退休且不存在 prepared/running/uncertain 操作时，事务内释放该 workspace 的宿主占有，允许同机另一个真实宿主接手；仍有待办时保留日志责任。释放不删除草稿、不取消操作，也不以计时器推测原宿主死亡。
+
+
+### 38.6 R9-02 宿主、来源与 IPC
+
+ResourceEditSource 分为主窗口 document 引用和原生 native 只读租约引用，均携带界面实际阅读的 resourceId/contentVersion。新建正文草稿只接受这份有限元数据，不接受 renderer 提供 baseText、recipient、根、writer 身份或事实回执。宿主经现有 Reader 读取完整原文/实际观察版本，前后核原 Bot 和实际 sender，观察已变时明确拒绝并保留阅读，不偷偷用新版建立编辑基础。native 继续原租约根、task、revision 与后代约束，历史版/Diff/目录本身不可编辑；只读目录选中的合法文本后代可单独建草稿。
+
+宿主发回的 view handle 绑定真实 sender/window、viewId/generation 和 draftId。open 请求带原 requestId，pending 可显式取消，来源关闭/销毁/等待超过 30 秒不会创建迟到编辑视图；不会为取消重跑操作。写者 token 由宿主铸造，acquire/save/release/discard 串行复核 view 和原 Bot，显式 takeover 才转移；跨 sender 或旧 generation/lease 的迟到保存拒绝。关闭视图只释放呈现和写者，安全保存的正文继续留在本机，操作状态不随窗口关闭改变。
+
+已创建的正文草稿是用户本机意图，原文件离线/已变时仍可保存其后续输入；保存不重新读取或写原文件。主窗口显式恢复本人当前 Bot 的本机草稿时可读取这份已保存意图，明确是草稿而不是当前文件；不因此取得原路径访问权限。native 恢复必须仍在原合法租约范围。后续提交无论是否曾打开过草稿，都由 R10 重新核当前范围、目标与授权。
+
+历史快照与原文件读取不同，但不能借缓存扩大当前资源范围。正文历史显示前仍由宿主核原 Bot 和现有来源/读取范围；native 只看原租约同一资源。清理、归档和删除草稿只修改本机意图资料，不删除原文件或原 Evidence。跨 Bot/会话字段不由界面决定；旧会话内容保留且明确失配，不自动迁移到新的 Bot。所有新跨进程对象在 protocol 定义，main 和专用 resource preload 只暴露对应的本机意图动作，不暴露 settle/start/任意快照事实写入或新文件执行通道。
+
+38.6 状态通知补充：宿主在真实写者接管、持久保存、草稿删除和历史清理后，仅给该 Bot 已登记视图发不含正文/secret token 的 changed 通知；通知只要求重读投影，不构造新授权或执行。接管成功立即退休同草稿旧视图的 writer 缓存，旧视图保留未保存文字并转只读。关闭某个过期只读视图不得假称释放了另一个真实写者。
+
+38.6 保存回执仅返回 draftId、实际 revision、updatedAt 和已保存文本摘要；不在每次自动保存回传基础原文与整份正文。首次打开/明确重读才取得完整草稿，界面保留其本次输入副本并按回执核对，迟到回执不得覆盖之后的输入。
+
+38.6 归属热路径直接读取现有 BotProfile 真源元数据，不借 Bot 列表投影顺带汇集对话正文、任务或未读游标；角色/租约/Profile 检查均为同步快照，异步 Reader 返回后在本机保存前再次复核，不调 host.sync 或任务恢复。
+
+
+### 38.7 R9-03 编辑与恢复呈现
+
+本机正文草稿成为文档领域的显式草稿标签：导航只保存 draftId、原路径/所属 Bot 等有限定位元数据，不保存正文、writer token 或权限。草稿标签与当前文件、Git 历史、Diff 分开去重和标名；恢复须由宿主重核实际草稿身份，不能把失效 draftId 退化为读取当前文件。旧版本不识别新草稿定位时不具备编辑/提交入口；新版本非法定位拒绝，不悄悄删除标识后冒充当前文件。
+
+编辑组件使用现有 Frost/SVG、正文/Source Adapter 和 IME guard，不默认打开模态/全屏。主窗口与独立窗口共用 renderer session kernel；会话按实际 draftId/Bot 保留本机输入与未确认保存，生命周期长于 React 挂载。当前文件入口只有真实已读当前 UTF-8 文本及 1MiB 预算内显示“编辑草稿”；恢复从本机草稿索引显式进入。打开本机意图不提交队列、不读取为模型上下文、不写项目原文件。
+
+textarea 原文输入、Markdown 安全预览和基础/草稿/当前文件比较分开。普通输入自动保存只作用于草稿，composition 期间不提交快捷键动作、不改光标和焦点；Cmd/Ctrl+S 是保存草稿，不伪装原文件提交。保存回执按文本摘要/revision 认领，不用迟到回执覆盖后来输入。save 结果未知先沿同一 view 的串行 read 屏障核对已保存正文；其他写者或不同正文冲突时保留本地输入，不自动重基。read 必须排在该 view 先前 save 之后，不以一个抢先返回的旧 read 推测未写入。
+
+切标签/收起面板保留内存草稿、编辑光标/读位；关闭草稿标签前 flush，失败则保持可恢复呈现。Bot 切换或被外层卸载时会话仍保留输入并尝试保存在原 Bot，不落到新 Bot；只允许回收已安全保存并关闭的会话，不丢未保存/组合输入。原生 checkpoint 包含草稿 flush，失败不确认安全关闭；beforeunload 发现尚未保存或组合输入时保留窗口并解释，可重试关闭/刷新，不把来源不明的 unload 自动改成关闭窗口。外部强制杀进程只保证最后确认保存的 revision，不虚称能保存尚未到宿主的按键。
+
+重读当前文件是明确动作，只去掉内容版本条件，保留资源身份、Bot/task/读取根；提供旧基础、我的草稿和当前文件比较，失败保留三者已有内容。采用新基础必须明确另建草稿，旧稿保留，不模糊重定位；新基础的内容/版本仍由宿主 Reader 核验。只有 R10 真正接通受治理提交后才显示写回原文件的动作。
+
+仅编写/审阅源码和回归用例，运行、构建、截图/交互验收继续依当前 Validation Scope；不把阅读历史的已通过记录当作新编辑路径已验证。
+
+### 38.8 原生关闭与草稿检查点（跨阶段审阅补正，2026-10-27）
+
+原生资源窗口的关闭是一次绑定实际 sender/view/window/generation/requestId 的呈现交接。只有同次请求得到 renderer 的 `confirmed` 回执，且本机草稿 flush、当前输入组合结束、阅读元数据持久确认都已完成，宿主才允许这一次关闭。保存失败或组合输入返回 `blocked`；等待 500ms 无回执返回 `unconfirmed`，两者都保留窗口。超时只是本次关闭未确认，不是保存完成或强制丢弃许可。迟到回执不能关闭窗口，用户处理问题后需重新点击关闭，新请求再次核验。
+
+宿主向同一窗口发送无正文、无 token 的 `resource-window:close-blocked` 只读通知，含原 identity 与 `save_failed` / `unconfirmed`。原位置解释原因，用户可继续输入、重试保存和重新关闭；不自动夺焦点、放大工作区、取消提交、恢复任务或重跑文件写入。关闭许可只消费一次；即使实际 beforeunload 阻止关闭，下一次原生关闭仍走新检查点，不能保留长期授权 latch。崩溃/应用强退只保证最后已确认的草稿，显式宿主 dispose 属既有关闭流程，不以此承诺保存未到宿主的按键。
+
+此补正只收紧 R5w1 与 R9 呈现交接；不改变文件写入、PermissionGrant、执行或 Evidence 契约。新增用例先编写与差异审阅，不运行测试或声称验收。
+
+## 39. R10：明确提交、条件文件能力与真实结果核对（2026-10-27）
+
+A/B/C，先补契约再实现。R9 的本机草稿是用户意图；R10 不能让 renderer、意图 SQLite 或“保存”按钮成为文件执行器。人提交一份固定 revision，依旧走 Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。预览、恢复、关面板不启动提交；恢复 prepared/running/uncertain 不自动执行。
+
+### 39.1 人工提交与能力边界
+
+新增本机 `local.file.replace` 条件替换 Provider，工具名 `replace_file_if_version`；只在资源提交宿主构造的局部 Runtime Projection 暴露，不加入默认/模型工具注册表，不使主 Bot 获得写能力。Manifest 声明 L2_local_write / D2_sensitive、当前文本/版本条件和 diff Evidence。通过既有 SDK、Node Host Adapter、Hook/Provider Registry 执行；不是应用服务直接调用 fs，也不是复用模型的 readFiles 缓存伪造“先读”事实。
+
+提交输入固定 requestId、ResourceEditTarget、proposedVersion 和对应已持久化正文，正文仍限 1MiB。输入不能包含任意 grant、根、sender、权限开关或 Evidence。renderer 只请求提交既有 draftId/revision；实际正文、目标和 provider 来自宿主 journal。服务端 `reserve` 持久化后才允许显式 start，requestId 一经分配不因网络或窗口变化重建。重试相同 ID 查询原操作；另一次修改必须明确创建新请求，不能重用旧 ID 和新正文。
+
+此能力每次都要求宿主 PermissionGrant 决策；路径在 workspace 内不免除。复用既有本机授权策略、ApprovalStore 和等待/截止/撤销语义，既有 full_local 策略可以决定自动授权；点击提交、renderer 确认框、已持久草稿或读取租约本身不生成允许事实。授权范围绑定这次能力、requestId、规范路径、base/proposed 摘要与原 Bot/task；跨仓库仅能使用原受控来源，不扩大读取/写入范围，不自动把某目录加入全局权限。独立窗口仍核实际 sender/代次/原租约；原文件不因出现草稿而变为无条件可写。
+
+### 39.2 文件冲突、互斥与 I/O 中断
+
+Provider 先沿宿主既有来源 resolver 核规范物理路径/resourceId 和当前读取范围；只接受当前普通 UTF-8 文件，拒绝 symlink 终端、多硬链接、目录、二进制、未来/无效参数和超限正文。权限等待后再次核原 Bot/source/policy，重新核当前目标和 base 内容摘要；有变化就返回 conflict/denied，绝不自动重基。原文换行和 Unicode 按原字节核对，不用格式化正文或浏览器规范化文字作为基础。
+
+同宿主内条件替换和既有 edit_file/write_file 共享按规范物理路径的有限互斥 seam。排队不是权限，等待后仍要复核；取消尚未执行的等待不会触及文件。既有文件工具等待权限返回后也必须重核最新读取摘要。互斥只约束同一 Node 宿主，不能声称全机器锁、文件系统 CAS，或约束外部编辑器/其他进程。
+
+条件替换以真实已打开的原文件描述符执行，保持 inode、现有权限/ACL/xattr 和链接对象语义；不通过临时文件 rename 静默替换这些元数据。写前核描述符与路径仍指向同一普通文件、nlink=1、原始 UTF-8/hash/字节及当前授权；同一同步执行段写入/截断/fsync 后再从描述符核字节、路径身份和 proposedVersion。无法消除外部进程的检查→修改竞争窗口，回执明确只证明实际观察，不能称跨进程原子 CAS。
+
+写入或截断可能已经开始后发生 I/O、fsync、读回或身份异常，结果必须标为 uncertain，不谎称“失败且原文件未动”；保留 journal 的 before/proposed 和真实 ToolCall 关联，后续只核对、不自动重试写入。同步写完并读回确认才产生 applied 的候选实际回执；若取消在写入完成后才被观察，不能把已发生的写入改称未执行取消。关闭呈现不撤销或重跑写入。无变更可返回真实 no-change 观察结果，不虚构新增 Diff。
+
+### 39.3 Evidence、恢复和后续输入
+
+真实 Provider Result 含 ToolCall、实际 Grant、Evidence、base/proposed/observed 摘要、修改字节数、执行结果与有限实际 Diff。日志/事件/权限预览不带整份草稿正文，固定正文继续在本机私有 intent store。只有结果被持久化、身份/摘要/ToolCall/Evidence 关联核对后才 settle applied；provider 抛异常、回执丢失或 Evidence 持久化失败均保留未知责任，不能仅凭当前文件恰好相同补造成功。
+
+真实 Provider Result 应在 PostToolUse 等后置 Hook 前独立持久记录；后置 Hook 抛错不能丢掉已发生写入的原始事实，后置治理结果另外关联。该持久记录失败仍按未知处理，不自动补写。
+
+核对既有 requestId 只读取原执行记录和当前受控目标，缺失关联就明确保留 uncertain，绝不自行写第二次。failed/denied/cancelled/conflict 与 uncertain 分开表达。成功不自动验收任务，不清空或重基提交期间后来输入。回退或采用新基础是另一份明确修改，原 Evidence 和交付记录保持。
+
+本节先落条件 Provider/协议/同宿主文件互斥及对应源码用例，再接宿主 journal/授权/实际 Evidence 持久化和前端提交/核对。未接通完整路径之前继续隐藏原文件提交按钮。普通开发仍仅源码内容/diff 审阅和编写用例；测试、构建与截图/前后端/原生验收不自动运行。
+
+### 39.4 R10-02 原始结果日志与恢复契约
+
+resource-edits SQLite 升到 user_version=2，新增按 requestId 的原始执行结果和后置治理记录，manifest 的 schemaVersion 仍为1。v1 只在旧宿主已退出或能取得真实宿主占有、原资料校验通过后，以一个事务加表和推进 DB 版本；活跃旧宿主、损坏/未来 schema 或失败事务都不覆盖原资料。其他本机运行资料不迁移、不重建。
+
+原始记录 schema v1 绑定 workspaceId、requestId、原 operation.payloadHash、固定 ToolCall ID、capability、canonical input digest、projection/session、实际 Grant 和实际 Provider Result/Evidence。正文仍在 operation_bodies 指向的本机 blob；执行记录不另存原参数正文、writer token 或模型提示。recordExecution 是宿主实际 SDK/Provider 边界的内部 port，renderer 无此写入接口。只有绑定与原 journal/固定正文摘要一致的实际记录才接受；同 ID 同记录幂等，矛盾原始记录拒绝，已归档/清理正文不删除原事实。
+
+Provider 的原始返回值在 PostToolUse 之前同步持久化，后置 Hook 或结果投影异常另存后置记录；原始事实不能被后置文字或后来的状态覆盖。Hook/准入在 Provider 前已明确拒绝的真实 SDK Result 可以记录未执行拒绝；runtime 抛错而无实际 Result 不得造一个失败结果来结算。写入发生但原始记录落盘失败时，intent 保持 uncertain，保留 before/proposed 并只允许核对，不自动补写。
+
+每份原始记录最多32KiB，后置治理记录最多16KiB，每个 Bot 的执行记录合计8MiB。reserve 前为尚未得到原始结果的操作预留48KiB，为已有原始但无后置结果的操作预留16KiB；容量不足在执行前拒绝新增，不能执行后才发现配额已被其他草稿挤占。既有 manifest 回执预留、64MiB 正文限制继续独立生效。历史最多64活跃操作和1024归档身份；执行事实不随正文清理删除。
+
+原始记录必须检查实际 call/result/evidence/grant 的同一 ToolCall、原 provider、目标/基础/提议摘要和状态语义。applied 必须有实际允许 Grant、Provider success、observedVersion=proposedVersion 与 Evidence；部分写入只能 uncertain。合法拒绝/取消/失败结算同样关联原始实际结果，不用助手描述代替。执行后的后置治理是否确认与文件是否 applied 分开，不自动宣布任务验证或签收。
+
+显式 reconcile 只读取该 requestId 的原始记录与当前受控目标，不调用 start/Provider，不换请求 ID；有真实、匹配的原始结果才允许幂等收口。没有原始记录、只有相同内容或另一个 ToolCall 的事实时继续 uncertain。当前宿主里已确认还在运行的 Promise 继续显示 running；观察超时不推定终止，也不启动替代进程。另一个旧进程的 running 在恢复内核里转换 uncertain。结算和恢复都保留用户后来编辑的草稿 revision。
+
+原始执行/后置记录读取还要核当前 Bot/会话和原资源读取范围；它们不是“曾经读过就一直能看”的权限缓存。元数据索引、原始正文、原始 Evidence 的界面入口分开。没有完成真实主应用授权/提交和读取接线时，前端写回按钮继续隐藏。
+
+prepared 表示只固定了用户提交意图、尚未发起 Tool Call。用户可以显式撤回这份意图，以无 ToolCall/Evidence 的 cancelled 回执收口，并保留草稿；界面必须称为“已撤回提交”，不能假称真实执行已取消。running/uncertain 不允许走这条无执行撤回路径；只有仍持有的真实执行句柄能请求中止，中止后的实际结果仍由 Provider 回执决定。applied 后取消或迟到的 uncertain 通知都不能改写原结果。
+
+### 39.5 R10-02 提交与实际授权接线契约
+
+提交 IPC 只收实际宿主颁发的 handle、writer、保存 revision 和稳定 requestId；不收正文、目标根、Grant 或执行回执。宿主在原 view 队列中复核 sender/window/Bot/source、写者和保存 revision，以原存储正文计算 proposedVersion、reserve 固定意图，然后释放队列再等待授权。用户可以继续编辑，后来输入不改变已提交的固定正文。相同 requestId 只查询既有记录；prepared 的继续执行必须是独立明确动作，恢复/查询/核对不自动 start。
+
+提交绑定是宿主内部的不可由 renderer 构造的身份；执行前后重核原 sender、真实窗口身份、原 Bot 主会话和原读取来源，不把路径或 writer 当授权。主窗口草稿页关闭不等于取消已经确认的提交；宿主仍保留固定原意图。sender 销毁、Bot 归属变化或原生资源读取租约退休使尚未发生的执行失去合法来源，按真实拒绝/中断处理，不重定向到新 Bot/文件；实际写入已经发生的结果仍必须落盘。
+
+来源解析复用现有 Bot document Reader 和原生资源 lease，实际物理 root/path/resourceId 只能来自这些宿主 Reader；Provider 在授权前后再次解析。当前内容读取/核对保留 resourceId 条件、明确放开旧 contentVersion，不扩大根或自动注册跨仓库来源。原生目录来源仅可指向原租约下的原已选后代文本，历史 revision、Diff/比较和网页不取得文件写回入口。
+
+资源提交复用现有 ChatPermissionGate、实际 BotAccessPolicyAuthority 和 ApprovalStore 规则，拥有独立的资源请求集合；不能替换聊天的全局 active gate，不能假建聊天流或启动 Bot。这里是用户对文件的明确操作，以该 Bot 主会话的本地权限策略为授权主体；task/session 引用保留读取/来源语境，不恢复或代理运行子任务。授权预览绑定固定 request/payload 和参数摘要，正常询问仍有期限、取消和策略 revision 校验；full_local 也必须得到真实宿主 Grant，不能由 renderer 声称“完全访问”。Hook 的额外确认仍保留原 confirmation，不可被普通权限选择绕过。
+
+renderer 只能对宿主实际 pending challenge 返回本次允许/拒绝；身份、requestId、challengeId、参数摘要、期限和当前 policy/source 全部匹配后，宿主通过既有 Grant factory 和 gate 结算。不接受 renderer Grant、duration 或扩大 scope。原始实际 Grant/Result/Evidence 和后置记录仅通过同一实际 view、原 Bot 与当前可读取资源范围返回；仅看任务元数据不取得敏感 Diff/Evidence。权限通知不跨 Bot 广播正文，也不抢焦点。
+
+“同一实际 view”包含宿主确认的同窗恢复：原草稿页退休后，原 sender/真实窗口仍存活且原 source 仍有效时，新打开的同一 draft/target 实际 view 可以继续展示并决定同一 challenge；旧退休 handle 的 IPC 仍拒绝。不能凭 renderer 声称同窗，必须同时通过宿主私有 binding、同一实际 sender/window、固定操作和当前来源核验。其他窗口只能得到 permissionElsewhere 元数据，不能决定原 challenge；可回到发起窗口处理，或明确取消该资源提交。恢复不换请求/参数、不开新写入，原生 lease 退休或 sender 销毁不采用这条恢复路径。
+
+现有 gate 的审批 ToolCall ID 使用 `chat-permission:<原 ToolCall ID>`。Provider/Hook 的实际回执记录只接受原调用或该确定前缀，保留 call.permissionCallId 作为原审批关联，再将 Grant 的 ToolCall 关联规范到原文件调用；不改 Grant ID、结果、scope、时点或 policy revision。其他审批 ID 拒绝。这样 Hook 的真实拒绝也能持久化为拒绝，不因合法前缀错配变成未知。
+
+既有 gate 的明确策略拒绝和超时回执可能没有 scope，或 scope 为 null；原始负面记录如实保留，不补成正面许可。只有 granted=false 才能使用这种空 scope，任何写入仍要求 granted=true 且精确 capability scope 和实时 validate。拒绝/过期/取消原因沿真实结果保留，不能将已允许但随后失效的授权显示为仍有效，也不把超时一概改写为无说明的失败。
+
+### 39.6 R10-03 局部提交与结果界面契约
+
+正文草稿的提交控件保留在原资源编辑区内，使用稳定的局部状态条和用户明确展开的详情，不加遮罩、不自动整页或展开、不抢焦点/滚动。编辑、草稿保存和提交是不同状态机；等待提交/授权/核对不锁整份编辑器，后来的输入不进入已经固定的提交稿。IME 组合未结束、编辑权失效、基础/保存待比较时不发起提交。先确认当前输入已保存，再把该保存 revision 与稳定 requestId 交给宿主，双击复用正在进行的同一次意图。
+
+若“保存并固定”尚未完成时用户又改变了输入，当前尝试不把后来的正文暗中包含进提交：保留并保存新输入，明确提示这次尚未提交，由用户另一次明确点击选择新稿。固定后的编辑则独立保存，不影响已固定版本或原请求身份。
+
+原记录索引/状态读取、重连和通知都只能触发读取，不调用提交或继续。renderer 在第一次调用前保留 requestId；IPC 结果丢失时保留该 ID，只能查询/核对，不能自动换 ID。恢复 prepared 显示“意图已记录、尚未执行”，继续必须独立明确点击；running 只有实际 live 句柄才允许请求取消；uncertain 只核对原操作。宿主内核对同一 Bot 的相同 resourceId/规范路径执行下面的未结算互斥与同基础保护，不能只靠按钮禁用来防止换 ID 重写。
+
+上面的拒绝规则对 prepared/running 覆盖同一资源的所有新意图；对 uncertain 至少覆盖原 draft 和相同 baseVersion。保留未知事实不等于永远禁止其他独立修改：用户明确读取**不同内容版本**并以其另建草稿后，可以提交新基础上的独立修改，仍走新授权/条件写入，原 uncertain 保留而不伪造结算。相同基础换 ID、把原提议当作“新请求”自动再写仍拒绝；如果当前文件已是原提议，另建稿初始无差异，不产生重复写入。
+
+局部控制器按实际 workspace/draft/handle/请求身份核对迟到结果，页面切换不把旧结果投影到另一个 Bot 或草稿。关闭呈现不自动取消提交。当前保存草稿、原提交稿及实际执行结果各自保持；原提交正文预览是宿主既有 operation_bodies 的受控读取，不是新版本或 Evidence。新增只读 readSubmission API 只收真实 handle/requestId，沿草稿意图的原 Bot/view 规则返回固定 base/proposed 正文；清理后明确不可用，不用后来输入替代。真实执行 Diff/Grant/Evidence 仍沿 §39.5 当前来源读取范围另读。
+
+提交成功只显示真实写入与读回依据，不宣布任务完成、独立验证通过或用户签收。已有 Evidence/任务模型继续负责验证和签收；此处没有新验证事实时明确为“尚无独立验证/签收依据”，不提供伪成功按钮。后置 Hook 待结束/失败与文件已写入分别表达。有限实际 Diff 明确是预览，不能冒称完整 patch；固定提交稿比较与实际 Provider Diff 分别标识。
+
+发生冲突时保留原基础、固定提交稿、当前尚未提交输入，用户可明确读取当前文件做比较，或以宿主重新核验的当前版本另建草稿；旧稿保留、不自动合并或重基。实际写回改变基础后，本旧基础草稿不直接产生另一份盲提交；引导先比较/另建基础。后续新请求仍必须是用户明确的另一项修改。
+
+未知提交身份在当前视图查不到时不立即换 ID。只有原视图明确关闭/过期、重新取得实际新视图并再次确认原请求不存在，用户才能明确放弃这个未受理的入口，再开始另一份提交；此过程不取消或清除宿主已有操作/事实。每项失败都有原位置重读、核对或重新连接入口。日常只审阅源码和编写前后端用例；运行/截图验收遵循 Validation Scope。
