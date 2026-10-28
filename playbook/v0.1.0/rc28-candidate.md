@@ -3,7 +3,7 @@
 创建时间：2026-10-28
 最后更新：2026-10-28
 
-状态：最终候选已验收，等待标签流水线发布。此前开发阶段未运行测试的记录保持原意；本次用户明确要求发布 RC，执行完整发布门禁。
+状态：RC28 已由官方标签流水线发布，发布后核验通过。此前开发阶段未运行测试的记录保持原意；本次用户明确要求发布 RC，执行完整发布门禁。
 
 ## 范围
 
@@ -30,3 +30,12 @@ README: updated。双语说明、CHANGELOG、使用文档与生成式站点数�
 可移植证据见 [rc28-source-acceptance.json](evidence/rc28-source-acceptance.json)。所有原始失败、修复后通过日志和隔离截图保留在执行环境临时证据包；不提交用户数据。发布前再次确认所有 open PR 为空，源码未变、远端开发主线仍为上述提交。官方 Release/npm/Pages 发布结果取得后追加回执。
 
 覆盖边界：模型为受控替身；文件、日志、SQLite、租约、main/preload/IPC 与隔离窗口是真实执行。不等于真实供应商质量、完整硬件输入法/读屏、全部平台安装交互或长期日用验收。实现者自审不是独立审阅。
+
+
+## 发布回执
+
+标签 `v0.1.0-rc.28` 指向最终已验收提交 `e0c87d2d`，推送前所有代码 open PR 为空，本轮实际合并代码 PR #226，纳入此前已合入 #222–#225；知识 PR #83、#84 分别承载契约与验收。官方 [Release 流水线](https://github.com/ly-ccx/Peer-Agent/actions/runs/40652241394) 8项 job 全部成功，macOS Developer ID 签名、公证票据与 Gatekeeper 检查、三平台包内运行时检查通过；[Pages 流水线](https://github.com/ly-ccx/Peer-Agent/actions/runs/40652241414) 成功。
+
+[RC28 Release](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.28) 预发布标记、双语正文及资产摘要元数据核验通过。三平台更新清单版本、文件名、大小与摘要格式和 Release 资产匹配。四个 npm 包 protocol/runtime-core/runtime-sdk/cli 的固定版本与 rc 标签均为 0.1.0-rc.28，latest 仍为0.0.18、beta 仍为0.1.0-beta.5。线上首页、使用文档和 changelog HTTP200，站点 manifest 最新预发布 RC28、stable v0.0.18。详情见 [rc28-publication.json](evidence/rc28-publication.json)。
+
+这些是官方 CI 与线上元数据事实；没有下载替换本机安装版、重启个人应用或操作另一设备上的 kxt 原任务。原任务仍由用户升级后核验。本轮未变动原有工作区未提交内容。
