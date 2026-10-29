@@ -246,3 +246,14 @@ Verifier/Explorer 的既有 ephemeral 回合不持久化独立 Conversation，co
 本次修复保留真实失败与 unknown dispatch 现场，不把新读取结果当作旧工具已经成功的凭据。旧未知操作继续沿原生核对/用户控制恢复。测试版启动成功不是监督验收；真实操作已发现上述失败，状态必须记为失败待修复。
 
 只读监督查询在 Provider 边界发生已返回的本地异常时，必须产出结构化失败 Tool Result/Evidence，使当前调用正常结算；不能把查询异常升级为未知写入副作用。该处理仅覆盖已经声明为只读的查询，不吞掉写操作、控制操作或无返回的 dispatch；历史 unknown 不因此直接清账。
+
+
+## 14. 2026-10-29：回复交付与原任务收尾闭环
+
+用户实测：新用户“？”获得了主 Bot 重新读取目录后的普通文本答复，但原 lifecycle 子任务仍核验阻塞，当前任务卡保留。这不是新增子任务；后续回合的空任务名册、无源 fallback 与旧只读查询的 unknown 共同切断了原责任。
+
+- 用户回合的有界 roster 除直接相关项，还纳入同一 Bot/parentConversation 的未决跟进摘要；唤醒仍只读本事件范围，不把整个历史重新唤醒。L7 继续提供事实（followUp owner/reason、blockedReason、原 anchor），不从短句“？”猜意图或创建 mandate，模型自行判断关联，独立目标保持独立。
+- 有未决任务的用户回合必须走已有 post_reply 交付。模型普通最终文本只获得一次同预算内的结构化交付修正机会，规则经现有 L6 reminder，历史工具事实经既有 retryContinuity 进入；再次不交付则明确失败，不用 sources=[] fallback 冒充结果交付。不影响无任务的普通问答，也不自动替模型填 sources/statusClaims。
+- 已投递且宿主校验过的 source 会成为本回复工作的跟进关系。回复不是完成：当前事实仍要求技术处理时继续原监督；只有真实复核、关闭闸门、已投递关联回复与既有 policy/user acceptance 全部满足，任务才退出当前列表。核验失败、人工门、用户停止和 unknown 外部副作用保持原保护。
+- get_session/get_verification_detail 是固定的只读宿主观察。崩溃遗留 unknown 只有单一精确 dispatch、原回合 canonical 调用/原调度来源、同一 work/session、实际 attempt 已不活跃、宿主确认相同父子归属且无活动核验时可记 query_interrupted 对账；这只证明该观察已中断，不提供原 Tool Result、核验结论、授权或验收。写/控制调用及歧义一律不在此路径。记录沿已有 reconciledDispatches，schema/storage 与最小读写版本保持现行 6，扩展观察 outcome；旧宿主保留数据，不能把 query_interrupted 当作 verification_interrupted 来解除控制转移。
+- 旧任务继续使用原 plan/session/Evidence 及核验入口，不能修改真实数据为假完成或靠隐藏卡片收尾。真实恢复效果另记实施回执。

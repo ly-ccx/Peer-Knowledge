@@ -60,3 +60,12 @@ Desktop 在首次活动位置合并同 session 的所有通知，使用宿主当
 本轮只做内容/diff 审阅和用户本地手测所需 runtime-node 构建。单元/集成测试及发布回归仍留到发布门禁，不能称通过。只更新隔离测试实例，历史 unknown、失败、原始任务与 Evidence 保留，不手工改账；后续真实模型交互仍由用户测试。
 
 更新回执：代码 c85f83ff 已推送，runtime-node 启动必需构建完成，隔离 Electron 已重启到该源码。重新打开同一 session 的任务详情后，“任务资料暂时无法读取”消失，实际呈现核验结果、Evidence 操作记录和历史核验入口；旧中断记录保留。该观察仅覆盖此次用户故障的详情读取，不等于真实模型监督/核验、回归套件或发布验收通过。
+
+
+## 原任务收尾闭环补记
+
+用户再次反馈答复后任务卡仍在。只读现场确认：仍只有原 session 0f959c5b 的“熟悉项目”，原 runner=blocked；新“？”回合的 work.sessionIds=[]，fallback agent_reply.sources=[]，该工作直接 delivered；旧工作因 get_session 未知 dispatch 保持 blocked_system。此前修复解决了读取异常，尚未把此链闭环，不能宣称现场完成。
+
+按 ADR111 §14 补齐：用户回合 roster 纳入同一父 Bot 未决任务，唤醒保留范围；L7 保留责任、阻塞和中断查询事实；有未决任务的用户回合强制已有结构化 post_reply，在原预算内只补一次交付机会，普通文本不走无源 fallback；真实已投递回复的 sources 写回当前工作跟进关系，崩溃后恢复也保留，仍有修复责任则继续，真实 settled 后才 delivered。只读 get_session/get_verification_detail 遗留 unknown 按原 dispatch/turn、唯一目标、父子归属、非活动 attempt 与核验进行对账，记 query_interrupted，既不提供原结果也不验收任务，外部副作用保持保护。
+
+新增同父 Bot 旧任务名册/跨父与唤醒隔离、普通文本交付拒绝/一次修正、真实交付后的跟进责任、只读 unknown 正反例和 L7 信任边界用例，未运行。日常验证仍仅内容/diff 审阅；本地测试实例更新所需 protocol/runtime-node 构建与针对用户故障的现场观察单独记录，不替代发布测试。
