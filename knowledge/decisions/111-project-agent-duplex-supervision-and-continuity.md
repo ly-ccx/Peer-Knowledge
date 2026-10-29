@@ -233,3 +233,5 @@ WorkNotes 的写入是受限的运行时工作状态能力，目标仅为本工�
 - 子 Agent 图标保持位置与形状，只在真实活动时使用共享 mask-shimmer 高光扫过；停止、等待、缺事实和 reduced-motion 时静态显示。无新权限、执行或 Evidence 来源；无焦点、输入、滚动或事件日志改写。
 
 这是 A/B 级既有 Context Source 行为规则与 C 级表达收口；提示规则不能替代已有通信准入、人工门和核验。源码及用例按当前 Validation Scope 审阅，未运行与真实模型行为分别记载。
+
+补充运行时不变量：某次父回合的 AgentCommandReceipt.effect=applied 只证明该执行回合处理过消息，不能把开放问题视为已回答。上下文读取额外按 parentConversationId 查询仍为 open/responder=parent 的原生问题，以 requestId 从 canonical 邮箱恢复，优先纳入有界上下文；即使旧消息已 observed/applied 或退出最近消息窗口，也持续保留到关联回答/取消/真实用户升级。该读取不创建请求、不改变权限、不把普通报告解析成问题。新增“已处理回合 + 60条后续消息 + 关联回答”回归用例，未运行。
