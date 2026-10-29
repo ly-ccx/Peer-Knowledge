@@ -2,7 +2,7 @@
 
 创建时间：2026-10-29
 最后更新：2026-10-29
-状态：源码实现与内容/diff 自审；未运行验证、未发布。依据 ADR111 §12，依赖返回结果取消修复。
+状态：随 RC29 接手合入；runtime-node/desktop 套件已在接手分支实际运行（见文末），发布门禁与产品回归以 RC29 发布回执为准。依据 ADR111 §12，依赖返回结果取消修复。
 
 ## 用户目标与范围
 
@@ -10,7 +10,7 @@
 
 ## 落点
 
-| 缺口 | 实现 | 回归用例（已写，未运行） |
+| 缺口 | 实现 | 回归用例（RC29 接手时已运行，见文末） |
 |---|---|---|
 | 返回结果后原任务返修 | session-repair / session-takeover 允许 resume 未签收结果；原 plan/session/criteria 保留；反馈先持久入箱再排队 | session-repair.test、session-supervisor.test |
 | 旧协调记录漏掉责任 | repair-custody 按已有 followUp 回收 delivered/技术等待的原 checkpoint，一份责任只有一个已有承接者 | repair-ownership.test |
@@ -78,3 +78,17 @@ Desktop 在首次活动位置合并同 session 的所有通知，使用宿主当
 源码 e4c13e1c，启动必需 protocol/runtime-node 构建完成；无单元/集成套件运行。原 session 0f959c5b-aee0-4e29-8618-36fc44a6d43e 与 plan 3e49e658-e0ff-477d-b20b-0e74e11e1d14 保持不变。宿主按原 dispatch/turn 记录 query_interrupted，保留调用身份与预算，随后沿原 work 唤醒并实际调用 get_session/get_verification_detail/verify_session。新 verifier 独立只读获取事实并通过 c1-c3；plan.status 与 runner.status 都成为 completed。主 Bot 通过 post_reply.sources 引用原 session，2026-10-29T06:30:57.037Z 写入 resultAcceptance.acceptedBy=policy（verdictRef 指向真实 passed 核验），没有伪造用户批准或手工改账。
 
 原生窗口观察确认：同一 Agent 活动行显示“熟悉项目 已完成”；底部“当前任务（1）”退出，机器人不再标记进行中，历史中断、原输入、报告与 Evidence 均保留。原用户输入仍是同一条 lifecycle-research 请求，没有新增子任务；没有替用户发送新测试提示。本次是实现者对用户报告故障的窄范围现场观察，非独立审阅，不代表全套监督、多模型、安装包、无障碍或发布回归通过。模型答复措辞与重复结论仍有产品改进空间，不以本次成功关闭其他缺口。
+
+## 并入 RC29：实测与接手修复（2026-10-29）
+
+发布 RC29 时由发版执行者接手。代码 PR 合入最新 PeerAgent/dev/0.1.0（含撤回、取消与恢复入口修复），解开 session-supervisor/coordination-lifecycle 用例与 coordinate_work 提示冲突（两侧规则都保留），重新生成 coordination worker 与工具提示嵌入文件。首次实际运行套件后发现并修复：
+
+1. repair-custody 在对账入口就读取名册，没有待处理工作时也触发读取；改为与 continuation-custody 相同的惰性名册。
+2. 返修回合被旧完成判定吞掉：接管先暂停 plan，promote 的 revisePlan 又按全部完成的旧叶子重新派生为 completed，调度随即按终态跳过。GoalRunner 只对真实绑定、尚未 applied 的返修 epoch（repairExecutionPending）以 execute/repair 进入实际回合；hasActiveGoalRepair 识别已完成接管的返修。不会因此重放 unknown dispatch。
+3. 一条 supervisor 用例直接写验收，绕过了关闭门；改为提供宿主核验事实与已索引 Evidence。
+4. Renderer 的 conversationWindow 以无扩展名做值导入，Vite 能解析而 node 测试不能，三个测试文件加载失败；改为与同目录一致的显式 .ts。
+5. Desktop 重启/唤醒集成用例的叶子 Evidence 从未索引，宿主核验结论实为失败，结果仍由 Bot 承担修复。按本记录的修复托管，该工作正确保持可运行，脚本化模型每次只重复汇报，于是出现重复回复，直到 no_progress。修正夹具：先索引 Evidence；脚本化模型的 post_reply 执行回执按生产路径交给回合收集器。未放宽宿主规则。
+
+运行结果（接手分支，macOS，Node 25）：runtime-node 1619/1619 通过；desktop 6113 项中 6108 通过、0 失败、5 跳过，另一组 3/3 通过；PR CI 结果另记。
+
+需在发布回归中观察的产品风险：已汇报但核验未通过的结果会让汇报所在的工作继续可运行。真实模型若只重复汇报而不返修，用户会看到重复回复，两次无进展后转为 blocked_system 恢复卡。上限由宿主保证，但真实模型的多轮措辞与返修选择未经验证，不能据此宣称监督体验已验收。
