@@ -361,7 +361,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P08 档案框架与五个标签 | O/Q；BotProfileDrawer、Drawer、分栏/覆盖布局与 tab 记忆 | PR204 已汇入组合候选；先登记有效 Layer 再进入 scope，无 Layer 不拥有焦点；E06/E17 层级/tabs/手势与 push 静态/中断收尾已审阅；V resize/反向/源消失与最终候选实机 | P1 · E06/E16/E17 |
 | P09 档案·概况 | V/A；OverviewTab、profile、宿主/模型解析 | V 无模型/来源不可用/打开目录失败/长路径 | P1 · E08/E12 |
 | P10 档案·任务 | Q/A；TasksTab、sessions、生命周期 cancelable | V 空/加载/过期报告、取消失败、历史与当前分组 | P0 · E04/E12 |
-| P11 任务详情/原任务现场 | O/V/I；SessionDetail/ConversationSceneDrawer、useTaskReport 与 ChatSurface | E09 报告 Evidence 引用可直接受控预览并返回；E05/E06 现场阅读沿用；V 旧 turn/报告/嵌套关闭与草稿 | P0 · E04/E05/E09 |
+| P11 任务详情/原任务现场 | O/V；SessionDetail/ConversationSceneDrawer、useTaskReport 与 ChatSurface；流程查看隐藏输入区，见 2026-10-28 补记 | E09 报告 Evidence 引用可直接受控预览并返回；E05/E06 现场阅读沿用；V 旧 turn/报告/嵌套关闭与草稿；无输入区布局待发布验证 | P0 · E04/E05/E09 |
 | P12 核验/签收/CompletionReview | V/A；S 核验 outcome/历史 attempt 独立；未知历史不写失败；签收依实际事实 | E04 事实分离及 E09 核验 checks/outputs 的 Evidence 入口已审阅；V 历史 attempt/旧来源、签收/Git边界 | P0 · E04/E09 |
 | P13 回复过程/协调/记忆上下文 | O/V；ReplyDetails/AgentProcessView/CoordinationDetails/ReplyContext | E05/E06 继承阅读与层级基础；V 用户收起/后台更新、详情读失败/返回锚点 | P1 · E05/E06/E10 |
 | P14 Evidence 明细/文件/失效引用 | V/O；EvidenceView/EvidenceList、projectAgentReadEvidence | E09 读/重读、正文与元信息/缺失状态、100 条元数据窗口已审阅；V 权限/截断/旧来源/嵌套返回 | P1 · E09 |
@@ -513,7 +513,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C075 · `capabilities/components/SkillsInstalledPanel.tsx`<br>`SkillIcon`, `SkillSection`, `SkillsInstalledPanel` | Q/F · S E15 installed/available 独立 reader 保快照/真空，逐对象 pending/同步锁/真实回执；accept 失效旧读取，嵌套 Switch 键盘不激活卡 | 实现已审阅；V 外部变化/作用域/卸载/借用和未知回执；不新增幂等协议 | P1 · E08/E09/E15 |
 | C076 · `capabilities/components/SkillsPanel.tsx`<br>`SkillsPanel` | Q/H · S E15 C210 有 panel 关联/roving/显式激活，原 revision/上传成功后进入已安装 | 实现已审阅；V 视图重挂载/搜索与阅读状态、实际上传/安装回执 | P1 · E08/E15/E17 |
 | C077 · `chat/components/AutomationProposalCard.tsx`<br>`AutomationProposalCard`, `ProposalCard` | V/A · S 提案折叠、pendingAction/actionError；事实：受控 props / 所属 hook（装配模块由子树承接） | E10 同帧写锁/按提案隔离、后台不重置展开已审阅；V 提案失效/拒绝/真实创建回执 | P1 · E04/E10 |
-| C078 · `chat/components/ChatSurface.tsx`<br>`ChatSurface` | I/V/O · S 经典任务现场、流式/权限/模型/Goal/附件与恢复装配；接口：`approveLocalAction`, `automationProposalAct`, `chatAbort` 等；S F5：查找条保留表达载体，真实 open 决定交互层/查找高亮，关闭不等动画 | S E05 手势/快照/真实 turn 恢复移至 hook/seam，净减文件；V 压缩/虚拟/旧消费者 | P0 输入/决策，P1 阅读 · E02/E03/E04/E05/E06/E11 |
+| C078 · `chat/components/ChatSurface.tsx`<br>`ChatSurface` | I/V/O · S 经典任务现场、流式/权限/模型/Goal/附件与恢复装配；接口：`approveLocalAction`, `automationProposalAct`, `chatAbort` 等；S 流程入口以 showComposer=false 隐藏输入区，见 2026-10-28 补记；S F5：查找条保留表达载体，真实 open 决定交互层/查找高亮，关闭不等动画 | S E05 手势/快照/真实 turn 恢复移至 hook/seam，净减文件；V 压缩/虚拟/旧消费者 | P0 输入/决策，P1 阅读 · E02/E03/E04/E05/E06/E11 |
 | C079 · `chat/components/ComposerDraftControls.tsx`<br>`ComposerDraftControls`, `ComposerDraftField` | I/Q · S 共享 composition guard、补全 Escape 保留正文；既有草稿 store/搜索接口；S F5：MotionSurface 统一入退场、关闭即 inert/aria-hidden、反向取消旧收尾；行为仍由原受控状态决定 | E03 实现已审阅；V OS 事件、快速第二 Enter、旧异步结果 | P0 · E02/E03 |
 | C080 · `chat/components/ComposerTokenUsageDisplay.tsx`<br>`ComposerTokenUsageDisplay` | R/V · S 受控上下文用量；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核未知/估算/限制说明、不可用不渲染假零 | P1 · E08/E15 |
 | C081 · `chat/components/ConversationAccessControl.tsx`<br>`ConversationAccessControl` | F/O · S 经典会话权限控件的加载/错误/禁用投影；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核实际 scope/撤回/失效与旧决定，不在 renderer 造许可 | P0 · E04/E11 |
@@ -604,7 +604,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C166 · `project-agent/drawer/MemoryTab.tsx`<br>`MemoryTab`, `MemoryScope` | Q/F/A · S 筛选/分页/编辑/固定/忘记/恢复/学习开关；接口：`projectMemoryEdit`, `projectMemoryExport`, `projectMemoryForget` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | G09/E10 读失败保快照、逐项/开关/导出回执、修订后关闭旧编辑已审阅；V 冲突/外部变更/新 ID/草稿/OS取消 | P1 · E10/E15/E17 |
 | C167 · `project-agent/drawer/ObjectivesTab.tsx`<br>`ObjectivesTab`, `ObjectivesScope`, `ObjectiveCard` | Q/F/A · S 目标编辑/预算/自主性/暂停恢复、loading/error；接口：`automationsList`, `onProjectAgentChanged`, `projectObjectivesDelete` 等；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E10 逐目标写锁、会话 draft/expectedVersion、触发/观察 Evidence 与一次定位已审阅；V 冲突/失败/终态/送达 | P1 · E10/E17 |
 | C168 · `project-agent/drawer/OverviewTab.tsx`<br>`OverviewTab` | V/A · S 项目/模型/主机概况与打开入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核未知/路径缺失/长值、跳转保留当前上下文 | P1 · E08/E12/E15 |
-| C169 · `project-agent/drawer/SessionDetail.tsx`<br>`SessionDetail`, `ConversationSceneDrawer` | V/O/I · S 任务报告与嵌套 ConversationSceneDrawer，旧配置按需读；接口：`getSettings`, `llmListProviders`；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | E09 原始 Evidence 预览入口已审阅；E05/E06 现场沿用；V stale/不可用报告、子现场草稿与读位 | P0 事实/P1 连续性 · E04/E05/E09/E17 |
+| C169 · `project-agent/drawer/SessionDetail.tsx` / `project-agent/drawer/ConversationScene.tsx`<br>`SessionDetail`, `ConversationSceneDrawer` | V/O · S 任务报告与嵌套 ConversationSceneDrawer，旧配置按需读；接口：`getSettings`, `llmListProviders`；S 流程查看输入区修复见 2026-10-28 补记；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留；S F5：内部纯关闭/取消统一 requestClose，业务结果与导航沿原回执交接 | E09 原始 Evidence 预览入口已审阅；E05/E06 现场沿用；V stale/不可用报告、子现场草稿与读位 | P0 事实/P1 连续性 · E04/E05/E09/E17 |
 | C170 · `project-agent/drawer/TaskVerification.tsx`<br>`TaskVerification` | V · S 核验/attempt 历史投影；未知历史不默认 failed；不写签收事实；S F5：原生折叠接 MotionDetails，共享尺寸/透明度过渡、settled 后释放 overflow；原 summary/状态与读取回执保留 | E09 checks/outputs 原始 Evidence 与输出摘要分别可达，E04 核验真源不变；V 旧 attempt/缺失/截断/签收 | P0 · E04/E09 |
 | C171 · `project-agent/drawer/TasksTab.tsx`<br>`TasksTab` | Q/A · S 当前/历史/经典任务、resume 状态与错误；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核空/分页/恢复失败、生命周期判断不由名称推导 | P0 事实/P1 列表 · E04/E12 |
 | C172 · `project-agent/onboarding/BotOnboarding.tsx`<br>`BotOnboarding` | F/O · S 机器人首次使用引导与受控动作；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核无模型/中断重开/取消、不伪造完成熟悉 | P1 · E08 |
@@ -917,3 +917,13 @@ Bot对话/任务状态：输入已持久接收不代表恢复已就绪，历史�
 没有新增动效体系、运动常数或背景夺焦/自动滚动行为；等待原有有限布局稳定后测量阅读位置。具体原始失败、修复、测量、覆盖限制和最终候选见[实施回执](../../playbook/v0.1.0/code-structure-refactoring.md)。本批通过不替代整个体验改造或发布验收。
 
 最终包：`ec311a87-4a14-41e0-9d51-7f285837fb5d`，源码指纹 `873f4fd57b7c850d83a07ac91079606a84ce8f796a75306b8103d6c720f4b2fd`。原机器断言遗漏的资源主栏焦点滚动与经典聊天窄窗裁切，均先复现再修复，最终重采集；不据截图声称真实模型耗时或完整无障碍已验收。
+
+## 2026-10-28：流程查看隐藏输入区（开发，未验收）
+
+P11/C078/C169：用户进入流程是为了阅读原任务过程。ConversationScene.tsx 的 ConversationSceneDrawer 对内嵌与抽屉入口统一传入 showComposer=false：隐藏输入框、模型/模式/访问配置、待发队列、选区引用及消息操作，关闭文件拖入；查看实例不自动投递待发队列。继续保留真实流事件、加载/空态、错误/重试、任务状态、受治理批准、查找、附件预览和回到最新。普通对话默认输入行为保持原样。
+
+状态来自既有 conversationStore、任务与权限投影；关闭、返回与焦点恢复沿用现有 Drawer/内嵌导航，主对话草稿不清空。输入的 hover/IME/提交状态在流程页不适用，补充意图通过返回对话入口处理；无新增动画或运行时、权限、Evidence 契约。代码 [PR227](https://github.com/ly-ccx/Peer-Agent/pull/227)，source=`dec39299c907eecc95398da2f68303dc8c1e26f5`。仅做实现者内容/diff 审阅；测试、键盘/滚动/截图、安装包与无障碍验证留待发布，未宣称候选通过。
+
+### 2026-10-29 C210：同一授权事实的刷新连续性
+
+CI 暴露相同待处理卡片重读为新对象后，真实终态回执被对象身份保护丢弃、按钮短暂重现。保留既有宿主回执验证，只对相同 workspace 与完整 cardDecisionKey 的已终态 approval/plan_approval 跨等值刷新保留显示；新来源已有终态时优先显示新事实，挑战内容/refs/作用域变化立即失效，无真实宿主证明不生成回执。问题卡、失效请求、权限真值与调用链不变；不靠 timer 或点击制造授权，不新增动画或抢焦点。实际 CardView 组件回归先复现，再核对等值新对象、变更挑战、跨工作区、缺失证明和更新终态，连同原回执用例 6 项及 Desktop 类型检查通过；Electron 场景与完整 CI 结果见代码 PR229/227/228，不继承此前截图包或安装版验收。
