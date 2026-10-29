@@ -122,3 +122,19 @@ export interface FollowUpProjection {
 
 
 本批监督实施采用本决策中必要的共享责任投影及消费者；实际代码、验证范围与未覆盖事项见[实施回执](../../playbook/v0.1.0/code-structure-refactoring.md)。当前列表归属不等同于真实运行数；运行计数仍只统计实际活动执行。
+
+## 6. 已交回结果的用户取消（2026-10-29）
+
+手工试用发现：用户明确要求“不再需要，直接清理掉”，两次 `control_work(cancel)` 实际返回 `work_already_ended`；对应计划均为 `completed`、无签收事实，宿主仍投影为 `result_ready`。只读核对宿主协调读模型发现，两件工作此前都已是 `cancelled + stopScope=work`，并有旧 `lastControl` 成功回执，子任务却没有取消回执。工作调度终态与跟进责任终态不同；拒绝取消工作、跳过 `result_ready/failed` 子任务、以及取消器拒绝 `completed` 三处判断共同形成不可退出的待办。
+
+本次按 A 级扩展既有取消契约，不新增归档能力或 renderer 隐藏状态：
+
+- 当前用户可以通过既有 `control_work(cancel)` 取消所指整件工作的未签收子任务，包含已交回结果、核验失败、未确认停止的任务。`delivered/cancelled` 工作状态不再阻止这项操作；`coalesced` 不追踪到另一件工作。
+- `cancel_session` 沿同一个取消器处理单条未签收结果。已签收结果保持原事实；不把放弃结果写成签收或核验通过，不删除历史会话、原报告、核验记录和 Evidence。已完成/失败计划的隔离成果通过既有 `preserveArtifacts` 保留。
+- 宿主先关闭工作准入和执行泵，再 abort、等待 Runner 与执行调度器停止，核对不确定副作用，最后写既有 `cancellation.phase=completed`。计划此时转为 `cancelled`，表示委托已取消；此前实际执行与核验记录保留。仅凭计划 `completed`、Runner 残留字符串或工作 `delivered` 都不能跳过停止确认。
+- 有未确认执行结果时仍是 `awaiting_outcome`，保留当前列表与 Bot 跟进责任，不回报清理成功。部分取消失败时保留关闭的准入与 `pendingControl`；同一输入只继续未完成子任务，重复成功操作幂等。
+- 旧 `lastControl` 回执不能独自证明取消已落实到子任务；重放取消前仍核对所绑定的未结清结果。旧控制器漏掉的结果走正常停止链补齐，不改真实运行数据或伪造迁移成功。
+- `coordinate_work(cancel)` 同样不能把 `result_ready` 当成无需处理的成功终态；撤回已交回结果要求当前真实用户输入，普通事件唤醒不能自行放弃结果。替换/交接对既有结果的复用语义不变。
+- 当前列表、计数、详情、Desktop/TUI 继续消费原有 `cancelled + completed receipt → followUp.owner=none`，无第二套列表规则。活动执行与未决停止优先级不变。
+
+体验契约：用户目的是停止并移出当前跟进，历史仍可查；处理中/结果未知由 Bot 负责，真实停止回执后才退出。草稿、焦点、阅读位置与动效链不变。恢复沿现有取消回执及范围回执，不重跑原任务、不自动验收。日常只做源码与 diff 审阅并补回归用例；测试、构建、截图、真实模型及安装包覆盖待发布，不沿用此前候选的通过结论。
