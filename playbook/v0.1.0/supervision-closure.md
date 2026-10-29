@@ -71,3 +71,10 @@ Desktop 在首次活动位置合并同 session 的所有通知，使用宿主当
 新增同父 Bot 旧任务名册/跨父与唤醒隔离、普通文本交付拒绝/一次修正、真实交付后的跟进责任、只读 unknown 正反例和 L7 信任边界用例，未运行。日常验证仍仅内容/diff 审阅；本地测试实例更新所需 protocol/runtime-node 构建与针对用户故障的现场观察单独记录，不替代发布测试。
 
 补充：原失败 verifier 有 canonical failed/completedAt，continuation 却遗留 requesting/formatAttempt=1，重核验会直接 no_progress。continuation port 仅凭晚于最后进展的真实终态核验回执与核验阻塞原因，沿现有 completed recheck 收口旧请求，保留累计使用量、失败和工具未知保护。新增 requesting/tools/过时回执边界用例，未运行。
+
+
+### 原任务真实模型恢复回执（隔离实例，2026-10-29 14:30 CST）
+
+源码 e4c13e1c，启动必需 protocol/runtime-node 构建完成；无单元/集成套件运行。原 session 0f959c5b-aee0-4e29-8618-36fc44a6d43e 与 plan 3e49e658-e0ff-477d-b20b-0e74e11e1d14 保持不变。宿主按原 dispatch/turn 记录 query_interrupted，保留调用身份与预算，随后沿原 work 唤醒并实际调用 get_session/get_verification_detail/verify_session。新 verifier 独立只读获取事实并通过 c1-c3；plan.status 与 runner.status 都成为 completed。主 Bot 通过 post_reply.sources 引用原 session，2026-10-29T06:30:57.037Z 写入 resultAcceptance.acceptedBy=policy（verdictRef 指向真实 passed 核验），没有伪造用户批准或手工改账。
+
+原生窗口观察确认：同一 Agent 活动行显示“熟悉项目 已完成”；底部“当前任务（1）”退出，机器人不再标记进行中，历史中断、原输入、报告与 Evidence 均保留。原用户输入仍是同一条 lifecycle-research 请求，没有新增子任务；没有替用户发送新测试提示。本次是实现者对用户报告故障的窄范围现场观察，非独立审阅，不代表全套监督、多模型、安装包、无障碍或发布回归通过。模型答复措辞与重复结论仍有产品改进空间，不以本次成功关闭其他缺口。
