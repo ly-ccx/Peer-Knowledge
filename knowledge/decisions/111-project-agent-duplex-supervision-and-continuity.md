@@ -222,3 +222,14 @@ WorkNotes 的写入是受限的运行时工作状态能力，目标仅为本工�
 返修语义以 TaskTransition `minimumExecutorVersion=3` 标记；既有 schema/storage 版本仍为 1/2，但首次写入返修、批量执行回执或未知状态对账引用前，将 minimumReaderVersion/minimumWriterVersion 提升到 6。格式提升幂等，普通监督写入不得把 6 降回 5；日志重建、缓存/manifest 丢失及历史恢复均保留最低版本。旧宿主必须拒绝继续写这批数据。`takeover.repair` 与新 epoch 同时参与语义核验及 host verification 内容身份；历史核验与 Evidence 不删除，但不能直接用于新返修验收。工作预算、范围和真实人工门不重置。
 
 未知状态只有既有宿主 `reconciledDispatches` 中同一 plan、实际 attempt/toolCallId 且晚于阻塞的记录可以解除；转移记录 `reconciliationRef`，随后重新执行停止/idle/未知检查。其他工具的未知副作用没有权威结果时，明确保持 reconciliation_required/replayAllowed=false，并提供原结果核对动作，不承诺自动恢复。真实回合结束的通信命令按一次日志提交批量记 applied；提交前崩溃且没有其他执行凭据时仍保留 unknown，不捏造回执。
+
+## 13. 2026-10-29：问题承接与单一 Agent 状态行
+
+用户反馈：子任务把选项与“需要批准”写进结果正文，主 Bot 未及时交还；同一子任务又以开始、结果返回等多个活动行刷屏，开始图标持续跳动。
+
+- 普通工作方法与选项先经既有 send_agent_message(question/decisionRequest) 交父 Bot，在同一个 requestId/revision 下回答；等待父答时不得只写一段报告文字再标完成。真正权限与人工门继续原路径。
+- 已完成报告中的“需要批准”只是未验证工作内容，不制造人工门。主 Bot 必须对照原用户目标与宿主真实门槛，自行处理原授权内的选择；确需人决定时在主对话发出关联原输入的结构化问题。只读调研子目标不是用户整体实现目标，不能把自己的调研步骤变成额外批准。核验无变化时不得反复重跑相同检查来替代问题承接或结论交还。
+- Desktop 主对话按 sessionId 合并活动通知，一名子 Agent 一行；在首次出现位置更新最新阶段，原始消息、事件和详情完整保留。显示和活动扫光以宿主当前 session 状态为准，历史 started 文字不能在当前核验/停止时继续冒充执行。
+- 子 Agent 图标保持位置与形状，只在真实活动时使用共享 mask-shimmer 高光扫过；停止、等待、缺事实和 reduced-motion 时静态显示。无新权限、执行或 Evidence 来源；无焦点、输入、滚动或事件日志改写。
+
+这是 A/B 级既有 Context Source 行为规则与 C 级表达收口；提示规则不能替代已有通信准入、人工门和核验。源码及用例按当前 Validation Scope 审阅，未运行与真实模型行为分别记载。
