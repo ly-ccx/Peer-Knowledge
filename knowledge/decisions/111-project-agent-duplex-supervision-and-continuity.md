@@ -192,3 +192,70 @@ WorkNotes 的写入是受限的运行时工作状态能力，目标仅为本工�
 原工作区有尚未完整进入开发线的 ADR 110 followUp 投影。本批只采用监督所需的共享投影与消费者及相关测试，并将该前置决策一并提交；其他在途布局/文案改动不纳入。授权不包括合并 PR、发布、安装或重启用户当前应用。
 
 可靠投递的有界读取须先按 recipient 的 pending 索引、sequence 升序取得最早未观察的 ensure_turn 消息，再补最近历史。仅对最近 50 条结果排序不能保证公平性；120 条消息的回归必须证明旧消息逐批进入实际 Source，观察回执更新索引，删除派生索引后重放不恢复已观察义务。索引只投影原 journal 的 delivery 事实，不产生新的执行权限或成功回执。
+
+## 12. 2026-10-29：监督闭环补齐
+
+状态：Accepted（用户要求补齐本轮列出的监督缺口）；实现与验证状态另记，不能据此声明运行实例已具备能力。
+
+### 12.1 返回结果的原任务返修
+
+`coordinate_work(resume)` 在原目标有效 mandate 内允许继续尚未签收的 `completed` 计划；必须先检查真实人工门、用户停止、旧 epoch、活体与未决 dispatch。沿既有 takeover 的停止、等待、重新绑定与调度路径，保留 session/plan、成果、Evidence、预算和成功标准。已签收、已取消及人工门不得自动重开。返修反馈作为有身份的工作消息进入原事实上下文，不是系统指令。原核验与人工决定保留历史；旧执行的核验不得直接证明新执行通过。
+
+### 12.2 跟进责任与协调记录对账
+
+同一宿主在选择续接工作前，根据现有 `followUp` 对账自己的 `delivered` / 技术等待记录。只有存在原 checkpoint、关联 session 明确、没有人工等待、用户停止、历史隔离、未决 dispatch、活动 attempt 或另一个已有责任承接方时，才能重新唤醒原工作。不得创建重复监督者；不重放已完成 Provider 工具尾巴；无进展计数和预算保持。
+
+### 12.3 未知结果与阻塞恢复
+
+`awaiting_outcome` 的保护本身不是缺陷。核对只认宿主现有 Tool Result/Evidence、真实绑定 attempt 的完成记录和原操作身份；普通消息、模型判断或 `ownership=unknown` 不能消除未知副作用。恢复检查必须返回仍缺的事实和合法下一动作，不返回假成功。已确认的本机通信执行可修复迟到回执；没有权威结果的外部副作用继续阻塞并明确交还核对义务。协调日志中的 blocked/unknown 转移只有在实际前置事实改变后才可继续，不按固定次数或计时器盲重试。
+
+### 12.4 历史承接、选项与停滞
+
+旧任务先经当前用户输入与既有 coordinate_work 原生 adoption 建立 mandate，再绑定执行代次，后续使用相同结构化问题/回答和持久通信链。没有 mandate 的普通唤醒只能查事实和给承接提示，不从历史文本创建新权限。Agent 问题必须有稳定 requestId/revision/replyTo；答案入队后仍保存执行准入义务。主 Bot 无进展后保留原责任、错误和证据，报告具体缺口及可行恢复动作，不能要求用户重复已回答的问题或无界启动新监督 Agent。
+
+### 12.5 验证与体验约束
+
+用户目标是“一次委托由主 Bot 持续处理并交还”；状态来源仍是本地日志、GoalPlan、执行事实与统一生命周期投影。Desktop/TUI 共用宿主路径；不改输入、焦点、滚动或增加动效。补齐原任务返修、人工/停止拒绝、历史对账去重、问题已答后重启、执行未知保留、旧版本拒绝、无进展不循环等回归用例。按最新 Validation Scope，日常只做内容/diff 审阅，不运行测试/构建/产品回归；真实模型多轮监督、崩溃窗口和安装包验收须在发布前完成，不能用脚本用例代替。
+
+### 12.6 格式与回退边界
+
+返修语义以 TaskTransition `minimumExecutorVersion=3` 标记；既有 schema/storage 版本仍为 1/2，但首次写入返修、批量执行回执或未知状态对账引用前，将 minimumReaderVersion/minimumWriterVersion 提升到 6。格式提升幂等，普通监督写入不得把 6 降回 5；日志重建、缓存/manifest 丢失及历史恢复均保留最低版本。旧宿主必须拒绝继续写这批数据。`takeover.repair` 与新 epoch 同时参与语义核验及 host verification 内容身份；历史核验与 Evidence 不删除，但不能直接用于新返修验收。工作预算、范围和真实人工门不重置。
+
+未知状态只有既有宿主 `reconciledDispatches` 中同一 plan、实际 attempt/toolCallId 且晚于阻塞的记录可以解除；转移记录 `reconciliationRef`，随后重新执行停止/idle/未知检查。其他工具的未知副作用没有权威结果时，明确保持 reconciliation_required/replayAllowed=false，并提供原结果核对动作，不承诺自动恢复。真实回合结束的通信命令按一次日志提交批量记 applied；提交前崩溃且没有其他执行凭据时仍保留 unknown，不捏造回执。
+
+## 13. 2026-10-29：问题承接与单一 Agent 状态行
+
+用户反馈：子任务把选项与“需要批准”写进结果正文，主 Bot 未及时交还；同一子任务又以开始、结果返回等多个活动行刷屏，开始图标持续跳动。
+
+- 普通工作方法与选项先经既有 send_agent_message(question/decisionRequest) 交父 Bot，在同一个 requestId/revision 下回答；等待父答时不得只写一段报告文字再标完成。真正权限与人工门继续原路径。
+- 已完成报告中的“需要批准”只是未验证工作内容，不制造人工门。主 Bot 必须对照原用户目标与宿主真实门槛，自行处理原授权内的选择；确需人决定时在主对话发出关联原输入的结构化问题。只读调研子目标不是用户整体实现目标，不能把自己的调研步骤变成额外批准。核验无变化时不得反复重跑相同检查来替代问题承接或结论交还。
+- Desktop 主对话按 sessionId 合并活动通知，一名子 Agent 一行；在首次出现位置更新最新阶段，原始消息、事件和详情完整保留。显示和活动扫光以宿主当前 session 状态为准，历史 started 文字不能在当前核验/停止时继续冒充执行。
+- 子 Agent 图标保持位置与形状，只在真实活动时使用共享 mask-shimmer 高光扫过；停止、等待、缺事实和 reduced-motion 时静态显示。无新权限、执行或 Evidence 来源；无焦点、输入、滚动或事件日志改写。
+
+这是 A/B 级既有 Context Source 行为规则与 C 级表达收口；提示规则不能替代已有通信准入、人工门和核验。源码及用例按当前 Validation Scope 审阅，未运行与真实模型行为分别记载。
+
+补充运行时不变量：某次父回合的 AgentCommandReceipt.effect=applied 只证明该执行回合处理过消息，不能把开放问题视为已回答。上下文读取额外按 parentConversationId 查询仍为 open/responder=parent 的原生问题，以 requestId 从 canonical 邮箱恢复，优先纳入有界上下文；即使旧消息已 observed/applied 或退出最近消息窗口，也持续保留到关联回答/取消/真实用户升级。该读取不创建请求、不改变权限、不把普通报告解析成问题。新增“已处理回合 + 60条后续消息 + 关联回答”回归用例，未运行。
+
+
+### 13.1 隔离实测暴露的兼容缺口（2026-10-29）
+
+“熟悉项目”等 lifecycle 任务可以没有 workId/mandate。监督报告须保留原 session/report 并返回 legacy_unbound，不用缺失 workId 查询协调 SQLite；缺少绑定不能制造 mandate 或执行权限。
+
+Verifier/Explorer 的既有 ephemeral 回合不持久化独立 Conversation，conversationId 可以为空。Bot 权限继承继续使用本地 GoalPlan、workspaceId、planId、显式 sessionId 与完整未停止祖先链校验；通过现有 resolvePermissionPrincipal 后，只能从同一 GoalPlan 的真实 conversationId 开始核对持久祖先。仅 role=work_session 且 plan/session 精确绑定时允许此兼容映射。错误 session、不同工作区、伪造会话、停止、撤销及身份不完整仍拒绝，不回退全局 Full，不改变只读 Projection/PermissionGrant。
+
+本次修复保留真实失败与 unknown dispatch 现场，不把新读取结果当作旧工具已经成功的凭据。旧未知操作继续沿原生核对/用户控制恢复。测试版启动成功不是监督验收；真实操作已发现上述失败，状态必须记为失败待修复。
+
+只读监督查询在 Provider 边界发生已返回的本地异常时，必须产出结构化失败 Tool Result/Evidence，使当前调用正常结算；不能把查询异常升级为未知写入副作用。该处理仅覆盖已经声明为只读的查询，不吞掉写操作、控制操作或无返回的 dispatch；历史 unknown 不因此直接清账。
+
+
+## 14. 2026-10-29：回复交付与原任务收尾闭环
+
+用户实测：新用户“？”获得了主 Bot 重新读取目录后的普通文本答复，但原 lifecycle 子任务仍核验阻塞，当前任务卡保留。这不是新增子任务；后续回合的空任务名册、无源 fallback 与旧只读查询的 unknown 共同切断了原责任。
+
+- 用户回合的有界 roster 除直接相关项，还纳入同一 Bot/parentConversation 的未决跟进摘要；唤醒仍只读本事件范围，不把整个历史重新唤醒。L7 继续提供事实（followUp owner/reason、blockedReason、原 anchor），不从短句“？”猜意图或创建 mandate，模型自行判断关联，独立目标保持独立。
+- 有未决任务的用户回合必须走已有 post_reply 交付。模型普通最终文本只获得一次同预算内的结构化交付修正机会，规则经现有 L6 reminder，历史工具事实经既有 retryContinuity 进入；再次不交付则明确失败，不用 sources=[] fallback 冒充结果交付。不影响无任务的普通问答，也不自动替模型填 sources/statusClaims。
+- 已投递且宿主校验过的 source 会成为本回复工作的跟进关系。回复不是完成：当前事实仍要求技术处理时继续原监督；只有真实复核、关闭闸门、已投递关联回复与既有 policy/user acceptance 全部满足，任务才退出当前列表。核验失败、人工门、用户停止和 unknown 外部副作用保持原保护。
+- get_session/get_verification_detail 是固定的只读宿主观察。崩溃遗留 unknown 只有单一精确 dispatch、原回合 canonical 调用/原调度来源、同一 work/session、实际 attempt 已不活跃、宿主确认相同父子归属且无活动核验时可记 query_interrupted 对账；这只证明该观察已中断，不提供原 Tool Result、核验结论、授权或验收。写/控制调用及歧义一律不在此路径。记录沿已有 reconciledDispatches，schema/storage 与最小读写版本保持现行 6，扩展观察 outcome；旧宿主保留数据，不能把 query_interrupted 当作 verification_interrupted 来解除控制转移。
+- 旧任务继续使用原 plan/session/Evidence 及核验入口，不能修改真实数据为假完成或靠隐藏卡片收尾。真实恢复效果另记实施回执。
+
+现场同时发现旧核验已经有宿主 failed/completedAt 回执，但 continuation 仍是 requesting/formatAttempt=1。重新核验时，仅在非 tools 阶段、同一计划的终态核验回执晚于该 continuation 最后进展、且 runner 明确核验阻塞时，按已结束回合进入既有 completed recheck；保留累计请求/工具预算与旧失败记录，不重放旧 Provider 尾巴，不处理 tools/未知副作用阶段。该兼容由既有 continuation port 从真实事实推导，不按计时器重置额度。
