@@ -939,3 +939,8 @@ CI 暴露相同待处理卡片重读为新对象后，真实终态回执被对�
 ### 2026-10-29 当前任务：保留未知历史的委托撤回
 
 §6 的真实试用仍被旧 Bash 未知结果阻塞。按 [ADR110 §7](../../knowledge/decisions/110-follow-up-responsibility-and-current-list.md#7-撤回委托与历史执行结果分离2026-10-29)，当前 canonical 用户可在受管回合收口后撤回委托，历史 unknown 账本与成果完整保留，禁止重放。列表与计数消费宿主 user_withdrawn 责任事实；CoordinationDetails 读取已完成撤回回执及未知调用数，明确说明撤回时历史结果未知。宿主仍保护活动执行、停止失败、租约和来源范围；事件唤醒不能自行放弃，已停止工作的追加 cancel 不打开执行准入。复用原有详情部件和 token，不改输入、焦点、读位或动效。原失败与新增回归、覆盖范围以 ADR110 §7 补记为准，不继承前一次 109 项或 CI 的通过结论。
+
+
+### 2026-10-29 当前任务与 SessionDetail：撤回终态闭环
+
+修正 GoalPlanStore 取消终态和共享生命周期决策优先级，原生已接纳撤回在冷恢复后退出当前列表。SessionDetail 直接消费宿主 followUp.owner=none，沿原结束后追问文案，不按旧 reason 白名单重新分配责任。实际本地 kxt 窗口已核对当前任务为空、历史已取消、未知结果说明保留；未知预算/失败叶子/中断事实未改。359项相关回归与4项详情标签用例通过，protocol/Desktop 类型检查通过。此为实现者当前故障核对，不是全产品、独立或安装包验收；没有新增动画、焦点、草稿或读位行为。完整范围和远端CI状态见 [ADR110 §7.3](../../knowledge/decisions/110-follow-up-responsibility-and-current-list.md#73-历史组合修复与实际窗口核对2026-10-29)。
