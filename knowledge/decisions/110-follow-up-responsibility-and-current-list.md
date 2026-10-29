@@ -137,4 +137,12 @@ export interface FollowUpProjection {
 - `coordinate_work(cancel)` 同样不能把 `result_ready` 当成无需处理的成功终态；撤回已交回结果要求当前真实用户输入，普通事件唤醒不能自行放弃结果。替换/交接对既有结果的复用语义不变。
 - 当前列表、计数、详情、Desktop/TUI 继续消费原有 `cancelled + completed receipt → followUp.owner=none`，无第二套列表规则。活动执行与未决停止优先级不变。
 
-体验契约：用户目的是停止并移出当前跟进，历史仍可查；处理中/结果未知由 Bot 负责，真实停止回执后才退出。草稿、焦点、阅读位置与动效链不变。恢复沿现有取消回执及范围回执，不重跑原任务、不自动验收。日常只做源码与 diff 审阅并补回归用例；测试、构建、截图、真实模型及安装包覆盖待发布，不沿用此前候选的通过结论。
+体验契约：用户目的是停止并移出当前跟进，历史仍可查；处理中/结果未知由 Bot 负责，真实停止回执后才退出。草稿、焦点、阅读位置与动效链不变。恢复沿现有取消回执及范围回执，不重跑原任务、不自动验收。初次交付按日常约定只做源码与 diff 审阅并补用例；用户随后明确要求提前运行及跟进 CI，实际范围以 §6.1 为准，不沿用此前候选的通过结论。
+
+### 6.1 用户要求的合并前验证（2026-10-29）
+
+- 代码候选：`5bbf27dbe2b83f807a24630cbf08450d0d64f0b0`（[代码 PR231](https://github.com/ly-ccx/Peer-Agent/pull/231)）。
+- Node `25.9.0` 下执行三个变更文件：`work-control.test.mjs`、`coordination-lifecycle.test.mjs`、`session-supervisor.test.mjs`（均在 `packages/runtime-node/src/project-agent/`）。109 项通过，0 失败、0 取消、0 跳过，包含全部新增用例和同文件既有回归。
+- 新增场景覆盖旧成功回执漏处理、停止前保留当前任务、结果未知与同输入重试、失败/旧取消记录结清、历史核验保留、当前用户限制、重复取消、无关任务与已签收结果隔离。
+- [CI run 40812716318](https://github.com/ly-ccx/Peer-Agent/actions/runs/40812716318)：macOS/Ubuntu 均为 success，完整构建、类型、架构、全量测试与对应平台 Electron 冒烟全部通过；日志未发生失败文件重试。两项 notice 分别是 GitHub runner 容量和 Ubuntu 镜像迁移提示，不是代码失败。
+- 知识仓没有已配置的 CI workflow，内容/diff 自审；本轮是实现者自审，非独立审阅。真实模型实际清理、安装包、完整产品截图与读屏仍未覆盖，不把脚本通过当成这些验收。
