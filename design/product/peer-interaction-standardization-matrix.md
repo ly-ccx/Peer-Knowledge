@@ -35,7 +35,7 @@ P06/P17、共享 ModelSelectionPanel，C 级交互小修：用户明确选择不
 当前资源工作区验证更新（2026-10-27）：用户明确要求的 R1–R10 组合已运行，697 项模块、10 组深浅色实际 Electron 联调、98 个具名检查及 89 张截图实现者自审通过。实际链覆盖 scoped 读取、固定选区草稿、保存、授权允许/拒绝/取消、版本冲突、真实本地一次写入及只核对不重写；原 Composer、后来输入、个人任务/已有成果保留。修复长文档滚动、编辑按钮 pending 失焦和刷新等待。不是独立审查、真实模型、安装包或完整 G8 发布验收，未重启个人应用/发布。详见[本轮结果与限制](../../playbook/resource-workspace-r1-r10-validation.md)。下文各子包“未运行”保留其历史候选状态。
 
 创建时间：2026-10-23
-最后更新：2026-10-24
+最后更新：2026-10-29
 
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
