@@ -1,0 +1,1525 @@
+{
+  "schemaVersion": 1,
+  "runId": "ec311a87-4a14-41e0-9d51-7f285837fb5d",
+  "sourceFingerprint": "873f4fd57b7c850d83a07ac91079606a84ce8f796a75306b8103d6c720f4b2fd",
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex",
+    "independent": false
+  },
+  "screenshots": [
+    {
+      "id": "recovery-inspection-1280-dark.png",
+      "sha256": "f904d370143915b8d13d29438ccd12c3bcb24720a890ddb9fc0deee5dda001c8",
+      "verdict": "pass",
+      "notes": "深色恢复检查把已有成果、隔离数量与重新核对入口分开；可读历史仍保留，未宣称恢复执行。"
+    },
+    {
+      "id": "recovery-held-1280-dark.png",
+      "sha256": "e29629b4ff8b7933301abef100ddef74dd338bbf29d50ae79a27cd662599127f",
+      "verdict": "pass",
+      "notes": "深色隔离状态说明旧执行已暂停，保留成果并结束旧执行入口可见，历史消息与输入区仍在。"
+    },
+    {
+      "id": "recovery-confirm-1280-dark.png",
+      "sha256": "282bcd43bd72afbe4cefcb6fbc844b2f5a3700d3e5e84777e2a96a581f2cc986",
+      "verdict": "pass",
+      "notes": "深色结束旧执行需单独确认，提示保留报告和历史；确认与取消位于对应说明下，没有成功替代未知事实。"
+    },
+    {
+      "id": "recovery-retained-1280-dark.png",
+      "sha256": "f1bd7d95bec36d4badb4aa2851b96a5bb1770651538e165e88e956062c886898",
+      "verdict": "pass",
+      "notes": "深色保留后显示旧执行已结束和成果保留，原历史气泡继续可读，输入区完整。"
+    },
+    {
+      "id": "recovery-inspection-760-light.png",
+      "sha256": "b2f9ef7aa1794369aa6d6dcfa3a03d8e0ceb3ba57206ef446838decb0e4b008b",
+      "verdict": "pass",
+      "notes": "窄浅色恢复检查内容完整换行，隔离与待核对数量可读，输入区留在视口内。"
+    },
+    {
+      "id": "recovery-held-760-light.png",
+      "sha256": "da2c3d77bd773065d708cc4a90b3358fc8a7b97ee8e43b7a7c9ef1e32681ea63",
+      "verdict": "pass",
+      "notes": "窄浅色暂停状态与核对入口分区，背景历史保留，页面标题和底部输入均未移出窗口。"
+    },
+    {
+      "id": "recovery-confirm-760-light.png",
+      "sha256": "33e2b9a19db4b3901b201c55a8e2c785cacda50406406072cd9477d20b52dd0f",
+      "verdict": "pass",
+      "notes": "窄浅色结束执行的二次确认文字、确认与取消按钮均可读，不将未知操作画为已完成。"
+    },
+    {
+      "id": "recovery-retained-760-light.png",
+      "sha256": "e047b49615ebc771bc44d717ca8e098cc7c0e551716120cf0140e27d22efda5c",
+      "verdict": "pass",
+      "notes": "窄浅色保留后的隔离数量与旧执行数量更新可见，原输入区域仍完整，无水平裁切。"
+    },
+    {
+      "id": "settings-floating-glass-1280-dark.png",
+      "sha256": "3a2a35705ac28ba5af9a6a44cbd7e6b20d7a6998ec587386ad1580bc1165dbf2",
+      "verdict": "pass",
+      "notes": "浮动深色设置页的侧栏、主题卡和代码预览完整，毛玻璃选择可辨，内容未被窗边裁切。"
+    },
+    {
+      "id": "settings-floating-solid-1280-dark.png",
+      "sha256": "91b103da89cb856c1deb69e0cd089795386b7175b31f3ffcbf70da085bbf4963",
+      "verdict": "pass",
+      "notes": "实体深色设置保持相同导航与预览层级，实体选项选中态清晰，未出现样式未加载。"
+    },
+    {
+      "id": "settings-floating-glass-760-light.png",
+      "sha256": "0eb097c251b66edfe9137303ac48c872efd25b29a09bc3537ef17ee3638afd2b",
+      "verdict": "pass",
+      "notes": "窄浅色设置中主题三卡与双列预览缩到内容列，侧栏仍可读，毛玻璃选项完整。"
+    },
+    {
+      "id": "settings-floating-solid-760-light.png",
+      "sha256": "29b0d382d1a5384534139be9d1357d1dd7d75d2df966cc30b3fb21ab247249bd",
+      "verdict": "pass",
+      "notes": "窄浅色实体模式保留主题卡、代码预览和材质切换，控件未横向溢出。"
+    },
+    {
+      "id": "settings-floating-reduced-760-light.png",
+      "sha256": "4249dfa80f6deb4265a5fc565b8665681576e6b3c7a062c362297283fd1c9153",
+      "verdict": "pass",
+      "notes": "减少透明度后设置保持静态清晰底色与相同内容，功能不依赖模糊效果。"
+    },
+    {
+      "id": "startup-1280-dark.png",
+      "sha256": "7516ef3dd2ef4451c7d8e636f6d5bc54dcdad458292663567350c2c3b3d545a1",
+      "verdict": "pass",
+      "notes": "宽深色启动页由品牌加载器占据整个视口，标志和进度线居中，未叠加额外页面网格。"
+    },
+    {
+      "id": "startup-1280-light.png",
+      "sha256": "ea9e6fd94cf16a94822332537437fcf7411e7f259ce449d8612dc85016706d85",
+      "verdict": "pass",
+      "notes": "宽浅色启动页由品牌加载器占据整个视口，标志和进度线居中，未叠加额外页面网格。"
+    },
+    {
+      "id": "startup-760-dark.png",
+      "sha256": "664a99566c8b376deac76e3d88801f5e52a705cf9061395961be84f0dd8e161e",
+      "verdict": "pass",
+      "notes": "窄深色启动页由品牌加载器占据整个视口，标志和进度线居中，未叠加额外页面网格。"
+    },
+    {
+      "id": "startup-760-light.png",
+      "sha256": "da578379e98ce34190633fa15e1ef0e833462a6ac52928759c2e9c15f004bfab",
+      "verdict": "pass",
+      "notes": "窄浅色启动页由品牌加载器占据整个视口，标志和进度线居中，未叠加额外页面网格。"
+    },
+    {
+      "id": "startup-error-760-light.png",
+      "sha256": "20601f04032e5e1a1f8aef1e490432d3ec1739b688a7f25d09fddb327f1f8031",
+      "verdict": "pass",
+      "notes": "浅色启动失败显示明确读取失败说明和重新读取按钮，画面内无重复加载器或被裁切的操作。"
+    },
+    {
+      "id": "verification-main-1280-dark.png",
+      "sha256": "a692006754db00ed990f250a9ec4d6674acc2d94237274d67a1889ad951f0a4e",
+      "verdict": "pass",
+      "notes": "宽深色主会话保留公共进展与失败历史，当前未确认事项明确由 Bot 继续核对，没有要求用户代办技术核验。"
+    },
+    {
+      "id": "verification-task-passed-1280-dark.png",
+      "sha256": "6e29195020e86618f5d11b8a1bb933b4ff7eda9d5c61d9003eaf41a118606b64",
+      "verdict": "pass",
+      "notes": "宽深色任务详情将当前待核对阶段与历史核验“已验证”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-task-failed-1280-dark.png",
+      "sha256": "65afcaceb090bc66d393b75e73cf6c9a51801bbb9446b2c91afbdd0c5d0a6b02",
+      "verdict": "pass",
+      "notes": "宽深色任务详情将当前待核对阶段与历史核验“没通过”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-task-partial-1280-dark.png",
+      "sha256": "e49ca7fb422dfc0f11dde9b1be9a43ef1eef7944f191e46a2f27f51f7b36bf5c",
+      "verdict": "pass",
+      "notes": "宽深色任务详情将当前待核对阶段与历史核验“部分验证”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-task-unverifiable-1280-dark.png",
+      "sha256": "39ed8707246bba41056fd82fb64e13c17770aebde02455e58b6ca290ec1a7043",
+      "verdict": "pass",
+      "notes": "宽深色任务详情将当前待核对阶段与历史核验“无法验证”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-main-760-light.png",
+      "sha256": "2d3424c4e93600dc37bcbf10745d974b7df54d4f23155dfb4eb567cd68837fe0",
+      "verdict": "pass",
+      "notes": "窄浅色主会话保留公共进展与失败历史，当前未确认事项明确由 Bot 继续核对，没有要求用户代办技术核验。"
+    },
+    {
+      "id": "verification-task-passed-760-light.png",
+      "sha256": "f0edd4178f7f3f8f2da9cf2aa002632e1641a49579673f041d909b9b96c0e8af",
+      "verdict": "pass",
+      "notes": "窄浅色任务详情将当前待核对阶段与历史核验“已验证”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-task-failed-760-light.png",
+      "sha256": "75d30c5eb588676b11f7d64c790fc17cc380376bb6e1115cd2547425e510620d",
+      "verdict": "pass",
+      "notes": "窄浅色任务详情将当前待核对阶段与历史核验“没通过”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-task-partial-760-light.png",
+      "sha256": "a310cdf5b9ea1ab32cb7cc9de31837ddf2bf8b467f51f3d87cbad6d22a8d71d8",
+      "verdict": "pass",
+      "notes": "窄浅色任务详情将当前待核对阶段与历史核验“部分验证”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "verification-task-unverifiable-760-light.png",
+      "sha256": "9bcb2b08a2d1cfd482c2232e4a5ee77a9c12488ead99c3b7c023b4e82dba558b",
+      "verdict": "pass",
+      "notes": "窄浅色任务详情将当前待核对阶段与历史核验“无法验证”分区，历史记录可展开，标题、进展与返回入口可读。"
+    },
+    {
+      "id": "window-material-drawer-1280-dark.png",
+      "sha256": "e3b2d463edb5998d5e6ea654e6639eed2bd95a658c548f5f08f62185a1be0935",
+      "verdict": "pass",
+      "notes": "Bot 设置抽屉内模型选择与名称/头像分区清楚，主对话和输入框仍可见。"
+    },
+    {
+      "id": "window-material-settings-1280.png",
+      "sha256": "e5ff2f60c7e2f7f1e0a8886109292905597c9e8eb16421b21094468830c3921b",
+      "verdict": "pass",
+      "notes": "宽浅色外观设置的主题、实时预览和窗口材质分区完整，键盘焦点在材质控件上可见。"
+    },
+    {
+      "id": "window-material-reduced-760-light.png",
+      "sha256": "b552a9a1aa506b06613e3b9d0f14490cce779df53a9fd0225aa41452ac09c785",
+      "verdict": "pass",
+      "notes": "窄窗减少透明度时对话、历史引用和输入框仍完整，分层不依赖透明材质。"
+    },
+    {
+      "id": "window-material-glass-1280-dark.png",
+      "sha256": "2e97dfcd49a5f1c1c43345589d4c25bb9f7544104d1bcba5bc8e327793f0a511",
+      "verdict": "pass",
+      "notes": "深色毛玻璃主窗仍清楚区分侧栏、对话与输入框，历史引用文字可读。"
+    },
+    {
+      "id": "window-material-solid-1280-dark.png",
+      "sha256": "d8bd3840602a7c05d795676dbd098c1bfda1eda4e1a9e7197ef3f476a7a7de57",
+      "verdict": "pass",
+      "notes": "深色实体主窗内容与毛玻璃状态保持一致，消息和输入框无错位。"
+    },
+    {
+      "id": "window-material-glass-760-light.png",
+      "sha256": "515a3ddd77e4c3480a586dc5bd7252b1fc90c656c1bfd1590db05ca951f133ae",
+      "verdict": "pass",
+      "notes": "浅色毛玻璃窄窗消息正常换行，输入区与侧栏分离，没有背景穿透导致不可读。"
+    },
+    {
+      "id": "window-material-solid-760-light.png",
+      "sha256": "b552a9a1aa506b06613e3b9d0f14490cce779df53a9fd0225aa41452ac09c785",
+      "verdict": "pass",
+      "notes": "浅色实体窄窗保持同一消息与阅读布局，引用块和发送区完整。"
+    },
+    {
+      "id": "conversation-cards-failed-dark.png",
+      "sha256": "954e653ec7a775525f0d2d8033cacd3ee8d1cf50e4e0bc6f2d6ed0cdc3279715",
+      "verdict": "pass",
+      "notes": "顶部说明任务状态暂不可用并提供重试，原消息与输入框仍保留，没有用错误覆盖整页。"
+    },
+    {
+      "id": "conversation-refresh-failed-dark.png",
+      "sha256": "049122753695d60fd15fc6742d159eb88f87894b27802721f4ac15bbceb6ac47",
+      "verdict": "pass",
+      "notes": "刷新失败提示与已有气泡同时展示，预算和引用正文仍在，可从顶部重试。"
+    },
+    {
+      "id": "conversation-initial-failed-light.png",
+      "sha256": "cf5422c67a02912d55656ff891913d2fabe8d9aaf6a4433cfb8658956d183a75",
+      "verdict": "pass",
+      "notes": "首次对话加载失败明确写出“对话没有加载出来”，中央重试和底部输入框可见。"
+    },
+    {
+      "id": "conversation-recovered-light.png",
+      "sha256": "b9c4cde04e6753b3ffd4174ffb3c54fe1d52c0055f4af00c7e859d6d9840d3bf",
+      "verdict": "pass",
+      "notes": "恢复后历史气泡、引用与预算信息重新显示，窄窗输入框和侧栏没有溢出。"
+    },
+    {
+      "id": "bot-access-1280-dark.png",
+      "sha256": "f5a0606fe9c4f747f20fb62ba459b438ffbc4251a14e78760c2f12f1db60b908",
+      "verdict": "pass",
+      "notes": "Wide dark composer exposes the full-access shield and label; model, reasoning and send controls remain aligned without clipping."
+    },
+    {
+      "id": "bot-access-760-light.png",
+      "sha256": "b8b3f268edd0c1e2ead4525bce2e6e31040e45b13fada3bcb12368eab03d7ef0",
+      "verdict": "pass",
+      "notes": "窄窗完全访问模式有盾牌图标与明确文字，模型和强度行完整，未靠颜色独立表达授权模式。"
+    },
+    {
+      "id": "bot-access-child-1280-dark.png",
+      "sha256": "476514c6656123c03082373a36d38a118afa2a4cb92e156b6b4ad5a8e975a379",
+      "verdict": "pass",
+      "notes": "子会话底部明确“继承自主 Bot · 完全访问”，主会话权限入口仍可见，未出现独立放权旁路。"
+    },
+    {
+      "id": "bot-access-child-760-light.png",
+      "sha256": "d5ac5ffb0ba580666dafb6fb94598c7dfa1165aab2ca548f2fa980ad1ef81911",
+      "verdict": "pass",
+      "notes": "窄浅色子会话保留继承权限说明、任务标题与返回详情，权限来源可辨。"
+    },
+    {
+      "id": "ui-diagnostics-1280-dark.png",
+      "sha256": "9c4b3d5740dc8cb579dcaf7d9c98a839d2a93f36187a3c7c124dca10484cfd16",
+      "verdict": "pass",
+      "notes": "宽深色开发者诊断区的统计与原始 JSON 分层，展开控件有键盘焦点；原始参数只在主动打开的诊断区域显示。"
+    },
+    {
+      "id": "ui-diagnostics-760-light.png",
+      "sha256": "af0cb7551c627cb60ed8643966d0495329c4c964860e496c88843b09b1d405e9",
+      "verdict": "pass",
+      "notes": "窄浅色开发者诊断区的统计与原始 JSON 分层，展开控件有键盘焦点；原始参数只在主动打开的诊断区域显示。"
+    },
+    {
+      "id": "ui-appearance-1280-dark.png",
+      "sha256": "ffd66b49637c537403a9ff87bf9f3bf28442e5c90c312c7e3b8462c98ca31e9f",
+      "verdict": "pass",
+      "notes": "宽深色外观页三张矩形主题预览、实时示例和窗口材质控制可读，导航与内容边界清楚。"
+    },
+    {
+      "id": "ui-appearance-760-light.png",
+      "sha256": "ea245975103a0cf0f78ed4f3329f687410d5396cbac940610a109343b4568906",
+      "verdict": "pass",
+      "notes": "窄浅色外观页三张矩形主题预览、实时示例和窗口材质控制可读，导航与内容边界清楚。"
+    },
+    {
+      "id": "ui-automation-list-1280-dark.png",
+      "sha256": "31c5907b56b3034d6f7bafef89eb1a64d9c607f9f33caa926b4be2915bb677ec",
+      "verdict": "pass",
+      "notes": "宽深色自动化列表标题、返回机器人入口、统计与任务行均在视口内；修复后没有整页向上位移或横向裁切。"
+    },
+    {
+      "id": "ui-automation-list-760-light.png",
+      "sha256": "a662767a7fa58e538762a05b39418a3848b2cd366153eb49b54d2e5b7aa3aa03",
+      "verdict": "pass",
+      "notes": "窄浅色自动化列表标题、返回机器人入口、统计与任务行均在视口内；修复后没有整页向上位移或横向裁切。"
+    },
+    {
+      "id": "ui-automation-receipt-1280-dark.png",
+      "sha256": "d1d0e90673ef5e8ae9cccc9015df267be71ebfcbbb2af0fe5ef369b184c46221",
+      "verdict": "pass",
+      "notes": "宽深色自动化回执的标题、摘要、对比和运行事实分区完整，展开控件焦点可见，窄页使用内部滚动。"
+    },
+    {
+      "id": "ui-automation-receipt-760-light.png",
+      "sha256": "3f235b70fe387f02fb1ee99b40780422163a2e98a7cb705e4a5c191d3dfed3c9",
+      "verdict": "pass",
+      "notes": "窄浅色自动化回执的标题、摘要、对比和运行事实分区完整，展开控件焦点可见，窄页使用内部滚动。"
+    },
+    {
+      "id": "ui-automation-editor-1280-dark.png",
+      "sha256": "6e0408a5f18d31df4ca8abd32224c1c63051edd7801dc32affdfd0695284cccf",
+      "verdict": "pass",
+      "notes": "宽深色自动化编辑页标题、草稿保留说明与任务文本框完整，长表单由内部滚动承接，没有外壳错位。"
+    },
+    {
+      "id": "ui-automation-editor-760-light.png",
+      "sha256": "a972235507f312027ff6d729c1a894c1326236ace4eb98376b892c541521ef76",
+      "verdict": "pass",
+      "notes": "窄浅色自动化编辑页标题、草稿保留说明与任务文本框完整，长表单由内部滚动承接，没有外壳错位。"
+    },
+    {
+      "id": "ui-classic-chat-1280-dark.png",
+      "sha256": "987d9cf818909057e853b0e29880488aaf9d1e836bdafe67552de2d5b661ce9b",
+      "verdict": "pass",
+      "notes": "宽深色经典聊天的正文图片、文件链接和输入区保持分层，发送按钮在视口内，窄窗口右侧不再被裁切。"
+    },
+    {
+      "id": "ui-classic-chat-760-light.png",
+      "sha256": "9fbcf78e40994e44e16be95dcbd2bf6c887dfb4627272d7fbcccade04ba4dc4b",
+      "verdict": "pass",
+      "notes": "窄浅色经典聊天的正文图片、文件链接和输入区保持分层，发送按钮在视口内，窄窗口右侧不再被裁切。"
+    },
+    {
+      "id": "ui-classic-image-lightbox-1280-dark.png",
+      "sha256": "da7c35c0af78bb6b196469eacce88e0349d9b293733dc2147cfcbd11023eaab2",
+      "verdict": "pass",
+      "notes": "宽深色经典图片预览居中，底部文件名、尺寸及 SVG 操作留在画面内，背景受控淡化，关闭入口清楚。"
+    },
+    {
+      "id": "ui-classic-image-lightbox-760-light.png",
+      "sha256": "90ec7637b41e48f8ea4838cbb39bd5d287b6efcdde449265076fa9882b748545",
+      "verdict": "pass",
+      "notes": "窄浅色经典图片预览居中，底部文件名、尺寸及 SVG 操作留在画面内，背景受控淡化，关闭入口清楚。"
+    },
+    {
+      "id": "ui-classic-artifacts-1280-dark.png",
+      "sha256": "e31c0f534c8564db799783e4cf62d0d5db683978f84539052ec8c172d336e6b0",
+      "verdict": "pass",
+      "notes": "宽深色隔离组件入口中的产物摘要、文件树和原始 Diff 可读，滚动和折叠边界清楚；这不是当前 Goal 自动到达该旧入口的证明。"
+    },
+    {
+      "id": "ui-classic-artifacts-760-light.png",
+      "sha256": "e0f1bb0830e511e0759fc7e5e9a930a3a2915a00359d5f53996f9f6abadf9446",
+      "verdict": "pass",
+      "notes": "窄浅色隔离组件入口中的产物摘要、文件树和原始 Diff 可读，滚动和折叠边界清楚；这不是当前 Goal 自动到达该旧入口的证明。"
+    },
+    {
+      "id": "ui-classic-diff-1280-dark.png",
+      "sha256": "9a0bdfce8978a0778fb0c81929f27b8afba6b34bb927749af54f0d89cde5c42a",
+      "verdict": "pass",
+      "notes": "宽深色隔离组件入口的文件 Diff 预览位于对应文件行下方，代码有增量标记，窄页预览未越出左右视口。"
+    },
+    {
+      "id": "ui-classic-diff-760-light.png",
+      "sha256": "ec0101d9dde9465e045dcb4134b4540c58bef8052936c900e09afba656862b43",
+      "verdict": "pass",
+      "notes": "窄浅色隔离组件入口的文件 Diff 预览位于对应文件行下方，代码有增量标记，窄页预览未越出左右视口。"
+    },
+    {
+      "id": "coordination-stopping-1280-dark.png",
+      "sha256": "169175c6e2f8396dbaca8e0f8d2d13b353d54614e6c5901853002f0f1534df95",
+      "verdict": "pass",
+      "notes": "停止中详情写“正在停止”，按钮显示取消处理中，下一步仍归主 Bot 跟进。"
+    },
+    {
+      "id": "coordination-awaiting_outcome-1280-dark.png",
+      "sha256": "895e658c1eb18f76b2b6e29f47886a5e1370848f846334a04a3b911be779edc2",
+      "verdict": "pass",
+      "notes": "执行结果待核实与停止中区分，说明归主 Bot 汇报，未把未知结果渲染成功。"
+    },
+    {
+      "id": "coordination-cancelled-1280-dark.png",
+      "sha256": "780971039d1b75c3fbb33c4ba3886681af8d98a6e8ef98181b99591f0007f1cd",
+      "verdict": "pass",
+      "notes": "收到取消事实后标题与最近进展均为已取消，并给出回主 Bot 继续询问入口。"
+    },
+    {
+      "id": "coordination-handoff-1280-dark.png",
+      "sha256": "cf503a4b5e676660f2e0aadba8050a4b08acdfd42d6b8431caeb603f91d4ea40",
+      "verdict": "pass",
+      "notes": "接手详情显示“正在接手”，旧任务资料保留，当前列表仍有活动任务。"
+    },
+    {
+      "id": "coordination-stopping-760-light.png",
+      "sha256": "7b1a6ae5c9b50866eee96f4a48a889c319f216678a0dd8f2c4c3824d23093d34",
+      "verdict": "pass",
+      "notes": "窄浅色停止详情保留正在停止、处理中按钮与主 Bot 跟进说明，布局没有溢出。"
+    },
+    {
+      "id": "coordination-awaiting_outcome-760-light.png",
+      "sha256": "7c04ff3383e681e996f3b8e0dc4c2a4dc67168b933269cea74c63101af21f40a",
+      "verdict": "pass",
+      "notes": "窄浅色明确结果待核实，主 Bot 进展链接可见，没有制造用户授权或完成结论。"
+    },
+    {
+      "id": "coordination-cancelled-760-light.png",
+      "sha256": "5a8de1ceb168e1e6f2bff2d436436c40038b2abaa0206c92e57637065d693540",
+      "verdict": "pass",
+      "notes": "窄窗已取消事实和后续主 Bot 问询分层，任务信息收在下方，标题未显示内部状态码。"
+    },
+    {
+      "id": "coordination-handoff-760-light.png",
+      "sha256": "aa38c36a4c2c36750a6181c8ecefec505fd5b1c7212377f305aa721ed46312c4",
+      "verdict": "pass",
+      "notes": "窄浅色接手阶段保留取消控制和主 Bot 跟进责任，原始任务说明仍可展开查看。"
+    },
+    {
+      "id": "agent-activity-1280-dark.png",
+      "sha256": "c6686fdb480a0c9bb4ed0e3a30852a2ca2cc735bbbca52f1a8be750fd2fc8ee1",
+      "verdict": "pass",
+      "notes": "宽深色活动流区分开始、发现问题和结果已返回，公共叙述与模型连接中断提示保留，输入和停止控制没有被进展覆盖。"
+    },
+    {
+      "id": "agent-activity-detail-1280-dark.png",
+      "sha256": "59d34f02c457e3111f0bc63e1ab7fee46ac926a34cfbe2e633cb336932bb5e75",
+      "verdict": "pass",
+      "notes": "宽深色核验详情展示当前核对进展及已检查事项数，返回按钮和任务入口清楚，技术跟进没有画成人工门。"
+    },
+    {
+      "id": "agent-activity-760-light.png",
+      "sha256": "2c8d9e08923b02db588742d744e6c2cc5ad356f7a0baa68f5c5ae19230d9657b",
+      "verdict": "pass",
+      "notes": "窄浅色活动流区分开始、发现问题和结果已返回，公共叙述与模型连接中断提示保留，输入和停止控制没有被进展覆盖。"
+    },
+    {
+      "id": "agent-activity-detail-760-light.png",
+      "sha256": "02bbd251334eac5c2fcba4d67addd221059b820d0bff3691fe2b4950937d84a3",
+      "verdict": "pass",
+      "notes": "窄浅色核验详情展示当前核对进展及已检查事项数，返回按钮和任务入口清楚，技术跟进没有画成人工门。"
+    },
+    {
+      "id": "quick-chat-bots-dark.png",
+      "sha256": "99f7aec22d7c1bb2637e9f93508b80dffc176a7102c2c76e14d23c28de238564",
+      "verdict": "pass",
+      "notes": "透明快捷窗中 Bot、模型与思考强度三控件在同一行，发送按钮完整；深色字色可读。"
+    },
+    {
+      "id": "quick-chat-bots-light.png",
+      "sha256": "61c488c2a9ab0ff5c6a1f30b9a7742cb5848a8c6dced3580c456597b135966a2",
+      "verdict": "pass",
+      "notes": "原 PNG 背景透明；另以白底合成检查，Bot、模型与强度文字可读，发送按钮无裁切。未把透明像素的黑色预览误当成实际浅色背景。"
+    },
+    {
+      "id": "evidence-list-dark.png",
+      "sha256": "3846bcee4126d9f2faf8a87a3e67a48ee6096b56f8ada8f8fcdb7dc58bd1b26a",
+      "verdict": "pass",
+      "notes": "回复依据列出读取文件和工作会话来源，相关任务在独立区域，技术元数据未占据默认内容。"
+    },
+    {
+      "id": "evidence-file-dark.png",
+      "sha256": "a886826a20656566c4d55020c7aa2b29907e3b0b135e0563e616f4b5aa420864",
+      "verdict": "pass",
+      "notes": "文件依据视图保留 README 正文片段、标题和返回入口，技术详情默认收起。"
+    },
+    {
+      "id": "evidence-history-dark.png",
+      "sha256": "f05b6d06a2a5f90ae950d49f43686259653bb41cda0d40c971ce84e3ffed41ee",
+      "verdict": "pass",
+      "notes": "会话依据显示只读熟悉项目的具体记录，正文与技术详情分层，未出现原始参数墙。"
+    },
+    {
+      "id": "evidence-missing-dark.png",
+      "sha256": "c9e5d6958c57599143d49de16d50a8b714dd4fb3c9d66552611ba734ad3e345a",
+      "verdict": "pass",
+      "notes": "缺正文时明确“保留了来源，未保存详细内容”，提供重新读取，没有把不存在的正文当证据。"
+    },
+    {
+      "id": "evidence-missing-760-light.png",
+      "sha256": "83dd79db55f5f6f324e30fee645c797e921045f10bfd44ad1fa655e61a0abc47",
+      "verdict": "pass",
+      "notes": "浅色窄抽屉内来源缺失说明、重新读取和返回入口完整，正文不越过抽屉边界。"
+    },
+    {
+      "id": "pending-reply-1600-dark.png",
+      "sha256": "8a11db33e440a18e8b812cae5ea914569c6408833099fbe4119ec0fc693f3952",
+      "verdict": "pass",
+      "notes": "宽窗正在回复提示处于对话列内，停止按钮清楚，历史引用和已发送消息保留。"
+    },
+    {
+      "id": "pending-reply-docked-light.png",
+      "sha256": "674eba8a6017758ee3dba1e903eec120ae00f8b525d573841db84735b094cfe5",
+      "verdict": "pass",
+      "notes": "停靠详情与对话并列，双方都显示正在准备回复的事实，输入框和停止按钮仍可见。"
+    },
+    {
+      "id": "pending-reply-760-light.png",
+      "sha256": "eba44e9dda51bcaeafd60ca2ed2cac00496eae8e02e43067d880d6790fbd796b",
+      "verdict": "pass",
+      "notes": "窄窗待回复指示、旧引用、输入框和停止按钮都留在对话列内，没有挤到侧栏。"
+    },
+    {
+      "id": "history-dark.png",
+      "sha256": "3df3bb391ad3761fb44b76221dbc835f543b615cb86f34002c44605900fcdd87",
+      "verdict": "pass",
+      "notes": "Dark history modal has styled search, date groups and selected row; close control stays visible."
+    },
+    {
+      "id": "history-light.png",
+      "sha256": "2764628062f1d06f87c5d08b85657422d493042214ab02a3d6da7ab4b5ab1d31",
+      "verdict": "pass",
+      "notes": "Light history modal shows today, yesterday and recent groups with readable row spacing."
+    },
+    {
+      "id": "history-preview.png",
+      "sha256": "2f354028b8f470500bc18778b72ef2d307a37bac8184a87ecfe6701000d344db",
+      "verdict": "pass",
+      "notes": "Preview keeps user and bot messages distinct, back control and bot selection above continuation action."
+    },
+    {
+      "id": "history-narrow-large.png",
+      "sha256": "bc6874c55d1dc498e7de9d4ceb79e4636462e4f05066fe643283824dff7246a6",
+      "verdict": "pass",
+      "notes": "Large text in narrow history remains readable, search has focus and the list scrolls within the surface."
+    },
+    {
+      "id": "choice-send-1280-dark-before.png",
+      "sha256": "3c932fcbfabc17d5d0e84ac2810337189026d7f216efc4e80185a17fb78b9130",
+      "verdict": "pass",
+      "notes": "待答问题给出两项实际选择，侧栏有需要你计数，消息与输入区分离。"
+    },
+    {
+      "id": "choice-send-1280-dark-after.png",
+      "sha256": "256459c1ed69810c4540c0a8513e5c031938e4e1041e4d3d1914aab61af498fb",
+      "verdict": "pass",
+      "notes": "深色发送选项后显示真实用户回答，原选项已收起，输入仍保留。"
+    },
+    {
+      "id": "choice-send-760-light-before.png",
+      "sha256": "7604efa15cc5dd6464e56ee96f196f905c126d410f8d816991d485aece8399f4",
+      "verdict": "pass",
+      "notes": "窄浅色待答问题有两项可读选项及直接输入说明，布局未越界。"
+    },
+    {
+      "id": "choice-send-760-light-after.png",
+      "sha256": "7807c4f7d7d19dbd5d0d385be126d1d80c7b13709997508da1c8ca074eac8a45",
+      "verdict": "pass",
+      "notes": "窄浅色已答后选项消失，回答与原问题分开呈现。"
+    },
+    {
+      "id": "updater-minimize-1280-dark-before.png",
+      "sha256": "a910e25f8a3d8e100e52426afe2f4e4b5ee18f0a6517f42391b4734f4ef27473",
+      "verdict": "pass",
+      "notes": "深色更新弹窗居中，版本、说明及稍后/更新动作清楚。"
+    },
+    {
+      "id": "updater-minimize-1280-dark-after.png",
+      "sha256": "622ab5e0eae6dd40918f3ec66a598232ddd69fa40b6f7688c22e83ed998142ea",
+      "verdict": "pass",
+      "notes": "深色收起更新弹窗后回到项目起始页，顶部徽标仍可见。"
+    },
+    {
+      "id": "updater-minimize-760-light-before.png",
+      "sha256": "daefcf2f70803d0dba3f3a8547a9245829e24e5b924aaf17fa8d6c3c237b839a",
+      "verdict": "pass",
+      "notes": "窄浅色更新弹窗文本与两个动作完整，背景退后。"
+    },
+    {
+      "id": "updater-minimize-760-light-after.png",
+      "sha256": "c480192532365f711821dd8b7e9869083a303471b9da8116c5fd26285988ef86",
+      "verdict": "pass",
+      "notes": "窄浅色弹窗收起后起始页及三项最近项目可读。"
+    },
+    {
+      "id": "bot-header-progress-dark-narrow.png",
+      "sha256": "f1f02e78532fee4714dc6f5ca115916b798957928c379e692a21bdd6f0e6bb3f",
+      "verdict": "pass",
+      "notes": "窄标题裁图中的版本、副标题、42 进度徽标与新增按钮没有碰撞。"
+    },
+    {
+      "id": "task-report-loading.png",
+      "sha256": "fa83c2dff54f60c2f2f24f347ffaaf0cbf6270a93d3fd43d48419e8cef21271e",
+      "verdict": "pass",
+      "notes": "报告加载态保留任务状态与主 Bot 跟进说明，结果区显示加载而不伪造结论。"
+    },
+    {
+      "id": "task-report-unavailable.png",
+      "sha256": "214fcdccf558783688955b9b8c5b139d3a496ec69c363f8e17ee043af90dd4f9",
+      "verdict": "pass",
+      "notes": "报告不可用显示重试入口，原任务说明和状态仍在。"
+    },
+    {
+      "id": "task-report-stale.png",
+      "sha256": "6aa28a14acf0906e672232d74a8aae574c78dd8288c67a80dde71c54af3fa280",
+      "verdict": "pass",
+      "notes": "过期报告标注不可作为当前结果，最新 queued 状态仍呈现。"
+    },
+    {
+      "id": "conversation-updates-dark.png",
+      "sha256": "a4843dc59effcdf7178dca9547ab5727daeccaaae955210be77c3f9348c9965b",
+      "verdict": "pass",
+      "notes": "窄深色流式回复逐段出现，正在回复与停止按钮明确。"
+    },
+    {
+      "id": "conversation-updates-light.png",
+      "sha256": "03f443f207ebb9d49f1cc1306a66dd73955cb54b7e6b61fe0bbef98de9d2c7b3",
+      "verdict": "pass",
+      "notes": "窄浅色流式正文换行正常，输入框没有被段落顶出。"
+    },
+    {
+      "id": "conversation-complete.png",
+      "sha256": "88e37b2352e258c89032132fa308f9e10cb00bedf89971e2d6eae6f5005656d4",
+      "verdict": "pass",
+      "notes": "深色完成回复保留三段说明及列表，回复详情折叠。"
+    },
+    {
+      "id": "conversation-complete-light.png",
+      "sha256": "188dd92bc45ff72bec0e5055149b8890688b7484b152bd74852dfc89da58ccf6",
+      "verdict": "pass",
+      "notes": "浅色完成回复的正文、列表和详情入口分层清楚。"
+    },
+    {
+      "id": "conversation-details.png",
+      "sha256": "b73e212ab7e60ec4571949942714b5268857e01864144ffe0477cc95bc44b956",
+      "verdict": "pass",
+      "notes": "深色回复详情侧栏显示实际读文件过程、参数和关联任务，主对话仍可阅读。"
+    },
+    {
+      "id": "task-main-note.png",
+      "sha256": "e5cef53b2a0f8729a757cdabe5432d0780e74dddd0d020adeb044f3fa3a17396",
+      "verdict": "pass",
+      "notes": "主对话展开完整说明含来源与后续安排，长段落在内容列内换行。"
+    },
+    {
+      "id": "task-follow-up-draft.png",
+      "sha256": "1a58282b9d7628d9a1d170f2236e11ceb1e82bca65760585704b40073cb5a12b",
+      "verdict": "pass",
+      "notes": "追问准备在输入区保留任务引用和草稿，未显示自动发送。"
+    },
+    {
+      "id": "task-decision.png",
+      "sha256": "22a692a4cda1a6f7bc1a1ae551c149d815306b83a47dbb7247f576e203209628",
+      "verdict": "pass",
+      "notes": "任务决策详情呈现具体问题与在对话中回答入口，没有原始 UUID。"
+    },
+    {
+      "id": "task-main-question.png",
+      "sha256": "7f2db2293e268f458d63ae3ba1f1813dcc83c2dcd2af1a52504e9f20b3488f31",
+      "verdict": "pass",
+      "notes": "主对话定位到具体问题及真实选项，输入框保持可用。"
+    },
+    {
+      "id": "task-detail-running.png",
+      "sha256": "df4c6b489d961db692bc1aa4f2370aba106ca3a3a8c3a73bf22fcb1cdc6023c0",
+      "verdict": "pass",
+      "notes": "运行任务显示进展、主 Bot 下一步和最近说明，技术信息默认折叠。"
+    },
+    {
+      "id": "task-detail-waiting_user.png",
+      "sha256": "17fe559927f7a1fa6839721b782efb84752943dfaa9b69e4acff0fad1b8dd41b",
+      "verdict": "pass",
+      "notes": "等待跟进任务明确由主 Bot 在主对话推进，不要求进入子会话维持运行。"
+    },
+    {
+      "id": "task-detail-accepted.png",
+      "sha256": "3c2ef869ff093dc68e76c8823cf658f1a6cbdcac3c092f8464ef9b45b99f0d20",
+      "verdict": "pass",
+      "notes": "已签收任务提供继续追问，不呈现待确认/运行中的主动作。"
+    },
+    {
+      "id": "task-detail-failed.png",
+      "sha256": "94b812d070869c57773b1c5871d44a314a5c3eb3df05dd8ea6221e619a3093c0",
+      "verdict": "pass",
+      "notes": "失败任务说明未完成且由主 Bot 跟进，失败未表现为成功。"
+    },
+    {
+      "id": "task-detail-1280-dark.png",
+      "sha256": "d9ce4a6215080838ff94808241ac8d37ee954913fe44e91c093345c1a1eb2fda",
+      "verdict": "pass",
+      "notes": "1280 深色详情的长任务标题、进展和跟进说明留在窄侧栏内。"
+    },
+    {
+      "id": "task-detail-1280-light.png",
+      "sha256": "e6511ae7aae8fe2e22b746bdebc9742c4d5f2665ad28814d6a5ee3bcaf57676b",
+      "verdict": "pass",
+      "notes": "1280 浅色详情信息层级与深色一致，灰色说明可读。"
+    },
+    {
+      "id": "task-detail-760-dark.png",
+      "sha256": "f74f51f16839e508e4ee68550325ecc8d177aadb614984ecfde4191a940627ae",
+      "verdict": "pass",
+      "notes": "760 深色长标题正常换行，返回任务列表和取消入口完整。"
+    },
+    {
+      "id": "task-detail-760-light.png",
+      "sha256": "73d5971ae8e25c5032e1e091b52ec0e2fff49076f61e6594d98fe496a704e6dc",
+      "verdict": "pass",
+      "notes": "760 浅色详情中正文与最近说明没有横向溢出，技术信息折叠。"
+    },
+    {
+      "id": "work-running.png",
+      "sha256": "620e09178dfe0915c667aff45b168887fce54f492e3d2a9dfdddc562a283a6f4",
+      "verdict": "pass",
+      "notes": "运行任务在回复详情关联区显示实际状态及原 Evidence 条目，主输入保留。"
+    },
+    {
+      "id": "work-waiting.png",
+      "sha256": "ffa345fb5d4fbe2c6f1beba0cbd51527bdb862b019cc1e19dfcb47c5b64f5efb",
+      "verdict": "pass",
+      "notes": "等待任务的两处条目同样写等待跟进，展开说明主 Bot 负责。"
+    },
+    {
+      "id": "work-waiting-760-light.png",
+      "sha256": "941a0c66735f9b429b8a00b47973bb0052a99261597af379ace955c1f6dd422d",
+      "verdict": "pass",
+      "notes": "760 浅色展开等待任务说明位于输入区上方，正文和控制未越界。"
+    },
+    {
+      "id": "bot-overview.png",
+      "sha256": "1878c1ebbeae3c70ee097ba4eda71bda4e079d9503956157e54eb5c3a228477b",
+      "verdict": "pass",
+      "notes": "Bot 概况把绑定文件夹、推进任务和模型分区展示，路径使用缩略表达。"
+    },
+    {
+      "id": "bot-memory.png",
+      "sha256": "871e73019a2833dd0b2402b11447590e17a0a0472018326eb9ffbe2fa924cddb",
+      "verdict": "pass",
+      "notes": "记忆页面的类型、责任和状态过滤控件保持列间距，记忆条目与操作可读。"
+    },
+    {
+      "id": "chat-process-summary.png",
+      "sha256": "b3b48c93450e8c23a88a8dfc9bb6b2b9de21203c0b40f73668b182d935931df8",
+      "verdict": "pass",
+      "notes": "回复详情展示过程摘要、读文件步骤和参数入口，原问题仍留在主对话。"
+    },
+    {
+      "id": "task-cancel-failed-dark.png",
+      "sha256": "099cc8286f44a7c63f767745779228ddd967f35338437350b9a285bad84593ff",
+      "verdict": "pass",
+      "notes": "取消失败仍保留等待跟进状态与重试说明，未假写已取消。"
+    },
+    {
+      "id": "task-cancelled-dark.png",
+      "sha256": "2cbcbf39e387ab95d2abe2e7c3e7cefb467ca4eb56441a024d6addbaeb8577bc",
+      "verdict": "pass",
+      "notes": "取消后关联任务清楚显示已取消，历史 Evidence 保留。"
+    },
+    {
+      "id": "task-cancel-detail-760-light.png",
+      "sha256": "b30bbd2586ff0398f8c6cc079389765812e211bcd0e319bba125c731dde5b27e",
+      "verdict": "pass",
+      "notes": "760 浅色任务详情保留主 Bot 跟进、取消入口及最近说明，状态未被点击冒充成功。"
+    },
+    {
+      "id": "long-error-760-dark.png",
+      "sha256": "95d7c6460fde328024ddf040ac6eadace66ec86e97e3ea2c02da9069c427553a",
+      "verdict": "pass",
+      "notes": "760 深色长错误用短说明承接，正文气泡未被无空格诊断撑出。"
+    },
+    {
+      "id": "long-error-docked-light.png",
+      "sha256": "467d2731a7933e8cca99ea0a556bc4e25b50240e8edd2096f9286b84d9679fa7",
+      "verdict": "pass",
+      "notes": "停靠浅色长 JSON 诊断在详情内换行，主对话正文不横向溢出。"
+    },
+    {
+      "id": "background-work-1600-dark.png",
+      "sha256": "43197114e2dc1ad5e501817df3c8ce708fbf38fa2dcdbccb7b997458bdcf69a9",
+      "verdict": "pass",
+      "notes": "1600 深色输入区裁图中当前任务摘要与 composer 同一内容列，按钮和模型选择完整。"
+    },
+    {
+      "id": "background-work-760-light.png",
+      "sha256": "0c7bd5e6354194fd3e48163950e08572b9d64e7172bfa10b7a8c7fe6207610a0",
+      "verdict": "pass",
+      "notes": "窄窗当前任务行处于输入框上方，任务状态、展开箭头与模型行完整，无相互遮挡。"
+    },
+    {
+      "id": "parallel-work-1280-dark.png",
+      "sha256": "f87d750e21465b6700104c0c0fb4d716a00dd654cc46999f8dcf94fd70134f92",
+      "verdict": "pass",
+      "notes": "两个并行任务分行展示，一个展开说明与取消入口，另一个收起，仍留出输入区。"
+    },
+    {
+      "id": "parallel-work-760-light.png",
+      "sha256": "af9f7454e8d37e044291cc32d6a171d2131e78877a505062e20fde35f5d1a90f",
+      "verdict": "pass",
+      "notes": "窄窗两个任务行和展开说明在对话列内换行，输入框与停止/发送区域保持完整。"
+    },
+    {
+      "id": "fallback-vision-1280-dark.png",
+      "sha256": "008258d8cef7505cb39adc880bb14c66aaa0a5611c1e2ef4b624444d5a91a50a",
+      "verdict": "pass",
+      "notes": "Fallback vision section retains title, explanation, selected model and channel in this theme and width; labels do not overlap."
+    },
+    {
+      "id": "fallback-vision-1280-light.png",
+      "sha256": "b273e30fc26c1fe11c9533807d55866d78e8ab01f6f219368144b9766f40e3ef",
+      "verdict": "pass",
+      "notes": "Fallback vision section retains title, explanation, selected model and channel in this theme and width; labels do not overlap."
+    },
+    {
+      "id": "fallback-vision-760-dark.png",
+      "sha256": "d67ac2bc618e0706a6ec29a69163daf5ce2d4e821c8b364a88b4d975a7da47a9",
+      "verdict": "pass",
+      "notes": "Fallback vision section retains title, explanation, selected model and channel in this theme and width; labels do not overlap."
+    },
+    {
+      "id": "fallback-vision-760-light.png",
+      "sha256": "aaa2bc669037bb3e24a2144b2e722a003848f1bae5ef601ed3bbfe083126d368",
+      "verdict": "pass",
+      "notes": "Fallback vision section retains title, explanation, selected model and channel in this theme and width; labels do not overlap."
+    },
+    {
+      "id": "providers-1280-dark.png",
+      "sha256": "d657d12733963812e8b5c5f06d59d7013c6fde815d33af417b786eff660b65c9",
+      "verdict": "pass",
+      "notes": "Provider card and fallback vision section render with matching shared controls and visible configured status."
+    },
+    {
+      "id": "providers-expanded-1280-dark.png",
+      "sha256": "0e4b99d7307f669cca8f276ce1624b37291ededef1e716a5afd02e4e84fc977b",
+      "verdict": "pass",
+      "notes": "Expanded fallback selector stays inside its section with aligned labels and styled dropdown."
+    },
+    {
+      "id": "composer-empty-1280-dark.png",
+      "sha256": "7dfefb017acfbec2fdb74d180bf6a0c13cd71832e9843432e6991f31c8d17d8d",
+      "verdict": "pass",
+      "notes": "Wide dark composer keeps prompt above the aligned permission, model, reasoning and send controls; empty send state is visibly disabled."
+    },
+    {
+      "id": "composer-empty-1280-light.png",
+      "sha256": "6a0d2abf92126f91b0bfbc63b8e6e8db4c2bbf9174c908e246c2f28f3279f5a3",
+      "verdict": "pass",
+      "notes": "Wide light composer has a distinct surface and readable placeholder; toolbar spacing and rounded inset remain intact."
+    },
+    {
+      "id": "composer-empty-760-dark.png",
+      "sha256": "5f2b5834a511a822de419740068fcd5833efc95bce7a57d6aa1fecf6ff913aa6",
+      "verdict": "pass",
+      "notes": "Narrow dark composer keeps all toolbar controls inside its bounds without wrapping the send button away."
+    },
+    {
+      "id": "composer-multiline-760-light.png",
+      "sha256": "8e7729abb1d6ce6aca1eb8fa096be196b55f231215bfbad53d1930248142ce7f",
+      "verdict": "pass",
+      "notes": "Long draft scrolls within the light composer; later lines remain readable and the toolbar stays below the text."
+    },
+    {
+      "id": "composer-attachment-1280-dark.png",
+      "sha256": "a0f3356cb87af9146b46218f54181ecf203f98b607aec574fcd67a19cc87360e",
+      "verdict": "pass",
+      "notes": "Admitted image thumbnail has a separate remove control; draft text and enabled send button remain visible."
+    },
+    {
+      "id": "reply-dark.png",
+      "sha256": "f753e6014943b14e6adb38bd6d8a11c3ad0122d970300cc9ef8a2410b98eb24e",
+      "verdict": "pass",
+      "notes": "深色回复的长引用只占顶部紧凑区，正文标题、两条列表与回复详情入口清楚。"
+    },
+    {
+      "id": "reply-light.png",
+      "sha256": "acb4174fe518842f8037b8fe0dd158415e82f4aa22368538e1aeee9b0695e094",
+      "verdict": "pass",
+      "notes": "浅色回复中引用与正文有分隔，字色对比可读，回复详情使用 SVG 入口。"
+    },
+    {
+      "id": "reply-narrow-quote.png",
+      "sha256": "4cda72c3c19f9e2b76a699d8c4e77913a1056af83f4c0945f2b5b3241890c09c",
+      "verdict": "pass",
+      "notes": "窄深色发送前引用保留原来源及用户草稿，取消引用入口可见。"
+    },
+    {
+      "id": "reply-narrow-sent.png",
+      "sha256": "034b66680d3f4768475865a956a8eee6041489bc2061843280c4e91c9f283f76",
+      "verdict": "pass",
+      "notes": "窄深色发送后正文保留，引用草稿撤掉且输入框可继续使用。"
+    },
+    {
+      "id": "question-pending-dark.png",
+      "sha256": "8007e1d7225bf5723f55684cb24caac0c47daba73736529e0f23a63c8aa384d3",
+      "verdict": "pass",
+      "notes": "深色待答问题提供两项选项、自由输入提示和待办计数。"
+    },
+    {
+      "id": "question-pending-light.png",
+      "sha256": "3f2c1fbad676a2b004378f432d6234012ad88d705ae9e23522926089c8881637",
+      "verdict": "pass",
+      "notes": "浅色待答选项对比清楚，问题与输入区分离。"
+    },
+    {
+      "id": "question-retired-dark.png",
+      "sha256": "932c05d51e17b751b5416a4d739cf50e6b91714cb9bf14cfa2987267374e4595",
+      "verdict": "pass",
+      "notes": "深色问题退休后选项消失，原问题及用户答案保留为历史。"
+    },
+    {
+      "id": "question-retired-light.png",
+      "sha256": "031bac7a953425039d32b1a314acba0d3c1cde8ba0d88a96109a621ed7fc1b05",
+      "verdict": "pass",
+      "notes": "浅色退休问题没有重复可点击旧选项，回答保持独立。"
+    },
+    {
+      "id": "bot-message-purple-dark.png",
+      "sha256": "8e014c83308b2bd05e4bfb1a000f27c5a8c1dc7f3727298e56343ea7525302c1",
+      "verdict": "pass",
+      "notes": "紫色深色气泡中引用、两项列表和作者标识完整。"
+    },
+    {
+      "id": "bot-message-purple-light.png",
+      "sha256": "aa58105c919f9efc8659c41b1e72a28bcab2e945be6ff1c573ff64c6d89aa595",
+      "verdict": "pass",
+      "notes": "紫色浅色气泡边界与文字层级清楚，正文无裁切。"
+    },
+    {
+      "id": "bot-message-pink-dark.png",
+      "sha256": "9ac394b43db3ee7859fe8275d79a1bc37206d523c1e03e276b2dc173736f1ef4",
+      "verdict": "pass",
+      "notes": "粉色深色消息气泡中引用入口、两条列表和正文完整，背景与文字有层级。"
+    },
+    {
+      "id": "bot-message-pink-light.png",
+      "sha256": "0db00a3ed4d6187d19e6135cef9bc4dcd49e7361467ceb095e03b16cf9c7ce8f",
+      "verdict": "pass",
+      "notes": "粉色浅色气泡边界清楚，引用行与正文分开，无装饰竖线。"
+    },
+    {
+      "id": "bot-message-green-dark.png",
+      "sha256": "525e402ffcfd5c50f38739cbdd7c3e11e5781224ece88dfdb4a2be49d7a330d1",
+      "verdict": "pass",
+      "notes": "绿色深色气泡正文和项目列表留在气泡内部，底部最新按钮独立。"
+    },
+    {
+      "id": "bot-message-green-light.png",
+      "sha256": "d69de6956bfc2d9293603e96fb9e47c674bf5b5556032bde3c296c0cc2925304",
+      "verdict": "pass",
+      "notes": "绿色浅色正文对比可读，两项列表没有溢出。"
+    },
+    {
+      "id": "quote-sent-1280-dark.png",
+      "sha256": "67a4165c29b8e92a19d994cacf30a916267eb052cbb83fb43cf50af68c4b8dfe",
+      "verdict": "pass",
+      "notes": "深色用户消息内引用以紧凑淡底显示，补充说明独立在引用下方，输入框保留。"
+    },
+    {
+      "id": "quote-sent-1280-light.png",
+      "sha256": "089a62f8d94afce7ba8fad450fb80f4ccd7338b9c5354a443ba81fb76ead7cfd",
+      "verdict": "pass",
+      "notes": "浅色已发送引用与补充说明边界清楚，侧栏与正文列分离。"
+    },
+    {
+      "id": "quote-reply-1280-dark.png",
+      "sha256": "6adbbbbb97b1b34472bef389203231c07fd0f69084dc8cff4bc199627b910827",
+      "verdict": "pass",
+      "notes": "深色回复内引用置于正文上部，后续四项记录与底部预算说明可读。"
+    },
+    {
+      "id": "quote-reply-1280-light.png",
+      "sha256": "703eeac874a396c9fcaf35895a51c6c1f4091821807e6006a9186399365f0643",
+      "verdict": "pass",
+      "notes": "浅色引用预览、正文与继续提问区域分层，未出现横向溢出。"
+    },
+    {
+      "id": "quote-reply-760-dark.png",
+      "sha256": "021bf287fa538461ea9a78f574eb920b48eee4a42c29d9a6b9b1aee1c41fd792",
+      "verdict": "pass",
+      "notes": "窄深色会话的引用、四条编号说明与后续预算消息都留在气泡宽度内。"
+    },
+    {
+      "id": "quote-reply-760-light.png",
+      "sha256": "f87af489450cb9028a96e0144454e9a014f8738e00a82a8ce219bc14da700490",
+      "verdict": "pass",
+      "notes": "窄浅色引用和编号列表正常换行，底部预算提示与输入区分离。"
+    },
+    {
+      "id": "selection-quote-1280-dark.png",
+      "sha256": "dfd0fc0f7ef1bc86d20607d67883243445903b438ea178f7f3f22ac8fde92a03",
+      "verdict": "pass",
+      "notes": "宽窗口深色中选区引用浮层位于消息内，原文和引用动作可辨；底部输入区完整，没有遮挡阅读内容。"
+    },
+    {
+      "id": "selection-quote-760-light.png",
+      "sha256": "92233766606b06d0dad7ec57dbf0a135f9e8e66f7a556009ed49ceacc2849e89",
+      "verdict": "pass",
+      "notes": "窄窗口浅色中长消息正常换行，引用按钮位于气泡右上，已有草稿保留且发送按钮完整可见。"
+    },
+    {
+      "id": "selection-quote-docked-light.png",
+      "sha256": "92ced58cfe981984b2c628e9a82633bad2d33e58c8ef94ca5abfaaa97ef49624",
+      "verdict": "pass",
+      "notes": "停靠详情的浅色布局中消息、引用按钮和输入草稿保留，右侧机器人设置独立滚动，未把聊天内容挤出窗口。"
+    },
+    {
+      "id": "completion-review-card.png",
+      "sha256": "ad68dafbfb55081ecfc3450a0ddbe06b1f264b4016dd94ef8335c45ab7139b37",
+      "verdict": "pass",
+      "notes": "Completion card separates generated report from acceptance, with report link and explicit confirm-reviewed action."
+    },
+    {
+      "id": "completion-review-report.png",
+      "sha256": "e44ab488292bbd03cbda68b5cf79c0a407861bbae3ccf8351f40e33cbb4db7c2",
+      "verdict": "pass",
+      "notes": "Report drawer contains concrete project sections, source filenames and a focused close control; report content is not replaced by a completion badge."
+    },
+    {
+      "id": "completion-review-760-light.png",
+      "sha256": "35edb9b4e5608ed41f53f2065cf8dccaa038aaa34cacb984730787e888bbda26",
+      "verdict": "pass",
+      "notes": "Narrow completion card retains the report link and explicit confirmation button without covering the composer."
+    },
+    {
+      "id": "image-live-wait-1280-dark.png",
+      "sha256": "1d8ef2292a8896e6c9391f71f6ab3cf84056be05a8c28028d0fdf074258b7d2e",
+      "verdict": "pass",
+      "notes": "Live image permission card names the file, model sharing scope and timeout; four decision controls and awaiting-authorization state are visible."
+    },
+    {
+      "id": "image-live-wait-760-light.png",
+      "sha256": "619fa65b5eae9ddb9a65248583f2632cebf475d4803be57361e33a9ccd79984b",
+      "verdict": "pass",
+      "notes": "Narrow live image card wraps the file path and keeps all four authorization actions inside the card."
+    },
+    {
+      "id": "image-full-1280-dark.png",
+      "sha256": "22687f5d922bebb51a44c0bce74e40228d987ed4a23614e1e5ff6a328e11a8a7",
+      "verdict": "pass",
+      "notes": "Full-access image flow preserves conversation and full-access mode; no redundant permission card appears in the captured state."
+    },
+    {
+      "id": "image-full-760-light.png",
+      "sha256": "6f9dc1228c2cc8647ab7b3050f3b959b1e7037eb34637ee8e7da6d28a0fec682",
+      "verdict": "pass",
+      "notes": "Narrow full-access image flow preserves earlier messages and composer; full-access label remains visible without an approval card."
+    },
+    {
+      "id": "image-live-allow-1280-dark.png",
+      "sha256": "5969a7316ac15d0d73b067cf155adc238968d77dcd4345024f906dd0652cda61",
+      "verdict": "pass",
+      "notes": "Approved image has a collapsed authorization receipt and a later read-result message; prior scope is still traceable."
+    },
+    {
+      "id": "image-live-deny-1280-dark.png",
+      "sha256": "8589bf1bcfa46ac6b85cb1de1f8bb4ca738b7170d64030ba3539852a62b10061",
+      "verdict": "pass",
+      "notes": "Denied image request has a denied operation receipt and explicit unread message; no successful-read claim."
+    },
+    {
+      "id": "image-live-cancel-1280-dark.png",
+      "sha256": "bf2ab1f94a11286492b0d5373491761aaccbce377f7a7692cea93dd0a8f9163d",
+      "verdict": "pass",
+      "notes": "Cancelled image request shows cancelled receipt and cancellation explanation while composer remains available."
+    },
+    {
+      "id": "image-live-stop-1280-dark.png",
+      "sha256": "678ffbad0f5e6a0edec37c03ca7e51cd404f30ec9467091ef9676f656619e740",
+      "verdict": "pass",
+      "notes": "Stopped image turn shows stopped receipt and incomplete-generation message with a resume control."
+    },
+    {
+      "id": "image-live-timeout-1280-dark.png",
+      "sha256": "6bbfc79b313f24562bbf28d3d6d7a92ded209a767262e618be1d949b537b848a",
+      "verdict": "pass",
+      "notes": "Expired image authorization shows invalid receipt and explicit statement that the image was not read."
+    },
+    {
+      "id": "image-approval-1280-dark.png",
+      "sha256": "c798eec18fb648e3d554841fe0a235eb12e193505138ef90f3af640e75e0c0ab",
+      "verdict": "pass",
+      "notes": "Image approval and unrelated file-write approval are separate cards with separate controls; approving the image does not visually approve the other operation."
+    },
+    {
+      "id": "image-approval-760-light.png",
+      "sha256": "4825ec4f2f4b8c15b8538d0301a460639c2f7f42ae52ac4b5eebc095a16853d9",
+      "verdict": "pass",
+      "notes": "Narrow image approval preserves scope, file path and the four image choices; unrelated approval remains separate below."
+    },
+    {
+      "id": "process-empty-1280-dark.png",
+      "sha256": "0c39529c1589acab3c0b82a6740a485a1a1579f882bc02e4645034e6119bb8ca",
+      "verdict": "pass",
+      "notes": "准备回复的空过程区只给出当前状态与秒数，说明执行步骤将在此出现，没有虚构已执行操作。"
+    },
+    {
+      "id": "process-empty-1280-light.png",
+      "sha256": "8a2b62390fe119740ed01455ea4294881210624c11baf6227f63c0b43b597019",
+      "verdict": "pass",
+      "notes": "浅色停靠详情保持空过程说明，已发送消息与正在回复状态仍可见，未用骨架占满整列。"
+    },
+    {
+      "id": "process-empty-760-dark.png",
+      "sha256": "ea4e91457d7774c43315843ce5c66468e9d80a5fe8aad60ddc81d5290b43e1ac",
+      "verdict": "pass",
+      "notes": "窄深色详情顶部回到对话入口和准备回复条完整，空区域保持静态可读。"
+    },
+    {
+      "id": "process-empty-760-light.png",
+      "sha256": "c1743dff76105874064e54665c0a1e0683e603c22d570051caf6b0d8782934cb",
+      "verdict": "pass",
+      "notes": "窄浅色详情内状态、计时与解释完整，返回按钮可见，没有裁切或重复空字段。"
+    },
+    {
+      "id": "conversation-typography-1280-dark.png",
+      "sha256": "d0fb4fe2f30bc9b6f5ae886838868ea5d7ecd8a4774c4c9ff6e3da0d3e7b2edc",
+      "verdict": "pass",
+      "notes": "Conversation heading, body, emphasis and inline code have clear hierarchy; long operation records remain compact above actionable approval cards."
+    },
+    {
+      "id": "approval-history-1280-dark.png",
+      "sha256": "f85eec36caf3d79e24ec6080e00afd6279d6260982fc802ce492a2e8a0545714",
+      "verdict": "pass",
+      "notes": "Expanded historical approval shows the full command in its own disclosure while current pending approvals retain their own actions."
+    },
+    {
+      "id": "conversation-typography-760-light.png",
+      "sha256": "cf5eb5095c2fd644c273ceeba8dc1539c7cac7c8c3150aa9bc261a15685a28cd",
+      "verdict": "pass",
+      "notes": "Narrow light body and code wrap within the message column; historical records and current approvals remain distinct."
+    },
+    {
+      "id": "approval-history-760-light.png",
+      "sha256": "b2121ae7271a16b1218766868209f1c2e2bcbe3c5a5d6f10892bc337adeac165",
+      "verdict": "pass",
+      "notes": "Expanded historical command wraps inside the narrow column; current approval remains actionable below without horizontal overflow."
+    },
+    {
+      "id": "process-timing-dark.png",
+      "sha256": "bce855c04327a5f1a8e4aa1a29198e64ce65907b3e12ac5380934560d0b517df",
+      "verdict": "pass",
+      "notes": "已结束的过程按步骤显示会话、文件与各自耗时，完整调用记录默认收起。"
+    },
+    {
+      "id": "process-timing-light.png",
+      "sha256": "2a595d065ecaca75c83be5e531432f8ed094812347d9bddd403514da33888dc5",
+      "verdict": "pass",
+      "notes": "窄浅色过程列表将状态与秒数对齐，三条真实记录清楚，原始参数未默认展开。"
+    },
+    {
+      "id": "budget-exhausted-dark.png",
+      "sha256": "b32e1328e59abcbaf3770fc4d6eb99fa1c17815ee1dbe4226d88d8b670bb3be8",
+      "verdict": "pass",
+      "notes": "预算耗尽消息保留已用 256／上限 256 和调整后继续的说明，原引用历史仍在。"
+    },
+    {
+      "id": "budget-exhausted-light.png",
+      "sha256": "b6e1cbfea58309f0df9ddbba92e30b7bf0eee3325919e466868b1155f2813be1",
+      "verdict": "pass",
+      "notes": "浅色窄窗的预算说明正常换行，执行限制和服务错误各自独立，不冒充任务完成。"
+    },
+    {
+      "id": "manual-wake-retry-dark.png",
+      "sha256": "1e93b1cd4fa0d6434f42c4a02a7bbf42932073934685ea1e3c3c1d3bae9e9a5b",
+      "verdict": "pass",
+      "notes": "重试提示声明核对已有进展，实际待答问题与停止按钮同时存在，没有要求重复提交旧问题。"
+    },
+    {
+      "id": "manual-wake-retry-light.png",
+      "sha256": "ea92916532b39d7bfc2d1cfa6f9609a3808172e34146797b7fbb6b1e8d498bd1",
+      "verdict": "pass",
+      "notes": "浅色手动恢复显示正在重试及原问题选项，暂停按钮仍在输入区，未显示成功结论。"
+    },
+    {
+      "id": "recovery-missing-checkpoint-dark.png",
+      "sha256": "337739783698da39a948dce5f18d0fc795a38b966adcb10f406a58c95fdaff6c",
+      "verdict": "pass",
+      "notes": "深色缺 checkpoint 明确说明需先核对且保留已完成结果，恢复入口与详情分开。"
+    },
+    {
+      "id": "recovery-missing-checkpoint-light.png",
+      "sha256": "45a7e9166e0aad2619ed245a612530581ac121bbc41d6366fba824a04182cd43",
+      "verdict": "pass",
+      "notes": "窄浅色缺记录说明完整换行，底部输入框保留，未把缺记录画成完成。"
+    },
+    {
+      "id": "recovery-scheduled-dark.png",
+      "sha256": "c61ed953dbc1f02c51436d826dc0b2692b9b615a29199fd0bc064247a689ad61",
+      "verdict": "pass",
+      "notes": "深色连接中断与保留结果分别呈现，可继续尝试，正文无原始诊断挤出。"
+    },
+    {
+      "id": "recovery-scheduled-light.png",
+      "sha256": "4bcf9de6bf73cd027ea3d9acb8555c2ffda1c696fb123429f94bae3787a2b4b1",
+      "verdict": "pass",
+      "notes": "窄浅色中断说明与继续尝试按钮不重叠，模型选择仍可读。"
+    },
+    {
+      "id": "recovery-exhausted-dark.png",
+      "sha256": "20616963a28d35806f007c96ab5985a600cd1d32a8cb8cb54cd2fd669ae192e6",
+      "verdict": "pass",
+      "notes": "深色尝试未恢复仍说明进展保留，操作与详情有间距。"
+    },
+    {
+      "id": "recovery-exhausted-light.png",
+      "sha256": "ed9a6a096591d2a0efc854c6f53f571bc8f3f9a9b2b86da1d20c77e5afeb749e",
+      "verdict": "pass",
+      "notes": "窄浅色恢复未完成时正文完整，操作入口清晰，无裁切关键文案。"
+    },
+    {
+      "id": "recovery-authentication-dark.png",
+      "sha256": "f7491f1a8ac2d7a76d8e3a87efc161e8882067604f24ab84c67de22710c4b7d1",
+      "verdict": "pass",
+      "notes": "深色身份验证失败明确要求检查连接后重试，未确认操作结果单独提醒核对。"
+    },
+    {
+      "id": "recovery-authentication-light.png",
+      "sha256": "2bcce0a63d700c6d0d962ccd1057b078e752422992c034c4f5d76dc95c7180e3",
+      "verdict": "pass",
+      "notes": "窄浅色身份验证说明换行正常，继续尝试入口位于对应段落下。"
+    },
+    {
+      "id": "recovery-unknown-dark.png",
+      "sha256": "276d57d6058832e5a5cbc735810e9b2eb6c8b2102e8f81163d0703b94a7b25e2",
+      "verdict": "pass",
+      "notes": "深色未知操作结果写明需要先核对，保留进展，没有把未知写成执行成功。"
+    },
+    {
+      "id": "recovery-unknown-light.png",
+      "sha256": "fab701fdb1b8c6a41ab637a3e9cd7405f3beb8238ae9ed23397e0dc3e79b3fe0",
+      "verdict": "pass",
+      "notes": "窄浅色未知结果说明可读，消息气泡与详情入口不越界。"
+    },
+    {
+      "id": "recovery-resolved-dark.png",
+      "sha256": "c18eb0df0095f1b6f2aad87b2d2f3b34076cd84987421afb2284e83eb0987a38",
+      "verdict": "pass",
+      "notes": "深色已恢复状态以历史说明表达，之前错误仍可展开详情而不冒充当前成功。"
+    },
+    {
+      "id": "recovery-resolved-light.png",
+      "sha256": "24b10d7b9ea2a75365d5795a7d120092f77b8c6aa853a92737aa66b7f05e83e9",
+      "verdict": "pass",
+      "notes": "窄浅色保留历史连接信息及结果待核对说明，输入区不被覆盖。"
+    },
+    {
+      "id": "recovery-no-progress-dark.png",
+      "sha256": "f74c5e999fe96d213412f2c11707389ed35f34cc6d5d6bda34890c56585240ec",
+      "verdict": "pass",
+      "notes": "深色无进展保护仍保留先核对/重试说明，公开进展与技术入口分离。"
+    },
+    {
+      "id": "recovery-no-progress-light.png",
+      "sha256": "7ed687f2cf4006bd004fd1cc2170e75c1b812eb608118a1e24e45f895e89afa8",
+      "verdict": "pass",
+      "notes": "窄浅色无进展场景的长说明完整换行，操作按钮没有挤出。"
+    },
+    {
+      "id": "recovery-child-running-dark.png",
+      "sha256": "bac0c29e309c071247082386de45ed150450635fb9a51d571e79c3981c5c237c",
+      "verdict": "pass",
+      "notes": "深色主回复失败同时说明另一个子任务仍推进，历史回复提示与当前输入分开。"
+    },
+    {
+      "id": "recovery-child-running-light.png",
+      "sha256": "8b4e3b9ea6175c5ded4b0b1e3dbbc2efac86435af8852f17673dd95c30ab8f00",
+      "verdict": "pass",
+      "notes": "窄浅色说明另有子任务继续推进，主 Bot 失败没有表现为所有任务停止。"
+    },
+    {
+      "id": "recovery-historical-dark.png",
+      "sha256": "2a35cc0d87ec414b15674560bfcb17d6297e047c8930027c88445281bcb71fe0",
+      "verdict": "pass",
+      "notes": "深色旧 Bot 回复标明保留在历史记录，不展示重复错误长卡片。"
+    },
+    {
+      "id": "recovery-historical-light.png",
+      "sha256": "b974e2b968925d41224cf3b7b32018bdc4865cc615dea704e4c6c62370105466",
+      "verdict": "pass",
+      "notes": "浅色历史失败提示收束为一条简短记录，当前输入仍可用。"
+    },
+    {
+      "id": "recovery-paused-dark.png",
+      "sha256": "272e470928e6b207a3320f7f614ad5fa4cb44f328a2819671f787850abf3b93e",
+      "verdict": "pass",
+      "notes": "深色明确显示工作由主 Bot 回复已暂停，没有可视自动恢复成功声明。"
+    },
+    {
+      "id": "recovery-paused-light.png",
+      "sha256": "5e0f4f7ffdaa2c3e4749c8c02c1f40dddd9b4c15df7b5cabb819caf343cc63fd",
+      "verdict": "pass",
+      "notes": "窄浅色暂停与历史提示分开呈现，用户停止权未被成功样式掩盖。"
+    },
+    {
+      "id": "recovery-cancelled-dark.png",
+      "sha256": "a01e1a396957a01508110157d45da749156dcea2d1e99b27971a0f2b4af1a3bc",
+      "verdict": "pass",
+      "notes": "深色取消提示清楚，后续真实对话仍显示，未出现运行中的动效声明。"
+    },
+    {
+      "id": "recovery-cancelled-light.png",
+      "sha256": "dab62bd8f6a9879d7b603725d603822033440fb2501242ea237ef3903f2697b7",
+      "verdict": "pass",
+      "notes": "窄浅色取消说明与新用户消息分离，输入框底部布局完整。"
+    },
+    {
+      "id": "recovery-budget-unknown-dark.png",
+      "sha256": "aff7b95cd792bc46f1d80aa9f9a96c4007ca3d8b3b39e450dd4a134c6975b824",
+      "verdict": "pass",
+      "notes": "深色预算未知写明无法确认当前模型费用，并区分已配置上限和可继续尝试状态。"
+    },
+    {
+      "id": "recovery-budget-unknown-light.png",
+      "sha256": "e886f66fb35ae94bd721c0c49e26292cd5abc90484a9e752a4a3454e3378b439",
+      "verdict": "pass",
+      "notes": "窄浅色费用未知说明完整换行，未知量没有显示为零。"
+    },
+    {
+      "id": "recovery-budget-ready-dark.png",
+      "sha256": "c0672ef627530c5d519bc2a520bb538e3474e7052db58f34ff46403bf24422c6",
+      "verdict": "pass",
+      "notes": "深色预算限制说明和调整后继续入口分别呈现，不宣称任务已经执行。"
+    },
+    {
+      "id": "recovery-budget-ready-light.png",
+      "sha256": "92e6919f15fed2c8f3a7e1da3ccee4753307a4f6af5fd93d955263801a0d0ec3",
+      "verdict": "pass",
+      "notes": "浅色预算调整状态文字可读，按钮与详情入口不重叠。"
+    },
+    {
+      "id": "recovery-budget-migrating-dark.png",
+      "sha256": "d180392f95384dc071abf199093c951154bfd152c612c8d9446d21c53831c7fc",
+      "verdict": "pass",
+      "notes": "深色恢复后保留旧回复和新请求上下文，不把模型空返回隐藏为成功。"
+    },
+    {
+      "id": "recovery-budget-migrating-light.png",
+      "sha256": "97aa17cee5a93652e9ddfde497ad741c13c7628a156f923849f86f005a11169f",
+      "verdict": "pass",
+      "notes": "窄浅色迁移/恢复历史保留，消息与输入框之间无横向溢出。"
+    },
+    {
+      "id": "recovery-budget-reserved-dark.png",
+      "sha256": "626600ae5b40f01cfc9af2242920ac094228abf63e10ae5665c16db0ac55ff93",
+      "verdict": "pass",
+      "notes": "深色未执行占用与预算用量分开说明，恢复按钮位于当前说明下方。"
+    },
+    {
+      "id": "recovery-budget-reserved-light.png",
+      "sha256": "22a00b267a536f4902723af55ed21dad403ecb13bf0beaa9d3c52ecaf7d23bc3",
+      "verdict": "pass",
+      "notes": "窄浅色预算占用文字完整，金额和限额换行后仍清楚。"
+    },
+    {
+      "id": "recovery-budget-available-dark.png",
+      "sha256": "42a2d918b4440531b29b3d8702dcb836d04a6003f273f2dee9c26b1ce71ebfd1",
+      "verdict": "pass",
+      "notes": "深色可继续预算场景保留用量与原失败说明，不把预算可用等同实际执行。"
+    },
+    {
+      "id": "recovery-budget-available-light.png",
+      "sha256": "2490a89585d34f233fbb140a940959e8ad5beac387d55ff37fa61acb9b621918",
+      "verdict": "pass",
+      "notes": "窄浅色预算可用说明仍保留真实用量与上限，继续尝试不等同成功。"
+    },
+    {
+      "id": "work-verifying.png",
+      "sha256": "b9a64d674c94462393463d06217a93be4d8a75220a397b1b9a811794c1923749",
+      "verdict": "pass",
+      "notes": "核验中关联任务明确显示核验状态，原结果来源与过程分区保留。"
+    },
+    {
+      "id": "work-repair-1280-dark.png",
+      "sha256": "427080feb2205391b6b1de68ef4cd6cbf43eb3132b2478e7386707fa5f047720",
+      "verdict": "pass",
+      "notes": "深色修复任务写明主 Bot 正在检查，并提供任务详情与取消入口。"
+    },
+    {
+      "id": "work-repair-760-light.png",
+      "sha256": "bd7cb1a645a1139c2db3c7e2fde8bcb849c42dce9e0cf04f33c9bc85e6b4854d",
+      "verdict": "pass",
+      "notes": "760 浅色修复侧栏完整呈现进展、来源和技术折叠入口。"
+    },
+    {
+      "id": "reply-presence-progress-dark.png",
+      "sha256": "b9702f95cb45479e13e5807cf233737cb3706ae6c9eaee144d11cbdfdf136d44",
+      "verdict": "pass",
+      "notes": "深色流式公开进展在主对话中，右侧详情独立显示过程，输入框可停止。"
+    },
+    {
+      "id": "reply-entry-idle-dark.png",
+      "sha256": "bad28b6571834f7cbeee5a22c7f6657ac9c3610cabd9bfc86486d15aa9495b24",
+      "verdict": "pass",
+      "notes": "深色静态回复入口默认轻量，真实问题选项与输入区可见。"
+    },
+    {
+      "id": "reply-entry-hover-dark.png",
+      "sha256": "8d7730f709a16b990affee2ca518b82f3da0a95a9bf3cdf14e4d16869ae6382f",
+      "verdict": "pass",
+      "notes": "深色 hover 时回复详情入口显现，没有新增第二条消息或改动正文。"
+    },
+    {
+      "id": "reply-entry-idle-light.png",
+      "sha256": "bad3fe7162f00fb60587f151c8fecba3824ca7a90088cb8acafbbefdc2026aec",
+      "verdict": "pass",
+      "notes": "浅色 idle 的回复详情入口保持低干扰，问题选项仍可读。"
+    },
+    {
+      "id": "reply-entry-hover-light.png",
+      "sha256": "0e225a56ea084c47f185c7c94b76734f95b2c2ee6e3822f116d6e7042c09e9fc",
+      "verdict": "pass",
+      "notes": "浅色悬停后回复详情入口出现在气泡下方，问题选项与输入框不发生跳位。"
+    },
+    {
+      "id": "yield-feedback-1280-dark.png",
+      "sha256": "1e5a2050ca1f19c4f01bcd1946b36c818386884d29efb9c23f57f5817f8f595d",
+      "verdict": "pass",
+      "notes": "用户发消息后 Bot 先报告核对最新进展，并显示正在回复与停止按钮，回应意图明确。"
+    },
+    {
+      "id": "yield-feedback-760-light.png",
+      "sha256": "8134728122e9517c7fb221dd59953621cae29d0ad2e010138ca4b9a629ca965e",
+      "verdict": "pass",
+      "notes": "窄浅色续接提示留在对话列内，下方输入框和停止按钮可见。"
+    },
+    {
+      "id": "retry-history-1280-dark.png",
+      "sha256": "85fd0a2f74c4f4a76241e00bdf6b37e7187e43d19501a7b9218c3bdd05666aeb",
+      "verdict": "pass",
+      "notes": "最新结果在前，先前两次中断收进历史行，避免旧失败提示与当前进展竞争。"
+    },
+    {
+      "id": "retry-history-760-light.png",
+      "sha256": "76376eb0808e95042b45753953dbcdf62b3691bca07679a82570d463aebe517a",
+      "verdict": "pass",
+      "notes": "窄窗保留最新进展和“无需重复授权”说明，旧中断折叠且输入框未被挤出。"
+    },
+    {
+      "id": "attention-1280-dark.png",
+      "sha256": "bace3531b48db931ec2961ddc0031f34d98595e7e6a9fefb3b5406c359ce625e",
+      "verdict": "pass",
+      "notes": "Dark attention modal presents one pending choice with both actions and a details link, with background dimmed."
+    },
+    {
+      "id": "attention-760-light.png",
+      "sha256": "c920f2e3e689bd25f2c7c3bf5500573f472402f91429dbf2a988bed5e465d771",
+      "verdict": "pass",
+      "notes": "Narrow light attention modal keeps the pending choice and both actions visible without horizontal overflow."
+    },
+    {
+      "id": "attention-empty-light.png",
+      "sha256": "77b44c2ea63a5465f34e1ee59f79809823d6297b1f9bb5a2c3d4f4558260b9f2",
+      "verdict": "pass",
+      "notes": "Empty attention state has a centered explanation and close control; no obsolete decision action."
+    },
+    {
+      "id": "attention-expired-light.png",
+      "sha256": "77c5e4c4b5a815b4caf1c0490d93997016b7730ae7f3d457c592246fa2a446d9",
+      "verdict": "pass",
+      "notes": "Expired attention item disappears into the empty state with readable explanation and close control."
+    },
+    {
+      "id": "attention-image-permission-dark.png",
+      "sha256": "c853f3ab7958b845848eb503a640049bfabd5665258ff173bf987973389fc501",
+      "verdict": "pass",
+      "notes": "Attention dialog identifies one image permission with file, scope and four real decisions; the background is dimmed without hiding the dialog controls."
+    },
+    {
+      "id": "user-receipt-1280-dark.png",
+      "sha256": "45154bbc1e1a5d522681b089f0ce33c4275bfc718ac06dfc8ac8761e11c59c59",
+      "verdict": "pass",
+      "notes": "Continuation and follow-up user messages retain received markers and scripted bot acknowledgement; composer stays visible in this theme and width."
+    },
+    {
+      "id": "user-receipt-760-light.png",
+      "sha256": "1c7f894be844dfd1a231419cf8dedb75889935b4c7adc9ca1c90270f1c936ee8",
+      "verdict": "pass",
+      "notes": "Continuation and follow-up user messages retain received markers and scripted bot acknowledgement; composer stays visible in this theme and width."
+    },
+    {
+      "id": "lifecycle-budget-list-1280-dark.png",
+      "sha256": "96190cb8381a5bdfadf30ad5bdc5dd257e247ef2f7048b014b83c6c20c3bf887",
+      "verdict": "pass",
+      "notes": "Budget-gated task remains in the needs-you group with its specific budget-exhausted label; the list does not hide the blocked task."
+    },
+    {
+      "id": "lifecycle-budget-detail-1280-dark.png",
+      "sha256": "0a16f493e2263733616ba2602c607bb2ada504bd7db64f127f438f4969b97ce1",
+      "verdict": "pass",
+      "notes": "Budget detail preserves the budget-exhausted explanation and a route to the main Bot; a neutral header does not erase the factual blocker."
+    },
+    {
+      "id": "lifecycle-budget-list-760-light.png",
+      "sha256": "b6c130fa949b3ab9cdb890a8b4e255adcf3510e29d4789a3622cd7ea00da1dae",
+      "verdict": "pass",
+      "notes": "Narrow light list keeps one needs-you budget item and its specific blocker text inside the drawer bounds."
+    },
+    {
+      "id": "lifecycle-budget-detail-760-light.png",
+      "sha256": "12e306a0403cb3529a0883532c42fa52ba0679878c1f858464eaec49f55abb14",
+      "verdict": "pass",
+      "notes": "Narrow budget detail keeps cancellation and main-Bot follow-up controls visible; budget reason remains concrete."
+    },
+    {
+      "id": "lifecycle-question-list-1280-dark.png",
+      "sha256": "11872ca3ad992d1d8b389faef46a814a60cc6ed9f1bbc8cd4db4382f65f81b93",
+      "verdict": "pass",
+      "notes": "Task with a real pending choice remains in needs-you with a waiting-for-your-choice label; it is not treated as completed."
+    },
+    {
+      "id": "lifecycle-question-detail-1280-dark.png",
+      "sha256": "cd0b9df28335f2b72dab76ce5c136d3de3a55470f16dd8c6e83c3587e76e29a8",
+      "verdict": "pass",
+      "notes": "Pending-choice detail preserves its specific question state and main-Bot follow-up route; no technical wait is promoted into a false approval."
+    },
+    {
+      "id": "lifecycle-question-list-760-light.png",
+      "sha256": "8277e8c573d2a34e4ccb79507bab994fcaaafae69726ca4b7e1a97bf7e9a3aa3",
+      "verdict": "pass",
+      "notes": "Narrow needs-you list keeps the pending-question task and its choice label visible on one row."
+    },
+    {
+      "id": "lifecycle-question-detail-760-light.png",
+      "sha256": "18dde74675710365e6cd4fc217a3b2667a8d1c24563e1c05e371d417063abced",
+      "verdict": "pass",
+      "notes": "Narrow question detail preserves waiting-for-your-choice progress, cancellation and the main Bot route without overflow."
+    }
+  ],
+  "findings": []
+}
