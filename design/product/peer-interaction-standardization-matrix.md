@@ -35,7 +35,7 @@ P06/P17、共享 ModelSelectionPanel，C 级交互小修：用户明确选择不
 当前资源工作区验证更新（2026-10-27）：用户明确要求的 R1–R10 组合已运行，697 项模块、10 组深浅色实际 Electron 联调、98 个具名检查及 89 张截图实现者自审通过。实际链覆盖 scoped 读取、固定选区草稿、保存、授权允许/拒绝/取消、版本冲突、真实本地一次写入及只核对不重写；原 Composer、后来输入、个人任务/已有成果保留。修复长文档滚动、编辑按钮 pending 失焦和刷新等待。不是独立审查、真实模型、安装包或完整 G8 发布验收，未重启个人应用/发布。详见[本轮结果与限制](../../playbook/resource-workspace-r1-r10-validation.md)。下文各子包“未运行”保留其历史候选状态。
 
 创建时间：2026-10-23
-最后更新：2026-10-24
+最后更新：2026-10-29
 
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
@@ -923,6 +923,10 @@ Bot对话/任务状态：输入已持久接收不代表恢复已就绪，历史�
 P11/C078/C169：用户进入流程是为了阅读原任务过程。ConversationScene.tsx 的 ConversationSceneDrawer 对内嵌与抽屉入口统一传入 showComposer=false：隐藏输入框、模型/模式/访问配置、待发队列、选区引用及消息操作，关闭文件拖入；查看实例不自动投递待发队列。继续保留真实流事件、加载/空态、错误/重试、任务状态、受治理批准、查找、附件预览和回到最新。普通对话默认输入行为保持原样。
 
 状态来自既有 conversationStore、任务与权限投影；关闭、返回与焦点恢复沿用现有 Drawer/内嵌导航，主对话草稿不清空。输入的 hover/IME/提交状态在流程页不适用，补充意图通过返回对话入口处理；无新增动画或运行时、权限、Evidence 契约。代码 [PR227](https://github.com/ly-ccx/Peer-Agent/pull/227)，source=`dec39299c907eecc95398da2f68303dc8c1e26f5`。仅做实现者内容/diff 审阅；测试、键盘/滚动/截图、安装包与无障碍验证留待发布，未宣称候选通过。
+
+### 2026-10-28 中断恢复补记（主 Bot / 子任务 / Composer 错误恢复）
+
+原目标内的技术中断由主 Bot 跟进：委派 Runner 明确失败时，生命周期投影为 waiting_agent，沿既有无进展保护保留责任；用户主动暂停、取消、真实批准和未知执行结果保持各自边界。coordinate_work 严格校验整数版本并提供纠正路径，错误入口不等于需要新授权。错误事实来自既有 Runner、Tool Result 与消息 streamFailure；旧记录原因未知时只显示未知中断，不声称断网。本地提交失败保留原上游错误和本地错误码，暂不显示可直接重放的回复继续按钮；错误仍可查看和收起，任务恢复先核对已有执行事实。原消息身份、内容、草稿和阅读位置保留，不新增动效。依据见 [ADR94 §9](../../knowledge/decisions/94-reply-attempts-silent-wait-and-recovery.md)。源码和新增回归用例已做内容/diff 审阅；测试、键盘/截图、真实模型与安装包恢复验证待发布，未标候选通过。
 
 ### 2026-10-29 C210：同一授权事实的刷新连续性
 
