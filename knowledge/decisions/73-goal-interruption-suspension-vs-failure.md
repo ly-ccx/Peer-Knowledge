@@ -81,6 +81,28 @@ const nextStatus = hasUnconsumedInterruption && derivedStatus !== 'completed'
 
 `resumeRunner` 是中断事实的唯一消费者（与现状一致）：resume 原子消费 interruption 证据，计划从 `interrupted` → `executing`，runner.interruption 清空。普通 persist 不得把 `interrupted` 重新派生为 completed/failed（除非叶子事实变化）。
 
+> 2026-10-29 修订：“唯一消费者”改为下文补充中的消费规则。结束或移交这次执行也会消费中断，并把中断事实留在各自的回执中。
+
+### 补充（2026-10-29）：结构化取消提交时消费中断
+
+现场：同一机器人有两份子任务计划在 2026-10-18 因供应商中断停下（工作预算受限、HTTP 401，均为 `recoverable: false`），之后分别被协调者和用户取消。取消回执写成 completed，也发出了 cancelled 事件，但 persist 依 §2 把 `status: 'cancelled'` 重新派生回 `interrupted`。后果：
+
+- 计划状态与已发出的 cancelled 事件不一致；
+- 宿主每次启动的取消恢复都会再取消一次，其中一份计划已累计 73 个版本；
+- 调用方拿到的结果不是 cancelled，ADR 113 §4.6 的“全部结束旧执行”因此判定停止失败，恢复入口无法收口。
+
+决定：
+
+- `interrupted` 表示可恢复挂起。结构化取消提交（`session-cancellation` 把计划写成 cancelled 的那一次修订）是对这次执行的明确结束，此后不再恢复，因此在同一次修订里消费 `runner.interruption`。
+  - 不能先单独清中断再改状态：叶子已全部完成的 `interrupted` 计划会在中间那次 persist 中被 §2 派生为 completed，形成虚假完成。
+- 被消费的中断事实原样写入取消回执 `delegationOrigin.cancellation.retainedInterruption`。这与执行体接管写入的 `takeover.retainedInterruption` 相同；报告与诊断仍能读到中断原因、来源和时间。
+- §5 的消费规则修订为：
+  - 恢复执行由 `resumeRunner` 和既有的续跑入口消费中断；
+  - 结束或移交这次执行（结构化取消、执行体接管）也消费中断，并在各自回执中保留中断事实；
+  - 普通 persist 仍不得消费中断。
+- 取消时若仍有结果未知的操作，照旧进入 `awaiting_outcome`：不消费中断，也不写 cancelled。
+- 不迁移存量。已经卡在 `interrupted` 且取消回执为 completed 的计划，会在下次宿主启动的取消恢复中走同一路径收束为 cancelled。
+
 ## 非目标
 
 - 不改 `derivePlanStatus` 的叶子失败派生规则（真实失败仍终态 failed）。
@@ -98,3 +120,4 @@ const nextStatus = hasUnconsumedInterruption && derivedStatus !== 'completed'
 - `packages/runtime-node`：persist 派生单测——未消费中断→`interrupted`（不是 failed）；叶子真实失败→`failed`；interrupted 计划叶子全 completed→`completed`。`goal-runner-rearm.test.mjs`：goal-accepted 变更对 `interrupted` 计划触发 resume。
 - `apps/desktop`：通知策略单测——interrupted 挂起弹「已暂停，待恢复」不弹「任务失败」；真实失败弹「任务失败」；re-arm 后完成弹「任务已完成」。
 - 存量 3129 份计划数据无破坏（旧 failed 不回填，无迁移脚本）。
+- 2026-10-29 补充：取消一份带未消费中断、已停下的子任务后，计划落成 cancelled，回执保留原中断，`runner.interruption` 已清空；重新加载后不变，宿主启动的取消恢复不再重复取消，cancelled 事件只发一次。
