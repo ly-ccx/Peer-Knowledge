@@ -47,3 +47,14 @@ Desktop 在首次活动位置合并同 session 的所有通知，使用宿主当
 新增/修订活动合并与分页身份、当前状态投影和 Context Source 角色边界用例；生成嵌入提示正文与工具提示并做内容/diff 审阅。未运行测试、截图、交互、真实模型或安装包验收；没有重启当前 App。
 
 问题承接的运行时补正：按 canonical agentRequests 读取未回答的父代理问题并恢复其原消息，独立于消息回执是否 applied，避免它在后续消息超过最近上下文窗口后丢失；回答、取消或升级后不再强制重入。只读有界查询，不推测报告正文是问题，也不创建新权限。已写忙碌邮箱和关联回答用例，未运行。发布场景脚本同步按“一 Agent 一行、当前状态、静止图标”断言，未执行。
+
+
+## 隔离手测故障与修复（2026-10-29）
+
+用户后续要求本地手测，另启隔离数据目录/端口的开发实例，保留原开发实例，不复制原会话/任务/订阅登录。启动仅确认窗口和机器人加载，未声明监督通过。
+
+用户点击“熟悉项目”后实际失败：生命周期任务 delegationOrigin 没有 workId；新增报告恢复投影将 undefined 传给 coordination-v2 SQLite，get_session(report) 与任务详情均抛 ERR_INVALID_ARG_TYPE。主 Bot 调用未正常返回，被记录 execution_outcome_unknown 并反复中断。子任务独立核验又因 ephemeral conversationId=null 未沿已验证 GoalPlan 会话核对祖先，工具返回 access_identity_invalid，最终 criterion_unverified。
+
+修复按 ADR111 §13.1：缺 workId 不查工作主键，不制造绑定；临时 work_session 只在显式 plan/session、现有 PermissionPrincipal 和未停止持久祖先一致时继承同一 Bot 的当前权限；只读监督查询已返回异常产出失败 Tool Result，控制/写异常继续保留未知保护。新增真实 coordination-v2 无 workId 报告、临时核验身份正反例与只读失败/控制未知区分用例，未运行。
+
+本轮只做内容/diff 审阅和用户本地手测所需 runtime-node 构建。单元/集成测试及发布回归仍留到发布门禁，不能称通过。只更新隔离测试实例，历史 unknown、失败、原始任务与 Evidence 保留，不手工改账；后续真实模型交互仍由用户测试。

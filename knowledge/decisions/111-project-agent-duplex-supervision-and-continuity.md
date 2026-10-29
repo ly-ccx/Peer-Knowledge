@@ -235,3 +235,14 @@ WorkNotes 的写入是受限的运行时工作状态能力，目标仅为本工�
 这是 A/B 级既有 Context Source 行为规则与 C 级表达收口；提示规则不能替代已有通信准入、人工门和核验。源码及用例按当前 Validation Scope 审阅，未运行与真实模型行为分别记载。
 
 补充运行时不变量：某次父回合的 AgentCommandReceipt.effect=applied 只证明该执行回合处理过消息，不能把开放问题视为已回答。上下文读取额外按 parentConversationId 查询仍为 open/responder=parent 的原生问题，以 requestId 从 canonical 邮箱恢复，优先纳入有界上下文；即使旧消息已 observed/applied 或退出最近消息窗口，也持续保留到关联回答/取消/真实用户升级。该读取不创建请求、不改变权限、不把普通报告解析成问题。新增“已处理回合 + 60条后续消息 + 关联回答”回归用例，未运行。
+
+
+### 13.1 隔离实测暴露的兼容缺口（2026-10-29）
+
+“熟悉项目”等 lifecycle 任务可以没有 workId/mandate。监督报告须保留原 session/report 并返回 legacy_unbound，不用缺失 workId 查询协调 SQLite；缺少绑定不能制造 mandate 或执行权限。
+
+Verifier/Explorer 的既有 ephemeral 回合不持久化独立 Conversation，conversationId 可以为空。Bot 权限继承继续使用本地 GoalPlan、workspaceId、planId、显式 sessionId 与完整未停止祖先链校验；通过现有 resolvePermissionPrincipal 后，只能从同一 GoalPlan 的真实 conversationId 开始核对持久祖先。仅 role=work_session 且 plan/session 精确绑定时允许此兼容映射。错误 session、不同工作区、伪造会话、停止、撤销及身份不完整仍拒绝，不回退全局 Full，不改变只读 Projection/PermissionGrant。
+
+本次修复保留真实失败与 unknown dispatch 现场，不把新读取结果当作旧工具已经成功的凭据。旧未知操作继续沿原生核对/用户控制恢复。测试版启动成功不是监督验收；真实操作已发现上述失败，状态必须记为失败待修复。
+
+只读监督查询在 Provider 边界发生已返回的本地异常时，必须产出结构化失败 Tool Result/Evidence，使当前调用正常结算；不能把查询异常升级为未知写入副作用。该处理仅覆盖已经声明为只读的查询，不吞掉写操作、控制操作或无返回的 dispatch；历史 unknown 不因此直接清账。
