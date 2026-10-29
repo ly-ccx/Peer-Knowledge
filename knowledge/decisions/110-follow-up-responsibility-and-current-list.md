@@ -202,5 +202,5 @@ export interface FollowUpProjection {
 - 跨层计数用例归 Desktop 测试侧，原生 fixture 使用编译后宿主模块；runtime 测试不依赖 renderer 资源类型。96项监督回归与完整跨层用例通过，runtime-node 重建、runtime-node/Desktop 类型检查通过。
 - 最终标准开发启动重新构建依赖并加载该候选。加载后10项关键回归通过，零失败/取消/跳过，包含真实 Provider、磁盘/索引/冷恢复、所有查询、实际客户端计数、活动执行竞争和详情标签。真实旧计划仍为 cancelled/version28，完整预算（含未知数组）、失败叶子、中断字段与恢复前相同，无签收事实。
 - 对原持久记录调用实际 `projectWorkSession`（含完整 origin 元数据）的只读核对返回 cancelled/terminal/none/已取消/cancelable=false，followUp 为 none/false/user_withdrawn。最终本地窗口复查当前任务为空，历史已取消保留；未发新消息、未直接改运行数据或重放原命令。历史助手原文保留，当前状态来自结构化宿主事实。
-- 前一候选 `6fcb9c13` 的 [CI run40827446722](https://github.com/ly-ccx/Peer-Agent/actions/runs/40827446722) 双平台全部通过。最终候选的 [CI run40829037910](https://github.com/ly-ccx/Peer-Agent/actions/runs/40829037910) 已通过双平台构建、类型、架构和全量测试，Electron冒烟进行中；前一候选的结果不能代替最终候选。
+- 前一候选 `6fcb9c13` 的 [CI run40827446722](https://github.com/ly-ccx/Peer-Agent/actions/runs/40827446722) 双平台全部通过。最终候选 `e6ba6f4f` 的 [CI run40829037910](https://github.com/ly-ccx/Peer-Agent/actions/runs/40829037910) macOS/Ubuntu 均为 success，完整构建、类型、架构、全量测试及对应平台 Electron 冒烟均通过；本节以最终候选实际结果为准。按用户要求先合知识 PR91，再合代码 PR233，不发布新版本。
 - 仍为实现者自测与窗口自审，不是独立评审或完整产品/安装包验收；真实模型新请求、读屏、IME及减少动效覆盖限制沿§7.3。
