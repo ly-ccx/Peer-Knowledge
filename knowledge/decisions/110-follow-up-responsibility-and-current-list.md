@@ -181,6 +181,7 @@ export interface FollowUpProjection {
 
 - 持久化规则必须保住显式取消终态：历史 interruption 与失败叶子仍保留，但不能在取消或后续清理/进度写入中把计划改回 interrupted/executing。
 - 共享生命周期决策必须承认宿主完成取消回执；没有真实活动执行时，旧 interruption/takeover 字段不能覆盖取消。仍有真实 live 事实时保留当前责任，不凭持久化 Runner 字符串制造活体或隐藏活动。
+- 生命周期的 status、actionRight、nextAction、statusLabel、cancelable 必须同源：确认取消后是终态、无执行下一步，不得保留旧 interruption 对应的 paused/resume 提示。
 - 取消接口成功的后置条件包括同一权威投影已为 cancelled 且退出当前责任；尚未收口必须返回结构化 pending/error，不能只因写入过回执就回报整件工作已完成。
 - 用真实组合验证原生 Provider 取消、落盘原值、get/list/summary/批量读取、索引与冷重载、后续进度/叶子写入、客户端任务分组和计数。已有完成回执的历史记录沿宿主恢复与共享投影正确退出；不要求用户再发相同指令，不手工改运行数据。
 
@@ -194,3 +195,12 @@ export interface FollowUpProjection {
 - 实际窗口中“当前任务（1）”已移除（空列表收起），历史任务仍显示“已取消”；任务信息显示撤回时仍有一项未知执行且禁止重复执行。额外发现详情的责任文案使用旧 reason 白名单，遗漏 user_withdrawn；现直接消费宿主 followUp.owner，显示“继续追问”，不再分配后续工作。详情新增回归先失败、后四项通过；protocol 与 Desktop 类型检查通过。
 - 本轮为实现者自测及实际窗口自审，非独立审阅；未替用户向真实模型发新消息，未验收安装包、全产品交互/截图、读屏、IME 或减少动效。源码修正沿原组件、文案、焦点与动效，不新增交互机制。
 - 新增协议用例缺少必填 planId/title 曾令远端 Typecheck 失败，现已补完整公开快照并本地通过20项协议用例；最终双平台完整 CI 待该候选结果，不将359项局部回归替代远端或发布验收。
+
+### 7.4 最终候选五字段一致性与加载核对
+
+- 最终代码候选为 `e6ba6f4f6a1159586bd5c61fb723e74c097bab2c`。补足共享 presentation 的取消终态：旧 interruption 曾在 status 已 cancelled 时仍给 actionRight=paused、nextAction=resume。新增断言先失败，修复后77项协议回归和类型检查通过；原生四种查询也检查 terminal/none/已取消，取消成功后置条件同步要求行动权终态。
+- 跨层计数用例归 Desktop 测试侧，原生 fixture 使用编译后宿主模块；runtime 测试不依赖 renderer 资源类型。96项监督回归与完整跨层用例通过，runtime-node 重建、runtime-node/Desktop 类型检查通过。
+- 最终标准开发启动重新构建依赖并加载该候选。加载后10项关键回归通过，零失败/取消/跳过，包含真实 Provider、磁盘/索引/冷恢复、所有查询、实际客户端计数、活动执行竞争和详情标签。真实旧计划仍为 cancelled/version28，完整预算（含未知数组）、失败叶子、中断字段与恢复前相同，无签收事实。
+- 对原持久记录调用实际 `projectWorkSession`（含完整 origin 元数据）的只读核对返回 cancelled/terminal/none/已取消/cancelable=false，followUp 为 none/false/user_withdrawn。最终本地窗口复查当前任务为空，历史已取消保留；未发新消息、未直接改运行数据或重放原命令。历史助手原文保留，当前状态来自结构化宿主事实。
+- 前一候选 `6fcb9c13` 的 [CI run40827446722](https://github.com/ly-ccx/Peer-Agent/actions/runs/40827446722) 双平台全部通过。最终候选的 [CI run40829037910](https://github.com/ly-ccx/Peer-Agent/actions/runs/40829037910) 已通过双平台构建、类型、架构和全量测试，Electron冒烟进行中；前一候选的结果不能代替最终候选。
+- 仍为实现者自测与窗口自审，不是独立评审或完整产品/安装包验收；真实模型新请求、读屏、IME及减少动效覆盖限制沿§7.3。
