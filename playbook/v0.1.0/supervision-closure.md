@@ -88,7 +88,8 @@ Desktop 在首次活动位置合并同 session 的所有通知，使用宿主当
 3. 一条 supervisor 用例直接写验收，绕过了关闭门；改为提供宿主核验事实与已索引 Evidence。
 4. Renderer 的 conversationWindow 以无扩展名做值导入，Vite 能解析而 node 测试不能，三个测试文件加载失败；改为与同目录一致的显式 .ts。
 5. Desktop 重启/唤醒集成用例的叶子 Evidence 从未索引，宿主核验结论实为失败，结果仍由 Bot 承担修复。按本记录的修复托管，该工作正确保持可运行，脚本化模型每次只重复汇报，于是出现重复回复，直到 no_progress。修正夹具：先索引 Evidence；脚本化模型的 post_reply 执行回执按生产路径交给回合收集器。未放宽宿主规则。
+6. Electron 冒烟仍按旧的单行引用和逐事件 Agent 行断言，两个平台都在回复检查处失败。断言改为已选定的两层引用预览：一个 SVG 定位原文操作、有效来源时间、来源在上、摘录单行省略；产品回归契约改读 stacked。完成复核检查先经产品的“回到最新消息”控件回到最新，再等待追加的卡片，不再依赖虚拟窗口碰巧覆盖末尾。Agent 行改用展示 ID 后，滚动辅助函数按 data-source-message 定位固定行，避免 Home 键竞态。只改检查，未改产品行为。
 
-运行结果（接手分支，macOS，Node 25）：runtime-node 1619/1619 通过；desktop 6113 项中 6108 通过、0 失败、5 跳过，另一组 3/3 通过；PR CI 结果另记。
+运行结果（接手分支，macOS，Node 25）：runtime-node 1619/1619 通过；desktop 6113 项中 6108 通过、0 失败、5 跳过，另一组 3/3 通过。Electron 冒烟主场景及 recovery、startup、selection-quote、agent-activity、verification、shared-ui 六个专项本机全部通过，无页面或授权错误。PR CI 40869747028 在 macOS 与 Ubuntu 均成功（构建、类型、架构、测试与冒烟）。
 
 需在发布回归中观察的产品风险：已汇报但核验未通过的结果会让汇报所在的工作继续可运行。真实模型若只重复汇报而不返修，用户会看到重复回复，两次无进展后转为 blocked_system 恢复卡。上限由宿主保证，但真实模型的多轮措辞与返修选择未经验证，不能据此宣称监督体验已验收。
