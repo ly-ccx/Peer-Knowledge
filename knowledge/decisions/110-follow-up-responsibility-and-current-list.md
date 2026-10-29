@@ -172,3 +172,5 @@ export interface FollowUpProjection {
 - 修复后 Node 25.9.0 下 222 项相关回归全部通过，0 失败/取消/跳过。覆盖协议、Supervisor、协调 kernel/lifecycle、Delegation Provider、旧核验未知结果保护、抽屉状态；三个模型工具入口均经真实 Provider → Supervisor 验证，不靠 stub 直接返回取消成功。
 - protocol、i18n、runtime-node 构建及 Desktop 类型检查通过；工具说明和 storage worker 源码已按原生成链更新。当前用户撤回后未知账本未清空，自动替换/续跑仍不能跳过它，停止失败和租约丢失的恢复不会重放命令。
 - 本轮为实现者自测及内容/diff 自审，非独立审阅；尚未完成本次远端完整 CI、完整产品截图/交互回归、真实模型清理或安装包验收，不继承上一批 CI 结论。真实用户任务记录只读排查，没有直接改写其计划、账本或会话来模拟成功。
+
+首轮 CI 补记：双平台完整构建通过，workspace 类型检查发现 TUI 单参数取消调用被新增上下文参数的必填声明阻塞（TS2554）。已保持上下文参数可选，原调用无当前用户证明时继续保留未知结果门；runtime-node 重建与 TUI 类型检查通过，三项取消兼容回归通过。该修正不改变撤回语义，完整 CI 以代码 PR233 后续结果为准。
