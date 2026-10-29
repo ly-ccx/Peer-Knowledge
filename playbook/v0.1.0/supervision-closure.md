@@ -69,3 +69,5 @@ Desktop 在首次活动位置合并同 session 的所有通知，使用宿主当
 按 ADR111 §14 补齐：用户回合 roster 纳入同一父 Bot 未决任务，唤醒保留范围；L7 保留责任、阻塞和中断查询事实；有未决任务的用户回合强制已有结构化 post_reply，在原预算内只补一次交付机会，普通文本不走无源 fallback；真实已投递回复的 sources 写回当前工作跟进关系，崩溃后恢复也保留，仍有修复责任则继续，真实 settled 后才 delivered。只读 get_session/get_verification_detail 遗留 unknown 按原 dispatch/turn、唯一目标、父子归属、非活动 attempt 与核验进行对账，记 query_interrupted，既不提供原结果也不验收任务，外部副作用保持保护。
 
 新增同父 Bot 旧任务名册/跨父与唤醒隔离、普通文本交付拒绝/一次修正、真实交付后的跟进责任、只读 unknown 正反例和 L7 信任边界用例，未运行。日常验证仍仅内容/diff 审阅；本地测试实例更新所需 protocol/runtime-node 构建与针对用户故障的现场观察单独记录，不替代发布测试。
+
+补充：原失败 verifier 有 canonical failed/completedAt，continuation 却遗留 requesting/formatAttempt=1，重核验会直接 no_progress。continuation port 仅凭晚于最后进展的真实终态核验回执与核验阻塞原因，沿现有 completed recheck 收口旧请求，保留累计使用量、失败和工具未知保护。新增 requesting/tools/过时回执边界用例，未运行。

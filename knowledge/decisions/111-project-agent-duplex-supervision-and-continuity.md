@@ -257,3 +257,5 @@ Verifier/Explorer 的既有 ephemeral 回合不持久化独立 Conversation，co
 - 已投递且宿主校验过的 source 会成为本回复工作的跟进关系。回复不是完成：当前事实仍要求技术处理时继续原监督；只有真实复核、关闭闸门、已投递关联回复与既有 policy/user acceptance 全部满足，任务才退出当前列表。核验失败、人工门、用户停止和 unknown 外部副作用保持原保护。
 - get_session/get_verification_detail 是固定的只读宿主观察。崩溃遗留 unknown 只有单一精确 dispatch、原回合 canonical 调用/原调度来源、同一 work/session、实际 attempt 已不活跃、宿主确认相同父子归属且无活动核验时可记 query_interrupted 对账；这只证明该观察已中断，不提供原 Tool Result、核验结论、授权或验收。写/控制调用及歧义一律不在此路径。记录沿已有 reconciledDispatches，schema/storage 与最小读写版本保持现行 6，扩展观察 outcome；旧宿主保留数据，不能把 query_interrupted 当作 verification_interrupted 来解除控制转移。
 - 旧任务继续使用原 plan/session/Evidence 及核验入口，不能修改真实数据为假完成或靠隐藏卡片收尾。真实恢复效果另记实施回执。
+
+现场同时发现旧核验已经有宿主 failed/completedAt 回执，但 continuation 仍是 requesting/formatAttempt=1。重新核验时，仅在非 tools 阶段、同一计划的终态核验回执晚于该 continuation 最后进展、且 runner 明确核验阻塞时，按已结束回合进入既有 completed recheck；保留累计请求/工具预算与旧失败记录，不重放旧 Provider 尾巴，不处理 tools/未知副作用阶段。该兼容由既有 continuation port 从真实事实推导，不按计时器重置额度。
