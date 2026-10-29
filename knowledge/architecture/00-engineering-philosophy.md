@@ -350,3 +350,6 @@ Evidence 记录生成语言。
 ```
 
 如果不能，工程还没有进入正确轨道。
+
+
+2026-10-28：后续双向监督与连续工作设计见[架构说明](25-duplex-supervision-and-continuity.md)。本批源码、自测范围与限制见[实施回执](../../playbook/v0.1.0/code-structure-refactoring.md)；不将本次新增能力计入历史版本。
