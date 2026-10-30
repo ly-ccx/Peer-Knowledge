@@ -14,6 +14,8 @@ P06 / ReplyContext、ContinuousReply、ReplyBubble、QuoteChip，U02/U06/U14、T
 
 ## 独立第四栏与资料面板连续性（2026-10-30）
 
+RC30 回归补充：[代码 PR243](https://github.com/ly-ccx/Peer-Agent/pull/243) 让收起资料 dock 的横向透明边框归零，避免宽度为零仍占 2px；资源与会话继续共用原 10px 浮层间距，展开态边框不变。任务详情截图等待有限展开动画与内容几何稳定，不把过渡中间态当成静态验收。隔离源码 Electron 的资源 19 项检查通过，展开详情与并行任务截图已由实现者查看；全量组合候选及安装包、真实模型、完整辅助技术验收尚未因此成立。
+
 P06/P08/P17、U03/U09/U14、T02/T04/T05/T10：机器人资料／设置与资源第四栏使用各自容器及开关。第四栏容纳网页、文件、变更与只读子 Agent 会话；子会话以原 conversationId 为标签身份，保留 task 来源与挂载，隐藏时 inert/aria-hidden 且停止前台会话展示，关闭视图不停止执行。继续复用 ResourceTabStrip 的 SVG、键盘、横向可见性与相邻标签归焦，不新增独立调度面。
 
 资料 dock 使用共享 useFocusScope 的非 trap 模式；Escape 只关闭焦点所在的资料／资源栏，嵌套交互层和 IME 优先。资料收起立即 inert，现有 width 过渡和 watchVisualMotion 收尾保留；窄窗资料只改变原宿主定位，资源覆盖与放大沿既有切换。布局为资料预留宽度，防止主会话被两栏同时挤压。资源关闭仅恢复仍可见可交互的触发点，否则回主会话；切资源不重建主会话或资料草稿。

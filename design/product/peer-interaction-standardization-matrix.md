@@ -18,6 +18,8 @@ P06 / BotConversation、ContinuousReply、ReplyBubble、ReplyContext：多任务
 
 ## 独立第四栏与机器人管理分离（2026-10-30）
 
+RC30 回归补充：[代码 PR243](https://github.com/ly-ccx/Peer-Agent/pull/243) 修复资料栏关闭后的透明边框占位，关闭依据仍取原 dockPhase，不新增计时业务或权限事实。打开资源、拖拽取消、窄窗往返、跨 Bot 切换继续保留原草稿与资源身份。隔离资源场景 19 项通过，未触及用户实例；回复操作的发布验收改为检查深浅主题均常驻可见，过时的 hover 前隐藏条件不再适用。完整组合候选仍须重新捕获、逐图自审并 verify；该补充不是发布验收通过声明。
+
 P06/P08/P17、BotListShell / BotProfileDrawer / ResourceWorkspace，C 级展示调整（[代码 PR237](https://github.com/ly-ccx/Peer-Agent/pull/237)）。用户目标：网页、文件、变更与子 Agent 会话在独立第四栏查看，打开或关闭机器人资料／设置不替换资源现场。资料保留概况、任务、目标、记忆、设置；资源入口在主会话及真实对象链接，第四栏继续使用原工作区容器、混合标签与读取链。
 
 | 状态/对象 | 事实来源 | 用户控制 | 恢复与限制 |
