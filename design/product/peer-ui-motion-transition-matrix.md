@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## RC30 后输入保存与主进程查询隔离（2026-10-30）
+
+P06 / BotComposer，U06/U14、T01/T06/T09：[代码 PR245](https://github.com/ly-ccx/Peer-Agent/pull/245) 去掉逐键草稿保存中的完整机器人概览投影，改从既有档案读取有效身份和归档状态。输入恢复仍逐次持久化，原 IME/焦点/引用/附件及发送回执责任保留；没有新增组件、token、布局、动画或 UI 事实状态。Bot 切换仍由原恢复会话 flush，不因身份查询重建输入框。
+
+这是 B 级内部查询拆分。隔离服务采样中位数 10.57→0.54 ms，概览的历史/任务/审批/卡片读取归零；范围和样本见[交互矩阵](peer-interaction-standardization-matrix.md)。该结果不代表安装版键入、真实输入法或全产品验证。源码与回归用例仅内容/diff 自审；测试、构建/类型/架构/IPC、截图/交互回归仍待发布，无独立验收结论。
+
 ## Bot 输入热路径与静态布局（2026-10-30）
 
 P06 / BotComposer、BotConversationComposer，U06/U14、T06/T08/T09：草稿订阅局部化，完整消息历史不再消费逐字编辑和保存 revision；队列、回执与错误继续来自原恢复会话。Composer 复用原生 field-sizing，保留 36px 最小、200px 最大及内部滚动，移除逐键清零高度和同步 scrollHeight 测量，不增加计时器/动画。窄窗换行与宽度变化交给原生布局；不支持 field-sizing 时保持固定 rows 与滚动可编辑。
