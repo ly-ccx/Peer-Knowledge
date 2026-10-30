@@ -1,5 +1,13 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## Bot 输入延迟与草稿订阅隔离（2026-10-30）
+
+P06 / BotConversation、BotConversationComposer、BotComposer：用户在长会话或并行任务回复期间输入时，原完整 InputRecoveryView 订阅让逐键 draft 更新和保存 revision 回执均唤醒整个会话、历史列表与引用索引；textarea 每键以 height=0 → scrollHeight → height 强制同步布局。源码确认这两条热路径，未做安装版性能采样或量化加速结论。
+
+C 级界面修复：沿既有 session 按稳定字段引用投影，历史只订阅 ready/pending/received/sending；草稿与保存错误由独立输入区订阅，成功保存的 revision 不再触发无变化内容重绘。输入原样同步进入现有恢复会话，保存、发送前持久化、inputId、未知结果与失败重试保持原机制；发送读取当前引用，保留正文、附件、资源反馈及 Bot 身份。切 Bot 的原清理/flush 与引用定位仍有效，不新增存储或延迟写策略。
+
+输入框沿项目已有原生 field-sizing: content，在 36–200px 间自适应，长内容内部滚动；删除逐键测量与重复尺寸观察，保留 IME/Enter 防护、草稿准备、焦点和线程阅读意图。不支持原生自适应时沿 rows/min/max 与内部滚动保持可编辑。已补连续输入投影不变、发送/重试与保存失败恢复用例；仅内容/diff 实现者自审，未运行测试、构建、截图/交互回归或真实性能采样。发布覆盖长历史、并行流式、引用/附件、中文候选、窗口宽度和长短文本切换。
+
 ## Bot 回复的直接引用入口（2026-10-30）
 
 P06 / BotConversation、ContinuousReply、ReplyBubble、ReplyContext：多任务回复交错时，用户可在已落盘且正文非空的 Bot 回复下直接点击“引用”，也可继续选中正文片段引用。入口与“回复详情”常驻同一页脚，窄列可换行；未落盘的流式文字、空回复与系统状态不新增整条引用入口。

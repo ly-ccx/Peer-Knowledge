@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## Bot 输入热路径与静态布局（2026-10-30）
+
+P06 / BotComposer、BotConversationComposer，U06/U14、T06/T08/T09：草稿订阅局部化，完整消息历史不再消费逐字编辑和保存 revision；队列、回执与错误继续来自原恢复会话。Composer 复用原生 field-sizing，保留 36px 最小、200px 最大及内部滚动，移除逐键清零高度和同步 scrollHeight 测量，不增加计时器/动画。窄窗换行与宽度变化交给原生布局；不支持 field-sizing 时保持固定 rows 与滚动可编辑。
+
+原正文/引用/附件/资源反馈、IME 防误发、引用定位、手动历史读位和切 Bot 恢复沿既有机制；输入仍同步编辑并沿原路径持久化，不以延迟草稿更新换取流畅。C 级内容/diff 自审，投影隔离与发送恢复用例已写未运行；真实帧耗时、输入延迟、中文候选、缩放/分栏与长历史交互留待发布验收，未宣称量化性能达标。
+
 ## Bot 回复引用与输入连续性（2026-10-30）
 
 P06 / ReplyContext、ContinuousReply、ReplyBubble、QuoteChip，U02/U06/U14、T03/T06/T08：非空持久 Bot 回复提供常驻“引用”按钮，与“回复详情”共享页脚、焦点边界与 Frost 样式，窄列允许换行。沿 PeerIcon back 和既有本机草稿/quoteRefs，选段浮层继续复用原 MotionSurface；不新增动画或业务状态。整条入口绑定该回复的 messageId/content，不引用同屏其他任务或尚未持久化的流式段落。
