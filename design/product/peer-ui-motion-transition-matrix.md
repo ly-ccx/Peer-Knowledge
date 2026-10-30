@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## Bot 回复引用与输入连续性（2026-10-30）
+
+P06 / ReplyContext、ContinuousReply、ReplyBubble、QuoteChip，U02/U06/U14、T03/T06/T08：非空持久 Bot 回复提供常驻“引用”按钮，与“回复详情”共享页脚、焦点边界与 Frost 样式，窄列允许换行。沿 PeerIcon back 和既有本机草稿/quoteRefs，选段浮层继续复用原 MotionSurface；不新增动画或业务状态。整条入口绑定该回复的 messageId/content，不引用同屏其他任务或尚未持久化的流式段落。
+
+引用摘录沿既有 240 字符上限，在进入草稿时统一以保持预览与发送一致。显式点击后清理文字选区并以 preventScroll 聚焦 Composer，正文草稿、附件与资源反馈不改写；原文定位、移除、切 Bot 恢复、失败/未知重试沿既有入口。无新键盘全局监听，不改输入法和滚动策略；reduced-motion/forced-colors 沿既有规则。仅内容/diff 实现者自审，交错任务、键盘/IME、缩放/窄窗、原文定位与恢复仍待发布验收。
+
 ## 独立第四栏与资料面板连续性（2026-10-30）
 
 P06/P08/P17、U03/U09/U14、T02/T04/T05/T10：机器人资料／设置与资源第四栏使用各自容器及开关。第四栏容纳网页、文件、变更与只读子 Agent 会话；子会话以原 conversationId 为标签身份，保留 task 来源与挂载，隐藏时 inert/aria-hidden 且停止前台会话展示，关闭视图不停止执行。继续复用 ResourceTabStrip 的 SVG、键盘、横向可见性与相邻标签归焦，不新增独立调度面。
