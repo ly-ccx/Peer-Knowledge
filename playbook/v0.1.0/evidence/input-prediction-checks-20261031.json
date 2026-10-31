@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "reviewedSourceCommit": "c78f861f0e23e71ae6dbf655f8bf62bae8965683",
+  "independent": false,
+  "releaseGate": false,
+  "runs": [
+    {
+      "command": "pnpm build",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "63e52bcb6d9acb412e89cc289ed5104df331f4a394c8c5c6137e3f2ef5e4075c",
+      "note": "全工作区构建通过；末次 DOM 焦点修复后另跑 Desktop build"
+    },
+    {
+      "command": "pnpm typecheck",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "2dbd3e8a58081395dc51eed00e44e40183c0f8a62cc5b90b2ad58795a196ff84",
+      "note": "全工作区通过"
+    },
+    {
+      "command": "pnpm --filter @peer-agent/desktop build",
+      "passed": true,
+      "phase": "final",
+      "logSha256": "a6733d71fc9bbbe086ea5406bf450f71927240c1be3a678723f806177a34ba50",
+      "note": "末次产品代码与最终提交一致"
+    },
+    {
+      "command": "pnpm --filter @peer-agent/desktop typecheck",
+      "passed": true,
+      "phase": "final",
+      "logSha256": "7bffe12658e4a3d4f35ad588239179a7570a8ee2c79f806234112f7f0618c2bd",
+      "note": "末次产品代码与最终提交一致"
+    },
+    {
+      "command": "pnpm architecture:check",
+      "passed": true,
+      "phase": "final",
+      "logSha256": "efb17f6bcaeffe2c4fcdad6b0b98a63f5e9cf977c672a7cc84ce732416adb472",
+      "note": "Architecture 与 UI SVG/radius conventions 通过"
+    },
+    {
+      "command": "pnpm test",
+      "passed": false,
+      "phase": "pre-final",
+      "logSha256": "f58d05a49f86cc30a4000e3529e0cc7e2c3853f47aa1e027d9b1eb776799ae27",
+      "note": "runtime-node 1636/1637；既有 runtime-host 时序断言在并发压力下未赶上；不记一次无失败通过"
+    },
+    {
+      "command": "node --test packages/runtime-node/src/project-agent/runtime-host.test.mjs",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "bb4d0d55650ec9c83f4e58cf2134d8a3d66f0de5e0a5633179dfea5e3ae5be7d",
+      "note": "9/9，原断言保留"
+    },
+    {
+      "command": "pnpm --filter '!@peer-agent/runtime-node' -r --if-present test",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "e98e95ccdbb7341868c248b965d98c83a4cb220467dbe1bf9d5ca23b4bec64d2",
+      "note": "其余包完整通过；Desktop 6128 pass/5 既有 skip，附加 3 pass；TUI 817 pass"
+    },
+    {
+      "command": "pnpm marketplace:test",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "18e4f77cb6f6677509f6dd45e7faf7ae8c19f8a7f82d8df01ccc4a668810c0ef",
+      "note": "6/6"
+    },
+    {
+      "command": "pnpm changelog:test",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "0ae4f687ba018832f8f23aed6071831131423bac939cb51d6c906f8db2a5b902",
+      "note": "27/27"
+    },
+    {
+      "command": "pnpm upgrade:test",
+      "passed": true,
+      "phase": "pre-final",
+      "logSha256": "5b25859b73adb0f39a86a164b5eb1eefd9ef00cb2fd18e443eb76e4240cff555",
+      "note": "1/1"
+    },
+    {
+      "command": "node --test --test-concurrency=1 <prediction-related-files>",
+      "passed": true,
+      "phase": "final",
+      "logSha256": "098e3355b51cfa5466e914fc91c84ca41b1462e41a33f81981a0e2c16136281c",
+      "note": "50/50，0 skip"
+    }
+  ],
+  "originalWorktreesPreserved": true,
+  "originalKnowledgeDirtyFilesSha256": {
+    "knowledge/decisions/104-bot-capability-visibility.md": "a2bf37e9e335184c34bea5d4bc82d7fcb5f38307079d1e5fa1837d24d779cd45",
+    "playbook/product-regression.md": "df05c5c640f7bd93c9197141c04894d7a5eaa4ffae64a1d5b7b8febf6709d5f9"
+  }
+}

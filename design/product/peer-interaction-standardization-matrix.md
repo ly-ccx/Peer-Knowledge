@@ -1,5 +1,15 @@
 # Peer 全产品交互状态覆盖矩阵
 
+本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
+
+## 智能输入建议与草稿所有权（2026-10-31）
+
+P06／P21／P29，BotComposer、ComposerDraftControls 与 GeneralPanel 的 InputPredictionPanel：用户目标是减少下一句表达与续写成本。空草稿 next_turn 和末尾 continuation 只呈现单候选灰字；Tab／右方向键或明确按钮只写入原草稿编辑事务，Enter 仍仅发送真实正文。未采纳内容不保存、不计为输入、不触发任务／授权／Evidence；前台焦点、IME、命令／引用菜单、附件／决定／繁忙与项目准入均保留原优先级。
+
+状态事实来自 runtime-core 版本控制器、主进程快照及 request／validate 回执；设置开关、草稿外发、显式模型和每日限额经原设置事务保存，预算沿原 usage 日志预约／结算。失败／超时／过期回普通编辑，不抢焦点、不弹聊天错误或自动重试；关闭与切换取消旧代次。采纳／手工输入共用本地撤销顺序，原持久恢复、引用、附件、发送链不换所有者。
+
+按用户本次明确指令实施并提前验证，覆盖与限制见[专项回执](../../playbook/v0.1.0/input-prediction-validation.md)。这是实现者自审（independent=false），不继承旧 RC 验收，也不代表安装版、OS 中日文候选窗、完整读屏或未来联合候选门禁通过。
+
 ## Bot 输入延迟与草稿订阅隔离（2026-10-30）
 
 P06 / BotConversation、BotConversationComposer、BotComposer：用户在长会话或并行任务回复期间输入时，原完整 InputRecoveryView 订阅让逐键 draft 更新和保存 revision 回执均唤醒整个会话、历史列表与引用索引；textarea 每键以 height=0 → scrollHeight → height 强制同步布局。源码确认这两条热路径，未做安装版性能采样或量化加速结论。

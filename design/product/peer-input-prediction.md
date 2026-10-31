@@ -2,7 +2,7 @@
 
 创建时间：2026-10-31
 最后更新：2026-10-31
-状态：Proposed；完整设计已登记，代码未实施，产品未验收。
+状态：Accepted；IP-00—IP-06 已实施，用户授权的提前源码功能验证通过；版本联合候选／安装版验收另行执行。
 决策：[ADR 115](../../knowledge/decisions/115-input-prediction-and-draft-boundary.md)。
 任务拆分：[IP-00—IP-07](../../playbook/v0.1.0/input-prediction.md)。
 
@@ -343,3 +343,17 @@ IP-00 先收敛治理／规范与实作路径；IP-01 固化契约／reducer；I
 适用矩阵包含 P06（Bot 对话）、P34／C128 等现有 Composer 项，以及 U02／U06／U14、T01／T03／T06／T08 等输入、控件与连续性角色；编号以实施时矩阵实际行含义为准，不在当前旧工作树复制整张表或分配可能冲突的新编号。各实现卡将建议状态逐项写回原矩阵，状态只到内容审阅／待发布验收，不能代填验证通过。
 
 本轮完成完整方案、ADR、八张实施卡和目录入口；仅文档内容／diff 实现者自审。没有代码、配置、运行时实例或既有未提交工作的修改，没有运行测试、构建、截图、交互或真实模型验收；未完成任何功能交付，未加入已冻结候选。
+
+
+## 16. 首版实现收敛（2026-10-31）
+
+代码基于 RC31 开发线 `73ff763a` 的独立 `codex/input-prediction`，未触及用户已有工作树或正在运行的实例。共享 Protocol、runtime-core 控制器、system-context Source 和 runtime-node 纯推理服务负责公共规则，Desktop Adapter 负责真实主体、公共历史、路由、凭证、用量与 IPC；两种 Composer 复用同一 Hook／镜像／本地编辑事务。没有新依赖、候选数据库、发送端口或工具执行器。
+
+- Context Source v2 明确“替原用户写下一句”。公共历史以带原 role 的 conversation 数组封装为事实，连同 mode／quote／可选 draft 进入 user 数据消息；不把旧助手回复当作当前模型应该续答的角色序列。必需项目指令仍经原 Source 准入。输入以 UTF-8 字节加保守开销约束在 4096 上界，避免无 tokenizer 时低估；大指令／长历史会 abstain，不能宣称所有项目均有建议。
+- `input_predictor` 没有自动写入默认角色路由；显式选择后仍受项目 scope／localOnly 限制。现有 Provider Encoder／Consumer 增加真实 callback sink，绝不伪造 webContents。metadata-only 策略不写 Provider 正文 trace；Responses 订阅端不支持输出限额字段时，仍受本地输出缓冲与截止约束，不能据此承诺远端取消免费。
+- 模型凭证使用原 CredentialHelper 与解析器。新增可取消 Worker Adapter，把同步钥匙串 Helper 移出交互主线程；子进程 1 秒上限，服务推理 2 秒截止。普通聊天的凭证接口不迁移；未知／失败回到普通编辑。真实探针发现的同步 10 秒阻塞已据此修复。
+- 用量继续写 `usage/requests.jsonl`，purpose 为 input_prediction；派发前预约、完成后结算，同一随机账本 ID 聚合一次。缺失实际用量保留估算，损坏／截断日志拒绝新预测；重启不清零。预测不占用普通任务上下文，也不生成 Evidence。
+- 宿主提供 request／cancel／validate／status 四个 typed IPC。status 只返回配置与用量摘要，不含草稿／候选。采纳校验为单次消费；关闭、切换、编辑、IME、发送尝试、上下文变化及过期均失效。未采纳内容只在有界内存和展示层存在。
+- 镜像按独立字体属性而非可能为空的 CSS font shorthand 同步，保留真实 textarea 字号、缩进、宽度和滚动；不完整可见就停止展示／键盘拦截。建议不撑高输入框。平台撤销快捷键与 beforeinput 历史事务统一经过原草稿写入 seam，附件、引用和输入恢复仍由原模块拥有。
+
+用户授权的源码功能验证与今后版本门禁分别记录，详见[实施与验证回执](../../playbook/v0.1.0/input-prediction-validation.md)。自审始终标记 independent=false；真实模型仅使用合成材料，不代表长期质量、P95 目标或完整安装版／OS 输入法／读屏认证。
