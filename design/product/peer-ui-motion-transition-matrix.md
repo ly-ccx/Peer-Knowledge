@@ -1,5 +1,13 @@
 # Peer UI、动效与过渡体系覆盖表
 
+本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
+
+## 智能输入建议的静态表达与连续性（2026-10-31）
+
+P06／P21／P29、C022／C079，U06／U08／U14／U15、T06／T08／T09：共享 ComposerInputSuggestion 保留真实 textarea 值，独立 aria-hidden 镜像按字体属性、缩进和滚动同步；整条放不下则不显示、不拦截采纳键。灰字／真实草稿与明确 Tab 按钮区分，Frost token 和原生按钮复用，无流字动画／呼吸或声音。候选出现不撑高输入框、不推动历史；设置沿 SettingsGroup／Switch／Dropdown／保存失败恢复，不引入新设计体系。
+
+控制器以真实 composerInstanceId 管理输入框／采纳按钮交互组，离组、selection、输入、IME、发送、切目标及过期即失效；背景响应不抢焦点，平台撤销快捷键／beforeinput 沿原草稿 seam。减少动效保持同一静态终态；forced-colors 使用系统文字／按钮色。Chromium AX 检查、真实 Electron 深浅／大字号与交互范围详见[专项回执](../../playbook/v0.1.0/input-prediction-validation.md)，不宣称 VoiceOver、OS 候选窗、透明度降级全矩阵或安装版验收。
+
 ## Bot 输入热路径与静态布局（2026-10-30）
 
 P06 / BotComposer、BotConversationComposer，U06/U14、T06/T08/T09：草稿订阅局部化，完整消息历史不再消费逐字编辑和保存 revision；队列、回执与错误继续来自原恢复会话。Composer 复用原生 field-sizing，保留 36px 最小、200px 最大及内部滚动，移除逐键清零高度和同步 scrollHeight 测量，不增加计时器/动画。窄窗换行与宽度变化交给原生布局；不支持 field-sizing 时保持固定 rows 与滚动可编辑。

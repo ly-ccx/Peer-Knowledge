@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-31T15:00:57.124Z",
+  "sourceHead": "c78f861f0e23e71ae6dbf655f8bf62bae8965683",
+  "sourceFingerprint": {
+    "sha256": "466be1a259002114c529bad5d14d52715bf24c58a2ea5cfa8af600c020043d6c",
+    "files": 3448
+  },
+  "independent": false,
+  "scope": "Production Electron main/preload/renderer, prediction Provider HTTP, Context, budget and draft storage. Controlled HTTP cognition and in-memory fixture credentials; no installed-build or OS IME certification.",
+  "cases": [
+    {
+      "name": "next-turn ghost is separate from real draft and cannot be sent with empty Enter",
+      "passed": true
+    },
+    {
+      "name": "Tab accepts exactly once and subsequent Tab can navigate away",
+      "passed": true
+    },
+    {
+      "name": "acceptance and following manual edits undo in their real editor order",
+      "passed": true
+    },
+    {
+      "name": "continuation uses Right Arrow only at the end and leaves prefix intact",
+      "passed": true
+    },
+    {
+      "name": "selected text, mid-line caret and composition keep native keyboard behavior",
+      "passed": true
+    },
+    {
+      "name": "late HTTP response cannot override newer typing",
+      "passed": true
+    },
+    {
+      "name": "Escape dismisses without changing the draft; Shift Tab retains focus navigation",
+      "passed": true
+    },
+    {
+      "name": "pointer and accessible keyboard acceptance only edit the draft and preserve focus",
+      "passed": true
+    },
+    {
+      "name": "an unsent attachment suspends prediction and keeps the real draft",
+      "passed": true
+    },
+    {
+      "name": "switching Bots cancels an old pending response without transferring its draft",
+      "passed": true
+    },
+    {
+      "name": "provider error is truthful and ordinary editing recovers on a subsequent request",
+      "passed": true
+    },
+    {
+      "name": "daily quota rejects before HTTP and survives an unrelated settings save",
+      "passed": true
+    },
+    {
+      "name": "feature settings are real controls and expose unsent-draft sharing and budget",
+      "passed": true
+    },
+    {
+      "name": "unsent-draft sharing and the global switch stop requests immediately",
+      "passed": true
+    },
+    {
+      "name": "classic shell uses the same empty draft, Enter, Tab and undo contract",
+      "passed": true
+    },
+    {
+      "name": "classic continuation preserves slash and mention priority and uses the ordinary draft",
+      "passed": true
+    },
+    {
+      "name": "reduced motion and large text retain a fully visible actionable suggestion",
+      "passed": true
+    },
+    {
+      "name": "unaccepted suggestions stay outside persistent drafts and provider traces",
+      "passed": true
+    },
+    {
+      "name": "accepted draft is submitted exactly once through the original Bot input chain",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "bot-next-turn-dark",
+      "file": "bot-next-turn-dark.png",
+      "sha256": "d74e3648469ae21aa599e82364e7c17299b5ba1a35b6745da726033aa4956470"
+    },
+    {
+      "name": "bot-accepted-draft",
+      "file": "bot-accepted-draft.png",
+      "sha256": "2907a15f64880a4bd4df81f47eb00a00e8a008eea2e644af66201f29b93f6868"
+    },
+    {
+      "name": "bot-continuation-dark",
+      "file": "bot-continuation-dark.png",
+      "sha256": "e2559ca4a409b351afb06c27aa5dd63c04e16fa96349744045380d810242502a"
+    },
+    {
+      "name": "bot-composition-preserved",
+      "file": "bot-composition-preserved.png",
+      "sha256": "78031d06b8dfb62c04982a61a9fcfac427ffbfc88e134a8f4c7aabd5c9fbaccb"
+    },
+    {
+      "name": "settings-input-prediction-light",
+      "file": "settings-input-prediction-light.png",
+      "sha256": "a2baa1efebb597afe9a3ec86b891fe387f653916813ff695ab250bd9bf1e0296"
+    },
+    {
+      "name": "classic-next-turn-light",
+      "file": "classic-next-turn-light.png",
+      "sha256": "57a351a7aadfe9387a387f9265a8f8a9b4894f37b8c23ec8d934cf48848c6bf2"
+    },
+    {
+      "name": "classic-accepted-light",
+      "file": "classic-accepted-light.png",
+      "sha256": "b9cc81b34d5f75b566505a5ff8d777d8718f9d85c9394391006a214b1e72e371"
+    },
+    {
+      "name": "classic-large-text-reduced-motion",
+      "file": "classic-large-text-reduced-motion.png",
+      "sha256": "6297c87705b80f6dda85606e750a0c8bc53632d9a1e6389eaaa352466e3ef32c"
+    }
+  ],
+  "pageErrors": [],
+  "passed": true,
+  "providerCalls": [
+    {
+      "at": 1793458858891,
+      "mode": "next_turn",
+      "draftLength": 0,
+      "hasTools": false
+    },
+    {
+      "at": 1793458864865,
+      "mode": "next_turn",
+      "draftLength": 0,
+      "hasTools": false
+    },
+    {
+      "at": 1793458871200,
+      "mode": "continuation",
+      "draftLength": 2,
+      "hasTools": false
+    },
+    {
+      "at": 1793458877268,
+      "mode": "continuation",
+      "draftLength": 3,
+      "hasTools": false
+    },
+    {
+      "at": 1793458883368,
+      "mode": "continuation",
+      "draftLength": 3,
+      "hasTools": false
+    },
+    {
+      "at": 1793458890527,
+      "mode": "continuation",
+      "draftLength": 3,
+      "hasTools": false
+    },
+    {
+      "at": 1793458897361,
+      "mode": "continuation",
+      "draftLength": 3,
+      "hasTools": false
+    },
+    {
+      "at": 1793458903389,
+      "mode": "continuation",
+      "draftLength": 2,
+      "hasTools": false
+    },
+    {
+      "at": 1793458909445,
+      "mode": "continuation",
+      "draftLength": 4,
+      "hasTools": false
+    },
+    {
+      "at": 1793458916508,
+      "mode": "continuation",
+      "draftLength": 8,
+      "hasTools": false
+    },
+    {
+      "at": 1793458921673,
+      "mode": "next_turn",
+      "draftLength": 0,
+      "hasTools": false
+    },
+    {
+      "at": 1793458928438,
+      "mode": "continuation",
+      "draftLength": 7,
+      "hasTools": false
+    },
+    {
+      "at": 1793458934183,
+      "mode": "continuation",
+      "draftLength": 6,
+      "hasTools": false
+    },
+    {
+      "at": 1793458961656,
+      "mode": "next_turn",
+      "draftLength": 0,
+      "hasTools": false
+    },
+    {
+      "at": 1793458967668,
+      "mode": "next_turn",
+      "draftLength": 0,
+      "hasTools": false
+    },
+    {
+      "at": 1793458979969,
+      "mode": "continuation",
+      "draftLength": 3,
+      "hasTools": false
+    },
+    {
+      "at": 1793458986054,
+      "mode": "continuation",
+      "draftLength": 1,
+      "hasTools": false
+    },
+    {
+      "at": 1793458992142,
+      "mode": "continuation",
+      "draftLength": 4,
+      "hasTools": false
+    },
+    {
+      "at": 1793458999871,
+      "mode": "continuation",
+      "draftLength": 4,
+      "hasTools": false
+    }
+  ],
+  "traceExists": false,
+  "finishedAt": "2026-10-31T15:03:20.245Z"
+}

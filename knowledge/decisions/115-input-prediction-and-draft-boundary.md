@@ -2,7 +2,7 @@
 
 创建时间：2026-10-31
 最后更新：2026-10-31
-状态：Proposed（用户已确认设计方向并要求落地完整方案、ADR 和实施拆分；尚未授权代码实施，不表示实现或发布验收）
+状态：Accepted（2026-10-31 用户要求“完整做完，自己独立验证整个功能”，授权按本方案实施及提前功能验证；实施、验证与发布状态分别登记，不替代交付记录或授权发布）
 级别：A（Protocol、System Context、模型角色、未发送草稿准入与配置边界）；实施包含 B 级宿主／IPC 与 C 级输入体验。
 
 产品依据：[产品理念与价值对齐](../../design/product/peer-product-alignment.md)。
@@ -114,3 +114,20 @@ IME、现有命令／引用补全和有效浮层优先于智能建议。建议�
 ADR 编号已核对本地文件及 fetch 后所有 origin 远程引用：114 已被回复引用方案使用，本 ADR 使用 115。跨任务尚未推送的占号无法由本轮证明，派发前再次检查。
 
 2026-10-31：只完成方案、ADR、任务卡与入口索引，进行实现者内容／diff 自审；未改代码，未运行测试、构建或产品回归，未宣称独立复核。Proposed 不因文档完成自动升级为 Accepted，也不自动加入下一 RC。
+
+### 2026-10-31 实施启动与 IP-00 收敛
+
+用户随后明确授权完成全部功能并自行验证。代码使用独立 codex/input-prediction 工作树，基于开发线 `73ff763a`（RC31）；知识使用独立 codex/input-prediction-implementation，基于 main `2f83d5f`。两份原工作树及在制修改不动。当前工作树已包含完整体验规范及两份矩阵，不再缺少该依赖。
+
+- 无工具推理：既有 Provider Adapter 增补显式回调 sink 和 metadata-only trace 策略，继续由原 Encoder 编码，不伪造 webContents；共享 text inference 只调用一次传输，没有工具 executor。Responses 复用现有响应消费者；Qoder 关闭传输的队列／瞬态重试，预测截止独立生效。
+- 草稿编辑：共享 Composer 编辑事务持有有界的本地文本／selection 历史，协调 beforeinput 的 historyUndo／historyRedo 和平台快捷键；正文编辑、采纳、撤销统一经原草稿 edit 端口，持久草稿 schema 不变。真实 Electron 验证普通输入与采纳的撤销次序，不凭 setState 推断。
+- 预算：复用 usage/requests.jsonl。输入预测增加无正文的 purpose、预约／结算与估算标识，同一预测 requestId 的预约与结算只聚合一次；启动从日志重建当日消费，读取不完整时拒绝新预测。普通聊天记录与 lifetime 不改写，也不新建预测数据库。
+- 接线：共享 input-prediction 服务与输入内核；Desktop 专属 snapshot／credential／IPC Adapter；主 Bot 与经典 Composer 通过相同控制器复用，SettingsGroup 中明确开关、模型、草稿外发与限额。正式用户请求优先，取消预测不影响任务。
+- 提前验证由本次用户指令明确授权，覆盖契约、Provider／服务、两个真实输入面、IME 事件、撤销、失败、隐私与预算，并执行相关构建／类型／架构／IPC 检查。实施者自审记 independent=false；不把本次功能验证冒充未来版本联合候选或已安装版验收。不发版本、不安装或重启用户实例。
+
+
+### 2026-10-31 实作补记
+
+实现沿既定边界落地，详细收敛见[完整方案 §16](../../design/product/peer-input-prediction.md#16-首版实现收敛2026-10-31)。增加第四个只读 status IPC 为设置提供真实不可用原因／当日用量；不增加授权或执行事实。凭证仍由原 CredentialHelper／resolver 管理，以可取消 Worker Adapter 隔离同步 OS 访问，避免后台预测阻塞输入主线程。Provider callback 与 metadata-only 策略只扩展既有推理 seam；原普通聊天调用兼容。
+
+Context Source v2 的历史是保留 role 字段的事实数组，避免模型接着扮演原助手；固定预测规则仍只由显式 Source 提供。暂无 tokenizer 的首版采用保守 UTF-8 字节上界，无法在预算内保留强制指令时 abstain。该取舍减少适用范围，不放松上下文或权限限制。验证、已知边界及提交身份见[功能回执](../../playbook/v0.1.0/input-prediction-validation.md)，不作为发布或安装授权。
