@@ -1,7 +1,7 @@
 # 0.1.0 任务卡总目录
 
 创建时间：2026-09-26
-最后更新：2026-10-21
+最后更新：2026-10-31
 
 > 用途：把 0.1.0 的全部工作拆成可以单独派给任何模型执行的任务卡。  
 > 地位：执行层合同。方向与范围以 `design/product/v0.1.0-release-plan.md` 与 ADR 80–85 为准；执行规矩以 `playbook/project-agent-implementation-handbook.md` 为准（本目录取代手册 §7 的旧卡片）。  
@@ -28,6 +28,7 @@
 | `rc16-candidate.md` | RC16 持续推进、回复/子任务/历史错误分离、无默认累计执行上限；180 图自审、34 项升级恢复、正式签名包与公开更新验收 |
 | `rc15-candidate.md` | RC15 Full 连续看图、中断核验恢复、小猫状态栏；候选源码、发布门禁与安装验证记录 |
 | `bot-owned-access-policy.md` | ADR101 主 Bot 授权主体、子任务动态继承、逐文件修改评审与测试验收 |
+| `input-prediction.md` | ADR115 智能输入建议完整方案入口与 IP-00—IP-07 实施拆分；Proposed、未实施，不自动纳入下一版本／RC |
 
 ---
 
