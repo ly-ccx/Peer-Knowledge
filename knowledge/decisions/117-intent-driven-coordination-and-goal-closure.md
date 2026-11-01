@@ -213,3 +213,14 @@ IC-01：在现有 work 上保存 intentCoordination，单独的协调判断 revi
 共享 workspace 日志的自动恢复按 canonical work 的 parentConversationId 归属过滤：当前 Bot 不领取其他 Bot 的输入、工作、事件、重试预约或回复补偿。可证明归属的 legacy 记录继续兼容；未知归属不从文本猜测。原生 workspace 小结定时器沿既有宿主装配绑定目标会话；若聚合引用包含已知其他 Bot 原件，保留待办并返回 scope conflict，不偷移责任或清空对方待办。这不是新增跨 Bot 权限或自动迁移授权。
 
 格式 8 是这四包的完整特性门槛；发布前不将包间提交当作独立可部署版本，也不向包间旧提交降级接管活跃数据。正式旧 reader/writer（本基线格式 2–6）拒绝新格式；重建保留 durable head/manifest 的最高门槛。历史 digest 接收可证明的旧写法，新判断使用字段顺序无关的内容摘要；无法证等时拒绝重放。ADR116 格式 7 仍未集成，资源等待返回明确 Adapter 不可用，不能宣称已具备资源账本或 Session Control 新能力。
+
+
+## 15. RC32 与 ADR116 的组合契约（2026-11-01，实施中）
+
+用户要求全部待合并 PR 共同发版，因此必须把 ADR116 的格式 7 与本决策的格式 8 串行整合后验证，不把两个分支的独立自测相加当作发布验收。
+
+- 组合实现采用完整特性门槛 **9**，保留已有 2–8 的历史读取和各自真实 reducer，并在原 journal/派生存储同时承接 Session Control 与 Intent 记录。开始写入组合语义前按既有 head/manifest/reader/writer/executor 机制提升最低版本；重建保留最高门槛。旧 7 或独立 8 writer/executor 不得接管新的活跃格式 9 数据，不能仅把支持版本数字调大而缺 reducer。
+- 旧格式 7 的 Session Control/资源账本恢复与旧格式 8 的 Intent 恢复各按原事实成立。8 在独立分支不含设备资源账本语义，不能因 `minimumWriter >= 7` 就推断它已建立资源存储；首次组合准入仍由 ADR116 的 legacy 导入/停稳/unknown 保护完成。真正已启用资源契约的 7/9 若缺失其设备账本，继续 fail closed，不通过重建空账本解锁。
+- 根目标关闭、子任务签收和资源释放仍分别取原真源。Intent Adapter 不代行停止屏障，不从 return/fulfilled 推导 released；Session Control 也不从停稳推导目标已满足。保留旧执行代次、未知调用、Provider 句柄、用户暂停/取消、预算与原授权边界。
+- 本轮不扩展模型可提交的资源等待引用：尚无正式 Adapter 的 `wait.resource` 仍明确返回不可用；已排队会话沿现有 session/资源事实与宿主事件继续。存在设备资源账本不等于模型可自行构造 claim 或资源资格，不能将此未开放入口包装为已实现能力。
+- 验证必须覆盖 7/8 记录重开、9 的最低门槛/manifest 丢失重建/旧 writer 拒绝、控制与意图记录共存，以及最终组合候选的全量 build/test/type/architecture/IPC 和产品回归。当前仅冻结组合契约，结果在发布回执单独记录；不修改个人数据或当前实例。

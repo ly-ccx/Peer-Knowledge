@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 任务停止与资源等待的表达连续性（2026-11-01）
+
+P06 / P08 / P17，沿 [ADR116](../../knowledge/decisions/116-session-control-and-resource-settlement.md) 的同一控制/资源事实更新 Desktop 任务状态与 CoordinationDetails、TUI 状态。活动拥有者、历史未知保护、本机资源恢复分别表达；详情在既有折叠信息区展示涉及目录，并按稳定 sessionId 打开此前任务。退出当前跟进不隐藏历史 unknown，也不把保护伪装成活跃接管者。
+
+用户仍控制主会话、阅读位置、草稿与查看入口。后台收尾/重排只更新状态事实，不切任务、不抢焦点、不恢复贴底；没有新增组件动效、计时成功、图标系统、布局 physics 或存储的 UI 真值。保留原 MotionDetails、PeerIcon 与减少动效的静态终态。只完成实现者源码/内容/diff 自审，未运行截图/交互、IME/读屏/安装包或发布验收；与本次有关的用户状态及恢复见[交互矩阵](peer-interaction-standardization-matrix.md#任务控制与资源交接2026-11-01)。
+
 本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
 
 ## 智能输入建议的静态表达与连续性（2026-10-31）
@@ -7,6 +13,12 @@
 P06／P21／P29、C022／C079，U06／U08／U14／U15、T06／T08／T09：共享 ComposerInputSuggestion 保留真实 textarea 值，独立 aria-hidden 镜像按字体属性、缩进和滚动同步；整条放不下则不显示、不拦截采纳键。灰字／真实草稿与明确 Tab 按钮区分，Frost token 和原生按钮复用，无流字动画／呼吸或声音。候选出现不撑高输入框、不推动历史；设置沿 SettingsGroup／Switch／Dropdown／保存失败恢复，不引入新设计体系。
 
 控制器以真实 composerInstanceId 管理输入框／采纳按钮交互组，离组、selection、输入、IME、发送、切目标及过期即失效；背景响应不抢焦点，平台撤销快捷键／beforeinput 沿原草稿 seam。减少动效保持同一静态终态；forced-colors 使用系统文字／按钮色。Chromium AX 检查、真实 Electron 深浅／大字号与交互范围详见[专项回执](../../playbook/v0.1.0/input-prediction-validation.md)，不宣称 VoiceOver、OS 候选窗、透明度降级全矩阵或安装版验收。
+
+## RC30 后输入保存与主进程查询隔离（2026-10-30）
+
+P06 / BotComposer，U06/U14、T01/T06/T09：[代码 PR245](https://github.com/ly-ccx/Peer-Agent/pull/245) 去掉逐键草稿保存中的完整机器人概览投影，改从既有档案读取有效身份和归档状态。输入恢复仍逐次持久化，原 IME/焦点/引用/附件及发送回执责任保留；没有新增组件、token、布局、动画或 UI 事实状态。Bot 切换仍由原恢复会话 flush，不因身份查询重建输入框。
+
+这是 B 级内部查询拆分。隔离服务采样中位数 10.57→0.54 ms，概览的历史/任务/审批/卡片读取归零；范围和样本见[交互矩阵](peer-interaction-standardization-matrix.md)。该结果不代表安装版键入、真实输入法或全产品验证。源码与回归用例仅内容/diff 自审；测试、构建/类型/架构/IPC、截图/交互回归仍待发布，无独立验收结论。
 
 ## Bot 输入热路径与静态布局（2026-10-30）
 
