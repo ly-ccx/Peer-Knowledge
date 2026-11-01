@@ -1,7 +1,9 @@
 # ADR 111：主 Bot 双向监督、可靠续接与上下文连续性
 
+> 2026-11-01 后续提案：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在本文双向监督与工作责任上，拟统一输入处置、原目标覆盖、下一步承接及 DecisionFrame。工作问题仍使用原 requestId/revision/replyTo 和执行回执，父答不消耗人类请求；不增加重复监督者、不重放原生已完成工具。新增记录版本须高于实施时已合入的门槛，不覆盖本文最低读写/执行版本。提案 Proposed、未实施，本文 Accepted 契约及历史回执继续有效。
+
 创建时间：2026-10-28
-最后更新：2026-10-29
+最后更新：2026-11-01（关联 ADR 117 后续提案）
 
 状态：Accepted；2026-10-28 已接入本批源码实现，尚未发布验收。代码范围与限制见[实施记录](../../playbook/v0.1.0/code-structure-refactoring.md)。这不是已安装版本的能力声明。
 

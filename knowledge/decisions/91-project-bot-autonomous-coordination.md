@@ -1,7 +1,9 @@
 # ADR 91：主 Bot 自主协调、并行调度与取消重派
 
+> 2026-11-01 后续提案：[ADR 117：意图驱动协调与目标闭环](117-intent-driven-coordination-and-goal-closure.md) 深化本 ADR 的 Coordination Kernel：关联子任务的签收只证明阶段结果，拟以当前意图覆盖及实际交付/签收回执关闭根协调责任。仍由主 Bot 判断目标与跨任务关系、工作 Agent 自主选择范围内方法，保留 mandate、goalRevision、executionEpoch、真实人工门与能力链。四包见[实施卡](../../playbook/v0.1.0/intent-driven-coordination.md)。提案尚未实施，不改写本 ADR 的 Accepted 状态或 RC12 证据。
+
 创建时间：2026-10-10
-最后更新：2026-10-11
+最后更新：2026-11-01（关联 ADR 117 后续提案）
 
 状态：Accepted / Implemented in RC12（用户认可技术设计方向，并明确授予主 Bot 自主判断、取消错误任务和重新安排执行的协调权）。R91-01 至 R91-05 已按依赖合入开发线并发布 `v0.1.0-rc.12`；正式签名包8个真实模型协调场景与本轮发布验收通过。实际覆盖与限制见[RC12交接](../../playbook/v0.1.0/rc12-candidate.md)，不代表总体Ready/GA或用户日常安装已升级。
 
