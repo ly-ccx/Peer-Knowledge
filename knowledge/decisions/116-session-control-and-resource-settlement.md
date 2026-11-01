@@ -272,3 +272,6 @@ followUp 与 resourceProtection 是两个维度。已撤回任务 followUp=none 
 ## 14. RC32 组合发布接口（2026-11-01，实施中）
 
 与 ADR117 串行整合时，组合最低特性门槛升为 9，保留真实的格式 7 控制 reducer 与格式 8 意图 reducer，旧 writer/executor 对新活跃数据继续拒绝。完整约束见 [ADR117 §15](117-intent-driven-coordination-and-goal-closure.md#15-rc32-与-adr116-的组合契约2026-11-01实施中)。本文件的独立分支格式 7 收据保留为历史；设备账本、停止和 unknown 保护不因 Intent 根关闭而释放。组合验收尚未完成，不能继承两个分支各自的自测结论。
+
+
+RC32 整合补充（代码 PR252）：恢复前先通过同一 Session Control 停止屏障，等待执行/Provider 句柄期间释放 supervisor writer，再回到 writer 条件提交停止回执与新执行代次；恢复不重新暂停已准备好的 runner。替换任务启动失败也必须结清其已持有的资源，不只修改任务状态。文件 Provider 在创建父目录前即重检资源范围，创建后在写入前再次重检权限与范围。有关本地用例已通过；不是对最终组合候选或已安装版本的验收。

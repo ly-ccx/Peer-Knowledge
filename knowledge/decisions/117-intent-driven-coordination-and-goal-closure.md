@@ -223,4 +223,4 @@ IC-01：在现有 work 上保存 intentCoordination，单独的协调判断 revi
 - 旧格式 7 的 Session Control/资源账本恢复与旧格式 8 的 Intent 恢复各按原事实成立。8 在独立分支不含设备资源账本语义，不能因 `minimumWriter >= 7` 就推断它已建立资源存储；首次组合准入仍由 ADR116 的 legacy 导入/停稳/unknown 保护完成。真正已启用资源契约的 7/9 若缺失其设备账本，继续 fail closed，不通过重建空账本解锁。
 - 根目标关闭、子任务签收和资源释放仍分别取原真源。Intent Adapter 不代行停止屏障，不从 return/fulfilled 推导 released；Session Control 也不从停稳推导目标已满足。保留旧执行代次、未知调用、Provider 句柄、用户暂停/取消、预算与原授权边界。
 - 本轮不扩展模型可提交的资源等待引用：尚无正式 Adapter 的 `wait.resource` 仍明确返回不可用；已排队会话沿现有 session/资源事实与宿主事件继续。存在设备资源账本不等于模型可自行构造 claim 或资源资格，不能将此未开放入口包装为已实现能力。
-- 验证必须覆盖 7/8 记录重开、9 的最低门槛/manifest 丢失重建/旧 writer 拒绝、控制与意图记录共存，以及最终组合候选的全量 build/test/type/architecture/IPC 和产品回归。当前仅冻结组合契约，结果在发布回执单独记录；不修改个人数据或当前实例。
+- 验证必须覆盖 7/8 记录重开、9 的最低门槛/manifest 丢失重建/旧 writer 拒绝、控制与意图记录共存，以及最终组合候选的全量 build/test/type/architecture/IPC 和产品回归。组合源码已实现于代码 PR253：保留两类 reducer 与索引桶，显式写入格式 9；历史 7/8 重开、两类记录共存、manifest 丢失及 head 高于 manifest 的恢复用例已通过。格式 8 不被误认为已有资源账本，7/9 缺账本仍拒绝准入。最终组合版本的发布验收尚未完成，结果另记于发布回执；不修改个人数据或当前实例。
