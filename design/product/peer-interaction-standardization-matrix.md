@@ -1,5 +1,13 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 标准模型选择器收敛（2026-11-01）
+
+P06／P21／P29，BotModelControls、ComposerModelMenu、InputPredictionPanel、ModelRoutingPanel、BotPolicyFields、FallbackVisionSetting 和 QuickChatPopover；U02／U08／U14，T03／T04：所有已配置模型单选／多选共用 ui/model-picker 的触发器／模型面板、分组 Adapter、参数、定位／过渡和 Frost 样式。调用方继续拥有角色／项目过滤、集合校验、原生浮层宿主及保存失败恢复；供应商目录导入保持管理职责。规范见 [model-picker](../../knowledge/specifications/model-picker.md)。仅内容／diff 实现者自审，未运行测试或产品回归，待发布验收，不沿用旧组件证据。
+
+## 智能输入建议设置简化（2026-11-01）
+
+P21／InputPredictionPanel，U02／U14、T03／T04：用户仅需默认开启的总开关与模型选择；未选模型不请求，选择旁披露对话／草稿使用。沿已有设置与角色路由回执保存；旧关闭选择、预算和项目限制保留。移除重复占位提示、额度／项目／独立续写控件及常驻保存／用量文字。异常反馈置于所属设置行并复用 Frost 间距、换行与重试；加载／保存禁重入，失败保留编辑，离开仍沿原未保存恢复；不新增动画或焦点／滚动行为。仅内容／diff 实现者自审，未运行测试或截图／交互回归，待发布验收；此前专项证据不覆盖本修订。
+
 ## 任务控制与资源交接（2026-11-01）
 
 P06 / P08 / P17 的任务状态、Agent 活动行和详情，按 [ADR116](../../knowledge/decisions/116-session-control-and-resource-settlement.md) 实施 A/B 级控制与准入、C 级表达。用户目标：取消、暂停或换执行者后有真实收尾责任，后继工作可沿现有队列继续。控制事实来自 coordination-v2 的 SessionControlOperation/StopBarrierReceipt，资源事实来自本设备 SQLite，最终产品状态仍由 decideLifecycle 投影；点击、时钟或模型文本不生成权限、执行成功或 Evidence。
