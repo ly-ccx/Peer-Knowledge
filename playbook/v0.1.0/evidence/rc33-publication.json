@@ -1,0 +1,1159 @@
+{
+  "verifiedAt": "2026-11-01T17:05:53.607693+00:00",
+  "sourceHead": "429fa64d7f41a1c3476f2e6ba7bc3c3beacf7520",
+  "tag": "v0.1.0-rc.33",
+  "mergedPullRequests": [
+    252,
+    253,
+    254,
+    251,
+    255,
+    256
+  ],
+  "retainedInputFixPullRequest": 245,
+  "openPullRequestsImmediatelyBeforeTag": [],
+  "workflow": {
+    "id": 41328505008,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/41328505008",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124913414771,
+        "name": "meta",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout release commit",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Fetch main release source",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Check release readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run release:source-check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Derive version & channel from tag",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Post Checkout release commit",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ]
+      },
+      {
+        "id": 124913462262,
+        "name": "build (ubuntu-latest, linux, --linux --x64)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Verify macOS build architecture",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 5
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Stamp version from tag",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Install Linux desktop build deps",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Build Rust native binaries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Build frontend",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Build (electron-builder, no publish)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Verify macOS Developer ID signature and notarization",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 14
+          },
+          {
+            "name": "Verify packaged runtime entries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Upload build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          }
+        ]
+      },
+      {
+        "id": 124913462281,
+        "name": "build (windows-latest, win, --win)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Verify macOS build architecture",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 5
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Stamp version from tag",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Install Linux desktop build deps",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 9
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Build Rust native binaries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Build frontend",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Build (electron-builder, no publish)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Verify macOS Developer ID signature and notarization",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 14
+          },
+          {
+            "name": "Verify packaged runtime entries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Upload build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          }
+        ]
+      },
+      {
+        "id": 124913462290,
+        "name": "build (macos-15, mac, --mac)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Verify macOS build architecture",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Stamp version from tag",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Install Linux desktop build deps",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 9
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Build Rust native binaries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Build frontend",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Build (electron-builder, no publish)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Verify macOS Developer ID signature and notarization",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Verify packaged runtime entries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Upload build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          }
+        ]
+      },
+      {
+        "id": 124915347691,
+        "name": "build-cli (macos-15, darwin-arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Setup Bun",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify macOS build architecture",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Install Linux credential-helper build deps",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8
+          },
+          {
+            "name": "Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Stamp version from tag",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Build workspace packages for CLI",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Build CLI (peer + credential helper)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Verify peer --version",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Download signed macOS desktop artifact",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Prepare signed macOS CLI helper",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Package CLI archive",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Upload CLI artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Post Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Post Setup Bun",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 34
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 35
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 36
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 37
+          }
+        ]
+      },
+      {
+        "id": 124915347733,
+        "name": "build-cli (ubuntu-latest, linux-x64)",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Setup Bun",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify macOS build architecture",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 6
+          },
+          {
+            "name": "Setup Rust",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Install Linux credential-helper build deps",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Stamp version from tag",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Install dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Build workspace packages for CLI",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Build CLI (peer + credential helper)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Verify peer --version",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Download signed macOS desktop artifact",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 15
+          },
+          {
+            "name": "Prepare signed macOS CLI helper",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 16
+          },
+          {
+            "name": "Package CLI archive",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Upload CLI artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Post Cache cargo",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Post Setup Bun",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          },
+          {
+            "name": "Post Setup Node",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 34
+          },
+          {
+            "name": "Post Setup pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 35
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 36
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 37
+          }
+        ]
+      },
+      {
+        "id": 124915878583,
+        "name": "release",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout (release notes source)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Download all build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Flatten artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Publish GitHub Release",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Post Checkout (release notes source)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          }
+        ]
+      },
+      {
+        "id": 124916012526,
+        "name": "publish-npm",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41328505008,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Setup Node / pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Enable corepack",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Install monorepo deps",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Stamp version onto managed packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Build open runtime libraries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Guard runtime package manifests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Publish open runtime libraries to npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Publish @peer-agent/cli to npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Post Setup Node / pnpm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          },
+          {
+            "name": "Post Checkout",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          }
+        ]
+      }
+    ]
+  },
+  "githubRelease": {
+    "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.33",
+    "tag": "v0.1.0-rc.33",
+    "publishedAt": "2026-11-01T17:01:59Z",
+    "prerelease": true,
+    "assetCount": 14,
+    "assets": [
+      {
+        "name": "beta-linux.yml",
+        "size": 559,
+        "digest": "sha256:5578ccfa2e65c3a6cb5d9bad5b7f784c87b5ffd914c42d4947187e3bfeee0322",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/beta-linux.yml"
+      },
+      {
+        "name": "beta-mac.yml",
+        "size": 530,
+        "digest": "sha256:1b394837edc73b3e932bc3c4963d3e4872acac045b87ceba38ed404b1a313729",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/beta-mac.yml"
+      },
+      {
+        "name": "beta.yml",
+        "size": 367,
+        "digest": "sha256:9ba6fcbb48ce6f4fde92cd367c4bf13e8f62d7c6544467e5d75e9e260ccebd94",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/beta.yml"
+      },
+      {
+        "name": "builder-debug.yml",
+        "size": 1190,
+        "digest": "sha256:5134a10eff1f5d27562b67234c8b8a3cd2249ac3b1bfaa391eac1ce578d22520",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/builder-debug.yml"
+      },
+      {
+        "name": "Peer-Agent-0.1.0-rc.33-arm64.dmg",
+        "size": 144693223,
+        "digest": "sha256:b299ca8205d9cdc97ca5a66ed07a4d2c26bdc0b3052ae01b2be9496451208bc9",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-0.1.0-rc.33-arm64.dmg"
+      },
+      {
+        "name": "Peer-Agent-0.1.0-rc.33-arm64.dmg.blockmap",
+        "size": 150080,
+        "digest": "sha256:0e4e286943e302f0cedb2e4656fc9596c71c9100612816f8e2ec4a8bb5668f4b",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-0.1.0-rc.33-arm64.dmg.blockmap"
+      },
+      {
+        "name": "Peer-Agent-0.1.0-rc.33-arm64.zip",
+        "size": 142196404,
+        "digest": "sha256:aabe43570c2551a1d44995050a00dae58144bca3c0824fa23589be565ccf8c76",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-0.1.0-rc.33-arm64.zip"
+      },
+      {
+        "name": "Peer-Agent-0.1.0-rc.33-arm64.zip.blockmap",
+        "size": 146001,
+        "digest": "sha256:65dc74209f423dec3777e7261a31b115f700c691e26a994aed7d0d9b426fab3d",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-0.1.0-rc.33-arm64.zip.blockmap"
+      },
+      {
+        "name": "Peer-Agent-0.1.0-rc.33-x64.AppImage",
+        "size": 144683228,
+        "digest": "sha256:94686182ada8f0ff3dd1a904f57d3639263f68bc549871b43cd93cc8e7216928",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-0.1.0-rc.33-x64.AppImage"
+      },
+      {
+        "name": "Peer-Agent-0.1.0-rc.33-x64.deb",
+        "size": 116288772,
+        "digest": "sha256:4d893fba38bf51bb29aeb64c5bc65621be57714ad77f6f422448dd97f709b7ca",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-0.1.0-rc.33-x64.deb"
+      },
+      {
+        "name": "Peer-Agent-Setup-0.1.0-rc.33.exe",
+        "size": 223243698,
+        "digest": "sha256:f7b8906c0a7383e86ac21b77eb293b867403d8bf8ab7aae9108abfb706869795",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-Setup-0.1.0-rc.33.exe"
+      },
+      {
+        "name": "Peer-Agent-Setup-0.1.0-rc.33.exe.blockmap",
+        "size": 230621,
+        "digest": "sha256:02fd04f330e94e31e9797bf48f540a9dd07bcea780b99485c5100e0cd2eb7d8d",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/Peer-Agent-Setup-0.1.0-rc.33.exe.blockmap"
+      },
+      {
+        "name": "peer-darwin-arm64.tar.gz",
+        "size": 24076463,
+        "digest": "sha256:fa74f15b19ff90e154a3b6d722f0c9d5c52c4912fb3ef44fef1f7c621854a7fb",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/peer-darwin-arm64.tar.gz"
+      },
+      {
+        "name": "peer-linux-x64.tar.gz",
+        "size": 47744067,
+        "digest": "sha256:76716673b49a3cd9995bf97d5b3cfc40297c85c9829c0a378e0e042e780d9b31",
+        "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.33/peer-linux-x64.tar.gz"
+      }
+    ],
+    "feeds": {
+      "beta-linux.yml": {
+        "version": "0.1.0-rc.33",
+        "assets": [
+          "Peer-Agent-0.1.0-rc.33-x64.AppImage",
+          "Peer-Agent-0.1.0-rc.33-x64.deb"
+        ]
+      },
+      "beta-mac.yml": {
+        "version": "0.1.0-rc.33",
+        "assets": [
+          "Peer-Agent-0.1.0-rc.33-arm64.zip",
+          "Peer-Agent-0.1.0-rc.33-arm64.dmg"
+        ]
+      },
+      "beta.yml": {
+        "version": "0.1.0-rc.33",
+        "assets": [
+          "Peer-Agent-Setup-0.1.0-rc.33.exe"
+        ]
+      }
+    },
+    "verifiedAt": "2026-11-01T17:03:44.133730+00:00"
+  },
+  "distribution": {
+    "verifiedAt": "2026-11-01T17:04:35.584476+00:00",
+    "npm": [
+      {
+        "name": "@peer-agent/protocol",
+        "version": "0.1.0-rc.33",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.33"
+        },
+        "integrity": "sha512-0ZBJiuc/b9lBa7UnhVJnAxeBvoULSqJD5vHN3lxvvr71LkTv1y0m0jjGSIJPscdMCApqX1iySmHuVRb6JvCB9w==",
+        "tarball": "https://registry.npmjs.org/@peer-agent/protocol/-/protocol-0.1.0-rc.33.tgz"
+      },
+      {
+        "name": "@peer-agent/runtime-core",
+        "version": "0.1.0-rc.33",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.33"
+        },
+        "integrity": "sha512-A2vVkeQPGAIQy2j8MLrfhxpvZfugEJg2hkzsDDWdVNiFv0PWxYdzTK91JSV0Ea/YQkvg22uVb/kkCzI35VEWpQ==",
+        "tarball": "https://registry.npmjs.org/@peer-agent/runtime-core/-/runtime-core-0.1.0-rc.33.tgz"
+      },
+      {
+        "name": "@peer-agent/runtime-sdk",
+        "version": "0.1.0-rc.33",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.33"
+        },
+        "integrity": "sha512-exDPybXp0JyDM7zj6e9SAp5tFDaSQHVHMuwW7Wgf4FyD2tjJx2Xz9+WxXEZl+9dLmQvc2XJSFsuAo9XGFB+3gQ==",
+        "tarball": "https://registry.npmjs.org/@peer-agent/runtime-sdk/-/runtime-sdk-0.1.0-rc.33.tgz"
+      },
+      {
+        "name": "@peer-agent/cli",
+        "version": "0.1.0-rc.33",
+        "distTags": {
+          "latest": "0.0.18",
+          "beta": "0.1.0-beta.5",
+          "rc": "0.1.0-rc.33"
+        },
+        "integrity": "sha512-sqnC/otAqO97gRbTTyPVd78I9fg8TQQpZ9Dw23z4uj8ZhrwdcWvykwXq97/xIcw78A8KRITF1gnVpsrhuBPgew==",
+        "tarball": "https://registry.npmjs.org/@peer-agent/cli/-/cli-0.1.0-rc.33.tgz"
+      }
+    ],
+    "pages": {
+      "status": 200,
+      "paths": [
+        "",
+        "docs.html",
+        "changelog.html",
+        "changelog-data/manifest.json",
+        "changelog-data/v0.1.0-rc.33.json"
+      ],
+      "latest": {
+        "stable": "v0.0.18",
+        "beta": "v0.1.0-rc.33"
+      },
+      "generatedAt": "2026-11-02T00:22:00+08:00",
+      "bilingualNotes": true
+    }
+  },
+  "pagesWorkflow": {
+    "id": 41328505151,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/41328505151",
+    "conclusion": "success",
+    "head": "429fa64d7f41a1c3476f2e6ba7bc3c3beacf7520"
+  },
+  "macOS": {
+    "runner": "macos-15",
+    "architecture": "darwin-arm64",
+    "developerID": "Xu Chu (82672N97RP)",
+    "appAndUpdateZip": {
+      "bothCodesignVerified": true,
+      "bothStapleValidationPassed": true,
+      "bothGatekeeperSource": "Notarized Developer ID"
+    },
+    "desktopLogSha256": "d50cd5716cb9f1dcb8a66e35318fbc6802df2be71484fcfd04b7aa6a0620aa07",
+    "cliHelper": {
+      "version": "0.1.0-rc.33",
+      "sha256": "76f6aca2ead334fcc67c422f49e82354882e5eb5db4b66cef1c9fe8cdbf8eef4",
+      "identifier": "peer-credential-helper",
+      "teamIdentifier": "82672N97RP"
+    },
+    "cliLogSha256": "f8287a0c6c4c318c0ebf0e3d3bc902402d7b999765fa1cc511c7720bddd62adf"
+  },
+  "verificationLimits": [
+    "Asset presence/state/size and GitHub artifact SHA256 metadata checked; update-feed version/path/size and SHA512 encoding checked.",
+    "macOS Developer ID, notarization and update ZIP verified by signed build job; no installation, restart, OS IME or screen-reader regression on the user profile.",
+    "Windows and Linux signatures remain outside the current signing matrix."
+  ],
+  "readme": "updated"
+}
