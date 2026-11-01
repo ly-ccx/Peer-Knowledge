@@ -175,3 +175,11 @@
 `intent_reviewed` 通过原只读 verifier 运行与上下文 adapter 生成，不新增分类/逐轮 reviewer。只有当前核验确实覆盖原输入和要求时复用；否则在交还前核验 canonical 输入与全部根要求。覆盖陈述、公开回复和工具操作已登记均不等于完成；关闭须同时绑定当前核验及 delivered 综合回执。L1 添加稳定规则，L7 原 roster Source 接入最小事实 frame，完整有界选择与诊断在 IC-04。
 
 Node 25.9.0 依赖链构建通过。新组合用例证明“调查 accepted → 消费事件 → 持久继续 → 无新用户输入派发实现 → 实际交付/签收后唯一根关闭”，并验证无子任务查询、伪造 wait、轻量讨论和核验上下文。连同原 kernel/lifecycle/Runner/回合及 Context 用例首轮 85 项通过；补强 journal 关闭证明后复核 64 项通过；源码/diff 审阅通过。核验认知使用受控 port，尚未真实模型或安装版验收。IC-03 前置已就绪；待交付全局阻塞和局部失败计入全局熔断仍留给下一包，未宣称已修复。
+
+### IC-03 实施交接（2026-11-01）
+
+代码交付分支第三包：`ReplyDeliveryReceipt` 与原 journal 新增 `reply_committed`、`reply_settlement_started/failed`、`reply_settled`；只有综合条件满足才写原 `reply_delivered`，recovered 仍消费这个综合事实。受保护 v2 使用格式 8；未启用 owned writer fence 的旧 v2 及 legacy 保持原交付映射，不能在无 fence 时偷开新格式。
+
+交付 Module 按稳定 message/settlement ID 保序，独立记录错误、阶段与持久 retryAt。待签收 Promise 在进程内保留唯一实例，长等待不占主 Bot 执行 lane；完成后回到既有 work 恢复 seam。重启只经原幂等宿主签收回调读取已发生的 acceptance/memory/handoff 事实后补偿，不重放 Worker。单 work 的失败与 Provider/租约/权威日志故障分开，原熔断文件增加配置渠道作用域，不建第二套路由或自动换模型。原停止/unknown/资源保护保持；ADR116 的资源适配尚未整合。
+
+Node 25.9.0 构建通过；Runner、原连续性/存储/熔断及新隔离组合 74 项通过，核验继续身份及既有 recheck 复核 15 项通过。新用例覆盖持续失败和一直未返回的签收期间独立输入准入、同 work 保序、跨 work 推进、退避重建、canonical/acceptance/settled 三个中断窗口、租约丢失保留 pending、局部失败不熔断、配置渠道切换不丢输入及旧渠道失败持久化。中断通过受控故障注入；尚未声明真实模型、安装包、跨平台或发布验收通过。审阅补强了根核验请求身份：根要求/版本纳入 native checkpoint 来源，避免错误复用子阶段核验现场。IC-04 前置已就绪。
