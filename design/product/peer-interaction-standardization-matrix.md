@@ -10,6 +10,18 @@ P06／P21／P29，BotComposer、ComposerDraftControls 与 GeneralPanel 的 Input
 
 按用户本次明确指令实施并提前验证，覆盖与限制见[专项回执](../../playbook/v0.1.0/input-prediction-validation.md)。这是实现者自审（independent=false），不继承旧 RC 验收，也不代表安装版、OS 中日文候选窗、完整读屏或未来联合候选门禁通过。
 
+## RC30 后长会话输入：草稿身份检查（2026-10-30）
+
+2026-11-01 用户在载入 1,274 条长会话副本、包含此修复的源码窗口手动试用，确认打字顺畅。这是该窗口的用户反馈，不替代完整发布、系统输入法或辅助技术验收。
+
+P06 / BotComposer、输入恢复会话与 Desktop 草稿服务：用户更新 RC30 后反馈 Peer RSI 长会话仍卡顿。除了此前 renderer 订阅隔离，逐键保存还经 `directory.get()` 构建完整机器人概览，触发历史摘要、子任务、审批及问题卡片读取。[代码 PR245](https://github.com/ly-ccx/Peer-Agent/pull/245) 将草稿读写改为 `hasActiveBot()`，仅查询同一档案的有效身份与非归档状态。
+
+B 级内部查询拆分，没有移动权限、Evidence、IPC、System Context 或存储边界。合法 surface、缺失/非法/归档档案的拒绝继续有效；正文、引用、附件、资源反馈仍原样逐次写入既有草稿存储，发送前 flush、失败提示与同 inputId 重试保留。没有新的延迟写入或输入定时器；IME、焦点、阅读位置和页面结构沿原组件，后台事实仍走原查询。
+
+针对故障的隔离性能采样：10,000 条合成消息加本机任务目录的私有快照（1,234 份计划、18 个子任务及约 13.4 MB 子会话），修改前后各 20 次保存。服务耗时中位数 10.57→0.54 ms、P95 13.84→0.97 ms；四类概览读取各从 20 次降为 0。只导出聚合结果，原始用户内容不入库。这不是安装版端到端键入、真实 IME、后台流式或完整产品验收。
+
+新增有效/缺失/非法/归档身份及禁止草稿调用完整概览的回归用例；内容/diff 已审阅。按 Validation Scope 未运行测试、构建/类型/架构/IPC 或截图/交互回归；完整发布验证及安装版体验待后续候选，不能将 RC30 的发布验收继承给此修复。
+
 ## Bot 输入延迟与草稿订阅隔离（2026-10-30）
 
 P06 / BotConversation、BotConversationComposer、BotComposer：用户在长会话或并行任务回复期间输入时，原完整 InputRecoveryView 订阅让逐键 draft 更新和保存 revision 回执均唤醒整个会话、历史列表与引用索引；textarea 每键以 height=0 → scrollHeight → height 强制同步布局。源码确认这两条热路径，未做安装版性能采样或量化加速结论。
