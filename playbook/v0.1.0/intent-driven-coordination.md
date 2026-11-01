@@ -159,3 +159,11 @@
 2026-11-01：ADR 117、四包任务卡及关联 ADR 的 Proposed 衔接说明已编写；只做内容/diff 审阅。四包均未开始，未改变 Peer-Agent 代码、运行实例、生产任务或发布安排。
 
 2026-11-01 后续授权：用户要求四包全部实施并自测，覆盖本方案必要验证；历史“仅文档”记录保留。IC-01 实施基线、版本冻结和职责见 ADR117 §13。验证结果另行追加，不预填通过。
+
+### IC-01 实施交接（2026-11-01）
+
+代码提交 `420d90f0`（`codex/adr117-intent-coordination`）：Protocol 新增意图、逐输入处置、覆盖、责任处置、关闭和 DecisionFrame 契约；纯 intent kernel 校验输入/事件/持久决定来源、Bot 范围、work/goal 双 CAS、操作幂等与关闭条件。通过原 coordination-v2 的 journal/blob 与 objects 派生索引持久化 `intent_assessed` / `intent_closed`，不新增目录、数据库或权限真值。关闭由宿主核对真实交付、当前版本核验及无未决义务；模型覆盖陈述本身不构成核验。
+
+新事实 minimumReader/Writer/Executor 为 8；本分支支持 2–6 与 8，显式拒绝尚未集成的 ADR116 格式 7。后续合并必须整合两套 reducer，不因数字较大声称兼容。启用新事实前先持久升级 head/manifest；索引重建保留最高门槛，legacy writer 保持拒写。当前尚未接入模型动作或改变既有 runtime 关闭行为，交给 IC-02。
+
+用户明确授权自测。本机 Node 25.9.0：protocol/runtime-core/runtime-sdk/runtime-node 依赖链构建通过；新 kernel/生产存储恢复与原 v2 存储用例共 20 项通过，新用例单独复核 4 项通过；`git diff --check` 通过。覆盖来源伪造、双版本、同 ID 冲突、持久继续来源、阶段未完成、交付/核验不足、索引丢失、版本保留/拒写及既有存储崩溃窗口。未执行真实模型、多阶段 Runner、安装包/升级、UI 或跨平台验收；上述不是发布验收。
