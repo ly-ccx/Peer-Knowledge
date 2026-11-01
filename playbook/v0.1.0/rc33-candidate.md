@@ -3,7 +3,7 @@
 创建时间：2026-11-01
 最后更新：2026-11-02
 
-状态：RC33 最终联合提交 `429fa64d7f41a1c3476f2e6ba7bc3c3beacf7520` 已重新完成工程与产品验收，标签已推送，签名构建及线上分发核验进行中。RC32 因 GitHub macOS14 runner 计划停用未发布，失败标签和证据保留。
+状态：RC33 最终联合提交 `429fa64d7f41a1c3476f2e6ba7bc3c3beacf7520` 已重新完成工程与产品验收，标签已推送，Release、npm、更新源与Pages核验全部完成。RC32 因 GitHub macOS14 runner 计划停用未发布，失败标签和证据保留。
 
 ## 范围与边界
 
@@ -31,6 +31,10 @@ README: updated。双语说明、CHANGELOG、用户文档与落地页同步；�
 
 首次标准采集在 Electron inspector 的 `screen.getPrimaryDisplay` 读取处出现 `Resulting promise was garbage collected`，发生于产品交互前，页面错误为空；原始日志和正常首页失败现场保留。未改源码与断言，进行一次新的隔离采集后全程通过。工程检查没有因此重复。详细可移植结果见 [RC33最终源码验收](evidence/rc33-source-acceptance.json)。
 
-双语说明、CHANGELOG、版本戳与发布源检查通过。`check:changelog` 输出 `changelog data is current (111 releases, 112 JSON files)`。README: updated。确认GitHub Release和四个公开npm版本均尚不存在后，从该精确提交推送 `v0.1.0-rc.33`；线上构建和分发结果取得后补齐本节。
+双语说明、CHANGELOG、版本戳与发布源检查通过。`check:changelog` 输出 `changelog data is current (111 releases, 112 JSON files)`。README: updated。确认GitHub Release和四个公开npm版本均尚不存在后，从该精确提交推送 `v0.1.0-rc.33`；[Release 41328505008](https://github.com/ly-ccx/Peer-Agent/actions/runs/41328505008) 的8个作业全部成功，[RC33](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.33) 于2026-11-01 17:01:59 UTC（北京时间11月2日01:01:59）发布为prerelease，14项资产齐全。三平台beta更新清单均指向RC33，文件路径、字节大小与SHA512编码核对通过；GitHub资产上传状态与非零大小、SHA256元数据记录到回执。
+
+macOS15实际以darwin-arm64构建；原始 `.app` 和更新ZIP解压应用均通过Developer ID（82672N97RP）、严格codesign、stapler与Gatekeeper `Notarized Developer ID`。CLI归档为darwin-arm64和linux-x64；macOS helper从同次已签Desktop产物取出，签名身份和字节哈希验证通过。
+
+protocol、runtime-core、runtime-sdk与cli四个公开npm包的精确版本与rc标签均为0.1.0-rc.33，tarball地址全部HTTP200且完整性字段存在；runtime-node继续private。Pages run41328505151在同一最终提交部署成功，首页、文档、更新日志、manifest和版本JSON五条路径HTTP200，manifest.latest.beta为RC33、非epoch时间戳、双语说明完整。详细线上事实见 [RC33发布回执](evidence/rc33-publication.json)。
 
 范围限制：实现者自审 independent=false，不是独立评审。源 Electron 和受控模型执行，不等于真实供应商质量、系统IME/原生候选窗、完整屏幕阅读器、安装交互或长期验收。专项入口所见 v41.7.1 是 Electron 引擎版本，不是产品RC版本。没有安装、替换或重启个人应用；原工作区未提交内容和现有运行实例保留。
