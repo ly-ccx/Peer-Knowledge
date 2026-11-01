@@ -1,11 +1,19 @@
 # Peer 当前产品改造计划
 
 创建时间：2026-10-23
-最后更新：2026-10-24
+最后更新：2026-11-01
 
 > 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06、E07–E08、E09–E10、E11–E12 及 E15–E17 本批消费者已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；历史分批交付不等于合入开发线；本轮按用户授权合并全部开放 PR，状态见下节。不安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
+
+## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
+
+代码草稿：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，`46e51a1160ef4d875fadd89f7f3a7591d6859903`。
+
+用户本次授权范围：把当前任务条替换为右侧浮动面板，展示 Bot 公开注意力、真实任务、委派 Agent 的进度/卡点与产出资料，宽屏默认展开，窄屏从顶部 SVG 图标打开。C 级表达改动，覆盖 P06/P10、C216–C218，复用 E04/E05/E06/E09/E15/E17，不新增运行时或授权契约。
+
+实现已按源码和 diff 自审；范围、真实来源、加载/失败/历史边界及恢复责任已同步[交互矩阵](peer-interaction-standardization-matrix.md#bot-工作现场浮动面板2026-11-01)与[UI/过渡覆盖表](peer-ui-motion-transition-matrix.md#bot-工作现场的响应式连续性2026-11-01)。新增投影用例和原身份用例适配未运行。联合候选的 build/test/type/architecture/IPC 与完整产品回归仍由 E13 发布前执行，本记录不是发布验收或独立复核。
 
 ## PR214/215 汇合验证（2026-10-24）
 
