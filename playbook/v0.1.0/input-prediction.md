@@ -115,7 +115,7 @@ IP-00 治理与接口准备
 
 **不许改动**：main.mjs 新增业务策略、远程写端口、凭据持有方式、BotProfile 权限、任务调度语义；不创建预测数据库。
 
-**实现要点**：服务唯一 owner／dispose；可信 sender 和 surface 白名单；workspace／conversation 归属和请求大小；跨窗口 cancel／validate 隔离；contextToken 非授权；现有安装缺省关闭、启用默认仅下一句、续写独立披露；指定预测角色模型，项目 scope 可收紧；设置失败保持原实际值，关闭取消后续请求且不声称撤回已发数据；token／请求限额沿 ADR 配置。
+**实现要点**：服务唯一 owner／dispose；可信 sender 和 surface 白名单；workspace／conversation 归属和请求大小；跨窗口 cancel／validate 隔离；contextToken 非授权；缺省开启、模型显式选择前不调用；一个总开关统一两种模式，模型选择处披露对话与草稿准入，保留既有显式关闭直到重新选择模型或主动开启；指定预测角色模型，项目 scope 可收紧；设置失败保持原实际值，关闭取消后续请求且不声称撤回已发数据；token／请求限额沿 ADR 配置。
 
 **必须新增的用例**：不可信窗口／错误 owner／篡改目标；重复和未知 cancel／validate；窗口销毁清理；设置读取不写入、旧配置迁移、保存失败／并发；切路由／localOnly／项目关闭；关闭时在途候选失效；下一句模式拒收非空草稿；服务不会 submitInput 或改变 permission／resultAcceptance。
 
@@ -235,3 +235,7 @@ IP-00 治理与接口准备
 必要范围补充：设置面增加独立 InputPredictionPanel；原 llm-config-store 仅暴露可替换的异步凭证解析 Adapter，原同步接口兼容；model-credential-client 允许 Worker 配置短 Helper 超时；验证脚本位于代码仓 desktop/scripts，所有持久知识仅写本知识仓。未引入新权限、工具、存储目录或正式输入类型。
 
 最终交付：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，提交 c78f861f；19 项源码 Electron、8 张图逐图自审与 verify、50 项专项通过。完整测试的时序重跑、真实模型样本及未覆盖项已在专项回执记录。当前代码未合并／发布。
+
+## 2026-11-01 设置简化修订
+
+用户要求默认开启、仅一个总开关和模型选择。范围为 InputPredictionPanel、标准 ModelPicker 描述关联、共享 Frost 行内反馈样式、双语文案及 protocol 默认值；不新增 IPC／推理链／发布动作。删除重复模型提示、独立续写、额度／项目控件和常驻保存／用量文字；已有预算与项目约束继续执行。新增默认值、未知版本、旧显式拒绝和统一开关的契约用例，按当前 Validation Scope 留待发布执行；内容／diff 自审不继承上一轮截图验收。

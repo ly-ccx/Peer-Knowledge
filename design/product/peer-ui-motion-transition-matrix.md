@@ -29,6 +29,20 @@ C218/U11/U13/U14/T02/T09 保存差异补修（`61c58d73`）：移除专用纯文
 
 实现者完成内容/diff 自审。按用户明确要求启动隔离工作树的真实源码 Electron 开发窗口，沿现有本机记录查看宽屏、窄屏顶部入口、Escape 归焦、快速开合最终状态及全部资料视图保留；未发送消息、执行任务或接管已有实例。启动时只构建必要依赖；未运行测试、完整 build/type/architecture/IPC 或产品回归套件。没有逐帧/性能测量，也未验证真实步骤更新动画、系统减少动效、RTL、IME、辅助技术或安装包。E13 仍保留 200% 字号、长材料/多任务、原未决决定、文件拒绝/失效、嵌套层、主历史阅读锚点与深浅/强制颜色等完整取证。本次局部源码检查不是独立复核或发布验收。
 
+## 标准模型选择器收敛（2026-11-01）
+
+P06／P21／P29，BotModelControls、ComposerModelMenu、InputPredictionPanel、ModelRoutingPanel、BotPolicyFields、FallbackVisionSetting 和 QuickChatPopover；U02／U08／U14，T03／T04：所有已配置模型单选／多选共用 ui/model-picker 的触发器／模型面板、分组 Adapter、参数、定位／过渡和 Frost 样式。调用方继续拥有角色／项目过滤、集合校验、原生浮层宿主及保存失败恢复；供应商目录导入保持管理职责。规范见 [model-picker](../../knowledge/specifications/model-picker.md)。仅内容／diff 实现者自审，未运行测试或产品回归，待发布验收，不沿用旧组件证据。
+
+## 智能输入建议设置简化（2026-11-01）
+
+P21／InputPredictionPanel，U02／U14、T03／T04：用户仅需默认开启的总开关与模型选择；未选模型不请求，选择旁披露对话／草稿使用。沿已有设置与角色路由回执保存；旧关闭选择、预算和项目限制保留。移除重复占位提示、额度／项目／独立续写控件及常驻保存／用量文字。异常反馈置于所属设置行并复用 Frost 间距、换行与重试；加载／保存禁重入，失败保留编辑，离开仍沿原未保存恢复；不新增动画或焦点／滚动行为。仅内容／diff 实现者自审，未运行测试或截图／交互回归，待发布验收；此前专项证据不覆盖本修订。
+
+## 任务停止与资源等待的表达连续性（2026-11-01）
+
+P06 / P08 / P17，沿 [ADR116](../../knowledge/decisions/116-session-control-and-resource-settlement.md) 的同一控制/资源事实更新 Desktop 任务状态与 CoordinationDetails、TUI 状态。活动拥有者、历史未知保护、本机资源恢复分别表达；详情在既有折叠信息区展示涉及目录，并按稳定 sessionId 打开此前任务。退出当前跟进不隐藏历史 unknown，也不把保护伪装成活跃接管者。
+
+用户仍控制主会话、阅读位置、草稿与查看入口。后台收尾/重排只更新状态事实，不切任务、不抢焦点、不恢复贴底；没有新增组件动效、计时成功、图标系统、布局 physics 或存储的 UI 真值。保留原 MotionDetails、PeerIcon 与减少动效的静态终态。只完成实现者源码/内容/diff 自审，未运行截图/交互、IME/读屏/安装包或发布验收；与本次有关的用户状态及恢复见[交互矩阵](peer-interaction-standardization-matrix.md#任务控制与资源交接2026-11-01)。
+
 本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
 
 ## 智能输入建议的静态表达与连续性（2026-10-31）
@@ -36,6 +50,12 @@ C218/U11/U13/U14/T02/T09 保存差异补修（`61c58d73`）：移除专用纯文
 P06／P21／P29、C022／C079，U06／U08／U14／U15、T06／T08／T09：共享 ComposerInputSuggestion 保留真实 textarea 值，独立 aria-hidden 镜像按字体属性、缩进和滚动同步；整条放不下则不显示、不拦截采纳键。灰字／真实草稿与明确 Tab 按钮区分，Frost token 和原生按钮复用，无流字动画／呼吸或声音。候选出现不撑高输入框、不推动历史；设置沿 SettingsGroup／Switch／Dropdown／保存失败恢复，不引入新设计体系。
 
 控制器以真实 composerInstanceId 管理输入框／采纳按钮交互组，离组、selection、输入、IME、发送、切目标及过期即失效；背景响应不抢焦点，平台撤销快捷键／beforeinput 沿原草稿 seam。减少动效保持同一静态终态；forced-colors 使用系统文字／按钮色。Chromium AX 检查、真实 Electron 深浅／大字号与交互范围详见[专项回执](../../playbook/v0.1.0/input-prediction-validation.md)，不宣称 VoiceOver、OS 候选窗、透明度降级全矩阵或安装版验收。
+
+## RC30 后输入保存与主进程查询隔离（2026-10-30）
+
+P06 / BotComposer，U06/U14、T01/T06/T09：[代码 PR245](https://github.com/ly-ccx/Peer-Agent/pull/245) 去掉逐键草稿保存中的完整机器人概览投影，改从既有档案读取有效身份和归档状态。输入恢复仍逐次持久化，原 IME/焦点/引用/附件及发送回执责任保留；没有新增组件、token、布局、动画或 UI 事实状态。Bot 切换仍由原恢复会话 flush，不因身份查询重建输入框。
+
+这是 B 级内部查询拆分。隔离服务采样中位数 10.57→0.54 ms，概览的历史/任务/审批/卡片读取归零；范围和样本见[交互矩阵](peer-interaction-standardization-matrix.md)。该结果不代表安装版键入、真实输入法或全产品验证。源码与回归用例仅内容/diff 自审；测试、构建/类型/架构/IPC、截图/交互回归仍待发布，无独立验收结论。
 
 ## Bot 输入热路径与静态布局（2026-10-30）
 
