@@ -3,7 +3,7 @@
 创建时间：2026-11-01
 最后更新：2026-11-01
 
-状态：Accepted / 实施中（2026-11-01 用户明确要求按四个工作包顺序全部实施并完成自测）。批准不表示已实现或已通过验证，不自动发布、安装或纳入 RC。
+状态：Accepted / 四包源码实施与自测完成（交付分支，2026-11-01）。代码 `3c7ef152`，实际检查、一次文件复测及未覆盖范围见[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。尚未合并、安装或发布；真实模型、安装版与发布产品验收仍待执行。
 
 级别：A（协调协议、目标关闭、上下文准入及存储兼容），B（Runner、交付、失败隔离和进展策略）。产品表面若需调整，另按 C 级体验流程处理。
 
@@ -164,7 +164,7 @@ flowchart TD
 
 ## 11. 对应 ADR 的衔接
 
-| 原决策 | 本提案获准并实施后拟调整的部分 | 必须保留 |
+| 原决策 | 本决策交付分支的实施衔接 | 必须保留 |
 | --- | --- | --- |
 | ADR 88 / 91 | 原目标解释、阶段签收与根关闭、typed disposition | 来源、预算、CAS、epoch、取消/恢复及唯一能力链 |
 | ADR 93 / 110 | 子任务责任与根责任分层；已签收阶段退出子列表不消除原目标 | 唯一 followUp、真实人工门、历史结果和 Evidence |
@@ -172,7 +172,7 @@ flowchart TD
 | ADR 95 | 统一进展观察及局部失败范围 | 无默认累计上限、真实预算与未知用量 |
 | ADR 111 / 112 | 统一根责任处置入口和当前事实视图，减少事后拼接 | 结构化工作问题、双向执行回执、原生续接和模块所有权 |
 
-本提案未获准实施前，不覆盖这些 Accepted 决策及其历史验收。
+本决策按 §13 获准实施，实际交付分支接口见 §14；关联 ADR 已同步实施衔接。原 Accepted 决策的历史验收仍保留原候选和范围，不由本次源码自测改写。
 
 ## 12. 实施、验收与当前状态
 
@@ -180,7 +180,7 @@ flowchart TD
 
 最终必须证明：调查阶段签收后仍能在原目标内继续；讨论不升级执行；用户修订及时约束旧执行；技术问题先由 Bot 消化；真实人工门保留；局部交付失败不挡独立输入；同因失败不能靠改写理由清零；重启/迟到结果不丢责任或重复副作用；原目标最终仅关闭一次且有当前版本依据。
 
-本轮仅文档内容、交叉引用与 diff 审阅。后续实现应补必要协议/内核/恢复用例，日常不自动运行测试、构建、类型/架构/IPC 检查或产品回归；按代码仓 Validation Scope 在版本/RC 前对最终组合候选执行完整门禁，用户明确要求提前验证时另记授权与范围。真实模型、安装包、辅助技术与独立审阅分别记录，不能用受控传输用例冒充。
+最初文档阶段仅完成内容、交叉引用与 diff 审阅；后续授权见 §13。普通日常工作仍服从代码仓 Validation Scope，当前四包则有用户明确的自测授权。版本/RC 前仍须对届时最终组合候选执行完整门禁。真实模型、安装包、辅助技术与独立审阅分别记录，不能用受控传输用例冒充。
 
 
 ## 13. 2026-11-01 实施授权与 IC-01 接口冻结
@@ -190,3 +190,26 @@ flowchart TD
 本轮自测授权覆盖必要的单元/生产 Module 集成、构建、类型/架构/IPC 检查和本方案行为验收；实际命令与范围逐包记录。真实模型、安装包及辅助技术覆盖需分别举证，不能由脚本通过推定。
 
 IC-01：在现有 work 上保存 intentCoordination，单独的协调判断 revision 用于 expectedWorkRevision；预算/计量更新不改变该 revision，避免模型读取版本后因 beforeTool 记账立即 CAS 失效。goalRevision 仍来自宿主 mandate；无 mandate 的问答/解释使用 0，不因此创建执行授权。稳定 operationId 回执进入既有日志的 intentDecisions 派生 bucket。新事实使用格式门槛 8；在途 ADR116 使用 7，未整合其 reducer 时不宣称支持 7。存储格式仍为 coordination-v2，不增加数据库或目录。最低版本必须由 durable head、回放和 manifest 重建共同保留。
+
+## 14. 四包实现后的接口与恢复边界
+
+以下是实现冻结记录，取代前文的接口草案命名；完整命令、候选身份和覆盖另见[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。
+
+| Interface / 真值 | 实现与约束 |
+| --- | --- |
+| `InputDisposition` / `IntentAssessment` | Protocol 的逐输入字段为 `inputId/kind/reason`；Bot、work、来源、双 revision 与 decisionRef 由包络和宿主回执关联，不在每条解释里复制权限。简单讨论沿原 Conversation/work 回复回执完成，不强制建立 Intent 或 GoalPlan，也不增加分类请求。 |
+| `intentCoordination` | 既有 work 上保存解释、覆盖、当前处置、核验及关闭；`intentDecisions` 是原 journal 的派生 bucket。`intent_assessed/reviewed/closed` 追加事实，不建立第二套任务状态。Covered 要求必须引用实际来源版本及非空 Evidence 引用，仍须通过宿主核验。 |
+| 当前输入 / 事件 / 持久继续 | 当前 canonical 来源或同一 active mandate 的持久 continue 可以承接下一阶段。`decisionTurnId` 由宿主签发；同一已准入回合重判处置仍可沿该回合的原来源承接，不因工具顺序丢资格。离开该回合的 wait/return 不因此变成未来唤醒授权，停止/目标版本与执行授权继续重检。 |
+| `return.replyRef` / `IntentReplyBinding` / `ReplyGoalScope` | query 返回宿主预留引用，正式 `post_reply` ID 由原 Composer 生成；宿主从当前判断和真实引用结果绑定实际 canonical 消息。同一回复可关联多个明确目标，但各目标分别 CAS 关闭，不借用对方子任务范围。旧目标版本的回复不能关闭新目标。 |
+| 原生 yield 的判断承接 | 只有宿主恢复了匹配渠道、模型与 family 的完整原生检查点，且保护的上一 outcome 确为 yielded、非失败/停止/预算阻塞，当前 work/goal/decision 仍一致时，才在内部 job 保存 `resumedIntentDecisionRef`。后续切片可沿这份判断绑定实际回复，仍由当前核验、真实签收与 kernel 关闭；不重写模型判断或生成新执行权限。普通安静 wake、目标修订、模型切换及失败恢复不能借用该标记。TUI 原生现场携带 providerId/model/modelFamily，由原 encoder Adapter 保留格式，缺少可证明身份的旧现场不强行复用。 |
+| 根核验与既有结果复用 | 首次准备交还时复用可证明覆盖原输入/要求的当前核验，否则调用原只读 Verifier seam；根要求/版本纳入请求身份，不复用子阶段的 native checkpoint。已经交付的同版本结果可在安静 wake 复用；新用户问题仍需自己的回复。公开文本、model assessment 或新 Evidence ID 均不能替代核验/签收。 |
+| `ReplyDeliveryReceipt` | canonical commit、settlement started/failed/applied、原 `reply_delivered` 分列。原综合回执与 recovered 语义保持。签收 Promise 在进程内唯一；不持有主 Bot 执行 lane；重启读取原幂等 acceptance/memory/handoff 事实后补偿，不重放 Worker。退避由原日志保存，按 work 保序并隔离独立输入。 |
+| deferred / aggregate | `reply_deferred/held` 在原 delivery bucket 保存小结待办，先日志后原 digest queue；稳定 ID 去重覆盖 hold 两侧中断。实际小结投递并签收后才记录 `reply_aggregated` 和 canonical aggregate receipt，原暂存消息不伪装成已公开。绑定从 journal 原件导出，digest 文件只提供引用；来源失效留失效事实并重新读取结果，不强制打断用户。 |
+| 故障与进展 | 单 work 无进展/非法判断不进入 Provider 熔断；原熔断文件按已配置渠道分域，不自动换渠道。物理故障代码须匹配本 work 的实际 recovery/失败 transition；无方法可选用 `intent_decision_unresolved` 表达认知阻塞，不冒充系统故障。有活跃工作或真人门则应等待。`progress-policy` 共用 observed/admitted/advanced、稳定错误类别和对象身份；查询/失败的对象身份须来自宿主返回事实，不能靠请求参数里的新 ID、reason、时间、随机回执或换执行者续租。没有新增默认累计步数上限。 |
+| `DecisionFrame` | 原 L7 roster Source 消费只读投影，默认上限 24 KB；当前事件相关旧目标优先，保留身份、源版本、剩余要求、真实问题、unknown 与动作拒绝原因；历史 passed 与当前 review.current 分开。sessions/inputs/诊断可分页或按 ID 回查，明确遗漏；历史输入读取不变成新授权，不返回原始附件内容、凭据或私有思考。 |
+
+领域实现位于 `packages/runtime-node/src/project-agent/intent-coordination-kernel.mjs`、`intent-lifecycle.mjs`、`intent-reply-bindings.mjs`、`runner-reply-lifecycle.mjs`、`decision-frame.mjs`、`progress-policy.mjs`；Runner/Coordinator 仅接入结论与现场。类型仍在 Protocol，L1 放稳定规则，Provider encoder、权限与 Evidence 链不改归属。
+
+共享 workspace 日志的自动恢复按 canonical work 的 parentConversationId 归属过滤：当前 Bot 不领取其他 Bot 的输入、工作、事件、重试预约或回复补偿。可证明归属的 legacy 记录继续兼容；未知归属不从文本猜测。原生 workspace 小结定时器沿既有宿主装配绑定目标会话；若聚合引用包含已知其他 Bot 原件，保留待办并返回 scope conflict，不偷移责任或清空对方待办。这不是新增跨 Bot 权限或自动迁移授权。
+
+格式 8 是这四包的完整特性门槛；发布前不将包间提交当作独立可部署版本，也不向包间旧提交降级接管活跃数据。正式旧 reader/writer（本基线格式 2–6）拒绝新格式；重建保留 durable head/manifest 的最高门槛。历史 digest 接收可证明的旧写法，新判断使用字段顺序无关的内容摘要；无法证等时拒绝重放。ADR116 格式 7 仍未集成，资源等待返回明确 Adapter 不可用，不能宣称已具备资源账本或 Session Control 新能力。

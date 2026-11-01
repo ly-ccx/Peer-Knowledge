@@ -1,9 +1,9 @@
 # ADR 95：以实际进展驱动持续执行
 
-> 2026-11-01 后续提案：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) §7—8 拟统一新观察、动作接纳和目标推进事实，按 work/操作/Provider/宿主区分失败范围；自由 reason 改写不刷新失败记录。继续保留本 ADR 的无默认累计硬上限、显式预算、真实用量和 unknown 保护，不新增 maxIntentSteps 等替代截止。提案 Proposed、未实施；既有进展策略与历史验证记录保持原含义。
+> 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支以 progress-policy 共用 observed/admitted/advanced 事实及稳定错误类别，分别治理 work、Provider 和宿主故障。查询/失败只采用宿主实际返回的对象身份；reason、随机回执、请求参数里的新 ID、时间、重启或换执行者不刷新失败。保留本文无默认累计硬上限、显式预算、真实用量与 unknown 保护，不增加 maxIntentSteps 或自动换模型。DecisionFrame 是事实投影，不签发权限；接口见 ADR 117 §14，[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md) 保留语义质量与真实模型验证边界。
 
 创建时间：2026-10-18
-最后更新：2026-11-01（关联 ADR 117 后续提案）
+最后更新：2026-11-01（关联 ADR 117 实施边界）
 状态：Accepted（用户确认六项方案并要求执行）
 级别：A（执行预算、持久恢复及投影契约），B（协调与核验运行时）
 关联：ADR88、91、93、94。本决策取代 ADR88 §8 的系统默认工作总额、ADR93 的核验累计次数和总截止硬停止；用户明确预算及单次调用超时仍有效。

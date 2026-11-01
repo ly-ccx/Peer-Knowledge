@@ -1,9 +1,9 @@
 # ADR 110：跟进责任收口与当前待办列表判定
 
-> 2026-11-01 后续提案：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 区分子任务 followUp 与原目标的协调责任：阶段 accepted 可以按本文退出子任务当前列表，原始意图的剩余要求继续由既有 coordination work 承接。不得为维持根责任把已签收子任务伪装为 running，也不在 Renderer 新建列表状态表。提案 Proposed、未实施；本文唯一生命周期投影、撤回、未知历史结果及停止回执契约保留。
+> 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支区分子任务 followUp 与根目标协调责任：阶段 accepted 仍可退出子任务当前列表，剩余目标由既有 coordination work 承接。根关闭不反向签收子任务、不释放资源，也不把已签收子任务伪装为 running；未增加 Renderer 列表状态或改变当前 followUp 来源。本文唯一生命周期投影、撤回、未知历史结果及停止回执契约保留。接口见 ADR 117 §14，源码自测与未执行的产品验收见[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。
 
 创建时间：2026-10-28
-最后更新：2026-11-01（关联 ADR 117 后续提案）
+最后更新：2026-11-01（关联 ADR 117 实施边界）
 状态：Accepted（用户在“责任收口＋当前列表判定”设计中明确批准本节不变量）
 级别：A（生命周期/责任投影契约），B（宿主投影与列表、计数消费端）
 关联：ADR93（核验续接与修复责任）、ADR102（任务生命周期单一投影）、ADR103（核验收口与停滞治理）、ADR84（Bot 列表外壳）。

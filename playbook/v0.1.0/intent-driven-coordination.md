@@ -3,7 +3,7 @@
 创建时间：2026-11-01
 最后更新：2026-11-01
 
-状态：Accepted / 实施中。2026-11-01 用户明确要求按四包顺序全部实施并自测；授权代码实现与必要验证，不授权安装、发布或自动合并。唯一架构决策入口：[ADR 117](../../knowledge/decisions/117-intent-driven-coordination-and-goal-closure.md)。
+状态：Accepted / 四包源码实施与自测完成（交付分支，2026-11-01）。[实际回执](intent-driven-coordination-self-test.md) 分列源码检查、一次文件复测与未执行的真实模型/发布验收。用户的后续授权覆盖代码实现与自测，不包含安装、发布或自动合并。唯一架构决策入口：[ADR 117](../../knowledge/decisions/117-intent-driven-coordination-and-goal-closure.md)。
 
 ## 1. 目标、基线与顺序
 
@@ -13,10 +13,10 @@
 
 | 工作包 | 级别/规模 | 前置 | 主要交付 |
 | --- | --- | --- | --- |
-| IC-01 意图与责任契约 | A / M | ADR 117 另获批准实施；完成主线/版本/冲突核对 | Protocol、纯 kernel/reducer、追加式存储契约及兼容；不激活新关闭语义 |
-| IC-02 统一判断与目标收尾 | A/B / L | IC-01 合入 | 主 Bot 处置、原目标覆盖、持续承接与 typed 关闭；事实视图最小可用接入 |
-| IC-03 交付与失败隔离 | A/B / L | IC-02 合入 | 消息/签收独立回执、按 work 补偿调度及故障范围 |
-| IC-04 决策事实与进展治理 | A/B / L | IC-03 合入 | 完整 DecisionFrame、统一进展观察、全链路用例及最终验收准备 |
+| IC-01 意图与责任契约 | A / M | ADR 117 批准实施；完成主线/版本/冲突核对 | Protocol、纯 kernel/reducer、追加式存储契约及兼容；不激活新关闭语义 |
+| IC-02 统一判断与目标收尾 | A/B / L | IC-01 已在交付分支提交推送并交接 | 主 Bot 处置、原目标覆盖、持续承接与 typed 关闭；事实视图最小可用接入 |
+| IC-03 交付与失败隔离 | A/B / L | IC-02 已在交付分支提交推送并交接 | 消息/签收独立回执、按 work 补偿调度及故障范围 |
+| IC-04 决策事实与进展治理 | A/B / L | IC-03 已在交付分支提交推送并交接 | 完整 DecisionFrame、统一进展观察、全链路用例及最终验收准备 |
 
 依赖严格为 **IC-01 → IC-02 → IC-03 → IC-04**；四包在同一隔离交付分支依次整合、独立提交推送与交接，前包提交后方可进入后包，不自动合并发布分支。最终验收是 IC-04 的退出后门禁，不另设第五个实现包。
 
@@ -150,7 +150,7 @@
 
 可量化底线：每条已接纳输入有来源与处置；每个当前目标最多一个有效协调承接者；根关闭同版本最多一次；失效 epoch 新派发为零；同一稳定操作无重复已知副作用；无变化不调用模型。记录新输入准入、阶段签收、后续派发、交付/签收和根关闭时间，不凭空承诺固定响应秒数。
 
-本轮仅文档内容/diff 审阅，不执行上述用例。后续普通实施补用例但不自动运行；发布版本/RC 时按代码仓 AGENTS.md 先清点并审阅合入所有开放 PR，冻结最终组合候选后执行完整 build/test/type/architecture/IPC 与完整产品回归，推 tag 前再次确认开放 PR 为空。用户另行明确要求提前验证时，仅记录实际授权与覆盖，不把早期小候选结果当最终发布验收。
+最初方案文档阶段仅做内容/diff 审阅；后续已明确授权四包实施与自测，实际结果见[自测回执](intent-driven-coordination-self-test.md)。其他普通实施仍补用例但不自动运行；发布版本/RC 时按代码仓 AGENTS.md 先清点并审阅合入所有开放 PR，冻结最终组合候选后执行完整 build/test/type/architecture/IPC 与完整产品回归，推 tag 前再次确认开放 PR 为空。用户另行明确要求提前验证时，仅记录实际授权与覆盖，不把早期小候选结果当最终发布验收。
 
 ## 8. 每包交接与当前记录
 
@@ -178,8 +178,21 @@ Node 25.9.0 依赖链构建通过。新组合用例证明“调查 accepted → 
 
 ### IC-03 实施交接（2026-11-01）
 
-代码交付分支第三包：`ReplyDeliveryReceipt` 与原 journal 新增 `reply_committed`、`reply_settlement_started/failed`、`reply_settled`；只有综合条件满足才写原 `reply_delivered`，recovered 仍消费这个综合事实。受保护 v2 使用格式 8；未启用 owned writer fence 的旧 v2 及 legacy 保持原交付映射，不能在无 fence 时偷开新格式。
+代码提交 `35aa41fd`：`ReplyDeliveryReceipt` 与原 journal 新增 `reply_committed`、`reply_settlement_started/failed`、`reply_settled`；只有综合条件满足才写原 `reply_delivered`，recovered 仍消费这个综合事实。受保护 v2 使用格式 8；未启用 owned writer fence 的旧 v2 及 legacy 保持原交付映射，不能在无 fence 时偷开新格式。
 
 交付 Module 按稳定 message/settlement ID 保序，独立记录错误、阶段与持久 retryAt。待签收 Promise 在进程内保留唯一实例，长等待不占主 Bot 执行 lane；完成后回到既有 work 恢复 seam。重启只经原幂等宿主签收回调读取已发生的 acceptance/memory/handoff 事实后补偿，不重放 Worker。单 work 的失败与 Provider/租约/权威日志故障分开，原熔断文件增加配置渠道作用域，不建第二套路由或自动换模型。原停止/unknown/资源保护保持；ADR116 的资源适配尚未整合。
 
 Node 25.9.0 构建通过；Runner、原连续性/存储/熔断及新隔离组合 74 项通过，核验继续身份及既有 recheck 复核 15 项通过。新用例覆盖持续失败和一直未返回的签收期间独立输入准入、同 work 保序、跨 work 推进、退避重建、canonical/acceptance/settled 三个中断窗口、租约丢失保留 pending、局部失败不熔断、配置渠道切换不丢输入及旧渠道失败持久化。中断通过受控故障注入；尚未声明真实模型、安装包、跨平台或发布验收通过。审阅补强了根核验请求身份：根要求/版本纳入 native checkpoint 来源，避免错误复用子阶段核验现场。IC-04 前置已就绪。
+
+
+### IC-04 实施交接（2026-11-01）
+
+代码提交 `3c7ef152`，已推送交付分支；精确 tree/commit 与结果统一见[自测回执](intent-driven-coordination-self-test.md)。新增 DecisionFrame、progress-policy、intent-reply-bindings 与 runner-reply-lifecycle 深 Module：分别承接有界事实选择和回查、稳定进展/错误归一化、真实回复与原目标关系、交付后的责任和小结恢复。Runner/Coordinator 只接结论和现场；未新增 Renderer 状态、数据库、能力执行入口或 Context Source。
+
+DecisionFrame 默认 24 KB，优先当前事件涉及的旧目标，保留剩余要求、错误 payload、真实问题、unknown、动作及拒绝原因；sessions/输入处置/长输入和事件可按版本分页或回查。进展区分 observed/admitted/advanced，宿主返回的对象身份与稳定错误类别参与判断，请求参数里的新 ID、reason、UUID、时间、换执行者或重启不刷新失败。模型只能引用本 work 的物理失败事实；认知阻塞单独表达，不假造 Provider 故障。
+
+组合审阅补强实际 Composer 回复绑定、多根分别 CAS、旧结果的同目标复用、新用户问题必须回答、暂存小结的原件回执与来源失效、跨 Bot 的工作/输入/事件/交付/重试归属。抽出交付后生命周期，使原 Coordinator 不继续堆积业务。
+
+TUI 真实组合用例暴露并修正了原生现场身份适配及判断跨 yield 的承接：仅在匹配模型、当前 work/goal/decision 和可证明的保护检查点上延续；新语义推理、目标修订、失败或模型切换需要自己的判断。真实交付和 root closure 仍经原事实链，不将 native continuation 变成未来 wake 的执行授权。用例经过实际文件读取、Evidence、子任务核验、一次根目标核验、回复/签收及 fulfilled，认知来源仍为受控 Provider。
+
+完整构建、类型和架构/IPC 检查通过，全部测试脚本已执行；最终候选 Desktop 一项凭据 helper 超时按仓库规则独立复测一次通过，另报告 5 项跳过，详见回执。真实模型、安装版、跨平台、辅助技术、独立审阅和发布产品验收仍单列，不借源码自测补填通过。格式 7/ADR116 的 Session Control 与资源账本尚未整合，保持 §2 的正式接口交接要求。

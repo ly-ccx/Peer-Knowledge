@@ -1,9 +1,9 @@
 # ADR 112：运行时模块与功能加载边界
 
-> 2026-11-01 后续提案：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 拟深化现有协调 kernel、交付与进展策略，Runner/Supervisor 仅消费决定并装配。DecisionFrame 负责选择相关事实与合法动作，不持有第二份权限或任务状态；新 Module 须承担完整职责，不能平均拆文件或继续增长中心宿主。提案 Proposed、未实施，保留本文公共出口、所有权和加载边界。
+> 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支新增 intent-coordination-kernel、intent-lifecycle、intent-reply-bindings、runner-reply-lifecycle、decision-frame 与 progress-policy 深 Module，分别承接来源/CAS/重放、处置/核验、真实回复绑定、交付后责任、事实选择及进展归一化；Runner/Coordinator 消费结论和保存现场。Protocol 保留类型归属，原 L7 Source 准入事实，Provider encoder、权限/Evidence 与公共加载边界保留；未建立第二份任务或权限真值。实际 Interface 见 ADR 117 §14，[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md) 不声称已合并或发布。
 
 创建时间：2026-10-28
-最后更新：2026-11-01（关联 ADR 117 后续提案）
+最后更新：2026-11-01（关联 ADR 117 实施边界）
 
 状态：Accepted（用户要求按结构审查的建议顺序完成实施）；本批源码实现及内容审阅已完成，未经发布验收。
 
