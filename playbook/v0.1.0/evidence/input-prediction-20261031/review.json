@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-31T15:03:44.548719+00:00",
+  "independent": false,
+  "accepted": true,
+  "scope": "最终提交的源码 Electron 功能包实现者自审；不是发布联合候选验收",
+  "sourceCommit": "c78f861f0e23e71ae6dbf655f8bf62bae8965683",
+  "sourceFingerprint": {
+    "sha256": "466be1a259002114c529bad5d14d52715bf24c58a2ea5cfa8af600c020043d6c",
+    "files": 3448
+  },
+  "machineSha256": "f6127cd56d646f4a381e94162f8ab8c20e451a664a3d56db36d373cb65c42cc8",
+  "blockingFindings": [],
+  "limitations": [
+    "未验证已安装构建或完整版本联合候选。",
+    "IME 为 composition 事件和 CDP 中文 composition/commit；未实测 macOS 中日文候选窗或 VoiceOver。",
+    "设置截图为局部视口；下方草稿披露、模型与预算经实际滚动交互和保存回执验证，未有完整区截图。",
+    "未覆盖多原生窗口恢复、系统 Edit 菜单、全部强制颜色/透明度降级；真实模型仅两个合成样本，不代表P95或长期质量。"
+  ],
+  "screenshots": [
+    {
+      "name": "bot-next-turn-dark",
+      "sha256": "d74e3648469ae21aa599e82364e7c17299b5ba1a35b6745da726033aa4956470",
+      "passed": true,
+      "observations": "深色 Bot 输入框完整显示一条灰色下一句和 Tab 采纳按钮，未混入 placeholder；输入区与历史高度保持稳定。真实空值与回车不发送由同包交互断言核对。"
+    },
+    {
+      "name": "bot-accepted-draft",
+      "sha256": "2907a15f64880a4bd4df81f47eb00a00e8a008eea2e644af66201f29b93f6868",
+      "passed": true,
+      "observations": "采纳后同句变为真实输入的明亮文字，建议按钮撤下；第二次 Tab 的焦点轮廓在附件按钮，能离开 textarea，输入框和历史位置未跳动。"
+    },
+    {
+      "name": "bot-continuation-dark",
+      "sha256": "e2559ca4a409b351afb06c27aa5dd63c04e16fa96349744045380d810242502a",
+      "passed": true,
+      "observations": "真实前缀“请再”和灰色后缀在同一基线上完整连续显示，Tab 提示位于输入框上缘；没有遮住原回复或抬高输入区。"
+    },
+    {
+      "name": "bot-composition-preserved",
+      "sha256": "78031d06b8dfb62c04982a61a9fcfac427ffbfc88e134a8f4c7aabd5c9fbaccb",
+      "passed": true,
+      "observations": "composition 保护阶段只显示原真实文字，模拟 Enter 产生的换行可见，没有灰字、错误气泡或新用户消息；此图不作为真实系统候选窗证据。"
+    },
+    {
+      "name": "settings-input-prediction-light",
+      "sha256": "a2baa1efebb597afe9a3ec86b891fe387f653916813ff695ab250bd9bf1e0296",
+      "passed": true,
+      "observations": "浅色通用设置保持原分组、间距和滚动容器，当前图可读到智能输入建议标题、公共上下文外发说明与总开关。模型、续写披露及预算位于下方滚动区域，本图未完整展示；其存在与保存由同包 DOM 和真实设置回执验证。"
+    },
+    {
+      "name": "classic-next-turn-light",
+      "sha256": "57a351a7aadfe9387a387f9265a8f8a9b4894f37b8c23ec8d934cf48848c6bf2",
+      "passed": true,
+      "observations": "经典浅色输入框的灰字按原字号与左起点绘制，无重复 placeholder；Tab 提示完整可见，消息阅读区域未位移，真实空值仍由交互断言确认。"
+    },
+    {
+      "name": "classic-accepted-light",
+      "sha256": "b9cc81b34d5f75b566505a5ff8d777d8718f9d85c9394391006a214b1e72e371",
+      "passed": true,
+      "observations": "续写采纳后“请继续检查一下过渡。”作为真实正文完整显示，建议按钮消失；原模型、附件、发送和下方项目控制保留，未出现第二个输入入口。"
+    },
+    {
+      "name": "classic-large-text-reduced-motion",
+      "sha256": "6297c87705b80f6dda85606e750a0c8bc53632d9a1e6389eaaa352466e3ef32c",
+      "passed": true,
+      "observations": "1040px 宽和 28px 大字号下，实色前缀与灰色后缀完整一行，Tab 按钮在视口内；输入框、发送按钮和页脚未相互遮挡，静态终态无需动画。"
+    }
+  ],
+  "captureMachineSha256": "02501f6d6c81ba0cd2b44f5470ac396834df57587c85467f641bb2c7cffdcac3"
+}
