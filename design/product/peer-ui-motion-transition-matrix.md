@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 任务停止与资源等待的表达连续性（2026-11-01）
+
+P06 / P08 / P17，沿 [ADR116](../../knowledge/decisions/116-session-control-and-resource-settlement.md) 的同一控制/资源事实更新 Desktop 任务状态与 CoordinationDetails、TUI 状态。活动拥有者、历史未知保护、本机资源恢复分别表达；详情在既有折叠信息区展示涉及目录，并按稳定 sessionId 打开此前任务。退出当前跟进不隐藏历史 unknown，也不把保护伪装成活跃接管者。
+
+用户仍控制主会话、阅读位置、草稿与查看入口。后台收尾/重排只更新状态事实，不切任务、不抢焦点、不恢复贴底；没有新增组件动效、计时成功、图标系统、布局 physics 或存储的 UI 真值。保留原 MotionDetails、PeerIcon 与减少动效的静态终态。只完成实现者源码/内容/diff 自审，未运行截图/交互、IME/读屏/安装包或发布验收；与本次有关的用户状态及恢复见[交互矩阵](peer-interaction-standardization-matrix.md#任务控制与资源交接2026-11-01)。
+
 本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
 
 ## 智能输入建议的静态表达与连续性（2026-10-31）
