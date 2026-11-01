@@ -1,0 +1,50 @@
+{
+  "model": "deepseek-flash",
+  "wire": "anthropic-messages",
+  "syntheticContextOnly": true,
+  "existingProfileReadOnly": true,
+  "timeoutMs": 2000,
+  "transport": "Electron net",
+  "usage": [
+    {
+      "value": {
+        "inputTokens": 347,
+        "outputTokens": 27,
+        "cacheWriteTokens": 0,
+        "cacheReadTokens": 0
+      },
+      "complete": true
+    },
+    {
+      "value": {
+        "inputTokens": 220,
+        "outputTokens": 27,
+        "cacheWriteTokens": 0,
+        "cacheReadTokens": 128
+      },
+      "complete": true
+    }
+  ],
+  "passed": true,
+  "sourcePromptVersion": 2,
+  "originalReportSha256": "61caff2ab949d057c1ff8915d8a1dfe45f2a5bf4ca68458b7788e598cdbd88e8",
+  "qualityReview": {
+    "independent": false,
+    "passedForTheseTwoSamples": true,
+    "observations": "下一句为用户追问而非助手答复；续写追加到“再帮我”形成完整请求；均未生成发布、授权或验收结论。仅两个合成样本，不能推断总体质量或P95。"
+  },
+  "results": [
+    {
+      "mode": "next_turn",
+      "durationMs": 1822,
+      "kind": "candidate",
+      "insertionText": "第三段到技术部分的过渡再润色一下，语气别太生硬。"
+    },
+    {
+      "mode": "continuation",
+      "durationMs": 1036,
+      "kind": "candidate",
+      "insertionText": "把第三段到技术部分的过渡改得自然些，语气保持现在的风格。"
+    }
+  ]
+}
