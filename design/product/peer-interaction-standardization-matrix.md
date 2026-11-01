@@ -1,5 +1,34 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 资源文件阅读区的 Frost 整理（2026-11-01）
+
+P06、C210/C218/C219/C220，代码 [PR251](https://github.com/ly-ccx/Peer-Agent/pull/251) `36801263`。用户要求整体审视右侧文件阅读区，修复文件名被按钮挤成单字、长地址与正文混层、视图按钮粘连及加载裸文字。C 级 renderer 表达：文件身份、路径、视图切换分层；标题/控件/元信息沿 Frost 字号，模式复用 ChoiceStrip 并保留禁用原因，操作用带可访问名称的紧凑 SVG 按钮。
+
+来源与恢复：仅消费既有 observed document、metadata/diff 及历史引用；路径默认使用与当前 resolvedPath 匹配的宿主 relativePath，完整地址可键盘展开并选择。加载骨架仅表达真实首次读取，刷新保留已接受内容；空差异与错误分开；读取、校验、草稿、权限、Evidence 和阅读坐标仍归原 Module，不新增 IPC 或存储。共享 useMotionAllowed 停止后台/减少动效的读取指示，MotionDetails 处理路径开合；不逐数据刷新重播正文。
+
+按用户本次要求做局部原生 Electron 设计复看，查看同一真实 CSS 文件的首次加载、完整路径、源码/Diff 空态、键盘显式激活及 340/420px 面板；实现者自审，保存前后截图与逐图观察。没有模拟读取状态、发消息、接管 Bot 或执行编辑。ScopedDocumentPage 原用例夹具已适配，未运行测试、build/type/architecture/IPC 或完整产品回归；真实写入/原生新窗口、失败/过期、200%/多语言/系统减少动效/强制颜色/辅助技术及性能留 E13。
+
+## Bot 工作现场浮动面板（2026-11-01）
+
+代码：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，接入 `46e51a11`，动效补齐 `ffc9e71c`；当前为草稿交付，不表示合入或发布。
+
+P06/P10，新增 C216–C218。用户已确认交互 Demo，要求把任务、子 Agent 进度与产出资料接入真实界面。C 级 renderer/i18n 表达改动，替换 Composer 上方的当前任务条；主对话与 Composer 在面板开合、宽窄切换时保持同一挂载身份。
+
+C216–C218 悬停留白（`86093d86`）：任务、Agent 与资料行统一左右 12px、上下 8px token 内距，底色与焦点边界包住内容，正文/进度条仍与标题对齐；默认与 hover 几何不变。仅样式 C 级改动，未更换事实源、操作、焦点或恢复责任；本次仅内容/diff 审阅与 CSS 热更新，测试及截图/交互回归留待发布。
+
+C218 历史代码预览（`61c58d73`）：任务保存的差异片段改用既有 DiffViewer，保留增删/双列行号及非标准输入的源码控件降级；文案区分任务历史记录与最新文件，原来源任务及受控当前文件入口保持。代码区域可聚焦、独立滚动，Overlay 仍负责关闭和返回来源。C 级 UI/i18n 接线，仅内容/diff 审阅和源码热更新，未运行测试或截图/交互回归；不移动读取、权限或 Evidence 边界。
+
+| 对象/状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 当前注意力 | 原公开 ProjectAgentActivity、阶段标签与 public text segment；不读取隐藏推理 | 无当前活动时明确为空；恢复状态不沿用旧忙态；显式进入原回复详情 |
+| 任务与 Agent | 原 sessions/followUp、parentSessionId、TaskOverview 步骤与模型标签 | 真正需要人时才标“需要你”；优先展示原任务未解决问题，技术卡点仍由 Bot 跟进；点击进入原任务详情，取消/批准仍走原流程 |
+| 步骤进度 | 宿主 planProgress/currentGoalTitle、verificationProgress | 无可计算总量不画百分比；100% 叶子步骤不表示核验、签收或 Git 交还完成；投影重读失败停止使用旧步骤详情 |
+| 产出与资料 | 当前项目 TaskOverview 的 Evidence 派生产物，以及对话/当前 Activity 已登记的 read/write/edit 来源 | 保留任务/路径身份，不从助手正文抓文件名；历史预览与当前文件分开，当前文件沿原受控资源工作区打开；未知位置不补造 |
+| 加载/空/失败/更多资料 | 原 taskOverviewList；复用有界刷新与宿主已节流的变化通知 | 隐藏面板推迟读取，无轮询或逐 token 全量重拉；失败保已有资料并可重读，真实空态单列；每次增加 100 项投影，提供原项目文件浏览入口 |
+| 宽窄与键盘 | 实际对话容器宽度和字号；临时的每种布局开合选择 | 宽屏默认展开并平滑留位，窄屏默认只留顶部图标，点击为非模态浮层并轻移/淡入；保留手动收起选择与面板视图/读位；逻辑关闭立即 inert/aria-hidden 并归焦，短退场后静态隐藏，快速反向接续当前帧；外点/最上层 Escape/按钮关闭、IME 优先，减少动效直接落终态 |
+
+边界与状态：已有 session 列表最多返回最近 50 项，界面达到该边界时说明范围；项目产物可继续载入，未登记文件通过既有项目浏览器访问。现有资料投影没有总数或游标，不以短页断言历史已经全部载入；界面仅显示已成功读取的任务范围，可显式扩大范围。新面板不新增 IPC、权限、Evidence、System Context 或存储契约。已完成内容/diff 实现者自审，并按用户要求启动真实源码开发窗口，查看宽窄、开合/快速反向最终状态、Escape 归焦和资料视图保留；范围与未验证项见[UI/过渡覆盖表](peer-ui-motion-transition-matrix.md#bot-工作现场的响应式连续性2026-11-01)。新增状态投影用例与原身份用例适配均未运行；完整测试、构建、类型/架构/IPC 与产品回归仍留待 E13 发布联合候选，不是独立评审或发布验收。
+
 ## 标准模型选择器收敛（2026-11-01）
 
 P06／P21／P29，BotModelControls、ComposerModelMenu、InputPredictionPanel、ModelRoutingPanel、BotPolicyFields、FallbackVisionSetting 和 QuickChatPopover；U02／U08／U14，T03／T04：所有已配置模型单选／多选共用 ui/model-picker 的触发器／模型面板、分组 Adapter、参数、定位／过渡和 Frost 样式。调用方继续拥有角色／项目过滤、集合校验、原生浮层宿主及保存失败恢复；供应商目录导入保持管理职责。规范见 [model-picker](../../knowledge/specifications/model-picker.md)。仅内容／diff 实现者自审，未运行测试或产品回归，待发布验收，不沿用旧组件证据。
@@ -740,6 +769,11 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C213 · `project-agent/conversation/ConversationRow.tsx`<br>`ConversationRow` | R/G · S 新输入/等待回复沿共享 motion-enter-layout 展开真实占位；原 key/DOM 保持，历史恢复/虚拟重挂载不重播 | 已审阅；V 最终候选帧连续性、窄窗与阅读锚点；reduce/隐藏/无 API 静态，终态不代表收到或执行 | P1 · E05/E16/E17 |
 | C214 · `app/components/MotionSurface.tsx`<br>`MotionSurface` | O · S F5 单个原生 DOM 元素的最后已提交内容保留，无额外布局节点；共享 rise/fade，关闭即 inert/aria-hidden；watchVisualMotion 收尾、重开/卸载取消、ref 合并 | 内容/diff 已审阅；V 快速反向/StrictMode/晚结束、ref 所有权/键盘/读屏、reduce/隐藏/API 缺失与拒绝；不拥有选择、焦点、portal 或业务 | P1 · E06/E16/E17 |
 | C215 · `app/components/MotionDetails.tsx`<br>`MotionDetails` | O/V · S F5 保留原生 details/summary、open/onToggle/ref，支持检测后的 intrinsic height/opacity/content-visibility 过渡；结束释放 overflow；旧收尾可取消 | 内容/diff 已审阅；V 嵌套/快速开合/动态内容/控件不裁切、原生键盘/辅助技术、reduce/隐藏/API 缺失；无支持直接原生静态 | P1 · E06/E16/E17 |
+| C216 · `project-agent/conversation/BotWorkPanel.tsx`<br>`BotWorkPanel` | O/V · 公开注意力、原任务/followUp、真实步骤；稳定主对话与 Composer；实际容器驱动宽屏留位/窄屏覆盖，顶部 SVG 入口、每种布局的手动选择和共享非模态层 | 内容/diff 已审阅；V 宽窄/放大/缺 ResizeObserver、IME/最上层 Escape/归焦、并行流与历史读位、切 Bot 和原详情往返 | P1 · E05/E06/E15/E17 |
+| C217 · `project-agent/conversation/BotWorkSessionRow.tsx`<br>`BotWorkSessionRow` | V/A · session/status/followUp 原投影；原未决问答、当前步骤/核验进度、真实 Agent 身份与模型；只读展示，导航原详情 | 内容/diff 已审阅；V 人工门/技术卡点/停止未决、步骤完成与核验签收分开、长名称与旧投影；不新增决定或执行 | P1 · E04/E15 |
+| C218 · `project-agent/conversation/BotWorkMaterials.tsx`<br>`BotWorkMaterials` | V/O · 真实产物与登记文件的来源/类型；已有 Overlay 预览宿主保存的图片/diff，当前文件经原资源工作区重读 | 内容/diff 已审阅；V 旧文件丢失/权限拒绝/无预览、同路径不同任务、多层归焦、深浅与强制颜色；预览不等同核验 | P1 · E09/E15/E17 |
+| C219 · `workbench/ResourceDocumentHeader.tsx`<br>`ResourceDocumentHeader` | R/Q/O · 文件身份、宿主相对位置/完整地址；受控模式、禁用原因与显式激活，沿共享 ChoiceStrip/MotionDetails/SVG；动作由原读取/草稿拥有者传入 | 内容/diff 自审及用户指定的真实源码、路径、键盘激活、340/420px 局部复看；V 历史/失败、200%/多语言/辅助技术、原生新窗口；不持有读取或写入真源 | P1 · E06/E09/E15/E17 |
+| C220 · `workbench/ResourceReadState.tsx`<br>`ResourceReadState` | V · 真实读取、空比较/失败的统一层次；骨架不造进度，当前活动且 motionAllowed 才循环，减少动效静态可读 | 内容/diff 自审及真实首次加载/空差异截图复看；V 失败/过期、系统偏好/隐藏切换和辅助技术；状态结束由调用方事实决定 | P1 · E09/E15/E16 |
 
 ## 6. 非 TSX 交互 seam 与其他宿主
 

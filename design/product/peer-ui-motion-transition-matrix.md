@@ -1,5 +1,34 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 文件阅读区的层次与加载表达（2026-11-01）
+
+P06、C210/C218/C219/C220，U02/U03/U06/U08/U11/U13/U14/U15、M01/M05/M08/M09/M18、T04/T05/T09。代码 [PR251](https://github.com/ly-ccx/Peer-Agent/pull/251) `36801263`：标题、宿主确认的相对位置与可展开完整路径、带间隔的 ChoiceStrip、紧凑 SVG 操作分层；字号/留白/表面/圆角/焦点沿 Frost。模式保留原可用范围与 disabled 原因，方向键只浏览、显式确认激活，关联同一阅读容器；不重建文档身份或 Composer。
+
+真实初次读取用静态骨架与小型 loading 指示，内容接受即显示；刷新保留原正文，空比较和读取错误不冒充内容。加载结束只跟真实读取投影，useMotionAllowed 响应可见性及减少动效，路径复用 MotionDetails，无新 keyframes、计时器或动画依赖。独立滚动、版本/模式阅读坐标、引用行号、草稿及作用域核对沿既有 seam。
+
+用户明确要求的源码窗口局部复看：逐图查看同一 CSS 文件的修改前/后、完整路径、真实首次加载、Diff 空态和 340/420px 分栏，并观察键盘显式激活。实现者自审，保存了原生截图；热更新临时状态清理时仅重启本任务预览进程，已有 Peer 执行实例未接管。本次不运行单元/集成或完整回归套件；未覆盖错误/版本变化、多语言、200%、OS 减少动效/透明度/强制颜色、辅助技术、真实编辑/原生新窗口和帧性能，不记为发布或独立验收。
+
+## Bot 工作现场的响应式连续性（2026-11-01）
+
+代码：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，接入 `46e51a11`，动效补齐 `ffc9e71c`；内容/diff 审阅及用户要求的局部开发窗口检查，不表示发布验收。
+
+P06/P10、C216–C218，U10/U11/U12/U13/U15、T01/T02/T05/T09：采用已确认的工作现场 Demo，沿 Frost/`--ui-*`、共享 SVG、原任务/资源 Module 接入真实数据。当前注意力只投影公开 Activity；任务和 Agent 消费 followUp/父子关系/模型与步骤；产出与资料来自宿主产物及登记文件，不以模型正文、计时器或视觉完成生成事实。
+
+U02/U03/U14 悬停留白补修（`86093d86`）：任务、Agent 与资料行共用横向 `--space-3`、纵向 `--space-2` 内距，命中面向面板留白延伸，保持正文/进度条与分组标题对齐。默认、hover、focus 占位一致，沿原圆角与焦点描边；本次仅内容/diff 审阅和开发窗口 CSS 热更新，未新增测试或截图/交互回归，验收仍留发布。
+
+C218/U11/U13/U14/T02/T09 保存差异补修（`61c58d73`）：移除专用纯文本 pre，复用既有 DiffViewer 的增删色、双列行号及有界/非标准差异的 SourceViewer 降级。标题明确为任务保存的代码变更，说明是历史片段并保留当前文件/原任务入口；代码区域独立滚动、可键盘聚焦，长行不强制折行，Overlay 沿原关闭/归焦责任。仅内容/diff 审阅与源码热更新，未新增测试或截图/交互回归，不声称完整差异或当前文件正文已验证。
+
+| 过渡 | 保留对象与交互责任 | 表达与降级 |
+|---|---|---|
+| 宽屏默认展开/手动收起 | 主消息、草稿、引用、附件与恢复会话保持同一 DOM/key；面板自己的阅读范围保持挂载 | 共享 motion-inline-space 在 medium/standard 档平滑留位；面板固定在真实侧边，motion-inline-panel 用 medium 入场、fast 退场与 12px 位移，不挤压面板内容；手动收起不被新进展重开 |
+| 窄屏顶部图标/覆盖层 | 每种布局保留用户开合选择；逻辑关闭立即 inert/aria-hidden、禁用命中并归焦，CSS 完成退场后 visibility:hidden；重新打开沿当前帧反向 | 同一面板不重挂载，窄屏不留位；共享 useInteractionLayer 非模态外点/最上层 Escape，保留 IME 与嵌套层优先级；RTL 反向位移，减少动效沿 tokens 全局静态降级，不依赖 timer/animationend/WAAPI；缺测量 API 沿窗口 resize 降级 |
+| 面板概览/全部资料/原任务详情 | 真实 sessionId/planId/path 身份；显式视图切换焦点到返回/来源按钮，背景状态更新不移动焦点或主阅读锚点 | 概览/资料沿共享 motion-enter-fade，仅视图显示时进入并使用 backwards 释放 fill；开合不重播列表。保留原详情与独立资源工作区，不通过 remount 重建 Composer、任务或 guest |
+| 真实步骤变化 | 原宿主已完成步骤/总步骤投影，未知总量不创建进度 | 原 span 的真实 width 用 medium/standard 过渡，不按时间填充、不将视觉终点视作核验或签收 |
+| 保存的产物预览/当前文件 | 历史图片/diff 使用宿主有界预览；当前路径经原 BotDocumentReference 重验作用域 | 保存的代码变更复用 DiffViewer，不重复标题中的文件路径；有界/非标准输入沿共享源码控件降级。共享 Overlay 负责模态/关闭/归焦；未知位置和预览失败明确可见，文档不自动执行或提升为权限 |
+| 资料读取/失败/更多记录 | 任务状态来自原实时列表；附加资料读取按 owner 取消旧响应、保已有快照；隐藏时延后查询 | 只订阅原已节流 taskOverview 通知，避免逐 token 重拉；100 项投影逐批扩容，真实空态与错误分开 |
+
+实现者完成内容/diff 自审。按用户明确要求启动隔离工作树的真实源码 Electron 开发窗口，沿现有本机记录查看宽屏、窄屏顶部入口、Escape 归焦、快速开合最终状态及全部资料视图保留；未发送消息、执行任务或接管已有实例。启动时只构建必要依赖；未运行测试、完整 build/type/architecture/IPC 或产品回归套件。没有逐帧/性能测量，也未验证真实步骤更新动画、系统减少动效、RTL、IME、辅助技术或安装包。E13 仍保留 200% 字号、长材料/多任务、原未决决定、文件拒绝/失效、嵌套层、主历史阅读锚点与深浅/强制颜色等完整取证。本次局部源码检查不是独立复核或发布验收。
+
 ## 标准模型选择器收敛（2026-11-01）
 
 P06／P21／P29，BotModelControls、ComposerModelMenu、InputPredictionPanel、ModelRoutingPanel、BotPolicyFields、FallbackVisionSetting 和 QuickChatPopover；U02／U08／U14，T03／T04：所有已配置模型单选／多选共用 ui/model-picker 的触发器／模型面板、分组 Adapter、参数、定位／过渡和 Frost 样式。调用方继续拥有角色／项目过滤、集合校验、原生浮层宿主及保存失败恢复；供应商目录导入保持管理职责。规范见 [model-picker](../../knowledge/specifications/model-picker.md)。仅内容／diff 实现者自审，未运行测试或产品回归，待发布验收，不沿用旧组件证据。
@@ -351,7 +380,7 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 |---|---|---|---|
 | M01 控件即时回执 | S token 驱动 hover/pressed/focus、共享 button/switch/checkbox CSS；S E15 共享 ChoiceStrip/文件确认/MCP 反馈与远程 focus/pressed | 本批控件状态已审阅；V 对比度/目标尺寸/其他消费者 | P1 · E15/E16 |
 | M02 fade/rise/pop 入场 | S `motion-enter-fade/rise/pop`；settings/menu/轻层及部分页面；S E16 motionEnvironment/visualMotion 接入相关消费者；E17-F4 C122 rise/shift-sm | 当前路径已审阅；V 静态偏好/重复打开/其他入场和动画 API | P1 · E16/E17 |
-| M03 inline slide 抽屉 | S `motion-enter/exit-slide-inline`；Drawer/档案覆盖层；S E16 档案 push 监听偏好/隐藏，关闭中断不留旧 out timer | 当前路径已审阅；V RTL/方向/push-cover/resize，PR204 未纳入 | P1 · E06/E16/E17 |
+| M03 inline slide 抽屉 | S `motion-enter/exit-slide-inline`；Drawer/档案覆盖层；S E16 档案 push 监听偏好/隐藏，关闭中断不留旧 out timer；S C216 常驻面板沿 `motion-inline-panel/space` 可逆 CSS 过渡，静态关闭与交互关闭分责 | C216 用户指定源码窗口宽窄/开合/快速反向终态局部查看；V 系统 reduce/RTL/长期读位；其他路径 V 方向/push-cover/resize，PR204 未纳入 | P1 · E06/E16/E17 |
 | M04 fade/sink/pop 退场 | S motion exit 与 Overlay 自带 CSS/fallback、useMotionPresence；S E16 Overlay/presence 共用 watchVisualMotion，幂等 finish/cancel、有界 fallback；E17-F4 C122 fast 淡出、关闭即 inert，重开取消旧收尾 | 当前路径已审阅；V 缺 API/无事件/拒绝/反向/嵌套/真实归焦 | P1 · E16/E17 |
 | M05 fold/grid/height | S SettingsDisclosureContent、BotProcess/details、问题的 WAAPI 高度折叠；S G12/E16 问题 animateVisual 静态/无 API/拒绝/fallback，disclosure 同收尾 | 当前实现已审阅；V 快速反向/无触发者/卸载/旧 promise 与实际焦点 | P1 · E06/E16/E17 |
 | M06 分段/选值指示器 | S BotDrawerSegments/PaletteSelect/模型强度相关 transform/transition；S E15 C210 本地 radio/手动 tabs，选择指示由受控值决定 | 当前消费者已审阅；V 真实键盘/RTL/快速反向/其他选择器 | P1 · E06/E15/E16 |
