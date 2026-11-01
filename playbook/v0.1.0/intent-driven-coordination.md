@@ -167,3 +167,11 @@
 新事实 minimumReader/Writer/Executor 为 8；本分支支持 2–6 与 8，显式拒绝尚未集成的 ADR116 格式 7。后续合并必须整合两套 reducer，不因数字较大声称兼容。启用新事实前先持久升级 head/manifest；索引重建保留最高门槛，legacy writer 保持拒写。当前尚未接入模型动作或改变既有 runtime 关闭行为，交给 IC-02。
 
 用户明确授权自测。本机 Node 25.9.0：protocol/runtime-core/runtime-sdk/runtime-node 依赖链构建通过；新 kernel/生产存储恢复与原 v2 存储用例共 20 项通过，新用例单独复核 4 项通过；`git diff --check` 通过。覆盖来源伪造、双版本、同 ID 冲突、持久继续来源、阶段未完成、交付/核验不足、索引丢失、版本保留/拒写及既有存储崩溃窗口。未执行真实模型、多阶段 Runner、安装包/升级、UI 或跨平台验收；上述不是发布验收。
+
+### IC-02 实施交接（2026-11-01）
+
+代码提交 `ab84f7e8`：原 `coordinate_work` 新增 work 查询与 assess，宿主签发 operationId；新委托带 `intentSchemaVersion=1`，沿用格式 8，旧 mandate 保持历史语义。新增 intent-lifecycle 深 Module 承接逐输入解释、版本化 wait/continue/return/withdraw 及根核验、关闭；Runner 只消费处置、保存恢复现场和给予一次有预算的纠正机会。无委托讨论不强制创建 GoalPlan 或意图记录。阶段签收与根关闭分层；无新事件的下一阶段使用已持久 continue 的决定来源，不能把旧用户输入伪装为新授权。停止、人工门、unknown 和签收权限不变。
+
+`intent_reviewed` 通过原只读 verifier 运行与上下文 adapter 生成，不新增分类/逐轮 reviewer。只有当前核验确实覆盖原输入和要求时复用；否则在交还前核验 canonical 输入与全部根要求。覆盖陈述、公开回复和工具操作已登记均不等于完成；关闭须同时绑定当前核验及 delivered 综合回执。L1 添加稳定规则，L7 原 roster Source 接入最小事实 frame，完整有界选择与诊断在 IC-04。
+
+Node 25.9.0 依赖链构建通过。新组合用例证明“调查 accepted → 消费事件 → 持久继续 → 无新用户输入派发实现 → 实际交付/签收后唯一根关闭”，并验证无子任务查询、伪造 wait、轻量讨论和核验上下文。连同原 kernel/lifecycle/Runner/回合及 Context 用例首轮 85 项通过；补强 journal 关闭证明后复核 64 项通过；源码/diff 审阅通过。核验认知使用受控 port，尚未真实模型或安装版验收。IC-03 前置已就绪；待交付全局阻塞和局部失败计入全局熔断仍留给下一包，未宣称已修复。
