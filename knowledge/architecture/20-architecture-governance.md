@@ -394,3 +394,4 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
 - `knowledge/specifications/runtime-sdk-boundary-architecture.md` — Runtime SDK 分层边界
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — 本地能力对齐
+- `knowledge/decisions/114-reply-citation-resolution-and-open.md` — 回复引用的定位与打开
