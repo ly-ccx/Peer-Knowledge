@@ -29,6 +29,7 @@
 | `rc15-candidate.md` | RC15 Full 连续看图、中断核验恢复、小猫状态栏；候选源码、发布门禁与安装验证记录 |
 | `bot-owned-access-policy.md` | ADR101 主 Bot 授权主体、子任务动态继承、逐文件修改评审与测试验收 |
 | `input-prediction.md` | ADR115 智能输入建议；IP-00—IP-06 已实施，提前功能验证与限制见 input-prediction-validation.md；IP-07 版本门禁另行执行 |
+| `intent-driven-coordination.md` | ADR117 意图驱动协调与目标闭环；四包源码自测完成；与 ADR116 的 RC32 组合契约见 ADR117 §15，发布门禁待执行 |
 | `session-control-and-resource-settlement.md` | ADR116 任务控制、停止屏障、资源交接和遗留恢复；SC-01—SC-05 已实现并源码自审；SC-R 发布门禁待执行 |
 
 ---

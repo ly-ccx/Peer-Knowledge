@@ -1,9 +1,11 @@
 # ADR 93：复核续跑与未完成工作的处理责任
 
+> 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支加入原目标覆盖与 typed 处置；已签收调查阶段无需重新运行，原目标的后续实现由持久 continue 承接。根覆盖复核复用原只读 Verifier seam，仅在既有核验不足时调用，原目标/版本纳入请求身份；模型摘要、公开回复或覆盖陈述均不构成 Evidence 或 acceptance。本文返修、followUp、人工门和未知结果保护继续有效。实际接口见 ADR 117 §14，[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md) 分列受控自测与未执行的真实模型/安装版验收。
+
 > 2026-10-18：系统默认累计工作上限及核验累计次数/总截止由 [ADR95](95-progress-driven-execution-policy.md) 取代；显式用户预算、用量记账、单次调用超时和安全恢复边界保持有效。
 
 创建时间：2026-10-18  
-最后更新：2026-10-18  
+最后更新：2026-11-01（关联 ADR 117 实施边界）
 状态：Accepted（用户明确要求“出完整的修复 ADR 文档，然后着手根治这个问题”；本决策先于实现记录）  
 级别：A（状态、续跑、错误及持久化契约），B（协调与核验运行时）  
 依赖：ADR 80、83、85、88、89、91、92；产品方向沿用 `design/product/peer-product-alignment.md`。

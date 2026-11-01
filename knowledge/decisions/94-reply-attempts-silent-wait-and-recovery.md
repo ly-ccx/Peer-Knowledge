@@ -1,6 +1,10 @@
 # ADR 94：主 Bot 回复、静默等待与历史错误
 
+> 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支分列 canonical commit、签收补偿及综合交付回执；稳定 ID、同 work 顺序和日志退避保留，单项 pending 或长签收不占主 Bot 的独立输入执行 lane。原 reply_delivered 综合条件和 recovered 的证据要求继续有效；消息存在不等于 accepted，unknown 不重放 Worker。暂存小结只有实际聚合消息交付并签收后才关联 aggregated，来源失效保留事实。silentWait、停止与真实事件唤醒沿本文。版本/恢复见 ADR 117 §14，[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md) 不替代发布验收。
+
 日期：2026-10-18  
+创建时间：2026-10-18
+最后更新：2026-11-01（关联 ADR 117 实施边界）
 状态：Accepted（用户要求区分三类状态、补齐静默等待和成功恢复并验证完整流程）  
 级别：A（能力、状态投影与持久事实），B（协调运行时）；继承 ADR 88、89、91、93。
 

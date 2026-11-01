@@ -267,3 +267,8 @@ followUp 与 resourceProtection 是两个维度。已撤回任务 followUp=none 
 已编写协议投影、kernel、journal 重开/格式门槛、双连接资源竞争、目录 alias、完整多资源申请、旧 receipt、后台句柄、停止 deadline、legacy 权威来源及真实旧形态/独立 worktree 队列恢复用例，并更新原调度夹具的真实目录和结清边界。生成式 storage worker 已从 canonical 实现重新生成；只做改动文件/嵌入源码的解析审阅和 diff 空白审阅。**未执行单元/集成测试、build、typecheck、architecture/IPC 或截图/交互回归**，不称任何用例已通过；SC-R 留待最终组合发布候选。
 
 没有修改生产 JSON、清空未知调用、清理用户目录、安装、重启或发布。当前安装版和现场任务尚未因源码交付自动改变；新恢复逻辑在包含本变更的 Runtime 正常取得宿主权后运行。交互与 UI/动效/过渡矩阵同步记录源码状态，不继承历史 RC 的验收。
+
+
+## 14. RC32 组合发布接口（2026-11-01，实施中）
+
+与 ADR117 串行整合时，组合最低特性门槛升为 9，保留真实的格式 7 控制 reducer 与格式 8 意图 reducer，旧 writer/executor 对新活跃数据继续拒绝。完整约束见 [ADR117 §15](117-intent-driven-coordination-and-goal-closure.md#15-rc32-与-adr116-的组合契约2026-11-01实施中)。本文件的独立分支格式 7 收据保留为历史；设备账本、停止和 unknown 保护不因 Intent 根关闭而释放。组合验收尚未完成，不能继承两个分支各自的自测结论。
