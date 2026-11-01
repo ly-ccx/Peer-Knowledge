@@ -1,5 +1,19 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 任务控制与资源交接（2026-11-01）
+
+P06 / P08 / P17 的任务状态、Agent 活动行和详情，按 [ADR116](../../knowledge/decisions/116-session-control-and-resource-settlement.md) 实施 A/B 级控制与准入、C 级表达。用户目标：取消、暂停或换执行者后有真实收尾责任，后继工作可沿现有队列继续。控制事实来自 coordination-v2 的 SessionControlOperation/StopBarrierReceipt，资源事实来自本设备 SQLite，最终产品状态仍由 decideLifecycle 投影；点击、时钟或模型文本不生成权限、执行成功或 Evidence。
+
+| 状态 | 事实与责任 | 控制与恢复 |
+|---|---|---|
+| 旧接管被取消取代 | 原取消来源与同绑定停稳回执；旧操作追加 superseded | 自动幂等修复，保留成果和未知调用；不要求再委托 |
+| 受管停止中／尚不能确认 | 当前控制阶段、实际 Runner/Provider 句柄 | 有界等待后保留范围与 nextAction；同事实不重复停止、不放锁 |
+| 等活动拥有者／历史保护／本机恢复 | 同源 discriminator blocker，与 followUp 分开 | 详情显示涉及目录，沿原任务详情查看此前任务；保留取消自己的排队任务与原诊断路径 |
+| 多目录扩容冲突 | 宿主派发前规范范围与完整资源需求 | 同一屏障停稳、交出可交目录，再以完整需求重新排队；unknown 保护不解除 |
+| 用户撤回但历史结果未知 | 已复核 canonical 输入、原 unknown 和撤回回执 | 退出当前跟进，历史仍可查；不清预算、调用或 Evidence |
+
+Desktop/TUI 共享事实和原因；沿既有 Frost、SVG、任务详情与工作会话入口，无强制解锁按钮或新权限路径。完成源码/内容/diff 实现者自审，未运行测试或产品回归，未升级现场应用。SC-R 覆盖状态交叉矩阵、双宿主、迟到回调、重启与真实句柄，未标产品验收通过。
+
 本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
 
 ## 智能输入建议与草稿所有权（2026-10-31）
