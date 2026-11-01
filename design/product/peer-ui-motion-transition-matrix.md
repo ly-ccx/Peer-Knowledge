@@ -2,19 +2,20 @@
 
 ## Bot 工作现场的响应式连续性（2026-11-01）
 
-代码：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，`46e51a1160ef4d875fadd89f7f3a7591d6859903`；内容/diff 审阅记录，不表示行为验收。
+代码：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，接入 `46e51a11`，动效补齐 `ffc9e71c`；内容/diff 审阅及用户要求的局部开发窗口检查，不表示发布验收。
 
 P06/P10、C216–C218，U10/U11/U12/U13/U15、T01/T02/T05/T09：采用已确认的工作现场 Demo，沿 Frost/`--ui-*`、共享 SVG、原任务/资源 Module 接入真实数据。当前注意力只投影公开 Activity；任务和 Agent 消费 followUp/父子关系/模型与步骤；产出与资料来自宿主产物及登记文件，不以模型正文、计时器或视觉完成生成事实。
 
 | 过渡 | 保留对象与交互责任 | 表达与降级 |
 |---|---|---|
-| 宽屏默认展开/手动收起 | 主消息、草稿、引用、附件与恢复会话保持同一 DOM/key；面板自己的阅读范围保持挂载 | 宽屏按可用容器留位，手动收起不被新进展重开；静态即时布局，不新增 keyframes 或循环动效 |
-| 窄屏顶部图标/覆盖层 | 每种布局保留用户开合选择；隐藏内容退出 Tab 顺序；只有显式打开或从即将隐藏的内容恢复时转移焦点 | 共享 useInteractionLayer 非模态外点/最上层 Escape，保留 IME 与嵌套层优先级；缺测量 API 使用即时测量/窗口 resize 降级 |
-| 面板概览/全部资料/原任务详情 | 真实 sessionId/planId/path 身份；显式视图切换焦点到返回/来源按钮，背景状态更新不移动焦点或主阅读锚点 | 保留原详情与独立资源工作区，不通过 remount 重建 Composer、任务或 guest |
+| 宽屏默认展开/手动收起 | 主消息、草稿、引用、附件与恢复会话保持同一 DOM/key；面板自己的阅读范围保持挂载 | 共享 motion-inline-space 在 medium/standard 档平滑留位；面板固定在真实侧边，motion-inline-panel 用 medium 入场、fast 退场与 12px 位移，不挤压面板内容；手动收起不被新进展重开 |
+| 窄屏顶部图标/覆盖层 | 每种布局保留用户开合选择；逻辑关闭立即 inert/aria-hidden、禁用命中并归焦，CSS 完成退场后 visibility:hidden；重新打开沿当前帧反向 | 同一面板不重挂载，窄屏不留位；共享 useInteractionLayer 非模态外点/最上层 Escape，保留 IME 与嵌套层优先级；RTL 反向位移，减少动效沿 tokens 全局静态降级，不依赖 timer/animationend/WAAPI；缺测量 API 沿窗口 resize 降级 |
+| 面板概览/全部资料/原任务详情 | 真实 sessionId/planId/path 身份；显式视图切换焦点到返回/来源按钮，背景状态更新不移动焦点或主阅读锚点 | 概览/资料沿共享 motion-enter-fade，仅视图显示时进入并使用 backwards 释放 fill；开合不重播列表。保留原详情与独立资源工作区，不通过 remount 重建 Composer、任务或 guest |
+| 真实步骤变化 | 原宿主已完成步骤/总步骤投影，未知总量不创建进度 | 原 span 的真实 width 用 medium/standard 过渡，不按时间填充、不将视觉终点视作核验或签收 |
 | 保存的产物预览/当前文件 | 历史图片/diff 使用宿主有界预览；当前路径经原 BotDocumentReference 重验作用域 | 共享 Overlay 负责模态/关闭/归焦；未知位置和预览失败明确可见，文档不自动执行或提升为权限 |
 | 资料读取/失败/更多记录 | 任务状态来自原实时列表；附加资料读取按 owner 取消旧响应、保已有快照；隐藏时延后查询 | 只订阅原已节流 taskOverview 通知，避免逐 token 重拉；100 项投影逐批扩容，真实空态与错误分开 |
 
-仅内容/diff 实现者自审，未执行测试或截图/交互回归，也未运行 build/type/architecture/IPC 检查。E13 保留真实宽窄往返、200% 字号、长材料/多任务、原未决决定、文件拒绝/失效、IME/嵌套 Escape/归焦、主历史阅读锚点与深浅/减少动效/强制颜色取证。当前工作范围与事实边界见[交互矩阵](peer-interaction-standardization-matrix.md#bot-工作现场浮动面板2026-11-01)，不将静态实现登记称为发布验收。
+实现者完成内容/diff 自审。按用户明确要求启动隔离工作树的真实源码 Electron 开发窗口，沿现有本机记录查看宽屏、窄屏顶部入口、Escape 归焦、快速开合最终状态及全部资料视图保留；未发送消息、执行任务或接管已有实例。启动时只构建必要依赖；未运行测试、完整 build/type/architecture/IPC 或产品回归套件。没有逐帧/性能测量，也未验证真实步骤更新动画、系统减少动效、RTL、IME、辅助技术或安装包。E13 仍保留 200% 字号、长材料/多任务、原未决决定、文件拒绝/失效、嵌套层、主历史阅读锚点与深浅/强制颜色等完整取证。本次局部源码检查不是独立复核或发布验收。
 
 本轮智能输入建议验证：代码 [PR249](https://github.com/ly-ccx/Peer-Agent/pull/249)，c78f861f 的 19 项源码 Electron 检查、8 图逐图自审及摘要绑定 verify 通过；50 项专项通过。实现者自审，完整覆盖限制见专项回执，不是发布联合候选。
 
@@ -347,7 +348,7 @@ UI 的交付单位是“一个角色 + 全部适用状态 + 实际消费者”�
 |---|---|---|---|
 | M01 控件即时回执 | S token 驱动 hover/pressed/focus、共享 button/switch/checkbox CSS；S E15 共享 ChoiceStrip/文件确认/MCP 反馈与远程 focus/pressed | 本批控件状态已审阅；V 对比度/目标尺寸/其他消费者 | P1 · E15/E16 |
 | M02 fade/rise/pop 入场 | S `motion-enter-fade/rise/pop`；settings/menu/轻层及部分页面；S E16 motionEnvironment/visualMotion 接入相关消费者；E17-F4 C122 rise/shift-sm | 当前路径已审阅；V 静态偏好/重复打开/其他入场和动画 API | P1 · E16/E17 |
-| M03 inline slide 抽屉 | S `motion-enter/exit-slide-inline`；Drawer/档案覆盖层；S E16 档案 push 监听偏好/隐藏，关闭中断不留旧 out timer | 当前路径已审阅；V RTL/方向/push-cover/resize，PR204 未纳入 | P1 · E06/E16/E17 |
+| M03 inline slide 抽屉 | S `motion-enter/exit-slide-inline`；Drawer/档案覆盖层；S E16 档案 push 监听偏好/隐藏，关闭中断不留旧 out timer；S C216 常驻面板沿 `motion-inline-panel/space` 可逆 CSS 过渡，静态关闭与交互关闭分责 | C216 用户指定源码窗口宽窄/开合/快速反向终态局部查看；V 系统 reduce/RTL/长期读位；其他路径 V 方向/push-cover/resize，PR204 未纳入 | P1 · E06/E16/E17 |
 | M04 fade/sink/pop 退场 | S motion exit 与 Overlay 自带 CSS/fallback、useMotionPresence；S E16 Overlay/presence 共用 watchVisualMotion，幂等 finish/cancel、有界 fallback；E17-F4 C122 fast 淡出、关闭即 inert，重开取消旧收尾 | 当前路径已审阅；V 缺 API/无事件/拒绝/反向/嵌套/真实归焦 | P1 · E16/E17 |
 | M05 fold/grid/height | S SettingsDisclosureContent、BotProcess/details、问题的 WAAPI 高度折叠；S G12/E16 问题 animateVisual 静态/无 API/拒绝/fallback，disclosure 同收尾 | 当前实现已审阅；V 快速反向/无触发者/卸载/旧 promise 与实际焦点 | P1 · E06/E16/E17 |
 | M06 分段/选值指示器 | S BotDrawerSegments/PaletteSelect/模型强度相关 transform/transition；S E15 C210 本地 radio/手动 tabs，选择指示由受控值决定 | 当前消费者已审阅；V 真实键盘/RTL/快速反向/其他选择器 | P1 · E06/E15/E16 |

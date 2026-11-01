@@ -9,11 +9,11 @@
 
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 
-代码草稿：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，`46e51a1160ef4d875fadd89f7f3a7591d6859903`。
+代码草稿：[PR251](https://github.com/ly-ccx/Peer-Agent/pull/251)，接入 `46e51a11`，动效补齐 `ffc9e71c`。
 
 用户本次授权范围：把当前任务条替换为右侧浮动面板，展示 Bot 公开注意力、真实任务、委派 Agent 的进度/卡点与产出资料，宽屏默认展开，窄屏从顶部 SVG 图标打开。C 级表达改动，覆盖 P06/P10、C216–C218，复用 E04/E05/E06/E09/E15/E17，不新增运行时或授权契约。
 
-实现已按源码和 diff 自审；范围、真实来源、加载/失败/历史边界及恢复责任已同步[交互矩阵](peer-interaction-standardization-matrix.md#bot-工作现场浮动面板2026-11-01)与[UI/过渡覆盖表](peer-ui-motion-transition-matrix.md#bot-工作现场的响应式连续性2026-11-01)。新增投影用例和原身份用例适配未运行。联合候选的 build/test/type/architecture/IPC 与完整产品回归仍由 E13 发布前执行，本记录不是发布验收或独立复核。
+实现已按源码和 diff 自审；用户追加要求启动真实开发窗口并补动画，现已加入共享 token 驱动的可逆开合、宽屏留位、概览/资料淡入及真实步骤宽度过渡，保留同一面板、主对话与 Composer。用户指定的本机源码宽窄/开合/快速反向终态、Escape 归焦与资料视图保留已局部查看；未测逐帧性能、系统减少动效或真实步骤更新。范围、真实来源、加载/失败/历史边界及恢复责任已同步[交互矩阵](peer-interaction-standardization-matrix.md#bot-工作现场浮动面板2026-11-01)与[UI/过渡覆盖表](peer-ui-motion-transition-matrix.md#bot-工作现场的响应式连续性2026-11-01)。新增投影用例和原身份用例适配未运行。联合候选的 build/test/type/architecture/IPC 与完整产品回归仍由 E13 发布前执行，本记录不是发布验收或独立复核。
 
 ## PR214/215 汇合验证（2026-10-24）
 
