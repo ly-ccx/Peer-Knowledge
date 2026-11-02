@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 主 Bot 输入框层次（2026-11-02）
+
+U04 / U06，P06 / C136。输入框复用 `--control-composer` 与 `--shadow-composer`，以表面差和静态软阴影形成轻微抬升，禁用按钮使用同一底色混色。保留既有几何、focus-within、拖入/禁用、减少动效和强制颜色分支；不改变输入、焦点、滚动、恢复或运行时事实，也不新增动效。
+
+本次已作源码内容/diff 自审，并按用户要求查看[浅色组件预览](evidence/bot-composer-floating-20261102/README.md)。截图来自原工作区真实组件及生产 CSS 的隔离打包，外围内容为示例；不属于最终组合候选或安装版验收。浅深及注册主题、窄窗、键盘/IME、减少动效/强制颜色与读屏实机覆盖留待发布；未关闭 U04/U06 的其他缺口。
+
 ## RC33 联合候选源码验收（2026-11-02）
 
 P06/P10/P21/P29、C210/C216–C220、U02/U08/U10/U13/U14与T03/T04/T08/T09：工作现场、第四栏文件/子会话、引用、模型选择与输入建议设置在最终联合 `429fa64d` 重新完成13项工程门禁、255张标准截图及输入建议/资源工作区各8张实际逐图自审和verify。指纹 `fbd9b7dcf07e0a9d2db7b63224bd365eb5b240da2a40d54b252c07398b9f0edc`；未沿用RC32指纹。既有较早“未运行”记录保留为当时事实，本条仅提升已列范围；不泛化为整行所有状态。RC32因GitHub macOS14 runner停用未发布；RC33迁到macOS15且保留原签名、公证和包内门禁，已发布RC33，14项资产、三平台更新源、四个npm包及Pages线上核验通过。范围、首次采集桥接失败/一次重采与覆盖限制见[RC33候选台账](../../playbook/v0.1.0/rc33-candidate.md)。实现者自审，不是独立、安装交互、完整IME或读屏验收。
@@ -130,7 +136,7 @@ ModelSelectionPanel / EffortRange，按用户提供参考补展示：原生 rang
 当前资源工作区验证更新（2026-10-27）：用户明确要求的 R1–R10 组合已运行，697 项模块、10 组深浅色实际 Electron 联调、98 个具名检查及 89 张截图实现者自审通过。修复长文档定位覆盖导致的无界滚动、编辑按钮 pending 失焦误取消和通知刷新等待；补共享 SVG 折叠图标。默认右侧、显式放大、窄屏、减少动效、局部授权/冲突/失败和原生关闭保留输入均有范围内记录。不是独立审查、完整 OS IME/辅助技术或 G8 发布验收；原生网页 chrome 与 guest 分别截图，不冒称合成完整窗口。详见[本轮结果与限制](../../playbook/resource-workspace-r1-r10-validation.md)。下文各实现子包“未运行”保留其历史候选状态。
 
 创建时间：2026-10-23
-最后更新：2026-10-29
+最后更新：2026-11-02
 
 > 状态：规范到存量实现的映射；纳入[当前改造计划](peer-product-renovation-plan.md) E15/UI、E16/动效、E17/过渡，发布证据统一归 E13。
 > 组件与页面逐项登记见[全产品交互矩阵](peer-interaction-standardization-matrix.md)。本文不另立视觉数值、运动常数、组件库或验收账本。
@@ -368,7 +374,7 @@ U01/U03/U05/U06/U07/U08/U14/U15 的设置、新建、模型、档案消费者已
 | U03 几何、间距与密度 | S 8/12/16 曲线、`superellipse(1.4)` 支持检测、space 与 SettingsGroup；E07/E17-F3 回复头像/身份间距消费共享 token，别名/空正文不占 gap；S E15 共享 ChoiceStrip/文件输入与远程普通/紧凑几何 | S E07/E15 当前消费者已审阅；V 200%/窄容器/长名和其他存量 | P1 · E07/E15 |
 | U04 表面、玻璃、边界与层级 | S chrome/paper/control/glass、overlay、共享 settings-floating；正文稳定底面 | V 嵌套 blur/透明降级/强制颜色、局部 z-index/portal 与模态的交互边界；原生材质需安装包实测 | P1 · E07/E15/E17 |
 | U05 按钮/图标/链接 | S PeerIcon/SVG、原生 button、stone/graphite 主操作与已有 focus token；S E15 文件确认/取消 SVG、MCP 按钮/复制失败反馈、远程 focus/target | 当前消费者已审阅；V 读屏/实际目标尺寸/强制颜色及其他操作 | P1 · E06/E15；关键决定 E04 |
-| U06 输入/文本编辑/Composer | S 受控 BotComposer、Quick Chat/TUI shared recovery kernel；正文/引用/附件/pending 先保存，匹配 input 确认；经典沿旧持久 seam；E11 远程 composition/229、原请求回执与会话 draft，终端卡片焦点/编辑分开；S E15 C211 文件名 IME/keyup/repeat、失焦留名、明确确认/取消，写入失败保原编辑 | E02/E08/E11/E15 当前路径已审阅；V 真终端/软键盘/读屏/重开与原持久化限制 | P0 E02/E03；P1 E08/E11/E15 |
+| U06 输入/文本编辑/Composer | S 受控 BotComposer、Quick Chat/TUI shared recovery kernel；正文/引用/附件/pending 先保存，匹配 input 确认；经典沿旧持久 seam；E11 远程 composition/229、原请求回执与会话 draft，终端卡片焦点/编辑分开；S E15 C211 文件名 IME/keyup/repeat、失焦留名、明确确认/取消，写入失败保原编辑；主 Bot 悬浮表面见 2026-11-02 补记 | E02/E08/E11/E15 当前路径已审阅；V 真终端/软键盘/读屏/重开与原持久化限制 | P0 E02/E03；P1 E08/E11/E15 |
 | U07 Checkbox/Switch/枚举/Slider | S boolean-controls 原生 checkbox/role=switch；AppearanceSlider/ReasoningEffort/EffortRange；S E15 C210 本地 radio、嵌套 Switch 键盘不触发卡片、真实开关回执与逐项 pending | E08/E15 当前消费者已审阅；V 真实设备/读屏/其他 slider/switch 与未知回执 | P1 · E06/E08/E15 |
 | U08 搜索/Dropdown/菜单/tooltip | S Dropdown/CascadingMenu/OverflowMenu/查找/tooltip 共用层级、IME/Tab/外点/归焦；过滤 radio、真实 listbox；E08-F2 模型浮层承接配置失败恢复，入口保留状态提示；E16/E17-F4 AppMenu 共享入退场、关闭即停用 | S E08 C114 纳入共享层级/IME/roving，浏览不写入；G07 已审阅；V 无模型/失效与跨窗口 | P1 · E03/E06/E15 |
 | U09 tabs/分段/资源标签 | S Capability/Workbench/档案/Resource tabs 有键盘/roving/panel；昂贵视图手动激活，关闭回相邻；S E15 Capability/Skills tabs 改复用 C210，同 panel 关联、焦点/选择分离 | G05/E06/E15 当前消费者已审阅；V RTL/多实例/失效/动态关闭和 guest | P1 · E06/E15/E17 |
