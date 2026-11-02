@@ -1,7 +1,7 @@
 # ADR 116：任务控制、执行停稳与资源交接
 
 创建时间：2026-11-01
-最后更新：2026-11-01
+最后更新：2026-11-02
 状态：Accepted / Implemented in source（2026-11-01；实现者内容/diff 自审，发布验收未执行，运行中的应用未升级）
 级别：A（控制、准入、恢复和持久化契约），B（调度、事件和共享宿主），C（状态表达）。
 
@@ -287,3 +287,17 @@ RC32 整合补充（代码 PR252）：恢复前先通过同一 Session Control �
 资源导入不得在有效 stopReceipt 之后反复重写保护 revision，使原回执永远过期。匹配回执先重放账本结清，真实活体、未结束句柄和 unknown 仍保留保护。内容/diff 自审及新增回归用例不等于发布或安装版验收。
 
 旧 takeover 的适配另有严格前提：原计划的结构化 `turn_started/turn_completed(done)` 必须成对、最后一次独立核验已有宿主 `verification verdict` 提交，随后只有同一 takeover 请求及暂停/控制写入，没有新回合、准入、绑定或执行代次。新屏障只停稳并暂停旧意图，结清后显式退休遗留 takeover，不重跑 Worker、不代替用户恢复旧工作。缺任一事实仍保留可定位保护。相同 unknown hold 的重复结清不得刷新 revision 制造假进度。
+
+## 16. 成功派发回执与排队自阻塞恢复（2026-11-02）
+
+RC34安装后现场确认：父回合已有登记的 `spawn_session` 成功Tool Result及completed协调操作，派发期间预算attempt曾留pendingTools；资源导入把该父回合调用当成新子任务的未知执行，为尚无Runner的queued任务建立reconciling claim。后续attempt已退役且预算pending已清除，旧claim仍未随之结清，重启仅把它显示为owner_changed。RC34的通用截图/测试通过不能替代该真实队列出口验收。
+
+本补充为A级既有恢复事实契约扩充、B级宿主与调度修复；不改变能力、权限、Evidence真源、System Context或存储边界，不增加执行入口、数据库或格式最低版本。沿既有work预算增加typed `settledDispatches`，只记已核对调用的身份、登记Evidence引用、协调operation、目标版本/执行代次、子session及时间；不是新Tool Result、目标成功或验收。
+
+仅对闲置父attempt的spawn_session或该attempt已退役后遗留的同源claim做确定性恢复：同时匹配原dispatch/turn、work/parent、已登记且同capability的Evidence索引、规范agent_turn中同引用的完整成功结果、已completed的parallel协调操作及replacementSessionId/目标版本。对于attempt已退役的claim，必须从其原toolCallId沿登记Evidence精确找到规范turn，并额外匹配claim的session、目标版本和执行代次；不能借用其他任务的成功回执。助手正文、截断预览、索引孤立记录、缺失/模糊结果、其他工具、活跃attempt或来源变化均不能结清。保留原历史和用量，不重放工具、不重新创建子任务；最后一项pending消除后可退役已无活体的attempt，未观测的用量仍为unknown。
+
+queued自阻塞的资源收口仍走Session Control和原StopBarrierReceipt。只处理无Runner、无接管/取消、无实际活体或未结束句柄，且已核对派发回执与当前session/executionEpoch/goalRevision严格相同的既有任务。重新检查当前租约与控制，封准入、确认runner/scheduler/handles idle、取得unknown集合为空的真实停稳回执，再由资源账本幂等结清；未匹配的历史unknown仍保护原范围。不能因queued、无PID、时间或任务终态直接删除claim。新回执仅恢复原任务准入，不产生新mandate或授权、不签收成果。
+
+运行中有活体的父协调attempt，其未返回metadata调用不属于子执行代次的unknown集合；父协调仍受原模式能力白名单与自己的回执/预算约束，子执行自己的pending调用继续保守保护。已失去活体的父attempt仍须完整回执对账，不能按role直接清除。
+
+恢复先对账已登记派发回执，再导入/核对资源；运行中相同事实也可在原宿主修复周期处理。缺少证据继续失败关闭并给具体原因，不做全设备强制解锁。发布门禁须加入该真实形状的冷恢复：一次派发、原任务身份/历史保留、同目录后续准入、无重放、未知shell与无关保护保留；同时实际安装版确认原队列有执行进展后才交付修复。
