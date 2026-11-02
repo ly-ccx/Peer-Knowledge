@@ -1,5 +1,11 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 主 Bot 输入框悬浮层次（2026-11-02）
+
+P06 / C136，C 级表达调整。用户希望输入框更有独立悬浮卡片感；代码 `project-agent/styles/bot-conversation.css` 的 `.bot-composer` 接入已有 Frost `--control-composer` 与 `--shadow-composer`，禁用按钮基于同一表面混色。尺寸、圆角、间距、焦点边线、拖入/禁用状态沿用原实现，不增加玻璃、位移或入场动画。
+
+输入、生成、停止与错误继续由原受控 Composer、kernel/store 和宿主事实承担；IME、草稿/引用/附件恢复、焦点与阅读位置沿用原链路。未改变权限、执行、Evidence、IPC 或持久化边界。内容/diff 自审已完成；用户要求的浅色真实组件预览已逐图自审，见[截图与范围](evidence/bot-composer-floating-20261102/README.md)。该图来自原工作区的组件隔离渲染，不是最终 RC33 组合候选、安装版或独立验收。测试与其余主题/交互/辅助技术覆盖留待发布，未关闭原输入恢复缺口。
+
 ## RC33 联合候选源码验收（2026-11-02）
 
 P06/P10/P21/P29、C210/C216–C220、U02/U08/U10/U13/U14与T03/T04/T08/T09：工作现场、第四栏文件/子会话、引用、模型选择与输入建议设置在最终联合 `429fa64d` 重新完成13项工程门禁、255张标准截图及输入建议/资源工作区各8张实际逐图自审和verify。指纹 `fbd9b7dcf07e0a9d2db7b63224bd365eb5b240da2a40d54b252c07398b9f0edc`；未沿用RC32指纹。既有较早“未运行”记录保留为当时事实，本条仅提升已列范围；不泛化为整行所有状态。RC32因GitHub macOS14 runner停用未发布；RC33迁到macOS15且保留原签名、公证和包内门禁，已发布RC33，14项资产、三平台更新源、四个npm包及Pages线上核验通过。范围、首次采集桥接失败/一次重采与覆盖限制见[RC33候选台账](../../playbook/v0.1.0/rc33-candidate.md)。实现者自审，不是独立、安装交互、完整IME或读屏验收。
@@ -163,7 +169,7 @@ P06/P17、共享 ModelSelectionPanel，C 级交互小修：用户明确选择不
 当前资源工作区验证更新（2026-10-27）：用户明确要求的 R1–R10 组合已运行，697 项模块、10 组深浅色实际 Electron 联调、98 个具名检查及 89 张截图实现者自审通过。实际链覆盖 scoped 读取、固定选区草稿、保存、授权允许/拒绝/取消、版本冲突、真实本地一次写入及只核对不重写；原 Composer、后来输入、个人任务/已有成果保留。修复长文档滚动、编辑按钮 pending 失焦和刷新等待。不是独立审查、真实模型、安装包或完整 G8 发布验收，未重启个人应用/发布。详见[本轮结果与限制](../../playbook/resource-workspace-r1-r10-validation.md)。下文各子包“未运行”保留其历史候选状态。
 
 创建时间：2026-10-23
-最后更新：2026-10-29
+最后更新：2026-11-02
 
 > 状态：全产品源码登记与改造依据，未完成全产品实机验收。纳入[当前改造计划](peer-product-renovation-plan.md) E00–E17。
 > 规范：[体验/UI](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效](../../knowledge/specifications/motion-system.md)、[过渡](../../knowledge/specifications/transition-system.md)。UI、动效与过渡的专门覆盖见[体系覆盖表](peer-ui-motion-transition-matrix.md)。
@@ -484,7 +490,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P03 新建机器人/绑定目录 | F/O；NewBotSheet、BotListShell，新建 lifecycle 回执；含 PR200 本地切片 | E08 名称/IME/单次创建、失败与未知回执已审阅；V 重名/真实受管目录/原生取消/列表读失败 | P1 · E01/E08 |
 | P04 机器人列表/搜索/行操作 | Q；BotList/BotRow、useBotList 与目录投影；E16/E17-F4 左下角应用菜单接共享入退场 | V 空/无结果/归档/对象删除/长名称/键盘选择 | P1 · E04/E07 |
 | P05 需要你筛选与清单 | Q/O；S AttentionSheet 仍读 listAttention，CardView 决定依宿主事实 | 到期安排有界宿主重读及父计数刷新，回读前保原行；E04 实现已审阅；V 计数/原卡/详情、迟到/过期/读失败 | P0 · E04 |
-| P06 主机器人对话 | I/V；S 受控 draft + 本机 store + 真实 input receipt；重开不自动发送；E08-F2 移除对话外层模型反馈段落；E07/E17-F3 身份可辨识、去除空节点间距 | a0ae1a33 消息/输入框独立 key，基础打开/页面往返/草稿与阅读模式点查通过；E02/E03/E05 与 E09 引用来源/附件预览实现已审阅；V 切换/重开/未知、引用失效/四页后继续/手势取消、晚图与读位 | P0 输入 / P1 预览 · E02/E03/E05/E09 |
+| P06 主机器人对话 | I/V；S 受控 draft + 本机 store + 真实 input receipt；重开不自动发送；E08-F2 移除对话外层模型反馈段落；E07/E17-F3 身份可辨识、去除空节点间距；悬浮表面见 2026-11-02 补记 | a0ae1a33 消息/输入框独立 key，基础打开/页面往返/草稿与阅读模式点查通过；E02/E03/E05 与 E09 引用来源/附件预览实现已审阅；V 切换/重开/未知、引用失效/四页后继续/手势取消、晚图与读位 | P0 输入 / P1 预览 · E02/E03/E05/E09 |
 | P07 授权/计划/问答/项目熟悉 | A/F/V；S 宿主 approval 匹配回执、generic ok 回读卡；旧展示记录不盖授权/验收 | E04/E16/E17 实现已审阅，G12 见首页；V 过期/拒绝/取消/迟到/多卡、静态/反向/归焦 | P0 · E04/E16/E17 |
 | P08 档案框架与五个标签 | O/Q；BotProfileDrawer、Drawer、分栏/覆盖布局与 tab 记忆 | PR204 已汇入组合候选；先登记有效 Layer 再进入 scope，无 Layer 不拥有焦点；E06/E17 层级/tabs/手势与 push 静态/中断收尾已审阅；V resize/反向/源消失与最终候选实机 | P1 · E06/E16/E17 |
 | P09 档案·概况 | V/A；OverviewTab、profile、宿主/模型解析 | V 无模型/来源不可用/打开目录失败/长路径 | P1 · E08/E12 |
@@ -699,7 +705,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C133 · `project-agent/conversation/AgentActivityRow.tsx`<br>`AgentActivityRow` | R/V · S 命名活动/图标和真实 agent activity；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核同身份去重、未知/等待人/核验不混淆 | P0 · E04/E16 |
 | C134 · `project-agent/conversation/ApprovalReceipt.tsx`<br>`ApprovalReceipt` | V · S approval/plan 真实回执，批准/拒绝/过期/取消独立文字 | E04 实现已审阅；V 范围/历史对象、策略变更与迟到 | P0 · E04 |
 | C135 · `project-agent/conversation/BotAttachments.tsx`<br>`BotAttachments` | Q/V/O · S 附件列表/移除和共享灯箱预览；事实：受控 props / 所属 hook（装配模块由子树承接） | E09 图片/文本/元信息受控预览与移除归焦已审阅；V 故障/晚图/真实键盘；只读预览不构成 Evidence | P1 · E02/E09 |
-| C136 · `project-agent/conversation/BotComposer.tsx`<br>`BotComposer` | I · S 受控正文/quote/附件、共享 IME、发送/停止；恢复责任在 kernel/store | E09 受控引用按消息 ID 定位、移除回输入已审阅；G01/E03 沿用；V 附件读完/保存失败/真实 IME | P0 · E02/E03/E09 |
+| C136 · `project-agent/conversation/BotComposer.tsx`<br>`BotComposer` | I · S 受控正文/quote/附件、共享 IME、发送/停止；恢复责任在 kernel/store；悬浮表面见 2026-11-02 补记 | E09 受控引用按消息 ID 定位、移除回输入已审阅；G01/E03 沿用；V 附件读完/保存失败/真实 IME | P0 · E02/E03/E09 |
 | C137 · `project-agent/conversation/BotConversation.tsx`<br>`BotConversation` | I/V/O · S 既有 quote/Evidence/配置恢复；E12 追读超批保消息，明确继续读取；E08-F2 设置反馈从对话布局移回模型控件 | a0ae1a33 修复消息/输入框同级重复 key；基础对话往返点查、渲染身份用例通过；E02/E08/E09/E12 已审阅；V 多批/源失效/换 bot 与迟到，不制造连续历史 | P0 输入；P1 · E05/E08/E09/E12 |
 | C138 · `project-agent/conversation/BotMessageList.tsx`<br>`BotMessageList`, `SystemCard` | V/Q · S shared policy+有界 reading memory；恢复分批/取消、显式回最新、任务焦点只交接一次；E07/E17-F3 头像/名称与首段按共享 token 分组 | 本轮补原生 scroll 捕获实际手势后的阅读锚点；同帧最终几何有界复核，仅当前 pinned 贴底，离开释放帧；React 投递延迟仍保位置，卸载释放 listener；原生帧 receiver 用例及较早基础历史阅读/回最新点查通过；E09 定位状态与 E05/E06 沿用；本地 `ed0f81b4` 修复帧 API receiver，打开对话已作单路径恢复确认；V 手势取消/虚拟重测/晚图/完整恢复 | P1 · E05/E06/E09/E12/E17 |
 | C139 · `project-agent/conversation/BotNarration.tsx`<br>`BotNarration` | V · S 公共叙述和 aria-live；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核流式广播频率、停止/完成保留叙述、无私有思考 | P1 · E04/E05/E16 |
