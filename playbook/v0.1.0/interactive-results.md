@@ -199,6 +199,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - ADR §17.2.1 先由 `b97e96a` 定义。实际 Verifier service 从当前 review 生命周期收集固定版本和冻结材料 ID；同步持有期间阻止同 owner 建立新 review，结束 review、失去执行租约或 Bot 归属变化使旧守卫失效。保留生命周期中的引用，即使该 turn 已变旧。Desktop/TUI 现有组合根分别将本宿主的同一个 InteractiveRuntime 交给核验入口。
 - 实际 review 测试证明结果及冻结引用能阻断清理，关闭后旧预览失效，新 review 可恢复。测试的其余来源为控制夹具。164 项 Node 测试通过，Runtime Node 构建及架构/UI 检查通过。跨进程历史核验、可恢复委托的持久引用和生产组合仍待实现。
 
+## 委托会话的规范消息范围（7e68836c）
+
+- ADR §17.2.1 先由 `fc197ea` 定义。通过实际 Conversation Store index 写锁，在同一快照内验证 Bot 的角色及 workspace，从规范父子元数据扫描直属 work_session；不依赖 UI 列表、任务已提交或调用方预先枚举。重复、缺失或错误绑定的元数据阻断，守卫同时提供已覆盖的会话 ID 供后续持久计划对账。
+- 真实 spawn 及重开测试移除父消息中的冻结附件后，仍从委托子消息找回真实固定引用；无计划的已创建子会话也覆盖，错误 workspace 拒绝。258 项 Node 测试、Conversation Store 和 Runtime Node 构建、架构/UI 检查通过。可恢复任务计划的独立 Evidence/控制引用、队列及生产组合仍待完成。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
