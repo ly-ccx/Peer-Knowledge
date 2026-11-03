@@ -1,5 +1,13 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## ADR 118 任务证据别名与固定交付来源（2026-11-03，增量验证）
+
+P14/P06、既有 EvidenceView/EvidenceDeliveries，代码 `c57f603b`。用户从原任务的工具证据进入交互结果；共享 PublicationSource 按真实 task/Plan/Session/report、工作 conversation 和当前 Bot owner 解析发布回执，核对原规范索引后返回固定引用及明确未验证的模型摘要。无任务 context 的工具别名不猜测归属；相同 wire call ID 的其他任务/Bot 不改绑来源。unchanged 修订继续显示原发布任务，不新增产物。
+
+元数据列表仍只读原索引，不读取程序/数据正文。来源/索引缺失、待登记或不一致时保持不可用；不查询项目文件、不补发发布、不重建 Evidence。旧任务没有 parent Bot 绑定时，普通文件证据继续沿原资源投影；它不因此取得交互身份。
+
+178 项 Node、9 项 Bun 与实际 Electron → 正式 preload/授权 IPC → 原 ApplicationService/EvidenceView → 主区/独立窗口通过。最终 `peer-interactive-workspace-umOyTs` 的 8 图已逐张实现者自审，independent=false；包括原草稿/人工发送、已提交/未提交接管、中断输入和 chunk 降级。测试重载遵从真实未保存保护，等确认后明确重试；没有绕过保护。主 Bot 报告/回复引用、新版本入口、真实模型及最终全产品验收继续见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)，不将本批任务入口计为完整闭环。
+
 ## ADR 118 冻结条件标签与异步确认（2026-11-03，增量验证）
 
 P06 / C223/C224/C228，代码 `4d33ae4e`。用户将点击时的条件交回原 Bot 草稿时，摘要采用固定发布程序初始控件的名称；宿主在有界、可终止 Worker 中重建标签，不信任 Renderer 或已丢弃的渲染树。没有初始命名控件的字段保留稳定条件序号。当前合法参数即使导致试算失败，也不改变原控件名称或被替换成默认值。

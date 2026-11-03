@@ -91,10 +91,18 @@
 - 174 项 Node 通过，涵盖 InteractiveContent、整个 interactive-results、Renderer 会话/registry 与 Desktop ApplicationService。54 项 Bun 分两批通过，覆盖 Worker、状态/视图/会话与两条 TUI 实际 Provider/核验链。Desktop 全 build、Protocol/Node/Desktop/TUI typecheck、architecture/UI 与 IPC check 通过；IPC 仍为 403 channels、435 preload operations、352 main registrations。新增测试最初有一处异步时序等待及一处预期错误码不符，已按真实服务入口及现有 incompatible_catalog 契约修正，最终组合无失败/跳过/取消。
 - 隔离真实 Electron 专项 1 项通过：主资源区及原生窗口将带 Trial name / Divisor 的 5/4 条件加入原 Composer，正文/引用/附件与人工发送链保持；接管保存、布局/阅读位置、中断输入及 chunk 失败恢复继续通过。发布/Grant 与外围壳是控制夹具，未运行实际模型。`peer-interactive-workspace-ApPG3l` 的 8 张 PNG 均逐张实现者自审，review.json 绑定上述源码，independent=false；审阅指纹 `3b73d50e71b3259dbe9c7c8035e0f40a32dbecd97011f05cbf6d217f206bc8d4`。已同步两份体验矩阵和改造计划；这不是最终标准产品 packet、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收。
 
+## 任务证据别名与规范来源增量（c57f603b）
+
+- 契约先在 `37f41bc` / `a9ff20d` 的 ADR §9.5 明确，代码 `c57f603be72542ca63c462da688601faa46c44c4` 实现。共享 PublicationSource 按真实任务 context、Plan/Session/report、当前 owner 及工作 conversation 查同一次发布回执；随后核对固定版本与规范索引的 capability/tool/call、时间、artifactRef、标题及 specHash。Store 提供只读 getVersionMetadata，先核对来源身份再读程序/数据正文，正文读回后的描述再次一致核对。人读取沿原 ApplicationService，模型仍沿 inspect Provider；没有新能力、IPC、存储格式、权限或 Evidence。
+- 真实 Desktop composition root 将服务接入原 EvidenceReader。具有明确任务 context 的工具别名可以打开原规范发布；无任务 context 不猜测同名工具调用。unchanged 修订只在真实回执及两边任务身份确认后沿原发布 context 投影，原来源不改绑。固定引用读取提供明确标为未验证的原模型摘要，不能借用文件读取或当前 head。来源缺失、索引待登记/冲突均保持不可用，不触发发布或恢复执行；metadataOnly 仍只查原索引，不读取正文。
+- 178 项 Node、9 项 Bun 通过，覆盖整个交互运行时、Desktop ApplicationService/证据读取及既有应用服务、两条 TUI Provider/核验链。包括同 owner 两工作与跨 Bot 同名 call、缺失/错绑索引、待登记操作、unchanged 来源及正文读取前身份拒绝。新增旧 Plan 无 parent 绑定的普通文件回归先真实失败，随后修正为原文件投影继续可用，不能将交互来源要求扩大到所有旧证据。Node/Bun 最终无失败/跳过/取消；Runtime Node/Desktop/TUI typecheck、Desktop 全 build、architecture/UI 与 IPC check 通过，IPC 仍为 403/435/352。
+- 实际 Electron 专项改用正式 EvidenceView、ProjectAgentApplicationService 和同一 PublicationSource，经生产 preload/授权 IPC 从 `tool-result://publication` 打开固定结果，原主区/独立窗口、条件草稿与人工发送、布局/接管/中断/chunk 恢复继续通过。一次重载因真实未保存保护超时；测试已改为等待确认并明确重试重载，没有绕过保护。逐图检查发现夹具缺 Evidence CSS，补导入正式 bot-drawer.css 后重采最终 8 图。`peer-interactive-workspace-umOyTs` 的 review.json 绑定上述源码，independent=false，指纹 `4304b254f0c897dec4bf531986d19722eec4114b0ce13ca6ef8280a1c03d0fa6`；浅色读位截图保留真实布局待保存中间态。发布/Grant、Plan/Session 端口及外围壳仍为控制夹具，未据此声称整机任务或真实模型完成。
+- 已同步 P14/P06 两份体验矩阵与改造计划。本批完成受控任务证据到固定发布的消费；主 Bot 报告/回复引用、head/predecessor 新版本入口、完整留存、多入口与实际模型效果仍未完成，不能关闭 IUI-02/IUI-03/IUI-04 或全目标。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
-- 规范发布索引的交付入口已接；继续核对既有 Tool Result 引用到原规范发布记录的关联消费、主 Bot 的结构化引用，以及宿主确认的 head/predecessor 新版本入口。不从助手正文、标题或 URI 文本推断产物或版本关系。
+- 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；继续完成主 Bot 报告/回复的固定结构化引用，以及宿主确认的 head/predecessor 新版本入口。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
 - 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
