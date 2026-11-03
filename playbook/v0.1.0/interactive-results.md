@@ -382,6 +382,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `57ae67fa` 收紧真实故事的验收关联。只核对最后一次显式会话复核实际引用的固定检查回执；最终回复须由该次复核结束后产生、锚定冻结用户输入且通过正式回复持久化。较早的进度消息、降级回复和计划级核验回执不能混入成功证据。TUI 类型与既有 12 项专项通过，完整实连通过样本仍缺。
 
+- ADR `c3a4bb9` 和代码 `fedec053` 把已有等待资格接进 Desktop/TUI 的 Runtime Projection。用户回合不会向模型提供等待工具；有 workId、有事件且无当前用户锚点的后台唤醒才可见，Provider 仍检查实际任务推进与归属。Runtime Node 构建、TUI 类型、34 项 Provider 适配、4 项等待及 23 项 Desktop 模式/恢复测试通过。新实连样本 `peer-interactive-live-sQsz1j`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
