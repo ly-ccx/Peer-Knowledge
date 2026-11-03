@@ -309,8 +309,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 追查 `F7vsCm` 的 Anthropic 原始工具记录，前五次委托均因 criterion 描述为 713–763 字符被拒。输入均已有一个条目，宿主旧诊断只提示条目数量。代码 `cf952c80` 让投影 schema、验证及错误提示共用 500 字符限额，保留严格拒绝；Delegation Provider 27 项通过。
 - 代码 `67733c27` 缩短两条真实样例的结构化 criterion，验收显式要求会话级已持久化通过 verdict 和可读、完整的任务文本计算值，避免计划级核验或不可用文本被计为成功。TUI 类型和原专项 11 项测试通过。干净源码两线复跑目录 `peer-interactive-live-csREZG`，整案终态待查。
 
-- `csREZG` 的 Anthropic 首次委托已成功，原发布核验通过。后续自动核验虽取得四条规范回执，模型同时引用了未登记的引用，宿主按规则拒绝。主 Bot 曾在自动核验仍活跃时调用显式复核，随后在 32 次实际请求时以 `story_request_limit:worker` 结束，无最终交付。OpenAI 样本仍在运行。
+- `csREZG` 的 Anthropic 首次委托已成功，原发布核验通过。后续自动核验虽取得四条规范回执，模型同时引用了未登记的引用，宿主按规则拒绝。主 Bot 曾在自动核验仍活跃时调用显式复核，随后在 32 次实际请求时以 `story_request_limit:worker` 结束，无最终交付。OpenAI 样本随后建立第二个后续委托，26 次实际请求时也以 `story_request_limit:worker` 结束，无最终交付。
 - 代码 `47dc72e5` 让显式复核入口复用宿主的活跃核验事实。自动核验仍占用任务时，返回有 Tool Result 的等待状态，且不登记第二次复核或清除原占用。核验结束后可再调用。49 项复核、委托 Provider 和宿主事实测试通过。真实样本 `csREZG` 使用修复前源码。
+
+- 代码 `09e37381` 将样例的 worker 单次冻结计算与独立 Verifier 四类检查分别写入委托契约，要求在核验活跃时等待。验收拒绝重复创建的后续任务，仍要求已持久化的会话 verdict 和最终结构化交付。Runtime Node 构建、TUI 类型及原专项 11 项通过。新源码两线复跑目录 `peer-interactive-live-Lb3Oh8`。
+- 标准产品基线本轮逐图核对 7 张窗口材质图，涵盖宽窗工作现场和设置抽屉、浅色窄窗及减少透明度，原图哈希绑定至 review；实际透明度数值从机器记录核对。累计 42/255，整包 verify 待完成。
 
 ## 原生缩放与完整首版组件目录（ee029f64）
 
@@ -322,7 +325,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 35 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 42 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 ## 后续接线与完成审计
 
