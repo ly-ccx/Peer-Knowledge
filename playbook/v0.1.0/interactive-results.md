@@ -423,6 +423,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 标准重采包新增逐图确认 13 张窄窗恢复、启动及宽窄窗四种核验结论与主对话画面，逐张匹配包内 SHA-256。累计 69/255。
 - `aced60e0` 的 OpenAI 故事 `peer-interactive-live-cStvos` 已发布并进入首次交付，28 次请求（Bot 16、worker 4、Verifier 8）达到 Bot 角色上限。未收到 canonical 首次交付，驱动按用户路径保留冻结输入。持久回合中多次 assess 把字段放在顶层，另一次嵌套对象缺 `assessment.reason`。`4f3f770f` 在共享工具说明、schema 和结构化拒绝中明确层级及缺字段路径，保持原输入校验和宿主权威。49 项协调、委托与角色投影测试通过；更新后在原请求预算下启动 OpenAI 复跑。
 
+- 重采包又审阅 12 张窗口材质、会话失败恢复和子会话图，9 张通过，累计 78/255。三张宽窗深色图的回到最新按钮遮挡回复末尾，保留 not_checked 与逐图描述；涉及设置抽屉、玻璃材质和实色材质。
+- 干净源码 `4f3f770f` 的 OpenAI 故事 `peer-interactive-live-S29RTH` 成功提交 assess，首条 canonical 进度回复引用 running 会话。发布任务之后达到独立计划核验通过并按现有 policy 签收，进度回复未交付固定结果。两个背景唤醒均产生空工具输出后以 `work_disposition_required` 结束。共 15 次请求（Bot 8、worker 4、Verifier 3），用例到时仍在首次交付。修复 `b94f971e` 对齐已准入的 System Context Source 和唤醒提醒，区分结构化等待、可结束的无责任唤醒及须处理的结果事件。38 项上下文、唤醒和连续性测试通过，OpenAI 已按原限额复跑。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
