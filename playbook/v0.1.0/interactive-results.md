@@ -528,6 +528,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `eb8ecdab` 补 Desktop 主进程宿主跨进程恢复。父进程经 Desktop 注册入口和实际 SessionControl 写停止回执，关闭后独立 Node 测试进程重新注册 Desktop 宿主并 sync，原准备结清为中断，零模型调用、零发布回执。37 项 Desktop 集成测试通过。该测试用受控桌面依赖与 lease，未启动已安装 GUI。
 - 标准包再逐图确认运行、等待、窄亮等待详情和正在回复共四张，累计 55/255。当前源码已启动隔离 macOS arm64 本地打包和包内运行时检查，目录 `peer-adr118-desktop-current.hvnNr5`。
 
+- `eb8ecdab` 的 macOS arm64 本地应用包完成，包内运行时检查及 `codesign --verify --deep --strict` 通过。应用为临时 ad-hoc 包，398,444 KiB；asar SHA-256 `6e454c5b520750f672159794d0732c7847f2dc985c50afd8c57f74b4a8967908`。包内 Electron 41.7.1 实跑隔离 Worker 求值、拒绝禁用节点、SQLite 重开和固定引用文本读取，四项通过。
+- 用独立 HOME、Electron userData 与 Peer 数据根直接启动该 .app，通过本地 CDP 读取实际 asar 主页面，从加载态进入无机器人、接入模型的初始界面。只结束此次启动的子进程，日常实例 PID 保持。记录在 `peer-adr118-desktop-current.hvnNr5`。本地目录包缺少 updater 元数据，探针结束时出现 IPC 清理日志；覆盖 GUI 启动与包内运行时，正式签名公证、安装版完整交互故事仍待验收。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
