@@ -293,6 +293,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - Runtime Node 构建与 51 项存储/材料/发布测试通过，覆盖缺守卫、责任仍在、provenance、失效预览、提交中断、同请求重试、共享对象及固定旧 ResultStore 的已打开读取/写入。该材料责任守卫仍使用受控夹具，生产根组合、跨版本全局排他和用户入口仍待交付。
 - 两线样本 `peer-interactive-live-imodeB` 已结束。OpenAI Chat 在后续 worker 超限；Anthropic 用 28 次请求完成后续任务及计划级独立核验（四条引用），主 Bot 重复查状态后超过工具额度，未产生会话级 verdict 或最终规范回复。代码 `ec841a4e` 在合成目标明确要求使用实际 `verify_session` 并记录有界脱敏工具参数，TUI 类型通过。下一次真实 Anthropic 样本继续沿同一预算。
 
+- ADR `0d32cfd` 与代码 `34e56a53` 将材料责任证明接入现有持锁根组合。规范消息保留真实工具调用和附件；草稿及输入队列保留附件身份；尚可恢复的委托及正在核验的目标保守阻止回收。材料守卫沿原生命周期复核，不重复取得同一把锁。Runtime Node 构建及 56 项测试通过，其中实际 Runtime 组合核对未结束委托、规范工具记录、草稿/队列附件、过期预览与孤立对象清理。生产跨版本排他和用户入口仍未开放。
+- Anthropic 样本 `peer-interactive-live-tkbve4` 用 30 次请求走到真实 `verify_session`，后续计划核验的四条有效回执中另有未登记引用，宿主记录缺证，后续修复触及 worker 上限，最终回复未交付。还发现规范失败回执采用了模型的 “Verifier passed” 摘要。代码 `aaf3fb82` 以实际宿主判定为准写入缺证摘要，并在现有 Verifier 提醒明确区分规范检查引用、工具别名和其他任务引用；原证据门槛不变。Runtime Node 构建与 27 项测试通过，已启动新源码实连。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
