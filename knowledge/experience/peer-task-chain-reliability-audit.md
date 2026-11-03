@@ -2,7 +2,7 @@
 
 创建时间：2026-11-03
 最后更新：2026-11-03
-状态：只读源码与既有现场证据审计；收敛计划待实施，不是故障已修复或运行验收。
+状态：冻结基线的源码与既有现场证据审计；ADR120 的首批源码收敛已交付，见 §12，未作运行验收。
 
 依据：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、ADR [80](../decisions/80-project-agent-delegation-model.md)、[85](../decisions/85-project-agent-hosts-inputs-and-surfaces.md)、[110](../decisions/110-follow-up-responsibility-and-current-list.md)、[112](../decisions/112-runtime-module-and-loading-boundaries.md)、[116](../decisions/116-session-control-and-resource-settlement.md)、[117](../decisions/117-intent-driven-coordination-and-goal-closure.md)、[119 提案](../decisions/119-user-stop-cognition-admission-and-settlement.md)。
 
@@ -225,3 +225,11 @@ ST-01 优先保护用户控制；ST-02 不能因为 ST-01 的大契约而无限�
 完成冻结版本的源码链路比对、F01—F06 发现、目标职责与 ST-00—ST-R 收敛计划，以及完整任务样本定义。没有修改 Runtime 或 UI，没有执行测试/构建/类型/架构/IPC 或截图交互回归，没有调用真实模型、安装/重启应用或修改生产数据。文档仅做内容、来源与 diff 自审；非独立评审。
 
 仍待实际证明：0.0.18 与当前候选在同类真实任务上的成功率差异；F02 的现场触发分布；F04 是否能与其它条件组合造成实际提前关闭；各层延迟/费用占比；最终修复的真实模型、安装版与升级验收。本报告不会用这些未知项掩盖已确认的停止续跑、资源等待错接和字段形状错误，也不把它们扩大成全仓架构失效。
+
+## 12. 2026-11-03 后续实施记录
+
+用户随后要求“先详细 ADR 再进行实施”。[ADR120](../decisions/120-runtime-facts-disposition-and-resource-wait.md) 与实施卡在知识提交 `1cd4c5f` 中先行提交推送；首批代码为 [Peer-Agent `9c20faea`](https://github.com/ly-ccx/Peer-Agent/commit/9c20faea20609ef6542cccec4b89682e2bf4e6ce)，分支 `codex/runtime-decision-convergence`，基于本文 RC35 冻结树，已推送。
+
+本批接通 F02 的资源 read/query/assessment/host 恢复与两正式宿主，修复 F04 的公开所有权投影及根关闭消费；收敛 F05 的 finish、reply recovery、repair custody 处置，并落实 F01/F03 中宿主待办不进入模型修复、引用不创造 custody、原用户停止约束优先的范围。新增21条契约用例源码；保持原单任务执行、权限、核验、签收与 Evidence 链。完整 ADR119 控制代次扩展及其所有收尾投影仍未实施。
+
+实施者完成内容/diff 自审与 `git diff --check`，没有执行测试、构建、类型/架构/IPC 或产品回归，没有真实模型、安装/重启或生产数据操作。本文此前“只读”描述保留为审计阶段事实；本节记录其后的授权实施，不把源码交付写成用户现场问题已消失。真实完整任务/正式安装版/升级数据及最终组合候选的发布门禁仍待验收。与在途 PR268 的交叉行为须最终整合，不能沿用另一分支的 CI 结论。

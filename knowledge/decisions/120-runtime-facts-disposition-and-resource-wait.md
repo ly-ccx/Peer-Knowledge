@@ -113,6 +113,8 @@ id 不暴露凭据或原工具正文；模型只回填 query 返回的引用。�
 
 生产 Desktop/TUI 的 Supervisor 和 Runner 必须拿到同一个资源等待端口。启用 Intent 资源等待的装配缺少端口即明确失败，不保留“声明合法，运行时一律 unavailable”的占位分支。无物理资源的轻量宿主/测试显式使用空资源适配器，不能靠默认猜成无资源限制。公开嵌入入口的兼容过渡需显式标明支持范围，缺端口不得承接已持久化 resource 等待。
 
+本批对公开 `createProjectAgentHost` 保留旧调用签名：未提供 `readResourceClaims` 的嵌入宿主沿空资源适配器运行，仅支持非物理资源场景；空适配器对任何资源等待都返回 stale，绝不 ready。提供了资源 claim 端口而遗漏 `resourceWaits` 时装配立即失败。Intent/Supervisor 的资源端口仍为必需；两正式宿主显式传入同一实例。该兼容路径不表示物理资源保护缺省放行。
+
 ## 8. 资源等待的完整时序
 
 1. Scheduler inspect 确认某个合法执行受资源阻挡。任务原队列立即保留等待，启动本身不依赖模型正确编排 wait。
@@ -183,4 +185,20 @@ RC-01：Protocol 运行事实与严格类型处置内核；RC-02：资源等待�
 
 ## 14. 当前收据
 
-2026-11-03：详细设计先行完成；实施授权来自本轮用户原话，内容/diff 自审，非独立评审。尚未修改代码或执行验证。本节将在代码交付后追加实际接口、删除路径、候选、未运行项与剩余限制，不将设计状态写成发布接受。
+2026-11-03：设计提交 `1cd4c5f` 先行提交并推送；随后完成本批源码实施，代码候选为 [Peer-Agent `9c20faea20609ef6542cccec4b89682e2bf4e6ce`](https://github.com/ly-ccx/Peer-Agent/commit/9c20faea20609ef6542cccec4b89682e2bf4e6ce)，分支 `codex/runtime-decision-convergence`，基于开发线 `4a58e284`，已推送。实施授权来自本轮用户“先详细 ADR 再进行实施”。未合并、发布、安装或重启。
+
+| 已实施边界 | 具体落点与删除路径 |
+| --- | --- |
+| 类型化运行事实 | Protocol `runtime-session-facts.ts` 规范化三态、有效性、处理类型与未决义务；公开 `projectWorkSession` 补传生产执行所有权。根关闭/撤回改用统一判断，缺失已绑定会话同样保守；删除 `.active` 消费，不添加布尔镜像 |
+| 统一父处置 | 严格类型 `runtime-disposition.ts` 固定优先级；finish、reply recovery、repair custody 与资源恢复共用。未确认停止、事实无效/缺失归 host，不等于模型修复；既有控制与回复停止优先 |
+| 原资源端口闭环 | `resource-wait.ts` 从原 Scheduler/账本 read/inspect，核对 work/parent/session、mandate 执行绑定、执行代次及相关 blocker revision。query 和 turn DecisionFrame 共用有界事实投影，assessment 复核原引用；删除占位拒绝 |
+| 资源变化与冷恢复 | `resource-wait-recovery.mjs` 只对已准入等待重查；仍忙或换 blocker 不递增进度，stale/unavailable 保留引用并阻塞，由当前事实投影说明原因；就绪转交既有 `report_available` 事件，不新增事件种类或数据库 |
+| 一次唤醒与连续性 | 资源事件 ID 有界且确定，含目标会话以满足原 source 准入；先 transfer 后写 work，崩溃重查去重。消费后不再次作唤醒源；新认知步骤不接旧 Provider 尾部。完成配对的工具历史不要求重放才能恢复 |
+| 来源与停止保护 | 阅读引用不能取得 custody；只认已存绑定、原锚点或有范围的持久事件托管。回复补送/失效、恢复选择、派发前 prepare 和原重试准入尊重 pendingControl/工作停止；回复重试不能替代工作范围 resume |
+| 两宿主接线 | Supervisor 建立同一端口供 Intent 与 Runner；Desktop、TUI 正式构造均传入该端口。无资源测试显式空适配，公开旧嵌入兼容范围见 §7 |
+
+新增 21 条用例源码，分布于 Protocol 运行事实、统一处置、真实资源等待、Intent 生产者/消费者组合和有界 DecisionFrame；同步原 fixture 与已绑定来源用例。包括真实 execution token → `sessionFactsFromPlan` → `projectWorkSession` → 根关闭，真实 Scheduler/SQLite 资源账本 → 等待引用 → Protocol 校验/Intent 准入 → 停稳回执 → 冷 Runner 重查 → 一次事件 → 下一语义决定，以及伪版本/越范围/换代/失租/账本故障/新 blocker/停止优先/silentWait/三处消费的一致性。这里描述的是已写用例的构造，不是运行结果。
+
+内容与 diff 为实施者自审，非独立评审；执行了 `git diff --check`，没有测试、构建、typecheck、架构/IPC 检查、截图/交互回归、真实模型或正式安装版验证。遵守当前有效 AGENTS 的日常验证范围，没有以在途 PR269 的规则提案推定授权。自动 CI 若运行，属于远端另行结果，本收据未等待或援引其通过。
+
+本批不改变存储格式9、权限、Evidence、原 GoalRunner 或 Provider Loop 的能力执行职责。ADR119 的 WorkControlOperation/全角色认知代次/批量控制摘要仍为 Proposed，尚未实施。RF13 的完整真实任务、正式安装版及升级数据验收尚待发布门禁；不据此宣布用户现场已修复或任务成功率已恢复。PR268 与本批在 repair/runner/reply/recovery 路径有交叉，silentWait 保留指纹与次数的语义已纳入本批；合并时须在最终组合候选核对其余 takeover/恢复行为与全部门禁，不能套用任一分支先前的检查结论。
