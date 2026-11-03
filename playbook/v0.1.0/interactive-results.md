@@ -306,6 +306,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 相同源码 `74176e0a` 限并发 Desktop 复跑结束。主段并发 4，6,210 通过、5 跳过、0 失败；尾段并发 2，9 项通过。其他包与工程门禁沿本轮记录。默认并发 `pnpm test` 的凭据 helper 超时仍保留为首次失败。
 - 干净代码 `97157726` 的真实故事样本 `peer-interactive-live-F7vsCm` 两线均已结束。两线实际发布原任务，经规范输入冻结条件并建立第二次委托。Anthropic Messages 在 26 次实际请求时返回 `story_request_limit:bot`，OpenAI Chat 在 30 次时返回 `story_request_limit:worker`。两线均无最终规范交付，整案失败，原预算与成功判据沿用。
 
+- 追查 `F7vsCm` 的 Anthropic 原始工具记录，前五次委托均因 criterion 描述为 713–763 字符被拒。输入均已有一个条目，宿主旧诊断只提示条目数量。代码 `cf952c80` 让投影 schema、验证及错误提示共用 500 字符限额，保留严格拒绝；Delegation Provider 27 项通过。
+- 代码 `67733c27` 缩短两条真实样例的结构化 criterion，验收显式要求会话级已持久化通过 verdict 和可读、完整的任务文本计算值，避免计划级核验或不可用文本被计为成功。TUI 类型和原专项 11 项测试通过。干净源码两线复跑目录 `peer-interactive-live-csREZG`，整案终态待查。
+
 ## 原生缩放与完整首版组件目录（ee029f64）
 
 - Electron 专项 1 项通过，开发与生产实际 SDK 夹具覆盖首版 16 个组件和柱形、折线图。生产原生 150% 缩放及减少动效下，CSS 窄窗无横向溢出，中文输入保持焦点，折线图与配套表有可访问名称，表格可访问树可读取精确值。
