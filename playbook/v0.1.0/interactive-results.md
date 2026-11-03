@@ -468,6 +468,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 同提交 OpenAI 故事 `peer-interactive-live-qfbnvn` 发布后仍在首次交付触及 Bot 16 次上限，整案 24 次（worker 4、Verifier 4），未到冻结提交，无法据此确认前台抢占改动的真实模型结果。
 - `80d64c94` 标准包审阅任务报告和流式回复等 8 张，7 张通过，累计 122/255。另在 `task-main-note.png` 确认工作现场默认展示原始状态和内部模型 ID，保留待修。实现 `8907cb5e` 使工作摘要采用已有本地化状态、移除默认行的模型 ID，保留详情诊断；回归脚本在原场景新增断言，隔离标准包 `peer-adr118-product-work-row.vK5tP5` 已启动。
 
+- 复查 `peer-interactive-live-qfbnvn` 的根核验拒绝时，会话版本仍为当前版本，覆盖声明混入了未登记在该任务证据索引中的 Bot 查询回执。`1bf74f5a` 保持原拒绝条件，在原 Tool Result 中按需求和会话返回版本变更或引用未登记两类原因，最多 16 条，不公开索引与被拒绝引用。44 项生命周期和委托用例通过；真实 OpenAI 故事 `peer-interactive-live-UJEe7H` 在干净提交上按原限额复跑，结果待核对。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
