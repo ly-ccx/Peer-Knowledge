@@ -333,6 +333,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 主工作区原生专项通过。在两个固定版本标签间切换，两侧各自保留已确认值和草稿，任一时刻只挂载一个 SDK 内容树，非选中标签保留但无 SDK 内容。仍需验证更多同时打开结果和隐藏期间的资源占用。
 - 生产 Electron 组件专项通过。120 行合成数据及两张图表，八次 DOM 输入事件到预期结果首个可观察帧为 7.0–8.5 ms，含除零隐藏及恢复；观察区间没有 Long Tasks 条目。Renderer（Tab）结束快照 working set 为 215,088 KiB。CPU 瞬时读数全为 0，不能据此判断负载。记录位于本机 `peer-interactive-renderer-dbuq6r/production-interaction-sample.json`。该样本为自动化 DOM 输入和隔离开发机器测量，仍缺 500 行上限、持续负载 CPU、正式包体及完整真实故事成本。
 
+- 代码 `cd43566c` 扩到 500 行上限，分别断言柱形图、折线图完整包含 500 点，并核对普通数据表的第二页在无关输入变化后仍留在该页。Electron 开发与生产同一专项通过。生产样本中 62 次 DOM 输入耗时 515.7 ms，首个可观察帧 3.6–14.8 ms，无 Long Tasks 条目；Tab CPU 累积用时增加 0.536 s，working set 从 233,744 增至 290,128 KiB。记录在本机 `peer-interactive-renderer-cKxr88/production-interaction-sample.json`。短窗口内的内存变化仍需长期/回收采样；正式包体与实际设备覆盖仍待验收。
+- `m978qa` 的 OpenAI 样本完成原发布和后续冻结任务，后续计划与显式会话核验均通过，已持久化会话 verdict。最终回复之前曾被宿主以 `status_claim_mismatch` 拒绝，并返回两个任务的当前状态；完成显式复核后，主 Bot 在下一次请求前耗尽预算，32 次实际请求终止，无最终交付。Anthropic 同批样本继续运行。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
