@@ -287,6 +287,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - Runtime Node 构建和 47 项留存/状态/核验测试通过，覆盖引用、写者、过期摘要、提交前中断与重试。另以固定 `ecb77e0d` 的旧 StateStore 源码（SHA-256 `fe4def99ad683e6567d748aafe0df8f24c36d0ec77ee1dee766e115fedb542ca`）配合实际旧 ResultStore，在同一已打开的连接验证清理前读取原值，清理后拒绝读取和重复冻结，墓碑保留。该验证只覆盖该存储协议，生产全局旧写者隔离和用户入口仍待交付，材料快照回收仍为独立工作。
 - 正式工作树的 Desktop 尾段 9 项通过，包括真实原生窗口、SDK 和主工作区。两种真实模型路径在干净代码 `31890f1c` 上按原额度复跑，证据目录 `peer-interactive-live-imodeB`，终态待核对。
 
+## 独立规范材料回收（d83ae47a）
+
+- ADR §17.2.3 先由 `6ad5402` 定义。代码 `d83ae47a` 以固定 source 及版本、六来源守卫与独立材料责任守卫核对预览、提交和回执。可用版本的 provenance、未决发布或仍有责任的规范源阻断；只在同一事务提交墓碑后回收无其它实际引用的对象。原材料唯一键和版本身份保留，不恢复旧材料，也不改写发布正文或 Evidence。
+- Runtime Node 构建与 51 项存储/材料/发布测试通过，覆盖缺守卫、责任仍在、provenance、失效预览、提交中断、同请求重试、共享对象及固定旧 ResultStore 的已打开读取/写入。该材料责任守卫仍使用受控夹具，生产根组合、跨版本全局排他和用户入口仍待交付。
+- 两线样本 `peer-interactive-live-imodeB` 已结束。OpenAI Chat 在后续 worker 超限；Anthropic 用 28 次请求完成后续任务及计划级独立核验（四条引用），主 Bot 重复查状态后超过工具额度，未产生会话级 verdict 或最终规范回复。代码 `ec841a4e` 在合成目标明确要求使用实际 `verify_session` 并记录有界脱敏工具参数，TUI 类型通过。下一次真实 Anthropic 样本继续沿同一预算。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
