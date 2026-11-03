@@ -278,6 +278,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - Anthropic 原生续接修复后的真实样本完成原任务、提交冻结输入，进入后续回复链。在 24 次请求内无 thinking 相关 HTTP 400；主 Bot 使用完自己的 16 次额度，期间多次直接读取结果，没有建立第二个任务。该样本没有端到端通过证据。
 - 代码 `15878144` 细化两条合成用户输入，原 worker 负责发布与记录，后续 worker 读取一次冻结求值，四类完整覆盖由独立 Verifier 负责。请求或工具额度到限时记录角色并结束等待；整案、单角色和 HTTP 额度均沿用。TUI 类型及专项 11 项 Bun 测试通过，OpenAI Chat 重跑目录 `peer-interactive-live-kZQHuN`。
 
+- OpenAI Chat 的 `15878144` 样本在 24 次实际请求后明确返回 `story_request_limit:bot`。最后两次第二委托分别遗漏规范锚点和结构化 `successCriteria`，由原宿主拒绝。验证输入在 `31890f1c` 给出真实锚点和数组形状，仍由模型调用生产工具，额度未变。
+- Anthropic 样本的 Goal Runner 日志另发现既有恢复缺陷。模型引用未登记的工具结果别名时，宿主原已判定未通过，随后把无效引用提交给严格存储，导致修复链抛错。代码 `7c818c52` 按现有任务 Evidence Index 持久化真实引用并保留结构化缺证原因，让 worker 可修复后重审。两个共享 Goal 测试文件共 30 项通过，包括真实持久存储下的失败、修复与再次通过。该变更仍需新源码全仓复跑和真实模型验证。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
