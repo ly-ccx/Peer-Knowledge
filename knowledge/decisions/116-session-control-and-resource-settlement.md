@@ -3,7 +3,13 @@
 创建时间：2026-11-01
 最后更新：2026-11-03
 
-2026-11-03 契约澄清：Session Control 统一拥有子执行停稳与 unknown 作用域。SessionTakeover 不得在 applied 停止回执之外把主 Bot 自己仍在执行的协调 metadata 调用算成子任务 unknown。误挂 awaiting_outcome 的接管可凭原操作的当前停止证明恢复；另一操作、新 generation、历史撤回或助手文字不能替代该证明，真实未知 shell 仍保留目录保护。接管仍 stopping 时，原生恢复的 prepare 与 commit 必须返回 coordination_reconciliation_required，不能先覆盖 control 或创建新 generation，再遗留未完成接管与撤销中的绑定。依据、边界与未运行验证范围见[故障分析](../../playbook/v0.1.0/agent-wait-recovery-closure.md)。不改变持久化结构或最低版本。
+2026-11-03 契约澄清：Session Control 统一拥有子执行停稳与 unknown 作用域。SessionTakeover 不得在 applied 停止回执之外把主 Bot 自己仍在执行的协调 metadata 调用算成子任务 unknown。误挂 awaiting_outcome 的接管可凭原操作的当前停止证明恢复；另一操作、新 generation、历史撤回或助手文字不能替代该证明，真实未知 shell 仍保留目录保护。接管仍 stopping 时，原生恢复的 prepare 与 commit 必须返回 coordination_reconciliation_required，不能先覆盖 control 或创建新 generation，再遗留未完成接管与撤销中的绑定。依据、边界及分阶段验证结果见[故障分析](../../playbook/v0.1.0/agent-wait-recovery-closure.md)。不改变持久化结构或最低版本。
+
+存量兼容补充：旧宿主已经形成“原接管 awaiting_outcome、原停止回执空 unknown、后来的 native resume 已 applied、当前 queued 新 generation 仍被原 mandate 撤销准入”的组合时，单纯拒绝再次 resume 不能恢复原责任。共享 Runtime 只在原 proposal 仍由该 session 的当前 takeover 持有、没有竞争中的未完成操作、同目标 active mandate、原绑定仍撤销且未重绑、真实 canonical resume 锚点、原 stop → resume.priorStopReceiptId 链完整、worker 从未开始（零执行回合且无开始事件）、无 live/unknown/未结束句柄时准入一次兼容停止。该判断由独立的事实校验 Module 完成，不从闲置状态或时间推断停止，也不以历史对象的枚举顺序判断哪个 proposal 仍有责任。
+
+兼容停止使用原 Session Control 的 pause/barrier/settlement，为当前 generation 建立新的有界空 unknown 停稳回执，不重写旧回执或伪造原工具结果。原 transition 通过该匹配当前身份、以 coordination-recovery:<原operationId> 绑定的回执重新进入 stopping，随后原 takeover 端口恢复原任务并绑定原 proposal 的新 epoch。租约、goalRevision、停止、人工门及资源准入继续逐次重检；重复冷恢复不重复启动，同目录其他真实 unknown 保护继续阻止执行。使用既有记录格式及控制对象，不提高门槛或新增模型工具，不以此自动操作当前个人任务。
+
+排队准入必须先消费当前协调绑定事实：binding 仍被撤销或对应 transition 未完成时，在资源预留和 plan.phase=running 之前返回 coordination_reconciliation_required。不能先将任务选中、预留资源，再把可预期的协调等待写成 execution_resource_owner_changed/failed。该查询使用现有轻量 lifecycle facts，避免在队列与状态投影中反复复制整个工作预算和检查点。
 状态：Accepted / Implemented in source（2026-11-01；实现者内容/diff 自审，发布验收未执行，运行中的应用未升级）
 级别：A（控制、准入、恢复和持久化契约），B（调度、事件和共享宿主），C（状态表达）。
 
