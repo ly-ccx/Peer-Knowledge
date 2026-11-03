@@ -426,6 +426,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 重采包又审阅 12 张窗口材质、会话失败恢复和子会话图，9 张通过，累计 78/255。三张宽窗深色图的回到最新按钮遮挡回复末尾，保留 not_checked 与逐图描述；涉及设置抽屉、玻璃材质和实色材质。
 - 干净源码 `4f3f770f` 的 OpenAI 故事 `peer-interactive-live-S29RTH` 成功提交 assess，首条 canonical 进度回复引用 running 会话。发布任务之后达到独立计划核验通过并按现有 policy 签收，进度回复未交付固定结果。两个背景唤醒均产生空工具输出后以 `work_disposition_required` 结束。共 15 次请求（Bot 8、worker 4、Verifier 3），用例到时仍在首次交付。修复 `b94f971e` 对齐已准入的 System Context Source 和唤醒提醒，区分结构化等待、可结束的无责任唤醒及须处理的结果事件。38 项上下文、唤醒和连续性测试通过，OpenAI 已按原限额复跑。
 
+- `b94f971e` 的 OpenAI 故事 `peer-interactive-live-NDYoxf` 完成结果发布，26 次请求（Bot 16、worker 4、Verifier 6）到达 Bot 限额，仍在首次交付。前两次等待分别使用来源版本和查询返回的观察版本，均被宿主判定 `wait_source_stale`；随后 continue 决议通过，但结果就绪后的两次协调输入未通过。尚未提交冻结条件。等待拒绝当前只给错误码，需核对当时可披露的版本和状态回执。
+- `80d64c94` 将 Desktop 回到最新按钮放在阅读视口下方的普通布局中，保留原滚动控制、按钮语义与 SVG。针对重采发现的三张覆盖问题加入实际几何断言，新标准包 `peer-adr118-product-latest.DuoG3A` 采集中。该包以提交前相同文件字节启动。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
