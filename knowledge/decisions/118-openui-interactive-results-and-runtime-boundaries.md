@@ -295,6 +295,8 @@ Store 为每次真实 Provider 发布保存不可变操作身份、规范参数�
 
 人的任务证据入口解析上述工具别名时，必须由受控资源 context 中明确的 plan/session、规范 Plan 的真实工作 conversation 及当前 Bot owner 确定原调用，再从已确认发布回执解析固定版本。共享发布来源读取 Module 核对该版本的真实 source、规范索引的 capability/tool/call、owner、时间、artifactRef 与 specHash；原资源投影继续核对真实 Session/report 后才读取或返回正文。仅有全局索引里最后一条同名工具记录、助手 URI 或没有任务 context 的别名，不推断一个交互结果。已确认操作但规范来源缺失、冲突或不可读时明确不可用，不退回另一工作、当前 head、文件路径或模型文本。读取返回原规范发布事实，不重写历史 Tool Result、不触发发布/补授权或把后续确认追溯为原调用当时已成功。此消费接线属于 IUI-02/IUI-03；Bot 回复仍应携带固定规范引用，不能要求界面猜测所属任务。
 
+内容相同的修订若返回 unchanged，别名可指向同 owner 的原固定发布版本，但不能把其来源改成此次修订任务。宿主须先确认此次真实任务与调用的 unchanged 回执，再核对原发布任务及其 Session/report；投影采用原规范来源的任务 context。请求 context 与此内部来源 context 分别保留职责，Renderer 无权提供后者，也不产生新的产物、发布或核验事实。
+
 | 持久阶段 | 可证明的事实 | 对账与结束条件 |
 | --- | --- | --- |
 | prepared，尚无已提交操作 | 可能存在暂存 blob，不能证明发布发生 | 核对真实提交记录；确认未提交后终止操作，孤立 blob 仅按安全清理规则回收 |
