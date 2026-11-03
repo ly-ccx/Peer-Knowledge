@@ -3,7 +3,7 @@
 创建时间：2026-11-02
 最后更新：2026-11-03
 
-状态：Proposed。七项评审问题已补齐契约与实施阶段，仍待设计评审接受。本次交付仅补充设计，不继续修改代码；已有实现工作与测试记录另见实施跟踪。关联实现分支、单项测试或后续实施任务均不自动改变本 ADR 状态，不代表能力开放或产品验收通过。
+状态：Proposed。七项评审问题已补齐契约与实施阶段，仍待设计评审接受。文档补充已交付；用户随后明确恢复完整实施与测试，实际提交、验证及剩余缺口见实施跟踪。关联实现分支、单项测试或后续实施任务均不自动改变本 ADR 状态，不代表能力开放或产品验收通过。
 
 级别：A。扩展用户产物、资源引用、交互状态持久化、能力投影和 System Context 准入契约；共享实现与宿主装配属于 B 级，局部组件与布局属于 C 级。
 
@@ -433,7 +433,8 @@ Renderer 的内存 Store 提供即时交互，`onStateUpdate` 只提交有界的
 | acquire | viewHandle + 当前 stateRevision；显式 takeover 才可接管已有写者，返回不可复用的 writer generation |
 | save | viewHandle + writer + expectedRevision + requestId + 规范参数/输入草稿；CAS 成功后返回新 revision 和保存时间 |
 | release | 仅释放当前 writer；不清空内容或状态；断连/重启使旧句柄失效 |
-| prepareFollowup | viewHandle + 已确认 stateRevision/状态摘要 + 用户选取字段及真实接收者；冻结条件后沿 §12.5 的原草稿 claim/ack 准备，不直接发送 |
+| prepareFollowup | viewHandle + 已确认 stateRevision/状态摘要 + 用户选取字段；宿主推导真实接收者，只返回冻结材料回执，不声称已进入草稿 |
+| prepareDraft | viewHandle + followupId；宿主读回同 owner/固定结果的冻结材料，绑定实际原主窗口，沿 §12.5 的原草稿 claim/ack 准备；仅在读回持久草稿/待发材料与原冻结对象一致后返回准备成功，不直接发送 |
 
 同 requestId 的相同保存参数幂等返回原回执，不同参数拒绝。viewHandle 由真实 sender/window/generation 约束，不能仅凭客户端提供的 token 授予读取或写入。失败至少区分 owner 不符、视图失效、版本不兼容、writer 过期、revision 冲突、超限、存储不可用与保存失败。
 
@@ -466,6 +467,8 @@ Renderer 的内存 Store 提供即时交互，`onStateUpdate` 只提交有界的
 冻结材料在草稿、待发队列、canonical 消息和委托锚点传递中保持同一 followupId、值及版本；原交互状态之后变化、被清理或新版本发布，都不能让旧草稿/消息指向“当前最新值”。反馈保存有界自包含选中值，并按源材料分类与留存政策处理；不能仅存一个指向可变 stateRevision 的指针。完整原文已不可用时保留真实缺源状态，不补造历史数据。
 
 本流程的 preparing / save_failed / conflict / draft_unconfirmed / prepared 等状态分别来自上述实际阶段。失败可在原现场重试或放弃候选，原编辑与原 Composer 草稿仍有责任方；只读视图需先显式取得写者，不能为准备动作自动抢占其他窗口。原生控件复用既有焦点、滚动、SVG 和静态终态，不由生成程序直接调用 sendMessage。
+
+冻结和草稿准备使用分离的回执。prepareDraft 不接受 Renderer 提交的反馈正文、recipient 或 sourceSender；主视图使用实际 sender，独立视图从当前窗口 registry 解析原主窗口，并在 claim 前及准备结束时继续核对 view/owner/窗口代次。Renderer 的 ack 不能单独证明保存成功，宿主须读回原输入草稿存储；读取失败、归属变化或冻结材料不相符时返回未确认并保留原候选。重试复用原 followupId，不重新取当前值。
 
 #### 12.5.1 冻结反馈的存储与传输适配
 

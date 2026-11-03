@@ -1,5 +1,19 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## ADR 118 条件交回原草稿（2026-11-03，部分实现）
+
+P06 新增 C228 `InteractiveDraftPreparation`，并接既有 ResourceFeedbackCards/BotComposer，代码 `f5eaa173`。用户把点击时的有效条件交回原 Bot 草稿，审阅后明确发送；保存回执、冻结材料、持久草稿与队列接收分别为事实源。沿 Frost 按钮、静态状态、SVG 和既有输入恢复链，不自动发送、导航或聚焦 Composer。ADR 仍 Proposed，功能默认关闭。
+
+| 状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 捕获 / 保存 / 冻结 | 点击候选、真实 writer/CAS、固定冻结记录 | IME/无效输入不能取旧值代替；后续编辑留在原视图，失败重试同一候选 |
+| 正在准备 / 未确认 / 已放入草稿 | 原主窗口 claim/draft CAS/ack，宿主再次读回同一材料 | 原正文/quote/附件保留；确认丢失复用 followupId，不重新读取当前条件；可重新选择新条件 |
+| 超额 / 冲突 / 归属变化 | 共享额度、实际草稿 revision、owner/view/window 当前性 | 准备前拒绝超额并保留原草稿；不能自动换接收者或接管写者 |
+| 审阅 / 移除 / 明确发送 | 原 Composer 与既有输入接收记录 | 可移除条件或取消发送；只有明确发送进入原队列，固定值/版本穿过消息与委托 |
+| 旧桥接 / 损坏传输 / 冻结记录缺失 | 正式 API、协议解析及宿主冻结记录核对 | 明确不可用；保留原文字节，不以空反馈推进新端游标或开始委托 |
+
+295 项 Node、55 项 Bun 与真实 Electron 主区/原生/Composer/队列/Conversation 专项通过，6 图实现者自审。确实覆盖原草稿保留、准备不发送/不聚焦及人工发送后固定值 5/4；Verifier、精确条件标签、全产品/真实模型/安装版/系统 IME/辅助技术及性能仍待完成。详见[IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
 ## ADR 118 主资源区与输入恢复接线（2026-11-03，首期仍未完成）
 
 P06，C223/C224 后新增 C225 `ResourceInteractiveViews`、C226 `ResourceLayoutNotice`、C227 `InteractiveContinuity`，代码 `8b3ffbcf`。用户从规范交付打开同一固定结果，在主区/独立窗口调整条件、关后重开和回到原标签；布局、参数保存、派生计算与发布/核验各有自己的事实源。ADR 仍为 Proposed，功能默认关闭。

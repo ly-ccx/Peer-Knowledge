@@ -16,8 +16,8 @@
 | 阶段 | 必须交付 | 当前事实 |
 | --- | --- | --- |
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
-| IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。Conversation/草稿等完整兼容链和结果打开等下游仍待完成，未退出 |
-| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `518420a4`、`98693645`、`30cb612b` / `11e2a617` 后，`8b3ffbcf` 接规范交付卡片、主资源区标签/最近项目、受保护布局消费者、返回标签和应用级中断恢复；真实 preload/IPC/SQLite 下完成两窗口接管、关后重开、布局冲突选择与两类缺模块恢复专项。原 Composer/队列/消息/Verifier 同值同版链、真实文档/浏览器混合场景及其余产品验收尚未完成；功能默认关闭，未退出 |
+| IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；其余共享存储、留存及完整能力验收继续待完成，未退出 |
+| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。Verifier 固定目标、真实文档/浏览器混合场景、条件标签映射及其余产品验收尚未完成；功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。Verifier 固定目标/证据允许列表、Bot 结果引用与真实模型生成/修复效果待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
 
@@ -55,10 +55,20 @@
 - 8 张图逐图实现者自审，`independent=false`。最新主区组 `HhCsGk`、原生组 `tEmfu4`；三张主区图、三张原生图与此前已查看输出逐字节一致，其余两张实际重新查看。联合截图指纹 `c21087433effc26e68b03f7432fee26a420664ff4cf0cc03e5c8ec11cd4b70ac`。主区关闭自动化包含 Playwright 对 beforeunload dialog 的 dismiss，断言实际关闭尝试后窗口仍在及原输入可恢复；不是系统 IME 或手动安装版验收。仍未实际联跑文档/浏览器混合标签、全部缩放/减少动效/读屏/性能，也不是标准产品 packet。
 - 上述均为实现者验证，未做独立审查、完整仓库门禁、真实模型或完整产品回归，不构成 IUI-00—04 完整交付；最新后续结果随接线补充。
 
+## 冻结条件交回与传输增量（f5eaa173）
+
+- 代码 `f5eaa17340bb56a094f403364fecf41f76713473` 已推送原实现分支。新增 typed prepareDraft 与生成 preload/catalog 接线；私有 viewHandle 只解析同 owner/固定结果的真实冻结材料，独立视图从实际 registry 找原主窗口，不接受 Renderer 自报接收者、反馈正文或 sender。冻结成功与原草稿准备成功分开；claim/ack 后宿主读回持久草稿或待发材料，不能只凭 Renderer ack 显示成功。
+- 原 Composer 保留正文、quote 和附件，准备前预留传输附件额度；超额拒绝且不编辑原草稿。只有明确发送才调用原输入队列。准备确认丢失时复用原 followupId；稍后编辑、保存及接管不改变原冻结值。IME/无效的新候选不能退回上次冻结值，未知或不匹配回执不显示已准备。
+- 逻辑 ResourceFeedback 增 interactive 分支，实际草稿首次写入格式 3 并保持门槛。队列/规范消息/委托使用旧端已知的有界文本附件承载完整冻结 JSON，新端在准入/消费/委托/结果访问时匹配真实冻结记录；不建立第二队列，不生成工具 Evidence 或授权。模型历史只在原 user 材料槽投影一次，界面显示未验证引用；损坏/未来版本保留原文，不跳行推进新端游标。
+- 固定 `8b3ffbcf` 的真实旧草稿写者、旧上传 normalizer、已打开旧队列对象及实际 Conversation 重写/重开证明材料保留。对照用例也证明把新联合类型直接写旧队列确会被跳过并推进游标，不能用 marker 冒充兼容。真实 SessionSupervisor 将明确锚点转为子消息，原附件与冻结版本完整保留；篡改材料在创建子任务前拒绝。原结果访问与 followup 准入只接受实际记录，不借助手文本或 schema 标记取得权限。
+- 295 项 Node 定向组合、55 项 Bun 定向组合及 1 条真实 Electron 主区/原生/Composer/输入链专项通过，无 skip/cancelled；新增 prepare-draft 的来源/顶层 frame 政策另在 6 项宿主组合中复核。Desktop 完整构建、Protocol/Runtime Core/Runtime Node/Desktop/TUI 类型、architecture:check（含 UI）和 Desktop ipc:check 通过。构建仍有大 chunk 提示；本轮不是全仓测试或完整发布门禁。
+- Electron 专项使用真实 BotComposer/useInputRecovery、prepare/claim/ack、SQLite、输入队列及 ConversationStore。主区冻结 5、独立窗口冻结 4，原正文/quote/上传均保留；准备不提交、不抢原 Composer 焦点，人工点击发送后 canonical 消息才同时携带 5/4。关后重开、接管/正式返回、布局冲突、关闭拦截、中断草稿与缺 chunk 恢复继续通过。发布/Grant、外壳和非本域索引仍为夹具，没有真实 Provider 模型回合。
+- 6 张最终截图逐图实现者自审，independent=false，目录 `peer-interactive-workspace-wGz5ql` 的 review.json 绑定上述代码；审阅指纹 `5d1c3ca2d5e1766d56552db4d6e2a9ad25a5a51535a95fbacd41cad338184ceb`。初次发现测试入口缺正式 Composer CSS 已修正并重采；冻结摘要去掉内部 ID/变量名，存储不保留表现树时暂用稳定条件序号，精确控件标签映射仍须完成。6 图不是标准全产品 packet，也没有真实模型、安装版、系统 IME、读屏、完整缩放/减少动效或性能验收。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
 - 规范发布索引的交付入口已接；继续核对既有 Tool Result 引用到原规范发布记录的关联消费、主 Bot 的结构化引用，以及宿主确认的 head/predecessor 新版本入口。不从助手正文、标题或 URI 文本推断产物或版本关系。
-- 接冻结条件 → ResourceFeedback prepare/claim/ack → 原 Composer CAS → 明确发送 → ProjectInput/消息/委托/Verifier 的完整同值同版链，并证明全部旧写者保护；输入队列尤其不能跳过新反馈后推进游标。
+- 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接并有专项证据；继续接 Verifier 固定目标/状态完整性/证据允许列表，覆盖完整留存与清理以及其余存储重写者。补齐冻结摘要的控件标签映射，不能从本批准入/传输测试推断任务已经通过核验。
 - 完成 Verifier 固定目标与证据允许列表、留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词；接管也不能跳过仍待确认的原保存请求。
 - 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
