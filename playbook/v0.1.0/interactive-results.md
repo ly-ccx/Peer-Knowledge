@@ -296,6 +296,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - ADR `0d32cfd` 与代码 `34e56a53` 将材料责任证明接入现有持锁根组合。规范消息保留真实工具调用和附件；草稿及输入队列保留附件身份；尚可恢复的委托及正在核验的目标保守阻止回收。材料守卫沿原生命周期复核，不重复取得同一把锁。Runtime Node 构建及 56 项测试通过，其中实际 Runtime 组合核对未结束委托、规范工具记录、草稿/队列附件、过期预览与孤立对象清理。生产跨版本排他和用户入口仍未开放。
 - Anthropic 样本 `peer-interactive-live-tkbve4` 用 30 次请求走到真实 `verify_session`，后续计划核验的四条有效回执中另有未登记引用，宿主记录缺证，后续修复触及 worker 上限，最终回复未交付。还发现规范失败回执采用了模型的 “Verifier passed” 摘要。代码 `aaf3fb82` 以实际宿主判定为准写入缺证摘要，并在现有 Verifier 提醒明确区分规范检查引用、工具别名和其他任务引用；原证据门槛不变。Runtime Node 构建与 27 项测试通过，已启动新源码实连。
 
+- ADR `4500b61` 和代码 `e3ed3262` 将 Desktop/TUI 的实际草稿和队列实例交给共享清理 Module；Desktop ApplicationService 与 TUI 客户端复用这些实例。TUI 20 项及 Desktop 46 项宿主组合测试通过，另以受控兼容守卫和实际 TUI 草稿锁验证 busy 阻断及释放。代码 `74176e0a` 将材料责任证明收口到持锁根快照，删除独立覆盖入口，30 项留存与核验测试通过。正式源码已同步并启动全仓复跑。生产没有可证明的旧写者兼容权威，公开清理仍未开放。
+- Anthropic 样本 `peer-interactive-live-9N0Ebu`（`aaf3fb82`）用 29 次请求完成原发布和冻结后续任务。两个计划的独立核验均通过，后续计划引用四条规范回执；该样本的主 Bot 在会话级核验前达到请求上限，已有回复是进度而非最终交付，未计整案成功。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
