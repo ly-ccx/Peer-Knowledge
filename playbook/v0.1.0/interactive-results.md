@@ -281,6 +281,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - OpenAI Chat 的 `15878144` 样本在 24 次实际请求后明确返回 `story_request_limit:bot`。最后两次第二委托分别遗漏规范锚点和结构化 `successCriteria`，由原宿主拒绝。验证输入在 `31890f1c` 给出真实锚点和数组形状，仍由模型调用生产工具，额度未变。
 - Anthropic 样本的 Goal Runner 日志另发现既有恢复缺陷。模型引用未登记的工具结果别名时，宿主原已判定未通过，随后把无效引用提交给严格存储，导致修复链抛错。代码 `7c818c52` 按现有任务 Evidence Index 持久化真实引用并保留结构化缺证原因，让 worker 可修复后重审。两个共享 Goal 测试文件共 30 项通过，包括真实持久存储下的失败、修复与再次通过。该变更仍需新源码全仓复跑和真实模型验证。
 
+## 独立冻结材料回收（599993fc）
+
+- ADR §17.2.2 先由 `1db324c` 定义。代码 `599993fc` 在现有六来源与兼容守卫下增加单份冻结快照预览、确认清理及回执读取。活视图、活写者和受保护固定引用或 followupId 阻断，守卫或快照变化使预览失效。事务仅替换该快照内容为有界墓碑，保留真实原请求身份及清理回执，不把旧请求重建为新快照。
+- Runtime Node 构建和 47 项留存/状态/核验测试通过，覆盖引用、写者、过期摘要、提交前中断与重试。另以固定 `ecb77e0d` 的旧 StateStore 源码（SHA-256 `fe4def99ad683e6567d748aafe0df8f24c36d0ec77ee1dee766e115fedb542ca`）配合实际旧 ResultStore，在同一已打开的连接验证清理前读取原值，清理后拒绝读取和重复冻结，墓碑保留。该验证只覆盖该存储协议，生产全局旧写者隔离和用户入口仍待交付，材料快照回收仍为独立工作。
+- 正式工作树的 Desktop 尾段 9 项通过，包括真实原生窗口、SDK 和主工作区。两种真实模型路径在干净代码 `31890f1c` 上按原额度复跑，证据目录 `peer-interactive-live-imodeB`，终态待核对。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
