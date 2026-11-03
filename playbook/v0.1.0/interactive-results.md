@@ -369,7 +369,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 118 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 134 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 - 干净代码 `273f6588` 再次通过全仓 `pnpm build`、`pnpm typecheck`、`pnpm architecture:check` 与 Desktop `ipc:check`，日志 `peer-adr118-current-engineering.LGtSFi`。同提交的 `pnpm test` 整体退出 0。TUI 841 项通过；Desktop 主段 6,210 通过、5 跳过，尾段 9 项通过。根 Marketplace、Changelog 与升级矩阵均运行成功。
 - 标准产品基线新增逐图核对 8 张更新最小化与任务报告加载、缺失、陈旧状态截图，绑定原图哈希。累计 102/255，整包 verify 待完成。
@@ -383,6 +383,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `57ae67fa` 收紧真实故事的验收关联。只核对最后一次显式会话复核实际引用的固定检查回执；最终回复须由该次复核结束后产生、锚定冻结用户输入且通过正式回复持久化。较早的进度消息、降级回复和计划级核验回执不能混入成功证据。TUI 类型与既有 12 项专项通过，完整实连通过样本仍缺。
 
 - ADR `c3a4bb9` 和代码 `fedec053` 把已有等待资格接进 Desktop/TUI 的 Runtime Projection。用户回合不会向模型提供等待工具；有 workId、有事件且无当前用户锚点的后台唤醒才可见，Provider 仍检查实际任务推进与归属。Runtime Node 构建、TUI 类型、34 项 Provider 适配、4 项等待及 23 项 Desktop 模式/恢复测试通过。新实连样本 `peer-interactive-live-sQsz1j`。
+
+- 标准产品基线新增逐图核对 16 张运行与等待、Bot 概况和记忆、过程详情、取消失败及成功、长错误、工作现场不可用与并行任务截图，绑定原图哈希。累计 134/255，尚未执行整包 verify。
 
 ## 后续接线与完成审计
 
