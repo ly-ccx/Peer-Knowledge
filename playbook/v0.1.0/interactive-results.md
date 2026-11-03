@@ -315,8 +315,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 代码 `09e37381` 将样例的 worker 单次冻结计算与独立 Verifier 四类检查分别写入委托契约，要求在核验活跃时等待。验收拒绝重复创建的后续任务，仍要求已持久化的会话 verdict 和最终结构化交付。Runtime Node 构建、TUI 类型及原专项 11 项通过。新源码两线复跑目录 `peer-interactive-live-Lb3Oh8`。
 - 标准产品基线本轮逐图核对 7 张窗口材质图，涵盖宽窗工作现场和设置抽屉、浅色窄窗及减少透明度，原图哈希绑定至 review；实际透明度数值从机器记录核对。累计 42/255，整包 verify 待完成。
 
-- 样本 `Lb3Oh8` 的 Anthropic 在 30 次实际请求后返回 `story_request_limit:verifier`。原发布任务有已持久化的显式通过 verdict，后续冻结任务无通过结论，未交付整案。OpenAI 样本仍在运行。
+- 样本 `Lb3Oh8` 的 Anthropic 在 30 次实际请求后返回 `story_request_limit:verifier`。原发布任务有已持久化的显式通过 verdict，后续冻结任务无通过结论，未交付整案。OpenAI 在 32 次实际请求后同样耗尽 Verifier 额度。后续独立核验取得四条规范回执，但模型因看不到叶子写入的单独执行快照而报告缺证，宿主未判通过。
 - 本轮逐图核对标准产品基线中的 8 张对话失败、重试和完全访问范围截图，核对重试入口、保留的历史、主输入框范围标记及子工作区返回入口，原图哈希绑定至 review。累计 50/255。
+
+- 代码 `a30ebea9` 在既有核验事实消息中提供有界的宿主叶子状态及已记录引用计数，供 Verifier 判断保存状态。引用有效性和四类计算覆盖仍由独立检查回执确定。样例要求只有正式回复门禁明确要求时才对原发布补做显式复核。核验消息、核验通信和交互核验共 23 项通过，Runtime Node 构建与 TUI 类型检查通过。新实连目录 `peer-interactive-live-m978qa`。
+- 标准产品基线新增核对 10 张诊断、外观、自动化列表、编辑和回执画面，涵盖深色宽窗及浅色窄窗，逐张绑定原图哈希。累计 60/255。
 
 ## 原生缩放与完整首版组件目录（ee029f64）
 
@@ -330,7 +333,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 50 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 60 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 ## 后续接线与完成审计
 
