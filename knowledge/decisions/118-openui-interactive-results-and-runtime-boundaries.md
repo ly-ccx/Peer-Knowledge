@@ -1,7 +1,7 @@
 # ADR 118：OpenUI 可交互结果复用与运行时边界
 
 创建时间：2026-11-02
-最后更新：2026-11-02
+最后更新：2026-11-03
 
 状态：Proposed。用户已要求形成完整设计；本 ADR 待评审，不代表已批准实现、开放新能力或完成产品验收。
 
@@ -16,11 +16,12 @@
 1. 以 `@openuidev/lang-core`、`@openuidev/react-lang` 为首批依赖候选，固定版本评估。使用其公开解析、状态绑定与渲染接口；不复制一套语言解析器，不整体引入示例应用。
 2. 交互结果是用户产物的一种表达，由真实 Provider 发布后进入既有 UserArtifact / EvidenceIndex 投影。助手文本、代码块和文件后缀不自动创建可执行产物。
 3. 模型组合经注册的 Peer 组件和确定性函数。Renderer 处理局部选择、筛选与试算，不持有权限、任务完成、签收或工具执行真值。
-4. 第一批由已准入的工作 Agent 调用结果发布能力；主 Bot 保持只读与调度，引用已发布结果。普通问答继续直接回答，不因引入交互结果而强制创建任务。
+4. 第一批由已准入的工作 Agent 调用结果发布能力；只读工作任务可在独立授权下发布内部产物，不因此取得项目写能力。主 Bot 保持只读与调度，引用已发布结果。普通问答继续直接回答，不因引入交互结果而强制创建任务。
 5. 首期禁用 OpenUI `Query`、`Mutation`、MCP 直连、任意 HTML/JavaScript 和主动网络组件。未来需要实际能力时，扩展显式动作契约并继续经过统一能力链。
 6. 程序、数据快照、组件库版本、文本降级与用户交互状态分别保存。重开、切换窗口、升级和恢复不重新生成结果、不重跑工具。
 7. Desktop 提供完整交互；TUI、CLI 和首期 Remote 提供同一结果的有界文本与来源。图形依赖不得进入 TUI/CLI 的必要启动路径。
 8. 本设计分阶段交付。仅写完 ADR、能解析示例或出现静态界面，不构成模型效果、权限安全或发布验收通过。
+9. 材料从可核对版本的规范记录解析，发布通过持久操作回执与待登记项收敛到既有 EvidenceIndex。核验者经只读能力检查实际内容；新版本使用基础版本 CAS，交回 Bot 的条件使用冻结快照。共享存储的兼容保护必须先于首次新格式写入。
 
 ## 2. 产品目标与非目标
 
@@ -56,7 +57,7 @@
 
 视觉与交互依据：[Frost 体验规范](../specifications/peer-product-experience-standard.md)、[人机交互契约](../specifications/peer-human-agent-interaction-contract.md)、[动效体系](../specifications/motion-system.md)、[过渡体系](../specifications/transition-system.md)和[开发规程](../../playbook/product-experience-development.md)。上游颜色、图标、动效与壳层不成为 Peer 的第二套标准。
 
-本 ADR 拟扩展上述接口，不修改它们已有的权限、验收及实际实现状态。只有对应契约评审接受、模块完成接线后，才可在投影中开放本能力。
+本 ADR 拟扩展上述接口；只读工作任务的内部发布例外见 §9.1，材料、核验读取和兼容契约见 §10、§17。主 Bot 权力、原项目/外部系统权限及验收归属保持不变。本文仍为 Proposed，不表示这些扩展已生效；只有对应契约评审接受、模块完成接线后，才可在投影中开放本能力。
 
 ## 4. 核对基线与上游事实
 
@@ -93,6 +94,21 @@
 | 示例有可配置 PostHog；SDK 有开发工具和安装遥测行为 | 依赖准入检查脚本与默认行为；禁用未授权遥测和开发工具自动挂载 |
 
 `lang-core@1.0.0` 的运行时遥测为显式 opt-in，浏览器环境不发送该运行时遥测；安装脚本遥测另有禁用机制。不能把不同层的行为混为“默认上传聊天内容”。具体外发字段与禁用策略以固定发布包和其后续审阅为准。[U8][U9]
+
+### 4.4 Peer 代码接线基线
+
+2026-11-03 对 §4.1 的 Peer-Agent 固定提交做静态核对，以下是设计必须承接的现状，不是交互结果已经实现的证明：
+
+| 现有 Interface / Implementation | 已核对事实 | 本 ADR 的实施责任 |
+| --- | --- | --- |
+| [只读任务执行闸](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/packages/runtime-node/src/project-agent/session-supervisor.mjs#L83) | 未列入只读白名单的新能力会被拒绝；requiredCapabilities 不替代授权或投影 | 明确内部发布例外，并统一投影、准入和执行判断（§9.1） |
+| [EvidenceIndex 归一化](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/packages/runtime-node/src/goal-plan-files.mjs#L184)、[文件证据预览](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/packages/runtime-node/src/project-agent/file-evidence-preview.mjs#L23) | 只认既有产物种类；索引不承载完整数据等级，文件预览会脱敏并截到 4000 字符 | 规范材料读取、完整性和数据等级单独解析；补新产物联合类型与持久投影（§9、§10） |
+| [Desktop Evidence 登记](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/apps/desktop/electron/main/chat-runtime/tool-orchestrator.mjs#L515)与 [TUI 登记](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/apps/tui/src/tui-host.ts) | 登记失败可被捕获为警告，不能直接提供发布的持久收敛保证 | 增加可对账的发布回执和待登记项，不把登记警告当作完整发布（§9.3、§9.5） |
+| [Verifier 快照](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/packages/runtime-node/src/project-agent/verifier-evidence.mjs#L14)、[产物读取](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/apps/desktop/electron/main/project-agent/project-agent-host.mjs#L674) | 核验依赖有界 bodyPreview；既有工件读取未接入交互结果 | 提供固定版本的只读结果检查与核验适配（§10.2） |
+| [资源反馈草稿准备](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/apps/desktop/electron/main/resource-feedback-preparation.mjs#L21)与 [ResourceFeedback](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/packages/protocol/src/resource-feedback.ts) | 已有真实接收者核对、claim/ack 和有类型的版本材料 | 扩展原反馈/草稿链承载冻结条件，不另建发送路径（§12.5） |
+| [协调写者 fence](https://github.com/ly-ccx/Peer-Agent/blob/4a58e2846875f85de69915764a127096721c5b0d/packages/runtime-node/src/project-agent/coordination-writer-fence.mjs#L22) | 保护协调存储，不能直接推出其他存储也能阻止旧 writer | 逐个共享存储明确保护方式，并在首次新写入前生效（§17.4） |
+
+本轮只更新设计并做内容/diff 审阅，没有安装依赖、修改代码或执行测试；这些代码差距由后续实施包解决。
 
 ## 5. 方案比较
 
@@ -144,15 +160,18 @@ flowchart TD
 
 | Module | 建议位置 | Interface 与核心责任 |
 | --- | --- | --- |
-| 交互协议 | `packages/protocol/src/interactive-result.ts` | 发布输入、已发布引用、状态 CAS、错误和兼容对象；不得引用 React 或文件系统 |
-| InteractiveContent | `packages/interactive-content/` | 共享目录规格、语言子集校验、输入/状态归一化、复杂度计算、文本投影；框架无关且无 I/O |
-| InteractiveResultProvider | `packages/runtime-node/src/interactive-results/provider.mjs` | 声明能力、校验执行身份与 grant、发布并返回真实 UserArtifact/Evidence |
-| InteractiveResultStore | `packages/runtime-node/src/interactive-results/store.mjs` | 不可变版本、幂等发布、状态写者/CAS、恢复、保留和导出准入 |
+| 交互协议 | `packages/protocol/src/interactive-result.ts` | 发布创建/修订、固定引用、检查请求、冻结条件、状态 CAS、错误和兼容对象；不得引用 React 或文件系统 |
+| InteractiveContent | `packages/interactive-content/` | 共享目录规格、语言子集校验、输入/状态归一化、复杂度计算、有界确定性求值与文本投影；框架无关且无 I/O |
+| InteractiveMaterialSource | `packages/runtime-node/src/interactive-results/material-source.mjs` | 从已准入规范记录解析固定版本字节、范围、脱敏和数据等级；不重读当前项目文件冒充历史输入 |
+| InteractiveResultProvider | `packages/runtime-node/src/interactive-results/provider.mjs` | 发布与只读检查的 Manifest/Projection、执行身份与 grant、真实 Tool Result/UserArtifact/Evidence |
+| InteractiveResultStore | `packages/runtime-node/src/interactive-results/store.mjs` | 不可变版本与 head CAS、幂等发布回执/待登记项、状态写者/CAS、条件快照、恢复、保留和兼容准入 |
 | OpenUIRendererAdapter | `apps/desktop/renderer/src/interactive-results/` | SDK 渲染、Peer 组件、局部状态和结构化错误；不直接调用能力 |
 | 宿主适配 | 既有 Desktop/TUI composition root 与 typed API | 绑定真实 sender、owner、当前调用/视图身份；不复制领域规则 |
 | Context Source | `packages/system-context/src/sources/interactive-result-source.mjs` | 按投影准入本次组件/语言规则与其版本；不执行能力 |
 
-`InteractiveContent` 提供小而有深度的 Interface：`catalogSpec`、`validateDraft`、`validateState`、`projectText`。其 Implementation 统一处理目录版本、AST 白名单、数据边界和计算限制，避免 Host 与 Renderer 各维护一套正则过滤或语法判断。
+`InteractiveContent` 提供小而有深度的 Interface：`catalogSpec`、`validateDraft`、`validateState`、`evaluate`、`projectText`。其 Implementation 统一处理目录版本、AST 白名单、数据边界和计算限制，避免 Host 与 Renderer 各维护一套正则过滤或语法判断。`evaluate` 只消费已固化内容和明确状态，在相同预算内返回有界值/诊断；不接收工具、文件、网络或宿主回调。它不是任意代码求值器。
+
+`InteractiveMaterialSource.resolveInputs` 负责有 I/O 的材料准入；Store 的发布事务和待登记项负责跨存储恢复。二者不塞进无 I/O 的 InteractiveContent，也不把领域逻辑分散到 Desktop/TUI 的登记分支。宿主适配只提供真实身份与已有规范记录读取端口。
 
 OpenUI 依赖只在这些 seam 内消费。通用 Runtime Core、Provider encoder 和 ConversationStore 不理解 OpenUI 节点；替换渲染引擎时，工作应集中于内容适配与 Renderer，而不改权限或任务执行器。
 
@@ -196,7 +215,20 @@ Manifest 拟声明 `L2_local_write`，数据等级按实际输入继承且不得
 
 grant 的有效范围是当前 workspace/conversation、已准入工作、此次 toolCall 和内部结果写入参数。它不授予项目文件写入、网络访问或后续动作权限。实施时在现有权限 Interface 中表达该受限目标；若无法表达，应先补齐契约，不能伪装成 file-read 或直接写盘绕过链路。
 
-首期仅为实际有该能力的工作 Agent 投影。主 Bot、Explorer、Verifier 默认不获得本能力；主 Bot 可以读取已发布元数据并在 post_reply 中引用。`requiredCapabilities` 必须包含发布能力及实际数据获取、验证所需能力，缺失时由原准入契约返回技术阻断。
+首期仅为实际有该能力的工作 Agent 投影。主 Bot、Explorer、Verifier 不获得发布能力；主 Bot 可以经 §10.2 的只读入口读取已发布元数据/文本并在 post_reply 中引用。`requiredCapabilities` 必须包含发布能力及实际数据获取、验证所需能力，缺失时由原准入契约返回技术阻断；能力要求只是准入约束，不提供权限。
+
+#### 只读工作任务的内部发布例外
+
+本 ADR 拟明确区分“修改项目/外部系统”和“交付内部产物”：`readOnly = true` 的已准入 worker 可以在具备发布 Projection、有效 Grant 及当前执行身份时，写入本工作所属 Bot 的内部结果空间。Manifest 仍按本地写入声明，不伪装成文件读取；该例外不适用于主 Bot、Explorer、Verifier，也不放行项目文件、Shell、网络、MCP 写操作或模型自定路径。
+
+| 判断点 | 必须采用的同一规则 |
+| --- | --- |
+| 委托能力库存和模型投影 | 只有内部发布 Provider 可用、角色为 worker 且边界可表达时，才将发布列入该只读工作的可用能力 |
+| 执行闸与 Provider | 同时核对 readOnly 例外的精确 capability、角色、真实工作/owner、停止及 execution identity、租约/epoch、参数摘要和 Grant；只改 prompt 或投影不足以放行 |
+| 原授权政策 | 继续动态继承 Bot policy；自动授权仅按原政策条件生效。内部发布许可不转换为 file-write、通用本机写入或后续调用许可 |
+| 不满足例外 | 返回 `read_only` 或明确的技术阻断，保留普通文本交付；不得把任务改成 readOnly=false、扩大通用写能力或增加假文件授权来绕过 |
+
+这属于对既有只读任务契约的明确扩展，须在 IUI-01 同时落实共享规则、Desktop/TUI 准入与执行适配。本文保持 Proposed，不提前修改 ADR 80/106 的实际生效范围。
 
 ### 9.2 模型输入与宿主事实分离
 
@@ -204,6 +236,9 @@ grant 的有效范围是当前 workspace/conversation、已准入工作、此次
 
 ```ts
 interface InteractiveResultDraft {
+  publication:
+    | { kind: 'create' }
+    | { kind: 'revise'; base: InteractiveResultReference };
   title: string;
   textFallback: string;
   program: string;
@@ -215,30 +250,51 @@ interface InteractiveResultDraft {
 }
 ```
 
-`AdmittedMaterialReference` 和 `BoundedDataSelector` 必须是协议内白名单对象：引用已准入的工具结果、用户材料或结构化模型数据；选择器只允许有限字段/行选择，不接受脚本或任意 JSONPath。模型自行填入一个存在的 Evidence ID 仍不足以通过宿主归属检查。
+`InteractiveResultReference` 至少绑定 owner、resultId、contentVersion。`publication.base` 是模型提出的修订目标和预期 head，不授予读取或修订权；宿主按 §11.4 核对当前工作的材料准入和版本 CAS。创建时不接受模型自定 resultId。
+
+`AdmittedMaterialReference` 和 `BoundedDataSelector` 必须是协议内白名单对象，具体材料分类和宿主解析契约见 §10.1。选择器只允许有限字段/行选择，不接受脚本或任意 JSONPath。模型自行填入一个存在的 Evidence ID 仍不足以通过宿主归属检查。
 
 workspace、conversation、session/plan、原用户输入、attempt/epoch、发布者、目录版本、specHash、数据等级、权限、产物 ID 和 Evidence 关联均由宿主推导或核对。模型自报这些字段既不生效，也不能覆盖当前上下文。
 
-已发布描述至少包含：`schemaVersion`、`resultId`、不可变 `contentVersion`、owner/source 引用、`engine`、SDK/目录版本、`specHash`、程序与数据快照引用、数据来源分类、`textFallback`、实际发布 Evidence 引用、时间、兼容要求和当前可用性。Conversation 只保存有界引用/展示元数据，不复制另一份正文真源。
+已发布描述至少包含：`schemaVersion`、`resultId`、不可变 `contentVersion`、owner/source 引用、可选的 predecessor 引用、`engine`、SDK/目录版本、`specHash`、程序与数据快照引用、数据来源分类、`textFallback`、实际发布 Evidence 引用、时间、兼容要求和当前可用性。Conversation 只保存有界引用/展示元数据，不复制另一份正文真源；冻结反馈材料按 §12.5 保存其有界副本。
 
 ### 9.3 发布顺序与幂等
 
-1. 核对当前执行、停止、lease/epoch、角色、投影和授权；拒绝越权引用及未知 schema。
-2. 解析并验证程序、目录、输入、数据来源与资源预算，确保校验完成前没有代码、网络或工具执行。
-3. 固化程序、数据及文本降级；权限等待、异步解析或来源读取后，在存储提交前再次核对 owner、停止、当前 lease/epoch 和有效 policy/grant。通过后先写不可变 blob，再提交版本 manifest 与发布操作记录。
-4. 由既有 Tool Result/Evidence 流程记录实际结果，返回 `UserArtifact.kind = interactive` 的受治理元数据；EvidenceIndex 保留原 Provider 来源，不被包装回执覆盖。
+1. 核对当前执行、停止、lease/epoch、角色、投影和授权；拒绝越权引用及未知 schema。在任何新格式持久写入前，先满足 §17.4 的逐存储兼容门槛。
+2. 经 §10.1 解析准入材料，并验证程序、目录、输入、数据来源与资源预算，确保校验完成前没有生成代码、网络或工具执行。
+3. 固化程序、数据及文本降级；权限等待、异步解析或来源读取后，在提交事务内再次核对 owner、停止、当前 lease/epoch、有效 policy/grant 和修订基础版本。先持久化不可变 blob，再原子提交版本 manifest/head、真实 Provider 发布操作回执及 Evidence 待登记项；不能出现 manifest 已提交而待登记项未提交的状态。
+4. 由既有 Tool Result/Evidence 流程幂等登记并读回核对 `UserArtifact.kind = interactive` 的元数据，确认后才返回完整发布成功。EvidenceIndex 保留原 Provider 来源，不被包装回执覆盖；登记失败不能仅记警告后继续返回完整成功。
 5. 主 Bot 通过既有报告、核验与 post_reply 关联结果。发布成功只证明该交互产物已生成，不表示输入全部正确、任务通过核验或已签收。
 
-相同 toolCallId/规范参数摘要映射到同一次发布。相同 ID 不同参数拒绝；不同内容产生新不可变版本。结果中途未知时先核对操作记录、已写 blob 和实际调用回执，不在视图恢复时重发发布调用。缺失证据不能从文件存在或助手文字补造。
+同一 owner 下，相同 toolCallId/规范参数摘要映射到同一次发布，摘要包含 publication 意图与基础版本。相同 ID 不同参数拒绝；新的调用不会仅因标题或程序相似而被当成旧调用。结果中途未知时先经 §9.5 对账，不在视图恢复时重发发布调用。创建与修订、新版本与内容相同的情况按 §11.4 处理。
 
 ### 9.4 失败契约
 
 校验失败返回稳定 code、可恢复性及有界字段位置；权限拒绝、取消、超时、存储错误和未知提交分别沿既有 Tool Result 状态/错误对象返回。未知对象不能被归一化为一份空表或成功结果。所有失败保留原 toolCall、来源与实际执行阶段，重试建议不得携带伪造 grant。
 
+发布协议另带 `publicationStatus`，至少区分 `not_committed`、`index_pending`、`published`、`unknown`，不擅自给通用 Tool Result 联合类型追加一个成功状态。已提交但索引未确认时返回非成功结果和 `publication_index_pending`，明确 `effectCommitted = true`、操作引用及“只对账”的恢复方式；无法证明提交状态时返回 `publication_unknown`。两者都不能提示模型换一个 toolCallId 再发布。
+
 ```text
 Capability Provider → Manifest → Runtime Projection → Tool Call
   → PermissionGrant → 受限发布与真实结果 → Evidence / UserArtifact
 ```
+
+### 9.5 发布回执、待登记项与对账
+
+Store 为每次真实 Provider 发布保存不可变操作身份、规范参数摘要、真实调用/工作/attempt 绑定、policy revision 与 Grant 审计引用、resultId/contentVersion、提交时间、输入摘要、稳定 Evidence 身份和应登记的 Tool Result/UserArtifact 元数据。Grant 引用仅供追溯，不可在恢复时充当新授权。Evidence 身份由宿主生成并在提交前固定；待登记项是已有能力链的持久回传责任，不是第二套 Evidence 索引。
+
+| 持久阶段 | 可证明的事实 | 对账与结束条件 |
+| --- | --- | --- |
+| prepared，尚无已提交操作 | 可能存在暂存 blob，不能证明发布发生 | 核对真实提交记录；确认未提交后终止操作，孤立 blob 仅按安全清理规则回收 |
+| committed / index_pending | 发布操作、固定版本和待登记项已一起持久化 | 核对回执及内容摘要，用同一 Evidence/产物身份幂等登记既有索引；不重新解析生成、不调用发布执行体、不取得新执行授权 |
+| indexed / published | 索引读回的来源、调用、owner、产物引用与回执一致 | 原子确认待登记项已结束；相同调用恢复返回同一已确认事实，不新增产物或重写任务结论 |
+| unknown / conflict | 提交、正文或索引归属无法核对 | 保留原记录并返回结构化未知/冲突；不从文件存在、助手文字、goal_update_task 包装或另一调用补造证据 |
+
+共享发布恢复服务在持有该存储当前写者/租约时处理有界待登记项；触发于宿主恢复、原调用查询及明确重试。瞬时失败可有界重试登记，损坏或来源冲突必须停止并保持可解释状态。即使原任务随后取消，也只允许投影已经提交的真实事实，不再开始发布、恢复执行或推断任务成功。
+
+只读 inspect 查询返回已保存事实，可通知上述恢复服务处理已有待登记责任；它不把自己的读取 Grant 转成发布授权，不修改回执参数或注入新的待登记项。恢复服务只能处理原事务已持久化的那一项，不能执行来自检查请求的写入动作。
+
+§10.2 的只读检查入口可按宿主核验过的原 publicationCallRef 查询进度，不能仅凭猜中的 toolCallId 读取其他工作。历史 Tool Result 在当时确为未知时保留该事实；后续确认通过原操作引用追加可追溯的对账结果，不把历史失败文字改写成从未中断。完整收敛是：已证明未提交并结束，或真实提交与索引一致并结束待登记项；长期未知保持阻断，不能被超时自动判成成功。IUI-01 必须同时接入 Desktop/TUI 登记和恢复，不能只在新 Provider 内写 manifest。
 
 ## 10. 数据绑定与真实性
 
@@ -258,12 +314,49 @@ Capability Provider → Manifest → Runtime Projection → Tool Call
 
 数据进入结果前须核对当前材料准入与父链范围；不能借结果引用从其他 Bot、未准入附件或过去任务读取资料。源引用失效后，可否继续显示已保存快照由现有留存与访问政策决定，不能把来源失效等同于自动删除已交付内容，也不能用快照恢复已撤销的执行权限。
 
+### 10.1 规范材料解析与不可变快照
+
+`InteractiveMaterialSource.resolveInputs(inputs, executionBinding)` 由发布 Provider 调用，executionBinding 来自真实宿主，不接受模型填写 owner、访问根或源文件路径。它返回已归一化的有限数据及其证明元数据，或逐 binding 的稳定错误；InteractiveContent 只消费解析结果，不自行做 I/O。
+
+| 模型可提出的材料分类 | 宿主唯一可读取的来源 | 必须核对与保留 |
+| --- | --- | --- |
+| tool-result | 当前工作已准入的规范持久 Tool Result，或该结果登记且可校验版本的不可变 artifact；引用绑定具体调用和预期内容版本 | 调用及 Evidence 来源、归属/准入链、实际字节与摘要、观察范围/时间、原有截断和脱敏、数据等级 |
+| user-material | 已显式准入当前工作的用户材料/附件规范记录及其固定内容版本 | 材料身份、准入锚点、内容版本、允许范围、分类与来源政策；不能扫描附件目录猜测记录 |
+| model-data | 本次 Draft 内的有界 JSON 值 | 始终标为模型构造；模型给出的来源名、Evidence ID、时间或 dataLevel 不会使它升级为观测事实或降低分类 |
+
+协议中的来源联合类型按上述分类分别携带有界引用及 expectedContentVersion，或 model-data 的 JSON 值；禁止把任意路径、URL、数据库定位串或执行句柄装进引用。选择器仅含有限字段名/行范围/条数，作用于已核对的那份规范内容，并记录实际选取范围；规范化及编码版本参与快照摘要。
+
+解析后的 binding 至少保存：来源类别与规范引用、原调用/材料身份、原内容版本、所选范围、选取字节摘要、获取/观察时间与本次固化时间、截断/脱敏标志、继承的数据等级和允许的显示/回传范围。当前结果的数据等级取所有来源及现有政策中最严格的要求；`EvidenceIndexRecord` 的存在、工具名或 Manifest 默认等级不能代替实际来源分类。缺少可判定的分类/政策时返回 `material_classification_unavailable`，不自行填 D0/D1。
+
+EvidenceIndex 是定位与追溯索引；有界 bodyPreview 可以作为“明确标为截断/脱敏的预览”使用，不能作为完整数据替身或据此补齐缺行。规范正文/固定版本不存在、摘要不符、范围超限或只剩可变文件定位时，分别返回 `material_snapshot_unavailable`、`material_version_mismatch`、`material_range_exceeded` 等错误。保存到磁盘的原始数据也不能绕过源材料已有的脱敏和准入限制。
+
+需要重新取数时，由原工作调用已有受投影与授权约束的数据能力，取得新的 Tool Result/材料引用，再显式发布。MaterialSource 不读取当前项目文件、联网或重新执行工具来冒充历史字节；发布 grant 也不授予这些读取。对用户材料、正文缺失和模型示例的降级必须显式说明，不静默把工具观测改成模型构造或反过来。
+
+### 10.2 结果只读检查与任务核验
+
+新增只读能力 `local.interactive.inspect`，模型工具名拟为 `inspect_interactive_result`，Manifest 使用对应宿主的只读风险级别（Desktop 协议为 `L1_local_read`）。模型读取仍经过 Provider → Manifest → Projection → Tool Call → PermissionGrant → Evidence；人的资源预览继续走 ApplicationService，不能把 UI 读取 API 暴露给模型。
+
+检查请求只接受已准入的固定 resultRef，或与本调用方真实工作绑定的 publicationCallRef；二者为明确的目标联合类型。请求可选择有界元数据/文本、程序片段、指定 binding 的字段/行、状态或确定性计算。分页携带固定版本和范围游标，超限明确返回范围与截断；不接受内部文件路径、任意 resultId、动态来源或 Query/Mutation。
+
+| 调用角色 | 首期可投影的检查范围 |
+| --- | --- |
+| 主 Bot | 本 Bot 当前准入结果的发布状态、版本、来源分类及有界 textFallback；仅用于理解和引用，不获得发布能力 |
+| worker | 当前工作已准入的固定版本/发布操作、材料与有界求值；不能越过材料父链或借检查入口重新取数 |
+| Verifier | 本次核验目标对应的固定程序、绑定快照、来源/发布回执与有界求值；没有发布、状态保存或项目写权限 |
+| Explorer / 未准入角色 | 默认不投影；不得因获得文件读取或 UI viewHandle 而间接获得结果存储读取权 |
+
+“默认状态”来自该 contentVersion 校验过的初始有效参数；检查用户条件时，只接受用户通过 §12.5 明确提交并准入本工作的冻结快照。不得读取 Renderer 正在编辑的内存、偷偷使用最新 stateRevision 或在核验时挂载 React。共享 `evaluate` 在可终止 Worker 和统一结构预算下消费这些固定输入；无兼容且安全的非图形求值适配时，返回 `evaluation_unavailable`，不冒充已核验试算。
+
+检查 Tool Result 至少区分：原来源观测、模型构造、模型 textFallback、用户参数和本次宿主派生值，并绑定 contentVersion、specHash、状态来源/摘要及实际读取范围。新 Evidence 仅证明这次读取/计算发生及其条件，不把模型文本、输入业务真实性或“计算一致”升级成任务通过。
+
+IUI-01 实现检查协议、Provider 和固定读取/求值；IUI-03 接入 Verifier 快照、核验目标版本和证据允许列表。声明交互结果验收的任务，委托准入必须同时核对 worker 的发布/取数能力和核验角色的 inspect 能力，不能只看 worker 的能力库存。核验者以实际程序/数据/计算检查对照原 successCriteria，报告实际只读检查 Evidence；只有发布回执、textFallback 或 Worker 自述时，不得通过依赖交互语义的验收项。
+
 ## 11. 版本、结果引用与资源承载
 
 ### 11.1 四个独立版本
 
 1. `schemaVersion`：Peer 结果包与状态协议的读写格式。
-2. `contentVersion`：不可变程序、绑定快照、目录规格和文本降级的规范内容摘要；不含会变化的用户状态和窗口位置。
+2. `contentVersion`：标题、不可变程序、绑定快照、目录规格和文本降级的规范内容摘要；不含会变化的用户状态和窗口位置。摘要的规范编码有版本。
 3. `libraryVersion/specHash`：此次可用组件、函数、参数语义和限制的身份。相同组件名称不证明版本兼容。
 4. `stateRevision`：同一内容版本下用户交互状态的 CAS 版本。它不推进任务 goalRevision 或 executionEpoch。
 
@@ -286,6 +379,22 @@ SDK 版本另行记录，用来选择已登记的兼容适配。哈希用于一�
 | owner/source 未连接或权限不足 | 显示真实不可用原因，不扫描磁盘、不借另一 Bot 打开 |
 | 正文已清理 | 保留产物名称、来源及清理状态；不从当前数据拼造历史结果 |
 | 旧 UI 状态与新版本不匹配 | 保留原检查点；仅在同版本恢复，或经明确映射建立新的状态副本 |
+
+### 11.4 创建、修订与版本 CAS
+
+结果的稳定 owner 是 workspaceId 及其 Bot conversationId；每一版本另记真实发布者、来源 work/session/plan、attempt 和原用户输入，不能把某次工作的执行身份当作下一次修订的通用授权。`InteractiveResultReference` 绑定稳定 owner、resultId、contentVersion；引用进入新工作时仍需显式材料准入，不能因为属于同一 Bot 就允许遍历全部历史结果。
+
+| publication 意图 | 宿主核对与提交语义 |
+| --- | --- |
+| create | 宿主生成新的 resultId，建立首个不可变版本和 head；相同标题/程序不自动合并为同一结果 |
+| revise + base | base 必须是当前工作已准入、同 owner 的既有结果；base.contentVersion 同时是 expectedHeadContentVersion。真实发布身份和内部 grant 合法后，在 §9.3 的同一事务内 CAS 推进 head，并保存 predecessor |
+| 修订内容与当前版本规范内容相同 | 返回原固定引用及 unchanged，不创建新版本/第二份 UserArtifact；原版本的发布来源不改绑到新调用，当前调用只记录实际核对结果 |
+| 基础版本已不再是 head | 返回 `version_conflict` 与当前可读 head 提示；不自动 rebase、不以新 resultId 重发来掩盖冲突 |
+| base 未准入、owner 不符或原文已不可核对 | 返回准入/范围/版本不可用错误；不借旧版本 ID 恢复权限或从标题猜测前驱 |
+
+两个修订从同一基础并发提交，只能一个推进 head；另一个完整保留原候选与冲突，不覆盖已发布版本。相同调用的重试先读取自己的操作回执，再判断新提交 CAS，不能在自己已提交后因 head 改变误报冲突；同 ID 不同参数仍拒绝。
+
+“打开新版本”仅依据相同 resultId 下宿主确认的 head/predecessor 关系出现，不从模型文字或相似标题推断。已打开标签始终固定 contentVersion，旧交互状态留在原版本；打开新版本使用其初始状态，跨版本迁移必须另有明确映射和用户选择。用户要求刷新数据时，将旧结果引用显式交入新工作，取数后以 revise 发布，而不是静默改写旧快照。
 
 ## 12. 用户状态、保存与多窗口恢复
 
@@ -312,7 +421,7 @@ Renderer 的内存 Store 提供即时交互，`onStateUpdate` 只提交有界的
 | acquire | viewHandle + 当前 stateRevision；显式 takeover 才可接管已有写者，返回不可复用的 writer generation |
 | save | viewHandle + writer + expectedRevision + requestId + 规范参数/输入草稿；CAS 成功后返回新 revision 和保存时间 |
 | release | 仅释放当前 writer；不清空内容或状态；断连/重启使旧句柄失效 |
-| prepareFollowup | viewHandle + 已确认 stateRevision + 用户选取字段；只准备原 Bot 草稿材料，不直接发送 |
+| prepareFollowup | viewHandle + 已确认 stateRevision/状态摘要 + 用户选取字段及真实接收者；冻结条件后沿 §12.5 的原草稿 claim/ack 准备，不直接发送 |
 
 同 requestId 的相同保存参数幂等返回原回执，不同参数拒绝。viewHandle 由真实 sender/window/generation 约束，不能仅凭客户端提供的 token 授予读取或写入。失败至少区分 owner 不符、视图失效、版本不兼容、writer 过期、revision 冲突、超限、存储不可用与保存失败。
 
@@ -331,6 +440,20 @@ Renderer 的内存 Store 提供即时交互，`onStateUpdate` 只提交有界的
 3. 校验同内容版本的已确认状态，并恢复输入草稿；未知状态字段隔离，不覆盖原检查点。
 4. 进入用户实际打开的容器后恢复阅读位置；不自动聚焦输入、不重播历史入场。
 5. 原来未完成的真实能力操作只展示其原生回执；没有当前事实时保持未知，不从 OpenUI 状态推断成功或自动重发。
+
+### 12.5 当前条件冻结、草稿与明确发送
+
+用户目的是把点击时看到的有效条件交回原 Bot，继续讨论或明确发起下一步。事实源分别是已发布内容、宿主确认状态、冻结反馈材料、原 Composer 草稿回执及现有 ProjectInput 接收记录；它们不是一次合并的“发送成功”。准备不启动工作，明确发送后仍由原 Bot 按既有能力与授权判断行动。
+
+1. **捕获候选。** 原生控件在用户点击时捕获固定 contentVersion、所选字段、有效参数和编辑序号，保存独立 candidate 身份。IME composition 未结束或所选字段有未完成/无效输入时，保留草稿并说明需完成输入；不强制提交组合串，也不偷偷取上一个有效值当作当前条件。后续新编辑保留在原视图，不改变已经捕获的候选。
+2. **确认保存。** 用本候选的真实 writer、expectedRevision 和幂等 requestId 刷新状态，并等待 CAS 回执。即使候选之后又有编辑，准备使用的仍是这次确认的 revision/摘要。保存失败、writer 被接管、版本失效或 CAS 冲突时，保留候选和当前编辑，显示真实未准备原因；不得退回旧 revision 继续准备。重试与重新捕获区分，不能让旧响应覆盖新候选。
+3. **冻结材料。** 宿主在同一状态事务中核对 viewHandle、owner、确认 revision/摘要及用户选取字段，并从该已确认快照固化有界反馈。若该 revision 已被后续保存取代且无法读取精确快照，返回 `state_revision_unavailable`，保留候选供重试；不读取最新状态替代。冻结对象至少含 followupId、真实 recipient、resultRef、specHash、stateRevision/stateDigest、所选字段及其值、来源分类与捕获时间；派生值如被选择，也绑定统一求值的输入版本和条件。只保存必要的选中值/文本，不默认复制整份 64 KiB 状态或全部输入。快照不携带 Grant、工具目标或任务控制字段。
+4. **准备原草稿。** 扩展现有 ResourceFeedback 的 interactive 资源/版本联合类型，并沿资源反馈的 prepare → claim → durable draft → ack 路径保存。Composer 以自己的 expectedRevision 合并这份材料，保留既有正文、引用和附件；不覆盖原草稿。DRAFT_CONFLICT、配额不足、原 Bot 归属变化或窗口失效都保持可恢复候选，不自动换接收者。重试可使用新的草稿准备 requestId，但复用同一 followupId/冻结内容；同 ID 不同内容拒绝，回执丢失先核对持久草稿，不能重复附加。
+5. **用户审阅与发送。** 只有草稿持久确认后才显示“已放入草稿”。用户可以检查、编辑或移除材料、取消发送；不因准备成功抢焦点或自动切回对话。明确发送才沿既有 ProjectInput 队列和 canonical 用户消息链生成输入，继续沿原有 request/input ID 去重和接收者核对。进入模型时是显式用户选择的事实材料，不是 System Context 规则或执行许可。
+
+冻结材料在草稿、待发队列、canonical 消息和委托锚点传递中保持同一 followupId、值及版本；原交互状态之后变化、被清理或新版本发布，都不能让旧草稿/消息指向“当前最新值”。反馈保存有界自包含选中值，并按源材料分类与留存政策处理；不能仅存一个指向可变 stateRevision 的指针。完整原文已不可用时保留真实缺源状态，不补造历史数据。
+
+本流程的 preparing / save_failed / conflict / draft_unconfirmed / prepared 等状态分别来自上述实际阶段。失败可在原现场重试或放弃候选，原编辑与原 Composer 草稿仍有责任方；只读视图需先显式取得写者，不能为准备动作自动抢占其他窗口。原生控件复用既有焦点、滚动、SVG 和静态终态，不由生成程序直接调用 sendMessage。
 
 ## 13. System Context 与模型输出
 
@@ -352,7 +475,7 @@ Source 由可信目录生成语言规则、允许组件/函数、参数限制、
 
 工作 Agent 生成程序后调用发布能力。失败返回有界结构化问题，例如 `unknown_component`、`unsupported_node`、`invalid_binding`、`non_finite_value`、`resource_limit`、`incompatible_catalog`；附具体位置和允许的修正方式，不把全部用户数据或堆栈写入错误正文。
 
-同一发布候选最多进行两次针对生成内容的模型修复，并共享原工作预算；只有校验已知未发布时才可提交修正版本。磁盘错误、权限拒绝、资料缺失和结果未知分别处理，不通过重新生成掩盖。超过修复范围时交还实际原因和已保留的文本结果，不伪造一个“可交互”入口。
+同一发布候选最多进行两次针对生成内容的模型修复，并共享原工作预算；只有校验已知未发布时才可提交修正版本。磁盘错误、权限拒绝、资料缺失和结果未知分别处理，不通过重新生成掩盖。`publication_index_pending` / `publication_unknown` 先用原操作引用只读对账，不能进入生成修复或换 ID 重发；version_conflict 也不能自动 rebase。超过修复范围时交还实际原因和已保留的文本结果，不伪造一个“可交互”入口。
 
 首期发布完整、不可变结果后再启用交互。OpenUI 的流式能力作为后续表现适配候选；未完成程序只能作为明确的临时预览，不能登记正式 UserArtifact、启动动作或覆盖已发布版本。若要扩展分段预览协议，须单独补齐预算、取消和所有权后实施。
 
@@ -363,11 +486,11 @@ Source 由可信目录生成语言规则、允许组件/函数、参数限制、
 | 筛选、选择、参数试算、恢复默认值 | 受限局部 Store 与纯函数 | 只改变这份结果的展示/用户参数 |
 | 打开结果、查看数据表或来源 | 既有资源导航与受控读取 | 不授予模型新的读取范围 |
 | 保存局部状态 | 宿主检查点 API | UI 状态已保存；不表示项目发生修改 |
-| 把当前条件交给 Bot | 宿主原生控件准备有界草稿，用户明确发送 | canonical 用户输入沿原发送链产生 |
+| 把当前条件交给 Bot | 宿主原生控件确认保存、冻结条件并取得原草稿回执，用户明确发送 | 旧草稿不漂移；canonical 用户输入沿原发送链产生 |
 | 文件写入、Shell、MCP、外部查询或执行控制 | 首期不提供生成控件入口 | 后续必须通过显式动作协议和既有 Runtime |
 | 授权、回答原生人工问题、验收或取消任务 | 使用 Peer 已有原生控件与记录 | 生成程序不能构造或替代这些决定 |
 
-“把当前条件交给 Bot”由宿主提供固定控件，不由任意 OpenUI Action 直接调用 sendMessage。宿主仅从当前确认的内容/状态选择有限字段，用户可检查、编辑或取消；不会覆盖原 Composer 草稿。敏感数据是否进入模型沿原上下文准入政策，状态改变或保存均不自动发送。
+“把当前条件交给 Bot”由宿主提供固定控件，不由任意 OpenUI Action 直接调用 sendMessage。宿主按 §12.5 从本候选已确认的内容/状态选择有限字段，用户可检查、编辑或取消；不会覆盖原 Composer 草稿。敏感数据是否进入模型沿原上下文准入政策，状态改变、保存和草稿准备均不自动发送。
 
 未来如需 Query/Mutation，须逐项定义可用能力、目标来源、参数 schema、幂等键、版本、取消、结果未知及 Evidence 回传。适配器只能把受控意图送入现有 Runtime Projection，不能把原始函数表、MCP client、任意 capabilityId 或 preload 暴露给模型生成组件。未完成这些契约前，首期禁用保持有效。
 
@@ -439,17 +562,17 @@ Source 由可信目录生成语言规则、允许组件/函数、参数限制、
 
 沿已经登记的 `projectRuntime` 设备本地空间，新增 `project-runtime/<workspaceId>/interactive-results/` 子域，实施时登记其用途、schema 和保留规则。相对命名属于设计，不写入任何机器绝对路径。
 
-该子域包含不可变程序/输入 blob、结果 manifest、发布操作记录和用户状态检查点。manifest 只保存必要索引与版本引用，数据大对象不进入 settings。保存顺序为 blob 持久化 → 条件提交 manifest/操作 → 返回确认；缓存、渲染 AST 和缩略投影可以重建，已发布原文和用户确认状态不能被当缓存丢弃。
+该子域包含不可变程序/输入 blob、结果 manifest/head、发布操作回执与 Evidence 待登记项、用户状态检查点和冻结反馈材料。manifest 只保存必要索引与版本引用，数据大对象不进入 settings。保存顺序为 blob 持久化 → 条件事务提交 manifest/head/操作/待登记项 → 既有索引核对 → 返回完整发布确认（§9.3—9.5）；缓存、渲染 AST 和缩略投影可以重建，已发布原文、待登记责任和用户确认状态不能被当缓存丢弃。
 
 内部路径由宿主从已核对的 workspace/result 身份生成。模型和 Renderer 不提交文件名、路径片段或任意存储根。读写拒绝路径穿越、符号链接替换、未知文件格式与不匹配 owner；错误不能自动重建成空结果或更宽的访问范围。
 
-状态事务/CAS 与单写者沿现有跨进程存储 seam 实现，Node、Bun 和 Electron 使用一致的字节与版本语义。不能只用某一进程的 Map 声称已支持跨窗口/跨宿主一致性。
+发布事务、head/状态 CAS 与单写者沿现有跨进程存储 seam 实现，Node、Bun 和 Electron 使用一致的字节与版本语义。manifest 与待登记项必须处于同一可恢复提交边界；只做多个先后 rename 或仅在进程内排队不足以满足 §9.3 的原子关系。不能只用某一进程的 Map 声称已支持跨窗口/跨宿主一致性。
 
 ### 17.2 保留与清理
 
 首期每 Bot 结果索引最多 256 项，结果正文、输入和状态总计不超过 128 MiB；manifest 最大 2 MiB。达到上限时阻止新增并给出清理入口，不静默驱逐用户已有结果或未保存状态。数值统一由共享限制声明，发布前按实际负载复核。
 
-关闭标签只释放视图，不删除结果。显式清理需核对当前引用、活跃写者和未决发布；先持久化清理状态，再删除不再引用的 blob。保留有界墓碑、来源和清理事实。独立的输入快照清理不能改变已发布版本摘要或让历史数据悄悄变新。
+关闭标签只释放视图，不删除结果。显式清理需核对当前引用、活跃写者、未决发布/待登记项、核验固定版本和冻结反馈；先持久化清理状态，再删除不再引用的 blob。待登记责任或未决核验使用的字节不得被普通结果清理回收。已进入草稿/消息的有界选中值依原反馈留存政策保留，不能因清理当前交互状态而改写。保留有界墓碑、来源和清理事实。独立的输入快照清理不能改变已发布版本摘要或让历史数据悄悄变新。
 
 结果内容按本机私有资料保存，数据等级不低于输入。原始程序、数据快照、用户输入与状态不写普通日志、遥测或异常正文；诊断只含有界错误、版本、计数和允许暴露的引用。密钥、凭据、原生权限/审批载荷不得进入交互状态目录。
 
@@ -457,9 +580,26 @@ Source 由可信目录生成语言规则、允许组件/函数、参数限制、
 
 首期此子域为 device scope，portable Conversation 只携带可解释的引用和必要文本降级。另一设备缺少产物正文或来源时，显示“结果保存在原设备”及实际可读摘要，不从引用重建执行授权，也不自动下载或扫描来源。
 
-新增格式带最小 reader/writer 要求，并接入现有存储兼容/fence 机制。具体兼容版本号由实施包按实际代码分配；不能照抄其他 ADR 的历史编号。旧版本不理解新产物联合类型时，必须保留未知字段及文本引用；无法安全保留的 writer 禁止写受影响对象。
+新增格式带最小 reader/writer 要求，并按 §17.4 接入对应存储的兼容/fence 机制。具体兼容版本号由 IUI-01 按实际代码分配；不能照抄其他 ADR 的历史编号。首次新格式写入前必须证明旧版本可保留未知字段及文本引用，或已经有效阻止不兼容 writer 写受影响对象；不能要求已经发布的旧二进制事后理解一个新 marker。
 
 首次启用不重写旧 Conversation 或把旧代码块升级为 interactive。新消息、产物和目录使用加法协议。任何反向迁移、清理和恢复都保留原格式备份及未决责任；不能删掉新记录以允许旧二进制继续写。
+
+### 17.4 首次写入前的逐存储兼容保护
+
+IUI-00 先确定所有受影响读写者和保护方案；IUI-01 在真实持久化任何新结构之前落实保护。IUI-04 负责组合候选上的兼容回归和发布收口，不能首次建立保护。功能默认关闭、只检查新目录 schema、提高协调日志版本或承诺将来迁移，都不能单独证明共享记录安全。
+
+| 受影响存储 / 写者 | 首次新写入前的 Interface 要求 |
+| --- | --- |
+| interactive-results 自身的 manifest/head/操作/状态/冻结材料 | 明确 schema 与最小 reader/writer、原子提交和拒绝未知格式；不兼容 writer 禁写，失败保留原记录，不重建为空 |
+| 既有 EvidenceIndex 与 UserArtifact 正规化/合并/展示链 | 新种类、固定版本引用及发布来源必须在读取、合并和重写后完整保留；旧 normalizer 会过滤新种类时，必须有实际生效的受影响存储写保护，不能依赖新目录 marker |
+| Conversation、持久工具结果与资源标签/窗口恢复记录 | 加法引用和必要文本降级可安全保留；不支持的读端显示摘要/原因，不能将引用当文件路径或重开执行；逐个重写路径核对未知字段保留 |
+| ResourceFeedback、Composer/input-draft、待发/输入队列、canonical 消息及委托材料 | 冻结值、followupId、接收者和版本跨读写保持一致；无法保留新联合类型的 writer 禁写对应对象，不能悄悄丢材料后显示发送成功 |
+
+每个存储选择并记录一种可证明的方案：既有格式已支持安全的不透明字段保留；或先完成写者兼容；或建立旧二进制也无法绕过的存储/项目 fence。记录真实检查入口、保护范围、故障返回、恢复与回退方式。协调存储的现有 fence 只保护其覆盖的对象，不能推导全局 EvidenceIndex、Conversation 或输入草稿也自动受保护。
+
+必须覆盖已有进程、已打开文件描述符、后台任务和不同宿主，而不只覆盖下次启动。无法证明兼容或有效阻止旧 writer 时，拒绝该功能的首次新格式写入并给出具体阻断；不自动终止日常实例、不重命名/覆盖共享文件来强行启用。关闭交互功能也不撤掉已经生效的格式门槛。
+
+回退前核对同一时点的内容/操作、既有索引、Conversation 与草稿/输入材料的完整一致备份，并保留未决发布、核验和用户意图。manifest 恢复不得降低所需版本；不得删除新产物/反馈字段、清空未知状态或只回滚 npm 包来迎合旧 writer。若保护方案需要移动原存储边界，应先补充对应 ADR，而不是在宿主适配中临时绕过。
 
 ## 18. 导入、导出与分享
 
@@ -482,7 +622,7 @@ Source 由可信目录生成语言规则、允许组件/函数、参数限制、
 
 完整 UI 包和网络组件不从 `runtime-node` 根出口重新导出，TUI/CLI help/version 不加载解析引擎。只有对应能力实际注册、投影与调用时，才加载共享校验和 Provider。
 
-同一设备有多个宿主时，沿既有租约、资源 writer 和当前性规则确定存储写者；不能让 Desktop 与 TUI 分别创建两个同 ID 的正式产物。读入口可以不同，产物内容、版本及保存结果只有一份。
+同一设备有多个宿主时，沿既有租约、资源 writer 和当前性规则确定存储写者；不能让 Desktop 与 TUI 分别创建两个同 ID 的正式产物。发布回执/待登记项、材料解析、版本 CAS 和只读 inspect 复用共享 Module，不能分别登记两个来源事实。读入口可以不同，产物内容、版本及保存结果只有一份；TUI 拥有执行租约时，Desktop 的视图状态 writer 仍需由状态存储单独核对，不能把窗口焦点或执行租约当作任意状态写权限。
 
 ## 20. 依赖、许可证与升级
 
@@ -508,15 +648,29 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 
 ## 21. 实施阶段与交付边界
 
-本 ADR 的接受只批准这里明确的范围，不批准地图、HTML、动态数据查询或写入动作。每个阶段交付代码与知识记录，编译、测试和产品验证时点仍服从最新 AGENTS。
+本 ADR 的接受只批准这里明确的范围，不批准地图、HTML、动态数据查询或生成控件调用项目/外部系统写入动作。每个阶段交付代码与知识记录，编译、测试和产品验证时点仍服从最新 AGENTS。
 
 | 阶段 | 主要工作 | 交付与退出条件 |
 | --- | --- | --- |
-| IUI-00 依赖与公开接口验证 | 固定包，检查 AST/目录限制、状态恢复、无网络基本渲染、脚本与开发工具行为 | 确认无需私有深层导入即可强制执行首期限制；不满足则停在选型，不暴露生产能力 |
-| IUI-01 协议与受治理发布 | 协议联合类型、InteractiveContent、Provider/Manifest/Projection、存储登记、幂等与真实产物投影 | 同一 Tool Call 可追溯到 grant、发布记录、Evidence 和可读文本；主 Bot 写能力不扩大 |
-| IUI-02 Desktop 基本呈现与恢复 | Frost 组件目录、资源会话、文本降级、状态检查点、单写者与窗口恢复 | 关闭/切换/保存失败/冲突都有静态终态，不执行外部能力；完成体验矩阵的计划/实施登记 |
-| IUI-03 模型生成与结果交付 | 显式 Context Source、按需规格、结构化错误修复、Bot 引用与核验、多模型格式适配 | 真实任务生成可发布结果；失败诚实降级，版本、来源与上下文预算可核对 |
-| IUI-04 多入口、兼容与发布收口 | TUI/CLI/Remote 文本、旧版本读写保护、导入导出是否另包、包体与完整回归 | 在最终组合候选完成发布门禁和产品审阅；记录所有覆盖限制 |
+| IUI-00 依赖、公开接口与接线方案 | 固定包，检查求值前 AST/目录限制、状态恢复、非图形有界求值、无网络基本渲染、脚本/开发工具；清点规范材料源与全部受影响读写者 | 公共接口足以执行首期限制；确定只读任务例外、材料完整性/分类读取、发布事务与核验读取、逐存储兼容方案。不满足则停在选型/补契约，不暴露生产能力 |
+| IUI-01 协议、兼容保护与受治理发布/检查 | 首次新写入前先落实 §17.4；协议联合类型、InteractiveContent/MaterialSource、publish/inspect Provider/Manifest/Projection、只读 worker 例外、存储登记、创建/修订 CAS、持久发布回执/待登记与恢复、真实索引投影；同时接入 Desktop/TUI 执行与登记适配 | 同一调用可追溯到 Grant、固定材料、发布事务及真实 Evidence；已提交操作可仅靠对账收敛；核验所需内容可经只读能力取得。旧 writer 无法破坏新记录，主 Bot 不取得发布权，只读任务不取得项目写权 |
+| IUI-02 Desktop 呈现、状态与条件交回 | Frost 组件目录、资源会话、文本降级、状态 CAS/单写者与窗口恢复；冻结条件及原 ResourceFeedback/Composer/ProjectInput 链适配 | 关闭/切换/保存失败/冲突都有静态终态；点击时条件经确认冻结且原草稿不丢失，准备回执真实，只有明确发送产生 canonical 输入；完成体验矩阵的计划/实施登记 |
+| IUI-03 模型生成、引用与语义核验 | 显式 Context Source、按需规格、结构化错误修复、按角色的能力准入、固定版本 inspect 接入 Verifier 快照/目标/证据允许列表、Bot 引用、多模型格式适配 | 真实任务生成可发布结果；核验能检查实际程序/数据/固定状态下计算，不能仅凭发布回执或 textFallback 通过；未知先对账，失败诚实降级，版本、来源与预算可核对 |
+| IUI-04 多入口与发布收口 | TUI/CLI/Remote 完整文本适配、既有兼容保护的升级/回退/旧进程回归、导入导出是否另包、包体与最终组合候选完整门禁 | 不在此阶段补做首次写入保护；最终候选完成发布门禁和产品审阅，逐项记录 SDK/真实模型/安装包/多入口及无障碍覆盖限制 |
+
+### 21.1 契约归属与不得后移的前置条件
+
+| 契约 | 设计条款 | 必须完成的阶段 |
+| --- | --- | --- |
+| 只读 worker 内部发布例外，主 Bot/Explorer/Verifier 不获发布权 | §9.1 | IUI-00 核对接线，IUI-01 同时落实投影/准入/执行 |
+| 可核对版本字节、范围和分类的材料解析 | §10.1 | IUI-00 清点规范源，IUI-01 实现；缺失时不发布 |
+| 发布回执、待登记项和中断后的最终收敛 | §9.3—9.5、§17.1 | IUI-01；不得只等发布前补偿 |
+| 实际结果的只读读取/求值与语义核验 | §10.2 | IUI-00 核对 SDK 公共接口，IUI-01 提供能力，IUI-03 接入核验；接入前不声称任务已通过 |
+| 创建/修订、前驱与版本冲突 | §9.2、§11.4 | IUI-01；新版本入口在 IUI-02 消费真实关系 |
+| 确认保存、冻结条件、原草稿回执与明确发送 | §12.5 | IUI-02；依赖 IUI-01 先完成材料链兼容保护 |
+| 所有受影响存储的旧 writer 保护 | §17.4 | IUI-00 逐项定方案，IUI-01 首次新写入前生效，IUI-04 只做完整回归与发布收口 |
+
+阶段依赖为 IUI-00 → IUI-01 → IUI-02/IUI-03 → IUI-04；尚未完成的下游阶段保持能力和表面关闭，不能因上游代码已存在就向生产模型开放不完整链路。退出条件描述后续交付事实，不改变 §22.1 的验证时点；本轮文档提交不代表任一实施阶段退出。
 
 阶段实现不得顺便重构整个聊天组件、替换 Provider transport、升级全部 UI 依赖或重写资源工作区。`main.mjs` 只增加必要装配替换，保持净零/减少；领域逻辑集中在上述 Module。各阶段都不自动安装、重启日常应用或发布新版本。
 
@@ -541,7 +695,7 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 | IUI-T05 | NaN/Infinity、超长值、深嵌套、膨胀集合和自引用 | 拒绝或结构化失败；不崩壳、不把部分结果当完整 |
 | IUI-T06 | 跨 Bot 引用、未准入附件、伪造 Evidence/owner | 宿主按真实归属拒绝，不因 ID 存在而通过 |
 | IUI-T07 | 同 ID 相同/不同参数的重试 | 只提交一次真实发布；参数冲突明确，原版本保留 |
-| IUI-T08 | blob/manifest/Evidence 写入各中断点 | 恢复先核对真实记录，保持未知，不盲目重发或伪造证据 |
+| IUI-T08 | blob/manifest/Evidence 写入各中断点 | 恢复先核对真实记录；已证明未提交则结束，已提交则幂等登记并读回一致后结束待登记；无法证明则保持未知，不盲目重发或伪造证据 |
 | IUI-T09 | 滑杆、筛选、重置和试算 | 无新增模型/工具请求，原始快照和任务状态不变 |
 | IUI-T10 | IME、未完成数字、撤销与快速参数变化 | 草稿保留；有效计算值与输入文本分开，焦点不被重绘抢走 |
 | IUI-T11 | 保存失败、状态超限、CAS 冲突 | 不显示已保存，不覆盖旧确认版本；可恢复未提交值 |
@@ -549,13 +703,20 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 | IUI-T13 | 关闭、重开、主题/尺寸变化、应用重启 | 按固定版本恢复最后确认状态，不自动执行或刷新数据 |
 | IUI-T14 | 内容/目录/SDK 版本变化 | 旧结果不被替换；不兼容时有文本/源码与清楚原因 |
 | IUI-T15 | 新数据版本、来源撤回、截断和缺源 | 来源与观察范围真实可辨，不静默补数或换项目数据 |
-| IUI-T16 | 把条件交给 Bot、有原 Composer 草稿、取消发送 | 用户可审阅；原草稿保留；仅明确发送后生成 canonical 输入 |
+| IUI-T16 | 把条件交给 Bot、有原 Composer 草稿、取消发送 | 条件先确认保存并冻结，原草稿 CAS 合并与 claim/ack 真实；用户可审阅，只有明确发送后生成 canonical 输入 |
 | IUI-T17 | 宿主权限/人工问题/验收状态被生成控件模仿 | 治理状态不变，原生入口与生成内容归属清楚 |
 | IUI-T18 | 清理、磁盘/配额不足、损坏 manifest、未知 schema | 不重建为空，不删除有责任的数据，不谎称原文仍可读 |
 | IUI-T19 | 旧 writer、回退/再升级、跨设备缺少正文 | 兼容保护与备份真实有效，静态摘要可读且不恢复权限 |
 | IUI-T20 | TUI/CLI 独立安装、help/version、无 GUI | 不加载/依赖 Electron 或图形运行时；输出同一结果身份与文本 |
 | IUI-T21 | 明暗主题、窄窗、键盘、读屏、减少动效/API 降级 | 等价静态终态、图表文本替代、完整焦点与返回来源路径 |
 | IUI-T22 | 隐藏视图、多个结果、大数据与错误修复 | 记录输入延迟、长任务、CPU/内存、包体、规格 token 与实际调用成本；不靠放宽预算掩盖问题 |
+| IUI-T23 | readOnly worker 发布内部结果，主 Bot/Explorer/Verifier 或非内部目标尝试发布 | 精确例外在库存、投影与执行层一致；内部发布有 Grant，项目写入/Shell/网络扩权及其他角色的发布仍拒绝，既有合法读取语义不变；不改成 readOnly=false 绕过 |
+| IUI-T24 | 大于 bodyPreview 的规范材料、源文件随后变化、原文/分类缺失、越范围/脱敏读取 | 按已准入固定版本取真实字节和范围，缺失明确失败；不拿当前文件或补齐预览冒充历史，不降低数据等级，不绕过原脱敏 |
+| IUI-T25 | 提交后索引失败/进程退出、登记成功但确认丢失、取消后对账及索引来源冲突 | manifest/操作/待登记原子提交；沿原稳定身份收敛，零重复发布/产物，不放大权限；冲突保持阻断，历史未知与后续确认可追溯 |
+| IUI-T26 | Verifier 检查实际程序/绑定数据，比较初始状态与用户冻结条件，检查能力缺失 | 经只读 Provider 取得固定版本及真实读取/计算 Evidence；不用 Renderer 最新状态或 textFallback 冒充核验；角色库存不足时技术阻断 |
+| IUI-T27 | 同基础版本并发修订、同调用恢复、内容相同、未准入 base、新数据刷新 | head CAS 只允许一次推进；前驱和 owner 真正可核对，相同内容不新增产物；重试读原回执，冲突不自动 rebase 或创建替代结果，旧状态不漂移 |
+| IUI-T28 | 改参数后立即交回、IME/无效值、保存/草稿 CAS 冲突、准备中继续编辑、接收者变化及 ack 丢失 | 冻结点击时合法候选，失败不取旧值、不覆盖原草稿；成功材料跨草稿/队列/消息/委托保持同值同版，重试不重复附加或自动发送 |
+| IUI-T29 | 首次新格式写入时旧进程/已打开 writer、全套共享存储重写、功能关闭和回退 | 逐存储先有保留证明或有效保护再允许写入；未覆盖的共享记录阻断启用，不终止日常实例；门槛与完整备份保留，IUI-04 不是首次保护时点 |
 
 真实模型验收至少覆盖两种已配置、可输出该格式的 Provider 编码路径，分别记录模型/通道、SDK/目录版本、首次发布率、修复次数、失败原因、文本降级和实际成本。相同模型不同上下文可用于原政策允许的独立核验；不为此强制用户新增通道或改变模型配置。
 
@@ -575,7 +736,7 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 | 引擎/组件异常 | 保留同版本文本与状态，局部错误，不重启任务 |
 | 来源或权限异常 | 保留实际限制，返回原有来源/授权入口 |
 | 状态保存失败 | 保留未保存值，重试检查点，不重新发布 |
-| 发布结果未知 | 对账发布记录和实际 Evidence，不自动重跑 |
+| 发布结果未知或索引待登记 | 经原操作引用核对回执与真实 Evidence，按 §9.5 收敛；不自动重跑发布或修改任务结论 |
 | 兼容/依赖事故 | 停用交互，静态读取，按既有版本门槛回退 |
 
 ## 24. 代价、待核对事项与决策条件
@@ -588,11 +749,14 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 2. 基本目录在 Electron/Vite 与 Node/Bun 校验侧能否产生一致 specHash、解析与状态语义。
 3. 局部状态恢复、开发工具/遥测禁用和依赖按需加载是否真实生效。
 4. 既有权限 Interface 能否准确表达内部结果发布的受限写入范围；若不能，补齐后才能开放能力。
-5. 新 UserArtifact/资源联合类型和 Conversation 写者能否保持旧数据与未知字段安全；不满足则先做兼容保护。
+5. §17.4 每个受影响存储的旧写者保护能否在首次新写入前实际生效，包括已有进程/描述符；不能从协调 fence 推导其他记录已安全。
+6. 规范 Tool Result/用户材料能否提供可核对的完整字节、实际分类与脱敏范围；仅剩预览/可变定位时按 §10.1 阻断，不绕过能力链补读。
+7. 同一持久提交边界能否覆盖 manifest/head、真实操作回执及待登记项，并让现有 Desktop/TUI Evidence 登记幂等收敛。
+8. 固定 SDK 的非图形求值接口能否在统一预算内支持 §10.2 的只读核验，且不会加载 React、工具回调或网络能力。
 
-这些是 IUI-00/IUI-01 的退出条件，不把它们伪装成已经解决的实现事实，也不因此要求用户重复批准普通排查。图形组件、实时 Query/Mutation、HTML、远程交互与分享均保持明确的后续范围，不能由本 ADR 的架构图自动授权。
+这些是 IUI-00/IUI-01 的退出条件，具体先后以 §21.1 为准；核验接线在 IUI-03，完整发布回归在 IUI-04。只读发布例外、创建/修订、发布对账、材料/检查 Interface、条件冻结和兼容保护已在本文明确拟议契约，仍需实际实现与验证，不能把文档补齐称为已解决运行风险，也不因此要求用户重复批准普通排查。图形组件、实时 Query/Mutation、HTML、远程交互与分享均保持明确的后续范围，不能由本 ADR 的架构图自动授权。
 
-评审时需要确认的设计决定：采用内核复用路线；首期目录与禁止项；工作 Agent 发布/主 Bot 引用的角色边界；设备本地存储及文本降级；既有能力链与原生人工门保持唯一权威。接受后按 IUI-00—04 实施，不直接标记已交付或已发布。
+评审时需要确认的设计决定：采用内核复用路线；首期目录与禁止项；只读 worker 的受限内部发布例外及主 Bot/Verifier 的只读检查边界；固定材料、发布与 Evidence 收敛、版本 CAS、冻结条件及首次写入保护；设备本地存储及文本降级；既有能力链与原生人工门保持唯一权威。接受后按 IUI-00—04 实施，不直接标记已交付或已发布。本次补充仍保持 Proposed，不自动批准代码实施或能力开放。
 
 ## 25. 来源与当前交付状态
 
@@ -613,7 +777,7 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 
 | 项目 | 当前状态 |
 | --- | --- |
-| ADR 设计与固定来源整理 | 已形成 Proposed 文档，完成作者内容/diff 审阅 |
+| ADR 设计与固定来源整理 | Proposed；2026-11-03 按固定代码基线补齐七项接线契约、阶段归属与 IUI-T23—29，完成本轮内容/diff 自审；仍待设计评审接受 |
 | 依赖安装、代码实现、模型或本机能力开放 | 未实施 |
 | 测试、构建/类型/架构/IPC、产品回归 | 本轮未运行，按约定留到发布或用户明确要求提前验证 |
 | 真实模型、安装包、多入口与无障碍验收 | 待实施后的最终组合候选验证；作者文档审阅不属于独立验收 |
