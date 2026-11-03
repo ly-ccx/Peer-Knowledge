@@ -1,11 +1,13 @@
 # Peer 当前产品改造计划
 
 创建时间：2026-10-23
-最后更新：2026-11-01
+最后更新：2026-11-03
 
 > 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06、E07–E08、E09–E10、E11–E12 及 E15–E17 本批消费者已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；历史分批交付不等于合入开发线；本轮按用户授权合并全部开放 PR，状态见下节。不安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
+
+ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话已在代码 `9c726072` 落地并完成领域测试、真实 Electron SDK 挂载及四图实现者自审；正式资源/IPC/窗口、原草稿链、Verifier 目标和组合验收尚未完成，功能默认关闭，ADR 保持 Proposed。不沿用历史 E13/RC35 产品验收覆盖新入口；详细范围与缺口统一维护在 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 和对应两份矩阵新条目。
 
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 
