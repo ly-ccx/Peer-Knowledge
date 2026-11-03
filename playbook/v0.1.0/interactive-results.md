@@ -531,6 +531,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `eb8ecdab` 的 macOS arm64 本地应用包完成，包内运行时检查及 `codesign --verify --deep --strict` 通过。应用为临时 ad-hoc 包，398,444 KiB；asar SHA-256 `6e454c5b520750f672159794d0732c7847f2dc985c50afd8c57f74b4a8967908`。包内 Electron 41.7.1 实跑隔离 Worker 求值、拒绝禁用节点、SQLite 重开和固定引用文本读取，四项通过。
 - 用独立 HOME、Electron userData 与 Peer 数据根直接启动该 .app，通过本地 CDP 读取实际 asar 主页面，从加载态进入无机器人、接入模型的初始界面。只结束此次启动的子进程，日常实例 PID 保持。记录在 `peer-adr118-desktop-current.hvnNr5`。本地目录包缺少 updater 元数据，探针结束时出现 IPC 清理日志；覆盖 GUI 启动与包内运行时，正式签名公证、安装版完整交互故事仍待验收。
 
+- 同一 `eb8ecdab` macOS arm64 临时签名包完成原生交互窗口专项。隔离 Bot 与固定版本用真实结果库和 EvidenceIndex 预置；包内主窗口经真实 preload/IPC 打开原生结果，Divisor 从 2 改为 5，派生 Ratio 为 2，保存回执出现。关闭重开原生窗口以及结束、重启整个临时应用后，条件仍为 5、Ratio 仍为 2；原生 Renderer 未暴露通用 Node 或主窗口桥。证据位于 `peer-adr118-desktop-current.hvnNr5` 的两份 result JSON。此项从预置固定结果开始，经主窗口 IPC 打开，尚未覆盖安装包内实际模型发布、任务报告入口、冻结草稿和最终回复。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
