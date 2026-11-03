@@ -435,6 +435,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `c33c6e0b` OpenAI 故事 `peer-interactive-live-rIQOtT` 共 17 次请求（Bot 9、worker 4、Verifier 4），完成发布并产生 canonical 进度回复，发布任务后来由 policy 签收。三个唤醒无实际工具调用并以 `work_disposition_required` 结束，首次正式交付到时。该样本未触发 stale wait，不能作为新回执真实使用证据。
 - `e1b9c40e` 补齐 TUI 的计划提醒接线。原实际 Provider 请求复现缺少计划生成的唤醒提醒；Desktop 已沿现有 Runtime Reminder Source 转发，TUI 现在沿同一 Source 转发并保留显式提醒。TUI 类型检查及执行器和 live 专项合计 31 项通过。两种实际 Provider 已按原限额启动故事复跑。
 
+- `80d64c94` 标准重采已完成全部机器场景，runId `db2c5605-1171-4437-917b-2a494b67d9e3`，255 张，awaiting-ai-review。源码指纹 `82968b9600b106f8b1276a7e3bce8c27da5040df5684746787291f0ada578f52` 与独立检出一致。当前自审 55/255，41 张与前两包已审阅图同 ID 且 SHA-256 相同，另 14 张逐图核对，含回到最新的原三张问题画面和十张恢复画面。
+- `e1b9c40e` 两个实际 Provider 故事 `peer-interactive-live-Dcjeed` 均完成发布，均在首次正式交付达到 Bot 角色上限（每路 23 次，Bot 16、worker 4、Verifier 3）。OpenAI 实际获取 `wait_source_stale` 的 `result_ready`、来源版本与观察版本；最后两次 assess 参数在 assessment 字段开始处截断，Provider 计量两次均为 1800 输出 token。未提交冻结条件。
+- `fadda300` 只把完整故事驱动的 Bot 单请求输出上限从 1800 调到 3200，以容纳完整协调决议。整案仍最多 32 次请求，Bot 仍最多 16 次，单次/整案仍 45/240 秒，worker 和 Verifier 保留 1800。TUI 依赖构建、类型及 12 项专项通过，已启动 OpenAI 单路复跑。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
