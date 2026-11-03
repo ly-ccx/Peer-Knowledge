@@ -17,7 +17,7 @@
 | --- | --- | --- |
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；其余共享存储、留存及完整能力验收继续待完成，未退出 |
-| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。真实文档/浏览器混合场景、接管期间未知保存回执、条件标签映射及其余产品验收尚未完成；功能默认关闭，未退出 |
+| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。真实文档/浏览器混合场景、条件标签映射及其余产品验收尚未完成；功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；Bot 结果引用与真实模型生成/修复效果待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
 
@@ -75,10 +75,18 @@
 - Desktop 全 build、Protocol/Core/Node/Desktop/TUI typecheck、architecture/UI conventions 与 IPC check 通过；IPC 为 403 channels、435 preload operations、352 main registrations。最初两项 Desktop 测试因隔离依赖缺 Electron 开发二进制而导入失败；复用已有同版本 41.7.1 开发二进制后重跑及最终组合批次均通过，日常应用未安装或重启。本批没有改界面，没有新截图验收。
 - 本机配置元数据已确认存在 OpenAI/Anthropic 两种可用工具/结构化格式声明的编码路径；这只是配置清点，尚无真实请求、修复、降级或成本记录。未运行最终全仓及标准全产品 packet，本批不构成 IUI-03/IUI-04 退出或完整目标完成。
 
+## 保存结算与接管增量（c85b3a42）
+
+- 契约先在 `9f32918` / `102d512` 明确，代码 `c85b3a428a82e23c6b1154bc667f91dec7de69bc` 实现。领域 save 保持原快照返回，宿主使用同一事务内的 saveOutcome；沿原 typed save IPC 返回 writerCurrent 或可信 not_committed，不新增通道、存储格式、权限或 Evidence。原请求先按 identity/writer/revision/值及草稿摘要核对；历史回执的 schema、原身份、revision 和正文也重新校验。
+- 原写者失效后可查回真实历史提交；无原记录且写者已隔离或当前 revision 严格超过原 CAS 基础，才能证明未提交。未来 revision、旧端只有 stale、参数冲突、读盘或回执损坏保持未知。Renderer 不在 writer_lost 时跳过原请求，也不在 acquire 时清空未知责任；明确接管保留原待确认值、后续编辑和未完成数字草稿，新提交使用新 requestId。没有待确认输入的干净视图仍采用实际当前状态。
+- 153 项 Node 通过，无失败/跳过/取消，范围为 Protocol、整个 interactive-results、Renderer 会话/registry 与 Desktop ApplicationService/资源会话。46 项 Bun 通过，包含状态、视图、会话/registry 及两条 TUI Provider/实际核验回归。Desktop 全 build、Protocol/Node/Desktop/TUI typecheck、architecture/UI conventions 与 IPC check 通过；IPC 仍为 403 channels、435 preload operations、352 main registrations。
+- 真实隔离 Electron → 正式 preload/授权 IPC → 应用服务 → SQLite 专项通过：分别让原窗口的保存已提交丢回执/尚未提交，另一窗口写入 7/9，再明确接管恢复原值 6/8。保留原 Composer 草稿与人工发送、关后重开、布局读位、中断输入及 chunk 失败恢复；产物版本/发布操作仍各 1，无额外发布。发布/Grant 和外围壳仍是控制夹具，没有真实模型调用。
+- `peer-interactive-workspace-MHDUO8` 的 8 张图已逐张实现者自审，review.json 绑定上述源码；independent=false，字节审阅指纹 `0df87f3ffdb172d176e6aa5f06d64f8b91133887055de06fdb803058377d24a0`。已同步两份体验矩阵和改造计划。此专项不包含标准全产品 packet、真实模型、安装版、系统 IME、完整缩放/减少动效、读屏或性能，完整目标仍未完成。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
 - 规范发布索引的交付入口已接；继续核对既有 Tool Result 引用到原规范发布记录的关联消费、主 Bot 的结构化引用，以及宿主确认的 head/predecessor 新版本入口。不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例。继续覆盖完整留存与清理、其余存储重写者和冻结摘要控件标签映射，不把控制模型测试当作真实任务语义验收。
-- 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词；接管也不能跳过仍待确认的原保存请求。
+- 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
 - 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
