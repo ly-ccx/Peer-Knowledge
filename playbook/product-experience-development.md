@@ -1,9 +1,9 @@
 # 产品体验开发执行规程
 
 创建时间：2026-10-23
-最后更新：2026-10-23
+最后更新：2026-11-03
 
-> 状态：生效。将体验规范接入后续需求、实现和评审；不新增逐日测试门槛。
+> 状态：生效。将体验规范与开发共识接入后续需求、实现、范围匹配验证和评审；完整发布回归保持独立。
 > 入口：[Frost 体验规范](../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../knowledge/specifications/motion-system.md)、[过渡规范](../knowledge/specifications/transition-system.md)。
 
 ## 1. 开工时先定位
@@ -55,7 +55,7 @@
 - 文字放大、长名称、多语言、窄容器与无障碍是否有明确处理；未实现写缺口。
 - 文档、示例和产品文案是否一致；不将模拟数据称为真实产品验收。
 
-**日常不自动运行 unit/integration、截图/交互回归、build、type、architecture、IPC 检查，也不等待测试 CI 作为交接前提。** 用户明确要求时按要求提前验证。必要的契约测试可以编写并留待发布运行；纯文档、指令、小样式不增加镜像实现的测试。
+**按 2026-11-03 [开发共识](../knowledge/architecture/00-engineering-philosophy.md)，日常代码修改须自动完成与范围相称的验证。** 选择相关单元/集成测试、必要构建/类型/契约/架构/IPC 检查，以及改动涉及的隔离交互、失败状态、布局或截图检查；覆盖实际 seam 与正常/异常收尾，相关失败继续定位和修正并保留记录。完整桌面回归包不是每次小改动的固定成本，不能用局部通过冒充完整验收。纯文档/指令只做内容、差异和一致性审阅，小样式可用实际局部视觉检查，不增加镜像实现的测试。
 
 ## 5. 发布验收
 
