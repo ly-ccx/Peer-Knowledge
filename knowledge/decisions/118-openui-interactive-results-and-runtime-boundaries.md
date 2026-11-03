@@ -551,6 +551,8 @@ Source 由可信目录生成语言规则、允许组件/函数、参数限制、
 
 记录本次目录版本、specHash、准入组件集合及 Source checksum，纳入 ContextEpoch 和提示快照。SDK 生成的提示只是该 Source 的输入，不在 Provider adapter、客户端 UI 或重试分支临时拼一段 system/developer 文本。
 
+主 Bot 处理交互交付期间，`wait_for_sessions` 沿用后台等待契约。Desktop 与 TUI 在 Runtime Projection 的既有工具筛选入口共享准入条件。只有有真实 workId、事件且无当前用户输入锚点的后台唤醒才投影该工具。用户回合经原回复或协调入口确认意图。执行层仍独立核对事件归属、任务状态和权限；工具出现不授权等待，背景等待不构成交付。
+
 ### 13.2 上下文预算
 
 首期只使用基本目录。UI 规格与规则的准入目标上限为 4096 个宿主计量 token，同时设 16 KiB UTF-8 硬上限；这是拟实施的预算，不是已测模型效果。某 Provider 无可靠计量时采用现有保守上下文预算策略，不能把字符数冒充 token 数。
