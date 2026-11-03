@@ -397,6 +397,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 标准产品基线新增逐图核对 12 张 Bot 消息配色、引用发送与长回复、选区引用和草稿连续性画面，绑定原图哈希。累计 168/255。
 
+- `52120424` 将独立 `verify` 专项接到实际 TUI ToolHost、委托 Provider 和 SessionSupervisor。驱动器显式调用复核工具，模型执行实际独立检查；通过要求 Grant、固定检查回执、持久化 verdict 与释放复核占用后的 sessionState 一致。TUI 类型及 12 项专项通过。两种真实模型编码的专项正在复跑，目录 `peer-interactive-live-9IMJD3`。该专项仍由驱动器构造会话和发起复核，完整 Bot 任务故事另验。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
