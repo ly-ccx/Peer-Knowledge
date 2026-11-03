@@ -270,7 +270,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `66b8bfe1` 重跑再次完成实际委托和发布，但 `goal_get_plan` 回执超出通用内联预算，工具返回的首尾预览省略了真实 taskId；worker 猜测的 ID 被宿主拒绝，未触发第二条输入。主 Bot 后续回合也收到 Anthropic 400，要求把原有 thinking 传回 API。完整报告待该进程结束后核对，目录 `peer-interactive-live-WPI1pR`。
 - 上述超长回执还暴露 TUI 材料化未向编码器传入实际宿主数据根，合成工具输出落入默认用户 artifacts 目录。代码 `e642fa3d` 在 TUI 实时模型与持久回合两个编码调用处沿既有 `baseDir` 绑定宿主数据根，两种专项也显式绑定其隔离根。TUI 类型及 43 项 Bun 测试通过，新增超长结果落盘路径和原文回读用例。先前生成的诊断材料仍保留；Goal 读取的预算内叶子身份与 Anthropic 续接待修。此处没有把本次结果视为完整任务通过。
 
-- 代码 `8dcb2028` 调整 TUI Goal 读取回执的序列化顺序，把真实 planId 与任务放在长 brief 前。完整计划字段保持可回读，原 Evidence 和状态更新约束沿用。TUI 类型与 Goal Bridge 的 10 项测试通过，新增超长计划经生产工具结果编码器材料化并同时核对预览 taskId 与完整原文的用例。已启动 OpenAI Chat 真模型复跑，目录 `peer-interactive-live-THLjZZ`，尚无端到端结论。
+- 代码 `8dcb2028` 调整 TUI Goal 读取回执的序列化顺序，把真实 planId 与任务放在长 brief 前。完整计划字段保持可回读，原 Evidence 和状态更新约束沿用。TUI 类型与 Goal Bridge 的 10 项测试通过，新增超长计划经生产工具结果编码器材料化并同时核对预览 taskId 与完整原文的用例。干净代码已在 OpenAI Chat 真模型复跑中完成原 worker 任务，第二条输入带同一份冻结条件进入规范消息，并由真实主 Bot 创建后续核验任务。观察时后续 worker 正在执行，已在该隔离数据根看到工具材料化文件。目录 `peer-interactive-live-THLjZZ`，独立核验和最终回复仍无结论。
 
 ## 全仓工程与产品采集基线（45102335）
 
