@@ -353,12 +353,17 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 代码 `734346c5` 将接管探针换成包内真实 SessionSupervisor、GoalPlan、Conversation 和协调日志，受控 runner 只记录收到的执行意图。原包重跑四项全部通过，覆盖只修复格式时禁用工具、核验停滞、空闲核验结算，以及从暂停的 verify 意图交接到 execute；实际协调日志与计划均记录接管完成。源码同场景测试通过。日志 `peer-adr118-desktop-package.hmmbLQ/verification-runtime-updated.log`。仍为包内 Node 模式，未覆盖已安装 GUI。
 
+## 旧写者竞态复核（8b75a66f）
+
+- 用固定旧队列实现在 SQLite 清理提交前接管老化目录锁并实际写入。当前锁守卫检测到失效，清理返回 `interactive_retention_stale`，原正文和已保存参数仍可读，无清理回执，旧写入保留。两组测试共 27 项通过。该用例用受控根组合注入竞态，只证明最后一次检查前可观测的失效会回滚。最后检查至提交之间仍需要跨版本排他证明，生产清理入口继续关闭。
+- 标准产品基线新增核对 8 张停止、结果待核实、取消和接手截图，覆盖宽窄窗及明暗主题，逐张绑定原图哈希。累计 76/255。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 68 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 76 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 ## 后续接线与完成审计
 
