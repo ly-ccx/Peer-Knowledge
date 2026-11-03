@@ -18,7 +18,7 @@
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；其余共享存储、留存及完整能力验收继续待完成，未退出 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。真实文档/浏览器混合场景及其余产品验收尚未完成；功能默认关闭，未退出 |
-| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；真实模型生成/修复效果待完成，未退出 |
+| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；真实模型修复、主动拒绝后的降级与完整任务故事仍待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
 
 ## 验证与完成标准
@@ -118,10 +118,25 @@
 - `peer-interactive-workspace-LCrKMW` 最终 10 张原 PNG 已逐张实现者自审，review.json 绑定上述源码，independent=false，指纹 `5ed3d6039b4bb34640a904e4e0f14d40c4331ce88ba985a3f827329e10e48bd7`。新版本主区图保留真实 Layout changes are not saved 中间态；窄标签依原 title/可访问名称保留完整身份。发布/Grant、Plan/Session 与外围壳仍为控制夹具，没有实际模型请求。该专项不是标准全产品 packet、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收。
 - 已同步 C229/P06/P14 两份矩阵及改造计划。固定引用与版本导航已接，不关闭完整留存、多入口、真实模型、其余恢复/组件/无障碍/性能及最终组合验证缺口；ADR Proposed/default-off 和完整目标未完成的状态不变。
 
+## 两条真实 Provider 编码路径的首次生成（2026-11-04）
+
+- 源码 `0af500950a2c32a79092f9085e9829fcc37e9a5d`，隔离合成任务与设备本地存储。调用既有 CredentialHelper 的只读 API-key 接口，没有复制或更新个人配置/凭据，也未启动日常应用。使用真实 TUI TurnExecutor → Pipeline → 受白名单约束的 ToolHost → 受限 worker Provider；headless runtime 外围与 owner/profile/任务数据为隔离夹具，模型 transport 为真实 API。System Context 由原 TUI assembler 和实际投影目录 Source 组装；模型仅见 publish/inspect 两项能力。
+- Anthropic Messages 的已配置 `deepseek-flash` 与 OpenAI Chat 的已配置 `deepseek-v4.1-flash` 各以 2 次真实请求完成一个结果：首次模型发布均通过，无自然修复，实际 Grant/固定结果/规范 interactive 索引已确认。实际生成程序使用 model-data 两行成本 20/35、初始 budget 100、预算控件、Remaining 和表格；共享可终止 Worker 独立读实际固化内容，核对 budget 100 → 45、budget 80 → 25、两行完整且文本投影未截断。该机械检查不等于独立语义 Verifier 或原目标签收。
+
+| 编码路径 / 模型 | 实际 runtime 用量（input / output / cache-read） | 价格与成本限制 |
+|---|---|---|
+| Anthropic Messages / deepseek-flash | 899 / 1023 / 15360；总 17282，2 请求 | 沿原 usage-pricing 按本机 models.dev-reference 单价估算 USD 0.00079473；不是网关账单 |
+| OpenAI Chat / deepseek-v4.1-flash | 8707 / 1344 / 7296；总 17347，2 请求 | 本机该条价格全为 0，可信价格/账单未确认；不能宣称免费或实际成本为 0 |
+
+- 先前 OpenAI 配置中的 `deepseek-flash` 请求未完成，后续单独诊断明确得到 HTTP 400 / Model is unavailable；仅改选已经配置的 v4.1 模型，未修改通道或放宽请求/权限规则。最早隔离夹具缺 active Bot owner profile，真实宿主返回 access_identity_invalid，Anthropic 模型如实给出受阻文字、未发布；补齐真实所需 profile 后成功。该早期拒绝只证明真实模型面对身份拒绝会说明受阻，不能代替主动用户拒绝的完整回归。
+- 成功原报告为 `peer-interactive-real-models-PzCSJk/report.json`（Anthropic）及 `peer-interactive-real-models-ShJUj8/report.json`（OpenAI）；机械内容/用量自审在 `peer-interactive-live-review-zbvAE8/review.json`，independent=false。早期诊断的 textFallback 布尔曾仅依据“未发布”填充；按实际模型正文和请求结果核对，OpenAI HTTP 400 没有模型正文，属于 provider failure，不能计作已验证的文本降级。
+- 当前 opt-in harness 仍为外部诊断脚本，尚未提交可跨设备重跑的命令；这些结果不构成最终测试交付。后续将真实失败 Tool Result 作为明确的故障种子验证模型修复，沿原 native approval 受控拒绝验证文本降级，并保留每条请求预算和实际来源；不伪造模型首发失败、Grant 或 Tool Result。实际账单不可取得的限制单列。
+- 完整目标仍未完成：这不是主 Bot 委托→实际独立核验→交还的完整真实模型故事，也不覆盖最终全仓或标准产品 packet。继续处理完整留存/多入口、其余产品恢复/无障碍/性能以及上述真实修复、拒绝和可复现命令，不因两次首发通过退出 IUI-03/IUI-04。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
-- 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
+- 两种实际 Provider encoder 的真实首次生成及固化计算已取得专项证据；继续完成可复现命令、真实修复/主动拒绝降级及完整任务故事、成本限制核对、全仓工程门禁和标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
