@@ -412,6 +412,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `a290a86c` 修复预算截图脚本。首次重采在新可见性断言中复现虚拟消息挂载却越出视口，第二次在打开详情前用实际滚轮定位并核对可见边界。隔离 Electron 已生成两张截图并逐图确认宽窄窗均显示预算耗尽、256/256 与限制来源。标准包 `peer-adr118-product-recapture.xBTxQP` 仍在采集，旧包保留原审阅结论。采集以相同文件字节启动于提交前，最终以 sourceFingerprint 核对。
 - 从 `p5OQCK` 的持久 Bot 回合进一步确认两路均遭遇 `status_claim_mismatch` 及 `verifier_in_progress`。Anthropic 在独立核验已运行之后发起显式复核，得到持久化 failed verdict。OpenAI 的早期 `post_reply` 工具回执虽有成功项，保留的对话中未出现可供验收的 canonical 最终回复。这些证据把下一步定位到用户回合续接、复核职责和交付收敛，不能只按请求上限解释。
 
+- `d068d7bc` 修复 TUI 执行器将成功的 `project_agent_wait` 终止回执标记为错误的问题。新增回归先在原执行器复现：能力 Grant 与等待回执均成立，执行器仍返回 ok=false。修复后保留单次请求和真实工具回执，完成后台回合且不发可见回复。执行器 19 项和 TUI 类型检查通过。为保全正在采集的产品源码指纹，本次在独立 checkout 实施和测试后推送至同一实现分支。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
