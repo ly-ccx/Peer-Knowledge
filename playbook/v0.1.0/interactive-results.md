@@ -16,7 +16,7 @@
 | 阶段 | 必须交付 | 当前事实 |
 | --- | --- | --- |
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
-| IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；其余共享存储、留存及完整能力验收继续待完成，未退出 |
+| IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；`3bf95a40` 补清理事务内核及固定旧写者证明，但真实六来源/保护未接齐，删除入口保持不可用；其余留存及完整能力验收继续待完成，未退出 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。真实文档/浏览器混合场景及其余产品验收尚未完成；功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；完整真实委托/核验/交还故事仍待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
@@ -166,11 +166,21 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 实际 Electron 专项在上述干净提交重跑通过：合成凭据样例保留在输入框，明确提示未保存，SQLite 原确认状态完全一致，修正后保存；原草稿、人工发送、接管、读位、版本导航、中断输入和缺模块恢复继续通过。`peer-interactive-workspace-9k5kHi` 的 11 张原图已逐张实现者自审，review.json 绑定上述源码，independent=false，指纹 `9fcfe380d01dc3bb059b4c0ad341d2b5ac2ec7c3e39a6680f2b341becb20186f`。已同步两份覆盖矩阵和改造计划。
 - Electron 的发布/Grant 和外围壳仍为控制夹具，没有真实模型；真实模型命令的证据另按其固定源码记录。本批没有完整标准 packet、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收，不退出完整目标。
 
+## 清理事务内核与固定旧写者证明（3bf95a40）
+
+- 先在知识提交 `32f2c7f` / `08a71d9` 定义 ADR §17.2.1，再实现并推送代码 `3bf95a40`。新增共享 InteractiveRetention 的 preview/cleanup/readReceipt；原状态/保存回执校验提到同一 `state-record` seam，正常读写及维护使用相同不变量。没有新模型工具、IPC、Renderer 删除入口或共享 schema；结果域仍为 SQLite schema 5。默认没有真实 acquireRetentionRoots，运行时清理明确返回 interactive_retention_unavailable，不因 Module 存在而开放删除。
+- 私有同步引用守卫必须覆盖 views/drafts/inputs/messages/delegation/verification 六类，核对真实 owner/lease、固定引用、冻结 ID 和来源修订直到 finally release。内核拒绝缺失/异步/过期守卫、跨 owner 引用和缺少的冻结记录。当前正向测试的根集合是控制夹具，不是真实宿主六来源已经完整接线的证据；禁止为启用清理而注入空集合或 always-true current。
+- 清理固定逻辑结果的全部版本，事务内重新核 head/版本集合、原真实操作、状态/保存回执、prepared 尝试、index_pending、活跃写者与根引用；摘要绑定来源修订、数据/状态和可回收对象集合。先标 cleaned 并保存带摘要校验的独立 presentation 墓碑，再删除该结果的状态/保存行及无其他可用版本或材料引用的对象，一起原子提交。任何提交前失败或配额失败全部回滚；丢确认仅查回同一实际回执，不重发发布。回收数是逻辑对象字节，不宣称 SQLite/WAL 文件缩小或安全擦除。
+- 墓碑保留各固定版本的有界、明确截断的模型摘要、实际来源和数据等级，并核对原 metadata/operation；旧版本也能解析同一真实清理回执。原发布 metadata、操作、EvidenceIndex 及冻结值不改写。正文清理不删除 followup/material 行，不冒充已经完成这些对象的 GC。墓碑每 Bot 有上限，参数冲突、损坏或超过限额明确拒绝。只有全部版本真正不可用才释放逻辑结果配额；未知 availability、缺 head 或仅部分版本 cleaned 不制造空余。
+- 固定 `ecb77e0d` 的 Store、SQLite storage 和 presentation writer 源码，仅适配 import 位置；测试将位置还原后重新核 SHA-256，辅助协议在本批未变。实际已经打开的旧连接及重开读端均拒绝 cleaned 正文，旧发布幂等重放不复活数据。独立旧进程在清理事务中真实写入被 SQLite 锁阻止；之后旧 writer 可创建不同结果，旧 history/layout 写入或删除只影响自身类别，清理墓碑保留。旧 writer 的原额度判断会保守拒绝，不能将这项数据保留证明描述为旧产品具备新清理体验。
+- 最终 188 项 Node、114 项 Bun 通过，无失败/跳过/取消，包含整个 interactive-results、共享内容、Renderer 会话与真实 TUI 宿主/模型循环的控制传输回归。Runtime Node 构建、Desktop/TUI 类型及 architecture/UI 检查通过；第一条共享材料断言曾缺必需 expectedContentVersion，按实际契约修正测试，未放宽生产读取。没有新 UI、截图、真实模型请求、安装版或标准全产品 packet；本批不退出 IUI-01/IUI-04 或完整目标。
+- 下一步先为六来源实现严格根读取与真实写入保护，覆盖已打开旧 writer 和回执/claim 中间态，再接显式清理及已清理文本投影。随后完成冻结材料/规范快照的独立引用保留与 GC。不能用当前内核的控制根测试代替跨存储保护，也不能仅因为已发布正文包含副本就删除原规范材料。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
-- 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复；其格式识别边界与测试覆盖单列，不依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
+- 清理事务内核已在 `3bf95a40` 提交；继续接真实六来源、逐存储/旧写者保护、明确清理和墓碑文本投影，以及冻结/材料独立 GC；TUI/CLI/Remote 实际文本和独立打包入口仍待完成。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复；其格式识别边界与测试覆盖单列，不依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
 - 两种实际 Provider encoder 的真实首次生成及固化计算已取得专项证据；可复现命令、驱动种子修复与主动拒绝降级已在本批覆盖；继续完成完整任务故事、成本限制核对、全仓工程门禁和标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
 - 核对发布诊断 retryable 与有限次新候选修复的 Interface：本批实际 unsupported_node 失败标记 retryable=false，但同一受限工作可用新调用提交修正候选；需要明确“原调用重发/对账”与“校验失败后新候选”的适用语义，不能从模型本次成功自行推出所有失败都可重试。
