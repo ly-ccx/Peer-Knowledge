@@ -1,0 +1,121 @@
+{
+  "recordedAt": "2026-11-03T03:32:14.101422+00:00",
+  "source": {
+    "repository": "https://github.com/ly-ccx/Peer-Agent",
+    "baseCommit": "4a58e2846875f85de69915764a127096721c5b0d",
+    "candidateCommit": "02a25d5ffb4151e873aef40c2858492f40f6016a",
+    "candidateTree": "763d9278c47416b7f7b84c7ca227f12a45804e44",
+    "pullRequest": "https://github.com/ly-ccx/Peer-Agent/pull/268",
+    "workingTreeCleanAfterCommit": true
+  },
+  "authorization": "Repository-wide Engineering Delivery Consensus requested by the user on 2026-11-03; scoped verification, not release authorization. Code PR269 and knowledge PR116.",
+  "environment": {
+    "platform": "macOS",
+    "node": "v24.22.0",
+    "pnpm": "10.22.0",
+    "review": "implementer self-review; not independent"
+  },
+  "checks": [
+    {
+      "command": "node --test packages/runtime-node/src/project-agent/intent-lifecycle.test.mjs packages/runtime-node/src/project-agent/session-supervisor.test.mjs packages/runtime-node/src/project-agent/supervision-recovery.test.mjs packages/runtime-node/src/project-agent/repair-ownership.test.mjs packages/runtime-node/src/project-agent/wake-wait.test.mjs packages/runtime-node/src/project-agent/session-control.test.mjs packages/runtime-node/src/project-agent/continuity.integration.test.mjs packages/runtime-node/src/project-agent/execution-resources.test.mjs packages/runtime-node/src/project-agent/queued-dispatch-settlement.test.mjs packages/runtime-node/src/project-agent/session-resource-recovery.test.mjs packages/runtime-node/src/project-agent/execution-scheduler.test.mjs packages/runtime-node/src/project-agent/session-control-kernel.test.mjs packages/runtime-node/src/project-agent/takeover-stop-recovery.test.mjs packages/runtime-node/src/project-agent/execution-ownership.test.mjs packages/runtime-node/src/project-agent/coordination-lifecycle.test.mjs",
+      "exitCode": 0,
+      "testFiles": 15,
+      "tests": 263,
+      "passed": 263,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "log": "focused-validation.txt",
+      "sha256": "64d39239db5cf3dd538c22b8c0ebac3ab94953d81b0e5400c618c2a0e836862a"
+    },
+    {
+      "command": "pnpm --filter @peer-agent/runtime-node build",
+      "exitCode": 0,
+      "log": "runtime-build.txt",
+      "sha256": "3fea2cd6f5ba73c27961c8c783ff275a3924c3be76f8a3711f87e7d39a5cab9a",
+      "rawLogSha256": "0e8e5c35a505082f835f7d1abd784d3e5bf01ebac1d94f58c47948e171938415"
+    },
+    {
+      "command": "pnpm --filter @peer-agent/runtime-node typecheck",
+      "exitCode": 0,
+      "log": "runtime-typecheck.txt",
+      "sha256": "d0138d158668dc458f2baa8093ec0ce02159e87460a7662bcf3cf4ea209a7a46",
+      "rawLogSha256": "428f43e160aad2234be8a364f6ee77d36760e569842349f247422514da85be69"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "scenarioEvidence": [
+    {
+      "scenario": "accepted host wait with active root intent",
+      "result": "waiting responsibility and concrete targets persist across restart; no false no-progress failure and no reset of prior progress guard"
+    },
+    {
+      "scenario": "parent coordinate_work is pending while child takeover stops",
+      "result": "empty-unknown child stop is consumed; real child unknown remains fenced and native resume cannot overwrite the unfinished takeover"
+    },
+    {
+      "scenario": "cold recovery of RC35-shaped applied native resume plus unfinished original takeover",
+      "result": "real conversation/plan/coordination stores, control barrier, scheduler and supervisor restore the same fixture task and admit its controlled executor once; repeated reconcile does not duplicate; subsequent task enters same directory after stop"
+    },
+    {
+      "scenario": "crash after durable recovery pause before stop receipt",
+      "result": "a third host finishes the same operation and retains original task identity"
+    },
+    {
+      "scenario": "foreign historical shell unknown in the same directory",
+      "result": "task custody recovers, executor starts stay zero, original unknown claim stays reconciling, blocker stays execution_outcome_unknown and execution effect stays pending"
+    },
+    {
+      "scenario": "completed historical transition appears last in object enumeration",
+      "result": "current retained takeover recovers from its stop proof; enumeration order does not supersede custody"
+    },
+    {
+      "scenario": "invalid recovery source/identity/goal/control/binding, live or unknown effects",
+      "result": "recovery proof rejected; 21 negative proof cases retained"
+    }
+  ],
+  "failureHistory": [
+    {
+      "candidateCommit": "82b186ea81d6228cf2da62d206791fa171f35e70",
+      "evidence": "https://github.com/ly-ccx/Peer-Agent/actions/runs/41566935511",
+      "result": "patch regression: missing legacy operation IDs compared equal and missing origin caused TypeError; existing assertion failed on automatic per-file retry; corrected in 81efd234 without deleting assertion"
+    },
+    {
+      "candidateCommit": "81efd2346813de4264ecb16a0fa350bd8e78f52b",
+      "evidence": "https://github.com/ly-ccx/Peer-Agent/actions/runs/41567944884",
+      "result": "automatic CI success for that earlier candidate only; does not cover later 02a25d5f changes"
+    },
+    {
+      "stage": "new existing-state integration case before recovery implementation",
+      "sourceBase": "81efd2346813de4264ecb16a0fa350bd8e78f52b",
+      "result": "durable transition did not settle; new recovery then exposed revoked queued admission being marked execution_resource_owner_changed; final source fixes both; intermediate uncommitted source has no durable commit identity"
+    },
+    {
+      "stage": "additional enumeration-order test fixture",
+      "result": "initial fixture lacked work.workspaceId, so strict scope proof rejected it; fixture scope corrected, production scope assertion unchanged; final test passes"
+    }
+  ],
+  "sourcePreservation": {
+    "scope": "Only the original GoalPlan and parent conversation content hashes; not a global runtime audit",
+    "originalGoalPlanSha256": "ccb506f5d7a0c7cb32ce8574cfc4c5c872d81e5d0486bc193ae4e0b92f109c5c",
+    "originalParentConversationSha256": "a63efa37405df322bec6701516d1767785f7238a1ba684b4616347141ef8b23e",
+    "bothUnchanged": true,
+    "privateSnapshotLocation": "outside repositories; not included"
+  },
+  "limits": {
+    "fixture": "RC35 persisted-state shape reconstructed through real ports in isolated temporary directories; not a replay of the full personal database",
+    "model": "controlled executor entry only; no real cloud model or original business task result",
+    "installedApp": "running RC35 unchanged; no installation/restart or personal-task mutation",
+    "platforms": "local macOS only; earlier CI result covers an older candidate",
+    "productAcceptance": "no installed-build, UI, accessibility or complete product regression",
+    "release": "no merge, release, publication or full combined-candidate gate"
+  },
+  "remainingBlockers": [
+    "Running installed application and original user task have not been restored or accepted.",
+    "Another historical shell call in the original directory has no proven final exit; its resource guard must remain.",
+    "End facts must be reconciled through the existing protocol, or work must use a supported independent physical directory; neither is silently manufactured by this repair."
+  ]
+}
