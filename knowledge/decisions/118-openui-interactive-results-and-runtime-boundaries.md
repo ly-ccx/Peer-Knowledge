@@ -300,9 +300,9 @@ Store 为每次真实 Provider 发布保存不可变操作身份、规范参数�
 
 #### 对外任务报告与主 Bot 回复的固定引用
 
-IUI-03 在 Desktop/TUI 同时接入共享来源投影。`get_session_report` 仅将本任务报告中可由真实工作 conversation/call 定位、已发布且与原规范索引一致的工具别名替换为固定产物引用；已有固定引用也须核对真实 source 与同 owner 关系。未确认、缺失或不适用的引用保留原追溯值，不冒充已确认结果。此处理只作用于对外报告；内部完成审查、Verifier 输入和 sourceRevision 仍使用原报告/原任务证据，不因展示引用变化重写验收或已有核验事实。
+IUI-03 在 Desktop/TUI 同时接入共享来源投影。既有 `get_session(detail: "report")` 仅将本任务报告中可由真实工作 conversation/call 定位、已发布且与原规范索引一致的工具别名替换为固定产物引用；已有固定引用也须核对真实 source 与同 owner 关系。未确认、缺失或不适用的引用保留原追溯值，不冒充已确认结果。此处理只作用于对外报告；内部完成审查、Verifier 输入和 sourceRevision 仍使用原报告/原任务证据，不因展示引用变化重写验收或已有核验事实。
 
-共享投影只读固定 manifest、原发布操作及其 indexEntry 和规范索引，不读取程序/数据正文或求值；标题与 specHash 等展示元数据必须和真实原发布回执一致。它不经 `get_session_report` 反向读取自身，不形成报告递归，也不替代人的正文来源核对或模型的 inspect 能力。
+共享投影只读固定 manifest、原发布操作及其 indexEntry 和规范索引，不读取程序/数据正文或求值；标题与 specHash 等展示元数据必须和真实原发布回执一致。它不经对外报告入口反向读取自身，不形成报告递归，也不替代人的正文来源核对或模型的 inspect 能力。
 
 主 Bot 的 `post_reply` 在既有 replyTo、sources、statusClaims 校验通过后，按宿主真实 owner 与所引用任务提取已确认的固定结果引用，合入既有 `meta.evidenceRefs`。模型参数、正文 URI 或自报 UserArtifact 不提供该事实。每条回复最多保留现有上限 20 个去重引用，按原任务引用顺序选择，完整引用仍在原任务报告中；这不是全部产物的穷举清单，也不自动取当前 head。未确认结果不产生卡片，普通进展/受阻回复仍可如实发出。现有 objective Evidence 同时保留并共用预算，不能因新增交互结果将其覆盖。
 
@@ -749,17 +749,21 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 
 ### 21.1 契约归属与不得后移的前置条件
 
-| 评审问题与契约 | 设计条款 | 责任 Module / 接线边界 | 必须完成的阶段 | 后续验收用例 |
+七项问题分别按下表收口。Interface 包含成功对象、身份与顺序约束，以及失败时必须保留的事实；只有类型声明、提示词或 UI 终态，不算对应契约已经实现。表中失败语义遵从所引正文，不另建工具或错误协议。
+
+| 评审问题与契约 | 设计条款 | 责任 Module / Interface 与失败语义 | 必须完成的阶段 | 后续验收用例 |
 | --- | --- | --- | --- | --- |
-| 1. 只读 worker 内部发布例外，主 Bot/Explorer/Verifier 不获发布权 | §9.1 | Provider 的精确内部发布声明与共享角色/只读规则；Desktop/TUI 的库存、Projection、准入与执行闸使用同一规则 | IUI-00 核对接线，IUI-01 同时落实投影/准入/执行 | IUI-T23 |
-| 2. 可核对版本字节、范围和分类的材料解析 | §10.1 | InteractiveMaterialSource 解析规范材料；宿主提供真实准入身份和固定版本读取端口；InteractiveContent 仅消费已归一化值 | IUI-00 清点规范源，IUI-01 实现；缺失时不发布 | IUI-T24 |
-| 3. 发布回执、待登记项和中断后的最终收敛 | §9.3—9.5、§17.1 | Store 原子提交固定版本、操作和待登记项；共享恢复服务经既有 Evidence 登记端口幂等登记并读回；宿主只装配触发入口 | IUI-01；不得只等发布前补偿 | IUI-T25 |
-| 4. 实际结果的只读读取/求值与语义核验 | §10.2 | inspect Provider 沿能力链读取，InteractiveContent 有界求值；Verifier 适配把实际检查 Evidence 接入原核验内核 | IUI-00 核对 SDK 公共接口，IUI-01 提供能力，IUI-03 接入核验；接入前不声称任务已通过 | IUI-T26 |
-| 5. 创建/修订、前驱与版本冲突 | §9.2、§11.4 | Protocol 表达创建/修订意图；Provider 核对 base 准入；Store 执行 head CAS 并保留前驱；资源视图只消费已确认关系 | IUI-01；新版本入口在 IUI-02 消费真实关系 | IUI-T27 |
-| 6. 确认保存、冻结条件、原草稿回执与明确发送 | §12.5—12.5.2 | Store 确认状态并冻结同值同版材料；InteractiveContent 派生有界摘要；ApplicationService 绑定真实视图/接收者；原 ResourceFeedback、Composer 与输入链持久确认和发送 | IUI-01 完成完整冻结材料传输及准入；IUI-02 接入保存/冻结/prepare/claim/draft CAS/ack/人工发送，不能后补材料链兼容保护 | IUI-T28 |
-| 7. 所有受影响存储的旧 writer 保护 | §12.5.1、§17.4 | 各存储的 reader/writer Interface 分别证明保留或执行保护；宿主装配在首次新写入前核对全部依赖，不将协调 fence 当作全局保护 | IUI-00 逐项定方案并固定旧读写端；IUI-01 首次新写入前证明保留或实际阻断，含已打开实例；IUI-04 只做完整回归与发布收口 | IUI-T29 |
+| 1. 只读 worker 内部发布例外，主 Bot/Explorer/Verifier 不获发布权 | §9.1 | Provider 声明精确内部目标；Desktop/TUI 的库存、Projection、准入与执行闸共享角色/只读规则，并核对当前工作、lease/epoch、policy 与 Grant。任一条件不足即拒绝或技术阻断，不扩大项目写权限 | IUI-00 核对接线；IUI-01 同时落实投影/准入/执行，不能仅修改白名单或 prompt | IUI-T23 |
+| 2. 可核对版本字节、范围和分类的材料解析 | §10.1 | InteractiveMaterialSource 返回固定版本字节、范围、摘要、来源与分类；宿主提供真实准入读取端口，InteractiveContent 仅消费归一化值。缺源、版本/范围不符或分类未知明确失败，不用 bodyPreview、当前文件或模型数据补齐 | IUI-00 清点规范源及可取得的事实；IUI-01 实现材料解析，未满足材料契约不得发布 | IUI-T24 |
+| 3. 发布回执、待登记项和中断后的最终收敛 | §9.3—9.5、§17.1 | Store 原子提交固定版本/head、操作和待登记项；共享恢复服务沿既有 Evidence 端口幂等登记并读回一致后才确认 published。未知/冲突保留，不能从文件存在推断成功，也不能重发执行体补偿 | IUI-01 同时接入 Desktop/TUI 登记和恢复；消费端启用前具备收敛路径，不延至 IUI-04 | IUI-T25 |
+| 4. 实际结果的只读读取/求值与语义核验 | §10.2 | inspect Provider 绑定固定目标及范围，InteractiveContent 有界求值；Verifier 适配核对 sourceRevision 和真实检查 Evidence 的程序、数据分页及条件覆盖。能力缺失、缺页或条件不完整保持缺证，不以 textFallback 或发布成功判通过 | IUI-00 核对 SDK 公共接口；IUI-01 提供检查能力；IUI-03 接入原核验内核，接线与覆盖完成前不声称任务已通过 | IUI-T26 |
+| 5. 创建/修订、前驱与版本冲突 | §9.2、§11.4 | Protocol 表达 create 或 revise + base；Provider 核对 base 准入，Store 以 base.contentVersion 做 head CAS 并保留 predecessor。相同内容返回原引用/unchanged；冲突返回 version_conflict，不自动 rebase 或另建结果 | IUI-01 完成发布、幂等回执和版本 CAS；IUI-02 的新版本入口只消费宿主确认关系，旧标签及状态仍固定原版本 | IUI-T27 |
+| 6. 确认保存、冻结条件、原草稿回执与明确发送 | §12.2、§12.5—12.5.2 | Store 以确认 revision/digest 冻结同值同版材料；ApplicationService 绑定真实视图/接收者，原 ResourceFeedback、Composer 和输入链执行 prepare/claim/draft CAS/ack。保存或草稿未确认即保留候选与原草稿，不退取旧值、不自动发送 | IUI-01 完成冻结材料协议、传输、准入及兼容保护；IUI-02 接入保存/冻结与完整草稿链，明确发送后才进入原 canonical 输入链 | IUI-T28 |
+| 7. 所有受影响存储的旧 writer 保护 | §12.5.1、§17.4 | 各存储分别交付固定旧 reader/writer 清单及保留证明或有效写保护，覆盖已打开实例和重写/消费路径。未证明的共享记录阻断新写入；不把协调 fence、默认关闭或新目录 marker 当作全局保护 | IUI-00 逐存储定方案；IUI-01 首次新写入前落实并核对全部依赖；IUI-04 只做完整兼容回归与发布收口，不首次补保护 | IUI-T29 |
 
 七项契约在本次文档中完成定义，运行风险仍待对应实现和验收证实。IUI-01 的首次写入保护、真实材料和发布对账是 IUI-02/IUI-03 消费结果的共同前提；其中 inspect 能力可用不等于 Verifier 接线完成，冻结回执存在也不等于原草稿已持久确认。
+
+后续各阶段交接须逐项标明实际 Interface/Implementation、覆盖的宿主与旧读写端、未完成接线和验收证据位置。未运行的用例保留为计划，不标记通过；IUI-01 的能力/存储契约、IUI-02 的人机输入链和 IUI-03 的语义核验分别交付，不能互相替代退出证明。本次仅补充 ADR，不修改代码或据此启动实施。
 
 阶段依赖为 IUI-00 → IUI-01 → IUI-02/IUI-03 → IUI-04；尚未完成的下游阶段保持能力和表面关闭，不能因上游代码已存在就向生产模型开放不完整链路。退出条件描述后续交付事实，不改变 §22.1 的验证时点；补充设计的文档提交不代表任一实施阶段退出。
 
