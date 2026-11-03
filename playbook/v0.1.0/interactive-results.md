@@ -535,6 +535,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 同一 `eb8ecdab` 隔离包补冻结、原草稿与明确提交专项。原生窗口点击“将当前条件放入草稿”后，包内主窗口 preload 读取到原文、相同固定引用和 Divisor 5，pending 及输入队列没有新增。重启整个包后原草稿和冻结材料仍可读；探针显式调用原 preload 提交入口，真实宿主消费为规范用户消息，协议解码确认同值同版。报告位于 `peer-adr118-desktop-current.hvnNr5`。此项的明确提交由探针调用原 IPC，未点击 Composer 发送按钮；预置固定结果、无真实模型最终回复，正式签名公证仍未覆盖。
 
+- 同一 `eb8ecdab` 本地包补真实 Composer 按钮路径。重启后在实际 Bot 页面看到原草稿与 Divisor 5，编辑正文并点击发送，Composer 清空且仅新增一条对应的规范用户消息。用协议解码确认其中的冻结回执、固定版本及值与之前冻结的材料一致。隔离 Bot 无配置模型，覆盖实际 UI 提交与规范落盘，未覆盖真实模型回复或正式签名公证。输出为本机包验证目录的 `composer-send-result.json` 与 `canonical-composer-send.json`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
