@@ -429,6 +429,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `b94f971e` 的 OpenAI 故事 `peer-interactive-live-NDYoxf` 完成结果发布，26 次请求（Bot 16、worker 4、Verifier 6）到达 Bot 限额，仍在首次交付。前两次等待分别使用来源版本和查询返回的观察版本，均被宿主判定 `wait_source_stale`；随后 continue 决议通过，但结果就绪后的两次协调输入未通过。尚未提交冻结条件。等待拒绝当前只给错误码，需核对当时可披露的版本和状态回执。
 - `80d64c94` 将 Desktop 回到最新按钮放在阅读视口下方的普通布局中，保留原滚动控制、按钮语义与 SVG。针对重采发现的三张覆盖问题加入实际几何断言，新标准包 `peer-adr118-product-latest.DuoG3A` 采集中。该包以提交前相同文件字节启动。
 
+- `c33c6e0b` 让 `wait_source_stale` 通过原 Tool Result 回传本目标可见的会话状态、来源版本和观察版本。提示区分仍可等待时的版本刷新与任务已离开等待状态。不存在、非当前 mandate 或引用越权的会话不回传事实；拒绝也不写决议。47 项协调、委托与等待测试通过；保留 Desktop 采集源码，在独立 checkout 对同分支运行原限额 OpenAI 故事。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
