@@ -328,6 +328,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 代码 `417fd8db` 用真实 Electron 挂载生产 `InteractiveResource`，仅在测试构建注入 SDK 内容渲染异常。专项通过，异常后显示明确标注未验证的固定摘要，保留程序入口并隐藏计算；模拟保存失败时保留草稿且不打开视图，重试在保存回执后调用打开端口。该用例使用受控保存和打开端口，实际独立窗口导航仍由其他原生用例覆盖。
 
+## 固定版本后台卸载与性能初样（ad701997）
+
+- 主工作区原生专项通过。在两个固定版本标签间切换，两侧各自保留已确认值和草稿，任一时刻只挂载一个 SDK 内容树，非选中标签保留但无 SDK 内容。仍需验证更多同时打开结果和隐藏期间的资源占用。
+- 生产 Electron 组件专项通过。120 行合成数据及两张图表，八次 DOM 输入事件到预期结果首个可观察帧为 7.0–8.5 ms，含除零隐藏及恢复；观察区间没有 Long Tasks 条目。Renderer（Tab）结束快照 working set 为 215,088 KiB。CPU 瞬时读数全为 0，不能据此判断负载。记录位于本机 `peer-interactive-renderer-dbuq6r/production-interaction-sample.json`。该样本为自动化 DOM 输入和隔离开发机器测量，仍缺 500 行上限、持续负载 CPU、正式包体及完整真实故事成本。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
