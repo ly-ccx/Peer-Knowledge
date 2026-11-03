@@ -454,6 +454,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `80d64c94` 标准包逐图核对 8 张窄窗协调、宽窄窗 Agent 活动与核验详情、回复依据图。逐张匹配 SHA-256，累计 99/255。
 - `80751f26` OpenAI 故事 `peer-interactive-live-XW0fgr` 发布并取得独立会话核验通过；已准入的 return 根核验仍因模型保留了一个待交付的实质要求而返回 `goal_coverage_incomplete`。本轮 openQuestions 已为空。后续删除该要求的尝试被原解释修订规则拒绝，最终在首次交付前用尽 Bot 16 次（合计 25 次）。`b679c57d` 在真实故事输入中明确实质证据覆盖与规范交付的分工，验收继续要求两次真实规范交付和实际冻结输入。TUI 类型与 12 项专项通过；OpenAI 按原限额复跑。
 
+- `80d64c94` 标准包再逐图核对 8 张待回复、历史、历史预览及选项发送画面，逐张匹配 SHA-256，累计 107/255。
+- `b679c57d` OpenAI 故事 `peer-interactive-live-7yV2Ha` 完成发布并发起真实会话复核。首次正式交付前主 Bot 耗尽 16 次，整案 26 次（worker 4、Verifier 6）。已保存初次 assess，后续提交重新写了既有 interpretation，被 `intent_revision_required` 拒绝。`3eb270e9` 保留修订保护，在 Tool Result、schema 与工具提示明确同目标更新应省略 interpretation、沿用已保存的 requirementId；测试核对拒绝不推进 revision。43 项生命周期与委托测试通过，OpenAI 已启动按原限额复跑。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
