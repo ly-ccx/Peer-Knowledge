@@ -268,7 +268,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 该专项只投影合成案例所需的委托、协调、结果与 Goal 工具。模型、工具和物理 HTTP 分别设限；最多 32 次模型/HTTP 请求，45 秒/请求，240 秒/整案。两项任务由真实主 Bot 建立；驱动器不建立子会话、不预填结果或 verdict。桌面 Composer 交互仍由单独原生专项覆盖。
 - `8c27c98e` 的首轮真实 Anthropic Messages 已观察到主 Bot 委托、worker 读取 Goal 并发布成功。驱动器把同一次发布的规范 Evidence 和工具调用别名重复计数，提前终止；证据目录 `peer-interactive-live-NPTAYz`。代码 `66b8bfe1` 按规范 Evidence 计数，并等待原任务记录该发布后再提交冻结条件。TUI 类型检查与原专项 11 项 Bun 测试通过，修正后真实重跑仍需核对完整结论。
 - `66b8bfe1` 重跑再次完成实际委托和发布，但 `goal_get_plan` 回执超出通用内联预算，工具返回的首尾预览省略了真实 taskId；worker 猜测的 ID 被宿主拒绝，未触发第二条输入。主 Bot 后续回合也收到 Anthropic 400，要求把原有 thinking 传回 API。完整报告待该进程结束后核对，目录 `peer-interactive-live-WPI1pR`。
-- 上述超长回执还暴露 TUI 材料化未向编码器传入实际宿主数据根，合成工具输出落入默认用户 artifacts 目录。后续应在两个 TUI 编码调用处沿既有 `baseDir` 明确传入宿主数据根，并为 Goal 读取提供预算内可见的真实叶子身份；在修复并核对隔离之前暂停进一步真实请求。此处没有把本次结果视为完整任务通过。
+- 上述超长回执还暴露 TUI 材料化未向编码器传入实际宿主数据根，合成工具输出落入默认用户 artifacts 目录。代码 `e642fa3d` 在 TUI 实时模型与持久回合两个编码调用处沿既有 `baseDir` 绑定宿主数据根，两种专项也显式绑定其隔离根。TUI 类型及 43 项 Bun 测试通过，新增超长结果落盘路径和原文回读用例。先前生成的诊断材料仍保留；Goal 读取的预算内叶子身份与 Anthropic 续接待修。此处没有把本次结果视为完整任务通过。
 
 ## 全仓工程与产品采集基线（45102335）
 
