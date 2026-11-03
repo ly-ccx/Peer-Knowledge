@@ -439,6 +439,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `e1b9c40e` 两个实际 Provider 故事 `peer-interactive-live-Dcjeed` 均完成发布，均在首次正式交付达到 Bot 角色上限（每路 23 次，Bot 16、worker 4、Verifier 3）。OpenAI 实际获取 `wait_source_stale` 的 `result_ready`、来源版本与观察版本；最后两次 assess 参数在 assessment 字段开始处截断，Provider 计量两次均为 1800 输出 token。未提交冻结条件。
 - `fadda300` 只把完整故事驱动的 Bot 单请求输出上限从 1800 调到 3200，以容纳完整协调决议。整案仍最多 32 次请求，Bot 仍最多 16 次，单次/整案仍 45/240 秒，worker 和 Verifier 保留 1800。TUI 依赖构建、类型及 12 项专项通过，已启动 OpenAI 单路复跑。
 
+- `80d64c94` 标准包新增 12 张逐图核对，含浅色启动、宽窄窗各类核验结论和减少透明度场景。逐图核对包内 SHA-256，累计 67/255。
+- `fadda300` 的 OpenAI 故事 `peer-interactive-live-UU6KKO` 共 25 次实际请求（Bot 16、worker 4、Verifier 5），已发布并取得显式复核回执，首次交付前达到 Bot 限额。该轮拿到完整 assess 参数，宿主拒绝把尚未发布的回复标记为已覆盖且证据为空的条目。`1c2a72b0` 在共享协调提示和无证据拒绝回执中区分既有工作证据与当前 return 预留，保留全部准入条件。43 项委托与意图生命周期测试通过，已启动新实测。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
