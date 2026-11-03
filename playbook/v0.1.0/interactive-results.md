@@ -233,6 +233,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 36 项 Bun 测试及 TUI 类型、架构/UI 检查通过。实际 CLI 子进程把输入交给已有租约的真实 TUI 宿主，在控制模型传输下走任务报告 → post_reply → 规范回复 → CLI JSON；同 ID 重试、冲突及超时通过。独立 Bun 编译二进制在无 DISPLAY/TTY 下重复验证。尚未以真实模型运行这条 CLI 交付，也未跑完整安装/标准产品包。
 - 普通 exec 保持原模型和能力范围。生产清理所需旧写者隔离、完整恢复、多入口验收和真实模型的端到端任务仍待交付。
 
+## Desktop 静态墓碑恢复（aac32860）
+
+- ADR §17.2.1 先由 `8c8448b` 定义。原 Evidence 入口按固定发布、规范索引及 owner 核对墓碑；历史工具别名仍归原任务。独立资源窗口通过原 IPC 展示静态摘要，回执不携带视图 handle；损坏墓碑阻断。清理历史和布局复用正文/墓碑检查，保留读位。
+- 166 项 Node 测试、Protocol/Runtime Node 构建、Desktop 类型/IPC、架构/UI 检查通过。实际 Electron 专项通过，人工自审本次新增 `peer-interactive-workspace-deNjTC/native-cleaned-summary.png`。前一版截图发现读位失败提示，最终图确认已消失。清理使用受控根，新增截图自审非独立，其他帧仅由本次自动断言覆盖；尚无生产清理或完整标准验收。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
