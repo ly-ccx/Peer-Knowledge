@@ -437,6 +437,16 @@ SDK 版本另行记录，用来选择已登记的兼容适配。哈希用于一�
 
 “打开新版本”仅依据相同 resultId 下宿主确认的 head/predecessor 关系出现，不从模型文字或相似标题推断。已打开标签始终固定 contentVersion，旧交互状态留在原版本；打开新版本使用其初始状态，跨版本迁移必须另有明确映射和用户选择。用户要求刷新数据时，将旧结果引用显式交入新工作，取数后以 revise 发布，而不是静默改写旧快照。
 
+#### 11.4.1 人工版本导航的 Interface
+
+既有 InteractiveResultsApi 增加可选只读 `readVersions({ handle })`，返回 `versions: { reference, head, predecessor? }`。handle 继续绑定实际 sender、owner、固定内容及视图代次；宿主只读取同 owner/resultId 的已确认 manifest 与 head，不加载程序/数据或遍历其他结果。reference 是原视图版本，predecessor 来自其不可变发布记录，head 是本次核对时已确认的固定版本。不存在的关系不填充；待登记、缺失、损坏或跨归属关系明确失败，不能退成“没有更新”或从模型/标题推断。查询不创建 Grant、Evidence、状态写者或执行。
+
+主资源区以明确操作检查版本；仅将宿主返回且与当前视图身份一致的引用交给原资源标签打开入口。旧标签、未保存输入和读位保留。首次打开尚无检查点的新版本使用该版本初始状态，已访问版本仍按其自己的确认检查点恢复，不从旧版本复制参数。
+
+独立窗口增加可选 `openVersion({ handle, relation: 'head' | 'predecessor', expectedReference })`，只接收上一项查询中的固定目标。宿主重新核对该关系与 expectedReference、真实原主窗口 sender 和当前 owner/窗口代次，再沿原 ResourceWindowController 打开另一独立视图；不向资源 Renderer 开放通用主窗口 API、文件路径或任意产物打开权。关系已变化返回 version_conflict，原窗口失效或来源不可用保持原失败状态；不改成打开最新值。异步打开前后仍核对真实绑定，目标窗口的内容读取继续受原 owner/source 检查。
+
+两个入口都保留当前视图和原恢复责任；只有用户操作打开目标，不因后台 head 推进自动替换、抢焦点或迁移状态。查询/打开中的晚到响应不得作用于已切换的 owner/版本，失败可原地重试，不刷新来源或重发发布。使用新增 typed IPC/preload 的原目录授权并提供旧桥缺失的静态提示，不另设执行通道或共享存储格式。本接线属于 IUI-02 / IUI-T27；实际验证仍单列，不将本条设计视为已经实现。
+
 ## 12. 用户状态、保存与多窗口恢复
 
 ### 12.1 状态边界
