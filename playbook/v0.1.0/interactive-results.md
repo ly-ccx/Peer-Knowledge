@@ -17,8 +17,8 @@
 | --- | --- | --- |
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；其余共享存储、留存及完整能力验收继续待完成，未退出 |
-| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。Verifier 固定目标、真实文档/浏览器混合场景、条件标签映射及其余产品验收尚未完成；功能默认关闭，未退出 |
-| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。Verifier 固定目标/证据允许列表、Bot 结果引用与真实模型生成/修复效果待完成，未退出 |
+| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。真实文档/浏览器混合场景、接管期间未知保存回执、条件标签映射及其余产品验收尚未完成；功能默认关闭，未退出 |
+| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；Bot 结果引用与真实模型生成/修复效果待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
 
 ## 验证与完成标准
@@ -65,10 +65,20 @@
 - Electron 专项使用真实 BotComposer/useInputRecovery、prepare/claim/ack、SQLite、输入队列及 ConversationStore。主区冻结 5、独立窗口冻结 4，原正文/quote/上传均保留；准备不提交、不抢原 Composer 焦点，人工点击发送后 canonical 消息才同时携带 5/4。关后重开、接管/正式返回、布局冲突、关闭拦截、中断草稿与缺 chunk 恢复继续通过。发布/Grant、外壳和非本域索引仍为夹具，没有真实 Provider 模型回合。
 - 6 张最终截图逐图实现者自审，independent=false，目录 `peer-interactive-workspace-wGz5ql` 的 review.json 绑定上述代码；审阅指纹 `5d1c3ca2d5e1766d56552db4d6e2a9ad25a5a51535a95fbacd41cad338184ceb`。初次发现测试入口缺正式 Composer CSS 已修正并重采；冻结摘要去掉内部 ID/变量名，存储不保留表现树时暂用稳定条件序号，精确控件标签映射仍须完成。6 图不是标准全产品 packet，也没有真实模型、安装版、系统 IME、读屏、完整缩放/减少动效或性能验收。
 
+## 固定目标核验增量（fd4fce5a）
+
+- 先在知识提交 `88caab0` 定义 ADR §10.2.1，再于代码 `fd4fce5af81a08e8766a13fa30a66ab1e31bac51` 实现。目标来自真实任务的规范发布记录/本工作原调用别名及 canonical 用户提交的完整冻结材料；不把其他结果、未提交选择或最新 UI 状态纳入核验。初始条件与各冻结条件分别保留；owner、执行换代、租约、功能或目标摘要变化会使原回合失效。
+- 宿主持有有生命周期的私有核验绑定，衔接实际 conversationId 为空的 Verifier；Desktop profile 正规化保留并核对 execution identity。私有 token 不进入模型请求或 System Context，结束后失效。临时回合的真实观测仍可记录 owner 的保守隐私等级，不因此开放正文读取或恢复执行。
+- 每次真实 inspect 在原 EvidenceIndex 持久追加并读回 `interactive-inspection://` 规范记录，只含固定请求、范围、状态/目标/输出摘要与执行事实。正式 EvidenceBundle.refs 负责传播。固定旧 normalizer、已打开追加描述符和重开后的读端证明原规范记录及来源保留；不建立另一套 Evidence 索引。
+- 完整程序、每个完整绑定的连续分页，以及初始/各冻结状态的完整求值，是交互语义通过的事实覆盖前提。缺页、重复页、selector 子集、未返回完整计算、只给发布/文本回执均不能满足；业务判断仍归模型。语义缺证返回失败，不进入 JSON 格式修复。实际模型投影同时修正 Verifier 使用的 explorer 模式和大快照超过 64 KiB 后的分页声明。
+- Node 223 项通过，无失败/跳过/取消；范围为 Protocol、Core Evidence、整个 interactive-results、核验/criterion 系列、Desktop profile/投影/GoalHost 及连续核验。Bun 61 项通过，无失败；包含 TUI 实际 GoalHost → Executor → Pipeline → Provider、原 TUI 回合/模型测试及共享核验用例。Desktop 的实际 Responses loop → 投影 → Tool Host → Provider 取得 4 份规范检查回执，SessionVerification 持久语义事实通过。上述模型响应使用控制传输，未调用真实模型。
+- Desktop 全 build、Protocol/Core/Node/Desktop/TUI typecheck、architecture/UI conventions 与 IPC check 通过；IPC 为 403 channels、435 preload operations、352 main registrations。最初两项 Desktop 测试因隔离依赖缺 Electron 开发二进制而导入失败；复用已有同版本 41.7.1 开发二进制后重跑及最终组合批次均通过，日常应用未安装或重启。本批没有改界面，没有新截图验收。
+- 本机配置元数据已确认存在 OpenAI/Anthropic 两种可用工具/结构化格式声明的编码路径；这只是配置清点，尚无真实请求、修复、降级或成本记录。未运行最终全仓及标准全产品 packet，本批不构成 IUI-03/IUI-04 退出或完整目标完成。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
 - 规范发布索引的交付入口已接；继续核对既有 Tool Result 引用到原规范发布记录的关联消费、主 Bot 的结构化引用，以及宿主确认的 head/predecessor 新版本入口。不从助手正文、标题或 URI 文本推断产物或版本关系。
-- 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接并有专项证据；继续接 Verifier 固定目标/状态完整性/证据允许列表，覆盖完整留存与清理以及其余存储重写者。补齐冻结摘要的控件标签映射，不能从本批准入/传输测试推断任务已经通过核验。
-- 完成 Verifier 固定目标与证据允许列表、留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词；接管也不能跳过仍待确认的原保存请求。
+- 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例。继续覆盖完整留存与清理、其余存储重写者和冻结摘要控件标签映射，不把控制模型测试当作真实任务语义验收。
+- 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词；接管也不能跳过仍待确认的原保存请求。
 - 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
