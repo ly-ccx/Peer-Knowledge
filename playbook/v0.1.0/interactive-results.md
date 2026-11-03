@@ -525,6 +525,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `8a6b24d5` 补实际 TUI 启动进程验证。原 TUI 宿主通过 SessionControl 生成停止回执并关闭，独立 Bun 进程重建原 TUI 宿主、取得 lease、执行生产 tick，从真实日志和结果库结清原准备。断言没有发布回执、零模型回合。TUI 类型和 18 项宿主测试通过。Desktop 的进程级启动验收仍待补。
 
+- `eb8ecdab` 补 Desktop 主进程宿主跨进程恢复。父进程经 Desktop 注册入口和实际 SessionControl 写停止回执，关闭后独立 Node 测试进程重新注册 Desktop 宿主并 sync，原准备结清为中断，零模型调用、零发布回执。37 项 Desktop 集成测试通过。该测试用受控桌面依赖与 lease，未启动已安装 GUI。
+- 标准包再逐图确认运行、等待、窄亮等待详情和正在回复共四张，累计 55/255。当前源码已启动隔离 macOS arm64 本地打包和包内运行时检查，目录 `peer-adr118-desktop-current.hvnNr5`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
