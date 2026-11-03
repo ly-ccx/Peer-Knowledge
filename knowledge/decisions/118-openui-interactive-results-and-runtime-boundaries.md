@@ -306,6 +306,8 @@ IUI-03 在 Desktop/TUI 同时接入共享来源投影。既有 `get_session(deta
 
 主 Bot 的 `post_reply` 在既有 replyTo、sources、statusClaims 校验通过后，按宿主真实 owner 与所引用任务提取已确认的固定结果引用，合入既有 `meta.evidenceRefs`。模型参数、正文 URI 或自报 UserArtifact 不提供该事实。每条回复最多保留现有上限 20 个去重引用，按原任务引用顺序选择，完整引用仍在原任务报告中；这不是全部产物的穷举清单，也不自动取当前 head。未确认结果不产生卡片，普通进展/受阻回复仍可如实发出。现有 objective Evidence 同时保留并共用预算，不能因新增交互结果将其覆盖。
 
+主 Bot 可在 `coordinate_work` 的 `return` 决议中提交 `replyRef: "current_turn_reply"`。宿主只在同一真实执行切片及已核对的工作范围内，将该字面量解析为本轮 `currentReplyRef`，再执行原决议准入及核验。持久记录只保存具体回复引用。旧的具体引用仍按原规则校验；该字面量不提供授权、核验通过、送达或完成事实。真实交付仍由 `post_reply` 与规范对话回执证明。
+
 该接线只增加宿主内部的报告/回复事实读取端口，沿已有报告和回复协议传输，不新增执行、授权、Evidence 或 System Context 准入路径。固定交互 URI 按既有产物引用的有界长度传递；不能用通用短 ID 的长度限制丢掉合法引用，其他引用的原约束保持不变。Conversation 与旧写者必须原样保留这些已存在字段中的固定字符串引用。
 
 | 持久阶段 | 可证明的事实 | 对账与结束条件 |
