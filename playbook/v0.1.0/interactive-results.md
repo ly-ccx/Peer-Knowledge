@@ -389,6 +389,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `sQsz1j` 两线终态均已核对。OpenAI 两个计划均通过，30 次实际请求时触及主 Bot 角色上限 16 次，无显式复核 verdict 或最终交付。Anthropic 完成后续计划及显式会话复核，并持久化通过 verdict；下一次主 Bot 请求触及 32 次整案上限，原发布确认回复之外未发出最终回复。用户回合的等待工具隔离已从 OpenAI 实际请求确认。
 - 标准产品基线新增逐图核对 12 张备用视觉模型、服务商、Composer 空态/多行/附件及回复截图，绑定原图哈希。累计 146/255。
 
+- ADR `d963275` 与代码 `b2255861` 让显式复核在 verdict 落盘并释放占用后附上实际 sessionState。回复仍按实时任务状态重新核对，读取失败保留既有 verdict。Runtime Node 构建及 42 项 Provider、复核与完成门禁测试通过，实际宿主通过/失败两种复核均核对了状态及 revision。两线实连目录 `peer-interactive-live-lgwO8R`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
