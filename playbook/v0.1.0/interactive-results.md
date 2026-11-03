@@ -345,6 +345,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 解包版和 npm 入口分别通过 1 项 CLI 集成测试，各含 16 条断言，覆盖 help/version、固定版本 JSON 与文本、未登记发布、越界 owner、终端控制字符及清理摘要。运行未提供 DISPLAY 或 WAYLAND_DISPLAY。解包版在仅系统 PATH 与隔离数据根的空环境下也通过 help/version；动态链接列表只有 macOS 系统库。
 - CLI 二进制 73,602,736 B，归档 28,097,193 B，归档 SHA-256 `d44090c4e260f079942dbb73e56eb0446f699ceb994a33a9b44cd8d2bcdaeb6a`，日志在本机 `peer-adr118-cli-archive.lqEMsn`。覆盖 macOS arm64 的非交互入口。Linux、终端交互界面、安装版 Desktop 及其正式包体仍待核验。
 
+## macOS Desktop 归档运行时（8718d193）
+
+- Desktop 构建与 IPC 检查通过。第一次本地 macOS arm64 打包的旧归档门禁通过，但用包内 Electron 导入交互运行时时因 `interactive-content/src/limits.mjs` 被通用打包规则排除而失败。代码 `8718d193` 将该包的运行时 ESM 纳入归档，并检查四个公开运行时 export。新门禁对旧归档明确失败，对重打包归档通过。
+- 重新打包后，在 Electron 41.7.1 的 Node 模式实际从 asar 导入模块，隔离 Worker 求值、禁用节点拒绝、SQLite 关闭后重开及原固定引用的文本读取均通过。工作目录 `peer-adr118-desktop-package.hmmbLQ`。临时 ad-hoc 包占用 396,800 KiB，asar 为 99,898,866 B，SHA-256 `a59ef98c3e0c5c5cd6efc1ef8a43e4eae3540dfb32514e6255181afaf8a6042c`。本次覆盖包内运行时，正式签名公证与已安装 GUI 仍待验收。
+- 独立既有 `verify-verification-runtime.mjs` 的接管夹具缺少 `store.enableSupervision`，本轮执行在该断言前终止，保留原失败日志。已运行的交互归档探针使用隔离数据，日常 Desktop 进程仍在运行。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
