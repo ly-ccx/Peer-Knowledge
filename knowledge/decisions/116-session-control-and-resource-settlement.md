@@ -1,7 +1,9 @@
 # ADR 116：任务控制、执行停稳与资源交接
 
 创建时间：2026-11-01
-最后更新：2026-11-02
+最后更新：2026-11-03
+
+2026-11-03 契约澄清：Session Control 统一拥有子执行停稳与 unknown 作用域。SessionTakeover 不得在 applied 停止回执之外把主 Bot 自己仍在执行的协调 metadata 调用算成子任务 unknown。误挂 awaiting_outcome 的接管可凭原操作的当前停止证明恢复；另一操作、新 generation、历史撤回或助手文字不能替代该证明，真实未知 shell 仍保留目录保护。接管仍 stopping 时，原生恢复的 prepare 与 commit 必须返回 coordination_reconciliation_required，不能先覆盖 control 或创建新 generation，再遗留未完成接管与撤销中的绑定。依据、边界与未运行验证范围见[故障分析](../../playbook/v0.1.0/agent-wait-recovery-closure.md)。不改变持久化结构或最低版本。
 状态：Accepted / Implemented in source（2026-11-01；实现者内容/diff 自审，发布验收未执行，运行中的应用未升级）
 级别：A（控制、准入、恢复和持久化契约），B（调度、事件和共享宿主），C（状态表达）。
 
