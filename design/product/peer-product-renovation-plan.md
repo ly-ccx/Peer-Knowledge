@@ -21,6 +21,8 @@ ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话（`9
 
 增量 `8140ce58`（2026-11-04）：P06/P14 的主 Bot 报告与回复已接共享固定引用投影，原 Plan/sourceRevision 和权限/核验门不变；真实 Desktop ToolHost 与 TUI 宿主链、279 项 Node、28 项 Bun、工程检查及 Electron 专项通过。从持久回复引用打开原 EvidenceView，8 图已逐张实现者自审，independent=false；发布及模型为控制夹具。head/predecessor 导航、完整留存/多入口、实际模型与最终组合验收继续推进，功能默认关闭且 ADR 保持 Proposed。
 
+增量 `0af50095`（2026-11-04）：新增 C229/P06/P14 受控版本导航，主区原标签与独立窗口只打开宿主确认的 head/predecessor；保留旧原始输入和检查点，新版本不迁移旧值。实际导航发现并修正共享焦点选择器误取旧标签的问题。172 项 Node、32 项 Bun、工程检查及 Electron 专项通过，10 图逐张实现者自审，independent=false；完整模型/入口/留存/产品验收仍见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 
 后续用户指定的文件阅读区整理已在 `36801263` 落地：文件身份/地址/模式/动作分层，沿 Frost 字号、ChoiceStrip、MotionDetails 与真实读取骨架，补齐 C219/C220；源码真实加载、路径、Diff 空态及 340/420px 分栏已局部设计自审。读取与草稿/权限/存储边界不变，测试及完整回归仍待 E13；范围见两个覆盖矩阵的新文件阅读条目。
