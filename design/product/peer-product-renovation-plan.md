@@ -1,7 +1,7 @@
 # Peer 当前产品改造计划
 
 创建时间：2026-10-23
-最后更新：2026-11-03
+最后更新：2026-11-04
 
 > 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06、E07–E08、E09–E10、E11–E12 及 E15–E17 本批消费者已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；历史分批交付不等于合入开发线；本轮按用户授权合并全部开放 PR，状态见下节。不安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
@@ -18,6 +18,8 @@ ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话（`9
 增量 `4d33ae4e`：C223/C224/C228 冻结摘要从固定发布程序的初始控件重建标签；可终止 Worker 外计算、事务内再次核对，原视图退役即中止，明确重试不丢原点击条件或后续输入。174 项 Node、54 项 Bun、真实 Electron 双窗口与 8 图实现者自审通过；沿原草稿链可见 Trial name / Divisor 等标签。
 
 最新增量 `c57f603b`：P14/P06 原任务工具别名经真实任务/调用及规范发布来源解析，在原 EvidenceView 打开固定结果；unchanged 保留原发布任务，旧文件证据继续原路径。178 项 Node、9 项 Bun、Desktop build/type/architecture/IPC 及实际 Electron 专项通过，8 图实现者自审已记录。主 Bot 报告/回复的固定引用、新版本入口、其余多入口、真实模型和最终完整验收继续按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进；Proposed/default-off 不变，单项通过不代表阶段退出。
+
+增量 `8140ce58`（2026-11-04）：P06/P14 的主 Bot 报告与回复已接共享固定引用投影，原 Plan/sourceRevision 和权限/核验门不变；真实 Desktop ToolHost 与 TUI 宿主链、279 项 Node、28 项 Bun、工程检查及 Electron 专项通过。从持久回复引用打开原 EvidenceView，8 图已逐张实现者自审，independent=false；发布及模型为控制夹具。head/predecessor 导航、完整留存/多入口、实际模型与最终组合验收继续推进，功能默认关闭且 ADR 保持 Proposed。
 
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 

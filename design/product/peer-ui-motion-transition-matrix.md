@@ -1,5 +1,11 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## ADR 118 固定回复引用与原工作现场（2026-11-04，增量验证）
+
+P06/P14，代码 `8140ce58`。复用原 EvidenceView/EvidenceDeliveries、Frost、SVG 和资源/Composer 连续性，从持久 Bot 回复读取宿主确认的固定引用；没有新增动画、自动切换、焦点转移或执行入口。检查报告和回复引用仅加载发布元数据，既有程序/数据仍按原受控入口打开；未验证摘要与用户冻结条件保持各自归属。
+
+`peer-interactive-workspace-O3NXhM` 的 8 图已逐张实现者自审，independent=false，指纹 `b21f3530bb79decad9a8e1accc9b9ef64c66bb2e8bf02e69f06926e080642003`，绑定 `8140ce585b7e981068ebb621b44a12c5d6852d9b`。原草稿、人工发送、主区/独立窗口、保存接管、中断输入和 chunk 降级继续通过。发布/Grant 及 Plan/Session 为控制夹具；不是标准全产品 packet、实际模型、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收。
+
 ## ADR 118 原任务证据进入固定结果（2026-11-03，增量验证）
 
 P14/P06，代码 `c57f603b`。复用既有 EvidenceView/EvidenceDeliveries、Frost、SVG、资源标签和草稿/阅读连续性；新的来源解析位于宿主共享 Module，不在 Renderer 创建权限或 Evidence，没有新增动画、焦点转移、自动重载或新发送路径。原规范发布引用与未验证模型摘要在证据面可达；同名工具调用或 unchanged 回执不改变原来源。

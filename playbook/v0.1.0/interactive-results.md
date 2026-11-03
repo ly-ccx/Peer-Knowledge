@@ -1,7 +1,7 @@
 # ADR 118 交互结果实施与验证
 
 创建时间：2026-11-03
-最后更新：2026-11-03
+最后更新：2026-11-04
 
 状态：实施中，未完成。七项文档补充已交付，用户现已明确恢复“完整实现并测试完成”的目标，继续完整代码实施与提前验证。既有实施、验证和未提交工作均保留。ADR 118 仍保持 Proposed；实现及单项测试不构成决策接受、运行时授权或产品验收。
 
@@ -18,7 +18,7 @@
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；其余共享存储、留存及完整能力验收继续待完成，未退出 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；真实文档/浏览器混合场景及其余产品验收尚未完成；功能默认关闭，未退出 |
-| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；Bot 结果引用与真实模型生成/修复效果待完成，未退出 |
+| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；真实模型生成/修复效果待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
 
 ## 验证与完成标准
@@ -99,10 +99,19 @@
 - 实际 Electron 专项改用正式 EvidenceView、ProjectAgentApplicationService 和同一 PublicationSource，经生产 preload/授权 IPC 从 `tool-result://publication` 打开固定结果，原主区/独立窗口、条件草稿与人工发送、布局/接管/中断/chunk 恢复继续通过。一次重载因真实未保存保护超时；测试已改为等待确认并明确重试重载，没有绕过保护。逐图检查发现夹具缺 Evidence CSS，补导入正式 bot-drawer.css 后重采最终 8 图。`peer-interactive-workspace-umOyTs` 的 review.json 绑定上述源码，independent=false，指纹 `4304b254f0c897dec4bf531986d19722eec4114b0ce13ca6ef8280a1c03d0fa6`；浅色读位截图保留真实布局待保存中间态。发布/Grant、Plan/Session 端口及外围壳仍为控制夹具，未据此声称整机任务或真实模型完成。
 - 已同步 P14/P06 两份体验矩阵与改造计划。本批完成受控任务证据到固定发布的消费；主 Bot 报告/回复引用、head/predecessor 新版本入口、完整留存、多入口与实际模型效果仍未完成，不能关闭 IUI-02/IUI-03/IUI-04 或全目标。
 
+## 任务报告与主 Bot 回复固定引用增量（8140ce58）
+
+- 契约先在 `7888c10` 的 ADR §9.5 明确，代码 `8140ce585b7e981068ebb621b44a12c5d6852d9b` 已提交并推送。共享 PublicationSource 仅从实际 task/call、已发布操作、固定 manifest 与规范索引取得结果身份；对外报告替换可证明的别名，内部完成审查、原 Plan 和 sourceRevision 保持原事实。元数据投影不读程序/数据正文，不经完整报告递归取数。
+- Desktop/TUI 的实际报告和 post_reply 接同一来源 Module；回复在原锚点、sources、statusClaims 校验后由宿主填入既有 meta.evidenceRefs。模型自报 URI/产物无效，原 objective refs 优先保留，共用 20 条上限；完整报告不被截成 20 条。达到上限仍核对后续被引用任务的归属。未确认结果不制造卡片，旧无 parent 任务的普通进展仍可回复；head 推进及 unchanged 均保留原固定身份。
+- 279 项 Node 通过，覆盖整个交互运行时、完整 SessionSupervisor、报告/回复和 Renderer 元数据归一化；28 项 Bun 通过，包含实际 TUI composition root → Provider 模型循环 → get_session(report) → post_reply → canonical Bot 消息，以及共享来源/默认 Desktop ToolHost 集成。实际工具宿主测试保留原授权/核验门，不从未验证结果制造通过标记。最初 TUI 夹具使用 inputId 而非 canonical 锚点、把所有叶任务标为完成触发原核验门，以及新增测试的可选方法/ES lib 类型错误，均已修正；最终组合无失败/跳过/取消。
+- Runtime Node build、Desktop 全 build、Runtime Node/Desktop/TUI typecheck、architecture/UI 与 IPC check 通过；IPC 仍为 403 channels、435 preload operations、352 main registrations。Desktop 构建保留既有大 chunk 警告，未以提高阈值消除。
+- 实际 Electron 专项 1 项通过，先用真实 ReplyComposer 生成并持久化固定引用，再由原 EvidenceView/ApplicationService、正式 preload/授权 IPC 打开；主区/独立窗口、原草稿/人工发送、读位、两种接管、中断输入与 chunk 降级继续通过。最初该夹具缺少已完成叶任务的 result 文本，按原报告契约补齐，未放宽生产收集条件。`peer-interactive-workspace-O3NXhM` 的 8 张原 PNG 已逐张实现者自审，review.json 绑定上述提交，independent=false，审阅指纹 `b21f3530bb79decad9a8e1accc9b9ef64c66bb2e8bf02e69f06926e080642003`。
+- Electron 的发布/Grant、Plan/Session 端口与外围壳仍为控制夹具；真实 Desktop/TUI 模型循环使用控制传输，没有实际模型请求。已同步两份体验矩阵及改造计划。本批不代表 head/predecessor 新版本入口、完整留存、多入口、系统 IME/无障碍/性能、最终全仓门禁或标准全产品 packet 完成，IUI-02/IUI-03/IUI-04 与完整目标仍未退出。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
-- 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；继续完成主 Bot 报告/回复的固定结构化引用，以及宿主确认的 head/predecessor 新版本入口。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
+- 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；继续完成宿主确认的 head/predecessor 新版本入口。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
 - 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。

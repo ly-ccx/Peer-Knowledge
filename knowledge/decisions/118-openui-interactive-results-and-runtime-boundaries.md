@@ -1,7 +1,7 @@
 # ADR 118：OpenUI 可交互结果复用与运行时边界
 
 创建时间：2026-11-02
-最后更新：2026-11-03
+最后更新：2026-11-04
 
 状态：Proposed。七项评审问题已补齐契约、责任 Module、实施阶段及后续验收用例，仍待设计评审接受。设计补充提交仅含文档；后续实施与验证的实际提交、证据及剩余缺口分别保留在实施跟踪。关联实现分支、单项测试或后续实施任务均不自动改变本 ADR 状态，不代表能力开放或产品验收通过。
 
@@ -163,7 +163,7 @@ flowchart TD
 | 交互协议 | `packages/protocol/src/interactive-result.ts` | 发布创建/修订、固定引用、检查请求、冻结条件、状态 CAS、错误和兼容对象；不得引用 React 或文件系统 |
 | InteractiveContent | `packages/interactive-content/` | 共享目录规格、语言子集校验、输入/状态归一化、复杂度计算、有界确定性求值与文本投影；框架无关且无 I/O |
 | InteractiveMaterialSource | `packages/runtime-node/src/interactive-results/material-source.mjs` | 从已准入规范记录解析固定版本字节、范围、脱敏和数据等级；不重读当前项目文件冒充历史输入 |
-| InteractivePublicationSource | `packages/runtime-node/src/interactive-results/publication-source.mjs` | 人的原证据入口按真实任务/owner 解析发布别名或固定引用，核对规范来源并提供原模型摘要；不面向模型暴露读取 API，不重写历史或生成 Evidence |
+| InteractivePublicationSource | `packages/runtime-node/src/interactive-results/publication-source.mjs` | 人的原证据入口与对外报告/回复按真实任务/owner 核对固定发布来源；报告/回复仅投影元数据，人的正文读取另核对来源；不暴露模型读取 API、不重写历史或生成 Evidence |
 | InteractiveResultProvider | `packages/runtime-node/src/interactive-results/provider.mjs` | 发布与只读检查的 Manifest/Projection、执行身份与 grant、真实 Tool Result/UserArtifact/Evidence |
 | InteractiveResultStore | `packages/runtime-node/src/interactive-results/store.mjs` | 不可变版本与 head CAS、幂等发布回执/待登记项、状态写者/CAS、条件快照、恢复、保留和兼容准入 |
 | OpenUIRendererAdapter | `apps/desktop/renderer/src/interactive-results/` | SDK 渲染、Peer 组件、局部状态和结构化错误；不直接调用能力 |

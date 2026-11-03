@@ -1,5 +1,11 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## ADR 118 主 Bot 报告与回复的固定结果引用（2026-11-04，增量验证）
+
+P06/P14，代码 `8140ce58`。用户从 Bot 回复打开已发布结果；宿主按真实被引用任务/owner 及原发布回执生成固定 meta.evidenceRefs，不从正文 URI 或模型自报产物推断。报告和回复复用只读元数据投影；head 推进、unchanged、待登记和旧任务均保留各自真实来源，回复共用原 20 条预算，完整报告仍可追溯。原权限、核验、签收与 Composer 责任不变。
+
+279 项 Node、28 项 Bun、实际 Electron 专项通过；TUI 真实宿主和默认 Desktop ToolHost 均覆盖报告到 canonical 回复，模型为控制传输。Electron 从持久回复的固定引用经正式 EvidenceView 打开，原草稿/人工发送、双窗口与恢复继续通过；8 图实现者自审，independent=false。版本导航、完整多入口、真实模型及最终验收仍见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)，不能据此启用默认关闭的能力。
+
 ## ADR 118 任务证据别名与固定交付来源（2026-11-03，增量验证）
 
 P14/P06、既有 EvidenceView/EvidenceDeliveries，代码 `c57f603b`。用户从原任务的工具证据进入交互结果；共享 PublicationSource 按真实 task/Plan/Session/report、工作 conversation 和当前 Bot owner 解析发布回执，核对原规范索引后返回固定引用及明确未验证的模型摘要。无任务 context 的工具别名不猜测归属；相同 wire call ID 的其他任务/Bot 不改绑来源。unchanged 修订继续显示原发布任务，不新增产物。
