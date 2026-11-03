@@ -7,7 +7,7 @@
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
 
-ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话已在代码 `9c726072` 落地并完成领域测试、真实 Electron SDK 挂载及四图实现者自审；正式资源/IPC/窗口、原草稿链、Verifier 目标和组合验收尚未完成，功能默认关闭，ADR 保持 Proposed。不沿用历史 E13/RC35 产品验收覆盖新入口；详细范围与缺口统一维护在 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 和对应两份矩阵新条目。
+ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话（`9c726072`）之后，C223/C224 与正式资源协议、typed IPC/preload、原生状态/阅读检查点和受版本保护的恢复记录已在 `518420a4` 接线；实际隔离 Electron → SQLite 链与三图实现者自审通过，SDK 四图也重采核对。发布源仍为领域夹具；Artifact/混合标签、布局及返回消费者、按需模块故障、原草稿链、Verifier 目标和组合验收尚未完成，功能默认关闭，ADR 保持 Proposed。不沿用历史 E13/RC35 产品验收覆盖新入口；详细范围与缺口统一维护在 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 和对应两份矩阵新条目。
 
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 
