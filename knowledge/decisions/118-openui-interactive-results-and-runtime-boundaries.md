@@ -3,7 +3,7 @@
 创建时间：2026-11-02
 最后更新：2026-11-03
 
-状态：Proposed。七项评审问题已补齐契约、责任 Module、实施阶段及后续验收用例，仍待设计评审接受。本次交付仅更新 ADR，不修改代码或运行测试；既有实施与验证记录保留在实施跟踪。关联实现分支、单项测试或后续实施任务均不自动改变本 ADR 状态，不代表能力开放或产品验收通过。
+状态：Proposed。七项评审问题已补齐契约、责任 Module、实施阶段及后续验收用例，仍待设计评审接受。设计补充提交仅含文档；后续实施与验证的实际提交、证据及剩余缺口分别保留在实施跟踪。关联实现分支、单项测试或后续实施任务均不自动改变本 ADR 状态，不代表能力开放或产品验收通过。
 
 级别：A。扩展用户产物、资源引用、交互状态持久化、能力投影和 System Context 准入契约；共享实现与宿主装配属于 B 级，局部组件与布局属于 C 级。
 
@@ -163,6 +163,7 @@ flowchart TD
 | 交互协议 | `packages/protocol/src/interactive-result.ts` | 发布创建/修订、固定引用、检查请求、冻结条件、状态 CAS、错误和兼容对象；不得引用 React 或文件系统 |
 | InteractiveContent | `packages/interactive-content/` | 共享目录规格、语言子集校验、输入/状态归一化、复杂度计算、有界确定性求值与文本投影；框架无关且无 I/O |
 | InteractiveMaterialSource | `packages/runtime-node/src/interactive-results/material-source.mjs` | 从已准入规范记录解析固定版本字节、范围、脱敏和数据等级；不重读当前项目文件冒充历史输入 |
+| InteractivePublicationSource | `packages/runtime-node/src/interactive-results/publication-source.mjs` | 人的原证据入口按真实任务/owner 解析发布别名或固定引用，核对规范来源并提供原模型摘要；不面向模型暴露读取 API，不重写历史或生成 Evidence |
 | InteractiveResultProvider | `packages/runtime-node/src/interactive-results/provider.mjs` | 发布与只读检查的 Manifest/Projection、执行身份与 grant、真实 Tool Result/UserArtifact/Evidence |
 | InteractiveResultStore | `packages/runtime-node/src/interactive-results/store.mjs` | 不可变版本与 head CAS、幂等发布回执/待登记项、状态写者/CAS、条件快照、恢复、保留和兼容准入 |
 | OpenUIRendererAdapter | `apps/desktop/renderer/src/interactive-results/` | SDK 渲染、Peer 组件、局部状态和结构化错误；不直接调用能力 |
@@ -760,7 +761,7 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 
 ### 22.1 验证时点
 
-设计补充提交仅做内容、引用和 diff 审阅，本次不运行测试、构建/类型/架构/IPC 检查、截图或交互回归。普通实施按卡片准备必要测试与夹具，只有用户明确要求提前验证才执行。本节定义完整验收要求；用户后续明确要求实施与测试时，实际结果单列在实施跟踪，不把测试计划当作通过证据。
+仅更新设计的提交做内容、引用和 diff 审阅，不自动运行测试、构建/类型/架构/IPC 检查、截图或交互回归。普通实施按卡片准备必要测试与夹具，只有用户明确要求提前验证才执行。本节定义完整验收要求；用户明确要求实施与测试的任务按该授权执行，实际结果单列在实施跟踪，不把测试计划当作通过证据。
 
 版本/RC 发布前先合并全部 open PR，在最终组合候选运行完整门禁。产品回归沿 `qa:product:capture` → AI 逐图/交互审阅并写 `review.json` → `qa:product:verify`，覆盖本节新增流程。实施者自审标明非独立；CI 运行不能代替 AI 产品审阅或真实模型效果评估。
 
@@ -858,7 +859,7 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 | 项目 | 当前状态 |
 | --- | --- |
 | ADR 设计与固定来源整理 | Proposed；2026-11-03 补齐七项接线契约、阶段归属与 IUI-T23—29，并完成内容/diff 自审；仍待设计评审接受 |
-| 依赖安装、代码实现、模型或本机能力开放 | 本次不实施、不修改代码；既有分支工作及其实际提交与缺口保留在实施跟踪。功能开关默认关闭，不能由模块存在推断完整接线或能力已开放 |
+| 依赖安装、代码实现、模型或本机能力开放 | 七项设计补充提交只含文档；后续实现的代码提交、专项验证及剩余缺口见实施跟踪。功能开关默认关闭，不能由模块存在推断完整接线或能力已开放 |
 | 测试、构建/类型/架构/IPC、产品回归 | 文档审阅不运行；后续实施的实际验证单列，不以计划代替结果 |
 | 真实模型、安装包、多入口与无障碍验收 | 待实施后的最终组合候选验证；作者文档审阅不属于独立验收 |
 
