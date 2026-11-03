@@ -261,6 +261,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 运行用量（输入 / 输出 / 缓存读取）分别为 Anthropic 7,621 / 2,843 / 24,448 与 OpenAI 8,739 / 3,156 / 22,912；账单不可取得。证据目录 `peer-interactive-live-TeWViX`，实现者核对源码、请求、报告和规范回执。首次真实运行 `peer-interactive-live-deKUuQ` 两线均发布成功，Anthropic 有完整检查回执但宿主未判通过，OpenAI 在原预算内缺两次求值。随后提供精确检查参数、要求只引用规范检查 ID，并记录逐回合诊断，预算与宿主判定未放宽。更早一次凭据 helper 未解析，实际 HTTP 请求为零。
 - 12 项 Bun 测试、TUI 类型及架构/UI 检查通过。完整主 Bot 自主委托和最终交付、生产清理与标准验收仍待完成；当前结论限于合成结果的语义核验。
 
+## 全仓工程与产品采集基线（45102335）
+
+- 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
+- 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集、逐图审查和 verify 分开记录。此次工程检查不证明完整真实任务故事或安装版回归。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
