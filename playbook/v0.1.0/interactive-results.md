@@ -299,12 +299,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - ADR `4500b61` 和代码 `e3ed3262` 将 Desktop/TUI 的实际草稿和队列实例交给共享清理 Module；Desktop ApplicationService 与 TUI 客户端复用这些实例。TUI 20 项及 Desktop 46 项宿主组合测试通过，另以受控兼容守卫和实际 TUI 草稿锁验证 busy 阻断及释放。代码 `74176e0a` 将材料责任证明收口到持锁根快照，删除独立覆盖入口，30 项留存与核验测试通过。正式源码已同步并启动全仓复跑。生产没有可证明的旧写者兼容权威，公开清理仍未开放。
 - Anthropic 样本 `peer-interactive-live-9N0Ebu`（`aaf3fb82`）用 29 次请求完成原发布和冻结后续任务。两个计划的独立核验均通过，后续计划引用四条规范回执；该样本的主 Bot 在会话级核验前达到请求上限，已有回复是进度而非最终交付，未计整案成功。
 
+- 代码 `bbbfea4a` 统一会话级语义核验的证据约束。模型回执含越界引用时，计划级和会话级均只写已登记引用，保留结构化缺证原因并采用宿主失败结论，不推进验收。29 项 SessionVerification、核验恢复/投影和交互核验测试通过。
+- 代码 `97157726` 让真实故事在原发布任务已可交付后才发送冻结反馈，避免两次模型核验同时运行导致旧进度覆盖新用户选择；验收仍要求真实第二次委托、`verify_session` 与最终回复。TUI 类型与 11 项专项测试通过，最新完整实连待跑。受控排查确认原 TUI 可收到任务结束唤醒，未保留额外订阅试验。
+- `74176e0a` 全仓构建、类型、架构/UI 与 Desktop IPC 检查通过。全仓测试仍遇并发下 Desktop 输入预测凭据 helper 超时；已在相同源码对完整 Desktop 套件限并发复跑，日志目录 `peer-adr118-desktop-controlled.vP5MEJ`，未修改生产凭据时限。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 25 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 30 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 ## 后续接线与完成审计
 
