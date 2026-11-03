@@ -275,12 +275,15 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - OpenAI Chat 的 `8dcb2028` 复跑最终用完 32 次请求，并在整案时限终止。后续 worker 已真实读到固定程序、绑定数据、初始求值和冻结求值，但后续任务未完成，无该任务独立 verifier 通过或最终规范交付。仍按真实失败记录；未调整原预算。
 - 代码 `d2ba0137` 复用 TUI Provider encoder，实际 Anthropic 原生 thinking/signature 只随同一 Provider、模型的活消息身份续接；序列化检查点和规范历史保持普通消息。DeepSeek 强制回放时，缺失原生数据的历史助手和配对工具结果作为有标签事实处理。TUI 类型及两个适配器文件 39 项 Bun 测试通过，覆盖实际工具循环和恢复历史；真实 Anthropic 复跑目录 `peer-interactive-live-n6XylB`，仍需核对终态。
 
+- Anthropic 原生续接修复后的真实样本完成原任务、提交冻结输入，进入后续回复链。在 24 次请求内无 thinking 相关 HTTP 400；主 Bot 使用完自己的 16 次额度，期间多次直接读取结果，没有建立第二个任务。该样本没有端到端通过证据。
+- 代码 `15878144` 细化两条合成用户输入，原 worker 负责发布与记录，后续 worker 读取一次冻结求值，四类完整覆盖由独立 Verifier 负责。请求或工具额度到限时记录角色并结束等待；整案、单角色和 HTTP 额度均沿用。TUI 类型及专项 11 项 Bun 测试通过，OpenAI Chat 重跑目录 `peer-interactive-live-kZQHuN`。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 15 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 25 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 ## 后续接线与完成审计
 
