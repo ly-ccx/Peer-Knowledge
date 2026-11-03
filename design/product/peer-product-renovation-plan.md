@@ -13,7 +13,9 @@ ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话（`9
 
 增量 `f5eaa173`：在 `8b3ffbcf` 主区标签/连续性之后，新增 C228 条件交回原草稿；实际 prepare/claim/持久草稿/ack/宿主读回，以及原 Composer 人工发送、队列/Conversation/委托固定材料已接。295 项 Node、55 项 Bun、真实 Electron 与 6 图自审仅证明该专项，不能沿用旧发布证据或据此启用功能。
 
-最新增量 `fd4fce5a` / `c85b3a42`：固定目标/完整冻结条件的 Verifier 真实检查证据已接 Desktop/TUI 控制模型链；C223/C224 保存恢复区分历史已提交、可信未提交与未知，接管先结算原请求并保留待确认本地输入。后者 153 项 Node、46 项 Bun、真实 Electron 双窗口及 8 图实现者自审通过，复用原 Frost/静态状态，无新增动画。精确条件标签、其余多入口、真实模型和最终完整验收继续按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进；Proposed/default-off 不变。
+增量 `fd4fce5a` / `c85b3a42`：固定目标/完整冻结条件的 Verifier 真实检查证据已接 Desktop/TUI 控制模型链；C223/C224 保存恢复区分历史已提交、可信未提交与未知，接管先结算原请求并保留待确认本地输入。后者 153 项 Node、46 项 Bun、真实 Electron 双窗口及 8 图实现者自审通过，复用原 Frost/静态状态，无新增动画。
+
+最新增量 `4d33ae4e`：C223/C224/C228 冻结摘要从固定发布程序的初始控件重建标签；可终止 Worker 外计算、事务内再次核对，原视图退役即中止，明确重试不丢原点击条件或后续输入。174 项 Node、54 项 Bun、真实 Electron 双窗口与 8 图实现者自审通过；沿原草稿链可见 Trial name / Divisor 等标签。其余多入口、结果/版本消费者、真实模型和最终完整验收继续按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进；Proposed/default-off 不变，单项通过不代表阶段退出。
 
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 

@@ -17,7 +17,7 @@
 | --- | --- | --- |
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；产品 CLI、完整宿主接线及其余共享存储兼容尚待完成，未退出 |
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；其余共享存储、留存及完整能力验收继续待完成，未退出 |
-| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。真实文档/浏览器混合场景、条件标签映射及其余产品验收尚未完成；功能默认关闭，未退出 |
+| IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；真实文档/浏览器混合场景及其余产品验收尚未完成；功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；Bot 结果引用与真实模型生成/修复效果待完成，未退出 |
 | IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | 待实现 |
 
@@ -83,10 +83,18 @@
 - 真实隔离 Electron → 正式 preload/授权 IPC → 应用服务 → SQLite 专项通过：分别让原窗口的保存已提交丢回执/尚未提交，另一窗口写入 7/9，再明确接管恢复原值 6/8。保留原 Composer 草稿与人工发送、关后重开、布局读位、中断输入及 chunk 失败恢复；产物版本/发布操作仍各 1，无额外发布。发布/Grant 和外围壳仍是控制夹具，没有真实模型调用。
 - `peer-interactive-workspace-MHDUO8` 的 8 张图已逐张实现者自审，review.json 绑定上述源码；independent=false，字节审阅指纹 `0df87f3ffdb172d176e6aa5f06d64f8b91133887055de06fdb803058377d24a0`。已同步两份体验矩阵和改造计划。此专项不包含标准全产品 packet、真实模型、安装版、系统 IME、完整缩放/减少动效、读屏或性能，完整目标仍未完成。
 
+## 条件标签与异步冻结增量（4d33ae4e）
+
+- 契约先在 `7a92823` / `b9cedf7` 的 ADR §12.5.2 明确，代码 `4d33ae4e63a3f6da695c3f8a1ba2f6b6cd2a8cbf` 实现。InteractiveContent 的 describeState 经同一公开 SDK 校验固定内容并重建初始标签，StateStore 经独立 2 秒/64 MiB 可终止 Worker 调用；不采用 Renderer 渲染树，不持久化另一份派生树，不改变协议、数据库格式、权限或 Evidence。
+- prepareFollowup 在 Worker 前后分别核对真实 owner/view、原 writer、revision/digest、字段及合法输入；等待期间不持有 SQLite 事务，提交继承实际最新分类底线。已存在的 canonical followup 仍幂等返回原文；同一视图重复请求共享一次投影，不同并发请求明确 busy，真实视图关闭/销毁中止原请求。状态/写者/归属变化、取消或不匹配摘要均不生成冻结行。
+- 初始命名控件使用固定标签；当前合法值导致除零等试算失败仍可讨论，不重新求值该失败分支或取默认参数替代。没有初始命名控件的字段采用稳定条件序号。原检查点在冻结前已变化时，显式重试以新的 save requestId 确认原点击候选；后续编辑继续留在原视图，原冻结材料不漂移。
+- 174 项 Node 通过，涵盖 InteractiveContent、整个 interactive-results、Renderer 会话/registry 与 Desktop ApplicationService。54 项 Bun 分两批通过，覆盖 Worker、状态/视图/会话与两条 TUI 实际 Provider/核验链。Desktop 全 build、Protocol/Node/Desktop/TUI typecheck、architecture/UI 与 IPC check 通过；IPC 仍为 403 channels、435 preload operations、352 main registrations。新增测试最初有一处异步时序等待及一处预期错误码不符，已按真实服务入口及现有 incompatible_catalog 契约修正，最终组合无失败/跳过/取消。
+- 隔离真实 Electron 专项 1 项通过：主资源区及原生窗口将带 Trial name / Divisor 的 5/4 条件加入原 Composer，正文/引用/附件与人工发送链保持；接管保存、布局/阅读位置、中断输入及 chunk 失败恢复继续通过。发布/Grant 与外围壳是控制夹具，未运行实际模型。`peer-interactive-workspace-ApPG3l` 的 8 张 PNG 均逐张实现者自审，review.json 绑定上述源码，independent=false；审阅指纹 `3b73d50e71b3259dbe9c7c8035e0f40a32dbecd97011f05cbf6d217f206bc8d4`。已同步两份体验矩阵和改造计划；这不是最终标准产品 packet、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
 - 规范发布索引的交付入口已接；继续核对既有 Tool Result 引用到原规范发布记录的关联消费、主 Bot 的结构化引用，以及宿主确认的 head/predecessor 新版本入口。不从助手正文、标题或 URI 文本推断产物或版本关系。
-- 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例。继续覆盖完整留存与清理、其余存储重写者和冻结摘要控件标签映射，不把控制模型测试当作真实任务语义验收。
+- 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 完成留存/清理责任、TUI/CLI/Remote 实际文本和独立打包入口。另核对用户参数/原始草稿中已知凭据或权限 payload 的权威准入限制，不能只保护工具观测材料或依赖提示词。接管前原保存结算已在本批完成，继续覆盖永久 owner 变化等其余恢复责任。
 - 完成两种实际 Provider encoder 的真实模型生成/修复/降级、全仓工程门禁及标准产品 capture → AI 逐图 review → verify。还需覆盖 SDK 挂载异常、主工作区故障恢复、完整组件/图表目录、减少动效/放大/辅助技术及性能；明确记录系统 IME、安装版和真实模型覆盖边界。所有已完成的本批用例只证明其实际覆盖，不代替这些缺口。
