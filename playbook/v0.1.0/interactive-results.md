@@ -261,6 +261,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 运行用量（输入 / 输出 / 缓存读取）分别为 Anthropic 7,621 / 2,843 / 24,448 与 OpenAI 8,739 / 3,156 / 22,912；账单不可取得。证据目录 `peer-interactive-live-TeWViX`，实现者核对源码、请求、报告和规范回执。首次真实运行 `peer-interactive-live-deKUuQ` 两线均发布成功，Anthropic 有完整检查回执但宿主未判通过，OpenAI 在原预算内缺两次求值。随后提供精确检查参数、要求只引用规范检查 ID，并记录逐回合诊断，预算与宿主判定未放宽。更早一次凭据 helper 未解析，实际 HTTP 请求为零。
 - 12 项 Bun 测试、TUI 类型及架构/UI 检查通过。完整主 Bot 自主委托和最终交付、生产清理与标准验收仍待完成；当前结论限于合成结果的语义核验。
 
+
+## 真实主 Bot 任务故事增量（66b8bfe1）
+
+- 新增显式 `qa:interactive:live --scenario story`，复用 TUI 项目宿主及其规范输入队列。第一条输入委托只读工作发布固定预算；确认发布 Evidence 与任务记录后，驱动器经实际状态保存和冻结端口提交第二条用户输入。该输入通过既有材料准入进入新的核验委托。成功判据包含独立 Verifier 通过、四类固定检查回执、主 Bot 规范回复引用两个任务和同一个产物，以及任务文本入口能够读取。
+- 该专项只投影合成案例所需的委托、协调、结果与 Goal 工具。模型、工具和物理 HTTP 分别设限；最多 32 次模型/HTTP 请求，45 秒/请求，240 秒/整案。两项任务由真实主 Bot 建立；驱动器不建立子会话、不预填结果或 verdict。桌面 Composer 交互仍由单独原生专项覆盖。
+- `8c27c98e` 的首轮真实 Anthropic Messages 已观察到主 Bot 委托、worker 读取 Goal 并发布成功。驱动器把同一次发布的规范 Evidence 和工具调用别名重复计数，提前终止；证据目录 `peer-interactive-live-NPTAYz`。代码 `66b8bfe1` 按规范 Evidence 计数，并等待原任务记录该发布后再提交冻结条件。TUI 类型检查与原专项 11 项 Bun 测试通过，修正后真实重跑仍需核对完整结论。
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
