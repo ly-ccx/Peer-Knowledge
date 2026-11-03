@@ -409,6 +409,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 标准产品基线新增确认 4 张深浅色缺恢复记录与自动续接画面，累计 199/255。
 - 干净源码 `52120424` 两个真实 Provider 复跑完整故事，报告目录 `peer-interactive-live-p5OQCK`。两路均完成发布及冻结，最终回复验收均未通过。Anthropic 用完 32 次总请求（Bot 16、worker 9、Verifier 7），两工作会话为 `result_ready`，最后一次 Bot 请求连接关闭；OpenAI 用 29 次（Bot 16、worker 8、Verifier 5），达到 Bot 角色上限时复核工作仍为 `verifying`。早期回复、检查工具调用或 `result_ready` 不作为主 Bot 引用持久化通过复核的最终交付证据。
 
+- `a290a86c` 修复预算截图脚本。首次重采在新可见性断言中复现虚拟消息挂载却越出视口，第二次在打开详情前用实际滚轮定位并核对可见边界。隔离 Electron 已生成两张截图并逐图确认宽窄窗均显示预算耗尽、256/256 与限制来源。标准包 `peer-adr118-product-recapture.xBTxQP` 仍在采集，旧包保留原审阅结论。采集以相同文件字节启动于提交前，最终以 sourceFingerprint 核对。
+- 从 `p5OQCK` 的持久 Bot 回合进一步确认两路均遭遇 `status_claim_mismatch` 及 `verifier_in_progress`。Anthropic 在独立核验已运行之后发起显式复核，得到持久化 failed verdict。OpenAI 的早期 `post_reply` 工具回执虽有成功项，保留的对话中未出现可供验收的 canonical 最终回复。这些证据把下一步定位到用户回合续接、复核职责和交付收敛，不能只按请求上限解释。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
