@@ -457,6 +457,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `80d64c94` 标准包再逐图核对 8 张待回复、历史、历史预览及选项发送画面，逐张匹配 SHA-256，累计 107/255。
 - `b679c57d` OpenAI 故事 `peer-interactive-live-7yV2Ha` 完成发布并发起真实会话复核。首次正式交付前主 Bot 耗尽 16 次，整案 26 次（worker 4、Verifier 6）。已保存初次 assess，后续提交重新写了既有 interpretation，被 `intent_revision_required` 拒绝。`3eb270e9` 保留修订保护，在 Tool Result、schema 与工具提示明确同目标更新应省略 interpretation、沿用已保存的 requirementId；测试核对拒绝不推进 revision。43 项生命周期与委托测试通过，OpenAI 已启动按原限额复跑。
 
+- `80d64c94` 标准包逐图确认 8 张选项提交、更新收起及任务报告加载画面，逐张匹配 SHA-256，累计 115/255。
+- `3eb270e9` OpenAI 样本 `peer-interactive-live-ECqvMU` 首次经根核验、return 和实际 `post_reply` 完成首个固定产物交付。规范对话包含原输入锚、实际会话状态、固定引用及绑定决议。随后驱动确认保存并冻结 80，通过输入队列追加第二条规范消息。交付前积累的四个旧结果/报告/核验事件紧接着触发一次唤醒，模型两次空工具输出后以 `work_disposition_required` 结束。冻结输入进入回合时 Bot 的 16 次额度已耗尽，尚无第二工作或最终回复。整案为 26 次（worker 4、Verifier 6）。应核对已交付覆盖和剩余事件责任后再调整调度，不能从已发布推断已交付。
+- 已在干净 `3eb270e9` 启动全仓构建、类型、架构、Desktop IPC 及测试串行工程复跑，目录 `peer-adr118-engineering-3eb270e9.gVTAk4`。结果待完成。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
