@@ -420,6 +420,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 标准重采包 `peer-adr118-product-recapture.xBTxQP/packet` 已完成全部自动采集，runId `fe909d4d-3ffc-4721-b783-b97ba41c3b45`，255 张，awaiting-ai-review。文件指纹 `6e8f500b9feef0ea42a0fd0628b21861de80387b18b7eba9165e7d67ce7b4c04` 与 `a290a86c` 独立 checkout 一致。实现者已确认 56 张，其中 42 张经同 ID 与原图 SHA-256 核对，字节完全相同，复用旧包的逐图记录；另 14 张为本次目视核对。新包尚未完成审阅或 verify，后续实现提交另验。
 - `CQqjT7` 的持久会话显示前置发布用户回合中的成功 `post_reply` 后以 `work_disposition_required` 终止，协调日志无交付记录。旧故事驱动可在索引和任务准备好后立即发出冻结输入，而首个用户可见结果仍可能缺席。`aced60e0` 令真实故事先要求带已就绪会话状态和固定产物引用的 canonical 首次交付，再编辑并提交冻结条件；同时明确首个回复须先按现有协调契约提交当前决议。未扩大请求上限，TUI 类型和 12 项现有专项通过。
 
+- 标准重采包新增逐图确认 13 张窄窗恢复、启动及宽窄窗四种核验结论与主对话画面，逐张匹配包内 SHA-256。累计 69/255。
+- `aced60e0` 的 OpenAI 故事 `peer-interactive-live-cStvos` 已发布并进入首次交付，28 次请求（Bot 16、worker 4、Verifier 8）达到 Bot 角色上限。未收到 canonical 首次交付，驱动按用户路径保留冻结输入。持久回合中多次 assess 把字段放在顶层，另一次嵌套对象缺 `assessment.reason`。`4f3f770f` 在共享工具说明、schema 和结构化拒绝中明确层级及缺字段路径，保持原输入校验和宿主权威。49 项协调、委托与角色投影测试通过；更新后在原请求预算下启动 OpenAI 复跑。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
