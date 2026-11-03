@@ -267,12 +267,15 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 新增显式 `qa:interactive:live --scenario story`，复用 TUI 项目宿主及其规范输入队列。第一条输入委托只读工作发布固定预算；确认发布 Evidence 与任务记录后，驱动器经实际状态保存和冻结端口提交第二条用户输入。该输入通过既有材料准入进入新的核验委托。成功判据包含独立 Verifier 通过、四类固定检查回执、主 Bot 规范回复引用两个任务和同一个产物，以及任务文本入口能够读取。
 - 该专项只投影合成案例所需的委托、协调、结果与 Goal 工具。模型、工具和物理 HTTP 分别设限；最多 32 次模型/HTTP 请求，45 秒/请求，240 秒/整案。两项任务由真实主 Bot 建立；驱动器不建立子会话、不预填结果或 verdict。桌面 Composer 交互仍由单独原生专项覆盖。
 - `8c27c98e` 的首轮真实 Anthropic Messages 已观察到主 Bot 委托、worker 读取 Goal 并发布成功。驱动器把同一次发布的规范 Evidence 和工具调用别名重复计数，提前终止；证据目录 `peer-interactive-live-NPTAYz`。代码 `66b8bfe1` 按规范 Evidence 计数，并等待原任务记录该发布后再提交冻结条件。TUI 类型检查与原专项 11 项 Bun 测试通过，修正后真实重跑仍需核对完整结论。
+- `66b8bfe1` 重跑再次完成实际委托和发布，但 `goal_get_plan` 回执超出通用内联预算，工具返回的首尾预览省略了真实 taskId；worker 猜测的 ID 被宿主拒绝，未触发第二条输入。主 Bot 后续回合也收到 Anthropic 400，要求把原有 thinking 传回 API。完整报告待该进程结束后核对，目录 `peer-interactive-live-WPI1pR`。
+- 上述超长回执还暴露 TUI 材料化未向编码器传入实际宿主数据根，合成工具输出落入默认用户 artifacts 目录。后续应在两个 TUI 编码调用处沿既有 `baseDir` 明确传入宿主数据根，并为 Goal 读取提供预算内可见的真实叶子身份；在修复并核对隔离之前暂停进一步真实请求。此处没有把本次结果视为完整任务通过。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集、逐图审查和 verify 分开记录。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。逐图审查及 verify 仍待完成。此次工程检查不证明完整真实任务故事或安装版回归。
 
 ## 后续接线与完成审计
 
