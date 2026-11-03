@@ -1,5 +1,9 @@
 # Peer 当前产品改造计划
 
+## ADR 118 Remote 固定结果（增量验证）
+
+`03f0589a` 已接原配对与项目授权下的任务详情。手机宽度 Chromium 专项和真实 HTTP/WebSocket 回环通过。CLI exec、生产清理和完整产品验收仍按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进。
+
 ## ADR 118 TUI 任务报告降级（增量验证）
 
 `4e3d1cb7` 已接 `/result N` 的固定摘要和有界初始条件表格。使用既有任务报告、焦点和工作区归属，实际终端渲染覆盖翻页、退出和错误作用域。CLI exec、Remote 与完整产品验收继续按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进。

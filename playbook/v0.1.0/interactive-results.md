@@ -221,6 +221,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - ADR §19 先由 `e36d6c4` 定义。实际 TUI `/task N → /result N` 用当前 Bot 和任务报告绑定固定版本。复用静态摘要/墓碑与有界 worker 初始条件求值。读取过程不生成 Evidence，取消或离开后不展示迟到结果。纯计算与模型摘要分别标示，终端翻页由用户控制。
 - 14 项 Bun 测试、Runtime Node 构建、TUI 类型及架构/UI 检查通过。OpenTUI 实际字符帧专项读取真实持久结果、滚到后续表格行并退出，覆盖错 session、AbortSignal 及 Evidence 保持。测试保留了既有 harness 的 React act 警告。已更新两份覆盖矩阵和改造计划；CLI exec、Remote、安装版与完整验收仍待完成。
 
+## Remote 固定任务结果（03f0589a）
+
+- ADR §19 先由 `e257ef1` 定义。原项目任务授权下，从实际报告固定引用读取发布/墓碑，每任务最多八项。D0/D1 返回脱敏有界摘要；D2 以上只含引用与可用状态。复核授权、任务和读取端口，纯文本展示，无新远程动作。
+- 217 项 Gateway/Remote Node 测试通过，Protocol 构建、Desktop 类型、架构/UI 检查通过。真实配对 WebSocket、HTTP 及 Chromium 390 像素专项通过，公开摘要中的 HTML 字符按纯文本、私有标题及正文被抑制、退出清空；三图逐张实现者自审，列表、原会话和任务窄窗换行均检查。证据目录 `peer-mobile-browser-Kg2DrW`，无页面错误。专项使用控制输入及已登记发布，未覆盖实体手机、远程 cleaned 的实际浏览器样本或完整产品验收。
+- 普通 `peer exec` 现明确关闭交互 Provider，CLI 已有本机显式读取；自动交付须接合规 Bot 运行入口，不能以普通会话或助手文本模拟。生产清理和全量验收仍待交付。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
