@@ -448,6 +448,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `80d64c94` 标准包新增 8 张诊断、自动化列表/编辑/回执及经典对话画面，逐图匹配 SHA-256，累计 83/255。
 - `39ab7e49` OpenAI 故事 `peer-interactive-live-2Voulr` 再次完成发布，23 次请求触及 Bot 16 次上限，首交付未发生。持久记录中连续三个 return 调用引用前一切片的具体预留，均按原规则拒绝。ADR `4456d44` 与实现 `4bcb31ce` 增加 `current_turn_reply`，由宿主将输入绑定到当前切片，持久化仍只保存具体引用。实际运行路径测试覆盖旧具体引用拒绝、字面量获准、核验及最终交付，56 项相关测试通过。OpenAI 已在原整案预算下复跑。
 
+- `80d64c94` 标准包新增 8 张经典对话、深浅图片预览和协调状态画面，逐图匹配 SHA-256，累计 91/255。
+- `4bcb31ce` OpenAI 样本 `peer-interactive-live-NVbU9h` 在真实回合使用 `current_turn_reply` 并有一次获准 return；根核验返回 `goal_coverage_incomplete`，不是引用过期。样本最终以 25 次请求（Bot 16、worker 4、Verifier 5）达到 Bot 限额，未完成首次交付。持久输入有覆盖项缺 sources，且把下一条用户消息的预算选择列入当前任务 openQuestions。`80751f26` 明确拒绝回执的覆盖字段路径，并将初始合成任务明确限定为交付独立核验过的示例，预算选择仅在后续显式输入中出现。保留两阶段验收，Runtime 构建、TUI 类型和 55 项相关测试通过，OpenAI 已启动复跑。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
