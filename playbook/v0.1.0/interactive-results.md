@@ -351,6 +351,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 重新打包后，在 Electron 41.7.1 的 Node 模式实际从 asar 导入模块，隔离 Worker 求值、禁用节点拒绝、SQLite 关闭后重开及原固定引用的文本读取均通过。工作目录 `peer-adr118-desktop-package.hmmbLQ`。临时 ad-hoc 包占用 396,800 KiB，asar 为 99,898,866 B，SHA-256 `a59ef98c3e0c5c5cd6efc1ef8a43e4eae3540dfb32514e6255181afaf8a6042c`。本次覆盖包内运行时，正式签名公证与已安装 GUI 仍待验收。
 - 独立既有 `verify-verification-runtime.mjs` 的接管夹具缺少 `store.enableSupervision`，本轮执行在该断言前终止，保留原失败日志。已运行的交互归档探针使用隔离数据，日常 Desktop 进程仍在运行。
 
+- 代码 `734346c5` 将接管探针换成包内真实 SessionSupervisor、GoalPlan、Conversation 和协调日志，受控 runner 只记录收到的执行意图。原包重跑四项全部通过，覆盖只修复格式时禁用工具、核验停滞、空闲核验结算，以及从暂停的 verify 意图交接到 execute；实际协调日志与计划均记录接管完成。源码同场景测试通过。日志 `peer-adr118-desktop-package.hmmbLQ/verification-runtime-updated.log`。仍为包内 Node 模式，未覆盖已安装 GUI。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
