@@ -369,7 +369,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
 - 首次 `pnpm test` 在 Runtime Node 的并发输入抢占断言失败，导致下游 Desktop/TUI 和三个根测试套件未执行。用 Node 25 单独重跑原文件，9 项全部通过；保留首次失败，后续分别补跑未执行的套件。工程日志位于本机临时目录 `peer-adr118-engineering.Z5MTSu`。
 - 独立 Desktop 首段执行 6,214 项，6,205 通过、5 跳过、4 失败，尾段未启动。失败分别来自旧设置默认值断言和未接入交互条件注册表的原生关闭测试夹具。代码 `5a356cf6` 修复两份测试夹具，并新增导航落盘期间有新交互条件时阻断关闭的用例；两文件在独立检出运行 15 项全部通过。Desktop 尾段在临时检出试跑时受到构建目录和 Vite 根目录的跨工作树链接限制，正式工作树仍需重跑全套。
-- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 146 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
+- 标准产品回归对同一源码启动隔离 Electron 采集，输出位于本机 `peer-adr118-product.A4UhGM/packet`。采集已产生 runId `fc8dddeb-d0f1-41f9-b738-35ec1a89218a` 和 255 张必查图，状态 awaiting-ai-review。目前 156 张已逐图核对并写入该包的 `review.json`，其余标记 not_checked；verify 待审查完整后执行。原始采集源码已在独立检出复现相同指纹，正式实现工作树已快进至 `15878144` 并启动新一轮全仓检查。此次工程检查不证明完整真实任务故事或安装版回归。
 
 - 干净代码 `273f6588` 再次通过全仓 `pnpm build`、`pnpm typecheck`、`pnpm architecture:check` 与 Desktop `ipc:check`，日志 `peer-adr118-current-engineering.LGtSFi`。同提交的 `pnpm test` 整体退出 0。TUI 841 项通过；Desktop 主段 6,210 通过、5 跳过，尾段 9 项通过。根 Marketplace、Changelog 与升级矩阵均运行成功。
 - 标准产品基线新增逐图核对 8 张更新最小化与任务报告加载、缺失、陈旧状态截图，绑定原图哈希。累计 102/255，整包 verify 待完成。
@@ -390,6 +390,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 标准产品基线新增逐图核对 12 张备用视觉模型、服务商、Composer 空态/多行/附件及回复截图，绑定原图哈希。累计 146/255。
 
 - ADR `d963275` 与代码 `b2255861` 让显式复核在 verdict 落盘并释放占用后附上实际 sessionState。回复仍按实时任务状态重新核对，读取失败保留既有 verdict。Runtime Node 构建及 42 项 Provider、复核与完成门禁测试通过，实际宿主通过/失败两种复核均核对了状态及 revision。两线实连目录 `peer-interactive-live-lgwO8R`。
+
+- 代码 `66e78230` 在复核后的可选状态读取中复核调用工作区。读取失败或返回其他工作区的任务时省略 sessionState，已记录的 verdict 仍可返回。30 项 Provider 与复核表面测试通过，新增两种状态缺失路径。
+- `lgwO8R` 的 Anthropic 共 30 次请求，触及主 Bot 角色额度，无显式会话 verdict 与最终交付。OpenAI 同批样本仍在运行；该批使用 `b2255861`。
+- 标准产品基线新增逐图核对 10 张引用、发送后状态、问题待答与结束、Bot 消息配色截图，绑定原图哈希。累计 156/255。
 
 ## 后续接线与完成审计
 
