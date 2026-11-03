@@ -431,6 +431,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `c33c6e0b` 让 `wait_source_stale` 通过原 Tool Result 回传本目标可见的会话状态、来源版本和观察版本。提示区分仍可等待时的版本刷新与任务已离开等待状态。不存在、非当前 mandate 或引用越权的会话不回传事实；拒绝也不写决议。47 项协调、委托与等待测试通过；保留 Desktop 采集源码，在独立 checkout 对同分支运行原限额 OpenAI 故事。
 
+- `80d64c94` 的隔离 Desktop 主采集机器报告成功，包含回到最新与阅读区不相交的断言。逐图确认 4 张新材质截图，包括原三张问题图，按钮均在视口之外；原图 SHA-256 已记录，等待标准包完成后绑定审阅。
+- `c33c6e0b` OpenAI 故事 `peer-interactive-live-rIQOtT` 共 17 次请求（Bot 9、worker 4、Verifier 4），完成发布并产生 canonical 进度回复，发布任务后来由 policy 签收。三个唤醒无实际工具调用并以 `work_disposition_required` 结束，首次正式交付到时。该样本未触发 stale wait，不能作为新回执真实使用证据。
+- `e1b9c40e` 补齐 TUI 的计划提醒接线。原实际 Provider 请求复现缺少计划生成的唤醒提醒；Desktop 已沿现有 Runtime Reminder Source 转发，TUI 现在沿同一 Source 转发并保留显式提醒。TUI 类型检查及执行器和 live 专项合计 31 项通过。两种实际 Provider 已按原限额启动故事复跑。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
