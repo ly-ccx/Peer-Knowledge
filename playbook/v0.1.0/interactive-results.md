@@ -339,6 +339,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 代码 `c3873cd1` 将整案请求、角色请求和角色工具额度分开记账，持久化命中范围、资源、角色及计数。HTTP 门禁拒绝的尝试不计为已发请求，样本汇总保留已脱敏失败原因。TUI 类型及专项 12 项通过，新增超额工具批次被拒且未建立委托的真实隔离宿主用例。
 - 标准产品基线新增核对 8 张经典对话、本地图灯箱、产物和差异预览，逐张绑定原图哈希。累计 68/255。
 
+## CLI 独立安装验证（c3873cd1）
+
+- 干净源码构建 macOS arm64 CLI 与凭据 helper，走仓库正式归档脚本，在临时路径解包。随后用本地 npm 包和 loopback 归档服务执行实际 postinstall，把同样的两个二进制装到临时 npm prefix，两份文件逐字节一致。未使用日常安装或发布远程包。
+- 解包版和 npm 入口分别通过 1 项 CLI 集成测试，各含 16 条断言，覆盖 help/version、固定版本 JSON 与文本、未登记发布、越界 owner、终端控制字符及清理摘要。运行未提供 DISPLAY 或 WAYLAND_DISPLAY。解包版在仅系统 PATH 与隔离数据根的空环境下也通过 help/version；动态链接列表只有 macOS 系统库。
+- CLI 二进制 73,602,736 B，归档 28,097,193 B，归档 SHA-256 `d44090c4e260f079942dbb73e56eb0446f699ceb994a33a9b44cd8d2bcdaeb6a`，日志在本机 `peer-adr118-cli-archive.lqEMsn`。覆盖 macOS arm64 的非交互入口。Linux、终端交互界面、安装版 Desktop 及其正式包体仍待核验。
+
 ## 全仓工程与产品采集基线（45102335）
 
 - 干净代码 `45102335` 通过 `pnpm build`、全仓 `pnpm typecheck`、`pnpm architecture:check`、Desktop 正式 `ipc:check`、产品包工具 8 项测试及 TUI 835 项测试。Marketplace、Changelog、Upgrade 三个根测试套件也分别通过。
