@@ -1,5 +1,9 @@
 # Peer 当前产品改造计划
 
+## ADR 118 无试算会话的表现恢复
+
+`f4d7fb9d` 补齐主区旧布局及静态摘要读位的关闭检查点。专项通过，固定提交的整包采集和全仓复跑按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 跟进。
+
 ## ADR 118 Bot 归属替换退出恢复
 
 已打开的 Desktop 主区和独立视图接入原保存核对、复制和明确放弃，`9f37d847` 隔离 Electron 专项通过。无存活视图的旧布局、真实模型正式交付与标准包按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 继续。
