@@ -770,7 +770,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T18 | 未知 schema、损坏正文/回执、逻辑配额以及实际 `SQLITE_FULL` 有领域证据。后续 macOS 安装副本的磁盘错误终态见 `237b4ae5` 专项，生产清理守卫尚待 |
 | IUI-T19 | 正式旧 macOS 包回退拒写、重写规范会话及再次升级已实测。两种规范来源的跨设备摘要已核对。发布旧队列仍可对替换前 inode 返回受理，生产排他保护尚待 |
 | IUI-T20 | `27c64b46` 的 macOS arm64、Linux x64 独立归档通过无图形 CLI、两种原摘要、真实 PTY 任务导航与本机计算。正式分发另计 |
-| IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。`27c64b46` 的 Linux 安装专项核对筛选、复选框、滑杆、数据表和图表替代表的键盘与 AT-SPI 路径，以及 Orca 控件与区域播报。VoiceOver 和逐格读表另计 |
+| IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。`27c64b46` 的 Linux 安装专项核对筛选、复选框、滑杆、键盘与 AT-SPI，并由 Orca 实际播报观察表和图表替代表的表头、B/35 及单元格坐标。VoiceOver 尚待验 |
 | IUI-T22 | `27c64b46` 的 Linux 安装版双窗口 500 行样本记录 552 次输入、长任务、进程树 CPU 下界与 PSS，关闭后恢复基线页面和进程数。六种归档的体积已记录。真实模型已记录失败、修复及 token，账单金额仍缺 |
 | IUI-T23 | 精确只读 worker 例外已接真实 Desktop/TUI 执行层，原角色读取与项目写入边界有回归 |
 | IUI-T24 | 规范材料完整正文、大于 bodyPreview、分页、范围、脱敏、缺分类和摘要不补齐均有专项 |
@@ -842,3 +842,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 应用进程树累计 CPU 观测下界为 171.62 秒，按进程身份汇总 `/proc` 样本，短于采样间隔的进程及关闭间隔内未采到的 CPU 时间未计入。PSS 为初始 815,167 KiB、双窗峰值 1,274,816 KiB、关闭稳定后 797,523 KiB。页面数由 3 增到 5 再回到 3，进程数由 7 增到 9 再回到 7。数值对应虚拟显示、禁用 GPU 和 x64 仿真样本。
 - 持续样本期间及收尾的只读 SQLite 核对取得同一固定版本、材料、发布操作、两条 Evidence 索引及规范会话文件哈希。保存回执从采样时的 40 增至 46。实现者检查确认保存、输入焦点和试算原图。证据 `peer-adr118-latest-installed-soak.9gMcvL/soak/soak-report.json`、`soak-chart.png` 和根目录 `domain-diff.json`。原始图表点数由 DOM 检查记录。
 - 同一提交的本地归档体积为 macOS DMG 143,041,010、ZIP 140,572,336、Linux `.deb` 118,391,772、AppImage 148,734,716、macOS CLI/TUI 23,842,916、Linux CLI/TUI 47,943,987 字节，对应前述哈希。真实模型计量和账单核验单列。
+
+### Linux 安装版 Orca 逐格读表 IUI-T21
+
+- 同一 `27c64b46` 的 `.deb` 在断网 Debian bookworm x64 用户态仿真中，以真实 Orca 43.1、Speech Dispatcher 和 Openbox 运行。X11 系统按键从结果窗口文档顶部依次跳至观察表及图表替代表。两次均实际播报表名、2 行 2 列、首列和 Cost 表头、B 与 35，以及第 2 行第 1、2 列的坐标。探针从 Speech Dispatcher 日志逐项断言，AT-SPI 另核对表角色和相同的 B/35。实现者目视复核图表、焦点和替代表的 B/35。实体音频另计。[Orca 结构导航按键](https://help.gnome.org/orca/commands_structural_navigation.html)
+- 原无窗口管理器样本虽然 X11 焦点在结果窗，Orca 结构导航仍读回主窗口。用同版本 Electron 的两个最小窗口复现，关闭对照主窗后 Orca 找到表格及行列数。使用 Openbox 后，原安装包的两张表均可从结果窗结构导航读取。为避免 Openbox 默认的工作区快捷键拦截单元格方向键，本轮只在隔离配置中移除四个 `Alt+Shift+方向键` 绑定。较新 Debian 测试镜像未完成构建，镜像站获取依赖失败。
+- 证据 `peer-adr118-orca-wm-cells.tVFXGu/speech-proof.json`、`verify/orca-cells.json`、`verify/orca-debug.log`、`verify/atspi-report.json` 和 `verify/keyboard-table.png`。无窗口管理器的对照见 `peer-adr118-orca-control.97yt1e/verify/control-speech.json`。此回执覆盖该 Linux 环境的结果表格与此前的控件播报。VoiceOver 和生产安装覆盖分别记录。
