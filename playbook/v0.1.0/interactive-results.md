@@ -688,13 +688,13 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 同提交持有实际 `acquireMessageRetentionGuard`，独立进程使用当前 Conversation Store 的 `updateTitle`。锁目录一直存在，标题仍成功落盘，随后守卫的修订复核返回失效。证据 `peer-adr118-conversation-metadata-guard.o0OXqK/report.json`。这是当前索引元数据写入路径缺少排他的复现，尚无跨最后核对至提交的写入保护。ADR §17.2.1 明确元数据写者的锁范围及后续验收。
 - `3568a04a` 将当前 Conversation Store 的元数据改写、消息计数回填及启动迁移接入同一索引锁。异步终态取得索引和历史锁后才提交，在历史锁冲突时先释放索引锁再等待。跨进程回归证明持守卫时标题、已读写者等待，释放后提交且规范输入载体完整。后台回填等待并保留最新标题。114 项 Conversation Store 测试与 158 项 Runtime Node 交互结果测试通过。固定旧版同步消息写入的相关源码段保留逐段校验。旧二进制仍可能绕过此规则，生产兼容守卫仍待。证据 `peer-adr118-message-index-work.lQmJHv`。
 
-- `1da86e18` 使已经删除的会话根跳过后台计数回填，114 项 Conversation Store 测试再次通过。`3568a04a` 的第一次全仓测试中独立预测凭据 worker 发生超时，单文件隔离重跑通过。最新提交的全仓门禁另行记录。
+- `1da86e18` 使已经删除的会话根跳过后台计数回填，114 项 Conversation Store 测试再次通过。`3568a04a` 的第一次全仓测试中独立预测凭据 worker 发生超时，单文件隔离重跑通过。`1da86e18` 串行工作区重跑的全仓 build、typecheck、architecture:check、test 与 qa:product:test 均退出 0。Desktop IPC 目录新鲜度通过（405 channels、439 preload operations、354 main registrations）。标准产品采集已开始，证据 `peer-adr118-index-candidate.kSucO9`。
 - macOS 临时 APFS 卷中的固定旧输入队列在打开追加描述符后暂停。强制卸载该临时卷后，已打开的读写描述符均返回 `EIO`，封闭旧挂载路径后新的旧端请求返回 `ENOTDIR`，两次请求均未受理。另处重挂同卷后可读取卸载前已确认的原输入。旧进程仍能访问事先已读入内存的字节。证据 `peer-adr118-disk-epoch.uGFw0u/report.json`。此探针仅覆盖预先独占挂载的临时根和固定旧队列，不构成日常数据根、跨平台或已打开旧视图的生产隔离。
 
 ### Linux x64 独立归档 IUI-T20
 
 - `3568a04a` 在隔离 Linux x64 容器中用仓库正式脚本构建并打包 CLI 和凭据 helper。首次构建因容器 bind mount 上 Bun 编译器无法重命名临时产物而失败。将同一源码归档解到容器原生文件系统后构建通过。归档 SHA-256 `d78d6ec92e63ee2d88e1355a35b10bc231dd31111b4e48dcd3dd1c37ed76e670`。
-- 在断网、无 GUI、仅系统 PATH 的隔离 Linux x64 容器中解包执行 help、version 和 `peer result <固定引用> --json`。Desktop Responses 与 TUI Anthropic 的原固定引用和 167、610 字符摘要逐字节匹配，两个 CLI 数据副本的文件哈希均未变化。单独克隆 Desktop 来源数据并重绑容器工作区路径，真实 PTY 从 `/tasks`、`/task N` 到 `/result 1` 打开同版原设备摘要，退出码 0。证据 `peer-adr118-linux-standalone.81cOrp/receipt` 下 `linux-cli-audit.json`、`desktop-pty/terminal-audit.json`。容器使用 x86_64 仿真，覆盖归档解包与文本入口，正式分发和原生 Linux 主机另计。
+- 在断网、无 GUI、仅系统 PATH 的隔离 Linux x64 容器中解包执行 help、version 和 `peer result <固定引用> --json`。Desktop Responses 与 TUI Anthropic 的原固定引用和 167、610 字符摘要逐字节匹配，两个 CLI 数据副本的文件哈希均未变化。单独克隆 Desktop 来源数据并重绑容器工作区路径，真实 PTY 从 `/tasks`、`/task N` 到 `/result 1` 打开同版原设备摘要，退出码 0。证据 `peer-adr118-linux-standalone.81cOrp/receipt` 下 `linux-cli-audit.json`、`desktop-pty/terminal-audit.json`。容器使用 x86_64 仿真，覆盖归档解包与文本入口，正式分发和原生 Linux 主机另计。 同一归档从本地含结果库的隔离副本用 CLI 读到同一可用版本，再经断网 PTY 打开任务中的固定版本。显示 Budget 100、Remaining 45 及 A/20、B/35，正常退出。证据 `local-computation/terminal-audit.json`。
 
 ## 后续接线与完成审计
 
