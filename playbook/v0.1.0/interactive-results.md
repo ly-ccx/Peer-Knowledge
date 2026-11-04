@@ -618,6 +618,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `c6b13a53` macOS 目录包在保留原始 52 次请求样本后，用相同隔离数据重启并自动恢复原冻结输入。恢复驱动首启因内部函数导入路径错误提前退出，修正驱动后继续用同一目录包和原两条规范输入。额外上限 12 次，实际追加 11 个完整流和 1 次传输失败，合计 64 次转发及 63 个完整流。第二委托再次留下通过核验的记录。冻结输入对应的协调目标仍在原 revision，未取得第二次根目标复核或同时绑定同一固定结果和两项任务的规范结果回复。达到上限后按现有 rate-limit 路径记录阻断。证据 `peer-adr118-packaged-return-replay.WkYjJb`。
 - `c6b13a53` 标准包 runId `5bfb84b7-bfdb-4240-8f56-9b51cd43a2f1` 完成 255 张采集。实现者自审 105 张通过（43 张同 ID 原图 SHA-256 复用，62 张直接目视），8 张核验详情图不通过，142 张待查。四种当前检查状态使用抽屉通用次级文字色，深浅主题中关键标签与检查值难读。原包 `peer-adr118-product-return-replay.iGLskQ/packet` 保留，整包未通过。
 - C 级修复 `c53a27f9` 仅将核验检查标签及结果分别接入现有 Frost 次级正文和正文色。Desktop 构建及隔离 Electron 核验详情专项通过，覆盖四种核验状态、历史键盘展开、刷新失败后的重试及当前执行状态。实现者以同一场景的深浅原图比对，确认检查标签和结果比此前更清楚。证据 `peer-adr118-verification-contrast.WERT1p`，该专项构建含同样两行样式差异。干净提交标准包在 `peer-adr118-product-verification-contrast.woeQOj/packet` 重采。
+- `c53a27f9` 的干净提交全仓构建、类型、架构/UI 和测试均退出 0，Desktop IPC 随原构建和测试门禁核对。日志 `peer-adr118-verification-contrast-engineering.GsFrAm`。隔离专项的八张核验详情截图均检查了当前结论、两项检查及历史记录的区别。
+- 对照 `c6b13a53` 包内规范回合和持久化协调记录，第二次重启恢复原冻结 workId。恢复阶段实际调用 `coordinate_work query`、任务和核验读取，再次发起 `verify_session` 并收到通过；未调用 `coordinate_work assess` 或 `post_reply`。第二次正式交付缺在真实模型提交返回评估之前。界面预览中较长的工具结果会截断，但本轮恢复的 Provider 检查点仍保留 `verify_session` 的完整输出。现有证据不足以将未提交评估归因于宿主拒绝或预览截断。
 
 ## 后续接线与完成审计
 
