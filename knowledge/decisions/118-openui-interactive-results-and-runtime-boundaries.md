@@ -739,7 +739,7 @@ Desktop 原报告 Evidence 入口和资源窗口可按固定版本打开真实�
 
 首期此子域为 device scope，portable Conversation 只携带可解释的引用和必要文本降级。另一设备缺少产物正文或来源时，显示“结果保存在原设备”及实际可读摘要，不从引用重建执行授权，也不自动下载或扫描来源。
 
-仅携带现有 Conversation、GoalPlan 和项目身份时，原发布 Provider 的规范工具结果可能仍保存 `textFallback`。本地结果版本缺失时，本机人工读取可返回 `origin_only`。它先核对当前 Bot owner、固定引用、原发布规范 EvidenceIndex、原工作计划及 Conversation 的父子归属，再有界地核对原工作会话中唯一的已完成发布 Tool Result。记录必须同时匹配原会话与工具调用 ID、固定引用、索引的标题及正常发布状态。已有记录使用会话流 ID 和最终消息 ID 两种身份，匹配 Tool Result 以工作会话和原工具调用 ID 为准。仅保留实际已保存的有界模型摘要、标题和来源身份，标明未验证。没有记录、来源不符、重复、超限、未完成或数据损坏时保持不可用。已有本地墓碑、待登记及损坏分别沿原路径表达。
+仅携带现有 Conversation、GoalPlan 和项目身份时，原发布 Provider 的规范工具结果可能仍保存 `textFallback`。本地结果版本缺失时，本机人工读取可返回 `origin_only`。它先核对当前 Bot owner、固定引用、原发布规范 EvidenceIndex、原工作计划及 Conversation 的父子归属，再有界地核对原工作会话中唯一的已完成发布 Tool Result。记录必须同时匹配原会话与工具调用 ID、固定引用、索引的标题及正常发布状态。已有记录使用会话流 ID 和最终消息 ID 两种身份，匹配 Tool Result 以工作会话和原工具调用 ID 为准。Desktop 的规范本地能力结果以实际结束时间、能力及 success 为准，TUI 的规范结果要求调用段与结果均为 completed。仅保留实际已保存的有界模型摘要、标题和来源身份，标明未验证。没有记录、来源不符、重复、超限、未完成或数据损坏时保持不可用。已有本地墓碑、待登记及损坏分别沿原路径表达。
 
 该投影只使用已经迁移到本设备的原用户会话数据，保持原访问范围。它不写入新的摘要副本，不披露缺失的数据等级，不进入模型工具、远程结果投影、目录求值、编辑或 Evidence 重建。Desktop 在原回复/任务的证据阅读处表达只读状态，TUI 保留固定报告入口，CLI 以 `origin_only` 区分固定正文可用性。三端使用同一来源核对逻辑。旧端和已存在的规范历史无需写入新格式。
 
@@ -997,7 +997,7 @@ SDK 升级先验证旧程序、输入与状态夹具，再新增适配组合。�
 | ADR 设计与固定来源整理 | Proposed；2026-11-03 补齐七项接线契约、阶段归属与 IUI-T23—29，并完成内容/diff 自审；仍待设计评审接受 |
 | 依赖安装、代码实现、模型或本机能力开放 | 七项设计补充提交只含文档；后续实现的代码提交、专项验证及剩余缺口见实施跟踪。功能开关默认关闭，不能由模块存在推断完整接线或能力已开放 |
 | 测试、构建/类型/架构/IPC、产品回归 | 实际结果按固定代码提交记录。`45a4cce1` 的三类清理回执专项通过。实际旧端受理探针确认替换队列文件可丢失已确认输入，生产清理仍等待旧读写者兼容守卫。`7e1a76c5` 的全仓工程检查、255 图标准产品包的实现者自审和整包 verify 通过 |
-| 真实模型、安装包、多入口与无障碍验收 | Desktop Responses 与隔离 TUI Anthropic Messages 均已从规范输入走到真实正式交付。临时独立 CLI 归档通过无图形依赖的固定结果读取，同一二进制在 TUI 从任务详情打开同版并显示本机计算。`fa9348e9` 的 Desktop、TUI 和 CLI 使用迁移后的规范历史恢复同版只读摘要。隔离生产 Renderer 取得 500 行持续输入与卸载回收样本，原生结果字段和 Composer 通过 macOS 系统输入法专项。Developer ID 临时安装样本通过保存、重启、冻结和明确发送专项。正式公证安装与 VoiceOver 仍待验。证据见[实施跟踪](../../playbook/v0.1.0/interactive-results.md) |
+| 真实模型、安装包、多入口与无障碍验收 | Desktop Responses 与隔离 TUI Anthropic Messages 均已从规范输入走到真实正式交付。临时独立 CLI 归档通过无图形依赖的固定结果读取，同一二进制在 TUI 从任务详情打开同版并显示本机计算。`74e0bae9` 使用迁移后的 Desktop 或 TUI 规范历史恢复同版只读摘要，Desktop、TUI 和 CLI 的人工读取已接。隔离生产 Renderer 取得 500 行持续输入与卸载回收样本，原生结果字段和 Composer 通过 macOS 系统输入法专项。Developer ID 临时安装样本通过保存、重启、冻结和明确发送专项。正式公证安装与 VoiceOver 仍待验。证据见[实施跟踪](../../playbook/v0.1.0/interactive-results.md) |
 
 [U1]: https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/package.json
 [U2]: https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/src/lib/library.ts
