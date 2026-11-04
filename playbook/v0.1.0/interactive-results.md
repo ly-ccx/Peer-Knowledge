@@ -551,6 +551,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `b5a85e08` 以当前计划和规范报告摘要匹配显式 verdict，把受版本约束的宿主事实提供给根目标复核。46 项专项、Runtime Node 构建、全仓类型及架构/UI 约束通过。OpenAI Responses / gpt-6-astra 的 `peer-interactive-live-lyZsdt` 通过完整任务故事。规范首次回复、同版本冻结输入、独立显式通过 verdict、四类完整检查、第二轮根目标通过、正式回复及固定结果文本读取均已核对；初始余额 45，冻结余额 25。共 51 次实际请求（Bot 28、worker 8、Verifier 15），离整案上限仅一请求。报告汇总输入 517,856、输出 13,184、缓存读取 153,856 tokens，账单金额未取得。此条覆盖 TUI 隔离宿主和一条完整真实编码路径，其他编码的整案、安装包真实模型交付和完整产品包验收仍分别跟踪。
 
+- 同一 `b5a85e08` 的 Anthropic Messages / deepseek-flash 故事 `peer-interactive-live-YF8A7M` 已取得首次正式回复及冻结输入。第 42 次实际请求返回第 33 个 Bot 工具调用，触及 32 次 Bot 工具上限，正式 `verify_session` 调用尚未执行，第二条正式回复未交付。15 次协调调用和 6 次核验详情读取占用主要额度。相同编码在独立 `verify` 场景 `peer-interactive-live-BuqfIm` 以 4 次真实请求通过，覆盖固定检查与显式 verdict 子链。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
