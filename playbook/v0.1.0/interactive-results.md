@@ -567,6 +567,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 同一源码全仓类型、架构/UI 和 Desktop IPC 检查通过。最新标准包重采启动于干净 `7847a2bd`，目录 `peer-adr118-product-policy-fixed.kVKEK0/packet`。上一候选的 Quick Chat 对比度问题保留在原审阅，新候选需绑定新的源码指纹和截图。
 
+- ADR `73ba6e7` 和实现 `093237e2` 为根目标覆盖退回补来源和未索引引用的位置。复现混用索引内外引用的断言在原实现失败，修复后按返回位置保留有效引用、纠正并重新通过根复核。36 项协调/核验专项、Runtime Node 构建、全仓类型、架构/UI、Desktop IPC 均通过。
+
+- 同一候选的 OpenAI Chat / deepseek-v4.1-flash TUI 故事 `peer-interactive-live-4FL4zl` 完成发布和独立检查。16 次真实请求后因整案到时结束。Bot 的三次响应分别用满 3,200 输出 token 且未发工具调用，未取得附固定引用的规范首次回复。
+
+- `093237e2` 的隔离目录包通过包内导入和临时签名验证。包内故事 `peer-adr118-packaged-ref-diagnostic.OumWzE` 走 31 次实际 OpenAI Chat 请求及一次真实单次审批，取得固定发布索引及程序、数据、初始计算检查。一次返回评估被拒为 `source_not_admitted`，其后宿主接收返回评估，根复核以 `verifier_permission_denied` 结束。记录无首次规范交付、冻结输入或最终交付。本次真实尝试没有触发新加的混用引用诊断。
+
+- 独立旧队列进程验证 `peer-adr118-legacy-carrier-race.JN8KZl` 使用固定旧 writer，在清理末次提交检查前抢占老化目录锁并实际追加已签发的冻结选择载体。旧端保留载体，新解码恢复完整原选择。清理返回 `interactive_retention_stale`，原结果和状态未删。此证据只覆盖末次检查前，不提供生产排他保护。原工作区留存与冻结传输测试 27 项通过。
+
+- `7847a2bd` 的 `peer-adr118-product-policy-fixed.kVKEK0/packet` 完成全部 255 图的自动采集，runId `a918bac1-a9b7-4ca3-8a29-1e37850abbb6`。实现者自审已通过 70 图，其中 28 图经 ID 与实际哈希匹配复用，42 图直接目视，包含 Quick Chat、回复悬停、核验与恢复状态。新候选 `093237e2` 开始重采，目录 `peer-adr118-product-ref-diagnostic.Hq3hbq/packet`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
