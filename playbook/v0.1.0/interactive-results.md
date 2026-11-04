@@ -751,7 +751,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | 编号 | 已核对的证据及待补项 |
 | --- | --- |
 | IUI-T01 | 真实 Provider、scope Grant、固定 SQLite 版本与规范 Evidence/Artifact 在同一调用链核对。两种真实模型整案已交付固定引用，最终组合候选需复验 |
-| IUI-T02 | 规范来源与交付测试拒绝借用助手正文、普通 URI 或伪造元数据。普通助手正文和代码围栏中混入可运行程序的完整 Renderer 对照尚待补证 |
+| IUI-T02 | 规范来源与交付测试拒绝借用助手正文、普通 URI 或伪造元数据。后续同一工作区对照见 `237b4ae5` 专项 |
 | IUI-T03 | 实际宿主库存、投影及执行拒绝非 worker、过期 attempt、失租约、取消和归属变化 |
 | IUI-T04 | 共享 parser、真实 Worker 和生产/开发 Renderer 构建覆盖禁用节点、动作、未知 AST、提前拒绝和 SDK 加载后的网络观察 |
 | IUI-T05 | 共享引擎专项覆盖非有限值、循环、深分组和集合膨胀，Electron 实际控件验证计算出错时隐藏计算并能恢复 |
@@ -766,7 +766,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T14 | 固定目录/内容版本、前驱切换、无可用正文和 SDK chunk 故障都有降级证据。未来 SDK 升级仍需实际运行旧组合夹具 |
 | IUI-T15 | 固定原字节、源改写、缺源和截断已经核对，旧版与新版分开显示。明确撤回来源后的用户可见终态尚待补证 |
 | IUI-T16 | 实际 Electron 保存、冻结、claim/ack、原 Composer、队列和规范消息。安装副本复测只在明确发送后出现一条同值同版输入 |
-| IUI-T17 | 宿主权限与回复状态独立核对，生成状态中的可识别原生授权载荷拒绝准入。用生成控件同时模拟权限、提问与签收的产品对照尚待补证 |
+| IUI-T17 | 宿主权限与回复状态独立核对，生成状态中的可识别原生授权载荷拒绝准入。后续同名生成按钮与宿主控件对照见 `237b4ae5` 专项 |
 | IUI-T18 | 未知 schema、损坏正文/回执、逻辑配额以及实际 `SQLITE_FULL` 有领域证据。生产清理守卫及磁盘错误的界面终态尚待 |
 | IUI-T19 | 正式旧 macOS 包回退拒写、重写规范会话及再次升级已实测。两种规范来源的跨设备摘要已核对。发布旧队列仍可对替换前 inode 返回受理，生产排他保护尚待 |
 | IUI-T20 | 同提交的 macOS arm64、Linux x64 独立归档通过无图形 CLI、两种原摘要、真实 PTY 任务导航与本机计算。正式分发另计 |
@@ -781,3 +781,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T29 | 逐存储草稿、队列、Conversation 和布局有已知兼容证据及回退重试。生产保护仍须覆盖已打开的旧队列描述符及旧只读结果视图，正式清理入口关闭 |
 
 同提交本地归档字节数为 macOS DMG 143,031,039、ZIP 140,572,006、Linux `.deb` 118,389,044、AppImage 148,734,825、macOS 独立 CLI 23,842,344、Linux 独立 CLI 47,943,306。数字对应上述归档哈希。目录 Source 的约 1,490 token 为宿主估算，真实模型的实际请求计量见各自验证记录。
+
+### 普通回复及生成控件的动作归属 IUI-T02 / IUI-T17
+
+- C 级代码 `237b4ae5`。模型试算区将宿主提供的固定说明移到生成内容之前，并作为该区域的可访问描述。说明明确生成控件仅改变本机条件。宿主原审批、人工问题及结果确认入口仍从各自结构化卡片呈现，现有 Frost token 与保存/恢复链继续适用。
+- 使用实际 ReplyComposer、Conversation 持久历史和 Bot ReplyBubble，普通回复同时包含可运行的 OpenUI 程序、`openui` 围栏和真实固定结果 URI。前两者分别保留正文及代码形态，URI 保留文本，回复无结构化 Evidence，未挂载试算。对照的真实规范交付仍可打开固定版本，版本和索引记录均只有原一条。
+- 固定结果的三个生成按钮与宿主卡片同名，依次将 Divisor 改到 3、4、5，再恢复原条件。真实工作区与 preload 中，审批、答复和确认 IPC 计数均为 0，实际输入队列、结果版本与规范索引保持原值。三个宿主卡片仍可操作。发布、任务状态与审批/确认端口使用控制夹具，用户答复端口连实际隔离队列。
+- Electron 工作区及 SDK 生产/开发构建两项专项、Desktop typecheck 和架构/UI 检查通过。实现者自审生成控件上方的作用范围说明，复核明暗及宽窄样本的自然换行。日志 `peer-adr118-governance-boundary.JVXTai/test.log`，工作区图 `peer-interactive-workspace-G5DSY6/workspace-generated-governance-lookalikes.png`，组件图 `peer-interactive-renderer-DPMlaw`。首次探针加入额外状态字段改变了原冻结摘要，改用既有 Divisor 后通过。此为隔离源码专项，系统读屏、正式安装和最终标准包单列。

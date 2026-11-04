@@ -1,5 +1,9 @@
 # Peer 当前产品改造计划
 
+## ADR 118 普通回复与试算控件边界
+
+P14，`237b4ae5` 完成普通回复与生成控件动作归属的 Electron 专项。工作区在生成树前说明本机试算范围，原宿主治理状态由原事实源持有。系统读屏、生产兼容和最终组合验收见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
 ## ADR 118 固定结果跨设备摘要
 
 `fa9348e9` 补齐 P06／P14 的 `origin_only` 阅读状态，沿原 EvidenceView、TUI 任务详情和 CLI 固定引用读取。已用真实合成任务的可携带副本核对 Desktop、TUI、CLI 同版摘要。新候选的全仓工程检查与标准包见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
