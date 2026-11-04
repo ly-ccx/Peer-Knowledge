@@ -764,10 +764,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T12 | 两存储连接与主区、独立窗口实际接管，旧 generation、迟到保存和原回执均有专项 |
 | IUI-T13 | 固定引用、主题/尺寸、关后重开、独立安装副本与整个进程重启恢复分别取证 |
 | IUI-T14 | 固定目录/内容版本、前驱切换、无可用正文和 SDK chunk 故障都有降级证据。未来 SDK 升级仍需实际运行旧组合夹具 |
-| IUI-T15 | 固定原字节、源改写、缺源和截断已经核对，旧版与新版分开显示。明确撤回来源后的用户可见终态尚待补证 |
+| IUI-T15 | 固定原字节、源改写、缺源和截断已经核对，旧版与新版分开显示。后续来源状态及范围的用户可见证据见 `15915dd7` 专项 |
 | IUI-T16 | 实际 Electron 保存、冻结、claim/ack、原 Composer、队列和规范消息。安装副本复测只在明确发送后出现一条同值同版输入 |
 | IUI-T17 | 宿主权限与回复状态独立核对，生成状态中的可识别原生授权载荷拒绝准入。后续同名生成按钮与宿主控件对照见 `237b4ae5` 专项 |
-| IUI-T18 | 未知 schema、损坏正文/回执、逻辑配额以及实际 `SQLITE_FULL` 有领域证据。生产清理守卫及磁盘错误的界面终态尚待 |
+| IUI-T18 | 未知 schema、损坏正文/回执、逻辑配额以及实际 `SQLITE_FULL` 有领域证据。后续 macOS 安装副本的磁盘错误终态见 `237b4ae5` 专项，生产清理守卫尚待 |
 | IUI-T19 | 正式旧 macOS 包回退拒写、重写规范会话及再次升级已实测。两种规范来源的跨设备摘要已核对。发布旧队列仍可对替换前 inode 返回受理，生产排他保护尚待 |
 | IUI-T20 | 同提交的 macOS arm64、Linux x64 独立归档通过无图形 CLI、两种原摘要、真实 PTY 任务导航与本机计算。正式分发另计 |
 | IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。Orca 已实测固定结果的播报和焦点，VoiceOver 与完整读屏路径尚待 |
@@ -788,3 +788,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 使用实际 ReplyComposer、Conversation 持久历史和 Bot ReplyBubble，普通回复同时包含可运行的 OpenUI 程序、`openui` 围栏和真实固定结果 URI。前两者分别保留正文及代码形态，URI 保留文本，回复无结构化 Evidence，未挂载试算。对照的真实规范交付仍可打开固定版本，版本和索引记录均只有原一条。
 - 固定结果的三个生成按钮与宿主卡片同名，依次将 Divisor 改到 3、4、5，再恢复原条件。真实工作区与 preload 中，审批、答复和确认 IPC 计数均为 0，实际输入队列、结果版本与规范索引保持原值。三个宿主卡片仍可操作。发布、任务状态与审批/确认端口使用控制夹具，用户答复端口连实际隔离队列。
 - Electron 工作区及 SDK 生产/开发构建两项专项、Desktop typecheck 和架构/UI 检查通过。实现者自审生成控件上方的作用范围说明，复核明暗及宽窄样本的自然换行。日志 `peer-adr118-governance-boundary.JVXTai/test.log`，工作区图 `peer-interactive-workspace-G5DSY6/workspace-generated-governance-lookalikes.png`，组件图 `peer-interactive-renderer-DPMlaw`。首次探针加入额外状态字段改变了原冻结摘要，改用既有 Divisor 后通过。此为隔离源码专项，系统读屏、正式安装和最终标准包单列。
+
+### 固定结果的来源变化与原观察范围 IUI-T15
+
+- ADR 先于代码在 `c0a4a5c` 定义来源状态边界。A 级代码 `15915dd7` 将新用户材料的首次规范工作位置记入设备本地材料元数据。只在原固定结果的同 owner 下，用实际 plan/session 核对原会话后检查原附件。跨工作引用仍定位首次规范观测，重试不重绑。旧记录缺少可信位置时保持无法核对。材料键、固定内容摘要和原持久版本保留。
+- 真正的 Provider 发布、Conversation 与 SQLite 专项覆盖首次观测、附件正文改变、原附件从规范消息移除、旧元数据缺少位置、旧 Store 读取新元数据、重试保持原位置及原固定正文逐字节保留。撤下的直接来源仍被新发布准入拒绝。跨任务测试用不同发布者身份对照原材料位置。
+- Desktop 用原 typed open 返回有界来源状态。宿主说明在生成内容之前出现。来源详情以现有 Frost 折叠控件展示原分类、观察时间、路径、字段、行偏移/上限、截断及脱敏。测试核对附件移除提示、时间戳、行上限和原试算。观察范围始终来自保存的快照。界面不调用数据工具或替换原值。
+- 159 项 Node、45 项 Bun、Desktop/TUI 类型、Desktop IPC 目录、架构/UI 及 Electron 生产/开发组件与工作区专项通过。独立工作树的 Electron 依赖起初缺少二进制路径，复用既有 Electron 41.7.1 后完整复跑通过。截图等待折叠展开稳定后重采，实现者复核明亮展开和 420px 暗色状态。证据 `peer-adr118-source-status.dzqFIQ` 的 `runtime-verified.log`、`bun-final.log`、`electron-verified.log`、`electron-sources.log` 与 `peer-interactive-renderer-lJOBUG`。这是源码验证，最新安装版与完整组合回归单列。
+
+### macOS 安装副本磁盘写满恢复 IUI-T18
+
+- `237b4ae5` 以仓库打包脚本构建 macOS arm64 DMG/ZIP，包内运行时检查和 Developer ID 严格验签通过。app.asar SHA-256 为 `44262ed35433fd5ab2545318e8ca55c6b61b8cc4892d14d4f097ad7e90e5a85e`。DMG `ca31031b2d85afbbc3238fd228f21aaad3e62c232e901af9ac726c7c4752b417` 已放入隔离 VoiceOver 虚拟机的只读共享目录。此包的公证尚未完成。证据 `peer-adr118-governance-candidate.COFmBN`。
+- 从 ZIP 解包的独立安装副本打开预置固定结果。真实 HFS+ 临时卷填入 97,607,680 字节后返回 `ENOSPC`，项目存储为 0 个可用块。输入 Divisor 5 后实际 Renderer 显示保存未确认，输入和焦点保留，试算显示 Ratio 2。SQLite 原确认状态和保存次数保持原值。腾出空间后从原按钮重试，恰好增加一条保存回执。关闭重开同一固定版本后仍为 5 和 2。
+- 证据 `peer-adr118-installed-full.ryoXqu/verify.log`、`disk-full-result.png`、`saved-result.png`。实现者目视核对失败提示、焦点和仍可修改的输入。卷已卸载。此样本使用预置材料和本地签名安装副本，真实模型与正式公证另计。
