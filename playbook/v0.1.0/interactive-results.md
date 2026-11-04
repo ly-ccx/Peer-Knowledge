@@ -679,7 +679,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 从 `fa9348e9` 编译的独立 macOS arm64 二进制对真实 Anthropic 合成任务的移植副本返回完整固定引用和 `origin_only`。610 字符摘要逐字节匹配原记录，CLI 前后导入目录文件 SHA-256 全部一致。相同二进制经独立 PTY 从任务列表打开同一固定版本，显示原设备与未验证摘要，终端退出码 0。证据 `peer-adr118-portable-summary-check.aPcC7S/portable` 与 `portable-pty-final/terminal-audit.json`。两次读取均未创建结果库。
 - 隔离 Electron 的生产证据组件经受信任 preload 和正式 IPC 从同一数据副本读取。原设备提示和模型摘要在原证据阅读处可读，未出现交互入口、网络请求或页面错误。`peer-adr118-portable-summary-check.aPcC7S/desktop-final` 含截图和机器回执。截图由实现者目视，确认提示、摘要和技术详情的层级及正文换行。使用正式组件的最小隔离壳，整包、正式安装和 VoiceOver 单列。
 - `fa9348e9` 全仓 build、typecheck、architecture:check、test 及 qa:product:test 均退出 0。进一步读取实际 Desktop Responses 可携带数据时发现其规范回执使用 `local_capability_result_ref` 与 success，和 TUI 的 completed 不同。代码 `74e0bae9` 分别核对两种格式及各自完成条件。23 项发布来源和旧传输测试通过。相同最新独立 CLI 二进制分别从两份实际来源的可携带副本读取，Desktop 的 167 字符和 TUI 的 610 字符均逐字节匹配，两个数据目录前后文件哈希一致，未创建结果库。证据 `peer-adr118-portable-two-formats.DpqCur/report.json`。
-- `74e0bae9` 的隔离 Desktop 证据视图也从同一份 Desktop Responses 移植数据读取，实际正文逐字匹配独立 CLI。截图与机器回执在 `peer-adr118-portable-two-formats.DpqCur/desktop-evidence`，实现者目视确认提示与摘要可读，作用域内未出现交互控件、网络请求、页面错误或结果库。上一提交 `fa9348e9` 的整包在快速输入模型选择等待 30 秒后失败。最新提交的工程和标准包已另起复跑，目录 `peer-adr118-portable-two-formats-final.RqwGjj`。
+- `74e0bae9` 的隔离 Desktop 证据视图也从同一份 Desktop Responses 移植数据读取，实际正文逐字匹配独立 CLI。截图与机器回执在 `peer-adr118-portable-two-formats.DpqCur/desktop-evidence`，实现者目视确认提示与摘要可读，作用域内未出现交互控件、网络请求、页面错误或结果库。上一提交 `fa9348e9` 的整包在快速输入模型选择等待 30 秒后失败。最新提交的 build、typecheck、architecture:check、test 及 qa:product:test 均退出 0，Desktop IPC 随原门禁核对。同提交标准包正在采集，目录 `peer-adr118-portable-two-formats-final.RqwGjj`。
+- 最新独立 PTY 也从 Desktop Responses 的迁移副本打开原任务详情，显示同一完整固定引用和 `origin_only` 摘要。终端正常退出，未创建结果库。证据 `peer-adr118-portable-two-formats.DpqCur/desktop-origin-pty/terminal-audit.json`。
 
 ## 后续接线与完成审计
 
