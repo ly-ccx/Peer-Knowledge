@@ -686,6 +686,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `74e0bae9` 的隔离宿主进入实际协调维护，等待当前执行停稳，维护期间显式重启被拒绝。独立固定旧输入队列进程在无执行租约时追加输入并返回受理 ID。原队列仍可按该 ID 找到完整输入。维护解除后，原宿主只创建一条规范输入并执行一轮。证据 `peer-adr118-maintenance-input.0KUaJ5/report.json`。保留原队列时的排队恢复已验证，维护入口自身无法阻止旧写者。
 - 同提交持有实际 `acquireMessageRetentionGuard`，独立进程使用当前 Conversation Store 的 `updateTitle`。锁目录一直存在，标题仍成功落盘，随后守卫的修订复核返回失效。证据 `peer-adr118-conversation-metadata-guard.o0OXqK/report.json`。这是当前索引元数据写入路径缺少排他的复现，尚无跨最后核对至提交的写入保护。ADR §17.2.1 明确元数据写者的锁范围及后续验收。
+- `3568a04a` 将当前 Conversation Store 的元数据改写、消息计数回填及启动迁移接入同一索引锁。异步终态取得索引和历史锁后才提交，在历史锁冲突时先释放索引锁再等待。跨进程回归证明持守卫时标题、已读写者等待，释放后提交且规范输入载体完整。后台回填等待并保留最新标题。114 项 Conversation Store 测试与 158 项 Runtime Node 交互结果测试通过。固定旧版同步消息写入的相关源码段保留逐段校验。旧二进制仍可能绕过此规则，生产兼容守卫仍待。证据 `peer-adr118-message-index-work.lQmJHv`。
 
 ## 后续接线与完成审计
 
