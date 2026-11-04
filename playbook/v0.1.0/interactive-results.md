@@ -19,7 +19,7 @@
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；`3bf95a40` 补清理事务内核及固定旧写者证明，但真实六来源/保护未接齐，删除入口保持不可用；其余留存及完整能力验收继续待完成，未退出 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。真实文档/浏览器混合场景及其余产品验收尚未完成；功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；完整真实委托/核验/交还故事仍待完成，未退出 |
-| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。临时 macOS 目录包已验证固定发布、阅读、原条件冻结、明确提交和独立核验；正式第二次回复、整包逐图验收、完整安装及其余性能/辅助技术覆盖待完成，未退出 |
+| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`7e1a76c5` 标准产品包完成逐图自审和 verify，临时独立 CLI/TUI 归档通过固定结果读取。生产旧端兼容守卫、正式公证安装和系统读屏尚待验，未退出 |
 
 ## 验证与完成标准
 
@@ -668,8 +668,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 ### 固定候选整包、独立终端与旧队列切换验证
 
-- `7e1a76c5` 标准包完成全部 255 张的实现者自审，其中 218 张本轮目视，37 张按同 ID 与原图 SHA-256 一致复用。`qa:product:verify` 退出 0，runId `f0e4df2c-b801-4ff0-9290-fee686ea1c1d`，源码指纹 `78c1fbf9ebff8eb2875299499c0c0c69472b05d535779b9b4eb857aee9899033`。证据 `peer-adr118-composer-fixed-candidate.KX8Uxr/packet`。覆盖源码 Electron 和脚本模型，独立审查、系统 VoiceOver 与正式安装版另计。
-- 同提交通过 IUI-T20 的临时 macOS arm64 独立归档专项。归档 SHA-256 `9e38783aaf5ef87380b40de39cecef4ff52e6d792d7c44cf05d15f2737054f5f`。仅使用系统 PATH，从解包二进制运行 help、version 与 `peer result <固定引用> --json`。独立 PTY 使用早前真实 Anthropic 任务的隔离合成数据，经 `/tasks`、`/task N`、`/result 1` 打开同一固定版本。显示未验证的模型摘要及独立的“按初始条件计算”，Budget 100、Remaining 45。括号粘贴和两组逐键输入均以退出码 0 完成。早期复测在上一轮保存的 `asks` 前插入 `/tasks`，干净草稿中未复现额外字符。证据 `peer-adr118-standalone-tui.nujFC5`、`peer-adr118-paste.PlVEi8/terminal-audit.json`、`peer-adr118-typed-fast.u0TMmm/terminal-audit.json` 与 `peer-adr118-typed-drained.xbCoYd/terminal-audit.json`。本地归档使用临时辅助程序，正式分发及各目标平台安装另计。
+- `7e1a76c5` 的 `qa:product:test` 8 项均通过。标准包完成全部 255 张的实现者自审，其中 218 张本轮目视，37 张按同 ID 与原图 SHA-256 一致复用。`qa:product:verify` 退出 0，runId `f0e4df2c-b801-4ff0-9290-fee686ea1c1d`，源码指纹 `78c1fbf9ebff8eb2875299499c0c0c69472b05d535779b9b4eb857aee9899033`。证据 `peer-adr118-composer-fixed-candidate.KX8Uxr`。覆盖源码 Electron 和脚本模型，独立审查、系统 VoiceOver 与正式安装版另计。
+- 同提交通过 IUI-T20 的临时 macOS arm64 独立归档专项。归档 SHA-256 `9e38783aaf5ef87380b40de39cecef4ff52e6d792d7c44cf05d15f2737054f5f`。仅使用系统 PATH，从解包二进制运行 help、version 与 `peer result <固定引用> --json`。独立 PTY 使用早前真实 Anthropic 任务的隔离合成数据，经 `/tasks`、`/task N`、`/result 1` 打开同一固定版本。终态显示完整固定引用、未验证的模型摘要及独立的“按初始条件计算”，包括 Budget 100、Remaining 45 和表格中的 A/20、B/35。括号粘贴和两组逐键输入均以退出码 0 完成。早期复测在上一轮保存的 `asks` 前插入 `/tasks`，干净草稿中未复现额外字符。证据 `peer-adr118-standalone-tui.nujFC5`、`peer-adr118-paste.PlVEi8/terminal-audit.json`、`peer-adr118-typed-fast.u0TMmm/terminal-audit.json` 与 `peer-adr118-typed-drained.xbCoYd/terminal-audit.json`。本地归档使用临时辅助程序，正式分发及各目标平台安装另计。
 - 固定旧版 `8b3ffbcf` 的真实队列夹具在 `holdsLease=false` 时仍受理输入。独立进程在 `appendFileSync` 的真实描述符打开后暂停，测试进程换入复制自同一原内容的新 inode，再恢复旧端追加。旧 `submitInput` 返回受理 ID，旧 inode 有对应记录，当前权威队列及同一个旧端的按 ID 查询均找不到。基线输入在新权威仍可读。证据 `peer-adr118-queue-generation.sNjMkB/report.json`。该受控交错仅使用临时目录，证明替换路径会割裂已受理输入；生产清理保持关闭。
 
 ## 后续接线与完成审计
