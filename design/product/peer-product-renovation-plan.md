@@ -1,5 +1,9 @@
 # Peer 当前产品改造计划
 
+## ADR 118 固定结果跨设备摘要
+
+`fa9348e9` 补齐 P06／P14 的 `origin_only` 阅读状态，沿原 EvidenceView、TUI 任务详情和 CLI 固定引用读取。已用真实合成任务的可携带副本核对 Desktop、TUI、CLI 同版摘要。新候选的全仓工程检查与标准包见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
 ## ADR 118 无试算会话的表现恢复
 
 `f4d7fb9d` 补齐主区旧布局及静态摘要读位的关闭检查点。专项通过，固定提交的整包采集和全仓复跑按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 跟进。

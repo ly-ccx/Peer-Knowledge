@@ -1,7 +1,7 @@
 # ADR 118 交互结果实施与验证
 
 创建时间：2026-11-03
-最后更新：2026-11-04
+最后更新：2026-11-05
 
 状态：实施中，未完成。七项文档补充已交付，用户现已明确恢复“完整实现并测试完成”的目标，继续完整代码实施与提前验证。既有实施、验证和未提交工作均保留。ADR 118 仍保持 Proposed；实现及单项测试不构成决策接受、运行时授权或产品验收。
 
@@ -672,6 +672,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 同提交通过 IUI-T20 的临时 macOS arm64 独立归档专项。归档 SHA-256 `9e38783aaf5ef87380b40de39cecef4ff52e6d792d7c44cf05d15f2737054f5f`。仅使用系统 PATH，从解包二进制运行 help、version 与 `peer result <固定引用> --json`。独立 PTY 使用早前真实 Anthropic 任务的隔离合成数据，经 `/tasks`、`/task N`、`/result 1` 打开同一固定版本。终态显示完整固定引用、未验证的模型摘要及独立的“按初始条件计算”，包括 Budget 100、Remaining 45 和表格中的 A/20、B/35。括号粘贴和两组逐键输入均以退出码 0 完成。早期复测在上一轮保存的 `asks` 前插入 `/tasks`，干净草稿中未复现额外字符。证据 `peer-adr118-standalone-tui.nujFC5`、`peer-adr118-paste.PlVEi8/terminal-audit.json`、`peer-adr118-typed-fast.u0TMmm/terminal-audit.json` 与 `peer-adr118-typed-drained.xbCoYd/terminal-audit.json`。本地归档使用临时辅助程序，正式分发及各目标平台安装另计。
 - 固定旧版 `8b3ffbcf` 的真实队列夹具在 `holdsLease=false` 时仍受理输入。独立进程在 `appendFileSync` 的真实描述符打开后暂停，测试进程换入复制自同一原内容的新 inode，再恢复旧端追加。旧 `submitInput` 返回受理 ID，旧 inode 有对应记录，当前权威队列及同一个旧端的按 ID 查询均找不到。基线输入在新权威仍可读。证据 `peer-adr118-queue-generation.sNjMkB/report.json`。该受控交错仅使用临时目录，证明替换路径会割裂已受理输入；生产清理保持关闭。
 - `7e1a76c5` 的独立二进制在仅复制 `conversations`、`goal-plans` 和 `projects` 的临时数据根中，读取同一 Anthropic 故事的固定结果时退出 1。规范发布索引与对应工作会话仍保存同版发布 Tool Result 和 610 字符的模型摘要，结果 SQLite 缺失。`peer-adr118-portable-conversation.qrGwUv/report.json` 固定了复现。ADR §17.3 明确该摘要的本地人工读取与来源核对边界，接线与实际验证待续。
+
+### 跨设备固定摘要 IUI-T19
+
+- 设计提交 `fba2960`，实现提交 `fa9348e9`。在本机版本缺失时，复用迁移后的规范工作会话 Tool Result、原 EvidenceIndex、任务与当前 Bot 身份，返回同版 `origin_only` 摘要。Conversation 写者文件通过原固定版本校验，新增有界只读入口独立导出。局部回归覆盖正常文本、重复调用、流式未完成、错任务、归属更换和本地结果原状态。新提交的全仓检查和标准产品包在 `peer-adr118-portable-final.Q8ah8D` 运行，`7e1a76c5` 的既有整包通过记录继续绑定旧提交。
+- 从 `fa9348e9` 编译的独立 macOS arm64 二进制对真实 Anthropic 合成任务的移植副本返回完整固定引用和 `origin_only`。610 字符摘要逐字节匹配原记录，CLI 前后导入目录文件 SHA-256 全部一致。相同二进制经独立 PTY 从任务列表打开同一固定版本，显示原设备与未验证摘要，终端退出码 0。证据 `peer-adr118-portable-summary-check.aPcC7S/portable` 与 `portable-pty-final/terminal-audit.json`。两次读取均未创建结果库。
+- 隔离 Electron 的生产证据组件经受信任 preload 和正式 IPC 从同一数据副本读取。原设备提示和模型摘要在原证据阅读处可读，未出现交互入口、网络请求或页面错误。`peer-adr118-portable-summary-check.aPcC7S/desktop-final` 含截图和机器回执。截图由实现者目视，确认提示、摘要和技术详情的层级及正文换行。使用正式组件的最小隔离壳，整包、正式安装和 VoiceOver 单列。
 
 ## 后续接线与完成审计
 
