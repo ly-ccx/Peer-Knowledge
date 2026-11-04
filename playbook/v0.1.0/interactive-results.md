@@ -577,6 +577,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `7847a2bd` 的 `peer-adr118-product-policy-fixed.kVKEK0/packet` 完成全部 255 图的自动采集，runId `a918bac1-a9b7-4ca3-8a29-1e37850abbb6`。实现者自审已通过 70 图，其中 28 图经 ID 与实际哈希匹配复用，42 图直接目视，包含 Quick Chat、回复悬停、核验与恢复状态。新候选 `093237e2` 开始重采，目录 `peer-adr118-product-ref-diagnostic.Hq3hbq/packet`。
 
+- `093237e2` 的 OpenAI Responses 故事 `peer-interactive-live-LPBa4Q` 完成固定发布和独立检查，25 次实际请求后整案到时。唯一一条引用固定结果的规范 Bot 回复记录了 `verifying`，且正文仍承诺完成核验后汇报。根目标复核随后通过，任务却已代签为 `accepted`，没有落盘真正汇报结果的正式回复。证据保存在隔离目录 `peer-adr118-story-responses-diagnostic.VK1gwj`。
+
+- ADR `3cf472e` 与实现 `a80813b0` 将代签依据绑定为正式回复持久化的任务状态和当前两项 revision。新回归在原实现复现进度回复误触发代签，修复后当前版本的进度回复与已过期的结果回复均无法触发代签，引用当前结果的规范回复可以。126 项回复、签收及任务主管专项、Runtime Node 构建、全仓类型、架构/UI、Desktop IPC 检查通过。旧历史回复沿原兼容路径读取，既有已持久签收不改写。
+
+- `093237e2` 的 255 张标准截图完成采集，runId `e6509b73-0fef-41cf-a541-e176eb1a4229`。当前实现者自审通过 45 张，其中 35 张按 ID 与实际原图 SHA-256 匹配复用，10 张直接核对主对话及任务详情的核验状态。候选 `a80813b0` 另行采集，目录 `peer-adr118-product-current-acceptance.RfoPI9/packet`。
+
+- `a80813b0` 的 OpenAI Responses 故事 `peer-interactive-live-YHe5kV` 再次产生引用固定结果的 `verifying` 回复。真实独立核验结束后，两次宿主读取及最终样本均保留 `result_ready`，证实没有因进度回复代签。根复核报告 `goal_review_failed`，首次交付阶段在 25 次真实请求后到时，未进入冻结和第二次交付。目录 `peer-adr118-story-current-acceptance.nj7KYY`。
+
+- 同候选的本地 macOS arm64 目录包通过严格临时签名、包内 7 项主进程导入与 4 项交互内容导出检查。app.asar SHA-256 `9ff8d37be47f968570783b9ee6c9736d98d34df45aa3308250bcec0654cbccbb`，目录 `peer-adr118-packaged-current-acceptance.Hfy48W/package`。这项验证覆盖包与依赖完整性。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
