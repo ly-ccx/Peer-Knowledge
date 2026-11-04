@@ -124,7 +124,7 @@ E04/E08-F1（P1）：用户反馈“等待/耗时较久”占位与截图返回�
 | E08 / R2 · 新建、模型、配置 | **当前路径实现已审阅；候选验证待发布** | 复用 PR197/200；新建名称/IME/未知创建；模型浏览不写入、真实配置与当轮快照分开；G04 与通用/Git/routing/vision/档案保存恢复、连接/目录/元数据 dirty 离开；新增只在会话内保留非凭据草稿 |
 | E05 / R2 · 滚动与导航 | **实现已审阅；候选验证待发布** | Bot/经典共享用户意图策略；布局碰到底不恢复跟随，发送/compaction/背景查找不抢回。按机器人保存有界会话内阅读锚点，旧页每批最多 4 页，可中断/继续/回最新；经典重用真实 turn 快照 |
 | E06 / R2 · 焦点与浮层 | **实现已审阅；候选验证待发布** | 模态/菜单/档案/查找/tooltip 共享逻辑层级，modal inert/Tab/focusin、最上层 Escape、单次外点/归焦；G05 tabs、G06 拖动撤销/屏障/清理、G07 tooltip 已实现；隐藏内容 inert，昂贵切换显式激活 |
-| E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执 |
+| E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执。Quick Chat 输入提示、模型和思考强度的原生材质对比专项见 ADR 118 实施记录 |
 | E03 / R1 · IME | **实现已审阅；候选验证待发布** | 共享 composition/229/Process/keyup，候选 Escape 不删正文，菜单和全局动作先让给 IME；TUI 复用真实宿主键名/事件 seam。各系统 IME 与真实终端仍须取证，不宣称终端总能提供 composition 信号 |
 | E04 / R1 · 决策与结果一致性 | **实现已审阅；候选验证待发布** | generic ok 不制造 done；宿主真实 approval/current card 和当前核验/验收事实优先，旧 presentation resolution 不覆盖；TUI cancel 独立并拒绝执行。清单/生命周期/权限策略沿现有真源消费，核验/签收/Git交回不合并。跨消费者/迟到/过期/撤权对照归 E13 |
 | E13 | **发布前待执行** | 原批用例未全跑；本次用户授权的基础点查与三项检查见上节，不能替代发布证据。合并所有开放 PR 后，对最终候选完整执行 build/test/type/architecture/IPC 和产品 packet |

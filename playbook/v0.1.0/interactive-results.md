@@ -555,6 +555,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `b5a85e08` 的全仓构建、类型、架构/UI 与 Desktop IPC 检查通过。默认并行全仓测试的会话提交计时断言在独立文件复跑 9 项全过。按工作区串行复跑时 Runtime Node 1,922 项及其余先运行的工作区通过，Desktop 凭据测试发生 helper 超时。该文件隔离通过，完整 Desktop 套件以四路并发复跑 6,220 项通过、5 项跳过。TUI 单独复跑 846 项通过。保留两次初跑计时失败与后续复跑的区别。
 
+- `3a838689` 收紧隔离故事对当前宿主回执的使用，保留预算和交付判据，14 项控制测试通过。Anthropic Messages / deepseek-flash 的 `peer-interactive-live-1uDwva` 在首次回复和冻结输入后用了 49 次请求，第 34 个 Bot 工具调用触发 32 次上限，仍未取得第二轮显式 verdict。相同编码换用已配置 glm-5.3 后，首次请求用尽 3,200 输出 token，返回无可用文本或工具的结果，整案到时退出。该样本位于 `peer-adr118-story-anthropic-glm.N6IjMA`。
+
+- `b5a85e08` 标准产品包 `peer-adr118-product-root-verdict.LtR9dP/packet` 生成 255 张必查图，runId `d4a9f6b6-e772-4232-b360-695c07faa09c`。47 张通过自审，其中 35 张按截图 ID 和实际 SHA-256 匹配原审阅，12 张直接目视。Quick Chat 补采 macOS 原生合成，发现普通模型/思考强度标签深色约 3.41∶1、浅色约 2.85∶1。C 级修复 `93656f0f` 将选择器、附件图标和输入提示接到现有主题主文字色。Vite 构建及隔离原生两主题复测通过，所测普通文字约为 12.04∶1 和 14.14∶1。复测使用受控背景和真实原生窗口，专项日志 `peer-adr118-quick-chat-contrast-fixed.dFyyO3`，独立完整候选仍待重采。
+
+- `3a838689` 构建隔离 macOS arm64 目录包，包内 7 项主进程导入、4 项交互内容导出及严格临时签名检查通过。app.asar SHA-256 `6301b55da865e19c99be0b1cc834951a810fc218a9b4672a2f2751baad1307ae`，目录 `peer-adr118-packaged-story.lFWOSQ`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。

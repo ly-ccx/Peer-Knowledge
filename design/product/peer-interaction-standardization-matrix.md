@@ -630,7 +630,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P23 经典工作台雷达/任务/历史 | Q/V；HomePage→GlobalWorkbenchPage、TaskOverviewPage、TasksPage/HistoryPage | E16 粒子/FLIP/思考球与显示收尾已审阅；V 旧消费者事实/签收文案、跨列焦点/真实降级 | P1 · E04/E11/E16 |
 | P24 经典结果/Git 交回/冲突处理 | V/F/A；ConversationResultView/SourceCheckoutPanel/HandoffConflictPanel | V diff失败/冲突重试/提交未知、操作成功与关闭分开 | P0 事实 / P1 控件 · E04/E09/E17 |
 | P25 选区对话/引用/子任务 | I/O；SelectionChatWorkspace/SelectionQuoteAction、持久子会话与 quote refs | V 原文失效/返回定位/已有草稿/保存失败/权限边界 | P1 · E02/E05/E09 |
-| P26 Quick Chat 独立窗口/原生弹选 | I/O/Q；S bot 按目标+surface 恢复；经典 localStorage 草稿保留 | G02/E03 实现已审阅；V 原生重开、迟到换 bot、IME/经典附件 | P0 · E02/E03/E11 |
+| P26 Quick Chat 独立窗口/原生弹选 | I/O/Q；S bot 按目标+surface 恢复；经典 localStorage 草稿保留 | G02/E03 实现已审阅。Quick Chat 输入提示及操作标签采用主题主文字色，深浅原生合成专项已复测。V 原生重开、迟到换 bot、IME/经典附件 | P0 · E02/E03/E11 |
 | P27 全局/会话搜索/页内查找 | Q/O；ConversationSearchPalette/ChatFindBar、搜索 API/当前文本 | E05/E06 查找只显式导航、IME/归焦已审阅；V 旧请求/无结果/未挂载内容/源消息 | P1 · E05/E06 |
 | P28 设置框架/搜索/返回 | Q/F；SettingsPage，分区导航非跨面板全文搜索 | G04/E08 实现已审阅；V 搜索空结果、dirty 分区/返回/全局导航/deep-link 与焦点 | P1 · E08/E17 |
 | P29 设置·通用/主动性/通知 | F；GeneralPanel、getSettings/updateSettings | E08 回执/draft/retry 已审阅；V 静音时段/locale/真实送达与并发 | P1 · E08/E10 |
