@@ -666,10 +666,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 用同一修正归档的产品代码和预置固定材料在独立壳复测。组合回车及空格选词都保留草稿和原冻结条件，发送前无队列记录或规范输入。首次独立回车只产生一条规范用户消息，无额外换行，协议解码和 SQLite 原冻结回执一致，仍为同版、同值 5。证据 `peer-adr118-composer-ime-fixed.tYbY6G/canonical-composer-ime-audit.json`。这是实现者的真实系统输入法专项，使用独立 Electron 壳、环回静态资源、无配置模型和预置发布，公证安装及 VoiceOver 分别验收。
 - `3365486f` 标准包自审至 139/255。干净提交 `7e1a76c5` 的全仓构建、类型、架构/UI 和测试均退出 0，Desktop IPC 随原构建和测试门禁核对。同提交标准包已启动重采，记录 `peer-adr118-composer-fixed-candidate.KX8Uxr`。逐图结论只绑定对应原图校验值。
 
+### 固定候选整包、独立终端与旧队列切换验证
+
+- `7e1a76c5` 标准包完成全部 255 张的实现者自审，其中 218 张本轮目视，37 张按同 ID 与原图 SHA-256 一致复用。`qa:product:verify` 退出 0，runId `f0e4df2c-b801-4ff0-9290-fee686ea1c1d`，源码指纹 `78c1fbf9ebff8eb2875299499c0c0c69472b05d535779b9b4eb857aee9899033`。证据 `peer-adr118-composer-fixed-candidate.KX8Uxr/packet`。覆盖源码 Electron 和脚本模型，独立审查、系统 VoiceOver 与正式安装版另计。
+- 同提交通过 IUI-T20 的临时 macOS arm64 独立归档专项。归档 SHA-256 `9e38783aaf5ef87380b40de39cecef4ff52e6d792d7c44cf05d15f2737054f5f`。仅使用系统 PATH，从解包二进制运行 help、version 与 `peer result <固定引用> --json`。独立 PTY 使用早前真实 Anthropic 任务的隔离合成数据，经 `/tasks`、`/task N`、`/result 1` 打开同一固定版本。显示未验证的模型摘要及独立的“按初始条件计算”，Budget 100、Remaining 45。括号粘贴和两组逐键输入均以退出码 0 完成。早期复测在上一轮保存的 `asks` 前插入 `/tasks`，干净草稿中未复现额外字符。证据 `peer-adr118-standalone-tui.nujFC5`、`peer-adr118-paste.PlVEi8/terminal-audit.json`、`peer-adr118-typed-fast.u0TMmm/terminal-audit.json` 与 `peer-adr118-typed-drained.xbCoYd/terminal-audit.json`。本地归档使用临时辅助程序，正式分发及各目标平台安装另计。
+- 固定旧版 `8b3ffbcf` 的真实队列夹具在 `holdsLease=false` 时仍受理输入。独立进程在 `appendFileSync` 的真实描述符打开后暂停，测试进程换入复制自同一原内容的新 inode，再恢复旧端追加。旧 `submitInput` 返回受理 ID，旧 inode 有对应记录，当前权威队列及同一个旧端的按 ID 查询均找不到。基线输入在新权威仍可读。证据 `peer-adr118-queue-generation.sNjMkB/report.json`。该受控交错仅使用临时目录，证明替换路径会割裂已受理输入；生产清理保持关闭。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据；系统读屏仍待验收。
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
-- 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，完整独立安装验收仍待完成。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
-- OpenAI Responses 与 Anthropic Messages 已有隔离宿主的真实整案证据。Desktop 真实 Responses 目录包取得两次正式回复、冻结后的独立核验、根复核及规范闭合。原生结果字段及 Composer 均有系统 IME 专项。最终提交的全仓、逐图和整包验收按新候选记录，正式公证安装及系统读屏仍须单列。
+- 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，临时独立 CLI/TUI 归档已验证，正式独立分发验收单列。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
+- OpenAI Responses 与 Anthropic Messages 已有隔离宿主的真实整案证据。Desktop 真实 Responses 目录包取得两次正式回复、冻结后的独立核验、根复核及规范闭合。原生结果字段及 Composer 均有系统 IME 专项。`7e1a76c5` 的全仓工程检查及标准产品整包已通过，正式公证安装及系统读屏仍须单列。
