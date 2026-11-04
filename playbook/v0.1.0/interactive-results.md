@@ -540,6 +540,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - macOS 本机隔离探针核对文件旗标能否成为旧写者排他证明。为老化 60 秒的活 PID 目录锁和队列文件加 `UF_IMMUTABLE` 后，独立固定旧 `legacy-input-queue` 进程仍无法取得锁，返回 EEXIST；新打开的追加描述符也被拒绝。然而加旗标前已打开的追加描述符实际写入了 14 字节。因此排除此方案作为跨存储保护。仅在临时目录运行，清理前撤除旗标，生产清理仍等待真实排他端口。日志 `peer-adr118-macos-fence-probe.9nJdWd/report.json`。
 - 当前干净源码 `eb8ecdab` 已启动 OpenAI encoder 整案复跑，沿用原角色与整案限额，输出 `peer-adr118-story-latest.lTiZM5`。
 
+- `eb8ecdab` OpenAI 故事 `peer-interactive-live-1KN7ou` 完成发布、独立核验、首次正式交付以及 Budget 80 冻结规范输入。Bot 16 次额度耗尽，整案 25 次（worker 4、Verifier 5），第二委托尚未创建。持久回执可见等候版本冲突及无诊断的 `work_revision_conflict`。`b9281b48` 对已在范围内的工作或目标版本冲突返回重新读取的当前版本，依旧拒绝陈旧请求且不推进版本，52 项专项通过。
+- `db4576ac` 标准包新审阅宽暗任务核验四种状态，区分通过、未通过、部分核验、无法核验与任务签收，累计 59/255。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
