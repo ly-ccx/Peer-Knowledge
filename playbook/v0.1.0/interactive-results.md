@@ -651,10 +651,18 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `2732d443` 的 macOS arm64 目录包以本机 Developer ID 和 hardened runtime 签名，严格验签、7 项主进程导入、4 项交互内容 export 及 2 个 Dock 资源检查通过。asar SHA-256 为 `a70c579ce6df1babd1a6e1e914b64ba37efe98751227c5ca22285a751a70251f`。将本地 DMG 中的 app 拷入临时安装目录并再次验签。Gatekeeper 返回 `Unnotarized Developer ID`，正式公证安装待验。
 - 从临时安装目录启动上述包，以隔离数据和预置固定结果验证原生视图将 Divisor 由 2 改到 5，Ratio 为 2，关闭窗口和重启整个包后仍可读。冻结放入原草稿，队列未新增；实际 Composer 按钮只发送一条规范输入，协议解码与宿主原冻结回执一致，保留同版本和数值 5。第一次发送探针在新规范日志尚未创建时提前结束，修正后重新冻结并实测通过。证据 `peer-adr118-developer-id-package.I6noKa` 内的包日志与 `isolated-install/canonical-audit.json`。该安装故事使用预置结果，真实模型最终交付证据另见前述临时目录包。
 
+### 只读清理对账、Anthropic 整案与本机输入法
+
+- ADR `998850b` 先定义三类清理的请求级只读对账。代码 `45a4cce1` 使回执读取核对当前 owner、原目标、请求 ID 和摘要。读取缺失回执不申请守卫或启动清理，冲突明确拒绝。历史固定版本单独读取有界墓碑摘要。Node/Bun 各 41 项专项、全仓构建、类型、架构/UI 和测试通过，Desktop IPC 随原门禁核对。证据 `peer-adr118-scoped-cleanup-receipts.WSO8E8`。
+- 在 macOS 临时目录运行 `revoke()` 隔离探针。系统调用对同 UID 的普通队列文件返回 `ENOTSUP`，已打开描述符的独立进程仍读出原始内容并追加 9 字节。该接口无法成为生产兼容守卫。证据 `peer-adr118-macos-revoke.7Fky9G/report.json`。[Apple XNU 实现](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/vfs/vfs_syscalls.c#L10499-L10502)
+- 干净提交 `3365486f` 的隔离 TUI 宿主通过 Anthropic Messages / deepseek-flash 真实任务整案。47 次实际请求（Bot 27、worker 8、Verifier 12），记录输入 316,423、输出 30,759、缓存读取 479,360 tokens，未取得账单金额。规范对话两条原输入、两次正式回复，原发布与冻结 Budget 80 保持同一固定版本，余额分别为 45 和 25。原始存储复核了最终回复绑定的两个任务及其双修订、四类显式核验回执和可读 TUI 交付文本。证据 `peer-adr118-anthropic-latest-story.WoJy7R/peer-interactive-live-INgqKY/canonical-audit.json`。样本使用合成任务和已配置模型，覆盖隔离 TUI 宿主；Desktop 安装、公证及独立产品审查另计。
+- `3365486f` 标准包 runId `b7c0f17f-915c-4bd4-bfbb-fc1b10e69d6b` 完成全部 255 张采集。当前实现者自审通过 79 张，43 张经同 ID 和实际原图 SHA-256 匹配复用，36 张直接目视。新回复过程截图中技术参数已完全收起，键盘焦点和当前状态仍可见。其余 176 张待审，整包 verify 待跑。证据 `peer-adr118-settled-disclosure.3HIXHj/packet`。
+- 同提交的原生结果文本控件以隔离 Electron 副本和本机当前输入法实测。原生键盘输入拼音时记录可信组合开始及中间输入，界面保留草稿并禁用保存、冻结，结果标题与宿主检查点均仍是原值。空格选定“中”后，记录可信汉字输入及一次 `isTrusted=false` 的组合结束，随后界面标题、值和宿主持久状态一致。使用实际资源窗口、preload、IPC 和结果库，预置固定结果，隔离 Renderer 通过环回静态资源启动。覆盖此文本控件，Composer、正式公证安装及系统 VoiceOver 待单列。证据 `peer-adr118-native-ime.4NZH5A/canonical-ime-audit.json`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据；系统读屏仍待验收。
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，完整独立安装验收仍待完成。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
-- 两种实际 Provider encoder 的真实首次生成及固化计算已取得专项证据。Desktop 真实 Responses 的隔离目录包故事已取得两次正式回复、冻结后的独立核验、根复核及规范闭合。`67ff99b1` 全仓工程检查通过，标准产品包按 `3365486f` 重采。正式公证安装版、系统 IME 和系统读屏仍须单列验收。
+- OpenAI Responses 与 Anthropic Messages 已有隔离宿主的真实整案证据。Desktop 真实 Responses 目录包取得两次正式回复、冻结后的独立核验、根复核及规范闭合。`45a4cce1` 全仓工程检查通过。`3365486f` 标准产品包已重采，逐图和整包验收待完成。原生结果字段取得系统 IME 专项，Composer 的系统输入法、正式公证安装及系统读屏仍须单列。
