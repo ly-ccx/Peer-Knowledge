@@ -547,6 +547,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `b9281b48` 的 OpenAI 故事 `peer-interactive-live-gHJo5H` 完成首次正式交付与 Budget 80 冻结输入，首次会话 accepted。第二委托尚未创建，整案 29 次（Bot 16、worker 5、Verifier 8）耗尽 Bot 限额。检查规范 checkpoint 可见一次缺 assessment.reason、两次提交已经 result_ready 的旧等待，以及一次试图对仍在运行的 Verifier 请求重查。宿主均拒绝并提供相应事实；本案没有再出现工作版本冲突。按同一成本门槛继续处理模型回合收敛问题。
 - `db4576ac` 标准包逐图检查宽暗与窄亮的历史恢复五种状态共十张，包括检查、保全、单项确认、批量确认与结清。截图哈希一致，累计 69/255。
 
+- `9f21ecc5` 同步根目标复核与正式回复的顺序，44 项专项及 Runtime Node 构建通过。OpenAI Responses 故事 `peer-interactive-live-3TyMwx` 完成首次规范回复、冻结输入和第二轮显式通过 verdict。根复核也取得 program、facts、初始和冻结四类完整检查，但返回 `goal_review_failed`，重试达到 Verifier 16 次上限（整案 50 次），没有第二条正式回复。检查发现根复核事实输入缺少显式 verdict 本身，模型的具体拒绝理由未留存。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
