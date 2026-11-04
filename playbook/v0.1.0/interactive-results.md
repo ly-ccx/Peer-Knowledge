@@ -771,7 +771,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T19 | 正式旧 macOS 包回退拒写、重写规范会话及再次升级已实测。两种规范来源的跨设备摘要已核对。发布旧队列仍可对替换前 inode 返回受理，生产排他保护尚待 |
 | IUI-T20 | `27c64b46` 的 macOS arm64、Linux x64 独立归档通过无图形 CLI、两种原摘要、真实 PTY 任务导航与本机计算。正式分发另计 |
 | IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。`27c64b46` 的 Linux 安装专项核对筛选、复选框、滑杆、数据表和图表替代表的键盘与 AT-SPI 路径，以及 Orca 控件与区域播报。VoiceOver 和逐格读表另计 |
-| IUI-T22 | 最新双窗口 500 行持续样本记录了 528 次输入、长任务及 PSS，旧生产 Renderer 另有 CPU 和卸载回收。真实模型已记录失败、修复及 token，账单金额仍缺 |
+| IUI-T22 | `27c64b46` 的 Linux 安装版双窗口 500 行样本记录 552 次输入、长任务、进程树 CPU 下界与 PSS，关闭后恢复基线页面和进程数。六种归档的体积已记录。真实模型已记录失败、修复及 token，账单金额仍缺 |
 | IUI-T23 | 精确只读 worker 例外已接真实 Desktop/TUI 执行层，原角色读取与项目写入边界有回归 |
 | IUI-T24 | 规范材料完整正文、大于 bodyPreview、分页、范围、脱敏、缺分类和摘要不补齐均有专项 |
 | IUI-T25 | 稳定身份、原子写入、索引丢确认、原 owner/租约与索引来源冲突均有专项，未知责任保留 |
@@ -829,3 +829,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `27c64b46` 全仓 build、typecheck、architecture:check 和 qa:product:test 退出 0。第一轮全仓 `pnpm test` 中，Desktop 预测凭据用例报告 `CREDENTIAL_UNAVAILABLE:credential_helper_timeout`。同提交单独执行该文件通过 1 项。第二轮在标准产品采集后以测试命令级串行设置复跑全仓，退出 0。汇总 Node 9,169 项通过、5 项跳过，Bun 846 项通过。运行时凭据超时保持原值。证据 `peer-adr118-source-budget-candidate.rxdM13` 下的 `results`、`test.log`、`credential-retry.log` 和 `test-serial.log`。
 - 同提交的 `qa:product:capture` 与 `qa:product:verify` 均退出 0。runId `f57b858c-598b-4545-9c79-5dc624248e72`，源码指纹 `4c1f843f213b88582c91b0fda80db3d38babd14da6b2273de0b15784cebf4f3c`。255 张必查图中，210 张变化图逐张目视检查，45 张以同场景 SHA-256 一致复用前次记录。实现者自审。`machine.json` 记录无页面错误，覆盖真实源码 Electron 及合成模型，安装版、真实模型、完整读屏与长时验收分别取证。结果见 `peer-adr118-source-budget-candidate.rxdM13/packet/result.json`、`review.json` 与同目录原图。
+
+### Remote 固定结果生命周期与再次授权
+
+- `27c64b46` 的 Desktop 远程宿主、Gateway HTTP 及真实配对 WebSocket 在隔离夹具中重开同一任务。初次读取两个 `available` 固定结果，随后经共享清理 Module 生成真实 SQLite 墓碑，再次读取两项 `cleaned`。固定引用与先前逐字一致。D1 仍呈现原摘要，路径脱敏，HTML 字符按纯文本显示。D3 两次都只返回固定身份及可用状态。
+- 在宿主已读取结果且尚未完成导出校验时，从任务报告移除固定引用。该次 HTTP 仍可读任务，但不再携带移除的结果。随后撤销项目读取授权，任务请求返回 403。退出后浏览器清空对话与详情。此前丢弃一次真实输入回执后沿同一 ID 重试，规范对话只落一条输入。
+- Chromium 使用 390px 视口，无页面错误。实现者自审列表、对话、可用与已清理两种任务详情的四张原图，核对长引用换行和正文披露。证据 `peer-adr118-remote-transition.7u2Xqh/output/proof.json` 与同目录原图。样本使用脚本回复、受控保留根及清理守卫。旧端生产隔离、实体手机及真实模型分别验收。
+
+### 最新 Linux 安装版持续输入、释放与包体 IUI-T22
+
+- `27c64b46` 的 `.deb` 在断网 x64 用户态仿真环境运行。用安装包自身的发布 Provider 及规范工作会话，在受控 Grant 下发布两个独立固定结果。每个结果绑定同一份 500 行合成附件，两个图表各核对 500 个图元。实际 Electron 安装版运行 307.68 秒，共 23 轮同时打开两视图、逐个试算、确认保存并关闭。552 次 DOM 输入从事件到结果可观察帧的 P50/P95/P99 为 16.6/26.2/29.7 ms，最大 31.4 ms。焦点保留，观测窗口内长任务和页面错误均为 0。
+- 应用进程树累计 CPU 观测下界为 171.62 秒，按进程身份汇总 `/proc` 样本，短于采样间隔的进程及关闭间隔内未采到的 CPU 时间未计入。PSS 为初始 815,167 KiB、双窗峰值 1,274,816 KiB、关闭稳定后 797,523 KiB。页面数由 3 增到 5 再回到 3，进程数由 7 增到 9 再回到 7。数值对应虚拟显示、禁用 GPU 和 x64 仿真样本。
+- 持续样本期间及收尾的只读 SQLite 核对取得同一固定版本、材料、发布操作、两条 Evidence 索引及规范会话文件哈希。保存回执从采样时的 40 增至 46。实现者检查确认保存、输入焦点和试算原图。证据 `peer-adr118-latest-installed-soak.9gMcvL/soak/soak-report.json`、`soak-chart.png` 和根目录 `domain-diff.json`。原始图表点数由 DOM 检查记录。
+- 同一提交的本地归档体积为 macOS DMG 143,041,010、ZIP 140,572,336、Linux `.deb` 118,391,772、AppImage 148,734,716、macOS CLI/TUI 23,842,916、Linux CLI/TUI 47,943,987 字节，对应前述哈希。真实模型计量和账单核验单列。
