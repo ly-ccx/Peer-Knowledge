@@ -561,6 +561,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `3a838689` 构建隔离 macOS arm64 目录包，包内 7 项主进程导入、4 项交互内容导出及严格临时签名检查通过。app.asar SHA-256 `6301b55da865e19c99be0b1cc834951a810fc218a9b4672a2f2751baad1307ae`，目录 `peer-adr118-packaged-story.lFWOSQ`。
 
+- 隔离的 `3a838689` 应用包经实际 Composer 写入规范输入，8 次 OpenAI Chat 请求均由既有配置真实转发，模型发起的只读发布委托被宿主拒绝。原因是 Desktop 运行时设置投影漏读已有的 `projectAgent.interactiveResults` 布尔值。B 级修复 `7847a2bd` 将该值加入现有投影，由原设置归一化提供默认关闭。新增断言在修复前以 undefined 复现，修复后 Desktop 设置、原生端口和集成共 47 项通过。应用包复测另记真实交付。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
