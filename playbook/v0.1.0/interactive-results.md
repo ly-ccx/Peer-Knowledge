@@ -625,6 +625,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - ADR §12.2.1 由 `30aea21` 定义，`5b03de5c` 接 Desktop 主区和独立窗口。当前 Bot 明确换成另一有效身份时，ViewService 封存原视图，同一 sender 和页面只核对原 save outcome。StateStore 从同一存储及实际 pin 读回原回执，确认提交、确认未提交、未知分别处理。宿主不发快照或其他归属身份，原状态、冻结和版本入口均不能继续。Renderer 仅保留后续本地未确认输入供复制，确认放弃后用户自己再次关闭。
 - 57 项 Node 宿主/领域和 33 项 Bun Renderer 专项通过，Desktop 类型及架构/UI 通过。隔离 Electron 使用真实主进程、IPC、preload、布局和条件存储，覆盖主区与独立窗口、原提交回执丢失及核对、未确认时阻止关闭、取消放弃保留、单独阅读位置的失败与再次关闭。为覆盖真实关闭检查点，`9f37d847` 调整最后一个场景的等待和断言。实现者目视两张恢复图，可读本地输入和明确放弃入口均可见，原 Composer 草稿保持。证据 `peer-adr118-owner-replacement.GiuaMk` 和 `peer-interactive-workspace-Hk75On`。
 - 最新标准包按干净提交 `9f37d847` 在 `peer-adr118-product-owner-replacement.eVd7BU/packet` 重采。全仓检查使用相同运行时代码提交 `5b03de5c`，日志 `peer-adr118-owner-replacement-engineering.4hQwqV`。
+- `5b03de5c` 全仓构建、类型和架构/UI 均退出 0。并行 `pnpm test` 因 Desktop 输入预测凭据查询的 fixture helper 超时退出 1，同一文件隔离复跑 1 项通过。整套复跑等待当前标准采集进程退出后，在 `9f37d847` 干净源码重新执行。
 
 ## 后续接线与完成审计
 
