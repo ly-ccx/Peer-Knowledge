@@ -1,5 +1,9 @@
 # Peer 当前产品改造计划
 
+## ADR 118 Bot 归属替换退出恢复
+
+已打开的 Desktop 主区和独立视图接入原保存核对、复制和明确放弃，`9f37d847` 隔离 Electron 专项通过。无存活视图的旧布局、真实模型正式交付与标准包按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 继续。
+
 ## 任务详情核验状态可读性
 
 `c53a27f9` 修复标准包复核中发现的低对比度，隔离 Electron 核验专项通过，整包复采与审阅按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 跟进。
