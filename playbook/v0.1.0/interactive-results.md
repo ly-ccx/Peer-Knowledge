@@ -698,6 +698,15 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `3568a04a` 在隔离 Linux x64 容器中用仓库正式脚本构建并打包 CLI 和凭据 helper。首次构建因容器 bind mount 上 Bun 编译器无法重命名临时产物而失败。将同一源码归档解到容器原生文件系统后构建通过。归档 SHA-256 `d78d6ec92e63ee2d88e1355a35b10bc231dd31111b4e48dcd3dd1c37ed76e670`。
 - 在断网、无 GUI、仅系统 PATH 的隔离 Linux x64 容器中解包执行 help、version 和 `peer result <固定引用> --json`。Desktop Responses 与 TUI Anthropic 的原固定引用和 167、610 字符摘要逐字节匹配，两个 CLI 数据副本的文件哈希均未变化。单独克隆 Desktop 来源数据并重绑容器工作区路径，真实 PTY 从 `/tasks`、`/task N` 到 `/result 1` 打开同版原设备摘要，退出码 0。证据 `peer-adr118-linux-standalone.81cOrp/receipt` 下 `linux-cli-audit.json`、`desktop-pty/terminal-audit.json`。容器使用 x86_64 仿真，覆盖归档解包与文本入口，正式分发和原生 Linux 主机另计。 同一归档从本地含结果库的隔离副本用 CLI 读到同一可用版本，再经断网 PTY 打开任务中的固定版本。显示 Budget 100、Remaining 45 及 A/20、B/35，正常退出。证据 `local-computation/terminal-audit.json`。
 
+### 清理对账、Linux Desktop 安装和远程墓碑
+
+- 发布仓库最新正式 RC tag `v0.1.0-rc.35` 不含交互视图 Module，但其 `input-queue.mjs` 与固定旧源码 `8b3ffbcf` 字节完全相同，SHA-256 `d6cbe49ea8dd13736cc17068a7fbd92e429838a022d964ee3914303e4da27cd5`。此前真实旧队列的维护受理风险覆盖这份已发布队列实现；旧交互视图生命周期证据来自固定开发提交，分开记录。
+- 基线 `1da86e18` 复现切走执行租约后当前 Bot 无法只读核对已提交的清理回执。ADR `4ab8437` 明确两类权限，代码 `8d49fbde` 在 Desktop/TUI 保留当前活跃 Bot 的本机只读对账。专项实际覆盖结果、孤立冻结、独立材料三种持久回执及历史墓碑，禁用或失租约时预览/清理调用拒绝，归属替换或停用后对账也拒绝。基线先失败，修复后 159 项 Runtime Node 专项通过，证据 `peer-adr118-cleanup-reconcile.bzTHtZ`。
+- `8d49fbde` 全仓 build、typecheck、architecture:check、test 和 qa:product:test 均退出 0，Desktop IPC 目录核对通过。标准产品采集进行中，证据 `peer-adr118-reconcile-candidate.MlKQsx`。
+- `1da86e18` 的 Linux x64 `.deb` 与 AppImage 由仓库正式打包脚本生成，包内 7 项主进程导入、4 项交互内容导出和 2 项 Dock 资源核对通过。归档哈希见 `peer-adr118-linux-desktop.qf3IHk/artifacts.sha256`。`.deb` 在断网容器经 `dpkg` 安装并成功启动。真实固定结果窗从 Divisor 2 改到 5，显示 Ratio 2，关闭重开和整个进程重启后仍读取同一固定引用和数值。实际 AT-SPI 树读到结果标题、标签和 `entry` 的值 5；实现者检查 `verification/result-linux.png` 的保存回执与试算值。使用 x86_64 仿真、Xvfb 和预置结果，覆盖系统无障碍 API，未运行完整读屏器语音流程。
+- 同 Linux AppImage 的外层 ELF 无法在本机 x86_64 仿真中直接执行，解出原 SquashFS payload 后 `AppRun` 正常启动，Renderer 的主窗口和 Quick Chat 页面均来自该 payload 的 `app.asar`。与 `.deb` 中的 `app.asar` 逐字节一致，SHA-256 `5cdd3f5f8c7a76d627c8ac9b3f53c4f33643dcc47318ce16c904f9988ccc353f`。实际 x64 主机上的 AppImage 外层启动待验。
+- `8d49fbde` 的 Remote 环回 HTTP、真实配对 WebSocket 与 390px Chromium 浏览器试验覆盖实际 SQLite 墓碑。D1 墓碑显示原固定身份、清理状态与脱敏模型摘要，原 HTML 字符按纯文本呈现；D3 墓碑只返回固定身份和可用状态。已核对列表、会话和任务三张原图，任务列表的长引用正常换行，未暴露私有标题或摘要，退出后清空。证据 `peer-adr118-remote-cleaned.GwINAn/output`。试验使用合成项目与受控清理守卫，不构成真实旧端隔离或实体手机验收。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据；系统读屏仍待验收。
