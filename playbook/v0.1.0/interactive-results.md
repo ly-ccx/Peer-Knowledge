@@ -563,6 +563,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 隔离的 `3a838689` 应用包经实际 Composer 写入规范输入，8 次 OpenAI Chat 请求均由既有配置真实转发，模型发起的只读发布委托被宿主拒绝。原因是 Desktop 运行时设置投影漏读已有的 `projectAgent.interactiveResults` 布尔值。B 级修复 `7847a2bd` 将该值加入现有投影，由原设置归一化提供默认关闭。新增断言在修复前以 undefined 复现，修复后 Desktop 设置、原生端口和集成共 47 项通过。应用包复测另记真实交付。
 
+- `7847a2bd` 目录包复测通过临时签名及包内导入检查。app.asar SHA-256 `456f565c4cd3a331dcc600a704edf0e618050545714b182eaaece7a6257cc0e9`。两个隔离样本分别使用 15、31 次真实 OpenAI Chat 请求，经环回代理把既有配置的真实凭据限制在测试进程内。修复后真实只读委托通过准入，合成数据调用经正式审批入口取得单次 Grant，并写入固定发布索引。第二样本 `peer-adr118-packaged-approval.HPWdCE` 的自动和显式任务核验均通过，检查包括程序、数据与初始计算。根目标评估把有效固定引用与未进入该任务索引的 Bot 工具回执混用，宿主以 `goal_evidence_stale` 拒绝，限时内未写首次规范回复。包内冻结与最终交付仍未证实。
+
+- 同一源码全仓类型、架构/UI 和 Desktop IPC 检查通过。最新标准包重采启动于干净 `7847a2bd`，目录 `peer-adr118-product-policy-fixed.kVKEK0/packet`。上一候选的 Quick Chat 对比度问题保留在原审阅，新候选需绑定新的源码指纹和截图。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
