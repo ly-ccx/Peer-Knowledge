@@ -645,8 +645,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 ### 清理提交确认、标准采集与持续输入
 
 - 在临时目录用真实 SQLite 清理事务和独立固定旧队列进程，将旧写入放到最后一次守卫检查之后、SQLite 提交之前。旧端抢回已老化目录锁并提交带原冻结材料的有效输入。原实现报 `interactive_retention_stale`，实际已提交墓碑与回执。ADR `efb62bc` 和代码 `67ff99b1` 区分提交前阻断及提交后确认失败。复测得到 `interactive_cleanup_outcome_unknown`，原回执、墓碑和旧队列输入均可核对，同一请求读回原回执。27 项 Node 清理专项、Runtime Node 构建与架构/UI 检查通过。证据 `peer-adr118-after-last-retention-check.P9uS6Z`、`peer-adr118-cleanup-confirmation.RIAUlD`。此实验使用受控兼容守卫，生产仍缺对已打开旧写者和旧视图的隔离证明。
-- `2732d443` 的标准包完成 255 张采集，runId `751109cb-ddde-440c-9fbf-e16857d7334a`。当前实现者自审通过 116 张，其中 44 张按同 ID 与实际原图 SHA-256 一致复用，其余本轮目视。整包尚未通过 `qa:product:verify`。证据 `peer-adr118-active-input-final.6UQpWk/packet`。
-- 同提交的生产 Renderer bundle 在隔离 Electron 中，以真实 SDK 和 500 行合成数据连续输入 114.64 秒。602 次 DOM 输入至可观察帧的 P50/P95/P99 分别为 9.2/13.7/16.4 ms，最大 22.1 ms，记录 0 次 Long Task；Tab CPU 增加 8.20 秒。working set 为 241,872 → 274,448 → 192,960 KiB，事件监听器为 184 → 455 → 182，末值在显式卸载、等待及 CDP 主动回收之后取得。证据 `peer-adr118-sustained-renderer.k502ch/test.log` 所指目录内的 `production-sustained-summary.json`。此样本使用 DOM 输入与测试状态接口，系统输入法、安装版性能和更长时段分别验收。
+- `67ff99b1` 全仓构建、类型、架构/UI 和测试均退出 0，Desktop IPC 随构建及测试门禁核对。证据 `peer-adr118-cleanup-outcome-engineering.GuzVAm`。
+- `2732d443` 的标准包完成 255 张采集，runId `751109cb-ddde-440c-9fbf-e16857d7334a`。实现者自审通过 199 张，其中 44 张按同 ID 与实际原图 SHA-256 一致复用，155 张本轮目视；另有 1 张失败、55 张待查。`chat-process-summary.png` 在键盘关闭技术详情后的淡出阶段拍摄，仍可见原始参数，无法核对稳定终态。仅采集脚本提交 `3365486f` 等待原始技术文本隐藏后再截图，从固定提交重新采集。干净工作树首次采集缺预建依赖，补 Desktop 构建后重采。两次证据分别为 `peer-adr118-active-input-final.6UQpWk/packet` 与 `peer-adr118-settled-disclosure.3HIXHj`。
+- `2732d443` 的生产 Renderer bundle 在隔离 Electron 中，以真实 SDK 和 500 行合成数据连续输入 114.64 秒。602 次 DOM 输入至可观察帧的 P50/P95/P99 分别为 9.2/13.7/16.4 ms，最大 22.1 ms，记录 0 次 Long Task；Tab CPU 增加 8.20 秒。working set 为 241,872 → 274,448 → 192,960 KiB，事件监听器为 184 → 455 → 182，末值在显式卸载、等待及 CDP 主动回收之后取得。证据 `peer-adr118-sustained-renderer.k502ch/test.log` 所指目录内的 `production-sustained-summary.json`。此样本使用 DOM 输入与测试状态接口，系统输入法、安装版性能和更长时段分别验收。
+- `2732d443` 的 macOS arm64 目录包以本机 Developer ID 和 hardened runtime 签名，严格验签、7 项主进程导入、4 项交互内容 export 及 2 个 Dock 资源检查通过。asar SHA-256 为 `a70c579ce6df1babd1a6e1e914b64ba37efe98751227c5ca22285a751a70251f`。将本地 DMG 中的 app 拷入临时安装目录并再次验签。Gatekeeper 返回 `Unnotarized Developer ID`，正式公证安装待验。
+- 从临时安装目录启动上述包，以隔离数据和预置固定结果验证原生视图将 Divisor 由 2 改到 5，Ratio 为 2，关闭窗口和重启整个包后仍可读。冻结放入原草稿，队列未新增；实际 Composer 按钮只发送一条规范输入，协议解码与宿主原冻结回执一致，保留同版本和数值 5。第一次发送探针在新规范日志尚未创建时提前结束，修正后重新冻结并实测通过。证据 `peer-adr118-developer-id-package.I6noKa` 内的包日志与 `isolated-install/canonical-audit.json`。该安装故事使用预置结果，真实模型最终交付证据另见前述临时目录包。
 
 ## 后续接线与完成审计
 
@@ -654,4 +657,4 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，完整独立安装验收仍待完成。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
-- 两种实际 Provider encoder 的真实首次生成及固化计算已取得专项证据。Desktop 真实 Responses 的隔离目录包故事已取得两次正式回复、冻结后的独立核验、根复核及规范闭合。`2732d443` 全仓工程检查通过，标准产品包已完成采集，目视与整包 verify 仍在进行。正式安装版、系统 IME 和系统读屏仍须单列验收。
+- 两种实际 Provider encoder 的真实首次生成及固化计算已取得专项证据。Desktop 真实 Responses 的隔离目录包故事已取得两次正式回复、冻结后的独立核验、根复核及规范闭合。`67ff99b1` 全仓工程检查通过，标准产品包按 `3365486f` 重采。正式公证安装版、系统 IME 和系统读屏仍须单列验收。
