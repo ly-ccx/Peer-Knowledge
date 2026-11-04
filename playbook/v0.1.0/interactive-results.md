@@ -543,6 +543,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `eb8ecdab` OpenAI 故事 `peer-interactive-live-1KN7ou` 完成发布、独立核验、首次正式交付以及 Budget 80 冻结规范输入。Bot 16 次额度耗尽，整案 25 次（worker 4、Verifier 5），第二委托尚未创建。持久回执可见等候版本冲突及无诊断的 `work_revision_conflict`。`b9281b48` 对已在范围内的工作或目标版本冲突返回重新读取的当前版本，依旧拒绝陈旧请求且不推进版本，52 项专项通过。
 - `db4576ac` 标准包新审阅宽暗任务核验四种状态，区分通过、未通过、部分核验、无法核验与任务签收，累计 59/255。
 
+- `b9281b48` 的 OpenAI 故事 `peer-interactive-live-gHJo5H` 完成首次正式交付与 Budget 80 冻结输入，首次会话 accepted。第二委托尚未创建，整案 29 次（Bot 16、worker 5、Verifier 8）耗尽 Bot 限额。检查规范 checkpoint 可见一次缺 assessment.reason、两次提交已经 result_ready 的旧等待，以及一次试图对仍在运行的 Verifier 请求重查。宿主均拒绝并提供相应事实；本案没有再出现工作版本冲突。按同一成本门槛继续处理模型回合收敛问题。
+- `db4576ac` 标准包逐图检查宽暗与窄亮的历史恢复五种状态共十张，包括检查、保全、单项确认、批量确认与结清。截图哈希一致，累计 69/255。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
