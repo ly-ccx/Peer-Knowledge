@@ -691,6 +691,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `1da86e18` 使已经删除的会话根跳过后台计数回填，114 项 Conversation Store 测试再次通过。`3568a04a` 的第一次全仓测试中独立预测凭据 worker 发生超时，单文件隔离重跑通过。`1da86e18` 串行工作区重跑的全仓 build、typecheck、architecture:check、test 与 qa:product:test 均退出 0。Desktop IPC 目录新鲜度通过（405 channels、439 preload operations、354 main registrations）。标准产品采集已开始，证据 `peer-adr118-index-candidate.kSucO9`。
 - macOS 临时 APFS 卷中的固定旧输入队列在打开追加描述符后暂停。强制卸载该临时卷后，已打开的读写描述符均返回 `EIO`，封闭旧挂载路径后新的旧端请求返回 `ENOTDIR`，两次请求均未受理。另处重挂同卷后可读取卸载前已确认的原输入。旧进程仍能访问事先已读入内存的字节。证据 `peer-adr118-disk-epoch.uGFw0u/report.json`。此探针仅覆盖预先独占挂载的临时根和固定旧队列，不构成日常数据根、跨平台或已打开旧视图的生产隔离。
 
+- 独立进程从固定提交 `8b3ffbcf` 的原始 ViewService、Result Store 与 State Store 打开真实只读视图，未取得 writer，也没有写入新版视图 pin。仅在临时合成数据中用受控兼容守卫执行当前清理，预览没有视图阻断，事务提交墓碑。旧 sender 仍活着并持有原先交付的内容，使用同一固定引用重读得到 `interactive_content_cleaned`。证据 `peer-adr118-old-active-view.gQndUG/report.json`。生产守卫须核对旧视图的实际生命周期。
+
 ### Linux x64 独立归档 IUI-T20
 
 - `3568a04a` 在隔离 Linux x64 容器中用仓库正式脚本构建并打包 CLI 和凭据 helper。首次构建因容器 bind mount 上 Bun 编译器无法重命名临时产物而失败。将同一源码归档解到容器原生文件系统后构建通过。归档 SHA-256 `d78d6ec92e63ee2d88e1355a35b10bc231dd31111b4e48dcd3dd1c37ed76e670`。
