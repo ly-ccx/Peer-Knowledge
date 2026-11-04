@@ -764,13 +764,13 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T12 | 两存储连接与主区、独立窗口实际接管，旧 generation、迟到保存和原回执均有专项 |
 | IUI-T13 | 固定引用、主题/尺寸、关后重开、独立安装副本与整个进程重启恢复分别取证 |
 | IUI-T14 | 固定目录/内容版本、前驱切换、无可用正文和 SDK chunk 故障都有降级证据。未来 SDK 升级仍需实际运行旧组合夹具 |
-| IUI-T15 | 固定原字节、源改写、缺源和截断已经核对，旧版与新版分开显示。后续来源状态及范围的用户可见证据见 `15915dd7` 专项 |
+| IUI-T15 | 固定原字节、源改写、缺源和截断已经核对，旧版与新版分开显示。`27c64b46` 的 Linux 和 macOS 安装专项追加累计历史超限时的来源状态、原观察范围与已保存参数 |
 | IUI-T16 | 实际 Electron 保存、冻结、claim/ack、原 Composer、队列和规范消息。安装副本复测只在明确发送后出现一条同值同版输入 |
 | IUI-T17 | 宿主权限与回复状态独立核对，生成状态中的可识别原生授权载荷拒绝准入。后续同名生成按钮与宿主控件对照见 `237b4ae5` 专项 |
 | IUI-T18 | 未知 schema、损坏正文/回执、逻辑配额以及实际 `SQLITE_FULL` 有领域证据。后续 macOS 安装副本的磁盘错误终态见 `237b4ae5` 专项，生产清理守卫尚待 |
 | IUI-T19 | 正式旧 macOS 包回退拒写、重写规范会话及再次升级已实测。两种规范来源的跨设备摘要已核对。发布旧队列仍可对替换前 inode 返回受理，生产排他保护尚待 |
 | IUI-T20 | 同提交的 macOS arm64、Linux x64 独立归档通过无图形 CLI、两种原摘要、真实 PTY 任务导航与本机计算。正式分发另计 |
-| IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。Orca 已实测固定结果的播报和焦点，VoiceOver 与完整读屏路径尚待 |
+| IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。`27c64b46` 的 Linux 安装专项核对筛选、复选框、滑杆、数据表和图表替代表的键盘与 AT-SPI 路径，以及 Orca 控件与区域播报。VoiceOver 和逐格读表另计 |
 | IUI-T22 | 最新双窗口 500 行持续样本记录了 528 次输入、长任务及 PSS，旧生产 Renderer 另有 CPU 和卸载回收。真实模型已记录失败、修复及 token，账单金额仍缺 |
 | IUI-T23 | 精确只读 worker 例外已接真实 Desktop/TUI 执行层，原角色读取与项目写入边界有回归 |
 | IUI-T24 | 规范材料完整正文、大于 bodyPreview、分页、范围、脱敏、缺分类和摘要不补齐均有专项 |
@@ -810,3 +810,20 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `15915dd7` 全仓 build、typecheck、architecture:check 与 qa:product:test 退出 0，标准产品 capture 退出 0。runId `d14b449a-52a8-427b-8c26-60da98306031`，源码指纹 `6e9b93cd17917ece641353887707e6df1179f329c3eb6a1412fb80e9309fc689`。255 张必查图中 219 张本轮目视复核，36 张按同场景原图 SHA-256 一致复用。实现者自审后 `qa:product:verify` 通过。该整包覆盖源码 Electron 和合成模型。全仓测试另有预测凭据 worker 超时，原文件隔离重跑通过，整套测试未取得同提交通过。记录 `peer-adr118-source-status-candidate.2K05nk`。
 - ADR `80fa491` 先限定单次来源核对的累计历史预算，代码 `27c64b46` 复用原受作用域约束的规范历史读取。单次打开共享 8 MiB，含索引、历史和流式标记。在原 plan/Bot 归属之外核对持久会话元数据。测试覆盖恰好满足预算、差一字节、共用预算耗尽、流式标记和真实超限历史。超过预算时只显示来源状态无法核对，原固定内容及试算仍可读。
 - `27c64b46` Desktop 依赖链构建、Desktop/TUI 类型、Desktop IPC、架构/UI、172 项 Node 与 27 项 Bun 专项通过。证据 `peer-adr118-source-budget.6cB0ZW`。该提交的全仓及标准产品重跑位于 `peer-adr118-source-budget-candidate.rxdM13`。
+
+### 最新 Linux 安装版的键盘、辅助技术和累计读取上限
+
+- `27c64b46` 在 x64 用户态仿真环境构建 `.deb` 与 AppImage，仓库包内检查通过 7 项主进程导入、4 项交互内容导出和 2 项 Dock 资源。`.deb` SHA-256 为 `51c69ab639a65b89082af5fd9348ceac4d21ceb3390b47bc60b357d89507c30a`，AppImage 为 `bc7098aa1ab5795094d6ae7a0f57824d8bb827f4ea7598542c5718c9486479f4`。本轮安装验证使用 `.deb`，AppImage 外层启动的 FUSE 和自解包证据对应前述固定提交。
+- 在断网容器中从已安装的 `app.asar` 加载实际 Provider 和 Conversation Store。合成附件经受控 Grant 发布，工作会话由规范子会话入口建立。实际安装版保存 Divisor 5。原来源、原附件被改为成本 999、原附件移除、规范历史超过累计 8 MiB 四种状态均从原固定引用重开。合计保持 55，Divisor 保持 5，观察时间与行上限 2 均保持原值。超限时显示当前来源状态无法核对，原快照继续可读。
+- 在 Xvfb 下使用 Tab 到达筛选、复选框、滑杆、数据表区域、图表区域及重置。方向键筛至 B/35，空格切换试算，滑杆从 100 调至 101 后显示比值 20.2，Enter 重置至 100。AT-SPI 树分别暴露组合框、复选框、滑杆、图表图像及两张表，观察表和图表替代表均含 B/35。Orca 经 Speech Dispatcher 提交筛选当前值和打开菜单提示、复选框勾选状态、滑杆数值、两个区域名称、重置按钮和来源折叠状态。筛选名称由 AT-SPI 核对，逐格读表与实体音频另计。
+- 实现者自审五张安装版截图，核对来源终态、焦点、固定参数及图表替代值。证据在 `peer-adr118-source-budget-linux.7JEXxY/verify`，含 `report.json`、`atspi-report.json`、`orca-debug.log` 及原图。此样本覆盖合成材料和实际安装版，不构成真实模型或完整无障碍验收。
+
+### 最新 macOS 安装版与独立 CLI/TUI
+
+- `27c64b46` 以仓库脚本生成 macOS arm64 DMG/ZIP，包内运行时检查及解包应用严格验签通过。DMG SHA-256 为 `b1c417bfbe2c6068da889bbb304a6ea284bee8cc4ef36d875e1385ba64dc10f9`，ZIP 为 `80b872812da7053cfe720d1e0d181cbf59c61a0d910747b537ad2ffa6da3deb3`，`app.asar` 为 `3cc8a570c8a0f42c004b67bf8ee2e4334a637bf1e85a2747c40e2363970a5bca`。证据 `peer-adr118-source-budget-mac.TSmKTE`。同提交 DMG 及扩展夹具已放入隔离 VoiceOver 虚拟机共享目录，镜像和系统读屏验收尚未完成。本地包跳过公证。
+- 实际签名 ZIP 安装副本打开通过真实 Provider 和规范工作会话写入的合成结果，四种来源状态均显示对应反馈并保留合计 55、Divisor 5、试算 2、原观察时间和行上限 2。实现者自审四张原图。证据 `peer-adr118-installed-source-budget.rfdsYj/report.json` 及同目录原图。
+- 同提交以 Bun 1.2.17、Node 22.23.2 和发布脚本构建 macOS arm64 独立 CLI/TUI 归档，从上述签名 ZIP 提取凭据助手。归档 SHA-256 为 `42b8fd70111c98e7c39337282fbfb36debc84f7992c93817b8967d1448bc590e`。仅系统 PATH 下，来自此前两个真实模型整案的 167、610 字符固定摘要分别逐字节匹配，数据副本读取前后哈希一致。真实 PTY 从任务详情打开固定结果，本机显示 B/35、A/20、Remaining 45，退出码 0。证据 `peer-adr118-source-budget-cli.9weBdj` 下的 `cli-audit.json`、`signed-helper.json` 与 `fixed/terminal-audit.json`。本轮复验 macOS 归档，Linux 独立归档沿用前述固定提交证据。
+
+### 全仓运行中的凭据子进程超时
+
+- `27c64b46` 全仓 build、typecheck、architecture:check 和 qa:product:test 退出 0。第一轮全仓 `pnpm test` 中，Desktop 预测凭据用例报告 `CREDENTIAL_UNAVAILABLE:credential_helper_timeout`。同提交单独执行该文件通过 1 项。第二轮已安排在标准产品采集后以测试命令级串行设置重跑，运行时的凭据超时保持原值。证据 `peer-adr118-source-budget-candidate.rxdM13` 下的 `results`、`test.log` 和 `credential-retry.log`。最终全仓和标准产品整包分别以各自回执为准。
