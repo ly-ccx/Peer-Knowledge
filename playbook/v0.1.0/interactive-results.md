@@ -538,6 +538,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 同一 `eb8ecdab` 本地包补真实 Composer 按钮路径。重启后在实际 Bot 页面看到原草稿与 Divisor 5，编辑正文并点击发送，Composer 清空且仅新增一条对应的规范用户消息。用协议解码确认其中的冻结回执、固定版本及值与之前冻结的材料一致。隔离 Bot 无配置模型，覆盖实际 UI 提交与规范落盘，未覆盖真实模型回复或正式签名公证。输出为本机包验证目录的 `composer-send-result.json` 与 `canonical-composer-send.json`。
 
 - macOS 本机隔离探针核对文件旗标能否成为旧写者排他证明。为老化 60 秒的活 PID 目录锁和队列文件加 `UF_IMMUTABLE` 后，独立固定旧 `legacy-input-queue` 进程仍无法取得锁，返回 EEXIST；新打开的追加描述符也被拒绝。然而加旗标前已打开的追加描述符实际写入了 14 字节。因此排除此方案作为跨存储保护。仅在临时目录运行，清理前撤除旗标，生产清理仍等待真实排他端口。日志 `peer-adr118-macos-fence-probe.9nJdWd/report.json`。
+- 用代码 `37fe6442` 的实际协调存储在独立临时目录完成 v2→v3 路径切换。切换完成后原路径新打开追加返回 `EISDIR`，切换前已打开的描述符仍向归档 inode 写入 15 字节，受保护的规范 baseline 逐字节不变。该实验验证协调存储隔离后旧写入的实际去向；输入队列若复用路径切换，可能把已受理的用户输入留在归档，因此不能将此隔离当作输入队列旧写者排他或清理准入。记录 `peer-adr118-coordinate-fd.BJwatD/report.json`。
 - 当前干净源码 `eb8ecdab` 已启动 OpenAI encoder 整案复跑，沿用原角色与整案限额，输出 `peer-adr118-story-latest.lTiZM5`。
 
 - `eb8ecdab` OpenAI 故事 `peer-interactive-live-1KN7ou` 完成发布、独立核验、首次正式交付以及 Budget 80 冻结规范输入。Bot 16 次额度耗尽，整案 25 次（worker 4、Verifier 5），第二委托尚未创建。持久回执可见等候版本冲突及无诊断的 `work_revision_conflict`。`b9281b48` 对已在范围内的工作或目标版本冲突返回重新读取的当前版本，依旧拒绝陈旧请求且不推进版本，52 项专项通过。
