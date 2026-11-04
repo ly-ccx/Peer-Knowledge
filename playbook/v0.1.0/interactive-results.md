@@ -537,6 +537,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 同一 `eb8ecdab` 本地包补真实 Composer 按钮路径。重启后在实际 Bot 页面看到原草稿与 Divisor 5，编辑正文并点击发送，Composer 清空且仅新增一条对应的规范用户消息。用协议解码确认其中的冻结回执、固定版本及值与之前冻结的材料一致。隔离 Bot 无配置模型，覆盖实际 UI 提交与规范落盘，未覆盖真实模型回复或正式签名公证。输出为本机包验证目录的 `composer-send-result.json` 与 `canonical-composer-send.json`。
 
+- macOS 本机隔离探针核对文件旗标能否成为旧写者排他证明。为老化 60 秒的活 PID 目录锁和队列文件加 `UF_IMMUTABLE` 后，独立固定旧 `legacy-input-queue` 进程仍无法取得锁，返回 EEXIST；新打开的追加描述符也被拒绝。然而加旗标前已打开的追加描述符实际写入了 14 字节。因此排除此方案作为跨存储保护。仅在临时目录运行，清理前撤除旗标，生产清理仍等待真实排他端口。日志 `peer-adr118-macos-fence-probe.9nJdWd/report.json`。
+- 当前干净源码 `eb8ecdab` 已启动 OpenAI encoder 整案复跑，沿用原角色与整案限额，输出 `peer-adr118-story-latest.lTiZM5`。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
