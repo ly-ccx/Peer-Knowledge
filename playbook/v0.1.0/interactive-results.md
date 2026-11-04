@@ -549,6 +549,8 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - `9f21ecc5` 同步根目标复核与正式回复的顺序，44 项专项及 Runtime Node 构建通过。OpenAI Responses 故事 `peer-interactive-live-3TyMwx` 完成首次规范回复、冻结输入和第二轮显式通过 verdict。根复核也取得 program、facts、初始和冻结四类完整检查，但返回 `goal_review_failed`，重试达到 Verifier 16 次上限（整案 50 次），没有第二条正式回复。检查发现根复核事实输入缺少显式 verdict 本身，模型的具体拒绝理由未留存。
 
+- `b5a85e08` 以当前计划和规范报告摘要匹配显式 verdict，把受版本约束的宿主事实提供给根目标复核。46 项专项、Runtime Node 构建、全仓类型及架构/UI 约束通过。OpenAI Responses / gpt-6-astra 的 `peer-interactive-live-lyZsdt` 通过完整任务故事。规范首次回复、同版本冻结输入、独立显式通过 verdict、四类完整检查、第二轮根目标通过、正式回复及固定结果文本读取均已核对；初始余额 45，冻结余额 25。共 51 次实际请求（Bot 28、worker 8、Verifier 15），离整案上限仅一请求。报告汇总输入 517,856、输出 13,184、缓存读取 153,856 tokens，账单金额未取得。此条覆盖 TUI 隔离宿主和一条完整真实编码路径，其他编码的整案、安装包真实模型交付和完整产品包验收仍分别跟踪。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。
