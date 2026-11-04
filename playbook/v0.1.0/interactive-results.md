@@ -682,6 +682,11 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - `74e0bae9` 的隔离 Desktop 证据视图也从同一份 Desktop Responses 移植数据读取，实际正文逐字匹配独立 CLI。截图与机器回执在 `peer-adr118-portable-two-formats.DpqCur/desktop-evidence`，实现者目视确认提示与摘要可读，作用域内未出现交互控件、网络请求、页面错误或结果库。上一提交 `fa9348e9` 的整包在快速输入模型选择等待 30 秒后失败。最新提交的 build、typecheck、architecture:check、test 及 qa:product:test 均退出 0，Desktop IPC 随原门禁核对。同提交标准包正在采集，目录 `peer-adr118-portable-two-formats-final.RqwGjj`。
 - 最新独立 PTY 也从 Desktop Responses 的迁移副本打开原任务详情，显示同一完整固定引用和 `origin_only` 摘要。终端正常退出，未创建结果库。证据 `peer-adr118-portable-two-formats.DpqCur/desktop-origin-pty/terminal-audit.json`。
 
+### 维护入口和规范消息索引的隔离边界
+
+- `74e0bae9` 的隔离宿主进入实际协调维护，等待当前执行停稳，维护期间显式重启被拒绝。独立固定旧输入队列进程在无执行租约时追加输入并返回受理 ID。原队列仍可按该 ID 找到完整输入。维护解除后，原宿主只创建一条规范输入并执行一轮。证据 `peer-adr118-maintenance-input.0KUaJ5/report.json`。保留原队列时的排队恢复已验证，维护入口自身无法阻止旧写者。
+- 同提交持有实际 `acquireMessageRetentionGuard`，独立进程使用当前 Conversation Store 的 `updateTitle`。锁目录一直存在，标题仍成功落盘，随后守卫的修订复核返回失效。证据 `peer-adr118-conversation-metadata-guard.o0OXqK/report.json`。这是当前索引元数据写入路径缺少排他的复现，尚无跨最后核对至提交的写入保护。ADR §17.2.1 明确元数据写者的锁范围及后续验收。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据；系统读屏仍待验收。
