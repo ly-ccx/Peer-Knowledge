@@ -19,7 +19,7 @@
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；三类清理事务和真实六来源已接，`8d49fbde` 补执行租约切换后的只读清理对账。生产旧读写者兼容守卫和公开清理入口尚待，未退出 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。临时目录包已实测结果、文档、浏览器混合资源区和持久布局。`8d49fbde` 的 Developer ID 安装副本通过冻结、回退保护及再次升级发送。正式 macOS 公证安装及完整读屏待验，功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；隔离 Desktop Responses 与 TUI Anthropic Messages 均已有两次正式回复的整案证据。Desktop 样本跨隔离包升级恢复，TUI 样本绑定 `3365486f`，当前组合候选的同提交真实模型整案尚未重跑，未退出 |
-| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`8d49fbde` 标准产品包完成逐图自审和 verify，临时独立 CLI/TUI 归档通过固定结果读取，最新 Linux `.deb` 通过隔离安装、Orca 路径及状态重启恢复，AppImage 在 Debian x64 虚拟机通过 FUSE 和自解包启动与恢复。生产旧端兼容守卫、正式 macOS 公证安装及完整读屏尚待验，未退出 |
+| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`8d49fbde` 标准产品包完成逐图自审和 verify，同提交的 macOS arm64、Linux x64 独立 CLI/TUI 归档通过固定摘要读取及任务详情试算，最新 Linux `.deb` 通过隔离安装、Orca 路径及状态重启恢复，AppImage 在 Debian x64 虚拟机通过 FUSE 和自解包启动与恢复。生产旧端兼容守卫、正式 macOS 公证安装及完整读屏尚待验，未退出 |
 
 ## 验证与完成标准
 
@@ -724,10 +724,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 同一隔离数据根先由正式旧包的 Composer 写入 schema 1 草稿。新版从 DMG 安装副本打开预置固定结果，将 Divisor 从 2 改到 5 并持久化，关闭重开及切到 ZIP 安装副本重启后恢复同一版本及 Ratio 2。再从实际结果按钮冻结值 5，保留原草稿正文，输入队列保持原字节。回退至旧包后，实际 preload 调用返回 `DRAFT_UNAVAILABLE` 与 `DRAFT_SAVE_FAILED`，schema 3 草稿和队列逐字节保留。旧 UI 仅显示通用草稿错误，冻结内容在再次升级后才可读。实现者目视检查结果保存和旧包错误截图。首轮探针复用了旧 CDP 端口文件，修正驱动后整案通过。
 - 再从新版 ZIP 安装副本启动，Composer 恢复旧草稿正文和 Divisor 5。点击真实发送按钮后仅生成一条规范用户输入，其兼容附件解码与原固定引用、冻结回执及 SQLite 中的原冻结记录完全一致。将规范会话复制到独立目录，直接用正式旧包的 Electron 41.7.1 从其 `app.asar` 加载 Conversation Store，执行更新消息、全量重写和重开。新版解码仍取得同一冻结内容。证据 `run/canonical-audit.json`、`rewrite/report.json` 和 `rewrite/current-decode.json`。本项覆盖预置结果与实际安装副本，测试前后日常应用 PID 相同。生产清理、最新包公证和 VoiceOver 分别验收。
 
+### 发布工具链独立 CLI/TUI 归档 IUI-T20
+
+- 从干净的 `8d49fbde` 源码使用发布流程指定的 Bun 1.2.17、Node 22（本次为 22.23.2）及 pnpm 10.22.0，按仓库打包脚本生成两个独立归档。macOS arm64 SHA-256 为 `de2ef76b59a67143de98ed6695f8e10b4953fcfe54cfd18878ee63634afd7df0`，Linux x64 SHA-256 为 `893d76c6f45e510bab43796658d0864e3a7064d818ceb64da38a016ba0a33444`。macOS 凭据助手由正式准备脚本从同提交的 Developer ID 签名 Desktop ZIP 提取，签名团队为 `82672N97RP`，SHA-256 为 `e60c554ab16c1bdbbcef2d1de542ae3c28700137225cf12b30ed43ae29c4246c`。解包后的 CLI 与助手通过严格验签。
+- 两个归档解包后在仅含系统目录的 PATH 下分别执行 help、version 和 `peer result <固定引用> --json`。来自真实 Desktop Responses 和 TUI Anthropic 整案的两份来源数据均返回 `origin_only` 和相同固定身份，167、610 字符摘要各自逐字节匹配，读取前后两份数据副本的文件哈希一致。另从含本机材料的隔离副本读到 `available`。两端均在真实 PTY 输入 `/tasks`、`/task N` 和 `/result 1`，从任务详情打开该固定版本并显示 Budget 100、Remaining 45 及 A/20、B/35，退出码 0。
+- 证据 `peer-adr118-cli-release-toolchain.HMyi8A` 下的 `cli-audit.json`、`fixed/terminal-audit.json`、`signed-helper.json` 及 `linux/linux-cli-audit.json`、`linux/local-computation/terminal-audit.json`。macOS 首次 PTY 探针等待已过时的提示文本，改按实际工作区提示和光标判断就绪后通过。Linux 样本使用断网 x64 用户态仿真容器。此记录覆盖本地发布格式归档及无外部运行时依赖的入口，正式分发与最新 macOS 公证另计。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据，隔离 Linux 已补固定结果窗的 Orca 读屏路径。
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
-- 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，临时独立 CLI/TUI 归档已验证，正式独立分发验收单列。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
+- 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，同提交的两种发布目标独立 CLI/TUI 归档已验证，正式独立分发验收单列。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
 - OpenAI Responses 与 Anthropic Messages 已有隔离宿主的真实整案证据。Desktop 真实 Responses 目录包取得两次正式回复、冻结后的独立核验、根复核及规范闭合。原生结果字段及 Composer 均有系统 IME 专项。最新 `8d49fbde` 的全仓工程检查及标准产品整包已通过。正式 macOS 公证安装、VoiceOver 和完整系统读屏仍须单列。
