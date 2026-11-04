@@ -327,7 +327,7 @@ E16/E17-F5；基线 040a3e1b，本批代码 [59451598](https://github.com/ly-ccx
 | F5-17 设置框架与 12 个公开分区 | settings-content key=section 一次 fade，移除整页+每子项叠加 rise | dirty guard 先处理编辑，async 数据刷新不重播、不新增状态小字 | S；V 搜索/深链/快速往返/焦点/读位 · E08/E16/E17 |
 | F5-18 服务目录/已连接视图 | 一次共享 fade 交接；移除 170ms 私有退场及逐组/逐卡延迟 | 已就绪视图直接承接，筛选不重新级联，模型设置/目录确认仍沿原 Overlay | S；V 长目录/过滤/返回/编辑状态 · E08/E16/E17 |
 | F5-19 设置高级区/视觉兜底/自动化高级表单 | 保既有 SettingsDisclosureContent/grid/reducer | 保原 expanded、收起后 inert、可取消收尾与焦点；不另造折叠状态 | S 沿用；V 反向/动态控件/保存中 · E08/E17 |
-| F5-20 原生 details：模型行、档案设置/任务/记忆/目标/Evidence/过程/诊断、资源旧值/自动化比较、后台日志 | C215：13 模块 17 处；CSS 支持检测后 height/opacity/content-visibility，完成释放 overflow | 保 details/summary/open/onToggle/ref；共享取消/降级；无支持保持原生静态 | S；V 嵌套/快速开合/默认 open/读屏/控件溢出 · E06/E16/E17 |
+| F5-20 原生 details：模型行、档案设置/任务/记忆/目标/Evidence/过程/诊断、回复关联任务及更多任务、资源旧值/自动化比较、后台日志 | C215：CSS 支持检测后 height/opacity/content-visibility，完成释放 overflow | 保 details/summary/open/onToggle/ref；共享取消/降级；无支持保持原生静态 | S 关联任务取消失败覆盖展开后的文字裁切；V 嵌套/快速开合/默认 open/读屏/控件溢出 · E06/E16/E17 |
 | F5-21 原生 Quick Chat 弹选窗口 | DOM 每次真实打开一次 fade 入场；退出依主进程/OS 即时隐藏，既有 closed 事件同时送达独立菜单宿主清旧内容 | 不延迟选择/失焦/hide IPC，不另造窗口许可/状态 | S；V 真窗口重开/焦点/旧事件/多屏 · E11/E13 |
 | F5-22 OAuth 授权码、保存完成/切页/目标交接 | 保共享入场；这些结束由真实流程或目标页面立即承接 | 删除 noop onClose，Escape 不再把待授权面淡为空壳；真实完成不为动画等待 | S；V 授权完成/失败/重复 Escape/目标消失 · E08/E13 |
 | F5-23 Workbench tabs/browser keepalive、历史正文/行内技术详情 | 保原局部 tabs/折叠/静态阅读，不额外 remount guest 或重播历史 | 这是内容/对象连续性；不因“全产品动效”给每条历史补入场 | S 沿用；V 真实 guest/读位/焦点 · E05/E11/E13 |
