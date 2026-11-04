@@ -702,15 +702,16 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 发布仓库最新正式 RC tag `v0.1.0-rc.35` 不含交互视图 Module，但其 `input-queue.mjs` 与固定旧源码 `8b3ffbcf` 字节完全相同，SHA-256 `d6cbe49ea8dd13736cc17068a7fbd92e429838a022d964ee3914303e4da27cd5`。此前真实旧队列的维护受理风险覆盖这份已发布队列实现；旧交互视图生命周期证据来自固定开发提交，分开记录。
 - 基线 `1da86e18` 复现切走执行租约后当前 Bot 无法只读核对已提交的清理回执。ADR `4ab8437` 明确两类权限，代码 `8d49fbde` 在 Desktop/TUI 保留当前活跃 Bot 的本机只读对账。专项实际覆盖结果、孤立冻结、独立材料三种持久回执及历史墓碑，禁用或失租约时预览/清理调用拒绝，归属替换或停用后对账也拒绝。基线先失败，修复后 159 项 Runtime Node 专项通过，证据 `peer-adr118-cleanup-reconcile.bzTHtZ`。
-- `8d49fbde` 全仓 build、typecheck、architecture:check、test 和 qa:product:test 均退出 0，Desktop IPC 目录核对通过。标准产品采集进行中，证据 `peer-adr118-reconcile-candidate.MlKQsx`。
-- `1da86e18` 的 Linux x64 `.deb` 与 AppImage 由仓库正式打包脚本生成，包内 7 项主进程导入、4 项交互内容导出和 2 项 Dock 资源核对通过。归档哈希见 `peer-adr118-linux-desktop.qf3IHk/artifacts.sha256`。`.deb` 在断网容器经 `dpkg` 安装并成功启动。真实固定结果窗从 Divisor 2 改到 5，显示 Ratio 2，关闭重开和整个进程重启后仍读取同一固定引用和数值。实际 AT-SPI 树读到结果标题、标签和 `entry` 的值 5；实现者检查 `verification/result-linux.png` 的保存回执与试算值。使用 x86_64 仿真、Xvfb 和预置结果，覆盖系统无障碍 API，未运行完整读屏器语音流程。
+- `8d49fbde` 全仓 build、typecheck、architecture:check、test 和 qa:product:test 均退出 0，Desktop IPC 目录核对通过。同一提交的标准产品采集和 `qa:product:verify` 通过。255 张必查图中 208 张本轮目视复核，47 张沿用同场景原图 SHA-256 一致的已审记录。runId `296e9bc3-e076-4f2a-8c44-af4339724af4`，源码指纹 `1eab612efb05dc688e58c0477df4494c35432e9144759b8dfb566bc5f298d5aa`，证据 `peer-adr118-reconcile-candidate.MlKQsx/packet`。这是实现者对源码 Electron 与合成模型的自审，安装、完整系统读屏与长时回归另计。
+- `1da86e18` 的 Linux x64 `.deb` 与 AppImage 由仓库正式打包脚本生成，包内 7 项主进程导入、4 项交互内容导出和 2 项 Dock 资源核对通过。归档哈希见 `peer-adr118-linux-desktop.qf3IHk/artifacts.sha256`。`.deb` 在断网容器经 `dpkg` 安装并成功启动。真实固定结果窗从 Divisor 2 改到 5，显示 Ratio 2，关闭重开和整个进程重启后仍读取同一固定引用和数值。实际 AT-SPI 树读到结果标题、标签和 `entry` 的值 5；实现者检查 `verification/result-linux.png` 的保存回执与试算值。使用 x86_64 仿真、Xvfb 和预置结果。
+- 同一 `.deb` 在断网容器补测 Orca、Speech Dispatcher 与 eSpeak。保存前后分别播报区域 `Packaged trial` 和 `Divisor entry 2`、`Divisor entry 5`，按 Tab 后播报下一项操作 `Add current conditions to draft push button`。`peer-adr118-linux-desktop.qf3IHk/orca-verification/orca-debug.log` 记录实际语音派发，音频路由至容器虚拟输出。本项覆盖固定结果窗、保存后重开和键盘焦点移动。macOS VoiceOver 与其他控件的读屏流程单列。
 - 同 Linux AppImage 的外层 ELF 无法在本机 x86_64 仿真中直接执行，解出原 SquashFS payload 后 `AppRun` 正常启动，Renderer 的主窗口和 Quick Chat 页面均来自该 payload 的 `app.asar`。与 `.deb` 中的 `app.asar` 逐字节一致，SHA-256 `5cdd3f5f8c7a76d627c8ac9b3f53c4f33643dcc47318ce16c904f9988ccc353f`。实际 x64 主机上的 AppImage 外层启动待验。
 - `8d49fbde` 的 Remote 环回 HTTP、真实配对 WebSocket 与 390px Chromium 浏览器试验覆盖实际 SQLite 墓碑。D1 墓碑显示原固定身份、清理状态与脱敏模型摘要，原 HTML 字符按纯文本呈现；D3 墓碑只返回固定身份和可用状态。已核对列表、会话和任务三张原图，任务列表的长引用正常换行，未暴露私有标题或摘要，退出后清空。证据 `peer-adr118-remote-cleaned.GwINAn/output`。试验使用合成项目与受控清理守卫，不构成真实旧端隔离或实体手机验收。
 
 ## 后续接线与完成审计
 
-- 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据；系统读屏仍待验收。
+- 主资源区标签、布局、最近项目和正式返回已接。隔离 Electron 已验证布局超时后读取、旧回执隔离、SDK 渲染异常、静态恢复、Bot 替换后保留输入及无原视图的旧布局恢复。本机目录包已验证混合文档、浏览器和固定结果标签及宽窄连续性。全组件、150% 缩放、辅助技术树及 500 行持续输入和卸载回收有专项证据，隔离 Linux 已补固定结果窗的 Orca 读屏路径。
 - 规范发布索引的交付入口及受控任务 context 中的 Tool Result 别名消费已接；主 Bot 报告/回复的固定结构化引用已在 `8140ce58` 接线；宿主确认的 head/predecessor 新版本入口已在 `0af50095` 接线。没有任务 context 的别名不推断工作；不从助手正文、标题或 URI 文本推断产物或版本关系。
 - 冻结条件到原 Composer、明确发送、输入队列、canonical 消息及委托的同值同版链已接；固定目标/完整条件/真实检查证据已接两宿主并通过控制传输用例，固定初始控件标签及异步冻结在本批补齐。继续覆盖完整留存与清理和其余存储重写者，不把控制模型测试当作真实任务语义验收。
 - 共享清理 Module 已接两宿主真实六来源及结果、孤立冻结和独立材料清理事务。仍缺覆盖已打开描述符和旧只读视图的生产兼容守卫，公开清理入口保持关闭。CLI 显式读取、Bot exec 自动交付、TUI 任务报告数据表与 Remote 任务投影已接，临时独立 CLI/TUI 归档已验证，正式独立分发验收单列。用户参数/原始草稿的可识别凭据与原生权限载荷已在 `ecb77e0d` 接共享/宿主准入及内存修正恢复，格式识别边界与测试覆盖单列。接管及明确归属替换时可核对原保存结果，损坏回执或缺少明确新归属保持未确认。
-- OpenAI Responses 与 Anthropic Messages 已有隔离宿主的真实整案证据。Desktop 真实 Responses 目录包取得两次正式回复、冻结后的独立核验、根复核及规范闭合。原生结果字段及 Composer 均有系统 IME 专项。最新 `1da86e18` 的全仓工程检查及标准产品整包已通过，正式公证安装及系统读屏仍须单列。
+- OpenAI Responses 与 Anthropic Messages 已有隔离宿主的真实整案证据。Desktop 真实 Responses 目录包取得两次正式回复、冻结后的独立核验、根复核及规范闭合。原生结果字段及 Composer 均有系统 IME 专项。最新 `8d49fbde` 的全仓工程检查及标准产品整包已通过。正式 macOS 公证安装、VoiceOver 和完整系统读屏仍须单列。
