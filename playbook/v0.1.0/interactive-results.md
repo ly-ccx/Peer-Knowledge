@@ -664,7 +664,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 用 `2732d443` 原打包归档、隔离 Electron 壳及真实本机输入法复现。拼音组合中的回车只结清输入法，队列与规范对话均无新输入。再次组合并用空格选定“中”后，草稿和冻结值 5 可读。普通回车却插入换行，规范输入仍为空。实际事件为空格 keydown 229、keyup 32，之后为非组合 Enter 13；共享守卫把前者错误登记为 held Enter。原样本 `peer-adr118-composer-native-ime.zkO3iW/legacy-enter-swallowed.json`。
 - C 级修复 `7e1a76c5` 按 Enter 键名或实际键位维持按住状态，保留 229/Process 的组合优先级。回归先失败后通过，含空格与实体小键盘 Enter 的不同释放顺序。13 项键盘/会话/表单专项、Desktop 构建和 macOS arm64 目录包严格临时验签及包内运行时检查通过。asar SHA-256 `661755c1f2a398f3e258574af1b2a5ac7b8781d67ee8cd52ed6f642829da4444`。
 - 用同一修正归档的产品代码和预置固定材料在独立壳复测。组合回车及空格选词都保留草稿和原冻结条件，发送前无队列记录或规范输入。首次独立回车只产生一条规范用户消息，无额外换行，协议解码和 SQLite 原冻结回执一致，仍为同版、同值 5。证据 `peer-adr118-composer-ime-fixed.tYbY6G/canonical-composer-ime-audit.json`。这是实现者的真实系统输入法专项，使用独立 Electron 壳、环回静态资源、无配置模型和预置发布，公证安装及 VoiceOver 分别验收。
-- `3365486f` 标准包自审至 103/255。键盘修复后的全仓检查及同提交标准包另在 `peer-adr118-composer-fixed-candidate.KX8Uxr` 执行；逐图结论只绑定对应原图校验值。
+- `3365486f` 标准包自审至 139/255。干净提交 `7e1a76c5` 的全仓构建、类型、架构/UI 和测试均退出 0，Desktop IPC 随原构建和测试门禁核对。同提交标准包已启动重采，记录 `peer-adr118-composer-fixed-candidate.KX8Uxr`。逐图结论只绑定对应原图校验值。
 
 ## 后续接线与完成审计
 
