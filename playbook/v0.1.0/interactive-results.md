@@ -587,6 +587,12 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 
 - 同候选的本地 macOS arm64 目录包通过严格临时签名、包内 7 项主进程导入与 4 项交互内容导出检查。app.asar SHA-256 `9ff8d37be47f968570783b9ee6c9736d98d34df45aa3308250bcec0654cbccbb`，目录 `peer-adr118-packaged-current-acceptance.Hfy48W/package`。这项验证覆盖包与依赖完整性。
 
+- `a80813b0` 的两个真实包内 OpenAI Chat 样本均经 Composer、正式单次审批、固定发布及程序、数据和初始计算检查。首样本 13 次请求，测试审批守卫延迟识别合成列名，消耗了首次回复等待时间。相同二进制隔离复跑 `peer-adr118-packaged-current-retry.gKHbFc` 对合成 A=20、B=35 的已核对结构准入，21 次请求含一次传输失败。任务已到 `result_ready`，Bot 在事件回合重复旧用户输入 disposition，宿主按契约返回 `input_disposition_required`，首次正式回复、冻结及最终交付均未取得。包内测试驱动只将含 `result_ready` 或 `accepted` 结构化状态和双 revision 的规范回复计为首轮交付。
+
+- `a80813b0` 的标准包 `peer-adr118-product-current-acceptance.RfoPI9/packet` 全部 255 张完成采集及实现者自审，runId `6ab21f45-38be-426e-89e0-f189e339c2f4`。219 张直接目视通过，33 张按 ID 与原图 SHA-256 匹配复用，另有 3 张目视不通过。自动化列表深浅色搜索提示对比不足，深色约 1.66∶1。已保存记忆正文约 2.93∶1。实际 `qa:product:verify` 退出 1，报告第一处拒绝为深色自动化列表。保留原包与审阅，不以单项机器通过替代产品验收。
+
+- C 级修复 `2fdaf1b1` 仅将自动化列表搜索提示及记忆条目正文接到现有主题正文色。新候选标准包已在 `peer-adr118-product-contrast-current.DAIPug/packet` 另行采集。
+
 ## 后续接线与完成审计
 
 - 主资源区标签、布局、最近项目和正式返回已接；继续覆盖实际文档/浏览器混合场景、布局超时后重试读取的读位、Bot 归属永久变化后的不可保存草稿退出恢复、SDK 挂载异常、全组件目录、缩放/辅助技术与性能，不把单结果隔离夹具算作全产品验收。

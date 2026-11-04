@@ -620,7 +620,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P13 回复过程/协调/记忆上下文 | O/V；ReplyDetails/AgentProcessView/CoordinationDetails/ReplyContext | E05/E06 继承阅读与层级基础；V 用户收起/后台更新、详情读失败/返回锚点 | P1 · E05/E06/E10 |
 | P14 Evidence 明细/文件/失效引用 | V/O；EvidenceView/EvidenceList、projectAgentReadEvidence | E09 读/重读、正文与元信息/缺失状态、100 条元数据窗口已审阅；V 权限/截断/旧来源/嵌套返回 | P1 · E09 |
 | P15 档案·目标 | F/Q；ObjectivesTab、objectives/automation 投影 | E10 逐对象动作、会话 draft/版本冲突、触发来源与 observation Evidence 已审阅；V 外部变化/重开/暂停/终态 | P1 · E10/E17 |
-| P16 档案·记忆 | F/Q；MemoryTab、memory CRUD 与 switches | G09/E10 读失败保快照、逐项回执/刷新、修订新 ID/草稿/导出恢复已审阅；V 冲突/来源/外部变化/取消/归焦 | P1 · E10/E15 |
+| P16 档案·记忆 | F/Q；MemoryTab、memory CRUD 与 switches | G09/E10 读失败保快照、逐项回执/刷新、修订新 ID/草稿/导出恢复已审阅；`2fdaf1b1` 已保存正文接主题主文字色，V 候选对比度/冲突/来源/外部变化/取消/归焦 | P1 · E10/E15 |
 | P17 档案·设置/权限/模型/宿主 | F；BotSettingsTab/BotAccessControl/BotHostControl、受管设置与策略；E08-F2 模型读写/恢复反馈留模型设置组 | E08 名称草稿/模型/策略与并发反馈已审阅；V 权限/宿主/删除与跨窗口；其他字段按 E10 | P0 决策 / P1 配置 · E04/E08 |
 | P18 历史清单/预览/继续 | Q/O/V；HistorySheet/HistoryConversationList、listHistory/continueHistory | V 搜索无结果/分页/读取失败/重复继续/身份保持 | P1 · E05/E11/E12 |
 | P19 项目诊断 | V/A；ProjectDiagnosticsPanel、诊断报告 IPC | V 生成/复制失败、报告缺失、敏感值展示边界 | P1 · E12/E15 |
@@ -650,7 +650,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P43 已安装 Skills/详情/上传 | Q/F/O；SkillsInstalledPanel/SkillDetailDialog/SkillUploadDialog | E15 installed/available 独立读失败、逐项 pending/回执、详情重读已审阅；V 上传/卸载/范围/未知与真实焦点 | P1 · E08/E09/E15 |
 | P44 Skills 市场/分类/安装 | Q/F；SkillMarketplacePanel/QoderMarketplacePanel、服务端列表/安装 | V 网络失败/无结果/旧搜索/安装回执/目标项目 | P1 · E08/E09 |
 | P45 MCP 配置/认证/资源/Prompt | F/Q/O；McpSettingsPanel、安装/OAuth/credentials/manifest API | E15/E17 reader/重读、同步锁/fieldset busy/表单失败、dirty 离开与本地 radio 已审阅；V OAuth/部分写入/Manifest/资源与真实关闭 | P1 · E08/E09/E15/E17 |
-| P46 自动化清单/编辑/提案 | Q/F/A；AutomationCenter/AutomationProposalCard、automation API | a0ae1a33 机器人壳改接既有编辑器，两处创建入口及舍弃返回点查通过；E10 会话 draft/pending/未知回执保留、失败重读/冲突核对、提案同步锁与用户展开意图已审阅；V 未知创建/时区/静音/部分写入 | P1 · E10/E17 |
+| P46 自动化清单/编辑/提案 | Q/F/A；AutomationCenter/AutomationProposalCard、automation API | a0ae1a33 机器人壳改接既有编辑器，两处创建入口及舍弃返回点查通过；E10 会话 draft/pending/未知回执保留、失败重读/冲突核对、提案同步锁与用户展开意图已审阅；`2fdaf1b1` 列表搜索提示接主题主文字色，V 候选深浅色对比度/未知创建/时区/静音/部分写入 | P1 · E10/E17 |
 | P47 自动化详情/运行记录/回执 | Q/V/A；AutomationDetail/RunsTable/RunReceipt，同一 AutomationCenter 内 | E10 各 view 反馈与运行读取/取消/重试回执、Evidence 入口已审阅；V 未知/刷新失败/源失效/真实送达 | P1 · E10/E12 |
 | P48 Workbench 框架/标签/分栏 | O/Q/G；WorkbenchContext/Panel、稳定 browser 挂载与 resize stage | G05/G06 实现已审阅；V 键盘/最大化/撤销/窄窗、guest 生命周期与源上下文 | P1 · E06/E17 |
 | P49 文件树/新建/筛选 | Q/F；FilesView/TreeNode、受管 readDir/watch/mkdir/write IPC | E15/E17 失焦留名称、IME、确认/取消、busy/错误、scope 与条件归焦已审阅；V 读取/权限/重名/并发与完整树键盘 | P1 · E06/E09/E15/E17 |

@@ -458,7 +458,7 @@ U01/U03/U05/U06/U07/U08/U14/U15 的设置、新建、模型、档案消费者已
 | U11 模态/抽屉/面板/原生弹选 | S modal/push/anchored 共用逻辑父子；Overlay native inert/Tab/focusin、允许自有 portal、幂等退场/恢复触发者；S E16/E17 共享 visualMotion 处理退出拒绝/无事件/隐藏，rail 重开取消旧退出 | 当前路径已审阅；V 嵌套/源消失/反向/归焦/原生窗口 | P1 · E06/E11/E15/E17 |
 | U12 消息/过程/决策/结果 | S CardView 不再 generic ok→done；实际 approval/current card + 当前核验/验收真源；TUI cancel 独立不授予执行；S E17 经典授权点击立即交原宿主回调，问题关闭只清显示 footprint | E04/E11/E16/E17 当前路径已审阅；V 迟到/过期/跨入口事实/实际焦点，不从动画造许可 | P0 事实 · E04；P1 表达 E11/E15/E17 |
 | U13 附件/引用/产物/媒体预览 | S QuoteChip/ReplyAnchors、BotAttachments、ImageLightbox、Markdown/Source/Diff viewers | S E09/G08 图片/文本/元信息、原 ID 定位、Evidence/文件分别可达和失败重读已审阅；V OS/解码/旧源/局部阅读/长内容与键盘 | P1 · E09/E15/E17 |
-| U14 设置/资料/能力/自动化编辑 | S SettingsGroup、12 个公开设置分区、bot 五 tab、能力/自动化各表单；E08-F2 模型反馈归原控件/设置组；S E15/E17 Skills/MCP reader/真实回执、敏感编辑 dirty 离开/显式舍弃；无新增缓存 | E08/E10/E15 当前消费者已审阅；V 外部变化/未知/部分写入与未触及表单 | P1 · E07/E08/E10/E15/E17 |
+| U14 设置/资料/能力/自动化编辑 | S SettingsGroup、12 个公开设置分区、bot 五 tab、能力/自动化各表单；E08-F2 模型反馈归原控件/设置组；S E15/E17 Skills/MCP reader/真实回执、敏感编辑 dirty 离开/显式舍弃；无新增缓存 | E08/E10/E15 当前消费者已审阅；`2fdaf1b1` 自动化搜索提示及记忆正文使用现有正文色，V 候选对比度/外部变化/未知/部分写入与未触及表单 | P1 · E07/E08/E10/E15/E17 |
 | U15 空/加载/失败/失效/恢复与通知 | S 对话渐进读取、pending/stop/error、updater phase、后台记录、受管 surfacing 与通知；E12 bootstrap 重读/旧壳层与历史继续，E11 远程详情/设备保快照；S E15 能力/Skills/MCP 真空只由成功读取确认，失败保快照/重读、数量未确认 | E08-F2 模型保存不插对话小字，失败/待恢复仍可见；当前路径已审阅；V OS/迟到/未知/部分写入与真实通知，不批量判定其他空态 | P0 关键事实 E04；P1 E10/E11/E12/E15 |
 | U16 跨宿主与可访问性 | S E11 按 host 对照事实、输入、许可、恢复；终端主题原语/焦点，远程原生表单/静态状态；CLI/ACP 图形态 N/A；S E15 Gateway 原生表单角色适配、coarse target/强制颜色，不照搬 Desktop CSS | 当前路径已审阅；V 真终端/软键盘/读屏/200%/跨窗口/安装、完整视觉对照 | P1 · E11/E13/E15 |
 
