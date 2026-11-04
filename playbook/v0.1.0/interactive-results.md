@@ -19,7 +19,7 @@
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；三类清理事务和真实六来源已接，`8d49fbde` 补执行租约切换后的只读清理对账。生产旧读写者兼容守卫和公开清理入口尚待，未退出 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。临时目录包已实测结果、文档、浏览器混合资源区和持久布局。`8d49fbde` 的 Developer ID 安装副本通过冻结、回退保护及再次升级发送。正式 macOS 公证安装及完整读屏待验，功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；隔离 Desktop Responses 与 TUI Anthropic Messages 均已有两次正式回复的整案证据。Desktop 样本跨隔离包升级恢复，TUI 样本绑定 `3365486f`，当前组合候选的同提交真实模型整案尚未重跑，未退出 |
-| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`27c64b46` 全仓串行测试、标准产品包自审和 verify、两种独立 CLI/TUI 归档、macOS/Linux 安装专项及 Debian x64 虚拟机 AppImage 双路径启动恢复均通过。生产旧端兼容守卫、正式 macOS 公证安装及完整读屏尚待验，未退出 |
+| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`27c64b46` 全仓串行测试、标准产品包自审和 verify、两种独立 CLI/TUI 归档、macOS/Linux 安装专项及 Debian x64 虚拟机 AppImage 双路径启动恢复均通过。Linux Orca 和 macOS VoiceOver 已取固定结果专项。生产旧端兼容守卫、正式 macOS 公证安装及最终组合候选验收尚待，未退出 |
 
 ## 验证与完成标准
 
@@ -770,7 +770,7 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 | IUI-T18 | 未知 schema、损坏正文/回执、逻辑配额以及实际 `SQLITE_FULL` 有领域证据。后续 macOS 安装副本的磁盘错误终态见 `237b4ae5` 专项，生产清理守卫尚待 |
 | IUI-T19 | 正式旧 macOS 包回退拒写、重写规范会话及再次升级已实测。两种规范来源的跨设备摘要已核对。发布旧队列仍可对替换前 inode 返回受理，生产排他保护尚待 |
 | IUI-T20 | `27c64b46` 的 macOS arm64、Linux x64 独立归档通过无图形 CLI、两种原摘要、真实 PTY 任务导航与本机计算。正式分发另计 |
-| IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。`27c64b46` 的 Linux 安装专项核对筛选、复选框、滑杆、键盘与 AT-SPI，并由 Orca 实际播报观察表和图表替代表的表头、B/35 及单元格坐标。VoiceOver 尚待验 |
+| IUI-T21 | 明暗、窄窗、键盘、减少动效、同值替代表和返回路径有隔离样本。`27c64b46` 的 Linux Orca 与 macOS VoiceOver 分别取证，覆盖筛选、复选框、滑杆、两种表格的表头与 B/35。macOS 样本另确认来源详情、返回原会话和重开后读回参数 |
 | IUI-T22 | `27c64b46` 的 Linux 安装版双窗口 500 行样本记录 552 次输入、长任务、进程树 CPU 下界与 PSS，关闭后恢复基线页面和进程数。六种归档的体积已记录。真实模型已记录失败、修复及 token，账单金额仍缺 |
 | IUI-T23 | 精确只读 worker 例外已接真实 Desktop/TUI 执行层，原角色读取与项目写入边界有回归 |
 | IUI-T24 | 规范材料完整正文、大于 bodyPreview、分页、范围、脱敏、缺分类和摘要不补齐均有专项 |
@@ -848,3 +848,10 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 同一 `27c64b46` 的 `.deb` 在断网 Debian bookworm x64 用户态仿真中，以真实 Orca 43.1、Speech Dispatcher 和 Openbox 运行。X11 系统按键从结果窗口文档顶部依次跳至观察表及图表替代表。两次均实际播报表名、2 行 2 列、首列和 Cost 表头、B 与 35，以及第 2 行第 1、2 列的坐标。探针从 Speech Dispatcher 日志逐项断言，AT-SPI 另核对表角色和相同的 B/35。实现者目视复核图表、焦点和替代表的 B/35。实体音频另计。[Orca 结构导航按键](https://help.gnome.org/orca/commands_structural_navigation.html)
 - 原无窗口管理器样本虽然 X11 焦点在结果窗，Orca 结构导航仍读回主窗口。用同版本 Electron 的两个最小窗口复现，关闭对照主窗后 Orca 找到表格及行列数。使用 Openbox 后，原安装包的两张表均可从结果窗结构导航读取。为避免 Openbox 默认的工作区快捷键拦截单元格方向键，本轮只在隔离配置中移除四个 `Alt+Shift+方向键` 绑定。较新 Debian 测试镜像未完成构建，镜像站获取依赖失败。
 - 证据 `peer-adr118-orca-wm-cells.tVFXGu/speech-proof.json`、`verify/orca-cells.json`、`verify/orca-debug.log`、`verify/atspi-report.json` 和 `verify/keyboard-table.png`。无窗口管理器的对照见 `peer-adr118-orca-control.97yt1e/verify/control-speech.json`。此回执覆盖该 Linux 环境的结果表格与此前的控件播报。VoiceOver 和生产安装覆盖分别记录。
+
+### macOS 安装副本 VoiceOver IUI-T21
+
+- 由 `27c64b46` 的 Developer ID DMG 在隔离 arm64 macOS 15.7.7（24G720）虚拟机挂载并复制 app，严格验签通过。DMG SHA-256 与前述 `b1c417bf…10f9` 一致。来宾 Gatekeeper 回报 `Unnotarized Developer ID`，并明确记录系统安全评估已禁用的覆盖。此样本验证实际签名安装副本的系统读屏，正式公证与 Gatekeeper 默认策略仍待验证。
+- 来宾系统设置启用 VoiceOver。VNC 系统按键编辑 Divisor 2→5，选择高成本筛选，切换复选框，调整预算 100→101。VoiceOver 字幕分别显示字段范围、筛选标签和当前值、复选框选中与取消状态、滑杆角色和数值。原始合计保持 55，调整后试算为 20.2。以键盘进入观察表和图表替代表，字幕显示各自表名、2 行 2 列、首列表头、B 和 Cost 35。通过键盘重置预算后，来宾应用回执为 100、Divisor 5、试算 20，两张表仍为 B/35。[Apple VoiceOver 交互命令](https://support.apple.com/guide/voiceover/interaction-commands-cpvokys07/mac)
+- VoiceOver 播报来源详情的折叠与展开状态。以键盘选择返回原会话，主窗显示原规范输入，独立视图保留。实际关闭重开同一固定引用后，应用读回 Divisor 5、高成本筛选、预算 100 和两张表的 B/35。Tab 往返再次进入字段，VoiceOver 字幕读出 5 与字段范围。指针用于激活来宾窗口，CDP 用于打开/重开、少数焦点定位和读取应用回执。字段编辑、筛选、滑杆、读表和返回由来宾系统按键完成。
+- 证据在 `peer-adr118-macos-voiceover-vm.fMfYcz/guest-proof/voiceover-proof.json`，含 19 张原图的 SHA-256、系统版本、严格签名和应用回执。实现者目视核对实际 VoiceOver 字幕、焦点与状态。来宾音频禁用，取证来自系统字幕，实体音频、盲文设备与正式公证单列。
