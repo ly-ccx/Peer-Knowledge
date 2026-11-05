@@ -1,7 +1,7 @@
 # Peer 产品路线图
 
 创建时间：2026-09-06
-最后更新：2026-10-23（按 RC26、在途 PR 和产品体验规范重排；旧 0.0.x/RC1 排期退出当前清单）
+最后更新：2026-11-05（§2 增补 ADR 121 会话窗口契约链接。§3 当前事实表仍为 2026-10-23 的 RC26 盘点）
 
 > 状态：活文档 / 产品规划真源。理念以[北极星](peer-product-alignment.md)为准，壳层以[改造总纲](peer-transformation-charter.md)为准；近期工作包、依赖与退出条件见[当前产品改造计划](peer-product-renovation-plan.md)。
 > 本轮是计划梳理，不实施全部工作包，不合并 PR，不安装或发布产品。
@@ -25,6 +25,7 @@ Desktop/TUI/CLI/远程表达同一套本机 Runtime 事实；模型负责认知�
 | [peer-product-renovation-plan.md](peer-product-renovation-plan.md) | 当前工作包 E00–E14、R0–R4 批次与依赖 | 对现有实现做收敛，按实际范围领卡 |
 | [v0.1.0-release-plan.md](v0.1.0-release-plan.md)与发布记录 | 0.1.0 范围、候选、验收和 GA | 历史故事不覆盖新存储/权限契约 |
 | [ADR74](../../knowledge/decisions/74-deployment-surfaces-and-local-storage.md)等对应 ADR | 部署、身份、存储与能力边界 | Proposed 不当 Accepted；已有 ADR85 多入口不因 74 未实施而被抹去 |
+| [ADR 121](../../knowledge/decisions/121-desktop-session-windowing-contract.md) | Desktop 会话窗口：冷路径切片、热路径 open block、P2 统一 Session Service | 基线为已发布 `0.1.0-rc.36`（`PeerAgent/dev/0.1.0`）。执行与 Evidence 仍在用户侧节点；经典正文保持文件，Bot 走其 SQLite 适配器 |
 | [交付状态](peer-delivery-status.md) | 已实现、已集成、已验证、已发布分别记录 | 未核对旧专题不当现行缺陷 |
 
 新主题先检查是否强化正确签收、授权和证明；移动 A 级边界先写/更新对应 ADR；再排进路线图。`design/product/` 中的一篇历史设想不是当期任务授权。
@@ -83,7 +84,7 @@ Desktop/TUI/CLI/远程表达同一套本机 Runtime 事实；模型负责认知�
 | M2 | 更稳定的模型分工、质量自闭环与任务内部多角色 | 复用已有路由/Verifier/Runner；不改成虚拟团队，不重做协调内核 |
 | M3 | 记忆与 Skill/playbook 的证据复利 | 区分已有记忆与新增候选/审核链；可查可撤，记忆不放宽权限、不默认上云 |
 | M4 | Browser L1加固、L2 Profile/attach/下载与对话框治理、ACP外部接入 | 逐项核对已有代码与缺口；能力/权限/Evidence先行；L2不抢默认入口 |
-| M5 | 可嵌入 Runtime 与本机数据面的按需加厚 | 公共Runtime包、现有存储已经存在；新拓扑先按ADR评审，不做全库迁移 |
+| M5 | 可嵌入 Runtime 与本机数据面的按需加厚 | 公共Runtime包、现有存储已经存在；新拓扑先按ADR评审，不做全库迁移。会话读取窗口与列表预览以 [ADR 121](../../knowledge/decisions/121-desktop-session-windowing-contract.md) 为准，在现有 JSONL 与 Bot SQLite 上收敛接口 |
 | M6 | 内网 Gateway、身份/设备配对、远程体验与手机伴随面扩展 | 先完成部署/身份/委派的契约；现有0.1.0远程看/发消息继续保留；远程批准/附件另行A 级设计 |
 
 M4 与 M5/M6 是不同扩展线，不能为了遥控演示绕过稳定的本机闭环。新型 webhook/邮件/日历触发、跨目标依赖、模板等按实际需求单独评审，不借最新设计规范一并扩范围。
