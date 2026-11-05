@@ -3,7 +3,7 @@
 创建时间：2026-11-03
 最后更新：2026-11-05
 
-状态：实施中，未完成。七项文档补充已交付，用户现已明确恢复“完整实现并测试完成”的目标，继续完整代码实施与提前验证。既有实施、验证和未提交工作均保留。ADR 118 仍保持 Proposed；实现及单项测试不构成决策接受、运行时授权或产品验收。
+状态：受管 Linux 清理已实现并通过隔离部署验收。全仓工程检查和标准产品回归通过，当前组合提交的真实模型整案未通过。ADR 118 保持 Proposed。
 
 ## 范围与依据
 
@@ -18,8 +18,8 @@
 | IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；独立 CLI/TUI 归档已读同版固定结果。生产清理的旧端隔离已选受管维护，Linux 部署契约见 ADR 118 §24.1 |
 | IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；三类清理事务和真实六来源已接，`8d49fbde` 补执行租约切换后的只读清理对账。`d401a422` 交付受管 Linux 兼容守卫、三类维护命令与独立只读对账，已通过隔离 ext4 部署验收 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。临时目录包已实测结果、文档、浏览器混合资源区和持久布局。`8d49fbde` 的 Developer ID 安装副本通过冻结、回退保护及再次升级发送。正式 macOS 公证安装及完整读屏待验，功能默认关闭，未退出 |
-| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；隔离 Desktop Responses 与 TUI Anthropic Messages 均已有两次正式回复的整案证据。Desktop 样本跨隔离包升级恢复，TUI 样本绑定 `3365486f`，当前组合候选的同提交真实模型整案尚未重跑，未退出 |
-| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`27c64b46` 全仓串行测试、标准产品包自审和 verify、两种独立 CLI/TUI 归档、macOS/Linux 安装专项及 Debian x64 虚拟机 AppImage 双路径启动恢复均通过。Linux Orca 和 macOS VoiceOver 已取固定结果专项。`d401a422` 的 Linux x64 受管维护及全仓工程检查通过。正式 macOS 公证安装随发布单列，最终组合候选的标准产品回归仍在复核 |
+| IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；隔离 Desktop Responses 与 TUI Anthropic Messages 均已有两次正式回复的整案证据。Desktop 样本跨隔离包升级恢复，TUI 样本绑定 `3365486f`，当前组合提交的 TUI Anthropic 实测三次均未完成两轮正式交付，细节见末节，未退出 |
+| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`27c64b46` 全仓串行测试、标准产品包自审和 verify、两种独立 CLI/TUI 归档、macOS/Linux 安装专项及 Debian x64 虚拟机 AppImage 双路径启动恢复均通过。Linux Orca 和 macOS VoiceOver 已取固定结果专项。`d401a422` 的 Linux x64 受管维护及全仓工程检查通过。同提交的标准产品回归通过实施者自审和整包 verify。当前真实模型整案结果和正式 macOS 公证安装另列 |
 
 ## 验证与完成标准
 
@@ -871,7 +871,7 @@ ADR 118 §24.1 的清理入口由本机管理员在冷启动的维护窗口执�
 
 维护前按原宿主关闭受理、结算已启动任务和确认中的保存，再关闭所有旧结果窗口及关联进程。记录尚待消费但已受理的 inputId、原顺序、队列游标、文件身份和当前启动 ID。首次纳管在上述进程停稳后由管理员设置数据访问权，保留原目录和文件身份。完成上述结算后正常关机，再冷启动进入维护。Linux 启动器拒绝同 UID 的其他进程、无法确认的挂载拓扑、链接或非普通文件。管理员确认没有另一个系统或主机共享数据设备。
 
-从可信 Linux CLI 归档取 `peer` 与 `peer-interactive-maintenance`，安装到 root 控制的 `/usr/local/libexec/peer-agent/`。运行需要 systemd、Python 3.11 和 util-linux `setpriv`。在 root 独占写入的 `/etc/peer-agent/interactive-maintenance.json`（`0600`）登记：
+从可信 Linux CLI 归档取 `peer` 与 `peer-interactive-maintenance`，安装到 root 控制的 `/usr/local/libexec/peer-agent/`。运行需要 systemd、Python 3.11 和 util-linux `setpriv`。在 root 独占写入的 `/etc/peer-agent/interactive-maintenance.json`（`0600`）中登记以下字段。
 
 - `dataHome` 为原数据根的规范绝对路径。用 `stat -c '%d %i'` 获取十进制设备号和 inode，分别以 JSON 字符串填写 `dataDevice` 和 `dataInode`。
 - `uid` 与 `gid` 为专用服务身份的 JSON 整数。`normalBootId` 为完成结算的正常启动中 `/proc/sys/kernel/random/boot_id` 的值。
@@ -890,3 +890,9 @@ ADR 118 §24.1 的清理入口由本机管理员在冷启动的维护窗口执�
 - 救援启动时，真实旧队列重连返回 `EACCES`，旧 ViewService 和直接打开都无法读取固定内容。专用 UID 已有进程时，启动器拒绝发起预览。无其他实例时，实际打包启动器以低权限启动维护命令，用规范结果、草稿、队列、Conversation、委托与核验源分别预览和清理孤立冻结、材料及结果。三类均拒绝错误预览摘要，提交、原样重试和只读对账分别返回同一回执。原队列 inode 和字节保持一致。
 - 回到正常启动，当前安装包的共享输入队列和 Conversation Store 按原 ID 与原顺序恰好消费两条输入，游标为 `accepted-b`，复跑无重复。CLI 在维护启动之外读回三类原回执，原固定结果返回同一文本摘要及 cleaned 状态。见 `peer-adr118-managed-linux.snvETv` 下的 `output-normal/fixtures/retired.json`、`output-rescue/fixtures/managed-report.json`、`output-resume/fixtures/resume-report.json` 及启动日志。
 - 同一代码的全仓构建、类型检查、架构、Desktop IPC 及 `qa:product:test` 通过。串行全仓测试 Node 9,169 项通过、5 项跳过，Bun 846 项通过，无失败。第一次标准产品采集在 Quick Chat 切换 Bot 时超时，整包未通过，该采集在全仓测试期间启动。重新采集绑定干净提交，结果单列。证据 `peer-adr118-managed-engineering.LrFXPN` 及 `peer-adr118-managed-product.kjM964`。
+
+### 当前组合提交的标准产品包和真实模型复测
+
+- 干净提交 `d401a422` 的标准产品包 runId `21db741b-1689-429e-a2a2-52a5bab54ef8`，源码指纹 `07f39ddfaff4f4551264dd743e7dc38287406a628bc2587270fdfada24bd34b3`。255 张必查图中，180 张整帧目视、34 张目视检查像素差异区域且其余区域逐像素一致、41 张按同场景原图 SHA-256 一致复用已目视记录。实现者自审，`qa:product:verify` 退出 0。机器报告无页面错误。本包覆盖源码 Electron、合成认知和标准交互，安装版、真实模型和系统读屏分别取证。见 `peer-adr118-managed-product-final.6xat5C/packet/result.json`、`review.json` 与同目录原图。
+- 同提交在隔离 TUI 使用 Anthropic Messages / deepseek-flash 重跑真实整案。未配置助手路径的一次在凭据准备前结束，无模型请求。使用同一签名凭据助手的三次实际运行分别为 15、48、49 次请求。第一案因 `criterion_unverified` 阻塞并到达整案时限。第二案完成两个委托，主 Bot 在第二轮正式回复前触及 32 次工具调用上限。第三案完成首轮正式回复及原固定版本的冻结输入，取得覆盖程序、事实数据、初值和冻结值的四类通过回执，后续在准备第二轮正式交付时触及 Verifier 的 16 次请求上限。当前候选的两轮正式交付验证仍未通过，保留预算与核验要求。见 `peer-adr118-managed-anthropic-final.9s5Ajt`、`peer-adr118-managed-anthropic-retry.gqnxuO`、`peer-adr118-managed-anthropic-third.I1F3AW` 的 `1-story/report.json`。
+- Desktop Responses 和 TUI Anthropic 的既有成功整案继续按各自固定提交计。受管维护改动集中在本机维护启动器、管理命令、只读对账及 Linux CLI 包装。正式发布与 macOS 公证另行验收。

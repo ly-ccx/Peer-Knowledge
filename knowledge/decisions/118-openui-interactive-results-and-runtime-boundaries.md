@@ -1023,6 +1023,8 @@ IUI-01 完成并核对部署守卫和宿主装配后，才允许该部署发起�
 
 固定提交 `27c64b46` 的全仓串行测试与标准产品整包均通过，整包为实现者自审。Linux `.deb` 与 macOS 签名 ZIP 安装副本均核对原附件变更、移除及历史超出读取上限时的固定结果恢复。Linux Orca 和 macOS VoiceOver 已分别读出观察表和图表替代表的实际值，macOS 签名 DMG 安装副本另核对来源详情、返回原会话和固定结果重开。正式公证与最终组合候选仍单列。逐项范围和回执见[实施跟踪](../../playbook/v0.1.0/interactive-results.md)。
 
+固定提交 `d401a422` 在同一 Debian x64 ext4 数据根上通过受管维护的三阶段验证。覆盖旧输入队列和旧无 pin 视图退出、旧 UID 重连拒绝、三类清理回执、恢复后按原顺序消费及独立对账。同提交全仓工程检查及 255 张标准产品回归通过，产品回归为实施者自审。TUI Anthropic 在当前提交三次整案均未完成两轮正式交付，其中一案已取得覆盖四类检查的通过回执。正式 macOS 公证和发布验收另列。证据见[实施跟踪](../../playbook/v0.1.0/interactive-results.md)。
+
 [U1]: https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/package.json
 [U2]: https://github.com/thesysdev/open-intelligent-ui/blob/16ef26475999e3a021a50b1607a03717c0721255/src/lib/library.ts
 [U3]: https://github.com/thesysdev/open-intelligent-ui/tree/16ef26475999e3a021a50b1607a03717c0721255/src/lib/functions
