@@ -2,7 +2,7 @@
 
 创建时间 2026-11-03
 最后更新 2026-11-05
-状态为最终候选完整工程、产品验收和双平台 CI 通过，RC36 标签已推送，发布构建进行中。
+状态为 RC36 已发布，最终工程、产品验收、双平台 CI 与线上发布核验全部通过。
 
 ## 候选
 
@@ -53,7 +53,7 @@ README 中英文已检查并更新源码版本与可选交互预览入口。双�
 
 本轮 Linux x64 隔离容器的三项 OpenUI 窗口用例串行通过，覆盖原生重开、SDK 组件和工作区交回。此前 64MiB 共享内存容器中并发运行出现截图或目标进程失败，该失败保留，不计通过。
 
-标签、GitHub Release、npm 与 Pages 尚待发布核验。在线模型、正式安装包、系统输入法和辅助技术的历史专项各自绑定原提交，本轮源码测试和受控模型不替代这些范围。个人运行实例和真实任务数据保留。
+标签、GitHub Release、npm 与 Pages 已完成发布核验，详见下节。在线模型、正式安装包、系统输入法和辅助技术的历史专项各自绑定原提交，本轮源码测试和受控模型不替代这些范围。个人运行实例和真实任务数据保留。
 
 
 ## 首次标签构建与候选撤回
@@ -79,3 +79,35 @@ PR275 最终 head `4fbbe519` 的 [CI41991817239](https://github.com/ly-ccx/Peer-
 最终产品包 runId `06effc8e-36a2-4d44-a960-20c3af29c195`，sourceFingerprint `806e94fb03fca8fd33b852f97e86a251c4cc48ad92074d466a3dfc14764a41c5`。255 张截图全部经带标签拼图复核，透明 Quick Chat 另在匹配深色背景复查。每张 SHA256 和具体观察写入 review.json，2026-11-05T09:44:53.160Z Verify 通过，无未解决阻断项。实施者自审，independent=false。受控模型、源码 Electron、无完整读屏与长时间验收的限制继续保留。
 
 合并后 [CI41998768885](https://github.com/ly-ccx/Peer-Agent/actions/runs/41998768885) Linux 成功。macOS 全量 Test 成功，Electron smoke 在约 15 分钟后失败，主日志未给出具体断言。下载保留的 report、failure screenshot 和 trace 后，报告定位为任务折叠反转的逐帧跳变断言。两次采样间隔 150ms，高度差 70.75px，整体范围 85.375px，超过现有 80% 阈值。打开和关闭最大采样差为 21.58px 和 20.03px。该记录可见采样缺口，尚不能仅凭该次报告区分宿主调度与真实渲染卡顿。未修改源码或断言，复跑失败任务一次，attempt 2 的完整 Test 与 Electron smoke 均成功，双平台最终结论通过。该单次采样失败和复跑成功都保留，未将其描述成确定修复。
+
+
+## 最终发布回执
+
+2026-11-05，标签 `v0.1.0-rc.36` 已推送，annotated tag object `101289f9b8cf5f2185efe468109ceba09f8f78f5`，目标源码 `793c9a5223e7ba12d3f83f2d99c3e8a0bc2b7618`。推送前开放 PR 再核对为空，以上十个 PR 全部包含在最终候选中。
+
+[Release42008952591](https://github.com/ly-ccx/Peer-Agent/actions/runs/42008952591) 所有步骤成功。三平台 Desktop runtime 打包校验成功，macOS Developer ID 签名及公证成功。darwin-arm64 与 linux-x64 CLI 归档的真实 `peer --version` 校验成功。GitHub Release 与四个 npm 包发布成功。[Pages42008952590](https://github.com/ly-ccx/Peer-Agent/actions/runs/42008952590) 从同一最终源码部署成功。
+
+[下载 RC36](https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.36) 为 prerelease，包含下列 14 个非空 uploaded 资产。核对 GitHub 资产 SHA256，下载三平台 beta YAML 并校验其版本、文件名、文件大小与摘要格式，清单自身 SHA256 与 GitHub digest 一致。本节验收范围为发布资产与更新元数据，安装后交互的覆盖限制见文末。
+
+| 资产 | 字节数 | SHA256 |
+| --- | --- | --- |
+| `beta-linux.yml` | 559 | `f55d2ac663596ceba06485446830837cdce86daa118a0ffcdebeb1b2888b9b8d` |
+| `beta-mac.yml` | 530 | `191765d05e6327af229f1313a4aaf2d2779e6bc2e0e483355ceffd6826868b07` |
+| `beta.yml` | 367 | `1252bf16ac0a05b574cc653258ffcbd4a02825431ea1dd4ffbf59cc29a9ada2f` |
+| `builder-debug.yml` | 1462 | `68cc0b67001f873d78a3c179dacf6e094dc9dbbe94d8858d72427ad92b9b1f8c` |
+| `Peer-Agent-0.1.0-rc.36-arm64.dmg` | 148303331 | `3bbb46be9cabf46d7977a602aba0fa0848911b64031b0dc02679afbcb80e045b` |
+| `Peer-Agent-0.1.0-rc.36-arm64.dmg.blockmap` | 151921 | `bdf4d94a90dfbcc2a2f201d81785d4bf2891fedaeebcccd75a2941c71321c23f` |
+| `Peer-Agent-0.1.0-rc.36-arm64.zip` | 145837300 | `8df1441e4a469cc8a7d056d03ef109707047cd3c011224127e97b367dc60eb6d` |
+| `Peer-Agent-0.1.0-rc.36-arm64.zip.blockmap` | 149734 | `7766629e94746a5ceb883cde74e5a23d338935fe0715e28fcbcf9257af2d71ff` |
+| `Peer-Agent-0.1.0-rc.36-x64.AppImage` | 148434943 | `dc231f707f2756903520fc3ac9c999bf185f6b3d835de436730beb0c4e2f4703` |
+| `Peer-Agent-0.1.0-rc.36-x64.deb` | 119150780 | `3af3a7fe72af71c154d08ef451e1254509d432d47169c76e04cc092e35d8db48` |
+| `Peer-Agent-Setup-0.1.0-rc.36.exe` | 228158707 | `a37fccdaf8947908ccfd584ff54b4c4bdd89c1dc61b8f5098a28ac578a18f5c2` |
+| `Peer-Agent-Setup-0.1.0-rc.36.exe.blockmap` | 235383 | `d9f31e126c68a50e89141f68d913e5103acaab97de1114441036966af1602c47` |
+| `peer-darwin-arm64.tar.gz` | 24259521 | `0178ac76ee2602415e17499f35c52204a6d523f0ce66f49458ae036a1c92df5a` |
+| `peer-linux-x64.tar.gz` | 47921571 | `fa58ca840dceae5a4b38a591dbac98bc6a33e15d6d37da12aedb4655fc494078` |
+
+四个 npm 包 `@peer-agent/protocol`、`@peer-agent/runtime-core`、`@peer-agent/runtime-sdk`、`@peer-agent/cli` 的 `0.1.0-rc.36` 版本与 tarball 均可读取，`rc` 为 `0.1.0-rc.36`，`latest` 保持 `0.0.18`。发布完成后的首次查询曾遇到版本 404 与旧 rc 元数据，随后 npm 规范端点四个版本和标签均验证成功，未重复发布已有版本。
+
+Pages 首页、用户文档、Changelog 页面、manifest 与 RC36 双语数据均返回 200。manifest 的 latest.beta 为 `v0.1.0-rc.36`，generatedAt 为有效时间，目标版本中英文内容非空。
+
+线上联合核验完成于 `2026-11-05T10:29:22.824Z`。本版验收为实施者自审，使用受控模型及源码 Electron。真实在线模型、安装后交互、完整读屏与长时间运行的覆盖限制保留。

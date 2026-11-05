@@ -234,3 +234,6 @@ RC-01：Protocol 运行事实与严格类型处置内核；RC-02：资源等待�
 
 
 PR275 在首次未发布标签的 Windows ASAR 校验失败后修正跨平台路径，并修正 Linux SDK 策略测试的目录监听生命周期。重新冻结最终候选 `793c9a5223e7ba12d3f83f2d99c3e8a0bc2b7618`，全量工程门禁通过，Node 9,195 通过、5 跳过，Bun 849 通过。新的 255 张截图自审与 Verify 绑定 sourceFingerprint `806e94fb03fca8fd33b852f97e86a251c4cc48ad92074d466a3dfc14764a41c5`，2026-11-05T09:44:53Z 通过。旧候选验收不作为新源码的替代。自动 CI 和发布状态以 [RC36 收据](../../playbook/v0.1.0/rc36-candidate.md) 为准。
+
+
+最终标签已从 `793c9a52` 发布，Release42008952591 与 Pages42008952590 成功，14 项下载资产、三平台更新清单、四个 npm 包与五个 Pages 入口线上核对通过。完整发布回执和各项覆盖限制见 [RC36 收据](../../playbook/v0.1.0/rc36-candidate.md)。
