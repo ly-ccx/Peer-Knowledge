@@ -855,3 +855,9 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 来宾系统设置启用 VoiceOver。VNC 系统按键编辑 Divisor 2→5，选择高成本筛选，切换复选框，调整预算 100→101。VoiceOver 字幕分别显示字段范围、筛选标签和当前值、复选框选中与取消状态、滑杆角色和数值。原始合计保持 55，调整后试算为 20.2。以键盘进入观察表和图表替代表，字幕显示各自表名、2 行 2 列、首列表头、B 和 Cost 35。通过键盘重置预算后，来宾应用回执为 100、Divisor 5、试算 20，两张表仍为 B/35。[Apple VoiceOver 交互命令](https://support.apple.com/guide/voiceover/interaction-commands-cpvokys07/mac)
 - VoiceOver 播报来源详情的折叠与展开状态。以键盘选择返回原会话，主窗显示原规范输入，独立视图保留。实际关闭重开同一固定引用后，应用读回 Divisor 5、高成本筛选、预算 100 和两张表的 B/35。Tab 往返再次进入字段，VoiceOver 字幕读出 5 与字段范围。指针用于激活来宾窗口，CDP 用于打开/重开、少数焦点定位和读取应用回执。字段编辑、筛选、滑杆、读表和返回由来宾系统按键完成。
 - 证据在 `peer-adr118-macos-voiceover-vm.fMfYcz/guest-proof/voiceover-proof.json`，含 19 张原图的 SHA-256、系统版本、严格签名和应用回执。实现者目视核对实际 VoiceOver 字幕、焦点与状态。来宾音频禁用，取证来自系统字幕，实体音频、盲文设备与正式公证单列。
+
+### 受管维护候选的 Linux 进程与权限隔离实验 IUI-T19 / IUI-T29
+
+- 断网 Linux x64 用户态仿真容器分别加载正式 `v0.1.0-rc.35` `.deb` 和 `27c64b46` `.deb` 中实际 `app.asar` 的输入队列。旧端以独立 UID 无执行租约地受理 `accepted-a`、`accepted-b`。第三次请求在实际追加描述符已经打开、首个写入尚未发生时暂停。控制进程模拟已授权维护中的进程退出，在其结束且未返回受理回执后才移交临时数据根。原队列路径、inode 和字节均保持一致。
+- 容器内将临时数据根移交给另一 UID，根目录限制为 `0700`。固定旧端重新启动后尝试读取或追加均被系统拒绝，追加返回 `EACCES`，没有生成受理回执。当前 UID 的实际队列及 Conversation Store 按原 ID 查到两个已受理输入，按原序分别落下两条规范消息，游标停在 `accepted-b`。另启新版进程后，仍能按原 ID 查到两条输入，规范消息身份不变，本轮消费为零。
+- 回执 `peer-adr118-maintenance-principal.QvorpV/report.json` 与 `sha256.txt`。首次探针因跨 UID 读取 `/proc/<pid>/fd` 受限，改由暂停写入的旧端在屏障处记录实际描述符解析路径。此实验验证独立系统身份下保留原队列的条件，旧视图生命周期、同 UID 启动路径约束、生产部署与跨平台证明仍需依选定路线落实。
