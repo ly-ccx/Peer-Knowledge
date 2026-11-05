@@ -58,7 +58,7 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 
 硬约束：意图有回执、行动有归属、执行有边界、结果有依据、中断可恢复、注意力归用户。复用 Frost/`--ui-*`、共享 SVG 与动效/焦点/滚动 seam；不能以点击、timer、动画或助手文本冒充权限、执行成功或 Evidence。
 
-普通开发与文档修改只做内容/diff 审阅，不自动运行测试、构建/类型/架构/IPC 检查或截图/交互回归；除非用户明确要求提前验证，完整验证留到版本/RC 发布。以代码仓 AGENTS 的最新 Validation Scope / Release Gate 为准，旧指南的逐次检查要求不再适用。
+开发共识（2026-11-03）适用于全部后续修改，详见 [工程哲学与开发共识](knowledge/architecture/00-engineering-philosophy.md)：实现者承担验证与已有状态恢复责任，用户不承担试错验收。代码改动须自动执行与范围相称的定向验证，相关失败必须定位、修正并保留记录；完整发布门禁仍针对最终组合候选。纯文档/指令改动只做内容、差异与一致性审阅。本条取代 2026-10-22 的日常不自动验证约定，以代码仓 AGENTS 的最新 Engineering Delivery Consensus / Validation Scope / Release Gate 为执行准则。不得把候选补丁、PR 或 CI 通过单独称为原任务已恢复。
 
 全产品存量登记见 `design/product/peer-interaction-standardization-matrix.md` 与 `design/product/peer-ui-motion-transition-matrix.md`；具体排程见 `design/product/peer-product-renovation-plan.md`。新增或改变页面、组件与状态时，同步对应矩阵和改造任务；静态已存在不等于候选验收已通过。
 

@@ -1318,6 +1318,14 @@ P06/P08/P17：最终联合源码 `4a58e2846875f85de69915764a127096721c5b0d` 重�
 
 键盘打开任务、返回、草稿保留及历史状态不随当前刷新被改写已覆盖；取消失败不提前变终态，停止中与结果待核实分别呈现。任务入口不生成授权、执行成功或签收事实。实现者自审 `independent=false`，真实模型、正式安装版完整交互、系统IME、读屏器和长期运行限制仍保留，未关闭无关缺口。现场原任务后来已被取消，验证尊重该取消并核对占用释放，不重新启动以制造推进证据。详见 [RC35回执](../../playbook/v0.1.0/rc35-candidate.md) 与 [源码证据](../../playbook/v0.1.0/evidence/rc35-source-acceptance.json)。
 
+## 2026-11-02：完整会话外置与详情默认收起（用户确认 Demo，源码已审阅）
+
+P06/P08/P17，TasksTab、SessionDetail 与 TaskConversationButton：用户希望直接辨认当前进度/状态并到达完整会话。列表每条任务与摘要操作行均常驻「打开完整会话」，不要求先选中任务或展开详情；摘要旁的「任务详情」独立控制默认隐藏的区域，核验、证据、操作、创建时间和取消沿原组件保留。此条取代前述“工作会话入口全部进入披露”的现行设计；早期 RC 验收仍为对应版本历史，不覆盖本次调整。
+
+状态/进度继续来自 DrawerSession、taskProgressPreview 和匹配任务的 TaskConversationContext；无进度不拿内部任务指令补造，无百分比。TaskConversationButton 复用原资源工作区/ConversationSceneDrawer，保留 workspace/conversation/session/plan 来源；缺会话或工作区未就绪时禁用且解释，不自动转去其他会话。原生 button 的焦点/键盘与 aria-expanded/aria-controls、Frost token、PeerIcon 沿用；切换 session 默认收起，同任务刷新保留本地展开选择。收起不取消执行，不改主对话草稿、权限、Evidence 或签收。
+
+C 级 UI 落地，代码基线 `4a58e284`；无新增 Runtime/IPC/存储/能力边界。新增/调整外置入口、默认隐藏与真实会话来源用例，更新发布脚本选择器；仅内容/diff 实现者自审。未运行单元/集成、build/type/架构/IPC 或截图/交互回归，未安装/重启；最终联合发布候选重新验收，不继承 RC34/RC35 的通过结论。
+
 ### 主 Bot 阅读视口与回到最新
 
 P06 主 Bot 对话读取历史时仍提供显式回到最新，按钮由既有跟随状态控制。`80d64c94` 将按钮移出阅读视口，保留键盘按钮及原滚动控制。标准回归增加视口几何断言，采集中。
