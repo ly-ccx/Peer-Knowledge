@@ -2,11 +2,11 @@
 
 创建时间 2026-11-03
 最后更新 2026-11-05
-状态为最终候选工程、产品与双平台 CI 均通过，准备推送 RC36 标签。
+状态为最终候选完整工程、产品验收和双平台 CI 通过，RC36 标签已推送，发布构建进行中。
 
 ## 候选
 
-版本为 `0.1.0-rc.36`。源码 `5093407395d28d7cf650f43bb4eff00493e60c9a`，tree `f15f5d3572d667be29afa24e937f42fb99078f34`，开发线为 `PeerAgent/dev/0.1.0`。冻结时开放 PR 清单为空。最终合并提交与必需 CI 通过的 PR271 head `b9dfc720` 的 tree 相同。冻结后在同一源码重新完成工程门禁。
+版本为 `0.1.0-rc.36`。源码 `793c9a5223e7ba12d3f83f2d99c3e8a0bc2b7618`，tree `b247d6a625aacc5910a4b2dd8246e6a75c5d3017`，开发线为 `PeerAgent/dev/0.1.0`。冻结时开放 PR 清单为空。最终合并提交与必需 CI 通过的 PR275 head `4fbbe519` 的 tree 相同。于 2026-11-05T09:00Z 重新冻结，完整工程和产品门禁已通过。
 
 用户先暂停发布，要求核对停止与明确恢复。隔离验证修正后，用户恢复发布，并于 2026-11-05 明确接受 ADR118 首期范围，纳入 RC36。知识 PR118 已合入 `db4b917b`，交互结果默认关闭。
 
@@ -23,12 +23,13 @@
 | [#272](https://github.com/ly-ccx/Peer-Agent/pull/272) | fix(tui): unify the bot bind screen and keep typing focused | `73487366` |
 | [#273](https://github.com/ly-ccx/Peer-Agent/pull/273) | fix(tui): show the user message time at the right edge | `516c619a` |
 | [#274](https://github.com/ly-ccx/Peer-Agent/pull/274) | 实现 ADR 118：OpenUI 交互结果与受管维护 | `3fbb062f` |
+| [#275](https://github.com/ly-ccx/Peer-Agent/pull/275) | Windows ASAR 路径与 SDK 测试生命周期 | `793c9a52` |
 
 知识 PR114—118 已合入。ADR119 的完整认知代次控制仍为 Proposed，本版实现范围见 ADR120。
 
-## 工程验收
+## 前序候选 50934073 的验收
 
-冻结后全部通过构建、全仓类型、架构与 UI 约定、IPC、Rust build/test、Runtime 打包内容与外部安装、产品回归脚本契约、更新日志、版本、发布源与发布准备检查。全仓测试中 Node 9189 项通过、5 项跳过，Bun 849 项通过，另有工程脚本、marketplace、changelog 和升级矩阵检查通过。原任务停止与恢复用例随 Runtime 再次运行。OpenUI 窗口三项单独串行运行通过。
+该前序候选冻结后全部通过构建、全仓类型、架构与 UI 约定、IPC、Rust build/test、Runtime 打包内容与外部安装、产品回归脚本契约、更新日志、版本、发布源与发布准备检查。全仓测试中 Node 9189 项通过、5 项跳过，Bun 849 项通过，另有工程脚本、marketplace、changelog 和升级矩阵检查通过。原任务停止与恢复用例随 Runtime 再次运行。OpenUI 窗口三项单独串行运行通过。
 
 macOS 源码产品采集完成。255 张必需截图逐张经 64 张带原图标签的审查拼图核对，透明 Quick Chat 截图另在对应深色底复查。每张原图 SHA256 与具体观察均写入 review.json，未改动原图。`qa:product:verify` 于 2026-11-05T05:36:53Z 通过，runId `1012fcbd-f1b8-4c37-bd04-1ab5a24c8382`，sourceFingerprint `3dbbc3b220fdbfe751055921e7d7057d18462152ef4c791609dab7fd73be531b`。无未解决的阻断发现。审阅由实施者完成，independent=false。交互断言覆盖停止、显式继续、冷恢复、权限、任务核验、草稿、焦点、历史阅读、输入与共享界面。
 
@@ -53,3 +54,28 @@ README 中英文已检查并更新源码版本与可选交互预览入口。双�
 本轮 Linux x64 隔离容器的三项 OpenUI 窗口用例串行通过，覆盖原生重开、SDK 组件和工作区交回。此前 64MiB 共享内存容器中并发运行出现截图或目标进程失败，该失败保留，不计通过。
 
 标签、GitHub Release、npm 与 Pages 尚待发布核验。在线模型、正式安装包、系统输入法和辅助技术的历史专项各自绑定原提交，本轮源码测试和受控模型不替代这些范围。个人运行实例和真实任务数据保留。
+
+
+## 首次标签构建与候选撤回
+
+2026-11-05 首次标签工作流 [Release41977250103](https://github.com/ly-ccx/Peer-Agent/actions/runs/41977250103) 中 macOS 签名公证与 Linux 构建成功，Windows 的 Verify packaged runtime entries 失败，后续 CLI、Release、npm 未执行。四个 npm RC36 版本与 GitHub Release 均核对为 404，完成的失败记录已保留后删除未发布标签。Pages 首次部署已成功，待最终源码再次部署。
+
+定位到校验脚本的 Windows ASAR 路径分隔符错误。目录枚举返回原生反斜杠，正斜杠筛选漏过全部主进程 imports。读取 API 内部按本机 path.sep 分割目录，原脚本直接传正斜杠使交互包误报缺失。PR275 `22e510af` 在读取边界统一 path.normalize，并将目录筛选转换成可移植表示。新增六项跨平台正反用例，原脚本三项 Windows 断言失败，修正后六项通过，仍拒绝真实缺失依赖与子路径。
+
+以上工程与 255 张产品验收绑定旧候选 `50934073`。PR275 合并后重新完成最终组合门禁和产品 Capture/Review/Verify，后续记录为准。
+
+
+### PR275 后续测试宿主修正
+
+Linux 多次 Test 超时经原生资源诊断定位为 SDK 策略测试完成后的 2124 个 FSEventWrap。Vite 合并文件和 inline 配置会忽略 null，原 server.watch=null 未生效，异步目录扫描与关闭发生竞争。先前关闭预打包和隔离缓存后，SDK 断言及 server.close 已完成但仍未退出，因此没有将该改动称为修复完成。最终在 config 钩子直接关闭监听，并断言实际配置为 null、监听列表为空。移除临时阶段及全量句柄日志，保留隔离缓存与文件超时。Linux 隔离环境五次正常完成退出，macOS 同组六项通过；远端最终 head 继续验证。失败证据依次为 CI41978471022、41980977595、41984974816、41988181988。
+
+
+## 最终候选 793c9a52
+
+PR275 最终 head `4fbbe519` 的 [CI41991817239](https://github.com/ly-ccx/Peer-Agent/actions/runs/41991817239) Linux 成功。macOS 第一次根 Test 步骤超时，桌面全部完成，TUI Bun 停在 goal-bridge 文件，保留失败记录。按既有约定复跑失败任务一次，完整测试及桌面交互 smoke 均成功，未修改源码。此前一次 macOS 截图窗口尺寸恢复 promise 回收也保留为失败，后续完整 smoke 成功。最终组合候选的构建、工程、测试、Capture/Review/Verify 已重新执行并通过。
+
+最终候选全量构建、全仓类型、架构/UI/SVG、IPC（405 channels、439 preload、354 registrations）、Rust locked build/test、发布源与准备检查、版本与更新日志、产品契约、runtime 打包内容及外部安装全部通过。Node 9,195 项通过、5 项跳过，Bun 849 项通过。另有工程脚本与升级矩阵通过。OpenUI 原生窗口三项串行通过。
+
+最终产品包 runId `06effc8e-36a2-4d44-a960-20c3af29c195`，sourceFingerprint `806e94fb03fca8fd33b852f97e86a251c4cc48ad92074d466a3dfc14764a41c5`。255 张截图全部经带标签拼图复核，透明 Quick Chat 另在匹配深色背景复查。每张 SHA256 和具体观察写入 review.json，2026-11-05T09:44:53.160Z Verify 通过，无未解决阻断项。实施者自审，independent=false。受控模型、源码 Electron、无完整读屏与长时间验收的限制继续保留。
+
+合并后 [CI41998768885](https://github.com/ly-ccx/Peer-Agent/actions/runs/41998768885) Linux 成功。macOS 全量 Test 成功，Electron smoke 在约 15 分钟后失败，主日志未给出具体断言。下载保留的 report、failure screenshot 和 trace 后，报告定位为任务折叠反转的逐帧跳变断言。两次采样间隔 150ms，高度差 70.75px，整体范围 85.375px，超过现有 80% 阈值。打开和关闭最大采样差为 21.58px 和 20.03px。该记录可见采样缺口，尚不能仅凭该次报告区分宿主调度与真实渲染卡顿。未修改源码或断言，复跑失败任务一次，attempt 2 的完整 Test 与 Electron smoke 均成功，双平台最终结论通过。该单次采样失败和复跑成功都保留，未将其描述成确定修复。
