@@ -1,5 +1,159 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## ADR 118 固定结果的来源状态
+
+P14，`15915dd7`。用户在原固定结果中查看打开时核对的来源状态及保存时的观察范围。宿主绑定原材料、规范会话与当前 Bot。缺少可信位置时显示无法核对，固定结果和试算条件继续按原回执。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 生成控件的行动归属
+
+P14，`237b4ae5`。用户在固定结果中先读到模型试算及控件范围，再调整本机条件。宿主审批、人工问题与签收按原结构化事实展示。同名生成按钮经 Electron 对照只改变试算值。保存和失败恢复继续按原回执。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 跨设备读取固定摘要
+
+P06／P14，`fa9348e9`。用户从原回复或任务查看迁移后仍可核对的固定结果。当前 Bot、原任务、发布索引及已完成的原工具结果共同决定只读摘要。正文缺失时沿原证据视图或终端任务详情提示原设备和未验证状态。回到来源继续使用现有导航，原阅读和草稿保留。CLI 使用同一固定引用和 `origin_only` 状态。隔离 Electron、独立 PTY 及 CLI 已取证，整包和系统辅助技术另验。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 Composer 的系统输入法与明确发送
+
+P06／E03。用户可以先完成输入法选词，再把当前文字和同一份冻结条件送入原对话。真实组合期间的回车只交给输入法，空格选词保留现有草稿与条件卡；第一次独立回车交给原发送入口。共享键盘守卫仅按逻辑或物理 Enter 身份保持按键，仍接受 229 和 Process 作为组合信号。原草稿和队列回执决定恢复与送达，原焦点留在 Composer。
+
+`7e1a76c5` 的隔离 macOS 实测复现并修正候选空格后首个回车插入换行的问题。真实组合回车和空格选词均无队列或规范输入，随后一次回车只写入一条含确认汉字及原冻结回执的规范消息。样本使用预置固定材料、临时 Electron 测试壳及本机当前输入法。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 无试算会话的旧布局退出
+
+P06，`f4d7fb9d`。最后一个试算标签已关或独立窗口只有静态摘要时，退出失败由宿主实际布局或读位回执解释。用户可确认放弃本地表现意图，确认后重新核对原归属；身份恢复则保留布局继续保存。隔离 Electron 覆盖两入口和持久记录隔离。
+
+## ADR 118 已打开视图的 Bot 替换恢复
+
+P06，`5b03de5c` / `9f37d847`。原主区或独立视图保存无法继续时，用户可以核对原保存、复制仍保留的本地输入，经确认放弃后自行关闭。替换和保存结果来自宿主事实。隔离 Electron 核对未知阻断、取消、确认和旧读位隔离。无存活原视图的旧布局恢复另行覆盖。详见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## 任务详情当前核验检查的可读性
+
+P06，代码 `c53a27f9`。用户在任务详情核对当前结果依据及独立复核状态。标签和状态分别使用现有 Frost 次级正文和正文色，四种状态仍来自同一结构化核验回执。隔离 Electron 验证四种状态、旧核验隐藏及重试，深浅原图已由实现者复核。详见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 读取布局超时后的读位恢复
+
+P06，代码 `3d314482`。用户从原交付重新打开固定结果，读取超时时保留当前视图并提供重试。第一次收到确认布局后，尚未滚动的视图恢复已保存的读位，已移动的视图保留本地读位并沿原布局保存。隔离 Electron 覆盖两种路径、迟到回执和原资源实例，原草稿随原流程保留。
+
+## P06 回复操作的可读性
+
+代码 `37fe6442`。用户从当前回复打开详情或引用原文。鼠标悬停、键盘聚焦和触屏可见态沿原页脚控件，控件使用 Frost 次级文字色。详情与引用继续使用原消息和宿主来源；关闭详情或取消引用沿既有返回路径。当前提交的产品截图仍待复核。
+
+## ADR 118 Desktop 静态墓碑恢复（增量验证）
+
+P06/P14 的固定 Evidence 和资源窗口可打开 cleaned 版本，显示固定墓碑摘要与明确状态；静态视图无试算控件。真实 Electron 专项通过。损坏墓碑在宿主拒绝。
+
+## ADR 118 Remote 任务详情固定结果（增量验证）
+
+既有 `project.session.read` 展示宿主核对的固定结果身份和可用状态。D0/D1 有界模型摘要复用路径脱敏，D2 以上只显示身份和状态。原任务详情关闭、切换、撤权和退出时清理投影。浏览器专项覆盖 390 像素布局、纯文本和退出；实体手机及完整发布验收待验。
+
+## ADR 118 TUI 任务报告固定结果（P61，增量验证）
+
+`ProjectApp → TaskResultText` 在原任务报告接受 `/result N`，以本机 Bot、session 和固定引用核对来源；状态区分加载、可读、求值失败时保留模型摘要、已清理和重试。初始条件表格明确为本机计算。终端渲染专项覆盖键盘翻页、退出、跨任务拒绝和不产生新 Evidence；完整产品验收仍待候选。
+
+## ADR 118 受保护条件的未保存恢复（2026-11-04，增量验证）
+
+P06、C221/C223/C224，代码 `ecb77e0d`，契约先于实现补入 ADR §12.1。用户粘贴可识别凭据或原生权限载荷时，原确认值不变，原文保留在有界编辑内存；共享内容校验和宿主状态准入拒绝保存、求值及冻结。只检查形状的编辑接口不能提供持久化准入。用户移除内容后可正常保存，不以脱敏替换后的值冒充其条件，不回显匹配原文到诊断。
+
+复用 Frost 输入、原保存/草稿与静态告警；不抢焦点、发送或创建权限事实。真实隔离 Electron 经正式 preload/IPC/SQLite 核对拒绝前后确认状态相同、原输入保留和修正后保存；原 Composer、接管、读位、版本导航及缺模块恢复继续通过。`peer-interactive-workspace-9k5kHi` 的 11 张图逐张实现者自审，review.json 绑定上述源码，independent=false，指纹 `9fcfe380d01dc3bb059b4c0ad341d2b5ac2ec7c3e39a6680f2b341becb20186f`。不等于标准全产品、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收；Proposed/default-off 保持。
+
+## ADR 118 固定版本导航 C229（2026-11-04，增量验证）
+
+P06/P14、C229 InteractiveVersions，代码 `0af50095`。用户检查并显式打开新/上一版本；事实来自当前视图绑定的已确认 manifest/head/predecessor 与原发布回执，不能从同名标题或助手文字推断。
+
+| 状态 | 事实与操作 | 连续性与恢复 |
+|---|---|---|
+| 未检查 / 正在检查 | 仅查同 owner/resultId 元数据，静态处理中回执 | 不刷新来源、不求值；当前输入/读位保留，切换后的旧响应丢弃 |
+| 已确认关系 / 正在打开 | 原标签入口或宿主绑定的原主窗口打开固定目标 | 当前版本不替换，新版本使用自己的状态，显式导航焦点交给实际目标标签 |
+| 缺源、待登记、冲突、旧桥或归属失效 | 不显示“没有更新”或自动换最新值，提供重试检查 | 原窗口及草稿保留；不重发发布、不获得写者或任务执行权 |
+
+172 项 Node、32 项 Bun、工程检查和真实 Electron 专项通过。10 图逐张实现者自审，independent=false；机器断言验证新值 9、旧有效值 3/未完成“-”、标签焦点及原生前驱打开。完整产品/真实模型/其余入口验收仍按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)，Proposed/default-off 不变。
+
+## ADR 118 主 Bot 报告与回复的固定结果引用（2026-11-04，增量验证）
+
+P06/P14，代码 `8140ce58`。用户从 Bot 回复打开已发布结果；宿主按真实被引用任务/owner 及原发布回执生成固定 meta.evidenceRefs，不从正文 URI 或模型自报产物推断。报告和回复复用只读元数据投影；head 推进、unchanged、待登记和旧任务均保留各自真实来源，回复共用原 20 条预算，完整报告仍可追溯。原权限、核验、签收与 Composer 责任不变。
+
+279 项 Node、28 项 Bun、实际 Electron 专项通过；TUI 真实宿主和默认 Desktop ToolHost 均覆盖报告到 canonical 回复，模型为控制传输。Electron 从持久回复的固定引用经正式 EvidenceView 打开，原草稿/人工发送、双窗口与恢复继续通过；8 图实现者自审，independent=false。版本导航、完整多入口、真实模型及最终验收仍见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)，不能据此启用默认关闭的能力。
+
+## ADR 118 任务证据别名与固定交付来源（2026-11-03，增量验证）
+
+P14/P06、既有 EvidenceView/EvidenceDeliveries，代码 `c57f603b`。用户从原任务的工具证据进入交互结果；共享 PublicationSource 按真实 task/Plan/Session/report、工作 conversation 和当前 Bot owner 解析发布回执，核对原规范索引后返回固定引用及明确未验证的模型摘要。无任务 context 的工具别名不猜测归属；相同 wire call ID 的其他任务/Bot 不改绑来源。unchanged 修订继续显示原发布任务，不新增产物。
+
+元数据列表仍只读原索引，不读取程序/数据正文。来源/索引缺失、待登记或不一致时保持不可用；不查询项目文件、不补发发布、不重建 Evidence。旧任务没有 parent Bot 绑定时，普通文件证据继续沿原资源投影；它不因此取得交互身份。
+
+178 项 Node、9 项 Bun 与实际 Electron → 正式 preload/授权 IPC → 原 ApplicationService/EvidenceView → 主区/独立窗口通过。最终 `peer-interactive-workspace-umOyTs` 的 8 图已逐张实现者自审，independent=false；包括原草稿/人工发送、已提交/未提交接管、中断输入和 chunk 降级。测试重载遵从真实未保存保护，等确认后明确重试；没有绕过保护。主 Bot 报告/回复引用、新版本入口、真实模型及最终全产品验收继续见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)，不将本批任务入口计为完整闭环。
+
+## ADR 118 冻结条件标签与异步确认（2026-11-03，增量验证）
+
+P06 / C223/C224/C228，代码 `4d33ae4e`。用户将点击时的条件交回原 Bot 草稿时，摘要采用固定发布程序初始控件的名称；宿主在有界、可终止 Worker 中重建标签，不信任 Renderer 或已丢弃的渲染树。没有初始命名控件的字段保留稳定条件序号。当前合法参数即使导致试算失败，也不改变原控件名称或被替换成默认值。
+
+| 状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 正在冻结 | 原保存 revision/digest、固定内容和真实视图/写者 | 每视图只运行一个摘要请求，相同请求共享确认；关闭或销毁该视图中止原 Worker |
+| 等待期间发生修改、接管或归属失效 | 提交事务重新核对状态、写者、owner 和当前分类底线 | 不提交旧条件或取最新值替代；失败保持原点击候选，明确重试先以新保存身份重新确认同一候选 |
+| 已冻结 / 草稿准备完成 | 不可变 followup、原草稿 CAS/ack 及宿主读回 | 旧冻结摘要不重算；之后的本地编辑保留，仍需在原 Composer 审阅并人工发送 |
+
+174 项 Node、54 项 Bun（两批）、真实 Electron 主区/独立窗口和 8 图实现者逐图自审通过；截图包 `peer-interactive-workspace-ApPG3l`，independent=false。原正文、引用、附件、阅读位置及保存接管/中断/chunk 降级恢复继续通过。此专项关闭已命名初始控件的摘要标签缺口，不代替真实模型、标准全产品 packet、安装版、系统 IME、完整缩放/减少动效、读屏或性能验收；ADR Proposed/default-off 不变。
+
+## ADR 118 保存回执结算与接管（2026-11-03，增量验证）
+
+P06 / C223/C224 编辑会话，代码 `c85b3a42`。用户希望回执丢失后继续保留本地条件，明确接管时核对原保存，再以实际当前检查点保存；原保存表、当前 writer 与 CAS 是事实源。没有待确认输入的干净视图仍采用当前检查点，不把所有失去写者的视图都当成有未保存输入。
+
+| 状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 已提交但确认丢失 / 原写者失效 | 原 requestId、完整参数摘要及原不可变回执，writerCurrent | 可读回历史提交，保持失效写者只读；明确接管后保留待确认本地值，不用历史提交恢复编辑权 |
+| 已证明未提交 / 仍未知 | 同一事务的缺记录、写者代次或已越过的 CAS 基础；结构化 saveStatus | 缺记录时只有可信未提交结算才能解除原请求责任；旧端不完整回复、未来 revision、损坏/参数冲突继续阻止接管、关闭与冻结 |
+| 明确重新取得写者 / 新保存 | 实际当前 revision、新 token、新保存 requestId | 保留后续有效值、原始未完成数字与草稿；旧请求重试仍用原全部字段，新提交不复用原 operation 身份 |
+
+153 项 Node、46 项 Bun、真实 Electron 双窗口与 8 图实现者自审通过。覆盖原窗口恢复 6/8、另一窗口先保存 7/9，以及原 Composer、冻结反馈、布局/关闭和 chunk 故障恢复；非独立验收。后续条件标签进展见上节，完整产品/真实模型/安装版/系统 IME/辅助技术与性能仍见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。ADR 保持 Proposed，功能默认关闭。
+
+## ADR 118 条件交回原草稿（2026-11-03，部分实现）
+
+P06 新增 C228 `InteractiveDraftPreparation`，并接既有 ResourceFeedbackCards/BotComposer，代码 `f5eaa173`。用户把点击时的有效条件交回原 Bot 草稿，审阅后明确发送；保存回执、冻结材料、持久草稿与队列接收分别为事实源。沿 Frost 按钮、静态状态、SVG 和既有输入恢复链，不自动发送、导航或聚焦 Composer。ADR 仍 Proposed，功能默认关闭。
+
+| 状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 捕获 / 保存 / 冻结 | 点击候选、真实 writer/CAS、固定冻结记录 | IME/无效输入不能取旧值代替；后续编辑留在原视图，失败重试同一候选 |
+| 正在准备 / 未确认 / 已放入草稿 | 原主窗口 claim/draft CAS/ack，宿主再次读回同一材料 | 原正文/quote/附件保留；确认丢失复用 followupId，不重新读取当前条件；可重新选择新条件 |
+| 超额 / 冲突 / 归属变化 | 共享额度、实际草稿 revision、owner/view/window 当前性 | 准备前拒绝超额并保留原草稿；不能自动换接收者或接管写者 |
+| 审阅 / 移除 / 明确发送 | 原 Composer 与既有输入接收记录 | 可移除条件或取消发送；只有明确发送进入原队列，固定值/版本穿过消息与委托 |
+| 旧桥接 / 损坏传输 / 冻结记录缺失 | 正式 API、协议解析及宿主冻结记录核对 | 明确不可用；保留原文字节，不以空反馈推进新端游标或开始委托 |
+
+295 项 Node、55 项 Bun 与真实 Electron 主区/原生/Composer/队列/Conversation 专项通过，6 图实现者自审。确实覆盖原草稿保留、准备不发送/不聚焦及人工发送后固定值 5/4；Verifier、精确条件标签、全产品/真实模型/安装版/系统 IME/辅助技术及性能仍待完成。详见[IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 主资源区与输入恢复接线（2026-11-03，首期仍未完成）
+
+P06，C223/C224 后新增 C225 `ResourceInteractiveViews`、C226 `ResourceLayoutNotice`、C227 `InteractiveContinuity`，代码 `8b3ffbcf`。用户从规范交付打开同一固定结果，在主区/独立窗口调整条件、关后重开和回到原标签；布局、参数保存、派生计算与发布/核验各有自己的事实源。ADR 仍为 Proposed，功能默认关闭。
+
+| 状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 交付打开 / 最近 / 关后重开 | 规范 EvidenceIndex 发布元数据、固定引用与当前真实 owner；独立布局行 | 不把 URI 文本变成产物；固定版本与读位独立保留，不写进旧文件会话或 Settings |
+| 布局读取迟到 / 丢回执 / 冲突 | 有序表现意图、实际行 revision/CAS 回执 | 保留期间的显式打开/关闭/读位；重试先核对真实行；明确选择本地或已保存布局，后者先确认输入并阻断旧读位回调 |
+| 两窗口编辑 / 返回来源 | 实际 sender/viewHandle、单写者 token、原生 return/ack | 明确接管会使原窗口只读，输入保留；返回仍匹配同 owner 固定引用，不复制独立窗口的几何覆盖原现场 |
+| 关闭等待新输入 / 丢释放回执 | 状态会话的实际保存与 release 回执 | 等待时的新编辑必须再次确认；释放未知保持只读，不能继续接受输入后再丢弃 |
+| 应用关闭 / 视图卸下 / 中断输入 | 应用连续性入口、实际原稿与检查点、布局未决回执 | 未确认先阻止此次退出，不自动再次关闭；恢复区按控件标签显示可复制原文，明确保存中断草稿不改变有效值或发送模型请求 |
+| 主区控件 chunk 缺失 | 局部错误边界、仍存活的会话与真实保存回执 | 原摘要/源码入口和对话草稿保留；明确保存后打开独立视图，不刷新整个主应用 |
+
+62 项 Node / 62 项 Bun 契约、23 项既有资源用例及两条真实 Electron 专项通过。8 图实现者逐图自审；实际 preload/授权/SQLite，发布源与外壳为夹具。主区关闭自动化处理 beforeunload dialog；未测试完整系统 IME、安装版、读屏、实际文档/浏览器混合标签或真实模型。原 Composer/队列/Verifier 与完整产品验收仍待完成，见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 固定材料试算组件（2026-11-03，产品接线未完成）
+
+P06 资源结果，C221 `InteractiveSurface` / C222 `InteractiveComponents`（`9c726072`）之后，新增 C223 `InteractiveResource` / C224 `NativeInteractiveResource`（`518420a4`）；依据仍为 Proposed ADR 118 及用户明确恢复的完整实施目标。用户希望调整固定材料的筛选与参数，关闭重开后保留同版输入与阅读位置，并准确理解保存/计算状态。正式资源协议、IPC/preload 与原生框架已接通；Artifact/混合标签和原草稿链尚未完成，功能仍默认关闭。
+
+| 状态 | 事实来源 | 用户控制与恢复 |
+|---|---|---|
+| 初始 / 只读 / 接管 | 固定发布版本、真实 sender 的 viewHandle、SQLite writer/CAS | 开始试算或明确接管；旧窗口迟到保存拒绝，保留其本地输入 |
+| 编辑 / 组合 / 未完成数字 | 独立编辑会话的原始草稿与有效值 | 不强制提交 IME，不把旧有效值交成新条件；关闭/冻结前先确认保存 |
+| 计算成功 / 除零 / 超限 | 共享公开 AST 的有界同步求值及 SDK 已同步状态 | 错误时隐藏派生输出，保留控件；调整或恢复初始条件，不取数、不调用模型 |
+| 保存中 / 丢确认 / 冲突 | 真实状态请求、幂等 ID、宿主 revision 回执 | 未确认不显示已保存；先重试原请求，再保存后续编辑；单写者失效需明确接管 |
+| 冻结候选 | 点击时捕获的字段、确认 revision/摘要与宿主冻结回执 | 等待时的新输入留在原现场；同 followupId 重试不混入新值。原 Composer prepare/claim/ack 尚未接线，未显示已放入草稿 |
+| 打开 / 取消 / 丢确认 / 归属或窗口失效 | 实际 sender、当前 owner、窗口 generation/lifetime、同 requestId 的视图回执 | 打开可取消；迟到回复不能释放新视图；刷新/崩溃收回旧句柄，接管仍须明确 |
+| 原生关闭 / 重开 / 格式或状态损坏 | 真实状态和阅读检查点确认、独立 SQLite 阅读记录、固定结果摘要 | composition/未确认保存阻止关闭；重开不重跑取数。损坏不重建为空；降级页不覆盖原读位。旧 Settings 不保存 interactive 记录 |
+| 控件模块加载失败 / 明确恢复 | 共享延迟加载错误边界、仍存活的编辑会话与真实保存回执 | `98693645` 原生降级仍可读固定摘要/源码；明确保存草稿后只重载隔离视图。中断 composition 的原文本只作为草稿保存，不能冒充有效参数；主工作区备用独立窗口动作待正式标签链验证 |
+
+`9c726072` 当时的 106 项 Node、98 项 Bun 组合及四图隔离组件审阅保留为历史事实。`518420a4` 的 130 项 Node、115 项 Bun、46 项既有资源组合与真实 Electron 原生专项通过，3 张原生图逐图自审；SDK 生产/开发专项与四图也重采，按主题两份构建逐字节一致，再次检查两张唯一图片。原生使用实际 preload/授权/SQLite，但发布源为领域夹具。非独立验收，不代表完整产品、真实发布任务/模型、安装版、系统 IME或读屏器通过；混合标签、返回消费端、按需模块故障和交还草稿链仍待完成。后续责任见 [IUI 实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+`98693645` 的真实原生缺文件/恢复/确认重载专项及 4 图自审已补齐该加载失败路径；固定值、版本和原读位实际恢复，没有新发布或取数。`30cb612b` / `11e2a617` 完成有引用映射的布局格式与旧写者拒写证明，尚非混合标签界面验收。累计本批 134 项 Node、118 项 Bun 组合通过；主工作区恢复和前段仍列待办的其他范围未因此关闭。
+
 ## 主 Bot 输入框悬浮层次（2026-11-02）
 
 P06 / C136，C 级表达调整。用户希望输入框更有独立悬浮卡片感；代码 `project-agent/styles/bot-conversation.css` 的 `.bot-composer` 接入已有 Frost `--control-composer` 与 `--shadow-composer`，禁用按钮基于同一表面混色。尺寸、圆角、间距、焦点边线、拖入/禁用状态沿用原实现，不增加玻璃、位移或入场动画。
@@ -500,7 +654,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P13 回复过程/协调/记忆上下文 | O/V；ReplyDetails/AgentProcessView/CoordinationDetails/ReplyContext | E05/E06 继承阅读与层级基础；V 用户收起/后台更新、详情读失败/返回锚点 | P1 · E05/E06/E10 |
 | P14 Evidence 明细/文件/失效引用 | V/O；EvidenceView/EvidenceList、projectAgentReadEvidence | E09 读/重读、正文与元信息/缺失状态、100 条元数据窗口已审阅；V 权限/截断/旧来源/嵌套返回 | P1 · E09 |
 | P15 档案·目标 | F/Q；ObjectivesTab、objectives/automation 投影 | E10 逐对象动作、会话 draft/版本冲突、触发来源与 observation Evidence 已审阅；V 外部变化/重开/暂停/终态 | P1 · E10/E17 |
-| P16 档案·记忆 | F/Q；MemoryTab、memory CRUD 与 switches | G09/E10 读失败保快照、逐项回执/刷新、修订新 ID/草稿/导出恢复已审阅；V 冲突/来源/外部变化/取消/归焦 | P1 · E10/E15 |
+| P16 档案·记忆 | F/Q；MemoryTab、memory CRUD 与 switches | G09/E10 读失败保快照、逐项回执/刷新、修订新 ID/草稿/导出恢复已审阅；`2fdaf1b1` 已保存正文接主题主文字色，V 候选对比度/冲突/来源/外部变化/取消/归焦 | P1 · E10/E15 |
 | P17 档案·设置/权限/模型/宿主 | F；BotSettingsTab/BotAccessControl/BotHostControl、受管设置与策略；E08-F2 模型读写/恢复反馈留模型设置组 | E08 名称草稿/模型/策略与并发反馈已审阅；V 权限/宿主/删除与跨窗口；其他字段按 E10 | P0 决策 / P1 配置 · E04/E08 |
 | P18 历史清单/预览/继续 | Q/O/V；HistorySheet/HistoryConversationList、listHistory/continueHistory | V 搜索无结果/分页/读取失败/重复继续/身份保持 | P1 · E05/E11/E12 |
 | P19 项目诊断 | V/A；ProjectDiagnosticsPanel、诊断报告 IPC | V 生成/复制失败、报告缺失、敏感值展示边界 | P1 · E12/E15 |
@@ -510,7 +664,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P23 经典工作台雷达/任务/历史 | Q/V；HomePage→GlobalWorkbenchPage、TaskOverviewPage、TasksPage/HistoryPage | E16 粒子/FLIP/思考球与显示收尾已审阅；V 旧消费者事实/签收文案、跨列焦点/真实降级 | P1 · E04/E11/E16 |
 | P24 经典结果/Git 交回/冲突处理 | V/F/A；ConversationResultView/SourceCheckoutPanel/HandoffConflictPanel | V diff失败/冲突重试/提交未知、操作成功与关闭分开 | P0 事实 / P1 控件 · E04/E09/E17 |
 | P25 选区对话/引用/子任务 | I/O；SelectionChatWorkspace/SelectionQuoteAction、持久子会话与 quote refs | V 原文失效/返回定位/已有草稿/保存失败/权限边界 | P1 · E02/E05/E09 |
-| P26 Quick Chat 独立窗口/原生弹选 | I/O/Q；S bot 按目标+surface 恢复；经典 localStorage 草稿保留 | G02/E03 实现已审阅；V 原生重开、迟到换 bot、IME/经典附件 | P0 · E02/E03/E11 |
+| P26 Quick Chat 独立窗口/原生弹选 | I/O/Q；S bot 按目标+surface 恢复；经典 localStorage 草稿保留 | G02/E03 实现已审阅。Quick Chat 输入提示及操作标签采用主题主文字色，深浅原生合成专项已复测。V 原生重开、迟到换 bot、IME/经典附件 | P0 · E02/E03/E11 |
 | P27 全局/会话搜索/页内查找 | Q/O；ConversationSearchPalette/ChatFindBar、搜索 API/当前文本 | E05/E06 查找只显式导航、IME/归焦已审阅；V 旧请求/无结果/未挂载内容/源消息 | P1 · E05/E06 |
 | P28 设置框架/搜索/返回 | Q/F；SettingsPage，分区导航非跨面板全文搜索 | G04/E08 实现已审阅；V 搜索空结果、dirty 分区/返回/全局导航/deep-link 与焦点 | P1 · E08/E17 |
 | P29 设置·通用/主动性/通知 | F；GeneralPanel、getSettings/updateSettings | E08 回执/draft/retry 已审阅；V 静音时段/locale/真实送达与并发 | P1 · E08/E10 |
@@ -530,7 +684,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | P43 已安装 Skills/详情/上传 | Q/F/O；SkillsInstalledPanel/SkillDetailDialog/SkillUploadDialog | E15 installed/available 独立读失败、逐项 pending/回执、详情重读已审阅；V 上传/卸载/范围/未知与真实焦点 | P1 · E08/E09/E15 |
 | P44 Skills 市场/分类/安装 | Q/F；SkillMarketplacePanel/QoderMarketplacePanel、服务端列表/安装 | V 网络失败/无结果/旧搜索/安装回执/目标项目 | P1 · E08/E09 |
 | P45 MCP 配置/认证/资源/Prompt | F/Q/O；McpSettingsPanel、安装/OAuth/credentials/manifest API | E15/E17 reader/重读、同步锁/fieldset busy/表单失败、dirty 离开与本地 radio 已审阅；V OAuth/部分写入/Manifest/资源与真实关闭 | P1 · E08/E09/E15/E17 |
-| P46 自动化清单/编辑/提案 | Q/F/A；AutomationCenter/AutomationProposalCard、automation API | a0ae1a33 机器人壳改接既有编辑器，两处创建入口及舍弃返回点查通过；E10 会话 draft/pending/未知回执保留、失败重读/冲突核对、提案同步锁与用户展开意图已审阅；V 未知创建/时区/静音/部分写入 | P1 · E10/E17 |
+| P46 自动化清单/编辑/提案 | Q/F/A；AutomationCenter/AutomationProposalCard、automation API | a0ae1a33 机器人壳改接既有编辑器，两处创建入口及舍弃返回点查通过；E10 会话 draft/pending/未知回执保留、失败重读/冲突核对、提案同步锁与用户展开意图已审阅；`2fdaf1b1` 列表搜索提示接主题主文字色，V 候选深浅色对比度/未知创建/时区/静音/部分写入 | P1 · E10/E17 |
 | P47 自动化详情/运行记录/回执 | Q/V/A；AutomationDetail/RunsTable/RunReceipt，同一 AutomationCenter 内 | E10 各 view 反馈与运行读取/取消/重试回执、Evidence 入口已审阅；V 未知/刷新失败/源失效/真实送达 | P1 · E10/E12 |
 | P48 Workbench 框架/标签/分栏 | O/Q/G；WorkbenchContext/Panel、稳定 browser 挂载与 resize stage | G05/G06 实现已审阅；V 键盘/最大化/撤销/窄窗、guest 生命周期与源上下文 | P1 · E06/E17 |
 | P49 文件树/新建/筛选 | Q/F；FilesView/TreeNode、受管 readDir/watch/mkdir/write IPC | E15/E17 失焦留名称、IME、确认/取消、busy/错误、scope 与条件归焦已审阅；V 读取/权限/重名/并发与完整树键盘 | P1 · E06/E09/E15/E17 |
@@ -714,7 +868,7 @@ IME 已有 isComposing/Process 保护，不宣告“中文必然误发”。Over
 | C142 · `project-agent/conversation/CardView.tsx`<br>`CardView`, `CardDiagnostics`, `CardItem` | V/A/F · S busy/error；真实 approval 或回读当前卡；generic ok 只表示提交；新 props 优先 | 本轮 unknown 回执保留选择，canonical/received 才收起，沿原 inputId/answerTo 重试；动作前记焦点归属，reduce 即时移除也交本地输入，外移/后台撤销交接；E04/E16/E17 实现已审阅；G12 静态/异常收尾与原持焦点问题交本地输入；V 快速变化/过期/迟到/真实焦点 | P0 决策/P1 降级 · E04/E16/E17 |
 | C143 · `project-agent/conversation/CompletionReview.tsx`<br>`CompletionReview` | V/O · S 核验摘要展开与既有 review 投影；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核旧 attempt/partial/unverified 第一层可见、收起保意图 | P0 · E04/E09 |
 | C144 · `project-agent/conversation/ContinuousReply.tsx`<br>`ContinuousReply` | V · S 连续公共回复与 live 状态，稳定对象组合；E07/E17-F3 别名锚点保原 ID 并定位于回复起点，不参与 flex gap；空正文载体不占位 | 内容/diff 已审阅；V 多别名/无正文失败/引用定位/读位，以及段落身份/晚到持久消息/停止与失败不重放 | P1 · E05/E16/E17 |
-| C145 · `project-agent/conversation/DelegatedWork.tsx`<br>`DelegatedWork`, `WorkRow` | Q/V/A · S 子任务 WorkRow、状态与原任务入口；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核同 lifecycle/cancelable、并行分组不误归属、取消失败 | P0 · E04 |
+| C145 · `project-agent/conversation/DelegatedWork.tsx`<br>`DelegatedWork`, `WorkRow` | Q/V/A · S 子任务 WorkRow、状态与原任务入口；事实：受控 props / 所属 hook（装配模块由子树承接）；F5：关联任务及更多任务使用 C215，展开完成释放裁切 | 取消失败提示按实际文本可见区域检查，保留重试；V 同 lifecycle/cancelable、并行分组不误归属、嵌套展开 | P0 · E04/E06 |
 | C146 · `project-agent/conversation/EvidenceList.tsx`<br>`EvidenceList` | V/Q · S 按 Evidence 引用读取来源；接口：`projectAgentReadEvidence` | E09 读取/重读、100 条请求/更多与不可操作禁用已审阅；V 来源失效/无权限/缺失/重复引用 | P1 · E09 |
 | C147 · `project-agent/conversation/LiveReply.tsx`<br>`LiveReply` | V · S 真实活动和流式公共回复、aria-live；事实：受控 props / 所属 hook（装配模块由子树承接） | 待核已停止/未知/持久接管不闪退/不重复播报 | P1 · E04/E05/E16 |
 | C148 · `project-agent/conversation/QuoteChip.tsx`<br>`QuoteChip` | V/A · S 受控引用内容/来源/移除入口；事实：受控 props / 所属 hook（装配模块由子树承接） | E09 原 ID 定位与移除回 composer 已审阅；V 长引用/历史来源/失败仍保引用 | P1 · E02/E09/E15 |
@@ -1171,3 +1325,11 @@ P06/P08/P17，TasksTab、SessionDetail 与 TaskConversationButton：用户希望
 状态/进度继续来自 DrawerSession、taskProgressPreview 和匹配任务的 TaskConversationContext；无进度不拿内部任务指令补造，无百分比。TaskConversationButton 复用原资源工作区/ConversationSceneDrawer，保留 workspace/conversation/session/plan 来源；缺会话或工作区未就绪时禁用且解释，不自动转去其他会话。原生 button 的焦点/键盘与 aria-expanded/aria-controls、Frost token、PeerIcon 沿用；切换 session 默认收起，同任务刷新保留本地展开选择。收起不取消执行，不改主对话草稿、权限、Evidence 或签收。
 
 C 级 UI 落地，代码基线 `4a58e284`；无新增 Runtime/IPC/存储/能力边界。新增/调整外置入口、默认隐藏与真实会话来源用例，更新发布脚本选择器；仅内容/diff 实现者自审。未运行单元/集成、build/type/架构/IPC 或截图/交互回归，未安装/重启；最终联合发布候选重新验收，不继承 RC34/RC35 的通过结论。
+
+### 主 Bot 阅读视口与回到最新
+
+P06 主 Bot 对话读取历史时仍提供显式回到最新，按钮由既有跟随状态控制。`80d64c94` 将按钮移出阅读视口，保留键盘按钮及原滚动控制。标准回归增加视口几何断言，采集中。
+
+### 主 Bot 工作现场摘要
+
+P06 工作现场行优先显示用户可读状态、任务摘要、关联来源及下一步。`8907cb5e` 仅调整默认行的表达，模型执行信息留在按需详情；原主回复导航场景加入断言，隔离验证进行中。

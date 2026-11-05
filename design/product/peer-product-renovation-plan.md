@@ -1,11 +1,69 @@
 # Peer 当前产品改造计划
 
+## ADR 118 固定结果的来源状态
+
+P14，`15915dd7` 补来源状态及观察范围，`237b4ae5` 的 macOS 安装副本验证磁盘写满后保存失败、保留输入和显式重试。最终组合候选与系统辅助技术验收继续推进。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 普通回复与试算控件边界
+
+P14，`237b4ae5` 完成普通回复与生成控件动作归属的 Electron 专项。工作区在生成树前说明本机试算范围，原宿主治理状态由原事实源持有。系统读屏、生产兼容和最终组合验收见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 固定结果跨设备摘要
+
+`fa9348e9` 补齐 P06／P14 的 `origin_only` 阅读状态，沿原 EvidenceView、TUI 任务详情和 CLI 固定引用读取。已用真实合成任务的可携带副本核对 Desktop、TUI、CLI 同版摘要。新候选的全仓工程检查与标准包见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 无试算会话的表现恢复
+
+`f4d7fb9d` 补齐主区旧布局及静态摘要读位的关闭检查点。专项通过，固定提交的整包采集和全仓复跑按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 跟进。
+
+## ADR 118 Bot 归属替换退出恢复
+
+已打开的 Desktop 主区和独立视图接入原保存核对、复制和明确放弃，`9f37d847` 隔离 Electron 专项通过。无存活视图的旧布局、真实模型正式交付与标准包按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 继续。
+
+## 任务详情核验状态可读性
+
+`c53a27f9` 修复标准包复核中发现的低对比度，隔离 Electron 核验专项通过，整包复采与审阅按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 跟进。
+
+## ADR 118 Desktop 静态墓碑恢复（增量验证）
+
+代码 `aac32860` 接入固定墓碑读取、Desktop 原报告及独立窗口读位恢复。生产清理与完整产品验收继续按 IUI 台账推进。
+
+## ADR 118 Remote 固定结果（增量验证）
+
+`03f0589a` 已接原配对与项目授权下的任务详情。手机宽度 Chromium 专项和真实 HTTP/WebSocket 回环通过。CLI exec、生产清理和完整产品验收仍按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进。
+
+## ADR 118 TUI 任务报告降级（增量验证）
+
+`4e3d1cb7` 已接 `/result N` 的固定摘要和有界初始条件表格。使用既有任务报告、焦点和工作区归属，实际终端渲染覆盖翻页、退出和错误作用域。CLI exec、Remote 与完整产品验收继续按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进。
+
 创建时间：2026-10-23
-最后更新：2026-11-01
+最后更新：2026-11-04
 
 > 状态：当前改造的分解与排序基线；已补齐全产品页面/组件交互状态及 UI/动效/过渡覆盖矩阵。E02–E04 P0、E05–E06、E07–E08、E09–E10、E11–E12 及 E15–E17 本批消费者已在隔离分支落地并完成内容/diff 审阅；候选验证待发布。其他工作包继续待实现/待核；历史分批交付不等于合入开发线；本轮按用户授权合并全部开放 PR，状态见下节。不安装或发布。
 > 定位：[路线图](peer-product-roadmap.md)决定押什么，[改造总纲](peer-transformation-charter.md)锁壳层与阶段，本文把当期体验收敛拆成有依赖和退出条件的工作包。产品方向仍以[北极星](peer-product-alignment.md)为准。
 > 约束：[Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)、[动效规范](../../knowledge/specifications/motion-system.md)、[过渡规范](../../knowledge/specifications/transition-system.md)与[执行规程](../../playbook/product-experience-development.md)。
+
+ADR 118 的当前增量：C221/C222 固定材料试算组件及编辑会话（`9c726072`）之后，C223/C224 与正式资源协议、typed IPC/preload、原生状态/阅读检查点和受版本保护的恢复记录已在 `518420a4` 接线；实际隔离 Electron → SQLite 链与三图实现者自审通过，SDK 四图也重采核对。发布源仍为领域夹具；Artifact/混合标签、布局及返回消费者、按需模块故障、原草稿链、Verifier 目标和组合验收尚未完成，功能默认关闭，ADR 保持 Proposed。不沿用历史 E13/RC35 产品验收覆盖新入口；详细范围与缺口统一维护在 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 和对应两份矩阵新条目。
+
+后续进展：`98693645` 已验证原生缺控件文件时保留摘要、源码及草稿，确认保存后重载并恢复原读位，4 图实现者自审完成；主工作区相应恢复仍待正式标签链验证。`30cb612b` / `11e2a617` 完成含固定引用的布局格式 2、同 owner/CAS 和已打开旧写者拒写证明。134 项 Node、118 项 Bun 组合通过；上述其余缺口及完整验收仍未关闭。
+
+增量 `f5eaa173`：在 `8b3ffbcf` 主区标签/连续性之后，新增 C228 条件交回原草稿；实际 prepare/claim/持久草稿/ack/宿主读回，以及原 Composer 人工发送、队列/Conversation/委托固定材料已接。295 项 Node、55 项 Bun、真实 Electron 与 6 图自审仅证明该专项，不能沿用旧发布证据或据此启用功能。
+
+增量 `fd4fce5a` / `c85b3a42`：固定目标/完整冻结条件的 Verifier 真实检查证据已接 Desktop/TUI 控制模型链；C223/C224 保存恢复区分历史已提交、可信未提交与未知，接管先结算原请求并保留待确认本地输入。后者 153 项 Node、46 项 Bun、真实 Electron 双窗口及 8 图实现者自审通过，复用原 Frost/静态状态，无新增动画。
+
+增量 `4d33ae4e`：C223/C224/C228 冻结摘要从固定发布程序的初始控件重建标签；可终止 Worker 外计算、事务内再次核对，原视图退役即中止，明确重试不丢原点击条件或后续输入。174 项 Node、54 项 Bun、真实 Electron 双窗口与 8 图实现者自审通过；沿原草稿链可见 Trial name / Divisor 等标签。
+
+最新增量 `c57f603b`：P14/P06 原任务工具别名经真实任务/调用及规范发布来源解析，在原 EvidenceView 打开固定结果；unchanged 保留原发布任务，旧文件证据继续原路径。178 项 Node、9 项 Bun、Desktop build/type/architecture/IPC 及实际 Electron 专项通过，8 图实现者自审已记录。主 Bot 报告/回复的固定引用、新版本入口、其余多入口、真实模型和最终完整验收继续按 [IUI 台账](../../playbook/v0.1.0/interactive-results.md) 推进；Proposed/default-off 不变，单项通过不代表阶段退出。
+
+增量 `8140ce58`（2026-11-04）：P06/P14 的主 Bot 报告与回复已接共享固定引用投影，原 Plan/sourceRevision 和权限/核验门不变；真实 Desktop ToolHost 与 TUI 宿主链、279 项 Node、28 项 Bun、工程检查及 Electron 专项通过。从持久回复引用打开原 EvidenceView，8 图已逐张实现者自审，independent=false；发布及模型为控制夹具。head/predecessor 导航、完整留存/多入口、实际模型与最终组合验收继续推进，功能默认关闭且 ADR 保持 Proposed。
+
+增量 `0af50095`（2026-11-04）：新增 C229/P06/P14 受控版本导航，主区原标签与独立窗口只打开宿主确认的 head/predecessor；保留旧原始输入和检查点，新版本不迁移旧值。实际导航发现并修正共享焦点选择器误取旧标签的问题。172 项 Node、32 项 Bun、工程检查及 Electron 专项通过，10 图逐张实现者自审，independent=false；完整模型/入口/留存/产品验收仍见 [IUI 台账](../../playbook/v0.1.0/interactive-results.md)。
+
+## ADR 118 受保护条件准入与恢复（2026-11-04，增量验证）
+
+P06、C221/C223/C224 的 `ecb77e0d` 已接可识别凭据/原生权限载荷准入：原文仅留有界编辑内存供修正，宿主和共享校验不保存、求值或冻结；原确认状态及 Bot 草稿保留。沿 Frost 原控件/静态提示，无新动效、导航、权限或存储格式。175 项 Node、82 项 Bun、Desktop/TUI 类型、Desktop 构建和架构/UI 检查通过；真实隔离 Electron 通过，11 张图逐张实现者自审，review.json 源码绑定及限制见两份覆盖矩阵。
+
+真实模型验证命令另在 `c7e83b28` / `ece95b44` 提交；两条实际编码路径的首次生成、驱动失败种子修复和原生主动拒绝后的诚实降级已有专项证据。仍待主 Bot 委托→独立核验→交还完整故事、完整留存/清理、多入口及最终组合门禁/标准产品 packet，不因此退出 IUI-00—04 或开放默认关闭的能力。
 
 ## 已确认 Demo 接入真实 Bot 工作现场（2026-11-01）
 
@@ -90,7 +148,7 @@ E04/E08-F1（P1）：用户反馈“等待/耗时较久”占位与截图返回�
 | E08 / R2 · 新建、模型、配置 | **当前路径实现已审阅；候选验证待发布** | 复用 PR197/200；新建名称/IME/未知创建；模型浏览不写入、真实配置与当轮快照分开；G04 与通用/Git/routing/vision/档案保存恢复、连接/目录/元数据 dirty 离开；新增只在会话内保留非凭据草稿 |
 | E05 / R2 · 滚动与导航 | **实现已审阅；候选验证待发布** | Bot/经典共享用户意图策略；布局碰到底不恢复跟随，发送/compaction/背景查找不抢回。按机器人保存有界会话内阅读锚点，旧页每批最多 4 页，可中断/继续/回最新；经典重用真实 turn 快照 |
 | E06 / R2 · 焦点与浮层 | **实现已审阅；候选验证待发布** | 模态/菜单/档案/查找/tooltip 共享逻辑层级，modal inert/Tab/focusin、最上层 Escape、单次外点/归焦；G05 tabs、G06 拖动撤销/屏障/清理、G07 tooltip 已实现；隐藏内容 inert，昂贵切换显式激活 |
-| E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执 |
+| E02 / R1 · 草稿和发送恢复 | **实现已审阅；候选验证待发布** | Desktop Bot/Quick Chat/TUI 共用本机恢复 kernel/store；完整 envelope 先落盘，同目标/同 inputId 手动 retry；只以匹配的真实 input 或公共会话确认。G01–G03 已实现，发布前核对重开/切换/写失败/冲突/损坏/附件/未知回执。Quick Chat 输入提示、模型和思考强度的原生材质对比专项见 ADR 118 实施记录 |
 | E03 / R1 · IME | **实现已审阅；候选验证待发布** | 共享 composition/229/Process/keyup，候选 Escape 不删正文，菜单和全局动作先让给 IME；TUI 复用真实宿主键名/事件 seam。各系统 IME 与真实终端仍须取证，不宣称终端总能提供 composition 信号 |
 | E04 / R1 · 决策与结果一致性 | **实现已审阅；候选验证待发布** | generic ok 不制造 done；宿主真实 approval/current card 和当前核验/验收事实优先，旧 presentation resolution 不覆盖；TUI cancel 独立并拒绝执行。清单/生命周期/权限策略沿现有真源消费，核验/签收/Git交回不合并。跨消费者/迟到/过期/撤权对照归 E13 |
 | E13 | **发布前待执行** | 原批用例未全跑；本次用户授权的基础点查与三项检查见上节，不能替代发布证据。合并所有开放 PR 后，对最终候选完整执行 build/test/type/architecture/IPC 和产品 packet |
@@ -236,7 +294,7 @@ RC26 有完整的当时发布验证；新规范新增的跨切换草稿、完整
 | E07 / P1 | **本批消费者实现已审阅，候选待发布验证**。token/共享组件收敛：tokens、SettingsGroup、设置行、模型面板、档案与消息操作 | E01/E06；C | 同一角色同一尺寸/状态；深浅/字号/长值/窄容器可用；保留既有已批准材质，不重画全部界面 |
 | E08 / P1 | **当前路径实现已审阅，候选待发布验证**。新建、模型与配置闭环：NewBotSheet、ModelSelectionPanel、BotModelControls、设置/机器人档案 | E01/E07；C/B | 名称与绑定明确，模型实际值/来源可读；保存失败保留编辑；当轮快照与下轮修改分开；复用 PR197/200，剩余消费者继续按矩阵；主机幂等/持久化若需新契约另立 A/B 卡 |
 | E09 / P1 | **当前路径实现已审阅，候选待发布验证**。附件、引用、产物与 Evidence/预览：BotAttachments、QuoteChip、TaskVerification、Workbench 现有 views | E02/E04/E06；C/B，准入变化 A | 读入/未支持/失效明确；产物和证据可分别到达；预览键盘和关闭可用；无 iframe/renderer 执行旁路 |
-| E10 / P1 | **当前路径实现已审阅，候选待发布验证**。记忆/目标/Automation 的可控性：MemoryTab、ObjectivesTab、既有主动性/通知入口 | E04/E07；C/B | 看懂来源、作用范围、触发、静音与撤回；普通进展不打扰；不扩大触发器和记忆权限 |
+| E10 / P1 | **当前路径实现已审阅，候选待发布验证**。记忆/目标/Automation 的可控性：MemoryTab、ObjectivesTab、既有主动性/通知入口。对比度修复 `2fdaf1b1` 已实现，复采见[交互结果实施台账](../../playbook/v0.1.0/interactive-results.md) | E04/E07；C/B | 看懂来源、作用范围、触发、静音与撤回；普通进展不打扰；不扩大触发器和记忆权限 |
 | E11 / P1 | **当前路径实现已审阅，候选待发布验证**。Desktop/TUI/CLI/远程/经典入口语义对照；复用 PR198 精确 head、共享 Runtime/输入恢复 | E01–E04；C/B | 切换先保存再关闭/卸载，失败留原输入；卡片显式焦点与同一事实/回执；远程每 bot 会话草稿/原 inputId、过期响应隔离并提示回电脑批准；真实终端/跨窗口/读屏仍 E13，不照搬桌面像素 |
 | E12 / P1 | **当前路径实现已审阅，候选待发布验证**。冷启动按真实就绪、失败重读；Desktop 四页追读暂停续读、TUI 索引公共页、远程一页/显式缺口；沿 ADR104/105 | E01/E02；B，边界变化 A | G10 实现；不递归扫描全部历史决定刷新、不伪造连续历史；未知执行恢复不自动重放，备份/检查点/身份保持既有契约，无全库重写；大数据/冷启耗时与真实恢复候选 E13 取证 |
 | E13 / 发布门槛 | 规范条款 → 既有 acceptance guide / qa packet 的覆盖表；真实模型/安装包/辅助技术缺口 | E01–E12、E15–E17 中当期纳入项；C/B | 合并全部 PR 后验证最终候选；新旧证据分别绑定；每张必需图实际审查；完整读屏/安装/日用缺口明确 |
