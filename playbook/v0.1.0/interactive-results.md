@@ -861,3 +861,4 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 断网 Linux x64 用户态仿真容器分别加载正式 `v0.1.0-rc.35` `.deb` 和 `27c64b46` `.deb` 中实际 `app.asar` 的输入队列。旧端以独立 UID 无执行租约地受理 `accepted-a`、`accepted-b`。第三次请求在实际追加描述符已经打开、首个写入尚未发生时暂停。控制进程模拟已授权维护中的进程退出，在其结束且未返回受理回执后才移交临时数据根。原队列路径、inode 和字节均保持一致。
 - 容器内将临时数据根移交给另一 UID，根目录限制为 `0700`。固定旧端重新启动后尝试读取或追加均被系统拒绝，追加返回 `EACCES`，没有生成受理回执。当前 UID 的实际队列及 Conversation Store 按原 ID 查到两个已受理输入，按原序分别落下两条规范消息，游标停在 `accepted-b`。另启新版进程后，仍能按原 ID 查到两条输入，规范消息身份不变，本轮消费为零。
 - 回执 `peer-adr118-maintenance-principal.QvorpV/report.json` 与 `sha256.txt`。首次探针因跨 UID 读取 `/proc/<pid>/fd` 受限，改由暂停写入的旧端在屏障处记录实际描述符解析路径。此实验验证独立系统身份下保留原队列的条件，旧视图生命周期、同 UID 启动路径约束、生产部署与跨平台证明仍需依选定路线落实。
+- 独立复跑在新版进程退出后，把临时数据根的访问权交回旧 UID。正式旧端从同一队列追加并确认 `accepted-after-maintenance`，原字节仍为文件前缀。重新交给新版后，仅消费这条新增输入，先前两条规范消息身份及顺序保持一致，游标推进到新 ID。回执 `peer-adr118-maintenance-reopen.2jeslR/report.json`。恢复测试仅覆盖队列与规范输入，清理后允许哪些旧版本重新接入仍需另证。
