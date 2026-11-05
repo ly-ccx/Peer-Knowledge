@@ -15,11 +15,11 @@
 
 | 阶段 | 必须交付 | 当前事实 |
 | --- | --- | --- |
-| IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；独立 CLI/TUI 归档已读同版固定结果。生产清理需要的旧读写者兼容方案尚未确定，未退出 |
-| IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；三类清理事务和真实六来源已接，`8d49fbde` 补执行租约切换后的只读清理对账。生产旧读写者兼容守卫和公开清理入口尚待，未退出 |
+| IUI-00 | 固定 SDK 脚本/AST/状态/纯求值与副作用审阅，公共接口验证；材料源、事务及逐存储兼容方案 | 公共 AST/严格 token 覆盖、共享预算与纯求值已用于独立 Worker；Bun 单文件探针已从空目录运行。SDK bootstrap 禁用、生产/开发 bundle 的真实 React 挂载和状态适配已有专项验证；独立 CLI/TUI 归档已读同版固定结果。生产清理的旧端隔离已选受管维护，Linux 部署契约见 ADR 118 §24.1 |
+| IUI-01 | Protocol/InteractiveContent/MaterialSource、受治理发布与只读检查、只读 worker 例外、版本 CAS、事务与 Evidence 对账、首次新写入前兼容保护 | 已提交 `b7b429ef`、`ea7e5afd`、`94ef2e92`、`9f3e0a7a`、`aabeaef4`、`5f9953ca`。真实 Desktop/TUI Provider、投影/准入/执行闸、规范工具及用户上传材料、启动/查询对账、持久准备身份/修复预算与授权分类已接线并验证；功能默认关闭。`f5eaa173` 补实际旧草稿写者/已打开队列/Conversation 重写的材料保留与准入链；`ecb77e0d` 补有效值/原始草稿的受保护材料准入、真实 Worker 和旧检查点拒绝；三类清理事务和真实六来源已接，`8d49fbde` 补执行租约切换后的只读清理对账。`d401a422` 交付受管 Linux 兼容守卫、三类维护命令与独立只读对账，已通过隔离 ext4 部署验收 |
 | IUI-02 | Frost 组件、资源引用/会话、状态 CAS/单写者、恢复与冻结条件经原草稿链交回 | `8b3ffbcf` 后，`f5eaa173` 接独立冻结/草稿准备回执、实际主窗口 claim/ack 与宿主读回、原 Composer CAS、明确发送、队列/规范消息及委托材料；真实 Electron 主区/独立窗口与实际草稿/队列/Conversation 联通。`c85b3a42` 补接管前原保存结算与本地输入保留。`4d33ae4e` 补固定初始控件标签与异步冻结；`0af50095` 接宿主确认的 head/predecessor 主区/独立窗口导航并保留旧条件与未完成输入。临时目录包已实测结果、文档、浏览器混合资源区和持久布局。`8d49fbde` 的 Developer ID 安装副本通过冻结、回退保护及再次升级发送。正式 macOS 公证安装及完整读屏待验，功能默认关闭，未退出 |
 | IUI-03 | 显式 Context Source、预算/修复、按角色能力准入、Bot 引用和固定版本语义核验 | 显式 L5 目录 Source 已接入两宿主，按真实投影/角色准入，规则和工具来自同一次投影；目录由公共规格生成，specHash 包含资源限制。委托先核对 Verifier inspect 库存。`fd4fce5a` 接固定目标、临时核验绑定、规范检查 Evidence、完整分页/条件覆盖和 SessionVerification，Desktop/TUI 实际模型循环已有控制传输验证；`8140ce58` 接共享报告/回复固定引用，真实 Desktop ToolHost 与 TUI composition root 已验证；两条真实 Provider 编码路径的首发及固定内容计算已有专项证据；`c7e83b28` / `ece95b44` 已提交可重跑命令，两条实际模型路径的首发、驱动种子修复和主动拒绝降级已有证据；隔离 Desktop Responses 与 TUI Anthropic Messages 均已有两次正式回复的整案证据。Desktop 样本跨隔离包升级恢复，TUI 样本绑定 `3365486f`，当前组合候选的同提交真实模型整案尚未重跑，未退出 |
-| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`27c64b46` 全仓串行测试、标准产品包自审和 verify、两种独立 CLI/TUI 归档、macOS/Linux 安装专项及 Debian x64 虚拟机 AppImage 双路径启动恢复均通过。Linux Orca 和 macOS VoiceOver 已取固定结果专项。生产旧端兼容守卫、正式 macOS 公证安装及最终组合候选验收尚待，未退出 |
+| IUI-04 | 多入口文本、包体/按需加载、兼容和完整功能验证 | CLI/TUI/Remote 文本入口和 Desktop 按需加载已有实现及专项取证。Desktop 与 TUI 的真实模型整案均取得第二次正式回复。`27c64b46` 全仓串行测试、标准产品包自审和 verify、两种独立 CLI/TUI 归档、macOS/Linux 安装专项及 Debian x64 虚拟机 AppImage 双路径启动恢复均通过。Linux Orca 和 macOS VoiceOver 已取固定结果专项。`d401a422` 的 Linux x64 受管维护及全仓工程检查通过。正式 macOS 公证安装随发布单列，最终组合候选的标准产品回归仍在复核 |
 
 ## 验证与完成标准
 
@@ -864,3 +864,29 @@ pnpm --filter @peer-agent/tui qa:interactive:live --run --model ENTRY_ID_1 --mod
 - 独立复跑在新版进程退出后，把临时数据根的访问权交回旧 UID。正式旧端从同一队列追加并确认 `accepted-after-maintenance`，原字节仍为文件前缀。重新交给新版后，仅消费这条新增输入，先前两条规范消息身份及顺序保持一致，游标推进到新 ID。回执 `peer-adr118-maintenance-reopen.2jeslR/report.json`。恢复测试仅覆盖队列与规范输入，清理后允许哪些旧版本重新接入仍需另证。
 - 独立 Linux 实验从 `8b3ffbcf` 源码加载旧 ViewService、Result Store 与 State Store，使用 `27c64b46` 安装包的 Electron Node 运行时和已打包协议依赖。旧 UID 打开实际固定正文，销毁旧 sender 后原句柄返回 `interactive_view_stale`。等待旧进程退出，再把同一 inode 的临时数据根移交给新 UID。旧端尝试重新打开以及直接读取固定版本，在清理前后均返回 `interactive_result_unavailable`，没有得到正文或摘要。
 - 同一实验中，当前安装包的内部清理 Module 在缺兼容守卫时拒绝预览并保留原正文。注入受控来源夹具及实际根身份/权限/旧进程退出检查后，清理提交一条墓碑，固定摘要保留，原请求可对账。证据 `peer-adr118-maintenance-view.jsSIms/report.json` 及 `legacy-head`、`head`。实验覆盖独立系统身份和真实旧只读视图生命周期。六类来源使用控制夹具，同 UID 生产实例、启动路径和跨平台隔离仍待选定路线后验证。
+
+### 受管 Linux 部署与操作
+
+ADR 118 §24.1 的清理入口由本机管理员在冷启动的维护窗口执行。部署使用已有原数据根。当前 Adapter 要求本机未被别名挂载的 ext4 文件系统，数据根由专用服务 UID 独占，根权限为 `0700`，所有父目录由 root 控制且普通进程不可修改。旧 UID 与专用 UID 不共享挂载或其他读写通路。部署先核准 Desktop/TUI 构建和正常启动单元，只允许这些受管单元采用服务身份。服务 UID 使用不可登录账号，无额外组或委托启动权限。正常单元须排除救援启动，可用 systemd 的 `ConditionKernelCommandLine=!systemd.unit=rescue.target`。普通桌面安装如果无法在原路径满足这些条件，仍无法使用维护入口。
+
+维护前按原宿主关闭受理、结算已启动任务和确认中的保存，再关闭所有旧结果窗口及关联进程。记录尚待消费但已受理的 inputId、原顺序、队列游标、文件身份和当前启动 ID。首次纳管在上述进程停稳后由管理员设置数据访问权，保留原目录和文件身份。完成上述结算后正常关机，再冷启动进入维护。Linux 启动器拒绝同 UID 的其他进程、无法确认的挂载拓扑、链接或非普通文件。管理员确认没有另一个系统或主机共享数据设备。
+
+从可信 Linux CLI 归档取 `peer` 与 `peer-interactive-maintenance`，安装到 root 控制的 `/usr/local/libexec/peer-agent/`。运行需要 systemd、Python 3.11 和 util-linux `setpriv`。在 root 独占写入的 `/etc/peer-agent/interactive-maintenance.json`（`0600`）登记：
+
+- `dataHome` 为原数据根的规范绝对路径。用 `stat -c '%d %i'` 获取十进制设备号和 inode，分别以 JSON 字符串填写 `dataDevice` 和 `dataInode`。
+- `uid` 与 `gid` 为专用服务身份的 JSON 整数。`normalBootId` 为完成结算的正常启动中 `/proc/sys/kernel/random/boot_id` 的值。
+- `peerSha256` 为本次核准并安装的归档内 `peer` 可执行文件的十六进制 SHA-256。
+
+冷启动时用内核参数 `systemd.unit=rescue.target`。管理员在救援窗口调用 `/usr/local/libexec/peer-agent/peer-interactive-maintenance < request.json`。每次读入一个不超过 8 KiB 的 JSON 对象，输出一条 JSON。用 `op: "preview"` 和对应的 `kind`、`target` 获取阻断项及 `cleanupDigest`。`kind: "result"` 的 target 是结构化固定引用，`"followup"` 是 `{ owner, followupId }`，`"material"` 是 `{ owner, source }`。审阅原目标与阻断项后，显式提交 `op: "cleanup"`、原 `kind` 和 `target`，另带 `expectedDigest`（原 `cleanupDigest`）及本次 `requestId`。启动 ID、配置或根引用变化后须重新预览。Bot 必须处于活跃状态，宿主能取得执行租约且实际设置已启用交互结果。
+
+保留提交请求以便原样对账。将 `op` 改为 `"receipt"` 后，可从维护命令或正常本机上的 `peer result-cleanup-receipt < request.json` 读取回执。缺回执输出 `null`，保留未确认；收到 `interactive_cleanup_outcome_unknown` 时先对账。回到正常启动前核对根身份与核准版本，恢复后按原 inputId、原顺序及游标核对待消费输入。历史墓碑沿原固定结果入口打开。
+
+系统判定见 [systemd 救援目标](https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html)、[Linux flock 生命周期](https://man7.org/linux/man-pages/man2/flock.2.html)及 [proc 锁记录](https://man7.org/linux/man-pages/man5/proc_locks.5.html)。
+
+### Linux 受管维护实测 IUI-T19 / IUI-T29
+
+- `d401a422` 的 Linux x64 CLI 归档按仓库发布脚本及 Bun 1.2.17 构建，归档 SHA-256 为 `80c70d60d82be13628b39380dc6939330e70036f0cdb8a0c3c2795c96a44f6f7`。包内启动器与提交源文件逐字节一致。Debian x64 systemd 虚拟机以同一 ext4 数据根完成正常启动、救援维护及正常恢复，网络断开，使用合成数据。
+- 正常启动加载正式 `v0.1.0-rc.35` Linux `.deb` 内的输入队列，无执行租约地受理 `accepted-a`、`accepted-b`。第三次受理在实际追加描述符打开后暂停，进程退出时未返回受理回执。固定 `8b3ffbcf` 的旧视图实际打开正文，销毁 sender 后原 handle 失效并退出。完成结算后才切换原根的访问身份。正常启动中的维护命令被拒绝。
+- 救援启动时，真实旧队列重连返回 `EACCES`，旧 ViewService 和直接打开都无法读取固定内容。专用 UID 已有进程时，启动器拒绝发起预览。无其他实例时，实际打包启动器以低权限启动维护命令，用规范结果、草稿、队列、Conversation、委托与核验源分别预览和清理孤立冻结、材料及结果。三类均拒绝错误预览摘要，提交、原样重试和只读对账分别返回同一回执。原队列 inode 和字节保持一致。
+- 回到正常启动，当前安装包的共享输入队列和 Conversation Store 按原 ID 与原顺序恰好消费两条输入，游标为 `accepted-b`，复跑无重复。CLI 在维护启动之外读回三类原回执，原固定结果返回同一文本摘要及 cleaned 状态。见 `peer-adr118-managed-linux.snvETv` 下的 `output-normal/fixtures/retired.json`、`output-rescue/fixtures/managed-report.json`、`output-resume/fixtures/resume-report.json` 及启动日志。
+- 同一代码的全仓构建、类型检查、架构、Desktop IPC 及 `qa:product:test` 通过。串行全仓测试 Node 9,169 项通过、5 项跳过，Bun 846 项通过，无失败。第一次标准产品采集在 Quick Chat 切换 Bot 时超时，整包未通过，该采集在全仓测试期间启动。重新采集绑定干净提交，结果单列。证据 `peer-adr118-managed-engineering.LrFXPN` 及 `peer-adr118-managed-product.kjM964`。
