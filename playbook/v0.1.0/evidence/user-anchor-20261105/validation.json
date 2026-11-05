@@ -1,0 +1,522 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-05T15:13:15.823294+00:00",
+  "status": "implemented_source_candidate_scoped_validation_passed_full_runtime_gate_failed",
+  "source": {
+    "head": "7a725fbd2899b4acc03b7e597216ad41045f3299",
+    "branch": "PeerAgent/tui-desktop-goal-contract-shared",
+    "source_scope": "source/config under apps, packages, scripts and root; excluding dist, caches and media",
+    "fingerprint_method": "SHA256(UTF-8 JSON of files mapping, sorted keys, separators comma/colon, ensure_ascii=false); exact included paths below. Excludes dist, caches and media. This identifies a dirty working tree, not a releasable commit.",
+    "file_count": 2707,
+    "source_sha256": "2e777f40b5f4a6f40864153565167193a57f53e3c74b7650576afd4c5ee0227e"
+  },
+  "scope": "ADR91 section15 only; pre-existing dirty changes preserved; no commit, install, restart, release or personal-task mutation.",
+  "task_files": [
+    {
+      "path": "apps/desktop/electron/main/project-agent/user-anchor-hosts.test.mjs",
+      "before_sha256": null,
+      "sha256": "a08b995147ef3b4e3baa7289500b6428f56213efc88eaa243886c23cdfb1a601",
+      "new": true
+    },
+    {
+      "path": "packages/protocol/src/index.ts",
+      "before_sha256": "8722d952897c66cc25933cf9eea878493ec521b97f76a2a3687284b65cf2ff35",
+      "sha256": "b43da852d946fad404c2ea164a0e5234f8c4e6af1be92006804ba8a94ff1b216",
+      "new": false
+    },
+    {
+      "path": "packages/protocol/src/user-anchor.ts",
+      "before_sha256": null,
+      "sha256": "945e4d532a8424e2aa4ab85f805d8dd1b59f7bd7c58eab32911cef44f3a5e3c3",
+      "new": true
+    },
+    {
+      "path": "packages/protocol/src/work-coordination.ts",
+      "before_sha256": "7593b7ae4b6fbf02a96a5662e4e4a201ee8499f65dcb0f00e5f1a9df356397b7",
+      "sha256": "2c4ea74542fab85422b110ed3669f7f6ca6f8aa2416dd2f0b7aab7e26bf073a5",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/continuation-custody.mjs",
+      "before_sha256": "8b93784ed3fb52ab6b1d247af030c0ce192c417626e350e34645d44964f86d7b",
+      "sha256": "833db158c6c60ccdb6df0c1bf8dd468077e905b9e9dd108d62760c84aea734b7",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/continuation-custody.test.mjs",
+      "before_sha256": "4f7704889c794655dc494c3bd37bf4c9fa448941fa49db2510eef13f1ac97a28",
+      "sha256": "2b882ccb3b388df2b6098d6870a7be909ee3149086ee0fc352c894858dfe9865",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/coordination-lifecycle.mjs",
+      "before_sha256": "584b24bb6b420ba7baa7e93d4de4ba0c738284b6131ffd2de0413655d593edb9",
+      "sha256": "cb19cd3127541bf21934f62449fb0f835cc941264da877b2b80f41f0be8aeda1",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/delegation-follow-up.mjs",
+      "before_sha256": null,
+      "sha256": "9cf7e09d5671a67e12627d20ad3b29ac8c9326d5dd05b7df1aed6f4d020a325a",
+      "new": true
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/delegation-follow-up.test.mjs",
+      "before_sha256": null,
+      "sha256": "7ba8861ac691e3efb1f4d11581f66bd82e70b779948568974d3f8914aa251801",
+      "new": true
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/delegation-provider.mjs",
+      "before_sha256": "a878bc9fe706cdf2873c7146490a396488da4d93af2ec109c4556a443c090618",
+      "sha256": "7011e91fdb6a10d741d6839d347bed3e7355216e82d626df2c0e8508824cb31d",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/prompts/delegation/coordinate_work.md",
+      "before_sha256": "63b161699b85bebc31a30d4f7924f961a7d818a0d595431726bb9be786ecd761",
+      "sha256": "463f9442d16527d29a229b5471ef85528286569070e876f4f7100ce8f404c128",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/prompts/delegation/post_reply.md",
+      "before_sha256": "57fba65db77512e625339d482e993288ddbd6393a49ac704399452312bd476ec",
+      "sha256": "5e605ccda2d95886e5ab56a6653981879a98fc403af32e3a0283fd7cdb19b4e7",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/prompts/delegation/spawn_session.md",
+      "before_sha256": "b2f6e46212ac99c8e57d80f04233dfabb45f74703921b9bc25b622c3b165465a",
+      "sha256": "cb52808876ae5c70285f8e6a90f357ce93a11bfe204ba84baf58c512006bd2cb",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/recovery-continuity.test.mjs",
+      "before_sha256": "b8c37f5410654d83b33ea422e796b1fa0bd212c50c5464ec1ba7dea2b9a8f863",
+      "sha256": "da0e602258cc0e575365e4748bae54ea8f7850a9419bd0b9ca152dca39286121",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/recovery-policy.mjs",
+      "before_sha256": "791fc3cfb7b659ee02158962a2d629152e026640f37094b57a24eb497a2e51d1",
+      "sha256": "560b7e5c59975303aac7b2c2908c72ddb451223aad721cfbceeacfffff59871f",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/repair-ownership.mjs",
+      "before_sha256": "dd63e0c3c15ca9ec7c34a876ae1705c25b18dc5911607343aaa0e4b7cd6dbde1",
+      "sha256": "c9ccc5783ebf6b0e9137b191f073ff6d25bf958d0afe42a83f5d81f9d40c888b",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/reply-composer-port.mjs",
+      "before_sha256": "5120e214bc31f49512c5236ba74331320bc3fa597a5df19768474a4bb6e16ed7",
+      "sha256": "1e6812bd8ec7f4db48982df98716074e1e8e4d79fbc3372d7f12d4a484f7a485",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/reply-composer.mjs",
+      "before_sha256": "d66d4eb870295e3a3560b7c081a80567be4ca3a72b398269221927dd11b54747",
+      "sha256": "d846fb74317edc79c42f178c9ada9fc5b974a2a1e8efca122220c0e61048a8c3",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/reply-recovery-admission.mjs",
+      "before_sha256": "b61a1378e858baaab26bff3c7a884921376578ff43d55c3d3dd54d45acd80a16",
+      "sha256": "89398c3d0533e3590760766cffd0f2dfe061967a8f559e0963b8d686502ee990",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/reply-report-facts.mjs",
+      "before_sha256": "16c73b07c743298c4d2033222953ecc8d615fb569ad066bcfffcffe174f226e2",
+      "sha256": "af070d906499c90dbf865b1638f7ce942bd88988608d11101f10df96c2bf0cb6",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/runner-coordination.mjs",
+      "before_sha256": "c468d452dde7cd36bf0d3dd5110188af682d60552fb2ae903d0b99cbbdb95b55",
+      "sha256": "c3f17fdaaf9faaf78b87c6172cff17d8d9dfeeabcde09f2f526152d655aa34a7",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/runner.mjs",
+      "before_sha256": "5941917a9c123363947e1433591d7a99f1d9155049479d46ff4521ce07e90065",
+      "sha256": "39b57d826ba4eeeeb60026509eceb7c142ea6e09a36fdaae758c853b961e651b",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/tool-prompts.generated.mjs",
+      "before_sha256": "97233a4caef6c587ab9483300a8ec30025c6c47d9855cd752aa25226a1303385",
+      "sha256": "d2242367c753905a11cd54413d6f22a8acf0becacabf1f956979ad07e74af1e2",
+      "new": false
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/user-anchor-execution.test.mjs",
+      "before_sha256": null,
+      "sha256": "b67ff030ab383cd787933c574e50d1a14e2a4fe20b3ab02db1afe2d71a60ea1d",
+      "new": true
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/user-anchor.integration.test.mjs",
+      "before_sha256": null,
+      "sha256": "6b5a2fe1a19d1ea4ce83af1b5bfdd1db1efa169fba2f7fb812d7ca4503b81068",
+      "new": true
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/user-anchor.mjs",
+      "before_sha256": null,
+      "sha256": "a7ed2f79668e82e0ede2eabd85ace2855dd43cdfc05ea914753e5d4c954ef302",
+      "new": true
+    },
+    {
+      "path": "packages/system-context/src/sources/delegation-follow-up-source.test.mjs",
+      "before_sha256": null,
+      "sha256": "6eb2e73e3210e5b1a04b45416fbc352079a59ad974a9ca3dbdb242b94591bc37",
+      "new": true
+    },
+    {
+      "path": "packages/system-context/src/sources/project-roster-source.mjs",
+      "before_sha256": "5a22aa7b27de7759d160282893a20798636aaa01f22520df43f8174ac206b5fb",
+      "sha256": "5c0c44e05c99cbd319856bea68d21b5962767524c062699131f5bdc3eb5fddd6",
+      "new": false
+    }
+  ],
+  "task_delta_sha256": "8631da1c698d4501eb4a3707b4bebfa709b990325c4e3c4ecbc08715d210cf92",
+  "environment": {
+    "platform": "macOS",
+    "node": "v24.22.0",
+    "pnpm": "10.22.0",
+    "bun": "unavailable; actual TUI adapter imported with Node native TypeScript"
+  },
+  "checks": {
+    "architecture": {
+      "command": "pnpm architecture:check",
+      "exit_code": 0,
+      "elapsed_seconds": 1.27,
+      "log_sha256": "f56c56ebf2c9e3e41a5f4ecec4f9d3874966eef7f3bc245b1d45816ab63ae8fa"
+    },
+    "build": {
+      "command": "pnpm --filter @peer-agent/runtime-node... build",
+      "exit_code": 0,
+      "log_sha256": "4f7875aa6b2d33b39b6afcfb426730b5d54f7761c3c42b7c3ed64aa980c2bdde"
+    },
+    "context": {
+      "command": "pnpm --filter @peer-agent/system-context test",
+      "exit_code": 0,
+      "elapsed_seconds": 0.34,
+      "log_sha256": "d154680bfa114e1d5b92dc75ac0b9b1cca801091b70bee7d82b44e2ef9045706",
+      "tests": 42,
+      "pass": 42,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "focused": {
+      "command": "node --test packages/runtime-node/src/project-agent/user-anchor.integration.test.mjs packages/runtime-node/src/project-agent/user-anchor-execution.test.mjs packages/runtime-node/src/project-agent/delegation-follow-up.test.mjs packages/runtime-node/src/project-agent/delegation-provider.test.mjs packages/runtime-node/src/project-agent/reply-composer.test.mjs packages/runtime-node/src/project-agent/recovery-continuity.test.mjs packages/runtime-node/src/project-agent/repair-ownership.test.mjs packages/runtime-node/src/project-agent/recovery-checkpoint-view.test.mjs packages/runtime-node/src/project-agent/recovery-sweep-performance.test.mjs packages/runtime-node/src/project-agent/continuation-custody.test.mjs packages/runtime-node/src/project-agent/verification-dispatch-recovery.test.mjs packages/runtime-node/src/project-agent/coordination-kernel.test.mjs packages/runtime-node/src/project-agent/capability-admission.test.mjs apps/desktop/electron/main/project-agent/user-anchor-hosts.test.mjs apps/desktop/electron/main/project-agent/reply-composer-port.test.mjs packages/system-context/src/sources/delegation-follow-up-source.test.mjs packages/system-context/src/sources/project-roster-source.test.mjs",
+      "exit_code": 0,
+      "elapsed_seconds": 5.45,
+      "log_sha256": "18e068f59d46d037601f0d6d6354ba0ca58c1bffafc099217d0cf83acc14894e",
+      "tests": 160,
+      "pass": 160,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "runtime": {
+      "command": "pnpm --filter @peer-agent/runtime-node test",
+      "exit_code": 1,
+      "elapsed_seconds": 64.57,
+      "log_sha256": "85efa1064e78d0b8b8d50736307801d3f95cdf805ee1c22b964a782566948924",
+      "tests": 1495,
+      "pass": 1482,
+      "fail": 13,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "types": {
+      "command": "pnpm --filter @peer-agent/protocol --filter @peer-agent/runtime-node --filter @peer-agent/system-context typecheck",
+      "exit_code": 0,
+      "elapsed_seconds": 1.47,
+      "log_sha256": "7594ba4b8515bf4d698222e0da50ba1621b2eb19d0f494470f22ce1e02edfc15"
+    }
+  },
+  "pre_change_runtime_baseline": {
+    "command": "node --import <pre-change-module-loader> --test <original runtime test files>",
+    "file_count": 185,
+    "exit_code": 1,
+    "elapsed_seconds": 56.13,
+    "log_sha256": "f60aeb15364de1a5654d43de1f1f0c00332863c38283f1f8f6227e37ba60a1b7",
+    "tests": 1474,
+    "pass": 1460,
+    "fail": 14
+  },
+  "baseline_method": "Node registerHooks substitutes saved pre-change .mjs source at original module URLs; excludes new test files and generated assets. Existing built package imports/unchanged modules come from dirty workspace. Not a clean HEAD baseline or installed-version replay.",
+  "pre_change_defect_cases": [
+    {
+      "log": "peer-anchor-baseline.tap",
+      "sha256": "4cabce6a8f3e904b806421918499b64e08d0d777e6fd973e10fcf5fba2fb2a8c",
+      "tests": 6,
+      "pass": 1,
+      "fail": 5
+    },
+    {
+      "log": "peer-follow-up-baseline.tap",
+      "sha256": "fbd94a745e8f7c63614259a6dc45d94c6dd53fda158446675d2967d14ac1c349",
+      "tests": 5,
+      "pass": 1,
+      "fail": 4
+    }
+  ],
+  "remaining_runtime_failures": [
+    {
+      "file": "packages/runtime-node/src/project-agent/agent-communication.test.mjs",
+      "line": 247,
+      "name": "only main Bot and the fixed worker role project agent communication",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/agent-supervision.test.mjs",
+      "line": 91,
+      "name": "conflicting operations and a second unresolved question cannot poison the journal",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/agent-supervision.test.mjs",
+      "line": 127,
+      "name": "bounded admission drains old queued messages and does not acknowledge unseen inbox events",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/bot-lifecycle.test.mjs",
+      "line": 176,
+      "name": "熟悉非空项目只开只读任务，git 事实由宿主提供",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/continuity.integration.test.mjs",
+      "line": 343,
+      "name": "a later result preserves the earlier report slice until both batches settle",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/continuity.integration.test.mjs",
+      "line": 385,
+      "name": "new result batches never overwrite a yielded result checkpoint; each survives restart and reports once",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/coordination-lifecycle.test.mjs",
+      "line": 162,
+      "name": "legacy adoption requires this turn canonical human input; human approval remains pending",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/mode-policy.test.mjs",
+      "line": 12,
+      "name": "project agent whitelist is the read capabilities plus delegation",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/session-supervisor.test.mjs",
+      "line": 270,
+      "name": "structured Git requirements survive plan storage and idempotent spawn replay",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/session-supervisor.test.mjs",
+      "line": 2283,
+      "name": "actual executor takeover retains GoalPlan, changes epoch, and does not consume a human question",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/session-supervisor.test.mjs",
+      "line": 2307,
+      "name": "a correction handoff resumes the remaining work instead of replaying the old verification intent",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/project-agent/work-coordination-store.test.mjs",
+      "line": 45,
+      "name": "an unsupported future executor or schema cannot recover or mutate the journal",
+      "reproduced_before_change": true
+    },
+    {
+      "file": "packages/runtime-node/src/shared-goal-runtime.test.mjs",
+      "line": 119,
+      "name": "runtime-node source has no Desktop dependency and Desktop files are compatibility seams",
+      "reproduced_before_change": true
+    }
+  ],
+  "failed_campaigns": [
+    {
+      "attempt": 1,
+      "log_sha256": "979384296349d541f86975d74b4b36458d2d212b3dfb9cc7fdb1b423ff5a0d94",
+      "tests": 1494,
+      "failed": 17
+    },
+    {
+      "attempt": 2,
+      "log_sha256": "d224bd8fa83cbf53c610f68a54a776f780d837e25a18879490213956c60fbe99",
+      "tests": 1494,
+      "failed": 15
+    },
+    {
+      "attempt": 3,
+      "log_sha256": "c02968959bfba2eea9f2dfef0e5ca0b9373b6ef602c4cfe2ca27433fe50bb9ab",
+      "tests": 1494,
+      "failed": 14
+    }
+  ],
+  "corrections_during_validation": [
+    "Fixed new decision snapshot caching across existing coalescing write; kept original duplicate-reply and snapshot-read assertions.",
+    "Original 150ms foreground race also failed in pre-change aggregate baseline; replaced race with synchronous abort assertion and actual completion under same 5s test deadline, preserving exact order assertions.",
+    "Early real-worker fixture needed valid explorer routing and allow_overwrite, then assertion used result.capabilityId; original failures were not counted as passing."
+  ],
+  "acceptance": [
+    {
+      "id": "A1",
+      "status": "partial",
+      "evidence": "Read-only incident record hashes in ADR 15.2-15.3; new identity/follow-up cases fail against pre-change modules.",
+      "limit": "No replay of installed rc36 mandatory disposition guard or the original process. Initial missing continuation-binding cause remains unknown."
+    },
+    {
+      "id": "A2",
+      "status": "scoped_pass",
+      "tests": [
+        "user-anchor.integration.test.mjs",
+        "user-anchor-hosts.test.mjs"
+      ],
+      "evidence": "Three fields resolve within host slice; exact IDs win; canonical unusual IDs; raw call/provenance preserved; source input ID and Evidence reference identity unchanged.",
+      "limit": "Not a complete historical Evidence index migration campaign."
+    },
+    {
+      "id": "A3",
+      "status": "scoped_pass",
+      "tests": [
+        "user-anchor.integration.test.mjs"
+      ],
+      "evidence": "Missing, duplicate, non-user and foreign identities reject without dispatch. Candidates contain only at most five IDs and 120-character text."
+    },
+    {
+      "id": "A4",
+      "status": "scoped_pass",
+      "tests": [
+        "user-anchor.integration.test.mjs",
+        "user-anchor-hosts.test.mjs",
+        "delegation-follow-up.test.mjs",
+        "coordination-kernel.test.mjs",
+        "capability-admission.test.mjs"
+      ],
+      "evidence": "Real current-user/history/wake and coordination scope denials retained; structured refusal fixtures persist Bot obligations and do not auto-retry.",
+      "limit": "Some refusal receipts are injected structured results to exercise follow-up ownership, not new end-to-end model permission decisions."
+    },
+    {
+      "id": "A5",
+      "status": "scoped_pass",
+      "tests": [
+        "user-anchor-execution.test.mjs"
+      ],
+      "evidence": "Real Supervisor, GoalPlanStore, GoalRunner, RuntimeProjection, file Provider, PermissionGrant and Evidence. One child, one write, readback and unchanged other-language/body/order fixtures.",
+      "limit": "Controlled cognition; image is attachment metadata with dummy bytes, not vision validation. Parent verification/acceptance remains pending. Temporary data only."
+    },
+    {
+      "id": "A6",
+      "status": "scoped_pass",
+      "tests": [
+        "delegation-follow-up.test.mjs",
+        "user-anchor.integration.test.mjs"
+      ],
+      "evidence": "Real Runner and Provider correction; matching canonical task clears obligation, unrelated task does not. Alias/messageId retry is idempotent.",
+      "limit": "Only exact canonical task identity clears automatically; changed specifications or unresolved identities are not merged by semantic guessing."
+    },
+    {
+      "id": "A7",
+      "status": "scoped_pass",
+      "tests": [
+        "delegation-follow-up.test.mjs"
+      ],
+      "evidence": "Successful public reply does not clear rejected dispatch; real Runner emits one canonical reply across correction."
+    },
+    {
+      "id": "A8",
+      "status": "partial",
+      "tests": [
+        "delegation-follow-up.test.mjs",
+        "coordination-kernel.test.mjs"
+      ],
+      "evidence": "Legacy error-shaped checkpoints/history keep original fields; current durable work/action/goalRevision/executionEpoch binding checked; stale revision/epoch/work rejected. No assess restored.",
+      "limit": "Representative legacy fields in current-format store, not complete rc36 journal migration or root-cause replay."
+    },
+    {
+      "id": "A9",
+      "status": "scoped_pass",
+      "tests": [
+        "delegation-follow-up.test.mjs",
+        "user-anchor-execution.test.mjs"
+      ],
+      "evidence": "Disk store reconstruction, crash-before-delivery, actual durable transition/binding reconciliation; zero redispatch on reporting recovery; formal delivery required before discharge.",
+      "limit": "Not an upgrade test of the user original stuck work."
+    },
+    {
+      "id": "A10",
+      "status": "partial",
+      "tests": [
+        "delegation-follow-up.test.mjs",
+        "recovery-continuity.test.mjs",
+        "verification-dispatch-recovery.test.mjs"
+      ],
+      "evidence": "Root stop/cancel fences late results; unknown budget/receipts block replay; existing human/permission recovery cases pass within focused scope.",
+      "limit": "No real OS permission dialog, complete cancellation race packet, or installed crash campaign."
+    },
+    {
+      "id": "A11",
+      "status": "scoped_pass",
+      "tests": [
+        "delegation-follow-up.test.mjs",
+        "continuation-custody.test.mjs"
+      ],
+      "evidence": "No-progress budget stops repeated prose; later input admitted; pending work excluded from observation coalescing."
+    },
+    {
+      "id": "A12",
+      "status": "partial",
+      "tests": [
+        "user-anchor-hosts.test.mjs",
+        "delegation-follow-up-source.test.mjs"
+      ],
+      "evidence": "Actual Desktop shim and TUI TypeScript adapter share results/provenance/wake refusal; bounded facts enter existing L7 source.",
+      "limit": "Node exercised TUI adapter; Bun absent. No UI screenshots, accessibility, real model, installed app or release regression."
+    }
+  ],
+  "ci": {
+    "candidate": "uncommitted, no candidate CI result",
+    "latest_remote_branch_run": 39937746546,
+    "head_sha": "b33995611299d70562577b54369c4bf2c898bc29",
+    "status": "failure",
+    "failure": "Older Build macOS/Linux failed git-provider type checking; local current scoped build/typecheck passed. Old run does not validate this candidate."
+  },
+  "review": {
+    "independent": false,
+    "method": "implementer scoped source/diff review and before-change snapshot comparison; existing accepted ADR sections retained",
+    "source_manifest_matches_after_checks": true,
+    "task_delta_reverse_apply_check": "passed (no mutation)",
+    "scoped_code_diff_check": "passed",
+    "scoped_knowledge_diff_check": "passed",
+    "adr_local_links_checked": 7,
+    "accepted_sections_1_14_preserved": true
+  },
+  "limits": [
+    "No real cloud model or image recognition validation.",
+    "No installed-build upgrade or original task recovery claim.",
+    "No full release/product regression or accessibility/screenshots.",
+    "Full runtime package is not green: 13 failures also reproduced before this task.",
+    "Full source fingerprint includes unrelated pre-existing dirty work; task delta isolates this task, not a complete distributable checkout."
+  ],
+  "local_log_directory_label": "peer-anchor-final-validation (temporary directory; raw logs retained on task machine, not copied with private absolute paths)",
+  "task_delta_artifact": {
+    "path": "task-delta.patch.gz",
+    "compression": "gzip, mtime=0",
+    "compressed_sha256": "f332da7a05ec1745b5e2f5ccc35ec35d783b718b9c2b61e242409c9f96797845",
+    "uncompressed_sha256": "8631da1c698d4501eb4a3707b4bebfa709b990325c4e3c4ecbc08715d210cf92"
+  }
+}
