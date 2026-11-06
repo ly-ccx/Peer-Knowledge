@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-05T15:35:43.043603+00:00",
+  "status": "PR source candidate, scoped and runtime-package checks passed; not released",
+  "source": {
+    "base": "793c9a5223e7ba12d3f83f2d99c3e8a0bc2b7618",
+    "file_count": 31,
+    "task_source_sha256": "6a0bc08ef8e4ec9028ad901a7f50edf3c3c96d4a99350fe1fa53a2b6f384fb90",
+    "fingerprint_method": "SHA256 compact sorted UTF-8 JSON mapping of all changed/untracked task file paths to their SHA256; no unrelated work present",
+    "files": {
+      "apps/desktop/electron/main/project-agent/user-anchor-hosts.test.mjs": "a08b995147ef3b4e3baa7289500b6428f56213efc88eaa243886c23cdfb1a601",
+      "packages/protocol/src/index.ts": "d5c7e304f2d806ba07ef127b86f642ca07cd23920d101019f911d8103ee2f93f",
+      "packages/protocol/src/user-anchor.ts": "945e4d532a8424e2aa4ab85f805d8dd1b59f7bd7c58eab32911cef44f3a5e3c3",
+      "packages/protocol/src/work-coordination.ts": "21540d5944db3d61f647df2ea47115fbd5b6706914638b474f0145a51a0b0c22",
+      "packages/runtime-node/src/project-agent/continuation-custody.mjs": "bb7af022ade822b508731ece98c5980e972ea9d8a0f19e8bfb126fdd51972ea9",
+      "packages/runtime-node/src/project-agent/continuation-custody.test.mjs": "22a6156eb09b470325bb5ddcdc30ae5dfc4464a348738a06f0876c82fa368ff6",
+      "packages/runtime-node/src/project-agent/coordination-lifecycle.mjs": "ca0aaa7336bc3796b217d5a646047dfbdcc0ac6461ca0632db1190676cbcf59d",
+      "packages/runtime-node/src/project-agent/delegation-follow-up.mjs": "9cf7e09d5671a67e12627d20ad3b29ac8c9326d5dd05b7df1aed6f4d020a325a",
+      "packages/runtime-node/src/project-agent/delegation-follow-up.test.mjs": "f455786b3205d36bc1d4ed88dfed53370fe067e0f02bdd52b219ac13d6e0633b",
+      "packages/runtime-node/src/project-agent/delegation-provider.mjs": "9ff88195189f2978c7e100e45b367be82b34ef23689d07bb7859bbdbef197a76",
+      "packages/runtime-node/src/project-agent/prompts/delegation/coordinate_work.md": "24464df4aa770d2f4d1c7e1cd405dd8ffda6932aa9841862e431d6bee6dd5759",
+      "packages/runtime-node/src/project-agent/prompts/delegation/post_reply.md": "1ad1c70cd38e21f56554a227dd228fd612d25d67286c6231af6ffb54e92891a4",
+      "packages/runtime-node/src/project-agent/prompts/delegation/spawn_session.md": "66509e3b73c1ba27a533b59a191371d21bbf74b26881b407b7b4cc1520f0eb61",
+      "packages/runtime-node/src/project-agent/recovery-continuity.test.mjs": "2a6788129d00800a40e8f3da45b0687a83295323b2165a0fb89dfabe772c3526",
+      "packages/runtime-node/src/project-agent/recovery-policy.mjs": "e99fc0317f4a3e0f9868833417e79fd7e93b37af16cfd28788aab2b90eacac05",
+      "packages/runtime-node/src/project-agent/repair-ownership.mjs": "f3a216448cc620ada02656257eca9e316366d44b1cfbfeb3b28fd8578c3c1739",
+      "packages/runtime-node/src/project-agent/reply-composer-port.mjs": "4ce102650a3f0e7779ce34455a079e506bc09fbe2308aae8b5bdfb0d7efa6066",
+      "packages/runtime-node/src/project-agent/reply-composer.mjs": "e9e1ad358837c47eac520b8756c2486d4421e329fc707c1bfbf433ee0f3349aa",
+      "packages/runtime-node/src/project-agent/reply-recovery-admission.mjs": "cb99f141972767943c28db15345ef6519df25f2a97a1c4d50ad551eeb1af4eb5",
+      "packages/runtime-node/src/project-agent/reply-report-facts.mjs": "af070d906499c90dbf865b1638f7ce942bd88988608d11101f10df96c2bf0cb6",
+      "packages/runtime-node/src/project-agent/runner-coordination.mjs": "9d809a758a749a1490103fad526fef52c3fa3ef8ef8fc9b6ae5f3a1b418ad20e",
+      "packages/runtime-node/src/project-agent/runner-reply-lifecycle.mjs": "495318ef83dc9474494c183f6de37efd074254a23c56dfdb1580e4bb35fd2220",
+      "packages/runtime-node/src/project-agent/runner.mjs": "296d3a30b65de2003d0b990fedcfa9cdca1f4bad5f8f0b54589c0542acc60214",
+      "packages/runtime-node/src/project-agent/runtime-disposition.test.mjs": "c21e0bbea071f8f76d021160752dbed34a91f008593f1efd161c91a59c0551d1",
+      "packages/runtime-node/src/project-agent/runtime-disposition.ts": "6e10c07f72eabd0e5b79681e7b1b200ab1cf56476ce134e13e0e7872a6e921c1",
+      "packages/runtime-node/src/project-agent/tool-prompts.generated.mjs": "79232f6dca62ae337ddd3e13def49a3cc5cec5f8f812484b1fc1b004b818c14e",
+      "packages/runtime-node/src/project-agent/user-anchor-execution.test.mjs": "f294cdecf1abd329f6a322eec82cced4c3089bc6b80a8beb029d0bfe5d5cf885",
+      "packages/runtime-node/src/project-agent/user-anchor.integration.test.mjs": "d2a249783313ef4ff564707aae4036359fad1bcd726d7dc4cdc25d29fce3d7e2",
+      "packages/runtime-node/src/project-agent/user-anchor.mjs": "a7ed2f79668e82e0ede2eabd85ace2855dd43cdfc05ea914753e5d4c954ef302",
+      "packages/system-context/src/sources/delegation-follow-up-source.test.mjs": "6e13bc35c3341f794f8fa814f090ca3ac2b49c955dc1a542341c8e35dd9982fa",
+      "packages/system-context/src/sources/project-roster-source.mjs": "91e001fc3be3b2849a7d5a7aeb6d9336109ae11f56fc99861826e4465d974aae"
+    }
+  },
+  "commit": "010a4603cf72f970fe4ac18bdf1a4e769173fc4e",
+  "branch": "codex/user-anchor-follow-up",
+  "checks": {
+    "build": {
+      "command": "pnpm --filter @peer-agent/runtime-node... build",
+      "exit_code": 0,
+      "elapsed_seconds": 4.03,
+      "log_sha256": "22004e8de66806eeb65f2a1f2ca96bfe417dc33cfea2b808ea07cc956845c310"
+    },
+    "focused": {
+      "command": "node --test packages/runtime-node/src/project-agent/user-anchor.integration.test.mjs packages/runtime-node/src/project-agent/user-anchor-execution.test.mjs packages/runtime-node/src/project-agent/delegation-follow-up.test.mjs packages/runtime-node/src/project-agent/delegation-provider.test.mjs packages/runtime-node/src/project-agent/reply-composer.test.mjs packages/runtime-node/src/project-agent/recovery-continuity.test.mjs packages/runtime-node/src/project-agent/repair-ownership.test.mjs packages/runtime-node/src/project-agent/recovery-checkpoint-view.test.mjs packages/runtime-node/src/project-agent/recovery-sweep-performance.test.mjs packages/runtime-node/src/project-agent/continuation-custody.test.mjs packages/runtime-node/src/project-agent/verification-dispatch-recovery.test.mjs packages/runtime-node/src/project-agent/coordination-kernel.test.mjs packages/runtime-node/src/project-agent/capability-admission.test.mjs apps/desktop/electron/main/project-agent/user-anchor-hosts.test.mjs apps/desktop/electron/main/project-agent/reply-composer-port.test.mjs packages/system-context/src/sources/delegation-follow-up-source.test.mjs packages/system-context/src/sources/project-roster-source.test.mjs packages/runtime-node/src/project-agent/runtime-disposition.test.mjs packages/runtime-node/src/project-agent/intent-lifecycle.test.mjs packages/runtime-node/src/project-agent/intent-reply-bindings.test.mjs packages/runtime-node/src/project-agent/history-resumption.test.mjs packages/runtime-node/src/project-agent/coordination-lifecycle.test.mjs",
+      "exit_code": 0,
+      "elapsed_seconds": 18.45,
+      "log_sha256": "cf29943bb21e1fc371c4fd1611e3f6630b3ad042b198afed31988b785f77beba",
+      "tests": 239,
+      "pass": 239,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "runtime-final": {
+      "command": "pnpm --filter @peer-agent/runtime-node test",
+      "exit_code": 0,
+      "elapsed_seconds": 105.68,
+      "log_sha256": "cfa9ff60488cffc45c8ea7c50483052595cd065ff375f52b76788f77cdc90645",
+      "tests": 2003,
+      "pass": 2003,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "context": {
+      "command": "pnpm --filter @peer-agent/system-context test",
+      "exit_code": 0,
+      "elapsed_seconds": 0.42,
+      "log_sha256": "dd1dd1218799973320b55dde02209cda806bf1f7ae888eff0425a293544a889a",
+      "tests": 51,
+      "pass": 51,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "types": {
+      "command": "pnpm --filter @peer-agent/protocol --filter @peer-agent/runtime-node --filter @peer-agent/system-context typecheck",
+      "exit_code": 0,
+      "elapsed_seconds": 3.4,
+      "log_sha256": "8b85e30d6671e12cd5e6b87b8e2fde7707a901dd828dd88bd91fd89dbdcc78a8"
+    },
+    "architecture": {
+      "command": "pnpm architecture:check",
+      "exit_code": 0,
+      "elapsed_seconds": 1.5,
+      "log_sha256": "a003c1dba4182bc6fa28b0043e18ec9e76d13104306c3323548763e4aa786b00"
+    }
+  },
+  "failed_attempts": [
+    {
+      "name": "runtime before Electron dependency completion",
+      "command": "pnpm --filter @peer-agent/runtime-node test",
+      "exit_code": 1,
+      "elapsed_seconds": 103.9,
+      "log_sha256": "81e2c26aaa5788cbc80285057905d9cdbcba3f0842998d90be352a487bccb334",
+      "tests": 1990,
+      "pass": 1988,
+      "fail": 2,
+      "cancelled": 0,
+      "skipped": 0,
+      "reason": "Two interactive-results test modules could not load electron/index.js because install used --ignore-scripts. Installed only dependency binary, did not start app. Both files then passed 15 cases and full runtime passed 2003."
+    },
+    {
+      "name": "ported fixture check 1",
+      "log_sha256": "3acbb5a30201c59c0e9fdce3b9facc77ee082b6b654ae407f1bba15c88f03440",
+      "tests": 30,
+      "failed": 4
+    },
+    {
+      "name": "ported fixture check 2",
+      "log_sha256": "40f0eb09b74a9bd31adc30ebd38e3327b85a6de0ca7799e08ccdb8f2bb7c2324",
+      "tests": 30,
+      "failed": 1
+    },
+    {
+      "name": "ported fixture check 3",
+      "log_sha256": "331786b31e3c8b37ecefdfcbde09fb357252fce2a049ecff057dd1e9d85ac025",
+      "tests": 30,
+      "failed": 0
+    }
+  ],
+  "target_baseline": {
+    "base": "793c9a5223e7ba12d3f83f2d99c3e8a0bc2b7618",
+    "method": "Node registerHooks loads saved git-show HEAD .mjs at original module URLs; generated assets and built dependency output remain candidate. Exact changed identity entry points replaced; no installed-process replay.",
+    "command": "node --import <target-baseline-loader> --test --test-name-pattern \"A1/A2 coordination|A2 provider preserves\" packages/runtime-node/src/project-agent/user-anchor.integration.test.mjs",
+    "tests": 2,
+    "failed_as_expected": 2,
+    "log_sha256": "c09daa601c39f4899914bc25c8031d72e92572113be06fe5b7f5b0e60cb3e015"
+  },
+  "scope": {
+    "changed_files": 31,
+    "unrelated_dirty_work_included": false,
+    "source_workspaces_preserved": true,
+    "product_installed_or_restarted": false,
+    "personal_task_data_changed": false,
+    "real_model_or_vision_tested": false,
+    "review_independent": false,
+    "ui_accessibility_and_full_release_packet": "not run",
+    "TUI": "actual TypeScript adapter with Node native TS; no Bun app test"
+  },
+  "acceptance": {
+    "A1": "partial; read-only incident and target defect baseline, no original process replay",
+    "A2": "scoped pass",
+    "A3": "scoped pass",
+    "A4": "scoped pass; gates preserved",
+    "A5": "scoped pass; real governed file write/readback and one dispatch, controlled cognition, attachment metadata only",
+    "A6": "scoped pass; matching canonical correction, unrelated success cannot clear debt",
+    "A7": "scoped pass; one canonical reply across correction",
+    "A8": "partial; existing target intent and revision/epoch gates retained, representative legacy fields, not full old journal upgrade",
+    "A9": "scoped pass; isolated current-format disk restart and operation reconciliation, no original task mutation",
+    "A10": "partial; existing stop/human/unknown recovery tests plus shared disposition priority, no installed OS-dialog/crash packet",
+    "A11": "scoped pass; bounded no progress, duplicate input stays owned, later input admitted",
+    "A12": "partial; actual Desktop/TUI adapters and L7 isolation, no UI/installed/real-model acceptance"
+  },
+  "ci": {
+    "status": "not yet available for PR at receipt time; source commit pushed for review",
+    "local_validation_not_CI": true
+  },
+  "remaining_local_failures": [],
+  "review": {
+    "scoped_content_and_diff": "passed",
+    "original_workspace_source_manifest": "unchanged",
+    "accepted_adr_sections_1_14": "preserved",
+    "text_log_sanitization": "repository paths replaced and trailing whitespace trimmed; raw log hashes retained separately",
+    "historical_patch": "stored as deterministic gzip to preserve required patch context whitespace"
+  }
+}

@@ -1,0 +1,296 @@
+✖ failing tests:
+
+test at src/project-agent/agent-communication.test.mjs:247:1
+✖ only main Bot and the fixed worker role project agent communication (1.27825ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+      'local.delegation.send_agent_message',
+  +   'local.continuity.'
+    ]
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/agent-communication.test.mjs:251:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'local.delegation.send_agent_message', 'local.continuity.' ],
+    expected: [ 'local.delegation.send_agent_message' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at src/project-agent/agent-supervision.test.mjs:91:1
+✖ conflicting operations and a second unresolved question cannot poison the journal (250.270834ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/agent-supervision.test.mjs:96:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at src/project-agent/agent-supervision.test.mjs:127:1
+✖ bounded admission drains old queued messages and does not acknowledge unseen inbox events (2245.843333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+  +   'event-10',
+  +   'event-11',
+      'event-8',
+      'event-9',
+  -   'event-10',
+  -   'event-11'
+    ]
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/agent-supervision.test.mjs:146:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'event-10', 'event-11', 'event-8', 'event-9' ],
+    expected: [ 'event-8', 'event-9', 'event-10', 'event-11' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at src/project-agent/bot-lifecycle.test.mjs:176:1
+✖ 熟悉非空项目只开只读任务，git 事实由宿主提供 (4.413875ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /当前分支：main/. Input:
+
+  '只读熟悉「demo-project」。\n' +
+    '查看目录、AGENTS.md、脚本和最近提交。\n' +
+    '只使用结构化文件读取与 git_query。不要使用 shell，不要写入、修改或执行会改变工作区的操作。\n' +
+    '用 git_query 核对当前仓库身份、工作树和最近提交；非 Git 目录如实记录，不用旧分支/提交快照代替当前检查。\n' +
+    '交付带证据引用的阅读结果；记忆是否写入由宿主按用户设置决定。无法核实的内容标为未知，并说明原因。\n' +
+    '本次目标是了解项目。发现缺陷或缺失文件也应先完成阅读报告，不要为新增修复、扩大检查或写入记忆要求用户选择。只有完成本次读取所必需且无法自行查明的决定才向用户提问。\n' +
+    '建立任务时的分支快照（需重新核对）：main\n' +
+    '建立任务时的提交快照（需重新核对）：abc123'
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/bot-lifecycle.test.mjs:197:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '只读熟悉「demo-project」。\n查看目录、AGENTS.md、脚本和最近提交。\n只使用结构化文件读取与 git_query。不要使用 shell，不要写入、修改或执行会改变工作区的操作。\n用 git_query 核对当前仓库身份、工作树和最近提交；非 Git 目录如实记录，不用旧分支/提交快照代替当前检查。\n交付带证据引用的阅读结果；记忆是否写入由宿主按用户设置决定。无法核实的内容标为未知，并说明原因。\n本次目标是了解项目。发现缺陷或缺失文件也应先完成阅读报告，不要为新增修复、扩大检查或写入记忆要求用户选择。只有完成本次读取所必需且无法自行查明的决定才向用户提问。\n建立任务时的分支快照（需重新核对）：main\n建立任务时的提交快照（需重新核对）：abc123',
+    expected: /当前分支：main/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at src/project-agent/continuity.integration.test.mjs:343:1
+✖ a later result preserves the earlier report slice until both batches settle (706.737375ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert.ok(works.every(work => work.state === 'delivered'))
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/continuity.integration.test.mjs:356:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at src/project-agent/continuity.integration.test.mjs:385:1
+✖ new result batches never overwrite a yielded result checkpoint; each survives restart and reports once (664.782916ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+
+    [
+      [
+        'B',
+        false
+      ],
+  ...
+      ],
+  +   [
+  +     'B',
+  +     false
+  +   ],
+  +   [
+  +     'C',
+  +     false
+  +   ]
+    ]
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/continuity.integration.test.mjs:408:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ [ 'B', false ], [ 'C', false ], [ 'B', true ], [ 'C', true ], [ 'B', false ], [ 'C', false ] ],
+    expected: [ [ 'B', false ], [ 'C', false ], [ 'B', true ], [ 'C', true ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at src/project-agent/coordination-lifecycle.test.mjs:162:1
+✖ legacy adoption requires this turn canonical human input; human approval remains pending (44.048208ms)
+  Error: coordination_recovery_pending
+      at Object.enableSupervision (packages/runtime-node/src/project-agent/work-coordination-store.mjs:92:62)
+      at Object.coordinate (packages/runtime-node/src/project-agent/coordination-lifecycle.mjs:107:71)
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/coordination-lifecycle.test.mjs:168:34)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at src/project-agent/mode-policy.test.mjs:12:1
+✖ project agent whitelist is the read capabilities plus delegation (0.983292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+
+    [
+      'local.file.list',
+      'local.file.read',
+      'local.git.query',
+      'local.image.read',
+  ...
+      'local.memory.forget',
+  +   'local.continuity.read_notes',
+  +   'local.continuity.write_note',
+  +   'local.continuity.search_history',
+  +   'local.continuity.prepare_handoff'
+    ]
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/mode-policy.test.mjs:13:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [
+      'local.file.list',                     'local.file.read',
+      'local.git.query',                     'local.image.read',
+      'local.file.search',                   'local.search.aggregate',
+      'local.delegation.create_objective',   'local.delegation.update_objective',
+      'local.delegation.pause_objective',    'local.delegation.resume_objective',
+      'local.delegation.list_objectives',    'local.delegation.get_objective',
+      'local.delegation.close_objective',    'local.delegation.coordinate_work',
+      'local.delegation.send_agent_message', 'local.delegation.spawn_session',
+      'local.delegation.resume_session',     'local.delegation.reprioritize_session',
+      'local.delegation.control_work',       'local.delegation.list_sessions',
+      'local.delegation.get_session',        'local.delegation.cancel_session',
+      'local.delegation.message_session',    'local.delegation.get_verification_detail',
+      'local.delegation.verify_session',     'local.delegation.set_proactivity',
+      'local.delegation.wait_for_sessions',  'local.delegation.post_reply',
+      'local.memory.search',                 'local.memory.remember',
+      'local.memory.forget',                 'local.continuity.read_notes',
+      'local.continuity.write_note',         'local.continuity.search_history',
+      'local.continuity.prepare_handoff'
+    ],
+    expected: [ 'local.file.list', 'local.file.read', 'local.git.query', 'local.image.read', 'local.file.search', 'local.search.aggregate', 'local.delegation.create_objective', 'local.delegation.update_objective', 'local.delegation.pause_objective', 'local.delegation.resume_objective', 'local.delegation.list_objectives', 'local.delegation.get_objective', 'local.delegation.close_objective', 'local.delegation.coordinate_work', 'local.delegation.send_agent_message', 'local.delegation.spawn_session', 'local.delegation.resume_session', 'local.delegation.reprioritize_session', 'local.delegation.control_work', 'local.delegation.list_sessions', 'local.delegation.get_session', 'local.delegation.cancel_session', 'local.delegation.message_session', 'local.delegation.get_verification_detail', 'local.delegation.verify_session', 'local.delegation.set_proactivity', 'local.delegation.wait_for_sessions', 'local.delegation.post_reply', 'local.memory.search', 'local.memory.remember', 'local.memory.forget' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at src/project-agent/session-supervisor.test.mjs:270:1
+✖ structured Git requirements survive plan storage and idempotent spawn replay (866.802625ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'inventoryKnown')
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/session-supervisor.test.mjs:279:60)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at src/project-agent/session-supervisor.test.mjs:2283:1
+✖ actual executor takeover retains GoalPlan, changes epoch, and does not consume a human question (463.873ms)
+  Error: coordination_recovery_pending
+      at Object.enableSupervision (packages/runtime-node/src/project-agent/work-coordination-store.mjs:92:62)
+      at Object.coordinate (packages/runtime-node/src/project-agent/coordination-lifecycle.mjs:107:71)
+      at Object.coordinateWork (packages/runtime-node/src/project-agent/session-supervisor.mjs:1115:54)
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/session-supervisor.test.mjs:2296:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at src/project-agent/session-supervisor.test.mjs:2307:1
+✖ a correction handoff resumes the remaining work instead of replaying the old verification intent (301.073541ms)
+  Error: coordination_recovery_pending
+      at Object.enableSupervision (packages/runtime-node/src/project-agent/work-coordination-store.mjs:92:62)
+      at Object.coordinate (packages/runtime-node/src/project-agent/coordination-lifecycle.mjs:107:71)
+      at Object.coordinateWork (packages/runtime-node/src/project-agent/session-supervisor.mjs:1115:54)
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/session-supervisor.test.mjs:2322:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at src/project-agent/work-coordination-store.test.mjs:45:1
+✖ an unsupported future executor or schema cannot recover or mutate the journal (79.459125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /coordination_(schema|executor)_unsupported/. Input:
+
+  "TypeError: Cannot read properties of undefined (reading 'workId')"
+
+      at TestContext.<anonymous> (packages/runtime-node/src/project-agent/work-coordination-store.test.mjs:54:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: Cannot read properties of undefined (reading 'workId')
+        at reduceCoordinationDecision (packages/runtime-node/src/project-agent/coordination-kernel.mjs:76:45)
+        at reduceCoordination (packages/runtime-node/src/project-agent/work-coordination.mjs:18:12)
+        at readState (packages/runtime-node/src/project-agent/coordination-journal-reader.mjs:55:32)
+        at Object.read (packages/runtime-node/src/project-agent/coordination-journal-reader.mjs:76:40)
+        at packages/runtime-node/src/project-agent/work-coordination-store.mjs:35:69
+        at Object.recover (packages/runtime-node/src/project-agent/work-coordination-store.mjs:51:82)
+        at packages/runtime-node/src/project-agent/work-coordination-store.test.mjs:54:31
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (packages/runtime-node/src/project-agent/work-coordination-store.test.mjs:54:14),
+    expected: /coordination_(schema|executor)_unsupported/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at src/shared-goal-runtime.test.mjs:119:1
+✖ runtime-node source has no Desktop dependency and Desktop files are compatibility seams (3.1115ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /from '@peer-agent\/runtime-node'/. Input:
+
+  '// Compatibility seam for Desktop-local imports.\n' +
+    '// Desktop and TUI share the single GoalPlan pump from @peer-agent/runtime-node.\n' +
+    'export {\n' +
+    '  computePlanScopeSnapshot,\n' +
+    '  computeReanchorInterval,\n' +
+    '  createDeterministicExplorePlan,\n' +
+    '  createGoalRunner,\n' +
+    '  detectPlanDrift,\n' +
+    '  evaluateVerificationGate,\n' +
+    '  shouldReanchor\n' +
+    '} from "@peer-agent/runtime-node/project-agent";\n'
+
+      at TestContext.<anonymous> (packages/runtime-node/src/shared-goal-runtime.test.mjs:130:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '// Compatibility seam for Desktop-local imports.\n// Desktop and TUI share the single GoalPlan pump from @peer-agent/runtime-node.\nexport {\n  computePlanScopeSnapshot,\n  computeReanchorInterval,\n  createDeterministicExplorePlan,\n  createGoalRunner,\n  detectPlanDrift,\n  evaluateVerificationGate,\n  shouldReanchor\n} from "@peer-agent/runtime-node/project-agent";\n',
+    expected: /from '@peer-agent\/runtime-node'/,
+    operator: 'match',
+    diff: 'simple'
+  }
+packages/runtime-node:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @peer-agent/runtime-node@0.1.0-rc.26 test: `node --test src/*.test.ts src/*.test.mjs src/sqlite/*.test.mjs src/memory/*.test.mjs src/project-agent/*.test.mjs src/project-agent/probes/*.test.mjs src/testing/*.test.mjs`
+Exit status 1
