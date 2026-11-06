@@ -73,6 +73,7 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。
 CLI 基础壳命令见 `knowledge/decisions/108-cli-basic-shell-commands.md`（Accepted，未发布验收）。
+当前机器人 TUI 的列表行与输入条呈现见 `knowledge/decisions/122-tui-bot-list-and-composer-chrome.md`（Accepted，未发布验收）。
 ADR 文档图谱见 `knowledge/decisions/00-adr-map.md`。
 
 ## 目录结构
