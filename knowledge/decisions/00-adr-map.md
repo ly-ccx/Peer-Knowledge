@@ -240,7 +240,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 98 | [ADR 98：大历史规模下的任务执行响应性](./98-large-history-execution-responsiveness.md) | 2026-10-18 | 2026-10-20 | 页头已接受 |
 | 99 | [ADR 99：权威回复回执、模型切换恢复与历史详情](./99-authoritative-reply-receipts-and-model-recovery.md) | 2026-10-19 | — | 页头已接受 |
 
-### 100–122 近期契约
+### 100–123 近期契约
 
 | 编号 | 文件 | 创建 | 最后更新 | 读取 |
 |---|---|---|---|---|
@@ -268,6 +268,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 120 | [ADR 120：运行事实、统一处置与资源等待闭环](./120-runtime-facts-disposition-and-resource-wait.md) | 2026-11-03 | 2026-11-03 | 页头已接受 |
 | 121 | [ADR 121：Desktop 会话窗口契约](./121-desktop-session-windowing-contract.md) | 2026-11-05 | 2026-11-05 | 页头已接受 |
 | 122 | [ADR 122：TUI 机器人列表与输入条呈现](./122-tui-bot-list-and-composer-chrome.md) | 2026-11-06 | 2026-11-06 | 已接受，实现未发布验收 |
+| 123 | [ADR 123：主 Bot 会话的无感记忆](./123-main-bot-unnoticed-memory.md) | 2026-11-06 | 2026-11-06 | 未接受 |
 
 ## 维护
 
