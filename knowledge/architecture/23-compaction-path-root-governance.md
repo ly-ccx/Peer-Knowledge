@@ -1,12 +1,13 @@
 # 压缩路径根治理:单一 Compaction Pipeline 与双端一致性
 
 创建时间:2026-07-24
-最后更新:2026-07-26
+最后更新:2026-11-06（关联 ADR 123）
 状态:Phase 4 已完成，统一管线与唯一容量协议进入守卫期
 关联代码仓:`peer_agent`(本地 `/Users/liangyin/Documents/DEV/github/peer_agent`)
 关联文档:
 
 - `knowledge/decisions/17-local-context-compaction.md` — 压缩机制设计(分层、触发、摘要策略)
+- `knowledge/decisions/123-oversized-tool-result-local-spill.md` — 超过单条上限的工具结果先落本地文件，再进入模型请求
 - `knowledge/architecture/21-auto-context-compaction-run-resume.md` — 压缩与 run 续接协议
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — 双宿主治理(P1 债务「Compaction 算法双轨无统一接口」的展开)
 - `knowledge/decisions/42-context-display-vs-trigger-accounting.md` — 显示口径与触发口径

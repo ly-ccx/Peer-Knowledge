@@ -1,7 +1,7 @@
 # Peer Agent 架构治理与开发准则
 
 日期：2026-06-10
-最后更新：2026-11-03
+最后更新：2026-11-06（必查文档补上 ADR 123）
 状态：治理基线
 产品理念：`design/product/peer-product-alignment.md`（本文不另立品类，只锁工程如何实现那条委托链路）
 
@@ -345,7 +345,7 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 |---|---|
 | prompt、tool schema、provider request | `19-system-prompt-context-architecture.md` |
 | Capability Provider、Runtime Projection、Local Tool Host | `15-plugin-skill-mcp-system.md`、`16-skill-call-lifecycle.md`、本文 |
-| compaction、artifact ref、历史消息压缩 | `17-local-context-compaction.md`、`19-system-prompt-context-architecture.md` |
+| compaction、artifact ref、历史消息压缩 | `17-local-context-compaction.md`、`123-oversized-tool-result-local-spill.md`、`19-system-prompt-context-architecture.md` |
 | renderer chat surface、tool card、permission strip | `14-product-design-language.md`、本文 |
 | 文件写入、shell、越界权限 | `09-high-risk-write-scope.md`、本文 |
 
