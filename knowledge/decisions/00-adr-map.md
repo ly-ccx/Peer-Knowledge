@@ -4,8 +4,8 @@
 最后更新：2026-11-06
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
-> 基线是知识库 `origin/main` 的 `aebd649`（2026-11-06 核对）。
-> 开放的 [Peer-Knowledge#122](https://github.com/ly-ccx/Peer-Knowledge/pull/122) 提议再增加 `108-cli-basic-shell-commands.md`。合并前它不在本目录里，而且会和已有的 `108-bot-reply-document-preview.md` 使用同一个编号。
+> 基线是知识库 `origin/main` 的 `ec96b057`（2026-11-06 核对，已包含 #122）。
+> 编号 108 有两篇：`108-bot-reply-document-preview.md` 与 `108-cli-basic-shell-commands.md`（Accepted 2026-11-06，实现未发布验收）。引用必须带文件名。
 
 本页只记录文件里写明的状态、日期和替代关系。页头写了接受，只说明这篇决定曾被接受，不说明对应实现已经发布验收。
 
@@ -25,7 +25,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 ## 编号
 
-当前 main 有 **107** 个决策文件、**104** 个编号。缺的编号是 `2`–`14`、`19`、`20`、`23`、`107`。`0001` 不占 `1`。
+当前 main 有 **108** 个决策文件、**104** 个编号。缺的编号是 `2`–`14`、`19`、`20`、`23`、`107`。`0001` 不占 `1`。`108-cli-basic-shell-commands.md` 复用编号 108，文件数比合并前多 1，编号数不变。
 
 同一个编号有两篇时，引用必须带文件名：
 
@@ -38,6 +38,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 104 | `104-bot-capability-visibility.md` | 未接受 |
 | 104 | `104-progressive-interaction-and-coordination-storage.md` | 页头已接受 |
 | 108 | `108-bot-reply-document-preview.md` | 页头已接受 |
+| 108 | `108-cli-basic-shell-commands.md` | 已接受，实现未发布验收 |
 
 ## 已写明的替代和作废
 
@@ -84,7 +85,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | `41-rename-goal-mode-to-plan-mode.md` | 2026-06-30 | 2026-07-03 | 日期有更新，括号未写原因 |
 | `42-context-display-vs-trigger-accounting.md` | 2026-06-30 | 2026-07-01 | 日期有更新，括号未写原因 |
 | `46-conversation-bound-browser-tabs.md` | 2026-07-15 | 2026-09-02 | 日期有更新，括号未写原因 |
-| `48-cli-first-class-release.md` | 2026-07-20 | 2026-07-23 | 对齐包名与 npm 安装面：`@peer-agent/tui` 构建 vs `@peer-agent/… |
+| `48-cli-first-class-release.md` | 2026-07-20 | 2026-11-06 | ADR 108 收窄「CLI 自动更新可缓做」，只保留无人值守安装 |
 | `50-cli-system-proxy-fallback.md` | 2026-07-22 | 2026-07-22 | 代码已落地：`apps/tui` 新增 macOS 系统代理读取 + env 回退，bun test … |
 | `51-unified-desktop-cli-file-tools.md` | 2026-07-22 | 2026-07-23 | 日期有更新，括号未写原因 |
 | `52-unified-next-request-context-accounting.md` | 2026-07-23 | 2026-07-25 | 日期有更新，括号未写原因 |
@@ -121,7 +122,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | `117-intent-driven-coordination-and-goal-closure.md` | 2026-11-01 | 2026-11-03 | 日期有更新，括号未写原因 |
 | `118-openui-interactive-results-and-runtime-boundaries.md` | 2026-11-02 | 2026-11-05 | 日期有更新，括号未写原因 |
 
-同一天被 ADR 117 的实施边界带过一笔的有：`88`、`93`、`94`、`95`、`110`、`111`、`112`，最后更新都是 2026-11-01。ADR 117 自己的最后更新是 2026-11-03，记的是四包源码自测完成。ADR 118 在 2026-11-05 把交互结果纳入 RC36。ADR 91 在 2026-11-05 增加第 15 节身份解析。
+同一天被 ADR 117 的实施边界带过一笔的有：`88`、`93`、`94`、`95`、`110`、`111`、`112`，最后更新都是 2026-11-01。ADR 117 自己的最后更新是 2026-11-03，记的是四包源码自测完成。ADR 118 在 2026-11-05 把交互结果纳入 RC36。ADR 91 在 2026-11-05 增加第 15 节身份解析。`48-cli-first-class-release.md` 在 2026-11-06 把 CLI 自动更新收窄为只保留无人值守安装，显式 `peer update` 改由 `108-cli-basic-shell-commands.md` 规定。
 
 ## 过时引用
 
@@ -179,7 +180,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 45 | [45. MCP OAuth 配置交互简化：探测即自动配置 + 回调地址只读 + 授…](./45-mcp-oauth-config-ux-simplification.md) | 2026-07-01 | 2026-07-01 | 页头已接受 |
 | 46 | [46. 会话绑定的 Workbench 与多标签浏览器](./46-conversation-bound-browser-tabs.md) | 2026-07-15 | 2026-09-02 | 页头已接受 |
 | 47 | [47. Workbench 多资源标签模型](./47-workbench-multi-resource-tabs.md) | 2026-07-15 | 2026-07-15 | 页头已接受 |
-| 48 | [CLI First-Class Release（CLI 与 Desktop 同仓一…](./48-cli-first-class-release.md) | 2026-07-20 | 2026-07-23 | 页头已接受 |
+| 48 | [CLI First-Class Release（CLI 与 Desktop 同仓一…](./48-cli-first-class-release.md) | 2026-07-20 | 2026-11-06 | 页头已接受 |
 | 48 | [48. 渠道无关的模型选项与渠道投影](./48-provider-model-options.md) | 2026-07-17 | 2026-07-17 | 页头已接受 |
 | 49 | [49. 取消路径硬沙箱（允许跨工作区读写）](./49-cancel-path-hard-sandbox.md) | 2026-07-21 | 2026-07-21 | 页头已接受 |
 | 50 | [50. CLI 系统代理回退（macOS）](./50-cli-system-proxy-fallback.md) | 2026-07-22 | 2026-07-22 | 页头已接受 |
@@ -252,6 +253,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 105 | [ADR 105：协调基线的可迁移内容证明](./105-portable-coordination-baseline-integrity.md) | 2026-10-22 | — | 页头未写状态 |
 | 106 | [ADR 106：结构化只读 Git 与委派能力准入](./106-readonly-git-and-delegation-capability-admission.md) | 2026-10-23 | 2026-10-24 | 页头已接受 |
 | 108 | [108. Bot 回复文件引用的有界只读预览](./108-bot-reply-document-preview.md) | 2026-10-24 | 2026-10-25 | 页头已接受 |
+| 108 | [ADR 108：CLI 基础壳命令](./108-cli-basic-shell-commands.md) | 2026-11-06 | 2026-11-06 | 已接受，实现未发布验收 |
 | 109 | [ADR 109：内容引用、资源预览与产物协作契约](./109-resource-reference-preview-and-artifact-collaboration.md) | 2026-10-25 | 2026-10-27 | 页头已接受 |
 | 110 | [ADR 110：跟进责任收口与当前待办列表判定](./110-follow-up-responsibility-and-current-list.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
 | 111 | [ADR 111：主 Bot 双向监督、可靠续接与上下文连续性](./111-project-agent-duplex-supervision-and-continuity.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
