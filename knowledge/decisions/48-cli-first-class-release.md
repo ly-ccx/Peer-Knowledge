@@ -1,7 +1,7 @@
 # CLI First-Class Release（CLI 与 Desktop 同仓一等发布）
 
 创建时间: 2026-07-20  
-最后更新: 2026-07-23（对齐包名与 npm 安装面：`@peer-agent/tui` 构建 vs `@peer-agent/cli` 安装）
+最后更新: 2026-11-06（ADR 108 收窄「CLI 自动更新可缓做」）
 
 ## Status
 
@@ -101,6 +101,8 @@ peer
 
 本 ADR **只规范发布与安装面**；共享内核 / 宿主分叉细节以 `22` 为准。  
 脚本面（`peer exec` 无头发起）见 `knowledge/decisions/65-cli-headless-exec.md`。
+
+后续（2026-11-06）：基础壳命令见 `knowledge/decisions/108-cli-basic-shell-commands.md`。本文第 9 条对 CLI 自动更新的缓做，只保留无人值守安装；显式 `peer update` 改由 ADR 108 规定。
 
 ## Implementation notes（摘要，指向代码仓）
 
