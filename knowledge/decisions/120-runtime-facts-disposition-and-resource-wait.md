@@ -1,7 +1,7 @@
 # ADR 120：运行事实、统一处置与资源等待闭环
 
 创建时间：2026-11-03
-最后更新：2026-11-03
+最后更新：2026-11-06（消息终态、稳定输入排序与恢复事实补充）
 状态：Accepted（用户先讨论整体收敛方向，随后明确要求“先详细 ADR 再进行实施”；本文件先于代码实施，源码与验收状态分别记录）
 级别：A（运行事实、等待与组合准入契约），B（父协调处置、恢复和装配），不新增本地能力或权限来源。
 
@@ -237,3 +237,24 @@ PR275 在首次未发布标签的 Windows ASAR 校验失败后修正跨平台路
 
 
 最终标签已从 `793c9a52` 发布，Release42008952591 与 Pages42008952590 成功，14 项下载资产、三平台更新清单、四个 npm 包与五个 Pages 入口线上核对通过。完整发布回执和各项覆盖限制见 [RC36 收据](../../playbook/v0.1.0/rc36-candidate.md)。
+
+
+## 2026-11-06 补充：持久化故障、恢复操作与执行效果
+
+状态：用户认可并授权实施；源码验收记录见 [F1–F8](../../playbook/v0.1.0/persisted-turn-recovery.md)，不等于发布或个人原任务恢复。
+
+现场 resume transition 为 completed、executionAdmission=queued、executionEffect=pending，GoalPlan/runner 却再次 failed/0 tools；等待被 session_not_advancing 拒绝后主 Bot 仍继续轮询。沿 ADR95/96/110/116/117 收口，区别协调完成、排队、实际开始和执行结果，不重定义 phase=completed，也不据助手文字宣称恢复。
+
+### 本次 A 级事实投影收紧
+
+宿主仅从运行时 `runner.lastError` 的精确机器前缀 `conversation_persistence_failed` 规范化既有 blockedReason。唯一 Lifecycle 出口在 failed/waiting_agent 状态保留 Bot 当前责任，FollowUpReason 增加 `local_persistence_failed`。Runtime Session Facts 将该原因归 host，其余技术阻塞保留模型修复；统一 Runtime Disposition 在语义续跑前收为 blocked_system/fatal、blockedCode=conversation_persistence_failed。原诊断全文留在 runner/历史。人类门、活体执行、未决停止、明确暂停/撤回和承接优先级保持，不能用任意包含词或助手文字冒充该事实。
+
+这是既有 Protocol 投影的明确收紧，取代本文旧“失败一律按语义修复”的适用范围；不新增持久字段或格式，不改变权限、Evidence 或能力执行链。UI 原技术阻塞计数和行状态识别新原因，沿既有恢复入口表达。
+
+### 原 Session Takeover 中的安全恢复
+
+恢复继续走 Session Control / Supervisor / Scheduler / GoalRunner，逐次核对 lease、原 work/session、goalRevision/executionEpoch、停止/人工门及未知效果。只有停稳且无未知效果，并且 runner 与失败叶子原因均为上述本地故障时，才把对应叶子准备为 pending。原完成叶子、非本地失败、failureReason/result/Evidence/运行历史和累计计数均保留，不全量 reset。
+
+准备前在原 runTrace 记录 operationId/taskIds/previousError。安全准备后的本次新 attempt 选择 execute，不能沿用旧失败 intent=block；准备仍不等于执行。若准备中崩溃，同 operation 依原审计识别已准备的 pending 叶子，保留 execute，不重复审计或重置。实际再次失败照实归 host 阻塞，同 operation 重放不再次启动。
+
+本轮只在隔离 fixture 和冻结副本验证，不修改个人任务、不安装或重启应用；不采用 Proposed ADR119/113 的扩展。真实模型、安装版与原任务的恢复仍待独立验收。
