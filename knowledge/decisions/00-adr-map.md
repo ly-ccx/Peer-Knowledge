@@ -121,6 +121,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | `116-session-control-and-resource-settlement.md` | 2026-11-01 | 2026-11-03 | 日期有更新，括号未写原因 |
 | `117-intent-driven-coordination-and-goal-closure.md` | 2026-11-01 | 2026-11-03 | 日期有更新，括号未写原因 |
 | `118-openui-interactive-results-and-runtime-boundaries.md` | 2026-11-02 | 2026-11-05 | 日期有更新，括号未写原因 |
+| `123-main-bot-unnoticed-memory.md` | 2026-11-06 | 2026-11-06 | 补入 soft 判定、分类摘要和多页情节 |
 
 同一天被 ADR 117 的实施边界带过一笔的有：`88`、`93`、`94`、`95`、`110`、`111`、`112`，最后更新都是 2026-11-01。ADR 117 自己的最后更新是 2026-11-03，记的是四包源码自测完成。ADR 118 在 2026-11-05 把交互结果纳入 RC36。ADR 91 在 2026-11-05 增加第 15 节身份解析。`48-cli-first-class-release.md` 在 2026-11-06 把 CLI 自动更新收窄为只保留无人值守安装，显式 `peer update` 改由 `108-cli-basic-shell-commands.md` 规定。
 
