@@ -70,6 +70,7 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 活的产品路线图（近/中/远景）见 `design/product/peer-product-roadmap.md`。
 CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。
+ADR 文档图谱见 `knowledge/decisions/00-adr-map.md`。
 
 ## 目录结构
 
