@@ -3,7 +3,7 @@
 > 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支区分子任务 followUp 与根目标协调责任：阶段 accepted 仍可退出子任务当前列表，剩余目标由既有 coordination work 承接。根关闭不反向签收子任务、不释放资源，也不把已签收子任务伪装为 running；未增加 Renderer 列表状态或改变当前 followUp 来源。本文唯一生命周期投影、撤回、未知历史结果及停止回执契约保留。接口见 ADR 117 §14，源码自测与未执行的产品验收见[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。
 
 创建时间：2026-10-28
-最后更新：2026-11-01（关联 ADR 117 实施边界）
+最后更新：2026-11-06（本地持久化故障的宿主归属）
 状态：Accepted（用户在“责任收口＋当前列表判定”设计中明确批准本节不变量）
 级别：A（生命周期/责任投影契约），B（宿主投影与列表、计数消费端）
 关联：ADR93（核验续接与修复责任）、ADR102（任务生命周期单一投影）、ADR103（核验收口与停滞治理）、ADR84（Bot 列表外壳）。
@@ -206,3 +206,9 @@ export interface FollowUpProjection {
 - 对原持久记录调用实际 `projectWorkSession`（含完整 origin 元数据）的只读核对返回 cancelled/terminal/none/已取消/cancelable=false，followUp 为 none/false/user_withdrawn。最终本地窗口复查当前任务为空，历史已取消保留；未发新消息、未直接改运行数据或重放原命令。历史助手原文保留，当前状态来自结构化宿主事实。
 - 前一候选 `6fcb9c13` 的 [CI run40827446722](https://github.com/ly-ccx/Peer-Agent/actions/runs/40827446722) 双平台全部通过。最终候选 `e6ba6f4f` 的 [CI run40829037910](https://github.com/ly-ccx/Peer-Agent/actions/runs/40829037910) macOS/Ubuntu 均为 success，完整构建、类型、架构、全量测试及对应平台 Electron 冒烟均通过；本节以最终候选实际结果为准。按用户要求先合知识 PR91，再合代码 PR233，不发布新版本。
 - 仍为实现者自测与窗口自审，不是独立评审或完整产品/安装包验收；真实模型新请求、读屏、IME及减少动效覆盖限制沿§7.3。
+
+## 2026-11-06 本地持久化故障归属收紧
+
+按 ADR120 本次补充，宿主从已写入的运行失败机器前缀规范化既有 blockedReason=conversation_persistence_failed。唯一 Lifecycle 出口对该未结本地故障保留 Bot 当前责任并给出 local_persistence_failed，Runtime Session Facts 归 host，不视作 verification_failed 或要求模型重试。人类/活动执行/停止及承接优先级保持；不新增持久状态或权限。验收见 [F3–F7](../../playbook/v0.1.0/persisted-turn-recovery.md)。
+
+实施接口：FollowUpReason 增加 local_persistence_failed（旧消费者缺识别仍保留 Bot 当前义务），不新增持久字段。runtime-session-facts 将该原因归 host，统一 Runtime Disposition 在语义续跑前收为 blocked_system / fatal，blockedCode=conversation_persistence_failed；人工/停止优先。UI 原技术阻塞计数与行状态覆盖此原因，维持已有表达和恢复入口。
