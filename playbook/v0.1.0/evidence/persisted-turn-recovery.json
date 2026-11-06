@@ -1,0 +1,201 @@
+{
+  "codeCommit": "b079f522ec8dd84e315158c1f00d47274d11bc5c",
+  "base": "156c959f291e030580112637c88e35d53480c493",
+  "sourceFingerprint": "c4ea7b983b85031cb772e12e6e931584b80643ff15b7310dd516dd90b9f729d6",
+  "sourceFiles": [
+    {
+      "path": "apps/desktop/electron/main/stream-terminal-authority.test.mjs",
+      "sha256": "bb823f749fa4f0acbb8f436bc570f444244b9b618f579d5099dcce3ea0172b15"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/local-persistence-recovery.test.mjs",
+      "sha256": "cbfadcc6bce370c033277b3481aa85aedafc994a98ec35d61a6be64ad635d4eb"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/recovery-admission-order.test.mjs",
+      "sha256": "92180665b0e32fd2fbf0e1871420d00ac8af9c5dd987af40d4ff386986066e34"
+    },
+    {
+      "path": "apps/desktop/renderer/src/chat/hooks/useConversationStreamRouter.ts",
+      "sha256": "a4585fd1a137f23f06436eee92c6a4b2d44698cd7e8357c107668b88be772654"
+    },
+    {
+      "path": "apps/desktop/renderer/src/project-agent/conversation/BotWorkPanel.tsx",
+      "sha256": "92e3a7a0eef5f83c8afe8762d9ae632f234a091616136f4f21df6ab5686437ac"
+    },
+    {
+      "path": "apps/desktop/renderer/src/project-agent/conversation/BotWorkSessionRow.tsx",
+      "sha256": "fa2f9551a901598fbea38a34ae8f2004ab428893fed8cd6639f05df91d9fc7cb"
+    },
+    {
+      "path": "apps/desktop/renderer/src/project-agent/state/botWorkPanelState.test.ts",
+      "sha256": "ab56ef4f33f91faf6b9b384a49ab6643542f18f58d73493eefa109ca2cbb9ba5"
+    },
+    {
+      "path": "packages/protocol/src/follow-up-responsibility.test.ts",
+      "sha256": "fecca22865e8b42018dbb29cd1ea9e8f51d1ec09da892abda20b221a926a0d2a"
+    },
+    {
+      "path": "packages/protocol/src/runtime-session-facts.test.ts",
+      "sha256": "0574fc5ad4e0416df6af04ca7cc991335d266e905457c40142306ef91c5d9abb"
+    },
+    {
+      "path": "packages/protocol/src/runtime-session-facts.ts",
+      "sha256": "f1b3eb07d0de1fe5aa3a4f0df321f0856b07f82db8c0cc0f45886119fba044cf"
+    },
+    {
+      "path": "packages/protocol/src/task-overview.ts",
+      "sha256": "f1c2c80bacea4ad6f12056c7f458534827ef0086f908dc6f6c06b796ccf2aab3"
+    },
+    {
+      "path": "packages/runtime-node/src/goal-runner.mjs",
+      "sha256": "8805caea8e0705f255fbbb522f8525ce1012622493ca8fc7d6fe09ecda6bcd60"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/continuation-policy.test.mjs",
+      "sha256": "fe54196069b0df13f7cb7b19f69a46962c0c9a3a4ef6c1799208296cc5a537e0"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/progress-execution.integration.test.mjs",
+      "sha256": "5363460a2c5c933b9d45d7559d0b352af401e8e4789233c94b0fd255376bde30"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/progress-policy.mjs",
+      "sha256": "1f2d8db9683be35c6a8e408e69834556a58a1345f54ca47db714c52f0440c6ae"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/runner-coordination.mjs",
+      "sha256": "bb57c48ccf863c9d6f6fb15b5d0d4d4e912052bfa0df091460e0992c210f8978"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/runtime-disposition.test.mjs",
+      "sha256": "c309b78727ef6f5270cae49fe611a88ec56512e4b5f1ffa87962f7c4d55c60ef"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/runtime-disposition.ts",
+      "sha256": "5934dce5ca3f517b6369838bdf9b43b479c56c21fa55062f3ceef7d25c24ea26"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/session-facts.mjs",
+      "sha256": "fe222a550c624de27f89eb3f5ef0bcf5f9b46f2d8a66894180f56161dac4573d"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/session-repair.mjs",
+      "sha256": "09cfdb2641aaec96d66f71a98fabd13af4df79156cce3e1213e3f68506c8d644"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/session-supervisor.mjs",
+      "sha256": "aa69e3cb46ce61c03a8740e214d0c039d20f966e69433b172120017cf5dc7c47"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/session-supervisor.test.mjs",
+      "sha256": "92c8ce1ef89092231226f7e07917f1049cec96dfe84c4871501d99fa140d95a1"
+    },
+    {
+      "path": "packages/runtime-node/src/project-agent/session-takeover.mjs",
+      "sha256": "f34b48857cca5213ad8f65cce8fd5546153724e3d2045dd64c07bf1e231c3127"
+    }
+  ],
+  "checks": [
+    {
+      "check": "runtime-final",
+      "command": "PEER_AGENT_HOME=<isolated> pnpm --filter @peer-agent/runtime-node test",
+      "logSha256": "fbd6fad443019af4b053c2b26f8b0a9d8ce250a39af4d39eae376818814adc3f",
+      "result": "passed",
+      "tests": 2018,
+      "pass": 2018,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "check": "storage-protocol-final",
+      "command": "PEER_AGENT_HOME=<isolated> node --test packages/protocol/src/*.test.ts packages/conversation-store/src/*.test.mjs",
+      "logSha256": "349fc0355271373621747b7a04ccbd5c548d6771d28f0d0e393dbeeab12ed02a",
+      "result": "passed",
+      "tests": 464,
+      "pass": 464,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "check": "desktop-final",
+      "command": "PEER_AGENT_HOME=<isolated> node --test <stream terminal, stream state, Bot work and drawer focused files>",
+      "logSha256": "581f6fbf84058d79d652b112fc560a88cb452d409156b7c51548ec43cf300de4",
+      "result": "passed",
+      "tests": 152,
+      "pass": 152,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "check": "host-path-final",
+      "command": "node --test apps/desktop/electron/main/stream-terminal-authority.test.mjs",
+      "logSha256": "6bca92f02fc41a3517bfb423a626fe13ea0a8df2480cf7178fcb91c236fdbda5",
+      "result": "passed",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "check": "source-copy-final",
+      "command": "node --test --test-name-pattern=\"isolated frozen incident state\" <private isolated fixture adapter>",
+      "logSha256": "bd7e4f214e843f754487ead9ddc8c63d7b1191b12f6637561d1545d90d554cc4",
+      "result": "passed",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "check": "final-build",
+      "command": "pnpm --filter @peer-agent/desktop build",
+      "logSha256": "ee80d5d4504315529343410562a55f1bc5451bd51c9cb1f43a8d9a9f07939f6d",
+      "result": "passed"
+    },
+    {
+      "check": "types-final",
+      "command": "pnpm --filter @peer-agent/runtime-node --filter @peer-agent/desktop --filter @peer-agent/protocol typecheck",
+      "logSha256": "784ef78ee07b85d8b905ca6f3996ba41e7fc0fd10ace6c87b8b627e84c64d085",
+      "result": "passed"
+    },
+    {
+      "check": "architecture-final",
+      "command": "pnpm architecture:check",
+      "logSha256": "6e379d37fa719f269ffe4ddb902e445e874f64bcb2b8b75595f8c57da0b4e11e",
+      "result": "passed"
+    }
+  ],
+  "review": "implementer self-review; not independent",
+  "limits": [
+    "scripted cognition and isolated local stores, macOS Node 24.22",
+    "source-copy authority/path/binding transplanted into isolated fixture, original plan/session not resumed",
+    "exact initial incident deletion event not replayed",
+    "real model, installed build, Windows/Linux execution and full release product acceptance unverified"
+  ],
+  "frozenSourceManifest": {
+    "read_at": "2026-11-06T08:22:48.461202+00:00",
+    "files": [
+      {
+        "data_path": "conversations/ff847a77-1123-46f5-b284-5588bd3fe301.jsonl",
+        "bytes": 632963,
+        "sha256": "d9405d21109d7191375365e46bef989f3b735213f9c9479b7d4c7720b47a3eef"
+      },
+      {
+        "data_path": "conversations/ff847a77-1123-46f5-b284-5588bd3fe301.stream.json.abandoned",
+        "bytes": 498,
+        "sha256": "eea8cbed4ff34c8374cb7980e78983647de09df75c90ae04a0ee42c4f205abb4"
+      },
+      {
+        "data_path": "goal-plans/f94e56ae-ee59-47a8-9d8f-8a783d10678a.json",
+        "bytes": 34434,
+        "sha256": "24afefa58efdeb249acd7d09d048dea479f32117daa3f341e59baa1a5844661a"
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-06（目录收入 ADR 122）
+最后更新：2026-11-06（ADR 95/96/110/120 补充本轮持久化恢复、稳定排序与验收）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `ec96b057`（2026-11-06 核对，已包含 #122）。
@@ -106,7 +106,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | `92-scoped-permission-inheritance.md` | 2026-10-11 | 2026-10-21 | 日期有更新，括号未写原因 |
 | `93-verification-continuity-and-repair-ownership.md` | 2026-10-18 | 2026-11-01 | 关联 ADR 117 实施边界 |
 | `94-reply-attempts-silent-wait-and-recovery.md` | 2026-10-18 | 2026-11-01 | 关联 ADR 117 实施边界 |
-| `95-progress-driven-execution-policy.md` | 2026-10-18 | 2026-11-01 | 关联 ADR 117 实施边界 |
+| `95-progress-driven-execution-policy.md` | 2026-10-18 | 2026-11-06 | 稳定输入排序与查询工件进度 |
 | `98-large-history-execution-responsiveness.md` | 2026-10-18 | 2026-10-20 | 日期有更新，括号未写原因 |
 | `102-unified-task-lifecycle-projection.md` | 2026-10-21 | 2026-10-22 | 日期有更新，括号未写原因 |
 | `104-bot-capability-visibility.md` | 2026-10-22 | 2026-10-25 | 日期有更新，括号未写原因 |
@@ -234,8 +234,8 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 92 | [ADR 92：具体资源授权与执行链继承](./92-scoped-permission-inheritance.md) | 2026-10-11 | 2026-10-21 | 页头已接受 |
 | 93 | [ADR 93：复核续跑与未完成工作的处理责任](./93-verification-continuity-and-repair-ownership.md) | 2026-10-18 | 2026-11-01 | 页头已接受 |
 | 94 | [ADR 94：主 Bot 回复、静默等待与历史错误](./94-reply-attempts-silent-wait-and-recovery.md) | 2026-10-18 | 2026-11-01 | 页头已接受 |
-| 95 | [ADR 95：以实际进展驱动持续执行](./95-progress-driven-execution-policy.md) | 2026-10-18 | 2026-11-01 | 页头已接受 |
-| 96 | [ADR 96：任务执行期间的响应性与有序持久化](./96-task-execution-responsiveness.md) | 2026-10-18 | 2026-10-18 | 页头已接受 |
+| 95 | [ADR 95：以实际进展驱动持续执行](./95-progress-driven-execution-policy.md) | 2026-10-18 | 2026-11-06 | 页头已接受 |
+| 96 | [ADR 96：任务执行期间的响应性与有序持久化](./96-task-execution-responsiveness.md) | 2026-10-18 | 2026-11-06 | 页头已接受 |
 | 97 | [ADR 97：推理回传、续接归属与已汇报等待](./97-reasoning-replay-and-continuation-custody.md) | 2026-10-18 | 2026-10-18 | 页头已接受 |
 | 98 | [ADR 98：大历史规模下的任务执行响应性](./98-large-history-execution-responsiveness.md) | 2026-10-18 | 2026-10-20 | 页头已接受 |
 | 99 | [ADR 99：权威回复回执、模型切换恢复与历史详情](./99-authoritative-reply-receipts-and-model-recovery.md) | 2026-10-19 | — | 页头已接受 |
@@ -255,7 +255,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 108 | [108. Bot 回复文件引用的有界只读预览](./108-bot-reply-document-preview.md) | 2026-10-24 | 2026-10-25 | 页头已接受 |
 | 108 | [ADR 108：CLI 基础壳命令](./108-cli-basic-shell-commands.md) | 2026-11-06 | 2026-11-06 | 已接受，实现未发布验收 |
 | 109 | [ADR 109：内容引用、资源预览与产物协作契约](./109-resource-reference-preview-and-artifact-collaboration.md) | 2026-10-25 | 2026-10-27 | 页头已接受 |
-| 110 | [ADR 110：跟进责任收口与当前待办列表判定](./110-follow-up-responsibility-and-current-list.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
+| 110 | [ADR 110：跟进责任收口与当前待办列表判定](./110-follow-up-responsibility-and-current-list.md) | 2026-10-28 | 2026-11-06 | 页头已接受 |
 | 111 | [ADR 111：主 Bot 双向监督、可靠续接与上下文连续性](./111-project-agent-duplex-supervision-and-continuity.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
 | 112 | [ADR 112：运行时模块与功能加载边界](./112-runtime-module-and-loading-boundaries.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
 | 113 | [ADR 113：检查点内容寻址存储与本机数据保留](./113-checkpoint-content-addressed-storage-and-retention.md) | 2026-10-29 | 2026-10-29 | 未接受 |
@@ -265,7 +265,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 117 | [ADR 117：意图驱动的协调判断、持续责任与目标闭环](./117-intent-driven-coordination-and-goal-closure.md) | 2026-11-01 | 2026-11-03 | 页头已接受 |
 | 118 | [ADR 118：OpenUI 可交互结果复用与运行时边界](./118-openui-interactive-results-and-runtime-boundaries.md) | 2026-11-02 | 2026-11-05 | 页头已接受 |
 | 119 | [ADR 119：用户停止、认知续跑准入与宿主收尾](./119-user-stop-cognition-admission-and-settlement.md) | 2026-11-03 | 2026-11-03 | 未接受 |
-| 120 | [ADR 120：运行事实、统一处置与资源等待闭环](./120-runtime-facts-disposition-and-resource-wait.md) | 2026-11-03 | 2026-11-03 | 页头已接受 |
+| 120 | [ADR 120：运行事实、统一处置与资源等待闭环](./120-runtime-facts-disposition-and-resource-wait.md) | 2026-11-03 | 2026-11-06 | 页头已接受 |
 | 121 | [ADR 121：Desktop 会话窗口契约](./121-desktop-session-windowing-contract.md) | 2026-11-05 | 2026-11-05 | 页头已接受 |
 | 122 | [ADR 122：TUI 机器人列表与输入条呈现](./122-tui-bot-list-and-composer-chrome.md) | 2026-11-06 | 2026-11-06 | 已接受，实现未发布验收 |
 
@@ -275,3 +275,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 新增一篇 ADR 时，使用还没有被占用的编号，并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。不要复用已有编号。不要因为本页写了「页头已接受」，就把它说成发布验收已经通过。
 
+
+2026-11-06 本轮落实既有 ADR 95 / 96 / 120 的输入排序、有序持久化及统一恢复事实；各原文新增日期补充，未新增编号，既有权限、Evidence、存储所有权边界保持。实施与逐项验收见 `playbook/v0.1.0/persisted-turn-recovery.md`。
+
+2026-11-06 实施前收紧：ADR110/120 以 A 级明确既有 blockedReason 的本地存储机器故障投影与安全失败叶子准备，不新增存储格式；ADR95 限定查询工件完整/截断材料的进度认定。
