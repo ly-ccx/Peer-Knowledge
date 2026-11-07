@@ -3,7 +3,7 @@
 > 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支区分子任务 followUp 与根目标协调责任：阶段 accepted 仍可退出子任务当前列表，剩余目标由既有 coordination work 承接。根关闭不反向签收子任务、不释放资源，也不把已签收子任务伪装为 running；未增加 Renderer 列表状态或改变当前 followUp 来源。本文唯一生命周期投影、撤回、未知历史结果及停止回执契约保留。接口见 ADR 117 §14，源码自测与未执行的产品验收见[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。
 
 创建时间：2026-10-28
-最后更新：2026-11-07（文末指向 Proposed ADR 124。该提案被接受前，本文已生效条款不变）
+最后更新：2026-11-07（文末按已接受的 ADR 124 写明展示修订。实现尚未交付，已安装运行时仍是原投影）
 状态：Accepted（用户在“责任收口＋当前列表判定”设计中明确批准本节不变量）
 级别：A（生命周期/责任投影契约），B（宿主投影与列表、计数消费端）
 关联：ADR93（核验续接与修复责任）、ADR102（任务生命周期单一投影）、ADR103（核验收口与停滞治理）、ADR84（Bot 列表外壳）。
@@ -213,6 +213,6 @@ export interface FollowUpProjection {
 
 实施接口：FollowUpReason 增加 local_persistence_failed（旧消费者缺识别仍保留 Bot 当前义务），不新增持久字段。runtime-session-facts 将该原因归 host，统一 Runtime Disposition 在语义续跑前收为 blocked_system / fatal，blockedCode=conversation_persistence_failed；人工/停止优先。UI 原技术阻塞计数与行状态覆盖此原因，维持已有表达和恢复入口。
 
-## 后续（2026-11-07，未生效）
+## 后续（2026-11-07，ADR 124 已接受；实现尚未交付）
 
-[ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 提议：用户对点名记录授权之后，无法取得停稳回执的跟进可以离开当前列表，进入可见的待核实索引；未知事实和资源占用仍在。它是 Proposed。被接受前，未确认停止、未知事实和稳定拒绝仍按本文留在当前列表，离开列表的原因仍只有已确认停止、用户撤回、签收、承接和明确暂停等原文已经列出的情形。ADR 124 不得把 `obligation_indexed` 写成 `stop_confirmed` 或 `user_withdrawn`。
+[ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 已于 2026-11-07 20:03（Asia/Shanghai）接受并授权实施。它收窄本文的一处展示规则：存在有效 `indexed` 处置、且没有活体和人工门时，`decideFollowUp` 返回 `obligation_indexed`，`owner` 为 `none`，当前列表不再展示该条。未知事实和资源占用仍在。`obligation_indexed` 不是 `stop_confirmed`，也不是 `user_withdrawn`。没有这笔有效处置时，未确认停止、未知事实和稳定拒绝仍按本文留在当前列表。实现交付前，已安装运行时还没有这个处置，因此仍显示原投影。这是交付差距，不是该决定仍然无效。
