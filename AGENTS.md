@@ -74,6 +74,7 @@ CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。
 CLI 基础壳命令见 `knowledge/decisions/108-cli-basic-shell-commands.md`（Accepted，未发布验收）。
 当前机器人 TUI 的列表行与输入条呈现见 `knowledge/decisions/122-tui-bot-list-and-composer-chrome.md`（Accepted，未发布验收）。
+遗留停止记录的受控核实与跟进退役见 `knowledge/decisions/124-legacy-stop-obligation-controlled-resolution.md`（Proposed，技术方案尚未接受，未实现）。
 ADR 文档图谱见 `knowledge/decisions/00-adr-map.md`。
 
 ## 目录结构
