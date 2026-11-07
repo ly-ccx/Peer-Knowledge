@@ -158,3 +158,42 @@ seams.
   snapshot behavior.
 - If all candidate providers fail, or if the first failure is not replay-safe,
   the original terminal error is emitted unchanged.
+
+
+## 2026-11-07 Shared provider diagnostics and SDK hosts
+
+Status: accepted under the user's KXT repair request; local implementation and focused validation completed, unreleased. Installed-build and native-platform validation remain pending; real host/channel results are recorded below. This extends optional runtime error metadata, not replay permission, tool authorization or provider failover. ADR 56 retains provider-backed token authority; ADR 65 retains the shared CLI runtime and its permission boundary.
+
+Goal and scope: fix missing string-shaped JSON errors and unsafe raw HTTP bodies in the compatible chat, Responses and chat adapter paths. Add a bounded diagnostics reader and an immutable compatible-chat request encoder shared by preflight and actual send. The runtime SDK preserves optional safe structured diagnostics in failed results/events while retaining existing reason strings. KXT integrates the source SDK, not the independent CLI executable.
+
+Decisions: errors carry allowlisted code/source/status/request ID and numeric limit facts; arbitrary provider text, HTML, prompt echoes and credentials are not diagnostic truth. Read body size/time bounds apply before parsing. Transport cancellation remains cancellation. Known safe diagnostic categories may be displayed, unknown detail is omitted. Final encoded request bytes are available without network side effects. No blanket 400 retry or history discard.
+
+Compatibility/risk: existing error status/providerId, human-readable reason and runtime.error event code remain available; new metadata is optional. Structured metadata may not invent retry authority. Shared compaction split remains runtime-core-owned; KXT retains archives/Evidence and its v1 checkpoint. No installed app, personal session or release change.
+
+| Acceptance | Scenario / operation | Expected result / verification |
+| --- | --- | --- |
+| D1 | HTTP JSON object error, string error, top-level message, plain/HTML/empty/oversized/stalled body | Bounded reader, typed status and stable allowlisted code; no credentials, prompt echo or raw HTML; provider unit matrices |
+| D2 | Throw a typed provider error through the real pipeline | Failed state/reason survive; optional safe diagnostic survives in event/result; SDK regression |
+| D3 | Encode tool/message/reasoning requests then send | Captured actual wire body equals preflight encoding byte for byte; provider encoder integration |
+| D4 | Old errors and cancellation | Legacy message/status behavior for safe categories; arbitrary exceptions do not gain retry policy; abort remains cancellation; focused regressions/type checks |
+| D5 | Responses and adapter non-JSON errors | Same bounded safe diagnostic seam, stream success behavior unchanged; provider path regressions |
+
+Actual checks/results and outstanding installed-build/real-model coverage will be appended after implementation. No release or push of unrelated changes is authorized.
+
+Implementation refinement before code: a generic `invalid_request_error` code/type must not hide a narrowly recognized context-length assertion in the same response. Specific auth/model/quota codes remain authoritative. Add generic-error-with-context and ordinary-invalid-request counterexamples in the shared reader and host gateway before normalization changes. No additional replay policy.
+
+### 2026-11-07 implementation results
+
+Implemented in the isolated code checkout, branch `fix/provider-history-recovery-20261107`, based on `4b476e69aa5a483b3a7b6a55361b617a827ab771` / rc.37. The original Peer checkout and its unrelated pending work were preserved. The source is an uncommitted worktree snapshot, not a new release. KXT rebuilt the selected source SDK; bundle SHA-256 `2c12fd1ca28f2b51cbb4a7fb912ddf236202638ab51e4d9feb7418a2099188ac`, 314 input hashes, workingTreeSnapshot=true.
+
+D1–D5 focused validation: 49 provider/SDK tests and 4 SSE lifecycle tests passed, including the same request encoder/wire body, optional diagnostic result/event preservation, cancellation, bounded error bodies and all three HTTP paths. runtime-node and runtime-sdk typechecks, package builds and architecture governance passed. A generic invalid_request_error plus a definite context assertion failed first and passed after normalization; plain invalid requests stayed generic. Arbitrary body text remained omitted.
+
+The runtime-node expanded suite initially recorded 2008 passes and 2 Electron import failures out of 2010 entries in the isolated worktree. After reusing the matching local Electron 41.7.1 test dependency, those two files passed all 15 checks without an override. This was a scoped recheck, not a single successful full-suite rerun. KXT exercised a real SDK→worker→HTTP gateway→Go error path, 600 actual file tool calls and recovery of a copy of the captured 514-message checkpoint. Real models were unverified in that initial rc.37 candidate. Installed applications, native Windows/Linux and the complete independent Peer CLI/Desktop release gates remain unverified. No release, runtime upgrade, live task modification or push occurred. See the KXT ADR-0005 validation record `docs/validation/peer-context-recovery-20261107.md` for per-scenario evidence and partial acceptance.
+
+Real-channel failure refinement (before implementation): the saved Zhipu channel returned HTTP 429 / code 1113 even for a minimal request. Official https://docs.bigmodel.cn/cn/api/api-code defines this as account arrears, not transient capacity. Normalize 1113 to insufficient_quota only for the recognized upstream origin open.bigmodel.cn; normalize its documented 1261 to context_length_exceeded at the same seam. Unknown origins cannot assert these numeric codes. Add positive and unknown-origin regressions in KXT and shared Peer diagnostics. No automatic billing action, quota retry or model switch is authorized. Real Zhipu success and cross-channel continuation remain blocked until the account can infer.
+
+Real-verification endpoint correction: 1113 was observed on the saved standard API URL, /api/paas/v4. The user has Coding Plan and provided /api/coding/paas/v4, matching the official quick-start. The standard API balance result does not establish subscription arrears. Retest the subscription URL without mutating online configuration. The final code review branch is based on current development cb7e14c965c9102d49252e5a362457770ea51d14 / rc.38 and contains only the diagnostic/SDK changes, excluding unrelated historical branch commits. Final focused regression: 56 tests, runtime-node/runtime-sdk builds and typechecks, architecture governance passed.
+
+Final review source: Peer commit `9485b26ad411a9def3bbb40a8a81cfc30355c671`, [Peer-Agent PR #298](https://github.com/ly-ccx/Peer-Agent/pull/298), based on current development cb7e14c9 / rc.38. The 17 scoped source files passed 57 provider/SDK/SSE tests, package builds/typechecks and architecture governance. An unrelated upstream generated watch-ledger cache drift was excluded from the commit. KXT's pinned bundle SHA-256 is `c802575f915263ee6a3af5f32329f75a9beb82a2625c5eb6400c6678cbfb43b4`, 314 verified inputs, workingTreeSnapshot=false.
+
+Real host acceptance passed with the saved default deepseek-v4.1-flash and the user's GLM Coding Plan glm-5.3-flash endpoint: each restored synthetic history from 515 to 3 messages before task inference, retrieved original continuity/evidence, and wrote/read a random proof marker through real tools. A default-channel saved session then resumed on Zhipu and wrote a second verified file without changing completed evidence. Synthetic tasks, credentials in process memory and disposable fixture services were used; no original user conversation was sent to the model. The subscription endpoint is confirmed by the [official endpoint reference](https://docs.bigmodel.cn/cn/coding-plan/quick-start). These checks are SDK-host acceptance, not installed-build or full release acceptance.
