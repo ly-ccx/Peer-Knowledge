@@ -1,7 +1,7 @@
 # ADR 116：任务控制、执行停稳与资源交接
 
 创建时间：2026-11-01
-最后更新：2026-11-03
+最后更新：2026-11-08（文末确认 ADR 124 的可见性修订不改变本文的释放条件。未合并草稿不是已发布运行时）
 
 2026-11-03 契约澄清：Session Control 统一拥有子执行停稳与 unknown 作用域。SessionTakeover 不得在 applied 停止回执之外把主 Bot 自己仍在执行的协调 metadata 调用算成子任务 unknown。误挂 awaiting_outcome 的接管可凭原操作的当前停止证明恢复；另一操作、新 generation、历史撤回或助手文字不能替代该证明，真实未知 shell 仍保留目录保护。接管仍 stopping 时，原生恢复的 prepare 与 commit 必须返回 coordination_reconciliation_required，不能先覆盖 control 或创建新 generation，再遗留未完成接管与撤销中的绑定。依据、边界及分阶段验证结果见[故障分析](../../playbook/v0.1.0/agent-wait-recovery-closure.md)。不改变持久化结构或最低版本。
 
@@ -319,3 +319,9 @@ queued自阻塞的资源收口仍走Session Control和原StopBarrierReceipt。�
 另一目录的历史Shell调用仅有合成的cancelled_outcome_unknown及缺少退出状态的旧本地材料，不能推断未执行或成功；原范围保护继续保留。本轮不以它制造工具成功、空unknown集合或全设备强制解锁。该现场收据没有改变§16的事实门槛、能力和授权边界。
 
 最终RC35正式签名安装版已启动并持有原项目租约和新鲜心跳；安装后再次核对上述取消、停止回执、原claim released和同目录未释放占用为0，对当前账本副本的新执行准入仍通过。原任务的较新取消决定保持，没有为验收复活旧任务。发布资产、包内7处修复摘要、备份与安装范围见 [安装回执](../../playbook/v0.1.0/evidence/rc35-installation.json) 和 [发布回执](../../playbook/v0.1.0/evidence/rc35-publication.json)；不是一次原任务真实模型执行或完整安装版UI验收。
+
+## 后续（2026-11-07，ADR 124 已接受；释放条件不变）
+
+[ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 已接受并授权实施。它增加只读核实和授权后退役跟进，并要求新的取消登记带上本机启动标识、PID 与进程起始时刻。资源释放仍只走本文的停稳回执。PID、空 token、租约更换和终态字符串仍然不能单独结清 claim，也不存在强制解锁。死亡证明以 ADR 124 第 7 节的元组为准，只作用于实现交付之后的新记录。
+
+2026-11-08 的可见性修订不改变本段。确认后退役仍不写停稳回执，也不释放 claim。索引不对用户开放的规则见 ADR 124 第 8.3 节。未合并的 Peer-Agent PR 297 不是已发布运行时。

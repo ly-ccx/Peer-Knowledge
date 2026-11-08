@@ -74,6 +74,7 @@ CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。
 CLI 基础壳命令见 `knowledge/decisions/108-cli-basic-shell-commands.md`（Accepted，未发布验收）。
 当前机器人 TUI 的列表行与输入条呈现见 `knowledge/decisions/122-tui-bot-list-and-composer-chrome.md`（Accepted，未发布验收）。
+遗留停止记录的受控核实与跟进退役见 `knowledge/decisions/124-legacy-stop-obligation-controlled-resolution.md`（2026-11-07 20:03 Asia/Shanghai 已接受并授权实施；2026-11-08 修订：退役后的索引只留在内部审计，Desktop / TUI / 工作面板不展示「待核实」。Peer-Agent PR 297 未合并、未发版）。
 ADR 文档图谱见 `knowledge/decisions/00-adr-map.md`。
 
 ## 目录结构
