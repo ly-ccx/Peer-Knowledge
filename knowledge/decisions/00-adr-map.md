@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-07（ADR 124 于 20:03 Asia/Shanghai 接受并授权实施；实现尚未交付。编号仍按 `origin/main` `3402e83` 核对）
+最后更新：2026-11-08（ADR 124 仍为已接受。同日修订用户可见性：退役后的索引只留在内部审计，日常界面不展示「待核实」。编号仍按 `origin/main` `3402e83` 核对）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `ec96b057`（2026-11-06 核对，已包含 #122）。
@@ -114,19 +114,19 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | `106-readonly-git-and-delegation-capability-admission.md` | 2026-10-23 | 2026-10-24 | 日期有更新，括号未写原因 |
 | `108-bot-reply-document-preview.md` | 2026-10-24 | 2026-10-25 | 日期有更新，括号未写原因 |
 | `109-resource-reference-preview-and-artifact-collaboration.md` | 2026-10-25 | 2026-10-27 | 补充 §35：独立只读窗口的阅读连续性 |
-| `110-follow-up-responsibility-and-current-list.md` | 2026-10-28 | 2026-11-07 | 已接受的 ADR 124 只在有效 indexed 处置下移出当前列表；实现尚未交付 |
+| `110-follow-up-responsibility-and-current-list.md` | 2026-10-28 | 2026-11-08 | ADR 124 的 indexed 处置离开当前列表，且不进入用户可见的「待核实」 |
 | `111-project-agent-duplex-supervision-and-continuity.md` | 2026-10-28 | 2026-11-01 | 关联 ADR 117 实施边界 |
 | `112-runtime-module-and-loading-boundaries.md` | 2026-10-28 | 2026-11-01 | 关联 ADR 117 实施边界 |
 | `115-input-prediction-and-draft-boundary.md` | 2026-10-31 | 2026-11-01 | 日期有更新，括号未写原因 |
-| `116-session-control-and-resource-settlement.md` | 2026-11-01 | 2026-11-07 | ADR 124 已接受，释放仍只认停稳回执；实现尚未交付 |
+| `116-session-control-and-resource-settlement.md` | 2026-11-01 | 2026-11-08 | ADR 124 已接受，释放仍只认停稳回执；可见性修订不改变释放条件 |
 | `117-intent-driven-coordination-and-goal-closure.md` | 2026-11-01 | 2026-11-03 | 日期有更新，括号未写原因 |
 | `118-openui-interactive-results-and-runtime-boundaries.md` | 2026-11-02 | 2026-11-05 | 日期有更新，括号未写原因 |
 | `119-user-stop-cognition-admission-and-settlement.md` | 2026-11-03 | 2026-11-07 | 本篇仍未接受。ADR 124 已接受，只收窄三件义务工具，不接受本篇其余条款 |
-| `120-runtime-facts-disposition-and-resource-wait.md` | 2026-11-03 | 2026-11-07 | ADR 124 已接受；核实不是停止确认，模型仍不确认停止。实现尚未交付 |
+| `120-runtime-facts-disposition-and-resource-wait.md` | 2026-11-03 | 2026-11-08 | ADR 124 已接受；核实不是停止确认。2026-11-08 起退役索引不对用户开放 |
 | `123-main-bot-unnoticed-memory.md` | 2026-11-06 | 2026-11-06 | 替代草案估算触发、全文回流及裁尾回退；补齐有限准入、保真、回读、撤销、并发与恢复 |
-| `124-legacy-stop-obligation-controlled-resolution.md` | 2026-11-07 | 2026-11-07 | 同日 20:03 Asia/Shanghai 由 Proposed 改为已接受并授权实施；实现尚未交付 |
+| `124-legacy-stop-obligation-controlled-resolution.md` | 2026-11-07 | 2026-11-08 | 2026-11-07 20:03 Asia/Shanghai 已接受并授权实施。2026-11-08 修订用户可见性：索引只留内部审计，日常界面不展示「待核实」 |
 
-同一天被 ADR 117 的实施边界带过一笔的有：`88`、`93`、`94`、`95`、`110`、`111`、`112`，当时的最后更新都是 2026-11-01。ADR 110 在 2026-11-07 追加了 ADR 124 的关系说明；同日 20:03 起该说明改为已接受的 indexed 展示修订，117 那一笔仍在正文里。实现尚未交付。ADR 117 自己的最后更新是 2026-11-03，记的是四包源码自测完成。ADR 118 在 2026-11-05 把交互结果纳入 RC36。ADR 91 在 2026-11-05 增加第 15 节身份解析。`48-cli-first-class-release.md` 在 2026-11-06 把 CLI 自动更新收窄为只保留无人值守安装，显式 `peer update` 改由 `108-cli-basic-shell-commands.md` 规定。
+同一天被 ADR 117 的实施边界带过一笔的有：`88`、`93`、`94`、`95`、`110`、`111`、`112`，当时的最后更新都是 2026-11-01。ADR 110 在 2026-11-07 追加了 ADR 124 的关系说明；同日 20:03 起该说明改为已接受的 indexed 展示修订，117 那一笔仍在正文里。2026-11-08 再写明这条 indexed 处置不进入用户可见的「待核实」。ADR 117 自己的最后更新是 2026-11-03，记的是四包源码自测完成。ADR 118 在 2026-11-05 把交互结果纳入 RC36。ADR 91 在 2026-11-05 增加第 15 节身份解析。`48-cli-first-class-release.md` 在 2026-11-06 把 CLI 自动更新收窄为只保留无人值守安装，显式 `peer update` 改由 `108-cli-basic-shell-commands.md` 规定。
 
 ## 过时引用
 
@@ -259,21 +259,21 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 108 | [108. Bot 回复文件引用的有界只读预览](./108-bot-reply-document-preview.md) | 2026-10-24 | 2026-10-25 | 页头已接受 |
 | 108 | [ADR 108：CLI 基础壳命令](./108-cli-basic-shell-commands.md) | 2026-11-06 | 2026-11-06 | 已接受，实现未发布验收 |
 | 109 | [ADR 109：内容引用、资源预览与产物协作契约](./109-resource-reference-preview-and-artifact-collaboration.md) | 2026-10-25 | 2026-10-27 | 页头已接受 |
-| 110 | [ADR 110：跟进责任收口与当前待办列表判定](./110-follow-up-responsibility-and-current-list.md) | 2026-10-28 | 2026-11-07 | 页头已接受；ADR 124 收窄 indexed 处置的列表规则，实现尚未交付 |
+| 110 | [ADR 110：跟进责任收口与当前待办列表判定](./110-follow-up-responsibility-and-current-list.md) | 2026-10-28 | 2026-11-08 | 页头已接受；ADR 124 的 indexed 处置离开当前列表，且不进入用户可见的「待核实」 |
 | 111 | [ADR 111：主 Bot 双向监督、可靠续接与上下文连续性](./111-project-agent-duplex-supervision-and-continuity.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
 | 112 | [ADR 112：运行时模块与功能加载边界](./112-runtime-module-and-loading-boundaries.md) | 2026-10-28 | 2026-11-01 | 页头已接受 |
 | 113 | [ADR 113：检查点内容寻址存储与本机数据保留](./113-checkpoint-content-addressed-storage-and-retention.md) | 2026-10-29 | 2026-10-29 | 未接受 |
 | 114 | [114. 回复引用的定位与打开](./114-reply-citation-resolution-and-open.md) | 2026-10-30 | 2026-10-30 | 页头已接受 |
 | 115 | [ADR 115：智能输入建议与用户草稿边界](./115-input-prediction-and-draft-boundary.md) | 2026-10-31 | 2026-11-01 | 页头已接受 |
-| 116 | [ADR 116：任务控制、执行停稳与资源交接](./116-session-control-and-resource-settlement.md) | 2026-11-01 | 2026-11-07 | 页头已接受；ADR 124 不改变释放条件，实现尚未交付 |
+| 116 | [ADR 116：任务控制、执行停稳与资源交接](./116-session-control-and-resource-settlement.md) | 2026-11-01 | 2026-11-08 | 页头已接受；ADR 124 不改变释放条件 |
 | 117 | [ADR 117：意图驱动的协调判断、持续责任与目标闭环](./117-intent-driven-coordination-and-goal-closure.md) | 2026-11-01 | 2026-11-03 | 页头已接受 |
 | 118 | [ADR 118：OpenUI 可交互结果复用与运行时边界](./118-openui-interactive-results-and-runtime-boundaries.md) | 2026-11-02 | 2026-11-05 | 页头已接受 |
 | 119 | [ADR 119：用户停止、认知续跑准入与宿主收尾](./119-user-stop-cognition-admission-and-settlement.md) | 2026-11-03 | 2026-11-07 | 未接受。ADR 124 已接受，只收窄三件义务工具 |
-| 120 | [ADR 120：运行事实、统一处置与资源等待闭环](./120-runtime-facts-disposition-and-resource-wait.md) | 2026-11-03 | 2026-11-07 | 页头已接受；ADR 124 不把核实当成停止确认，实现尚未交付 |
+| 120 | [ADR 120：运行事实、统一处置与资源等待闭环](./120-runtime-facts-disposition-and-resource-wait.md) | 2026-11-03 | 2026-11-08 | 页头已接受；ADR 124 不把核实当成停止确认。退役索引不对用户开放 |
 | 121 | [ADR 121：Desktop 会话窗口契约](./121-desktop-session-windowing-contract.md) | 2026-11-05 | 2026-11-05 | 页头已接受 |
 | 122 | [ADR 122：TUI 机器人列表与输入条呈现](./122-tui-bot-list-and-composer-chrome.md) | 2026-11-06 | 2026-11-06 | 已接受，实现未发布验收 |
 | 123 | [ADR 123：主 Bot 会话的无感记忆](./123-main-bot-unnoticed-memory.md) | 2026-11-06 | 2026-11-06 | 未接受；本轮收紧容量、准入与恢复，未授权实现 |
-| 124 | [ADR 124：遗留停止义务的受控核实与跟进退役](./124-legacy-stop-obligation-controlled-resolution.md) | 2026-11-07 | 2026-11-07 | 已接受并授权实施；实现尚未交付，未合并、未发版、未改现场 |
+| 124 | [ADR 124：遗留停止义务的受控核实与跟进退役](./124-legacy-stop-obligation-controlled-resolution.md) | 2026-11-07 | 2026-11-08 | 已接受并授权实施。2026-11-08 修订：索引只留内部审计，日常界面不展示「待核实」。Peer-Agent PR 297 未合并、未发版 |
 
 ## 维护
 
@@ -286,4 +286,6 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 2026-11-06 实施前收紧：ADR110/120 以 A 级明确既有 blockedReason 的本地存储机器故障投影与安全失败叶子准备，不新增存储格式；ADR95 限定查询工件完整/截断材料的进度认定。
 
-2026-11-07 新增 ADR 124。同日 20:03（Asia/Shanghai）用户明确「那就落实124」，状态改为已接受并授权实施。实现尚未交付，接受不等于合并、发版或现场修复。它只在有效 indexed 处置下收窄 ADR 110 的当前列表规则，不改变 ADR 116 的释放条件，不接受 ADR 119 的其余条款，也不把核实写成 ADR 120 的停止确认。
+2026-11-07 新增 ADR 124。同日 20:03（Asia/Shanghai）用户明确「那就落实124」，状态改为已接受并授权实施。它只在有效 indexed 处置下收窄 ADR 110 的当前列表规则，不改变 ADR 116 的释放条件，不接受 ADR 119 的其余条款，也不把核实写成 ADR 120 的停止确认。
+
+2026-11-08 修订 ADR 124 的用户可见性。用户在 Peer-Agent PR 297 手测通过后确认「要」：待核实不对用户开放。确认后仍写 `disposition=indexed` / `obligation_indexed`，索引留给诊断、支持和以后核对。Desktop、TUI 和工作面板不展示「待核实」分区、列表、徽章或注意提示。证据、停稳回执、占用、`user_panel` 授权和主 Bot 工具边界不变。该代码 PR 仍未合并，这次修订尚未写入代码。
