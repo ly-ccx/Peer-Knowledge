@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-09（新增 ADR 125 提案：执行资源 claim 的受控闭包、unknown 保留与隔离逃生。ADR 124 仍为已接受；ADR 125 只修订其永久占用边界，状态为未接受、未实现）
+最后更新：2026-11-09（登记 ADR87 D1–D11 修订经用户接受：过程叙述与正式交付分离，A 级；实施未完成，V01–V17 待验证，结果回填 ADR87 D10。85 对应展示交接条款同日被替代。同日新增 ADR 125 提案：执行资源 claim 的受控闭包、unknown 保留与隔离逃生；ADR 124 仍为已接受，ADR 125 只修订其永久占用边界，状态为未接受、未实现）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `ec96b057`（2026-11-06 核对，已包含 #122）。
@@ -101,7 +101,8 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | `82-project-objectives-and-watches.md` | 2026-09-24 | 2026-10-01 | 日期有更新，括号未写原因 |
 | `83-model-routing-by-role.md` | 2026-09-24 | 2026-10-24 | 补齐档位参数、角色继承覆盖与请求通道 |
 | `84-bot-list-shell.md` | 2026-09-26 | 2026-09-30 | 状态驱动的机器人角色 |
-| `85-project-agent-hosts-inputs-and-surfaces.md` | 2026-09-26 | 2026-10-04 | 补充对话流式与停止边界 |
+| `85-project-agent-hosts-inputs-and-surfaces.md` | 2026-09-26 | 2026-11-09 | ADR87 修订接受：公开 delta 归过程、正文由 canonical 回复承接、新契约禁纯文本 fallback（仅新契约范围；旧记录与既有 fallback 语义只读保留） |
+| `87-user-turn-live-process-presentation.md` | 2026-10-05 | 2026-11-09 | D1–D11 过程叙述与正式交付分离修订经用户接受，A 级；实施未完成，V01–V17 待验证 |
 | `88-project-agent-execution-continuity.md` | 2026-10-07 | 2026-11-01 | 关联 ADR 117 实施边界；§22 中断核验契约保留 |
 | `89-independent-agent-delegation-and-communication.md` | 2026-10-10 | 2026-10-10 | 补充 ADR 91 自主协调设计引用 |
 | `91-project-bot-autonomous-coordination.md` | 2026-10-10 | 2026-11-05 | 第 15 节身份解析、派发责任与独立 PR 候选 |
@@ -230,9 +231,9 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 82 | [82. 项目目标与定时 / 事件驱动推进](./82-project-objectives-and-watches.md) | 2026-09-24 | 2026-10-01 | 页头已接受 |
 | 83 | [83. 模型分工：档位 + 角色，用户说了算，开任务时冻结](./83-model-routing-by-role.md) | 2026-09-24 | 2026-10-24 | 页头已接受 |
 | 84 | [84. 机器人列表壳：工作台不再是页面，应用本身就是机器人列表](./84-bot-list-shell.md) | 2026-09-26 | 2026-09-30 | 页头已接受 |
-| 85 | [85. 项目代理的宿主、输入与多入口（0.1.0 落地边界）](./85-project-agent-hosts-inputs-and-surfaces.md) | 2026-09-26 | 2026-10-04 | 页头已接受 |
+| 85 | [85. 项目代理的宿主、输入与多入口（0.1.0 落地边界）](./85-project-agent-hosts-inputs-and-surfaces.md) | 2026-09-26 | 2026-11-09 | 页头已接受；展示交接条款被 ADR87 2026-11-09 修订替代（仅新契约范围） |
 | 86 | [ADR 86：已持久化对话的批量读取](./86-batched-persisted-conversation-reads.md) | 2026-10-02 | 2026-10-02 | 页头已接受 |
-| 87 | [87. 用户回合可展开的实时过程](./87-user-turn-live-process-presentation.md) | 2026-10-05 | 2026-10-05 | 页头已接受 |
+| 87 | [87. 用户回合可展开的实时过程](./87-user-turn-live-process-presentation.md) | 2026-10-05 | 2026-11-09 | 页头已接受；D1–D11 修订（过程叙述与正式交付分离）2026-11-09 经用户接受，实施未完成 |
 | 88 | [88 项目代理连续执行与结果交付方案](./88-project-agent-execution-continuity.md) | 2026-10-07 | 2026-11-01 | 页头已接受 |
 | 89 | [ADR 89：独立 Agent 接手、双向通信与真实工作动态](./89-independent-agent-delegation-and-communication.md) | 2026-10-10 | 2026-10-10 | 页头已接受 |
 | 90 | [ADR 90：本地图片能力与安装版产品截图审查](./90-local-image-capability-and-product-review.md) | 2026-10-10 | 2026-10-10 | 页头已接受 |
