@@ -30,7 +30,7 @@ ADR 46 为 Browser 建立了会话绑定的 BrowserSession 和多网页标签。
 - Plan 保持单一当前焦点；历史计划和子计划使用列表、树或显式计划切换器，不使用可随意关闭的
   浏览器式标签。
 - Files 是工作区导航器，不为文件树本身创建标签；从文件树打开的资源进入 Documents。
-  （2026-11-09：本条在**资源窗口标签条**范围内被 [ADR 109](109-resource-window-directory-tabs.md)
+  （2026-11-09：本条在**资源窗口标签条**范围内被 [ADR 125](125-resource-window-directory-tabs.md)
   替代——目录在该窗口升为一等资源标签；经典 Workbench 一级能力栏语义不变。）
 
 ### 决策二：第一阶段建立会话绑定的 DocumentSession
