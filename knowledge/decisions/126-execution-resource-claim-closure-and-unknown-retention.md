@@ -1,7 +1,7 @@
 # ADR 126：执行资源 claim 的受控闭包、unknown 保留与隔离逃生
 
 创建时间：2026-11-09
-最后更新：2026-11-09
+最后更新：2026-11-09（因知识库主线新增 ADR 125「资源窗口目录标签」，本文由 ADR 125 改号为 ADR 126；内容不变）
 状态：Proposed（用户要求给出根因修复方案并按 A 级流程先写 ADR；尚未实现，不表示已修复、已发布或已验收）
 级别：A（执行资源、停止/闭包契约、授权与证据边界、持久化格式）；实施包含 B 级宿主/协议/迁移与 C 级界面表达。
 
@@ -219,6 +219,7 @@ ADR 116 的 claim 解决两个问题：
 ## 11. 变更记录
 
 - 2026-11-09：创建。基于一次已安装桌面端的真实长时间阻塞现场，提出 claim 闭包、unknown 保留、隔离逃生及资源等待修正；待用户评审后再进入代码实施。
+- 2026-11-09（晚）：知识库主线新增 ADR 125「资源窗口目录标签」，本文由 ADR 125 改号为 ADR 126；内容与实施收据不变，代码 PR 与图谱同步更新。
 
 ## 12. 实施收据（2026-11-09，源码 draft）
 
@@ -240,6 +241,6 @@ ADR 116 的 claim 解决两个问题：
 
 - 聚焦测试：`execution-resources` 23、`execution-obligation` 3、`session-cancellation` 1、`session-control` / kernel / grant 19、调度与资源等待 44、`intent-lifecycle` / `runtime-disposition` 27、`drawerState` 25、`CoordinationDetails` 3、`ObligationGrantCard` 2、application service 35、IPC / obligation bridge / card electron 8、protocol 335。
 - `@peer-agent/protocol`、`@peer-agent/runtime-node`、`@peer-agent/desktop` typecheck 通过；`runtime-node`、`tui` build 通过；`ipc:check` 通过（409 channels / 443 preload operations）。
-- CI run `42547320802` 在 macOS 与 Ubuntu 通过（提交 `88c21673`）；`fe905198` 的 CI 在撰写本文时尚未出结果。
+- CI run `42547320802` 在 macOS 与 Ubuntu 通过（提交 `88c21673`）；CI run `42552035897` 在 macOS 与 Ubuntu 通过（提交 `fe905198`）。
 
 未完成：独立 clone 逃生、独立 journal 闭包事件与版本门槛、存量迁移/诊断、完整 release 门禁与桌面/产品回归。本 ADR 仍为 Proposed；代码 PR 不应在 ADR 接受前合并。
