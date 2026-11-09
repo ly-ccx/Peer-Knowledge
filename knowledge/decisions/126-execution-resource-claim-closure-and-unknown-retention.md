@@ -5,7 +5,7 @@
 状态：Proposed（用户要求给出根因修复方案并按 A 级流程先写 ADR；尚未实现，不表示已修复、已发布或已验收）
 级别：A（执行资源、停止/闭包契约、授权与证据边界、持久化格式）；实施包含 B 级宿主/协议/迁移与 C 级界面表达。
 
-2026-11-09：ADR 127 提案扩展本文 §5.3 / §5.4 的授权模型（用户按项目/Bot 委托 `ask / bot_verified / auto` 收口）；本文的闭包、`RetainedUnknown`、计划镜像和证据机制继续有效，授权扩展待评审。
+2026-11-09：ADR 127（已接受）扩展本文 §5.3 / §5.4 的授权模型（用户按项目 + Bot 主体委托 `ask / bot_verified` 两档收口；原提案的 `auto` 档在评审中取消）；本文的闭包、`RetainedUnknown`、计划镜像和证据机制继续有效。
 
 关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[委托运行时](../architecture/project-agent-delegation-runtime.md)、[人机交互契约](../specifications/peer-human-agent-interaction-contract.md)、ADR [91](91-project-bot-autonomous-coordination.md)、[92](92-scoped-permission-inheritance.md)、[101](101-bot-owned-access-policy.md)、[110](110-follow-up-responsibility-and-current-list.md)、[116](116-session-control-and-resource-settlement.md)、[119](119-user-stop-cognition-admission-and-settlement.md)、[120](120-runtime-facts-disposition-and-resource-wait.md)、[124](124-legacy-stop-obligation-controlled-resolution.md)。
 

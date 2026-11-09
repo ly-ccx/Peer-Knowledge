@@ -2,7 +2,7 @@
 
 创建时间：2026-11-09
 最后更新：2026-11-09
-状态：Proposed（用户明确要求先写 ADR，再决定是否实施；本文不表示已接受、已实现或已发布）
+状态：Accepted（2026-11-09 用户评审通过，含评审修订：仅保留 `ask` / `bot_verified` 两档，`auto` 取消；实施未开始，不表示已实现或已发布）
 级别：A（执行结果、授权边界、证据与资源占用契约）；实施包含 B 级协议/宿主/持久化和 C 级状态表达。
 
 关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[委托运行时](../architecture/project-agent-delegation-runtime.md)、[人机交互契约](../specifications/peer-human-agent-interaction-contract.md)、ADR [91](91-project-bot-autonomous-coordination.md)、[101](101-bot-owned-access-policy.md)、[110](110-follow-up-responsibility-and-current-list.md)、[116](116-session-control-and-resource-settlement.md)、[120](120-runtime-facts-disposition-and-resource-wait.md)、[124](124-legacy-stop-obligation-controlled-resolution.md)、[126](126-execution-resource-claim-closure-and-unknown-retention.md)。
@@ -136,11 +136,13 @@ ReconciliationEvidence {
 | --- | --- |
 | `ask` | 保持 ADR 126：用户卡片逐条确认后才可 `close_claim`，默认值 |
 | `bot_verified` | 主 Bot 在**用户已委托**的前提下，对符合条件的 claim 执行/请求对账；宿主校验证据和风险包络后直接收口，不再弹卡 |
-| `auto` | 宿主在启动/对账时自动收口符合条件且证据完整的只读/低风险 claim，不调用模型 |
+
+评审决定（2026-11-09）：**不设宿主静默自动收口档**（原提案的 `auto` 取消，理由见 §11.6）。授权语义只有“问你”与“主 Bot 凭宿主证据核对后收口”两档。
 
 `bot_verified` 的授权来自用户保存的策略，不是模型参数：
 
-- 策略绑定 `workspaceId + agentConversationId`，沿 ADR 101 的 Bot 主体；
+- 策略绑定 `(workspaceId, profile.agentConversationId)`，即 ADR 101 的 Bot 主体本身；委托在该 Bot 存续期间跨任务会话持续生效，不随单条会话结束重置；
+- 委托入口以**现场委托**为主：`ask` 卡片在主 Bot 已出示完整对账证据时，提供“今后此类由主 Bot 核对后直接收口”的一键升级，由用户点击写入策略；设置页保留同等入口。模型不能发起或代替这次点击；
 - 只在用户明确开启时生效；默认 `ask`；可随时撤销；
 - 撤销不重开已收口 claim，但阻止后续自主收口；
 - `full_access`、Ask、会话许可、`force` 都不能替代策略；
@@ -157,7 +159,9 @@ ReconciliationEvidence {
 5. 不是 `unfenced_external`；
 6. 对 `effect_observed`，证据必须能定位实际效果；对 `no_effect_observed`，探针必须覆盖声明范围，不能只看“进程不在了”。
 
-`auto` 仅限只读/无副作用类调用，且必须 `no_effect_observed` + 完整证据；写操作不进入 `auto`。
+push / PR / 远端发布是**永久人工门**（评审确认，不随任何策略开放）；远端只读探针留待后续提案另行评审。
+
+`no_effect_observed` 的覆盖承诺按评审收窄：v1 只承诺**声明范围内、工作区内、git 可见（含未跟踪文件）的变化**无效果；忽略文件与工作区外的效果不在承诺内，探针覆盖不足时保持 `unknown` / `inconclusive`，不得表述为“没有影响”。
 
 ### 5.6 收口回执
 
@@ -166,7 +170,7 @@ ReconciliationEvidence {
 ```text
 {
   resolutionId, claimId, claimRevision, execution, scope,
-  verdict, evidenceDigest, tier: 'user_confirmed' | 'bot_verified' | 'auto',
+  verdict, evidenceDigest, tier: 'user_confirmed' | 'bot_verified',
   policyRef?, authorityRef, unknownCalls, at
 }
 ```
@@ -211,7 +215,7 @@ ReconciliationEvidence {
 界面：
 
 - 任务详情展示 unknown、范围、证据摘要、当前策略和下一步；
-- `ask` 显示确认卡；`bot_verified` 显示“主 Bot 已核对并收口”的 receipt 和证据入口；
+- `ask` 显示确认卡，并在主 Bot 已完成对账时附现场委托入口（§5.4）；`bot_verified` 显示“主 Bot 已核对并收口”的 receipt 和证据入口；
 - 策略设置按项目/Bot，明确说明开启后主 Bot 可在证据满足时自主收口；
 - 不新增全局“强制解锁”按钮。
 
@@ -219,7 +223,7 @@ ReconciliationEvidence {
 
 | 对象 | 归属 | 说明 |
 | --- | --- | --- |
-| `UnknownOutcomePolicy` | 项目/Bot profile 或本地设置 | `ask` / `bot_verified` / `auto` + 允许的能力类别 |
+| `UnknownOutcomePolicy` | 项目/Bot profile 或本地设置 | `ask` / `bot_verified`（评审取消 `auto`，不做能力类别细分） |
 | `ReconciliationEvidence` | 协调 journal / 设备账本 | 探针、verdict、digest；宿主写 |
 | `UnknownOutcomeResolution` | 设备账本 + 计划镜像 + journal | 收口回执；幂等 |
 | `ExecutionResourceClaim.scope` | 设备账本 | 文件/目录/Git ref/远端对象 |
@@ -234,7 +238,7 @@ ReconciliationEvidence {
 - `bot_verified` 的 receipt 记录 `authorityRef = policy:<policyId>` 和 `evidenceDigest`；没有这两项不能收口。
 - 探针的输入/输出有界、脱敏；不读凭据、不暴露完整路径给模型载荷。
 - 未知调用、Evidence、历史、预算、计划状态不删除；收口只改资源占用和处置。
-- 外部未围栏副作用永远保留人工门；`auto` 不触碰写操作。
+- 外部未围栏副作用永远保留人工门；写操作不进入任何自动判定路径。
 - 模型可以“建议收口”，但不能“签发收口”；host 拒绝任何伪造的 evidence digest/verdict。
 
 ## 8. 迁移与兼容
@@ -253,19 +257,19 @@ ReconciliationEvidence {
 | UO-01 | 策略、证据、resolution 的 Protocol 与存储/版本门槛 | 无 |
 | UO-02 | dispatch 先登记、结果与 Evidence 同事务；进程监管与幂等 | UO-01 |
 | UO-03 | 对账探针与 `ReconciliationEvidence`（进程/句柄/文件/Git/回执） | UO-02 |
-| UO-04 | `bot_verified` / `auto` 策略门、风险包络、resolution 回执 | UO-01、UO-03 |
+| UO-04 | `bot_verified` 策略门、风险包络、resolution 回执、现场委托入口 | UO-01、UO-03 |
 | UO-05 | claim 范围收敛与旧 claim 迁移 | UO-01 |
 | UO-06 | 任务详情/设置/证据入口与主 Bot 报告约束 | UO-04 |
 | UO-07 | 存量诊断、指标（unknown 率、年龄、收口耗时） | UO-03、UO-05 |
 | UO-08 | 聚焦测试、崩溃窗口、双宿主与产品回归 | 全部 |
 
-实施顺序按依赖串行；UO-02 是根本解的主体，不能只做 UO-04 的授权而继续丢结果。
+实施顺序按依赖串行；UO-02 是根本解的主体，不能只做 UO-04 的授权而继续丢结果。UO-03 完成后先服务于 `ask` 卡片（把对账结论放进确认卡），不依赖 UO-04；UO-04 的实现节奏按 UO-07 的 unknown 率数据排期，协议字段在 UO-01 一次定稳。UO-01 须确认只读 dispatch 是否真的产生阻塞 claim，作为风险包络的输入。
 
 ## 10. 验收与反例
 
 1. 派发后崩溃、结果未落盘：宿主有登记与进程证据；能证明 `no_effect_observed` 时按策略收口，不能证明时保持 unknown。
 2. 结果已落盘：不产生 unknown；不重复调用。
-3. `ask`：仍要用户卡片；`bot_verified`：证据满足时主 Bot 可收口，无卡片；`auto`：只对只读/无副作用。
+3. `ask`：仍要用户卡片；`bot_verified`：证据满足时主 Bot 可收口，无卡片。不存在第三档自动收口。
 4. 模型伪造 evidence/verdict/policy：宿主拒绝并审计。
 5. live 执行、未结束句柄、`unfenced_external`：任何策略都不收口。
 6. 范围收敛：声明只影响 `a.ts` 的调用不锁整个仓库；范围未知时保守并显示诊断。
@@ -276,16 +280,19 @@ ReconciliationEvidence {
 11. 产品表达：不出现“强制解锁”“已成功”“已回滚”；`bot_verified` 显示证据和策略来源。
 12. 指标：unknown 率、stale 年龄、收口中位时间可观测；发布门禁检查。
 
-## 11. 未决问题
+## 11. 评审决定（2026-11-09）
 
-1. 默认策略是否始终 `ask`；是否允许新项目默认 `bot_verified`（本文建议默认 `ask`）。
-2. 策略粒度：Bot、项目还是全局；是否允许按能力类别细分。
-3. `bot_verified` 是否需要最短年龄或最少两次证据采样。
-4. 哪些 Git/远端操作可以进入 `effect_observed`（push/PR 是否永远人工）。
-5. `no_effect_observed` 的覆盖范围如何证明（未跟踪文件、忽略文件、外部目录）。
-6. `auto` 是否值得单独存在，还是只保留 `bot_verified` 与 `ask`。
-7. 主 Bot 在策略下收口后，用户如何方便地回看证据（任务详情、诊断、导出）。
+原未决问题由用户评审拍板如下，实施按此执行：
+
+1. **默认策略**：始终 `ask`，新项目不默认 `bot_verified`。委托以现场入口为主（§5.4）：`ask` 卡片在主 Bot 出示完整对账证据时提供一键委托升级，设置页保留同等入口。
+2. **粒度**：项目 + Bot 主体（ADR 101 的 `(workspaceId, profile.agentConversationId)`），跨任务会话持续；不做能力类别细分。
+3. **采样要求**：v1 不设最短年龄或二次采样硬门槛；活体维度由 ADR 126 的 recorder 死亡证明 + 无句柄覆盖，是否需要二次采样由 UO-07 指标决定。
+4. **Git/远端**：push / PR / 远端发布保持永久人工门，不进入 `effect_observed` 自主收口；远端只读探针留待后续提案。
+5. **覆盖证明**：`no_effect_observed` 只承诺声明范围内、工作区内、git 可见（含未跟踪）变化无效果；忽略文件与工作区外效果不承诺，覆盖不足保持 `unknown`。
+6. **取消 `auto`**：仅保留 `ask` / `bot_verified`。理由：用户的诉求是主 Bot 在委托内有行动权，不是宿主静默自动；两档在界面上是“问你 / 我核对过了”的清晰二分；未来确需 `auto` 时以新枚举值 + 版本门槛扩展，不伤旧数据。
+7. **证据回看**：复用任务详情与证据入口（UO-06）；导出与诊断视图后置。
 
 ## 12. 变更记录
 
 - 2026-11-09：创建。回应用户对“unknown 永久锁 + 主 Bot 无自主收口权”的批评；把根本解拆成源头回执、宿主对账、策略化授权、范围收敛和永久性治理；待评审后再进入代码实施。
+- 2026-11-09：用户评审通过，状态 Proposed → Accepted。评审修订：取消 `auto` 档，仅保留 `ask` / `bot_verified`；策略绑定 Bot 主体并跨任务会话持续；新增 `ask` 卡片现场委托入口；`no_effect_observed` 覆盖承诺收窄为声明范围 + 工作区 + git 可见变化；push/PR 设为永久人工门；v1 不要求二次采样；UO-03 先服务 `ask` 卡片，UO-04 按 UO-07 数据排期。原 §11 未决问题转为评审决定。
