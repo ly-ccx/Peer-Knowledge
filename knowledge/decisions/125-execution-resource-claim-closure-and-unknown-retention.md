@@ -219,3 +219,27 @@ ADR 116 的 claim 解决两个问题：
 ## 11. 变更记录
 
 - 2026-11-09：创建。基于一次已安装桌面端的真实长时间阻塞现场，提出 claim 闭包、unknown 保留、隔离逃生及资源等待修正；待用户评审后再进入代码实施。
+
+## 12. 实施收据（2026-11-09，源码 draft）
+
+代码分支 `codex/execution-resource-claim-closure` 基于 `PeerAgent/dev/0.1.0`（rc.40），[Peer-Agent PR #306](https://github.com/ly-ccx/Peer-Agent/pull/306) 仍为 draft。以下只说明源码交付，不代表已合并、已安装、已发布或已验收。
+
+| 提交 | 内容 |
+| --- | --- |
+| `a93b0b2d` | Protocol 闭包类型、`closeClaim`、`RetainedUnknown`、obligation `close_claim`、空 unknown 回收、dead-recorder 自动结清 |
+| `665cc7ad` | 计划镜像 `executionClaimClosure`、重建后不复活、withdraw 失败不再写 `fatal` |
+| `7217a4df` | 授权卡释放标记、后果文案、按钮与提示词 |
+| `5b50dc99` | 任务详情「已核对，请求释放写锁」、宿主 IPC、retained unknown 展示 |
+| `cba3780c` | 闭包授权卡绑定 bot 会话 |
+| `9a677ebe` | 任务详情闭包请求的宿主测试 |
+| `1116c086` | 修正 system-context 模板字符串里的反引号（TUI build 失败） |
+| `88c21673` | blocker `closeClaimAvailable`、只在实际可闭包时显示按钮、闭包收据回退展示 unknown |
+| `fe905198` | 跟进已退役但 claim 仍在时，仍允许请求释放 |
+
+以下为源码自审与聚焦测试，不是独立审查或产品验收：
+
+- 聚焦测试：`execution-resources` 23、`execution-obligation` 3、`session-cancellation` 1、`session-control` / kernel / grant 19、调度与资源等待 44、`intent-lifecycle` / `runtime-disposition` 27、`drawerState` 25、`CoordinationDetails` 3、`ObligationGrantCard` 2、application service 35、IPC / obligation bridge / card electron 8、protocol 335。
+- `@peer-agent/protocol`、`@peer-agent/runtime-node`、`@peer-agent/desktop` typecheck 通过；`runtime-node`、`tui` build 通过；`ipc:check` 通过（409 channels / 443 preload operations）。
+- CI run `42547320802` 在 macOS 与 Ubuntu 通过（提交 `88c21673`）；`fe905198` 的 CI 在撰写本文时尚未出结果。
+
+未完成：独立 clone 逃生、独立 journal 闭包事件与版本门槛、存量迁移/诊断、完整 release 门禁与桌面/产品回归。本 ADR 仍为 Proposed；代码 PR 不应在 ADR 接受前合并。
