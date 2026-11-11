@@ -4,7 +4,7 @@
 最后更新：2026-11-11
 状态：待 ADR128 评审的实施计划；没有产品实现已完成的暗示。
 
-决策：[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。调查：[响应性架构审查](../knowledge/experience/desktop-runtime-responsiveness-architecture-audit.md)。本文件不创建新的执行权限、生命周期策略或存储真源。
+决策：[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。总体设计：[逻辑 Module、依赖与完整链路](../knowledge/architecture/local-agent-system-blueprint.md)。调查：[响应性架构审查](../knowledge/experience/desktop-runtime-responsiveness-architecture-audit.md)。本文件不创建新的执行权限、生命周期策略或存储真源。
 
 ## 1. 固定交付规则
 
@@ -13,6 +13,8 @@
 源码实现、确定性验证、真实模型/平台验证、已有状态恢复和发布验收分别登记。每天做阶段内验证；发布时才执行合并所有 PR 的完整候选与全产品门禁。Stage 之间不能用未经证实的“已流畅”作依赖。
 
 ## 2. 阶段与退出条件
+
+每个阶段先满足[总体设计 §12](../knowledge/architecture/local-agent-system-blueprint.md)列明的详细设计就绪条件，再改实现。总体方向、ADR 接受和具体实施卡就绪是三件事；把旧业务整体搬到新进程不满足 RI-03。
 
 | 阶段 | 入口与交付 | 主要既有 Module | 退出条件 |
 |---|---|---|---|

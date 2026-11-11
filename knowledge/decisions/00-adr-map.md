@@ -314,3 +314,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 ADR128 拟修订 85/86/96/98/104-progressive-interaction-and-coordination-storage/112/121 的局部执行位置与同步产品查询边界；现阶段不使它们失效。保留 102 的单一生命周期，以及 116/120/126/127 的授权、停止、unknown、对账与恢复约束。编号按当前主线最大值 127 后取 128，不复用同号文件。现场与结构证据见[架构审查](../experience/desktop-runtime-responsiveness-architecture-audit.md)，实施包见[运行时隔离](../../playbook/runtime-isolation-implementation.md)。
 
 本次工作树核对：新增 ADR128 后为 115 个决策文件、111 个编号；历史日期的统计保留为当时记录。
+
+同日补充 [Peer 本地代理系统总体设计](../architecture/local-agent-system-blueprint.md)：自产品目标推导逻辑 Module、事实归属、依赖禁令、四条完整时序与详细设计就绪条件；是 ADR128 提案的支撑，不另立新 ADR，不表示具体方案已接受或代码已解耦。

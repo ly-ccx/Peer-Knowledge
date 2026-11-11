@@ -5,7 +5,9 @@
 状态：Proposed。用户已授权重新审查整体架构，并允许推翻不合理边界和重构；本篇是据此形成的具体方案，尚未取得逐条接受，也未改变产品运行行为。可行性实验通过不等于实现或发布验收。
 级别：A（进程、运行时通信、权威写者与读模型边界），实施包含 B 级宿主/查询/存储迁移。能力范围、权限政策、Evidence 含义和 System Context 顺序保持现行契约。
 
-依据：[现场与架构审查](../experience/desktop-runtime-responsiveness-architecture-audit.md)、[产品北极星](../../design/product/peer-product-alignment.md)、[工程治理](../architecture/20-architecture-governance.md)。实施：[分阶段实施包](../../playbook/runtime-isolation-implementation.md)。
+依据：[系统总体设计](../architecture/local-agent-system-blueprint.md)、[现场与架构审查](../experience/desktop-runtime-responsiveness-architecture-audit.md)、[产品北极星](../../design/product/peer-product-alignment.md)、[工程治理](../architecture/20-architecture-governance.md)。实施：[分阶段实施包](../../playbook/runtime-isolation-implementation.md)。
+
+2026-11-11 补充：首次提案主要展开执行位置与查询隔离，逻辑 Module/依赖仍不够完整。按用户追问新增总体设计，明确产品责任、内部 Module、事实归属、依赖禁令、端到端时序和实施就绪条件。本篇仍为 Proposed，没有扩大为已接受或已实现。
 
 ## 1. 决定要解决的问题
 
@@ -37,6 +39,8 @@ Peer 需要在多年历史、多个项目、并行 Agent、本地模型、多入
 本篇被接受时，才替代上述点名的执行位置与同步产品查询条款，其他约束继续有效。`74-deployment-surfaces-and-local-storage.md` 的 Proposed 状态保留；本轮不把 canonical 数据迁入云或改正文存储格式。新增进程中的通信类型进入 Protocol，不能成为未登记的执行旁路。
 
 ## 3. 目标拓扑与责任
+
+本节是部署图，不代替逻辑模块设计。Runtime Host 内部的协调、调度、控制、资源、Agent Turn、Context、能力、授权和核验职责，以及 Query 与权威事实的依赖方向，统一见[总体设计 §3–§7](../architecture/local-agent-system-blueprint.md)。Host 仅拥有装配与生命周期，不能成为这些领域算法的新总管理器。
 
 ```mermaid
 flowchart TB
