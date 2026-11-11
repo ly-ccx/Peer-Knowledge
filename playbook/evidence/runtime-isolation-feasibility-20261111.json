@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-11",
+  "scope": "Feasibility experiment; actual production read modules and an isolated data copy. No model, tools, leases or current-task writes. Synthetic IPC ping is not native user-input/product/release acceptance.",
+  "sourceHead": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+  "knowledgeBaseHead": "7600b00",
+  "kind": "architecture_feasibility_not_product_acceptance",
+  "experiment": {
+    "electron": "41.7.1",
+    "nodeInInstalledRuntime": "24.15.0",
+    "platform": "macOS ARM64",
+    "sameWorkload": true,
+    "roundsPerCase": 16,
+    "ipcSamplesPerCase": 120,
+    "ui": "hidden isolated BrowserWindow; backgroundThrottling=false; typed preload ping",
+    "queries": "production SessionSupervisor.list on an isolated data copy; no writer lease or live host binding",
+    "cases": [
+      {
+        "mode": "main",
+        "queries": 16,
+        "sessions": 23,
+        "durationMs": 5557.761292,
+        "mainHeartbeatMs": {
+          "n": 999,
+          "p50": 2.5817500000011933,
+          "p95": 2.7132910000000265,
+          "max": 219.68070800000032
+        },
+        "ipcRoundTripMs": {
+          "n": 120,
+          "p50": 0.2999999523162842,
+          "p95": 189.69999980926514,
+          "max": 209.59999990463257
+        },
+        "rendererFrameMs": {
+          "n": 668,
+          "p50": 8.300000000000182,
+          "p95": 9.5,
+          "max": 10.399999999999636
+        },
+        "queryMs": {
+          "n": 16,
+          "p50": 187.86183299999993,
+          "p95": 217.59337499999992,
+          "max": 217.59337499999992
+        },
+        "mainCpuMs": 4284.102
+      },
+      {
+        "mode": "utility",
+        "queries": 16,
+        "sessions": 23,
+        "durationMs": 4366.424416000002,
+        "mainHeartbeatMs": {
+          "n": 1736,
+          "p50": 2.5633749999997235,
+          "p95": 2.63025000000016,
+          "max": 3.2841669999997976
+        },
+        "ipcRoundTripMs": {
+          "n": 120,
+          "p50": 0.20000004768371582,
+          "p95": 0.2999999523162842,
+          "max": 0.3000001907348633
+        },
+        "rendererFrameMs": {
+          "n": 308,
+          "p50": 8.300000000000182,
+          "p95": 9.899999999999636,
+          "max": 10.399999999999636
+        },
+        "queryMs": {
+          "n": 16,
+          "p50": 190.62950000000092,
+          "p95": 221.58700000000135,
+          "max": 221.58700000000135
+        },
+        "mainCpuMs": 133.004
+      }
+    ]
+  },
+  "emptyGrantQuery": {
+    "samples": [
+      {
+        "round": 0,
+        "ms": 1850.3,
+        "ok": true,
+        "grants": 0,
+        "evidenceCalls": 6,
+        "evidenceRows": 414270,
+        "evidenceMs": 346.85
+      },
+      {
+        "round": 1,
+        "ms": 192.31,
+        "ok": true,
+        "grants": 0,
+        "evidenceCalls": 6,
+        "evidenceRows": 414270,
+        "evidenceMs": 154.82
+      },
+      {
+        "round": 2,
+        "ms": 187.22,
+        "ok": true,
+        "grants": 0,
+        "evidenceCalls": 6,
+        "evidenceRows": 414270,
+        "evidenceMs": 152.03
+      },
+      {
+        "round": 3,
+        "ms": 183.15,
+        "ok": true,
+        "grants": 0,
+        "evidenceCalls": 6,
+        "evidenceRows": 414270,
+        "evidenceMs": 148.86
+      },
+      {
+        "round": 4,
+        "ms": 180.66,
+        "ok": true,
+        "grants": 0,
+        "evidenceCalls": 6,
+        "evidenceRows": 414270,
+        "evidenceMs": 147.05
+      },
+      {
+        "round": 5,
+        "ms": 181.57,
+        "ok": true,
+        "grants": 0,
+        "evidenceCalls": 6,
+        "evidenceRows": 414270,
+        "evidenceMs": 147.81
+      }
+    ],
+    "distinctEvidenceRecords": 69045,
+    "totalProcessedRecordsPerQuery": 414270,
+    "callsPerQuery": 6
+  },
+  "failedAttempts": [
+    {
+      "stage": "initial experiment launch",
+      "outcome": "timeout_after_45000ms",
+      "performanceSamples": 0,
+      "followUp": "Changed the experiment entrypoint to initialize from app.whenReady().then; subsequent launch and both measured cases passed."
+    }
+  ],
+  "ok": true,
+  "limitations": [
+    "No native keyboard or wheel measurements.",
+    "No model, tool, permission decision or runtime command execution.",
+    "No runtime-host migration, failure injection or existing-state recovery tested.",
+    "No Windows/Linux, signed artifact or installed product acceptance.",
+    "The two measurement windows differ in duration; CPU milliseconds are not equal-duration CPU utilization.",
+    "Utility-process total CPU was not measured; no whole-application energy claim.",
+    "The 3949ms live-host stall remains unattributed."
+  ],
+  "privacy": {
+    "credentialsCopied": false,
+    "providersCalled": false,
+    "personalStateWritten": false,
+    "isolatedCopiesRemoved": true,
+    "userContentInReceipt": false
+  }
+}
