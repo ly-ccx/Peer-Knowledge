@@ -4,6 +4,8 @@
 最后更新：2026-11-12
 状态：已交付可重复坏基线与现场业务栈；RI-00未闭合，RI-01及整体重构未开始。没有性能修复或安装验收结论。
 
+后续见[自然停顿续证](runtime-isolation-ri00-natural-followup.md)：已补到同窗5.417秒调用链、原source只读对照与同文件宿主微基准。按用户新指令，旧3.949秒保留不可追溯缺口；当前未闭合项收敛为长期main的Path/getPlan慢化触发原因。下文保留首轮原始口径，不将新证据倒填旧窗口。
+
 上游：[首次调查](desktop-runtime-responsiveness-architecture-audit.md)、[详细设计自审](runtime-isolation-detailed-design-review.md)、[RI-00门](../../playbook/runtime-isolation-ri00-baseline.md)。数值、原始请求时序、失败尝试和摘要指纹见[机器回执](../../playbook/evidence/runtime-isolation-ri00-20261112.json)。审查与实现为同一Agent，不称独立审查。
 
 ## 1. 此次纠正的结论

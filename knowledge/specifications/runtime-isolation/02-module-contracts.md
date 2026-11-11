@@ -1,7 +1,7 @@
 # 02 逐模块 Interface 与所有权
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-12
 状态：详细设计候选。所有 `Context` 为 Host 构造的 `{VerifiedCaller,HostRef,remainingBudget,AbortSignal}`；业务写入另外要求 operation key 和当前 authority，不能从 UI 拼装。`Ref` 均能由其 owner 在数据根内验证，不能转成任意路径。
 
 ## M00 Presentation / Client State
@@ -217,3 +217,11 @@ M09的委派Provider是外层Adapter，向M02/M03提交已准入命令；反馈�
 读接口直接进入03相应有界View；仅feature source读取Port供M07/M12使用，不能回调其完整写服务形成递归。每个F模块只依赖自身原领域kernel、必要M Ports及Repository；F之间不互持对象。F01删除等跨领域用例由原编排以step receipts调用各owner，不在Repository里隐含业务级联。
 
 M08.completeCognition保留原completion/ADR115空工具面与角色/项目/隐私预算；使用原cognition request/dispatch身份，不伪造Agent attempt或messageId。M07预测profile只按ADR115准入已允许来源/continuation草稿，不持久化草稿/候选快照；M08的通用Provider trace对此请求仅metadata。QT共享在途预算只计资源许可，不把预测变成领域任务。
+
+## RI-00续证后的入口审查要求（2026-11-12）
+
+自然profile补到`runner.pump → runner-coordination.selectNext → pending/recoverySelection → resolveRoster → Supervisor.list`，以及`F11.readSnapshot → BotDirectory.get → projectRow → Supervisor`。两者是当前实际依赖，不能因不属于UI查询而漏迁。此处登记证据与复审门，不宣称新Interface已经完成实现或验收。
+
+- M02/M03所需roster是原kernel的执行/托管/控制事实，归原事实owner及M13读Port，不能改成依赖M12的UI派生页；不得以缓存needsYou或旧列表批准调度。进入实现前列出所有roster消费者的实际字段闭集、当前source/ownership/unknown与版本失效行为，保留修复custody、等待子任务、暂停结算、缺失session及重启后的语义；不注入完整Supervisor。
+- F11在模型准入前的snapshot也必须计入QG/QT/M07/M13预算，不能同步调用完整Bot呈现列表。沿ADR115已允许的主体/profile、结构化未决门、当前runner活动和公开历史Source取得版本绑定事实；缺失/旧代次/版本变化返回none或原unavailable，validate不调模型。草稿/权限/ToolResult/Evidence边界不变。
+- 两条链须在RI-01前自上而下复审完成，给出明确端口/字段/批次、容量/取消与故障恢复；本次仍在RI-00取证，不能将这份复审要求误记为已完成详细设计或直接开始代码重构。

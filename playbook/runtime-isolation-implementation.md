@@ -19,7 +19,7 @@
 | 阶段 | 入口与交付 | 主要既有 Module | 退出条件 |
 |---|---|---|---|
 | RI-00 基线与预算 | 将一次交互关联到 IPC 等待、处理、查询、Store 与发送；记录 15/30 秒周期；保留全部 >50ms 段及未知差值 | `slow-timer-probe`、IPC owner、既有 perf/product harness | 同一候选的可重现坏基线；测量自身成本单列；无 profiler 真实交互对照可重复 |
-| RI-01 查询职责 | PendingGrant 空结果不 hydrate session；Badge/TaskSummary/Report 分离；Evidence 按键索引；移除列表中业务修复 | Application Service、Bot Directory、SessionSupervisor、GoalPlanEvidence、TaskOverview | 原坏基线先红；结果语义一致；scope/版本/字节/复杂度可观测；只读测试禁止 canonical 写；历史缺核验不补 passed |
+| RI-01 查询职责 | PendingGrant 空结果不 hydrate session；Badge/TaskSummary/Report 分离；Evidence 按键索引；移除列表中业务修复；覆盖runner roster微任务和预测snapshot初始准备对深列表的依赖 | Application Service、Bot Directory、SessionSupervisor、GoalPlanEvidence、TaskOverview、Runner Coordination、Input Prediction Host | 原坏基线先红；结果语义一致；scope/版本/字节/复杂度可观测；只读测试禁止 canonical 写；历史缺核验不补 passed；调度不以UI Query作执行事实，预测不扩大115准入 |
 | RI-02 查询进程 | typed Query Protocol、独立 Query Service、订阅 cursor/失效、main 异步客户端；产品入口逐项迁移 | IPC/preload、Session Service、Query Scope、projection reader、interaction reader | 实际 Electron utility bridge；重建/排队/崩溃不回 main 扫全文；迟到/卸载/重连不污染窗口；生产不再调用旧同步查询 |
 | RI-03 Runtime 进程 | 将已有本地引擎移入唯一执行宿主；命令/回执/流式协议与受限平台 Adapter；Desktop/TUI 共享入口 | composition root、TurnSink、AgentTurnExecutor、RuntimeHost、SessionControl、HostLease、Provider/Vault/Browser adapters | 无第二执行器/双 writer；模型与能力链一致；授权、取消、未知效果、断线/重启对账真实桥接通过 |
 | RI-04 异常与兼容 | 每条已迁移路径的故障注入；旧数据/旧 writer/跨宿主/部分提交；删除过渡入口 | Store/fence、提交 worker、资源账本、输入/inbox、subscription owner | 原有卡住数据的隔离副本恢复；不抹 unknown/历史/Evidence；后续任务正常准入；兼容阻塞有明确受支持出口 |
@@ -61,6 +61,8 @@
 - 合成负载、本地真实历史副本、真实模型任务、签名包和各平台分别给结果。未覆盖的项目保持未验证，不能交给用户安装试验后再判定。
 
 ## 6. 本轮收据
+
+2026-11-12续证：[自然多秒窗口与剩余差额](../knowledge/experience/runtime-isolation-ri00-natural-followup.md)、[续证回执](evidence/runtime-isolation-ri00-natural-20261112.json)。自然5.417秒窗口已覆盖IPC/timer同步根及漏掉的runner roster微任务；同文件夹测定位长期main的Node Path/getPlan成本差额，触发原因尚未证实，RI-00保持未闭合。旧3949ms按用户要求保留历史证据缺口。RI-01新增上述两个已发现入口的覆盖要求；进入实现前必须按02/03/04逐项复审来源字段、版本、队列和恢复，不许把未知慢化写成既定原因或在实现时临时决定。
 
 2026-11-12 RI-00更新：[调用链、冻结坏基线及未闭合项](../knowledge/experience/runtime-isolation-ri00-investigation.md)、[机器回执](evidence/runtime-isolation-ri00-20261112.json)。已纠正约190ms裸宿主漏Desktop核验依赖的对比口径；真实IPC突发可复现多秒阻塞。原3949ms触发仍未证实，现场剩余差异与完整真实交互门未闭合，RI-01及整体重构尚未开始。以下保留2026-11-11详细设计候选的历史收据，不把当时的“仅文档”描述套用到新诊断脚本。
 

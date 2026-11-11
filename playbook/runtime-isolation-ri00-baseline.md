@@ -4,7 +4,7 @@
 最后更新：2026-11-12
 状态：已交付坏基线，RI-00门仍未闭合；只授权取证、诊断脚本与失败基线，不表示ADR128整体已接受或开始性能重构。
 
-本轮结果见[调查与未闭合项](../knowledge/experience/runtime-isolation-ri00-investigation.md)及[机器回执](evidence/runtime-isolation-ri00-20261112.json)。原3949ms缺当时父调用/CPU栈，现场与副本仍有未受控差距；RI-01不得据本轮基线有效而自动开始。
+最新结果见[自然停顿续证](../knowledge/experience/runtime-isolation-ri00-natural-followup.md)及[续证回执](evidence/runtime-isolation-ri00-natural-20261112.json)，首轮[调查](../knowledge/experience/runtime-isolation-ri00-investigation.md)与[原回执](evidence/runtime-isolation-ri00-20261112.json)保留。已补到5.417秒自然同窗调用链和完整坏基线；长期main的Path/getPlan成本差额已定位，但慢化触发原因仍未证实，RI-01不得自动开始。
 
 用户明确要求先查清3.95秒峰值和现场约500ms/隔离约190ms差值，拿到完整调用链和可复现基线，再推进整体方案。上游为[实施包](runtime-isolation-implementation.md)与[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。
 
@@ -27,5 +27,7 @@
 ## 收口门
 
 现场约500ms与隔离约190ms必须有受控变量对照和实际宿主栈；多秒峰值必须区分“原事件已归因”“同机制可复现”“仅数量/时间相关”。保留任何未解释差值与失败尝试。不能把不同窗口的最大值直接相减，不能用profile overhead、OS睡眠或用户操作作没有证据的解释。
+
+2026-11-12用户明确允许原3.949秒无法追溯时登记证据缺口。G1按此处理：保留原行/缺失父调用与CPU栈，不再以补造历史细节为出口；替代要求是新的自然多秒现场及同源受控基线。此修订不降低差额门：当前约0.6秒main与约0.4秒完整宿主的差额虽定位到Node路径JS及getPlan，长期上下文为何慢化仍未证明，RI-00继续未闭合。原生交互/完整执行/发布门另列，不被短时fixture或自然空闲观察替代。
 
 日常验证覆盖新增脚本/计量、生产只读seam与异常清理，不跑无关全仓发布门。持续输入/滚动、完整产品和发布验收保持后续门，RI-00不安装/发布、不修热点、不提前删除旧路径。RI-00门未闭合则不进入RI-01及整体重构。
