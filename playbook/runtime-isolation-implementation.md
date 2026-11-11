@@ -1,7 +1,7 @@
 # 本地运行时隔离实施包
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-12
 状态：待 ADR128 评审的实施计划；没有产品实现已完成的暗示。
 
 决策：[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。总体设计：[逻辑 Module、依赖与完整链路](../knowledge/architecture/local-agent-system-blueprint.md)。调查：[响应性架构审查](../knowledge/experience/desktop-runtime-responsiveness-architecture-audit.md)。本文件不创建新的执行权限、生命周期策略或存储真源。
@@ -61,6 +61,8 @@
 - 合成负载、本地真实历史副本、真实模型任务、签名包和各平台分别给结果。未覆盖的项目保持未验证，不能交给用户安装试验后再判定。
 
 ## 6. 本轮收据
+
+2026-11-12 RI-00更新：[调用链、冻结坏基线及未闭合项](../knowledge/experience/runtime-isolation-ri00-investigation.md)、[机器回执](evidence/runtime-isolation-ri00-20261112.json)。已纠正约190ms裸宿主漏Desktop核验依赖的对比口径；真实IPC突发可复现多秒阻塞。原3949ms触发仍未证实，现场剩余差异与完整真实交互门未闭合，RI-01及整体重构尚未开始。以下保留2026-11-11详细设计候选的历史收据，不把当时的“仅文档”描述套用到新诊断脚本。
 
 完成总体设计与ADR128提案，随后按用户要求一次补齐七篇详细规格及411项路由，并完成[自上而下自审](../knowledge/experience/runtime-isolation-detailed-design-review.md)，R01–R26已回写；详细接口/owner/依赖/队列/恢复不再延期到实施。ADR128仍Proposed，产品重构未开始。
 

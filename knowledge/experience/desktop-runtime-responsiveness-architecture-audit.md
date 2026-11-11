@@ -1,7 +1,7 @@
 # Desktop 响应性与本地运行时架构审查
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-12
 状态：审查完成；包含有限隔离实验，不是产品修复、发布验收或全部停顿的根因证明。
 
 审查独立性：本轮由同一 Agent 取证、设计并自审，不称独立审查。
@@ -9,6 +9,8 @@
 代码基线：Peer-Agent `b05b7afbf26b43444635f77710397c3a658d6a0f`，`release/v0.1.0-rc.41`，工作树无改动。现场为 macOS ARM64 安装版 `0.1.0-rc.41`。知识基线：Peer-Knowledge `7600b00`。初始打开的知识工作树停在 RC24；本次取回远端并在独立工作树审查当前决策，没有切换原工作树。
 
 决策提案：[ADR 128](../decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。实施顺序：[运行时隔离实施包](../../playbook/runtime-isolation-implementation.md)。机器收据：[隔离实验](../../playbook/evidence/runtime-isolation-feasibility-20261111.json)。
+
+2026-11-12后续：[RI-00调用链与冻结坏基线](runtime-isolation-ri00-investigation.md)纠正了裸宿主约190ms不能代表完整Desktop请求的口径，补充现场栈、受控探针对照和突发机制；原3949ms仍未归因。以下保留首次调查的样本与当时限制，不把后续数字倒填成原事件证据。
 
 ## 1. 能确认什么
 
