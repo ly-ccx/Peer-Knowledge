@@ -1,0 +1,811 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-11T13:34:25.366966+00:00",
+  "kind": "documentation-content-and-consistency-review",
+  "reviewer": "implementer self-review",
+  "independent": false,
+  "productSourceHead": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+  "knowledgeParentCommit": "bd5f58f73351c1ecbfe22fa7511fe570351bb7c4",
+  "architectureStatus": "Proposed",
+  "codeChanged": false,
+  "productTestsExecuted": false,
+  "designFindingsResolved": "R01-R26 in specifications; not executable verification",
+  "checks": [
+    {
+      "check": "local_markdown_links",
+      "passed": true,
+      "detail": "all referenced local targets exist"
+    },
+    {
+      "check": "balanced_code_fences",
+      "passed": true,
+      "detail": "all modified/new Markdown fences paired"
+    },
+    {
+      "check": "no_user_specific_absolute_paths",
+      "passed": true,
+      "detail": "no machine paths in changed documents"
+    },
+    {
+      "check": "no_trailing_whitespace",
+      "passed": true,
+      "detail": "all changed files checked, including untracked additions"
+    },
+    {
+      "check": "module_contract_coverage",
+      "passed": true,
+      "detail": {
+        "core": [
+          "M00",
+          "M01",
+          "M02",
+          "M03",
+          "M04",
+          "M05",
+          "M06",
+          "M07",
+          "M08",
+          "M09",
+          "M10",
+          "M11",
+          "M12",
+          "M13",
+          "M14"
+        ],
+        "features": [
+          "F01",
+          "F02",
+          "F03",
+          "F04",
+          "F05",
+          "F06",
+          "F07",
+          "F08",
+          "F09",
+          "F10",
+          "F11"
+        ]
+      }
+    },
+    {
+      "check": "view_registry",
+      "passed": true,
+      "detail": [
+        "bot.list",
+        "bot.badge",
+        "grants.pending",
+        "tasks.list",
+        "session.report",
+        "interaction.window",
+        "conversation.list",
+        "trace.page",
+        "evidence.refs",
+        "search.page",
+        "resource.window",
+        "memory.page",
+        "objectives.page",
+        "settings.snapshot",
+        "diagnostics.snapshot",
+        "clientState.get",
+        "usage.page",
+        "attention.page",
+        "automation.page",
+        "tasks.counts",
+        "pendingInput.peek"
+      ]
+    },
+    {
+      "check": "queue_registry",
+      "passed": true,
+      "detail": [
+        "QG",
+        "QU",
+        "QC",
+        "QA",
+        "QW",
+        "QT",
+        "QX",
+        "QQ",
+        "QP",
+        "QS",
+        "QR",
+        "QB",
+        "QE",
+        "QD"
+      ]
+    },
+    {
+      "check": "future_validation_matrix",
+      "passed": true,
+      "detail": {
+        "ids": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08",
+          "D09",
+          "D10",
+          "D11",
+          "D12",
+          "D13",
+          "D14",
+          "D15",
+          "D16",
+          "D17",
+          "D18"
+        ],
+        "executed": false
+      }
+    },
+    {
+      "check": "self_review_findings",
+      "passed": true,
+      "detail": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25",
+        "R26"
+      ]
+    },
+    {
+      "check": "catalog_identity",
+      "passed": true,
+      "detail": {
+        "count": 411,
+        "snapshotCount": 411
+      }
+    },
+    {
+      "check": "source_fingerprint",
+      "passed": true,
+      "detail": "18c69da4cae9cf46ae81bf6f84ff66c9f2e7430da9a38af05648cab5300b420b"
+    },
+    {
+      "check": "original_catalog_contract_snapshot",
+      "passed": true,
+      "detail": "all 411 owner/transport/roles/frame/origin fields identical"
+    },
+    {
+      "check": "routing_owner_schema_and_view_closure",
+      "passed": true,
+      "detail": "all targets defined; no client M13/non-query M12; all query views/selectors declared"
+    },
+    {
+      "check": "explicit_role_revisions",
+      "passed": true,
+      "detail": {
+        "client-tool:execute": "authenticated-runtime-gateway-only; renderer dispatch retired",
+        "conversations:add-usage": "runtime-provider-producer-only; renderer write retired"
+      }
+    },
+    {
+      "check": "route_kind_totals",
+      "passed": true,
+      "detail": {
+        "command": 252,
+        "query": 78,
+        "client-state": 4,
+        "transient-request": 4,
+        "presentation-request": 16,
+        "sync-bounded": 5,
+        "event": 52
+      }
+    },
+    {
+      "check": "product_source_preserved",
+      "passed": true,
+      "detail": {
+        "head": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+        "dirty": false
+      }
+    },
+    {
+      "check": "git_diff_whitespace",
+      "passed": true,
+      "detail": "tracked diff plus all-file whitespace check above"
+    }
+  ],
+  "passed": true,
+  "files": [
+    {
+      "path": "knowledge/architecture/local-agent-system-blueprint.md",
+      "sha256": "8db4e508a2c3a3472400439b74c36f06cf3979a8b605bb65897a66f239ed424e"
+    },
+    {
+      "path": "knowledge/decisions/00-adr-map.md",
+      "sha256": "998a739f2e03ccf38ad48b26c09020aef8653a5f6c7cf27db2d3859b6a31866d"
+    },
+    {
+      "path": "knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md",
+      "sha256": "071f0a9fd789effb86e787f9f072e1b2947eab5ee2d881a864190115875a63ab"
+    },
+    {
+      "path": "knowledge/experience/runtime-isolation-detailed-design-review.md",
+      "sha256": "0ab05223f588a7472c5df02197841a0ca9ec76b9d72fc1b832acfe5ac125a3ac"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/01-protocol-and-command-delivery.md",
+      "sha256": "50f4054b6dcee4d300dec50c046b9077283ac52d6b7a98db4536df3e5eae80c5"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/02-module-contracts.md",
+      "sha256": "83502dbdb1e36d6819275f1744b2335d3a027ca26975dc51866ba9b08ddd95f5"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/03-query-models.md",
+      "sha256": "e355f10cde38e41a4b7c2d500cf1a8ce88000feb1824927f179971ece875dfef"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/04-queues-and-scheduling.md",
+      "sha256": "09ed3e742b487abc8536f94e093de4278a3c3836c59475357134f37fb704edcc"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/05-storage-and-recovery.md",
+      "sha256": "afa89b4f3060432b16e605d785269c71ded86ffc6c0adc5d636cd9952c7bfa13"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/06-host-and-platform.md",
+      "sha256": "36bf1b1711c1b1512870913d8f64c93953713134df04a4ab7e0c6bb7cb4bf25a"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/07-migration-and-verification.md",
+      "sha256": "07a07c4e4e234006727dd7359ce746cec46f4326a785d7d954455f18d01a95eb"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/README.md",
+      "sha256": "54bdc43709a35e071ee66b4a800a58efd28c6d25227b09077889f6e31d4fe0f0"
+    },
+    {
+      "path": "knowledge/specifications/runtime-isolation/ipc-route-inventory.json",
+      "sha256": "8f1e8373887578c8aeeb7f5716133e046fdc40e559a8daeb15f3e463b6a39a10"
+    },
+    {
+      "path": "playbook/runtime-isolation-implementation.md",
+      "sha256": "25387a31a51fad2870595c6834ce9999367e99390a04a47aff2f2222d2b77589"
+    }
+  ],
+  "limits": [
+    "No D01-D18 executed",
+    "No actual product refactor",
+    "No independent review",
+    "Original 3949ms outlier remains unattributed",
+    "Feasibility evidence is unchanged and is not a product fix receipt"
+  ],
+  "priorAttempts": [
+    {
+      "schemaVersion": 1,
+      "createdAt": "2026-11-11T13:30:46.666243+00:00",
+      "kind": "documentation-content-and-consistency-review",
+      "reviewer": "implementer self-review",
+      "independent": false,
+      "productSourceHead": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+      "knowledgeParentCommit": "bd5f58f73351c1ecbfe22fa7511fe570351bb7c4",
+      "architectureStatus": "Proposed",
+      "codeChanged": false,
+      "productTestsExecuted": false,
+      "designFindingsResolved": "R01-R26 in specifications; not executable verification",
+      "checks": [
+        {
+          "check": "local_markdown_links",
+          "passed": true,
+          "detail": "all referenced local targets exist"
+        },
+        {
+          "check": "balanced_code_fences",
+          "passed": true,
+          "detail": "all modified/new Markdown fences paired"
+        },
+        {
+          "check": "no_user_specific_absolute_paths",
+          "passed": true,
+          "detail": "no machine paths in changed documents"
+        },
+        {
+          "check": "no_trailing_whitespace",
+          "passed": true,
+          "detail": "all changed files checked, including untracked additions"
+        },
+        {
+          "check": "module_contract_coverage",
+          "passed": true,
+          "detail": {
+            "core": [
+              "M00",
+              "M01",
+              "M02",
+              "M03",
+              "M04",
+              "M05",
+              "M06",
+              "M07",
+              "M08",
+              "M09",
+              "M10",
+              "M11",
+              "M12",
+              "M13",
+              "M14"
+            ],
+            "features": [
+              "F01",
+              "F02",
+              "F03",
+              "F04",
+              "F05",
+              "F06",
+              "F07",
+              "F08",
+              "F09",
+              "F10",
+              "F11"
+            ]
+          }
+        },
+        {
+          "check": "view_registry",
+          "passed": true,
+          "detail": [
+            "bot.list",
+            "bot.badge",
+            "grants.pending",
+            "tasks.list",
+            "session.report",
+            "interaction.window",
+            "conversation.list",
+            "trace.page",
+            "evidence.refs",
+            "search.page",
+            "resource.window",
+            "memory.page",
+            "objectives.page",
+            "settings.snapshot",
+            "diagnostics.snapshot",
+            "clientState.get",
+            "usage.page",
+            "attention.page",
+            "automation.page",
+            "tasks.counts",
+            "pendingInput.peek"
+          ]
+        },
+        {
+          "check": "queue_registry",
+          "passed": true,
+          "detail": [
+            "QG",
+            "QU",
+            "QC",
+            "QA",
+            "QW",
+            "QT",
+            "QX",
+            "QQ",
+            "QP",
+            "QS",
+            "QR",
+            "QB",
+            "QE",
+            "QD"
+          ]
+        },
+        {
+          "check": "future_validation_matrix",
+          "passed": true,
+          "detail": {
+            "ids": [
+              "D01",
+              "D02",
+              "D03",
+              "D04",
+              "D05",
+              "D06",
+              "D07",
+              "D08",
+              "D09",
+              "D10",
+              "D11",
+              "D12",
+              "D13",
+              "D14",
+              "D15",
+              "D16",
+              "D17",
+              "D18"
+            ],
+            "executed": false
+          }
+        },
+        {
+          "check": "self_review_findings",
+          "passed": true,
+          "detail": [
+            "R01",
+            "R02",
+            "R03",
+            "R04",
+            "R05",
+            "R06",
+            "R07",
+            "R08",
+            "R09",
+            "R10",
+            "R11",
+            "R12",
+            "R13",
+            "R14",
+            "R15",
+            "R16",
+            "R17",
+            "R18",
+            "R19",
+            "R20",
+            "R21",
+            "R22",
+            "R23",
+            "R24",
+            "R25",
+            "R26"
+          ]
+        },
+        {
+          "check": "catalog_identity",
+          "passed": true,
+          "detail": {
+            "count": 411,
+            "snapshotCount": 411
+          }
+        },
+        {
+          "check": "source_fingerprint",
+          "passed": true,
+          "detail": "18c69da4cae9cf46ae81bf6f84ff66c9f2e7430da9a38af05648cab5300b420b"
+        },
+        {
+          "check": "original_catalog_contract_snapshot",
+          "passed": true,
+          "detail": "all 411 owner/transport/roles/frame/origin fields identical"
+        },
+        {
+          "check": "routing_owner_schema_and_view_closure",
+          "passed": false,
+          "detail": [
+            [
+              "resource-edit:changed",
+              "no schema binding"
+            ],
+            [
+              "resource-feedback:notice",
+              "no schema binding"
+            ],
+            [
+              "resource-feedback:prepare",
+              "no schema binding"
+            ],
+            [
+              "browser-window:state",
+              "no schema binding"
+            ],
+            [
+              "browser-window:return-target",
+              "no schema binding"
+            ],
+            [
+              "resource-window:return-target",
+              "no schema binding"
+            ],
+            [
+              "resource-window:checkpoint-request",
+              "no schema binding"
+            ],
+            [
+              "resource-window:close-blocked",
+              "no schema binding"
+            ],
+            [
+              "appearance:changed",
+              "no schema binding"
+            ],
+            [
+              "automations:changed",
+              "no schema binding"
+            ],
+            [
+              "automations:open-run",
+              "no schema binding"
+            ],
+            [
+              "browser:panel-reveal-request",
+              "no schema binding"
+            ],
+            [
+              "chat:compaction",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:aborted",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:active-changed",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:connection-recovery",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:delta",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:done",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:error",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:permission-request",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:permission-settled",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:provider-recovery",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:status",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:thinking",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:tool-call",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:tool-progress",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:tool-result",
+              "no schema binding"
+            ],
+            [
+              "chat:stream:usage",
+              "no schema binding"
+            ],
+            [
+              "conversations:changed",
+              "no schema binding"
+            ],
+            [
+              "fs:dir-changed",
+              "no schema binding"
+            ],
+            [
+              "goalPlans:changed",
+              "no schema binding"
+            ],
+            [
+              "goalRunner:changed",
+              "no schema binding"
+            ],
+            [
+              "taskOverview:changed",
+              "no schema binding"
+            ],
+            [
+              "llm:oauth:authorized",
+              "no schema binding"
+            ],
+            [
+              "llm:oauth:pending",
+              "no schema binding"
+            ],
+            [
+              "llm:oauth:refreshed",
+              "no schema binding"
+            ],
+            [
+              "project-agent:changed",
+              "no schema binding"
+            ],
+            [
+              "project-agent:obligation-grants",
+              "no schema binding"
+            ],
+            [
+              "project-agent:conversation-changed",
+              "no schema binding"
+            ],
+            [
+              "project-agent:activity",
+              "no schema binding"
+            ],
+            [
+              "quick-chat-popover:state",
+              "no schema binding"
+            ],
+            [
+              "quick-chat:conversation-created",
+              "no schema binding"
+            ],
+            [
+              "quick-chat:open-conversation",
+              "no schema binding"
+            ],
+            [
+              "quick-chat:popover-closed",
+              "no schema binding"
+            ],
+            [
+              "quick-chat:popover-selected",
+              "no schema binding"
+            ],
+            [
+              "quick-chat:shown",
+              "no schema binding"
+            ],
+            [
+              "runtime:event",
+              "no schema binding"
+            ],
+            [
+              "tray:more",
+              "no schema binding"
+            ],
+            [
+              "tray:new-chat",
+              "no schema binding"
+            ],
+            [
+              "updater:event",
+              "no schema binding"
+            ],
+            [
+              "window:fullscreen-changed",
+              "no schema binding"
+            ],
+            [
+              "workspaces:changed",
+              "no schema binding"
+            ]
+          ]
+        },
+        {
+          "check": "explicit_role_revisions",
+          "passed": true,
+          "detail": {
+            "client-tool:execute": "authenticated-runtime-gateway-only; renderer dispatch retired",
+            "conversations:add-usage": "runtime-provider-producer-only; renderer write retired"
+          }
+        },
+        {
+          "check": "route_kind_totals",
+          "passed": true,
+          "detail": {
+            "command": 252,
+            "query": 78,
+            "client-state": 4,
+            "transient-request": 4,
+            "presentation-request": 16,
+            "sync-bounded": 5,
+            "event": 52
+          }
+        },
+        {
+          "check": "product_source_preserved",
+          "passed": true,
+          "detail": {
+            "head": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+            "dirty": false
+          }
+        },
+        {
+          "check": "git_diff_whitespace",
+          "passed": true,
+          "detail": "tracked diff plus all-file whitespace check above"
+        }
+      ],
+      "passed": false,
+      "files": [
+        {
+          "path": "knowledge/architecture/local-agent-system-blueprint.md",
+          "sha256": "8db4e508a2c3a3472400439b74c36f06cf3979a8b605bb65897a66f239ed424e"
+        },
+        {
+          "path": "knowledge/decisions/00-adr-map.md",
+          "sha256": "998a739f2e03ccf38ad48b26c09020aef8653a5f6c7cf27db2d3859b6a31866d"
+        },
+        {
+          "path": "knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md",
+          "sha256": "071f0a9fd789effb86e787f9f072e1b2947eab5ee2d881a864190115875a63ab"
+        },
+        {
+          "path": "knowledge/experience/runtime-isolation-detailed-design-review.md",
+          "sha256": "5c808de8fb51cb1ab6c2f1488a8a8ade7847182937e2e060bfeee873e16f17da"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/01-protocol-and-command-delivery.md",
+          "sha256": "956f660fc57bede680bdce22e2da0ae7d2c3cef8099bb360d0374e7720845a73"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/02-module-contracts.md",
+          "sha256": "83502dbdb1e36d6819275f1744b2335d3a027ca26975dc51866ba9b08ddd95f5"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/03-query-models.md",
+          "sha256": "e355f10cde38e41a4b7c2d500cf1a8ce88000feb1824927f179971ece875dfef"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/04-queues-and-scheduling.md",
+          "sha256": "09ed3e742b487abc8536f94e093de4278a3c3836c59475357134f37fb704edcc"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/05-storage-and-recovery.md",
+          "sha256": "afa89b4f3060432b16e605d785269c71ded86ffc6c0adc5d636cd9952c7bfa13"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/06-host-and-platform.md",
+          "sha256": "36bf1b1711c1b1512870913d8f64c93953713134df04a4ab7e0c6bb7cb4bf25a"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/07-migration-and-verification.md",
+          "sha256": "07a07c4e4e234006727dd7359ce746cec46f4326a785d7d954455f18d01a95eb"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/README.md",
+          "sha256": "54bdc43709a35e071ee66b4a800a58efd28c6d25227b09077889f6e31d4fe0f0"
+        },
+        {
+          "path": "knowledge/specifications/runtime-isolation/ipc-route-inventory.json",
+          "sha256": "9769879d815e7aaf4fdca60c718ec1245c290beed872e1e4e4b05bafa488ccac"
+        },
+        {
+          "path": "playbook/runtime-isolation-implementation.md",
+          "sha256": "25387a31a51fad2870595c6834ce9999367e99390a04a47aff2f2222d2b77589"
+        }
+      ],
+      "limits": [
+        "No D01-D18 executed",
+        "No actual product refactor",
+        "No independent review",
+        "Original 3949ms outlier remains unattributed",
+        "Feasibility evidence is unchanged and is not a product fix receipt"
+      ]
+    }
+  ]
+}

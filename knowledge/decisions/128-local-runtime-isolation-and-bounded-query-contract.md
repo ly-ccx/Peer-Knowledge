@@ -9,6 +9,8 @@
 
 2026-11-11 补充：首次提案主要展开执行位置与查询隔离，逻辑 Module/依赖仍不够完整。按用户追问新增总体设计，明确产品责任、内部 Module、事实归属、依赖禁令、端到端时序和实施就绪条件。本篇仍为 Proposed，没有扩大为已接受或已实现。
 
+2026-11-11 详细设计修订：用户明确要求先补齐逐模块接口、数据、依赖、队列和异常恢复，再自上而下审查后重构。[详细设计v1](../specifications/runtime-isolation/README.md)已固定15个M模块、11个已有Feature owner、21种View、14条队列、411项现有IPC路由和完整提交/平台/恢复合同。本修订新增设备内command-delivery耐久接收/对账日志、独立计算许可、异步Repository提交及内部Platform invocation context；这些是A 级提案的明确新边界，不伪称只有执行位置变化。命令日志不拥有任务/Grant/Evidence成功真值。`conversations:add-usage`拟退出Renderer计量签发权，`client-tool:execute`的已认证Gateway投递迁入Host；重启pendingTask改为claim后保留、匹配原InputReceipt后CAS清除，旧unknown不重发；其它原scope/角色约束及模型/工具政策保持。每项目受保护writer floor预留13（基线最大12），切换/旧writer/回滚合同见05。
+
 ## 1. 决定要解决的问题
 
 Peer 需要在多年历史、多个项目、并行 Agent、本地模型、多入口和昂贵恢复下，保持输入、阅读、控制与执行事实可靠。逐个缩短热点不能给这一目标建立稳定边界。
@@ -23,7 +25,7 @@ Peer 需要在多年历史、多个项目、并行 Agent、本地模型、多入
 
 | 文件 | 本提案保留 | 拟修订的局部边界 |
 |---|---|---|
-| `85-project-agent-hosts-inputs-and-surfaces.md` | 本地宿主、持久输入、TurnSink、多入口、真实窗口身份 | Desktop 持有宿主职责，不再意味着执行引擎与 Electron main 共用事件循环 |
+| `85-project-agent-hosts-inputs-and-surfaces.md` | 本地宿主、持久输入、TurnSink、多入口、真实窗口身份 | Desktop 持有宿主职责，不再意味着执行引擎与 Electron main 共用事件循环；决策12单帧头像data URL改为03的有界chunk组装，保留≤1MiB与原权限 |
 | `86-batched-persisted-conversation-reads.md` | 旧完整批读兼容、严格版本与错误 | 完整读取不得作为产品查询的主线程回退 |
 | `96-task-execution-responsiveness.md` | 终态提交屏障、权限与 Evidence、恢复和原性能门槛 | 部分 worker 优化升级为系统范围的进程/工作预算；不撤回已有实现 |
 | `98-large-history-execution-responsiveness.md` | 严格版本、Query Scope、缓存隔离、取消及真实负载验收 | 生产展示查询的同步 Interface 分阶段改为异步有界查询；不保留 main 的全量回退 |
@@ -137,7 +139,7 @@ System Context 仍由现有 Sources/assembler 组装，Provider Encoder 仍负�
 - 存储 worker 不依据过期内存快照覆盖文件。真正 commit 在原写锁/事务内重检版本、writer fence 和 ownership；耐久提交后才发布 revision、终态与 Runtime release。
 - 查询按 view/scope 共享在途工作，合并等待刷新标记；限制每个客户端的订阅、分页与在途字节。后台窗口暂停昂贵刷新，恢复时补最新版本。
 - 合并仅用于展示刷新/失效提示；不得丢弃用户输入、Tool Result、批准、取消、Evidence 或耐久执行事件。订阅有序号/cursor，断线可发现 gap 并补读，不能依赖“应该收到了广播”。
-- rebuild/CPU pool 按机器共享配额，不能每个 Bot 建 worker；保留已接受的并发限制并测量峰值内存。队列期限包括等待时间。纯读取超时可以重试，业务命令先查 operation receipt。
+- rebuild/CPU pool 在同一数据根跨宿主共享配额（不新增跨独立根daemon，也不声称整机全根硬上限），不能每个 Bot 建 worker；保留已接受的并发限制并测量峰值内存。队列期限包括等待时间。纯读取超时可以重试，业务命令先查 operation receipt。
 - 所有连接、订阅、worker、重建和平台回调都有 owner/start/drain/dispose。服务退出使连接进入 unavailable，旧 generation 的迟到结果不能推进新回合。
 
 ## 7. 失败与已有状态恢复
@@ -161,7 +163,7 @@ System Context 仍由现有 Sources/assembler 组装，Provider Encoder 仍负�
 
 先建立真实查询/IPC 基线和禁止事项，再引入选择性证据/任务读模型与查询服务；之后搬迁 Runtime 及平台 Adapter。旧同步 API 仅为明确的兼容/取证入口保留，迁完的产品路径不允许 fallback。最后删除旧 main 装配、读取中的业务修复、视图独立全量轮询和反向宿主依赖。
 
-物理 canonical 格式本轮不迁移；若实现必须改变格式、加新的权威数据表或跨 Store 事务，须修订本 ADR 和对应存储 ADR 后实施，不临时把数据库变成第二真源。回滚优先退回代码/进程 Adapter，不能退回旧 writer 去写高版本数据或清缓存冒充恢复。
+既有业务canonical格式本轮不迁移。明确新增的command-delivery.sqlite只拥有新命令接收/路由/对账，compute_permits只拥有临时计算许可；注册、schema、锁/提交及恢复见详细设计05。没有新增全局Task/权限/Evidence真源，也没有假设跨Store原子事务。除此以外再改变格式、权威数据或事务边界，必须先修订ADR。回滚不能让旧writer写高版本项目或清缓存冒充恢复。
 
 ## 9. 可执行验收
 

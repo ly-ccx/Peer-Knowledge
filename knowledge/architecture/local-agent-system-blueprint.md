@@ -81,13 +81,14 @@ Interface 包括输入输出、事实归属、顺序、错误、权限、配置�
 | Module | 唯一职责与主要 Interface | 拥有/提交的事实 | 不得承担 |
 |---|---|---|---|
 | Presentation | 渲染窗口、草稿/焦点/阅读意图；消费 View/Activity；发 typed request | 仅本地表达状态 | 本地 I/O、权限真值、任务推进 |
-| Client Gateway | 验证调用方、协议版本、scope 与请求预算；路由 command/query/subscription | 连接身份、请求生命周期 | 业务修复、模型循环、全历史查询、通用 fs/shell |
+| Client Gateway | 验证调用方、协议版本、scope 与请求预算；路由 command/query/subscription | 连接身份、请求生命周期与命令交付/对账日志；不拥有领域成功 | 业务修复、模型循环、全历史查询、通用 fs/shell |
 | Work Coordination | 接收已耐久输入/事件，消费模型语义决定与纯处置内核，选择推进/等待/交还；`handleInput/handleEvent` | 既有 Work/Intent/mandate/disposition/交付关系 | 签发 Grant、判断工具已停、构建 UI 全量任务卡 |
 | Session Scheduler | 排序、配额、公平、依赖与并发；`enqueue/select/onSettlement` | 既有排队/调度事实，不另立任务真源 | 杀进程、猜验收、用展示状态代替资源预留 |
 | Session Control | 同一执行的 pause/cancel/takeover/resume 屏障；`request/reconcile/readControlFacts` | ControlOperation、StopBarrierReceipt 与兼容镜像 | 模型规划、从 cancelled 推断停稳、删除 unknown |
 | Resource Admission | 按实际执行身份原子 inspect/reserve/activate/settle | 原资源账本的 claim/receipt/protection | 调度语义、用户授权、结果签收 |
 | Agent Turn | 运行一个已准入 attempt 的上下文—模型—工具循环；`run/interrupt/reattach` | attempt、流式 sidecar 与真实终态提交回执 | 承诺根目标完成、改权限、替上层处置所有任务 |
 | Context Admission | 将有来源的项目指令、当前输入、引用、记忆、能力与连续性组装为受预算请求 | 既有 context epoch/snapshot/source refs | 执行能力、把工具/网页/文件内容提升成系统指令 |
+| Model Provider / Encoder | 按已冻结角色/渠道/模型执行认知请求，负责凭据seam、Provider编码与结构化流 | 原模型dispatch/计量来源；usage由既有owner记录 | 本地能力执行、签发Grant、决定验收或复制UI/协调规则 |
 | Capability Runtime | 统一 Manifest/Projection、ToolCall、Grant 校验、Provider 路由与结果/Evidence 结算；`invoke/settle` | 真实调用生命周期；提交 Provider 产生的结构化结果与 Evidence | 新增 Bash/MCP/Plugin 旁路、依据助手文字生成成功 |
 | Authorization | 解析当前主体与策略，审查决定并生成/验证逐操作 Grant；`resolve/review/validate` | 原策略 revision、待批准与 PermissionGrant | 调用工具、调度任务、以 UI 选中值当批准事实 |
 | Verification / Acceptance | 绑定准确结果版本，发出既有核验任务，按证据和政策决定验收/签收；`requestReview/applyVerdict/accept` | 核验请求/结论、既有 resultAcceptance/交付回执 | 为展示补 passed、用报告反向调用自己的完整验收投影 |
@@ -223,7 +224,7 @@ Host 先验证数据根/schema、进程代次、lease/fence，再对各 owner �
 
 Desktop 以 `utilityProcess` Adapter 启动，TUI/CLI 用其分发运行时的可移植 Host Adapter，共享业务 Module。独立 OS 常驻服务是部署 seam 的后续选择，不在本篇强制安装。进程退出后的任务/副作用状态只按回执与现有保护处理，不承诺父进程死后子进程必然存活或死亡。
 
-控制、执行、查询、重建分别有队列、deadline、在途字节和配额。CPU/rebuild pool 按机器共享限制，不能每 Bot 派一套 pool。优先级不能打断已经运行的同步 JS；单个正常控制/main 工作片的设计预算为 8ms，超出须移出或在重检版本后分批让出。任何慢任务都能定位其 request/operation、排队、CPU/I/O、返回字节与来源版本。
+控制、执行、查询、重建分别有队列、deadline、在途字节和配额。CPU/rebuild pool 在同一数据根跨宿主共享限制，不能每 Bot 派一套 pool；本版不新增跨独立数据根的机器daemon或宣称整机硬上限。优先级不能打断已经运行的同步 JS；单个正常控制/main 工作片的设计预算为 8ms，超出须移出或在重检版本后分批让出。任何慢任务都能定位其 request/operation、排队、CPU/I/O、返回字节与来源版本。
 
 ## 9. 已有功能与未来扩展的接入位置
 
@@ -270,19 +271,18 @@ Desktop 以 `utilityProcess` Adapter 启动，TUI/CLI 用其分发运行时的�
 
 静态规则、计数测试、真实 Module/进程契约、故障注入、复杂度实验和产品负载共同执行这些约束。没有这些证据，只能说设计有边界，不能说实现已经解耦。
 
-## 12. 方案完整性与实施就绪度
+## 12. 方案完整性与详细设计
 
-本篇补全总体设计层：产品目标、系统上下文、逻辑 Module、依赖、事实/数据归属、四条端到端时序、部署/调度、扩展位置、旧代码迁移与验收。ADR128 管理需改变的边界，实施包管理顺序。三者不能互相替代。
+2026-11-11 用户要求在重构前一次补齐并审查详细设计，取代本篇初版“每阶段再补细节”的安排。总体设计管职责，ADR128管边界，实施包管顺序；现已新增[完整详细设计目录](../specifications/runtime-isolation/README.md)。
 
-以下详细设计仍须在对应实施包开工前闭合，不能交由实现者临时猜测：
+| 设计部分 | 固定规格 |
+|---|---|
+| 模块接口/事实/依赖 | [15个核心M模块、11个已有Feature owner](../specifications/runtime-isolation/02-module-contracts.md) |
+| 协议/schema/回执 | [01：方法目录、身份、幂等、错误、订阅](../specifications/runtime-isolation/01-protocol-and-command-delivery.md)，以及411项现有IPC冻结映射 |
+| 读模型 | [03：21种View、字段/索引/分页/版本/重建](../specifications/runtime-isolation/03-query-models.md) |
+| 队列与资源 | [04：14条队列、容量/保留通道/期限/背压](../specifications/runtime-isolation/04-queues-and-scheduling.md) |
+| 写入与恢复 | [05：物理数据、命令日志、锁/CAS、崩溃点、旧writer](../specifications/runtime-isolation/05-storage-and-recovery.md) |
+| 宿主/平台/凭据 | [06：进程入口、bootstrap、Broker白名单、ticket、secret、打包](../specifications/runtime-isolation/06-host-and-platform.md) |
+| 迁移与验证 | [07：入口/删除项、D01–D18、候选与发布门](../specifications/runtime-isolation/07-migration-and-verification.md) |
 
-| 详细设计 | 交付物 | 阻挡的阶段 |
-|---|---|---|
-| Gateway/Query/Command/订阅消息 | Protocol 类型、schema、方法目录、角色/identity 校验与兼容表 | RI-02 / RI-03 |
-| 各命名读模型 | 字段/索引键、canonical revision、增量更新/重建/失效算法、条数/字节/内存预算 | RI-01 / RI-02 |
-| 控制/执行/重建资源分配 | 队列容量、保留容量、期限/公平策略、总 pool 配额和计量定义 | RI-02 / RI-03 |
-| 每个 Store 与 worker 的提交 | writer fence/锁次序、prepare/commit 回执、冲突与崩溃点矩阵 | RI-03 / RI-04 |
-| 平台/Provider 跨进程执行 | 具体 Broker 方法白名单、执行上下文/ticket 校验、凭据/OS 依赖与取消归属 | RI-03 |
-| 宿主与打包 | Desktop/TUI 进程入口、schema 握手、生命周期/升级失败、签名 ASAR 与 Windows/Linux 验证 | RI-03 / RI-05 |
-
-这不是允许把风险留到最后的待办。阶段开工前必须写出该阶段的方法签名、依赖图、真实调用顺序、来源版本、异常恢复和可观察验收；缺一项则该阶段未就绪。当前完成的是可审查的总体提案，尚不是所有实施细节已定或代码重构完成。
+本轮先完成这些设计的自上而下内容审查，再进入重构；不把接口、队列或恢复分叉留给实现者选择。容量和平台适配必须在实现时被证实，失败须回写设计而非现场降级。当前仍是Proposed设计候选，未修改产品实现；设计闭合不表示运行验收完成。

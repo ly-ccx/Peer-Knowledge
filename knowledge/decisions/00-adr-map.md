@@ -316,3 +316,5 @@ ADR128 拟修订 85/86/96/98/104-progressive-interaction-and-coordination-storag
 本次工作树核对：新增 ADR128 后为 115 个决策文件、111 个编号；历史日期的统计保留为当时记录。
 
 同日补充 [Peer 本地代理系统总体设计](../architecture/local-agent-system-blueprint.md)：自产品目标推导逻辑 Module、事实归属、依赖禁令、四条完整时序与详细设计就绪条件；是 ADR128 提案的支撑，不另立新 ADR，不表示具体方案已接受或代码已解耦。
+
+同日按用户要求补齐[详细设计v1](../specifications/runtime-isolation/README.md)，重构前先审查；明确新增command交付日志/计算许可/异步提交/平台上下文、两项Renderer生产角色收紧、头像分片和pending输入交接，受保护writer floor预留13。15个核心Module与11个已有Feature owner、21种View、14条队列和411项IPC路由均在规格中固定。[自上而下自审回执](../experience/runtime-isolation-detailed-design-review.md)保留R01–R26发现与修订；ADR128仍为Proposed、未开始产品重构，原先“每阶段再补设计”的安排被本轮要求取代。
