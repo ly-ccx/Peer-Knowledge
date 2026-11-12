@@ -4,7 +4,9 @@
 最后更新：2026-11-12
 状态：已交付坏基线，RI-00门仍未闭合；只授权取证、诊断脚本与失败基线，不表示ADR128整体已接受或开始性能重构。
 
-2026-11-12重开续证：[重开对照](../knowledge/experience/runtime-isolation-ri00-restart-control.md)、[回执](evidence/runtime-isolation-ri00-restart-20261112.json)。同文件宿主夹测、无CPU的自然6.57秒及全真实源只读基线已取得；旧Path额外成本消失，跨宿主归一化剩余成本仍待受控归因，G2未通过。当前没有新的用户重开请求或授权等待，所有已启用探针均收尾关闭。
+2026-11-12归一化续证：[CPU/堆/节奏对照](../knowledge/experience/runtime-isolation-ri00-normalization-cpu.md)、[逐点回执](evidence/runtime-isolation-ri00-normalization-20261112.json)。15秒节奏可重复增加CPU，完整幅度未稳定复验；同源三对新进程中，交换初始读取顺序可重复造成约22–26ms归一化CPU增量，是部分形成条件。尚未把该顺序绑定到实际启动，不能与不同窗口节奏差直接相加宣布约430/500ms闭合。自然0.5秒读点的主/后台CPU与堆状态已补采；tier/保护状态、代际与64样本对象大小未提供唯一原因。用户已授权安全退出后的一次启动采样，观察器已在隔离Electron验证；G2未通过，RI-01与重构不开始。
+
+2026-11-12重开续证：[重开对照](../knowledge/experience/runtime-isolation-ri00-restart-control.md)、[回执](evidence/runtime-isolation-ri00-restart-20261112.json)。同文件宿主夹测、无CPU的自然6.57秒及全真实源只读基线已取得；旧Path额外成本消失，跨宿主归一化剩余成本仍待受控归因，G2未通过。该轮已启用探针均收尾关闭；后续启动采样安排以上方最新续证为准。
 
 最新结果见[自然停顿续证](../knowledge/experience/runtime-isolation-ri00-natural-followup.md)及[续证回执](evidence/runtime-isolation-ri00-natural-20261112.json)，首轮[调查](../knowledge/experience/runtime-isolation-ri00-investigation.md)与[原回执](evidence/runtime-isolation-ri00-20261112.json)保留。已补到5.417秒自然同窗调用链和完整坏基线；长期main的Path/getPlan成本差额已定位，但慢化触发原因仍未证实，RI-01不得自动开始。
 
