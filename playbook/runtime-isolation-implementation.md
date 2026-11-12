@@ -62,7 +62,7 @@
 
 ## 6. 本轮收据
 
-2026-11-12长时观察进行中：[单次最长4小时的自然触发合同](../knowledge/experience/runtime-isolation-ri00-long-watch.md)、[工具资格及入场快态回执](evidence/runtime-isolation-ri00-long-watch-qualification-20261112.json)。不再按短窗口定时夹测；同一实际进程、常驻只读参照，完整前史先落盘后ACK，90秒失联租约与CPU/内存/磁盘预算独立生效。两次初始夹测均为合格快态，之后等待自然指纹触发；一次补充code统计会完成已有sweeping，已明确标记诊断干预而非被动计数。只有停止、恢复与端口关闭后才封存实际结果；进行中不算残差归因或RI-00闭合，重构不开始。
+2026-11-13长时观察审计：[C1封存与干预缺陷](../knowledge/experience/runtime-isolation-ri00-long-watch.md)、[155根逐点回执](evidence/runtime-isolation-ri00-long-watch-c1-20261113.json)、[v2等待阶段无V8统计getter合同](../knowledge/experience/runtime-isolation-ri00-passive-watch-v2.md)。C1运行109.55分钟后因heap/space getter释放分配区的已知干预主动封存；方法/binding恢复、端口关闭、原应用进程保留。该数据不是纯自然负例，getter影响也不是30–40ms根因。v2先机械验证自然/取回/续租路径不调用三类getter，再以累计剩余预算继续；新探针/参照不继承C1快态，空窗明确记录，RI-01不开始。
 
 2026-11-12密集残差专项：[同进程形成采样合同与结果](../knowledge/experience/runtime-isolation-ri00-dense-residual-capture.md)、[逐点回执](evidence/runtime-isolation-ri00-dense-residual-20261112.json)。固定实际进程、一个常驻只读参照和同一探针，0/7/14分钟夹测，连续保存自然前史；首点因参照极差拒绝基线，第7分钟建立快态，第14分钟仍快，未出现目标30–40ms残差。19.5分钟78个自然根、48/24次受控读，源/输出/工具身份一致，探针恢复、端口关闭。合成30ms触发只验证采样器；首轮Inspector失败保留并修正批次持有/确认。该负结果不解释旧密集残差，RI-00不闭合，RI-01与重构未开始。
 
