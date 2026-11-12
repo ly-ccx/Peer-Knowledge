@@ -1,7 +1,7 @@
 # 本地运行时隔离实施包
 
 创建时间：2026-11-11
-最后更新：2026-11-12
+最后更新：2026-11-13
 状态：待 ADR128 评审的实施计划；没有产品实现已完成的暗示。
 
 决策：[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。总体设计：[逻辑 Module、依赖与完整链路](../knowledge/architecture/local-agent-system-blueprint.md)。调查：[响应性架构审查](../knowledge/experience/desktop-runtime-responsiveness-architecture-audit.md)。本文件不创建新的执行权限、生命周期策略或存储真源。
@@ -61,6 +61,8 @@
 - 合成负载、本地真实历史副本、真实模型任务、签名包和各平台分别给结果。未覆盖的项目保持未验证，不能交给用户安装试验后再判定。
 
 ## 6. 本轮收据
+
+2026-11-13实际C2已收尾：[长时合同及证据总账](../knowledge/experience/runtime-isolation-ri00-passive-watch-v2.md#7-实际c2收尾与证据总账)、[129包络完整回执](evidence/runtime-isolation-ri00-passive-v2-c2-20261113.json)。同一应用进程129.03分钟、main主动读体12.253496秒且只在入场夹测；等待无追加业务读，零丢失/ACK差额，方法/binding/watchers/实际端口恢复。排除唯一可见诊断重入后128包络CPU中位434.0065ms，未触发自然慢化；不据此解释旧30–40ms，也不推断全程密集快态。8534内容文件+空fence目录与已回放C1 manifest完全相同；本轮不再开新宿主跑性能负例。累计预算不足自动接续，G2仍需真实形成及机制回放，RI-01/重构冻结。
 
 2026-11-13长时观察审计：[C1封存与干预缺陷](../knowledge/experience/runtime-isolation-ri00-long-watch.md)、[155根逐点回执](evidence/runtime-isolation-ri00-long-watch-c1-20261113.json)、[v2等待阶段无V8统计getter合同](../knowledge/experience/runtime-isolation-ri00-passive-watch-v2.md)。C1运行109.55分钟后因heap/space getter释放分配区的已知干预主动封存；方法/binding恢复、端口关闭、原应用进程保留。该数据不是纯自然负例，getter影响也不是30–40ms根因。v2先机械验证自然/取回/续租路径不调用三类getter，再以累计剩余预算继续；新探针/参照不继承C1快态，空窗明确记录，RI-01不开始。
 
