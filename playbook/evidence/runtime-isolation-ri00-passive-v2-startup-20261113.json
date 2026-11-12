@@ -1,0 +1,70 @@
+{
+  "kind": "RI00-v2-actual-startup-not-completion",
+  "atUtc": "2026-11-12T17:58:47.787Z",
+  "sourceCandidate": "63750ee03f4987e2213aa54c9acc56b0d4ecfc84",
+  "sameOriginalApplicationProcess": true,
+  "priorReferenceOrFastGateInherited": false,
+  "repairGapPreserved": true,
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "actualObservationStillRunning": true,
+  "phase": "armed-entry-unqualified",
+  "firstQualifiedFastDeltasMs": [
+    -13.20999999999998,
+    -11.228999999999985
+  ],
+  "secondCheckRejected": {
+    "reason": "unmatched_gc_state_or_unstable_warm",
+    "summaries": [
+      {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 252.22699999999998,
+        "median": 252.22699999999998,
+        "compatibleRange": 6.079000000000036
+      },
+      {
+        "all": 8,
+        "warm": 7,
+        "compatible": 6,
+        "fullWarmMedian": 262.938,
+        "median": 262.496,
+        "compatibleRange": 16.75999999999999
+      },
+      {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 251.723,
+        "median": 251.723,
+        "compatibleRange": 6.136000000000024
+      }
+    ],
+    "referenceCompatibleRangeMs": 16.76,
+    "rangeLimitMs": 15,
+    "notClaimedFast": true
+  },
+  "mainControlledCpuMs": 12253.496000000003,
+  "controllerCpuMs": 1018.187,
+  "naturalRowsAtSnapshot": 12,
+  "naturalHeapFieldsAbsent": true,
+  "privateStartupSnapshotSha256": "70edc444c499dd79603dd7b8ab5db62cacf2e41e1292c452bcdd9bf2b594114d",
+  "remainingBudgetAtStart": {
+    "durationMs": 7827034,
+    "controllerCpuMs": 11798.818,
+    "archiveBytes": 1026578587,
+    "hosts": {
+      "main": {
+        "readCpuMs": 47566.284,
+        "nativeCpuMs": 2676.06,
+        "probeCpuMs": 4655.59300000587
+      },
+      "reference": {
+        "readCpuMs": 49972.487,
+        "nativeCpuMs": 2836.169,
+        "probeCpuMs": 4565.414000000008
+      }
+    }
+  }
+}
