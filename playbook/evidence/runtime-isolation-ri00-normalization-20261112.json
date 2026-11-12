@@ -9535,9 +9535,11 @@
     }
   ],
   "actualStartupCapture": {
-    "status": "user authorized one sampling launch; waiting for user safe exit, no launch performed yet",
+    "status": "authorized launch not performed: original app remains running; bounded waiters ended; resume after user safe exit",
     "driverNeverLaunchesOrRestartsApp": true,
     "separateOneTimeLauncherAuthorizedByUser": true,
+    "noBackgroundLaunchWatcherActive": true,
+    "launchPerformed": false,
     "purpose": "bind actual early read admission/order to isolated trigger; fs reads are not normalization call counts",
     "firstFailedCanaries": [
       "v1 syntax preflight missing; fixed before actual use",

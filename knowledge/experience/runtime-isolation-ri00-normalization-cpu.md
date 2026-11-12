@@ -97,7 +97,11 @@ M组在实际进程补采120秒自然读取，不启 CPU profiler、FS/JSON 包�
 
 两组查询后的编译tier、保护状态和立即代际抽样仍相同。编译/反优化/预分配日志保留了具体事件，不能从都有wrong-map或allocation-site变化便宣称是唯一原因。release Electron的DebugPrint仅提供brief引用，没有详细map布局，未把缺失信息当一致。另在**独立冻结fixture**所有计量结束后取堆快照，只输出64个分层样本的self size/类型摘要；原始/归一化对象、属性backing及相关字符串大小逐位置摘要相同。快照会GC，未对实际应用取快照，快照后状态不冒充计量时状态；也不从self size推断全部map/机器码一致。
 
+上述快照约束依据[V8同版本的GenerateSnapshot回收路径](https://raw.githubusercontent.com/v8/v8/14.6.202.34/src/profiler/heap-snapshot-generator.cc)与[Node24.15.0的writeHeapSnapshot文档](https://raw.githubusercontent.com/nodejs/node/v24.15.0/doc/api/v8.md)：同步快照及版本相关schema只用于计量后隔离样本分析。
+
 为了补实际形成链，启动读取观察器已准备并验证：在新Electron入口前挂接，按数据类别计数，首个索引前计划文件读分别为0与1662；两fixture都为2851次计划文件读/1次索引文件读，零读取失败/源写拒绝。该观察只证明FS读取与raw缓存准入顺序，不把1次文件读写成1次归一化，更不声称8次合成调用就是现场实际次数。用户已明确授权安全退出后的一次临时采样启动；尚须确认旧实例退出再启动，不由代理结束现用任务。
+
+本轮收尾时原实例仍在运行，授权启动尚未发生；有界等待器已退出，无后台启动watcher遗留。用户的一次启动授权保留，待安全退出后继续取证；不是再次请求确认，也不把等待状态写成实际启动结果。
 
 ## 7. 当前边界与剩余门
 
