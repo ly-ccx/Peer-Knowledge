@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-12授权启动续证：[现场读取顺序、夹测、自然节奏与ABBA](../knowledge/experience/runtime-isolation-ri00-startup-followup.md)、[新回执](evidence/runtime-isolation-ri00-startup-20261112.json)。启动已执行一次，应用保留运行；新密集窗口无旧正向CPU差，项目页自然读取仍约500ms，计量开关未消除阻塞，同源隔离15秒读取也达到该量级。历史430ms与当前500ms不是同窗受控差，旧进程形成与首次索引顶层栈缺口仍保留；RI-00未闭合，不进入RI-01。
+
 2026-11-12归一化续证：[CPU/堆/节奏对照](../knowledge/experience/runtime-isolation-ri00-normalization-cpu.md)、[逐点回执](evidence/runtime-isolation-ri00-normalization-20261112.json)。隔离15秒节奏的部分CPU增量已重复出现，完整幅度与实际main的密集剩余差额仍未闭合；自然资源、同源密集夹测、GC原因、缓存元数据、编译/分配状态的正反结果均保留。G2未通过，RI-01与重构不开始；不把VM开关、合成live set或单个500ms点当成根治方案。
 
 2026-11-12用户重开后：[对照结果](../knowledge/experience/runtime-isolation-ri00-restart-control.md)、[新回执](evidence/runtime-isolation-ri00-restart-20261112.json)。无CPU/FS/JSON的新进程仍自然停顿6.57秒，runner读取入口新增turnFacts/readSlot的真实调用栈；同文件旧Path慢化不再出现，全真实源只读基线约430ms但现场仍约500ms，主要差额在Evidence归一化CPU段。UI host回调存在而provider为null，不能把GoalPlanStore端口缺失与host端口混为一谈。G2仍未完全闭合，RI-01与产品重构未启动；不自行放宽原门或把重开称为修复。
