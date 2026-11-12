@@ -92,3 +92,8 @@ C1与C2合计活动预算接近4小时；继续接续仍须扣已用成本，剩
 实际C2完整成功，不受本节缺陷影响。审查发现旧`captureBudget`仅凭恢复字段和ACK差额零，可能允许包含Inspector/RPC超时或断线的失败回执接续；若仍有未计量的在途读，零字段不能证明真实成本完整。另发现缺失`mainCpuMs`可经NaN比较漏过差额核验。两者违背既有“未知成本拒绝”要求，不改变产品或架构边界。
 
 后续诊断修补须：成功回执的ok/空failures一致；失败只准入明确source watcher error、匹配failed原因且observer已closed/零live/零closeFailures，仍满足所有既有主/参照恢复和成本条件；RPC超时/断线、混合/未知错误及不完整observer拒绝，即使ACK为零。acknowledged mainCpuMs必须有限非负。先保留失败测试，再修实现；本轮实际结果始终绑定63750ee，不用后续候选冒领现场验证。
+
+
+观察后修补候选`ca684d70060d35d9974f9b539315bd3e0395286a`已提交推送：[准入回归回执](../../playbook/evidence/runtime-isolation-ri00-budget-admission-20261113.json)。原实现下保留8项中5通过/3失败，再修实现；最终预算/长观察/源observer共21项通过，语法/diff通过。真实C1成功回执在最终候选仍产生与C2入场完全相同的剩余预算；真实C2回执进一步自动接续被`capture_budget_remaining_insufficient`拒绝，没有重置。零ACK的RPC超时/断线/混合错误、ok与failures矛盾、失败回执缺失observer、已提供却未关闭/损坏的observer及未知ack CPU均拒绝；无observer的旧成功回执保留兼容，已知watcher失败的完整恢复可扣减接续。实际C2封存摘要未变，ca684d7未拿来冒领现场采样或新性能结果。
+
+关联PR workflow/status查询均为空，不称绿色CI。C级诊断，沿用`00-adr-map.md`、`96-task-execution-responsiveness.md`和仍Proposed的`128-local-runtime-isolation-and-bounded-query-contract.md`，现行边界不动。文档/JSON/链接/隐私/diff为实施者自审；未做新的真实模型、安装、产品交互或发布验收。运行中的原应用及个人任务保留，当前无本轮活动探针/owned参照/控制器。
