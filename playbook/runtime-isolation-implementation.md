@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-12再次授权启动续证：[首次Evidence完整顶层链、3对回收状态干预与5分钟自然窗口](../knowledge/experience/runtime-isolation-ri00-startup-topchain.md)、[回执](evidence/runtime-isolation-ri00-startup-topchain-20261112.json)。托盘初始化Badge计数经BotDirectory/批量Supervisor/核验触发首次Evidence，27帧同步栈和异步装配入口均已捕到；RI-01覆盖必须包括Shell启动回调，落在已有bot.badge→M12合同，不能只迁Renderer RPC。自然周期额外指令的3对干预及最后一个自然恢复快点已经补到，旧密集残差形成仍未证明；三轮夹测为负例而非历史归因。用户本次授权启动已执行，应用保留运行，探针和实际端口关闭，不开始RI-01或重构。
+
 2026-11-12同进程续证：[现场转换、自然入口与原生分配标记配对](../knowledge/experience/runtime-isolation-ri00-thread-transition.md)、[逐点回执](evidence/runtime-isolation-ri00-thread-transition-20261112.json)。实际完整查询已有快→慢→快，直接自然查询的主线程指令与额外后台CPU已补到；3个自然窗口均有major/incremental与分配标记或写屏障栈，暖读后3点未采到这些栈。GC observer的零不再用于排除GC，原生样本数不换算成精确毫秒，不把全部残差写成暂停成本。启动恢复顶层链已找回，首次索引上层连接尚缺；用户已授权另一次启动，但须等明确安全退出通知。RI-00门不放宽，不开始RI-01或重构。
 
 2026-11-12授权启动续证：[现场读取顺序、夹测、自然节奏与ABBA](../knowledge/experience/runtime-isolation-ri00-startup-followup.md)、[新回执](evidence/runtime-isolation-ri00-startup-20261112.json)。启动已执行一次，应用保留运行；新密集窗口无旧正向CPU差，项目页自然读取仍约500ms，计量开关未消除阻塞，同源隔离15秒读取也达到该量级。历史430ms与当前500ms不是同窗受控差，旧进程形成与首次索引顶层栈缺口仍保留；RI-00未闭合，不进入RI-01。
