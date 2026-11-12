@@ -4,6 +4,8 @@
 最后更新：2026-11-12
 状态：已交付坏基线，RI-00门仍未闭合；只授权取证、诊断脚本与失败基线，不表示ADR128整体已接受或开始性能重构。
 
+2026-11-12同进程续证：[现场转换、自然入口与原生分配标记配对](../knowledge/experience/runtime-isolation-ri00-thread-transition.md)、[逐点回执](evidence/runtime-isolation-ri00-thread-transition-20261112.json)。实际完整查询已有快→慢→快，直接自然查询的主线程指令与额外后台CPU已补到；3个自然窗口均有major/incremental与分配标记或写屏障栈，暖读后3点未采到这些栈。GC observer的零不再用于排除GC，原生样本数不换算成精确毫秒，不把全部残差写成暂停成本。启动恢复顶层链已找回，首次索引上层连接尚缺；用户已授权另一次启动，但须等明确安全退出通知。RI-00门不放宽，不开始RI-01或重构。
+
 2026-11-12授权启动已执行：[现场顺序及计量自检](../knowledge/experience/runtime-isolation-ri00-startup-followup.md)、[回执](evidence/runtime-isolation-ri00-startup-20261112.json)。首次索引前已有2086次计划文件读；新进程密集夹测未出现旧正向残差，恢复项目页后自然轮询仍约500ms。细粒度计量ABBA开/关中位507.782/507.909ms，不能将主要成本归给探针。相同源宿主15秒节奏也复现约500ms完整读取；旧进程形成与启动顶层栈缺口保留，G2不自行放宽，重构未开始。此前“等待退出”的收据为历史阶段，当前应用已打开、采样探针与端口均按轮恢复关闭。
 
 2026-11-12归一化续证：[CPU/堆/节奏对照](../knowledge/experience/runtime-isolation-ri00-normalization-cpu.md)、[逐点回执](evidence/runtime-isolation-ri00-normalization-20261112.json)。15秒节奏可重复增加CPU，完整幅度未稳定复验；同源三对新进程中，交换初始读取顺序可重复造成约22–26ms归一化CPU增量，是部分形成条件。尚未把该顺序绑定到实际启动，不能与不同窗口节奏差直接相加宣布约430/500ms闭合。自然0.5秒读点的主/后台CPU与堆状态已补采；tier/保护状态、代际与64样本对象大小未提供唯一原因。用户已授权安全退出后的一次启动采样，观察器已在隔离Electron验证；G2未通过，RI-01与重构不开始。

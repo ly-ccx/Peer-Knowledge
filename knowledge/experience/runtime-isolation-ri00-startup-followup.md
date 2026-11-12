@@ -2,6 +2,8 @@
 
 日期：2026-11-12。接续[归一化CPU对照](runtime-isolation-ri00-normalization-cpu.md)。[逐点回执](../../playbook/evidence/runtime-isolation-ri00-startup-20261112.json)只包含脱敏数据；原始记录保存在私有目录。
 
+后续：同一进程的转换、自然入口硬件计数和原生分配/标记配对已补采；恢复顶层链已从本页原始记录找回。最新状态见[同进程续证](runtime-isolation-ri00-thread-transition.md)。下文保留当时的测量与缺口，不以旧的“尚未捕到转换”描述覆盖新证据。
+
 状态：RI-00未闭合，RI-01与产品重构未开始。此次没有交付性能修复。
 
 ## 启动事实
