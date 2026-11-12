@@ -4,6 +4,8 @@
 最后更新：2026-11-12
 状态：已交付坏基线，RI-00门仍未闭合；只授权取证、诊断脚本与失败基线，不表示ADR128整体已接受或开始性能重构。
 
+2026-11-12长时观察进行中：[单次最长4小时的自然触发合同](../knowledge/experience/runtime-isolation-ri00-long-watch.md)、[工具资格及入场快态回执](evidence/runtime-isolation-ri00-long-watch-qualification-20261112.json)。不再按短窗口定时夹测；同一实际进程、常驻只读参照，完整前史先落盘后ACK，90秒失联租约与CPU/内存/磁盘预算独立生效。两次初始夹测均为合格快态，之后等待自然指纹触发；一次补充code统计会完成已有sweeping，已明确标记诊断干预而非被动计数。只有停止、恢复与端口关闭后才封存实际结果；进行中不算残差归因或RI-00闭合，重构不开始。
+
 2026-11-12密集残差专项：[同进程形成采样合同与结果](../knowledge/experience/runtime-isolation-ri00-dense-residual-capture.md)、[逐点回执](evidence/runtime-isolation-ri00-dense-residual-20261112.json)。固定实际进程、一个常驻只读参照和同一探针，0/7/14分钟夹测，连续保存自然前史；首点因参照极差拒绝基线，第7分钟建立快态，第14分钟仍快，未出现目标30–40ms残差。19.5分钟78个自然根、48/24次受控读，源/输出/工具身份一致，探针恢复、端口关闭。合成30ms触发只验证采样器；首轮Inspector失败保留并修正批次持有/确认。该负结果不解释旧密集残差，RI-00不闭合，RI-01与重构未开始。
 
 2026-11-12再次授权启动续证：[首次Evidence完整顶层链、3对回收状态干预与5分钟自然窗口](../knowledge/experience/runtime-isolation-ri00-startup-topchain.md)、[回执](evidence/runtime-isolation-ri00-startup-topchain-20261112.json)。已按用户安全退出通知执行一次30秒深栈采样，真实入口为desktop-affordances→托盘Badge计数→BotDirectory→会话批量核验→Evidence；27帧同步栈及异步入口齐全，采样恢复/端口关闭。自然周期额外指令已有实际栈和3对干预支持，5分钟20个自然目标根仍约500ms并失败原预算，最后一个自然快点与标记/后台CPU下降同窗。三轮同源夹测未重现旧密集正向残差，该历史形成条件不补造；RI-00不提前关闭，重构未开始。

@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-12长时观察进行中：[单次最长4小时的自然触发合同](../knowledge/experience/runtime-isolation-ri00-long-watch.md)、[工具资格及入场快态回执](evidence/runtime-isolation-ri00-long-watch-qualification-20261112.json)。不再按短窗口定时夹测；同一实际进程、常驻只读参照，完整前史先落盘后ACK，90秒失联租约与CPU/内存/磁盘预算独立生效。两次初始夹测均为合格快态，之后等待自然指纹触发；一次补充code统计会完成已有sweeping，已明确标记诊断干预而非被动计数。只有停止、恢复与端口关闭后才封存实际结果；进行中不算残差归因或RI-00闭合，重构不开始。
+
 2026-11-12密集残差专项：[同进程形成采样合同与结果](../knowledge/experience/runtime-isolation-ri00-dense-residual-capture.md)、[逐点回执](evidence/runtime-isolation-ri00-dense-residual-20261112.json)。固定实际进程、一个常驻只读参照和同一探针，0/7/14分钟夹测，连续保存自然前史；首点因参照极差拒绝基线，第7分钟建立快态，第14分钟仍快，未出现目标30–40ms残差。19.5分钟78个自然根、48/24次受控读，源/输出/工具身份一致，探针恢复、端口关闭。合成30ms触发只验证采样器；首轮Inspector失败保留并修正批次持有/确认。该负结果不解释旧密集残差，RI-00不闭合，RI-01与重构未开始。
 
 2026-11-12再次授权启动续证：[首次Evidence完整顶层链、3对回收状态干预与5分钟自然窗口](../knowledge/experience/runtime-isolation-ri00-startup-topchain.md)、[回执](evidence/runtime-isolation-ri00-startup-topchain-20261112.json)。托盘初始化Badge计数经BotDirectory/批量Supervisor/核验触发首次Evidence，27帧同步栈和异步装配入口均已捕到；RI-01覆盖必须包括Shell启动回调，落在已有bot.badge→M12合同，不能只迁Renderer RPC。自然周期额外指令的3对干预及最后一个自然恢复快点已经补到，旧密集残差形成仍未证明；三轮夹测为负例而非历史归因。用户本次授权启动已执行，应用保留运行，探针和实际端口关闭，不开始RI-01或重构。
