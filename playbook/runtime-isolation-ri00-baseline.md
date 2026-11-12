@@ -4,6 +4,8 @@
 最后更新：2026-11-12
 状态：已交付坏基线，RI-00门仍未闭合；只授权取证、诊断脚本与失败基线，不表示ADR128整体已接受或开始性能重构。
 
+2026-11-12重开续证：[重开对照](../knowledge/experience/runtime-isolation-ri00-restart-control.md)、[回执](evidence/runtime-isolation-ri00-restart-20261112.json)。同文件宿主夹测、无CPU的自然6.57秒及全真实源只读基线已取得；旧Path额外成本消失，跨宿主归一化剩余成本仍待受控归因，G2未通过。当前没有新的用户重开请求或授权等待，所有已启用探针均收尾关闭。
+
 最新结果见[自然停顿续证](../knowledge/experience/runtime-isolation-ri00-natural-followup.md)及[续证回执](evidence/runtime-isolation-ri00-natural-20261112.json)，首轮[调查](../knowledge/experience/runtime-isolation-ri00-investigation.md)与[原回执](evidence/runtime-isolation-ri00-20261112.json)保留。已补到5.417秒自然同窗调用链和完整坏基线；长期main的Path/getPlan成本差额已定位，但慢化触发原因仍未证实，RI-01不得自动开始。
 
 用户明确要求先查清3.95秒峰值和现场约500ms/隔离约190ms差值，拿到完整调用链和可复现基线，再推进整体方案。上游为[实施包](runtime-isolation-implementation.md)与[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。

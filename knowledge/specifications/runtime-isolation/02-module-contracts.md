@@ -222,6 +222,8 @@ M08.completeCognition保留原completion/ADR115空工具面与角色/项目/隐�
 
 自然profile补到`runner.pump → runner-coordination.selectNext → pending/recoverySelection → resolveRoster → Supervisor.list`，以及`F11.readSnapshot → BotDirectory.get → projectRow → Supervisor`。两者是当前实际依赖，不能因不属于UI查询而漏迁。此处登记证据与复审门，不宣称新Interface已经完成实现或验收。
 
+重开后的源栈进一步确认`runRounds → turnFacts/rows`及`runRounds → readSlot`也进入roster；不要只收窄repair入口。GoalPlanStore与Desktop host facts的UI-delivery端口分别审查，不能由一个缺失推断另一个缺失；本次打包现场实际provider为null，dev/preview的活动authority仍按其原UI/Evidence owner保留。
+
 - M02/M03所需roster是原kernel的执行/托管/控制事实，归原事实owner及M13读Port，不能改成依赖M12的UI派生页；不得以缓存needsYou或旧列表批准调度。进入实现前列出所有roster消费者的实际字段闭集、当前source/ownership/unknown与版本失效行为，保留修复custody、等待子任务、暂停结算、缺失session及重启后的语义；不注入完整Supervisor。
 - F11在模型准入前的snapshot也必须计入QG/QT/M07/M13预算，不能同步调用完整Bot呈现列表。沿ADR115已允许的主体/profile、结构化未决门、当前runner活动和公开历史Source取得版本绑定事实；缺失/旧代次/版本变化返回none或原unavailable，validate不调模型。草稿/权限/ToolResult/Evidence边界不变。
 - 两条链须在RI-01前自上而下复审完成，给出明确端口/字段/批次、容量/取消与故障恢复；本次仍在RI-00取证，不能将这份复审要求误记为已完成详细设计或直接开始代码重构。

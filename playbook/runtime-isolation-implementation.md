@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-12用户重开后：[对照结果](../knowledge/experience/runtime-isolation-ri00-restart-control.md)、[新回执](evidence/runtime-isolation-ri00-restart-20261112.json)。无CPU/FS/JSON的新进程仍自然停顿6.57秒，runner读取入口新增turnFacts/readSlot的真实调用栈；同文件旧Path慢化不再出现，全真实源只读基线约430ms但现场仍约500ms，主要差额在Evidence归一化CPU段。UI host回调存在而provider为null，不能把GoalPlanStore端口缺失与host端口混为一谈。G2仍未完全闭合，RI-01与产品重构未启动；不自行放宽原门或把重开称为修复。
+
 2026-11-12续证：[自然多秒窗口与剩余差额](../knowledge/experience/runtime-isolation-ri00-natural-followup.md)、[续证回执](evidence/runtime-isolation-ri00-natural-20261112.json)。自然5.417秒窗口已覆盖IPC/timer同步根及漏掉的runner roster微任务；同文件夹测定位长期main的Node Path/getPlan成本差额，触发原因尚未证实，RI-00保持未闭合。旧3949ms按用户要求保留历史证据缺口。RI-01新增上述两个已发现入口的覆盖要求；进入实现前必须按02/03/04逐项复审来源字段、版本、队列和恢复，不许把未知慢化写成既定原因或在实现时临时决定。
 
 2026-11-12 RI-00更新：[调用链、冻结坏基线及未闭合项](../knowledge/experience/runtime-isolation-ri00-investigation.md)、[机器回执](evidence/runtime-isolation-ri00-20261112.json)。已纠正约190ms裸宿主漏Desktop核验依赖的对比口径；真实IPC突发可复现多秒阻塞。原3949ms触发仍未证实，现场剩余差异与完整真实交互门未闭合，RI-01及整体重构尚未开始。以下保留2026-11-11详细设计候选的历史收据，不把当时的“仅文档”描述套用到新诊断脚本。

@@ -4,6 +4,8 @@
 最后更新：2026-11-12
 状态：自然多秒链与受控坏基线已补齐；现场长期运行上下文差值已定位到具体调用，但慢化触发原因未证实，RI-00仍未闭合。RI-01和产品重构未开始。
 
+用户随后手动重开，结果见[重开对照](runtime-isolation-ri00-restart-control.md)及[新回执](../../playbook/evidence/runtime-isolation-ri00-restart-20261112.json)。无CPU/FS/JSON探针的新进程仍自然出现6.57秒间隙；同200个原文件的旧Path/getPlan额外成本没有重现。新增全真实源只读基线、同索引夹测及UI回调/provider类型发现；现有G2仍未全闭合，下文保留重开前事实与当时请求。
+
 接续[首轮调查](runtime-isolation-ri00-investigation.md)、[取证门](../../playbook/runtime-isolation-ri00-baseline.md)。本轮[机器回执](../../playbook/evidence/runtime-isolation-ri00-natural-20261112.json)保留分段、原时序、样本摘要、各代harness指纹及失败限制；原始profile、私有文件manifest、参数/正文不上传。实现者自审，非独立审查。
 
 ## 1. 可以下结论的部分
