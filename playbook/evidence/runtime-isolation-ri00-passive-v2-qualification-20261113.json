@@ -1,0 +1,605 @@
+{
+  "kind": "RI00-passive-v2-qualification-and-archive-data-replay-not-attribution",
+  "date": "2026-11-13",
+  "sourceCandidate": "63750ee03f4987e2213aa54c9acc56b0d4ecfc84",
+  "productUnchanged": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "architectureBoundaryMoved": false,
+  "validation": {
+    "tests": 104,
+    "failures": 0,
+    "changedMjsSyntax": 12,
+    "architectureCheck": true,
+    "uiConventions": true,
+    "diffCheck": true,
+    "realElectronSerializedNaturalGetterCalls": {
+      "getHeapStatistics": 0,
+      "getHeapSpaceStatistics": 0,
+      "getHeapCodeStatistics": 0
+    },
+    "controlledReadsRetainHeapMeasurement": true,
+    "controllerSigkillRestoreAndInspectorRefusal": true,
+    "independentReview": false,
+    "installedFix": false,
+    "fullProductRegression": false
+  },
+  "ownedQualifications": [
+    {
+      "label": "passive-v2-production-canary-c2a",
+      "candidateScope": "before-owned-watcher-cleanup-review",
+      "rawReceiptSha256": "acd40c7122cffe361b209822b3d4e2beb84dfd689dd653e8454b85aa200f8226",
+      "okMechanics": true,
+      "notActualFieldAttribution": true,
+      "fixtureOnlyNaturalMs": 5000,
+      "fixtureOnlySettleMs": 5000,
+      "naturalRows": 33,
+      "policyFeed": 27,
+      "finalPhase": "armed-entry-unqualified",
+      "fastGateQualified": false,
+      "mainReadCpuMs": 12398.536000000002,
+      "controllerCpuMs": 883.736,
+      "restoration": {
+        "main": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "controlledCpuMs": 12398.536000000002,
+          "nativeCpuMs": 288.606,
+          "probeCpuMs": 67.49099999996736,
+          "retainedRowBytes": 0,
+          "naturalRows": 33,
+          "controlledRows": 32,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true
+        },
+        "reference": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "controlledCpuMs": 10020.642,
+          "nativeCpuMs": 165.834,
+          "probeCpuMs": 404.88599999999076,
+          "retainedRowBytes": 0,
+          "naturalRows": 0,
+          "controlledRows": 22,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true
+        }
+      },
+      "acknowledgementGapCpuMs": 0,
+      "sourceUnchanged": true,
+      "harnessUnchanged": true,
+      "productionUnchanged": true,
+      "sourceObserver": {
+        "events": 0,
+        "ignoredEvents": 134,
+        "unknownFilenameEvents": 0,
+        "refreshes": 6,
+        "cacheHits": 6,
+        "rootsRebound": 0,
+        "firstDirtyMs": null,
+        "lastDirtyMs": null,
+        "failed": null,
+        "closed": true,
+        "pendingChanges": false,
+        "liveWatchers": 0
+      },
+      "guard": {
+        "mainGuard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 605,
+          "guardCheckMs": 8.161599999999197,
+          "readFailures": 0
+        },
+        "referenceGuard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 605,
+          "guardCheckMs": 8.113749000000126,
+          "readFailures": 0
+        }
+      },
+      "epochs": [
+        {
+          "label": "0-bootstrap-1",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true
+          },
+          "calibrationStable": false,
+          "gate": {
+            "identity": "8b640b572f4317fac76ae5dd384e744575031b64ad33e9e7efde0c3a029f1b89",
+            "status": "waiting-baseline",
+            "reason": "calibration_drift_or_probe_overhead",
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 260.229,
+                "median": 260.229,
+                "compatibleRange": 8.966000000000008
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 264.71500000000003,
+                "median": 264.71500000000003,
+                "compatibleRange": 4.125000000000057
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 262.88,
+                "median": 262.88,
+                "compatibleRange": 11.650000000000091
+              }
+            ],
+            "streak": 0,
+            "deltas": [
+              -4.486000000000047,
+              -1.8350000000000364
+            ]
+          }
+        },
+        {
+          "label": "0-learning-bracket-2",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true
+          },
+          "calibrationStable": true,
+          "gate": {
+            "identity": "8b640b572f4317fac76ae5dd384e744575031b64ad33e9e7efde0c3a029f1b89",
+            "status": "waiting-baseline",
+            "reason": "unmatched_gc_state_or_unstable_warm",
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 261.39300000000003,
+                "median": 261.39300000000003,
+                "compatibleRange": 6.3910000000000196
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 266.624,
+                "median": 266.624,
+                "compatibleRange": 6.1129999999999995
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 263.97900000000004,
+                "median": 263.97900000000004,
+                "compatibleRange": 23.289000000000044
+              }
+            ],
+            "streak": 0,
+            "deltas": null
+          }
+        }
+      ],
+      "ownedFixturePortZeroProbeNotActualInspectorAcceptance": true,
+      "ownedHostsExited": true,
+      "harness": [
+        {
+          "relative": "capture-dense-residual.mjs",
+          "sha256": "282146af7fbcad74d090e0f6562b319c6cd7ac7acc8bc1d37f29c057e6db68d0"
+        },
+        {
+          "relative": "ri00/dense-residual-probe.mjs",
+          "sha256": "31bbdfec6139a67b5fcdd7b0cab161d50a7a79a518d6a5927747c4d2d54cd947"
+        },
+        {
+          "relative": "ri00/dense-residual.mjs",
+          "sha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28"
+        },
+        {
+          "relative": "ri00/natural-residual.mjs",
+          "sha256": "ac1129fa7082c66b94131a23b9340cb92d3a4cceaf089876393ae0a114017838"
+        },
+        {
+          "relative": "ri00/long-residual-watch.mjs",
+          "sha256": "f3df519d7519418a5e0bc000430a792fc63f97adf75f9f4934e0d670f5ec30dd"
+        },
+        {
+          "relative": "ri00/source-archive.mjs",
+          "sha256": "64d1044fb53ada0a21bf682e812167af1b03c62bc406ef35306ba72876cf4e69"
+        },
+        {
+          "relative": "ri00/source-observer.mjs",
+          "sha256": "14d2fb12dd1863700875de496dd9b29b8c2709ffaad96303ee3039f010dd2e65"
+        },
+        {
+          "relative": "ri00/capture-budget.mjs",
+          "sha256": "eebec0333ca939ee7034cb59d30a1d51c4c18b97e1c960d50623a592cd016a07"
+        },
+        {
+          "relative": "ri00/cpu-profile-capture.mjs",
+          "sha256": "eb8cd7c01e4d1a4730814339e3b2aacb4c782e86ad3485bc82ac09e7780f4953"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/thread-counter-delta.mjs",
+          "sha256": "ddc464a98a5963f0ccce1caf3bdb37f1d2a695d7c164982ab00055247569b1dd"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "704c6fd4571f5ef8836e05e01aeb2df79628627441776a680affb479b229c14e"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/coordination-snapshot.mjs",
+          "sha256": "4288294cfc610bc76c81e3cfac75ffb90439b6eba92053f0c65ca532b9fdd0f1"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        }
+      ]
+    },
+    {
+      "label": "passive-v2-production-canary-c2b",
+      "candidateScope": "final",
+      "rawReceiptSha256": "0469ecde53640cd3c7a5a2e1b1deab3c961b2d40452ab5e604483c6045169154",
+      "okMechanics": true,
+      "notActualFieldAttribution": true,
+      "fixtureOnlyNaturalMs": 5000,
+      "fixtureOnlySettleMs": 5000,
+      "naturalRows": 33,
+      "policyFeed": 28,
+      "finalPhase": "armed-entry-unqualified",
+      "fastGateQualified": false,
+      "mainReadCpuMs": 12604.928000000002,
+      "controllerCpuMs": 980.254,
+      "restoration": {
+        "main": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "controlledCpuMs": 12604.928000000002,
+          "nativeCpuMs": 299.32500000000005,
+          "probeCpuMs": 67.84300000003529,
+          "retainedRowBytes": 0,
+          "naturalRows": 33,
+          "controlledRows": 32,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true
+        },
+        "reference": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "controlledCpuMs": 9980.187000000002,
+          "nativeCpuMs": 143.831,
+          "probeCpuMs": 402.1009999999982,
+          "retainedRowBytes": 0,
+          "naturalRows": 0,
+          "controlledRows": 22,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true
+        }
+      },
+      "acknowledgementGapCpuMs": 0,
+      "sourceUnchanged": true,
+      "harnessUnchanged": true,
+      "productionUnchanged": true,
+      "sourceObserver": {
+        "closeFailures": 0,
+        "events": 0,
+        "ignoredEvents": 127,
+        "unknownFilenameEvents": 0,
+        "refreshes": 6,
+        "cacheHits": 6,
+        "rootsRebound": 0,
+        "firstDirtyMs": null,
+        "lastDirtyMs": null,
+        "failed": null,
+        "closed": true,
+        "pendingChanges": false,
+        "liveWatchers": 0
+      },
+      "guard": {
+        "mainGuard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 605,
+          "guardCheckMs": 8.164505999999704,
+          "readFailures": 0
+        },
+        "referenceGuard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 605,
+          "guardCheckMs": 9.717915000000318,
+          "readFailures": 0
+        }
+      },
+      "epochs": [
+        {
+          "label": "0-bootstrap-1",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true
+          },
+          "calibrationStable": false,
+          "gate": {
+            "identity": "d754dd5b790823f6c18316bfb56121cdd8ee4693adbca640b2d28bfee08371e8",
+            "status": "waiting-baseline",
+            "reason": "calibration_drift_or_probe_overhead",
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 267.307,
+                "median": 267.307,
+                "compatibleRange": 14.461999999999989
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 265.31800000000004,
+                "median": 265.31800000000004,
+                "compatibleRange": 8.394999999999982
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 6,
+                "fullWarmMedian": 262.723,
+                "median": 262.494,
+                "compatibleRange": 9.507000000000005
+              }
+            ],
+            "streak": 0,
+            "deltas": [
+              1.988999999999976,
+              -2.8240000000000123
+            ]
+          }
+        },
+        {
+          "label": "0-learning-bracket-2",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true
+          },
+          "calibrationStable": true,
+          "gate": {
+            "identity": "d754dd5b790823f6c18316bfb56121cdd8ee4693adbca640b2d28bfee08371e8",
+            "status": "waiting-baseline",
+            "reason": "unmatched_gc_state_or_unstable_warm",
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 261.36,
+                "median": 261.36,
+                "compatibleRange": 18.126000000000033
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 264.885,
+                "median": 264.885,
+                "compatibleRange": 4.4950000000000045
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 263.016,
+                "median": 263.016,
+                "compatibleRange": 22.471000000000004
+              }
+            ],
+            "streak": 0,
+            "deltas": null
+          }
+        }
+      ],
+      "ownedFixturePortZeroProbeNotActualInspectorAcceptance": true,
+      "ownedHostsExited": true,
+      "harness": [
+        {
+          "relative": "capture-dense-residual.mjs",
+          "sha256": "44078da4bca166cf21a3397c33bc336ec467610ea8ba975ef11ba47d24f37615"
+        },
+        {
+          "relative": "ri00/dense-residual-probe.mjs",
+          "sha256": "31bbdfec6139a67b5fcdd7b0cab161d50a7a79a518d6a5927747c4d2d54cd947"
+        },
+        {
+          "relative": "ri00/dense-residual.mjs",
+          "sha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28"
+        },
+        {
+          "relative": "ri00/natural-residual.mjs",
+          "sha256": "ac1129fa7082c66b94131a23b9340cb92d3a4cceaf089876393ae0a114017838"
+        },
+        {
+          "relative": "ri00/long-residual-watch.mjs",
+          "sha256": "f3df519d7519418a5e0bc000430a792fc63f97adf75f9f4934e0d670f5ec30dd"
+        },
+        {
+          "relative": "ri00/source-archive.mjs",
+          "sha256": "64d1044fb53ada0a21bf682e812167af1b03c62bc406ef35306ba72876cf4e69"
+        },
+        {
+          "relative": "ri00/source-observer.mjs",
+          "sha256": "806d8c19b284bc167c12ee5e8f289d31c36f74aabc58c2c20c1229d432813453"
+        },
+        {
+          "relative": "ri00/capture-budget.mjs",
+          "sha256": "eebec0333ca939ee7034cb59d30a1d51c4c18b97e1c960d50623a592cd016a07"
+        },
+        {
+          "relative": "ri00/cpu-profile-capture.mjs",
+          "sha256": "eb8cd7c01e4d1a4730814339e3b2aacb4c782e86ad3485bc82ac09e7780f4953"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/thread-counter-delta.mjs",
+          "sha256": "ddc464a98a5963f0ccce1caf3bdb37f1d2a695d7c164982ab00055247569b1dd"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "704c6fd4571f5ef8836e05e01aeb2df79628627441776a680affb479b229c14e"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/coordination-snapshot.mjs",
+          "sha256": "4288294cfc610bc76c81e3cfac75ffb90439b6eba92053f0c65ca532b9fdd0f1"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        }
+      ]
+    }
+  ],
+  "archiveReplay": {
+    "kind": "archived-query-data-replay-not-residual-attribution",
+    "rawReceiptSha256": "789dc64c28591d97a15f23c72985c39a72ca26cabf0127c96d68c15f8a573b69",
+    "integritySha256": "1e94b8e1eb55efa847775cf2fb6f58044b16086d7586e7d2f377f064eb5d098e",
+    "points": [
+      {
+        "rows": 23,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "counts": {
+          "getPlan": 3859,
+          "listEvidenceIndex": 12,
+          "evidenceRows": 831192
+        },
+        "notUsedForFieldCpuAttribution": true
+      },
+      {
+        "rows": 23,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "counts": {
+          "getPlan": 3859,
+          "listEvidenceIndex": 12,
+          "evidenceRows": 831192
+        },
+        "notUsedForFieldCpuAttribution": true
+      },
+      {
+        "rows": 23,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "counts": {
+          "getPlan": 3859,
+          "listEvidenceIndex": 12,
+          "evidenceRows": 831192
+        },
+        "notUsedForFieldCpuAttribution": true
+      }
+    ],
+    "revision": 6713,
+    "readFailures": 0,
+    "guard": {
+      "sourceWritesDenied": 0,
+      "sqliteConnections": 1,
+      "guardChecks": 603,
+      "guardCheckMs": 8.312333999999993
+    },
+    "integrity": {
+      "archiveFiles": 8535,
+      "contentMatchesManifestAfter": true,
+      "mismatches": 0,
+      "exitCode": 0,
+      "archiveManifestSha256": "88e9cb02dc707472a39e618c456d159b31c2ba8a40041dd47486b5d9bfb9f20b",
+      "scriptSha256": "2911cb0ead985af7ecf90100270743074a01e5c17e5c0a15a4e01c42e6009f17",
+      "retainedPriorLauncherFailure": true,
+      "replayCopyAllFilesMatchManifest": true,
+      "replayCopyMismatches": 0,
+      "manifestListMatchesOriginalCaptureDigest": true
+    },
+    "firstLauncherFailedBeforeExecutingAnyQuery": true,
+    "firstFailureRetainedSha256": "638a534f496701a1c045b1186ca8f29057aaef143f19dce011e0b19202172c21",
+    "notActualVmStateOrWriterFenceReplay": true
+  },
+  "carryIntoNextActualWindow": {
+    "durationMs": 7827034,
+    "controllerCpuMs": 11798.818,
+    "archiveBytes": 1026578587,
+    "hosts": {
+      "main": {
+        "readCpuMs": 47566.284,
+        "nativeCpuMs": 2676.06,
+        "probeCpuMs": 4655.59300000587
+      },
+      "reference": {
+        "readCpuMs": 49972.487,
+        "nativeCpuMs": 2836.169,
+        "probeCpuMs": 4565.414000000008
+      }
+    }
+  },
+  "limits": [
+    "Qualification is owned synthetic scheduling of a real production graph, not actual residual formation.",
+    "Old CPU, GC, warm-range and calibration confirmation criteria remain; both owned fast gates stayed unqualified.",
+    "V2 trigger lacks heap state by design; signals only wake controlled forensics.",
+    "C1 full history is preserved but affected by explicit allocator-mutating getters; not a passive negative.",
+    "C1/v2 gap and different probe/reference identities cannot be joined into one confirmed transition.",
+    "Archive replay proves frozen input data/output/read graph only, not old VM state or original inode/writer fence.",
+    "Inspector/OS and older unmeasured startup/cleanup boundary CPU are not inferred as zero.",
+    "Actual continuation must freeze candidate and revalidate original app PID/birth; no restart or refactor."
+  ]
+}
