@@ -1,0 +1,1353 @@
+{
+  "kind": "RI00-E3-sealed-F0-rejection-audit-and-new-qualification-budget",
+  "date": "2026-11-13",
+  "parentReceiptSha256": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+  "auditRawSha256": "71c0d46575775b048865ac038f398db7799dab0030ab33717a600f0b834ed472",
+  "auditSource": [
+    {
+      "relative": "run-e3-f0-audit.mjs",
+      "sha256": "483a911f26e852310036a75dc2e5d9cc4a675af863a6bcf026bb628c35520b54"
+    },
+    {
+      "relative": "e3-f0-audit.mjs",
+      "sha256": "1c403ed54112272a478a0e6628bb3a701ccbefb1bfb7495fd6181aef8e88df71"
+    },
+    {
+      "relative": "dense-residual.mjs",
+      "sha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28"
+    }
+  ],
+  "totals": {
+    "blocks": 18,
+    "points": 144,
+    "compatible": 115,
+    "rejectedWarm": 11,
+    "overRangeBlocks": 10,
+    "strataStillOver15ms": [
+      {
+        "target": "T1",
+        "role": "mainB",
+        "minor": 12,
+        "evidenceUserMs": {
+          "n": 3,
+          "min": 281.30500000000006,
+          "max": 301.01199999999994,
+          "range": 19.70699999999988
+        }
+      },
+      {
+        "target": "T2",
+        "role": "mainB",
+        "minor": 12,
+        "evidenceUserMs": {
+          "n": 2,
+          "min": 274.65999999999997,
+          "max": 290.27,
+          "range": 15.610000000000014
+        }
+      },
+      {
+        "target": "T3",
+        "role": "mainA",
+        "minor": 12,
+        "evidenceUserMs": {
+          "n": 3,
+          "min": 270.68899999999996,
+          "max": 287.662,
+          "range": 16.973000000000013
+        }
+      }
+    ],
+    "metadataCpuMs": {
+      "n": 115,
+      "min": 0.6619999999992537,
+      "max": 0.9930000000008301,
+      "range": 0.33100000000157637
+    },
+    "efficiencyCpuMs": {
+      "n": 115,
+      "min": 0,
+      "max": 0.26566666666666666,
+      "range": 0.26566666666666666
+    },
+    "betweenRootGapMs": {
+      "n": 126,
+      "min": 161.9186660000014,
+      "max": 166.34404100000393,
+      "range": 4.425375000002532
+    }
+  },
+  "blocks": [
+    {
+      "target": "C1",
+      "role": "mainA",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 5,
+        "fullWarmMedian": 281.074,
+        "median": 281.074,
+        "compatibleRange": 18.797000000000025
+      },
+      "extremes": {
+        "lowIndex": 4,
+        "highIndex": 1,
+        "evidenceUserDeltaMs": 18.797000000000025,
+        "rootUserDeltaMs": 12.780999999999949,
+        "rootCpuDeltaMs": 16.02799999999995,
+        "nonEvidenceUserDeltaMs": -6.016000000000076,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          11
+        ],
+        "rootInstructionsChangeFraction": 0.017049419418439404,
+        "rootCyclesChangeFraction": 0.016760547371193146,
+        "cyclesPerCounterCpuMsChangeFraction": -0.019943441877608548,
+        "perPositionUserDeltaMs": [
+          3.843,
+          3.009999999999998,
+          2.594999999999999,
+          0.41000000000000014,
+          1.1069999999999993,
+          1.5050000000000026,
+          1.7109999999999985,
+          0.7010000000000005,
+          0.5739999999999981,
+          0.4510000000000005,
+          3.120000000000001,
+          -0.23000000000000043
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 273.178,
+            "max": 281.074,
+            "range": 7.896000000000015
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 284.60800000000006,
+            "max": 291.975,
+            "range": 7.366999999999962
+          }
+        }
+      ],
+      "calibrationStable": false
+    },
+    {
+      "target": "C1",
+      "role": "reference",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 275.315,
+        "median": 275.315,
+        "compatibleRange": 11.147000000000048
+      },
+      "extremes": {
+        "lowIndex": 3,
+        "highIndex": 5,
+        "evidenceUserDeltaMs": 11.147000000000048,
+        "rootUserDeltaMs": 6.896999999999991,
+        "rootCpuDeltaMs": 5.197999999999972,
+        "nonEvidenceUserDeltaMs": -4.250000000000057,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          8,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.0005335474330612211,
+        "rootCyclesChangeFraction": 0.016052711395635466,
+        "cyclesPerCounterCpuMsChangeFraction": 0.0035532542346066176,
+        "perPositionUserDeltaMs": [
+          -0.6479999999999997,
+          0.9520000000000017,
+          1.3200000000000003,
+          1.2459999999999987,
+          2.870000000000001,
+          0.02300000000000324,
+          0.12899999999999778,
+          2.3309999999999995,
+          -0.4770000000000003,
+          1.8510000000000026,
+          -0.09899999999999665,
+          1.649000000000001
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 5,
+            "min": 271.85699999999997,
+            "max": 276.321,
+            "range": 4.4640000000000555
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 278.274,
+            "max": 283.004,
+            "range": 4.730000000000018
+          }
+        }
+      ],
+      "calibrationStable": false
+    },
+    {
+      "target": "C1",
+      "role": "mainB",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 280.001,
+        "median": 280.001,
+        "compatibleRange": 17.36099999999999
+      },
+      "extremes": {
+        "lowIndex": 2,
+        "highIndex": 4,
+        "evidenceUserDeltaMs": 17.36099999999999,
+        "rootUserDeltaMs": 20.341000000000008,
+        "rootCpuDeltaMs": 19.903999999999982,
+        "nonEvidenceUserDeltaMs": 2.980000000000018,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          9,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.005404243052977931,
+        "rootCyclesChangeFraction": 0.025003202088976106,
+        "cyclesPerCounterCpuMsChangeFraction": -0.021608840328906087,
+        "perPositionUserDeltaMs": [
+          0.8789999999999978,
+          1.6779999999999973,
+          0.9460000000000015,
+          0.37900000000000134,
+          0.8769999999999989,
+          2.6980000000000004,
+          0.8129999999999988,
+          2.7699999999999996,
+          0.8410000000000011,
+          1.519000000000002,
+          0.41300000000000026,
+          3.548000000000002
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 274.37,
+            "max": 280.53499999999997,
+            "range": 6.164999999999964
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 280.001,
+            "max": 291.731,
+            "range": 11.730000000000018
+          }
+        }
+      ],
+      "calibrationStable": false
+    },
+    {
+      "target": "T1",
+      "role": "mainA",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 6,
+        "fullWarmMedian": 279.87299999999993,
+        "median": 278.8059999999999,
+        "compatibleRange": 13.81499999999994
+      },
+      "extremes": {
+        "lowIndex": 7,
+        "highIndex": 3,
+        "evidenceUserDeltaMs": 13.81499999999994,
+        "rootUserDeltaMs": 17.904000000000053,
+        "rootCpuDeltaMs": 22.13600000000005,
+        "nonEvidenceUserDeltaMs": 4.089000000000112,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          10
+        ],
+        "rootInstructionsChangeFraction": 0.023204211963516075,
+        "rootCyclesChangeFraction": 0.03513628354301135,
+        "cyclesPerCounterCpuMsChangeFraction": -0.016843447157675162,
+        "perPositionUserDeltaMs": [
+          4.272000000000002,
+          2.0199999999999996,
+          2.593,
+          -0.062000000000001165,
+          0.6259999999999977,
+          -2.271000000000001,
+          2.733999999999998,
+          -2.0400000000000027,
+          2.777000000000001,
+          0.8879999999999981,
+          1.9220000000000006,
+          0.3559999999999981
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 274.47600000000006,
+            "max": 279.87299999999993,
+            "range": 5.396999999999878
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 287.482,
+            "max": 288.291,
+            "range": 0.8089999999999691
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T1",
+      "role": "reference",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 279.544,
+        "median": 279.544,
+        "compatibleRange": 15.70700000000005
+      },
+      "extremes": {
+        "lowIndex": 3,
+        "highIndex": 4,
+        "evidenceUserDeltaMs": 15.70700000000005,
+        "rootUserDeltaMs": 9.000999999999976,
+        "rootCpuDeltaMs": 8.954999999999984,
+        "nonEvidenceUserDeltaMs": -6.706000000000074,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.004539142320243883,
+        "rootCyclesChangeFraction": 0.017559770991451007,
+        "cyclesPerCounterCpuMsChangeFraction": -0.0026370205162008498,
+        "perPositionUserDeltaMs": [
+          1.4570000000000007,
+          2.0920000000000023,
+          2.5760000000000005,
+          0.2029999999999994,
+          0.1720000000000006,
+          -0.13400000000000034,
+          1.3359999999999985,
+          0.18500000000000227,
+          1.7479999999999976,
+          1.3619999999999983,
+          2.881999999999998,
+          1.8279999999999994
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 277.464,
+            "max": 279.544,
+            "range": 2.079999999999984
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 280.188,
+            "max": 293.17100000000005,
+            "range": 12.983000000000061
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T1",
+      "role": "mainB",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 281.30500000000006,
+        "median": 281.30500000000006,
+        "compatibleRange": 22.59999999999991
+      },
+      "extremes": {
+        "lowIndex": 3,
+        "highIndex": 7,
+        "evidenceUserDeltaMs": 22.59999999999991,
+        "rootUserDeltaMs": 20.67999999999995,
+        "rootCpuDeltaMs": 26.48599999999996,
+        "nonEvidenceUserDeltaMs": -1.919999999999959,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.009914332109230095,
+        "rootCyclesChangeFraction": 0.04580572859941712,
+        "cyclesPerCounterCpuMsChangeFraction": -0.015206792130990299,
+        "perPositionUserDeltaMs": [
+          2.1630000000000003,
+          2.227999999999998,
+          3.0299999999999976,
+          2.083000000000002,
+          1.4440000000000026,
+          0.5689999999999991,
+          2.4140000000000015,
+          1.024000000000001,
+          3.2459999999999987,
+          1.439,
+          2.756999999999998,
+          0.2029999999999994
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 278.41200000000003,
+            "max": 287.77,
+            "range": 9.357999999999947
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 281.30500000000006,
+            "max": 301.01199999999994,
+            "range": 19.70699999999988
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T2",
+      "role": "mainA",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 6,
+        "fullWarmMedian": 279.95500000000004,
+        "median": 278.8075,
+        "compatibleRange": 17.34400000000005
+      },
+      "extremes": {
+        "lowIndex": 7,
+        "highIndex": 3,
+        "evidenceUserDeltaMs": 17.34400000000005,
+        "rootUserDeltaMs": 22.540999999999997,
+        "rootCpuDeltaMs": 22.66299999999999,
+        "nonEvidenceUserDeltaMs": 5.196999999999946,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          8,
+          10
+        ],
+        "rootInstructionsChangeFraction": 0.017681669637972686,
+        "rootCyclesChangeFraction": 0.034112360875911074,
+        "cyclesPerCounterCpuMsChangeFraction": -0.01966817436272561,
+        "perPositionUserDeltaMs": [
+          -0.6940000000000026,
+          1.6509999999999998,
+          2.687000000000001,
+          0.5719999999999992,
+          3.091000000000001,
+          0.8470000000000013,
+          0.5879999999999974,
+          2.8530000000000015,
+          -0.16999999999999815,
+          2.0799999999999983,
+          1.2490000000000023,
+          2.59
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 271.54799999999994,
+            "max": 272.061,
+            "range": 0.5130000000000337
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 277.65999999999997,
+            "max": 288.892,
+            "range": 11.232000000000028
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T2",
+      "role": "reference",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 277.361,
+        "median": 277.361,
+        "compatibleRange": 16.800000000000068
+      },
+      "extremes": {
+        "lowIndex": 2,
+        "highIndex": 7,
+        "evidenceUserDeltaMs": 16.800000000000068,
+        "rootUserDeltaMs": 11.496000000000038,
+        "rootCpuDeltaMs": 14.44300000000002,
+        "nonEvidenceUserDeltaMs": -5.3040000000000305,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          8,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.005830797564979395,
+        "rootCyclesChangeFraction": 0.049029647837232515,
+        "cyclesPerCounterCpuMsChangeFraction": 0.014811820027827993,
+        "perPositionUserDeltaMs": [
+          -0.4969999999999999,
+          1.0350000000000001,
+          1.0519999999999996,
+          0.125,
+          0.8670000000000009,
+          1.7850000000000001,
+          0.6530000000000022,
+          3.4499999999999993,
+          1.5750000000000028,
+          2.2049999999999983,
+          1.7149999999999999,
+          2.835000000000001
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 274.13399999999996,
+            "max": 278.817,
+            "range": 4.68300000000005
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 276.85999999999996,
+            "max": 290.934,
+            "range": 14.07400000000007
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T2",
+      "role": "mainB",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 275.329,
+        "median": 275.329,
+        "compatibleRange": 15.952999999999975
+      },
+      "extremes": {
+        "lowIndex": 1,
+        "highIndex": 5,
+        "evidenceUserDeltaMs": 15.952999999999975,
+        "rootUserDeltaMs": 8.079000000000008,
+        "rootCpuDeltaMs": 13.550000000000011,
+        "nonEvidenceUserDeltaMs": -7.873999999999967,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": -0.0017928065678960436,
+        "rootCyclesChangeFraction": 0.0396997286575711,
+        "cyclesPerCounterCpuMsChangeFraction": 0.0075419128802727275,
+        "perPositionUserDeltaMs": [
+          0.14999999999999858,
+          -0.8439999999999976,
+          -0.6110000000000007,
+          2.933,
+          1.7980000000000018,
+          2.093,
+          2.367000000000001,
+          1.4379999999999988,
+          3.0199999999999996,
+          0.8780000000000001,
+          2.676000000000002,
+          0.054999999999999716
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 5,
+            "min": 274.317,
+            "max": 280.71200000000005,
+            "range": 6.395000000000039
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 274.65999999999997,
+            "max": 290.27,
+            "range": 15.610000000000014
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "C2",
+      "role": "mainA",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 5,
+        "fullWarmMedian": 280.45,
+        "median": 274.299,
+        "compatibleRange": 16.13299999999998
+      },
+      "extremes": {
+        "lowIndex": 5,
+        "highIndex": 1,
+        "evidenceUserDeltaMs": 16.13299999999998,
+        "rootUserDeltaMs": 21.74200000000002,
+        "rootCpuDeltaMs": 27.971000000000046,
+        "nonEvidenceUserDeltaMs": 5.609000000000037,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          8,
+          9
+        ],
+        "rootInstructionsChangeFraction": 0.018152604826250363,
+        "rootCyclesChangeFraction": 0.06826284206829825,
+        "cyclesPerCounterCpuMsChangeFraction": 0.001418042072426795,
+        "perPositionUserDeltaMs": [
+          -0.14399999999999835,
+          1.3900000000000006,
+          2.157,
+          0.8909999999999982,
+          -0.8219999999999992,
+          0.46499999999999986,
+          3.2419999999999973,
+          -0.03300000000000125,
+          2.5779999999999994,
+          2.405000000000001,
+          2.475999999999999,
+          1.5280000000000022
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 271.997,
+            "max": 272.50500000000005,
+            "range": 0.5080000000000382
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 274.299,
+            "max": 288.13,
+            "range": 13.831000000000017
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "C2",
+      "role": "reference",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 279.72,
+        "median": 279.72,
+        "compatibleRange": 13.143000000000029
+      },
+      "extremes": {
+        "lowIndex": 2,
+        "highIndex": 7,
+        "evidenceUserDeltaMs": 13.143000000000029,
+        "rootUserDeltaMs": 2.7040000000000077,
+        "rootCpuDeltaMs": 1.26400000000001,
+        "nonEvidenceUserDeltaMs": -10.439000000000021,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.0085153008301595,
+        "rootCyclesChangeFraction": 0.0026614340737931563,
+        "cyclesPerCounterCpuMsChangeFraction": -0.0003642972900945729,
+        "perPositionUserDeltaMs": [
+          -0.5769999999999982,
+          0.5249999999999986,
+          -0.4430000000000014,
+          2.503,
+          2.064,
+          0.8680000000000021,
+          0.9429999999999978,
+          0.2530000000000001,
+          -0.01899999999999835,
+          2.9840000000000018,
+          1.475999999999999,
+          2.565999999999999
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 277.43199999999996,
+            "max": 279.72,
+            "range": 2.2880000000000678
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 282.493,
+            "max": 290.575,
+            "range": 8.081999999999994
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "C2",
+      "role": "mainB",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 280.285,
+        "median": 280.285,
+        "compatibleRange": 12.041000000000054
+      },
+      "extremes": {
+        "lowIndex": 5,
+        "highIndex": 7,
+        "evidenceUserDeltaMs": 12.041000000000054,
+        "rootUserDeltaMs": -0.14999999999997726,
+        "rootCpuDeltaMs": -2.8069999999999666,
+        "nonEvidenceUserDeltaMs": -12.191000000000031,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.007281353803938684,
+        "rootCyclesChangeFraction": -0.014615367668243229,
+        "cyclesPerCounterCpuMsChangeFraction": -0.008440444221899268,
+        "perPositionUserDeltaMs": [
+          1.9550000000000018,
+          0.8599999999999994,
+          1.4989999999999988,
+          3.937999999999999,
+          2.1069999999999993,
+          0.125,
+          2.6610000000000014,
+          0.2029999999999994,
+          -1.147000000000002,
+          0.7070000000000007,
+          -2.1209999999999987,
+          1.2539999999999978
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 275.00199999999995,
+            "max": 280.285,
+            "range": 5.283000000000072
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 284.105,
+            "max": 287.043,
+            "range": 2.937999999999988
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "C3",
+      "role": "mainA",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 5,
+        "fullWarmMedian": 276.5,
+        "median": 274.635,
+        "compatibleRange": 20.904000000000053
+      },
+      "extremes": {
+        "lowIndex": 6,
+        "highIndex": 1,
+        "evidenceUserDeltaMs": 20.904000000000053,
+        "rootUserDeltaMs": 14.987000000000023,
+        "rootCpuDeltaMs": 21.103000000000023,
+        "nonEvidenceUserDeltaMs": -5.91700000000003,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          11
+        ],
+        "rootInstructionsChangeFraction": 0.016930811764424902,
+        "rootCyclesChangeFraction": 0.06681543736286999,
+        "cyclesPerCounterCpuMsChangeFraction": 0.014804416834416578,
+        "perPositionUserDeltaMs": [
+          -1.1550000000000011,
+          2.0229999999999997,
+          2.754999999999999,
+          1.061,
+          0.9369999999999976,
+          -0.6059999999999981,
+          3.8550000000000004,
+          1.0909999999999975,
+          2.8989999999999974,
+          2.0589999999999975,
+          3.5,
+          2.4849999999999994
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 267.513,
+            "max": 268.056,
+            "range": 0.5430000000000064
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 274.635,
+            "max": 288.41700000000003,
+            "range": 13.782000000000039
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "C3",
+      "role": "reference",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 6,
+        "fullWarmMedian": 281.811,
+        "median": 278.834,
+        "compatibleRange": 14.550999999999988
+      },
+      "extremes": {
+        "lowIndex": 5,
+        "highIndex": 6,
+        "evidenceUserDeltaMs": 14.550999999999988,
+        "rootUserDeltaMs": 8.637,
+        "rootCpuDeltaMs": 10.264999999999986,
+        "nonEvidenceUserDeltaMs": -5.913999999999987,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.005617044965430695,
+        "rootCyclesChangeFraction": 0.025178765744983345,
+        "cyclesPerCounterCpuMsChangeFraction": 0.0007525782494299804,
+        "perPositionUserDeltaMs": [
+          0.9800000000000004,
+          1.3760000000000012,
+          2.5040000000000013,
+          -0.4980000000000011,
+          0.43700000000000117,
+          -0.013000000000001677,
+          1.9529999999999994,
+          0.13100000000000023,
+          2.407,
+          0.8760000000000012,
+          2.9190000000000005,
+          1.4789999999999992
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 273.442,
+            "max": 282.16200000000003,
+            "range": 8.720000000000027
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 281.811,
+            "max": 287.993,
+            "range": 6.182000000000016
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "C3",
+      "role": "mainB",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 272.803,
+        "median": 272.803,
+        "compatibleRange": 11.438999999999965
+      },
+      "extremes": {
+        "lowIndex": 2,
+        "highIndex": 6,
+        "evidenceUserDeltaMs": 11.438999999999965,
+        "rootUserDeltaMs": 1.4559999999999604,
+        "rootCpuDeltaMs": 4.373999999999981,
+        "nonEvidenceUserDeltaMs": -9.983000000000004,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.002794200245462175,
+        "rootCyclesChangeFraction": 0.01863800875640309,
+        "cyclesPerCounterCpuMsChangeFraction": 0.008377251251080908,
+        "perPositionUserDeltaMs": [
+          0.4280000000000008,
+          2.2929999999999993,
+          2.0839999999999996,
+          0.18100000000000094,
+          -0.8539999999999992,
+          0.2240000000000002,
+          1.6609999999999978,
+          0.7469999999999999,
+          2.193999999999999,
+          0.19599999999999795,
+          2.181000000000001,
+          0.1039999999999992
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 5,
+            "min": 270.293,
+            "max": 274.687,
+            "range": 4.3940000000000055
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 279.217,
+            "max": 281.73199999999997,
+            "range": 2.5149999999999864
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T3",
+      "role": "mainA",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 5,
+        "fullWarmMedian": 285.125,
+        "median": 277.235,
+        "compatibleRange": 20.29499999999996
+      },
+      "extremes": {
+        "lowIndex": 6,
+        "highIndex": 7,
+        "evidenceUserDeltaMs": 20.29499999999996,
+        "rootUserDeltaMs": 16.552999999999997,
+        "rootCpuDeltaMs": 16.277000000000008,
+        "nonEvidenceUserDeltaMs": -3.741999999999962,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.002255516127649404,
+        "rootCyclesChangeFraction": 0.004144276850398754,
+        "cyclesPerCounterCpuMsChangeFraction": -0.03362663374914099,
+        "perPositionUserDeltaMs": [
+          0.32200000000000273,
+          1.9800000000000004,
+          2.594000000000001,
+          0.3500000000000014,
+          1.0350000000000001,
+          1.120000000000001,
+          3.187000000000001,
+          1.3550000000000004,
+          2.269000000000002,
+          1.4209999999999994,
+          2.6389999999999993,
+          2.0229999999999997
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 267.367,
+            "max": 277.235,
+            "range": 9.867999999999995
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 270.68899999999996,
+            "max": 287.662,
+            "range": 16.973000000000013
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T3",
+      "role": "reference",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 277.997,
+        "median": 277.997,
+        "compatibleRange": 13.454000000000008
+      },
+      "extremes": {
+        "lowIndex": 5,
+        "highIndex": 6,
+        "evidenceUserDeltaMs": 13.454000000000008,
+        "rootUserDeltaMs": 8.881000000000029,
+        "rootCpuDeltaMs": 10.893000000000036,
+        "nonEvidenceUserDeltaMs": -4.572999999999979,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          11
+        ],
+        "rootInstructionsChangeFraction": 0.004637138441949018,
+        "rootCyclesChangeFraction": 0.015037979320869699,
+        "cyclesPerCounterCpuMsChangeFraction": -0.010350031487312616,
+        "perPositionUserDeltaMs": [
+          -0.5150000000000006,
+          1.0279999999999987,
+          0.06099999999999994,
+          3.7600000000000016,
+          3.033999999999999,
+          0.6980000000000004,
+          1.6030000000000015,
+          -0.19900000000000162,
+          1.953000000000003,
+          -0.6869999999999976,
+          2.280000000000001,
+          0.43799999999999883
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 4,
+            "min": 271.159,
+            "max": 277.997,
+            "range": 6.838000000000022
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 3,
+            "min": 282.798,
+            "max": 284.613,
+            "range": 1.8149999999999977
+          }
+        }
+      ],
+      "calibrationStable": true
+    },
+    {
+      "target": "T3",
+      "role": "mainB",
+      "original": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 271.92,
+        "median": 271.92,
+        "compatibleRange": 10.102999999999952
+      },
+      "extremes": {
+        "lowIndex": 7,
+        "highIndex": 3,
+        "evidenceUserDeltaMs": 10.102999999999952,
+        "rootUserDeltaMs": -1.3310000000000173,
+        "rootCpuDeltaMs": -3.2490000000000023,
+        "nonEvidenceUserDeltaMs": -11.433999999999969,
+        "rootMinor": [
+          11,
+          12
+        ],
+        "evidenceMinorOverlaps": [
+          7,
+          12
+        ],
+        "rootInstructionsChangeFraction": 0.0009006555685056039,
+        "rootCyclesChangeFraction": -0.002270661994272727,
+        "cyclesPerCounterCpuMsChangeFraction": 0.004975820797291419,
+        "perPositionUserDeltaMs": [
+          -0.3589999999999982,
+          -0.46499999999999986,
+          0.6379999999999981,
+          2.245000000000001,
+          2.706999999999997,
+          -0.5180000000000007,
+          1.5850000000000009,
+          -0.3019999999999996,
+          -0.6799999999999997,
+          2.9540000000000006,
+          -0.5789999999999971,
+          2.876999999999999
+        ]
+      },
+      "strata": [
+        {
+          "minor": 11,
+          "evidenceUserMs": {
+            "n": 5,
+            "min": 268.81500000000005,
+            "max": 272.279,
+            "range": 3.463999999999942
+          }
+        },
+        {
+          "minor": 12,
+          "evidenceUserMs": {
+            "n": 2,
+            "min": 274.99100000000004,
+            "max": 278.918,
+            "range": 3.926999999999964
+          }
+        }
+      ],
+      "calibrationStable": true
+    }
+  ],
+  "facts": {
+    "all18HighLowRootMinorCountsAre12And11": true,
+    "originalGateUnchanged": true,
+    "originalFailuresRetained": true,
+    "noNewTargetsLaunchedForAudit": true,
+    "GCWallNotSubtractedFromCPU": true,
+    "wholeRootCountersDoNotIdentifyEvidenceInstructions": true
+  },
+  "newBudget": {
+    "status": "frozen-before-launch",
+    "extraOwnedElectronLaunches": 5,
+    "K": {
+      "targets": 2,
+      "reference": 1,
+      "wallMs": 600000,
+      "readCpuMs": 150000,
+      "schedules": [
+        [
+          "point",
+          "block",
+          "block",
+          "point"
+        ],
+        [
+          "block",
+          "point",
+          "point",
+          "block"
+        ]
+      ],
+      "fullCheckpointsEachTarget": 4,
+      "warmReadsEachHost": 8,
+      "pointCountPerBlock": 8,
+      "betweenPointDelayMs": 150,
+      "singleVariable": "probe take/ACK drain granularity: after each point vs after 8 points; ticket completion is always fsynced before ticket ACK",
+      "support": "Both processes: both point-drain checkpoints fail only warm-range, both block-drain checkpoints pass original fast gate; the worst compatible-range median improves by at least 5ms. Return to point drain must reproduce failure. Anything else does not support this sufficient-cause hypothesis; invalid identities/costs invalidate."
+    },
+    "A": {
+      "functionalElectronTargets": 1,
+      "productionElectronTargets": 1,
+      "wallMs": 300000,
+      "readCpuMs": 30000,
+      "maximumMappedEntries": 8,
+      "maximumEntryRecords": 256,
+      "maximumPortRunsPerRoot": 64,
+      "leaseMs": 2500,
+      "functionalRecoveryDeadlineMs": 15000,
+      "actualPeerAttach": false
+    },
+    "shared": {
+      "journalBytes": 33554432,
+      "logicalOutputBytes": 268435456,
+      "maximumConcurrentElectron": 2,
+      "controllerAndCounterCpuMs": 20000,
+      "totalWallMs": 900000,
+      "totalReadCpuMs": 180000,
+      "extraProfiles": 0,
+      "forcedGC": false,
+      "VMFlags": false,
+      "replacements": 0
+    },
+    "oldE3Spent": {
+      "QOwnedLaunches": 5,
+      "HOwnedLaunches": 7,
+      "QReadCpuMs": 35260.555,
+      "HReadCpuMs": 98029.707
+    },
+    "combinedE3PlannedOwnedCap": 33,
+    "combinedE3PlannedActiveWallCapMs": 6720000,
+    "oldFieldCapsUnchanged": true,
+    "FAndRNotAutomaticallyAdmitted": true
+  },
+  "RI00Closed": false,
+  "productRefactorStarted": false,
+  "limits": [
+    "Whole-root counters cannot localize Evidence instructions or name the source of execution-rate changes.",
+    "GC overlap is wall time, not measured GC thread-user CPU; absence of an observer event does not prove no GC.",
+    "Post-hoc strata describe the retained failure; they do not modify the original 15ms gate or erase points."
+  ],
+  "review": {
+    "kind": "implementer-self-review",
+    "independent": false
+  }
+}
