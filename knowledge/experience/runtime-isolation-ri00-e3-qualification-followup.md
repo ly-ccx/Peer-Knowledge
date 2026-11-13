@@ -26,6 +26,8 @@ K使用封存`8cfb68f0`的probe/queue/installer精确源码，不加载A新增�
 
 K支持也只说明本测量程序的资格影响，既不说明旧残差，也不自动恢复H形成证据。原六例仍是0/3，不重算。现场仍须自己的F0/F1及自然前史。
 
+执行前细化：B的完整batch在8点及块末3次原生校准之后排空；A仍每点排空。每种模式两个“最大块极差”的中位在本对照中定义为两值算术平均，改善必须≥5ms。当前新增入口代码不进入K；从git封存candidate逐文件核对后装配私有采样bundle。装配只允许一次≤5秒的git archive，外部准备CPU按5秒保守占额；counter沿用封存的read(pid)函数源码，只由单线程Python launcher附加自身累计CPU及EOF最终收据，正常关闭≤1秒，另按1秒CPU保守占额。准备、counter、控制器连同A已用1.808026秒一起受共用20秒帽约束；缺EOF/超时强停/成本不明使K失格，不能按零计。counter真实只读接口预检不执行产品查询，单独记验证范围。
+
 ## 3. A：入口与信号适配器合同，验证后才能谈现场
 
 实际注册入口限定五个IPC（list/get/list-sessions/get-session/list-obligation-grants）和Directory.list根。必须从实际注册handler的具名闭包定位ports、service、Directory与Supervisor，记录对象相等性和未覆盖项。源码显示Directory.list使用`Supervisor.listByWorkspaceIds`，只包装`Supervisor.list`会漏掉该读者；get/getSession也不能从方法名推断和list相同的读图。不得以空Directory stub的通过冒充生产映射。
@@ -53,3 +55,11 @@ Signal Adapter消费已归档行，不执行产品查询。固定F0后60秒静�
 已用E3 Q5/H7共12次启动、读体133.290262秒全部保留；新增5次后owned计划总帽从28变33，活动墙钟总帽从97变112分钟。新增只为K/A，旧F/R的预算和门不变，不能把未花预算换成H或A补样本。F/R仍未准入；没有K的可用资格策略和完整A验证，不进入现场。成本未知或最后一次同步读越界照录并停止新增，不杀实际应用或抹掉失败。
 
 实现/实际运行候选、失败及恢复另回填；设计文档和通过纯测试都不能冒称K/A已执行或现场归因。RI-00闭合与产品重构的门不变。
+
+## 5. A实际执行：两槽通过，仍不是性能入场
+
+候选`c8ee0f4f80ca90325ca4497fe97d1000646ffb54`的[实际回执](../../playbook/evidence/runtime-isolation-ri00-e3-entry-qualification-20261113.json)：两个固定Electron均通过，墙钟76.967秒，读体保守计费6.825781秒、控制器1.808026秒；没有追加。功能槽验证同步退出后才执行、原Promise/值/异常、真实异步父链、过期不读、reader与入口晚到owner不覆盖。失续租测试保留completed未ACK记录，lease恢复全部方法及binding，实际Inspector拒绝连接且宿主尚存活；本次没有杀控制器，不冒领一次新的SIGKILL实验。owner失败的false字段保留，只有owned同一进程的显式复位后续测试通过。
+
+生产槽从五个实际注册handler的具名闭包发现并比较ports、Directory、Supervisor、goalPlanStore对象；batch与single回调都严格等于同一Supervisor，观察6类入口及真实`listByWorkspaceIds`根。8534文件及空fence前后逐项SHA/size匹配，完整23会话/3859 getPlan/12遍投影仍匹配H。源、生产Module、采样代码与父报告不变；三类JS heap getter均0、零读取失败/源写拒绝/元数据错误，方法/队列/binding恢复，两个宿主退出。固定诊断log映射3次，Fs Adapter已恢复。
+
+生产槽真实等待60秒之后，用5根owned普通入口调用学习全12遍中位284.427ms；这些是owned功能验证输入，不是用户现场。没有给策略伪造F0/F1，`bracketed=false/events=0`保持，基线存在也不会发起取证。纯策略测试另验证CPU单根、新入口、单遍标记、单槽busy、两事件及8分钟截止。47项聚焦测试、10个文件语法、architecture/UI/diff通过；首次log路径别名失败保存后修正。已验证新增入口/信号Module及owned序列化装配，尚未验证当前实际Peer的对象发现、可信窗口外层或完整F控制器；不据此进入现场。K当时尚未执行，下一段单独封存它的结果，不能把A投影/快慢计量混进K。
