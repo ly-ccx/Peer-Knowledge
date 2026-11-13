@@ -62,7 +62,9 @@
 
 ## 6. 本轮收据
 
-2026-11-13下一轮E3设计：[读取顺序、首见证、反事实及新增预算](../knowledge/experience/runtime-isolation-ri00-formation-e3.md)、[封存审计与两次owned预检](evidence/runtime-isolation-ri00-e3-design-audit-20261113.json)。先以固定3对检验已有快态后改变读取顺序是否造成持续残差，再按实际新入口取证；现场用全12遍单根信号、heap-free首见证和busy仲裁，原G2门不降。owned预检量出低频profiler启动约530ms主线程CPU，故现场不提前profile；提前形成栈只在owned反事实中采。H最多25分钟，F最多30分钟/2事件/6夹测；快态后8分钟无新exposure提前停，不续跑同类负窗口。E3现场采样器尚未实现/启动，RI-00及重构冻结。
+2026-11-13 E3实际Q/H：[功能资格与原失败](evidence/runtime-isolation-ri00-e3-qualification-20261113.json)、[固定六实例原始拒绝](evidence/runtime-isolation-ri00-e3-order-20261113.json)、[完整结论与准入](../knowledge/experience/runtime-isolation-ri00-formation-e3.md#9-本轮实际qh收据与现场准入结论)。首见证/单槽/异常及失联恢复覆盖通过；原第二实例bootstrap失败保留，剩余第三固定槽补齐功能，不替换第二例。Q连探索恰好5个启动、读体35.260555秒。H候选8cfb68f0按C1/T1、T2/C2、C3/T3执行，7个Electron共129.967秒、读体98.029707秒；六个target均在F0暖段极差超过15ms，C1另有校准失配，因此有效配对0/3、顺序处理0次。不能称六次机制阴性；不补进程、不改门、不进入F。源/代码/输出一致、恢复完成、原始失败封存；现场入口/信号适配器仍未资格验证，RI-00及重构继续冻结。收尾journal总帽修正候选18552dfa没有重跑或冒领H。
+
+2026-11-13此前E3设计：[读取顺序、首见证、反事实及新增预算](../knowledge/experience/runtime-isolation-ri00-formation-e3.md)、[封存审计与两次owned预检](evidence/runtime-isolation-ri00-e3-design-audit-20261113.json)。先以固定3对检验已有快态后改变读取顺序是否造成持续残差，再按实际新入口取证；现场用全12遍单根信号、heap-free首见证和busy仲裁，原G2门不降。owned预检量出低频profiler启动约530ms主线程CPU，故现场不提前profile；提前形成栈只在owned反事实中采。H最多25分钟，F最多30分钟/2事件/6夹测；快态后8分钟无新exposure提前停，不续跑同类负窗口。该设计收据时E3尚未实现/启动，实际进展见上一段，不将设计状态当当前执行结果。
 
 2026-11-13实际C2已收尾：[长时合同及证据总账](../knowledge/experience/runtime-isolation-ri00-passive-watch-v2.md#7-实际c2收尾与证据总账)、[129包络完整回执](evidence/runtime-isolation-ri00-passive-v2-c2-20261113.json)。同一应用进程129.03分钟、main主动读体12.253496秒且只在入场夹测；等待无追加业务读，零丢失/ACK差额，方法/binding/watchers/实际端口恢复。排除唯一可见诊断重入后128包络CPU中位434.0065ms，未触发自然慢化；不据此解释旧30–40ms，也不推断全程密集快态。8534内容文件+空fence目录与已回放C1 manifest完全相同；本轮不再开新宿主跑性能负例。累计预算不足自动接续，G2仍需真实形成及机制回放，RI-01/重构冻结。
 
