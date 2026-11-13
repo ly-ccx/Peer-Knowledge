@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-14续记：[384遍离线审计与C/D/E/M结果](../knowledge/experience/runtime-isolation-ri00-e3-controller-qualification.md)、[机器收据](evidence/runtime-isolation-ri00-e3-cdem-results-20261113.json)、[P独立冻结预算](evidence/runtime-isolation-ri00-e3-p-budget-20261113.json)。N未重跑或改判；C/D失败及C未知成本保留，E真实owned控制器F0/静默/首见证/F1/取消通过，M实际Peer一次随机端口附着、同栈装配/恢复且零业务读取通过。新7槽无替换，累计27；71聚焦测试通过，CLI封存384遍重放通过，CI无结果。P未执行、未启动现场窗口；仍缺现场同进程快到慢及机制复现，RI-00未闭合、重构未开始。
+
 2026-11-13 N逐遍计数：[冻结方案及实际结果](../knowledge/experience/runtime-isolation-ri00-e3-pass-work.md)、[公开收据](evidence/runtime-isolation-ri00-e3-n-results-20261113.json)。固定3个owned启动已用完，32个ON生产根取得384遍指令/周期及root余部，与外部PMC核对通过，边界wall最大0.088ms；两target性能资格仍拒绝，未启Profiler或现场。21个按实际时间配对的同GC兼容点已能分开Evidence/余部新增工作与CPU变化，未重现旧2.49%或30–40ms形成。封存10ms profile的96逐遍窗口均缺足够样本。实际一次附着因固定端口错误失败；仅恢复实际随机端口，refusal且原进程存活，unknown主线程成本及46.239秒墙钟上界保留，修正候选不追补实际验证。42项聚焦测试/architecture/UI/diff通过不等于完整F控制器、实际装配或机制资格；RI-00与产品重构门不变。
 
 2026-11-13 F0补充资格：[封存拆解与固定新预算](evidence/runtime-isolation-ri00-e3-f0-audit-20261113.json)、[入口producer实际资格](evidence/runtime-isolation-ri00-e3-entry-qualification-20261113.json)、[归档粒度对照](evidence/runtime-isolation-ri00-e3-drain-qualification-20261113.json)、[详细结论](../knowledge/experience/runtime-isolation-ri00-e3-qualification-followup.md)。18块115个兼容点揭示GC进入各调用边界的相位差及整根执行波动；同GC签名仍出现16.182ms差/整窗指令+2.49%，不能归因旧残差。K以精确8cfb68f0 sampler固定2 target+1参照，ABBA/BAAB不支持逐点排空的充分原因，不选绿点放行。A两个固定槽通过真实注册handler/Directory batch reader映射、原Promise/异常/父链/零重入和lease恢复；当前a59d067d纯信号策略以root/nested和root时钟修正盲区，7项测试及封存70包回放通过，没有追加产品调用。新增5个启动额度用完，K/A读体109.927044秒/墙钟216.951秒，全部owned及counter退出，源/输出/方法保持，F/R和产品重构仍未开始。原报告与新旧策略分别绑定，不修改原失败。
