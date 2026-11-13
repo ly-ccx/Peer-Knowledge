@@ -1,0 +1,289 @@
+{
+  "kind": "RI00-E3-design-identifiability-and-owned-feasibility-not-residual-attribution",
+  "createdDate": "2026-11-13",
+  "diagnosticSourceCandidate": "ca684d70060d35d9974f9b539315bd3e0395286a",
+  "productSource": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+  "parentC2RawReceiptSha256": "970429bab60428a1a646645c39ef3ad25465d15014cfd90db1608bee0d2269f3",
+  "RI00Closed": false,
+  "productRefactorStarted": false,
+  "c2BlindSpots": {
+    "allNaturalEnvelopes": 129,
+    "recordedDiagnosticOverlap": 1,
+    "observedEntryCategories": [
+      "ipc-obligation-grants"
+    ],
+    "acceptedSourceChanges": 0,
+    "fingerprintPositions": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      7,
+      10,
+      11
+    ],
+    "excludedPositions": [
+      4,
+      5,
+      8,
+      9
+    ],
+    "oldTriggerRequiredConsecutiveRoots": 3,
+    "noPerRecordOrVmFormationHistoryClaim": true
+  },
+  "full12TriggerOfflineAudit": {
+    "metric": "sum of 12 Evidence thread-user CPU spans",
+    "discardedInitialNonOverlappingRows": 10,
+    "trainingRows": 20,
+    "heldOutRows": 98,
+    "baselineMs": 281.8375,
+    "preSpecifiedSignalMinimumMs": 12,
+    "preSpecifiedSignalMinimumFraction": 0.04,
+    "heldoutDeltaMinMs": -14.459499999999991,
+    "heldoutDeltaMaxMs": 6.84250000000003,
+    "heldoutSignals": 0,
+    "isDenseResidualConfirmation": false,
+    "notSensitivityOrGeneralFalsePositiveProof": true,
+    "singlePosition6msHeldoutMarkers": 49,
+    "singlePositionMaxDeltaMs": 24.326499999999996,
+    "singlePositionOnlyDoesNotAdmitActiveReads": true
+  },
+  "toolCapability": {
+    "sampleUsageAvailable": true,
+    "sampleUsageIsNotChronologicalStackProof": true,
+    "xctraceFound": false,
+    "noToolsInstalled": true
+  },
+  "ownedPilots": [
+    {
+      "name": "e3-profiler-feasibility-20261113",
+      "scriptSha256": "6333c1e6de72d9986225003cd0be5a0b5c41a616897ba13c2dd7da38fe2a7d25",
+      "rawReceiptSha256": "5a64bf0e61b09abc1c396dcf559716a2572cf013fb99f53c4f0c96ce03997573",
+      "rawProfileSha256": "ceeb2bafa3599997d1b493388015851c63fb70a66d3b01f6d2bbb25f0ff72183",
+      "ownedOnly": true,
+      "actualPeerAttached": false,
+      "controlledCpuMs": 14199.889000000003,
+      "restored": true,
+      "sourceWritesDenied": 0,
+      "readFailures": 0,
+      "failures": [],
+      "summary": {
+        "phases": [
+          {
+            "name": "before",
+            "points": 8,
+            "warmMedianMs": 264.02500000000003,
+            "compatible": 6,
+            "compatibleMedianMs": 262.64300000000003,
+            "compatibleRangeMs": 11.187999999999988,
+            "outputs": 1
+          },
+          {
+            "name": "profile10ms",
+            "points": 8,
+            "warmMedianMs": 262.043,
+            "compatible": 6,
+            "compatibleMedianMs": 262.0125,
+            "compatibleRangeMs": 11.79299999999995,
+            "outputs": 1,
+            "profileStartClockInsideRequestBounds": false,
+            "startRequestUncertaintyMs": 543.1218340396881,
+            "profile": {
+              "startTime": 1514600307642,
+              "endTime": 1514605297581,
+              "samples": 303,
+              "timeDeltas": 303,
+              "nodes": 123,
+              "normalizerFrameSeen": true
+            }
+          },
+          {
+            "name": "after",
+            "points": 8,
+            "warmMedianMs": 263.275,
+            "compatible": 6,
+            "compatibleMedianMs": 263.1165,
+            "compatibleRangeMs": 11.341000000000008,
+            "outputs": 1
+          }
+        ],
+        "startClockDomainAssumptionRejected": true,
+        "fieldQualificationPassed": false
+      }
+    },
+    {
+      "name": "e3-profiler-feasibility-v2-20261113",
+      "scriptSha256": "409a6dd142a7dd2374227320fa56f0265a9ba5f0ab3380085dd14c991f1ba253",
+      "rawReceiptSha256": "2b9618e0ee6d60f85376dd9e6c6568d369ebd7c546039a83424c3d538921aa69",
+      "rawProfileSha256": "95859ae62baeeac2f7c4c93b7ed8bd518bad1ce33de62ed95ef7dcd489fd634c",
+      "ownedOnly": true,
+      "actualPeerAttached": false,
+      "controlledCpuMs": 14818.9,
+      "restored": true,
+      "sourceWritesDenied": 0,
+      "readFailures": 0,
+      "failures": [],
+      "summary": {
+        "failures": [],
+        "readFailures": 0,
+        "sourceWritesDenied": 0,
+        "restored": true,
+        "controlledCpuMs": 14818.9,
+        "profileSamples": 355,
+        "positiveDeltas": true,
+        "profileStartRequestMs": 530.2620420455933,
+        "profileSetupCpuMs": 530.601,
+        "profileStopCpuMs": 1.863,
+        "markers": [
+          {
+            "name": "e3BoundaryStart",
+            "samples": 22,
+            "offsetIntervalWidthMs": 19.721458196640015
+          },
+          {
+            "name": "e3BoundaryEnd",
+            "samples": 25,
+            "offsetIntervalWidthMs": 4.11299991607666
+          }
+        ],
+        "constantOffsetIntersectionExists": true,
+        "clockOffsetUncertaintyMs": 4.11299991607666,
+        "profileCpuRows": [
+          {
+            "name": "before",
+            "compatible": 6,
+            "medianMs": 265.9655,
+            "rangeMs": 14.76600000000002
+          },
+          {
+            "name": "profile10ms",
+            "compatible": 7,
+            "medianMs": 263.806,
+            "rangeMs": 16.762999999999977
+          },
+          {
+            "name": "after",
+            "compatible": 6,
+            "medianMs": 261.562,
+            "rangeMs": 10.894999999999982
+          }
+        ]
+      },
+      "fieldQualificationPassed": false,
+      "rejectionReasons": [
+        "profile block compatible range 16.763ms exceeds unchanged 15ms criterion",
+        "no paired native PMC/calibration qualification in exploratory pilot"
+      ]
+    }
+  ],
+  "ownedPilotReadCpuTotalMs": 29018.789000000004,
+  "fieldSamplingStarted": false,
+  "limits": [
+    "No artificial latency padding or forced GC used.",
+    "Exploratory profiler pilots do not establish absence of observer effects or qualify field launch.",
+    "No new-process negative is used to explain historical residual.",
+    "No actual Peer restart, VM flags, heap snapshot, task or canonical data changes."
+  ],
+  "productionAndSemanticsAudit": {
+    "productionMatchesSealedC2": true,
+    "retainedPhaseRows": 50,
+    "retainedPhaseOutputDigestsMatchC2": true,
+    "ownedProcessCommandsRemaining": 0,
+    "actualPeerAttached": false
+  },
+  "proposedBudget": {
+    "status": "proposed-contract-not-field-launch",
+    "Q": {
+      "newExecutionWallMs": 600000,
+      "ownedLaunchesIncludingPilots": 5,
+      "alreadySpentPilotLaunches": 2,
+      "exploratoryExternalWallCapEachMs": 55000,
+      "ownedReadCpuMs": 60000
+    },
+    "H": {
+      "wallMs": 1500000,
+      "targets": 6,
+      "references": 1,
+      "ownedReadCpuMs": 300000
+    },
+    "F": {
+      "wallMs": 1800000,
+      "baselineDeadlineMs": 480000,
+      "noNewExposureDeadlineMs": 480000,
+      "mainReadCpuMs": 48000,
+      "referenceReadCpuMs": 32000,
+      "probeCpuMsEach": 5000,
+      "nativeCalibrationCpuMsEach": 1500,
+      "controllerAndCollectorsCpuMs": 20000,
+      "events": 2,
+      "fullCheckpoints": 6,
+      "journalBytes": 33554432,
+      "preConfirmationProfiler": false,
+      "preF1WitnessSequences": 1,
+      "ticketQueueCapacity": 1,
+      "ticketQueueDeadlineMs": 5000,
+      "confirmationCannotCombineDifferentEvents": true,
+      "naturalBaselineRoots": 5,
+      "baselineSettleMs": 60000,
+      "denseFastBaselineLockedToF0": true,
+      "validSlowF1Preserved": true,
+      "firstWitnessRequiresTargetEventLoopDispatch": true,
+      "earlySignalFull12MinimumMs": 12,
+      "earlySignalFull12MinimumFraction": 0.04,
+      "knownNovelExposureAdmitsWitnessWithoutCpuIncrease": true
+    },
+    "R": {
+      "wallMs": 1800000,
+      "targets": 14,
+      "references": 1,
+      "ownedReadCpuMs": 720000,
+      "conditionalOnActualFieldCandidate": true,
+      "causalCells": 4,
+      "replicatesPerCausalCell": 3,
+      "mechanismOnlyAdditionalTargets": 2,
+      "profilerNotMixedIntoActualFieldProbeFactor": true
+    },
+    "maxConcurrentOwned": 2,
+    "totalOwnedLaunches": 28,
+    "totalActiveExecutionWallMsIncludingExploratoryCaps": 5820000,
+    "newLogicalOutputBytes": 1073741824,
+    "fieldCumulativeCaps": {
+      "durationMs": 16200000,
+      "mainReadCpuMs": 90000,
+      "referenceReadCpuMs": 90000,
+      "probeCpuMsEach": 10000,
+      "nativeCalibrationCpuMsEach": 5000,
+      "controllerAndCollectorsCpuMs": 60000,
+      "logicalArchiveBytes": 2684354560
+    },
+    "oldC1C2Measured": {
+      "durationMs": 14314853,
+      "mainReadCpuMs": 24687.212,
+      "referenceReadCpuMs": 19985.711,
+      "controllerCpuMs": 23739,
+      "logicalArchiveBytes": 1168068298
+    },
+    "priorUnknownBoundaryCostsNotZero": true
+  },
+  "fiveRootPlannedTriggerOfflineAudit": {
+    "discardedInitialNonOverlappingRows": 10,
+    "trainingRows": 5,
+    "heldOutRows": 113,
+    "baselineMs": 282.39900000000006,
+    "heldoutDeltaMinMs": -15.021000000000072,
+    "heldoutDeltaMaxMs": 7.510999999999967,
+    "full12Signals": 0,
+    "notFieldBaselineQualification": true
+  },
+  "review": {
+    "kind": "implementer-self-review",
+    "independent": false,
+    "budgetArithmeticPassed": true,
+    "relativeLinksPassed": true,
+    "privatePathsAndIdsAbsent": true,
+    "proseAndJsonOnlyInRepository": true,
+    "newFieldModuleImplemented": false,
+    "HFRExecuted": false
+  }
+}
