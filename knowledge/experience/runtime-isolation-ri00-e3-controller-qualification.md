@@ -127,3 +127,6 @@ C、D原报告仍failed；尤其C缺失target controlled成本未知，不被E�
 [结果收据](../../playbook/evidence/runtime-isolation-ri00-e3-cdem-results-20261113.json)分别绑定C/D/E/M实际producer、原报告SHA、N离线审计SHA与本轮最终source，后续纯离线分析修订不冒充运行producer。`d97f9bbf`的71项聚焦测试全部通过（含真实Node Inspector/queue、通知所有权、取消恢复与记账），architecture/UI规范/diff通过；`5190038f`仅新增封存审计CLI，syntax及一次384遍实际离线重放通过，零产品读取。上述candidate查询的PR workflow/status均为空，不能声称CI绿；完整build、产品回归、真实模型、安装/release验收未跑。审查为实现者自审，不称独立审查。
 
 下一步只有P专用Profiler/marker controller的真实时钟与异常退出验证，再按已冻结P预算执行工具单变量资格；不是原样重跑N或补进程追绿。该工具通过后，现场入口/信号/控制器才具备继续受预算约束的自然窗口条件。现场同进程快→慢前史与无profile指标、随后机制反事实仍必须分别取得；原3.95秒证据缺口、剩余CPU归因不由新进程快态或已知周期GC补齐。RI-00未闭合，RI-01/重构未开始。
+
+
+2026-11-14后续执行：[P0/P原始结果与预留算法错误](runtime-isolation-ri00-e3-p-profiler-qualification.md)。P0通过，P只用2/3槽后中止，原失败保留，第三槽不补跑；上文“P未执行”属于2026-11-13冻结阶段，不作为当前状态。未取得完整P或现场/机制资格。

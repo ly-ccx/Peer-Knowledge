@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-14 P执行：[专用时钟/异常恢复与原P中止](../knowledge/experience/runtime-isolation-ri00-e3-p-profiler-qualification.md)、[机器收据](evidence/runtime-isolation-ri00-e3-p-results-20261114.json)。P0固定一个Node的6场景通过；P在首个OFF原门通过后被工具预算预测错误拒绝，2/3实际宿主、36根、零P profile，第三槽作废未补跑。冷预热2117.35ms被误乘40暖根，虚报128541ms预留；修正candidate仅离线回放/86聚焦测试，不改90秒或15/2ms门，不冒领原producer实测。累计实际owned Electron29、已知读CPU下界352.596809秒另加旧C未知。方法/队列/端口/8534副本恢复；未完成P，未捕到现场形成或机制，不重构。
+
 2026-11-14续记：[384遍离线审计与C/D/E/M结果](../knowledge/experience/runtime-isolation-ri00-e3-controller-qualification.md)、[机器收据](evidence/runtime-isolation-ri00-e3-cdem-results-20261113.json)、[P独立冻结预算](evidence/runtime-isolation-ri00-e3-p-budget-20261113.json)。N未重跑或改判；C/D失败及C未知成本保留，E真实owned控制器F0/静默/首见证/F1/取消通过，M实际Peer一次随机端口附着、同栈装配/恢复且零业务读取通过。新7槽无替换，累计27；71聚焦测试通过，CLI封存384遍重放通过，CI无结果。P未执行、未启动现场窗口；仍缺现场同进程快到慢及机制复现，RI-00未闭合、重构未开始。
 
 2026-11-13 N逐遍计数：[冻结方案及实际结果](../knowledge/experience/runtime-isolation-ri00-e3-pass-work.md)、[公开收据](evidence/runtime-isolation-ri00-e3-n-results-20261113.json)。固定3个owned启动已用完，32个ON生产根取得384遍指令/周期及root余部，与外部PMC核对通过，边界wall最大0.088ms；两target性能资格仍拒绝，未启Profiler或现场。21个按实际时间配对的同GC兼容点已能分开Evidence/余部新增工作与CPU变化，未重现旧2.49%或30–40ms形成。封存10ms profile的96逐遍窗口均缺足够样本。实际一次附着因固定端口错误失败；仅恢复实际随机端口，refusal且原进程存活，unknown主线程成本及46.239秒墙钟上界保留，修正候选不追补实际验证。42项聚焦测试/architecture/UI/diff通过不等于完整F控制器、实际装配或机制资格；RI-00与产品重构门不变。
