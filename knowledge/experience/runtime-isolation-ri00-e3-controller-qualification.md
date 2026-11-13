@@ -56,3 +56,15 @@ producer `19bebc6a`恰好使用3个固定启动，C0四场景通过真实CDP/que
 [D冻结预算](../../playbook/evidence/runtime-isolation-ri00-e3-d-budget-20261113.json)是新的工具故障隔离，不占/重算C或N：固定2个production/reference、最大2同时存活、零替换，墙钟6分钟含90秒恢复、读体≤60秒、native hash≤1秒、控制器/辅助≤20秒另5秒reserve、输出128MiB/journal32MiB。source、输入、sampler、默认VM相同；target先固定legacy-await / retained-poll / retained-poll / legacy-await，每块2根，唯一因素是CDP transport Adapter，非性能开关。任何错误只归档并恢复同ticket，不补读该失败点；按原定8点做完，不能挑绿返回块。若legacy没有复现，原Promise原因仍unknown；poll失败则该候选资格拒绝，无新增进程。
 
 随后仅一次真实G2/controller生产接缝验证，复用已封存C0的功能覆盖，不能把旧C改为passed。原15ms/校准/PMC条件不变，F0拒绝时验证安全封存，不增加F0追绿；若F0通过，仍按60秒+5owned普通根及F1既定分支。zero profile、zero N重跑、zero 顺序曝光。D额外2启动将计划帽42→44、执行活动墙钟帽152→158分钟；旧已用23启动及C unknown保留。M只在新传输/关闭接缝与同栈装配通过后，使用原预留的一次实际附着，不另开次数。
+
+## D实际结果与E最后固定资格
+
+`eb4e1f65` D按legacy/poll/poll/legacy各2点做完：4个legacy全部在status复现`Promise was collected`，4个poll全部完成；错误点只归档/ACK原ticket，未补读。返回legacy时仍失败，支持改掉CDP await普通status返回这一具体传输原因；原C没有operation，仍不能事后声称其同一具体RPC已被记录。随后生产控制器尚未到F0，在预热阶段因2048条command trace上限停止。D整体failed，不能只取四个绿色poll点当完整控制器通过。
+
+D共2启动、墙钟13.398秒、读体11.734507秒、controller/aux含reserve5.634807秒；两个宿主均有完整exit，方法/binding/队列/原件恢复，正常退出，没有强停或unknown成本。关闭先disconnect的修正得到了实际生命周期验证。失败也显示2ms状态轮询会生成大量控制命令；其main插入成本未独立计量，不能称低干扰，更不能用这个**新控制器**的行为解释N或既有现场残差。
+
+E改成target queue完成/失败/过期的结构化终态触发一个owned Runtime binding；client等通知后只查一次真实status。通知只是唤醒，不替代ticket事实；超时仅查同id一次，不新建查询。通知函数owner、卸载/晚到owner、CPU单列，stop保持未ACK原batch。trace按重复operation RLE而不是丢弃失败；source/16MiB/32MiB上限不变。真实Node Inspector+真实queue验证单次status与binding删除；首轮测试发现不支持通知的fixture残留binding，已保留失败并修为先查支持、原生函数对象相等才删除，未放宽零泄漏断言。
+
+[E冻结预算](../../playbook/evidence/runtime-isolation-ri00-e3-e-budget-20261113.json)仅2个production/reference、6分钟含90秒恢复、读体60秒/hash1秒、controller/aux20秒另5秒reserve、notice CPU≤1秒、输出128MiB/journal32MiB，零替换。**不再执行D八点或N开关**，只验证新事件驱动接口、一次原F0及其既定后续/安全拒绝、同栈装配和恢复；若E再失败，本轮不增加app槽。旧C/D报告都保持failed。E只可能得到工具资格，不产生现场形成或机制归因。
+
+E把计划帽44→46、活动执行墙钟158→164分钟，实际旧25次启动、C unknown及全部原始失败不清零；H仍冻结未执行，M仍只使用原预留一次。未通过E时不进入现场，也不借剩余H/F/R启动。
