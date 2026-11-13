@@ -92,4 +92,4 @@ producer `656aeb46`的N0/N1/N2全部按固定额度完成，3/3启动已用完�
 
 下一步不原样再跑N两进程。先用本轮逐遍CPU/PMC和完整归档做工作量与速率分离审计；热点控制器须先验证真实读时钟、样本粒度及start/stop成本，尚无已通过的可执行profile/现场资格。实际端口发现修正需要一个另冻结、不能改写本次失败的资格额度；完整F的durable编排与异常恢复也须在真正owned Electron中单独验收。未满足这些门，不接续负窗口、不借R预算、不重构；现场同进程形成和机制复现仍是RI-00闭合条件。
 
-[本轮公开收据](../../playbook/evidence/runtime-isolation-ri00-e3-n-results-20261113.json)绑定原报告、离线重算、热点重放与实际端口恢复。当前42项相关测试一次通过，architecture/UI/diff通过；producer、附着候选及当前candidate的PR workflow/status查询均空，不称绿色CI。没有运行全构建、完整产品回归或安装/发布验收，审查为实施者自审。
+[本轮公开收据](../../playbook/evidence/runtime-isolation-ri00-e3-n-results-20261113.json)绑定原报告、离线重算、热点重放与实际端口恢复。`34ba0d24`的42项相关测试一次通过，architecture/UI/diff通过；最终`ffbad972`只把两个资格CLI的`passed=false`同步为非零退出（原producer的零退出及失败JSON保留），另做语法/diff审查、不重新启动；producer、附着候选及当前candidate的PR workflow/status查询均空，不称绿色CI。没有运行全构建、完整产品回归或安装/发布验收，审查为实施者自审。

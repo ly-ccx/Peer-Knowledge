@@ -3,7 +3,7 @@
   "date": "2026-11-13",
   "producer": "656aeb46074555c39310cbe611bf1699365043a4",
   "installedAttemptCandidate": "b22ea485fb5e6cb10114afb7e0942750c15c9fbc",
-  "currentCandidate": "34ba0d241c095b16515c31b992f0fcb1e125e332",
+  "currentCandidate": "ffbad97293051e7810a4ece8f81248dac128d20b",
   "rawReportSha256": "760431613074f47c15da004c398f852f976f9cd767904616f0b98432b5de9c1a",
   "postSealAuditSha256": "2354daa051a18ce4baee6d611e5ea97ca2b61d9760bce507ac9a2d8a5dbea730",
   "sameGcAuditSha256": "bb69fab251b54345e1bbaa39c23085de110c67d142bbd62181a47b647a2fc910",
@@ -158,14 +158,18 @@
     "ci": {
       "workflowRuns": [],
       "statuses": [],
-      "scope": "PR-filtered workflows and combined statuses for producer, installed attempt, current candidate"
+      "scope": "PR-filtered workflows and combined statuses for producer, installed attempt, gate replay and final CLI candidate"
     },
     "firstFloatingPointFailureRetained": {
       "kind": "floating-point-accumulation",
-      "expected": 0.000026,
-      "actual": 0.00002600000000000001,
+      "expected": 2.6e-05,
+      "actual": 2.600000000000001e-05,
       "correction": "sum raw bigint ticks before converting to milliseconds; assertion unchanged"
-    }
+    },
+    "focusedTestsCandidate": "34ba0d241c095b16515c31b992f0fcb1e125e332",
+    "latestCliSyntaxOnly": true,
+    "latestCliReportsRejectionWithNonzeroExit": true,
+    "latestCliNotRuntimeRetried": true
   },
   "fieldStarted": false,
   "mechanismReproduced": false,
@@ -182,5 +186,6 @@
     "position0InstructionDelta": "18338275",
     "position1InstructionDelta": "26559759",
     "notKOrQualifiedFormation": true
-  }
+  },
+  "gateReplayCandidate": "34ba0d241c095b16515c31b992f0fcb1e125e332"
 }
