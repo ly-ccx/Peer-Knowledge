@@ -40,3 +40,19 @@ N仍拒绝，不把其native探针带入热点/实际Peer。H两种模式均完�
 H总墙钟15分钟含90秒恢复、产品读体≤90秒、控制器/辅助≤20秒、准备关闭另预留5秒、profile≤16MiB、总输出128MiB、journal32MiB。没有本轮执行许可自动转入H：先完成C/M并封存取栈controller的真实时钟/start/stop异常验证，再按此独立固定预算执行，不能借F/R槽。原15ms资格不能被结构profile绕过；未来现场形成仍必须原G2 F0/F1/Q1/Q2，未带profile指标不得由profile推回补齐。
 
 C新增3与H保留3将E3 owned计划帽36→42、活动执行墙钟帽127→152分钟；实际花费另记，旧已用20启动/282.034817秒读体、C1/C2累计与unknown不清零。M预算独立记账，不混作F的30分钟自然窗口。未获得现场同进程快→慢及机制复现前不重构。
+
+## C原执行封存：不能用后续候选追认通过
+
+producer `19bebc6a`恰好使用3个固定启动，C0四场景通过真实CDP/queue/journal：完整policy顺序、F1有效已慢分支、request应答丢失、真实写入后的注入fsync失败；各阳性gate是显式fixture、reference为逻辑替身，不是G2或现场形成。断开真实CDP后，原controller recovery-unverified结果保留；lease恢复方法、端口refusal且宿主alive，随后只归档/ACK原ticket，不重放查询。
+
+两个production宿主启动后，在首条生产batch归档之前发生CDP `Promise was collected`，原日志没有operation字段，不能事后补出失败的具体RPC。controller没有取得真实F0，不能用C0代替。两个stderr均出现`Waiting for the debugger to disconnect`；代码却先等待host.exit、随后才disconnect，构成直接可证的收尾等待环。它不是旧30–40ms机制或应用自然多秒停顿。
+
+按PID父子身份核对，仅终止本轮自有的2个Electron及4个Helper；原Peer未动。墙钟501.790秒，3启动全部消费；报告仍failed，原数据/错误/外部恢复单独封存。已知读体下界4.293683秒（含两次生产bootstrap选择），target没有完整exit/controlled成本，未计部分为unknown，不称在60秒帽内。counter EOF成本已知，controller/aux含准备reserve为5.677368秒；这是其已计范围，不填补target缺口。原C不足以准入现场，M当时未执行。
+
+## D：针对取证工具故障的新单变量资格，执行前冻结
+
+修复候选把CDP普通返回改为同步值；异步take保存在site持有的单槽中，外部轮询完成值，durable ACK后释放；不依赖CDP对临时Promise的await。每次错误保留operation，原C的缺口仍不回填。另把disconnect移到exit之前，并为自有host关闭设置强制截止；不能作用于实际Peer。审查同时发现long probe.stop清空未ACK的pendingTake，在cursor已推进时会让再次take漏掉原batch；改为stop保留原Promise直到ACK。真实Node CDP与停后重取同一batch的回归测试通过，没有强制GC或更换VM参数。
+
+[D冻结预算](../../playbook/evidence/runtime-isolation-ri00-e3-d-budget-20261113.json)是新的工具故障隔离，不占/重算C或N：固定2个production/reference、最大2同时存活、零替换，墙钟6分钟含90秒恢复、读体≤60秒、native hash≤1秒、控制器/辅助≤20秒另5秒reserve、输出128MiB/journal32MiB。source、输入、sampler、默认VM相同；target先固定legacy-await / retained-poll / retained-poll / legacy-await，每块2根，唯一因素是CDP transport Adapter，非性能开关。任何错误只归档并恢复同ticket，不补读该失败点；按原定8点做完，不能挑绿返回块。若legacy没有复现，原Promise原因仍unknown；poll失败则该候选资格拒绝，无新增进程。
+
+随后仅一次真实G2/controller生产接缝验证，复用已封存C0的功能覆盖，不能把旧C改为passed。原15ms/校准/PMC条件不变，F0拒绝时验证安全封存，不增加F0追绿；若F0通过，仍按60秒+5owned普通根及F1既定分支。zero profile、zero N重跑、zero 顺序曝光。D额外2启动将计划帽42→44、执行活动墙钟帽152→158分钟；旧已用23启动及C unknown保留。M只在新传输/关闭接缝与同栈装配通过后，使用原预留的一次实际附着，不另开次数。
