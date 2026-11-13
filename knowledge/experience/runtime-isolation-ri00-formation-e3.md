@@ -1,6 +1,6 @@
 # RI-00 E3：按读取顺序取证与同进程形成对照
 
-日期：2026-11-13。状态：首见证/单槽仲裁/恢复功能验证已完成，原失败保留；固定H六实例全部在F0拒绝，有效配对0/3，未执行顺序曝光。完整现场入口/信号适配器尚未资格验证，F/R未启动。不是性能修复或重构开工许可。实际结果见§9。
+日期：2026-11-13。状态：原H六实例F0均拒绝、0/3及原失败保留；后续[封存F0审计、两个owned入口资格槽与归档粒度对照](runtime-isolation-ri00-e3-qualification-followup.md)已收尾。入口/信号Module通过分层验证；K不支持归档粒度的预定充分原因，实际Peer装配与完整F控制器尚未验证，F/R未启动。不是性能修复或重构开工许可。原Q/H实际结果见§9，不用后续候选改写它。
 
 沿用`00-adr-map.md`、`96-task-execution-responsiveness.md`、仍Proposed的`128-local-runtime-isolation-and-bounded-query-contract.md`。C级诊断设计，现行运行时、存储、权限、Evidence、IPC与System Context边界不动。事实前提见[C2总账](runtime-isolation-ri00-passive-watch-v2.md#7-实际c2收尾与证据总账)；本轮[审计/预检回执](../../playbook/evidence/runtime-isolation-ri00-e3-design-audit-20261113.json)不含个人数据或原始栈。
 
@@ -153,3 +153,5 @@ Q连此前两次探索恰好5个owned启动，累计受控读体35.260555秒，�
 本轮不进入F。直接阻塞是固定H没有可用快态，且完整现场入口映射、全12遍/新exposure信号适配器尚未取得owned生产图资格，不能用共享采样函数通过来替代整包现场资格。Q/H启动额度已用完；剩余预算不兑换追加进程、额外夹测或降低15ms门。
 
 已有逐点GC/heap、全12遍CPU、线程PMCs和校准已封存并完成离线拒绝项审计：暖段极差是所有单元的直接拒绝项；PMC只覆盖整个排队Supervisor根，不能据它把波动归因到Evidence归一化内部。更进一步的根因仍unknown。后续须先针对这些失败点提出能区分测量节奏、宿主状态及执行环境的单变量资格设计与新额度，并完成现场适配器的受控资格，不能原样再跑六个进程或续等未触发窗口。30–40ms残差没有被这些资格失败、周期GC或新进程均值解释；RI-00仍未闭合，RI-01/产品重构继续冻结。
+
+以上为原Q/H收据时的边界。后续已按[补充资格设计及实际结果](runtime-isolation-ri00-e3-qualification-followup.md)完成新增5个固定槽：归档粒度充分原因未获支持，入口producer与纯controller分别验证；仍未进入现场、不追加进程。原Q第二例失败、H六例失格和本节历史措辞均保留，当前状态以上游补充结果为准。

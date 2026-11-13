@@ -1,0 +1,73 @@
+{
+  "kind": "RI00-E3-followup-scoped-validation-not-release",
+  "date": "2026-11-13",
+  "currentCodeCandidate": "a59d067d4959891a06f7a90c32c12f72497de7e1",
+  "producerCandidate": "c8ee0f4f80ca90325ca4497fe97d1000646ffb54",
+  "measuredDrainControllerCandidate": "1de20ad88c670b4675af76444b7428d91b3cfb40",
+  "sealedDrainSamplerCandidate": "8cfb68f06529448e5cfa8701c83d832e088dbe14",
+  "tests": {
+    "distinctFocusedTestsPassedAcrossGroups": 53,
+    "oneSimultaneous53TestRunClaim": false,
+    "producerAndExistingContractGroup": 47,
+    "additionalCounterAndDrainTests": 4,
+    "additionalParentExposureTest": 1,
+    "additionalQuietClockAndBaselineOwnerTest": 1,
+    "currentSignalPolicyTests": 7,
+    "signalPolicySealedRealInputPacketsReplayed": 70,
+    "syntaxFilesAtProducerQualification": 10,
+    "currentDriverSyntaxPassed": true,
+    "architecturePassed": true,
+    "uiConventionsPassed": true,
+    "diffPassed": true,
+    "sourceImplementationIsNotInstalledFix": true
+  },
+  "ci": [
+    {
+      "candidate": "a59d067d4959891a06f7a90c32c12f72497de7e1",
+      "workflowRunsReturned": 0,
+      "statusesReturned": 0
+    },
+    {
+      "candidate": "1de20ad88c670b4675af76444b7428d91b3cfb40",
+      "workflowRunsReturned": 0,
+      "statusesReturned": 0
+    },
+    {
+      "candidate": "c8ee0f4f80ca90325ca4497fe97d1000646ffb54",
+      "workflowRunsReturned": 0,
+      "statusesReturned": 0
+    }
+  ],
+  "greenCIClaim": false,
+  "architecture": {
+    "classification": "C-level diagnostic",
+    "readADRFiles": [
+      "00-adr-map.md",
+      "96-task-execution-responsiveness.md",
+      "128-local-runtime-isolation-and-bounded-query-contract.md"
+    ],
+    "boundaryMoved": false,
+    "ADR128StillProposed": true
+  },
+  "gates": {
+    "newOwnedElectronSlotsSpent": 5,
+    "newOwnedElectronSlotsLimit": 5,
+    "noReplacements": true,
+    "actualPeerAttached": false,
+    "fieldStarted": false,
+    "RI00Closed": false,
+    "productRefactorStarted": false,
+    "originalHValidPairs": 0
+  },
+  "unrun": [
+    "Installed app object discovery and trusted-window outer guard",
+    "Complete F controller integration",
+    "Actual-user same-process fast-to-slow residual and mechanism replay",
+    "Real-model, full product regression, installation and release campaign"
+  ],
+  "review": {
+    "kind": "implementer-self-review",
+    "independent": false,
+    "rawPathsPidsStacksProfilesRemainPrivate": true
+  }
+}

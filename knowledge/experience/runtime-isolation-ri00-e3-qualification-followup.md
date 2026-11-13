@@ -1,6 +1,6 @@
 # RI-00：封存F0拆解与补充资格对照
 
-2026-11-13。C级诊断；沿用`00-adr-map.md`、`96-task-execution-responsiveness.md`及仍Proposed的`128-local-runtime-isolation-and-bounded-query-contract.md`，产品/权限/Evidence/存储/System Context边界不变。不是重构或现场开工许可。[原Q/H](runtime-isolation-ri00-formation-e3.md#9-本轮实际qh收据与现场准入结论)及[本轮封存审计与冻结预算](../../playbook/evidence/runtime-isolation-ri00-e3-f0-audit-20261113.json)分别保留。
+2026-11-13。状态：封存审计、两个A资格槽、三个K对照槽均已收尾；K不支持归档粒度的预定充分原因，未进入现场。C级诊断；沿用`00-adr-map.md`、`96-task-execution-responsiveness.md`及仍Proposed的`128-local-runtime-isolation-and-bounded-query-contract.md`，产品/权限/Evidence/存储/System Context边界不变。不是重构或现场开工许可。[原Q/H](runtime-isolation-ri00-formation-e3.md#9-本轮实际qh收据与现场准入结论)及[本轮封存审计与冻结预算](../../playbook/evidence/runtime-isolation-ri00-e3-f0-audit-20261113.json)分别保留。
 
 ## 1. 先查封存点，不增加产品读取
 
@@ -63,3 +63,32 @@ Signal Adapter消费已归档行，不执行产品查询。固定F0后60秒静�
 生产槽从五个实际注册handler的具名闭包发现并比较ports、Directory、Supervisor、goalPlanStore对象；batch与single回调都严格等于同一Supervisor，观察6类入口及真实`listByWorkspaceIds`根。8534文件及空fence前后逐项SHA/size匹配，完整23会话/3859 getPlan/12遍投影仍匹配H。源、生产Module、采样代码与父报告不变；三类JS heap getter均0、零读取失败/源写拒绝/元数据错误，方法/队列/binding恢复，两个宿主退出。固定诊断log映射3次，Fs Adapter已恢复。
 
 生产槽真实等待60秒之后，用5根owned普通入口调用学习全12遍中位284.427ms；这些是owned功能验证输入，不是用户现场。没有给策略伪造F0/F1，`bracketed=false/events=0`保持，基线存在也不会发起取证。纯策略测试另验证CPU单根、新入口、单遍标记、单槽busy、两事件及8分钟截止。47项聚焦测试、10个文件语法、architecture/UI/diff通过；首次log路径别名失败保存后修正。已验证新增入口/信号Module及owned序列化装配，尚未验证当前实际Peer的对象发现、可信窗口外层或完整F控制器；不据此进入现场。K当时尚未执行，下一段单独封存它的结果，不能把A投影/快慢计量混进K。
+
+## 6. K实际结果：归档粒度不是本轮的充分原因
+
+[K回执](../../playbook/evidence/runtime-isolation-ri00-e3-drain-qualification-20261113.json)绑定实际控制器`1de20ad88c670b4675af76444b7428d91b3cfb40`和精确封存`8cfb68f0`采样bundle：2个target、1个共享reference全部完成，没有加载A的入口包装，没有增加样本。每行依次列出四个检查点的最大兼容暖段极差，单位ms。
+
+| 固定顺序 | 第1点 | 第2点 | 第3点 | 第4点 | A减B的极差改善 |
+|---|---:|---:|---:|---:|---:|
+| D1：逐点/按块/按块/逐点 | 20.919 | 11.494 | 16.182 | 13.477 | +3.360 |
+| D2：按块/逐点/逐点/按块 | 22.743 | 16.690 | 20.909 | 20.898 | −3.021 |
+
+八个检查点的source/graph/PMC及校准门均通过，但只有D1第2/4点的所有块极差≤15ms；D1第二个B仍失败，返回A却通过，D2两个B均失败。两个target都没有合格B快点对，亦未满足≥5ms改善。故预注册充分原因不获支持，不能把某个绿色B挑出来放行F，也不扩成“排空粒度在所有状态都没有任何影响”。原H六例依然0/3，不重算为K的样本。
+
+K的封存再审取得更强的边界反例：D1第3检查点main-B的两个暖点，均观察到11次root minor，逐遍minor重叠签名完全相同（7个Evidence跨度有重叠），但Evidence用户CPU为277.837/294.019ms，相差16.182ms。两点Evidence GC重叠wall为17.846667/17.739501ms，不能用它相减解释用户CPU。整根夹取窗口指令8,104,504,147→8,306,266,254，增加约2.49%，周期增加约3.78%，根读体CPU增加22.443ms；窗口之外的测量CPU约1ms，通过原专属性门。这里仍只证明整根窗口的工作量与执行速率代理都变化，不是逐遍归一化指令，也没有当时热点栈。相同GC次数/落点不能证明相同VM工作，更不能把全部差额按GC暂停或核频补齐。
+
+三个进程各72次完整受控读，共216根（24预热、192检查点），加3次末尾语义审计，读体103.101263秒、墙钟139.984秒。counter正常EOF退出，最终CPU276.544ms、关闭5.084ms、未强停；控制器2.012618秒。连A控制器与5秒准备/1秒关闭保守占额，共计10.097188秒，低于共用20秒帽。K/A合计墙钟216.951秒、读体109.927044秒，新增5个Electron额度恰好用完。两stage输出约11.09MB、journal8,316,998字节，低于256MiB/32MiB；审计/claim等附加小型回执单列，未删除失败腾额度。
+
+所有方法/binding/队列恢复，零元数据丢失/读取失败/拒写，三个语义审计匹配H；五个A/K应用PID及counter均已不存在。源、生产Module、驱动及封存sampler一致，结束后8534内容文件和空fence又逐项核验。收尾仅把控制器所导入的dense gate加入未来driver identity清单，候选`e0e53a19`未重跑；实际`1de20ad8`定义的gate源码也与封存值相同，不冒领新candidate计量。
+
+## 7. 收尾的纯信号修正与剩余门
+
+自审发现A原控制器把Directory.list的root与IPC内nested调用合成同一exposure（原回执knownExposures=5保留）；虽然原始父链已记录，这会漏掉一个已定义的覆盖变化。候选`7327a7bb`只修纯controller key，加入root/nested类别并拒绝不合法parentSeq，未改Electron中的entry/probe装配。6项纯策略测试通过；用封存A的70个真实输入包重放，覆盖恢复为6类，基线仍284.427ms、五根学习、未armed/零事件，不增加产品读取或进程。[重放回执](../../playbook/evidence/runtime-isolation-ri00-e3-signal-parent-replay-20261113.json)保留新旧版本差异，不把旧A报告改成新控制器的现场验证。
+
+同一轮纯策略审查还确认静默门必须看root自身start，不能只看批次抵达时钟。保留`7327a7bb`会把start=59,999ms、61,000ms才交付的旧根收入学习的失败；`a59d067d`改为root start≥60秒、拒绝非法/未来clock，并返回隔离的baseline快照，调用方不能改写事实owner。7项当前策略测试及相同70个真实包再次重放通过，基线/覆盖仍为284.427ms/6类。[静默与owner重放回执](../../playbook/evidence/runtime-isolation-ri00-e3-signal-quiet-replay-20261113.json)单独绑定新版源码，原始A、K及前一次重放不改；没有新增Electron启动或产品调用。当前累计53项不同聚焦测试分组通过，不称53项同时执行、完整产品或已安装构建验收。
+
+本轮唯一新增性能因素已按固定返回对照完成并未获支持，不能原样续跑、换进程或降低15ms门。现有证据把“多一次minor/相位迁移”与“额外窗口内工作及执行速率变化”分开了，但额外指令落在哪个Module/哪一遍、为何出现，仍缺逐遍计数器与当时CPU栈；现有入口栈和整根PMC不能事后补造它们。后续应先针对这笔未定位工作设计更窄的取栈/计数资格，不能再将归档粒度或周期GC当结论。
+
+A说明入口/信号Module可工作；K没有给出可稳定使用的B快态资格，当前实际Peer对象发现及完整F控制器也未验证。没有新现场窗口、没有实际用户同进程残差形成或机制复现，RI-00仍未闭合，RI-01/产品重构继续冻结。计费/恢复/源码与失败回执均已封存；剩余额度不兑换追加K/H/A启动。审查为实施者自审，非独立、真实模型、安装或发布验收。
+
+[范围验证收据](../../playbook/evidence/runtime-isolation-ri00-e3-followup-validation-20261113.json)区分producer、K控制器/封存sampler和最新纯策略候选。当前源码architecture/UI/diff通过；可查询的三candidate workflow/status均返回空，不称绿色CI。知识改动另做JSON、预算算术、链接、隐私与内容/diff自审，未为文档运行代码全套或产品发布验收。

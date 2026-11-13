@@ -1,0 +1,672 @@
+{
+  "kind": "RI00-E3-single-variable-drain-contrast-not-supported-not-residual-attribution",
+  "date": "2026-11-13",
+  "candidate": "1de20ad88c670b4675af76444b7428d91b3cfb40",
+  "sealedSamplerCandidate": "8cfb68f06529448e5cfa8701c83d832e088dbe14",
+  "rawReceiptSha256": "da611c748daf36de97558017005b8f65859812e812bbdfcdf9f0fa63930efb50",
+  "entryReceiptSha256": "e9aa98278929e92e8e161f78d343779d1566a34bd454c889814b05595a499825",
+  "budgetSealSha256": "bf39f15d7c21fd5230fabd4ca23f0ad5d54fd99fed28729aded0ca110c8b6231",
+  "parentReceiptSha256": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+  "sampler": [
+    {
+      "relative": "dense-residual-probe.mjs",
+      "sha256": "75058c0b41eb13ca04c0ed44af0ac75aeba4b3fabcb059737acf2bc21fa1ff46"
+    },
+    {
+      "relative": "read-ticket-queue.mjs",
+      "sha256": "fe7f937e16825fb623412ab6ea2555e480792c11001658ddb74cb8e86db11a15"
+    },
+    {
+      "relative": "e3-install.mjs",
+      "sha256": "8f84d7ea3dde6d50f242797b29096be50c923aa97a686716330af31276f5b95a"
+    },
+    {
+      "relative": "e3-owned-main.cjs",
+      "sha256": "17db3e1bf2853413cda76f9f2e5bda53128aada57e1abccf8a9e762129d62162"
+    },
+    {
+      "relative": "e3-owned-host.mjs",
+      "sha256": "a52b682a78e9611968ec677f8bcf82b3f6003a0618cc7a150f517a5f76824051"
+    },
+    {
+      "relative": "e3-counter-client.mjs",
+      "sha256": "18619cbc4e00ac97f3ec8f14dd24a23618eba09539b1ac5d4d0065dc8c02a05a"
+    },
+    {
+      "relative": "e3-identity.mjs",
+      "sha256": "4d9e0165332ce191c5283c3678aa6f747a417f65914cf88a17f48e6372fb2da9"
+    },
+    {
+      "relative": "dense-residual.mjs",
+      "sha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28"
+    },
+    {
+      "relative": "thread-counter-delta.mjs",
+      "sha256": "ddc464a98a5963f0ccce1caf3bdb37f1d2a695d7c164982ab00055247569b1dd"
+    },
+    {
+      "relative": "darwin-process-counters.py",
+      "sha256": "704c6fd4571f5ef8836e05e01aeb2df79628627441776a680affb479b229c14e"
+    },
+    {
+      "relative": "read-host.mjs",
+      "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+    },
+    {
+      "relative": "readonly-coordination.mjs",
+      "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+    },
+    {
+      "relative": "coordination-snapshot.mjs",
+      "sha256": "4288294cfc610bc76c81e3cfac75ffb90439b6eba92053f0c65ca532b9fdd0f1"
+    },
+    {
+      "relative": "trace.mjs",
+      "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+    },
+    {
+      "relative": "identity.mjs",
+      "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+    }
+  ],
+  "driver": [
+    {
+      "relative": "run-e3-drain-qualification.mjs",
+      "sha256": "bece6d71a677f8a9e8ec92deddbc97ecfa35be7155c835c0e7366408bf7f04c2"
+    },
+    {
+      "relative": "e3-accounted-counter.mjs",
+      "sha256": "cf1238fb316915105f376d0482fa58ff1970e9a52ff190e6b6dea21d1580c5c0"
+    },
+    {
+      "relative": "e3-drain-result.mjs",
+      "sha256": "abd20103c001d49720e36797e11deb06f035cb3138da95678c3657ce78425d41"
+    },
+    {
+      "relative": "e3-checkpoint.mjs",
+      "sha256": "803af7a15e556fbd2167e236ff016d2a2cc399c86e3c7240eab3dbd7bc6a3f15"
+    },
+    {
+      "relative": "thread-counter-delta.mjs",
+      "sha256": "ddc464a98a5963f0ccce1caf3bdb37f1d2a695d7c164982ab00055247569b1dd"
+    },
+    {
+      "relative": "source-archive.mjs",
+      "sha256": "64d1044fb53ada0a21bf682e812167af1b03c62bc406ef35306ba72876cf4e69"
+    },
+    {
+      "relative": "identity.mjs",
+      "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+    }
+  ],
+  "mechanicsOk": true,
+  "drainHypothesisSupported": false,
+  "conclusion": "predeclared-sufficient-cause-criterion-not-supported",
+  "ownedElectronLaunches": 3,
+  "noReplacements": true,
+  "threshold15msUnchanged": true,
+  "targets": [
+    {
+      "label": "D1",
+      "schedule": [
+        "point",
+        "block",
+        "block",
+        "point"
+      ],
+      "status": "completed",
+      "pointOnlyRangeFailures": false,
+      "blockFastPairQualified": false,
+      "rangeImprovementMs": 3.3600000000000136,
+      "supported": false,
+      "checkpoints": [
+        {
+          "index": 0,
+          "mode": "point",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            0.989010989010989,
+            0.9600477042337507
+          ],
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "deltas": null,
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 5,
+              "fullWarmMedian": 289.913,
+              "median": 288.58899999999994,
+              "compatibleRange": 10.711000000000013
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 287.894,
+              "median": 287.894,
+              "compatibleRange": 20.918999999999983
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 293.215,
+              "median": 293.215,
+              "compatibleRange": 14.803000000000054
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "mode": "block",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            1.0063907620432808,
+            0.9893781127418572
+          ],
+          "status": "armed",
+          "reason": null,
+          "deltas": [
+            -1.8069999999999027,
+            -6.405999999999949
+          ],
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 291.076,
+              "median": 290.43500000000006,
+              "compatibleRange": 8.591000000000008
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 292.46899999999994,
+              "median": 292.24199999999996,
+              "compatibleRange": 11.494000000000028
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 287.39799999999997,
+              "median": 285.836,
+              "compatibleRange": 9.908999999999992
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "mode": "block",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            1.0097415775943714,
+            1.0118612727190726
+          ],
+          "status": "armed",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "deltas": null,
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 288.489,
+              "median": 288.489,
+              "compatibleRange": 12.40399999999994
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 292.484,
+              "median": 292.36,
+              "compatibleRange": 12.994000000000028
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 289.67999999999995,
+              "median": 289.67999999999995,
+              "compatibleRange": 16.181999999999903
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "mode": "point",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            0.9842547545333923,
+            0.9879699248120302
+          ],
+          "status": "armed",
+          "reason": "criterion_not_met",
+          "deltas": [
+            -5.835500000000025,
+            -3.8894999999999413
+          ],
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 286.49699999999996,
+              "median": 286.49699999999996,
+              "compatibleRange": 9.758000000000038
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 292.52600000000007,
+              "median": 292.3325,
+              "compatibleRange": 13.476999999999975
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 288.44300000000004,
+              "median": 288.44300000000004,
+              "compatibleRange": 13.160999999999945
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "D2",
+      "schedule": [
+        "block",
+        "point",
+        "point",
+        "block"
+      ],
+      "status": "completed",
+      "pointOnlyRangeFailures": true,
+      "blockFastPairQualified": false,
+      "rangeImprovementMs": -3.0209999999999866,
+      "supported": false,
+      "checkpoints": [
+        {
+          "index": 0,
+          "mode": "block",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            1.0184303350970016,
+            0.9896384479717814
+          ],
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "deltas": null,
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 295.608,
+              "median": 294.8235,
+              "compatibleRange": 22.742999999999995
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 288.26599999999996,
+              "median": 288.22950000000003,
+              "compatibleRange": 15.135000000000048
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 292.62800000000004,
+              "median": 292.62800000000004,
+              "compatibleRange": 16.525999999999954
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "mode": "point",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            1.020574141645052,
+            0.9941091132896647
+          ],
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "deltas": null,
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 293.764,
+              "median": 293.764,
+              "compatibleRange": 12.68100000000004
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 290.72499999999997,
+              "median": 290.72499999999997,
+              "compatibleRange": 11.450999999999965
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 296.073,
+              "median": 295.54449999999997,
+              "compatibleRange": 16.689999999999998
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "mode": "point",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            1.0074946466809422,
+            1.025115988579586
+          ],
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "deltas": null,
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 297.902,
+              "median": 296.3515,
+              "compatibleRange": 20.908999999999992
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 291.419,
+              "median": 290.83050000000003,
+              "compatibleRange": 7.798999999999978
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 296.24800000000005,
+              "median": 296.24800000000005,
+              "compatibleRange": 11.682000000000016
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "mode": "block",
+          "validation": {
+            "sourceStable": true,
+            "pmcStable": true,
+            "graphStable": true
+          },
+          "calibrationStable": true,
+          "calibrationRatios": [
+            1.0124645138396027,
+            1.0023509581263308
+          ],
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "deltas": null,
+          "blocks": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 298.101,
+              "median": 298.101,
+              "compatibleRange": 19.274999999999977
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 291.45799999999997,
+              "median": 291.45799999999997,
+              "compatibleRange": 11.840000000000032
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 296.256,
+              "median": 296.256,
+              "compatibleRange": 20.897999999999968
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "completeCheckpoints": 8,
+    "controlledRoots": 216,
+    "warmRoots": 24,
+    "checkpointRoots": 192,
+    "postMeasurementSemanticAudits": 3,
+    "profiles": 0,
+    "orderExposureTickets": 0
+  },
+  "sameGcSignatureCounterexample": {
+    "kind": "descriptive-counterexample-not-G2-formation",
+    "target": "D1-K2-block",
+    "role": "mainB",
+    "rootMinor": [
+      11,
+      11
+    ],
+    "sameIndexMinorSignature": true,
+    "indexMinorSignature": [
+      1,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "evidenceUserMs": [
+      277.83700000000005,
+      294.01899999999995
+    ],
+    "evidenceUserDeltaMs": 16.181999999999903,
+    "evidenceGcWallOverlapMs": [
+      17.846667051315308,
+      17.739500999450684
+    ],
+    "rootInstructions": [
+      8104504147,
+      8306266254
+    ],
+    "rootInstructionsChangeFraction": 0.024895058764907274,
+    "rootCyclesChangeFraction": 0.03780497604116362,
+    "cyclesPerCounterCpuMsChangeFraction": -0.012926044446621932,
+    "rootCpuDeltaMs": 22.442999999999962,
+    "notEvidenceOnlyCounters": true,
+    "noGcWallCpuSubtraction": true
+  },
+  "recovery": [
+    {
+      "label": "reference",
+      "restored": true,
+      "bindingRestored": true,
+      "activeDepth": 0,
+      "queueEmpty": true,
+      "retainedRowBytes": 0,
+      "metadataErrors": 0,
+      "dropped": 0,
+      "gcDropped": 0,
+      "readFailures": 0,
+      "sourceWritesDenied": 0,
+      "ownersRestored": true,
+      "controlledRoots": 72,
+      "probeCpuMs": 73.5559999999564,
+      "nativeCpuMs": 548.178,
+      "semanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6"
+    },
+    {
+      "label": "D1",
+      "restored": true,
+      "bindingRestored": true,
+      "activeDepth": 0,
+      "queueEmpty": true,
+      "retainedRowBytes": 0,
+      "metadataErrors": 0,
+      "dropped": 0,
+      "gcDropped": 0,
+      "readFailures": 0,
+      "sourceWritesDenied": 0,
+      "ownersRestored": true,
+      "controlledRoots": 72,
+      "probeCpuMs": 69.79200000002999,
+      "nativeCpuMs": 542.959,
+      "semanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6"
+    },
+    {
+      "label": "D2",
+      "restored": true,
+      "bindingRestored": true,
+      "activeDepth": 0,
+      "queueEmpty": true,
+      "retainedRowBytes": 0,
+      "metadataErrors": 0,
+      "dropped": 0,
+      "gcDropped": 0,
+      "readFailures": 0,
+      "sourceWritesDenied": 0,
+      "ownersRestored": true,
+      "controlledRoots": 72,
+      "probeCpuMs": 67.09599999991978,
+      "nativeCpuMs": 553.598,
+      "semanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6"
+    }
+  ],
+  "identities": {
+    "sourceUnchanged": true,
+    "productionUnchanged": true,
+    "driverUnchanged": true,
+    "sealedSamplerUnchanged": true,
+    "postKFullContentAudit": {
+      "files": 8534,
+      "fences": 1,
+      "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "cpuMs": 646.952
+    }
+  },
+  "budget": {
+    "KWallMs": 139984,
+    "KReadCpuMs": 103101.26299999998,
+    "KReadCpuLimitMs": 150000,
+    "KControllerCpuMs": 2012.618,
+    "counterFinalCpuMs": 276.54400000000004,
+    "counterShutdownElapsedMs": 5.084291999984998,
+    "counterKnown": true,
+    "counterForced": false,
+    "counterExitCode": 0,
+    "preparationWallMs": 51,
+    "preparationCpuReserveMs": 5000,
+    "shutdownCpuReserveMs": 1000,
+    "combinedAandKControllerAuxChargedMs": 10097.188,
+    "combinedControllerAuxLimitMs": 20000,
+    "combinedAandKWallMs": 216951,
+    "combinedAandKReadCpuMs": 109927.04399999998,
+    "newOwnedLaunchesIncludingA": 5,
+    "newOwnedLaunchLimit": 5,
+    "totalE3OwnedLaunchesToDate": 17,
+    "totalE3KnownReadCpuMs": 243217.30599999995,
+    "sharedJournalBytes": 8316998,
+    "sharedJournalLimitBytes": 33554432,
+    "stageOutputLogicalBytesAtSeal": 11085688,
+    "stageOutputLimitBytes": 268435456,
+    "unknownCostGap": false,
+    "offlineManifestReviewSeparateFromLiveReadBody": true
+  },
+  "rawArtifactsSha256": {
+    "report.private.json": "da611c748daf36de97558017005b8f65859812e812bbdfcdf9f0fa63930efb50",
+    "batches.private.jsonl": "ae5142fece90b41b4f943a55df3e0d581b51ba186521c5cd6da4fa2e85283815",
+    "native-points.private.jsonl": "5cc37fe4fa2e08f4b2c078d4bc7c0917c6f5826d9972c1a6a07d0002cecc1e0b",
+    "sealed-offline-audit.private.json": "f35481d5ccd2c7bb7f1b0afef1388019e79c7539e86350e42e57ede575a78c8a",
+    "recovery-verification.private.json": "e6648232630c316d083c25e8a05d59519e69223ba21caa40e426b6161c2fe6b9",
+    "post-manifest-audit.private.json": "db4893e0de5df36267e13dfb20723e39bedf1662b84e3d8cabb55aee99cefa9b"
+  },
+  "allFiveOwnedAppPidsAndCounterAbsent": true,
+  "postRunIdentityCorrection": {
+    "candidate": "e0e53a191587325bde1f89dc1c22d6947e7070c3",
+    "addedImportedDenseGateToFutureDriverIdentity": true,
+    "syntaxAndDiffPassed": true,
+    "ownedRunsAfterCorrection": 0,
+    "measuredCommitGateSha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28",
+    "notMeasuredCandidate": true
+  },
+  "failures": [],
+  "fieldStarted": false,
+  "RI00Closed": false,
+  "productRefactorStarted": false,
+  "limits": [
+    "The predeclared sufficient-cause criterion was not supported; this is not proof of zero effect of draining in all conditions.",
+    "Counterexample windows bracket the whole Supervisor root, not Evidence normalization alone.",
+    "Identical observed GC counts/positions do not prove identical VM/GC work.",
+    "No observed actual-user fast-to-slow dense residual or mechanism replay was obtained.",
+    "Owned entry/module qualification does not validate the installed Peer objects, trusted window guard or complete F controller."
+  ],
+  "review": {
+    "kind": "implementer-self-review",
+    "independent": false
+  }
+}
