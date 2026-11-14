@@ -117,3 +117,21 @@ writer 屏障回执：源码 `6a729852e4a8272005a31fcaff2ea5a4fe4e0a91`；本地
 ADR pass 补充：131 §1 原先笼统写“ADR 104 未接受”，已按同号文件名澄清：未接受的是 bot-capability-visibility，已接受的 progressive storage / writer fence 继续保留；map 同步记录。仅消除歧义，既有边界未变更。此前 Reader 量测仍绑定其回执中的实际源码 / 二进制，不挪用为本次新 Store 二进制的量测。
 
 后续实际查询确认：`6a729852` 的 Linux job [132367759976](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797/job/132367759976) 与 macOS job [132367759772](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797/job/132367759772) 的 `Native CLI scoped validation` 均 success，包含本次新增 writer fence / 85 Rust / 78 跨进程用例。全仓 CI job 仍 in_progress；未运行完整发布或安装版验收。
+
+## NR-02 剩余实施（2026-11-14 用户再次要求继续至 P3）
+
+按同一已接受方案串行推进：设备级 Resource Ledger / native scope derivation → canonical 当前事实与持久执行 / 授权 / Evidence 提交及恢复 → P2 真实故障与后续准入门禁 → P3 Context/history/Provider/Projection/PermissionGrant/file/Shell/Evidence/持久化真实闭环。不得将已有纯 kernel 或测试探针改称完整 CLI。P3 的确定性 wire 回放与真实模型验收分开记录；不以 TS sidecar 填充任何运行环节。
+
+本卡先允许 peer-store 的 execution-resources.sqlite schema 3 Adapter、与 Policy 共享的有界 SQLite 文件打开防护、原生目录 / 文件 / Git common-dir scope、既有 claim / handle / settlement / closure / retained_unknown / reconciliation 格式及互读 fixture。复核 `116-session-control-and-resource-settlement.md`、`127-unknown-outcome-reconciliation-and-delegated-resolution.md`、`131-native-cli-contract-storage-and-recovery.md`，既有释放 / 授权 / unknown 不重放边界不变。正常与异常至少覆盖多连接 / 跨进程冲突、symlink 和父子目录别名、全资源集原子预留、同 receipt 幂等 / stale revision / late epoch、未结束 handle、unknown 保留 / 授权收口、缺失旧 ledger、未知 schema/WAL 保全、取消与恢复后新任务。源数据全部合成，生产入口在 P2 总门禁前继续关闭。
+
+Resource claim / scope 是集合；跨语言对照在声明前按 resourceRef / claimId 比较集合，Rust 不引入一套 ICU 运行依赖来复制 JS 默认 locale 的显示排列。所有实际身份 / receipt digest 输入和 unknownCalls 的既有有序或 UTF-16 排序语义仍逐字节对照，不借集合比较放宽授权或幂等。原生数据接口不把集合第一项当主目录身份。
+
+Resource Ledger 回执：源码 `c2f19ce5ddb681b9534d38e1a04f8922fa41a4dc`，完整 scoped 验证 93 Rust（81 原生 + 12 既有 Helper）、117 真实跨进程（本卡新增 39 Resource）、32 旧 Node resource 测试、原有 51 runtime golden / 29 control transitions / 7 digest、8 PTY、真实 Helper 隔离 ping、fmt / clippy / release build / 静态边界通过；另行 runtime-node build 与 architecture 检查通过。详见 [结构化回执](native-cli/evidence/p2-resources-20261114.json)。
+
+共享 SQLite 打开器先只读准入再写，未知 schema 的主库 / WAL 保全，连接查询有字节 / 行 / 节点预算。资源集在同一事务预留，claim 与索引列双向核验，receipt exact digest / CAS / late epoch、活动 handle、unknown 保留 / 显式收口、reconciliation evidence 均沿原格式。Host closure 参数不是模型可反序列化的授权值。原生仍未装配生产 authorizer，不开放共享任务执行。
+
+真实互操作发现旧 Node 的文件 claim 在 activate 时被错误当目录，复现 `execution_resource_scope_unknown` 后改为沿既有 claimScope/fileResource；32 项旧测试与 39 项互操作在修复后通过。初次 fixture 的 /var 与 /private/var 期望错误已按真实 TS canonical 输出修正，未放宽 scope 比较。失败日志保留，详见回执。当前候选两平台 CI 尚在运行，不能声称整仓通过。P2 总闸及 P3 实际闭环继续推进，以上不代替 canonical 当前事实、持久批准 / Evidence、停止与恢复装配。
+
+### NR-02 剩余：持久批准与会话提交
+
+依 ADR 57 / 65 / 74 / 85 / 92 / 101 / 116 / 127 / 131，允许补既有 approvals.jsonl 的有界读取 / 同身份状态追加及孤锁保全、ConversationStore 的同格式创建 / CAS 提交 / 幂等和中断恢复 fixture。执行批准仍须 Host 实时 scope / policy revision 检查；历史 approved 不自动成为许可。损坏 / 部分尾行、侧写草稿、未知效果不跳过为成功。持久化只能记录结构事实，不能让 assistant 文字变成 Evidence。既有边界不变，不新建私有执行日志。旧 checkpoint 无法安全解释时按 ADR 131 明确阻断并保留兼容恢复入口；完整 Bot runtime 在 P5 另验。
