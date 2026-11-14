@@ -14,10 +14,11 @@
   "iterationsPerBlock": 240,
   "arms": [
     "six snapshots for redundant pre/post self measurement",
-    "four snapshots sharing CPU boundaries"
+    "four snapshots sharing CPU boundaries",
+    "two business snapshots with conservative metadata wall upper"
   ],
   "capturesAndFakeWorkIdentical": true,
-  "singleVariable": "CPU snapshot reuse only",
+  "singleVariable": "metadata measurement protocol only; third arm changes self charge to stricter wall upper, never lowers cap",
   "retained": [
     "all16 blocks",
     "original raw failures",
@@ -29,5 +30,23 @@
   "noAdditionalElectronSlotAllocated": true,
   "perRootGateMsStill": 2,
   "fieldBudgetUnchanged": true,
-  "refactorStarted": false
+  "refactorStarted": false,
+  "fixedSequence": [
+    "six",
+    "four",
+    "wall",
+    "wall",
+    "four",
+    "six",
+    "six",
+    "four",
+    "wall",
+    "wall",
+    "four",
+    "six",
+    "six",
+    "four",
+    "wall",
+    "wall"
+  ]
 }
