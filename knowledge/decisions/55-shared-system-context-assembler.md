@@ -1,5 +1,8 @@
 # ADR 55：Desktop 与 TUI 统一 System Context Assembler
 
+> 2026-11-14 局部修订：[ADR 129](129-native-rust-cli-and-ratatui.md) 已接受（评审稿原编号 116），CLI 的技术终态改为 Rust / Ratatui；TS 与 Rust 的共享算法 / 资源 / 契约和 conformance 规则见 [ADR 131](131-native-cli-contract-storage-and-recovery.md)。仅替换 ADR 129 §3 点名的语言及直接共享实现条款，权限、Evidence、上下文准入与数据真源不变。旧 CLI 仍是迁移期默认入口，不能据设计接受声称已切换或验收。
+
+
 创建时间：2026-07-25
 最后更新：2026-07-25
 状态：Accepted / Implemented
