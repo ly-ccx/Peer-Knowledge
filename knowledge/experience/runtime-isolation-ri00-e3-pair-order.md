@@ -44,3 +44,11 @@
 ## 追加一次Node资格授权（运行前记录）
 
 用户已明确答复“授权一次仅Node重验”。仅对修正候选1c053c56追加1次专用Node资格，仍44合成根、30秒wall、2秒合成读CPU、1MiB journal、2MiB总输出，零Profiler/零Electron；原一次失败与费用不改写。本次通过数据绑定后，继续此前已明确授权的固定三Electron ABBA/BAAB，双方150ms、原性能门及所有预算不变。原119项同候选测试回执复用，不重复跑测试或借用原Node槽。
+
+## 修正候选的同候选资格与执行绑定
+
+追加一次Node资格依授权完成，旧失败保持。1c053c56的119项测试、真实44根/12hash/4完整块六场景、顺序/间隔、原ticket恢复与两owner恢复通过；原2MiB输出帽和30秒/2秒读CPU帽未放宽，Profiler线上命令0。累计专用Node2次（失败1+新成功1），无额外目标子进程或Electron。
+
+[执行前绑定收据](../../playbook/evidence/runtime-isolation-ri00-e3-order-binding-20261114.json)绑定同一干净candidate、全部诊断source、原report/journal/audit/design、unit/seam及完整退出费用、生产Module与8534内容文件/空fence。准备累计CPU5885.057ms、保留输出4564063B，包含原失败2386.744ms及旧原件，带入同一20秒aux与128MiB上限；准备/关闭另预留原5000ms。数据/源/语义与冻结身份相同。
+
+本节和绑定收据在正式第一个Electron启动前提交；三个槽仍0使用。后续只运行原定固定三个宿主，不因F0或性能失败补slot，运行中不改源码/预算/判据。原预算runnable:false作为历史设计记录保留，由本技术绑定补齐执行先决条件，不更改旧事实。
