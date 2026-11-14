@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-14 P2：[返回覆盖、同候选P0B与固定三宿主实测](../knowledge/experience/runtime-isolation-ri00-e3-p2-return-audit.md)、[新预算](evidence/runtime-isolation-ri00-e3-p2-budget-20261114.json)、[结果收据](evidence/runtime-isolation-ri00-e3-p2-results-20261114.json)。覆盖40根/12hash/40等待/清理审计通过后，fce27eb2的P0B六场景通过，新预算再冻结；三宿主无替换、104根/69.614秒结束。target1原15.377ms入场拒绝；target2完整OFF/ON/OFF，1ms profile三时钟宽1.633ms/96遍最少15样本，结构门通过，但返回reference16.283ms与差额漂移2.1535ms拒绝性能资格。0.540ms开销公式不能当合格结果。所有owner/进程/端口/副本恢复，累计实际owned32；未采到现场形成或机制，不重构。
+
 2026-11-14 P执行：[专用时钟/异常恢复与原P中止](../knowledge/experience/runtime-isolation-ri00-e3-p-profiler-qualification.md)、[机器收据](evidence/runtime-isolation-ri00-e3-p-results-20261114.json)。P0固定一个Node的6场景通过；P在首个OFF原门通过后被工具预算预测错误拒绝，2/3实际宿主、36根、零P profile，第三槽作废未补跑。冷预热2117.35ms被误乘40暖根，虚报128541ms预留；修正candidate仅离线回放/86聚焦测试，不改90秒或15/2ms门，不冒领原producer实测。累计实际owned Electron29、已知读CPU下界352.596809秒另加旧C未知。方法/队列/端口/8534副本恢复；未完成P，未捕到现场形成或机制，不重构。
 
 2026-11-14续记：[384遍离线审计与C/D/E/M结果](../knowledge/experience/runtime-isolation-ri00-e3-controller-qualification.md)、[机器收据](evidence/runtime-isolation-ri00-e3-cdem-results-20261113.json)、[P独立冻结预算](evidence/runtime-isolation-ri00-e3-p-budget-20261113.json)。N未重跑或改判；C/D失败及C未知成本保留，E真实owned控制器F0/静默/首见证/F1/取消通过，M实际Peer一次随机端口附着、同栈装配/恢复且零业务读取通过。新7槽无替换，累计27；71聚焦测试通过，CLI封存384遍重放通过，CI无结果。P未执行、未启动现场窗口；仍缺现场同进程快到慢及机制复现，RI-00未闭合、重构未开始。
