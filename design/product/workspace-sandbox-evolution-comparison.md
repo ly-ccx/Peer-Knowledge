@@ -1,7 +1,7 @@
 # 工作区沙箱演进对比：硬沙箱多根 vs full=machine
 
 创建时间: 2026-07-21  
-最后更新: 2026-07-21（决策改为取消硬沙箱并落地）
+最后更新: 2026-11-14（仅修正架构文档引用；2026-07-21 取消硬沙箱的决策不变）
 
 ## 状态
 
@@ -57,7 +57,7 @@
 |---|---|---|
 | permission gate | `apps/desktop/electron/main/chat-runtime/permission-gate.mjs` | `full_local` → `local_access_level_full` 自动 grant |
 | 架构说明 | `knowledge/architecture/20-architecture-governance.md` | `full_local` 自动批准文件写入与低/中风险 shell；**不写「放开任意路径」** |
-| 哲学 | `knowledge/architecture/00-engineering-philosophy.md` | 用 schema / permission / projection **执行前收敛**，而非提示词兜底 |
+| 哲学 | `knowledge/architecture/20-architecture-governance.md` | 用 schema / permission / projection **执行前收敛**，而非提示词兜底 |
 
 ### 2.3 Goal 已有「多根意图」，未贯通 provider
 
@@ -166,7 +166,7 @@ else:
 - 知识库会话默认可写代码仓，边界糊掉
 - Desktop 多会话隔离被削弱
 - Evidence / 审计变难：「在哪个 root 下做的」不再显然
-- 与 `00-engineering-philosophy` 的「执行前机械化收敛」张力大
+- 与 `20-architecture-governance` 的「执行前机械化收敛」张力大
 - 高风险 shell 即便仍 review，**文件读写已无路径监狱**
 - 一旦上线，再收回是 breaking UX
 
@@ -248,6 +248,6 @@ else:
 - `apps/desktop/electron/main/goal-runner.mjs` — `targetWorkspacePath` 绑定
 - `apps/desktop/electron/main/chat-runtime/goal-mode-gate.mjs` — workspace / scope 判定
 - `knowledge/architecture/20-architecture-governance.md` — local access mode 说明
-- `knowledge/architecture/00-engineering-philosophy.md` — 执行前机械化收敛
+- `knowledge/architecture/20-architecture-governance.md` — 执行前机械化收敛
 - `design/product/goal-mode-codex-cc-workflow.md` — Goal 不可写越界除非 explicit boundaries
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 与 Desktop 同仓共享 runtime

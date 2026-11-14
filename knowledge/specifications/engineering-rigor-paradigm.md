@@ -1,12 +1,12 @@
 # 工程严谨范式（Engineering Rigor Paradigm）与 Peer 落地
 
 > 创建时间：2026-07-28
-> 最后更新：2026-07-28
-> 状态：规范（总纲）— 从 Codex session 与 Peer 托盘/启动/上下文占用等案例抽出的**可迁移工程思维操作系统**，以及嵌入 Peer 现有链路的落地方式
+> 最后更新：2026-11-14（仅明确文档定位与总纲引用）
+> 状态：专项执行规范 — 从 Codex session 与 Peer 托盘/启动/上下文占用等案例抽出的**可迁移工程思维操作系统**，以及嵌入 Peer 现有链路的落地方式
 > 关联：
 > - `design/product/agent-mode-default-and-adaptive-planning.md`（Agent 默认 + L0–L3）
 > - `design/product/goal-mode-ultrathink-workflow.md`（Goal 闭环 / DoD-as-Code）
-> - `knowledge/architecture/00-engineering-philosophy.md`（本地优先 / 证据优先）
+> - `knowledge/architecture/00-engineering-philosophy.md`（唯一通用工程总纲）
 > - 实例：`knowledge/experience/desktop-startup-init-slowness.md`、`context-occupancy-ring-inaccuracy-root-cause.md`；托盘图标对比 session（Peer `01713cd9-…` / Codex `019fa425-…`）
 
 ---

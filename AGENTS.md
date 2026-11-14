@@ -2,6 +2,10 @@
 
 Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构决策、设计规范、开发经验和运维流程。
 
+## 最高工程指导
+
+所有 Coding Agent 开始设计、修改或评审前，必须先读取 [Coding Agent 工程总纲](knowledge/architecture/00-engineering-philosophy.md)。该文件是跨项目最高工程指导和唯一权威正文；本入口只规定知识仓的定位、操作和交付方式，不复制总纲。项目有效 ADR 与专项契约继续约束具体实现，不能因通用原则被静默改写。
+
 ## 关联代码仓
 
 - 代码仓名：`peer_agent`（package name: `peer-agent`，Electron + Vite monorepo）

@@ -1,7 +1,7 @@
 # 66. 浏览器工具的后台降级执行（Headless Fallback）
 
 创建时间：2026-08-21
-最后更新：2026-08-21
+最后更新：2026-11-14（仅修正架构文档引用，决策不变）
 
 ## 状态
 
@@ -27,7 +27,7 @@ reveal 协调器请求 renderer 打开 Workbench Browser 面板，等 renderer a
 3. 云端模型流断连时，正在执行的浏览器工具调用被标记为「工具调用已中断（连接错误）」，
    文案与真实故障层（模型通道）不符，误导排查方向。
 
-根因是执行与展示的依赖方向反了。架构基线（`00-engineering-philosophy.md`）说
+根因是执行与展示的依赖方向反了。架构治理基线（`knowledge/architecture/20-architecture-governance.md`）说
 「界面负责表达」，表达层的缺席不应阻断能力执行。
 
 ## 决策

@@ -1,7 +1,7 @@
 # 项目代理记忆体系
 
 创建时间：2026-09-24
-最后更新：2026-10-01
+最后更新：2026-11-14（仅修正历史文档引用）
 
 > 状态：随 ADR 81 Accepted（2026-09-26）。§16 已关闭。简报预算以 6000 字符为准。  
 > 级别：A 级（上下文准入、存储边界、System Context 来源、能力暴露）  
@@ -10,7 +10,7 @@
 > - `knowledge/architecture/project-agent-delegation-runtime.md`（调度工具、`DelegationOrigin.contextRefs`）
 > - `knowledge/architecture/project-agent-capability-layers.md`（七层模块；本文新增记忆模块组）
 > - `knowledge/architecture/19-system-prompt-context-architecture.md`（L0–L7 分层、`ContextAttachmentItem`）
-> - `knowledge/architecture/00-engineering-philosophy.md` §五（个人记忆只能作为辅助上下文）
+> - `knowledge/architecture/archive/peer-agent-engineering-philosophy.md` §五（历史项目说明；当前记忆准入以 ADR 81 及后续有效修订为准）
 > - `knowledge/decisions/74-deployment-surfaces-and-local-storage.md`（按数据种类混合存储）
 > - `knowledge/decisions/17-local-context-compaction.md`（压缩不是记忆）
 > - `design/product/peer-2-0-product-system.md` §13（四层记忆的早期设想）

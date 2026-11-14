@@ -1,7 +1,7 @@
 # 81. 项目代理记忆体系：带来源的事实记录，只进事实层，自动但可撤
 
 创建时间：2026-09-24
-最后更新：2026-09-26（P0-2 评审通过）
+最后更新：2026-11-14（仅修正历史文档引用；2026-09-26 P0-2 评审结论不变）
 
 ## 状态
 
@@ -25,7 +25,7 @@ A 级。新增上下文来源（`project-memory-source`，`L7_CONTINUITY`）、�
 
 - `knowledge/architecture/project-agent-memory-system.md`（完整设计）
 - `knowledge/decisions/80-project-agent-delegation-model.md`（项目代理、锚定回复、验证与签收）
-- `knowledge/architecture/00-engineering-philosophy.md` §五（个人记忆只能作为辅助上下文）
+- `knowledge/architecture/archive/peer-agent-engineering-philosophy.md` §五（历史项目说明；当前准入规则以本 ADR 及后续有效修订为准）
 - `knowledge/decisions/74-deployment-surfaces-and-local-storage.md`（按数据种类混合存储）
 - `knowledge/decisions/17-local-context-compaction.md`（压缩不是记忆）
 - `design/product/peer-2-0-product-system.md` §13（早期四层记忆设想，本 ADR 落地并修订）
