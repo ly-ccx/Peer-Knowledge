@@ -1,10 +1,10 @@
 # Peer Frost 实现入口与速查
 
 创建时间：历史版本未标注
-最后更新：2026-10-23
+最后更新：2026-11-14
 
-> 状态：现行规范导航。旧指南已由统一体验规范收敛，避免宋体标题、旧圆角、旧动画名与逐次测试要求继续传播。
-> 适用范围：代码仓 `apps/desktop/renderer` 的 UI、样式与交互实现。
+> 状态：现行规范导航。旧指南已由统一体验规范收敛，避免宋体标题、旧圆角、旧动画名与逐次测试要求继续传播；底层光学色阶、纵深阶梯、字阶与跨端映射见 [Peer Frost 2.0 规范](peer-frost-2-design-system.md)。
+> 适用范围：代码仓 `apps/desktop/renderer`、`apps/tui/src` 与 `docs/` 的 UI、样式与视觉表达。
 
 ## 1. 先读什么
 
@@ -12,6 +12,7 @@
 |---|---|
 | 产品身份与委托链 | [产品北极星](../product/peer-product-alignment.md) |
 | 视觉、组件、token、密度和可用性 | [Frost 产品体验规范](../../knowledge/specifications/peer-product-experience-standard.md) |
+| 底层色阶、材质、字阶、纵深与跨端映射 | [Peer Frost 2.0 规范](peer-frost-2-design-system.md) |
 | 输入、焦点、滚动、授权、结果和恢复 | [人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md) |
 | 动画选型、编排、降级和实际治理覆盖 | [动效体系](../../knowledge/specifications/motion-system.md) |
 | 开发、内容/diff 审阅与发布验收 | [开发执行规程](../../playbook/product-experience-development.md) |
