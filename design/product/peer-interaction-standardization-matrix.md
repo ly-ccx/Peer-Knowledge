@@ -1358,3 +1358,5 @@ ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时
 状态：空 / 中文与组合字 / 大粘贴 / 大小超限 / 发送未启用 / 退出确认 / Esc 继续 / resize / 正常与异常收尾。事实源是纯 Composer reducer 与终端 guard；用户拥有草稿和明确退出决定。静态，无动效（motion N/A）；终端 cell / caret 保持可见，输入内容不发模型。
 
 验证：Ratatui TestBackend + Rust reducer，8 项真实 PTY（含 Unicode paste、resize、Ctrl-C / Ctrl-D、SIGTERM、panic / error、尺寸拒绝）通过。物理 IME / 日用终端 / 读屏 / 已安装包未覆盖；临时草稿没有持久恢复，P2 后续接入，不能算 T06 / T10 全面验收。详见 [迁移账本](../../playbook/native-rust-cli-migration.md)。
+
+NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显式 PEER_AGENT_HOME / PEER_USER_DATA_PATH 的真实子进程入口识别配置且不创建数据，PATH 无 JS Runtime；边界组合先失败后修复。临时草稿 / 无执行状态不变，8 项 PTY 仍通过，不扩大为完整 CLI 或发布接受。

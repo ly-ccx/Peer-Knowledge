@@ -65,3 +65,7 @@ P0/P1 提交 `c24dc465` 的 GitHub Actions run `43553408734`：macOS `ci-macos-1
 ### NR-02b 下个切片：执行身份 / 批准 / Evidence
 
 按 ADR 92 / 101 / 116 / 127 / 131 的现有契约，允许原生 protocol 的 execution identity / resource scope、grant / Evidence 数据结构与同一 TS normalizer / collector / operation-key 的对照；允许 peer-runtime 的 host principal resolver。只搬迁 shape / 身份 / 确定性规则，不让解析成功等于批准，不引入另一个任务或授权系统。恢复与实际工具入口继续等待 canonical Store、Session Control、policy revision 和 execution fence 的真实装配。
+
+身份 / 批准因子 / Evidence 引用切片回执：源码 `9f33d9a25a6e600bf4dc0b3201db448df366cf0c`，54 Rust 测试（42 原生 + 12 Helper）、51 个真实 TS 派生 golden case、14 Store + 13 Lease 双进程、8 PTY、真实 Helper ping、fmt / clippy / 静态依赖 / release build 通过。执行 identity 与 resource scope 严格校验未知字段、安全整数及 UTF-16 长度；principal resolver 只消费 Host 计划投影，未把 shape 当授权；一次性批准因子按完整 scope / policy revision、有界条目和字节、消耗 / 到期释放。Evidence 只收集既有结构字段，保插入顺序，不扫描助手文字或任意输出。完整操作 digest 直接借用 args，转义时逐段限额，不先复制整个参数对象。
+
+新增真实入口用例复现候选无 HOME 时忽略显式 PEER_AGENT_HOME；保留失败日志后修正为先解析覆盖值，并补 PEER_USER_DATA_PATH、BOM / NEL 的 JS trim 对照及零写入断言。最初测试少覆盖此组合，不能用此前通过替代本次修复后的候选检查。另做合成分隔符碰撞探查，旧 TS 的 workspace guard 已拒绝该跨 workspace 输入，未把探查误报为旧版漏洞，也未改旧 TS 权限政策。详见 [P2 地基结构化回执](native-cli/evidence/p2-foundations-20261114.json)。P2 总闸、canonical Store / Session Control / writer fence、持久 grant / Evidence 事务、完整 Runtime 和无 sidecar 功能平价仍未完成。
