@@ -1,0 +1,55 @@
+{
+  "kind": "FR1-recorder-repair-and-preserved-dev-field-frozen-budget",
+  "date": "2026-11-14",
+  "authorization": "User requests repair recorder over-budget then bounded same-process field capture; no restart, gate changes or product refactor",
+  "originalFailureCandidate": "39636570358c1d65316176ac1fdb26fb6a055156",
+  "originalFailureRetained": true,
+  "repairStudy": {
+    "processes": 1,
+    "runtime": "Node25 existing toolchain; not Electron performance qualification",
+    "wallMs": 15000,
+    "cpuMs": 3000,
+    "productQueryCalls": 0,
+    "fixedBlocks": 16,
+    "perBlockCaptures": 120,
+    "singleFactor": "captured stack representation: eager V8 string vs structured current CallSites; chronological all blocks retained",
+    "noReplacement": true
+  },
+  "finalUnit": {
+    "wallMs": 30000,
+    "cpuMs": 3000
+  },
+  "functional": {
+    "ownedElectronLaunches": 1,
+    "replacements": 0,
+    "productQueryCallsMaximum": 12,
+    "ownedReadCpuMs": 8000,
+    "wholeSubtreeCpuMs": 12000,
+    "wallMs": 60000,
+    "sourceDataAndCandidateMustMatch": true,
+    "noGreenReplacement": true
+  },
+  "field": {
+    "existingDevPid": 39208,
+    "sameBirthRequired": true,
+    "automaticRestarts": 0,
+    "referenceHosts": 0,
+    "extraBusinessQueries": 0,
+    "windowMsIncludingCleanup": 1800000,
+    "cleanupReserveMs": 90000,
+    "preparationWallMs": 180000,
+    "externalCpuMs": 40000,
+    "perRootConservativeSelfMs": 2,
+    "mainProbeTotalMs": 3000,
+    "mainMetadataRpcWholeWindowCpuMs": 5000,
+    "mainProfilerWholeWindowCpuMs": 8000,
+    "recordedPrefix": "all rows from install; before-install gap explicit",
+    "inheritsPlan": "runtime-isolation-ri00-field-first-witness-plan-20261114.json",
+    "inheritsAllOriginalTriggersCapsAndStops": true,
+    "requiresFinalFunctionalPassAndDevSourceBinding": true,
+    "fieldActualSourceMayDifferFromSealedFunctionalCopy": "record version and identityIncomplete rather than using old output/plan counts as current proof"
+  },
+  "stop": "any fixed budget/gate failure stops admission; preserve original results and recover; no additional test host or gate relaxation",
+  "mechanismReplayAllocation": 0,
+  "productRefactorAllowed": false
+}
