@@ -221,3 +221,11 @@ NR-03 远端失败保留：`fd981b01` 的 Linux job 132462052721 / CI 4359980666
 租约修复 `15783800`：确定性原码 VersionChanged 基线已保存，修复后返回当前新 owner；256 轮真实双线程竞争仍是一名 Acquired、一名 Held。完整 scoped 新目录重跑通过：170 Rust / 302 跨进程 / 58 TS 冷读 / 131 旧 focused / 12 公开入口 / 8 PTY，fmt/clippy/release/boundary/architecture 均通过，SHA256 `63cf5bfb0d3b5633e7b4160e498e265811f5c70244dd86bcdbe5168887d2d543`。第一次修复总闸因测试模块位置触发 clippy，已移至末尾，未降级 warnings；原失败保留。新候选 CI 单独核对，fd981b01 的 Linux 失败不计通过。
 
 P3 最终候选 `15783800` 的 [CI 43600632864](https://github.com/ly-ccx/Peer-Agent/actions/runs/43600632864) Linux job 132464474319 / macOS job 132464474532 的 Native CLI scoped validation 均 success，包含修复后的租约竞争和完整原生闭环/恢复。最后观察 Linux 仍在全仓 Test、macOS 在 Typecheck，未见已完成失败；不把两个 Native step 成功记成全仓 job 或发布通过。release 二进制另已核对不含 fixture-only 硬退出注入入口。P2 总闸与 P3 第一条闭环通过，不替代 P4–P7、真实供应商/安装/长期内存和完整体验验收。
+
+## 2026-11-14 P3 全仓复核与 NR-04 启动
+
+用户要求「先确认当前候选的全仓 CI 通过，再按方案推进 P4」「自测通过后继续推进 P5」。`15783800` 的 CI 43600632864 重跑结果：Linux job 132485357863、macOS job 132485356050 全部 success，含 build / Native / type / architecture / test / Bot Electron smoke。原 macOS job 132464474532 的 disclosure reversal 断言失败保留：采样从 316ms 到 617ms，间隔 301ms 跨过全部展开高度；不称原轮通过或已修复生产动画。原码/断言未改，当前源码树与 CI merge d7d8de61 的 tree 完全一致。本地重点场景通过；第一次本地运行仍经原工作区依赖链接，已限定证据，修正为本工作树依赖后重建与隔离场景再次通过。详见 [全仓跟进回执](native-cli/evidence/p3-ci-followup-20261114.json)。用户原数据与应用不变；只清理测试自有进程。
+
+NR-04 按已接受 129–131 与既有 24/25/28/29/30/31/32/35/37/50/55/56/57/58/65/76 分步迁移，尚未写新完成状态。首卡允许 `peer-runtime` 的 wire / transport / model-config 模块、共享 fixtures、真实 TCP/HTTP/SSE 测试与 public exec 闭环；先固定实际 TS encoders、wire resolver、usage、失败与恢复行为，再接入生产调用。编码只在 wire seam；Source / canonical history、权限、Evidence 和 Goal 验收不借协议切换改变，首卡 B 级边界不动。Qoder 的宿主 Node/WASM fallback 必须迁走；若 Helper 或持久化 Interface 需要补充，则按 A 级先改 ADR/map 再实施。
+
+后续卡依次覆盖完整 Context / accounting / compaction 管线、MCP（含 legacy SSE）/ Skill / Plugin / Hook 与生命周期、标准 headless/ACP/命令适配；P4 功能表逐项绑定真实入口和异常/恢复证据，不能以 pure encoder 或 SDK 自带能力算全部完成。允许方案指定的原生依赖（HTTP/TLS、数据解析、官方 MCP/ACP SDK、必要的有界原生适配），需锁版本/MSRV、实际编译和协议对照；不引入厂商 Agent SDK 或 JS 引擎。P5 仅在 P4 对应总闸通过后开始。
