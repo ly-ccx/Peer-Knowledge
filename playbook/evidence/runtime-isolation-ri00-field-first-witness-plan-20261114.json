@@ -1,0 +1,266 @@
+{
+  "kind": "RI00-FR1-single-process-passive-first-witness-strategy-proposal",
+  "date": "2026-11-14",
+  "runnable": false,
+  "executed": false,
+  "implementationComplete": false,
+  "failureAuditSha256": "0251d1627a8c86908581940edf23edd80c24f50298c8a2ff5f6397dccd52c53c",
+  "supersession": {
+    "futureEvidenceAcquisitionEntryOnly": "propose capture without prior H/F0/F1 qualification; reviewable diagnostic policy, not product or performance acceptance",
+    "oldF0G2And15msResultsUnchanged": true,
+    "doesNotGrantG2OrRefactor": true,
+    "oldCampaignsNeverReclassified": true,
+    "newWindowBudgetNotAuthorizedOrConsumedByThisDesign": true
+  },
+  "objective": "capture unprofiled lower-cost to higher-cost natural queries, and live multi-second stalls in one preserved Peer process; causal mechanism remains a later evidence requirement",
+  "process": {
+    "actualPeerTargets": 1,
+    "automaticRestarts": 0,
+    "referenceHosts": 0,
+    "extraBusinessQueries": 0,
+    "nativeShaCalls": 0,
+    "heapStatisticsCalls": 0,
+    "heapSnapshots": 0,
+    "forcedGc": false,
+    "newNativeLibraries": 0,
+    "vmFlagsChanged": false,
+    "priorityOrPowerChanged": false,
+    "birthAndBuildPinned": true,
+    "startupSamplingAllocated": false,
+    "beforeAttachHistory": "explicit gap, never reconstructed from a fresh process"
+  },
+  "history": {
+    "start": "first installed observation, including pre-baseline and failed/incomplete records",
+    "disk": "append-only sequenced hash-linked chunks, fsync before ACK; never overwrite archived prefix",
+    "eventIncludes": "all prior chunks, not only a recent ring",
+    "unacknowledgedBytes": 8388608,
+    "stackDictionaryBytes": 8388608,
+    "naturalRootsMaximum": 1500,
+    "entryRecordsMaximum": 10000,
+    "gcEventsMaximum": 65536,
+    "stackSignaturesMaximum": 256,
+    "maxStackFrames": 96,
+    "maxStackBytes": 32768,
+    "maxParentDepth": 128,
+    "callValueArgumentsRetained": false,
+    "readProvenance": "pid/birth/build/observer generation + scope hash + query graph/ordered ports + dependency epoch + counts/output identity",
+    "unversionedDependencyOrSourceWatcherOnly": "retain candidate, identityIncomplete; no same-input mechanism conclusion",
+    "sourceChanges": "archive transition and keep recording; never merge baselines across epochs; >4 cohorts stop comparability coverage",
+    "fullHistoryDefinition": "complete observed prefix from attach, with event sequence, versions and diagnostic boundaries; not VM instruction replay or birth history"
+  },
+  "metrics": {
+    "primary": [
+      "main heartbeat lag",
+      "whole query wall",
+      "whole main-thread user/system/total CPU"
+    ],
+    "secondary": [
+      "12 Evidence CPU vectors and GC overlap",
+      "whole-root minus Evidence remainder",
+      "ordered plan/index calls",
+      "caller and async parent IDs"
+    ],
+    "noReferenceSubtraction": true,
+    "perPassPmcAvailable": false,
+    "gcWallNeverSubtractedFromCpu": true,
+    "selfTimingIsNotNeutralityProof": true,
+    "cpuAttribution": "thread CPU only for contiguous synchronous roots/spans; asynchronous entries retain wall/parents without attributing interleaved thread CPU"
+  },
+  "baseline": {
+    "cohortKey": [
+      "entry/root kind",
+      "scope hash",
+      "query graph",
+      "verified dependency epoch",
+      "input/output identity"
+    ],
+    "roots": 9,
+    "selection": "first nine complete natural roots in chronological order; no warm/GC/heap/speed filtering",
+    "fixedForCohort": true,
+    "noRetrospectiveGreenSelection": true,
+    "recordsBeforeBaselinePreserved": true,
+    "notQualifiedFastOrOldG2": true,
+    "ifUnavailable": "wall and heartbeat triggers still run; after 10 minutes no comparable baseline => seal coverage-insufficient"
+  },
+  "triggers": {
+    "cpu": {
+      "minimumDeltaMs": 12,
+      "minimumFraction": 0.04,
+      "minimumMadMultiples": 3,
+      "metrics": [
+        "whole-root user CPU",
+        "full12 Evidence user CPU"
+      ],
+      "firstOccurrenceOnly": true,
+      "usesPreviouslyFrozenBaselineOnly": true
+    },
+    "wall": {
+      "naturalRootWallMs": 1000,
+      "requiresBaseline": false
+    },
+    "liveStall": {
+      "heartbeatPeriodMs": 250,
+      "absenceMs": 1000,
+      "externalWatchdog": true,
+      "sameBirthCheck": true,
+      "absenceIsOnlySignalNotProvedHang": true
+    },
+    "newEntry": "coverage metadata only, not automatic controlled exposure",
+    "episodeMaximum": 2,
+    "cpuEpisodeMaximum": 1,
+    "wallOrHeartbeatEpisodeMaximum": 1,
+    "busy": "merge reasons for same in-flight episode; no queued business reads"
+  },
+  "firstWitness": {
+    "beforeProfiler": "fsync complete history and first returned anomaly, then observe first three subsequent complete same-cohort natural roots; no GC filtering and no active query",
+    "naturalFollowupMaximumMs": 120000,
+    "wholeQueryChangeCandidate": "all 3 subsequent root user deltas >=25ms and >=8%, with identity complete; baseline dispersion always reported; not old G2 or proof of mechanism",
+    "evidenceOnly": "Evidence increase without root increase is a redistribution candidate, not proof of whole-app slowdown",
+    "missingThree": "transient-or-unconfirmed, no replacement samples",
+    "alreadySlowOnAttach": "entry anomaly only; never claim observed fast history",
+    "otherDiagnosticOverlap": "first three natural followups are not replaced if an OS sample overlaps; retain phase and classify natural CPU confirmation incomplete"
+  },
+  "callChains": {
+    "logical": "capture actual entry and each Evidence caller with root/span IDs and ALS parent links while calls occur; do not reuse a first-kind stack as current chain",
+    "completeness": "truncated, unmapped or missing async parent => chainIncomplete, never guessed from timestamp proximity",
+    "nativeStall": "one external sample attempt, 2 seconds at 1ms, 5-second child wall deadline, no Peer kill; JIT addresses may remain unknown",
+    "cpuHotspots": "only after unprofiled first witness + three natural followups are sealed; one 500us V8 profile, <=10 seconds, scheduled at next natural entry with 30-second admission wait",
+    "profileNeverBackfillsFirstTransition": true,
+    "profilingChangesObservationPhase": true,
+    "profileClockMaximumUncertaintyMs": 2,
+    "reportedPerPassMinimumDefiniteSamples": 10,
+    "noBusinessReadsToFillProfile": true,
+    "profilerStartsMaximum": 1,
+    "profileOutputBytes": 16777216,
+    "localSessionStartStop": "bounded existing inspector interface; exact installed Electron behavior remains a functional prerequisite",
+    "unknownStartOrStop": "do not start again; bounded stop/disable/disconnect, retain unknown effects; no clean status until verified",
+    "nativeSamplingOverlap": "mark every intersecting root/span as sampler-overlap; pre-sample stall onset retained, sampled tail not unperturbed; no CPU deduction or replacement roots"
+  },
+  "coverage": {
+    "firstCheckMs": 600000,
+    "minimumMappedKinds": 2,
+    "requiresForegroundDeliveryMetadata": true,
+    "focusDoesNotProveUserAction": true,
+    "onlyOneBackgroundPollOrNoBaseline": "seal coverage-insufficient at 10 minutes, do not extend or fabricate activity",
+    "noEventAtEnd": "not-observed-in-covered-conditions, not negative causal evidence"
+  },
+  "budget": {
+    "newIndependentProposal": true,
+    "preparationWallMs": 180000,
+    "fieldWallMsIncludingCleanup": 1800000,
+    "totalActiveWallMs": 1980000,
+    "cleanupReserveMs": 90000,
+    "sourceCopyMaximum": 1,
+    "sourceCopyBytes": 805306368,
+    "sourceWorkerWallMs": 30000,
+    "sourceWorkerCpuMs": 6000,
+    "sourceCopyNotWholeVmSnapshot": true,
+    "journalBytes": 134217728,
+    "nativeSampleBytes": 8388608,
+    "globalOutputBytes": 1073741824,
+    "mainProbeSelfCpuMs": 3000,
+    "perRootProbeSelfCpuMaximumMs": 2,
+    "mainProfileWholeWindowCpuUpperMs": 8000,
+    "wholeProfileCpuIncludesOrdinaryBusiness": true,
+    "controllerAndAllPreparationHelperCpuMs": 40000,
+    "auxPreparationMaximumMs": 25000,
+    "auxFieldMaximumMs": 10000,
+    "auxCleanupReserveMs": 5000,
+    "nativeSamplerCpuWithinAuxMs": 3000,
+    "naturalBusinessCpuNotIncrementalDiagnosticReadCpu": true,
+    "lastSynchronousOvershoot": "preserve actual overshoot and stop new diagnostic admission; never terminate actual Peer",
+    "mainDiagnosticRpcWholeWindowCpuUpperMs": 5000
+  },
+  "preparation": {
+    "ownedFunctionalElectronLaunches": 1,
+    "replacements": 0,
+    "productQueryCallsMaximum": 12,
+    "ownedReadCpuMs": 8000,
+    "ownedWholeProcessCpuMs": 12000,
+    "wallMs": 60000,
+    "unitWallMs": 30000,
+    "unitCpuMs": 3000,
+    "qualifiesOnly": "transparency, coverage, timestamps, history durability, unknown outcomes, stop/recovery; never product cause or low-interference proof",
+    "originalInstalledMAssemblyNotNewFieldQualification": true,
+    "sameCandidateAndSourceDataBindingRequired": true,
+    "ifFailure": "retain slot/cost and stop, no extra qualification process"
+  },
+  "stops": [
+    "first episode and bounded optional stack collection sealed; no waiting to fill unused event quotas",
+    "first CPU and stall episode quotas consumed and followups sealed",
+    "30-minute field deadline minus reserved 90-second cleanup",
+    "10-minute coverage/baseline insufficiency",
+    "1500 natural roots /10000 entries /4 cohorts /metadata or output cap",
+    "2ms per-root self CPU or3s cumulative probe CPU exceeded",
+    "PID birth/build/observer owner changed",
+    "unarchived record gap or byte cap / failed fsync / transport outcome unknown",
+    "profiler recovery unknown / external sampler deadline",
+    "user cancellation or controller lease expiration"
+  ],
+  "recovery": {
+    "leaseMs": 90000,
+    "hardWatchdogSeparateFromLease": true,
+    "failOpen": "original product methods continue; only diagnostic admission ends",
+    "stopOrder": [
+      "freeze admission",
+      "recover original unACKed batch without new query",
+      "stop/disable profiler if used",
+      "restore original method owners without overwriting later owners",
+      "remove own heartbeat/listeners/bindings",
+      "flush source/output audit",
+      "close only owned Inspector and prove refusal while Peer lives"
+    ],
+    "ifMainBlocked": "stop external admissions now; in-main restoration deferred until it can run, record unverified; never restart or kill Peer"
+  },
+  "mechanismAcceptance": {
+    "fieldFirstWitnessRequired": true,
+    "profiledSamplesNeverSubstituteUnprofiledTransition": true,
+    "identifyNamedModuleOrRuntimeStateAndItsObservedFormation": true,
+    "replayActualInputAndActionHistoryAndSingleFactorCounterfactualRequired": true,
+    "recorderOnOffEffectMustBeDistinguished": true,
+    "oldDenseResidualBridgeNotYetDesigned": true,
+    "mechanismReplayExecutionAllocation": 0,
+    "genericMatricesForbidden": true,
+    "rootCauseAndRefactorAcceptance": false
+  },
+  "ledger": {
+    "actualOwnedAppsRemain": 41,
+    "knownProductReadCpuLowerMsRemain": 635118.989,
+    "earlierCUnknownAndAllFailuresRetained": true,
+    "newOwnedFunctionalSlotProposed": 1,
+    "actualAppsIfFunctionalSlotUsed": 42,
+    "oldObservationBudgetNotReset": true
+  },
+  "scope": {
+    "thisTurn": "sealed-data audit and design only",
+    "newProductReads": 0,
+    "newOwnedHosts": 0,
+    "newActualPeerAttachments": 0,
+    "newProfilerStarts": 0,
+    "RI00Closed": false,
+    "refactorStarted": false
+  },
+  "validationRequiredBeforeExecution": [
+    "same-clean-candidate source/data/object/source-map binding",
+    "one functional Electron slot only; no new performance qualification",
+    "every pre-baseline row retained and contemporaneous caller stacks, not cached-kind stacks",
+    "zero heap statistics, controlled requests, native priming or GC",
+    "live stall watchdog works while main cannot drain diagnostics",
+    "durable original-batch recovery / unknown result / later-owner protection / lease-stop / port refusal",
+    "measured self CPU and metadata command whole-window upper charged separately; no neutrality claim"
+  ],
+  "episodeReservation": {
+    "requiredRemainingWallMs": 260000,
+    "breakdownMs": {
+      "naturalFollowups": 120000,
+      "nextNaturalEntryWait": 30000,
+      "profile": 10000,
+      "profileControlAndStop": 10000,
+      "finalAuditAndCleanup": 90000
+    },
+    "newEpisodeAdmissionCutoffMs": 1540000,
+    "nativeSampleMinimumRemainingIncludingCleanupMs": 95000,
+    "lateSignal": "archive only; do not start unreserved waiting/profile/sample",
+    "noNeedToSpendOtherEventQuota": "stop once the first episode and bounded optional stack collection are sealed; unused quota retired, not required"
+  }
+}

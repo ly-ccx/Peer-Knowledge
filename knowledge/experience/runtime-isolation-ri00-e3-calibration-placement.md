@@ -70,3 +70,7 @@ C级隔离诊断，按Accepted `96-task-execution-responsiveness.md`和仍为Pro
 三个Electron均正常exit0，所有原方法owner、notification/completion binding、queue ticket/inFlight、retained/unACK均恢复，metadata/drop/GC丢失/ledger overflow为0，sourceWritesDenied0。3次原始69266 Evidence语义SHA一致，8534文件+空fence及生产/诊断源码首尾不变。counter EOF与最终CPU已知；3个Electron端口和1个Node端口均实测拒绝连接。143项通过，CI查询无workflow/status，不称绿色CI；自审非独立评审，没有产品build/release、真实模型或现场验证。
 
 累计实际owned从38到41，已知产品读CPU下界由552064.684ms到635118.989ms；旧C未知及全部旧失败保留，三槽均已消费，无替换额度。完成的是一次固定、可审计的排布对照；得到的是返回控制失败和坏基线不全复现，尚未得到现场剩余残差机制。下一步需要先用本轮封存数据拆开返回漂移的形成贡献，再冻结新的单变量与额度；本轮不启动新实验或重构。
+
+## 取证策略复审
+
+用户要求停止资格对照循环后的[共同失效审计与FR1直接现场方案](runtime-isolation-ri00-evidence-strategy.md)重新审查本轮返回锚点与历轮证据，保留本轮invalid及全部原门，未再次执行校准排布或新采样。
