@@ -102,4 +102,4 @@ Policy 初始化 / 存量迁移回执：源码 `c8d3a2ae`，64 Rust 测试（52 
 
 首次对照发现领先空行的 cursor 语义差异：原生初稿在扫到文件头后直接返回 null，旧 TS 返回最老记录 offset，并可能有最后一页空白前缀。保留 fixture，原生恢复同一旧锚点语义，24 项真实对照通过；未改断言为放过差异。完整机器回执见 [P2 Control / Policy / Reader 回执](native-cli/evidence/p2-storage-control-20261114.json)。当前仍未接通 canonical GoalStore、协调 writer fence、持久执行 / grant / Evidence 与 unknown 对账，P2 总闸未通过；不开放共享任务写入、模型请求或工具执行，不切换默认 peer。
 
-最新源码远端验证为 [run 43566467824](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824)，最后观察 macOS / Linux 均 in_progress。前一候选 `caedca43` 在本次推送前仍 in_progress，没有记录为通过；待新候选实际结果回填。
+最新源码远端验证为 [run 43566467824](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824)。后续实际 job step 查询确认 Linux [132361408957](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824/job/132361408957) 与 macOS [132361408765](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824/job/132361408765) 的 `Native CLI scoped validation` 均 success，原 Linux WAL 失败路径在新候选通过。两平台 Build / Typecheck / Architecture 也 success；全仓 job 仍 in_progress，不能把原生 step 通过说成整条 CI 完成。前一候选 `caedca43` 在本次推送前仍 in_progress，没有记录为通过。
