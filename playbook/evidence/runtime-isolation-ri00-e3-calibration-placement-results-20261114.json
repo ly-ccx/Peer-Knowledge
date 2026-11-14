@@ -1,0 +1,3723 @@
+{
+  "kind": "RI00-HASH-PLACEMENT-fixed-three-host-ABBA-BAAB-sealed-invalid-control",
+  "date": "2026-11-14",
+  "candidate": "55675ca5cef5439b3fa6d4768c3bc9508b103b0a",
+  "sourceSha256": "f7b3789df5c183a33f07bca6cc6967ed990f87058223910c363e433fa3c60a81",
+  "rawSha256": {
+    "campaign": "508000be77164709dd82c71321e184207aabb5a2d95f1ab4f9ab6d03e3a33329",
+    "journal": "10081b86257169d5e59d6c40b79bb5911cc1398736fffb3d49e2726d25c44898",
+    "audit": "06e45c0763ff8877df72b9d7e32b6ec1f8536039374f339c52fad98851c86ba8",
+    "executionCost": "3bb467290315110f02a308a2f5bdceaf544766a43a5c7963ae74a5080c8430ff",
+    "auditCost": "9df1a8e526701a858bbb1c90d12eb978b9fca6364b67bd94a9368b59a9e2a25b",
+    "controllerLog": "828879cfb57ff02363072bbc26abc71ad357c183b66633888dd20346122b324c"
+  },
+  "bindingSha256": "2badb6f04907c4dfa2f0ff66c76148c973c3d947c039b22f84dcb72ec6e57274",
+  "readySha256": "c376c5d5acdddbd634712198b3c6f12820e9d4a8d3a35cd6e1f76efe0c2d5eca",
+  "budgetSha256": "783b3921247ae99ac11c2b0c8cea2e392e5cd83fd19bad77af21d249fac92557",
+  "freezeReceiptSha256": "1cdaa01158ab6d85a8c9bac8af68178641c7b4413e86ea81aab28ba5a42f9aef",
+  "executionCompleted": true,
+  "diagnosticControlsValid": false,
+  "diagnosticOutcome": "invalid",
+  "performanceQualified": false,
+  "f0AdmissionIssued": false,
+  "fieldWindowAllowed": false,
+  "counts": {
+    "electronLaunches": 3,
+    "replacements": 0,
+    "supervisorRoots": 184,
+    "warmRoots": 24,
+    "blocks": 16,
+    "cells": 8,
+    "metricRoots": 128,
+    "nativeCalls": 57,
+    "commonNativeCalls": 9,
+    "semanticAudits": 3,
+    "failedWarmBlocks": 5
+  },
+  "failedOriginalWarmGates": [
+    {
+      "target": "calibration-target-1",
+      "cell": 1,
+      "arm": "B",
+      "role": "target",
+      "rangeMs": 16.86899999999997
+    },
+    {
+      "target": "calibration-target-1",
+      "cell": 2,
+      "arm": "B",
+      "role": "conditioning",
+      "rangeMs": 15.677999999999997
+    },
+    {
+      "target": "calibration-target-1",
+      "cell": 3,
+      "arm": "A",
+      "role": "target",
+      "rangeMs": 19.12000000000006
+    },
+    {
+      "target": "calibration-target-2",
+      "cell": 1,
+      "arm": "A",
+      "role": "target",
+      "rangeMs": 15.270999999999958
+    },
+    {
+      "target": "calibration-target-2",
+      "cell": 3,
+      "arm": "B",
+      "role": "target",
+      "rangeMs": 16.460000000000036
+    }
+  ],
+  "targets": [
+    {
+      "label": "calibration-target-1",
+      "order": "ABBA",
+      "checks": {
+        "initialCalibration": true,
+        "graphSourcePmcMetadata": true,
+        "compatibleWarm": true,
+        "actualOrder": true,
+        "hashPositionsAndNoOverlap": true,
+        "actualGaps": true,
+        "comparableGaps": true,
+        "rawTargetReturn": false,
+        "rawConditioningReturn": false,
+        "normalizedReturn": false
+      },
+      "initialCalibration": {
+        "target": [
+          {
+            "start": 301.455917,
+            "end": 324.315417,
+            "userMs": 22.556,
+            "systemMs": 0.261,
+            "value": 0
+          },
+          {
+            "start": 333.291084,
+            "end": 355.786417,
+            "userMs": 22.418,
+            "systemMs": 0.058,
+            "value": 0
+          },
+          {
+            "start": 364.352417,
+            "end": 386.717792,
+            "userMs": 22.303,
+            "systemMs": 0.047,
+            "value": 0
+          }
+        ],
+        "conditioning": [
+          {
+            "start": 542.403334,
+            "end": 565.258125,
+            "userMs": 22.246,
+            "systemMs": 0.39,
+            "value": 0
+          },
+          {
+            "start": 574.319334,
+            "end": 596.662292,
+            "userMs": 22.162,
+            "systemMs": 0.156,
+            "value": 0
+          },
+          {
+            "start": 606.205042,
+            "end": 628.2225,
+            "userMs": 22.001,
+            "systemMs": 0.011,
+            "value": 0
+          }
+        ]
+      },
+      "calibrationBaseline": 1.0070794874092661,
+      "statistics": [
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 273.33099999999996,
+              "median": 272.96450000000004,
+              "compatibleRange": 13.942000000000064
+            },
+            "joint": {
+              "evidenceUserMs": 272.96450000000004,
+              "evidenceSystemMs": 2.8089999999999993,
+              "evidenceTotalCpuMs": 275.7735,
+              "rootUserMs": 387.587,
+              "rootSystemMs": 30.744,
+              "rootTotalCpuMs": 418.331,
+              "remainderUserMs": 114.62249999999997,
+              "remainderSystemMs": 27.935000000000002,
+              "instructions": 8193454682.5,
+              "cycles": 1652779928
+            },
+            "anchors": [
+              {
+                "ticketId": 12,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+              },
+              {
+                "ticketId": 16,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 286.128,
+              "median": 286.128,
+              "compatibleRange": 10.379000000000019
+            },
+            "joint": {
+              "evidenceUserMs": 286.128,
+              "evidenceSystemMs": 1.058,
+              "evidenceTotalCpuMs": 287.186,
+              "rootUserMs": 398.551,
+              "rootSystemMs": 28.438,
+              "rootTotalCpuMs": 426.989,
+              "remainderUserMs": 112.423,
+              "remainderSystemMs": 27.38,
+              "instructions": 8238557003,
+              "cycles": 1679327929
+            },
+            "anchors": [
+              {
+                "ticketId": 16,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": -13.163499999999942,
+            "evidenceSystemMs": 1.7509999999999992,
+            "evidenceTotalCpuMs": -11.412499999999966,
+            "rootUserMs": -10.963999999999999,
+            "rootSystemMs": 2.306000000000001,
+            "rootTotalCpuMs": -8.657999999999959,
+            "remainderUserMs": 2.199499999999972,
+            "remainderSystemMs": 0.5550000000000033,
+            "instructions": -45102320.5,
+            "cycles": -26548001
+          }
+        },
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 282.636,
+              "median": 282.636,
+              "compatibleRange": 16.86899999999997
+            },
+            "joint": {
+              "evidenceUserMs": 282.636,
+              "evidenceSystemMs": 3.004,
+              "evidenceTotalCpuMs": 285.64000000000004,
+              "rootUserMs": 390.955,
+              "rootSystemMs": 32.987,
+              "rootTotalCpuMs": 423.942,
+              "remainderUserMs": 108.31899999999996,
+              "remainderSystemMs": 29.983,
+              "instructions": 8125711202,
+              "cycles": 1675842282
+            },
+            "anchors": [
+              {
+                "ticketId": 21,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 280.009,
+              "median": 279.9735,
+              "compatibleRange": 13.613999999999976
+            },
+            "joint": {
+              "evidenceUserMs": 279.9735,
+              "evidenceSystemMs": 3.7905,
+              "evidenceTotalCpuMs": 283.764,
+              "rootUserMs": 396.433,
+              "rootSystemMs": 32.246,
+              "rootTotalCpuMs": 428.679,
+              "remainderUserMs": 116.45949999999999,
+              "remainderSystemMs": 28.4555,
+              "instructions": 8140575315.5,
+              "cycles": 1686616874
+            },
+            "anchors": [
+              {
+                "ticketId": 23,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              },
+              {
+                "ticketId": 26,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": 2.6625000000000227,
+            "evidenceSystemMs": -0.7865000000000002,
+            "evidenceTotalCpuMs": 1.8760000000000332,
+            "rootUserMs": -5.478000000000009,
+            "rootSystemMs": 0.7409999999999997,
+            "rootTotalCpuMs": -4.736999999999966,
+            "remainderUserMs": -8.140500000000031,
+            "remainderSystemMs": 1.5274999999999999,
+            "instructions": -14864113.5,
+            "cycles": -10774592
+          }
+        },
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.76900000000006,
+              "median": 273.76900000000006,
+              "compatibleRange": 8.586999999999989
+            },
+            "joint": {
+              "evidenceUserMs": 273.76900000000006,
+              "evidenceSystemMs": 3.308,
+              "evidenceTotalCpuMs": 277.07700000000006,
+              "rootUserMs": 390.258,
+              "rootSystemMs": 32.144,
+              "rootTotalCpuMs": 422.402,
+              "remainderUserMs": 116.48899999999992,
+              "remainderSystemMs": 28.836,
+              "instructions": 8161584202,
+              "cycles": 1669905156
+            },
+            "anchors": [
+              {
+                "ticketId": 36,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 278.378,
+              "median": 278.378,
+              "compatibleRange": 15.677999999999997
+            },
+            "joint": {
+              "evidenceUserMs": 278.378,
+              "evidenceSystemMs": 3.2129999999999996,
+              "evidenceTotalCpuMs": 281.591,
+              "rootUserMs": 394.396,
+              "rootSystemMs": 31.284,
+              "rootTotalCpuMs": 425.68,
+              "remainderUserMs": 116.01800000000003,
+              "remainderSystemMs": 28.070999999999998,
+              "instructions": 8146277617,
+              "cycles": 1677361297
+            },
+            "anchors": [
+              {
+                "ticketId": 34,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": -4.608999999999924,
+            "evidenceSystemMs": 0.0950000000000002,
+            "evidenceTotalCpuMs": -4.513999999999953,
+            "rootUserMs": -4.138000000000034,
+            "rootSystemMs": 0.8599999999999994,
+            "rootTotalCpuMs": -3.27800000000002,
+            "remainderUserMs": 0.47099999999988995,
+            "remainderSystemMs": 0.7650000000000006,
+            "instructions": 15306585,
+            "cycles": -7456141
+          }
+        },
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.143,
+              "median": 273.143,
+              "compatibleRange": 19.12000000000006
+            },
+            "joint": {
+              "evidenceUserMs": 273.143,
+              "evidenceSystemMs": 3.808,
+              "evidenceTotalCpuMs": 276.95099999999996,
+              "rootUserMs": 387.462,
+              "rootSystemMs": 31.756,
+              "rootTotalCpuMs": 419.21799999999996,
+              "remainderUserMs": 114.31900000000002,
+              "remainderSystemMs": 27.948,
+              "instructions": 8153427439,
+              "cycles": 1664180974
+            },
+            "anchors": [
+              {
+                "ticketId": 47,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 276.40700000000004,
+              "median": 276.40700000000004,
+              "compatibleRange": 12.376999999999953
+            },
+            "joint": {
+              "evidenceUserMs": 276.40700000000004,
+              "evidenceSystemMs": 3.255,
+              "evidenceTotalCpuMs": 279.66200000000003,
+              "rootUserMs": 391.409,
+              "rootSystemMs": 30.879,
+              "rootTotalCpuMs": 422.288,
+              "remainderUserMs": 115.00199999999995,
+              "remainderSystemMs": 27.624000000000002,
+              "instructions": 8141437479,
+              "cycles": 1669156101
+            },
+            "anchors": [
+              {
+                "ticketId": 44,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": -3.264000000000067,
+            "evidenceSystemMs": 0.5529999999999999,
+            "evidenceTotalCpuMs": -2.7110000000000696,
+            "rootUserMs": -3.9470000000000027,
+            "rootSystemMs": 0.8769999999999989,
+            "rootTotalCpuMs": -3.07000000000005,
+            "remainderUserMs": -0.6829999999999359,
+            "remainderSystemMs": 0.32399999999999807,
+            "instructions": 11989960,
+            "cycles": -4975127
+          }
+        }
+      ],
+      "originalPairs": [
+        {
+          "passed": true,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": true,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 273.33099999999996,
+              "median": 272.96450000000004,
+              "compatibleRange": 13.942000000000064
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 286.128,
+              "median": 286.128,
+              "compatibleRange": 10.379000000000019
+            }
+          ],
+          "calibrationRatio": 0.965916060632612,
+          "deltaMs": -13.163499999999942,
+          "notG2": true
+        },
+        {
+          "passed": false,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": false,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 282.636,
+              "median": 282.636,
+              "compatibleRange": 16.86899999999997
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 280.009,
+              "median": 279.9735,
+              "compatibleRange": 13.613999999999976
+            }
+          ],
+          "calibrationRatio": 1.0185840311674355,
+          "deltaMs": 2.6625000000000227,
+          "notG2": true
+        },
+        {
+          "passed": false,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": false,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.76900000000006,
+              "median": 273.76900000000006,
+              "compatibleRange": 8.586999999999989
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 278.378,
+              "median": 278.378,
+              "compatibleRange": 15.677999999999997
+            }
+          ],
+          "calibrationRatio": 1.014644351464435,
+          "deltaMs": -4.608999999999924,
+          "notG2": true
+        },
+        {
+          "passed": false,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": false,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.143,
+              "median": 273.143,
+              "compatibleRange": 19.12000000000006
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 276.40700000000004,
+              "median": 276.40700000000004,
+              "compatibleRange": 12.376999999999953
+            }
+          ],
+          "calibrationRatio": 0.9685080928923293,
+          "deltaMs": -3.264000000000067,
+          "notG2": true
+        }
+      ],
+      "sameArmReturns": [
+        {
+          "arm": "A",
+          "cells": [
+            0,
+            3
+          ],
+          "rawTargetUserMs": 0.1784999999999286,
+          "rawConditioningUserMs": -9.720999999999947,
+          "normalizedUserMs": 9.899499999999875
+        },
+        {
+          "arm": "B",
+          "cells": [
+            1,
+            2
+          ],
+          "rawTargetUserMs": -8.866999999999962,
+          "rawConditioningUserMs": -1.5955000000000155,
+          "normalizedUserMs": -7.271499999999946
+        }
+      ],
+      "contrasts": [
+        {
+          "A": 0,
+          "B": 1,
+          "ARangeMs": 13.942000000000064,
+          "BRangeMs": 16.86899999999997,
+          "rangeReductionMs": -2.9269999999999072,
+          "targetMedianGapDifferenceMs": 2.4723330000015267
+        },
+        {
+          "A": 3,
+          "B": 2,
+          "ARangeMs": 19.12000000000006,
+          "BRangeMs": 8.586999999999989,
+          "rangeReductionMs": 10.533000000000072,
+          "targetMedianGapDifferenceMs": 0.43699999999807915
+        }
+      ],
+      "sameGcDescriptiveMatchCounts": [
+        5,
+        4
+      ]
+    },
+    {
+      "label": "calibration-target-2",
+      "order": "BAAB",
+      "checks": {
+        "initialCalibration": true,
+        "graphSourcePmcMetadata": true,
+        "compatibleWarm": true,
+        "actualOrder": true,
+        "hashPositionsAndNoOverlap": true,
+        "actualGaps": true,
+        "comparableGaps": true,
+        "rawTargetReturn": true,
+        "rawConditioningReturn": false,
+        "normalizedReturn": false
+      },
+      "initialCalibration": {
+        "target": [
+          {
+            "start": 386.087084,
+            "end": 408.957667,
+            "userMs": 22.598,
+            "systemMs": 0.23,
+            "value": 0
+          },
+          {
+            "start": 417.999,
+            "end": 439.925042,
+            "userMs": 21.838,
+            "systemMs": 0.083,
+            "value": 0
+          },
+          {
+            "start": 448.951375,
+            "end": 470.889417,
+            "userMs": 21.854,
+            "systemMs": 0.081,
+            "value": 0
+          }
+        ],
+        "conditioning": [
+          {
+            "start": 542.403334,
+            "end": 565.258125,
+            "userMs": 22.246,
+            "systemMs": 0.39,
+            "value": 0
+          },
+          {
+            "start": 574.319334,
+            "end": 596.662292,
+            "userMs": 22.162,
+            "systemMs": 0.156,
+            "value": 0
+          },
+          {
+            "start": 606.205042,
+            "end": 628.2225,
+            "userMs": 22.001,
+            "systemMs": 0.011,
+            "value": 0
+          }
+        ]
+      },
+      "calibrationBaseline": 0.9828389640648804,
+      "statistics": [
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 275.409,
+              "median": 274.8905,
+              "compatibleRange": 12.022000000000048
+            },
+            "joint": {
+              "evidenceUserMs": 274.8905,
+              "evidenceSystemMs": 1.4105,
+              "evidenceTotalCpuMs": 276.30100000000004,
+              "rootUserMs": 384.919,
+              "rootSystemMs": 28.874000000000002,
+              "rootTotalCpuMs": 413.793,
+              "remainderUserMs": 110.02850000000001,
+              "remainderSystemMs": 27.463500000000003,
+              "instructions": 8122312134.5,
+              "cycles": 1633513412
+            },
+            "anchors": [
+              {
+                "ticketId": 17,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              },
+              {
+                "ticketId": 13,
+                "weight": 0.5,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 270.753,
+              "median": 270.753,
+              "compatibleRange": 11.515999999999906
+            },
+            "joint": {
+              "evidenceUserMs": 270.753,
+              "evidenceSystemMs": 1.3590000000000002,
+              "evidenceTotalCpuMs": 272.11199999999997,
+              "rootUserMs": 375.358,
+              "rootSystemMs": 28.592,
+              "rootTotalCpuMs": 403.95,
+              "remainderUserMs": 104.60500000000002,
+              "remainderSystemMs": 27.232999999999997,
+              "instructions": 8180413704,
+              "cycles": 1600881522
+            },
+            "anchors": [
+              {
+                "ticketId": 51,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": 4.137499999999989,
+            "evidenceSystemMs": 0.05149999999999988,
+            "evidenceTotalCpuMs": 4.189000000000078,
+            "rootUserMs": 9.560999999999979,
+            "rootSystemMs": 0.2820000000000036,
+            "rootTotalCpuMs": 9.843000000000018,
+            "remainderUserMs": 5.42349999999999,
+            "remainderSystemMs": 0.23050000000000637,
+            "instructions": -58101569.5,
+            "cycles": 32631890
+          }
+        },
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.11600000000004,
+              "median": 273.11600000000004,
+              "compatibleRange": 15.270999999999958
+            },
+            "joint": {
+              "evidenceUserMs": 273.11600000000004,
+              "evidenceSystemMs": 0.7180000000000003,
+              "evidenceTotalCpuMs": 273.83400000000006,
+              "rootUserMs": 389.394,
+              "rootSystemMs": 27.96,
+              "rootTotalCpuMs": 417.354,
+              "remainderUserMs": 116.27799999999996,
+              "remainderSystemMs": 27.242,
+              "instructions": 8103036681,
+              "cycles": 1626710143
+            },
+            "anchors": [
+              {
+                "ticketId": 24,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 272.687,
+              "median": 272.687,
+              "compatibleRange": 14.295000000000016
+            },
+            "joint": {
+              "evidenceUserMs": 272.687,
+              "evidenceSystemMs": 3.358,
+              "evidenceTotalCpuMs": 276.045,
+              "rootUserMs": 384.201,
+              "rootSystemMs": 31.118,
+              "rootTotalCpuMs": 415.319,
+              "remainderUserMs": 111.51400000000001,
+              "remainderSystemMs": 27.759999999999998,
+              "instructions": 8118213024,
+              "cycles": 1632151896
+            },
+            "anchors": [
+              {
+                "ticketId": 62,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": 0.42900000000003047,
+            "evidenceSystemMs": -2.6399999999999997,
+            "evidenceTotalCpuMs": -2.210999999999956,
+            "rootUserMs": 5.192999999999984,
+            "rootSystemMs": -3.1579999999999977,
+            "rootTotalCpuMs": 2.034999999999968,
+            "remainderUserMs": 4.763999999999953,
+            "remainderSystemMs": -0.5179999999999971,
+            "instructions": -15176343,
+            "cycles": -5441753
+          }
+        },
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 273.84400000000005,
+              "median": 273.653,
+              "compatibleRange": 13.053000000000054
+            },
+            "joint": {
+              "evidenceUserMs": 273.653,
+              "evidenceSystemMs": 2.271,
+              "evidenceTotalCpuMs": 275.924,
+              "rootUserMs": 387.098,
+              "rootSystemMs": 30.3325,
+              "rootTotalCpuMs": 417.43050000000005,
+              "remainderUserMs": 113.445,
+              "remainderSystemMs": 28.061500000000002,
+              "instructions": 8138266444,
+              "cycles": 1645859661
+            },
+            "anchors": [
+              {
+                "ticketId": 34,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              },
+              {
+                "ticketId": 37,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 272.92300000000006,
+              "median": 272.92300000000006,
+              "compatibleRange": 13.34699999999998
+            },
+            "joint": {
+              "evidenceUserMs": 272.92300000000006,
+              "evidenceSystemMs": 0.976,
+              "evidenceTotalCpuMs": 273.89900000000006,
+              "rootUserMs": 388.579,
+              "rootSystemMs": 29.8,
+              "rootTotalCpuMs": 418.379,
+              "remainderUserMs": 115.65599999999995,
+              "remainderSystemMs": 28.824,
+              "instructions": 8088296269,
+              "cycles": 1639220655
+            },
+            "anchors": [
+              {
+                "ticketId": 73,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": 0.7299999999999613,
+            "evidenceSystemMs": 1.295,
+            "evidenceTotalCpuMs": 2.0249999999999204,
+            "rootUserMs": -1.4809999999999945,
+            "rootSystemMs": 0.5324999999999989,
+            "rootTotalCpuMs": -0.9484999999999673,
+            "remainderUserMs": -2.210999999999956,
+            "remainderSystemMs": -0.7624999999999993,
+            "instructions": 49970175,
+            "cycles": 6639006
+          }
+        },
+        {
+          "target": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.048,
+              "median": 273.048,
+              "compatibleRange": 16.460000000000036
+            },
+            "joint": {
+              "evidenceUserMs": 273.048,
+              "evidenceSystemMs": 3.0850000000000004,
+              "evidenceTotalCpuMs": 276.133,
+              "rootUserMs": 387.668,
+              "rootSystemMs": 30.255,
+              "rootTotalCpuMs": 417.923,
+              "remainderUserMs": 114.62,
+              "remainderSystemMs": 27.169999999999998,
+              "instructions": 8144253489,
+              "cycles": 1655153649
+            },
+            "anchors": [
+              {
+                "ticketId": 47,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "conditioning": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 274.39799999999997,
+              "median": 274.39799999999997,
+              "compatibleRange": 13.197999999999979
+            },
+            "joint": {
+              "evidenceUserMs": 274.39799999999997,
+              "evidenceSystemMs": 1.4409999999999998,
+              "evidenceTotalCpuMs": 275.83899999999994,
+              "rootUserMs": 376.741,
+              "rootSystemMs": 29.035,
+              "rootTotalCpuMs": 405.776,
+              "remainderUserMs": 102.34300000000002,
+              "remainderSystemMs": 27.594,
+              "instructions": 8119583311,
+              "cycles": 1605300361
+            },
+            "anchors": [
+              {
+                "ticketId": 81,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "normalized": {
+            "evidenceUserMs": -1.349999999999966,
+            "evidenceSystemMs": 1.6440000000000006,
+            "evidenceTotalCpuMs": 0.29400000000003956,
+            "rootUserMs": 10.927000000000021,
+            "rootSystemMs": 1.2199999999999989,
+            "rootTotalCpuMs": 12.146999999999991,
+            "remainderUserMs": 12.276999999999987,
+            "remainderSystemMs": -0.42400000000000304,
+            "instructions": 24670178,
+            "cycles": 49853288
+          }
+        }
+      ],
+      "originalPairs": [
+        {
+          "passed": true,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": true,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 275.409,
+              "median": 274.8905,
+              "compatibleRange": 12.022000000000048
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 270.753,
+              "median": 270.753,
+              "compatibleRange": 11.515999999999906
+            }
+          ],
+          "calibrationRatio": 0.9980297331183952,
+          "deltaMs": 4.137499999999989,
+          "notG2": true
+        },
+        {
+          "passed": false,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": false,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.11600000000004,
+              "median": 273.11600000000004,
+              "compatibleRange": 15.270999999999958
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 272.687,
+              "median": 272.687,
+              "compatibleRange": 14.295000000000016
+            }
+          ],
+          "calibrationRatio": 1.0079774122708736,
+          "deltaMs": 0.42900000000003047,
+          "notG2": true
+        },
+        {
+          "passed": true,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": true,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 273.84400000000005,
+              "median": 273.653,
+              "compatibleRange": 13.053000000000054
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 272.92300000000006,
+              "median": 272.92300000000006,
+              "compatibleRange": 13.34699999999998
+            }
+          ],
+          "calibrationRatio": 0.9978531174523659,
+          "deltaMs": 0.7299999999999613,
+          "notG2": true
+        },
+        {
+          "passed": false,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": false,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.048,
+              "median": 273.048,
+              "compatibleRange": 16.460000000000036
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 274.39799999999997,
+              "median": 274.39799999999997,
+              "compatibleRange": 13.197999999999979
+            }
+          ],
+          "calibrationRatio": 0.9915645533652991,
+          "deltaMs": -1.349999999999966,
+          "notG2": true
+        }
+      ],
+      "sameArmReturns": [
+        {
+          "arm": "A",
+          "cells": [
+            1,
+            2
+          ],
+          "rawTargetUserMs": 0.5369999999999777,
+          "rawConditioningUserMs": 0.23600000000004684,
+          "normalizedUserMs": 0.3009999999999309
+        },
+        {
+          "arm": "B",
+          "cells": [
+            0,
+            3
+          ],
+          "rawTargetUserMs": -1.8424999999999727,
+          "rawConditioningUserMs": 3.644999999999982,
+          "normalizedUserMs": -5.4874999999999545
+        }
+      ],
+      "contrasts": [
+        {
+          "A": 1,
+          "B": 0,
+          "ARangeMs": 15.270999999999958,
+          "BRangeMs": 12.022000000000048,
+          "rangeReductionMs": 3.24899999999991,
+          "targetMedianGapDifferenceMs": 0.6064160000005359
+        },
+        {
+          "A": 2,
+          "B": 3,
+          "ARangeMs": 13.053000000000054,
+          "BRangeMs": 16.460000000000036,
+          "rangeReductionMs": -3.4069999999999823,
+          "targetMedianGapDifferenceMs": 1.124667000003683
+        }
+      ],
+      "sameGcDescriptiveMatchCounts": [
+        4,
+        5
+      ]
+    }
+  ],
+  "actualTiming": {
+    "withinBlockGaps": {
+      "count": 144,
+      "minimumMs": 168.4031660000037,
+      "maximumMs": 217.2820419999989,
+      "allAtLeast150ms": true
+    },
+    "blocks": [
+      {
+        "target": "calibration-target-1",
+        "cell": 0,
+        "arm": "A",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 11682.496917,
+              "end": 11704.83725,
+              "userMs": 22.191,
+              "systemMs": 0.139,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 11713.573542,
+              "end": 11735.447542,
+              "userMs": 21.863,
+              "systemMs": 0.012,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 11744.540959,
+              "end": 11766.590167,
+              "userMs": 22.015,
+              "systemMs": 0.033,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 151.0797910000001
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.10625000000073
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.1029580000013
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.083333999999
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.08441700000003
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.09016599999995
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.09775000000081
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.07529200000135
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.09124999999767
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.10470899999927
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-1",
+          "startedAtMs": 12650.907709,
+          "finishedAtMs": 18706.824167,
+          "startJournalSeq": 30,
+          "endJournalSeq": 47
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 11682.496917,
+              "end": 11704.83725
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 11713.573542,
+              "end": 11735.447542
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 11744.540959,
+              "end": 11766.590167
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.7499170000001,
+              170.88025000000016,
+              173.50129199999992,
+              171.67049999999927,
+              170.67491599999994,
+              171.3824999999997,
+              173.07545899999968,
+              169.95837500000016,
+              171.59779200000048
+            ],
+            "minimumMs": 169.95837500000016,
+            "medianMs": 171.59779200000048,
+            "maximumMs": 173.50129199999992
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 0,
+        "arm": "A",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 23839.959,
+              "end": 23864.232334,
+              "userMs": 22.66,
+              "systemMs": 0.358,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 23882.579709,
+              "end": 23905.5165,
+              "userMs": 22.721,
+              "systemMs": 0.105,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 23915.558084,
+              "end": 23943.236334,
+              "userMs": 22.475,
+              "systemMs": 0.106,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.12145900000178
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.08908399999927
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.0709999999999
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.56866699999955
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.0852500000001
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.086041999999
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.08683299999757
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.4424169999984
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.06404099999781
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.3623750000006
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 18765.626875,
+          "finishedAtMs": 24983.12425,
+          "startJournalSeq": 48,
+          "endJournalSeq": 65
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 23839.959,
+              "end": 23864.232334
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 23882.579709,
+              "end": 23905.5165
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 23915.558084,
+              "end": 23943.236334
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.53441699999894,
+              170.79470800000126,
+              171.76104199999827,
+              169.4917499999974,
+              170.9590419999986,
+              170.26566600000297,
+              174.66625000000204,
+              170.40662499999962,
+              169.74254199999996
+            ],
+            "minimumMs": 169.4917499999974,
+            "medianMs": 170.79470800000126,
+            "maximumMs": 174.66625000000204
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 1,
+        "arm": "B",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": 2,
+            "value": {
+              "start": 19531.394584,
+              "end": 19553.712,
+              "userMs": 22.274,
+              "systemMs": 0.025,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 5,
+            "value": {
+              "start": 21345.976334,
+              "end": 21368.88325,
+              "userMs": 22.781,
+              "systemMs": 0.06,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 8,
+            "value": {
+              "start": 23198.646959,
+              "end": 23221.40425,
+              "userMs": 22.718,
+              "systemMs": 0.028,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 151.10120900000038
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.53712500000256
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.55433400000038
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.09024999999747
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.8770829999994
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.81204199999775
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.10541699999885
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.14216699999815
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.38616700000057
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.08974999999919
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-1",
+          "startedAtMs": 25133.898709,
+          "finishedAtMs": 31387.153459,
+          "startJournalSeq": 66,
+          "endJournalSeq": 83
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": 2,
+              "start": 19531.394584,
+              "end": 19553.712
+            },
+            {
+              "beforeReadIndex": 5,
+              "start": 21345.976334,
+              "end": 21368.88325
+            },
+            {
+              "beforeReadIndex": 8,
+              "start": 23198.646959,
+              "end": 23221.40425
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              217.2820419999989,
+              174.070125000002,
+              172.0503749999989,
+              174.0560000000005,
+              174.5502090000009,
+              174.67670799999905,
+              174.57770799999707,
+              171.58487500000047,
+              171.87754099999802
+            ],
+            "minimumMs": 171.58487500000047,
+            "medianMs": 174.070125000002,
+            "maximumMs": 217.2820419999989
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 1,
+        "arm": "B",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 36483.80275,
+              "end": 36506.319792,
+              "userMs": 22.347,
+              "systemMs": 0.169,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 36516.834125,
+              "end": 36539.166875,
+              "userMs": 22.312,
+              "systemMs": 0.019,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 36547.84175,
+              "end": 36569.9795,
+              "userMs": 22.109,
+              "systemMs": 0.028,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.10420799999702
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.0823339999988
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.09883300000365
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.08462500000314
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.075582999998
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.07070899999962
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.07116700000188
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.07945800000016
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.0809999999983
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.07270900000003
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 31457.153584,
+          "finishedAtMs": 37603.5975,
+          "startJournalSeq": 84,
+          "endJournalSeq": 101
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 36483.80275,
+              "end": 36506.319792
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 36516.834125,
+              "end": 36539.166875
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 36547.84175,
+              "end": 36569.9795
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.8874999999971,
+              172.69520900000134,
+              169.9909579999985,
+              172.76374999999825,
+              173.14733400000114,
+              172.33533299999544,
+              172.91795799999818,
+              170.71975000000384,
+              170.24324999999953
+            ],
+            "minimumMs": 169.9909579999985,
+            "medianMs": 172.33533299999544,
+            "maximumMs": 173.14733400000114
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 2,
+        "arm": "B",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": 2,
+            "value": {
+              "start": 31997.260959,
+              "end": 32019.601709,
+              "userMs": 22.324,
+              "systemMs": 0.014,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 5,
+            "value": {
+              "start": 33764.330917,
+              "end": 33786.275917,
+              "userMs": 21.916,
+              "systemMs": 0.026,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 8,
+            "value": {
+              "start": 35530.385125,
+              "end": 35552.698959,
+              "userMs": 22.29,
+              "systemMs": 0.02,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 151.07291599999735
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.06900000000314
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.43991699999606
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.0665829999998
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.07316600000195
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.55741700000362
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.124708000003
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.06904100000247
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.44241700000566
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.0648749999964
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-1",
+          "startedAtMs": 37731.731042,
+          "finishedAtMs": 43665.249709,
+          "startJournalSeq": 102,
+          "endJournalSeq": 119
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": 2,
+              "start": 31997.260959,
+              "end": 32019.601709
+            },
+            {
+              "beforeReadIndex": 5,
+              "start": 33764.330917,
+              "end": 33786.275917
+            },
+            {
+              "beforeReadIndex": 8,
+              "start": 35530.385125,
+              "end": 35552.698959
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.4599589999998,
+              171.37174999999843,
+              169.59108299999934,
+              171.37316699999792,
+              172.02049999999872,
+              170.01633399999992,
+              169.51254200000403,
+              173.60837500000343,
+              170.23341699999582
+            ],
+            "minimumMs": 169.51254200000403,
+            "medianMs": 171.37174999999843,
+            "maximumMs": 173.60837500000343
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 2,
+        "arm": "B",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 48666.224834,
+              "end": 48688.215209,
+              "userMs": 21.949,
+              "systemMs": 0.039,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 48697.25625,
+              "end": 48719.207875,
+              "userMs": 21.925,
+              "systemMs": 0.025,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 48727.31375,
+              "end": 48749.313334,
+              "userMs": 21.956,
+              "systemMs": 0.041,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.0885419999977
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.06841700000223
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.30520800000522
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.06891599999653
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 151.11204200000066
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.12466700000368
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.07770800000435
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.0850419999988
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.060249999995
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.06070799999725
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 43726.908959,
+          "finishedAtMs": 49783.188792,
+          "startJournalSeq": 120,
+          "endJournalSeq": 137
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 48666.224834,
+              "end": 48688.215209
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 48697.25625,
+              "end": 48719.207875
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 48727.31375,
+              "end": 48749.313334
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.56487500000367,
+              171.74733299999934,
+              171.72541600000113,
+              172.17700000000332,
+              170.0699999999997,
+              172.11633299999812,
+              169.40883300000132,
+              170.86666600000171,
+              173.2060000000056
+            ],
+            "minimumMs": 169.40883300000132,
+            "medianMs": 171.72541600000113,
+            "maximumMs": 173.2060000000056
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 3,
+        "arm": "A",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 48885.083459,
+              "end": 48907.02275,
+              "userMs": 21.876,
+              "systemMs": 0.062,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 48915.188167,
+              "end": 48937.518542,
+              "userMs": 22.305,
+              "systemMs": 0.015,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 48946.153125,
+              "end": 48968.176042,
+              "userMs": 21.982,
+              "systemMs": 0.038,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.1012499999997
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.08812500000204
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.07708300000377
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.05837500000052
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.0658340000009
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.06679200000508
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.49962499999674
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.07287499999802
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.08324999999604
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.11125000000175
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-1",
+          "startedAtMs": 49905.4,
+          "finishedAtMs": 55908.388042,
+          "startJournalSeq": 138,
+          "endJournalSeq": 155
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 48885.083459,
+              "end": 48907.02275
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 48915.188167,
+              "end": 48937.518542
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 48946.153125,
+              "end": 48968.176042
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.03129199999967,
+              171.16112499999872,
+              172.55670799999643,
+              170.85299999999552,
+              169.81875000000582,
+              172.70270799999707,
+              170.20929199999955,
+              170.93475000000035,
+              173.8024579999983
+            ],
+            "minimumMs": 169.81875000000582,
+            "medianMs": 170.93475000000035,
+            "maximumMs": 173.8024579999983
+          }
+        }
+      },
+      {
+        "target": "calibration-target-1",
+        "cell": 3,
+        "arm": "A",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 60888.019875,
+              "end": 60910.212709,
+              "userMs": 22.177,
+              "systemMs": 0.016,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 60918.884375,
+              "end": 60941.728,
+              "userMs": 22.827,
+              "systemMs": 0.014,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 60951.001417,
+              "end": 60973.737417,
+              "userMs": 22.721,
+              "systemMs": 0.015,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.47212500000023
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.07108300000255
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.06995800000004
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.8220829999991
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.07733399999415
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.07287499999802
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.06900000000314
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.06758300000365
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.05591599999752
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.06499999999505
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 55973.521084,
+          "finishedAtMs": 62006.833792,
+          "startJournalSeq": 156,
+          "endJournalSeq": 173
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 60888.019875,
+              "end": 60910.212709
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 60918.884375,
+              "end": 60941.728
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 60951.001417,
+              "end": 60973.737417
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.11325000000215,
+              170.11941699999443,
+              172.67695799999638,
+              171.01591599999665,
+              170.44316699999763,
+              171.96387500000128,
+              169.81141699999716,
+              169.5410830000037,
+              174.6729170000035
+            ],
+            "minimumMs": 169.5410830000037,
+            "medianMs": 170.44316699999763,
+            "maximumMs": 174.6729170000035
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 0,
+        "arm": "B",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": 2,
+            "value": {
+              "start": 7006.395375,
+              "end": 7028.689584,
+              "userMs": 22.154,
+              "systemMs": 0.134,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 5,
+            "value": {
+              "start": 8810.270125,
+              "end": 8832.667292,
+              "userMs": 22.341,
+              "systemMs": 0.052,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 8,
+            "value": {
+              "start": 10561.395334,
+              "end": 10583.239792,
+              "userMs": 21.837,
+              "systemMs": 0.007,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.10966700001154
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.0642080000107
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.40141700000095
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.07162499999686
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.08225000000675
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.47791699999652
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.05845799999952
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.07462499999383
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.64520800000173
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.08116699999664
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-2",
+          "startedAtMs": 68103.84475,
+          "finishedAtMs": 74032.413542,
+          "startJournalSeq": 189,
+          "endJournalSeq": 206
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": 2,
+              "start": 7006.395375,
+              "end": 7028.689584
+            },
+            {
+              "beforeReadIndex": 5,
+              "start": 8810.270125,
+              "end": 8832.667292
+            },
+            {
+              "beforeReadIndex": 8,
+              "start": 10561.395334,
+              "end": 10583.239792
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.90312499999982,
+              172.07574999999997,
+              170.0776249999999,
+              171.43525000000045,
+              172.0774169999986,
+              170.285041000001,
+              171.38025000000016,
+              171.69979199999943,
+              170.65083400000003
+            ],
+            "minimumMs": 170.0776249999999,
+            "medianMs": 171.43525000000045,
+            "maximumMs": 172.0774169999986
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 0,
+        "arm": "B",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 78989.610584,
+              "end": 79011.839584,
+              "userMs": 22.208,
+              "systemMs": 0.017,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 79020.840542,
+              "end": 79043.174834,
+              "userMs": 22.315,
+              "systemMs": 0.017,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 79051.919792,
+              "end": 79074.319709,
+              "userMs": 22.371,
+              "systemMs": 0.021,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.1226250000036
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.08050000001094
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.872749999995
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.07816699999967
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.08545899999444
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.10058299999218
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.064916000003
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.09674999999697
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.21195799999987
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.32241600000998
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 74093.928584,
+          "finishedAtMs": 80108.666875,
+          "startJournalSeq": 207,
+          "endJournalSeq": 224
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 78989.610584,
+              "end": 79011.839584
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 79020.840542,
+              "end": 79043.174834
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 79051.919792,
+              "end": 79074.319709
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.74466699999175,
+              171.5297089999949,
+              170.89424999999756,
+              172.61008399999992,
+              171.38175000000047,
+              169.99795799999265,
+              172.88933299999917,
+              169.86629200000607,
+              170.5567080000037
+            ],
+            "minimumMs": 169.86629200000607,
+            "medianMs": 170.89424999999756,
+            "maximumMs": 172.88933299999917
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 1,
+        "arm": "A",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 23843.765542,
+              "end": 23866.330417,
+              "userMs": 22.553,
+              "systemMs": 0.009,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 23876.650375,
+              "end": 23899.143125,
+              "userMs": 22.455,
+              "systemMs": 0.036,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 23908.648292,
+              "end": 23931.092375,
+              "userMs": 22.384,
+              "systemMs": 0.054,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.05654200000572
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.05379200000607
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.06849999999395
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.08045800001128
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 151.0004159999953
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.06287500000326
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.05008299999463
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.073332999993
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.07241599999543
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.07554099999834
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-2",
+          "startedAtMs": 80244.241209,
+          "finishedAtMs": 86238.764084,
+          "startJournalSeq": 225,
+          "endJournalSeq": 242
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 23843.765542,
+              "end": 23866.330417
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 23876.650375,
+              "end": 23899.143125
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 23908.648292,
+              "end": 23931.092375
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.82883399999992,
+              170.60270799999853,
+              170.30495800000062,
+              171.23729100000128,
+              173.5919580000009,
+              170.783875000001,
+              170.8209999999999,
+              172.0349589999969,
+              173.61633300000176
+            ],
+            "minimumMs": 170.30495800000062,
+            "medianMs": 170.82883399999992,
+            "maximumMs": 173.61633300000176
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 1,
+        "arm": "A",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 91201.416209,
+              "end": 91223.728584,
+              "userMs": 22.3,
+              "systemMs": 0.011,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 91233.410709,
+              "end": 91255.854209,
+              "userMs": 22.384,
+              "systemMs": 0.058,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 91264.456,
+              "end": 91286.770709,
+              "userMs": 22.297,
+              "systemMs": 0.016,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.10295800000313
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.06508299999405
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.0700829999987
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.0648749999964
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.2161250000063
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.07191600000078
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.06458399999246
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.07045800000196
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.06741600000532
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.09283300000243
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 86302.859,
+          "finishedAtMs": 92320.224417,
+          "startJournalSeq": 243,
+          "endJournalSeq": 260
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 91201.416209,
+              "end": 91223.728584
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 91233.410709,
+              "end": 91255.854209
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 91264.456,
+              "end": 91286.770709
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.50212499999907,
+              168.4031660000037,
+              170.32220799999777,
+              171.25570799999696,
+              169.57062500000757,
+              171.12712499999907,
+              171.5967920000112,
+              172.34987499999988,
+              170.66612500000338
+            ],
+            "minimumMs": 168.4031660000037,
+            "medianMs": 170.66612500000338,
+            "maximumMs": 172.34987499999988
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 2,
+        "arm": "A",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 36069.087834,
+              "end": 36091.304917,
+              "userMs": 22.203,
+              "systemMs": 0.01,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 36100.232167,
+              "end": 36122.544167,
+              "userMs": 22.296,
+              "systemMs": 0.014,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 36131.18875,
+              "end": 36153.504334,
+              "userMs": 22.3,
+              "systemMs": 0.014,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 151.0187089999963
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.07787500000268
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.06925000000047
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.06629099999554
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.06445900000108
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.08400000000256
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.078416999997
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.08179199999722
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.07095900000422
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.0619999999908
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-2",
+          "startedAtMs": 92454.681959,
+          "finishedAtMs": 98461.33125,
+          "startJournalSeq": 261,
+          "endJournalSeq": 278
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 36069.087834,
+              "end": 36091.304917
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 36100.232167,
+              "end": 36122.544167
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 36131.18875,
+              "end": 36153.504334
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              169.89245899999878,
+              171.9994579999984,
+              170.15091700000266,
+              168.68237500000032,
+              173.63883299999725,
+              170.65854200000467,
+              170.4387910000005,
+              171.46912500000326,
+              169.73154200000135
+            ],
+            "minimumMs": 168.68237500000032,
+            "medianMs": 170.4387910000005,
+            "maximumMs": 173.63883299999725
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 2,
+        "arm": "A",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 103394.578209,
+              "end": 103416.944667,
+              "userMs": 22.341,
+              "systemMs": 0.017,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 103426.496375,
+              "end": 103449.03725,
+              "userMs": 22.343,
+              "systemMs": 0.191,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 103457.626084,
+              "end": 103479.958667,
+              "userMs": 22.297,
+              "systemMs": 0.034,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.1151669999963
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.0702500000043
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.07304100001056
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.08641600000556
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.08187499998894
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.09833300000173
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.0770840000041
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.06637500000943
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.0824169999978
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.0688749999972
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 98521.988792,
+          "finishedAtMs": 104513.35125,
+          "startJournalSeq": 279,
+          "endJournalSeq": 296
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 103394.578209,
+              "end": 103416.944667
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 103426.496375,
+              "end": 103449.03725
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 103457.626084,
+              "end": 103479.958667
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.26004199999443,
+              170.0101250000007,
+              171.3504580000008,
+              170.03637499999604,
+              170.67416699999012,
+              170.65354200000002,
+              173.37958299998718,
+              171.2013750000042,
+              170.5737919999956
+            ],
+            "minimumMs": 170.0101250000007,
+            "medianMs": 170.67416699999012,
+            "maximumMs": 173.37958299998718
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 3,
+        "arm": "B",
+        "role": "target",
+        "hashPositions": [
+          {
+            "beforeReadIndex": 2,
+            "value": {
+              "start": 43551.307625,
+              "end": 43573.416667,
+              "userMs": 22.058,
+              "systemMs": 0.043,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 5,
+            "value": {
+              "start": 45322.655375,
+              "end": 45345.095709,
+              "userMs": 22.33,
+              "systemMs": 0.107,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": 8,
+            "value": {
+              "start": 47082.43875,
+              "end": 47104.774,
+              "userMs": 22.314,
+              "systemMs": 0.02,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.10512500000186
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.08187499998894
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.6605419999978
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.07795800000895
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.07883300000685
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.6791249999951
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.07408299999952
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.74829200000386
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.05433400000038
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.0837499999907
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-target-2",
+          "startedAtMs": 104651.19975,
+          "finishedAtMs": 110571.382209,
+          "startJournalSeq": 297,
+          "endJournalSeq": 314
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": 2,
+              "start": 43551.307625,
+              "end": 43573.416667
+            },
+            {
+              "beforeReadIndex": 5,
+              "start": 45322.655375,
+              "end": 45345.095709
+            },
+            {
+              "beforeReadIndex": 8,
+              "start": 47082.43875,
+              "end": 47104.774
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              170.18933300000208,
+              173.10258299999987,
+              170.80599999999686,
+              171.11758299999929,
+              171.78966699999728,
+              171.4011660000033,
+              171.56345800000418,
+              172.30712499999936,
+              172.94837499999994
+            ],
+            "minimumMs": 170.18933300000208,
+            "medianMs": 171.56345800000418,
+            "maximumMs": 173.10258299999987
+          }
+        }
+      },
+      {
+        "target": "calibration-target-2",
+        "cell": 3,
+        "arm": "B",
+        "role": "conditioning",
+        "hashPositions": [
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 115507.61575,
+              "end": 115530.143125,
+              "userMs": 22.514,
+              "systemMs": 0.011,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 115539.73725,
+              "end": 115562.213375,
+              "userMs": 22.461,
+              "systemMs": 0.015,
+              "value": 0
+            }
+          },
+          {
+            "beforeReadIndex": null,
+            "value": {
+              "start": 115570.824125,
+              "end": 115593.352542,
+              "userMs": 22.51,
+              "systemMs": 0.014,
+              "value": 0
+            }
+          }
+        ],
+        "waits": [
+          {
+            "beforeReadIndex": 0,
+            "scheduledMs": 150,
+            "actualMs": 150.0902919999935
+          },
+          {
+            "beforeReadIndex": 1,
+            "scheduledMs": 150,
+            "actualMs": 150.07337500000722
+          },
+          {
+            "beforeReadIndex": 2,
+            "scheduledMs": 150,
+            "actualMs": 150.06241700000828
+          },
+          {
+            "beforeReadIndex": 3,
+            "scheduledMs": 150,
+            "actualMs": 150.08191599999554
+          },
+          {
+            "beforeReadIndex": 4,
+            "scheduledMs": 150,
+            "actualMs": 150.07508300000336
+          },
+          {
+            "beforeReadIndex": 5,
+            "scheduledMs": 150,
+            "actualMs": 150.07079199999862
+          },
+          {
+            "beforeReadIndex": 6,
+            "scheduledMs": 150,
+            "actualMs": 150.06983300000138
+          },
+          {
+            "beforeReadIndex": 7,
+            "scheduledMs": 150,
+            "actualMs": 150.06137500000477
+          },
+          {
+            "beforeReadIndex": 8,
+            "scheduledMs": 150,
+            "actualMs": 150.71141699999862
+          },
+          {
+            "beforeReadIndex": 9,
+            "scheduledMs": 150,
+            "actualMs": 150.0708750000049
+          }
+        ],
+        "controllerBoundary": {
+          "host": "calibration-conditioning",
+          "startedAtMs": 110633.452084,
+          "finishedAtMs": 116626.496292,
+          "startJournalSeq": 315,
+          "endJournalSeq": 332
+        },
+        "timing": {
+          "valid": true,
+          "intervals": [
+            {
+              "beforeReadIndex": null,
+              "start": 115507.61575,
+              "end": 115530.143125
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 115539.73725,
+              "end": 115562.213375
+            },
+            {
+              "beforeReadIndex": null,
+              "start": 115570.824125,
+              "end": 115593.352542
+            }
+          ],
+          "gaps": {
+            "gapsMs": [
+              171.90358399999968,
+              169.42908299999544,
+              170.01487500000803,
+              170.42487499999697,
+              171.28850000000966,
+              172.2606250000099,
+              169.8061669999879,
+              171.71299999998882,
+              171.35287499999686
+            ],
+            "minimumMs": 169.42908299999544,
+            "medianMs": 171.28850000000966,
+            "maximumMs": 172.2606250000099
+          }
+        }
+      }
+    ]
+  },
+  "allRootAccounting": {
+    "count": 184,
+    "userMs": 75821.11200000004,
+    "systemMs": 6829.466999999998,
+    "totalMs": 82650.57900000004,
+    "postMeasurementSemanticAuditCpuMs": 403.726,
+    "all184RawPmcsRecomputed": true
+  },
+  "cost": {
+    "kind": "HASH-PLACEMENT-full-return-subtree-and-port-receipt",
+    "exitCode": 1,
+    "wallMsThroughReap": 118503.625916,
+    "fullChildSubtreeUserMs": 99207.681,
+    "fullChildSubtreeSystemMs": 10508.967,
+    "fullChildSubtreeCpuMs": 109716.64799999999,
+    "cpuScope": "RUSAGE_CHILDREN after full controller return and waited descendants",
+    "reportSha256": "508000be77164709dd82c71321e184207aabb5a2d95f1ab4f9ab6d03e3a33329",
+    "ports": [
+      {
+        "host": "calibration-conditioning",
+        "port": 61769,
+        "error": 61,
+        "refused": true
+      },
+      {
+        "host": "calibration-target-1",
+        "port": 61783,
+        "error": 61,
+        "refused": true
+      },
+      {
+        "host": "calibration-target-2",
+        "port": 61902,
+        "error": 61,
+        "refused": true
+      }
+    ],
+    "outputBytes": 16923607,
+    "formalReadCpuMs": 83054.30500000001,
+    "nativeCpuMs": 1273.902,
+    "formalWallMs": 118262.25595800001,
+    "controllerRuntimeCpuMs": 4055.193,
+    "counterFinalCpuMs": 224.321,
+    "preparationCpuMs": 3795.7779999999993,
+    "preparationWallReservedMs": 39586.901209,
+    "totalActiveWallReservedMs": 157849.157167,
+    "controllerAuxWithShutdownReserveMs": 13075.295999999998,
+    "journalBytes": 6677087,
+    "recoveryJournalBytes": 0,
+    "formalOutputPlusPreparationBytes": 17566259,
+    "unknownCostGap": false,
+    "sealedAuditCost": {
+      "exitCode": 0,
+      "wallMsThroughReap": 133.022334,
+      "fullChildSubtreeCpuMs": 111.9
+    },
+    "completeReturnAndAuditWithPreparationWallMs": 158223.54945900003,
+    "allKnownAuxPlusOfflineAuditMs": 13187.195999999998
+  },
+  "qualification": {
+    "testsPassed": 143,
+    "dedicatedNodeRuns": 1,
+    "fixtureReads": 44,
+    "nativeCalls": 19,
+    "nativeRpcAttempts": 20,
+    "cases": [
+      {
+        "name": "Profiler-rejected-before-wire",
+        "passed": true
+      },
+      {
+        "name": "complete-two-host-A-order-gap-and-hash-boundaries",
+        "passed": true
+      },
+      {
+        "name": "complete-two-host-B-order-gap-and-hash-boundaries",
+        "passed": true
+      },
+      {
+        "name": "known-native-rejected-while-original-ticket-unacked-zero-SHA",
+        "passed": true
+      },
+      {
+        "name": "fsync-failure-recover-original-before-ACK-no-replay",
+        "passed": true
+      },
+      {
+        "name": "unknown-request-query-original-id-no-replay",
+        "passed": true
+      },
+      {
+        "name": "original-read-error-durable-and-later-admission",
+        "passed": true
+      },
+      {
+        "name": "unknown-native-stop-admission-final-ledger-no-replay",
+        "passed": true
+      }
+    ],
+    "outputBytes": 535126,
+    "portRefused": true,
+    "sameCandidate": true
+  },
+  "recovery": {
+    "hosts": [
+      {
+        "label": "calibration-conditioning",
+        "rootCount": 88,
+        "nativeCalls": 27,
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "owners": {
+          "list": true,
+          "index": true,
+          "plan": true
+        },
+        "stopped": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "ledgerOverflows": 0,
+          "controlledCpuMs": 38909.02200000001,
+          "nativeCpuMs": 604.843,
+          "probeCpuMs": 76.86200000006954,
+          "retainedRowBytes": 0,
+          "naturalRows": 0,
+          "controlledRows": 88,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true,
+          "activeDepth": 0,
+          "readQueue": {
+            "owner": "calibration-conditioning",
+            "epoch": "order-fixed-copy",
+            "stopped": true,
+            "stopReason": "controller",
+            "lastId": 88,
+            "ticket": null,
+            "lastAck": {
+              "id": 88,
+              "owner": "calibration-conditioning",
+              "epoch": "order-fixed-copy",
+              "kind": "clock-end",
+              "label": "cadence-root",
+              "ttlMs": 5000,
+              "state": "acknowledged",
+              "previousState": "completed"
+            },
+            "noticeOwnerRestored": true,
+            "noticeFailures": 0,
+            "noticeCpuMs": 1.9199999999999988,
+            "immediatePending": false,
+            "deadlinePending": false,
+            "inFlight": false
+          }
+        },
+        "guard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 606,
+          "guardCheckMs": 9.981209999999805
+        },
+        "postMeasurementAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 118.995
+        },
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 559,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        },
+        "inspectorClosure": {
+          "closed": true,
+          "status": "closed",
+          "checks": 1,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "label": "calibration-target-1",
+        "rootCount": 48,
+        "nativeCalls": 15,
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "owners": {
+          "list": true,
+          "index": true,
+          "plan": true
+        },
+        "stopped": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "ledgerOverflows": 0,
+          "controlledCpuMs": 22096.808999999997,
+          "nativeCpuMs": 334.65,
+          "probeCpuMs": 41.12699999999808,
+          "retainedRowBytes": 0,
+          "naturalRows": 0,
+          "controlledRows": 48,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true,
+          "activeDepth": 0,
+          "readQueue": {
+            "owner": "calibration-target-1",
+            "epoch": "order-fixed-copy",
+            "stopped": true,
+            "stopReason": "controller",
+            "lastId": 48,
+            "ticket": null,
+            "lastAck": {
+              "id": 48,
+              "owner": "calibration-target-1",
+              "epoch": "order-fixed-copy",
+              "kind": "clock-end",
+              "label": "cadence-root",
+              "ttlMs": 5000,
+              "state": "acknowledged",
+              "previousState": "completed"
+            },
+            "noticeOwnerRestored": true,
+            "noticeFailures": 0,
+            "noticeCpuMs": 1.0920000000000005,
+            "immediatePending": false,
+            "deadlinePending": false,
+            "inFlight": false
+          }
+        },
+        "guard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 606,
+          "guardCheckMs": 10.591151000000082
+        },
+        "postMeasurementAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 145.344
+        },
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 307,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        },
+        "inspectorClosure": {
+          "closed": true,
+          "status": "closed",
+          "checks": 1,
+          "elapsedMs": 2
+        }
+      },
+      {
+        "label": "calibration-target-2",
+        "rootCount": 48,
+        "nativeCalls": 15,
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "owners": {
+          "list": true,
+          "index": true,
+          "plan": true
+        },
+        "stopped": {
+          "metadataErrors": 0,
+          "dropped": 0,
+          "gcDropped": 0,
+          "ledgerOverflows": 0,
+          "controlledCpuMs": 21644.748,
+          "nativeCpuMs": 334.409,
+          "probeCpuMs": 40.166000000035176,
+          "retainedRowBytes": 0,
+          "naturalRows": 0,
+          "controlledRows": 48,
+          "outsideRows": 0,
+          "stopReason": "controller",
+          "bindingRestored": true,
+          "stopped": true,
+          "timedOut": false,
+          "restored": true,
+          "activeDepth": 0,
+          "readQueue": {
+            "owner": "calibration-target-2",
+            "epoch": "order-fixed-copy",
+            "stopped": true,
+            "stopReason": "controller",
+            "lastId": 48,
+            "ticket": null,
+            "lastAck": {
+              "id": 48,
+              "owner": "calibration-target-2",
+              "epoch": "order-fixed-copy",
+              "kind": "clock-end",
+              "label": "cadence-root",
+              "ttlMs": 5000,
+              "state": "acknowledged",
+              "previousState": "completed"
+            },
+            "noticeOwnerRestored": true,
+            "noticeFailures": 0,
+            "noticeCpuMs": 1.0450000000000004,
+            "immediatePending": false,
+            "deadlinePending": false,
+            "inFlight": false
+          }
+        },
+        "guard": {
+          "sourceWritesDenied": 0,
+          "sqliteConnections": 1,
+          "guardChecks": 606,
+          "guardCheckMs": 11.486119000000258
+        },
+        "postMeasurementAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 139.387
+        },
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 307,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        },
+        "inspectorClosure": {
+          "closed": true,
+          "status": "closed",
+          "checks": 1,
+          "elapsedMs": 0
+        }
+      }
+    ],
+    "allOwnedPortsIncludingNodeRefused": 4,
+    "initialCopy": {
+      "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "files": 8534,
+      "fences": 1
+    },
+    "finalCopy": {
+      "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "files": 8534,
+      "fences": 1
+    },
+    "sourceUnchanged": true,
+    "productionAndDriverUnchanged": true,
+    "counterKnownClosed": true
+  },
+  "ledger": {
+    "actualOwnedAppsBefore": 38,
+    "actualOwnedAppsAfter": 41,
+    "knownProductReadCpuLowerMsBefore": 552064.684,
+    "addedKnownReadCpuMs": 83054.30500000001,
+    "knownProductReadCpuLowerMsAfter": 635118.9890000001,
+    "earlierCUnknownRetained": true,
+    "allPriorFailuresRetained": true
+  },
+  "validation": {
+    "candidate": "55675ca5cef5439b3fa6d4768c3bc9508b103b0a",
+    "unitTests": 143,
+    "sameCandidateSeamAndBinding": true,
+    "rawJournalPositionGapAndResultReplay": true,
+    "ci": {
+      "workflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    },
+    "review": "implementer self-review",
+    "productBuildReleaseAndFieldNotRun": true
+  },
+  "scope": {
+    "fixtureOnly": true,
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false,
+    "profileStarts": 0,
+    "profilerWireCommands": 0,
+    "RI00Closed": false,
+    "refactorStarted": false,
+    "original15msGateUnchanged": true,
+    "causeUnproven": true
+  }
+}
