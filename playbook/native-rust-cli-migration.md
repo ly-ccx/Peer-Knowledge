@@ -103,3 +103,15 @@ Policy 初始化 / 存量迁移回执：源码 `c8d3a2ae`，64 Rust 测试（52 
 首次对照发现领先空行的 cursor 语义差异：原生初稿在扫到文件头后直接返回 null，旧 TS 返回最老记录 offset，并可能有最后一页空白前缀。保留 fixture，原生恢复同一旧锚点语义，24 项真实对照通过；未改断言为放过差异。完整机器回执见 [P2 Control / Policy / Reader 回执](native-cli/evidence/p2-storage-control-20261114.json)。当前仍未接通 canonical GoalStore、协调 writer fence、持久执行 / grant / Evidence 与 unknown 对账，P2 总闸未通过；不开放共享任务写入、模型请求或工具执行，不切换默认 peer。
 
 最新源码远端验证为 [run 43566467824](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824)。后续实际 job step 查询确认 Linux [132361408957](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824/job/132361408957) 与 macOS [132361408765](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824/job/132361408765) 的 `Native CLI scoped validation` 均 success，原 Linux WAL 失败路径在新候选通过。两平台 Build / Typecheck / Architecture 也 success；全仓 job 仍 in_progress，不能把原生 step 通过说成整条 CI 完成。前一候选 `caedca43` 在本次推送前仍 in_progress，没有记录为通过。
+
+### NR-02b 下个切片：协调日志旧 writer 屏障
+
+依 ADR 104-progressive / 105 / 112 / 116 / 131 与现有 `coordination-writer-fence.mjs` / `coordination-legacy-integrity.mjs`，允许 peer-store 原生 lease 约束的健康 v2 writer promotion、既有 `coordination-fence.json` intent / `.coordination-fence` archive / frozen baseline / legacy seal 读写，以及合成 TS↔Rust 中断恢复夹具。不建立新的日志格式或执行记录。Interface 从 Host 持有的 LeaseToken 取得路径与归属，不接受模型 JSON 作为 owner。文件写入须 fsync + atomic publish，逐阶段重查租约与取消；保留旧 journal / head / manifest / seal，未知 schema、symlink、内容变化和第三方新 head 不得被覆盖。验证六个既有中断点的双向恢复、空项目、既有终态记录保全、旧 writer 实际被目录屏障拒绝及丢失所有权 / 取消 / 损坏拒绝。完成该存储切片仍不等于已有执行已停稳或 P2 执行准入通过。
+
+writer 屏障回执：源码 `6a729852e4a8272005a31fcaff2ea5a4fe4e0a91`；本地完整 scoped 检查 85 Rust（73 原生 + 12 Helper）、78 真实跨进程（新增 14 Fence）、原有 87 golden / control / digest、8 PTY、真实 Helper 隔离 ping、fmt / clippy / release build / 边界检查通过。六个中断点分别覆盖 TS→Rust 和 Rust→TS，原生日志采用受控 `process::exit(77)` 跳过 Drop 模拟进程中断，不声称真实断电；真实 lease / epoch、stale takeover 与目录屏障参与对照。旧终态 work 保留，恢复后由真实 TS v2 Store 写入后续 work 成功；不是原生任务执行已验收。
+
+新增 8 Rust 用例覆盖原文 / 归档 / unknown 元字段不变、旧 append 实际失败、六阶段续接、空基线、不存在 v2 不激活、前置与阶段取消、前置及 intent 后失去租约、损坏证明、symlink、未知 schema、baseline 改写、较新 head / reader-writer floor 保全。初稿的阶段校验遗漏已被新用例实际复现：HeadPublished 后注入 floor=12，错误返回 Promoted；修正为发布前校验允许前态及文件身份、阶段后重查合法前缀，拒绝且保留 floor=12 / 新 head / prepared intent。首次新建发布用 no-clobber；后续文件发布仍遵守既有 lease + read-check-rename 协作，不声称实现了新的跨 Runtime 强 CAS。
+
+保留 fixture 首次误用不存在的 lease.epoch 方法、clippy 的 unused import / manual_contains 失败，修正为读取真实 diagnosticSnapshot 并沿 Host 的 hostId:acquiredAt epoch；未替换成总为 true 的租约。hash/copy 每 256 KiB 检查取消 / 所有权，源扫描上限 2 GiB，元数据有独立预算。Host 仍须串行 prepare、维持 heartbeat 并完成 canonical v2 reducer/head/hash chain 校验后才可调用此 promotion；当前尚无这条原生生产装配，AlreadyProtected 只描述物理屏障，不证明任务已恢复。详见 [结构化回执](native-cli/evidence/p2-writer-fence-20261114.json)。当前新候选 [CI 43568584797](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797) 两平台仍 in_progress；不能沿用前一候选的原生 step success。
+
+ADR pass 补充：131 §1 原先笼统写“ADR 104 未接受”，已按同号文件名澄清：未接受的是 bot-capability-visibility，已接受的 progressive storage / writer fence 继续保留；map 同步记录。仅消除歧义，既有边界未变更。此前 Reader 量测仍绑定其回执中的实际源码 / 二进制，不挪用为本次新 Store 二进制的量测。
