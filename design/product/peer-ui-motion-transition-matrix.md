@@ -866,6 +866,8 @@ ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时
 
 NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显式 PEER_AGENT_HOME / PEER_USER_DATA_PATH 的真实子进程入口识别配置且不创建数据，PATH 无 JS Runtime；边界组合先失败后修复。临时草稿 / 无执行状态不变，8 项 PTY 仍通过，不扩大为完整 CLI 或发布接受。
 
+NR-04（2026-11-15，`84007b83`）：四种基本模型 wire 复用 T06/T10 静态 exec/recover 控制，motion N/A；供应商切换不创造审批或结果事实。流结束与断流均由结构化协议状态收口；连续性材料只在同一执行和精确历史身份下回传，签名不成为界面/磁盘权限真值。公开多轮执行、客户端关闭连接、Helper 头、8 PTY 的候选与结果见 [P4 首卡证据](../../playbook/native-cli/evidence/p4-model-wires-20261115.json)。草稿入口、焦点、阅读锚点仍为 NR-01 范围，不称完整 TUI、独立体验或安装验收。
+
 ## 原生 CLI NR-03 的静态执行与恢复（2026-11-14）
 
 T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态文本，无动画（motion N/A）；动作/范围先于技术参数，禁止终端控制与 bidi 内容冒充 Host 提示。批准输入只归当前 prompt，非 TTY 不暗中接受，SIGINT/TERM/HUP 进入真实取消/drain；网络观察或模型文字不产生执行成功。中断回到同一 plan/execution，unknown 和 Evidence 留在原 canonical Store，恢复不重放工具。现有 Ratatui 草稿、焦点与阅读入口仍保持 NR-01 范围，尚未迁入完整会话发送/历史交互。

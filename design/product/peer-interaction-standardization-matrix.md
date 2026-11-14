@@ -1361,6 +1361,8 @@ ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时
 
 NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显式 PEER_AGENT_HOME / PEER_USER_DATA_PATH 的真实子进程入口识别配置且不创建数据，PATH 无 JS Runtime；边界组合先失败后修复。临时草稿 / 无执行状态不变，8 项 PTY 仍通过，不扩大为完整 CLI 或发布接受。
 
+NR-04 模型适配补充（2026-11-15，`84007b83`）：公开 `exec --plan` 的相同静态授权 / 结果 / 停稳流程支持四种基本 API-key wire，Context 的供应商事实来自实际配置。用户目标是原生执行已准入任务；状态仍由 canonical Goal/policy/lease、真实 Provider 结果与 Evidence 决定，模型终态不签收 Goal。保持连接的供应商流在权威终止后退出，错误/截断不派发部分工具；失败沿原 managed pause / unknown 恢复。四 wire 多轮工具、凭据头、21 根冷读、8 PTY 验证见 [P4 首卡证据](../../playbook/native-cli/evidence/p4-model-wires-20261115.json)。实现者自审；不是完整 CLI / P4 / 产品发布接受，真实供应商与安装包仍未验证。
+
 ## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
 
 用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。

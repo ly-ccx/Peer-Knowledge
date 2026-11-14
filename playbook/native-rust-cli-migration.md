@@ -229,3 +229,15 @@ P3 最终候选 `15783800` 的 [CI 43600632864](https://github.com/ly-ccx/Peer-A
 NR-04 按已接受 129–131 与既有 24/25/28/29/30/31/32/35/37/50/55/56/57/58/65/76 分步迁移，尚未写新完成状态。首卡允许 `peer-runtime` 的 wire / transport / model-config 模块、共享 fixtures、真实 TCP/HTTP/SSE 测试与 public exec 闭环；先固定实际 TS encoders、wire resolver、usage、失败与恢复行为，再接入生产调用。编码只在 wire seam；Source / canonical history、权限、Evidence 和 Goal 验收不借协议切换改变，首卡 B 级边界不动。Qoder 的宿主 Node/WASM fallback 必须迁走；若 Helper 或持久化 Interface 需要补充，则按 A 级先改 ADR/map 再实施。
 
 后续卡依次覆盖完整 Context / accounting / compaction 管线、MCP（含 legacy SSE）/ Skill / Plugin / Hook 与生命周期、标准 headless/ACP/命令适配；P4 功能表逐项绑定真实入口和异常/恢复证据，不能以 pure encoder 或 SDK 自带能力算全部完成。允许方案指定的原生依赖（HTTP/TLS、数据解析、官方 MCP/ACP SDK、必要的有界原生适配），需锁版本/MSRV、实际编译和协议对照；不引入厂商 Agent SDK 或 JS 引擎。P5 仅在 P4 对应总闸通过后开始。
+
+NR-04 首卡发现旧 Gemini usage Adapter 重复计算 cache：真实 `sendGeminiStream` 夹具 prompt=20 / cache=5 / output=3 返回 input=20，后续相加得到 28，而供应商 total=23。原失败保存于 `/tmp/peer-native-p4-gemini-usage-before.log`（临时本机证据，非持久制品）。依 Accepted ADR 56 的 disjoint dimensions 作 B 级纠正：uncached input 扣除已包含的 cache；供应商单列的 tool-use prompt / thoughts 分别计入 input / output，不遗漏、不给 cache write 编造 0。依据 [Gemini UsageMetadata](https://aistudio.google.com/api-reference/generate-content#Resource:GenerateContentResponse)，2026-11-14 核对。迁移对照不能把旧计算错误冻结成 Rust 黄金结果；同一原始 usage 用双端真实 Adapter 固定。没有改变上下文准入、计费权威或权限边界。
+
+### NR-04 模型 wire 首卡回执（2026-11-15）
+
+源码 `84007b83` 已推送。四种 wire（Chat / Responses / Anthropic / Gemini）进入同一个 `NativeModel` 及公开 `exec --plan`：原生 HTTP/SSE、Helper v1 API-key 请求头、实际 Provider Source、相同 Manifest/Projection/live Grant/Result/Evidence 与 managed pause。普通文本与工具同时返回时，原生连续性材料只跟随当前执行 / Provider 实例的精确 canonical 身份；完整 assistant 回合一起回传，避免 Anthropic 拆分 thinking/text/tool 或 Gemini 签名文本重复。缓存最多 32 项 / 1 MiB，签名不落盘；重启或事实改变不伪造材料。供应商终止标记立即结束并关闭客户端连接，不等待服务端 EOF；截断、失败终态和不完整参数不进入执行器。共有 normalizer 也保留真实 `redacted_thinking` 块，不把有签名的材料丢成普通历史。
+
+实际 TS Provider 捕获固定 8 份请求/解码/计量，另有 1320 纯 encoder 向量；后者覆盖 reasoning/cache/OAuth 形状，但不等于这些配置已准入。实际配置只开放 plain v2 API-key 基本渠道；高级模型参数、额外渠道 / OAuth / Qoder、自定义头 / 配置代理等仍明确拒绝，不能静默丢配置。默认 `peer` 仍是迁移期入口，原生候选运行无 Bun/Node sidecar。
+
+完整原生 scoped 总闸：179 Rust、302 跨进程 Store、70 当前 TS 冷读（21 个原生根）、134 Node focused、13 公开入口 Rust 测试（含四种真实 wire 的多轮工具），24 个 HTTP 分片组合、4 种原生 Helper 凭据头及注入拒绝、8 PTY；fmt/clippy/release/boundary、全仓 build/typecheck/architecture 与 20 项 TUI Provider focused 通过。失败及修正、精确候选与覆盖限制见 [NR-04 wire 结构化回执](native-cli/evidence/p4-model-wires-20261115.json)。CI 43615775154 正在核对，不将前一候选全绿继承给新候选。
+
+ADR pass：`37-provider-channel-and-wire-protocol-separation.md`、`55-shared-system-context-assembler.md`、`56-provider-observed-context-accounting.md`、`57-canonical-conversation-history-projector.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；本卡 B 级迁移及同边界修复，不移动权限、Evidence、Context 准入或 Goal 验收。完整 Runtime / 外部协议仍未通过 P4 总闸：继续 default Source / Host discovery、计数与 compaction / usage ledger、OAuth / Qoder、MCP / Skill / Plugin / Hook、headless / ACP / 命令平价；P5 继续受 P4 总闸约束。
