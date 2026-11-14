@@ -49,3 +49,19 @@ NR-02a 验证补充：允许在现有 macOS/Linux CI job 中追加原生 scoped 
 失败与修正：SQLite NOFOLLOW 原先拒绝 macOS `/var` 父目录别名，改为规范化父目录并继续拒绝最终文件 symlink；锁 fixture 的双行阶段输出原先被测试驱动当单 JSON 解析，现逐项检查唯一 locked 阶段并解析终行；JSON 节点测试原先误把 8 个值节点计为 9，修正算术并保留重复 key 两次计费断言。没有削弱资源 / 权限断言。
 
 P0/P1 提交 `c24dc465` 的 GitHub Actions run `43553408734`：macOS `ci-macos-14` 与 Linux `ci-ubuntu-latest` 均 success；该 CI 尚未包含新增的 native scoped step。P2a 新提交的远端结果另行记录，不以旧 CI 证明。P2b 租约、执行 / grant / Evidence 身份、凭证 Helper client、旧状态恢复尚未完成；P2 总门禁和完整原生 CLI 未验收。
+
+### NR-02b 首个切片：原生凭证端口
+
+按 ADR 0001 / 129 / 131 保留 Helper v1 和同一签名 / OS Vault 身份。允许新增 `crates/peer-runtime` 的受控 Helper client、Cargo 依赖与协议 fixture；不直接链接 Vault、不替换 Helper、不访问个人凭据。调用路径为 Runtime port → 指定原生 Helper → v1 响应；固定并发 / 请求 / 响应 / 解码 / deadline，取消与失败须 kill + reap，无 stderr / secret 泄露到错误。真实 Helper 只跑隔离根 ping 和无效请求（不触及钥匙串）；可控原生 fixture 验证 get/set/delete、超时、取消、洪泛、坏版本、错误状态和后续调用恢复。之后继续租约 / 执行身份与旧状态恢复，单切片通过不等于 P2 完成。
+
+原生凭证端口回执：源码 `66aa7e2c`，本地 scoped 验证 41 项 Rust 测试（29 原生 + 12 Helper）、14 Store conformance、8 PTY、真实 Helper v1 ping（PATH 无 Node/Bun、隔离根零写入）通过。6 项新增端口测试覆盖合成 get/set/delete、缺失密钥、输入预算、洪泛、坏版本 / 响应 / 状态、受控 Vault 错误、deadline / cancel / caller abort 的 kill + reap、四并发门及后续请求。没有真实 OS Vault 读写或生产 credential 配置验证。进程数据与 Secret 使用零化容器，未承诺第三方 JSON parser / OS / allocator 的所有瞬时副本均可消除。凭证 port 尚未由 CLI 配置入口装配。
+
+### NR-02b 下个切片：Host Lease
+
+按 ADR 85 / 116 / 131 复用 `host.lease` 与 `host.yield` 的原格式、5 秒心跳 / 20 秒 stale、surface=tui；不把租约过期当停稳或工具权限。允许 peer-store 的 lease port / protocol 对象与真实 TS↔Rust 子进程夹具；先验证持有者、续约、过期接手、丢失所有权和坏记录保全，之后由 Runtime / Session Control 装配 drain / writer fence。既有 TS lease 的 read-check-rename 窗口不提供强 CAS，不宣称此切片消灭旧版并发竞态；未经执行 / 资源 ledger fence 和恢复门禁不开放生产执行。
+
+租约存储切片回执：源码 `399ed176`，本地 scoped 检查 46 Rust 测试（34 原生 + 12 Helper）、14 Store + 13 Lease 真实跨进程对照、8 PTY、真实 Helper ping 通过；日志在临时 `peer-native-lease-check.log`。新增 5 Rust 用例覆盖同时抢占、续约、陈旧 handle 不能续约 / 释放新所有者、未知字段、yield 不自动放权、drop 不释放、损坏 / 未知 surface 保全、symlink 拒绝。兼容对照覆盖 TS→Rust→TS lease / yield、真实双进程空闲租约竞争、宿主退出后持有记录与过期接手；不把宿主退出或过期称执行已停稳。首次 `time` deprecated warning 改用明确版本的 `parse_borrowed::<2>`，clippy -D warnings 通过。记录损坏时原生失败关闭，不复制旧 TS 的 parse-error 回收。低层 heartbeat 仍沿既有 read-check-rename，执行 / resource fencing 与 Session Control drain 装配尚未完成，不开放生产写入或执行。
+
+### NR-02b 下个切片：执行身份 / 批准 / Evidence
+
+按 ADR 92 / 101 / 116 / 127 / 131 的现有契约，允许原生 protocol 的 execution identity / resource scope、grant / Evidence 数据结构与同一 TS normalizer / collector / operation-key 的对照；允许 peer-runtime 的 host principal resolver。只搬迁 shape / 身份 / 确定性规则，不让解析成功等于批准，不引入另一个任务或授权系统。恢复与实际工具入口继续等待 canonical Store、Session Control、policy revision 和 execution fence 的真实装配。
