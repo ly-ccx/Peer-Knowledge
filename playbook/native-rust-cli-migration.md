@@ -135,3 +135,17 @@ Resource Ledger 回执：源码 `c2f19ce5ddb681b9534d38e1a04f8922fa41a4dc`，完
 ### NR-02 剩余：持久批准与会话提交
 
 依 ADR 57 / 65 / 74 / 85 / 92 / 101 / 116 / 127 / 131，允许补既有 approvals.jsonl 的有界读取 / 同身份状态追加及孤锁保全、ConversationStore 的同格式创建 / CAS 提交 / 幂等和中断恢复 fixture。执行批准仍须 Host 实时 scope / policy revision 检查；历史 approved 不自动成为许可。损坏 / 部分尾行、侧写草稿、未知效果不跳过为成功。持久化只能记录结构事实，不能让 assistant 文字变成 Evidence。既有边界不变，不新建私有执行日志。旧 checkpoint 无法安全解释时按 ADR 131 明确阻断并保留兼容恢复入口；完整 Bot runtime 在 P5 另验。
+
+持久批准 / 会话提交回执：源码 `e1e7af77`，103 Rust、148 真实跨进程、32 旧 resource / 10 旧 approval 测试及原有 golden / control / digest / PTY / Helper / fmt / clippy / release / 静态边界通过；runtime-node build、architecture 通过。补读 ADR `121-desktop-session-windowing-contract.md`：物化 preview 仍是派生展示，Runtime 冷路径 snapshot 不冒充产品 SessionService 的窗口返回。结构化回执与后续 Evidence 卡合记于 [P2 durable facts](native-cli/evidence/p2-durable-facts-20261114.json)。
+
+会话 CAS 同时绑定 contentRevision 与物理源版本；同消息身份 / 同正文返回已有回执，不重复追加。正文 durable 后索引失败返回 STORE_COMMIT_UNCERTAIN，受控 reconcile 只修派生索引，原未完成 tool segment 保留；原本已计数的消息丢失不能修成空会话成功。真实 process::exit(77) 跳过 Drop 的故障留下既有空目录锁；生产不自动清理，夹具确认子进程退出后只 rmdir 已知空锁，再恢复并接收后续消息。此处不是断电测试或原工具效果已结清。
+
+Evidence 登记回执：源码 `7af3ab505cb6efbc7bf8ac2ede45d47da3c244a3`，107 Rust（95 原生 + 12 Helper）、155 真实跨进程（durable 卡 38）、128 旧侧聚焦测试、原有 golden / control / digest / 8 PTY / Helper、fmt / clippy / release / 静态边界、runtime-node build、architecture 均通过。复用 goal-plans/evidence-index.jsonl；校验 call / grant / result 配对，成功结果要求实际 granted=true，只消费既有结构字段；任意输出 / 助手文字不注册。收集器新增直接借用 result 的入口，避免复制整个输出。普通引用沿旧 merge 规则并保未知字段；复杂 Interactive Receipt 保护原记录并明确返回 unsupported，未假称其 Adapter 完成。
+
+旧 TS 批准 writer 忽略目录锁的问题已由新用例复现，失败保留 `/tmp/peer-native-approval-lock-failure.log`。随后同一个 owner / ctime 检查的 Store 文件锁同时供批准与 Evidence writer 使用，与 Rust 空目录锁命名相同；没有 TTL / PID 回收。订阅回调在释放锁后运行，保留重入追加。此修正落实 ADR 131 的双端互斥条款，未改变授权或 Evidence 真值边界。候选 CLI hash 见回执；历史 Reader RSS 仍只绑定旧量测候选，不能移植为本卡验收。
+
+已进一步确认 `c2f19ce5` 两平台 CI 全部步骤（含 Test、Bot shell smoke）均 success。最新 `7af3ab50` 尚待远端检查，不用旧结果替代。P2 总门禁仍未通过：canonical Goal / 协调 prepare、真实授权 / 停止与 unknown 对账装配未完成；P3 原生模型 / 工具闭环仍未开放。
+
+### NR-02 剩余：canonical 协调存储
+
+继续依 ADR 104-progressive / 105 / 112 / 116 / 127 / 131，在既有 coordination-v2 manifest / head / segments / payload_ref / baseline / seal 上实现原生可取消有界验证、reducer seam 与 durable 追加 / 中断恢复。事实源必须是 canonical hash chain，不能拿 derived SQLite 的 revision 自证或把物理屏障称 canonical prepare。未知语义或超预算明确阻断，不能跳过记录得出空状态；不引入第二套任务表 / 执行日志。先过跨语言实际 Store 互读 / 后续任务与 head / tail / lease 故障，再装配执行准入。
