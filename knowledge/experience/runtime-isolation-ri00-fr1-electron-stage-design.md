@@ -35,7 +35,7 @@
 
 begin在原生CPU读数前后保存wall，完成自身入栈后记exit wall；end先记entry wall，再读CPU。CPU差是含边界成本的线程CPU区段，不是纯操作CPU。操作wall上界取begin exit到end entry；整个CPU bracket wall取最外两个端点。用边界观察wall上界和CPU读数的微秒量化不确定区间，给出被测区段CPU保守上下界；不把wall当精确CPU，也不从原2ms计费扣掉观察器。
 
-时钟自身没有精确CPU归属：记录其wall上界；64对控制的CPU差是一个时钟及周边JS的CPU bracket，另有完整pair wall，不乘一个平均值回填原窗口。CPU越过wall的检查保留每个用户/内核读数的微秒量化误差，异常只使计量失效，不调整原性能门。
+时钟自身没有精确CPU归属：记录其wall上界；恢复后的64组控制，每组保留相邻线程CPU读数对和相邻performance.now读数对，其CPU差含边界时钟及周边JS，另有完整pair wall，不乘一个平均值回填原窗口。密集plan的performance.now不逐次再套探针，只由真实planCalls核对2倍调用数，保留原plan wall区段及其时钟/计数CPU无法直接分开的缺口。CPU越过wall的检查保留每个用户/内核读数的微秒量化误差，异常只使计量失效，不调整原性能门。
 
 阶段begin/end也会改变所测工作。其新增时钟数、嵌套inclusive/exclusive、未覆盖余部和完整宿主成本全部单列；即使区段数据完整，也不得称observer中立或产品根因。阶段错误用finally闭合；不完整、溢出、未知取回或恢复失败均保留raw并标invalid，不补样。
 
