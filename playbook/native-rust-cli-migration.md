@@ -161,3 +161,19 @@ Runtime 当前支持 work/event/delivery 与既有 Session Control kernel；coor
 保留初次 fixture 构建漏启用 peer-store/test-fixtures、构建失败后误调用旧 probe，以及 70 KiB payload 超过 fixture 自身 64 KiB 请求限制的失败。均不计通过；后续改为 set -e、显式双方 fixture feature 和有界 1 MiB 请求，完整 scoped 流程重跑通过，未放宽生产预算。实现者完成内容 / diff 自审，未称独立评审。较早 `7af3ab50` Linux job 全步骤 success、macOS 原生/build/type/architecture/test/smoke 已 success，最后观察时 report/post 仍运行；最新源码 CI 另验，不挪用旧结果。
 
 最新远端 scoped 结果补记：`82ce5819` 的 [CI 43578026254](https://github.com/ly-ccx/Peer-Agent/actions/runs/43578026254) Linux job 132396468162、macOS job 132396468104 的 Native CLI scoped validation 均 success，包含 109 Rust / 210 跨进程及本卡 55 canonical 用例。最后观察时全仓 job 仍运行、未见失败；不称整仓完成，也不称 P2 / P3 或发布验收通过。
+
+## 2026-11-14 继续 NR-02 至 NR-03
+
+用户再次明确：补齐 canonical Goal、剩余协调 reducer、Host 实时授权 / 停稳 / unknown 对账，P2 总闸通过后直接进入 P3，最终无 Bun / Node sidecar。当前源码 82ce5819、知识 263f170；无在制代码改动。本卡复核 ADR map、`116-session-control-and-resource-settlement.md`、`117-intent-driven-coordination-and-goal-closure.md`、`111-project-agent-duplex-supervision-and-continuity.md`、`127-unknown-outcome-reconciliation-and-delegated-resolution.md`（以页头 Accepted 为准）与 `131-native-cli-contract-storage-and-recovery.md`，本轮为既有契约下的 B 级搬迁，未移动边界。
+
+先补齐 coordination decision / obligation / intent / agent supervision / history reducer 与对应只消费 Host 事实的 admission seam，再补 Goal 与 Host 装配。允许 native Runtime 的领域模块、共享 protocol conformance resources、真实 Store 往返和故障夹具。不把缓存、历史 approved、无进程内 token、时间或助手文本当成授权 / 停稳事实。新增语义均用实际 TS kernel 冻结正常和拒绝分支，并经 canonical journal 冷恢复验证；核验与后续新任务须跨真实 Store / Host seam。P2 未过前不开放生产模型 / 工具写入，不以另一套执行日志或 Node sidecar 填缺口。
+
+### NR-02 canonical Goal / 完整 reducer / Host 停稳切片回执
+
+源码 `0921d673`：补齐 decision / obligation / supervision / intent / history reducer，66 项真实 TS transition、35 项 canonical journal 往返通过。修复空 bucket / observations 的 SQL 读投影差异，并补 history 种入监督事实时最低 executor floor 的回归。Goal execution facts 通过 23 项真实 getPlan 投影、36 项 source / sidecar / active index / 大正文 / 拒绝测试；Goal 仍是执行事实读适配，不宣称完整 CRUD。
+
+Host 新端口组合 canonical Goal / journal / 现有 schema-3 ledger：实时 ancestry / policy / execution / lease / resource 校验，活动批准对象与执行前复核；原生 recorder tuple 与 live token / handle 所有权；停止回执落 canonical journal，超时保留 owner、晚到真实结束可继续结清。11 项集成含真实原生子进程 kill + reap、失败句柄、重启 unknown、epoch 变化、批准时策略变更、Git 干净/脏树及禁止执行过滤器、file-only 策略收口、Shell 拒绝、unknown 保留与后续资源预留。
+
+最终 scoped：129 Rust（含旧 Helper 12）、281 真实存储跨进程、128 旧 focused、8 PTY、Helper 无密钥 ping、fmt / clippy -D warnings / release / 静态边界与 architecture 均通过。详见 [结构化回执](native-cli/evidence/p2-goal-kernels-host-20261114.json)。`82ce5819` 两平台 CI 全部 job 已 success；新候选远端未验收。本次补读 ADR 101 的动态权限主体及 126 被 127 接受扩展的闭包条款，不更改权限或 Evidence 边界。
+
+P2 总闸仍待共享 Goal 执行镜像写域/CAS、closure 镜像中断恢复、剩余 admission 与自动权限/角色语义、完整 Host 启动及已有状态恢复验收。P3 Context / wire / Projection / file / Shell 闭环未接；公开 CLI 仍为终端草稿 spike，不以新 Host 集成测试冒充产品完成。继续补齐上述总闸，再接执行；最终无 Bun/Node sidecar 的要求不变。
