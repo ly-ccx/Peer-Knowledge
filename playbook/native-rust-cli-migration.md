@@ -197,3 +197,7 @@ P2 总闸仍待共享 Goal 执行镜像写域/CAS、closure 镜像中断恢复�
 P2 数据/权限/恢复地基门禁已通过，允许开始 NR-03 原生纵向切片，不代表完整 CLI 或发布验收。补读 ADR 37/55/56/57，沿 129/130/131 搬迁，B 级边界不变：System Context 只经 Source assembler；历史以 canonical projector v2 为准，旧 tool 文字不能驱动新动作；wire 编码独立；模型输出只产生工具意图，Manifest→Projection→Tool Call→实时 Grant→Provider→结构化 Result/Evidence→canonical 会话/预算持久化。先支持一个现有 openai-chat wire 与有界 file/Shell foreground；未迁移的模式/凭据/上下文/旧 checkpoint 必须明确拒绝，不能静默少装上下文或借 Node sidecar 补齐。
 
 NR-03 验收：隔离数据目录、原生 HTTP/SSE transport、真实 Host 权限 allow/deny/策略变化、文件与子进程的超时/取消/kill+reap、写效果前 canonical pending dispatch、Result/Evidence 配对、崩溃后 unknown 不重放、停稳镜像恢复、后续不同任务准入；同一个实际 exec composition root 验证。模型回答只结束执行片段，不构造 Goal 验收或业务完成。真实供应商/OS secrets、其它 wires、完整 Bot 角色和 UI 保持分期验收，不能以控制回放代替。
+
+NR-03 Context 过渡 Adapter 明确：共享 core/work-session 资源从真实 TS Source 生成；workspace/provider 的既有 Source 语义迁移，临时 `native.goal-execution` 只把有界 canonical Goal 完整 JSON 作为 L7 事实呈现，不把未知文件/附件提升为指令，不增加 Goal 验收动作。完整 Goal Runner/项目/Skill/MCP/交互 Sources 尚未搬迁时，生产入口必须拒绝需要这些事实的路径；首条闭环限无这些特殊上下文的 fresh worker fixture。Shell 先暴露明确说明每调用新 shell、仅 foreground 的 Manifest，不能把尚未实现的 persistent session 宣传给模型。
+
+0809 的 Mac CI 43592006532 原生测试触发旧 Helper tamper 夹具：首个随机 Base64 字符本来是 A 时替换 A 没有篡改。b8be67a2 改为解码后 XOR 一个字节并额外断言密文改变，12 Helper 测试通过；没有放宽认证错误断言。新候选 CI 另验。

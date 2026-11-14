@@ -316,3 +316,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；实现 / 恢复另记 |
 
 2026-11-14 同日澄清 ADR 131 §1 的同号引用：`104-bot-capability-visibility.md` 仍未接受；`104-progressive-interaction-and-coordination-storage.md` 已接受的 writer fence / 恢复契约保留。未移动既有边界。
+
+2026-11-14 NR-03：ADR 131 增补 canonical budget nativeRecorder v1 可选合同与原生停稳观测 Adapter；只证明 runner 死亡且无开放句柄，unknown/权限/Evidence/claim 收口要求不变，实施及验收另记。

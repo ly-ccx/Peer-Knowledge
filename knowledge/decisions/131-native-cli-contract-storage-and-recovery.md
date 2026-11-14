@@ -110,3 +110,9 @@ ACP 使用官方 Rust SDK 的稳定协议入口，对齐现有 TS SDK 的已实�
 ### 最新主线约束复核
 
 已补读 ADR 112、既有 116（session-control-and-resource-settlement）、120、122、124 与 127 的相关条款。ADR 127 页头为 Accepted，即使 map 的摘要仍写未接受也以文件原文为准；不能将旧稿的保守阻断描述解读为撤销当前受控对账 / claim 收口策略。恢复、停止回执、unknown 不重放与原执行政策均按这些已接受条款迁移。
+
+### NR-03 原生 attempt 的停稳观测补充（2026-11-14，实施前）
+
+按本 ADR 的跨语言恢复授权，明确一个新增的可选存储合同：既有 canonical `work.budget.attempts[attemptId]` 与其 `pendingTools`/`uncertainDispatches` 行可携带 `nativeRecorder`，形状为 `{schemaVersion:1, runtime:"peer-native", execution:<原 SessionExecutionIdentity>, recorder:<既有完整 bootId/pid/pidStart/hostId/acquiredAt tuple>}`。写入者必须是当前 lease 的实际原生 executor，在首次模型/工具 dispatch 前采集，随同一 canonical budget 事务提交。它不是新任务表、私有执行日志、checkpoint 或可重用 grant。TS 保留未知字段并继续保守恢复，不能把其存在当执行成功。新增合同必须在 packages/protocol contract resources 固化并对照旧 TS 冷读。
+
+此条补充 ADR 124 的原生停稳 Adapter：只有原执行 identity 完全匹配、全部相关 recorder 一致、实际 OS 观测证明旧 executor 已死、且不存在任何未结束 capability handle 时，Host 可据此确认本地原生 runner/scheduler 已停止并生成既有 managed_execution stop receipt。它不证明历史工具的效果；所有 pending dispatch 仍转入 canonical uncertainDispatches，unknown 保留，原工具绝不重放。Shell/MCP/外部任务句柄未能证明结束时继续阻断，不能用 recorder 死亡伪造 ended。缺失/不完整/混杂/新版本 recorder 或 OS 观测失败一律不可用。Session Control operation 自身的 recorder 仍是实际记录该 operation 的新 Host，不冒充旧进程。现有 ADR 124/127 的其它 recorder、claim closure、策略与人工确认要求不变。此为 A 级可选合同补充，不替代运行/平台验收。
