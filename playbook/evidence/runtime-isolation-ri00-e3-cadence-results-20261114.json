@@ -1,0 +1,1224 @@
+{
+  "kind": "RI00-CAD-fixed-three-host-ABBA-BAAB-original-unqualified-results",
+  "date": "2026-11-14",
+  "producer": "cf0cc39108fbf1b2d1169d823a62be385b6c3957",
+  "analysisCandidate": "e0c89cc95cab12a0aef8d7e6af1d5b23482f090e",
+  "sourceSha256": "4df193d8c57ec0e2bcac0d6da5dd984e9d71241d4a1c2bb0738fec5ec3ad6f59",
+  "rawSha256": {
+    "campaign": "947e8576ea7069611abb2c5370af2a772c901e00751278d5f98364f2bbe01ca2",
+    "primaryJournal": "2d91751c3ab4833eebf05e5ab1126b56f798909d86a3dda41e9239749e9613a9",
+    "audit": "303570437391c91cec42822ead63ce24d0a863b534c365475232dbbe1f17f895",
+    "recovery": "97b93f8731326c981e348a239f45c90f4526c93840d55a0d049daa5d2202e148",
+    "controllerLog": "420a58f235851c3cdafd5ac38c98cfa4763d4e57a9e8107727c7845a6437cd7e"
+  },
+  "bindingSha256": "f0f977929c2a2e976e0fc4a318785c1b64e45656aa66d893173d08e895e1f1ab",
+  "budgetSha256": "86d1b22ee842b153735e03d3ed432a68545a482c958e058b4acc8c956a268f0d",
+  "analyzerSha256": "9e08bc7b1bd001d0697de740c6f5c4f420760564dd6abe38b030b677b05ff7b8",
+  "executionCompleted": true,
+  "controlsQualified": false,
+  "directionalHypothesisSupported": false,
+  "ratePathSupported": false,
+  "cost": {
+    "electronLaunches": 3,
+    "supervisorRoots": 244,
+    "readCpuMs": 107976.08600000001,
+    "hashCpuMs": 1477.071,
+    "wallMs": 148784.30920800002,
+    "controllerAuxChargedMs": 10769.534,
+    "journalBytes": 8847182,
+    "primaryReportBytes": 8450718
+  },
+  "sourceCopy": {
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1
+  },
+  "actualIntervals": {
+    "A": {
+      "count": 162,
+      "minimum": 168.79891700000007,
+      "median": 171.39114550000522,
+      "maximum": 232.22708300000158
+    },
+    "B": {
+      "count": 36,
+      "minimum": 18.7778330000001,
+      "median": 20.80845849999787,
+      "maximum": 23.331582999999227
+    },
+    "withinBlockOnly": true,
+    "requestedZeroIsNotActualZero": true
+  },
+  "rootAccounting": {
+    "points": 244,
+    "fullOuterPmcAvailable": 244,
+    "rootUserMs": 99067.82700000003,
+    "rootSystemMs": 8530.549999999997,
+    "rootTotalCpuMs": 107598.377,
+    "evidenceUserMs": 68545.19199999998,
+    "evidenceSystemMs": 807.1460000000002,
+    "evidenceTotalCpuMs": 69352.33799999997,
+    "instructions": 2091254013030,
+    "cycles": 424217673871,
+    "scope": "All 244 complete supervisor roots; instructions/cycles are whole-root outer windows, not per-pass or exact Evidence attribution"
+  },
+  "targets": [
+    {
+      "label": "cadence-target-1",
+      "order": "ABBA",
+      "F0": {
+        "status": "armed",
+        "deltasMs": [
+          8.187000000000012,
+          5.187999999999988
+        ],
+        "warm": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 5,
+            "fullWarmMedian": 285.201,
+            "median": 280.346,
+            "compatibleRange": 10.803000000000054
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 272.159,
+            "median": 272.159,
+            "compatibleRange": 6.8770000000000095
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 277.347,
+            "median": 277.347,
+            "compatibleRange": 10.381999999999948
+          }
+        ],
+        "calibrationRatios": [
+          1.0031298904538342,
+          1.006796333556897
+        ]
+      },
+      "completeTreatmentReservation": {
+        "roots": 80,
+        "hashCalls": 24,
+        "perRootMs": 750,
+        "perRootWallMs": 750,
+        "readCpuMs": 61500,
+        "hashCpuMs": 1200,
+        "wallMs": 238500,
+        "remainingReadCpuMs": 177411.71,
+        "remainingHashCpuMs": 3796.997,
+        "remainingWallMs": 868585.803958,
+        "remainingControllerCpuMs": 17438.827,
+        "admitted": true,
+        "notFutureCostGuarantee": true
+      },
+      "cells": [
+        {
+          "index": 0,
+          "arm": "A",
+          "pair": {
+            "passed": true,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": true,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 6,
+                "fullWarmMedian": 280.706,
+                "median": 279.88,
+                "compatibleRange": 12.972000000000037
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 273.203,
+                "median": 273.203,
+                "compatibleRange": 7.543999999999983
+              }
+            ],
+            "calibrationRatio": 0.993194252924692,
+            "deltaMs": 6.677000000000021,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              232.22708300000158,
+              176.69225000000006,
+              172.37816699999894,
+              173.51766599999974,
+              171.80087499999718,
+              171.12904200000048,
+              174.3680830000012,
+              172.28662500000064,
+              171.61933399999907
+            ],
+            "minimumMs": 171.12904200000048,
+            "medianMs": 172.37816699999894,
+            "maximumMs": 232.22708300000158
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              171.15324999999575,
+              172.02187500000582,
+              169.84995899999922,
+              171.22808400000213,
+              170.76191699999617,
+              171.46566599999642,
+              170.29645800000435,
+              171.35258299999987,
+              171.22479100000055
+            ],
+            "minimumMs": 169.84995899999922,
+            "medianMs": 171.22479100000055,
+            "maximumMs": 172.02187500000582
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 279.88,
+            "evidenceSystemMs": 1.5339999999999998,
+            "evidenceTotalCpuMs": 281.414,
+            "rootUserMs": 400.0555,
+            "rootSystemMs": 31.587500000000002,
+            "rootTotalCpuMs": 431.64300000000003,
+            "remainderUserMs": 120.1755,
+            "remainderSystemMs": 30.053500000000003,
+            "instructions": 8125475282.5,
+            "cycles": 1694510697,
+            "tickets": [
+              33,
+              36
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 273.203,
+            "evidenceSystemMs": 3.3070000000000004,
+            "evidenceTotalCpuMs": 276.51,
+            "rootUserMs": 384.453,
+            "rootSystemMs": 31.571,
+            "rootTotalCpuMs": 416.024,
+            "remainderUserMs": 111.25,
+            "remainderSystemMs": 28.264000000000003,
+            "instructions": 8155855190,
+            "cycles": 1637251142,
+            "tickets": [
+              22,
+              22
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "arm": "B",
+          "pair": {
+            "passed": true,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": true,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 278.11,
+                "median": 278.11,
+                "compatibleRange": 14.539000000000044
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 270.477,
+                "median": 270.477,
+                "compatibleRange": 14.213999999999999
+              }
+            ],
+            "calibrationRatio": 0.9945030389703253,
+            "deltaMs": 7.633000000000038,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              22.07929100000183,
+              19.98033299999952,
+              20.09504200000083,
+              20.85920900000201,
+              21.18737500000134,
+              20.195749999998952,
+              22.714083000006212,
+              19.931792000003043,
+              20.936165999999503
+            ],
+            "minimumMs": 19.931792000003043,
+            "medianMs": 20.85920900000201,
+            "maximumMs": 22.714083000006212
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              171.56074999999691,
+              169.68433399999776,
+              170.2025829999984,
+              170.92487500000425,
+              172.97245799999655,
+              170.0629590000026,
+              169.56395799999882,
+              171.169332999998,
+              170.68333300000086
+            ],
+            "minimumMs": 169.56395799999882,
+            "medianMs": 170.68333300000086,
+            "maximumMs": 172.97245799999655
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 278.11,
+            "evidenceSystemMs": 2.44,
+            "evidenceTotalCpuMs": 280.55,
+            "rootUserMs": 395.398,
+            "rootSystemMs": 30.167,
+            "rootTotalCpuMs": 425.56500000000005,
+            "remainderUserMs": 117.28800000000001,
+            "remainderSystemMs": 27.727,
+            "instructions": 8104453907,
+            "cycles": 1663673070,
+            "tickets": [
+              46,
+              46
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 270.477,
+            "evidenceSystemMs": 0.8180000000000001,
+            "evidenceTotalCpuMs": 271.29499999999996,
+            "rootUserMs": 384.281,
+            "rootSystemMs": 28.25,
+            "rootTotalCpuMs": 412.531,
+            "remainderUserMs": 113.80400000000003,
+            "remainderSystemMs": 27.432,
+            "instructions": 8101665018,
+            "cycles": 1620700457,
+            "tickets": [
+              31,
+              31
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "arm": "B",
+          "pair": {
+            "passed": false,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": false,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 6,
+                "fullWarmMedian": 280.52200000000005,
+                "median": 278.269,
+                "compatibleRange": 8.90500000000003
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 270.86699999999996,
+                "median": 270.86699999999996,
+                "compatibleRange": 15.916000000000054
+              }
+            ],
+            "calibrationRatio": 0.9971229489772983,
+            "deltaMs": 7.402000000000044,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              20.854291000003286,
+              20.05383299999812,
+              22.710999999995693,
+              18.7778330000001,
+              20.78416699999798,
+              21.99079100000381,
+              19.376165999994555,
+              20.497292000000016,
+              19.76366599999892
+            ],
+            "minimumMs": 18.7778330000001,
+            "medianMs": 20.497292000000016,
+            "maximumMs": 22.710999999995693
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              168.79891700000007,
+              170.37916700000642,
+              170.66416699999536,
+              173.12437499999942,
+              170.30758400000195,
+              171.9950420000023,
+              171.35725000000093,
+              170.0136249999996,
+              173.487000000001
+            ],
+            "minimumMs": 168.79891700000007,
+            "medianMs": 170.66416699999536,
+            "maximumMs": 173.487000000001
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 278.269,
+            "evidenceSystemMs": 3.0364999999999998,
+            "evidenceTotalCpuMs": 281.30550000000005,
+            "rootUserMs": 391.9755,
+            "rootSystemMs": 31.948500000000003,
+            "rootTotalCpuMs": 423.924,
+            "remainderUserMs": 113.70649999999998,
+            "remainderSystemMs": 28.912,
+            "instructions": 8126177637.5,
+            "cycles": 1659937544,
+            "tickets": [
+              55,
+              51
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 270.86699999999996,
+            "evidenceSystemMs": 1.1950000000000003,
+            "evidenceTotalCpuMs": 272.06199999999995,
+            "rootUserMs": 384.585,
+            "rootSystemMs": 28.425,
+            "rootTotalCpuMs": 413.01,
+            "remainderUserMs": 113.71800000000002,
+            "remainderSystemMs": 27.23,
+            "instructions": 8121435368,
+            "cycles": 1626457746,
+            "tickets": [
+              45,
+              45
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "arm": "A",
+          "pair": {
+            "passed": false,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": false,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 276.685,
+                "median": 276.685,
+                "compatibleRange": 10.004000000000019
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 272.63,
+                "median": 272.63,
+                "compatibleRange": 16.058000000000106
+              }
+            ],
+            "calibrationRatio": 0.9894960776492487,
+            "deltaMs": 4.055000000000007,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              170.97983399999794,
+              171.3070829999997,
+              173.06804199999897,
+              170.08733400000347,
+              172.4611670000013,
+              172.14641700000357,
+              171.4863750000004,
+              170.37574999999924,
+              177.70866699999897
+            ],
+            "minimumMs": 170.08733400000347,
+            "medianMs": 171.4863750000004,
+            "maximumMs": 177.70866699999897
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              170.88649999999325,
+              171.10741599999892,
+              173.3550830000022,
+              170.45345899999666,
+              170.997749999995,
+              171.38970800000243,
+              172.1295839999948,
+              172.13795800000662,
+              171.16645800000697
+            ],
+            "minimumMs": 170.45345899999666,
+            "medianMs": 171.16645800000697,
+            "maximumMs": 173.3550830000022
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 276.685,
+            "evidenceSystemMs": 2.712,
+            "evidenceTotalCpuMs": 279.397,
+            "rootUserMs": 392.867,
+            "rootSystemMs": 30.491,
+            "rootTotalCpuMs": 423.358,
+            "remainderUserMs": 116.18200000000002,
+            "remainderSystemMs": 27.779,
+            "instructions": 8128273147,
+            "cycles": 1667597813,
+            "tickets": [
+              65,
+              65
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 272.63,
+            "evidenceSystemMs": 3.14,
+            "evidenceTotalCpuMs": 275.77,
+            "rootUserMs": 385.915,
+            "rootSystemMs": 30.857,
+            "rootTotalCpuMs": 416.77200000000005,
+            "remainderUserMs": 113.28500000000003,
+            "remainderSystemMs": 27.717,
+            "instructions": 8131149207,
+            "cycles": 1635340289,
+            "tickets": [
+              52,
+              52
+            ]
+          }
+        }
+      ],
+      "result": {
+        "checks": {
+          "originalBlocks": false,
+          "sameArmReturn": false,
+          "actualA": true,
+          "actualB": true,
+          "gapSeparation": true
+        },
+        "sameArm": [
+          {
+            "arm": "A",
+            "deltaMs": -2.622000000000014
+          },
+          {
+            "arm": "B",
+            "deltaMs": -0.23099999999999454
+          }
+        ],
+        "contrasts": [
+          {
+            "left": 0,
+            "right": 1,
+            "userEffectMs": 0.9560000000000173,
+            "gapSeparationMs": 151.51895799999693,
+            "ratePath": {
+              "matches": 5,
+              "checks": {
+                "matches": true,
+                "work": false,
+                "cpi": false,
+                "performance": true,
+                "userEffect": false,
+                "rate": false
+              },
+              "supported": false
+            }
+          },
+          {
+            "left": 2,
+            "right": 3,
+            "userEffectMs": 3.347000000000037,
+            "gapSeparationMs": 150.9890830000004,
+            "ratePath": {
+              "matches": 6,
+              "checks": {
+                "matches": true,
+                "work": false,
+                "cpi": false,
+                "performance": true,
+                "userEffect": false,
+                "rate": false
+              },
+              "supported": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "cadence-target-2",
+      "order": "BAAB",
+      "F0": {
+        "status": "armed",
+        "deltasMs": [
+          -5.503999999999962,
+          -6.689000000000021
+        ],
+        "warm": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 5,
+            "fullWarmMedian": 271.21500000000003,
+            "median": 270.87700000000007,
+            "compatibleRange": 7.949999999999932
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 276.38100000000003,
+            "median": 276.38100000000003,
+            "compatibleRange": 13.634000000000015
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 269.692,
+            "median": 269.692,
+            "compatibleRange": 11.244999999999948
+          }
+        ],
+        "calibrationRatios": [
+          1.007203257124961,
+          0.9988814818128942
+        ]
+      },
+      "completeTreatmentReservation": {
+        "roots": 80,
+        "hashCalls": 24,
+        "perRootMs": 750,
+        "perRootWallMs": 750,
+        "readCpuMs": 61500,
+        "hashCpuMs": 1200,
+        "wallMs": 238500,
+        "remainingReadCpuMs": 126195.58299999998,
+        "remainingHashCpuMs": 3058.904,
+        "remainingWallMs": 798934.0160000001,
+        "remainingControllerCpuMs": 16130.474,
+        "admitted": true,
+        "notFutureCostGuarantee": true
+      },
+      "cells": [
+        {
+          "index": 0,
+          "arm": "B",
+          "pair": {
+            "passed": false,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": false,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 6,
+                "fullWarmMedian": 269.921,
+                "median": 269.87199999999996,
+                "compatibleRange": 8.527999999999963
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 272.04400000000004,
+                "median": 272.04400000000004,
+                "compatibleRange": 15.908000000000015
+              }
+            ],
+            "calibrationRatio": 1.0007166211313656,
+            "deltaMs": -2.1720000000000823,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              20.30199999999968,
+              22.675875000000815,
+              19.745208000000275,
+              20.40700000000288,
+              22.085332999999082,
+              19.170207999999548,
+              20.787000000000262,
+              20.78675000000294,
+              21.743666999998823
+            ],
+            "minimumMs": 19.170207999999548,
+            "medianMs": 20.78675000000294,
+            "maximumMs": 22.675875000000815
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              171.96066700000665,
+              170.0086250000022,
+              170.2556659999973,
+              172.82949999999255,
+              169.59229099999357,
+              170.06274999999732,
+              169.76683299998695,
+              170.26891699999396,
+              174.10708300000988
+            ],
+            "minimumMs": 169.59229099999357,
+            "medianMs": 170.2556659999973,
+            "maximumMs": 174.10708300000988
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 269.87199999999996,
+            "evidenceSystemMs": 0.8690000000000001,
+            "evidenceTotalCpuMs": 270.741,
+            "rootUserMs": 384.474,
+            "rootSystemMs": 28.012,
+            "rootTotalCpuMs": 412.486,
+            "remainderUserMs": 114.602,
+            "remainderSystemMs": 27.143,
+            "instructions": 8116878719.5,
+            "cycles": 1623835665.5,
+            "tickets": [
+              31,
+              33
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 272.04400000000004,
+            "evidenceSystemMs": 3.4349999999999996,
+            "evidenceTotalCpuMs": 275.47900000000004,
+            "rootUserMs": 386.308,
+            "rootSystemMs": 30.992,
+            "rootTotalCpuMs": 417.3,
+            "remainderUserMs": 114.26399999999995,
+            "remainderSystemMs": 27.557000000000002,
+            "instructions": 8141138472,
+            "cycles": 1639487372,
+            "tickets": [
+              73,
+              73
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "arm": "A",
+          "pair": {
+            "passed": false,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": false,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 271.288,
+                "median": 271.288,
+                "compatibleRange": 15.282000000000039
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 283.281,
+                "median": 283.281,
+                "compatibleRange": 13.297000000000025
+              }
+            ],
+            "calibrationRatio": 0.9777017723093323,
+            "deltaMs": -11.992999999999995,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              171.29225000000588,
+              169.5342079999973,
+              173.08704200000648,
+              170.60666700000002,
+              169.828416999997,
+              175.47475000000122,
+              175.26208300000144,
+              172.24058299999888,
+              177.3096250000017
+            ],
+            "minimumMs": 169.5342079999973,
+            "medianMs": 172.24058299999888,
+            "maximumMs": 177.3096250000017
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              170.26112500000454,
+              170.31329199999163,
+              172.8251670000027,
+              176.42779200000223,
+              171.35325000000012,
+              172.20200000000477,
+              171.56008300000394,
+              172.55808400000387,
+              174.75449999999546
+            ],
+            "minimumMs": 170.26112500000454,
+            "medianMs": 172.20200000000477,
+            "maximumMs": 176.42779200000223
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 271.288,
+            "evidenceSystemMs": 2.528,
+            "evidenceTotalCpuMs": 273.81600000000003,
+            "rootUserMs": 382.344,
+            "rootSystemMs": 29.867,
+            "rootTotalCpuMs": 412.211,
+            "remainderUserMs": 111.05599999999998,
+            "remainderSystemMs": 27.339000000000002,
+            "instructions": 8159813476,
+            "cycles": 1628806485,
+            "tickets": [
+              41,
+              41
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 283.281,
+            "evidenceSystemMs": 2.7,
+            "evidenceTotalCpuMs": 285.981,
+            "rootUserMs": 406.821,
+            "rootSystemMs": 33.197,
+            "rootTotalCpuMs": 440.01800000000003,
+            "remainderUserMs": 123.54000000000002,
+            "remainderSystemMs": 30.497000000000003,
+            "instructions": 8137049966,
+            "cycles": 1721728093,
+            "tickets": [
+              82,
+              82
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "arm": "A",
+          "pair": {
+            "passed": false,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": false,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 274.337,
+                "median": 274.337,
+                "compatibleRange": 14.894000000000062
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 281.736,
+                "median": 281.736,
+                "compatibleRange": 15.933999999999969
+              }
+            ],
+            "calibrationRatio": 0.9871502499780721,
+            "deltaMs": -7.399000000000001,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              173.79858300000342,
+              171.99095800000214,
+              175.38858299999993,
+              171.40845799999806,
+              170.92687499999738,
+              172.8582499999975,
+              172.1336250000022,
+              170.53633300000365,
+              174.02195799999754
+            ],
+            "minimumMs": 170.53633300000365,
+            "medianMs": 172.1336250000022,
+            "maximumMs": 175.38858299999993
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              170.42375000000175,
+              176.53579100000206,
+              171.54750000000058,
+              172.86508299999696,
+              172.18191700000898,
+              171.36270800000057,
+              174.16520800002036,
+              171.39258300000802,
+              173.37133399999584
+            ],
+            "minimumMs": 170.42375000000175,
+            "medianMs": 172.18191700000898,
+            "maximumMs": 176.53579100000206
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 274.337,
+            "evidenceSystemMs": 2.556,
+            "evidenceTotalCpuMs": 276.893,
+            "rootUserMs": 393.382,
+            "rootSystemMs": 32.971,
+            "rootTotalCpuMs": 426.353,
+            "remainderUserMs": 119.04500000000002,
+            "remainderSystemMs": 30.414999999999996,
+            "instructions": 8121716827,
+            "cycles": 1672083895,
+            "tickets": [
+              52,
+              52
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 281.736,
+            "evidenceSystemMs": 3.064,
+            "evidenceTotalCpuMs": 284.8,
+            "rootUserMs": 401.639,
+            "rootSystemMs": 32.421,
+            "rootTotalCpuMs": 434.06,
+            "remainderUserMs": 119.90300000000002,
+            "remainderSystemMs": 29.357,
+            "instructions": 8103688903,
+            "cycles": 1701662202,
+            "tickets": [
+              93,
+              93
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "arm": "B",
+          "pair": {
+            "passed": false,
+            "checks": {
+              "graph": true,
+              "source": true,
+              "pmc": true,
+              "unchangedWarmGate": false,
+              "metadata": true,
+              "calibration": true,
+              "bothF0CalibrationAnchors": true
+            },
+            "summaries": [
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 275.33799999999997,
+                "median": 275.33799999999997,
+                "compatibleRange": 15.136999999999944
+              },
+              {
+                "all": 8,
+                "warm": 7,
+                "compatible": 7,
+                "fullWarmMedian": 275.919,
+                "median": 275.919,
+                "compatibleRange": 12.452999999999975
+              }
+            ],
+            "calibrationRatio": 0.9878279686232082,
+            "deltaMs": -0.5810000000000173,
+            "notG2": true
+          },
+          "targetActualGaps": {
+            "gapsMs": [
+              23.331582999999227,
+              21.533583000004,
+              23.322207999997772,
+              21.473292000002402,
+              19.736874999995052,
+              19.927541000004567,
+              22.59795899999881,
+              21.16700000000128,
+              20.829916999995476
+            ],
+            "minimumMs": 19.736874999995052,
+            "medianMs": 21.473292000002402,
+            "maximumMs": 23.331582999999227
+          },
+          "referenceActualGaps": {
+            "gapsMs": [
+              170.5315830000036,
+              171.2862089999835,
+              169.20683300000383,
+              171.21045800001593,
+              171.6133329999866,
+              171.04845800000476,
+              171.06224999998813,
+              169.6185000000114,
+              171.2082919999957
+            ],
+            "minimumMs": 169.20683300000383,
+            "medianMs": 171.06224999998813,
+            "maximumMs": 171.6133329999866
+          },
+          "targetJointUserMedianAnchor": {
+            "evidenceUserMs": 275.33799999999997,
+            "evidenceSystemMs": 4.340999999999999,
+            "evidenceTotalCpuMs": 279.679,
+            "rootUserMs": 379.119,
+            "rootSystemMs": 33.188,
+            "rootTotalCpuMs": 412.307,
+            "remainderUserMs": 103.78100000000006,
+            "remainderSystemMs": 28.847,
+            "instructions": 8164253563,
+            "cycles": 1632400085,
+            "tickets": [
+              64,
+              64
+            ]
+          },
+          "referenceJointUserMedianAnchor": {
+            "evidenceUserMs": 275.919,
+            "evidenceSystemMs": 3.5719999999999996,
+            "evidenceTotalCpuMs": 279.491,
+            "rootUserMs": 376.594,
+            "rootSystemMs": 30.606,
+            "rootTotalCpuMs": 407.2,
+            "remainderUserMs": 100.67500000000001,
+            "remainderSystemMs": 27.034000000000002,
+            "instructions": 8169968149,
+            "cycles": 1616703898,
+            "tickets": [
+              105,
+              105
+            ]
+          }
+        }
+      ],
+      "result": {
+        "checks": {
+          "originalBlocks": false,
+          "sameArmReturn": false,
+          "actualA": true,
+          "actualB": true,
+          "gapSeparation": true
+        },
+        "sameArm": [
+          {
+            "arm": "B",
+            "deltaMs": 1.591000000000065
+          },
+          {
+            "arm": "A",
+            "deltaMs": 4.593999999999994
+          }
+        ],
+        "contrasts": [
+          {
+            "left": 0,
+            "right": 1,
+            "userEffectMs": 9.820999999999913,
+            "gapSeparationMs": 151.45383299999594,
+            "ratePath": {
+              "matches": 6,
+              "checks": {
+                "matches": true,
+                "work": false,
+                "cpi": false,
+                "performance": true,
+                "userEffect": false,
+                "rate": false
+              },
+              "supported": false
+            }
+          },
+          {
+            "left": 2,
+            "right": 3,
+            "userEffectMs": 6.817999999999984,
+            "gapSeparationMs": 150.6603329999998,
+            "ratePath": {
+              "matches": 6,
+              "checks": {
+                "matches": true,
+                "work": true,
+                "cpi": false,
+                "performance": true,
+                "userEffect": false,
+                "rate": false
+              },
+              "supported": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "recovery": {
+    "hosts": [
+      {
+        "label": "cadence-reference",
+        "roots": 108,
+        "recordedRootCpuMs": 46996.891,
+        "semanticAuditCpuMs": 119.437,
+        "probeCpuMs": 98.90800000008994,
+        "nativeCpuMs": 673.19,
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 682,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        },
+        "restored": true,
+        "closed": true
+      },
+      {
+        "label": "cadence-target-1",
+        "roots": 68,
+        "recordedRootCpuMs": 30553.815000000006,
+        "semanticAuditCpuMs": 140.654,
+        "probeCpuMs": 59.18000000002756,
+        "nativeCpuMs": 402.67199999999997,
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 430,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        },
+        "restored": true,
+        "closed": true
+      },
+      {
+        "label": "cadence-target-2",
+        "roots": 68,
+        "recordedRootCpuMs": 30047.671,
+        "semanticAuditCpuMs": 117.618,
+        "probeCpuMs": 60.29100000007699,
+        "nativeCpuMs": 401.20899999999995,
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 430,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        },
+        "restored": true,
+        "closed": true
+      }
+    ],
+    "allOwnedProcessesGone": true,
+    "allFourDiagnosticPortsClosed": true,
+    "actualPeerOriginalProcessAlive": true,
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false,
+    "actualPeerDiagnosticListener": false,
+    "postRunRecoveryAuditCpuMs": 55.128,
+    "sourceWritesDenied": 0,
+    "metadataDropped": 0,
+    "unacknowledgedRetainedBytes": 0,
+    "allSemanticAuditsMatched": true,
+    "productionIdentityUnchanged": true
+  },
+  "ledger": {
+    "priorActualOwnedApps": 32,
+    "newActualOwnedApps": 3,
+    "totalActualOwnedApps": 35,
+    "priorKnownProductReadCpuLowerMs": 402814.389,
+    "newProductReadCpuMs": 107976.08600000001,
+    "totalKnownProductReadCpuLowerMs": 510790.47500000003,
+    "earlierCUnknownRetained": true,
+    "replacements": 0,
+    "failedOrUnusedSlotsNotReused": true
+  },
+  "validation": {
+    "sameCandidateFocusedTests": 98,
+    "queueSeamPassed": true,
+    "profilerWireCommands": 0,
+    "profilerDeniedAttemptsDuringCampaign": 0,
+    "offlineCliReconciledAllRootsAndExistingGates": true,
+    "syntaxAndDiff": true,
+    "review": "implementer-self-review",
+    "ci": {
+      "candidate": "cf0cc39108fbf1b2d1169d823a62be385b6c3957",
+      "workflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    }
+  },
+  "scope": {
+    "unqualifiedNotValidNegative": true,
+    "noClaimCadenceSufficiencyOrHardwareFrequency": true,
+    "noProfilerLowInterferenceQualification": true,
+    "noNewFieldWindow": true,
+    "naturalFieldResidualFormationCaptured": false,
+    "remaining30to40msMechanismReproduced": false,
+    "originalP2FailuresUnchanged": true,
+    "RI00Closed": false,
+    "refactorStarted": false
+  }
+}
