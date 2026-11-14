@@ -318,3 +318,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-14 同日澄清 ADR 131 §1 的同号引用：`104-bot-capability-visibility.md` 仍未接受；`104-progressive-interaction-and-coordination-storage.md` 已接受的 writer fence / 恢复契约保留。未移动既有边界。
 
 2026-11-14 NR-03：ADR 131 增补 canonical budget nativeRecorder v1 可选合同与原生停稳观测 Adapter；只证明 runner 死亡且无开放句柄，unknown/权限/Evidence/claim 收口要求不变，实施及验收另记。
+
+2026-11-14 NR-03 复核：ADR 131 补充真实 Provider 创建结果/Evidence/dispatch 已确认后，同 owner 的 missing file claim 身份确认；保留 unknown/closure/外来身份阻断，schema 不变。
