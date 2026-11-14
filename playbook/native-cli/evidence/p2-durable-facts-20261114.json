@@ -40,7 +40,8 @@
     },
     {
       "log": "/tmp/peer-native-durable-conformance.log",
-      "finding": "First crash fixture used rm on an empty directory; corrected to rmdir. No recursive cleanup of unknown locks."
+      "finding": "First crash fixture used rm on an empty directory; corrected to rmdir. No recursive cleanup of unknown locks.",
+      "logStatus": "This path was reused on rerun; the initial EISDIR trace remains in the chat tool output. It is not claimed to be in the current pass log."
     }
   ],
   "previousRemoteCI": {

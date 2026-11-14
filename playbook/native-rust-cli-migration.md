@@ -149,3 +149,13 @@ Evidence 登记回执：源码 `7af3ab505cb6efbc7bf8ac2ede45d47da3c244a3`，107 
 ### NR-02 剩余：canonical 协调存储
 
 继续依 ADR 104-progressive / 105 / 112 / 116 / 127 / 131，在既有 coordination-v2 manifest / head / segments / payload_ref / baseline / seal 上实现原生可取消有界验证、reducer seam 与 durable 追加 / 中断恢复。事实源必须是 canonical hash chain，不能拿 derived SQLite 的 revision 自证或把物理屏障称 canonical prepare。未知语义或超预算明确阻断，不能跳过记录得出空状态；不引入第二套任务表 / 执行日志。先过跨语言实际 Store 互读 / 后续任务与 head / tail / lease 故障，再装配执行准入。
+
+canonical 协调存储切片回执：源码 `82ce5819666698b530aa7e9fdd4476dbd004fb4a`，109 Rust（97 原生 + 12 Helper）、210 真实跨进程（本卡新增 55）、128 旧侧聚焦测试、51 runtime golden / 29 control / 7 digest / 新增 29 work-event-delivery 转换、8 PTY、真实 Helper ping、fmt / clippy -D warnings / release / 静态边界、architecture 均通过。完整日志 `/tmp/peer-native-canonical-final2.log`；[结构化回执](native-cli/evidence/p2-canonical-coordination-20261114.json) 记录源、二进制和覆盖限度。
+
+Store 沿既有 manifest / head / segments / payload_ref / seal / frozen baseline 验证逐条 canonical hash chain，检查 head 是已验证前缀，允许完整 durable tail 的 head 暂落后，但在 head checkpoint 前拒绝新追加。snapshot 同时绑定 metadata / 文件身份 / blob 身份及 generation；复制 derived SQLite revision 不构成证明。只读 replay 每 16 KiB 检查取消 / 租约，全读含 blobs 64 MiB、4096 records、单 envelope 64 KiB、单 legacy record / blob 及 state 编码 1 MiB 为显式门限，超限拒绝且不截成完成。
+
+原生可从空目录或可解释 v1 初始化同一 v2 格式，先 replay 后物理 promotion；原生追加后真实 TS backend 补其 derived SQL cache，并继续写入。head 前崩溃 / 完整 tail 未 checkpoint 时原记录保留，旧操作不重放，补 head 后后续 work 可写。语义 floor 先抬 durable head 再抬 manifest；中断时保留较高 floor 并沿现有物理证明续接。未知文件 / 孤儿片段不能初始化为空项目。真实进程 exit(77) 故障与 fixture stale lease takeover 只验证存储，不证明外部进程 / 工具停止。
+
+Runtime 当前支持 work/event/delivery 与既有 Session Control kernel；coordination decision、intent、agent supervision、obligation、history repair 的未搬迁语义返回明确 unsupported，整个 read/append 阻断。实际 TS 创建的合法未支持记录不会被跳过为新空状态，兼容端再次读取后仍保留原事实。P2 总闸仍未过，canonical Goal、剩余 reducer、真实 Host 当前授权 / handle 停稳 / unknown 对账与准入装配继续待办，P3 模型与工具闭环尚未开放。未改变 ADR 104-progressive / 105 / 112 / 116 / 127 / 131 的授权、恢复或存储边界。
+
+保留初次 fixture 构建漏启用 peer-store/test-fixtures、构建失败后误调用旧 probe，以及 70 KiB payload 超过 fixture 自身 64 KiB 请求限制的失败。均不计通过；后续改为 set -e、显式双方 fixture feature 和有界 1 MiB 请求，完整 scoped 流程重跑通过，未放宽生产预算。实现者完成内容 / diff 自审，未称独立评审。较早 `7af3ab50` Linux job 全步骤 success、macOS 原生/build/type/architecture/test/smoke 已 success，最后观察时 report/post 仍运行；最新源码 CI 另验，不挪用旧结果。
