@@ -181,3 +181,19 @@ P2 总闸仍待共享 Goal 执行镜像写域/CAS、closure 镜像中断恢复�
 `0921d673` 新 CI 43584888148 的 Linux / macOS 均构建成功，但 scoped clippy 失败：CI Rust 1.100 已将 `AtomicUsize.fetch_update` 标为 deprecated，本机 Rust 1.98.1 尚无该告警。补丁 `05c6bc05` 改为兼容既有 MSRV 的 compare-exchange 循环，不放宽 warnings-as-errors；本地完整 scoped 再次通过（129 Rust / 281 跨进程 / 128 旧 focused / 8 PTY）。保留原失败与候选身份，新远端结果待查。
 
 剩余 admission 继续依同一卡实施：纯 coordination decision / intent assessment / intent closure 与 history resumption planner 对照实际 TS，只接受已准入 Host facts。planner 的 checkpoint port 必须先拒绝不兼容的旧 engine/provider checkpoint；测试中的普通 JS 对象不证明原生可恢复，也不得开生产执行。
+
+### NR-02 继续：共享 Goal 执行事实镜像与恢复
+
+依 ADR 101 / 116 / 127 / 131，不改变 Goal 意图、权限或 Evidence 边界：计划为 GoalStore 增加同一 `index.jsonl.lock` 根写事务，TS public mutator、内部 persist/index 与 runner-progress flush 同域；本机原生仅开放 lease + source revision 约束的执行事实镜像端口，保留正文未知字段、sidecar 和 canonical revision/change 通知。复杂 Goal CRUD / workflow 仍归后续功能平价，不借镜像端口暴露任意模型 patch。根锁不按时间/PID回收，回调在释放锁后交付；源变更、未知 schema、超预算大正文、孤锁与缺失 index 都失败关闭。原生 closure 后镜像失败必须从既有 closures / retained_unknowns 对账重试，不另建恢复 journal，不清除 unknown，不重放调用。
+
+实施前追踪确认：当前 TS Goal 写正文/sidecar/index 没有共享原生锁；只加 Rust 锁不能证明互斥。现有 bot-verified resolver 的 SQL closure 也不能代替 Goal 镜像恢复。验证至少包含 TS↔Rust root contention、两实例/进程写后读、callback 重入、runner sidecar 复查、body-before-index/closure-before-mirror 中断、未知字段与 unknown 保全、既有闭包重放恢复及后续任务准入。未验证前该共享写域与生产 P3 入口保持关闭。
+
+### NR-02 总闸回执与 NR-03 启动
+
+源码 `0809f7ca` 的完整 scoped 总闸通过：142 Rust、302 跨进程、131 旧侧 focused、840 权限/角色对照、60 admission、29 history planner、8 PTY、真实 Helper 无密钥 ping、fmt/clippy/release/architecture；TUI 30 项 Host 测试和引用本 checkout 新生成声明的 typecheck 通过。`9596dd03` 补齐纯 admission；`7775d3f4` 补齐共享 Goal 根事务、执行 control/closure 镜像及两阶段中断对账。closure 在旧 normalizer 丢失的真实问题已双端修正，保留失败记录。完整 Goal CRUD/产品工作流仍归 P5。详见 [P2 总闸结构化回执](native-cli/evidence/p2-total-20261114.json)。
+
+7775 的 CI 不计通过：Linux clean-schema 夹具的未知版本仍只在 WAL，已强制 checkpoint 并断言主库版本，再保持原逐字节不变断言；另有独立 uncheckpointed-WAL 保全用例不变。macOS 类型错误来自 Goal bind 丢失 API 返回类型，已泛型保留，未给调用处补 any。首次本地总闸的 PTY guardian 清理卡住，终止该夹具父进程并保留 trace；改为 start_new_session 后在 guardian 内取得 controlling terminal，清理有超时，8 项新目录重跑通过。旧隔离 guardian PID 34341 的内核退出状态未能取样/回收，不算原轮成功；不触碰其它运行实例。9596 的 Mac Electron model switch smoke commit 断言失败仍保留，不称随机失败；新候选 CI 另查。
+
+P2 数据/权限/恢复地基门禁已通过，允许开始 NR-03 原生纵向切片，不代表完整 CLI 或发布验收。补读 ADR 37/55/56/57，沿 129/130/131 搬迁，B 级边界不变：System Context 只经 Source assembler；历史以 canonical projector v2 为准，旧 tool 文字不能驱动新动作；wire 编码独立；模型输出只产生工具意图，Manifest→Projection→Tool Call→实时 Grant→Provider→结构化 Result/Evidence→canonical 会话/预算持久化。先支持一个现有 openai-chat wire 与有界 file/Shell foreground；未迁移的模式/凭据/上下文/旧 checkpoint 必须明确拒绝，不能静默少装上下文或借 Node sidecar 补齐。
+
+NR-03 验收：隔离数据目录、原生 HTTP/SSE transport、真实 Host 权限 allow/deny/策略变化、文件与子进程的超时/取消/kill+reap、写效果前 canonical pending dispatch、Result/Evidence 配对、崩溃后 unknown 不重放、停稳镜像恢复、后续不同任务准入；同一个实际 exec composition root 验证。模型回答只结束执行片段，不构造 Goal 验收或业务完成。真实供应商/OS secrets、其它 wires、完整 Bot 角色和 UI 保持分期验收，不能以控制回放代替。

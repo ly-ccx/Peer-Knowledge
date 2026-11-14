@@ -1,0 +1,46 @@
+{
+  "source": "0809f7ca31c00dc05a0667e24661194d3f75277f",
+  "date": "2026-11-14",
+  "phase": "P2 native foundation total scoped gate",
+  "rustTests": 142,
+  "crossProcessCases": 302,
+  "legacyFocusedTests": 131,
+  "additionalTuiHostTests": 30,
+  "automaticAndRoleVectors": 840,
+  "admissionVectors": 60,
+  "historyPlannerVectors": 29,
+  "ptyCases": 8,
+  "nativeHelperPing": true,
+  "secretAccess": false,
+  "log": "/tmp/peer-native-p2-total-retry.log",
+  "binarySha256": "ae772c1358e01d18c7eed709fc0d91cd8ad5f34d0636ff3392b9c82116f2f66a",
+  "checks": [
+    "fmt",
+    "clippy -D warnings",
+    "release build",
+    "architecture",
+    "runtime-node build",
+    "TUI own generated declarations typecheck",
+    "sidecar dependency boundary"
+  ],
+  "limits": [
+    "public terminal remains draft spike before P3",
+    "real model and installed build unverified",
+    "P4/P5 full feature parity remains",
+    "CI candidate pending"
+  ],
+  "priorFailures": [
+    {
+      "source": "7775d3f4",
+      "linux": "policy clean-schema fixture had schema only in WAL; force checkpoint and assert main schema before preservation baseline",
+      "macos": "Goal transaction bind inferred any; preserve generic API type"
+    },
+    {
+      "local": "PTY guardian exit cleanup blocked; retained process trace, avoid Python preexec, bounded cleanup; 8 cases rerun passed"
+    },
+    {
+      "source": "9596dd03",
+      "macos": "Electron model switch commit assertion timed out; no flake classification or assertion weakening"
+    }
+  ]
+}
