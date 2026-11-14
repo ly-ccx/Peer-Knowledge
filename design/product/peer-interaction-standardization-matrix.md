@@ -1360,3 +1360,9 @@ ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时
 验证：Ratatui TestBackend + Rust reducer，8 项真实 PTY（含 Unicode paste、resize、Ctrl-C / Ctrl-D、SIGTERM、panic / error、尺寸拒绝）通过。物理 IME / 日用终端 / 读屏 / 已安装包未覆盖；临时草稿没有持久恢复，P2 后续接入，不能算 T06 / T10 全面验收。详见 [迁移账本](../../playbook/native-rust-cli-migration.md)。
 
 NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显式 PEER_AGENT_HOME / PEER_USER_DATA_PATH 的真实子进程入口识别配置且不创建数据，PATH 无 JS Runtime；边界组合先失败后修复。临时草稿 / 无执行状态不变，8 项 PTY 仍通过，不扩大为完整 CLI 或发布接受。
+
+## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
+
+用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。
+
+真实效果后崩溃保持 pending/unknown，原生 OS 死亡观测只证明 runner 停稳，不能改写效果；未证明结束的能力句柄继续阻断。现有状态恢复不重放调用、不删除锁或历史，不改用户原数据。12 项公开可执行入口测试、其中真实 PTY 批准/拒绝与取消，以及当前 TS 冷读配对检查见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。这是隔离源码候选的实现者自审；普通终端、物理 IME、读屏、真实供应商与安装包未验收。当前 Ratatui 草稿入口尚未接发送，完整 TUI/Bot 平价留待后续卡。

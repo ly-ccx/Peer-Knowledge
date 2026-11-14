@@ -201,3 +201,17 @@ NR-03 验收：隔离数据目录、原生 HTTP/SSE transport、真实 Host 权�
 NR-03 Context 过渡 Adapter 明确：共享 core/work-session 资源从真实 TS Source 生成；workspace/provider 的既有 Source 语义迁移，临时 `native.goal-execution` 只把有界 canonical Goal 完整 JSON 作为 L7 事实呈现，不把未知文件/附件提升为指令，不增加 Goal 验收动作。完整 Goal Runner/项目/Skill/MCP/交互 Sources 尚未搬迁时，生产入口必须拒绝需要这些事实的路径；首条闭环限无这些特殊上下文的 fresh worker fixture。Shell 先暴露明确说明每调用新 shell、仅 foreground 的 Manifest，不能把尚未实现的 persistent session 宣传给模型。
 
 0809 的 Mac CI 43592006532 原生测试触发旧 Helper tamper 夹具：首个随机 Base64 字符本来是 A 时替换 A 没有篡改。b8be67a2 改为解码后 XOR 一个字节并额外断言密文改变，12 Helper 测试通过；没有放宽认证错误断言。新候选 CI 另验。
+
+### NR-02 远端总闸与 NR-03 第一条原生执行回执
+
+P2 候选 `0b2ee6df` 的 [CI 43594616352](https://github.com/ly-ccx/Peer-Agent/actions/runs/43594616352) Linux / macOS 全部 job success，包含 Native、全仓 build/type/architecture/test 和各自 Bot shell smoke。b8 初次 CI 的 fmt 失败另由 0b 修正；旧失败保留，不把它们称通过。P2 总闸完成，完整 Goal CRUD、Bot 产品工作流仍归 P5。
+
+P3 源实现 `cd13f250`，protocol 类型补充 `1eccbec7`：公开 `peer-native exec --plan` 组合 canonical Goal / lease / 协调、真实原生 HTTP/SSE、共享 Source/历史投影、独立 openai-chat encoder、Manifest/Projection、执行前实时 Grant、原生文件与 foreground Shell、配对 Tool Result/Evidence、原 canonical budget 与 managed pause。`recover --plan` 依据已记录的完整 nativeRecorder 与实际 OS 死亡观测停稳；有未结束能力句柄继续阻断。写效果后退出且未留回执的调用保持 unknown，不重放；不同资源的后续新任务可以准入。模型回复/CLI 退出码不构造 Goal 验收。
+
+ADR pass：37-provider-channel-and-wire-protocol-separation、55-shared-system-context-assembler、56-provider-observed-context-accounting、57-canonical-conversation-history-projector、101-bot-owned-access-policy、111-project-agent-duplex-supervision-and-continuity、116-session-control-and-resource-settlement、117-intent-driven-coordination-and-goal-closure、124-legacy-stop-obligation-controlled-resolution、127-unknown-outcome-reconciliation-and-delegated-resolution、129-native-rust-cli-and-ratatui、130-bounded-cli-memory-and-transcript、131-native-cli-contract-storage-and-recovery（均为 knowledge/decisions/ 下的 `.md` 文件）。B 级迁移沿现有边界；新增的可选 nativeRecorder 合同与已确认文件创建身份属于 A 级补充，已分别在知识 `7072691` / `3e03860` 的 ADR 131 与 map 中先行记录，再实施。没有更改授权主体、unknown 闭包或 Goal 验收规则。
+
+新文件正常路径曾被真实公开入口复现为 `execution_resource_busy`：原 missing claim 未随实际创建确认。补充只接受本 Host File Provider 独占创建并对照 owned fd 的身份；在真实配对结果、Evidence 与 dispatch 回执持久化后，ledger 事务核对原 scope / execution / hostEpoch / 当前 inode，更新原 claim revision 与 resource_events 的真实 tool-result 引用。相同身份幂等，既有 inode 变化、外来 Host/执行、unknown、draining/reconciling/released/closed 均拒绝；无推测刷新或强制解锁。
+
+最终源码 `fd981b01`：169 Rust、302 旧存储跨进程、58 项当前 TS 对原生真实数据冷读（17 个隔离根）、131 旧 focused、12 项公开入口和 8 项终端生命周期通过；fmt/clippy/release/boundary/architecture 通过。完整本地回执和候选以 [P3 结构化证据](native-cli/evidence/p3-native-execution-20261114.json) 为准。范围包括实际公开二进制、真实 PTY allow/deny/cancel、Shell timeout/kill+reap、模型网络失败/截断/取消、真实文件效果后硬退出、原生恢复、unknown 保全与后续任务；当前 TS Store 冷读 native 输出及真实 Evidence 配对。TS/Bun 只用于开发对照，原生运行不启动 sidecar。终端/恢复状态同步到两张产品矩阵，自审不称独立审查。
+
+本卡是方案定义的第一条原生闭环，尚非最终 CLI 替换：仅 fresh delegated worker / plain v2 openai-compatible channel / read_file、write_file、foreground bash。未迁移的项目指令、设置/权限清单、Skill/MCP、冻结 memory、嵌套上下文、compaction、其它 wire/auth/代理等明确拒绝。完整交互界面、功能平价、真实供应商和 OS 密钥闭环、安装/签名、长时间内存曲线及 P4–P7 继续待验收。默认 peer 尚未切换，不发布、不安装、不改用户原数据。
