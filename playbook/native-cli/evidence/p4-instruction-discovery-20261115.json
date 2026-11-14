@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "candidate": "f6949bae500aeb5eaf41f51c28b5d72cbaa13849",
+  "tree": "63c55a680b08b0b47b8f203195de48d6ebda3d51",
+  "binarySha256": "1b8fc7dbaef2646f8acd61b0cce3cdcf9ac3799daa41b7e767b8e49521e1c1ad",
+  "scope": "P4 registered project.instructions Source: typed configured guidance, explicit global/scoped discovery; actual native exec Host admits the migrated prompt-settings subset",
+  "classification": "B; ADR 55/57/129/130/131 existing Source/Host/permission/Evidence/storage boundaries unchanged",
+  "host": {
+    "supportedSettings": [
+      "schemaVersion 0..3 or absent",
+      "locale",
+      "replyLanguage",
+      "systemInstructions",
+      "gitBranchPrefix"
+    ],
+    "missingDefaults": "actual existing TUI getPromptSettings: reply zh-CN and branch prefix PeerAgent/",
+    "unknownKeys": "explicit blocker before model request; includes not-yet-migrated projectAgent/capability settings",
+    "globalInstructions": "not enabled by default, matching existing TUI; present data-home AGENTS is not silently injected",
+    "scopedTargetPaths": "typed Source seam and real conformance covered; no production exec target-path or global switch added",
+    "mutation": "read only; no settings migration, backup, schema rewrite or identity reconciliation",
+    "lifetime": "one pinned Source observation per current native episode"
+  },
+  "limits": {
+    "perFileBytes": 1048576,
+    "sourceInputAndReadBytes": 4194304,
+    "candidates": 64,
+    "targetInputs": 64,
+    "renderedUnitsPerInstruction": 24000,
+    "unit": "UTF-16; complete scalar at truncation",
+    "cancellation": "checks between discovery items and each 16 KiB read; not a strict wall-clock bound on an individual filesystem operation"
+  },
+  "behavior": [
+    "same files yield the actual TS Source sections/checksums, including path-dependent global content and metadata",
+    "explicit target paths preserve parent discovery order, path normalization, duplicate and out-of-scope rules, missing file handling, Unicode UTF-16 ID replacement and symlink behavior",
+    "configured text cannot authorize actual file effects; Ask policy persists denied result/Evidence",
+    "malformed UTF-8/JSON, unsupported schema and wrong field type fail before request and preserve source",
+    "after ordinary source correction the same ready task admits without resetting task/history/unknown",
+    "FIFO workspace guidance is skipped; FIFO settings is rejected promptly, never interpreted as absence",
+    "source total budget and cancellation preserve original files"
+  ],
+  "validation": {
+    "nativeTotal": "passed",
+    "rustTests": 190,
+    "crossProcessStoreCases": 302,
+    "tsColdReadCases": 91,
+    "nativeFixtureRoots": 28,
+    "nodeFocusedTests": 157,
+    "publicExecutableRustTests": 19,
+    "instructionCrossProcessCases": 28,
+    "existingInstructionReferenceCases": 7,
+    "ptyCases": 8,
+    "fmtClippyReleaseBoundaries": "passed",
+    "architecture": "passed"
+  },
+  "preservedFailures": [
+    {
+      "log": {
+        "localLog": "/tmp/peer-native-p4-instruction-expanded-cross.log",
+        "sha256": "17ac61ebef617c20de950a98daa815f28209a8252aa4efff553568387d126c26"
+      },
+      "cause": "same-path global/workspace fixture did not carry its required ownership marker",
+      "correction": "mark both owned fixture directories; do not remove safety assertion"
+    },
+    {
+      "log": {
+        "localLog": "/tmp/peer-native-p4-instruction-expanded-clippy.log",
+        "sha256": "31fd2278ba40df0f6137b4a8d1a15ed0ad5c74dee5356ea475a49832048c55f6"
+      },
+      "cause": "manual_range_contains lint in schema guard",
+      "correction": "use inclusive Range.contains; -D warnings retained"
+    }
+  ],
+  "logs": [
+    {
+      "localLog": "/tmp/peer-native-p4-instructions-complete.log",
+      "sha256": "b1ad90270d4431e649f3d2fe7b34bb133564096d55bcb7d0bf702e55f10f7ccc"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-instruction-expanded-final-cross.log",
+      "sha256": "7e7dcf216d7e640bc5bf9e4de4456e25ca29512b5e9790bc2fc5cf5caa705f48"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-instruction-expanded-public.log",
+      "sha256": "a0726aab1863e84e4bc2644dacc3e657ed54f370be548580506785bc8461e0da"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-instruction-expanded-unit.log",
+      "sha256": "864284c6ec6b6f86dcd920b573de5a789ba00da9d82b8de22ec6cf75fa610176"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-instruction-expanded-clippy-after.log",
+      "sha256": "10e1b4be21304d0bbcbc0ddd583856781014ab121975f041d8ad98f20b989e7a"
+    }
+  ],
+  "ci": {
+    "run": "43624988490",
+    "linuxJob": 132538724196,
+    "macosJob": 132538724407,
+    "status": "in_progress; not full job acceptance",
+    "precedingExactCandidate": "e6ae55616d70e90ae33da53a5a29e5ef6cc6c5aa",
+    "precedingRun": "43622520379",
+    "precedingStatus": "both full jobs success"
+  },
+  "remaining": [
+    "remaining default Source catalog and full Host discovery/settings",
+    "accounting/count/compaction/rebuild/recount and durable usage ledger",
+    "OAuth/Qoder, MCP/Skill/Plugin/Hook and headless/ACP/command parity",
+    "P5 only after P4 total gate",
+    "P6/P7 memory/feature/real-provider/installed/release gates"
+  ],
+  "p4Complete": false,
+  "p5Started": false,
+  "defaultPeerSwitched": false,
+  "nativeRuntimeUsesBunNodeSidecar": false,
+  "realSupplierCoverage": false,
+  "installedBuildCoverage": false,
+  "personalTaskDataChanged": false,
+  "review": "implementer self-review; no independent acceptance"
+}

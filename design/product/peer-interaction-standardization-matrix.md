@@ -1367,6 +1367,8 @@ NR-04 Context（2026-11-15，`10c86bd7`）：相同任务现在可读 workspace 
 
 ## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
 
+NR-04 Instructions（2026-11-15，`f6949bae`）：用户已有配置指导与 workspace 指导进入同一注册 Source；无设置时保留现有 TUI 的语言/分支前缀缺省值，全局指导仍需显式 Host 开关。未知或损坏设置在请求前给出静态阻断并保留原文件，普通修正后同一待执行任务可继续。配置文字不产生授权，真实 Ask 路径仍形成 denied Result/Evidence。公开入口覆盖坏配置恢复和 FIFO 设置及时失败，28 项同文件跨进程对照与 8 PTY 见 [发现证据](../../playbook/native-cli/evidence/p4-instruction-discovery-20261115.json)。未增加控件或动效；Source seam 的 global/targetPaths 不等于生产入口已装配。实现者自审，完整 P4/P5、真实供应商与安装包仍未验收。
+
 用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。
 
 真实效果后崩溃保持 pending/unknown，原生 OS 死亡观测只证明 runner 停稳，不能改写效果；未证明结束的能力句柄继续阻断。现有状态恢复不重放调用、不删除锁或历史，不改用户原数据。12 项公开可执行入口测试、其中真实 PTY 批准/拒绝与取消，以及当前 TS 冷读配对检查见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。这是隔离源码候选的实现者自审；普通终端、物理 IME、读屏、真实供应商与安装包未验收。当前 Ratatui 草稿入口尚未接发送，完整 TUI/Bot 平价留待后续卡。

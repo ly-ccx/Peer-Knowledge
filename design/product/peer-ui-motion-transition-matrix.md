@@ -872,6 +872,8 @@ NR-04 Context（2026-11-15，`10c86bd7`）：workspace 根项目指导由 Host �
 
 ## 原生 CLI NR-03 的静态执行与恢复（2026-11-14）
 
+NR-04 Instructions（2026-11-15，`f6949bae`）：配置读取失败的静态反馈说明原文件保留、未调用模型和同一待执行任务的修正重试路径；不创建授权、执行成功或新任务身份。T06/T10 仍无动画（motion N/A），草稿、焦点与阅读位置不变。配置指导真实否决、坏配置恢复、Source 路径/哈希对照和 FIFO/终端恢复见 [发现证据](../../playbook/native-cli/evidence/p4-instruction-discovery-20261115.json)。未覆盖完整交互 TUI、物理 IME、读屏、真实供应商或安装；实现者自审。
+
 T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态文本，无动画（motion N/A）；动作/范围先于技术参数，禁止终端控制与 bidi 内容冒充 Host 提示。批准输入只归当前 prompt，非 TTY 不暗中接受，SIGINT/TERM/HUP 进入真实取消/drain；网络观察或模型文字不产生执行成功。中断回到同一 plan/execution，unknown 和 Evidence 留在原 canonical Store，恢复不重放工具。现有 Ratatui 草稿、焦点与阅读入口仍保持 NR-01 范围，尚未迁入完整会话发送/历史交互。
 
 验证来自真实公开二进制、PTY 批准/拒绝/信号取消、实际 child kill+reap、崩溃后原生恢复与后续任务，以及 8 项终端 guard 生命周期检查；精确候选和结果见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。实现者自审，未覆盖日用终端视觉、物理 IME、系统辅助技术、真实供应商或安装包，不登记为 T06/T10 全面或发布验收通过。

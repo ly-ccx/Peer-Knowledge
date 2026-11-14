@@ -1,8 +1,8 @@
 # 原生 CLI 迁移实施账本
 
 创建时间：2026-11-14
-最后更新：2026-11-14
-状态：P0 取证 / P1 scoped 自测通过；P2 实施中（不代表完整迁移或发布验收）
+最后更新：2026-11-15
+状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
 用户已接受评审稿 116–118；正式 ADR 为 129–131（避免与主线既有编号冲突）。用户要求 P0/P1 自测通过后持续推进至完整原生 CLI，无 Bun/Node sidecar。本账本记录候选与实际结果，不替代 ADR 或 Evidence。
 
@@ -247,3 +247,13 @@ NR-04 Context 首卡（实施前）：依 ADR 55/57/129/130/131，B 级迁移已
 NR-04 CI 跟进：`84007b83` 的 CI 43615775154 两平台 Native scoped 均 success，随后全仓 Test 因旧 Desktop Gemini 断言 `inputTokens=11` 失败（实际 uncached=8，cache=3；自动隔离重试仍失败）。实现者遗漏了旧断言更新，不称基础噪声。`1f7adc17` 仅修测试：保留原 prompt 11 与 output 7，明确 8+3=11、总量 18、未知 cache write 不编造 0；本地该文件 22 项通过。原失败与后续独立候选分别登记于 wire 回执，不把原轮改记通过。
 
 NR-04 Context 首卡回执：`10c86bd7` 已推送，workspace 根 AGENTS/CLAUDE 通过原注册 Source 接入公开原生 exec；文件内容不能签发 Grant。正常/空/Unicode/截断/缺一文件的实际 TS Source 差分、真实变更中断/坏 UTF-8/超限保全、公开否决工具与同一待准入任务恢复、非普通文件 FIFO 不阻塞均已验证。Source 的共享截断 helper 修复了可复现的半个 surrogate，保留原失败。Provider Source 的 Host 目标值与现有 TUI 入口对齐为 channelId / selection id，独立于路由 family。完整 scoped：184 Rust、302 跨进程、79 TS 冷读（24 根）、157 Node focused、16 公开入口 Rust、8 PTY；7 指令 Source / 14 Provider Context 向量、13 共享 Source focused、build/clippy/架构通过。详见 [Context Source 证据](native-cli/evidence/p4-context-source-20261115.json)。CI 43618145086 尚在核对。当前只开放 workspace 根 Source；完整 catalog、配置/全局/显式目标子目录、计数压缩和外部协议仍未过 P4 总闸，不进入 P5。
+
+NR-04 usage 后续（实施前）：依 ADR 37/56/131 作 B 级观察完整性修复。`usage` 对象存在但缺输入或输出维度时，不能由默认 0 合成已知总量；仍可记录请求及完整结构化工具结果，但 Work budget 必须保留 unknownUsage，后续有 usage 的请求不能抹去该未知。不把供应商部分总量冒充完整 canonical 维度，不引入私有 ledger 或迁动持久化边界。完整 request/turn/lifetime 管线仍是独立待完成项。
+
+NR-04 Instructions 后续（实施前）：ADR pass 为 `55-shared-system-context-assembler.md`、`57-canonical-conversation-history-projector.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；B 级迁移既有 Source / Host Interface，边界不动。扩展同一 project.instructions 到 typed Host 配置、显式全局开关与显式 targetPaths 的有界发现；实际 TUI 默认不自动打开 global，原生遵守这一点。当前原生 exec 先准入只包含已迁移 prompt 设置的 settings.json，缺省语言和 branch prefix 对照现有 TUI；其它键仍在请求前阻断，损坏 / 新 schema / 非普通文件 / 读取变化保全并明确失败，不借读取重写设置或迁移项目身份。全局 / scoped Source 能力以实际差分测试单列，不把未装配的生产开关或显式目标输入算 Host 已完成。验收覆盖同根真实公开请求、configured guidance 不可授权、未知设置仍阻断、坏设置修正后同一待准入任务可继续，以及全局 / scope 发现次序、去重、越界、Unicode、总预算与取消前置。
+
+NR-04 CI / usage 跟进：`10c86bd7` 的 Linux 全仓 Test 与自动隔离重试均在旧 fixed-result CLI 复合用例超过 Bun 1.2.17 的单测试 5 秒缺省时限；macOS Test success、后续 smoke cancelled，原轮不记全绿。`ea7e8e4d` 将独立命令拆为 12 项自有夹具测试，保留原断言与每项时限，并新增同一引用清理前后身份断言。相同 CI Bun 版本本机 12 pass / 33 assertions；受控每次启动延迟 400ms 的替代复现中，原复合测试 5042ms 超时并终止一个自有子进程，拆分后全文件 8.06 秒 / 单项最长 1530ms 通过。该实验解释累计预算，不声称复现 Linux 调度现场。原生 `e6ae5561` 同时修正部分 usage 缺维度被当已知零的问题：真实工具请求后再有完整 usage，原 unknownUsage 仍保留。完整 scoped 为 186 Rust / 302 Store / 82 TS 冷读（25 根）/ 157 Node focused / 17 公开入口 / 8 PTY。历史部分原始 usage 未保存，不能从聚合预算重建缺失量；未改个人数据、重放请求或编造历史值。完整 request/turn/lifetime ledger 仍待完成。详见 [CI 与 usage 跟进证据](native-cli/evidence/p4-ci-and-usage-followup-20261115.json)。
+
+NR-04 Instructions 后续回执：`f6949bae` 固定了配置指导、显式 global / scoped Source 发现与原生 Host 的 prompt 设置子集。实际 TUI Host + TS Source 对同一自有文件的 28 项跨进程对照，包括真实绝对路径参与的 checksum；缺省值、九种回复语言、截断、路径/去重、显式目标和全局与 workspace 同路径均通过。公开 exec 的配置指导不能批准写入；未知设置、坏编码/JSON、错误类型与新 schema 保留原文件并阻断，修正后同一 ready task 继续；设置 FIFO 及时失败。全局仍默认关闭，尚未新增生产 global/target-path 开关，不把 Source seam 测试算全部 Host 发现已完成。完整 scoped：190 Rust / 302 Store / 91 TS 冷读（28 根）/ 157 Node focused / 19 公开入口 / 28 Source 跨进程 / 8 PTY，fmt/clippy/release/boundary/architecture 通过。详见 [Instructions 发现证据](native-cli/evidence/p4-instruction-discovery-20261115.json)。完整 Context catalog、计数压缩、durable usage 与外部协议继续属于 P4 总闸，P5 未开始。
+
+NR-04 远端总仓复核：`e6ae5561` 的 [CI 43622520379](https://github.com/ly-ccx/Peer-Agent/actions/runs/43622520379) Linux job 132531262083 与 macOS job 132531262439 全部 success，含 Native、全仓 build/type/architecture/Test 与各自 Bot Electron smoke。实际 CI merge `2549e2a0` 的 tree 与 e6 完全相同；macOS annotation 仅为 arm64 runner capacity notice，无失败。Source 新候选 `f6949bae` 已推送，独立 [CI 43624988490](https://github.com/ly-ccx/Peer-Agent/actions/runs/43624988490) 尚在运行，不能继承 e6 的全绿。原 Gemini 旧断言失败与 compound-test 超时均保留；本轮通过不抹除原失败。
