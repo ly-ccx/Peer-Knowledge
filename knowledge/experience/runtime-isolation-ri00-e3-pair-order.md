@@ -26,3 +26,16 @@
 117项聚焦测试初检通过。最初两个单元fixture因12份n/12的二进制浮点加和而使“恰好10”精确断言失败，原日志保留；改为可精确表示的分配输入并保持精确断言，所有性能门、真实输入与8ms判据不改。单元fixture的首点离群也保持root/Evidence/余部与实际间隔自洽；不把合成数据叫现场或机制证据。
 
 原设计预算仍保留runnable:false历史状态；只有同候选资格与技术绑定通过后才领取正式三Electron槽。授权来自用户本次明确执行指令。不会重开实际Peer，不启现场窗口、不重构。正式结果随后按原件封存，资格失败不转成可用性能结论。
+
+
+## 原接缝资格：功能通过，输出预算失败
+
+[原失败收据](../../playbook/evidence/runtime-isolation-ri00-e3-order-seam-failure-20261114.json)保留c4738164原件。专用Node按固定44根、4块及12hash完成，六场景和实际A/B顺序/间隔、owner/queue恢复通过，Profiler线上命令0；wall7492.619ms，完整子进程CPU516.179ms。但report为3416276B，加journal500622B及两个3B fixture共3916904B，超过执行前2MiB输出帽，**资格判失败**。原Node槽已消费，未追加Node或启动Electron。
+
+原因是报告把含完整record.batch.rows的reader返回值，同时经executed及target/conditioning字段重复序列化。原report的passed仅覆盖内部功能检查，父输出预算检查拒绝；不得用该内部布尔值冒称资格通过。所有原文件和费用保留。
+
+修正候选1c053c56把完整事实唯一保存在journal，报告仅引用host/ticket、边界、实际间隔与校准；显式在写report前判断2MiB，binding还必须验证父进程的实际输出字节门。用原始封存cell离线回放，40个引用均能回指原journal，投影总输出522907B；两个投影测试通过，原性能门和精确断言不改。该离线回放不是新Inspector资格。
+
+修正后的执行器还把原失败的unit1870.565ms与seam516.179ms合计2386.744ms准备CPU和旧输出保留字节计入同一原20秒aux/128MiB帽，不清零或删文件腾额。待补完整117+2同候选测试、额外一次仅Node的同候选接缝及生产数据绑定；三个正式Electron槽仍全数未用。
+
+额外一次Node资格已通过文本问题请求明确授权，收到答复前保持待定，不自行追加。若获授权，只有新候选1次、仍44合成根/30秒/2秒fixture读CPU/1MiB journal/2MiB总输出/零Profiler和零Electron；累计Node资格将如实记为2次（原失败1+新1），不伪称原一次额度内。正式三宿主/所有原性能门/预算不变，旧失败不转绿。
