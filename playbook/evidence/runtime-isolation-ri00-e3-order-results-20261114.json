@@ -1,0 +1,824 @@
+{
+  "kind": "RI00-ORDER-fixed-three-original-hosts-F0-refusal-no-treatment",
+  "date": "2026-11-14",
+  "originalProducer": "1c053c5672d23c9848f29e012ada72417128bf0d",
+  "analysisCandidate": "59288562d453c0ffdd5568d23ceff8e661579cc7",
+  "diagnosticSourceSha256": "1554782c1b54d1b7c0439a6dcac2950da40e6a7073a8e04a7383294305b88600",
+  "rawSha256": {
+    "campaign": "490683f6dd4e35018e9e9714d0afae5d7dca54d3a2ea0722b20e1c69b119beb4",
+    "journal": "ea74c42530f959f2147de3b007e10c1b28388963550f2459d6227cc7f1a0e5e0",
+    "audit": "9f02c004bc40dd40745ba477529a7fd74bc129d64b6f230d5c0f155d84e9e4fa",
+    "auditCost": "892eb963cdf0b838a2c83a2fc217d18fe7f31e58c492b7de59a0d9f4db565a26",
+    "recovery": "5305677e128092ede44a16ea600df7716f417bf75efaac0246932098e09a342e",
+    "controllerLog": "edf7268446d7cfc5065304228f8f0e4e23ff8d1ba4a7d3a59b6a26fe023d8f29"
+  },
+  "bindingSha256": "b29a72e793fcb4607bd18fc3a0734d34c37ab19e763d7bef470e93371a18b2a5",
+  "readySha256": "9bcd8b3637bec609219867b60760a8d512dbd506688dcdc09d30897771a24800",
+  "budgetSha256": "da0085f2c1b8b6b1bfd33ab6a90810288f759f237fb06093e91ff7b39b1fda44",
+  "analyzerSha256": "4e25a6a558815d1968a247061e2f6b103575c25de131d54da02a5ced1c7026b0",
+  "executionCompleted": true,
+  "fullABBA_BAABExecuted": false,
+  "controlsQualified": false,
+  "orderSensitivitySupported": false,
+  "counts": {
+    "ownedElectronHosts": 3,
+    "roots": 84,
+    "blocks": 6,
+    "hashCalls": 18,
+    "metricRoots": 48,
+    "completeTreatmentCells": 0,
+    "primaryContrasts": 0,
+    "allExternalPmcsReproducedFromRawBoundaries": 84,
+    "f0WarmBlocks": 6,
+    "f0WarmBlocksRejected": 5
+  },
+  "targets": [
+    {
+      "label": "order-target-1",
+      "order": "ABBA",
+      "f0": {
+        "gate": {
+          "identity": "4d0780556b2e528aeb12db2bd6ebc892a2ebf64f22176d2fe0f21ad70ee8d322",
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 292.54800000000006,
+              "median": 292.07450000000006,
+              "compatibleRange": 21.154999999999973
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 286.534,
+              "median": 286.534,
+              "compatibleRange": 15.738000000000056
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 278.39,
+              "median": 278.39,
+              "compatibleRange": 19.052999999999997
+            }
+          ],
+          "streak": 0,
+          "deltas": null
+        },
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          0.9956802493876643,
+          0.991538632821198
+        ],
+        "calibrationStable": true
+      },
+      "f0Blocks": [
+        {
+          "label": "order-target-1-F0-0",
+          "role": "target",
+          "arm": "F0",
+          "controllerBoundary": {
+            "host": "order-target-1",
+            "startedAtMs": 13765.036792,
+            "finishedAtMs": 20034.447959,
+            "startJournalSeq": 17,
+            "endJournalSeq": 31
+          },
+          "actualGaps": {
+            "gapsMs": [
+              170.79858400000012,
+              174.55466699999943,
+              171.36837500000001,
+              170.65220899999986,
+              172.25525000000016,
+              171.47020900000098,
+              198.65537500000028,
+              171.8388329999998,
+              171.2413749999996
+            ],
+            "minimumMs": 170.65220899999986,
+            "medianMs": 171.47020900000098,
+            "maximumMs": 198.65537500000028
+          },
+          "statistics": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 292.54800000000006,
+              "median": 292.07450000000006,
+              "compatibleRange": 21.154999999999973
+            },
+            "joint": {
+              "evidenceUserMs": 292.07450000000006,
+              "evidenceSystemMs": 4.054500000000001,
+              "evidenceTotalCpuMs": 296.129,
+              "rootUserMs": 405.14300000000003,
+              "rootSystemMs": 33.527,
+              "rootTotalCpuMs": 438.67,
+              "remainderUserMs": 113.06849999999997,
+              "remainderSystemMs": 29.4725,
+              "instructions": 8260351160.5,
+              "cycles": 1724615336.5
+            },
+            "anchors": [
+              {
+                "ticketId": 15,
+                "weight": 0.5,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0]]]"
+              },
+              {
+                "ticketId": 12,
+                "weight": 0.5,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "originalReadAndHashCountsVerifiedAgainstJournal": true
+        },
+        {
+          "label": "order-target-1-F0-1",
+          "role": "conditioning",
+          "arm": "F0",
+          "controllerBoundary": {
+            "host": "order-conditioning",
+            "startedAtMs": 20099.763334,
+            "finishedAtMs": 26189.702625,
+            "startJournalSeq": 32,
+            "endJournalSeq": 46
+          },
+          "actualGaps": {
+            "gapsMs": [
+              171.13075000000026,
+              171.7680419999997,
+              171.79783300000054,
+              171.2767079999976,
+              170.85874999999942,
+              169.17391700000007,
+              170.97325000000274,
+              170.31275000000096,
+              176.70458299999882
+            ],
+            "minimumMs": 169.17391700000007,
+            "medianMs": 171.13075000000026,
+            "maximumMs": 176.70458299999882
+          },
+          "statistics": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 286.534,
+              "median": 286.534,
+              "compatibleRange": 15.738000000000056
+            },
+            "joint": {
+              "evidenceUserMs": 286.534,
+              "evidenceSystemMs": 1.223,
+              "evidenceTotalCpuMs": 287.757,
+              "rootUserMs": 391.425,
+              "rootSystemMs": 29.403,
+              "rootTotalCpuMs": 420.82800000000003,
+              "remainderUserMs": 104.89100000000002,
+              "remainderSystemMs": 28.18,
+              "instructions": 8257901496,
+              "cycles": 1658410308
+            },
+            "anchors": [
+              {
+                "ticketId": 13,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "originalReadAndHashCountsVerifiedAgainstJournal": true
+        },
+        {
+          "label": "order-target-1-F0-2",
+          "role": "target",
+          "arm": "F0",
+          "controllerBoundary": {
+            "host": "order-target-1",
+            "startedAtMs": 26254.036584,
+            "finishedAtMs": 32336.8135,
+            "startJournalSeq": 47,
+            "endJournalSeq": 61
+          },
+          "actualGaps": {
+            "gapsMs": [
+              172.4928329999966,
+              170.31937499999913,
+              171.50112499999886,
+              172.03191700000025,
+              171.14379199999894,
+              170.41608300000007,
+              172.62541599999895,
+              169.0672080000004,
+              170.01070900000195
+            ],
+            "minimumMs": 169.0672080000004,
+            "medianMs": 171.14379199999894,
+            "maximumMs": 172.62541599999895
+          },
+          "statistics": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 278.39,
+              "median": 278.39,
+              "compatibleRange": 19.052999999999997
+            },
+            "joint": {
+              "evidenceUserMs": 278.39,
+              "evidenceSystemMs": 0.611,
+              "evidenceTotalCpuMs": 279.001,
+              "rootUserMs": 393.722,
+              "rootSystemMs": 28.239,
+              "rootTotalCpuMs": 421.96099999999996,
+              "remainderUserMs": 115.332,
+              "remainderSystemMs": 27.628,
+              "instructions": 8121634871,
+              "cycles": 1656116901
+            },
+            "anchors": [
+              {
+                "ticketId": 23,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "originalReadAndHashCountsVerifiedAgainstJournal": true
+        }
+      ],
+      "f0DescriptiveNormalization": [
+        {
+          "targetBlock": "order-target-1-F0-0",
+          "components": {
+            "evidenceUserMs": 5.5405000000000655,
+            "evidenceSystemMs": 2.831500000000001,
+            "evidenceTotalCpuMs": 8.372000000000014,
+            "rootUserMs": 13.718000000000018,
+            "rootSystemMs": 4.124000000000002,
+            "rootTotalCpuMs": 17.841999999999985,
+            "remainderUserMs": 8.177499999999952,
+            "remainderSystemMs": 1.2925000000000004,
+            "instructions": 2449664.5,
+            "cycles": 66205028.5
+          },
+          "descriptiveOnly": true,
+          "notReplacementForOriginalF0Deltas": true
+        },
+        {
+          "targetBlock": "order-target-1-F0-2",
+          "components": {
+            "evidenceUserMs": -8.144000000000005,
+            "evidenceSystemMs": -0.6120000000000001,
+            "evidenceTotalCpuMs": -8.756000000000029,
+            "rootUserMs": 2.2969999999999686,
+            "rootSystemMs": -1.163999999999998,
+            "rootTotalCpuMs": 1.1329999999999245,
+            "remainderUserMs": 10.440999999999974,
+            "remainderSystemMs": -0.5519999999999996,
+            "instructions": -136266625,
+            "cycles": -2293407
+          },
+          "descriptiveOnly": true,
+          "notReplacementForOriginalF0Deltas": true
+        }
+      ],
+      "cellsExecuted": 0,
+      "treatmentBlocks": [],
+      "result": {
+        "controlsQualified": false,
+        "reason": "original-F0-fast-bracket-rejected"
+      }
+    },
+    {
+      "label": "order-target-2",
+      "order": "BAAB",
+      "f0": {
+        "gate": {
+          "identity": "4d0780556b2e528aeb12db2bd6ebc892a2ebf64f22176d2fe0f21ad70ee8d322",
+          "status": "waiting-baseline",
+          "reason": "unmatched_gc_state_or_unstable_warm",
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 5,
+              "fullWarmMedian": 271.64300000000003,
+              "median": 271.39200000000005,
+              "compatibleRange": 6.90199999999993
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 276.264,
+              "median": 276.264,
+              "compatibleRange": 20.20500000000004
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.35,
+              "median": 273.35,
+              "compatibleRange": 15.597999999999956
+            }
+          ],
+          "streak": 0,
+          "deltas": null
+        },
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          1.0019708846584547,
+          1.0041209406494962
+        ],
+        "calibrationStable": true
+      },
+      "f0Blocks": [
+        {
+          "label": "order-target-2-F0-0",
+          "role": "target",
+          "arm": "F0",
+          "controllerBoundary": {
+            "host": "order-target-2",
+            "startedAtMs": 38076.91175,
+            "finishedAtMs": 44037.268167,
+            "startJournalSeq": 70,
+            "endJournalSeq": 84
+          },
+          "actualGaps": {
+            "gapsMs": [
+              169.94587499999943,
+              170.4895830000005,
+              170.86524999999983,
+              170.73449999999957,
+              171.18683299999975,
+              171.7009999999991,
+              170.56341599999905,
+              169.98370799999975,
+              174.14304099999936
+            ],
+            "minimumMs": 169.94587499999943,
+            "medianMs": 170.73449999999957,
+            "maximumMs": 174.14304099999936
+          },
+          "statistics": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 5,
+              "fullWarmMedian": 271.64300000000003,
+              "median": 271.39200000000005,
+              "compatibleRange": 6.90199999999993
+            },
+            "joint": {
+              "evidenceUserMs": 271.39200000000005,
+              "evidenceSystemMs": 1.7670000000000001,
+              "evidenceTotalCpuMs": 273.15900000000005,
+              "rootUserMs": 373.243,
+              "rootSystemMs": 28.412,
+              "rootTotalCpuMs": 401.655,
+              "remainderUserMs": 101.85099999999994,
+              "remainderSystemMs": 26.645,
+              "instructions": 8117711649,
+              "cycles": 1588094686
+            },
+            "anchors": [
+              {
+                "ticketId": 13,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "originalReadAndHashCountsVerifiedAgainstJournal": true
+        },
+        {
+          "label": "order-target-2-F0-1",
+          "role": "conditioning",
+          "arm": "F0",
+          "controllerBoundary": {
+            "host": "order-conditioning",
+            "startedAtMs": 44099.870334,
+            "finishedAtMs": 50145.165,
+            "startJournalSeq": 85,
+            "endJournalSeq": 99
+          },
+          "actualGaps": {
+            "gapsMs": [
+              170.96004100000573,
+              170.41775000000052,
+              171.5570000000007,
+              173.2549579999977,
+              170.50475000000006,
+              170.97050000000309,
+              172.55562500000087,
+              169.42124999999942,
+              171.11766699999862
+            ],
+            "minimumMs": 169.42124999999942,
+            "medianMs": 170.97050000000309,
+            "maximumMs": 173.2549579999977
+          },
+          "statistics": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 276.264,
+              "median": 276.264,
+              "compatibleRange": 20.20500000000004
+            },
+            "joint": {
+              "evidenceUserMs": 276.264,
+              "evidenceSystemMs": 3.2200000000000006,
+              "evidenceTotalCpuMs": 279.48400000000004,
+              "rootUserMs": 379.481,
+              "rootSystemMs": 30.331,
+              "rootTotalCpuMs": 409.812,
+              "remainderUserMs": 103.21699999999998,
+              "remainderSystemMs": 27.110999999999997,
+              "instructions": 8220869729,
+              "cycles": 1625641538
+            },
+            "anchors": [
+              {
+                "ticketId": 21,
+                "weight": 1,
+                "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "originalReadAndHashCountsVerifiedAgainstJournal": true
+        },
+        {
+          "label": "order-target-2-F0-2",
+          "role": "target",
+          "arm": "F0",
+          "controllerBoundary": {
+            "host": "order-target-2",
+            "startedAtMs": 50209.6225,
+            "finishedAtMs": 56161.527,
+            "startJournalSeq": 100,
+            "endJournalSeq": 114
+          },
+          "actualGaps": {
+            "gapsMs": [
+              172.77454099999886,
+              171.1871659999997,
+              171.22862499999974,
+              171.98804199999722,
+              170.35962500000096,
+              169.7455829999999,
+              173.1762090000011,
+              171.1885000000002,
+              172.27329200000167
+            ],
+            "minimumMs": 169.7455829999999,
+            "medianMs": 171.22862499999974,
+            "maximumMs": 173.1762090000011
+          },
+          "statistics": {
+            "summary": {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 273.35,
+              "median": 273.35,
+              "compatibleRange": 15.597999999999956
+            },
+            "joint": {
+              "evidenceUserMs": 273.35,
+              "evidenceSystemMs": 1.632,
+              "evidenceTotalCpuMs": 274.982,
+              "rootUserMs": 386.761,
+              "rootSystemMs": 29.961,
+              "rootTotalCpuMs": 416.72200000000004,
+              "remainderUserMs": 113.411,
+              "remainderSystemMs": 28.328999999999997,
+              "instructions": 8161818686,
+              "cycles": 1631810745
+            },
+            "anchors": [
+              {
+                "ticketId": 22,
+                "weight": 1,
+                "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+              }
+            ],
+            "notMarginalComponentMedians": true
+          },
+          "originalReadAndHashCountsVerifiedAgainstJournal": true
+        }
+      ],
+      "f0DescriptiveNormalization": [
+        {
+          "targetBlock": "order-target-2-F0-0",
+          "components": {
+            "evidenceUserMs": -4.871999999999957,
+            "evidenceSystemMs": -1.4530000000000005,
+            "evidenceTotalCpuMs": -6.324999999999989,
+            "rootUserMs": -6.2379999999999995,
+            "rootSystemMs": -1.9190000000000005,
+            "rootTotalCpuMs": -8.157000000000039,
+            "remainderUserMs": -1.3660000000000423,
+            "remainderSystemMs": -0.4659999999999975,
+            "instructions": -103158080,
+            "cycles": -37546852
+          },
+          "descriptiveOnly": true,
+          "notReplacementForOriginalF0Deltas": true
+        },
+        {
+          "targetBlock": "order-target-2-F0-2",
+          "components": {
+            "evidenceUserMs": -2.9139999999999873,
+            "evidenceSystemMs": -1.5880000000000007,
+            "evidenceTotalCpuMs": -4.5020000000000095,
+            "rootUserMs": 7.28000000000003,
+            "rootSystemMs": -0.370000000000001,
+            "rootTotalCpuMs": 6.910000000000025,
+            "remainderUserMs": 10.194000000000017,
+            "remainderSystemMs": 1.218,
+            "instructions": -59051043,
+            "cycles": 6169207
+          },
+          "descriptiveOnly": true,
+          "notReplacementForOriginalF0Deltas": true
+        }
+      ],
+      "cellsExecuted": 0,
+      "treatmentBlocks": [],
+      "result": {
+        "controlsQualified": false,
+        "reason": "original-F0-fast-bracket-rejected"
+      }
+    }
+  ],
+  "campaign": {
+    "controlsQualified": false,
+    "orderSensitivitySupported": false,
+    "rawContrastsMs": [],
+    "fixedEffectCriterionPassed": false,
+    "notFieldCause": true
+  },
+  "actualWithinBlockGaps": {
+    "count": 54,
+    "minimumMs": 169.0672080000004,
+    "maximumMs": 198.65537500000028,
+    "valuesMs": [
+      170.79858400000012,
+      174.55466699999943,
+      171.36837500000001,
+      170.65220899999986,
+      172.25525000000016,
+      171.47020900000098,
+      198.65537500000028,
+      171.8388329999998,
+      171.2413749999996,
+      171.13075000000026,
+      171.7680419999997,
+      171.79783300000054,
+      171.2767079999976,
+      170.85874999999942,
+      169.17391700000007,
+      170.97325000000274,
+      170.31275000000096,
+      176.70458299999882,
+      172.4928329999966,
+      170.31937499999913,
+      171.50112499999886,
+      172.03191700000025,
+      171.14379199999894,
+      170.41608300000007,
+      172.62541599999895,
+      169.0672080000004,
+      170.01070900000195,
+      169.94587499999943,
+      170.4895830000005,
+      170.86524999999983,
+      170.73449999999957,
+      171.18683299999975,
+      171.7009999999991,
+      170.56341599999905,
+      169.98370799999975,
+      174.14304099999936,
+      170.96004100000573,
+      170.41775000000052,
+      171.5570000000007,
+      173.2549579999977,
+      170.50475000000006,
+      170.97050000000309,
+      172.55562500000087,
+      169.42124999999942,
+      171.11766699999862,
+      172.77454099999886,
+      171.1871659999997,
+      171.22862499999974,
+      171.98804199999722,
+      170.35962500000096,
+      169.7455829999999,
+      173.1762090000011,
+      171.1885000000002,
+      172.27329200000167
+    ],
+    "allAtLeast150ms": true,
+    "crossHostClocksNeverSubtracted": true
+  },
+  "allRootAccounting": {
+    "evidenceUserMs": 24415.567999999996,
+    "evidenceSystemMs": 441.29100000000005,
+    "evidenceTotalCpuMs": 24856.858999999997,
+    "rootUserMs": 37171.633,
+    "rootSystemMs": 3738.7059999999997,
+    "rootTotalCpuMs": 40910.33899999999,
+    "remainderUserMs": 12756.065000000004,
+    "remainderSystemMs": 3297.415,
+    "instructions": 779648645418,
+    "cycles": 160824671230
+  },
+  "cost": {
+    "readCpuMs": 41274.209,
+    "hashCpuMs": 403.575,
+    "wallMs": 57599.1745,
+    "controllerRuntimeCpuMs": 2716.727,
+    "counterCpuMs": 127.47200000000001,
+    "preparationCpuMs": 5885.057000000001,
+    "controllerAuxChargedMs": 13729.261,
+    "outputBytesIncludingRetainedPreparation": 10227541,
+    "journalBytes": 3138839
+  },
+  "qualification": {
+    "sameCandidateUnitTests": 119,
+    "originalDedicatedNodeFailurePreserved": true,
+    "additionalNodeExplicitlyAuthorized": true,
+    "totalDedicatedNodeRuns": 2,
+    "newDedicatedNodePassed": true,
+    "newNodeOutputBytes": 522964,
+    "originalOutputCapBytes": 2097152,
+    "allOriginalCapsUnchanged": true,
+    "allPreparationChargedIncludingFailedAttempt": 5885.057000000001,
+    "preparationOutputBytes": 4564063
+  },
+  "recovery": {
+    "hosts": [
+      {
+        "label": "order-conditioning",
+        "roots": 28,
+        "controlledCpuMs": 13720.079999999996,
+        "recordedRootCpuMs": 13720.079999999996,
+        "auditCpuMs": 125.959,
+        "nativeCpuMs": 134.56900000000002,
+        "probeCpuMs": 25.49400000000817,
+        "closed": true,
+        "restored": true,
+        "semanticAuditMatched": true,
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 178,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        }
+      },
+      {
+        "label": "order-target-1",
+        "roots": 28,
+        "controlledCpuMs": 13984.732,
+        "recordedRootCpuMs": 13984.732,
+        "auditCpuMs": 119.672,
+        "nativeCpuMs": 134.21499999999997,
+        "probeCpuMs": 25.295999999984637,
+        "closed": true,
+        "restored": true,
+        "semanticAuditMatched": true,
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 178,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        }
+      },
+      {
+        "label": "order-target-2",
+        "roots": 28,
+        "controlledCpuMs": 13205.527000000002,
+        "recordedRootCpuMs": 13205.527000000002,
+        "auditCpuMs": 118.239,
+        "nativeCpuMs": 134.791,
+        "probeCpuMs": 24.853999999995526,
+        "closed": true,
+        "restored": true,
+        "semanticAuditMatched": true,
+        "transport": {
+          "forbidProfiler": true,
+          "wireCounts": {
+            "Runtime.evaluate": 3,
+            "Runtime.enable": 1,
+            "Runtime.callFunctionOn": 178,
+            "Runtime.addBinding": 1,
+            "Runtime.removeBinding": 1,
+            "Runtime.releaseObjectGroup": 1
+          },
+          "deniedCounts": {}
+        }
+      }
+    ],
+    "ownedElectronProcessesGone": true,
+    "dedicatedDiagnosticPortsClosed": 5,
+    "allDedicatedPortsRefused": true,
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false,
+    "sourceCopy": {
+      "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "files": 8534,
+      "fences": 1
+    },
+    "productionIdentityUnchanged": true,
+    "metadataDropped": 0,
+    "sourceWritesDenied": 0,
+    "unacknowledgedRetainedBytes": 0,
+    "allThreeSemanticAuditsMatched": true
+  },
+  "ledger": {
+    "priorActualOwnedApps": 35,
+    "newActualOwnedApps": 3,
+    "totalActualOwnedApps": 38,
+    "priorKnownProductReadCpuLowerMs": 510790.475,
+    "newProductReadCpuMs": 41274.209,
+    "totalKnownProductReadCpuLowerMs": 552064.684,
+    "earlierCUnknownRetained": true,
+    "replacements": 0,
+    "oldFailedAndUnusedSlotsNotReused": true
+  },
+  "validation": {
+    "unitCandidate": "1c053c5672d23c9848f29e012ada72417128bf0d",
+    "focusedTestsPassed": 119,
+    "originalF0AndResultGatesReplayed": true,
+    "all84RawExternalPmcsReproduced": true,
+    "completeBlockDurableOrderAndHashCountsVerified": true,
+    "rawJointCpuComponentsReconciled": true,
+    "offlineAuditorFullProcessCpuMs": 72.20299999999999,
+    "offlineAuditorWallMs": 73.669417,
+    "syntaxAndDiff": true,
+    "review": "implementer-self-review",
+    "ci": {
+      "analysisCandidate": "59288562d453c0ffdd5568d23ceff8e661579cc7",
+      "workflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    },
+    "notRun": [
+      "order treatment cells after F0 refusals",
+      "product full build/release",
+      "new actual Peer field window"
+    ]
+  },
+  "scope": {
+    "F0RejectedBoth": true,
+    "notValidNegativeOrderEvidence": true,
+    "noQualifiedEffectComparison": true,
+    "noProfilerWireCommands": true,
+    "noNewNativeCounterLibrary": true,
+    "noNaturalFieldResidualFormation": true,
+    "noOld30to40msMechanismReproduction": true,
+    "original3point95secondGapRetained": true,
+    "RI00Closed": false,
+    "refactorStarted": false
+  }
+}
