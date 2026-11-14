@@ -115,3 +115,5 @@ writer 屏障回执：源码 `6a729852e4a8272005a31fcaff2ea5a4fe4e0a91`；本地
 保留 fixture 首次误用不存在的 lease.epoch 方法、clippy 的 unused import / manual_contains 失败，修正为读取真实 diagnosticSnapshot 并沿 Host 的 hostId:acquiredAt epoch；未替换成总为 true 的租约。hash/copy 每 256 KiB 检查取消 / 所有权，源扫描上限 2 GiB，元数据有独立预算。Host 仍须串行 prepare、维持 heartbeat 并完成 canonical v2 reducer/head/hash chain 校验后才可调用此 promotion；当前尚无这条原生生产装配，AlreadyProtected 只描述物理屏障，不证明任务已恢复。详见 [结构化回执](native-cli/evidence/p2-writer-fence-20261114.json)。当前新候选 [CI 43568584797](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797) 两平台仍 in_progress；不能沿用前一候选的原生 step success。
 
 ADR pass 补充：131 §1 原先笼统写“ADR 104 未接受”，已按同号文件名澄清：未接受的是 bot-capability-visibility，已接受的 progressive storage / writer fence 继续保留；map 同步记录。仅消除歧义，既有边界未变更。此前 Reader 量测仍绑定其回执中的实际源码 / 二进制，不挪用为本次新 Store 二进制的量测。
+
+后续实际查询确认：`6a729852` 的 Linux job [132367759976](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797/job/132367759976) 与 macOS job [132367759772](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797/job/132367759772) 的 `Native CLI scoped validation` 均 success，包含本次新增 writer fence / 85 Rust / 78 跨进程用例。全仓 CI job 仍 in_progress；未运行完整发布或安装版验收。
