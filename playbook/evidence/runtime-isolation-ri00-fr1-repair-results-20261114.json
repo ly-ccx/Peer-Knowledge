@@ -1,0 +1,361 @@
+{
+  "kind": "FR1-repair-failures-and-offline-compact-candidate",
+  "date": "2026-11-14",
+  "currentCandidate": "63bd98bd8ae04b34d9112d1b4f92a5fa0cd53a24",
+  "sourceSha256": "34bc228ef27dacfdf36e5051cdaffb801c5877566066edf4706a59ef599ab938",
+  "testsSha256": "95a380c42fc4e2483c207fd2c3f9a5787f5af2da105f2a81f446d72345d955e8",
+  "privateArtifacts": [
+    {
+      "privateLabel": "fr1-repair-20261114/tests.private.json",
+      "sha256": "684238e574e17debe364f61730c08b0977d89b95650202e705095ee4c275801d",
+      "bytes": 804
+    },
+    {
+      "privateLabel": "fr1-repair-20261114/unit-cost.private.json",
+      "sha256": "8983e9154485f1b462faced4e9748083dbba8ec87ee538b159a126af1e0b5b5e",
+      "bytes": 166
+    },
+    {
+      "privateLabel": "fr1-repair-20261114/qualification/report.private.json",
+      "sha256": "f2b17982c651e09d264caeb113e81967d7d86c2ae5ca4dbbea58581419e0a1bb",
+      "bytes": 19417
+    },
+    {
+      "privateLabel": "fr1-repair-20261114/qualification/history.private.jsonl",
+      "sha256": "569e5cebeda37fe170b89ee5c997b4bdb9fc00144250d4510e8cce12c7478870",
+      "bytes": 33103
+    },
+    {
+      "privateLabel": "fr1-repair-20261114/qualification-cost.private.json",
+      "sha256": "19b42338e6d03223b0081880f9ae35edf251506b81103352185c3033f41a7d75",
+      "bytes": 395
+    },
+    {
+      "privateLabel": "fr1-native-repair-20261114/tests.private.json",
+      "sha256": "5c15b1190784991a6f60e6d7a7d0fc6dee898ea3494e14d5db9a8779d5bd36a6",
+      "bytes": 834
+    },
+    {
+      "privateLabel": "fr1-native-repair-20261114/unit-cost.private.json",
+      "sha256": "d1e8f5fac0c00e1d0515b16661a084bd7bea3d04aebe68c6abde6778f61d3f9d",
+      "bytes": 166
+    },
+    {
+      "privateLabel": "fr1-native-repair-20261114/qualification/report.private.json",
+      "sha256": "58fd859d8cf78963709f60ab19dea2b194353f89cde9b1da5396d75bc85056a7",
+      "bytes": 19422
+    },
+    {
+      "privateLabel": "fr1-native-repair-20261114/qualification/history.private.jsonl",
+      "sha256": "ebd192d52c83779be7a0989fc59c3ba2dfb2119bcf55ed17e63e43216e09f3d7",
+      "bytes": 44246
+    },
+    {
+      "privateLabel": "fr1-native-repair-20261114/qualification-cost.private.json",
+      "sha256": "3cfa0e286199d95c9278535068b0f5f47f956fbfde08c90fb2cabb252ecc8114",
+      "bytes": 412
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/tests.private.json",
+      "sha256": "95a380c42fc4e2483c207fd2c3f9a5787f5af2da105f2a81f446d72345d955e8",
+      "bytes": 829
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/unit-cost.private.json",
+      "sha256": "998abf629779ded4db73fba3c62baff9075f2ad789e1b06a2c06f2b81f9bef14",
+      "bytes": 166
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/sealed-audit.private.json",
+      "sha256": "63dc2f734c30402ebf458742d44199817aff6e3f415be6ead941b7cdfe0e6250",
+      "bytes": 3068
+    }
+  ],
+  "previousAndCurrentFailures": [
+    {
+      "candidate": "39636570358c1d65316176ac1fdb26fb6a055156",
+      "reportSha256": "ac1af648ccf8fe63a5a2f297da87656a292d9a91b1dc72d26909d4a6200d8c3a",
+      "journalSha256": "04805b2e6bc7d020e51a843548aaee8084e81bf7d4c6660bedbf8c40f4e171f8",
+      "history": {
+        "chunks": 2,
+        "records": 23,
+        "noGaps": true,
+        "allAcked": true
+      },
+      "charge": {
+        "rootPreCpuMs": 0.22000000000025466,
+        "rootPostCpuMs": 0.47100000000000364,
+        "spanSelfCpuMs": 1.334000000001197,
+        "planCounterWallUpperMs": 0.21584600000096543,
+        "keepCpuMs": 0.012999999999919964,
+        "conservativeChargeMs": 2.2538460000023406
+      },
+      "root": {
+        "userMs": 411.761,
+        "systemMs": 35.583,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "planCalls": 3859,
+        "evidencePasses": 12
+      },
+      "recovery": {
+        "allOwners": true,
+        "binding": true,
+        "unackedBytes": 0,
+        "ownedExit": 0,
+        "portClosed": true
+      },
+      "readCpuMs": 2462.825,
+      "queryCalls": 2
+    },
+    {
+      "candidate": "eb1de652be11048d7eea49e3105a966d4351b7cf",
+      "reportSha256": "f2b17982c651e09d264caeb113e81967d7d86c2ae5ca4dbbea58581419e0a1bb",
+      "journalSha256": "569e5cebeda37fe170b89ee5c997b4bdb9fc00144250d4510e8cce12c7478870",
+      "history": {
+        "chunks": 2,
+        "records": 23,
+        "noGaps": true,
+        "allAcked": true
+      },
+      "charge": {
+        "rootPreCpuMs": 0.27700000000004366,
+        "rootPostCpuMs": 0.543999999999869,
+        "spanSelfCpuMs": 1.4660000000003492,
+        "planCounterWallUpperMs": 0.2855510000108552,
+        "keepCpuMs": 0.01499999999987267,
+        "conservativeChargeMs": 2.58755100001099
+      },
+      "root": {
+        "userMs": 469.491,
+        "systemMs": 41.087,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "planCalls": 3859,
+        "evidencePasses": 12
+      },
+      "recovery": {
+        "allOwners": true,
+        "binding": true,
+        "unackedBytes": 0,
+        "ownedExit": 0,
+        "portClosed": true
+      },
+      "readCpuMs": 2913.963,
+      "queryCalls": 2
+    },
+    {
+      "candidate": "d166929f343f23dd4bb378aa665400b035079c40",
+      "reportSha256": "58fd859d8cf78963709f60ab19dea2b194353f89cde9b1da5396d75bc85056a7",
+      "journalSha256": "ebd192d52c83779be7a0989fc59c3ba2dfb2119bcf55ed17e63e43216e09f3d7",
+      "history": {
+        "chunks": 2,
+        "records": 23,
+        "noGaps": true,
+        "allAcked": true
+      },
+      "charge": {
+        "rootPreCpuMs": 0.2339999999999236,
+        "rootPostCpuMs": 0.5360000000000582,
+        "spanSelfCpuMs": 1.3049999999993815,
+        "planCounterWallUpperMs": 0.24998500001902357,
+        "keepCpuMs": 0.012000000000170985,
+        "conservativeChargeMs": 2.336985000018558
+      },
+      "root": {
+        "userMs": 426.711,
+        "systemMs": 36.555,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "planCalls": 3859,
+        "evidencePasses": 12
+      },
+      "recovery": {
+        "allOwners": true,
+        "binding": true,
+        "unackedBytes": 0,
+        "ownedExit": 0,
+        "portClosed": true
+      },
+      "readCpuMs": 2433.391,
+      "queryCalls": 2
+    }
+  ],
+  "studies": [
+    {
+      "name": "fr1-repair-stack-study-20261114",
+      "reportSha256": "62dec94aeca8c2f85165c80244b792fb31d9a24d10e3437312b4da78bb3bbf9f",
+      "cost": {
+        "exitCode": 0,
+        "wallMs": 102.78225,
+        "userMs": 69.32900000000001,
+        "systemMs": 10.494,
+        "cpuMs": 79.82300000000001,
+        "ownedElectronLaunches": 0,
+        "productReads": 0
+      },
+      "groups": {
+        "string": {
+          "captures": 960,
+          "cpuMs": 20.259999999999987,
+          "depths": [
+            30,
+            30
+          ]
+        },
+        "structured": {
+          "captures": 960,
+          "cpuMs": 23.617999999999995,
+          "depths": [
+            30,
+            30
+          ]
+        }
+      },
+      "fidelity": null,
+      "notProductCause": true
+    },
+    {
+      "name": "fr1-clock-study-20261114",
+      "reportSha256": "4f4aabf7a01c65e912c089e532972e8061de216f8468a63122cb1f9199b157b3",
+      "cost": {
+        "exitCode": 0,
+        "wallMs": 119.956459,
+        "userMs": 98.29599999999999,
+        "systemMs": 19.706,
+        "cpuMs": 118.002,
+        "electronHosts": 0,
+        "productQueries": 0
+      },
+      "groups": {
+        "six": {
+          "iterations": 1200,
+          "cpuMs": 28.665,
+          "cpuPerSpanMs": 0.0238875,
+          "userMs": 23.906,
+          "systemMs": 4.759,
+          "chargePerSpanMs": 0.01958833333333327
+        },
+        "four": {
+          "iterations": 1200,
+          "cpuMs": 25.719,
+          "cpuPerSpanMs": 0.0214325,
+          "userMs": 22.258,
+          "systemMs": 3.4610000000000003,
+          "chargePerSpanMs": 0.019279166666666275
+        },
+        "wall": {
+          "iterations": 1440,
+          "cpuMs": 30.330000000000002,
+          "cpuPerSpanMs": 0.0210625,
+          "userMs": 27.125999999999998,
+          "systemMs": 3.204,
+          "chargePerSpanMs": 0.022374471527777582
+        }
+      },
+      "fidelity": null,
+      "notProductCause": true
+    },
+    {
+      "name": "fr1-callsite-study-20261114",
+      "reportSha256": "2dde139a60f7d290810e3445c7aa7c104808e9af0c5c44fe7ac585c70826993d",
+      "cost": {
+        "exitCode": 0,
+        "wallMs": 73.237417,
+        "cpuMs": 76.327,
+        "electronHosts": 0,
+        "productReads": 0
+      },
+      "groups": {
+        "error": {
+          "captures": 960,
+          "cpuMs": 22.144000000000002,
+          "cpuPerCaptureMs": 0.02306666666666667,
+          "userMs": 21.619,
+          "systemMs": 0.525
+        },
+        "native": {
+          "captures": 960,
+          "cpuMs": 18.368000000000002,
+          "cpuPerCaptureMs": 0.019133333333333336,
+          "userMs": 18.153,
+          "systemMs": 0.21500000000000002
+        }
+      },
+      "fidelity": {
+        "error": {
+          "depth": 30,
+          "currentCallerFrames": 25
+        },
+        "native": {
+          "depth": 28,
+          "currentCallerFrames": 25
+        }
+      },
+      "notProductCause": true
+    }
+  ],
+  "compaction": {
+    "all7StackPresentationsByteEqual": true,
+    "allFramesAndIdsRetained": true,
+    "uniqueStacks": 7,
+    "scriptIdentities": 14,
+    "rootAndSpanCaptures": 13,
+    "oldSignatureBytes": 77437,
+    "compactSignatureBytes": 10637,
+    "signatureBytesReductionFraction": 0.8626367240466444,
+    "oldUniqueStackBytes": 35019,
+    "compactUniqueStackBytes": 4625,
+    "scriptDictionaryBytes": 1257,
+    "bytesAreSerializationWorkNotCpuAttribution": true
+  },
+  "candidateValidation": {
+    "unitTestsPassed": 24,
+    "cost": {
+      "exitCode": 0,
+      "wallMsThroughReap": 2097.343375,
+      "fullChildSubtreeUserMs": 543.545,
+      "fullChildSubtreeSystemMs": 681.4789999999999,
+      "fullChildSubtreeCpuMs": 1225.024
+    },
+    "productionSha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+    "fixture": {
+      "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "files": 8534,
+      "fences": 1
+    },
+    "functionalElectronRuns": 0,
+    "functionalPassed": false,
+    "qualificationStatus": "not executed; awaiting explicit additional-slot decision",
+    "fieldReady": false
+  },
+  "knownMechanismLimits": [
+    "Error representation study did not support generic structured-stack speedup",
+    "clock study saved about0.034ms per12: not enough to explain overrun",
+    "native Error and builtin tests use distinct fresh functional processes: root CPU differed; do not causally attribute their charge difference",
+    "compact candidate removes measured serialization bytes losslessly, not yet measured additional CPU or low-interference neutrality",
+    "native capture is synchronous JS only; mapped ALS parents explicit, native and unmapped async tails not invented"
+  ],
+  "ledger": {
+    "diagnosticOwnedBeforeThisRepair": 42,
+    "newDiagnosticOwned": 2,
+    "diagnosticOwnedAfter": 44,
+    "separateManualUserRequestedDevelopmentStarts": 1,
+    "knownControlledElectronStartsTotal": 45,
+    "knownReadCpuLowerBeforeMs": 637581.814,
+    "newFunctionalReadCpuMs": 5347.354,
+    "knownReadCpuLowerAfterMs": 642929.168,
+    "olderCUnknownRetained": true,
+    "twoActualFunctionalFailuresNotReplaced": true,
+    "compactCandidateAdditionalHostNotStarted": true
+  },
+  "actualDev": {
+    "sameProcessPreserved": true,
+    "extraBusinessQueries": 0,
+    "referenceHosts": 0,
+    "restarts": 0,
+    "InspectorAttachments": 0,
+    "profilerStarts": 0,
+    "naturalTransitionsCaptured": 0
+  },
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "original3950msEvidenceGapRetained": true
+}
