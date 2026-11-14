@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-14 150/0执行前绑定：[执行器、同候选数据与接缝验证](../knowledge/experience/runtime-isolation-ri00-e3-cadence.md)、[绑定收据](evidence/runtime-isolation-ri00-e3-cadence-binding-20261114.json)。98项聚焦测试及真实Node Inspector接缝通过，零Electron/零Profiler线上命令；原三宿主ABBA/BAAB与预算不变，正式结果随后封存。
+
 2026-11-14 P2封存拆解：[两处暖极差、返回漂移及新单变量设计](../knowledge/experience/runtime-isolation-ri00-e3-p2-variation.md)、[审计收据](evidence/runtime-isolation-ri00-e3-p2-variation-results-20261114.json)、[150/0等待预算](evidence/runtime-isolation-ri00-e3-cadence-budget-20261114.json)。15.377/16.283ms已拆成逐遍与全根工作/速率记账；16.283ms对应全根指令仅+0.010757%，不等于物理频率证据。−2.1535ms用户漂移由target−2.1755、reference−0.022组成，内核变化相抵后合计+0.352ms，不能换门追认通过。下一轮零Profiler，仅target额外等待150/0，固定ABBA/BAAB、原F0/15ms/2ms门，3宿主/244根/200秒读CPU/15分钟预算已冻结但不可直接执行，需绑定runner候选；本轮零新读取/宿主，原P2失败与现场/机制门不变。
 
 2026-11-14 P2：[返回覆盖、同候选P0B与固定三宿主实测](../knowledge/experience/runtime-isolation-ri00-e3-p2-return-audit.md)、[新预算](evidence/runtime-isolation-ri00-e3-p2-budget-20261114.json)、[结果收据](evidence/runtime-isolation-ri00-e3-p2-results-20261114.json)。覆盖40根/12hash/40等待/清理审计通过后，fce27eb2的P0B六场景通过，新预算再冻结；三宿主无替换、104根/69.614秒结束。target1原15.377ms入场拒绝；target2完整OFF/ON/OFF，1ms profile三时钟宽1.633ms/96遍最少15样本，结构门通过，但返回reference16.283ms与差额漂移2.1535ms拒绝性能资格。0.540ms开销公式不能当合格结果。所有owner/进程/端口/副本恢复，累计实际owned32；未采到现场形成或机制，不重构。
