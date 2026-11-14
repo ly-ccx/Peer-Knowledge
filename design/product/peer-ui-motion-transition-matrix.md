@@ -870,9 +870,11 @@ NR-04（2026-11-15，`84007b83`）：四种基本模型 wire 复用 T06/T10 静�
 
 NR-04 Context（2026-11-15，`10c86bd7`）：workspace 根项目指导由 Host 的已注册 Source 呈现，不新增 UI/动效（N/A），不改变用户批准、草稿、焦点和阅读锚点。错误不伪造工具结果；超限阻断后的同待准入任务重试保留身份。7 Source / 14 Provider Context 向量、公开真实否决与恢复、FIFO 进程界限、8 PTY 的精确候选与限制见 [Context 证据](../../playbook/native-cli/evidence/p4-context-source-20261115.json)。Source 截断不生成半个 Unicode 字符；真实终端视觉、物理 IME、读屏与安装仍非本卡覆盖。
 
-## 原生 CLI NR-03 的静态执行与恢复（2026-11-14）
-
 NR-04 Instructions（2026-11-15，`f6949bae`）：配置读取失败的静态反馈说明原文件保留、未调用模型和同一待执行任务的修正重试路径；不创建授权、执行成功或新任务身份。T06/T10 仍无动画（motion N/A），草稿、焦点与阅读位置不变。配置指导真实否决、坏配置恢复、Source 路径/哈希对照和 FIFO/终端恢复见 [发现证据](../../playbook/native-cli/evidence/p4-instruction-discovery-20261115.json)。未覆盖完整交互 TUI、物理 IME、读屏、真实供应商或安装；实现者自审。
+
+NR-04 usage scope（2026-11-15，`83a0733f`）：静态 JSON 回执使用现有带 tag 的协议对象，motion N/A；回合和单请求数量独立，TUI view 不计算或据此签发执行/接受。草稿、焦点、阅读锚点与权限输入不变；公开工具循环、后续任务、max_turns 和终端恢复见 [scope 证据](../../playbook/native-cli/evidence/p4-usage-scopes-20261115.json)。未增加可视容量 UI，未验收 durable accounting、完整 TUI、真实模型或安装；实现者自审。
+
+## 原生 CLI NR-03 的静态执行与恢复（2026-11-14）
 
 T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态文本，无动画（motion N/A）；动作/范围先于技术参数，禁止终端控制与 bidi 内容冒充 Host 提示。批准输入只归当前 prompt，非 TTY 不暗中接受，SIGINT/TERM/HUP 进入真实取消/drain；网络观察或模型文字不产生执行成功。中断回到同一 plan/execution，unknown 和 Evidence 留在原 canonical Store，恢复不重放工具。现有 Ratatui 草稿、焦点与阅读入口仍保持 NR-01 范围，尚未迁入完整会话发送/历史交互。
 

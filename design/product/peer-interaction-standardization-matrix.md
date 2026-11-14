@@ -1365,9 +1365,11 @@ NR-04 模型适配补充（2026-11-15，`84007b83`）：公开 `exec --plan` 的
 
 NR-04 Context（2026-11-15，`10c86bd7`）：相同任务现在可读 workspace 根注册项目指导。Host 在准入前观察有界、稳定文件；内容遵守 Source trust，不能产生许可。读取超限/坏编码/变更时给静态错误、保全文件与待准入任务，修正指导后同身份可重试；普通未注册文件与附件不因此成为指令。Unicode 截断不切半个字符，FIFO 不能卡住原生进程。实际入口否决、同任务恢复与 Source/快照对照见 [Context 证据](../../playbook/native-cli/evidence/p4-context-source-20261115.json)。无新输入控件、焦点或动效；实现者自审，完整 Source / TUI 及发布仍待验收。
 
-## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
-
 NR-04 Instructions（2026-11-15，`f6949bae`）：用户已有配置指导与 workspace 指导进入同一注册 Source；无设置时保留现有 TUI 的语言/分支前缀缺省值，全局指导仍需显式 Host 开关。未知或损坏设置在请求前给出静态阻断并保留原文件，普通修正后同一待执行任务可继续。配置文字不产生授权，真实 Ask 路径仍形成 denied Result/Evidence。公开入口覆盖坏配置恢复和 FIFO 设置及时失败，28 项同文件跨进程对照与 8 PTY 见 [发现证据](../../playbook/native-cli/evidence/p4-instruction-discovery-20261115.json)。未增加控件或动效；Source seam 的 global/targetPaths 不等于生产入口已装配。实现者自审，完整 P4/P5、真实供应商与安装包仍未验收。
+
+NR-04 usage scope（2026-11-15，`83a0733f`）：公开 exec 的 replied/max_turns JSON 分别标记单请求观察与回合已知量；实际工具循环 lastRequest=59、turnTotal=144，下一任务重新累计。计数不构造 Goal 验收、工具 Evidence 或 Context 百分比；部分用量的 unknown 继续由 canonical Work budget 保留。无新增焦点/控件/动效；[scope 证据](../../playbook/native-cli/evidence/p4-usage-scopes-20261115.json) 记录 21 项真实公开入口、7 TS 序列 / 17 观察与 8 PTY。durable ledger、异常用量恢复和完整 Context pipeline 尚未完成，实现者自审。
+
+## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
 
 用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。
 
