@@ -177,3 +177,7 @@ Host 新端口组合 canonical Goal / journal / 现有 schema-3 ledger：实时 
 最终 scoped：129 Rust（含旧 Helper 12）、281 真实存储跨进程、128 旧 focused、8 PTY、Helper 无密钥 ping、fmt / clippy -D warnings / release / 静态边界与 architecture 均通过。详见 [结构化回执](native-cli/evidence/p2-goal-kernels-host-20261114.json)。`82ce5819` 两平台 CI 全部 job 已 success；新候选远端未验收。本次补读 ADR 101 的动态权限主体及 126 被 127 接受扩展的闭包条款，不更改权限或 Evidence 边界。
 
 P2 总闸仍待共享 Goal 执行镜像写域/CAS、closure 镜像中断恢复、剩余 admission 与自动权限/角色语义、完整 Host 启动及已有状态恢复验收。P3 Context / wire / Projection / file / Shell 闭环未接；公开 CLI 仍为终端草稿 spike，不以新 Host 集成测试冒充产品完成。继续补齐上述总闸，再接执行；最终无 Bun/Node sidecar 的要求不变。
+
+`0921d673` 新 CI 43584888148 的 Linux / macOS 均构建成功，但 scoped clippy 失败：CI Rust 1.100 已将 `AtomicUsize.fetch_update` 标为 deprecated，本机 Rust 1.98.1 尚无该告警。补丁 `05c6bc05` 改为兼容既有 MSRV 的 compare-exchange 循环，不放宽 warnings-as-errors；本地完整 scoped 再次通过（129 Rust / 281 跨进程 / 128 旧 focused / 8 PTY）。保留原失败与候选身份，新远端结果待查。
+
+剩余 admission 继续依同一卡实施：纯 coordination decision / intent assessment / intent closure 与 history resumption planner 对照实际 TS，只接受已准入 Host facts。planner 的 checkpoint port 必须先拒绝不兼容的旧 engine/provider checkpoint；测试中的普通 JS 对象不证明原生可恢复，也不得开生产执行。

@@ -80,6 +80,15 @@
     "previousRun": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43578026254",
     "previousLinux": "success",
     "previousMacos": "success",
-    "current": "pushed; not yet inspected"
+    "current": {
+      "source": "0921d6739c17816f1caae2a7de8e829ba4109805",
+      "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43584888148",
+      "linux": "failure in clippy: AtomicUsize.fetch_update deprecated under Rust 1.100",
+      "macos": "same clippy failure; later checks skipped",
+      "patchSource": "05c6bc05b6925075fda2a79ab521376dfccf9c69",
+      "patch": "replace fetch_update with bounded compare_exchange_weak loop; preserve Rust 1.88 compatibility, no warning suppression",
+      "patchLocalFullScoped": "passed /tmp/peer-native-ci-rust-compat.log; same 129 Rust, 281 cross-process, 128 legacy focused, 8 PTY checks",
+      "patchRemote": "pending"
+    }
   }
 }
