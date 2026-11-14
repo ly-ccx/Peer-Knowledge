@@ -60,3 +60,6 @@ owned控制读取中的业务父链为Supervisor.list→会话投影presentSessi
 89项聚焦测试在运行candidate通过，architecture/UI/diff通过。运行结束后`6ca58871`只修正离线覆盖CLI的显示标签为row.label，并以同一旧封存数据重放验证；原覆盖、P0B及P2原件不修改，资源总量不变，没有再次运行P0B/P2。自审；可查询PR workflow/status为空，不称CI绿；完整build/产品回归、真实模型及安装release验收未跑。
 
 本次固定三槽campaign已按规则结束，整体资格拒绝。后续首先使用已封存暖段/返回差额和profile结构厘清下一项可证伪因素，不原样补跑或降低门；没有新现场窗口，RI-00未闭合，重构未开始。
+
+
+2026-11-14后续：[15.377/16.283ms与2.1535ms的封存拆解及新等待因素预算](runtime-isolation-ri00-e3-p2-variation.md)。这是零新增读取的分析与设计冻结，不回写本记录P2原失败；结构门仍不能当低干扰合格。
