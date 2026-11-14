@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "date": "2026-11-14",
   "phase": "NR-03 first native execution slice",
-  "candidate": "fd981b019e4b0a8fcee006d3336ed6375c9344e7",
+  "candidate": "1578380047050512974f72fccb33d0c33b1f8851",
   "implementation": "cd13f250415a6581e4fea9176d14daf708cc7a25",
   "typeSupplement": "1eccbec7: shared protocol types only; protocol build/typecheck passed",
   "binary": {
     "path": "target/release/peer-native",
-    "sha256": "0e3aa5dbcaa9496ba032278fa74e1c561ee01a3721ab9c869277ffcf73b1e8ae",
+    "sha256": "63cf5bfb0d3b5633e7b4160e498e265811f5c70244dd86bcdbe5168887d2d543",
     "linkedMacLibraries": [
       "libiconv.2.dylib",
       "libSystem.B.dylib"
@@ -15,7 +15,7 @@
     "sidecar": false
   },
   "validation": {
-    "rustTests": 169,
+    "rustTests": 170,
     "legacyStoreCrossProcessCases": 302,
     "nativeOutputTsColdReadCases": 58,
     "nativeOutputRoots": 17,
@@ -40,10 +40,11 @@
       "system-context build",
       "protocol build/typecheck"
     ],
-    "log": "/tmp/peer-native-p3-materialization-final.log",
+    "log": "/tmp/peer-native-p3-lease-complete.log",
     "nativeHelperPing": true,
     "realSecretAccess": false,
-    "architectureLog": "/tmp/peer-native-p3-materialization-architecture.log"
+    "architectureLog": "/tmp/peer-native-p3-lease-architecture.log",
+    "leaseContentionRounds": 256
   },
   "behaviors": [
     "actual native HTTP/SSE -> Manifest/Projection -> fresh grant -> file/Shell -> paired Result/Evidence -> canonical Conversation/budget -> managed pause",
@@ -105,6 +106,20 @@
     {
       "log": "/tmp/peer-native-p3-materialization-total.log",
       "cause": "new TS evidence pairing test inspected only conversation c; later-task receipt correctly belonged to c2. Resolve exact conversation through real Evidence index, retain success/pairing assertions; 58 cases pass, then full verification rerun"
+    },
+    {
+      "candidate": "fd981b019e4b0a8fcee006d3336ed6375c9344e7",
+      "ciRun": "43599806661",
+      "job": 132462052721,
+      "test": "independent_threads_competing_for_a_free_lease_have_one_owner",
+      "error": "VersionChanged",
+      "cause": "Strict identity observed a publication race; hard-link temp alias unlink changes inode ctime. Static root-cause window plus isolated inode diagnostic; local original 256-round stress did not reproduce CI interleaving, deterministic lstat/open replacement reproduced VersionChanged. Reobserve inside original five-attempt loop without weakening identity or ownership checks.",
+      "baselineLog": "/tmp/peer-native-lease-reobserve-baseline.log",
+      "fixedLog": "/tmp/peer-native-lease-reobserve-fixed.log"
+    },
+    {
+      "log": "/tmp/peer-native-p3-lease-final.log",
+      "cause": "New cfg(test) module was placed before production items; clippy items_after_test_module rejected. Move test module to end, retain -D warnings; complete verification rerun."
     }
   ],
   "ci": {
@@ -114,7 +129,12 @@
       "linux": "success",
       "macos": "success"
     },
-    "p3": "pending new exact candidate; prior CI results do not certify this candidate"
+    "p3": {
+      "candidate": "1578380047050512974f72fccb33d0c33b1f8851",
+      "status": "pending",
+      "previousCandidate": "fd981b01",
+      "previousLinux": "failed lease competition; corrected in 15783800, not retried as passing"
+    }
   },
   "review": {
     "independent": false,
@@ -122,7 +142,7 @@
     "installedOrRestarted": false,
     "published": false
   },
-  "candidateTree": "ceb9f1e96a55c967af1e585796bad80fb93d5985",
+  "candidateTree": "1f89ec13c5e740b13f2e4263326c894525feee0d",
   "materializationFix": "fd981b01: reproduce actual CLI create/read/rewrite failure; confirm only owned exclusive creation after durable paired results, Evidence and dispatch receipt",
   "earlierPassedCandidate": {
     "candidate": "1eccbec7e7d895eb977a7ef0918a3390ed0637de",
@@ -131,5 +151,14 @@
     "nativeOutputTsColdReadCases": 34,
     "nativeOutputRoots": 16,
     "binarySha256": "8ec481041ea5d01be99b088804afe7165191c19f5f02d5ec4d8875bb5572395b"
-  }
+  },
+  "additionalPassedCandidate": {
+    "candidate": "fd981b019e4b0a8fcee006d3336ed6375c9344e7",
+    "tree": "ceb9f1e96a55c967af1e585796bad80fb93d5985",
+    "log": "/tmp/peer-native-p3-materialization-final.log",
+    "rustTests": 169,
+    "binarySha256": "0e3aa5dbcaa9496ba032278fa74e1c561ee01a3721ab9c869277ffcf73b1e8ae",
+    "remoteAcceptance": false
+  },
+  "leaseRaceFix": "15783800: original bounded acquisition reobserves VersionChanged before current owner/freshness decision; strict file identity/corruption rejection/takeover unchanged; deterministic old-code failure and 256 actual two-thread rounds"
 }
