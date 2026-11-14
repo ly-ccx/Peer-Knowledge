@@ -10,7 +10,7 @@
 
 CLI 改用 Rust 后，Desktop 与公开 Runtime SDK 暂时仍使用 TS / JS。机械翻译类型不能保持权限 digest、System Context checksum、工具配对、sidecar、宿主租约、SQLite CAS 或完成门一致。新的二进制也不能因为启动成功就接管旧任务。
 
-本 ADR 将 ADR 55 / 57 的共享 Implementation 约束扩展为跨语言 conformance；保留 ADR 0001、35、37、49、65、74、76、80–85、88、92、98、100、101 的事实、权限、存储和恢复边界。ADR 104 / 115 在本 checkout 为 Proposed，不随技术迁移被接受。
+本 ADR 将 ADR 55 / 57 的共享 Implementation 约束扩展为跨语言 conformance；保留 ADR 0001、35、37、49、65、74、76、80–85、88、92、98、100、101 的事实、权限、存储和恢复边界。ADR 104 在最新实施 checkout 仍为 Proposed，不随技术迁移被接受；ADR 115 页头已 Accepted，按其既有准入 / 草稿边界迁移当前 CLI 可达功能，不能继续沿用初次旧 checkout 的 Proposed 判断。
 
 ## 2. 单一工程契约
 

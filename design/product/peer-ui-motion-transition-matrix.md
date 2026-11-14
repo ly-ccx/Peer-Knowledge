@@ -855,3 +855,11 @@ P06 工作现场保持原行身份、打开任务动作和阅读位置。`8907cb
 ## 本地持久化失败与流终态连续性（2026-11-06，范围内候选）
 
 P06 的 done/aborted/error 只归并原会话表达层，不再用全量消息快照覆盖下一轮占位。草稿保留，沿原流路由/静态结束状态，无新增动画或焦点动作。工作面板按同一宿主 followUp.local_persistence_failed 保留 Bot 当前技术阻塞，用户可进入原任务/恢复入口；排队不表达为执行成功。真实回调+Store 和任务投影的范围内检查见 [F1/F4/F7](../../playbook/v0.1.0/persisted-turn-recovery.md)。不据此宣称安装版、系统辅助技术或完整产品回归已验收。
+
+## 原生 CLI NR-01 候选（2026-11-14）
+
+ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时草稿 / 静态候选说明，不发送、不执行、不持有权限真值。目标是原生终端输入 / 退出骨架，不代表 Bot 功能或默认入口已迁移。
+
+状态：空 / 中文与组合字 / 大粘贴 / 大小超限 / 发送未启用 / 退出确认 / Esc 继续 / resize / 正常与异常收尾。事实源是纯 Composer reducer 与终端 guard；用户拥有草稿和明确退出决定。静态，无动效（motion N/A）；终端 cell / caret 保持可见，输入内容不发模型。
+
+验证：Ratatui TestBackend + Rust reducer，8 项真实 PTY（含 Unicode paste、resize、Ctrl-C / Ctrl-D、SIGTERM、panic / error、尺寸拒绝）通过。物理 IME / 日用终端 / 读屏 / 已安装包未覆盖；临时草稿没有持久恢复，P2 后续接入，不能算 T06 / T10 全面验收。详见 [迁移账本](../../playbook/native-rust-cli-migration.md)。
