@@ -62,6 +62,8 @@
 
 ## 6. 本轮收据
 
+2026-11-14 244根封存拆解：[六处暖段及两处A返回、完整块顺序设计](../knowledge/experience/runtime-isolation-ri00-e3-cadence-variation.md)、[审计收据](evidence/runtime-isolation-ri00-e3-cadence-variation-results-20261114.json)、[新独立顺序预算](evidence/runtime-isolation-ri00-e3-pair-order-budget-20261114.json)。六极差中minor进入位置用户差10.362～12.866ms、同计数保留位置3.068～6.503ms且余部抵消，不能称全是GC CPU；两A漂移保留−2.622/+4.594ms，BAAB全根归一化+20.100ms含余部+15.842。参考同GC锚点另有用户+11.237ms与指令−0.050220%，不冒称稳定对照。下一轮仅换完整目标/条件块先后，两边150ms，固定ABBA/BAAB、raw主指标及全部原门/更严返回门；新3槽/244根/200秒读CPU/15分钟含完整241500ms预留floor已冻结不可直接运行，需同候选runner与接缝绑定。本轮零新读/宿主/Profiler，18项聚焦及244根CLI审计通过；实际35槽、510.790475秒已知下界及旧C未知不变，现场/机制与重构门不变。
+
 2026-11-14 150/0固定三槽已封存：[完整结果与CPU/PMC口径](../knowledge/experience/runtime-isolation-ri00-e3-cadence.md)、[结果收据](evidence/runtime-isolation-ri00-e3-cadence-results-20261114.json)。3宿主/244根/四格ABBA及BAAB完整执行，Profiler0；实际间隔A/B中位171.391/20.808ms，处理检查通过。六块暖极差超15ms，A返回−2.622/+4.594ms超2ms，故不合格；四个用户B−A描述值+0.956/+3.347/+9.821/+6.818ms不用于因果或合格阴性。读体107.976秒、wall148.784秒，恢复与源/输出核对通过，无替换；累计owned35、已知读CPU下界510.790475秒及旧C未知保留，现场/机制证据门与重构冻结不变。
 
 2026-11-14 150/0执行前绑定：[执行器、同候选数据与接缝验证](../knowledge/experience/runtime-isolation-ri00-e3-cadence.md)、[绑定收据](evidence/runtime-isolation-ri00-e3-cadence-binding-20261114.json)。98项聚焦测试及真实Node Inspector接缝通过，零Electron/零Profiler线上命令；原三宿主ABBA/BAAB与预算不变，正式结果随后封存。
