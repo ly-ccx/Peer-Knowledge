@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "candidate": "10c86bd756eacad679a3d24b46ffc52f3c331f62",
+  "tree": "8538109d41fb9e9c85b4112e7d6a48d5f02fda98",
+  "binarySha256": "08f861353f65af05de5e08b73c9bd36bd9b8a164b14bd00d931549e888fb0a24",
+  "scope": "P4 Context work package; workspace-root project.instructions Source and actual provider target projection; not full default Source catalog",
+  "classification": "B; ADR 55/57/129/130/131 boundaries unchanged",
+  "implemented": [
+    "bounded stable file observation of workspace AGENTS.md/CLAUDE.md with the existing layer/trust/priority/source metadata and section hashing",
+    "one instruction snapshot per live episode, matching the pinned Source prefix lifetime",
+    "24,000 UTF-16-unit rendering ceiling without splitting Unicode scalars; 1 MiB source read ceiling and explicit invalid/change failures",
+    "nonblocking non-regular-path handling; actual public native process FIFO test",
+    "provider target uses current channelId / selection id, routing family stays independently validated",
+    "project instruction text cannot create permission truth; real denied file effect persists as denied Tool Result/Evidence",
+    "oversized Source blocks before dispatch; ordinary source edit allows the same still-ready plan admission to retry without resetting task/history/unknown"
+  ],
+  "validation": {
+    "nativeTotal": "passed",
+    "rustTests": 184,
+    "crossProcessStoreCases": 302,
+    "nodeFocusedTests": 157,
+    "tsColdReadCases": 79,
+    "nativeFixtureRoots": 24,
+    "publicExecutableRustTests": 16,
+    "instructionReferenceCases": 7,
+    "providerContextReferenceCases": 14,
+    "ptyCases": 8,
+    "sharedSourceFocusedTests": 13,
+    "fmtClippyReleaseBoundaries": "passed",
+    "systemContextBuild": "passed",
+    "architecture": "passed"
+  },
+  "logs": [
+    {
+      "check": "native total",
+      "localLog": "/tmp/peer-native-p4-instruction-total.log",
+      "sha256": "033bac02c22c023bc6b2e3ff0094c071616182f3c64c46b7b875f69bcdaa55cc"
+    },
+    {
+      "check": "shared Source",
+      "localLog": "/tmp/peer-native-p4-system-context-ts.log",
+      "sha256": "066da11490810ff1fec2772647567c5c48a84b1fbe90769853a47c357eb2f123"
+    },
+    {
+      "check": "public exec",
+      "localLog": "/tmp/peer-native-p4-instructions-public.log",
+      "sha256": "fd3b92e9c4b2841b44f35578c75b0b3449ea7fd1975012f8add64988008b9612"
+    },
+    {
+      "check": "FIFO",
+      "localLog": "/tmp/peer-native-p4-instructions-fifo-after.log",
+      "sha256": "1c8e29b775171838a82d9fefd4ae3c3ec061baaec13716ed814906ee177f6eba"
+    },
+    {
+      "check": "Unicode baseline",
+      "localLog": "/tmp/peer-native-p4-instructions-unicode-before.log",
+      "sha256": "0c3aaf6dd88b671f3736e61ce2cca5906a83f3ffd3f8ac95147c897e04187879"
+    },
+    {
+      "check": "Unicode corrected",
+      "localLog": "/tmp/peer-native-p4-instructions-unicode-after.log",
+      "sha256": "858ddb59afc342116cd8d33f1a7252ceddf127a44bed12e82f56a9d3711d1c3c"
+    }
+  ],
+  "preservedFailures": [
+    {
+      "source": "1f7adc173f2f18acef53681df8b31ac1e2ef0d68",
+      "file": "packages/system-context/src/sources/project-instructions-unicode.test.mjs",
+      "input": {
+        "maxCharsPerFile": 4,
+        "configInstruction": "aaa🙂tail"
+      },
+      "originalObserved": {
+        "contentEscaped": "aaa\\ud83d",
+        "includedChars": 4,
+        "originalChars": 9
+      },
+      "expected": {
+        "content": "aaa",
+        "includedChars": 3,
+        "originalChars": 9
+      },
+      "originalResult": "failed; shared Source sliced a surrogate pair",
+      "correction": "shared truncation helper now steps back one UTF-16 unit at a split pair; both file and configured instruction paths use it"
+    },
+    {
+      "log": "/tmp/peer-native-p4-instructions-fifo.log",
+      "result": "compile failure: rustix mkfifoat is unavailable on Apple",
+      "correction": "Linux fixture uses rustix; macOS fixture creates its owned FIFO with system mkfifo; native product uses no fixture command"
+    }
+  ],
+  "ci": {
+    "run": "43618145086",
+    "linuxJob": 132517742642,
+    "macosJob": 132517742963,
+    "status": "in_progress, not counted as passing"
+  },
+  "remaining": [
+    "global/scoped/configured instruction discovery and settings outside current workspace-root scope",
+    "the remaining default Source catalog and Host facts",
+    "context counting/compaction and durable request/turn/lifetime accounting",
+    "OAuth/Qoder, full MCP/Skill/Plugin/Hook, headless/ACP/command parity",
+    "P5 after complete P4 gate; P6/P7 memory/feature/installed/release gates"
+  ],
+  "review": "implementer self-review; no independent product/release acceptance",
+  "realSupplierCoverage": false,
+  "installedBuildCoverage": false,
+  "defaultPeerSwitched": false,
+  "personalTaskDataChanged": false
+}

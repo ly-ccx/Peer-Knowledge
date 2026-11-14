@@ -114,7 +114,20 @@
     "run": "43615775154",
     "linuxJob": 132510388297,
     "macosJob": 132510388630,
-    "status": "in_progress at receipt creation; not counted as success"
+    "status": "both repository jobs failed at Test; Native validation succeeded on both",
+    "failure": {
+      "test": "apps/desktop/electron/main/provider-adapter.test.mjs:753",
+      "actualInputTokens": 8,
+      "oldExpectedInputTokens": 11,
+      "rawUsage": {
+        "promptTokenCount": 11,
+        "candidatesTokenCount": 7,
+        "cachedContentTokenCount": 3
+      },
+      "retry": "same assertion failed in automatic isolated file retry",
+      "cause": "Gemini disjoint normalization was corrected but the older Desktop expectation was missed",
+      "nativeSteps": "success on both platforms; not full repository success"
+    }
   },
   "remaining": [
     "full default System Context Source catalog and Host discovery",
@@ -158,5 +171,15 @@
         "failure": "---- four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation stdout ----\n\nthread 'four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation' (32237409) panicked at crates/peer-cli/tests/native_episode.rs:412:13:\nassertion `left == right` failed: gemini must not duplicate signed live text\n  left: 2\n right: 1\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
       }
     ]
+  },
+  "ciCorrection": {
+    "candidate": "1f7adc173f2f18acef53681df8b31ac1e2ef0d68",
+    "change": "test-only correction; retains 8 uncached + 3 cache = 11 prompt and total 18 with 7 output; no cache write zero",
+    "localCheck": "node --test apps/desktop/electron/main/provider-adapter.test.mjs",
+    "result": "22 passed",
+    "run": "43617038055",
+    "linuxJob": 132514246559,
+    "macosJob": 132514246403,
+    "ciStatus": "in_progress; not counted as passing"
   }
 }

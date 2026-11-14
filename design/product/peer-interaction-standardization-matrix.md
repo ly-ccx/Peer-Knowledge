@@ -1363,6 +1363,8 @@ NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显�
 
 NR-04 模型适配补充（2026-11-15，`84007b83`）：公开 `exec --plan` 的相同静态授权 / 结果 / 停稳流程支持四种基本 API-key wire，Context 的供应商事实来自实际配置。用户目标是原生执行已准入任务；状态仍由 canonical Goal/policy/lease、真实 Provider 结果与 Evidence 决定，模型终态不签收 Goal。保持连接的供应商流在权威终止后退出，错误/截断不派发部分工具；失败沿原 managed pause / unknown 恢复。四 wire 多轮工具、凭据头、21 根冷读、8 PTY 验证见 [P4 首卡证据](../../playbook/native-cli/evidence/p4-model-wires-20261115.json)。实现者自审；不是完整 CLI / P4 / 产品发布接受，真实供应商与安装包仍未验证。
 
+NR-04 Context（2026-11-15，`10c86bd7`）：相同任务现在可读 workspace 根注册项目指导。Host 在准入前观察有界、稳定文件；内容遵守 Source trust，不能产生许可。读取超限/坏编码/变更时给静态错误、保全文件与待准入任务，修正指导后同身份可重试；普通未注册文件与附件不因此成为指令。Unicode 截断不切半个字符，FIFO 不能卡住原生进程。实际入口否决、同任务恢复与 Source/快照对照见 [Context 证据](../../playbook/native-cli/evidence/p4-context-source-20261115.json)。无新输入控件、焦点或动效；实现者自审，完整 Source / TUI 及发布仍待验收。
+
 ## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
 
 用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。

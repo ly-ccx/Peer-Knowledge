@@ -868,6 +868,8 @@ NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显�
 
 NR-04（2026-11-15，`84007b83`）：四种基本模型 wire 复用 T06/T10 静态 exec/recover 控制，motion N/A；供应商切换不创造审批或结果事实。流结束与断流均由结构化协议状态收口；连续性材料只在同一执行和精确历史身份下回传，签名不成为界面/磁盘权限真值。公开多轮执行、客户端关闭连接、Helper 头、8 PTY 的候选与结果见 [P4 首卡证据](../../playbook/native-cli/evidence/p4-model-wires-20261115.json)。草稿入口、焦点、阅读锚点仍为 NR-01 范围，不称完整 TUI、独立体验或安装验收。
 
+NR-04 Context（2026-11-15，`10c86bd7`）：workspace 根项目指导由 Host 的已注册 Source 呈现，不新增 UI/动效（N/A），不改变用户批准、草稿、焦点和阅读锚点。错误不伪造工具结果；超限阻断后的同待准入任务重试保留身份。7 Source / 14 Provider Context 向量、公开真实否决与恢复、FIFO 进程界限、8 PTY 的精确候选与限制见 [Context 证据](../../playbook/native-cli/evidence/p4-context-source-20261115.json)。Source 截断不生成半个 Unicode 字符；真实终端视觉、物理 IME、读屏与安装仍非本卡覆盖。
+
 ## 原生 CLI NR-03 的静态执行与恢复（2026-11-14）
 
 T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态文本，无动画（motion N/A）；动作/范围先于技术参数，禁止终端控制与 bidi 内容冒充 Host 提示。批准输入只归当前 prompt，非 TTY 不暗中接受，SIGINT/TERM/HUP 进入真实取消/drain；网络观察或模型文字不产生执行成功。中断回到同一 plan/execution，unknown 和 Evidence 留在原 canonical Store，恢复不重放工具。现有 Ratatui 草稿、焦点与阅读入口仍保持 NR-01 范围，尚未迁入完整会话发送/历史交互。
