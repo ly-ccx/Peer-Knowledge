@@ -69,6 +69,26 @@
       "privateLabel": "fr1-compaction-20261114/sealed-audit.private.json",
       "sha256": "63dc2f734c30402ebf458742d44199817aff6e3f415be6ead941b7cdfe0e6250",
       "bytes": 3068
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/qualification/report.private.json",
+      "sha256": "85868255ef13d701cfb6dfcad4c30d316d4fd77150252d2f9382f2d48fa012dc",
+      "bytes": 19515
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/qualification/history.private.jsonl",
+      "sha256": "917eb1092f75a866745cac5b5aa8e0d223fc0ec1e054a4655f15edb9be0fcb53",
+      "bytes": 16189
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/qualification-cost.private.json",
+      "sha256": "a24fc47e2caec65307914437a2691405d1f31306370e7a3173c2dcd9e1c1b7c9",
+      "bytes": 417
+    },
+    {
+      "privateLabel": "fr1-compaction-20261114/final-audit.private.json",
+      "sha256": "9840293f2782c886fca7c8e0ca9126b4b384f66baf2bfc88ce63b431f45cd933",
+      "bytes": 1014
     }
   ],
   "previousAndCurrentFailures": [
@@ -321,9 +341,9 @@
       "files": 8534,
       "fences": 1
     },
-    "functionalElectronRuns": 0,
+    "functionalElectronRuns": 1,
     "functionalPassed": false,
-    "qualificationStatus": "not executed; awaiting explicit additional-slot decision",
+    "qualificationStatus": "explicit extra slot consumed and failed; stopped with recovery, no replacement",
     "fieldReady": false
   },
   "knownMechanismLimits": [
@@ -331,20 +351,23 @@
     "clock study saved about0.034ms per12: not enough to explain overrun",
     "native Error and builtin tests use distinct fresh functional processes: root CPU differed; do not causally attribute their charge difference",
     "compact candidate removes measured serialization bytes losslessly, not yet measured additional CPU or low-interference neutrality",
-    "native capture is synchronous JS only; mapped ALS parents explicit, native and unmapped async tails not invented"
+    "native capture is synchronous JS only; mapped ALS parents explicit, native and unmapped async tails not invented",
+    "86.26% lower signature bytes did not yield a qualifying cold root; serialization-byte count is not measured CPU overhead, and cold VM/Inspector/clock-stage contributions remain unattributed"
   ],
   "ledger": {
     "diagnosticOwnedBeforeThisRepair": 42,
-    "newDiagnosticOwned": 2,
-    "diagnosticOwnedAfter": 44,
+    "newDiagnosticOwned": 3,
+    "diagnosticOwnedAfter": 45,
     "separateManualUserRequestedDevelopmentStarts": 1,
-    "knownControlledElectronStartsTotal": 45,
+    "knownControlledElectronStartsTotal": 46,
     "knownReadCpuLowerBeforeMs": 637581.814,
-    "newFunctionalReadCpuMs": 5347.354,
-    "knownReadCpuLowerAfterMs": 642929.168,
+    "newFunctionalReadCpuMs": 7884.613,
+    "knownReadCpuLowerAfterMs": 645466.427,
     "olderCUnknownRetained": true,
     "twoActualFunctionalFailuresNotReplaced": true,
-    "compactCandidateAdditionalHostNotStarted": true
+    "compactCandidateAdditionalHostNotStarted": false,
+    "explicitlyAuthorizedCompactHostLaunchedOnce": true,
+    "allThreeCurrentFunctionalFailuresPreserved": true
   },
   "actualDev": {
     "sameProcessPreserved": true,
@@ -357,5 +380,78 @@
   },
   "RI00Closed": false,
   "refactorStarted": false,
-  "original3950msEvidenceGapRetained": true
+  "original3950msEvidenceGapRetained": true,
+  "compactAuthorizedFunctional": {
+    "authorization": "User explicitly added one compact-candidate host, no failure replacement",
+    "candidate": "63bd98bd8ae04b34d9112d1b4f92a5fa0cd53a24",
+    "passed": false,
+    "failure": "per-root-probe-cpu-cap",
+    "perRootChargeMs": 2.387122999994517,
+    "capMs": 2,
+    "cost": {
+      "name": "explicitly-authorized-compact-candidate-only-functional-slot",
+      "exitCode": 1,
+      "wallMsThroughReap": 3680.800041,
+      "fullChildSubtreeUserMs": 3141.719,
+      "fullChildSubtreeSystemMs": 659.941,
+      "fullChildSubtreeCpuMs": 3801.66,
+      "cpuScope": "complete waited Node/Electron/helper subtree through return",
+      "noReplacementAllowed": true,
+      "reportSha256": "85868255ef13d701cfb6dfcad4c30d316d4fd77150252d2f9382f2d48fa012dc"
+    },
+    "audit": {
+      "kind": "compact-candidate-authorized-final-slot-failure-audit",
+      "candidate": "63bd98bd8ae04b34d9112d1b4f92a5fa0cd53a24",
+      "reportSha256": "85868255ef13d701cfb6dfcad4c30d316d4fd77150252d2f9382f2d48fa012dc",
+      "journalSha256": "917eb1092f75a866745cac5b5aa8e0d223fc0ec1e054a4655f15edb9be0fcb53",
+      "history": {
+        "chunks": 2,
+        "records": 37,
+        "noGaps": true,
+        "allAcked": true,
+        "scripts": 14,
+        "stacks": 7,
+        "allStackReferencesResolvable": true
+      },
+      "charge": {
+        "rootPreCpuMs": 0.25700000000006185,
+        "rootPostCpuMs": 0.5399999999999636,
+        "spanSelfCpuMs": 1.3479999999999563,
+        "planCounterWallUpperMs": 0.2301229999948191,
+        "keepCpuMs": 0.011999999999716238,
+        "conservativeChargeMs": 2.387122999994517
+      },
+      "root": {
+        "userMs": 427.481,
+        "systemMs": 37.028,
+        "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+        "planCalls": 3859,
+        "evidencePasses": 12
+      },
+      "recovery": {
+        "allOwners": true,
+        "binding": true,
+        "unackedBytes": 0,
+        "ownedExit": 0,
+        "portClosed": true,
+        "lost": 0,
+        "metadataErrors": 0
+      },
+      "readCpuMs": 2537.259,
+      "queryCalls": 2,
+      "fieldAdmitted": false,
+      "notProductMechanism": true
+    },
+    "notReached": [
+      "nine-root coverage",
+      "Profiler start/clock/stop",
+      "injected fsync/unknown ACK",
+      "live stall native sampler",
+      "full controller cancel",
+      "lease recovery",
+      "actual Peer binding and field"
+    ],
+    "remainingSlots": 0,
+    "noFurtherElectronAdmission": true
+  }
 }
