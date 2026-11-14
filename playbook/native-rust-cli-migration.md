@@ -159,3 +159,5 @@ Store 沿既有 manifest / head / segments / payload_ref / seal / frozen baselin
 Runtime 当前支持 work/event/delivery 与既有 Session Control kernel；coordination decision、intent、agent supervision、obligation、history repair 的未搬迁语义返回明确 unsupported，整个 read/append 阻断。实际 TS 创建的合法未支持记录不会被跳过为新空状态，兼容端再次读取后仍保留原事实。P2 总闸仍未过，canonical Goal、剩余 reducer、真实 Host 当前授权 / handle 停稳 / unknown 对账与准入装配继续待办，P3 模型与工具闭环尚未开放。未改变 ADR 104-progressive / 105 / 112 / 116 / 127 / 131 的授权、恢复或存储边界。
 
 保留初次 fixture 构建漏启用 peer-store/test-fixtures、构建失败后误调用旧 probe，以及 70 KiB payload 超过 fixture 自身 64 KiB 请求限制的失败。均不计通过；后续改为 set -e、显式双方 fixture feature 和有界 1 MiB 请求，完整 scoped 流程重跑通过，未放宽生产预算。实现者完成内容 / diff 自审，未称独立评审。较早 `7af3ab50` Linux job 全步骤 success、macOS 原生/build/type/architecture/test/smoke 已 success，最后观察时 report/post 仍运行；最新源码 CI 另验，不挪用旧结果。
+
+最新远端 scoped 结果补记：`82ce5819` 的 [CI 43578026254](https://github.com/ly-ccx/Peer-Agent/actions/runs/43578026254) Linux job 132396468162、macOS job 132396468104 的 Native CLI scoped validation 均 success，包含 109 Rust / 210 跨进程及本卡 55 canonical 用例。最后观察时全仓 job 仍运行、未见失败；不称整仓完成，也不称 P2 / P3 或发布验收通过。
