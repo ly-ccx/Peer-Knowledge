@@ -44,7 +44,8 @@
     "nativeHelperPing": true,
     "realSecretAccess": false,
     "architectureLog": "/tmp/peer-native-p3-lease-architecture.log",
-    "leaseContentionRounds": 256
+    "leaseContentionRounds": 256,
+    "releaseFixtureCrashInjectionExcluded": true
   },
   "behaviors": [
     "actual native HTTP/SSE -> Manifest/Projection -> fresh grant -> file/Shell -> paired Result/Evidence -> canonical Conversation/budget -> managed pause",
@@ -131,9 +132,17 @@
     },
     "p3": {
       "candidate": "1578380047050512974f72fccb33d0c33b1f8851",
-      "status": "pending",
+      "run": "43600632864",
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43600632864",
+      "nativeScoped": {
+        "linux": "success",
+        "linuxJob": 132464474319,
+        "macos": "success",
+        "macosJob": 132464474532
+      },
+      "repositoryJobs": "in_progress: Linux Test, macOS Typecheck at last snapshot; no completed failure observed. Not a full repository/release acceptance.",
       "previousCandidate": "fd981b01",
-      "previousLinux": "failed lease competition; corrected in 15783800, not retried as passing"
+      "previousLinux": "failed lease competition; corrected in 15783800, failure retained"
     }
   },
   "review": {
