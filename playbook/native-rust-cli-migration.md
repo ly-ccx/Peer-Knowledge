@@ -69,3 +69,37 @@ P0/P1 提交 `c24dc465` 的 GitHub Actions run `43553408734`：macOS `ci-macos-1
 身份 / 批准因子 / Evidence 引用切片回执：源码 `9f33d9a25a6e600bf4dc0b3201db448df366cf0c`，54 Rust 测试（42 原生 + 12 Helper）、51 个真实 TS 派生 golden case、14 Store + 13 Lease 双进程、8 PTY、真实 Helper ping、fmt / clippy / 静态依赖 / release build 通过。执行 identity 与 resource scope 严格校验未知字段、安全整数及 UTF-16 长度；principal resolver 只消费 Host 计划投影，未把 shape 当授权；一次性批准因子按完整 scope / policy revision、有界条目和字节、消耗 / 到期释放。Evidence 只收集既有结构字段，保插入顺序，不扫描助手文字或任意输出。完整操作 digest 直接借用 args，转义时逐段限额，不先复制整个参数对象。
 
 新增真实入口用例复现候选无 HOME 时忽略显式 PEER_AGENT_HOME；保留失败日志后修正为先解析覆盖值，并补 PEER_USER_DATA_PATH、BOM / NEL 的 JS trim 对照及零写入断言。最初测试少覆盖此组合，不能用此前通过替代本次修复后的候选检查。另做合成分隔符碰撞探查，旧 TS 的 workspace guard 已拒绝该跨 workspace 输入，未把探查误报为旧版漏洞，也未改旧 TS 权限政策。详见 [P2 地基结构化回执](native-cli/evidence/p2-foundations-20261114.json)。P2 总闸、canonical Store / Session Control / writer fence、持久 grant / Evidence 事务、完整 Runtime 和无 sidecar 功能平价仍未完成。
+
+### NR-02b 下个切片：Session Control 确定性 kernel
+
+已复核 ADR 116 / 120 / 124 / 127 / 131，以及现有 `session-control-kernel.mjs`。允许 peer-runtime 的纯 control reducer、peer-protocol 对应 JSON 序列化 / identity 帮助、Cargo serde_json preserve_order feature 与 TS/Rust golden / 故障序列测试；保持原控制状态、CAS、supersede、cancel 优先、stop receipt 和 minimumExecutorVersion 7/9 规则，不产生真实停止证明。须区别 approval stable-key digest 与 control 的 JSON.stringify digest，保留原对象 key 次序及 JS number / integer-key 顺序；不得以同一个“canonical JSON”代替两种既有语义。持久写入、进程停止和工具准入仍须 canonical Store / Host 装配后另验，不因 reducer 通过就开放执行。
+
+Session Control kernel 回执：源码 `2e48f45ae39eb84e85c166f285279a79a83b4e55`，57 Rust 测试（45 原生 + 12 Helper）、既有跨进程 / PTY / Helper 检查以及 29 组真实 TS 控制转换、7 个 JSON.stringify 摘要向量通过。serde_json 保留输入对象次序；批准摘要仍 UTF-16 stable-key 排序，控制摘要按 JS integer-key / 插入次序与 JS number 编码，未混用算法。覆盖 cancel 优先、supersede、stale revision / epoch、不可变 recorder、缺失 / 无效 stop receipt、原 unknown 保留、停止后 resume 的 shape 规则；不声称 reducer 产生真实停止证明。首次编译借用冲突修为借用原事实、验证后才复制候选；4 项 clippy collapsible-if 修正后 -D warnings 通过，未改断言。
+
+### NR-02b 下个切片：Policy 初始化与旧状态迁移
+
+已复核 ADR 101 / 131 与 `bot-access-policy.mjs` 的实际初始化入口。允许补 peer-store 原生初始化 / 仅首次 legacy 档位迁移 / 已初始化后新 Bot 默认 Ask 注册，及 TS↔Rust SQL fixture；沿同一 access_policy / access_meta、migrated 标记和 bot-access-imported.json 保护。原 read_existing 继续零隐式建库 / 迁移；未知 schema、损坏与主体更换仍拒绝，不能重建或回退 Full。验证新旧初始化互读、已有策略不重迁、导入标记、新 Bot、取消与坏库保全；仍不开放 CLI 生产权限管理入口。
+
+Policy 初始化 / 存量迁移回执：源码 `c8d3a2ae`，64 Rust 测试（52 原生 + 12 Helper）、既有 51 runtime golden + 29 control transitions / 7 摘要、14 Store + 13 Lease + 9 Policy 初始化跨进程检查、8 PTY、真实 Helper ping、fmt / clippy / release build 通过。初始化复用 access_policy/access_meta 和一次性迁移标记；新 Bot 默认 Ask；现有策略不重迁；导入标记阻止继承另一设备 Full；损坏 / 未知 schema / 未知 marker / 错列定义不重建。取消前置检查无写入；并发注册仅一条 revision=1；SQL 单值 1 MiB、SQL 文本 16 KiB、列数 32 的连接限制先于查询，异常值拒绝。初始化枚举上限 4,096 项，超限回滚并报告 POLICY_RESOURCE_LIMIT，不截断为完成。SQL busy 仍 3 秒；同步 Store port 尚待 Host 阻塞任务池 / 取消装配。
+
+保留交叉验证首次失败：旧 TS BotProfileStore 要求非空 displayName 与 avatar 对象，原生 profile reader 初稿漏校验、旧手写夹具也过窄。新增同一坏档案的 TS/Rust 实测后修正，测试正常档案补齐真实字段；不把改 fixture 当已验证旧边界。无生产入口曾调用这条候选权限路径，未读写个人策略；旧 Full / Evidence 未被擅自清理。日志保留于系统临时目录 `peer-native-policy-profile-failure.log` 和 `peer-native-policy-check.log`，最终交叉夹具 `peer-native-policy-init-q0mwKa`；首次 set_limit 的未处理 Result warning 改为错误传播，未忽略检查。
+
+### NR-02b 下个切片：大文档只读字段投影
+
+依 ADR 98 / 130 / 131，允许 peer-protocol 的流式 JSON 字段投影器、peer-store 的文件身份 / 只读 Goal 原文投影及隔离量测。目的：大 Goal 的轨迹 / checkpoint 正文不能为了查几个身份字段整篇进堆。输入用有界 BufReader，未选择字段跳过；Root key 解码、已选择载荷 / 节点 / 字符串、全源字节、嵌套深度与取消均在分配 / 读取中限制。已检查 serde_json 1.0.150 的 IgnoredAny：字符串可无拷贝跳过，但 ignore_value 的 scratch 随嵌套增长，必须由 Reader 深度守卫补上。输出明确为原始字段投影，携 source revision / requiresRuntimeCheck，不代替 normalizePlan、runner-progress 合并、Control / lease、live/unknown 或授权。不得重写源文件，不把新 Reader 误报成大历史视口已完成。
+
+字段投影 / WAL 修复回执：源码 `caedca4364fe69d9f4d225509a672abe58eb81e7`；本地 scoped 验证 71 Rust 测试（59 原生 + 12 Helper）、51 runtime golden、29 control transitions / 7 摘要、14 Store + 13 Lease + 13 Policy 跨进程检查、8 PTY、真实 Helper 隔离 ping、fmt / clippy / release build 通过。128 MiB 合成 Goal 字段扫描五次，RSS 均 2,129,920 bytes，physical footprint 均 1,376,640 bytes，扫描 811–821 ms；二进制重建 hash 未变，与量测一致。源 SHA-256 与原文不变；这不是完整 CLI / viewport / 千轮 / 四小时性能验收。
+
+远端上一候选 `c8d3a2ae` 的 macOS CI success，Linux CI 发现拒绝未知 schema 时的 WAL checkpoint 改写。用原生夹具模拟已提交但未 checkpoint 的 schema 2，macOS 也复现主文件改写，保留 `peer-native-wal-failure.log`。修复为只读事务检查 schema / marker；可写连接先禁用 close checkpoint，事务内再检查，只有成功的已准入事务恢复原 checkpoint 行为。新增 initialize / read / register / update 四条拒绝路径的主文件与 WAL 字节不变断言，全部通过。没有把失败归为 flake，也未削弱文件不变断言。新候选 CI [run 43565605621](https://github.com/ly-ccx/Peer-Agent/actions/runs/43565605621) 尚在运行，不能以旧候选结果代替。
+
+### NR-02b 下个切片：展示历史有界分页
+
+已复核 ADR 57 / 74 / 86 / 98 / 130 / 131 和实际 `jsonl-byte-window.mjs`、`history-source-reader.mjs`。允许 protocol 的原始展示页 / revision 绑定 cursor、peer-store 的逆向有界 JSONL 读取、共享 TS 对照 fixtures 和隔离资源量测。页同时限制记录数、扫描字节、单行 / AST 节点 / 字符串，取消在磁盘读取中生效；cursor 绑定文件身份，陈旧 cursor 明确失效。损坏行需显式诊断，不能悄悄当完整历史；未知字段保留。展示页不是 canonical 模型历史，不合并 streaming sidecar，不产生 grant / Evidence 或执行事实。超大单行先明确报告预算与原文范围，后续块级阅读另验；不把这一切片冒充完整虚拟 transcript 或所有大消息已可浏览。
+
+展示分页回执：源码 `886cfe4372d0b595165a9ee980aedca2cdca0e6b`；77 Rust 测试（65 原生 + 12 Helper）、原有 51 runtime / 29 control / 7 digest、64 跨进程用例（Store 14、Policy 13、Lease 13、Transcript 24）、8 PTY、真实 Helper ping、fmt / clippy / release build 通过。新增 6 Rust 用例覆盖 Unicode 跨块、unknown 字段、坏行 / 非 UTF-8 明确范围、扫描 / 单行 / 解码预算、长前缀尾页成本、取消前置、陈旧 / 跨会话 / 行中 cursor、symlink 与源文件不变。取消检查每个 16 KiB 读块，未把前置取消测试说成真实运行时取消时延验收。
+
+约 1 GiB（1,073,762,880 bytes）合成 JSONL 的尾部 80 行五次均只扫描 81,920 bytes，RSS 2,277,376 bytes、physical footprint 1,556,864 bytes；探针保持已解码页驻留 300 ms 供外部采样，PATH 无 Node/Bun、无 HOME、无子进程，原文 SHA-256 前后一致。内部计时为整毫秒分辨率，五次记录为 0 ms，表示小于该分辨率，不能称零耗时或完整 UI 延迟。大 Goal 同候选重新量测五次 RSS 2,113,536–2,129,920 bytes，812–830 ms。资源探针不是 Ratatui viewport / 模型历史 / 完整 CLI / 长期 soak 验收；超大单行目前明确拒绝，不声称已实现块级正文阅读。
+
+首次对照发现领先空行的 cursor 语义差异：原生初稿在扫到文件头后直接返回 null，旧 TS 返回最老记录 offset，并可能有最后一页空白前缀。保留 fixture，原生恢复同一旧锚点语义，24 项真实对照通过；未改断言为放过差异。完整机器回执见 [P2 Control / Policy / Reader 回执](native-cli/evidence/p2-storage-control-20261114.json)。当前仍未接通 canonical GoalStore、协调 writer fence、持久执行 / grant / Evidence 与 unknown 对账，P2 总闸未通过；不开放共享任务写入、模型请求或工具执行，不切换默认 peer。
+
+最新源码远端验证为 [run 43566467824](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824)，最后观察 macOS / Linux 均 in_progress。前一候选 `caedca43` 在本次推送前仍 in_progress，没有记录为通过；待新候选实际结果回填。
