@@ -120,3 +120,17 @@ ACP 使用官方 Rust SDK 的稳定协议入口，对齐现有 TS SDK 的已实�
 ### NR-03 已确认文件创建的 claim 身份（2026-11-14，实施前）
 
 允许既有 ledger 中属于同一执行与 hostEpoch、仍为 reserved/active 且无 unknown/closure 的 file claim，从 `identity=missing` 更新为本 Host 的实际 File Provider 刚创建并确认的文件身份。必须先持久化配对的真实 Tool Result、Evidence 与 dispatch receipt，再在 ledger 事务内重新核对 scope、执行、owner、当前文件身份；递增原 claim revision，并在既有 resource_events 记录真实 tool-result 引用。相同已应用身份为幂等；已有非 missing 身份变化、外来 owner、reconciling/closed、unknown 或观测不一致全部拒绝。它不推断助手文字、工具计划、文件存在或历史 approved 为创建成功，也不释放 unknown。此为既有 schema 的受控身份确认补充，不新增执行日志或授权路径；须验证同轮“创建→读取→改写”和 TS 冷读。
+
+### NR-04 用量双文件提交恢复（2026-11-15，实施前）
+
+ADR25 的 scope、Store 所有权和既有格式不变；本条收紧其“不声称 index/JSONL 崩溃原子性”处的恢复保证，仍不声称两个文件瞬时原子可见。已用隔离真实 TS Store 复现：index 累加10后 ledger append EACCES，重试同一 id 后 index20而 ledger一行。按本迁移的恢复授权，A 级补充如下，先登记再实施：
+
+- 同一 ConversationStore sink 负责 Node/Rust。持锁顺序为 index.jsonl.lock → .usage-ledger-transaction.lock → usage/requests.jsonl.lock；无 TTL 清锁。辅助 usage 日志写入也参与最后一把锁并拒绝不完整尾行。
+- 既有 `.usage-ledger-transaction` basename 增加可选 schemaVersion=1 的单笔 Store 提交意图文件：ledgerRelative（只与 Host 已配置目的地比较，绝不据内容解析写入位置）、conversationId、before/after（仅 lifetimeUsage/runtimeTurnCount）、完整 ledgerRow、ledgerLine（其唯一末尾换行的原始UTF-8行；解码内容必须与ledgerRow一致）、prefixBytes/prefixSha256。它是用量提交恢复材料，不是第二个执行日志、任务、checkpoint 或权限真源；不得包含秘密。生产目的地仍为既有 usageRequests。意图随 conversations portable 数据保留，未结算提交须在同步/回退前 drain。
+- 严格验证、有限内存扫描与同 id 去重 → fsync 意图并同步目录 → 原子更新并 fsync index → append并fsync真实 ledger行 → 删除意图并同步目录。返回前必须完成两边。重复身份且已提供字段冲突（重试省略可选归因仍返回原行，保留ADR25既有幂等）、未知 schema、坏账本/非普通文件、安全整数溢出全部失败关闭，不归零或略过。
+- 恢复只比较相关计数器；仍为 before 则应用 after，已为 after 则只补日志，其它值冲突即阻断。保留其它 metadata/未知字段。先核对保存的 ledger 前缀长度与 SHA256；完整额外行可以保留，并在追加前重新持久化当前前缀。只有从已证明前缀开始、逐字节等于原行前缀的部分追加，才允许补剩余字节；不截断未知数据。已存在相同行为幂等，重复/冲突阻断。
+- 单行256KiB、意图512KiB、index沿既有8MiB/4096行边界；扫描不将整个 lifetime 日志驻留内存。取消只在提交意图前终止；已开始提交必须完成或留下可诊断意图，不能删失败记录制造成功。错误区分 invalid/limit/conflict/commit_uncertain。
+- 崩溃残留目录锁仍按§5离线维护：确认全部写入者退出、保全文件/锁副本，核实并受控移除孤锁后，由支持v1意图的新 Store 先恢复，才准许旧版本写入。旧版不能自行忽略意图恢复。未带意图的历史半提交无法可靠推断；不自动重算、回填或改个人账单，保留原计数和明确诊断限制。
+- 原生 Host 用稳定 runtime-turn id，在成功和已知终态错误都持久化已观察的 turnTotal；null usage不制造零量。lastRequest仍独立，ledger禁止用于容量恢复。Store失败不得跳过真实 attempt/工具停稳。硬退出前尚未持久观察的供应商用量不能重建，不重放模型请求；需保留未知，不能宣称已知零费用。原生公开接线与恢复分别验收。
+
+实施验收：实际 TS↔Rust 写读与同 id 冷读；index后追加失败、部分行、意图清理失败、冲突/损坏/新版本、双进程竞争与已知孤锁离线恢复；每次恢复后再写新回合。旧失败保留。未完成这些验证不得宣告 P4 总闸通过。
