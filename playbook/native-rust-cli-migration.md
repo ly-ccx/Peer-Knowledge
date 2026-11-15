@@ -4,6 +4,12 @@
 最后更新：2026-11-15
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+2026-11-15 NR-04 压缩持久化候选：`6afb5882` 已完成追加式 historySelection、TS/Rust v3 projector、原生 summary cognition、落盘后重建重计数、容量 sidecar/index mirror、冷恢复和单次 overflow 恢复；后续 `c69bec11` 仅移除文件尾空行。源码 scoped 为 226 Rust（36 个公开 CLI 场景）、56 根 302 项真实 TS/Rust 往返、Node/Bun 各 11 项容量存储互读，以及 8 项 PTY；完整原生 scoped 门禁通过。daa4c478 的全仓 Linux/macOS CI 已核实成功；新候选全仓 CI 单独核对。该卡不代表 P4 总闸：完整 Source/compaction 策略、OAuth/Qoder/代理证书、MCP/Skill/Plugin/Hook、headless/ACP/其余命令与真实模型/平台验收仍须逐项完成。默认 `peer` 未切换、P5 尚未开始，未安装或迁移个人数据。
+
+下一张 NR-04 MCP 入口卡按 B 级实施：复核 `31-mcp-connection-management.md`、`32-mcp-authentication.md`、`36-mcp-tool-card-title-passthrough.md` 和 ADR131。先迁移既有 registry→Manifest 的有界只读 Adapter，冻结真实 TS 差分；未知版本/损坏源保留并拒绝，不把空 registry 误认为已有外部能力。Manifest 的可见性、来源和 auth metadata 不授予执行权限。空 registry 的真实 Host 准入可接通；非空 inventory 在 transport/credential/PermissionGrant/Evidence 全链未完成前继续明确阻断。stdio、Streamable HTTP 和 legacy SSE 必须分别验证，不能改写 `sse` 的含义；SDK 调研或纯 projector 测试不算外部工具已接通。现有权限、Evidence、System Context 与存储事实边界不移动。
+
+该入口卡源码 `c835a459`：19 组真实 TS Manifest 差分、5 个明确拒绝合同、只读 Store 及两个公开 CLI 场景通过；空 inventory 放开，非空仍阻断，运行中 source identity 变化在下次认知前停稳并保留真实写入及费用。最终冻结 scoped 为 231 Rust / 38 公开 CLI / 58 根 314 TS/Rust 往返 / 8 PTY，完整原生 scoped 门禁、release、fmt/clippy、boundary 和 architecture 通过。详见 [压缩与容量恢复证据](native-cli/evidence/p4-compaction-capacity-recovery-20261115.json)、[MCP 入口证据](native-cli/evidence/p4-mcp-inventory-20261115.json)。c69bec11 的 Linux 全仓通过、macOS Test 15 分钟超时；同版本 Bun1.2.17 本机完整 TUI 为876通过/1跳过/0失败，未复现远端挂起，原因仍未知。原 macOS job 重跑在新候选推送后取消，不记 success；最终候选 CI 独立核对。P4 总闸未通过，P5 未开始。
+
 用户已接受评审稿 116–118；正式 ADR 为 129–131（避免与主线既有编号冲突）。用户要求 P0/P1 自测通过后持续推进至完整原生 CLI，无 Bun/Node sidecar。本账本记录候选与实际结果，不替代 ADR 或 Evidence。
 
 ## NR-00 / P0
