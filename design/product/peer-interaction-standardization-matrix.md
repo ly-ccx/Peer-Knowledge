@@ -1384,3 +1384,5 @@ NR-04 usage scope（2026-11-15，`83a0733f`）：公开 exec 的 replied/max_tur
 真实效果后崩溃保持 pending/unknown，原生 OS 死亡观测只证明 runner 停稳，不能改写效果；未证明结束的能力句柄继续阻断。现有状态恢复不重放调用、不删除锁或历史，不改用户原数据。12 项公开可执行入口测试、其中真实 PTY 批准/拒绝与取消，以及当前 TS 冷读配对检查见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。这是隔离源码候选的实现者自审；普通终端、物理 IME、读屏、真实供应商与安装包未验收。当前 Ratatui 草稿入口尚未接发送，完整 TUI/Bot 平价留待后续卡。
 
 2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。
+
+2026-11-15 原生CLI容量Host `daa4c478`：结构化contextAccounting来自真实count/provider观察；计数失败或漂移明确degraded，未知窗口的percent保持null。单请求容量与回合/历史账单分离，后续内容标pending；数据不创建许可、Tool Result或Evidence。33公开CLI、51根274 TS/Rust往返与8PTY为实现者自测；完整压缩和发布体验未验收。见 playbook/native-cli/evidence/p4-native-capacity-host-20261115.json。

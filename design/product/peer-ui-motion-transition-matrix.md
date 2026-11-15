@@ -889,3 +889,5 @@ T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态
 验证来自真实公开二进制、PTY 批准/拒绝/信号取消、实际 child kill+reap、崩溃后原生恢复与后续任务，以及 8 项终端 guard 生命周期检查；精确候选和结果见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。实现者自审，未覆盖日用终端视觉、物理 IME、系统辅助技术、真实供应商或安装包，不登记为 T06/T10 全面或发布验收通过。
 
 2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。
+
+2026-11-15 原生CLI容量Host `daa4c478`：结构化contextAccounting来自真实count/provider观察；计数失败或漂移明确degraded，未知窗口的percent保持null。单请求容量与回合/历史账单分离，后续内容标pending；数据不创建许可、Tool Result或Evidence。33公开CLI、51根274 TS/Rust往返与8PTY为实现者自测；完整压缩和发布体验未验收。见 playbook/native-cli/evidence/p4-native-capacity-host-20261115.json。
