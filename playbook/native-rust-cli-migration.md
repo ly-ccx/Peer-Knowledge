@@ -4,6 +4,12 @@
 最后更新：2026-11-15
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+2026-11-16 MCP协议补齐候选 `9e634d7b`：修复Streamable HTTP等待工具结果时不能及时回复服务器ping的实际死等、双向相同请求id被误当终态，以及Tool Result同名字段覆盖协商版本的问题；协议控制流仍受原owner管理，禁止重定向和底层协议NACK自动重试。初始化期间取消记录为cancelled + not_dispatched，已发出的取消仍保留unknown。协议控制请求不产生工具、许可、Evidence或模型用量。ADR131的B级澄清先记录于知识提交 `a49c79e`，既有能力、许可、存储与System Context边界未移动。
+
+保留了真实失败轨迹：ping_queued→server_wait_expired→pong_received、下一次HTTP请求带入工具结果中的伪协议版本、初始化取消误记failed。广门禁的六项失败也保留并调查；模型fixture在创建15秒后退出的边界由16秒真实PTY审批等待独立复现。现改为显式owner控制监听器生命周期，socket读写仍3秒、受控stall仍15秒；审批决定须5秒内成为持久事实，后续完整模型/工具/停稳/记账工作流另有15秒界限，失败时OwnedChild保证清理。原退出码、效果、授权和unknown断言保留。
+
+最终完整scoped为250 Rust / 54公开CLI（15 MCP场景）/ 82原生根493实际TS读写及Rust重读 / 7真实TS MCP归一化向量与SDK调用 / 8PTY；fmt/clippy/release/boundary/architecture通过。含同id/异id服务器ping的两次真实工具调用、控制POST拒绝与取消/关闭socket、伪版本字段仍按原始数据持久化、16秒等待期间续约及允许后正常收尾。详见[MCP双向协议与恢复回执](native-cli/evidence/p4-mcp-duplex-and-recovery-20261116.json)。`b9623558` 的CI `43730831267` 已核实两平台全仓（含Test与Electron smoke）success，merge `182f0806` 的tree与候选一致；该绿灯不覆盖随后复现的新场景。`9e634d7b` 的CI `43758620404` 独立核对，P4总闸仍未通过，P5未启动。
+
 2026-11-15 原生 MCP 执行卡：源码 `613b2cc8` 接通 stdio、Streamable HTTP JSON/SSE 与独立 legacy SSE；后续 `b9623558` 仅补共享 Protocol 类型声明，Rust、lockfile、合同资源及验证脚本完全相同。Provider 仍沿 Manifest→Projection→当前 Host grant→真实 transport→Tool Result/Evidence 执行；初始化后再核对原 grant、registry revision、policy、Goal/binding 和 lease。连接复用并登记真实完成所有者，停止必须 drain；硬退出按完整原 recorder/进程组观测恢复本地句柄，远端效果仍为 `unfenced_external`，不会重放或凭 Git clean 自动收口。未知版本句柄原样保留并阻断恢复；独立范围的后续 worktree 任务可准入，旧 unknown 保留。
 
 最终原生 scoped 门禁为246 Rust（50个公开CLI场景，其中12个新增MCP场景）、76个实际原生根/448项TS读写及Rust重读、7组实际TS结果归一化向量和真实TS SDK握手/调用、8项PTY；fmt/clippy/release/boundary/architecture通过。Protocol补充类型的build/type及336测试通过；原生门禁绑定 `613b2cc8` 的树，类型补充候选的远端CI独立核对。覆盖真实PTY的一次批准/第二次拒绝、非TTY拒绝、初始化期间降权/配置变化、响应业务错误/RPC错误、断连/帧与结果超限、30秒真实超时、SIGTERM、硬退出/未知版本恢复、已知用量不重复及后续任务。脱敏不递归重写替代串，也不能将协议失败改为成功。见[原生MCP执行证据](native-cli/evidence/p4-native-mcp-runtime-20261115.json)。ADR131的句柄/Evidence观测合同见知识提交 `b60d71a`；既有许可、占用与unknown人工收口政策未改变。

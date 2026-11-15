@@ -42,11 +42,13 @@
   },
   "candidateCI": {
     "commit": "b9623558b20be05b56fc0326b343e9ea67621497",
-    "conclusion": "in_progress",
+    "conclusion": "success",
     "run": 43730831267,
     "linuxJob": 132862734334,
     "macosJob": 132862734619,
-    "lastObserved": "Both jobs: full Build passed, Native CLI scoped validation running. Remaining steps explicitly unverified."
+    "lastObserved": "Both complete jobs succeeded, including native scoped, full repository tests and platform Electron smoke.",
+    "mergeCommit": "182f0806f9e43b0285d8aa7d97b10e8ade9e6890",
+    "matchingTree": "866607fce602e35934f8095f1465f8f8da4445df"
   },
   "checks": {
     "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-mcp-final-20261115",
@@ -179,5 +181,6 @@
     "https://github.com/modelcontextprotocol/rust-sdk",
     "https://modelcontextprotocol.io/specification/2025-03-26/basic/transports",
     "https://docs.rs/aho-corasick/1.1.4/aho_corasick/"
-  ]
+  ],
+  "followupReceipt": "p4-mcp-duplex-and-recovery-20261116.json"
 }
