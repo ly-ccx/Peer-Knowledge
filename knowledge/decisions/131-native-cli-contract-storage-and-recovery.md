@@ -166,3 +166,15 @@ Store 持既有 index→conversation 锁，以原 content/source revision CAS �
 兼容限制：v3 selection 要求支持合同的当前 TS/Rust reader。旧发行版不能安全续跑新选择，不宣称任意旧二进制兼容。默认共享写入、安装和回退仍须 §7 联合兼容与 drain 门禁；本条授权源码及隔离夹具，不授权个人数据、安装或默认切换。
 
 验收覆盖真实工具后的自动压缩→落盘→重读→重建→重计数→发送；温/冷一致、原始字节及工具身份保留；summary/失败计费；overflow 单次恢复；marker后硬退出、index部分提交、旧容量不复活和后续任务；实际 TS↔Rust 冷读。未完成不得记 P4 总闸通过。
+
+### NR-04 原生 MCP dispatch 与停稳观测（2026-11-15，实施前）
+
+沿 ADR31/32、116/124/127 迁移 MCP Provider，不改变可见性、许可或 unknown 收口政策。三种 transport 分别实现；原生 SDK 不支持的 legacy SSE 使用有界 Adapter，不改写配置。连接初始化和 tools/call 分开：Host 在启动受管 transport 前验证真实 grant，在初始化完成、实际 tools/call 写出前再次核对同一 grant、registry source、Goal/binding、policy 与 lease；拒绝或取消不能发出 tools/call。MCP description、resources、prompts 均不自行成为 System Context 指令。
+
+允许既有 resource handle 携带可选 `nativeMcp:{schemaVersion:1,role:"rpc"|"connection",transport,registryRevision,ownerRecorder:<完整原生 recorder>,childRecorder?:<实际 stdio 子进程完整 recorder>}`，与原 execution、hostEpoch、toolCallId 一起核对。它只证明受管本地连接/进程的身份和活性，不证明远端效果。未知版本、不完整身份和未登记启动窗口保持阻断；不得按 PID、超时、连接关闭或原生 owner 死亡推断任意外部工具已结束。stdio 的进程组必须实际结束并回收；HTTP 的 owner 死亡只证明本地请求泵已消失。恢复只针对匹配原执行和完整 recorder 的本地受管句柄，不重放请求，不把其 ended 写成工具成功或无效果。
+
+MCP 已发出的请求在超时、断连、取消、超限或回执不确定时保留 canonical pending/uncertain dispatch；对账为 `unfenced_external`，不可凭本机 Git clean 自动收口。只有协议结果或明确的未派发事实可以进入相应已有结算；实际协议错误与业务 `isError` 分开。结果、失败、拒绝与 unknown 均经既有 Conversation/Evidence Store，元数据可携带 server/transport/tool/投影身份但不携带 headers/env/凭证或原始底层错误。
+
+本条不引入新的执行日志或可重用 grant。bounded 连接/消息/通知/输出、真实正常/拒绝/降权/取消/超时/截断、重启 unknown 不重放及后续任务须通过公开 CLI 和 TS 差分验证。启动登记窗口和任何不支持的 credential/schema 明确阻断；未证明的恢复不记 P4 总闸通过。凭证命名空间与旧密文迁移仍按 ADR0001/32，不能在 transport 内暗中解密 Electron 或回退明文。
+
+本卡 v1 界限冻结于 mcp-runtime-v1 resource：最多8个受管连接、通道1条、单帧1MiB、单RPC累计8MiB/128帧、单请求256KiB、归一化结果256KiB、30秒deadline。超限明确失败并保留可能效果，不静默截断或替换原返回类型。明确未写出 tools/call 时可在 Evidence 追加 `dispatchOutcome:"not_dispatched"`，canonical receipt 仅由 Host 采用此受信 Provider 事实；模型/服务端字段不能提供该事实。HTTP 不自动重试或重定向；legacy SSE endpoint 限同源，避免配置凭证跨源发送；这属于本原生 Adapter 的保守限制，不将此卡记为完整协议平价。现有已显式配置 headers/env 的注入值在返回进入模型/Evidence 前脱敏；新凭证管理仍须 Vault Adapter。
