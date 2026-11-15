@@ -178,3 +178,5 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 本条不引入新的执行日志或可重用 grant。bounded 连接/消息/通知/输出、真实正常/拒绝/降权/取消/超时/截断、重启 unknown 不重放及后续任务须通过公开 CLI 和 TS 差分验证。启动登记窗口和任何不支持的 credential/schema 明确阻断；未证明的恢复不记 P4 总闸通过。凭证命名空间与旧密文迁移仍按 ADR0001/32，不能在 transport 内暗中解密 Electron 或回退明文。
 
 本卡 v1 界限冻结于 mcp-runtime-v1 resource：最多8个受管连接、通道1条、单帧1MiB、单RPC累计8MiB/128帧、单请求256KiB、归一化结果256KiB、30秒deadline。超限明确失败并保留可能效果，不静默截断或替换原返回类型。明确未写出 tools/call 时可在 Evidence 追加 `dispatchOutcome:"not_dispatched"`，canonical receipt 仅由 Host 采用此受信 Provider 事实；模型/服务端字段不能提供该事实。HTTP 不自动重试或重定向；legacy SSE endpoint 限同源，避免配置凭证跨源发送；这属于本原生 Adapter 的保守限制，不将此卡记为完整协议平价。现有已显式配置 headers/env 的注入值在返回进入模型/Evidence 前脱敏；新凭证管理仍须 Vault Adapter。
+
+2026-11-16 B级协议补齐：Streamable HTTP等待原RPC的SSE结果时，仍须发送SDK产生的服务器请求回复/通知；最多保留原响应流和一个控制POST，不创建脱离受管owner的后台任务。控制回复只能沿已有transport，不生成工具、许可、Evidence或模型调用。客户端与服务器各自的请求id可重合；只有同id的JSON-RPC响应/错误可结束原响应流，服务器同id的请求不算工具结果。协商版本只绑定到真实initialize请求的响应，Tool Result里的同名字段仍是原始事实，不能改变连接配置或下一请求header。明确禁用底层HTTP协议NACK重试，保持不自动重放；断连/失败仍按原unknown契约处理。此补齐沿ADR31既有双向协议，未移动能力、授权、存储或System Context边界。

@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR131补记MCP Streamable HTTP的有界控制回复和双向请求id区分；属ADR31已有双向协议的B级补齐，不新增能力或授权路径。
+
 2026-11-15：ADR131 增补 NR-04 原生 MCP dispatch 与停稳观测，实施前登记可选 nativeMcp handle 身份、初始化后实时复核和 unfenced external 对账。授权、可见性、Evidence 与既有人工收口政策不变；实现/验收另记。
 
 创建时间：2026-11-06
