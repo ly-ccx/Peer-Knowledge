@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-15",
+  "candidate": "be497066ca0d97e0072a8540cb25874bdce08363",
+  "tree": "0c2690d0608dee932630b3d4aca4510cdc4b8980",
+  "contractDecision": "ADR131 NR-04 usage commit recovery supplement e6824b3; ADR25 scopes unchanged",
+  "classification": "A Store recovery tightening, recorded before implementation; no capability/permission/Evidence/Goal acceptance change",
+  "prerequisite": {
+    "candidate": "83a0733f50b281708f3dc532d106fa04063a5aac",
+    "run": 43627852431,
+    "linux": 132676885967,
+    "mac": 132676884582,
+    "result": "both full jobs success; original mac failure retained",
+    "tree": "1a38894b4f0e0589eede8158c36ae63be9516df9",
+    "matchingMerge": "5885ba1d8416dbb20d70db37dcf0318dadd56c0a"
+  },
+  "fullNativeScoped": {
+    "result": "pass",
+    "sourceClean": true,
+    "rustTests": 194,
+    "crossProcessLedgerCases": 28,
+    "storeFocusedTests": 11,
+    "oldStoreCrossProcessCases": 302,
+    "actualTScoldReadCases": 97,
+    "coldReadRoots": 30,
+    "publicNativeTests": 21,
+    "PTY": 8,
+    "checks": [
+      "fmt",
+      "clippy -D warnings",
+      "generated contracts",
+      "release build",
+      "sidecar/dependency boundaries",
+      "existing Source/wire/usage contracts",
+      "actual Helper ping"
+    ],
+    "logSha256": "488b2e7042c8a0da836bed4583d685c2dc953de75e3c355f6e5bc36c69966bbb"
+  },
+  "otherValidation": {
+    "conversationStorePackage": 145,
+    "desktopUsageFocused": 62,
+    "desktopTypecheck": "pass",
+    "desktopBuild": "pass; existing Vite chunk warning",
+    "packagedMainImports": 881,
+    "architecture": "pass"
+  },
+  "crossProcessReceipt": {
+    "cases": 28,
+    "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-native-ledger-conformance-L9oumN",
+    "binarySha256": "763f6ee3323403c57c2d2e8d6700df49633fe7c4b88eb9e3d216f3379a455f85",
+    "contractSha256": "f992c4283b4ecc42ce55284b7e9badc15845484b8b1be0df834dfa381bf6535f",
+    "scope": "Actual TS/Rust/Node Store processes; owned synthetic roots; no personal state; exact original partial line bytes; controlled offline orphan-lock maintenance after observed child exit"
+  },
+  "failedAttemptsRetained": [
+    "actual baseline EACCES doubled index total after retry (separate baseline receipt)",
+    "TS7022 from earlier profile reader fixed separately",
+    "new ledger invalid UTF8 error initially exposed raw TextDecoder code, fixed structured mapping",
+    "first native equality used insertion-order digest and rejected an equivalent Node row; replaced with existing stable JSON encoding equality",
+    "Rust borrow E0502 while retaining raw ledgerLine, fixed bounded byte ownership",
+    "original optional-attribution retry test failed; preserved its assertion and original idempotency with omitted optional fields",
+    "three newly reproduced encoding acceptance failures before strict-byte/BOM/surrogate correction",
+    "clippy collapsible_if, fixed without suppressions"
+  ],
+  "recovery": [
+    "actual append EACCES after index publication",
+    "exact original partial row bytes across both languages",
+    "before/after counter images and prefix SHA256",
+    "complete auxiliary rows retained",
+    "hard process exits after intent/index/append/cleanup, orphan locks block; child exit observed, files/locks backed up and only proven empty owned lock dirs removed",
+    "same-id contention does not charge twice; bounded busy may retry billing id",
+    "unknown counter/schema/path/raw bytes reject without rewriting",
+    "all recovered cases admit a later new turn"
+  ],
+  "limits": [
+    "Native Store sink only; production native exec has not yet connected durable terminal billing/readiness/recovery",
+    "Hard exits before a billing intent may retain only aggregate Work tokens and unknown status, not reconstructable raw request attribution",
+    "Legacy half-commits without v1 intent cannot be automatically reconciled",
+    "No personal data repair, installed build, live provider, release or memory soak",
+    "P4 total gate incomplete; P5 not begun"
+  ],
+  "nextCard": {
+    "classification": "B under ADR25/56/129/131, written boundaries unchanged",
+    "entry": "NativeSessionHost run_episode/recover_native_episode and public exec receipts",
+    "acceptance": [
+      "readiness before new model dispatch; preserve corrupt ledger and allow the same ready task after correction",
+      "bill known turnTotal on success/max_turns/known terminal error; keep lastRequest separate",
+      "Store failures never skip actual attempt completion and stop/drain",
+      "recover pending intent through native recover without model/tool replay, then admit a later task",
+      "blocking Store work maintains Host heartbeat; preflight cancellation remains bounded before commit"
+    ]
+  }
+}

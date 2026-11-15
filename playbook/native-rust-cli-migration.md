@@ -275,3 +275,5 @@ usage 候选 `83a0733f` 已推送，独立 [CI 43627852431](https://github.com/l
 `6406f7af` 固定 clean source 的原完整 Electron smoke 第二次通过，所有原断言/时限保留：accessibility、diagnostics、streaming、effort-stability、work-surfaces，200 Bot 诊断无错误/私人字段，8 种开关主题通过，owned process 正常退出。第一次附件目录失败仍保留；此源码自测不替代83远端重跑或6406新 CI。
 
 前置 CI 已确认：83a0733f 的 run43627852431 重跑 Linux132676885967 / macOS132676884582 全仓 success，原断言与源码树不变，merge5885ba1d tree1a38894b与83完全一致。随后推送已完成原完整 Electron smoke 的6406修复候选，并按 ADR25/56/129–131 开始 durable ledger 卡。ADR131 的2026-11-15 NR-04补充及map先于代码登记；A 级只收紧 Store 双文件失败恢复，不移动权限/Evidence/Context或Goal签收边界。
+
+NR-04 durable Store 候选 `be497066` 已推送：ADR131 的 A级双文件提交恢复先登记，Rust/Node共享同一 v1意图与锁，真正流式扫描、按原始行补缺失后缀，不截断未知。固定 clean source 的完整 scoped通过：194 Rust / 28 新账本跨进程 / 原302 Store / 97 TS冷读（30根）/ 21公开入口 / 11新Store聚焦 / 8PTY；Store全包145、Desktop用量62、type/build、881 packaged imports与architecture通过。28场景包括双端互相恢复、硬退出与受控孤锁维护、未知保全、并发同id与后续回合。保留重复计费原缺陷和实施中的断言失败，未改旧幂等断言。详见[账本Store回执](native-cli/evidence/p4-durable-ledger-store-20261115.json)。这还不是原生exec持久计费闭环：下一B级卡按同一ADR接成功/错误终态、准入预检、native recover及heartbeat；完整计数/压缩与外部协议仍缺，P4总闸未过，P5未开始。
