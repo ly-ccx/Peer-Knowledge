@@ -265,3 +265,9 @@ NR-04 usage scope 回执：`83a0733f` 的 typed ProviderRequestUsage / RuntimeTu
 NR-04 Source 全仓复核：`f6949bae` 的 CI 43624988490，Linux 132538724196 与 macOS 132538724407 全部 success，含完整 Native / build / type / architecture / Test / Electron smoke。CI merge `20e5bc13` 的 tree 与 f694 一致。随后才推送已完成本地 scoped 验证的 usage 候选 83a0733f；新 CI 必须独立核对，不继承此全绿。
 
 usage 候选 `83a0733f` 已推送，独立 [CI 43627852431](https://github.com/ly-ccx/Peer-Agent/actions/runs/43627852431)（Linux 132547656519 / macOS 132547656837）正在执行。本地二进制 SHA256 `4c4a0869ba8194a836ea1217fabab363e1ece130632887752cdc8965ad88bee4`；新 CI 尚未记为通过。P4 总闸仍缺完整 Source catalog/Host discovery、count/compaction/rebuild/recount、durable request/turn/lifetime、OAuth/Qoder、MCP/Skill/Plugin/Hook、headless/ACP/命令；P5 未开始。
+
+2026-11-15 继续前置 CI：83a0733f 的 Linux 全仓 success；macOS Native/build/type/architecture/Test success，最后 Bot smoke 在 accessibility checkSettings 的开关恢复等待超时。保留原失败 job 132547656837、merge 5885ba1d（tree 与83一致）、714451568-byte artifact 14127503675。完整首个 trace entry 已从自有诊断下载前缀解出：call@20911 before=true、input=false、after=true，后端 false→true 后该次操作再次保存 true，表明操作时展示发生了陈旧回滚；不把它直接称 flake。原源码/断言的单 job 重跑仅用于确认候选，不能证明此生产竞态已修复。
+
+前置修复卡（实施前）：复核 `85-project-agent-hosts-inputs-and-surfaces.md`、`129-native-rust-cli-and-ratatui.md`、`131-native-cli-contract-storage-and-recovery.md` 与当前交互/transition标准，B/C级档案只读投影修复，权限/存储/策略边界不移动。允许 Bot details pending reader 失效、catalog read-vs-commit fence、实际调用者装配、确定性迟到读取测试和原 Electron smoke；不改原开关时限/断言，不自动翻转已保存策略。先保存83原实现的复现失败，再验证本地保存回执不能被早发读取覆盖；旧错误保存只呈现当前真值与既有显式修改入口，不推断历史用户意图。
+
+前置修复候选 `6406f7af`：pending details 在真实保存回执后失效并有界重读，catalog 保留读取等待期间发布的 profile。83 原实现的三项迟到读取复现失败已保留，修复后 25 聚焦 / 9 邻接测试与 Desktop type/build 通过。隔离原 Electron smoke 的八种开关主题与原失败的设置恢复均通过；随后因调用方未创建附件输出目录而失败，源诊断 JSON 已验证，补齐目录后原命令重跑中。不称全 smoke 或新 CI 已通过。详见[原始 CI 与修复回执](native-cli/evidence/p4-ci-profile-recovery-20261115.json)。

@@ -1,0 +1,71 @@
+{
+  "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-ledger-baseline-iPbJqJ",
+  "failure": "EACCES",
+  "afterFailure": {
+    "inputTokens": 10,
+    "outputTokens": 0,
+    "cacheReadTokens": 0,
+    "cacheWriteTokens": 0,
+    "byModel": {
+      "channel::model": {
+        "modelProviderId": "channel::model",
+        "inputTokens": 10,
+        "outputTokens": 0,
+        "totalTokens": 10,
+        "cacheReadTokens": 0,
+        "cacheWriteTokens": 0,
+        "estimatedCostUsd": 0,
+        "requestCount": 1
+      }
+    }
+  },
+  "afterRetry": {
+    "lifetimeUsage": {
+      "usageScope": "conversation_lifetime",
+      "runtimeTurnCount": 2,
+      "inputTokens": 20,
+      "outputTokens": 0,
+      "cacheReadTokens": 0,
+      "cacheWriteTokens": 0,
+      "byModel": {
+        "channel::model": {
+          "modelProviderId": "channel::model",
+          "inputTokens": 20,
+          "outputTokens": 0,
+          "totalTokens": 20,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0,
+          "estimatedCostUsd": 0,
+          "requestCount": 2
+        }
+      },
+      "totalTokens": 20
+    },
+    "ledgerRow": {
+      "id": "turn-one",
+      "at": "2026-11-15T03:00:00.000Z",
+      "conversationId": "198ee004-9fa0-481b-8d56-f06957f54b3a",
+      "streamId": null,
+      "modelProviderId": "channel::model",
+      "groupId": "channel",
+      "model": null,
+      "providerName": null,
+      "usageScope": "runtime_turn",
+      "providerRequestCount": 1,
+      "inputTokens": 10,
+      "outputTokens": 0,
+      "cacheReadTokens": 0,
+      "cacheWriteTokens": 0,
+      "totalTokens": 10,
+      "estimatedCostUsd": null,
+      "pricingSource": null
+    }
+  },
+  "ledgerRows": 1,
+  "source": "83a0733f / unchanged Store at6406f7af",
+  "scope": "owned synthetic root, actual TS Store and filesystem EACCES; no fault mock or personal writes",
+  "failedSetupAttempts": [
+    "EISDIR at initial ledger read precedes index mutation; does not reproduce dual-write failure",
+    "fixture cleanup rmSync(directory,{recursive:false}) rejected EISDIR; corrected to rmdirSync"
+  ]
+}

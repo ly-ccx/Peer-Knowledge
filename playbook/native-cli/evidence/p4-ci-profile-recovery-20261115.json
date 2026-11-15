@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-15",
+  "candidate": "6406f7aff79ef10a1d39c622547ee426868a351f",
+  "base": "83a0733f50b281708f3dc532d106fa04063a5aac",
+  "classification": "B/C read projection; no permission, policy, Evidence or storage boundary moved",
+  "adrs": [
+    "85-project-agent-hosts-inputs-and-surfaces.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "ci": {
+    "run": 43627852431,
+    "baseTree": "1a38894b4f0e0589eede8158c36ae63be9516df9",
+    "merge": "5885ba1d8416dbb20d70db37dcf0318dadd56c0a",
+    "originalLinux": {
+      "job": 132547656519,
+      "result": "success"
+    },
+    "originalMac": {
+      "job": 132547656837,
+      "result": "failure",
+      "failure": "checkSettings handoff restoration; stale read rolled back current profile before Space"
+    },
+    "retry": "pending; exact base and assertions retained"
+  },
+  "trace": {
+    "entry": "trace.trace",
+    "bytes": 46099382,
+    "sha256": "6ebda5d243fc5e47ef70a8ba718dd58768ffbc87b28156b2a33f2f3d2f6d88d0",
+    "crc": "verified ZIP data descriptor",
+    "observation": "call@20911 before=true, input=false, after=true; backend stored true again",
+    "limit": "Trace proves projected rollback; exact winning callback not uniquely identified. Controlled tests reproduce two exposed stale read routes."
+  },
+  "baseline": {
+    "tests": 23,
+    "passed": 20,
+    "failed": 3,
+    "reason": "three stale waiters, stale failed read, list read replacing saved profile"
+  },
+  "fixed": {
+    "focusedPassed": 25,
+    "adjacentPassed": 9,
+    "typecheck": "pass after explicit Promise<T> annotation (initial TS7022 retained)",
+    "build": "pass; existing chunk warning",
+    "readerBound": "at most four invalidated read rounds; explicit failure then later reads can recover"
+  },
+  "checks": [
+    {
+      "file": "peer-83-profile-stale-before.log",
+      "sha256": "eeea674ac209c77a0ffe2fd53d4f0a6414f6c584a7bd49f4d188f4a252fd435e"
+    },
+    {
+      "file": "peer-83-profile-stale-after-final.log",
+      "sha256": "d3abd863cd459488b6515efc924cf056ee08f00a3ec5d3a8d423af12a502585c"
+    },
+    {
+      "file": "peer-83-profile-stale-type-corrected.log",
+      "sha256": "031dff810202175db58f84d9956e4b27564f29a69f6fc31e5ec906ae92537d37"
+    },
+    {
+      "file": "peer-83-profile-stale-build.log",
+      "sha256": "898d08f1ff447763d5576be03b4b5adc99e22dd235e1155d907dda0e5cecbfd5"
+    },
+    {
+      "file": "peer-83-profile-adjacent.log",
+      "sha256": "ef844140af0b39dc794334a5bcff776fdf7bd7745e8d3da73e2e715fd6c5b26b"
+    }
+  ],
+  "smokeAttempts": [
+    {
+      "candidate": "6406f7aff79ef10a1d39c622547ee426868a351f",
+      "dirty": false,
+      "result": "failed",
+      "settings": "passed including eight theme/switch states",
+      "error": "Error: ENOENT: no such file or directory, copyfile '/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-bot-shell-smoke-6y9WP8/exported-diagnostics.json' -> '/tmp/peer-83-profile-fixed/bot-shell-diagnostics.json'\n    at copyFileSync (node:fs:3089:11)\n    at checkBotShellDiagnostics (file:///Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/apps/desktop/scripts/bot-shell-diagnostics-checks.mjs:27:25)\n    at async file:///Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/apps/desktop/scripts/bot-shell-electron-smoke.mjs:964:47",
+      "cause": "Caller-specified output directory did not exist before diagnostics attachment copy; exported source JSON already read and validated",
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 67705
+      }
+    }
+  ],
+  "visualSelfReview": {
+    "independent": false,
+    "files": [
+      "settings-default.png",
+      "settings-default-light.png",
+      "settings-default-dark.png"
+    ],
+    "observations": "Shared Frost model controls and settings panel remain legible and aligned in light/dark states; no new layout/motion/focus changes. These captures show model settings, not a deterministic injected race."
+  },
+  "recovery": "No saved settings auto-flipped; current saved truth shown on reload and explicit existing controls retained. No personal data changed.",
+  "limits": [
+    "P4 total gate incomplete",
+    "P5 not started",
+    "No installed-build, live-model, OS accessibility or full release acceptance"
+  ]
+}
