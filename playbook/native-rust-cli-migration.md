@@ -10,6 +10,8 @@
 
 该入口卡源码 `c835a459`：19 组真实 TS Manifest 差分、5 个明确拒绝合同、只读 Store 及两个公开 CLI 场景通过；空 inventory 放开，非空仍阻断，运行中 source identity 变化在下次认知前停稳并保留真实写入及费用。最终冻结 scoped 为 231 Rust / 38 公开 CLI / 58 根 314 TS/Rust 往返 / 8 PTY，完整原生 scoped 门禁、release、fmt/clippy、boundary 和 architecture 通过。详见 [压缩与容量恢复证据](native-cli/evidence/p4-compaction-capacity-recovery-20261115.json)、[MCP 入口证据](native-cli/evidence/p4-mcp-inventory-20261115.json)。c69bec11 的 Linux 全仓通过、macOS Test 15 分钟超时；同版本 Bun1.2.17 本机完整 TUI 为876通过/1跳过/0失败，未复现远端挂起，原因仍未知。原 macOS job 重跑在新候选推送后取消，不记 success；最终候选 CI 独立核对。P4 总闸未通过，P5 未开始。
 
+最终候选全仓回执：`c835a4597864c26ae8d00d3dbd1e24642d3e7f63` 的 CI `43722096748`，Linux job `132836192244` 与 macOS job `132836191923` 均 success（含完整 build、native scoped、type、architecture、全仓 Test 和 Electron smoke）。CI merge `468e23e750b24a01d112c7c4ef9778dd028a5010` 的 tree `4695f7db37a3847cc7cd662e943b8d9c2b001633` 与候选完全一致。该结果验证当前组合源，不倒推 c69bec11 超时原因已修复，也不替代 P4 功能总闸或发布验收。
+
 用户已接受评审稿 116–118；正式 ADR 为 129–131（避免与主线既有编号冲突）。用户要求 P0/P1 自测通过后持续推进至完整原生 CLI，无 Bun/Node sidecar。本账本记录候选与实际结果，不替代 ADR 或 Evidence。
 
 ## NR-00 / P0
