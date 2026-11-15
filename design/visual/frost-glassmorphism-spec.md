@@ -1,5 +1,7 @@
 # Peer Frost 毛玻璃规范（Glassmorphism Spec）
 
+> 2026-10-23 定位更新：本文为历史方案初稿，保留设计推演。新实现依据 [Frost 体验规范](../../knowledge/specifications/peer-product-experience-standard.md)与[动效规范](../../knowledge/specifications/motion-system.md)，实际 token 取代码仓当前定义。下文旧色值、固定平台策略、性能倍数和逐次截图/测试要求不作为现行实施指令；平台可用性和性能须由目标版本实际验证。保留“外壳可玻璃、长阅读面实色、无嵌套 blur、有实色降级”的原则。
+
 > 创建时间：2026-06-23
 > 最后更新：2026-06-23
 > 状态：v1.0 初稿

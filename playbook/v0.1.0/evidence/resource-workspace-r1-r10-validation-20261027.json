@@ -1,0 +1,1583 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "scope": "R1-R10 scoped combined validation; NOT the full release product-regression packet",
+  "runId": "9a95da80-785a-4ae7-a76f-25c7067079e7",
+  "source": {
+    "head": "a81a049ce677d19c7b05f8fc8835e1d0d305d82f",
+    "fingerprint": "eca74077bf15c830958be7387483305b6c610510a8b31008714baa9f4c6c5656",
+    "matchedCopiedFiles": 3288,
+    "dirtyCandidate": true
+  },
+  "environment": {
+    "node": "25.9.0",
+    "pnpm": "10.22.0",
+    "app": "source Electron in isolated synthetic data directories"
+  },
+  "modules": {
+    "tests": 697,
+    "suites": 18,
+    "pass": 697,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "checks": {
+    "desktopDependencyBuild": "passed",
+    "desktopTypecheck": "passed",
+    "architectureAndUi": "passed",
+    "ipcCatalog": "passed"
+  },
+  "ui": {
+    "suites": [
+      {
+        "suite": "collaboration-dark-extended",
+        "status": "passed",
+        "checks": [
+          "R7 actual canonical evidence projection and other-Bot denial through main preload/IPC",
+          "R8 real DOM selection persists a fixed recipient/version input reference, preserving Composer text; no send or file write",
+          "R9 actual saved revision survives Bot switch; source file and later task history are untouched",
+          "R10 actual UI permission -> local conditional Provider -> original Grant/ToolCall/Evidence; fixed revision writes once; later input and explicit reconcile do not replay it",
+          "R9/R10 external change is compared against preserved base/draft without automatic overwrite or rebase",
+          "R10 real denial/cancellation have no file effect; version changes during permission yield conflict without overwrite",
+          "R5w1/R9 native sender isolation, composition/save-blocked close retains input, safe retry closes only that view",
+          "R5w1 actual native directory and Git comparison windows share scoped readers, render real content, and close independently",
+          "R5w2 actual WebContentsView address copy; original embedded guest identity and unsent form preserved"
+        ],
+        "screenshots": 13,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 1883
+          }
+        ]
+      },
+      {
+        "suite": "collaboration-light-extended",
+        "status": "passed",
+        "checks": [
+          "R7 actual canonical evidence projection and other-Bot denial through main preload/IPC",
+          "R8 real DOM selection persists a fixed recipient/version input reference, preserving Composer text; no send or file write",
+          "R9 actual saved revision survives Bot switch; source file and later task history are untouched",
+          "R10 actual UI permission -> local conditional Provider -> original Grant/ToolCall/Evidence; fixed revision writes once; later input and explicit reconcile do not replay it",
+          "R9/R10 external change is compared against preserved base/draft without automatic overwrite or rebase",
+          "R10 real denial/cancellation have no file effect; version changes during permission yield conflict without overwrite",
+          "R5w1/R9 native sender isolation, composition/save-blocked close retains input, safe retry closes only that view",
+          "R5w1 actual native directory and Git comparison windows share scoped readers, render real content, and close independently",
+          "R5w2 actual WebContentsView address copy; original embedded guest identity and unsent form preserved"
+        ],
+        "screenshots": 13,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 3668
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-r5-r6-smoke-dark",
+        "status": "passed",
+        "checks": [
+          "R5-02 actual Git blob, immutable commit, nested same-commit navigation, separate live tab and missing history failure",
+          "R5a settings and resource share one pane; one-step return preserves exact field DOM, unsaved name and main Composer; no overlay",
+          "R5-03 expanded directory branches persist and recover through the real host without opening the selected file",
+          "R6 local HTML/SVG never execute or request embeds; Markdown remote image is explicit; 50,001-line source bounded to 4,000 rows",
+          "R6 valid PNG native decoding and fit/zoom; truncated PNG produces local decoder failure and explicit retry",
+          "R6 normal Git change renders real two-way hunk positions after document and image transitions",
+          "R5-03 real guest crash has local failure and explicit recovery; fresh process restores directory branches, selection and exact 440px reading position",
+          "R5-03 real guest retains form/identity while hidden; fresh Electron restores URL with a truthful notice, not the former form",
+          "synthetic conversation and source bytes unchanged by UI; no model/task/replay; no renderer pageErrors"
+        ],
+        "screenshots": 10,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 10028
+          },
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-2",
+            "pid": 11438
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-r5-r6-smoke-light",
+        "status": "passed",
+        "checks": [
+          "R5-02 actual Git blob, immutable commit, nested same-commit navigation, separate live tab and missing history failure",
+          "R5a settings and resource share one pane; one-step return preserves exact field DOM, unsaved name and main Composer; no overlay",
+          "R5-03 expanded directory branches persist and recover through the real host without opening the selected file",
+          "R6 local HTML/SVG never execute or request embeds; Markdown remote image is explicit; 50,001-line source bounded to 4,000 rows",
+          "R6 valid PNG native decoding and fit/zoom; truncated PNG produces local decoder failure and explicit retry",
+          "R6 normal Git change renders real two-way hunk positions after document and image transitions",
+          "R5-03 real guest crash has local failure and explicit recovery; fresh process restores directory branches, selection and exact 440px reading position",
+          "R5-03 real guest retains form/identity while hidden; fresh Electron restores URL with a truthful notice, not the former form",
+          "synthetic conversation and source bytes unchanged by UI; no model/task/replay; no renderer pageErrors"
+        ],
+        "screenshots": 10,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 12244
+          },
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-2",
+            "pid": 13667
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-r5-smoke-dark",
+        "status": "passed",
+        "checks": [
+          "real host hashes actual bytes; unchanged conditional read succeeds; changed read returns no new body; UI keeps accepted content and scroll position",
+          "explicit adoption displays current body, clears version notice and preserves Composer draft",
+          "missing-file refresh gives a local reason and retains accepted body; retry recovers",
+          "production host rejects outside-scope and other-Bot references without returning their body",
+          "real settings persist content observation and separate source/preview coordinates; fresh Electron process revalidates and restores both",
+          "conversation history unchanged; no model request, task continuation or completed-write replay"
+        ],
+        "screenshots": 5,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 7179
+          },
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-2",
+            "pid": 7887
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-r5-smoke-light",
+        "status": "passed",
+        "checks": [
+          "real host hashes actual bytes; unchanged conditional read succeeds; changed read returns no new body; UI keeps accepted content and scroll position",
+          "explicit adoption displays current body, clears version notice and preserves Composer draft",
+          "missing-file refresh gives a local reason and retains accepted body; retry recovers",
+          "production host rejects outside-scope and other-Bot references without returning their body",
+          "real settings persist content observation and separate source/preview coordinates; fresh Electron process revalidates and restores both",
+          "conversation history unchanged; no model request, task continuation or completed-write replay"
+        ],
+        "screenshots": 6,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 8588
+          },
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-2",
+            "pid": 9294
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-r6a-smoke-dark",
+        "status": "passed",
+        "checks": [
+          "wide auxiliary Files reuses one tree and document DOM; closing/reopening preserves expanded branches",
+          "directory auto-check is opt-in, reads real changes, pauses hidden and resumes without rebuilding tree",
+          "shared comparison index, deleted selection has no first-file fallback, automatic candidate needs adoption, real Git failure keeps accepted content and retry recovers",
+          "project and identity-checked knowledge repository use independent comparisons and confirmed roots",
+          "real Browser guest identity and form survive auxiliary/standalone Files; 600px uses standalone; reduced-motion flag is honored",
+          "Bot owner switch clears auxiliary state; original Composer draft and synthetic conversation bytes remain; no renderer errors"
+        ],
+        "screenshots": 8,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 14479
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-r6a-smoke-light",
+        "status": "passed",
+        "checks": [
+          "wide auxiliary Files reuses one tree and document DOM; closing/reopening preserves expanded branches",
+          "directory auto-check is opt-in, reads real changes, pauses hidden and resumes without rebuilding tree",
+          "shared comparison index, deleted selection has no first-file fallback, automatic candidate needs adoption, real Git failure keeps accepted content and retry recovers",
+          "project and identity-checked knowledge repository use independent comparisons and confirmed roots",
+          "real Browser guest identity and form survive auxiliary/standalone Files; 600px uses standalone; reduced-motion flag is honored",
+          "Bot owner switch clears auxiliary state; original Composer draft and synthetic conversation bytes remain; no renderer errors"
+        ],
+        "screenshots": 8,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 15390
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-smoke-dark",
+        "status": "passed",
+        "checks": [
+          "nonmodal launcher without guest allocation",
+          "Markdown body/source and Composer draft survive opening",
+          "real DOM mode reading positions, repeated line intents and missing-line fallback",
+          "static Markdown external image makes no request before explicit opening",
+          "scoped local image decoded by production host",
+          "missing file has a local error without blocking other resources",
+          "same-turn short filename resolves to its full tool-result source",
+          "confirmed cross-repository Markdown and nested relative link",
+          "independent bounded directory view",
+          "full unstaged repository Diff",
+          "staged Diff, pinned moving revision refresh and independent comparison tabs",
+          "host-owned unregistered task worktree comparison, retained tab/current file/nested link and forged-scope rejection",
+          "outside-scope denial without content leak",
+          "real browser guest preserved across mixed document/web tabs",
+          "pointer resize cancellation cleans up and retains Composer draft",
+          "side opening collapses navigation before the conversation; resize never automatically maximizes",
+          "compact view returns to the same resource and Composer draft",
+          "ordinary Bot switch starts collapsed and does not inherit another Bot resource tabs",
+          "all resource interactions preserve fixture files, Git index and current commit"
+        ],
+        "screenshots": 8,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 4521
+          }
+        ]
+      },
+      {
+        "suite": "resource-workspace-smoke-light",
+        "status": "passed",
+        "checks": [
+          "nonmodal launcher without guest allocation",
+          "Markdown body/source and Composer draft survive opening",
+          "real DOM mode reading positions, repeated line intents and missing-line fallback",
+          "static Markdown external image makes no request before explicit opening",
+          "scoped local image decoded by production host",
+          "missing file has a local error without blocking other resources",
+          "same-turn short filename resolves to its full tool-result source",
+          "confirmed cross-repository Markdown and nested relative link",
+          "independent bounded directory view",
+          "full unstaged repository Diff",
+          "staged Diff, pinned moving revision refresh and independent comparison tabs",
+          "host-owned unregistered task worktree comparison, retained tab/current file/nested link and forged-scope rejection",
+          "outside-scope denial without content leak",
+          "real browser guest preserved across mixed document/web tabs",
+          "pointer resize cancellation cleans up and retains Composer draft",
+          "side opening collapses navigation before the conversation; resize never automatically maximizes",
+          "compact view returns to the same resource and Composer draft",
+          "ordinary Bot switch starts collapsed and does not inherit another Bot resource tabs",
+          "all resource interactions preserve fixture files, Git index and current commit"
+        ],
+        "screenshots": 8,
+        "pageErrors": [],
+        "cleanup": [
+          {
+            "ok": true,
+            "code": "stop-owned",
+            "signaled": true,
+            "exited": true,
+            "handleId": "owned-1",
+            "pid": 5905
+          }
+        ]
+      }
+    ],
+    "namedChecks": 98,
+    "screenshots": 89
+  },
+  "screenshots": [
+    {
+      "name": "01-selected-reference",
+      "sha256": "8a9247b69a5356c1c87d2d73eca1f5e488812f1babe6125aaa027552a529f3b5",
+      "id": "collaboration-dark-extended-dark-01-selected-reference.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "02-local-draft",
+      "sha256": "b31881a064709accbad5056b3726658348f9c216900fd7cb55d1a18092e2dbb8",
+      "id": "collaboration-dark-extended-dark-02-local-draft.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "03-permission-with-later-input",
+      "sha256": "be4e82f3a4cd92b13e7500b4a7c039e6773aac893ba6e1e30344a96afb8a4cd2",
+      "id": "collaboration-dark-extended-dark-03-permission-with-later-input.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "04-applied-result",
+      "sha256": "9e3ffcfacaa48e311aa3bfa0afe5d154c1c74d244f4713de6e1fc79b6f228804",
+      "id": "collaboration-dark-extended-dark-04-applied-result.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "05-three-way-comparison",
+      "sha256": "36e7be63c734c23a60cd21c0526b5199d68f6fa4d32dacb2fb590cd2e6301250",
+      "id": "collaboration-dark-extended-dark-05-three-way-comparison.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "05b-denied-preserved",
+      "sha256": "ea6e5224c67e2484583112bff3e2a384cbcecba5e47bd8d8c5a5b6ec77909b4b",
+      "id": "collaboration-dark-extended-dark-05b-denied-preserved.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "05c-conflict-preserved",
+      "sha256": "42ee4e07d9d57878090fdc8907237572c7ecd00706e1bf54881669fd43fe1936",
+      "id": "collaboration-dark-extended-dark-05c-conflict-preserved.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "06-native-document",
+      "sha256": "82bf836c282bd459861718d5d735c66a158d28bc648e07ac38690f503016c15e",
+      "id": "collaboration-dark-extended-dark-06-native-document.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "07-native-close-preserved",
+      "sha256": "94f3cadf1d235dbc1c074e6cec9c689dc230c1c8ec8b7862cc81d5a7a0d52b69",
+      "id": "collaboration-dark-extended-dark-07-native-close-preserved.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "08-native-directory",
+      "sha256": "3aeb45368f2ec1fc3688d21eb5b72cfe3536ecf31a160e66636be20615230386",
+      "id": "collaboration-dark-extended-dark-08-native-directory.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "08-native-comparison",
+      "sha256": "e5e4dab5ae4e2a71a9edf8c46657a6dbf6d15dfa8f473bfc610968f351a53b78",
+      "id": "collaboration-dark-extended-dark-08-native-comparison.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "09-native-browser",
+      "sha256": "64ef07553629247c1cd749ea1a9a4fd17a80a9c2a4909d105448d9156e9b1eda",
+      "id": "collaboration-dark-extended-dark-09-native-browser.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "09b-native-browser-content",
+      "sha256": "7611be294d6bebd87fb551bd9d03e33d3113be0d5d5d8d9acd4f61fa454d1dc5",
+      "scope": "Actual WebContentsView pixels; separate from native chrome screenshot",
+      "id": "collaboration-dark-extended-dark-09b-native-browser-content.png",
+      "suite": "collaboration-dark-extended"
+    },
+    {
+      "name": "01-selected-reference",
+      "sha256": "653167c1555301affad7f95df81f8c4464db2d06387e4d0929c385467f3825bd",
+      "id": "collaboration-light-extended-light-01-selected-reference.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "02-local-draft",
+      "sha256": "f6d42d5c33e379367e1446a99b4d1fee019d3991045c26d465a63f93c62615c8",
+      "id": "collaboration-light-extended-light-02-local-draft.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "03-permission-with-later-input",
+      "sha256": "b993bf4dc19cf9acf17e9b18b35d66d8febf4c516206823feb34a1fb72216456",
+      "id": "collaboration-light-extended-light-03-permission-with-later-input.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "04-applied-result",
+      "sha256": "8e2be0e3a4f794fc1e469c2c3b6c26004708d703239c49d79d703d183046aa23",
+      "id": "collaboration-light-extended-light-04-applied-result.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "05-three-way-comparison",
+      "sha256": "e08047b22a9d03f5abfb749f7ba737ebfc40e561337edbab8afa0b30db118fbd",
+      "id": "collaboration-light-extended-light-05-three-way-comparison.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "05b-denied-preserved",
+      "sha256": "8929f6d6d43f12cd9b14da0267eaebc2db9cf96b83197d19948da8d1d8a9e7fe",
+      "id": "collaboration-light-extended-light-05b-denied-preserved.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "05c-conflict-preserved",
+      "sha256": "55104e63041c55ad32a98d4b93370daa9644f6d20ff3c7971dd9b0fbc5cd741c",
+      "id": "collaboration-light-extended-light-05c-conflict-preserved.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "06-native-document",
+      "sha256": "1547ec663c83dd66dce9a95c8fedc0ab7fdd437c9f49e0d7e2f6cecd0ca2292a",
+      "id": "collaboration-light-extended-light-06-native-document.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "07-native-close-preserved",
+      "sha256": "826ed9b0b2518a808ebd483e8b2d0929e4f21f4b41765ffb4ac9a509d41ed227",
+      "id": "collaboration-light-extended-light-07-native-close-preserved.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "08-native-directory",
+      "sha256": "76295efef289d64433785fec1da051a3c1bfe1efb0b745f5b1e7e574251c4538",
+      "id": "collaboration-light-extended-light-08-native-directory.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "08-native-comparison",
+      "sha256": "8c135ac95035c09e383814fc1da12a7cc68c55b0c2871ca9f5d24a703b594dce",
+      "id": "collaboration-light-extended-light-08-native-comparison.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "09-native-browser",
+      "sha256": "f31233c2bd688ec9119be8655e6e2205938e40b0b84e3feffe123e5c0d43a60e",
+      "id": "collaboration-light-extended-light-09-native-browser.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "09b-native-browser-content",
+      "sha256": "7611be294d6bebd87fb551bd9d03e33d3113be0d5d5d8d9acd4f61fa454d1dc5",
+      "scope": "Actual WebContentsView pixels; separate from native chrome screenshot",
+      "id": "collaboration-light-extended-light-09b-native-browser-content.png",
+      "suite": "collaboration-light-extended"
+    },
+    {
+      "name": "01-history-nested",
+      "sha256": "063f4e805ee8e96385099b151406a96f5d7ccbdce565d23bac552449a45237a2",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-01-history-nested.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "02-details-draft-return",
+      "sha256": "409159623264bd1b5f5ba49b72c4bd081dc67400073266e667809e68256c7e19",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-02-details-draft-return.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "03-directory-restored",
+      "sha256": "9d1bc0d30342cb9eb6c9edff07ab1977421480f752a37571cc72ba2a04abe6fc",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-03-directory-restored.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "04-static-markdown",
+      "sha256": "2bb86af27e726e924f2cc6f857303aa190b01914c1742937f045d18353bc868e",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-04-static-markdown.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "05-raster",
+      "sha256": "7f897cffbfbe747d9850d5d2360110d676f69ccc06e653de035c2400594de65f",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-05-raster.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "06-code-diff",
+      "sha256": "77f0a311a26f30ba15e2b674b47458f6c5b603e6cc08f7716c36457aa575f5d4",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-06-code-diff.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "06b-mode-diff-raw",
+      "sha256": "a26c60c164841b2bf4c6da0c82ef37fadae028d0a4ded4c1fac00882fef2f336",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-06b-mode-diff-raw.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "07-web-keepalive",
+      "sha256": "ebdf4026de270313b64699449e45015cca7c65a6667e7ebf79b5bcf6e724bc61",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-07-web-keepalive.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "08-web-url-recovery",
+      "sha256": "fb5abce7b01e7d1de94479ec04f264e4a548940485d1b9425371f3476e82411d",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-08-web-url-recovery.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "09-directory-process-recovery",
+      "sha256": "5448a7e48a3d2e78811c534b75b9fbfa6c0f5ae48ecbd3954ebcf297b6df10d2",
+      "id": "resource-workspace-r5-r6-smoke-dark-dark-09-directory-process-recovery.png",
+      "suite": "resource-workspace-r5-r6-smoke-dark"
+    },
+    {
+      "name": "01-history-nested",
+      "sha256": "2c6c2a24c7ad177f016067a55252796416e940878030b9652998c7d07a746723",
+      "id": "resource-workspace-r5-r6-smoke-light-light-01-history-nested.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "02-details-draft-return",
+      "sha256": "3610b117732fc85fa6102224fd30c0016cc46c07fdbb119ee4ccca0aed23480b",
+      "id": "resource-workspace-r5-r6-smoke-light-light-02-details-draft-return.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "03-directory-restored",
+      "sha256": "83344b7ec4182da3f76de77f3e4e1af9d2312218a01b24b3c29e59c6e204f768",
+      "id": "resource-workspace-r5-r6-smoke-light-light-03-directory-restored.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "04-static-markdown",
+      "sha256": "99430de9b887a4391640c2d04bd28021fc50163791b26c0dd7bcfc0df28a6585",
+      "id": "resource-workspace-r5-r6-smoke-light-light-04-static-markdown.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "05-raster",
+      "sha256": "3a5a3b3455d685a57fb5bd161bd6f97d241c575a7556ad54e911fcfcb7711164",
+      "id": "resource-workspace-r5-r6-smoke-light-light-05-raster.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "06-code-diff",
+      "sha256": "8a7425234281640f451356f29a8e3237840639b0fac742053e72a8bfb1b7d416",
+      "id": "resource-workspace-r5-r6-smoke-light-light-06-code-diff.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "06b-mode-diff-raw",
+      "sha256": "6d61c91180834fd31ffca4b5e130f0d85ea036d31d8e48e7d3c58f2611b0a8cf",
+      "id": "resource-workspace-r5-r6-smoke-light-light-06b-mode-diff-raw.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "07-web-keepalive",
+      "sha256": "6f87cd27885c194f61c2561a8e76ca9dc2a1b2c080d402d2438a12a58e29fb94",
+      "id": "resource-workspace-r5-r6-smoke-light-light-07-web-keepalive.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "08-web-url-recovery",
+      "sha256": "77cf35246cd0ef79a544603c1a4261d0c4952ccb20d4f5626c7472761db76743",
+      "id": "resource-workspace-r5-r6-smoke-light-light-08-web-url-recovery.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "09-directory-process-recovery",
+      "sha256": "dddc7a7131aa0e753b6e5202603fcdd3a8d8334249db1fb82eda77f7df5dcfcf",
+      "id": "resource-workspace-r5-r6-smoke-light-light-09-directory-process-recovery.png",
+      "suite": "resource-workspace-r5-r6-smoke-light"
+    },
+    {
+      "name": "01-initial-reading",
+      "sha256": "e5f545d86c8b3c5d36003783a6702c3275774f24817f589b8aad2c99d401d635",
+      "id": "resource-workspace-r5-smoke-dark-dark-01-initial-reading.png",
+      "suite": "resource-workspace-r5-smoke-dark"
+    },
+    {
+      "name": "02-changed-keeps-old",
+      "sha256": "c48a8a15ff8e15c70a7c85b4a6c1388ae1afc90e00f348ed15265420de42436e",
+      "id": "resource-workspace-r5-smoke-dark-dark-02-changed-keeps-old.png",
+      "suite": "resource-workspace-r5-smoke-dark"
+    },
+    {
+      "name": "04-adopted-current",
+      "sha256": "96e220bf7eefee40b1b60f1ef5b1d421542981329e85f1c6cf5df33e316fef04",
+      "id": "resource-workspace-r5-smoke-dark-dark-04-adopted-current.png",
+      "suite": "resource-workspace-r5-smoke-dark"
+    },
+    {
+      "name": "05-failure-keeps-reading",
+      "sha256": "ec114a9a2fa46fabe9bbd33b90832ef6ee4637f6f199d41e3a5e0fe0fbcefb1b",
+      "id": "resource-workspace-r5-smoke-dark-dark-05-failure-keeps-reading.png",
+      "suite": "resource-workspace-r5-smoke-dark"
+    },
+    {
+      "name": "06-restarted-source-position",
+      "sha256": "113cecb7416fc4323fce4a285cf618716c03982fd075ef0ac1017bcdfc5c4fe0",
+      "id": "resource-workspace-r5-smoke-dark-dark-06-restarted-source-position.png",
+      "suite": "resource-workspace-r5-smoke-dark"
+    },
+    {
+      "name": "01-initial-reading",
+      "sha256": "79896d16191e812ad4cdbd8c9bffdf2799b382e2bd61eca24b8310b8081388fb",
+      "id": "resource-workspace-r5-smoke-light-light-01-initial-reading.png",
+      "suite": "resource-workspace-r5-smoke-light"
+    },
+    {
+      "name": "02-changed-keeps-old",
+      "sha256": "1557bf09320a6a39756c8bfda807eea0a5e870c05aea55fdabe1734e937f3789",
+      "id": "resource-workspace-r5-smoke-light-light-02-changed-keeps-old.png",
+      "suite": "resource-workspace-r5-smoke-light"
+    },
+    {
+      "name": "03-narrow-version-feedback",
+      "sha256": "a4109e29aa7ee3a40147830fc3f6bcbaac5e2a16313df003fc3e7d1114c20f80",
+      "id": "resource-workspace-r5-smoke-light-light-03-narrow-version-feedback.png",
+      "suite": "resource-workspace-r5-smoke-light"
+    },
+    {
+      "name": "04-adopted-current",
+      "sha256": "a44bbeaf92025c9ad4eafded313dea53c5e31638f5327ea8d2b717de1f5e6fde",
+      "id": "resource-workspace-r5-smoke-light-light-04-adopted-current.png",
+      "suite": "resource-workspace-r5-smoke-light"
+    },
+    {
+      "name": "05-failure-keeps-reading",
+      "sha256": "6899ec413d515875358242f52065494a7291d9215ccefdd7f007b0f98bcd4630",
+      "id": "resource-workspace-r5-smoke-light-light-05-failure-keeps-reading.png",
+      "suite": "resource-workspace-r5-smoke-light"
+    },
+    {
+      "name": "06-restarted-source-position",
+      "sha256": "e4c3a6514076fa16fd8fff02bdbe06fc765c43f89ac3cf8ba9d253b30519ec9e",
+      "id": "resource-workspace-r5-smoke-light-light-06-restarted-source-position.png",
+      "suite": "resource-workspace-r5-smoke-light"
+    },
+    {
+      "name": "01-files-auxiliary",
+      "sha256": "8bc3bebb98f9118ed5c1ea79fe9887cf927b6049b496fb79c87d6743b3eaa3df",
+      "id": "resource-workspace-r6a-smoke-dark-dark-01-files-auxiliary.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "02-directory-updates",
+      "sha256": "4dea770f4823225a4ff8a2e1f24f24267a620d43743ba5e48deee569939d8b99",
+      "id": "resource-workspace-r6a-smoke-dark-dark-02-directory-updates.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "03-comparison-index",
+      "sha256": "d807415bda0eab293bbdc145d715d71b9e25e9603652d22070d528eb1e61e17e",
+      "id": "resource-workspace-r6a-smoke-dark-dark-03-comparison-index.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "04-pending-candidate",
+      "sha256": "97a82d8836b45b73e50cab35dc69378afacd7a413d78bcd35e9aad4e7f633199",
+      "id": "resource-workspace-r6a-smoke-dark-dark-04-pending-candidate.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "05-failure-preserves-reading",
+      "sha256": "9fcc9b8184ce73f622aaca19fbd047136e619008fac2a8d7de3717e0af4612a4",
+      "id": "resource-workspace-r6a-smoke-dark-dark-05-failure-preserves-reading.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "06-independent-sources",
+      "sha256": "a82e47aa4945223e509731dd659f354f3369087ab56cf6a26a960926135f0361",
+      "id": "resource-workspace-r6a-smoke-dark-dark-06-independent-sources.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "07-narrow-files",
+      "sha256": "8c3e611f09d36d337b42a9dcc4a08993594c1f1d7b54579afba4e36a4f41982b",
+      "id": "resource-workspace-r6a-smoke-dark-dark-07-narrow-files.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "08-browser-reduced-motion",
+      "sha256": "7a2d671d936bc8d58b2c6137a5b31302fe095ccc3447a2d1feade2afc643f4de",
+      "id": "resource-workspace-r6a-smoke-dark-dark-08-browser-reduced-motion.png",
+      "suite": "resource-workspace-r6a-smoke-dark"
+    },
+    {
+      "name": "01-files-auxiliary",
+      "sha256": "2c3d12bcf777e8655fab437efaec354cf982a0f1bb8ce9e1eeb04b2b0870e849",
+      "id": "resource-workspace-r6a-smoke-light-light-01-files-auxiliary.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "02-directory-updates",
+      "sha256": "573b7e75e005ac1c0e6147cc25bdd55298e89d9ee359d93f2e74fdcfd21286ec",
+      "id": "resource-workspace-r6a-smoke-light-light-02-directory-updates.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "03-comparison-index",
+      "sha256": "b9c2b0f8c7153270362ec27050b0c6b6939dcfb6803722c5d4df9a5b712cd731",
+      "id": "resource-workspace-r6a-smoke-light-light-03-comparison-index.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "04-pending-candidate",
+      "sha256": "c660a7690aa1d6b79854ff321730928b0045f2b17b042c912f3f4faf70486ae5",
+      "id": "resource-workspace-r6a-smoke-light-light-04-pending-candidate.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "05-failure-preserves-reading",
+      "sha256": "494e96e35974b894457330c0677f7545bb97b98dac05c89570f27526d815d212",
+      "id": "resource-workspace-r6a-smoke-light-light-05-failure-preserves-reading.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "06-independent-sources",
+      "sha256": "cf723b76e835ee8e0a58113ebb2f3370539bcd90fff2a84548f3fcd463c366f3",
+      "id": "resource-workspace-r6a-smoke-light-light-06-independent-sources.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "07-narrow-files",
+      "sha256": "29546f8731eecea7b13d9527ced62f12838301e28310ec7c0018ce5cc7f523c5",
+      "id": "resource-workspace-r6a-smoke-light-light-07-narrow-files.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "name": "08-browser-reduced-motion",
+      "sha256": "adf0167006e252d7a81924911504bdeac7cb0226011672818a9aff4666a8db01",
+      "id": "resource-workspace-r6a-smoke-light-light-08-browser-reduced-motion.png",
+      "suite": "resource-workspace-r6a-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-line-warning.png",
+      "name": "workspace-line-warning",
+      "sha256": "b140f1e8039529bc47adc931fb2c7f87592e15d1b2a38272b919cff1da63438b",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-static-image.png",
+      "name": "workspace-static-image",
+      "sha256": "7a45221898bc516e11c946a6326e225145614c5dd30fa4096306310deb7fa698",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-comparison-tabs.png",
+      "name": "workspace-comparison-tabs",
+      "sha256": "38664eb7650a7e89fe46ee0c07efd87153bf755d413c93cede22c512b19be4f1",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-wide.png",
+      "name": "workspace-wide",
+      "sha256": "0e8af041c904348f3970261dc25bf654128ed436473b59536686eb3183605c79",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-expanded-launcher.png",
+      "name": "workspace-expanded-launcher",
+      "sha256": "d665afee5f62d3ebaa993b8ad332beae07f4e6276cde3d290f6485709c431703",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-toolbar-corner.png",
+      "name": "workspace-toolbar-corner",
+      "sha256": "4608e36cedd2b13fdfcd8d8c0b33e37f696671b441e4f372f3135d6624f94a54",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-compact.png",
+      "name": "workspace-compact",
+      "sha256": "29245733ac32a2c0990d082d3e047b01345f8eae31301f71f18901a0bf088ae6",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-dark-workspace-compact-launcher.png",
+      "name": "workspace-compact-launcher",
+      "sha256": "e51705732aad33da66af5f7e5a4bbbdf87d850c750b6649c001bb5a45b7740b0",
+      "suite": "resource-workspace-smoke-dark"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-line-warning.png",
+      "name": "workspace-line-warning",
+      "sha256": "162c6f0a1732017856db00823dc16c56eb3627c39e0f34899aafb8609df3a241",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-static-image.png",
+      "name": "workspace-static-image",
+      "sha256": "88d66d09277c079b52bf9008208edd8b5a7e98727e507be5aaf8cfd471795ec8",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-comparison-tabs.png",
+      "name": "workspace-comparison-tabs",
+      "sha256": "dd56b8e47cdb7b167e2ebd11eb00a1226535911290db46c1cf660feefa985bb6",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-wide.png",
+      "name": "workspace-wide",
+      "sha256": "238362d2e48a8f9a3608d09a227b589b36a689a39e09f0210ddebc907151440f",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-expanded-launcher.png",
+      "name": "workspace-expanded-launcher",
+      "sha256": "400fc61e74a6d55bbdc3a8b68932a0b6bcdc4d8968f3840a83c0b9ec258d14b4",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-toolbar-corner.png",
+      "name": "workspace-toolbar-corner",
+      "sha256": "73799fb6911723c49213b33ec6a5b190eacf547413d71cc9c8e9e4aada519e06",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-compact.png",
+      "name": "workspace-compact",
+      "sha256": "28cbfcfc5976b67c6c9c09905f05e6f1c62271ac08bee067b4c191901e833be9",
+      "suite": "resource-workspace-smoke-light"
+    },
+    {
+      "id": "resource-workspace-smoke-light-workspace-compact-launcher.png",
+      "name": "workspace-compact-launcher",
+      "sha256": "1841fc6332bc6be557c857643b8458ad12056ab9b5a3427191983446f7ada3e7",
+      "suite": "resource-workspace-smoke-light"
+    }
+  ],
+  "review": {
+    "schemaVersion": 1,
+    "runId": "9a95da80-785a-4ae7-a76f-25c7067079e7",
+    "sourceFingerprint": "eca74077bf15c830958be7387483305b6c610510a8b31008714baa9f4c6c5656",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer visual review",
+      "independent": false
+    },
+    "screenshots": [
+      {
+        "id": "collaboration-dark-extended-dark-01-selected-reference.png",
+        "sha256": "8a9247b69a5356c1c87d2d73eca1f5e488812f1babe6125aaa027552a529f3b5",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 01-selected-reference: Selected document passage and fixed-version recipient reference card remain visible beside the original Composer text; document is in the right pane."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-02-local-draft.png",
+        "sha256": "b31881a064709accbad5056b3726658348f9c216900fd7cb55d1a18092e2dbb8",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 02-local-draft: Draft toolbar and saved local text are visible in the right pane, with original document tab and Composer reference retained."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-03-permission-with-later-input.png",
+        "sha256": "be4e82f3a4cd92b13e7500b4a7c039e6773aac893ba6e1e30344a96afb8a4cd2",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 03-permission-with-later-input: Permission request stays inside the editor footer with allow/deny/cancel controls; later text and Composer draft remain visible, without an overlay; disclosure icon and title share one aligned row."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-04-applied-result.png",
+        "sha256": "9e3ffcfacaa48e311aa3bfa0afe5d154c1c74d244f4713de6e1fc79b6f228804",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 04-applied-result: Applied result and real Provider diff are localized below the editor; later input remains above and is distinct from the fixed submitted revision."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-05-three-way-comparison.png",
+        "sha256": "36e7be63c734c23a60cd21c0526b5199d68f6fa4d32dacb2fb590cd2e6301250",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 05-three-way-comparison: Original baseline, local draft and explicitly read current file have distinct headings; original operation history remains visible without overwriting the draft."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-05b-denied-preserved.png",
+        "sha256": "ea6e5224c67e2484583112bff3e2a384cbcecba5e47bd8d8c5a5b6ec77909b4b",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 05b-denied-preserved: Denied authorization is explained in the local footer; editor and original Composer remain available, with no success presentation."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-05c-conflict-preserved.png",
+        "sha256": "42ee4e07d9d57878090fdc8907237572c7ecd00706e1bf54881669fd43fe1936",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 05c-conflict-preserved: Version conflict has local compare-current control and preserves draft/Composer; no automatic replacement or whole-panel disabled state appears."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-06-native-document.png",
+        "sha256": "82bf836c282bd459861718d5d735c66a158d28bc648e07ac38690f503016c15e",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 06-native-document: Independent document shows rendered Markdown heading, source path and reading/edit controls in a rounded bounded viewport."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-07-native-close-preserved.png",
+        "sha256": "94f3cadf1d235dbc1c074e6cec9c689dc230c1c8ec8b7862cc81d5a7a0d52b69",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 07-native-close-preserved: Blocked native close retains the complete composing input and shows a local save/composition explanation; the window remains open."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-08-native-directory.png",
+        "sha256": "3aeb45368f2ec1fc3688d21eb5b72cfe3536ecf31a160e66636be20615230386",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 08-native-directory: Independent directory view shows the bounded fixture tree, source identity and return/close controls within the rounded reading area."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-08-native-comparison.png",
+        "sha256": "e5e4dab5ae4e2a71a9edf8c46657a6dbf6d15dfa8f473bfc610968f351a53b78",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 08-native-comparison: Independent comparison shows real added/deleted lines, source range, file selector and independent window controls without modal chrome."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-09-native-browser.png",
+        "sha256": "64ef07553629247c1cd749ea1a9a4fd17a80a9c2a4909d105448d9156e9b1eda",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 09-native-browser: Native browser chrome has address-copy identity and scoped return/close controls; guest pixels are excluded by this capture API and reviewed in the separate content image."
+      },
+      {
+        "id": "collaboration-dark-extended-dark-09b-native-browser-content.png",
+        "sha256": "7611be294d6bebd87fb551bd9d03e33d3113be0d5d5d8d9acd4f61fa454d1dc5",
+        "verdict": "pass",
+        "notes": "collaboration-dark-extended / 09b-native-browser-content: Separate unmodified WebContentsView pixels show the real loopback page heading and empty independent form; this is not a composited whole-window capture."
+      },
+      {
+        "id": "collaboration-light-extended-light-01-selected-reference.png",
+        "sha256": "653167c1555301affad7f95df81f8c4464db2d06387e4d0929c385467f3825bd",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 01-selected-reference: Selected document passage and fixed-version recipient reference card remain visible beside the original Composer text; document is in the right pane."
+      },
+      {
+        "id": "collaboration-light-extended-light-02-local-draft.png",
+        "sha256": "f6d42d5c33e379367e1446a99b4d1fee019d3991045c26d465a63f93c62615c8",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 02-local-draft: Draft toolbar and saved local text are visible in the right pane, with original document tab and Composer reference retained."
+      },
+      {
+        "id": "collaboration-light-extended-light-03-permission-with-later-input.png",
+        "sha256": "b993bf4dc19cf9acf17e9b18b35d66d8febf4c516206823feb34a1fb72216456",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 03-permission-with-later-input: Permission request stays inside the editor footer with allow/deny/cancel controls; later text and Composer draft remain visible, without an overlay; disclosure icon and title share one aligned row."
+      },
+      {
+        "id": "collaboration-light-extended-light-04-applied-result.png",
+        "sha256": "8e2be0e3a4f794fc1e469c2c3b6c26004708d703239c49d79d703d183046aa23",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 04-applied-result: Applied result and real Provider diff are localized below the editor; later input remains above and is distinct from the fixed submitted revision."
+      },
+      {
+        "id": "collaboration-light-extended-light-05-three-way-comparison.png",
+        "sha256": "e08047b22a9d03f5abfb749f7ba737ebfc40e561337edbab8afa0b30db118fbd",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 05-three-way-comparison: Original baseline, local draft and explicitly read current file have distinct headings; original operation history remains visible without overwriting the draft."
+      },
+      {
+        "id": "collaboration-light-extended-light-05b-denied-preserved.png",
+        "sha256": "8929f6d6d43f12cd9b14da0267eaebc2db9cf96b83197d19948da8d1d8a9e7fe",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 05b-denied-preserved: Denied authorization is explained in the local footer; editor and original Composer remain available, with no success presentation."
+      },
+      {
+        "id": "collaboration-light-extended-light-05c-conflict-preserved.png",
+        "sha256": "55104e63041c55ad32a98d4b93370daa9644f6d20ff3c7971dd9b0fbc5cd741c",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 05c-conflict-preserved: Version conflict has local compare-current control and preserves draft/Composer; no automatic replacement or whole-panel disabled state appears."
+      },
+      {
+        "id": "collaboration-light-extended-light-06-native-document.png",
+        "sha256": "1547ec663c83dd66dce9a95c8fedc0ab7fdd437c9f49e0d7e2f6cecd0ca2292a",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 06-native-document: Independent document shows rendered Markdown heading, source path and reading/edit controls in a rounded bounded viewport."
+      },
+      {
+        "id": "collaboration-light-extended-light-07-native-close-preserved.png",
+        "sha256": "826ed9b0b2518a808ebd483e8b2d0929e4f21f4b41765ffb4ac9a509d41ed227",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 07-native-close-preserved: Blocked native close retains the complete composing input and shows a local save/composition explanation; the window remains open."
+      },
+      {
+        "id": "collaboration-light-extended-light-08-native-directory.png",
+        "sha256": "76295efef289d64433785fec1da051a3c1bfe1efb0b745f5b1e7e574251c4538",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 08-native-directory: Independent directory view shows the bounded fixture tree, source identity and return/close controls within the rounded reading area."
+      },
+      {
+        "id": "collaboration-light-extended-light-08-native-comparison.png",
+        "sha256": "8c135ac95035c09e383814fc1da12a7cc68c55b0c2871ca9f5d24a703b594dce",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 08-native-comparison: Independent comparison shows real added/deleted lines, source range, file selector and independent window controls without modal chrome."
+      },
+      {
+        "id": "collaboration-light-extended-light-09-native-browser.png",
+        "sha256": "f31233c2bd688ec9119be8655e6e2205938e40b0b84e3feffe123e5c0d43a60e",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 09-native-browser: Native browser chrome has address-copy identity and scoped return/close controls; guest pixels are excluded by this capture API and reviewed in the separate content image."
+      },
+      {
+        "id": "collaboration-light-extended-light-09b-native-browser-content.png",
+        "sha256": "7611be294d6bebd87fb551bd9d03e33d3113be0d5d5d8d9acd4f61fa454d1dc5",
+        "verdict": "pass",
+        "notes": "collaboration-light-extended / 09b-native-browser-content: Separate unmodified WebContentsView pixels show the real loopback page heading and empty independent form; this is not a composited whole-window capture."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-01-history-nested.png",
+        "sha256": "063f4e805ee8e96385099b151406a96f5d7ccbdce565d23bac552449a45237a2",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 01-history-nested: Fixed historical resource identity is shown separately from current-file actions and accepted reading content; no current text is presented as a missing snapshot."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-02-details-draft-return.png",
+        "sha256": "409159623264bd1b5f5ba49b72c4bd081dc67400073266e667809e68256c7e19",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 02-details-draft-return: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-03-directory-restored.png",
+        "sha256": "9d1bc0d30342cb9eb6c9edff07ab1977421480f752a37571cc72ba2a04abe6fc",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 03-directory-restored: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-04-static-markdown.png",
+        "sha256": "2bb86af27e726e924f2cc6f857303aa190b01914c1742937f045d18353bc868e",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 04-static-markdown: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-05-raster.png",
+        "sha256": "7f897cffbfbe747d9850d5d2360110d676f69ccc06e653de035c2400594de65f",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 05-raster: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-06-code-diff.png",
+        "sha256": "77f0a311a26f30ba15e2b674b47458f6c5b603e6cc08f7716c36457aa575f5d4",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 06-code-diff: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-06b-mode-diff-raw.png",
+        "sha256": "a26c60c164841b2bf4c6da0c82ef37fadae028d0a4ded4c1fac00882fef2f336",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 06b-mode-diff-raw: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-07-web-keepalive.png",
+        "sha256": "ebdf4026de270313b64699449e45015cca7c65a6667e7ebf79b5bcf6e724bc61",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 07-web-keepalive: Real loopback page is visible in its bounded browser surface with address/navigation controls; fixture form state is distinguishable from copy or reload."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-08-web-url-recovery.png",
+        "sha256": "fb5abce7b01e7d1de94479ec04f264e4a548940485d1b9425371f3476e82411d",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 08-web-url-recovery: Real loopback page is visible in its bounded browser surface with address/navigation controls; fixture form state is distinguishable from copy or reload."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-09-directory-process-recovery.png",
+        "sha256": "5448a7e48a3d2e78811c534b75b9fbfa6c0f5ae48ecbd3954ebcf297b6df10d2",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark / 09-directory-process-recovery: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-01-history-nested.png",
+        "sha256": "2c6c2a24c7ad177f016067a55252796416e940878030b9652998c7d07a746723",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 01-history-nested: Fixed historical resource identity is shown separately from current-file actions and accepted reading content; no current text is presented as a missing snapshot."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-02-details-draft-return.png",
+        "sha256": "3610b117732fc85fa6102224fd30c0016cc46c07fdbb119ee4ccca0aed23480b",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 02-details-draft-return: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-03-directory-restored.png",
+        "sha256": "83344b7ec4182da3f76de77f3e4e1af9d2312218a01b24b3c29e59c6e204f768",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 03-directory-restored: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-04-static-markdown.png",
+        "sha256": "99430de9b887a4391640c2d04bd28021fc50163791b26c0dd7bcfc0df28a6585",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 04-static-markdown: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-05-raster.png",
+        "sha256": "3a5a3b3455d685a57fb5bd161bd6f97d241c575a7556ad54e911fcfcb7711164",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 05-raster: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-06-code-diff.png",
+        "sha256": "8a7425234281640f451356f29a8e3237840639b0fac742053e72a8bfb1b7d416",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 06-code-diff: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-06b-mode-diff-raw.png",
+        "sha256": "6d61c91180834fd31ffca4b5e130f0d85ea036d31d8e48e7d3c58f2611b0a8cf",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 06b-mode-diff-raw: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-07-web-keepalive.png",
+        "sha256": "6f87cd27885c194f61c2561a8e76ca9dc2a1b2c080d402d2438a12a58e29fb94",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 07-web-keepalive: Real loopback page is visible in its bounded browser surface with address/navigation controls; fixture form state is distinguishable from copy or reload."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-08-web-url-recovery.png",
+        "sha256": "77cf35246cd0ef79a544603c1a4261d0c4952ccb20d4f5626c7472761db76743",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 08-web-url-recovery: Real loopback page is visible in its bounded browser surface with address/navigation controls; fixture form state is distinguishable from copy or reload."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-09-directory-process-recovery.png",
+        "sha256": "dddc7a7131aa0e753b6e5202603fcdd3a8d8334249db1fb82eda77f7df5dcfcf",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light / 09-directory-process-recovery: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-01-initial-reading.png",
+        "sha256": "e5f545d86c8b3c5d36003783a6702c3275774f24817f589b8aad2c99d401d635",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark / 01-initial-reading: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-02-changed-keeps-old.png",
+        "sha256": "c48a8a15ff8e15c70a7c85b4a6c1388ae1afc90e00f348ed15265420de42436e",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark / 02-changed-keeps-old: Change notification offers explicit loading while keeping the previous accepted body or diff visible, preserving the reading context."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-04-adopted-current.png",
+        "sha256": "96e220bf7eefee40b1b60f1ef5b1d421542981329e85f1c6cf5df33e316fef04",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark / 04-adopted-current: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-05-failure-keeps-reading.png",
+        "sha256": "ec114a9a2fa46fabe9bbd33b90832ef6ee4637f6f199d41e3a5e0fe0fbcefb1b",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark / 05-failure-keeps-reading: Read/source failure is described locally while the previously accepted document/comparison content remains visible; no global overlay replaces it."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-06-restarted-source-position.png",
+        "sha256": "113cecb7416fc4323fce4a285cf618716c03982fd075ef0ac1017bcdfc5c4fe0",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark / 06-restarted-source-position: Source/adapter output stays within the bounded reading area, with source identity and explicit format/mode controls."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-01-initial-reading.png",
+        "sha256": "79896d16191e812ad4cdbd8c9bffdf2799b382e2bd61eca24b8310b8081388fb",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light / 01-initial-reading: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-02-changed-keeps-old.png",
+        "sha256": "1557bf09320a6a39756c8bfda807eea0a5e870c05aea55fdabe1734e937f3789",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light / 02-changed-keeps-old: Change notification offers explicit loading while keeping the previous accepted body or diff visible, preserving the reading context."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-03-narrow-version-feedback.png",
+        "sha256": "a4109e29aa7ee3a40147830fc3f6bcbaac5e2a16313df003fc3e7d1114c20f80",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light / 03-narrow-version-feedback: Explicit narrow/expanded reading viewport keeps source/toolbar within its bounds and allows local scrolling; this capture is not evidence of the default wide-screen layout."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-04-adopted-current.png",
+        "sha256": "a44bbeaf92025c9ad4eafded313dea53c5e31638f5327ea8d2b717de1f5e6fde",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light / 04-adopted-current: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-05-failure-keeps-reading.png",
+        "sha256": "6899ec413d515875358242f52065494a7291d9215ccefdd7f007b0f98bcd4630",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light / 05-failure-keeps-reading: Read/source failure is described locally while the previously accepted document/comparison content remains visible; no global overlay replaces it."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-06-restarted-source-position.png",
+        "sha256": "e4c3a6514076fa16fd8fff02bdbe06fc765c43f89ac3cf8ba9d253b30519ec9e",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light / 06-restarted-source-position: Source/adapter output stays within the bounded reading area, with source identity and explicit format/mode controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-01-files-auxiliary.png",
+        "sha256": "8bc3bebb98f9118ed5c1ea79fe9887cf927b6049b496fb79c87d6743b3eaa3df",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 01-files-auxiliary: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-02-directory-updates.png",
+        "sha256": "4dea770f4823225a4ff8a2e1f24f24267a620d43743ba5e48deee569939d8b99",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 02-directory-updates: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-03-comparison-index.png",
+        "sha256": "d807415bda0eab293bbdc145d715d71b9e25e9603652d22070d528eb1e61e17e",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 03-comparison-index: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-04-pending-candidate.png",
+        "sha256": "97a82d8836b45b73e50cab35dc69378afacd7a413d78bcd35e9aad4e7f633199",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 04-pending-candidate: Change notification offers explicit loading while keeping the previous accepted body or diff visible, preserving the reading context."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-05-failure-preserves-reading.png",
+        "sha256": "9fcc9b8184ce73f622aaca19fbd047136e619008fac2a8d7de3717e0af4612a4",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 05-failure-preserves-reading: Read/source failure is described locally while the previously accepted document/comparison content remains visible; no global overlay replaces it."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-06-independent-sources.png",
+        "sha256": "a82e47aa4945223e509731dd659f354f3369087ab56cf6a26a960926135f0361",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 06-independent-sources: Source/adapter output stays within the bounded reading area, with source identity and explicit format/mode controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-07-narrow-files.png",
+        "sha256": "8c3e611f09d36d337b42a9dcc4a08993594c1f1d7b54579afba4e36a4f41982b",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 07-narrow-files: Explicit narrow/expanded reading viewport keeps source/toolbar within its bounds and allows local scrolling; this capture is not evidence of the default wide-screen layout."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-08-browser-reduced-motion.png",
+        "sha256": "7a2d671d936bc8d58b2c6137a5b31302fe095ccc3447a2d1feade2afc643f4de",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark / 08-browser-reduced-motion: Real loopback page is visible in its bounded browser surface with address/navigation controls; fixture form state is distinguishable from copy or reload."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-01-files-auxiliary.png",
+        "sha256": "2c3d12bcf777e8655fab437efaec354cf982a0f1bb8ce9e1eeb04b2b0870e849",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 01-files-auxiliary: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-02-directory-updates.png",
+        "sha256": "573b7e75e005ac1c0e6147cc25bdd55298e89d9ee359d93f2e74fdcfd21286ec",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 02-directory-updates: Scoped directory tree and selected resource remain aligned inside the resource surface, with source identity and finite navigation controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-03-comparison-index.png",
+        "sha256": "b9c2b0f8c7153270362ec27050b0c6b6939dcfb6803722c5d4df9a5b712cd731",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 03-comparison-index: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-04-pending-candidate.png",
+        "sha256": "c660a7690aa1d6b79854ff321730928b0045f2b17b042c912f3f4faf70486ae5",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 04-pending-candidate: Change notification offers explicit loading while keeping the previous accepted body or diff visible, preserving the reading context."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-05-failure-preserves-reading.png",
+        "sha256": "494e96e35974b894457330c0677f7545bb97b98dac05c89570f27526d815d212",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 05-failure-preserves-reading: Read/source failure is described locally while the previously accepted document/comparison content remains visible; no global overlay replaces it."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-06-independent-sources.png",
+        "sha256": "cf723b76e835ee8e0a58113ebb2f3370539bcd90fff2a84548f3fcd463c366f3",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 06-independent-sources: Source/adapter output stays within the bounded reading area, with source identity and explicit format/mode controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-07-narrow-files.png",
+        "sha256": "29546f8731eecea7b13d9527ced62f12838301e28310ec7c0018ce5cc7f523c5",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 07-narrow-files: Explicit narrow/expanded reading viewport keeps source/toolbar within its bounds and allows local scrolling; this capture is not evidence of the default wide-screen layout."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-08-browser-reduced-motion.png",
+        "sha256": "adf0167006e252d7a81924911504bdeac7cb0226011672818a9aff4666a8db01",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light / 08-browser-reduced-motion: Real loopback page is visible in its bounded browser surface with address/navigation controls; fixture form state is distinguishable from copy or reload."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-line-warning.png",
+        "sha256": "b140f1e8039529bc47adc931fb2c7f87592e15d1b2a38272b919cff1da63438b",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-line-warning: Default right pane retains conversation/Composer and current long source body; out-of-range line notice remains local and does not replace the content."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-static-image.png",
+        "sha256": "7a45221898bc516e11c946a6326e225145614c5dd30fa4096306310deb7fa698",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-static-image: Markdown external-image placeholder stays explicit instead of fetching automatically; original conversation and Composer remain alongside the reading pane."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-comparison-tabs.png",
+        "sha256": "38664eb7650a7e89fe46ee0c07efd87153bf755d413c93cede22c512b19be4f1",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-comparison-tabs: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-wide.png",
+        "sha256": "0e8af041c904348f3970261dc25bf654128ed436473b59536686eb3183605c79",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-wide: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-expanded-launcher.png",
+        "sha256": "d665afee5f62d3ebaa993b8ad332beae07f4e6276cde3d290f6485709c431703",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-expanded-launcher: Explicit expanded/compact launcher has bounded address/search, distinct resource actions and recent entries, without a stale resource-service banner."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-toolbar-corner.png",
+        "sha256": "4608e36cedd2b13fdfcd8d8c0b33e37f696671b441e4f372f3135d6624f94a54",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-toolbar-corner: Toolbar crop shows SVG controls without permanent filled button backgrounds and with consistent surrounding spacing."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-compact.png",
+        "sha256": "29245733ac32a2c0990d082d3e047b01345f8eae31301f71f18901a0bf088ae6",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-compact: Explicit narrow/expanded reading viewport keeps source/toolbar within its bounds and allows local scrolling; this capture is not evidence of the default wide-screen layout."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-compact-launcher.png",
+        "sha256": "e51705732aad33da66af5f7e5a4bbbdf87d850c750b6649c001bb5a45b7740b0",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark / workspace-compact-launcher: Explicit expanded/compact launcher has bounded address/search, distinct resource actions and recent entries, without a stale resource-service banner."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-line-warning.png",
+        "sha256": "162c6f0a1732017856db00823dc16c56eb3627c39e0f34899aafb8609df3a241",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-line-warning: Default right pane retains conversation/Composer and current long source body; out-of-range line notice remains local and does not replace the content."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-static-image.png",
+        "sha256": "88d66d09277c079b52bf9008208edd8b5a7e98727e507be5aaf8cfd471795ec8",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-static-image: Markdown external-image placeholder stays explicit instead of fetching automatically; original conversation and Composer remain alongside the reading pane."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-comparison-tabs.png",
+        "sha256": "dd56b8e47cdb7b167e2ebd11eb00a1226535911290db46c1cf660feefa985bb6",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-comparison-tabs: Comparison identity, file navigation and actual line colors remain distinct; controls and diff are bounded within the reading surface."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-wide.png",
+        "sha256": "238362d2e48a8f9a3608d09a227b589b36a689a39e09f0210ddebc907151440f",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-wide: Resource body, source label and relevant local controls remain bounded and readable in this stage-specific capture; no unexpected modal or lost conversation state is visible."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-expanded-launcher.png",
+        "sha256": "400fc61e74a6d55bbdc3a8b68932a0b6bcdc4d8968f3840a83c0b9ec258d14b4",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-expanded-launcher: Explicit expanded/compact launcher has bounded address/search, distinct resource actions and recent entries, without a stale resource-service banner."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-toolbar-corner.png",
+        "sha256": "73799fb6911723c49213b33ec6a5b190eacf547413d71cc9c8e9e4aada519e06",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-toolbar-corner: Toolbar crop shows SVG controls without permanent filled button backgrounds and with consistent surrounding spacing."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-compact.png",
+        "sha256": "28cbfcfc5976b67c6c9c09905f05e6f1c62271ac08bee067b4c191901e833be9",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-compact: Explicit narrow/expanded reading viewport keeps source/toolbar within its bounds and allows local scrolling; this capture is not evidence of the default wide-screen layout."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-compact-launcher.png",
+        "sha256": "1841fc6332bc6be557c857643b8458ad12056ab9b5a3427191983446f7ada3e7",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light / workspace-compact-launcher: Explicit expanded/compact launcher has bounded address/search, distinct resource actions and recent entries, without a stale resource-service banner."
+      }
+    ],
+    "findings": [
+      {
+        "screenshot": "collaboration-dark-extended-dark-09-native-browser.png",
+        "description": "Playwright renderer screenshot excludes WebContentsView guest pixels. Separate actual guest captures, positive viewport geometry and real content assertions are retained; whole-window composite visual coverage is not claimed.",
+        "severity": "minor",
+        "disposition": "accepted-limitation"
+      }
+    ]
+  },
+  "reviewIntegrity": {
+    "status": "passed",
+    "runId": "9a95da80-785a-4ae7-a76f-25c7067079e7",
+    "sourceFingerprint": "eca74077bf15c830958be7387483305b6c610510a8b31008714baa9f4c6c5656",
+    "reviewedAt": "2026-10-27T01:53:15.482Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex implementer visual review",
+      "independent": false
+    },
+    "limits": [
+      "Implementer AI self-review, not independent",
+      "Source Electron with isolated synthetic files, SQLite and loopback web; no personal tasks or models",
+      "No signed installed build, complete OS IME or screen-reader certification",
+      "Native browser chrome and guest pixels captured separately",
+      "Not all 164 design rows or G8 release acceptance"
+    ]
+  },
+  "logs": [
+    {
+      "name": "build-disclosure-final.log",
+      "sha256": "0ec6d844a046f5b80d7652762e183d5c6ba06997091a385c2e88cc78e096de21"
+    },
+    {
+      "name": "modules-combined-final.log",
+      "sha256": "31612fe050224a636fff8b07ffbfc737f52d28faf10fd6219de133631bee5d2c"
+    },
+    {
+      "name": "typecheck-final-candidate.log",
+      "sha256": "1d9a13deaa930034189c57b8208183bc9298d949e2380c90f2b9512abceeda07"
+    },
+    {
+      "name": "architecture-final-candidate.log",
+      "sha256": "386b5504e0db38e497ca13e9b543ef939bd193f4b9e52d67444201ac142f708f"
+    },
+    {
+      "name": "ipc-final-candidate.log",
+      "sha256": "65a85f6760e52cc1742a6c890c549d43f3cd628f389c93dae12f72c3a3814f17"
+    },
+    {
+      "name": "collaboration-dark-extended.log",
+      "sha256": "678e933f6792797e4dda4925fe3db674df82cc74be381ad2377b8d7ad893b977"
+    },
+    {
+      "name": "collaboration-light-extended.log",
+      "sha256": "6286fa85c98860d03308f93b76c3ec7455597fc147b8369310d0dfecfc5b7f9e"
+    },
+    {
+      "name": "resource-workspace-r5-r6-smoke-dark.log",
+      "sha256": "6eff5737728f16b5feaabc41b68e57582acb0e8f11243c71e6f8bf877a0ffdff"
+    },
+    {
+      "name": "resource-workspace-r5-r6-smoke-light.log",
+      "sha256": "64a399961533e07fc612eabd5c1553528cced9b4ee7a4020239fadfa19117cdf"
+    },
+    {
+      "name": "resource-workspace-r5-smoke-dark.log",
+      "sha256": "afc716f2d87952ec74fa4b98f403b94ca1ef254c4d47c497b233989d972874f2"
+    },
+    {
+      "name": "resource-workspace-r5-smoke-light.log",
+      "sha256": "b894b757a20408e0cd95166d2ccd8a0f9f00eec1d139e74106550480d790a768"
+    },
+    {
+      "name": "resource-workspace-r6a-smoke-dark.log",
+      "sha256": "ea1e2fd43a152f26d82ce28cd71cee4a151ad95f30061f333b2b972dfffe2d8e"
+    },
+    {
+      "name": "resource-workspace-r6a-smoke-light.log",
+      "sha256": "3c75d4acdeeedb27cda5b9ba806429db87a3c381d65b93abe2151a1f1b99aa20"
+    },
+    {
+      "name": "resource-workspace-smoke-dark.log",
+      "sha256": "54ab8301250d49d7b64f77276c57cb6775ea292c5f7159bf936a9d879d7dddb4"
+    },
+    {
+      "name": "resource-workspace-smoke-light.log",
+      "sha256": "ef3ca75ea81b6a1b0188b21a4efc0764af1b9a61d1ee8a8430d7b5c26753c1d6"
+    }
+  ],
+  "preservation": {
+    "code": {
+      "changedFiles": [
+        "apps/desktop/renderer/src/workbench/NativeResourceComparison.tsx",
+        "apps/desktop/renderer/src/workbench/NativeResourceRead.tsx",
+        "apps/desktop/renderer/src/workbench/ResourceWindowHistory.test.ts",
+        "apps/desktop/renderer/src/workbench/ScopedDocumentPage.test.ts",
+        "apps/desktop/renderer/src/workbench/editing/EditDraftButton.tsx",
+        "apps/desktop/renderer/src/workbench/editing/ResourceDraftLibrary.tsx",
+        "apps/desktop/renderer/src/workbench/editing/ResourceEditContinuity.tsx",
+        "apps/desktop/renderer/src/workbench/editing/ResourceEditor.tsx",
+        "apps/desktop/renderer/src/workbench/editing/ResourceSubmissionControl.tsx",
+        "apps/desktop/renderer/src/workbench/editing/ResourceSubmissionDetails.tsx",
+        "apps/desktop/renderer/src/workbench/editing/resource-editing.css",
+        "apps/desktop/renderer/src/workbench/editing/resourceEditSession.test.ts",
+        "apps/desktop/renderer/src/workbench/editing/resourceSubmissionController.test.ts",
+        "apps/desktop/renderer/src/workbench/editing/resourceSubmissionController.ts",
+        "apps/desktop/renderer/src/workbench/nativeBrowserPresentation.ts",
+        "apps/desktop/renderer/src/workbench/nativeResourceReadState.ts",
+        "apps/desktop/renderer/src/workbench/resource-workspace.css",
+        "apps/desktop/renderer/src/workbench/resourceWindowReturnState.ts",
+        "apps/desktop/scripts/resource-workspace-collaboration-smoke.mjs",
+        "apps/desktop/scripts/resource-workspace-smoke.mjs",
+        "packages/runtime-core/src/conversation-history-projector.test.ts"
+      ],
+      "indexUnchanged": true,
+      "head": "a81a049ce677d19c7b05f8fc8835e1d0d305d82f"
+    },
+    "knowledge": {
+      "changedFiles": [
+        "design/product/peer-interaction-standardization-matrix.md",
+        "design/product/peer-ui-motion-transition-matrix.md",
+        "playbook/resource-workspace-editing.md",
+        "playbook/resource-workspace-r1-r10-validation.md",
+        "playbook/resource-workspace-source-coverage.md",
+        "playbook/v0.1.0/evidence/resource-workspace-r1-r10-validation-20261027.json"
+      ],
+      "indexUnchanged": true,
+      "head": "a9b241ad3701eea6eb24fb12453b4d52e7075960"
+    },
+    "protected-code": {
+      "changedFiles": [],
+      "indexUnchanged": true,
+      "head": "42767ec1f738e9f2c2a5f6dc319b03252cda8ec1"
+    },
+    "protected-knowledge": {
+      "changedFiles": [],
+      "indexUnchanged": true,
+      "head": "f0ad8eb76f4ba5c51cde34e8c0d564a8d1501393"
+    }
+  },
+  "limits": [
+    "Implementer AI self-review, not independent",
+    "Source Electron with isolated synthetic files, SQLite and loopback web; no personal tasks or models",
+    "No signed installed build, complete OS IME or screen-reader certification",
+    "Native browser chrome and guest pixels captured separately",
+    "Not all 164 design rows or G8 release acceptance"
+  ],
+  "publication": {
+    "committed": false,
+    "pushed": false,
+    "personalAppRestarted": false,
+    "released": false
+  }
+}

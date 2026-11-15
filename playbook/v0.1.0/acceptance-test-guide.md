@@ -1,6 +1,14 @@
 # Peer Agent 0.1.0 发布前全面测试手册
 
-> 当前评测候选：**0.1.0-rc.18**。不可变提交 `60b88eebd008bcdb7ba72c5757087e3686ec762f`；公开摘要及已执行范围见 [RC18 验收](rc18-candidate.md)。正式工作流与 14 资产、签名包真实 DeepSeek 派工/复核/签收/取消/重启、RC17 下载更新、npm 与 Pages 已通过；180 图及正式包 9 图为实施者自审。完整备份后同步升级 Desktop/CLI/Gateway；旧版可能拒绝新日志，回退须恢复升级前备份。Windows/Linux 交互安装、完整读屏、安装器交接与长期使用仍是覆盖缺口，不宣布 GA。
+最后更新：2026-10-23（候选导航与新体验规范覆盖说明；本轮未执行测试）
+
+> 当前导航：最新已发布预览为 **RC26 / `3583d06a`**，详见[固定发布记录](https://github.com/ly-ccx/Peer-Knowledge/blob/43fece5fde940d60009158382450b0a5533374c5/playbook/v0.1.0/rc26-candidate.md)。下一次评测须先合并全部开放PR，再冻结唯一组合候选；本地试用 `cb2f5695` 或本页历史候选不自动成为新候选。尚未开始本轮新的产品测试，也不据旧结果宣布GA。
+>
+> [当前改造计划](../../design/product/peer-product-renovation-plan.md)的E13将[体验规范](../../knowledge/specifications/peer-product-experience-standard.md)、[人机交互契约](../../knowledge/specifications/peer-human-agent-interaction-contract.md)和[动效规范](../../knowledge/specifications/motion-system.md)映射到既有场景；缺失的跨切换草稿、输入/焦点/滚动边缘和辅助技术覆盖须在发布前明确补齐或记录限制。下文原用例与六流程保留，不把新条款预填Pass或用截图数量推导已验收。
+>
+> 普通开发只做内容/diff审阅，不自动执行定向或全量测试、构建/类型/架构/IPC或截图/交互回归；仅在发版前或用户明确要求时执行，服从代码仓最新AGENTS。升级/回退遵从目标版本兼容与完整备份策略；不沿早期故事让旧宿主继续写新格式状态。
+
+> 历史 RC18 评测记录：**0.1.0-rc.18**。不可变提交 `60b88eebd008bcdb7ba72c5757087e3686ec762f`；公开摘要及已执行范围见 [RC18 验收](rc18-candidate.md)。正式工作流与 14 资产、签名包真实 DeepSeek 派工/复核/签收/取消/重启、RC17 下载更新、npm 与 Pages 已通过；180 图及正式包 9 图为实施者自审。完整备份后同步升级 Desktop/CLI/Gateway；旧版可能拒绝新日志，回退须恢复升级前备份。Windows/Linux 交互安装、完整读屏、安装器交接与长期使用仍是覆盖缺口，不宣布 GA。
 
 > 原195项加I11–I15共200用例/6流程继续保留，另加下列RC12自主协调路线。历次截图与自测保留各自版本归属；本轮定向验收通过不等于200用例/6流程已全部重新执行，不给未执行组合预填Pass。
 
@@ -68,6 +76,12 @@ peer --version
 ```
 
 预期`peer 0.1.0-rc.5`。四包固定版本及`rc`标签已在公共npm可见；`latest`仍0.0.18、`beta`仍0.1.0-beta.5。`@rc`跟随后续候选，评测须记录确定版本。[npm证据](evidence/rc5-npm-metadata-passed-20261004.json)。本轮CLI范围为实际归档SHA/签名/版本及npm元数据，未重跑npm安装、完整模型或PTY流；旧RC3真实模型和CLI证据保持历史范围。Windows无CLI归档，M组在macOS/Linux测试。
+
+## 当前规范覆盖入口（未预填验收结果）
+
+全量页面与组件范围见[交互状态矩阵](../../design/product/peer-interaction-standardization-matrix.md)（P01–P78、C001–C201、G01–G12）；UI、动效和过渡见[体系覆盖表](../../design/product/peer-ui-motion-transition-matrix.md)（U01–U16、M01–M18、T01–T10）。它们已纳入当前改造计划 E15–E17，规范包括新增[过渡体系](../../knowledge/specifications/transition-system.md)。
+
+发布卡按矩阵 §7 将编号映射到下文 A–P/六流程、现有 packet 字段或新增人工交互步骤，并绑定最终候选/安装包/证据。旧截图与 S（静态已有）不能标成新候选 Pass；草稿/未知送达、键盘/IME/焦点、拖动取消、JS 减少动效与无 API 恢复需要行为依据。缺覆盖记录限制或补齐，不虚构已自动覆盖。本次只补计划与文档，未运行验收。
 
 ## 1. 测试与发布顺序
 

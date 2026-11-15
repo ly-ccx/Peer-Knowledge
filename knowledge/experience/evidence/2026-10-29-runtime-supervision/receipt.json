@@ -1,0 +1,459 @@
+{
+  "schemaVersion": 1,
+  "scope": "R1-R5 implementation self-validation; not release or installation acceptance",
+  "codeRepository": "https://github.com/ly-ccx/Peer-Agent",
+  "branch": "codex/runtime-loading-supervision",
+  "commit": "d37b534c11f11270e0894cf81d7e79cf1988e06a",
+  "base": "e0c87d2db739b168956eb1715047d149642b1f1e",
+  "sourceFingerprint": "873f4fd57b7c850d83a07ac91079606a84ce8f796a75306b8103d6c720f4b2fd",
+  "captureHeadBeforeCommit": "e0c87d2db739b168956eb1715047d149642b1f1e",
+  "runId": "ec311a87-4a14-41e0-9d51-7f285837fb5d",
+  "capturedAt": "2026-10-29T00:50:57.259Z",
+  "screenshotCount": 252,
+  "reviewer": {
+    "kind": "ai",
+    "name": "Codex",
+    "independent": false
+  },
+  "productVerification": {
+    "status": "passed",
+    "runId": "ec311a87-4a14-41e0-9d51-7f285837fb5d",
+    "sourceFingerprint": "873f4fd57b7c850d83a07ac91079606a84ce8f796a75306b8103d6c720f4b2fd",
+    "reviewedAt": "2026-10-29T00:56:51.422Z",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex",
+      "independent": false
+    },
+    "limits": [
+      "Scripted model cognition; no real provider quality or network timing",
+      "Source Electron; not an installed RC",
+      "No full screen-reader or long-duration acceptance"
+    ]
+  },
+  "validation": {
+    "build": "passed; full workspace and final Desktop capture build",
+    "types": "passed",
+    "architecture": "passed",
+    "ipc": "passed",
+    "tests": "Complete root test scope covered in segments. Final workspace build and ConversationStore 111 passed; runtime 1575 scope plus 28 affected tests and host 9 isolated passed; Desktop 6101 scope plus integration 36, search 10 isolated and tail 3 passed. Five existing Desktop skips. Types, architecture, IPC and UI 8 passed. Last harness-only timing change: four tests passed; complete product packet recaptured from the same final source. TUI 817 passed earlier. Original failures are retained; this is not a single all-green invocation.",
+    "schedulingRetries": [
+      {
+        "suite": "runtime-host.test.mjs",
+        "failure": "150 ms scheduler race under full run load",
+        "isolated": "earlier 8/8 passed in 2.93 seconds; final 9/9 in 4.06 seconds"
+      },
+      {
+        "suite": "TUI terminal takeover file",
+        "failure": "5 second default timeout under parallel load",
+        "isolated": "15/15 passed, 3.27 seconds"
+      },
+      {
+        "suite": "local-search-aggregate-provider.test.mjs",
+        "failure": "40 second lane timeout under full Desktop concurrency",
+        "isolated": "10/10 passed, 1.09 seconds; original lane budget unchanged"
+      }
+    ],
+    "productHarnessRepairs": [
+      "Wait lazy controls, appearance preview and finite drawer layout before measuring",
+      "Retry transient detached/unstable image receipt within original five-second deadline",
+      "Refresh disposable history dates at scenario entry; year-boundary test preserves four groups and source records",
+      "Reject the machine-green packet when visual review found clipped automation title and classic composer; add actual viewport assertions before fixing resource viewport ownership and shared document minimum"
+    ],
+    "testBudgetsRelaxed": false,
+    "readCountAssertions": "Empty recovery 4 to 1 and strict search corpus batch 1 to 0 tightened to match versioned projection; new actual host checks preserve public-result freshness and exclude private process bodies"
+  },
+  "performanceProductionChanges": [
+    "Empty recovery scans removed; one synchronous work/delivery decision; fresh recheck after await",
+    "Bounded version-checked metadata reads and recovery returns current immutable inventory",
+    "Empty input polling is read-only; bounded empty Inbox hints recheck source version and cursor",
+    "Immutable bounded public summary/search projections; Unicode-correct previews; single normalization per search document"
+  ],
+  "performanceTimingCorrection": "The former await wrapper included microtasks queued after a synchronous API returned. Controlled-clock RED measured100instead5; corrected synchronous return and asynchronous settlement tests passed. Mixed workload, all samples, budgets and in-operation GC remain. This is measurement correction, not a product speedup.",
+  "performanceAdapterCorrection": "Benchmark originally used legacy strict per-conversation reads, then omitted actual summary reads. Final benchmark uses the same Desktop summary and public search projections. Adapter changes are not claimed as production speedups.",
+  "performance": {
+    "localPass": true,
+    "realModel": {
+      "status": "not_measured",
+      "reason": "Live configured-model benchmark required before ready; scripted replies do not satisfy it"
+    },
+    "ready": false,
+    "scale": {
+      "bots": 200,
+      "messages": 10000,
+      "inboxEvents": 100000,
+      "memories": 10000
+    },
+    "metrics": {
+      "list": {
+        "samples": [
+          80.33887500000128,
+          84.12012500000128,
+          78.28329200000007,
+          87.38579100000061,
+          93.95066699999734
+        ],
+        "median": 84.12012500000128,
+        "budget": 100,
+        "pass": true
+      },
+      "search": {
+        "samples": [
+          86.52879200000461,
+          132.17508399999497,
+          146.875165999998,
+          148.25066700000025,
+          134.8850420000017
+        ],
+        "median": 134.8850420000017,
+        "budget": 150,
+        "pass": true
+      },
+      "received": {
+        "samples": [
+          70.33958399999392,
+          44.487207999998645,
+          51.38341599999694,
+          59.018667000003916,
+          50.252832999998645
+        ],
+        "median": 51.38341599999694,
+        "budget": 300,
+        "pass": true
+      },
+      "consume": {
+        "samples": [
+          68.06854200000089,
+          72.66741699999693,
+          80.46945899999992,
+          78.93516600000294,
+          68.87400000000343
+        ],
+        "median": 72.66741699999693,
+        "budget": 200,
+        "pass": true
+      },
+      "memory": {
+        "samples": [
+          22.31958399999712,
+          18.8997920000038,
+          24.153250000003027,
+          23.741290999998455,
+          21.809708000000683
+        ],
+        "median": 22.31958399999712,
+        "budget": 50,
+        "pass": true
+      },
+      "coldInbox": {
+        "samples": [
+          819.9468330000001,
+          658.410625,
+          859.5002920000002,
+          820.131334,
+          745.5573749999999
+        ],
+        "median": 819.9468330000001,
+        "budget": 1000,
+        "pass": true
+      },
+      "idleBytesPerBot": {
+        "samples": [
+          1021132.8,
+          1010810.88,
+          1012858.88,
+          1024491.52,
+          1024000
+        ],
+        "median": 1021132.8,
+        "budget": 2097152,
+        "pass": true
+      }
+    },
+    "initialStoragePreparation": {
+      "coldInbox": 25691.615583,
+      "heapBytesPerBot": 25040.68,
+      "rssBytesPerBot": 1190625.28,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    }
+  },
+  "limits": [
+    "Scripted model cognition; no real provider quality or network timing",
+    "Source Electron; not an installed RC",
+    "No full screen-reader or long-duration acceptance",
+    "No cross-platform or installed-build upgrade acceptance",
+    "Not all network/chunk failure modes injected",
+    "Implementer visual review is not independent review"
+  ],
+  "rawArtifactHashes": {
+    "packet.json": "cdc8578b48cced3ec148cfea5a27b34c52c45079ce9e75dfb1adc6ce2f194ee3",
+    "machine.json": "37240892d39a9161268b2292e01fda9b5cd334921bd8e45a88792b248feafd00",
+    "capture.log": "c545c8f9e4c1a4fcf4f6b01df4c43fa8a4848a3fc2360191537ab689c8002d76"
+  },
+  "localLogHashes": [
+    {
+      "name": "perf-timing-red.log",
+      "sha256": "ffc7a4f3dfec541af8f5272684bba6d017fed259f4c055e82c265dc4de2aed5b"
+    },
+    {
+      "name": "perf-timing-green.log",
+      "sha256": "3806bd98f146dceb1adcb2654c478f86c64181c10cc8b3406479a157b212a251"
+    },
+    {
+      "name": "performance-interleaved-final.log",
+      "sha256": "ce78ebb9a5333c77fdf8a50ad31cb8d8d31388c9d086b138b18c900cf04e87cc"
+    },
+    {
+      "name": "performance-search-profile.log",
+      "sha256": "0ecde06d20a7c7e260b624461d41e636d6be616d0b1377a86c448698b9f91044"
+    },
+    {
+      "name": "candidate-build.log",
+      "sha256": "376673f4246cc6e50fe76cea40c68738fdcbb97aaf7421902279bbdc04aa421f"
+    },
+    {
+      "name": "candidate-final-desktop-build.log",
+      "sha256": "d7b11719ba6ef8f3dc27ace31a109d68f27bba6d1500d079bb4220e39e65d92e"
+    },
+    {
+      "name": "candidate-conversations-test.log",
+      "sha256": "3d4f029a342df58448c82eaf83552bb3c785926af8e434a9d85bb747c6da24ba"
+    },
+    {
+      "name": "candidate-runtime-test.log",
+      "sha256": "5f7993608c104010137f0929f9f1b26b7082155728b3875edf8c399ea4244d44"
+    },
+    {
+      "name": "candidate-changed-runtime-test.log",
+      "sha256": "7979a0933a94c7f59d54377d3e94ec8aa95278b6e0b7ce03d341d3464d0bffe5"
+    },
+    {
+      "name": "candidate-host-isolated-retry.log",
+      "sha256": "41f6625ddd0d228a2b5cc0e66fe88032534469385a59796e7781fba957b50065"
+    },
+    {
+      "name": "candidate-desktop-test.log",
+      "sha256": "e9acd597ee40ac6782c47abf8ad6dbcc4d55c30976009809ab7fbfaa1ec2e628"
+    },
+    {
+      "name": "candidate-desktop-integration-test.log",
+      "sha256": "e077d257b0efacb53876e68a8be18d68f46f648f505333ac1c6b42362fa5138d"
+    },
+    {
+      "name": "candidate-search-isolated-retry.log",
+      "sha256": "64b27b72182870d6489ce91c10cc01c4bc0425a68ed622d9c44c6d30e8b0a847"
+    },
+    {
+      "name": "candidate-desktop-tail-test.log",
+      "sha256": "fe6e68af15ff2c1ca4be0147991cf328cc7d4c4e45831b90d5e3d76e31e4205b"
+    },
+    {
+      "name": "candidate-typecheck.log",
+      "sha256": "4b60531caf795d3dc4a1d7d721ff0063ca77f6bb9e5d8fd94fda61f48d41ca43"
+    },
+    {
+      "name": "candidate-architecture.log",
+      "sha256": "16c333b8610106a23ac72df16f4b0d7a3c1addfa280bb778b8d514f94723d3d2"
+    },
+    {
+      "name": "candidate-ui-test.log",
+      "sha256": "47eea54ff58fcd29a0e15120e1d96721e9d599384fde1a2fef6ed8a54a6f7949"
+    },
+    {
+      "name": "cold-empty-red.log",
+      "sha256": "2aec11d3d9d13d504e3a5f7404913cf5bdb6f945367d1f2d44547bb9b2578542"
+    },
+    {
+      "name": "cold-empty-green.log",
+      "sha256": "c83019e721292ab44c92c275d304e39c323f8fabfd6be1527a9f33c29e62c4b8"
+    },
+    {
+      "name": "cold-admission-red.log",
+      "sha256": "2e34a210b48a149dd2f1ae1f41ff2d84c6704164712a6fe4578cdbd371849f66"
+    },
+    {
+      "name": "cold-idle-red.log",
+      "sha256": "76c31d5e9419ea1d9070d31a3ea3757ea75d5adae4fd24a012d84ae3819f75e3"
+    },
+    {
+      "name": "cold-idle-green.log",
+      "sha256": "249c816ed486ffd86811a177828abfe34d36f7e812382b54c44878acf2fcdcfb"
+    },
+    {
+      "name": "cold-metadata-test.log",
+      "sha256": "c0c2acd21951f839de222bea823245a6132c214bd897b0eebe5d1726fa269abb"
+    },
+    {
+      "name": "cold-empty-queue-red.log",
+      "sha256": "2f0646a53f652b3809f99bd18ccd5def4f2cf80223b76409611b50070dd2cadc"
+    },
+    {
+      "name": "cold-empty-queue-green.log",
+      "sha256": "480dbd5c6d159cc62a9260055bb91a663a3ec29ac0f3bfe16ebe63e5def991e5"
+    },
+    {
+      "name": "cold-empty-inbox-test.log",
+      "sha256": "41ff67ca0b900b2371d11829458b6836d4db1f80c6b2f360d9fea65425b9a484"
+    },
+    {
+      "name": "recovery-inventory-red.log",
+      "sha256": "1cf00d82153e92d0e0f6abec5aa526161fc9f2dae709e851d821ee3133adfb54"
+    },
+    {
+      "name": "recovery-inventory-green.log",
+      "sha256": "e2745a676fb499197961cfbe91e935d83d210ae974a52379d54b4f3a07e993c7"
+    },
+    {
+      "name": "list-profile.log",
+      "sha256": "56080d92013cb0b87e0d7c8ff1d0c54892461964b6bfc762f162744062470f5e"
+    },
+    {
+      "name": "list-immutable-red.log",
+      "sha256": "0022b3e293c24dad7eb7a795fe70af28ae044230bfa83958139288f156ff61a6"
+    },
+    {
+      "name": "search-projection-test.log",
+      "sha256": "e764a6b689a24a3e39747e4a9f365935341c1c7da1d2421d5017da573fa80716"
+    },
+    {
+      "name": "shared-ui-shell-scroll-red.log",
+      "sha256": "1744fbb4b6458c27eb8511032543f62caee4d6c81e902c49c13be5e2217cd687"
+    },
+    {
+      "name": "shared-ui-shell-scroll-green.log",
+      "sha256": "002ee1f9d9beef4f63cbf302258226263bff698e5a85895fc06749acbc367da9"
+    },
+    {
+      "name": "shared-ui-narrow-red.log",
+      "sha256": "0bfefa87f5109c3b7d717f8cb34e04d4e1e57bc9e162191d687313ec6219ebe3"
+    },
+    {
+      "name": "shared-ui-narrow-green.log",
+      "sha256": "2b626e1e0c961ff212e4d421553b967a8bdc8d329e787910c2d6a515a7ef885d"
+    },
+    {
+      "name": "shared-ui-classic-width-red.log",
+      "sha256": "9731867f8c89c1146c013e10c8c60ff2488c814aff969c05459433722f903715"
+    },
+    {
+      "name": "build.log",
+      "sha256": "f84b58ccb1a43a54ddbbd846d1333e2656032826cc60500d0a64ddf6480fec42"
+    },
+    {
+      "name": "desktop-final-test.log",
+      "sha256": "de50911f0d62e0ff3d073416f48db81b494640497aa7cc446de0a094d8b37e56"
+    },
+    {
+      "name": "typecheck.log",
+      "sha256": "7855809eb6999aac666481ae3c784e6292b4d8b71ffe710da88290ee5316fefc"
+    },
+    {
+      "name": "architecture.log",
+      "sha256": "16c333b8610106a23ac72df16f4b0d7a3c1addfa280bb778b8d514f94723d3d2"
+    },
+    {
+      "name": "test.log",
+      "sha256": "3e39bf31f1cc48ca79279ac8b267fcbd79f759e19ef16fa6946cbc53926f5f9f"
+    },
+    {
+      "name": "test-parallel-timeout.log",
+      "sha256": "50dcf8a1857d2389843dd4a23b75b8230ff5583500ff1ec64f46830942cbfd1e"
+    },
+    {
+      "name": "runtime-host-isolated-retry.log",
+      "sha256": "57f98154308710f8cc7858bb4523480979b1ddc7e1a332605505d709b6aa5db7"
+    },
+    {
+      "name": "tui-isolated-retry.log",
+      "sha256": "2d524547970606f8538a943fc3c2fe72cdcc28953bdede26546f43547f1e4961"
+    },
+    {
+      "name": "tui-final-test.log",
+      "sha256": "744366cd6dfa562d30f3da261f8b48048cc67e66d1cd0160a3b4157ce6a63330"
+    },
+    {
+      "name": "root-final-test.log",
+      "sha256": "53cd6d8953c755466a173cbcebf200a35b020a834cb9b09a49189f995bb9dd9a"
+    },
+    {
+      "name": "style-ownership-test.log",
+      "sha256": "159c19013aa7c490ee688ef02aa89ede9dba8add913259e20151bac207284b34"
+    },
+    {
+      "name": "detail-labels-test.log",
+      "sha256": "ab4088132100910ec39c9465dd8455caff73db7d587f55cb5e4635ad1e71519a"
+    },
+    {
+      "name": "large-inbox-before.log",
+      "sha256": "e5576a9bbc62609762b214805c687bb8f3b6de7d50004c9df27d2c99bb717c6b"
+    },
+    {
+      "name": "large-inbox-after.log",
+      "sha256": "01b21005c6e680f605c852f286e8a35a4b630a63043a310792840e4264948f1a"
+    },
+    {
+      "name": "history-midnight-test.log",
+      "sha256": "739401f8497192f8604314a19e28f30946ae664e9b948f0c087024c6fc3027da"
+    },
+    {
+      "name": "image-stability.log",
+      "sha256": "34a4aae3b327e425fd309f5418d7e7c6f57a9d63956d481f8f2b8a51ab719109"
+    },
+    {
+      "name": "history-midnight.log",
+      "sha256": "9592921d56f442c672f22b8beee3338df01232a0088da364dae6508acbdca64f"
+    },
+    {
+      "name": "shared-ui-final.log",
+      "sha256": "9adb78ba418dcc022e0c64ecd965e6afa3d6386b685522ded738a37f8309e8db"
+    },
+    {
+      "name": "performance-final-first-failed.log",
+      "sha256": "6675b72a32e74f5a3abedadc9dd73a1077b170faa1cef400b1917b3d2caa0e81"
+    },
+    {
+      "name": "performance-profile.log",
+      "sha256": "e08f48681ce3b8e5db93f6cb620160e4d3e1965e815da56a3cdb4b869d9ff4e9"
+    },
+    {
+      "name": "cold-profile.log",
+      "sha256": "6a4f5a9b3a0cc181bd1bd8f23716c2c4c0b63e234cc929c09bc65e0d3e52690b"
+    },
+    {
+      "name": "performance-final.log",
+      "sha256": "9aff06883c3999d89f74e43274ea9187f972122527b9d1285b8b3b7c05ba6fc8"
+    }
+  ],
+  "files": [
+    {
+      "name": "coordination-handoff-1280-dark.png",
+      "sha256": "cf503a4b5e676660f2e0aadba8050a4b08acdfd42d6b8431caeb603f91d4ea40"
+    },
+    {
+      "name": "lifecycle-question-detail-760-light.png",
+      "sha256": "18dde74675710365e6cd4fc217a3b2667a8d1c24563e1c05e371d417063abced"
+    },
+    {
+      "name": "local-performance.json",
+      "sha256": "670b5b1bd555dc7c3f21bfa94b13a3e187f7cab7434049ba030dc988089e0a37"
+    },
+    {
+      "name": "product-result.json",
+      "sha256": "b4bd673fa8fb48ff3a12e9a721401396d78d69f30d53d0fc7ab9db63f3373a17"
+    },
+    {
+      "name": "product-review.json",
+      "sha256": "72a22d03fc1e01cba08787f3d293fe5a6ae132270dec895b0beb554974ed57b9"
+    },
+    {
+      "name": "ui-appearance-760-light.png",
+      "sha256": "ea245975103a0cf0f78ed4f3329f687410d5396cbac940610a109343b4568906"
+    },
+    {
+      "name": "ui-classic-chat-1280-dark.png",
+      "sha256": "987d9cf818909057e853b0e29880488aaf9d1e836bdafe67552de2d5b661ce9b"
+    }
+  ]
+}

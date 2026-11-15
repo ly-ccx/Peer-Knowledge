@@ -5,7 +5,7 @@
 
 ## 状态
 
-技术方案草案，待在代码仓 `peer_agent` 落地。
+排版与主题 token 的历史记录。引用如何识别、定位和按格式打开，以 `knowledge/decisions/114-reply-citation-resolution-and-open.md` 为准；本文不再决定那些规则。
 
 关联代码仓：
 

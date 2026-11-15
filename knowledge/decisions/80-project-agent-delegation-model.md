@@ -13,7 +13,7 @@ Accepted（2026-09-26，P0-2）。实现未开工。
 
 评审关闭了运行时契约 §13 与分层文档 §13 里和本 ADR 有关的点，结论如下。与任务卡冲突时以任务卡为准。
 
-1. **只读范围。** 代理白名单含本机只读文件工具（`list_files`、`read_file`、`search_files`、`batch_search`）。`web_fetch` 与外网搜索不进白名单；需要上网的事开任务。
+1. **只读范围。** 代理白名单含本机只读文件工具（`list_files`、`read_file`、`search_files`、`batch_search`）。2026-10-23 [ADR106](106-readonly-git-and-delegation-capability-admission.md) 增补结构化 `git_query`，不开放任意 shell，也不改变 Full 不覆盖角色闸。`web_fetch` 与外网搜索不进白名单；需要上网的事开任务。
 2. **能力不够就开任务。** 只读工具答不了的问题，代理直接 `spawn_session`，不先问「要不要开任务」。仍须确认的只有：签收策略判为 `confirm` 的结果、空白机器人建 README、不可逆操作、需要你批准的权限。
 3. **不碰 Goal 工具。** 代理不调用 `goal_*` 与 `request_user_input`。查任务用 `list_sessions` / `get_session`，问用户用 `post_reply` 的问题卡。任务回合仍用 `request_user_input`。
 4. **编排。** 单线程 actor，用户消息抢占唤醒回合。`spawn_session` 结构化建 GoalPlan，任务里不再跑 intake。

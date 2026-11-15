@@ -1,7 +1,7 @@
 # Peer Agent 架构治理与开发准则
 
 日期：2026-06-10
-最后更新：2026-10-21
+最后更新：2026-11-03
 状态：治理基线
 产品理念：`design/product/peer-product-alignment.md`（本文不另立品类，只锁工程如何实现那条委托链路）
 
@@ -255,6 +255,8 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 
 ## 七、代码评审清单
 
+2026-11-03 起，所有后续修改共同遵守[可复查的交付闭环](00-engineering-philosophy.md)：先核对实际调用/数据流、Module 职责、事实真源和异常收尾；缺陷有故障基线，持久状态同时处理预防与已有状态恢复；以真实 seam 的范围匹配验证支持结论。相关失败必须修正并留痕，候选、行为验证、存量恢复与安装/发布验收分别报告，用户不承担试错。日常代码定向验证获得持续授权，完整发布门禁保留；纯文档/指令修改只审内容、差异及一致性。该共识取代旧的日常验证延期条款，不扩大产品能力、权限或个人数据操作授权。
+
 每次较大变更至少检查：
 
 1. 是否仍然满足“模型负责认知，本地负责能力”？
@@ -322,6 +324,7 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 | Chat runtime | `apps/desktop/electron/main/llm-chat-service.mjs` + `chat-runtime/*-agent-loop.mjs` + `chat-runtime/agent-loop-kernel.mjs` | service 只保留 provider 选择、System Context assembly、stream 生命周期和 permission gate 组合；provider-specific Agent Loop、provider adapter、shared loop kernel、terminal text transition、projected tool executor、file Capability Provider、shell Capability Provider 委托、tool orchestrator、compaction coordinator、response guard、prompt snapshot 已拆到独立 Module；后续重点是继续把 provider-neutral provider error / retry transition 抽进 kernel |
 | Inline LLM tools | `executeModelToolCall()` -> `chat-runtime/projected-tool-executor.mjs` -> `Local Tool Host` -> `runtime-gateway/local-file-provider.mjs` / `runtime-gateway/local-shell-provider.mjs` | file / bash tools 已进入正式 Provider；runtime 模型工具调用已直连 Runtime Projection / Local Tool Host；旧 `executeTool()` 兼容入口已删除 |
 | Local Tool Host | `apps/desktop/electron/main/runtime-gateway/local-tool-host.mjs` | 正式能力执行 Seam，已注册 health、file、shell、mcp、skill providers，应成为所有本地能力的统一入口 |
+| Structured Git read | `runtime-node/src/local-git-provider.mjs` / `git-read.mjs` / `git-provider.ts` | ADR106：Desktop/TUI 复用固定操作的只读 Git Provider；主 Bot/只读任务不开放 shell，委派前沿实际投影核对所需能力，观察/拒绝沿既有 PermissionGrant/Evidence 路径。实现与审阅交付，测试留到发布前。 |
 | Provider registry | `runtime-gateway/capability-provider-registry.mjs` | 新能力必须以 Provider Adapter 注册，不在中心 host 堆分支 |
 | Compaction | `context-compactor.mjs`、`chat:compact` IPC、`prompt/sources/continuity-source.mjs` | manual compact 已复用 System Context；后续 continuation 通过 `runtime.continuity` 注入，不再把 compaction card 当普通 user history |
 | Context Baseline / Epoch | `prompt/prompt-snapshot-store.mjs` 的 `recordBaseline()` / `latest-baselines.json` / `context-epochs.jsonl` / `latest-context-epochs.json` / `context-epoch-events.jsonl` + `prompt/context-baseline-recorder.mjs` | manual compact 成功后记录带 continuity 的 chat baseline，并同步创建 durable Context Epoch replacement chain；`epoch_created` / `epoch_replaced` / `snapshot_anchored` 形成可查询 ledger；default provider/model 变化自动记录 `model_switch` baseline；`settings.systemInstructions` 变化自动记录 `instruction_change` baseline；普通 prompt snapshot 锚定 active `contextEpochId`，同一轮 retry 复用同一 baseline |
@@ -374,9 +377,23 @@ System Context 只描述模型能看到什么，Tool Runtime 决定系统能执�
 
 实施位置：protocol 定义公开文字 segment；共享 runtime 的 TurnActivity 划分与限额、agentTurnMessage 持久投影；renderer 只负责显示、去重、淡入与阅读位置。表达规则由现有 `project-agent` Context Source 提供，层序不变；不增加工具、执行旁路或授权机制。
 
+## 十五、任务核验与主对话的边界（2026-10-22，A 级）
+
+用户明确要求内部核验状态收进对应任务的状态和详情，主对话由主 Bot 解释结果。此边界沿用现有委托、核验、签收与 Evidence 权威，不改变正在执行的任务。
+
+- `verify_session` 持久化任务的宿主核验权威、版本绑定和 verdictRef，通过结构化 Tool Result 返回 event/detail；不得再生成 `verdict` 对话卡或以 assistant 消息追加到父会话。核验通过不等于结果已签收。
+- 任务状态继续由统一生命周期投影；按需读取 `get_session(detail=report)` 时，以同一宿主 Evidence、核验权威和版本绑定生成 `SessionReport.verification`。模型工具与任务详情共用 Verification Detail Module，提供结论、检查、证据引用和有界历史诊断；不能将旧卡正文当作当前结论。
+- 主 Bot 仍通过原工具链读取核验详情，并用 `post_reply` 说明做成了什么、实际验证范围及未解决的问题。失败、部分通过、不可核验和需用户处理的真实请求不能因隐藏内部卡而被丢弃；原完成事件、唤醒、批准与签收链保留。
+- 旧 `system_card` 中的结构化 `verdict` 只在公开交互投影中排除；不能按正文出现 passed/failed 猜测、删除用户或 Bot 的真实发言。混合卡片保留其他可操作卡。原 Conversation JSONL、GoalPlan、Tool Result 和 Evidence 不迁移、不覆写；原始记录仍能通过按需过程读取调查。
+- 交互索引版本更新只重建可丢弃缓存，继续走既有异步大历史读取；不新增全量同步历史回退。renderer 对旧读取入口保留同样的结构化展示约束。
+- 内部 `verifying/verified` 活动也不再追加到主对话，旧记录只从公开投影排除。核验进展继续留在原任务状态和 `verificationProgress`，结果事件与进展事件仍完整入 Inbox、触发主 Bot 唤醒及任务界面刷新；不因收拢展示而取消核验或吞掉失败。
+- 本次实现不安装、不重启个人应用，不接管宿主租约；在独立临时数据目录验证历史完整性、缓存升级/重建、失败分支、任务详情与主 Bot 结果交还。日常只做定向回归，发布时再跑全量。
+
 ## 相关文档
 
+- `knowledge/architecture/project-agent-reply-continuity.md` — 等待、公开段落、正式投递与恢复的连续展示契约
 - `knowledge/architecture/22-tui-desktop-shared-runtime-and-host-governance.md` — Desktop 与 TUI/CLI 共享运行时边界与长期治理
 - `knowledge/decisions/48-cli-first-class-release.md` — CLI 一等发布与 npm 安装面
 - `knowledge/specifications/runtime-sdk-boundary-architecture.md` — Runtime SDK 分层边界
 - `knowledge/architecture/desktop-cli-local-capability-parity.md` — 本地能力对齐
+- `knowledge/decisions/114-reply-citation-resolution-and-open.md` — 回复引用的定位与打开

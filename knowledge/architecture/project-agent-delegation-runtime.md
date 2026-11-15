@@ -1,15 +1,15 @@
 # 项目代理委托运行时
 
 创建时间：2026-09-24
-最后更新：2026-10-28
+最后更新：2026-11-01
 
-## 2026-10-28：核验失败后的有限返修（A 级生命周期校正）
+## 2026-11-01：意图驱动协调与目标闭环（交付分支源码已实施）
 
-自驱 Goal 的执行叶子完成不等于核验通过。机械完成门或独立 Verifier 打回后，原 Runner 在同一次执行中最多追加两次返修回合；每次必须先让工作者根据失败项补充真实结果 / Evidence，再运行一次最新对象的核验。不能在同一对象上重复调用核验器，或仅把 phase 改成 repair 却继续优先走完成捷径。次数用尽后仍走原 blocked 事件与主 Bot 收件箱；显式继续应给工作者实际返修机会，不自动签收。
+[ADR 117](../decisions/117-intent-driven-coordination-and-goal-closure.md) 提议在既有 coordination work 中记录输入解释、原目标覆盖与下一步处置，修正阶段签收过早结束根责任、交付失败影响范围过大等边界。四包按意图契约 → 统一判断/收尾 → 交付/失败隔离 → 事实/进展治理顺序，见[实施卡](../../playbook/v0.1.0/intent-driven-coordination.md)。当前四包已获准实施并在交付分支完成源码自测；实际接口、证据边界和与 ADR116 的 RC32 组合契约见 ADR117 §14–§15。下述 GoalPlan/Evidence 真值和验收政策保留；源码自测不等于组合候选或安装版验收。
 
-返修使用已有 Runner phase=repair、intent=execute、blockerAudit.reason=verification_gate_failed / verifier_failed。存储的普通持久化、高频进度 overlay 及 flush 必须把该活跃返修投影为 executing，即使叶子已全完成；不得纠正成 completed / idle。暂停、取消、明确提问与权限拒绝优先于返修，manual 人工确认和 UI 视觉门继续走原路径。执行和工具仍走既有宿主与授权链，不新建协议、能力、存储路径或签收权限。
+## 2026-10-23：只读 Git 与委派能力预检
 
-model_review 在现有 Goal Runner Context Source 中按宿主复核显示，不能降级为 manual 或允许工作者自填通过。最近核验报告的失败标准、缺证据项和建议以限长、带来源的 L7 事实输入返修上下文；它们不升级为系统指令。通过仍要求本轮机械门、版本绑定的模型复核、有效索引 Evidence、人工确认和视觉要求同时满足。
+[ADR106](../decisions/106-readonly-git-and-delegation-capability-admission.md) 增加 `local.git.query`：主 Bot 与只读工作者可以取得带时间、完整性和 Evidence 的仓库事实，通用 shell 限制继续保留。新委派声明 requiredCapabilities，宿主按目标工作者实际投影，在新建会话/计划及协调替换的执行版本变更前检查成功标准所需能力。缺项属于技术受阻，返回分层诊断，不要求用户降低验收范围。成功准入仅保存需求和工具清单指纹；不改写历史任务、会话与 Evidence，也不批量恢复或关闭既有任务。
 
 ## 2026-10-06：受阻循环修复契约
 

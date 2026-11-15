@@ -1,0 +1,2785 @@
+{
+  "version": "0.1.0-rc.27",
+  "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+  "sourceFingerprint": "37b3d530dbaa7cf96cc30b22fa5261f0adc425599b9a2004974a5960157740f3",
+  "tree": "857217d43e7f1f2baceb7a4079ce55429e73c016",
+  "fullGates": {
+    "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+    "clean": true,
+    "workspaceConcurrency": 1,
+    "checks": [
+      {
+        "name": "build",
+        "command": [
+          "pnpm",
+          "build"
+        ],
+        "exitCode": 0,
+        "seconds": 18.1
+      },
+      {
+        "name": "typecheck",
+        "command": [
+          "pnpm",
+          "typecheck"
+        ],
+        "exitCode": 0,
+        "seconds": 12.9
+      },
+      {
+        "name": "architecture",
+        "command": [
+          "pnpm",
+          "architecture:check"
+        ],
+        "exitCode": 0,
+        "seconds": 1.0
+      },
+      {
+        "name": "ipc",
+        "command": [
+          "pnpm",
+          "--filter",
+          "@peer-agent/desktop",
+          "ipc:check"
+        ],
+        "exitCode": 0,
+        "seconds": 0.3
+      },
+      {
+        "name": "test",
+        "command": [
+          "pnpm",
+          "test"
+        ],
+        "exitCode": 0,
+        "seconds": 177.1
+      },
+      {
+        "name": "product-contracts",
+        "command": [
+          "pnpm",
+          "qa:product:test"
+        ],
+        "exitCode": 0,
+        "seconds": 0.9
+      },
+      {
+        "name": "release-source-tests",
+        "command": [
+          "pnpm",
+          "release:source-test"
+        ],
+        "exitCode": 0,
+        "seconds": 0.3
+      },
+      {
+        "name": "runtime-contents",
+        "command": [
+          "pnpm",
+          "runtime:pack-check"
+        ],
+        "exitCode": 0,
+        "seconds": 4.6
+      },
+      {
+        "name": "runtime-consumer",
+        "command": [
+          "pnpm",
+          "runtime:pack-smoke"
+        ],
+        "exitCode": 0,
+        "seconds": 5.9
+      },
+      {
+        "name": "rust",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace"
+        ],
+        "exitCode": 0,
+        "seconds": 37.2
+      },
+      {
+        "name": "version",
+        "command": [
+          "pnpm",
+          "version:check"
+        ],
+        "exitCode": 0,
+        "seconds": 0.3
+      },
+      {
+        "name": "changelog",
+        "command": [
+          "pnpm",
+          "check:changelog"
+        ],
+        "exitCode": 0,
+        "seconds": 0.3
+      },
+      {
+        "name": "source",
+        "command": [
+          "pnpm",
+          "release:source-check"
+        ],
+        "exitCode": 0,
+        "seconds": 0.3
+      },
+      {
+        "name": "readiness",
+        "command": [
+          "pnpm",
+          "release:readiness-check"
+        ],
+        "exitCode": 0,
+        "seconds": 0.4
+      }
+    ]
+  },
+  "standardProduct": {
+    "result": {
+      "status": "passed",
+      "runId": "c76b2741-03ae-4dbf-a236-81205493a9e5",
+      "sourceFingerprint": "37b3d530dbaa7cf96cc30b22fa5261f0adc425599b9a2004974a5960157740f3",
+      "reviewedAt": "2026-10-27T16:37:09.911Z",
+      "reviewer": {
+        "kind": "ai",
+        "name": "Codex RC27 implementer self-review",
+        "independent": false
+      },
+      "limits": [
+        "Scripted model cognition; no real provider quality or network timing",
+        "Source Electron; not an installed RC",
+        "No full screen-reader or long-duration acceptance"
+      ]
+    },
+    "review": {
+      "schemaVersion": 1,
+      "runId": "c76b2741-03ae-4dbf-a236-81205493a9e5",
+      "sourceFingerprint": "37b3d530dbaa7cf96cc30b22fa5261f0adc425599b9a2004974a5960157740f3",
+      "reviewer": {
+        "kind": "ai",
+        "name": "Codex RC27 implementer self-review",
+        "independent": false
+      },
+      "screenshots": [
+        {
+          "id": "settings-floating-glass-1280-dark.png",
+          "sha256": "cf7e9760e0ac9f4d2a7a96438c7e39654e465d2b70f63f112a806c78e21c469e",
+          "verdict": "pass",
+          "notes": "settings-floating-glass-1280-dark.png: Appearance theme/material cards remain aligned in glass, solid and reduced-motion layouts; selected values and page reading are distinct without clipping."
+        },
+        {
+          "id": "settings-floating-solid-1280-dark.png",
+          "sha256": "fcbceffbff70e3524c022ec4cd6e5be0f266e538748355af607b3e8eeb06e7a9",
+          "verdict": "pass",
+          "notes": "settings-floating-solid-1280-dark.png: Appearance theme/material cards remain aligned in glass, solid and reduced-motion layouts; selected values and page reading are distinct without clipping."
+        },
+        {
+          "id": "settings-floating-glass-760-light.png",
+          "sha256": "1f9323639dbe1af1a1b4a4f4562783ffe31a89749b9672584c09994310fa0c12",
+          "verdict": "pass",
+          "notes": "settings-floating-glass-760-light.png: Appearance theme/material cards remain aligned in glass, solid and reduced-motion layouts; selected values and page reading are distinct without clipping."
+        },
+        {
+          "id": "settings-floating-solid-760-light.png",
+          "sha256": "935fe41c4e5e153f51ae75cfa9edf412452427aaccd2596c225d51b4c8c5b9d4",
+          "verdict": "pass",
+          "notes": "settings-floating-solid-760-light.png: Appearance theme/material cards remain aligned in glass, solid and reduced-motion layouts; selected values and page reading are distinct without clipping."
+        },
+        {
+          "id": "settings-floating-reduced-760-light.png",
+          "sha256": "73091c49169898276360e0258ccb5b80aca715ba0504c35ce7bfd191303a41ba",
+          "verdict": "pass",
+          "notes": "settings-floating-reduced-760-light.png: Appearance theme/material cards remain aligned in glass, solid and reduced-motion layouts; selected values and page reading are distinct without clipping."
+        },
+        {
+          "id": "startup-1280-dark.png",
+          "sha256": "adf52f0d9e82765db8aa491b906f67c79f38d838cf735889d3f40a8a971d098c",
+          "verdict": "pass",
+          "notes": "startup-1280-dark.png: Startup wordmark is centered in full-window light/dark paper at both widths, with no extra loading row or inset strip."
+        },
+        {
+          "id": "startup-1280-light.png",
+          "sha256": "ea9e6fd94cf16a94822332537437fcf7411e7f259ce449d8612dc85016706d85",
+          "verdict": "pass",
+          "notes": "startup-1280-light.png: Startup wordmark is centered in full-window light/dark paper at both widths, with no extra loading row or inset strip."
+        },
+        {
+          "id": "startup-760-dark.png",
+          "sha256": "e149d78ec853f325a2766a914d8b87010d2fba51c5931bd2fdd6e7dbf5ea9ef3",
+          "verdict": "pass",
+          "notes": "startup-760-dark.png: Startup wordmark is centered in full-window light/dark paper at both widths, with no extra loading row or inset strip."
+        },
+        {
+          "id": "startup-760-light.png",
+          "sha256": "95fa419fa567928d4177dc6ac61935ab260c15dd8329638ccc32d0d6c05f706d",
+          "verdict": "pass",
+          "notes": "startup-760-light.png: Startup wordmark is centered in full-window light/dark paper at both widths, with no extra loading row or inset strip."
+        },
+        {
+          "id": "startup-error-760-light.png",
+          "sha256": "4358eb317cbb71ac822fa23b2354d740dbdb6fa975dfe4ac3f3c5d0e8fd723e2",
+          "verdict": "pass",
+          "notes": "startup-error-760-light.png: Startup failure presents a readable local error and retry control in the viewport; actual retry recovery is separately confirmed by the machine scenario."
+        },
+        {
+          "id": "verification-main-1280-dark.png",
+          "sha256": "a58b7230df0f13887925f19e26704a731b03318911f751539da315107bc63cfd",
+          "verdict": "pass",
+          "notes": "verification-main-1280-dark.png: Completed work and retained history are distinct from verification/acceptance; the task detail opens beside the conversation with legible result groups and a focus marker."
+        },
+        {
+          "id": "verification-task-passed-1280-dark.png",
+          "sha256": "420734988e2f0474748303eaaa2f16eb967c901020b2873e601c34e17bf90879",
+          "verdict": "pass",
+          "notes": "verification-task-passed-1280-dark.png: Completed work and retained history are distinct from verification/acceptance; the task detail opens beside the conversation with legible result groups and a focus marker."
+        },
+        {
+          "id": "verification-task-failed-1280-dark.png",
+          "sha256": "8c85848919b7fb1bdade0b421576d4f61f27236dc62f115a3b377acc48d7d374",
+          "verdict": "pass",
+          "notes": "verification-task-failed-1280-dark.png: Task results separately show not-passed, partially verified and unverifiable conclusions; history is visibly labelled as historical, with evidence reachable and no success substituted."
+        },
+        {
+          "id": "verification-task-partial-1280-dark.png",
+          "sha256": "7d3a67d1101f07ff1e41dd6eedbecf8ce13ade147434e4939826bd76ca3c66d9",
+          "verdict": "pass",
+          "notes": "verification-task-partial-1280-dark.png: Task results separately show not-passed, partially verified and unverifiable conclusions; history is visibly labelled as historical, with evidence reachable and no success substituted."
+        },
+        {
+          "id": "verification-task-unverifiable-1280-dark.png",
+          "sha256": "bdb61801a9ceb2cffb18fc8cbf5f001c7ef17f856e41e4cb341fd6c8cfcb9a76",
+          "verdict": "pass",
+          "notes": "verification-task-unverifiable-1280-dark.png: Task results separately show not-passed, partially verified and unverifiable conclusions; history is visibly labelled as historical, with evidence reachable and no success substituted."
+        },
+        {
+          "id": "verification-main-760-light.png",
+          "sha256": "d7cd72395479498d3fc8fb309fada68c8518a4dc2db67fc362406c2dcb67fb41",
+          "verdict": "pass",
+          "notes": "verification-main-760-light.png: Narrow light conversation retains complete readable outcome text and a usable Composer; completed task history does not look like a running spinner."
+        },
+        {
+          "id": "verification-task-passed-760-light.png",
+          "sha256": "7b74377f06da7054a46a7461d080c646d8bc544a8e31ff1e916b5a91e81ffc5d",
+          "verdict": "pass",
+          "notes": "verification-task-passed-760-light.png: Compact task reading offers an explicit conversation return, keeps tabs pinned and evidence accessible, and displays each actual verification outcome without horizontal clipping."
+        },
+        {
+          "id": "verification-task-failed-760-light.png",
+          "sha256": "144d23fe58992cb6689a45cd8aeae896b5e2da7f2a2f61b17686b06fd1b5a550",
+          "verdict": "pass",
+          "notes": "verification-task-failed-760-light.png: Compact task reading offers an explicit conversation return, keeps tabs pinned and evidence accessible, and displays each actual verification outcome without horizontal clipping."
+        },
+        {
+          "id": "verification-task-partial-760-light.png",
+          "sha256": "84d0db8da7c0a4ae012ab0a21876952ba131af34f2a0f12da5a60370edf9d3e2",
+          "verdict": "pass",
+          "notes": "verification-task-partial-760-light.png: Compact task reading offers an explicit conversation return, keeps tabs pinned and evidence accessible, and displays each actual verification outcome without horizontal clipping."
+        },
+        {
+          "id": "verification-task-unverifiable-760-light.png",
+          "sha256": "d826a3286dde060f41a2160838c5cd703dd2c7b4b05d75143c0cd46f0155f035",
+          "verdict": "pass",
+          "notes": "verification-task-unverifiable-760-light.png: Compact task reading offers an explicit conversation return, keeps tabs pinned and evidence accessible, and displays each actual verification outcome without horizontal clipping."
+        },
+        {
+          "id": "window-material-drawer-1280-dark.png",
+          "sha256": "5fdebadb1cb68b83ba0bc88c24a2887224dddbc5f3dc88b95f2763d9bea098fb",
+          "verdict": "pass",
+          "notes": "window-material-drawer-1280-dark.png: Glass/solid/reduced-transparency layouts retain consistent paper geometry, readable message colors and distinct sidebar selection; RC9 footer belongs to the controlled updater fixture rather than the stamped candidate."
+        },
+        {
+          "id": "window-material-settings-1280.png",
+          "sha256": "20d9e5654b0f78c092a420c9c3ed036e1959e54b4dc387eeb8a3d8b6cd5f3649",
+          "verdict": "pass",
+          "notes": "window-material-settings-1280.png: Glass/solid/reduced-transparency layouts retain consistent paper geometry, readable message colors and distinct sidebar selection; RC9 footer belongs to the controlled updater fixture rather than the stamped candidate."
+        },
+        {
+          "id": "window-material-reduced-760-light.png",
+          "sha256": "cc14d4fb2d3e09ffbe02ec3272dd3870d8a98504d69d571c3fe923bd0b7c9e33",
+          "verdict": "pass",
+          "notes": "window-material-reduced-760-light.png: Glass/solid/reduced-transparency layouts retain consistent paper geometry, readable message colors and distinct sidebar selection; RC9 footer belongs to the controlled updater fixture rather than the stamped candidate."
+        },
+        {
+          "id": "window-material-glass-1280-dark.png",
+          "sha256": "6e333722b26d485be7cf851f0119224dbc3aa772108984bc45ea9e8d371bb57a",
+          "verdict": "pass",
+          "notes": "window-material-glass-1280-dark.png: Glass/solid/reduced-transparency layouts retain consistent paper geometry, readable message colors and distinct sidebar selection; RC9 footer belongs to the controlled updater fixture rather than the stamped candidate."
+        },
+        {
+          "id": "window-material-solid-1280-dark.png",
+          "sha256": "eceacdff5c6ff044958fbf3e00c7648e7629e5686a340d8e4b7e852d99c7beb9",
+          "verdict": "pass",
+          "notes": "window-material-solid-1280-dark.png: Opaque and glass conversation material keep the same aligned paper/Composer geometry and legible messages; retained scroll clipping at viewport edges is expected, not lost content."
+        },
+        {
+          "id": "window-material-glass-760-light.png",
+          "sha256": "7930b32b031c07c88ad69cb5a8ce176c21f825595ab865385694fd062aa1a60a",
+          "verdict": "pass",
+          "notes": "window-material-glass-760-light.png: Opaque and glass conversation material keep the same aligned paper/Composer geometry and legible messages; retained scroll clipping at viewport edges is expected, not lost content."
+        },
+        {
+          "id": "window-material-solid-760-light.png",
+          "sha256": "cc14d4fb2d3e09ffbe02ec3272dd3870d8a98504d69d571c3fe923bd0b7c9e33",
+          "verdict": "pass",
+          "notes": "window-material-solid-760-light.png: Opaque and glass conversation material keep the same aligned paper/Composer geometry and legible messages; retained scroll clipping at viewport edges is expected, not lost content."
+        },
+        {
+          "id": "conversation-cards-failed-dark.png",
+          "sha256": "4bcd1588d00f1dbfc13fe1219e6128e6fab09d433046419dbf2c313b602f6c81",
+          "verdict": "pass",
+          "notes": "conversation-cards-failed-dark.png: Read failure has a local retry, preserves earlier conversation when available, and clearly separates initial empty failure from recovered content; the Composer remains present."
+        },
+        {
+          "id": "conversation-refresh-failed-dark.png",
+          "sha256": "499384bc45fb54c8058e963fd0e1564c1dfc317d9993a5026da0e3097aa397d2",
+          "verdict": "pass",
+          "notes": "conversation-refresh-failed-dark.png: Read failure has a local retry, preserves earlier conversation when available, and clearly separates initial empty failure from recovered content; the Composer remains present."
+        },
+        {
+          "id": "conversation-initial-failed-light.png",
+          "sha256": "8c4a87ac3c3c09ca9321018b1cb8926b0b3120fc00008e3b1952c248aabaad2e",
+          "verdict": "pass",
+          "notes": "conversation-initial-failed-light.png: Read failure has a local retry, preserves earlier conversation when available, and clearly separates initial empty failure from recovered content; the Composer remains present."
+        },
+        {
+          "id": "conversation-recovered-light.png",
+          "sha256": "8957695a604bb055239a7bf2fd2ed0db719287110022a5d735b5963c986572e0",
+          "verdict": "pass",
+          "notes": "conversation-recovered-light.png: Read failure has a local retry, preserves earlier conversation when available, and clearly separates initial empty failure from recovered content; the Composer remains present."
+        },
+        {
+          "id": "bot-access-1280-dark.png",
+          "sha256": "17a78dd7f326a1b7be84444cc15a31992f22f6325e87024160b0213d994e9be1",
+          "verdict": "pass",
+          "notes": "bot-access-1280-dark.png: Cropped Composer samples show the Full access warning label with its SVG icon and the selected model without overflowing either theme."
+        },
+        {
+          "id": "bot-access-760-light.png",
+          "sha256": "0c4608eceba851b7dbebd341555dd8ef7ad2b3e403bc972392f2ccbf57a18ec5",
+          "verdict": "pass",
+          "notes": "bot-access-760-light.png: Cropped Composer samples show the Full access warning label with its SVG icon and the selected model without overflowing either theme."
+        },
+        {
+          "id": "bot-access-child-1280-dark.png",
+          "sha256": "9de88dc6f44f5665648f0f25d651447d0c8ab654d56dd6f1860ad6d479341759",
+          "verdict": "pass",
+          "notes": "bot-access-child-1280-dark.png: The child scene stays inside the shared resource paper with an explicit Back to details action and inherited Bot access attribution; compact mode offers conversation return without an overlay veil."
+        },
+        {
+          "id": "bot-access-child-760-light.png",
+          "sha256": "1edf98bce4adfd8162169e51bfd667acf91419cd24f73f4f649ae424109b4087",
+          "verdict": "pass",
+          "notes": "bot-access-child-760-light.png: The child scene stays inside the shared resource paper with an explicit Back to details action and inherited Bot access attribution; compact mode offers conversation return without an overlay veil."
+        },
+        {
+          "id": "ui-diagnostics-1280-dark.png",
+          "sha256": "36a16291c52c7e7c7403b73d151679e1ca54f178a032c8ee2092c2c8c60b63ff",
+          "verdict": "pass",
+          "notes": "ui-diagnostics-1280-dark.png: Developer diagnostics expose read-only counters and a keyboard-focused redacted JSON disclosure; values and actions fit both widths with vertical scrolling."
+        },
+        {
+          "id": "ui-diagnostics-760-light.png",
+          "sha256": "07c0a3222d36a7dbeaae458b2498888b1e3936caedd1c06f71fcaaefcf3a258e",
+          "verdict": "pass",
+          "notes": "ui-diagnostics-760-light.png: Developer diagnostics expose read-only counters and a keyboard-focused redacted JSON disclosure; values and actions fit both widths with vertical scrolling."
+        },
+        {
+          "id": "ui-appearance-1280-dark.png",
+          "sha256": "e6941762d1f348020909222a0258c5306e8d7610945e8a24d43a1e30622cf80b",
+          "verdict": "pass",
+          "notes": "ui-appearance-1280-dark.png: Appearance page has labelled theme/material controls and bounded code previews at both widths; selected values and focus outlines remain distinct."
+        },
+        {
+          "id": "ui-appearance-760-light.png",
+          "sha256": "e17811e6d38a2597489af7b75bbe251a13b3793a98196882e8e6b2c5f308076e",
+          "verdict": "pass",
+          "notes": "ui-appearance-760-light.png: Appearance page has labelled theme/material controls and bounded code previews at both widths; selected values and focus outlines remain distinct."
+        },
+        {
+          "id": "ui-automation-list-1280-dark.png",
+          "sha256": "d0584a34ca3a4a0c6643ade4dde7b69c72cdf45e801c1dde7c81da4a61ee8c5d",
+          "verdict": "pass",
+          "notes": "ui-automation-list-1280-dark.png: Automation list preserves a paused fixture row with name, schedule and next-run status; page is vertically scrolled to its focused row, not horizontally clipped."
+        },
+        {
+          "id": "ui-automation-list-760-light.png",
+          "sha256": "c44b464228b58ef7fb300693864b37945c7746476e96bd2ddce944f4f1799b7c",
+          "verdict": "pass",
+          "notes": "ui-automation-list-760-light.png: Automation fixture preserves paused schedule, factual run summary and editable input. Its 760px stress view is below the native 1040px minimum and wide legacy content extends beyond the narrow viewport; tracked as a nonblocking coverage limitation, while the supported wide view is readable."
+        },
+        {
+          "id": "ui-automation-receipt-1280-dark.png",
+          "sha256": "e2d836e68ba8431da989ef5752379890f4b959719305cc72d2e75d1b9963d884",
+          "verdict": "pass",
+          "notes": "ui-automation-receipt-1280-dark.png: Automation fixture preserves paused schedule, factual run summary and editable input. Its 760px stress view is below the native 1040px minimum and wide legacy content extends beyond the narrow viewport; tracked as a nonblocking coverage limitation, while the supported wide view is readable."
+        },
+        {
+          "id": "ui-automation-receipt-760-light.png",
+          "sha256": "2d8414b6b5f977ea65355e0df957fb1c4c8df5d00975fb897e880ed6098085ae",
+          "verdict": "pass",
+          "notes": "ui-automation-receipt-760-light.png: Automation fixture preserves paused schedule, factual run summary and editable input. Its 760px stress view is below the native 1040px minimum and wide legacy content extends beyond the narrow viewport; tracked as a nonblocking coverage limitation, while the supported wide view is readable."
+        },
+        {
+          "id": "ui-automation-editor-1280-dark.png",
+          "sha256": "68c204c4514b6fea21eef3d50223aba916ab1e7229ce1a3d3850c21540b1f438",
+          "verdict": "pass",
+          "notes": "ui-automation-editor-1280-dark.png: Automation fixture preserves paused schedule, factual run summary and editable input. Its 760px stress view is below the native 1040px minimum and wide legacy content extends beyond the narrow viewport; tracked as a nonblocking coverage limitation, while the supported wide view is readable."
+        },
+        {
+          "id": "ui-automation-editor-760-light.png",
+          "sha256": "991d05e3b64818bc082f03c614a7430e0b1adb5ed74f3a324a5fab77c52b95a5",
+          "verdict": "pass",
+          "notes": "ui-automation-editor-760-light.png: Automation fixture preserves paused schedule, factual run summary and editable input. Its 760px stress view is below the native 1040px minimum and wide legacy content extends beyond the narrow viewport; tracked as a nonblocking coverage limitation, while the supported wide view is readable."
+        },
+        {
+          "id": "ui-classic-chat-1280-dark.png",
+          "sha256": "2beac43390da9faeaabbf918ee69dc81c3ab62f107f1edcb1d0e4d049f3b7166",
+          "verdict": "pass",
+          "notes": "ui-classic-chat-1280-dark.png: Classic conversation displays the renamed-file reference and rectangular four-corner image; Composer and task status remain distinct. These are legacy compatibility views, not claims of a new resource route."
+        },
+        {
+          "id": "ui-classic-chat-760-light.png",
+          "sha256": "df7a48e4e8dbd75d64ede18b53ad89aba9fc7e368e574cec7d63cf8ff8068ba6",
+          "verdict": "pass",
+          "notes": "ui-classic-chat-760-light.png: Classic conversation displays the renamed-file reference and rectangular four-corner image; Composer and task status remain distinct. These are legacy compatibility views, not claims of a new resource route."
+        },
+        {
+          "id": "ui-classic-image-lightbox-1280-dark.png",
+          "sha256": "1028e127b964a22e9847f72ba6dd20751a9008972a11abfe0f0bfe8f8c3b664c",
+          "verdict": "pass",
+          "notes": "ui-classic-image-lightbox-1280-dark.png: Explicit image zoom shows the uncropped bitmap and filename/dimensions with keyboard-focused SVG controls; the intentional image lightbox preserves the background conversation."
+        },
+        {
+          "id": "ui-classic-image-lightbox-760-light.png",
+          "sha256": "84ee7811b087a20c850fe10a4d082c0e656a6d4d92e66c5d106fcc3fe5c10dda",
+          "verdict": "pass",
+          "notes": "ui-classic-image-lightbox-760-light.png: Explicit image zoom shows the uncropped bitmap and filename/dimensions with keyboard-focused SVG controls; the intentional image lightbox preserves the background conversation."
+        },
+        {
+          "id": "ui-classic-artifacts-1280-dark.png",
+          "sha256": "4f96c8bcd36815311895ee0dc6820f551f42f7e0b69ac483127de7445e4c5442",
+          "verdict": "pass",
+          "notes": "ui-classic-artifacts-1280-dark.png: Legacy artifact disclosure and ordinary Diff index remain keyboard-readable; renamed Git metadata is preserved as raw text with an explicit fallback notice, while bounded ordinary file preview shows actual additions."
+        },
+        {
+          "id": "ui-classic-artifacts-760-light.png",
+          "sha256": "838f0f1d790c2b9d396f5fb4f0e6a867282daeabcc9182402450a50214184924",
+          "verdict": "pass",
+          "notes": "ui-classic-artifacts-760-light.png: Legacy artifact disclosure and ordinary Diff index remain keyboard-readable; renamed Git metadata is preserved as raw text with an explicit fallback notice, while bounded ordinary file preview shows actual additions."
+        },
+        {
+          "id": "ui-classic-diff-1280-dark.png",
+          "sha256": "05d64edd4d0a0315961dc05408a631f7fcfd39a3f49349ec6bcca5c626327953",
+          "verdict": "pass",
+          "notes": "ui-classic-diff-1280-dark.png: Legacy artifact disclosure and ordinary Diff index remain keyboard-readable; renamed Git metadata is preserved as raw text with an explicit fallback notice, while bounded ordinary file preview shows actual additions."
+        },
+        {
+          "id": "ui-classic-diff-760-light.png",
+          "sha256": "a1ae2dcb96e478cd32ddc479944a865cc7cc60a622d7db83e9acaf0d69a29309",
+          "verdict": "pass",
+          "notes": "ui-classic-diff-760-light.png: Legacy artifact disclosure and ordinary Diff index remain keyboard-readable; renamed Git metadata is preserved as raw text with an explicit fallback notice, while bounded ordinary file preview shows actual additions."
+        },
+        {
+          "id": "coordination-stopping-1280-dark.png",
+          "sha256": "65b025943e2fe438b143328c695248b8472a5517d9f413d9c1765b5e50c2722a",
+          "verdict": "pass",
+          "notes": "coordination-stopping-1280-dark.png: Coordination detail distinguishes stopping, outcome-needs-checking and cancelled states; preserved public progress stays in the conversation and follow-up remains an explicit user action."
+        },
+        {
+          "id": "coordination-awaiting_outcome-1280-dark.png",
+          "sha256": "f8f5699c5997e9ef0c86328db12859589e295f5103850a3ba414995e6ec3fcb7",
+          "verdict": "pass",
+          "notes": "coordination-awaiting_outcome-1280-dark.png: Coordination detail distinguishes stopping, outcome-needs-checking and cancelled states; preserved public progress stays in the conversation and follow-up remains an explicit user action."
+        },
+        {
+          "id": "coordination-cancelled-1280-dark.png",
+          "sha256": "fda0f3a80d484196805c08c4fe828048abd9691fca66d4e0e05017b736b88498",
+          "verdict": "pass",
+          "notes": "coordination-cancelled-1280-dark.png: Coordination detail distinguishes stopping, outcome-needs-checking and cancelled states; preserved public progress stays in the conversation and follow-up remains an explicit user action."
+        },
+        {
+          "id": "coordination-handoff-1280-dark.png",
+          "sha256": "5de48fd364e8a62c1ba729b6c5da6b5cab42924aefe3215d46c0658aa889a845",
+          "verdict": "pass",
+          "notes": "coordination-handoff-1280-dark.png: Handoff, stopping, unknown outcome and cancellation retain distinct status/next-action copy. Compact details retain return controls and public progress; unknown outcome explicitly requires checking rather than replay."
+        },
+        {
+          "id": "coordination-stopping-760-light.png",
+          "sha256": "a5546d2a2498a87e656a6c1a05bb7d5e6494fa4bd75c46e6bd3eea7d25ed9fcc",
+          "verdict": "pass",
+          "notes": "coordination-stopping-760-light.png: Handoff, stopping, unknown outcome and cancellation retain distinct status/next-action copy. Compact details retain return controls and public progress; unknown outcome explicitly requires checking rather than replay."
+        },
+        {
+          "id": "coordination-awaiting_outcome-760-light.png",
+          "sha256": "d8e9a9a69fd6ff31e90e4b848b51536e41ca60e080c1417c0336bff08e43cdf3",
+          "verdict": "pass",
+          "notes": "coordination-awaiting_outcome-760-light.png: Handoff, stopping, unknown outcome and cancellation retain distinct status/next-action copy. Compact details retain return controls and public progress; unknown outcome explicitly requires checking rather than replay."
+        },
+        {
+          "id": "coordination-cancelled-760-light.png",
+          "sha256": "055b0ae46f5b8566d6eb0ad848c4543353acbf2eb194d2f4e61d4384d84c96ff",
+          "verdict": "pass",
+          "notes": "coordination-cancelled-760-light.png: Handoff, stopping, unknown outcome and cancellation retain distinct status/next-action copy. Compact details retain return controls and public progress; unknown outcome explicitly requires checking rather than replay."
+        },
+        {
+          "id": "coordination-handoff-760-light.png",
+          "sha256": "716f40714828ad226d47221d098f911f5f4c4b88581b7eb29dd7d5aa1b7b3509",
+          "verdict": "pass",
+          "notes": "coordination-handoff-760-light.png: Handoff, stopping, unknown outcome and cancellation retain distinct status/next-action copy. Compact details retain return controls and public progress; unknown outcome explicitly requires checking rather than replay."
+        },
+        {
+          "id": "agent-activity-1280-dark.png",
+          "sha256": "8bf2486fa37e01c8aafffec66912352b647ba04aaa6af4af21f4ce679055df00",
+          "verdict": "pass",
+          "notes": "agent-activity-1280-dark.png: Agent activity history keeps start/problem/result events in sequence, while the selected live verifier detail shows its current factual progress. Both themes retain readable public replies and bounded recovery controls."
+        },
+        {
+          "id": "agent-activity-detail-1280-dark.png",
+          "sha256": "a911f81aeb6b39697e795bb4c198dbbdb023fc743892cca914df3a418c9b7b2d",
+          "verdict": "pass",
+          "notes": "agent-activity-detail-1280-dark.png: Agent activity history keeps start/problem/result events in sequence, while the selected live verifier detail shows its current factual progress. Both themes retain readable public replies and bounded recovery controls."
+        },
+        {
+          "id": "agent-activity-760-light.png",
+          "sha256": "68f9c64a28e6839516884a2bcaacfbb8a2e10c6b7044860611f59a7e8277a601",
+          "verdict": "pass",
+          "notes": "agent-activity-760-light.png: Agent activity history keeps start/problem/result events in sequence, while the selected live verifier detail shows its current factual progress. Both themes retain readable public replies and bounded recovery controls."
+        },
+        {
+          "id": "agent-activity-detail-760-light.png",
+          "sha256": "4bdf1b0674c2a0055af2326b692b9e00a139ccdd5fc1ec118267646bc466a108",
+          "verdict": "pass",
+          "notes": "agent-activity-detail-760-light.png: Agent activity history keeps start/problem/result events in sequence, while the selected live verifier detail shows its current factual progress. Both themes retain readable public replies and bounded recovery controls."
+        },
+        {
+          "id": "quick-chat-bots-dark.png",
+          "sha256": "99f7aec22d7c1bb2637e9f93508b80dffc176a7102c2c76e14d23c28de238564",
+          "verdict": "pass",
+          "notes": "quick-chat-bots-dark.png: Quick Chat PNGs retain alpha (0..255) and cannot show the native backdrop on black contact sheets. Alpha-composited inspection against each Frost fallback confirms Bot/model/effort labels and submit geometry; native vibrancy remains outside this source-only packet."
+        },
+        {
+          "id": "quick-chat-bots-light.png",
+          "sha256": "61c488c2a9ab0ff5c6a1f30b9a7742cb5848a8c6dced3580c456597b135966a2",
+          "verdict": "pass",
+          "notes": "quick-chat-bots-light.png: Quick Chat PNGs retain alpha (0..255) and cannot show the native backdrop on black contact sheets. Alpha-composited inspection against each Frost fallback confirms Bot/model/effort labels and submit geometry; native vibrancy remains outside this source-only packet."
+        },
+        {
+          "id": "evidence-list-dark.png",
+          "sha256": "08c966ff9036f95e44b7fe636c84385d68d6536f83469a5b4e88c25ffad7e22c",
+          "verdict": "pass",
+          "notes": "evidence-list-dark.png: Reply detail separates related work from Evidence entries and remembered context, with per-source timestamps and disclosure controls rather than raw internal parameters."
+        },
+        {
+          "id": "evidence-file-dark.png",
+          "sha256": "a0eadefa6f5b5fdc38e4ccd068d1f38e321c3fb4059215709a6b5e23463d6740",
+          "verdict": "pass",
+          "notes": "evidence-file-dark.png: Evidence previews identify these as saved-at-the-time content, show the original file or session fact, and offer return to reply details without substituting current content."
+        },
+        {
+          "id": "evidence-history-dark.png",
+          "sha256": "026171551a8d79b2df3eb15cfbc1170b7850bdcd8018b812188789e7eff0eb0d",
+          "verdict": "pass",
+          "notes": "evidence-history-dark.png: Evidence previews identify these as saved-at-the-time content, show the original file or session fact, and offer return to reply details without substituting current content."
+        },
+        {
+          "id": "evidence-missing-dark.png",
+          "sha256": "eff1bb8b7b245f327d9e8be861471e886c5371fae6185fff6e03aad6e722ce8f",
+          "verdict": "pass",
+          "notes": "evidence-missing-dark.png: Missing saved detail is explicitly labelled unavailable for verification, with a local reread and return action; no successful verification or replacement content is implied."
+        },
+        {
+          "id": "evidence-missing-760-light.png",
+          "sha256": "af23536100182f83b4b7c9a11dbf7743fa4ed1730ca3457401602e6f104ee9df",
+          "verdict": "pass",
+          "notes": "evidence-missing-760-light.png: Missing saved detail is explicitly labelled unavailable for verification, with a local reread and return action; no successful verification or replacement content is implied."
+        },
+        {
+          "id": "pending-reply-1600-dark.png",
+          "sha256": "31725da759e6f05ea41c32786e46f86fbf69d321f36c64ebf032aa6d6e04436d",
+          "verdict": "pass",
+          "notes": "pending-reply-1600-dark.png: Waiting reply uses a compact three-dot replying cue and an explicit Stop control; optional process detail stays in its own side surface instead of expanding the message layout."
+        },
+        {
+          "id": "pending-reply-docked-light.png",
+          "sha256": "f575ae2d1cc4d24c4bea5e9ae2f1f3f3c3279958df2712298d83929f43f8d928",
+          "verdict": "pass",
+          "notes": "pending-reply-docked-light.png: Waiting reply uses a compact three-dot replying cue and an explicit Stop control; optional process detail stays in its own side surface instead of expanding the message layout."
+        },
+        {
+          "id": "pending-reply-760-light.png",
+          "sha256": "f99b8c578658c1c86e4dc2f687e2a507fd188ffb3809e4c8b84558c878c30757",
+          "verdict": "pass",
+          "notes": "pending-reply-760-light.png: Waiting reply uses a compact three-dot replying cue and an explicit Stop control; optional process detail stays in its own side surface instead of expanding the message layout."
+        },
+        {
+          "id": "history-dark.png",
+          "sha256": "f8305a0eb10eb826b3d591165546e9a72a618080950585c89ece37d9c4db71d8",
+          "verdict": "pass",
+          "notes": "history-dark.png: History groups are readable after the stable-date rerun; search focus, preview, Bot choice and explicit continuation remain distinct, including enlarged narrow text."
+        },
+        {
+          "id": "history-light.png",
+          "sha256": "93be383801db95ba6bb6ce07d895afbd11569f8984be44f690024178b60c8173",
+          "verdict": "pass",
+          "notes": "history-light.png: History groups are readable after the stable-date rerun; search focus, preview, Bot choice and explicit continuation remain distinct, including enlarged narrow text."
+        },
+        {
+          "id": "history-preview.png",
+          "sha256": "38450d41014cbbbb95f83928e9b9d2595f7368e1bfabf2791aa3f182be90f961",
+          "verdict": "pass",
+          "notes": "history-preview.png: History groups are readable after the stable-date rerun; search focus, preview, Bot choice and explicit continuation remain distinct, including enlarged narrow text."
+        },
+        {
+          "id": "history-narrow-large.png",
+          "sha256": "a18de1c78fb7919bedf60f7aa35b382744c961d935ecb326081045455be8a472",
+          "verdict": "pass",
+          "notes": "history-narrow-large.png: History groups are readable after the stable-date rerun; search focus, preview, Bot choice and explicit continuation remain distinct, including enlarged narrow text."
+        },
+        {
+          "id": "choice-send-1280-dark-before.png",
+          "sha256": "62efa42f5c0c833fb0701bb85a2177227a8c8f3e058d72bea19d1c214764f4af",
+          "verdict": "pass",
+          "notes": "choice-send-1280-dark-before.png: Question choices are visible before sending; afterwards the selected human response is retained once and the obsolete choice controls retire while the Composer stays usable."
+        },
+        {
+          "id": "choice-send-1280-dark-after.png",
+          "sha256": "1a46da825338b3032a51321da1f3ec28ae8b1f793993726ba39d82b8013219e5",
+          "verdict": "pass",
+          "notes": "choice-send-1280-dark-after.png: Question choices are visible before sending; afterwards the selected human response is retained once and the obsolete choice controls retire while the Composer stays usable."
+        },
+        {
+          "id": "choice-send-760-light-before.png",
+          "sha256": "b56701fb2e4d82b5576ec21f9890eb0f2fe057b03af0dfea1a5e9595f7b6817d",
+          "verdict": "pass",
+          "notes": "choice-send-760-light-before.png: Question choices are visible before sending; afterwards the selected human response is retained once and the obsolete choice controls retire while the Composer stays usable."
+        },
+        {
+          "id": "choice-send-760-light-after.png",
+          "sha256": "bac29bb2f9389aea41f57d385081e3cc7e30721254359127c05d1f88399064f5",
+          "verdict": "pass",
+          "notes": "choice-send-760-light-after.png: Question choices are visible before sending; afterwards the selected human response is retained once and the obsolete choice controls retire while the Composer stays usable."
+        },
+        {
+          "id": "updater-minimize-1280-dark-before.png",
+          "sha256": "a1b1da4a3becb76ce936f8bfe719f772d6d9b21909afc04daa98b1d1ae8a1363",
+          "verdict": "pass",
+          "notes": "updater-minimize-1280-dark-before.png: Updater fixture clearly distinguishes its simulated RC99 offer from current version; minimizing preserves Bot launcher and a compact 42% download indicator without presenting installation as completed."
+        },
+        {
+          "id": "updater-minimize-1280-dark-after.png",
+          "sha256": "1e566930f2d0175e99b17dd0d7ab893424e9e5da079c774736db213af2d9862d",
+          "verdict": "pass",
+          "notes": "updater-minimize-1280-dark-after.png: Updater fixture clearly distinguishes its simulated RC99 offer from current version; minimizing preserves Bot launcher and a compact 42% download indicator without presenting installation as completed."
+        },
+        {
+          "id": "updater-minimize-760-light-before.png",
+          "sha256": "bae690068dca95c7865d86eb2fc98e6afb0f52a2d50442a351fa46518cb829b4",
+          "verdict": "pass",
+          "notes": "updater-minimize-760-light-before.png: Updater fixture clearly distinguishes its simulated RC99 offer from current version; minimizing preserves Bot launcher and a compact 42% download indicator without presenting installation as completed."
+        },
+        {
+          "id": "updater-minimize-760-light-after.png",
+          "sha256": "98f1f740d13a21efd16ea737e003dd3638a06f953d28cebccf6d4d18729b1580",
+          "verdict": "pass",
+          "notes": "updater-minimize-760-light-after.png: Updater fixture clearly distinguishes its simulated RC99 offer from current version; minimizing preserves Bot launcher and a compact 42% download indicator without presenting installation as completed."
+        },
+        {
+          "id": "bot-footer-progress-dark-narrow.png",
+          "sha256": "982ab6b95793b2e7f95c259110b64d7d6313ff00a06919deb55fe2bd992b73bf",
+          "verdict": "pass",
+          "notes": "bot-footer-progress-dark-narrow.png: Updater fixture clearly distinguishes its simulated RC99 offer from current version; minimizing preserves Bot launcher and a compact 42% download indicator without presenting installation as completed."
+        },
+        {
+          "id": "task-report-loading.png",
+          "sha256": "6a6402efef5c846dc0c843b76fcd1d0e6b2813dc2975650009b5693f646db510",
+          "verdict": "pass",
+          "notes": "task-report-loading.png: Task report loading, unavailable and stale-snapshot cases use local feedback and retry while preserving the surrounding conversation and current task identity."
+        },
+        {
+          "id": "task-report-unavailable.png",
+          "sha256": "db8ee47adc83fa598a0060288ad1e66dd0217a14da64ac6dc9964be2e127b79d",
+          "verdict": "pass",
+          "notes": "task-report-unavailable.png: Task report loading, unavailable and stale-snapshot cases use local feedback and retry while preserving the surrounding conversation and current task identity."
+        },
+        {
+          "id": "task-report-stale.png",
+          "sha256": "1a78ccceb0870309130a77769d896468cc177feb312d6688d51a0c83d5e5e845",
+          "verdict": "pass",
+          "notes": "task-report-stale.png: Task report loading, unavailable and stale-snapshot cases use local feedback and retry while preserving the surrounding conversation and current task identity."
+        },
+        {
+          "id": "conversation-updates-dark.png",
+          "sha256": "ff144ab546419bbe32dd311e3c18aa40fb5cc2223910837ebba7cd5abc43a9c8",
+          "verdict": "pass",
+          "notes": "conversation-updates-dark.png: Streaming public text remains readable across themes, three-dot waiting and Stop appear only while active, and the completed reply retires Stop. Process parameters are redacted and disclosed in the separate details surface."
+        },
+        {
+          "id": "conversation-updates-light.png",
+          "sha256": "caf77e7e53c0ba52cbe0a2670a6c88e7f0bf15a8644e355f4865c112a74c439b",
+          "verdict": "pass",
+          "notes": "conversation-updates-light.png: Streaming public text remains readable across themes, three-dot waiting and Stop appear only while active, and the completed reply retires Stop. Process parameters are redacted and disclosed in the separate details surface."
+        },
+        {
+          "id": "conversation-complete.png",
+          "sha256": "124a282dbf76dcafb73c3ca133a582d7e9bd284c4ca66d073e47f1e25e13b19e",
+          "verdict": "pass",
+          "notes": "conversation-complete.png: Streaming public text remains readable across themes, three-dot waiting and Stop appear only while active, and the completed reply retires Stop. Process parameters are redacted and disclosed in the separate details surface."
+        },
+        {
+          "id": "conversation-complete-light.png",
+          "sha256": "354dbfc91574dcb36f9a816507bf6f2f639ceb5a09277b75241ccc7f3b23112f",
+          "verdict": "pass",
+          "notes": "conversation-complete-light.png: Streaming public text remains readable across themes, three-dot waiting and Stop appear only while active, and the completed reply retires Stop. Process parameters are redacted and disclosed in the separate details surface."
+        },
+        {
+          "id": "conversation-details.png",
+          "sha256": "467cf49e797f9d3286bc855195717592b6c11cab9f5a6250cb1b1d3a6ec8d2a6",
+          "verdict": "pass",
+          "notes": "conversation-details.png: Streaming public text remains readable across themes, three-dot waiting and Stop appear only while active, and the completed reply retires Stop. Process parameters are redacted and disclosed in the separate details surface."
+        },
+        {
+          "id": "task-main-note.png",
+          "sha256": "75a3f6ddfb650f0fac6b2982be66f99a051b183a7e3751dd8afd388fbdf44d20",
+          "verdict": "pass",
+          "notes": "task-main-note.png: Main Bot explanation is preserved in full; task follow-up prepares a visible quoted Composer draft, and the user decision is answered explicitly in the conversation rather than inferred from reading the task."
+        },
+        {
+          "id": "task-follow-up-draft.png",
+          "sha256": "36ad40cb66f36f8016c806264c3ab464ee74d1a4f4f338e9f3eb31ae66cd1e45",
+          "verdict": "pass",
+          "notes": "task-follow-up-draft.png: Main Bot explanation is preserved in full; task follow-up prepares a visible quoted Composer draft, and the user decision is answered explicitly in the conversation rather than inferred from reading the task."
+        },
+        {
+          "id": "task-decision.png",
+          "sha256": "bd4131dbda0366a110c44b46e184171fd934e97a4c1314bad2f6e9b6292a9895",
+          "verdict": "pass",
+          "notes": "task-decision.png: Main Bot explanation is preserved in full; task follow-up prepares a visible quoted Composer draft, and the user decision is answered explicitly in the conversation rather than inferred from reading the task."
+        },
+        {
+          "id": "task-main-question.png",
+          "sha256": "604acd4a3464161a8f5d5456afb0a3addcdc746c5e848bbf5b35601968addc2b",
+          "verdict": "pass",
+          "notes": "task-main-question.png: Main Bot explanation is preserved in full; task follow-up prepares a visible quoted Composer draft, and the user decision is answered explicitly in the conversation rather than inferred from reading the task."
+        },
+        {
+          "id": "task-detail-running.png",
+          "sha256": "6ef0dddb99f6c888bdec0c15bb1e7414d8267dcc354b55f555ba022588d809ed",
+          "verdict": "pass",
+          "notes": "task-detail-running.png: Task detail presents running, waiting-for-follow-up, accepted and failed as different factual states with appropriate next actions, readable summaries and optional task information."
+        },
+        {
+          "id": "task-detail-waiting_user.png",
+          "sha256": "29dacda2aa44d68a69ba1c0128338c2d3097af7c0bb8a56813178f0f0fc82ca3",
+          "verdict": "pass",
+          "notes": "task-detail-waiting_user.png: Task detail presents running, waiting-for-follow-up, accepted and failed as different factual states with appropriate next actions, readable summaries and optional task information."
+        },
+        {
+          "id": "task-detail-accepted.png",
+          "sha256": "288b36fea5b245505ae499adb24a892b2f285a5c6fcb34561a108d8f93822659",
+          "verdict": "pass",
+          "notes": "task-detail-accepted.png: Task detail presents running, waiting-for-follow-up, accepted and failed as different factual states with appropriate next actions, readable summaries and optional task information."
+        },
+        {
+          "id": "task-detail-failed.png",
+          "sha256": "7d08d80dfedeec06ab06f5c759af9303d782cb871f16f73b91385baf892ca19d",
+          "verdict": "pass",
+          "notes": "task-detail-failed.png: Task detail presents running, waiting-for-follow-up, accepted and failed as different factual states with appropriate next actions, readable summaries and optional task information."
+        },
+        {
+          "id": "task-detail-1280-dark.png",
+          "sha256": "04b3d1012b960692ea6f071c8a34b1c447d998a12463ada4e536ddb443e1fdb5",
+          "verdict": "pass",
+          "notes": "task-detail-1280-dark.png: Task summary keeps waiting follow-up distinct from completion at each width, with explicit ask, cancellation and complete-explanation navigation."
+        },
+        {
+          "id": "task-detail-1280-light.png",
+          "sha256": "e679c71a84a3a6697d9c5018df84a353e1d3dc10fec54281396d800bee9a7593",
+          "verdict": "pass",
+          "notes": "task-detail-1280-light.png: Task summary keeps waiting follow-up distinct from completion at each width, with explicit ask, cancellation and complete-explanation navigation."
+        },
+        {
+          "id": "task-detail-760-dark.png",
+          "sha256": "1c4870c6838b8ddd7a72ade15f38cdbff0df691a1048c29b12232784034f9b1e",
+          "verdict": "pass",
+          "notes": "task-detail-760-dark.png: Task summary keeps waiting follow-up distinct from completion at each width, with explicit ask, cancellation and complete-explanation navigation."
+        },
+        {
+          "id": "task-detail-760-light.png",
+          "sha256": "2dfad67fdeb0aa72be9932b2f00b14e71ba6e5b199dcd3c59ff2b64ed3f681ec",
+          "verdict": "pass",
+          "notes": "task-detail-760-light.png: Task summary keeps waiting follow-up distinct from completion at each width, with explicit ask, cancellation and complete-explanation navigation."
+        },
+        {
+          "id": "work-running.png",
+          "sha256": "c4d3a03cbd865304fbc8b2facf82040bda01121aa491920752bee6d280ed9d1f",
+          "verdict": "pass",
+          "notes": "work-running.png: Related work chips and Bot overview expose current running/waiting facts without replacing public replies; the budget-limited compact conversation retains the result and reason."
+        },
+        {
+          "id": "work-waiting.png",
+          "sha256": "b034142b19db6575848677af0d893324d12ece259b3900d3818bfecc18509bf8",
+          "verdict": "pass",
+          "notes": "work-waiting.png: Related work chips and Bot overview expose current running/waiting facts without replacing public replies; the budget-limited compact conversation retains the result and reason."
+        },
+        {
+          "id": "work-waiting-760-light.png",
+          "sha256": "a7697ab8588d974797a6e85f9090ef3132838a4c6d2929f143a1dfabf48d9828",
+          "verdict": "pass",
+          "notes": "work-waiting-760-light.png: Related work chips and Bot overview expose current running/waiting facts without replacing public replies; the budget-limited compact conversation retains the result and reason."
+        },
+        {
+          "id": "bot-overview.png",
+          "sha256": "636d078b68852e949094527e1924ea88e4db58b208b266d23e2a4b88f57faec5",
+          "verdict": "pass",
+          "notes": "bot-overview.png: Related work chips and Bot overview expose current running/waiting facts without replacing public replies; the budget-limited compact conversation retains the result and reason."
+        },
+        {
+          "id": "bot-memory.png",
+          "sha256": "260093e42776af777c955179dfa3b2a4a4008cc882dd3e13bb9ef07eb9539bbd",
+          "verdict": "pass",
+          "notes": "bot-memory.png: Bot memory remains separately filtered and scrollable; process detail redacts parameters; cancellation failure retains retry and evidence, while actual cancellation retires the selected task."
+        },
+        {
+          "id": "chat-process-summary.png",
+          "sha256": "88e26dd2ccd86ed800ccfb931ec80ca39acd5fb64efebe6957536cd8407d0474",
+          "verdict": "pass",
+          "notes": "chat-process-summary.png: Bot memory remains separately filtered and scrollable; process detail redacts parameters; cancellation failure retains retry and evidence, while actual cancellation retires the selected task."
+        },
+        {
+          "id": "task-cancel-failed-dark.png",
+          "sha256": "2304f7e401aad1206c7167fb6bd8c68443c56fbcde6c704e36f0331e8767ccc3",
+          "verdict": "pass",
+          "notes": "task-cancel-failed-dark.png: Bot memory remains separately filtered and scrollable; process detail redacts parameters; cancellation failure retains retry and evidence, while actual cancellation retires the selected task."
+        },
+        {
+          "id": "task-cancelled-dark.png",
+          "sha256": "193b6bfb3570e6a3dc249aa3aaf38fe13c018d4f813d1ea9d235ac7c05f33779",
+          "verdict": "pass",
+          "notes": "task-cancelled-dark.png: Bot memory remains separately filtered and scrollable; process detail redacts parameters; cancellation failure retains retry and evidence, while actual cancellation retires the selected task."
+        },
+        {
+          "id": "task-cancel-detail-760-light.png",
+          "sha256": "7a325556f1e8d964bc23fd2abfa2ada22383512ba01f71231b6b12e10a3221cf",
+          "verdict": "pass",
+          "notes": "task-cancel-detail-760-light.png: Compact cancellation detail remains readable and returns explicitly to conversation; long provider diagnostics wrap inside the separate resource pane without forcing the adjacent conversation wider."
+        },
+        {
+          "id": "long-error-760-dark.png",
+          "sha256": "c7fe774ef6086bb42826b1b7f9d8304e557edb6e6bcd67d75f6a637ce46d1345",
+          "verdict": "pass",
+          "notes": "long-error-760-dark.png: Compact cancellation detail remains readable and returns explicitly to conversation; long provider diagnostics wrap inside the separate resource pane without forcing the adjacent conversation wider."
+        },
+        {
+          "id": "long-error-docked-light.png",
+          "sha256": "6b137a7dfb55dab85a5ca76ff9d4b6f4bff3d716d9b40ba32ced115574da5264",
+          "verdict": "pass",
+          "notes": "long-error-docked-light.png: Compact cancellation detail remains readable and returns explicitly to conversation; long provider diagnostics wrap inside the separate resource pane without forcing the adjacent conversation wider."
+        },
+        {
+          "id": "background-work-1600-dark.png",
+          "sha256": "85d170816697b12e888d8dfab3a508a05c56a74defd330ac3848ce0ad50757bc",
+          "verdict": "pass",
+          "notes": "background-work-1600-dark.png: Background work uses compact task rows above the Composer, with each parallel task separately expandable and the primary conversation still readable at both widths."
+        },
+        {
+          "id": "background-work-760-light.png",
+          "sha256": "bdcd75f812217c0072e79ed2a3be0dfd0babeed0710e74375040b4897eb58ad9",
+          "verdict": "pass",
+          "notes": "background-work-760-light.png: Background work uses compact task rows above the Composer, with each parallel task separately expandable and the primary conversation still readable at both widths."
+        },
+        {
+          "id": "parallel-work-1280-dark.png",
+          "sha256": "36e75beceeea45d4f8f5751dd302f236a2a37ff90eedcb87bf35f4e084fc06c6",
+          "verdict": "pass",
+          "notes": "parallel-work-1280-dark.png: Background work uses compact task rows above the Composer, with each parallel task separately expandable and the primary conversation still readable at both widths."
+        },
+        {
+          "id": "parallel-work-760-light.png",
+          "sha256": "eda80f43172f4544de3a64462a99cce4994480a8cc726741b25fe4d62a801f45",
+          "verdict": "pass",
+          "notes": "parallel-work-760-light.png: Background work uses compact task rows above the Composer, with each parallel task separately expandable and the primary conversation still readable at both widths."
+        },
+        {
+          "id": "fallback-vision-1280-dark.png",
+          "sha256": "567fad9ed6cb492ec11e1571b8367a92a8d8c69eecf0c216cb54ceb46a8abb6d",
+          "verdict": "pass",
+          "notes": "fallback-vision-1280-dark.png: Vision fallback identifies its specific model and connection in a bounded shared settings row; provider connection count/default/status are distinct and aligned."
+        },
+        {
+          "id": "fallback-vision-1280-light.png",
+          "sha256": "3f95340ad8185ec1682a1a2316932dc57f513d7316c225a8a60c3c59226ac113",
+          "verdict": "pass",
+          "notes": "fallback-vision-1280-light.png: Vision fallback identifies its specific model and connection in a bounded shared settings row; provider connection count/default/status are distinct and aligned."
+        },
+        {
+          "id": "fallback-vision-760-dark.png",
+          "sha256": "04e0cc6eb8014b2429f4f7c7764d970b54933f2ee4d3b4ea8d0aa483523a0d6e",
+          "verdict": "pass",
+          "notes": "fallback-vision-760-dark.png: Vision fallback identifies its specific model and connection in a bounded shared settings row; provider connection count/default/status are distinct and aligned."
+        },
+        {
+          "id": "fallback-vision-760-light.png",
+          "sha256": "0f72213515cef719c5812b0991bb040ede3edb95a04fe0e896857e15e11df999",
+          "verdict": "pass",
+          "notes": "fallback-vision-760-light.png: Vision fallback identifies its specific model and connection in a bounded shared settings row; provider connection count/default/status are distinct and aligned."
+        },
+        {
+          "id": "providers-1280-dark.png",
+          "sha256": "97709b483fcb2b1184f0cb78a4277da2a3e1f41f7d1752069ff84ca3709ea012",
+          "verdict": "pass",
+          "notes": "providers-1280-dark.png: Vision fallback identifies its specific model and connection in a bounded shared settings row; provider connection count/default/status are distinct and aligned."
+        },
+        {
+          "id": "providers-expanded-1280-dark.png",
+          "sha256": "f85615d75718886b3033fff0733bd89706694df5738bedd9943a21d39f13f08b",
+          "verdict": "pass",
+          "notes": "providers-expanded-1280-dark.png: Expanded vision fallback keeps its selection within the existing settings section; empty, multiline and attachment Composer states retain aligned controls, scrollable draft content and an explicit remove-attachment action."
+        },
+        {
+          "id": "composer-empty-1280-dark.png",
+          "sha256": "c0e9a9e8ad052f567c095683e0a87f17e5b33e7b8309543226e5edcc6617ec22",
+          "verdict": "pass",
+          "notes": "composer-empty-1280-dark.png: Expanded vision fallback keeps its selection within the existing settings section; empty, multiline and attachment Composer states retain aligned controls, scrollable draft content and an explicit remove-attachment action."
+        },
+        {
+          "id": "composer-empty-1280-light.png",
+          "sha256": "f97ceb5a4769c9f8e878ceccdf40f44fadb8b7790f6cc26e573b41349c1b6e48",
+          "verdict": "pass",
+          "notes": "composer-empty-1280-light.png: Expanded vision fallback keeps its selection within the existing settings section; empty, multiline and attachment Composer states retain aligned controls, scrollable draft content and an explicit remove-attachment action."
+        },
+        {
+          "id": "composer-empty-760-dark.png",
+          "sha256": "3cdb7ef39b2993633cdb2b1b697983ea88cc6a8611919fe7604af4b5466b864a",
+          "verdict": "pass",
+          "notes": "composer-empty-760-dark.png: Expanded vision fallback keeps its selection within the existing settings section; empty, multiline and attachment Composer states retain aligned controls, scrollable draft content and an explicit remove-attachment action."
+        },
+        {
+          "id": "composer-multiline-760-light.png",
+          "sha256": "ba219467179eae230ddcce0a953a9b47e95f815f3e0530111dbbd594df43d029",
+          "verdict": "pass",
+          "notes": "composer-multiline-760-light.png: Expanded vision fallback keeps its selection within the existing settings section; empty, multiline and attachment Composer states retain aligned controls, scrollable draft content and an explicit remove-attachment action."
+        },
+        {
+          "id": "composer-attachment-1280-dark.png",
+          "sha256": "b4f886b41c12eae1a2769b7c59c8a2da1294c2bf4b074f5398e78c6c34218ecc",
+          "verdict": "pass",
+          "notes": "composer-attachment-1280-dark.png: Expanded vision fallback keeps its selection within the existing settings section; empty, multiline and attachment Composer states retain aligned controls, scrollable draft content and an explicit remove-attachment action."
+        },
+        {
+          "id": "reply-dark.png",
+          "sha256": "57c4757c7080ceb3c2406e8a31ef011beddc30f94a1ac766c4e76762c7f88868",
+          "verdict": "pass",
+          "notes": "reply-dark.png: Quoted context remains separate from rendered reply content; narrow follow-up preserves the user's existing draft before explicit send, and pending question choices remain selectable in both themes."
+        },
+        {
+          "id": "reply-light.png",
+          "sha256": "115f73ccc58c2f3827a766e3ad0cc93826479f8c648eada0d30a8c38b3745856",
+          "verdict": "pass",
+          "notes": "reply-light.png: Quoted context remains separate from rendered reply content; narrow follow-up preserves the user's existing draft before explicit send, and pending question choices remain selectable in both themes."
+        },
+        {
+          "id": "reply-narrow-quote.png",
+          "sha256": "2ddb249a0d756d9743741bce426920c72e39ff3aca63dc1a38576cff810ccdc3",
+          "verdict": "pass",
+          "notes": "reply-narrow-quote.png: Quoted context remains separate from rendered reply content; narrow follow-up preserves the user's existing draft before explicit send, and pending question choices remain selectable in both themes."
+        },
+        {
+          "id": "reply-narrow-sent.png",
+          "sha256": "860a5a65f1d324009ef45ace05fb66732ea15167d1620ed1efe8c61384b42673",
+          "verdict": "pass",
+          "notes": "reply-narrow-sent.png: Quoted context remains separate from rendered reply content; narrow follow-up preserves the user's existing draft before explicit send, and pending question choices remain selectable in both themes."
+        },
+        {
+          "id": "question-pending-dark.png",
+          "sha256": "e2e50bd033e5e2588db9b44a74ca6cda97c35a554c06b1a86ef7e758a04ccb56",
+          "verdict": "pass",
+          "notes": "question-pending-dark.png: Quoted context remains separate from rendered reply content; narrow follow-up preserves the user's existing draft before explicit send, and pending question choices remain selectable in both themes."
+        },
+        {
+          "id": "question-pending-light.png",
+          "sha256": "b4a734cc2347a850423f711f637f86adeb1f352c6284db6c0854dd068ef390e2",
+          "verdict": "pass",
+          "notes": "question-pending-light.png: Quoted context remains separate from rendered reply content; narrow follow-up preserves the user's existing draft before explicit send, and pending question choices remain selectable in both themes."
+        },
+        {
+          "id": "question-retired-dark.png",
+          "sha256": "972651e6fed8e805e3384f62228b1925784e27ad92b814b5e3475092d57b53b0",
+          "verdict": "pass",
+          "notes": "question-retired-dark.png: Answered question retires obsolete choice buttons while preserving the user's visible answer and subsequent conversation."
+        },
+        {
+          "id": "question-retired-light.png",
+          "sha256": "e3ab01edd70cc0f13d1eddff23d8761541994a9d142ddd63b0203c4beaacf37d",
+          "verdict": "pass",
+          "notes": "question-retired-light.png: Answered question retires obsolete choice buttons while preserving the user's visible answer and subsequent conversation."
+        },
+        {
+          "id": "bot-message-purple-dark.png",
+          "sha256": "c724f669a972cecc3b7c5785d0e8e35ba99975d92c1263788ec84a3f723ee8ea",
+          "verdict": "pass",
+          "notes": "bot-message-purple-dark.png: Purple, pink and green Bot message variants keep readable text, a separate quoted-context divider and consistent rounded bubbles in light and dark."
+        },
+        {
+          "id": "bot-message-purple-light.png",
+          "sha256": "47e1960d5ec0d1533ddce72735a73723b04484dc834605d9a7873180f4fdaa97",
+          "verdict": "pass",
+          "notes": "bot-message-purple-light.png: Purple, pink and green Bot message variants keep readable text, a separate quoted-context divider and consistent rounded bubbles in light and dark."
+        },
+        {
+          "id": "bot-message-pink-dark.png",
+          "sha256": "ee6e1aab8e6984bea490f6f280fa03992e932a7b7eef8fb1ed1b12cff9366987",
+          "verdict": "pass",
+          "notes": "bot-message-pink-dark.png: Purple, pink and green Bot message variants keep readable text, a separate quoted-context divider and consistent rounded bubbles in light and dark."
+        },
+        {
+          "id": "bot-message-pink-light.png",
+          "sha256": "90bb24b208510d3a824eafbd49d914b6bf57d5feaadd9c40f8b26ae903c21aa5",
+          "verdict": "pass",
+          "notes": "bot-message-pink-light.png: Purple, pink and green Bot message variants keep readable text, a separate quoted-context divider and consistent rounded bubbles in light and dark."
+        },
+        {
+          "id": "bot-message-green-dark.png",
+          "sha256": "7f4bc9a77955487444ac472bf9dee175ccef4e987524ba708f326439508b7585",
+          "verdict": "pass",
+          "notes": "bot-message-green-dark.png: Purple, pink and green Bot message variants keep readable text, a separate quoted-context divider and consistent rounded bubbles in light and dark."
+        },
+        {
+          "id": "bot-message-green-light.png",
+          "sha256": "51fa25e2f77b085240a28a2fc680cf1825c51330294acc268f5344ce106f21ac",
+          "verdict": "pass",
+          "notes": "bot-message-green-light.png: Purple, pink and green Bot message variants keep readable text, a separate quoted-context divider and consistent rounded bubbles in light and dark."
+        },
+        {
+          "id": "quote-sent-1280-dark.png",
+          "sha256": "7eca05cea3a008d0de9eaa2106da75b63ea947a9507d123a1b11012591319dfb",
+          "verdict": "pass",
+          "notes": "quote-sent-1280-dark.png: Sent quote retains the chosen snippet in the human message; original-reply navigation reveals retained historical content without overwriting the Composer."
+        },
+        {
+          "id": "quote-sent-1280-light.png",
+          "sha256": "6cdec3a80efc9b4b6c77f4614f7b7aac9343bc36685ceb3d834022e07b117d0c",
+          "verdict": "pass",
+          "notes": "quote-sent-1280-light.png: Sent quote retains the chosen snippet in the human message; original-reply navigation reveals retained historical content without overwriting the Composer."
+        },
+        {
+          "id": "quote-reply-1280-dark.png",
+          "sha256": "66d9567a74f317e251ecebfb6f9e52216eeb31d72ba05de86483c828272bc74f",
+          "verdict": "pass",
+          "notes": "quote-reply-1280-dark.png: Sent quote retains the chosen snippet in the human message; original-reply navigation reveals retained historical content without overwriting the Composer."
+        },
+        {
+          "id": "quote-reply-1280-light.png",
+          "sha256": "29c2a3fe6671e8c2636e1359d686c24179e3dadaae0640b140f718844477b2f1",
+          "verdict": "pass",
+          "notes": "quote-reply-1280-light.png: Sent quote retains the chosen snippet in the human message; original-reply navigation reveals retained historical content without overwriting the Composer."
+        },
+        {
+          "id": "quote-reply-760-dark.png",
+          "sha256": "c3e9330b6d57b0d3a37fd750ac1f64a925f576a2f130de1a4ed6085977a16e90",
+          "verdict": "pass",
+          "notes": "quote-reply-760-dark.png: Historical quote navigation preserves the visible source across widths; text selection exposes a bounded Quote action and leaves the existing Composer draft intact even with Bot settings docked."
+        },
+        {
+          "id": "quote-reply-760-light.png",
+          "sha256": "2db94e9b892f2acad1421cfb973ece92083ee3f507c90a06ea0014ade738f55d",
+          "verdict": "pass",
+          "notes": "quote-reply-760-light.png: Historical quote navigation preserves the visible source across widths; text selection exposes a bounded Quote action and leaves the existing Composer draft intact even with Bot settings docked."
+        },
+        {
+          "id": "selection-quote-1280-dark.png",
+          "sha256": "166e26a9541c514c8b1f17f4110c22dba38e60ae07f4e7538c99050e7b4429c6",
+          "verdict": "pass",
+          "notes": "selection-quote-1280-dark.png: Historical quote navigation preserves the visible source across widths; text selection exposes a bounded Quote action and leaves the existing Composer draft intact even with Bot settings docked."
+        },
+        {
+          "id": "selection-quote-760-light.png",
+          "sha256": "3b8c99844574849a10834807a25dec4c3cbd342a74015580eb5d7e08a24e5c43",
+          "verdict": "pass",
+          "notes": "selection-quote-760-light.png: Historical quote navigation preserves the visible source across widths; text selection exposes a bounded Quote action and leaves the existing Composer draft intact even with Bot settings docked."
+        },
+        {
+          "id": "selection-quote-docked-light.png",
+          "sha256": "9228497360bff7f364ef717af93d3b7a405179b41594dfda7b46b11a28388cb2",
+          "verdict": "pass",
+          "notes": "selection-quote-docked-light.png: Historical quote navigation preserves the visible source across widths; text selection exposes a bounded Quote action and leaves the existing Composer draft intact even with Bot settings docked."
+        },
+        {
+          "id": "completion-review-card.png",
+          "sha256": "ba6dee2362eef412b1f0fbcc6edf0687476f5b04b36ee4609f3feb4125db1aa5",
+          "verdict": "pass",
+          "notes": "completion-review-card.png: Completion review keeps confirmation explicit and preserves a readable full report and close control. The older completion-report drawer remains a legacy compatibility surface, separate from the new tabbed resource route."
+        },
+        {
+          "id": "completion-review-report.png",
+          "sha256": "8059b777ecfa35fd8a20101a703f990af3fdb6fa8f60c60e6c50a674a340f9b0",
+          "verdict": "pass",
+          "notes": "completion-review-report.png: Completion review keeps confirmation explicit and preserves a readable full report and close control. The older completion-report drawer remains a legacy compatibility surface, separate from the new tabbed resource route."
+        },
+        {
+          "id": "completion-review-760-light.png",
+          "sha256": "137d823fe563d3c7955850f7d01f1ba0106d714ba63bb13483f975aa8a052c1d",
+          "verdict": "pass",
+          "notes": "completion-review-760-light.png: Completion review keeps confirmation explicit and preserves a readable full report and close control. The older completion-report drawer remains a legacy compatibility surface, separate from the new tabbed resource route."
+        },
+        {
+          "id": "image-live-wait-1280-dark.png",
+          "sha256": "8df1ba98ec6fadcedc06c26e898ba79ff8724db47ba3edbdf8f483b9cee1d2df",
+          "verdict": "pass",
+          "notes": "image-live-wait-1280-dark.png: Image read asks for a specific file and bounded grant with deny/cancel controls; Full access is visibly warned in the Composer and completed public text remains in the conversation."
+        },
+        {
+          "id": "image-live-wait-760-light.png",
+          "sha256": "8435295fb40d4cdc8b199da3fcbcc40effed1f6d4d39c18f0aed04ecbd409b5e",
+          "verdict": "pass",
+          "notes": "image-live-wait-760-light.png: Image read asks for a specific file and bounded grant with deny/cancel controls; Full access is visibly warned in the Composer and completed public text remains in the conversation."
+        },
+        {
+          "id": "image-full-1280-dark.png",
+          "sha256": "1565ddfbc2284bdefd083fa2283fd41f4689e2db89b6bb13689bdcddd6a96f12",
+          "verdict": "pass",
+          "notes": "image-full-1280-dark.png: Image read asks for a specific file and bounded grant with deny/cancel controls; Full access is visibly warned in the Composer and completed public text remains in the conversation."
+        },
+        {
+          "id": "image-full-760-light.png",
+          "sha256": "9481030de0f2f8a6c94bd2680dc922019755dc7a79d559b375228101c5df10fa",
+          "verdict": "pass",
+          "notes": "image-full-760-light.png: Image read asks for a specific file and bounded grant with deny/cancel controls; Full access is visibly warned in the Composer and completed public text remains in the conversation."
+        },
+        {
+          "id": "image-live-allow-1280-dark.png",
+          "sha256": "d2736e2c8e4a32f75d59c6abdf2702e5a389af80deca2ca5f1c7f06d1387636c",
+          "verdict": "pass",
+          "notes": "image-live-allow-1280-dark.png: Image grant outcomes are labelled authorized, denied, cancelled and expired separately; stopped generation keeps partial text and explicit retry, and timeout states that no image was read."
+        },
+        {
+          "id": "image-live-deny-1280-dark.png",
+          "sha256": "62999445b57f62100265bd353556b687dee6ab8891455ae4b4f16887f4f7d337",
+          "verdict": "pass",
+          "notes": "image-live-deny-1280-dark.png: Image grant outcomes are labelled authorized, denied, cancelled and expired separately; stopped generation keeps partial text and explicit retry, and timeout states that no image was read."
+        },
+        {
+          "id": "image-live-cancel-1280-dark.png",
+          "sha256": "f5aa66c5e70d20a8ea42efb3fb9bf95523bbdbbfce9cf10526c574857dfd65f2",
+          "verdict": "pass",
+          "notes": "image-live-cancel-1280-dark.png: Image grant outcomes are labelled authorized, denied, cancelled and expired separately; stopped generation keeps partial text and explicit retry, and timeout states that no image was read."
+        },
+        {
+          "id": "image-live-stop-1280-dark.png",
+          "sha256": "ecb68fd69050a3a8ce21215a0e2f7cb95788b499ab155f77caa0fbd3123bd697",
+          "verdict": "pass",
+          "notes": "image-live-stop-1280-dark.png: Image grant outcomes are labelled authorized, denied, cancelled and expired separately; stopped generation keeps partial text and explicit retry, and timeout states that no image was read."
+        },
+        {
+          "id": "image-live-timeout-1280-dark.png",
+          "sha256": "72cd070c0305aaa53ed36b496c1f2f4b7b6f1e6a2ddaa45bc10f620ee94b4af0",
+          "verdict": "pass",
+          "notes": "image-live-timeout-1280-dark.png: Image grant outcomes are labelled authorized, denied, cancelled and expired separately; stopped generation keeps partial text and explicit retry, and timeout states that no image was read."
+        },
+        {
+          "id": "image-approval-1280-dark.png",
+          "sha256": "9bb90993d07a7fab6c58ee5a0b6a25f8463bdf7c1078a501a1e189474bb1667d",
+          "verdict": "pass",
+          "notes": "image-approval-1280-dark.png: Multiple pending grants remain distinct by operation and file with bounded allow/deny choices, rather than granting the second operation from the first decision."
+        },
+        {
+          "id": "image-approval-760-light.png",
+          "sha256": "fecd985ef5b274bf22587d8ebcf6419ac50b018e0d61468e137332b2994c4a25",
+          "verdict": "pass",
+          "notes": "image-approval-760-light.png: Multiple pending grants remain distinct by operation and file with bounded allow/deny choices, rather than granting the second operation from the first decision."
+        },
+        {
+          "id": "process-empty-1280-dark.png",
+          "sha256": "1cc3cd01eee9c9aa6f3884f9fb960bd1682008bad904a4cc30eb3b7d899a04c6",
+          "verdict": "pass",
+          "notes": "process-empty-1280-dark.png: Empty process detail shows preparing-reply feedback locally; compact mode has explicit conversation return and no dimmed overlay, while the main conversation uses three-dot replying."
+        },
+        {
+          "id": "process-empty-1280-light.png",
+          "sha256": "0e6365bed90fa92af57a0d56c7d89d18941a3fe1e7e6db3e110e1a2e6e6b71d7",
+          "verdict": "pass",
+          "notes": "process-empty-1280-light.png: Empty process detail shows preparing-reply feedback locally; compact mode has explicit conversation return and no dimmed overlay, while the main conversation uses three-dot replying."
+        },
+        {
+          "id": "process-empty-760-dark.png",
+          "sha256": "c25dd779b21195aa5d6131cb021f92b98ef09c900da12a272a8ea13cc9d134a9",
+          "verdict": "pass",
+          "notes": "process-empty-760-dark.png: Empty process detail shows preparing-reply feedback locally; compact mode has explicit conversation return and no dimmed overlay, while the main conversation uses three-dot replying."
+        },
+        {
+          "id": "process-empty-760-light.png",
+          "sha256": "155048000ffc16734d7c8c36110adb98efc8637ddebd95d9c516c43235d03ccf",
+          "verdict": "pass",
+          "notes": "process-empty-760-light.png: Empty process detail shows preparing-reply feedback locally; compact mode has explicit conversation return and no dimmed overlay, while the main conversation uses three-dot replying."
+        },
+        {
+          "id": "conversation-typography-1280-dark.png",
+          "sha256": "b7c67134eb85fbce5ccb914e499415f73a553cf94644630a0985729f6d883ad8",
+          "verdict": "pass",
+          "notes": "conversation-typography-1280-dark.png: Conversation typography separates public explanation, code tokens and operation/grant records; current write approvals stay explicit below retained outcomes."
+        },
+        {
+          "id": "approval-history-1280-dark.png",
+          "sha256": "663e3086042b3a4f6c0a2abce823fd188d232e49139392678b639af2352948fa",
+          "verdict": "pass",
+          "notes": "approval-history-1280-dark.png: Historical authorization rows show their original authorized/denied/expired outcomes with bounded command disclosure. Finished process steps retain durations and ended states without exposing a running spinner."
+        },
+        {
+          "id": "conversation-typography-760-light.png",
+          "sha256": "4f657ed0a00e0dca2cf77e42255e5f2e91d28ead12ea22c8387a8eff9b46a301",
+          "verdict": "pass",
+          "notes": "conversation-typography-760-light.png: Historical authorization rows show their original authorized/denied/expired outcomes with bounded command disclosure. Finished process steps retain durations and ended states without exposing a running spinner."
+        },
+        {
+          "id": "approval-history-760-light.png",
+          "sha256": "95ea44c41e70e52740c7869699a0f3838a7b37bfafee27c896c8825c5d02b900",
+          "verdict": "pass",
+          "notes": "approval-history-760-light.png: Historical authorization rows show their original authorized/denied/expired outcomes with bounded command disclosure. Finished process steps retain durations and ended states without exposing a running spinner."
+        },
+        {
+          "id": "process-timing-dark.png",
+          "sha256": "863f752f96f8e4e73d93f7aadf01c797af9fdaaa682311074d5982545b16c946",
+          "verdict": "pass",
+          "notes": "process-timing-dark.png: Historical authorization rows show their original authorized/denied/expired outcomes with bounded command disclosure. Finished process steps retain durations and ended states without exposing a running spinner."
+        },
+        {
+          "id": "process-timing-light.png",
+          "sha256": "a84177f8ecab9f7dd716676f7c083b9801a4161dbbfdbafc37e965cbe9ffd332",
+          "verdict": "pass",
+          "notes": "process-timing-light.png: Historical authorization rows show their original authorized/denied/expired outcomes with bounded command disclosure. Finished process steps retain durations and ended states without exposing a running spinner."
+        },
+        {
+          "id": "budget-exhausted-dark.png",
+          "sha256": "5f06058c3d3fc2abfd46f5758c1997075c43afb2f53cbff3198b156957c76eed",
+          "verdict": "pass",
+          "notes": "budget-exhausted-dark.png: Budget exhaustion explains the configured bound and preserves existing progress; user-requested wake/retry displays replying and Stop without implying unbounded execution."
+        },
+        {
+          "id": "budget-exhausted-light.png",
+          "sha256": "9cef614228abb4279c96c78fde60118f2b2789446eb34540543027fb0f351b15",
+          "verdict": "pass",
+          "notes": "budget-exhausted-light.png: Budget exhaustion explains the configured bound and preserves existing progress; user-requested wake/retry displays replying and Stop without implying unbounded execution."
+        },
+        {
+          "id": "manual-wake-retry-dark.png",
+          "sha256": "a2255ad5682ffc98eb2ea44b384318c8dfe76df3a2945a5d92a810fe783a274c",
+          "verdict": "pass",
+          "notes": "manual-wake-retry-dark.png: Budget exhaustion explains the configured bound and preserves existing progress; user-requested wake/retry displays replying and Stop without implying unbounded execution."
+        },
+        {
+          "id": "manual-wake-retry-light.png",
+          "sha256": "95932c0ddd8b6968dd8ccc269c1e497667f6dd7e282e50f318ee463f3206e045",
+          "verdict": "pass",
+          "notes": "manual-wake-retry-light.png: Budget exhaustion explains the configured bound and preserves existing progress; user-requested wake/retry displays replying and Stop without implying unbounded execution."
+        },
+        {
+          "id": "recovery-missing-checkpoint-dark.png",
+          "sha256": "6b6f3bcca45a105f384704b04f826ca4f9fae5f13eba613212293f9466f0667b",
+          "verdict": "pass",
+          "notes": "recovery-missing-checkpoint-dark.png: Missing recovery records explicitly require checking instead of replay; repeated no-progress checks stop and retain results, while connection recovery remains an explicit retry path."
+        },
+        {
+          "id": "recovery-missing-checkpoint-light.png",
+          "sha256": "6efa75c48c0c4ea239769fb848992c144a03633c83ba48012b48196b51e3bc07",
+          "verdict": "pass",
+          "notes": "recovery-missing-checkpoint-light.png: Missing recovery records explicitly require checking instead of replay; repeated no-progress checks stop and retain results, while connection recovery remains an explicit retry path."
+        },
+        {
+          "id": "recovery-scheduled-dark.png",
+          "sha256": "3e0802a3a4722fc0c46b8f8fbe2f1c27839dcf3bb66b77350fabe51385e6ebfc",
+          "verdict": "pass",
+          "notes": "recovery-scheduled-dark.png: Missing recovery records explicitly require checking instead of replay; repeated no-progress checks stop and retain results, while connection recovery remains an explicit retry path."
+        },
+        {
+          "id": "recovery-scheduled-light.png",
+          "sha256": "9cd04f07990e7fe2ad9529d122d56d1dea606b3f28955fb571bab2f32912e318",
+          "verdict": "pass",
+          "notes": "recovery-scheduled-light.png: Connection recovery exhaustion and authentication failure preserve prior progress and distinguish retry from login/configuration repair; outcome-unknown text requires checking."
+        },
+        {
+          "id": "recovery-exhausted-dark.png",
+          "sha256": "28d4a2f7c4acc86a383d33991e3c031b89254384171fa0885eac1a369a394596",
+          "verdict": "pass",
+          "notes": "recovery-exhausted-dark.png: Connection recovery exhaustion and authentication failure preserve prior progress and distinguish retry from login/configuration repair; outcome-unknown text requires checking."
+        },
+        {
+          "id": "recovery-exhausted-light.png",
+          "sha256": "53b38aa3d35a24e9b8a9302c09d62549f5ff9e7f73049613be80ca4cff92d017",
+          "verdict": "pass",
+          "notes": "recovery-exhausted-light.png: Connection recovery exhaustion and authentication failure preserve prior progress and distinguish retry from login/configuration repair; outcome-unknown text requires checking."
+        },
+        {
+          "id": "recovery-authentication-dark.png",
+          "sha256": "fa5c3a6b5aa4aef7598f62d58730a3762e27ba4fe0d5bdf6e6976f477707ec76",
+          "verdict": "pass",
+          "notes": "recovery-authentication-dark.png: Connection recovery exhaustion and authentication failure preserve prior progress and distinguish retry from login/configuration repair; outcome-unknown text requires checking."
+        },
+        {
+          "id": "recovery-authentication-light.png",
+          "sha256": "f5d1558f4b944fba718250c24215f5e455e70b364074a1c042e6b71bf5bc3e1e",
+          "verdict": "pass",
+          "notes": "recovery-authentication-light.png: Connection recovery exhaustion and authentication failure preserve prior progress and distinguish retry from login/configuration repair; outcome-unknown text requires checking."
+        },
+        {
+          "id": "recovery-unknown-dark.png",
+          "sha256": "b750f34fcdf62c3cd6e6b55fef11579b5744b6729033915a62cda6e974caa63d",
+          "verdict": "pass",
+          "notes": "recovery-unknown-dark.png: Unconfirmed operation results remain separate from a resolved historical interruption; recovered history explicitly says a new reply arrived without declaring prior writes rerun."
+        },
+        {
+          "id": "recovery-unknown-light.png",
+          "sha256": "edec68900439956d01a1a2e5aafe578afe7649af1488f078b080fd47d171e98d",
+          "verdict": "pass",
+          "notes": "recovery-unknown-light.png: Unconfirmed operation results remain separate from a resolved historical interruption; recovered history explicitly says a new reply arrived without declaring prior writes rerun."
+        },
+        {
+          "id": "recovery-resolved-dark.png",
+          "sha256": "7cc20fe538e6b2b814dcedb75528cc13e264d0449ca4dd3c107196a491c30590",
+          "verdict": "pass",
+          "notes": "recovery-resolved-dark.png: Unconfirmed operation results remain separate from a resolved historical interruption; recovered history explicitly says a new reply arrived without declaring prior writes rerun."
+        },
+        {
+          "id": "recovery-resolved-light.png",
+          "sha256": "01df1b70dfd749a910b43386e775266e71d45fbef0d373a1c38c89a051d3960e",
+          "verdict": "pass",
+          "notes": "recovery-resolved-light.png: Unconfirmed operation results remain separate from a resolved historical interruption; recovered history explicitly says a new reply arrived without declaring prior writes rerun."
+        },
+        {
+          "id": "recovery-no-progress-dark.png",
+          "sha256": "b3237ba0103cdfe52be91e25b6132378d7a18bc076a957448db4177b3c44b54d",
+          "verdict": "pass",
+          "notes": "recovery-no-progress-dark.png: No-progress recovery stops duplicate execution while keeping existing results. An active child is separately identified from a main Bot reply with no usable content."
+        },
+        {
+          "id": "recovery-no-progress-light.png",
+          "sha256": "381481dedc3caf4674465a5611be5b08df155cf80aa0a546ff976f7a658fa6ed",
+          "verdict": "pass",
+          "notes": "recovery-no-progress-light.png: No-progress recovery stops duplicate execution while keeping existing results. An active child is separately identified from a main Bot reply with no usable content."
+        },
+        {
+          "id": "recovery-child-running-dark.png",
+          "sha256": "2d92232a90d9ab1524bb1bea810baab5be95eb17d59c3aa26d7b3efe9bd7f48b",
+          "verdict": "pass",
+          "notes": "recovery-child-running-dark.png: No-progress recovery stops duplicate execution while keeping existing results. An active child is separately identified from a main Bot reply with no usable content."
+        },
+        {
+          "id": "recovery-child-running-light.png",
+          "sha256": "c8ae5af4f79b70b8c614554c1edf2975d08812f7ac1ba1733c1dfe9d6767cb54",
+          "verdict": "pass",
+          "notes": "recovery-child-running-light.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-historical-dark.png",
+          "sha256": "5466f1bbf555eaf6560b2c4b68e892c4dd10d043922d8bd2006f0373ffb77a4d",
+          "verdict": "pass",
+          "notes": "recovery-historical-dark.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-historical-light.png",
+          "sha256": "99540fabf682a4e121fd7f83b4f95725c26d5d8f81070db5716c01cbc3927c52",
+          "verdict": "pass",
+          "notes": "recovery-historical-light.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-paused-dark.png",
+          "sha256": "7d58c1b446bd67375cc158551077888300a33516bae72cdb7342bcf307a3f339",
+          "verdict": "pass",
+          "notes": "recovery-paused-dark.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-paused-light.png",
+          "sha256": "996afca74b111ba8377be592dbedeecd3aa3239f6f615e7a0106358878d5aec6",
+          "verdict": "pass",
+          "notes": "recovery-paused-light.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-cancelled-dark.png",
+          "sha256": "eb355f90a860dfff03a0330cb72c1b38c63ac43b13f0ae40c91b266639d61857",
+          "verdict": "pass",
+          "notes": "recovery-cancelled-dark.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-cancelled-light.png",
+          "sha256": "4c15cbc372d5b2992f3bf426ca2c5b95b6beb58fa772d018a49c51b45e5b57ce",
+          "verdict": "pass",
+          "notes": "recovery-cancelled-light.png: Historical main-turn interruption, pause and cancellation are visibly distinct and preserve public replies; an active child stays separate from the main-turn outcome."
+        },
+        {
+          "id": "recovery-budget-unknown-dark.png",
+          "sha256": "303f4e1d7d2eb6745c39e5e35a8f8128f00f3245cabe7017f6fc8b51bc7efd67",
+          "verdict": "pass",
+          "notes": "recovery-budget-unknown-dark.png: Budget released, usage unknown, adjusted bounds and scheduled continuation have distinct factual copy; unknown cost is explicitly not treated as zero and retry remains a user action."
+        },
+        {
+          "id": "recovery-budget-unknown-light.png",
+          "sha256": "0ebc94c19319997562de8e968c26b4a755c9b6af608492289333724896c9fc0c",
+          "verdict": "pass",
+          "notes": "recovery-budget-unknown-light.png: Budget released, usage unknown, adjusted bounds and scheduled continuation have distinct factual copy; unknown cost is explicitly not treated as zero and retry remains a user action."
+        },
+        {
+          "id": "recovery-budget-ready-dark.png",
+          "sha256": "473d182f68fff7ad7db3ddec15208613e338f92de86fd39e3397aee92486c4f9",
+          "verdict": "pass",
+          "notes": "recovery-budget-ready-dark.png: Budget released, usage unknown, adjusted bounds and scheduled continuation have distinct factual copy; unknown cost is explicitly not treated as zero and retry remains a user action."
+        },
+        {
+          "id": "recovery-budget-ready-light.png",
+          "sha256": "b9151ffa744d914a8c97fe55d4332ae0feeab3521ea40256ef11e58a28c0af3c",
+          "verdict": "pass",
+          "notes": "recovery-budget-ready-light.png: Budget released, usage unknown, adjusted bounds and scheduled continuation have distinct factual copy; unknown cost is explicitly not treated as zero and retry remains a user action."
+        },
+        {
+          "id": "recovery-budget-migrating-dark.png",
+          "sha256": "7c4198294c0e44844f3b3848c51a92460cb95e2b1eea75109aebf1fabd7aeb15",
+          "verdict": "pass",
+          "notes": "recovery-budget-migrating-dark.png: Budget released, usage unknown, adjusted bounds and scheduled continuation have distinct factual copy; unknown cost is explicitly not treated as zero and retry remains a user action."
+        },
+        {
+          "id": "recovery-budget-migrating-light.png",
+          "sha256": "2a29445f9cdff57f6a0ddaa766b6393fa361c1c46336b1c9739d6cf94b07a6b8",
+          "verdict": "pass",
+          "notes": "recovery-budget-migrating-light.png: Scheduled continuation, budget held by another run and released availability remain distinct, with source and numeric estimates visible and no false successful execution claim."
+        },
+        {
+          "id": "recovery-budget-reserved-dark.png",
+          "sha256": "d6c6d72e12cf457b4ac85e8ff640f1e095e5eab0e103a17e8458b6754fe83def",
+          "verdict": "pass",
+          "notes": "recovery-budget-reserved-dark.png: Scheduled continuation, budget held by another run and released availability remain distinct, with source and numeric estimates visible and no false successful execution claim."
+        },
+        {
+          "id": "recovery-budget-reserved-light.png",
+          "sha256": "13a3e113ad40196ff42ab2014d16fa4a2e1713a9bedc31157af5543f5c3582dd",
+          "verdict": "pass",
+          "notes": "recovery-budget-reserved-light.png: Scheduled continuation, budget held by another run and released availability remain distinct, with source and numeric estimates visible and no false successful execution claim."
+        },
+        {
+          "id": "recovery-budget-available-dark.png",
+          "sha256": "a30068a2af8551bfffbaa631a1471c44927ce9ace9e4a042d45abf2318c1a2e2",
+          "verdict": "pass",
+          "notes": "recovery-budget-available-dark.png: Scheduled continuation, budget held by another run and released availability remain distinct, with source and numeric estimates visible and no false successful execution claim."
+        },
+        {
+          "id": "recovery-budget-available-light.png",
+          "sha256": "1907ce6225c0efcba8e58f840a1ff97744fdf610b2b5380bdfe9499489bca861",
+          "verdict": "pass",
+          "notes": "recovery-budget-available-light.png: Scheduled continuation, budget held by another run and released availability remain distinct, with source and numeric estimates visible and no false successful execution claim."
+        },
+        {
+          "id": "work-verifying.png",
+          "sha256": "3654c0590f581044966ff3ed6a9b1e5cb37a501b64b244a2e976536019d8c9bc",
+          "verdict": "pass",
+          "notes": "work-verifying.png: Related task details distinguish verifying and main-Bot repair ownership, keep Evidence accessible, and present active replying alongside independent child progress without replacing either."
+        },
+        {
+          "id": "work-repair-1280-dark.png",
+          "sha256": "c2c842d12175842161ea7ec84373d74b849ce2a2a680897efd619c2c60306b7d",
+          "verdict": "pass",
+          "notes": "work-repair-1280-dark.png: Related task details distinguish verifying and main-Bot repair ownership, keep Evidence accessible, and present active replying alongside independent child progress without replacing either."
+        },
+        {
+          "id": "work-repair-760-light.png",
+          "sha256": "46a1a246282b4cf1e4fd4903f87e67d0f4b299338ce539d8aa834effc313a5dd",
+          "verdict": "pass",
+          "notes": "work-repair-760-light.png: Related task details distinguish verifying and main-Bot repair ownership, keep Evidence accessible, and present active replying alongside independent child progress without replacing either."
+        },
+        {
+          "id": "reply-presence-progress-dark.png",
+          "sha256": "79f574377012a1d389cf386786c87f906edca8942668e951ff7cc935c8fc9209",
+          "verdict": "pass",
+          "notes": "reply-presence-progress-dark.png: Related task details distinguish verifying and main-Bot repair ownership, keep Evidence accessible, and present active replying alongside independent child progress without replacing either."
+        },
+        {
+          "id": "reply-entry-idle-dark.png",
+          "sha256": "e4e7c6c0e1ca348dc6348cc3b960b01f4075a0efe3c27093b54c40b74912deb6",
+          "verdict": "pass",
+          "notes": "reply-entry-idle-dark.png: Reply detail affordance remains unobtrusive when idle, appears on hover, and leaves question choices and Composer layout stable in both themes."
+        },
+        {
+          "id": "reply-entry-hover-dark.png",
+          "sha256": "d5b1ba187ea050b9a0cafcacfb28f7d8ef6396484776db9a4f05b994ea7019a1",
+          "verdict": "pass",
+          "notes": "reply-entry-hover-dark.png: Reply detail affordance remains unobtrusive when idle, appears on hover, and leaves question choices and Composer layout stable in both themes."
+        },
+        {
+          "id": "reply-entry-idle-light.png",
+          "sha256": "3f5f26c5492e768807340b24fcc1f3857bb8e871b631f9707ae2a4a3c09e4af4",
+          "verdict": "pass",
+          "notes": "reply-entry-idle-light.png: Reply detail affordance remains unobtrusive when idle, appears on hover, and leaves question choices and Composer layout stable in both themes."
+        },
+        {
+          "id": "reply-entry-hover-light.png",
+          "sha256": "3240a837cdcae7bb10be2158ca9e097b7e13df74d2ab5bd7e19a31e2aa2fc4dc",
+          "verdict": "pass",
+          "notes": "reply-entry-hover-light.png: Hover reveals reply detail without moving question/Composer layout; active yield uses three dots and Stop, while interrupted history preserves prior public progress in both widths."
+        },
+        {
+          "id": "yield-feedback-1280-dark.png",
+          "sha256": "853e373fbddc286e42ddb680464e3606558c7274fe7c1c2e1ae3a5ca7c324f3b",
+          "verdict": "pass",
+          "notes": "yield-feedback-1280-dark.png: Hover reveals reply detail without moving question/Composer layout; active yield uses three dots and Stop, while interrupted history preserves prior public progress in both widths."
+        },
+        {
+          "id": "yield-feedback-760-light.png",
+          "sha256": "2342d302275468b91567debcb48674909af40a1d0cf0d42367037a837d1f58e5",
+          "verdict": "pass",
+          "notes": "yield-feedback-760-light.png: Hover reveals reply detail without moving question/Composer layout; active yield uses three dots and Stop, while interrupted history preserves prior public progress in both widths."
+        },
+        {
+          "id": "retry-history-1280-dark.png",
+          "sha256": "b0d98a8cf0a2c035eb737f6a4e3544ce34acc40a300fc70a78403f32e83199f9",
+          "verdict": "pass",
+          "notes": "retry-history-1280-dark.png: Hover reveals reply detail without moving question/Composer layout; active yield uses three dots and Stop, while interrupted history preserves prior public progress in both widths."
+        },
+        {
+          "id": "retry-history-760-light.png",
+          "sha256": "62e0d8cb55ba0a7498a1c2f2cfde8f1e6d27dd3e888a09114f567d3065b1893c",
+          "verdict": "pass",
+          "notes": "retry-history-760-light.png: Hover reveals reply detail without moving question/Composer layout; active yield uses three dots and Stop, while interrupted history preserves prior public progress in both widths."
+        },
+        {
+          "id": "attention-1280-dark.png",
+          "sha256": "318b8e3576c031e4959f854287f51a7cbd0d1bbe76b1590314255c9bb35349f5",
+          "verdict": "pass",
+          "notes": "attention-1280-dark.png: Explicit attention dialog lists only current decisions/grants; superseded and expired items retire into a clear empty state, and a pending image grant retains its exact file and bounded choices."
+        },
+        {
+          "id": "attention-760-light.png",
+          "sha256": "38a10fc50d68ce0bdfb7bc6040a0baeed5bc7f3593c2a9f1e073c148c851a3df",
+          "verdict": "pass",
+          "notes": "attention-760-light.png: Explicit attention dialog lists only current decisions/grants; superseded and expired items retire into a clear empty state, and a pending image grant retains its exact file and bounded choices."
+        },
+        {
+          "id": "attention-empty-light.png",
+          "sha256": "a02f0c21d9b20ab87f6faeff978679416143e73bba211b10820e587a82f7c22a",
+          "verdict": "pass",
+          "notes": "attention-empty-light.png: Explicit attention dialog lists only current decisions/grants; superseded and expired items retire into a clear empty state, and a pending image grant retains its exact file and bounded choices."
+        },
+        {
+          "id": "attention-expired-light.png",
+          "sha256": "9e5612a6c588c4f505027aef60a35ff5e72927f8f1d0b3f61e9a380f78b808d8",
+          "verdict": "pass",
+          "notes": "attention-expired-light.png: Explicit attention dialog lists only current decisions/grants; superseded and expired items retire into a clear empty state, and a pending image grant retains its exact file and bounded choices."
+        },
+        {
+          "id": "attention-image-permission-dark.png",
+          "sha256": "3a15d43054eb1c0b8ce5d31224f8e8a5b0d30c1f0502785e32d49d2a6dce18b8",
+          "verdict": "pass",
+          "notes": "attention-image-permission-dark.png: Explicit attention dialog lists only current decisions/grants; superseded and expired items retire into a clear empty state, and a pending image grant retains its exact file and bounded choices."
+        },
+        {
+          "id": "user-receipt-1280-dark.png",
+          "sha256": "08b697cf23e3e6b376df40125d86a974d2f5dc7056599c187233e7311437e657",
+          "verdict": "pass",
+          "notes": "user-receipt-1280-dark.png: User-requested closure leaves a concise public receipt and retained task records, with completed conversation usable in both themes."
+        },
+        {
+          "id": "user-receipt-760-light.png",
+          "sha256": "6b8a7b5bb6acf0732d5abeae1284a932e20a9ac4b53f6496e46d9357c4f4324f",
+          "verdict": "pass",
+          "notes": "user-receipt-760-light.png: User-requested closure leaves a concise public receipt and retained task records, with completed conversation usable in both themes."
+        },
+        {
+          "id": "lifecycle-budget-list-1280-dark.png",
+          "sha256": "375be5a2656ea3eb45d66f43d0dcf7a719d0315e56b0ad662f382d1d4890f4b6",
+          "verdict": "pass",
+          "notes": "lifecycle-budget-list-1280-dark.png: Retained budget decision is listed under needs-you and opens a readable task detail; exhaustion stays waiting-for-follow-up with retained explanation and an explicit ask action."
+        },
+        {
+          "id": "lifecycle-budget-detail-1280-dark.png",
+          "sha256": "ef78219a67c63a55f96bad76daa81f7f46d0cf62a68af399a5fb85261aba71f8",
+          "verdict": "pass",
+          "notes": "lifecycle-budget-detail-1280-dark.png: Retained budget decision is listed under needs-you and opens a readable task detail; exhaustion stays waiting-for-follow-up with retained explanation and an explicit ask action."
+        },
+        {
+          "id": "lifecycle-budget-list-760-light.png",
+          "sha256": "91ff6bac1dcf2d1dbf9025b8e7a799fff7871473c0b62c4500e687d4547c9dd7",
+          "verdict": "pass",
+          "notes": "lifecycle-budget-list-760-light.png: Retained budget decision is listed under needs-you and opens a readable task detail; exhaustion stays waiting-for-follow-up with retained explanation and an explicit ask action."
+        },
+        {
+          "id": "lifecycle-budget-detail-760-light.png",
+          "sha256": "d79e989e4f686c8ce5b2e32aac70233e79596faa8484a5057b2bd23034d7013b",
+          "verdict": "pass",
+          "notes": "lifecycle-budget-detail-760-light.png: Retained budget decision is listed under needs-you and opens a readable task detail; exhaustion stays waiting-for-follow-up with retained explanation and an explicit ask action."
+        },
+        {
+          "id": "lifecycle-question-list-1280-dark.png",
+          "sha256": "84c9e7f58f4de40b288f88df3d79d87af53b0dd563c62189e066637793c6215e",
+          "verdict": "pass",
+          "notes": "lifecycle-question-list-1280-dark.png: Retained unanswered task stays waiting-for-choice across list/detail and both widths, with primary Bot ownership, cancellation, and full explanation navigation intact."
+        },
+        {
+          "id": "lifecycle-question-detail-1280-dark.png",
+          "sha256": "370f3aa7c5ad3d054fb7f4df9068850844bec7fd0213b614aadc48582c06156e",
+          "verdict": "pass",
+          "notes": "lifecycle-question-detail-1280-dark.png: Retained unanswered task stays waiting-for-choice across list/detail and both widths, with primary Bot ownership, cancellation, and full explanation navigation intact."
+        },
+        {
+          "id": "lifecycle-question-list-760-light.png",
+          "sha256": "621c77b141f4952e51f06f2c57e936afd9914e50303b5e680adc49ffc16b1399",
+          "verdict": "pass",
+          "notes": "lifecycle-question-list-760-light.png: Retained unanswered task stays waiting-for-choice across list/detail and both widths, with primary Bot ownership, cancellation, and full explanation navigation intact."
+        },
+        {
+          "id": "lifecycle-question-detail-760-light.png",
+          "sha256": "4371a2d36f214550e8086bb3e9d28d0bfc63f4115879d68bab086974a7ff2ffd",
+          "verdict": "pass",
+          "notes": "lifecycle-question-detail-760-light.png: Retained unanswered task stays waiting-for-choice across list/detail and both widths, with primary Bot ownership, cancellation, and full explanation navigation intact."
+        }
+      ],
+      "findings": [
+        {
+          "screenshot": "ui-automation-list-760-light.png",
+          "description": "Legacy automation list/receipt/editor stress captures at 760px retain wide content beyond the viewport. The main native window enforces minWidth1040; the corresponding supported wide views are readable. This packet does not claim complete 760px adaptation for legacy automation pages.",
+          "severity": "minor",
+          "disposition": "accepted-limitation"
+        },
+        {
+          "screenshot": "quick-chat-bots-dark.png",
+          "description": "Quick Chat source captures retain native transparency. Original alpha and separately composited Frost fallback inspection were reviewed; actual OS vibrancy/backdrop and installed-window appearance are not certified by this source packet.",
+          "severity": "minor",
+          "disposition": "accepted-limitation"
+        }
+      ],
+      "coverageLimits": [
+        "Source Electron with scripted cognition; no real-model provider timing or installed-build acceptance.",
+        "Keyboard/focus/layout and reduced-motion scenarios exercised; no screen-reader certification.",
+        "Native OS vibrancy of transparent Quick Chat is not certified by alpha PNG inspection.",
+        "Legacy 760px automation stress-layout limitation retained below the native 1040px minimum.",
+        "Legacy completion-report drawer remains a separate compatibility surface; new file/directory/web/Diff routes use tabbed workspace."
+      ]
+    }
+  },
+  "resourceProduct": {
+    "schemaVersion": 1,
+    "status": "passed",
+    "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+    "sourceFingerprint": "37b3d530dbaa7cf96cc30b22fa5261f0adc425599b9a2004974a5960157740f3",
+    "reviewedAt": "2026-10-27T16:41:54.020634+00:00",
+    "reviewer": {
+      "kind": "ai",
+      "name": "Codex RC27 implementer self-review",
+      "independent": false
+    },
+    "screenshots": [
+      {
+        "id": "resource-workspace-smoke-light-workspace-line-warning.png",
+        "sha256": "6a90163072db72a845341ee4c5f40834a26b88b48271ed221c0099b85942c650",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-line-warning.png: Light resource tabs show line-out-of-range notice without losing reading position, remote Markdown images remain explicit external opens, fixed-revision Diff shows actual addition, and Markdown defaults to rendered body beside the preserved Composer draft."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-static-image.png",
+        "sha256": "ede9590088deb5adbdcbb8eb73893ce5596de924cadddbbedb970d7c2c26edda",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-static-image.png: Light resource tabs show line-out-of-range notice without losing reading position, remote Markdown images remain explicit external opens, fixed-revision Diff shows actual addition, and Markdown defaults to rendered body beside the preserved Composer draft."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-comparison-tabs.png",
+        "sha256": "f8217d3c29886b30706191499bbb851d110e535a9c0bdd72c4dfeaeb25617cb6",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-comparison-tabs.png: Light resource tabs show line-out-of-range notice without losing reading position, remote Markdown images remain explicit external opens, fixed-revision Diff shows actual addition, and Markdown defaults to rendered body beside the preserved Composer draft."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-wide.png",
+        "sha256": "659c2a097ba1bfacc13737ee0a616277ee3f2f3a4275144c39a48a35f6b063a1",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-wide.png: Light resource tabs show line-out-of-range notice without losing reading position, remote Markdown images remain explicit external opens, fixed-revision Diff shows actual addition, and Markdown defaults to rendered body beside the preserved Composer draft."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-expanded-launcher.png",
+        "sha256": "7ce8d61431b3f64aedbf0d5c2e0c999ae15960db58b7709ad21a5a6186ebdf32",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-expanded-launcher.png: Expanded and compact resource modes have explicit conversation return, readable search scopes/results/recent items, and square evenly padded toolbar icons; expansion is user-driven."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-toolbar-corner.png",
+        "sha256": "6bedb800fe4a36a86136e589a267e7668b6b6cb251d8c9b932b972b89e9886f8",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-toolbar-corner.png: Expanded and compact resource modes have explicit conversation return, readable search scopes/results/recent items, and square evenly padded toolbar icons; expansion is user-driven."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-compact.png",
+        "sha256": "af96c82991b14ee77ca503cdd33ff3b8839be539ad9d6e7e2003d094c78b01b2",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-compact.png: Expanded and compact resource modes have explicit conversation return, readable search scopes/results/recent items, and square evenly padded toolbar icons; expansion is user-driven."
+      },
+      {
+        "id": "resource-workspace-smoke-light-workspace-compact-launcher.png",
+        "sha256": "10c0a182bbea3b1d7635f7790a817439e1e57b43f182678e3ba992a981de3e20",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-light-workspace-compact-launcher.png: Expanded and compact resource modes have explicit conversation return, readable search scopes/results/recent items, and square evenly padded toolbar icons; expansion is user-driven."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-line-warning.png",
+        "sha256": "37066fe2163612b59814b3890ae1650cfc891888ca3ac5acbb93dec734fce697",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-line-warning.png: Dark resource tabs preserve the same body/source/Diff identity, line warning, blocked remote image affordance, selected tab focus and adjacent conversation geometry."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-static-image.png",
+        "sha256": "6be422bcba68c16540113d1cc61e9ab55fc48bff0148d7b5c8a6c5a8b48782b8",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-static-image.png: Dark resource tabs preserve the same body/source/Diff identity, line warning, blocked remote image affordance, selected tab focus and adjacent conversation geometry."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-comparison-tabs.png",
+        "sha256": "91e9f8e96eaf3dd38d806b9a413f71bab3b065ff9bd89b2f671f9cc7304862bd",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-comparison-tabs.png: Dark resource tabs preserve the same body/source/Diff identity, line warning, blocked remote image affordance, selected tab focus and adjacent conversation geometry."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-wide.png",
+        "sha256": "d8a7425fb48544c65e865c36d8f457b7741e44083f16c834e9c8adc470da8f75",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-wide.png: Dark resource tabs preserve the same body/source/Diff identity, line warning, blocked remote image affordance, selected tab focus and adjacent conversation geometry."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-expanded-launcher.png",
+        "sha256": "600265b35004dc3a1734f06ee493e2efd5e5fd26fa5a0c5c38141a0e71fe566c",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-expanded-launcher.png: Dark launcher and compact reader retain rounded paper, evenly spaced icon controls and explicit return; scoped search results are distinct from tools and recent resources."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-toolbar-corner.png",
+        "sha256": "6d60370b5bd4749d81fd1f89895281f640d0135b48e874dcdf5c40cad80ede39",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-toolbar-corner.png: Dark launcher and compact reader retain rounded paper, evenly spaced icon controls and explicit return; scoped search results are distinct from tools and recent resources."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-compact.png",
+        "sha256": "d97536743c1eb8f2ed06715589c45d53132b4a4d190856f10c7a40bbe39cb5ee",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-compact.png: Dark launcher and compact reader retain rounded paper, evenly spaced icon controls and explicit return; scoped search results are distinct from tools and recent resources."
+      },
+      {
+        "id": "resource-workspace-smoke-dark-workspace-compact-launcher.png",
+        "sha256": "f81d6f81c062ddd694df1a075ad86ee065e6332e9d510fb162fc6ac15eb78e84",
+        "verdict": "pass",
+        "notes": "resource-workspace-smoke-dark-workspace-compact-launcher.png: Dark launcher and compact reader retain rounded paper, evenly spaced icon controls and explicit return; scoped search results are distinct from tools and recent resources."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-01-initial-reading.png",
+        "sha256": "23f20d0379a35b3cf63910781af50a366a179d1abdcb1a5e9b4cb939a4217b57",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light-light-01-initial-reading.png: R5 light reader keeps old body and scroll position after external change, offers explicit load-current-version feedback and adopts the new body only after that action; Composer draft remains."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-02-changed-keeps-old.png",
+        "sha256": "63b1d6e56cf66589bd01bd2c6d948922f55e729578b0fe730f368d581cd17072",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light-light-02-changed-keeps-old.png: R5 light reader keeps old body and scroll position after external change, offers explicit load-current-version feedback and adopts the new body only after that action; Composer draft remains."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-03-narrow-version-feedback.png",
+        "sha256": "7e856a332bd9ddadf7246ce75e8424df182de47f955ff89a898b357e38cd6032",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light-light-03-narrow-version-feedback.png: R5 light reader keeps old body and scroll position after external change, offers explicit load-current-version feedback and adopts the new body only after that action; Composer draft remains."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-04-adopted-current.png",
+        "sha256": "f065e6070bc4020bb33531d9f8df573a9c59164ba74b506be3af7a48dedc1fe4",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light-light-04-adopted-current.png: R5 light reader keeps old body and scroll position after external change, offers explicit load-current-version feedback and adopts the new body only after that action; Composer draft remains."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-05-failure-keeps-reading.png",
+        "sha256": "086ad42267c234dce689db49debc88758864e72bc2225f0ae5fec2649fa9b08d",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light-light-05-failure-keeps-reading.png: A failed reread keeps the last readable body with a local reason; restarted source view restores its source scroll position. Dark initial/change states preserve the same behavior."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-light-light-06-restarted-source-position.png",
+        "sha256": "43428be545000b5ae8484f95a829b007f7fb6e56fbbba6111d713da3f7dc3688",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-light-light-06-restarted-source-position.png: A failed reread keeps the last readable body with a local reason; restarted source view restores its source scroll position. Dark initial/change states preserve the same behavior."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-01-initial-reading.png",
+        "sha256": "197332c27f3843b7d6dce5404b3ba731f25a7237e28ca1128543f6c826e0c3c9",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark-dark-01-initial-reading.png: A failed reread keeps the last readable body with a local reason; restarted source view restores its source scroll position. Dark initial/change states preserve the same behavior."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-02-changed-keeps-old.png",
+        "sha256": "e173645df5de9ea58e9ef1bb47769cf2a85cbeb7b86eda02447d8bed19838ea3",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark-dark-02-changed-keeps-old.png: A failed reread keeps the last readable body with a local reason; restarted source view restores its source scroll position. Dark initial/change states preserve the same behavior."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-04-adopted-current.png",
+        "sha256": "c203a9436640f0fb8b13f196c1ac042b40093910f5b414d4d2d2b6a5c753ba6f",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark-dark-04-adopted-current.png: Dark explicit version adoption replaces the body only on request; missing reread preserves last content and a local reason, and source scroll returns after isolated app restart."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-05-failure-keeps-reading.png",
+        "sha256": "4d0a66a89b5d0d407a49ded0b87e18e112d41106fbd7dffe15c12cb62ae671e5",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark-dark-05-failure-keeps-reading.png: Dark explicit version adoption replaces the body only on request; missing reread preserves last content and a local reason, and source scroll returns after isolated app restart."
+      },
+      {
+        "id": "resource-workspace-r5-smoke-dark-dark-06-restarted-source-position.png",
+        "sha256": "1d134427a0213654ea8cae6e042be0d38001df231131fbaf2bc175f6f84f8366",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-smoke-dark-dark-06-restarted-source-position.png: Dark explicit version adoption replaces the body only on request; missing reread preserves last content and a local reason, and source scroll returns after isolated app restart."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-01-history-nested.png",
+        "sha256": "784d3244dcb71b081680c67eb1e7a990f4efa65b62e5c32806096c1c2ff94f85",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-01-history-nested.png: Light combined navigation preserves pinned historical identity, unsaved Bot name and conversation draft; directory scroll restores, Markdown scripts render as text and raster controls remain bounded."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-02-details-draft-return.png",
+        "sha256": "64b8d10b1e6aa0eb9daf673e6cb096adb8242207af88d4a2681fca9e7e2234ab",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-02-details-draft-return.png: Light combined navigation preserves pinned historical identity, unsaved Bot name and conversation draft; directory scroll restores, Markdown scripts render as text and raster controls remain bounded."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-03-directory-restored.png",
+        "sha256": "38bf80ee176003cac3ad2e1f9d48976ae5578a0b938bc7d3f6eb5518d869730c",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-03-directory-restored.png: Light combined navigation preserves pinned historical identity, unsaved Bot name and conversation draft; directory scroll restores, Markdown scripts render as text and raster controls remain bounded."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-04-static-markdown.png",
+        "sha256": "f0e1df57bca0bad06763087526120954b6d21c356fb3de910821a68a28c15622",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-04-static-markdown.png: Light combined navigation preserves pinned historical identity, unsaved Bot name and conversation draft; directory scroll restores, Markdown scripts render as text and raster controls remain bounded."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-05-raster.png",
+        "sha256": "f57c085dff771ba48e15c884dbdaaa913f730e71562d29bc6fa8856e34606fee",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-05-raster.png: Light combined navigation preserves pinned historical identity, unsaved Bot name and conversation draft; directory scroll restores, Markdown scripts render as text and raster controls remain bounded."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-06-code-diff.png",
+        "sha256": "9883368ef3cf89d93ce1f7ad789535269dc30e42a88cd90694e46b484672cebc",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-06-code-diff.png: Code Diff shows actual deleted/added lines, mode-only Git metadata falls back to raw text with explanation, and real loopback webpage input survives tab switching before explicit URL recovery."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-06b-mode-diff-raw.png",
+        "sha256": "55e0edab82f227197cb20d259afa45959c8b6424d83a79685019f8dab37476c0",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-06b-mode-diff-raw.png: Code Diff shows actual deleted/added lines, mode-only Git metadata falls back to raw text with explanation, and real loopback webpage input survives tab switching before explicit URL recovery."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-07-web-keepalive.png",
+        "sha256": "b213b929623d21d8106a7abc2476ac0a01d3a63fc9450c9317122ea13f1f57c1",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-07-web-keepalive.png: Code Diff shows actual deleted/added lines, mode-only Git metadata falls back to raw text with explanation, and real loopback webpage input survives tab switching before explicit URL recovery."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-08-web-url-recovery.png",
+        "sha256": "a003fbed91281ac2816ca0cb0c07c1bba951362bde9953ee0995762db122329b",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-08-web-url-recovery.png: Code Diff shows actual deleted/added lines, mode-only Git metadata falls back to raw text with explanation, and real loopback webpage input survives tab switching before explicit URL recovery."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-light-light-09-directory-process-recovery.png",
+        "sha256": "7d9a99a4989b19c248613e46429fd5dcedef7c66ecf66618deef22697761e689",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-light-light-09-directory-process-recovery.png: Directory recovery restores the selected scroll range; dark historical nested document retains commit identity, settings unsaved name and draft return, and restored directory contents."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-01-history-nested.png",
+        "sha256": "74dfb31977dc0d972a19e93926b7f55fd509e5d7289b915dce37af5fb2a51b36",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-01-history-nested.png: Directory recovery restores the selected scroll range; dark historical nested document retains commit identity, settings unsaved name and draft return, and restored directory contents."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-02-details-draft-return.png",
+        "sha256": "6d9485d48728e77e6d07659b9b0ac7787ca007672ec8318198677879e6250d7a",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-02-details-draft-return.png: Directory recovery restores the selected scroll range; dark historical nested document retains commit identity, settings unsaved name and draft return, and restored directory contents."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-03-directory-restored.png",
+        "sha256": "93064eccf0f9e5d8509dcfaeea8f6eee425c50a675da7ed0cc5e00ecc8f5aaa3",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-03-directory-restored.png: Directory recovery restores the selected scroll range; dark historical nested document retains commit identity, settings unsaved name and draft return, and restored directory contents."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-04-static-markdown.png",
+        "sha256": "34cf82752d581df78b3ed15b1ee6a1dc8e56353383cef260722609150ac98752",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-04-static-markdown.png: Dark static Markdown keeps script payload as inert text and external images explicit; raster colors and code-Diff additions/removals are readable, with mode-only metadata honestly shown as raw."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-05-raster.png",
+        "sha256": "cd88243fca10440f2c041eadc27662320b885b6c81f0ae82275613d6b3047ab6",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-05-raster.png: Dark static Markdown keeps script payload as inert text and external images explicit; raster colors and code-Diff additions/removals are readable, with mode-only metadata honestly shown as raw."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-06-code-diff.png",
+        "sha256": "bbb552b90f10e82953b145dbef0eaa206342ce68e72c20fb4b51c2a7528c711a",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-06-code-diff.png: Dark static Markdown keeps script payload as inert text and external images explicit; raster colors and code-Diff additions/removals are readable, with mode-only metadata honestly shown as raw."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-06b-mode-diff-raw.png",
+        "sha256": "2acf2f95c97ed5983da27076e1ef7d07037289d4ce79d9f9fb238bb08dbe4da0",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-06b-mode-diff-raw.png: Dark static Markdown keeps script payload as inert text and external images explicit; raster colors and code-Diff additions/removals are readable, with mode-only metadata honestly shown as raw."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-07-web-keepalive.png",
+        "sha256": "a5c516d925f1e44cb3505848906125f5edc853f935603bc997d91dac93ceb3ba",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-07-web-keepalive.png: Dark real guest webpage input persists during tab navigation and URL recovery is explicit; directory recovery retains reading range. Light auxiliary file tree is user-opened alongside the document."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-08-web-url-recovery.png",
+        "sha256": "dcc2b371d46c4d593732fbf2a56af244f9c9b6de15f48d4041f2a985d91ee3f2",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-08-web-url-recovery.png: Dark real guest webpage input persists during tab navigation and URL recovery is explicit; directory recovery retains reading range. Light auxiliary file tree is user-opened alongside the document."
+      },
+      {
+        "id": "resource-workspace-r5-r6-smoke-dark-dark-09-directory-process-recovery.png",
+        "sha256": "de4a5da1bf2141edc05495a7c22e1d225bc6e8b3c47227c1c46c7480745e7abf",
+        "verdict": "pass",
+        "notes": "resource-workspace-r5-r6-smoke-dark-dark-09-directory-process-recovery.png: Dark real guest webpage input persists during tab navigation and URL recovery is explicit; directory recovery retains reading range. Light auxiliary file tree is user-opened alongside the document."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-01-files-auxiliary.png",
+        "sha256": "1a00eb9990e405a669072c4a4d24d36d15ab63a3226773f765495276217659b6",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-01-files-auxiliary.png: Dark real guest webpage input persists during tab navigation and URL recovery is explicit; directory recovery retains reading range. Light auxiliary file tree is user-opened alongside the document."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-02-directory-updates.png",
+        "sha256": "3ff6c42718c842e36bbfb7c40d68d05f7f14432d3066093ad529de28b42e3278",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-02-directory-updates.png: Light auxiliary directory updates preserve current reading; Diff index selection shows actual lines and untracked-file paths, new comparison results require explicit adoption, and a non-Git failure preserves the prior diff with a local reason."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-03-comparison-index.png",
+        "sha256": "f7a2a52fa78c070cb37062237d9e32e9970b6d382ba419337f28268dfad6cad6",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-03-comparison-index.png: Light auxiliary directory updates preserve current reading; Diff index selection shows actual lines and untracked-file paths, new comparison results require explicit adoption, and a non-Git failure preserves the prior diff with a local reason."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-04-pending-candidate.png",
+        "sha256": "ddc718b66d912259df7ede2bf2f163f41b2185c0926b5661f3c156a78b64338b",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-04-pending-candidate.png: Light auxiliary directory updates preserve current reading; Diff index selection shows actual lines and untracked-file paths, new comparison results require explicit adoption, and a non-Git failure preserves the prior diff with a local reason."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-05-failure-preserves-reading.png",
+        "sha256": "5fa490865e814bf7e1681aabe8c8e60131052b6203652ff6bc2547f994d615fe",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-05-failure-preserves-reading.png: Light auxiliary directory updates preserve current reading; Diff index selection shows actual lines and untracked-file paths, new comparison results require explicit adoption, and a non-Git failure preserves the prior diff with a local reason."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-06-independent-sources.png",
+        "sha256": "9dc674774bb6928017ac910a98c8d00c2dc38f5cfd1eec754900c1f4499200fd",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-06-independent-sources.png: Project and knowledge comparison sources remain separately identified; narrow file navigation uses a readable tree and browser reduced-motion retains a static usable end state alongside optional navigation."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-07-narrow-files.png",
+        "sha256": "acd55d3d0d9db1d036b5a6ec73c0ee14d07e580014fbb11bfb08e96689d48232",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-07-narrow-files.png: Project and knowledge comparison sources remain separately identified; narrow file navigation uses a readable tree and browser reduced-motion retains a static usable end state alongside optional navigation."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-light-light-08-browser-reduced-motion.png",
+        "sha256": "b8ce0d9df8b15fd97b0c40969c88b2e7f6f7c4a16e83871e882b6e1c8503e5ca",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-light-light-08-browser-reduced-motion.png: Project and knowledge comparison sources remain separately identified; narrow file navigation uses a readable tree and browser reduced-motion retains a static usable end state alongside optional navigation."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-01-files-auxiliary.png",
+        "sha256": "35d2fe3de495e10532f248b9ffdced047d885ae2f17482a46e306b03d11288e5",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-01-files-auxiliary.png: Project and knowledge comparison sources remain separately identified; narrow file navigation uses a readable tree and browser reduced-motion retains a static usable end state alongside optional navigation."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-02-directory-updates.png",
+        "sha256": "8fefce77c1e1f091ebafa14ced9db7504f899d520c2b35106060cd09d3073c65",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-02-directory-updates.png: Dark directory updates and comparison index keep hierarchy/selection visible; pending refreshed Diff and non-Git failure preserve prior content, source identity and retry controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-03-comparison-index.png",
+        "sha256": "733916099eb23c60c58270ab8fa0eec048b423d3f75e562654f21d396fc56ef3",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-03-comparison-index.png: Dark directory updates and comparison index keep hierarchy/selection visible; pending refreshed Diff and non-Git failure preserve prior content, source identity and retry controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-04-pending-candidate.png",
+        "sha256": "3b163ead8502cd8a5a19e0304a137dc5afcc03a9138914daeaa81bcbffaa7316",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-04-pending-candidate.png: Dark directory updates and comparison index keep hierarchy/selection visible; pending refreshed Diff and non-Git failure preserve prior content, source identity and retry controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-05-failure-preserves-reading.png",
+        "sha256": "0e0a1db8df002600259695d9264cd8a5f0960ec4d74d78550b57d0efb12c405a",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-05-failure-preserves-reading.png: Dark directory updates and comparison index keep hierarchy/selection visible; pending refreshed Diff and non-Git failure preserve prior content, source identity and retry controls."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-06-independent-sources.png",
+        "sha256": "c48c2b2715d1a6402e0380ad4cc81868eec6b47906081bd8e064db5423416bd7",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-06-independent-sources.png: Dark project/knowledge comparison sources remain independent, narrow tree and reduced-motion guest retain usable controls, and selected text produces an explicit document discussion reference in the Composer."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-07-narrow-files.png",
+        "sha256": "f0a84cc013e3bdfae16d6524c3250e95328a14c13af53409304520e8ccd39638",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-07-narrow-files.png: Dark project/knowledge comparison sources remain independent, narrow tree and reduced-motion guest retain usable controls, and selected text produces an explicit document discussion reference in the Composer."
+      },
+      {
+        "id": "resource-workspace-r6a-smoke-dark-dark-08-browser-reduced-motion.png",
+        "sha256": "89ff200d653fc84a94051716ce0f4bc2e4a279f56ce42ba9facff7e758c3f4c1",
+        "verdict": "pass",
+        "notes": "resource-workspace-r6a-smoke-dark-dark-08-browser-reduced-motion.png: Dark project/knowledge comparison sources remain independent, narrow tree and reduced-motion guest retain usable controls, and selected text produces an explicit document discussion reference in the Composer."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-01-selected-reference.png",
+        "sha256": "ed3797c9486d77794702605fafead6e543350fba55721ce9612db14a76a3b6d4",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-01-selected-reference.png: Dark project/knowledge comparison sources remain independent, narrow tree and reduced-motion guest retain usable controls, and selected text produces an explicit document discussion reference in the Composer."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-02-local-draft.png",
+        "sha256": "9244e0c220ce83711a4580a0ae9f75db2f7a513bc164f46793e1e16b15b07a8d",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-02-local-draft.png: Light local draft stays separate from original file; one-time write permission identifies exact target while later typing stays preserved. Applied receipt exposes actual provider diff, with three-way base/draft/current comparison."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-03-permission-with-later-input.png",
+        "sha256": "f3bad63b01d81f0b0019cc27b2a84d169def1d52f35bbf72dfdcdc12a592232c",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-03-permission-with-later-input.png: Light local draft stays separate from original file; one-time write permission identifies exact target while later typing stays preserved. Applied receipt exposes actual provider diff, with three-way base/draft/current comparison."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-04-applied-result.png",
+        "sha256": "0648005bdc78a3cd2df31b6482cfbca46762723f9ccb6fb795811a933d7b0fe0",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-04-applied-result.png: Light local draft stays separate from original file; one-time write permission identifies exact target while later typing stays preserved. Applied receipt exposes actual provider diff, with three-way base/draft/current comparison."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-05-three-way-comparison.png",
+        "sha256": "bc0166eb7da56be6e7c384ea92e68f92473b7d140a984839488ed11d3df7af1f",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-05-three-way-comparison.png: Light local draft stays separate from original file; one-time write permission identifies exact target while later typing stays preserved. Applied receipt exposes actual provider diff, with three-way base/draft/current comparison."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-05b-denied-preserved.png",
+        "sha256": "a3da578de60e995adcced64e40a59fb6630f7673db30ca12d56435dfc9cfe017",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-05b-denied-preserved.png: Denied and conflict states preserve the draft and explain that the original was not overwritten. Independent document view keeps readable body; IME-in-progress blocks close safely and preserves composition input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-05c-conflict-preserved.png",
+        "sha256": "eb4182a61aefe6dd6406f8769530db1de0bcce28cfcd9f431e8c9561490d9db0",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-05c-conflict-preserved.png: Denied and conflict states preserve the draft and explain that the original was not overwritten. Independent document view keeps readable body; IME-in-progress blocks close safely and preserves composition input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-06-native-document.png",
+        "sha256": "0e4679b44771371be2b8cee9b518601117960c7f38d057887c8f1f5075f3bfb9",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-06-native-document.png: Denied and conflict states preserve the draft and explain that the original was not overwritten. Independent document view keeps readable body; IME-in-progress blocks close safely and preserves composition input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-07-native-close-preserved.png",
+        "sha256": "5da83a3dc5827e47e86b424deb290e685e79d04b15932c47c9b14ef4ab4050bd",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-07-native-close-preserved.png: Denied and conflict states preserve the draft and explain that the original was not overwritten. Independent document view keeps readable body; IME-in-progress blocks close safely and preserves composition input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-08-native-directory.png",
+        "sha256": "a0bf6e00ce397c5bfee5462734e7ec83dc65e9b6be158f96373da9621cb0c0e7",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-08-native-directory.png: Independent directory and Diff views show exact scope and actual changed lines. Native browser shell is a URL copy; its separate guest-content capture visibly contains the real loopback webpage and input, not a placeholder."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-08-native-comparison.png",
+        "sha256": "2128ab3018370a337b25cc5081a6f1e7f3d7fbf0fb1e7411c5bdba9e70854879",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-08-native-comparison.png: Independent directory and Diff views show exact scope and actual changed lines. Native browser shell is a URL copy; its separate guest-content capture visibly contains the real loopback webpage and input, not a placeholder."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-09-native-browser.png",
+        "sha256": "40c1d4a4b0b007c3334c487887ddf3517ab11ba3dd0de4ae15149ae5f6a116a9",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-09-native-browser.png: Independent directory and Diff views show exact scope and actual changed lines. Native browser shell is a URL copy; its separate guest-content capture visibly contains the real loopback webpage and input, not a placeholder."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-light-light-09b-native-browser-content.png",
+        "sha256": "7611be294d6bebd87fb551bd9d03e33d3113be0d5d5d8d9acd4f61fa454d1dc5",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-light-light-09b-native-browser-content.png: Independent directory and Diff views show exact scope and actual changed lines. Native browser shell is a URL copy; its separate guest-content capture visibly contains the real loopback webpage and input, not a placeholder."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-01-selected-reference.png",
+        "sha256": "470e91b1fd4585a3787ab53833f389e9be89736cfd0d3173ceefa9fd88b4ffc2",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-01-selected-reference.png: Dark selected text becomes an explicit Composer reference; saved local draft, later typing during permission and applied provider receipt remain separate and readable, preserving subsequent draft input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-02-local-draft.png",
+        "sha256": "a5f9e07f091ee36d01ef75866f4b30a2b97db768c68c2baf3516811c53658225",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-02-local-draft.png: Dark selected text becomes an explicit Composer reference; saved local draft, later typing during permission and applied provider receipt remain separate and readable, preserving subsequent draft input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-03-permission-with-later-input.png",
+        "sha256": "2a02638927780350d7c0e6bf02464d0188bf67665a1848527885eb20279fd7e9",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-03-permission-with-later-input.png: Dark selected text becomes an explicit Composer reference; saved local draft, later typing during permission and applied provider receipt remain separate and readable, preserving subsequent draft input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-04-applied-result.png",
+        "sha256": "bdd9ad5c98bbd6b471440132c18ddf963fee3fdc5c67facdb85715db72ab4427",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-04-applied-result.png: Dark selected text becomes an explicit Composer reference; saved local draft, later typing during permission and applied provider receipt remain separate and readable, preserving subsequent draft input."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-05-three-way-comparison.png",
+        "sha256": "322381d423a15ebffe30a66213a7d79afdbe510b5c80e795fd8e4fcc39333cfe",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-05-three-way-comparison.png: Dark three-way comparison clearly separates base/draft/current; denial/conflict preserve draft and do not overwrite the source. Independent document view shows the current externally changed body."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-05b-denied-preserved.png",
+        "sha256": "09538b521132d19283b74cad0cfdaae41a570a196a7e4b67d713dc7de57900dd",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-05b-denied-preserved.png: Dark three-way comparison clearly separates base/draft/current; denial/conflict preserve draft and do not overwrite the source. Independent document view shows the current externally changed body."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-05c-conflict-preserved.png",
+        "sha256": "ae40d1b2c0a2ca929039e65d1502da35b41da88b998ef08abac99e57988e0c89",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-05c-conflict-preserved.png: Dark three-way comparison clearly separates base/draft/current; denial/conflict preserve draft and do not overwrite the source. Independent document view shows the current externally changed body."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-06-native-document.png",
+        "sha256": "1cc5477a5ea7173615a914b59d5e304273d5707d7031ffc9a1d9eeb7966d5acd",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-06-native-document.png: Dark three-way comparison clearly separates base/draft/current; denial/conflict preserve draft and do not overwrite the source. Independent document view shows the current externally changed body."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-07-native-close-preserved.png",
+        "sha256": "23617b348595df13d699028b6893dfddd8596fc1d5d3bd961dceb8ec04641b77",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-07-native-close-preserved.png: Dark independent window preserves IME composition on refused close, directory scope and actual Diff contents remain readable, and separate native guest capture confirms the real webpage rendered despite the blank parent-container screenshot."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-08-native-directory.png",
+        "sha256": "7c2cbf340f676cb3490c16abeb0aa7807623aab0809d89c48ccd61fc24a9b8da",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-08-native-directory.png: Dark independent window preserves IME composition on refused close, directory scope and actual Diff contents remain readable, and separate native guest capture confirms the real webpage rendered despite the blank parent-container screenshot."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-08-native-comparison.png",
+        "sha256": "f9d1fff738698a41a26456a4dac8bc4bdb43dccfa9ffb3b3b9d8ae97c5a8f0de",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-08-native-comparison.png: Dark independent window preserves IME composition on refused close, directory scope and actual Diff contents remain readable, and separate native guest capture confirms the real webpage rendered despite the blank parent-container screenshot."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-09-native-browser.png",
+        "sha256": "2d8d3fd5c1cdc4c325575ffe7f11bfd6d0196549cb32e757ca15fb0e90d8c034",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-09-native-browser.png: Dark independent window preserves IME composition on refused close, directory scope and actual Diff contents remain readable, and separate native guest capture confirms the real webpage rendered despite the blank parent-container screenshot."
+      },
+      {
+        "id": "resource-workspace-collaboration-smoke-dark-dark-09b-native-browser-content.png",
+        "sha256": "7611be294d6bebd87fb551bd9d03e33d3113be0d5d5d8d9acd4f61fa454d1dc5",
+        "verdict": "pass",
+        "notes": "resource-workspace-collaboration-smoke-dark-dark-09b-native-browser-content.png: Dark independent window preserves IME composition on refused close, directory scope and actual Diff contents remain readable, and separate native guest capture confirms the real webpage rendered despite the blank parent-container screenshot."
+      }
+    ],
+    "checks": [
+      {
+        "script": "resource-workspace-smoke",
+        "theme": "light",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "nonmodal launcher without guest allocation",
+          "Markdown body/source and Composer draft survive opening",
+          "real DOM mode reading positions, repeated line intents and missing-line fallback",
+          "static Markdown external image makes no request before explicit opening",
+          "scoped local image decoded by production host",
+          "missing file has a local error without blocking other resources",
+          "same-turn short filename resolves to its full tool-result source",
+          "confirmed cross-repository Markdown and nested relative link",
+          "independent bounded directory view",
+          "full unstaged repository Diff",
+          "staged Diff, pinned moving revision refresh and independent comparison tabs",
+          "host-owned unregistered task worktree comparison, retained tab/current file/nested link and forged-scope rejection",
+          "outside-scope denial without content leak",
+          "real browser guest preserved across mixed document/web tabs",
+          "pointer resize cancellation cleans up and retains Composer draft",
+          "side opening collapses navigation before the conversation; resize never automatically maximizes",
+          "compact view returns to the same resource and Composer draft",
+          "ordinary Bot switch starts collapsed and does not inherit another Bot resource tabs",
+          "all resource interactions preserve fixture files, Git index and current commit"
+        ]
+      },
+      {
+        "script": "resource-workspace-smoke",
+        "theme": "dark",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "nonmodal launcher without guest allocation",
+          "Markdown body/source and Composer draft survive opening",
+          "real DOM mode reading positions, repeated line intents and missing-line fallback",
+          "static Markdown external image makes no request before explicit opening",
+          "scoped local image decoded by production host",
+          "missing file has a local error without blocking other resources",
+          "same-turn short filename resolves to its full tool-result source",
+          "confirmed cross-repository Markdown and nested relative link",
+          "independent bounded directory view",
+          "full unstaged repository Diff",
+          "staged Diff, pinned moving revision refresh and independent comparison tabs",
+          "host-owned unregistered task worktree comparison, retained tab/current file/nested link and forged-scope rejection",
+          "outside-scope denial without content leak",
+          "real browser guest preserved across mixed document/web tabs",
+          "pointer resize cancellation cleans up and retains Composer draft",
+          "side opening collapses navigation before the conversation; resize never automatically maximizes",
+          "compact view returns to the same resource and Composer draft",
+          "ordinary Bot switch starts collapsed and does not inherit another Bot resource tabs",
+          "all resource interactions preserve fixture files, Git index and current commit"
+        ]
+      },
+      {
+        "script": "resource-workspace-r5-smoke",
+        "theme": "light",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "real host hashes actual bytes; unchanged conditional read succeeds; changed read returns no new body; UI keeps accepted content and scroll position",
+          "explicit adoption displays current body, clears version notice and preserves Composer draft",
+          "missing-file refresh gives a local reason and retains accepted body; retry recovers",
+          "production host rejects outside-scope and other-Bot references without returning their body",
+          "real settings persist content observation and separate source/preview coordinates; fresh Electron process revalidates and restores both",
+          "conversation history unchanged; no model request, task continuation or completed-write replay"
+        ]
+      },
+      {
+        "script": "resource-workspace-r5-smoke",
+        "theme": "dark",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "real host hashes actual bytes; unchanged conditional read succeeds; changed read returns no new body; UI keeps accepted content and scroll position",
+          "explicit adoption displays current body, clears version notice and preserves Composer draft",
+          "missing-file refresh gives a local reason and retains accepted body; retry recovers",
+          "production host rejects outside-scope and other-Bot references without returning their body",
+          "real settings persist content observation and separate source/preview coordinates; fresh Electron process revalidates and restores both",
+          "conversation history unchanged; no model request, task continuation or completed-write replay"
+        ]
+      },
+      {
+        "script": "resource-workspace-r5-r6-smoke",
+        "theme": "light",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "R5-02 actual Git blob, immutable commit, nested same-commit navigation, separate live tab and missing history failure",
+          "R5a settings and resource share one pane; one-step return preserves exact field DOM, unsaved name and main Composer; no overlay",
+          "R5-03 expanded directory branches persist and recover through the real host without opening the selected file",
+          "R6 local HTML/SVG never execute or request embeds; Markdown remote image is explicit; 50,001-line source bounded to 4,000 rows",
+          "R6 valid PNG native decoding and fit/zoom; truncated PNG produces local decoder failure and explicit retry",
+          "R6 normal Git change renders real two-way hunk positions after document and image transitions",
+          "R5-03 real guest crash has local failure and explicit recovery; fresh process restores directory branches, selection and exact 440px reading position",
+          "R5-03 real guest retains form/identity while hidden; fresh Electron restores URL with a truthful notice, not the former form",
+          "synthetic conversation and source bytes unchanged by UI; no model/task/replay; no renderer pageErrors"
+        ]
+      },
+      {
+        "script": "resource-workspace-r5-r6-smoke",
+        "theme": "dark",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "R5-02 actual Git blob, immutable commit, nested same-commit navigation, separate live tab and missing history failure",
+          "R5a settings and resource share one pane; one-step return preserves exact field DOM, unsaved name and main Composer; no overlay",
+          "R5-03 expanded directory branches persist and recover through the real host without opening the selected file",
+          "R6 local HTML/SVG never execute or request embeds; Markdown remote image is explicit; 50,001-line source bounded to 4,000 rows",
+          "R6 valid PNG native decoding and fit/zoom; truncated PNG produces local decoder failure and explicit retry",
+          "R6 normal Git change renders real two-way hunk positions after document and image transitions",
+          "R5-03 real guest crash has local failure and explicit recovery; fresh process restores directory branches, selection and exact 440px reading position",
+          "R5-03 real guest retains form/identity while hidden; fresh Electron restores URL with a truthful notice, not the former form",
+          "synthetic conversation and source bytes unchanged by UI; no model/task/replay; no renderer pageErrors"
+        ]
+      },
+      {
+        "script": "resource-workspace-r6a-smoke",
+        "theme": "light",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "wide auxiliary Files reuses one tree and document DOM; closing/reopening preserves expanded branches",
+          "directory auto-check is opt-in, reads real changes, pauses hidden and resumes without rebuilding tree",
+          "shared comparison index, deleted selection has no first-file fallback, automatic candidate needs adoption, real Git failure keeps accepted content and retry recovers",
+          "project and identity-checked knowledge repository use independent comparisons and confirmed roots",
+          "real Browser guest identity and form survive auxiliary/standalone Files; 600px uses standalone; reduced-motion flag is honored",
+          "Bot owner switch clears auxiliary state; original Composer draft and synthetic conversation bytes remain; no renderer errors"
+        ]
+      },
+      {
+        "script": "resource-workspace-r6a-smoke",
+        "theme": "dark",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "wide auxiliary Files reuses one tree and document DOM; closing/reopening preserves expanded branches",
+          "directory auto-check is opt-in, reads real changes, pauses hidden and resumes without rebuilding tree",
+          "shared comparison index, deleted selection has no first-file fallback, automatic candidate needs adoption, real Git failure keeps accepted content and retry recovers",
+          "project and identity-checked knowledge repository use independent comparisons and confirmed roots",
+          "real Browser guest identity and form survive auxiliary/standalone Files; 600px uses standalone; reduced-motion flag is honored",
+          "Bot owner switch clears auxiliary state; original Composer draft and synthetic conversation bytes remain; no renderer errors"
+        ]
+      },
+      {
+        "script": "resource-workspace-collaboration-smoke",
+        "theme": "light",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "R7 actual canonical evidence projection and other-Bot denial through main preload/IPC",
+          "R8 real DOM selection persists a fixed recipient/version input reference, preserving Composer text; no send or file write",
+          "R9 actual saved revision survives Bot switch; source file and later task history are untouched",
+          "R10 actual UI permission -> local conditional Provider -> original Grant/ToolCall/Evidence; fixed revision writes once; later input and explicit reconcile do not replay it",
+          "R9/R10 external change is compared against preserved base/draft without automatic overwrite or rebase",
+          "R10 real denial/cancellation have no file effect; version changes during permission yield conflict without overwrite",
+          "R5w1/R9 native sender isolation, composition/save-blocked close retains input, safe retry closes only that view",
+          "R5w1 actual native directory and Git comparison windows share scoped readers, render real content, and close independently",
+          "R5w2 actual WebContentsView address copy; original embedded guest identity and unsent form preserved"
+        ]
+      },
+      {
+        "script": "resource-workspace-collaboration-smoke",
+        "theme": "dark",
+        "exitCode": 0,
+        "ok": true,
+        "checks": [
+          "R7 actual canonical evidence projection and other-Bot denial through main preload/IPC",
+          "R8 real DOM selection persists a fixed recipient/version input reference, preserving Composer text; no send or file write",
+          "R9 actual saved revision survives Bot switch; source file and later task history are untouched",
+          "R10 actual UI permission -> local conditional Provider -> original Grant/ToolCall/Evidence; fixed revision writes once; later input and explicit reconcile do not replay it",
+          "R9/R10 external change is compared against preserved base/draft without automatic overwrite or rebase",
+          "R10 real denial/cancellation have no file effect; version changes during permission yield conflict without overwrite",
+          "R5w1/R9 native sender isolation, composition/save-blocked close retains input, safe retry closes only that view",
+          "R5w1 actual native directory and Git comparison windows share scoped readers, render real content, and close independently",
+          "R5w2 actual WebContentsView address copy; original embedded guest identity and unsent form preserved"
+        ]
+      }
+    ],
+    "findings": [],
+    "limits": [
+      "Source Electron; isolated synthetic files, Git, SQLite and loopback webpage. No user task or completed write replay.",
+      "Scripted cognition; not real provider or long-duration acceptance.",
+      "Native guest pixels reviewed separately from parent container; independent browser is a URL copy, not guest-instance transfer.",
+      "Harness Electron footer may report Electron 41.7.1; stamped package manifests and final source are RC27.",
+      "Keyboard/focus and reduced-motion exercised; no screen-reader certification or installed cross-platform interaction acceptance."
+    ]
+  },
+  "mergedCodePRs": [
+    221
+  ],
+  "publication": {
+    "status": "published",
+    "pretag": {
+      "checkedAt": "2026-10-27T16:48:30.993719+00:00",
+      "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+      "tree": "857217d43e7f1f2baceb7a4079ce55429e73c016",
+      "sourceFingerprint": "37b3d530dbaa7cf96cc30b22fa5261f0adc425599b9a2004974a5960157740f3",
+      "openCodePRs": [],
+      "mergedCodePRs": [
+        221
+      ],
+      "ciRun": 40536236470,
+      "ciConclusion": "success",
+      "tag": "v0.1.0-rc.27"
+    },
+    "release": {
+      "checkedAt": "2026-10-27T17:02:41.406610+00:00",
+      "tag": "v0.1.0-rc.27",
+      "url": "https://github.com/ly-ccx/Peer-Agent/releases/tag/v0.1.0-rc.27",
+      "prerelease": true,
+      "publishedAt": "2026-10-27T16:57:36Z",
+      "assets": [
+        {
+          "name": "beta-linux.yml",
+          "size": 559,
+          "state": "uploaded",
+          "digest": "sha256:c97bab637634c7fbe00c0f9e9fc205c617787a5e284db9d6fd2c03904d4562bc",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/beta-linux.yml"
+        },
+        {
+          "name": "beta-mac.yml",
+          "size": 530,
+          "state": "uploaded",
+          "digest": "sha256:a9e1fc1859b81a86a02b8ba8691210c4c93e09c70fddaf094cab3c38f153d205",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/beta-mac.yml"
+        },
+        {
+          "name": "beta.yml",
+          "size": 367,
+          "state": "uploaded",
+          "digest": "sha256:8a714e113a5d48b891cd09f57fab687860ae691e66dfdd50211ffad3cd1175a6",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/beta.yml"
+        },
+        {
+          "name": "builder-debug.yml",
+          "size": 9119,
+          "state": "uploaded",
+          "digest": "sha256:c4e5021fbdfe17650e6a437ee8c21631465697d131cd41f8cb3da633a7b7897c",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/builder-debug.yml"
+        },
+        {
+          "name": "Peer-Agent-0.1.0-rc.27-arm64.dmg",
+          "size": 144491893,
+          "state": "uploaded",
+          "digest": "sha256:2ed360c9687096517f4eda4af318382b79337b00bb5c5fb113f8643d02bc58e9",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-0.1.0-rc.27-arm64.dmg"
+        },
+        {
+          "name": "Peer-Agent-0.1.0-rc.27-arm64.dmg.blockmap",
+          "size": 150223,
+          "state": "uploaded",
+          "digest": "sha256:18d08b272c0879cfe91ad31180259f2d613e85c36077b6bd89d1d0d0ee7deda0",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-0.1.0-rc.27-arm64.dmg.blockmap"
+        },
+        {
+          "name": "Peer-Agent-0.1.0-rc.27-arm64.zip",
+          "size": 141984574,
+          "state": "uploaded",
+          "digest": "sha256:e2deea26df6e057db24978fe8d6e72c560033c399a492fdf7852ace51864579d",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-0.1.0-rc.27-arm64.zip"
+        },
+        {
+          "name": "Peer-Agent-0.1.0-rc.27-arm64.zip.blockmap",
+          "size": 146518,
+          "state": "uploaded",
+          "digest": "sha256:0121858e353d694350e1cef4cb62842734d4f219447e1fd495c6c0c1380d52f5",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-0.1.0-rc.27-arm64.zip.blockmap"
+        },
+        {
+          "name": "Peer-Agent-0.1.0-rc.27-x64.AppImage",
+          "size": 144474896,
+          "state": "uploaded",
+          "digest": "sha256:e03f1ab716b46697041973b8722339876e6a4c15c1f90baea94b3d78c262472b",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-0.1.0-rc.27-x64.AppImage"
+        },
+        {
+          "name": "Peer-Agent-0.1.0-rc.27-x64.deb",
+          "size": 115589644,
+          "state": "uploaded",
+          "digest": "sha256:d48259f275e46f59a3e6d5482a4b75ff825bf4d13a7f0dfa271c14b2017075d5",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-0.1.0-rc.27-x64.deb"
+        },
+        {
+          "name": "Peer-Agent-Setup-0.1.0-rc.27.exe",
+          "size": 222682847,
+          "state": "uploaded",
+          "digest": "sha256:b8d77109665182f8a289e73f3cc578d9df0074c47327e7486b549b4eec09c973",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-Setup-0.1.0-rc.27.exe"
+        },
+        {
+          "name": "Peer-Agent-Setup-0.1.0-rc.27.exe.blockmap",
+          "size": 230440,
+          "state": "uploaded",
+          "digest": "sha256:7cef9d8b5345d96adb267ecf0be9d8be6046f79c0587c7178a91274ca4a1fc15",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/Peer-Agent-Setup-0.1.0-rc.27.exe.blockmap"
+        },
+        {
+          "name": "peer-darwin-arm64.tar.gz",
+          "size": 24015043,
+          "state": "uploaded",
+          "digest": "sha256:1e58d43362c2f396089802a97e1b87c0dc88122c201531d6991fc517947a20b4",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/peer-darwin-arm64.tar.gz"
+        },
+        {
+          "name": "peer-linux-x64.tar.gz",
+          "size": 47681069,
+          "state": "uploaded",
+          "digest": "sha256:cefc8fe6eee31060954594a70778a49afcd685505bf28257960ef669d1ba26cc",
+          "url": "https://github.com/ly-ccx/Peer-Agent/releases/download/v0.1.0-rc.27/peer-linux-x64.tar.gz"
+        }
+      ],
+      "updateManifests": [
+        {
+          "name": "beta-mac.yml",
+          "version": "0.1.0-rc.27",
+          "files": [
+            {
+              "url": "Peer-Agent-0.1.0-rc.27-arm64.zip",
+              "sha512": "oN3B1p1F5LzjRfgSfad7I+yEKSeh8UsRHBolb7pltJQJSW/pE8SSt2NXogsYhcmksLc+FlhPrGd2rs5RvI6voQ==",
+              "size": 141984574
+            },
+            {
+              "url": "Peer-Agent-0.1.0-rc.27-arm64.dmg",
+              "sha512": "8Q34rV5BH7qUq0xKf6JBKzCMbNT97ZQ3POmiYu+n/H6YtM3FfUzxeOsLitUQrrxdkmfjiU7C6GJSeql7i/4rEw==",
+              "size": 144491893
+            }
+          ],
+          "path": "Peer-Agent-0.1.0-rc.27-arm64.zip"
+        },
+        {
+          "name": "beta-linux.yml",
+          "version": "0.1.0-rc.27",
+          "files": [
+            {
+              "url": "Peer-Agent-0.1.0-rc.27-x64.AppImage",
+              "sha512": "6tw4JYdfsmTF1NrZ15R++8iiSYp4gK6YHm9v0rxbyIOSIxfXUh7aCdWUTXBSznxpA3d/b6NcOhALr0WxJaspLg==",
+              "size": 144474896,
+              "blockMapSize": 152356
+            },
+            {
+              "url": "Peer-Agent-0.1.0-rc.27-x64.deb",
+              "sha512": "HaGJU1unXUorjEyoe3J9nxNG4D+iB9Xk59HWknUCSLPsk2RTXf1Mk5reU2SbGSaKKpHexbtlgjl5meqJwfUu6w==",
+              "size": 115589644
+            }
+          ],
+          "path": "Peer-Agent-0.1.0-rc.27-x64.AppImage"
+        },
+        {
+          "name": "beta.yml",
+          "version": "0.1.0-rc.27",
+          "files": [
+            {
+              "url": "Peer-Agent-Setup-0.1.0-rc.27.exe",
+              "sha512": "+J3wcAf8eRMWnHY/LXJLbqLjQg4O0zOJXjWoorv2e2Bd17CG23k+HJrKs4vg1F8kod5ZEwLKMJGepPdEcPT7HA==",
+              "size": 222682847
+            }
+          ],
+          "path": "Peer-Agent-Setup-0.1.0-rc.27.exe"
+        }
+      ],
+      "npm": [
+        {
+          "package": "@peer-agent/protocol",
+          "version": "0.1.0-rc.27",
+          "distTags": {
+            "latest": "0.0.18",
+            "beta": "0.1.0-beta.5",
+            "rc": "0.1.0-rc.27"
+          },
+          "integrity": "sha512-W+etEvc7TpN3fcHqe+w6zBBWSw8SR/saZ5gYnmMXkFHhkxA3tEo6JureBZkmFzfS+siQjf/gdoJjUaBHMqQiXw==",
+          "tarball": "https://registry.npmjs.org/@peer-agent/protocol/-/protocol-0.1.0-rc.27.tgz"
+        },
+        {
+          "package": "@peer-agent/runtime-core",
+          "version": "0.1.0-rc.27",
+          "distTags": {
+            "latest": "0.0.18",
+            "beta": "0.1.0-beta.5",
+            "rc": "0.1.0-rc.27"
+          },
+          "integrity": "sha512-wJZEgYs0RZ2OzCyHd7fxThmWYC6O0iDnk22bEHvuk2ST2i0cL84kEmWbLZPjBZiQxO84iql+p3jMexXZYZ8LaQ==",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-core/-/runtime-core-0.1.0-rc.27.tgz"
+        },
+        {
+          "package": "@peer-agent/runtime-sdk",
+          "version": "0.1.0-rc.27",
+          "distTags": {
+            "latest": "0.0.18",
+            "beta": "0.1.0-beta.5",
+            "rc": "0.1.0-rc.27"
+          },
+          "integrity": "sha512-520QnBVIeQDUgBGr9vLF1X/4ccFt8PwHlSMv8Cv+fW8/39sat+ih1rnmsPXEAFuKLQ6mwcVSvHrPHN6oi+IdwQ==",
+          "tarball": "https://registry.npmjs.org/@peer-agent/runtime-sdk/-/runtime-sdk-0.1.0-rc.27.tgz"
+        },
+        {
+          "package": "@peer-agent/cli",
+          "version": "0.1.0-rc.27",
+          "distTags": {
+            "latest": "0.0.18",
+            "beta": "0.1.0-beta.5",
+            "rc": "0.1.0-rc.27"
+          },
+          "integrity": "sha512-my51qeaaDG1KZhly/D9vsQKN++c8uR9cJzrIaAWShDSVPv9AFa4Zmxw2mXELHKLvFCcj8BzX8zVkzDEBUeaH/w==",
+          "tarball": "https://registry.npmjs.org/@peer-agent/cli/-/cli-0.1.0-rc.27.tgz"
+        }
+      ],
+      "limits": [
+        "Release asset existence/size/digest metadata and downloaded updater manifests checked; desktop binaries are not installed or launched on the personal app.",
+        "macOS signature/notarization and packaged runtime verified by the tag workflow; Windows/Linux remain unsigned."
+      ]
+    },
+    "releaseWorkflow": {
+      "run": 40544539827,
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/40544539827",
+      "conclusion": "success",
+      "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+      "jobs": [
+        {
+          "name": "meta",
+          "id": 122331475628,
+          "conclusion": "success"
+        },
+        {
+          "name": "build (ubuntu-latest, linux, --linux --x64)",
+          "id": 122331641607,
+          "conclusion": "success"
+        },
+        {
+          "name": "build (macos-14, mac, --mac)",
+          "id": 122331641693,
+          "conclusion": "success"
+        },
+        {
+          "name": "build (windows-latest, win, --win)",
+          "id": 122331641896,
+          "conclusion": "success"
+        },
+        {
+          "name": "build-cli (macos-14, darwin-arm64)",
+          "id": 122335278438,
+          "conclusion": "success"
+        },
+        {
+          "name": "build-cli (ubuntu-latest, linux-x64)",
+          "id": 122335278575,
+          "conclusion": "success"
+        },
+        {
+          "name": "release",
+          "id": 122336289623,
+          "conclusion": "success"
+        },
+        {
+          "name": "publish-npm",
+          "id": 122336748294,
+          "conclusion": "success"
+        }
+      ]
+    },
+    "desktopBuilds": {
+      "run": 40544539827,
+      "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+      "jobs": [
+        {
+          "id": 122331641607,
+          "name": "build (ubuntu-latest, linux, --linux --x64)",
+          "conclusion": "success",
+          "checks": [
+            {
+              "name": "Verify macOS Developer ID signature and notarization",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 13
+            },
+            {
+              "name": "Verify packaged runtime entries",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14
+            },
+            {
+              "name": "Upload build artifacts",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15
+            }
+          ]
+        },
+        {
+          "id": 122331641693,
+          "name": "build (macos-14, mac, --mac)",
+          "conclusion": "success",
+          "checks": [
+            {
+              "name": "Verify macOS Developer ID signature and notarization",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13
+            },
+            {
+              "name": "Verify packaged runtime entries",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14
+            },
+            {
+              "name": "Upload build artifacts",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15
+            }
+          ]
+        },
+        {
+          "id": 122331641896,
+          "name": "build (windows-latest, win, --win)",
+          "conclusion": "success",
+          "checks": [
+            {
+              "name": "Verify macOS Developer ID signature and notarization",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 13
+            },
+            {
+              "name": "Verify packaged runtime entries",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14
+            },
+            {
+              "name": "Upload build artifacts",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15
+            }
+          ]
+        }
+      ]
+    },
+    "pages": {
+      "checkedAt": "2026-10-27T16:51:29.379463+00:00",
+      "run": 40544539284,
+      "head": "5cd2d6d9d03c4d00682aeaba2fa54435fe9810f8",
+      "pages": [
+        {
+          "path": "/",
+          "status": 200,
+          "bytes": 67006
+        },
+        {
+          "path": "docs.html",
+          "status": 200,
+          "bytes": 137243
+        },
+        {
+          "path": "changelog.html",
+          "status": 200,
+          "bytes": 32854
+        },
+        {
+          "path": "changelog-data/manifest.json",
+          "status": 200,
+          "bytes": 10002
+        },
+        {
+          "path": "changelog-data/v0.1.0-rc.27.json",
+          "status": 200,
+          "bytes": 7748
+        }
+      ],
+      "latest": {
+        "stable": "v0.0.18",
+        "beta": "v0.1.0-rc.27"
+      },
+      "generatedAt": "2026-10-27T23:58:01+08:00"
+    },
+    "npmCacheObservation": "Initial cached packuments returned some RC26 values immediately after successful publish. Fresh no-cache independent requests confirmed all four exact versions and rc dist-tags; no republish performed."
+  }
+}

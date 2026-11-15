@@ -1,5 +1,7 @@
 # Peer Agent 产品设计语言
 
+> 2026-10-23 规范入口更新：本文保留历史详稿与未冲突的专题细节。当前统一基线为 [Peer Frost 产品体验规范](peer-product-experience-standard.md)、[人机交互契约](peer-human-agent-interaction-contract.md)和[动效规范](motion-system.md)。产品对象以北极星为准；字体、圆角、token、交互和验证时点发生冲突时，以当前规范及代码仓 AGENTS 的最新规则为准，不继续执行历史宋体、旧大圆角或逐次测试要求。
+
 > 状态：设计治理基准（2026-08-23 已清掉宙斯 / Cloud CEO / Channel 员工台旧身份；以任务壳 + 工作台雷达为准）
 > 适用范围：Peer Agent Desktop 的产品结构、视觉语言、交互状态和组件实现。
 > 目标：先固定统一审美和交互契约，再继续改 UI，避免每次补丁都把产品推向不同方向。

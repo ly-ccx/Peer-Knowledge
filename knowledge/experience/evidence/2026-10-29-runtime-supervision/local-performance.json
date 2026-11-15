@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-10-29T00:32:02.211Z",
+  "fixture": true,
+  "scale": {
+    "bots": 200,
+    "messages": 10000,
+    "inboxEvents": 100000,
+    "memories": 10000
+  },
+  "sourceHead": "e0c87d2db739b168956eb1715047d149642b1f1e",
+  "sourceDirty": true,
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "25.9.0",
+  "metrics": {
+    "list": {
+      "samples": [
+        80.33887500000128,
+        84.12012500000128,
+        78.28329200000007,
+        87.38579100000061,
+        93.95066699999734
+      ],
+      "median": 84.12012500000128,
+      "budget": 100,
+      "pass": true
+    },
+    "search": {
+      "samples": [
+        86.52879200000461,
+        132.17508399999497,
+        146.875165999998,
+        148.25066700000025,
+        134.8850420000017
+      ],
+      "median": 134.8850420000017,
+      "budget": 150,
+      "pass": true
+    },
+    "received": {
+      "samples": [
+        70.33958399999392,
+        44.487207999998645,
+        51.38341599999694,
+        59.018667000003916,
+        50.252832999998645
+      ],
+      "median": 51.38341599999694,
+      "budget": 300,
+      "pass": true
+    },
+    "consume": {
+      "samples": [
+        68.06854200000089,
+        72.66741699999693,
+        80.46945899999992,
+        78.93516600000294,
+        68.87400000000343
+      ],
+      "median": 72.66741699999693,
+      "budget": 200,
+      "pass": true
+    },
+    "memory": {
+      "samples": [
+        22.31958399999712,
+        18.8997920000038,
+        24.153250000003027,
+        23.741290999998455,
+        21.809708000000683
+      ],
+      "median": 22.31958399999712,
+      "budget": 50,
+      "pass": true
+    },
+    "coldInbox": {
+      "samples": [
+        819.9468330000001,
+        658.410625,
+        859.5002920000002,
+        820.131334,
+        745.5573749999999
+      ],
+      "median": 819.9468330000001,
+      "budget": 1000,
+      "pass": true
+    },
+    "idleBytesPerBot": {
+      "samples": [
+        1021132.8,
+        1010810.88,
+        1012858.88,
+        1024491.52,
+        1024000
+      ],
+      "median": 1021132.8,
+      "budget": 2097152,
+      "pass": true
+    }
+  },
+  "idle": [
+    {
+      "coldInbox": 819.9468330000001,
+      "heapBytesPerBot": 28733.72,
+      "rssBytesPerBot": 1021132.8,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 658.410625,
+      "heapBytesPerBot": 28653.92,
+      "rssBytesPerBot": 1010810.88,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 859.5002920000002,
+      "heapBytesPerBot": 28740.88,
+      "rssBytesPerBot": 1012858.88,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 820.131334,
+      "heapBytesPerBot": 28724.08,
+      "rssBytesPerBot": 1024491.52,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    },
+    {
+      "coldInbox": 745.5573749999999,
+      "heapBytesPerBot": 28722.88,
+      "rssBytesPerBot": 1024000,
+      "modelCalls": 0,
+      "bots": 200,
+      "events": 100000
+    }
+  ],
+  "scope": {
+    "timing": "Synchronous APIs end at return; asynchronous APIs end at settlement. Mixed cold-list/search/input/memory rounds remain; no in-operation GC cost is excluded.",
+    "list": "Production directory and application service projection of all 200 bots; fresh reader each sample",
+    "search": "Production service with Desktop versioned public search projection and full message/memory corpus; first rebuild separately recorded",
+    "received": "Application receipt includes queue durability and synchronous fixture wake/consume; UI rendering measured by Electron smoke",
+    "consume": "Online lease-owning production queue to canonical conversation and onCommitted wake; no model latency",
+    "memory": "Warm production capability search, scope filtering, use accounting and Evidence envelope; rebuild separately recorded",
+    "coldInbox": "Fresh independent process: real host recovery with Desktop versioned history projection and idle sync of 200 bots after 100000 persisted/consumed events",
+    "idle": "Five fresh processes, aggregate incremental RSS per initialized bot; heap and zero model calls also reported"
+  },
+  "initialStoragePreparation": {
+    "coldInbox": 25691.615583,
+    "heapBytesPerBot": 25040.68,
+    "rssBytesPerBot": 1190625.28,
+    "modelCalls": 0,
+    "bots": 200,
+    "events": 100000
+  },
+  "searchInitialRebuildMs": 154.75529199999437,
+  "memoryInitialRebuildMs": 92.5137920000052,
+  "realModel": {
+    "status": "not_measured",
+    "reason": "Live configured-model benchmark required before ready; scripted replies do not satisfy it"
+  },
+  "localPass": true,
+  "ready": false,
+  "requestedScope": "local_only",
+  "ok": true,
+  "finishedAt": "2026-10-29T00:32:39.022Z"
+}

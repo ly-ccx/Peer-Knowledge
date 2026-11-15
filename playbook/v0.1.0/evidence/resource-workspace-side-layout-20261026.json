@@ -1,0 +1,125 @@
+{
+  "scope": "Default/right-side geometry supplement; not full R7 validation",
+  "runtime": "Previously built R6a renderer assets, current working-tree main host. No R7 renderer build or delivery interaction tested.",
+  "runs": [
+    {
+      "theme": "dark",
+      "defaultGeometry": {
+        "full": "false",
+        "maximized": "false",
+        "main": {
+          "left": 302,
+          "right": 1160,
+          "width": 858
+        },
+        "resource": {
+          "left": 1170,
+          "right": 1590,
+          "width": 420
+        }
+      },
+      "wideGeometry": {
+        "full": "false",
+        "maximized": "false",
+        "main": {
+          "left": 302,
+          "right": 782,
+          "width": 480
+        },
+        "resource": {
+          "left": 792,
+          "right": 1590,
+          "width": 798
+        }
+      },
+      "checks": [
+        "default and widened side panes both keep the conversation visible/editable, no overlap, full=false/maximized=false; auxiliary Files works without maximize"
+      ],
+      "screenshots": [
+        {
+          "name": "00-default-side-by-side",
+          "sha256": "e9f3a1629feb8897cea12549d8f47bb294db1c8f781442ae25287e48aa7b033d",
+          "file": "dark-00-default-side-by-side.png",
+          "reviewed": true,
+          "observation": "Conversation and right-side document are visible with no overlap. The widened pane also contains Files; neither screenshot is maximized."
+        },
+        {
+          "name": "00-wide-side-with-files",
+          "sha256": "994fee8c46a2cbcc2dbf935ddd4d1a135e568f4908b4f1a3e713005694ec044d",
+          "file": "dark-00-wide-side-with-files.png",
+          "reviewed": true,
+          "observation": "Conversation and right-side document are visible with no overlap. The widened pane also contains Files; neither screenshot is maximized."
+        }
+      ],
+      "pageErrors": [],
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 44692
+      }
+    },
+    {
+      "theme": "light",
+      "defaultGeometry": {
+        "full": "false",
+        "maximized": "false",
+        "main": {
+          "left": 302,
+          "right": 1160,
+          "width": 858
+        },
+        "resource": {
+          "left": 1170,
+          "right": 1590,
+          "width": 420
+        }
+      },
+      "wideGeometry": {
+        "full": "false",
+        "maximized": "false",
+        "main": {
+          "left": 302,
+          "right": 782,
+          "width": 480
+        },
+        "resource": {
+          "left": 792,
+          "right": 1590,
+          "width": 798
+        }
+      },
+      "checks": [
+        "default and widened side panes both keep the conversation visible/editable, no overlap, full=false/maximized=false; auxiliary Files works without maximize"
+      ],
+      "screenshots": [
+        {
+          "name": "00-default-side-by-side",
+          "sha256": "3f9eaab0c9b63a33009c64a218652bbe2755cce4782db8b60dc062b2a1b4749d",
+          "file": "light-00-default-side-by-side.png",
+          "reviewed": true,
+          "observation": "Conversation and right-side document are visible with no overlap. The widened pane also contains Files; neither screenshot is maximized."
+        },
+        {
+          "name": "00-wide-side-with-files",
+          "sha256": "0faaf2ad2d911c668febe89b5cdaa67feca12ba995d3bb205556154a4cea1b69",
+          "file": "light-00-wide-side-with-files.png",
+          "reviewed": true,
+          "observation": "Conversation and right-side document are visible with no overlap. The widened pane also contains Files; neither screenshot is maximized."
+        }
+      ],
+      "pageErrors": [],
+      "stop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 45528
+      }
+    }
+  ],
+  "reviewer": "implementer self-review, not independent"
+}

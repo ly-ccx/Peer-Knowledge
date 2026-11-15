@@ -1,7 +1,9 @@
 # ADR 95：以实际进展驱动持续执行
 
+> 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支以 progress-policy 共用 observed/admitted/advanced 事实及稳定错误类别，分别治理 work、Provider 和宿主故障。查询/失败只采用宿主实际返回的对象身份；reason、随机回执、请求参数里的新 ID、时间、重启或换执行者不刷新失败。保留本文无默认累计硬上限、显式预算、真实用量与 unknown 保护，不增加 maxIntentSteps 或自动换模型。DecisionFrame 是事实投影，不签发权限；接口见 ADR 117 §14，[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md) 保留语义质量与真实模型验证边界。
+
 创建时间：2026-10-18
-最后更新：2026-10-18
+最后更新：2026-11-06（消息终态、稳定输入排序与恢复事实补充）
 状态：Accepted（用户确认六项方案并要求执行）
 级别：A（执行预算、持久恢复及投影契约），B（协调与核验运行时）
 关联：ADR88、91、93、94。本决策取代 ADR88 §8 的系统默认工作总额、ADR93 的核验累计次数和总截止硬停止；用户明确预算及单次调用超时仍有效。
@@ -78,3 +80,18 @@
 176张最终源码截图逐图实现者自审（`independent=false`）及 Verify 通过，保留5项非阻断视觉/合成夹具限制。精确源码、指纹、场景、日志哈希、关键原图、失败候选和两平台CI状态保存于 [progress-driven-execution](../../playbook/v0.1.0/evidence/progress-driven-execution/README.md)。安装RC15和真实用户任务、权限未改；未合并、未发布。真实云模型质量、安装版/升级、完整读屏和长期运行尚未覆盖。
 
 最终两平台 CI 的 build、typecheck、architecture、全量测试及桌面烟测通过。macOS 首次收消息可见延迟 p50=386.4ms 超出300ms；同源码复跑为161.6ms并通过，原门槛和代码未变。失败及重跑证据保留，不隐去首轮性能波动。
+
+
+## 2026-11-06 补充：稳定输入排序与重复观察
+
+用户认可并授权本轮修复；实现和发布验收另记。目标是旧失败工作不能因更新检查点而压过新用户输入，同一故障的重复读取不能制造持续进展。范围为既有 Runner selection / Progress Policy，不增加任务管理器、默认累计上限或新的授权来源。
+
+用户输入优先级以宿主原输入的稳定时间/顺序为依据。wake 检查点没有 userInputs 时，不得用不断变化的 work.updatedAt 冒充原输入时间；只能从可核对的原输入恢复，无法恢复则作为历史续接排序，不补造“最新请求”。历史同级工作的公平轮转可沿已有服务/更新时间作让出次序，但该时间不升级为新用户请求身份。本轮优先保持既有存储格式，不新增排序真源。
+
+同一目标/版本/执行身份/错误的重复 query、等待失败、读取同一报告的不同包装不重置无进展。保留新的真实观察、实际执行和语义核验之间的区别，不能把所有读取一概当无效，也不能让随机 artifact/call ID、动态 DecisionFrame 引用或截断层制造新事实。保留 §3 的显式预算、真实 unknown 保护、用户停止和累计记账，原保护不重置。
+
+本补充明确既有 §3 的实现不变量，不改变权限、Evidence 或默认预算。F5–F8 的可验证验收和失败记录统一见[本轮记录](../../playbook/v0.1.0/persisted-turn-recovery.md)。
+
+本轮包装识别限于生成的 get_session / get_verification_detail / coordinate_work 的 `*-call_<id>.txt` 查询工件。完整 JSON 可读回时按原查询事实规范化；仅有截断片段时只能证明取回了片段，不能据包装 hash/路径证明任务进展。保留查询类别作为观察身份，读取范围只保留在原 Tool Call 中，不据范围变化认定任务进展；不扫描任意正文执行、不修改 Tool Result/Evidence，不把普通用户文件套用该规则。完整工件内容真实变化仍可产生新事实，截断后无法确认的变化明确不是已验证进展。
+
+整包回归发现既有“新输入纠偏原目标”夹具不带 createdAt，不能再借 updatedAt 获得优先级。保留既有显式承接：同一次选择中，已接受 intent decision 的 sourceInputIds 可共享候选 intake 原始 createdAt；同到达等级且该 intake 尚未形成独立 intent 时，明确承接它的原目标先续跑。不同输入不因此抬级，缺到达时间仍为历史等级；不用 decision.updatedAt 或操作新时间代替用户到达。保留原纠偏验收断言，不以修改期望规避回归。

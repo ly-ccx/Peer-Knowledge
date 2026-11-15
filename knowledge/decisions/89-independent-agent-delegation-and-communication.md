@@ -196,3 +196,6 @@ Desktop 与 TUI 共享工具契约和通信 Module。Desktop 具备新动态表�
 产品包 runId：`0f19ee48-945f-496c-9e2c-b45eb5ae24b5`；sourceFingerprint：`ddb1862ac7049383e2cb3b68e7067838879a7b51fc1e4e14b96ac942ba67190f`。包在工作机器临时目录保留，不提交机器路径或截图到仓库。审查为实现者自审，`independent=false`。
 
 覆盖限制：受控认知/隔离动态事实、源码 Electron；未做真实模型质量/网络时序、安装 RC、长时间后台或全面屏幕阅读器验收。Agent 执行与通信的真实性另由实际执行器/宿主集成测试证明，截图不单独充当执行证据。Quick Chat 透明 PNG 不能证明原生合成背景对比度；相邻基线侧栏旧失败预览仍有 response 片段，未声称本次修复。
+
+
+2026-10-28：后续双向监督与连续工作设计见[ADR 111](111-project-agent-duplex-supervision-and-continuity.md)。本批源码、自测范围与限制见[实施回执](../../playbook/v0.1.0/code-structure-refactoring.md)；不将本次新增能力计入历史版本。
