@@ -1,5 +1,9 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生CLI用量与中断核对（2026-11-15）
+
+CLI，`9fb1b4ff`，ADR25/56/129–131。用户从原exec/recover核对任务与用量。Model只提供归一化请求观察；Store提供runtime_turn/conversation_lifetime，Session Control提供停稳事实。错误/取消仍结算已知用量；坏账本保留并阻断首次准入，原已停稳回合经recover核对原提交，不重放工具或更换任务身份。 28项真实公开CLI测试、8项PTY及实现者自审；完整P4/发布验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-durable-ledger-host-20261115.json)。
+
 ## Bot 设置保存后的读取连续性（2026-11-15）
 
 P06，`6406f7af`。用户在 Bot 设置中修改模型或策略后，真实保存回执发布的 profile 保持当前；早发的详情/列表读取不能回滚它。详情重验证最多四轮，持续变化沿原读取失败/重试恢复；新读取仍能反映宿主后续变更。没有自动翻转已保存策略或新增授权事实。 25 项聚焦、9 项邻接测试及 type/build 通过。原 CI 失败、复现与 Electron 跟进见[回执](../../playbook/native-cli/evidence/p4-ci-profile-recovery-20261115.json)。

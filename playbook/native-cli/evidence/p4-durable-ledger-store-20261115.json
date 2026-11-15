@@ -45,7 +45,7 @@
   },
   "crossProcessReceipt": {
     "cases": 28,
-    "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-native-ledger-conformance-L9oumN",
+    "fixtureId": "peer-native-ledger-conformance-L9oumN",
     "binarySha256": "763f6ee3323403c57c2d2e8d6700df49633fe7c4b88eb9e3d216f3379a455f85",
     "contractSha256": "f992c4283b4ecc42ce55284b7e9badc15845484b8b1be0df834dfa381bf6535f",
     "scope": "Actual TS/Rust/Node Store processes; owned synthetic roots; no personal state; exact original partial line bytes; controlled offline orphan-lock maintenance after observed child exit"
@@ -87,5 +87,13 @@
       "recover pending intent through native recover without model/tool replay, then admit a later task",
       "blocking Store work maintains Host heartbeat; preflight cancellation remains bounded before commit"
     ]
+  },
+  "ci": {
+    "run": 43673952633,
+    "linux": 132689954395,
+    "mac": 132689954634,
+    "result": "both full jobs success",
+    "matchingMerge": "65ad4dbbf0729d9a8df6000b7e20c0f25962fe1f",
+    "tree": "0c2690d0608dee932630b3d4aca4510cdc4b8980"
   }
 }
