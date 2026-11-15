@@ -887,3 +887,5 @@ NR-04 usage scope（2026-11-15，`83a0733f`）：静态 JSON 回执使用现有�
 T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态文本，无动画（motion N/A）；动作/范围先于技术参数，禁止终端控制与 bidi 内容冒充 Host 提示。批准输入只归当前 prompt，非 TTY 不暗中接受，SIGINT/TERM/HUP 进入真实取消/drain；网络观察或模型文字不产生执行成功。中断回到同一 plan/execution，unknown 和 Evidence 留在原 canonical Store，恢复不重放工具。现有 Ratatui 草稿、焦点与阅读入口仍保持 NR-01 范围，尚未迁入完整会话发送/历史交互。
 
 验证来自真实公开二进制、PTY 批准/拒绝/信号取消、实际 child kill+reap、崩溃后原生恢复与后续任务，以及 8 项终端 guard 生命周期检查；精确候选和结果见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。实现者自审，未覆盖日用终端视觉、物理 IME、系统辅助技术、真实供应商或安装包，不登记为 T06/T10 全面或发布验收通过。
+
+2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。

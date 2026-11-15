@@ -1382,3 +1382,5 @@ NR-04 usage scope（2026-11-15，`83a0733f`）：公开 exec 的 replied/max_tur
 用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。
 
 真实效果后崩溃保持 pending/unknown，原生 OS 死亡观测只证明 runner 停稳，不能改写效果；未证明结束的能力句柄继续阻断。现有状态恢复不重放调用、不删除锁或历史，不改用户原数据。12 项公开可执行入口测试、其中真实 PTY 批准/拒绝与取消，以及当前 TS 冷读配对检查见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。这是隔离源码候选的实现者自审；普通终端、物理 IME、读屏、真实供应商与安装包未验收。当前 Ratatui 草稿入口尚未接发送，完整 TUI/Bot 平价留待后续卡。
+
+2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。
