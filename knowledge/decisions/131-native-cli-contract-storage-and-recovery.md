@@ -1,7 +1,7 @@
 # ADR 131：原生 CLI 的跨语言契约、共享数据与恢复
 
 创建时间：2026-11-14
-最后更新：2026-11-14
+最后更新：2026-11-15
 状态：Accepted（2026-11-14 用户接受评审稿 118；正式编号 131；授权实施，不授权个人数据迁移、接管、安装或重启）
 级别：A
 依赖：[ADR 129](129-native-rust-cli-and-ratatui.md)、[ADR 130](130-bounded-cli-memory-and-transcript.md)
@@ -134,3 +134,17 @@ ADR25 的 scope、Store 所有权和既有格式不变；本条收紧其“不�
 - 原生 Host 用稳定 runtime-turn id，在成功和已知终态错误都持久化已观察的 turnTotal；null usage不制造零量。lastRequest仍独立，ledger禁止用于容量恢复。Store失败不得跳过真实 attempt/工具停稳。硬退出前尚未持久观察的供应商用量不能重建，不重放模型请求；需保留未知，不能宣称已知零费用。原生公开接线与恢复分别验收。
 
 实施验收：实际 TS↔Rust 写读与同 id 冷读；index后追加失败、部分行、意图清理失败、冲突/损坏/新版本、双进程竞争与已知孤锁离线恢复；每次恢复后再写新回合。旧失败保留。未完成这些验证不得宣告 P4 总闸通过。
+
+### NR-04 已观察用量的 canonical 预算快照（2026-11-15，实施前）
+
+A 级补充：终态提交意图只能恢复已经进入 Store 的账目；原生 executor 在工具效果之后硬退出时，旧预算虽保留 tokens 总和，却不足以重建 input/output/cache 的分量。保留旧数据的 unknown 限制；本条只为新观察增加预防，不推断旧记录或重放请求。
+
+允许既有 canonical `work.budget.attempts[attemptId].nativeUsage` 携带 v1 billing-only 快照：`{schemaVersion:1, workId, execution:<完整原execution identity>, conversationId, attribution:<原stable stream/ledger id、模型/渠道、workspace与role>, usage:<tagged RuntimeTurnUsage>, knownAmountsOnly:true}`。仅支持当前已迁移 `work_session` executor；其它角色须先完成其兼容 pass。每次真实模型请求的归一化观察，同预算 tokens/unknown 更新原子进入同一 canonical Work 事务，并先于任何后续工具 dispatch。它不是第二个执行日志、checkpoint、grant 或 Context 来源；不能据此生成 Tool Result、Evidence、完成或许可。只存分量和归因，不存凭证、原始供应商签名、正文或 lastRequest 容量观察；账本仍不得用于 Context restore。
+
+Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budget.nativeUsagePending[attemptId]`，同时沿原规则保留 settled/pending dispatches。原 attempt 保留 `nativeLoopFinished:true` 与完整 nativeRecorder，直到匹配 execution 的真实 managed_execution stop receipt 证明 runner/scheduler idle 且 admission closed，才移除该结束标记；标记本身不证明工具或进程已停稳，未产生可计费用量的 loop 也保留此恢复来源。未知/新版本快照保留并阻断记账，不得阻断真实 stop/drain。只有现有 Store 返回相同身份、分量与归因的真实 ledger receipt 后，当前 journal owner 才能 CAS 移除相同 pending 值；失去 lease、回执丢失或值变化时保留，下一次用原 id 去重核对。工具 unknown 和 budget unknown 不因记账而清除。
+
+新执行先核对 Store 意图和已结束的 pending 快照，再准入模型。恢复正在运行时先取得既有实际停稳/对账证明，才把旧 attempt 的完整快照转入 pending；未停稳的活跃观察不能被另一 Host当完整回合提前封账。已记录 loop结束的 pending 可独立核对费用，不证明历史工具效果。每次恢复最多处理64条；超量保留剩余并要求继续显式 recover，首次执行保持阻断。单快照16KiB，已知计数安全整数，未知/冲突/损坏均失败关闭。
+
+兼容范围：当前旧 TS 的 worker 路径保留未知预算字段；delegation dispatch recovery 只删除 project_agent/spawn_session attempt，不能把该证明扩展到尚未迁移的 coordinator。必须用实际 TS read→saveWork→read 及 Native重读验证两种字段保留。旧引擎不负责结算新增快照，回退/同步仍受§7的 drain 要求；此条不声称已通过默认共享写入或发布验收。新增形状先冻结在 packages/protocol contract resources，复用现有 canonical journal、锁、身份与 Ledger，不建私有文件或第二套任务系统。
+
+验收包括：真实“模型→文件效果→硬退出→停稳→已知用量一次入账”；stop后/意图前硬退出；Store错误及回执丢失；未知快照仍先停稳、事实原样保留；TS往返与后续任务；无模型/工具重放。此前未携带分量快照的旧记录继续 unknown，不自动制造账目。

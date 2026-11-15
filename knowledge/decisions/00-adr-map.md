@@ -313,7 +313,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 |---|---|---|
 | 129 | [原生 Rust CLI 与 Ratatui](129-native-rust-cli-and-ratatui.md) | Accepted，2026-11-14；实现 / 验收另记 |
 | 130 | [有界内存与历史](130-bounded-cli-memory-and-transcript.md) | Accepted，2026-11-14；预算待实测 |
-| 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充 NR-04 用量双文件提交恢复，收紧ADR25恢复保证；实现 / 恢复另记 |
+| 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充 NR-04 用量双文件提交恢复及canonical预算观察快照，收紧ADR25恢复保证；实现 / 恢复另记 |
 
 2026-11-14 同日澄清 ADR 131 §1 的同号引用：`104-bot-capability-visibility.md` 仍未接受；`104-progressive-interaction-and-coordination-storage.md` 已接受的 writer fence / 恢复契约保留。未移动既有边界。
 
