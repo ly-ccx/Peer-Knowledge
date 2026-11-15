@@ -271,3 +271,5 @@ usage 候选 `83a0733f` 已推送，独立 [CI 43627852431](https://github.com/l
 前置修复卡（实施前）：复核 `85-project-agent-hosts-inputs-and-surfaces.md`、`129-native-rust-cli-and-ratatui.md`、`131-native-cli-contract-storage-and-recovery.md` 与当前交互/transition标准，B/C级档案只读投影修复，权限/存储/策略边界不移动。允许 Bot details pending reader 失效、catalog read-vs-commit fence、实际调用者装配、确定性迟到读取测试和原 Electron smoke；不改原开关时限/断言，不自动翻转已保存策略。先保存83原实现的复现失败，再验证本地保存回执不能被早发读取覆盖；旧错误保存只呈现当前真值与既有显式修改入口，不推断历史用户意图。
 
 前置修复候选 `6406f7af`：pending details 在真实保存回执后失效并有界重读，catalog 保留读取等待期间发布的 profile。83 原实现的三项迟到读取复现失败已保留，修复后 25 聚焦 / 9 邻接测试与 Desktop type/build 通过。隔离原 Electron smoke 的八种开关主题与原失败的设置恢复均通过；随后因调用方未创建附件输出目录而失败，源诊断 JSON 已验证，补齐目录后原命令重跑中。不称全 smoke 或新 CI 已通过。详见[原始 CI 与修复回执](native-cli/evidence/p4-ci-profile-recovery-20261115.json)。
+
+`6406f7af` 固定 clean source 的原完整 Electron smoke 第二次通过，所有原断言/时限保留：accessibility、diagnostics、streaming、effort-stability、work-surfaces，200 Bot 诊断无错误/私人字段，8 种开关主题通过，owned process 正常退出。第一次附件目录失败仍保留；此源码自测不替代83远端重跑或6406新 CI。

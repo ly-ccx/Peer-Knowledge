@@ -82,6 +82,40 @@
         "handleId": "owned-1",
         "pid": 67705
       }
+    },
+    {
+      "candidate": "6406f7aff79ef10a1d39c622547ee426868a351f",
+      "dirty": false,
+      "result": "pass",
+      "argv": "smoke:bots --accessibility --diagnostics --streaming --effort-stability --work-surfaces",
+      "reportSha256": "2f50d7481887fdeb70573ce65bb8171ee3179fa7514f011afa215051ef19c4f6",
+      "reportBytes": 533347,
+      "settingsSwitchStates": 8,
+      "diagnostics": {
+        "bots": 200,
+        "bytes": 139047,
+        "errors": 0,
+        "scope": "Real source Electron UI/preload/IPC/atomic export; native save destination controlled in isolated fixture; OS dialog interaction is an owner check",
+        "checks": [
+          "read actual stores",
+          "reject renderer destination",
+          "refresh real Developer panel",
+          "save redacted JSON",
+          "bounded events/turns",
+          "actual turn timing",
+          "no absolute paths, IDs or message text"
+        ]
+      },
+      "pageErrors": [],
+      "ownedStop": {
+        "ok": true,
+        "code": "stop-owned",
+        "signaled": true,
+        "exited": true,
+        "handleId": "owned-1",
+        "pid": 68716
+      },
+      "finishedAt": "2026-11-15T03:17:51.945Z"
     }
   ],
   "visualSelfReview": {
