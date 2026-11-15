@@ -148,3 +148,21 @@ Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budg
 兼容范围：当前旧 TS 的 worker 路径保留未知预算字段；delegation dispatch recovery 只删除 project_agent/spawn_session attempt，不能把该证明扩展到尚未迁移的 coordinator。必须用实际 TS read→saveWork→read 及 Native重读验证两种字段保留。旧引擎不负责结算新增快照，回退/同步仍受§7的 drain 要求；此条不声称已通过默认共享写入或发布验收。新增形状先冻结在 packages/protocol contract resources，复用现有 canonical journal、锁、身份与 Ledger，不建私有文件或第二套任务系统。
 
 验收包括：真实“模型→文件效果→硬退出→停稳→已知用量一次入账”；stop后/意图前硬退出；Store错误及回执丢失；未知快照仍先停稳、事实原样保留；TS往返与后续任务；无模型/工具重放。此前未携带分量快照的旧记录继续 unknown，不自动制造账目。
+
+### NR-04 可恢复的压缩历史选择与容量绑定（2026-11-15，实施前）
+
+A 级补充，修订 ADR57 §3.1/§3.6/不变式5。实际 TS split 在同一用户回合只保留原 user，现有 marker 插在 user 之前，冷读却重新引入其后的已压缩工具历史。daa4c478 的隔离基线 warm1/cold4 已保存。不能用内存历史宣称持久压缩成功，也不能删除原文或复制相同 id。
+
+既有 `_compaction` marker 允许可选 `historySelection:{version:1,compactionEpoch:<安全正整数>,retainedMessageIds:<原始消息id有序列表>}`。marker 追加在 canonical JSONL 末尾，原始消息和 Tool Result/Evidence 原位保留。选择仅引用 marker 之前唯一存在的非 marker user/assistant/tool 行，次序与原文一致；随后接 marker 后的新行。缺失、重复、乱序、未知版本、非法类型、超限或与后续重复身份均失败关闭，原文不动。上限在 packages/protocol resource 冻结。旧 marker 仍按既有 suffix 规则解释。
+
+Canonical projector 升至3，TS/Rust 同时实施、重生成差分 fixtures；新 marker epoch 进入 continuity metadata。选择只决定上下文，不提供许可、执行、Evidence 或完成真值。Renderer/Ratatui 不解释引用。压缩后必须从实际持久源重新投影、装配和计数，不能复用旧 count。
+
+容量继续使用既有 `.context-snapshots/<conversation>.json` 和 index mirror，不从账单恢复。新写入增加 `projectorVersion:3`、`compactionBoundaryId:null|<实际最后marker id>`。同模型、合法 provider-request observation、匹配 boundary/epoch 才能恢复 pending 基线。新选择出现后，缺失/旧 binding 和 superseded observation 不可复活压缩前高水位；未知快照保留，仅投影未知。summary 计费但 capacityBearing=false。
+
+Store 持既有 index→conversation 锁，以原 content/source revision CAS 追加完整 marker，随后更新派生 index。沿用 body已提交/index未完成时的显式 reconcile_index，不声称瞬时双文件原子。marker 已落盘而 snapshot 未更新时，即使旧 index revision 未推进，boundary 不匹配也必须使旧快照失效。当前 TS/Rust getter 同时核对。Native recover 在真实停稳后才修复派生 index、核对账目，不重放模型或工具，不删除旧 snapshot/unknown。
+
+首次原生 worker 会话若无模型 metadata，可由已通过准入的冻结 Goal model selection 写入实际绑定；已有不同绑定时拒绝，不覆盖用户选择。此 metadata 不是授权。System Context 增补注册的 continuity Source 和专用 summary cognition Source Adapter；历史原文只进入 user/factual payload。
+
+兼容限制：v3 selection 要求支持合同的当前 TS/Rust reader。旧发行版不能安全续跑新选择，不宣称任意旧二进制兼容。默认共享写入、安装和回退仍须 §7 联合兼容与 drain 门禁；本条授权源码及隔离夹具，不授权个人数据、安装或默认切换。
+
+验收覆盖真实工具后的自动压缩→落盘→重读→重建→重计数→发送；温/冷一致、原始字节及工具身份保留；summary/失败计费；overflow 单次恢复；marker后硬退出、index部分提交、旧容量不复活和后续任务；实际 TS↔Rust 冷读。未完成不得记 P4 总闸通过。

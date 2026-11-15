@@ -320,3 +320,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-14 NR-03：ADR 131 增补 canonical budget nativeRecorder v1 可选合同与原生停稳观测 Adapter；只证明 runner 死亡且无开放句柄，unknown/权限/Evidence/claim 收口要求不变，实施及验收另记。
 
 2026-11-14 NR-03 复核：ADR 131 补充真实 Provider 创建结果/Evidence/dispatch 已确认后，同 owner 的 missing file claim 身份确认；保留 unknown/closure/外来身份阻断，schema 不变。
+
+2026-11-15 ADR131/57: A-level historySelection v1, projector3 and capacity boundary binding supplement precedes implementation. Legacy markers retain suffix semantics; compatibility/recovery acceptance is tracked separately.
