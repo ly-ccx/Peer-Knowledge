@@ -1,7 +1,7 @@
 # 66. 浏览器工具的后台降级执行（Headless Fallback）
 
 创建时间：2026-08-21
-最后更新：2026-11-14（仅修正架构文档引用，决策不变）
+最后更新：2026-11-15（明确 L1 headless 降级适用于经典对话内嵌 `<webview>`；0.1.0 Project Bot 后台任务走 ADR 71 L2 + ADR 38 `web_fetch`；2026-11-14 曾修正架构文档引用）
 
 ## 状态
 
@@ -27,8 +27,10 @@ reveal 协调器请求 renderer 打开 Workbench Browser 面板，等 renderer a
 3. 云端模型流断连时，正在执行的浏览器工具调用被标记为「工具调用已中断（连接错误）」，
    文案与真实故障层（模型通道）不符，误导排查方向。
 
-根因是执行与展示的依赖方向反了。架构治理基线（`knowledge/architecture/20-architecture-governance.md`）说
+根因是执行与展示的依赖方向反了。[架构治理基线](../architecture/20-architecture-governance.md)说
 「界面负责表达」，表达层的缺席不应阻断能力执行。
+
+> **适用边界（2026-11-15 对齐）**：本 ADR 规定的是**经典前台会话 L1 内嵌 `<webview>`（`browser_*`）**在面板未挂载时的后台降级（取代 [ADR 59](59-browser-panel-reveal-capability.md) 无面板即失败）；在 0.1.0 **Project Bot 模式**（[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 5）下，`work_session` 不投影 L1 `browser_*`（改用 L2 Playwright [ADR 71](71-l2-playwright-external-browser.md) 与 [ADR 38](38-web-search-fetch-provider.md) `web_fetch`），L1 `BrowserSession` 仅服务于用户打开的右侧资源窗口标签、独立浏览器窗口及经典前台对话。
 
 ## 决策
 

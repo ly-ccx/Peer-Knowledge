@@ -1,7 +1,10 @@
 # ADR 108：CLI 基础壳命令
 
 创建时间：2026-11-06
-最后更新：2026-11-06
+最后更新：2026-11-15（补充重号消歧说明，并对齐 `peer update` 跨频道毕业语义）
+
+> [!NOTE] 重号消歧
+> 历史并发编写导致编号 `108` 同时对应 [108-cli-basic-shell-commands.md](108-cli-basic-shell-commands.md)（本篇，CLI 基础壳命令）与 [108-bot-reply-document-preview.md](108-bot-reply-document-preview.md)（Bot 回复文件引用预览）。外部引用 `ADR 108` 时必须附带完整文件名以免混指。
 
 状态：Accepted（2026-11-06 用户要求按本文实现；实现未发布验收）
 
@@ -51,7 +54,7 @@ peer export <session-id>
 
 | 规则 | 含义 |
 |---|---|
-| 通道 | `x.y.z` 只看正式版，`-beta.N` 只看 beta，`-rc.N` 只看 rc。不跨通道，也不把 rc 降到旧正式版 |
+| 通道 | **默认同通道更新**：`x.y.z` 看 `latest`（stable），`-alpha.N` / `-beta.N` / `-rc.N` 默认追各自预发布通道（对齐 [ADR 54](54-open-runtime-public-packages-and-release-policy.md)），不把预发布版降级到旧正式版。按 [ADR 61](61-beta-to-stable-channel-graduation.md) 的毕业规则，当 `latest`（stable）出现严格大于当前预发布版本的正式版时，`peer update` 支持毕业/切换至 `latest`（stable），不跨回低版本正式版 |
 | `--check` | 只报告当前版本、目标版本和来源，不下载、不替换 |
 | 节流 | 显式命令每次都检查。24 小时记录和 `PEER_AGENT_NO_UPDATE_CHECK=1` 只作用于经典界面的后台提示 |
 | 安装来源 | npm 全局包装执行 `npm install --global`；pnpm 执行 `pnpm add --global`；发行包归档替换同目录的 `peer` 与 `peer-credential-helper` |
@@ -60,9 +63,9 @@ peer export <session-id>
 
 发行包路径只替换文件名是 `peer` 或 `peer.exe` 的当前可执行文件。当前进程是 `bun`、`node` 或其他宿主时拒绝替换。
 
-经典界面里已有的后台提示可以保留：它仍然先确认再安装。默认机器人界面不因为本文新增自动安装。无人值守升级、切换通道、指定任意版本、同时升级 Desktop 或 Gateway，都不在本文。
+经典界面里已有的后台提示可以保留：它仍然先确认再安装。默认机器人界面不因为本文新增自动安装。无人值守升级、任意跨非毕业通道降级、指定任意历史版本，或同时升级 Desktop / Gateway，都不在本文（默认保持当前通道，并仅允许按 [ADR 61](61-beta-to-stable-channel-graduation.md) / [ADR 54](54-open-runtime-public-packages-and-release-policy.md) 向更高正式版 `latest` 毕业/切换）。
 
-ADR 48 里「阶段一可不做 CLI 自动更新」收窄为：仍不做无人值守安装。显式 `peer update` 属于基础命令。
+[ADR 48-cli](48-cli-first-class-release.md) 里「阶段一可不做 CLI 自动更新」收窄为：仍不做无人值守安装。显式 `peer update` 属于基础命令。
 
 ### 2. `peer sessions`
 

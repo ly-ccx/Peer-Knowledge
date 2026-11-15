@@ -1,8 +1,9 @@
 # ADR 99：权威回复回执、模型切换恢复与历史详情
 
 创建时间：2026-10-19
+最后更新：2026-11-15（修正 Architecture 文档引用；明确主 Bot 模型重基与 `work_session` 冻结分工的边界）
 状态：Accepted（用户要求查明连续失败根因、修复、自主验收并发布 RC）
-级别：A（执行事实与展示边界），B（主 Bot 续接）；继承 ADR 19、94、97、98。
+级别：A（执行事实与展示边界），B（主 Bot 续接）；继承 [System Context 架构](../architecture/19-system-prompt-context-architecture.md) 与 [ADR 94](94-reply-attempts-silent-wait-and-recovery.md)、[97](97-reasoning-replay-and-continuation-custody.md)、[98](98-large-history-execution-responsiveness.md)。
 
 ## 1. 现场证据
 
@@ -19,6 +20,8 @@
 ### 2.2 Model Recovery Admission
 
 Provider 的原生跨模型拒绝保持。协调层比较当前已解析 selection 与检查点 provider/providerId/model。完全相同则原生续接；不同且所有历史工具均已配对、账本无未知副作用时，启动同一 work 的新认知步，沿用实际 Tool Result/Evidence 的 bounded retryContinuity、当前上下文和用量，不回放旧调用、不重建原生 reasoning。未配对/未知派发继续阻止自动续接。旧 checkpoint 保留以供追溯。新模型自己依据当前事实决定后续操作，不能冒认旧轮交付成功。
+
+> **三层切换作用域澄清（2026-11-15 对齐）**：本节 `continuity_model_changed` 重基机制**仅适用于主 Bot（`project_agent`）**；受委派运行中的 `work_session` 子任务继续严格冻结在其 `spawn_session` 快照 `DelegationOrigin.modelSelection` 上（[ADR 83 §5](83-model-routing-by-role.md#5-开任务时冻结)），仅在步骤边界遇到不可用故障时可在角色过滤候选中切换，或由主 Bot 经 `ADR 91` 新派替代尝试换模型；单次底层传输重试仍遵循 [ADR 30](30-provider-recovery-broker.md) 同模型锁定。
 
 ### 2.3 Terminal Response Guard
 

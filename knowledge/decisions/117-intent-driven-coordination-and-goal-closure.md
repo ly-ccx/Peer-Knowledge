@@ -1,7 +1,7 @@
 # ADR 117：意图驱动的协调判断、持续责任与目标闭环
 
 创建时间：2026-11-01
-最后更新：2026-11-03
+最后更新：2026-11-15（补充 ADR 82 持久目标作为合法委派来源，以及与 ADR 120 / 126 / 127 对 §14–§15 资源等待契约的对齐）
 
 2026-11-03 契约澄清：见 [RC35 等待与接管闭环故障](../../playbook/v0.1.0/agent-wait-recovery-closure.md)。已有宿主准入的结构化静默等待独立收尾，既不累计也不清零无进展次数，不写失败、交付或完成；具体等待对象持久化，原 Intent 保持 active。接管只消费 Session Control 的停止证明，不另扫父 work 预算；原操作的当前 applied 空 unknown 停止回执可恢复误挂 transition，但必须严格匹配完整执行身份并经原端口重检目标、真人门、用户停止及租约。该等待不产生下一回合执行授权，不删除合法处置门禁，不变更存储、能力、权限或 Evidence。当前源码修复仅经内容/diff 审阅，未运行测试或发布验收。
 
@@ -201,7 +201,7 @@ IC-01：在现有 work 上保存 intentCoordination，单独的协调判断 revi
 | --- | --- |
 | `InputDisposition` / `IntentAssessment` | Protocol 的逐输入字段为 `inputId/kind/reason`；Bot、work、来源、双 revision 与 decisionRef 由包络和宿主回执关联，不在每条解释里复制权限。简单讨论沿原 Conversation/work 回复回执完成，不强制建立 Intent 或 GoalPlan，也不增加分类请求。 |
 | `intentCoordination` | 既有 work 上保存解释、覆盖、当前处置、核验及关闭；`intentDecisions` 是原 journal 的派生 bucket。`intent_assessed/reviewed/closed` 追加事实，不建立第二套任务状态。Covered 要求必须引用实际来源版本及非空 Evidence 引用，仍须通过宿主核验。 |
-| 当前输入 / 事件 / 持久继续 | 当前 canonical 来源或同一 active mandate 的持久 continue 可以承接下一阶段。`decisionTurnId` 由宿主签发；同一已准入回合重判处置仍可沿该回合的原来源承接，不因工具顺序丢资格。离开该回合的 wait/return 不因此变成未来唤醒授权，停止/目标版本与执行授权继续重检。 |
+| 当前输入 / 事件 / 持久继续 | 当前 canonical 来源、同一 active mandate 的持久 continue，或经用户创建/批准且绑定 `originMessageId` + 宿主 `objectiveActionId` 的活跃 [ADR 82](82-project-objectives-and-watches.md) `ProjectObjective(autonomy: 'act')`，可以承接下一阶段执行（仍须通过设备资源 claim 准入）。`decisionTurnId` 由宿主签发；同一已准入回合重判处置仍可沿该回合的原来源承接，不因工具顺序丢资格。离开该回合的 wait/return 不因此变成未来唤醒授权，停止/目标版本与执行授权继续重检。 |
 | `return.replyRef` / `IntentReplyBinding` / `ReplyGoalScope` | query 返回宿主预留引用，正式 `post_reply` ID 由原 Composer 生成；宿主从当前判断和真实引用结果绑定实际 canonical 消息。同一回复可关联多个明确目标，但各目标分别 CAS 关闭，不借用对方子任务范围。旧目标版本的回复不能关闭新目标。 |
 | 原生 yield 的判断承接 | 只有宿主恢复了匹配渠道、模型与 family 的完整原生检查点，且保护的上一 outcome 确为 yielded、非失败/停止/预算阻塞，当前 work/goal/decision 仍一致时，才在内部 job 保存 `resumedIntentDecisionRef`。后续切片可沿这份判断绑定实际回复，仍由当前核验、真实签收与 kernel 关闭；不重写模型判断或生成新执行权限。普通安静 wake、目标修订、模型切换及失败恢复不能借用该标记。TUI 原生现场携带 providerId/model/modelFamily，由原 encoder Adapter 保留格式，缺少可证明身份的旧现场不强行复用。 |
 | 根核验与既有结果复用 | 首次准备交还时复用可证明覆盖原输入/要求的当前核验，否则调用原只读 Verifier seam；根要求/版本纳入请求身份，不复用子阶段的 native checkpoint。已经交付的同版本结果可在安静 wake 复用；新用户问题仍需自己的回复。公开文本、model assessment 或新 Evidence ID 均不能替代核验/签收。 |
@@ -224,7 +224,7 @@ IC-01：在现有 work 上保存 intentCoordination，单独的协调判断 revi
 - 组合实现采用完整特性门槛 **9**，保留已有 2–8 的历史读取和各自真实 reducer，并在原 journal/派生存储同时承接 Session Control 与 Intent 记录。开始写入组合语义前按既有 head/manifest/reader/writer/executor 机制提升最低版本；重建保留最高门槛。旧 7 或独立 8 writer/executor 不得接管新的活跃格式 9 数据，不能仅把支持版本数字调大而缺 reducer。
 - 旧格式 7 的 Session Control/资源账本恢复与旧格式 8 的 Intent 恢复各按原事实成立。8 在独立分支不含设备资源账本语义，不能因 `minimumWriter >= 7` 就推断它已建立资源存储；首次组合准入仍由 ADR116 的 legacy 导入/停稳/unknown 保护完成。真正已启用资源契约的 7/9 若缺失其设备账本，继续 fail closed，不通过重建空账本解锁。
 - 根目标关闭、子任务签收和资源释放仍分别取原真源。Intent Adapter 不代行停止屏障，不从 return/fulfilled 推导 released；Session Control 也不从停稳推导目标已满足。保留旧执行代次、未知调用、Provider 句柄、用户暂停/取消、预算与原授权边界。
-- 本轮不扩展模型可提交的资源等待引用：尚无正式 Adapter 的 `wait.resource` 仍明确返回不可用；已排队会话沿现有 session/资源事实与宿主事件继续。存在设备资源账本不等于模型可自行构造 claim 或资源资格，不能将此未开放入口包装为已实现能力。
+- 本轮不扩展模型可提交的资源等待引用：尚无正式 Adapter 的 `wait.resource` 仍明确返回不可用；已排队会话沿现有 session/资源事实与宿主事件继续。存在设备资源账本不等于模型可自行构造 claim 或资源资格，不能将此未开放入口包装为已实现能力。（**2026-11-15 对齐**：§14/§15 中的 `resource_adapter_unavailable` 指**模型主动传入未开放 `wait.resource` 参数**时的边界拒绝，以及合入 ADR 116 前历史独立分支的状态；在现行联合契约 [ADR 120](120-runtime-facts-disposition-and-resource-wait.md) 与 [ADR 126](126-execution-resource-claim-closure-and-unknown-retention.md) §5.5 下，真实资源竞争产生的 `execution_resource_unavailable` / `resource_protection` / `coordination_reconciliation_required` 仅写排队或阻塞的资源等待事实、不得写为 `work.end = fatal`，并在资源释放或受控闭包（[ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)）后按稳定 ID 唤醒队列。）
 - 验证必须覆盖 7/8 记录重开、9 的最低门槛/manifest 丢失重建/旧 writer 拒绝、控制与意图记录共存，以及最终组合候选的全量 build/test/type/architecture/IPC 和产品回归。组合源码已实现于代码 PR253：保留两类 reducer 与索引桶，显式写入格式 9；历史 7/8 重开、两类记录共存、manifest 丢失及 head 高于 manifest 的恢复用例已通过。格式 8 不被误认为已有资源账本，7/9 缺账本仍拒绝准入。最终组合版本的发布验收尚未完成，结果另记于发布回执；不修改个人数据或当前实例。
 
 RC32 初始化顺序补修（代码 PR253，`b03a4711`）：任何首次启用联合格式 9 的写入口先通过既有 ExecutionResources 建立并检查设备账本，再发布协调格式门槛。Intent/回复写入不创建 claim 或执行授权；真正准入仍由原 Scheduler 的 legacy 导入和资源契约负责。真实格式 7 夹具包含账本，独立格式 8 可以没有账本；已激活 7/9 的账本遗失继续拒绝新建空库。首次 Intent 后账本 revision 为 0 且无 claim，删除账本并重开后拒绝继续准入、保留可读意图历史的用例通过；44 项相关桌面/意图/控制用例和 24 项意图/资源用例通过。它们是组合修复过程证据，最终 RC 联合候选另行全量验证。

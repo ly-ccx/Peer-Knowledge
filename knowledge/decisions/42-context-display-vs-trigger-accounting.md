@@ -1,8 +1,8 @@
 # ADR 42：上下文计数口径分离（显示口径 vs 压缩触发口径）
 
 - 创建时间：2026-06-30
-- 最后更新：2026-07-01
-- 状态：已采纳并落地（方案 A，实现完成，已验证）
+- 最后更新：2026-11-15（标明整体契约已被 [ADR 52](52-unified-next-request-context-accounting.md) 与 [ADR 56](56-provider-observed-context-accounting.md) 取代）
+- 状态：**Superseded**（历史上作为方案 A 在 2026-07-01 落地验证；其「显示口径与触发口径统一收口」后续已由 [ADR 52](52-unified-next-request-context-accounting.md) 与现行 [ADR 56](56-provider-observed-context-accounting.md) 取代）
 - 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 
 ## 背景与现象

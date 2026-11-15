@@ -1274,7 +1274,7 @@ Project instructions from: ...
   - official Anthropic：`thinking: { type: 'enabled', budget_tokens }`，并保证 `max_tokens > budget_tokens`。
   - idealab Anthropic gateway：`thinking: { type: 'adaptive' }` + `output_config: { effort: 'high' }`。
 - 未声明能力时，深度模式降级为 prompt-level guidance，不改变 provider wire shape。
-- 已声明能力但返回空响应时，视为 provider/native reasoning 不兼容：同一轮自动用 `supportsReasoning=false` 重试，并持久关闭该 provider 的 `supportsReasoning`。
+- 已声明能力但返回空响应时，视为当前回合与 native reasoning 不兼容：同一回合自动以 `supportsReasoning=false` 做有界重试（**仅限本次会话/回合级别临时降级，不得持久化写回关闭该 provider 配置中的 `supportsReasoning`**；旧持久关闭行为已在 [ADR 24](../decisions/24-provider-cache-and-empty-response-guard.md) 明令废止）。
 - 已声明能力但 provider 通过 SSE `type:error` 返回不兼容原因时，必须返回 `provider_stream_error` 和 provider trace，而不是把错误帧吞掉后报空响应。
 
 验收：
@@ -1282,7 +1282,7 @@ Project instructions from: ...
 - 未开启 `supportsReasoning` 的 Anthropic provider 在 `effort=high` 下不发送 `thinking`。
 - 未开启 `supportsReasoning` 的 OpenAI provider 在 `effort=high` 下不发送 `reasoning_effort`。
 - 开启能力后原生 deep 参数仍可用，并由 provider adapter 解析 thinking side channel。
-- 开启能力后若 native deep 空响应，用户不会看到 `empty_model_response`，下一次请求也不会再次发送不兼容 native reasoning 参数。
+- 开启能力后若 native deep 空响应，用户不会看到 `empty_model_response`，且 `supportsReasoning` 配置保持用户原设置不被偶发空响应永久覆盖（见 [ADR 24](../decisions/24-provider-cache-and-empty-response-guard.md)）。
 - Provider trace 落在 `~/.peer-agent/provider-traces/YYYY-MM-DD.jsonl`，记录 request shape summary、HTTP status、SSE event/delta summary、stream error、empty stream anomaly；不得记录 API key 或完整 prompt。
 
 ### Phase 5：Prompt Snapshot

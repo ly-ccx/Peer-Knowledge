@@ -200,7 +200,7 @@ Goal Thread   这件事上的多轮目标
 | 执行 | GoalPlan / Runner | 怎么推进、证没证完 | GoalPlan store，不是聊天文本 |
 | 载体 | Conversation | 双方说了什么 | 会话库；主键仍是 `conversationId`；任务会话以 `parentConversationId` 挂在项目代理下 |
 | 事实 | Evidence | 声明是否发生过 | Evidence，不是摘要 |
-| 认知 | 记忆 | 这个项目和这个人有什么值得记住的 | `~/.peer-agent/memory/`，带来源与证据引用；不是指令，不是证据 |
+| 认知 | 记忆 | 这个项目和这个人有什么值得记住的 | `<dataRoot>/projects/<workspaceId>/memory/`（项目记忆）与 `<dataRoot>/memory/`（跨项目用户偏好），见 ADR 81 / 85；带来源与证据引用；不是指令，不是证据 |
 | 交付物 | Artifact | 人可以打开什么 | 文件、截图、报告；生成了文件 ≠ 完成 |
 
 口诀：
@@ -297,7 +297,9 @@ Memory / Skill 沉淀是复利，不是主路径上的必经站。未验证的�
 
 ## 8. 壳怎么表达这条链路
 
-壳层由**原型 A：任务壳 + 工作台雷达**迁移到**项目代理壳**（ADR 80，改造总纲阶段 F）。迁移完成前原型 A 仍是线上壳。不做工单台。
+0.1.0 默认主形态已收敛为 Local-First **机器人列表 + 项目代理对话壳**（[ADR 74](../../knowledge/decisions/74-deployment-surfaces-and-local-storage.md)、[ADR 80](../../knowledge/decisions/80-project-agent-delegation-model.md)、[ADR 84](../../knowledge/decisions/84-bot-list-shell.md)、[ADR 85](../../knowledge/decisions/85-project-agent-hosts-inputs-and-surfaces.md)，改造总纲阶段 F 已合入；早期“原型 A（任务壳 + 工作台雷达）作为线上过渡壳”的阶段已完成主壳交接，经典入口仅作 `--classic` / 设置开关过渡保留）。不做工单台。
+
+（注：原 `知识库路径` 说明以仓库相对路径为准；以下界面承接矩阵继续适用项目代理壳，其中资源区随 [ADR 109](../../knowledge/decisions/109-resource-reference-preview-and-artifact-collaboration.md) 与 [ADR 125](../../knowledge/decisions/125-resource-window-directory-tabs.md) 按需在对话右侧展开多标签资源工作区或独立资源窗口。）
 
 | 人看见 | 服务哪些节点 | 禁止做成 |
 |---|---|---|
@@ -373,7 +375,7 @@ Memory / Skill 沉淀是复利，不是主路径上的必经站。未验证的�
 | 文档 | 管什么 | 不管什么 |
 |---|---|---|
 | **本文** | 理念、人群、品类、价值、主轴、对象、委托链路 | 具体阶段票、协议字段、UI 像素 |
-| `peer-transformation-charter.md` | 当前壳层与改造阶段（原型 A、验收抽屉、Git 线、阶段 F 项目代理壳） | 另立品类或人群 |
+| `peer-transformation-charter.md` | 阶段切换与改造历史记录（原型 A 到项目代理壳阶段 F 的演进；当前 0.1 默认主壳已切入项目代理列表壳） | 另立品类或人群 |
 | `knowledge/decisions/80-project-agent-delegation-model.md` | 项目代理委托模型的决策与被取代条目 | 运行时字段细节 |
 | `project-agent-workbench.md` | 项目代理壳的界面、动线、分期 | 运行时契约 |
 | `peer-product-roadmap.md` | 活的产品路线图：现状、近/中/远景、有序赌注、非目标 | 另立理念、人群或品类 |

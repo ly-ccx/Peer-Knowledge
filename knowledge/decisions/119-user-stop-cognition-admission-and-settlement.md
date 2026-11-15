@@ -1,7 +1,7 @@
 # ADR 119：用户停止、认知续跑准入与宿主收尾
 
 创建时间：2026-11-03
-最后更新：2026-11-07（文末说明已接受的 ADR 124 只收窄「不增加工具通道」草案中的三件义务工具。本文仍未接受）
+最后更新：2026-11-15（跨 ADR 对齐：标明 §6.3 `FollowUp.handling` 与 §12 门禁 `10` 已被 [ADR 120](120-runtime-facts-disposition-and-resource-wait.md) / [ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 事实取代；本文仍为 Proposed）
 状态：Proposed（用户要求先写完整 ADR；尚未批准实施，未改变运行行为）
 级别：A（停止范围、认知准入、控制回执、持久恢复与版本契约），B（协调调度、Provider 重试及交付），C（同源状态表达）。
 
@@ -142,6 +142,8 @@ bot_current 在同一项目 writer 下先提交根集合截点和封闭谓词，
 
 ### 6.3 责任与处理方式
 
+> [!NOTE] 对齐说明（2026-11-15，本文仍未接受）：下述直接在 `FollowUp` 投影中新增 `handling` 的条款已被已采纳的 [ADR 120](120-runtime-facts-disposition-and-resource-wait.md) 事实取代；`handling`（`model` / `host` / `user` / `none`）已作为特性门槛 `9` 下的 `RuntimeSessionFacts.handling` 与派生 `SessionExecutionProjection` 落地，不再在 `FollowUp` 上另增平行 `handling` 状态字段。若未来采纳本 ADR 的认知续跑准入与代次栅栏，应直接消费 ADR 120 的既有投影边界。
+
 在唯一 FollowUp 投影中增加 `handling`，作为当前权威事实的只读推导，不新增可独立写入的责任状态：
 
 | handling.kind | 必要依据 | 能否据此调用模型 |
@@ -261,6 +263,8 @@ Provider 内重试、fallback、工具后的下一轮、Verifier/Explorer 再调
 
 沿已登记 projectRuntime 的 coordination-v2 journal/blob 追加 WorkControlOperation、目标集合和摘要引用；WorkReceipt/checkpoint 只保留必要索引及代次。设备资源 DB、PermissionGrant、Conversation、GoalPlan、Evidence 和用量继续保持原所有权，不建立平行停止账本。未决控制与屏障引用纳入 ADR113 的可达保留集合，不被普通 checkpoint GC 清除。
 
+> [!NOTE] 门禁号失效说明（2026-11-15）：原下文预留门禁 `10` 已作废并不得再占用——特性门槛 `9` 已由 [ADR 120](120-runtime-facts-disposition-and-resource-wait.md) 落地，门禁 `11` 已由 [ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 占用。后续若采纳本 ADR 的认知续跑准入与代次栅栏，**必须预留并升级至 `> 11`（`12+`）的下一未占用特性门槛**，禁止回退或复用 `10`。
+
 当前联合特性门槛为 9。本提案预留 `user_stop_cognition_admission_v1` 能力，并在首次写入前同步提升 minimum reader/writer/executor 至 10；实施前如编号被其他主线变更占用，先更新本节及兼容矩阵再实施。数值较大不代表兼容，必须具备原 7/8/9 reducer 与新语义。head、manifest、重建、portable 导入与只读投影均不能降低门槛。
 
 迁移由正常取得宿主权的兼容 Runtime 执行，先完成只读盘点与格式准入，再加法提交；开发时不直接编辑生产 JSON。迁移判断如下：
@@ -355,4 +359,4 @@ Provider 内重试、fallback、工具后的下一轮、Verifier/Explorer 再调
 
 ## 后续（2026-11-07，本文仍未接受）
 
-[ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 已于 2026-11-07 20:03（Asia/Shanghai）接受并授权实施。它给主 Bot 增加只读核实、出示授权卡和授权后退役跟进三件工具，因此只收窄本文草案里“不增加工具通道”这一句。本文其余条款仍未接受，认知代次仍未授权实施。ADR 124 不实现那些条款，也不占用本文预留的格式门槛 10。聊天文字仍然不是停止证据，也不是授权。接受 ADR 124 不等于接受本文。
+[ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 已于 2026-11-07 20:03（Asia/Shanghai）接受并授权实施（占用协调格式门禁 `11`），此前 [ADR 120](120-runtime-facts-disposition-and-resource-wait.md) 已以门禁 `9` 将 `RuntimeSessionFacts.handling` 单独先行落地。ADR 124 给主 Bot 增加只读核实、出示授权卡和授权后退役跟进三件工具，因此只收窄本文草案里“不增加工具通道”这一句，且本文 §6.3 关于 `FollowUp.handling` 的拟议写法已被 ADR 120 取代。本文其余条款仍未接受，认知代次仍未授权实施；若后续实施本文，特性门槛必须顺延至 `> 11`（`12+`，原预留 `10` 已作废）。聊天文字仍然不是停止证据，也不是授权。接受 ADR 120 或 ADR 124 不等于接受本文。

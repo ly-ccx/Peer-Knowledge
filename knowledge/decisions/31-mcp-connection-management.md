@@ -3,6 +3,14 @@
 ## Status
 
 Accepted locally on 2026-06-15.
+最后更新：2026-11-15（跨 ADR 对齐：更新架构文档相对路径，明确 Local-First Desktop + CLI/TUI 共用本地 `mcp-registry` 与 ADR 0001 fail-closed `peer-credential-helper`）
+
+> [!NOTE] 与 Local-First 架构及 ADR 0001 / 32 / 45 对齐（2026-11-15）
+>
+> - 本 ADR 撰写于早期的“云端 Runtime Gateway + Electron Desktop 单宿主”时期。在现行 Local-First 与 Desktop/CLI 共生架构（参见 [ADR 48-cli](48-cli-first-class-release.md)、[ADR 74](74-deployment-surfaces-and-local-storage.md)、[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md)、[ADR 112](112-runtime-module-and-loading-boundaries.md)）下：
+>   1. **本地执行主路径不再绕行 Cloud Gateway**：Desktop 与 CLI/TUI 共用本地 `<dataRoot>` 下的 `mcp-registry` 配置与状态边界（替代早先 `Electron <userData>/mcp/servers.json` 单宿主假设），由本地 Agent Runtime / Local Tool Host 直接投影并执行 Local MCP；保留的远端约束仅指“远端服务不得直连用户本机端口”。
+>   2. **凭据解析收敛至 ADR 0001 Helper**：文中 `safeStorage / OS keychain` 统一收敛至跨宿主 [`peer-credential-helper`](0001-cross-platform-credential-vault.md) 与 [ADR 32](32-mcp-authentication.md)（严格 fail-closed，禁止明文回退；现有 `mcp-credential-store.mjs` `safeStorage` 实现记为迁移债务）。
+>   3. **传输与认证已超越初期 `stdio` MVP**：HTTP / Streamable HTTP / SSE 与 `oauth2` 自动发现已按 [ADR 32](32-mcp-authentication.md) 与 [ADR 45](45-mcp-oauth-config-ux-simplification.md) 纳入主链路。
 
 ## Context
 
@@ -21,7 +29,7 @@ Capability Provider
           -> Evidence
 ```
 
-`docs/architecture/15-plugin-skill-mcp-system.md` 已经明确：
+早期架构草案现已归位于同目录 `knowledge/decisions/`：[15-plugin-skill-mcp-system.md](15-plugin-skill-mcp-system.md) 已经明确：
 
 - `MCP` 是工具与资源的传输协议，不等同于 `Plugin` 或 `Skill`。
 - MCP 必须区分 `cloud` 与 `local` 两种 locality。
@@ -29,8 +37,8 @@ Capability Provider
 - Cloud MCP 由云端 Runtime 或可信服务环境执行，不走本地 runtime channel。
 - Local MCP 与 Plugin / Shell 一样，必须通过 Manifest 和 Runtime Projection 后才能被 Agent 看见。
 
-`docs/architecture/16-skill-call-lifecycle.md` 已经明确：本地工具调用必须经由
-Runtime Gateway Client、Local Tool Host 和 Capability Provider Registry，禁止为
+[16-skill-call-lifecycle.md](16-skill-call-lifecycle.md) 已经明确：本地工具调用必须经由
+Runtime Gateway Client（现行本地宿主中对应本地 Runtime / Local Tool Host）和 Capability Provider Registry，禁止为
 Bash / MCP / Plugin 另开旁路。
 
 因此，本 ADR 解决的问题是：
@@ -483,13 +491,12 @@ MVP 可以先实现 Local MCP 方法，Cloud MCP 方法可以保留协议草案�
 
 ### 1. Local MCP Registry
 
-Local MCP registry 是 main process 管理的本地事实源，存储在 Electron `userData`
-下。推荐路径：
+Local MCP registry 是本地宿主（Desktop 与 CLI/TUI 共享，早先方案写作 Electron `userData` 下）管理的本地事实源。目标跨宿主共享布局为 `<dataRoot>/mcp/`（兼容过渡期 `<userData>/mcp/`）：
 
 ```text
-<userData>/mcp/servers.json
-<userData>/mcp/manifest-cache.json
-<userData>/mcp/diagnostics.jsonl
+<dataRoot>/mcp/servers.json          # 对应统一 shared mcp-registry 配置源
+<dataRoot>/mcp/manifest-cache.json
+<dataRoot>/mcp/diagnostics.jsonl
 ```
 
 或后续收敛到统一 Capability / Plugin registry。无论路径如何，renderer 不得直接读写。
@@ -522,7 +529,7 @@ Local MCP registry 是 main process 管理的本地事实源，存储在 Electro
 
 - Secret 明文只能在 main process 内短暂存在。
 - Registry 中只保存 `secretRef`。
-- `secretRef` 由 safeStorage / OS keychain / 未来组织 secret provider 解析。
+- `secretRef` 规范由跨宿主 [`peer-credential-helper`](0001-cross-platform-credential-vault.md) / 加密 Vault（fail-closed，禁止明文回退）或后续组织 secret provider 解析（现存 Desktop `safeStorage` 实现参见 [ADR 32](32-mcp-authentication.md) 迁移债务说明）。
 - Renderer view 只显示 `hasSecret: true`、`secretName` 或脱敏占位，不返回 secret 值。
 - 导出配置默认不导出 secret；导入时必须重新绑定 secret。
 

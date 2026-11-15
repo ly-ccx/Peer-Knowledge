@@ -1,7 +1,7 @@
 # ADR 96：任务执行期间的响应性与有序持久化
 
 创建时间：2026-10-18
-最后更新：2026-11-06（消息终态、稳定输入排序与恢复事实补充）
+最后更新：2026-11-15（补充 §3.1 与 ADR 104-progressive、§3.3 与 ADR 121 的演进衔接说明；2026-11-06 消息终态、稳定输入排序与恢复事实补充）
 状态：Accepted / Implemented（按负责人授权顺序实施；本地、真实模型与产品回归结果见 §8）
 级别：A。关联：ADR 85、86、88、91、94、95；工程治理、产品理念与产品回归流程继续生效。
 
@@ -31,6 +31,8 @@ RC16 正式包的相关模块与安装中的模块哈希相同。排查只读取
 
 ### 3.1 Coordination Journal Reader
 
+> **[部分演化提示（2026-11-15）]**：单文件 `coordination.jsonl` 尾部增量读缓存随后已由 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 的 `coordination-v2` 分段 journal 与 `.read-models/coordination-<cacheId>.sqlite` 派生读模型进一步演进；v1 基线只读读者仍保留本节校验与隔离快照不变量。
+
 Interface 保留 `createWorkCoordinationStore(...).read()` 返回独立快照，写方法继续验证 lease/epoch。Implementation 记住已提交的文件身份、已消费 byte offset、revision 和完整行边界；相同文件无变化直接返回隔离副本，追加只读取尾部。
 
 - 采用 byte offset，保留 UTF-8 分片正确性；不以 JavaScript 字符数定位文件。
@@ -52,6 +54,8 @@ Interface 在现有 SVG BotAvatar 增加明确的展示动效资格，默认静�
 无障碍名称、机器人颜色、SVG 形状、上传图片和键盘焦点保持可读；不以“减少动态效果”全局开关作为唯一性能修复。
 
 ### 3.3 Conversation Terminal Committer
+
+> **[部分演化提示（2026-11-15）]**：Desktop 会话路径后续由 [ADR 121](121-desktop-session-windowing-contract.md) 进一步确立为有界窗口读取与 `append` 优先契约，不再在常规回合整文件重读；本节 `commitStreamingMessage` 仍约束遗留流终态回补路径的准备/替换/屏障原子性。
 
 在 Conversation Store 内新增深 Module，提供异步 `commitStreamingMessage(conversationId, messageId, patch)`；返回轻量提交回执，不把整份历史跨 worker 传回主线程。旧同步 API 保留给兼容调用方，生产流终态接入新接口。
 

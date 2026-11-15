@@ -2,7 +2,12 @@
 
 ## Status
 
-Implemented locally on 2026-06-17.
+Accepted（Implemented locally on 2026-06-17；最后更新：2026-11-15，对齐主进程 `append` 持久化边界，标注 `conversations:replace-messages` 在活跃聊天与 Project Bot 主链路已被取代）。
+
+> [!NOTE] 与 ADR 85 / ADR 96 / ADR 121 对齐（2026-11-15）
+>
+> - 原先由渲染层全量写回历史数组（`conversations:replace-messages`）承担持久化的假设，在活跃对话执行、Goal Runner 与 Project Bot 主链路中**已被宿主侧增量 `append`（`store.appendMessage` / [ADR 121](121-desktop-session-windowing-contract.md) `SessionService.append`，参见 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 与 [ADR 96](96-task-execution-responsiveness.md) §实施追踪补记）取代**；`conversations:replace-messages` 仅残留在部分显式编辑/重发或历史兼容分支中。
+> - 每条助手消息携带可选 `durationMs` 展示元数据、而不并入 `lifetimeUsage` 计费账本（[ADR 25](25-runtime-usage-ledger.md)）的核心契约继续成立，仅改为随宿主 `append` / 终态写入一并落盘。
 
 ## Problem
 

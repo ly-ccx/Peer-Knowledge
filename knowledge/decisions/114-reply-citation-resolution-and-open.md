@@ -1,13 +1,13 @@
 # 114. 回复引用的定位与打开
 
 创建时间：2026-10-30
-最后更新：2026-10-30
+最后更新：2026-11-15（消歧 [ADR 108-bot](108-bot-reply-document-preview.md) 引用）
 状态：Accepted。本文件是点击回复引用时的操作规范。
 级别：A。它不新增访问根、模型工具或执行链；补齐失败表达和未适配格式的打开动作时，沿既有 file:read 与系统打开。
 
 ## 权威关系
 
-允许哪些根、如何阻止越界，以 [ADR 108](108-bot-reply-document-preview.md) 为准。引用类型、右侧工作区、错误语义和格式阶段，以 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) 的 §6、§8、§10 为准。
+允许哪些根、如何阻止越界，以 [ADR 108-bot](108-bot-reply-document-preview.md) 为准。引用类型、右侧工作区、错误语义和格式阶段，以 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) 的 §6、§8、§10 为准。
 
 2026-07-05 的 `design/product/workbench-file-preview-rendering.md` 只保留 Markdown 排版和主题 token。它的「待落地」和格式矩阵不再决定引用怎么打开。
 
@@ -41,7 +41,7 @@
 
 1. 当前机器人的项目根。
 2. 用户已经登记的工作区，以及当前活动工作区。
-3. 按 ADR 108 确认过的 Peer-Knowledge 根。显式配置无效就报错，不悄悄换一个。
+3. 按 [ADR 108-bot](108-bot-reply-document-preview.md) 确认过的 Peer-Knowledge 根。显式配置无效就报错，不悄悄换一个。
 4. 引用带有任务 `sessionId` 和 `planId` 时，只使用该任务已经记录的交付根。宿主每次重新核对归属。
 
 不递归搜盘，不因为这句话提到了某个仓库就把它登记成新根，不跟随跑出上述根的 `../` 和符号链接。

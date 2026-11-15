@@ -1,7 +1,9 @@
 # Peer Agent Runtime 调用生命周期
 
-> 状态：本地能力链仍有效。原文写的「宙斯客户端 / Cloud CEO Gateway」已作废，不再是产品主语。  
+> 状态：本地能力链仍有效。原文写的「宙斯客户端 / Cloud CEO Gateway」已作废，不再是产品主语。
+> 最后更新：2026-11-15（跨 ADR 对齐：Clarify `scope.cwd` 与 ADR 49 / 90 / 92 / 101 规则衔接）
 > 当前边界：认知可来自任意模型 provider；能力执行、授权与 Evidence 始终本地。云端 Gateway 推送 `client_tool_call` 若仍存在，只是可选通道，不是 Peer 的身份。
+> 跨 ADR 补充：文中 Shell `allow` rule 对工作区绑定（`scope.cwd`）与局部权限的作用，在经典对话跨工作区探索时受 [ADR 49](49-cancel-path-hard-sandbox.md) 及随后 [ADR 90](90-local-image-capability-and-product-review.md) / [ADR 92](92-scoped-permission-inheritance.md) / [ADR 101](101-bot-owned-access-policy.md)（`realpath` 防 symlink 逃逸、`PermissionGate` / `bot-access.sqlite` 与委派作用域继承）统摄。
 
 这份文档替代旧的本地 `tool:dispatch` / Adapter Server 设计。客户端不再作为本地
 WebSocket server 等待 Node Service 连接。
@@ -101,7 +103,7 @@ destructive 默认拒绝。
 `PermissionReview` 是写入 Shell PermissionRule 的唯一正式入口。`allow` rule 必须满足：
 
 - match 只能是 `exact` 或足够具体的 `prefix`，不能使用 wildcard。
-- 必须绑定 workspace 内的 `scope.cwd`。
+- 必须绑定作用域对应的 `scope.cwd`（默认指向工作区内；经明确授权允许工作区外 `cwd` 的规则须按 [ADR 49](49-cancel-path-hard-sandbox.md) / [ADR 92](92-scoped-permission-inheritance.md) / [ADR 101](101-bot-owned-access-policy.md) 受边界与继承约束）。
 - 必须声明 `scope.maxRiskLevel`，且不能覆盖 `L5_destructive`。
 - renderer 不能直接写入 raw rule store。
 

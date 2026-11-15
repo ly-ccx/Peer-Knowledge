@@ -1,13 +1,13 @@
 # ADR 126：执行资源 claim 的受控闭包、unknown 保留与隔离逃生
 
 创建时间：2026-11-09
-最后更新：2026-11-09（因知识库主线新增 ADR 125「资源窗口目录标签」，本文由 ADR 125 改号为 ADR 126；内容不变）
-状态：Proposed（用户要求给出根因修复方案并按 A 级流程先写 ADR；尚未实现，不表示已修复、已发布或已验收）
+最后更新：2026-11-15（正式转为 Accepted，与 ADR 127 配套生效；对齐克隆交回边界与格式门槛说明；2026-11-09 曾由 ADR 125 改号为 ADR 126）
+状态：Accepted（2026-11-15 用户确认与 ADR 127 一并转为正式接受契约；源码实施与发布验收按实际候选证据另记）
 级别：A（执行资源、停止/闭包契约、授权与证据边界、持久化格式）；实施包含 B 级宿主/协议/迁移与 C 级界面表达。
 
-2026-11-09：ADR 127（已接受）扩展本文 §5.3 / §5.4 的授权模型（用户按项目 + Bot 主体委托 `ask / bot_verified` 两档收口；原提案的 `auto` 档在评审中取消）；本文的闭包、`RetainedUnknown`、计划镜像和证据机制继续有效。
+2026-11-09 / 2026-11-15：[ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)（已接受）扩展本文 §5.3 / §5.4 的授权模型（用户按项目 + Bot 主体委托 `ask / bot_verified` 两档收口；原提案的 `auto` 档在评审中取消）；本文的闭包、`RetainedUnknown`、计划镜像、隔离 clone 逃生和证据机制正式生效。
 
-关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[委托运行时](../architecture/project-agent-delegation-runtime.md)、[人机交互契约](../specifications/peer-human-agent-interaction-contract.md)、ADR [91](91-project-bot-autonomous-coordination.md)、[92](92-scoped-permission-inheritance.md)、[101](101-bot-owned-access-policy.md)、[110](110-follow-up-responsibility-and-current-list.md)、[116](116-session-control-and-resource-settlement.md)、[119](119-user-stop-cognition-admission-and-settlement.md)、[120](120-runtime-facts-disposition-and-resource-wait.md)、[124](124-legacy-stop-obligation-controlled-resolution.md)。
+关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[委托运行时](../architecture/project-agent-delegation-runtime.md)、[人机交互契约](../specifications/peer-human-agent-interaction-contract.md)、ADR [91](91-project-bot-autonomous-coordination.md)、[92](92-scoped-permission-inheritance.md)、[101](101-bot-owned-access-policy.md)、[110](110-follow-up-responsibility-and-current-list.md)、[116](116-session-control-and-resource-settlement.md)、[119](119-user-stop-cognition-admission-and-settlement.md)、[120](120-runtime-facts-disposition-and-resource-wait.md)、[124](124-legacy-stop-obligation-controlled-resolution.md)、[127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)。
 
 本文修正 ADR 116 与 ADR 124 的**永久占用边界**，不推翻它们的其他条款：
 
@@ -97,7 +97,7 @@ ADR 116 的 claim 解决两个问题：
 | 远端未围栏、`live`、未结束句柄 | 对应拒绝类 | 闭包拒绝；保留 claim 与现有诊断 |
 | 用户拒绝闭包风险 | 任意可闭包类 | 提供“在独立克隆中继续”；原 claim 不动 |
 
-“独立克隆”指宿主管理的完整 clone（独立对象库和 `.git`），不是共享 `.git` 的 worktree。它只作为不释放原锁的逃生路径，不改变原 claim、unknown 或历史；任务输出通过分支/补丁交回，发布/合并仍走原有授权。
+“独立克隆”指宿主管理的完整 clone（独立对象库和 `.git`），不是共享 `.git` 的 worktree。它只作为不释放原锁的逃生路径，不改变原 claim、unknown 或历史；任务输出通过分支/补丁交回（不得复用 ADR 68 / 79 中已淘汰的默认直写 / 静默 `AUTO_MERGE` 交回），发布/合并仍走原有授权（ADR 80 决策 7–8）。
 
 ### 5.2 受控闭包对象
 
@@ -126,7 +126,7 @@ ADR 116 的 claim 解决两个问题：
 
 ### 5.3 授权与卡片
 
-闭包只来自宿主卡片，不来自模型参数：
+闭包在 `ask` 档只来自宿主卡片（在 `bot_verified` 档则按 [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md) §5.4–§5.6 在用户预授权策略下由宿主校验证据后签发），两者均不来自模型参数：
 
 - 卡片逐条列出：涉及目录、原任务、claim 年龄、未知调用 id、是否登记缺失、闭包后 unknown 仍保留、不会重放、不会标成功、目录将恢复可写；如可得，附该目录自未知调用以来的本地变更摘要（只读提示，不是证据，也不自动判定安全）；
 - 一次最多 20 条；每条独立确认；
@@ -141,7 +141,9 @@ ADR 116 的 claim 解决两个问题：
 1. `session-cancellation.recover`：仅当 `unsettledExecution(plan).length > 0` 时才跳过 `awaiting_outcome`；空集走现有 `drain`/`settle`，生成 `unknownCalls: []` 的回执。
 2. 启动对账：设备账本先按 ADR 124 分类；`recorder_dead_clear` 立即结清，不等用户；其余只出示诊断/闭包卡。
 3. `execution-resources.reconcile`：对已闭包的 claim 不得 `protect` 回 `reconciling`；闭包记录必须写入协调 journal，不能只写在派生 SQLite。
-4. journal 重建后，闭包结果必须从 journal 恢复；旧 control 不能覆盖闭包。实现时按主线实际占用提升最低 reader/writer/executor 门槛到下一个可用整数：ADR 124 计划使用 11，10 预留给尚未接受的 ADR 119；本 ADR 不得复用 10/11，也不得在 PR 297 合并前把 11 当成已发布事实。
+4. journal 重建后，闭包结果必须从 journal 恢复；旧 control 不能覆盖闭包。实现时按主线实际占用提升最低 reader/writer/executor 门槛到 `> 11` 的下一个可用整数（主线 ADR 124 已占用 `11`，未接受的 ADR 119 所占 `10` 已作废且不得复用；也不得在 PR 297 / 306 等候选合并前把未合入版本当作已发布事实）。
+
+> 补充（2026-11-15，与 ADR 127 对齐）：按已接受的 [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)，闭包确认除 `ask` 档下由 `user_panel` 卡片逐条确认外，还可在用户预先委托的 `bot_verified` 策略档下，由主 Bot 请求对账探针后交宿主校验证据与风险包络并签发受控收口；两者共用 `RetainedUnknown`、计划镜像、死亡证明与审计边界，`auto` 档保持取消。
 
 ### 5.5 资源等待不是终态
 
@@ -245,4 +247,4 @@ ADR 116 的 claim 解决两个问题：
 - `@peer-agent/protocol`、`@peer-agent/runtime-node`、`@peer-agent/desktop` typecheck 通过；`runtime-node`、`tui` build 通过；`ipc:check` 通过（409 channels / 443 preload operations）。
 - CI run `42547320802` 在 macOS 与 Ubuntu 通过（提交 `88c21673`）；CI run `42552035897` 在 macOS 与 Ubuntu 通过（提交 `fe905198`）。
 
-未完成：独立 clone 逃生、独立 journal 闭包事件与版本门槛、存量迁移/诊断、完整 release 门禁与桌面/产品回归。本 ADR 仍为 Proposed；代码 PR 不应在 ADR 接受前合并。
+未完成（2026-11-09 候选基线）：独立 clone 逃生、独立 journal 闭包事件与版本门槛、存量迁移/诊断、完整 release 门禁与桌面/产品回归。本文已于 2026-11-15 与 ADR 127 一并转为 Accepted 契约；源码合并与发布验收仍按实际交付候选独立核算。

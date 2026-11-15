@@ -1,7 +1,7 @@
 # 75. 远程读取预检：通过不等于获得执行权
 
 创建时间：2026-09-26
-最后更新：2026-09-26
+最后更新：2026-11-15（跨 ADR 对齐：补注 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 8 的 4 个 opt-in project 操作与远程无授权底线）
 
 ## 状态
 
@@ -19,7 +19,7 @@ A 级。远程入口的协议、准入和「网关不持有执行真相」都由
 - `apps/gateway/src/remote-task-router.mjs`（只中转）
 - `apps/desktop/electron/main/runtime-gateway/remote-goal-read.mjs`（设备侧再次校验后才读）
 - `packages/runtime-node/src/remote-device-connection.mjs`（设备自己发布的委托投影）
-- ADR 85 决策 6、8（0.1.0 将把本机 `workspaceId` 与这里的委托名单对齐，并在同一条预检链上增加 `project.*`；那些操作不在本文范围内）
+- [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 6、8（0.1.0 将本机 `workspaceId` 与这里的委托名单对齐，并在同一条预检链上开放 4 个显式 opt-in `project.*` 远端操作：`project.list`、`project.snapshot`、`project.open` 与受约束的 `project.message`；远端无权限授权能力、`remote_*` 执行受显式委派策略与只读/主 Bot 边界约束）
 
 ## 决策
 
@@ -32,6 +32,6 @@ A 级。远程入口的协议、准入和「网关不持有执行真相」都由
 
 ## 不做什么
 
-- 不做远程执行、远程写文件、远程批准。
+- 不做远程任意工具执行、远程写文件或远程审批（PermissionGrant 授权与破坏性/执行决策始终留在本机策略与本地交互确认中；即便开启 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 8 的 4 个 opt-in project 操作，也不得未经显式受控委派策略在远端批准权限或直接执行任意本机工具）。
 - 不把 Gateway 变成任务或 Evidence 的存放处。
 - 不在本文里改身份存储（钥匙串或文件）和扫码授权。那是 `remote-access-simple-implementation.md` 的范围，实现前仍是设计。

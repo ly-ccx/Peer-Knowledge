@@ -2,6 +2,13 @@
 
 Status: Accepted
 Date: 2026-06-16
+最后更新：2026-11-15（跨 ADR 对齐：合入 `oauth2`、废止 `file-fallback` 明文降级、强制迁入跨宿主 `peer-credential-helper`）
+
+> [!NOTE] 与 ADR 0001 / ADR 45 对齐（2026-11-15）
+>
+> 1. **遵循失败关闭原则**：依据 [ADR 0001（跨平台凭证 Vault 与统一 Helper）](0001-cross-platform-credential-vault.md)，本 ADR 原 `file-fallback` 与代码遗留 `plaintext-fallback` 方案自 2026-11-15 起废止；系统安全存储或 Vault 不可用时必须失败关闭并报错，禁止写回明文或受限权限明文文件。
+> 2. **跨宿主统一 Helper 与迁移债务**：Desktop（及后续 CLI / TUI）共享 `mcp-registry` 与同一跨宿主 `peer-credential-helper` / 加密 Vault（参见 [ADR 31](31-mcp-connection-management.md)）；`apps/desktop/electron/main/mcp-credential-store.mjs` 当前仍使用 Electron `safeStorage` + `PLAINTEXT_FALLBACK_SCHEME = 'plaintext-fallback'`，属于待完成的**迁移债务（migration debt）**，必须按 ADR 0001 §4 迁移路径迁入 `peer-credential-helper`。
+> 3. **认证模式合入 OAuth 2.0**：结合 [ADR 45](45-mcp-oauth-config-ux-simplification.md)，`McpAuthBinding.mode` 正式包含 `'oauth2'`（配合 PKCE / discovery / loopback 回调，OAuth client secret 与 tokens 同属不透明凭证，不回传渲染层）。
 
 ## Context
 
@@ -66,7 +73,7 @@ Server records may contain:
 
 ```ts
 interface McpAuthBinding {
-  mode: 'none' | 'http_bearer' | 'http_header' | 'stdio_env';
+  mode: 'none' | 'http_bearer' | 'http_header' | 'stdio_env' | 'oauth2';
   credentialRef?: string;
   headerName?: string;
   envName?: string;
@@ -90,7 +97,7 @@ interface McpCredentialMetadata {
   createdAt: string;
   updatedAt: string;
   lastFour?: string;
-  storage: 'safeStorage' | 'file-fallback';
+  storage: 'credential-helper-vault' | 'safeStorage-legacy'; // `file-fallback` / `plaintext-fallback` 已被 ADR 0001 废止
 }
 ```
 
@@ -124,16 +131,11 @@ The resolver must validate binding/credential compatibility before injecting.
 
 ## Storage
 
-The Credential Store is a main-process module.
+目标跨宿主架构由 [ADR 0001](0001-cross-platform-credential-vault.md) 定义：Desktop 与 CLI/TUI 不再各自直连 Electron `safeStorage` 或绕过安全存储落盘，而是统一通过独立原生 `peer-credential-helper` 读写版本化 AES-256-GCM 加密的 `credentials.vault.json`（主密钥由 macOS Keychain / Windows Credential Manager + DPAPI / Linux Secret Service 保护）。
 
-Preferred backend:
-
-- Electron `safeStorage` encryption when available.
-
-Fallback backend:
-
-- A local file under Peer Agent data home with restricted file mode where supported.
-- The fallback is explicitly marked as `file-fallback` in metadata so the UI can warn users.
+- **目标后端（规范要求）**：跨宿主 `peer-credential-helper` + 加密 Vault（`credential-helper-vault`），与 LLM Provider 凭证共享同一 fail-closed 安全边界。
+- **失败语义（Fail-Closed）**：平台安全存储或 `peer-credential-helper` 不可用时**必须失败关闭**，拒绝写入/读取凭证并向 UI 返回明确可操作错误；**禁止**回退到 `file-fallback` 或 `plaintext-fallback`（原“Restricted-mode local fallback file”设计自 2026-11-15 起废止）。
+- **现网迁移债务**：当前 Desktop 主进程实现 `apps/desktop/electron/main/mcp-credential-store.mjs` 仍暂用 Electron `safeStorage` 并带有 `PLAINTEXT_FALLBACK_SCHEME = 'plaintext-fallback'` 历史逻辑；后续清理时须按 ADR 0001 §4 执行一次性安全迁移并彻底移除明文降级分支。
 
 This keeps the seam replaceable. A future platform keychain adapter can replace the fallback without changing renderer, registry, MCP client, or runtime projection contracts.
 
@@ -189,7 +191,7 @@ Positive:
 
 Tradeoffs:
 
-- `safeStorage` availability differs by platform/session; fallback must be clearly marked.
+- 目标上通过 `peer-credential-helper` 实现 Desktop 与 CLI/TUI 共享 MCP 凭证；平台安全存储不可用时严格失败关闭而非明文降级（在 `mcp-credential-store.mjs` 迁移完成前，须将其 `plaintext-fallback` 视作明确迁移债务）。
 - Changing credentials should disconnect affected MCP clients so pooled transports do not retain old auth.
 - Import/export of MCP registry cannot export secret values; users must re-enter credentials on another machine.
 

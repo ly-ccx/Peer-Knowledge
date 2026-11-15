@@ -1,8 +1,14 @@
 # Plugin / Skill / MCP 能力体系设计
 
 日期：2026-05-20
+最后更新：2026-11-15（标注早期设计草案中已作废的云端 Skill / wildcard 放行 / 单一 `<userData>` 路径条款）
 分支：`dev/0.0.1`
-状态：设计草案
+状态：设计草案（保留 Capability → Manifest → Projection → Tool Call → PermissionGrant → Evidence 主链；下述三项早期条款已被后续 Accepted ADR 明确取代）
+
+> [!NOTE] 已作废条款提示（2026-11-15）
+> 1. **云端 `SkillDefinition` 模型已作废**：下文 §十一（`SkillDefinition` 属于云端 Runtime）已被 [ADR 58](58-local-skill-scope-and-workspace-mounting.md) 与 [ADR 16](16-skill-call-lifecycle.md) 取代——Skill 是本地发现与渐进披露的 `~/.peer-agent/skills/` 与 `<workspace>/skills/` 目录包，不设云端专属 `SkillDefinition`。
+> 2. **Shell `allow` 通配规则与旧沙箱已作废**：下文 §5.3 中的 `{ type: 'wildcard'; pattern: string }` 在 `allow` 规则内明确禁止，且路径与工作区访问边界以 [ADR 49](49-cancel-path-hard-sandbox.md)、[ADR 92](92-scoped-permission-inheritance.md)、[ADR 101](101-bot-owned-access-policy.md) 为准。
+> 3. **Desktop 独占 `<userData>/plugins/registry.json` 路径已作废**：本地配置与安装存储统一遵循 [ADR 74](74-deployment-surfaces-and-local-storage.md) 与 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 的跨宿主 `<dataRoot>` 约定。
 
 本文定义 Peer Agent 的能力扩展体系。这里刻意区分三个经常被混在一起的对象：
 
@@ -344,7 +350,7 @@ interface ShellPermissionRule {
   match:
     | { type: 'exact'; command: string }
     | { type: 'prefix'; prefix: string }
-    | { type: 'wildcard'; pattern: string };
+    | { type: 'wildcard'; pattern: string }; // [已作废：allow rule 明确禁止 wildcard；路径/规则边界见 ADR 49/92/101]
   scope: {
     cwd?: string;
     maxRiskLevel?: CapabilityRiskLevel;
@@ -998,6 +1004,8 @@ interface PluginMcpServerConfig {
 本地私有工具默认使用 `stdio`。服务型本地工具可以使用 local Streamable HTTP，但前提是进程生命周期和端口所有权明确。
 
 ## 十一、Skill Definition
+
+> **[已作废条款（2026-11-15）]**：该早期云端 `SkillDefinition` 模型已作废，实际基线以本地发现/挂载的 [ADR 58](58-local-skill-scope-and-workspace-mounting.md) 与 [ADR 16](16-skill-call-lifecycle.md) 为准。
 
 `SkillDefinition` 属于云端 Runtime。
 

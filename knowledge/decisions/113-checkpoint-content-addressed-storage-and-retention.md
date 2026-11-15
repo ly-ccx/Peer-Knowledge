@@ -1,13 +1,13 @@
 # ADR 113：检查点内容寻址存储与本机数据保留
 
 创建时间：2026-10-29
-最后更新：2026-10-29
+最后更新：2026-11-15（跨 ADR 对齐：将拟议特性门槛从 `6` 迁至 `> 11` 未占用代次，并明确引用 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)；全文仍为 Proposed）
 
 状态：Proposed（用户要求先写决策、审阅后再实现；2026-10-29 用户已对 §6 的四个问题作出决定，全文待用户审阅后转为 Accepted 再实施）。§4.6 恢复入口由用户 2026-10-29 选择先写入本文、随即实施，不等待其余部分审阅。
 
 级别：A（检查点持久化格式、读写版本门槛、数据保留边界、恢复 IPC 操作），B（Coordination Store、恢复服务与保全包的实现 seam、恢复入口的显示与退出）。
 
-关联：[ADR 74 本机存储策略](74-deployment-surfaces-and-local-storage.md)、[ADR 90 本地图片](90-local-image-capability-and-product-review.md)、[ADR 97 推理回传与续接责任](97-reasoning-replay-and-continuation-custody.md)、[ADR 104 协调日志增量存储](104-progressive-interaction-and-coordination-storage.md)、[ADR 105 可移植基线完整性](105-portable-coordination-baseline-integrity.md)、[ADR 111](111-project-agent-duplex-supervision-and-continuity.md)、[协调历史恢复卡](../../playbook/coordination-history-recovery.md)。触发排查：[Peer-Agent #234](https://github.com/ly-ccx/Peer-Agent/pull/234)。
+关联：[ADR 74 本机存储策略](74-deployment-surfaces-and-local-storage.md)、[ADR 90 本地图片](90-local-image-capability-and-product-review.md)、[ADR 97 推理回传与续接责任](97-reasoning-replay-and-continuation-custody.md)、[ADR 104-progressive 协调日志增量存储](104-progressive-interaction-and-coordination-storage.md)、[ADR 105 可移植基线完整性](105-portable-coordination-baseline-integrity.md)、[ADR 111](111-project-agent-duplex-supervision-and-continuity.md)、[协调历史恢复卡](../../playbook/coordination-history-recovery.md)。触发排查：[Peer-Agent #234](https://github.com/ly-ccx/Peer-Agent/pull/234)。
 
 ## 1. 现场依据
 
@@ -20,7 +20,7 @@
 | 其中去重后的消息内容 | 48 MB | 约 44 万次消息出现，只有约 7,900 条不同消息 |
 | 其中内联图片 | 3.3 GB | 9,877 次出现，只有 4 张不同图片（约 1.3 MB）；抽查的几张都是用户在对话中附带的截图 |
 | 恢复保全包 | 1.3 GB | 去重后约 0.5 GB |
-| 协调日志 v2 | 1.4 MB | ADR 104 生效后的增量格式；同一历史的 v1 原文 236 MB |
+| 协调日志 v2 | 1.4 MB | ADR 104-progressive 生效后的增量格式；同一历史的 v1 原文 236 MB |
 | 一个中断任务的工作树 | 1.1 GB | 其中依赖目录 Electron 807 MB |
 
 按本文 §4.2 的切分方式在同一份数据上离线模拟（测量期间项目仍在运行，文件数增至 3,298）：清单合计 81 MB（平均 24.6 KB，最大 193 KB），去重对象 46.5 MB，总计约 128 MB，为原体积的约 3%。重新组装后每个检查点逐字节等于原文。
@@ -33,11 +33,11 @@
 
 ## 2. 问题定位
 
-存储总体原则（ADR 74：大对象走文件系统与引用、索引进 SQLite、日志追加）与协调日志的增量化（ADR 104）是对的，本次数据也证明 v2 日志有效。失控的是三处没有被设计覆盖的地方：
+存储总体原则（ADR 74：大对象走文件系统与引用、索引进 SQLite、日志追加）与协调日志的增量化（ADR 104-progressive）是对的，本次数据也证明 v2 日志有效。失控的是三处没有被设计覆盖的地方：
 
-1. **检查点格式。** 每次保存都把截至当时的完整 Provider 消息数组整份序列化，用户附件图片以 base64 内联。`checkpoint()` 以 `sha256(owner + '\n' + body)` 命名，只有整份正文完全相同才去重；每次多一条消息就是一个新文件，实际上从不去重。单个检查点里 `outcome.plan.turnProfile.providerCheckpoint` 与 `outcome.providerCheckpoint` 还会各存一份高度重叠的完整对话。ADR 104 明确把检查点排除在增量化之外（“原生检查点沿现有 content hash 去重”“检查点/真实 Evidence 的增长单独列出”）。ADR 90 只撤去本地图片观察的像素；用户附件按设计保留，于是在每个后续检查点里重复。
-2. **恢复保全包的实现重复。** ADR 104 补充契约要求“先保全两条原始日志、所有被引用的普通/原生检查点、输入队列与游标等关联控制资料”，没有要求复制多份。`backupInputs` 把 inspection 已保全过的检查点再以 base64 嵌入一个 JSON，并在每次重试时用随机名重写。
-3. **没有保留分类。** 任何文档都没有区分“永不自动删除的事实”“可重建缓存”和“只为续跑存在的执行材料”。ADR 104 写明“轮转限制单文件，不宣称历史总存储恒定”“失败留下的未引用对象不自动清理现有任务材料”，这是正确的保守立场，但也意味着依赖目录、过期执行材料与真实事实被同等对待。
+1. **检查点格式。** 每次保存都把截至当时的完整 Provider 消息数组整份序列化，用户附件图片以 base64 内联。`checkpoint()` 以 `sha256(owner + '\n' + body)` 命名，只有整份正文完全相同才去重；每次多一条消息就是一个新文件，实际上从不去重。单个检查点里 `outcome.plan.turnProfile.providerCheckpoint` 与 `outcome.providerCheckpoint` 还会各存一份高度重叠的完整对话。ADR 104-progressive 明确把检查点排除在增量化之外（“原生检查点沿现有 content hash 去重”“检查点/真实 Evidence 的增长单独列出”）。ADR 90 只撤去本地图片观察的像素；用户附件按设计保留，于是在每个后续检查点里重复。
+2. **恢复保全包的实现重复。** ADR 104-progressive 补充契约要求“先保全两条原始日志、所有被引用的普通/原生检查点、输入队列与游标等关联控制资料”，没有要求复制多份。`backupInputs` 把 inspection 已保全过的检查点再以 base64 嵌入一个 JSON，并在每次重试时用随机名重写。
+3. **没有保留分类。** 任何文档都没有区分“永不自动删除的事实”“可重建缓存”和“只为续跑存在的执行材料”。ADR 104-progressive 写明“轮转限制单文件，不宣称历史总存储恒定”“失败留下的未引用对象不自动清理现有任务材料”，这是正确的保守立场，但也意味着依赖目录、过期执行材料与真实事实被同等对待。
 
 另一个局部问题：直接读写 `checkpoints/` 文件的代码散在三个 Module（`work-coordination-store` 与其两个只读视图、`coordination-recovery-service` 的 `checkpointReader`/`backupInputs`、`coordination-fork-recovery` 的清点与复制）。格式变化会同时冲击三处，Locality 不足。
 
@@ -47,7 +47,7 @@
 2. 读取得到的检查点与写入时逐字节等价（重新序列化后哈希相同）。ADR 97 要求的原生 reasoning、tool_calls 与配对 Tool Result 完整保留；恢复时丢弃旧 system 消息的规则不变。
 3. ADR 90 不变：本地图片观察的像素在切分之前已经撤去，新格式不会把它们重新持久化。用户附件继续保留，只是只存一份。
 4. 失败关闭：对象缺失、哈希不符、清单损坏都返回结构化错误，不当作空检查点、不当作可续跑、不静默降级到旧状态。
-5. 本文不删除任何对话、Evidence、Tool Result、GoalPlan、用户附件、协调日志或恢复保全包。格式迁移是无损重编码，只有在新表示经校验与原文逐字节等价后才移除旧文件。这修订了 ADR 104 §5.1“保留旧 coordination.jsonl 和原 checkpoints”中关于检查点的物理含义：保留的是逐字节可还原的逻辑内容，不再要求保留 v1 物理文件；协调日志原文的保留要求不变。
+5. 本文不删除任何对话、Evidence、Tool Result、GoalPlan、用户附件、协调日志或恢复保全包。格式迁移是无损重编码，只有在新表示经校验与原文逐字节等价后才移除旧文件。这修订了 ADR 104-progressive §5.1“保留旧 coordination.jsonl 和原 checkpoints”中关于检查点的物理含义：保留的是逐字节可还原的逻辑内容，不再要求保留 v1 物理文件；协调日志原文的保留要求不变。
 6. 检查点不是 Evidence，也不进入模型 System Context；本文不改变任何上下文准入、权限或签收语义。
 
 ## 4. 决策
@@ -79,13 +79,13 @@ project-runtime/<workspaceId>/
 - **清单。** 记录 schemaVersion、splitterVersion、owner、逻辑字节数、逻辑 SHA-256，以及去掉对象值后的 JSON 树和按 JSON 路径登记的槽位表（路径、对象哈希、字节数、编码类型）。不在正文里插入可能与原数据冲突的魔法键。`job`、`outcome.rounds` 的结构与小字段留在清单内，使恢复/续接视图只读清单即可投影。
 - **写入顺序。** 先写对象：临时文件、fsync、原子改名，已存在的对象核对字节数后复用；再写清单，同样 fsync 并改名，然后对目录 fsync；最后返回 ref，由调用方提交引用它的事件。崩溃只会留下未被引用的对象，不会出现引用了不存在对象的清单。
 - **读取与校验。** 优先 v2 清单，没有时读 v1 文件。每个对象读出后校验哈希；组装后校验 `sha256(owner + '\n' + body)` 等于 ref。按文件身份（dev、ino、size、mtime、ctime）缓存已校验对象，沿用现有只读视图的有界缓存方式。任何一步失败返回 `checkpoint_object_missing`、`checkpoint_object_corrupt` 或 `checkpoint_manifest_invalid`，现有续跑准入按缺失检查点处理（`RECOVERY_CHECKPOINT_UNAVAILABLE`），不放行执行。
-- **版本门槛。** 项目第一次写入 v2 清单之前，先在 durable head 记录 minimumWriterVersion 6，再原子提升协调 manifest 的 minimumReaderVersion/minimumWriterVersion 到 6（当前最高为 ADR 111 的 5）。与 ADR 111 相同，head、回放和维护恢复都必须保持最高所需版本；manifest 丢失后从 head 重建时不得降回旧门槛，否则旧宿主会在 v1 文件已移除后仍通过打开检查。不认识 v2 的旧宿主因此在打开项目时就失败关闭，而不是在某个续跑点才发现检查点缺失。与 ADR 104 一致，不承诺升级后旧二进制可降级续跑。
+- **版本门槛。** 项目第一次写入 v2 清单之前，先在 durable head 记录预留的目标 `minimumWriterVersion`（**须取 `> 11` 的下一未占用代次，待正式接受时在 `12+` 定号；严禁使用已被既有/在途演进占用的 `6–11` 门禁**），再原子提升协调 manifest 的 `minimumReaderVersion`/`minimumWriterVersion` 到该目标代次（截至 ADR 124 已占至 `11`，早先草案所写的“6（当前最高为 ADR 111 的 5）”已因门禁顺延而作废）。与 ADR 111 相同，head、回放和维护恢复都必须保持最高所需版本；manifest 丢失后从 head 重建时不得降回旧门槛，否则旧宿主会在 v1 文件已移除后仍通过打开检查。不认识 v2 的旧宿主因此在打开项目时就失败关闭，而不是在某个续跑点才发现检查点缺失。与 ADR 104-progressive 一致，不承诺升级后旧二进制可降级续跑。
 - **数据目录登记。** 两个新目录登记在 DATA_STORE_ENTRIES 的 projectRuntime（device）条目注释中，不进入 portable 导出；ADR 105 的可移植范围不变。
 
 ### 4.3 旧检查点的无损迁移
 
 - 迁移自动进行，不需要用户触发（§6）。在持有项目租约、空闲且没有未完成恢复 intent 的时段，后台 worker 分批把 v1 文件转成 v2：写对象与清单，按 owner 重新组装并校验哈希等于 ref，再移除 v1 文件。owner 来自当前状态与保全包中的绑定；无法确定 owner 的孤立文件只做“逻辑正文与原文件逐字节相同”的校验。
-- 迁移带持久 intent 与进度游标，可取消、可断点续做，重复执行幂等。迁移不占用 renderer 和 Electron main 的同步循环，交互优先（沿用 ADR 104 的 worker 原则）。
+- 迁移带持久 intent 与进度游标，可取消、可断点续做，重复执行幂等。迁移不占用 renderer 和 Electron main 的同步循环，交互优先（沿用 ADR 104-progressive 的 worker 原则）。
 - 被未完成恢复 intent、fork inspection 来源证明或保全包引用的 v1 文件，在对应流程结束前不迁移，避免改变它们绑定的来源摘要。
 - 校验不通过的文件保持原样，并记录结构化原因；不删除、不跳过后伪装成功。
 
@@ -102,7 +102,7 @@ project-runtime/<workspaceId>/
 | 类别 | 内容 | 规则 |
 | --- | --- | --- |
 | 事实 | 对话、Evidence、Tool Result 正本、GoalPlan、用户附件、协调日志（含 v1 冻结原文）、恢复保全包 | 永不自动删除；只能由用户显式操作删除，并在操作前说明后果 |
-| 可重建缓存 | read-models、索引、`cache/`、v2 中未被任何清单或保全包引用且超过 24 小时的对象 | 可以自动清理；缺失时按 ADR 104 重建，不能把缺失当作空状态。孤儿对象没有逻辑身份，清理它们不触及任何被引用的任务材料，与 ADR 104 的保守立场一致 |
+| 可重建缓存 | read-models、索引、`cache/`、v2 中未被任何清单或保全包引用且超过 24 小时的对象 | 可以自动清理；缺失时按 ADR 104-progressive 重建，不能把缺失当作空状态。孤儿对象没有逻辑身份，清理它们不触及任何被引用的任务材料，与 ADR 104-progressive 的保守立场一致 |
 | 执行材料 | 检查点（清单与对象） | 本文不设过期。去重后体积已降到原来的约 3%，先观察真实增长，再决定是否为已终态工作设保留期；届时须另行补充决策，包括回收回执和“已按策略回收”与“损坏”的区分 |
 
 任务工作树中的依赖安装目录（如 `node_modules`）属于可重建内容，但所在工作树还承载任务的源码改动和续跑能力，归属 GoalPlan/任务工作树的交付契约。按 §6 的决定，只提供手动清理：用户对已结束或中断的任务显式触发，只删除依赖安装目录，保留源码与改动；任务正在执行或其工作树仍被租约占用时不可清理；之后重新进入该任务需要重新安装依赖。不自动回收。具体入口由任务工作树交付契约承接。
@@ -111,7 +111,7 @@ project-runtime/<workspaceId>/
 
 2026-10-29 同一现场，用户发现恢复完成后聊天顶部的恢复入口一直不消失。18 项待核对的旧执行只能逐项结束，每项都要暂停并重启一次项目运行时。“保全历史并安全继续”在恢复完成后仍可点，每点一次都会再写一份约 314 MB 的 `received-inputs`。
 
-本节修订 ADR 104 2026-10-28 补充中的两条：恢复 IPC“操作仅包括检查、保全恢复、复查续跑和保留成果结束旧执行……以及互斥的 workId/sessionId”；“聊天顶端提供明确的原因、下一步和‘检查并恢复’入口”。其余隔离、准入、取消与保全语义不变。
+本节修订 ADR 104-progressive 2026-10-28 补充中的两条：恢复 IPC“操作仅包括检查、保全恢复、复查续跑和保留成果结束旧执行……以及互斥的 workId/sessionId”；“聊天顶端提供明确的原因、下一步和‘检查并恢复’入口”。其余隔离、准入、取消与保全语义不变。
 
 - **显示条件。** 入口只在有事需要用户处理时出现，包括以下任一情况：
   - 宿主现有的恢复状态显示受阻；
@@ -176,7 +176,7 @@ project-runtime/<workspaceId>/
 - **无损。** 对迁移覆盖的全部 ref，组装结果的 `sha256(owner + '\n' + body)` 等于 ref；续接、恢复视图、续接责任、核验续跑端口与回复恢复准入在 v1 与 v2 下得到相同结果。
 - **崩溃一致性。** 在对象写入后、清单写入前，清单写入后、事件提交前，迁移中移除 v1 文件前后分别强杀进程；重启后无丢失，迁移幂等。
 - **损坏。** 对象缺失、对象哈希不符、清单截断、槽位指向错误都失败关闭，续跑不被放行，错误码可诊断。
-- **版本门槛。** 第一次写 v2 后，旧宿主打开项目即拒绝；删除 manifest 后经 head 重建，门槛仍为 6。
+- **版本门槛。** 第一次写 v2 后，旧宿主打开项目即拒绝；删除 manifest 后经 head 重建，门槛仍保持所选 `> 11` 目标代次（严禁退回或复用已占用的 6–11 门槛）。
 - **体积。** 使用脱敏的同形状生成夹具（约 3,000 个检查点、数百条消息的对话、少量 MB 级附件反复出现），v2 物理体积不超过 v1 的 5%；单次新检查点的写入量与新增消息和清单大小成正比，而不是与历史长度成正比。
 - **保全包。** 恢复重试不新增第二份 `received-inputs`；清理 `checkpoints-v2/objects` 后保全包仍可完整还原。
 - **ADR 90 回归。** 本地图片观察像素仍不出现在任何清单或对象中。

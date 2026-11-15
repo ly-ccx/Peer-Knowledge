@@ -1,8 +1,14 @@
 # ADR 22 — HMR/重载后的流式重连(Stream Reattach on Reload)
 
-状态: Accepted（实现中）
+状态: Accepted（实现中；2026-11-15 补注：隐藏思考回传渲染层与早先单活跃流口径已被后续 ADR 部分取代）
+最后更新: 2026-11-15
 级别: A 级（触及运行时流式状态留存 + 新增跨进程 IPC 契约 + renderer 时序）
-关联: 19-system-prompt-context-architecture, 20-architecture-governance
+关联: [19-system-prompt-context-architecture.md](../architecture/19-system-prompt-context-architecture.md), [20-architecture-governance.md](../architecture/20-architecture-governance.md)
+
+> [!NOTE] 部分取代说明（2026-11-15）
+>
+> 1. **隐藏 `thinking` 不进入渲染层**：文中将 `accumulatedThinking` 回传 renderer 展示的做法已在后续主链路中被 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 与 [ADR 87](87-user-turn-live-process-presentation.md) 取代——内部 `thinking` 内容永不向渲染层公开展示，重连/过程展示只暴露受控的公开正文增量、过程步骤及脱敏摘要。
+> 2. **多流与主 Bot 运行指示**：§§1–3 中早期“当前唯一活跃流 / 仅用 `sessionStorage` 认领单流”的口径已在下文「扩展 — 全局活跃流状态广播」与 Project Bot 活动快照中扩展为跨会话 `runningConversationIds` 多流真值与 [ADR 87](87-user-turn-live-process-presentation.md) 回合级过程恢复（单流 `chat:stream:reattach` 仅服务经典前景流 reload 兼容）。
 
 ## 背景
 

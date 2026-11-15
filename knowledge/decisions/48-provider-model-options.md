@@ -1,7 +1,10 @@
 # 48. 渠道无关的模型选项与渠道投影
 
 创建时间：2026-07-17
-最后更新：2026-07-17
+最后更新：2026-11-15（补充重号消歧说明，并与 ADR 28 / 37 / 83 对齐选项边界）
+
+> [!NOTE] 重号消歧
+> 历史并发编写导致编号 `48` 同时对应 [48-provider-model-options.md](48-provider-model-options.md)（本篇，渠道无关的模型选项与渠道投影）与 [48-cli-first-class-release.md](48-cli-first-class-release.md)（CLI 与 Desktop 同仓一等发布）。外部引用 `ADR 48` 时必须附带完整文件名以免混指。
 
 ## 状态
 
@@ -57,6 +60,7 @@ type LlmModelOptionValues = Record<string, string>;
 - 存储只保存经过定义校验的 `optionValues`，不复制整份目录定义。
 - 读取旧配置时，缺少 `optionValues` 等价于使用当前目录默认值。
 - 目录刷新后，仍存在且合法的选择继续保留；已移除或非法值回退默认值。
+- **与渠道/角色分工边界对齐（2026-11-15）**：`optionValues` 与 [ADR 37](37-provider-channel-and-wire-protocol-separation.md) `ChannelDescriptor.capabilities` 及 [ADR 83](83-model-routing-by-role.md) `ModelTierBinding` / `RoleSetting`（`reasoningEffort`、`fastMode`）正交；模型路由校验与故障切换选型时，必须同时确认目标模型实例下已选 `optionValues` 对新渠道/模型有效或安全回退默认值。
 - 多个 provider 组即使选择同一模型，也分别保存各自的选项值。
 - 凭证、OAuth token 和本地 CLI 鉴权信息不进入模型选项。
 

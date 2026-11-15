@@ -1,7 +1,7 @@
 # 83. 模型分工：档位 + 角色，用户说了算，开任务时冻结
 
 创建时间：2026-09-24
-最后更新：2026-10-24（补齐档位参数、角色继承覆盖与请求通道）
+最后更新：2026-11-15（明确三层模型切换边界：同模型单次重试 / 档位边界切换 / 主 Bot 重基 vs 子任务冻结；对齐 effort 全词表、渠道能力裁剪及专用通道归属）
 
 ## 状态
 
@@ -44,7 +44,7 @@ A 级。改变模型绑定契约（从「一个会话一个模型」到「按角
 
 按用户授权扩展已有模型分工契约（A 级），沿原设置存储、typed model-routing IPC 和 Provider encoder seam。每个 ModelTierBinding 增加可选 reasoningEffort 与 fastMode；无字段继续使用模型默认强度与正常通道。RoleSetting 三种模式均可覆盖：reasoningEffort 未提供时跟随所选档位，null 明确恢复最终模型默认，合法字符串为显式强度；fastMode 未提供时跟随所选档位，false 明确正常，true 明确快速。fixed/auto 没有档位，未提供即模型默认/正常。旧的显式强度和固定模型 fastMode 保留，不迁移或自动改写已有配置。
 
-共享纯解析先决定模型，再按“角色显式值 > 所选档位值 > 模型默认/正常”解析参数。快速支持沿现有 OAuth ChatGPT/Grok 通道准入，不因为模型名相似、fast 档位或模型声称支持就创建快速能力；不支持返回 fast_mode 失败，不静默变正常或换模型。显式强度仍按真实模型声明校验。失败恢复候选亦须满足相同有效强度/快速约束；冻结选择保存实际参数（含显式正常），执行器传递到既有 Provider encoder，不改变已运行任务。
+共享纯解析先决定模型，再按“角色显式值 > 所选档位值 > 模型默认/正常”解析参数。统一思考强度词表沿 `off | low | medium | high | xhigh | max`（实际取值必须按目标渠道 [ADR 37](37-provider-channel-and-wire-protocol-separation.md) `ChannelDescriptor.capabilities.reasoning.effortLevels` 与 [ADR 48](48-provider-model-options.md) 声明的模型 `optionValues` 校验/裁剪）。快速通道与各渠道特有能力各自归口对应渠道适配器：`oauth_chatgpt` 保持仅「OpenAI 官方」专属（[ADR 28](28-openai-subscription-oauth.md) / [ADR 37](37-provider-channel-and-wire-protocol-separation.md)），Grok、Qoder 等通过各自专用渠道适配器接入快速或上下文扩展能力，不因模型名相似、fast 档位或模型声称支持就创建快速能力；不支持返回 `fast_mode` 失败，不静默变正常或换模型。显式强度仍按真实模型声明校验。失败恢复候选亦须满足相同有效强度/快速与 `optionValues` 约束；冻结选择保存实际参数（含显式正常），执行器传递到既有 Provider encoder，不改变已运行任务。
 
 Renderer 复用共享菜单及 capability 投影：档位提供模型/默认强度/正常或快速；角色默认继承并可单独覆盖或恢复模型默认/正常。不支持选项保留说明，失效显式值可见并允许清除；保存错误保留草稿，预览取宿主已保存事实，读取不提交默认值。每次更新仅验证被修改的角色/档位参数，已有失效配置不得阻断不相关编辑；修改模型不自动清除显式参数。原权限、Evidence、System Context、角色优先级与预算规则保持不变。
 
@@ -140,8 +140,7 @@ interface ModelSelectionSnapshot {
 }
 ```
 
-- 任务运行中不自动换模型（换模型会打掉提示缓存，行为也会变）。用户手动换，从下一轮生效，并记一条 run event。
-- 故障切换（ADR 30）只能在该角色**过滤后的候选**里切：同档位备选、满足硬性要求、在项目范围内。切换写入 run event 与用量记录，验证详情可见。
+- 任务运行中不自动换模型（换模型会打掉提示缓存，行为也会变）。**三层模型切换边界（2026-11-15 对齐）**：(1) **单次请求传输/代理重试（[ADR 30](30-provider-recovery-broker.md)）**严格锁死同一 `model` ID；(2) **回合/步骤边界遇到模型或渠道不可用时**，可在该角色过滤后的 `ModelTierBinding` / 允许池候选里切换（同档位备选、满足硬性能力、有效 `reasoningEffort`/`fastMode`/`optionValues` 与项目范围，写入 run event 与用量记录）；(3) **运行中途用户修改配置时**，仅主 Bot（`project_agent`）在下一认知步或恢复点重基到新模型（见 [ADR 99 §2.2](99-authoritative-reply-receipts-and-model-recovery.md#22-model-recovery-admission) `continuity_model_changed`），而已在运行中的 `work_session` 子任务继续冻结在 `spawn_session` 时写入的 `DelegationOrigin.modelSelection` 上。
 
 ### 6. 用户怎么改
 

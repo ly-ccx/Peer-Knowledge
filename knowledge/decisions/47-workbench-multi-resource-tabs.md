@@ -1,11 +1,13 @@
 # 47. Workbench 多资源标签模型
 
 创建时间：2026-07-15
-最后更新：2026-11-09
+最后更新：2026-11-15（对齐 [ADR 118](118-openui-interactive-results-and-runtime-boundaries.md) `interactive` 标签兼容、[ADR 125](125-resource-window-directory-tabs.md) 资源窗口与 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) 第一阶段已接受 / 后续包待实施边界；2026-11-09 补充 ADR 125 替代范围）
 
 ## 状态
 
 Accepted，第一阶段 DocumentSession 已实现并验证。
+
+> **[对齐提示（2026-11-15）]**：经典 Workbench 的二级 `DocumentSession` 隔离不变量保持有效；独立资源窗口的目录/文档/交互标签与混合标签演进分别见已采纳的 [ADR 125](125-resource-window-directory-tabs.md)、[ADR 118](118-openui-interactive-results-and-runtime-boundaries.md)（`interactive` tab 保留兼容）以及 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md)（第一阶段已接受，独立窗口与后续协作包待实施）。
 
 ## 背景
 

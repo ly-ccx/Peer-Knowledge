@@ -1,11 +1,11 @@
 # 64. Workbench 源码预览先复用 highlight.js，不上 Monaco
 
 创建时间：2026-08-17
-最后更新：2026-08-17
+最后更新：2026-11-15（跨 ADR 对齐：标注聊天开块延迟高亮与 ADR 109 R9/R10 用户显式编辑对部分前提的演进）
 
 ## 状态
 
-Accepted。Source 模式已接到现有 highlight.js，未引入 Monaco。
+Accepted（2026-08-17 实现复用 `highlight.js` 而不引入 Monaco；下列两处边界在后续 ADR 中演进：1. 流式聊天开放块上的“按帧同步全树高亮”已在 [ADR 121](121-desktop-session-windowing-contract.md) P1 阶段被块关闭/空闲延迟高亮取代；2. “资源区仅做只读源码预览”的前提已在 [ADR 109 R9/R10](109-resource-reference-preview-and-artifact-collaboration.md) 面向用户显式编辑本地文本资源放宽，仍不引入 Monaco 语义服务）。
 
 ## 背景
 

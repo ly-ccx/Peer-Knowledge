@@ -1,7 +1,7 @@
 # ADR 115：智能输入建议与用户草稿边界
 
 创建时间：2026-10-31
-最后更新：2026-11-01
+最后更新：2026-11-15（跨 ADR 对齐：`input_prediction` 账本分拆为 `usage/input-prediction.jsonl` 并收口单开关契约）
 状态：Accepted（2026-10-31 用户要求“完整做完，自己独立验证整个功能”，授权按本方案实施及提前功能验证；实施、验证与发布状态分别登记，不替代交付记录或授权发布）
 级别：A（Protocol、System Context、模型角色、未发送草稿准入与配置边界）；实施包含 B 级宿主／IPC 与 C 级输入体验。
 
@@ -69,13 +69,13 @@ IME、现有命令／引用补全和有效浮层优先于智能建议。建议�
 
 ## 6. 配置、隐私和存储
 
-目标设置为 settings 的一个版本化 inputPrediction 子对象：enabled、continuationEnabled、disabledWorkspaceIds、dailyRequestLimit、dailyTokenLimit；角色路由沿 modelRouting.roles.input_predictor，项目限制沿既有 ProjectModelPolicy，不保存第二份模型身份或凭据。已知 schema 的缺省读为开启，未知版本或非法开关值关闭；既有显式关闭保留，不在读取时写配置；保存失败以宿主回执为准。每日请求／token 初值与计数恢复要求见完整方案 §11—§12，计数复用原用量存储，不新增预测账本目录。
+目标设置为 settings 的一个版本化 `inputPrediction` 子对象：用户界面按 2026-11-01 决策简化为单一总开关 `enabled`（新缺省读为开启，既有显式关闭保留）与显式模型选择（角色路由沿 `modelRouting.roles.input_predictor`，项目限制沿既有 `ProjectModelPolicy`）；`continuationEnabled`、`disabledWorkspaceIds`、`dailyRequestLimit`、`dailyTokenLimit` 作为向后兼容/内部预算策略字段保留，不在设置页单独暴露，不保存第二份模型身份或凭据。未知版本或非法开关值关闭；不在读取时写配置；保存失败以宿主回执为准。每日请求／token 限额初值与恢复要求见[完整方案 §11—§12](../../design/product/peer-input-prediction.md#11-内部预算、限额与降级策略)，**独立落入专用预测账本 `usage/input-prediction.jsonl`**（不复用 `usage/requests.jsonl`；参见 [ADR 25](25-runtime-usage-ledger.md) 与 [ADR 56](56-provider-observed-context-accounting.md)）。
 
 模型选择前直接说明当前对话与未发送草稿将交给所选模型；选择动作和打开总开关经原设置回执启用续写，不自动选择模型或扩大既有项目范围。设置页不再暴露续写、每日额度与项目开关，不展示常驻用量／保存成功或重复选模型提示；内部预算、项目策略和旧配置字段保留。显式选定路由内的 fallback 也必须受相同项目与数据准入限制，不允许从 localOnly 静默切换到云端。
 
 不新增候选／草稿正文持久化目录。短期缓存有 LRU、字节与 TTL 上限；候选撤销、关闭、切换、宿主释放时清理。候选采纳后沿原草稿存储保存；未发送草稿已有的本地恢复策略不被本 ADR 改写。
 
-普通诊断和 Provider trace 不记录原始草稿、候选和含正文的请求快照，仅记录用途、路由、来源版本摘要、耗时、用量与结果码。包含草稿的 debug dump 首版不提供；不能因通用 Adapter 默认 tracing 打开而偷偷持久化。采用已有用量存储，不新增遥测上传。
+普通诊断和 Provider trace 不记录原始草稿、候选和含正文的请求快照，仅记录用途、路由、来源版本摘要、耗时、用量与结果码。包含草稿的 debug dump 首版不提供；不能因通用 Adapter 默认 tracing 打开而偷偷持久化。输入预测预约与结算只写入专用 `usage/input-prediction.jsonl`（严格与会话计费及上下文容量账本 `usage/requests.jsonl` 分离），不新增遥测上传。
 
 ## 7. 模型、预算与失败
 
@@ -113,23 +113,28 @@ IME、现有命令／引用补全和有效浮层优先于智能建议。建议�
 
 ADR 编号已核对本地文件及 fetch 后所有 origin 远程引用：114 已被回复引用方案使用，本 ADR 使用 115。跨任务尚未推送的占号无法由本轮证明，派发前再次检查。
 
-2026-10-31：只完成方案、ADR、任务卡与入口索引，进行实现者内容／diff 自审；未改代码，未运行测试、构建或产品回归，未宣称独立复核。Proposed 不因文档完成自动升级为 Accepted，也不自动加入下一 RC。
+2026-10-31（历史里程碑存档）：当时仅完成方案、ADR、任务卡与入口索引自审；随后 2026-10-31 获授权落地首版、2026-11-01 确立单开关默认开启规则、2026-11-15 完成跨 ADR 对齐后，本文状态以文首 **Accepted** 为准。
 
-### 2026-10-31 实施启动与 IP-00 收敛
+### 2026-10-31 实施启动与 IP-00 收敛（历史补记）
 
 用户随后明确授权完成全部功能并自行验证。代码使用独立 codex/input-prediction 工作树，基于开发线 `73ff763a`（RC31）；知识使用独立 codex/input-prediction-implementation，基于 main `2f83d5f`。两份原工作树及在制修改不动。当前工作树已包含完整体验规范及两份矩阵，不再缺少该依赖。
 
 - 无工具推理：既有 Provider Adapter 增补显式回调 sink 和 metadata-only trace 策略，继续由原 Encoder 编码，不伪造 webContents；共享 text inference 只调用一次传输，没有工具 executor。Responses 复用现有响应消费者；Qoder 关闭传输的队列／瞬态重试，预测截止独立生效。
 - 草稿编辑：共享 Composer 编辑事务持有有界的本地文本／selection 历史，协调 beforeinput 的 historyUndo／historyRedo 和平台快捷键；正文编辑、采纳、撤销统一经原草稿 edit 端口，持久草稿 schema 不变。真实 Electron 验证普通输入与采纳的撤销次序，不凭 setState 推断。
-- 预算：复用 usage/requests.jsonl。输入预测增加无正文的 purpose、预约／结算与估算标识，同一预测 requestId 的预约与结算只聚合一次；启动从日志重建当日消费，读取不完整时拒绝新预测。普通聊天记录与 lifetime 不改写，也不新建预测数据库。
-- 接线：共享 input-prediction 服务与输入内核；Desktop 专属 snapshot／credential／IPC Adapter；主 Bot 与经典 Composer 通过相同控制器复用，SettingsGroup 中明确开关、模型、草稿外发与限额。正式用户请求优先，取消预测不影响任务。
+- 预算 **[2026-11-15 已废止复用，记为迁移债务]**：2026-10-31 首版实现曾将 `input_prediction` 无正文 `purpose`、预约／结算及基于 UTF-8 字节上界的估算写入 `usage/requests.jsonl`；现行代码该复用构成**迁移债务**。自 2026-11-15 跨 ADR 对齐起，为严格维护 [ADR 25](25-runtime-usage-ledger.md) 与 [ADR 56](56-provider-observed-context-accounting.md) 不变式 1 / 7（会话账本与上下文实测真值隔离），`input_prediction` 预约、结算与 UTF-8 字节估算必须独立写入 `usage/input-prediction.jsonl`，禁止继续写入 `usage/requests.jsonl` 或影响普通聊天记录、`lifetimeUsage` 与上下文统计。
+- 接线：共享 input-prediction 服务与输入内核；Desktop 专属 snapshot／credential／IPC Adapter；主 Bot 与经典 Composer 通过相同控制器复用（2026-11-01 修订为设置页单开关默认开启 + 模型选择，原多开关/限额配置不再作为 UI `SettingsGroup` 暴露，仅保留内部预算）。正式用户请求优先，取消预测不影响任务。
 - 提前验证由本次用户指令明确授权，覆盖契约、Provider／服务、两个真实输入面、IME 事件、撤销、失败、隐私与预算，并执行相关构建／类型／架构／IPC 检查。实施者自审记 independent=false；不把本次功能验证冒充未来版本联合候选或已安装版验收。不发版本、不安装或重启用户实例。
 
-
-### 2026-10-31 实作补记
+### 2026-10-31 实作补记（历史补记）
 
 实现沿既定边界落地，详细收敛见[完整方案 §16](../../design/product/peer-input-prediction.md#16-首版实现收敛2026-10-31)。增加第四个只读 status IPC 为设置提供真实不可用原因／当日用量；不增加授权或执行事实。凭证仍由原 CredentialHelper／resolver 管理，以可取消 Worker Adapter 隔离同步 OS 访问，避免后台预测阻塞输入主线程。Provider callback 与 metadata-only 策略只扩展既有推理 seam；原普通聊天调用兼容。
 
-Context Source v2 的历史是保留 role 字段的事实数组，避免模型接着扮演原助手；固定预测规则仍只由显式 Source 提供。暂无 tokenizer 的首版采用保守 UTF-8 字节上界，无法在预算内保留强制指令时 abstain。该取舍减少适用范围，不放松上下文或权限限制。验证、已知边界及提交身份见[功能回执](../../playbook/v0.1.0/input-prediction-validation.md)，不作为发布或安装授权。
+Context Source v2 的历史是保留 role 字段的事实数组，避免模型接着扮演原助手；固定预测规则仍只由显式 Source 提供。暂无 tokenizer 的首版采用保守 UTF-8 字节上界，无法在预算内保留强制指令时 abstain（该估算仅限预测预算并在独立 `usage/input-prediction.jsonl` 内使用，绝不进入 [ADR 56](56-provider-observed-context-accounting.md) 上下文容量账本）。验证、已知边界及提交身份见[功能回执](../../playbook/v0.1.0/input-prediction-validation.md)，不作为发布或安装授权。
 
 2026-11-01：用户明确要求“默认就一个开关，默认开；用户自己选个模型就可以了”，以此替代独立续写开关和缺省关闭的体验决策。此次只做内容／diff 审阅；旧专项验证不覆盖本次修订，不发版。
+
+### 2026-11-15 跨 ADR 对齐（与 ADR 25 / ADR 56）
+
+- 最后更新：2026-11-15（与 [ADR 25](25-runtime-usage-ledger.md) / [ADR 56](56-provider-observed-context-accounting.md) 账本及不变式对齐）
+- **单开关 UI 定型**：§6 及上文所有关于 `continuationEnabled` 独立 UI 开关或 2026-10-31 `Proposed`/`SettingsGroup` 多控件的说法已被 2026-11-01 决定覆盖——设置 UI 只保留单总开关（默认开）与模型选择，`dailyRequestLimit`/`dailyTokenLimit`/`disabledWorkspaceIds` 等退居内部策略。
+- **预测账本分拆**：废止复用 `usage/requests.jsonl`，`input_prediction` 预约/结算与 UTF-8 字节估算统一迁移至专用 `usage/input-prediction.jsonl`；现存代码仍写入 `usage/requests.jsonl` 记为明确迁移债务，须在代码清算时移出。

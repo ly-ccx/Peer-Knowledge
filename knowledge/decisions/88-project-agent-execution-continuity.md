@@ -5,7 +5,7 @@
 > 2026-10-18：系统默认累计工作上限及核验累计次数/总截止由 [ADR95](95-progress-driven-execution-policy.md) 取代；显式用户预算、用量记账、单次调用超时和安全恢复边界保持有效。
 
 创建时间：2026-10-07
-最后更新：2026-11-01（关联 ADR 117 实施边界；§22 中断核验契约保留）
+最后更新：2026-11-15（补充 §7.2 / §11.2 / §21.2 跨 ADR 部分取代与演进指针；2026-11-01 关联 ADR 117 实施边界；§22 中断核验契约保留）
 
 状态：Accepted。2026-10-07 仓库所有者明确批准本方案并授权实施。以下契约按 R88-01 至 R88-08 逐项落地；批准不代表实现或验收已完成，也不改变已有 ADR 的 Accepted 状态。
 
@@ -203,6 +203,8 @@ Executor 返回实际工具调用、Tool Result 引用、Evidence 引用、Provi
 
 ### 7.2 人工标准的来源
 
+> **[部分演化提示（2026-11-15）]**：人工标准权威源与禁止静默降级原则继续保留；逐输入处置、DecisionFrame 与门禁/等待态的细化契约以 [ADR 117](117-intent-driven-coordination-and-goal-closure.md) 与 [ADR 120](120-runtime-facts-disposition-and-resource-wait.md) 为准。
+
 标准新增宿主所有的 authority，包含 `origin`、来源引用、标准版本、验证者类型及要求人工决定的原因。模型提交的 proposed criteria 不包含可生效的 authority。
 
 - 新 Delegation 输入使用结构化标准。代理生成的自然语言质量要求默认进入语义检查；新路径不将未知 kind 或字符串静默降成 manual。
@@ -365,6 +367,8 @@ Provider Encoder 负责恢复下一次请求所需的合法结构。工具调用
 Worker 报告已写且等待核验时显示“正在核对结果”；只有核验 attempt 活跃才显示核验进行中。主 Bot 与 Worker 都空闲且没有可运行责任时，停止“正在回复”或“正在执行”的动画。
 
 ### 11.2 停止命令
+
+> **[部分取代提示（2026-11-15）]**：本表保留“输入框停止仅停当前回复 vs Pause/Cancel 绑定工作、不允许把已签收改为 cancelled”基础原则；后续关于停止与未知结果、会话停稳门禁、遗留停止义务受控解除及 `unknown` 收口的完整状态机已由 [ADR 110](110-follow-up-responsibility-and-current-list.md)、[ADR 116](116-session-control-and-resource-settlement.md)、[ADR 124](124-legacy-stop-obligation-controlled-resolution.md)、[ADR 126](126-execution-resource-claim-closure-and-unknown-retention.md) 与 [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md) 细化/局部取代。
 
 | 操作 | 范围与效果 |
 | --- | --- |
@@ -684,6 +688,8 @@ Runtime SDK 的 `model.checkpoint(state, executions, context)` 是 Tool Result �
 该调用随后自行以 `verifier_failed` 结束，宿主时间戳显示耗时 42 分 36 秒。对应 ephemeral 流的请求用量记录为 Deepseek Flash、49 次 Provider 请求、758346 输入 token、252565 输出 token。没有内层逐工具持久记录，因此不能把 49 次 Provider 请求都说成网络重试或精确的逻辑轮数。源码确认此核验沿用通用无界 Agent Loop，没有专用核验轮数/工具预算；委托核验画像为 `role=work_session, agentKind=verifier`，生命周期策略必须识别该画像，不能只匹配 `role=verifier`。
 
 ### 21.2 实施范围与不变量
+
+> **[对齐提示（2026-11-15）]**：本节冻结的只读核验五分钟整体截止时间及单轮 `12` 逻辑轮 / `128` 只读工具调用上界继续有效，并与 [ADR 93](93-verification-continuity-and-repair-ownership.md)、[ADR 95](95-progress-driven-execution-policy.md) 及 [ADR 103](103-verification-settlement-and-progress.md) 的连续核验与停滞门禁共同生效。
 
 1. 共享 Runtime 的只读核验生命周期 Module 管理默认五分钟的整体截止时间、父级取消及清理。一次格式修复沿用同一个截止时间，不能重新获得五分钟。截止时间是宿主配置，不由模型 Tool Call 扩大。
 2. 语义和视觉核验都在此生命周期内执行。取消或超时向实际内层流传播，并在只读执行器中终止等待、释放回合租约；即使底层适配器未返回，也不能卡住父调用。底层 Promise 的迟到成功或失败被消费，不能成为当前核验报告或修改成功标准。

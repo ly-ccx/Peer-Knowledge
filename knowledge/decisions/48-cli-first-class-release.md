@@ -1,7 +1,10 @@
 # CLI First-Class Release（CLI 与 Desktop 同仓一等发布）
 
 创建时间: 2026-07-20  
-最后更新: 2026-11-06（ADR 108 收窄「CLI 自动更新可缓做」）
+最后更新: 2026-11-15（补充重号消歧说明及 macOS 发布签名/公证对齐；2026-11-06 [ADR 108-cli](108-cli-basic-shell-commands.md) 收窄「CLI 自动更新可缓做」）
+
+> [!NOTE] 重号消歧
+> 历史并发编写导致编号 `48` 同时对应 [48-cli-first-class-release.md](48-cli-first-class-release.md)（本篇，CLI 与 Desktop 同仓一等发布）与 [48-provider-model-options.md](48-provider-model-options.md)（渠道无关的模型选项与渠道投影）。外部引用 `ADR 48` 时必须附带完整文件名以免混指。
 
 ## Status
 
@@ -66,8 +69,8 @@ peer
 6. **版本门禁**：根 `VERSION` 对齐 `apps/tui`、`packages/npm-cli` 与 Desktop 等受管 package。  
 7. **CLI 版本查询**：`peer --version` / `-v`（不启动完整 TUI 会话亦可）。  
 8. **CI**：tag 驱动 `release.yml` 含 `build-cli`（Bun + 必要工具链）与可选 `publish-npm`。  
-9. **阶段一仍可不做**（与 npm 安装面正交）：brew 全家桶、CLI 自动更新、Desktop 强制捆绑 CLI、完整 i18n、CLI 正式 Apple 公证、默认全平台矩阵一次到位。  
-10. **签名**：可先 ad-hoc / 后置正式签名；不与「必须先装 Desktop」挂钩。
+9. **阶段一仍可不做**（与 npm 安装面正交）：brew 全家桶、CLI 自动更新（见下文 `108-cli` 收窄补记）、Desktop 强制捆绑 CLI、完整 i18n、默认全平台矩阵一次到位。
+10. **签名与公证（2026-11-15 对齐 [ADR 0001 §5](0001-cross-platform-credential-vault.md)）**：本地开发构建可使用 ad-hoc 签名；**macOS 正式发布构建（含同打包 `peer-credential-helper`）必须使用稳定 `Developer ID Application` 身份并完成 Apple notarization**（避免升级后代码身份变化触发 Keychain 重复授权）；不与「必须先装 Desktop」挂钩。
 
 ## Consequences
 
@@ -102,7 +105,7 @@ peer
 本 ADR **只规范发布与安装面**；共享内核 / 宿主分叉细节以 `22` 为准。  
 脚本面（`peer exec` 无头发起）见 `knowledge/decisions/65-cli-headless-exec.md`。
 
-后续（2026-11-06）：基础壳命令见 `knowledge/decisions/108-cli-basic-shell-commands.md`。本文第 9 条对 CLI 自动更新的缓做，只保留无人值守安装；显式 `peer update` 改由 ADR 108 规定。
+后续（2026-11-06）：基础壳命令见 [108-cli-basic-shell-commands.md](108-cli-basic-shell-commands.md)。本文第 9 条对 CLI 自动更新的缓做，只保留无人值守安装；显式 `peer update` 改由 [ADR 108-cli](108-cli-basic-shell-commands.md) 规定。第 9–10 条关于 macOS 签名与 notarization 的口子已在 2026-11-15 对齐 [ADR 0001 §5](0001-cross-platform-credential-vault.md)。
 
 ## Implementation notes（摘要，指向代码仓）
 

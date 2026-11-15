@@ -3,7 +3,7 @@
 > 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支区分子任务 followUp 与根目标协调责任：阶段 accepted 仍可退出子任务当前列表，剩余目标由既有 coordination work 承接。根关闭不反向签收子任务、不释放资源，也不把已签收子任务伪装为 running；未增加 Renderer 列表状态或改变当前 followUp 来源。本文唯一生命周期投影、撤回、未知历史结果及停止回执契约保留。接口见 ADR 117 §14，源码自测与未执行的产品验收见[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。
 
 创建时间：2026-10-28
-最后更新：2026-11-08（文末补上 ADR 124 的可见性修订：indexed 仍离开当前列表，但不进入用户可见的「待核实」）
+最后更新：2026-11-15（补充 ADR 126 / 127 对 `indexed` / 未知 claim 闭包与 `plan.status` 边界的衔接说明；2026-11-08 同步 ADR 124 可见性修订）
 状态：Accepted（用户在“责任收口＋当前列表判定”设计中明确批准本节不变量）
 级别：A（生命周期/责任投影契约），B（宿主投影与列表、计数消费端）
 关联：ADR93（核验续接与修复责任）、ADR102（任务生命周期单一投影）、ADR103（核验收口与停滞治理）、ADR84（Bot 列表外壳）。
@@ -220,3 +220,8 @@ export interface FollowUpProjection {
 ## 后续（2026-11-08，ADR 124 可见性修订）
 
 用户在 Peer-Agent PR 297 手测通过后确认：待核实不对用户开放。`obligation_indexed` 仍表示上一段的列表退出，并仍写入内部审计索引。Desktop、TUI 和工作面板不展示「待核实」分区、列表、徽章或注意提示。确认后该条从用户的跟进和任务列表消失。这不改变 `stop_confirmed`、`user_withdrawn`、停稳回执和资源占用。未合并的代码草稿不是已发布行为；2026-11-08 的可见性修订以 ADR 124 为准。
+
+## 后续（2026-11-15，ADR 126 / 127 契约对齐）
+
+- 随 [ADR 126](126-execution-resource-claim-closure-and-unknown-retention.md) 与 [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md) 生效，第 7 节 `user_withdrawn` 退出当前列表后留存的未知调用占锁，现可在进程已死且无未结束句柄时通过受控闭包（`ask` 档 `user_panel` 确认，或 `bot_verified` 策略宿主核验后收口）转为 `RetainedUnknown`，释放并发写锁但不清零未知记录。
+- 明确用户撤回且受管执行已停稳的计划（第 7 节），其 `plan.status` 收为终态 `cancelled`；而缺少停稳证明、尚在核实的**遗留停止记录**仍保留 `paused`（[ADR 124 §8.2](124-legacy-stop-obligation-controlled-resolution.md#82-三条遗留记录的合成走查)）。已退役为 `indexed` 但仍阻挡新执行的陈旧 `ask` claim，经设置/诊断入口或受阻等待提示触发闭包，不重开「待核实」任务列表。

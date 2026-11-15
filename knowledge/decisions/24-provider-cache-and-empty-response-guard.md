@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented locally on 2026-06-11.
+Accepted（2026-06-11 本机落地实现；最后更新：2026-11-15，修正治理基线相对路径链接）
 
 ## Problem
 
@@ -115,7 +115,7 @@ often, but the root cause was this write-back, not OAuth.
 
 This keeps the provider capability flag (a contract/config truth) separate from
 in-session control-flow recovery (a kernel concern), matching the layer rules in
-`20-architecture-governance.md`.
+[20-architecture-governance.md](../architecture/20-architecture-governance.md).
 
 A regression test in `llm-chat-service.test.mjs`
 (`falls back to plain mode for the turn but does NOT persist

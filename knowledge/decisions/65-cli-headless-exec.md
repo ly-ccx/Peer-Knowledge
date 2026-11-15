@@ -1,7 +1,7 @@
 # 65. CLI 无头发起（`peer exec`）
 
 创建时间：2026-08-18
-最后更新：2026-08-18（`exec` 默认不再设 `--max-turns` 上限）
+最后更新：2026-11-15（跨 ADR 对齐：同步裸 `peer` 默认进入 Bot 壳 / `--classic`、权限遵循 ADR 101、基础壳命令 `doctor` / `sessions resume` 等归入 ADR 108-cli）
 
 状态：Accepted（P0 已落地；补充提供商/模型消歧；默认无回合上限）
 
@@ -16,6 +16,8 @@
 - `knowledge/decisions/26-agent-loop-termination.md` — 回合预算耗尽是错误，不是成功
 - `knowledge/decisions/35-mode-scoped-tool-projection.md` — 模式投影；`--tools` 叠在其上
 - `knowledge/decisions/48-cli-first-class-release.md` — 安装面已有；本文补脚本面
+- `knowledge/decisions/108-cli-basic-shell-commands.md` — 后续基础壳命令（`doctor`、`sessions list|resume|delete`、`update`、`models`、`completions`、`export`）
+- `knowledge/decisions/101-bot-owned-access-policy.md` — Bot 与工作区独立访问策略（`Full` 不覆盖角色与闸门边界）
 - `knowledge/decisions/51-unified-desktop-cli-file-tools.md` — 文件工具公开名
 - `playbook/change-intake.md` — 入口与提交纪律
 
@@ -25,7 +27,7 @@
 
 ## 背景
 
-CLI 安装面已经一等（ADR 48）。TUI 已能走完整主链：
+CLI 安装面已经一等（[ADR 48-cli](48-cli-first-class-release.md)）。TUI 已能走完整主链：
 
 ```text
 Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence
@@ -48,7 +50,7 @@ Capability Provider → Manifest → Runtime Projection → Tool Call → Permis
 ### 1. 命令形态学 Codex，不学 Claude 单入口堆旗标
 
 ```text
-peer                 交互 TUI（现状，TTY 专用）
+peer                 交互 TUI（0.1 默认进入 Bot 列表壳；`peer --classic` 进入经典交互 TUI，参见 ADR 85 / 122；TTY 专用）
 peer --version / -v  打印版本，退出 0（已有）
 peer --help          打印用法，退出 0，不开 TUI
 peer exec [options] [prompt]
@@ -144,7 +146,7 @@ P0 不做：把 stdin 当附件、多轮 `--input-format stream-json`、`--promp
 
 `exec` 未传 `--access` 时用 `session`。评测脚本必须自己写 `--access full`，帮助文本要写明这一点。
 
-`--access` **只覆盖本轮**，默认不写用户全局设置。P0 不做 `--persist`。
+`--access` **只覆盖本轮**，默认不写用户全局设置。P0 不做 `--persist`。在涉及 Project Bot / `bot-access.sqlite` 作用域时，权限判定同时服从 [ADR 101](101-bot-owned-access-policy.md) 与 [ADR 92](92-scoped-permission-inheritance.md)（`Full` 权限同样不绕过角色白名单或委派范围限制）。
 
 `restricted_local` 不出现在 P0 旗标里。
 
@@ -192,10 +194,10 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 
 ### 9. P0 明确不做
 
-- `--continue` / `--resume` / `--ephemeral` / `--bare`
+- `--continue` / `--resume` / `--ephemeral` / `--bare`（无头 `exec` 子命令不自带这些 flags；交互式会话续跑已由 [ADR 108-cli](108-cli-basic-shell-commands.md) 通过 `peer sessions resume <id>` 承接）
 - `--output-format stream-json`、`--json-schema`
 - `--append-system-prompt`（若做，必须走 System Context 源，另立修订）
-- `peer auth` / `mcp` / `doctor` / 后台 attach
+- `peer auth` / `mcp` / 后台 attach（`peer doctor`、`update`、`models`、`sessions`、`completions`、`export` 等日常基础命令已由 [ADR 108-cli](108-cli-basic-shell-commands.md) 承接，不纳入本无头 `exec` 契约）
 - 用无头浏览器冒充 Desktop `browser_*`
 - 让 Cursor / Codex 点 Peer Agent.app（Computer Use 不是本契约）
 - 用 LLM 替代题集 verifier
@@ -242,7 +244,7 @@ Desktop-only `browser_*` **不得**因 `--tools` 被投影进 CLI exec。CLI 读
 
 - 评测、CI、外部 Agent 有一条受治理的发起面
 - Cursor 可用 `peer exec` 驱动 Peer，而不必点 Desktop
-- 安装面（ADR 48）与脚本面分离：已安装的 `peer` 终于能当脚本 SDK
+- 安装面（[ADR 48-cli](48-cli-first-class-release.md)）与脚本面分离：已安装的 `peer` 终于能当脚本 SDK
 
 ### 代价
 

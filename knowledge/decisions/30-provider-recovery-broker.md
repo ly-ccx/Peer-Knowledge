@@ -2,7 +2,7 @@
 
 创建时间：2026-06-15
 
-最后更新：2026-07-30
+最后更新：2026-11-15（明确三层模型切换边界：ADR 30 同模型重试 vs ADR 83 档位备选故障切换 vs ADR 99 主 Bot 重基；标注 KXT ADR-0005 为外部仓引用）
 
 ## Status
 
@@ -62,6 +62,11 @@ Provider recovery is model-locked. It may switch base URL or compatible provider
 adapter only when the requested `model` remains the same.
 It must not turn a failed `gpt-5.5` request into a Claude, Gemini, or any other
 different-model request.
+
+> **3-Layer Model-Switching Contract (aligned 2026-11-15 across ADR 30 / 83 / 99):**
+> 1. **Single-request transport/broker retry (this ADR):** Strictly locked to the exact same `model` ID.
+> 2. **Turn/step-boundary unavailability failover ([ADR 83](83-model-routing-by-role.md)):** Role/tier resolution may fail over across user-configured fallback candidate models in `ModelTierBinding` / the role's filtered pool that satisfy hard capability & validation constraints.
+> 3. **Mid-run user configuration change ([ADR 83](83-model-routing-by-role.md) + [ADR 99](99-authoritative-reply-receipts-and-model-recovery.md) §2.2):** Only the Main Bot (`project_agent`) rebases to the updated model on its next cognitive step/recovery (`continuity_model_changed`); running delegated `work_session` sub-tasks remain frozen on their `spawn_session` `DelegationOrigin.modelSelection` snapshot.
 
 For each provider attempt, the runtime:
 
@@ -188,7 +193,7 @@ Implemented in the isolated code checkout, branch `fix/provider-history-recovery
 
 D1–D5 focused validation: 49 provider/SDK tests and 4 SSE lifecycle tests passed, including the same request encoder/wire body, optional diagnostic result/event preservation, cancellation, bounded error bodies and all three HTTP paths. runtime-node and runtime-sdk typechecks, package builds and architecture governance passed. A generic invalid_request_error plus a definite context assertion failed first and passed after normalization; plain invalid requests stayed generic. Arbitrary body text remained omitted.
 
-The runtime-node expanded suite initially recorded 2008 passes and 2 Electron import failures out of 2010 entries in the isolated worktree. After reusing the matching local Electron 41.7.1 test dependency, those two files passed all 15 checks without an override. This was a scoped recheck, not a single successful full-suite rerun. KXT exercised a real SDK→worker→HTTP gateway→Go error path, 600 actual file tool calls and recovery of a copy of the captured 514-message checkpoint. Real models were unverified in that initial rc.37 candidate. Installed applications, native Windows/Linux and the complete independent Peer CLI/Desktop release gates remain unverified. No release, runtime upgrade, live task modification or push occurred. See the KXT ADR-0005 validation record `docs/validation/peer-context-recovery-20261107.md` for per-scenario evidence and partial acceptance.
+The runtime-node expanded suite initially recorded 2008 passes and 2 Electron import failures out of 2010 entries in the isolated worktree. After reusing the matching local Electron 41.7.1 test dependency, those two files passed all 15 checks without an override. This was a scoped recheck, not a single successful full-suite rerun. KXT exercised a real SDK→worker→HTTP gateway→Go error path, 600 actual file tool calls and recovery of a copy of the captured 514-message checkpoint. Real models were unverified in that initial rc.37 candidate. Installed applications, native Windows/Linux and the complete independent Peer CLI/Desktop release gates remain unverified. No release, runtime upgrade, live task modification or push occurred. See the external KXT repository's validation record `docs/validation/peer-context-recovery-20261107.md` (referred to in KXT as its own internal "KXT ADR-0005", external to Peer-Knowledge ADR numbering) for per-scenario evidence and partial acceptance.
 
 Real-channel failure refinement (before implementation): the saved Zhipu channel returned HTTP 429 / code 1113 even for a minimal request. Official https://docs.bigmodel.cn/cn/api/api-code defines this as account arrears, not transient capacity. Normalize 1113 to insufficient_quota only for the recognized upstream origin open.bigmodel.cn; normalize its documented 1261 to context_length_exceeded at the same seam. Unknown origins cannot assert these numeric codes. Add positive and unknown-origin regressions in KXT and shared Peer diagnostics. No automatic billing action, quota retry or model switch is authorized. Real Zhipu success and cross-channel continuation remain blocked until the account can infer.
 

@@ -1,6 +1,7 @@
 # 73. Goal 中断挂起与失败解耦的状态契约
 
 创建时间：2026-09-03
+最后更新：2026-11-15（澄清 Project Bot 模式下受委派 WorkSession 技术中断由主 Bot 接管续接；保留 `interrupted` 持久化规则与取消终态优先权）
 
 状态：Accepted
 
@@ -102,7 +103,7 @@ const nextStatus = hasUnconsumedInterruption && derivedStatus !== 'completed'
 ## 非目标
 
 - 不改 `derivePlanStatus` 的叶子失败派生规则（真实失败仍终态 failed）。
-- 不给 `interrupted` 加自动重试/自动恢复——恢复仍由 goal-accepted re-arm 或显式 resume 驱动。
+- 不给 `interrupted` 加自动重试/自动恢复——恢复仍由 goal-accepted re-arm 或显式 resume 驱动。**模式适用边界（2026-11-15 对齐）：** 该条“不做 Runner 自恢复”仍适用于经典前后台 GoalPlan 与裸 Runner 内循环；在 0.1.0 Project Bot 模式（ADR 94 / 110 / 111）下，受委派 `WorkSession` 发生技术中断时，由父级主 Bot 自主监督、判定恢复或升级向用户说明，不把技术中断直接转嫁为“用户手动点继续”。
 - 不迁移存量数据：老计划里 collapsed `failed` 不回填为 `interrupted`（通知层已不再误弹）。
 - 不改 runner 的中断捕获/重试预算语义（stream_interrupted_retrying 等不变）。
 

@@ -1,7 +1,7 @@
 # 85. 项目代理的宿主、输入与多入口（0.1.0 落地边界）
 
 创建时间：2026-09-26
-最后更新：2026-10-04（补充对话流式与停止边界）
+最后更新：2026-11-15（明确后台 `work_session` 的 L2 Playwright + `web_fetch` 网页隔离与 L1 用户资源标签归属，以及 ADR 87 展示交接契约）
 
 ## 状态
 
@@ -58,7 +58,7 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
    - 0.1.0 只接受本机决策：桌面主进程与作为宿主的本机 TUI。远程入口只显示「需要在电脑上批准」。
    - Explorer / Verifier 等没有审批人的临时回合：遇到需要询问的权限时立即拒绝，原因 `ephemeral_no_approver`，不再挂起。
 4. **系统通知只来自送达策略。** 机器人模式下，任务的 GoalPlan 状态跃迁不再直接触发系统通知（`task-notification-broker` 跳过 `role: work_session` 的计划）；系统通知只在 `decideSurfacing` 判定为 `interrupt` 时发出。托盘角标等于所有机器人「需要你」之和。
-5. **后台任务不投影内嵌浏览器。** `work_session` 回合的工具投影排除 L1 内嵌浏览器操控（它依赖可见的 Workbench `<webview>`），需要浏览器时使用 L2 外部浏览器（ADR 71）。桌面预览截图与视觉复核在主进程执行，保留。L1 只用于前台的经典会话。
+5. **后台任务不投影内嵌浏览器。** Project Bot 模式下，`project_agent` 本身不挂载网页执行工具（[ADR 80](80-project-agent-delegation-model.md)）；`work_session` 回合的工具投影剥离 L1 内嵌浏览器操控 `browser_*`（它依赖可见的 Workbench `<webview>`），需要网页读取或浏览器自动化时使用 **L2 Playwright 外部浏览器（`browser_external_*`，[ADR 71](71-l2-playwright-external-browser.md)）+ `web_fetch`（[ADR 38](38-web-search-fetch-provider.md)）** 并通过链接/截图产物交回结果。桌面预览截图与视觉复核在主进程执行，保留。L1 `BrowserSession`（`browser_*`）仅用于用户显式打开的右侧资源窗口网页标签、独立浏览器窗口（[ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) / [ADR 125](125-resource-window-directory-tabs.md)）以及前台经典对话。
 6. **`workspaceId` 是唯一的项目身份，本机与远程共用。**
    - 真源是 `projects/registry.json`（`DATA_STORE_ENTRIES.projects`，scope：portable）：`[{ workspaceId, path, createdAt, previousPaths[] }]`。`settings.workspaces[].id` 只是缓存。
    - 读取时缺 id：先按 path 在注册表里找，找不到才生成。这样旧版本写回设置丢掉 id 之后，再升级也能拿回原来的 id。
@@ -154,6 +154,6 @@ A 级。新增跨进程运行边界（宿主租约、持久输入队列、持久
 验证覆盖首片早于完成、增量 JSON/转义/分片 unicode、校验失败/抑制、空文本/重试、停止竞态/租约/新输入/重启游标、切换和重连乱序、完成交接无重复、回看位置、真实窗口等待/流式/工具/停止/失败/长 Markdown。不能只用完整回复截图宣布流式已验证。
 
 
-## RC 实时过程展示补充（2026-10-05）
+## RC 实时过程展示补充（2026-10-05 / 2026-11-15 同步 ADR 87）
 
-负责人要求进行中的动作可展开到参数与返回内容。流式摘要中“参数、结果、路径不进入”的限制由 [ADR 87](87-user-turn-live-process-presentation.md) 的有界脱敏展示预览取代；thinking 内部内容仍不展示，执行、PermissionGrant、Evidence 与持久历史继续由原链路负责。
+负责人要求进行中的动作可展开到参数与返回内容。流式摘要中“参数、结果、路径不进入”的限制由 [ADR 87](87-user-turn-live-process-presentation.md) 的有界脱敏展示预览取代；进一步按 [ADR 87](87-user-turn-live-process-presentation.md)（2026-11-09 D1–D11）实时过程展示与正式回复交接契约，正式回复落盘后须平滑交接 live 过程态（不闪烁退回泛状态卡或空等待），而 thinking 内部内容仍不展示，执行、PermissionGrant、Evidence 与持久历史继续由原链路负责。

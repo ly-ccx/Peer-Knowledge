@@ -1,8 +1,9 @@
 # 会话运行时状态按 conversationId 分桶（消灭跨会话串内容）
 
 日期：2026-07-01
+最后更新：2026-11-15（规范标注 Accepted，并标明后续向 [ADR 87](87-user-turn-live-process-presentation.md) 与 [ADR 121](121-desktop-session-windowing-contract.md) 的演进）
 分支：`dev/0.0.1`
-状态：已落地（自动化验证通过，人工回归待确认）
+状态：Accepted（自动化验证通过；按 `conversationId` 分桶与跨流路由原则已由 [ADR 87](87-user-turn-live-process-presentation.md) 的多路过程表达及 [ADR 121](121-desktop-session-windowing-contract.md) 的有界会话窗口进一步扩展）
 
 本文记录一次架构级根治：把「新建会话/切换会话时串入其他会话内容」的 bug，从反复打补丁转为从状态形态上根除。
 

@@ -1,7 +1,7 @@
 # 81. 项目代理记忆体系：带来源的事实记录，只进事实层，自动但可撤
 
 创建时间：2026-09-24
-最后更新：2026-11-14（仅修正历史文档引用；2026-09-26 P0-2 评审结论不变）
+最后更新：2026-11-15（对齐 ADR 85 存储根 `<dataRoot>/projects/<workspaceId>/memory/` 与 `<dataRoot>/memory/`；2026-09-26 P0-2 评审结论不变）
 
 ## 状态
 
@@ -19,7 +19,7 @@ Accepted（2026-09-26，P0-2）。实现未开工。
 
 ## 级别
 
-A 级。新增上下文来源（`project-memory-source`，`L7_CONTINUITY`）、新增能力（`LocalMemoryProvider` 四个工具）、新增本机存储种类（`~/.peer-agent/memory/`）、新增稳定 `workspaceId`。
+A 级。新增上下文来源（`project-memory-source`，`L7_CONTINUITY`）、新增能力（`LocalMemoryProvider` 四个工具）、新增本机存储种类（见 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md)：项目记忆 `<dataRoot>/projects/<workspaceId>/memory/` 与跨项目偏好 `<dataRoot>/memory/`）、新增稳定 `workspaceId`。
 
 ## 关联
 
@@ -46,7 +46,7 @@ ADR 80 让一个常驻的项目代理替用户开任务、盯任务、汇报结�
 6. **记忆只能收紧，不能放宽**：偏好可以让签收策略、确认要求更严（如「发布前让我看」→ 对外操作一律 `confirm`），不能放宽权限、签收策略、验证下限或预算。
 7. **防提示注入**：来自网页、MCP、文件内容等不可信来源的陈述不能成为约定、偏好或做法。
 8. **会过期**：事实、约定、做法记录相关文件的内容哈希，文件变了先标「可能过期」再由 Curator 复核；「局面」类默认 14 天过期；用了记忆后被用户纠正计一次 harmful，达到阈值转复核。
-9. **本机文件为真源**：`~/.peer-agent/memory/` 下的 jsonl（条目版本、事件卡、使用记录）是真源，`memory-index.sqlite`（FTS5）是可重建索引。不写进用户代码仓；团队共享只能显式导出为仓库文档、经 Git 评审。不上云。
+9. **本机文件为真源**：`<dataRoot>/projects/<workspaceId>/memory/`（项目记忆）与 `<dataRoot>/memory/`（跨项目用户偏好，早先写作 `~/.peer-agent/memory/`，已按 ADR 85 数据根规则细化）下的 jsonl（条目版本、事件卡、使用记录）是真源，`memory-index.sqlite`（FTS5）是可重建索引。不写进用户代码仓；团队共享只能显式导出为仓库文档、经 Git 评审。不上云。
 10. **能力走同一条链**：新增 `LocalMemoryProvider`：`memory_search`（代理与任务只读）、`memory_remember` / `memory_forget`（仅代理，必须锚定用户消息；非用户明说只能进候选；撤销可恢复，物理删除只能从界面发起）、`memory_explain`（某次决定依据了哪些记忆）。没有任何工具能写项目指令。
 11. **开任务时冻结记忆**：SessionSupervisor 为任务挑选相关记忆，冻结为 `DelegationOrigin.memorySnapshotId`，事后可追溯。
 12. **稳定项目标识**：工作区设置新增持久化 `workspaceId`（UUID），记忆、项目代理、远程访问共用；目录搬家由用户重新关联。

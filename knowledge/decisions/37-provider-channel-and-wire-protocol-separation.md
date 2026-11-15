@@ -1,13 +1,14 @@
 # 37. Provider Channel 与 Wire 协议分离
 
+创建时间：2026-06-18
+最后更新：2026-11-15（更新实施状态，对齐 `effort` 全词表与 [ADR 48-provider](48-provider-model-options.md) / ADR 83 模型选项及档位校验）
+
 ## Status
 
-Design accepted locally on 2026-06-19（设计方向与分类已敲定）；implementation
-pending（尚未动代码）。初稿 Proposed on 2026-06-18。
+Accepted / Shipped incrementally（ChannelRegistry、OpenRouter、OpenAI OAuth Responses 及渠道 `capabilities` 声明已按多轮落地；具体增量收据以对应分支和候选发布记录为准）。
 
 设计决议见 §Review / Revision（2026-06-18）与 §Channel Taxonomy（2026-06-19）。
-落地属于 `AGENTS.md` 定义的 **A 级变更**（改动 runtime 契约、能力暴露、存储
-边界），实现前以本文档为准；本文档本身尚未运行任何构建或测试。
+本设计涉及运行时契约与通道能力暴露，仍遵守 `AGENTS.md` 的 A 级变更治理约束。
 
 2026-08-14 更新：OpenRouter 已作为一等第三方渠道落地（`openrouter` / `openrouter-api`，默认 `https://openrouter.ai/api/v1`，wire=`openai-chat`）。接入约定见 `knowledge/architecture/openrouter-channel.md`。下文 §Context 中「设置界面渠道列表 / 代码中不存在」仍是 2026-06-18 的历史快照，不再代表当前代码。
 
@@ -183,6 +184,7 @@ capabilities: {
   绝不发送 manual `thinking.budget_tokens`。这避免把模型代际判断继续硬编码在公共
   encoder 里；模型级例外可由 `ModelInfo` 或 descriptor 方言数据覆盖。
 - 用户在条目级可覆盖 `defaultEffort`，但取值受 `effortLevels` 约束。
+- **跨 ADR 对齐（2026-11-15）**：系统级统一思考强度词表为 `off | low | medium | high | xhigh | max`；[ADR 83](83-model-routing-by-role.md) 档位/角色配置中的 `reasoningEffort`、`fastMode` 以及 [ADR 48](48-provider-model-options.md) 模型实例 `optionValues`，在进入请求或候选故障切换筛选前，均须按目标 `ChannelDescriptor.capabilities`（及模型目录声明）校验或裁剪，不得向不支持该能力/档位的端口静默透传非法值；`oauth_chatgpt` 仍为「OpenAI 官方」独有。
 
 #### 1.3 自定义 Header（防不兼容的兜底扩展点）
 

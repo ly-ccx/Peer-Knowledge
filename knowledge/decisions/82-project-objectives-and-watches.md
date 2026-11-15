@@ -1,7 +1,7 @@
 # 82. 项目目标与定时 / 事件驱动推进
 
 创建时间：2026-09-24
-最后更新：2026-10-01
+最后更新：2026-11-15（对齐 `watches` 仅限本机执行、`act` 写盘走资源 claim 锁，以及用户目标作为持续委派锚点的地位）
 
 ## 状态
 
@@ -77,7 +77,7 @@ type ObjectiveProbe =
 ```
 
 - **定时**复用 ADR 62 的 Scheduler 模块：`nextRunAt` 是事实、timer 只是唤醒优化；幂等键 `objectiveId + watchId + scheduledAt`；missed 默认 `run_latest`，overlap 默认 `skip`；启动 / 唤醒 / 时间变化时对账。**共用 Scheduler 模块，不共用 AutomationDefinition**：目标触发不新开会话，只产生观察结果交给项目代理。
-- **事件**：P1 只做内部与本机来源（任务事件、本地 git、工作区文件），不开入站网络。外部状态（CI、issue、依赖发布）一律通过定时探测拉取，不做 webhook。
+- **事件**：P1 只做内部与本机来源（任务事件、本地 git、工作区文件），不开入站网络。外部状态（CI、issue、依赖发布）一律通过定时探测拉取，不做 webhook。此外，凡引用本机文件路径（`files`）或本机 shell `command` 探测的 `watches`，均属于设备绑定运行态（与 [ADR 62 §3](62-automation-runtime-boundary.md#3-持久化) 一致），**仅限本机执行**，不得跨设备自动同步或免审迁移执行。
 - **探测一律只读**：确定性探测优先（git ref、文件哈希、只读命令的退出码与输出摘要）；需要理解的用只读探测子 agent（复用 Explorer 执行路径，`observe` 级授权，走能力链与 Evidence；默认「省」档模型，ADR 83）。探测没有副作用，不能写文件、不能对外写。
 
 ### 3. 观察结果只在「变了」时往上报
@@ -106,7 +106,7 @@ interface WatchObservation {
 | `propose`（默认） | 汇报并提出下一步，附「开始」一键动作；用户点了才开任务 | 代理提议的目标；用户没说可以自己动手 |
 | `act` | 自己开任务推进，事后汇报 | 用户明说「发现就直接修」 |
 
-- `act` 开出的任务照常过签收策略与权限审查：对外操作仍然 `confirm`，验证不过线不代签。
+- `act` 开出的任务照常过签收策略与权限审查：对外操作仍然 `confirm`，验证不过线不代签。按用户要求明确创建并激活（带 `originMessageId` 与宿主签发 `objectiveActionId`）的持久 `ProjectObjective`（`autonomy: 'act'`），构成合法的**持久委派锚点**（与 [ADR 91](91-project-bot-autonomous-coordination.md) / [117](117-intent-driven-coordination-and-goal-closure.md) 中的 `user_input` / `CoordinationMandate` 同等合法来源），其开出的写盘工作流亦须遵守 [ADR 116](116-session-control-and-resource-settlement.md) / [127](127-unknown-outcome-reconciliation-and-delegated-resolution.md) 资源 claim 准入锁。
 - 预算硬限：每个目标每天自动开任务数、探测次数、token 上限；超了停止自动推进并告诉用户。沿用 ADR 80 的 CircuitBreaker：同一目标下连续失败达到阈值即熔断。
 
 ### 5. 锚定回复

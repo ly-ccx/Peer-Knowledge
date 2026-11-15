@@ -1,7 +1,10 @@
 # ADR 104：交互优先读取与协调日志增量存储
 
 创建时间：2026-10-22
-最后更新：2026-10-28（历史分叉、安全恢复与旧 writer 屏障补充）
+最后更新：2026-11-15（补充重号消歧说明，并与 §9 统一 read-models 存储路径表述；2026-10-28 历史分叉、安全恢复与旧 writer 屏障补充）
+
+> [!NOTE] 重号消歧
+> 历史并发编写导致编号 `104` 同时对应 [104-progressive-interaction-and-coordination-storage.md](104-progressive-interaction-and-coordination-storage.md)（本篇，交互优先读取与协调日志增量存储，Accepted）与 [104-bot-capability-visibility.md](104-bot-capability-visibility.md)（Bot 能力绑定与专属上下文，**仍为 Proposed**）。外部引用 `ADR 104` 时必须附带完整文件名以免混指。
 状态：Accepted（2026-10-22 用户明确要求按方案实施并跑完整回归；保留现有任务、对话与证据，不影响当前运行实例。实施及验收事实另记。）
 级别：A（持久化格式、恢复契约、上下文准入），B（共享 Runtime、Conversation Store、IPC 与加载状态）。
 
@@ -102,7 +105,7 @@ Renderer 读取 Interaction 不调用 ProjectFacts.cards。任务卡和恢复动
 
 保留旧 coordination.jsonl 和原 checkpoints；v2 在同一 project-runtime/<workspaceId>/ 内新增 versioned manifest 与分段事件文件。原受保护检查点、GoalPlan、Conversation 和 Evidence 正文不迁入数据库。
 
-建议路径（实施时登记 DATA_STORE_ENTRIES 的目录语义）：
+建议路径（**历史设计草案路径；2026-11-15 统一对齐：协调派生库实际落点以本文 §9 为准——位于 `project-runtime/<workspaceId>/.read-models/coordination-<cacheId>.sqlite` 与 `coordination-current.json`，交互索引位于 `cache/read-models/interactions/<store namespace>/`**）：
 
 ```text
 project-runtime/<workspaceId>/

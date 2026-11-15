@@ -1,16 +1,17 @@
 # 38. Web Search / Fetch Provider（联网搜索与读链接能力）
 
+创建时间：2026-06-20
+最后更新：2026-11-15（标明 Phase 1 `web_fetch` 已跨宿主无 Electron `BrowserWindow` 落地、记录 manifest `riskLevel` 现状差异，Phase 2 `web_search` 维持 Proposed）
+
 ## Status
 
-Proposed on 2026-06-20（设计草案，尚未动代码）。
+- **Phase 1 (`local.web.fetch` / `web_fetch`)**: **Accepted / Shipped Phase 1**（跨宿主纯 Node HTTP 抓取引擎已落地，不依赖 Electron `BrowserWindow`，Desktop / CLI 均按策略投影）。
+- **Phase 2 (`local.web.search` / `web_search`)**: **Proposed**（尚未实现；原草案依赖隐藏 `BrowserWindow` 抓取搜索引擎页，后续落地时须同步评估跨宿主引擎方案）。
 
-本能力的落地属于 `AGENTS.md` 定义的 **A 级变更**：它新增一个对 Agent 暴露
-的本地能力、引入「联网」这一新的权限维度、并产生新的 Evidence 类型（抓取
-到的网页正文）。实现前以本文档为准。
-
-> 本文档尚未运行任何构建或测试。文中涉及的目录、manifest 字段、Provider
-> 主链路均来自对当前仓库的代码证据核对（见 §Context），但具体 TypeScript
-> 实现、reducer、IPC、设置项尚未编写。
+本能力的落地属于 `AGENTS.md` 定义的 **A 级变更**：它新增对 Agent 暴露的本地网络读取能力与相应 Evidence 边界。
+> **实际落地差异记录（2026-11-15 核对代码仓）**：
+> 1. Phase 1 实际落地采用跨宿主纯 HTTP/HTML 抽取（不依赖 D3 原拟“首选 Electron `BrowserWindow`”），因此 CLI/TUI 亦可使用而无需 Electron。需要完整浏览器 DOM 渲染时走 L1（经典前台，[ADR 72](72-l1-default-web-entry.md)）或 L2 Playwright（后台 `work_session`，[ADR 71](71-l2-playwright-external-browser.md)）。
+> 2. 现行代码清单 `capabilities/local.web.fetch.json` 中实际声明 `riskLevel: "L3_external_write"`（偏严保守声明），而下文章节 D5/草案 Manifest 曾写 `"L2_network_read"`；两者以现行代码清单的保守权限闸门为运行事实，后续若收敛至 `L2_network_read` 须另经契约同步修订。
 
 ## Context
 

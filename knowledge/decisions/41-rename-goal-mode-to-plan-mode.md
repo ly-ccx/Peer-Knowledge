@@ -1,8 +1,8 @@
 # ADR 41：将现有「Goal 模式」正名为「Plan 模式」
 
 > 创建时间：2026-06-30
-> 最后更新：2026-07-03
-> 状态：**部分修订（Superseded in part）** — 方案 A（wire 值 `'goal'`→`'plan'`）与 wire 值迁移三步已落地；但本 ADR 核心结论之一「Runner 归 goal 模式独占、plan 回归纯审批门(A1)」已于 2026-07-03 被 **B2-b 修订推翻**：plan 与 goal「批准后」执行段合一，共用同一自驱 Runner。详见文末「§六之补二：B2-b 修订——plan/goal 执行段合一」
+> 最后更新：2026-11-15（明确 §5 方案选型表已由下方「六之补二：B2-b 修订」与统一执行契约最终定案，历史记录保留）
+> 状态：**部分修订（Superseded in part）** — 方案 A（wire 值 `'goal'`→`'plan'`）与 wire 值迁移三步已落地；但本 ADR 核心结论之一「Runner 归 goal 模式独占、plan 回归纯审批门(A1)」及下文 §5 早期选型对比已于 2026-07-03 被 **B2-b 修订推翻**（另见 [ADR 35](35-mode-scoped-tool-projection.md) 当前模式投影矩阵）：plan 与 goal「批准后」执行段合一，共用同一自驱 Runner。详见文末「§六之补二：B2-b 修订——plan/goal 执行段合一」
 > 关联代码：`peer_agent`
 > 关联文档：本仓 `design/product/goal-mode-ultrathink-workflow.md`（真正的 Goal 模式设计）、`knowledge/specifications/15-goal-plan-lifecycle-governance.md`
 
@@ -82,6 +82,8 @@
 ---
 
 ## 五、两种落地方案（迁移成本权衡）
+
+> **[历史对比保留，已定案（2026-07-03 / 2026-11-15 对齐）]**：下表为迁移前的 A/B 权衡记录。实际已采用方案 A 完成 wire 值清理，并经下文「六之补二：B2-b 修订」推翻了早先“Runner 归 goal 独占、plan 仅纯审批”的前提（plan 批准后与 goal 共用自驱 Runner 执行段）。
 
 | 方案 | 做法 | 优点 | 代价 |
 | --- | --- | --- | --- |

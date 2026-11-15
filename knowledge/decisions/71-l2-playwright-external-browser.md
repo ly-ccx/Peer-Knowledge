@@ -1,7 +1,7 @@
 # 71. L2 受控外部浏览器（Playwright / CDP）安全模型
 
 创建时间：2026-09-01
-最后更新：2026-09-01
+最后更新：2026-11-15（消解§决策一内部工具面矛盾，并明确 0.1.0 Project Bot `work_session` 使用 L2 + `web_fetch` 的隔离地位）
 
 ## 状态
 
@@ -13,7 +13,7 @@ A 级 —— 新增 Environment Adapter（`ExternalBrowserAdapter`）、独立�
 
 ## 背景
 
-ADR 40 / 46 / 59 / 66 / 70 已把 **L1 内嵌 Browser** 做成用户可见的 Electron `<webview>` 直控面。P0 修了点击正确性（逻辑坐标、auto-wait、`buildElementJs` 跨 iframe）；P1 补齐单页动作：hover / scroll / key / drag。模型现在面对的 L1 工具是：
+ADR 40 / 46 / [59-browser](59-browser-panel-reveal-capability.md) / 66 / 70 已把 **L1 内嵌 Browser** 做成用户可见的 Electron `<webview>` 直控面。P0 修了点击正确性（逻辑坐标、auto-wait、`buildElementJs` 跨 iframe）；P1 补齐单页动作：hover / scroll / key / drag。模型现在面对的 L1 工具是：
 
 | 工具 | capabilityId |
 |---|---|
@@ -36,7 +36,9 @@ ADR 40 / 46 / 59 / 66 / 70 已把 **L1 内嵌 Browser** 做成用户可见的 El
 
 ### 决策一：Playwright 是 Adapter，不是新工具面
 
-L2 与 L1 **共享同一套 `browser_*` 工具名与 `ComputerAction` 契约**，按 `environment` 路由到 Adapter：
+> **文档内矛盾消解与路由更新（2026-11-15 对齐）**：本节初稿曾写“L2 与 L1 共享同一套 `browser_*` 工具名”，该设想已在本文第一刀实际落地中被**同篇纠正/取代**（见下方 `## 实现进度`）：最终契约改为独立工具面 **`browser_external_*` → `local.web.external.*`**，绝不将 L1 `browser_*` 路由进 Playwright，也不互相接管。此外，在 0.1.0 **Project Bot 模式**（[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 5）下，`work_session` 后台子任务剥离 L1 `browser_*`，网页交互默认采用 L2 Playwright（`browser_external_*`）与 `web_fetch`（[ADR 38](38-web-search-fetch-provider.md)）；经典前台对话仍以 L1 `browser_*` 为默认入口（[ADR 72](72-l1-default-web-entry.md)）。
+
+最初架构边界原则如下（工具前缀现以实际落地的 `browser_external_*` 为准）：
 
 ```text
 Capability Provider

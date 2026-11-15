@@ -1,7 +1,7 @@
 # 70. L1 内嵌浏览器动作面扩展（hover / scroll / key / drag）
 
 创建时间：2026-09-01
-最后更新：2026-09-01
+最后更新：2026-11-15（明确引用消歧为 [ADR 59-browser](59-browser-panel-reveal-capability.md)）
 
 ## 状态
 
@@ -13,7 +13,7 @@ A 级 —— 新增四个 `local.web.control.*` capability 与四个 `browser_*`
 
 ## 背景
 
-ADR 40 落地了可见 `<webview>` 与 Agent 直控 WebContents；ADR 46 / 59 / 66 补了会话绑定、面板 reveal 与 headless 降级。P0 已修 L1 点击正确性：逻辑坐标契约、`computeViewportPoint`、`waitForElementStable`、`parseFrameSelector` / `buildElementJs` 跨 iframe 定位。
+ADR 40 落地了可见 `<webview>` 与 Agent 直控 WebContents；ADR 46 / [59-browser](59-browser-panel-reveal-capability.md) / 66 补了会话绑定、面板 reveal 与 headless 降级。P0 已修 L1 点击正确性：逻辑坐标契约、`computeViewportPoint`、`waitForElementStable`、`parseFrameSelector` / `buildElementJs` 跨 iframe 定位。
 
 当前模型可见的 L1 动作仍只有：
 
@@ -177,7 +177,7 @@ Permission UI 展示 host + 动作摘要；key 的 `keys` 可展示键名，不�
 
 - ADR 40 内嵌浏览器与 Agent 直控
 - ADR 46 会话绑定标签
-- ADR 59 面板 reveal
+- [ADR 59-browser](59-browser-panel-reveal-capability.md) 面板 reveal
 - ADR 66 headless 降级
 - `knowledge/architecture/computer-use-capability-ladder.md` §6 ComputerAction
 - `knowledge/architecture/browser-capability-gap.md` P1

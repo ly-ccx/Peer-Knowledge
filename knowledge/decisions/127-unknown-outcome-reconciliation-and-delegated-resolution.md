@@ -1,17 +1,18 @@
 # ADR 127：未知执行结果的对账协议、策略化自主收口与资源范围收敛
 
 创建时间：2026-11-09
-最后更新：2026-11-09
-状态：Accepted（2026-11-09 用户评审通过，含评审修订：仅保留 `ask` / `bot_verified` 两档，`auto` 取消；实施未开始，不表示已实现或已发布）
+最后更新：2026-11-15（同步 ADR 126 为 Accepted，明确列出对 ADR 116 / 124 的部分取代条款及已退役条目的设置/诊断入口边界）
+状态：Accepted（2026-11-09 用户评审通过，含评审修订：仅保留 `ask` / `bot_verified` 两档，`auto` 取消；2026-11-15 与 ADR 126 配套对齐；实施未开始，不表示已实现或已发布）
 级别：A（执行结果、授权边界、证据与资源占用契约）；实施包含 B 级协议/宿主/持久化和 C 级状态表达。
 
 关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[委托运行时](../architecture/project-agent-delegation-runtime.md)、[人机交互契约](../specifications/peer-human-agent-interaction-contract.md)、ADR [91](91-project-bot-autonomous-coordination.md)、[101](101-bot-owned-access-policy.md)、[110](110-follow-up-responsibility-and-current-list.md)、[116](116-session-control-and-resource-settlement.md)、[120](120-runtime-facts-disposition-and-resource-wait.md)、[124](124-legacy-stop-obligation-controlled-resolution.md)、[126](126-execution-resource-claim-closure-and-unknown-retention.md)。
 
-本文是 ADR 126 的**授权模型扩展**，不是推翻：
+本文与正式接受的 [ADR 126](126-execution-resource-claim-closure-and-unknown-retention.md) 共同构成现行“执行资源 claim 闭包与未知执行结果收口”契约，并非推翻停稳与审计基线，而是对部分旧条款做如下**显式部分取代**：
 
-- ADR 126 的 claim 闭包、`RetainedUnknown`、计划镜像、死亡证明和用户确认机制继续有效。
-- ADR 126 目前只允许 `user_panel` 确认 `close_claim`；本文增加**用户委托给主 Bot 的策略化收口**，并保留人工兜底。
-- ADR 116 / 124 的停稳回执、未知保护、审计和不重放原则不变。
+- **延续 ADR 126**：claim 闭包、`RetainedUnknown`、计划镜像、死亡证明、`user_panel` 确认（对应 `ask` 档）及隔离 clone 逃生继续有效；两者现均处于 Accepted 契约态。
+- **扩展 ADR 126**：在逐条 `user_panel` 确认的 `ask` 档之上，增加用户按项目 / Bot 主体预先委托给主 Bot 的 `bot_verified` 策略化收口（由宿主核验对账探针证据与风险包络，仍保留人工兜底；`auto` 档已取消）。
+- **部分取代 ADR 116**：§6.1 / §12 的“仅目录粒度锁定、不做细粒度 scope”由本文 §5.7 按声明范围（文件 / 子目录 / Git ref / 远端对象）收敛 claim 所取代；§6.2–§6.3 的“只能凭匹配停稳回执释放占用、未知结果转长期目录 hold”由 ADR 126 + 本文的 `RetainedUnknown` 留存与 `ask / bot_verified` 受控闭包所部分取代（`stopReceipt` 仍是停止证明与自动结清的唯一依据）。
+- **部分取代 ADR 124**：§1.5 / §4.1 / §6.2 / §8.3 / §13 中“永不通过闭包放开目录 / 每条仅允许 `user_panel` 确认 / 不新增设置页入口”等条款，由 ADR 126 + 本文的 `ask / bot_verified` 策略设置与受控闭包出口所部分取代。对于已按 ADR 124 写入 `disposition=indexed`（脱离日常任务列表）但仍留有陈旧 `ask` 档未闭 claim 的条目，**不恢复顶层「待核实」任务列表分区**，而是通过设置/诊断入口以及实际堵塞新任务时的资源等待提示直接暴露对账与闭包/策略入口，避免永久死锁。
 
 ## 1. 问题与用户判断
 

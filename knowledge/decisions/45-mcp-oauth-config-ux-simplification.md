@@ -2,14 +2,13 @@
 
 ## Status
 
-Design agreed on 2026-07-01（本文档为设计决策记录，代码改动尚未落地）。
+Accepted（2026-07-01 形成设计约定，对应渲染层精简已作为现行 UX 基线；最后更新：2026-11-15，对齐跨宿主 OAuth 安全边界与 [ADR 0001](0001-cross-platform-credential-vault.md) / [ADR 32](32-mcp-authentication.md)）。
 
-改动范围属渲染层 MCP 设置面板交互，**后端零改动**（关键结论见下）。代码改动一律在
-`peer_agent` 仓，本知识库仅作可追溯记录。
+原设计阶段代码改动范围聚焦渲染层 MCP 设置面板交互，**后端 OAuth discovery 链路保持既有设计**；知识库同时明确其跨宿主安全边界。
 
 - 创建时间：2026-07-01
-- 最后更新：2026-07-01
-- 关联决策：`knowledge/decisions/32-mcp-authentication.md`、`knowledge/decisions/31-mcp-connection-management.md`
+- 最后更新：2026-11-15
+- 关联决策：[32-mcp-authentication.md](32-mcp-authentication.md)、[31-mcp-connection-management.md](31-mcp-connection-management.md)、[0001-cross-platform-credential-vault.md](0001-cross-platform-credential-vault.md)
 - 目标改动文件：`apps/desktop/renderer/src/app/components/McpSettingsPanel.tsx`
 
 ## Context
@@ -77,6 +76,13 @@ Design agreed on 2026-07-01（本文档为设计决策记录，代码改动尚�
 - 删除 `authorizationServerUrl` 空值抛错的强校验。
 - Authorization Server URL 降级为可选/高级项，标注"通常留空自动发现，仅自动发现失败时手动填"。
 - 为空则不提交，交后端 SDK discovery。
+
+### 安全边界（与 ADR 0001 / ADR 32 对齐，2026-11-15）
+
+- **只读 Loopback 回调地址**：`DEFAULT_OAUTH_REDIRECT_URL` 固定绑定本机 loopback（`127.0.0.1` / `localhost`）且渲染层只读展示；服务端登记必须精确匹配该回调 URI，结合 PKCE（`codeVerifier`）与 `discoveryState` 防御授权码拦截与 CSRF。
+- **TLS 与 URL 约束**：除显式本地 loopback 调试外，MCP 服务与发现的授权/Token 端点应走 HTTPS，避免明文传输 `authorization code` 与 `tokens`。
+- **OAuth 凭证不透明与 Fail-Closed 存储**：OAuth `clientSecret`、`accessToken`、`refreshToken` 及关联动态注册敏感字段一律经主进程/跨宿主凭据边界存储为不透明凭证（按 [ADR 32](32-mcp-authentication.md) 与 [ADR 0001](0001-cross-platform-credential-vault.md) 收敛至 `peer-credential-helper` 且禁止明文降级；现有 Desktop `mcp-credential-store.mjs` 记为迁移债务），不得回传渲染层或写入可导出配置/日志。
+- **CLI / Headless 宿主兼容**：前端简化仅作用于 Desktop 设置面板交互；后端基于标准 `.well-known` discovery + DCR 的 OAuth 状态模型同时为后续 CLI/TUI 复用留出一致的凭据键与 discovery 状态契约。
 
 ## Consequences
 

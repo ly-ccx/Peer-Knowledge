@@ -1,9 +1,9 @@
 # 74. 部署面与本机存储策略
 
 创建时间：2026-09-06
-最后更新：2026-09-06
+最后更新：2026-11-15（状态规范为 Accepted，与 [ADR 48-cli](48-cli-first-class-release.md)、[ADR 81](81-project-agent-memory-system.md)、[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md)、[ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)、[ADR 121](121-desktop-session-windowing-contract.md) 对齐）
 
-状态：Proposed（产品方向已与用户对齐；实现未开工。本文不是已落地 Accepted 实现。）
+状态：Accepted（本机 `<dataRoot>` 数据面分层、Desktop/CLI 共享规则与密钥进 Vault 已作为现行基线在 ADR [81](81-project-agent-memory-system.md)、[85](85-project-agent-hosts-inputs-and-surfaces.md)、[104-progressive](104-progressive-interaction-and-coordination-storage.md)、[121](121-desktop-session-windowing-contract.md) 采纳落地；内网自托管与远程连接 Gateway 部署拓扑仍按后续分阶段演进，不改变已生效的本机存储不变量）
 
 级别：A 级（产品边界 + 数据面选型，影响账号、Gateway、存储）
 
@@ -53,7 +53,7 @@ Capability Provider
 
 ### 1. 一套 Peer Runtime，三个部署面
 
-同一套 Runtime，三种拓扑。Desktop / CLI/TUI 仍是本机宿主入口（架构 22、ADR 48），不是第四套部署产品。
+同一套 Runtime，三种拓扑。Desktop / CLI/TUI 仍是本机宿主入口（架构 22、[ADR 48-cli](48-cli-first-class-release.md)），不是第四套部署产品。
 
 | 部署面 | 谁在用 | 注册 | 数据与密钥 | Gateway |
 |---|---|---|---|---|
