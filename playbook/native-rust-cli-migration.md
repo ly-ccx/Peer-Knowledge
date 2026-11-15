@@ -4,6 +4,12 @@
 最后更新：2026-11-15
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+2026-11-15 原生 MCP 执行卡：源码 `613b2cc8` 接通 stdio、Streamable HTTP JSON/SSE 与独立 legacy SSE；后续 `b9623558` 仅补共享 Protocol 类型声明，Rust、lockfile、合同资源及验证脚本完全相同。Provider 仍沿 Manifest→Projection→当前 Host grant→真实 transport→Tool Result/Evidence 执行；初始化后再核对原 grant、registry revision、policy、Goal/binding 和 lease。连接复用并登记真实完成所有者，停止必须 drain；硬退出按完整原 recorder/进程组观测恢复本地句柄，远端效果仍为 `unfenced_external`，不会重放或凭 Git clean 自动收口。未知版本句柄原样保留并阻断恢复；独立范围的后续 worktree 任务可准入，旧 unknown 保留。
+
+最终原生 scoped 门禁为246 Rust（50个公开CLI场景，其中12个新增MCP场景）、76个实际原生根/448项TS读写及Rust重读、7组实际TS结果归一化向量和真实TS SDK握手/调用、8项PTY；fmt/clippy/release/boundary/architecture通过。Protocol补充类型的build/type及336测试通过；原生门禁绑定 `613b2cc8` 的树，类型补充候选的远端CI独立核对。覆盖真实PTY的一次批准/第二次拒绝、非TTY拒绝、初始化期间降权/配置变化、响应业务错误/RPC错误、断连/帧与结果超限、30秒真实超时、SIGTERM、硬退出/未知版本恢复、已知用量不重复及后续任务。脱敏不递归重写替代串，也不能将协议失败改为成功。见[原生MCP执行证据](native-cli/evidence/p4-native-mcp-runtime-20261115.json)。ADR131的句柄/Evidence观测合同见知识提交 `b60d71a`；既有许可、占用与unknown人工收口政策未改变。
+
+此卡只放开未绑定 credentialRef 的既有配置；非 none 的auth仍在模型调用前明确阻断，不降级为无认证。MCP Vault/旧凭据安全迁移、OAuth、代理/证书及协议恢复平价、其余模型auth/private wire、完整Context/压缩策略、剩余能力、Skill/Plugin/Hook、headless/ACP/其余命令与真实模型/平台验收仍缺。P4总闸未通过，因此P5尚未启动；不以MCP scoped通过代替完整Runtime。默认peer、个人数据、运行实例与安装均未改变，无Bun/Node引擎sidecar。
+
 2026-11-15 NR-04 压缩持久化候选：`6afb5882` 已完成追加式 historySelection、TS/Rust v3 projector、原生 summary cognition、落盘后重建重计数、容量 sidecar/index mirror、冷恢复和单次 overflow 恢复；后续 `c69bec11` 仅移除文件尾空行。源码 scoped 为 226 Rust（36 个公开 CLI 场景）、56 根 302 项真实 TS/Rust 往返、Node/Bun 各 11 项容量存储互读，以及 8 项 PTY；完整原生 scoped 门禁通过。daa4c478 的全仓 Linux/macOS CI 已核实成功；新候选全仓 CI 单独核对。该卡不代表 P4 总闸：完整 Source/compaction 策略、OAuth/Qoder/代理证书、MCP/Skill/Plugin/Hook、headless/ACP/其余命令与真实模型/平台验收仍须逐项完成。默认 `peer` 未切换、P5 尚未开始，未安装或迁移个人数据。
 
 下一张 NR-04 MCP 入口卡按 B 级实施：复核 `31-mcp-connection-management.md`、`32-mcp-authentication.md`、`36-mcp-tool-card-title-passthrough.md` 和 ADR131。先迁移既有 registry→Manifest 的有界只读 Adapter，冻结真实 TS 差分；未知版本/损坏源保留并拒绝，不把空 registry 误认为已有外部能力。Manifest 的可见性、来源和 auth metadata 不授予执行权限。空 registry 的真实 Host 准入可接通；非空 inventory 在 transport/credential/PermissionGrant/Evidence 全链未完成前继续明确阻断。stdio、Streamable HTTP 和 legacy SSE 必须分别验证，不能改写 `sse` 的含义；SDK 调研或纯 projector 测试不算外部工具已接通。现有权限、Evidence、System Context 与存储事实边界不移动。
