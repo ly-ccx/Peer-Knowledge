@@ -4,6 +4,16 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 Qoder 原生格式基础（未接 Provider）
+
+候选 `cfdfd40a`（tree `92958346`）已推送。依ADR129–131范围，先由knowledge fe5a6cd/053b481登记第三方凭据/目录读取与有界密码格式、旧载体和传输编码，再实现RustCrypto Module。解封当前AES-128-CBC/PKCS7本地凭据、HKDF-SHA256/AES-256-GCM的QMC v1目录，以及旧明文/base64 UTF-8载体；后两类不会被标成已认证。正文按官方固定字表/美元padding和首尾third换位编码，明确只是混淆。边界1MiB凭据/4MiB目录/8MiB原始body、严格key/block/tag/UTF8/版本/编码校验，部分解码数据与明文归非Debug/Display/Clone的零化owner。只启用锁中已有密码crate版本和zeroize feature，不捆绑/启动SDK、WASM VM或JS。
+
+公开npm1.0.39包完整性校验后，只在隔离开发oracle使用真正认证WASM（SHA256 `15dad38f7d9744dabfdc8a892ebad80d2c8157779f4e33882123ab3c954f04d3`），不运行官方CLI或读取个人账户。65个官方样本（21CBC、21GCM含3空输入拒绝、7旧载体、16body），含9个实际TS消息builder输入，与原生和Node密码原语交叉匹配。四组原生测试另覆盖nonce/密文/tag篡改、错误uid/key、坏块/填充、UTF8、未来QMC版本、非canonical正文、预算否决及随后正确解封。
+
+最终完整原生scoped **410 Rust（含148 native Episodes）/291根1688实际TS互读/9PTY**，CI Bun1.2.17，498.972秒exit0；fmt/clippy/边界/架构/UI通过。release profile四组格式测试在env-i、PATH无JS下再过，featureless CLI 16,705,504 bytes、SHA256 `14bfa423916c9fc6f8136b303144c1c7c66b1cd619cde747fbd7a693e4421d8a`，额外10项既有公开会话命令通过。原生依赖无VM，产物不包含官方WASM。首轮/第二轮clippy及初次Node源导入失败保留，使用原CI Bun解析实际TS，不抑制断言或静态检查。见[Qoder格式回执](native-cli/evidence/p4-native-qoder-formats-20261117.json)。
+
+基线7627两平台全仓CI43931485780含各自Electron smoke已成功；新[CI43938893409](https://github.com/ly-ccx/Peer-Agent/actions/runs/43938893409)两平台Build进行中，merge0cfff93d tree与源一致，不能继承旧绿。**本卡没有接文件读取/账户身份、Model factory或Qoder模型发送**；认证封装/运行时auth字段、完整消息/目录/选项、网络/SSE/队列重试/用量/取消，以及模型→工具→Grant/Evidence仍待完成，当前公开factory仍拒绝Qoder。其余P4与P5–P7保持开放，普通Ratatui对话仍不可发送，长期内存未验收；无个人数据、安装、用户进程重启、默认切换、合并或发布。
+
 ## 2026-11-17 原生 doctor / sessions list / 有界 export
 
 候选 `7627d4c8`（tree `8f05f778`）已推送。ADR108/129/130/131 已复核；ADR131/map的展示读取、原子发布与未知回执 A 级补充由6395a575/c52072fb/c4d35111先登记。doctor改为检查实际peer/同目录Helper可执行性、数据根或最近现有父目录及版本，必查失败退出1，不执行Helper/读Vault/建数据根。sessions默认/list只读真实index，原角色/排序/标题不读正文、不后台迁移。export沿实际TS可见消息与v1 stream patch生成脱敏Markdown，不能用canonical执行历史的provisional排除规则替代展示。
