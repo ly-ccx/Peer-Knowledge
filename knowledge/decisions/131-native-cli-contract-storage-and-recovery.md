@@ -10,6 +10,8 @@
 
 2026-11-16 NR-04模型OAuth条件提交：按[ADR0001原生模型OAuth修订](0001-cross-platform-credential-vault.md)先登记Helper可协商快照/CAS，再实现原生token读取、刷新和模型传输；不增加能力或本地执行授权。配置元数据不能取代实际Vault token，迟到刷新不得复活删除或覆盖新一代。模型配置完整写入、登录回执和提示投影恢复未验证前仍属于P4余项。旧Helper特性缺失须在远端效果前拒绝，原子Vault提交与失败保全需真实跨进程验证。
 
+同日补强：远端刷新前先以同一加密token的`peerModelRefresh`意图争取唯一刷新者，未知结果保留意图并阻止自动重放；完成仅CAS自己的意图代。完整新旧宿主须迁移同一seam并验证，旧预读token的宿主不因新增字段自动变安全。该连续性事实不改变本地能力授权或Evidence，未完成多宿主兼容不记P4总闸。
+
 CLI 改用 Rust 后，Desktop 与公开 Runtime SDK 暂时仍使用 TS / JS。机械翻译类型不能保持权限 digest、System Context checksum、工具配对、sidecar、宿主租约、SQLite CAS 或完成门一致。新的二进制也不能因为启动成功就接管旧任务。
 
 本 ADR 将 ADR 55 / 57 的共享 Implementation 约束扩展为跨语言 conformance；保留 ADR 0001、35、37、49、65、74、76、80–85、88、92、98、100、101 的事实、权限、存储和恢复边界。`104-bot-capability-visibility.md` 在最新实施 checkout 仍为 Proposed，不随技术迁移被接受；同号的 `104-progressive-interaction-and-coordination-storage.md` 已接受，其日志 / writer 屏障 / 恢复契约继续保留，二者不能混称。ADR 115 页头已 Accepted，按其既有准入 / 草稿边界迁移当前 CLI 可达功能，不能继续沿用初次旧 checkout 的 Proposed 判断。

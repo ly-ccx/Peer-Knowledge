@@ -122,6 +122,12 @@ Windows Helper 随 Desktop/TUI 一同发布，凭证绑定当前 Windows 用户�
 
 验收覆盖真实Helper加密Vault（注入测试KeyStore）、旧客户端set/delete使新快照失效、同键与异键并发、条件删除/创建、容量/损坏保全、双向TS/Rust协议；原生模型真实HTTP刷新→条件持久化→模型/工具/Evidence、取消/超时/重定向/截断/过期/缺refresh、竞争退出/新登录、提交失败和后续准入。真实平台Vault/IdP与安装升级验收独立，不以注入KeyStore替代。
 
+2026-11-16同日实施前补强（A）：仅有完成时CAS不能防止并发发送同一refresh token，也不能记录超时后的未知远端轮换。已协商客户端须在远端请求前以原快照CAS写入加密token内保留字段`peerModelRefresh:{schemaVersion:1,attemptId:<UUIDv4>,authMethod,phase:"in_flight",createdAt:<epoch-ms>}`，再核对自己提交的revision后才发送；只有一个客户端能取得该意图。字段是刷新操作的连续性事实，不是凭证授权或远端成功证明，不新建明文日志/私有根。
+
+完成时仅从自己仍持有的意图revision条件提交新token并移除此字段。取消、超时、连接中断、提交回执丢失或崩溃后可能已发出请求的意图必须保留，后续自动请求不得重放旧refresh；重新登录以新授权凭据显式替换，或由支持该状态的恢复流程对账。明确在HTTP future首次poll前取消、可证明未发送时，可按原意图revision条件恢复原token；CAS失配仍保留新状态。未知schema/损坏意图保全并拒绝，不按时间或进程死亡猜测远端未轮换。
+
+新Helper的旧`get`以及新TS客户端对模型OAuth键发现该字段时返回稳定pending错误，不向不支持连续性状态的调用方返回旧refresh；`get-snapshot`仍向条件更新客户端提供原始加密payload解密结果。已预读token的旧运行时也必须迁移到同一前置意图/CAS seam，不能靠get时保护声称全版本并发安全；旧Helper与旧运行时混合在新刷新状态上的执行兼容须经ADR131 drain/升级门禁，未验证不得开放默认共享写域。现有配置元数据、Tool/Evidence与权限契约不变。
+
 - 新增 Rust Helper 与 TypeScript 客户端包；
 - Desktop LLM Store 改为元数据 + Vault；
 - TUI 共享模型配置改为通过 Helper 取 secret；
