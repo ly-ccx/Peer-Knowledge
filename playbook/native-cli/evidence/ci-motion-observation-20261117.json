@@ -245,7 +245,7 @@
         "failures": []
       }
     ],
-    "observedAt": "2026-11-17 local; latest tool snapshot retained in thread"
+    "observedAt": "2026-11-16T22:39:02.352712+00:00"
   },
   "limits": {
     "wholeRepositoryCiPassed": false,
@@ -253,5 +253,62 @@
     "ordinaryRatatuiChatEnabled": false,
     "p5ThroughP7Complete": false,
     "scope": "No full Bot21minute CI environment reproduction, full product/regression release, installed build, real provider/OS Vault or long-memory acceptance. No user data reads/migration, install, user-instance restart, default switch, merge, tag or release; no Bun/Node engine sidecar."
+  },
+  "followUpQoderCallerBaseline": {
+    "source": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+    "expected": {
+      "contextTier": "tier-large",
+      "max_input_tokens": 512000,
+      "is_vl": true
+    },
+    "actual": {
+      "key": "missing-synthetic-model",
+      "display_name": "missing-synthetic-model",
+      "model": "",
+      "format": "openai",
+      "is_vl": false,
+      "is_reasoning": false,
+      "api_key": "",
+      "url": "",
+      "source": "system",
+      "max_input_tokens": 200000
+    },
+    "baselineExit": {
+      "exit": 1,
+      "node": "/Users/yinliang/.nvm/versions/node/v25.9.0/bin/node",
+      "source": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+      "scope": "Actual compiled public sender. Host auth/HTTP mocks; not real authentication or network."
+    },
+    "log": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.log",
+      "bytes": 1473,
+      "sha256": "311e6755da5787eb0f21868367bac328cb68ac6b884363bbb839350109c68b4b"
+    },
+    "script": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.mjs",
+      "bytes": 2856,
+      "sha256": "24ab268107959ee735e3e48c5a4faf715d971210ca0ebef3e2abc1742c7785e8"
+    },
+    "bodyEvidence": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.json",
+      "bytes": 939,
+      "sha256": "bd469be8344db64bb4a7fb9851c8c23698eeb44eb7189bdd7cca3043d731c7dc"
+    },
+    "build": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/build.log",
+      "bytes": 340,
+      "sha256": "985575a5348499efd073aa396dd5c70a7d1badef9c0db9cd70d253feb79d017c"
+    },
+    "sourceAdapter": {
+      "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/runtime-node/src/provider-adapters/qoder-private-adapter.mjs",
+      "bytes": 52827,
+      "sha256": "94c313a44bdfb8144b5e1a7ec2f47033589eb84dfd8fbfa0407bd7494a355b42"
+    },
+    "builtAdapter": {
+      "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/runtime-node/dist/provider-adapters/qoder-private-adapter.mjs",
+      "bytes": 58823,
+      "sha256": "965ba0efe2ec8b44ed6891e5e2712eb6ffbd9d109d5007dbb173e146474c5191"
+    },
+    "scope": "Actual public shared TS sender and real stream parser, explicit auth/HTTP host mocks with an owned empty catalog/HOME. No SDK/credential/network/provider or native-model parity evidence is claimed by this probe. Raw-src/old-Node import attempt retained as unexecuted; this baseline ran the freshly built module on Node25.9.0. Static-only audit is now an executable caller-seam defect; fix still pending."
   }
 }

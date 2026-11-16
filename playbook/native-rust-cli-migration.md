@@ -12,6 +12,8 @@
 
 Rust/Cargo/native contracts/verifier与Desktop生产renderer树均与1d796f2a完全一致，原生454 Rust/336根1924互读/9PTY/无JS23组Host仍只作为相同Runtime的scoped证据，不冒充这张全仓绿。1d的[CI43967102253](https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253)因推送已验证修正而由既有并发策略取消：Linux build/native/type/architecture/Test成功、Electron smoke取消；macOS build成功、native取消，其后未跑，无失败步骤，不记全仓成功。新[CI43970657817](https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817)独立执行，merge90d3e41c tree与c09d2bc3相同。
 
+后续Qoder caller基线：在c09d2bc3重新build的实际共享TS公共sender上，以自有空目录、认证/HTTP Host mock和真实流解析器运行，持久contextTier=large（512000、tier-large）实际准备正文却无contextTier、max_input_tokens=200000、is_vl=false，原断言确实失败。outer已解析的fallback metadata未传入inner，inner再次查目录得到null；下一B卡复用既有已接受的metadata/显式覆盖契约修复，并补原生Host对照。此证据只证明完整caller的正文参数缺陷，不是SDK认证/真实HTTP/真实Qoder服务或原生平价验收。原始src/旧Node导入尝试未执行目标函数，另留日志，不计行为证据。
+
 继续P4原范围：Qoder完整caller/目录/流变体与真实服务、完整Context/压缩、剩余工具/Skill/Plugin/Hook/ACP/headless/命令及混合版本恢复仍开放；P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收。无个人数据、安装、用户实例重启、入口切换、合并或发布，无Bun/Node引擎sidecar。
 
 ## 2026-11-17 Qoder 逐尝试重试与用量/恢复
