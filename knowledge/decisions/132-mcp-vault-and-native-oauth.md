@@ -79,3 +79,15 @@ Rust真实工具准入及显式refresh、当前Desktop冷读OAuth解析均拒绝
 本卡支持的恢复为显式原生 `mcp auth <server-id>`：读取原client/issuer配置，新的PKCE/state/code交换成功并验证原registry/意图代后，发布不含refreshState的新凭据；不得复用previousTokens恢复。失败仍保全意图、旧slot、任务历史和原unknown。显式auth只恢复已知schemaVersion1、合法UUID operationId和object previousTokens的意图；未知/损坏意图保全并阻断，不用重登擦除未来语义。未来Desktop原地重新授权恢复须单独接入该所有权路径，不能以普通patch冒充认证成功。无TTL清锁或自动删除Vault slot。
 
 验收使用真实公开CLI、合成IdP与加密Helper：记录已收到的一次刷新，TERM与KILL后冷读均阻断第二次刷新和真实工具；元数据不含秘密，原slot与历史保留；当前Desktop冷读/预持有回调拒绝；显式重登成功后原ready任务可经真实Grant/ToolResult/Evidence继续。覆盖意图提交前失败不发token、意图owner丢失、未知schema、最终发布失败及后续恢复。自动刷新、完整P4、真实IdP/OS Vault、多平台安装与默认切换仍另验。
+
+## 2026-11-16 修订：原生运行时刷新与原授权代际延续（A，实施前登记）
+
+原生MCP Provider可在实际grant之后、tools/call之前，对过期/临近过期或只有相对有效期的OAuth token执行至多一次受管刷新；缺client/refresh token、交互授权、scope/issuer/client变化或pending仍阻断，不自动注册client、打开浏览器、重放tools/call或追随401。所有操作继续SDK编码、同一Network/地址/TLS/取消/响应边界及前置加密意图。成功后重新检查有效期、原权限、Goal/policy/lease/registry，再派发一次；失败保留真实刷新事实，未发工具不产生工具unknown。
+
+新增仅在当前原生执行内存中存在的credential epoch，由Host创建并绑定完整SessionExecutionIdentity与registry revision；保存初始凭据revision和当前已知revision，不落盘、不成为新授权或秘密副本。只有OAuth Module实际持锁publish返回的不可伪造内部publication可以推进它；严格匹配原expected binding、前一revision和实际Store回读，且限同一ref/client/issuer/resource/scopes的token刷新。发现的issuer/client必须与原实际加密配置一致，scope不扩大；未来/未知、DCR或外部轮换不能伪装刷新。意图与最终代均以同一owner的真实发布推进；提交失败或未知不能推进为成功。
+
+Host授权指纹继续逐次读取并校验真实Store revision；只有当前execution的epoch证明实际revision等于本次已确认代时，才将此单一来源规范化为初始revision以复核原grant。Goal、args、policy、祖先/角色、执行绑定、lease、registry及其它来源仍逐次精确比较，不改写grant事实或延长权限。Context同样检查当前epoch的真实revision，不因本机刷新恢复旧历史或绕过其它Context准入。外部任何凭据行/全文件变化、旧写者、metadata/registry身份变化均失去此映射而阻断；重启没有此内存证明，只从真实已提交Vault与既有任务恢复重新准入。
+
+每server的原生连接owner使用有限队列串行承接当前工具请求及其真实Host检查port；Provider不持有或生成许可事实。有效token可复用同一连接；需要刷新时先停止并join旧Connection/transport/SDK任务，确认停稳后才登记刷新，再以新token初始化。初始化后再次使用当前请求的port检查并只call_tool_once。逻辑connection handle覆盖该owner内HTTP连接的有序替换，取消覆盖整个owner；stdio不因本卡自动重启，旧childRecorder不能被替换抹去。服务端通知/控制流不成为授权来源；断连、超限、超时或已发调用失败仍unknown且不重放。
+
+验收通过公开原生exec：过期token→唯一刷新→真实工具/Grant/Evidence→下一模型请求和第二工具；有效token复用、回合中自然到期后的关闭/刷新/新初始化；拒绝不读Helper或访问IdP；policy/Goal/registry/外部credential在刷新期间变化会停止工具；取消/硬退出保留意图、所有者和原unknown，显式重登/新准入可恢复。覆盖真实加密Vault、HTTP(S)/proxy及其它transport回归。此条为原生执行接线：当前TS已预读token发送者的guard和旧安装版本drain仍是完整跨宿主P4/默认发布的独立必需条件，冷读/CAS不被当作该条件已满足。实现与平台验收另记。

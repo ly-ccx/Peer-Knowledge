@@ -239,3 +239,7 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 ### NR-04 MCP刷新未知结果持久化（2026-11-16，实施前 A级补齐）
 
 沿ADR132新增可选Vault envelope refreshState意图，先持锁发布并验证，再允许SDK刷新；同owner持锁publish推进binding，失败/中断不恢复旧refresh。当前Rust工具/refresh与Desktop冷读拒绝pending，显式原生重新授权才能清除。原不可变slot与历史保留，旧安装/预读token仍受drain闸。该凭据操作不是tools/call派发或工具Evidence；grant延续与当前TS token发送guard尚须后续实现验收。具体schema、顺序、异常恢复与测试见ADR132同日修订。
+
+### NR-04 原生MCP credential epoch与原grant续行（2026-11-16，实施前 A级补齐）
+
+沿ADR132同日修订引入execution绑定、只在内存存续的凭据epoch：只有受管OAuth持锁发布的内部凭据证明可以推进已知真实Store revision。Host每次检查真实revision，只对这条已验证代际链规范化credential来源以复核原grant；其它授权/Context事实和外部变化继续精确拒绝。连接owner有限排队，旧HTTP连接停稳/join后才刷新与替换，stdio不自动重启；不重放tools/call，不改写grant/Evidence或清除unknown。重启丢失epoch证明，沿原Store/任务恢复准入。细项与验收见ADR132；当前TS预读发送guard、安装drain与P4总闸另验。
