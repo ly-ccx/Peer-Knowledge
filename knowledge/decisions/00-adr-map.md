@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR132原生自动刷新接线前B复核跨代旧凭据脱敏寿命与原64值/256KiB预算；epoch不持秘密。区分OAuth数值CONNECT与普通MCP域名CONNECT，不放宽地址或权限。
+
 2026-11-16：ADR132/131实施前A补齐原生MCP运行时刷新、execution内存credential epoch与原grant/Context续行；仅受管真实发布推进，外部修改阻断；旧连接停稳后替换，工具不重放。TS预读发送guard/安装drain另验。
 
 2026-11-16：ADR132/131实施前A补齐MCP加密刷新意图；同owner持锁publish推进binding，已登记后失败未知不恢复旧refresh；Rust与Desktop冷读阻断，显式原生重登恢复。旧预读发送者/drain及自动刷新grant延续另验。
