@@ -16,9 +16,15 @@
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 当前宿主 OAuth 刷新协调候选 `aea02893`：依 ADR0001/28/37/48/129–131 做 B 级接线，沿已接受的加密前置意图/CAS，不新增权限、Evidence、存储格式或 Context 边界。SDK 在真实 token 读取时用 WeakMap 保留 Vault 记录代，复制或修改对象不能伪造回执；同值 set 也使预读快照失效。Desktop 请求解析/模型目录、旧 TUI Responses/Gemini/额度刷新统一在远端前争取原意图，仅提交自己仍持有的代；自动刷新不再无条件写回或因元数据错误回滚旧 refresh。新鲜旧 Helper 可继续读，过期先拒绝升级；保留未知字段与相同 64KiB 上限。宿主刷新 POST 禁止重放和重定向、15秒整响应取消，沿既有代理/证书 Adapter。额度失败不继续使用预读 access，也不把 unknown 虚构成 token 已过期。
+
+实际复现 `505ac8e4` 的旧 resolver：真实加密 Rust Vault 在预读后写入 native 等价占用，旧代码仍发 1 次重复 HTTP；当前代码为 0。实际 Desktop/TUI/SharedSelection→加密 Vault→HTTP 覆盖单 owner、迟到登录/退出、停用、未知结果、丢提交回执、窄视图保留原代及后续准入。原生 full scoped 重跑通过 291 Rust / 79 native Episode / 157 根908互读 / 9PTY；SDK26、Desktop82、TUI34、Runtime27、全仓type、IPC411/445/359、architecture/UI与886打包imports通过。首次 full scoped 暴露 Helper 1秒期限内未到 fixture 启动标记（0个）的测试前提失败；保留日志，不称flake。测试时钟先确认真实子进程，再推进同一1秒并验证kill/reap与后续准入，未修改生产deadline；6聚焦与完整重跑通过。完整回归开始后仅将额度错误收紧为 fetch_failed，5聚焦复验，避免假称过期。详见[刷新协调回执](native-cli/evidence/p4-model-oauth-coordination-20261116.json)。
+
+这仍不是 P4 总闸：当前源码入口已接同一协议，已经运行的旧二进制/预读宿主和外部SDK不会自动升级；实际双宿主执行、升级/drain与默认共享域完整验收仍缺。配置写入所有权/提示恢复、原生浏览器登录及其他P4、P5–P7继续待办。原生CLI产物字节未变，无Bun/Node引擎sidecar，无安装/重启/个人数据迁移。基线505ac8e4的CI43806200856 Linux全仓success；macOS最后smoke在新源码推送后按既有concurrency被取消，未观察到失败step，但不能记全仓success或解释未结束原因。新[CI43809352936](https://github.com/ly-ccx/Peer-Agent/actions/runs/43809352936)进行中，独立核对。
+
 2026-11-16 模型 OAuth 候选 `505ac8e4`：先于源码推送 A 级 ADR0001/131 Helper 快照/CAS（cceecf9）、ADR28/48 当前订阅目录与类型校正（2ce89a3）、刷新前加密意图与 unknown 保全（9df3605）。现有 ChatGPT/Google 账号在实际模型请求前读取真实 Vault token、核对配置/凭据代，先 CAS 加密刷新意图再发 HTTP；成功仅提交自己的意图代。取消、超时、崩溃或未知效果保留意图，后续不重放旧 refresh；新登录/退出使迟到回调失效。Helper v1 可选 feature 协商，旧 Helper 对新鲜 token 仍可读取，但过期刷新在远端效果前拒绝。原有权限与 Evidence 边界不动。
 
-本地完整 scoped：291 Rust（79 native Episode）、157 隔离根 / 908 实际 TS 往返、9 PTY；6 组真实 TS refresh 表单、5 组订阅请求、77 组类型化窗口选择，以及真实 TS client→加密 Rust Vault 条件协议通过。Desktop 80 聚焦、TS Helper 11、IPC 411/445/359、fmt/clippy/release/boundary/architecture/UI 通过。完整 scoped 后仅追加 release Helper 构建/探针与格式整理，并重跑聚焦检查；featureless CLI 不含测试 OAuth 端点，debug/release Helper 均声明 CAS，探针不读秘密或改数据根。详见[模型 OAuth 回执](native-cli/evidence/p4-native-model-oauth-20261116.json)。新候选已推送，[独立 CI43806200856](https://github.com/ly-ccx/Peer-Agent/actions/runs/43806200856)进行中，尚未记 success。
+本地完整 scoped：291 Rust（79 native Episode）、157 隔离根 / 908 实际 TS 往返、9 PTY；6 组真实 TS refresh 表单、5 组订阅请求、77 组类型化窗口选择，以及真实 TS client→加密 Rust Vault 条件协议通过。Desktop 80 聚焦、TS Helper 11、IPC 411/445/359、fmt/clippy/release/boundary/architecture/UI 通过。完整 scoped 后仅追加 release Helper 构建/探针与格式整理，并重跑聚焦检查；featureless CLI 不含测试 OAuth 端点，debug/release Helper 均声明 CAS，探针不读秘密或改数据根。详见[模型 OAuth 回执](native-cli/evidence/p4-native-model-oauth-20261116.json)。新候选已推送，[独立 CI43806200856](https://github.com/ly-ccx/Peer-Agent/actions/runs/43806200856)的Linux已成功，macOS最后smoke被后续源码推送取消，不记全仓success。
 
 本卡仍未通过 P4 总闸：旧 TS 预读 token 的自动刷新尚未迁移同一前置意图事务，仅有 get 保护不能防重复远端刷新；必须继续补齐同域升级/drain 兼容。原生浏览器登录、完整配置写入与元数据恢复、其余 P4 能力，以及 P5–P7 都未完成。未请求真实 IdP/付费模型，注入 KeyStore 不替代 OS Vault；没有安装、迁移个人数据、重启实例或发布。
 

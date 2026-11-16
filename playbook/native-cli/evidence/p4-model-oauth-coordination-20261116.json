@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 current Desktop/TUI automatic OAuth refresh coordination with the accepted native Helper intent protocol; not full mixed-version upgrade or P4 acceptance",
+  "candidate": {
+    "commit": "aea028931301e20927f4e322361e3e231f4fa855",
+    "tree": "dfa8be51e22d5708246a5069ef67bb613d99bead",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "nativeBinarySha256": "fb5c9bb4de86b081a479b189a6a38543daf69a0feb35cc297fe134ac167b459d",
+    "nativeBinaryBytes": 14352592,
+    "helperSha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c"
+  },
+  "decisionPass": {
+    "classification": "B; C test-clock repair",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "boundaryMoved": false,
+    "contract": "Implement the pre-dispatch encrypted intent already accepted in 9df3605; no new Vault format, permission, capability, Evidence or context ordering"
+  },
+  "baselineCi": {
+    "commit": "505ac8e4e7128ea7c270b4118e9438bbf3caddfa",
+    "runId": 43806200856,
+    "mergeCommit": "0d86028e6687e106363b9197cddba9c89c46c5c7",
+    "mergeTree": "68f3ca8757082fc676bc06dc947784abc90c98a4",
+    "matchesSourceTree": true,
+    "status": "completed",
+    "jobs": [
+      {
+        "id": 133097441813,
+        "platform": "Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133097442004,
+        "platform": "macOS",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "step": "Bot shell Electron smoke (macOS)"
+      }
+    ],
+    "wholeRepositorySuccess": false,
+    "conclusion": "cancelled",
+    "supersededByCandidatePush": true,
+    "note": "New source push cancelled the still-running macOS smoke under the existing workflow concurrency policy. No failed step was observed; this is not a full success or proof of why smoke had not finished."
+  },
+  "candidateCi": {
+    "runId": 43809352936,
+    "status": "in_progress",
+    "conclusion": null
+  },
+  "validation": {
+    "reproducedBaseline": {
+      "sourceCommit": "505ac8e4e7128ea7c270b4118e9438bbf3caddfa",
+      "entry": "actual prior provider-credential-resolver imported with production dependencies",
+      "scenario": "Real encrypted Rust Vault CAS installs a native-equivalent pending intent after the old resolver reads tokens, before its automatic refresh",
+      "priorDuplicateHttpRequests": 1,
+      "candidateDuplicateHttpRequests": 0,
+      "command": "bun scripts/native-cli/model-oauth-coordination.ts --baseline",
+      "logSha256": "6c1c01708eecde63685c85487ee239f7fe75c04007f6b714344a52cc2887ce0b"
+    },
+    "fullNativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-oauth-coordinator-fixed-20261116",
+      "exitCode": 0,
+      "rustTestsPassed": 291,
+      "nativeEpisodeTests": 79,
+      "actualTsInteropRoots": 157,
+      "actualTsInteropChecks": 908,
+      "ptyChecks": 9,
+      "logSha256": "1ddff128d290c9172c1c47fa685e6eb06b8246451ee18536c3f84fa30be7a4e5"
+    },
+    "focused": {
+      "credentialPackageTests": 26,
+      "desktopTests": 82,
+      "tuiTests": 34,
+      "runtimeSelectionAndResponsesTests": 27,
+      "credentialClockAndCleanupTests": 6,
+      "workspaceTypecheck": "passed",
+      "ipcCheck": {
+        "channels": 411,
+        "preload": 445,
+        "main": 359
+      },
+      "architectureAndUiConventions": "passed",
+      "packagedMainImports": 886
+    },
+    "finalDelta": {
+      "scope": "Final quota failure status changed to fetch_failed rather than falsely claiming token expiration; no Rust, credential transaction or transport change after the full scoped run began",
+      "quotaTestsPassed": 5,
+      "diffCheck": "passed"
+    },
+    "normalAndRecovery": [
+      "Read receipts retain the actual encrypted-record revision in a WeakMap. Copies, mutation, identical-value set and deleted/recreated generations cannot manufacture an old refresh right.",
+      "Desktop request resolver and model catalog, TUI Responses/Gemini and quota all route automatic refresh through pre-HTTP CAS; no post-refresh unconditional token write or metadata rollback.",
+      "Actual Desktop/TUI/SharedSelection -> encrypted Rust Vault -> real HTTP refresh. Narrow TUI views preserve hidden generation and unknown encrypted fields; later calls use fresh receipts.",
+      "Two TS readers: one refresh owner. Native-equivalent pending intent blocks the pre-read stale resolver before HTTP. Native-owner contention remains covered by the existing actual native test.",
+      "New login/logout/config disable during HTTP prevents late commit; rejection/unknown outcome remains encrypted and blocks replay; lost final commit receipt leaves actually committed fresh state usable on the next call.",
+      "Fresh legacy Helper credentials continue without remote calls; expired credentials require the CAS feature before HTTP.",
+      "Desktop real lost HTTP response causes one refresh POST through host recovery. TUI keeps proxy/trust configuration while disabling recovery for token POSTs, rejecting redirects and attaching a 15s whole-response abort signal.",
+      "Missing/zero/nonfinite OAuth expiry triggers renewal before Responses model dispatch; quota cannot use pre-read access after a failed refresh.",
+      "Pending and merged records enforce the same 64KiB bound; no overflow can commit an unreadable token."
+    ]
+  },
+  "preservedFailures": [
+    {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-oauth-coordinator-20261116",
+      "exitCode": 1,
+      "logSha256": "96067472803ec1fc32f8df6242391fc34e869df0436b64c907764c2705bb73a7",
+      "case": "deadline_kills_reaps_and_restores_next_admission",
+      "observed": "Timeout returned but the fixture main had created zero startup markers, so the test did not establish its started-helper cleanup premise. No product timeout changed.",
+      "repair": "Test-only paused Tokio clock plus independently bounded wall-clock readiness; after a real child marker, advance exactly the original 1s deadline. Preserve one-child, reaped and next-admission assertions. Six focused tests and full scoped rerun passed."
+    },
+    {
+      "cause": "Initial TUI typecheck exposed newly required fake-selection methods and existing Google/Grok wrapper envelope types. Test adapters and exact envelope use corrected; full workspace typecheck passed."
+    },
+    {
+      "cause": "Bun fetch type includes preconnect; the named host refresh transport follows the existing provider adapter return contract and its proxy/cancellation/no-replay behavior is tested."
+    }
+  ],
+  "remaining": [
+    "Mixed installed versions, old pre-read processes and external SDK users still require upgrade/drain acceptance; this does not make already-running old binaries safe. Direct combined native Host/legacy Host execution and full default shared-domain acceptance remain separate gates.",
+    "Full configuration writer ownership, metadata recovery and native browser login are still P4 work. Automatic renewal intentionally does not rewrite nonauthoritative config hints.",
+    "Grok native adapter/Qoder, proxy/cert parity, complete Context/compaction policy, remaining tools, Skill/Plugin/Hook, ACP/headless and remaining commands",
+    "P5 complete Bot chain; P6 complete Ratatui/general chat and long-memory acceptance; P7 installed/release/default switch and old CLI dependency retirement"
+  ],
+  "coverageLimits": [
+    "Synthetic tokens and local IdP/model fixtures only; no real IdP or paid model acceptance",
+    "Injected KeyStore is not actual OS Vault acceptance",
+    "No new combined installed-build, old-host drain, full product or multi-platform release acceptance",
+    "The native CLI binary remains unchanged and starts no Bun/Node engine sidecar; legacy host edits are migration compatibility work",
+    "Ratatui still cannot send full general conversations; no production install, personal-data migration or running-instance restart"
+  ]
+}
