@@ -181,7 +181,7 @@
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253",
     "head": "1d796f2a4b4781b00bce86e26b6de864d1cb97f3",
     "wholeRepositorySuccess": false,
-    "status": "in_progress; Linux build, macOS queued; independently recheck",
+    "status": "completed",
     "mergeCommit": "3ea1e32ab99bd69130164ddd55c4b9ef2bb4f94c",
     "mergeTree": "dd7bc413720a32f7eaa5c0cea8ab7d325f28b756",
     "matchesSourceTree": true,
@@ -189,20 +189,41 @@
       {
         "id": 133649296283,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress",
-        "conclusion": null,
-        "active": [
-          "Build"
+        "conclusion": "cancelled",
+        "passed": [
+          "Build",
+          "Native CLI scoped validation",
+          "Typecheck",
+          "Architecture check",
+          "Test"
+        ],
+        "cancelled": [
+          "Bot shell Electron smoke (Linux)"
         ],
         "failures": []
       },
       {
         "id": 133649295872,
         "name": "ci-macos-14",
-        "status": "queued",
-        "conclusion": null
+        "conclusion": "cancelled",
+        "passed": [
+          "Build"
+        ],
+        "cancelled": [
+          "Native CLI scoped validation"
+        ],
+        "unrun": [
+          "Typecheck",
+          "Architecture check",
+          "Test",
+          "Bot shell Electron smoke (macOS)"
+        ],
+        "failures": []
       }
-    ]
+    ],
+    "conclusion": "cancelled",
+    "reason": "The pushed source fixes the known capture deadline defect; existing workflow concurrency superseded the old source run. Not a rerun due to an observation timeout.",
+    "followUp": "C-only capture correction c09d2bc3, receipt ci-motion-observation-20261117.json. Native source unchanged; no whole repository success inherited."
   },
   "limits": {
     "p4TotalGatePassed": false,

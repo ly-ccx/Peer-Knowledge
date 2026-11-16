@@ -4,6 +4,16 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 CI 折叠采集的输入与观察边界
+
+候选 `c09d2bc3`（tree `af216294`）已推送。复核ADR44/129–131与当前动效/验证规范，C级夹具修正，产品与Runtime边界不动，不另开ADR。683b的macOS CI原断言/全日志保留；输入与观察共用6000ms计时，而实际关闭采样直到5900ms才出现，无法保住所需480ms。以原函数不改正文、仅开发导出，在实际DelegatedWork/MotionDetails/原CSS的隔离Electron中加延迟真实派发，再次复现同一deadline断言；不是对原托管CI环境的精确复现或生产动画缺陷证明。
+
+采样Module为两处既有disclosure/panel夹具统一定时和清理：全部真实点击仍须在原6s内完成，最后预期点击另开有界6s观察，保留480ms最小后观察；多余点击不能刷新截止。点击数、中间帧、完整高度跳变拒绝、终态/隐藏/焦点、反向/减少动效均保持，原缺中间帧最多重采一次不增加。7项虚拟时间/跳变测试、真实Electron开合/反向/隐藏Tab/减少动效及晚点击通过；最终晚输入5805ms、后观察483.5ms。严格Desktop+夹具类型检查和architecture/UI通过；早期临时配置放在workspace外丢Node类型解析的错误保留，改为从现有Desktop配置在workspace内解析，没有关类型检查。两张最终图由实施者自审，不称独立/完整Bot体验验收。新测试接入Desktop原CI命令。见[计时修正回执](native-cli/evidence/ci-motion-observation-20261117.json)。
+
+Rust/Cargo/native contracts/verifier与Desktop生产renderer树均与1d796f2a完全一致，原生454 Rust/336根1924互读/9PTY/无JS23组Host仍只作为相同Runtime的scoped证据，不冒充这张全仓绿。1d的[CI43967102253](https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253)因推送已验证修正而由既有并发策略取消：Linux build/native/type/architecture/Test成功、Electron smoke取消；macOS build成功、native取消，其后未跑，无失败步骤，不记全仓成功。新[CI43970657817](https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817)独立执行，merge90d3e41c tree与c09d2bc3相同。
+
+继续P4原范围：Qoder完整caller/目录/流变体与真实服务、完整Context/压缩、剩余工具/Skill/Plugin/Hook/ACP/headless/命令及混合版本恢复仍开放；P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收。无个人数据、安装、用户实例重启、入口切换、合并或发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-17 Qoder 逐尝试重试与用量/恢复
 
 候选 `1d796f2a`（tree `dd7bc413`）已推送。复核ADR25/37/55–57/129–131，先由知识提交524c9e1登记ADR131/map的逐尝试契约，再接Host。两方言已有界queue/duplicate/transient/connection恢复；冻结非身份正文，每次重建request/session/task和准备端点is_retry、字节/指纹与认证。首次runtime task也为peer-agent:UUID，纯builder默认向量保持。每次尝试的known usage/unknown先入canonical预算快照再等待，等待沿同一取消/续约，下一次复核预算、Goal/MCP/历史及原凭据来源；不重放本地工具。摘要逐次计费但不覆盖容量。准入后来源拒绝可保守增加请求数，不能把该数字当HTTP已发送或远端处理证明。
@@ -12,7 +22,7 @@
 
 首轮完整门禁af8c1fc4的171 Episodes有2失败：测试只看到sidecar便SIGKILL，实际杀在index提交内，留下两个空Store锁；并发历史变化落到真实Store CAS，返回CONTEXT_SNAPSHOT_CHANGED，与新helper另一分支的自造错误码冲突。原候选/日志/数据保留。复用Store错误码；测试改等index的turn_complete和锁释放，真实等待点才杀进程，不放大任意sleep。另在原失败数据副本保留诊断、确认原进程死亡后，只维护两个已证明空的孤锁，recover两次成功且不虚构用量，原数据hash未变。**产品不自动抢匿名Store锁，事务中断仍需受控离线维护**，不冒充自动恢复已验收。更早的取消计时器、raw等待估计和lint失败亦保留，原取消速度/效果断言不削弱。见[重试回执](native-cli/evidence/p4-native-qoder-retry-20261117.json)。
 
-基线683b的[CI43957840836](https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836)已终态：Linux133617013628全仓success；macOS133617013973的build/native/type/architecture/Test通过，Desktop Electron smoke在bot-history-motion-checks:239失败。taskClose首个关闭样本5900ms、末样5930ms，6000ms总计时未给最后真实点击留下所需480ms；仅定位夹具计时边界，未复现该CI环境，不称flake或生产已修复，未重跑/放宽断言。merge7b45f494 tree与683b源相同；旧回执更新该真实终态。新[CI43967102253](https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253)独立执行（Linux133649296283构建，macOS133649295872排队），merge3ea1e32a tree与1d796f2a源相同，不继承绿。
+基线683b的[CI43957840836](https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836)已终态：Linux133617013628全仓success；macOS133617013973的build/native/type/architecture/Test通过，Desktop Electron smoke在bot-history-motion-checks:239失败。taskClose首个关闭样本5900ms、末样5930ms，6000ms总计时未给最后真实点击留下所需480ms；仅定位夹具计时边界，未复现该CI环境，不称flake或生产已修复，未重跑/放宽断言。merge7b45f494 tree与683b源相同；旧回执更新该真实终态。新[CI43967102253](https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253)后因计时夹具修正推送被既有并发策略取消，具体已过/未跑步骤见上；merge3ea1e32a tree与1d796f2a源相同，不称全仓成功。
 
 仍是P4：Qoder完整目录/流变体、持久选项caller差异及真实服务、其余Context/压缩/工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与完整总闸开放；P5–P7未完成，普通Ratatui对话仍不可发送，长期内存未验收。无个人数据读取迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
 
