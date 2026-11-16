@@ -325,3 +325,16 @@ COSY envelope使用每次认证准备独立生成的OS随机UUID作为requestId�
 普通发送走同一Native Network代理/TLS/证书/redirect和取消边界；Stream decoder复用经过Qoder业务错误/帧形态适配的现有Chat归一化，只有真实完整终态才公开工具intent。网络错误、队列/重试、部分usage和已发请求不因认证换代被清成未发送，不重放本地工具。完整目录、队列/连接重试及真实服务另按既有TS预算逐项验证；首条正常模型/工具闭环不能替代整个Qoder/P4总闸。
 
 以真实CLI、隔离第三方文件、合成TLS/HTTP模型、当前TS与官方模块验证正常/缺字段生成、坏/过期/换代凭据、坏/超限/FIFO/取消文件、禁用/改选配置、代理/TLS、错误/截断/取消流、真实工具Grant/Evidence、后续任务及原unknown保全。来源、写域、授权与Evidence边界继续沿原主链，P5–P7不因本卡自动完成。
+
+
+### 2026-11-17 Qoder 旧私有端点与环境凭据（A，实施前补充）
+
+按现有TS分支选择Qoder方言：当前目录命中所选模型，或配置有非空modelOptions时，使用已登记的准备端点；其它模型使用旧/model/v1/chat/completions的JSON/Bearer方言。此选择只由同一ModelBinding、只读目录和已有配置派生，不增加用户可写的方言开关，也不在HTTP/认证/目录解析失败后降级为另一方言。坏/未来/身份冲突的目录继续明确失败，不能伪装成“目录没有该模型”。配置的空modelOptions数组仍是显式覆盖；null按未声明处理。
+
+Qoder三个环境token保持QODER_ACCESS_TOKEN→QODER_PERSONAL_ACCESS_TOKEN→QODER_PAT的trim后非空优先级。环境来源获胜时不读取.auth/user或machine_id，也不借另一磁盘账户补资料：目录选择准备端点则报qoder_local_user_info_required；旧方言则仅在该Qoder模型/配置绑定下使用该环境token。无环境token时，继续只读解封既有本地文件，验证token/expiry；旧Bearer方言不要求准备端点独有uid或加密封装字段，但已有字段仍按原有类型/大小限制验证。准备端点继续要求有效uid，并沿上一条生成/复用封装。两种来源和方言均不得自行登录/刷新/写回第三方数据。
+
+旧端点优先使用已有显式baseUrl。未配置时，沿QODER_MODEL_SERVER_HOST或QODER_ENV/ENVIRONMENT的prod/daily/test既有默认主机选择，严格通过同一URL、Native Network、代理/TLS、redirect和取消政策；环境主机不能覆盖显式配置。正文保留原messages/tools/max_tokens及metadata.context请求/会话标识，直接发送冻结JSON字节而不是准备端点的混淆载体。Authorization、X-Request-ID、X-Session-ID只由Adapter产生并保护，外层/内层业务失败规则相同，只有完整终态才公开工具intent。
+
+来源读取的存在与缺失观察集中为同一有界read set；credentials/catalog/endpoint均沿前述普通文件与有限快照规则。每次物理发送前重查该集合、当前环境、expiry和ModelBinding；目录出现/变化导致方言选择失效时，旧实例拒绝而不换token或自动重放。后续新实例可按实际修复后的来源重建，既有unknown、费用、工具效果、权限和Evidence不清除。此集中不新增持久化源、授权事实或恢复捷径。
+
+以当前TS请求/headers/方言选择对照及真实公开CLI验证两个方言的账户来源、优先级、正常工具链、拒绝、损坏、过期、换代、目录出现/配置变更、取消和后续任务。环境令牌不能进入其它Provider或日志。队列/连接重试及全部目录/流变体、真实服务和P4总闸仍须另验，不由本条接受或首环测试代替。
