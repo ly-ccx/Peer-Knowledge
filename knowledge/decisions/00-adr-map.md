@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：新增 [ADR132 MCP Vault 与原生 OAuth](132-mcp-vault-and-native-oauth.md)，先登记 MCP Helper 命名空间、v2 元数据与不可变 slot 提交；取代 ADR32 的新写入 safeStorage / plaintext fallback。实现及验收另记。
+
 2026-11-16：ADR131补记MCP Streamable HTTP的有界控制回复和双向请求id区分；属ADR31已有双向协议的B级补齐，不新增能力或授权路径。
 
 2026-11-15：ADR131 增补 NR-04 原生 MCP dispatch 与停稳观测，实施前登记可选 nativeMcp handle 身份、初始化后实时复核和 unfenced external 对账。授权、可见性、Evidence 与既有人工收口政策不变；实现/验收另记。
@@ -318,6 +320,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 129 | [原生 Rust CLI 与 Ratatui](129-native-rust-cli-and-ratatui.md) | Accepted，2026-11-14；实现 / 验收另记 |
 | 130 | [有界内存与历史](130-bounded-cli-memory-and-transcript.md) | Accepted，2026-11-14；预算待实测 |
 | 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充 NR-04 用量双文件提交恢复及canonical预算观察快照，收紧ADR25恢复保证；实现 / 恢复另记 |
+| 132 | [MCP Vault 与原生 OAuth](132-mcp-vault-and-native-oauth.md) | Accepted，2026-11-16；MCP Helper 命名空间、旧凭据迁移与不可变 slot 提交。实现 / 验收另记 |
 
 2026-11-14 同日澄清 ADR 131 §1 的同号引用：`104-bot-capability-visibility.md` 仍未接受；`104-progressive-interaction-and-coordination-storage.md` 已接受的 writer fence / 恢复契约保留。未移动既有边界。
 

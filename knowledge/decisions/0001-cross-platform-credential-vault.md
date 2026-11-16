@@ -3,6 +3,7 @@
 - 状态：Accepted
 - 创建时间：2026-07-15
 - 最后更新：2026-07-15
+- 2026-11-16 MCP 补充：[ADR132](132-mcp-vault-and-native-oauth.md) 将同一 Helper / Vault 扩展到 MCP credentialRef 与 OAuth envelope，原生端仍不解密 Electron。旧密文的 Desktop-only 安全迁移责任不变。
 
 ## 背景
 

@@ -3,6 +3,8 @@
 Status: Accepted
 Date: 2026-06-16
 
+2026-11-16 revision: [ADR132](132-mcp-vault-and-native-oauth.md) supersedes new MCP writes using safeStorage or plaintext file-fallback. Existing records migrate through Desktop and the unified native Helper; runtime authorization and Evidence boundaries remain unchanged. This does not imply migration or release acceptance.
+
 ## Context
 
 Peer Agent already treats MCP as a local capability provider: MCP server configuration is managed locally, discovered server tools become capability manifests, runtime projection controls model-visible tools, and execution still flows through PermissionGrant and Evidence.
