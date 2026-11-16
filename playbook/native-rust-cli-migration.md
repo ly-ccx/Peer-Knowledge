@@ -4,6 +4,12 @@
 最后更新：2026-11-15
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+2026-11-16 本地打包候选 `4cf7a4c8`：按用户请求，仅对当前 macOS arm64 生成原生测试归档，使用 Cargo featureless release 的 `peer` + `peer-credential-helper`，显式覆盖旧归档脚本的默认 Bun 产物目录。解包字节、执行位、ARM64/system dylib、签名完整性、隔离启动和 Helper ping 均验证；无安装、默认入口替换、用户数据或运行实例变更。归档 6,088,242 字节，SHA256 `6b71189240cad2a2bad6e77aebc1c41cace44900e3bff7d43654aad6a732f0b4`，本地产物位于代码仓 gitignored `target/native-package/tty-hangup-fixed-darwin-arm64/`。
+
+解包测试真实暴露 active input poll 在 PTY master 关闭后忙等、不能返回取消标记的缺陷。旧 featureless 二进制先渲染并等待 input 初始化，再断开终端，2秒未停稳、需测试 owner 强制回收；过早关闭只验证初始化失败，未混作重现。沿 ADR48/129/130/131 的既有终端生命周期，B级选择锁定 Crossterm 的有界 tty poll source（`use-dev-tty`），仍是唯一 poll/read 输入所有者；新包正常退出并额外重复5次。测试驱动同时修复相对输出目录与 guardian 失败后的 child 回收；临时残留的纯草稿进程已按实际可执行文件/cwd/start 身份清理，无任务或工具效果。
+
+最终包 scoped：10启动/退出/结构检查、33解包真实 Runtime 场景（含26 MCP与外部杀进程恢复）、9PTY；源码264 Rust、workspace clippy/fmt、15归档脚本测试及boundary/architecture通过。实际 packaged binary 无故障注入代码，旧 exit77 夹具的失败保留且不弱化断言；它在独立源码全套以测试feature通过，未冒充产物 crash-after-file 覆盖。详见 [本地打包回执](native-cli/evidence/local-native-package-20261116.json)。基线 `c8479317` 的 CI43779685385 两平台全仓 success，merge `f791fe45` tree相同；新源码 CI 单独核对。当前交互 Ratatui 仍是草稿骨架，完整会话/TUI和P4/P5未完成；本卡不等于正式签名/公证、真实模型/IdP/Keychain或多平台安装验收。
+
 2026-11-16 MCP Vault / OAuth 候选 `c8479317`（tree `d028b18c`）：已先核实 `9e634d7b` 的 CI `43758620404` Linux / macOS 全仓 success，merge `00c3c750` 与源 tree 相同，再实施。ADR pass 包括 0001、31、32、36、45、129–131；新增 A级 [ADR132](../knowledge/decisions/132-mcp-vault-and-native-oauth.md) / map 及 superseded 交叉引用先于源码登记（知识提交 `2f4b1f2`）。它扩展 Helper MCP 命名空间和 v2 元数据提交，取代新写入的明文 fallback，保留原授权 / Evidence / unknown 政策。
 
 Desktop-only 迁移严格读取原 v1，每条先通过 Helper 写入并常量时间回读验证，全部成功后才原子发布 v2；失败保留原文件字节、身份、未知字段和旧密文。OAuth clientSecret、tokens、clientInformation、PKCE / discovery 都进入不可变 Vault slot；原生端只消费 v2 / Helper，不解密 Electron。容量写入在既有 16 MiB reader 上限前拒绝，旧 Vault 继续可读；退役 / 孤立加密 slot 暂不自动删除。晚到 Desktop OAuth 回调须 CAS 原代，不能污染轮换后的凭据。

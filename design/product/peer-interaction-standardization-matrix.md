@@ -1361,6 +1361,8 @@ UO-06b（PR #317、#318 及收尾 PR）。任务详情的未知结果保护按�
 
 ## 原生 CLI NR-01 候选（2026-11-14）
 
+2026-11-16 本地原生包 `4cf7a4c8`：T10 增加真实 terminal hangup 退出验证，关闭终端后不继续忙等、不启动任务或模型；窗口已不存在时不声称 termios 可被观测恢复。Crossterm 保持唯一 poll/read owner，改用有界 tty source；已有草稿、Ctrl-C/EOF、授权、焦点和静态表达不变。33解包Runtime、9PTY（含原8项及hangup）、5次额外hangup、264源码Rust与本地产物10项检查见 [打包回执](../../playbook/native-cli/evidence/local-native-package-20261116.json)。实现者自审；当前仍是迁移候选、未安装，不代表完整会话TUI / P4/P5 / 多平台 / 物理IME或读屏验收。
+
 NR-04 MCP 凭据 / OAuth（2026-11-16，`c8479317`）：用户显式运行 `mcp auth <server-id>` 查看结构化待授权 URL，自己打开浏览器；`mcp refresh` 显式刷新，二者不产生工具许可。状态来自真实 OAuth / Vault 提交：等待外部、回调拒绝、取消、保存已确认、提交不确定；callback 页面只说明“已收到，回 CLI 核对”，不抢先宣称登录成功。Ctrl-C/TERM/HUP 关闭受管 listener，错误 / 轮换保留原代；旧密文只由 Desktop 迁移。静态、无动效或焦点抢占。运行时拒绝时不读密钥，真实 grant 后才注入，并在写入模型 / Evidence 前脱敏。26个MCP公开场景、生产 Desktop 冷读、8PTY 等见 [凭据回执](../../playbook/native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。实现者自审；真实浏览器 / IdP / OS keychain / 读屏与安装未验收，完整 TUI 和 P4/P5 仍未通过。
 
 ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时草稿 / 静态候选说明，不发送、不执行、不持有权限真值。目标是原生终端输入 / 退出骨架，不代表 Bot 功能或默认入口已迁移。
