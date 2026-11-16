@@ -222,3 +222,14 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 - 所有当前Desktop/runtime-node配置写者与原生凭据短提交参与相同Store/锁/条件恢复；混合旧安装版本drain、真实平台和协议验收仍分别满足。未知/损坏配置不因范围校正被覆盖或默认授权。
 
 将来若增加一套用户可见的模型/渠道CRUD命令，应作为新增产品能力单独确定Interface；不作为本次CLI迁移完成的额外前提。先前共享Store、损坏保全与并发修复继续有效，不回退为无锁写入。
+
+### NR-04 OAuth配置提示重建与显式对账（2026-11-16，实施前 A级补齐）
+
+原 `models`/ModelPicker只读metadata判断可选项；它们不应为列出模型而打开Vault秘密。原生登录已经能写真实Vault，旧候选刻意不写metadata，因此可能出现真实已登录而旧oauthConfigured仍false、列表没有该账号的既有状态。本节补齐这条用户可用链，取代模型账号首卡“本卡保持llm-providers.json原字节”的阶段限制；不改变Vault作为凭据权威、status只读或能力授权。
+
+- 新增窄恢复入口 `models reconcile <configured-channel-id>`：仅核对该已配置OAuth渠道的真实Helper记录与配置绑定，在同一config→Helper顺序下重建 `oauthConfigured` / `oauthExpires` / `oauthAccountId`；不创建渠道/模型，不登录、不刷新、不请求模型/工具，不迁移个人任务，也不因修复提示生成授权或Evidence。
+- 真实缺失可清理上述提示；有效已知token可投影存在/expiry/account。pending、损坏、未知schema、错误provider、无法读取Vault均保全原始事实并拒绝修复，不把unknown写成未登录。Account/expiry只来自已验证的token字段，提示中不写秘密。相同投影不改文件/revision；保留root/channel/model的其它字段，修复已知同组model残留的三种提示覆盖。
+- auth/logout成功确认真实Vault结果后，在仍持config锁时尝试同一提示重建。凭据结果与提示结果分别结构化返回：已知updated/removed不能因metadata失败变成“凭据未更新”，失败也不能恢复旧token；提示失败返回rebuild_required或commit_unknown及明确reconcile动作。Vault提交本身未知仍沿原未知错误，不因metadata看似已更新宣称凭据成功，不重放code/refresh。
+- 自动刷新沿同一Module尝试提示重建。非权威提示失败不能让已验证的新token失效；但配置operational binding、凭据代或锁owner无法证明时仍拒绝模型准入。无新增秘密影子库、独立修复日志或后台重试；对账从原配置引用和实际Vault可重跑。
+- 为避免自身提示更新使原绑定失效，Native与当前TS凭据绑定比较只忽略上述三种非权威提示；provider/auth/endpoint/header/project/model/启用状态及其它既有操作配置仍按原边界核对。跨语言fixtures验证提示变化不伪造配置许可，真实操作配置变化仍使迟到结果失败。
+- status保持只读，models列表保持metadata/环境来源，不为列表解封秘密。正式系统Vault、混合安装版本与默认共享域仍单独验收。新增reconcile的理由是已有原生账号操作的部分提交恢复，不扩展为Desktop整套CRUD。

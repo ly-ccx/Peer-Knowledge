@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR131 NR-04补齐OAuth提示重建与窄models reconcile恢复入口：真实Vault与metadata结果分开、无秘密影子库、不重放认证，提示变化不取代operational binding；status/models列表仍不写或解封秘密。实现/平台验收另记。
+
 2026-11-16：ADR131 NR-04配置范围校正：原CLI models是列表，PEER_MODEL_*是独立环境配置；按原实际可达集迁移，撤回把Desktop全套CRUD新增命令列为P4前提的扩大解释。Store共锁、Vault条件恢复、原有功能与完整P4–P7验收不变。
 
 2026-11-16：ADR28/131实施前A补齐原生models auth/logout/status，固定Adapter身份与S256/loopback，原凭据代CAS及真实Vault状态；纠正OAuth提示字段被误作准入真值。完整配置写入/恢复和升级drain仍待实施，不新增工具授权。
