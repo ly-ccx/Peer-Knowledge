@@ -45,18 +45,32 @@
     ]
   },
   "candidateCi": {
-    "status": "in_progress",
-    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "wholeRepositorySuccess": true,
     "runId": 43839577892,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43839577892",
-    "conclusion": null,
+    "conclusion": "success",
     "jobs": [
       133204605842,
       133204606470
     ],
     "mergeCommit": "72e416024f99b8d197cf3dfdf905f9f0c6b8b2d2",
     "mergeTree": "a09a4c61d804c27ca20d1ca6ecb1fe8b7ca5aab1",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "platforms": [
+      {
+        "jobId": 133204605842,
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      },
+      {
+        "jobId": 133204606470,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      }
+    ]
   },
   "validation": {
     "nativeScoped": {

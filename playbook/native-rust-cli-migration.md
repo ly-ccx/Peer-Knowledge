@@ -16,13 +16,23 @@
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 原生模型网络候选 `297ba570` / `9d09192b` 已推送（tree `9ca1777d`）：依先登记的ADR50实施复核（知识43a77a0）沿129/130/131做B级迁移，无新增授权/Evidence/Context边界。模型生成、冻结count和ChatGPT/Google交换/刷新共用Native Network Module，保留原环境优先/NO_PROXY精确host及后缀规则、逐请求macOS scutil回退和附加根证书选择；显式extra CA有界普通文件，保留Rustls公共根及主机名/TLS验证。OS查询为固定程序/参数、有界输出/2秒查询与清理期限；取消/超限/超时后实际子进程回收和后续查询通过。普通合成测试显式绕开个人代理，专门网络测试选择实际隔离HTTP/HTTPS/CONNECT代理，不修改系统信任。
+
+完整冻结候选原生scoped **334 Rust / 108 native Episode / 212根1186实际TS互读 / 9PTY**，exit0、330.352秒，log SHA256 `33a0399ca24dca6f9eb19e144dbe0611a69ffd547c04507bff55edb6dc32218b`。38组真实TS route、4组scutil、3组指纹/证书选择及26项旧TS网络测试通过；7公开CLI网络场景涵盖真实代理鉴权、NO_PROXY、TLS/错主机/未知根、1MiB/编码/目录/FIFO拒绝、修复后任务、count/send和仅一次OAuth刷新→真实工具Grant/Evidence。19原生账号回归、fmt/clippy/architecture/UI通过。featureless release为14,811,216 bytes、SHA256 `f5cb2f84f590b06f7bef9704ec19c0a3ab4539858aa56849463293f2a900d2da`，额外6项真实网络Host测试通过，合成私钥不在产物。变更仅Rust/开发夹具，未为未变的JS/TS产品源码重跑本地整仓pnpm test/typecheck；旧候选全仓CI已绿，新候选独立验。详见[原生模型网络回执](native-cli/evidence/p4-native-model-network-20261116.json)。
+
+实际复现旧46511513忽略坏PEER_EXTRA_CA_CERTS而继续模型/工具，失败根.tmpY0evv2保留；修复明确请求前阻断且同一ready任务修正后继续。TLS夹具最初被本机LibreSSL默认签成ecdsa-with-SHA1，OpenSSL verify虽成功但Rustls正确拒绝；原完整PKI与失败日志保留，显式SHA256签名修复夹具，生产验证不放松。新query PID marker非原子和私有测试helper误用的中间失败保留；已修复、原断言与期限不弱化。OAuth前置意图仅在证明确未send时条件恢复，真正发送后的未知继续保全。
+
+首轮297ba570的[CI43846561319](https://github.com/ly-ccx/Peer-Agent/actions/runs/43846561319)两平台均在Native scoped的network-contracts比较失败：夹具误取运行时rootCertificates[0/1]，CI Bun1.2.17与本机1.4.2数据不同。已用CI版本实际复现；9d09192b只将输入固定为入库合成公开证书，仍由真实TS筛选器生成expected，原断言不放宽。两版Bun对照和CI版本完整原生门禁通过，最终产物字节与已验收的6项release测试相同；初验与最终tree、失败和hash均在回执保留。
+
+基线46511513两平台全仓CI（含Electron smoke）success已核实；最终[CI43848554075](https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075)独立排队/执行中，merge bf745936 tree与源码相同。本卡只完成模型路由/信任切片，MCP普通transport及OAuth的网络/地址政策、完整Provider/Host恢复策略、Grok/Qoder、完整Context/压缩、剩余工具/Skill/Plugin/Hook、ACP/headless/原命令、混合安装版本drain和P4总闸仍待完成；P5–P7未完成。仅本机合成代理/TLS/IdP/模型，不冒充真实VPN切换、正式模型/IdP/OS Vault、多平台安装或长时UI内存验收；Ratatui仍不能发送。无安装、重启、个人任务迁移、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
 2026-11-16 原模型目录与OAuth提示恢复候选 `46511513` 已推送（tree `a09a4c61`）：依先登记的ADR131范围/恢复/环境身份修订（a986a18 / 7a36114 / 7431edb）做B级接线。原 `models` 的12组真实TS入口对照、`PEER_MODEL_*` 独立来源和off/default wire已接；显式来源绑定不会把环境key交给已有文件渠道。实际canonical Host→模型流→工具→Grant/ToolResult/Evidence及拒绝场景通过，无Helper或JS引擎需求。`models reconcile <configured-channel-id>`只从真实Vault重建三项非秘密提示；auth/logout分别返回已知凭据结果和metadata状态，失败不回滚或重放登录，status/list仍只读。实际Store超限、配置owner被置换、pending/损坏/错误provider/不可解密、重复无写入、后续显式修复，以及自动刷新提示失败后真实工具闭环均验证。
 
 最终冻结候选完整原生scoped **324 Rust / 101 native Episode / 202根1134实际TS互读 / 9PTY**，log SHA256 `60cf7d49f514ffcb8ec71201197dad8fbc1ad28b362ab6d3751e12f473a3af59`。真实Desktop/TUI跨HTTP提示/endpoint/auth/header绑定8场景、24次加密Vault CAS通过；全仓types、architecture/UI、887打包imports通过。完整pnpm test退出0、354.946秒、14包及最后升级/降级矩阵通过；开始tree0a57b3e5与最终tree差异仅PTY夹具，业务源码和pnpm测试源码不变，最终完整原生重跑覆盖夹具。featureless release为14,582,624 bytes、SHA256 `49d27eff8ad77e118b875275382328ab07c626b65d6830e3e691f0b2a334052b`；额外12模型列表、3环境执行与2真实Vault修复Host测试通过，测试端点marker不在产物。详见[模型目录与提示恢复回执](native-cli/evidence/p4-model-catalog-projection-20261116.json)。
 
 首轮完整原生在最后PTY的PID文件存在但JSON尚未写完处失败，且清理wait期限触发；失败现场保留，进程表确认自有子进程已结束，原运行实例未动。修正为PID/status原子发布和清理失败仍关闭fd/保存ANSI，原期限、退出与终端属性断言不变；9PTY聚焦及最终完整重跑通过。两处旧“登录不写metadata”的阶段断言改为完整文档只允许三提示投影；种子历史非空的测试错误改为原历史精确不变，实际授权/Evidence断言保留。
 
-基线c8654dd6两平台全仓CI成功已核实后才推送；[新CI43839577892](https://github.com/ly-ccx/Peer-Agent/actions/runs/43839577892)独立排队/执行中，不继承旧绿灯。本卡仍不是P4总闸：混合安装版本升级/drain、Grok/Qoder、代理/证书、完整Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/原命令，以及P5–P7仍待完成。仅合成IdP/模型与加密KeyStore，不冒充正式IdP/OS Vault/真实模型或安装验收；交互Ratatui仍不能发送，无1GiB/四小时完整UI验收，无安装/重启/个人任务迁移/默认切换/发布。
+基线c8654dd6两平台全仓CI成功已核实后才推送；[CI43839577892](https://github.com/ly-ccx/Peer-Agent/actions/runs/43839577892)已核实macOS133204605842/Linux133204606470两平台全仓success，含各自Electron smoke；merge72e41602的treea09a4c61与46511513相同。本卡仍不是P4总闸：混合安装版本升级/drain、Grok/Qoder、代理/证书、完整Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/原命令，以及P5–P7仍待完成。仅合成IdP/模型与加密KeyStore，不冒充正式IdP/OS Vault/真实模型或安装验收；交互Ratatui仍不能发送，无1GiB/四小时完整UI验收，无安装/重启/个人任务迁移/默认切换/发布。
 
 2026-11-16 配置/Vault短提交候选 `c8654dd6` 已推送（tree `1ba940c5`）：依此前 `dc238b2` ADR131做B级接线，未移动权限/Evidence/Context或Helper协议边界。实际复现e632旧原生logout在别的config写者持锁时仍删除Vault并返回0；失败隔离根 `.tmpmlfjYa` 保留。Native auth/status/logout与模型OAuth读取、前置意图、最终CAS改为config→Helper短段；浏览器/HTTP等待释放锁。Store finish检查原源版本和owner，不改配置；异步零等待争取+Tokio期限/取消无遗留worker。SDK由实际Desktop/TUI宿主传入相同短事务，13次真实加密Vault CAS证明持锁，HTTP期间另一配置Store可进入。
 

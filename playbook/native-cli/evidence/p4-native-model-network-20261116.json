@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 original model provider network routing, extra/system trust, count/send and pinned model OAuth; not MCP network/address-policy parity or complete P4.",
+  "candidate": {
+    "commit": "9d09192b2789d1565fff5c2a2f72c836703541ec",
+    "tree": "9ca1777d8ee866d12a2db6bea0b72a907c9fde0a",
+    "branch": "codex/native-rust-cli",
+    "pushed": true
+  },
+  "decisionPass": {
+    "files": [
+      "50-cli-system-proxy-fallback.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "classification": "B implements existing CLI network policy, with pre-source ADR50 implementation clarification 43a77a0 and map. Current per-request system-proxy reading replaces the obsolete startup-only description.",
+    "permissionEvidenceContextBoundaryMoved": false
+  },
+  "baselineCi": {
+    "commit": "46511513de4113d2eef022e96a4182fb4766345c",
+    "runId": 43839577892,
+    "status": "completed",
+    "conclusion": "success",
+    "wholeRepositorySuccess": true,
+    "mergeCommit": "72e416024f99b8d197cf3dfdf905f9f0c6b8b2d2",
+    "mergeTree": "a09a4c61d804c27ca20d1ca6ecb1fe8b7ca5aab1",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "jobId": 133204605842,
+        "name": "ci-macos-14",
+        "electronSmoke": "success"
+      },
+      {
+        "jobId": 133204606470,
+        "name": "ci-ubuntu-latest",
+        "electronSmoke": "success"
+      }
+    ],
+    "observation": "Both jobs reached success before the new source push. A running-job log read returned BlobNotFound, not a terminal observation; the same job was re-polled until success. No cancellation or restart."
+  },
+  "candidateCi": {
+    "status": "in_progress",
+    "wholeRepositorySuccess": false,
+    "runId": 43848554075,
+    "conclusion": null,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075",
+    "jobs": [
+      133234880280,
+      133234880361
+    ],
+    "mergeCommit": "bf7459369520a98f170e59c266e6c8a7ac9f6047",
+    "mergeTree": "9ca1777d8ee866d12a2db6bea0b72a907c9fde0a",
+    "matchesSourceTree": true
+  },
+  "validation": {
+    "nativeScoped": {
+      "tree": "9ca1777d8ee866d12a2db6bea0b72a907c9fde0a",
+      "base": "297ba57048ae8c7a86dbc67b52c518bba852dac1",
+      "startedAt": 1794824284.707956,
+      "bunVersion": "1.2.17",
+      "exitCode": 0,
+      "durationSeconds": 330.352,
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-model-network-ci-bun-20261116 (Bun 1.2.17)",
+      "rustTests": 334,
+      "nativeEpisodes": 108,
+      "actualTsInteropRoots": 212,
+      "actualTsInteropChecks": 1186,
+      "ptyChecks": 9,
+      "log": {
+        "path": "/tmp/peer-native-model-network-ci-bun-20261116/verify.log",
+        "sha256": "33a0399ca24dca6f9eb19e144dbe0611a69ffd547c04507bff55edb6dc32218b"
+      }
+    },
+    "focused": {
+      "actualTsRouteCases": 38,
+      "actualTsSystemProxyCases": 4,
+      "actualTsTrustCases": 3,
+      "actualLegacyTsReferenceTests": 26,
+      "nativeNetworkHostTests": 7,
+      "ownedSystemQueryTests": 1,
+      "nativeLoginRegressionTests": 19,
+      "architectureUi": "passed",
+      "fmtClippy": "passed",
+      "log": {
+        "path": "/tmp/peer-native-network-final-focused-fixed.log",
+        "sha256": "f8727f3f0843a0a32befcf80f9d33001a85cf7f2241baa401ba95bef430bc781"
+      },
+      "queryLog": {
+        "path": "/tmp/peer-native-network-final-unit-fixed.log",
+        "sha256": "8e57dc323ad6bb23165238571657d26bc84ee5987c6998edb46f6f5ca5fff17b"
+      },
+      "referenceLog": {
+        "path": "/tmp/peer-native-model-network-ts-reference.log",
+        "sha256": "4f04c83b05646dc98672400490f6688733858674f5933e14d75731052bb5bdb7"
+      }
+    },
+    "featurelessRelease": {
+      "binarySha256": "f5cb2f84f590b06f7bef9704ec19c0a3ab4539858aa56849463293f2a900d2da",
+      "binaryBytes": 14811216,
+      "sourceTree": "569b235c01f1b05a1e57739805bcd475eed31d5d",
+      "exitCode": 0,
+      "excludedSyntheticKey": true,
+      "scope": "Six native network host tests against featureless release; synthetic HTTPS/forward/CONNECT/CA, count, tool Grant/Evidence. OAuth endpoint injection intentionally excluded from release.",
+      "nativeNetworkHostTests": 6,
+      "log": {
+        "path": "/tmp/peer-native-model-network-20261116/release-network-host.log",
+        "sha256": "238ed833a1635aa94d3101d1eecb32c5afa7daefea28399dfd525e724d0f2cfc"
+      },
+      "finalCandidateSameBinaryConfirmed": true,
+      "lineage": "Six release Host tests bind the identical final rebuilt binary hash. Only development fixture inputs/producer changed after the first artifact tests."
+    },
+    "behaviorAndRecovery": [
+      "Actual baseline public CLI ignored invalid explicit PEER_EXTRA_CA_CERTS and proceeded to model/tool execution. New adapter rejects prior to dispatch, preserves original file/config/history and permits the same ready task after repair.",
+      "One native Network Module owns captured proxy/extra-CA environment, exact original protocol/env/NO_PROXY precedence, bounded trust material and fresh per-physical-request route. Model generation and frozen count share it. Pinned ChatGPT/Google exchanges and refresh share the same Module without token/code replay.",
+      "Physical HTTP forward proxy receives absolute original URL and proxy Basic authentication; NO_PROXY connects directly even when configured proxy is unavailable. HTTPS CONNECT proxy carries authentication only to proxy, while upstream TLS/model headers exclude it. The adapter does not project route/auth values into output, Context/history, Evidence or request trace; actual fixture outputs contain none.",
+      "Actual Rustls TLS rejects untrusted root and wrong hostname; explicit PEER_EXTRA_CA_CERTS and legacy NODE_EXTRA_CA_CERTS augment rather than replace built-in roots. A new task after adding explicit trust executes a real file tool with Grant/ToolResult/Evidence. No accept-invalid setting exists.",
+      "Count + two generation requests traverse the actual forward proxy, retain original prepared count/send payloads, usage 46 and actual tool Evidence. One model OAuth refresh plus two generation requests similarly traverse the proxy; exactly one token POST occurs. Invalid proxy rejected before send restores only the owned never-sent refresh reservation by original CAS; actual stored token stays equal and a subsequent task succeeds.",
+      "Explicit CA file limits reject >1MiB, invalid UTF8, directories and FIFO without blocking, changing config, dispatching a model or executing a tool. Errors contain static codes, not the configured URL/credential.",
+      "macOS reads fixed scutil HTTP(S) settings per request and imports only TS-equivalent user/admin non-denied public certificate fingerprints. OS reads have bounded output, two-second query deadline and owned termination/wait. Actual cancellation/timeout/output exhaustion reap the owned query process and permit the next query. Non-macOS skips these system queries; explicit env remains authoritative.",
+      "No new model-visible capability, permission, execution fact or Evidence path. Existing unknown/pending and no-replay tests rerun. Ordinary synthetic Host tests explicitly bypass personal proxies, and network tests individually select real local fixture routes."
+    ]
+  },
+  "preservedFailures": [
+    {
+      "log": {
+        "path": "/tmp/peer-native-network-baseline.log",
+        "sha256": "c01841454b79792d729aff7231f1ee652deb8826acf2ea0872f7606d53169af0"
+      },
+      "sourceCommit": "46511513de4113d2eef022e96a4182fb4766345c",
+      "fixture": ".tmpY0evv2",
+      "observed": "Expected invalid explicit CA rejection; actual old CLI returned success and ran model/tools."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-network-unit.log",
+        "sha256": "0f0d939a1b976da72fa140242b092f0895540da01f896f8baac36842d7259912"
+      },
+      "observed": "New query test canceled on marker existence before PID content was complete; fixed fixture publication atomically, preserving the actual cancellation/reap assertion. Three query/policy tests subsequently passed."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-network-tls-host.log",
+        "sha256": "7cc320fee91a13a8d9559f53e38c5ee8fc60f9c9de270d086e3fa7293740821a"
+      },
+      "observed": "New test referenced private sibling seed_next; corrected to the existing common Fixture.seed API, retaining later-task identity and Evidence assertions."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-network-tls-host-fixed.log",
+        "sha256": "f1b2c158c0dd96f39386db6c40e67843fd85428f313ca7cab90ca4c0271c5dbd"
+      },
+      "observed": "Positive TLS fixture failed. Local LibreSSL x509 defaulted leaf signatures to ecdsa-with-SHA1, correctly rejected by Rustls despite openssl verify success. Original complete synthetic PKI preserved outside repository; explicit SHA256 replacement fixed the fixture only, with wrong-hostname and unknown-root rejection retained.",
+      "originalPki": "/tmp/peer-native-network-sha1-pki-failure-20261116",
+      "diagnosticLog": {
+        "path": "/tmp/peer-native-network-tls-diagnostic.log",
+        "sha256": "be6b83e3e15190af5df3f476afaa0e3bcaac896ab102b24016ebecfdb73e9ba1"
+      }
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-network-final-focused.log",
+        "sha256": "fd8819a2fc9686050e54486b5817b82ce4d203f5d9345655d9ac7ed167c360b6"
+      },
+      "observed": "New CA limit test referenced inaccessible sibling wait_output. Replaced with an owned child, explicit eight-second deadline and existing cleanup guard. No production timeout or failure assertion weakened."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-network-clippy.log",
+        "sha256": "6146c4a5527e85e915166eb5bbc04dd2d5c50dee73b946ed8e24148400e8fa18"
+      },
+      "observed": "Clippy rejected a needless return in the cfg-specific proxy branch; corrected before final gate."
+    },
+    {
+      "sourceCommit": "297ba57048ae8c7a86dbc67b52c518bba852dac1",
+      "runId": 43846561319,
+      "jobId": 133228077979,
+      "localReproductionLog": {
+        "path": "/tmp/peer-native-network-ci-bun-contracts.log",
+        "sha256": "760b97eb9e361dd73d85ec2cd32aea3c8d80ef5cd72ddce3dd553603422d9aca"
+      },
+      "observed": "Actual CI Bun1.2.17 reproduced the root-catalog-dependent fixture mismatch locally. Corrected only synthetic input identity to checked-in public CA/server certificates; actual production TS selector still produces all expected values, exact assertions unchanged. Both Bun1.2.17 and Bun1.4.2 checks pass. Entire native gate reruns under 1.2.17 on final tree.",
+      "scope": "Production Rust/TLS/permission/Evidence source and featureless artifact unchanged.",
+      "fixedCiVersionLog": {
+        "path": "/tmp/peer-native-network-ci-bun-fixed.log",
+        "sha256": "9aa352d9bd18fe4f9696155a1cc924a9628a303a22cb517eadd3c7dfbb72aff2"
+      }
+    }
+  ],
+  "validationSelection": "All behavior changes are Rust/provider transport plus development fixtures. Full native workspace gate, real CLI/release tests and original TS reference tests cover the touched seam. Whole pnpm test/typecheck was not rerun locally for unchanged JS/TS product source; prior exact baseline full CI is green, new candidate CI remains independent.",
+  "remaining": [
+    "MCP ordinary transport and OAuth network/address-policy parity remain; this Module does not route around restricted MCP DNS/private-network/redirect checks.",
+    "Remaining model provider/private auth (Grok/Qoder), full provider/Host recovery policy and Context/compaction strategy, remaining tools, Skill/Plugin/Hook, ACP/headless/original commands and P4 total gate.",
+    "Mixed installed-version upgrade/drain; complete P5 project-agent, P6 general Ratatui conversation/history/long-memory acceptance, P7 installed/release/default switch and legacy reachable dependency retirement."
+  ],
+  "coverageLimits": [
+    "Local macOS source and synthetic TLS/proxy/IdP/model only; no real public proxy, live VPN change, actual provider/IdP or OS Vault acceptance. Pure macOS source fixtures and bounded real subprocess seam are verified; real system trust mutation is neither performed nor claimed.",
+    "New Linux/macOS CI pending. No full installed/product/accessibility or four-hour/1GiB complete UI acceptance. Ratatui remains draft-only; no claim that original memory growth is solved.",
+    "No install, personal-task migration, running-app restart, default production switch, merge, release or tag. Native CLI starts no Bun/Node engine sidecar."
+  ],
+  "primaryApiReferences": [
+    "https://docs.rs/reqwest/latest/reqwest/struct.ClientBuilder.html",
+    "https://github.com/seanmonstar/reqwest/blob/v0.12.24/src/tls.rs",
+    "https://github.com/seanmonstar/reqwest/blob/v0.12.24/src/proxy.rs"
+  ],
+  "review": "Implementer content/diff and behavior review, not independent review.",
+  "sourceImplementationCandidate": {
+    "commit": "297ba57048ae8c7a86dbc67b52c518bba852dac1",
+    "tree": "569b235c01f1b05a1e57739805bcd475eed31d5d",
+    "branch": "codex/native-rust-cli",
+    "pushed": true
+  },
+  "sourceImplementationCi": {
+    "status": "completed",
+    "wholeRepositorySuccess": false,
+    "runId": 43846561319,
+    "conclusion": "failure",
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43846561319",
+    "mergeCommit": "a13cd1b6a31f7d469ea4e5a2db1428596dac18c9",
+    "mergeTree": "569b235c01f1b05a1e57739805bcd475eed31d5d",
+    "matchesSourceTree": true,
+    "jobs": [
+      133228077495,
+      133228077979
+    ],
+    "knownFailure": {
+      "jobId": 133228077979,
+      "platform": "Linux",
+      "step": "Native CLI scoped validation",
+      "cause": "network-contracts.ts used runtime rootCertificates[0/1]; Bun1.2.17 inputs differ from local Bun1.4.2. Exact strict resource comparison failed. Mac job was queued when observed, not counted as success.",
+      "observation": "Both Linux and macOS native validation failed at the version-dependent network fixture comparison. CI Bun1.2.17 reproduced locally; fixed data input and exact same selector/assertion then passed."
+    },
+    "platforms": [
+      {
+        "jobId": 133228077495,
+        "name": "ci-macos-14",
+        "conclusion": "failure",
+        "step": "Native CLI scoped validation",
+        "cause": "runtime-dependent certificate fixture input"
+      },
+      {
+        "jobId": 133228077979,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "failure",
+        "step": "Native CLI scoped validation",
+        "cause": "runtime-dependent certificate fixture input"
+      }
+    ]
+  },
+  "initialLocalGate": {
+    "tree": "569b235c01f1b05a1e57739805bcd475eed31d5d",
+    "base": "46511513de4113d2eef022e96a4182fb4766345c",
+    "startedAt": 1794823256.845792,
+    "exitCode": 0,
+    "durationSeconds": 355.888,
+    "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-model-network-20261116",
+    "rustTests": 334,
+    "nativeEpisodes": 108,
+    "actualTsInteropRoots": 212,
+    "actualTsInteropChecks": 1186,
+    "ptyChecks": 9,
+    "log": {
+      "path": "/tmp/peer-native-model-network-20261116/verify.log",
+      "sha256": "adf0ea703e24319ccf3ba1dd5d21320d16258473679a8cf452d7ac0a8918419e"
+    }
+  }
+}
