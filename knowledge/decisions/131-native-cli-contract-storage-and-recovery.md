@@ -307,3 +307,5 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 验收先以官方模块和当前TS生成合成Unicode/空值/边界/坏key及旧/新cache样本，再跑Rust双向/固定样本、GCM篡改/CBC填充/UTF8/预算否决及源字节保全。原生完整模型→工具→Grant/Evidence、实际第三方登录/目录和安装多平台仍独立验收；本补充不开放任何工具或System Context来源，不改变canonical恢复和unknown规则。
 
 来源：`https://docs.qoder.com/cli/authentication`、`https://docs.qoder.com/cli/installation`（2026-11-17核对；官方安装文档仍列出npm包）；实际TS `packages/runtime-node/src/provider-adapters/qoder-local-auth.mjs` 与 `qoder-model-catalog.mjs` 是迁移行为的对照，公开新版文档不覆盖本仓已存在的本地格式/权限契约。
+
+2026-11-17 同卡补充：官方Module合成对照确认目录兼容非base64文本原样返回，以及标准base64无`QMC\x01` magic时按UTF-8返回解码文本。二者均须由调用方按原catalog schema校验，不产生已认证事实；空输入、无效UTF-8和损坏GCM tag失败保全。请求body按固定64字符表作base64位分组，使用`$` padding，再交换首/尾floor(n/3)区段。这只是传输混淆，仍须HTTPS、真实凭据与配置绑定。原生实现沿字节预算拒绝超限、坏字符、残片或非canonical padding；charset和合成向量由官方Module提供，消息形态由实际TS builder对照。完整Provider装配、网络、取消与工具闭环另验。
