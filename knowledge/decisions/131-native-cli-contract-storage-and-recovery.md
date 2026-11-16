@@ -292,3 +292,18 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 目标默认禁止覆盖；--force捕获原目标身份，完整spool后再次校验并原子替换，发布前失败/取消保留原目标，正常清理自有临时文件。拒绝会话Store内目标、所读源文件的symlink/hardlink别名及非普通文件，不允许--force写回会话。目录/文件版本变化拒绝而不制造成功；原生export发布阶段对输出父目录短暂取OS advisory lock（至多等5秒、可取消、进程退出自动释放），锁内复核目标CAS并rename，避免两个原生--force覆盖同一旧代。此锁无持久锁文件，仅用于显式阅读副本输出，绝不替代canonical Store既有mkdir锁/顺序；不合作的外部写者仍受协作式文件身份复核的局限，不称OS路径沙箱。磁盘满、broken pipe、SIGINT/TERM及发布异常分别如实结算；未确认的发布不能输出成功回执；rename已发生后的目录flush/回执失败保留现状并报发布结果未知，不反向删除/覆盖目标制造回滚。后续显式重试从当前目标重新捕获CAS；stdout写出失败可能已有前缀，非0退出不代表完整副本。不改变任何运行任务或unknown记录。没有新增持久化真源或自动清理用户文件。
 
 验证先冻实际TS格式/脱敏/参数与正常Store/stream可见结果；损坏/未来sidecar的明确差异单列。公开原生CLI覆盖无HOME/TTY/JS、空/多角色目录、Helper/数据根失败、可见正文与秘密/控制、覆盖拒绝/原子--force、源/目标竞争、取消/损坏后原字节与后续导出。使用隔离合成Store验证1GiB历史、10MiB正文与100MiB被跳过工具行及资源曲线；正式二进制与普通P4总闸/安装/全产品/长时P6验收分开记录。实现与验收另记。
+
+
+## 2026-11-17 NR-04 Qoder 本地凭据与目录格式原生化（A，实施前登记）
+
+沿ADR129的Qoder完整迁移范围及本ADR的Provider encoder/credential seam，先替换现有`qoder-local-auth.mjs`依赖官方程序内嵌WASM的本地解封和model-cache算法。最终CLI使用RustCrypto执行相同密码原语，不启动qodercli/Bun/Node，不嵌入WASM VM或捆绑官方SDK二进制；官方模块只在隔离开发夹具中作为互操作oracle。这里不声称Qoder原生请求/认证/队列/工具闭环已经完成，也不能以本Module替代整条Provider验收。
+
+核对对象固定为当前TS实际引用的兼容版本1.0.39；由官方文档指向的`@qoder-ai/qodercli@1.0.39`公开npm包提取认证模块，仅作有来源/hash/包integrity记录的合成对照，不安装/运行官方CLI或读取个人登录数据。`credential_storage_decrypt`格式是标准base64、AES-128-CBC、PKCS#7，16字节UTF-8 key同时作为IV；保持已有格式，不把其称为具备认证的新加密方案。`model_cache_decrypt`新格式为base64(`QMC\x01` + 12字节nonce + AES-256-GCM ciphertext/tag)，HKDF-SHA256以实际uid字节为IKM，salt=`qoder-model-cache-enc`、info=`model-cache-v1`、32字节输出。旧目录格式与未知/损坏数据必须通过真实官方样本和当前TS调用点再确定，不能猜成功或悄悄清空目录。未确认格式明确阻断且保留原文件；v1 helper不接管第三方账户事实。
+
+原生密码Module对编码、密钥、密文/明文长度、GCM tag、CBC块/填充及UTF-8作严格校验，限制单份本地凭据1MiB、目录4MiB及调用方更小预算。边界先检查、运算后再检查；不把异常异常文本、明文、key或ciphertext写入错误/日志。解封缓冲归唯一owner并在释放时零化，算法使用维护中的RustCrypto crate，不自写AES/GCM/HKDF或引入JavaScript执行路径。CBC既有格式不能证明内容真实性，后续Qoder身份、expiry、字段类型与配置绑定仍由Credential Adapter验证；解密成功不生成工具许可或账户在线事实。
+
+后续文件Adapter沿现有`QODER_CONFIG_DIR` / `QODER_CLI_HOME` / HOME解析来源，第三方`.auth/user`、machine_id和目录只读，禁止通过host Node绕过EACCES/EPERM，不写入第三方凭据/刷新或创建新真源。路径、非普通文件、读取大小、取消及读前/后文件身份须有界核对；变化拒绝当前请求并支持修正后的显式重试。Qoder外部登录仍由其账户所有者管理，不借本卡新增Peer登录/自动安装或重启第三方程序。原生模型装配必须绑定明确选中的Qoder渠道及真实凭据来源，每次真正发送前复核，不能把本地文件存在当Grant、Evidence或远端登录成功。
+
+验收先以官方模块和当前TS生成合成Unicode/空值/边界/坏key及旧/新cache样本，再跑Rust双向/固定样本、GCM篡改/CBC填充/UTF8/预算否决及源字节保全。原生完整模型→工具→Grant/Evidence、实际第三方登录/目录和安装多平台仍独立验收；本补充不开放任何工具或System Context来源，不改变canonical恢复和unknown规则。
+
+来源：`https://docs.qoder.com/cli/authentication`、`https://docs.qoder.com/cli/installation`（2026-11-17核对；官方安装文档仍列出npm包）；实际TS `packages/runtime-node/src/provider-adapters/qoder-local-auth.mjs` 与 `qoder-model-catalog.mjs` 是迁移行为的对照，公开新版文档不覆盖本仓已存在的本地格式/权限契约。

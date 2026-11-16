@@ -366,3 +366,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-14 NR-03 复核：ADR 131 补充真实 Provider 创建结果/Evidence/dispatch 已确认后，同 owner 的 missing file claim 身份确认；保留 unknown/closure/外来身份阻断，schema 不变。
 
 2026-11-15 ADR131/57: A-level historySelection v1, projector3 and capacity boundary binding supplement precedes implementation. Legacy markers retain suffix semantics; compatibility/recovery acceptance is tracked separately.
+
+2026-11-17 NR-04：ADR131在实现前登记Qoder本地凭据/目录原生密码格式、严格有界解封、第三方只读身份及真实SDK互操作验收；不捆绑/运行JS或WASM引擎，完整Qoder Provider与P4仍另验。
