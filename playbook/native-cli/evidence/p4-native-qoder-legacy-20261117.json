@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "native-legacy-Qoder-source/JSON-Bearer/Host scoped gate and exact featureless release passed; complete Qoder/P4 still open",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "head": "683b601a36351a7241ba81c080a18b9351e2d627",
+    "tree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+    "branch": "codex/native-rust-cli"
+  },
+  "preSourceKnowledge": "a70d13868e50ba0f56a0a28da86dc6389fd694b2",
+  "adrs": [
+    "37-provider-channel-and-wire-protocol-separation.md",
+    "56-provider-observed-context-accounting.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "ADR131/map registered the A-level legacy credential/dialect/source contract before implementation. The model/encoder/transport wiring implements that contract, with permission, Evidence, Context admission, canonical persistence and unknown recovery unchanged. No UI flow changed.",
+  "implemented": {
+    "dialect": "The actual selected-model local catalog or nonempty persisted modelOptions selects prepared-infer. An absent selected model uses the old JSON/Bearer endpoint. Empty arrays remain an explicit override, null is undeclared. Invalid/known-future QMC or conflicting sources fail instead of silently switching dialect or token after an error. The runtime choice is derived from the bound account/config/catalog, with no new user-writable mode toggle.",
+    "credentials": "QODER_ACCESS_TOKEN > QODER_PERSONAL_ACCESS_TOKEN > QODER_PAT, JS-trimmed nonempty precedence. Winning env credentials never read the local user/machine files. Prepared mode still rejects env-only credentials as requiring user info. Legacy accepts the selected env token or the existing read-only decrypted local token; uid is only required for prepared mode, but present field types/size and expiry remain checked. No third-party login/refresh/writeback, Helper or VM fallback.",
+    "ownership": "ReadSet centralizes existing/absent file observations for credentials/catalog/endpoint, retaining captured bounded reads, regular-file NOFOLLOW/NONBLOCK/CLOEXEC and pre/post fd/path identity checks. Account owns one immutable dialect and captured environment/config identity. Per-send validation rejects stale source/config/dialect after logout/rotation/catalog appearance. Captured settings, local secret owner and endpoint selection have separate responsibilities. Only selected catalog metadata remains resident after construction.",
+    "request": "Legacy builder reuses canonical history/tool pairing/assistant merge/schema transforms and emits raw frozen JSON, not the prepared-mode custom carrier. Metadata request/session IDs bind sensitive/protected X-Request-ID/X-Session-ID and Bearer headers;2MiB prepared-request limit and actual-byte fingerprint remain. Explicit baseUrl wins, otherwise existing model-host/prod/daily/test settings select a validated URL through the same Native Network. Inference endpoint settings never redirect the legacy route.",
+    "host": "Both dialects use the same complete-stream tool intent -> Runtime Projection/PermissionGrant -> Provider -> ToolResult/Evidence/Store. Existing billing/known/unknown semantics are retained; the legacy receipt fingerprint is checked against actual HTTP bytes. No new execution loop or capability branch."
+  },
+  "validation": {
+    "fullNativeGate": {
+      "tree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+      "exitCode": 0,
+      "seconds": 510.7095575,
+      "rustTests": 440,
+      "nativeEpisodesIncludedInRust": 161,
+      "actualTsInteropRoots": 316,
+      "actualTsInteropChecks": 1819,
+      "ptyCases": 9,
+      "bun": "1.2.17",
+      "log": {
+        "path": "/tmp/peer-native-qoder-legacy-final-20261117/verify.log",
+        "bytes": 100504,
+        "sha256": "1fc94c8c0f4015c870ac0ce7f2da43be5d232b3ef6285ae4557d56fbc1cec669"
+      }
+    },
+    "actualTsLegacyRequestHeaderVectors": 24,
+    "officialSdkLocalCredentialCarriers": 4,
+    "resource": {
+      "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/protocol/contracts/native-cli/qoder-legacy.json",
+      "bytes": 151320,
+      "sha256": "b102f1b82bb4030aac7e916aa64e5d72e9e382f352acb9e0d8f7ade703d9b90a"
+    },
+    "featurelessRelease": {
+      "path": "/tmp/peer-native-qoder-legacy-final-20261117/peer-native",
+      "bytes": 17116976,
+      "sha256": "1fd9eeb8b795d8bbceacfb2eca62ee5e1af32face18ccfd05e5c8a0786e5aa57",
+      "withoutJsQoderHostTests": 13,
+      "environment": "env-i, PATH=/nonexistent, isolated HOME/Peer root; both legacy and prepared dialects",
+      "log": {
+        "path": "/tmp/peer-native-qoder-legacy-final-20261117/no-js-release-host.log",
+        "bytes": 1538,
+        "sha256": "27fd0e9250a612f83333244b51659669fa8cab99851412640d32f69976c53a1f"
+      },
+      "subsequentActualTsInterop": {
+        "roots": 25,
+        "checks": 131,
+        "log": {
+          "path": "/tmp/peer-native-qoder-legacy-final-20261117/release-interop.log",
+          "bytes": 216,
+          "sha256": "2bbe1b50546a64b25c9dcb28241caa7c976b2028d17206f4b28950967be06fa5"
+        }
+      },
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-qoder-legacy-final-20261117/release-dylibs.txt",
+        "bytes": 360,
+        "sha256": "6cdbe7c8888fa024626936c711c91cd9779c39504f3203215df8a0a22e2130c8"
+      },
+      "vendorAuthWasmEmbedded": false
+    },
+    "optimizedQoderUnitTests": {
+      "passed": 17,
+      "log": {
+        "path": "/tmp/peer-native-qoder-legacy-final-20261117/release-qoder-unit.log",
+        "bytes": 2620,
+        "sha256": "ef41fbf9a432b61c5ddd8ba27e30b34cc78c64deca62d09b8c3beba07972773b"
+      }
+    },
+    "foreignEnvTokenIsolation": {
+      "passedTests": 1,
+      "channelCases": 294,
+      "wires": [
+        "anthropic-messages",
+        "gemini",
+        "openai-chat",
+        "openai-responses"
+      ],
+      "environment": "env-i with all3 synthetic Qoder tokens and an owned empty Qoder/HOME root; existing actual HTTP count/send test asserts no Authorization or X-API-Key for other selected providers",
+      "log": {
+        "path": "/tmp/peer-native-qoder-legacy-final-20261117/foreign-token-isolation.log",
+        "bytes": 195,
+        "sha256": "8266154fd4076eb8d2b736b191a6e916598a5c828bd2d917d0e69545c823c63a"
+      }
+    },
+    "architectureAndUi": {
+      "path": "/tmp/peer-native-qoder-legacy-final-20261117/architecture.log",
+      "bytes": 384,
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    "cases": [
+      "legacy local token -> real write -> Grant/ToolResult/Evidence and paired continuation, unchanged source and exact HTTP fingerprint",
+      "all3 env token priorities with corrupt user file and absent machine file never fall back to disk credentials",
+      "explicit base overrides model-host env; inference endpoint cannot redirect legacy",
+      "local token without prepared uid/access-token fallback work, expiry and malformed present uid reject without HTTP or source mutation",
+      "actual successful Shell creates catalog metadata; next request blocks old dialect and retains prior Evidence",
+      "both dialects use real TLS and authenticated CONNECT; correct CA/hostname permits tools, wrong hostname sends no model HTTP, origin/proxy credential headers stay separated",
+      "both dialects cancel incomplete tool streams, close sockets, preserve original history/ledger and admit a distinct later task"
+    ],
+    "scope": "TLS/proxy and cancellation cases are synthetic localhost services; no real Qoder/IdP/OS Vault or installed/platform release acceptance. Cancellation verifies a request ledger and no partial tool, without claiming the exact decoder timing at signal delivery."
+  },
+  "oracle": {
+    "scope": "Actual current TS buildQoderPrivateRequestBody/buildQoderPrivateHeaders and official1.0.39 credential encrypt outputs; synthetic data only. No vendor CLI executed or personal credentials accessed.",
+    "generators": [
+      {
+        "path": "/tmp/peer-native-qoder-legacy-audit-20261117/generate-vectors.mjs",
+        "bytes": 1562,
+        "sha256": "6f8b1d5309f69dc6dd22f266b5cd0d702c8406010a809ab51b8b3f7f4cd7436f"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-legacy-audit-20261117/add-credential-vectors.mjs",
+        "bytes": 893,
+        "sha256": "a58a63d058fbf52f19be028538a0b1dc9dbe6ff35f121fca798d5c721023224f"
+      }
+    ],
+    "authModuleSha256": "15dad38f7d9744dabfdc8a892ebad80d2c8157779f4e33882123ab3c954f04d3"
+  },
+  "baseline": {
+    "head": "b33200859306cabebf2d7143fb88bfc57308fb53",
+    "tree": "4012fd0f8e089ecf00036ab6df721724dd94a96d",
+    "retainedBinarySha256": "5544caa5d1dd3b7e342b017f625e8025a4c64e186ba4b058c6d348e27680556f",
+    "failure": "The retained featureless release actually rejects unknown-model legacy execution with native_qoder_legacy_wire_unsupported; original positive assertion and failed owned root retained.",
+    "log": {
+      "path": "/tmp/peer-native-qoder-legacy-audit-20261117/legacy-release-baseline.log",
+      "bytes": 780,
+      "sha256": "83a288e4163b855bbf38123b47d9f54a28a8e8127d63b16444256eae54dd3370"
+    },
+    "ownedRoot": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpFseDai",
+    "ciRunId": 43949887094,
+    "linuxJob": 133589242332,
+    "macOSJob": 133589242848,
+    "wholeRepositoryBothPlatformsAndElectronSmokesPassed": true,
+    "mergeCommit": "0ae68ff845764658233e4cdb1273ef45572a05df",
+    "mergeTreeMatchesSource": true
+  },
+  "failedAttempts": {
+    "testVisibilityBoundary": {
+      "path": "/tmp/peer-native-qoder-legacy-audit-20261117/qoder-unit-first.log",
+      "bytes": 1267,
+      "sha256": "e5bf8c163e5e19b6d316c238fe49fd5d81c11c24b5de4e2121a5685b3a51f990"
+    },
+    "fixtureRelativeInclude": {
+      "path": "/tmp/peer-native-qoder-legacy-audit-20261117/qoder-host-2.log",
+      "bytes": 1048,
+      "sha256": "f77a787911b9659d4916737163558cd63797ad27f73e21c794f6d6cd61ff4623"
+    },
+    "scope": "Test access/relative includes corrected, not product visibility expansion or assertion weakening. Original featureless unsupported baseline remains. No flake classification, deadline inflation or warning suppression."
+  },
+  "candidateCi": {
+    "runId": 43957840836,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836",
+    "head": "683b601a36351a7241ba81c080a18b9351e2d627",
+    "tree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+    "mergeCommit": "7b45f4948ad72a3e5d9d4eb25ba8a823c73129d2",
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      {
+        "id": 133617013628,
+        "name": "ci-ubuntu-latest",
+        "status": "in_progress",
+        "conclusion": null,
+        "active": [
+          "Native CLI scoped validation"
+        ],
+        "failures": []
+      },
+      {
+        "id": 133617013973,
+        "name": "ci-macos-14",
+        "status": "queued",
+        "conclusion": null
+      }
+    ],
+    "mergeTree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+    "matchesSourceTree": true
+  },
+  "limits": {
+    "p4TotalGatePassed": false,
+    "fullQoderResilienceComplete": false,
+    "fullCatalogAndStreamVariantsComplete": false,
+    "ordinaryRatatuiChatEnabled": false,
+    "p5ThroughP7Complete": false,
+    "notes": [
+      "Qoder queue/duplicate/transient/connection retry remains. Runtime attempt correlation/ID regeneration still needs the actual TS send-wrapper qoderTurnTaskId behavior; this slice matches the shared JSON builders, not complete sender resilience.",
+      "Static source audit notes the current TS nested prepared sender drops persisted-only modelOptions when catalog metadata is absent. Native follows the registered selection rule and actual builder; close and document complete caller parity before P4 acceptance. No real-service reproduction claimed.",
+      "Full Context/compaction policy, remaining tools/Skill/Plugin/Hook/ACP/headless/original commands, actual mixed installed-version drain/recovery, real-service coverage and P4 total gate remain. Full P5/P6/P7 remain.",
+      "No original8.27GB resolution or full long-session/1GiB-interactive/4h/footprint acceptance. No minimum-Rust1.88 or multi-platform installed-build acceptance; review is implementer self-review.",
+      "No personal credentials/data access or migration, vendor CLI execution, install, user-instance restart, default switch, merge, release or tag. Native engine uses no Bun/Node sidecar or vendor VM."
+    ]
+  }
+}

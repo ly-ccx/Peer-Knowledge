@@ -4,6 +4,18 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 Qoder 旧JSON/Bearer端点与环境凭据
+
+候选 `683b601a`（tree `3bd3eba6`）已推送。ADR37/56/129–131复核，ADR131/map先由a70d138登记旧方言与环境来源：目录命中或有非空modelOptions时走准备端点，其余模型走旧JSON/Bearer；不是错误后的认证降级。三个Qoder环境token保留trim后的优先级，获胜时不读磁盘user/machine文件；准备端点仍要求资料，旧端点可用env token或解封的本地token。旧方言不要求准备端点专有uid，但已有类型/大小/expiry继续校验，第三方文件不写回。null选项为未声明，空数组显式覆盖；有错/已知未来QMC/冲突来源不冒充“没有模型”。
+
+来源存在/缺失观察集中进ReadSet，保持普通文件NOFOLLOW/NONBLOCK/CLOEXEC、有界快照、fd/path版本和发送前ModelBinding/环境/expiry校验。捕获设置、凭据owner、端点选择各自负责，构造后只留选中目录元数据。旧body复用同一history/tool transforms直接冻结JSON，Bearer与X-Request-ID/X-Session-ID受保护且sensitive，2MiB上限与实际发送字节指纹不变；显式baseUrl优先，未配置才沿既有model-host/prod/daily/test。两种方言复用原Network与工具Grant/Evidence/账本链，没有新Agent循环或JS/VM fallback。
+
+冻结源码完整原生门禁 **440 Rust（含161 native Episodes）/316根1819实际TS互读/9PTY**，CI Bun1.2.17，exit0、510.710秒，fmt/clippy/边界与架构/UI通过。24个实际TS旧body/header向量、4个官方SDK合成凭据载体匹配。featureless release **17,116,976 bytes，SHA256 `1fd9eeb8b795d8bbceacfb2eca62ee5e1af32face18ccfd05e5c8a0786e5aa57`**，同一产物在env-i/PATH无JS下额外13组Qoder公开Host测试通过；25个自有根再做131次TS/原生互读。17项Qoder测试在release profile再过。已有真实HTTP count/send测试在3个Qoder token同时存在时另过，294个渠道/选项组合、4种wire继续断言无Authorization/X-API-Key串入。
+
+实际覆盖本地/三个env优先级、坏本地文件不能抢占env来源、UID仅准备端点必需、过期/类型否决、原始请求指纹、真实写入与成对Evidence，以及工具成功后目录出现使旧方言停住。两种方言另经真实TLS/认证CONNECT，正确证书成功、错主机名不进模型HTTP，代理/模型认证分离；不完整工具流收到TERM后无效果、socket关闭/保留原历史与账本，独立后续任务可准入。旧b332同一featureless release对未知模型确实报native_qoder_legacy_wire_unsupported，原失败断言/二进制/自有根保留；测试可见性和相对include失败修正，未削弱断言、期限或lint。见[旧端点与凭据回执](native-cli/evidence/p4-native-qoder-legacy-20261117.json)。
+
+基线b332的CI43949887094已核实Linux133589242332/macOS133589242848两平台全仓success，含各自Electron smoke，merge0ae68ff8 tree与源一致。新[CI43957840836](https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836)独立执行（Linux133617013628原生门禁、macOS133617013973排队），merge7b45f494 tree与新源码一致，不继承旧绿。**Qoder队列/连接/瞬态/重复重试与完整发送包装尚未完成**；共享builder默认task_id与实际TS sender每次qoderTurnTaskId的差异须随逐尝试身份/指纹收口。静态追踪另记录TS nested prepared sender在无目录命中时丢持久选项，native当前依已登记选择及实际builder；完整caller平价须在P4总闸前明确，未声称真实服务复现。全部目录/流变体、其余P4及总闸、P5–P7仍开放，普通Ratatui对话仍不可发送，长期内存未验收。仅合成账户/服务，未读个人凭据/任务、未安装/重启用户实例/默认切换/合并/发布。
+
 ## 2026-11-17 Qoder 原生账户与准备端点模型/工具闭环
 
 候选 `b3320085`（tree `4012fd0f`）已推送。ADR37/56/129/130/131复核；ADR131与map先由df920ca/91f46b9登记只读第三方账户、来源绑定与认证接线，并以官方模块对照校正COSY认证requestId为独立随机UUID，不复用正文request_id。账户按QODER_CONFIG_DIR/QODER_CLI_HOME/HOME解析，普通文件NOFOLLOW/NONBLOCK/CLOEXEC、有界读取与fd/path双身份复核；坏/超限/过期/换号/退出/配置变更明确拒绝，源文件不写回。现有认证字段复用，缺失时由OS随机与固定官方公钥生成AES-CBC/RSA-PKCS1v15兼容字段；Cosy身份/认证头受保护且sensitive。不是Peer授权或Vault的新格式。
@@ -14,7 +26,7 @@
 
 真实覆盖合成登录→认证→HTTP→读写工具/Evidence；拒绝无效果及后续任务；损坏/仅env token的准备端点认证前置阻断；实际Shell改写合成凭据后阻断下一次请求，保留已有成功Evidence/历史，修复后新任务可运行；官方加密目录选中模型/context档位；外层业务失败包着有效工具的拒绝。首轮完整门禁虽绿，后续反例在同一release真实写出了合成文件，日志/产物/数据根保留；修正为外层与内层先分别校验业务失败，新增10605/103/statusCodeValue公开反例，随后重跑最终完整门禁，没有继承旧绿或削弱工具断言。另保留SSE夹具缺末尾空行、目录整数被转浮点、编译/lint及测试模块发现失败。见[Qoder Host回执](native-cli/evidence/p4-native-qoder-host-20261117.json)。
 
-基线cfdf两平台全仓CI43938893409含各自Electron smoke已成功，merge0cfff93d tree与源一致。新[CI43949887094](https://github.com/ly-ccx/Peer-Agent/actions/runs/43949887094)独立执行，Linux133589242332原生门禁、macOS133589242848Setup Node进行中，merge0ae68ff8 tree与源码一致，尚未记全仓成功。**Qoder完整队列/连接重试、旧私有端点/env-token路径、全部目录/流变体及真实服务仍未完成**；只有合成本机HTTP账户/服务，不声称Qoder特定TLS/代理、真实账号/OS Vault或安装验收。P4其余及总闸、P5–P7保持开放，Ratatui普通对话仍不可发送，长期内存未验收。无个人凭据/任务读取迁移、安装、用户实例重启、默认切换、合并或发布。
+基线cfdf两平台全仓CI43938893409含各自Electron smoke已成功，merge0cfff93d tree与源一致。新[CI43949887094](https://github.com/ly-ccx/Peer-Agent/actions/runs/43949887094)已核实Linux133589242332/macOS133589242848两平台全仓success，含各自Electron smoke；merge0ae68ff8 tree与源码一致。**Qoder完整队列/连接重试、旧私有端点/env-token路径、全部目录/流变体及真实服务仍未完成**；只有合成本机HTTP账户/服务，不声称Qoder特定TLS/代理、真实账号/OS Vault或安装验收。P4其余及总闸、P5–P7保持开放，Ratatui普通对话仍不可发送，长期内存未验收。无个人凭据/任务读取迁移、安装、用户实例重启、默认切换、合并或发布。
 
 ## 2026-11-17 Qoder 原生格式基础（未接 Provider）
 
@@ -43,7 +55,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder准备端点账户/工具闭环的本机验证 | 混合安装版本drain与恢复、Qoder完整目录/旧端点/队列重试、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消闭环的本机验证 | 混合安装版本drain与恢复、Qoder完整目录/发送包装/队列重试、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
