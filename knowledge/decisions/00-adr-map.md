@@ -368,3 +368,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-15 ADR131/57: A-level historySelection v1, projector3 and capacity boundary binding supplement precedes implementation. Legacy markers retain suffix semantics; compatibility/recovery acceptance is tracked separately.
 
 2026-11-17 NR-04：ADR131在实现前登记Qoder本地凭据/目录原生密码格式、严格有界解封、第三方只读身份及真实SDK互操作验收；不捆绑/运行JS或WASM引擎，完整Qoder Provider与P4仍另验。
+
+2026-11-17 NR-04：ADR131补充Qoder只读账户/来源身份、原生运行时认证封装、公钥兼容加密和COSY签名、专用encoder与既有Host/Network接线；逐项验收完整Provider，不把正常首环或格式Module称为P4完成。

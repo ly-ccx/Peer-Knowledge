@@ -309,3 +309,19 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 来源：`https://docs.qoder.com/cli/authentication`、`https://docs.qoder.com/cli/installation`（2026-11-17核对；官方安装文档仍列出npm包）；实际TS `packages/runtime-node/src/provider-adapters/qoder-local-auth.mjs` 与 `qoder-model-catalog.mjs` 是迁移行为的对照，公开新版文档不覆盖本仓已存在的本地格式/权限契约。
 
 2026-11-17 同卡补充：官方Module合成对照确认目录兼容非base64文本原样返回，以及标准base64无`QMC\x01` magic时按UTF-8返回解码文本。二者均须由调用方按原catalog schema校验，不产生已认证事实；空输入、无效UTF-8和损坏GCM tag失败保全。请求body按固定64字符表作base64位分组，使用`$` padding，再交换首/尾floor(n/3)区段。这只是传输混淆，仍须HTTPS、真实凭据与配置绑定。原生实现沿字节预算拒绝超限、坏字符、残片或非canonical padding；charset和合成向量由官方Module提供，消息形态由实际TS builder对照。完整Provider装配、网络、取消与工具闭环另验。
+
+### 2026-11-17 Qoder 原生账户与模型 Host 接线（A，实施前补充）
+
+沿同一Model factory/encoder/Native Network接入`qoder-private`与显式`qoder_local_auth`（现有`local_cli`别名同义）。账户来源是Qoder所有的本地登录文件；不启动第三方CLI、不自行刷新/写回第三方账户，不借API-key或旧JS sidecar填充缺口。沿已有QODER_CONFIG_DIR→QODER_CLI_HOME/.qoder→HOME/.qoder解析；环境token的既有优先级只属于显式Qoder来源，不能流入其它Provider。准备后的账户绑定当前选定channel/model的operational配置和真实来源文件身份，每次物理HTTP发送前重查取消、expiry、配置及凭据身份；晚到换号/退出/禁用使旧实例拒绝，不缓存grant或以目录存在充作在线账户。
+
+文件读取对最终文件NOFOLLOW/NONBLOCK，只接受普通文件；路径别名可通过显式根目录解析，不使用host Node绕过权限。机器标识至多4KiB，user密文至多1MiB，索引/目录沿前述4MiB及有界JSON节点/深度限制。读前lstat→open/fstat→有界分块读取→fd/path再核对dev/inode/size/mtime/ctime；连续追加不扩大已捕获读取窗口，取消/坏UTF8/不可读/未来格式明确失败并保留源。已有加密文件仍以trim后的machine_id前16个JS字符取16字节CBC key；不合字节预算/不完整Unicode边界拒绝。实际token、uid、expiry与字段类型由Credential Adapter校验；账户JSON及应用持有的字符串副本在owner结束时零化。可选metadata不产生授权或Evidence。
+
+保留官方兼容版本1.0.39的认证封装：已有encrypt_user_info/key均在时复用；缺少任一时，以OS随机UUID去连字符后的前16个ASCII字符为新key，对现有uid及实际存在的organization_id/organization_tags/data_policy_agreed按原TS顺序序列化，用AES-128-CBC/PKCS7（IV=key）加密，并以官方固定RSA1024公钥及PKCS#1 v1.5加密该key。使用维护中的RustCrypto公钥加密API，生产不允许外部seed/私钥或任意公钥覆盖，不自写密码算法。它只是已有第三方线协议兼容，不改变Peer Vault格式或工具许可。
+
+COSY envelope使用原request_id、encrypt_user_info、固定cosyVersion和空ideVersion。base64 envelope、Cosy-Key、当次epoch秒、**实际编码后的body**、固定API路径按换行连接计算现有MD5兼容摘要；URL的/algo前缀与查询不进入该API路径。签名/弱旧密码格式不作为Peer授权或安全设计范本。固定字段和合成随机源样本必须与未修改官方模块逐字段对照；源码测试才可注入合成随机源，featureless产物不读取fixture开关。
+
+认证header只由账户Adapter产生并标记sensitive；自定义header不能覆盖Cosy身份、机器、日期、key或Authorization。当前2MiB prepared-request总上限保留，body先由Qoder专用encoder从同一canonical history和Projection生成，再编码成冻结原字节/指纹。它不拼接新System Context，不改变源历史或ToolResult/Evidence。工具配对、相邻assistant合并、双content/contents、工具schema、effort/context档位沿实际TS规则对照。Qoder使用observed-only计数；用量/未知收费仍归原Runtime账本，编码大小不当token容量。
+
+普通发送走同一Native Network代理/TLS/证书/redirect和取消边界；Stream decoder复用经过Qoder业务错误/帧形态适配的现有Chat归一化，只有真实完整终态才公开工具intent。网络错误、队列/重试、部分usage和已发请求不因认证换代被清成未发送，不重放本地工具。完整目录、队列/连接重试及真实服务另按既有TS预算逐项验证；首条正常模型/工具闭环不能替代整个Qoder/P4总闸。
+
+以真实CLI、隔离第三方文件、合成TLS/HTTP模型、当前TS与官方模块验证正常/缺字段生成、坏/过期/换代凭据、坏/超限/FIFO/取消文件、禁用/改选配置、代理/TLS、错误/截断/取消流、真实工具Grant/Evidence、后续任务及原unknown保全。来源、写域、授权与Evidence边界继续沿原主链，P5–P7不因本卡自动完成。
