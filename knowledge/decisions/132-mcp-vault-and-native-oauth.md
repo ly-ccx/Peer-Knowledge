@@ -76,6 +76,6 @@ HTTP(S) 代理通过已锁定 hyper 的有界 HTTP/1 CONNECT parser / upgrade �
 
 Rust真实工具准入及显式refresh、当前Desktop冷读OAuth解析均拒绝任何含refreshState的envelope（包括未知schema），返回 `mcp_oauth_recovery_required`；普通metadata列表仍可显示恢复状态，不解封token。已有TS SDK保存回调受原Vault generation CAS约束，不能清除此意图；普通凭据编辑也不把它清空。已开始的旧TS请求、已预读token的旧发行版并不因此自动受保护，完整自动刷新仍需所有当前token发送者的受管guard、grant代际延续及安装版本drain；本条不冒充该总闸。
 
-本卡支持的恢复为显式原生 `mcp auth <server-id>`：读取原client/issuer配置，新的PKCE/state/code交换成功并验证原registry/意图代后，发布不含refreshState的新凭据；不得复用previousTokens恢复。失败仍保全意图、旧slot、任务历史和原unknown。未来Desktop原地重新授权恢复须单独接入该所有权路径，不能以普通patch冒充认证成功。无TTL清锁或自动删除Vault slot。
+本卡支持的恢复为显式原生 `mcp auth <server-id>`：读取原client/issuer配置，新的PKCE/state/code交换成功并验证原registry/意图代后，发布不含refreshState的新凭据；不得复用previousTokens恢复。失败仍保全意图、旧slot、任务历史和原unknown。显式auth只恢复已知schemaVersion1、合法UUID operationId和object previousTokens的意图；未知/损坏意图保全并阻断，不用重登擦除未来语义。未来Desktop原地重新授权恢复须单独接入该所有权路径，不能以普通patch冒充认证成功。无TTL清锁或自动删除Vault slot。
 
 验收使用真实公开CLI、合成IdP与加密Helper：记录已收到的一次刷新，TERM与KILL后冷读均阻断第二次刷新和真实工具；元数据不含秘密，原slot与历史保留；当前Desktop冷读/预持有回调拒绝；显式重登成功后原ready任务可经真实Grant/ToolResult/Evidence继续。覆盖意图提交前失败不发token、意图owner丢失、未知schema、最终发布失败及后续恢复。自动刷新、完整P4、真实IdP/OS Vault、多平台安装与默认切换仍另验。
