@@ -247,3 +247,30 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 ### NR-04 当前TS MCP token发送与共享恢复（2026-11-16，实施前 A级补齐）
 
 沿ADR132同日修订，TS官方SDK fetch seam在token HTTP之前取得共享metadata owner并发布已有refreshState，code交换也用同一pending合同；只由该owner验证并发布新Vault代，SDK晚到save仅消费匹配回执。当前读/保存/redirect回调复核代，显式Host authorize purpose可保留已知pending写入新的PKCE并重新授权，未知schema保全。tools/call认证失败/redirect不自动重放且保留unknown；close取消并等待受管HTTP。原生兼容已保存且一致的SDK issuer cache与真实token.scope，仍经受限发现和原权限链。新回调是同进程Host Interface，不是Renderer许可或新跨进程真值；旧已运行版本drain仍另验。
+
+
+## 2026-11-16 NR-04 Grok 原生订阅接入（A，实施前登记）
+
+沿ADR28/37/50和已接受129的完整Provider范围，将当前CLI实际`oauth_grok`接入原生Responses wire；不启动官方Grok CLI、JS引擎或业务sidecar。复用原ModelBinding、Helper模型OAuth CAS/前置刷新意图、Context/用量/压缩与模型编码接缝。Grok当前channel descriptor只声明订阅OAuth，不借本卡新增API-key渠道或工具授权。当前TS仍为迁移对照与Desktop实现，不把它当原生运行依赖。
+
+### 认证与凭据
+
+固定已有公共client身份、`auth.x.ai` issuer/device/token/userinfo和`cli-chat-proxy.grok.com/v1`模型平面，常量由当前TS生成共享contract resource。显式`models auth <已配置Grok渠道>`使用RFC8628 device flow：一次device request、至少按interval等待后poll；只对authorization_pending/slow_down继续同一device grant，slow_down每次再加5秒，denied/expired/未知错误/redirect/取消即结束。整体至多15分钟且服从服务器更短到期；单HTTP沿原15秒/64KiB模型OAuth预算，不自动刷新device code、不把轮询扩展为模型/工具重放。Secret device_code只在有owner的有界内存中，绝不落盘、入argv或回显；给用户的verification URL/userCode/有效期是独立的管理提示，不代表登录或任务成功。Ctrl-C取消当前登录，保留原凭据/配置/任务；新显式登录从新device授权开始。
+
+Protocol登记可序列化的模型认证提示：保留旧browser的authorizationUrl输出，新device方式仅增加明确的userCode/有效期可选字段；CLI展示端消费结构化提示。原browser账户不改变callback/state/PKCE。仅呈现受限HTTPS官方验证地址；test-only loopback替换继续受编译feature与自有fixture marker限制，featureless产物不开放端点覆盖或读第三方Grok auth文件。不会自动打开浏览器或把URL内容作为系统指令。TUI完整交互仍在P6接同一管理入口，headless模型执行本身不暗中创建登录流程。
+
+`model/<channel>/oauth-tokens`沿既有加密payload保存access/refresh/expires/scope/issuer/clientId与可选账号信息，未知字段保留；明确provider若存在须匹配Grok，提供的issuer/clientId必须匹配固定绑定。实际scope必须包含api:access，缺失不向模型平面发请求。刷新省略scope/refresh延续实际原值；返回scope集合变化或丢失api:access保留刷新pending并要求显式重登。新device授权的scope省略只按OAuth省略语义延续本次完整请求范围，不据metadata scopes_supported扩大scope。公共userinfo仅用于非权威账号展示，失败不伪造账号或撤销已证明的token；userinfo不进入System Context/许可。登录前后核对原配置身份与Vault代，晚到登录不得覆盖新登录/退出/删除；最终提交和提示投影恢复继续沿原Account seam，不另建凭据存储。
+
+### Grok兼容传输
+
+新增私有深Module持有每个原生模型实例的有界兼容状态，不按host散落分支。元数据只从已有`https://x.ai/cli/stable`读取，无Authorization/账号/自定义origin头；4秒、至多64字节、无redirect，只接受完整major1 semver。沿原6小时cache/24小时有限stale策略，不持久化版本、不从服务器报错或环境变量猜版本；未来major在推理前拒绝。取消覆盖本次metadata/HTTP，无detached task。元数据准备结束后、每次真正模型POST前，再走真实OAuth/config绑定检查；不能因为cache预读沿用过时token。
+
+模型请求复用同一prepared原始字节与fingerprint，按既有Grok固定身份头加实际发现的client-version。只对原协议明确的推理前426拒绝，强制重读官方feed；仅版本确实改变且仍受支持时，允许同一逻辑请求再发一次。相同版本/第二个426/其它错误不重试，不更换模型或从error text取版本；取消/Context绑定变化阻断下一次物理请求。这个Grok专用426行为不开放给其它Provider、MCP或本地工具。预算/用量仍按既有逻辑请求，实际返回的观察与unknown不能用兼容重试制造成功。
+
+账号头归Provider描述而非Responses wire：ChatGPT的chatgpt-account-id不能泄到Grok，仅发送该Provider实际声明的账号头；协议/品牌/凭据仍正交。普通OpenAI/Google/Anthropic请求保持原Module路径。
+
+### 验证与边界
+
+先冻结实际TS refresh、channel/request/header和版本状态fixture；用公开原生models auth/status/logout/reconcile、真实加密Helper和本机合成IdP/模型走工具→Grant→Evidence闭环。覆盖pending/slow_down/拒绝/到期/取消、无api scope、issuer/client/provider冲突、token轮换、迟到配置/凭据、bad/超限/未来版本、metadata无密钥、426最多一次且body/fingerprint不变、之后的新任务和原unknown保全。网络/TLS/代理继续同一Native Network；featureless候选通过隔离TLS/proxy入口核对，不触个人凭据或系统信任。实际公开IdP/模型、OS Vault和安装drain仍另验；本修订不是Grok或P4已完成声明。
+
+核对于2026-11-16的主来源：[xAI OIDC metadata](https://auth.x.ai/.well-known/openid-configuration)、[官方CLI认证说明](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/02-authentication.md)、[RFC8628](https://www.rfc-editor.org/rfc/rfc8628.html)、[CLI稳定版本feed](https://x.ai/cli/stable)。feed当前返回1.0.77只是核对事实，不写成原生固定版本。当前TS真实实现决定迁移兼容行为；公开文档不取代本地Grant/Evidence与恢复事实。

@@ -203,3 +203,6 @@ LlmSettingsPanel (协议类型 + 鉴权方式 + 登录按钮)
 - opencode `packages/core/src/plugin/provider/openai-auth.ts`(PKCE / 流程参考)
 
 2026-11-16 原生账号入口补充（实施前A）：原生 CLI 的显式登录/退出/status、固定端点/PKCE/loopback 和迟到凭据代条件提交见 [ADR131 NR-04模型账号条款](131-native-cli-contract-storage-and-recovery.md)。本地元数据提示不能充作实际 token 真值；完整配置管理与提示恢复仍是迁移必交范围，不由只读配置登录替代。权限/Evidence不变。
+
+
+2026-11-16 Grok原生迁移补充（实施前A）：当前CLI既有Grok订阅OAuth的device登录、固定issuer/client与api:access、唯一刷新者、现有Vault条件提交、结构化人机提示及Grok版本兼容426行为见[ADR131 NR-04 Grok条款](131-native-cli-contract-storage-and-recovery.md)。ChatGPT/Google身份与原权限/Evidence合同不变；不新增API-key渠道，不借官方CLI作运行sidecar。实现/真实服务及平台验收另记。
