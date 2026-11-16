@@ -4,9 +4,17 @@
 最后更新：2026-11-16
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+2026-11-16 OpenCode Go候选 `c34f161f`：复核ADR37、`48-provider-model-options.md`、129、131，沿既有Channel/Wire与数据契约做B级迁移，不增加执行、授权或存储事实。原生Adapter接通按模型选Chat/Responses/Anthropic、显式wireOverride、旧双渠道别名与Go根地址归一；21个静态模型推理profile及各wire默认值从实际TS resolver生成并冻结，已同步reasoningEffortValues优先，旧支持标记/样式/五档映射不能覆盖Go模型声明。Go会话头和Anthropic身份头走同一受限headers seam；无显式会话标识时由NativeModel owner创建临时UUID，同一执行的count/send/工具续接不变，后续执行新建且不回写配置。自定义session头仍按现有条目覆盖规则执行，显式session长度与CRLF受限。
+
+实际差分还复现了原native live Chat漏发mapped-off、空映射补回通用强度的缺口；按当前Desktop encoder与ADR37的声明映射语义修复，保留已有Runtime的DeepSeek历史准入，纯共享wire fixtures不改。live dialect集中在wire/runtime.rs，追加runtime字段后再核对2MiB上限；精确边界测试证明不能由一个合法共享请求扩成超限发送。
+
+完整原生scoped通过：272 Rust（68 native Episode测试）、294组实际TS配置/请求及真实HTTP count/send，其中123组Go；28组公开CLI配置/wire组合（含旧别名）通过真实模型流→工具→grant/ToolResult/Evidence。133隔离根782项实际TS往返、9PTY、fmt/workspace clippy/release/boundary/architecture/UI均通过。独立公开CLI验证未知Go模型使用服务端默认、同一执行头稳定及后续任务新身份；配置原字节不变。保留原mapped-off差分失败、旧临时Go拒绝断言与中间Rust可见性编译失败；更新为Go已支持/非法wire仍拒绝的真实合同，不删除工具/Evidence覆盖。见[Go回执](native-cli/evidence/p4-native-opencode-go-20261116.json)。基线35e213d1的CI43794213954 Linux133059215802 / macOS133059216064两平台全仓（含Test和Electron smoke）success；merge0556763c的tree与候选f7c8db52相同，新[CI43797484064](https://github.com/ly-ccx/Peer-Agent/actions/runs/43797484064)已启动，尚未记success。
+
+本卡未通过P4总闸：订阅OAuth/自动刷新、Qoder私有wire/选项、代理/证书、完整Context发现与压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/命令仍待完成；P5完整Bot与Ratatui交互未开始。真实Go服务、真实模型/IdP/OS Vault、多平台安装、完整体验与长时内存未验收。没有发布、安装、迁移个人数据或重启实例；原生执行链不含Bun/Node引擎sidecar。
+
 2026-11-16 模型渠道配置候选 `35e213d1`：先核实基线 `4cf7a4c8` 的 CI43787766212 Linux133039151481 / macOS133039151743 全仓 success，再按 ADR37、`48-provider-model-options.md`、129、131 做 B级补齐，原能力链、权限、Evidence、System Context与持久化边界不动。原生 loader 不再 blanket 拒绝推理、输出上限、缓存和自定义头：Cargo直接嵌入从现有 TS ChannelDescriptor生成的注册表，17个普通API-key渠道 / 19种wire组合经四个原生encoder执行；Responses live seam对齐实际Desktop的声明映射（含mapped-off）与fastMode=priority。模型覆盖渠道的既有优先级、null缓存元数据回退、未知私有选项不注入均经真实TS差分。受保护鉴权/协议头、传输控制头、CRLF及超限请求头明确拒绝；自定义头视为敏感值，case-sensitive object merge后按HTTP语义归一，count/send共用且不重复版本头。Grok仅有订阅auth，不再误当API-key渠道；未知渠道不静默兼容。
 
-完整原生 scoped通过：269 Rust（67公开CLI）、123隔离根731项实际TS往返、171组渠道/请求差分及实际HTTP count/send、9PTY，fmt/workspace clippy/release/boundary/architecture/UI通过。公开CLI覆盖19种组合的模型→read_file→真实grant/ToolResult/Evidence，以及非法头保全原配置→修正后同一任务重试。首次断言误把canonical工具结果当role=tool、误把Gemini模型名当body字段，两次失败夹具保留；按实际segments和URL契约修正，未删除真实工具/Evidence断言。最后仅新增“同名请求头恰好一次”的测试断言，聚焦171组HTTP重跑和clippy通过，生产源码与完整scoped一致。见[模型渠道配置回执](native-cli/evidence/p4-native-model-channel-options-20261116.json)。新[CI43794213954](https://github.com/ly-ccx/Peer-Agent/actions/runs/43794213954)进行中，不继承旧候选绿灯。
+完整原生 scoped通过：269 Rust（67公开CLI）、123隔离根731项实际TS往返、171组渠道/请求差分及实际HTTP count/send、9PTY，fmt/workspace clippy/release/boundary/architecture/UI通过。公开CLI覆盖19种组合的模型→read_file→真实grant/ToolResult/Evidence，以及非法头保全原配置→修正后同一任务重试。首次断言误把canonical工具结果当role=tool、误把Gemini模型名当body字段，两次失败夹具保留；按实际segments和URL契约修正，未删除真实工具/Evidence断言。最后仅新增“同名请求头恰好一次”的测试断言，聚焦171组HTTP重跑和clippy通过，生产源码与完整scoped一致。见[模型渠道配置回执](native-cli/evidence/p4-native-model-channel-options-20261116.json)。[CI43794213954](https://github.com/ly-ccx/Peer-Agent/actions/runs/43794213954)已核实Linux133059215802 / macOS133059216064全仓success，merge0556763c的tree与35e213d1相同。
 
 本卡仍不是P4总闸：OpenCode Go模型路由与声明、订阅OAuth/自动刷新、Qoder私有wire/选项、代理/证书、完整Context发现与压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令均待补齐；P5完整Bot和Ratatui交互尚未开始。真实模型/IdP/OS Vault、多平台安装、完整体验和长时内存未验收。未发布、安装、迁移个人数据或重启实例，无Bun/Node引擎sidecar。
 
