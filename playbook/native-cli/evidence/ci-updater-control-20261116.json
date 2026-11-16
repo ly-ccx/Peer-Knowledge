@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "C-level scoped validation-fixture correction for actual remote Linux Electron inspector Promise GC; no UI/updater/runtime product changes.",
+  "decisionPass": [
+    "39-updater-download-ux.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "boundaryMoved": false,
+  "candidate": {
+    "commit": "2c071885f8be923170ff80ffa38564f7bcdab130",
+    "tree": "d342880a8898a80cc2d8e102e237799675c379bf",
+    "pushed": true,
+    "files": {
+      "apps/desktop/scripts/bot-shell-electron-smoke.mjs": "30772688b50605a85306c423d8de4a1fbb9ea12fe044e6e6ad1ca5b39d684fe2",
+      "apps/desktop/scripts/updater-minimize-checks.mjs": "5deff8c66b37e6b1a2ca8ec9bc22dd88144ebdf494c925c89e3d872271754bfa"
+    }
+  },
+  "originalFailure": {
+    "sourceCommit": "1495b8677302fad074269e1bc4809c78fb8537b5",
+    "sourceTree": "9f7b463c1f538e169fb1a332c5cc3f80ef765c53",
+    "runId": 43855704882,
+    "linuxJob": 133259289639,
+    "macosJob": 133259290066,
+    "linuxConclusion": "failure",
+    "macosConclusion": "success",
+    "wholeRepositorySuccess": false,
+    "failedStep": "Bot shell Electron smoke (Linux)",
+    "error": "electronApplication.evaluate: Resulting promise was garbage collected. at updater-minimize-checks.mjs:8",
+    "precedingBuildNativeTypesArchitectureTest": "Both platforms passed; Linux failure was the separate smoke.",
+    "log": "/tmp/peer-native-mcp-oauth-ci-linux-failure-20261116.log",
+    "logSha256": "9976ccb40ba3c8921bf343815895f584bc8160df2048384f9fd51e13452590c4",
+    "artifactId": 14222491079,
+    "artifactDownload": "separate owned gh process still in progress; original screenshot/trace not inspected yet"
+  },
+  "change": "Use the existing disposable main-process command/receipt lifecycle to install the identical download response fixture and read the final real download invocation count. Remove these two inspector calls, retain call-four fast completion, exact final count, UI geometry/motion, reduced motion, error recovery and owned stop assertions. No retry or catch converting failures to success.",
+  "localValidation": {
+    "command": "node apps/desktop/scripts/bot-shell-electron-smoke.mjs --updater-only --output /tmp/peer-native-mcp-oauth-updater-20261116/report.json",
+    "exitCode": 0,
+    "platform": "darwin",
+    "sourceHead": "1495b8677302fad074269e1bc4809c78fb8537b5",
+    "sourceDirty": true,
+    "identity": "Only the two fixture scripts differ among JS/UI sources from 1495b867, and their bytes match 2c071885. Concurrent uncommitted Rust OAuth files were not used by the Electron product scenario.",
+    "report": "/tmp/peer-native-mcp-oauth-updater-20261116/report.json",
+    "reportSha256": "c16343b454519329088950d2a947ff87c1934991e64c18d5a3b087bfe893301c",
+    "motionCases": 3,
+    "fastCompletion": true,
+    "errorRecoverable": true,
+    "nativeReceipts": [
+      {
+        "seq": 38,
+        "ok": true,
+        "windows": 3,
+        "downloadCalls": 0,
+        "type": "install-download-fixture"
+      },
+      {
+        "seq": 44,
+        "ok": true,
+        "windows": 3,
+        "downloadCalls": 4,
+        "type": "download-count"
+      }
+    ],
+    "ownedStop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 42432
+    },
+    "syntaxChecks": "both scripts passed"
+  },
+  "candidateCi": {
+    "runId": 43859827036,
+    "jobs": [
+      133273407898,
+      133273408424
+    ],
+    "status": "in_progress",
+    "conclusion": null,
+    "wholeRepositorySuccess": false,
+    "mergeCommit": "91bed719c7382ab5d50841606096001535a4477f",
+    "mergeTree": "d342880a8898a80cc2d8e102e237799675c379bf",
+    "matchesSourceTree": true
+  },
+  "limits": [
+    "The remote Linux GC failure is preserved as a factual trace; local macOS did not reproduce that exact VM event. The local check proves the actual changed main-control seam and original assertions, not full Linux acceptance.",
+    "Full smoke/combined CI remains separately observed. No UI product changes, real release download, installed acceptance or independent design review claimed.",
+    "Native OAuth pinned source is still a separate uncommitted frozen candidate; this commit alone does not implement it or pass P4 total. No install/restart/personal task migration/default switch/release."
+  ]
+}

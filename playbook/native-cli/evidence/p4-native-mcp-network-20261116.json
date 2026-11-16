@@ -157,8 +157,8 @@
   "candidateCi": {
     "runId": 43855704882,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43855704882",
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "failure",
     "wholeRepositorySuccess": false,
     "jobs": [
       133259289639,
@@ -166,6 +166,26 @@
     ],
     "mergeCommit": "f130fbea3a753fe2689c6e7945ea82e42ea0f97a",
     "mergeTree": "9f7b463c1f538e169fb1a332c5cc3f80ef765c53",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "jobDetails": [
+      {
+        "jobId": 133259289639,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "failure",
+        "failedStep": "Bot shell Electron smoke (Linux)"
+      },
+      {
+        "jobId": 133259290066,
+        "name": "ci-macos-14",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "validationCorrection": {
+    "commit": "2c071885f8be923170ff80ffa38564f7bcdab130",
+    "scope": "Only two Electron smoke fixture scripts; native product bytes unchanged. Actual inspector GC failure; main-owned configuration/query, original assertions retained.",
+    "receipt": "ci-updater-control-20261116.json",
+    "ciRunId": 43859827036,
+    "ciStatus": "in_progress"
   }
 }
