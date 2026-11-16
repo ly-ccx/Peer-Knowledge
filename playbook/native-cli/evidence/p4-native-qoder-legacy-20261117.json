@@ -173,22 +173,37 @@
       {
         "id": 133617013628,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress",
-        "conclusion": null,
-        "active": [
-          "Native CLI scoped validation"
-        ],
+        "status": "completed",
+        "conclusion": "success",
         "failures": []
       },
       {
         "id": 133617013973,
         "name": "ci-macos-14",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "failure",
+        "failures": [
+          "Bot shell Electron smoke (macOS)"
+        ]
       }
     ],
     "mergeTree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "failureInvestigation": {
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-20261117/baseline-macos-ci.log",
+        "bytes": 2270037,
+        "sha256": "3b06fb29ca0a93837bdb4d457abf9acb39b3ba5ef8a55a790779fd435bbe7d21"
+      },
+      "summary": {
+        "path": "/tmp/peer-native-qoder-retry-20261117/baseline-macos-summary.json",
+        "bytes": 2040,
+        "sha256": "2463f1f96a371a5ab3a99c3abfe82fd89d0daab0784f2f4fe3c0e30f36fe9b7a"
+      },
+      "error": "real disclosure input and observation complete within the bound",
+      "source": "apps/desktop/scripts/bot-history-motion-checks.mjs:239",
+      "facts": "taskClose one click, first open=false sample5900ms, last5930ms, global6000ms timer, requires480ms after click. Remote dispatch consumed observation deadline. Product cause not reproduced; no flake label, rerun, timeout inflation or assertion relaxation. Separate scoped fixture timing investigation remains."
+    }
   },
   "limits": {
     "p4TotalGatePassed": false,
