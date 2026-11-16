@@ -1,20 +1,30 @@
 # 原生 CLI 迁移实施账本
 
 创建时间：2026-11-14
-最后更新：2026-11-16
+最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
-## 当前剩余范围（2026-11-16）
+## 当前剩余范围（2026-11-17）
 
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS预读发送guard与旧SDK缓存兼容的本机验证 | 混合安装版本drain与恢复、Grok/Qoder、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容与原生Grok的本机验证 | 混合安装版本drain与恢复、Qoder、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
+
+2026-11-17 原生Grok与基础补全候选 `5182ad5e` 已推送（tree `0966d4fc`）：按实现前ADR131/28/map修订 `2d5e1cf`，`oauth_grok`沿原Responses编码、ModelBinding、Helper CAS/刷新意图与Account提交Module接通，不启动Grok CLI、JS业务引擎或sidecar。显式`models auth`执行一次device grant，有界pending/slow_down轮询、取消和新授权恢复；用户提示只含公开URL/userCode/有效期，实际scope、固定issuer/client与原配置/Vault代分别检查。刷新scope变化保留pending，不重放模型或工具。兼容版本feed有界无凭据读取，6h缓存/24h受限旧值策略；仅426且版本实际变化允许同一prepared原始字节再发一次。ChatGPT账号头归其Provider，不随Responses协议泄到Grok。
+
+完整原生验证冻结在tree `29ea9c09`：**387 Rust /148公开native Episode /291根1688实际TS互读 /9PTY**，CI Bun1.2.17，exit0、420.721秒；之后仅CI作业总预算改动，Rust与资源/脚本不变。全仓typecheck/architecture/UI在新增补全前通过，补全后的Rust由完整fmt/clippy/build/测试验证；最终featureless release **16,508,272 bytes**、SHA256 `1e36dd7aa1799f532349b7b747e0bbdc8aa4d192cb4a5da5713d948e30fd1d68`，额外用同一公开Host测试在固定官方URL/原域名TLS验证下，经强制隔离CONNECT代理走device登录或过期凭据刷新→两次模型请求→真实文件工具/Grant/Evidence。无端点覆盖文件，PATH不可发现Bun/Node，测试证书私钥不在正式产物中。
+
+按已接受ADR108迁移`completions <bash|zsh|fish>`：从实际TS生成三份脚本、帮助与9个参数解析样本，原生入口无HOME/TTY/JS运行依赖，正文仅进stdout、用法错误退出2，不写shell配置。实际Bash可补全models和sessions resume；新增2组公开入口及3项邻接测试通过，正式产物再跑同一2组测试通过。此B级实现不移动能力、授权、Evidence、存储或提示边界。
+
+前候选dc70的CI43899256310已终态：Linux全仓success，Mac首轮无arm64 runner取消；取得runner的重跑通过build/native/type/architecture/Test，最后Electron检查1219秒时触及整个作业45分钟上限而取消，没有报告，不能记全仓绿。原生门禁784秒、全仓测试531秒，同一Linux Electron包808秒。仅将作业总预算改为60分钟，原场景断言、性能预算与单步/动作超时不变；是否足够由[新CI43916683249](https://github.com/ly-ccx/Peer-Agent/actions/runs/43916683249)验证，merge c70991e9 tree与最终源一致。实际原Desktop生产源码未变的本机隔离全旗标检查（仅await前日志的实验副本）已通过并正常退出：列表12.87ms/搜索21.60ms/收到28.10ms中位数在原100/150/300ms门槛内。该日志副本可能影响调度，不冒充精确CI复现、独立产品审阅或远端通过。
+
+原`native_model_auth_unsupported`基线与中间失败保留；首轮整闸通过后审阅发现user_code可等于secret device_code，公开CLI反例真实失败（`.tmp3QMMGP`）。修正为展示前拒绝并保全旧Vault/config，反例通过后重跑完整最终整闸，未借先前绿替代。旧浏览器/MCP、停稳、账本与恢复仍在同一门禁。见[原生Grok回执](native-cli/evidence/p4-native-grok-20261117.json)。6h/24h真实时间老化未soak；真实Grok IdP/模型、OS Vault、旧安装版本drain、完整P4与P5–P7另验，Ratatui仍不可发送普通对话。无个人数据迁移、安装、运行实例重启、默认切换、合并或发布。
 
 2026-11-16 当前TS发送者与旧SDK缓存候选 `dc70fc3c` 已推送（tree `ed6c2ee0`）。按源前ADR132/131 A修订 `cf9540e`：官方SDK真正token HTTP之前，由同一credential目录锁owner核对generation、旧refresh/PKCE和issuer/token endpoint，先经Helper回读验证并发布不可变加密意图；网络等待中不交锁，只有owner能发布最终代。SDK saveTokens仅消费一次匹配提交回执，不再写新代或重算expires_at；拒绝/redirect/损坏/超限/取消/Helper或源变化保留pending，不吞错后DCR、浏览器fallback、invalidate或重试。显式管理authorize purpose只恢复已知pending，保留它直到新code成功；旧code/verifier不能重放。close/disconnect取消并join，管理Host等待清理。
 
@@ -24,7 +34,7 @@ Streamable HTTP及legacy SSE已发tools/call的401/403/redirect不向SDK交出�
 
 完整原生门禁在冻结tree `ae80ace4` 通过：**373 Rust /138 native Episode /261根1528实际TS互读 /9PTY**，CI Bun1.2.17，exit0、403.595秒。之后仅TS owned-error→Provider终止投影及回归测试三文件改动，Rust源与release不变；最终tree另通过**67项聚焦测试**、新runtime build、全仓typecheck、architecture/UI及890 packaged imports。相同featureless release 16,431,344 bytes、SHA256 `31eeb1be8199be95580b4bc520b57db37d46642580bd1c39bf1090a5f9560ab0`，额外27组OAuth Host通过。全仓pnpm build/test通过于后续TS细化前，不冒充最终tree完整发布活动。见[当前TS/旧缓存回执](native-cli/evidence/p4-mcp-cohost-and-legacy-cache-20261116.json)。
 
-首轮完整原生门禁130过7败：五项旧刷新夹具无实际scope却返回mcp.read；正常夹具补齐其明确的原grant，新增未知原grant必须pending的反例，scope/TLS/unknown断言不放宽。两项未改模型测试在与全仓JS并跑时超过原8秒停稳界限；原样隔离通过，最终完整原生门禁单独通过，不称原轮绿或flake。新夹具id0、错Helper和错Store代码失败均保留。新[CI43899256310](https://github.com/ly-ccx/Peer-Agent/actions/runs/43899256310)Linux133411103275已执行Build、Mac133411104083排队，merge e3965514 tree与最终源一致；最终源全仓结果尚未验证，321d0ccb两平台全仓绿已单独核实。
+首轮完整原生门禁130过7败：五项旧刷新夹具无实际scope却返回mcp.read；正常夹具补齐其明确的原grant，新增未知原grant必须pending的反例，scope/TLS/unknown断言不放宽。两项未改模型测试在与全仓JS并跑时超过原8秒停稳界限；原样隔离通过，最终完整原生门禁单独通过，不称原轮绿或flake。新夹具id0、错Helper和错Store代码失败均保留。[CI43899256310](https://github.com/ly-ccx/Peer-Agent/actions/runs/43899256310)已终态：Linux全仓成功；Mac初次runner容量取消，重跑原生/构建/类型/架构/Test通过，最后Electron遭整作业45分钟上限取消，未获全仓成功。merge e3965514 tree与最终源一致。事实、日志与5182ad5e的作业预算后续见上及Grok回执；321d0ccb两平台全仓绿已单独核实，不能移作本候选结果。
 
 旧运行/安装版本drain仍未证明；本卡源码不能倒过来保护已加载旧代码。P4总闸与其余Provider/Context/工具/Skill/Plugin/Hook/ACP/headless/命令、P5–P7仍待完成；Ratatui仍不可发送普通对话，长期内存未验收。仅合成服务与加密夹具key，未验真实IdP/模型/OS Vault/安装；无个人数据迁移、安装、运行实例重启、默认切换、合并或发布，原生CLI无Bun/Node引擎sidecar。
 

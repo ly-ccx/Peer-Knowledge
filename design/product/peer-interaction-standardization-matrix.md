@@ -1,5 +1,9 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生CLI Grok设备授权（2026-11-17）
+
+CLI，`5182ad5e`，按ADR131/28实施前修订。用户显式`models auth <channel>`取得公开URL/userCode/有效期；等待提示不代表已登录，只有真实Vault CAS/回读后的管理回执表示凭据提交。Ctrl-C/TERM取消当前操作，保留原凭据、配置与任务；新登录从新device grant开始。拒绝/过期/无scope/身份冲突/secret回显拒绝后均可沿明确登录修复。模型执行仍从实际Grant与ToolResult/Evidence取事实。387 Rust/148公开Episode与featureless固定URL TLS Host通过，为实现者自审；真实服务、OS Vault、安装与完整Ratatui流程未验收。另沿ADR108输出原三种shell补全/帮助，stdout为脚本、用法错误退出2、不写配置；实际Bash与正式产物复核通过。见[回执](../../playbook/native-cli/evidence/p4-native-grok-20261117.json)。
+
 ## 原生CLI用量与中断核对（2026-11-15）
 
 CLI，`9fb1b4ff`，ADR25/56/129–131。用户从原exec/recover核对任务与用量。Model只提供归一化请求观察；Store提供runtime_turn/conversation_lifetime，Session Control提供停稳事实。错误/取消仍结算已知用量；坏账本保留并阻断首次准入，原已停稳回合经recover核对原提交，不重放工具或更换任务身份。 28项真实公开CLI测试、8项PTY及实现者自审；完整P4/发布验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-durable-ledger-host-20261115.json)。

@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131/28的Grok原生实现按源前2d5e1cf实施于5182ad5e，并沿ADR108补齐原生shell补全。冻结原生tree29ea：387 Rust/148 Episode/291根1688互读/9PTY及featureless固定URL TLS工具闭环通过；最终仅另改CI总作业预算，前Mac45分钟超时和新CI待验均保留。device提示秘密字段反例与修正保留。未改变本地授权/Evidence边界，真实服务/安装drain与P4–P7仍待验，见实施账本和p4-native-grok-20261117回执。
+
 2026-11-16：ADR131/28在Grok原生实现前登记device授权提示/有界轮询、实际scope与固定身份、既有Vault CAS和Grok专用兼容版本Module；仅原协议426受限再发一次。Model Provider不向本地能力授权，真实服务/安装drain与P4总闸另验。
 
 2026-11-16：ADR132/131当前TS owned exchange、显式pending恢复与原生旧SDK缓存兼容按cf9540e实施于dc70fc3c；373 Rust/138 Episode原生门禁及最终TS投影67项聚焦通过，真实Provider/canonical预算保留unknown。安装drain/真实平台与P4总闸另验，详见实施账本。

@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "scope": "P4 native Grok auth/refresh/compatibility/tool Evidence and ADR108 shell completions; C whole-CI job budget; not P4 total or release acceptance",
+  "status": "native-scoped-passed; pushed candidate; whole-repository CI pending",
+  "candidate": {
+    "commit": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
+    "tree": "0966d4fc39b8ac62d98b713475d13b06f98d62b0",
+    "nativeGateTree": "29ea9c09867c202f2fea8875792b1779ce779c7c",
+    "onlyAfterNativeGate": [
+      ".github/workflows/ci.yml"
+    ],
+    "pushed": true,
+    "branch": "codex/native-rust-cli",
+    "nativeBinarySha256": "1e36dd7aa1799f532349b7b747e0bbdc8aa4d192cb4a5da5713d948e30fd1d68",
+    "nativeBinaryBytes": 16508272
+  },
+  "decisionPass": {
+    "classification": "A registered before source; B implementation; C isolated TLS fixtures",
+    "priorKnowledgeCommit": "2d5e1cfcaa5233c97a4e4f3bfa2aeb3f547e9d11",
+    "files": [
+      "108-cli-basic-shell-commands.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "50-cli-system-proxy-fallback.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "boundary": "Grok device prompt/polling, actual scope and issuer/client binding, existing Vault CAS and private version transport registered in ADR131/28/map before implementation. PermissionGrant/Evidence/System Context authority unchanged. Shell completion scripts/parser preserve existing ADR108, no shell configuration writes or new runtime authority. Whole-job CI budget only; per-step/action/latency assertions unchanged."
+  },
+  "baselineCi": {
+    "commit": "dc70fc3c85f046ef6f96759d7cb41fe97a873ebe",
+    "runId": 43899256310,
+    "status": "completed",
+    "wholeRepositorySuccess": false,
+    "firstMacAttempt": {
+      "jobId": 133411104083,
+      "conclusion": "cancelled",
+      "cause": "Hosted macOS arm64 runner was not acquired, with capacity annotations. Only that terminal job was rerun; no restart on observation timeout.",
+      "annotations": {
+        "path": "/tmp/peer-native-grok-final-20261117-v2/baseline-macos-attempt1-annotations.json",
+        "sha256": "11e2220e7977b6d91776528b5778bdf8c7c77be2851ea0873abd71a0b02c43fc",
+        "bytes": 1675
+      }
+    },
+    "conclusion": "cancelled",
+    "mergeCommit": "e3965514963385232979eede8e22cc071a55e909",
+    "mergeTree": "ed6c2ee0a33954951eaffcb4608a4e0b20e51a1a",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133433839938,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133433836212,
+        "platform": "macOS",
+        "conclusion": "cancelled",
+        "nativeScoped": "success",
+        "build": "success",
+        "typecheck": "success",
+        "architecture": "success",
+        "tests": "success",
+        "electronSmoke": "cancelled after whole-job 45 minute deadline; no report uploaded"
+      }
+    ],
+    "secondMacAttempt": {
+      "jobId": 133433836212,
+      "annotations": {
+        "path": "/tmp/peer-native-grok-shell-final-20261117/baseline-macos-attempt2-annotations.json",
+        "sha256": "eabb9bc57671c57acf67a4f53abf957140476e32e3accb936e54cde7c13739b2",
+        "bytes": 1585
+      },
+      "job": {
+        "path": "/tmp/peer-native-grok-shell-final-20261117/baseline-macos-attempt2.json",
+        "sha256": "14c005daf6d8c82ec767ef97cd1428edb84feae22c4c04a60297d5c6830498b7",
+        "bytes": 6441
+      },
+      "smokeLog": {
+        "path": "/tmp/peer-native-grok-shell-final-20261117/baseline-macos-smoke.log",
+        "sha256": "ad90ebef87ff6ef606653a16cc7f60ccb03c5492181755434131e87c92da8c48",
+        "bytes": 7933
+      },
+      "nativeGateSeconds": 784,
+      "workspaceTestSeconds": 531,
+      "smokeSecondsBeforeCancellation": 1219,
+      "sameLinuxSmokeSeconds": 808
+    }
+  },
+  "candidateCi": {
+    "runId": 43916683249,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43916683249",
+    "status": "queued",
+    "wholeRepositorySuccess": false,
+    "budgetChange": "Whole job 45->60 minutes for combined native/JS/Electron gates. No product source, scenario assertion or per-step/action deadline changed. Not a claim the missing Mac smoke result is fixed; candidate CI must prove completion.",
+    "conclusion": null,
+    "head": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
+    "tree": "0966d4fc39b8ac62d98b713475d13b06f98d62b0",
+    "matchesSourceTree": true,
+    "mergeCommit": "c70991e9635e7dbf9727ca89d3d1f1da5a893096",
+    "mergeTree": "0966d4fc39b8ac62d98b713475d13b06f98d62b0",
+    "jobs": [
+      {
+        "id": 133472597563,
+        "platform": "macOS",
+        "status": "queued"
+      },
+      {
+        "id": 133472598121,
+        "platform": "Linux",
+        "status": "in_progress",
+        "step": "Native CLI scoped validation"
+      }
+    ]
+  },
+  "validation": {
+    "nativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-grok-shell-final-20261117",
+      "tree": "29ea9c09867c202f2fea8875792b1779ce779c7c",
+      "exitCode": 0,
+      "elapsedSeconds": 420.72079586982727,
+      "rustTests": 387,
+      "nativeEpisodes": 148,
+      "actualTsInteropRoots": 291,
+      "actualTsInteropChecks": 1688,
+      "ptyCases": 9,
+      "bun": "1.2.17",
+      "pinnedProviders": 3,
+      "actualTsRefreshCases": 9,
+      "actualTsBrowserFlows": 2,
+      "log": {
+        "path": "/tmp/peer-native-grok-shell-final-20261117/verify.log",
+        "sha256": "2ea03324bf37ff3f6811724902b964b7940a308f42ff640aae0b549acc3f159b",
+        "bytes": 92911
+      },
+      "shellScripts": 3,
+      "actualTsShellParserCases": 9
+    },
+    "previousFullGate": {
+      "tree": "ec8b40d6e5623e3cef1b71f8d40d6ec7b3be1117",
+      "exitCode": 0,
+      "elapsedSeconds": 447.7229402065277,
+      "scope": "Before final secret-code rejection. Final source reran the full native gate; this earlier pass is not substituted.",
+      "log": {
+        "path": "/tmp/peer-native-grok-final-20261117/verify.log",
+        "sha256": "64f86e39c957f9ba761ad1de00a4b1b68bd58817614749602971325df0066e42",
+        "bytes": 93110
+      }
+    },
+    "featurelessRelease": {
+      "exitCode": 0,
+      "sha256": "1e36dd7aa1799f532349b7b747e0bbdc8aa4d192cb4a5da5713d948e30fd1d68",
+      "bytes": 16508272,
+      "syntheticFixtureKeyAbsent": true,
+      "endpointOverridesRemoved": true,
+      "fixedOrigins": [
+        "https://x.ai/cli/stable",
+        "https://auth.x.ai/oauth2/device/code",
+        "https://auth.x.ai/oauth2/token",
+        "https://auth.x.ai/oauth2/userinfo",
+        "https://cli-chat-proxy.grok.com/v1/responses"
+      ],
+      "scope": "Same public native host test, expired shared encrypted credentials or explicit device login, one metadata fetch and two actual Responses/tool calls per native worker. Explicit CONNECT proxy maps every fixed origin only to owned loopback TLS front, original Host and certificate verification retained; no endpoint fixture files, no OS trust changes, PATH=/nonexistent, native encrypted fixture helper. Official service requests are simulated, not live cloud acceptance.",
+      "log": {
+        "path": "/tmp/peer-native-grok-shell-final-20261117/release-native_episode.log",
+        "sha256": "1d2f7792f5d1e5d69cac8ed070d2ab4d94d8bb4092968f8bceb007d197bf6f21",
+        "bytes": 250
+      },
+      "sourceTree": "29ea9c09867c202f2fea8875792b1779ce779c7c",
+      "tests": [
+        {
+          "suite": "native_episode",
+          "exitCode": 0,
+          "harness": "target/debug/deps/native_episode-f36e1d96d4496e89"
+        },
+        {
+          "suite": "completions",
+          "exitCode": 0,
+          "harness": "target/debug/deps/completions-9c31715c95383c4c"
+        }
+      ],
+      "retainedArtifact": "/tmp/peer-native-grok-shell-final-20261117/peer-native",
+      "completionLog": {
+        "path": "/tmp/peer-native-grok-shell-final-20261117/release-completions.log",
+        "sha256": "4509c534a520a67064f3d50d6a37741993db477d35c4d9d8e2cf6d544d6bfc5d",
+        "bytes": 279
+      }
+    },
+    "typecheck": {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "log": {
+        "path": "/tmp/peer-native-grok-final-20261117/typecheck.log",
+        "sha256": "fd3e26e6169d2811d751307cea706ae8996b002988c581a42ebaf66f06b3f8a0",
+        "bytes": 1294
+      },
+      "scope": "Passed before shell CLI delta; no TS production source changed. Combined native gate afterward covers final Rust/resources and development shell contracts."
+    },
+    "architecture": {
+      "command": "pnpm architecture:check",
+      "exitCode": 0,
+      "log": {
+        "path": "/tmp/peer-native-grok-final-20261117/architecture.log",
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560",
+        "bytes": 384
+      },
+      "scope": "Passed before shell CLI delta; no TS production source changed. Combined native gate afterward covers final Rust/resources and development shell contracts."
+    },
+    "grokOnlyFullGate": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-grok-final-20261117-v2",
+      "tree": "f2a7e45d01dfac569c7c5e2d91b5c6f3d45b74ec",
+      "exitCode": 0,
+      "elapsedSeconds": 425.5409560203552,
+      "rustTests": 385,
+      "nativeEpisodes": 148,
+      "actualTsInteropRoots": 291,
+      "actualTsInteropChecks": 1688,
+      "ptyCases": 9,
+      "bun": "1.2.17",
+      "pinnedProviders": 3,
+      "actualTsRefreshCases": 9,
+      "actualTsBrowserFlows": 2,
+      "log": {
+        "path": "/tmp/peer-native-grok-final-20261117-v2/verify.log",
+        "sha256": "693c3737fe7ed040b28e262c2a86505561f6910bc6650166e21d205bcc9d4f79",
+        "bytes": 92630
+      }
+    },
+    "grokOnlyFeaturelessRelease": {
+      "exitCode": 0,
+      "sha256": "3ef9affa3aff12da9d2c704e136925911574b161b5c31a9d2ab6a6c616ec0325",
+      "bytes": 16472336,
+      "syntheticFixtureKeyAbsent": true,
+      "endpointOverridesRemoved": true,
+      "fixedOrigins": [
+        "https://x.ai/cli/stable",
+        "https://auth.x.ai/oauth2/device/code",
+        "https://auth.x.ai/oauth2/token",
+        "https://auth.x.ai/oauth2/userinfo",
+        "https://cli-chat-proxy.grok.com/v1/responses"
+      ],
+      "scope": "Same public native host test, expired shared encrypted credentials or explicit device login, one metadata fetch and two actual Responses/tool calls per native worker. Explicit CONNECT proxy maps every fixed origin only to owned loopback TLS front, original Host and certificate verification retained; no endpoint fixture files, no OS trust changes, PATH=/nonexistent, native encrypted fixture helper. Official service requests are simulated, not live cloud acceptance.",
+      "log": {
+        "path": "/tmp/peer-native-grok-final-20261117-v2/release-pinned.log",
+        "sha256": "8ca33dae5afb7614143e6bd22a0548e9b182a44e1e1032b29ebfa2d157a42c44",
+        "bytes": 250
+      }
+    },
+    "shellCompletions": {
+      "scripts": 3,
+      "actualTsParserCases": 9,
+      "publicNativeCases": 2,
+      "adjacentEntryCases": 3,
+      "realBashCompletion": true,
+      "writesShellConfig": false,
+      "log": {
+        "path": "/tmp/peer-native-shell-completions-focused-20261117.log",
+        "sha256": "bb1bba5b65dd29c26a0365505da90121703a95b317ba69847c6dc6c7c2afb9f8",
+        "bytes": 988
+      },
+      "clippy": {
+        "path": "/tmp/peer-native-shell-completions-clippy-20261117.log",
+        "sha256": "1f003bf5c231cb92b0c40ae2b57eb52908982109468fee9730ee87450f4e168a",
+        "bytes": 682
+      }
+    }
+  },
+  "behavior": [
+    "RFC8628 one device request, initial polling interval, authorization_pending/slow_down only, +5 seconds slow_down, server expiry/15 minute bound, per-HTTP 15 seconds/64KiB, cancellation joins HTTP and later explicit auth uses a fresh device code.",
+    "Denied/expired/untrusted URL/no api:access and secret echoed as user_code preserve prior encrypted Vault/config and task history; display never establishes auth or tool permission.",
+    "Config/credential revision checks before polling and publication; shared Account commit CAS/readback/projection preserves concurrent login/logout/disable and existing recovery.",
+    "Actual scope/issuer/client/provider validation before inference; omitted refresh/scope retained; narrowed/expanded refresh scope preserves owned pending and blocks a later task without another refresh.",
+    "Grok Responses wire reuses actual current TS request fields; ChatGPT account header belongs its descriptor and is not emitted to Grok.",
+    "Version metadata has no model secrets/identity headers, 4 second/64 byte bound, supported major and in-memory cache. One feed GET for two requests exercised; 6h/24h wall-clock aging was not soaked.",
+    "426 only: force feed lookup then at most one resend on a changed supported version using exactly identical prepared wire bytes. Same/failed/future feed, repeated426 and other errors do not authorize provider/tool replay.",
+    "Actual public CLI persists paired granted toolCallId, ToolResult and Evidence under normal native Host; later task recovery and original browser/MCP cases remain in full suite."
+  ],
+  "preservedFailures": [
+    {
+      "case": "Native Grok unsupported baseline",
+      "fixture": ".tmpAngJ6I",
+      "result": "native_model_auth_unsupported before HTTP"
+    },
+    {
+      "case": "Device user-code confidentiality baseline",
+      "fixture": ".tmp3QMMGP",
+      "result": "Unexpected login success when user_code equaled the secret device_code; added rejection before present(), unchanged negative test then passed."
+    },
+    {
+      "case": "Intermediate test/compile issues",
+      "result": "Preserved original logs include synthetic futureOpaque expectation conflict, mistaken cancellation exit130 versus canonical4, assumed embedded grantId versus actual paired toolCallId, test helper visibility and clippy filter-next correction. No production permission, unknown or TLS assertions weakened."
+    },
+    {
+      "case": "Shell completions baseline",
+      "result": "Actual public CLI rejected completions before port; same exact TS script/parser test passed after native implementation.",
+      "log": {
+        "path": "/tmp/peer-native-shell-completions-baseline-20261117.log",
+        "sha256": "1ca88eab2e32943fee5fef4eedc0174a9cb1f626efc0e071ac77655df7a73ebc",
+        "bytes": 1491
+      }
+    }
+  ],
+  "attemptLogs": [
+    {
+      "path": "/tmp/peer-native-grok-baseline-20261116.log",
+      "sha256": "19c5707d7b26727c6ec344d091e5520786cbeadd6fec481440f7425271fd4257",
+      "bytes": 1315
+    },
+    {
+      "path": "/tmp/peer-native-grok-clippy-20261117-v2.log",
+      "sha256": "9dd236653cf38f1e05f9099857e16d191a030c4fa7a77080c0a1ed3f44355180",
+      "bytes": 547
+    },
+    {
+      "path": "/tmp/peer-native-grok-clippy-20261117.log",
+      "sha256": "1731e0b236c758b70fea5b773feae5c1bc62916a2067036b5a4f07f49522e59e",
+      "bytes": 1561
+    },
+    {
+      "path": "/tmp/peer-native-grok-contract-generation-20261116.log",
+      "sha256": "63be5595f18c58073a03888a5d4e85f770c6a419b80f65f4f331212883b313d0",
+      "bytes": 96
+    },
+    {
+      "path": "/tmp/peer-native-grok-contract-generation-20261117-final.log",
+      "sha256": "63be5595f18c58073a03888a5d4e85f770c6a419b80f65f4f331212883b313d0",
+      "bytes": 96
+    },
+    {
+      "path": "/tmp/peer-native-grok-contract-generation-20261117.log",
+      "sha256": "63be5595f18c58073a03888a5d4e85f770c6a419b80f65f4f331212883b313d0",
+      "bytes": 96
+    },
+    {
+      "path": "/tmp/peer-native-grok-device-first-20261117.log",
+      "sha256": "ef8bc9006ba5c6e6b1098954d421b46ebeda1bee98a00ec1945b98e552e17473",
+      "bytes": 2440
+    },
+    {
+      "path": "/tmp/peer-native-grok-device-v2-20261117.log",
+      "sha256": "0c0c08ff87744d19f3d9c3a969067861f1355832979609458ac0a525ddad5ab0",
+      "bytes": 1047
+    },
+    {
+      "path": "/tmp/peer-native-grok-first-20261117.log",
+      "sha256": "612bbbbedd7703e3401e98ea454efc93f65b9a0c0c92004edb29163181f2e5a8",
+      "bytes": 883
+    },
+    {
+      "path": "/tmp/peer-native-grok-focused-20261117.log",
+      "sha256": "6427b8cd61554fc26920af54472ef9c3ceac8fbc73acf396d662ce5db5c51dd1",
+      "bytes": 1972
+    },
+    {
+      "path": "/tmp/peer-native-grok-oauth-unit-20261117-v2.log",
+      "sha256": "a313776a0948147bcb9cf60e4d0bc41386ed665e0a9e2876e6dd1e930264cd3c",
+      "bytes": 1928
+    },
+    {
+      "path": "/tmp/peer-native-grok-oauth-unit-20261117.log",
+      "sha256": "caa10b2404b97dc7e2f95ca544ee2c66dadbfeda33ae1bdfdc162331fe7f0c29",
+      "bytes": 1904
+    },
+    {
+      "path": "/tmp/peer-native-grok-oauth-unit-final-20261117.log",
+      "sha256": "f9abdeb1adc07b64b2ea7c7939d9222cda7424270c7c31530ea5deb78a79a8d0",
+      "bytes": 2763
+    },
+    {
+      "path": "/tmp/peer-native-grok-pinned-20261117-v2.log",
+      "sha256": "cb9fda45d4ec484c67b12314a6611f3bea96bf5298b888404f9f4ee607cbd7f1",
+      "bytes": 525
+    },
+    {
+      "path": "/tmp/peer-native-grok-pinned-20261117.log",
+      "sha256": "496b697d5aab797d2136db68a2eea9352b0ad528ed058161c5c00012907e5889",
+      "bytes": 881
+    },
+    {
+      "path": "/tmp/peer-native-grok-runtime-unit-20261117.log",
+      "sha256": "36d86d3f9d150df05099f4f3becb32c2b437b66e32c4c6fc6737039f70b79787",
+      "bytes": 6906
+    },
+    {
+      "path": "/tmp/peer-native-grok-secret-code-baseline-20261117.log",
+      "sha256": "c5c8ec42d4d70e660190630bc962a8f06e19135db73e68744c8aea867312e13b",
+      "bytes": 1674
+    },
+    {
+      "path": "/tmp/peer-native-grok-secret-code-fixed-20261117.log",
+      "sha256": "a9c0b4277f66286729ae3093ba7f70314b4d3929b33aecdafb22f730789402b4",
+      "bytes": 643
+    },
+    {
+      "path": "/tmp/peer-native-grok-transport-first-20261117.log",
+      "sha256": "c16659902dcf1b55bef3f869fe9305bafc151342b85c7ab9ac7a5aad81f3e54e",
+      "bytes": 1467
+    }
+  ],
+  "review": {
+    "independent": false,
+    "kind": "implementer source/contract/diff and public host self-review",
+    "limits": "No complete product screenshot packet or independent review. Local source-copy before-await instrumentation may affect timing; remote CI and real-provider/installed acceptance remain separate."
+  },
+  "limits": [
+    "Synthetic IdP/model/proxy and encrypted fixture key; no real Grok IdP/account/model, OS Vault or installed-build acceptance.",
+    "P4 total open: Qoder, complete Context/compaction policy, remaining tools/Skill/Plugin/Hook/ACP/headless/original commands, old installed-version drain and recovery.",
+    "P5 full project-agent not started; P6 Ratatui remains draft-only, general chat and 1GiB/4-hour memory/latency gates open; P7 installed/release/default switch and legacy retirement incomplete.",
+    "No personal data migration, install, running user instance restart, default switch, merge, release or tag. No Bun/Node engine sidecar."
+  ],
+  "localDesktopInvestigation": {
+    "status": "passed",
+    "source": {
+      "source": "apps/desktop/scripts/bot-shell-electron-smoke.mjs",
+      "sourceSha256": "30772688b50605a85306c423d8de4a1fbb9ea12fe044e6e6ad1ca5b39d684fe2",
+      "target": "apps/desktop/scripts/.native-ci-smoke-probe.mjs",
+      "probeSha256": "69da8451e139203317ba740d5509eda8dfb41905b5895c0265d0220f7a49e13f",
+      "awaits": 266,
+      "scope": "Isolated lab-only copy. Synchronous before-await journal; original promises, assertions, deadlines and production source unchanged."
+    },
+    "scope": "Same isolated public smoke invocation with all CI flags; lab-only source copy logs before original awaits, without replacing promises, assertions or deadlines. Original Desktop application sources unchanged. Instrumentation can affect scheduling and is not exact CI reproduction or independent product review.",
+    "log": {
+      "path": "/tmp/peer-native-grok-shell-final-20261117/ci-local-smoke.log",
+      "sha256": "35de8188ab29663f3a9733ecb8ab40ef664e061ef15ec37b1d39bae4820ff687",
+      "bytes": 291169
+    },
+    "awaitJournal": {
+      "path": "/tmp/peer-native-grok-shell-final-20261117/ci-local-awaits.jsonl",
+      "sha256": "ff2ca5cef71d92e9ccd5f3d085f2bc014f57c4c85f38b5b38f499654102733f3",
+      "bytes": 179808
+    },
+    "exitCode": 0,
+    "startedAt": "2026-11-16T17:12:19.039Z",
+    "finishedAt": "2026-11-16T17:19:18.647Z",
+    "topLevelChecks": 11,
+    "metrics": {
+      "productionList": {
+        "samples": [
+          12.925749999994878,
+          12.960583000000042,
+          12.868290999998862,
+          12.338833999994677,
+          12.561041999993904
+        ],
+        "median": 12.868290999998862,
+        "budget": 100,
+        "pass": true
+      },
+      "visibleSearch": {
+        "samples": [
+          81.70000004768372,
+          21,
+          23.09999990463257,
+          21.299999952316284,
+          21.600000143051147
+        ],
+        "median": 21.600000143051147,
+        "budget": 150,
+        "pass": true
+      },
+      "visibleReceived": {
+        "samples": [
+          29.09999990463257,
+          29.40000009536743,
+          24,
+          25.90000009536743,
+          28.09999990463257
+        ],
+        "median": 28.09999990463257,
+        "budget": 300,
+        "pass": true
+      }
+    },
+    "ownedStop": {
+      "ok": true,
+      "code": "stop-owned",
+      "signaled": true,
+      "exited": true,
+      "handleId": "owned-1",
+      "pid": 91098
+    },
+    "originalSourceHead": "dc70fc3c85f046ef6f96759d7cb41fe97a873ebe",
+    "originalSourceDirty": true,
+    "desktopProductionDeltaFromBaseline": [],
+    "report": {
+      "path": "/tmp/peer-native-grok-shell-final-20261117/ci-local-report.json",
+      "sha256": "3fe43611d74636c60f1f7d16d7e0dc3b5b3369b25d5cee246bf0d547120e1385",
+      "bytes": 522989
+    },
+    "retainedProbe": {
+      "path": "/tmp/peer-native-grok-shell-final-20261117/ci-local-smoke-probe.mjs",
+      "sha256": "69da8451e139203317ba740d5509eda8dfb41905b5895c0265d0220f7a49e13f",
+      "bytes": 118980
+    },
+    "temporaryRepoProbeRemoved": true
+  }
+}

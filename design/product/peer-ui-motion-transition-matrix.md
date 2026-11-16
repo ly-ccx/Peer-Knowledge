@@ -1,5 +1,9 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 原生CLI Grok设备授权（2026-11-17）
+
+CLI，`5182ad5e`，授权提示沿结构化JSON输出，增加公开userCode/有效期；不自动开浏览器、不抢焦点或创建动画。URL/控制文本/secret回显先校验；取消沿实际owner停稳，原浏览器登录输出及草稿不受本次管理命令替代。9PTY覆盖原终端恢复，设备等待/活动HTTP取消及后续新登录走公开CLI测试；featureless固定URL TLS验证通过。ADR108补全只输出原脚本或帮助，不开TUI、不改变焦点或shell文件；无HOME/TTY/JS入口与实际Bash复核通过。实现者自审；完整P6、系统IME/读屏与安装验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-native-grok-20261117.json)。
+
 ## 原生CLI用量与中断核对（2026-11-15）
 
 CLI，`9fb1b4ff`，ADR25/56/129–131。沿原终端输入、JSON回执和静态错误提示，无新动效或抢焦点。账本阻断提示区分首次准入修正与已停稳回合的recover。实际SIGTERM在受控I/O挂起期间仍被接收，先停稳再完成已知账本，后续任务可准入；系统IME/读屏/安装版未验收。 28项真实公开CLI测试、8项PTY及实现者自审；完整P4/发布验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-durable-ledger-host-20261115.json)。
