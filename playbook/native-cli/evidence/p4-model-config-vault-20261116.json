@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 native account and current Desktop/TUI automatic OAuth short commits under shared configuration ownership; not full joint metadata recovery or P4 acceptance",
+  "candidate": {
+    "commit": "c8654dd6a1a99c48e9204911b04d4f07cc862392",
+    "tree": "1ba940c569c53daee3889898c37ddde625fbd424",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "nativeBinarySha256": "3ba3b80778e0c4aa1a89ad86c48d77d1417898f6ec6d1bc1a9f242e20bcea650",
+    "nativeBinaryBytes": 14490112
+  },
+  "decisionPass": {
+    "classification": "B implementing prior dc238b2 config -> Helper contract",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "boundaryMoved": false,
+    "scopeClarification": "a986a18 corrects the later new CRUD prerequisite against actual original CLI entry points. 7a36114 pre-registers future OAuth metadata projection/reconcile; it is not implemented or counted by this candidate."
+  },
+  "baselineCi": {
+    "commit": "e632120fb2acc22515e3691247ab36c47f829038",
+    "runId": 43823605671,
+    "mergeCommit": "848671e383a976591fb6bf2199362a77af5e3bb6",
+    "mergeTree": "41ae5d1f98d8d420fa74c61c2dd447619b9fc351",
+    "matchesSourceTree": true,
+    "status": "completed",
+    "conclusion": "success",
+    "wholeRepositorySuccess": true,
+    "jobs": [
+      133152103303,
+      133152103586
+    ]
+  },
+  "candidateCi": {
+    "runId": 43828693350,
+    "status": "in_progress",
+    "conclusion": null,
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      133168487356,
+      133168487738
+    ],
+    "mergeCommit": "1e1465c8649c8afc67087ca4dff9334fa0cf9e89",
+    "mergeTree": "1ba940c569c53daee3889898c37ddde625fbd424",
+    "matchesSourceTree": true
+  },
+  "validation": {
+    "nativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-joint-config-vault-20261116",
+      "exitCode": 0,
+      "rustTests": 311,
+      "nativeEpisodes": 93,
+      "actualTsInteropRoots": 182,
+      "actualTsInteropChecks": 1034,
+      "ptyChecks": 9,
+      "log": {
+        "path": "/tmp/peer-native-joint-config-vault-20261116/verify.log",
+        "sha256": "d7c54b517e9045ae7b728108720d2088c9db7f799930ea32efbbd5de88b9039c"
+      }
+    },
+    "workspace": {
+      "command": "pnpm test",
+      "sourceTree": "1ba940c569c53daee3889898c37ddde625fbd424",
+      "exitCode": 0,
+      "durationSeconds": 363.254,
+      "status": "completed",
+      "all14PackagesDone": true,
+      "log": {
+        "path": "/tmp/peer-native-joint-workspace-tests.log",
+        "sha256": "e51ff35dd406058de3becdffbb2eb5b5e8ca5bfaed51b87e5238a8720b9b2947"
+      }
+    },
+    "focused": {
+      "nativeLoginTests": 14,
+      "oauthSdkTests": 17,
+      "guardedActualDesktopTuiVaultCas": 13,
+      "types": "passed",
+      "architectureAndUi": "passed",
+      "packagedMainImports": 887
+    },
+    "baselineReproduction": {
+      "sourceCommit": "e632120fb2acc22515e3691247ab36c47f829038",
+      "entry": "real peer-native models logout with an actual held shared config DirectoryLock and encrypted Rust Helper Vault",
+      "observed": "Returned success and deleted the credential despite another config writer owning the lock. The new regression expected exit 3 and original ciphertext retention; it failed with actual exit 0.",
+      "failedFixture": ".tmpmlfjYa",
+      "log": {
+        "path": "/tmp/peer-native-config-vault-baseline.log",
+        "sha256": "1eab425a072e856ad9d02b638c0d39be437d4e8a0b6c599cb9f64f56a2a4ea44"
+      }
+    },
+    "normalAndRecovery": [
+      "Native account status/logout/auth snapshots and token commits own the same config -> Helper ordering as configuration writers, with selected channel snapshot validation. Browser and HTTP waits release the guard.",
+      "Native model OAuth load, pre-HTTP intent reservation, proven-no-dispatch cleanup and final CAS use config ownership plus the actual credential revision. Pending intent remains if a response cannot be committed; no token or model replay.",
+      "ModelConfigTransaction.finish validates unchanged source and current lock owner without rewriting config; replaced owners and externally changed bytes are retained.",
+      "Async acquisition uses zero-wait Store attempts, 5ms Tokio waits, five-second deadline and cancellation. No blocking waiter thread or detached task. Paused-clock deadline and cancellation during an actual pending acquisition preserve the original lock and subsequent admission.",
+      "Real CLI held-writer logout times out without changing ciphertext, then logout/native re-login succeeds after release. Valid browser callback while blocked can cancel with exit 4 before exchange, and the next login succeeds.",
+      "Real refresh response cannot commit while another config writer owns the file: original pending ciphertext remains, zero model dispatches occur; explicit native reauthorization and a new canonical task then execute successfully.",
+      "SDK optional host configuration transaction surrounds both short Vault segments, not HTTP. Actual production Desktop and TUI/SharedSelection traverse 13 verified locked CAS calls through a real encrypted Rust Vault and local token HTTP; another config Store can enter during the remote wait.",
+      "Lost configuration ownership after actual SDK token commit reports credential_oauth_commit_unknown; stored new token remains usable and no old-token rollback occurs. Existing feature negotiation, late login/logout, invalid payload, cancellation and Evidence tests rerun."
+    ]
+  },
+  "preservedFailures": [
+    {
+      "log": "/tmp/peer-native-config-vault-baseline.log",
+      "observed": "Real lock-bypass logout baseline retained as described above."
+    },
+    {
+      "log": "/tmp/peer-native-joint-store-tests.log",
+      "observed": "New Store test initially used a JavaScript-style comma declaration; Rust parser rejected it. Two Rust let declarations corrected before frozen validation."
+    },
+    {
+      "observed": "First regression compile referenced a nonexistent fixture complete method. Corrected to the existing approve handshake; the actual e632 baseline then reproduced the missing lock protection."
+    }
+  ],
+  "remaining": [
+    "Original CLI models list and PEER_MODEL_* source, original selection and legacy read parity; 12 actual TS models entry cases have been probed in isolated roots but are not yet a delivered Rust feature.",
+    "OAuth metadata projection/reconcile and rebuild recovery accepted in 7a36114 are not implemented. Explicit management/migration rollback, mixed installed-version drain and complete shared-domain acceptance still require validation.",
+    "Remaining P4 Grok/Qoder, proxy/cert, full Context/compaction strategy, remaining tools, Skill/Plugin/Hook, ACP/headless/commands; full P5 project-agent, P6 Ratatui general conversation and long-memory acceptance, P7 release/default switch/legacy retirement."
+  ],
+  "coverageLimits": [
+    "Only local synthetic IdP/model and injected encrypted KeyStore; no real IdP/paid model/system Vault acceptance.",
+    "Only local source/macOS verification here; new multi-platform CI is still pending. No installed/full product/four-hour soak acceptance.",
+    "Interactive TUI remains draft-only. No install, personal-data migration, running-app restart, default switch or release tag. Native CLI starts no Bun/Node engine sidecar."
+  ]
+}

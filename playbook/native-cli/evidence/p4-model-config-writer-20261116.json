@@ -159,15 +159,27 @@
   ],
   "candidateCi": {
     "runId": 43823605671,
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "success",
     "jobs": [
-      133152103303,
-      133152103586
+      {
+        "id": 133152103303,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133152103586,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
     ],
     "mergeCommit": "848671e383a976591fb6bf2199362a77af5e3bb6",
     "mergeTree": "41ae5d1f98d8d420fa74c61c2dd447619b9fc351",
     "matchesSourceTree": true,
-    "wholeRepositorySuccess": false
+    "wholeRepositorySuccess": true
+  },
+  "scopeClarification": {
+    "knowledgeCommit": "a986a18",
+    "note": "Later actual-cli scope audit corrected the earlier full new CRUD command prerequisite: old models is a list and PEER_MODEL_* is the standalone configuration source. Preserve this historical receipt; original CLI models/env/selection/auth/metadata recovery and shared writer safety remain required."
   }
 }

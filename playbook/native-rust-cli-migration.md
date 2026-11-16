@@ -16,6 +16,12 @@
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 配置/Vault短提交候选 `c8654dd6` 已推送（tree `1ba940c5`）：依此前 `dc238b2` ADR131做B级接线，未移动权限/Evidence/Context或Helper协议边界。实际复现e632旧原生logout在别的config写者持锁时仍删除Vault并返回0；失败隔离根 `.tmpmlfjYa` 保留。Native auth/status/logout与模型OAuth读取、前置意图、最终CAS改为config→Helper短段；浏览器/HTTP等待释放锁。Store finish检查原源版本和owner，不改配置；异步零等待争取+Tokio期限/取消无遗留worker。SDK由实际Desktop/TUI宿主传入相同短事务，13次真实加密Vault CAS证明持锁，HTTP期间另一配置Store可进入。
+
+冻结源码完整原生scoped通过 **311 Rust / 93 native Episode / 182根1034实际TS往返 / 9PTY**；14项原生登录聚焦、17项OAuth SDK测试、全仓types、architecture/UI、887打包imports通过；完整pnpm test退出0、363.254秒，14包与最后升级矩阵通过，退出回执绑定tree1ba940c5。公开CLI验证持锁logout不改密文、回调后等待可取消且不交换code、刷新后无法提交保留原pending、显式原生重登与新canonical任务可继续。Native log SHA256 `d7c54b517e9045ae7b728108720d2088c9db7f799930ea32efbbd5de88b9039c`，featureless产物SHA256 `3ba3b80778e0c4aa1a89ad86c48d77d1417898f6ec6d1bc1a9f242e20bcea650`。详见[短提交回执](native-cli/evidence/p4-model-config-vault-20261116.json)。
+
+基线e632120f的CI43823605671 Linux133152103303/macOS133152103586均全仓success，含各自Electron smoke，merge848671e3 tree与源一致；确认终态后推送本卡。[新CI43828693350](https://github.com/ly-ccx/Peer-Agent/actions/runs/43828693350)独立进行中，不继承全绿。A修订a986a18校正新增CRUD的范围偏差；7a36114先登记后续提示重建/reconcile，这两项不被当作本卡已实现功能。接下来补原models列表和环境配置、真实Vault提示重建/恢复及剩余P4。普通交互聊天、P5–P7、真实平台/模型、混合安装版本drain均未验收；无安装、重启、个人数据迁移、默认切换或发布。
+
 2026-11-16 范围复核：从实际 `cli-argv.ts` / `cli-models.ts` / `cli-model-lines.ts` / `model-config.ts` 确认，原CLI的 models只列出模型，独立模型配置通过PEER_MODEL_*；原CLI没有整套渠道/模型CRUD命令。此前将“完整原生CRUD/账号创建命令”列为必要退出条件，扩大了原方案 §6 “以实际argv registry为准”的范围。ADR131已在后续命令实现前作A级澄清并登记map：优先补原models、环境模型来源、原有选择/auth与metadata恢复；配置/Vault共锁、条件恢复、混合旧安装版本drain及全部原功能仍必须交付。历史回执保留原范围判断，不反写为当时已完成；本次不是把缺失功能删出迁移目标，P4总闸仍未通过。
 
 2026-11-16 模型配置写入候选 `e632120f` 已推送：先于源码登记 ADR131 A级配置Store写入所有权（知识 `dc238b2`），原生 `ModelConfigStore` 与当前Node/ Desktop参与同一真实目录下的mkdir锁、相同原文件/身份revision和条件原子替换。完整同步 read→mutate→write及读取时迁移受锁保护；坏JSON、未知版本/超限保全原文件，不再当空配置覆盖；保留未知root字段和旧providers envelope。异步诊断网络期间释放锁，提交时只修改仍匹配原配置的对象；价格回填在网络后锁内重读。配置rename后目录同步失败时保留实际Vault/config并报告unknown，不无条件回滚旧凭据。
@@ -24,7 +30,7 @@
 
 保留真实竞争的mkdir已存在→lstat时owner已释放的ENOENT，修正为原期限内重争取；没有增加timeout或放松断言。完整回归还复现Helper测试握手文件存在但JSON尚未写完的EOF，失败隔离根保留；只把测试marker改为完整原子发布，原cancel=4、未启动MCP、kill/reap断言不变，聚焦与完整重跑通过。目录同步注入首次命中合法read-time迁移，改为确认新凭据真实写入后才触发；编译/类型推断中间失败与最终修复均记入回执。
 
-基线54e02063的[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913) Linux133136880644与macOS133136881114均全仓success，含各自Electron smoke；merge150b4b9a tree与源码一致，确认终态后才推送下一候选。新[CI43823605671](https://github.com/ly-ccx/Peer-Agent/actions/runs/43823605671)两平台进行中（Linux133152103303/macOS133152103586）；merge848671e3 tree与e632一致，新候选不能继承旧全绿。
+基线54e02063的[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913) Linux133136880644与macOS133136881114均全仓success，含各自Electron smoke；merge150b4b9a tree与源码一致，确认终态后才推送下一候选。新[CI43823605671](https://github.com/ly-ccx/Peer-Agent/actions/runs/43823605671)Linux133152103303/macOS133152103586均已全仓success，含各自Electron smoke；merge848671e3 tree与e632一致。
 
 这张卡仍是共享Store地基和当前写者接线，不等于完整原生配置CRUD/账号创建命令。下一步将native auth/refresh/logout短提交与TS凭据管理接入同一config锁、补齐配置/Vault联合条件恢复及提示重建；不跨网络等待持锁。混合旧安装版本drain、其余P4与完整P5–P7继续待办。无真实IdP/OS Vault、多平台安装、完整交互与长期内存验收；未安装、迁移个人数据、重启或发布，无Bun/Node引擎sidecar。
 
