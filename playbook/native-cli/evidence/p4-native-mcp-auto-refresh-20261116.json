@@ -183,17 +183,19 @@
   "candidateCi": {
     "runId": 43885810034,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034",
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "success",
     "macosJob": 133363511130,
-    "macosStatus": "in_progress",
+    "macosStatus": "completed",
     "linuxJob": 133363511412,
-    "linuxStatus": "in_progress",
-    "wholeRepositorySuccess": false,
+    "linuxStatus": "completed",
+    "wholeRepositorySuccess": true,
     "mergeCommit": "58a46f6aab056283ae0aa295162609a32696bfce",
     "mergeTree": "61dd24c49862aa5608ce8749d17f47b4ae73ce09",
     "matchesSourceTree": true,
-    "observation": "Both platform runners acquired and setup started; no inherited full-CI success."
+    "observation": "Both macOS and Linux whole-repository jobs succeeded, including build, native validation, types, architecture, tests and platform Electron smoke. Checked before starting current TS cohost implementation; no inherited green for the next candidate.",
+    "macosConclusion": "success",
+    "linuxConclusion": "success"
   },
   "limits": [
     "Current TS cached/preloaded outgoing refresh guard and legacy installed-version drain are still required; native epoch does not stop an already-preloaded TS sender.",

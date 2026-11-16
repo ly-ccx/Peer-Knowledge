@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR132/131当前TS owned exchange、显式pending恢复与原生旧SDK缓存兼容按cf9540e实施于dc70fc3c；373 Rust/138 Episode原生门禁及最终TS投影67项聚焦通过，真实Provider/canonical预算保留unknown。安装drain/真实平台与P4总闸另验，详见实施账本。
+
 2026-11-16：ADR132/131实施前A补齐当前TS MCP token发送前owned intent（含code交换）、一次提交回执、无工具认证重放和显式pending管理恢复；原生核对旧SDK issuer cache/实际token.scope。旧运行版本drain与全P4另验。
 
 2026-11-16：ADR132原生自动刷新接线前B复核跨代旧凭据脱敏寿命与原64值/256KiB预算；epoch不持秘密。区分OAuth数值CONNECT与普通MCP域名CONNECT，不放宽地址或权限。

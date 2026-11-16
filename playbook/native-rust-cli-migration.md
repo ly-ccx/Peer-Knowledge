@@ -9,12 +9,24 @@
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及本机门禁通过的原生自动刷新、grant/Context续行和连接换代 | TS预读token发送guard、旧OAuth发现缓存绑定兼容、混合安装版本drain与恢复、Grok/Qoder、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS预读发送guard与旧SDK缓存兼容的本机验证 | 混合安装版本drain与恢复、Grok/Qoder、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
+
+2026-11-16 当前TS发送者与旧SDK缓存候选 `dc70fc3c` 已推送（tree `ed6c2ee0`）。按源前ADR132/131 A修订 `cf9540e`：官方SDK真正token HTTP之前，由同一credential目录锁owner核对generation、旧refresh/PKCE和issuer/token endpoint，先经Helper回读验证并发布不可变加密意图；网络等待中不交锁，只有owner能发布最终代。SDK saveTokens仅消费一次匹配提交回执，不再写新代或重算expires_at；拒绝/redirect/损坏/超限/取消/Helper或源变化保留pending，不吞错后DCR、浏览器fallback、invalidate或重试。显式管理authorize purpose只恢复已知pending，保留它直到新code成功；旧code/verifier不能重放。close/disconnect取消并join，管理Host等待清理。
+
+Streamable HTTP及legacy SSE已发tools/call的401/403/redirect不向SDK交出可重放响应；只有本地owned GuardError身份可投影为既有terminal `execution_outcome_unknown`。实际Provider→canonical预算checkpoint/finish保留原pending和unknown，阻止该executor继续模型请求，不拿错误文字当效果证明。实际SDK预读/双请求基线、首轮仅错误文字而缺结构化unknown的回归均已保留。
+
+原生支持旧SDK cache中的issuer绑定，所有同时存在候选须合法一致；仍做新受限发现，不直接信任缓存token endpoint。实际token.scope优先，省略响应scope沿旧grant保存，保留请求偏好与未知cache字段；变化/未知原授权不被新响应洗成成功。真实加密夹具Vault下TS与Rust双向竞争仅一POST，随后原生Grant/ToolResult/Evidence继续；cache-only→native闭环、冲突/null issuer及scope省略冷读均通过。
+
+完整原生门禁在冻结tree `ae80ace4` 通过：**373 Rust /138 native Episode /261根1528实际TS互读 /9PTY**，CI Bun1.2.17，exit0、403.595秒。之后仅TS owned-error→Provider终止投影及回归测试三文件改动，Rust源与release不变；最终tree另通过**67项聚焦测试**、新runtime build、全仓typecheck、architecture/UI及890 packaged imports。相同featureless release 16,431,344 bytes、SHA256 `31eeb1be8199be95580b4bc520b57db37d46642580bd1c39bf1090a5f9560ab0`，额外27组OAuth Host通过。全仓pnpm build/test通过于后续TS细化前，不冒充最终tree完整发布活动。见[当前TS/旧缓存回执](native-cli/evidence/p4-mcp-cohost-and-legacy-cache-20261116.json)。
+
+首轮完整原生门禁130过7败：五项旧刷新夹具无实际scope却返回mcp.read；正常夹具补齐其明确的原grant，新增未知原grant必须pending的反例，scope/TLS/unknown断言不放宽。两项未改模型测试在与全仓JS并跑时超过原8秒停稳界限；原样隔离通过，最终完整原生门禁单独通过，不称原轮绿或flake。新夹具id0、错Helper和错Store代码失败均保留。新[CI43899256310](https://github.com/ly-ccx/Peer-Agent/actions/runs/43899256310)Linux133411103275已执行Build、Mac133411104083排队，merge e3965514 tree与最终源一致；最终源全仓结果尚未验证，321d0ccb两平台全仓绿已单独核实。
+
+旧运行/安装版本drain仍未证明；本卡源码不能倒过来保护已加载旧代码。P4总闸与其余Provider/Context/工具/Skill/Plugin/Hook/ACP/headless/命令、P5–P7仍待完成；Ratatui仍不可发送普通对话，长期内存未验收。仅合成服务与加密夹具key，未验真实IdP/模型/OS Vault/安装；无个人数据迁移、安装、运行实例重启、默认切换、合并或发布，原生CLI无Bun/Node引擎sidecar。
 
 2026-11-16 原生MCP自动刷新候选 `321d0ccb` 已推送（tree `61dd24c4`）。按先登记ADR132/131 A级修订58aa2c9与跨代脱敏实施复核731539d，实际grant后才解封凭据/访问IdP；execution内存epoch只接受OAuth owner持锁真实发布，逐次核对真实Store与registry，才规范化单一credential来源以复核原grant。Goal、args、policy、lease、祖先/角色、执行绑定和其它来源仍检查；不改写grant事实，不把epoch持久化成权限或秘密。Context继续同一已验证代。每server逻辑owner有界排队，使用当前请求的Host port；旧Connection停稳/join后才刷新与重初始化，stdio不自动重启，call_tool_once不重放。
 
@@ -22,7 +34,7 @@
 
 提前捕获未提交自动刷新版本的跨代旧token回显泄露，实际旧binary/hash和失败历史保留；最终逻辑owner用原64值/256KiB有界可零化集合保护接触/注入的旧新凭据及代理值，超限停止owner后续派发，epoch不持秘密。还保留新夹具把initialized通知计为initialize、错误Store代码假设、以及把OAuth数值规则误用于普通MCP的失败；原预期、权限/TLS/unknown断言不放宽。见[自动刷新回执](native-cli/evidence/p4-native-mcp-auto-refresh-20261116.json)。
 
-基线fcf06bc2的Mac CI在后续coordination-conformance遇到status0 stdout的JSON未结束；本机80次原始Bun1.2.17真实Store探针未精确复现，不能叫flake。5bbbd0ed只把该开发夹具完整响应交给自有文件后读取，保留原1MiB界限、timeout和55项断言；Bun/Node各55项通过，首个numeric fd+encoding的Bun RangeError也保留。[CI43879494376](https://github.com/ly-ccx/Peer-Agent/actions/runs/43879494376) Linux全仓success含Electron smoke，Mac因未取得托管arm64 runner容量取消未执行。见[stdout夹具回执](native-cli/evidence/ci-coordination-stdout-20261116.json)。新[CI43885810034](https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034)两平台已取得runner执行中（Mac133363511130/Linux133363511412），merge58a46f6a tree与源码相同，未继承前卡绿灯。
+基线fcf06bc2的Mac CI在后续coordination-conformance遇到status0 stdout的JSON未结束；本机80次原始Bun1.2.17真实Store探针未精确复现，不能叫flake。5bbbd0ed只把该开发夹具完整响应交给自有文件后读取，保留原1MiB界限、timeout和55项断言；Bun/Node各55项通过，首个numeric fd+encoding的Bun RangeError也保留。[CI43879494376](https://github.com/ly-ccx/Peer-Agent/actions/runs/43879494376) Linux全仓success含Electron smoke，Mac因未取得托管arm64 runner容量取消未执行。见[stdout夹具回执](native-cli/evidence/ci-coordination-stdout-20261116.json)。新[CI43885810034](https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034)两平台全仓success已核实（Mac133363511130/Linux133363511412），含各自Electron smoke；merge58a46f6a tree与源码相同。之后才推进当前TS发送guard与旧缓存兼容，不把本轮绿灯继承给下一候选。
 
 原生刷新要求实际payload中有pinned issuer/client/scopes/refresh token；旧发现缓存独有绑定目前要求显式auth，不能冒充透明旧OAuth平价。当前TS已预读发送guard和安装版本drain仍必需；本卡epoch不阻止已预读TS请求。P4其余和P5–P7仍未完成，Ratatui仍不可发送，无完整长时内存验收。仅本机合成服务/密钥，未验真实IdP/模型/OS Vault/安装；无个人数据迁移、安装、运行实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
 
