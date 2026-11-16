@@ -1,8 +1,14 @@
 # 原生 CLI 迁移实施账本
 
 创建时间：2026-11-14
-最后更新：2026-11-15
+最后更新：2026-11-16
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
+
+2026-11-16 模型渠道配置候选 `35e213d1`：先核实基线 `4cf7a4c8` 的 CI43787766212 Linux133039151481 / macOS133039151743 全仓 success，再按 ADR37、`48-provider-model-options.md`、129、131 做 B级补齐，原能力链、权限、Evidence、System Context与持久化边界不动。原生 loader 不再 blanket 拒绝推理、输出上限、缓存和自定义头：Cargo直接嵌入从现有 TS ChannelDescriptor生成的注册表，17个普通API-key渠道 / 19种wire组合经四个原生encoder执行；Responses live seam对齐实际Desktop的声明映射（含mapped-off）与fastMode=priority。模型覆盖渠道的既有优先级、null缓存元数据回退、未知私有选项不注入均经真实TS差分。受保护鉴权/协议头、传输控制头、CRLF及超限请求头明确拒绝；自定义头视为敏感值，case-sensitive object merge后按HTTP语义归一，count/send共用且不重复版本头。Grok仅有订阅auth，不再误当API-key渠道；未知渠道不静默兼容。
+
+完整原生 scoped通过：269 Rust（67公开CLI）、123隔离根731项实际TS往返、171组渠道/请求差分及实际HTTP count/send、9PTY，fmt/workspace clippy/release/boundary/architecture/UI通过。公开CLI覆盖19种组合的模型→read_file→真实grant/ToolResult/Evidence，以及非法头保全原配置→修正后同一任务重试。首次断言误把canonical工具结果当role=tool、误把Gemini模型名当body字段，两次失败夹具保留；按实际segments和URL契约修正，未删除真实工具/Evidence断言。最后仅新增“同名请求头恰好一次”的测试断言，聚焦171组HTTP重跑和clippy通过，生产源码与完整scoped一致。见[模型渠道配置回执](native-cli/evidence/p4-native-model-channel-options-20261116.json)。新[CI43794213954](https://github.com/ly-ccx/Peer-Agent/actions/runs/43794213954)进行中，不继承旧候选绿灯。
+
+本卡仍不是P4总闸：OpenCode Go模型路由与声明、订阅OAuth/自动刷新、Qoder私有wire/选项、代理/证书、完整Context发现与压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令均待补齐；P5完整Bot和Ratatui交互尚未开始。真实模型/IdP/OS Vault、多平台安装、完整体验和长时内存未验收。未发布、安装、迁移个人数据或重启实例，无Bun/Node引擎sidecar。
 
 2026-11-16 本地打包候选 `4cf7a4c8`：按用户请求，仅对当前 macOS arm64 生成原生测试归档，使用 Cargo featureless release 的 `peer` + `peer-credential-helper`，显式覆盖旧归档脚本的默认 Bun 产物目录。解包字节、执行位、ARM64/system dylib、签名完整性、隔离启动和 Helper ping 均验证；无安装、默认入口替换、用户数据或运行实例变更。归档 6,088,242 字节，SHA256 `6b71189240cad2a2bad6e77aebc1c41cace44900e3bff7d43654aad6a732f0b4`，本地产物位于代码仓 gitignored `target/native-package/tty-hangup-fixed-darwin-arm64/`。
 
