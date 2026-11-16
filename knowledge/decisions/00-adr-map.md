@@ -370,3 +370,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-17 NR-04：ADR131在实现前登记Qoder本地凭据/目录原生密码格式、严格有界解封、第三方只读身份及真实SDK互操作验收；不捆绑/运行JS或WASM引擎，完整Qoder Provider与P4仍另验。
 
 2026-11-17 NR-04：ADR131补充Qoder只读账户/来源身份、原生运行时认证封装、公钥兼容加密和COSY签名、专用encoder与既有Host/Network接线；逐项验收完整Provider，不把正常首环或格式Module称为P4完成。
+
+2026-11-17 ADR131 Qoder实施前对照补充：官方prepareInferRequest的COSY envelope requestId是独立随机UUID，不是正文request_id；维持每次物理发送认证准备，不借该标识重放或结算工具。

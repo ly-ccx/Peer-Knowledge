@@ -318,7 +318,7 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 
 保留官方兼容版本1.0.39的认证封装：已有encrypt_user_info/key均在时复用；缺少任一时，以OS随机UUID去连字符后的前16个ASCII字符为新key，对现有uid及实际存在的organization_id/organization_tags/data_policy_agreed按原TS顺序序列化，用AES-128-CBC/PKCS7（IV=key）加密，并以官方固定RSA1024公钥及PKCS#1 v1.5加密该key。使用维护中的RustCrypto公钥加密API，生产不允许外部seed/私钥或任意公钥覆盖，不自写密码算法。它只是已有第三方线协议兼容，不改变Peer Vault格式或工具许可。
 
-COSY envelope使用原request_id、encrypt_user_info、固定cosyVersion和空ideVersion。base64 envelope、Cosy-Key、当次epoch秒、**实际编码后的body**、固定API路径按换行连接计算现有MD5兼容摘要；URL的/algo前缀与查询不进入该API路径。签名/弱旧密码格式不作为Peer授权或安全设计范本。固定字段和合成随机源样本必须与未修改官方模块逐字段对照；源码测试才可注入合成随机源，featureless产物不读取fixture开关。
+COSY envelope使用每次认证准备独立生成的OS随机UUID作为requestId（官方模块不复用正文request_id；二者不代表工具执行身份）、encrypt_user_info、固定cosyVersion和空ideVersion。base64 envelope、Cosy-Key、当次epoch秒、**实际编码后的body**、固定API路径按换行连接计算现有MD5兼容摘要；URL的/algo前缀与查询不进入该API路径。签名/弱旧密码格式不作为Peer授权或安全设计范本。固定字段和合成随机源样本必须与未修改官方模块逐字段对照；源码测试才可注入合成随机源，featureless产物不读取fixture开关。
 
 认证header只由账户Adapter产生并标记sensitive；自定义header不能覆盖Cosy身份、机器、日期、key或Authorization。当前2MiB prepared-request总上限保留，body先由Qoder专用encoder从同一canonical history和Projection生成，再编码成冻结原字节/指纹。它不拼接新System Context，不改变源历史或ToolResult/Evidence。工具配对、相邻assistant合并、双content/contents、工具schema、effort/context档位沿实际TS规则对照。Qoder使用observed-only计数；用量/未知收费仍归原Runtime账本，编码大小不当token容量。
 
