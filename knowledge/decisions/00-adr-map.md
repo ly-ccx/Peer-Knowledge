@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR132/131实施前A补齐MCP加密刷新意图；同owner持锁publish推进binding，已登记后失败未知不恢复旧refresh；Rust与Desktop冷读阻断，显式原生重登恢复。旧预读发送者/drain及自动刷新grant延续另验。
+
 2026-11-16：ADR132 OAuth数值连接实施复核：沿已接受地址/权限边界接SDK HTTP，64 DNS/32KiB头与原30秒/1MiB/256KiB约束、同一可信根、标准CONNECT upgrade和原域名TLS；失败不切路、不重放。B级接线前登记，实现验收另记。
 
 2026-11-16：ADR132实施前A补充普通MCP统一Native Network策略、逐物理请求预检/dispatch与代理凭据脱敏；旧SDK默认fetch与模型专用策略明确区分。OAuth代理必须先批准IP再数值CONNECT并保留原TLS主机名，当前卡不放宽地址政策。实现/验收另记。

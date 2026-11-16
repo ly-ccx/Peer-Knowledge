@@ -235,3 +235,7 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 - status保持只读，models列表保持metadata/环境来源，不为列表解封秘密。正式系统Vault、混合安装版本与默认共享域仍单独验收。新增reconcile的理由是已有原生账号操作的部分提交恢复，不扩展为Desktop整套CRUD。
 
 2026-11-16 环境来源接线前补充（A级身份/Adapter澄清）：原环境catalog使用 `providerId=openai-compatible`、当前PEER_MODEL_ID或gpt-4o-mini，reasoning选择为off/low/default/high。原生模型factory只在显式选择该source且model相符时取环境秘密；普通三字段RuntimeModelSelection可用，canonical Goal既有四字段格式不变，该来源的modelProviderId/family若存在须同为openai-compatible。已有文件渠道绑定不因环境变量存在被重定向或获得环境key。独立Env Provider沿实际createOpenAICompatibleProvider的Chat请求（含off、default和tools语义），不误套品牌Chat启发式；它是现有wire encoder seam的Adapter，不另开工具loop。模型列表只读metadata/环境，不调用Helper；非法终端控制文本与未知配置版本可见拒绝，原文件保全。以上需真实TS请求fixture及公开原生CLI模型→工具→Grant/Evidence验证，不能由列表或factory单测冒充完成。
+
+### NR-04 MCP刷新未知结果持久化（2026-11-16，实施前 A级补齐）
+
+沿ADR132新增可选Vault envelope refreshState意图，先持锁发布并验证，再允许SDK刷新；同owner持锁publish推进binding，失败/中断不恢复旧refresh。当前Rust工具/refresh与Desktop冷读拒绝pending，显式原生重新授权才能清除。原不可变slot与历史保留，旧安装/预读token仍受drain闸。该凭据操作不是tools/call派发或工具Evidence；grant延续与当前TS token发送guard尚须后续实现验收。具体schema、顺序、异常恢复与测试见ADR132同日修订。

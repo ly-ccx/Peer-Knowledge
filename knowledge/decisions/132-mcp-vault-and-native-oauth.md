@@ -67,3 +67,15 @@ HTTP(S) 代理通过已锁定 hyper 的有界 HTTP/1 CONNECT parser / upgrade �
 用公开 MCP auth/refresh、真实加密凭据夹具及后续 Grant/工具/Evidence 验证；必须包含数值 CONNECT、TLS原主机/未知根/错主机、代理认证隔离、禁止地址/混合DNS、跨源/token redirect不重放、响应界限、取消及之后可准入。隔离实验成功不计产品验收，实现与实际平台/服务覆盖另记。
 
 实施复核补记：隔离 reqwest CONNECT/upgrade 探针确认标准数值 authority 可行，但锁定 reqwest 0.12.24 的公开 ClientBuilder 不提供 HTTP/1 header buffer 上限，不能据此声称 CONNECT 已满足32KiB界限。实际 Adapter 复用同一根投影和已锁定 hyper/rustls，对 proxy TLS、CONNECT 和 origin HTTP 都持有同一受限 driver；不手写 HTTP parser，不放宽头预算或地址/取消政策。此为实现机制校正，不改变上述决策边界。
+
+## 2026-11-16 修订：刷新前置意图与未知结果保全（A，实施前登记）
+
+本条收紧“网络已到达授权服务器后不自动重试”的持久执行条件，局部取代前述“刷新失败保留原元数据”在已登记刷新阶段的解释：旧不可变加密slot继续保留，但不能继续把它发布为当前可刷新凭据。所有发现、issuer/client/token基本校验完成后，在调用SDK刷新前，当前元数据锁owner先向新不可变Vault slot保存并回读验证加密意图，再原子发布该代。envelope继续version1，新增可选顶层 `refreshState:{schemaVersion:1,operationId:<UUID>,previousTokens:<原tokens>}`；普通 `oauth.tokens` 移除，metadata `oauth.tokenStatus` 为 `recovery_required`。意图不是工具dispatch或授权，不创建工具Evidence。
+
+同一事务保持目录锁所有权，并将自身binding推进到真正发布的意图代；只有该owner、未变registry与匹配意图代才能发布SDK返回的新token代。Store支持持锁publish并更新自身revision；最终commit释放锁。Helper写入/回读或意图rename前失败不请求token；意图发布后取消、超时、拒绝、超限、失去原绑定或最终提交失败均保留意图，不还原旧代，不猜测远端是否消耗旧refresh。rename回执不确定也不发请求。该策略允许保守阻断，但禁止自动重放。
+
+Rust真实工具准入及显式refresh、当前Desktop冷读OAuth解析均拒绝任何含refreshState的envelope（包括未知schema），返回 `mcp_oauth_recovery_required`；普通metadata列表仍可显示恢复状态，不解封token。已有TS SDK保存回调受原Vault generation CAS约束，不能清除此意图；普通凭据编辑也不把它清空。已开始的旧TS请求、已预读token的旧发行版并不因此自动受保护，完整自动刷新仍需所有当前token发送者的受管guard、grant代际延续及安装版本drain；本条不冒充该总闸。
+
+本卡支持的恢复为显式原生 `mcp auth <server-id>`：读取原client/issuer配置，新的PKCE/state/code交换成功并验证原registry/意图代后，发布不含refreshState的新凭据；不得复用previousTokens恢复。失败仍保全意图、旧slot、任务历史和原unknown。未来Desktop原地重新授权恢复须单独接入该所有权路径，不能以普通patch冒充认证成功。无TTL清锁或自动删除Vault slot。
+
+验收使用真实公开CLI、合成IdP与加密Helper：记录已收到的一次刷新，TERM与KILL后冷读均阻断第二次刷新和真实工具；元数据不含秘密，原slot与历史保留；当前Desktop冷读/预持有回调拒绝；显式重登成功后原ready任务可经真实Grant/ToolResult/Evidence继续。覆盖意图提交前失败不发token、意图owner丢失、未知schema、最终发布失败及后续恢复。自动刷新、完整P4、真实IdP/OS Vault、多平台安装与默认切换仍另验。
