@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR28/`48-provider-model-options.md`原生移植前A校正：订阅采用当前生产内置权威模型目录（替代旧gpt-5前缀/远程fallback文字），选择值沿当前Protocol标量类型，有限select投影预算；订阅Responses不发送max_output_tokens，off/default采用原有CLI语义。普通API-key与权限边界不变，实现/真实模型验收另记。
+
 2026-11-16：ADR0001/131实施前A修订：原生模型OAuth可协商Helper v1快照/条件写入，原Vault nonce作为opaque记录revision，迟到刷新不能覆盖轮换或复活删除。旧四action/密文格式/权限不变，缺feature在远端刷新前拒绝；模型配置写入与提示投影仍须单独验收，不冒充P4完成。
 
 2026-11-16：新增 [ADR132 MCP Vault 与原生 OAuth](132-mcp-vault-and-native-oauth.md)，先登记 MCP Helper 命名空间、v2 元数据与不可变 slot 提交；取代 ADR32 的新写入 safeStorage / plaintext fallback。实现及验收另记。

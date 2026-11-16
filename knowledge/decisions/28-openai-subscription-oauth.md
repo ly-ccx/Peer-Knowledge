@@ -191,5 +191,13 @@ LlmSettingsPanel (协议类型 + 鉴权方式 + 登录按钮)
 
 ## References
 
+### 原生迁移目录与请求契约校正（2026-11-16，实施前 A级修订）
+
+§6的`/^gpt-5/`旧前缀白名单和§8的远程优先/失败fallback，不再描述当前生产实现。本修订以当前`provider-adapters/openai-model-catalog.mjs`导出的`SUBSCRIPTION_CATALOG`为唯一内置权威订阅目录，包含当前gpt-6等实际已声明ID；CLI移植生成相同语言无关资源，按明确ID准入，不按品牌前缀臆造、扩展或误杀模型。codex平面无模型目录请求；source仍为builtin，不把内置权威称作远端失败兜底。目录接受与真实远端模型验收分别记录。
+
+按既有声明式modelOptions投影当前contextTier，保留选择的标量类型与默认/失效回退规则；上下文窗口是预算输入，不是凭证、模型用量或权限。实际订阅Responses请求省略max_output_tokens；maxOutputTokens元数据不因此丢失。沿现有TUI的originator身份头、account头与固定codex端点构造，不把access token送到用户覆盖的API base。off继续省略reasoning，default采用服务端默认；显式支持的档位与fastMode沿现有encoder seam。普通API-key Responses不受这些订阅专用规则影响。
+
+原生刷新/条件持久化沿[ADR0001原生OAuth修订](0001-cross-platform-credential-vault.md)，尚未完成的浏览器登录、配置写入/提示投影、真实IdP/平台验收不得由只读token和本地mock模型闭环冒充完成。
+
 - ADR 23 Provider Encoder Seam
 - opencode `packages/core/src/plugin/provider/openai-auth.ts`(PKCE / 流程参考)
