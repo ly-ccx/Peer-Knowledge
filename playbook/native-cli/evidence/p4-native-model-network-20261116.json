@@ -43,10 +43,10 @@
     "observation": "Both jobs reached success before the new source push. A running-job log read returned BlobNotFound, not a terminal observation; the same job was re-polled until success. No cancellation or restart."
   },
   "candidateCi": {
-    "status": "in_progress",
-    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "wholeRepositorySuccess": true,
     "runId": 43848554075,
-    "conclusion": null,
+    "conclusion": "success",
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075",
     "jobs": [
       133234880280,
@@ -54,7 +54,22 @@
     ],
     "mergeCommit": "bf7459369520a98f170e59c266e6c8a7ac9f6047",
     "mergeTree": "9ca1777d8ee866d12a2db6bea0b72a907c9fde0a",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "jobDetails": [
+      {
+        "jobId": 133234880280,
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      },
+      {
+        "jobId": 133234880361,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      }
+    ],
+    "observation": "Verified both job terminal successes before pushing 1495b867. Original run was neither canceled nor restarted; transient running logs unavailable was not treated as terminal."
   },
   "validation": {
     "nativeScoped": {

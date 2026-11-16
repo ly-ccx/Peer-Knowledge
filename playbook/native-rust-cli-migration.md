@@ -9,12 +9,18 @@
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 混合安装版本认证兼容与显式管理/迁移条件恢复、Grok/Qoder、代理/证书、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 混合安装版本认证兼容与显式管理/迁移条件恢复、Grok/Qoder、MCP OAuth受限代理/证书、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
+
+2026-11-16 原生普通 MCP 网络候选 `1495b867` 已推送（tree `9f7b463c`）：先登记并推送 ADR132 的 A级网络补充（ac6896a），再接同一 Native Network。实际旧 SDK transport 使用默认 fetch，不能冒充模型专用策略已在旧 MCP 落地。Streamable JSON、Streamable SSE、legacy SSE 的逐物理 GET/POST 均选择 env/NO_PROXY/macOS 路由和严格额外/系统根信任；前置构造完成才记 tools/call 已发送，不重试/redirect/fallback。仅选中代理的有界可零化秘密集合在结果入 Context/历史/Evidence 前脱敏，isError 协议真值独立保留。
+
+冻结原生 scoped **341 Rust / 113 native Episode / 222根1261实际TS互读 / 9PTY**，CI Bun1.2.17，exit0、359.918秒。featureless release 14,906,224 bytes、SHA256 `394fadd315b9e565613dc3a17a9e03767e01cd9da109a10a6f0c9f685594764c`，额外5组真实MCP网络Host测试通过；合成私钥不在产物，architecture/UI及fmt/clippy通过。真实代理认证（含HTTPS代理转发HTTP）、NO_PROXY、TLS未知根/错主机、显式CA修复、凭据回显、双向控制POST与SIGTERM实际socket EOF通过。已发调用unknown保留并继续阻断原工作区；独立范围后续文件任务成功且原unknown/历史不变。旧release显式CA仍无法MCP初始化的失败、reqwest HTTPS转发不附认证的实际失败、测试误用类型/工作区/证据字段的尝试均保留，未弱化原权限或TLS/unknown断言。详见[普通MCP网络回执](native-cli/evidence/p4-native-mcp-network-20261116.json)。
+
+本卡不放宽 MCP OAuth 地址政策；其受限 HTTP Adapter 仍不接环境代理。下一项须实现本地批准 IP 后数值 CONNECT、原域名 TLS/Host 和同一信任策略，防止代理重解析绕过；其余P4与P5–P7继续待办，Ratatui仍不可发送，长期内存未验收。仅隔离本机合成服务，无安装、重启、个人任务迁移、默认切换或发布。基线9d09192b的[CI43848554075](https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075)两平台全仓success（含各自Electron smoke）已核实，原run未取消/重启，完成后才推送本卡。[新CI43855704882](https://github.com/ly-ccx/Peer-Agent/actions/runs/43855704882)单独执行中（Linux133259289639/macOS133259290066），merge f130fbea tree与源码9f7b463c一致，不以本地scoped冒充全仓success。
 
 2026-11-16 原生模型网络候选 `297ba570` / `9d09192b` 已推送（tree `9ca1777d`）：依先登记的ADR50实施复核（知识43a77a0）沿129/130/131做B级迁移，无新增授权/Evidence/Context边界。模型生成、冻结count和ChatGPT/Google交换/刷新共用Native Network Module，保留原环境优先/NO_PROXY精确host及后缀规则、逐请求macOS scutil回退和附加根证书选择；显式extra CA有界普通文件，保留Rustls公共根及主机名/TLS验证。OS查询为固定程序/参数、有界输出/2秒查询与清理期限；取消/超限/超时后实际子进程回收和后续查询通过。普通合成测试显式绕开个人代理，专门网络测试选择实际隔离HTTP/HTTPS/CONNECT代理，不修改系统信任。
 
@@ -24,7 +30,7 @@
 
 首轮297ba570的[CI43846561319](https://github.com/ly-ccx/Peer-Agent/actions/runs/43846561319)两平台均在Native scoped的network-contracts比较失败：夹具误取运行时rootCertificates[0/1]，CI Bun1.2.17与本机1.4.2数据不同。已用CI版本实际复现；9d09192b只将输入固定为入库合成公开证书，仍由真实TS筛选器生成expected，原断言不放宽。两版Bun对照和CI版本完整原生门禁通过，最终产物字节与已验收的6项release测试相同；初验与最终tree、失败和hash均在回执保留。
 
-基线46511513两平台全仓CI（含Electron smoke）success已核实；最终[CI43848554075](https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075)独立排队/执行中，merge bf745936 tree与源码相同。本卡只完成模型路由/信任切片，MCP普通transport及OAuth的网络/地址政策、完整Provider/Host恢复策略、Grok/Qoder、完整Context/压缩、剩余工具/Skill/Plugin/Hook、ACP/headless/原命令、混合安装版本drain和P4总闸仍待完成；P5–P7未完成。仅本机合成代理/TLS/IdP/模型，不冒充真实VPN切换、正式模型/IdP/OS Vault、多平台安装或长时UI内存验收；Ratatui仍不能发送。无安装、重启、个人任务迁移、默认切换、合并或发布，无Bun/Node引擎sidecar。
+基线46511513两平台全仓CI（含Electron smoke）success已核实；最终[CI43848554075](https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075)已核实Linux133234880361/macOS133234880280两平台全仓success，含各自Electron smoke；merge bf745936 tree与源码相同。本卡只完成模型路由/信任切片，MCP普通transport及OAuth的网络/地址政策、完整Provider/Host恢复策略、Grok/Qoder、完整Context/压缩、剩余工具/Skill/Plugin/Hook、ACP/headless/原命令、混合安装版本drain和P4总闸仍待完成；P5–P7未完成。仅本机合成代理/TLS/IdP/模型，不冒充真实VPN切换、正式模型/IdP/OS Vault、多平台安装或长时UI内存验收；Ratatui仍不能发送。无安装、重启、个人任务迁移、默认切换、合并或发布，无Bun/Node引擎sidecar。
 
 2026-11-16 原模型目录与OAuth提示恢复候选 `46511513` 已推送（tree `a09a4c61`）：依先登记的ADR131范围/恢复/环境身份修订（a986a18 / 7a36114 / 7431edb）做B级接线。原 `models` 的12组真实TS入口对照、`PEER_MODEL_*` 独立来源和off/default wire已接；显式来源绑定不会把环境key交给已有文件渠道。实际canonical Host→模型流→工具→Grant/ToolResult/Evidence及拒绝场景通过，无Helper或JS引擎需求。`models reconcile <configured-channel-id>`只从真实Vault重建三项非秘密提示；auth/logout分别返回已知凭据结果和metadata状态，失败不回滚或重放登录，status/list仍只读。实际Store超限、配置owner被置换、pending/损坏/错误provider/不可解密、重复无写入、后续显式修复，以及自动刷新提示失败后真实工具闭环均验证。
 
