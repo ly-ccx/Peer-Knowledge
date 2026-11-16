@@ -4,6 +4,18 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 Qoder 原生账户与准备端点模型/工具闭环
+
+候选 `b3320085`（tree `4012fd0f`）已推送。ADR37/56/129/130/131复核；ADR131与map先由df920ca/91f46b9登记只读第三方账户、来源绑定与认证接线，并以官方模块对照校正COSY认证requestId为独立随机UUID，不复用正文request_id。账户按QODER_CONFIG_DIR/QODER_CLI_HOME/HOME解析，普通文件NOFOLLOW/NONBLOCK/CLOEXEC、有界读取与fd/path双身份复核；坏/超限/过期/换号/退出/配置变更明确拒绝，源文件不写回。现有认证字段复用，缺失时由OS随机与固定官方公钥生成AES-CBC/RSA-PKCS1v15兼容字段；Cosy身份/认证头受保护且sensitive。不是Peer授权或Vault的新格式。
+
+原生factory已接qoder-private准备端点、FREE_INPUT encoder与现有Network/Host。canonical history/Projection经工具配对、相邻assistant合并、双content/contents、schema、effort及contextTier转换后冻结实际编码字节和指纹，prepared request仍限2MiB，计数observed-only。只读本地加密/旧目录及所选模型绑定实际来源。实际工具仍经原Grant/Provider/ToolResult/Evidence/Store；没有第二个执行循环或JS/厂商VM。54份实际TS请求、12份本地目录投影、8份未修改官方模块认证头与4份仅测试RNG固定的运行时字段样本相符；真实HTTP另按捕获的实际正文核验签名。
+
+最终冻结源码完整原生门禁 **428 Rust（含154 native Episodes）/300根1736实际TS互读/9PTY**，CI Bun1.2.17，exit0、470.436秒，fmt/clippy/边界及架构/UI通过。featureless release **17,107,648 bytes，SHA256 `5544caa5d1dd3b7e342b017f625e8025a4c64e186ba4b058c6d348e27680556f`**；该同一产物在env-i、PATH=/nonexistent下额外6组Qoder公开Host测试通过，9个自有数据根另做48次实际TS/原生互读。12项Qoder相关测试在release profile再过。无厂商认证WASM嵌入，host依赖无VM，动态库只有系统/CoreFoundation/iconv。
+
+真实覆盖合成登录→认证→HTTP→读写工具/Evidence；拒绝无效果及后续任务；损坏/仅env token的准备端点认证前置阻断；实际Shell改写合成凭据后阻断下一次请求，保留已有成功Evidence/历史，修复后新任务可运行；官方加密目录选中模型/context档位；外层业务失败包着有效工具的拒绝。首轮完整门禁虽绿，后续反例在同一release真实写出了合成文件，日志/产物/数据根保留；修正为外层与内层先分别校验业务失败，新增10605/103/statusCodeValue公开反例，随后重跑最终完整门禁，没有继承旧绿或削弱工具断言。另保留SSE夹具缺末尾空行、目录整数被转浮点、编译/lint及测试模块发现失败。见[Qoder Host回执](native-cli/evidence/p4-native-qoder-host-20261117.json)。
+
+基线cfdf两平台全仓CI43938893409含各自Electron smoke已成功，merge0cfff93d tree与源一致。新[CI43949887094](https://github.com/ly-ccx/Peer-Agent/actions/runs/43949887094)独立执行，Linux133589242332原生门禁、macOS133589242848Setup Node进行中，merge0ae68ff8 tree与源码一致，尚未记全仓成功。**Qoder完整队列/连接重试、旧私有端点/env-token路径、全部目录/流变体及真实服务仍未完成**；只有合成本机HTTP账户/服务，不声称Qoder特定TLS/代理、真实账号/OS Vault或安装验收。P4其余及总闸、P5–P7保持开放，Ratatui普通对话仍不可发送，长期内存未验收。无个人凭据/任务读取迁移、安装、用户实例重启、默认切换、合并或发布。
+
 ## 2026-11-17 Qoder 原生格式基础（未接 Provider）
 
 候选 `cfdfd40a`（tree `92958346`）已推送。依ADR129–131范围，先由knowledge fe5a6cd/053b481登记第三方凭据/目录读取与有界密码格式、旧载体和传输编码，再实现RustCrypto Module。解封当前AES-128-CBC/PKCS7本地凭据、HKDF-SHA256/AES-256-GCM的QMC v1目录，以及旧明文/base64 UTF-8载体；后两类不会被标成已认证。正文按官方固定字表/美元padding和首尾third换位编码，明确只是混淆。边界1MiB凭据/4MiB目录/8MiB原始body、严格key/block/tag/UTF8/版本/编码校验，部分解码数据与明文归非Debug/Display/Clone的零化owner。只启用锁中已有密码crate版本和zeroize feature，不捆绑/启动SDK、WASM VM或JS。
@@ -31,7 +43,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容与原生Grok的本机验证 | 混合安装版本drain与恢复、Qoder、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder准备端点账户/工具闭环的本机验证 | 混合安装版本drain与恢复、Qoder完整目录/旧端点/队列重试、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
