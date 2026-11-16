@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-11-17",
   "scope": "P4 native Grok auth/refresh/compatibility/tool Evidence and ADR108 shell completions; C whole-CI job budget; not P4 total or release acceptance",
-  "status": "native-scoped-passed; pushed candidate; whole-repository CI pending",
+  "status": "native-scoped-passed; pushed candidate; macOS and Linux whole-repository CI passed",
   "candidate": {
     "commit": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
     "tree": "0966d4fc39b8ac62d98b713475d13b06f98d62b0",
@@ -92,10 +92,10 @@
   "candidateCi": {
     "runId": 43916683249,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43916683249",
-    "status": "queued",
-    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "wholeRepositorySuccess": true,
     "budgetChange": "Whole job 45->60 minutes for combined native/JS/Electron gates. No product source, scenario assertion or per-step/action deadline changed. Not a claim the missing Mac smoke result is fixed; candidate CI must prove completion.",
-    "conclusion": null,
+    "conclusion": "success",
     "head": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
     "tree": "0966d4fc39b8ac62d98b713475d13b06f98d62b0",
     "matchesSourceTree": true,
@@ -105,13 +105,16 @@
       {
         "id": 133472597563,
         "platform": "macOS",
-        "status": "queued"
+        "status": "completed",
+        "conclusion": "success",
+        "includesElectronSmoke": true
       },
       {
         "id": 133472598121,
         "platform": "Linux",
-        "status": "in_progress",
-        "step": "Native CLI scoped validation"
+        "status": "completed",
+        "conclusion": "success",
+        "includesElectronSmoke": true
       }
     ]
   },

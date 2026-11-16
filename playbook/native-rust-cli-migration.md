@@ -22,7 +22,7 @@
 
 按已接受ADR108迁移`completions <bash|zsh|fish>`：从实际TS生成三份脚本、帮助与9个参数解析样本，原生入口无HOME/TTY/JS运行依赖，正文仅进stdout、用法错误退出2，不写shell配置。实际Bash可补全models和sessions resume；新增2组公开入口及3项邻接测试通过，正式产物再跑同一2组测试通过。此B级实现不移动能力、授权、Evidence、存储或提示边界。
 
-前候选dc70的CI43899256310已终态：Linux全仓success，Mac首轮无arm64 runner取消；取得runner的重跑通过build/native/type/architecture/Test，最后Electron检查1219秒时触及整个作业45分钟上限而取消，没有报告，不能记全仓绿。原生门禁784秒、全仓测试531秒，同一Linux Electron包808秒。仅将作业总预算改为60分钟，原场景断言、性能预算与单步/动作超时不变；是否足够由[新CI43916683249](https://github.com/ly-ccx/Peer-Agent/actions/runs/43916683249)验证，merge c70991e9 tree与最终源一致。实际原Desktop生产源码未变的本机隔离全旗标检查（仅await前日志的实验副本）已通过并正常退出：列表12.87ms/搜索21.60ms/收到28.10ms中位数在原100/150/300ms门槛内。该日志副本可能影响调度，不冒充精确CI复现、独立产品审阅或远端通过。
+前候选dc70的CI43899256310已终态：Linux全仓success，Mac首轮无arm64 runner取消；取得runner的重跑通过build/native/type/architecture/Test，最后Electron检查1219秒时触及整个作业45分钟上限而取消，没有报告，不能记全仓绿。原生门禁784秒、全仓测试531秒，同一Linux Electron包808秒。仅将作业总预算改为60分钟，原场景断言、性能预算与单步/动作超时不变；[新CI43916683249](https://github.com/ly-ccx/Peer-Agent/actions/runs/43916683249)已核实macOS133472597563/Linux133472598121两平台全仓success，含各自Electron smoke，merge c70991e9 tree与最终源一致。实际原Desktop生产源码未变的本机隔离全旗标检查（仅await前日志的实验副本）已通过并正常退出：列表12.87ms/搜索21.60ms/收到28.10ms中位数在原100/150/300ms门槛内。该日志副本可能影响调度，不冒充精确CI复现、独立产品审阅；远端通过由上述实际CI单独证明。
 
 原`native_model_auth_unsupported`基线与中间失败保留；首轮整闸通过后审阅发现user_code可等于secret device_code，公开CLI反例真实失败（`.tmp3QMMGP`）。修正为展示前拒绝并保全旧Vault/config，反例通过后重跑完整最终整闸，未借先前绿替代。旧浏览器/MCP、停稳、账本与恢复仍在同一门禁。见[原生Grok回执](native-cli/evidence/p4-native-grok-20261117.json)。6h/24h真实时间老化未soak；真实Grok IdP/模型、OS Vault、旧安装版本drain、完整P4与P5–P7另验，Ratatui仍不可发送普通对话。无个人数据迁移、安装、运行实例重启、默认切换、合并或发布。
 
