@@ -54,8 +54,27 @@
   },
   "candidateCi": {
     "runId": 43809352936,
-    "status": "in_progress",
-    "conclusion": null
+    "status": "completed",
+    "conclusion": "failure",
+    "mergeCommit": "68c9184fa885543dabad001f31cb5d4b8907d072",
+    "mergeTree": "dfa8be51e22d5708246a5069ef67bb613d99bead",
+    "matchesSourceTree": true,
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      {
+        "id": 133107532651,
+        "platform": "macOS",
+        "conclusion": "failure",
+        "step": "Test"
+      },
+      {
+        "id": 133107533049,
+        "platform": "Linux",
+        "conclusion": "failure",
+        "step": "Test"
+      }
+    ],
+    "cause": "Five high-level OAuth request test doubles omitted the newly required refreshOAuthTokens host port. Both platform failures reproduced in the two full test files (147 pass / 5 fail); fixture-only repairs retained request, identity-header and fallback assertions (152 pass). Fixed locally in 54e02063; its remote CI is separate."
   },
   "validation": {
     "reproducedBaseline": {
