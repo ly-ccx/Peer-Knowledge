@@ -55,3 +55,13 @@ Desktop 的同次 OAuth provider 保存回调持有原 generation，并随自身
 OAuth 仍按本 ADR 的地址合同：不能直接使用普通代理客户端。后续代理实现必须先本地有界解析并批准目标 IP，CONNECT 绑定批准的数值 IP:port，origin HTTP Host 与 TLS SNI/主机名验证保留原域名；每跳重新验证，不允许代理重新解析并绕过限制。HTTP(S) 代理自身使用同一可信根策略，代理凭据不进入 origin 请求。此条只是后续实现约束，本卡不宣称 OAuth 代理已接通；当前无代理的受限 OAuth Adapter 不放宽。
 
 验收通过公开原生 CLI → 模型 → Grant → MCP 实际 HTTP/HTTPS/两种 SSE → Tool Result/Evidence，并覆盖 NO_PROXY、错误代理/CA、未知根/错主机、真实代理认证、回显脱敏、前置失败后续任务、dispatch 后未知和取消。使用隔离合成服务与证书，不修改个人代理/系统信任，不冒充真实 IdP、安装或 P4 总闸。
+
+## 2026-11-16 实施复核：OAuth 数值目标连接（B，接线前）
+
+沿上一修订实现，不移动已接受的授权、Evidence、Context、Vault 或地址范围。SDK 仍编码发现、DCR、授权码及刷新；私有 Native Network Module 的 pinned HTTP 接缝只持有经 OAuth 地址策略批准的数值 SocketAddr。每次物理操作先验证原 URL，再有界解析（至多64个 DNS 结果，超限拒绝），筛选获准地址；直连仅在获准集合内连接。代理选择仍针对原 URL，代理 authority 是用户本地网络配置，与不可信 OAuth 发现目标分开。
+
+HTTP(S) 代理通过现有 reqwest 的标准数值 CONNECT / upgrade 获得隧道，不能把目标域名交给代理解析。CONNECT 不携带授权码、token 或 origin Authorization。仅代理认证发送给代理；origin HTTP/1 请求保留原 Host、origin TLS 使用原域名或 IP 的严格 SNI/主机名验证。根证书由同一个严格 PEM/DER 来源同时投影给 reqwest 和 Rustls，不维护第二套根选择策略。已选路由不能代理失败后直连，也不重放 origin HTTP。只允许在 origin HTTP 字节尚未发送前、同一已批准集合内做有界 TCP 建连；CONNECT 一经开始就不改目标或自动重试。
+
+整个 SDK HTTP 操作（包括至多3次同源重定向）保留30秒总界限，请求256KiB / 响应1MiB；HTTP/1响应头缓冲32KiB / 至多100字段，建连和 TLS 各至多5秒并服从原取消域。挑战探测只消费有界响应头，不等待成功的无限 SSE body；正常SDK操作有界读 body。origin HTTP 连接驱动与响应读取在同一 owner future 中共同轮询，返回/错误/取消时一起释放；不新增 detached driver、业务 Agent loop 或 Bun/Node sidecar。
+
+用公开 MCP auth/refresh、真实加密凭据夹具及后续 Grant/工具/Evidence 验证；必须包含数值 CONNECT、TLS原主机/未知根/错主机、代理认证隔离、禁止地址/混合DNS、跨源/token redirect不重放、响应界限、取消及之后可准入。隔离实验成功不计产品验收，实现与实际平台/服务覆盖另记。

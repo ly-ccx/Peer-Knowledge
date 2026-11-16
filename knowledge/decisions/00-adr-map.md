@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR132 OAuth数值连接实施复核：沿已接受地址/权限边界接SDK HTTP，64 DNS/32KiB头与原30秒/1MiB/256KiB约束、同一可信根、标准CONNECT upgrade和原域名TLS；失败不切路、不重放。B级接线前登记，实现验收另记。
+
 2026-11-16：ADR132实施前A补充普通MCP统一Native Network策略、逐物理请求预检/dispatch与代理凭据脱敏；旧SDK默认fetch与模型专用策略明确区分。OAuth代理必须先批准IP再数值CONNECT并保留原TLS主机名，当前卡不放宽地址政策。实现/验收另记。
 
 2026-11-16：ADR50按实际CLI迁移原生模型网络Module：逐请求macOS代理、原env/NO_PROXY、显式extra CA和受限OS信任查询，保留TLS及OAuth不重放；MCP地址策略不借本卡放宽。实施/平台验收另记。
