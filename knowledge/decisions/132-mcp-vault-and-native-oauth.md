@@ -43,3 +43,15 @@ Desktop 的同次 OAuth provider 保存回调持有原 generation，并随自身
 用隔离合成凭据验证实际 Desktop Store → Helper seam → Rust reader / Provider → transport → Evidence；覆盖三种静态注入、OAuth 登录 / 刷新、旧 safeStorage / plaintext 迁移、逐项失败、回读不一致、源并发、锁 / 新版本 / 损坏、取消、轮换和冷读恢复，证明无 secret 外流、无未授权调用与无请求重放。测试替身不能成为生产明文存储路径。
 
 当前支持合同的 TS / Rust 必须一起读取 v2；旧发行版未实现 v2 fail-closed，不能宣称任意旧二进制可安全续跑。默认共享写入、安装、回退和发行仍受 ADR131 drain 与 release gate。本条记录决策，不表示 P4 总闸、OAuth、平台 Keychain 或默认 CLI 已通过。
+
+## 2026-11-16 修订：原生 MCP 网络策略接缝（A，实施前登记）
+
+实际旧 `packages/runtime-node/src/mcp-client.mjs` 将配置 headers 交给 MCP SDK 的默认 HTTP/SSE transport，没有注入 `apps/tui` 的模型专用 fetch。不能声称旧 MCP 已实现模型的完整 macOS / extra CA 策略。本修订明确将原生普通 MCP 的 Streamable HTTP 和 legacy SSE 纳入 ADR50 的同一个 Native Network Module：每次物理 GET/POST 选择环境 / NO_PROXY / macOS fallback 路由，同一附加证书与系统公共根选择，保持 TLS 主机名验证、无自动 redirect / retry、已有帧/响应/连接界限和已配置端点的授权事实。stdio 不改变。
+
+该统一是显式网络配置策略补充，不新增工具或授权。网络预检及 client 构造完成前不能标记 tools/call 已发送；真正发出后的断连/取消继续保留 unknown，不自动重放。SSE 主响应与控制 POST 仍由同一已登记 worker 持有，取消同时关闭。配置错误、超限及取消须保留原任务、历史、凭据和已有 Evidence，修正配置后按原任务准入/恢复规则继续。
+
+仅实际选中代理的秘密进入该连接的有界、可零化脱敏集合，包括 URI 编码/解码凭据及 Basic 注入值。代理认证仅用于代理，不能作为 origin header；不可信代理/服务端回显仍须在 Tool Result、Context、Evidence 落盘前脱敏。协议 isError 真值独立保留，脱敏不能把失败改成功；超过保护集合预算须在下次 dispatch 前失败关闭。错误仅返回稳定代码，不打印 URL、header 或底层错误详情。
+
+OAuth 仍按本 ADR 的地址合同：不能直接使用普通代理客户端。后续代理实现必须先本地有界解析并批准目标 IP，CONNECT 绑定批准的数值 IP:port，origin HTTP Host 与 TLS SNI/主机名验证保留原域名；每跳重新验证，不允许代理重新解析并绕过限制。HTTP(S) 代理自身使用同一可信根策略，代理凭据不进入 origin 请求。此条只是后续实现约束，本卡不宣称 OAuth 代理已接通；当前无代理的受限 OAuth Adapter 不放宽。
+
+验收通过公开原生 CLI → 模型 → Grant → MCP 实际 HTTP/HTTPS/两种 SSE → Tool Result/Evidence，并覆盖 NO_PROXY、错误代理/CA、未知根/错主机、真实代理认证、回显脱敏、前置失败后续任务、dispatch 后未知和取消。使用隔离合成服务与证书，不修改个人代理/系统信任，不冒充真实 IdP、安装或 P4 总闸。
