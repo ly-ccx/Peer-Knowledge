@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR131环境来源Adapter接线前补齐显式openai-compatible身份、原三字段选择/既有canonical四字段校验与独立env Chat编码；不把环境key注入文件渠道，不改变工具授权。
+
 2026-11-16：ADR131 NR-04补齐OAuth提示重建与窄models reconcile恢复入口：真实Vault与metadata结果分开、无秘密影子库、不重放认证，提示变化不取代operational binding；status/models列表仍不写或解封秘密。实现/平台验收另记。
 
 2026-11-16：ADR131 NR-04配置范围校正：原CLI models是列表，PEER_MODEL_*是独立环境配置；按原实际可达集迁移，撤回把Desktop全套CRUD新增命令列为P4前提的扩大解释。Store共锁、Vault条件恢复、原有功能与完整P4–P7验收不变。

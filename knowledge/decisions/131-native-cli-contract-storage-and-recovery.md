@@ -233,3 +233,5 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 - 自动刷新沿同一Module尝试提示重建。非权威提示失败不能让已验证的新token失效；但配置operational binding、凭据代或锁owner无法证明时仍拒绝模型准入。无新增秘密影子库、独立修复日志或后台重试；对账从原配置引用和实际Vault可重跑。
 - 为避免自身提示更新使原绑定失效，Native与当前TS凭据绑定比较只忽略上述三种非权威提示；provider/auth/endpoint/header/project/model/启用状态及其它既有操作配置仍按原边界核对。跨语言fixtures验证提示变化不伪造配置许可，真实操作配置变化仍使迟到结果失败。
 - status保持只读，models列表保持metadata/环境来源，不为列表解封秘密。正式系统Vault、混合安装版本与默认共享域仍单独验收。新增reconcile的理由是已有原生账号操作的部分提交恢复，不扩展为Desktop整套CRUD。
+
+2026-11-16 环境来源接线前补充（A级身份/Adapter澄清）：原环境catalog使用 `providerId=openai-compatible`、当前PEER_MODEL_ID或gpt-4o-mini，reasoning选择为off/low/default/high。原生模型factory只在显式选择该source且model相符时取环境秘密；普通三字段RuntimeModelSelection可用，canonical Goal既有四字段格式不变，该来源的modelProviderId/family若存在须同为openai-compatible。已有文件渠道绑定不因环境变量存在被重定向或获得环境key。独立Env Provider沿实际createOpenAICompatibleProvider的Chat请求（含off、default和tools语义），不误套品牌Chat启发式；它是现有wire encoder seam的Adapter，不另开工具loop。模型列表只读metadata/环境，不调用Helper；非法终端控制文本与未知配置版本可见拒绝，原文件保全。以上需真实TS请求fixture及公开原生CLI模型→工具→Grant/Evidence验证，不能由列表或factory单测冒充完成。
