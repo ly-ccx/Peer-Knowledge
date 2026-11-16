@@ -16,9 +16,17 @@
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 MCP刷新未知状态候选 `fcf06bc2` 已推送（tree `ef7d9dc8`）。按先登记的ADR132/131 A级修订（decf85a/7a5e981），在SDK刷新前先经Helper写入、回读核验不可变加密意图并持锁发布；移除普通oauth.tokens视图，元数据仅投影recovery_required。相同owner推进自身binding，成功才发布最终token代。已登记后的拒绝、超限、取消、registry/Helper/owner变化均保留意图与旧slot，不恢复或重放旧refresh。Rust工具/refresh、当前Desktop冷读/patch和旧代保存回调阻断；显式原生PKCE/state/code重登后原ready任务可经真实Grant/ToolResult/Evidence继续。未知/损坏意图连auth也拒绝并原样保全；KILL留下孤锁，不偷锁。
+
+最终完整原生scoped **361 Rust /126 native Episode /242根1391实际TS互读 /9PTY**，CI Bun1.2.17，exit0、373.267秒。featureless release 15,667,584 bytes、SHA256 `5e305dfa12cf94d1e649f9fd0cd29f4a5a7c89f25b7d552743b3e1064124e8ea`，额外15组OAuth Host通过，含真实加密Vault/锁+合成key的中断、Desktop冷读阻断、重登与工具Evidence。其余故障用有界v1 Helper夹具，不冒充OS安全存储。2项持锁publish Store测试、16项Desktop Store、8项实际模型网络及architecture/UI通过。
+
+首次冻结原生门禁360项虽过，后续release在socket关闭断言失败；保留失败与旧源码基线，未叫flake。控制实验发现普通CONNECT夹具漏计真实TCP RST，且3秒空闲截断在5秒预算内的4秒合法TLS隧道；修正为有限Tokio owner/双向copy/取消与join，客户端读侧只计真实EOF/reset，不把上游半关闭/本地清理/超时当关闭。原关闭期限、TLS及断言不放宽，同一release哈希通过15组后冻结最终tree重跑完整门禁。见[刷新意图回执](native-cli/evidence/p4-native-mcp-refresh-intent-20261116.json)。
+
+基线4690766c的Linux全仓CI通过；macOS因GitHub runner容量不足未执行，不称两平台全仓绿。新[CI43875783285](https://github.com/ly-ccx/Peer-Agent/actions/runs/43875783285)两端已取得runner并执行中（Linux133328320720/macOS133328321354），merge10cbd6fa tree与源码相同。下一项仍是运行时自动刷新、已预读TS发送guard、原grant/Context代际延续与旧连接停稳替换；不能用本卡冷读/CAS宣称拦住已发/预读TS请求。P4其余与P5–P7继续待办，Ratatui仍不能发送，无长期内存验收，无安装/重启/个人数据迁移/默认切换/合并/发布，无Bun/Node引擎sidecar。
+
 2026-11-16 验证夹具修正候选 `4690766c` 已推送（tree `c6c875cf`）。85dc28e3 的 CI43865232749：Linux133291958683在原生OAuth HTTPS代理场景失败；macOS原生/build/type/architecture/Test通过，后续Electron smoke在修正源码推送后被既有并发策略取消，不能记全仓绿。实际控制复现：旧TLS夹具在生产5秒CONNECT预算内等待4秒便丢隧道；修正为有owner的Tokio TLS、双向copy、有限并发与取消/join，原产品期限及断言不变。该复现证明夹具缺陷，不等于精确复现远端调度原因。合成代理trace写入受marker核验的CI证据目录。
 
-最终本机完整原生门禁 **352 Rust /119 native Episode /232根1323实际TS互读 /9PTY**，CI Bun1.2.17，exit0、357.123秒；featureless release 15,632,704 bytes、SHA256 `c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41`，与85dc产物字节相同，另5组OAuth Host通过。新[CI43869546961](https://github.com/ly-ccx/Peer-Agent/actions/runs/43869546961)仍独立执行，merge411da5dc tree与源码相同；远端是否恢复以该run为准。见[夹具修正回执](native-cli/evidence/ci-native-https-proxy-fixture-20261116.json)。本卡仅C级验证修正，未改变产品边界，未实现MCP运行时自动刷新；P4总闸与P5–P7仍待完成。
+最终本机完整原生门禁 **352 Rust /119 native Episode /232根1323实际TS互读 /9PTY**，CI Bun1.2.17，exit0、357.123秒；featureless release 15,632,704 bytes、SHA256 `c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41`，与85dc产物字节相同，另5组OAuth Host通过。新[CI43869546961](https://github.com/ly-ccx/Peer-Agent/actions/runs/43869546961)已终态：Linux133306984261全仓success（含Electron smoke）；macOS133306985019因未取得托管arm64 runner而取消，GitHub容量注释已保留，不能称两平台全仓绿。merge411da5dc tree与源码相同。见[夹具修正回执](native-cli/evidence/ci-native-https-proxy-fixture-20261116.json)。本卡仅C级验证修正，未改变产品边界，未实现MCP运行时自动刷新；P4总闸与P5–P7仍待完成。
 
 2026-11-16 MCP OAuth原生网络候选 `85dc28e3` 已推送（tree `df1ebeab`）：沿ADR132既有数值连接/原主机TLS合同，接线前复核6364740/d687a6c，B级实现同一Native Network路由与PEM/DER根选择。官方SDK继续编码发现/PKCE/state/issuer/resource/DCR与token；本地批准DNS/IP（最多64），直连或HTTP(S)代理仅连接批准的数值目标，保留origin Host和严格TLS名称，代理认证不进入origin。固定30秒操作、5秒建连/TLS/CONNECT、256KiB body、32KiB head/100字段及1MiB响应；driver和exchange由同一future持有，无detached driver、自动切路或token重放。挑战只取有界头，不等待无限SSE body。
 

@@ -103,14 +103,28 @@
     "mergeTree": "c6c875cf060d008d37183cb37883917264f1b8b8",
     "matchesSourceTree": true,
     "linuxJob": 133306984261,
-    "linuxStatus": "in_progress",
-    "linuxActiveStep": "Native CLI scoped validation",
+    "linuxStatus": "completed",
+    "linuxActiveStep": null,
     "macosJob": 133306985019,
-    "macosStatus": "queued",
-    "wholeRepositorySuccess": false
+    "macosStatus": "completed",
+    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "linuxConclusion": "success",
+    "macosConclusion": "cancelled",
+    "linuxObservation": "Full Linux job success including native, build, types, architecture, tests and final Electron smoke.",
+    "macosObservation": "No hosted macOS arm64 runner acquired; GitHub annotation reports capacity constraints. No macOS checks executed, not success.",
+    "macosAnnotations": {
+      "path": "/tmp/peer-native-https-proxy-fixture-macos-capacity-20261116.json",
+      "sha256": "b2883e67373e4bf352d34aea6d81370add3ef6c08d9091b552c8f6dde33f9ede"
+    },
+    "linuxLog": {
+      "path": "/tmp/peer-native-https-proxy-fixture-linux-success-20261116.log",
+      "sha256": "b18acf286975b387f82303755dccd08903198a12c17a54d090fd1529961b0d29"
+    }
   },
   "limits": [
-    "Remote Linux correction awaits the new run; exact original timing cause unproven, no flake claim.",
+    "Full Linux correction verified successful by job133306984261. macOS canceled without obtaining a hosted runner; whole-repository cross-platform success remains unverified. Exact original scheduling cause unproven, no flake claim.",
     "No P4 total gate or runtime MCP auto-refresh/grant continuation implementation in this fixture change. P5-P7 incomplete; Ratatui still cannot send general chat.",
     "No installation, running-instance restart, personal-data migration, default switch, release or merge."
   ]

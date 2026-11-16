@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 MCP durable pre-exchange refresh intent, strict cold readers and explicit native reauthorization recovery. Runtime automatic refresh/grant continuation remains unimplemented.",
+  "candidate": {
+    "base": "4690766cfde8524213ff39e1a39c295b59111057",
+    "tree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7",
+    "state": "final frozen native scoped gate and exact featureless artifact validated; independent combined CI in progress",
+    "commit": "fcf06bc2bb85d3d7b01db88098344b182eb9f371",
+    "pushed": true
+  },
+  "decisionPass": {
+    "classification": "A: encrypted optional refreshState and owned intermediate publication; accepted ADR132/131 updated before source. Permission, tool Evidence, Context admission and address policy unchanged.",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "preSourceKnowledge": [
+      "decf85a",
+      "7a5e981"
+    ]
+  },
+  "baselineCi": {
+    "runId": 43869546961,
+    "linuxJob": 133306984261,
+    "linuxConclusion": "success",
+    "macosJob": 133306985019,
+    "macosConclusion": "cancelled",
+    "macosCause": "GitHub annotations: hosted runner not acquired, macOS arm64 capacity constraints. No checks executed.",
+    "wholeRepositorySuccess": false,
+    "receipt": "ci-native-https-proxy-fixture-20261116.json"
+  },
+  "baseline": {
+    "baseCommit": "4690766cfde8524213ff39e1a39c295b59111057",
+    "productionUnchangedAtReproduction": true,
+    "newRegressionTestAdded": true,
+    "log": {
+      "path": "/tmp/peer-native-mcp-refresh-intent-baseline-20261116-featured.log",
+      "sha256": "0e580dcfb74277d96f7a4538c9bb3e93c122d0bae9a3df6c943589869874ac50"
+    },
+    "ownedRootName": ".tmpLkFmEx",
+    "result": "After rejected first refresh, next cold refresh returns mcp_oauth_refresh_failed rather than durable recovery_required; the new regression fails. Final case requires exactly one token POST and no second discovery HTTP request.",
+    "invalidInvocation": {
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-baseline-20261116.log",
+        "sha256": "83e0f91ef37d7949c4cacaf130cf22a75298f0910deb4ed1fdd4f2e62967a13e"
+      },
+      "result": "Initial command omitted fixture feature and used short --exact filter: zero tests. Not baseline or successful validation."
+    }
+  },
+  "verifiedBehavior": [
+    "Same owner stages immutable Helper slot, reads back constant-time and publishes encrypted refreshState before calling official SDK refresh; oauth.tokens removed from ordinary view, previous tokens remain inside Vault only, metadata projects recovery_required. Same transaction lock persists and binding advances after intermediate publication.",
+    "Intent staging Helper failure preserves old metadata and sends zero token requests; corrected Helper allows one later refresh. Rejected, redirected and oversized sent refreshes preserve a current recovery intent and prior immutable slot instead of republishing old refresh.",
+    "TERM during actual token exchange closes the owned socket and releases the lock; KILL retains orphan lock. Cold native refresh and current Desktop readers block, no second token POST; tools are not dispatched and no tool unknown is manufactured from credential-only work.",
+    "Registry change, final Helper write failure and lock replacement after token dispatch leave intent and original history. Foreign lock remains; only isolated fixture maintenance after observed owner exit permits explicit auth in the owner-replacement test.",
+    "Explicit native PKCE/state/code login publishes a verified new generation and removes only known refresh intent. The original ready task then obtains real PermissionGrant and successful MCP ToolResult/Evidence, one tools/call, with secrets redacted.",
+    "Unknown/null/corrupt intent versions block native auth/refresh and real tool dispatch before network, preserving original payload. Desktop list remains metadata-only; cold injection and patches reject pending; pre-held callbacks cannot overwrite its new generation.",
+    "Real encrypted Vault/lock implementation with a synthetic key is exercised by public CLI interruption, Desktop cold read rejection, no refresh replay, explicit relogin and real tool Evidence. Other fault tests use a bounded synthetic v1 Helper, not OS secure storage."
+  ],
+  "validation": {
+    "focusedOAuth": {
+      "passed": 15,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-oauth-complete-20261116.log",
+        "sha256": "a723e75fc86844b8ef6c56e0e87a40a11f57a95c0fa13b6b43f3c641338ce1c0"
+      }
+    },
+    "desktopStore": {
+      "passed": 16,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-desktop-20261116.log",
+        "sha256": "4972c2e8b1ed14bd3279c94126417870d92c8ee4ecba3e75c598b79475486cad"
+      }
+    },
+    "store": {
+      "passed": 2,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-store-20261116.log",
+        "sha256": "05fb9f74f6b2e7dd48491ff53358cefa1b32284d3b3ab49ef96a817743f80db6"
+      }
+    },
+    "architectureUi": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-architecture-20261116.log",
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "finalNativeScoped": {
+      "base": "4690766cfde8524213ff39e1a39c295b59111057",
+      "tree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7",
+      "bunVersion": "1.2.17",
+      "startedAt": 1794835173.666829,
+      "exitCode": 0,
+      "durationSeconds": 373.267,
+      "bytes": 15667584,
+      "sha256": "5e305dfa12cf94d1e649f9fd0cd29f4a5a7c89f25b7d552743b3e1064124e8ea",
+      "rustTests": 361,
+      "nativeEpisodes": 126,
+      "actualTsInteropRoots": 242,
+      "actualTsInteropChecks": 1391,
+      "ptyChecks": 9,
+      "logSha256": "c828db5553e20704d6f2a9409c857d06fda52e22c26e01aa0752abb0bc4c84e0",
+      "extraReleaseOAuthHostPassed": 15,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-final-20261116/verify.log",
+        "sha256": "c828db5553e20704d6f2a9409c857d06fda52e22c26e01aa0752abb0bc4c84e0"
+      }
+    },
+    "featurelessReleaseOAuth": {
+      "passed": 15,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-20261116/release-host-proxy-fixed.log",
+        "sha256": "229de1c074fb07c51a71a8edaa312bf565a4617e379397c92a6e3a249ee031dc"
+      },
+      "binarySha256": "5e305dfa12cf94d1e649f9fd0cd29f4a5a7c89f25b7d552743b3e1064124e8ea",
+      "sourceTree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7"
+    },
+    "modelNetwork": {
+      "passed": 8,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-proxy-network-20261116.log",
+        "sha256": "a32cb67552c09c39f826fd6da554fcf5e9411c70eba602833c04b9cc7a76305e"
+      }
+    },
+    "release": {
+      "tree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7",
+      "bytes": 15667584,
+      "sha256": "5e305dfa12cf94d1e649f9fd0cd29f4a5a7c89f25b7d552743b3e1064124e8ea",
+      "rustTests": 361,
+      "nativeEpisodes": 126,
+      "actualTsInteropRoots": 242,
+      "actualTsInteropChecks": 1391,
+      "ptyChecks": 9,
+      "logSha256": "c828db5553e20704d6f2a9409c857d06fda52e22c26e01aa0752abb0bc4c84e0",
+      "extraReleaseOAuthHostPassed": 15,
+      "featureless": true,
+      "syntheticMarkersAbsent": true,
+      "matchesExtra15HostCasesArtifact": true,
+      "hostLog": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-20261116/release-host-proxy-fixed.log",
+        "sha256": "229de1c074fb07c51a71a8edaa312bf565a4617e379397c92a6e3a249ee031dc"
+      }
+    },
+    "controlledProxy": {
+      "passed": 2,
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-proxy-fixed-final-20261116.log",
+        "sha256": "06522bf80af8efa7e0aeec28a41224141df75ec89f027173ec9acf37a24d07d3"
+      },
+      "scope": "Known upstream half-close cannot count as client close; actual SO_LINGER=0 reset must count once; the same four-second TLS/CONNECT pause inside production five-second connect budget retains exact ping response."
+    },
+    "finalContentReview": "Implementation self-review, diff check and candidate tree binding passed; not an independent review."
+  },
+  "preservedAttempts": [
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-20261116/verify.log",
+        "sha256": "440e68c0089808ebed306cd7b5aeaf347d4ce53bdfde91f8a212550e304c385f"
+      },
+      "source": {
+        "base": "4690766cfde8524213ff39e1a39c295b59111057",
+        "tree": "02e1b2391b43588b202ad17d9da8736d144fee12",
+        "bunVersion": "1.2.17",
+        "startedAt": 1794834403.278236,
+        "exitCode": 0,
+        "durationSeconds": 392.776
+      },
+      "result": "First frozen source passed native scoped 360/125/242 roots1391 checks/9PTY; subsequent featureless-release socket assertion failed, so not final acceptance."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-intent-20261116/release-host.log",
+        "sha256": "ea1828bd5337b7114ec3b299d14e8b64e1952a97a461aa8081b0f3f57d590047"
+      },
+      "ownedRootName": ".tmpSh6qQZ",
+      "result": "14 OAuth tests passed; token socket closed assertion failed. Original failure retained, not called a flake."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-proxy-reset-baseline-20261116.log",
+        "sha256": "bb962ce36b11cdeec5ad08159494f86f144eca4b9e27d14eaa8ad1679a7cf73f"
+      },
+      "result": "Controlled TCP SO_LINGER=0 reset: original std::io::copy-is-Ok counter missed actual closed peer."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-refresh-proxy-idle-baseline-20261116.log",
+        "sha256": "e58cc60e609b24c30fa98d4d61c8f2d955c1bd643f9c63397e4f655810198b28"
+      },
+      "result": "Existing four-second TLS tunnel test extended through the real plain CONNECT proxy fails at its three-second idle cutoff, inside actual five-second connect budget."
+    }
+  ],
+  "fixtureCorrection": "C-only bounded Tokio CONNECT worker/copy_bidirectional with explicit cancellation and join; client AsyncRead observer counts only real EOF/reset, once, not upstream half-close, arbitrary error, local teardown or timeout. Controlled half-close then RST and four-second tunnel both pass; product timeouts, TLS and original cancellation assertions unchanged.",
+  "limits": [
+    "Runtime automatic refresh, TS preloaded outgoing-token guard, credential-generation grant/Context continuation and pool stop/replacement remain next work. Current cold-read/CAS fencing is not a claim to stop already preloaded outgoing TS refresh requests.",
+    "Full P4, P5 project-agent, P6 general-chat Ratatui and long-memory gate, P7 install/release/default retirement remain incomplete.",
+    "Synthetic local IdP/model/proxy and synthetic encrypted Vault key; no real public IdP/model/VPN/OS Vault or installed/platform acceptance. No personal data migration, install, running-instance restart, default switch, merge or release.",
+    "Full local pnpm test/typecheck not repeated; scoped production Desktop Store tests and complete native conformance/architecture selected for this seam; remote combined CI is tracked independently."
+  ],
+  "candidateCi": {
+    "runId": 43875783285,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43875783285",
+    "status": "in_progress",
+    "conclusion": null,
+    "linuxJob": 133328320720,
+    "linuxStatus": "in_progress",
+    "macosJob": 133328321354,
+    "macosStatus": "in_progress",
+    "wholeRepositorySuccess": false,
+    "mergeCommit": "10cbd6faa6b09ca2597dd93cf488390d46e27d2f",
+    "mergeTree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7",
+    "matchesSourceTree": true,
+    "observation": "Both jobs acquired runners and began setup. This run is not inherited success from its baseline."
+  }
+}
