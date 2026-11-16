@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 original models catalog and independent environment source; OAuth non-secret hint projection and explicit reconciliation. Not full P4/P5/general chat/release acceptance.",
+  "candidate": {
+    "commit": "46511513de4113d2eef022e96a4182fb4766345c",
+    "tree": "a09a4c61d804c27ca20d1ca6ecb1fe8b7ca5aab1",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "nativeBinarySha256": "49d27eff8ad77e118b875275382328ab07c626b65d6830e3e691f0b2a334052b",
+    "nativeBinaryBytes": 14582624
+  },
+  "decisionPass": {
+    "classification": "B implementing previously accepted A clarifications a986a18 / 7a36114 / 7431edb",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "boundaryMovedInImplementation": false
+  },
+  "baselineCi": {
+    "commit": "c8654dd6a1a99c48e9204911b04d4f07cc862392",
+    "runId": 43828693350,
+    "mergeCommit": "1e1465c8649c8afc67087ca4dff9334fa0cf9e89",
+    "mergeTree": "1ba940c569c53daee3889898c37ddde625fbd424",
+    "matchesSourceTree": true,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 133168487356,
+        "name": "ci-macos-14",
+        "electronSmoke": "success"
+      },
+      {
+        "id": 133168487738,
+        "name": "ci-ubuntu-latest",
+        "electronSmoke": "success"
+      }
+    ]
+  },
+  "candidateCi": {
+    "status": "in_progress",
+    "wholeRepositorySuccess": false,
+    "runId": 43839577892,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43839577892",
+    "conclusion": null,
+    "jobs": [
+      133204605842,
+      133204606470
+    ],
+    "mergeCommit": "72e416024f99b8d197cf3dfdf905f9f0c6b8b2d2",
+    "mergeTree": "a09a4c61d804c27ca20d1ca6ecb1fe8b7ca5aab1",
+    "matchesSourceTree": true
+  },
+  "validation": {
+    "nativeScoped": {
+      "status": "passed",
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-catalog-projection-final-20261116",
+      "tree": "a09a4c61d804c27ca20d1ca6ecb1fe8b7ca5aab1",
+      "base": "c8654dd6a1a99c48e9204911b04d4f07cc862392",
+      "startedAt": 1794820862.6310122,
+      "nativeExitCode": 0,
+      "nativeDurationSeconds": 200.379,
+      "nativeFinishedAt": 1794821063.009749,
+      "rustTests": 324,
+      "nativeEpisodes": 101,
+      "actualTsInteropRoots": 202,
+      "actualTsInteropChecks": 1134,
+      "ptyChecks": 9,
+      "log": {
+        "path": "/tmp/peer-native-catalog-projection-final-20261116/verify.log",
+        "sha256": "60cf7d49f514ffcb8ec71201197dad8fbc1ad28b362ab6d3751e12f473a3af59"
+      }
+    },
+    "workspace": {
+      "tree": "0a57b3e5998cf332268c6732dd6c7ef421d3d194",
+      "command": "pnpm test",
+      "startedAt": 1794820449.949899,
+      "exitCode": 0,
+      "durationSeconds": 354.946,
+      "finishedAt": 1794820804.896152,
+      "all14PackagesDone": true,
+      "log": {
+        "path": "/tmp/peer-native-catalog-projection-20261116/workspace.log",
+        "sha256": "4366916a309c19ad9f566449b1a1615a1cdcce12a70679de74c533e61bb2631c"
+      },
+      "lineage": "Final tree differs only in scripts/native-cli/pty_checks.py, which pnpm test does not execute. Product and pnpm-tested source unchanged; repaired PTY independently passed and final native gate reruns it."
+    },
+    "focused": {
+      "actualTsModelsCatalogCases": 12,
+      "actualTsEnvironmentWireCases": 4,
+      "actualTsOperationalBindings": 5,
+      "actualDesktopTuiOperationalBindingCases": 8,
+      "actualGuardedVaultCas": 24,
+      "nativeOAuthHostTests": 30,
+      "types": "passed",
+      "architectureUi": "passed",
+      "packagedMainImports": 887
+    },
+    "featurelessRelease": {
+      "modelsCases": 12,
+      "environmentHostTests": 3,
+      "reconcileHostTests": 2,
+      "environmentLog": {
+        "path": "/tmp/peer-native-catalog-projection-20261116/release-environment.log",
+        "sha256": "12f3c597382da65be824f32315352cc065ff6df2bd854d9eb5f06db43b760b6a"
+      },
+      "catalog": {
+        "path": "/tmp/peer-native-catalog-projection-20261116/release-models.json",
+        "sha256": "808e8f7a9e68ebe2fe77136c9e356d737c9882f4691f8b11afc3add8c22081c2"
+      },
+      "ptyAfterRepair": {
+        "path": "/tmp/peer-native-projection-pty-fixed.log",
+        "sha256": "92d60da7cefedc307dc22d7666edca6ec928a57f21a881ed3bf1df3b604c3da6"
+      },
+      "excludedFixtureMarkers": [
+        ".native-model-login-fixture.json",
+        ".native-model-oauth-fixture.json",
+        ".displace-config-after-compare"
+      ]
+    },
+    "behaviorAndRecovery": [
+      "Original bare models returns exact TS stdout/stderr/exit across 12 actual entry fixtures; no Helper or configuration writes. Terminal-control output and unknown config version visibly reject and preserve source.",
+      "Independent PEER_MODEL_* source is bound to explicit openai-compatible identity/model and original reasoning efforts. Environment secret never persists; existing file selection receives no environment key. Real canonical Host -> model stream -> read_file -> Grant/ToolResult/Evidence, permission denial and invalid selection paths pass without JS/Helper.",
+      "Same config -> Helper ownership guards auth/logout/reconcile/refresh. Only oauthConfigured/oauthExpires/oauthAccountId are projected from actual known Vault state, including stale per-model overrides; all other root/channel/model facts stay equal. Repeating a synced reconcile preserves byte content and Store revision.",
+      "Missing token clears hints; pending, unknown refresh state, corrupt/wrong-provider/unreadable Vault retain both original config and ciphertext. Status remains read-only; list stays metadata-only.",
+      "Actual 1MiB config triggers real Store size failure after known login/logout. Structured credential_updated/removed remains true, metadata rebuild_required is separate; no rollback. Once fixture capacity is repaired, explicit reconcile reconstructs metadata with unchanged ciphertext and no code replay.",
+      "Actual fixture Helper displaces config owner after encrypted login commit. Native receipt reports credential_updated plus commit_unknown, preserves new secret and replacement lock. After fixture-owned incident settlement, status/reconcile recover without repeat login.",
+      "Automatic refresh with real metadata size failure still uses the verified fresh token in actual native tool execution, retaining true Grant/ToolResult/Evidence. Operational config and Vault nonce are re-proven before model dispatch.",
+      "Actual Desktop and TUI refresh hosts admit hint-only changes during HTTP; endpoint/auth/header changes reject final commit and preserve encrypted pending intent. JS/Rust binding fixtures retain operational ordering, including case-overlapping headers."
+    ]
+  },
+  "preservedFailures": [
+    {
+      "log": {
+        "path": "/tmp/peer-native-projection-login-before.log",
+        "sha256": "b97a2949acffd89d490d9ef5233b1b2a77f5361b8242a2c719ffbb51281543d6"
+      },
+      "observed": "12 passed / 2 obsolete staged byte-identity assertions failed after intentional accepted metadata projection. Replaced only those with exact entire-document known-hint projection; other data and failed-operation byte preservation remain."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-projection-host.log",
+        "sha256": "55d2a57e5287742b3fbb9a6aa55135a2408cf70c5b5ca9bf68dae43dce2891d4"
+      },
+      "observed": "New fixture used nonexistent Command.args_clear; corrected to explicit models command construction."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-projection-host-fixed.log",
+        "sha256": "4edc4372bf935b6d5b4c0dbceddd832d454d7d3181420fb3063c99f765c46e6d"
+      },
+      "observed": "New reconcile test assumed empty history, but real canonical fixture seeds user input. Replaced with exact original history equality, proving reconciliation does not alter it; no execution/evidence assertions removed."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-catalog-projection-20261116/verify.log",
+        "sha256": "2d27032731797d4081a31f4c33741b0123e5b8e1abdf28fec6598f53a1eaaf8d"
+      },
+      "sourceTree": "0a57b3e5998cf332268c6732dd6c7ef421d3d194",
+      "exitCode": 1,
+      "observed": "All 324 Rust / 101 native Episode and 202-root 1134 actual TS checks passed, then PTY PID JSON read raced non-atomic publication. Cleanup deadline also failed; subsequent process table confirmed no owned guardian/child remained. Existing user process untouched.",
+      "fix": "Atomic PID/status publication, guaranteed fd close and ANSI preservation even on cleanup error. Existing 8s/3s deadlines, exit/terminal checks unchanged; nine PTY checks subsequently passed. Final native gate reruns entire frozen candidate."
+    }
+  ],
+  "remaining": [
+    "Mixed installed-version upgrade/drain and full shared-domain acceptance; real IdP/system Vault/model validation.",
+    "Remaining P4 Grok/Qoder, network proxy/certificates, full Context/compaction strategy, remaining tools, Skill/Plugin/Hook, ACP/headless/original command parity and P4 total gate.",
+    "P5 complete project-agent/Bot chain; P6 general Ratatui chat, full history/UI and long-memory acceptance; P7 release/default switch/legacy reachable dependency retirement."
+  ],
+  "coverageLimits": [
+    "Synthetic local model/IdP and injected encrypted KeyStore; not real paid model/IdP/OS Vault or installed-build validation.",
+    "Interactive Ratatui remains draft-only; restricted canonical worker exec is not general chat. No 1GiB/four-hour complete UI soak acceptance.",
+    "No install, personal-task migration, running-instance restart, default production switch, merge, release or tag. Native CLI starts no Bun/Node engine sidecar."
+  ]
+}

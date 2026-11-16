@@ -9,18 +9,26 @@
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 认证兼容与完整配置写入/提示恢复、Grok/Qoder、代理/证书、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 混合安装版本认证兼容与显式管理/迁移条件恢复、Grok/Qoder、代理/证书、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 原模型目录与OAuth提示恢复候选 `46511513` 已推送（tree `a09a4c61`）：依先登记的ADR131范围/恢复/环境身份修订（a986a18 / 7a36114 / 7431edb）做B级接线。原 `models` 的12组真实TS入口对照、`PEER_MODEL_*` 独立来源和off/default wire已接；显式来源绑定不会把环境key交给已有文件渠道。实际canonical Host→模型流→工具→Grant/ToolResult/Evidence及拒绝场景通过，无Helper或JS引擎需求。`models reconcile <configured-channel-id>`只从真实Vault重建三项非秘密提示；auth/logout分别返回已知凭据结果和metadata状态，失败不回滚或重放登录，status/list仍只读。实际Store超限、配置owner被置换、pending/损坏/错误provider/不可解密、重复无写入、后续显式修复，以及自动刷新提示失败后真实工具闭环均验证。
+
+最终冻结候选完整原生scoped **324 Rust / 101 native Episode / 202根1134实际TS互读 / 9PTY**，log SHA256 `60cf7d49f514ffcb8ec71201197dad8fbc1ad28b362ab6d3751e12f473a3af59`。真实Desktop/TUI跨HTTP提示/endpoint/auth/header绑定8场景、24次加密Vault CAS通过；全仓types、architecture/UI、887打包imports通过。完整pnpm test退出0、354.946秒、14包及最后升级/降级矩阵通过；开始tree0a57b3e5与最终tree差异仅PTY夹具，业务源码和pnpm测试源码不变，最终完整原生重跑覆盖夹具。featureless release为14,582,624 bytes、SHA256 `49d27eff8ad77e118b875275382328ab07c626b65d6830e3e691f0b2a334052b`；额外12模型列表、3环境执行与2真实Vault修复Host测试通过，测试端点marker不在产物。详见[模型目录与提示恢复回执](native-cli/evidence/p4-model-catalog-projection-20261116.json)。
+
+首轮完整原生在最后PTY的PID文件存在但JSON尚未写完处失败，且清理wait期限触发；失败现场保留，进程表确认自有子进程已结束，原运行实例未动。修正为PID/status原子发布和清理失败仍关闭fd/保存ANSI，原期限、退出与终端属性断言不变；9PTY聚焦及最终完整重跑通过。两处旧“登录不写metadata”的阶段断言改为完整文档只允许三提示投影；种子历史非空的测试错误改为原历史精确不变，实际授权/Evidence断言保留。
+
+基线c8654dd6两平台全仓CI成功已核实后才推送；[新CI43839577892](https://github.com/ly-ccx/Peer-Agent/actions/runs/43839577892)独立排队/执行中，不继承旧绿灯。本卡仍不是P4总闸：混合安装版本升级/drain、Grok/Qoder、代理/证书、完整Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/原命令，以及P5–P7仍待完成。仅合成IdP/模型与加密KeyStore，不冒充正式IdP/OS Vault/真实模型或安装验收；交互Ratatui仍不能发送，无1GiB/四小时完整UI验收，无安装/重启/个人任务迁移/默认切换/发布。
+
 2026-11-16 配置/Vault短提交候选 `c8654dd6` 已推送（tree `1ba940c5`）：依此前 `dc238b2` ADR131做B级接线，未移动权限/Evidence/Context或Helper协议边界。实际复现e632旧原生logout在别的config写者持锁时仍删除Vault并返回0；失败隔离根 `.tmpmlfjYa` 保留。Native auth/status/logout与模型OAuth读取、前置意图、最终CAS改为config→Helper短段；浏览器/HTTP等待释放锁。Store finish检查原源版本和owner，不改配置；异步零等待争取+Tokio期限/取消无遗留worker。SDK由实际Desktop/TUI宿主传入相同短事务，13次真实加密Vault CAS证明持锁，HTTP期间另一配置Store可进入。
 
 冻结源码完整原生scoped通过 **311 Rust / 93 native Episode / 182根1034实际TS往返 / 9PTY**；14项原生登录聚焦、17项OAuth SDK测试、全仓types、architecture/UI、887打包imports通过；完整pnpm test退出0、363.254秒，14包与最后升级矩阵通过，退出回执绑定tree1ba940c5。公开CLI验证持锁logout不改密文、回调后等待可取消且不交换code、刷新后无法提交保留原pending、显式原生重登与新canonical任务可继续。Native log SHA256 `d7c54b517e9045ae7b728108720d2088c9db7f799930ea32efbbd5de88b9039c`，featureless产物SHA256 `3ba3b80778e0c4aa1a89ad86c48d77d1417898f6ec6d1bc1a9f242e20bcea650`。详见[短提交回执](native-cli/evidence/p4-model-config-vault-20261116.json)。
 
-基线e632120f的CI43823605671 Linux133152103303/macOS133152103586均全仓success，含各自Electron smoke，merge848671e3 tree与源一致；确认终态后推送本卡。[新CI43828693350](https://github.com/ly-ccx/Peer-Agent/actions/runs/43828693350)独立进行中，不继承全绿。A修订a986a18校正新增CRUD的范围偏差；7a36114先登记后续提示重建/reconcile，这两项不被当作本卡已实现功能。接下来补原models列表和环境配置、真实Vault提示重建/恢复及剩余P4。普通交互聊天、P5–P7、真实平台/模型、混合安装版本drain均未验收；无安装、重启、个人数据迁移、默认切换或发布。
+基线e632120f的CI43823605671 Linux133152103303/macOS133152103586均全仓success，含各自Electron smoke，merge848671e3 tree与源一致；确认终态后推送本卡。[CI43828693350](https://github.com/ly-ccx/Peer-Agent/actions/runs/43828693350)已核实macOS133168487356/Linux133168487738两平台全仓success，含各自Electron smoke；merge1e1465c8的tree1ba940c5与c8654dd6相同。A修订a986a18校正新增CRUD的范围偏差；7a36114先登记后续提示重建/reconcile，这两项不被当作本卡已实现功能。接下来补原models列表和环境配置、真实Vault提示重建/恢复及剩余P4。普通交互聊天、P5–P7、真实平台/模型、混合安装版本drain均未验收；无安装、重启、个人数据迁移、默认切换或发布。
 
 2026-11-16 范围复核：从实际 `cli-argv.ts` / `cli-models.ts` / `cli-model-lines.ts` / `model-config.ts` 确认，原CLI的 models只列出模型，独立模型配置通过PEER_MODEL_*；原CLI没有整套渠道/模型CRUD命令。此前将“完整原生CRUD/账号创建命令”列为必要退出条件，扩大了原方案 §6 “以实际argv registry为准”的范围。ADR131已在后续命令实现前作A级澄清并登记map：优先补原models、环境模型来源、原有选择/auth与metadata恢复；配置/Vault共锁、条件恢复、混合旧安装版本drain及全部原功能仍必须交付。历史回执保留原范围判断，不反写为当时已完成；本次不是把缺失功能删出迁移目标，P4总闸仍未通过。
 

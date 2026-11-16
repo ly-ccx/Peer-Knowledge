@@ -40,16 +40,30 @@
   },
   "candidateCi": {
     "runId": 43828693350,
-    "status": "in_progress",
-    "conclusion": null,
-    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "conclusion": "success",
+    "wholeRepositorySuccess": true,
     "jobs": [
       133168487356,
       133168487738
     ],
     "mergeCommit": "1e1465c8649c8afc67087ca4dff9334fa0cf9e89",
     "mergeTree": "1ba940c569c53daee3889898c37ddde625fbd424",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "platforms": [
+      {
+        "jobId": 133168487356,
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      },
+      {
+        "jobId": 133168487738,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      }
+    ]
   },
   "validation": {
     "nativeScoped": {
@@ -126,7 +140,7 @@
   ],
   "coverageLimits": [
     "Only local synthetic IdP/model and injected encrypted KeyStore; no real IdP/paid model/system Vault acceptance.",
-    "Only local source/macOS verification here; new multi-platform CI is still pending. No installed/full product/four-hour soak acceptance.",
+    "Local source/macOS verification and exact candidate Linux/macOS CI succeeded. No installed/full product/four-hour soak acceptance.",
     "Interactive TUI remains draft-only. No install, personal-data migration, running-app restart, default switch or release tag. Native CLI starts no Bun/Node engine sidecar."
   ]
 }
