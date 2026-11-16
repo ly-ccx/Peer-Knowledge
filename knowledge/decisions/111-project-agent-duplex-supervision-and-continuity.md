@@ -3,7 +3,7 @@
 > 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支统一输入处置、根目标覆盖、后续承接及 DecisionFrame。工作问题继续使用本文 requestId/revision/replyTo 和执行回执，父答不消费人类请求；不增加监督者，不重放已完成原生工具。新增事实完整特性门槛为 8，支持既有 2–6 与 8；在途 ADR116 格式 7 的 reducer 尚未集成，不因版本数字较大声称兼容，包间提交不独立部署或接管新活跃数据。本文 Accepted 契约及历史回执保留；详见 ADR 117 §14 和[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)。
 
 创建时间：2026-10-28
-最后更新：2026-11-01（关联 ADR 117 实施边界）
+最后更新：2026-11-15（明确 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 引用消歧）
 
 状态：Accepted；2026-10-28 已接入本批源码实现，尚未发布验收。代码范围与限制见[实施记录](../../playbook/v0.1.0/code-structure-refactoring.md)。这不是已安装版本的能力声明。
 
@@ -44,9 +44,9 @@
 - [ADR 100](100-actionable-attention-and-question-lifecycle.md)：真实 `request_user_input` 仍由用户显式回答；新增的父代理工作问题不计入用户待办。不得把历史用户问题静默重分类。
 - [ADR 102](102-unified-task-lifecycle-projection.md)、[ADR 110](110-follow-up-responsibility-and-current-list.md)：保留唯一生命周期/followUp 出口；补充可信中断来源。只有明确用户暂停才走“等待用户恢复”，技术中断不能只凭 paused 字符串退出当前责任。
 - [ADR 103](103-verification-settlement-and-progress.md)：恢复和换窗不重置停滞治理与核验义务。
-- [ADR 104](104-progressive-interaction-and-coordination-storage.md)：新增记录进入既有增量日志与索引；缓存不成为责任真值。
+- [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)：新增记录进入既有增量日志与索引；缓存不成为责任真值。
 
-ADR 100–104 的实现基线按当前开发线核对；ADR 110 作为本批监督所需的共享责任投影前置决策一并提交。引用不表示对应能力已通过发布验收。本文只调整明确列出的细节，不覆盖其他授权、验收与停止规则。
+ADR 100–[104-progressive](104-progressive-interaction-and-coordination-storage.md)（不含仍处于 Proposed 的重号草案 [104-bot-capability-visibility](104-bot-capability-visibility.md)）的实现基线按当前开发线核对；ADR 110 作为本批监督所需的共享责任投影前置决策一并提交。引用不表示对应能力已通过发布验收。本文只调整明确列出的细节，不覆盖其他授权、验收与停止规则。
 
 ## 4. 三个维度分别建模，同一事实共同投影
 

@@ -2,17 +2,14 @@
 
 ## Status
 
-Implementation done locally on 2026-06-25（M1 可见浏览器 + M2 Agent 操控均已落地
-于 `peer_agent` 仓，本机 `pnpm -r typecheck` 6 个 workspace 全绿；端到端 IPC 契约
-一致性已核对）。设计决策见 §Decision。人工自测（Agent 实操对用户可见、权限门、
-Evidence 落盘）需运行应用执行。
+Accepted（2026-06-25 M1/M2 本地落地并后续由 [ADR 46](46-conversation-bound-browser-tabs.md)、[ADR 59-browser](59-browser-panel-reveal-capability.md)、[ADR 70](70-l1-browser-action-surface.md)、[ADR 72](72-l1-default-web-entry.md) 扩展会话绑定、reveal 通知、动作面与默认策略；注意按 [ADR 71](71-l2-playwright-external-browser.md) / [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md)，0.1.0 Project Bot 的后台 `work_session` 已剥离 `browser_*` L1 工具并固定改用 L2 受控 Playwright + [ADR 38](38-web-search-fetch-provider.md) `web_fetch`）。
 
 本特性新增了一条 runtime 能力链路（`local.web.control.*` capability + provider +
 工具投影），属 `AGENTS.md` 定义的 A 级变更范畴；代码改动一律在 `peer_agent` 仓，
 本知识库仅作可追溯记录。
 
 - 创建时间：2026-06-25
-- 最后更新：2026-06-25
+- 最后更新：2026-11-15（规范标注 Accepted 并标明 L1 在经典会话／独立浏览窗口与后台 `work_session` 间的适用边界）
 
 ## Context
 

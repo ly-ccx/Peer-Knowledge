@@ -1,7 +1,7 @@
 # 125. 资源窗口目录标签
 
 创建时间：2026-11-09
-最后更新：2026-11-09（追加决策五：头部导航入口的语境可见性；方向由用户于同日选定）
+最后更新：2026-11-15（跨 ADR 对齐：在被替代条款补入 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md)，并显式保留 [ADR 118](118-openui-interactive-results-and-runtime-boundaries.md) `interactive` 标签与 §17.4 布局兼容）
 
 ## 状态
 
@@ -85,11 +85,12 @@ ADR 47 建立了「一级能力入口与二级资源标签」分层，并写死�
 
 ## 被替代条款
 
-- ADR 47 决策一第 4 条「Files 是工作区导航器，不为文件树本身创建标签；从文件树打开的
-  资源进入 Documents」——**在资源窗口标签条范围内**被本 ADR 替代。经典 Workbench 一级
-  能力栏、Plan 单焦点、文件工具显式 path 目标等其余条款继续有效。
+- **ADR 47 决策一第 4 条**「Files 是工作区导航器，不为文件树本身创建标签；从文件树打开的资源进入 Documents」——**在资源窗口标签条范围内**被本 ADR 替代。经典 Workbench 一级能力栏、Plan 单焦点、文件工具显式 path 目标等其余条款继续有效。
+- **[ADR 109](109-resource-reference-preview-and-artifact-collaboration.md)** 中早期“目录仅作单例 `directoryIntent` 辅助导航面板、不在标签条建目录标签”及“头部导航快速入口在 launcher 上下文始终常驻展示”的条款——由本 ADR 决策一、二、五替代。
 
 ## 状态结构
+
+> **标签类型全集（与 ADR 118 对齐）**：资源窗口支持的资源标签并集包括文档（`document`）、网页（`browser`）、目录（`directory`，本 ADR 新增）、工作区变更（`diff`）、对话（`conversation`）与 OpenUI 交互结果（`interactive`，由 [ADR 118 §17](118-openui-interactive-results-and-runtime-boundaries.md) 定义）；本 ADR 对 `DirectoryTabSessionState` 的扩展继续兼容 ADR 118 §17.4 既有布局持久化存储，不破坏或移除 `interactive` 标签恢复。
 
 ```text
 WorkbenchSession(conversationId)
@@ -97,6 +98,7 @@ WorkbenchSession(conversationId)
   -> DocumentSession(tabs, activeTabId)
   -> DirectoryTabSession(tabs[reference], activeTabId)   # 新增
   -> DirectorySession(per-workspace 阅读位置记忆)          # 既有，两通道共享
+  -> Interactive / Diff / Conversation Tabs               # 与 ADR 109 / ADR 118 §17.4 布局共用
 ```
 
 ## 验证要求

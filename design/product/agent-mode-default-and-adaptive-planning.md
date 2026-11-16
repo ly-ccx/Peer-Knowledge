@@ -1,7 +1,7 @@
 # Agent 默认模式重构：自适应规划（L0–L3）
 
 > 创建时间：2026-07-28
-> 最后更新：2026-09-15
+> 最后更新：2026-11-14（仅修正工程总纲引用）
 > 状态：设计定稿（待实现）— 产品方案 **A**：默认模式正名为 **Agent**，执行哲学对齐现有 Goal 自驱闭环，并引入任务复杂度分级规划
 > 关联代码仓：`peer_agent`（本知识库只存知识，代码改动一律在该仓落地）
 > 关联文档：
@@ -11,7 +11,7 @@
 > - `knowledge/decisions/41-rename-goal-mode-to-plan-mode.md`（Goal→Plan 正名与执行段合一）
 > - `knowledge/specifications/15-goal-plan-lifecycle-governance.md`（防僵尸计划）
 > - `knowledge/specifications/engineering-rigor-paradigm.md`（工程严谨范式与落地闸门）
-> - `knowledge/architecture/00-engineering-philosophy.md`（本地优先 / 证据优先总哲学）
+> - `knowledge/architecture/00-engineering-philosophy.md`（唯一通用工程总纲）
 
 ---
 
@@ -408,7 +408,7 @@ Agent 开场推荐结构：
 | ADR 41 | Plan 正名与执行段合一仍有效；本文解决 **默认入口与 chat 空洞** |
 | `15-goal-plan-lifecycle-governance.md` | 自动建计划后更重要，必须遵守 |
 | `engineering-rigor-paradigm.md` | 诊断门、证据闭环、DoD 的内容标准 |
-| `00-engineering-philosophy.md` | 本地优先/证据优先的总原则；本文是模式层落地 |
+| `00-engineering-philosophy.md` | 通用工程原则；本文是项目模式层落地 |
 
 ---
 

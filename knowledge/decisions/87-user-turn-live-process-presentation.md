@@ -2,7 +2,7 @@
 
 日期：2026-10-05
 创建时间：2026-10-05
-最后更新：2026-11-09（追加过程叙述与正式交付分离修订；同日经用户（负责人）接受，D1 表"接受本草案后修订的范围"列所列条款替代生效；实施未完成，V01–V17 待验证）
+最后更新：2026-11-15（修复 D1 对 ADR 111 的错误编号引用，原 `2026-11-09` 追加过程叙述与正式交付分离修订；同日经用户（负责人）接受，D1 表"接受本草案后修订的范围"列所列条款替代生效；实施未完成，V01–V17 待验证）
 状态：Accepted
 来源：负责人要求修复 RC6 的静态思考提示，并参照提供的 Codex 截图实现进行中扫光、本轮过程与嵌套详情。
 级别：A（ProjectAgentActivity 展示协议）；档位保存与几何稳定性为 C。
@@ -36,7 +36,7 @@
 
 ### D1. ADR pass、目标与范围
 
-已核对 ADR [80](80-project-agent-delegation-model.md)、[85](85-project-agent-hosts-inputs-and-surfaces.md)、本 ADR 87、[94](94-reply-attempts-silent-wait-and-recovery.md)、[99](99-authoritative-reply-receipts-and-model-recovery.md)、[100](100-actionable-attention-and-question-lifecycle.md)、[106](106-project-agent-duplex-supervision-and-continuity.md)，以及既有 `rc-post-reply-terminal` / `rc-reply-interaction` 实施记录。该主题已有 ADR，不另开编号。[ADR map](00-adr-map.md)登记本次检索与修订状态。
+已核对 ADR [80](80-project-agent-delegation-model.md)、[85](85-project-agent-hosts-inputs-and-surfaces.md)、本 ADR 87、[94](94-reply-attempts-silent-wait-and-recovery.md)、[99](99-authoritative-reply-receipts-and-model-recovery.md)、[100](100-actionable-attention-and-question-lifecycle.md)、[111](111-project-agent-duplex-supervision-and-continuity.md)，以及既有 `rc-post-reply-terminal` / `rc-reply-interaction` 实施记录。该主题已有 ADR，不另开编号。[ADR map](00-adr-map.md)登记本次检索与修订状态。
 
 用户目标：一句确认或一个结果在聊天主阅读列只交付一次；生成中能知道当前进展，之后能打开过程和原始依据；失败与中断有真实、可恢复的表达。模型换措辞、续接或重连都不应再次制造同一交付正文。
 

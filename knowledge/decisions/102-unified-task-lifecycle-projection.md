@@ -1,11 +1,11 @@
 # ADR 102：任务生命周期单一投影
 
 创建时间：2026-10-21
-最后更新：2026-10-22
+最后更新：2026-11-15（明确关联引用为 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)）
 状态：Accepted；既有实现见 Peer-Agent PR #180，RC25 组合发布验证进行中。
 级别：A（协议投影），B（Runtime 事实采集、任务聚合、Renderer 消费）。
 
-关联：ADR 88、93、96、99、100、104；产品北极星与架构治理基线继续适用。
+关联：ADR 88、93、96、99、100、[104-progressive](104-progressive-interaction-and-coordination-storage.md)；产品北极星与架构治理基线继续适用。
 
 ## 决策
 

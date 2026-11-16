@@ -1,7 +1,8 @@
 # ADR 76：Peer 作为 ACP Agent
 
 日期：2026-09-08
-状态：实施边界已确定，尚未完成实现或验收
+最后更新：2026-11-15（状态规范标注为 `Accepted`，与 [ADR 48-provider](48-provider-model-options.md) / [ADR 83](83-model-routing-by-role.md) 选项契约保持一致）
+状态：Accepted（实施边界已确定；实际打包与实测验收按各自发版记录独立追踪）
 级别：A（新增外部协议与授权交互适配）
 
 ## 目标与非目标

@@ -1,7 +1,11 @@
 # Runtime SDK Boundary Architecture
 
+> [!NOTE] 2026-11-16 终局边界修订（[ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)）
+> 1. 终局统一核心已定案为 **Peer Rust Core**（`crates/peer-*`），CLI 与 Desktop 共用同一 Rust 内核，Desktop 保留 UI 壳与桌面专属 Host Capability Provider；**TypeScript 版 `@peer-agent/runtime-sdk` 不再作为长期永久全端共享核心**，过渡期冻结扩张、不回填旧 `createRuntimeGoalController` 与重造 TS 内核。
+> 2. 本文沉淀的唯一能力链（`Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence`）与 **§0A.2–0A.3 Hook Port 职责、三态收紧原则、fail-closed 及审计不变量** 继续有效，作为 Rust Core 必须补齐并等价验收的语义基准。
+
 > 创建时间：2026-07-09
-> 最后更新：2026-07-12
+> 最后更新：2026-11-16（关联 ADR 133 终局标准修订；原 TS 分层正文时间 2026-07-12）
 > 状态：边界已落地首批纵向切片（持续迁移中）
 > 关联路线：`knowledge/playbook/tui-hook-sdk-roadmap.md`
 > 关联设计：`knowledge/specifications/tui-and-hook-design-standard.md`、`knowledge/specifications/hook-phase1-implementation-design.md`、`knowledge/specifications/hook-phase1-code-walk.md`

@@ -1,7 +1,10 @@
 # Electron Main Process 架构治理方案
 
-创建时间：2026-08-01  
-最后更新：2026-08-02（实施完成与最终验证）  
+> [!NOTE] 2026-11-16 终局边界升级（[ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)）
+> 本文 2026-08-02 完成的是 Electron Main 组合根与 `@peer-agent/runtime-node` 收口第一阶段。按终局 [ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)，Main 进程终态进一步变薄为 **Desktop UI 壳 + 安全 IPC + 桌面专属 Host Capability Provider 宿主**，实际 Agent Runtime / Goal 状态机 / SQLite 与会话 Store 统一下沉到受管独立 **Rust Core** 进程（同步消解 Electron 主线程重任务阻塞，不另在 TS 侧铺开第二套 `M00–M14` 完整重写）。**TS 侧冻结状态补充**：`createGoalRunner()`（`runtime-node`）与零调用的 `createRuntimeGoalController()`（`runtime-sdk`）过渡期保持冻结，**禁止**反向把 `createGoalRunner` 迁回 TS `createRuntimeGoalController`，后续随 Desktop 切换直接收敛至 Rust Core 唯一执行链。
+
+创建时间：2026-08-01
+最后更新：2026-11-16（对齐 ADR 133 终局收口与 TS Goal 双轨冻结；2026-08-02 第一阶段实施完成）
 状态：治理方案 v2 / 已实施  
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）  
 治理对象：`apps/desktop/electron/main/main.mjs`

@@ -1,7 +1,8 @@
 # Claude Code 风格文件编辑机制计划
 
 日期：2026-06-09
-状态：计划草案
+最后更新：2026-11-15（标明本文统一文件工具设计已被 ADR 51 吸收、§13 工具参数流式进度已独立为 ADR 29）
+状态：历史计划草案（§1–§12 统一文件编辑与 Desktop/CLI 共用基线已由 [ADR 51](51-unified-desktop-cli-file-tools.md) 吸收取代；§13 `chat:stream:tool-progress` 流式进度契约已由 [ADR 29](29-tool-arg-progress-streaming.md) 单独定案）
 
 本文定义 Peer Agent 后续要补齐的本地代码变更机制。目标不是把 Claude Code 的实现逐行搬过来，而是吸收它在文件编辑上的关键约束：
 

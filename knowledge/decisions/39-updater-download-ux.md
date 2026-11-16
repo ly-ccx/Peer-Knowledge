@@ -2,15 +2,14 @@
 
 ## Status
 
-Implementation done locally on 2026-06-25（渲染层 + i18n + CSS 已落地于
-`peer_agent` 仓，本机 typecheck / lint 通过）。设计决策见 §Decision。
+Accepted（2026-06-25 本机落地渲染层 + i18n + CSS，本机 typecheck / lint 通过；macOS 正式签发与公证前提见 [ADR 0001](0001-cross-platform-credential-vault.md) §5 及 [ADR 48-cli](48-cli-first-class-release.md)，渠道升级口径见 [ADR 61](61-beta-to-stable-channel-graduation.md)）。设计决策见 §Decision。
 
 落地范围属于渲染层交互改造，**未触及** runtime 契约与主进程更新链路，
 故不属于 `AGENTS.md` 定义的 A 级变更。代码改动一律在 `peer_agent` 仓，本
 知识库仅作可追溯记录。
 
 - 创建时间：2026-06-25
-- 最后更新：2026-06-25
+- 最后更新：2026-11-15（规范标注 Accepted 并对齐发布渠道与签名公证约束）
 
 ## Context
 

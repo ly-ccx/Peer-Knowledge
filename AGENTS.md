@@ -2,6 +2,10 @@
 
 Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构决策、设计规范、开发经验和运维流程。
 
+## 最高工程指导
+
+所有 Coding Agent 开始设计、修改或评审前，必须先读取 [Coding Agent 工程总纲](knowledge/architecture/00-engineering-philosophy.md)。该文件是跨项目最高工程指导和唯一权威正文；本入口只规定知识仓的定位、操作和交付方式，不复制总纲。项目有效 ADR 与专项契约继续约束具体实现，不能因通用原则被静默改写。
+
 ## 关联代码仓
 
 - 代码仓名：`peer_agent`（package name: `peer-agent`，Electron + Vite monorepo）
@@ -68,13 +72,15 @@ Peer Agent 开发知识库。与代码仓 `peer_agent` 解耦，专注于架构�
 
 ## 其他产品与交付入口
 
-当前改造总纲见 `design/product/peer-transformation-charter.md`（任务壳 + 工作台雷达；阶段 A–E 已交付；阶段 F 项目代理壳 Proposed，见 ADR 80；记忆体系见 ADR 81；项目目标与定时 / 事件驱动见 ADR 82；模型分工见 ADR 83；机器人列表壳见 ADR 84；宿主、输入与多入口见 ADR 85）。
+当前改造总纲见 `design/product/peer-transformation-charter.md`（任务壳 + 工作台雷达；阶段 A–E 已交付；阶段 F 项目代理壳已落地并进入 0.1.0 RC 收敛，见 ADR 80；记忆体系见 ADR 81；项目目标与定时 / 事件驱动见 ADR 82；模型分工见 ADR 83；机器人列表壳见 ADR 84；宿主、输入与多入口见 ADR 85）。
 活的产品路线图（近/中/远景）见 `design/product/peer-product-roadmap.md`。
 CLI 无头/脚本缺口见 `design/product/cli-scripting-and-headless-gap.md`。
 P0 `peer exec` 契约见 `knowledge/decisions/65-cli-headless-exec.md`。
 CLI 基础壳命令见 `knowledge/decisions/108-cli-basic-shell-commands.md`（Accepted，未发布验收）。
 当前机器人 TUI 的列表行与输入条呈现见 `knowledge/decisions/122-tui-bot-list-and-composer-chrome.md`（Accepted，未发布验收）。
-遗留停止记录的受控核实与跟进退役见 `knowledge/decisions/124-legacy-stop-obligation-controlled-resolution.md`（2026-11-07 20:03 Asia/Shanghai 已接受并授权实施；2026-11-08 修订：退役后的索引只留在内部审计，Desktop / TUI / 工作面板不展示「待核实」。Peer-Agent PR 297 未合并、未发版）。
+遗留停止记录的受控核实与跟进退役见 `knowledge/decisions/124-legacy-stop-obligation-controlled-resolution.md`（2026-11-07 20:03 Asia/Shanghai 已接受并授权实施；2026-11-08 修订：退役后的索引只留在内部审计，Desktop / TUI / 工作面板不展示「待核实」。Peer-Agent PR 297 未合并、未发版；其中每项仅用户确认及禁止设置入口的边界由 ADR 126 / 127 部分取代）。
+执行资源 claim 闭包与 unknown 保留见 `knowledge/decisions/126-execution-resource-claim-closure-and-unknown-retention.md`（2026-11-15 Accepted，与 ADR 127 配套生效；尚待实现与发布验收）。
+未知执行结果的对账与策略化收口见 `knowledge/decisions/127-unknown-outcome-reconciliation-and-delegated-resolution.md`（Accepted，仅保留 `ask` / `bot_verified` 两档，部分取代 ADR 116 / 124 相关条款；尚待实现与发布验收）。
 ADR 文档图谱见 `knowledge/decisions/00-adr-map.md`。
 
 ## 目录结构

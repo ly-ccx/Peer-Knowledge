@@ -1,7 +1,7 @@
 # ADR 57：Desktop 与 TUI 统一 Canonical Conversation History Projector
 
 创建时间：2026-07-25
-最后更新：2026-07-25
+最后更新：2026-11-15（跨 ADR 对齐：登记 [ADR 97](97-reasoning-replay-and-continuation-custody.md) / [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 两条窄例外与 mid-turn `_compaction` 冷重载不变量）
 状态：Accepted / Implemented
 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
@@ -196,6 +196,14 @@ model key 与 evidence source。
 Projector 同时返回由 canonical messages、continuity 与 compaction boundary 生成的稳定
 `historyFingerprint`，供后续 exact-count / provider-observed evidence 绑定；仅版本相同但
 fingerprint 不同的快照仍不可复用。
+
+### 3.7 已登记边界例外与冷重载不变量（2026-11-15 对齐）
+
+在保证单一持久化历史投影语义前提下，登记以下两项经受控审定的窄例外及冷重载约束：
+
+1. **例外 1（Wire 适配层历史推理降维，[ADR 97](97-reasoning-replay-and-continuation-custody.md) §2）**：仅当 DeepSeek thinking + tools 模式遇到缺失原生 `reasoning_content` 的旧历史轮时，允许在 Provider Wire Encoder adapter 层将该历史 assistant 轮与紧随的已配对 tool result 一起表达为带标签普通历史数据以避开 HTTP 400；该处理严格局限在编码发送层，禁止写回修改 canonical 持久化历史，也不适用于保留完整原生字段的新历史。
+2. **例外 2（`project_agent` 有界交互读模型，[ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) §4.3）**：`project_agent`（主 Bot）通过 `readInteractionPage` / `readInteractionContext` 消费有界 SQLite 交互读模型与游标切片（Desktop 窗口接缝见 [ADR 121](121-desktop-session-windowing-contract.md)），而非每次冷扫描整份原始记录；该例外仍不得绕过消息配对、continuity 注入顺序与不可信历史隔离边界。
+3. **Mid-turn `_compaction` 冷重载不变量**：无论 `_compaction` marker 在回合进行中（mid-turn）还是重连/多端恢复时落盘，Desktop 与 CLI/TUI 冷重载（cold reload / reattach）均须通过共享 `projectConversationHistory()` 严格从最后一个已提交 `_compaction` 分界裁剪活跃历史并绑定最新 `compactionEpoch`（与 [ADR 56](56-provider-observed-context-accounting.md) 不变式 5 一致），禁止将压缩分界前的原文与新活跃历史混装发送。
 
 ## 四、不变量
 

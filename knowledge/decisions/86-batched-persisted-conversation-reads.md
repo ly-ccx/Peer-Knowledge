@@ -1,8 +1,8 @@
 # ADR 86：已持久化对话的批量读取
 
 创建时间：2026-10-02
-最后更新：2026-10-02
-状态：Accepted（RC-01，负责人已授权自主完成全部实现与自测）
+最后更新：2026-11-15（补充与 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 及 [ADR 121](121-desktop-session-windowing-contract.md) 的演进边界）
+状态：Accepted（RC-01，负责人已授权自主完成全部实现与自测；注：Desktop 热会话打开与分页现已优先走 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 交互 SQLite 读模型与 [ADR 121](121-desktop-session-windowing-contract.md) 窗口契约，本文批量/高频只读 Seam 继续服务兼容读取、目录投影与 `getRuntimePolicy`）
 
 ## 问题
 

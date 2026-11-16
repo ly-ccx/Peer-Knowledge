@@ -1,7 +1,10 @@
 # TUI 与 Desktop 共享运行时与宿主治理
 
-创建时间：2026-07-23  
-最后更新：2026-08-18
+> [!NOTE] 2026-11-16 终局统一架构修订（[ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)）
+> 延续并升级 ADR 129（`PR #133` / `129-native-rust-cli-and-ratatui.md`，CLI 迁往 Rust/Ratatui）：**终局全端统一共享核心确定为 Rust Core（`crates/peer-*`）**。CLI 直接装配 Rust Core；Desktop 终态通过受管独立 Rust Core 进程接入同一体系（自然完成主线程与重查询隔离），Electron 退薄为 UI 壳与桌面专属 Host Capability Provider 宿主。下文 `@peer-agent/runtime-core` / `runtime-sdk` / `runtime-node` 的实现锚点仅作为过渡期 TS 治理与等价语义基线，冻结双轨扩展。
+
+创建时间：2026-07-23
+最后更新：2026-11-16（关联 ADR 133 终局升级为统一 Rust Core；原基线 2026-08-18）
 状态：架构总览 / 长期治理基线  
 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 

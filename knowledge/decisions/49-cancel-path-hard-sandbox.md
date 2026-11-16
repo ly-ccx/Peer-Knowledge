@@ -1,11 +1,18 @@
 # 49. 取消路径硬沙箱（允许跨工作区读写）
 
-创建时间: 2026-07-21  
-最后更新: 2026-07-21
+创建时间: 2026-07-21
+最后更新: 2026-11-15（跨 ADR 对齐：明确被 ADR 90 / 92 / 101 / 106 部分取代的范围）
 
 ## 状态
 
-**Accepted**（用户产品决策 2026-07-21：不要路径硬沙箱，接近 Claude Code）。
+**Accepted（已被后续 [ADR 90](90-local-image-capability-and-product-review.md)、[ADR 92](92-scoped-permission-inheritance.md)、[ADR 101](101-bot-owned-access-policy.md)、[ADR 106](106-readonly-git-and-delegation-capability-admission.md) 部分取代，2026-11-15 补注）**（原用户产品决策 2026-07-21：不在普通聊天里以硬路径牢笼阻断经用户授权的跨工作区操作）。
+
+> [!NOTE] 部分取代说明（2026-11-15）
+>
+> 本文保留“经典对话与常规工具不无故假设唯一工作区死牢”的初衷，但下列机制已被后续架构与安全 ADR **部分取代**：
+>
+> 1. **Symlink / `realpath` 校验已恢复**：原 §实现锚点 中“去掉 `file-provider.ts` `realpath` 二次 assert”的做法已被 [ADR 90](90-local-image-capability-and-product-review.md)、[ADR 92](92-scoped-permission-inheritance.md)、[ADR 101](101-bot-owned-access-policy.md) 与 [ADR 106](106-readonly-git-and-delegation-capability-admission.md) 取代——现在读/写与 Git 查询必须先 `realpath` 解析真实路径并防范 symlink 逃逸。
+> 2. **工作区外访问受显式闸门约束（不再依赖 `full_local` 无条件免审）**：工作区外读取/写入需经宿主 `PermissionGate` / 范围授权（如会话外图片须先过 [ADR 90](90-local-image-capability-and-product-review.md) / [ADR 92](92-scoped-permission-inheritance.md) 的 `imageReadGrant`），且 Project Bot 下“工作区外访问与子任务继承”改由 `bot-access.sqlite`（[ADR 101](101-bot-owned-access-policy.md)）与委派作用域继承（[ADR 92](92-scoped-permission-inheritance.md)）控制，`Full` 不覆盖角色边界与作用域保护。
 
 ## 背景
 

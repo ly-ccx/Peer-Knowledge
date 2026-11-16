@@ -1,11 +1,11 @@
 # 46. 会话绑定的 Workbench 与多标签浏览器
 
 创建时间：2026-07-15
-最后更新：2026-09-02
+最后更新：2026-11-15（对齐 L1 `BrowserSession` 在经典会话／资源窗口与 `work_session` L2 Playwright 间的边界）
 
 ## 状态
 
-Accepted，进入实现。
+Accepted，进入实现（注：在 Project Agent 主导架构下，`work_session` 已按 [ADR 71](71-l2-playwright-external-browser.md) / [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 剥离 L1 `browser_*`；用户从资源窗口打开或独立窗口保留与 [ADR 125](125-resource-window-directory-tabs.md) / [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md)（第一阶段已接受，独立窗口与后续协作包待实施）对齐的浏览器实例边界）。
 
 ## 背景
 

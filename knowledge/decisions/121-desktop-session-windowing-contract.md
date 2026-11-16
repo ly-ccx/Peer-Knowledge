@@ -1,15 +1,15 @@
 # ADR 121：Desktop 会话窗口契约
 
 创建时间：2026-11-05
-最后更新：2026-11-05
+最后更新：2026-11-15（跨 ADR 对齐：准确区分 `BotSqliteAdapter` 消费 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 交互 SQLite 读模型与 `store.appendMessage` JSONL 持久真源）
 状态：Accepted（契约已定。Peer-Agent 在已发布的 `0.1.0-rc.36`、开发线 `PeerAgent/dev/0.1.0` 之上按 P0 → P1 → P2 落地。各阶段验收另记，本文不宣称实现已经通过。）
-级别：A（Desktop 与会话存储之间的窗口读取、追加返回、列表预览与修订订阅契约），B（open block、延迟高亮与贴底的渲染路径）。不新增 Capability、PermissionGrant、Evidence 或 System Context 层，不改数据根。把经典正文迁入 SQLite，或把 Bot 正文倒回 JSONL，超出本文，须先修订 ADR 74。
+级别：A（Desktop 与会话存储之间的窗口读取、追加返回、列表预览与修订订阅契约），B（open block、延迟高亮与贴底的渲染路径）。不新增 Capability、PermissionGrant、Evidence 或 System Context 层，不改数据根。把经典正文全量迁入独立 SQLite，或取消 Bot 交互 SQLite 读模型，超出本文，须先修订 ADR 74 与 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)。
 
-关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[交互契约 §4](../specifications/peer-human-agent-interaction-contract.md)、[动效系统 §5–§6](../specifications/motion-system.md)、ADR [22](22-stream-reattach-on-reload.md)、[57](57-canonical-conversation-history-projector.md)、[74](74-deployment-surfaces-and-local-storage.md)、[86](86-batched-persisted-conversation-reads.md)、[98](98-large-history-execution-responsiveness.md)、[104](104-progressive-interaction-and-coordination-storage.md)。路线图入口见[产品路线图 §2](../../design/product/peer-product-roadmap.md)。
+关联：[产品北极星](../../design/product/peer-product-alignment.md)、[架构治理](../architecture/20-architecture-governance.md)、[交互契约 §4](../specifications/peer-human-agent-interaction-contract.md)、[动效系统 §5–§6](../specifications/motion-system.md)、ADR [22](22-stream-reattach-on-reload.md)、[57](57-canonical-conversation-history-projector.md)、[74](74-deployment-surfaces-and-local-storage.md)、[86](86-batched-persisted-conversation-reads.md)、[98](98-large-history-execution-responsiveness.md)、[104-progressive](104-progressive-interaction-and-coordination-storage.md)。路线图入口见[产品路线图 §2](../../design/product/peer-product-roadmap.md)。
 
 ## 1. 问题
 
-Desktop 会话路径仍把整份同步 JSONL 读写和整面 React 热更新绑在一起。打开、列表、追加和发送准备都会碰到完整消息数组；流式阶段又按 token 刷新已沉降的表面。大历史下，这条路径的成本随未见历史增长。ADR 98 已记录父会话与子会话的全文解析会堵在主线程；ADR 104 已把模型侧交互读取前移到有界页。Desktop 产品路径还没有同一条窗口契约。
+Desktop 会话路径仍把整份同步 JSONL 读写和整面 React 热更新绑在一起。打开、列表、追加和发送准备都会碰到完整消息数组；流式阶段又按 token 刷新已沉降的表面。大历史下，这条路径的成本随未见历史增长。ADR 98 已记录父会话与子会话的全文解析会堵在主线程；ADR 104-progressive 已把模型侧交互读取前移到有界页。Desktop 产品路径还没有同一条窗口契约。
 
 现场要分开的四件事：
 
@@ -26,7 +26,7 @@ Desktop 产品路径改为会话窗口契约，分三阶段演进。
 |---|---|---|
 | P0 | 冷路径 | 产品读取只返回 meta 与窗口切片。`append` 只返回 meta 与 preview。一次发送准备只持有一个 LoadHandle，在该句柄内把 load、project、fingerprint 各做一次 |
 | P1 | 热路径 | 流式增量进入当前回合的 openSlot。高亮延后到块关闭或明确的空闲/用户请求。跟随最新时按 `turnId` 与 Δheight 贴底，钉住状态来自既有阅读意图，不来自每帧 hit-test |
-| P2 | 存储接缝 | 经典 JSONL 与 Bot SQLite 实现同一个 Session Service：`listMeta`、`getWindow`、`append`、`subscribeRevision`。列表只读物化 preview。为列表预览扫描整份 JSONL 的路径退出产品调用 |
+| P2 | 存储接缝 | 经典 JSONL 适配器与 Bot 交互 SQLite 读模型适配器实现同一个 Session Service：`listMeta`、`getWindow`、`append`、`subscribeRevision`。列表只读物化 preview。为列表预览扫描整份 JSONL 的路径退出产品调用 |
 
 执行与 Evidence 留在用户侧节点。Gateway 与云端继续只做会话路由、注册与授权（ADR 74）。Renderer 仍只表达窗口与 openSlot，不读文件，不执行能力。
 
@@ -38,7 +38,7 @@ flowchart LR
   S --> C[ClassicJsonlAdapter]
   S --> B[BotSqliteAdapter]
   C --> J[经典 JSONL 正文与 sidecar]
-  B --> Q[Bot SQLite 正文]
+  B --> Q["ADR 104-progressive 交互 SQLite 读模型（主写入仍经 store.appendMessage 落 canonical JSONL）"]
   C --> P[物化 preview]
   B --> P
 ```
@@ -80,11 +80,11 @@ interface SessionMeta {
 
 `SessionPreview` 是物化的列表与打开槽摘要，至少包含 `conversationId`、有界 `title`、有界可见 `excerpt`、`updatedAt` 与 `contentRevision`。计数字段只能源自追加时的增量维护。preview 是派生展示，不是 Evidence、执行成功或签收凭据。
 
-`SessionCursor` 按 canonical 追加顺序和消息身份生成。时间戳不代替顺序。跳到引用锚点时直接定位该游标，不从最新页逐页扫到目标。此规则与 ADR 104 的交互页游标一致；两种页的载荷仍然分开，见 §5。
+`SessionCursor` 按 canonical 追加顺序和消息身份生成。时间戳不代替顺序。跳到引用锚点时直接定位该游标，不从最新页逐页扫到目标。此规则与 ADR 104-progressive 的交互页游标一致；两种页的载荷仍然分开，见 §5。
 
 `availability` 是结构化结果。`damaged` 返回明确错误，空窗口不算成功。`version_changed` 表示读取期间正文已变，调用方丢弃该次结果后再读。`rebuilding` 表示 preview 或窗口索引尚未就绪，列表保持该状态，产品路径不改走全文扫描。
 
-窗口条数和字节数必须有上界，上界与未见历史的总量解耦。具体数字沿用 Desktop 现有分页与 ADR 104 已有的响应预算，不在本文另定第二套限额。单条超预算时返回正文分片和附件引用，原文保留在存储中。
+窗口条数和字节数必须有上界，上界与未见历史的总量解耦。具体数字沿用 Desktop 现有分页与 ADR 104-progressive 已有的响应预算，不在本文另定第二套限额。单条超预算时返回正文分片和附件引用，原文保留在存储中。
 
 ### 3.1 getWindow
 
@@ -112,7 +112,7 @@ interface SessionMeta {
 
 句柄内部按顺序执行且各执行一次：
 
-1. **load**：读取本次投影所需的当前正文。范围服从 ADR 104 的交互上下文与既有压缩边界，不把 UI 窗口误当成模型上下文，也不为 UI 再读一遍。
+1. **load**：读取本次投影所需的当前正文。范围服从 ADR 104-progressive 的交互上下文与既有压缩边界，不把 UI 窗口误当成模型上下文，也不为 UI 再读一遍。
 2. **project**：调用 ADR 57 的共享 Canonical Conversation History Projector，得到这一次的 provider history。
 3. **fingerprint**：为这次 load 与 project 的结果生成指纹，并绑上当时的 `contentRevision`。
 
@@ -151,25 +151,25 @@ openSlot、preview 和高亮状态都不是 PermissionGrant、Tool Result 或 Ev
 - 缺省就是产品窗口。调用方不传 `full` 时，行为与 `full: false` 相同。
 - `listMeta`、LoadHandle、Desktop 分页和热路径渲染都没有 `full` 参数，也不能把 `full: true` 传进 `getWindow`。
 - preview 缺失时产品结果是 `rebuilding`，由后台按当前版本补齐物化字段。诊断扫描不能成为这次补齐的同步回退。
-- 取证、选定 attempt 的恢复检查点，继续走 ADR 104 已有的显式恢复读取，不借 `full: true` 变成第二条产品 API。
+- 取证、选定 attempt 的恢复检查点，继续走 ADR 104-progressive 已有的显式恢复读取，不借 `full: true` 变成第二条产品 API。
 - 诊断返回的完整消息仍然不是新的授权或 Evidence。
 
-## 4. 经典 JSONL 与 Bot SQLite
+## 4. 经典 JSONL 与 Bot 交互读模型分工
 
 两个适配器实现同一 Session Service。调用方按 `conversationId` 寻址，不按存储种类分支去拼列表或窗口。
 
 | | ClassicJsonlAdapter | BotSqliteAdapter |
 |---|---|---|
-| 正文真源 | 现有 canonical JSONL 与 sidecar（ADR 86、104） | 现有 Bot 会话 SQLite。知识仓尚未单独登记该库的文件名与表结构，本文不新造路径 |
-| 窗口 | 按游标读取切片。产品打开不把文件转成一个字符串 | 按同一游标形状查询窗口 |
-| 追加 | JSONL 提交成功后再更新 preview。返回 meta 与 preview | 同一返回形状。事务成功后 preview 与 revision 一起可见 |
+| 正文与读模型 | 现有 canonical JSONL 与 sidecar（ADR 86） | 读取 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 定义的 Bot 交互 SQLite 读模型与索引视图；规范消息持久化追加（`store.appendMessage`）与完整正文真源仍落在 canonical JSONL |
+| 窗口 | 按游标读取切片。产品打开不把文件转成一个字符串 | 通过 `readInteractionPage` / SQLite 读模型按同一游标形状查询窗口 |
+| 追加 | JSONL 提交成功后再更新 preview。返回 meta 与 preview | 由宿主经 `store.appendMessage` 提交 canonical JSONL 并同步更新 SQLite 读模型 / preview 与 revision |
 | 列表 | 只读物化 preview。禁止为列表解析 JSONL 正文 | 只读同形 preview 字段 |
-| 修订 | `contentRevision` 与 sidecar 版本变化进入 `subscribeRevision` | SQLite 持久 revision 映射为同一个事件形状 |
-| 诊断 | `full: true` 可顺序扫描该会话文件 | `full: true` 可读取该会话的全部正文行 |
+| 修订 | `contentRevision` 与 sidecar 版本变化进入 `subscribeRevision` | 持久化 revision 映射为同一个事件形状 |
+| 诊断 | `full: true` 可顺序扫描该会话文件 | `full: true` 可读取 canonical 正文全记录 |
 
-物化 preview 是可重建派生数据。经典侧可以是旁路索引或与会话索引放在一起的列；Bot 侧可以与正文行同库。两边的 preview 字段同形。索引损坏时标记 `rebuilding` 或 `damaged`，不把损坏索引当成空会话，也不在列表请求里同步扫完整 JSONL。
+物化 preview 是可重建派生数据。经典侧可以是旁路索引或与会话索引放在一起的列；Bot 侧可以随 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 交互 SQLite 读模型维护。两边的 preview 字段同形。索引损坏时标记 `rebuilding` 或 `damaged`，不把损坏索引当成空会话，也不在列表请求里同步扫完整 JSONL。
 
-ADR 74 的混合存储继续有效：经典对话正文保持文件；SQLite 承担需要筛选的结构化状态和本文的 preview。本文不把经典正文迁入库，也不把 Bot 正文导出成第二套 JSONL 真源。Evidence、截图等大对象仍是文件系统上的 `artifact_ref`。密钥不进业务库。
+ADR 74 的混合存储与 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 的读模型分工继续有效：canonical JSONL 保存规范消息追加事实，SQLite 承担需要筛选/分窗的结构化交互读模型与 preview（并非另建一套脱离 JSONL 的孤立正文真源）。Evidence、截图等大对象仍是文件系统上的 `artifact_ref`。密钥不进业务库。
 
 ## 5. 与既有决策的关系
 
@@ -180,7 +180,7 @@ ADR 74 的混合存储继续有效：经典对话正文保持文件；SQLite 承
 | ADR 22 | 活跃流的身份、累积缓冲和 reattach 仍由 main 侧负责。openSlot 是这些增量的渲染槽，不在 renderer 再造一份可恢复真源 |
 | ADR 86 | `getPersistedConversationHistories` 仍可服务已经持有有界 ID、并且确需持久化历史的非 UI 任务。Desktop 列表、窗口、发送准备不使用它充当 preview 或产品窗口 |
 | ADR 98 | `returnMessages: false` 是 Desktop append 走向「只返回元数据」的前一步。共享 Conversation Store 的旧方法，在尚未迁移的调用方上仍可按 ADR 98 默认返回完整会话。Desktop 产品路径改走 Session Service，不再调用那个默认。查询范围、严格失效、权限与真实性能门槛继续有效。P3 的视口虚拟化继续有效；本文只追加贴底与热更新范围 |
-| ADR 104 | `readInteractionPage` / `readInteractionContext` 仍是模型与恢复使用的交互视图。`getWindow` 是 Desktop 展示窗口，可以包含用户在该页看见的卡片。两种载荷不能互换：展示窗口不进入模型，交互上下文也不直接当成整面 UI 状态 |
+| ADR 104-progressive | `readInteractionPage` / `readInteractionContext` 仍是模型与恢复使用的交互视图。`getWindow` 是 Desktop 展示窗口，可以包含用户在该页看见的卡片。两种载荷不能互换：展示窗口不进入模型，交互上下文也不直接当成整面 UI 状态 |
 
 主链保持一条：Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。窗口读取、preview、openSlot 与 fingerprint 都不旁路这条链，也不新开工具通道。
 
@@ -191,7 +191,7 @@ ADR 74 的混合存储继续有效：经典对话正文保持文件；SQLite 承
 - 不把 Gateway、云端或远程入口做成执行或 Evidence 真源。
 - 不规定经典 JSONL 正文进入 SQLite，也不规定 Bot SQLite 正文改回 JSONL。
 - 不把 openSlot、preview、高亮或贴底动画写成执行成功、用户签收或 Evidence。
-- 不替换 ADR 57 的 projector、ADR 104 的模型交互窗、ADR 22 的流式重连。
+- 不替换 ADR 57 的 projector、ADR 104-progressive 的模型交互窗、ADR 22 的流式重连。
 - 不新造滚动状态机、配色或动效体系。虚拟列表的库选型沿用 ADR 98 已落地的视口方案。
 - 不要求 TUI 与 CLI 在 P0/P1 同步改完渲染。它们在接入 Session Service 之前可以继续使用旧读取；旧读取不能重新成为 Desktop 列表和发送准备的实现。
 - 不新增模型工具，不把列表摘要升级为系统提示。
@@ -217,7 +217,7 @@ ADR 74 的混合存储继续有效：经典对话正文保持文件；SQLite 承
 - 一次发送只创建一个 LoadHandle。load、project、fingerprint 各计一次。句柄飞行中 revision 变化时，该次发送作废。
 - Renderer 在发送准备之后拿不到完整投影历史。
 - 与本路径相交的权限、能力与 Evidence 行为保持原语义：读取和 preview 不写授权、不写 Evidence。
-- 大历史夹具沿 ADR 98 / ADR 104 已出现的量级（多兆字节父会话，或同等密度）。Desktop 打开与发送准备的成本随窗口和一次 LoadHandle 变化，不随整文件转成一个字符串。
+- 大历史夹具沿 ADR 98 / ADR 104-progressive 已出现的量级（多兆字节父会话，或同等密度）。Desktop 打开与发送准备的成本随窗口和一次 LoadHandle 变化，不随整文件转成一个字符串。
 
 ### 8.2 P1 热路径
 
@@ -253,4 +253,4 @@ P0、P1、P2 可以分批合入。只通过 P0 时，不得宣称热路径或双
 | 用每帧 hit-test 维持贴底 | 与动效系统「不逐 token 强制同步测量」冲突，并把阅读意图重新绑到几何探测 |
 | 列表缺 preview 时同步扫描 JSONL | 把被禁止的全文扫描留成隐式回退 |
 | 为了统一接口把经典正文一次迁入 SQLite | 违反 ADR 74 的按种类存储，且迁移窗口不可控 |
-| 让展示窗口兼任模型上下文 | 与 ADR 104 的交互视图和 ADR 57 的唯一 projector 重叠，并可能把内部过程送进模型 |
+| 让展示窗口兼任模型上下文 | 与 ADR 104-progressive 的交互视图和 ADR 57 的唯一 projector 重叠，并可能把内部过程送进模型 |

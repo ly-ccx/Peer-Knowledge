@@ -3,7 +3,7 @@
 > 2026-11-01 实施衔接：[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 在隔离交付分支深化同一 Coordination Kernel：新契约子任务 accepted 只证明阶段结果，根责任按当前目标覆盖、宿主只读核验、实际交付/签收和无未决义务关闭。主 Bot 负责跨任务目标判断，工作 Agent 自主选择范围内方法；mandate、goalRevision、executionEpoch、真实人工门及唯一能力链保留。四包实现与版本边界见 ADR 117 §14 和[实施回执](../../playbook/v0.1.0/intent-driven-coordination-self-test.md)，不改写本文 RC12 历史证据或声称已发布。
 
 创建时间：2026-10-10
-最后更新：2026-11-05（第 15 节身份解析、派发责任与独立 PR 候选）
+最后更新：2026-11-15（明确 ADR 82 用户确认的持久 `ProjectObjective(act)` 为合法持续委派来源之一，且受资源 claim 锁约束；2026-11-05 第 15 节身份解析、派发责任与独立 PR 候选）
 
 状态：第 1–14 节为 Accepted / Implemented in RC12；第 15 节为独立 PR 实现候选（最终验证见 15.13，未发布）（用户认可技术设计方向，并明确授予主 Bot 自主判断、取消错误任务和重新安排执行的协调权）。R91-01 至 R91-05 已按依赖合入开发线并发布 `v0.1.0-rc.12`；正式签名包8个真实模型协调场景与本轮发布验收通过。实际覆盖与限制见[RC12交接](../../playbook/v0.1.0/rc12-candidate.md)，不代表总体Ready/GA或用户日常安装已升级。
 
@@ -78,7 +78,7 @@ flowchart TD
 
 模型可自主选择任务拆分、处置、执行者、先后关系，以及配置与角色路由政策允许的模型。已开始的执行保留冻结配置；换执行者或模型通过新的执行 attempt 绑定，不在回合中悄悄改写。
 
-普通事件唤醒可通过有效 mandate 在原目标范围内推进相关工作；扩展现有 `spawn_session` 等能力的准入与执行二次检查。历史消息本身仍不能授权任意新目标。ADR 82 长期目标、探测和通知的独立政策不被本契约自动替换。
+普通事件唤醒可通过有效 mandate 在原目标范围内推进相关工作；扩展现有 `spawn_session` 等能力的准入与执行二次检查。历史消息本身仍不能授权任意新目标。ADR 82 长期目标、探测和通知的独立政策不被本契约自动替换；同时（2026-11-15 对齐），经真实用户消息锚定并生效、绑定 `originMessageId` 与宿主 `objectiveActionId` 的 [ADR 82](82-project-objectives-and-watches.md) `ProjectObjective(autonomy: 'act')`，与 `user_input` / `CoordinationMandate` 共同属于合法的持久委派授权来源（模型提议的目标仍须用户确认后方生效），且其写盘派发须先获取设备级资源 claim（ADR 116 / 127）。
 
 宿主检查身份、目标版本、任务父子关系、材料范围、动作类别、取消状态、政策与 PermissionGrant。模型对语义关系的判断作为有来源的决策记录保存，不能声称宿主 schema 校验能够证明模型理解正确。
 

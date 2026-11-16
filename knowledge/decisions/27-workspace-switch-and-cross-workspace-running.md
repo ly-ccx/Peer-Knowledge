@@ -1,8 +1,9 @@
 # ADR 27 — 工作区切换与跨工作区运行可见性(Workspace Switch & Cross-Workspace Running)
 
-状态: Accepted（实现中）
+最后更新：2026-11-15（明确跨工作区可见性在 0.1 默认 Bot 列表工作台与项目代理宿主下的衔接）
+状态: Accepted（实现中；跨项目／跨 Bot 并发投影与侧栏可见性已由 [ADR 80](80-project-agent-delegation-model.md)、[ADR 84](84-bot-list-shell.md) 与 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 扩展承接）
 级别: A 级（触及活跃流运行时投影契约 + 跨进程 IPC payload 形状 + renderer 投影）
-关联: 22-stream-reattach-on-reload, 20-architecture-governance, 19-system-prompt-context-architecture
+关联: [22-stream-reattach-on-reload](22-stream-reattach-on-reload.md), [20-architecture-governance](../architecture/20-architecture-governance.md), [19-system-prompt-context-architecture](../architecture/19-system-prompt-context-architecture.md)
 
 ## 背景
 

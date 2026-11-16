@@ -1,10 +1,10 @@
 # ADR 106：结构化只读 Git 与委派能力准入
 
 创建时间：2026-10-23
-最后更新：2026-10-24
+最后更新：2026-11-15（明确依赖指向 ADR 104-progressive，与重号 Proposed 草案 ADR 104-visibility 消歧）
 状态：Accepted（用户明确授权先更新 ADR，再实现和审阅；测试及运行验收留到发布前）
 级别：A（能力暴露、任务契约与 Evidence），B（委派准入与错误恢复）
-依赖：ADR 15、16、35、49、80、91、92、101、103、104
+依赖：ADR 15、16、35、49、80、91、92、101、103、[104-progressive](104-progressive-interaction-and-coordination-storage.md)（注：重号文件 [104-bot-capability-visibility](104-bot-capability-visibility.md) 仍为 `Proposed` 草案，不在本依赖链内）
 
 ## 问题与事实
 

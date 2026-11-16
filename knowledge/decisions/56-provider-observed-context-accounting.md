@@ -1,7 +1,7 @@
 # ADR 56：Provider 实测优先的精确上下文记账
 
 - 创建时间：2026-07-25
-- 最后更新：2026-07-26
+- 最后更新：2026-11-15（跨 ADR 对齐：明确 `input_prediction` 预约与 UTF-8 估算迁出 `requests.jsonl`，守护不变式 1 / 7）
 - 状态：已采纳并完成 Phase 5（Usage Scope 统一）
 - 关联代码仓：`peer_agent`（本地 `/Users/liangyin/Documents/DEV/github/peer_agent`）
 - 取代：ADR 52 中“本地估算是上下文权威值、provider usage 只用于诊断”的决策
@@ -655,9 +655,10 @@ conversation_lifetime  // 只用于会话累计与成本展示
    `requests.jsonl` 行恢复上下文百分比；
 4. 没有 provider-request 证据时显示未知，不得把计费累计冒充容量真值。
 
-`requests.jsonl` 的历史文件名暂不迁移，但新增行必须写
+`requests.jsonl` 的历史文件名暂不迁移，但新增行必须只写会话计费的
 `usageScope: "runtime_turn"` 与 `providerRequestCount`。文件的 Interface 明确为
 runtime-turn billing ledger；任何 context 模块依赖该文件都由架构检查阻止。
+同时按 [ADR 25](25-runtime-usage-ledger.md) 与 [ADR 115](115-input-prediction-and-draft-boundary.md) 2026-11-15 对齐契约：后台 `input_prediction` 的预约、结算与 UTF-8 字节估算必须写入独立的 `usage/input-prediction.jsonl`，不得复用 `requests.jsonl`（现存 115 首版复用代码记为迁移债务），更不得违反本 ADR 不变式 1 / 7 进入上下文容量判断。
 
 Desktop 与 CLI/TUI 的 durable 写入统一下沉到 conversation-store：
 

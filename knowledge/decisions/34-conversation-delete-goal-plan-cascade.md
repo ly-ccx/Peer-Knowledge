@@ -1,8 +1,11 @@
 # Conversation Delete Cascades to Goal Plans
 
+创建时间：2026-06-18
+最后更新：2026-11-15（收窄硬删除适用范围至经典空闲对话，补充 0.1.0 资源锁/未知义务边界）
+
 ## Status
 
-Implemented locally on 2026-06-18.
+Accepted（2026-06-18 本地实施；2026-11-15 补充 0.1.0 适用边界）。
 
 ## Problem
 
@@ -64,6 +67,7 @@ store depends only on `fs`/`path`/`crypto` and never imports Electron.
   conversation are not preserved as standalone Evidence. Plans not owned by any
   conversation (e.g. created without a `conversationId`) are unaffected because
   they do not match the deleted conversation's id.
+- **0.1.0 Project Bot & Resource-Settlement Scope (aligned 2026-11-15):** Direct hard-unlinking of `${planId}.json` applies **only** to idle standalone classic chats with no unsettled resource claims, `RetainedUnknown` records, or unconfirmed stop/control obligations. In Project Bot mode ([ADR 80](80-project-agent-delegation-model.md)) or whenever any linked plan holds active execution, active/reconciling claims ([ADR 116](116-session-control-and-resource-settlement.md)), `RetainedUnknown` history ([ADR 126](126-execution-resource-claim-closure-and-unknown-retention.md) / [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)), or pending obligations ([ADR 120](120-runtime-facts-disposition-and-resource-wait.md) / [ADR 124](124-legacy-stop-obligation-controlled-resolution.md)), deletion must first traverse Session Control settlement / controlled closure or fail closed rather than silently unlinking active claim/unknown evidence.
 
 ## Consequences
 

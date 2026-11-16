@@ -1,7 +1,7 @@
 # Runtime Usage Ledger
 
 - 创建时间：2026-06-25
-- 最后更新：2026-07-26
+- 最后更新：2026-11-15（跨 ADR 对齐：明确 `requests.jsonl` 与 [ADR 115](115-input-prediction-and-draft-boundary.md) `input_prediction` 账本物理隔离）
 
 ## Status
 
@@ -119,6 +119,10 @@ Production Desktop and CLI/TUI must not implement separate lifetime/log writes.
 Existing `requests.jsonl` rows have no reliable scope and are treated as legacy
 runtime-turn billing rows. New rows carry `usageScope: "runtime_turn"` and
 `providerRequestCount`. Context restore must never read this billing file.
+
+> [!NOTE] 与 ADR 56 / ADR 115 对齐（2026-11-15）
+>
+> `requests.jsonl` 只承接会话 `runtime_turn` 账本行。按 [ADR 56](56-provider-observed-context-accounting.md) 与 [ADR 115](115-input-prediction-and-draft-boundary.md) 2026-11-15 对齐契约，后台 `input_prediction` 预约、结算与基于 UTF-8 字节上界的估算**不得**写入 `requests.jsonl`，而必须独立记录到 `usage/input-prediction.jsonl`（当前 115 首版实现复用 `requests.jsonl` 的代码行为已明确记为迁移债务）。
 
 ## Error Semantics
 

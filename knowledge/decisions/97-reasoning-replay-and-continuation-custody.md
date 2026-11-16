@@ -1,9 +1,9 @@
 # ADR 97：推理回传、续接归属与已汇报等待
 
 创建时间：2026-10-18
-最后更新：2026-10-18
+最后更新：2026-11-15（跨 ADR 对齐：补全 ADR 19 相对链接，并作为窄例外登记入 ADR 57）
 状态：Accepted（用户要求修复三条链路并用真实任务验收）
-级别：A（Provider 上下文、持久协调状态），B（主 Bot 调度）；继承 ADR19、88、91、93–96。
+级别：A（Provider 上下文、持久协调状态），B（主 Bot 调度）；继承 [ADR 19](../architecture/19-system-prompt-context-architecture.md)、88、91、93–96。
 
 ## 1. 现场与目标
 
@@ -17,7 +17,7 @@ Interface：现有 Provider encoder 接收原生 assistant reasoning_content；O
 
 DeepSeek tools + thinking 要求所有 assistant 推理回传（含无工具的历史轮）。不能从可见摘要、助手解释或另一模型内容拼造推理。旧历史缺失原生字段时，wire adapter 将该历史 assistant 与紧随其后的已配对 Tool Result 一起表达为带标签的普通历史数据；不发成可执行工具调用、不转为 system、不改写 canonical 历史。已存在的真实字段（包括明确空字符串）完整保留。无工具和其他 Provider 不受此历史适配影响。旧 checkpoint 同样经过 encoder。新产生的工具结果继续由原有 Runtime/PermissionGrant/Evidence 配对，不重放已完成工具。
 
-依据：[DeepSeek Thinking Mode](https://api-docs.deepseek.com/guides/thinking_mode/)。
+依据：[DeepSeek Thinking Mode](https://api-docs.deepseek.com/guides/thinking_mode/)。上述对缺失原生 `reasoning_content` 旧历史的 wire adapter 标签化降低，已作为唯一 wire 编码层窄例外登记于 [ADR 57 §3.7](57-canonical-conversation-history-projector.md)。
 
 ## 3. Continuation Custody Module
 

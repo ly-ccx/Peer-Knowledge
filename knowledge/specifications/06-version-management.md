@@ -1,7 +1,10 @@
 # 版本管理
 
 创建时间：2026-06-10
-最后更新：2026-08-19
+最后更新：2026-11-16（对齐 ADR 129 `PR #133` / [ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)：统一 Rust Core `crates/*/Cargo.toml` 纳入同根 `VERSION` 与双宿主发版列车；`@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 于 `1.0.0` 前彻底走 deprecation 退场且不留 JS 薄壳 SDK；npm 长期一等发布收敛至 `@peer-agent/protocol` 与 `@peer-agent/cli`）
+
+> [!NOTE] 2026-11-16 终局发布口径说明（[ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)）
+> 下文 `@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 的“开放 Runtime 版本策略”仅用于确保已发布 `0.1.0-rc.*` 过渡包在正式退场前随 `VERSION` 对齐不断更，退场后不再于 npm 维护 JS/TS 运行库或薄壳封装（详见 [ADR 54 修订](../decisions/54-open-runtime-public-packages-and-release-policy.md)）。Rust workspace crates 须始终与根 `VERSION` 严格同步。
 
 > 状态：当前已发布正式版为 `0.0.5`；上一开发线最新 beta 为 `0.0.5-beta.4`  
 > 目标：让 Peer Agent 从第一版开始具备清晰版本事实源、发布边界和变更记录，避免脚手架阶段的版本漂移。

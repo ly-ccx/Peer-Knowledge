@@ -1,8 +1,9 @@
 # 69. 合回分流（Triage）分类器：结构化 verdict 替代布尔判定
 
 创建时间：2026-08-26
+最后更新：2026-11-15（标明 Project Bot 模式下静默 `AUTO_MERGE` 由 ADR 80 决策 7–8 取代，且合回写入受 ADR 116 / 127 资源锁约束）
 
-状态：Accepted
+状态：Accepted（分类诊断保留；0.1.0 Project Bot 模式下 `AUTO_MERGE` 无确认自动合并已部分取代）
 
 级别：B 级（改 handoff 执行层判定语义；`goal-delivery-handoff.mjs` 分类器、测试、协议文案）
 
@@ -55,7 +56,7 @@ triageTaskLine({ repositoryRoot, taskBranch, targetBranch, baseCommit }) -> {
 
 ### 2. 处置语义
 
-- `AUTO_CLEAN` / `AUTO_MERGE` / `STALE`：**系统自动消化，不进「需要你」队列**。AUTO_CLEAN/STALE 静默标记并归档；AUTO_MERGE 走原有暂移→合入链路。
+- `AUTO_CLEAN` / `AUTO_MERGE` / `STALE`：**系统自动消化，不进「需要你」队列**。AUTO_CLEAN/STALE 静默标记并归档；AUTO_MERGE 走原有暂移→合入链路。（**2026-11-15 对齐**：该规则仅保留于经典单对话合回；在 0.1.0 Project Bot 模式下，按 [ADR 80](80-project-agent-delegation-model.md) 决策 7–8，实质代码合入主工作区须由用户确认触发，不得静默执行 `AUTO_MERGE`。此外，所有暂移/合并写盘及 worktree 清理动作必须先取得并通过 [ADR 116](116-session-control-and-resource-settlement.md) / [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md) 资源 claim 校验。）
 - `BLOCKED_ENV`：维持现有 stopped + 重试，文案修正为「目标工作区有未提交的改动 / 环境暂不可用」，不再笼统说「改别的东西还没提交」。
 - `CONFLICT`：唯一需要用户实质决断的情形。携带 `collisions` 清单，供后续收口视图（P2）批量呈现；本期先维持单卡 + 修正文案，但 verdict 数据已落盘可回溯。
 

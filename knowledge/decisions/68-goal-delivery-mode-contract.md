@@ -1,8 +1,9 @@
 # 68. 交付模式契约：direct 与隔离合回统一语义
 
 创建时间：2026-08-26
+最后更新：2026-11-15（标明 Project Bot 模式下默认直写与无确认合回已由 ADR 80 决策 7–8 取代，并受 ADR 116 / 127 资源占用锁约束）
 
-状态：Accepted
+状态：Accepted（经典单对话 Goal 模式基线；在 0.1.0 Project Bot 模式下，默认 `direct` 写回与无确认直落已部分取代）
 
 级别：A 级（改合回契约：GoalDeliveryHandoff 增字段、交付事实写入点、UI 渲染语义、脏检查策略）
 
@@ -85,6 +86,11 @@ export interface GoalDeliveryHandoff {
 - 不改隔离合回的状态机与重试语义（stopped → 重试仍走原链路）。
 - 不给 direct 交付加「合回」动作——没有东西可合。
 - 不迁移存量 stopped 记录的 stoppedReason。
+
+## 模式适用边界（2026-11-15 对齐）
+
+- **0.1.0 Project Bot 模式（[ADR 80](80-project-agent-delegation-model.md) 决策 7–8）**：委托执行默认走隔离工作树/分支；不再采用默认直接提交到主工作区（无隔离 `direct`）或绕过用户确认的静默写入。`direct` 交付事实仅用于保留经典单对话兼容基线，且不作为主线新增能力的默认模式。
+- **资源锁接入（[ADR 116](116-session-control-and-resource-settlement.md) / [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)）**：任何合回写盘与分支清理动作，在执行前仍须按声明范围取得并结清设备级 `execution-resources` claim，不得在目录尚持未知占用时直接合入。
 
 ## 验收
 

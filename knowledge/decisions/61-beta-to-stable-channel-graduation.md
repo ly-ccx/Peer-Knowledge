@@ -7,7 +7,7 @@ Accepted on 2026-08-03。设计决策已与产品方对齐，落地前仅作为�
 （见 §Implementation Notes）。本知识库仅存知识，代码改动一律在代码仓落地。
 
 - 创建时间：2026-08-03
-- 最后更新：2026-08-03
+- 最后更新：2026-11-15（跨 ADR 对齐：将 `auto` 自动毕业规则由仅 `-beta` 扩展至 `-alpha` / `-beta` / `-rc` 全预发布通道，对齐 [ADR 54](54-open-runtime-public-packages-and-release-policy.md) 与 [ADR 108-cli](108-cli-basic-shell-commands.md)）
 
 ## Context
 
@@ -59,10 +59,9 @@ beta 线结束后带他走完全符合预期。
 
 ### 毕业判定信号
 
-> **auto 用户当前装的是 `x.y.z-beta.n`，当 stable 通道出现一个版本号严格
-> 大于当前安装版本时，即视为该 beta 线已毕业，切到 stable。**
+> **auto 用户当前装的是 `x.y.z-(alpha|beta|rc).n` 等预发布版本，当 `latest`（stable）通道出现一个版本号严格大于当前安装版本时，即视为该预发布线已毕业，自动切到 stable。**
 
-该定义天然处理所有边界：
+该定义同样覆盖 [ADR 54](54-open-runtime-public-packages-and-release-policy.md) 的 `-alpha` / `-beta` / `-rc` 全预发布通道（与 `PRERELEASE_PATTERN = /-(beta|alpha|rc)\b/i` 对齐，不再仅限 `-beta`）。该定义天然处理所有边界：
 
 - 用户 `1.0.0-beta.5`，stable 发 `1.0.0` → semver `1.0.0 > 1.0.0-beta.5`
   ✅ 毕业
@@ -101,15 +100,10 @@ stable；没有再回退 beta。
 
 1. **改动落点**：`peer_agent` 仓 `apps/desktop/electron/main/auto-updater.mjs`
    的 `checkForUpdates` 检查链路。`resolveUpdateChannel` 的签名可不动。
-2. **auto 双通道检查**：偏好为 `auto` 且当前版本含 `-beta` 时，一次检查里
-   先查 stable 通道（`latest*.yml`），若存在严格大于当前版本 → 读 stable
-   触发毕业更新；否则回退读 beta 通道（`beta*.yml`）。
-3. **不碰 beta / stable 偏好**：这两个显式锁定，永远只读单通道。
-4. **毕业后无状态维护**：升级到 stable 版本号后，版本号不含 `-beta`，
-   `resolveUpdateChannel` 回退自动留在 stable，无需持久化「已毕业」标志。
-5. **版本号契约不变**：`publish.sh stable` 取 `VERSION` 文件，`beta` 在其
-   上加 `-beta.N`，保证正式版号严格大于 beta 号。不得手工打低于 beta
-   基线的正式 tag。
+2. **auto 双通道检查**：偏好为 `auto` 且当前版本匹配 `PRERELEASE_PATTERN`（`-alpha` / `-beta` / `-rc`）时，一次检查里先查 `latest`（stable）通道（`latest*.yml`），若存在严格大于当前版本 → 读 `latest` 触发毕业更新；否则回退读当前预发布通道（`alpha*.yml` / `beta*.yml` / `rc*.yml`）。
+3. **不碰显式锁定偏好（beta / rc / stable）**：显式锁定预发布或正式通道时只读对应单通道，不越通道毕业。
+4. **毕业后无状态维护**：升级到 stable 版本号后，版本号不再匹配 `PRERELEASE_PATTERN`，`resolveUpdateChannel` 回退自动留在 stable，无需持久化「已毕业」标志。
+5. **版本号契约不变**：`publish.sh stable` 取 `VERSION` 文件，`alpha`/`beta`/`rc` 在其上加对应预发布后缀，保证正式版号严格大于预发布基线（符合 semver precedence 与 [ADR 54](54-open-runtime-public-packages-and-release-policy.md)）。不得手工打低于当前预发布基线的正式 tag。
 
 ## Consequences
 

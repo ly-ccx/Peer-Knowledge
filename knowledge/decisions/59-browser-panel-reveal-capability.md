@@ -1,7 +1,10 @@
 # 59. Browser 面板主动打开与可见工作现场闭环
 
 创建时间：2026-08-03
-最后更新：2026-08-15
+最后更新：2026-11-15（补充重号消歧说明，并标注受 ADR 66 / 72 / 85 / 109 收窄的适用范围）
+
+> [!NOTE] 重号消歧
+> 历史并发编写导致编号 `59` 同时对应 [59-browser-panel-reveal-capability.md](59-browser-panel-reveal-capability.md)（本篇，Browser 面板主动打开与可见工作现场闭环）与 [59-appshots-capability-boundary.md](59-appshots-capability-boundary.md)（Appshots 能力边界）。外部引用 `ADR 59` 时必须附带完整文件名以免混指。
 
 ## 状态
 
@@ -88,6 +91,10 @@ Capability Provider(local.web.control)
 - `browser_reveal_timeout`
 - `no_active_browser`
 - `browser_unavailable`
+
+> **被后续 ADR 部分取代说明（2026-11-15 对齐）**：
+> 1. 在经典前台会话中，“Workbench 面板未展开 / reveal 超时即返回 `no_active_browser` / `browser_reveal_timeout` / `renderer_unavailable` 失败”已被 [ADR 66](66-browser-headless-fallback-execution.md) 取代——reveal 降级为尽力而为副作用，未挂载可见视图时退回同分区 headless `<webview>` 执行（`status: 'background', headless: true`）。
+> 2. 在 0.1.0 **Project Bot 模式**（[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 5）下，`work_session` 不投影 L1 `browser_*`、也不触发 L1 面板 reveal（网页执行走 L2 `browser_external_*` 与 `web_fetch`）；L1 `BrowserSession` 专属于用户打开的右侧资源窗口网页标签、独立浏览器窗口与经典前台对话（[ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) / [ADR 125](125-resource-window-directory-tabs.md)）。
 
 ### 三、Main 负责协调，Renderer 负责表达
 

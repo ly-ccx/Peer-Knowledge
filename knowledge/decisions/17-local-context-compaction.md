@@ -1,8 +1,11 @@
 # Local Context Compaction 机制设计
 
 创建时间：2026-06-08
-最后更新：2026-07-24
+最后更新：2026-11-15（标注早期 `0.75/0.95` 与 `user` 消息交接块条款已被 [System Context 架构](../architecture/19-system-prompt-context-architecture.md) 及 [ADR 55](55-shared-system-context-assembler.md) / [ADR 56](56-provider-observed-context-accounting.md) / [ADR 57](57-canonical-conversation-history-projector.md) 取代）
 状态：设计草案
+
+> [!NOTE] 部分替代提示（2026-11-15）
+> 本草案确立的“不把大工具输出无选择塞进 prompt、工具成对完整性”仍为设计基础，但触发阈值与计量权威已由 [ADR 56](56-provider-observed-context-accounting.md)（`softRatio = 0.80` / `hardRatio = 0.92` / 精确预检 + Provider 实测，取代早先 `0.75` 与 `0.95` 启发式）接管；续接摘要的注入层位与 canonical projection 已由 [ADR 55](55-shared-system-context-assembler.md)（`L7_CONTINUITY`）与 [ADR 57](57-canonical-conversation-history-projector.md) 接管（取代下文“handoff block 使用 user message”的写法）。
 
 本文定义 Peer Agent 本地侧的上下文压缩机制。重点不是“如何把历史塞进更短摘要”，而是建立一套本地任务线程可持续工作的上下文治理方法。
 
@@ -208,7 +211,7 @@ triggerRatio: 0.8
 targetRatio: 0.35
 ```
 
-（2026-07-24 校准：早期草案建议 0.75，`peer_agent` 实际落地为 0.8，另有 hardRatio 0.95 硬拦截线与摘要输出/安全区预留；以代码为准，详见 `knowledge/architecture/23-compaction-path-root-governance.md`。）
+（2026-07-24 校准：早期草案建议 0.75，`peer_agent` 曾按 0.8 / hardRatio 0.95 实现；**2026-11-15 对齐**：现行触发阈值与输入预算契约已由 [ADR 56](56-provider-observed-context-accounting.md) 统一为 `soft = 0.80`、`hard = 0.92` 且受 `inputBudget` 严格约束，详见 [System Context 架构](../architecture/19-system-prompt-context-architecture.md) 与 `knowledge/architecture/23-compaction-path-root-governance.md`。）
 
 如果模型 context window 特别大，可以把 trigger 提高到 0.85，但不应因此允许工具输出无节制 inline。
 
@@ -261,7 +264,7 @@ Local compaction 的摘要不是越像自然语言越好，而是越可恢复越
 - 自动 compact 成功后写回线程上下文，避免下一轮又加载未压缩历史。
 - 引入 local artifact ref，避免大工具输出进入 prompt。
 - 引入 microcompact，优先清理旧工具结果。
-- handoff block 使用 user message，而不是单纯 system summary。
+- handoff block 使用 user message，而不是单纯 system summary。**[已由 [ADR 55](55-shared-system-context-assembler.md) / [ADR 57](57-canonical-conversation-history-projector.md) 取代**：续接摘要现通过 System Context `L7_CONTINUITY` 与 canonical history `_compaction` 分界投影注入，不再把系统交接伪装成用户发言。**]**
 - 切分时保护 tool call / tool result 配对。
 - prompt-too-long emergency compact 后自动重试。
 

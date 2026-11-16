@@ -1,11 +1,11 @@
 # 72. 网页任务默认入口：L1 内置浏览器（`browser_*`）
 
 创建时间：2026-09-02
-最后更新：2026-09-02（第一刀系统提示落地）
+最后更新：2026-11-15（收窄适用范围：L1 默认网页入口仅限经典前台会话；0.1.0 Project Bot 模式遵循 ADR 85 决策 5）
 
 ## 状态
 
-Accepted（第一刀已落地：系统提示）。产品边界钉死为 L1 `browser_*`。`peer_agent` 已增加 `runtime.web-entry` Context Source，并在 `browser_external_open` 提示中写明 L2 不是默认网页入口。本切片**不**删除 `browser_external_*` 投影。locator 的 role / nth / `hasText` / `testid` 已落地；等待补全与真机验收仍属后续切片。
+Accepted（经典前台会话适用；第一刀系统提示已落地）。产品边界在前台经典会话钉死为 L1 `browser_*`（[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 5 明确：0.1.0 Project Bot 模式下 `project_agent` 不挂网页执行工具、`work_session` 剥离 L1 并使用 L2 Playwright `browser_external_*` 与 `web_fetch`）。`peer_agent` 已增加 `runtime.web-entry` Context Source，并在 `browser_external_open` 提示中写明 L2 不是默认网页入口。本切片**不**删除 `browser_external_*` 投影。locator 的 role / nth / `hasText` / `testid` 已落地；等待补全与真机验收仍属后续切片。
 
 ## 级别
 
@@ -29,9 +29,11 @@ A 级 —— 变更网页任务的默认执行面与模型可见入口：默认�
 
 ## 决策
 
-### 决策一：网页任务默认入口是 L1 `browser_*`
+### 决策一：经典前台网页任务默认入口是 L1 `browser_*`
 
-Agent 处理网页任务时，默认只走：
+> **模式与执行面隔离（2026-11-15 对齐）**：本条“默认使用 L1 `browser_*`”**仅适用于用户在前台看到的经典单对话模式**；L1 `BrowserSession`（`browser_*`）归属于用户打开的右侧资源窗口网页标签、独立浏览器窗口及经典前台对话（[ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) / [ADR 125](125-resource-window-directory-tabs.md)）。在 0.1.0 **Project Bot 模式**（[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 5）下：主 Bot（`project_agent`）不直接投影网页执行工具（[ADR 80](80-project-agent-delegation-model.md)），后台受委派任务（`work_session`）**剥离 L1 `browser_*`**，统一走 **L2 Playwright（`browser_external_*`，[ADR 71](71-l2-playwright-external-browser.md)）+ `web_fetch`（[ADR 38](38-web-search-fetch-provider.md)）** 并通过链接/截图产物交回结果。
+
+在经典前台会话中，Agent 处理网页任务时默认走：
 
 ```text
 Capability Provider(local.web.control.*)
@@ -120,7 +122,7 @@ L1 接得住的上限：Workbench 内、Peer 分区、当前 conversation 的网
 
 - ADR 40 内嵌浏览器与 Agent 直控
 - ADR 46 会话绑定标签与 `persist:peer-browser`
-- ADR 59 面板 reveal
+- [ADR 59 面板 reveal](59-browser-panel-reveal-capability.md)（经典前台 reveal/ack；已由 ADR 66 / 85 收窄）
 - ADR 66 headless 降级（仍属 L1）
 - ADR 70 L1 动作面
 - ADR 71 L2 Playwright 安全模型（L2 仍有效，但不再是默认入口）

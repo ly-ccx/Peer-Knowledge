@@ -1,7 +1,7 @@
-# ADR 123：主 Bot 会话的无感记忆
+# ADR 123：主 Bot 会话的无感上下文整理（情节压缩）
 
 创建时间：2026-11-06
-最后更新：2026-11-06（修订容量权威、有限准入、语义保真、回读、并发提交与失败恢复）
+最后更新：2026-11-15（跨 ADR 对齐：更名为「无感上下文整理（情节压缩）」，增补 `L7_CONTINUITY` 与 [ADR 81](81-project-agent-memory-system.md) 预算仲裁、复用 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) SQLite/FTS 及非阻塞回读约束；本文仍为 Proposed）
 
 状态：Proposed（方案；未授权实现，也未验收）
 
@@ -13,8 +13,9 @@
 - `knowledge/decisions/52-unified-next-request-context-accounting.md` — 只沿用最终请求投影、单 Runtime 入口与 revision 防乱序；估算权威条款已被 ADR 56 取代
 - `knowledge/decisions/56-provider-observed-context-accounting.md` — 精确计数、Provider 实测、输入预算、epoch、摘要费用及 overflow 恢复的现行契约
 - `knowledge/decisions/57-canonical-conversation-history-projector.md` — 分界之后的原文才进请求。主 Bot 的分界改到情节记录，不插入假用户消息
-- `knowledge/decisions/81-project-agent-memory-system.md` — 长期记忆的准入、来源、事实层、用户撤销与项目隔离；本文情节只服务本会话连续性
-- `knowledge/decisions/111-project-agent-duplex-supervision-and-continuity.md` — `prepare_context_handoff` 仍只服务某个工作，不承担主会话记忆
+- `knowledge/decisions/81-project-agent-memory-system.md` — 长期记忆的准入、来源、事实层、用户撤销与项目隔离；本文聚焦单会话「无感上下文整理（情节压缩）」（文件名暂保留 `123-main-bot-unnoticed-memory.md` 以维持既有引用稳定），不与 ADR 81 长期记忆混淆
+- `knowledge/decisions/104-progressive-interaction-and-coordination-storage.md` — 情节检索与本地全文索引必须复用 ADR 104-progressive 的 SQLite/FTS 派生索引契约，不新建第三套索引
+- `knowledge/decisions/111-project-agent-duplex-supervision-and-continuity.md` — `prepare_context_handoff` 仍只服务某个工作，不承担主会话长期记忆或全会话情节整理
 
 代码事实（起草时，`PeerAgent/dev/0.1.0`）：主 Bot 下一轮从交互记录读取全部 `user_input` 与 `agent_reply`，没有条数上限。桌面在请求前走普通对话压缩，可能写回一条带 `_compaction` 的用户消息。命令行把记录收成 `role` 和 `content` 后再送，标记丢失，下一轮仍是整段。子会话在 `goal` 模式使用有界 keep 和 `resuming_after_compaction`。这不是主 Bot 的路径。
 
@@ -135,10 +136,12 @@ episode {
 选中的情节按历史顺序渲染，原文保持 canonical history 顺序。回读与工具引用走既有事实层，保留身份、来源标签和原时间；不冒充新用户发言，不因为排在后面就拥有更高权威：
 
 ```text
-已选情节 + 回读 + 工具引用 -> 现有事实层 Context Source
+已选情节 + 回读 + 工具引用 -> 现有事实层 Context Source（归入 L7_CONTINUITY）
 未覆盖逐字尾 -> canonical active history
 两者 -> System Context / Provider Encoder / 容量流水线
 ```
+
+- **`L7_CONTINUITY` 与 ADR 81 的预算仲裁**：本会话情节摘要、回读引用与 [ADR 81](81-project-agent-memory-system.md) 的长期记忆共同写入 [System Context 架构](../architecture/19-system-prompt-context-architecture.md) 中的 `L7_CONTINUITY` 连续性层；当主 Bot 上下文共享 ADR 81 的可执行 **6000 字符**连续性／简报上限时，两者必须在同一 `L7_CONTINUITY` 预算账本内显式扣减与仲裁，优先保留本轮适用用户约束与当前任务指令，禁止长期记忆与情节整理各自叠加撑破上限。
 
 当前用户纠正优先于情节；记忆与情节不得越过项目指令或系统规则。只有同一对象、同一范围内明确的后续更新才能取代旧陈述。旧情节可保留历史并标记被取代，来源编号仍指向原话；较新的助手猜测、不同任务要求或回读的旧原文不能自动覆盖用户决定。无法判断冲突时回读或询问，不自行扩大全局适用范围。
 
@@ -147,9 +150,9 @@ episode {
 整理不删除交互记录。回读有两种入口：
 
 1. 已知情节与 `sourceIds`：按精确身份读取原消息。
-2. 摘要未保留的细节：按用户指代、对象、时间或关键词，在当前授权会话的情节及交互历史中做有界本地检索，再回读命中原文。索引可重建，不能把“没找到情节”直接当“历史从未说过”。首版复用本地全文检索，不新增向量服务依赖。
+2. 摘要未保留的细节：按用户指代、对象、时间或关键词，在当前授权会话的情节及交互历史中做有界本地检索，再回读命中原文。索引可重建，不能把“没找到情节”直接当“历史从未说过”。本地全文检索直接复用 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 既有交互 SQLite/FTS 派生索引机制，**禁止新增向量服务或第三套独立全文索引**。
 
-检索/读取须复用或扩展受治理的只读 Provider seam：Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。模型可见能力需在实施前完成协议、投影与权限评审；投影模块不隐式执行 shell、任意文件读取或跨会话搜索。无现成能力时明确记录缺口，不宣称方案已可回读。拒绝、超时、缺源与范围外读取分别返回结构化结果，不猜测相似对象。
+检索/读取须复用或扩展受治理的只读 Provider seam：Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence。模型可见能力需在实施前完成协议、投影与权限评审；投影模块不隐式执行 shell、任意文件读取或跨会话搜索。**非阻塞回读约束**：回合内情节整理后的自动／上下文被动回读仅允许消费已授权且立即可读的当前会话只读切片，缺权或越界时按 fail-closed 结构化返回缺失／拒绝原因，**严禁在模型回合装配或续跑中途弹出交互式 `PermissionGrant` 审批框而阻断主回合**。无现成能力时明确记录缺口，不宣称方案已可回读。拒绝、超时、缺源与范围外读取分别返回结构化结果，不猜测相似对象。
 
 正文只在本轮事实层使用。后续在有限轮次保留源消息 id、对象与检索定位作为短期引用，支持“那第二个呢”一类追问；不复制整份回读正文，不绕过再次读取权限。引用仍受预算、源版本、撤销及删除检查。回读旧话不会获得当前用户消息的时效或指令地位。
 
@@ -218,7 +221,7 @@ Provider overflow 继续按 ADR 56：记录该请求的实测错误证据 → �
 
 主 Bot 复用 ADR 57 的 canonical 消息解释原语，不复制工具配对、附件、thinking 排除或 Provider 格式规则。现有 `projectConversationHistory` 继续解释经典对话及旧 `_compaction`；主 Bot 新分界来自已提交情节，且不能被后续普通压缩旁路再次写成假用户交接。事实块经现有注册 Context Source 进入事实层，不新增系统指令层序或 renderer 拼接路径。
 
-情节存在会话数据根下的旁路记录，带 schema/reader/writer 版本、源范围和内容哈希；跨进程提交及数据登记复用现有存储机制。实施时必须定义旧宿主遇到新情节数据的兼容门禁，不允许忽略情节后重新发送全文或降级覆盖。只有派生索引可重建；重建不能覆盖未知源数据、历史或 Evidence。
+情节存在会话数据根下的旁路记录，带 schema/reader/writer 版本、源范围和内容哈希；跨进程提交及数据登记复用现有存储机制，衍生全文索引复用 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 的 SQLite/FTS 底座而非另建第三套索引。实施时必须定义旧宿主遇到新情节数据的兼容门禁（若需扩展协调/可读格式版本，**必须取 `> 11`（`12+`）未占用代次**，不得复用已被占用的 `<= 11` 门禁），不允许忽略情节后重新发送全文或降级覆盖。只有派生索引可重建；重建不能覆盖未知源数据、历史或 Evidence。
 
 预检、计量、计费、Provider overflow 和取消继续由已有运行时拥有。接受并实施本文前，冻结预算默认值、最小 reader/writer、只读检索能力的复用/扩展方案及恢复入口映射，并写入实施记录；不能将这些必要 Interface 留给两宿主自行猜测。没有相应模块/宿主验证时，本 ADR 不可标注实现完成。
 

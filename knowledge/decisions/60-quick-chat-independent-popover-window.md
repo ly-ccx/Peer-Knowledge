@@ -1,8 +1,9 @@
 # Quick Chat 独立 Popover 窗
 
-日期：2026-07-30  
-分支：`dev/0.0.1`  
-状态：已定案（实现依据）  
+日期：2026-07-30
+最后更新：2026-11-15（规范标注 Accepted 并对齐 `effort` 全词表与渠道分组口径）
+分支：`dev/0.0.1`
+状态：Accepted（已定案实现依据；其中 `effort` 选项已由 [ADR 37](37-provider-channel-and-wire-protocol-separation.md) 与 [ADR 48-provider](48-provider-model-options.md) 统一为 `off | low | medium | high | xhigh | max`，`model` 分组逻辑与 [ADR 76](76-peer-acp-agent.md) 共享）
 关联：`design/product/quick-chat-floating-window.md`
 
 ## 背景

@@ -1,8 +1,10 @@
 # ADR 105：协调基线的可迁移内容证明
 
 日期：2026-10-22
+最后更新：2026-11-15（规范标注 `状态：Accepted` 并消歧 [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)）
+状态：Accepted（协调基线可迁移内容证明 `sealCoordinationBackup` / `legacy-seal.json` 已作为既定恢复契约采纳；发布验收另记）
 级别：A（存储恢复契约）；实施前决策，发布验收另记。实现者自审，不宣称独立审查。
-关联：[ADR 104](104-progressive-interaction-and-coordination-storage.md)、[治理基线](../architecture/20-architecture-governance.md)。用户已授权修复日志恢复并在发布前验证安装包；保留现有任务、对话、证据，不影响当前实例。
+关联：[ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)、[治理基线](../architecture/20-architecture-governance.md)。用户已授权修复日志恢复并在发布前验证安装包；保留现有任务、对话、证据，不影响当前实例。
 
 ## 现场与问题
 

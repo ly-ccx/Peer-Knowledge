@@ -1,6 +1,7 @@
 # 63. 用户产物与 Evidence 边界
 
 创建时间：2026-08-16
+最后更新：2026-11-15（补充 ADR 90 对部分 GIF/WebP 预览须走 Chromium bitmap 解码器的边界约束）
 
 状态：Accepted
 
@@ -137,7 +138,7 @@ UserArtifact.preview =
 边界：
 
 - 代码预览来自 `edit_file` 已生成的真实 unified diff；最多 40 行，每行最多 240 个字符。`additions` / `deletions` 基于完整 diff 统计，不含 `+++` / `---` 头行。
-- 图片预览只由确认生成图片的主进程 Provider 产生；使用 Electron `nativeImage.resize()` 将最长边限制为 640px，并编码为 PNG/JPEG/WebP data URL。
+- 图片预览只由确认生成图片的主进程 Provider 产生；常规格式使用 Electron `nativeImage.resize()` 将最长边限制为 640px 并编码为 PNG/JPEG/WebP data URL；若原始产物为动图或特定 GIF/WebP（`nativeImage` 对部分 GIF/WebP 解码受限，见 [ADR 90 §2](90-local-image-capability-and-product-review.md)），须通过 Chromium bitmap 解码器完成栅格化/缩略图转换后再生成有界预览，不回退渲染层读盘。
 - 图片 data URL 最大 512KB，只接受 `data:image/png|jpeg|webp`；超过上限则不提供 hover preview，但原始 image UserArtifact 与打开动作仍保留。
 - EvidenceIndex 对 preview 做白名单规范化与同 EvidenceRef 合并；未知 preview 类型或非法字段直接丢弃。
 - TaskOverview 协议显式投影 preview。Renderer 不使用 `fs`、不加载 `file://`、不从 `openPath` 或 ref 猜内容。

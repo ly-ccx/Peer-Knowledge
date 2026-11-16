@@ -1,7 +1,7 @@
 # ADR 116：任务控制、执行停稳与资源交接
 
 创建时间：2026-11-01
-最后更新：2026-11-08（文末确认 ADR 124 的可见性修订不改变本文的释放条件。未合并草稿不是已发布运行时）
+最后更新：2026-11-15（标注 ADR 126 / 127 已接受，对 §6.1–§6.3 / §12 的部分取代；2026-11-08 曾确认 ADR 124 可见性修订不改释放条件）
 
 2026-11-03 契约澄清：Session Control 统一拥有子执行停稳与 unknown 作用域。SessionTakeover 不得在 applied 停止回执之外把主 Bot 自己仍在执行的协调 metadata 调用算成子任务 unknown。误挂 awaiting_outcome 的接管可凭原操作的当前停止证明恢复；另一操作、新 generation、历史撤回或助手文字不能替代该证明，真实未知 shell 仍保留目录保护。接管仍 stopping 时，原生恢复的 prepare 与 commit 必须返回 coordination_reconciliation_required，不能先覆盖 control 或创建新 generation，再遗留未完成接管与撤销中的绑定。依据、边界及分阶段验证结果见[故障分析](../../playbook/v0.1.0/agent-wait-recovery-closure.md)。不改变持久化结构或最低版本。
 
@@ -325,3 +325,11 @@ queued自阻塞的资源收口仍走Session Control和原StopBarrierReceipt。�
 [ADR 124](124-legacy-stop-obligation-controlled-resolution.md) 已接受并授权实施。它增加只读核实和授权后退役跟进，并要求新的取消登记带上本机启动标识、PID 与进程起始时刻。资源释放仍只走本文的停稳回执。PID、空 token、租约更换和终态字符串仍然不能单独结清 claim，也不存在强制解锁。死亡证明以 ADR 124 第 7 节的元组为准，只作用于实现交付之后的新记录。
 
 2026-11-08 的可见性修订不改变本段。确认后退役仍不写停稳回执，也不释放 claim。索引不对用户开放的规则见 ADR 124 第 8.3 节。未合并的 Peer-Agent PR 297 不是已发布运行时。
+
+## 后续（2026-11-15，ADR 126 / 127 已接受，部分取代 §6.1–§6.3 / §12）
+
+[ADR 126](126-execution-resource-claim-closure-and-unknown-retention.md) 与 [ADR 127](127-unknown-outcome-reconciliation-and-delegated-resolution.md) 现均处于 Accepted 契约态，对本文下列条款构成**部分取代**：
+
+- **§6.1 / §12 资源粒度**：目录级粗锁收窄为按声明范围（文件 / 子目录 / Git ref / 远端对象）建立 claim，范围无法证明时仍保守保护原目录。
+- **§6.2 / §6.3 释放依据**：在保留 `stopReceipt` 作为唯一停稳证明与自动结清路径的同时，新增受控闭包出口（`ask` 档逐条 `user_panel` 确认，或用户按项目/Bot 委托的 `bot_verified` 策略由宿主核对证据后收口）：已证明进程死亡且无活体/未结束句柄的未知调用转为 `RetainedUnknown`（仅禁同 `toolCallId` 重放，不再永久封锁目录写作）；若无法证明死亡或被拒绝闭包，仍保留原 hold 或走独立 clone 逃生。
+- **格式门槛**：协调存储最低版本在 ADR 124（11）之后应取下一个可用整数（`> 11`），不得复用已作废的 `10`。

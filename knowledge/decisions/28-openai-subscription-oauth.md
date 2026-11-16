@@ -3,6 +3,8 @@
 ## Status
 Accepted
 
+最后更新：2026-11-15（修正悬空 `ADR 23` 引用至 `ADR 37`；对齐 `effort` 词表与渠道独占边界）
+
 ## Context
 
 LLM provider 接入此前只有一种鉴权方式:用户手填 API Key,经 `safeStorage`
@@ -55,16 +57,12 @@ Responses 传输"这一组合。
   config-store 并返回脱敏 View。
 - token 刷新在 `llm-chat-service` 发起请求前透明完成(临近过期即刷新并回写)。
 
-### 4. Responses 传输走既有 encoder/adapter seam(ADR 23)
+### 4. Responses 传输走既有 encoder/adapter seam（[ADR 37](37-provider-channel-and-wire-protocol-separation.md)）
 
 - 新增 `provider-adapters/openai-responses-adapter.mjs` 与
   `provider-encoders` 中的 Responses 编码;**不在 chat-adapter 内加鉴权分支**。
-- `llm-chat-service` 按 `(provider, authMethod)` 选择 adapter,保持分发为薄层。
-- UI 的 `xhigh` 必须按 OpenAI GPT-5.5 wire 契约透传。
-  OpenAI Chat Completions 的 `reasoning_effort` 与 Responses 的 `reasoning.effort`
-  支持 `low` / `medium` / `high` / `xhigh`; Peer Agent 的 `off` 不发送
-  reasoning 字段。provider encoder 不得静默降级 `xhigh`，否则 UI 语义与
-  provider 请求不一致。
+- `llm-chat-service` 按 `(provider, authMethod)` 选择 adapter,保持分发为薄层（`oauth_chatgpt` 保持仅「OpenAI 官方」channel 专属，Grok/Qoder 等走各自专用 channel 适配器）。
+- UI 与模型分工角色配置的统一 `effort` 词表覆盖 `off | low | medium | high | xhigh | max`，并按目标 `ChannelDescriptor.capabilities`（[ADR 37](37-provider-channel-and-wire-protocol-separation.md)）及角色校验（[ADR 83](83-model-routing-by-role.md)）裁剪/验证；具体到 OpenAI Chat Completions 的 `reasoning_effort` 与 Responses 的 `reasoning.effort` 透传 `low` / `medium` / `high` / `xhigh`，`off` 不发送 reasoning 字段，且 provider encoder 不得静默降级已支持档位。
 
 ### 5. 订阅登录链路:先登录、成功才落盘;失败/取消不留痕
 
@@ -191,5 +189,5 @@ LlmSettingsPanel (协议类型 + 鉴权方式 + 登录按钮)
 
 ## References
 
-- ADR 23 Provider Encoder Seam
+- [ADR 37](37-provider-channel-and-wire-protocol-separation.md) Provider Channel、Capabilities 与 Wire / Encoder Seam（历史草案曾误记作 ADR 23）
 - opencode `packages/core/src/plugin/provider/openai-auth.ts`(PKCE / 流程参考)

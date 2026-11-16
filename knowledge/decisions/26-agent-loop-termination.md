@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted locally on 2026-06-12.
+Accepted locally on 2026-06-12（Last updated: 2026-11-15 — 无上限模型驱动终止适用于单回合助手执行循环；Project Agent 自主协调循环、无进展停止与核验门禁另受 [ADR 88](88-project-agent-execution-continuity.md)、[ADR 95](95-progress-driven-execution-policy.md)、[ADR 103](103-verification-settlement-and-progress.md)、[ADR 117](117-intent-driven-coordination-and-goal-closure.md) 约束，流终态落盘屏障见 [ADR 96](96-task-execution-responsiveness.md)）。
 
 ## Problem
 

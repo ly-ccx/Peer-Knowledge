@@ -1,6 +1,7 @@
 # 62. Automation Runtime 与持久化边界
 
 创建时间：2026-08-04
+最后更新：2026-11-15（补充 Automation worktree 与共享 Git 写入的资源 claim 准入约束）
 
 状态：Accepted
 
@@ -146,6 +147,8 @@ apply(run) -> explicit user action
 ```
 
 Adapter 负责调用 Git。不得在 Scheduler、Renderer 或 Chat Runtime 添加 `capabilityId`/Git 分支特判。
+
+**资源占用边界（2026-11-15 对齐）：** 任何 Automation worktree 准备、Run 写入及 `apply` / `retainOrCleanup` 动作，均须向设备级 `execution-resources` 账本申请并结清资源 claim（[ADR 116](116-session-control-and-resource-settlement.md) / [126](126-execution-resource-claim-closure-and-unknown-retention.md) / [127](127-unknown-outcome-reconciliation-and-delegated-resolution.md)）；即使处于独立 worktree，共享 `.git` 对象库 / commondir 与目标 ref 的写入仍纳入冲突检查。
 
 ### 8. Attention 与通知
 

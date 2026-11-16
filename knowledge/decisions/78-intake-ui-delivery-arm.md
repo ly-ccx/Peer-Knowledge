@@ -1,8 +1,9 @@
 # 78. Intake 期武装 UI 交付视觉验证门
 
 创建时间：2026-09-23
+最后更新：2026-11-15（标明与 Project Agent 连续核验及意图闭环的衔接）
 
-状态：Accepted
+状态：Accepted（本节确立的 UI 交付视觉验证门及完成报告链路在 Project Agent 执行流中与 [ADR 80](80-project-agent-delegation-model.md)、[ADR 88](88-project-agent-execution-continuity.md) 及 [ADR 117](117-intent-driven-coordination-and-goal-closure.md) 协同生效）
 
 级别：B 级（不动协议与完成门语义，新增 intake 期分类 seam 并接线既有 ui-delivery-authority / 完成门 / 视觉修复链路）
 

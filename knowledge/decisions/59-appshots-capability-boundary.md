@@ -1,9 +1,13 @@
 # Appshots 能力边界与 Evidence 链
 
-日期：2026-07-30  
-分支：`dev/0.0.1`  
-状态：已定案（P0a 实现依据）  
+日期：2026-07-30
+最后更新：2026-11-15（补充重号消歧说明；P0a 边界保留）
+分支：`dev/0.0.1`
+状态：已定案（P0a 实现依据）
 关联：`design/product/appshots-window-context-capture.md`（产品）、`design/product/appshots-engineering-task-breakdown.md`（工程拆解 + spike 实测结论 §3.1）
+
+> [!NOTE] 重号消歧
+> 历史并发编写导致编号 `59` 同时对应 [59-appshots-capability-boundary.md](59-appshots-capability-boundary.md)（本篇，Appshots 能力边界）与 [59-browser-panel-reveal-capability.md](59-browser-panel-reveal-capability.md)（Browser 面板主动打开与可见工作现场闭环）。外部引用 `ADR 59` 时必须附带完整文件名以免混指。
 
 ## 背景
 

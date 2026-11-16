@@ -1,8 +1,9 @@
 # ADR 21 — 跨重启的任务续传（Pending Task Resume，会话锚定版）
 
-状态: Accepted（实现中）
+最后更新：2026-11-15（明确与 Project Agent 持久化连续性契约的适用边界）
+状态: Accepted（实现中；适用经典单会话 `/restart` 续传——Project Agent 多工作持久化恢复与双工监督已由 [ADR 88](88-project-agent-execution-continuity.md)、[ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 与 [ADR 111](111-project-agent-duplex-supervision-and-continuity.md) 独立承接）
 级别: A 级（新增/升级跨重启持久化契约 + consume 职责跨组件迁移 + 启动期会话切换时序）
-关联: 20-architecture-governance, 22-stream-reattach-on-reload
+关联: [20-architecture-governance](../architecture/20-architecture-governance.md), [22-stream-reattach-on-reload](22-stream-reattach-on-reload.md)
 
 ## 背景
 
