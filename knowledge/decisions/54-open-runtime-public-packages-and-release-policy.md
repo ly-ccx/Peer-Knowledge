@@ -1,12 +1,12 @@
 # ADR 54：开放 Runtime 公开包与发布策略
 
-> [!NOTE] 2026-11-16 局部取代与降级修订（[ADR 133](133-unified-rust-core-and-dual-host-architecture.md)）
-> 终局架构已由 [ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 收口为 **Peer Rust Core 单核架构**（CLI 与 Desktop 最终共用同一 Rust Core）：
-> - `@peer-agent/runtime-core` 与 `@peer-agent/runtime-sdk` 此前已随 `0.1.0-rc.*` 列车发布至 npm，现降格定位为 **TypeScript 过渡兼容 / 宿主桥接包**（冻结功能扩张，不再把 TS 4 个工厂或 `createRuntimeGoalController` 作为永久全端核心）；进入 `1.0.0` 前须另行明确 deprecation 窗口与向 Rust Core 入口迁移的路径，不得静默断更；
-> - `@peer-agent/protocol`（跨语言单一契约真源）与 `@peer-agent/cli`（最终封装原生 Rust `peer` 与 `peer-credential-helper`）保留长期一等公开地位。
+> [!NOTE] 2026-11-16 局部取代与退场决定（[ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 方案 B）
+> 终局架构已由 [ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 定案为 **Peer Rust Core 单核架构（彻底去除 JS/TS 运行库包）**：
+> - `@peer-agent/runtime-core` 与 `@peer-agent/runtime-sdk` 此前已随 `0.1.0-rc.*` 列车发布至 npm，现正式触发下文 **§5「回退条件」**：过渡期仅作遗留兼容维护（禁止扩建 `createRuntimeGoalController` 等旧接口），并在 `1.0.0` 前走显式 deprecation 公告后全面退出公开产品面；**不另行发布或维护“外面包一层 JS 壳 / N-API 调用 Rust Core”的嵌入式 npm Runtime SDK**；
+> - npm 长期一等公开包彻底收敛为两项：**`@peer-agent/cli`**（安装/下载原生 Rust `peer` 与 `peer-credential-helper`）与 **`@peer-agent/protocol`**（跨语言契约/Schema 真源）；外部程序集成统一使用 `peer acp` / `peer exec --output-format json` 或 Rust crate。
 
 创建时间：2026-07-24
-最后更新：2026-11-16（关联 ADR 133 部分取代与过渡降级；原版本 2026-07-24）
+最后更新：2026-11-16（关联 ADR 133 触发 runtime-core/runtime-sdk 正式退场、不留 JS 薄壳 SDK；原版本 2026-07-24）
 状态：Accepted / Implementation in progress  
 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
@@ -196,6 +196,8 @@ Desktop release         → 安装 Electron GUI 产品
 - 保留 monorepo workspace 复用。
 
 不得继续维持“公开但不更新”的中间状态。
+
+> **2026-11-16 执行注记**：上述退场 ADR 条件已由 [ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 正式触发并确认采用干净架构收口（`runtime-core` / `runtime-sdk` 于 `1.0.0` 前完成 deprecation 并退出 npm，不设 JS 薄壳运行库替代层，npm 长期只留 `@peer-agent/cli` 与 `@peer-agent/protocol`）。
 
 ---
 

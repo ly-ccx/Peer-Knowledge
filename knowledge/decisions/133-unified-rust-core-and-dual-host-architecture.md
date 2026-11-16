@@ -1,8 +1,8 @@
 # ADR 133：全端统一 Rust Core 与双宿主融合终局架构
 
 创建时间：2026-11-16
-最后更新：2026-11-16（用户明确确认终局统一架构标准并批准起草收口）
-状态：Accepted（2026-11-16 用户确定终局架构标准：后续以 Rust 为核心构建唯一运行时内核，桌面端复用同一套体系并叠加桌面专属效果；代码实施与发布验收另记）
+最后更新：2026-11-16（补充定案方案 B：彻底退出嵌入式 JS/TS Runtime SDK，不再维护“JS 外壳包一层调 Rust”的 npm 运行库；外部集成收敛至 `peer acp` / `peer exec` / `@peer-agent/protocol` / Rust crate）
+状态：Accepted（2026-11-16 用户确定终局架构标准：后续以 Rust 为核心构建唯一运行时内核，桌面端复用同一套体系并叠加桌面专属效果；外部不另留 JS 薄壳嵌入 SDK；代码实施与发布验收另记）
 级别：A（全产品运行时终局架构、Rust 单核收敛、Desktop/CLI 双宿主边界、公开 TS SDK 过渡与退场策略、在途方案冲突收口）
 关联：
 - [Coding Agent 工程总纲](../architecture/00-engineering-philosophy.md)
@@ -114,10 +114,14 @@
 1. **冻结 TS 双轨扩张，不再反向回填旧接口**：
    - `@peer-agent/runtime-sdk` 现有的 4 个导出（`createRuntimeSdk`、`createRuntimePipeline`、`createRuntimeSessionController`、`createRuntimeGoalController`）以及 `@peer-agent/runtime-node` 的 `createGoalRunner`、`apps/desktop` 的 `agent-loop` / `runtime-pipeline-adapter.mjs`，统一定位为**过渡期冻结维持的遗留 TS 载体**；
    - **不再投入重构精力**把 `createGoalRunner` 迁回 `createRuntimeGoalController`，也不再在 TS 侧新建取代它们的第三套完整 TS 运行时内核；Desktop 未切上 Rust Core 前，仅在现有 Seam 上做明确边界的缺陷修复与卡顿止损。
-2. **收窄 `ADR 54` 开放 TS SDK 承诺**：
+2. **彻底退出嵌入式 JS/TS Runtime SDK（收窄并闭环 `ADR 54` 退场条件）**：
    - 鉴于 `@peer-agent/runtime-core` 与 `@peer-agent/runtime-sdk` 此前已随 `0.1.0-rc.*` 列车发布至 npm，不得在无交代的情况下悄悄断更；
-   - 过渡期内其角色由“Peer 长期唯一核心 Runtime SDK”调整为 **“TS 过渡宿主库 / 协议兼容层”**（与根 `VERSION` 保持一致维护至正式替换完成）；在切入 `1.0.0` 稳定版前，必须另行明确 deprecation 窗口与转向 Rust Core / 稳定协议入口的迁移指引，禁止再新增 TS-only 的核心编排承诺。
-   - `@peer-agent/protocol` 与 `@peer-agent/cli` 保持长期一等公开地位。
+   - 过渡期内二者仅作遗留兼容包随根 `VERSION` 维护（不再新增核心编排能力）；进入 `1.0.0` 前按 [ADR 54](54-open-runtime-public-packages-and-release-policy.md) 回退条款完成 deprecation 公告与退场，彻底改为 internal/归档，**不另外发布或长期维护“外面包一层 JS 壳 / N-API 调用 Rust Core”的嵌入式 npm Runtime SDK**；
+   - Desktop（Electron）与 Rust Core 的本地进程通信是桌面端私有宿主桥接细节，不作为通用公开 JS SDK 对外承诺；
+   - 退场后的对外公开入口彻底收敛干净：
+     - **`@peer-agent/cli`**：长期公开，作为 `peer` / `peer-credential-helper` 原生二进制安装器；
+     - **`@peer-agent/protocol`**：长期公开，作为跨语言契约、schema 与 conformance fixtures 的唯一事实源；
+     - **外部程序化嵌入 / 自动化接入**：统一经由标准协议 **`peer acp`**（JSON-RPC 2.0，见 [ADR 76](76-peer-acp-agent.md)）或无头命令 **`peer exec --output-format json`**（[ADR 65](65-cli-headless-exec.md)）驱动原生二进制，或在 Rust 生态内直接对接原生 core crate。
 
 ---
 
@@ -125,7 +129,7 @@
 
 | 对象 / 文档 / 在途 PR | 状态 / 处置决定 | 明确取代或约束内容 |
 |---|---|---|
-| **ADR 54**（`54-open-runtime-public-packages-and-release-policy.md`） | **部分取代（Accepted 更新）** | 取消 `@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 作为 Peer **长期永久核心运行时** 的产品定位，明确降格为过渡兼容/JS 桥接层并要求 `1.0.0` 前走正式退场说明；`@peer-agent/protocol` 与 `@peer-agent/cli` 保留长期公开政策 |
+| **ADR 54**（`54-open-runtime-public-packages-and-release-policy.md`） | **部分取代 / 触发退场（Accepted 更新）** | 按其“回退条件”正式触发 `@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 退场路线（`1.0.0` 前完成 deprecation，且**不另立 JS 薄壳 / N-API 运行库替代品**）；`@peer-agent/protocol` 与 `@peer-agent/cli` 保持长期一等公开，外部程序化集成归口 `peer acp` / `peer exec` / Rust crate |
 | **ADR 129 §2.6**（`PR #133`，Accepted） | **依授权升级覆盖** | `ADR 129 §2.6`“Desktop 后续是否消费原生 Runtime 需另立 A 级决策”由本 ADR 正式定案为**消费同一个 Rust Core**，结束长期双语言核心分裂假设 |
 | **`PR #132`（`ADR 128` + `specifications/runtime-isolation/*`，Proposed）** | **合并前提强约束** | 1) **必须删除** `local-agent-system-blueprint.md` 与 `06-host-and-platform.md` 中“TUI 启动 Bun `--internal-runtime-host-v1` / `--internal-query-host-v1` sidecar”全部条款；<br>2) **修订** `ADR 128 §10`“不选 Rust”的表述，限定其仅针对 Electron 当前 TS 过渡期卡顿止损；<br>3) **禁止**在 TS 侧以完整的 15 模块 `M00–M14` 再重写一遍待废弃的 TS 核心：`M00–M14` 职责边界、有界查询预算与一次性调用授权不变量（如 `RI-00` 成果）作为 **Desktop Shell ↔ Rust Core 隔离接口契约** 继承，TS 侧仅保留必要的阻塞止损 |
 | **`PR #133`（`ADR 129–132`）& `Peer-Agent` `PR #327`** | **后续门禁补充** | 补齐 Hook 生命周期与宿主中立 Core Interface，按多宿主（CLI + 未来 Electron Host）而非单二进制私有内部库组织 `crates/peer-runtime` 边界 |
@@ -156,5 +160,5 @@
 3. **阶段 2（Desktop 接入 Rust Core 专题立项与渐进切换）**：
    - 针对 Desktop ↔ Rust Core 的独立进程管理、IPC/本地协议、Electron 专属 Host Capability Provider（`browser_*`、OpenUI 宿、资源窗协作）、崩溃重启恢复与 macOS 签名/公证另立实施规范；
    - 以“同一用户数据根与历史任务零丢失、Main 进程不再承载业务 Runtime 与重查询、两端行为通过同一套 `packages/protocol` conformance fixtures”作为切换门禁。
-4. **阶段 3（TS 旧 Runtime 退场收尾）**：
-   - 完成 TS `@peer-agent/runtime-sdk` / `@peer-agent/runtime-core` 过渡包的 deprecation 公告与清理，不再维护双引擎。
+4. **阶段 3（TS 旧 Runtime 彻底退场收尾）**：
+   - 完成 `@peer-agent/runtime-sdk` / `@peer-agent/runtime-core` npm 包的 deprecation 与退出公开队列，清理 `examples/external-host` 等纯 TS SDK 依赖示例并指引迁移到 `peer acp` / `peer exec` / 原生 Rust Core，不再维护双引擎或 JS 薄壳 Runtime SDK。
