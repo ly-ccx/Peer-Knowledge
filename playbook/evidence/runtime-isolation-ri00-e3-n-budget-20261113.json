@@ -1,0 +1,13 @@
+{
+  "kind": "E3-N-frozen-before-execution",
+  "date": "2026-11-13",
+  "parentCodeCandidate": "a59d067d4959891a06f7a90c32c12f72497de7e1",
+  "parentKnowledgeCandidate": "56ee4b3a2282d052e020882f30b33ad85b30d652",
+  "newBudget": {"launches": 3, "replacements": 0, "simultaneousHosts": 1, "wallMs": 900000, "cleanupReserveMs": 90000, "readCpuMs": 90000, "controllerAndAuxCpuMs": 20000, "prepareCpuReserveMs": 10000, "counterCpuMs": 1000, "outputBytes": 134217728, "journalBytes": 33554432},
+  "schedule": {"functional": 1, "production": [{"label":"N1","modes":[false,true,true,false]},{"label":"N2","modes":[true,false,false,true]}], "warmup":8,"blockRoots":8,"gapMs":150,"profileConditional":true,"profileModes":[false,true,false],"profileBlockRoots":2,"profileIntervalUs":1000},
+  "limits": {"boundaryWallPerRootMs":1,"boundaryCpuPerRootMs":1,"internalExternalInstructionsRelative":0.01,"onOffEvidenceMedianMs":2,"warmRangeMs":15},
+  "unchanged": ["G2", "default-VM", "source", "projection", "GC-acceptance"],
+  "forbidden": ["replacement", "drain-granularity-rerun", "field-before-qualification", "native-library-in-actual-Peer", "refactor"],
+  "executionScope": "counter-qualification-only; profile controller not yet qualified; unused reserve not reusable",
+  "fieldStarted": false
+}

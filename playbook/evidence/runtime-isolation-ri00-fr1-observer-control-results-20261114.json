@@ -1,0 +1,1490 @@
+{
+  "kind": "FR1-Electron-observer-controls-completed-not-recorder-qualified",
+  "candidate": "ae1e37ad47f90d14bda9ca35562709668672d5f3",
+  "freezeKnowledgeCommit": "8282ddb12becb318d09d7eca43d1a9732f14828f",
+  "frozenBytes": {
+    "knowledge/experience/runtime-isolation-ri00-fr1-observer-control-design.md": "1d398ef0d2d72945c4eafbc13a6323aeb3b393cf479f2531fec73689d2517538",
+    "playbook/evidence/runtime-isolation-ri00-fr1-observer-control-budget-20261114.json": "b73c6d9719bb6b0621a66f17352dff7fa564e5227f6116174124abfbe1db5162"
+  },
+  "producerOfSealedData": "fffc05764a2433a7fd9861581a10936e0da3fea5",
+  "producerSourceFileVerificationPerformed": true,
+  "producerOriginalFailureUnchanged": true,
+  "newSourceFiles": 181,
+  "sourceSha256": "410d7ff90025fb7fc81355cbbd0afb1c116285d3cdf1465e670d095c3012775a",
+  "inputs": {
+    "config": "960d17973add362a8ac188262a75279f769f2ebf3864536cedf152527efa5086",
+    "budget": "b73c6d9719bb6b0621a66f17352dff7fa564e5227f6116174124abfbe1db5162",
+    "oldReport": "8a3ea9cd3546697213b234c6dcad734070eac97cf7453982ad8b54d81cd649c1",
+    "stages": "9a2beb11475ff0b2ff288751bcbc08ba0cf116e451dcde110014aedd33f6c854",
+    "history": "3e248f20d96cd3a8121f83385d5e99ab026f45495dedfb8429a6f6e4fec5a370",
+    "baseline": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+    "manifest": "88e9cb02dc707472a39e618c456d159b31c2ba8a40041dd47486b5d9bfb9f20b"
+  },
+  "qualification": {
+    "behaviorTests": 4,
+    "passed": true,
+    "cost": {
+      "exit": 0,
+      "userMs": 475.82599999999996,
+      "systemMs": 544.751,
+      "wallMs": 1590.144958,
+      "cpuMs": 1020.577,
+      "withinBudget": true
+    },
+    "notNodePerformanceEvidence": true
+  },
+  "sealedGapCpu": [
+    {
+      "bucket": "outside-coarse",
+      "userUs": 160,
+      "systemUs": 99,
+      "totalUs": 259,
+      "intervals": 54,
+      "byCoarse": [
+        {
+          "coarse": "root.pre",
+          "userUs": 5,
+          "systemUs": 2,
+          "totalUs": 7,
+          "intervals": 2
+        },
+        {
+          "coarse": "span.pre",
+          "userUs": 62,
+          "systemUs": 42,
+          "totalUs": 104,
+          "intervals": 24
+        },
+        {
+          "coarse": "span.post",
+          "userUs": 90,
+          "systemUs": 51,
+          "totalUs": 141,
+          "intervals": 24
+        },
+        {
+          "coarse": "root.post",
+          "userUs": 2,
+          "systemUs": 2,
+          "totalUs": 4,
+          "intervals": 2
+        },
+        {
+          "coarse": "root.keep",
+          "userUs": 1,
+          "systemUs": 2,
+          "totalUs": 3,
+          "intervals": 2
+        }
+      ],
+      "byPosition": [
+        {
+          "position": "before",
+          "userUs": 124,
+          "systemUs": 77,
+          "totalUs": 201,
+          "intervals": 27
+        },
+        {
+          "position": "after",
+          "userUs": 36,
+          "systemUs": 22,
+          "totalUs": 58,
+          "intervals": 27
+        }
+      ]
+    },
+    {
+      "bucket": "coarse-bookkeeping",
+      "userUs": 336,
+      "systemUs": 92,
+      "totalUs": 428,
+      "intervals": 103,
+      "byCoarse": [
+        {
+          "coarse": "root.pre",
+          "userUs": 45,
+          "systemUs": 12,
+          "totalUs": 57,
+          "intervals": 14
+        },
+        {
+          "coarse": "span.pre",
+          "userUs": 118,
+          "systemUs": 58,
+          "totalUs": 176,
+          "intervals": 66
+        },
+        {
+          "coarse": "span.post",
+          "userUs": 129,
+          "systemUs": 16,
+          "totalUs": 145,
+          "intervals": 12
+        },
+        {
+          "coarse": "root.post",
+          "userUs": 39,
+          "systemUs": 6,
+          "totalUs": 45,
+          "intervals": 7
+        },
+        {
+          "coarse": "root.keep",
+          "userUs": 5,
+          "systemUs": 0,
+          "totalUs": 5,
+          "intervals": 4
+        }
+      ],
+      "byPosition": [
+        {
+          "position": "before-first",
+          "userUs": 44,
+          "systemUs": 14,
+          "totalUs": 58,
+          "intervals": 15
+        },
+        {
+          "position": "between",
+          "userUs": 117,
+          "systemUs": 50,
+          "totalUs": 167,
+          "intervals": 61
+        },
+        {
+          "position": "after-last",
+          "userUs": 46,
+          "systemUs": 12,
+          "totalUs": 58,
+          "intervals": 15
+        },
+        {
+          "position": "no-child",
+          "userUs": 129,
+          "systemUs": 16,
+          "totalUs": 145,
+          "intervals": 12
+        }
+      ]
+    }
+  ],
+  "cells": [
+    {
+      "family": "metadata-topology",
+      "slot": 0,
+      "arm": "A",
+      "userUs": 87,
+      "systemUs": 36,
+      "cpuMs": 0.123,
+      "wallMs": 0.12429199999996854,
+      "actualGapMs": null,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 1,
+      "arm": "B",
+      "userUs": 360,
+      "systemUs": 163,
+      "cpuMs": 0.523,
+      "wallMs": 0.5254580000000715,
+      "actualGapMs": 5.67291699999987,
+      "meterRows": 121,
+      "meterClocks": 297,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.metadata",
+          "count": 2,
+          "userUs": 2,
+          "systemUs": 2,
+          "operationWallUpperMs": 0.00016699999969205237,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 8.299999990413198e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 1,
+          "operationWallUpperMs": 8.299999990413198e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 8.299999990413198e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.byte-size",
+          "count": 11,
+          "userUs": 13,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0012069999997947889,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.json",
+          "count": 11,
+          "userUs": 16,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.0068320000000312575,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.queue",
+          "count": 11,
+          "userUs": 13,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0011680000006890623,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.keep",
+          "count": 1,
+          "userUs": 5,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.006750000000010914,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.post",
+          "count": 1,
+          "userUs": 9,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.013458000000355241,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.pre",
+          "count": 1,
+          "userUs": 100,
+          "systemUs": 25,
+          "operationWallUpperMs": 0.11920899999995527,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.json",
+          "count": 2,
+          "userUs": 2,
+          "systemUs": 2,
+          "operationWallUpperMs": 0.00016800000048533548,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.stat",
+          "count": 2,
+          "userUs": 2,
+          "systemUs": 2,
+          "operationWallUpperMs": 0.00016599999980826396,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.post",
+          "count": 12,
+          "userUs": 5,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0010839999999916472,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.pre",
+          "count": 12,
+          "userUs": 104,
+          "systemUs": 75,
+          "operationWallUpperMs": 0.16712199999938093,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 31,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.021038999998836516,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.lookup",
+          "count": 13,
+          "userUs": 9,
+          "systemUs": 7,
+          "operationWallUpperMs": 0.0010430000006635964,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.map",
+          "count": 13,
+          "userUs": 57,
+          "systemUs": 27,
+          "operationWallUpperMs": 0.06762300000036703,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.signature-json",
+          "count": 13,
+          "userUs": 8,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.0009159999999610591,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 2,
+      "arm": "B",
+      "userUs": 208,
+      "systemUs": 151,
+      "cpuMs": 0.359,
+      "wallMs": 0.35983299999998053,
+      "actualGapMs": 3.2767499999999927,
+      "meterRows": 121,
+      "meterClocks": 297,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.metadata",
+          "count": 2,
+          "userUs": 0,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.00016700000014679972,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 0,
+          "operationWallUpperMs": 4.199999966658652e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 8.299999990413198e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 8.399999978792039e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.byte-size",
+          "count": 11,
+          "userUs": 7,
+          "systemUs": 8,
+          "operationWallUpperMs": 0.0008320000001731387,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.json",
+          "count": 11,
+          "userUs": 8,
+          "systemUs": 7,
+          "operationWallUpperMs": 0.0008760000009715441,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.queue",
+          "count": 11,
+          "userUs": 6,
+          "systemUs": 8,
+          "operationWallUpperMs": 0.0008749999997235136,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.keep",
+          "count": 1,
+          "userUs": 5,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.006624999999985448,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.post",
+          "count": 1,
+          "userUs": 8,
+          "systemUs": 7,
+          "operationWallUpperMs": 0.013417000000117696,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.pre",
+          "count": 1,
+          "userUs": 26,
+          "systemUs": 18,
+          "operationWallUpperMs": 0.04187499999989086,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.json",
+          "count": 2,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.00016599999980826396,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.stat",
+          "count": 2,
+          "userUs": 2,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.00016799999957584077,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.post",
+          "count": 12,
+          "userUs": 10,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.0008339999994859681,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.pre",
+          "count": 12,
+          "userUs": 106,
+          "systemUs": 75,
+          "operationWallUpperMs": 0.17029000000138694,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 11,
+          "systemUs": 7,
+          "operationWallUpperMs": 0.0012090000004718604,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.lookup",
+          "count": 13,
+          "userUs": 8,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.000996999999642867,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.map",
+          "count": 13,
+          "userUs": 35,
+          "systemUs": 26,
+          "operationWallUpperMs": 0.04362500000024738,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.signature-json",
+          "count": 13,
+          "userUs": 7,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.0011269999986325274,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 3,
+      "arm": "A",
+      "userUs": 23,
+      "systemUs": 30,
+      "cpuMs": 0.053,
+      "wallMs": 0.05337499999995998,
+      "actualGapMs": 3.335167000000183,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 4,
+      "arm": "B",
+      "userUs": 187,
+      "systemUs": 150,
+      "cpuMs": 0.337,
+      "wallMs": 0.33787500000016735,
+      "actualGapMs": 0.3311249999997017,
+      "meterRows": 121,
+      "meterClocks": 297,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.metadata",
+          "count": 2,
+          "userUs": 1,
+          "systemUs": 2,
+          "operationWallUpperMs": 0.00016699999969205237,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 1,
+          "operationWallUpperMs": 4.200000012133387e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 1,
+          "operationWallUpperMs": 8.399999978792039e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 1,
+          "operationWallUpperMs": 4.1000000237545464e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.byte-size",
+          "count": 11,
+          "userUs": 7,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.0014139999998405983,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.json",
+          "count": 11,
+          "userUs": 7,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.0007499999996980478,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.queue",
+          "count": 11,
+          "userUs": 9,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0007520000003751193,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.keep",
+          "count": 1,
+          "userUs": 5,
+          "systemUs": 3,
+          "operationWallUpperMs": 0.007082999999965978,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.post",
+          "count": 1,
+          "userUs": 7,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.012541000000055647,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.pre",
+          "count": 1,
+          "userUs": 25,
+          "systemUs": 17,
+          "operationWallUpperMs": 0.039874999999938154,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.json",
+          "count": 2,
+          "userUs": 1,
+          "systemUs": 2,
+          "operationWallUpperMs": 8.399999978792039e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.stat",
+          "count": 2,
+          "userUs": 2,
+          "systemUs": 2,
+          "operationWallUpperMs": 0.00012500000002546585,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.post",
+          "count": 12,
+          "userUs": 8,
+          "systemUs": 8,
+          "operationWallUpperMs": 0.0008330000000569271,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.pre",
+          "count": 12,
+          "userUs": 92,
+          "systemUs": 75,
+          "operationWallUpperMs": 0.15279199999986304,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 8,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.001084999998965941,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.lookup",
+          "count": 13,
+          "userUs": 6,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0009159999999610591,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.map",
+          "count": 13,
+          "userUs": 34,
+          "systemUs": 23,
+          "operationWallUpperMs": 0.04308299999956944,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.signature-json",
+          "count": 13,
+          "userUs": 8,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.0008760000014262914,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 5,
+      "arm": "A",
+      "userUs": 20,
+      "systemUs": 27,
+      "cpuMs": 0.047,
+      "wallMs": 0.04837499999985084,
+      "actualGapMs": 0.790625000000091,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 6,
+      "arm": "A",
+      "userUs": 22,
+      "systemUs": 27,
+      "cpuMs": 0.049,
+      "wallMs": 0.049500000000080036,
+      "actualGapMs": 0.1916670000000522,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "metadata-topology",
+      "slot": 7,
+      "arm": "B",
+      "userUs": 184,
+      "systemUs": 150,
+      "cpuMs": 0.334,
+      "wallMs": 0.3350000000000364,
+      "actualGapMs": 0.16408300000011877,
+      "meterRows": 121,
+      "meterClocks": 297,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.metadata",
+          "count": 2,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.0001250000004802132,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 1,
+          "operationWallUpperMs": 4.099999978279811e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 0,
+          "operationWallUpperMs": 4.200000012133387e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 0,
+          "systemUs": 1,
+          "operationWallUpperMs": 4.200000012133387e-05,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.byte-size",
+          "count": 11,
+          "userUs": 7,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0007519999999203719,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.json",
+          "count": 11,
+          "userUs": 8,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.0007919999998193816,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "record.queue",
+          "count": 11,
+          "userUs": 6,
+          "systemUs": 5,
+          "operationWallUpperMs": 0.0006679999996777042,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.keep",
+          "count": 1,
+          "userUs": 3,
+          "systemUs": 3,
+          "operationWallUpperMs": 0.005583000000115135,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.post",
+          "count": 1,
+          "userUs": 7,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.011625000000094587,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "root.pre",
+          "count": 1,
+          "userUs": 23,
+          "systemUs": 18,
+          "operationWallUpperMs": 0.038624999999683496,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.json",
+          "count": 2,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.00012500000002546585,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "source.stat",
+          "count": 2,
+          "userUs": 1,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.0001249999995707185,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.post",
+          "count": 12,
+          "userUs": 7,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.0008320000001731387,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "span.pre",
+          "count": 12,
+          "userUs": 85,
+          "systemUs": 72,
+          "operationWallUpperMs": 0.14691799999991417,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 8,
+          "systemUs": 8,
+          "operationWallUpperMs": 0.0010009999996327679,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.lookup",
+          "count": 13,
+          "userUs": 7,
+          "systemUs": 4,
+          "operationWallUpperMs": 0.0007899999995970575,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.map",
+          "count": 13,
+          "userUs": 31,
+          "systemUs": 26,
+          "operationWallUpperMs": 0.041082999999161984,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "stack.signature-json",
+          "count": 13,
+          "userUs": 9,
+          "systemUs": 6,
+          "operationWallUpperMs": 0.0007939999995869584,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "stack.capture",
+      "slot": 0,
+      "arm": "A",
+      "userUs": 273,
+      "systemUs": 2,
+      "cpuMs": 0.275,
+      "wallMs": 0.2780830000001515,
+      "actualGapMs": 3.5594999999998436,
+      "meterRows": 0,
+      "meterClocks": 0,
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 1,
+      "arm": "B",
+      "userUs": 256,
+      "systemUs": 19,
+      "cpuMs": 0.275,
+      "wallMs": 0.27579199999991033,
+      "actualGapMs": 0.3739999999997963,
+      "meterRows": 13,
+      "meterClocks": 26,
+      "inclusiveStageGroups": [
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 243,
+          "systemUs": 13,
+          "operationWallUpperMs": 0.23316599999952814,
+          "exactOperationCpu": false
+        }
+      ],
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 2,
+      "arm": "B",
+      "userUs": 258,
+      "systemUs": 17,
+      "cpuMs": 0.275,
+      "wallMs": 0.2768750000000182,
+      "actualGapMs": 2.9756250000000364,
+      "meterRows": 13,
+      "meterClocks": 26,
+      "inclusiveStageGroups": [
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 249,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.2410850000001119,
+          "exactOperationCpu": false
+        }
+      ],
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 3,
+      "arm": "A",
+      "userUs": 244,
+      "systemUs": 3,
+      "cpuMs": 0.247,
+      "wallMs": 0.24808299999995143,
+      "actualGapMs": 0.26625000000012733,
+      "meterRows": 0,
+      "meterClocks": 0,
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 4,
+      "arm": "B",
+      "userUs": 269,
+      "systemUs": 19,
+      "cpuMs": 0.288,
+      "wallMs": 0.28958300000022064,
+      "actualGapMs": 0.25329199999987395,
+      "meterRows": 13,
+      "meterClocks": 26,
+      "inclusiveStageGroups": [
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 261,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.2524550000007366,
+          "exactOperationCpu": false
+        }
+      ],
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 5,
+      "arm": "A",
+      "userUs": 224,
+      "systemUs": 1,
+      "cpuMs": 0.225,
+      "wallMs": 0.2268749999998363,
+      "actualGapMs": 0.33395900000004985,
+      "meterRows": 0,
+      "meterClocks": 0,
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 6,
+      "arm": "A",
+      "userUs": 258,
+      "systemUs": 2,
+      "cpuMs": 0.26,
+      "wallMs": 0.26037499999983993,
+      "actualGapMs": 3.2285000000001673,
+      "meterRows": 0,
+      "meterClocks": 0,
+      "stackFrameCount": 35
+    },
+    {
+      "family": "stack.capture",
+      "slot": 7,
+      "arm": "B",
+      "userUs": 277,
+      "systemUs": 18,
+      "cpuMs": 0.295,
+      "wallMs": 0.2963329999997768,
+      "actualGapMs": 3.6232500000000982,
+      "meterRows": 13,
+      "meterClocks": 26,
+      "inclusiveStageGroups": [
+        {
+          "name": "stack.capture",
+          "count": 13,
+          "userUs": 267,
+          "systemUs": 10,
+          "operationWallUpperMs": 0.2578329999992093,
+          "exactOperationCpu": false
+        }
+      ],
+      "stackFrameCount": 35
+    },
+    {
+      "family": "output.encoding",
+      "slot": 0,
+      "arm": "A",
+      "userUs": 395,
+      "systemUs": 24,
+      "cpuMs": 0.419,
+      "wallMs": 0.42016700000021956,
+      "actualGapMs": 0.26787500000000364,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "output.encoding",
+      "slot": 1,
+      "arm": "B",
+      "userUs": 277,
+      "systemUs": 5,
+      "cpuMs": 0.282,
+      "wallMs": 0.282249999999749,
+      "actualGapMs": 0.24658300000010058,
+      "meterRows": 3,
+      "meterClocks": 6,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 42,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.042207999999845924,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 58,
+          "systemUs": 1,
+          "operationWallUpperMs": 0.05774999999994179,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 172,
+          "systemUs": 1,
+          "operationWallUpperMs": 0.17116699999996854,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "output.encoding",
+      "slot": 2,
+      "arm": "B",
+      "userUs": 313,
+      "systemUs": 17,
+      "cpuMs": 0.33,
+      "wallMs": 0.33083299999998417,
+      "actualGapMs": 3.5075000000001637,
+      "meterRows": 3,
+      "meterClocks": 6,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 49,
+          "systemUs": 1,
+          "operationWallUpperMs": 0.04858300000023519,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 78,
+          "systemUs": 13,
+          "operationWallUpperMs": 0.08699999999998909,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 181,
+          "systemUs": 0,
+          "operationWallUpperMs": 0.18074999999998909,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "output.encoding",
+      "slot": 3,
+      "arm": "A",
+      "userUs": 344,
+      "systemUs": 24,
+      "cpuMs": 0.368,
+      "wallMs": 0.37133300000004965,
+      "actualGapMs": 3.6502919999998085,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "output.encoding",
+      "slot": 4,
+      "arm": "B",
+      "userUs": 290,
+      "systemUs": 22,
+      "cpuMs": 0.312,
+      "wallMs": 0.31199999999989814,
+      "actualGapMs": 0.24491699999998673,
+      "meterRows": 3,
+      "meterClocks": 6,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 47,
+          "systemUs": 1,
+          "operationWallUpperMs": 0.04620900000008987,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 60,
+          "systemUs": 9,
+          "operationWallUpperMs": 0.0660000000002583,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 177,
+          "systemUs": 8,
+          "operationWallUpperMs": 0.1841669999998885,
+          "exactOperationCpu": false
+        }
+      ]
+    },
+    {
+      "family": "output.encoding",
+      "slot": 5,
+      "arm": "A",
+      "userUs": 408,
+      "systemUs": 30,
+      "cpuMs": 0.438,
+      "wallMs": 0.44116699999995035,
+      "actualGapMs": 3.1712500000003274,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "output.encoding",
+      "slot": 6,
+      "arm": "A",
+      "userUs": 343,
+      "systemUs": 25,
+      "cpuMs": 0.368,
+      "wallMs": 0.37016600000015387,
+      "actualGapMs": 3.553124999999909,
+      "meterRows": 0,
+      "meterClocks": 0
+    },
+    {
+      "family": "output.encoding",
+      "slot": 7,
+      "arm": "B",
+      "userUs": 366,
+      "systemUs": 32,
+      "cpuMs": 0.398,
+      "wallMs": 0.3993749999999636,
+      "actualGapMs": 4.043458999999984,
+      "meterRows": 3,
+      "meterClocks": 6,
+      "inclusiveStageGroups": [
+        {
+          "name": "hash.output",
+          "count": 1,
+          "userUs": 52,
+          "systemUs": 1,
+          "operationWallUpperMs": 0.051542000000154076,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.json",
+          "count": 1,
+          "userUs": 134,
+          "systemUs": 22,
+          "operationWallUpperMs": 0.1508750000002692,
+          "exactOperationCpu": false
+        },
+        {
+          "name": "output.utf8",
+          "count": 1,
+          "userUs": 175,
+          "systemUs": 7,
+          "operationWallUpperMs": 0.18074999999998909,
+          "exactOperationCpu": false
+        }
+      ]
+    }
+  ],
+  "contrasts": [
+    {
+      "family": "metadata-topology",
+      "block": 0,
+      "complete": true,
+      "bMinusAUserUs": 229,
+      "bMinusASystemUs": 124,
+      "bMinusACpuMs": 0.353,
+      "aReturnDriftCpuMs": -0.07,
+      "noHistoricalOrGateSubtraction": true
+    },
+    {
+      "family": "metadata-topology",
+      "block": 1,
+      "complete": true,
+      "bMinusAUserUs": 164.5,
+      "bMinusASystemUs": 123,
+      "bMinusACpuMs": 0.28750000000000003,
+      "aReturnDriftCpuMs": 0.0020000000000000018,
+      "noHistoricalOrGateSubtraction": true
+    },
+    {
+      "family": "stack.capture",
+      "block": 0,
+      "complete": true,
+      "bMinusAUserUs": -1.5,
+      "bMinusASystemUs": 15.5,
+      "bMinusACpuMs": 0.014000000000000012,
+      "aReturnDriftCpuMs": -0.028000000000000025,
+      "noHistoricalOrGateSubtraction": true
+    },
+    {
+      "family": "stack.capture",
+      "block": 1,
+      "complete": true,
+      "bMinusAUserUs": 32,
+      "bMinusASystemUs": 17,
+      "bMinusACpuMs": 0.04899999999999999,
+      "aReturnDriftCpuMs": 0.035,
+      "noHistoricalOrGateSubtraction": true
+    },
+    {
+      "family": "output.encoding",
+      "block": 0,
+      "complete": true,
+      "bMinusAUserUs": -74.5,
+      "bMinusASystemUs": -13,
+      "bMinusACpuMs": -0.08749999999999997,
+      "aReturnDriftCpuMs": -0.05099999999999999,
+      "noHistoricalOrGateSubtraction": true
+    },
+    {
+      "family": "output.encoding",
+      "block": 1,
+      "complete": true,
+      "bMinusAUserUs": -47.5,
+      "bMinusASystemUs": -0.5,
+      "bMinusACpuMs": -0.04800000000000004,
+      "aReturnDriftCpuMs": -0.07,
+      "noHistoricalOrGateSubtraction": true
+    }
+  ],
+  "controlsCpuMs": 17.728,
+  "controlsWallMs": 57.13650000000007,
+  "actualGapMinMs": 0.16408300000011877,
+  "actualGapMaxMs": 5.67291699999987,
+  "minimumCellCpuMs": 0.047,
+  "maximumCellCpuMs": 0.523,
+  "outputBytes": 604288,
+  "ownedLaunches": 1,
+  "replacements": 0,
+  "businessQueries": 1,
+  "readCpuMs": 1987.565,
+  "fullWaitedSubtreeCost": {
+    "exit": 0,
+    "userMs": 3273.478,
+    "systemMs": 1384.078,
+    "wallMs": 4201.305833,
+    "ownedGroupSignals": [],
+    "cpuMs": 4657.5560000000005,
+    "withinBudget": true
+  },
+  "recovery": {
+    "queryCalls": 1,
+    "readCpuMs": 1987.565,
+    "getters": {
+      "getHeapStatistics": 0,
+      "getHeapSpaceStatistics": 0,
+      "getHeapCodeStatistics": 0
+    },
+    "guard": {
+      "sourceWritesDenied": 0,
+      "sqliteConnections": 1,
+      "guardChecks": 653,
+      "guardCheckMs": 12.38891399999855
+    },
+    "hostClosed": true,
+    "privateValueReleased": true,
+    "recorderInstallations": 0,
+    "inspectorOpen": false
+  },
+  "closed": {
+    "code": 0,
+    "signal": null
+  },
+  "postBindingSourceDataUnchanged": true,
+  "failures": [],
+  "rawArtifacts": {
+    "run/report.private.json": {
+      "sha256": "c326ed2a841cae9138c7e0f4275e049086f1913d8ea756eb31a641db60688334",
+      "bytes": 68521
+    },
+    "run-cost.private.json": {
+      "sha256": "16c284f597b6a53ebc1a72485668376ca65d48164396bdf5123fffdf25f82f99",
+      "bytes": 152
+    },
+    "qualification.private.json": {
+      "sha256": "83daf5cda8e930028e38383b658d02cd1f3e530617685cfdef0c1513ec17aa8d",
+      "bytes": 743
+    },
+    "qualification-cost.private.json": {
+      "sha256": "dae77114194ec23d55fb97c62ca0c15fd2a03a0e906bb0cf9c215346f8f8c5d6",
+      "bytes": 126
+    },
+    "gaps.private.json": {
+      "sha256": "af3042cb60cd7eb9ae451552057a2c4f8967e0bf4cd8e8aaf303741edc8f5634",
+      "bytes": 39392
+    },
+    "gap-analysis-cost.private.json": {
+      "sha256": "681d41fc6c11142ab3248b59607551fd40c8ac09006bdaa022377904208702f1",
+      "bytes": 68
+    },
+    "analysis.private.json": {
+      "sha256": "f766a64670fc5f2f58a85237fe177440688dbdeee32582f0db6a630dca90ec97",
+      "bytes": 22844
+    },
+    "analysis-cost.private.json": {
+      "sha256": "dfeb840ea1a18a1bfebd28bc6bbea9e1897f2efbcc4b5619e78acf54675c4196",
+      "bytes": 92
+    }
+  },
+  "cellArtifacts": [
+    {
+      "label": "cell-metadata-topology-0.private.json",
+      "bytes": 384,
+      "sha256": "1735075ca640cbddcecd37ca87edd1e4e24f590fbe1c0ebec0cb94b0f244c81a"
+    },
+    {
+      "label": "cell-metadata-topology-1.private.json",
+      "bytes": 89977,
+      "sha256": "4f9eb42ad9f9b57f0e35ee85ffbc3afefb4bc914e9e498edd18121d1f406df58"
+    },
+    {
+      "label": "cell-metadata-topology-2.private.json",
+      "bytes": 89959,
+      "sha256": "c2c278b2b1dc29c5b10d9cdb91ad609904678ebb71f9e67ab40e68f0d70552c5"
+    },
+    {
+      "label": "cell-metadata-topology-3.private.json",
+      "bytes": 398,
+      "sha256": "4b02f106f7b03a6528af69ec6e4d48f47f6d20a45c4e9aa7be0ab729ad973139"
+    },
+    {
+      "label": "cell-metadata-topology-4.private.json",
+      "bytes": 90039,
+      "sha256": "9165a3f0cba816110e26bb42976c64b5f5e579c9e48fad8902c0ecee18f04efb"
+    },
+    {
+      "label": "cell-metadata-topology-5.private.json",
+      "bytes": 398,
+      "sha256": "d76867cdb1a151f80b3bd8154b6acc48b7595a1b2b92174686c42d31ce766da2"
+    },
+    {
+      "label": "cell-metadata-topology-6.private.json",
+      "bytes": 402,
+      "sha256": "4829cd17fdf42567cc24414a14edbdd4401581075d692cd8722429757a06c8d7"
+    },
+    {
+      "label": "cell-metadata-topology-7.private.json",
+      "bytes": 89983,
+      "sha256": "ed805e34a0d260d5df3bfd44c80d4b1438c5304412d31e07e45a8be14d7edbaa"
+    },
+    {
+      "label": "cell-stack.capture-0.private.json",
+      "bytes": 5087,
+      "sha256": "d60604635ef02e715454befdb8dbce1adc0bffc8d9569c6361c42f68c0578e1d"
+    },
+    {
+      "label": "cell-stack.capture-1.private.json",
+      "bytes": 14184,
+      "sha256": "51cdc273ba5c47ba5fbfd894df22dd88f3daada72b837782c8df38be0e5179a7"
+    },
+    {
+      "label": "cell-stack.capture-2.private.json",
+      "bytes": 14152,
+      "sha256": "89afeb36c21debbb10c22ce0f68e5dacea78515db39da3575862fc9a9c65bb8f"
+    },
+    {
+      "label": "cell-stack.capture-3.private.json",
+      "bytes": 5090,
+      "sha256": "792c57c58ff17dbf570cc2873fee9ab7a6e7aff561804a570d063dd948dfe69b"
+    },
+    {
+      "label": "cell-stack.capture-4.private.json",
+      "bytes": 14161,
+      "sha256": "adf56a072ab904c8a0d63c49281a04f88559c8b6ffe79b3d46433573656882b1"
+    },
+    {
+      "label": "cell-stack.capture-5.private.json",
+      "bytes": 5082,
+      "sha256": "7e34ff2b85f65e939667b1cbc7d429d195b44249f9899d38d95434cccab5d9eb"
+    },
+    {
+      "label": "cell-stack.capture-6.private.json",
+      "bytes": 5089,
+      "sha256": "cec24f5976a2035488487e48ebae554fbad0ddec44793ff7c2f0414b67ea4bf6"
+    },
+    {
+      "label": "cell-stack.capture-7.private.json",
+      "bytes": 14172,
+      "sha256": "766f3bbe24fd0249efe9297dc813c36283ae58170a49126190f400c694577c6b"
+    },
+    {
+      "label": "cell-output.encoding-0.private.json",
+      "bytes": 500,
+      "sha256": "a138eb56336cfefc5bfe3ee2351962bbc467c118b23594a3b372147f84aafb92"
+    },
+    {
+      "label": "cell-output.encoding-1.private.json",
+      "bytes": 2773,
+      "sha256": "58376316c2fa85d066beb84928522dfdf0b0c9ee7f9a4095ca8c1248162b280d"
+    },
+    {
+      "label": "cell-output.encoding-2.private.json",
+      "bytes": 2786,
+      "sha256": "7c5c8e9375d87e2aca39ad3b54758e540ecd71069d2218c3a069c8cbf60f5215"
+    },
+    {
+      "label": "cell-output.encoding-3.private.json",
+      "bytes": 503,
+      "sha256": "7078e0093526d4eba7b07d79447ba6ea3fd02c6d6a458e05e0bd88a94f41efbd"
+    },
+    {
+      "label": "cell-output.encoding-4.private.json",
+      "bytes": 2789,
+      "sha256": "971f86c1f2bab50f93689dee75cc10be395e31a56381a5ae0ad0ff22358cebe5"
+    },
+    {
+      "label": "cell-output.encoding-5.private.json",
+      "bytes": 502,
+      "sha256": "f62a4abef02cef0ff90447230aef03b5e9c77905c5bd9c5a8266d8a72982458b"
+    },
+    {
+      "label": "cell-output.encoding-6.private.json",
+      "bytes": 501,
+      "sha256": "78b4ea6eb91c0010d127855c739fe2a192484ced94192af9f2dbdd8cef28f3e4"
+    },
+    {
+      "label": "cell-output.encoding-7.private.json",
+      "bytes": 2787,
+      "sha256": "624631c5ac7c65a3267636156358f9f776333e423c6800eed72507d76c7f485c"
+    }
+  ],
+  "diagnosticOwnedAfter": 47,
+  "separateUserRequestedDevelopmentLaunches": 1,
+  "totalKnownControlledStartsAfter": 48,
+  "knownReadCpuLowerMsAfter": 649752.173,
+  "olderUnknownCostsRetained": true,
+  "historical2387msBackfilled": false,
+  "gateSubtraction": false,
+  "wallUpperTreatedAsCpu": false,
+  "observerNeutralityProven": false,
+  "functionalQualification": false,
+  "originalRecorderGateEvaluated": false,
+  "fieldAdmission": false,
+  "actualPeerAttachments": 0,
+  "actualPeerBusinessQueries": 0,
+  "actualPeerRestarts": 0,
+  "profilerStarts": 0,
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "ci": {
+    "workflowRuns": [],
+    "statuses": [],
+    "automaticGreenClaimed": false
+  },
+  "limitations": [
+    "Outer raw user/system deltas retained; absolute outer CPU snapshots were not serialized and are not reconstructed.",
+    "Null-body topology and fixed 35-frame diagnostic stack are not historical/field workload replay.",
+    "Per-cell archive and validation remain in observed inter-cell history; OFF return drift prevents stable encoding neutrality attribution.",
+    "No observer delta is subtracted from original gate or old samples."
+  ]
+}

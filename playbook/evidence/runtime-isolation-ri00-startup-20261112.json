@@ -1,0 +1,1957 @@
+{
+  "kind": "ri00-actual-startup-order-and-context-reset-not-a-fix",
+  "status": "open-no-refactor",
+  "date": "2026-11-12",
+  "productHead": "b05b7afbf26b43444635f77710397c3a658d6a0f",
+  "diagnosticHead": "ec98c0e91a2c01a551398eabe8135236d76b7abe",
+  "startup": {
+    "authorizedLaunchCount": 1,
+    "oldProcessAbsentBeforeLaunch": true,
+    "binaryUnchanged": true,
+    "appRemainsRunning": true,
+    "ok": true,
+    "runtime": {
+      "electron": "41.7.1",
+      "node": "24.15.0",
+      "v8": "14.6.202.34-electron.0"
+    },
+    "counts": {
+      "plan": 2872,
+      "index": 1
+    },
+    "firstIndexSequence": 2087,
+    "planReadsBeforeFirstIndex": 2086,
+    "firstIndexCallChain": [
+      "readJsonl",
+      "readEvidenceIndex",
+      "evidenceRecords",
+      "factsFor",
+      "facts",
+      "readSessionFacts",
+      "hostFacts",
+      "acceptanceFacts",
+      "humanGateOf"
+    ],
+    "fileReadUnits": 66577379,
+    "fileReadUnitsMeaning": "decoded code units, not disk bytes",
+    "stopped": true,
+    "restored": true,
+    "classificationLimitHits": 0,
+    "inspectorClosed": true,
+    "harness": [
+      {
+        "relative": "observe-runtime-startup.mjs",
+        "sha256": "cd17ec2b20921d79ce38ba3306cdbc50d2dfe4e048a9e8c8718c4047527e5f34"
+      },
+      {
+        "relative": "ri00/startup-read-order.mjs",
+        "sha256": "4e3c3aede63762c9a3b9ecd1fe4b0997a4e18c21d0e61e871ad6f30e708b8714"
+      },
+      {
+        "relative": "ri00/trace.mjs",
+        "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+      },
+      {
+        "relative": "ri00/identity.mjs",
+        "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+      }
+    ],
+    "limit": "instrumented new startup only; file reads are not normalization counts; no source-identity sequence for replay of individual plan files",
+    "stackLimit": "10 frame stack truncated at humanGateOf; topmost boot trigger not captured, no fabricated caller"
+  },
+  "paired": [
+    {
+      "childPrelude": "session-first",
+      "guards": {
+        "ok": true,
+        "sourceMatched": true,
+        "projectionMatched": true,
+        "harnessUnchanged": true,
+        "productionUnchanged": true,
+        "fixtureReadFailures": 0
+      },
+      "sourceWritesDenied": 0,
+      "inspectorClosed": true,
+      "harness": [
+        {
+          "relative": "compare-session-cpu.mjs",
+          "sha256": "10017e002b09b59ff53efbcc2e2ec1fa0d21d78c9609ca9683a7fff9ca04374d"
+        },
+        {
+          "relative": "ri00/paired-read-cpu.mjs",
+          "sha256": "2e200ee165cfaa8125cccd8c0def30dc16329b1094b56d49f845316d3020ab8d"
+        },
+        {
+          "relative": "ri00/cache-read-cpu.mjs",
+          "sha256": "ea844394f9738a00864c0a5f31156fe3e85efa634aad877b6c1d4bb5c4a4a9c2"
+        },
+        {
+          "relative": "ri00/index-counter-probe.mjs",
+          "sha256": "78576ea26cbe356d40eaeca70578b81941b35a93873f56d34c0252d436e192d9"
+        },
+        {
+          "relative": "ri00/v8-read-state.mjs",
+          "sha256": "0511a82cae26df546738f9a0ab120bf06d90c2dcf1dd7b2b6336e8fbefbbe80f"
+        },
+        {
+          "relative": "ri00/heap-layout.mjs",
+          "sha256": "ea5de43895a8183694f19b2b7f70a3c97716c890cbcd4bd52471cc69b1f76585"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "cf8f5b074b065054ddf83ae0c8c067c000f500752f62da619bba69f44e55cefe"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        }
+      ],
+      "groups": {
+        "mainA": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 416.293,
+              "evidenceUserMs": 279.495,
+              "evidenceSystemMs": 4.639,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 345133172,
+              "gcPauseOverlapMs": 26.166876077651978
+            },
+            {
+              "wallMs": 417.107,
+              "evidenceUserMs": 279.013,
+              "evidenceSystemMs": 3.691,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 435310128,
+              "gcPauseOverlapMs": 29.42750096321106
+            },
+            {
+              "wallMs": 396.466,
+              "evidenceUserMs": 256.54,
+              "evidenceSystemMs": 1.629,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 376789236,
+              "gcPauseOverlapMs": 22.332458019256592
+            },
+            {
+              "wallMs": 390.581,
+              "evidenceUserMs": 259.237,
+              "evidenceSystemMs": 2.464,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 489293336,
+              "gcPauseOverlapMs": 24.085250854492188
+            },
+            {
+              "wallMs": 410.26,
+              "evidenceUserMs": 262.325,
+              "evidenceSystemMs": 5.857,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 576062132,
+              "gcPauseOverlapMs": 25.84799885749817
+            },
+            {
+              "wallMs": 404.707,
+              "evidenceUserMs": 261.952,
+              "evidenceSystemMs": 4.48,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 684210944,
+              "gcPauseOverlapMs": 24.38228988647461
+            },
+            {
+              "wallMs": 401.011,
+              "evidenceUserMs": 259.61,
+              "evidenceSystemMs": 4.414,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 772746096,
+              "gcPauseOverlapMs": 24.618707180023193
+            },
+            {
+              "wallMs": 404.31,
+              "evidenceUserMs": 260.012,
+              "evidenceSystemMs": 4.702,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 881473056,
+              "gcPauseOverlapMs": 26.7467520236969
+            }
+          ],
+          "firstPointSeparated": true
+        },
+        "fixture": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 419.112,
+              "evidenceUserMs": 278.979,
+              "evidenceSystemMs": 3.16,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 623720024,
+              "gcPauseOverlapMs": 27.820167064666748
+            },
+            {
+              "wallMs": 401.359,
+              "evidenceUserMs": 269.936,
+              "evidenceSystemMs": 1.407,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 390337220,
+              "gcPauseOverlapMs": 24.22300148010254
+            },
+            {
+              "wallMs": 399.983,
+              "evidenceUserMs": 262.922,
+              "evidenceSystemMs": 3.094,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 480418208,
+              "gcPauseOverlapMs": 21.551666259765625
+            },
+            {
+              "wallMs": 408.354,
+              "evidenceUserMs": 272.415,
+              "evidenceSystemMs": 4.765,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 589478812,
+              "gcPauseOverlapMs": 26.7803316116333
+            },
+            {
+              "wallMs": 404.339,
+              "evidenceUserMs": 265.653,
+              "evidenceSystemMs": 3.261,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 676995748,
+              "gcPauseOverlapMs": 23.558663845062256
+            },
+            {
+              "wallMs": 414.137,
+              "evidenceUserMs": 274.87,
+              "evidenceSystemMs": 4.817,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 786160340,
+              "gcPauseOverlapMs": 27.641709327697754
+            },
+            {
+              "wallMs": 410.661,
+              "evidenceUserMs": 272.536,
+              "evidenceSystemMs": 5.285,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 873262224,
+              "gcPauseOverlapMs": 25.548667907714844
+            },
+            {
+              "wallMs": 412.553,
+              "evidenceUserMs": 278.938,
+              "evidenceSystemMs": 6.082,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 982723152,
+              "gcPauseOverlapMs": 28.31270956993103
+            }
+          ],
+          "firstPointSeparated": true
+        },
+        "mainB": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 441.603,
+              "evidenceUserMs": 290.941,
+              "evidenceSystemMs": 6.219,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 340232572,
+              "gcPauseOverlapMs": 28.302751541137695
+            },
+            {
+              "wallMs": 381.826,
+              "evidenceUserMs": 255.043,
+              "evidenceSystemMs": 2.832,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 430127944,
+              "gcPauseOverlapMs": 23.819247722625732
+            },
+            {
+              "wallMs": 419.744,
+              "evidenceUserMs": 263.523,
+              "evidenceSystemMs": 5.115,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 517590380,
+              "gcPauseOverlapMs": 24.59254288673401
+            },
+            {
+              "wallMs": 410.58,
+              "evidenceUserMs": 268.51,
+              "evidenceSystemMs": 3.965,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 625712764,
+              "gcPauseOverlapMs": 27.149875164031982
+            },
+            {
+              "wallMs": 382.719,
+              "evidenceUserMs": 253.451,
+              "evidenceSystemMs": 3.262,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 712097036,
+              "gcPauseOverlapMs": 23.687875509262085
+            },
+            {
+              "wallMs": 397.285,
+              "evidenceUserMs": 259.128,
+              "evidenceSystemMs": 3.054,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 821605384,
+              "gcPauseOverlapMs": 23.98824954032898
+            },
+            {
+              "wallMs": 403.551,
+              "evidenceUserMs": 263.611,
+              "evidenceSystemMs": 4.524,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 909075896,
+              "gcPauseOverlapMs": 25.77220869064331
+            },
+            {
+              "wallMs": 405.669,
+              "evidenceUserMs": 263.596,
+              "evidenceSystemMs": 3.943,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 1018529988,
+              "gcPauseOverlapMs": 26.379584550857544
+            }
+          ],
+          "firstPointSeparated": true
+        }
+      }
+    },
+    {
+      "childPrelude": "index-first",
+      "guards": {
+        "ok": true,
+        "sourceMatched": true,
+        "projectionMatched": true,
+        "harnessUnchanged": true,
+        "productionUnchanged": true,
+        "fixtureReadFailures": 0
+      },
+      "sourceWritesDenied": 0,
+      "inspectorClosed": true,
+      "harness": [
+        {
+          "relative": "compare-session-cpu.mjs",
+          "sha256": "10017e002b09b59ff53efbcc2e2ec1fa0d21d78c9609ca9683a7fff9ca04374d"
+        },
+        {
+          "relative": "ri00/paired-read-cpu.mjs",
+          "sha256": "2e200ee165cfaa8125cccd8c0def30dc16329b1094b56d49f845316d3020ab8d"
+        },
+        {
+          "relative": "ri00/cache-read-cpu.mjs",
+          "sha256": "ea844394f9738a00864c0a5f31156fe3e85efa634aad877b6c1d4bb5c4a4a9c2"
+        },
+        {
+          "relative": "ri00/index-counter-probe.mjs",
+          "sha256": "78576ea26cbe356d40eaeca70578b81941b35a93873f56d34c0252d436e192d9"
+        },
+        {
+          "relative": "ri00/v8-read-state.mjs",
+          "sha256": "0511a82cae26df546738f9a0ab120bf06d90c2dcf1dd7b2b6336e8fbefbbe80f"
+        },
+        {
+          "relative": "ri00/heap-layout.mjs",
+          "sha256": "ea5de43895a8183694f19b2b7f70a3c97716c890cbcd4bd52471cc69b1f76585"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "cf8f5b074b065054ddf83ae0c8c067c000f500752f62da619bba69f44e55cefe"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        }
+      ],
+      "groups": {
+        "mainA": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 420.406,
+              "evidenceUserMs": 283.751,
+              "evidenceSystemMs": 5.574,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 345958876,
+              "gcPauseOverlapMs": 27.597041368484497
+            },
+            {
+              "wallMs": 415.988,
+              "evidenceUserMs": 276.58,
+              "evidenceSystemMs": 3.043,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 430511568,
+              "gcPauseOverlapMs": 24.355416536331177
+            },
+            {
+              "wallMs": 384.04,
+              "evidenceUserMs": 258.405,
+              "evidenceSystemMs": 1.384,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 381702404,
+              "gcPauseOverlapMs": 24.664833307266235
+            },
+            {
+              "wallMs": 430.819,
+              "evidenceUserMs": 277.092,
+              "evidenceSystemMs": 2.676,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 467255548,
+              "gcPauseOverlapMs": 24.1011700630188
+            },
+            {
+              "wallMs": 406.505,
+              "evidenceUserMs": 266.287,
+              "evidenceSystemMs": 3.078,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 426002500,
+              "gcPauseOverlapMs": 24.760542631149292
+            },
+            {
+              "wallMs": 404.953,
+              "evidenceUserMs": 261.017,
+              "evidenceSystemMs": 5.205,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 512255700,
+              "gcPauseOverlapMs": 23.458375453948975
+            },
+            {
+              "wallMs": 404.541,
+              "evidenceUserMs": 266.712,
+              "evidenceSystemMs": 4.23,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 620698488,
+              "gcPauseOverlapMs": 24.645543575286865
+            },
+            {
+              "wallMs": 397.997,
+              "evidenceUserMs": 259.403,
+              "evidenceSystemMs": 2.845,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 707599488,
+              "gcPauseOverlapMs": 23.33454203605652
+            }
+          ],
+          "firstPointSeparated": true
+        },
+        "fixture": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 448.898,
+              "evidenceUserMs": 302.457,
+              "evidenceSystemMs": 3.973,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 940978236,
+              "gcPauseOverlapMs": 28.9437518119812
+            },
+            {
+              "wallMs": 433.516,
+              "evidenceUserMs": 302.168,
+              "evidenceSystemMs": 1.333,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 391681332,
+              "gcPauseOverlapMs": 23.709668397903442
+            },
+            {
+              "wallMs": 439.453,
+              "evidenceUserMs": 293.093,
+              "evidenceSystemMs": 2.909,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 482098548,
+              "gcPauseOverlapMs": 21.214251041412354
+            },
+            {
+              "wallMs": 449.32,
+              "evidenceUserMs": 306.222,
+              "evidenceSystemMs": 6.305,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 591345944,
+              "gcPauseOverlapMs": 28.257418394088745
+            },
+            {
+              "wallMs": 444.792,
+              "evidenceUserMs": 294.692,
+              "evidenceSystemMs": 5.491,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 678846844,
+              "gcPauseOverlapMs": 24.076208353042603
+            },
+            {
+              "wallMs": 438.219,
+              "evidenceUserMs": 301.57,
+              "evidenceSystemMs": 4.49,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 788253780,
+              "gcPauseOverlapMs": 28.046293258666992
+            },
+            {
+              "wallMs": 443.707,
+              "evidenceUserMs": 298.853,
+              "evidenceSystemMs": 5.166,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 875225596,
+              "gcPauseOverlapMs": 25.70391535758972
+            },
+            {
+              "wallMs": 428.299,
+              "evidenceUserMs": 295.925,
+              "evidenceSystemMs": 4.761,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 984595012,
+              "gcPauseOverlapMs": 27.513709783554077
+            }
+          ],
+          "firstPointSeparated": true
+        },
+        "mainB": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 411.201,
+              "evidenceUserMs": 282.099,
+              "evidenceSystemMs": 2.185,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 819254764,
+              "gcPauseOverlapMs": 28.87312626838684
+            },
+            {
+              "wallMs": 425.075,
+              "evidenceUserMs": 268.845,
+              "evidenceSystemMs": 3.423,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 454560704,
+              "gcPauseOverlapMs": 24.23316717147827
+            },
+            {
+              "wallMs": 403.702,
+              "evidenceUserMs": 265.262,
+              "evidenceSystemMs": 2.975,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 560452576,
+              "gcPauseOverlapMs": 24.742875814437866
+            },
+            {
+              "wallMs": 388.251,
+              "evidenceUserMs": 255.962,
+              "evidenceSystemMs": 1.121,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 645806952,
+              "gcPauseOverlapMs": 21.855834007263184
+            },
+            {
+              "wallMs": 406.727,
+              "evidenceUserMs": 261.394,
+              "evidenceSystemMs": 2.775,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 754483172,
+              "gcPauseOverlapMs": 24.26641583442688
+            },
+            {
+              "wallMs": 404.549,
+              "evidenceUserMs": 263.688,
+              "evidenceSystemMs": 4.091,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 841251560,
+              "gcPauseOverlapMs": 25.732168197631836
+            },
+            {
+              "wallMs": 406.383,
+              "evidenceUserMs": 264.044,
+              "evidenceSystemMs": 4.688,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 950094100,
+              "gcPauseOverlapMs": 26.07249879837036
+            },
+            {
+              "wallMs": 407.624,
+              "evidenceUserMs": 269.53,
+              "evidenceSystemMs": 4.682,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 1056704440,
+              "gcPauseOverlapMs": 31.306499242782593
+            }
+          ],
+          "firstPointSeparated": true
+        }
+      }
+    },
+    {
+      "childPrelude": "session-first-view",
+      "guards": {
+        "ok": true,
+        "sourceMatched": true,
+        "projectionMatched": true,
+        "harnessUnchanged": true,
+        "productionUnchanged": true,
+        "fixtureReadFailures": 0
+      },
+      "sourceWritesDenied": 0,
+      "inspectorClosed": true,
+      "harness": [
+        {
+          "relative": "compare-session-cpu.mjs",
+          "sha256": "10017e002b09b59ff53efbcc2e2ec1fa0d21d78c9609ca9683a7fff9ca04374d"
+        },
+        {
+          "relative": "ri00/paired-read-cpu.mjs",
+          "sha256": "2e200ee165cfaa8125cccd8c0def30dc16329b1094b56d49f845316d3020ab8d"
+        },
+        {
+          "relative": "ri00/cache-read-cpu.mjs",
+          "sha256": "ea844394f9738a00864c0a5f31156fe3e85efa634aad877b6c1d4bb5c4a4a9c2"
+        },
+        {
+          "relative": "ri00/index-counter-probe.mjs",
+          "sha256": "78576ea26cbe356d40eaeca70578b81941b35a93873f56d34c0252d436e192d9"
+        },
+        {
+          "relative": "ri00/v8-read-state.mjs",
+          "sha256": "0511a82cae26df546738f9a0ab120bf06d90c2dcf1dd7b2b6336e8fbefbbe80f"
+        },
+        {
+          "relative": "ri00/heap-layout.mjs",
+          "sha256": "ea5de43895a8183694f19b2b7f70a3c97716c890cbcd4bd52471cc69b1f76585"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "cf8f5b074b065054ddf83ae0c8c067c000f500752f62da619bba69f44e55cefe"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        }
+      ],
+      "groups": {
+        "mainA": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 488.085,
+              "evidenceUserMs": 310.582,
+              "evidenceSystemMs": 10.682,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 419255696,
+              "gcPauseOverlapMs": 30.554038763046265
+            },
+            {
+              "wallMs": 479.087,
+              "evidenceUserMs": 304.295,
+              "evidenceSystemMs": 10.006,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 427141968,
+              "gcPauseOverlapMs": 27.31512451171875
+            },
+            {
+              "wallMs": 460.725,
+              "evidenceUserMs": 289.482,
+              "evidenceSystemMs": 6.727,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 366977436,
+              "gcPauseOverlapMs": 28.449417114257812
+            },
+            {
+              "wallMs": 451.093,
+              "evidenceUserMs": 288.481,
+              "evidenceSystemMs": 9.784,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 479149676,
+              "gcPauseOverlapMs": 29.81724977493286
+            },
+            {
+              "wallMs": 458.897,
+              "evidenceUserMs": 283.567,
+              "evidenceSystemMs": 9.424,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 566500960,
+              "gcPauseOverlapMs": 28.98983407020569
+            },
+            {
+              "wallMs": 452.247,
+              "evidenceUserMs": 288.428,
+              "evidenceSystemMs": 10.885,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 665227308,
+              "gcPauseOverlapMs": 29.579459190368652
+            },
+            {
+              "wallMs": 457.174,
+              "evidenceUserMs": 283.287,
+              "evidenceSystemMs": 9.508,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 770840124,
+              "gcPauseOverlapMs": 29.234626293182373
+            },
+            {
+              "wallMs": 453.837,
+              "evidenceUserMs": 289.701,
+              "evidenceSystemMs": 11.003,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 877075412,
+              "gcPauseOverlapMs": 29.269541025161743
+            }
+          ],
+          "firstPointSeparated": true
+        },
+        "fixture": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 492.095,
+              "evidenceUserMs": 310.299,
+              "evidenceSystemMs": 8.551,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 611155232,
+              "gcPauseOverlapMs": 31.97687530517578
+            },
+            {
+              "wallMs": 472.333,
+              "evidenceUserMs": 300.686,
+              "evidenceSystemMs": 9.161,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 375307808,
+              "gcPauseOverlapMs": 28.545792818069458
+            },
+            {
+              "wallMs": 465.143,
+              "evidenceUserMs": 305.367,
+              "evidenceSystemMs": 9.913,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 489480540,
+              "gcPauseOverlapMs": 32.70741558074951
+            },
+            {
+              "wallMs": 469.598,
+              "evidenceUserMs": 303.3,
+              "evidenceSystemMs": 10.27,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 577091460,
+              "gcPauseOverlapMs": 29.312497854232788
+            },
+            {
+              "wallMs": 463.103,
+              "evidenceUserMs": 301.197,
+              "evidenceSystemMs": 10.443,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 687077920,
+              "gcPauseOverlapMs": 28.282499313354492
+            },
+            {
+              "wallMs": 469.35,
+              "evidenceUserMs": 302.838,
+              "evidenceSystemMs": 10.453,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 775022700,
+              "gcPauseOverlapMs": 29.13116717338562
+            },
+            {
+              "wallMs": 470.365,
+              "evidenceUserMs": 301.162,
+              "evidenceSystemMs": 11.33,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 884669836,
+              "gcPauseOverlapMs": 30.666542053222656
+            },
+            {
+              "wallMs": 469.246,
+              "evidenceUserMs": 303.095,
+              "evidenceSystemMs": 10.561,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 973091244,
+              "gcPauseOverlapMs": 30.11783194541931
+            }
+          ],
+          "firstPointSeparated": true
+        },
+        "mainB": {
+          "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+          "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+          "points": [
+            {
+              "wallMs": 514.685,
+              "evidenceUserMs": 327.814,
+              "evidenceSystemMs": 13.504,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 342667180,
+              "gcPauseOverlapMs": 35.756040811538696
+            },
+            {
+              "wallMs": 464.486,
+              "evidenceUserMs": 294.394,
+              "evidenceSystemMs": 8.705,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 427802084,
+              "gcPauseOverlapMs": 28.48879075050354
+            },
+            {
+              "wallMs": 460.665,
+              "evidenceUserMs": 289.589,
+              "evidenceSystemMs": 7.876,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 366924832,
+              "gcPauseOverlapMs": 28.212957620620728
+            },
+            {
+              "wallMs": 451.053,
+              "evidenceUserMs": 287.364,
+              "evidenceSystemMs": 7.298,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 583064400,
+              "gcPauseOverlapMs": 31.816580772399902
+            },
+            {
+              "wallMs": 455.753,
+              "evidenceUserMs": 282.351,
+              "evidenceSystemMs": 10.099,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 668553832,
+              "gcPauseOverlapMs": 29.82899808883667
+            },
+            {
+              "wallMs": 451.915,
+              "evidenceUserMs": 290.142,
+              "evidenceSystemMs": 9.334,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 776143612,
+              "gcPauseOverlapMs": 29.82387399673462
+            },
+            {
+              "wallMs": 457.043,
+              "evidenceUserMs": 282.926,
+              "evidenceSystemMs": 9.999,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 863670280,
+              "gcPauseOverlapMs": 31.764665842056274
+            },
+            {
+              "wallMs": 456.449,
+              "evidenceUserMs": 281.56,
+              "evidenceSystemMs": 10.135,
+              "getPlanCalls": 3859,
+              "evidenceCalls": 12,
+              "evidenceRows": 831192,
+              "heapUsedBeforeBytes": 972173080,
+              "gcPauseOverlapMs": 30.643123626708984
+            }
+          ],
+          "firstPointSeparated": true
+        }
+      }
+    }
+  ],
+  "failuresPreserved": [
+    "first post-startup comparison coordinator assumed default9229 after SIGUSR1; new CLI-inspected process retained its allocated port; failed fetch retained, actual listener identified and owned closure verified by successful rerun"
+  ],
+  "gates": {
+    "RI00": "not closed",
+    "RI01": "not started",
+    "historical3949ms": "gap retained",
+    "actualSlowContextFormation": "not proven; original process retired after explicit user exit; new process currently does not show positive dense CPU residual"
+  },
+  "limits": [
+    "different process and startup observer: do not attribute change uniquely to restart or ordering",
+    "do not equate one first file read with one normalization, or synthetic8 calls with actual history",
+    "do not add CPU deltas across windows to manufacture closure",
+    "no installed patch or performance fix; no actual app heap snapshot, forced optimization or GC control"
+  ],
+  "oldDenseReference": {
+    "mainA": {
+      "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+      "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+      "evidenceUserMedianExcludingFirstMs": 307.963
+    },
+    "fixture": {
+      "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+      "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+      "evidenceUserMedianExcludingFirstMs": 271.163
+    },
+    "mainB": {
+      "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+      "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+      "evidenceUserMedianExcludingFirstMs": 304.49899999999997
+    }
+  },
+  "natural": [
+    {
+      "case": "startup-20261112-natural-resources",
+      "ok": true,
+      "closed": true,
+      "restored": true,
+      "resourceErrors": 0,
+      "completeTargetQueries": 0,
+      "points": [],
+      "maxSynchronousRootMs": 0.5199589729309082,
+      "page": "home; missing target polling, not comparable"
+    },
+    {
+      "case": "startup-20261112-natural-resources-view",
+      "ok": true,
+      "closed": true,
+      "restored": true,
+      "resourceErrors": 0,
+      "completeTargetQueries": 8,
+      "points": [
+        {
+          "wallMs": 506.5271670818329,
+          "evidenceUserMs": 314.917,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 342514488
+        },
+        {
+          "wallMs": 504.50708293914795,
+          "evidenceUserMs": 313.80899999999997,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 343379692
+        },
+        {
+          "wallMs": 505.79645895957947,
+          "evidenceUserMs": 316.755,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 342523944
+        },
+        {
+          "wallMs": 505.48825001716614,
+          "evidenceUserMs": 314.766,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 343003952
+        },
+        {
+          "wallMs": 508.29037499427795,
+          "evidenceUserMs": 310.70099999999996,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 343062032
+        },
+        {
+          "wallMs": 509.3811249732971,
+          "evidenceUserMs": 318.321,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 343464508
+        },
+        {
+          "wallMs": 507.1956250667572,
+          "evidenceUserMs": 311.887,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 343118636
+        },
+        {
+          "wallMs": 508.93045806884766,
+          "evidenceUserMs": 317.24299999999994,
+          "getPlanCalls": 3859,
+          "heapUsedBeforeBytes": 343574864
+        }
+      ],
+      "maxSynchronousRootMs": 509.3811249732971,
+      "page": "Peer RSI conversation restored by read-only navigation; no message sent"
+    }
+  ],
+  "detailAbba": {
+    "ok": true,
+    "closed": true,
+    "restored": true,
+    "harness": [
+      {
+        "relative": "observe-runtime-live.mjs",
+        "sha256": "73d4e2bc1de9bbd8818672df0eb862344f8252ecc11690582e2674ee222a9650"
+      },
+      {
+        "relative": "ri00/live-observation.mjs",
+        "sha256": "9843d9c548daf38a89e5117461c0eca55d20c152b1c64038d92c300269c6efd8"
+      },
+      {
+        "relative": "ri00/trace.mjs",
+        "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+      },
+      {
+        "relative": "ri00/profile-clock.mjs",
+        "sha256": "a9ee663b14d342c3fac4b4e2ba40dc7b9e3db8b7cd922ead22b6e1b829daae7d"
+      },
+      {
+        "relative": "ri00/gc-observation.mjs",
+        "sha256": "4e6cdc048b1b734481eec557c16444f5340545c7f6d4840ffe522b7939d6fd4f"
+      },
+      {
+        "relative": "ri00/inspector-read-ports.mjs",
+        "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+      }
+    ],
+    "points": [
+      {
+        "wallMs": 492.2083752155304,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 446.381,
+        "threadSystemMs": 44.674,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 518.0592498779297,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 465.744,
+        "threadSystemMs": 48.814,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 496.2406668663025,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 449.13,
+        "threadSystemMs": 46.119,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 516.5782911777496,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 463.73,
+        "threadSystemMs": 51.575,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 483.1701669692993,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 437.666,
+        "threadSystemMs": 44.54,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 521.6714589595795,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 466.034,
+        "threadSystemMs": 53.594,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 515.7286250591278,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 461.416,
+        "threadSystemMs": 52.839,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 511.79212498664856,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 457.447,
+        "threadSystemMs": 52.923,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 486.16154193878174,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 440.39,
+        "threadSystemMs": 44.48,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 509.30112504959106,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 458.49,
+        "threadSystemMs": 48.751,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 501.5323340892792,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 453.058,
+        "threadSystemMs": 46.783,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 506.5165410041809,
+        "detailed": false,
+        "phaseCapture": false,
+        "threadUserMs": 455.705,
+        "threadSystemMs": 48.949,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 508.38179206848145,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 454.255,
+        "threadSystemMs": 51.542,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 511.8822500705719,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 460.413,
+        "threadSystemMs": 50.054,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 507.18241715431213,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 456.097,
+        "threadSystemMs": 49.663,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      },
+      {
+        "wallMs": 498.36379194259644,
+        "detailed": true,
+        "phaseCapture": true,
+        "threadUserMs": 451.842,
+        "threadSystemMs": 45.81,
+        "scopeFingerprint": "eec5ca9fd68733b6de10e1a2bc5d86fa47a4f808d166625f8732b908abedc8b2"
+      }
+    ],
+    "limit": "single-process natural-cadence ABBA; missing child metrics when disabled remain missing; no CPU profile or timer adoption"
+  },
+  "isolatedCadenceFreshConfirmation": [
+    {
+      "case": "1",
+      "ok": true,
+      "harness": [
+        {
+          "relative": "compare-session-cpu.mjs",
+          "sha256": "10017e002b09b59ff53efbcc2e2ec1fa0d21d78c9609ca9683a7fff9ca04374d"
+        },
+        {
+          "relative": "ri00/paired-read-cpu.mjs",
+          "sha256": "2e200ee165cfaa8125cccd8c0def30dc16329b1094b56d49f845316d3020ab8d"
+        },
+        {
+          "relative": "ri00/cache-read-cpu.mjs",
+          "sha256": "ea844394f9738a00864c0a5f31156fe3e85efa634aad877b6c1d4bb5c4a4a9c2"
+        },
+        {
+          "relative": "ri00/index-counter-probe.mjs",
+          "sha256": "78576ea26cbe356d40eaeca70578b81941b35a93873f56d34c0252d436e192d9"
+        },
+        {
+          "relative": "ri00/v8-read-state.mjs",
+          "sha256": "0511a82cae26df546738f9a0ab120bf06d90c2dcf1dd7b2b6336e8fbefbbe80f"
+        },
+        {
+          "relative": "ri00/heap-layout.mjs",
+          "sha256": "ea5de43895a8183694f19b2b7f70a3c97716c890cbcd4bd52471cc69b1f76585"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "cf8f5b074b065054ddf83ae0c8c067c000f500752f62da619bba69f44e55cefe"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        }
+      ],
+      "engineFlags": "",
+      "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+      "sourceMatched": true,
+      "projectionMatched": true,
+      "readFailures": 0,
+      "sourceWritesDenied": 0,
+      "phases": [
+        {
+          "name": "hot-before",
+          "delayMs": 20,
+          "points": [
+            {
+              "wallMs": 481.7906670000002,
+              "evidenceUserMs": 306.613,
+              "threadUserMs": 436.034,
+              "threadSystemMs": 44.857,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 498.49420800000007,
+              "evidenceUserMs": 320.90400000000005,
+              "threadUserMs": 452.228,
+              "threadSystemMs": 45.246,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 459.479292,
+              "evidenceUserMs": 298.911,
+              "threadUserMs": 420.887,
+              "threadSystemMs": 37.74,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        },
+        {
+          "name": "idle",
+          "delayMs": 14500,
+          "points": [
+            {
+              "wallMs": 502.6994999999988,
+              "evidenceUserMs": 336.91700000000003,
+              "threadUserMs": 458.968,
+              "threadSystemMs": 42.833,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 506.83445900000515,
+              "evidenceUserMs": 329.456,
+              "threadUserMs": 454.688,
+              "threadSystemMs": 50.073,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 508.940499999997,
+              "evidenceUserMs": 326.82200000000006,
+              "threadUserMs": 460.863,
+              "threadSystemMs": 46.252,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        },
+        {
+          "name": "hot-recovery",
+          "delayMs": 20,
+          "points": [
+            {
+              "wallMs": 467.2617919999975,
+              "evidenceUserMs": 297.278,
+              "threadUserMs": 427.514,
+              "threadSystemMs": 38.705,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 468.1480410000004,
+              "evidenceUserMs": 306.58099999999996,
+              "threadUserMs": 426.254,
+              "threadSystemMs": 40.987,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 504.04962499999965,
+              "evidenceUserMs": 330.12100000000004,
+              "threadUserMs": 460.375,
+              "threadSystemMs": 42.279,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "-2",
+      "ok": true,
+      "harness": [
+        {
+          "relative": "compare-session-cpu.mjs",
+          "sha256": "10017e002b09b59ff53efbcc2e2ec1fa0d21d78c9609ca9683a7fff9ca04374d"
+        },
+        {
+          "relative": "ri00/paired-read-cpu.mjs",
+          "sha256": "2e200ee165cfaa8125cccd8c0def30dc16329b1094b56d49f845316d3020ab8d"
+        },
+        {
+          "relative": "ri00/cache-read-cpu.mjs",
+          "sha256": "ea844394f9738a00864c0a5f31156fe3e85efa634aad877b6c1d4bb5c4a4a9c2"
+        },
+        {
+          "relative": "ri00/index-counter-probe.mjs",
+          "sha256": "78576ea26cbe356d40eaeca70578b81941b35a93873f56d34c0252d436e192d9"
+        },
+        {
+          "relative": "ri00/v8-read-state.mjs",
+          "sha256": "0511a82cae26df546738f9a0ab120bf06d90c2dcf1dd7b2b6336e8fbefbbe80f"
+        },
+        {
+          "relative": "ri00/heap-layout.mjs",
+          "sha256": "ea5de43895a8183694f19b2b7f70a3c97716c890cbcd4bd52471cc69b1f76585"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "cf8f5b074b065054ddf83ae0c8c067c000f500752f62da619bba69f44e55cefe"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        }
+      ],
+      "engineFlags": "",
+      "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+      "sourceMatched": true,
+      "projectionMatched": true,
+      "readFailures": 0,
+      "sourceWritesDenied": 0,
+      "phases": [
+        {
+          "name": "hot-before",
+          "delayMs": 20,
+          "points": [
+            {
+              "wallMs": 463.1599590000005,
+              "evidenceUserMs": 300.546,
+              "threadUserMs": 420.334,
+              "threadSystemMs": 41.659,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 502.5885420000004,
+              "evidenceUserMs": 332.205,
+              "threadUserMs": 457.991,
+              "threadSystemMs": 43.184,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 466.9203749999997,
+              "evidenceUserMs": 299.333,
+              "threadUserMs": 430.633,
+              "threadSystemMs": 34.251,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        },
+        {
+          "name": "idle",
+          "delayMs": 14500,
+          "points": [
+            {
+              "wallMs": 493.1401250000017,
+              "evidenceUserMs": 318.18300000000005,
+              "threadUserMs": 451.154,
+              "threadSystemMs": 40.871,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 505.1333750000049,
+              "evidenceUserMs": 327.994,
+              "threadUserMs": 456.279,
+              "threadSystemMs": 46.975,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 496.25429100000474,
+              "evidenceUserMs": 324.439,
+              "threadUserMs": 454.251,
+              "threadSystemMs": 40.683,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        },
+        {
+          "name": "hot-recovery",
+          "delayMs": 20,
+          "points": [
+            {
+              "wallMs": 467.4421249999941,
+              "evidenceUserMs": 300.32500000000005,
+              "threadUserMs": 427.301,
+              "threadSystemMs": 39.261,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 466.00429099999747,
+              "evidenceUserMs": 302.257,
+              "threadUserMs": 431.946,
+              "threadSystemMs": 33.19,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 463.38891599999624,
+              "evidenceUserMs": 299.15200000000004,
+              "threadUserMs": 422.926,
+              "threadSystemMs": 39.497,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "-3",
+      "ok": true,
+      "harness": [
+        {
+          "relative": "compare-session-cpu.mjs",
+          "sha256": "10017e002b09b59ff53efbcc2e2ec1fa0d21d78c9609ca9683a7fff9ca04374d"
+        },
+        {
+          "relative": "ri00/paired-read-cpu.mjs",
+          "sha256": "2e200ee165cfaa8125cccd8c0def30dc16329b1094b56d49f845316d3020ab8d"
+        },
+        {
+          "relative": "ri00/cache-read-cpu.mjs",
+          "sha256": "ea844394f9738a00864c0a5f31156fe3e85efa634aad877b6c1d4bb5c4a4a9c2"
+        },
+        {
+          "relative": "ri00/index-counter-probe.mjs",
+          "sha256": "78576ea26cbe356d40eaeca70578b81941b35a93873f56d34c0252d436e192d9"
+        },
+        {
+          "relative": "ri00/v8-read-state.mjs",
+          "sha256": "0511a82cae26df546738f9a0ab120bf06d90c2dcf1dd7b2b6336e8fbefbbe80f"
+        },
+        {
+          "relative": "ri00/heap-layout.mjs",
+          "sha256": "ea5de43895a8183694f19b2b7f70a3c97716c890cbcd4bd52471cc69b1f76585"
+        },
+        {
+          "relative": "ri00/darwin-process-counters.py",
+          "sha256": "cf8f5b074b065054ddf83ae0c8c067c000f500752f62da619bba69f44e55cefe"
+        },
+        {
+          "relative": "ri00/read-host.mjs",
+          "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+        },
+        {
+          "relative": "ri00/inspector-read-ports.mjs",
+          "sha256": "d03ce87ee6e3db08446f2cc356be274d5e65abed25b4827672d6e26727d016e4"
+        },
+        {
+          "relative": "ri00/readonly-coordination.mjs",
+          "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+        },
+        {
+          "relative": "ri00/identity.mjs",
+          "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+        },
+        {
+          "relative": "ri00/trace.mjs",
+          "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+        }
+      ],
+      "engineFlags": "",
+      "sourceIndexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+      "sourceMatched": true,
+      "projectionMatched": true,
+      "readFailures": 0,
+      "sourceWritesDenied": 0,
+      "phases": [
+        {
+          "name": "hot-before",
+          "delayMs": 20,
+          "points": [
+            {
+              "wallMs": 465.2255839999998,
+              "evidenceUserMs": 302.976,
+              "threadUserMs": 423.787,
+              "threadSystemMs": 40.217,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 496.26529200000004,
+              "evidenceUserMs": 327.25299999999993,
+              "threadUserMs": 452.157,
+              "threadSystemMs": 42.898,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 470.16291699999965,
+              "evidenceUserMs": 308.695,
+              "threadUserMs": 431.718,
+              "threadSystemMs": 37.316,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        },
+        {
+          "name": "idle",
+          "delayMs": 14500,
+          "points": [
+            {
+              "wallMs": 499.5495840000003,
+              "evidenceUserMs": 332.028,
+              "threadUserMs": 455.872,
+              "threadSystemMs": 42.565,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 508.08945899999526,
+              "evidenceUserMs": 328.74100000000004,
+              "threadUserMs": 456.478,
+              "threadSystemMs": 49.451,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 499.7577919999967,
+              "evidenceUserMs": 322.31,
+              "threadUserMs": 450.399,
+              "threadSystemMs": 47.199,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        },
+        {
+          "name": "hot-recovery",
+          "delayMs": 20,
+          "points": [
+            {
+              "wallMs": 465.34833300000173,
+              "evidenceUserMs": 302.206,
+              "threadUserMs": 423.472,
+              "threadSystemMs": 40.82,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 467.27745900000446,
+              "evidenceUserMs": 300.909,
+              "threadUserMs": 426.203,
+              "threadSystemMs": 39.815,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            },
+            {
+              "wallMs": 497.9527079999971,
+              "evidenceUserMs": 325.685,
+              "threadUserMs": 454.576,
+              "threadSystemMs": 41.959,
+              "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "nativeSha16MiBControl": {
+    "restart-20261112-context-n-dense-session": {
+      "mainA": {
+        "userMs": [
+          5.066,
+          4.867,
+          5.04,
+          4.874,
+          4.903,
+          5.059,
+          4.95,
+          4.882
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "fixture": {
+        "userMs": [
+          4.951,
+          5.065,
+          5.035,
+          5.207,
+          5.17,
+          5.123,
+          5.092,
+          4.909
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "mainB": {
+        "userMs": [
+          5.007,
+          4.962,
+          5.115,
+          4.928,
+          4.892,
+          4.865,
+          4.883,
+          4.864
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "startup-20261112-session-first-paired-v2": {
+      "mainA": {
+        "userMs": [
+          4.944,
+          4.851,
+          4.903,
+          4.847,
+          4.959,
+          5.016,
+          4.935,
+          4.917
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "fixture": {
+        "userMs": [
+          4.908,
+          4.848,
+          4.919,
+          4.926,
+          4.931,
+          4.963,
+          4.966,
+          4.949
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "mainB": {
+        "userMs": [
+          4.943,
+          5.032,
+          4.915,
+          4.849,
+          4.897,
+          5.061,
+          4.871,
+          5.223
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "startup-20261112-session-first-paired-view": {
+      "mainA": {
+        "userMs": [
+          5.54,
+          5.57,
+          5.546,
+          5.568,
+          5.612,
+          5.671,
+          5.703,
+          5.558
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "fixture": {
+        "userMs": [
+          5.649,
+          5.53,
+          5.578,
+          5.546,
+          5.623,
+          5.602,
+          5.53,
+          5.56
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "mainB": {
+        "userMs": [
+          5.597,
+          5.645,
+          5.618,
+          5.533,
+          5.628,
+          5.529,
+          5.595,
+          5.53
+        ],
+        "gcMs": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "validation": {
+    "focusedTestsPassed": 62,
+    "node": "25.9.0",
+    "changedScriptSyntax": "passed",
+    "architecture": "passed",
+    "uiConventions": "passed",
+    "diff": "passed",
+    "workflowRuns": [],
+    "commitStatuses": [],
+    "selfReview": true
+  }
+}

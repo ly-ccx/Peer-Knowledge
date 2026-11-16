@@ -1,0 +1,515 @@
+{
+  "kind": "RI00-evidence-strategy-failure-audit-not-product-root-cause",
+  "date": "2026-11-14",
+  "inputs": {
+    "runtime-isolation-ri00-e3-drain-qualification-20261113.json": "afb514f0814c81bbbfd50798b0b6d530832c24888259500ae2353e2ef6c83efd",
+    "runtime-isolation-ri00-e3-n-results-20261113.json": "58aade6840bb90a28b2770b8bfdf619fd919aab351749a0c9b4c7794730da0b6",
+    "runtime-isolation-ri00-e3-cdem-results-20261113.json": "a54688a0a152ecc25ed07704e76efcb764608e340d0b5ac11f687a815950d226",
+    "runtime-isolation-ri00-e3-p-results-20261114.json": "e7785588cdffaa0e8cf26c2a40000d6deb1d79927e07e27ded42e8bb5c7ee9ba",
+    "runtime-isolation-ri00-e3-p2-results-20261114.json": "542abf80efbd20ca3ca475959abd9b1c10e5f0d2f0d4ef40e9380c87f81c2aa1",
+    "runtime-isolation-ri00-e3-cadence-results-20261114.json": "e93d94315104f44434d54129ce495b85bc53957297de1a204c99aa6f53224f69",
+    "runtime-isolation-ri00-e3-order-results-20261114.json": "703e6158901bfa513f0d68ffdf1678828f5938ddcfcf001f7a28902a645ed66e",
+    "runtime-isolation-ri00-e3-calibration-placement-results-20261114.json": "4c12953829530f49b7c15077ff577fd53d2df1d020e2a751474d5ea5f878fe92",
+    "runtime-isolation-ri00-long-watch-c1-20261113.json": "d8d183b7407f73e695f8d8f75c9d9d5136b58724375f38ff11b2ccfb9f477f72",
+    "runtime-isolation-ri00-e3-design-audit-20261113.json": "a0464ee46e33f9c0864222779fdef71ec2687c9e9403e5d0e36cea75793bfcf3",
+    "runtime-isolation-ri00-passive-v2-c2-20261113.json": "ebb881631958b887b6e4021fcaa6e3b842e9649f04ba56dcf885fef19d5a9ef5"
+  },
+  "privatePlacementReportSha256": "508000be77164709dd82c71321e184207aabb5a2d95f1ab4f9ab6d03e3a33329",
+  "currentControllerSource": {
+    "e3-field-controller.mjs": "f346e5aa899fceb6af128265cd8d1496e07b68c4c583c681a578cf005314ac47",
+    "e3-field-io.mjs": "0addad65355bf115a6ec14f5318db8d91b8f4d74ea3d4b66ed5971f2af38eae9",
+    "e3-signal-adapter.mjs": "e5d4552ff8720427705e677324a0264060f151a369cb763eed908d8a637f71cb",
+    "e3-entry-adapter.mjs": "11f735cc3ca8e0d22220c61585fabde6fbe65a634bb0256a0e81250409220917",
+    "e3-checkpoint.mjs": "803af7a15e556fbd2167e236ff016d2a2cc399c86e3c7240eab3dbd7bc6a3f15"
+  },
+  "facts": {
+    "KWarmEligibleCheckpoints": 2,
+    "KArmedLabelsNotQualifications": 3,
+    "KCheckpoints": 8,
+    "cadenceF0Armed": 2,
+    "cadenceTreatmentWarmFailures": 6,
+    "orderF0RejectedTargets": 2,
+    "orderTreatmentCells": 0,
+    "placementRawReturnCells": 8,
+    "placementRawUserReturnFailures": 3,
+    "placementReturnAnchorGcSignatureChanged": 8,
+    "C2Coverage": {
+      "allNaturalEnvelopes": 129,
+      "recordedDiagnosticOverlap": 1,
+      "observedEntryCategories": [
+        "ipc-obligation-grants"
+      ],
+      "acceptedSourceChanges": 0,
+      "fingerprintPositions": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        10,
+        11
+      ],
+      "excludedPositions": [
+        4,
+        5,
+        8,
+        9
+      ],
+      "oldTriggerRequiredConsecutiveRoots": 3,
+      "noPerRecordOrVmFormationHistoryClaim": true
+    },
+    "C2HeldOutFull12DeltaMaxMs": 7.510999999999967,
+    "C2OfflineFull12Signals": 0,
+    "placementReturnWeightedGcDistributionsChanged": 8
+  },
+  "placementReturns": [
+    {
+      "target": "calibration-target-1",
+      "arm": "A",
+      "role": "target",
+      "cells": [
+        0,
+        3
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 12,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+        },
+        {
+          "ticketId": 16,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 47,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": 0.1784999999999286,
+        "evidenceSystemMs": 0.9990000000000006,
+        "evidenceTotalCpuMs": 1.1774999999999523,
+        "rootUserMs": -0.125,
+        "rootSystemMs": 1.0120000000000005,
+        "rootTotalCpuMs": 0.8869999999999436,
+        "remainderUserMs": -0.303499999999957,
+        "remainderSystemMs": 0.012999999999998124,
+        "instructions": -40027243.5,
+        "cycles": 11401046
+      },
+      "ratios": {
+        "instructions": -0.00488527062772337,
+        "cycles": 0.006898102891288227
+      },
+      "rawUserReturnFailed": false,
+      "beforeGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]": 0.5,
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 0.5
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-1",
+      "arm": "A",
+      "role": "conditioning",
+      "cells": [
+        0,
+        3
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 16,
+          "weight": 1,
+          "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 44,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": -9.720999999999947,
+        "evidenceSystemMs": 2.197,
+        "evidenceTotalCpuMs": -7.523999999999944,
+        "rootUserMs": -7.141999999999996,
+        "rootSystemMs": 2.4410000000000025,
+        "rootTotalCpuMs": -4.700999999999965,
+        "remainderUserMs": 2.578999999999951,
+        "remainderSystemMs": 0.24400000000000333,
+        "instructions": -97119524,
+        "cycles": -10171828
+      },
+      "ratios": {
+        "instructions": -0.011788414398860692,
+        "cycles": -0.006057082612838549
+      },
+      "rawUserReturnFailed": true,
+      "beforeGcWeightedDistribution": {
+        "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]": 1
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-1",
+      "arm": "B",
+      "role": "target",
+      "cells": [
+        1,
+        2
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 21,
+          "weight": 1,
+          "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 36,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": -8.866999999999962,
+        "evidenceSystemMs": 0.3039999999999998,
+        "evidenceTotalCpuMs": -8.562999999999988,
+        "rootUserMs": -0.6970000000000027,
+        "rootSystemMs": -0.8430000000000035,
+        "rootTotalCpuMs": -1.5400000000000205,
+        "remainderUserMs": 8.169999999999959,
+        "remainderSystemMs": -1.147000000000002,
+        "instructions": 35873000,
+        "cycles": -5937126
+      },
+      "ratios": {
+        "instructions": 0.00441475202701902,
+        "cycles": -0.0035427713358051616
+      },
+      "rawUserReturnFailed": true,
+      "beforeGcWeightedDistribution": {
+        "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]": 1
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-1",
+      "arm": "B",
+      "role": "conditioning",
+      "cells": [
+        1,
+        2
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 23,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        },
+        {
+          "ticketId": 26,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 34,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": -1.5955000000000155,
+        "evidenceSystemMs": -0.5775000000000006,
+        "evidenceTotalCpuMs": -2.173000000000002,
+        "rootUserMs": -2.0369999999999777,
+        "rootSystemMs": -0.9620000000000033,
+        "rootTotalCpuMs": -2.998999999999967,
+        "remainderUserMs": -0.44149999999996226,
+        "remainderSystemMs": -0.38450000000000273,
+        "instructions": 5702301.5,
+        "cycles": -9255577
+      },
+      "ratios": {
+        "instructions": 0.0007004789316478188,
+        "cycles": -0.005487658248105487
+      },
+      "rawUserReturnFailed": false,
+      "beforeGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 1.0
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-2",
+      "arm": "A",
+      "role": "target",
+      "cells": [
+        1,
+        2
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 24,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 34,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        },
+        {
+          "ticketId": 37,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": 0.5369999999999777,
+        "evidenceSystemMs": 1.5529999999999995,
+        "evidenceTotalCpuMs": 2.089999999999918,
+        "rootUserMs": -2.2959999999999923,
+        "rootSystemMs": 2.3724999999999987,
+        "rootTotalCpuMs": 0.07650000000006685,
+        "remainderUserMs": -2.83299999999997,
+        "remainderSystemMs": 0.8195000000000014,
+        "instructions": 35229763,
+        "cycles": 19149518
+      },
+      "ratios": {
+        "instructions": 0.004347723500080836,
+        "cycles": 0.01177193004076571
+      },
+      "rawUserReturnFailed": false,
+      "beforeGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 1
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 0.5,
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0]]]": 0.5
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-2",
+      "arm": "A",
+      "role": "conditioning",
+      "cells": [
+        1,
+        2
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 62,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 73,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": 0.23600000000004684,
+        "evidenceSystemMs": -2.382,
+        "evidenceTotalCpuMs": -2.145999999999958,
+        "rootUserMs": 4.377999999999986,
+        "rootSystemMs": -1.3179999999999978,
+        "rootTotalCpuMs": 3.0600000000000023,
+        "remainderUserMs": 4.141999999999939,
+        "remainderSystemMs": 1.0640000000000036,
+        "instructions": -29916755,
+        "cycles": 7068759
+      },
+      "ratios": {
+        "instructions": -0.0036851404258001486,
+        "cycles": 0.004330944330195985
+      },
+      "rawUserReturnFailed": false,
+      "beforeGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0]]]": 1
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-2",
+      "arm": "B",
+      "role": "target",
+      "cells": [
+        0,
+        3
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 17,
+          "weight": 0.5,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        },
+        {
+          "ticketId": 13,
+          "weight": 0.5,
+          "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 47,
+          "weight": 1,
+          "fullGcSignature": "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": -1.8424999999999727,
+        "evidenceSystemMs": 1.6745000000000003,
+        "evidenceTotalCpuMs": -0.1680000000000632,
+        "rootUserMs": 2.7490000000000236,
+        "rootSystemMs": 1.3809999999999967,
+        "rootTotalCpuMs": 4.1299999999999955,
+        "remainderUserMs": 4.591499999999996,
+        "remainderSystemMs": -0.2935000000000052,
+        "instructions": 21941354.5,
+        "cycles": 21640237
+      },
+      "ratios": {
+        "instructions": 0.002701368050952224,
+        "cycles": 0.013247664109169888
+      },
+      "rawUserReturnFailed": false,
+      "beforeGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 0.5,
+        "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]": 0.5
+      },
+      "afterGcWeightedDistribution": {
+        "[11,0,0,[[1,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    },
+    {
+      "target": "calibration-target-2",
+      "arm": "B",
+      "role": "conditioning",
+      "cells": [
+        0,
+        3
+      ],
+      "beforeAnchors": [
+        {
+          "ticketId": 51,
+          "weight": 1,
+          "fullGcSignature": "[12,0,0,[[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+        }
+      ],
+      "afterAnchors": [
+        {
+          "ticketId": 81,
+          "weight": 1,
+          "fullGcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+        }
+      ],
+      "sameGcAnchorMultiset": false,
+      "delta": {
+        "evidenceUserMs": 3.644999999999982,
+        "evidenceSystemMs": 0.08199999999999963,
+        "evidenceTotalCpuMs": 3.7269999999999754,
+        "rootUserMs": 1.3829999999999814,
+        "rootSystemMs": 0.4430000000000014,
+        "rootTotalCpuMs": 1.8260000000000218,
+        "remainderUserMs": -2.2620000000000005,
+        "remainderSystemMs": 0.3610000000000042,
+        "instructions": -60830393,
+        "cycles": 4418839
+      },
+      "ratios": {
+        "instructions": -0.007436102280530821,
+        "cycles": 0.00276025360982346
+      },
+      "rawUserReturnFailed": true,
+      "beforeGcWeightedDistribution": {
+        "[12,0,0,[[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]": 1
+      },
+      "afterGcWeightedDistribution": {
+        "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]": 1
+      },
+      "sameGcWeightedDistribution": false
+    }
+  ],
+  "causalLimits": {
+    "instructionRatiosWholeRootOnly": true,
+    "sameGcSignatureDoesNotMeanSameVmWork": true,
+    "changingGcMixNotProvedSoleCause": true,
+    "referenceIndependentlyDrifts": true,
+    "f0NotEveryCampaignFailed": true,
+    "noEvidence15msGateShouldBeRelaxed": true,
+    "productRootCauseFound": false
+  },
+  "retainedAnalysisFailure": {
+    "sha256": "6ed5f44ee1ebd74641965ceddc56ad834e7db1cb4d308c859e3642616948f5da",
+    "originalIncorrectCounter": "K armed label instead of current warm eligibility",
+    "correctionUsesOriginalChecksWithoutChangingThreshold": true
+  },
+  "scope": {
+    "newProductReads": 0,
+    "newOwnedElectronHosts": 0,
+    "newActualPeerAttachments": 0,
+    "newProfilerStarts": 0,
+    "fieldWindowStarted": false,
+    "RI00Closed": false,
+    "refactorStarted": false
+  },
+  "historicalBudget": {
+    "C1Minutes": 109.55,
+    "C2LongWatchMinutes": 128.95059,
+    "oldFourHourContinuationInsufficient": true,
+    "oldE3FieldBudgetNotAutomaticallyRepurposed": true
+  },
+  "validation": {
+    "scope": "offline sealed facts, weighted joint anchors and documentation only",
+    "inputReceiptsVerified": 11,
+    "allEightUserSystemRootRemainderSumsReconciled": true,
+    "weightedGcAnchorDistributionUsed": true,
+    "originalStatusAggregationFailureRetained": true,
+    "sourceIdentityUnchanged": true,
+    "productTestsNotRunForProse": true,
+    "review": "implementer self-review, not independent",
+    "productRootCauseProgressClaimed": false
+  }
+}

@@ -1,0 +1,408 @@
+{
+  "kind": "RI00-E3-P0-and-original-P-abort-sealed-results",
+  "date": "2026-11-14",
+  "currentCodeCandidate": "6aeaefbdc420013d7924619bbbff8bb2f36679ec",
+  "producerCandidates": {
+    "P0": "5775b6424d2cb391701aeedcb712a9f05d8ae5b3",
+    "P": "5775b6424d2cb391701aeedcb712a9f05d8ae5b3"
+  },
+  "rawSha256": {
+    "P0": "29d5b0a89a2e8563f94884d3b303626e890bd56ba4a905d20b09e8f969bf63a8",
+    "P": "0e2b3c2713063ccfe67b4e035a80eb80b4a2ddca8665fa9c3bffceb01d9d98ea",
+    "reservationReplayV2": "719373f873660fc05542cf87eca51e1cdd5eba61007d9494ae0b91949252a738",
+    "postCopyAudit": "e1f0a43e79289880369a82d50f7ba49ed8558af6dd522347eba2a7440f286136",
+    "reservationReplayV3": "2eaa24c85215f4f9f296f7365ad54cfb93f93b4a2fa6f966346cb87d5f391ffa",
+    "sourcePortAudit": "a3b861f6d57f5ccf69419663073328245e601c21d6cd256bd58ea91c137f6e80"
+  },
+  "budgetSha256": {
+    "P0": "f4e0cb85829bfc91c6c1e91274c214129de9f75c26abaec3f1c612ea8d12d387",
+    "P": "dfd22235da7053f62635cbc216f8fca84ee72768a3a7ab458a0862a5410d2f1d"
+  },
+  "P0": {
+    "passed": true,
+    "nodeHosts": 1,
+    "electronLaunches": 0,
+    "replacements": 0,
+    "fixtureRoots": 9,
+    "bodyCpuMs": 605.671,
+    "wholeFixtureProcessCpuMs": 710.34,
+    "controllerCpuMs": 51.638,
+    "wallMs": 888.604416,
+    "profileBytes": 19400,
+    "cases": [
+      {
+        "label": "normal-clock",
+        "fixtureFault": false,
+        "businessReads": 2,
+        "originalError": null,
+        "profilerComplete": true,
+        "startAttempts": 1,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found",
+        "clockWidthMs": 0.4652080535888672,
+        "startStopResponseLossIsInjectedAdapterFailure": false
+      },
+      {
+        "label": "start-response-lost",
+        "fixtureFault": true,
+        "businessReads": 0,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-response-lost:Profiler.start"
+        },
+        "profilerComplete": false,
+        "startAttempts": 1,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found",
+        "clockWidthMs": null,
+        "startStopResponseLossIsInjectedAdapterFailure": true
+      },
+      {
+        "label": "body-failure",
+        "fixtureFault": true,
+        "businessReads": 1,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-body-original"
+        },
+        "profilerComplete": false,
+        "startAttempts": 1,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found",
+        "clockWidthMs": null,
+        "startStopResponseLossIsInjectedAdapterFailure": false
+      },
+      {
+        "label": "stop-response-lost",
+        "fixtureFault": true,
+        "businessReads": 2,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-response-lost:Profiler.stop"
+        },
+        "profilerComplete": false,
+        "startAttempts": 1,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found",
+        "clockWidthMs": null,
+        "startStopResponseLossIsInjectedAdapterFailure": true
+      },
+      {
+        "label": "stop-rejected-before-dispatch",
+        "fixtureFault": true,
+        "businessReads": 2,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-stop-before-dispatch"
+        },
+        "profilerComplete": false,
+        "startAttempts": 1,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found",
+        "clockWidthMs": null,
+        "startStopResponseLossIsInjectedAdapterFailure": false
+      },
+      {
+        "label": "normal-after-recovery",
+        "fixtureFault": false,
+        "businessReads": 2,
+        "originalError": null,
+        "profilerComplete": true,
+        "startAttempts": 1,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found",
+        "clockWidthMs": 1.1176245212554932,
+        "startStopResponseLossIsInjectedAdapterFailure": false
+      }
+    ],
+    "ownersRestored": true,
+    "pendingTicket": null,
+    "retainedRowBytes": 0,
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "notFieldCause": true,
+    "notElectronProfileClockQualification": true,
+    "finalLogicalOutputBytesAudited": 683106
+  },
+  "P": {
+    "passed": false,
+    "qualificationCompleted": false,
+    "allocatedLaunches": 3,
+    "actualLaunches": 2,
+    "retiredUnusedSlots": 1,
+    "replacements": 0,
+    "supervisorRoots": 36,
+    "semanticIndexAudits": 2,
+    "readCpuMsIncludingSemanticAudits": 18662.639000000003,
+    "nativeHashCpuMs": 133.197,
+    "wallMs": 24310,
+    "controllerAuxChargedMs": 5498.65,
+    "includesPreparationShutdownReserveMs": 5000,
+    "journalBytes": 1331714,
+    "logicalOutputBytesBeforeFinalReport": 7653720,
+    "profileStarts": 0,
+    "failure": [
+      "p_complete_return_reserve_unavailable"
+    ],
+    "originalOffEntry": {
+      "passed": true,
+      "checks": {
+        "graph": true,
+        "source": true,
+        "pmc": true,
+        "unchangedWarmGate": true,
+        "metadata": true,
+        "calibration": true
+      },
+      "summaries": [
+        {
+          "all": 8,
+          "warm": 7,
+          "compatible": 5,
+          "fullWarmMedian": 271.432,
+          "median": 270.423,
+          "compatibleRange": 12.637000000000057
+        },
+        {
+          "all": 8,
+          "warm": 7,
+          "compatible": 7,
+          "fullWarmMedian": 275.20099999999996,
+          "median": 275.20099999999996,
+          "compatibleRange": 12.486999999999966
+        }
+      ],
+      "calibrationRatio": 1.0052066826640107,
+      "deltaMs": -4.777999999999963,
+      "notG2": true
+    },
+    "unknownCostGap": false,
+    "counterGracefulEofKnown": true,
+    "hosts": [
+      {
+        "label": "P-reference",
+        "controlledRoots": 18,
+        "controlledCpuMs": 9279.219000000001,
+        "noticeCpuMs": 0.5520000000000003,
+        "noticeFailures": 0,
+        "metadataErrors": 0,
+        "allOwnersRestored": true,
+        "probeRestored": true,
+        "bindingRestored": true,
+        "pendingTicket": null,
+        "retainedRowBytes": 0,
+        "guardDenials": 0,
+        "readFailures": 0,
+        "semanticIndexAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 117.625
+        },
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "label": "P-target-1",
+        "controlledRoots": 18,
+        "controlledCpuMs": 9120.525000000001,
+        "noticeCpuMs": 0.4200000000000001,
+        "noticeFailures": 0,
+        "metadataErrors": 0,
+        "allOwnersRestored": true,
+        "probeRestored": true,
+        "bindingRestored": true,
+        "pendingTicket": null,
+        "retainedRowBytes": 0,
+        "guardDenials": 0,
+        "readFailures": 0,
+        "semanticIndexAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 145.27
+        },
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      }
+    ],
+    "originalFailureRetained": true,
+    "noFurtherAppsOrProfileAttempts": true,
+    "finalLogicalOutputBytesAudited": 7654093
+  },
+  "reservationFailureAudit": {
+    "toolImplementationError": true,
+    "coldMaximum": {
+      "host": "P-reference",
+      "label": "reference-warm-0",
+      "cpuMs": 2117.35,
+      "gc": {
+        "minor": 37,
+        "major": 2,
+        "incremental": 2,
+        "observedOverlapMs": 116.38712739944458,
+        "absenceNotProven": true
+      }
+    },
+    "oldReservation": {
+      "remainingRoots": 40,
+      "perRootMs": 3176.0249999999996,
+      "semanticReserveMs": 1500,
+      "readReserveMs": 128540.99999999999,
+      "remainingReadCpuMs": 71600.256,
+      "remainingWallMs": 876102,
+      "notGuaranteedFutureCost": true
+    },
+    "repairedProspectiveOnly": {
+      "remainingRoots": 40,
+      "maxQualifiedOffRootCpuMs": 454.204,
+      "perRootMs": 750,
+      "semanticReserveMs": 1500,
+      "readReserveMs": 31500,
+      "remainingReadCpuMs": 71600.256,
+      "remainingWallMs": 876102,
+      "remainingControllerCpuMs": 19501.35,
+      "basis": "completed qualified OFF block roots, including both markers and all dense points; cold warmups remain in spent CPU",
+      "notGuaranteedFutureCost": true,
+      "admitted": true,
+      "reason": "prospective-budget-admission-only"
+    },
+    "controllerParameterScope": "conservative remaining CPU lower bound from final cumulative controller/counter cost excluding unchanged 5000ms preparation reserve; not an exact checkpoint CPU measurement",
+    "newProductReads": 0,
+    "newNodeHosts": 0,
+    "newElectronHosts": 0,
+    "notResumedExperiment": true,
+    "notProofOfProfileOverheadOrWarmSlowdown": true,
+    "markerOuterCpuAccountingAlsoTightened": true,
+    "revisedCandidateHasNotRepeatedP0OrP": true,
+    "finalRepairedProspectiveOnly": {
+      "remainingRoots": 40,
+      "maxQualifiedOffRootCpuMs": 454.204,
+      "perRootMs": 750,
+      "semanticReserveMs": 1500,
+      "readReserveMs": 31500,
+      "remainingReadCpuMs": 71600.256,
+      "remainingWallMs": 876102,
+      "remainingControllerCpuMs": 19501.35,
+      "cleanupReserveMs": 90000,
+      "gapReserveMs": 5400,
+      "controllerWallReserveMs": 5000,
+      "wallReserveMs": 131900,
+      "basis": "completed qualified OFF block roots, including both markers and all dense points; cold warmups remain in spent CPU",
+      "notGuaranteedFutureCost": true,
+      "admitted": true,
+      "reason": "prospective-budget-admission-only"
+    },
+    "explicitWallReturnReserveMs": 131900,
+    "latestCandidateRealP0OrPNotRun": true
+  },
+  "copyAndRecoveryAudit": {
+    "kind": "post-P-full-copy-and-owned-exit-audit",
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1,
+    "owned": [
+      {
+        "label": "P-reference",
+        "absent": true
+      },
+      {
+        "label": "P-target-1",
+        "absent": true
+      },
+      {
+        "label": "P0-node",
+        "absent": true
+      }
+    ],
+    "auditorCpuMs": 653.924
+  },
+  "ledger": {
+    "previousActualE3OwnedApps": 27,
+    "newPApps": 2,
+    "currentActualE3OwnedApps": 29,
+    "PUnlaunchedThirdSlotRetiredNotReusable": true,
+    "P0OwnedNodeFixturesSeparate": 1,
+    "newKnownProductReadCpuMs": 18662.639000000003,
+    "cumulativeKnownE3ProductReadCpuLowerMs": 352596.809,
+    "earlierCUnknownCostStillUnknown": true,
+    "postAuditCpuMsSeparate": 653.924
+  },
+  "validation": {
+    "firstFocusedAttempt": {
+      "passed": 83,
+      "failed": 1,
+      "reason": "new fixture n/12 float sum differs from exact integer; fixed fixture input, unchanged assertions and performance gates"
+    },
+    "beforeP0FocusedPassed": 84,
+    "afterCorrectionFocusedPassed": 86,
+    "finalReservationTestsPassed": 3,
+    "logs": [
+      {
+        "label": "ri00-p-focused-20261114-attempt1.log",
+        "sha256": "d75981b3d332466e566d39f102bcdab20da7335fea25c87b778f2fd947faaec9"
+      },
+      {
+        "label": "ri00-p-focused-20261114-attempt2.log",
+        "sha256": "092320b598caa0b8eb8752b70d296421a6dfb6f91bf6b7ce22a586390a82096d"
+      },
+      {
+        "label": "ri00-p-focused-20261114-attempt3.log",
+        "sha256": "dbe18e575d035d8679893caaff4a404855eae4f4335cde3797efbe905c41223e"
+      },
+      {
+        "label": "ri00-p-reservation-final-20261114.log",
+        "sha256": "d5c6574828d7ead22817f235ac82a62c9a535007c02b3f992a99ec385b41e96d"
+      },
+      {
+        "label": "ri00-p-reservation-final2-20261114.log",
+        "sha256": "e4d1e7626c86d0a6fece7b8417b365bf0f41e693915f94eeba305174cb5848f5"
+      }
+    ],
+    "architecture": true,
+    "uiConventions": true,
+    "diff": true,
+    "ci": {
+      "queriedCandidates": [
+        "5775b642",
+        "66226f35",
+        "6aeaefbd"
+      ],
+      "prWorkflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    },
+    "review": "implementer-self-review",
+    "notRun": [
+      "complete-P-OFF-ON-OFF",
+      "Electron-1ms-profile-clock-and-cost-qualification",
+      "full-build",
+      "full-product-regression",
+      "real-model",
+      "installed-release-acceptance"
+    ]
+  },
+  "actualPeer": {
+    "attachments": 0,
+    "restarts": 0,
+    "originalProcessStillAlive": true,
+    "diagnosticListenerAbsent": true
+  },
+  "fieldWindowStarted": false,
+  "sameProcessFieldFormationCaptured": false,
+  "residualMechanismReproduced": false,
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "sourcePortPostAudit": {
+    "sourceUnchanged": true,
+    "productionUnchanged": true,
+    "ownedPortsClosed": 3,
+    "separateFromOriginalExperimentReceipt": true
+  }
+}

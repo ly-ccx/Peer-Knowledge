@@ -1,0 +1,504 @@
+{
+  "kind": "RI00-E3-fixed-three-pairs-original-rejections-not-mechanism-negative",
+  "date": "2026-11-13",
+  "candidate": "8cfb68f06529448e5cfa8701c83d832e088dbe14",
+  "rawReceiptSha256": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+  "qualificationReceiptSha256": "81b1586e3fa4ac4c14e6118203cea867adb713acdd9397197847a39557eedb1e",
+  "sampler": [
+    {
+      "relative": "dense-residual-probe.mjs",
+      "sha256": "75058c0b41eb13ca04c0ed44af0ac75aeba4b3fabcb059737acf2bc21fa1ff46"
+    },
+    {
+      "relative": "read-ticket-queue.mjs",
+      "sha256": "fe7f937e16825fb623412ab6ea2555e480792c11001658ddb74cb8e86db11a15"
+    },
+    {
+      "relative": "e3-install.mjs",
+      "sha256": "8f84d7ea3dde6d50f242797b29096be50c923aa97a686716330af31276f5b95a"
+    },
+    {
+      "relative": "e3-owned-main.cjs",
+      "sha256": "17db3e1bf2853413cda76f9f2e5bda53128aada57e1abccf8a9e762129d62162"
+    },
+    {
+      "relative": "e3-owned-host.mjs",
+      "sha256": "a52b682a78e9611968ec677f8bcf82b3f6003a0618cc7a150f517a5f76824051"
+    },
+    {
+      "relative": "e3-counter-client.mjs",
+      "sha256": "18619cbc4e00ac97f3ec8f14dd24a23618eba09539b1ac5d4d0065dc8c02a05a"
+    },
+    {
+      "relative": "e3-identity.mjs",
+      "sha256": "4d9e0165332ce191c5283c3678aa6f747a417f65914cf88a17f48e6372fb2da9"
+    },
+    {
+      "relative": "dense-residual.mjs",
+      "sha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28"
+    },
+    {
+      "relative": "thread-counter-delta.mjs",
+      "sha256": "ddc464a98a5963f0ccce1caf3bdb37f1d2a695d7c164982ab00055247569b1dd"
+    },
+    {
+      "relative": "darwin-process-counters.py",
+      "sha256": "704c6fd4571f5ef8836e05e01aeb2df79628627441776a680affb479b229c14e"
+    },
+    {
+      "relative": "read-host.mjs",
+      "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+    },
+    {
+      "relative": "readonly-coordination.mjs",
+      "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+    },
+    {
+      "relative": "coordination-snapshot.mjs",
+      "sha256": "4288294cfc610bc76c81e3cfac75ffb90439b6eba92053f0c65ca532b9fdd0f1"
+    },
+    {
+      "relative": "trace.mjs",
+      "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+    },
+    {
+      "relative": "identity.mjs",
+      "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+    }
+  ],
+  "driver": [
+    {
+      "relative": "run-e3-order-experiment.mjs",
+      "sha256": "05deca4007221a2c16849342c0f8d629dda874f2d50559ccf43cf131dc61dd90"
+    },
+    {
+      "relative": "e3-checkpoint.mjs",
+      "sha256": "803af7a15e556fbd2167e236ff016d2a2cc399c86e3c7240eab3dbd7bc6a3f15"
+    }
+  ],
+  "RI00Closed": false,
+  "productRefactorStarted": false,
+  "fieldAttribution": false,
+  "fixedOrder": [
+    [
+      "C1",
+      "control"
+    ],
+    [
+      "T1",
+      "treatment"
+    ],
+    [
+      "T2",
+      "treatment"
+    ],
+    [
+      "C2",
+      "control"
+    ],
+    [
+      "C3",
+      "control"
+    ],
+    [
+      "T3",
+      "treatment"
+    ]
+  ],
+  "ownedElectronLaunches": 7,
+  "maximumConcurrentOwnedElectronHosts": 2,
+  "auxiliaryProcessScope": "Node controller and one read-only libproc counter helper are separate from Electron target/reference slots.",
+  "wallMs": 129967,
+  "wallLimitMs": 1500000,
+  "readCpuMs": 98029.70700000005,
+  "readCpuLimitMs": 300000,
+  "readCpuOvershootMs": 0,
+  "performedCounts": {
+    "targets": 6,
+    "references": 1,
+    "warmReads": 56,
+    "F0Roots": 144,
+    "F1Roots": 0,
+    "orderExposureTickets": 0,
+    "firstWitnesses": 0,
+    "Q1Roots": 0,
+    "Q2Roots": 0,
+    "postMeasurementSemanticAudits": 7
+  },
+  "inputManifest": {
+    "sha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "verifiedContentFiles": 8534,
+    "emptyFenceDirectories": 1
+  },
+  "expected": {
+    "sessions": 23,
+    "evidenceRows": 69266,
+    "planCalls": 3859,
+    "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+  },
+  "indexSha256": "3272bd3e2a12920fe46931e6e82fbb79d92578723d9a85c4fc17fd5f0af28677",
+  "evidenceSemanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+  "targets": [
+    {
+      "label": "C1",
+      "arm": "control",
+      "status": "invalid-before-exposure",
+      "reason": "unmatched_gc_state_or_unstable_warm",
+      "readCpuMs": 12162.560000000001,
+      "postAuditCpuMs": 120.533,
+      "F0": {
+        "status": "waiting-baseline",
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          0.9254805620205153,
+          1.0502973881561934
+        ],
+        "calibrationStable": false,
+        "blocks": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 5,
+            "fullWarmMedian": 281.074,
+            "median": 281.074,
+            "compatibleRange": 18.797000000000025
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 275.315,
+            "median": 275.315,
+            "compatibleRange": 11.147000000000048
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 280.001,
+            "median": 280.001,
+            "compatibleRange": 17.36099999999999
+          }
+        ]
+      },
+      "exposurePerformed": false
+    },
+    {
+      "label": "T1",
+      "arm": "treatment",
+      "status": "invalid-before-exposure",
+      "reason": "unmatched_gc_state_or_unstable_warm",
+      "readCpuMs": 12001.395000000002,
+      "postAuditCpuMs": 120.241,
+      "F0": {
+        "status": "waiting-baseline",
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          1.0001691117405824,
+          0.9667272650403753
+        ],
+        "calibrationStable": true,
+        "blocks": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 6,
+            "fullWarmMedian": 279.87299999999993,
+            "median": 278.8059999999999,
+            "compatibleRange": 13.81499999999994
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 279.544,
+            "median": 279.544,
+            "compatibleRange": 15.70700000000005
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 281.30500000000006,
+            "median": 281.30500000000006,
+            "compatibleRange": 22.59999999999991
+          }
+        ]
+      },
+      "exposurePerformed": false
+    },
+    {
+      "label": "T2",
+      "arm": "treatment",
+      "status": "invalid-before-exposure",
+      "reason": "unmatched_gc_state_or_unstable_warm",
+      "readCpuMs": 11814.447999999999,
+      "postAuditCpuMs": 119.173,
+      "F0": {
+        "status": "waiting-baseline",
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          0.9723290101812344,
+          0.9702589666680749
+        ],
+        "calibrationStable": true,
+        "blocks": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 6,
+            "fullWarmMedian": 279.95500000000004,
+            "median": 278.8075,
+            "compatibleRange": 17.34400000000005
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 277.361,
+            "median": 277.361,
+            "compatibleRange": 16.800000000000068
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 275.329,
+            "median": 275.329,
+            "compatibleRange": 15.952999999999975
+          }
+        ]
+      },
+      "exposurePerformed": false
+    },
+    {
+      "label": "C2",
+      "arm": "control",
+      "status": "invalid-before-exposure",
+      "reason": "unmatched_gc_state_or_unstable_warm",
+      "readCpuMs": 11860.222000000002,
+      "postAuditCpuMs": 118.456,
+      "F0": {
+        "status": "waiting-baseline",
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          1.067838011570602,
+          1.040197128776516
+        ],
+        "calibrationStable": true,
+        "blocks": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 5,
+            "fullWarmMedian": 280.45,
+            "median": 274.299,
+            "compatibleRange": 16.13299999999998
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 279.72,
+            "median": 279.72,
+            "compatibleRange": 13.143000000000029
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 280.285,
+            "median": 280.285,
+            "compatibleRange": 12.041000000000054
+          }
+        ]
+      },
+      "exposurePerformed": false
+    },
+    {
+      "label": "C3",
+      "arm": "control",
+      "status": "invalid-before-exposure",
+      "reason": "unmatched_gc_state_or_unstable_warm",
+      "readCpuMs": 11721.863000000001,
+      "postAuditCpuMs": 120.81,
+      "F0": {
+        "status": "waiting-baseline",
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          0.9546096932413335,
+          0.9935572366780282
+        ],
+        "calibrationStable": true,
+        "blocks": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 5,
+            "fullWarmMedian": 276.5,
+            "median": 274.635,
+            "compatibleRange": 20.904000000000053
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 6,
+            "fullWarmMedian": 281.811,
+            "median": 278.834,
+            "compatibleRange": 14.550999999999988
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 272.803,
+            "median": 272.803,
+            "compatibleRange": 11.438999999999965
+          }
+        ]
+      },
+      "exposurePerformed": false
+    },
+    {
+      "label": "T3",
+      "arm": "treatment",
+      "status": "invalid-before-exposure",
+      "reason": "unmatched_gc_state_or_unstable_warm",
+      "readCpuMs": 11732.349999999999,
+      "postAuditCpuMs": 120.087,
+      "F0": {
+        "status": "waiting-baseline",
+        "validation": {
+          "sourceStable": true,
+          "pmcStable": true,
+          "graphStable": true
+        },
+        "calibrationRatios": [
+          0.9477077363896849,
+          0.9805794333014963
+        ],
+        "calibrationStable": true,
+        "blocks": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 5,
+            "fullWarmMedian": 285.125,
+            "median": 277.235,
+            "compatibleRange": 20.29499999999996
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 277.997,
+            "median": 277.997,
+            "compatibleRange": 13.454000000000008
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 271.92,
+            "median": 271.92,
+            "compatibleRange": 10.102999999999952
+          }
+        ]
+      },
+      "exposurePerformed": false
+    }
+  ],
+  "validPairs": 0,
+  "mechanicsOk": true,
+  "hypothesisConclusion": "insufficient-qualified-pairs",
+  "orderHypothesisTested": false,
+  "noReplacementProcesses": true,
+  "noThresholdChanges": true,
+  "noPerformanceReadsAfterRejection": true,
+  "postMetricSemanticAuditIsNotPerformanceRead": true,
+  "identities": {
+    "sourceUnchanged": true,
+    "samplerUnchanged": true,
+    "driverUnchanged": true,
+    "productionUnchanged": true,
+    "productionGroupsMatchSealedC2": true,
+    "manifestFilesAllVerified": true
+  },
+  "recovery": {
+    "allOwnedElectronPidsAbsent": true,
+    "allMethodOwnersRestored": true,
+    "allProbeAndBindingRestored": true,
+    "allQueuesEmpty": true,
+    "metadataErrors": 0,
+    "readFailures": 0,
+    "sourceWritesDenied": 0,
+    "allSemanticAuditsEqual": true,
+    "counterHelperExited": true,
+    "failures": []
+  },
+  "output": {
+    "logicalBytes": 8983604,
+    "batchJournalBytes": 2416933,
+    "nativeJournalBytes": 4728688,
+    "rawArtifactsRemainPrivate": true
+  },
+  "admission": {
+    "fieldStarted": false,
+    "reason": "Every target failed F0 warm-range qualification; no F1 or order exposure was admissible. Field entry mapping and full E3 signal adapter are not qualified.",
+    "mechanismReplayStarted": false
+  },
+  "limits": [
+    "This is six pre-exposure qualification rejections, not six treatment negatives.",
+    "All six have at least one compatible warm Evidence-user-CPU range above the unchanged 15ms limit; C1 also fails calibration.",
+    "Whole-root native counters cannot by themselves localize warm-range variability to Evidence normalization.",
+    "The observed qualification failure does not attribute the historical 30–40ms residual.",
+    "The H journal guard allowed each native journal up to 64MiB instead of the design total 32MiB; actual combined bytes stayed below 32MiB. Guard correction must not relabel this candidate or rerun these targets.",
+    "Runtime/module hashes matched the sealed baseline after workspace relocation. Git repair also reconciled registered worktree Git management pointers; canonical task data were not changed."
+  ],
+  "review": {
+    "independent": false,
+    "kind": "implementer-self-review"
+  },
+  "postRunGuardCorrection": {
+    "candidate": "18552dfa5739de2ac698017ecdff81d892b00482",
+    "sharedJournalLimitBytes": 33554432,
+    "syntaxPassed": true,
+    "diffPassed": true,
+    "ownedHRepeated": false,
+    "notTheMeasuredCandidate": true
+  },
+  "rawArtifactSha256": {
+    "report.private.json": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+    "plan.private.json": "b951317f414749ea09081123cf6ef35c41e7f16d93679dfed409ca1cd852eae3",
+    "batches.private.jsonl": "3c77d2c2e5716eb6cc38d24149cca10ea33533f8255a976963e1d625630695e8",
+    "native-points.private.jsonl": "5373d367f9ecaf49aec7c7ba6cf967d0c62620db978f8906949800106fa53438",
+    "recovery-verification.private.json": "636d5b49bfe8168f6dfc371d4a3aee63eecd26feb8cea388c3685ccc51150093",
+    "native-scope-audit.private.json": "a257c533c116e6e566c34177365fe22ea3cc67ad7d45235a3057e16e5ccec3ce"
+  },
+  "ci": {
+    "candidate": "18552dfa5739de2ac698017ecdff81d892b00482",
+    "availableWorkflowRuns": 0,
+    "availableStatuses": 0,
+    "greenCIClaim": false
+  }
+}

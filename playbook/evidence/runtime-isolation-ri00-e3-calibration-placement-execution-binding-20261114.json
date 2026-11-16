@@ -1,0 +1,137 @@
+{
+  "kind": "HASH-PLACEMENT-execution-binding-frozen-before-fixed-three-slots",
+  "date": "2026-11-14",
+  "candidate": "55675ca5cef5439b3fa6d4768c3bc9508b103b0a",
+  "budgetSha256": "783b3921247ae99ac11c2b0c8cea2e392e5cd83fd19bad77af21d249fac92557",
+  "sourceSha256": "f7b3789df5c183a33f07bca6cc6967ed990f87058223910c363e433fa3c60a81",
+  "inputSha256": {
+    "config": "457fb400bdd2c2268182012e73e83614fdc84e115b0d13103fe2b3394be7e7e6",
+    "budget": "783b3921247ae99ac11c2b0c8cea2e392e5cd83fd19bad77af21d249fac92557",
+    "baseline": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+    "parent": "490683f6dd4e35018e9e9714d0afae5d7dca54d3a2ea0722b20e1c69b119beb4",
+    "parent-journal": "ea74c42530f959f2147de3b007e10c1b28388963550f2459d6227cc7f1a0e5e0",
+    "audit": "f2847c7e29811e4fffd8e1b50a6f86a9bb02a05ead04725aeace67688673e573",
+    "design": "f8015bcc723116e4815d70ab249ba799225dc4af6458ef4b14f5109409898b21",
+    "seal": "703e6158901bfa513f0d68ffdf1678828f5938ddcfcf001f7a28902a645ed66e",
+    "manifest": "88e9cb02dc707472a39e618c456d159b31c2ba8a40041dd47486b5d9bfb9f20b",
+    "seam": "cabef82105221a2b3fa68eda9e603e2fc26f71e45c9280eb0567efadab95f1c9",
+    "seam-cost": "5f3564399a5f8a96b42c512e4d12accf57a85a9d03fad47fc0f0c862f6ea6aeb",
+    "tests": "0d8f5f250e6b9f7362d704c1d99bd4f847664c685f997acc3b0cae9c0e17637e"
+  },
+  "bindingSha256": "2badb6f04907c4dfa2f0ff66c76148c973c3d947c039b22f84dcb72ec6e57274",
+  "readySha256": "c376c5d5acdddbd634712198b3c6f12820e9d4a8d3a35cd6e1f76efe0c2d5eca",
+  "tests": {
+    "passed": 143,
+    "logSha256": "c0122c47384991814d13aa7562a8afc5bdc8a6bc4b51bb7924e39cc6240a0e0c"
+  },
+  "qualification": {
+    "dedicatedNodeRuns": 1,
+    "fixtureReads": 44,
+    "nativeCalls": 19,
+    "nativeRpcAttempts": 20,
+    "cases": [
+      {
+        "name": "Profiler-rejected-before-wire",
+        "passed": true
+      },
+      {
+        "name": "complete-two-host-A-order-gap-and-hash-boundaries",
+        "passed": true
+      },
+      {
+        "name": "complete-two-host-B-order-gap-and-hash-boundaries",
+        "passed": true
+      },
+      {
+        "name": "known-native-rejected-while-original-ticket-unacked-zero-SHA",
+        "passed": true
+      },
+      {
+        "name": "fsync-failure-recover-original-before-ACK-no-replay",
+        "passed": true
+      },
+      {
+        "name": "unknown-request-query-original-id-no-replay",
+        "passed": true
+      },
+      {
+        "name": "original-read-error-durable-and-later-admission",
+        "passed": true
+      },
+      {
+        "name": "unknown-native-stop-admission-final-ledger-no-replay",
+        "passed": true
+      }
+    ],
+    "portRefused": true,
+    "reportSha256": "cabef82105221a2b3fa68eda9e603e2fc26f71e45c9280eb0567efadab95f1c9",
+    "outputBytes": 535126
+  },
+  "preparation": {
+    "passed": true,
+    "candidate": "55675ca5cef5439b3fa6d4768c3bc9508b103b0a",
+    "bindingSha256": "2badb6f04907c4dfa2f0ff66c76148c973c3d947c039b22f84dcb72ec6e57274",
+    "seamSha256": "cabef82105221a2b3fa68eda9e603e2fc26f71e45c9280eb0567efadab95f1c9",
+    "costs": [
+      {
+        "name": "tests",
+        "exitCode": 0,
+        "wallMsThroughReap": 566.436459,
+        "fullChildSubtreeCpuMs": 2189.0589999999997,
+        "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+        "reportSha256": "0d8f5f250e6b9f7362d704c1d99bd4f847664c685f997acc3b0cae9c0e17637e"
+      },
+      {
+        "name": "seam",
+        "exitCode": 0,
+        "wallMsThroughReap": 7464.625,
+        "fullChildSubtreeCpuMs": 642.792,
+        "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+        "reportSha256": "cabef82105221a2b3fa68eda9e603e2fc26f71e45c9280eb0567efadab95f1c9",
+        "outputBytes": 535126,
+        "outputBudgetPassed": true,
+        "portConnectError": 61,
+        "portRefused": true
+      },
+      {
+        "name": "binding",
+        "exitCode": 0,
+        "wallMsThroughReap": 1555.83975,
+        "fullChildSubtreeCpuMs": 963.9269999999996,
+        "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+        "reportSha256": "2badb6f04907c4dfa2f0ff66c76148c973c3d947c039b22f84dcb72ec6e57274"
+      }
+    ],
+    "priorPreparation": {
+      "fullCpuMs": 0,
+      "originalFailurePreserved": true,
+      "allHistoricalFailuresRetainedOutsideNewBudget": true
+    },
+    "preparationCpuMs": 3795.7779999999993,
+    "preparationWallMs": 39586.901209,
+    "preparationOutputBytes": 642652,
+    "actualElectronLaunches": 0,
+    "dedicatedNodeSeamLaunches": 1,
+    "noBudgetOrGateChange": true
+  },
+  "execution": {
+    "fixedElectronLaunches": 3,
+    "maxSimultaneous": 2,
+    "replacements": 0,
+    "rootsMaximum": 184,
+    "nativeCallsMaximum": 57,
+    "orders": [
+      "ABBA",
+      "BAAB"
+    ],
+    "profileStarts": 0,
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false,
+    "fieldWindowAllowed": false,
+    "performanceQualificationIssued": false,
+    "original15msGateUnchanged": true
+  },
+  "actualElectronLaunchedAtFreeze": 0,
+  "RI00Closed": false,
+  "refactorStarted": false
+}

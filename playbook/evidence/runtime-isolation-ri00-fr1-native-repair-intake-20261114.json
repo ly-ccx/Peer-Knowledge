@@ -1,0 +1,59 @@
+{
+  "kind": "FR1-native-callsite-changed-candidate-intake-before-launch",
+  "candidate": "d166929f343f23dd4bb378aa665400b035079c40",
+  "sourceSha256": "3f4284184c452f3e3c716e8370ec3bc0394e10f8e74a92b1bdb1913c9beafc70",
+  "testsSha256": "5c15b1190784991a6f60e6d7a7d0fc6dee898ea3494e14d5db9a8779d5bd36a6",
+  "configSha256": "960d17973add362a8ac188262a75279f769f2ebf3864536cedf152527efa5086",
+  "nativeRepairBudgetSha256": "30c069d7569e019ee501edbaf09a221a46326f0f189cc6890e9a2b7986ede042",
+  "originalFieldPlanSha256": "61a7925be4fe864a3610a9ea3dc200fff255253d254cb6be74d969813d3cdccf",
+  "unitPassed": 24,
+  "unitCost": {
+    "exitCode": 0,
+    "wallMsThroughReap": 2973.898834,
+    "fullChildSubtreeUserMs": 530.513,
+    "fullChildSubtreeSystemMs": 776.4839999999999,
+    "fullChildSubtreeCpuMs": 1306.997
+  },
+  "productionSha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+  "fixture": {
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1
+  },
+  "expected": {
+    "sessions": 23,
+    "evidenceRows": 69266,
+    "planCalls": 3859,
+    "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+  },
+  "causalStudies": {
+    "fr1-repair-stack-study-20261114": {
+      "sha256": "62dec94aeca8c2f85165c80244b792fb31d9a24d10e3437312b4da78bb3bbf9f",
+      "costSha256": "f71a9f0b3b6a3ca22b1b1f058117e3499ef15a9ab1d0f817eef93d5c4606ba41"
+    },
+    "fr1-clock-study-20261114": {
+      "sha256": "4f4aabf7a01c65e912c089e532972e8061de216f8468a63122cb1f9199b157b3",
+      "costSha256": "97f0468d56727ab32aa3ea513c2e200b374c36126b9449493108df7079b526bf"
+    },
+    "fr1-callsite-study-20261114": {
+      "sha256": "2dde139a60f7d290810e3445c7aa7c104808e9af0c5c44fe7ac585c70826993d",
+      "costSha256": "bdf72a5d78cc11071c659831760f2e09a8891f551517ac5d66937afdc4757968"
+    }
+  },
+  "notRepeatOfUnchangedFailedCandidate": true,
+  "earlierFunctionalFailed": {
+    "candidate": "eb1de652be11048d7eea49e3105a966d4351b7cf",
+    "reportSha256": "f2b17982c651e09d264caeb113e81967d7d86c2ae5ca4dbbea58581419e0a1bb",
+    "costSha256": "19b42338e6d03223b0081880f9ae35edf251506b81103352185c3033f41a7d75",
+    "rootConservativeChargeMs": 2.58755100001099,
+    "neverReclassified": true
+  },
+  "functionalSlotsForThisChangedCandidate": 1,
+  "replacements": 0,
+  "readQueriesMaximum": 12,
+  "perRootGateMsStill": 2,
+  "fieldReady": false,
+  "actualDevPeerAttachments": 0,
+  "RI00Closed": false,
+  "refactorStarted": false
+}

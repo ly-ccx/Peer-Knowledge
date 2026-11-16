@@ -1,0 +1,224 @@
+{
+  "kind": "E3-ORDER-complete-paired-block-order-design-frozen-not-executed",
+  "date": "2026-11-14",
+  "runnable": false,
+  "executed": false,
+  "analysisCandidate": "79e0b4380e4250fc63e455af337ae4b71e793c9e",
+  "parentReportSha256": "947e8576ea7069611abb2c5370af2a772c901e00751278d5f98364f2bbe01ca2",
+  "parentJournalSha256": "2d91751c3ab4833eebf05e5ab1126b56f798909d86a3dda41e9239749e9613a9",
+  "parentAuditSha256": "59fad068a6ec68c663715b255d0170e461f88690b6ce6bc1f8aa5bd4ffd3ef96",
+  "actionGraphAndResourceModelSha256": "09edfe87747e2c4b7169549ede3bedcd819fb1ee98a56d39f43982379a7542df",
+  "planSourceSha256": "bab257f1d5b56d4db12c0b4420cc0db6813192dac727241da867070453530f42",
+  "question": "Does exchanging two complete equally paced host blocks suffice for a reproducible raw target CPU shift, including any resulting idle-history change?",
+  "factsMotivatingButNotProvingFactor": {
+    "sixWarmFailuresRemain": true,
+    "bothAReturnsFail": true,
+    "constant150msReferenceSameFullGcAnchorUserChangeMs": 11.237,
+    "referenceRootInstructionChangeRelative": -0.0005022032255146414,
+    "referenceRootCpiChangeRelative": 0.05069012074933088,
+    "uncontrolledTimeAndHistoryConfoundersRemain": true
+  },
+  "factor": {
+    "name": "complete-paired-block-order",
+    "A": [
+      "target",
+      "conditioning"
+    ],
+    "B": [
+      "conditioning",
+      "target"
+    ],
+    "conditioningHostIsNotAnUntreatedControl": true,
+    "onlyClientBlockOrderChanges": true,
+    "hashCalibrationIncludedInEachCompleteBlock": true,
+    "allRemoteReadLabels": "cadence-root",
+    "intraBlockSpacingMustNotBeAlteredToFitOrder": true,
+    "orderIncludesConsequentIdleHistory": true,
+    "notPureCacheFrequencyOrGcIntervention": true,
+    "allBlockRootsRequestedExtraWaitMs": 150
+  },
+  "data": {
+    "fixtureManifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "productionIdentitySha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+    "expected": {
+      "sessions": 23,
+      "evidenceRows": 69266,
+      "planCalls": 3859,
+      "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+    },
+    "evidenceSemanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6"
+  },
+  "electronLaunches": 3,
+  "targets": 2,
+  "conditioningHosts": 1,
+  "maxSimultaneous": 2,
+  "replacements": 0,
+  "warmRootsPerHost": 8,
+  "f0PerTarget": [
+    "target",
+    "conditioning",
+    "target"
+  ],
+  "orders": [
+    "ABBA",
+    "BAAB"
+  ],
+  "rootCountMaximum": 244,
+  "blocksMaximum": 22,
+  "hashCallsMaximum": 66,
+  "semanticAudits": 3,
+  "requestedWaitTotalMs": 33000,
+  "readCpuMs": 200000,
+  "hashCpuMs": 4000,
+  "wallMs": 900000,
+  "cleanupReserveMs": 90000,
+  "controllerAuxCpuMs": 20000,
+  "preparationShutdownReserveMs": 5000,
+  "probeCpuPerHostMs": 5000,
+  "outputBytes": 134217728,
+  "journalBytes": 33554432,
+  "unacknowledgedBytes": 16777216,
+  "profileStarts": 0,
+  "nativeCounterLibraryInjected": false,
+  "defaultVm": true,
+  "forcedGc": false,
+  "artificialDelayOrHeapPressureAdded": false,
+  "priorityAffinityOrPowerSettingsChanged": false,
+  "resourceModel": {
+    "rootCount": 244,
+    "coldRoots": 3,
+    "coldRootCpuMs": 3000,
+    "warmRootCpuMs": 750,
+    "semanticCpuMs": 1500,
+    "readForecastMs": 191250,
+    "hashForecastMs": 3300,
+    "wallForecastMs": 526250,
+    "readCpuCapMs": 200000,
+    "hashCpuCapMs": 4000,
+    "wallCapMs": 900000,
+    "readHeadroomMs": 8750,
+    "hashHeadroomMs": 700,
+    "wallHeadroomMs": 373750,
+    "notFutureCostGuarantee": true
+  },
+  "beforeTreatmentReserve": {
+    "roots": 80,
+    "hashCalls": 24,
+    "allThreeSemanticAuditsCpuMs": 1500,
+    "minimumRootCpuMs": 750,
+    "qualifiedF0MaximumMultiplier": 1.5,
+    "minimumHashCpuMs": 50,
+    "requestedGapWallMs": 12000,
+    "hashRpcWallMs": 48000,
+    "controllerWallMs": 20000,
+    "sourceClosureWallMs": 10000,
+    "cleanupWallMs": 90000,
+    "floorReadCpuMs": 61500,
+    "floorHashCpuMs": 1200,
+    "floorWallMs": 241500,
+    "minimumRemainingControllerCpuMs": 5000,
+    "spentNeverReset": true,
+    "notFutureCostGuarantee": true
+  },
+  "originalGates": {
+    "f0RequiresOriginalFastBracket": true,
+    "metricRootsPerBlock": 8,
+    "firstMetricRootPreservedAndExcludedFromWarmStatistic": true,
+    "compatibleWarmMinimum": 3,
+    "warmRangeMs": 15,
+    "normalizedSameArmReturnAbsoluteMs": 2,
+    "metadataCpuMs": 2,
+    "calibrationRelativeDrift": 0.1,
+    "bothF0AnchorsRequired": true,
+    "newSpaceBytes": 67108864,
+    "majorGcAllowed": false,
+    "incrementalGcAllowed": false,
+    "otherProcessCpuStrictlyBelowMs": 120,
+    "outerPmcExclusiveUnchanged": true,
+    "noGateReplacementBySignatureConditioningOrTotalCpu": true
+  },
+  "additionalPrimaryValidity": {
+    "rawTargetSameArmReturnAbsoluteMs": 2,
+    "rawConditioningSameArmReturnAbsoluteMs": 2,
+    "eachWithinBlockActualGapMinimumMs": 150,
+    "eachContrastTargetMedianGapDifferenceAbsoluteMaximumMs": 5,
+    "allRootsUseSameRequested150ms": true,
+    "journalAndControllerTimeMustVerifyActualABBA_BAABBlockOrder": true,
+    "crossHostRowClocksNeverSubtracted": true
+  },
+  "primary": {
+    "statistic": "raw target compatible-warm Evidence user CPU median; no subtraction of treated conditioning host",
+    "contrastsTarget1": [
+      "B1-A0",
+      "B2-A3"
+    ],
+    "contrastsTarget2": [
+      "B0-A1",
+      "B3-A2"
+    ],
+    "newQuestionTwoSidedOrderSensitivityPreRegistered": true,
+    "eachContrastAbsoluteMinimumMs": 8,
+    "allFourContrastsSameNonzeroSign": true,
+    "noChoosingDirectionSeparatelyPerContrast": true,
+    "noInterpretationOfOriginal150_0ExperimentUnderNewRule": true,
+    "noPopulationIndependenceOrPValueClaim": true
+  },
+  "secondary": {
+    "normalizedTargetMinusConditioningDeltaStillReported": true,
+    "originalNormalizedReturnGateStillRequired": true,
+    "rawTargetAndConditioningSeparate": true,
+    "userSystemTotalAndRootRemainderSeparate": true,
+    "medianAnchorVectorsAndFullGcSignatures": true,
+    "rootInstructionsCyclesCpiAndCpuPerCycle": true,
+    "perPassInstructionsUnavailableNotImputed": true,
+    "allAdjacentFullGcSignaturePairsRetainedChronologically": "Per target and each predetermined disjoint cell pair (0,1)/(2,3), left warm points in time order match earliest unused right with equal full root+12-pass GC count signature; pairs only descriptive, never replace original gate or select by CPU",
+    "noPhysicalFrequencyOrExactGcCpuAttribution": true
+  },
+  "outcomes": {
+    "qualifiedOrderSensitivity": "All original and added controls plus all four raw absolute>=8ms same-sign contrasts pass; conclusion limited to complete-block order including idle-history consequences",
+    "qualifiedHypothesisNotSupported": "All controls pass but the fixed raw effect criterion fails; preserve all signs and sizes",
+    "unqualified": "Any original or added validity, source, budget or recovery gate fails; no replacement or partial evidence upgrade",
+    "neverImplies": [
+      "Profiler low interference",
+      "natural field residual formation",
+      "old 30-40ms mechanism reproduced",
+      "isolated hardware/cache/GC cause",
+      "RI00 closure"
+    ]
+  },
+  "failureRecovery": {
+    "f0Failure": "Consume target, seal, continue only other originally allocated target; no retry",
+    "ordinaryTreatmentPerformanceFailure": "Keep complete fixed four-cell return if remaining frozen budget allows; never rerun a cell",
+    "unknownRequest": "Query original ticket only, never replay read",
+    "archiveFailure": "Preserve original unACKed bytes, fsync before ACK, bounded recovery journal",
+    "sourceOwnerBirthOrEpochChange": "Abort campaign, no rebase",
+    "cancellationTimeoutOrBudget": "Stop admission, seal known lower costs and unknown effects; use cleanup reserve only",
+    "cleanup": "Close CDP before owned shutdown, verify owner/method/binding/queue and actual port refusal, no later-owner overwrite",
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false
+  },
+  "executionBindingRequired": {
+    "fixedCleanRunnerCandidateAndAllDiagnosticSource": true,
+    "sameCandidateTestsAndRealQueueInspectorSeam": true,
+    "fullProductionModuleAndPrivateFixtureContentIdentity": true,
+    "actualOrderBoundaryAndUnknownRpcRecoveryTests": true,
+    "fullGapReturnAndCleanupReservationVerification": true,
+    "noPostStartEditsOrThresholdChanges": true,
+    "runnerNotImplementedByThisDesign": true,
+    "notExecutedThisTurn": true
+  },
+  "ledger": {
+    "actualOwnedAppsBefore": 35,
+    "knownProductReadCpuLowerMsBefore": 510790.475,
+    "earlierCUnknownRetained": true,
+    "newDesignReservedApps": 3,
+    "actualOwnedAppsRemain": 35,
+    "actualAppsIfAllNewOriginalSlotsUsed": 38,
+    "oldFailedOrUnusedSlotsNeverReused": true
+  },
+  "fieldWindowStarted": false,
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "warmRequestedExtraWaitMs": 0,
+  "warmScheduling": "same as parent: 8 dense roots per host, no requested extra timer; actual queue/counter/archive/ACK gaps retained"
+}

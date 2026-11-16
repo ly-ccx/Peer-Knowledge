@@ -1,0 +1,191 @@
+{
+  "kind": "RI00-E3-N-results-not-field-or-root-cause",
+  "date": "2026-11-13",
+  "producer": "656aeb46074555c39310cbe611bf1699365043a4",
+  "installedAttemptCandidate": "b22ea485fb5e6cb10114afb7e0942750c15c9fbc",
+  "currentCandidate": "ffbad97293051e7810a4ece8f81248dac128d20b",
+  "rawReportSha256": "760431613074f47c15da004c398f852f976f9cd767904616f0b98432b5de9c1a",
+  "postSealAuditSha256": "2354daa051a18ce4baee6d611e5ea97ca2b61d9760bce507ac9a2d8a5dbea730",
+  "sameGcAuditSha256": "bb69fab251b54345e1bbaa39c23085de110c67d142bbd62181a47b647a2fc910",
+  "hotspotReplaySha256": "320ba75a9e52043d5f613ac287285262ead85034df481cc328c5f5b45c840b54",
+  "installedAttemptSha256": "0826fe32d5b8598c5f55b17078e3e801db708780791bbfdf291533a01172d312",
+  "installedRecoverySha256": "77edd8e8521e4c9726d2f017d1568c64d35cb1cff5883d811c853bbd15f68e29",
+  "budgetSha256": "7c9c2deba093e007777e4aaf3c59b4615e3d57a6250597bd5d9f66afe99969cb",
+  "addonSha256": "f486b33b83105b09e8ff58c168ae9bff2d0273e97fca372e57a3d4428539a2f1",
+  "ownedLaunches": 3,
+  "replacements": 0,
+  "productionRoots": 80,
+  "controlledRoots": 82,
+  "productionOnRoots": 32,
+  "productionPassCounterSpans": 384,
+  "toolGatePassed": false,
+  "targets": [
+    {
+      "label": "N1",
+      "checks": {
+        "allGraphs": true,
+        "exclusive": true,
+        "boundary": true,
+        "counters": true,
+        "medianOverhead": false,
+        "returnStability": true,
+        "unchangedWarmGate": false
+      },
+      "differencesMs": [
+        -3.9569999999999936,
+        2.2930000000000064
+      ],
+      "warmRangesMs": [
+        14.896999999999991,
+        15.512,
+        15.577000000000055,
+        18.634000000000015
+      ],
+      "compatible": [
+        5,
+        7,
+        6,
+        6
+      ],
+      "maximumBoundaryWallMs": 0.08433333333333333,
+      "maximumBoundaryCpuMs": 0.2919999999976426,
+      "maximumInstructionWindowGap": 0.001162642993215416
+    },
+    {
+      "label": "N2",
+      "checks": {
+        "allGraphs": true,
+        "exclusive": true,
+        "boundary": true,
+        "counters": true,
+        "medianOverhead": false,
+        "returnStability": true,
+        "unchangedWarmGate": false
+      },
+      "differencesMs": [
+        -0.610499999999945,
+        -5.4669999999999845
+      ],
+      "warmRangesMs": [
+        14.79200000000003,
+        12.306999999999903,
+        24.232000000000028,
+        12.960000000000093
+      ],
+      "compatible": [
+        6,
+        5,
+        7,
+        6
+      ],
+      "maximumBoundaryWallMs": 0.088,
+      "maximumBoundaryCpuMs": 0.3100000000004002,
+      "maximumInstructionWindowGap": 0.0011682827507147606
+    }
+  ],
+  "gateReplay": {
+    "originalGcOnlyGateRetained": true,
+    "currentUsesUnchangedSummarizeDenseBlock": true,
+    "originalAndReplayedBothRejected": true,
+    "noNewReads": true,
+    "notG2Qualification": true
+  },
+  "sameGc": {
+    "pairs": 8,
+    "maximumCpuPair": {
+      "evidenceUserDeltaMs": 9.583000000000027,
+      "evidenceInstructionDelta": "-7744635",
+      "rootInstructionDelta": "-5012968"
+    },
+    "notKOrFieldFormation": true
+  },
+  "cost": {
+    "readCpuMs": 38817.511000000006,
+    "nativeCalibrationCpuMs": 578.79,
+    "probeSelfCpuMs": 80.87699999995158,
+    "counterBoundaryCpuIncludedInReadsMs": 8.476000000042092,
+    "wallMs": 53380,
+    "controllerAuxChargedMs": 1897.636,
+    "prepareCpuReserveMs": 10000,
+    "journalBytes": 3421706,
+    "stageOutputBytesAtFinish": 6122604,
+    "withOfflineAuditBytes": 7173725
+  },
+  "recovery": {
+    "allOwnedExited": true,
+    "allMethodsRestored": true,
+    "bindingsRestored": true,
+    "allQueuesEmpty": true,
+    "counterFinalKnown": true,
+    "fullSourceManifest": {
+      "sha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "files": 8534,
+      "fences": 1
+    }
+  },
+  "hotspotReplay": {
+    "source": "sealed-profiler-v2-pilot-not-K-or-current-N",
+    "offsetUncertaintyMs": 2.2895208597183228,
+    "spans": 96,
+    "sufficientSpans": 0,
+    "definiteSamples": 115,
+    "boundaryAmbiguousSamples": 64,
+    "newProfilerStarted": false,
+    "notFunctionInstructions": true
+  },
+  "installed": {
+    "passed": false,
+    "initialFailure": "hardcoded-debug-port; actual process selected ephemeral port",
+    "wrongPortClosureInvalidAsRecoveryProof": true,
+    "recoveryOnly": true,
+    "actualPortRefusal": true,
+    "originalProcessAlive": true,
+    "discoveryToRecoveryWallUpperMs": 46239,
+    "mainWindowCpuCost": "unknown",
+    "businessReads": 0,
+    "wrappersInstalled": false,
+    "nativeLoaded": false,
+    "restarts": 0,
+    "fixedCandidateNotRetried": true,
+    "fullFControllerQualified": false
+  },
+  "validation": {
+    "focusedTestsPassed": 42,
+    "syntax": true,
+    "architecture": true,
+    "uiConventions": true,
+    "diff": true,
+    "ci": {
+      "workflowRuns": [],
+      "statuses": [],
+      "scope": "PR-filtered workflows and combined statuses for producer, installed attempt, gate replay and final CLI candidate"
+    },
+    "firstFloatingPointFailureRetained": {
+      "kind": "floating-point-accumulation",
+      "expected": 2.6e-05,
+      "actual": 2.600000000000001e-05,
+      "correction": "sum raw bigint ticks before converting to milliseconds; assertion unchanged"
+    },
+    "focusedTestsCandidate": "34ba0d241c095b16515c31b992f0fcb1e125e332",
+    "latestCliSyntaxOnly": true,
+    "latestCliReportsRejectionWithNonzeroExit": true,
+    "latestCliNotRuntimeRetried": true
+  },
+  "fieldStarted": false,
+  "mechanismReproduced": false,
+  "RI00Closed": false,
+  "refactorStarted": false,
+  "chronologicalWorkAudit": {
+    "sha256": "d5068edc4ce48c19ea94f6c737b1e0384d1306c684aeefa9b9e5fd43f52704fe",
+    "allCompatibleSameGcPairs": 21,
+    "largestPositiveRootInstructionDelta": "75905403",
+    "relative": 0.009362828891636296,
+    "evidenceInstructionDelta": "50109765",
+    "remainderInstructionDelta": "25795638",
+    "evidenceUserDeltaMs": 2.22199999999998,
+    "position0InstructionDelta": "18338275",
+    "position1InstructionDelta": "26559759",
+    "notKOrQualifiedFormation": true
+  },
+  "gateReplayCandidate": "34ba0d241c095b16515c31b992f0fcb1e125e332"
+}

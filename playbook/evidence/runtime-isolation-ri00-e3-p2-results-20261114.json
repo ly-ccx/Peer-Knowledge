@@ -1,0 +1,1622 @@
+{
+  "kind": "RI00-P2-fixed-host-campaign-with-structure-pass-and-timing-rejection",
+  "date": "2026-11-14",
+  "executionCandidate": "fce27eb2de0eb34bab5273c21e2e5474467c9c03",
+  "currentCodeCandidate": "6ca58871b3b2c6156702c683e8ca1f9875a8c7b4",
+  "postExecutionCodeDelta": "6ca58871 changes only offline coverage row.label display, syntax and sealed replay validated; no repeat P0B or P2",
+  "rawSha256": {
+    "P2": "60bfbef9846b504907a952b958970a6900d59514f751715c5030a8295763eb13",
+    "P0B": "faedf4ac03618a6e863a7b7c15e120139b334cc6d63f96383629c4f98ea7a417",
+    "boundReturnCoverage": "92497a531e8590dfe676dcafbd3ee613227c346bd111e1670f20d9eca59f1525",
+    "labelOnlyCoverageReplay": "df3f10aecb2ef5d459fffc49cbb0877455a56c11c64d60d8a41ea68d36da2973",
+    "profile": "e808b3f339e9ef9152dc9a1c4a040f907b251ed0e24d067dd272bf3648cee369",
+    "copyAudit": "c9204614e98e26f207ad91104d3abcf40b4b898c6075175dd490105498d0d816",
+    "sourcePortAudit": "debcc50b5d7f7a8bd3f79cc1f1d3f50ff24116ae212779f70e871a1fe25a779a",
+    "profileAndWarmRejectionSupplement": "79c96116fd3cedc89a6d1bce51ee782c565895cd7e31c24e091c14576136c82f"
+  },
+  "budgetSha256": {
+    "P2": "c61475723463d81731856c9b12e6759fdf5155062552e720ce3338c20c6dc550",
+    "P0B": "82ec772cf809d09e41fce8dcaca44c76f5a27bc354d3e99b7e41aef10de9be0d"
+  },
+  "sameExecutionCandidateAndFullInstrumentSource": true,
+  "oldPFailureSha256Retained": "0e2b3c2713063ccfe67b4e035a80eb80b4a2ddca8665fa9c3bffceb01d9d98ea",
+  "coverage": {
+    "passed": true,
+    "remainingRoots": 40,
+    "hashCalls": 12,
+    "waits": 40,
+    "readCpuReserveMs": 31500,
+    "hashCpuReserveMs": 1200,
+    "wallReserveMs": 186500,
+    "gapReserveMs": 6000,
+    "cleanupReserveMs": 90000,
+    "profileControllerWallReserveMs": 30000,
+    "hashWallReserveMs": 24000,
+    "boundaryCases": [
+      {
+        "field": "remainingReadCpuMs",
+        "exact": 31500,
+        "exactAdmitted": true,
+        "oneMicrosecondShortRejected": true
+      },
+      {
+        "field": "remainingHashCpuMs",
+        "exact": 1200,
+        "exactAdmitted": true,
+        "oneMicrosecondShortRejected": true
+      },
+      {
+        "field": "remainingWallMs",
+        "exact": 186500,
+        "exactAdmitted": true,
+        "oneMicrosecondShortRejected": true
+      },
+      {
+        "field": "remainingControllerCpuMs",
+        "exact": 5000,
+        "exactAdmitted": true,
+        "oneMicrosecondShortRejected": true
+      }
+    ],
+    "notObservedOnOrFutureCostGuarantee": true,
+    "initialSourceLabelDisplayWasNullButInputHashAndResourceTotalsBound": true,
+    "supplementLabelsVerified": true,
+    "labelRepairResourceTotalsUnchanged": true
+  },
+  "P0B": {
+    "passed": true,
+    "nodeHosts": 1,
+    "electronLaunches": 0,
+    "fixtureRoots": 9,
+    "profileStartAttempts": 6,
+    "wallMs": 890.5425,
+    "bodyCpuMs": 601.654,
+    "wholeFixtureProcessCpuMs": 713.111,
+    "controllerCpuMs": 59.626,
+    "clockWidthsMs": [
+      0.7040832042694092,
+      0.7976243495941162
+    ],
+    "cases": [
+      {
+        "label": "normal-clock",
+        "fixtureFault": false,
+        "businessReads": 2,
+        "originalError": null,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found"
+      },
+      {
+        "label": "start-response-lost",
+        "fixtureFault": true,
+        "businessReads": 0,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-response-lost:Profiler.start"
+        },
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found"
+      },
+      {
+        "label": "body-failure",
+        "fixtureFault": true,
+        "businessReads": 1,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-body-original"
+        },
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found"
+      },
+      {
+        "label": "stop-response-lost",
+        "fixtureFault": true,
+        "businessReads": 2,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-response-lost:Profiler.stop"
+        },
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found"
+      },
+      {
+        "label": "stop-rejected-before-dispatch",
+        "fixtureFault": true,
+        "businessReads": 2,
+        "originalError": {
+          "name": "Error",
+          "message": "fixture-stop-before-dispatch"
+        },
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found"
+      },
+      {
+        "label": "normal-after-recovery",
+        "fixtureFault": false,
+        "businessReads": 2,
+        "originalError": null,
+        "disabled": true,
+        "disabledProtocolResponse": "No recording profiles found"
+      }
+    ],
+    "restored": true,
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "notFieldCause": true
+  },
+  "P2": {
+    "executionId": "P2-fixed-three-host-after-bound-P0B-20261114",
+    "fixedCampaignExecutionCompleted": true,
+    "passed": false,
+    "actualLaunches": 3,
+    "replacements": 0,
+    "bothTargetsCompletedThreeBlocks": false,
+    "supervisorRoots": 104,
+    "maximumRoots": 144,
+    "completedBlocks": 8,
+    "hashCalibrationCalls": 24,
+    "scheduledWaitCount": 80,
+    "minimumActualWaitMs": 150.0342500000006,
+    "profileStarts": 1,
+    "target1": {
+      "entry": {
+        "passed": false,
+        "checks": {
+          "graph": true,
+          "source": true,
+          "pmc": true,
+          "unchangedWarmGate": false,
+          "metadata": true,
+          "calibration": true
+        },
+        "summaries": [
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 6,
+            "fullWarmMedian": 280.05600000000004,
+            "median": 280.0045,
+            "compatibleRange": 15.37700000000001
+          },
+          {
+            "all": 8,
+            "warm": 7,
+            "compatible": 7,
+            "fullWarmMedian": 283.82899999999995,
+            "median": 283.82899999999995,
+            "compatibleRange": 8.224000000000046
+          }
+        ],
+        "calibrationRatio": 0.9796685082872928,
+        "deltaMs": -3.8244999999999436,
+        "notG2": true
+      },
+      "reason": "original-OFF-entry-gate-rejected",
+      "profileStarted": false,
+      "notReplaced": true
+    },
+    "target2": {
+      "pairs": [
+        {
+          "passed": true,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": true,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 6,
+              "fullWarmMedian": 276.802,
+              "median": 276.6455,
+              "compatibleRange": 9.394999999999982
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 278.06399999999996,
+              "median": 278.06399999999996,
+              "compatibleRange": 8.762
+            }
+          ],
+          "calibrationRatio": 0.9978184792982774,
+          "deltaMs": -1.4184999999999377,
+          "notG2": true
+        },
+        {
+          "passed": true,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": true,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 275.724,
+              "median": 275.724,
+              "compatibleRange": 13.58400000000006
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 277.67900000000003,
+              "median": 277.67900000000003,
+              "compatibleRange": 11.93199999999996
+            }
+          ],
+          "calibrationRatio": 1.0041818181818183,
+          "deltaMs": -1.955000000000041,
+          "notG2": true
+        },
+        {
+          "passed": false,
+          "checks": {
+            "graph": true,
+            "source": true,
+            "pmc": true,
+            "unchangedWarmGate": false,
+            "metadata": true,
+            "calibration": true
+          },
+          "summaries": [
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 274.46999999999997,
+              "median": 274.46999999999997,
+              "compatibleRange": 13.811000000000035
+            },
+            {
+              "all": 8,
+              "warm": 7,
+              "compatible": 7,
+              "fullWarmMedian": 278.042,
+              "median": 278.042,
+              "compatibleRange": 16.28299999999996
+            }
+          ],
+          "calibrationRatio": 1.0011862396204032,
+          "deltaMs": -3.5720000000000027,
+          "notG2": true
+        }
+      ],
+      "timing": {
+        "passed": false,
+        "checks": {
+          "allBlocks": false,
+          "timingOverhead": true,
+          "offReturnDrift": false
+        },
+        "deltasMs": [
+          -1.4184999999999377,
+          -1.955000000000041,
+          -3.5720000000000027
+        ],
+        "overheadMs": 0.5402499999999293,
+        "offReturnDriftMs": -2.153500000000065,
+        "notCause": true
+      },
+      "structurePassed": true,
+      "clockWidthMs": 1.6330373287200928,
+      "hrClockWidthMs": 1.6349544525146484,
+      "performanceHrBridgeWidthMs": 0.001750946044921875,
+      "profiledDenseRoots": 8,
+      "passSpans": 96,
+      "minimumDefinitePassSamples": 15,
+      "setupStopWindowCpuMs": {
+        "setupMs": 691.5161666666667,
+        "stopMs": 2.7357916666666666,
+        "totalMs": 694.2519583333333,
+        "known": true
+      },
+      "setupWindowIncludesDiagnosticMainWork": true,
+      "profileSessionWallMs": 6671.6835000000065,
+      "profileReadBodyWallMs": 4254.797085000006,
+      "reservation": {
+        "remainingRoots": 40,
+        "remainingHashCalls": 12,
+        "maxQualifiedOffRootCpuMs": 468.435,
+        "perRootMs": 750,
+        "perRootWallMs": 750,
+        "semanticReserveMs": 1500,
+        "readReserveMs": 31500,
+        "readWallReserveMs": 31500,
+        "hashCpuReserveMs": 1200,
+        "remainingReadCpuMs": 57066.178,
+        "remainingHashCpuMs": 1732.453,
+        "remainingWallMs": 855981,
+        "remainingControllerCpuMs": 19270.974000000002,
+        "cleanupReserveMs": 90000,
+        "gapReserveMs": 6000,
+        "controllerWallReserveMs": 5000,
+        "profileControllerWallReserveMs": 30000,
+        "hashWallReserveMs": 24000,
+        "wallReserveMs": 186500,
+        "basis": "completed qualified OFF block roots, including both markers and all dense points; cold warmups remain in spent CPU",
+        "notGuaranteedFutureCost": true,
+        "admitted": true,
+        "reason": "prospective-budget-admission-only"
+      },
+      "medianOverheadFormulaNotAcceptedAsQualification": true
+    },
+    "readCpuMsIncludingSemanticAudits": 50217.58,
+    "hashCpuMs": 531.3379999999999,
+    "wallMs": 69614,
+    "controllerAuxChargedMs": 6178.564,
+    "includesPreparationShutdownReserveMs": 5000,
+    "journalBytes": 3829501,
+    "logicalOutputBytesBeforeFinalReceipt": 14508592,
+    "finalLogicalOutputBytes": 23311585,
+    "profileBytes": 169385,
+    "sourceUnchanged": true,
+    "driverUnchangedDuringRun": true,
+    "unknownCostGap": false,
+    "counterEofKnown": true,
+    "runtimeFailures": [],
+    "hosts": [
+      {
+        "label": "P-reference",
+        "controlledRows": 48,
+        "naturalRows": 0,
+        "outsideRows": 0,
+        "allOwnersRestored": true,
+        "probeRestored": true,
+        "bindingRestored": true,
+        "noticeOwnerRestored": true,
+        "noticeFailures": 0,
+        "metadataErrors": 0,
+        "guardDenials": 0,
+        "readFailures": 0,
+        "pendingTicket": null,
+        "retainedRowBytes": 0,
+        "semanticAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 116.346
+        },
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "label": "P-target-1",
+        "controlledRows": 18,
+        "naturalRows": 0,
+        "outsideRows": 0,
+        "allOwnersRestored": true,
+        "probeRestored": true,
+        "bindingRestored": true,
+        "noticeOwnerRestored": true,
+        "noticeFailures": 0,
+        "metadataErrors": 0,
+        "guardDenials": 0,
+        "readFailures": 0,
+        "pendingTicket": null,
+        "retainedRowBytes": 0,
+        "semanticAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 155.999
+        },
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      },
+      {
+        "label": "P-target-2",
+        "controlledRows": 38,
+        "naturalRows": 0,
+        "outsideRows": 0,
+        "allOwnersRestored": true,
+        "probeRestored": true,
+        "bindingRestored": true,
+        "noticeOwnerRestored": true,
+        "noticeFailures": 0,
+        "metadataErrors": 0,
+        "guardDenials": 0,
+        "readFailures": 0,
+        "pendingTicket": null,
+        "retainedRowBytes": 0,
+        "semanticAudit": {
+          "rows": 69266,
+          "sha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+          "notUsedForPerformance": true,
+          "cpuMs": 135.775
+        },
+        "exit": {
+          "code": 0,
+          "signal": null
+        }
+      }
+    ]
+  },
+  "profileStructureSupplement": {
+    "kind": "P2-sealed-profile-structure-and-rejection-audit-not-field-cause",
+    "reportSha256": "60bfbef9846b504907a952b958970a6900d59514f751715c5030a8295763eb13",
+    "profileSha256": "e808b3f339e9ef9152dc9a1c4a040f907b251ed0e24d067dd272bf3648cee369",
+    "sections": {
+      "pass": {
+        "sampledWallEstimateMs": 2234.3697460000076,
+        "classes": {
+          "sealed-js": 1806.4370198761208,
+          "gc": 165.65995148948787,
+          "program": 123.17421294909582,
+          "unknown": 139.09856168530314,
+          "unknown-source": 0.0,
+          "native-unresolved": 0.0,
+          "sealed-eval-js": 0.0
+        },
+        "unresolvedSampledWallEstimateMs": 427.9327261238868,
+        "unresolvedFraction": 0.19152278931899097,
+        "topExclusiveLeaves": [
+          {
+            "functionName": "readEvidenceIndex",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-evidence.mjs",
+            "estimatedSampledWallMs": 525.9825950721279,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex"
+            ]
+          },
+          {
+            "functionName": "normalizeEvidenceIndexRecord",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-files.mjs",
+            "estimatedSampledWallMs": 524.5820039729442,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "normalizeEvidenceIndexRecord"
+            ]
+          },
+          {
+            "functionName": "parseInteractiveArtifactRef",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/protocol/dist/interactive-result.js",
+            "estimatedSampledWallMs": 334.53999948501587,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "retainInteractiveEvidence",
+              "",
+              "parseInteractiveArtifactRef"
+            ]
+          },
+          {
+            "functionName": "normalizeOptionalString",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-domain.mjs",
+            "estimatedSampledWallMs": 178.4374364100695,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "normalizeEvidenceIndexRecord",
+              "normalizeOptionalString"
+            ]
+          },
+          {
+            "functionName": "(garbage collector)",
+            "classification": "gc",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 165.65995148948787,
+            "functionNameChain": [
+              "(root)",
+              "(garbage collector)"
+            ]
+          },
+          {
+            "functionName": "(program)",
+            "classification": "program",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 123.17421294909582,
+            "functionNameChain": [
+              "(root)",
+              "(program)"
+            ]
+          },
+          {
+            "functionName": "normalizeStringArray",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-domain.mjs",
+            "estimatedSampledWallMs": 90.21677090589583,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "normalizeEvidenceIndexRecord",
+              "normalizeEvidenceRefList",
+              "normalizeStringArray"
+            ]
+          },
+          {
+            "functionName": "",
+            "classification": "unknown",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-domain.mjs",
+            "estimatedSampledWallMs": 77.5883773392161,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "indexedRefs",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "normalizeEvidenceIndexRecord",
+              "normalizeEvidenceRefList",
+              "normalizeStringArray",
+              ""
+            ]
+          },
+          {
+            "functionName": "retainInteractiveEvidence",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-files.mjs",
+            "estimatedSampledWallMs": 75.29500126838684,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "indexedRefs",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "retainInteractiveEvidence"
+            ]
+          },
+          {
+            "functionName": "",
+            "classification": "unknown",
+            "sourceRelative": "packages/runtime-node/dist/goal-plan-files.mjs",
+            "estimatedSampledWallMs": 55.04899978637695,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "indexedRefs",
+              "index",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "readEvidenceIndex",
+              "retainInteractiveEvidence",
+              ""
+            ]
+          },
+          {
+            "functionName": "evidenceRecords",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/project-agent/session-verification.mjs",
+            "estimatedSampledWallMs": 29.24920682440643,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords"
+            ]
+          },
+          {
+            "functionName": "indexedRefs",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/project-agent/session-supervisor.mjs",
+            "estimatedSampledWallMs": 28.033005628283718,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "indexedRefs"
+            ]
+          }
+        ],
+        "notCpuOrInstructions": true,
+        "mappedLeafDoesNotExcludeOpaqueNativeWork": true
+      },
+      "remainder": {
+        "sampledWallEstimateMs": 1139.7960049999965,
+        "classes": {
+          "unknown": 167.93344052531393,
+          "sealed-js": 540.9413650018578,
+          "native-unresolved": 283.31445429901214,
+          "unknown-source": 80.93969445628318,
+          "gc": 55.17712593606484,
+          "program": 6.9897889925850905,
+          "sealed-eval-js": 3.7108004817964684,
+          "idle": 0.7893353070830926
+        },
+        "unresolvedSampledWallEstimateMs": 595.1438395163423,
+        "unresolvedFraction": 0.5221494345528471,
+        "topExclusiveLeaves": [
+          {
+            "functionName": "evidenceRecords",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/project-agent/session-verification.mjs",
+            "estimatedSampledWallMs": 143.68479557503815,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords"
+            ]
+          },
+          {
+            "functionName": "indexedRefs",
+            "classification": "sealed-js",
+            "sourceRelative": "packages/runtime-node/dist/project-agent/session-supervisor.mjs",
+            "estimatedSampledWallMs": 139.9989958670776,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "indexedRefs"
+            ]
+          },
+          {
+            "functionName": "existsSync",
+            "classification": "native-unresolved",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 126.99585844766261,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "delegatedPlans",
+              "memo",
+              "",
+              "read",
+              "readPlan",
+              "plan",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "getPlan",
+              "readJson",
+              "t.existsSync",
+              "existsSync",
+              "existsSync"
+            ]
+          },
+          {
+            "functionName": "all",
+            "classification": "sealed-js",
+            "sourceRelative": "apps/desktop/scripts/ri00/coordination-snapshot.mjs",
+            "estimatedSampledWallMs": 115.55300045013428,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "forSession",
+              "lifecycleFacts",
+              "coordination.<computed>",
+              "readLifecycleFacts",
+              "all"
+            ]
+          },
+          {
+            "functionName": "",
+            "classification": "unknown",
+            "sourceRelative": "apps/desktop/scripts/ri00/coordination-snapshot.mjs",
+            "estimatedSampledWallMs": 99.44600105285645,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "forSession",
+              "lifecycleFacts",
+              "coordination.<computed>",
+              "readLifecycleFacts",
+              "all",
+              ""
+            ]
+          },
+          {
+            "functionName": "stat",
+            "classification": "native-unresolved",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 67.7310004234314,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "findPlan",
+              "plan",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "getPlan",
+              "readJson",
+              "t.statSync",
+              "statSync",
+              "stat"
+            ]
+          },
+          {
+            "functionName": "(garbage collector)",
+            "classification": "gc",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 55.17712593606484,
+            "functionNameChain": [
+              "(root)",
+              "(garbage collector)"
+            ]
+          },
+          {
+            "functionName": "readdir",
+            "classification": "native-unresolved",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 43.56287340663039,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "findPlan",
+              "t.readdirSync",
+              "readdirSync",
+              "readdir"
+            ]
+          },
+          {
+            "functionName": "normalizeString",
+            "classification": "unknown-source",
+            "sourceRelative": "node:path",
+            "estimatedSampledWallMs": 32.61199951171875,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "findPlan",
+              "plan",
+              "goalPlanStore.<computed>",
+              "sync",
+              "",
+              "getPlan",
+              "readRunnerProgressPatch",
+              "runnerProgressPatchFile",
+              "join",
+              "normalize",
+              "normalizeString"
+            ]
+          },
+          {
+            "functionName": "all",
+            "classification": "native-unresolved",
+            "sourceRelative": ".",
+            "estimatedSampledWallMs": 30.129000663757324,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "forSession",
+              "lifecycleFacts",
+              "coordination.<computed>",
+              "readLifecycleFacts",
+              "all",
+              "all"
+            ]
+          },
+          {
+            "functionName": "",
+            "classification": "unknown",
+            "sourceRelative": "packages/runtime-node/dist/project-agent/session-supervisor.mjs",
+            "estimatedSampledWallMs": 29.957374981735484,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "indexedRefs",
+              ""
+            ]
+          },
+          {
+            "functionName": "",
+            "classification": "unknown",
+            "sourceRelative": "packages/runtime-node/dist/project-agent/session-verification.mjs",
+            "estimatedSampledWallMs": 29.782439956921735,
+            "functionNameChain": [
+              "(root)",
+              "processImmediate",
+              "run",
+              "",
+              "perform",
+              "root",
+              "rootBody",
+              "supervisor.list",
+              "list",
+              "run",
+              "",
+              "list",
+              "",
+              "presentSession",
+              "project",
+              "humanGateOf",
+              "acceptanceFacts",
+              "hostFacts",
+              "hostFacts",
+              "sync",
+              "",
+              "facts",
+              "factsFor",
+              "evidenceRecords",
+              ""
+            ]
+          }
+        ],
+        "notCpuOrInstructions": true,
+        "mappedLeafDoesNotExcludeOpaqueNativeWork": true
+      }
+    },
+    "warmRejections": [
+      {
+        "block": "P-target-2-reference-2",
+        "compatible": 7,
+        "rangeMs": 16.28299999999996,
+        "low": {
+          "label": "P-target-2-reference-2-2",
+          "evidenceUserMs": 267.54,
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        "high": {
+          "label": "P-target-2-reference-2-6",
+          "evidenceUserMs": 283.823,
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        "fullGcSignatureMatched": false,
+        "mechanismNotEstablished": true
+      },
+      {
+        "block": "P-target-1-OFF-0",
+        "compatible": 6,
+        "rangeMs": 15.37700000000001,
+        "low": {
+          "label": "P-target-1-OFF-0-3",
+          "evidenceUserMs": 277.131,
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        "high": {
+          "label": "P-target-1-OFF-0-5",
+          "evidenceUserMs": 292.508,
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        "fullGcSignatureMatched": false,
+        "mechanismNotEstablished": true
+      }
+    ],
+    "newProductReads": 0,
+    "newHosts": 0,
+    "clockWidthMs": 1.6330373287200928,
+    "minimumDefinitePassSamples": 15,
+    "notSlowStateComparison": true
+  },
+  "warmGateFailureNotReclassified": true,
+  "copyAudit": {
+    "kind": "post-P2-copy-and-owned-exit-audit",
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1,
+    "owned": [
+      {
+        "label": "P-reference",
+        "absent": true
+      },
+      {
+        "label": "P-target-1",
+        "absent": true
+      },
+      {
+        "label": "P-target-2",
+        "absent": true
+      },
+      {
+        "label": "P0B-node",
+        "absent": true
+      }
+    ],
+    "auditorCpuMs": 749.134
+  },
+  "postRecovery": {
+    "sourceUnchanged": true,
+    "productionUnchanged": true,
+    "executionSourceMatchedP0AndCoverage": true,
+    "ownedPortsClosed": 4,
+    "postExecutionSourceDelta": [
+      "run-e3-p-return-audit.mjs"
+    ]
+  },
+  "ledger": {
+    "previousActualE3OwnedApps": 29,
+    "newP2Apps": 3,
+    "currentActualE3OwnedApps": 32,
+    "oldUnusedPSlotRetired": true,
+    "P0BOwnedNodeFixtures": 1,
+    "newProductReadCpuMs": 50217.58,
+    "cumulativeKnownE3ProductReadCpuLowerMs": 402814.389,
+    "earlierCUnknownRemainsUnknown": true,
+    "postCopyAuditCpuMsSeparate": 749.134
+  },
+  "validation": {
+    "focusedTestsPassed": 89,
+    "focusedTestSourceCandidate": "fce27eb2de0eb34bab5273c21e2e5474467c9c03",
+    "testLogSha256": "1bd03ae7121f63c710457c06a6d00ac880e05d7c65f8e9f907940f1fbb4083be",
+    "architecture": true,
+    "uiConventions": true,
+    "diff": true,
+    "labelOnlyOfflineReplayAndSyntax": true,
+    "review": "implementer-self-review",
+    "ci": {
+      "candidates": [
+        "fce27eb2",
+        "6ca58871"
+      ],
+      "prWorkflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    },
+    "notRun": [
+      "new-field-window",
+      "same-process-field-fast-to-slow-capture",
+      "residual-mechanism-reproduction",
+      "full-build",
+      "full-product-regression",
+      "real-model",
+      "installed-release-acceptance"
+    ]
+  },
+  "actualPeer": {
+    "attachments": 0,
+    "restarts": 0,
+    "originalProcessAlive": true,
+    "diagnosticListenerAbsent": true
+  },
+  "fieldWindowStarted": false,
+  "timingQualificationPassed": false,
+  "residualMechanismReproduced": false,
+  "RI00Closed": false,
+  "refactorStarted": false
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "FR1-built-in-callsite-corrective-candidate-fixed-functional-budget",
+  "date": "2026-11-14",
+  "authorization": "user current instruction to repair recorder then bounded preserved-process capture; new implementation after causal operation diagnostics, not unmodified rerun or failure replacement",
+  "previousCandidate": "eb1de652be11048d7eea49e3105a966d4351b7cf",
+  "previousFunctionalFailedAtMs": 2.58755100001099,
+  "allPreviousSlotsFailuresAndCostsRetained": true,
+  "implementationDelta": [
+    "replace Error capture/descriptor changes and per-frame native method loop with Node builtin getCallSites(96,{sourceMap:false})",
+    "intern complete current scriptId/name/file/line/column vector before presentation",
+    "reuse CPU boundaries: four snapshots per span; unchanged CPU attribution and strict2ms charge",
+    "retain explicit mapped-ALS async links; native/unmapped async frames are not invented"
+  ],
+  "evidenceScope": "Node backends preserve25 recursive JS callers; native28 vs Error30 total frames, runtime tails differ; not claim identical native/async stack or product mechanism",
+  "backendStudy960CapturesCpuMs": {
+    "error": 22.144,
+    "native": 18.368
+  },
+  "noSyntheticImprovementClaimForProductOrWholeOverrun": true,
+  "unit": {
+    "wallMs": 30000,
+    "cpuMs": 3000
+  },
+  "functional": {
+    "ownedElectronLaunches": 1,
+    "replacements": 0,
+    "queryCallsMaximum": 12,
+    "readCpuMs": 8000,
+    "fullSubtreeCpuMs": 12000,
+    "wallMs": 60000,
+    "perRootChargeMs": 2,
+    "probeTotalMs": 3000,
+    "failureStopNoFurtherElectronSlotsInThisRound": true
+  },
+  "field": {
+    "existingDevPid": 39208,
+    "restarts": 0,
+    "references": 0,
+    "activeBusinessQueries": 0,
+    "inherits": "runtime-isolation-ri00-field-first-witness-plan-20261114.json",
+    "preparationMs": 180000,
+    "windowIncludingCleanupMs": 1800000,
+    "cleanupMs": 90000,
+    "noThresholdChanges": true,
+    "onlyAfterSameCandidateFunctionalPass": true
+  },
+  "ledgerBefore": {
+    "diagnosticOwned": 43,
+    "separateUserRequestedManualDevLaunches": 1,
+    "totalKnownControlledElectronStarts": 44,
+    "knownProductReadCpuLowerMs": 640495.777,
+    "oldCUnknownRetained": true
+  },
+  "noMechanismReplayOrProductRefactorAllocation": true
+}

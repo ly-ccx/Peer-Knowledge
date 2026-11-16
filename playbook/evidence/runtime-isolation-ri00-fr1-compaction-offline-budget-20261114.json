@@ -1,0 +1,27 @@
+{
+  "kind": "FR1-offline-compaction-only-after-native-slot-failure",
+  "date": "2026-11-14",
+  "scope": "repair candidate and sealed-data work/fidelity audit only; native qualification failed and no more Electron admission",
+  "unitWallMs": 30000,
+  "unitCpuMs": 3000,
+  "newElectronHosts": 0,
+  "productQueries": 0,
+  "fieldAttachments": 0,
+  "unchangedGates": {
+    "perRootMs": 2,
+    "totalProbeMs": 3000,
+    "frames": 96,
+    "stackBytes": 32768,
+    "journalBytes": 134217728
+  },
+  "candidateChanges": [
+    "current frame tuples retain functionName/scriptId/line/column; script dictionary validates full current scriptName each call",
+    "derive presentation outside observed process",
+    "single UTF8 output buffer for byte count and unchanged SHA",
+    "cached current port run; exact query order/count unchanged"
+  ],
+  "allEarlierFailuresAndCostsRetained": true,
+  "functionalPassNotGranted": true,
+  "fieldPassNotGranted": true,
+  "productRefactorAllowed": false
+}

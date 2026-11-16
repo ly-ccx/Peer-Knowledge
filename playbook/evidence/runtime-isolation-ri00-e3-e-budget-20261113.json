@@ -1,0 +1,50 @@
+{
+  "kind": "E3-E-notification-qualification-frozen-before-execution",
+  "date": "2026-11-13",
+  "failedCReceiptSha256": "bc18bf63ba11c5e17a291e36e8f20659195f1136a6defbe12082688e798f4082",
+  "failedDReceiptSha256": "12759780bafcfc70aad47d2791a6210170d74296d7fd350b55dbd23b25714b43",
+  "purpose": "qualify terminal notification, bounded metadata and repaired full controller; no repetition of N or D transport blocks",
+  "C": {
+    "electronLaunches": 2,
+    "functional": 0,
+    "productionTarget": 1,
+    "reference": 1,
+    "maxSimultaneous": 2,
+    "replacements": 0,
+    "wallMs": 360000,
+    "cleanupReserveMs": 90000,
+    "readCpuMs": 60000,
+    "nativeHashCpuMs": 1000,
+    "controllerAuxCpuMs": 20000,
+    "preparationShutdownReserveMs": 5000,
+    "outputBytes": 134217728,
+    "journalBytes": 33554432
+  },
+  "transportContrast": false,
+  "completion": {
+    "source": "queue terminal fact via owned native binding",
+    "statusReadsPerCompletedRootMax": 1,
+    "pollWhileBusinessReadRunning": false,
+    "noticeCpuMs": 1000,
+    "timeoutFallbackStatusReads": 1,
+    "unknownDoesNotReplay": true
+  },
+  "policy": {
+    "priorCAndDRemainFailed": true,
+    "reuseC0FunctionalFixturesOnly": true,
+    "performanceGateUnchanged": true,
+    "F0Attempts": 1,
+    "noProfiler": true,
+    "noMoreAppSlotsIfThisQualificationFails": true
+  },
+  "noQuotaBorrowedFrom": [
+    "N",
+    "C",
+    "D",
+    "F",
+    "H",
+    "R"
+  ],
+  "fieldStarted": false,
+  "refactorStarted": false
+}

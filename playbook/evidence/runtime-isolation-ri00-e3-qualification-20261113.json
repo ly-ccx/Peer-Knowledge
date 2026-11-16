@@ -1,0 +1,180 @@
+{
+  "kind": "RI00-E3-functional-qualification-with-original-failure-not-field-attribution",
+  "date": "2026-11-13",
+  "RI00Closed": false,
+  "productRefactorStarted": false,
+  "original": {
+    "candidate": "cda5597f657a12610285b32f3bea380c41892cab",
+    "rawReceiptSha256": "2ab3a055c5fc7716d37510285495cbfa83728ba2f79e5c5544f0882c12d3560f",
+    "passed": false,
+    "ownedLaunches": 2,
+    "ownedReadCpuMs": 2929.87,
+    "elapsedMs": 18646,
+    "cases": [
+      {
+        "label": "production-witness-and-stack-order",
+        "status": "passed"
+      },
+      {
+        "label": "controller-death-with-unacknowledged-ticket",
+        "status": "failed"
+      }
+    ],
+    "failure": "Second fixed instance: Electron inspector argv changed config position; JSON parsing failed before business reads; ready timeout. Third original case was not launched by the original driver.",
+    "bootstrapFailureRetained": true
+  },
+  "finalRemainingFixedSlot": {
+    "candidate": "475c5701ab6cd0a8e5e6fa7f1ae832bff15596d9",
+    "rawReceiptSha256": "81b1586e3fa4ac4c14e6118203cea867adb713acdd9397197847a39557eedb1e",
+    "parentReceiptSha256": "2ab3a055c5fc7716d37510285495cbfa83728ba2f79e5c5544f0882c12d3560f",
+    "originalCasesAllPassed": false,
+    "additionalOwnedLaunches": 1,
+    "elapsedMs": 11326,
+    "ownedReadCpuMs": 3311.8959999999997,
+    "passed": true,
+    "proofs": {
+      "productionWitnessNoHeap": true,
+      "serializedInspectorModeBootstrap": true,
+      "noReadBeforeOriginalStackReturn": true,
+      "originalErrorAndValueIdentity": true,
+      "expiredTicketNoRead": true,
+      "lateOwnerNotOverwritten": true,
+      "controllerDeathRetainsUnacknowledgedRead": true,
+      "leaseRestoresApplicationMethods": true,
+      "inspectorRefusedWhileHostSurvived": true,
+      "zeroGetterRecoveryLifecycle": true
+    },
+    "sharedSamplerUnchangedFromOriginalProductionCase": true,
+    "sourceUnchanged": true,
+    "productionUnchanged": true,
+    "parentReceiptUnchanged": true,
+    "inspectorClosedWhileHostSurvived": true,
+    "readFailures": 0,
+    "sourceWritesDenied": 0,
+    "zeroHeapGetters": {
+      "getHeapStatistics": 0,
+      "getHeapSpaceStatistics": 0,
+      "getHeapCodeStatistics": 0
+    },
+    "restored": true,
+    "bindingRestored": true,
+    "activeDepthAtExit": 0,
+    "queueInFlightAtExit": false,
+    "retainedRowBytesAtExit": 0,
+    "lateOwnerTest": {
+      "expectedOwnMethodRestoration": false,
+      "actualOwnMethodRestoration": false,
+      "laterOwnerPreserved": true,
+      "explicitOwnedResetInSameProcess": true
+    }
+  },
+  "QBudget": {
+    "ownedLaunchesIncludingPriorExploratory": 5,
+    "limitOwnedLaunches": 5,
+    "priorExploratoryCpuMs": 29018.789,
+    "cumulativeReadCpuMs": 35260.555,
+    "limitReadCpuMs": 60000,
+    "replacementProcesses": 0,
+    "launchesBeyondFrozenSlots": 0
+  },
+  "validatedScope": {
+    "source": [
+      {
+        "relative": "dense-residual-probe.mjs",
+        "sha256": "75058c0b41eb13ca04c0ed44af0ac75aeba4b3fabcb059737acf2bc21fa1ff46"
+      },
+      {
+        "relative": "read-ticket-queue.mjs",
+        "sha256": "fe7f937e16825fb623412ab6ea2555e480792c11001658ddb74cb8e86db11a15"
+      },
+      {
+        "relative": "e3-install.mjs",
+        "sha256": "8f84d7ea3dde6d50f242797b29096be50c923aa97a686716330af31276f5b95a"
+      },
+      {
+        "relative": "e3-owned-main.cjs",
+        "sha256": "d00991b0e8179189816788924267eff27ac0c5369d58a74522616602ad906825"
+      },
+      {
+        "relative": "e3-owned-host.mjs",
+        "sha256": "b0beba58cd2a72dba0a2b7d29e2263a56749b9379de558fcd9d9a233761b3847"
+      },
+      {
+        "relative": "e3-counter-client.mjs",
+        "sha256": "18619cbc4e00ac97f3ec8f14dd24a23618eba09539b1ac5d4d0065dc8c02a05a"
+      },
+      {
+        "relative": "e3-identity.mjs",
+        "sha256": "4d9e0165332ce191c5283c3678aa6f747a417f65914cf88a17f48e6372fb2da9"
+      },
+      {
+        "relative": "dense-residual.mjs",
+        "sha256": "9630b31b2981f10fb228fb04c861ccb68714182b1ff26d9b95e9a1cccad2fa28"
+      },
+      {
+        "relative": "thread-counter-delta.mjs",
+        "sha256": "ddc464a98a5963f0ccce1caf3bdb37f1d2a695d7c164982ab00055247569b1dd"
+      },
+      {
+        "relative": "darwin-process-counters.py",
+        "sha256": "704c6fd4571f5ef8836e05e01aeb2df79628627441776a680affb479b229c14e"
+      },
+      {
+        "relative": "read-host.mjs",
+        "sha256": "590cb6d9068585cdd01b8cc39bbfe99db88956775e5e2d024038cdc2f327c80b"
+      },
+      {
+        "relative": "readonly-coordination.mjs",
+        "sha256": "a775782becedabd64a7cdc345cbfe884d37db45abb643f07007b0c2e14978af5"
+      },
+      {
+        "relative": "coordination-snapshot.mjs",
+        "sha256": "4288294cfc610bc76c81e3cfac75ffb90439b6eba92053f0c65ca532b9fdd0f1"
+      },
+      {
+        "relative": "trace.mjs",
+        "sha256": "69fa9b42d629a9f131f558f4fb0893c5de55d850236a7738611e910d6c7b3f9c"
+      },
+      {
+        "relative": "identity.mjs",
+        "sha256": "c94e4cfb9a6d1e3bffb8380cc1ffcf7055f31e4cafac8352f97357ce6fa1f176"
+      }
+    ],
+    "sessions": 23,
+    "planCalls": 3859,
+    "evidencePasses": 12,
+    "evidenceRowsEach": 69266,
+    "projectionSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+    "actualPeerAttached": false,
+    "fieldEntryLedgerAndSignalAdapterQualified": false,
+    "noPerformanceOrResidualAttribution": true
+  },
+  "implementationChecks": {
+    "focusedTests": 31,
+    "passed": 31,
+    "architecturePassed": true,
+    "uiConventionsPassed": true,
+    "syntaxPassed": true,
+    "diffPassed": true,
+    "prelaunchFailuresRetained": [
+      "Non-deterministic timer expiration assertion failed; corrected using deterministic monotonic clock in owned unit test, not latency padding.",
+      "Initial qualification driver syntax check failed before launch; missing function brace corrected.",
+      "Checkpoint Boolean predicate initially returned undefined instead of false; failing assertion preserved and predicate corrected."
+    ],
+    "allPrelaunchFailuresAreNotProductCause": true,
+    "candidate": "8cfb68f06529448e5cfa8701c83d832e088dbe14"
+  },
+  "limits": [
+    "Functional coverage passed in the last permitted slot after fixing bootstrap; the original qualification run remains failed.",
+    "No independent replicate claim; no replacement process or VM flag change.",
+    "Cheap per-plan ledger counting is not separately timed; measured metadata CPU is not proof of zero observer effect.",
+    "Actual field entry mapping, early-signal adapter and campaign admission remain unqualified.",
+    "No actual app restart, personal task change, profiler, forced GC or heap snapshot."
+  ],
+  "review": {
+    "independent": false,
+    "kind": "implementer-self-review"
+  },
+  "retainedOriginalUnitAttemptSha256": "cb1e683a7208f777e7261c6e776467eac1e1ca47b015e66550db2248b3bcd1f4",
+  "originalFailedSlotClaimSha256": "dfe97225d3297263d5d3eff8a974703336b643c9356827d6e8b98e9f2e11dabf"
+}

@@ -1,0 +1,3418 @@
+{
+  "kind": "RI00-P2-15.377-16.283-and-return-drift-sealed-audit",
+  "date": "2026-11-14",
+  "analysisCandidate": "8dc861882643e3c9b8934792b308910e8d08d88d",
+  "originalProducer": "fce27eb2de0eb34bab5273c21e2e5474467c9c03",
+  "inputSha256": "60bfbef9846b504907a952b958970a6900d59514f751715c5030a8295763eb13",
+  "analyzerSha256": "eb438416c7cd591c3b6fb8c9e0956287287d67c2f55a319c7b0d24f895ae1d65",
+  "privateAuditSha256": "1f839fc355e9e5eed53d2f6e0982775564ac4ee46558e4eff0ba256dc8b044df",
+  "frozenActionGraphAndBudgetModelSha256": "f4dc2cc80f07ee1d7691b0ce93415aff2aa6f69b632836d146f514ce00be037b",
+  "audit": {
+    "kind": "P2-sealed-warm-ranges-and-return-anchor-accounting-not-cause",
+    "warm": [
+      {
+        "block": "P-target-1-OFF-0",
+        "summary": {
+          "all": 8,
+          "warm": 7,
+          "compatible": 6,
+          "fullWarmMedian": 280.05600000000004,
+          "median": 280.0045,
+          "compatibleRange": 15.37700000000001
+        },
+        "before": {
+          "label": "P-target-1-OFF-0-3",
+          "rootUserMs": 391.826,
+          "rootSystemMs": 35.75,
+          "rootCpuMs": 427.576,
+          "evidenceUserMs": 277.131,
+          "evidenceSystemMs": 6.306000000000001,
+          "evidenceCpuMs": 283.43699999999995,
+          "remainderUserMs": 114.69500000000005,
+          "remainderSystemMs": 29.444,
+          "outer": {
+            "instructions": 8159197626,
+            "cycles": 1704849605,
+            "cpuMs": 430.863625
+          },
+          "outsideMeasuredCpuMs": 3.2876249999999914,
+          "outerExclusive": true,
+          "levels": [
+            {
+              "name": "Performance",
+              "instructions": "8159173977",
+              "cycles": "1704822439",
+              "cpuMs": 430.836625
+            },
+            {
+              "name": "Efficiency",
+              "instructions": "23649",
+              "cycles": "27166",
+              "cpuMs": 0.027
+            }
+          ],
+          "fullGcSignature": [
+            11,
+            0,
+            0,
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "gcObservedWallMs": 24.466206789016724,
+          "evidenceGcObservedWallMs": 17.72003984451294,
+          "instrumentationCpuMs": 0.7219999999990286,
+          "wallMs": 428.1899169999997,
+          "otherProcessCpuMs": 59.452999999999975,
+          "processDiskReadBytes": "0",
+          "processPageins": "0",
+          "heapBefore": {
+            "new_space": {
+              "size": 67108864,
+              "used": 14615952,
+              "available": 18936432
+            },
+            "old_space": {
+              "size": 391643136,
+              "used": 388017932,
+              "available": 2460780
+            },
+            "large_object_space": {
+              "size": 9650176,
+              "used": 9399168,
+              "available": 0
+            }
+          },
+          "heapAfter": {
+            "new_space": {
+              "size": 67108864,
+              "used": 30440780,
+              "available": 3111604
+            },
+            "old_space": {
+              "size": 484704256,
+              "used": 481520312,
+              "available": 2012948
+            },
+            "large_object_space": {
+              "size": 14761984,
+              "used": 14294632,
+              "available": 0
+            }
+          }
+        },
+        "after": {
+          "label": "P-target-1-OFF-0-5",
+          "rootUserMs": 403.92,
+          "rootSystemMs": 33.848,
+          "rootCpuMs": 437.76800000000003,
+          "evidenceUserMs": 292.508,
+          "evidenceSystemMs": 5.571999999999999,
+          "evidenceCpuMs": 298.08,
+          "remainderUserMs": 111.41200000000003,
+          "remainderSystemMs": 28.276,
+          "outer": {
+            "instructions": 8166768233,
+            "cycles": 1703512919,
+            "cpuMs": 438.85983333333337
+          },
+          "outsideMeasuredCpuMs": 1.0918333333333408,
+          "outerExclusive": true,
+          "levels": [
+            {
+              "name": "Performance",
+              "instructions": "8166730181",
+              "cycles": "1703465430",
+              "cpuMs": 438.8215
+            },
+            {
+              "name": "Efficiency",
+              "instructions": "38052",
+              "cycles": "47489",
+              "cpuMs": 0.03833333333333334
+            }
+          ],
+          "fullGcSignature": [
+            12,
+            0,
+            0,
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "gcObservedWallMs": 28.692041397094727,
+          "evidenceGcObservedWallMs": 28.692041397094727,
+          "instrumentationCpuMs": 0.7740000000019364,
+          "wallMs": 438.46208300000035,
+          "otherProcessCpuMs": 69.88700000000001,
+          "processDiskReadBytes": "0",
+          "processPageins": "0",
+          "heapBefore": {
+            "new_space": {
+              "size": 67108864,
+              "used": 22752292,
+              "available": 10800092
+            },
+            "old_space": {
+              "size": 580124672,
+              "used": 577043528,
+              "available": 1903252
+            },
+            "large_object_space": {
+              "size": 17121280,
+              "used": 16539344,
+              "available": 0
+            }
+          },
+          "heapAfter": {
+            "new_space": {
+              "size": 67108864,
+              "used": 11674208,
+              "available": 21878176
+            },
+            "old_space": {
+              "size": 678952960,
+              "used": 675167188,
+              "available": 2600872
+            },
+            "large_object_space": {
+              "size": 21643264,
+              "used": 20915408,
+              "available": 0
+            }
+          }
+        },
+        "delta": {
+          "rootUserMs": 12.093999999999994,
+          "rootSystemMs": -1.902000000000001,
+          "rootCpuMs": 10.192000000000007,
+          "evidenceUserMs": 15.37700000000001,
+          "evidenceSystemMs": -0.7340000000000018,
+          "evidenceCpuMs": 14.643000000000029,
+          "remainderUserMs": -3.2830000000000155,
+          "remainderSystemMs": -1.1679999999999993,
+          "outsideMeasuredCpuMs": -2.1957916666666506,
+          "instrumentationCpuMs": 0.05200000000290772,
+          "wallMs": 10.272166000000652,
+          "otherProcessCpuMs": 10.43400000000004
+        },
+        "rangeMs": 15.37700000000001,
+        "positions": [
+          {
+            "position": 0,
+            "userDeltaMs": 2.733999999999998,
+            "systemDeltaMs": -0.202,
+            "wallDeltaMs": 2.5378749999981665,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": -0.00749969482421875
+          },
+          {
+            "position": 1,
+            "userDeltaMs": 0.4269999999999996,
+            "systemDeltaMs": -0.139,
+            "wallDeltaMs": 0.21020800000042072,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.12833404541015625
+          },
+          {
+            "position": 2,
+            "userDeltaMs": 0.43299999999999983,
+            "systemDeltaMs": -0.31900000000000006,
+            "wallDeltaMs": 0.1068329999998241,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.010250091552734375
+          },
+          {
+            "position": 3,
+            "userDeltaMs": 0.3539999999999992,
+            "systemDeltaMs": -0.288,
+            "wallDeltaMs": 0.10420900000099209,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.8495419025421143
+          },
+          {
+            "position": 4,
+            "userDeltaMs": 1.0670000000000002,
+            "systemDeltaMs": 0.063,
+            "wallDeltaMs": 1.150416000000405,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.9772496223449707
+          },
+          {
+            "position": 5,
+            "userDeltaMs": 2.942,
+            "systemDeltaMs": -0.14700000000000002,
+            "wallDeltaMs": 2.8701250000012806,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.562333106994629
+          },
+          {
+            "position": 6,
+            "userDeltaMs": 0.6449999999999996,
+            "systemDeltaMs": 0.25099999999999995,
+            "wallDeltaMs": 0.7620839999999589,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.026917219161987305
+          },
+          {
+            "position": 7,
+            "userDeltaMs": 2.9929999999999986,
+            "systemDeltaMs": 0.34299999999999997,
+            "wallDeltaMs": 3.350416999999652,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.681791067123413
+          },
+          {
+            "position": 8,
+            "userDeltaMs": -0.2029999999999994,
+            "systemDeltaMs": -0.49500000000000005,
+            "wallDeltaMs": -0.7937500000007276,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": -0.9194157123565674
+          },
+          {
+            "position": 9,
+            "userDeltaMs": 2.1240000000000023,
+            "systemDeltaMs": 0.055999999999999994,
+            "wallDeltaMs": 2.2212500000005093,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.4091248512268066
+          },
+          {
+            "position": 10,
+            "userDeltaMs": -0.3689999999999998,
+            "systemDeltaMs": 0.15300000000000002,
+            "wallDeltaMs": -0.2501659999979893,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": -0.15854191780090332
+          },
+          {
+            "position": 11,
+            "userDeltaMs": 2.2300000000000004,
+            "systemDeltaMs": -0.010000000000000009,
+            "wallDeltaMs": 2.287916999999652,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.411916971206665
+          }
+        ],
+        "groups": {
+          "retained-count": {
+            "positions": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              8,
+              10
+            ],
+            "userDeltaMs": 5.087999999999997,
+            "systemDeltaMs": -0.9760000000000004,
+            "notGcCpuCost": true
+          },
+          "entered": {
+            "positions": [
+              5,
+              7,
+              9,
+              11
+            ],
+            "userDeltaMs": 10.289000000000001,
+            "systemDeltaMs": 0.24199999999999994,
+            "notGcCpuCost": true
+          }
+        },
+        "positionSumErrorMs": 1.0658141036401503e-14,
+        "rootScopeWork": {
+          "instructionDelta": 7570607,
+          "instructionRelativeDelta": 0.0009278617024639502,
+          "cycleDelta": -1336686,
+          "cycleRelativeDelta": -0.000784049218230054,
+          "cpiRelativeDelta": -0.0017103239765773326,
+          "cpuPerCycleRelativeDelta": 0.01935778643638919,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 7.996208333333357,
+            "instructionsMs": 0.4032931039971868,
+            "cyclesPerInstructionMs": -0.7443702238683875,
+            "cpuMsPerCycleMs": 8.337285453204528,
+            "reconciliationErrorMs": 3.019806626980426e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "before": {
+              "name": "Performance",
+              "instructions": "8159173977",
+              "cycles": "1704822439",
+              "cpuMs": 430.836625
+            },
+            "after": {
+              "name": "Performance",
+              "instructions": "8166730181",
+              "cycles": "1703465430",
+              "cpuMs": 438.8215
+            },
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 7.984874999999988,
+              "instructionsMs": 0.40249715699573474,
+              "cyclesPerInstructionMs": -0.7487416195745453,
+              "cpuMsPerCycleMs": 8.3311194625788,
+              "reconciliationErrorMs": -1.7763568394002505e-15,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            }
+          },
+          {
+            "name": "Efficiency",
+            "before": {
+              "name": "Efficiency",
+              "instructions": "23649",
+              "cycles": "27166",
+              "cpuMs": 0.027
+            },
+            "after": {
+              "name": "Efficiency",
+              "instructions": "38052",
+              "cycles": "47489",
+              "cpuMs": 0.03833333333333334
+            },
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 0.011333333333333338,
+              "instructionsMs": 0.015380219972881748,
+              "cyclesPerInstructionMs": 0.00268065268687612,
+              "cpuMsPerCycleMs": -0.006727539326424528,
+              "reconciliationErrorMs": -2.6020852139652106e-18,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            }
+          }
+        ],
+        "sameFullGcSignature": false,
+        "perPassPmcMissing": true
+      },
+      {
+        "block": "P-target-2-reference-2",
+        "summary": {
+          "all": 8,
+          "warm": 7,
+          "compatible": 7,
+          "fullWarmMedian": 278.042,
+          "median": 278.042,
+          "compatibleRange": 16.28299999999996
+        },
+        "before": {
+          "label": "P-target-2-reference-2-2",
+          "rootUserMs": 382.814,
+          "rootSystemMs": 31.699,
+          "rootCpuMs": 414.51300000000003,
+          "evidenceUserMs": 267.54,
+          "evidenceSystemMs": 3.6689999999999996,
+          "evidenceCpuMs": 271.209,
+          "remainderUserMs": 115.274,
+          "remainderSystemMs": 28.03,
+          "outer": {
+            "instructions": 8146095595,
+            "cycles": 1663169111,
+            "cpuMs": 415.5747083333333
+          },
+          "outsideMeasuredCpuMs": 1.0617083333332857,
+          "outerExclusive": true,
+          "levels": [
+            {
+              "name": "Performance",
+              "instructions": "8146095595",
+              "cycles": "1663169111",
+              "cpuMs": 415.5747083333333
+            },
+            {
+              "name": "Efficiency",
+              "instructions": "0",
+              "cycles": "0",
+              "cpuMs": 0
+            }
+          ],
+          "fullGcSignature": [
+            11,
+            0,
+            0,
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "gcObservedWallMs": 23.325875282287598,
+          "evidenceGcObservedWallMs": 13.084833145141602,
+          "instrumentationCpuMs": 0.6980000000119913,
+          "wallMs": 414.8022920000003,
+          "otherProcessCpuMs": 55.344999999999985,
+          "processDiskReadBytes": "0",
+          "processPageins": "0",
+          "heapBefore": {
+            "new_space": {
+              "size": 67108864,
+              "used": 5755492,
+              "available": 27796892
+            },
+            "old_space": {
+              "size": 532414464,
+              "used": 528738300,
+              "available": 2442668
+            },
+            "large_object_space": {
+              "size": 16171008,
+              "used": 15674332,
+              "available": 0
+            }
+          },
+          "heapAfter": {
+            "new_space": {
+              "size": 67108864,
+              "used": 22052556,
+              "available": 11499828
+            },
+            "old_space": {
+              "size": 622592000,
+              "used": 619545364,
+              "available": 1806736
+            },
+            "large_object_space": {
+              "size": 18251776,
+              "used": 17641972,
+              "available": 0
+            }
+          }
+        },
+        "after": {
+          "label": "P-target-2-reference-2-6",
+          "rootUserMs": 401.61,
+          "rootSystemMs": 32.492,
+          "rootCpuMs": 434.10200000000003,
+          "evidenceUserMs": 283.823,
+          "evidenceSystemMs": 3.6929999999999996,
+          "evidenceCpuMs": 287.51599999999996,
+          "remainderUserMs": 117.78700000000003,
+          "remainderSystemMs": 28.799,
+          "outer": {
+            "instructions": 8146971901,
+            "cycles": 1666146560,
+            "cpuMs": 437.580375
+          },
+          "outsideMeasuredCpuMs": 3.4783749999999714,
+          "outerExclusive": true,
+          "levels": [
+            {
+              "name": "Performance",
+              "instructions": "8146971901",
+              "cycles": "1666146560",
+              "cpuMs": 437.580375
+            },
+            {
+              "name": "Efficiency",
+              "instructions": "0",
+              "cycles": "0",
+              "cpuMs": 0
+            }
+          ],
+          "fullGcSignature": [
+            11,
+            0,
+            0,
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "gcObservedWallMs": 25.939875841140747,
+          "evidenceGcObservedWallMs": 21.345083951950073,
+          "instrumentationCpuMs": 0.7990000000034329,
+          "wallMs": 434.5317500000092,
+          "otherProcessCpuMs": 55.813999999999986,
+          "processDiskReadBytes": "0",
+          "processPageins": "0",
+          "heapBefore": {
+            "new_space": {
+              "size": 67108864,
+              "used": 16305848,
+              "available": 17246536
+            },
+            "old_space": {
+              "size": 910950400,
+              "used": 907545472,
+              "available": 2144596
+            },
+            "large_object_space": {
+              "size": 27623424,
+              "used": 26761240,
+              "available": 0
+            }
+          },
+          "heapAfter": {
+            "new_space": {
+              "size": 67108864,
+              "used": 31227036,
+              "available": 2325348
+            },
+            "old_space": {
+              "size": 1004535808,
+              "used": 1001441908,
+              "available": 1826904
+            },
+            "large_object_space": {
+              "size": 31326208,
+              "used": 30378784,
+              "available": 0
+            }
+          }
+        },
+        "delta": {
+          "rootUserMs": 18.795999999999992,
+          "rootSystemMs": 0.7929999999999957,
+          "rootCpuMs": 19.589,
+          "evidenceUserMs": 16.28299999999996,
+          "evidenceSystemMs": 0.02400000000000002,
+          "evidenceCpuMs": 16.30699999999996,
+          "remainderUserMs": 2.5130000000000337,
+          "remainderSystemMs": 0.7689999999999984,
+          "outsideMeasuredCpuMs": 2.4166666666666856,
+          "instrumentationCpuMs": 0.1009999999914416,
+          "wallMs": 19.72945800000889,
+          "otherProcessCpuMs": 0.4690000000000012
+        },
+        "rangeMs": 16.28299999999996,
+        "positions": [
+          {
+            "position": 0,
+            "userDeltaMs": 5.241999999999997,
+            "systemDeltaMs": 0.04199999999999998,
+            "wallDeltaMs": 5.293958999995084,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.325333833694458
+          },
+          {
+            "position": 1,
+            "userDeltaMs": 2.818999999999999,
+            "systemDeltaMs": 0.15099999999999997,
+            "wallDeltaMs": 2.9909590000097523,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.534250020980835
+          },
+          {
+            "position": 2,
+            "userDeltaMs": 1.6770000000000032,
+            "systemDeltaMs": 0.12099999999999997,
+            "wallDeltaMs": 1.8503749999945285,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.4879581928253174
+          },
+          {
+            "position": 3,
+            "userDeltaMs": 2.1119999999999983,
+            "systemDeltaMs": 0.10600000000000001,
+            "wallDeltaMs": 2.290040999992925,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.369499921798706
+          },
+          {
+            "position": 4,
+            "userDeltaMs": 0.6119999999999983,
+            "systemDeltaMs": -0.14300000000000002,
+            "wallDeltaMs": 0.5386670000079903,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.4397919178009033
+          },
+          {
+            "position": 5,
+            "userDeltaMs": -2.0939999999999976,
+            "systemDeltaMs": -0.14700000000000002,
+            "wallDeltaMs": -2.266791000001831,
+            "minorBefore": 1,
+            "minorAfter": 0,
+            "group": "left",
+            "gcWallDeltaMs": -2.500667095184326
+          },
+          {
+            "position": 6,
+            "userDeltaMs": 2.5169999999999995,
+            "systemDeltaMs": -0.09999999999999998,
+            "wallDeltaMs": 2.414959000001545,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.218583106994629
+          },
+          {
+            "position": 7,
+            "userDeltaMs": -1.1720000000000006,
+            "systemDeltaMs": -0.327,
+            "wallDeltaMs": -1.511583999999857,
+            "minorBefore": 1,
+            "minorAfter": 0,
+            "group": "left",
+            "gcWallDeltaMs": -2.1368329524993896
+          },
+          {
+            "position": 8,
+            "userDeltaMs": 2.559000000000001,
+            "systemDeltaMs": 0.006000000000000005,
+            "wallDeltaMs": 2.5642079999961425,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.242208957672119
+          },
+          {
+            "position": 9,
+            "userDeltaMs": 1.0370000000000026,
+            "systemDeltaMs": 0.065,
+            "wallDeltaMs": 1.0966670000052545,
+            "minorBefore": 1,
+            "minorAfter": 1,
+            "group": "retained-count",
+            "gcWallDeltaMs": 0.20983314514160156
+          },
+          {
+            "position": 10,
+            "userDeltaMs": 2.478999999999999,
+            "systemDeltaMs": 0.251,
+            "wallDeltaMs": 2.7740410000042175,
+            "minorBefore": 0,
+            "minorAfter": 1,
+            "group": "entered",
+            "gcWallDeltaMs": 2.3346669673919678
+          },
+          {
+            "position": 11,
+            "userDeltaMs": -1.504999999999999,
+            "systemDeltaMs": -0.0010000000000000009,
+            "wallDeltaMs": -1.515250999997079,
+            "minorBefore": 1,
+            "minorAfter": 0,
+            "group": "left",
+            "gcWallDeltaMs": -2.2643752098083496
+          }
+        ],
+        "groups": {
+          "retained-count": {
+            "positions": [
+              0,
+              4,
+              9
+            ],
+            "userDeltaMs": 6.890999999999998,
+            "systemDeltaMs": -0.03600000000000003,
+            "notGcCpuCost": true
+          },
+          "entered": {
+            "positions": [
+              1,
+              2,
+              3,
+              6,
+              8,
+              10
+            ],
+            "userDeltaMs": 14.163,
+            "systemDeltaMs": 0.5349999999999999,
+            "notGcCpuCost": true
+          },
+          "left": {
+            "positions": [
+              5,
+              7,
+              11
+            ],
+            "userDeltaMs": -4.770999999999997,
+            "systemDeltaMs": -0.47500000000000003,
+            "notGcCpuCost": true
+          }
+        },
+        "positionSumErrorMs": -4.263256414560601e-14,
+        "rootScopeWork": {
+          "instructionDelta": 876306,
+          "instructionRelativeDelta": 0.00010757374373771,
+          "cycleDelta": 2977449,
+          "cycleRelativeDelta": 0.0017902262495783638,
+          "cpiRelativeDelta": 0.001682471516080808,
+          "cpuPerCycleRelativeDelta": 0.05107071789270523,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 22.005666666666684,
+            "instructionsMs": 0.04587589742320647,
+            "cyclesPerInstructionMs": 0.7169424250562744,
+            "cpuMsPerCycleMs": 21.242848344187312,
+            "reconciliationErrorMs": -1.0658141036401503e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "before": {
+              "name": "Performance",
+              "instructions": "8146095595",
+              "cycles": "1663169111",
+              "cpuMs": 415.5747083333333
+            },
+            "after": {
+              "name": "Performance",
+              "instructions": "8146971901",
+              "cycles": "1666146560",
+              "cpuMs": 437.580375
+            },
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 22.005666666666684,
+              "instructionsMs": 0.04587589742320647,
+              "cyclesPerInstructionMs": 0.7169424250562744,
+              "cpuMsPerCycleMs": 21.242848344187312,
+              "reconciliationErrorMs": -1.0658141036401503e-13,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            }
+          },
+          {
+            "name": "Efficiency",
+            "before": {
+              "name": "Efficiency",
+              "instructions": "0",
+              "cycles": "0",
+              "cpuMs": 0
+            },
+            "after": {
+              "name": "Efficiency",
+              "instructions": "0",
+              "cycles": "0",
+              "cpuMs": 0
+            },
+            "accounting": {
+              "available": false,
+              "reason": "nonpositive-or-unknown-counter"
+            }
+          }
+        ],
+        "sameFullGcSignature": false,
+        "perPassPmcMissing": true
+      }
+    ],
+    "drift": {
+      "anchors": {
+        "targetBefore": {
+          "block": "P-target-2-OFF-0",
+          "vector": [
+            22.3915,
+            23.716,
+            23.810499999999998,
+            23.884,
+            23.335,
+            22.4005,
+            22.765,
+            23.0655,
+            22.744500000000002,
+            22.977,
+            22.576999999999998,
+            22.979
+          ],
+          "total": 276.6455,
+          "anchors": [
+            {
+              "label": "P-target-2-OFF-0-3",
+              "weight": 0.5,
+              "gcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+            },
+            {
+              "label": "P-target-2-OFF-0-2",
+              "weight": 0.5,
+              "gcSignature": "[12,0,0,[[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+            }
+          ],
+          "causalAttribution": false,
+          "scalar": {
+            "rootUserMs": 384.1885,
+            "rootSystemMs": 29.1295,
+            "rootCpuMs": 413.318,
+            "evidenceUserMs": 276.6455,
+            "evidenceSystemMs": 1.8944999999999999,
+            "evidenceCpuMs": 278.54,
+            "remainderUserMs": 107.54299999999998,
+            "remainderSystemMs": 27.235,
+            "outsideMeasuredCpuMs": 1.0959583333333285,
+            "instrumentationCpuMs": 0.7355000000003364,
+            "wallMs": 413.5573124999996,
+            "otherProcessCpuMs": 62.98199999999998
+          },
+          "outer": {
+            "instructions": 8176919702.5,
+            "cycles": 1645611014,
+            "cpuMs": 414.4139583333333
+          },
+          "weightedAnchorsNotSyntheticMatchedRead": true
+        },
+        "targetAfter": {
+          "block": "P-target-2-OFF-2",
+          "vector": [
+            23.418,
+            23.104,
+            23.425,
+            23.339,
+            22.81,
+            22.867,
+            22.341,
+            23.208,
+            22.389,
+            22.604,
+            22.391,
+            22.574
+          ],
+          "total": 274.46999999999997,
+          "anchors": [
+            {
+              "label": "P-target-2-OFF-2-2",
+              "weight": 1,
+              "gcSignature": "[12,0,0,[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+            }
+          ],
+          "causalAttribution": false,
+          "scalar": {
+            "rootUserMs": 375.913,
+            "rootSystemMs": 31.061,
+            "rootCpuMs": 406.974,
+            "evidenceUserMs": 274.46999999999997,
+            "evidenceSystemMs": 4.306,
+            "evidenceCpuMs": 278.77599999999995,
+            "remainderUserMs": 101.44300000000004,
+            "remainderSystemMs": 26.755,
+            "outsideMeasuredCpuMs": 0.9861666666666906,
+            "instrumentationCpuMs": 0.680999999998158,
+            "wallMs": 407.221540999999,
+            "otherProcessCpuMs": 58.61299999999998
+          },
+          "outer": {
+            "instructions": 8149019191,
+            "cycles": 1649946888,
+            "cpuMs": 407.9601666666667
+          },
+          "weightedAnchorsNotSyntheticMatchedRead": true
+        },
+        "referenceBefore": {
+          "block": "P-target-2-reference-0",
+          "vector": [
+            28.097,
+            24.28,
+            23.477,
+            21.439,
+            21.353,
+            23.903,
+            21.317,
+            23.517,
+            23.84,
+            21.614,
+            23.709,
+            21.518
+          ],
+          "total": 278.06399999999996,
+          "anchors": [
+            {
+              "label": "P-target-2-reference-0-6",
+              "weight": 1,
+              "gcSignature": "[11,0,0,[[1,0,0],[1,0,0],[1,0,0],[0,0,0],[0,0,0],[1,0,0],[0,0,0],[1,0,0],[1,0,0],[0,0,0],[1,0,0],[0,0,0]]]"
+            }
+          ],
+          "causalAttribution": false,
+          "scalar": {
+            "rootUserMs": 400.235,
+            "rootSystemMs": 32.591,
+            "rootCpuMs": 432.826,
+            "evidenceUserMs": 278.06399999999996,
+            "evidenceSystemMs": 3.5589999999999997,
+            "evidenceCpuMs": 281.623,
+            "remainderUserMs": 122.17100000000005,
+            "remainderSystemMs": 29.032,
+            "outsideMeasuredCpuMs": 3.5159583333332876,
+            "instrumentationCpuMs": 0.8549999999997847,
+            "wallMs": 433.1461249999993,
+            "otherProcessCpuMs": 56.296
+          },
+          "outer": {
+            "instructions": 8160843144,
+            "cycles": 1671495714,
+            "cpuMs": 436.3419583333333
+          },
+          "weightedAnchorsNotSyntheticMatchedRead": true
+        },
+        "referenceAfter": {
+          "block": "P-target-2-reference-2",
+          "vector": [
+            21.833,
+            23.747,
+            23.801,
+            23.781,
+            23.82,
+            23.391,
+            22.888,
+            23.111,
+            23.001,
+            22.858,
+            22.844,
+            22.967
+          ],
+          "total": 278.042,
+          "anchors": [
+            {
+              "label": "P-target-2-reference-2-5",
+              "weight": 1,
+              "gcSignature": "[12,0,0,[[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0]]]"
+            }
+          ],
+          "causalAttribution": false,
+          "scalar": {
+            "rootUserMs": 385.489,
+            "rootSystemMs": 30.037,
+            "rootCpuMs": 415.52599999999995,
+            "evidenceUserMs": 278.042,
+            "evidenceSystemMs": 3.4650000000000003,
+            "evidenceCpuMs": 281.50699999999995,
+            "remainderUserMs": 107.447,
+            "remainderSystemMs": 26.572,
+            "outsideMeasuredCpuMs": 1.052458333333334,
+            "instrumentationCpuMs": 0.7409999999884888,
+            "wallMs": 415.8584589999955,
+            "otherProcessCpuMs": 62.16100000000004
+          },
+          "outer": {
+            "instructions": 8174509182,
+            "cycles": 1661341328,
+            "cpuMs": 416.5784583333333
+          },
+          "weightedAnchorsNotSyntheticMatchedRead": true
+        }
+      },
+      "targetDeltaMs": -2.1755000000000564,
+      "referenceDeltaMs": -0.02199999999999136,
+      "referenceContributionMs": 0.02199999999999136,
+      "driftMs": -2.153500000000065,
+      "systemCpuDriftMs": 2.5054999999999996,
+      "totalCpuDriftMs": 0.35199999999997544,
+      "userSystemTotalErrorMs": 4.085620730620576e-14,
+      "positions": [
+        {
+          "position": 0,
+          "targetDeltaMs": 1.0264999999999986,
+          "referenceDeltaMs": -6.264000000000003,
+          "driftMs": 7.2905000000000015
+        },
+        {
+          "position": 1,
+          "targetDeltaMs": -0.6120000000000019,
+          "referenceDeltaMs": -0.5330000000000013,
+          "driftMs": -0.07900000000000063
+        },
+        {
+          "position": 2,
+          "targetDeltaMs": -0.38549999999999685,
+          "referenceDeltaMs": 0.32399999999999807,
+          "driftMs": -0.7094999999999949
+        },
+        {
+          "position": 3,
+          "targetDeltaMs": -0.5450000000000017,
+          "referenceDeltaMs": 2.3419999999999987,
+          "driftMs": -2.8870000000000005
+        },
+        {
+          "position": 4,
+          "targetDeltaMs": -0.5250000000000021,
+          "referenceDeltaMs": 2.4669999999999987,
+          "driftMs": -2.992000000000001
+        },
+        {
+          "position": 5,
+          "targetDeltaMs": 0.4664999999999999,
+          "referenceDeltaMs": -0.5120000000000005,
+          "driftMs": 0.9785000000000004
+        },
+        {
+          "position": 6,
+          "targetDeltaMs": -0.4239999999999995,
+          "referenceDeltaMs": 1.5710000000000015,
+          "driftMs": -1.995000000000001
+        },
+        {
+          "position": 7,
+          "targetDeltaMs": 0.1424999999999983,
+          "referenceDeltaMs": -0.4059999999999988,
+          "driftMs": 0.5484999999999971
+        },
+        {
+          "position": 8,
+          "targetDeltaMs": -0.3555000000000028,
+          "referenceDeltaMs": -0.8389999999999986,
+          "driftMs": 0.4834999999999958
+        },
+        {
+          "position": 9,
+          "targetDeltaMs": -0.3730000000000011,
+          "referenceDeltaMs": 1.2439999999999998,
+          "driftMs": -1.6170000000000009
+        },
+        {
+          "position": 10,
+          "targetDeltaMs": -0.18599999999999994,
+          "referenceDeltaMs": -0.8649999999999984,
+          "driftMs": 0.6789999999999985
+        },
+        {
+          "position": 11,
+          "targetDeltaMs": -0.4049999999999976,
+          "referenceDeltaMs": 1.448999999999998,
+          "driftMs": -1.8539999999999957
+        }
+      ],
+      "positionSumErrorMs": -6.394884621840902e-14,
+      "targetRootAccounting": {
+        "instructionDelta": -27900511.5,
+        "instructionRelativeDelta": -0.003412105354473449,
+        "cycleDelta": 4335874,
+        "cycleRelativeDelta": 0.0026348109991440882,
+        "cpiRelativeDelta": 0.006067619711323635,
+        "cpuPerCycleRelativeDelta": -0.018160259178906846,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": -6.453791666666632,
+          "instructionsMs": -1.4053837992128846,
+          "cyclesPerInstructionMs": 2.487337006607097,
+          "cpuMsPerCycleMs": -7.535744874060714,
+          "reconciliationErrorMs": -1.305622276959184e-13,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notFrequencyOrCause": true
+      },
+      "referenceRootAccounting": {
+        "instructionDelta": 13666038,
+        "instructionRelativeDelta": 0.0016745865297076445,
+        "cycleDelta": -10154386,
+        "cycleRelativeDelta": -0.0060750296366001155,
+        "cpiRelativeDelta": -0.00773666045891841,
+        "cpuPerCycleRelativeDelta": -0.039458284913113095,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": -19.763500000000022,
+          "instructionsMs": 0.7134195140959388,
+          "cyclesPerInstructionMs": -3.3116142443918792,
+          "cpuMsPerCycleMs": -17.165305269704074,
+          "reconciliationErrorMs": -7.105427357601002e-15,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notFrequencyOrCause": true
+      },
+      "targetScopeDelta": {
+        "rootUserMs": -8.275499999999965,
+        "rootSystemMs": 1.9314999999999998,
+        "rootCpuMs": -6.343999999999994,
+        "evidenceUserMs": -2.1755000000000564,
+        "evidenceSystemMs": 2.4115,
+        "evidenceCpuMs": 0.23599999999993315,
+        "remainderUserMs": -6.0999999999999375,
+        "remainderSystemMs": -0.4800000000000004,
+        "outsideMeasuredCpuMs": -0.10979166666663787,
+        "instrumentationCpuMs": -0.05450000000217847,
+        "wallMs": -6.3357715000006465,
+        "otherProcessCpuMs": -4.369
+      },
+      "referenceScopeDelta": {
+        "rootUserMs": -14.746000000000038,
+        "rootSystemMs": -2.554000000000002,
+        "rootCpuMs": -17.300000000000068,
+        "evidenceUserMs": -0.02199999999999136,
+        "evidenceSystemMs": -0.09399999999999942,
+        "evidenceCpuMs": -0.11600000000004229,
+        "remainderUserMs": -14.724000000000046,
+        "remainderSystemMs": -2.460000000000001,
+        "outsideMeasuredCpuMs": -2.4634999999999536,
+        "instrumentationCpuMs": -0.11400000001129595,
+        "wallMs": -17.28766600000381,
+        "otherProcessCpuMs": 5.8650000000000375
+      },
+      "notAProfilerEffectEstimate": true
+    },
+    "allPoints": 64,
+    "compatibleWarmPoints": 54,
+    "maximumEfficiencyCpuMs": 0.11266666666666666,
+    "sameProcessFullGcPairs": [
+      {
+        "before": "P-target-1-reference-0-1",
+        "after": "P-target-1-reference-0-4",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-1-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -0.6569999999999823,
+        "outer": {
+          "instructionDelta": -40589450,
+          "instructionRelativeDelta": -0.004971589309916591,
+          "cycleDelta": -62280814,
+          "cycleRelativeDelta": -0.03580580868145067,
+          "cpiRelativeDelta": -0.030988280374979027,
+          "cpuPerCycleRelativeDelta": 0.007843171970583596,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -12.379833333333352,
+            "instructionsMs": -2.153611794828131,
+            "cyclesPerInstructionMs": -13.60208225380086,
+            "cpuMsPerCycleMs": 3.375860715295629,
+            "reconciliationErrorMs": 1.021405182655144e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-1",
+        "after": "P-target-1-reference-0-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-1-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 3.6140000000000327,
+        "outer": {
+          "instructionDelta": -1570930,
+          "instructionRelativeDelta": -0.00019241499440436627,
+          "cycleDelta": -4610958,
+          "cycleRelativeDelta": -0.0026508818588369953,
+          "cpiRelativeDelta": -0.0024589400013592666,
+          "cpuPerCycleRelativeDelta": 0.004624201545969209,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 0.8595833333333758,
+            "instructionsMs": -0.0844312011803369,
+            "cyclesPerInstructionMs": -1.0802013149204261,
+            "cpuMsPerCycleMs": 2.0242158494342144,
+            "reconciliationErrorMs": -7.549516567451064e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-1",
+        "after": "P-target-2-reference-0-2",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -3.4530000000000314,
+        "outer": {
+          "instructionDelta": 32755587,
+          "instructionRelativeDelta": 0.00401206042873814,
+          "cycleDelta": -69416049,
+          "cycleRelativeDelta": -0.039907920437844635,
+          "cpiRelativeDelta": -0.04374447538790305,
+          "cpuPerCycleRelativeDelta": -1.8231680494751323e-05,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -17.500333333333344,
+            "instructionsMs": 1.7197963123963136,
+            "cyclesPerInstructionMs": -19.212298776654205,
+            "cpuMsPerCycleMs": -0.007830869075482073,
+            "reconciliationErrorMs": 3.0243169080179655e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-1",
+        "after": "P-target-2-reference-1-2",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -10.038999999999987,
+        "outer": {
+          "instructionDelta": -1524330,
+          "instructionRelativeDelta": -0.00018670720428060061,
+          "cycleDelta": -88444015,
+          "cycleRelativeDelta": -0.050847271843771136,
+          "cpiRelativeDelta": -0.05067002509821761,
+          "cpuPerCycleRelativeDelta": -0.005953605325915601,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -24.76458333333335,
+            "instructionsMs": -0.07951168909993726,
+            "cyclesPerInstructionMs": -22.142311321442378,
+            "cpuMsPerCycleMs": -2.5427603227911084,
+            "reconciliationErrorMs": 7.593925488436071e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-1",
+        "after": "P-target-2-reference-2-3",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -5.841000000000008,
+        "outer": {
+          "instructionDelta": -3167375,
+          "instructionRelativeDelta": -0.00038795518762868575,
+          "cycleDelta": -75590659,
+          "cycleRelativeDelta": -0.04345776010985947,
+          "cpiRelativeDelta": -0.04308652056139939,
+          "cpuPerCycleRelativeDelta": 0.0006394451400300039,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -18.780541666666636,
+            "instructionsMs": -0.16641335835588597,
+            "cyclesPerInstructionMs": -18.888277417320996,
+            "cpuMsPerCycleMs": 0.27414910901027534,
+            "reconciliationErrorMs": -2.964295475749168e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-1",
+        "after": "P-target-2-reference-2-5",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -6.469000000000051,
+        "outer": {
+          "instructionDelta": 10228613,
+          "instructionRelativeDelta": 0.0012528492760082166,
+          "cycleDelta": -78063989,
+          "cycleRelativeDelta": -0.04487970011189746,
+          "cpiRelativeDelta": -0.04607482457729195,
+          "cpuPerCycleRelativeDelta": -0.004956757469440243,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -21.747083333333364,
+            "instructionsMs": 0.5350822766409463,
+            "cyclesPerInstructionMs": -20.158579401067122,
+            "cpuMsPerCycleMs": -2.1235862089071857,
+            "reconciliationErrorMs": -2.220446049250313e-15,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-4",
+        "after": "P-target-1-reference-0-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-1-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 4.271000000000015,
+        "outer": {
+          "instructionDelta": 39018520,
+          "instructionRelativeDelta": 0.0048030531230738305,
+          "cycleDelta": 57669856,
+          "cycleRelativeDelta": 0.034386150757944156,
+          "cpiRelativeDelta": 0.02944168764507804,
+          "cpuPerCycleRelativeDelta": -0.0031939199610991897,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 13.239416666666727,
+            "instructionsMs": 2.0724992887126388,
+            "cyclesPerInstructionMs": 12.550599701308256,
+            "cpuMsPerCycleMs": -1.3836823233540814,
+            "reconciliationErrorMs": -8.548717289613705e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-4",
+        "after": "P-target-2-reference-0-2",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -2.796000000000049,
+        "outer": {
+          "instructionDelta": 73345037,
+          "instructionRelativeDelta": 0.009028535911275393,
+          "cycleDelta": -7135235,
+          "cycleRelativeDelta": -0.0042544456223951865,
+          "cpiRelativeDelta": -0.013164128724738489,
+          "cpuPerCycleRelativeDelta": -0.007800225143865691,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -5.120499999999993,
+            "instructionsMs": 3.8053515775192737,
+            "cyclesPerInstructionMs": -5.610442590544922,
+            "cpuMsPerCycleMs": -3.315408986974333,
+            "reconciliationErrorMs": -1.0658141036401503e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-4",
+        "after": "P-target-2-reference-1-2",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -9.382000000000005,
+        "outer": {
+          "instructionDelta": 39065120,
+          "instructionRelativeDelta": 0.004808789431768545,
+          "cycleDelta": -26163201,
+          "cycleRelativeDelta": -0.015600035032103943,
+          "cpiRelativeDelta": -0.020311152408822086,
+          "cpuPerCycleRelativeDelta": -0.013689408908256095,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -12.384749999999997,
+            "instructionsMs": 2.013521523489687,
+            "cyclesPerInstructionMs": -8.612822720495632,
+            "cpuMsPerCycleMs": -5.785448802994138,
+            "reconciliationErrorMs": 8.79296635503124e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-4",
+        "after": "P-target-2-reference-2-3",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -5.184000000000026,
+        "outer": {
+          "instructionDelta": 37422075,
+          "instructionRelativeDelta": 0.004606535927058619,
+          "cycleDelta": -13309845,
+          "cycleRelativeDelta": -0.007936110274575081,
+          "cpiRelativeDelta": -0.012485132987970382,
+          "cpuPerCycleRelativeDelta": -0.007147666453371504,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -6.400708333333284,
+            "instructionsMs": 1.942882906886954,
+            "cyclesPerInstructionMs": -5.3111558040734295,
+            "cpuMsPerCycleMs": -3.0324354361467516,
+            "reconciliationErrorMs": -5.728750807065808e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-4",
+        "after": "P-target-2-reference-2-5",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -5.812000000000069,
+        "outer": {
+          "instructionDelta": 50818063,
+          "instructionRelativeDelta": 0.0062555385545302045,
+          "cycleDelta": -15783175,
+          "cycleRelativeDelta": -0.009410854693117532,
+          "cpiRelativeDelta": -0.015569000763118623,
+          "cpuPerCycleRelativeDelta": -0.012700318656717946,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -9.367250000000013,
+            "instructionsMs": 2.6269048063549856,
+            "cyclesPerInstructionMs": -6.609949166000422,
+            "cpuMsPerCycleMs": -5.38420564035458,
+            "reconciliationErrorMs": 2.6645352591003757e-15,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-7",
+        "after": "P-target-2-reference-0-2",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -7.067000000000064,
+        "outer": {
+          "instructionDelta": 34326517,
+          "instructionRelativeDelta": 0.004205284582951885,
+          "cycleDelta": -64805091,
+          "cycleRelativeDelta": -0.037356065094283575,
+          "cpiRelativeDelta": -0.04138730428459758,
+          "cpuPerCycleRelativeDelta": -0.004621064492891902,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -18.35991666666672,
+            "instructionsMs": 1.8042283563606945,
+            "cyclesPerInstructionMs": -18.172760618434218,
+            "cpuMsPerCycleMs": -1.9913844045932736,
+            "reconciliationErrorMs": 7.549516567451064e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-7",
+        "after": "P-target-2-reference-1-2",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -13.65300000000002,
+        "outer": {
+          "instructionDelta": 46600,
+          "instructionRelativeDelta": 5.708888599631479e-06,
+          "cycleDelta": -83833057,
+          "cycleRelativeDelta": -0.04832449250545434,
+          "cpiRelativeDelta": -0.04832992548389348,
+          "cpuPerCycleRelativeDelta": -0.010529118107653668,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -25.624166666666724,
+            "instructionsMs": 0.00243337645212382,
+            "cyclesPerInstructionMs": -21.11482504876058,
+            "cpuMsPerCycleMs": -4.511774994358364,
+            "reconciliationErrorMs": 9.414691248821327e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-7",
+        "after": "P-target-2-reference-2-3",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -9.455000000000041,
+        "outer": {
+          "instructionDelta": -1596445,
+          "instructionRelativeDelta": -0.00019557782533052848,
+          "cycleDelta": -70979701,
+          "cycleRelativeDelta": -0.04091533998353292,
+          "cpiRelativeDelta": -0.040727727598596775,
+          "cpuPerCycleRelativeDelta": -0.003966414904008175,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -19.640125000000012,
+            "instructionsMs": -0.0839678525545736,
+            "cyclesPerInstructionMs": -17.850028303861126,
+            "cpuMsPerCycleMs": -1.7061288435843507,
+            "reconciliationErrorMs": 3.752553823233029e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-7",
+        "after": "P-target-2-reference-2-5",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -10.083000000000084,
+        "outer": {
+          "instructionDelta": 11799543,
+          "instructionRelativeDelta": 0.0014455424144481643,
+          "cycleDelta": -73453031,
+          "cycleRelativeDelta": -0.04234105939930599,
+          "cpiRelativeDelta": -0.04372339778774825,
+          "cpuPerCycleRelativeDelta": -0.009536858658855452,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -22.60666666666674,
+            "instructionsMs": 0.6179308568556887,
+            "cyclesPerInstructionMs": -19.12532043272609,
+            "cpuMsPerCycleMs": -4.099277090796328,
+            "reconciliationErrorMs": -1.0658141036401503e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-2",
+        "after": "P-target-2-reference-1-2",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -6.585999999999956,
+        "outer": {
+          "instructionDelta": -34279917,
+          "instructionRelativeDelta": -0.004181989239477546,
+          "cycleDelta": -19027966,
+          "cycleRelativeDelta": -0.011394064838984308,
+          "cpiRelativeDelta": -0.007242363083992509,
+          "cpuPerCycleRelativeDelta": -0.005935481859229652,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -7.264250000000004,
+            "instructionsMs": -1.7483111665399875,
+            "cyclesPerInstructionMs": -3.032381552425841,
+            "cpuMsPerCycleMs": -2.483557281034176,
+            "reconciliationErrorMs": 4.440892098500626e-16,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-2",
+        "after": "P-target-2-reference-2-3",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -2.387999999999977,
+        "outer": {
+          "instructionDelta": -35922962,
+          "instructionRelativeDelta": -0.004382433030224675,
+          "cycleDelta": -6174610,
+          "cycleRelativeDelta": -0.003697395018229521,
+          "cpiRelativeDelta": 0.000688053359765517,
+          "cpuPerCycleRelativeDelta": 0.0006576888112970192,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -1.2802083333332916,
+            "instructionsMs": -1.8454784578432533,
+            "cyclesPerInstructionMs": 0.2890101332003279,
+            "cpuMsPerCycleMs": 0.27625999130971207,
+            "reconciliationErrorMs": -7.838174553853605e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-2",
+        "after": "P-target-2-reference-2-5",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -3.0160000000000196,
+        "outer": {
+          "instructionDelta": -22526974,
+          "instructionRelativeDelta": -0.002748185267367753,
+          "cycleDelta": -8647940,
+          "cycleRelativeDelta": -0.005178440464085665,
+          "cpiRelativeDelta": -0.0024369523933827075,
+          "cpuPerCycleRelativeDelta": -0.004938615828211423,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -4.24675000000002,
+            "instructionsMs": -1.1522443619435934,
+            "cyclesPerInstructionMs": -1.021592980416572,
+            "cpuMsPerCycleMs": -2.072912657639825,
+            "reconciliationErrorMs": -2.9753977059954195e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-1-2",
+        "after": "P-target-2-reference-2-3",
+        "beforeBlock": "P-target-2-reference-1",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 4.197999999999979,
+        "outer": {
+          "instructionDelta": -1643045,
+          "instructionRelativeDelta": -0.00020128556481324722,
+          "cycleDelta": 12853356,
+          "cycleRelativeDelta": 0.007785376910063979,
+          "cpiRelativeDelta": 0.007988270398396446,
+          "cpuPerCycleRelativeDelta": 0.006632537979383901,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 5.9840416666667124,
+            "instructionsMs": -0.08385309920820729,
+            "cyclesPerInstructionMs": 3.314260555912374,
+            "cpuMsPerCycleMs": 2.753634209962603,
+            "reconciliationErrorMs": -5.728750807065808e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-1-2",
+        "after": "P-target-2-reference-2-5",
+        "beforeBlock": "P-target-2-reference-1",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 3.5699999999999363,
+        "outer": {
+          "instructionDelta": 11752943,
+          "instructionRelativeDelta": 0.0014398253060463606,
+          "cycleDelta": 10380026,
+          "cycleRelativeDelta": 0.006287261844009073,
+          "cpiRelativeDelta": 0.00484046711092323,
+          "cpuPerCycleRelativeDelta": 0.0010028182404928643,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 3.017499999999984,
+            "instructionsMs": 0.5971954122867258,
+            "cyclesPerInstructionMs": 2.004275512272106,
+            "cpuMsPerCycleMs": 0.41602907544123807,
+            "reconciliationErrorMs": -8.565370634983083e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-2-3",
+        "after": "P-target-2-reference-2-5",
+        "beforeBlock": "P-target-2-reference-2",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -0.6280000000000427,
+        "outer": {
+          "instructionDelta": 13395988,
+          "instructionRelativeDelta": 0.001641441269292665,
+          "cycleDelta": -2473330,
+          "cycleRelativeDelta": -0.0014865417780205448,
+          "cpiRelativeDelta": -0.003122857060855355,
+          "cpuPerCycleRelativeDelta": -0.00559262643167846,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -2.9665416666667284,
+            "instructionsMs": 0.6856583158339276,
+            "cyclesPerInstructionMs": -1.3075843084291068,
+            "cpuMsPerCycleMs": -2.3446156740714956,
+            "reconciliationErrorMs": -5.3290705182007514e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-2",
+        "after": "P-target-2-reference-2-1",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -1.6440000000000055,
+        "outer": {
+          "instructionDelta": 3852490,
+          "instructionRelativeDelta": 0.0004731593254359012,
+          "cycleDelta": -62960102,
+          "cycleRelativeDelta": -0.036374710085624096,
+          "cpiRelativeDelta": -0.03683044274361591,
+          "cpuPerCycleRelativeDelta": 0.030150970419530188,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -3.206208333333336,
+            "instructionsMs": 0.2064252480423573,
+            "cyclesPerInstructionMs": -16.37526060533536,
+            "cpuMsPerCycleMs": 12.962627023959772,
+            "reconciliationErrorMs": -1.0658141036401503e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-3",
+        "after": "P-target-1-reference-0-6",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-1-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -0.4550000000000409,
+        "outer": {
+          "instructionDelta": -44592989,
+          "instructionRelativeDelta": -0.005476805078871605,
+          "cycleDelta": 14655135,
+          "cycleRelativeDelta": 0.008655130222002816,
+          "cpiRelativeDelta": 0.014209759383233989,
+          "cpuPerCycleRelativeDelta": -0.005078573469794012,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 1.5250833333333276,
+            "instructionsMs": -2.3751127509512995,
+            "cyclesPerInstructionMs": 6.102168271917188,
+            "cpuMsPerCycleMs": -2.2019721876325584,
+            "reconciliationErrorMs": -2.6645352591003757e-15,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-3",
+        "after": "P-target-2-reference-0-4",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -3.8320000000000505,
+        "outer": {
+          "instructionDelta": -7144993,
+          "instructionRelativeDelta": -0.0008775310834377992,
+          "cycleDelta": -53377865,
+          "cycleRelativeDelta": -0.03152426590048363,
+          "cpiRelativeDelta": -0.030673651900030685,
+          "cpuPerCycleRelativeDelta": 0.0233863774130052,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -3.8315416666666806,
+            "instructionsMs": -0.37732687646228213,
+            "cyclesPerInstructionMs": -13.389905792704912,
+            "cpuMsPerCycleMs": 9.935691002500628,
+            "reconciliationErrorMs": -1.1368683772161603e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-3",
+        "after": "P-target-2-reference-0-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -8.150000000000034,
+        "outer": {
+          "instructionDelta": -14742375,
+          "instructionRelativeDelta": -0.0018106235102255397,
+          "cycleDelta": -23823503,
+          "cycleRelativeDelta": -0.01406984792765631,
+          "cpiRelativeDelta": -0.01228146152039955,
+          "cpuPerCycleRelativeDelta": -0.017463733784625957,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -13.50750000000005,
+            "instructionsMs": -0.7700807383132381,
+            "cyclesPerInstructionMs": -5.251039952483307,
+            "cpuMsPerCycleMs": -7.486379309203482,
+            "reconciliationErrorMs": -2.3092638912203256e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-3",
+        "after": "P-target-2-reference-1-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -9.968999999999994,
+        "outer": {
+          "instructionDelta": -8187074,
+          "instructionRelativeDelta": -0.0010055169987438495,
+          "cycleDelta": -28527345,
+          "cycleRelativeDelta": -0.01684787522346265,
+          "cpiRelativeDelta": -0.01585830401898114,
+          "cpuPerCycleRelativeDelta": -0.020887921191673375,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -16.139250000000004,
+            "instructionsMs": -0.42614723016194117,
+            "cyclesPerInstructionMs": -6.771347710939932,
+            "cpuMsPerCycleMs": -8.941755058898107,
+            "reconciliationErrorMs": -2.4868995751603507e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-3",
+        "after": "P-target-2-reference-2-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -11.461000000000013,
+        "outer": {
+          "instructionDelta": -15267686,
+          "instructionRelativeDelta": -0.001875140960553634,
+          "cycleDelta": -31346497,
+          "cycleRelativeDelta": -0.018512829362446692,
+          "cpiRelativeDelta": -0.016668945023475823,
+          "cpuPerCycleRelativeDelta": -0.02687111327699543,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -19.378250000000037,
+            "instructionsMs": -0.7919651379052477,
+            "cyclesPerInstructionMs": -7.092800872051535,
+            "cpuMsPerCycleMs": -11.493483990043204,
+            "reconciliationErrorMs": -4.973799150320701e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-6",
+        "after": "P-target-2-reference-0-4",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -3.3770000000000095,
+        "outer": {
+          "instructionDelta": 37447996,
+          "instructionRelativeDelta": 0.004624602039370762,
+          "cycleDelta": -68033000,
+          "cycleRelativeDelta": -0.03983462227931467,
+          "cpiRelativeDelta": -0.044254564569127575,
+          "cpuPerCycleRelativeDelta": 0.02861025014012486,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -5.356625000000008,
+            "instructionsMs": 1.986569624507203,
+            "cyclesPerInstructionMs": -19.488642824684597,
+            "cpuMsPerCycleMs": 12.145448200177405,
+            "reconciliationErrorMs": -1.9539925233402755e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-6",
+        "after": "P-target-2-reference-0-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -7.694999999999993,
+        "outer": {
+          "instructionDelta": 29850614,
+          "instructionRelativeDelta": 0.003686371104634434,
+          "cycleDelta": -38478638,
+          "cycleRelativeDelta": -0.02252997825397207,
+          "cpiRelativeDelta": -0.026120061120042393,
+          "cpuPerCycleRelativeDelta": -0.012448380328912267,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -15.032583333333378,
+            "instructionsMs": 1.5663342917987295,
+            "cyclesPerInstructionMs": -11.26661526210293,
+            "cpuMsPerCycleMs": -5.332302363029226,
+            "reconciliationErrorMs": 4.884981308350689e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-6",
+        "after": "P-target-2-reference-1-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -9.513999999999953,
+        "outer": {
+          "instructionDelta": 36405915,
+          "instructionRelativeDelta": 0.004495911310024692,
+          "cycleDelta": -43182480,
+          "cycleRelativeDelta": -0.025284167681626002,
+          "cpiRelativeDelta": -0.029646789654735994,
+          "cpuPerCycleRelativeDelta": -0.015890046490419363,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -17.66433333333333,
+            "instructionsMs": 1.90355719853716,
+            "cyclesPerInstructionMs": -12.770826526925646,
+            "cpuMsPerCycleMs": -6.797064004944789,
+            "reconciliationErrorMs": -5.773159728050814e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-6",
+        "after": "P-target-2-reference-2-7",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -11.005999999999972,
+        "outer": {
+          "instructionDelta": 29325303,
+          "instructionRelativeDelta": 0.0036214983589233363,
+          "cycleDelta": -46001632,
+          "cycleRelativeDelta": -0.0269348350793297,
+          "cpiRelativeDelta": -0.03044607303472202,
+          "cpuPerCycleRelativeDelta": -0.021903779761988873,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -20.903333333333364,
+            "instructionsMs": 1.5280569863984383,
+            "cyclesPerInstructionMs": -13.069665519863323,
+            "cpuMsPerCycleMs": -9.361724799868442,
+            "reconciliationErrorMs": -3.907985046680551e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-4",
+        "after": "P-target-2-reference-0-7",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -4.317999999999984,
+        "outer": {
+          "instructionDelta": -7597382,
+          "instructionRelativeDelta": -0.0009339119635649595,
+          "cycleDelta": 29554362,
+          "cycleRelativeDelta": 0.018022566140034835,
+          "cpiRelativeDelta": 0.018974198334423376,
+          "cpuPerCycleRelativeDelta": -0.03991660637587835,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -9.67595833333337,
+            "instructionsMs": -0.39525631814873396,
+            "cyclesPerInstructionMs": 7.951433947622921,
+            "cpuMsPerCycleMs": -17.232135962807558,
+            "reconciliationErrorMs": 0,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-4",
+        "after": "P-target-2-reference-1-7",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -6.136999999999944,
+        "outer": {
+          "instructionDelta": -1042081,
+          "instructionRelativeDelta": -0.000128098325568482,
+          "cycleDelta": 24850520,
+          "cycleRelativeDelta": 0.01515411296357061,
+          "cpiRelativeDelta": 0.015284169165616923,
+          "cpuPerCycleRelativeDelta": -0.04326254441318489,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -12.307708333333323,
+            "instructionsMs": -0.05402271669752981,
+            "cyclesPerInstructionMs": 6.396597362907859,
+            "cpuMsPerCycleMs": -18.650282979543704,
+            "reconciliationErrorMs": 4.973799150320701e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-4",
+        "after": "P-target-2-reference-2-7",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -7.628999999999962,
+        "outer": {
+          "instructionDelta": -8122693,
+          "instructionRelativeDelta": -0.000998486079687111,
+          "cycleDelta": 22031368,
+          "cycleRelativeDelta": 0.01343496391278709,
+          "cpiRelativeDelta": 0.014447875995536874,
+          "cpuPerCycleRelativeDelta": -0.04910900887409242,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -15.546708333333356,
+            "instructionsMs": -0.4196375821400588,
+            "cyclesPerInstructionMs": 6.025607878788562,
+            "cpuMsPerCycleMs": -21.15267862998186,
+            "reconciliationErrorMs": 0,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-7",
+        "after": "P-target-2-reference-1-7",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -1.81899999999996,
+        "outer": {
+          "instructionDelta": 6555301,
+          "instructionRelativeDelta": 0.0008065669004742038,
+          "cycleDelta": -4703842,
+          "cycleRelativeDelta": -0.0028176715053973567,
+          "cpiRelativeDelta": -0.0036213175709827183,
+          "cpuPerCycleRelativeDelta": -0.003485049381675265,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -2.631749999999954,
+            "instructionsMs": 0.33611581611515823,
+            "cyclesPerInstructionMs": -1.5124387586399748,
+            "cpuMsPerCycleMs": -1.4554270574751524,
+            "reconciliationErrorMs": 1.509903313490213e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-7",
+        "after": "P-target-2-reference-2-7",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -3.3109999999999786,
+        "outer": {
+          "instructionDelta": -525311,
+          "instructionRelativeDelta": -6.463447903537478e-05,
+          "cycleDelta": -7522994,
+          "cycleRelativeDelta": -0.004506385594812756,
+          "cpiRelativeDelta": -0.0044420382246038725,
+          "cpuPerCycleRelativeDelta": -0.009574587540270407,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -5.870749999999987,
+            "instructionsMs": -0.026841436369571196,
+            "cyclesPerInstructionMs": -1.8487412101376097,
+            "cpuMsPerCycleMs": -3.9951673534928265,
+            "reconciliationErrorMs": 2.042810365310288e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-1-7",
+        "after": "P-target-2-reference-2-7",
+        "beforeBlock": "P-target-2-reference-1",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -1.4920000000000186,
+        "outer": {
+          "instructionDelta": -7080612,
+          "instructionRelativeDelta": -0.0008704992636167086,
+          "cycleDelta": -2819152,
+          "cycleRelativeDelta": -0.0016934857760313449,
+          "cpiRelativeDelta": -0.0008237035457445696,
+          "cpuPerCycleRelativeDelta": -0.0061108347193552515,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -3.2390000000000327,
+            "instructionsMs": -0.36050530082301596,
+            "cyclesPerInstructionMs": -0.34111751054730827,
+            "cpuMsPerCycleMs": -2.537377188629685,
+            "reconciliationErrorMs": -2.353672812205332e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-5",
+        "after": "P-target-2-reference-0-6",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -5.764999999999986,
+        "outer": {
+          "instructionDelta": 24562529,
+          "instructionRelativeDelta": 0.0030188891168179133,
+          "cycleDelta": -58014702,
+          "cycleRelativeDelta": -0.03354400266300561,
+          "cpiRelativeDelta": -0.03645284468373067,
+          "cpuPerCycleRelativeDelta": 0.020645709101458465,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -6.011958333333382,
+            "instructionsMs": 1.3243240212092007,
+            "cyclesPerInstructionMs": -16.314426112973567,
+            "cpuMsPerCycleMs": 8.978143758431077,
+            "reconciliationErrorMs": -9.237055564881302e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-reference-0-5",
+        "after": "P-target-2-reference-1-6",
+        "beforeBlock": "P-target-1-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -4.551999999999907,
+        "outer": {
+          "instructionDelta": 13834367,
+          "instructionRelativeDelta": 0.0017003306123064554,
+          "cycleDelta": -55228593,
+          "cycleRelativeDelta": -0.03193307914717991,
+          "cpiRelativeDelta": -0.03357631891658386,
+          "cpuPerCycleRelativeDelta": 0.018931431290404532,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -6.018750000000011,
+            "instructionsMs": 0.7463849193696289,
+            "cyclesPerInstructionMs": -15.004676469231518,
+            "cpuMsPerCycleMs": 8.239541549861912,
+            "reconciliationErrorMs": -3.552713678800501e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-6",
+        "after": "P-target-2-reference-1-6",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 1.2130000000000791,
+        "outer": {
+          "instructionDelta": -10728162,
+          "instructionRelativeDelta": -0.0013145899033590869,
+          "cycleDelta": 2786109,
+          "cycleRelativeDelta": 0.0016668358624341018,
+          "cpiRelativeDelta": 0.0029853502771253204,
+          "cpuPerCycleRelativeDelta": -0.0016796012521945736,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -0.006791666666629226,
+            "instructionsMs": -0.5739836279543205,
+            "cyclesPerInstructionMs": 1.3006829159732345,
+            "cpuMsPerCycleMs": -0.7334909546855877,
+            "reconciliationErrorMs": 4.440892098500626e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-3",
+        "after": "P-target-2-reference-1-3",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 1.6689999999999259,
+        "outer": {
+          "instructionDelta": 4825137,
+          "instructionRelativeDelta": 0.0005899218987797106,
+          "cycleDelta": 11850446,
+          "cycleRelativeDelta": 0.007088866878004696,
+          "cpiRelativeDelta": 0.00649511336961317,
+          "cpuPerCycleRelativeDelta": 0.0012951060814769821,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 3.540625000000034,
+            "instructionsMs": 0.24982587001817197,
+            "cyclesPerInstructionMs": 2.7425281939200516,
+            "cpuMsPerCycleMs": 0.5482709360619604,
+            "reconciliationErrorMs": -1.5010215292932116e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-3",
+        "after": "P-target-2-reference-2-6",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 7.694999999999936,
+        "outer": {
+          "instructionDelta": -32309136,
+          "instructionRelativeDelta": -0.003950119314136025,
+          "cycleDelta": -5551640,
+          "cycleRelativeDelta": -0.0033209582925913805,
+          "cpiRelativeDelta": 0.0006316561386578989,
+          "cpuPerCycleRelativeDelta": 0.0407532115898539,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 15.733583333333343,
+            "instructionsMs": -1.700591263770452,
+            "cyclesPerInstructionMs": 0.27131521687811655,
+            "cpuMsPerCycleMs": 17.16285938022568,
+            "reconciliationErrorMs": 0,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-1-3",
+        "after": "P-target-2-reference-2-6",
+        "beforeBlock": "P-target-2-reference-1",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 6.0260000000000105,
+        "outer": {
+          "instructionDelta": -37134273,
+          "instructionRelativeDelta": -0.00453736452222131,
+          "cycleDelta": -17402086,
+          "cycleRelativeDelta": -0.010336550738433536,
+          "cpiRelativeDelta": -0.005825619173972063,
+          "cpuPerCycleRelativeDelta": 0.03940706917343739,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 12.192958333333308,
+            "instructionsMs": -1.9621242448747092,
+            "cyclesPerInstructionMs": -2.5208434665085346,
+            "cpuMsPerCycleMs": 16.675926044716615,
+            "reconciliationErrorMs": -6.394884621840902e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-0-5",
+        "after": "P-target-2-reference-1-5",
+        "beforeBlock": "P-target-2-reference-0",
+        "afterBlock": "P-target-2-reference-1",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 1.974999999999966,
+        "outer": {
+          "instructionDelta": 10917131,
+          "instructionRelativeDelta": 0.0013379244855424854,
+          "cycleDelta": 2968240,
+          "cycleRelativeDelta": 0.0017826122669595268,
+          "cpiRelativeDelta": 0.00044409361769215394,
+          "cpuPerCycleRelativeDelta": 0.004560734725851834,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 2.656958333333364,
+            "instructionsMs": 0.5610826244740672,
+            "cyclesPerInstructionMs": 0.18632181174093307,
+            "cpuMsPerCycleMs": 1.9095538971183534,
+            "reconciliationErrorMs": 1.0436096431476471e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-reference-1-4",
+        "after": "P-target-2-reference-2-2",
+        "beforeBlock": "P-target-2-reference-1",
+        "afterBlock": "P-target-2-reference-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -4.170999999999992,
+        "outer": {
+          "instructionDelta": 3720421,
+          "instructionRelativeDelta": 0.0004569208517779533,
+          "cycleDelta": 7668261,
+          "cycleRelativeDelta": 0.004631988561044853,
+          "cpiRelativeDelta": 0.004173160905031503,
+          "cpuPerCycleRelativeDelta": -0.008071811360014336,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -1.450083333333339,
+            "instructionsMs": 0.19017240047839692,
+            "cyclesPerInstructionMs": 1.7336691555298127,
+            "cpuMsPerCycleMs": -3.3739248893415805,
+            "reconciliationErrorMs": 3.197442310920451e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-OFF-0-2",
+        "after": "P-target-1-OFF-0-5",
+        "beforeBlock": "P-target-1-OFF-0",
+        "afterBlock": "P-target-1-OFF-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 1.6379999999999768,
+        "outer": {
+          "instructionDelta": -57587067,
+          "instructionRelativeDelta": -0.007002015951329321,
+          "cycleDelta": -7426428,
+          "cycleRelativeDelta": -0.004340555971795057,
+          "cpiRelativeDelta": 0.0026802269715422433,
+          "cpuPerCycleRelativeDelta": 0.011512239875872687,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 3.103333333333353,
+            "instructionsMs": -3.0727963916712175,
+            "cyclesPerInstructionMs": 1.1705123048012813,
+            "cpuMsPerCycleMs": 5.0056174202033885,
+            "reconciliationErrorMs": -9.947598300641403e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-1-OFF-0-4",
+        "after": "P-target-1-OFF-0-7",
+        "beforeBlock": "P-target-1-OFF-0",
+        "afterBlock": "P-target-1-OFF-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 0.10300000000006548,
+        "outer": {
+          "instructionDelta": -12797758,
+          "instructionRelativeDelta": -0.0015776898355530644,
+          "cycleDelta": 4047742,
+          "cycleRelativeDelta": 0.0023573077755003613,
+          "cpiRelativeDelta": 0.003941215626887651,
+          "cpuPerCycleRelativeDelta": -0.004910858429199805,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -1.1184166666666897,
+            "instructionsMs": -0.6875457246854009,
+            "cyclesPerInstructionMs": 1.7128246955452093,
+            "cpuMsPerCycleMs": -2.1436956375264495,
+            "reconciliationErrorMs": -4.884981308350689e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-2",
+        "after": "P-target-2-OFF-0-5",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-OFF-0",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 3.6399999999999864,
+        "outer": {
+          "instructionDelta": -93366639,
+          "instructionRelativeDelta": -0.011368403184082942,
+          "cycleDelta": 785782,
+          "cycleRelativeDelta": 0.0004760450050462772,
+          "cpiRelativeDelta": 0.01198064903779783,
+          "cpuPerCycleRelativeDelta": 0.008604219146267855,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 3.7631666666666774,
+            "instructionsMs": -4.757778134200693,
+            "cyclesPerInstructionMs": 4.955825462714114,
+            "cpuMsPerCycleMs": 3.565119338153297,
+            "reconciliationErrorMs": -4.04121180963557e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-2",
+        "after": "P-target-2-ON-2",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -1.0780000000000314,
+        "outer": {
+          "instructionDelta": -32691761,
+          "instructionRelativeDelta": -0.003980577257854168,
+          "cycleDelta": -463759,
+          "cycleRelativeDelta": -0.00028095598460542437,
+          "cpiRelativeDelta": 0.0037144067563092964,
+          "cpuPerCycleRelativeDelta": -0.001477066840946284,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -0.728083333333359,
+            "instructionsMs": -1.6507793828465886,
+            "cyclesPerInstructionMs": 1.5344802507695432,
+            "cpuMsPerCycleMs": -0.611784201256377,
+            "reconciliationErrorMs": 6.350475700855895e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-5",
+        "after": "P-target-2-ON-2",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -4.718000000000018,
+        "outer": {
+          "instructionDelta": 60674878,
+          "instructionRelativeDelta": 0.007472779496450199,
+          "cycleDelta": -1249541,
+          "cycleRelativeDelta": -0.0007566407945808207,
+          "cpiRelativeDelta": -0.008168379790016833,
+          "cpuPerCycleRelativeDelta": -0.009995284370064694,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -4.491250000000036,
+            "instructionsMs": 3.095333639085164,
+            "cyclesPerInstructionMs": -3.41003387648996,
+            "cpuMsPerCycleMs": -4.176549762595209,
+            "reconciliationErrorMs": -3.108624468950438e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-6",
+        "after": "P-target-2-ON-3",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": 1.2139999999999418,
+        "outer": {
+          "instructionDelta": 68171054,
+          "instructionRelativeDelta": 0.008407761248716561,
+          "cycleDelta": 35335620,
+          "cycleRelativeDelta": 0.021347704554441682,
+          "cpiRelativeDelta": 0.012832054455532482,
+          "cpuPerCycleRelativeDelta": -0.02531402629650159,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -1.9614166666666506,
+            "instructionsMs": 3.63571654622824,
+            "cyclesPerInstructionMs": 5.53673244788565,
+            "cpuMsPerCycleMs": -11.133865660780566,
+            "reconciliationErrorMs": 2.6645352591003757e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-7",
+        "after": "P-target-2-ON-1",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": 2.5009999999999764,
+        "outer": {
+          "instructionDelta": 62531147,
+          "instructionRelativeDelta": 0.007708063576010726,
+          "cycleDelta": -1284597,
+          "cycleRelativeDelta": -0.0007815294026612962,
+          "cpiRelativeDelta": -0.008424655200778397,
+          "cpuPerCycleRelativeDelta": 0.025714118166815902,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 10.340458333333402,
+            "instructionsMs": 3.2266645229539064,
+            "cyclesPerInstructionMs": -3.5552073907427473,
+            "cpuMsPerCycleMs": 10.669001201122283,
+            "reconciliationErrorMs": -4.085620730620576e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-7",
+        "after": "P-target-2-ON-4",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -1.6610000000000582,
+        "outer": {
+          "instructionDelta": 44838862,
+          "instructionRelativeDelta": 0.005527178303189828,
+          "cycleDelta": 11332983,
+          "cycleRelativeDelta": 0.006894815599258086,
+          "cpiRelativeDelta": 0.0013601196721269027,
+          "cpuPerCycleRelativeDelta": -0.0062084452422014325,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 0.2671250000000214,
+            "instructionsMs": 2.2885918043617317,
+            "cyclesPerInstructionMs": 0.5643444562346468,
+            "cpuMsPerCycleMs": -2.58581126059637,
+            "reconciliationErrorMs": 1.2878587085651816e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-7",
+        "after": "P-target-2-ON-7",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": 2.8070000000000164,
+        "outer": {
+          "instructionDelta": 97718304,
+          "instructionRelativeDelta": 0.012045499497585377,
+          "cycleDelta": 50665773,
+          "cycleRelativeDelta": 0.03082429065929726,
+          "cpiRelativeDelta": 0.018555283503591813,
+          "cpuPerCycleRelativeDelta": -0.0025804073433709496,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 11.690208333333374,
+            "instructionsMs": 5.039530049286518,
+            "cyclesPerInstructionMs": 7.7381476692296225,
+            "cpuMsPerCycleMs": -1.0874693851828456,
+            "reconciliationErrorMs": 7.860379014346108e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-7",
+        "after": "P-target-2-OFF-2-4",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 7.289999999999964,
+        "outer": {
+          "instructionDelta": 17824540,
+          "instructionRelativeDelta": 0.0021971880274824773,
+          "cycleDelta": 7011029,
+          "cycleRelativeDelta": 0.004265404096701841,
+          "cpiRelativeDelta": 0.002063681772336512,
+          "cpuPerCycleRelativeDelta": 0.03402693821995406,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 15.954291666666734,
+            "instructionsMs": 0.9283870541235549,
+            "cyclesPerInstructionMs": 0.8720342032400756,
+            "cpuMsPerCycleMs": 14.15387040930299,
+            "reconciliationErrorMs": 1.1368683772161603e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-0-7",
+        "after": "P-target-2-OFF-2-7",
+        "beforeBlock": "P-target-2-OFF-0",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -2.9160000000000537,
+        "outer": {
+          "instructionDelta": 25626286,
+          "instructionRelativeDelta": 0.0031588904279180596,
+          "cycleDelta": 20029100,
+          "cycleRelativeDelta": 0.01218540177101679,
+          "cpiRelativeDelta": 0.008998087371032693,
+          "cpuPerCycleRelativeDelta": -0.010156247858733591,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 0.7908750000000282,
+            "instructionsMs": 1.3103446845917126,
+            "cyclesPerInstructionMs": 3.7216850249287172,
+            "cpuMsPerCycleMs": -4.24115470952041,
+            "reconciliationErrorMs": 8.881784197001252e-15,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-1",
+        "after": "P-target-2-ON-4",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -4.162000000000035,
+        "outer": {
+          "instructionDelta": -17692285,
+          "instructionRelativeDelta": -0.002164203454998348,
+          "cycleDelta": 12617580,
+          "cycleRelativeDelta": 0.007682348983531595,
+          "cpiRelativeDelta": 0.00986790860041653,
+          "cpuPerCycleRelativeDelta": -0.03112228138779083,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -10.07333333333338,
+            "instructionsMs": -0.9107193387711873,
+            "cyclesPerInstructionMs": 4.127691064940904,
+            "cpuMsPerCycleMs": -13.29030505950318,
+            "reconciliationErrorMs": 8.171241461241152e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-1",
+        "after": "P-target-2-ON-7",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 0.30600000000004,
+        "outer": {
+          "instructionDelta": 35187157,
+          "instructionRelativeDelta": 0.0043042584239949555,
+          "cycleDelta": 51950370,
+          "cycleRelativeDelta": 0.031630540259192985,
+          "cpiRelativeDelta": 0.027209166550861585,
+          "cpuPerCycleRelativeDelta": -0.027585196507537102,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 1.3497499999999718,
+            "instructionsMs": 1.8300493692875226,
+            "cyclesPerInstructionMs": 11.438529811495709,
+            "cpuMsPerCycleMs": -11.918829180783307,
+            "reconciliationErrorMs": 4.796163466380676e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-1",
+        "after": "P-target-2-OFF-2-4",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": 4.788999999999987,
+        "outer": {
+          "instructionDelta": -44706607,
+          "instructionRelativeDelta": -0.005468722289441619,
+          "cycleDelta": 8295626,
+          "cycleRelativeDelta": 0.005050880911304567,
+          "cpiRelativeDelta": 0.01057744832818397,
+          "cpuPerCycleRelativeDelta": 0.008104421988453403,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 5.613833333333332,
+            "instructionsMs": -2.348201671181594,
+            "cyclesPerInstructionMs": 4.505607936178033,
+            "cpuMsPerCycleMs": 3.4564270683367737,
+            "reconciliationErrorMs": 1.1857181902996672e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-1",
+        "after": "P-target-2-OFF-2-7",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -5.41700000000003,
+        "outer": {
+          "instructionDelta": -36904861,
+          "instructionRelativeDelta": -0.004514376050489544,
+          "cycleDelta": 21313697,
+          "cycleRelativeDelta": 0.012977073137895756,
+          "cpiRelativeDelta": 0.01757077025280318,
+          "cpuPerCycleRelativeDelta": -0.03497111465098868,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -9.549583333333374,
+            "instructionsMs": -1.9031304341325885,
+            "cyclesPerInstructionMs": 7.326417883837757,
+            "cpuMsPerCycleMs": -14.972870783038571,
+            "reconciliationErrorMs": 3.019806626980426e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-4",
+        "after": "P-target-2-ON-7",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-ON",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 4.468000000000075,
+        "outer": {
+          "instructionDelta": 52879442,
+          "instructionRelativeDelta": 0.006482491309081517,
+          "cycleDelta": 39332790,
+          "cycleRelativeDelta": 0.023765615523402284,
+          "cpiRelativeDelta": 0.017171808117438347,
+          "cpuPerCycleRelativeDelta": 0.0036507030890544634,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 11.423083333333352,
+            "instructionsMs": 2.7204764958028305,
+            "cyclesPerInstructionMs": 7.168371862076678,
+            "cpuMsPerCycleMs": 1.5342349754539153,
+            "reconciliationErrorMs": -7.260858581048524e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-4",
+        "after": "P-target-2-OFF-2-4",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": 8.951000000000022,
+        "outer": {
+          "instructionDelta": -27014322,
+          "instructionRelativeDelta": -0.0033116859967192713,
+          "cycleDelta": -4321954,
+          "cycleRelativeDelta": -0.0026114063374053087,
+          "cpiRelativeDelta": 0.0007026064713264724,
+          "cpuPerCycleRelativeDelta": 0.040486743190287555,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 15.687166666666712,
+            "instructionsMs": -1.4036105731754078,
+            "cyclesPerInstructionMs": 0.2971919097255879,
+            "cpuMsPerCycleMs": 16.793585330116592,
+            "reconciliationErrorMs": -6.039613253960852e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-4",
+        "after": "P-target-2-OFF-2-7",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -1.2549999999999955,
+        "outer": {
+          "instructionDelta": -19212576,
+          "instructionRelativeDelta": -0.0023552698787000503,
+          "cycleDelta": 8696117,
+          "cycleRelativeDelta": 0.0052543583399122795,
+          "cpiRelativeDelta": 0.007627593259263099,
+          "cpuPerCycleRelativeDelta": -0.003972465450759688,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 0.5237500000000068,
+            "instructionsMs": -0.9800050644911438,
+            "cyclesPerInstructionMs": 3.1580002104993268,
+            "cpuMsPerCycleMs": -1.654245146008095,
+            "reconciliationErrorMs": -8.126832540256146e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-7",
+        "after": "P-target-2-OFF-2-4",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": 4.482999999999947,
+        "outer": {
+          "instructionDelta": -79893764,
+          "instructionRelativeDelta": -0.009731095563383252,
+          "cycleDelta": -43654744,
+          "cycleRelativeDelta": -0.02576470772299011,
+          "cpiRelativeDelta": -0.016191169981984554,
+          "cpuPerCycleRelativeDelta": 0.03670205180732555,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 4.26408333333336,
+            "instructionsMs": -4.194008256472346,
+            "cyclesPerInstructionMs": -7.001061573658224,
+            "cpuMsPerCycleMs": 15.459153163463963,
+            "reconciliationErrorMs": -3.197442310920451e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-7",
+        "after": "P-target-2-OFF-2-7",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -5.72300000000007,
+        "outer": {
+          "instructionDelta": -72092018,
+          "instructionRelativeDelta": -0.008780839472216417,
+          "cycleDelta": -30636673,
+          "cycleRelativeDelta": -0.01808153829626913,
+          "cpiRelativeDelta": -0.00938309023314321,
+          "cpuPerCycleRelativeDelta": -0.007595439844112484,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -10.899333333333345,
+            "instructionsMs": -3.7156015401132563,
+            "cyclesPerInstructionMs": -3.9716481242223116,
+            "cpuMsPerCycleMs": -3.212083668997737,
+            "reconciliationErrorMs": -3.9968028886505635e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-2-4",
+        "after": "P-target-2-OFF-2-7",
+        "beforeBlock": "P-target-2-OFF-2",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": -10.206000000000017,
+        "outer": {
+          "instructionDelta": 7801746,
+          "instructionRelativeDelta": 0.00095959399200507,
+          "cycleDelta": 13018071,
+          "cycleRelativeDelta": 0.007886359165621748,
+          "cpiRelativeDelta": 0.00692012466356573,
+          "cpuPerCycleRelativeDelta": -0.042729240840425065,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -15.163416666666706,
+            "instructionsMs": 0.4060958808036401,
+            "cyclesPerInstructionMs": 2.919879312715482,
+            "cpuMsPerCycleMs": -18.489391860185748,
+            "reconciliationErrorMs": -7.815970093361102e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-5",
+        "after": "P-target-2-OFF-2-2",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -9.039000000000044,
+        "outer": {
+          "instructionDelta": -67808047,
+          "instructionRelativeDelta": -0.008252339380632412,
+          "cycleDelta": -13817509,
+          "cycleRelativeDelta": -0.00830496735289854,
+          "cpiRelativeDelta": -5.306588999998141e-05,
+          "cpuPerCycleRelativeDelta": -0.022672437413244984,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -12.959749999999985,
+            "instructionsMs": -3.434010042054102,
+            "cyclesPerInstructionMs": -0.021991420933685966,
+            "cpuMsPerCycleMs": -9.5037485370122,
+            "reconciliationErrorMs": 1.7763568394002505e-15,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-5",
+        "after": "P-target-2-OFF-2-5",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -1.02800000000002,
+        "outer": {
+          "instructionDelta": -81339315,
+          "instructionRelativeDelta": -0.009899114663605602,
+          "cycleDelta": -18039495,
+          "cycleRelativeDelta": -0.01084257785088305,
+          "cpiRelativeDelta": -0.0009528960141842457,
+          "cpuPerCycleRelativeDelta": 0.005640161213130934,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -2.2155416666666383,
+            "instructionsMs": -4.176464850636797,
+            "cyclesPerInstructionMs": -0.40022710970381326,
+            "cpuMsPerCycleMs": 2.3611502936739526,
+            "reconciliationErrorMs": 1.9095836023552692e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-2-2",
+        "after": "P-target-2-OFF-2-5",
+        "beforeBlock": "P-target-2-OFF-2",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 8.011000000000024,
+        "outer": {
+          "instructionDelta": -13531268,
+          "instructionRelativeDelta": -0.0016604781118866319,
+          "cycleDelta": -4221986,
+          "cycleRelativeDelta": -0.00255886176137321,
+          "cpiRelativeDelta": -0.000899877877004629,
+          "cpuPerCycleRelativeDelta": 0.028969405663173076,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 10.744208333333347,
+            "instructionsMs": -0.6868609579326218,
+            "cyclesPerInstructionMs": -0.3720950669866853,
+            "cpuMsPerCycleMs": 11.803164358252625,
+            "reconciliationErrorMs": 2.842170943040401e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-6",
+        "after": "P-target-2-OFF-2-3",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -4.966000000000008,
+        "outer": {
+          "instructionDelta": -53062824,
+          "instructionRelativeDelta": -0.006477428948172048,
+          "cycleDelta": -2863260,
+          "cycleRelativeDelta": -0.0017063984567730062,
+          "cpiRelativeDelta": 0.004802135986047951,
+          "cpuPerCycleRelativeDelta": -0.022973115305689462,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -10.681250000000034,
+            "instructionsMs": -2.7821629206638474,
+            "cyclesPerInstructionMs": 2.0509888417616438,
+            "cpuMsPerCycleMs": -9.950075921097895,
+            "reconciliationErrorMs": 6.394884621840902e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-ON-6",
+        "after": "P-target-2-OFF-2-6",
+        "beforeBlock": "P-target-2-ON",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": false,
+        "evidenceUserDeltaMs": -2.923999999999978,
+        "outer": {
+          "instructionDelta": -44511578,
+          "instructionRelativeDelta": -0.005433570287665335,
+          "cycleDelta": 192552,
+          "cycleRelativeDelta": 0.00011475396423965556,
+          "cpiRelativeDelta": 0.0055786361636092074,
+          "cpuPerCycleRelativeDelta": -0.020856264490793253,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -8.992208333333394,
+            "instructionsMs": -2.337221197444829,
+            "cyclesPerInstructionMs": 2.386444952664473,
+            "cpuMsPerCycleMs": -9.041432088553082,
+            "reconciliationErrorMs": 4.263256414560601e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      },
+      {
+        "before": "P-target-2-OFF-2-3",
+        "after": "P-target-2-OFF-2-6",
+        "beforeBlock": "P-target-2-OFF-2",
+        "afterBlock": "P-target-2-OFF-2",
+        "sameProfilerState": true,
+        "evidenceUserDeltaMs": 2.04200000000003,
+        "outer": {
+          "instructionDelta": 8551246,
+          "instructionRelativeDelta": 0.0010506642636225472,
+          "cycleDelta": 3055812,
+          "cycleRelativeDelta": 0.001824265344581244,
+          "cpiRelativeDelta": 0.0007727891390270081,
+          "cpuPerCycleRelativeDelta": 0.00216662493945452,
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 1.6890416666666397,
+            "instructionsMs": 0.44487972264182524,
+            "cyclesPerInstructionMs": 0.3272652961312817,
+            "cpuMsPerCycleMs": 0.9168966478934136,
+            "reconciliationErrorMs": 1.191269305422793e-13,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          },
+          "notFrequencyOrCause": true
+        }
+      }
+    ],
+    "missing": [
+      "per-pass retired instructions and cycles",
+      "per-pass native CPU attribution",
+      "OFF sampled stacks",
+      "qualified profile timing counterfactual",
+      "observed change to explicit gap"
+    ],
+    "noNewProductReads": true,
+    "notOldResidualMechanism": true
+  },
+  "pairCounts": {
+    "allSameProcessFullGcPairs": 72,
+    "sameProfilerStatePairs": 56,
+    "notIndependentReplicates": true
+  },
+  "originalP2TimingGateUnchanged": {
+    "passed": false,
+    "checks": {
+      "allBlocks": false,
+      "timingOverhead": true,
+      "offReturnDrift": false
+    },
+    "deltasMs": [
+      -1.4184999999999377,
+      -1.955000000000041,
+      -3.5720000000000027
+    ],
+    "overheadMs": 0.5402499999999293,
+    "offReturnDriftMs": -2.153500000000065,
+    "notCause": true
+  },
+  "scope": {
+    "newProductReads": 0,
+    "newExperimentHosts": 0,
+    "newProfileStarts": 0,
+    "originalP2FailedReportUnchanged": true,
+    "profileStructureNotTimingQualification": true,
+    "RI00Closed": false,
+    "refactorStarted": false
+  },
+  "validation": {
+    "focusedTestsPassed": 14,
+    "testLogSha256": "94feea2419e6562abe796bb7fb6c27f212bc502d365dbd7dbbac19cf2482f1b1",
+    "syntax": true,
+    "diff": true,
+    "review": "implementer-self-review",
+    "ci": {
+      "candidate": "8dc861882643e3c9b8934792b308910e8d08d88d",
+      "prWorkflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    },
+    "notRun": [
+      "new-owned-host-campaign",
+      "new-field-window",
+      "real-model",
+      "full-build",
+      "release-or-installed-acceptance"
+    ]
+  }
+}

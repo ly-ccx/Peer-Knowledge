@@ -1,0 +1,52 @@
+{
+  "kind": "FR1-clock-accounting-causal-diagnostic-not-qualification-replacement",
+  "authorization": "Current user requests diagnose and repair recorder; previous failed slots remain failed; no field admission from this diagnostic",
+  "date": "2026-11-14",
+  "trigger": "eb1de652 first-root mixed charge2.587551ms after stack intern fix; 6 threadCpuUsage calls per span and12 spans",
+  "processes": 1,
+  "runtime": "existing Node25 Darwin toolchain",
+  "wallMs": 15000,
+  "cpuMs": 3000,
+  "productQueries": 0,
+  "electronHosts": 0,
+  "fieldAttachments": 0,
+  "fixedBlocks": 16,
+  "iterationsPerBlock": 240,
+  "arms": [
+    "six snapshots for redundant pre/post self measurement",
+    "four snapshots sharing CPU boundaries",
+    "two business snapshots with conservative metadata wall upper"
+  ],
+  "capturesAndFakeWorkIdentical": true,
+  "singleVariable": "metadata measurement protocol only; third arm changes self charge to stricter wall upper, never lowers cap",
+  "retained": [
+    "all16 blocks",
+    "original raw failures",
+    "frame depth/stack capture each invocation",
+    "CPU user/kernel and wall"
+  ],
+  "noTimingPassGate": true,
+  "noFieldOrPerformanceQualificationGranted": true,
+  "noAdditionalElectronSlotAllocated": true,
+  "perRootGateMsStill": 2,
+  "fieldBudgetUnchanged": true,
+  "refactorStarted": false,
+  "fixedSequence": [
+    "six",
+    "four",
+    "wall",
+    "wall",
+    "four",
+    "six",
+    "six",
+    "four",
+    "wall",
+    "wall",
+    "four",
+    "six",
+    "six",
+    "four",
+    "wall",
+    "wall"
+  ]
+}

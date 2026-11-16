@@ -1,0 +1,122 @@
+{
+  "kind": "E3-P-hotspot-instrument-qualification-frozen-not-executed",
+  "date": "2026-11-14",
+  "supersedes": "New independently frozen P2 campaign after explicit user instruction; never changes prior P failure, producer or retired slot",
+  "electronLaunches": 3,
+  "targets": 2,
+  "reference": 1,
+  "maxSimultaneous": 2,
+  "replacements": 0,
+  "wallMs": 900000,
+  "cleanupReserveMs": 90000,
+  "readCpuMs": 90000,
+  "nativeHashCpuMs": 2000,
+  "controllerAuxCpuMs": 20000,
+  "preparationShutdownReserveMs": 5000,
+  "outputBytes": 134217728,
+  "journalBytes": 33554432,
+  "profileBytes": 16777216,
+  "warmupPerHost": 8,
+  "modes": [
+    false,
+    true,
+    false
+  ],
+  "block": {
+    "rolesInOrder": [
+      "target",
+      "reference"
+    ],
+    "sameInAllModes": true,
+    "readSequence": [
+      "named-real-start",
+      "eight-dense-roots",
+      "named-real-end"
+    ],
+    "metricRoots": 8,
+    "clockRoots": 2,
+    "gapMs": 150,
+    "hashCalibrationAfterEachHostBlock": 3,
+    "waitBeforeEveryRead": true
+  },
+  "maximumSupervisorRoots": 144,
+  "semanticIndexAuditsAtFinish": 3,
+  "profile": {
+    "targetOnly": true,
+    "intervalUs": 1000,
+    "startsPerTarget": 1,
+    "startsBeforeNamedStart": true,
+    "stopsAfterNamedEnd": true,
+    "profileReadBodyWallPerTargetMs": 6000,
+    "profileSessionWallPerTargetMs": 10000,
+    "setupAndStopCpuPerTargetMs": 1000,
+    "preciseCoverage": false
+  },
+  "gate": {
+    "warmCompatibleMinimum": 3,
+    "warmRangeMs": 15,
+    "calibrationRelativeDrift": 0.1,
+    "metadataMedianMs": 2,
+    "clockIntervalWidthMs": 2,
+    "minimumDefiniteSamplesPerComparedPass": 10,
+    "timingOverheadMs": 2,
+    "offReturnDriftMs": 2
+  },
+  "rules": {
+    "nativeLibraryLoaded": false,
+    "reserveCompleteOffReturnBeforeStart": true,
+    "offEntryFailureEndsTarget": true,
+    "unknownCallsNotReplayed": true,
+    "structureDoesNotQualifyTimingOrCause": true,
+    "profileNeverG2": true,
+    "noForcedGcOrVmTraceFlags": true
+  },
+  "executed": false,
+  "fieldStarted": false,
+  "refactorStarted": false,
+  "executionId": "P2-fixed-three-host-after-bound-P0B-20261114",
+  "priorPFailedReceiptSha256": "0e2b3c2713063ccfe67b4e035a80eb80b4a2ddca8665fa9c3bffceb01d9d98ea",
+  "priorUnusedSlotRetired": true,
+  "requiredCandidate": "fce27eb2de0eb34bab5273c21e2e5474467c9c03",
+  "requiredP0Sha256": "faedf4ac03618a6e863a7b7c15e120139b334cc6d63f96383629c4f98ea7a417",
+  "requiredCoverageSha256": "92497a531e8590dfe676dcafbd3ee613227c346bd111e1670f20d9eca59f1525",
+  "instrumentSourceSha256": "015604d3ea25ac61496ad7899d2f9d02212eebc4b418a3c522b3b4bbf72e261e",
+  "newBudgetAuthorizedInCurrentUserTurn": true,
+  "previousActualE3OwnedApps": 29,
+  "newReservedApps": 3,
+  "plannedActualE3AppsIfAllLaunched": 32,
+  "returnReservation": {
+    "blocks": [
+      "ON-target",
+      "ON-reference",
+      "OFF-return-target",
+      "OFF-return-reference"
+    ],
+    "roots": 40,
+    "hashCalls": 12,
+    "scheduledWaits": 40,
+    "gapMs": 6000,
+    "semanticAuditsReserved": 3,
+    "semanticAuditEachCpuMs": 500,
+    "minimumRootCpuMs": 750,
+    "observedQualifiedOffMultiplier": 1.5,
+    "minimumHashCpuMs": 100,
+    "hashRpcWallPerCallMs": 2000,
+    "profileAndCounterControlWallMs": 30000,
+    "otherControllerWallMs": 5000,
+    "cleanupReserveMs": 90000,
+    "sealedReplayReadCpuMs": 31500,
+    "sealedReplayHashCpuMs": 1200,
+    "sealedReplayWallMs": 186500,
+    "futureCostIsNotGuaranteed": true
+  },
+  "executionRules": {
+    "OFFEntryFailureEndsOnlyThatTarget": true,
+    "unknownRpcOrProfilerRecoveryFailureEndsCampaign": true,
+    "profilerControllerPerTargetBudgetExceededEndsCampaign": true,
+    "fullReturnOnKnownTimingGateFailure": true,
+    "noSourceChangesBetweenP0BAndP2": true,
+    "noReplacementsOrReturnReadsAfterUnsafeFailure": true,
+    "noFieldWindowOrRefactor": true
+  }
+}

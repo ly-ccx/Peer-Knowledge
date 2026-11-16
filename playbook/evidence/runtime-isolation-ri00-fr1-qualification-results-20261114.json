@@ -1,0 +1,332 @@
+{
+  "kind": "RI00-FR1-sole-functional-slot-failed-no-field-admission",
+  "date": "2026-11-14",
+  "candidate": "39636570358c1d65316176ac1fdb26fb6a055156",
+  "sourceSha256": "e4e89478ded4c861153d0e02fb87b3f009966b112dc64599e41d47b81d13f3f5",
+  "frozenPlanSha256": "61a7925be4fe864a3610a9ea3dc200fff255253d254cb6be74d969813d3cdccf",
+  "intakeSha256": "ba7a151a32c218c83af23b06fb5dbe7adb379d15c3f011f6b3acdb5e8b329753",
+  "configSha256": "b8078191a03c9f4ab4c05e5c671f2e9461a63ceeaa6ba7e67f74434d8bb3e272",
+  "privateArtifacts": {
+    "fr1-unit-20261114.private.json": {
+      "sha256": "b18357c62d49522713cc3071f5b06a941aad28745e10f649704e123cdde5979d",
+      "bytes": 794
+    },
+    "fr1-unit-cost-20261114.private.json": {
+      "sha256": "c590879022bcc030057cb289b1afd3a535e23a0f8a45bbc70b8f6eb1036fb448",
+      "bytes": 186
+    },
+    "fr1-qualification-20261114/report.private.json": {
+      "sha256": "ac1af648ccf8fe63a5a2f297da87656a292d9a91b1dc72d26909d4a6200d8c3a",
+      "bytes": 19137
+    },
+    "fr1-qualification-20261114/history.private.jsonl": {
+      "sha256": "04805b2e6bc7d020e51a843548aaee8084e81bf7d4c6660bedbf8c40f4e171f8",
+      "bytes": 21428
+    },
+    "fr1-qualification-20261114/host/exit.private.json": {
+      "sha256": "9e0cddfd4710b75abe218df1ee461997db3d5d8bf14169a120572419e26cf87b",
+      "bytes": 1093
+    },
+    "fr1-qualification-cost-20261114.private.json": {
+      "sha256": "8a7f3db84217d2d1d58277685f7a91add2b9fcda8737532a113998b59e6786b2",
+      "bytes": 373
+    },
+    "fr1-offline-audit-20261114.private.json": {
+      "sha256": "c060604ca02efb09679dfd057ac20374890a885efbf9929a7721d196d0e30d28",
+      "bytes": 3467
+    },
+    "fr1-offline-audit-cost-20261114.private.json": {
+      "sha256": "77eadde3e3592118d4909558d4a95ff17e135961497bff9c662020a8aa40c409",
+      "bytes": 214
+    }
+  },
+  "artifactsContainPrivateBusinessMetadataAndRemainLocal": true,
+  "runtime": {
+    "node": "24.15.0",
+    "electron": "41.7.1",
+    "v8": "14.6.202.34-electron.0"
+  },
+  "implementation": {
+    "recorder": true,
+    "triggerController": true,
+    "durableHistoryAndRecovery": true,
+    "sameCandidateBinder": true,
+    "fieldRunner": true,
+    "actualPeerBinderExecuted": false,
+    "fieldRunnerExecuted": false
+  },
+  "unit": {
+    "passed": 20,
+    "failed": 0,
+    "candidateBound": true,
+    "cost": {
+      "name": "tests",
+      "exitCode": 0,
+      "wallMsThroughReap": 1950.140584,
+      "fullChildSubtreeCpuMs": 1125.4679999999998,
+      "reportSha256": "b18357c62d49522713cc3071f5b06a941aad28745e10f649704e123cdde5979d"
+    },
+    "scope": "unit/mock/policy/transport/durable recovery and source/data identity; not complete actual Electron recovery or cause",
+    "earlierDevelopmentFailureRetained": "attempt1 coverage-vs-deadline fixture failed; covered deadline fixture fixed; production thresholds unchanged; original log retained"
+  },
+  "functional": {
+    "authorizedSlots": 1,
+    "actualSlots": 1,
+    "replacementSlots": 0,
+    "passed": false,
+    "exitCode": 1,
+    "passedCases": [
+      {
+        "name": "original-Promise-and-error-transparent",
+        "passed": true
+      }
+    ],
+    "failure": "fr1_unexpected_recorder_stop:per-root-probe-cpu-cap:rootSelf=2.2538460000023406",
+    "stopReason": "per-root-probe-cpu-cap",
+    "queryCalls": 2,
+    "maximumQueryCalls": 12,
+    "readCpuMs": 2462.825,
+    "maximumReadCpuMs": 8000,
+    "cost": {
+      "name": "qualification",
+      "exitCode": 1,
+      "wallMsThroughReap": 3085.534583,
+      "fullChildSubtreeUserMs": 3065.394,
+      "fullChildSubtreeSystemMs": 602.49,
+      "fullChildSubtreeCpuMs": 3667.884,
+      "cpuScope": "waited complete Node/Electron/helper subtree through return",
+      "noReplacementAllowed": true,
+      "reportSha256": "ac1af648ccf8fe63a5a2f297da87656a292d9a91b1dc72d26909d4a6200d8c3a",
+      "outputBytes": 43020
+    },
+    "maximumWholeProcessCpuMs": 12000,
+    "maximumWallMs": 60000,
+    "root": {
+      "userMs": 411.761,
+      "systemMs": 35.583,
+      "totalCpuMs": 447.34400000000005,
+      "evidenceUserMs": 282.181,
+      "evidenceSystemMs": 5.119999999999999,
+      "remainderUserMs": 129.58000000000004,
+      "remainderSystemMs": 30.463,
+      "wallMs": 447.98012500000004,
+      "includesInlineRecorderOverhead": true,
+      "rows": 23,
+      "evidencePasses": 12,
+      "evidenceRowsPerPass": 69266,
+      "planCalls": 3859,
+      "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41",
+      "portSequence": [
+        {
+          "kind": "plan",
+          "count": 202
+        },
+        {
+          "kind": "index",
+          "count": 2
+        },
+        {
+          "kind": "plan",
+          "count": 240
+        },
+        {
+          "kind": "index",
+          "count": 2
+        },
+        {
+          "kind": "plan",
+          "count": 288
+        },
+        {
+          "kind": "index",
+          "count": 2
+        },
+        {
+          "kind": "plan",
+          "count": 627
+        },
+        {
+          "kind": "index",
+          "count": 2
+        },
+        {
+          "kind": "plan",
+          "count": 1115
+        },
+        {
+          "kind": "index",
+          "count": 2
+        },
+        {
+          "kind": "plan",
+          "count": 1387
+        },
+        {
+          "kind": "index",
+          "count": 2
+        }
+      ]
+    },
+    "charge": {
+      "capMs": 2,
+      "lastRootConservativeChargeMs": 2.2538460000023406,
+      "preSelfThreadCpuMs": 0.22000000000025466,
+      "postSelfThreadCpuMs": 0.47100000000000364,
+      "spanSelfThreadCpuMs": 1.334000000001197,
+      "spanSelfThreadCpuMsByPosition": [
+        0.16000000000030923,
+        0.11599999999998545,
+        0.10600000000022192,
+        0.08999999999969077,
+        0.13500000000021828,
+        0.1020000000003165,
+        0.10500000000001819,
+        0.11000000000012733,
+        0.11000000000012733,
+        0.11300000000028376,
+        0.10800000000017462,
+        0.07899999999972351
+      ],
+      "planCounterWallUpperMs": 0.21584600000096543,
+      "instrumentationMixedChargeMs": 2.2408460000024206,
+      "keepAndSerializeThreadCpuMs": 0.012999999999919964,
+      "totalDiagnosticMixedChargeMs": 2.8928460000020095,
+      "notExactAdditionalCpu": true,
+      "indirectVmEffectsUnmeasured": true,
+      "threadCpuIntervalsSubtotalMs": 2.038000000001375,
+      "chargeExcessMs": 0.2538460000023406,
+      "individualFunctionCostsNotAvailable": true
+    },
+    "replay": {
+      "chunks": 2,
+      "records": 23,
+      "chainTip": "532a4dcac3ff610aca1afcf456f2e1243443b4b5fd4a2a2bce3c1bebc80702d7",
+      "noSequenceGaps": true,
+      "entries": 4,
+      "roots": 1,
+      "stackDictionary": 7,
+      "allReferencedStacksFound": true,
+      "rootChainIncomplete": false,
+      "allEntryEndsFound": true,
+      "rootOutputAndCountsMatch": true
+    },
+    "entries": [
+      {
+        "id": 1,
+        "parentId": null,
+        "kind": "fixture-throwOriginal",
+        "depth": 1,
+        "chainIncomplete": true,
+        "ended": true
+      },
+      {
+        "id": 2,
+        "parentId": null,
+        "kind": "fixture-asyncValue",
+        "depth": 1,
+        "chainIncomplete": true,
+        "ended": true
+      },
+      {
+        "id": 3,
+        "parentId": null,
+        "kind": "transport-listSessions",
+        "depth": 1,
+        "chainIncomplete": false,
+        "ended": true
+      },
+      {
+        "id": 4,
+        "parentId": 3,
+        "kind": "ipc-listSessions",
+        "depth": 2,
+        "chainIncomplete": false,
+        "ended": true
+      }
+    ],
+    "recovery": {
+      "allOriginalOwnersRestored": true,
+      "bindingRestored": true,
+      "fullyAcked": true,
+      "retainedBytes": 0,
+      "inFlightEntries": 0,
+      "lost": 0,
+      "metadataErrors": 0,
+      "ownedExitCode": 0,
+      "ownedPortClosed": true,
+      "sourceWritesDenied": 0,
+      "readFailures": 0,
+      "heapGetterCalls": {
+        "getHeapStatistics": 0,
+        "getHeapSpaceStatistics": 0,
+        "getHeapCodeStatistics": 0
+      },
+      "profilerStarts": 0,
+      "nativeCalls": 0
+    },
+    "notReached": [
+      "all-nine-root coverage assertion",
+      "real Electron Profiler start/clock/stop/disable and span analysis",
+      "real Electron injected fsync/unknown ACK recovery",
+      "live main-stall watchdog/native sampling",
+      "shared controller real-history cancel/stop",
+      "separate normal-stop scenario",
+      "controller lease-loss scenario",
+      "all 12 planned functional product calls"
+    ],
+    "earlyFailureRecoveryIsNotAllScenariosPass": true,
+    "originalReportUnmodified": true
+  },
+  "binding": {
+    "sameCleanCandidateSource": true,
+    "productionSha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+    "productionUnchangedAfterFunctional": true,
+    "fixture": {
+      "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+      "files": 8534,
+      "fences": 1
+    },
+    "rootOutputAndGraphMatch": true,
+    "all12EvidencePassesMatch69266Rows": true,
+    "actualPeerArtifactAndObjectBindingNotAdmitted": true
+  },
+  "field": {
+    "admitted": false,
+    "reason": "sole functional slot failed; subsequent field contingent on pass",
+    "actualPeerAttachments": 0,
+    "extraBusinessQueries": 0,
+    "referenceHosts": 0,
+    "actualPeerRestarted": false,
+    "existingPeerOsOnlyAliveCheck": true,
+    "sourceArchiveCopies": 0,
+    "nativeSamplerStarts": 0,
+    "profilerStarts": 0,
+    "naturalTransitionsCaptured": 0,
+    "noReplacementOrNewBudget": true
+  },
+  "ledger": {
+    "actualOwnedAppsBefore": 41,
+    "actualOwnedAppsAfter": 42,
+    "knownProductReadCpuLowerMsBefore": 635118.989,
+    "currentOwnedReadCpuMs": 2462.825,
+    "knownProductReadCpuLowerMsAfter": 637581.814,
+    "earlierCUnknownAndAllFailuresRetained": true,
+    "noDoubleCountWholeProcessCpuIntoProductReadCpu": true,
+    "individualQualificationCapsWereMeasured": true,
+    "noClaimAllDevelopmentAndOfflineCommandsHaveCompleteCpuAccounting": true
+  },
+  "interpretation": {
+    "oneSampleCannotIdentifyOverrunFunctionOrVmMechanism": true,
+    "selfIntervalsAreNotOnOffAdditionalCpuOrNeutralityProof": true,
+    "noGcRecordsDoNotExcludeGc": true,
+    "logicalRootChainNotMissing": true,
+    "fixtureTransparencyEntriesDeliberatelyMarkedChainIncomplete": true,
+    "noFieldFastToSlowEvidence": true,
+    "remaining30To40msMechanismUnknown": true,
+    "original3950msEvidenceGapRetained": true,
+    "mechanismReplayAllocation": 0,
+    "toolsAreNotRootCauseProgress": true,
+    "RI00Closed": false,
+    "refactorStarted": false
+  }
+}

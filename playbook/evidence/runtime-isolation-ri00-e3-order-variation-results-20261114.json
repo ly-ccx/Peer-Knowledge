@@ -1,0 +1,7327 @@
+{
+  "kind": "RI00-ORDER-84-root-five-F0-warm-range-variation-audit",
+  "date": "2026-11-14",
+  "analysisCandidate": "6a15ce74205f079cb63f9a4c8207b87207eeeb6a",
+  "originalProducer": "1c053c5672d23c9848f29e012ada72417128bf0d",
+  "inputSha256": "490683f6dd4e35018e9e9714d0afae5d7dca54d3a2ea0722b20e1c69b119beb4",
+  "journalSha256": "ea74c42530f959f2147de3b007e10c1b28388963550f2459d6227cc7f1a0e5e0",
+  "privateAuditSha256": "f2847c7e29811e4fffd8e1b50a6f86a9bb02a05ead04725aeace67688673e573",
+  "source": [
+    [
+      "ri00/e3-order-variation.mjs",
+      "2ff18b52ce562f344685f3716c57227384efd67df81edddbf67f13880a9d730d"
+    ],
+    [
+      "ri00/e3-cadence-variation.mjs",
+      "a0d0e9e262ebe549a814f302e650cc5608761f0aa90f486ce39bde429b37ecb9"
+    ],
+    [
+      "ri00/e3-work-decomposition.mjs",
+      "7dd6c6059c7d7d0414e350d4627147eb94c666128c251ef4e7a9d6d1ab4f7b6a"
+    ],
+    [
+      "run-e3-order-variation-audit.mjs",
+      "3b5e7e01813e0c3624e4cfb8e71df37183b66e5056788fc2fbc69f38884826c9"
+    ]
+  ],
+  "frozenNextDesignSha256": "f8015bcc723116e4815d70ab249ba799225dc4af6458ef4b14f5109409898b21",
+  "reservationReplaySha256": "38ca6e351b4eb18e88b36c03a868cf015250ac0954d45165da2a8178c16afa7b",
+  "counts": {
+    "supervisorRoots": 84,
+    "metricRoots": 48,
+    "warmBlocks": 6,
+    "failedWarmBlocks": 5,
+    "targetFailures": 3,
+    "conditioningFailures": 2,
+    "highEarlierThanLow": 2,
+    "sameSignatureChronologicalPairs": 14
+  },
+  "failures": [
+    {
+      "calibration": [
+        {
+          "start": 12050.564083,
+          "end": 12073.6495,
+          "userMs": 22.54,
+          "systemMs": 0.336,
+          "value": 0
+        },
+        {
+          "start": 12078.89275,
+          "end": 12101.262708,
+          "userMs": 22.338,
+          "systemMs": 0.02,
+          "value": 0
+        },
+        {
+          "start": 12105.960875,
+          "end": 12128.233166,
+          "userMs": 22.249,
+          "systemMs": 0.015,
+          "value": 0
+        }
+      ],
+      "originalCalibrationAfterAllRoots": true,
+      "target": "order-target-1",
+      "plannedOrder": "ABBA",
+      "F0Block": 0,
+      "role": "target",
+      "host": "order-target-1",
+      "failedOriginalWarmGate": true,
+      "block": "order-target-1-F0-0",
+      "summary": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 6,
+        "fullWarmMedian": 292.54800000000006,
+        "median": 292.07450000000006,
+        "compatibleRange": 21.154999999999973
+      },
+      "before": {
+        "ticketId": 16,
+        "rootUserMs": 392.314,
+        "rootSystemMs": 31.982,
+        "rootTotalMs": 424.29600000000005,
+        "evidenceUserMs": 277.034,
+        "evidenceSystemMs": 4.319,
+        "evidenceTotalMs": 281.353,
+        "remainderUserMs": 115.28000000000003,
+        "remainderSystemMs": 27.663,
+        "remainderTotalMs": 142.94300000000007,
+        "outsideMeasuredCpuMs": 1.0271249999999554,
+        "instrumentationCpuMs": 0.7179999999994804,
+        "wallMs": 424.5667919999996,
+        "otherProcessCpuMs": 58.897999999999996,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 11,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 4,
+          "minorEventsOverlappingEvidence": 7,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 2780.45854111081
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8128358317,
+          "cycles": 1663501708,
+          "cpuMs": 425.323125
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8128358317",
+            "cycles": "1663501708",
+            "userTicks": "9437589",
+            "systemTicks": "770166",
+            "energyNj": "1988759289",
+            "cpuMs": 425.323125
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          11,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 4851484,
+            "available": 28700900
+          },
+          "old_space": {
+            "size": 688128000,
+            "used": 685607160,
+            "available": 1329944
+          },
+          "large_object_space": {
+            "size": 21282816,
+            "used": 20514340,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22839068,
+            "available": 10713316
+          },
+          "old_space": {
+            "size": 778567680,
+            "used": 776471764,
+            "available": 898552
+          },
+          "large_object_space": {
+            "size": 23609344,
+            "used": 22759052,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 25.18204164505005,
+        "evidenceGcObservedWallMs": 16.496917486190796
+      },
+      "after": {
+        "ticketId": 17,
+        "rootUserMs": 406.46,
+        "rootSystemMs": 30.396,
+        "rootTotalMs": 436.856,
+        "evidenceUserMs": 298.18899999999996,
+        "evidenceSystemMs": 2.841,
+        "evidenceTotalMs": 301.03,
+        "remainderUserMs": 108.27100000000002,
+        "remainderSystemMs": 27.555,
+        "remainderTotalMs": 135.82600000000002,
+        "outsideMeasuredCpuMs": 1.1106666666667024,
+        "instrumentationCpuMs": 0.7350000000026722,
+        "wallMs": 437.09895900000083,
+        "otherProcessCpuMs": 64.34300000000003,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 0,
+          "minorEventsOverlappingEvidence": 12,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 3376.8641661108095
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8147600946,
+          "cycles": 1675616879,
+          "cpuMs": 437.9666666666667
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8147600946",
+            "cycles": "1675616879",
+            "userTicks": "9778970",
+            "systemTicks": "732230",
+            "energyNj": "1953423409",
+            "cpuMs": 437.9666666666667
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 23010908,
+            "available": 10541476
+          },
+          "old_space": {
+            "size": 778567680,
+            "used": 776487036,
+            "available": 883280
+          },
+          "large_object_space": {
+            "size": 23609344,
+            "used": 22759052,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 11709896,
+            "available": 21842488
+          },
+          "old_space": {
+            "size": 877395968,
+            "used": 874583732,
+            "available": 1607912
+          },
+          "large_object_space": {
+            "size": 27983872,
+            "used": 26999540,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 28.721874952316284,
+        "evidenceGcObservedWallMs": 28.721874952316284
+      },
+      "delta": {
+        "rootUserMs": 14.145999999999958,
+        "rootSystemMs": -1.5859999999999985,
+        "rootTotalMs": 12.559999999999945,
+        "evidenceUserMs": 21.154999999999973,
+        "evidenceSystemMs": -1.4779999999999998,
+        "evidenceTotalMs": 19.676999999999964,
+        "remainderUserMs": -7.0090000000000146,
+        "remainderSystemMs": -0.10800000000000054,
+        "remainderTotalMs": -7.117000000000047,
+        "outsideMeasuredCpuMs": 0.083541666666747,
+        "instrumentationCpuMs": 0.017000000003191795,
+        "wallMs": 12.532167000001209,
+        "otherProcessCpuMs": 5.445000000000036
+      },
+      "positions": [
+        {
+          "position": 0,
+          "userMs": -0.6730000000000018,
+          "systemMs": 0.09500000000000003,
+          "totalMs": -0.5780000000000032,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.0889577865600586
+        },
+        {
+          "position": 1,
+          "userMs": 1.769000000000002,
+          "systemMs": -0.015000000000000013,
+          "totalMs": 1.7540000000000031,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.5571250915527344
+        },
+        {
+          "position": 2,
+          "userMs": 1.8419999999999987,
+          "systemMs": -0.092,
+          "totalMs": 1.7499999999999993,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.270249843597412
+        },
+        {
+          "position": 3,
+          "userMs": 4.384999999999998,
+          "systemMs": -0.0040000000000000036,
+          "totalMs": 4.3809999999999985,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.4617919921875
+        },
+        {
+          "position": 4,
+          "userMs": 1.6499999999999986,
+          "systemMs": -0.17700000000000002,
+          "totalMs": 1.472999999999998,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.04312491416931152
+        },
+        {
+          "position": 5,
+          "userMs": -0.3460000000000001,
+          "systemMs": -0.08399999999999996,
+          "totalMs": -0.4300000000000003,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.03874921798706055
+        },
+        {
+          "position": 6,
+          "userMs": 2.6670000000000016,
+          "systemMs": -0.16799999999999998,
+          "totalMs": 2.4990000000000023,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.1146249771118164
+        },
+        {
+          "position": 7,
+          "userMs": 1.4269999999999996,
+          "systemMs": -0.126,
+          "totalMs": 1.3010000000000004,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.24762511253356934
+        },
+        {
+          "position": 8,
+          "userMs": 3.1660000000000004,
+          "systemMs": -0.183,
+          "totalMs": 2.983,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 1.8778750896453857
+        },
+        {
+          "position": 9,
+          "userMs": 1.2859999999999978,
+          "systemMs": -0.28300000000000003,
+          "totalMs": 1.0029999999999961,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.40999889373779297
+        },
+        {
+          "position": 10,
+          "userMs": 2.817,
+          "systemMs": -0.273,
+          "totalMs": 2.5439999999999987,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.2113330364227295
+        },
+        {
+          "position": 11,
+          "userMs": 1.1649999999999991,
+          "systemMs": -0.168,
+          "totalMs": 0.9969999999999987,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.01900005340576172
+        }
+      ],
+      "groups": {
+        "retained": {
+          "positions": [
+            0,
+            3,
+            4,
+            5,
+            7,
+            9,
+            11
+          ],
+          "userMs": 8.893999999999991,
+          "systemMs": -0.747,
+          "notGcCpuAttribution": true
+        },
+        "entered": {
+          "positions": [
+            1,
+            2,
+            6,
+            8,
+            10
+          ],
+          "userMs": 12.261000000000003,
+          "systemMs": -0.7310000000000001,
+          "notGcCpuAttribution": true
+        }
+      },
+      "chronology": {
+        "lowTicket": 16,
+        "highTicket": 17,
+        "lowStartMs": 10409.624416,
+        "highStartMs": 11006.030041,
+        "highOccursLater": true,
+        "signedChronologicalUserDeltaMs": 21.154999999999973,
+        "highMinusLowIsNotTemporalOrder": true,
+        "notQualifiedFastToSlow": true
+      },
+      "perLevelWork": [
+        {
+          "name": "Performance",
+          "before": {
+            "name": "Performance",
+            "instructions": "8128358317",
+            "cycles": "1663501708",
+            "userTicks": "9437589",
+            "systemTicks": "770166",
+            "energyNj": "1988759289",
+            "cpuMs": 425.323125
+          },
+          "after": {
+            "name": "Performance",
+            "instructions": "8147600946",
+            "cycles": "1675616879",
+            "userTicks": "9778970",
+            "systemTicks": "732230",
+            "energyNj": "1953423409",
+            "cpuMs": 437.9666666666667
+          },
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 12.643541666666692,
+            "instructionsMs": 1.0205718038655736,
+            "cyclesPerInstructionMs": 2.1114527764176514,
+            "cpuMsPerCycleMs": 9.511517086383485,
+            "reconciliationErrorMs": -1.7763568394002505e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          }
+        },
+        {
+          "name": "Efficiency",
+          "before": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "after": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "accounting": {
+            "available": false,
+            "reason": "nonpositive-or-unknown-counter"
+          }
+        }
+      ],
+      "sameSignatureChronologicalPairs": [
+        {
+          "beforeTicket": 12,
+          "afterTicket": 17,
+          "delta": {
+            "rootUserMs": 2.1959999999999695,
+            "rootSystemMs": -2.2550000000000026,
+            "rootTotalMs": -0.05900000000002592,
+            "evidenceUserMs": 5.640999999999906,
+            "evidenceSystemMs": -0.7509999999999999,
+            "evidenceTotalMs": 4.8899999999999295,
+            "remainderUserMs": -3.4449999999999363,
+            "remainderSystemMs": -1.5040000000000049,
+            "remainderTotalMs": -4.948999999999927,
+            "outsideMeasuredCpuMs": 0.005250000000046384,
+            "instrumentationCpuMs": -0.03999999999645121,
+            "wallMs": -0.4983319999992091,
+            "otherProcessCpuMs": -12.172999999999988
+          },
+          "rootWork": {
+            "instructionDelta": -50290440,
+            "instructionRelative": -0.0061345579774189085,
+            "cpiRelative": -0.013300661280234327,
+            "cpuPerCycleRelative": 0.019610447666490227,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -0.053749999999979536,
+              "instructionsMs": -2.6951720947207054,
+              "cyclesPerInstructionMs": -5.864692919272571,
+              "cpuMsPerCycleMs": 8.506115013993309,
+              "reconciliationErrorMs": -1.2434497875801753e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": -0.21799999999999997,
+              "systemMs": 0.14
+            },
+            {
+              "position": 1,
+              "userMs": -0.6929999999999978,
+              "systemMs": 0.07399999999999995
+            },
+            {
+              "position": 2,
+              "userMs": -0.5199999999999996,
+              "systemMs": 0.0030000000000000027
+            },
+            {
+              "position": 3,
+              "userMs": 3.687000000000001,
+              "systemMs": 0.14100000000000001
+            },
+            {
+              "position": 4,
+              "userMs": 0.9690000000000012,
+              "systemMs": 0.032
+            },
+            {
+              "position": 5,
+              "userMs": 0.2729999999999997,
+              "systemMs": -0.179
+            },
+            {
+              "position": 6,
+              "userMs": 1.0579999999999998,
+              "systemMs": -0.26999999999999996
+            },
+            {
+              "position": 7,
+              "userMs": 0.5010000000000012,
+              "systemMs": -0.11499999999999999
+            },
+            {
+              "position": 8,
+              "userMs": 1.032,
+              "systemMs": -0.312
+            },
+            {
+              "position": 9,
+              "userMs": -0.07000000000000028,
+              "systemMs": -0.255
+            },
+            {
+              "position": 10,
+              "userMs": -0.14499999999999957,
+              "systemMs": -0.021999999999999992
+            },
+            {
+              "position": 11,
+              "userMs": -0.23300000000000054,
+              "systemMs": 0.011999999999999983
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        }
+      ],
+      "sameFullGcSignature": false,
+      "rootWork": {
+        "instructionDelta": 19242629,
+        "instructionRelative": 0.0023673450713601607,
+        "cpiRelative": 0.004903978228547157,
+        "cpuPerCycleRelative": 0.022281699781431463,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": 12.643541666666692,
+          "instructionsMs": 1.0205718038655736,
+          "cyclesPerInstructionMs": 2.1114527764176514,
+          "cpuMsPerCycleMs": 9.511517086383485,
+          "reconciliationErrorMs": -1.7763568394002505e-14,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notPhysicalFrequencyOrPerPassWork": true
+      },
+      "sameSignatureSubgroups": [
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 16,
+              "evidenceUserMs": 277.034
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 13,
+              "evidenceUserMs": 281.84899999999993
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 15,
+              "evidenceUserMs": 291.601
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 12,
+              "evidenceUserMs": 292.54800000000006
+            },
+            {
+              "ticketId": 17,
+              "evidenceUserMs": 298.18899999999996
+            }
+          ],
+          "rangeMs": 5.640999999999906
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 14,
+              "evidenceUserMs": 293.24899999999997
+            }
+          ],
+          "rangeMs": 0
+        }
+      ],
+      "originalGateNotReplacedByConditionedRanges": true,
+      "perPassInstructionsAndStacksMissing": true
+    },
+    {
+      "calibration": [
+        {
+          "start": 24330.998208,
+          "end": 24353.705208,
+          "userMs": 22.453,
+          "systemMs": 0.231,
+          "value": 0
+        },
+        {
+          "start": 24358.21775,
+          "end": 24380.686875,
+          "userMs": 22.371,
+          "systemMs": 0.084,
+          "value": 0
+        },
+        {
+          "start": 24385.378791,
+          "end": 24407.742541,
+          "userMs": 22.339,
+          "systemMs": 0.016,
+          "value": 0
+        }
+      ],
+      "originalCalibrationAfterAllRoots": true,
+      "target": "order-target-1",
+      "plannedOrder": "ABBA",
+      "F0Block": 1,
+      "role": "conditioning",
+      "host": "order-conditioning",
+      "failedOriginalWarmGate": true,
+      "block": "order-target-1-F0-1",
+      "summary": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 286.534,
+        "median": 286.534,
+        "compatibleRange": 15.738000000000056
+      },
+      "before": {
+        "ticketId": 16,
+        "rootUserMs": 384.843,
+        "rootSystemMs": 28.573,
+        "rootTotalMs": 413.416,
+        "evidenceUserMs": 276.42199999999997,
+        "evidenceSystemMs": 1.283,
+        "evidenceTotalMs": 277.705,
+        "remainderUserMs": 108.42100000000005,
+        "remainderSystemMs": 27.29,
+        "remainderTotalMs": 135.71100000000004,
+        "outsideMeasuredCpuMs": 1.0512499999999818,
+        "instrumentationCpuMs": 0.686000000003696,
+        "wallMs": 413.5376249999972,
+        "otherProcessCpuMs": 53.60599999999997,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 3,
+          "minorEventsOverlappingEvidence": 9,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 4140.722207987015
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8263517233,
+          "cycles": 1646420969,
+          "cpuMs": 414.46725
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8263517233",
+            "cycles": "1646420969",
+            "userTicks": "9258909",
+            "systemTicks": "688305",
+            "energyNj": "2022034988",
+            "cpuMs": 414.46725
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 23303744,
+            "available": 10248640
+          },
+          "old_space": {
+            "size": 931921920,
+            "used": 928658484,
+            "available": 2058588
+          },
+          "large_object_space": {
+            "size": 36143104,
+            "used": 34913716,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 25282192,
+            "available": 8270192
+          },
+          "old_space": {
+            "size": 1027342336,
+            "used": 1024077324,
+            "available": 2053464
+          },
+          "large_object_space": {
+            "size": 38682624,
+            "used": 37407364,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 25.126123905181885,
+        "evidenceGcObservedWallMs": 19.519582748413086
+      },
+      "after": {
+        "ticketId": 12,
+        "rootUserMs": 399.194,
+        "rootSystemMs": 29.764,
+        "rootTotalMs": 428.958,
+        "evidenceUserMs": 292.16,
+        "evidenceSystemMs": 2.1660000000000004,
+        "evidenceTotalMs": 294.326,
+        "remainderUserMs": 107.03399999999999,
+        "remainderSystemMs": 27.598,
+        "remainderTotalMs": 134.632,
+        "outsideMeasuredCpuMs": 1.0469999999999686,
+        "instrumentationCpuMs": 0.7390000000005199,
+        "wallMs": 429.26891700000124,
+        "otherProcessCpuMs": 60.75700000000002,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 0,
+          "minorEventsOverlappingEvidence": 12,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 1757.7450409870144
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8233557503,
+          "cycles": 1668355305,
+          "cpuMs": 430.005
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8233557503",
+            "cycles": "1668355305",
+            "userTicks": "9603085",
+            "systemTicks": "717035",
+            "energyNj": "2007698254",
+            "cpuMs": 430.005
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 14378000,
+            "available": 19174384
+          },
+          "old_space": {
+            "size": 553123840,
+            "used": 549301988,
+            "available": 2644044
+          },
+          "large_object_space": {
+            "size": 20217856,
+            "used": 19415872,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 16819828,
+            "available": 16732556
+          },
+          "old_space": {
+            "size": 647233536,
+            "used": 643972188,
+            "available": 2076864
+          },
+          "large_object_space": {
+            "size": 25083904,
+            "used": 24164996,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 25.737372875213623,
+        "evidenceGcObservedWallMs": 25.737372875213623
+      },
+      "delta": {
+        "rootUserMs": 14.350999999999999,
+        "rootSystemMs": 1.190999999999999,
+        "rootTotalMs": 15.54200000000003,
+        "evidenceUserMs": 15.738000000000056,
+        "evidenceSystemMs": 0.8830000000000005,
+        "evidenceTotalMs": 16.621000000000038,
+        "remainderUserMs": -1.3870000000000573,
+        "remainderSystemMs": 0.30799999999999983,
+        "remainderTotalMs": -1.0790000000000362,
+        "outsideMeasuredCpuMs": -0.004250000000013188,
+        "instrumentationCpuMs": 0.05299999999682392,
+        "wallMs": 15.731292000004032,
+        "otherProcessCpuMs": 7.151000000000046
+      },
+      "positions": [
+        {
+          "position": 0,
+          "userMs": 1.9149999999999991,
+          "systemMs": 0.5319999999999999,
+          "totalMs": 2.4469999999999974,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.126457929611206
+        },
+        {
+          "position": 1,
+          "userMs": 0.44200000000000017,
+          "systemMs": 0.15400000000000003,
+          "totalMs": 0.5960000000000006,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.04754209518432617
+        },
+        {
+          "position": 2,
+          "userMs": -0.047999999999998266,
+          "systemMs": 0.13799999999999998,
+          "totalMs": 0.09000000000000177,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.05354189872741699
+        },
+        {
+          "position": 3,
+          "userMs": 0.6899999999999977,
+          "systemMs": 0.0010000000000000009,
+          "totalMs": 0.6909999999999987,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.06287574768066406
+        },
+        {
+          "position": 4,
+          "userMs": 2.9120000000000026,
+          "systemMs": 0.162,
+          "totalMs": 3.0740000000000043,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.261624813079834
+        },
+        {
+          "position": 5,
+          "userMs": 1.157,
+          "systemMs": 0.183,
+          "totalMs": 1.3399999999999999,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.10899996757507324
+        },
+        {
+          "position": 6,
+          "userMs": 1.6179999999999986,
+          "systemMs": -0.038000000000000006,
+          "totalMs": 1.5799999999999974,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.31816673278808594
+        },
+        {
+          "position": 7,
+          "userMs": 1.1050000000000004,
+          "systemMs": -0.02099999999999999,
+          "totalMs": 1.0839999999999987,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.09558296203613281
+        },
+        {
+          "position": 8,
+          "userMs": 2.3150000000000013,
+          "systemMs": -0.0059999999999999915,
+          "totalMs": 2.3090000000000015,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 1.661417007446289
+        },
+        {
+          "position": 9,
+          "userMs": 1.527000000000001,
+          "systemMs": -0.020999999999999998,
+          "totalMs": 1.5060000000000018,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.17395806312561035
+        },
+        {
+          "position": 10,
+          "userMs": 1.5100000000000016,
+          "systemMs": -0.021000000000000005,
+          "totalMs": 1.4890000000000014,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 1.997499942779541
+        },
+        {
+          "position": 11,
+          "userMs": 0.5949999999999989,
+          "systemMs": -0.18,
+          "totalMs": 0.4149999999999998,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.23904180526733398
+        }
+      ],
+      "groups": {
+        "entered": {
+          "positions": [
+            0,
+            8,
+            10
+          ],
+          "userMs": 5.740000000000002,
+          "systemMs": 0.5049999999999999,
+          "notGcCpuAttribution": true
+        },
+        "retained": {
+          "positions": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            9,
+            11
+          ],
+          "userMs": 9.998000000000001,
+          "systemMs": 0.37800000000000006,
+          "notGcCpuAttribution": true
+        }
+      },
+      "chronology": {
+        "lowTicket": 16,
+        "highTicket": 12,
+        "lowStartMs": 22688.603833,
+        "highStartMs": 20305.626666,
+        "highOccursLater": false,
+        "signedChronologicalUserDeltaMs": -15.738000000000056,
+        "highMinusLowIsNotTemporalOrder": true,
+        "notQualifiedFastToSlow": true
+      },
+      "perLevelWork": [
+        {
+          "name": "Performance",
+          "before": {
+            "name": "Performance",
+            "instructions": "8263517233",
+            "cycles": "1646420969",
+            "userTicks": "9258909",
+            "systemTicks": "688305",
+            "energyNj": "2022034988",
+            "cpuMs": 414.46725
+          },
+          "after": {
+            "name": "Performance",
+            "instructions": "8233557503",
+            "cycles": "1668355305",
+            "userTicks": "9603085",
+            "systemTicks": "717035",
+            "energyNj": "2007698254",
+            "cpuMs": 430.005
+          },
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 15.537750000000017,
+            "instructionsMs": -1.533443568102476,
+            "cyclesPerInstructionMs": 7.120884907316742,
+            "cpuMsPerCycleMs": 9.950308660785696,
+            "reconciliationErrorMs": 5.5067062021407764e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          }
+        },
+        {
+          "name": "Efficiency",
+          "before": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "after": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "accounting": {
+            "available": false,
+            "reason": "nonpositive-or-unknown-counter"
+          }
+        }
+      ],
+      "sameSignatureChronologicalPairs": [
+        {
+          "beforeTicket": 12,
+          "afterTicket": 13,
+          "delta": {
+            "rootUserMs": -7.7690000000000055,
+            "rootSystemMs": -0.36100000000000065,
+            "rootTotalMs": -8.129999999999995,
+            "evidenceUserMs": -5.626000000000033,
+            "evidenceSystemMs": -0.9430000000000003,
+            "evidenceTotalMs": -6.569000000000017,
+            "remainderUserMs": -2.1429999999999723,
+            "remainderSystemMs": 0.5820000000000007,
+            "remainderTotalMs": -1.5609999999999786,
+            "outsideMeasuredCpuMs": 0.16075000000000728,
+            "instrumentationCpuMs": -0.02699999999817282,
+            "wallMs": -8.227041999998619,
+            "otherProcessCpuMs": -2.2390000000000256
+          },
+          "rootWork": {
+            "instructionDelta": 24343993,
+            "instructionRelative": 0.002956679781628946,
+            "cpiRelative": -0.008891349566159223,
+            "cpuPerCycleRelative": -0.012647355742457012,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -7.969249999999988,
+              "instructionsMs": 1.2577106889083007,
+              "cyclesPerInstructionMs": -3.8047253666779324,
+              "cpuMsPerCycleMs": -5.422235322230284,
+              "reconciliationErrorMs": -7.283063041541027e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": -0.8109999999999999,
+              "systemMs": -0.46499999999999997
+            },
+            {
+              "position": 1,
+              "userMs": -0.8360000000000021,
+              "systemMs": -0.125
+            },
+            {
+              "position": 2,
+              "userMs": -0.5010000000000012,
+              "systemMs": -0.21299999999999997
+            },
+            {
+              "position": 3,
+              "userMs": -0.9009999999999998,
+              "systemMs": -0.047
+            },
+            {
+              "position": 4,
+              "userMs": -2.0650000000000013,
+              "systemMs": -0.136
+            },
+            {
+              "position": 5,
+              "userMs": 0.13500000000000156,
+              "systemMs": -0.091
+            },
+            {
+              "position": 6,
+              "userMs": -1.0899999999999999,
+              "systemMs": 0.02099999999999999
+            },
+            {
+              "position": 7,
+              "userMs": -0.2079999999999984,
+              "systemMs": 0.046
+            },
+            {
+              "position": 8,
+              "userMs": -0.6460000000000008,
+              "systemMs": -0.006000000000000005
+            },
+            {
+              "position": 9,
+              "userMs": 0.49299999999999855,
+              "systemMs": 0.0050000000000000044
+            },
+            {
+              "position": 10,
+              "userMs": -0.48600000000000065,
+              "systemMs": 0.051000000000000004
+            },
+            {
+              "position": 11,
+              "userMs": 1.2900000000000027,
+              "systemMs": 0.016999999999999994
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 12,
+          "afterTicket": 14,
+          "delta": {
+            "rootUserMs": -4.30600000000004,
+            "rootSystemMs": -1.379999999999999,
+            "rootTotalMs": -5.6860000000000355,
+            "evidenceUserMs": -2.6160000000000423,
+            "evidenceSystemMs": -0.7920000000000005,
+            "evidenceTotalMs": -3.4080000000000155,
+            "remainderUserMs": -1.6899999999999977,
+            "remainderSystemMs": -0.5879999999999974,
+            "remainderTotalMs": -2.2779999999999916,
+            "outsideMeasuredCpuMs": -0.053749999999979536,
+            "instrumentationCpuMs": -0.041000000003931336,
+            "wallMs": -5.923167000000831,
+            "otherProcessCpuMs": -3.5500000000000114
+          },
+          "rootWork": {
+            "instructionDelta": -3370640,
+            "instructionRelative": -0.0004093783275056495,
+            "cpiRelative": -0.00713297713099359,
+            "cpuPerCycleRelative": -0.0058527919780962945,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -5.739750000000015,
+              "instructionsMs": -0.17489303294838063,
+              "cyclesPerInstructionMs": -3.057617198344434,
+              "cpuMsPerCycleMs": -2.5072397687072323,
+              "reconciliationErrorMs": 3.197442310920451e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.5909999999999975,
+              "systemMs": -0.39399999999999996
+            },
+            {
+              "position": 1,
+              "userMs": 2.7689999999999984,
+              "systemMs": -0.08900000000000002
+            },
+            {
+              "position": 2,
+              "userMs": 2.073999999999998,
+              "systemMs": -0.22299999999999998
+            },
+            {
+              "position": 3,
+              "userMs": 0.10900000000000176,
+              "systemMs": -0.044
+            },
+            {
+              "position": 4,
+              "userMs": -2.2669999999999995,
+              "systemMs": -0.09000000000000002
+            },
+            {
+              "position": 5,
+              "userMs": 0.05700000000000216,
+              "systemMs": -0.187
+            },
+            {
+              "position": 6,
+              "userMs": -0.3149999999999977,
+              "systemMs": -0.019000000000000003
+            },
+            {
+              "position": 7,
+              "userMs": -0.4809999999999981,
+              "systemMs": -0.0040000000000000036
+            },
+            {
+              "position": 8,
+              "userMs": -1.1219999999999999,
+              "systemMs": 0.04999999999999999
+            },
+            {
+              "position": 9,
+              "userMs": -1.6730000000000018,
+              "systemMs": 0.054
+            },
+            {
+              "position": 10,
+              "userMs": -0.963000000000001,
+              "systemMs": 0.089
+            },
+            {
+              "position": 11,
+              "userMs": -1.3949999999999996,
+              "systemMs": 0.065
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 13,
+          "afterTicket": 14,
+          "delta": {
+            "rootUserMs": 3.4629999999999654,
+            "rootSystemMs": -1.0189999999999984,
+            "rootTotalMs": 2.44399999999996,
+            "evidenceUserMs": 3.009999999999991,
+            "evidenceSystemMs": 0.1509999999999998,
+            "evidenceTotalMs": 3.1610000000000014,
+            "remainderUserMs": 0.45299999999997453,
+            "remainderSystemMs": -1.1699999999999982,
+            "remainderTotalMs": -0.717000000000013,
+            "outsideMeasuredCpuMs": -0.2144999999999868,
+            "instrumentationCpuMs": -0.014000000005758517,
+            "wallMs": 2.303874999997788,
+            "otherProcessCpuMs": -1.3109999999999857
+          },
+          "rootWork": {
+            "instructionDelta": -27714633,
+            "instructionRelative": -0.0033561350923626554,
+            "cpiRelative": 0.0017741469962915257,
+            "cpuPerCycleRelative": 0.006881597779555326,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 2.229499999999973,
+              "instructionsMs": -1.4225354050562657,
+              "cyclesPerInstructionMs": 0.7500642862535973,
+              "cpuMsPerCycleMs": 2.901971118802579,
+              "reconciliationErrorMs": 6.261657858885883e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 1.4019999999999975,
+              "systemMs": 0.071
+            },
+            {
+              "position": 1,
+              "userMs": 3.6050000000000004,
+              "systemMs": 0.03599999999999999
+            },
+            {
+              "position": 2,
+              "userMs": 2.5749999999999993,
+              "systemMs": -0.010000000000000009
+            },
+            {
+              "position": 3,
+              "userMs": 1.0100000000000016,
+              "systemMs": 0.0030000000000000027
+            },
+            {
+              "position": 4,
+              "userMs": -0.20199999999999818,
+              "systemMs": 0.045999999999999985
+            },
+            {
+              "position": 5,
+              "userMs": -0.0779999999999994,
+              "systemMs": -0.096
+            },
+            {
+              "position": 6,
+              "userMs": 0.7750000000000021,
+              "systemMs": -0.039999999999999994
+            },
+            {
+              "position": 7,
+              "userMs": -0.2729999999999997,
+              "systemMs": -0.05
+            },
+            {
+              "position": 8,
+              "userMs": -0.4759999999999991,
+              "systemMs": 0.055999999999999994
+            },
+            {
+              "position": 9,
+              "userMs": -2.1660000000000004,
+              "systemMs": 0.048999999999999995
+            },
+            {
+              "position": 10,
+              "userMs": -0.4770000000000003,
+              "systemMs": 0.03799999999999999
+            },
+            {
+              "position": 11,
+              "userMs": -2.6850000000000023,
+              "systemMs": 0.048
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        }
+      ],
+      "sameFullGcSignature": false,
+      "rootWork": {
+        "instructionDelta": -29959730,
+        "instructionRelative": -0.003625542145704874,
+        "cpiRelative": 0.017009646126812994,
+        "cpuPerCycleRelative": 0.02384833405844411,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": 15.537750000000017,
+          "instructionsMs": -1.533443568102476,
+          "cyclesPerInstructionMs": 7.120884907316742,
+          "cpuMsPerCycleMs": 9.950308660785696,
+          "reconciliationErrorMs": 5.5067062021407764e-14,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notPhysicalFrequencyOrPerPassWork": true
+      },
+      "sameSignatureSubgroups": [
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 16,
+              "evidenceUserMs": 276.42199999999997
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 11,
+              "evidenceUserMs": 279.888
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 17,
+              "evidenceUserMs": 283.452
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 13,
+              "evidenceUserMs": 286.534
+            },
+            {
+              "ticketId": 14,
+              "evidenceUserMs": 289.544
+            },
+            {
+              "ticketId": 12,
+              "evidenceUserMs": 292.16
+            }
+          ],
+          "rangeMs": 5.626000000000033
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 15,
+              "evidenceUserMs": 290.304
+            }
+          ],
+          "rangeMs": 0
+        }
+      ],
+      "originalGateNotReplacedByConditionedRanges": true,
+      "perPassInstructionsAndStacksMissing": true
+    },
+    {
+      "calibration": [
+        {
+          "start": 24353.697,
+          "end": 24376.013375,
+          "userMs": 22.302,
+          "systemMs": 0.01,
+          "value": 0
+        },
+        {
+          "start": 24381.131583,
+          "end": 24403.399166,
+          "userMs": 22.257,
+          "systemMs": 0.008,
+          "value": 0
+        },
+        {
+          "start": 24408.794083,
+          "end": 24430.936958,
+          "userMs": 22.131,
+          "systemMs": 0.009,
+          "value": 0
+        }
+      ],
+      "originalCalibrationAfterAllRoots": true,
+      "target": "order-target-1",
+      "plannedOrder": "ABBA",
+      "F0Block": 2,
+      "role": "target",
+      "host": "order-target-1",
+      "failedOriginalWarmGate": true,
+      "block": "order-target-1-F0-2",
+      "summary": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 278.39,
+        "median": 278.39,
+        "compatibleRange": 19.052999999999997
+      },
+      "before": {
+        "ticketId": 26,
+        "rootUserMs": 387.32,
+        "rootSystemMs": 30.666,
+        "rootTotalMs": 417.986,
+        "evidenceUserMs": 273.43199999999996,
+        "evidenceSystemMs": 2.8850000000000002,
+        "evidenceTotalMs": 276.31699999999995,
+        "remainderUserMs": 113.88800000000003,
+        "remainderSystemMs": 27.781,
+        "remainderTotalMs": 141.66900000000004,
+        "outsideMeasuredCpuMs": 1.0362499999999955,
+        "instrumentationCpuMs": 0.7069999999956218,
+        "wallMs": 418.1940840000025,
+        "otherProcessCpuMs": 54.65899999999999,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 11,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 4,
+          "minorEventsOverlappingEvidence": 7,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 4090.292540910352
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8130146063,
+          "cycles": 1657730936,
+          "cpuMs": 419.02225
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8130146063",
+            "cycles": "1657730936",
+            "userTicks": "9317971",
+            "systemTicks": "738563",
+            "energyNj": "1958640981",
+            "cpuMs": 419.02225
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          11,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 4789960,
+            "available": 28762424
+          },
+          "old_space": {
+            "size": 938999808,
+            "used": 934275784,
+            "available": 3496184
+          },
+          "large_object_space": {
+            "size": 31850496,
+            "used": 30712260,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22576772,
+            "available": 10975612
+          },
+          "old_space": {
+            "size": 1029701632,
+            "used": 1025082784,
+            "available": 3384592
+          },
+          "large_object_space": {
+            "size": 34177024,
+            "used": 32956972,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 25.452332735061646,
+        "evidenceGcObservedWallMs": 16.57195782661438
+      },
+      "after": {
+        "ticketId": 27,
+        "rootUserMs": 401.527,
+        "rootSystemMs": 30.888,
+        "rootTotalMs": 432.41499999999996,
+        "evidenceUserMs": 292.48499999999996,
+        "evidenceSystemMs": 3.469,
+        "evidenceTotalMs": 295.95399999999995,
+        "remainderUserMs": 109.04200000000003,
+        "remainderSystemMs": 27.419,
+        "remainderTotalMs": 136.461,
+        "outsideMeasuredCpuMs": 1.0096666666667033,
+        "instrumentationCpuMs": 0.7010000000033518,
+        "wallMs": 432.7203329999975,
+        "otherProcessCpuMs": 65.60900000000001,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 0,
+          "minorEventsOverlappingEvidence": 12,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 4677.553832910355
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8151430251,
+          "cycles": 1662895226,
+          "cpuMs": 433.42466666666667
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8151430251",
+            "cycles": "1662895226",
+            "userTicks": "9659028",
+            "systemTicks": "743164",
+            "energyNj": "1962516641",
+            "cpuMs": 433.42466666666667
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22688688,
+            "available": 10863696
+          },
+          "old_space": {
+            "size": 1029701632,
+            "used": 1025099208,
+            "available": 3368164
+          },
+          "large_object_space": {
+            "size": 34177024,
+            "used": 32956972,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 11233264,
+            "available": 22319120
+          },
+          "old_space": {
+            "size": 1128792064,
+            "used": 1123375484,
+            "available": 4175328
+          },
+          "large_object_space": {
+            "size": 38699008,
+            "used": 37333036,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 30.419333696365356,
+        "evidenceGcObservedWallMs": 30.419333696365356
+      },
+      "delta": {
+        "rootUserMs": 14.206999999999994,
+        "rootSystemMs": 0.2220000000000013,
+        "rootTotalMs": 14.428999999999974,
+        "evidenceUserMs": 19.052999999999997,
+        "evidenceSystemMs": 0.5839999999999996,
+        "evidenceTotalMs": 19.637,
+        "remainderUserMs": -4.846000000000004,
+        "remainderSystemMs": -0.3619999999999983,
+        "remainderTotalMs": -5.208000000000027,
+        "outsideMeasuredCpuMs": -0.026583333333292103,
+        "instrumentationCpuMs": -0.0059999999922699665,
+        "wallMs": 14.526248999995005,
+        "otherProcessCpuMs": 10.950000000000017
+      },
+      "positions": [
+        {
+          "position": 0,
+          "userMs": 1.0630000000000024,
+          "systemMs": 0.03799999999999998,
+          "totalMs": 1.1010000000000018,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.1497499942779541
+        },
+        {
+          "position": 1,
+          "userMs": 3.4140000000000015,
+          "systemMs": 0.04200000000000001,
+          "totalMs": 3.456000000000003,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.681165933609009
+        },
+        {
+          "position": 2,
+          "userMs": 2.696999999999999,
+          "systemMs": 0.08000000000000002,
+          "totalMs": 2.777,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.603749990463257
+        },
+        {
+          "position": 3,
+          "userMs": 0.8290000000000006,
+          "systemMs": 0.08400000000000002,
+          "totalMs": 0.9130000000000005,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.4874589443206787
+        },
+        {
+          "position": 4,
+          "userMs": 1.7310000000000016,
+          "systemMs": 0.046999999999999986,
+          "totalMs": 1.7780000000000027,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.6621251106262207
+        },
+        {
+          "position": 5,
+          "userMs": 1.4649999999999999,
+          "systemMs": 0.099,
+          "totalMs": 1.5640000000000007,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.17137598991394043
+        },
+        {
+          "position": 6,
+          "userMs": 2.8599999999999994,
+          "systemMs": 0.19299999999999998,
+          "totalMs": 3.0529999999999977,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.4336249828338623
+        },
+        {
+          "position": 7,
+          "userMs": 0.2950000000000017,
+          "systemMs": -0.04999999999999999,
+          "totalMs": 0.24500000000000238,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.29058313369750977
+        },
+        {
+          "position": 8,
+          "userMs": 2.3099999999999987,
+          "systemMs": 0.234,
+          "totalMs": 2.544,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.112375020980835
+        },
+        {
+          "position": 9,
+          "userMs": 0.2740000000000009,
+          "systemMs": -0.14099999999999996,
+          "totalMs": 0.1329999999999995,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.5120420455932617
+        },
+        {
+          "position": 10,
+          "userMs": 2.6700000000000017,
+          "systemMs": -0.066,
+          "totalMs": 2.6040000000000005,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.476832866668701
+        },
+        {
+          "position": 11,
+          "userMs": -0.5549999999999997,
+          "systemMs": 0.023999999999999966,
+          "totalMs": -0.5310000000000005,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.1525418758392334
+        }
+      ],
+      "groups": {
+        "retained": {
+          "positions": [
+            0,
+            3,
+            4,
+            5,
+            7,
+            9,
+            11
+          ],
+          "userMs": 5.102000000000007,
+          "systemMs": 0.10100000000000003,
+          "notGcCpuAttribution": true
+        },
+        "entered": {
+          "positions": [
+            1,
+            2,
+            6,
+            8,
+            10
+          ],
+          "userMs": 13.951,
+          "systemMs": 0.48300000000000004,
+          "notGcCpuAttribution": true
+        }
+      },
+      "chronology": {
+        "lowTicket": 26,
+        "highTicket": 27,
+        "lowStartMs": 22685.230416,
+        "highStartMs": 23272.491708,
+        "highOccursLater": true,
+        "signedChronologicalUserDeltaMs": 19.052999999999997,
+        "highMinusLowIsNotTemporalOrder": true,
+        "notQualifiedFastToSlow": true
+      },
+      "perLevelWork": [
+        {
+          "name": "Performance",
+          "before": {
+            "name": "Performance",
+            "instructions": "8130146063",
+            "cycles": "1657730936",
+            "userTicks": "9317971",
+            "systemTicks": "738563",
+            "energyNj": "1958640981",
+            "cpuMs": 419.02225
+          },
+          "after": {
+            "name": "Performance",
+            "instructions": "8151430251",
+            "cycles": "1662895226",
+            "userTicks": "9659028",
+            "systemTicks": "743164",
+            "energyNj": "1962516641",
+            "cpuMs": 433.42466666666667
+          },
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 14.402416666666682,
+            "instructionsMs": 1.1142609226611346,
+            "cyclesPerInstructionMs": 0.2113528340619934,
+            "cpuMsPerCycleMs": 13.076802909943574,
+            "reconciliationErrorMs": -1.9539925233402755e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          }
+        },
+        {
+          "name": "Efficiency",
+          "before": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "after": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "accounting": {
+            "available": false,
+            "reason": "nonpositive-or-unknown-counter"
+          }
+        }
+      ],
+      "sameSignatureChronologicalPairs": [
+        {
+          "beforeTicket": 23,
+          "afterTicket": 26,
+          "delta": {
+            "rootUserMs": -6.401999999999987,
+            "rootSystemMs": 2.4269999999999996,
+            "rootTotalMs": -3.974999999999966,
+            "evidenceUserMs": -4.958000000000027,
+            "evidenceSystemMs": 2.274,
+            "evidenceTotalMs": -2.684000000000026,
+            "remainderUserMs": -1.44399999999996,
+            "remainderSystemMs": 0.1529999999999987,
+            "remainderTotalMs": -1.29099999999994,
+            "outsideMeasuredCpuMs": 0.05316666666664105,
+            "instrumentationCpuMs": 0.026999999995660495,
+            "wallMs": -3.9374989999996615,
+            "otherProcessCpuMs": -3.3380000000000507
+          },
+          "rootWork": {
+            "instructionDelta": 8511192,
+            "instructionRelative": 0.001047965358599301,
+            "cpiRelative": -0.0000732985264976227,
+            "cpuPerCycleRelative": -0.010237312201398008,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -3.921833333333325,
+              "instructionsMs": 0.4409415791347496,
+              "cyclesPerInstructionMs": -0.03085835357967326,
+              "cpuMsPerCycleMs": -4.331916558888449,
+              "reconciliationErrorMs": 4.796163466380676e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": -0.7390000000000008,
+              "systemMs": 0.10600000000000001
+            },
+            {
+              "position": 1,
+              "userMs": -0.9660000000000011,
+              "systemMs": 0.162
+            },
+            {
+              "position": 2,
+              "userMs": -0.3359999999999985,
+              "systemMs": 0.183
+            },
+            {
+              "position": 3,
+              "userMs": -0.8019999999999996,
+              "systemMs": 0.159
+            },
+            {
+              "position": 4,
+              "userMs": -0.9609999999999985,
+              "systemMs": 0.11700000000000002
+            },
+            {
+              "position": 5,
+              "userMs": -0.7160000000000011,
+              "systemMs": 0.07699999999999999
+            },
+            {
+              "position": 6,
+              "userMs": -0.4469999999999992,
+              "systemMs": 0.128
+            },
+            {
+              "position": 7,
+              "userMs": 0.13299999999999912,
+              "systemMs": 0.266
+            },
+            {
+              "position": 8,
+              "userMs": -0.29199999999999804,
+              "systemMs": 0.189
+            },
+            {
+              "position": 9,
+              "userMs": 0.5,
+              "systemMs": 0.368
+            },
+            {
+              "position": 10,
+              "userMs": -0.6859999999999999,
+              "systemMs": 0.345
+            },
+            {
+              "position": 11,
+              "userMs": 0.3539999999999992,
+              "systemMs": 0.17400000000000002
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 24,
+          "afterTicket": 27,
+          "delta": {
+            "rootUserMs": 18.897999999999968,
+            "rootSystemMs": 2.0820000000000007,
+            "rootTotalMs": 20.97999999999996,
+            "evidenceUserMs": 13.64999999999992,
+            "evidenceSystemMs": 1.7189999999999999,
+            "evidenceTotalMs": 15.368999999999915,
+            "remainderUserMs": 5.248000000000047,
+            "remainderSystemMs": 0.36299999999999955,
+            "remainderTotalMs": 5.611000000000047,
+            "outsideMeasuredCpuMs": -0.03137499999996862,
+            "instrumentationCpuMs": -0.028999999992875614,
+            "wallMs": 20.84520799999882,
+            "otherProcessCpuMs": -4.561999999999969
+          },
+          "rootWork": {
+            "instructionDelta": 5222635,
+            "instructionRelative": 0.0006411124349128272,
+            "cpiRelative": 0.018230008593997926,
+            "cpuPerCycleRelative": 0.031313401750028946,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 20.948624999999993,
+              "instructionsMs": 0.2710164218246013,
+              "cyclesPerInstructionMs": 7.639388676971188,
+              "cpuMsPerCycleMs": 13.038219901204242,
+              "reconciliationErrorMs": -3.730349362740526e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.4670000000000023,
+              "systemMs": 0.10099999999999998
+            },
+            {
+              "position": 1,
+              "userMs": 0.5970000000000013,
+              "systemMs": 0.164
+            },
+            {
+              "position": 2,
+              "userMs": 0.11700000000000088,
+              "systemMs": 0.11000000000000001
+            },
+            {
+              "position": 3,
+              "userMs": 0.2140000000000022,
+              "systemMs": 0.11000000000000001
+            },
+            {
+              "position": 4,
+              "userMs": 1.9510000000000005,
+              "systemMs": 0.033
+            },
+            {
+              "position": 5,
+              "userMs": 1.4429999999999978,
+              "systemMs": 0.024999999999999994
+            },
+            {
+              "position": 6,
+              "userMs": 1.9179999999999993,
+              "systemMs": 0.16499999999999998
+            },
+            {
+              "position": 7,
+              "userMs": 1.2319999999999993,
+              "systemMs": 0.09500000000000003
+            },
+            {
+              "position": 8,
+              "userMs": 1.5030000000000001,
+              "systemMs": 0.29200000000000004
+            },
+            {
+              "position": 9,
+              "userMs": 0.9810000000000016,
+              "systemMs": 0.21200000000000002
+            },
+            {
+              "position": 10,
+              "userMs": 2.085000000000001,
+              "systemMs": 0.202
+            },
+            {
+              "position": 11,
+              "userMs": 1.1419999999999995,
+              "systemMs": 0.20999999999999996
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        }
+      ],
+      "sameFullGcSignature": false,
+      "rootWork": {
+        "instructionDelta": 21284188,
+        "instructionRelative": 0.0026179342701926345,
+        "cpiRelative": 0.0004960434828895632,
+        "cpuPerCycleRelative": 0.031159138560791666,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": 14.402416666666682,
+          "instructionsMs": 1.1142609226611346,
+          "cyclesPerInstructionMs": 0.2113528340619934,
+          "cpuMsPerCycleMs": 13.076802909943574,
+          "reconciliationErrorMs": -1.9539925233402755e-14,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notPhysicalFrequencyOrPerPassWork": true
+      },
+      "sameSignatureSubgroups": [
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 26,
+              "evidenceUserMs": 273.43199999999996
+            },
+            {
+              "ticketId": 23,
+              "evidenceUserMs": 278.39
+            }
+          ],
+          "rangeMs": 4.958000000000027
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 25,
+              "evidenceUserMs": 277.09000000000003
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 21,
+              "evidenceUserMs": 277.71999999999997
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 24,
+              "evidenceUserMs": 278.83500000000004
+            },
+            {
+              "ticketId": 27,
+              "evidenceUserMs": 292.48499999999996
+            }
+          ],
+          "rangeMs": 13.64999999999992
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 22,
+              "evidenceUserMs": 283.08700000000005
+            }
+          ],
+          "rangeMs": 0
+        }
+      ],
+      "originalGateNotReplacedByConditionedRanges": true,
+      "perPassInstructionsAndStacksMissing": true
+    },
+    {
+      "calibration": [
+        {
+          "start": 48286.04025,
+          "end": 48308.612166,
+          "userMs": 22.308,
+          "systemMs": 0.26,
+          "value": 0
+        },
+        {
+          "start": 48313.691875,
+          "end": 48336.019083,
+          "userMs": 22.307,
+          "systemMs": 0.018,
+          "value": 0
+        },
+        {
+          "start": 48340.468666,
+          "end": 48362.664125,
+          "userMs": 22.167,
+          "systemMs": 0.015,
+          "value": 0
+        }
+      ],
+      "originalCalibrationAfterAllRoots": true,
+      "target": "order-target-2",
+      "plannedOrder": "BAAB",
+      "F0Block": 1,
+      "role": "conditioning",
+      "host": "order-conditioning",
+      "failedOriginalWarmGate": true,
+      "block": "order-target-2-F0-1",
+      "summary": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 276.264,
+        "median": 276.264,
+        "compatibleRange": 20.20500000000004
+      },
+      "before": {
+        "ticketId": 26,
+        "rootUserMs": 380.633,
+        "rootSystemMs": 30.158,
+        "rootTotalMs": 410.791,
+        "evidenceUserMs": 268.79499999999996,
+        "evidenceSystemMs": 2.959,
+        "evidenceTotalMs": 271.75399999999996,
+        "remainderUserMs": 111.83800000000002,
+        "remainderSystemMs": 27.199,
+        "remainderTotalMs": 139.03700000000003,
+        "outsideMeasuredCpuMs": 1.0111666666666679,
+        "instrumentationCpuMs": 0.6709999999972953,
+        "wallMs": 411.25562499999796,
+        "otherProcessCpuMs": 55.18000000000002,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 11,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 4,
+          "minorEventsOverlappingEvidence": 7,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 3268.525082958222
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8142221782,
+          "cycles": 1633908044,
+          "cpuMs": 411.80216666666666
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8142221782",
+            "cycles": "1633908044",
+            "userTicks": "9157249",
+            "systemTicks": "726003",
+            "energyNj": "1944682042",
+            "cpuMs": 411.80216666666666
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          11,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 4892028,
+            "available": 28660356
+          },
+          "old_space": {
+            "size": 791937024,
+            "used": 788745320,
+            "available": 1994084
+          },
+          "large_object_space": {
+            "size": 26214400,
+            "used": 25228724,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22314676,
+            "available": 11237708
+          },
+          "old_space": {
+            "size": 882376704,
+            "used": 879552292,
+            "available": 1620352
+          },
+          "large_object_space": {
+            "size": 28540928,
+            "used": 27473436,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 25.016792058944702,
+        "evidenceGcObservedWallMs": 16.460251092910767
+      },
+      "after": {
+        "ticketId": 24,
+        "rootUserMs": 396.145,
+        "rootSystemMs": 31.169,
+        "rootTotalMs": 427.31399999999996,
+        "evidenceUserMs": 289,
+        "evidenceSystemMs": 3.227,
+        "evidenceTotalMs": 292.227,
+        "remainderUserMs": 107.14499999999998,
+        "remainderSystemMs": 27.942,
+        "remainderTotalMs": 135.08699999999996,
+        "outsideMeasuredCpuMs": 1.043416666666701,
+        "instrumentationCpuMs": 0.7210000000047966,
+        "wallMs": 427.5593749999971,
+        "otherProcessCpuMs": 66.49800000000003,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 0,
+          "minorEventsOverlappingEvidence": 12,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 2072.876999958222
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8180390871,
+          "cycles": 1631384812,
+          "cpuMs": 428.35741666666667
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8180390871",
+            "cycles": "1631384812",
+            "userTicks": "9530004",
+            "systemTicks": "750574",
+            "energyNj": "1985701488",
+            "cpuMs": 428.35741666666667
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22525732,
+            "available": 11026652
+          },
+          "old_space": {
+            "size": 595853312,
+            "used": 593163812,
+            "available": 1506016
+          },
+          "large_object_space": {
+            "size": 17350656,
+            "used": 16810756,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 10850516,
+            "available": 22701868
+          },
+          "old_space": {
+            "size": 694943744,
+            "used": 691489556,
+            "available": 2263588
+          },
+          "large_object_space": {
+            "size": 22216704,
+            "used": 21492028,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 27.837669134140015,
+        "evidenceGcObservedWallMs": 27.837669134140015
+      },
+      "delta": {
+        "rootUserMs": 15.512,
+        "rootSystemMs": 1.0109999999999992,
+        "rootTotalMs": 16.522999999999968,
+        "evidenceUserMs": 20.20500000000004,
+        "evidenceSystemMs": 0.2679999999999998,
+        "evidenceTotalMs": 20.473000000000013,
+        "remainderUserMs": -4.6930000000000405,
+        "remainderSystemMs": 0.7429999999999986,
+        "remainderTotalMs": -3.950000000000074,
+        "outsideMeasuredCpuMs": 0.0322500000000332,
+        "instrumentationCpuMs": 0.050000000007501266,
+        "wallMs": 16.303749999999127,
+        "otherProcessCpuMs": 11.318000000000012
+      },
+      "positions": [
+        {
+          "position": 0,
+          "userMs": 0.6739999999999995,
+          "systemMs": 0.010999999999999954,
+          "totalMs": 0.6850000000000007,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.4229159355163574
+        },
+        {
+          "position": 1,
+          "userMs": 2.3810000000000002,
+          "systemMs": -0.018000000000000016,
+          "totalMs": 2.362999999999999,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.4584169387817383
+        },
+        {
+          "position": 2,
+          "userMs": 2.5820000000000007,
+          "systemMs": 0.009000000000000008,
+          "totalMs": 2.590999999999999,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.4311671257019043
+        },
+        {
+          "position": 3,
+          "userMs": 0.5039999999999978,
+          "systemMs": 0.055999999999999994,
+          "totalMs": 0.559999999999997,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.3320000171661377
+        },
+        {
+          "position": 4,
+          "userMs": 0.8569999999999993,
+          "systemMs": 0.023999999999999994,
+          "totalMs": 0.8809999999999981,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.3239579200744629
+        },
+        {
+          "position": 5,
+          "userMs": 0.9280000000000008,
+          "systemMs": -0.09399999999999997,
+          "totalMs": 0.8340000000000025,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.30991697311401367
+        },
+        {
+          "position": 6,
+          "userMs": 2.445999999999998,
+          "systemMs": -0.0020000000000000018,
+          "totalMs": 2.4439999999999995,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.0357918739318848
+        },
+        {
+          "position": 7,
+          "userMs": 1.3820000000000014,
+          "systemMs": -0.11699999999999997,
+          "totalMs": 1.265000000000002,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.20583295822143555
+        },
+        {
+          "position": 8,
+          "userMs": 2.6579999999999977,
+          "systemMs": 0.13799999999999998,
+          "totalMs": 2.795999999999999,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 1.981916904449463
+        },
+        {
+          "position": 9,
+          "userMs": 1.4329999999999998,
+          "systemMs": 0.025999999999999995,
+          "totalMs": 1.4590000000000012,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.34937524795532227
+        },
+        {
+          "position": 10,
+          "userMs": 3.5919999999999987,
+          "systemMs": 0.21599999999999997,
+          "totalMs": 3.8079999999999976,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.281958818435669
+        },
+        {
+          "position": 11,
+          "userMs": 0.7680000000000007,
+          "systemMs": 0.01899999999999999,
+          "totalMs": 0.7869999999999995,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.29016685485839844
+        }
+      ],
+      "groups": {
+        "retained": {
+          "positions": [
+            0,
+            3,
+            4,
+            5,
+            7,
+            9,
+            11
+          ],
+          "userMs": 6.545999999999999,
+          "systemMs": -0.07500000000000001,
+          "notGcCpuAttribution": true
+        },
+        "entered": {
+          "positions": [
+            1,
+            2,
+            6,
+            8,
+            10
+          ],
+          "userMs": 13.658999999999995,
+          "systemMs": 0.34299999999999997,
+          "notGcCpuAttribution": true
+        }
+      },
+      "chronology": {
+        "lowTicket": 26,
+        "highTicket": 24,
+        "lowStartMs": 46668.546833,
+        "highStartMs": 45472.89875,
+        "highOccursLater": false,
+        "signedChronologicalUserDeltaMs": -20.20500000000004,
+        "highMinusLowIsNotTemporalOrder": true,
+        "notQualifiedFastToSlow": true
+      },
+      "perLevelWork": [
+        {
+          "name": "Performance",
+          "before": {
+            "name": "Performance",
+            "instructions": "8142221782",
+            "cycles": "1633908044",
+            "userTicks": "9157249",
+            "systemTicks": "726003",
+            "energyNj": "1944682042",
+            "cpuMs": 411.80216666666666
+          },
+          "after": {
+            "name": "Performance",
+            "instructions": "8180390871",
+            "cycles": "1631384812",
+            "userTicks": "9530004",
+            "systemTicks": "750574",
+            "energyNj": "1985701488",
+            "cpuMs": 428.35741666666667
+          },
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 16.55525,
+            "instructionsMs": 1.964393452702676,
+            "cyclesPerInstructionMs": -2.6135369314185177,
+            "cpuMsPerCycleMs": 17.20439347871587,
+            "reconciliationErrorMs": -2.4868995751603507e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          }
+        },
+        {
+          "name": "Efficiency",
+          "before": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "after": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "accounting": {
+            "available": false,
+            "reason": "nonpositive-or-unknown-counter"
+          }
+        }
+      ],
+      "sameSignatureChronologicalPairs": [
+        {
+          "beforeTicket": 21,
+          "afterTicket": 24,
+          "delta": {
+            "rootUserMs": 16.663999999999987,
+            "rootSystemMs": 0.838000000000001,
+            "rootTotalMs": 17.501999999999953,
+            "evidenceUserMs": 12.73599999999999,
+            "evidenceSystemMs": 0.006999999999999229,
+            "evidenceTotalMs": 12.742999999999938,
+            "remainderUserMs": 3.9279999999999973,
+            "remainderSystemMs": 0.8310000000000031,
+            "remainderTotalMs": 4.758999999999958,
+            "outsideMeasuredCpuMs": -0.09949999999997772,
+            "instrumentationCpuMs": -0.09299999999857744,
+            "wallMs": 17.494708999998693,
+            "otherProcessCpuMs": -3.5509999999999593
+          },
+          "rootWork": {
+            "instructionDelta": -40478858,
+            "instructionRelative": -0.004923914297924714,
+            "cpiRelative": 0.008498688801002352,
+            "cpuPerCycleRelative": 0.03867692374938736,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 17.402499999999975,
+              "instructionsMs": -2.0711581488616724,
+              "cyclesPerInstructionMs": 3.5509480931564075,
+              "cpuMsPerCycleMs": 15.922710055705293,
+              "reconciliationErrorMs": -5.1514348342607263e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.01899999999999835,
+              "systemMs": 0.10499999999999998
+            },
+            {
+              "position": 1,
+              "userMs": -0.0990000000000002,
+              "systemMs": 0.20600000000000002
+            },
+            {
+              "position": 2,
+              "userMs": 0.5350000000000001,
+              "systemMs": 0.059000000000000025
+            },
+            {
+              "position": 3,
+              "userMs": 0.9959999999999987,
+              "systemMs": -0.0020000000000000018
+            },
+            {
+              "position": 4,
+              "userMs": 1.272000000000002,
+              "systemMs": -0.019000000000000017
+            },
+            {
+              "position": 5,
+              "userMs": 1.5579999999999998,
+              "systemMs": 0.019000000000000017
+            },
+            {
+              "position": 6,
+              "userMs": 1.5670000000000002,
+              "systemMs": -0.135
+            },
+            {
+              "position": 7,
+              "userMs": 1.2010000000000005,
+              "systemMs": -0.164
+            },
+            {
+              "position": 8,
+              "userMs": 1.4349999999999987,
+              "systemMs": -0.028000000000000025
+            },
+            {
+              "position": 9,
+              "userMs": 1.7100000000000009,
+              "systemMs": -0.015999999999999986
+            },
+            {
+              "position": 10,
+              "userMs": 2.0589999999999975,
+              "systemMs": 0.055999999999999994
+            },
+            {
+              "position": 11,
+              "userMs": 0.48300000000000054,
+              "systemMs": -0.07399999999999998
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 21,
+          "afterTicket": 27,
+          "delta": {
+            "rootUserMs": 11.235000000000014,
+            "rootSystemMs": 1.001999999999999,
+            "rootTotalMs": 12.236999999999966,
+            "evidenceUserMs": 8.75,
+            "evidenceSystemMs": 0.589999999999999,
+            "evidenceTotalMs": 9.339999999999975,
+            "remainderUserMs": 2.4850000000000136,
+            "remainderSystemMs": 0.4120000000000026,
+            "remainderTotalMs": 2.896999999999963,
+            "outsideMeasuredCpuMs": -0.11470833333333985,
+            "instrumentationCpuMs": -0.12900000000430034,
+            "wallMs": 12.432084000007308,
+            "otherProcessCpuMs": -4.752999999999972
+          },
+          "rootWork": {
+            "instructionDelta": -52138925,
+            "instructionRelative": -0.006342263862432307,
+            "cpiRelative": 0.029085123193213436,
+            "cpuPerCycleRelative": 0.006786378985413011,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 12.122291666666626,
+              "instructionsMs": -2.653061780224038,
+              "cyclesPerInstructionMs": 11.955082625434702,
+              "cpuMsPerCycleMs": 2.8202708214559244,
+              "reconciliationErrorMs": 3.730349362740526e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": -0.054000000000002046,
+              "systemMs": 0.18
+            },
+            {
+              "position": 1,
+              "userMs": -0.37099999999999866,
+              "systemMs": 0.16899999999999998
+            },
+            {
+              "position": 2,
+              "userMs": -0.02400000000000091,
+              "systemMs": 0.016000000000000014
+            },
+            {
+              "position": 3,
+              "userMs": 1.248000000000001,
+              "systemMs": -0.04600000000000001
+            },
+            {
+              "position": 4,
+              "userMs": 1.4700000000000024,
+              "systemMs": 0.006000000000000005
+            },
+            {
+              "position": 5,
+              "userMs": 1.434000000000001,
+              "systemMs": 0.026000000000000023
+            },
+            {
+              "position": 6,
+              "userMs": 1.3800000000000026,
+              "systemMs": -0.038000000000000034
+            },
+            {
+              "position": 7,
+              "userMs": 0.657,
+              "systemMs": -0.14700000000000002
+            },
+            {
+              "position": 8,
+              "userMs": 0.7850000000000001,
+              "systemMs": 0.0030000000000000027
+            },
+            {
+              "position": 9,
+              "userMs": 1.5949999999999989,
+              "systemMs": 0.139
+            },
+            {
+              "position": 10,
+              "userMs": 0.5429999999999993,
+              "systemMs": 0.137
+            },
+            {
+              "position": 11,
+              "userMs": 0.08699999999999974,
+              "systemMs": 0.14500000000000002
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 23,
+          "afterTicket": 26,
+          "delta": {
+            "rootUserMs": -2.955000000000041,
+            "rootSystemMs": -1.0919999999999987,
+            "rootTotalMs": -4.0470000000000255,
+            "evidenceUserMs": -1.809000000000026,
+            "evidenceSystemMs": -0.6120000000000001,
+            "evidenceTotalMs": -2.421000000000049,
+            "remainderUserMs": -1.146000000000015,
+            "remainderSystemMs": -0.4799999999999969,
+            "remainderTotalMs": -1.6260000000000048,
+            "outsideMeasuredCpuMs": -0.03616666666664514,
+            "instrumentationCpuMs": -0.02300000000204805,
+            "wallMs": -3.708834000004572,
+            "otherProcessCpuMs": -5.100999999999928
+          },
+          "rootWork": {
+            "instructionDelta": -2504607,
+            "instructionRelative": -0.00030751272423135134,
+            "cpiRelative": -0.004892312989504988,
+            "cpuPerCycleRelative": -0.00464382958657894,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -4.083166666666671,
+              "instructionsMs": -0.12728075781119572,
+              "cyclesPerInstructionMs": -2.0296055200240546,
+              "cpuMsPerCycleMs": -1.9262803888314686,
+              "reconciliationErrorMs": 4.8405723873656825e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.6900000000000013,
+              "systemMs": -0.09099999999999997
+            },
+            {
+              "position": 1,
+              "userMs": 0.6489999999999974,
+              "systemMs": 0.050000000000000044
+            },
+            {
+              "position": 2,
+              "userMs": 0.4740000000000002,
+              "systemMs": 0.03900000000000001
+            },
+            {
+              "position": 3,
+              "userMs": 0.22500000000000142,
+              "systemMs": 0.0030000000000000027
+            },
+            {
+              "position": 4,
+              "userMs": -0.21099999999999852,
+              "systemMs": -0.099
+            },
+            {
+              "position": 5,
+              "userMs": 0.08199999999999719,
+              "systemMs": 0.064
+            },
+            {
+              "position": 6,
+              "userMs": -0.8060000000000009,
+              "systemMs": -0.09399999999999997
+            },
+            {
+              "position": 7,
+              "userMs": -0.7460000000000022,
+              "systemMs": 0.057999999999999996
+            },
+            {
+              "position": 8,
+              "userMs": -0.8939999999999984,
+              "systemMs": -0.17599999999999996
+            },
+            {
+              "position": 9,
+              "userMs": -0.5869999999999997,
+              "systemMs": -0.15699999999999997
+            },
+            {
+              "position": 10,
+              "userMs": -0.48999999999999844,
+              "systemMs": -0.088
+            },
+            {
+              "position": 11,
+              "userMs": -0.19500000000000028,
+              "systemMs": -0.121
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 24,
+          "afterTicket": 27,
+          "delta": {
+            "rootUserMs": -5.428999999999974,
+            "rootSystemMs": 0.16399999999999793,
+            "rootTotalMs": -5.264999999999986,
+            "evidenceUserMs": -3.98599999999999,
+            "evidenceSystemMs": 0.5829999999999997,
+            "evidenceTotalMs": -3.402999999999963,
+            "remainderUserMs": -1.4429999999999836,
+            "remainderSystemMs": -0.4190000000000005,
+            "remainderTotalMs": -1.8619999999999948,
+            "outsideMeasuredCpuMs": -0.015208333333362134,
+            "instrumentationCpuMs": -0.0360000000057229,
+            "wallMs": -5.062624999991385,
+            "otherProcessCpuMs": -1.2020000000000124
+          },
+          "rootWork": {
+            "instructionDelta": -11660067,
+            "instructionRelative": -0.0014253679541568198,
+            "cpiRelative": 0.02041295107352714,
+            "cpuPerCycleRelative": -0.03070304541748825,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -5.2802083333333485,
+              "instructionsMs": -0.6072289008266942,
+              "cyclesPerInstructionMs": 8.602529463054513,
+              "cpuMsPerCycleMs": -13.275508895561217,
+              "reconciliationErrorMs": 4.973799150320701e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": -0.0730000000000004,
+              "systemMs": 0.07500000000000001
+            },
+            {
+              "position": 1,
+              "userMs": -0.27199999999999847,
+              "systemMs": -0.03700000000000003
+            },
+            {
+              "position": 2,
+              "userMs": -0.559000000000001,
+              "systemMs": -0.04300000000000001
+            },
+            {
+              "position": 3,
+              "userMs": 0.25200000000000244,
+              "systemMs": -0.04400000000000001
+            },
+            {
+              "position": 4,
+              "userMs": 0.1980000000000004,
+              "systemMs": 0.025000000000000022
+            },
+            {
+              "position": 5,
+              "userMs": -0.12399999999999878,
+              "systemMs": 0.007000000000000006
+            },
+            {
+              "position": 6,
+              "userMs": -0.1869999999999976,
+              "systemMs": 0.09699999999999998
+            },
+            {
+              "position": 7,
+              "userMs": -0.5440000000000005,
+              "systemMs": 0.016999999999999987
+            },
+            {
+              "position": 8,
+              "userMs": -0.6499999999999986,
+              "systemMs": 0.031000000000000028
+            },
+            {
+              "position": 9,
+              "userMs": -0.11500000000000199,
+              "systemMs": 0.155
+            },
+            {
+              "position": 10,
+              "userMs": -1.5159999999999982,
+              "systemMs": 0.08100000000000002
+            },
+            {
+              "position": 11,
+              "userMs": -0.3960000000000008,
+              "systemMs": 0.219
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        }
+      ],
+      "sameFullGcSignature": false,
+      "rootWork": {
+        "instructionDelta": 38169089,
+        "instructionRelative": 0.0046877977561825546,
+        "cpiRelative": -0.0062030118291701575,
+        "cpuPerCycleRelative": 0.04181081038302259,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": 16.55525,
+          "instructionsMs": 1.964393452702676,
+          "cyclesPerInstructionMs": -2.6135369314185177,
+          "cpuMsPerCycleMs": 17.20439347871587,
+          "reconciliationErrorMs": -2.4868995751603507e-14,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notPhysicalFrequencyOrPerPassWork": true
+      },
+      "sameSignatureSubgroups": [
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 26,
+              "evidenceUserMs": 268.79499999999996
+            },
+            {
+              "ticketId": 23,
+              "evidenceUserMs": 270.604
+            }
+          ],
+          "rangeMs": 1.809000000000026
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 22,
+              "evidenceUserMs": 276.12199999999996
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 21,
+              "evidenceUserMs": 276.264
+            },
+            {
+              "ticketId": 27,
+              "evidenceUserMs": 285.014
+            },
+            {
+              "ticketId": 24,
+              "evidenceUserMs": 289
+            }
+          ],
+          "rangeMs": 12.73599999999999
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 25,
+              "evidenceUserMs": 276.559
+            }
+          ],
+          "rangeMs": 0
+        }
+      ],
+      "originalGateNotReplacedByConditionedRanges": true,
+      "perPassInstructionsAndStacksMissing": true
+    },
+    {
+      "calibration": [
+        {
+          "start": 23445.305875,
+          "end": 23467.735583,
+          "userMs": 22.318,
+          "systemMs": 0.108,
+          "value": 0
+        },
+        {
+          "start": 23472.581,
+          "end": 23495.006042,
+          "userMs": 22.387,
+          "systemMs": 0.03,
+          "value": 0
+        },
+        {
+          "start": 23499.638625,
+          "end": 23521.981,
+          "userMs": 22.318,
+          "systemMs": 0.023,
+          "value": 0
+        }
+      ],
+      "originalCalibrationAfterAllRoots": true,
+      "target": "order-target-2",
+      "plannedOrder": "BAAB",
+      "F0Block": 2,
+      "role": "target",
+      "host": "order-target-2",
+      "failedOriginalWarmGate": true,
+      "block": "order-target-2-F0-2",
+      "summary": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 7,
+        "fullWarmMedian": 273.35,
+        "median": 273.35,
+        "compatibleRange": 15.597999999999956
+      },
+      "before": {
+        "ticketId": 26,
+        "rootUserMs": 375.525,
+        "rootSystemMs": 30.696,
+        "rootTotalMs": 406.221,
+        "evidenceUserMs": 265.308,
+        "evidenceSystemMs": 3.12,
+        "evidenceTotalMs": 268.428,
+        "remainderUserMs": 110.21699999999998,
+        "remainderSystemMs": 27.576,
+        "remainderTotalMs": 137.793,
+        "outsideMeasuredCpuMs": 1.011916666666707,
+        "instrumentationCpuMs": 0.6889999999980577,
+        "wallMs": 406.50924999999916,
+        "otherProcessCpuMs": 51.922000000000054,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 11,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 4,
+          "minorEventsOverlappingEvidence": 7,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 4058.9755840667567
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8108912222,
+          "cycles": 1614140359,
+          "cpuMs": 407.2329166666667
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8108912222",
+            "cycles": "1614140359",
+            "userTicks": "9034463",
+            "systemTicks": "739127",
+            "energyNj": "1949306697",
+            "cpuMs": 407.2329166666667
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          11,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 4771936,
+            "available": 28780448
+          },
+          "old_space": {
+            "size": 938475520,
+            "used": 934845664,
+            "available": 2421668
+          },
+          "large_object_space": {
+            "size": 30228480,
+            "used": 29084700,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22576772,
+            "available": 10975612
+          },
+          "old_space": {
+            "size": 1028915200,
+            "used": 1025652764,
+            "available": 2047852
+          },
+          "large_object_space": {
+            "size": 32555008,
+            "used": 31329412,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 24.495875120162964,
+        "evidenceGcObservedWallMs": 16.13541531562805
+      },
+      "after": {
+        "ticketId": 27,
+        "rootUserMs": 385.059,
+        "rootSystemMs": 31.023,
+        "rootTotalMs": 416.08200000000005,
+        "evidenceUserMs": 280.90599999999995,
+        "evidenceSystemMs": 3.6109999999999998,
+        "evidenceTotalMs": 284.51699999999994,
+        "remainderUserMs": 104.15300000000008,
+        "remainderSystemMs": 27.412,
+        "remainderTotalMs": 131.5650000000001,
+        "outsideMeasuredCpuMs": 3.461958333333257,
+        "instrumentationCpuMs": 0.7340000000031857,
+        "wallMs": 416.37895800000115,
+        "otherProcessCpuMs": 63.86800000000002,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 0,
+          "minorEventsOverlappingEvidence": 12,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 4636.673334066756
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8167169594,
+          "cycles": 1646304436,
+          "cpuMs": 419.5439583333333
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8167169594",
+            "cycles": "1646304436",
+            "userTicks": "9321095",
+            "systemTicks": "747960",
+            "energyNj": "1972990688",
+            "cpuMs": 419.5439583333333
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 22688668,
+            "available": 10863716
+          },
+          "old_space": {
+            "size": 1028915200,
+            "used": 1025669188,
+            "available": 2031424
+          },
+          "large_object_space": {
+            "size": 32555008,
+            "used": 31329412,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 10714416,
+            "available": 22837968
+          },
+          "old_space": {
+            "size": 1128005632,
+            "used": 1124097332,
+            "available": 2686764
+          },
+          "large_object_space": {
+            "size": 37568512,
+            "used": 36146260,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 30.11537456512451,
+        "evidenceGcObservedWallMs": 30.11537456512451
+      },
+      "delta": {
+        "rootUserMs": 9.534000000000049,
+        "rootSystemMs": 0.3269999999999982,
+        "rootTotalMs": 9.861000000000047,
+        "evidenceUserMs": 15.597999999999956,
+        "evidenceSystemMs": 0.49099999999999966,
+        "evidenceTotalMs": 16.088999999999942,
+        "remainderUserMs": -6.063999999999908,
+        "remainderSystemMs": -0.16400000000000148,
+        "remainderTotalMs": -6.227999999999895,
+        "outsideMeasuredCpuMs": 2.45004166666655,
+        "instrumentationCpuMs": 0.04500000000512794,
+        "wallMs": 9.869708000001992,
+        "otherProcessCpuMs": 11.94599999999997
+      },
+      "positions": [
+        {
+          "position": 0,
+          "userMs": 0.536999999999999,
+          "systemMs": 0.12200000000000003,
+          "totalMs": 0.6589999999999975,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.11566686630249023
+        },
+        {
+          "position": 1,
+          "userMs": 2.530000000000001,
+          "systemMs": 0.19,
+          "totalMs": 2.720000000000001,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.7249999046325684
+        },
+        {
+          "position": 2,
+          "userMs": 2.219000000000001,
+          "systemMs": 0.124,
+          "totalMs": 2.343,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.5190000534057617
+        },
+        {
+          "position": 3,
+          "userMs": 0.33800000000000097,
+          "systemMs": -0.009000000000000008,
+          "totalMs": 0.32900000000000157,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.6442089080810547
+        },
+        {
+          "position": 4,
+          "userMs": 0.44899999999999807,
+          "systemMs": -0.046999999999999986,
+          "totalMs": 0.4019999999999989,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.5425000190734863
+        },
+        {
+          "position": 5,
+          "userMs": 0.8079999999999998,
+          "systemMs": -0.135,
+          "totalMs": 0.6730000000000016,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.02220892906188965
+        },
+        {
+          "position": 6,
+          "userMs": 1.8009999999999984,
+          "systemMs": -0.022999999999999965,
+          "totalMs": 1.7779999999999996,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.246000051498413
+        },
+        {
+          "position": 7,
+          "userMs": 1.5340000000000025,
+          "systemMs": -0.069,
+          "totalMs": 1.465000000000004,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.36875009536743164
+        },
+        {
+          "position": 8,
+          "userMs": 1.9060000000000024,
+          "systemMs": -0.032,
+          "totalMs": 1.8740000000000039,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 1.9341671466827393
+        },
+        {
+          "position": 9,
+          "userMs": 0.5150000000000006,
+          "systemMs": 0.030999999999999972,
+          "totalMs": 0.5460000000000008,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.5092089176177979
+        },
+        {
+          "position": 10,
+          "userMs": 2.3249999999999993,
+          "systemMs": 0.219,
+          "totalMs": 2.5439999999999996,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.47066593170166
+        },
+        {
+          "position": 11,
+          "userMs": 0.6359999999999992,
+          "systemMs": 0.12,
+          "totalMs": 0.7559999999999982,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.11391615867614746
+        }
+      ],
+      "groups": {
+        "retained": {
+          "positions": [
+            0,
+            3,
+            4,
+            5,
+            7,
+            9,
+            11
+          ],
+          "userMs": 4.817,
+          "systemMs": 0.012999999999999984,
+          "notGcCpuAttribution": true
+        },
+        "entered": {
+          "positions": [
+            1,
+            2,
+            6,
+            8,
+            10
+          ],
+          "userMs": 10.781000000000002,
+          "systemMs": 0.478,
+          "notGcCpuAttribution": true
+        }
+      },
+      "chronology": {
+        "lowTicket": 26,
+        "highTicket": 27,
+        "lowStartMs": 21845.994292,
+        "highStartMs": 22423.692042,
+        "highOccursLater": true,
+        "signedChronologicalUserDeltaMs": 15.597999999999956,
+        "highMinusLowIsNotTemporalOrder": true,
+        "notQualifiedFastToSlow": true
+      },
+      "perLevelWork": [
+        {
+          "name": "Performance",
+          "before": {
+            "name": "Performance",
+            "instructions": "8108912222",
+            "cycles": "1614140359",
+            "userTicks": "9034463",
+            "systemTicks": "739127",
+            "energyNj": "1949306697",
+            "cpuMs": 407.2329166666667
+          },
+          "after": {
+            "name": "Performance",
+            "instructions": "8167169594",
+            "cycles": "1646304436",
+            "userTicks": "9321095",
+            "systemTicks": "747960",
+            "energyNj": "1972990688",
+            "cpuMs": 419.5439583333333
+          },
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": 12.311041666666597,
+            "instructionsMs": 2.9590963069530662,
+            "cyclesPerInstructionMs": 5.196665819082148,
+            "cpuMsPerCycleMs": 4.155279540631404,
+            "reconciliationErrorMs": -2.1316282072803006e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          }
+        },
+        {
+          "name": "Efficiency",
+          "before": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "after": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "accounting": {
+            "available": false,
+            "reason": "nonpositive-or-unknown-counter"
+          }
+        }
+      ],
+      "sameSignatureChronologicalPairs": [
+        {
+          "beforeTicket": 23,
+          "afterTicket": 26,
+          "delta": {
+            "rootUserMs": -4.3250000000000455,
+            "rootSystemMs": 2.8200000000000003,
+            "rootTotalMs": -1.5049999999999955,
+            "evidenceUserMs": -2.220000000000084,
+            "evidenceSystemMs": 2.281,
+            "evidenceTotalMs": 0.06099999999992178,
+            "remainderUserMs": -2.1049999999999613,
+            "remainderSystemMs": 0.5389999999999979,
+            "remainderTotalMs": -1.5659999999999172,
+            "outsideMeasuredCpuMs": 0.010416666666685614,
+            "instrumentationCpuMs": 0.0030000000029796192,
+            "wallMs": -1.4145000000025902,
+            "otherProcessCpuMs": -4.550999999999931
+          },
+          "rootWork": {
+            "instructionDelta": -17885382,
+            "instructionRelative": -0.0022007908737873283,
+            "cpiRelative": 0.006029452979764427,
+            "cpuPerCycleRelative": -0.007443666303564189,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": -1.4945833333333098,
+              "instructionsMs": -0.8988675880306847,
+              "cyclesPerInstructionMs": 2.4525084970615856,
+              "cpuMsPerCycleMs": -3.0482242423641637,
+              "reconciliationErrorMs": -4.707345624410664e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.8299999999999983,
+              "systemMs": 0.079
+            },
+            {
+              "position": 1,
+              "userMs": 0.7109999999999985,
+              "systemMs": 0.06799999999999999
+            },
+            {
+              "position": 2,
+              "userMs": 0.6780000000000008,
+              "systemMs": 0.153
+            },
+            {
+              "position": 3,
+              "userMs": 0.7569999999999979,
+              "systemMs": 0.252
+            },
+            {
+              "position": 4,
+              "userMs": -0.9059999999999988,
+              "systemMs": 0.26999999999999996
+            },
+            {
+              "position": 5,
+              "userMs": 0.007999999999999119,
+              "systemMs": 0.28600000000000003
+            },
+            {
+              "position": 6,
+              "userMs": -0.6539999999999999,
+              "systemMs": 0.24
+            },
+            {
+              "position": 7,
+              "userMs": -0.7880000000000003,
+              "systemMs": 0.249
+            },
+            {
+              "position": 8,
+              "userMs": -1.0670000000000002,
+              "systemMs": 0.187
+            },
+            {
+              "position": 9,
+              "userMs": -0.5410000000000004,
+              "systemMs": 0.15000000000000002
+            },
+            {
+              "position": 10,
+              "userMs": -0.3680000000000021,
+              "systemMs": 0.201
+            },
+            {
+              "position": 11,
+              "userMs": -0.8800000000000026,
+              "systemMs": 0.14600000000000002
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 24,
+          "afterTicket": 27,
+          "delta": {
+            "rootUserMs": 5.321000000000026,
+            "rootSystemMs": 2.2049999999999983,
+            "rootTotalMs": 7.526000000000067,
+            "evidenceUserMs": 5.63799999999992,
+            "evidenceSystemMs": 2.2689999999999997,
+            "evidenceTotalMs": 7.906999999999925,
+            "remainderUserMs": -0.3169999999998936,
+            "remainderSystemMs": -0.06400000000000361,
+            "remainderTotalMs": -0.3809999999998297,
+            "outsideMeasuredCpuMs": 2.4459999999999127,
+            "instrumentationCpuMs": 0.016000000002263315,
+            "wallMs": 7.488583000002109,
+            "otherProcessCpuMs": -9.243999999999986
+          },
+          "rootWork": {
+            "instructionDelta": 33716532,
+            "instructionRelative": 0.0041454142223462664,
+            "cpiRelative": 0.02331303138746299,
+            "cpuPerCycleRelative": -0.003121699115788523,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 9.97199999999998,
+              "instructionsMs": 1.7148795968118784,
+              "cyclesPerInstructionMs": 9.553207262887327,
+              "cpuMsPerCycleMs": -1.2960868596992376,
+              "reconciliationErrorMs": 1.3100631690576847e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.49199999999999733,
+              "systemMs": 0.21800000000000003
+            },
+            {
+              "position": 1,
+              "userMs": 0.8120000000000012,
+              "systemMs": 0.274
+            },
+            {
+              "position": 2,
+              "userMs": 0.740000000000002,
+              "systemMs": 0.23199999999999998
+            },
+            {
+              "position": 3,
+              "userMs": -0.07499999999999929,
+              "systemMs": 0.238
+            },
+            {
+              "position": 4,
+              "userMs": -0.48799999999999955,
+              "systemMs": 0.16399999999999998
+            },
+            {
+              "position": 5,
+              "userMs": 0.4710000000000001,
+              "systemMs": 0.008000000000000007
+            },
+            {
+              "position": 6,
+              "userMs": -0.16100000000000136,
+              "systemMs": 0.22200000000000003
+            },
+            {
+              "position": 7,
+              "userMs": 1.0030000000000001,
+              "systemMs": 0.17200000000000001
+            },
+            {
+              "position": 8,
+              "userMs": 0.4920000000000009,
+              "systemMs": 0.1
+            },
+            {
+              "position": 9,
+              "userMs": 0.7570000000000014,
+              "systemMs": 0.11799999999999997
+            },
+            {
+              "position": 10,
+              "userMs": 0.7979999999999983,
+              "systemMs": 0.337
+            },
+            {
+              "position": 11,
+              "userMs": 0.796999999999997,
+              "systemMs": 0.186
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        }
+      ],
+      "sameFullGcSignature": false,
+      "rootWork": {
+        "instructionDelta": 58257372,
+        "instructionRelative": 0.0071843633776111915,
+        "cpiRelative": 0.012651189586974088,
+        "cpuPerCycleRelative": 0.010103194697872464,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": 12.311041666666597,
+          "instructionsMs": 2.9590963069530662,
+          "cyclesPerInstructionMs": 5.196665819082148,
+          "cpuMsPerCycleMs": 4.155279540631404,
+          "reconciliationErrorMs": -2.1316282072803006e-14,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notPhysicalFrequencyOrPerPassWork": true
+      },
+      "sameSignatureSubgroups": [
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 26,
+              "evidenceUserMs": 265.308
+            },
+            {
+              "ticketId": 23,
+              "evidenceUserMs": 267.5280000000001
+            }
+          ],
+          "rangeMs": 2.220000000000084
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 21,
+              "evidenceUserMs": 271.13
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 22,
+              "evidenceUserMs": 273.35
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 25,
+              "evidenceUserMs": 274.445
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 24,
+              "evidenceUserMs": 275.26800000000003
+            },
+            {
+              "ticketId": 27,
+              "evidenceUserMs": 280.90599999999995
+            }
+          ],
+          "rangeMs": 5.63799999999992
+        }
+      ],
+      "originalGateNotReplacedByConditionedRanges": true,
+      "perPassInstructionsAndStacksMissing": true
+    }
+  ],
+  "controlBlocks": [
+    {
+      "calibration": [
+        {
+          "start": 11320.889458,
+          "end": 11343.812167,
+          "userMs": 22.56,
+          "systemMs": 0.329,
+          "value": 0
+        },
+        {
+          "start": 11348.267333,
+          "end": 11370.628,
+          "userMs": 22.334,
+          "systemMs": 0.015,
+          "value": 0
+        },
+        {
+          "start": 11375.174792,
+          "end": 11397.552042,
+          "userMs": 22.325,
+          "systemMs": 0.044,
+          "value": 0
+        }
+      ],
+      "originalCalibrationAfterAllRoots": true,
+      "target": "order-target-2",
+      "plannedOrder": "BAAB",
+      "F0Block": 0,
+      "role": "target",
+      "host": "order-target-2",
+      "failedOriginalWarmGate": false,
+      "block": "order-target-2-F0-0",
+      "summary": {
+        "all": 8,
+        "warm": 7,
+        "compatible": 5,
+        "fullWarmMedian": 271.64300000000003,
+        "median": 271.39200000000005,
+        "compatibleRange": 6.90199999999993
+      },
+      "before": {
+        "ticketId": 14,
+        "rootUserMs": 380.093,
+        "rootSystemMs": 29.004,
+        "rootTotalMs": 409.09700000000004,
+        "evidenceUserMs": 267.011,
+        "evidenceSystemMs": 1.641,
+        "evidenceTotalMs": 268.65200000000004,
+        "remainderUserMs": 113.082,
+        "remainderSystemMs": 27.363,
+        "remainderTotalMs": 140.44500000000002,
+        "outsideMeasuredCpuMs": 3.083958333333271,
+        "instrumentationCpuMs": 0.7479999999994238,
+        "wallMs": 409.2999579999996,
+        "otherProcessCpuMs": 55.257999999999996,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 11,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 4,
+          "minorEventsOverlappingEvidence": 7,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 1364.106708066758
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8132883637,
+          "cycles": 1622423138,
+          "cpuMs": 412.1809583333333
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8132883637",
+            "cycles": "1622423138",
+            "userTicks": "9191862",
+            "systemTicks": "700481",
+            "energyNj": "1986174021",
+            "cpuMs": 412.1809583333333
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          11,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 10805948,
+            "available": 22746436
+          },
+          "old_space": {
+            "size": 473169920,
+            "used": 469167088,
+            "available": 2829472
+          },
+          "large_object_space": {
+            "size": 12402688,
+            "used": 11971304,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 28605884,
+            "available": 4946500
+          },
+          "old_space": {
+            "size": 564920320,
+            "used": 561715204,
+            "available": 2025188
+          },
+          "large_object_space": {
+            "size": 16302080,
+            "used": 15606220,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 23.041707277297974,
+        "evidenceGcObservedWallMs": 14.78920865058899
+      },
+      "after": {
+        "ticketId": 16,
+        "rootUserMs": 376.81,
+        "rootSystemMs": 28.951,
+        "rootTotalMs": 405.761,
+        "evidenceUserMs": 273.91299999999995,
+        "evidenceSystemMs": 1.31,
+        "evidenceTotalMs": 275.22299999999996,
+        "remainderUserMs": 102.89700000000005,
+        "remainderSystemMs": 27.641000000000002,
+        "remainderTotalMs": 130.53800000000007,
+        "outsideMeasuredCpuMs": 1.086958333333314,
+        "instrumentationCpuMs": 0.7250000000011902,
+        "wallMs": 405.98883399999977,
+        "otherProcessCpuMs": 60.78600000000002,
+        "observedGcContext": {
+          "reconstructedRootCounts": {
+            "minor": 12,
+            "major": 0,
+            "incremental": 0
+          },
+          "originalRootCountsAgree": true,
+          "minorEventsOnlyInRemainder": 0,
+          "minorEventsOverlappingEvidence": 12,
+          "precedingMajorIncremental": {
+            "kind": 4,
+            "endToRootStartMs": 2526.2584160667575
+          },
+          "observedIntervalsNotGcCpuCostOrCompleteNativeHistory": true
+        },
+        "outer": {
+          "instructions": 8145215809,
+          "cycles": 1605232750,
+          "cpuMs": 406.84795833333334
+        },
+        "levels": [
+          {
+            "name": "Performance",
+            "instructions": "8145215809",
+            "cycles": "1605232750",
+            "userTicks": "9066669",
+            "systemTicks": "697682",
+            "energyNj": "1986541944",
+            "cpuMs": 406.84795833333334
+          },
+          {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          }
+        ],
+        "fullGcSignature": [
+          12,
+          0,
+          0,
+          [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        ],
+        "heapBefore": {
+          "new_space": {
+            "size": 67108864,
+            "used": 23008044,
+            "available": 10544340
+          },
+          "old_space": {
+            "size": 660340736,
+            "used": 657177836,
+            "available": 1976148
+          },
+          "large_object_space": {
+            "size": 18661376,
+            "used": 17850932,
+            "available": 0
+          }
+        },
+        "heapAfter": {
+          "new_space": {
+            "size": 67108864,
+            "used": 12091820,
+            "available": 21460564
+          },
+          "old_space": {
+            "size": 758644736,
+            "used": 755239212,
+            "available": 2211804
+          },
+          "large_object_space": {
+            "size": 23035904,
+            "used": 22091420,
+            "available": 0
+          }
+        },
+        "diskReadBytes": "0",
+        "pageins": "0",
+        "gcObservedWallMs": 25.711374521255493,
+        "evidenceGcObservedWallMs": 25.711374521255493
+      },
+      "delta": {
+        "rootUserMs": -3.2830000000000155,
+        "rootSystemMs": -0.053000000000000824,
+        "rootTotalMs": -3.3360000000000127,
+        "evidenceUserMs": 6.90199999999993,
+        "evidenceSystemMs": -0.33099999999999996,
+        "evidenceTotalMs": 6.570999999999913,
+        "remainderUserMs": -10.184999999999945,
+        "remainderSystemMs": 0.27800000000000225,
+        "remainderTotalMs": -9.906999999999954,
+        "outsideMeasuredCpuMs": -1.9969999999999573,
+        "instrumentationCpuMs": -0.022999999998233545,
+        "wallMs": -3.311123999999836,
+        "otherProcessCpuMs": 5.528000000000027
+      },
+      "positions": [
+        {
+          "position": 0,
+          "userMs": 0.9929999999999986,
+          "systemMs": -0.23199999999999998,
+          "totalMs": 0.7609999999999999,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.15337586402893066
+        },
+        {
+          "position": 1,
+          "userMs": -0.3730000000000011,
+          "systemMs": -0.017999999999999988,
+          "totalMs": -0.39100000000000146,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.18074989318847656
+        },
+        {
+          "position": 2,
+          "userMs": 0.559000000000001,
+          "systemMs": 0.0050000000000000044,
+          "totalMs": 0.5640000000000028,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.11554098129272461
+        },
+        {
+          "position": 3,
+          "userMs": 2.0330000000000013,
+          "systemMs": 0.0050000000000000044,
+          "totalMs": 2.038000000000002,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.5973339080810547
+        },
+        {
+          "position": 4,
+          "userMs": 1.3470000000000013,
+          "systemMs": -0.03,
+          "totalMs": 1.3170000000000024,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.1132090091705322
+        },
+        {
+          "position": 5,
+          "userMs": -0.6030000000000015,
+          "systemMs": 0.04300000000000001,
+          "totalMs": -0.5600000000000018,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.0001251697540283203
+        },
+        {
+          "position": 6,
+          "userMs": 0.3410000000000011,
+          "systemMs": -0.089,
+          "totalMs": 0.25200000000000117,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 1.7088329792022705
+        },
+        {
+          "position": 7,
+          "userMs": -0.4109999999999978,
+          "systemMs": 0.03799999999999998,
+          "totalMs": -0.37299999999999955,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": 0.14254069328308105
+        },
+        {
+          "position": 8,
+          "userMs": -0.5340000000000025,
+          "systemMs": -0.05600000000000001,
+          "totalMs": -0.5900000000000017,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.37183284759521484
+        },
+        {
+          "position": 9,
+          "userMs": 2.8279999999999994,
+          "systemMs": -0.069,
+          "totalMs": 2.7589999999999995,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.2456247806549072
+        },
+        {
+          "position": 10,
+          "userMs": -0.7899999999999991,
+          "systemMs": 0.119,
+          "totalMs": -0.6709999999999982,
+          "beforeMinor": 1,
+          "afterMinor": 1,
+          "group": "retained",
+          "gcObservedWallDeltaMs": -0.19191718101501465
+        },
+        {
+          "position": 11,
+          "userMs": 1.5120000000000005,
+          "systemMs": -0.046999999999999986,
+          "totalMs": 1.465000000000002,
+          "beforeMinor": 0,
+          "afterMinor": 1,
+          "group": "entered",
+          "gcObservedWallDeltaMs": 2.228832960128784
+        }
+      ],
+      "groups": {
+        "retained": {
+          "positions": [
+            0,
+            1,
+            2,
+            5,
+            7,
+            8,
+            10
+          ],
+          "userMs": -1.1590000000000025,
+          "systemMs": -0.10099999999999998,
+          "notGcCpuAttribution": true
+        },
+        "entered": {
+          "positions": [
+            3,
+            4,
+            6,
+            9,
+            11
+          ],
+          "userMs": 8.061000000000003,
+          "systemMs": -0.22999999999999998,
+          "notGcCpuAttribution": true
+        }
+      },
+      "chronology": {
+        "lowTicket": 14,
+        "highTicket": 16,
+        "lowStartMs": 8562.1005,
+        "highStartMs": 9724.252208,
+        "highOccursLater": true,
+        "signedChronologicalUserDeltaMs": 6.90199999999993,
+        "highMinusLowIsNotTemporalOrder": true,
+        "notQualifiedFastToSlow": true
+      },
+      "perLevelWork": [
+        {
+          "name": "Performance",
+          "before": {
+            "name": "Performance",
+            "instructions": "8132883637",
+            "cycles": "1622423138",
+            "userTicks": "9191862",
+            "systemTicks": "700481",
+            "energyNj": "1986174021",
+            "cpuMs": 412.1809583333333
+          },
+          "after": {
+            "name": "Performance",
+            "instructions": "8145215809",
+            "cycles": "1605232750",
+            "userTicks": "9066669",
+            "systemTicks": "697682",
+            "energyNj": "1986541944",
+            "cpuMs": 406.84795833333334
+          },
+          "accounting": {
+            "available": true,
+            "deltaCpuMs": -5.33299999999997,
+            "instructionsMs": 0.6204818131315515,
+            "cyclesPerInstructionMs": -4.982582202141081,
+            "cpuMsPerCycleMs": -0.9708996109904836,
+            "reconciliationErrorMs": 4.296563105299356e-14,
+            "causalAttribution": false,
+            "notHardwareFrequency": true
+          }
+        },
+        {
+          "name": "Efficiency",
+          "before": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "after": {
+            "name": "Efficiency",
+            "instructions": "0",
+            "cycles": "0",
+            "userTicks": "0",
+            "systemTicks": "0",
+            "energyNj": "0",
+            "cpuMs": 0
+          },
+          "accounting": {
+            "available": false,
+            "reason": "nonpositive-or-unknown-counter"
+          }
+        }
+      ],
+      "sameSignatureChronologicalPairs": [
+        {
+          "beforeTicket": 13,
+          "afterTicket": 16,
+          "delta": {
+            "rootUserMs": 3.5670000000000073,
+            "rootSystemMs": 0.5390000000000015,
+            "rootTotalMs": 4.106000000000051,
+            "evidenceUserMs": 2.5209999999999013,
+            "evidenceSystemMs": -0.4570000000000001,
+            "evidenceTotalMs": 2.0639999999999077,
+            "remainderUserMs": 1.046000000000106,
+            "remainderSystemMs": 0.9960000000000022,
+            "remainderTotalMs": 2.0420000000001437,
+            "outsideMeasuredCpuMs": 0.0657916666665983,
+            "instrumentationCpuMs": 0.048999999999359334,
+            "wallMs": 4.118999999998778,
+            "otherProcessCpuMs": 1.92800000000004
+          },
+          "rootWork": {
+            "instructionDelta": 27504160,
+            "instructionRelative": 0.0033881666643564845,
+            "cpiRelative": 0.007378422290593489,
+            "cpuPerCycleRelative": -0.00042681690331813904,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 4.17179166666665,
+              "instructionsMs": 1.3690711736236565,
+              "cyclesPerInstructionMs": 2.975515132243041,
+              "cpuMsPerCycleMs": -0.17279463920012117,
+              "reconciliationErrorMs": 7.30526750203353e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 1.2660000000000018,
+              "systemMs": -0.062
+            },
+            {
+              "position": 1,
+              "userMs": 0.6819999999999986,
+              "systemMs": -0.172
+            },
+            {
+              "position": 2,
+              "userMs": 1.2660000000000018,
+              "systemMs": -0.12100000000000001
+            },
+            {
+              "position": 3,
+              "userMs": 0.30600000000000094,
+              "systemMs": -0.136
+            },
+            {
+              "position": 4,
+              "userMs": 0.4499999999999993,
+              "systemMs": -0.125
+            },
+            {
+              "position": 5,
+              "userMs": 0.16399999999999793,
+              "systemMs": -0.012999999999999998
+            },
+            {
+              "position": 6,
+              "userMs": -0.46499999999999986,
+              "systemMs": 0.023000000000000007
+            },
+            {
+              "position": 7,
+              "userMs": -0.7049999999999983,
+              "systemMs": 0.09399999999999999
+            },
+            {
+              "position": 8,
+              "userMs": -0.10400000000000276,
+              "systemMs": -0.0059999999999999915
+            },
+            {
+              "position": 9,
+              "userMs": 1.091000000000001,
+              "systemMs": -0.026000000000000002
+            },
+            {
+              "position": 10,
+              "userMs": -0.6499999999999986,
+              "systemMs": 0.066
+            },
+            {
+              "position": 11,
+              "userMs": -0.7800000000000011,
+              "systemMs": 0.021000000000000005
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        },
+        {
+          "beforeTicket": 14,
+          "afterTicket": 17,
+          "delta": {
+            "rootUserMs": 7.699999999999989,
+            "rootSystemMs": -0.40000000000000213,
+            "rootTotalMs": 7.2999999999999545,
+            "evidenceUserMs": 4.632000000000005,
+            "evidenceSystemMs": -0.67,
+            "evidenceTotalMs": 3.961999999999989,
+            "remainderUserMs": 3.0679999999999836,
+            "remainderSystemMs": 0.2699999999999996,
+            "remainderTotalMs": 3.337999999999937,
+            "outsideMeasuredCpuMs": 0.4544166666667593,
+            "instrumentationCpuMs": 0.006000000001579409,
+            "wallMs": 7.431334000000788,
+            "otherProcessCpuMs": 0.46400000000002706
+          },
+          "rootWork": {
+            "instructionDelta": 3371247,
+            "instructionRelative": 0.0004145205010266384,
+            "cpiRelative": 0.010736810353663584,
+            "cpuPerCycleRelative": 0.007572873776781064,
+            "accounting": {
+              "available": true,
+              "deltaCpuMs": 7.754416666666714,
+              "instructionsMs": 0.17242391303677174,
+              "cyclesPerInstructionMs": 4.443197886621911,
+              "cpuMsPerCycleMs": 3.1387948670081265,
+              "reconciliationErrorMs": -9.50350909079134e-14,
+              "causalAttribution": false,
+              "notHardwareFrequency": true
+            },
+            "notPhysicalFrequencyOrPerPassWork": true
+          },
+          "perPass": [
+            {
+              "position": 0,
+              "userMs": 0.5919999999999987,
+              "systemMs": -0.21699999999999997
+            },
+            {
+              "position": 1,
+              "userMs": 0.3509999999999991,
+              "systemMs": -0.009999999999999995
+            },
+            {
+              "position": 2,
+              "userMs": 0.4740000000000002,
+              "systemMs": 0.029000000000000012
+            },
+            {
+              "position": 3,
+              "userMs": 0.3359999999999985,
+              "systemMs": -0.039999999999999994
+            },
+            {
+              "position": 4,
+              "userMs": 0.2579999999999991,
+              "systemMs": -0.07
+            },
+            {
+              "position": 5,
+              "userMs": 0.29199999999999804,
+              "systemMs": -0.043
+            },
+            {
+              "position": 6,
+              "userMs": 0.1490000000000009,
+              "systemMs": -0.159
+            },
+            {
+              "position": 7,
+              "userMs": 0.5920000000000023,
+              "systemMs": -0.09100000000000001
+            },
+            {
+              "position": 8,
+              "userMs": 0.4039999999999999,
+              "systemMs": -0.132
+            },
+            {
+              "position": 9,
+              "userMs": 0.0470000000000006,
+              "systemMs": -0.036000000000000004
+            },
+            {
+              "position": 10,
+              "userMs": 0.661999999999999,
+              "systemMs": 0.067
+            },
+            {
+              "position": 11,
+              "userMs": 0.4750000000000014,
+              "systemMs": 0.032
+            }
+          ],
+          "notIndependentReplicatesOrCause": true
+        }
+      ],
+      "sameFullGcSignature": false,
+      "rootWork": {
+        "instructionDelta": 12332172,
+        "instructionRelative": 0.0015163344946798052,
+        "cpiRelative": -0.012093498949433346,
+        "cpuPerCycleRelative": -0.0023680806823022094,
+        "accounting": {
+          "available": true,
+          "deltaCpuMs": -5.33299999999997,
+          "instructionsMs": 0.6204818131315515,
+          "cyclesPerInstructionMs": -4.982582202141081,
+          "cpuMsPerCycleMs": -0.9708996109904836,
+          "reconciliationErrorMs": 4.296563105299356e-14,
+          "causalAttribution": false,
+          "notHardwareFrequency": true
+        },
+        "notPhysicalFrequencyOrPerPassWork": true
+      },
+      "sameSignatureSubgroups": [
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 14,
+              "evidenceUserMs": 267.011
+            },
+            {
+              "ticketId": 17,
+              "evidenceUserMs": 271.64300000000003
+            }
+          ],
+          "rangeMs": 4.632000000000005
+        },
+        {
+          "gcSignature": [
+            11,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 15,
+              "evidenceUserMs": 268.453
+            }
+          ],
+          "rangeMs": 0
+        },
+        {
+          "gcSignature": [
+            12,
+            0,
+            0,
+            [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ]
+            ]
+          ],
+          "points": [
+            {
+              "ticketId": 13,
+              "evidenceUserMs": 271.39200000000005
+            },
+            {
+              "ticketId": 16,
+              "evidenceUserMs": 273.91299999999995
+            }
+          ],
+          "rangeMs": 2.5209999999999013
+        }
+      ],
+      "originalGateNotReplacedByConditionedRanges": true,
+      "perPassInstructionsAndStacksMissing": true
+    }
+  ],
+  "rootCounterCoverage": {
+    "recheckedRoots": 84,
+    "rootsWithDiskReads": 10,
+    "rootsWithPageins": 13
+  },
+  "historySummary": [
+    {
+      "host": "order-conditioning",
+      "observedGcEvents": 392,
+      "majorIncremental": 16,
+      "majorIncrementalOutsideAllRecordedRoots": 6,
+      "notCompleteNativeHistory": true
+    },
+    {
+      "host": "order-target-1",
+      "observedGcEvents": 365,
+      "majorIncremental": 10,
+      "majorIncrementalOutsideAllRecordedRoots": 0,
+      "notCompleteNativeHistory": true
+    },
+    {
+      "host": "order-target-2",
+      "observedGcEvents": 365,
+      "majorIncremental": 10,
+      "majorIncrementalOutsideAllRecordedRoots": 2,
+      "notCompleteNativeHistory": true
+    }
+  ],
+  "completeOfflineProcessCost": {
+    "kind": "full-offline-order-variation-auditor-resource",
+    "exitCode": 0,
+    "fullChildSubtreeUserCpuMs": 60.931,
+    "fullChildSubtreeSystemCpuMs": 15.496999999999998,
+    "fullChildSubtreeCpuMs": 76.428,
+    "wallMsThroughReap": 80.776708,
+    "scope": "parent RUSAGE_CHILDREN through exited child including waited git, output and fsync return",
+    "newProductReads": 0,
+    "newExperimentHosts": 0
+  },
+  "completeOfflineCostSha256": "de532802458379d663d24077f89e5e505306e64f67c546724d37a709b3a6256a",
+  "interpretation": {
+    "original15msGateUnchanged": true,
+    "noGcWallSubtraction": true,
+    "noPerPassInstructionsOrNativeCpuImputed": true,
+    "noPhysicalFrequencyClaim": true,
+    "noQualifiedTemporalFormation": true,
+    "originalOrderTreatmentStillNotExecuted": true,
+    "noNewProductReads": true,
+    "RI00Closed": false,
+    "refactorStarted": false
+  },
+  "validation": {
+    "focusedTestsPassed": 22,
+    "testCandidate": "6a15ce74205f079cb63f9a4c8207b87207eeeb6a",
+    "testLogSha256": "d8c30b4602bee9cfa6df4585e53803a12ebafba1416cb67d1dd29f383b085349",
+    "original84RootAndJournalIdentityVerified": true,
+    "originalF0ReplayedWithoutChangingDeltasNull": true,
+    "allFiveRangeAndUserSystemTotalRemainderReconciled": true,
+    "old244RootAuditCompatibilityTestsPassed": true,
+    "syntaxAndDiff": true,
+    "review": "implementer-self-review",
+    "ci": {
+      "candidate": "6a15ce74205f079cb63f9a4c8207b87207eeeb6a",
+      "workflowRuns": [],
+      "statuses": [],
+      "notClaimedGreen": true
+    }
+  },
+  "scope": {
+    "newProductReads": 0,
+    "newElectronHosts": 0,
+    "newDedicatedInspectorHosts": 0,
+    "newProfilerStarts": 0,
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false,
+    "RI00Closed": false,
+    "refactorStarted": false
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "kind": "E3-CAD-150-0-design-frozen-not-executed",
+  "date": "2026-11-14",
+  "purpose": "Test only the sufficiency of requested inter-root delay for observed CPU-time/rate-proxy variability; never qualifies Profiler or closes field attribution",
+  "runnable": false,
+  "executionBindingRequiredBeforeClaim": {
+    "fixedCandidate": true,
+    "cleanDiagnosticSourceFingerprint": true,
+    "compiledProductionIdentityAndPrivateFixtureManifest": true,
+    "sameCandidateScopedTestsAndQueueHostSeamValidation": true,
+    "parentAuditSha256": "1f839fc355e9e5eed53d2f6e0982775564ac4ee46558e4eff0ba256dc8b044df",
+    "noPostStartEditsOrBudgetChanges": true
+  },
+  "analysisCandidate": "8dc861882643e3c9b8934792b308910e8d08d88d",
+  "originalP2ReportSha256": "60bfbef9846b504907a952b958970a6900d59514f751715c5030a8295763eb13",
+  "actionGraphAndResourceModelSha256": "f4dc2cc80f07ee1d7691b0ce93415aff2aa6f69b632836d146f514ce00be037b",
+  "electronLaunches": 3,
+  "targets": 2,
+  "reference": 1,
+  "maxSimultaneous": 2,
+  "replacements": 0,
+  "warmRootsPerHost": 8,
+  "f0PerTarget": [
+    "target-A",
+    "reference-A",
+    "target-A"
+  ],
+  "arms": {
+    "A": {
+      "requestedExtraWaitBeforeEachRootMs": 150
+    },
+    "B": {
+      "requestedExtraWaitBeforeEachRootMs": 0,
+      "queueCounterArchiveAndAckStillRun": true
+    }
+  },
+  "referenceAlways": "A",
+  "orders": [
+    "ABBA",
+    "BAAB"
+  ],
+  "pairedBlockOrder": [
+    "target",
+    "reference"
+  ],
+  "perBlock": {
+    "roots": 10,
+    "metricRoots": 8,
+    "markerRoots": 2,
+    "hashCalibrationCallsAfterBlock": 3,
+    "remoteQueryLabelConstant": "cadence-root",
+    "firstMetricRootKeptButExcludedFromWarmMedian": true
+  },
+  "maximumSupervisorRoots": 244,
+  "semanticIndexAudits": 3,
+  "hashCallsMaximum": 66,
+  "explicitWaitTotalMs": 27000,
+  "readCpuMs": 200000,
+  "hashCpuMs": 4000,
+  "wallMs": 900000,
+  "cleanupReserveMs": 90000,
+  "controllerAuxCpuMs": 20000,
+  "preparationShutdownReserveMs": 5000,
+  "probeCpuPerHostMs": 5000,
+  "outputBytes": 134217728,
+  "journalBytes": 33554432,
+  "unacknowledgedBytes": 16777216,
+  "profileStarts": 0,
+  "nativeCounterLibraryInjected": false,
+  "defaultVm": true,
+  "forcedGc": false,
+  "priorityAffinityOrPowerSettingsChanged": false,
+  "resourceModel": {
+    "rootCount": 244,
+    "coldRoots": 3,
+    "warmRootCpuMs": 750,
+    "coldRootCpuMs": 3000,
+    "semanticCpuMs": 1500,
+    "readForecastMs": 191250,
+    "hashForecastMs": 3300,
+    "wallForecastMs": 520250,
+    "readCpuCapMs": 200000,
+    "hashCpuCapMs": 4000,
+    "wallCapMs": 900000,
+    "readHeadroomMs": 8750,
+    "hashHeadroomMs": 700,
+    "wallHeadroomMs": 379750,
+    "notFutureCostGuarantee": true
+  },
+  "beforeTreatmentReserve": {
+    "completeRemainingPairs": 4,
+    "roots": 80,
+    "semanticAuditsReserved": 3,
+    "minimumRootCpuMs": 750,
+    "qualifiedF0RootMultiplier": 1.5,
+    "coldStartupAlreadyChargedNotMultipliedIntoReturn": true,
+    "hashCalls": 24,
+    "minimumHashCpuMs": 50,
+    "gapWallMs": 9000,
+    "hashRpcWallMs": 48000,
+    "controllerWallMs": 20000,
+    "sourceClosureWallMs": 10000,
+    "cleanupWallMs": 90000,
+    "floorReadCpuMs": 61500,
+    "floorHashCpuMs": 1200,
+    "floorWallMs": 238500,
+    "updateOnlyByMeasuredF0MaximumBeforeTreatment": true,
+    "notFutureCostGuarantee": true
+  },
+  "originalGates": {
+    "f0RequiresOriginalFastBracket": true,
+    "metricRootsPerBlock": 8,
+    "compatibleWarmMinimum": 3,
+    "warmRangeMs": 15,
+    "sameArmReturnDeltaMs": 2,
+    "metadataCpuMs": 2,
+    "calibrationRelativeDrift": 0.1,
+    "newSpaceBytes": 67108864,
+    "majorGcAllowed": false,
+    "incrementalGcAllowed": false,
+    "otherProcessCpuMaximumMs": 120,
+    "outerPmcExclusiveWindowUnchanged": true,
+    "noCalibrationRatioRescaling": true,
+    "otherProcessCpuComparator": "<"
+  },
+  "effectDesign": {
+    "delta": "target compatible-warm Evidence user median minus paired reference median",
+    "target1Contrasts": [
+      "B1-A0",
+      "B2-A3"
+    ],
+    "target2Contrasts": [
+      "B0-A1",
+      "B3-A2"
+    ],
+    "predictedDirection": "B lower than A",
+    "userCpuEffectEachContrastAtMostMs": -8,
+    "sameConditionStability": [
+      "ABBA:A3-A0 and B2-B1 <=2ms absolute",
+      "BAAB:B3-B0 and A2-A1 <=2ms absolute"
+    ],
+    "alwaysReport": [
+      "Evidence user/system/total CPU",
+      "root remainder user/system CPU",
+      "outer instructions/cycles/CPI/CPU-per-cycle",
+      "per-level CPU",
+      "actual root spacing",
+      "full root-and-pass GC signatures",
+      "source/graph/output/native calibration identity"
+    ],
+    "noSwappingUserGateForTotalCpuGate": true
+  },
+  "ratePathAdditionalEvidence": {
+    "pairSelection": "For each predetermined disjoint adjacent cell pair (0,1) and (2,3), consume left points chronologically and match earliest unused right point with identical full root+12-pass GC signature; never select by speed",
+    "minimumMatchesPerContrast": 3,
+    "allPairedInstructionRelativeDifferenceAbsoluteMaximum": 0.005,
+    "allPairedCpiRelativeDifferenceAbsoluteMaximum": 0.005,
+    "performanceLevelCpuFractionMinimum": 0.99,
+    "medianBvsARootCpuPerCycleRelativeChangeAtMost": -0.015,
+    "allMatchedPairsUserCpuDifferenceBminusAAtMostMs": -8,
+    "missingPairsOrAnyFailedPredicate": "rate-path attribution remains unknown; retain all points and original block statistics",
+    "notPhysicalFrequencyOrPerPassInstructions": true
+  },
+  "outcomes": {
+    "supportsCadenceSufficiency": "both targets/all four signed contrasts and original gates pass; additional rate predicates needed for root rate-proxy path",
+    "directionalHypothesisNotSupported": "all required controls valid but fixed directional effect fails; preserve opposite or smaller effect descriptively",
+    "unqualified": "any original gate/source/budget/return failure; no replacement host or cell",
+    "neverImplies": [
+      "Profiler low interference",
+      "historical 16.182ms or 30-40ms mechanism reproduced",
+      "natural field fast-to-slow captured",
+      "RI00 closure"
+    ],
+    "mechanismUnresolved": "even with a qualified cadence effect, missing full-GC pairs or failed rate predicates leave rate-path attribution unknown"
+  },
+  "failureRecovery": {
+    "f0Failure": "seal target and continue only originally allocated other target; no F0 retry",
+    "unknownRequest": "query same ticket only; never replay a read",
+    "archiveFailure": "keep unACKed original data; fsync before ACK",
+    "sourceOwnerOrProcessEpochChange": "stop campaign, no rebase",
+    "cancellationTimeoutOrBudget": "stop and seal known lower costs/unknown effects; recover only owned hosts",
+    "cleanup": "close CDP before owned exit; restore only original owners, preserve later owner and unACKed facts",
+    "noPersonalTaskOrActualPeerChange": true
+  },
+  "priorLedger": {
+    "actualE3OwnedApps": 32,
+    "knownProductReadCpuLowerMs": 402814.389,
+    "earlierCUnknownRetained": true,
+    "newReservedApps": 3,
+    "actualAppsIfAllFutureSlotsUsed": 35,
+    "oldUnusedOrFailedSlotsNotReused": true
+  },
+  "executed": false,
+  "fieldWindowStarted": false,
+  "refactorStarted": false,
+  "manipulationCheck": {
+    "timebase": "same-host recorded row.start minus preceding row.end, within each ten-root block; exclude cross-host/block intervals",
+    "AEachWithinBlockGapMinimumMs": 150,
+    "BWithinBlockGapMedianMaximumMs": 100,
+    "AMinusBMedianGapMinimumMs": 100,
+    "failedManipulationIsUnqualifiedNotNegativeEvidence": true,
+    "noNewGetterOrRemoteReadRequired": true
+  }
+}

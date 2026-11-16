@@ -1,0 +1,56 @@
+{
+  "kind": "FR1-repair-sole-new-functional-slot-intake",
+  "date": "2026-11-14",
+  "candidate": "eb1de652be11048d7eea49e3105a966d4351b7cf",
+  "sourceSha256": "8f6bc566adc305d4c97f57e54ba70847494cd8bc1a41cdf6a4805859595179ce",
+  "configSha256": "960d17973add362a8ac188262a75279f769f2ebf3864536cedf152527efa5086",
+  "testsSha256": "684238e574e17debe364f61730c08b0977d89b95650202e705095ee4c275801d",
+  "repairBudgetSha256": "c1de3315a63f95f1514356acfcdeb3a7191d606f99cbb2d6abd7300d8a65dca0",
+  "originalFieldPlanSha256": "61a7925be4fe864a3610a9ea3dc200fff255253d254cb6be74d969813d3cdccf",
+  "unitPassed": 23,
+  "unitCost": {
+    "exitCode": 0,
+    "wallMsThroughReap": 3317.417625,
+    "fullChildSubtreeUserMs": 603.445,
+    "fullChildSubtreeSystemMs": 902.0079999999999,
+    "fullChildSubtreeCpuMs": 1505.453
+  },
+  "productionSha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+  "fixture": {
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1
+  },
+  "expected": {
+    "sessions": 23,
+    "evidenceRows": 69266,
+    "planCalls": 3859,
+    "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+  },
+  "study": {
+    "reportSha256": "62dec94aeca8c2f85165c80244b792fb31d9a24d10e3437312b4da78bb3bbf9f",
+    "costSha256": "f71a9f0b3b6a3ca22b1b1f058117e3499ef15a9ab1d0f817eef93d5c4606ba41",
+    "stringCpuMs": 20.26,
+    "structuredCpuMs": 23.618,
+    "outcome": "does not support generic structured-stack speedup; plain Node30-frame fixture only",
+    "productCauseEvidence": false
+  },
+  "repair": "capture full current source-location vector each time; materialize function-name presentation only after vector is new; include span push in self charge",
+  "rootCapMs": 2,
+  "totalProbeCapMs": 3000,
+  "functionalSlots": 1,
+  "replacements": 0,
+  "maximumProductQueries": 12,
+  "readCpuMaximumMs": 8000,
+  "wholeSubtreeCpuMaximumMs": 12000,
+  "wallMaximumMs": 60000,
+  "earlierFailedSlotAndRawFilesUnchanged": true,
+  "diagnosticOwnedBefore": 42,
+  "diagnosticOwnedIfUsed": 43,
+  "separateUserRequestedManualDevelopmentLaunches": 1,
+  "actualKnownControlledElectronStartsIfUsed": 44,
+  "actualDevPeerNotYetAttached": true,
+  "fieldReady": false,
+  "RI00Closed": false,
+  "refactorStarted": false
+}

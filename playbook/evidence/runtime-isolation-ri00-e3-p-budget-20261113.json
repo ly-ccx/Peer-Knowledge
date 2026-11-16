@@ -1,0 +1,76 @@
+{
+  "kind": "E3-P-hotspot-instrument-qualification-frozen-not-executed",
+  "date": "2026-11-13",
+  "supersedes": "Hotspot reservation field H only in frozen e3-c-budget; rename this stage P to distinguish the already executed E3-H order experiment; original receipts and quotas unchanged",
+  "electronLaunches": 3,
+  "targets": 2,
+  "reference": 1,
+  "maxSimultaneous": 2,
+  "replacements": 0,
+  "wallMs": 900000,
+  "cleanupReserveMs": 90000,
+  "readCpuMs": 90000,
+  "nativeHashCpuMs": 2000,
+  "controllerAuxCpuMs": 20000,
+  "preparationShutdownReserveMs": 5000,
+  "outputBytes": 134217728,
+  "journalBytes": 33554432,
+  "profileBytes": 16777216,
+  "warmupPerHost": 8,
+  "modes": [
+    false,
+    true,
+    false
+  ],
+  "block": {
+    "rolesInOrder": [
+      "target",
+      "reference"
+    ],
+    "sameInAllModes": true,
+    "readSequence": [
+      "named-real-start",
+      "eight-dense-roots",
+      "named-real-end"
+    ],
+    "metricRoots": 8,
+    "clockRoots": 2,
+    "gapMs": 150,
+    "hashCalibrationAfterEachHostBlock": 3
+  },
+  "maximumSupervisorRoots": 144,
+  "semanticIndexAuditsAtFinish": 3,
+  "profile": {
+    "targetOnly": true,
+    "intervalUs": 1000,
+    "startsPerTarget": 1,
+    "startsBeforeNamedStart": true,
+    "stopsAfterNamedEnd": true,
+    "profileReadBodyWallPerTargetMs": 6000,
+    "profileSessionWallPerTargetMs": 10000,
+    "setupAndStopCpuPerTargetMs": 1000,
+    "preciseCoverage": false
+  },
+  "gate": {
+    "warmCompatibleMinimum": 3,
+    "warmRangeMs": 15,
+    "calibrationRelativeDrift": 0.1,
+    "metadataMedianMs": 2,
+    "clockIntervalWidthMs": 2,
+    "minimumDefiniteSamplesPerComparedPass": 10,
+    "timingOverheadMs": 2,
+    "offReturnDriftMs": 2
+  },
+  "rules": {
+    "nativeLibraryLoaded": false,
+    "reserveCompleteOffReturnBeforeStart": true,
+    "offEntryFailureEndsTarget": true,
+    "unknownCallsNotReplayed": true,
+    "structureDoesNotQualifyTimingOrCause": true,
+    "profileNeverG2": true,
+    "noForcedGcOrVmTraceFlags": true
+  },
+  "executed": false,
+  "fieldStarted": false,
+  "refactorStarted": false
+}

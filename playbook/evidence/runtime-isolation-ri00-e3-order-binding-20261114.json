@@ -1,0 +1,158 @@
+{
+  "kind": "RI00-ORDER-same-candidate-execution-binding-before-three-Electron",
+  "date": "2026-11-14",
+  "candidate": "1c053c5672d23c9848f29e012ada72417128bf0d",
+  "diagnosticSourceSha256": "1554782c1b54d1b7c0439a6dcac2950da40e6a7073a8e04a7383294305b88600",
+  "privateBindingSha256": "b29a72e793fcb4607bd18fc3a0734d34c37ab19e763d7bef470e93371a18b2a5",
+  "privateReadySha256": "9bcd8b3637bec609219867b60760a8d512dbd506688dcdc09d30897771a24800",
+  "inputsSha256": {
+    "config": "457fb400bdd2c2268182012e73e83614fdc84e115b0d13103fe2b3394be7e7e6",
+    "budget": "da0085f2c1b8b6b1bfd33ab6a90810288f759f237fb06093e91ff7b39b1fda44",
+    "baseline": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+    "parent": "947e8576ea7069611abb2c5370af2a772c901e00751278d5f98364f2bbe01ca2",
+    "parent-journal": "2d91751c3ab4833eebf05e5ab1126b56f798909d86a3dda41e9239749e9613a9",
+    "audit": "59fad068a6ec68c663715b255d0170e461f88690b6ce6bc1f8aa5bd4ffd3ef96",
+    "design": "09edfe87747e2c4b7169549ede3bedcd819fb1ee98a56d39f43982379a7542df",
+    "seal": "e93d94315104f44434d54129ce495b85bc53957297de1a204c99aa6f53224f69",
+    "manifest": "88e9cb02dc707472a39e618c456d159b31c2ba8a40041dd47486b5d9bfb9f20b",
+    "seam": "bc9402426368db740635589e07077adb6eb5cf3c4a50046cccb53f6332e06691",
+    "seam-cost": "d018189a50c532f64eeb140d8380ac6905aad7f292c2e2288ee2b80eb2ab5f15",
+    "tests": "a1f9dd53084cde4477c8a67c9aa90b1c349b5ca0ede2541a94e3cd7169d2c303"
+  },
+  "fixture": {
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1
+  },
+  "productionIdentitySha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+  "expected": {
+    "sessions": 23,
+    "evidenceRows": 69266,
+    "planCalls": 3859,
+    "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+  },
+  "evidenceSemanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+  "validation": {
+    "unitTests": 119,
+    "unitLogSha256": "ccfd174db8756f456b83bcee41028fe804dad92a1bb67d8680a34820d1d3d9fa",
+    "seam": {
+      "passed": true,
+      "fixtureReads": 44,
+      "cases": [
+        {
+          "name": "Profiler-rejected-before-wire",
+          "passed": true
+        },
+        {
+          "name": "complete-two-host-A-order-gap-and-hash-boundaries",
+          "passed": true
+        },
+        {
+          "name": "complete-two-host-B-order-gap-and-hash-boundaries",
+          "passed": true
+        },
+        {
+          "name": "fsync-failure-recover-original-before-ACK-no-replay",
+          "passed": true
+        },
+        {
+          "name": "unknown-request-query-original-id-no-replay",
+          "passed": true
+        },
+        {
+          "name": "original-read-error-durable-and-later-admission",
+          "passed": true
+        }
+      ],
+      "actualOrderAndGapVerified": true,
+      "profilerWireCommands": 0,
+      "actualOutputBytes": 522964,
+      "outputLimitBytes": 2097152,
+      "outputBudgetPassed": true,
+      "wallMsThroughReap": 7370.708166,
+      "fullProcessCpuMs": 483.54200000000003
+    },
+    "priorSeamFailureRetained": true,
+    "originalNodeAttempts": 1,
+    "explicitlyAuthorizedAdditionalNodeAttempts": 1,
+    "totalDedicatedNodeAttempts": 2,
+    "replacementsOfElectron": 0
+  },
+  "preparation": {
+    "costs": [
+      {
+        "name": "tests",
+        "exitCode": 0,
+        "wallMsThroughReap": 563.332791,
+        "fullChildSubtreeCpuMs": 1968.3660000000002,
+        "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+        "reportSha256": "a1f9dd53084cde4477c8a67c9aa90b1c349b5ca0ede2541a94e3cd7169d2c303"
+      },
+      {
+        "name": "seam",
+        "exitCode": 0,
+        "wallMsThroughReap": 7370.708166,
+        "fullChildSubtreeCpuMs": 483.54200000000003,
+        "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+        "reportSha256": "bc9402426368db740635589e07077adb6eb5cf3c4a50046cccb53f6332e06691",
+        "outputBytes": 522964,
+        "outputBudgetPassed": true
+      },
+      {
+        "name": "binding",
+        "exitCode": 0,
+        "wallMsThroughReap": 1763.711209,
+        "fullChildSubtreeCpuMs": 1046.4049999999997,
+        "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+        "reportSha256": "b29a72e793fcb4607bd18fc3a0734d34c37ab19e763d7bef470e93371a18b2a5"
+      }
+    ],
+    "prior": {
+      "fullCpuMs": 2386.7440000000006,
+      "costs": [
+        {
+          "name": "tests",
+          "exitCode": 0,
+          "wallMsThroughReap": 578.7915840000001,
+          "fullChildSubtreeCpuMs": 1870.565,
+          "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+          "reportSha256": "fecbe4564fdd863af09992b1c1cabbbf042ac2f94898f6802597ae840afd2633"
+        },
+        {
+          "name": "seam",
+          "exitCode": 0,
+          "wallMsThroughReap": 7492.619167,
+          "fullChildSubtreeCpuMs": 516.1790000000003,
+          "cpuScope": "parent RUSAGE_CHILDREN after full subprocess return, including waited descendants",
+          "reportSha256": "2d858170c94601a91026ee12659a3e8d53333019485ea3fadd5755c547b9e432"
+        }
+      ],
+      "originalFailurePreserved": true,
+      "originalFailureReceiptSha256": "13a5045aae464b6b3f5788408cd1c02df43ec6bb9f4acdb4725b3e70936ea805"
+    },
+    "chargedCpuMs": 5885.057000000001,
+    "chargedOutputBytes": 4564063,
+    "parentAndShutdownReserveMs": 5000,
+    "oldFailedCostNeverReset": true
+  },
+  "clarifications": {
+    "sameRawAndNormalizedCpuAnchors": true,
+    "completeBlockStartEndFsyncAndClockOrder": true,
+    "noCrossHostRowClockSubtraction": true,
+    "allBlockRoots150ms": true,
+    "exactThreeSlots": true,
+    "noPostStartEdits": true,
+    "originalFrozenBudgetUnchanged": true,
+    "profilerForbiddenBeforeWire": true
+  },
+  "scope": {
+    "technicalPrerequisitesPassed": true,
+    "campaignExecutedAtReceipt": false,
+    "actualElectronLaunchesAtReceipt": 0,
+    "actualPeerAttached": false,
+    "actualPeerRestarted": false,
+    "fieldWindowStarted": false,
+    "RI00Closed": false,
+    "refactorStarted": false
+  }
+}

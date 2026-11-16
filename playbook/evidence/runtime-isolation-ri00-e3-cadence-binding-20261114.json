@@ -1,0 +1,134 @@
+{
+  "kind": "RI00-CAD-execution-binding-frozen-before-Electron",
+  "date": "2026-11-14",
+  "candidate": "cf0cc39108fbf1b2d1169d823a62be385b6c3957",
+  "diagnosticSourceSha256": "4df193d8c57ec0e2bcac0d6da5dd984e9d71241d4a1c2bb0738fec5ec3ad6f59",
+  "privateBindingSha256": "f0f977929c2a2e976e0fc4a318785c1b64e45656aa66d893173d08e895e1f1ab",
+  "inputsSha256": {
+    "config": "457fb400bdd2c2268182012e73e83614fdc84e115b0d13103fe2b3394be7e7e6",
+    "budget": "86d1b22ee842b153735e03d3ed432a68545a482c958e058b4acc8c956a268f0d",
+    "baseline": "ae516ff2587c09b7ad6451f53c694309f80a43d776424d9d376298f63fe541aa",
+    "parent": "60bfbef9846b504907a952b958970a6900d59514f751715c5030a8295763eb13",
+    "audit": "1f839fc355e9e5eed53d2f6e0982775564ac4ee46558e4eff0ba256dc8b044df",
+    "design": "f4dc2cc80f07ee1d7691b0ce93415aff2aa6f69b632836d146f514ce00be037b",
+    "seal": "542abf80efbd20ca3ca475959abd9b1c10e5f0d2f0d4ef40e9380c87f81c2aa1",
+    "manifest": "88e9cb02dc707472a39e618c456d159b31c2ba8a40041dd47486b5d9bfb9f20b",
+    "seam": "21444507f68debdb90783cdd1d844b9b8b662455ef48064cdb15efaf45b00215",
+    "tests": "3a322deb03983a0b9e7d06e33f4decd3091a0f03e3a95cff5dff1394d6aafb0b"
+  },
+  "fixture": {
+    "manifestSha256": "bc596606ba6d54ecdfdacf435668247e146cee6014171d82b7e94849efb4891a",
+    "files": 8534,
+    "fences": 1
+  },
+  "productionIdentitySha256": "b4123f7cc7e0c51f9f5231e3c943e1c010b1ae67dfe3a7a71a22bb0d6f246be1",
+  "expected": {
+    "sessions": 23,
+    "evidenceRows": 69266,
+    "planCalls": 3859,
+    "outputSha256": "6f84aba7986f4e510107f050700f5d6b2ae63efb1ca9f0bac8fd2933c5a5ea41"
+  },
+  "evidenceSemanticSha256": "ebedfafd65c8f1936eb813136a9ffe948c15cecd1df796d30b2f7090bf86c6d6",
+  "validation": {
+    "unit": {
+      "passed": true,
+      "tests": 98,
+      "logSha256": "352f27eec3dc892d6287da9e53a152354099592febcfd0511673cb2ccd04b819"
+    },
+    "seam": {
+      "passed": true,
+      "fixtureReads": 24,
+      "electronLaunches": 0,
+      "dedicatedChildHosts": 0,
+      "profilerWireCommands": 0,
+      "wallMs": 2131.633833,
+      "ownerRestored": true,
+      "cases": [
+        {
+          "name": "Profiler-blocked-before-wire",
+          "passed": true
+        },
+        {
+          "name": "real-queue-and-block-A",
+          "passed": true,
+          "gaps": {
+            "gapsMs": [
+              171.243917,
+              171.054958,
+              168.280708,
+              169.891708,
+              170.015042,
+              170.44845799999985,
+              170.43737499999997,
+              169.63100000000009,
+              169.96712500000012
+            ],
+            "minimumMs": 168.280708,
+            "medianMs": 170.015042,
+            "maximumMs": 171.243917
+          },
+          "remoteLabels": [
+            "cadence-root"
+          ]
+        },
+        {
+          "name": "real-queue-and-block-B",
+          "passed": true,
+          "gaps": {
+            "gapsMs": [
+              19.98483299999998,
+              19.543083999999908,
+              18.893958999999995,
+              18.886792000000014,
+              19.09441700000002,
+              18.92141700000002,
+              19.091249999999945,
+              18.658042000000023,
+              19.027874999999995
+            ],
+            "minimumMs": 18.658042000000023,
+            "medianMs": 19.027874999999995,
+            "maximumMs": 19.98483299999998
+          },
+          "remoteLabels": [
+            "cadence-root"
+          ]
+        },
+        {
+          "name": "fsync-recover-same-original-no-replay",
+          "passed": true
+        },
+        {
+          "name": "unknown-request-same-id-no-replay",
+          "passed": true
+        },
+        {
+          "name": "original-read-error-archived-and-later-admission",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "executionClarifications": {
+    "frozenBudgetUnchanged": true,
+    "cleanCandidate": true,
+    "bothF0CalibrationAnchorsRequired": true,
+    "profilerForbiddenBeforeWire": true,
+    "actualGapFromExistingRowClock": true,
+    "noZeroTimerInB": true,
+    "archiveBeforeAck": true,
+    "unknownRequestSameId": true,
+    "boundedOwnedStartupFailureCleanup": true,
+    "noExtraElectronForValidation": true,
+    "onlyOriginalThreeSlots": true,
+    "postStartSourceEditsForbidden": true
+  },
+  "scope": {
+    "technicalPrerequisitesPassed": true,
+    "campaignExecutedAtReceipt": false,
+    "actualPeerAttached": false,
+    "fieldWindowStarted": false,
+    "RI00Closed": false,
+    "refactorStarted": false
+  }
+}
