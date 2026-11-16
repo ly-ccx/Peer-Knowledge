@@ -209,3 +209,16 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 - Desktop 的同步CRUD、读取时迁移及metadata回写都由同一事务拥有。异步诊断/价格获取在网络结束后重读锁内最新对象，只更新仍匹配原对象身份/配置的结果，禁止用网络前整份旧数组覆盖其它宿主更新。runtime-node显式OAuth提示写入也必须在共享锁内重读，保留原布局和未知字段。
 - 凭据提交与配置原子性不能仅凭此文件锁宣称完成。最终账号创建/删除/修改、原生auth/refresh和TS凭据管理需在各自短提交段取得此锁并重新核对绑定，锁顺序config→Helper/Vault；网络等待释放。失败恢复必须以真实凭据代条件核对，禁止无条件还原消耗过的旧refresh。提示是可重建投影；配置提示失败不使已提交token失效。完整Vault/配置联合故障、混合安装版本drain与CRUD命令仍逐项验收；未接入的写者/旧二进制不被此新规则自动保护。
 - 验收必须从实际Desktop和runtime-node入口及原生Store跨进程竞争，覆盖丢更新、超时/取消、损坏/未知版本保全、未知字段、迟到网络、替代锁owner、提交不确定与后续修改。Store地基或源码接线通过均不等于完整原生命令/P4总闸。
+
+### NR-04 配置能力范围校正（2026-11-16，后续命令实现前 A级澄清）
+
+按 ADR129 与用户原始全面迁移目标，终态覆盖原 CLI 的实际可达行为，不借“全面”新增 Desktop-only 产品能力。重新核对 `apps/tui/src/cli-argv.ts`、`cli-models.ts`、`cli-model-lines.ts`、`model-config.ts` 与方案 §6 后确认：原 `models` 只输出可选模型的tab分隔列表，`PEER_MODEL_API_KEY` / `PEER_MODEL_BASE_URL` / `PEER_MODEL_ID` 提供无需Desktop的环境配置；原CLI没有新增/删除渠道与模型的完整CRUD命令。配置Store及Desktop写者共锁仍是跨宿主一致性的必做项，但不等于必须把Desktop设置产品全部搬成新增CLI命令。
+
+本澄清取代上两节及实施账本中把“完整原生配置CRUD/账号创建命令”作为P4必要退出条件的扩大解释；不删除原有入口，不将尚缺的原生功能记为完成。P4配置交付必须包含：
+
+- 原 `models` 的选择过滤、provider/model/display身份、stdout/stderr、退出码与环境优先级；按实际TS入口生成fixture，与真实公开原生CLI对照。
+- 三个已发布 `PEER_MODEL_*` 环境配置字段、缺省模型/baseURL及显式选择的原生模型/工具/Evidence执行，不把环境秘密持久化、不需Desktop或Helper代取环境秘密，不靠JS sidecar。环境只是既有本地模型配置来源，不是System Context或工具授权来源。
+- 已有文件/旧格式的模型读取、模型/强度选择、Vault引用、原有OAuth刷新/显式重登与metadata写入/恢复；当前 `models auth/logout/status` 已接受的账号入口保留。配置创建不成为普通模型工具，也不扩张能力/权限/Evidence。
+- 所有当前Desktop/runtime-node配置写者与原生凭据短提交参与相同Store/锁/条件恢复；混合旧安装版本drain、真实平台和协议验收仍分别满足。未知/损坏配置不因范围校正被覆盖或默认授权。
+
+将来若增加一套用户可见的模型/渠道CRUD命令，应作为新增产品能力单独确定Interface；不作为本次CLI迁移完成的额外前提。先前共享Store、损坏保全与并发修复继续有效，不回退为无锁写入。

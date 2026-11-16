@@ -16,6 +16,8 @@
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 范围复核：从实际 `cli-argv.ts` / `cli-models.ts` / `cli-model-lines.ts` / `model-config.ts` 确认，原CLI的 models只列出模型，独立模型配置通过PEER_MODEL_*；原CLI没有整套渠道/模型CRUD命令。此前将“完整原生CRUD/账号创建命令”列为必要退出条件，扩大了原方案 §6 “以实际argv registry为准”的范围。ADR131已在后续命令实现前作A级澄清并登记map：优先补原models、环境模型来源、原有选择/auth与metadata恢复；配置/Vault共锁、条件恢复、混合旧安装版本drain及全部原功能仍必须交付。历史回执保留原范围判断，不反写为当时已完成；本次不是把缺失功能删出迁移目标，P4总闸仍未通过。
+
 2026-11-16 模型配置写入候选 `e632120f` 已推送：先于源码登记 ADR131 A级配置Store写入所有权（知识 `dc238b2`），原生 `ModelConfigStore` 与当前Node/ Desktop参与同一真实目录下的mkdir锁、相同原文件/身份revision和条件原子替换。完整同步 read→mutate→write及读取时迁移受锁保护；坏JSON、未知版本/超限保全原文件，不再当空配置覆盖；保留未知root字段和旧providers envelope。异步诊断网络期间释放锁，提交时只修改仍匹配原配置的对象；价格回填在网络后锁内重读。配置rename后目录同步失败时保留实际Vault/config并报告unknown，不无条件回滚旧凭据。
 
 真实Desktop公开CRUD与Rust Store跨进程竞争，20次渠道/模型创建与30次原生更新全部保留，双端revision相同；新13项互读与81项配置聚焦通过。冻结tree `41ae5d1f`完整原生scoped通过 **306 Rust / 90 native Episode / 179根1018实际TS往返 / 9PTY**；全仓类型、IPC411/445/359、architecture/UI与887打包imports通过。完整 `pnpm test` 真正exit0、364.379秒，退出回执绑定同一tree；14包和最后升级矩阵全部通过。Native log SHA256 `58f48264c1611b943b740bc4fe6fa8b944f2d92127b4ea2d15de7df8bbd9868d`，featureless CLI SHA256 `d77f18dc649cd9c515bc9b6def022ac09ac55f686d65c4974debbd91510c46d1`。见[配置写入回执](native-cli/evidence/p4-model-config-writer-20261116.json)。

@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR131 NR-04配置范围校正：原CLI models是列表，PEER_MODEL_*是独立环境配置；按原实际可达集迁移，撤回把Desktop全套CRUD新增命令列为P4前提的扩大解释。Store共锁、Vault条件恢复、原有功能与完整P4–P7验收不变。
+
 2026-11-16：ADR28/131实施前A补齐原生models auth/logout/status，固定Adapter身份与S256/loopback，原凭据代CAS及真实Vault状态；纠正OAuth提示字段被误作准入真值。完整配置写入/恢复和升级drain仍待实施，不新增工具授权。
 
 2026-11-16：ADR0001/131同日A补强：模型OAuth须前置CAS加密刷新意图，唯一刷新者才发远端请求；未知结果保全并阻止旧refresh自动重放。完成仅提交自己的意图代；旧预读token宿主仍须迁移并通过drain/升级兼容闸，不宣称新增字段解决全版本并发。
