@@ -27,7 +27,7 @@ type Fault = { code: FaultCode; phase: string; operationRef?: CommandKey;
   source?: SourceVector; retryAfterMs?: number; detailsRef?: Id };
 ```
 
-Payload 的 workspace/parent/entity 只是目标选择；Gateway 按注册连接、原 registry/profile/父子关系解析 scope，不因 caller 自报角色、路径、hostId 或 commandId 放行。Node/Bun/IPC decoder 共用 schema，验证字符串字节数、数组长度、深度（最多 16）、整数溢出、枚举和未知字段。受保护对象引用沿原 schema，不能用用户路径替代 objectRef。
+Payload 的 workspace/parent/entity 只是目标选择；Gateway 按注册连接、原 registry/profile/父子关系解析 scope，不因 caller 自报角色、路径、hostId 或 commandId 放行。Electron Main/Query/IPC 与原生 Rust Core 共用 schema（`packages/protocol` 单一真源），验证字符串字节数、数组长度、深度（最多 16）、整数溢出、枚举和未知字段。受保护对象引用沿原 schema，不能用用户路径替代 objectRef。
 
 actorRef是Gateway解析的稳定授权主体，不是connectionId/window generation；本地用户在同一Bot主体下Desktop/TUI重连取得同actor，来源窗口/角色另作审计并逐次校验。remote使用原认证主体，不因相同operationId接管本地主体。客户端在原device ClientState保存未获最终回执的CommandKey；新连接先重新认证同scope后lookup，旧request响应丢弃不妨碍查已接受命令。UUID相撞且digest不同仍拒绝，不按窗口重新生成operation绕过幂等。
 

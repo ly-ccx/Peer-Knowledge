@@ -1,12 +1,12 @@
 # 07 迁移清单与验证合同
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-16（与 ADR 129 / ADR 133 收口：限定 TS 侧只落地 RI-00 / RI-01 止损，RI-03 直接收敛至 Desktop 接入独立 Rust Core 进程而不重造完整 TS 版 M00–M14；明确核心禁依赖冻结中的遗留 TS runtime-sdk）
 状态：详细设计候选；验证用例未运行，不把设计断言称为运行通过。
 
 ## 1. 唯一迁移顺序
 
-RI-00基线 → RI-01只读职责/选择性索引 → RI-02 Query与ClientState桥接 → RI-03 Runtime/Storage/Platform桥接与命令journal → RI-04已有状态/旧writer恢复 → RI-05最终组合产品/平台验收。每步进入实现前，本详细设计和ADR128先完成评审；当前用户已明确先完成设计审查，不授权跳过此顺序直接重构。
+RI-00基线 → RI-01只读职责/选择性索引 → RI-02 Desktop Query与ClientState桥接（过渡期）→ RI-03 Desktop接入唯一Rust Core独立进程 + 受限Platform Broker（`ADR 133`，不再在TS侧重造全套`M00–M14`运行核心）→ RI-04已有状态/旧writer恢复 → RI-05最终组合产品/平台验收。每步进入实现前，本详细设计和ADR128/133边界先对齐；当前用户已明确先完成设计审查，不授权跳过此顺序直接重构。
 
 RI-02命令仍由原owner处理，Query只能读，不能启动新Runtime writer。RI-03先以测试数据完成真实bridge，再对项目进行05的drain/fence/cutover。不存在某项目同一时刻旧main与新Runtime双执行。查询shadow比较只在相同source版本/隔离副本中进行，不允许shadow命令/工具。
 
@@ -14,7 +14,7 @@ RI-02命令仍由原owner处理，Query只能读，不能启动新Runtime writer
 
 | 入口 | 新handler / Module | 迁完必须删除的旧行为 |
 |---|---|---|
-| Bot输入/quick-chat/TUI/remote | input.submit → M01/M02 | UI直接append对话，断线换operationId重发 |
+| Bot输入/quick-chat/桌面remote | input.submit → M01/M02（原CLI/TUI经ADR 129走原生Rust入口） | UI直接append对话，断线换operationId重发 |
 | BotList/get/角标 | bot.list/bot.badge → M12 | directory.list同步调用完整Supervisor；view全量独立轮询 |
 | 授权/义务列表 | grants.pending → M12 | 空列表加载全部session/report/Evidence |
 | task列表/TaskOverview | tasks.list → M12 | read补写qualityReview/runner终态，read递归验收 |
@@ -52,7 +52,7 @@ RI-02命令仍由原owner处理，Query只能读，不能启动新Runtime writer
 | D17 | Provider/模型/Host/Store Adapter替换 | 领域控制/授权算法不改，不复制Provider消息格式 |
 | D18 | 最终合并候选的发布门禁 | 全开放PR合并、全测试/构建/类型/架构/IPC、完整产品图审和版本恢复 |
 
-计数/故障断言必须通过真实Module/Store/host seam，不能只mocktransport。架构checker增加Query→Supervisor/GoalRunner/Permission实现禁依赖、core→Electron/UI/SDK禁依赖和main业务Store调用禁止；动态trace补运行时回调循环与串行长任务。不能通过放宽断言或减少原负载通过。
+计数/故障断言必须通过真实Module/Store/host seam，不能只mocktransport。架构checker增加Query→Supervisor/GoalRunner/Permission实现禁依赖、core→Electron/UI/遗留TS `@peer-agent/runtime-sdk` 禁依赖（TS `@peer-agent/runtime-sdk` 按 `ADR 133` 进入过渡冻结，严禁在其上扩建或另造第三套 TS 运行时内核）和main业务Store调用禁止；动态trace补运行时回调循环与串行长任务。不能通过放宽断言或减少原负载通过。
 
 ## 4. 数据与验收报告
 

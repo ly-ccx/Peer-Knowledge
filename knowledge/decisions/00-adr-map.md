@@ -309,7 +309,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 | 编号 | 文件 | 创建 | 最后更新 | 读取 |
 |---|---|---|---|---|
-| 128 | [ADR 128：本地运行时隔离与有界查询契约](./128-local-runtime-isolation-and-bounded-query-contract.md) | 2026-11-11 | 2026-11-11 | Proposed；用户授权架构重审与可重构，具体方案待评审；未实现、未发布验收 |
+| 128 | [ADR 128：本地运行时隔离与有界查询契约](./128-local-runtime-isolation-and-bounded-query-contract.md) | 2026-11-11 | 2026-11-16 | Proposed（2026-11-16 按 ADR 129 / ADR 133 收口：删除 Bun CLI/TUI sidecar，限定为 Desktop-only 止损与 Desktop Shell ↔ Rust Core 进程接口契约，停止 TS 侧全量 M00–M14 二次重写；待结合 RI-00 证据评审；未实现、未发布验收） |
 
 ADR128 拟修订 85/86/96/98/104-progressive-interaction-and-coordination-storage/112/121 的局部执行位置与同步产品查询边界；现阶段不使它们失效。保留 102 的单一生命周期，以及 116/120/126/127 的授权、停止、unknown、对账与恢复约束。编号按当前主线最大值 127 后取 128，不复用同号文件。现场与结构证据见[架构审查](../experience/desktop-runtime-responsiveness-architecture-audit.md)，实施包见[运行时隔离](../../playbook/runtime-isolation-implementation.md)。
 

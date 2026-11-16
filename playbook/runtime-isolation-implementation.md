@@ -1,7 +1,7 @@
 # 本地运行时隔离实施包
 
 创建时间：2026-11-11
-最后更新：2026-11-13
+最后更新：2026-11-16（与 ADR 129 / ADR 133 对齐：限定为 Desktop 过渡止损 `RI-00`/`RI-01`/`RI-02` 与 `RI-03` 对接独立 Rust Core 进程，删除 Bun TUI 共享 runtime 入口，停止 TS 侧全量 M00–M14 重写）
 状态：待 ADR128 评审的实施计划；没有产品实现已完成的暗示。
 
 决策：[ADR128](../knowledge/decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。总体设计：[逻辑 Module、依赖与完整链路](../knowledge/architecture/local-agent-system-blueprint.md)。调查：[响应性架构审查](../knowledge/experience/desktop-runtime-responsiveness-architecture-audit.md)。本文件不创建新的执行权限、生命周期策略或存储真源。
@@ -21,7 +21,7 @@
 | RI-00 基线与预算 | 将一次交互关联到 IPC 等待、处理、查询、Store 与发送；记录 15/30 秒周期；保留全部 >50ms 段及未知差值 | `slow-timer-probe`、IPC owner、既有 perf/product harness | 同一候选的可重现坏基线；测量自身成本单列；无 profiler 真实交互对照可重复 |
 | RI-01 查询职责 | PendingGrant 空结果不 hydrate session；Badge/TaskSummary/Report 分离；Evidence 按键索引；移除列表中业务修复；覆盖runner roster微任务和预测snapshot初始准备对深列表的依赖 | Application Service、Bot Directory、SessionSupervisor、GoalPlanEvidence、TaskOverview、Runner Coordination、Input Prediction Host | 原坏基线先红；结果语义一致；scope/版本/字节/复杂度可观测；只读测试禁止 canonical 写；历史缺核验不补 passed；调度不以UI Query作执行事实，预测不扩大115准入 |
 | RI-02 查询进程 | typed Query Protocol、独立 Query Service、订阅 cursor/失效、main 异步客户端；产品入口逐项迁移 | IPC/preload、Session Service、Query Scope、projection reader、interaction reader | 实际 Electron utility bridge；重建/排队/崩溃不回 main 扫全文；迟到/卸载/重连不污染窗口；生产不再调用旧同步查询 |
-| RI-03 Runtime 进程 | 将已有本地引擎移入唯一执行宿主；命令/回执/流式协议与受限平台 Adapter；Desktop/TUI 共享入口 | composition root、TurnSink、AgentTurnExecutor、RuntimeHost、SessionControl、HostLease、Provider/Vault/Browser adapters | 无第二执行器/双 writer；模型与能力链一致；授权、取消、未知效果、断线/重启对账真实桥接通过 |
+| RI-03 Rust Core 独立进程接入 | 按 `ADR 133` 让 Desktop 接入唯一独立原生 Rust Core 进程 + 受限 Desktop Platform Broker（不再以 TS 在 `utilityProcess` 重造完整 M00–M14 内核，也不包含 Bun TUI 入口） | Electron composition root、Rust Core Port/IPC、HostLease、Provider/Vault/Browser adapters | 无第二执行器/双 writer；模型与能力链（含 Hook）等价；授权、取消、未知效果、断线/重启对账真实桥接通过 |
 | RI-04 异常与兼容 | 每条已迁移路径的故障注入；旧数据/旧 writer/跨宿主/部分提交；删除过渡入口 | Store/fence、提交 worker、资源账本、输入/inbox、subscription owner | 原有卡住数据的隔离副本恢复；不抹 unknown/历史/Evidence；后续任务正常准入；兼容阻塞有明确受支持出口 |
 | RI-05 产品与平台 | 最终同规模混合负载、真实模型、原生输入滚动、签名打包与平台验证 | existing product/perf/upgrade/release harness | 既有性能阈值不降；所有异常尖峰有归属；矩阵与产品包审查完成；独立性/未跑范围真实列出 |
 

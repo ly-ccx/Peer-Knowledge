@@ -1,14 +1,14 @@
 # 06 宿主、Platform Broker 与打包
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-16（与 ADR 129 / ADR 133 对齐：删除 TUI/Bun `--internal-*-host-v1` 与 Bun storage-worker 条款，收窄为 Desktop-only 过渡隔离及 Electron Shell ↔ 独立 Rust Core 进程接入约束）
 状态：详细设计候选；本轮不启动、关闭、安装或重启用户应用。
 
 ## 1. 部署选择与启动入口
 
-固定为每个启动宿主实例一组 Runtime/Query，不能每Bot创建进程。Desktop main拥有两个utility process和ClientState adapter；TUI独立模式由其已分发的Bun二进制启动同一binary的私有 `--internal-runtime-host-v1` / `--internal-query-host-v1` 模式，入口在加载TUI/交互依赖前分流。私有模式缺已继承bootstrap pipe则直接退出，不是公开能力接口，不要求用户另外安装Node/Electron。
+固定为每个 Desktop 宿主实例一组受管运行/查询边界，不能每 Bot 创建进程（TUI/CLI 已按 `ADR 129` 迁至原生 Rust，**禁止**以 Bun 启动 `--internal-runtime-host-v1` / `--internal-query-host-v1` 私有 JS sidecar）。过渡期 Desktop main 仅在有界查询/响应止损范围内使用受管 `utilityProcess`；按 `ADR 133` 终局时，Desktop main 直接启动并连接同一独立原生 **Rust Core** 进程及配套有界投影读取，不再建设另一套永久 TS Runtime 进程。
 
-Desktop与TUI仍沿现有入口/项目HostLease决定谁推进。存在现行可连接宿主时按原bridge连接；不能连接或版本不兼容则只在原允许的独立宿主模式启动，竞争同项目仍由原lease/fence拒绝，不能降协议/强抢。不同进程可以只读同数据根，但没有全数据根新“唯一任务调度器”。同一数据根内CPU许可按05跨宿主共享；不同数据根不建立机器全局daemon/锁，本版不声称能跨独立根限制整机总CPU。业务writer仍每项目/聚合唯一。
+Desktop 与原生 Rust CLI 继续沿现有 `<dataRoot>`、`host.lease`、writer fence 与交接回执决定同一项目唯一执行者。存在现行可连接宿主或合法交接时按协议连接；不能连接或版本不兼容时由各自允许的模式拒绝冲突写入，竞争同项目仍由原 lease/fence 拒绝，不能降协议/强抢。同一数据根内跨进程仍遵守原有物理锁与配额约定；不同数据根不建立机器全局 daemon/锁，本版不声称能跨独立根限制整机总 CPU。业务 writer 仍每项目/聚合唯一。
 
 这避免了把新的全局daemon选主/常驻安装混入本次重构。独立系统服务不是实现时任选项，本版明确不安装；退出/后台存活继续遵守原宿主产品策略。
 
@@ -27,7 +27,7 @@ cancelComputeJob({jobId,generation,reason}): Promise<WorkerExitObservation>
 
 dataRootHandle由既有DataStore resolver解析并realpath，rootId为canonical根身份摘要；Query不能创建/切换数据根。bootstrapNonce为256-bit一次性随机量，通过继承pipe/MessagePort发送，不放argv、环境变量、URL、renderer或日志。main注册实际spawn返回PID/启动身份；子进程回显nonce+协议/rootId/generation，5秒内完成，否则清本generation并返回HOST_START_FAILED。
 
-Desktop renderer只接现行preload/IPC owner；Gateway验证注册window、顶层frame和精确本地origin，再创建VerifiedCaller。TUI/CLI走受管继承管道或原已认证bridge；remote只经现行网关认证和方法scope。没有未认证的localhost HTTP/WebSocket端点或新任意socket方法。外来数据里的UID/role/hostId从不构成身份。
+Desktop renderer只接现行preload/IPC owner；Gateway验证注册window、顶层frame和精确本地origin，再创建VerifiedCaller。remote或受管桌面桥接只经现行网关认证、继承pipe/MessagePort与方法scope。没有未认证的localhost HTTP/WebSocket端点或新任意socket方法。外来数据里的UID/role/hostId从不构成身份。
 
 runtime/query/store/platform各自有能力更小的连接角色，握手方法白名单不同：Query不能store.commit，renderer不能platform.invoke，Storage不能调用模型。协议/方法revision不匹配拒绝连接，不回到未校验旧payload。跨宿主交接通过原lease/control receipts，本连接generation只过滤迟到通信，不能替代lease或证明工具死亡。
 
@@ -63,7 +63,7 @@ Broker的Provider在原dispatch identity下保留实际started/ended/result obse
 
 ## 5. CredentialLease
 
-credential.acquire只由合法ModelAdapter请求，固定providerId/purpose/cognitionRef并检查配置/主体及CredentialRequestTicket；有attempt时另绑定attempt，不给纯预测伪造执行身份。Desktop通过原Vault/safeStorage/credential-helper，TUI通过原已支持credential Adapter。不适用的OS返回CREDENTIAL_UNAVAILABLE，不将明文写入临时文件或改用弱存储。该端口只解析已配置凭据，不是新本地能力执行或模型可见secret工具。
+credential.acquire只由合法ModelAdapter请求，固定providerId/purpose/cognitionRef并检查配置/主体及CredentialRequestTicket；有attempt时另绑定attempt，不给纯预测伪造执行身份。Desktop经既有Vault/credential-helper协议获取（原生CLI/Rust Core走ADR 0001 / ADR 132 Helper v1/v2边界）。不适用的OS返回CREDENTIAL_UNAVAILABLE，不将明文写入临时文件或改用弱存储。该端口只解析已配置凭据，不是新本地能力执行或模型可见secret工具。
 
 Lease通过ModelAdapter私有channel提供最小凭据材料，只在内存保留至请求组结束，打开新请求的有效期最长60秒；这不强行中断已建立SSE。Provider要求刷新时重新走原OAuth/credential seam。取消/配置删除后不启动新请求，释放引用并按可行范围清零byte buffers；不声称JS字符串完全可擦除。日志/command journal/Query/Context snapshot永不保存secret。模型切换不能继承另一provider的lease。
 
@@ -85,10 +85,10 @@ worker与host的recorder保存真实bootId/pid/pidStart/hostId/epoch。main死�
 
 ## 7. 跨平台构建与资源实现
 
-Desktop固定打包静态Runtime/Query入口及worker源，进入asar发布清单并校验哈希；Worker只eval构建时生成的静态已校验source，不eval模型/文件内容。Node/Electron CPU worker使用192MiB heap限制；Bun使用私有storage-worker子进程而不是无法限额的共享heap线程，父侧每100ms采样该worker报告及实际PID的RSS，320MiB触发停止新job并终止纯prepare；已进入commit时按提交协议lookup/恢复。采样有间隔，不伪称内核硬内存限制。
+Desktop过渡期若启用`utilityProcess`查询隔离，须固定打包静态入口并校验asar清单哈希；Worker只eval构建时生成的静态已校验source，不eval模型/文件内容。Node/Electron CPU worker受192MiB heap预算约束。按`ADR 133`接入独立Rust Core进程后，核心运行时与存储worker能力由自包含的原生Rust二进制承担，Windows/macOS/Linux均封装为受管继承pipe/MessagePort或私有受控本地信道，不假设额外POSIX FD可继承。任何不支持的打包/IPC/worker能力必须使该平台候选失败，不能实现时降级在main同步执行。
 
-SQLite使用现有Node/Bun Adapter，不引入第二数据库；共享计算许可在原设备资源库的独立table，以真实worker身份占用4槽、generation/退出回执回收。Windows不依赖POSIX信号/路径/FD名，Transport封装为受管继承pipe/MessagePort；Bun bootstrap用标准stdin私有pipe，不假设额外FD一定可继承。任何不支持的打包/IPC/worker能力必须使该平台候选失败，不能实现时降级在main同步执行。
+过渡期SQLite与Store读写维持现有Adapter不引入第二数据库；终局随`ADR 131` / `ADR 133`统一至原生Rust Store与同一物理锁/CAS语义。共享计算许可在原设备资源库的独立table，以真实worker身份占用4槽、generation/退出回执回收。
 
-每宿主固定两个Store写进程，控制1个、普通1个；M13 AggregateCommitScheduler只持轻量ref并确保同aggregate只有一个实际commit。它们独立于Runtime/Query生命期，具有更窄Store方法白名单，可在Runtime失联后保存原调用历史结果/提交事实，不能开始新执行。CPU/prepare在共享QR pool；Store写进程不承担全历史解析或索引重建。不同宿主仍以原物理Store锁/事务排序，不新建全数据根业务互斥。
+每宿主固定两个Store写入边界，控制1个、普通1个；M13 AggregateCommitScheduler只持轻量ref并确保同aggregate只有一个实际commit。它们独立于Runtime/Query生命期，具有更窄Store方法白名单，可在Runtime失联后保存原调用历史结果/提交事实，不能开始新执行。CPU/prepare在共享QR pool；Store写入边界不承担全历史解析或索引重建。不同宿主仍以原物理Store锁/事务排序，不新建全数据根业务互斥。
 
 macOS签名/notarization和Windows/Linux包都要验证真实spawn、SQLite、凭据可用性、child退出、取消、asar入口和恢复。设计已固定Adapter选择；这些是实现验证项，不是留到实现时再选体系。

@@ -24,7 +24,7 @@
 | QQ Product query / Query Service | 每客户端4在途、8等待/2 MiB；全进程8在途、64等待/16 MiB | 交互页:后台刷新=3:1轮转；默认总预算1s，最大5s | 同 view/scope/filter/source只共享纯读在途；full 返回QUEUE_FULL；取消最后等待者可停纯读 |
 | QP Projection catch-up / Query owner | 每 source一个 job；128个source refs/2 MiB | 当前可见项目优先；256记录或1 MiB或8ms一批取最小；延迟100ms合并失效 | 溢出合并为该source的dirty checkpoint，保留canonical cursor，不丢业务事件 |
 | QS Storage commit / Repository | 最多8个已准备aggregate；实际commit2个槽；每aggregate1个commit、64个step refs/4 MiB等待 | 每aggregate FIFO；1个控制Store进程+1个普通Store进程；终态prepare总期限30s、最多4次版本冲突重准备 | 同aggregate已开始写不抢占；过期后lookup；队列满不删除原sidecar |
-| QR CPU/rebuild pool / Host | 同一数据根的宿主采用共享许可，最多4个；每Runtime最多2个；job描述≤256KiB | 关键prepare至少1许可，rebuild最多3；可见重建:背景=3:1；单批读取1MiB | job只传refs；Node heap192MiB，Bun独立worker进程按06采样RSS；大记录按05流式解析，不硬吞全文 |
+| QR CPU/rebuild pool / Host | 同一数据根的宿主采用共享许可，最多4个；每Runtime最多2个；job描述≤256KiB | 关键prepare至少1许可，rebuild最多3；可见重建:背景=3:1；单批读取1MiB | job只传refs；Node/Electron CPU worker受192MiB heap约束，终局迁由Rust Core进程按内存预算承担；大记录按05流式解析，不硬吞全文 |
 | QB Platform / Desktop Broker | 每窗口8在途；全Broker32在途/64等待/2 MiB | 短系统操作ack1s/执行5s；modal ack1s后等待用户，不堵执行线程 | stale ticket拒绝；UI关闭返回unavailable；未知副作用查receipt，不自动重复弹窗/调用 |
 | QE 订阅/Activity egress / Gateway | 每连接32个view订阅；失效128帧/256 KiB；Activity256帧/1 MiB | 最多每16ms发送合并Activity；每100ms合并view失效 | 溢出发gap/resync并释放纯展示缓存；绝不丢canonical/Grant/Evidence |
 | QD diagnostics / Host | 1024条/1 MiB，轮换总4 MiB | 异步sink每250ms≤64KiB；记录query/queue/worker成本 | 满可丢非权威诊断并增加dropped计数；不得丢业务日志，也不得同步console阻塞主循环 |
@@ -33,7 +33,7 @@ QT/QX是每Runtime运输/在途上限，不冒称跨独立宿主的设备业务�
 
 ## 3. 内存与磁盘背压
 
-Query 结果缓存最多32 MiB/256项，纯索引连接cache最多16个、总page cache64MiB；无全历史JS数组cache。上下文最多8个已准备请求/32MiB，不适合内联的大内容使用原blob/附件refs，Provider的真实token准入仍按原权威计量。Node worker192MiB上限指V8 heap；Bun按06使用独立worker进程与320MiB RSS采样停止，允许采样间瞬时超额，不伪称内核硬限制或OS沙箱。
+Query 结果缓存最多32 MiB/256项，纯索引连接cache最多16个、总page cache64MiB；无全历史JS数组cache。上下文最多8个已准备请求/32MiB，不适合内联的大内容使用原blob/附件refs，Provider的真实token准入仍按原权威计量。Node worker192MiB上限指V8 heap；接入独立Rust Core进程后按原生有界内存预算控制，不伪称内核硬限制或OS沙箱。
 
 普通未结command参数合计64MiB/数据根，控制command独立预留16MiB。已经接收的记录不因为配额变小而删除；停止新普通接收并继续结算。磁盘实际耗尽时无法保证耐久接收：返回 LOCAL_PERSISTENCE_FAILED，Runtime 内存立即关闭该执行的新工具准入并沿原 Stop Port 尽力中断，明确 `interruption_may_have_started`，不报耐久停止成功。原claim/unknown保留，恢复按原source回执对账。
 

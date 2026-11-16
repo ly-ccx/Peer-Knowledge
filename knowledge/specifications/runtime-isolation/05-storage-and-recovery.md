@@ -25,7 +25,7 @@
 
 固定表：`meta(schema,rootId)`、`commands(actor,scope,operationId PK组合,method,digest,receivedSeq,payloadOrRef,acceptedAt,delivery,ownerHost,ownerGeneration,domainRefs,errorRef)`、`steps(commandKey,stepId PK,dispatchIdentity,sourceBefore,domainReceiptRef,state)`、`receipt_events(commandKey,seq,kind,ref,digest)`。accepted/settled等只描述命令交付；任务/工具成败必须看domainRefs指向的原记录。
 
-Node/Electron用现有node:sqlite Adapter，Bun用现有bun:sqlite Adapter；同格式。`journal_mode=WAL`、`synchronous=FULL`、`foreign_keys=ON`，写者只在Storage worker事务执行。每事务最长20ms设计预算；忙等待不是20ms同步睡眠，使用timeout=0与04的异步退避。FULL fsync实际耗时不伪称可强制20ms，超预算记录并对控制队列隔离。
+Node/Electron过渡期用现有node:sqlite Adapter，终局与原生Rust CLI按`ADR 131` / `ADR 133`共同对齐至Rust SQLite与同格式。`journal_mode=WAL`、`synchronous=FULL`、`foreign_keys=ON`，写者只在受控Storage写入事务执行。每事务最长20ms设计预算；忙等待不是20ms同步睡眠，使用timeout=0与04的异步退避。FULL fsync实际耗时不伪称可强制20ms，超预算记录并对控制队列隔离。
 
 同key/digest事务幂等插入；认领需当前项目lease，CAS owner generation。原owner仍有活lease时不能“超时接管”命令。原owner失效后，新合法项目owner先reconcile其steps，再决定是否继续；普通读实例不能claim dispatching。没有项目作用域的设置命令使用原配置Store的CAS/锁，不授予项目lease。
 

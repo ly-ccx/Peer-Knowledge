@@ -1,9 +1,14 @@
 # ADR 128：本地运行时隔离与有界查询契约
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-16（按 ADR 129 / ADR 133 收口：删除 Bun CLI/TUI sidecar，收窄为 Desktop-only 止损及 Desktop Shell ↔ 独立 Rust Core 进程边界契约，停止在 TS 侧全量重写 M00–M14；本文仍为 Proposed）
 状态：Proposed。用户已授权重新审查整体架构，并允许推翻不合理边界和重构；本篇是据此形成的具体方案，尚未取得逐条接受，也未改变产品运行行为。可行性实验通过不等于实现或发布验收。
 级别：A（进程、运行时通信、权威写者与读模型边界），实施包含 B 级宿主/查询/存储迁移。能力范围、权限政策、Evidence 含义和 System Context 顺序保持现行契约。
+
+> [!WARNING] 2026-11-16 范围收口与终局对齐（对接 ADR 129 & ADR 133）
+> 1. **删除 CLI / TUI 的 Bun / JS 隔离运行时方案**：原生 CLI 已由 `ADR 129`（Accepted）全栈迁往 Rust；本提案不再为 TUI/CLI 定义 `--internal-runtime-host-v1`、`--internal-query-host-v1` 或任何 Bun sidecar，所有范围收窄为 **Desktop（Electron）侧隔离与有界查询契约**。
+> 2. **停止 TS 侧 `M00–M14` 二次内核重写**：按 `ADR 133`（Accepted），全产品唯一演进核心归属 Rust Core，Desktop 终态直接接入受管独立 Rust Core 进程；**禁止**在 TS 侧新建取代 `@peer-agent/runtime-sdk` 4 个接口的完整第二套 `M00–M14` 运行时重写，现行 TS 运行时保持过渡冻结。
+> 3. **保留并升格的核心价值**：下文沉淀的 `RI-00` / `RI-01` 主线程卡顿止损、`QueryRequest` / 21 种命名读模型有界预算、`M00–M14` 职责/依赖禁令及 `CapabilityInvocationTicket` / `CredentialRequestTicket` 一次性授权绑定不变量，全部作为 **Desktop Shell ↔ 独立 Rust Core 进程** 接口契约保留并沿用。
 
 依据：[系统总体设计](../architecture/local-agent-system-blueprint.md)、[现场与架构审查](../experience/desktop-runtime-responsiveness-architecture-audit.md)、[产品北极星](../../design/product/peer-product-alignment.md)、[工程治理](../architecture/20-architecture-governance.md)。实施：[分阶段实施包](../../playbook/runtime-isolation-implementation.md)。
 
@@ -46,9 +51,9 @@ Peer 需要在多年历史、多个项目、并行 Agent、本地模型、多入
 
 ```mermaid
 flowchart TB
-  UI[Desktop Renderer / TUI / CLI / 远程入口] --> SHELL[Shell Adapter：身份、表达、系统交互]
-  SHELL -->|有界查询| Q[Query Service：读模型、分页、版本、订阅]
-  SHELL -->|有身份的命令| R[Local Runtime Host：输入、授权、执行、停止、恢复]
+  UI[Desktop Renderer / 桌面受限入口] --> SHELL[Desktop Shell Adapter：身份、表达、系统交互]
+  SHELL -->|有界查询| Q[Query Service / Rust Core 读模型投影]
+  SHELL -->|有身份的命令| R[Local Runtime Host（终局为独立 Rust Core 进程）]
   R -->|canonical 提交回执 / revision| Q
   R --> S[Storage Adapter / 有界 Worker：事务、日志、blob、重建]
   Q --> S
@@ -68,7 +73,7 @@ flowchart TB
 
 这是同一个本地引擎的职责拆分，不新建第二个任务系统。GoalPlan、Coordination、资源账本、PermissionGrant、Tool Result、Evidence 的真源及 Protocol reducer 不改变。进程边界不是自动获得的 OS 权限沙箱；具体进程权限和 broker 校验须另行验证。
 
-Desktop 使用 Electron `utilityProcess` Adapter；TUI/CLI 使用可移植进程 Adapter，共享业务入口与协议，不能依赖 Electron 已安装。首个版本由应用组合层启动和管理子进程，窗口关闭仍按既有后台策略工作；不在本 ADR 中承诺父进程崩溃后 utility 子进程必然存活。独立 OS 常驻服务/跨应用更新管理是后续部署 Adapter，不是本次强制安装项。多宿主继续以现有租约、writer fence 和交接回执决定唯一执行者，PID 存活或 UI 连接不授予执行权。
+本节为 **Desktop（Electron）侧部署与隔离契约**（CLI/TUI 已按 `ADR 129` 独立运行于原生 Rust，不经过 Bun/Node sidecar；二者继续以 `~/.peer-agent` 统一数据根、既有 `host.lease`、writer fence 和交接回执保证跨宿主单一执行者）。过渡期 Electron 可先以有界 Query 隔离（`RI-01`/`RI-02` `utilityProcess`）止损主线程阻塞；终局按 `ADR 133` 直接由桌面应用组合层拉起并监管独立 **Rust Core** 进程，不再以 TS 在 `utilityProcess` 中重建完整业务内核，也不承诺脱离组合层的常驻 OS daemon。PID 存活或 UI 连接不授予执行权。
 
 ## 4. 查询契约：边界先于缓存
 
@@ -182,7 +187,7 @@ System Context 仍由现有 Sources/assembler 组装，Provider Encoder 仍负�
 
 不选把所有业务一口气搬入一个 worker：同一长任务仍会阻塞取消/租约/执行控制，也没有收窄查询。独立 Query Service 与有界 Storage worker 让隔离边界可验证；代价是协议、生命周期、内存与恢复复杂度，必须按阶段验证。
 
-不选先换 Electron、Rust 或统一重写数据库：当前证据指向工作分配和数据接口；语言/框架变化不能自动消除全量查询和读写混合。现有 shared runtime、reducer、Provider 和持久化协议有可保留价值。
+不以“换壳/改数据库”代替查询预算与职责解耦，且本条不逆转已 Accepted 的 `ADR 129`（原生 Rust CLI）与 `ADR 133`（全端统一 Rust Core 终局）：当前证据证明即使语言或框架改变，全量查询和读写混合仍会制造卡顿；但在迁移至统一 Rust Core 期间，Electron 侧优先落地 `RI-00`/`RI-01` 有界查询止损与既有协议复用，不先大改数据库格式，也不在 TS 上铺开将被 Rust Core 替换的全面内核重写。
 
 不选每 Bot 一个进程：大量 idle 资源与恢复风暴会转成新的瓶颈。进程按职责隔离，项目/aggregate 的公平和顺序由有界调度管理。
 

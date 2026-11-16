@@ -1,7 +1,7 @@
 # 02 逐模块 Interface 与所有权
 
 创建时间：2026-11-11
-最后更新：2026-11-12
+最后更新：2026-11-16（与 ADR 133 对齐：明确 M02–M11 / M13 逻辑职责终局归属统一 Rust Core，M00–M01 / M14 Broker 归属 Desktop Shell 对接边界，过渡期不再用 TS 重造整套 M00–M14 运行内核替代已冻结的 `@peer-agent/runtime-sdk`）
 状态：详细设计候选。所有 `Context` 为 Host 构造的 `{VerifiedCaller,HostRef,remainingBudget,AbortSignal}`；业务写入另外要求 operation key 和当前 authority，不能从 UI 拼装。`Ref` 均能由其 owner 在数据根内验证，不能转成任意路径。
 
 ## M00 Presentation / Client State

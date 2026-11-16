@@ -1,7 +1,7 @@
 # 本地运行时隔离详细设计 v1
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-16（与 ADR 129 / ADR 133 对齐：收窄为 Desktop-only 止损与 Desktop Shell ↔ 独立 Rust Core 进程接口契约；删除 Bun CLI/TUI sidecar，停止 TS 全量 M00–M14 二次内核重写）
 状态：ADR128 的详细设计候选；本目录只定义设计，不包含运行时实现，不表示已接受、已重构或已通过产品验收。
 
 上游：[总体设计](../../architecture/local-agent-system-blueprint.md)、[ADR128](../../decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。本轮用户要求在开始重构前补齐所有模块、接口、数据、依赖、队列和恢复，并完成自上而下审查。该要求覆盖原先“各实施阶段再补详细设计”的安排。
@@ -15,7 +15,7 @@
 | [03 读模型](03-query-models.md) | 每个 View 的字段、索引、版本、增量、重建和分页 |
 | [04 队列与资源](04-queues-and-scheduling.md) | 固定容量、保留通道、调度、期限、溢出和释放 |
 | [05 存储与恢复](05-storage-and-recovery.md) | 物理归属、命令日志、锁、提交、崩溃点与旧数据 |
-| [06 宿主与平台](06-host-and-platform.md) | Desktop/TUI、bootstrap、Broker、凭据、打包、代次 |
+| [06 宿主与平台](06-host-and-platform.md) | Desktop Shell、Rust Core 进程接入、Broker、凭据、打包、代次（已删 Bun CLI/TUI sidecar） |
 | [07 迁移与验证](07-migration-and-verification.md) | 生产入口映射、切换顺序、删除项与验证矩阵 |
 | [审查回执](../../experience/runtime-isolation-detailed-design-review.md) | 自上而下审查、发现、修订、闭环与剩余验证限制 |
 

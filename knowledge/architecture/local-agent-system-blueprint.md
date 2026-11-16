@@ -1,8 +1,11 @@
 # Peer 本地代理系统总体设计
 
 创建时间：2026-11-11
-最后更新：2026-11-11
+最后更新：2026-11-16（与 ADR 129 / ADR 133 收口：限定为 Desktop 隔离设计及 Desktop Shell ↔ Rust Core 逻辑边界，移除 Bun CLI/TUI 进程假设与 TS 全量内核重写假设；仍为 Proposed）
 状态：ADR128 的总体设计提案；尚未接受、未实施、未证明现有代码已经解耦。本文由同一 Agent 设计并自审，不称独立审查。
+
+> [!NOTE] 2026-11-16 与 ADR 129 & ADR 133 收口边界
+> 本总体设计的逻辑模块（`M00–M14` 职责、事实归属、依赖规则与 4 条端到端时序）延续作为 **Desktop Shell（`M00/M01/M14` 平台网关）↔ 唯一 Rust Core（`M02–M11` + 底层存储/投影）** 的目标逻辑契约。原生 CLI/TUI 按 `ADR 129` 直接在 Rust workspace 内运行，**不采用**任何 Bun/Node 隔离 sidecar；Desktop TS 侧仅落地 `RI-00`/`RI-01` 有界查询止损，不再按 TS 重写整套 `M00–M14` 运行时替代冻结中的 `@peer-agent/runtime-sdk`。
 
 决策入口：[ADR128](../decisions/128-local-runtime-isolation-and-bounded-query-contract.md)。现场依据：[架构审查](../experience/desktop-runtime-responsiveness-architecture-audit.md)。迁移：[实施包](../../playbook/runtime-isolation-implementation.md)。
 
@@ -17,7 +20,7 @@
 | 本机能力受用户控制 | 同一能力链、当前主体、逐调用 Grant、执行时重检 | 降权、拒绝、过期、换父、旧 epoch 与跨宿主反例 |
 | 结果有依据 | 工具事实、Evidence、核验和签收分别有唯一来源 | 缺证据、伪文本、提交失败、核验失败不能变成功 |
 | 只在必要时打扰 | 事实变化与模型认知、状态投影和通知各自分离 | 无变化不重算全部历史、不无谓唤醒模型、不抢注意力 |
-| 能更换模型和入口 | 领域核心不依赖 Electron、具体 SDK 或正文物理格式 | Desktop/TUI、云/本地模型、Store Adapter 契约对照 |
+| 能更换模型和入口 | 领域核心不依赖 Electron、具体 TS SDK 或正文物理格式 | Desktop Shell / 原生 Rust CLI（ADR 129 / 133）、云/本地模型、Store Adapter 契约对照 |
 
 响应性是这些责任共同要求的架构属性。它不能依赖某个页面恰好命中缓存。长期历史、并发任务、新 Provider、插件和索引重建必须遵守同一成本与执行位置约束。
 
@@ -47,7 +50,7 @@ Bot 主体、writer/lease、数据根、进程 generation、执行 epoch 和 req
 
 ```mermaid
 flowchart TB
-  UI[表达层：Desktop / TUI / CLI / 远程] --> GW[Client Gateway：身份、协议、路由]
+  UI[表达层：Desktop Renderer / 桌面受限入口] --> GW[Client Gateway：身份、协议、路由]
   GW --> WC[Work Coordination：委托责任与推进]
   GW --> CT[Session Control：暂停、取消、接管、恢复]
   GW --> Q[Projection Query：产品读模型]
@@ -115,7 +118,7 @@ Interface 包括输入输出、事实归属、顺序、错误、权限、配置�
 2. 领域 Module 使用自己的消费 Ports；具体 Adapter 在外层实现，Host Composition 完成依赖注入。公开跨层对象进 Protocol，内部 Ports 放在其消费者附近，不能建立一个全系统万能 Ports 文件。
 3. Query 的产品入口不 import SessionSupervisor/GoalRunner/PermissionGate 的执行实现。共享的状态投影使用同一个纯 kernel，所需事实从有界 Repository/读模型提供。
 4. 执行、控制与验收不 import UI Query Service。它们使用当前权威事实/明确报告入口，不能把缓存 View 拿来授权。
-5. Runtime 共享实现不反向 import Desktop；Node/Bun、Electron/CLI、云/本地模型差异留在 Adapter。Model Encoder 的请求格式不进入调度、权限或展示。
+5. Runtime 共享核心不反向 import Desktop；Node/Electron 平台边界、原生 Rust 宿主适配及云/本地模型差异留在 Adapter。Model Encoder 的请求格式不进入调度、权限或展示。
 6. `Composition Root` 只能选择 Adapter、声明资源 owner 与装配配置。新增 capability、view 或 source 不增加中心 `if capabilityId` 分支。
 
 导入无环仍不够：不得通过回调隐藏 `report → acceptance → report` 等运行时递归。需要纯函数依赖图、实际 producer/consumer trace 与递归/调用次数测试共同证明。已有 ADR102 的报告/验收反例必须成为固定门禁。
@@ -215,14 +218,14 @@ Host 先验证数据根/schema、进程代次、lease/fence，再对各 owner �
 
 | 部署单元 | 放入的 Module | 隔离目的 |
 |---|---|---|
-| Renderer / TUI 表达线程 | Presentation | 草稿、IME、绘制与阅读控制 |
-| Electron main | Desktop Gateway/窗口、受限平台操作、Host Adapter | 保住 UI broker 的响应与系统 API 所属线程 |
-| Local Runtime process | Work Coordination、Scheduler、Control、Agent Turn、Authorization、Capability、Verification 的应用层 | 隔离 UI，保持唯一执行宿主 |
-| Query process | 产品 Query 与 Projection reader | 慢查询不影响 UI 和执行控制 |
+| Electron Renderer | Presentation | 草稿、IME、绘制与阅读控制 |
+| Electron main | Desktop Gateway/窗口、受限平台操作、Desktop Host Capability Adapter | 保住 UI broker 的响应与桌面系统 API 所属线程 |
+| Local Runtime process（终局对应独立 Rust Core 进程） | Work Coordination、Scheduler、Control、Agent Turn、Authorization、Capability、Verification | 隔离 UI，保持唯一执行宿主（`ADR 133`） |
+| Query process / 有界只读投影 | 产品 Query 与 Projection reader | 慢查询不影响 UI 和执行控制 |
 | 有界 Storage/CPU workers | Store prepare/commit Adapter、历史/索引重建、必要 CPU 计算 | Runtime 控制循环也不承受长同步工作 |
 | 已有 Provider/工具子进程或未来本地推理进程 | 对应 Adapter 的实际执行 | 可观测资源、取消、故障与能力边界 |
 
-Desktop 以 `utilityProcess` Adapter 启动，TUI/CLI 用其分发运行时的可移植 Host Adapter，共享业务 Module。独立 OS 常驻服务是部署 seam 的后续选择，不在本篇强制安装。进程退出后的任务/副作用状态只按回执与现有保护处理，不承诺父进程死后子进程必然存活或死亡。
+Desktop 过渡期可先以 `utilityProcess` 止损有界查询（`RI-01`/`RI-02`），**终局直接由桌面组合层拉起并接入同一原生 Rust Core 进程（`ADR 133`）**；CLI/TUI 按 `ADR 129` 直接在原生 Rust 进程内装配核心并零 JS sidecar。独立 OS 常驻服务是部署 seam 的后续选择，不在本篇强制安装。进程退出后的任务/副作用状态只按回执与现有保护处理，不承诺父进程死后子进程必然存活或死亡。
 
 控制、执行、查询、重建分别有队列、deadline、在途字节和配额。CPU/rebuild pool 在同一数据根跨宿主共享限制，不能每 Bot 派一套 pool；本版不新增跨独立数据根的机器daemon或宣称整机硬上限。优先级不能打断已经运行的同步 JS；单个正常控制/main 工作片的设计预算为 8ms，超出须移出或在重检版本后分批让出。任何慢任务都能定位其 request/operation、排队、CPU/I/O、返回字节与来源版本。
 
