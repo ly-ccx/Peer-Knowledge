@@ -7,7 +7,7 @@
     "tree": "df1ebeab70fcba9a96846f1f767f8c592a1b8136",
     "branch": "codex/native-rust-cli",
     "pushed": true,
-    "state": "local frozen source and featureless artifact validated; independent full CI in progress",
+    "state": "local frozen source validated; remote Linux native gate failed; test-only correction 4690766c pushed separately",
     "commit": "85dc28e3dea6c10dfcc17e29ba4da8c04001484b"
   },
   "decisionPass": {
@@ -183,11 +183,20 @@
       133291958683,
       133291959134
     ],
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "failure",
     "wholeRepositorySuccess": false,
     "mergeCommit": "f7502d2b126a6efa0041595ca2cd15bc2ad13f3c",
     "mergeTree": "df1ebeab70fcba9a96846f1f767f8c592a1b8136",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "linuxConclusion": "failure",
+    "macosConclusion": "cancelled",
+    "observation": "Native/build/imports/type/architecture/Test passed; Electron smoke canceled after corrective source push by existing CI concurrency. Not whole-repository success."
+  },
+  "followupFixtureCorrection": {
+    "commit": "4690766cfde8524213ff39e1a39c295b59111057",
+    "receipt": "ci-native-https-proxy-fixture-20261116.json",
+    "runId": 43869546961,
+    "wholeRepositorySuccess": false
   }
 }
