@@ -12,7 +12,7 @@
 
 最终完整原生scoped **410 Rust（含148 native Episodes）/291根1688实际TS互读/9PTY**，CI Bun1.2.17，498.972秒exit0；fmt/clippy/边界/架构/UI通过。release profile四组格式测试在env-i、PATH无JS下再过，featureless CLI 16,705,504 bytes、SHA256 `14bfa423916c9fc6f8136b303144c1c7c66b1cd619cde747fbd7a693e4421d8a`，额外10项既有公开会话命令通过。原生依赖无VM，产物不包含官方WASM。首轮/第二轮clippy及初次Node源导入失败保留，使用原CI Bun解析实际TS，不抑制断言或静态检查。见[Qoder格式回执](native-cli/evidence/p4-native-qoder-formats-20261117.json)。
 
-基线7627两平台全仓CI43931485780含各自Electron smoke已成功；新[CI43938893409](https://github.com/ly-ccx/Peer-Agent/actions/runs/43938893409)两平台Build进行中，merge0cfff93d tree与源一致，不能继承旧绿。**本卡没有接文件读取/账户身份、Model factory或Qoder模型发送**；认证封装/运行时auth字段、完整消息/目录/选项、网络/SSE/队列重试/用量/取消，以及模型→工具→Grant/Evidence仍待完成，当前公开factory仍拒绝Qoder。其余P4与P5–P7保持开放，普通Ratatui对话仍不可发送，长期内存未验收；无个人数据、安装、用户进程重启、默认切换、合并或发布。
+基线7627两平台全仓CI43931485780含各自Electron smoke已成功；新[CI43938893409](https://github.com/ly-ccx/Peer-Agent/actions/runs/43938893409)已核实Linux133550764577/macOS133550764777两平台全仓success，含各自Electron smoke；merge0cfff93d tree与源一致。**本卡没有接文件读取/账户身份、Model factory或Qoder模型发送**；认证封装/运行时auth字段、完整消息/目录/选项、网络/SSE/队列重试/用量/取消，以及模型→工具→Grant/Evidence仍待完成，当前公开factory仍拒绝Qoder。其余P4与P5–P7保持开放，普通Ratatui对话仍不可发送，长期内存未验收；无个人数据、安装、用户进程重启、默认切换、合并或发布。
 
 ## 2026-11-17 原生 doctor / sessions list / 有界 export
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-11-17",
-  "status": "native-format-primitives-and-release-tests-passed; Qoder Provider is not wired; candidate full CI running",
+  "status": "native-format-primitives-and-release-tests-passed; this candidate does not wire the Qoder Provider; both-platform whole CI passed",
   "source": {
     "head": "cfdfd40a5e7ea5020f74ac15f1b443caef081d5b",
     "tree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
@@ -201,22 +201,23 @@
     "mergeCommit": "0cfff93dadd12387962509c7b888670c1bd26ac6",
     "mergeTree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
     "matchesSourceTree": true,
-    "wholeRepositorySuccess": false,
-    "status": "in_progress",
+    "wholeRepositorySuccess": true,
+    "status": "completed",
     "jobs": [
       {
         "id": 133550764577,
         "platform": "Linux",
-        "status": "in_progress",
-        "step": "Build"
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 133550764777,
         "platform": "macOS",
-        "status": "in_progress",
-        "step": "Build"
+        "status": "completed",
+        "conclusion": "success"
       }
-    ]
+    ],
+    "bothElectronSmokes": true
   },
   "limits": {
     "qoderFileSourceAdapterImplemented": false,
