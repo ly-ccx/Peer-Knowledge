@@ -243,3 +243,7 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 ### NR-04 原生MCP credential epoch与原grant续行（2026-11-16，实施前 A级补齐）
 
 沿ADR132同日修订引入execution绑定、只在内存存续的凭据epoch：只有受管OAuth持锁发布的内部凭据证明可以推进已知真实Store revision。Host每次检查真实revision，只对这条已验证代际链规范化credential来源以复核原grant；其它授权/Context事实和外部变化继续精确拒绝。连接owner有限排队，旧HTTP连接停稳/join后才刷新与替换，stdio不自动重启；不重放tools/call，不改写grant/Evidence或清除unknown。重启丢失epoch证明，沿原Store/任务恢复准入。细项与验收见ADR132；当前TS预读发送guard、安装drain与P4总闸另验。
+
+### NR-04 当前TS MCP token发送与共享恢复（2026-11-16，实施前 A级补齐）
+
+沿ADR132同日修订，TS官方SDK fetch seam在token HTTP之前取得共享metadata owner并发布已有refreshState，code交换也用同一pending合同；只由该owner验证并发布新Vault代，SDK晚到save仅消费匹配回执。当前读/保存/redirect回调复核代，显式Host authorize purpose可保留已知pending写入新的PKCE并重新授权，未知schema保全。tools/call认证失败/redirect不自动重放且保留unknown；close取消并等待受管HTTP。原生兼容已保存且一致的SDK issuer cache与真实token.scope，仍经受限发现和原权限链。新回调是同进程Host Interface，不是Renderer许可或新跨进程真值；旧已运行版本drain仍另验。

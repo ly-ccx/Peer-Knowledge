@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR132/131实施前A补齐当前TS MCP token发送前owned intent（含code交换）、一次提交回执、无工具认证重放和显式pending管理恢复；原生核对旧SDK issuer cache/实际token.scope。旧运行版本drain与全P4另验。
+
 2026-11-16：ADR132原生自动刷新接线前B复核跨代旧凭据脱敏寿命与原64值/256KiB预算；epoch不持秘密。区分OAuth数值CONNECT与普通MCP域名CONNECT，不放宽地址或权限。
 
 2026-11-16：ADR132/131实施前A补齐原生MCP运行时刷新、execution内存credential epoch与原grant/Context续行；仅受管真实发布推进，外部修改阻断；旧连接停稳后替换，工具不重放。TS预读发送guard/安装drain另验。
