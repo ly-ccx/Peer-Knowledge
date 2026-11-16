@@ -1,7 +1,7 @@
 # ADR 131：原生 CLI 的跨语言契约、共享数据与恢复
 
 创建时间：2026-11-14
-最后更新：2026-11-15
+最后更新：2026-11-16
 状态：Accepted（2026-11-14 用户接受评审稿 118；正式编号 131；授权实施，不授权个人数据迁移、接管、安装或重启）
 级别：A
 依赖：[ADR 129](129-native-rust-cli-and-ratatui.md)、[ADR 130](130-bounded-cli-memory-and-transcript.md)

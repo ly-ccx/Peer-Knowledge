@@ -4,11 +4,29 @@
 最后更新：2026-11-16
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 当前剩余范围（2026-11-16）
+
+| 阶段 | 当前事实 | 尚待完成 |
+|---|---|---|
+| P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 认证兼容与原生登录/配置写入、Grok/Qoder、代理/证书、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
+| P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
+| P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
+
+不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
+
+2026-11-16 模型 OAuth 候选 `505ac8e4`：先于源码推送 A 级 ADR0001/131 Helper 快照/CAS（cceecf9）、ADR28/48 当前订阅目录与类型校正（2ce89a3）、刷新前加密意图与 unknown 保全（9df3605）。现有 ChatGPT/Google 账号在实际模型请求前读取真实 Vault token、核对配置/凭据代，先 CAS 加密刷新意图再发 HTTP；成功仅提交自己的意图代。取消、超时、崩溃或未知效果保留意图，后续不重放旧 refresh；新登录/退出使迟到回调失效。Helper v1 可选 feature 协商，旧 Helper 对新鲜 token 仍可读取，但过期刷新在远端效果前拒绝。原有权限与 Evidence 边界不动。
+
+本地完整 scoped：291 Rust（79 native Episode）、157 隔离根 / 908 实际 TS 往返、9 PTY；6 组真实 TS refresh 表单、5 组订阅请求、77 组类型化窗口选择，以及真实 TS client→加密 Rust Vault 条件协议通过。Desktop 80 聚焦、TS Helper 11、IPC 411/445/359、fmt/clippy/release/boundary/architecture/UI 通过。完整 scoped 后仅追加 release Helper 构建/探针与格式整理，并重跑聚焦检查；featureless CLI 不含测试 OAuth 端点，debug/release Helper 均声明 CAS，探针不读秘密或改数据根。详见[模型 OAuth 回执](native-cli/evidence/p4-native-model-oauth-20261116.json)。新候选已推送，[独立 CI43806200856](https://github.com/ly-ccx/Peer-Agent/actions/runs/43806200856)进行中，尚未记 success。
+
+本卡仍未通过 P4 总闸：旧 TS 预读 token 的自动刷新尚未迁移同一前置意图事务，仅有 get 保护不能防重复远端刷新；必须继续补齐同域升级/drain 兼容。原生浏览器登录、完整配置写入与元数据恢复、其余 P4 能力，以及 P5–P7 都未完成。未请求真实 IdP/付费模型，注入 KeyStore 不替代 OS Vault；没有安装、迁移个人数据、重启实例或发布。
+
 2026-11-16 OpenCode Go候选 `c34f161f`：复核ADR37、`48-provider-model-options.md`、129、131，沿既有Channel/Wire与数据契约做B级迁移，不增加执行、授权或存储事实。原生Adapter接通按模型选Chat/Responses/Anthropic、显式wireOverride、旧双渠道别名与Go根地址归一；21个静态模型推理profile及各wire默认值从实际TS resolver生成并冻结，已同步reasoningEffortValues优先，旧支持标记/样式/五档映射不能覆盖Go模型声明。Go会话头和Anthropic身份头走同一受限headers seam；无显式会话标识时由NativeModel owner创建临时UUID，同一执行的count/send/工具续接不变，后续执行新建且不回写配置。自定义session头仍按现有条目覆盖规则执行，显式session长度与CRLF受限。
 
 实际差分还复现了原native live Chat漏发mapped-off、空映射补回通用强度的缺口；按当前Desktop encoder与ADR37的声明映射语义修复，保留已有Runtime的DeepSeek历史准入，纯共享wire fixtures不改。live dialect集中在wire/runtime.rs，追加runtime字段后再核对2MiB上限；精确边界测试证明不能由一个合法共享请求扩成超限发送。
 
-完整原生scoped通过：272 Rust（68 native Episode测试）、294组实际TS配置/请求及真实HTTP count/send，其中123组Go；28组公开CLI配置/wire组合（含旧别名）通过真实模型流→工具→grant/ToolResult/Evidence。133隔离根782项实际TS往返、9PTY、fmt/workspace clippy/release/boundary/architecture/UI均通过。独立公开CLI验证未知Go模型使用服务端默认、同一执行头稳定及后续任务新身份；配置原字节不变。保留原mapped-off差分失败、旧临时Go拒绝断言与中间Rust可见性编译失败；更新为Go已支持/非法wire仍拒绝的真实合同，不删除工具/Evidence覆盖。见[Go回执](native-cli/evidence/p4-native-opencode-go-20261116.json)。基线35e213d1的CI43794213954 Linux133059215802 / macOS133059216064两平台全仓（含Test和Electron smoke）success；merge0556763c的tree与候选f7c8db52相同，新[CI43797484064](https://github.com/ly-ccx/Peer-Agent/actions/runs/43797484064)已启动，尚未记success。
+完整原生scoped通过：272 Rust（68 native Episode测试）、294组实际TS配置/请求及真实HTTP count/send，其中123组Go；28组公开CLI配置/wire组合（含旧别名）通过真实模型流→工具→grant/ToolResult/Evidence。133隔离根782项实际TS往返、9PTY、fmt/workspace clippy/release/boundary/architecture/UI均通过。独立公开CLI验证未知Go模型使用服务端默认、同一执行头稳定及后续任务新身份；配置原字节不变。保留原mapped-off差分失败、旧临时Go拒绝断言与中间Rust可见性编译失败；更新为Go已支持/非法wire仍拒绝的真实合同，不删除工具/Evidence覆盖。见[Go回执](native-cli/evidence/p4-native-opencode-go-20261116.json)。基线35e213d1的CI43794213954 Linux133059215802 / macOS133059216064两平台全仓（含Test和Electron smoke）success；merge0556763c的tree与候选f7c8db52相同，[CI43797484064](https://github.com/ly-ccx/Peer-Agent/actions/runs/43797484064)已核实Linux133069491919 / macOS133069492282全仓success；merge ba9e8d49的tree e4ba2f48与候选相同。
 
 本卡未通过P4总闸：订阅OAuth/自动刷新、Qoder私有wire/选项、代理/证书、完整Context发现与压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/命令仍待完成；P5完整Bot与Ratatui交互未开始。真实Go服务、真实模型/IdP/OS Vault、多平台安装、完整体验与长时内存未验收。没有发布、安装、迁移个人数据或重启实例；原生执行链不含Bun/Node引擎sidecar。
 
