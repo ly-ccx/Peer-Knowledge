@@ -184,3 +184,17 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 本卡 v1 界限冻结于 mcp-runtime-v1 resource：最多8个受管连接、通道1条、单帧1MiB、单RPC累计8MiB/128帧、单请求256KiB、归一化结果256KiB、30秒deadline。超限明确失败并保留可能效果，不静默截断或替换原返回类型。明确未写出 tools/call 时可在 Evidence 追加 `dispatchOutcome:"not_dispatched"`，canonical receipt 仅由 Host 采用此受信 Provider 事实；模型/服务端字段不能提供该事实。HTTP 不自动重试或重定向；legacy SSE endpoint 限同源，避免配置凭证跨源发送；这属于本原生 Adapter 的保守限制，不将此卡记为完整协议平价。现有已显式配置 headers/env 的注入值在返回进入模型/Evidence 前脱敏；新凭证管理仍须 Vault Adapter。
 
 2026-11-16 B级协议补齐：Streamable HTTP等待原RPC的SSE结果时，仍须发送SDK产生的服务器请求回复/通知；最多保留原响应流和一个控制POST，不创建脱离受管owner的后台任务。控制回复只能沿已有transport，不生成工具、许可、Evidence或模型调用。客户端与服务器各自的请求id可重合；只有同id的JSON-RPC响应/错误可结束原响应流，服务器同id的请求不算工具结果。协商版本只绑定到真实initialize请求的响应，Tool Result里的同名字段仍是原始事实，不能改变连接配置或下一请求header。明确禁用底层HTTP协议NACK重试，保持不自动重放；断连/失败仍按原unknown契约处理。此补齐沿ADR31既有双向协议，未移动能力、授权、存储或System Context边界。
+
+### NR-04 原生模型账号登录与只读状态（2026-11-16，实施前 A级补齐）
+
+沿 ADR0001/28 和已接受的全面迁移，新增 `models auth <configured-channel-id>`、`models logout <configured-channel-id>`、`models status <configured-channel-id>`。这些是用户显式调用的本地凭据管理命令，不进入模型工具面，不授予能力、PermissionGrant 或 Evidence；不能因 auth 成功自动执行用户任务。既有裸 `models` 列表与完整配置 CRUD/写入所有权继续按 P4 功能表交付，本节不将缺项删出目标。
+
+- 只选择现有 v2 channels 的唯一 id，认证方式来自当前已声明 Adapter，ChatGPT/Google 使用实际 TS 中冻结的 installed-app identity、固定授权/token端点、现有 localhost 回调路径/端口和 S256 PKCE。原生实现使用外部浏览器授权 URL（CLI 明示 URL 及取消方式），不嵌入浏览器、不用 Bun/Node 或旧 CLI 引擎代办。授权 URL 不包含 code verifier、token 或用户 client secret。
+- 单次 flow 拥有 listener、state/verifier、HTTP请求与 Helper 子进程。回调只绑定 IPv4 loopback；按实际 redirect 检查唯一 Host、路径、唯一 state/code，拒绝混淆/重复/错误 state。头大小/连接数/每次读写与总等待有界，取消/拒绝/超时关闭所有自有资源。callback 页面只确认已收到回调，不能在 Vault 验证前宣称登录成功；输出/错误不带 code/verifier/token。
+- 授权码交换固定端点，禁止重定向和自动重放，整响应有期限/大小界限；按现有 token schema 验证 access、Bearer、正 expiry 与账号元数据。JWT claims 仅用于既有路由/显示元数据，不被提升成新的授权事实。
+- 开始时捕获只读 channel 绑定和真实 Helper snapshot/revision（包括明确重新登录要替换的 pending/损坏 token JSON）；交换完成先复核 channel，再只 CAS 原始凭据代。新登录/退出/配置移除或修改使迟到 flow 失败，不无条件覆盖。Helper 缺 CAS feature 在授权 URL 和远端效果前拒绝。Vault 密文/schema 损坏仍保全，不为重登重建 Vault。
+- 登录只有在 Vault 条件提交且原值回读验证后返回 credential_updated；回执丢失报告 unknown，status/新登录以实际 Vault 对账，不自动重放授权码。logout 只条件删除当前代，不调用远端撤销、不复活已删账号；缺失幂等。status 仅投影真实凭据为 not_logged_in/authenticated/refresh_required/recovery_required，不输出秘密，pending/未知 token 不能冒充未登录或可自动刷新。
+- 明确修正原生 loader 的实现偏差：oauthConfigured/oauthExpires/oauthAccountId 是非权威提示，不能替代实际 Helper token 或阻止已成功落盘的原生登录准入。仍需唯一配置绑定、已启用模型/渠道和原授权链；无 token、pending、错误 provider、未知 schema 仍拒绝。本卡保持 llm-providers.json 原字节，不无锁回写元数据。完整配置写入所有权、提示恢复、账号创建、混合旧安装版本升级/drain 和 P4总闸仍必须另行实现/验收。
+- PKCE/state/请求参数从真实 TS 登录流程生成 conformance 资源；隔离 IdP + 真实原生 CLI + 加密 Helper Vault 验证正确/错误/重复回调、端口冲突、拒绝、取消、超时、晚到登录/退出、提交回执丢失，以及登录后实际模型/工具/Evidence 闭环。共享 loopback parser 可抽为 runtime 内部 Module，MCP仍保留原 redirect 限制与错误契约；不得顺带放开 MCP 端点。
+
+正式 IdP、系统 Vault 和多平台安装分别验收；模拟网络不冒充真实平台认证。依据：[RFC8252](https://www.rfc-editor.org/rfc/rfc8252) 与 [RFC7636](https://www.rfc-editor.org/rfc/rfc7636)。

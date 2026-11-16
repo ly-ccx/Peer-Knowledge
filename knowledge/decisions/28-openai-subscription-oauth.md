@@ -201,3 +201,5 @@ LlmSettingsPanel (协议类型 + 鉴权方式 + 登录按钮)
 
 - ADR 23 Provider Encoder Seam
 - opencode `packages/core/src/plugin/provider/openai-auth.ts`(PKCE / 流程参考)
+
+2026-11-16 原生账号入口补充（实施前A）：原生 CLI 的显式登录/退出/status、固定端点/PKCE/loopback 和迟到凭据代条件提交见 [ADR131 NR-04模型账号条款](131-native-cli-contract-storage-and-recovery.md)。本地元数据提示不能充作实际 token 真值；完整配置管理与提示恢复仍是迁移必交范围，不由只读配置登录替代。权限/Evidence不变。
