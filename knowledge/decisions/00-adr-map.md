@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-16：ADR50按实际CLI迁移原生模型网络Module：逐请求macOS代理、原env/NO_PROXY、显式extra CA和受限OS信任查询，保留TLS及OAuth不重放；MCP地址策略不借本卡放宽。实施/平台验收另记。
+
 2026-11-16：ADR131环境来源Adapter接线前补齐显式openai-compatible身份、原三字段选择/既有canonical四字段校验与独立env Chat编码；不把环境key注入文件渠道，不改变工具授权。
 
 2026-11-16：ADR131 NR-04补齐OAuth提示重建与窄models reconcile恢复入口：真实Vault与metadata结果分开、无秘密影子库、不重放认证，提示变化不取代operational binding；status/models列表仍不写或解封秘密。实现/平台验收另记。

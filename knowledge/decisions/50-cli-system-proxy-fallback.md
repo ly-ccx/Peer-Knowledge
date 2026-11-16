@@ -77,3 +77,15 @@ NO_PROXY bypass（最先判断）
 - `bun test`：**17 pass / 0 fail**（含新增 `macos-system-proxy.test.ts` 与 `provider-transport.test.ts` 回退用例）。
 - `tsc -p tsconfig.json --noEmit`：**EXIT=0**。
 - 手动：macOS 系统代理开启、终端无 `HTTPS_PROXY` 时 CLI 走系统代理；`export HTTPS_PROXY` 后以 env 为准；`NO_PROXY` 命中仍直连。
+
+## 原生迁移实施约束（2026-11-16，接线前复核）
+
+沿 ADR129/130/131 和实际 `provider-transport.ts` 迁移模型网络 Adapter。B级实施，环境优先、NO_PROXY、能力授权和Evidence边界不变；旧文“启动时只读一次系统代理”由当前实现的逐请求重读取代，避免VPN/代理切换后继续使用旧连接。每次物理请求仍是一次发送；网络配置迁移不增加模型/工具、授权码或refresh的自动重放。
+
+- 模型生成、同请求count以及ChatGPT/Google账号交换/刷新共用一个原生网络Module。环境取构造时的快照；协议专属大写/小写、ALL_PROXY、NO_PROXY与显式PEER_EXTRA_CA_CERTS/NODE_EXTRA_CA_CERTS优先级对照实际TS。NO_PROXY普通host是精确匹配，点/星点前缀才允许子域，端口与全量星号规则保留。不借reqwest默认代理规则替代既有选择。
+- macOS继续只读固定scutil HTTP(S)开关；非macOS不查询系统代理。系统查询失败/超限/超时视为无回退；取消停止查询且不能继续直连。固定OS命令有输出、时间和进程清理边界，不接收模型argv，不成为新的工具执行入口。逐请求选择route且不复用旧代理连接；失败不能默默换成直连并重复请求。
+- Rustls的内置公共根证书和主机名/TLS验证继续开启。显式extra CA只扩展信任，不替换内置根，不使用accept-invalid。显式路径必须可读取、有界普通文件；错误明确阻断，修复后可以按原任务身份重新准入，不改源配置或凭据。
+- macOS额外根保持当前CLI语义：只从user/admin Trust Settings中的非拒绝指纹选择公开证书，未配置/拒绝/损坏项不被当成新增根；OS查询失败保留内置根，不关闭TLS验证。查询只导出公开信任元数据/证书，不读取私钥或模型Vault。临时文件归该查询所有并清理。
+- Proxy URL/鉴权值不进入错误详情、终端、Context、Evidence或性能trace；协议仅接受HTTP(S)，未知代理方案拒绝。CA、XML/PEM、代理文本与OS输出都受ADR130有界准入；不以安全默认值掩盖显式坏配置。
+
+验收绑定真实TS路由/NO_PROXY/scutil/CA选择fixtures与原生公开CLI，覆盖实际HTTP代理、HTTPS/自签CA、错误证书/主机名/非法文件、取消和后续同任务准入，以及count/send和模型OAuth单次交换。无Node/Bun运行验证单列。MCP普通transport和MCP OAuth的网络/地址政策另沿ADR31/132迁移；本段不允许借代理绕过OAuth受限DNS/私网/redirect政策，也不把模型网络切片记成完整P4。
