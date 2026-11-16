@@ -4,6 +4,18 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 原生 doctor / sessions list / 有界 export
+
+候选 `7627d4c8`（tree `8f05f778`）已推送。ADR108/129/130/131 已复核；ADR131/map的展示读取、原子发布与未知回执 A 级补充由6395a575/c52072fb/c4d35111先登记。doctor改为检查实际peer/同目录Helper可执行性、数据根或最近现有父目录及版本，必查失败退出1，不执行Helper/读Vault/建数据根。sessions默认/list只读真实index，原角色/排序/标题不读正文、不后台迁移。export沿实际TS可见消息与v1 stream patch生成脱敏Markdown，不能用canonical执行历史的provisional排除规则替代展示。
+
+Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536节点/深度64；捕获有限文件长度，持续追加不延长读取。源版本或损坏/未来/孤patch明确失败。CLI匿名0600 spool、默认no-clobber、force目标CAS与父目录OS短锁/原子rename，拒绝Store/所读源别名；发布前取消保留旧target，rename后flush/回执失败保留新副本并报publication unknown。真实stdout背压/破管道/TERM、取消锁等待、后续显式重试覆盖；不改变grant、Evidence、任务、unknown或模型Context。
+
+最终完整原生scoped门禁 **406 Rust（含148 native Episodes）/291根1688实际TS互读/9PTY**，CI Bun1.2.17，467.896秒exit0，fmt/clippy/边界/架构/UI通过。5个实际TS Store/可见消息fixture、17参数、14脱敏样本匹配。featureless release **16,691,456 bytes，SHA256 `218d34a218cce60792847962db105162cc02e1d5053d3b8c6e29c4b07f0d81ab`**，同一产物额外10个公开会话命令测试通过。五次1,080,033,792字节有效JSONL（10×100MiB工具/3×10MiB可见正文）导出均完整hash匹配且源未变；峰值macOS采样RSS49.23–51.42MiB、约6.89–7.07秒。只是文件导出专项，没有footprint/全进程树/长期交互验收。
+
+首轮整闸因额外无fixture的cargo test重链接同路径debug peer造成109过39败（故障exit0而非77、夹具IdP未收到请求），日志/合成失败Store保留，不称flake。相同真实故障测试用featureless产物可重现失败、冻结fixture产物通过；verify改为先构建并复制/记录fixture hash，再给Host测试固定产物，原断言/期限不动，最终整闸独立重跑通过。另保留ya29断言、clippy与发布成功回执破管道反例，修正并覆盖提交未知后的显式恢复。见[会话壳回执](native-cli/evidence/p4-native-session-shell-20261117.json)。
+
+基线5182两平台全仓CI43916683249（含各自Electron smoke）已核实成功；本候选[CI43931485780](https://github.com/ly-ccx/Peer-Agent/actions/runs/43931485780)两平台Build进行中，不能继承旧绿。P4完整总闸、sessions resume/delete/update及其余Runtime/协议仍开放；P5–P7完整退出条件未满足，Ratatui仍不可发送普通对话。无个人数据迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
 ## 当前剩余范围（2026-11-17）
 
 | 阶段 | 当前事实 | 尚待完成 |

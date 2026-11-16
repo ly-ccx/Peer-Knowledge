@@ -899,3 +899,6 @@ T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态
 2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。
 
 2026-11-15 原生CLI容量Host `daa4c478`：结构化contextAccounting来自真实count/provider观察；计数失败或漂移明确degraded，未知窗口的percent保持null。单请求容量与回合/历史账单分离，后续内容标pending；数据不创建许可、Tool Result或Evidence。33公开CLI、51根274 TS/Rust往返与8PTY为实现者自测；完整压缩和发布体验未验收。见 playbook/native-cli/evidence/p4-native-capacity-host-20261115.json。
+
+
+NR-04 会话壳（2026-11-17，`7627d4c8`）：用户显式检查安装/列会话/导出阅读副本。事实源为当前exe/Helper文件属性、真实Store index及稳定的有界展示快照；这些不是工具许可、Evidence或会话发送。静态doctor必查失败、列表空/损坏、导出源变更/终端控制拒绝、默认拒绝覆盖、取消、成功和发布未知分别表达；Ctrl-C/TERM可取消扫描/背压/锁等待。发布前失败保留原target，提交后回执未知保留新副本，用户可从当前代显式force重试。不自动迁移/删会话、不动草稿/焦点/阅读位置，motion N/A。10个公开CLI/4个展示Store测试、完整406 Rust/9PTY及五次1GiB文件导出专项见[回执](../../playbook/native-cli/evidence/p4-native-session-shell-20261117.json)。实现者自审；不是完整TUI/P4/P5、长期内存、读屏/物理IME/真实服务/安装或发布验收。

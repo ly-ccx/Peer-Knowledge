@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "native-scoped-and-featureless-release-passed; whole-repository candidate CI in progress",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "head": "7627d4c8f664fb07b04c9db13b4e62f8984c66a5",
+    "tree": "8f05f77832d82cd4e6ddd1cabee8cf4ed17cd8dd"
+  },
+  "preSourceKnowledge": [
+    "6395a57508fa2a1cd5fb683cbc340335cbffa66a",
+    "c52072fbe0b72024f656e47afca67c4bf3696e43",
+    "c4d351116e10334593a6ab1819232ffc5933e851"
+  ],
+  "adrs": [
+    "108-cli-basic-shell-commands.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "A registered in ADR131/map before implementation: bounded display Reader and atomic publication/uncertainty for human reading copies. No model tool, permission, Evidence or System Context authority added. Verification artifact pin is C, no product behavior change.",
+  "baseline": {
+    "path": "/tmp/peer-native-session-baseline-20261117.json",
+    "sha256": "7728dde6e30689d21eee844de6ee7f3b40bdaf5b135f09ca48cd28d3236c3ce6",
+    "bytes": 994
+  },
+  "baselineMeaning": "Published 5182 featureless executable: sessions/export unsupported; doctor scaffold could return success without HOME and did not inspect the Helper. Isolated synthetic roots and PATH without JS.",
+  "validation": {
+    "nativeGate": {
+      "tree": "8f05f77832d82cd4e6ddd1cabee8cf4ed17cd8dd",
+      "head": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
+      "startedAt": 1794853944.345983,
+      "bun": "1.2.17",
+      "exitCode": 0,
+      "elapsedSeconds": 467.8962459564209,
+      "finalTree": "8f05f77832d82cd4e6ddd1cabee8cf4ed17cd8dd",
+      "rustTests": 406,
+      "nativeEpisodesIncludedInRust": 148,
+      "actualTsInteropRoots": 291,
+      "actualTsInteropChecks": 1688,
+      "ptyCases": 9,
+      "log": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/verify.log",
+        "sha256": "723e56cb0416c35a09427f4589bff029c3490646d72d905191131a799c4cdef3",
+        "bytes": 96325
+      },
+      "pinnedFixtureBinary": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/fixture-peer-native",
+        "sha256": "0f0c343dab86c6ec01f6d27b88da5b3877c5317fcb55dee8aa0002459bad5fb3"
+      }
+    },
+    "actualTsContracts": {
+      "storeListVisibleStreamViews": 5,
+      "parserCases": 17,
+      "redactionCases": 14,
+      "resource": "packages/protocol/contracts/native-cli/session-shell.json"
+    },
+    "featurelessRelease": {
+      "path": "/tmp/peer-native-session-final-20261117-v2/peer-native",
+      "sha256": "218d34a218cce60792847962db105162cc02e1d5053d3b8c6e29c4b07f0d81ab",
+      "bytes": 16691456,
+      "sessionShellPublicTests": 10,
+      "sessionShellLog": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/release-session-shell.log",
+        "sha256": "95d3ed3fac51f9b10fe7a75bedd9cf975774c38d1573eb82f16ec53d2f73d832",
+        "bytes": 1087
+      },
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/release-dylibs.txt",
+        "sha256": "b6c48539e2c8fd458574db209269a43b5731ede21c42b7dfb8407b5753e33798",
+        "bytes": 358
+      },
+      "scope": "Direct Rust executable, PATH=/nonexistent, env cleared; real doctor/list/export/parser/help, source controls, file publication, SIGTERM and broken pipe/recovery. Helper is metadata-only doctor fixture, never executed. No Bun/Node engine sidecar. No install or real OS Vault."
+    },
+    "architectureAndUi": {
+      "path": "/tmp/peer-native-session-final-20261117/architecture.log",
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560",
+      "bytes": 384
+    }
+  },
+  "largeHistoryExport": {
+    "sourceBytes": 1080033792,
+    "sourceSha256": "30b3a9c4d358b4918394f53efb25463de50255eb9e4413366f73034cb22e5059",
+    "sourceRecords": "Ten 100MiB tool strings skipped plus three 10MiB assistant strings; no sparse/invalid padding. All source/output hashes checked after each trial.",
+    "outputBytes": 31457348,
+    "outputSha256": "4b1bd7732921434aa4cfe6e4360dc4032084adcef4b3d0fb2432c6b9fdc9dcaf",
+    "trials": [
+      {
+        "trial": 0,
+        "pid": 9987,
+        "exitCode": 0,
+        "seconds": 7.049461292,
+        "stdout": "Exported a to /tmp/peer-native-session-final-20261117-v2/large/export-0.md\n",
+        "stderr": "",
+        "peakRssKiB": 52640,
+        "outputBytes": 31457348,
+        "outputSha256": "4b1bd7732921434aa4cfe6e4360dc4032084adcef4b3d0fb2432c6b9fdc9dcaf"
+      },
+      {
+        "trial": 1,
+        "pid": 10188,
+        "exitCode": 0,
+        "seconds": 6.966153332999999,
+        "stdout": "Exported a to /tmp/peer-native-session-final-20261117-v2/large/export-1.md\n",
+        "stderr": "",
+        "peakRssKiB": 50416,
+        "outputBytes": 31457348,
+        "outputSha256": "4b1bd7732921434aa4cfe6e4360dc4032084adcef4b3d0fb2432c6b9fdc9dcaf"
+      },
+      {
+        "trial": 2,
+        "pid": 10316,
+        "exitCode": 0,
+        "seconds": 6.887813083999999,
+        "stdout": "Exported a to /tmp/peer-native-session-final-20261117-v2/large/export-2.md\n",
+        "stderr": "",
+        "peakRssKiB": 52640,
+        "outputBytes": 31457348,
+        "outputSha256": "4b1bd7732921434aa4cfe6e4360dc4032084adcef4b3d0fb2432c6b9fdc9dcaf"
+      },
+      {
+        "trial": 3,
+        "pid": 10438,
+        "exitCode": 0,
+        "seconds": 6.941624833999999,
+        "stdout": "Exported a to /tmp/peer-native-session-final-20261117-v2/large/export-3.md\n",
+        "stderr": "",
+        "peakRssKiB": 52656,
+        "outputBytes": 31457348,
+        "outputSha256": "4b1bd7732921434aa4cfe6e4360dc4032084adcef4b3d0fb2432c6b9fdc9dcaf"
+      },
+      {
+        "trial": 4,
+        "pid": 10554,
+        "exitCode": 0,
+        "seconds": 7.073177291999997,
+        "stdout": "Exported a to /tmp/peer-native-session-final-20261117-v2/large/export-4.md\n",
+        "stderr": "",
+        "peakRssKiB": 52592,
+        "outputBytes": 31457348,
+        "outputSha256": "4b1bd7732921434aa4cfe6e4360dc4032084adcef4b3d0fb2432c6b9fdc9dcaf"
+      }
+    ],
+    "rawCurves": {
+      "path": "/tmp/peer-native-session-final-20261117-v2/large-export.json",
+      "sha256": "9edad1725acea72b2040d32c7d31a1ca5bd8f5ea614acc0cd9bd5fcc1ad4ed50",
+      "bytes": 50352
+    },
+    "script": {
+      "path": "/tmp/peer-native-session-final-20261117-v2/large_export.py",
+      "sha256": "931cda0075b71b3c785e2d5ac8c42d83121be947839cecc563633409b9a201c1",
+      "bytes": 2921
+    },
+    "host": "macOS-27.0.1-arm64-arm-64bit",
+    "measurement": "Owned single CLI PID, sampled macOS RSS about every 50ms via ps. No footprint/live allocation/process-tree/interactive/4h acceptance. First trial overlapped a short owned fixture-mode comparison; remaining trials ran alone. Times are observations, not latency acceptance.",
+    "peakRssMiB": 51.421875
+  },
+  "behaviors": [
+    "Index-only list handles all three roles, preserves original title/time order and empty stderr notice; corrupt/duplicate/unsafe index fails without body/sidecar read or migration.",
+    "Doctor inspects actual current executable, same-directory executable Helper, writable root/nearest existing parent, version and optional terminal facts. No mkdir, Helper execution, credential read, network or repair. Mandatory failures exit1.",
+    "Display reader distinguishes provisional visible stream text from canonical committed model history, validates skipped UTF8/JSON/depth, bounds selected fields and captured scan horizon, and fails on changed source or orphan/future/invalid patch.",
+    "Redacted Markdown uses actual TS shapes/patterns, includes redacted header metadata, excludes raw tools/Evidence, rejects unsafe terminal/bidi text on stdout and permits an explicit file reading copy. Patterns do not detect every opaque secret.",
+    "Anonymous 0600 spool precedes publication. No-clobber or force target CAS with bounded cancelable OS parent-directory lock and atomic rename, rejects Store/source aliases/nonregular paths. Cooperative file identities are not an OS path sandbox.",
+    "Pre-publication cancellation, invalid source, lost target generation and lock wait preserve the old target and clean owned temporary files; later explicit export succeeds.",
+    "After rename, directory sync or successful-receipt pipe failure reports publication unknown and retains committed bytes. Fresh explicit force captures the current generation; default retry refuses clobber.",
+    "Full stdout backpressure is cancelable via real SIGTERM, returns4 with a partial copy; closed reader fails1 and later export succeeds. No task, grant, history or unknown mutation."
+  ],
+  "preservedFailures": {
+    "initialRedactionAssertion": {
+      "path": "/tmp/peer-native-export-first-20261117.log",
+      "sha256": "10ae75f0cff8f39bb38c19b0f2ee081ef4fa7ea5c9d2438acae6818cfe3251d0",
+      "bytes": 1427
+    },
+    "initialClippy": [
+      {
+        "path": "/tmp/peer-native-session-clippy-20261117.log",
+        "sha256": "2c0d20e6a98d6d383c4b5f351ef04eee624232a0e8e9e4f1ec56ec9bbc1378ea",
+        "bytes": 1363
+      },
+      {
+        "path": "/tmp/peer-native-session-clippy-20261117-v2.log",
+        "sha256": "4abff512e3f379db0c5f8ef92537d4e94007c4b85ffa0a8b019552d684db304c",
+        "bytes": 1489
+      }
+    ],
+    "publicationAckCounterexample": {
+      "path": "/tmp/peer-native-session-final-20261117/ack-failure-baseline/result.json",
+      "sha256": "ea7249a7b1582dcf18ad99902eee9acd23b0ad7c8ddfc1f9d6d01707ae089a6d",
+      "bytes": 314
+    },
+    "firstFullGate": {
+      "tree": "d17a74c37a115d06c77646240aceac0058517c07",
+      "head": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
+      "startedAt": 1794853546.265654,
+      "bun": "1.2.17",
+      "exitCode": 1,
+      "elapsedSeconds": 315.02838587760925,
+      "finalTree": "d17a74c37a115d06c77646240aceac0058517c07",
+      "log": {
+        "path": "/tmp/peer-native-session-final-20261117/verify.log",
+        "sha256": "82a4b5ddc42900f072332f68244870efd94b8409c19212eb9497ca25628733eb",
+        "bytes": 71094
+      },
+      "nativeEpisodesPassed": 109,
+      "nativeEpisodesFailed": 39,
+      "finding": "Concurrent extra cargo test without fixture feature relinked shared target/debug/peer-native during the full Host suite. Observed fault exits 0 instead of77 and no fixture IdP requests; do not call this a product pass or flake. No timeout/assertion weakened."
+    },
+    "controlledModeComparison": {
+      "result": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/fixture-mode-comparison.json",
+        "sha256": "54b5c9c5150fe86a66de35a6d450290eed235da695a692598186c7b79338409d",
+        "bytes": 336
+      },
+      "featurelessCounterexample": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/featureless-counterexample.log",
+        "sha256": "e0c630d6513bce65f2afd4276b40a555aafe8e3bb8e8b32ad08c17d122ea1520",
+        "bytes": 675
+      },
+      "pinnedFixturePass": {
+        "path": "/tmp/peer-native-session-final-20261117-v2/pinned-fixture.log",
+        "sha256": "b07f32520375e4bed42ae490db85cd871d4c323c1fb64704aea2d87723875ce8",
+        "bytes": 192
+      },
+      "meaning": "The exact same closed-loop fault test fails with the featureless executable (harness101, observed worker0 instead of77), passes with the frozen fixture-enabled binary. Final entire gate reran alone with pinned fixture binary and succeeded."
+    }
+  },
+  "baselineCi": {
+    "head": "5182ad5e70b1bade092730e4f9b044d4017f18f3",
+    "runId": 43916683249,
+    "macOSJob": 133472597563,
+    "linuxJob": 133472598121,
+    "wholeRepositorySuccess": true,
+    "includesBothElectronSmokes": true,
+    "knowledgeReceiptCommit": "7d0c134830beb9fb8d2993a4f8c52864683517a0"
+  },
+  "candidateCi": {
+    "head": "7627d4c8f664fb07b04c9db13b4e62f8984c66a5",
+    "tree": "8f05f77832d82cd4e6ddd1cabee8cf4ed17cd8dd",
+    "runId": 43931485780,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43931485780",
+    "status": "in_progress",
+    "wholeRepositorySuccess": false,
+    "mergeCommit": "f3897471e54e736cc429b186fb88687c4d7cd781",
+    "mergeTree": "8f05f77832d82cd4e6ddd1cabee8cf4ed17cd8dd",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133524760580,
+        "platform": "Linux",
+        "status": "in_progress",
+        "step": "Build"
+      },
+      {
+        "id": 133524761193,
+        "platform": "macOS",
+        "status": "in_progress",
+        "step": "Build"
+      }
+    ]
+  },
+  "limits": [
+    "P4 total gate open: Qoder, complete Context/compaction policies and remaining capabilities/Skill/Plugin/Hook/ACP/headless/original commands, actual installed-version drain/recovery and real services remain. sessions resume/delete/update not implemented by this card.",
+    "Full project-agent P5 not started. Ratatui P6 still draft-only, cannot send ordinary chat; general history/search/approvals and ADR130 full long-session/4h/physical-footprint/response gates remain.",
+    "P7 installed packaging/update/sign/platform/full release/default switch/legacy dependency retirement incomplete. No original 8.27GB problem resolution claim.",
+    "Implementer self-review, not independent review. No real model/IdP/OS Vault/physical IME/accessibility or installed build acceptance. No personal data migration, install, restart of user instance, default switch, merge, release or tag."
+  ]
+}
