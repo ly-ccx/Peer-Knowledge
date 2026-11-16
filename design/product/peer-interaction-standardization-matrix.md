@@ -1361,6 +1361,8 @@ UO-06b（PR #317、#318 及收尾 PR）。任务详情的未知结果保护按�
 
 ## 原生 CLI NR-01 候选（2026-11-14）
 
+NR-04 MCP 凭据 / OAuth（2026-11-16，`c8479317`）：用户显式运行 `mcp auth <server-id>` 查看结构化待授权 URL，自己打开浏览器；`mcp refresh` 显式刷新，二者不产生工具许可。状态来自真实 OAuth / Vault 提交：等待外部、回调拒绝、取消、保存已确认、提交不确定；callback 页面只说明“已收到，回 CLI 核对”，不抢先宣称登录成功。Ctrl-C/TERM/HUP 关闭受管 listener，错误 / 轮换保留原代；旧密文只由 Desktop 迁移。静态、无动效或焦点抢占。运行时拒绝时不读密钥，真实 grant 后才注入，并在写入模型 / Evidence 前脱敏。26个MCP公开场景、生产 Desktop 冷读、8PTY 等见 [凭据回执](../../playbook/native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。实现者自审；真实浏览器 / IdP / OS keychain / 读屏与安装未验收，完整 TUI 和 P4/P5 仍未通过。
+
 ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时草稿 / 静态候选说明，不发送、不执行、不持有权限真值。目标是原生终端输入 / 退出骨架，不代表 Bot 功能或默认入口已迁移。
 
 状态：空 / 中文与组合字 / 大粘贴 / 大小超限 / 发送未启用 / 退出确认 / Esc 继续 / resize / 正常与异常收尾。事实源是纯 Composer reducer 与终端 guard；用户拥有草稿和明确退出决定。静态，无动效（motion N/A）；终端 cell / caret 保持可见，输入内容不发模型。

@@ -4,6 +4,16 @@
 最后更新：2026-11-15
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+2026-11-16 MCP Vault / OAuth 候选 `c8479317`（tree `d028b18c`）：已先核实 `9e634d7b` 的 CI `43758620404` Linux / macOS 全仓 success，merge `00c3c750` 与源 tree 相同，再实施。ADR pass 包括 0001、31、32、36、45、129–131；新增 A级 [ADR132](../knowledge/decisions/132-mcp-vault-and-native-oauth.md) / map 及 superseded 交叉引用先于源码登记（知识提交 `2f4b1f2`）。它扩展 Helper MCP 命名空间和 v2 元数据提交，取代新写入的明文 fallback，保留原授权 / Evidence / unknown 政策。
+
+Desktop-only 迁移严格读取原 v1，每条先通过 Helper 写入并常量时间回读验证，全部成功后才原子发布 v2；失败保留原文件字节、身份、未知字段和旧密文。OAuth clientSecret、tokens、clientInformation、PKCE / discovery 都进入不可变 Vault slot；原生端只消费 v2 / Helper，不解密 Electron。容量写入在既有 16 MiB reader 上限前拒绝，旧 Vault 继续可读；退役 / 孤立加密 slot 暂不自动删除。晚到 Desktop OAuth 回调须 CAS 原代，不能污染轮换后的凭据。
+
+原生 MCP 支持 bearer / header / stdio_env 与有效 OAuth token，真实 grant 后才读取 Helper，连接启动 / 初始化后 / 下一模型请求前复核身份；Helper 取消证明 kill+reap，拒绝不读密钥也不启动 MCP。原生 `mcp auth` / `mcp refresh` 使用锁定官方 SDK，401 metadata pointer → issuer discovery → PKCE/state/resource → 预注册 / DCR → loopback callback → 原子 Vault 新代；不自动开浏览器或重放工具。错误 state 后仍可接收合法 callback，错误 issuer 不交换 token，取消关闭 listener。刷新失败 / token redirect / 超限响应保留原元数据；远端可能已轮换的 token 不承诺仍有效，沿显式重新授权恢复。
+
+最终完整 scoped：264 Rust / 65公开CLI（26 MCP）/ 103根631项实际 TS 读写及 Rust 重读 / 7生产 TS MCP 向量与实际 SDK握手 / 8PTY，另有15项 Desktop凭据、11项 TS Helper、Protocol build/type/336测试、Helper typecheck、全 workspace clippy、release、boundary、architecture/UI与IPC检查通过。实际生产 Desktop reader 核对原生写入的 access/refresh/expiry/client payload；native 登录后再运行真实授权 MCP / Evidence。保留 fixture 路径/包解析、绑定字段、空 redirect、stdout owner、DCR缺字段、脱敏夹具和clippy失败；初始化期间轮换后仍继续认知的真实缺口已修复并保留原断言。最终源码冻结后独立重跑，见 [Vault/OAuth回执](native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。新 [CI43779685385](https://github.com/ly-ccx/Peer-Agent/actions/runs/43779685385) 单独核对，不继承基线绿灯。
+
+本卡不是 P4 总闸：运行时过期或缺失绝对时间的旧 token 要求显式 refresh/auth；原 grant 下的自动刷新 continuation、代理/证书和协议恢复平价仍缺。完整 model auth/private wire/settings、Source catalog/Host discovery、其余 Runtime 工具、Skill/Plugin/Hook、headless/ACP/命令仍待迁移，P5 尚未开始。没有安装、默认切换、个人数据迁移或重启；真实 IdP/模型、系统 Keychain 与多平台安装、完整体验和长时内存仍未验收。原生候选不启动 Bun/Node 引擎 sidecar。
+
 2026-11-16 MCP协议补齐候选 `9e634d7b`：修复Streamable HTTP等待工具结果时不能及时回复服务器ping的实际死等、双向相同请求id被误当终态，以及Tool Result同名字段覆盖协商版本的问题；协议控制流仍受原owner管理，禁止重定向和底层协议NACK自动重试。初始化期间取消记录为cancelled + not_dispatched，已发出的取消仍保留unknown。协议控制请求不产生工具、许可、Evidence或模型用量。ADR131的B级澄清先记录于知识提交 `a49c79e`，既有能力、许可、存储与System Context边界未移动。
 
 保留了真实失败轨迹：ping_queued→server_wait_expired→pong_received、下一次HTTP请求带入工具结果中的伪协议版本、初始化取消误记failed。广门禁的六项失败也保留并调查；模型fixture在创建15秒后退出的边界由16秒真实PTY审批等待独立复现。现改为显式owner控制监听器生命周期，socket读写仍3秒、受控stall仍15秒；审批决定须5秒内成为持久事实，后续完整模型/工具/停稳/记账工作流另有15秒界限，失败时OwnedChild保证清理。原退出码、效果、授权和unknown断言保留。

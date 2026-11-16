@@ -866,6 +866,8 @@ P06 的 done/aborted/error 只归并原会话表达层，不再用全量消息�
 
 ## 原生 CLI NR-01 候选（2026-11-14）
 
+NR-04 MCP OAuth（2026-11-16，`c8479317`）：T07/T10 静态交接，motion N/A。CLI pending URL / loopback 已收到 / Vault提交完成分别表达，回调不当成功、登录不当工具批准；用户拥有浏览器导航和 Ctrl-C/信号取消。旧代 / 原文件与未知效果保持，晚到回调受代际 CAS 拒绝；初始化期间轮换阻断工具与后续认知。沿原 Host / Evidence 与终端 guard，无新增草稿、滚动或焦点操作。原生公开登录 / 刷新 / DCR / 错误 state/issuer / 取消及8PTY见 [凭据回执](../../playbook/native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。实现者自审，真实浏览器、系统辅助技术、Keychain、安装与完整 TUI / P4/P5 未验收。
+
 ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时草稿 / 静态候选说明，不发送、不执行、不持有权限真值。目标是原生终端输入 / 退出骨架，不代表 Bot 功能或默认入口已迁移。
 
 状态：空 / 中文与组合字 / 大粘贴 / 大小超限 / 发送未启用 / 退出确认 / Esc 继续 / resize / 正常与异常收尾。事实源是纯 Composer reducer 与终端 guard；用户拥有草稿和明确退出决定。静态，无动效（motion N/A）；终端 cell / caret 保持可见，输入内容不发模型。

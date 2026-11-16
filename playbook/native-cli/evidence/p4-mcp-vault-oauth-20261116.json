@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "status": "scoped-passed; P4-total-open; P5-not-started",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "commit": "c8479317f9f9428865724e5fc42600ca3ff11f8c",
+    "tree": "d028b18ccb8d2d2e2a522d995e87160c3655e07f",
+    "binarySha256": "bc0ef724ef74df9498129e2ea320a442275b400191518897752089463b83a951",
+    "pr": "https://github.com/ly-ccx/Peer-Agent/pull/327"
+  },
+  "adrPass": {
+    "classification": "A: MCP namespace, v2 immutable Vault metadata, migration and native OAuth; B: existing Provider/Grant/transport/Evidence and stop/unknown semantics retained. ADR written before code, decision commit precedes source commit.",
+    "decisionCommit": "2f4b1f2",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "31-mcp-connection-management.md",
+      "32-mcp-authentication.md",
+      "36-mcp-tool-card-title-passthrough.md",
+      "45-mcp-oauth-config-ux-simplification.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ]
+  },
+  "baselineCI": {
+    "commit": "9e634d7bfdf8cf176918fa359431649ce0a80151",
+    "run": 43758620404,
+    "linuxJob": 132948138411,
+    "macosJob": 132948138128,
+    "conclusion": "success",
+    "mergeCommit": "00c3c75038c3e4e709ba98ff0769b7f2eea1f3ee",
+    "matchingTree": "ed880ce311bfbf1879d7411026052964568007c3",
+    "fullRepository": true
+  },
+  "candidateCI": {
+    "conclusion": "in_progress",
+    "notInheritedFromBaseline": true,
+    "run": 43779685385,
+    "linuxJob": 133013819714,
+    "macosJob": 133013819940,
+    "mergeCommit": "f791fe45f9949fe256061fd6094da2adabfcf199",
+    "matchingTree": "d028b18ccb8d2d2e2a522d995e87160c3655e07f"
+  },
+  "validation": {
+    "nativeVerificationCommand": "node scripts/native-cli/verify.mjs /tmp/peer-native-mcp-vault-verified-20261116",
+    "rustPassed": 264,
+    "publicCli": 65,
+    "mcpPublicCli": 26,
+    "actualTsReadWriteRustReread": {
+      "roots": 103,
+      "checks": 631
+    },
+    "productionTsMcpVectorsAndSdkHandshake": 7,
+    "pty": 8,
+    "desktopCredentialStore": 15,
+    "tsCredentialHelper": 11,
+    "protocolTests": 336,
+    "protocolBuildTypecheck": "passed",
+    "helperBuildTypecheck": "passed",
+    "fmt": "passed",
+    "workspaceClippy": "passed",
+    "release": "passed",
+    "runtimeSidecarBoundary": "passed",
+    "architectureAndUiConventions": "passed",
+    "desktopIpcCatalog": "passed"
+  },
+  "implemented": [
+    "Helper v1 exact MCP hash/RFC4122-v4 namespace; native asynchronous bounded/cancellable Helper reads after grant",
+    "Desktop-only v1 safeStorage/plaintext migration, readback verification, same-directory metadata lock/CAS/atomic publication; unknown fields and original bytes preserved on precommit failure",
+    "v2 metadata-only file and immutable encrypted payload slots; all OAuth secrets including clientInformation/PKCE/discovery moved to Vault",
+    "bearer/header/env and valid OAuth token native transport injection, registry and credential revalidation before startup/call/next cognition, raw-token and wire-token redaction before Evidence",
+    "native mcp auth and mcp refresh via pinned official rmcp OAuth state machine; actual 401 metadata pointer, RFC8414 issuer discovery, PKCE/state/resource, preregistration/DCR, loopback callback, fresh immutable Vault generation",
+    "late Desktop OAuth callback generation CAS; native registry revision and metadata writer lock",
+    "Vault write capacity guard preserves previously readable ciphertext at existing 16 MiB limit"
+  ],
+  "recoveryAndFailureCoverage": [
+    "Helper unavailable/readback mismatch/later successful migration, second-item failure preserves whole old file",
+    "future/corrupt/duplicate/symlink/live-lock and concurrent-source rejection; failed rotation keeps current generation",
+    "Ask denial does not read Helper or start MCP; Helper SIGTERM cancel proves child reaped before any MCP startup",
+    "rotation during initialize blocks tools/call and next cognition, no uncertain dispatch manufactured",
+    "expired token and future/mismatched secret envelope fail before MCP startup",
+    "wrong state rejected then valid callback succeeds; wrong issuer causes no token exchange; cancellation closes listener and preserves bytes",
+    "native refresh success; invalid_grant, 302 token redirect and >1MiB response each send one token request, keep previous metadata and release lock",
+    "DCR stores client secret in Vault only; registry change while login pending blocks metadata publication",
+    "real native login then native authorized MCP call/Evidence, real production Desktop cold-reader verifies native token/refresh/expiry/client payload"
+  ],
+  "preservedFailedAttempts": [
+    "fixture script cwd and package resolution failures corrected using manifest-root absolute script path and package dist import",
+    "initial auth fixtures omitted required env/header binding fields; existing inventory assertions were retained",
+    "rotation blocked tool but initially allowed next cognition; fixed actual credential revision binding, original exit/effect assertions retained",
+    "OAuth refresh with empty redirect failed config; corrected existing-default handling",
+    "fixture closed stdout after pending URL, producing Broken pipe on final receipt; fixture now owns/drains reader through child exit",
+    "DCR fixture lacked required redirect_uris; fixed fixture from actual pinned SDK type, retained real DCR assertion",
+    "first broad interop gate caught a fixture emitting the synthetic credential even when not injected; fixture now echoes the actual configured/request token; global secret assertions retained and expanded",
+    "clippy collapsible-if failure corrected; no lint suppression"
+  ],
+  "localArtifacts": [
+    {
+      "log": "/tmp/native-mcp-vault-full.log",
+      "sha256": "684f0beb750f9c9bc246bb9cae91ce80476dff1c6cfa090b194f516787ed3039"
+    },
+    {
+      "log": "/tmp/native-mcp-vault-final.log",
+      "sha256": "49c35275a7ac9ae9199518aa9d195d2a8e6b3ac9d02e9099df601ea3995b112b"
+    },
+    {
+      "log": "/tmp/native-mcp-credentials.log",
+      "sha256": "47ce343c155dec33bfdf1eb5a57d3b0003c8a9a2ac6372f4ca2e100512f3393c"
+    },
+    {
+      "log": "/tmp/native-oauth-tests.log",
+      "sha256": "36794944a8d2d1cd293c99dbb0ee2a591aea9967ae72e0fc8d742d1e63c97554"
+    },
+    {
+      "log": "/tmp/native-mcp-vault-verified.log",
+      "sha256": "f2bd93c89a9c963e2b7bf07ed8a626070bb2f47695bc4b00b5b44b78c6ea1fdc"
+    }
+  ],
+  "limits": [
+    "No personal credentials, user task data, OS keychain secrets or running apps were used/changed by validation. Helper ping only for real OS binary; Vault cryptography verified with injected in-memory key protector.",
+    "Local platform macOS arm64 only; Windows/Linux keystore, stable signing, installed upgrade/downgrade, physical IME/readscreen and real provider/IdP remain unverified. Implementer self-review is not independent.",
+    "Runtime consumes valid OAuth tokens; expired/unknown relative expiry requires explicit mcp refresh/auth. Automatic refresh/continuation bound to original grant remains open.",
+    "Only IPv4 loopback callback, bounded same-origin OAuth discovery/DCR redirects, no token redirects/retries; configured proxy/custom certificate and full MCP protocol recovery parity remain open.",
+    "Retired/orphan encrypted Vault slots retained. No automatic GC; capacity full fails before replacing old Vault. Historical already-oversized Vault requires controlled offline preservation/recovery, not automatic truncation.",
+    "Default peer remains old migration-period entry; no Bun/Node engine sidecar in peer-native. External user-configured capability processes are separate per ADR129.",
+    "P4 total also retains full model auth/private wire/settings, Source catalog/Host discovery, remaining Runtime tools, Skill/Plugin/Hook, headless/ACP/command parity; P5 cannot be marked started until the accepted P4 total gate is met."
+  ]
+}
