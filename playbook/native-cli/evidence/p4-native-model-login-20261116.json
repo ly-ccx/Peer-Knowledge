@@ -38,14 +38,26 @@
   },
   "candidateCi": {
     "runId": 43818809913,
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "success",
     "jobs": [
-      133136880644,
-      133136881114
+      {
+        "id": 133136880644,
+        "platform": "Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133136881114,
+        "platform": "macOS",
+        "status": "completed",
+        "conclusion": "success"
+      }
     ],
     "mergeCommit": "150b4b9ada93f0ffa1b011c82800b9463e9179cd",
-    "wholeRepositorySuccess": false
+    "wholeRepositorySuccess": true,
+    "mergeTree": "fe02670bd24713d13b4651f22e326fac994cbcd9",
+    "matchesSourceTree": true
   },
   "validation": {
     "nativeScoped": {

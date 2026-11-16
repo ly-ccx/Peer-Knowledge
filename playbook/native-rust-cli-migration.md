@@ -16,11 +16,21 @@
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
+2026-11-16 模型配置写入候选 `e632120f` 已推送：先于源码登记 ADR131 A级配置Store写入所有权（知识 `dc238b2`），原生 `ModelConfigStore` 与当前Node/ Desktop参与同一真实目录下的mkdir锁、相同原文件/身份revision和条件原子替换。完整同步 read→mutate→write及读取时迁移受锁保护；坏JSON、未知版本/超限保全原文件，不再当空配置覆盖；保留未知root字段和旧providers envelope。异步诊断网络期间释放锁，提交时只修改仍匹配原配置的对象；价格回填在网络后锁内重读。配置rename后目录同步失败时保留实际Vault/config并报告unknown，不无条件回滚旧凭据。
+
+真实Desktop公开CRUD与Rust Store跨进程竞争，20次渠道/模型创建与30次原生更新全部保留，双端revision相同；新13项互读与81项配置聚焦通过。冻结tree `41ae5d1f`完整原生scoped通过 **306 Rust / 90 native Episode / 179根1018实际TS往返 / 9PTY**；全仓类型、IPC411/445/359、architecture/UI与887打包imports通过。完整 `pnpm test` 真正exit0、364.379秒，退出回执绑定同一tree；14包和最后升级矩阵全部通过。Native log SHA256 `58f48264c1611b943b740bc4fe6fa8b944f2d92127b4ea2d15de7df8bbd9868d`，featureless CLI SHA256 `d77f18dc649cd9c515bc9b6def022ac09ac55f686d65c4974debbd91510c46d1`。见[配置写入回执](native-cli/evidence/p4-model-config-writer-20261116.json)。
+
+保留真实竞争的mkdir已存在→lstat时owner已释放的ENOENT，修正为原期限内重争取；没有增加timeout或放松断言。完整回归还复现Helper测试握手文件存在但JSON尚未写完的EOF，失败隔离根保留；只把测试marker改为完整原子发布，原cancel=4、未启动MCP、kill/reap断言不变，聚焦与完整重跑通过。目录同步注入首次命中合法read-time迁移，改为确认新凭据真实写入后才触发；编译/类型推断中间失败与最终修复均记入回执。
+
+基线54e02063的[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913) Linux133136880644与macOS133136881114均全仓success，含各自Electron smoke；merge150b4b9a tree与源码一致，确认终态后才推送下一候选。新[CI43823605671](https://github.com/ly-ccx/Peer-Agent/actions/runs/43823605671)两平台进行中（Linux133152103303/macOS133152103586）；merge848671e3 tree与e632一致，新候选不能继承旧全绿。
+
+这张卡仍是共享Store地基和当前写者接线，不等于完整原生配置CRUD/账号创建命令。下一步将native auth/refresh/logout短提交与TS凭据管理接入同一config锁、补齐配置/Vault联合条件恢复及提示重建；不跨网络等待持锁。混合旧安装版本drain、其余P4与完整P5–P7继续待办。无真实IdP/OS Vault、多平台安装、完整交互与长期内存验收；未安装、迁移个人数据、重启或发布，无Bun/Node引擎sidecar。
+
 2026-11-16 原生模型账号候选 `54e02063` 已推送：先登记 A 级 ADR131/28/map（知识 `0b29cad`），再接 `models auth/logout/status <configured-channel-id>`。ChatGPT/Google 采用真实 TS 冻结的 PKCE 身份与端点、外部浏览器 URL、自有有界 loopback、加密 Helper snapshot/CAS；迟到登录/退出/配置变化不覆盖新代，未知提交用真实 status 对账，不重放 code。`oauthConfigured` 仅是提示，已登录但提示过期不再阻止模型准入；配置原字节不改。共享 callback Module 保留 MCP 原限制。实际原生 CLI→本地 IdP→加密 Vault→模型/工具/Grant/ToolResult/Evidence 通过，含拒绝、错误回调、超时、取消、旧 Helper、丢回执和后续准入。
 
 冻结源码本地原生 scoped 通过 **305 Rust / 90 native Episode / 179 根 1018 实际 TS 往返 / 9 PTY**；2 组真实 TS browser flow、6 refresh、5 subscription request、77 context choices 一起核对。featureless release 14,468,976 bytes，SHA256 `9aa5fdafd490a1be9c6a57921b9566bc1a3cbcef07f2ecf2dd753de62b0a6d1e`，无测试端点 marker；无 Node/Bun 的 PATH 下实际 release+加密 Helper status/logout 四场景通过。全仓 type、IPC411/445/359、architecture/UI、886打包 imports通过；本地 `pnpm test` 14包均 Done、无失败，末尾升级矩阵通过。原 exec handle 在上下文压缩中丢失，未虚构 shell exit code；实际进程在末尾通过后均已结束，完整日志摘要与 hash保留。详见[原生登录证据](native-cli/evidence/p4-native-model-login-20261116.json)。
 
-前候选 `aea02893` 的 CI43809352936 已核实两平台 **failure**，相同5个高层OAuth测试替身缺新接口，152项原文件修复后通过。全仓本地还暴露 Watch墙钟基准在并发文件负载下超500ms（原144次读）和 Vite测试fixture不允许共享依赖真实路径；前者保留原阈值/读数断言、相同8个glob覆盖，调整为265行为文件后独立跑原基准，故障自测证明失败不吞；后者仅允许测试fixture读取确切SDK入口。原失败、helper取消退出码和token_type缺口均保留，并在完整重跑中验证；不声称产品Watch性能已修复。新候选[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913)两平台进行中（Linux133136880644/macOS133136881114），独立核对，不能继承任何旧全绿。
+前候选 `aea02893` 的 CI43809352936 已核实两平台 **failure**，相同5个高层OAuth测试替身缺新接口，152项原文件修复后通过。全仓本地还暴露 Watch墙钟基准在并发文件负载下超500ms（原144次读）和 Vite测试fixture不允许共享依赖真实路径；前者保留原阈值/读数断言、相同8个glob覆盖，调整为265行为文件后独立跑原基准，故障自测证明失败不吞；后者仅允许测试fixture读取确切SDK入口。原失败、helper取消退出码和token_type缺口均保留，并在完整重跑中验证；不声称产品Watch性能已修复。新候选[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913)Linux133136880644/macOS133136881114均已全仓success，含各自Electron smoke；merge150b4b9a的tree fe02670b与54e02063完全相同。
 
 完整配置CRUD/写入所有权/提示恢复、混合旧安装版本升级与drain、其余P4以及P5–P7继续待办；正式IdP/OS Vault、多平台安装、完整交互与长期内存未验收。无安装、个人数据迁移、重启或发布，原生CLI无Bun/Node引擎sidecar。
 
