@@ -1,7 +1,7 @@
 # ADR 131：原生 CLI 的跨语言契约、共享数据与恢复
 
 创建时间：2026-11-14
-最后更新：2026-11-16
+最后更新：2026-11-17
 状态：Accepted（2026-11-14 用户接受评审稿 118；正式编号 131；授权实施，不授权个人数据迁移、接管、安装或重启）
 级别：A
 依赖：[ADR 129](129-native-rust-cli-and-ratatui.md)、[ADR 130](130-bounded-cli-memory-and-transcript.md)
@@ -274,3 +274,21 @@ Protocol登记可序列化的模型认证提示：保留旧browser的authorizati
 先冻结实际TS refresh、channel/request/header和版本状态fixture；用公开原生models auth/status/logout/reconcile、真实加密Helper和本机合成IdP/模型走工具→Grant→Evidence闭环。覆盖pending/slow_down/拒绝/到期/取消、无api scope、issuer/client/provider冲突、token轮换、迟到配置/凭据、bad/超限/未来版本、metadata无密钥、426最多一次且body/fingerprint不变、之后的新任务和原unknown保全。网络/TLS/代理继续同一Native Network；featureless候选通过隔离TLS/proxy入口核对，不触个人凭据或系统信任。实际公开IdP/模型、OS Vault和安装drain仍另验；本修订不是Grok或P4已完成声明。
 
 核对于2026-11-16的主来源：[xAI OIDC metadata](https://auth.x.ai/.well-known/openid-configuration)、[官方CLI认证说明](https://github.com/xai-org/grok-build/blob/main/crates/codegen/xai-grok-pager/docs/user-guide/02-authentication.md)、[RFC8628](https://www.rfc-editor.org/rfc/rfc8628.html)、[CLI稳定版本feed](https://x.ai/cli/stable)。feed当前返回1.0.77只是核对事实，不写成原生固定版本。当前TS真实实现决定迁移兼容行为；公开文档不取代本地Grant/Evidence与恢复事实。
+
+## 2026-11-17 NR-04 会话只读壳与有界导出（A，实施前登记）
+
+沿已接受`108-cli-basic-shell-commands.md`迁移doctor、sessions list与export。它们是人明确调用的管理/阅读入口，不向模型投影新工具，不创建PermissionGrant、Evidence、会话接收或任务完成事实。sessions resume的完整交互仍须P6；不能以列表或导出冒充可继续普通对话。删除仍沿ADR34的独立跨Store级联，不能顺便实现为直接删文件。
+
+doctor检查当前原生可执行文件及同目录Helper的存在/可执行性、数据根可写或其最近存在目录可创建下级、版本、TTY/颜色；不执行Helper、不解封Vault、不联网、不修复配置。不为检查而创建数据根/会话，缺HOME/非法根/不可执行Helper均如实失败。这里收紧旧TS检查时mkdir的副作用以遵守ADR108“只检查”；可写检查不承诺磁盘配额、未来权限或实际供应商可用。
+
+列表由同一ConversationStore读index，继承原三种角色投影、时间降序和标题/更新时间输出；不触正文、stream、用量或任何后台迁移。索引沿原8MiB/4096行、节点/字符串预算，重复/损坏/非法身份或持续变化明确报错、原数据保全，不截取前N行冒充完整列表。时间按Store正常ISO字符串处理；非法类型/控制字符不作为可打印事实放行。完整源版本在输出前复核。
+
+导出是展示快照，沿当前TS可见user/assistant content结构与Markdown格式，包括正确v1流式patch；不借用canonical persisted history的provisional-tail排除规则，也不把导出送入模型Context。Store复用现有有界JSON projection Reader，按行扫描/回读；先只投影id/role、跳过未选正文，再为可见行选择content。保留全源UTF-8/JSON结构/深度校验，100MiB工具行不分配其正文AST。扫描缓冲16KiB，每记录源上限1GiB；可见所选值原始编码/字符串各至多12MiB、65536节点/深度64、单key4096bytes，保证10MiB普通正文可处理且不加载整份1GiB历史。超出所选解析能力返回明确限制，不截断/修改源记录。索引/单次投影/临时格式化错峰，沿ADR130的32MiB其它缓冲预算；不是完整P6内存验收。
+
+sidecar先投影身份与patch形状，只在首个匹配消息上读取其role/content，存在content覆盖时不再读原大正文。必须v1、conversationId/messageId匹配及object patch；未知/损坏/缺目标明确拒绝，区别于旧getConversation静默忽略坏sidecar的遗留行为。原JSONL、索引、sidecar的文件身份在开始/完成复核；同长度替换、内容改写、追加和stream代变化使本次导出失效。只返回派生sourceRevision/展示范围，不能据此证明停稳或授权。
+
+CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功后才向stdout或目标发布。复用原sk-/Bearer/ya29模式，不读取Vault来搜索秘密，也不导出工具参数/原始Tool Result/Evidence字段；此模式过滤不承诺识别任意无前缀秘密。标题等可见metadata同样过滤。stdout只接受无终端控制/bidi控制的正文；出现不安全文本时明确拒绝，保留源，显式文件导出仍可取得脱敏阅读副本，不静默删除正文字符。用法诊断/输出路径须安全编码。
+
+目标默认禁止覆盖；--force捕获原目标身份，完整spool后再次校验并原子替换，失败/取消保留原目标，正常清理自有临时文件。拒绝会话Store内目标、所读源文件的symlink/hardlink别名及非普通文件，不允许--force写回会话。目录/文件版本变化拒绝而不制造成功；沿既有协作式文件身份/CAS与原子提交保证，不称OS路径沙箱。磁盘满、broken pipe、SIGINT/TERM及发布异常分别如实结算；未确认的发布不能输出成功回执，不改变任何运行任务或unknown记录。没有新增持久化真源或自动清理用户文件。
+
+验证先冻实际TS格式/脱敏/参数与正常Store/stream可见结果；损坏/未来sidecar的明确差异单列。公开原生CLI覆盖无HOME/TTY/JS、空/多角色目录、Helper/数据根失败、可见正文与秘密/控制、覆盖拒绝/原子--force、源/目标竞争、取消/损坏后原字节与后续导出。使用隔离合成Store验证1GiB历史、10MiB正文与100MiB被跳过工具行及资源曲线；正式二进制与普通P4总闸/安装/全产品/长时P6验收分开记录。实现与验收另记。
