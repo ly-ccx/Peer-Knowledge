@@ -32,7 +32,13 @@
     "log": "/tmp/peer-native-mcp-oauth-ci-linux-failure-20261116.log",
     "logSha256": "9976ccb40ba3c8921bf343815895f584bc8160df2048384f9fd51e13452590c4",
     "artifactId": 14222491079,
-    "artifactDownload": "separate owned gh process still in progress; original screenshot/trace not inspected yet"
+    "artifactDownload": "completed; report/trace and failure screenshot inspected",
+    "artifacts": {
+      "bot-shell-failure.png": "04efcfee246a82d16594e0ba162b3f7520c864984167e665177f0074618c9a6f",
+      "bot-shell-report.json": "551ada60e922a06984836644af54061467f2e1ca4dc4d50513508a4ba01ff125",
+      "bot-shell-trace.zip": "c08d7badfe82211b327822d22e9c43422511b01cac55a132eb835ba66f0ee720"
+    },
+    "artifactObservation": "Report binds merge f130fbea (matching source tree). Screenshot shows the idle home before minimization starts. Trace after-error probe remains responsive and later waits for .bot-thread during diagnostics; the main-evaluate GC remains the recorded primary failure. This is not a reproduction of the VM GC locally or full visual/product acceptance."
   },
   "change": "Use the existing disposable main-process command/receipt lifecycle to install the identical download response fixture and read the final real download invocation count. Remove these two inspector calls, retain call-four fast completion, exact final count, UI geometry/motion, reduced motion, error recovery and owned stop assertions. No retry or catch converting failures to success.",
   "localValidation": {
@@ -79,16 +85,31 @@
       133273407898,
       133273408424
     ],
-    "status": "in_progress",
-    "conclusion": null,
-    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "conclusion": "success",
+    "wholeRepositorySuccess": true,
     "mergeCommit": "91bed719c7382ab5d50841606096001535a4477f",
     "mergeTree": "d342880a8898a80cc2d8e102e237799675c379bf",
-    "matchesSourceTree": true
+    "matchesSourceTree": true,
+    "jobDetails": [
+      {
+        "jobId": 133273407898,
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      },
+      {
+        "jobId": 133273408424,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "electronSmoke": "success"
+      }
+    ],
+    "observation": "Both terminal successes verified before native OAuth source push; no run restart or cancellation."
   },
   "limits": [
     "The remote Linux GC failure is preserved as a factual trace; local macOS did not reproduce that exact VM event. The local check proves the actual changed main-control seam and original assertions, not full Linux acceptance.",
     "Full smoke/combined CI remains separately observed. No UI product changes, real release download, installed acceptance or independent design review claimed.",
-    "Native OAuth pinned source is still a separate uncommitted frozen candidate; this commit alone does not implement it or pass P4 total. No install/restart/personal task migration/default switch/release."
+    "At this scoped Electron validation the native OAuth work was an independent uncommitted source tree. It was subsequently validated and pushed at 85dc28e3; that implementation has a separate receipt and CI. No P4 total, install/restart/personal migration/default switch/release acceptance."
   ]
 }

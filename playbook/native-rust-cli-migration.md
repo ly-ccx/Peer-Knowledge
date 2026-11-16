@@ -9,14 +9,22 @@
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 混合安装版本认证兼容与显式管理/迁移条件恢复、Grok/Qoder、MCP OAuth受限代理/证书、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 混合安装版本认证兼容与显式管理/迁移条件恢复、Grok/Qoder、MCP运行时自动刷新/continuation、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
 
-2026-11-16 全仓CI验证修正候选 `2c071885` 已推送（tree `d342880a`）：1495b867 的 CI43855704882 原生门禁/build/type/architecture/Test两端通过；macOS全仓success，Linux最后Electron smoke在updater-minimize-checks第8行报`Resulting promise was garbage collected`，不能记全仓绿。只将该隔离夹具的安装和最后计数改走已有main command/receipt，不改产品UI/更新/Runtime，不加重试、不吞错。3组动画/缩减动效、真实第四次调用快速完成、最终计数4、错误恢复和真实进程退出在本机隔离Electron通过；具体脚本hash绑定提交，其他JS/UI源不变。实际Linux失败日志/Source/工件身份保留，本机未精确复现该VM GC，不能称flake或已通过Linux。[修正CI43859827036](https://github.com/ly-ccx/Peer-Agent/actions/runs/43859827036)独立执行中，merge91bed719 tree与源一致。见[CI夹具回执](native-cli/evidence/ci-updater-control-20261116.json)。原生OAuth数值代理是另一个尚未提交的冻结候选，P4总闸及P5–P7仍未完成。
+2026-11-16 MCP OAuth原生网络候选 `85dc28e3` 已推送（tree `df1ebeab`）：沿ADR132既有数值连接/原主机TLS合同，接线前复核6364740/d687a6c，B级实现同一Native Network路由与PEM/DER根选择。官方SDK继续编码发现/PKCE/state/issuer/resource/DCR与token；本地批准DNS/IP（最多64），直连或HTTP(S)代理仅连接批准的数值目标，保留origin Host和严格TLS名称，代理认证不进入origin。固定30秒操作、5秒建连/TLS/CONNECT、256KiB body、32KiB head/100字段及1MiB响应；driver和exchange由同一future持有，无detached driver、自动切路或token重放。挑战只取有界头，不等待无限SSE body。
+
+冻结原生scoped **351 Rust / 118 native Episode / 232根1323实际TS互读 / 9PTY**，CI Bun1.2.17，exit0、396.469秒。featureless release为15,632,704 bytes、SHA256 `c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41`，额外5组实际OAuth代理Host场景通过；合成私钥不在产物。9组OAuth公开CLI、5组地址/真实socket测试、architecture/UI及fmt/clippy通过。真正的TLS代理登录/刷新→加密Vault→模型/工具Grant/Evidence、禁止元数据目标、混合DNS/64界限、HTTP(S)代理与NO_PROXY、错主机/未知根、redirect/body/head限制、SIGTERM token交换与socket EOF/锁释放、显式重登后原ready任务继续均验证。取消保留已发刷新事实和原generation，不自动重放或声称旧refresh仍可用。
+
+真实旧release即使配CA/代理仍发现失败的现场保留。测试还证明hyper max_buf_size单独可能接受完整超限head；保留原断言并加parser发布最终响应前的IO读预算，1MiB精确边界仍成功，informational heads不绕过。初版API假设、测试临时借用和误把credential取消当exec exit1的尝试均保留；采用既有精确exit4，不放宽权限/TLS/unknown断言。见[OAuth原生网络回执](native-cli/evidence/p4-native-mcp-oauth-network-20261116.json)。
+
+基线2c071885的[CI43859827036](https://github.com/ly-ccx/Peer-Agent/actions/runs/43859827036)两平台全仓success（含各自Electron smoke）已核实后才推送；原run未取消/重启。新[CI43865232749](https://github.com/ly-ccx/Peer-Agent/actions/runs/43865232749)独立执行中（Linux133291958683/macOS133291959134），merge f7502d2b tree与源码相同。本卡不是P4总闸：MCP运行时自动刷新/grant continuation、Grok/Qoder、完整Context/压缩策略、剩余工具/Skill/Plugin/Hook、ACP/headless/原命令、混合版本drain仍待完成；P5–P7完整退出条件未满足，Ratatui仍不能发送，无长期内存验收。仅本机合成IdP/模型/代理及测试加密Helper，无真实IdP/模型/VPN/OS Vault/安装验收，无安装、重启、个人任务迁移、默认切换或发布，无Bun/Node引擎sidecar。
+
+2026-11-16 全仓CI验证修正候选 `2c071885` 已推送（tree `d342880a`）：1495b867 的 CI43855704882 原生门禁/build/type/architecture/Test两端通过；macOS全仓success，Linux最后Electron smoke在updater-minimize-checks第8行报`Resulting promise was garbage collected`，不能记全仓绿。只将该隔离夹具的安装和最后计数改走已有main command/receipt，不改产品UI/更新/Runtime，不加重试、不吞错。3组动画/缩减动效、真实第四次调用快速完成、最终计数4、错误恢复和真实进程退出在本机隔离Electron通过；具体脚本hash绑定提交，其他JS/UI源不变。实际Linux失败日志/Source/工件身份保留，本机未精确复现该VM GC，不能称flake或已通过Linux。[修正CI43859827036](https://github.com/ly-ccx/Peer-Agent/actions/runs/43859827036)已核实Linux133273408424/macOS133273407898两平台全仓success（含各自Electron smoke），merge91bed719 tree与源一致。见[CI夹具回执](native-cli/evidence/ci-updater-control-20261116.json)。后续原生OAuth数值代理候选85dc28e3见上，P4总闸及P5–P7仍未完成。
 
 2026-11-16 原生普通 MCP 网络候选 `1495b867` 已推送（tree `9f7b463c`）：先登记并推送 ADR132 的 A级网络补充（ac6896a），再接同一 Native Network。实际旧 SDK transport 使用默认 fetch，不能冒充模型专用策略已在旧 MCP 落地。Streamable JSON、Streamable SSE、legacy SSE 的逐物理 GET/POST 均选择 env/NO_PROXY/macOS 路由和严格额外/系统根信任；前置构造完成才记 tools/call 已发送，不重试/redirect/fallback。仅选中代理的有界可零化秘密集合在结果入 Context/历史/Evidence 前脱敏，isError 协议真值独立保留。
 
