@@ -4,6 +4,21 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+
+## 2026-11-17 Qoder 公共发送入口与持久选项对照
+
+候选 `328cd85c`（tree `e2c9b88e`）已推送。复核 ADR25/37/56/129–131，B级同边界修复：公共sender已经解析的catalog/持久metadata直接传入私有prepared sender，移除再次查目录丢失fallback metadata的路径。缺目录但持久large512000的原公共入口断言在基线c09失败，修正后同一断言通过；保留空数组显式覆盖、null未声明、目录/选项默认规则，不移动权限、Evidence、Context或存储边界，不另开ADR。Rust生产实现本卡未改，不是新建另一种语义。
+
+12份实际公共TS sender/catalog/stream parser向量、36次物理build覆盖缺目录、默认/选定/非法值、null/空/非空覆盖及auto；每个恢复组只查一次目录，非身份正文不变、身份更新、认证所见正文与实际init一致。认证与HTTP是显式mock，不能当真实SDK/网络证据。原生公开Host用同一12份选择完成真实write_file/Grant/ToolResult/Evidence与用量/容量；真实Bash改选后旧请求拒绝、已知16及成功事实保留，新Goal用小档位且不改旧历史。见[公共入口回执](native-cli/evidence/p4-native-qoder-caller-20261117.json)。
+
+最终冻结源码完整原生scoped **456 Rust（含173 Native Episodes）/349根2002次实际TS互读/9PTY**，CI Bun1.2.17，exit0、440.365秒；fmt/clippy/边界与架构/UI通过。featureless release仍为 **17,163,312 bytes、SHA256 `37496a9933404832478ed09a2c89fc497951caff40d0c8efaed915d0ce4c60f4`**，与前候选字节相同；同一保留产物在env-i/PATH无JS下25组Qoder Host通过，58根314次后续互读通过。不是长期内存、真实服务、系统Vault或安装验收。
+
+保留两次中间失败：初次TS null effort与原生Goal off输入不一致，已统一双方显式off并由真实caller重生成，原全等断言保留；首轮全闸172/173通过，150ms固定等待在Host首个容量观察提交前追加历史，保留fixture显示request_preflight、并发user及known16。等待测试复用已有hard-exit测试的index turn_complete与Store锁释放事实后再变更/杀进程，原错误码、一次HTTP及费用断言不放宽；10项重试测试及最终整闸通过。产品并发拒绝/恢复契约没有被修改。
+
+基线c09的[CI43970657817](https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817)已终态失败：两平台native/build/type/architecture通过；Linux最后Electron smoke在Evidence返回详情时仍隐藏，发生在motion检查前；macOS Desktop测试全部完成，但Test步骤15分钟超时，旧TUI最后停在Goal bridge首项，未确认根因。本机隔离旧TUI879项（878pass/1skip）、Goal bridge10项、实际Electron work-surfaces/Evidence返回均通过；这不证明远端已修复，不称flake，未重跑或削弱断言。全日志、失败报告/图与trace保留。新[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)独立执行，merge a250fc32 tree与328cd85c一致，尚未全仓绿。
+
+P4仍缺剩余Qoder目录/发送/流变体及真实服务、完整Context/压缩、其余工具/Skill/Plugin/Hook/ACP/headless/命令和混合安装版本恢复；P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收。无个人凭据/任务读取迁移、安装、用户实例重启、默认入口切换、合并或发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-17 CI 折叠采集的输入与观察边界
 
 候选 `c09d2bc3`（tree `af216294`）已推送。复核ADR44/129–131与当前动效/验证规范，C级夹具修正，产品与Runtime边界不动，不另开ADR。683b的macOS CI原断言/全日志保留；输入与观察共用6000ms计时，而实际关闭采样直到5900ms才出现，无法保住所需480ms。以原函数不改正文、仅开发导出，在实际DelegatedWork/MotionDetails/原CSS的隔离Electron中加延迟真实派发，再次复现同一deadline断言；不是对原托管CI环境的精确复现或生产动画缺陷证明。

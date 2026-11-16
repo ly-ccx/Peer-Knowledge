@@ -231,21 +231,61 @@
       {
         "id": 133661881862,
         "name": "ci-macos-14",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "failure",
+        "nativeScoped": "success",
+        "failure": "Test step timed out after15minutes; Desktop tests completed, last old TUI line was first Goal bridge test. No exact cause established.",
+        "log": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci-macos.log",
+          "bytes": 1944306,
+          "sha256": "c6eac53bd5cd99b5258ac93f14545d932cc3af4bbb2b56aa4b9fa93df2003d44"
+        }
       },
       {
         "id": 133661882380,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress",
-        "conclusion": null,
-        "active": [
-          "Native CLI scoped validation"
-        ],
-        "failures": []
+        "status": "completed",
+        "conclusion": "failure",
+        "nativeScoped": "success",
+        "failure": "Bot shell Electron smoke: bot-evidence-checks.mjs:69 restore; reply details remained hidden after Back. Before history-motion checks.",
+        "log": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.log",
+          "bytes": 2226642,
+          "sha256": "63f5a141024bb7f5727e98aa5376e5372840a473c655d50605957e80835dbf14"
+        },
+        "report": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-report.json",
+          "bytes": 299689,
+          "sha256": "3b257f2fbf5bd6aee0d0769c6a1e4783605eb4c052729d2819ef77336f0a458b"
+        },
+        "screenshot": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-failure.png",
+          "bytes": 47901,
+          "sha256": "166d0a246d6e04e6ae8ed6e39a06a01da94400d53f920cf8a57cfe01d91ab182"
+        }
       }
     ],
-    "observedAt": "2026-11-16T22:39:02.352712+00:00"
+    "observedAt": "2026-11-16T23:16:35.887845+00:00",
+    "followUp": "Isolated local actual work-surfaces/Evidence return passed; isolated old TUI879 tests878pass1skip and Goal bridge10pass. These do not resolve or reclassify either CI failure. Remote full trace now preserved and inspected; no retry or assertion weakening.",
+    "traceInvestigation": {
+      "artifactId": 14279074307,
+      "archive": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.zip",
+        "bytes": 349200931,
+        "sha256": "7f780de4c0af96d10a65ba7af5fb71bf40227837b43b1485fd8e81ba19beec83"
+      },
+      "trace": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-trace.zip",
+        "bytes": 357479601,
+        "sha256": "d5059a02193969fc2f13688824fd9f786fd7ea4e9eea9a5f2f26fd47b9f833bf"
+      },
+      "findings": {
+        "path": "/tmp/peer-native-evidence-return-20261117/trace-findings.json",
+        "bytes": 7470,
+        "sha256": "3eeceaa2f8ea8f0d166a8ee6b9a26a7965fcb2f6a4fecd87e38c05c4e4197a37"
+      },
+      "observation": "call@14782 Back click reported complete at390743ms, point1039.2/84, target bot-inspect-back. Before/input/after and15s timeout snapshots retain metadata_only evidence and hidden reply slot; no successful return state. Failure follows760->1280 viewport restore. This is factual trace, not proof of root cause or fix. Local scoped same flow passed."
+    }
   },
   "limits": {
     "wholeRepositoryCiPassed": false,

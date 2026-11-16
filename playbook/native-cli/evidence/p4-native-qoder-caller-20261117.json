@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "branch": "codex/native-rust-cli",
+    "head": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
+    "tree": "e2c9b88ea55d0929401e7c847d0150b7fcf53474",
+    "base": "c09d2bc347d551eae5b007c7f440ccce41faef2d"
+  },
+  "classification": "B-level same-boundary caller metadata fix and conformance completion under ADR25/37/56/129/130/131; C-level wait-fixture synchronization. No permission, Evidence, Context admission/order or persistence boundary moved; no new ADR.",
+  "baseline": {
+    "source": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+    "script": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.mjs",
+      "bytes": 2856,
+      "sha256": "24ab268107959ee735e3e48c5a4faf715d971210ca0ebef3e2abc1742c7785e8"
+    },
+    "log": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.log",
+      "bytes": 1473,
+      "sha256": "311e6755da5787eb0f21868367bac328cb68ac6b884363bbb839350109c68b4b"
+    },
+    "body": {
+      "model": "missing-synthetic-model",
+      "configuredOptionValues": {
+        "contextTier": "large"
+      },
+      "configuredChoices": [
+        {
+          "value": "small",
+          "requestValue": "tier-small",
+          "contextWindow": 128000
+        },
+        {
+          "value": "large",
+          "requestValue": "tier-large",
+          "contextWindow": 512000
+        }
+      ],
+      "actualModelConfig": {
+        "key": "missing-synthetic-model",
+        "display_name": "missing-synthetic-model",
+        "model": "",
+        "format": "openai",
+        "is_vl": false,
+        "is_reasoning": false,
+        "api_key": "",
+        "url": "",
+        "source": "system",
+        "max_input_tokens": 200000
+      },
+      "expected": {
+        "contextTier": "tier-large",
+        "max_input_tokens": 512000,
+        "is_vl": true
+      },
+      "scope": "Actual shared TS public sender through prepared builder; mocked authentication and HTTP host ports, real stream parser; owned empty catalog only. Not real SDK/auth/network/provider evidence."
+    },
+    "failure": "Owned empty catalog plus persisted large512000 selected outside nested sender; nested second catalog lookup returned null, losing contextTier and supportsVision, defaulting max_input_tokens to200000. Public sender assertion failed before fix. Authentication and HTTP ports were mocked; actual built caller/catalog/stream parser used."
+  },
+  "change": {
+    "module": "Private prepared sender receives the already resolved metadata from the public sender rather than reading catalog a second time. Public API and original null/empty/nonempty option selection remain. Native request implementation already follows this selection; no Rust production code changed.",
+    "contract": "12 public-caller cases and36 physical build attempts, single catalog resolution per recovery group, exact prepared/auth body, fresh IDs, stable nonidentity payload, actual parser completion, model window/tier/vision/max output and explicit off effort. Missing/selected/default catalog, absent/invalid selection, null/empty/nonempty overrides and auto are covered.",
+    "nativeHost": "Two tests:12 actual native CLI factory/HTTP -> real write_file -> Grant/ToolResult/Evidence -> known usage/capacity; selected options changed by actual Bash after a successful effect reject old cognition, preserve known16 and prior Evidence/history, then fresh Goal uses small128000.",
+    "waitFixture": "Reuses committed index turn_complete plus released index/conversation locks before source mutation or kill; fixed150ms removed. Failed gate preserved with index request_preflight, external concurrent user row and ledger known16. This corrects policy-wait targeting, not production error handling. Original refusal/no-second-request/fee assertions retained."
+  },
+  "validation": {
+    "unchangedBaselineAssertion": {
+      "exit": 0,
+      "body": {
+        "model": "missing-synthetic-model",
+        "configuredOptionValues": {
+          "contextTier": "large"
+        },
+        "configuredChoices": [
+          {
+            "value": "small",
+            "requestValue": "tier-small",
+            "contextWindow": 128000
+          },
+          {
+            "value": "large",
+            "requestValue": "tier-large",
+            "contextWindow": 512000
+          }
+        ],
+        "actualModelConfig": {
+          "key": "missing-synthetic-model",
+          "display_name": "missing-synthetic-model",
+          "model": "",
+          "format": "openai",
+          "is_vl": true,
+          "is_reasoning": false,
+          "api_key": "",
+          "url": "",
+          "source": "system",
+          "max_input_tokens": 512000,
+          "contextTier": "tier-large"
+        },
+        "expected": {
+          "contextTier": "tier-large",
+          "max_input_tokens": 512000,
+          "is_vl": true
+        },
+        "scope": "Actual shared TS public sender through prepared builder; mocked authentication and HTTP host ports, real stream parser; owned empty catalog only. Not real SDK/auth/network/provider evidence."
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-20261117/fixed-public.log",
+        "bytes": 1066,
+        "sha256": "62774dc4263f727897aff124c4c1444ce3c49087510d140f0c88a8a2cc0c1d2d"
+      }
+    },
+    "caller": {
+      "cases": 12,
+      "attempts": 36,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-20261117/contracts-final.log",
+        "bytes": 479,
+        "sha256": "8fac5f5c360d0116d6ae84f0af9cb5ad0517a26c9f7c31be36fc3e3c9595e16b"
+      }
+    },
+    "focusedNativeOptions": {
+      "tests": 2,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-20261117/native-options-final.log",
+        "bytes": 635,
+        "sha256": "1609ab0c122641c7a9f07225c7b169636a81c2f47e47b45d7d875b6be23e940c"
+      }
+    },
+    "focusedNativeRetry": {
+      "tests": 10,
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-20261117/retry-wait-fixed.log",
+        "bytes": 1428,
+        "sha256": "af1a5d03897f64867c832de09e6498a07824103127953f1c8d56468bf3a91b20"
+      }
+    },
+    "existingDesktopQoder": {
+      "tests": 50,
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-20261117/desktop-focused.log",
+        "bytes": 4745,
+        "sha256": "c87e5c4fac52d6d227d9b5e2fbcc99e2d0d252e9926aa31e12976cbba0c2897a"
+      }
+    },
+    "fullNativeScoped": {
+      "exit": {
+        "exit": 0,
+        "elapsedSeconds": 440.364792959,
+        "source": {
+          "base": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+          "tree": "e2c9b88ea55d0929401e7c847d0150b7fcf53474",
+          "startedAt": "2026-11-16T23:08:20.557424+00:00"
+        },
+        "finalTree": "e2c9b88ea55d0929401e7c847d0150b7fcf53474",
+        "unstaged": ""
+      },
+      "rustTests": 456,
+      "nativeEpisodes": 173,
+      "actualInteropRoots": 349,
+      "actualInteropChecks": 2002,
+      "ptyCases": 9,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/verify.log",
+        "bytes": 100394,
+        "sha256": "bf33e50dd801ca8aa689189e1ad008c2888ac771b33e0ca9542e80551eec4a68"
+      },
+      "candidatePatch": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/candidate.patch",
+        "bytes": 35615,
+        "sha256": "1b2ae988d77eaafac0b1cfc56a00d188619d173c83d1466e26a5018fdf16d619"
+      },
+      "fixtureBinary": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/fixture-peer-native",
+        "sha256": "f51321545e0b5e37f76bc7e5fdea83a8c5979a030ebd4eca236ee99dec5bdb5c"
+      },
+      "pty": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/pty/results.json",
+        "bytes": 2008,
+        "sha256": "8d6d32238260960af4a7af6c5e05e2df11ec516c8cb40cebc1ceaa15c1c4d156"
+      }
+    },
+    "featureless": {
+      "binary": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/peer-native",
+        "bytes": 17163312,
+        "sha256": "37496a9933404832478ed09a2c89fc497951caff40d0c8efaed915d0ce4c60f4"
+      },
+      "environment": "env -i PATH=/nonexistent; actual retained featureless peer-native; synthetic source stores only",
+      "hostTests": 25,
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/release-qoder.log",
+        "bytes": 2818,
+        "sha256": "22821e0d351b70bdb3197eff61a07761b9ddd4969072a6621ceaa75e9de23946"
+      },
+      "interop": {
+        "ok": true,
+        "roots": 58,
+        "cases": 314,
+        "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+      },
+      "interopLog": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/release-interop.log",
+        "bytes": 216,
+        "sha256": "d5207aa27e0b5e6fc5e7a9bf55e0d73c4b64f697dd6208a4faad3dcd4f798804"
+      },
+      "dynamicLibraries": [
+        "CoreFoundation",
+        "libiconv.2.dylib",
+        "libSystem.B.dylib"
+      ],
+      "sameBytesAsPredecessor": true
+    },
+    "architecture": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-qoder-caller-20261117/architecture-final.log",
+        "bytes": 384,
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "preservedFailures": {
+      "firstInputAlignment": {
+        "log": {
+          "path": "/tmp/peer-native-qoder-caller-20261117/native-options.log",
+          "bytes": 1979,
+          "sha256": "20dc1db0a5dd1f8f513bc8386343d5fd8dd7e78380471c08dd2f00c7a9e7dab4"
+        },
+        "reason": "Initial TS null effort differed from native canonical Goal off -> reasoning_effort none. Aligned both explicit inputs to off and regenerated from actual sender; equality assertion retained. Not a native regression."
+      },
+      "firstFullGate": {
+        "exit": {
+          "exit": 1,
+          "elapsedSeconds": 321.895333125,
+          "source": {
+            "base": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+            "tree": "a0f2471ff9b1d12cc29a6257a5e7177937cde956",
+            "startedAt": "2026-11-16T22:56:30.433262+00:00"
+          },
+          "finalTree": "a0f2471ff9b1d12cc29a6257a5e7177937cde956",
+          "unstaged": ""
+        },
+        "log": {
+          "path": "/tmp/peer-native-qoder-caller-final-20261117/verify.log",
+          "bytes": 52302,
+          "sha256": "f5fab6f157ad1b5da48d092b606f0a5c442158cd2325864bfd71879554195f83"
+        },
+        "ownedFixture": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpYQXIdu",
+        "failure": "172/173 Episodes passed; history appended while first capacity observation had not committed, resulting BACKGROUND_VERSION_CHANGED. Existing hard-exit test already used actual committed phase; now all wait tests use it."
+      }
+    }
+  },
+  "predecessorCi": {
+    "runId": 43970657817,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817",
+    "head": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+    "mergeCommit": "90d3e41c8c9b0b818a689d3734ee92d158a36b97",
+    "mergeTree": "af216294c08e512e2dfa7f1545b5fc0130264cbe",
+    "matchesSourceTree": true,
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      {
+        "id": 133661881862,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "failure",
+        "nativeScoped": "success",
+        "failure": "Test step timed out after15minutes; Desktop tests completed, last old TUI line was first Goal bridge test. No exact cause established.",
+        "log": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci-macos.log",
+          "bytes": 1944306,
+          "sha256": "c6eac53bd5cd99b5258ac93f14545d932cc3af4bbb2b56aa4b9fa93df2003d44"
+        }
+      },
+      {
+        "id": 133661882380,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "failure",
+        "nativeScoped": "success",
+        "failure": "Bot shell Electron smoke: bot-evidence-checks.mjs:69 restore; reply details remained hidden after Back. Before history-motion checks.",
+        "log": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.log",
+          "bytes": 2226642,
+          "sha256": "63f5a141024bb7f5727e98aa5376e5372840a473c655d50605957e80835dbf14"
+        },
+        "report": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-report.json",
+          "bytes": 299689,
+          "sha256": "3b257f2fbf5bd6aee0d0769c6a1e4783605eb4c052729d2819ef77336f0a458b"
+        },
+        "screenshot": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-failure.png",
+          "bytes": 47901,
+          "sha256": "166d0a246d6e04e6ae8ed6e39a06a01da94400d53f920cf8a57cfe01d91ab182"
+        }
+      }
+    ],
+    "observedAt": "2026-11-16T23:16:35.887845+00:00",
+    "followUp": "Isolated local actual work-surfaces/Evidence return passed; isolated old TUI879 tests878pass1skip and Goal bridge10pass. These do not resolve or reclassify either CI failure. Remote full trace now preserved and inspected; no retry or assertion weakening.",
+    "traceInvestigation": {
+      "artifactId": 14279074307,
+      "archive": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.zip",
+        "bytes": 349200931,
+        "sha256": "7f780de4c0af96d10a65ba7af5fb71bf40227837b43b1485fd8e81ba19beec83"
+      },
+      "trace": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-trace.zip",
+        "bytes": 357479601,
+        "sha256": "d5059a02193969fc2f13688824fd9f786fd7ea4e9eea9a5f2f26fd47b9f833bf"
+      },
+      "findings": {
+        "path": "/tmp/peer-native-evidence-return-20261117/trace-findings.json",
+        "bytes": 7470,
+        "sha256": "3eeceaa2f8ea8f0d166a8ee6b9a26a7965fcb2f6a4fecd87e38c05c4e4197a37"
+      },
+      "observation": "call@14782 Back click reported complete at390743ms, point1039.2/84, target bot-inspect-back. Before/input/after and15s timeout snapshots retain metadata_only evidence and hidden reply slot; no successful return state. Failure follows760->1280 viewport restore. This is factual trace, not proof of root cause or fix. Local scoped same flow passed."
+    }
+  },
+  "ciInvestigation": {
+    "scope": "Read-only failure investigation, no CI retry or product/locator/assertion change. Local success is not remote resolution.",
+    "oldTuiSuite": {
+      "tests": 879,
+      "passed": 878,
+      "skipped": 1,
+      "failed": 0,
+      "exit": {
+        "exit": 0,
+        "home": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-tui-suite-ci-i0rqr_mf"
+      },
+      "log": {
+        "path": "/tmp/peer-native-evidence-return-20261117/tui-suite-baseline.log",
+        "bytes": 100808,
+        "sha256": "5c743aaf3c5e4e6fbbe5128615dd69c7731899b9745c14b0dd8c1780b20f1660"
+      }
+    },
+    "oldTuiGoalBridge": {
+      "tests": 10,
+      "exit": {
+        "exit": 0,
+        "home": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-goal-bridge-ci-4800c9qn"
+      },
+      "log": {
+        "path": "/tmp/peer-native-evidence-return-20261117/goal-bridge-isolated.log",
+        "bytes": 1152,
+        "sha256": "52648a6a7741609b420ba1f5108f43668dd5fffee96faad4eb0a98a19cbede00"
+      }
+    },
+    "actualElectronEvidenceReturn": {
+      "passed": true,
+      "sameReply": true,
+      "focusInDetails": true,
+      "ownedProcessStopped": true,
+      "report": {
+        "path": "/tmp/peer-native-evidence-return-20261117/local-work-surfaces.json",
+        "bytes": 8166,
+        "sha256": "fb1bbe6d2006635f3f948ea092ce5f0e4d57a942a57411367184236104af82df"
+      },
+      "scope": "Actual source Electron/main/preload/renderer plus synthetic cognition. Scoped work-surfaces only, no installed/real-model/complete product acceptance."
+    },
+    "remoteTrace": {
+      "artifactId": 14279074307,
+      "archive": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.zip",
+        "bytes": 349200931,
+        "sha256": "7f780de4c0af96d10a65ba7af5fb71bf40227837b43b1485fd8e81ba19beec83"
+      },
+      "trace": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-trace.zip",
+        "bytes": 357479601,
+        "sha256": "d5059a02193969fc2f13688824fd9f786fd7ea4e9eea9a5f2f26fd47b9f833bf"
+      },
+      "findings": {
+        "path": "/tmp/peer-native-evidence-return-20261117/trace-findings.json",
+        "bytes": 7470,
+        "sha256": "3eeceaa2f8ea8f0d166a8ee6b9a26a7965fcb2f6a4fecd87e38c05c4e4197a37"
+      },
+      "observation": "call@14782 Back click reported complete at390743ms, point1039.2/84, target bot-inspect-back. Before/input/after and15s timeout snapshots retain metadata_only evidence and hidden reply slot; no successful return state. Failure follows760->1280 viewport restore. This is factual trace, not proof of root cause or fix. Local scoped same flow passed."
+    }
+  },
+  "candidateCi": {
+    "runId": 43978031587,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587",
+    "head": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
+    "status": "in_progress",
+    "wholeRepositorySuccess": false,
+    "mergeCommit": "a250fc3215033504b693fefe5f4242e3a06549dd",
+    "mergeTree": "e2c9b88ea55d0929401e7c847d0150b7fcf53474",
+    "matchesSourceTree": true,
+    "parents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "328cd85cf69755ef0a0aad9ec8caf553349a5a93"
+    ]
+  },
+  "limits": {
+    "p4TotalGatePassed": false,
+    "p5ThroughP7Complete": false,
+    "ordinaryRatatuiChatEnabled": false,
+    "remaining": "Remaining Qoder catalog/sender/stream variants and real service; full Context/compaction, remaining tools/Skill/Plugin/Hook, ACP/headless/commands, mixed installed-version drain/recovery, real-provider/platform/Vault and P4 total gate. P5 project-agent chain, P6 full terminal/memory and P7 switch/release remain.",
+    "scope": "No personal Qoder credentials/tasks read or migrated, no install/user-instance restart/default switch/merge/tag/release. No Bun/Node engine sidecar. TS/SDK scripts are development-only reference fixtures."
+  }
+}
