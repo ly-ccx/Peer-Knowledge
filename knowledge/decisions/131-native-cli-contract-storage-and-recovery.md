@@ -198,3 +198,14 @@ MCP 已发出的请求在超时、断连、取消、超限或回执不确定时�
 - PKCE/state/请求参数从真实 TS 登录流程生成 conformance 资源；隔离 IdP + 真实原生 CLI + 加密 Helper Vault 验证正确/错误/重复回调、端口冲突、拒绝、取消、超时、晚到登录/退出、提交回执丢失，以及登录后实际模型/工具/Evidence 闭环。共享 loopback parser 可抽为 runtime 内部 Module，MCP仍保留原 redirect 限制与错误契约；不得顺带放开 MCP 端点。
 
 正式 IdP、系统 Vault 和多平台安装分别验收；模拟网络不冒充真实平台认证。依据：[RFC8252](https://www.rfc-editor.org/rfc/rfc8252) 与 [RFC7636](https://www.rfc-editor.org/rfc/rfc7636)。
+
+### NR-04 模型配置写入所有权与损坏保全（2026-11-16，实施前 A级补齐）
+
+完整原生模型管理继续迁移既有 v2 `llm-providers.json`（channels/models），不建立另一份配置或把凭据写入JSON。新增跨语言 ModelConfigStore Module：边界是有界读取、源版本、同名目录锁与条件原子替换，负责配置事实，不负责模型、工具或凭据授权。此项收紧 §5 对此 Store 原先未证明的写入所有权；不改变 channel/model 身份、Vault命名空间或本地执行链。
+
+- Rust 与当前 Desktop / runtime-node 配置写入参与同一个 `${file}.lock` mkdir协议，按文件所在目录的真实路径统一名称；锁自身不得是symlink。完整同步 read→mutate→write 在锁内，不仅锁 rename。进程内嵌套沿同一 owner，异步网络/浏览器等待不得持锁。等待有期限，可取消的宿主应检查取消；超时/锁替换失败关闭，未知残留锁不因TTL自动删除，沿 §5 离线维护恢复。
+- 读取上限 1MiB，深度32/节点16384；拒绝非普通文件、损坏JSON、显式未知version及不支持shape。不存在才是空配置。已发布的flat数组及version缺失的channels/models兼容形态仍由既有迁移Adapter处理；当前原生写入先仅接受明确v2，旧格式不擅自升级。不能把解析错误当空配置后覆盖原文件。未知 root/channel/model 字段在相关更新中保留。
+- 写入以同一快照身份/内容版本进行CAS；原子同目录0600临时文件→fsync→rename→目录fsync。rename前失败保留旧文件；rename后确认失败报告commit_unknown，重新读取实际配置对账，不回放修改或还原旧快照。锁被替换不得删除替代owner。没有未知效果时原配置可在修复后再次接收修改。
+- Desktop 的同步CRUD、读取时迁移及metadata回写都由同一事务拥有。异步诊断/价格获取在网络结束后重读锁内最新对象，只更新仍匹配原对象身份/配置的结果，禁止用网络前整份旧数组覆盖其它宿主更新。runtime-node显式OAuth提示写入也必须在共享锁内重读，保留原布局和未知字段。
+- 凭据提交与配置原子性不能仅凭此文件锁宣称完成。最终账号创建/删除/修改、原生auth/refresh和TS凭据管理需在各自短提交段取得此锁并重新核对绑定，锁顺序config→Helper/Vault；网络等待释放。失败恢复必须以真实凭据代条件核对，禁止无条件还原消耗过的旧refresh。提示是可重建投影；配置提示失败不使已提交token失效。完整Vault/配置联合故障、混合安装版本drain与CRUD命令仍逐项验收；未接入的写者/旧二进制不被此新规则自动保护。
+- 验收必须从实际Desktop和runtime-node入口及原生Store跨进程竞争，覆盖丢更新、超时/取消、损坏/未知版本保全、未知字段、迟到网络、替代锁owner、提交不确定与后续修改。Store地基或源码接线通过均不等于完整原生命令/P4总闸。
