@@ -1,7 +1,10 @@
 # Hook / Runtime SDK / TUI 三阶段实施路线图
 
+> [!NOTE] 2026-11-16 历史阶段归档与终局升级（[ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)）
+> 本文记录 2026-07 TS 路线图（Hook 植入 → TS `@peer-agent/runtime-sdk`（`0.1.0-rc.*` 后续已随列车发布至 npm）→ OpenTUI 瘦客户端切片）。随 ADR 129（`PR #133` / `129-native-rust-cli-and-ratatui.md`）与 [ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md) 定案，终局不再让 CLI 或 Desktop 长期构建在 TS `@peer-agent/runtime-sdk` 上，而是统一收敛至 **Rust Core + 双宿主表达**；本文第一阶段沉淀的 **Hook 点顺序（`PreToolUse`/`PostToolUse`）、`allow/ask/deny` 只能收紧、高风险硬 deny、fail-closed 及 Evidence 落账契约** 全部升格为 Rust Core 必须补齐的等价验收标准。
+
 > 创建时间：2026-07-09
-> 最后更新：2026-07-14
+> 最后更新：2026-11-16（关联 ADR 133 路线归档升级；原快照 2026-07-14）
 > 状态：执行中（阶段一、Runtime SDK Phase 2.1/2.2 与 Phase 2.3 发布准备已完成；待实际 npm 发布）
 > 顺序（已确认）：阶段一 Hook 植入 → 阶段二 Runtime 抽 SDK → 阶段三 TUI 构建
 > 关联知识：`knowledge/specifications/tui-and-hook-design-standard.md`（对标与设计标准）、`knowledge/decisions/16-skill-call-lifecycle.md`、`knowledge/decisions/35-mode-scoped-tool-projection.md`、`knowledge/specifications/09-high-risk-write-scope.md`

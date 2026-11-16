@@ -1,7 +1,10 @@
 # CLI First-Class Release（CLI 与 Desktop 同仓一等发布）
 
-创建时间: 2026-07-20  
-最后更新: 2026-11-15（补充重号消歧说明及 macOS 发布签名/公证对齐；2026-11-06 [ADR 108-cli](108-cli-basic-shell-commands.md) 收窄「CLI 自动更新可缓做」）
+创建时间: 2026-07-20
+最后更新: 2026-11-16（对齐 ADR 129 `PR #133` 原生 Rust CLI 与 [ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 统一 Rust Core 终局，保持同仓、同 `VERSION` 与零 Desktop 依赖不变；2026-11-15 补充重号消歧及 macOS 签名/公证；2026-11-06 [ADR 108-cli](108-cli-basic-shell-commands.md) 收窄「CLI 自动更新可缓做」）
+
+> [!NOTE] 2026-11-16 技术终局对齐（ADR 129 `PR #133` / [ADR 133](133-unified-rust-core-and-dual-host-architecture.md)）
+> CLI 构建产物终态迁由 Cargo 原生产出 `peer` 与 `peer-credential-helper`（`apps/tui` `@peer-agent/tui` 仅作过渡期旧面），版本门禁同步覆盖 Cargo workspace 与共享协议包；**同仓、同根 `VERSION`、同 tag 双宿主发布、`@peer-agent/cli` 安装面及“无需先装 Desktop”硬约束保持不变**。
 
 > [!NOTE] 重号消歧
 > 历史并发编写导致编号 `48` 同时对应 [48-cli-first-class-release.md](48-cli-first-class-release.md)（本篇，CLI 与 Desktop 同仓一等发布）与 [48-provider-model-options.md](48-provider-model-options.md)（渠道无关的模型选项与渠道投影）。外部引用 `ADR 48` 时必须附带完整文件名以免混指。

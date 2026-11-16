@@ -1,7 +1,12 @@
 # ADR 54：开放 Runtime 公开包与发布策略
 
-创建时间：2026-07-24  
-最后更新：2026-07-24  
+> [!NOTE] 2026-11-16 局部取代与降级修订（[ADR 133](133-unified-rust-core-and-dual-host-architecture.md)）
+> 终局架构已由 [ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 收口为 **Peer Rust Core 单核架构**（CLI 与 Desktop 最终共用同一 Rust Core）：
+> - `@peer-agent/runtime-core` 与 `@peer-agent/runtime-sdk` 此前已随 `0.1.0-rc.*` 列车发布至 npm，现降格定位为 **TypeScript 过渡兼容 / 宿主桥接包**（冻结功能扩张，不再把 TS 4 个工厂或 `createRuntimeGoalController` 作为永久全端核心）；进入 `1.0.0` 前须另行明确 deprecation 窗口与向 Rust Core 入口迁移的路径，不得静默断更；
+> - `@peer-agent/protocol`（跨语言单一契约真源）与 `@peer-agent/cli`（最终封装原生 Rust `peer` 与 `peer-credential-helper`）保留长期一等公开地位。
+
+创建时间：2026-07-24
+最后更新：2026-11-16（关联 ADR 133 部分取代与过渡降级；原版本 2026-07-24）
 状态：Accepted / Implementation in progress  
 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 

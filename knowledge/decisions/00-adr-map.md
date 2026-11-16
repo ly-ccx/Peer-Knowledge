@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-15（全量跨 ADR 一致性对齐：同步 87 篇修订至 2026-11-15；将 ADR 126 与 ADR 127 一并转为 Accepted 并保留 `ask` / `bot_verified` 两档、`auto` 取消；补齐 `48 / 59 / 104 / 108` 四组重号消歧、三层模型切换边界、`work_session` L2 Playwright 网页隔离、ADR 0001 fail-closed 凭据收口、ADR 115 `input_prediction` 账本隔离、`15–18 / 42 / 67` 及多篇部分取代口径，以及 `77 / 104-visibility / 113 / 119 / 123` 的 Proposed 与特性门槛重编；在目录同步 `126 / 127` 与在途远端占用号清单）
+最后更新：2026-11-16（新增 [ADR 133：全端统一 Rust Core 与双宿主融合终局架构](133-unified-rust-core-and-dual-host-architecture.md) 为 Accepted：确立后续以 Rust 为唯一核心构建、Desktop 复用同一套体系并叠加桌面专属效果；部分取代 ADR 54 永久 TS 内核承诺，升级 ADR 129 §2.6，明确 `PR #132` / `PR #133` 与 TS 过渡态收口规则，同步 `128–132` 占号并将后续可用号顺延至 `134+`；前次 2026-11-15 全量跨 ADR 对齐记录见下文维护节）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `7600b00`（`merge commit 923fb71` 合入后于 2026-11-15 完成全量跨 ADR 对齐）。
@@ -28,6 +28,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 - 2026-11-07 按 `origin/main` `3402e83` 重数：本图谱之外有 **110** 个决策文件、**105** 个编号。缺号为 `2`–`14`、`19`、`20`、`23`、`107`（`0001` 不占 `1`）。
 - 2026-11-09 按 `origin/main` 重数：图谱之外为 **114** 个决策文件、**110** 个编号（含 `48` / `59` / `104` / `108` 四组同号双篇），已计入 ADR 126 / 127。
 - 2026-11-15 基于 `923fb71`（同步 `origin/main` `7600b00`）复核：本图谱之外仍为 **114** 个决策文件、**110** 个独立编号（`0001` + `15`–`127`；缺失 `2`–`14`、`19`、`20`、`23`、`107` 严禁回填或复用，历史悬空 `ADR 23` 引用已清理）。
+- 2026-11-16 新增 [ADR 133](./133-unified-rust-core-and-dual-host-architecture.md) 后（计入本分支新增、未计未合入的在途 `128–132`）：本图谱之外为 **115** 个决策文件、**111** 个独立编号（`0001` + `15`–`127` + `133`；在途 `PR #132` 占 `128`，在途 `PR #133` 占 `129`–`132`）。
 
 同一个编号有两篇时，引用必须带文件名或如下约定简名：
 
@@ -42,18 +43,19 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 108 | `ADR 108-bot` / [108-bot-reply-document-preview.md](./108-bot-reply-document-preview.md) | Accepted（展示容器部分已由 ADR 109 / ADR 114 取代） |
 | 108 | `ADR 108-cli` / [108-cli-basic-shell-commands.md](./108-cli-basic-shell-commands.md) | Accepted（实现未发布验收；收窄 ADR 48-cli 与 ADR 61） |
 
-### 在途远端分支占号与重编规则（2026-11-15 核对）
+### 在途远端分支占号与重编规则（2026-11-16 复核）
 
-以 `origin/main`（`7600b00`）为比较基线，下列远端分支已占用号或存在重号冲突：
+以 `origin/main`（`7600b00`）与本分支已落盘 `ADR 133` 为比较基线，下列远端分支已占用号或存在重号冲突：
 
-- **已占用新号 `128`–`131`**：
-  - `origin/codex/local-runtime-isolation-architecture`：占用 `128`（`128-local-runtime-isolation-and-bounded-query-contract.md`）。
-  - `origin/codex/native-rust-cli`：占用 `129`–`131`（`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`）。
-- **重号冲突（合入 `main` 前必须重编至 `132+`）**：
-  - `origin/docs/persistent-shell-session`：`66-persistent-shell-session.md`、`67-read-file-line-range.md` 与现行 `66` / `67` 重号，合入前必须重编至 `132+`。
-  - `origin/docs/adr-123-tool-result-spill`：`123-oversized-tool-result-local-spill.md` 与现有 `123` 重号，合入前必须重编至 `132+`。
+- **已占用号 `128`–`133`**：
+  - `origin/codex/local-runtime-isolation-architecture`（PR #132，Proposed）：占用 `128`（`128-local-runtime-isolation-and-bounded-query-contract.md`）；合入前须按 [ADR 133](./133-unified-rust-core-and-dual-host-architecture.md) §3 收口，删去 Bun CLI sidecar 条款并放弃 TS 全量 `M00–M14` 二次重写。
+  - `origin/codex/native-rust-cli`（PR #133，Accepted）：占用 `129`–`132`（`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`、`132-mcp-vault-and-native-oauth.md`）。
+  - 本分支（已正式登记）：占用 `133`（[`133-unified-rust-core-and-dual-host-architecture.md`](./133-unified-rust-core-and-dual-host-architecture.md)）。
+- **重号冲突（合入 `main` 前必须重编至 `134+`）**：
+  - `origin/docs/persistent-shell-session`：`66-persistent-shell-session.md`、`67-read-file-line-range.md` 与现行 `66` / `67` 重号，合入前必须重编至 `134+`。
+  - `origin/docs/adr-123-tool-result-spill`：`123-oversized-tool-result-local-spill.md` 与现有 `123` 重号，合入前必须重编至 `134+`。
 - **后续新增编号与特性门槛规则**：
-  - 新立 ADR 从 `132+` 顺延编号；[ADR 104-visibility](./104-bot-capability-visibility.md) 原提及的 Bot 专属自定义指令后续若单独定案，亦从 `132+` 新立编号（不再使用未合并的 `ADR 107`）。
+  - 新立 ADR 从 `134+` 顺延编号；[ADR 104-visibility](./104-bot-capability-visibility.md) 原提及的 Bot 专属自定义指令后续若单独定案，亦从 `134+` 新立编号（不再使用未合并的 `ADR 107`）。
   - 持久化 / 格式兼容门槛代次 `6`–`11` 已被主线历史与 ADR 124 占用（未接受的 ADR 119 拟占 `10` 已作废且不得复用）；包括 [ADR 113](./113-checkpoint-content-addressed-storage-and-retention.md)、[ADR 123](./123-main-bot-unnoticed-memory.md)、[ADR 126](./126-execution-resource-claim-closure-and-unknown-retention.md) 在内的后续特性门槛统一使用 `> 11`（即 `12+`）的下一个未占用整数。
 
 ## 已写明的替代和作废
@@ -78,7 +80,8 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | [`47-workbench-multi-resource-tabs.md`](./47-workbench-multi-resource-tabs.md) | 2026-11-15 | 决策一第 4 条（目录不建标签）在资源窗口标签条范围内被 [ADR 125](./125-resource-window-directory-tabs.md) 替代；兼容 ADR 118 `interactive` |
 | [`48-cli-first-class-release.md`](./48-cli-first-class-release.md) | 2026-11-15 | 「CLI 自动更新可缓做」条款由 [ADR 108-cli](./108-cli-basic-shell-commands.md) 收窄（仅保留无人值守安装，显式 `peer update` 由 `108-cli` 规定） |
 | [`49-cancel-path-hard-sandbox.md`](./49-cancel-path-hard-sandbox.md) | 2026-11-15 | 跨工作区操作规则已被 [ADR 90](./90-local-image-capability-and-product-review.md)/[92](./92-scoped-permission-inheritance.md)/[101](./101-bot-owned-access-policy.md)/[106](./106-readonly-git-and-delegation-capability-admission.md) 部分取代 |
-| [`52-unified-next-request-context-accounting.md`](./52-unified-next-request-context-accounting.md) | 2026-07-25 | 本地估算作为当前权威值的决策已被 [ADR 56](./56-provider-observed-context-accounting.md) 取代 |
+| [`52-unified-next-request-context-accounting.md`](./52-unified-next-request-context-accounting.md) | 2026-07-23 | 2026-07-25 | 本地估算作为当前权威值的决策已被 [ADR 56](./56-provider-observed-context-accounting.md) 取代 |
+| [`54-open-runtime-public-packages-and-release-policy.md`](./54-open-runtime-public-packages-and-release-policy.md) | 2026-11-16 | `@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 作为 Peer 长期永久核心内核的定位已被 [ADR 133](./133-unified-rust-core-and-dual-host-architecture.md) 取代，降格为 TS 过渡兼容/桥接包（`1.0.0` 前走正式退场窗口）；`@peer-agent/protocol` 与 `@peer-agent/cli` 保持长期一等公开地位 |
 | [`64-workbench-source-highlight-without-monaco.md`](./64-workbench-source-highlight-without-monaco.md) | 2026-11-15 | 流式开块按帧全树高亮被 [ADR 121](./121-desktop-session-windowing-contract.md) P1 延迟高亮取代；只读源码前提在 [ADR 109](./109-resource-reference-preview-and-artifact-collaboration.md) R9/R10 用户显式编辑范围放宽 |
 | [`67-task-shell-workbench-radar.md`](./67-task-shell-workbench-radar.md) | 2026-11-15 | **Superseded in default 0.1 shell**：默认 0.1 外壳已切换至 [ADR 80](./80-project-agent-delegation-model.md) 与 [ADR 84](./84-bot-list-shell.md)，仅保留为经典壳层历史对照 |
 | [`68`](./68-goal-delivery-mode-contract.md) / [`69`](./69-handoff-triage-classifier.md) | 2026-11-15 | Project Bot 模式下默认 `direct` 写回、无确认直落与静默 `AUTO_MERGE` 已被 [ADR 80](./80-project-agent-delegation-model.md) 决策 7–8 取代，并受 [ADR 116](./116-session-control-and-resource-settlement.md)/[127](./127-unknown-outcome-reconciliation-and-delegated-resolution.md) 资源锁约束 |
@@ -109,7 +112,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | **早期草案（3 篇）** | [`15`](./15-plugin-skill-mcp-system.md)、[`17`](./17-local-context-compaction.md)、[`18`](./18-claude-code-style-file-edit-plan.md) | 早期设计/历史计划草案，核心思路已被后续 Accepted ADR 吸收或局部作废 |
 | **分阶段状态（1 篇）** | [`38-web-search-fetch-provider.md`](./38-web-search-fetch-provider.md) | Phase 1 `web_fetch` 已 `Accepted / Shipped`（跨宿主无 `BrowserWindow`）；Phase 2 `web_search` 仍为 `Proposed` |
 | **整体 / 默认壳被取代（2 篇）** | [`42-context-display-vs-trigger-accounting.md`](./42-context-display-vs-trigger-accounting.md)、[`67-task-shell-workbench-radar.md`](./67-task-shell-workbench-radar.md) | 42 `Superseded`（由 ADR 52 / 56 取代）；67 `Superseded in default 0.1 shell`（默认 0.1 壳切至 ADR 80 / 84） |
-| **部分作废或部分被取代（Accepted）** | [`16`](./16-skill-call-lifecycle.md)、[`21`](./21-pending-task-resume.md)、[`22`](./22-stream-reattach-on-reload.md)、[`27`](./27-workspace-switch-and-cross-workspace-running.md)、[`31`](./31-mcp-connection-management.md)、[`32`](./32-mcp-authentication.md)、[`33`](./33-per-message-turn-duration.md)、[`34`](./34-conversation-delete-goal-plan-cascade.md)、[`40`](./40-embedded-browser-and-agent-control.md)、[`41`](./41-rename-goal-mode-to-plan-mode.md)、[`46`](./46-conversation-bound-browser-tabs.md)、[`47`](./47-workbench-multi-resource-tabs.md)、[`48-cli`](./48-cli-first-class-release.md)、[`49`](./49-cancel-path-hard-sandbox.md)、[`52`](./52-unified-next-request-context-accounting.md)、[`59-browser`](./59-browser-panel-reveal-capability.md)、[`60`](./60-quick-chat-independent-popover-window.md)、[`64`](./64-workbench-source-highlight-without-monaco.md)、[`66`](./66-browser-headless-fallback-execution.md)、[`68`](./68-goal-delivery-mode-contract.md)、[`69`](./69-handoff-triage-classifier.md)、[`72`](./72-l1-default-web-entry.md)、[`85`](./85-project-agent-hosts-inputs-and-surfaces.md)、[`86`](./86-batched-persisted-conversation-reads.md)、[`88`](./88-project-agent-execution-continuity.md)、[`92`](./92-scoped-permission-inheritance.md)、[`96`](./96-task-execution-responsiveness.md)、[`104-progressive`](./104-progressive-interaction-and-coordination-storage.md)、[`108-bot`](./108-bot-reply-document-preview.md)、[`109`](./109-resource-reference-preview-and-artifact-collaboration.md)、[`112`](./112-runtime-module-and-loading-boundaries.md)、[`116`](./116-session-control-and-resource-settlement.md)、[`124`](./124-legacy-stop-obligation-controlled-resolution.md) | 各文件页头 / blockquote / `## 被替代条款` 已写明具体被替代条款，未点名部分继续生效 |
+| **部分作废或部分被取代（Accepted）** | [`16`](./16-skill-call-lifecycle.md)、[`21`](./21-pending-task-resume.md)、[`22`](./22-stream-reattach-on-reload.md)、[`27`](./27-workspace-switch-and-cross-workspace-running.md)、[`31`](./31-mcp-connection-management.md)、[`32`](./32-mcp-authentication.md)、[`33`](./33-per-message-turn-duration.md)、[`34`](./34-conversation-delete-goal-plan-cascade.md)、[`40`](./40-embedded-browser-and-agent-control.md)、[`41`](./41-rename-goal-mode-to-plan-mode.md)、[`46`](./46-conversation-bound-browser-tabs.md)、[`47`](./47-workbench-multi-resource-tabs.md)、[`48-cli`](./48-cli-first-class-release.md)、[`49`](./49-cancel-path-hard-sandbox.md)、[`52`](./52-unified-next-request-context-accounting.md)、[`54`](./54-open-runtime-public-packages-and-release-policy.md)、[`59-browser`](./59-browser-panel-reveal-capability.md)、[`60`](./60-quick-chat-independent-popover-window.md)、[`64`](./64-workbench-source-highlight-without-monaco.md)、[`65`](./65-cli-headless-exec.md)、[`66`](./66-browser-headless-fallback-execution.md)、[`68`](./68-goal-delivery-mode-contract.md)、[`69`](./69-handoff-triage-classifier.md)、[`72`](./72-l1-default-web-entry.md)、[`74`](./74-deployment-surfaces-and-local-storage.md)、[`85`](./85-project-agent-hosts-inputs-and-surfaces.md)、[`86`](./86-batched-persisted-conversation-reads.md)、[`88`](./88-project-agent-execution-continuity.md)、[`92`](./92-scoped-permission-inheritance.md)、[`96`](./96-task-execution-responsiveness.md)、[`104-progressive`](./104-progressive-interaction-and-coordination-storage.md)、[`108-bot`](./108-bot-reply-document-preview.md)、[`109`](./109-resource-reference-preview-and-artifact-collaboration.md)、[`112`](./112-runtime-module-and-loading-boundaries.md)、[`116`](./116-session-control-and-resource-settlement.md)、[`124`](./124-legacy-stop-obligation-controlled-resolution.md) | 各文件页头 / blockquote / `## 被替代条款` 已写明具体被替代条款，未点名部分继续生效 |
 
 > 注：此前本表曾将 `74`、`76`、`105`、`126`、`127` 列为未接受或无状态；2026-11-15 已在对应原文规范标注为 `Accepted`（仍不等于实现完成或发布验收通过）。
 
@@ -146,12 +149,13 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | [`45-mcp-oauth-config-ux-simplification.md`](./45-mcp-oauth-config-ux-simplification.md) | 2026-07-01 | 2026-11-15 | 对齐跨宿主 OAuth 安全边界与 ADR 0001 / ADR 32 |
 | [`46-conversation-bound-browser-tabs.md`](./46-conversation-bound-browser-tabs.md) | 2026-07-15 | 2026-11-15 | 对齐 L1 `BrowserSession` 在经典会话／资源窗口与 `work_session` L2 Playwright 间的边界 |
 | [`47-workbench-multi-resource-tabs.md`](./47-workbench-multi-resource-tabs.md) | 2026-07-15 | 2026-11-15 | 对齐 [ADR 118](118-openui-interactive-results-and-runtime-boundaries.md) `interactive` 标签兼容、[ADR 125](125-resource-window-directory-tabs.md) 资源窗口与 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md) 第一阶段已接受 / 后续包待实施边界；2026-11-09 补充 ADR 125 替代范围 |
-| [`48-cli-first-class-release.md`](./48-cli-first-class-release.md) | 2026-07-20 | 2026-11-15 | 补充重号消歧说明及 macOS 发布签名/公证对齐；2026-11-06 [ADR 108-cli](108-cli-basic-shell-commands.md) 收窄「CLI 自动更新可缓做」 |
+| [`48-cli-first-class-release.md`](./48-cli-first-class-release.md) | 2026-07-20 | 2026-11-16 | 对齐 ADR 129 / 133：Cargo 原生产出 CLI，保持同仓同 `VERSION` 与零 Desktop 依赖；原 2026-11-15 重号消歧与 macOS 签名/公证、2026-11-06 ADR 108-cli 自动更新收窄保留 |
 | [`48-provider-model-options.md`](./48-provider-model-options.md) | 2026-07-17 | 2026-11-15 | 补充重号消歧说明，并与 ADR 28 / 37 / 83 对齐选项边界 |
 | [`49-cancel-path-hard-sandbox.md`](./49-cancel-path-hard-sandbox.md) | 2026-07-21 | 2026-11-15 | 跨 ADR 对齐：明确被 ADR 90 / 92 / 101 / 106 部分取代的范围 |
 | [`50-cli-system-proxy-fallback.md`](./50-cli-system-proxy-fallback.md) | 2026-07-22 | 2026-07-22 | 代码已落地：`apps/tui` 新增 macOS 系统代理读取 + env 回退，bun test 17 pass / tsc EXIT=0 |
 | [`51-unified-desktop-cli-file-tools.md`](./51-unified-desktop-cli-file-tools.md) | 2026-07-22 | 2026-07-23 | 日期有更新，括号未写原因 |
 | [`52-unified-next-request-context-accounting.md`](./52-unified-next-request-context-accounting.md) | 2026-07-23 | 2026-07-25 | 日期有更新（标明部分被 ADR 56 取代） |
+| [`54-open-runtime-public-packages-and-release-policy.md`](./54-open-runtime-public-packages-and-release-policy.md) | 2026-07-24 | 2026-11-16 | 关联 [ADR 133](133-unified-rust-core-and-dual-host-architecture.md) 部分取代：`@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 降格为 TS 过渡兼容/桥接包，`1.0.0` 前须明确退场窗口；`protocol`/`cli` 保持长期公开 |
 | [`56-provider-observed-context-accounting.md`](./56-provider-observed-context-accounting.md) | 2026-07-25 | 2026-11-15 | 跨 ADR 对齐：明确 `input_prediction` 预约与 UTF-8 估算迁出 `requests.jsonl`，守护不变式 1 / 7 |
 | [`57-canonical-conversation-history-projector.md`](./57-canonical-conversation-history-projector.md) | 2026-07-25 | 2026-11-15 | 跨 ADR 对齐：登记 [ADR 97](97-reasoning-replay-and-continuation-custody.md) / [ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md) 两条窄例外与 mid-turn `_compaction` 冷重载不变量 |
 | [`59-appshots-capability-boundary.md`](./59-appshots-capability-boundary.md) | 2026-07-30 | 2026-11-15 | 补充重号消歧说明；P0a 边界保留 |
@@ -161,7 +165,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | [`62-automation-runtime-boundary.md`](./62-automation-runtime-boundary.md) | 2026-08-04 | 2026-11-15 | 补充 Automation worktree 与共享 Git 写入的资源 claim 准入约束 |
 | [`63-user-artifact-evidence-boundary.md`](./63-user-artifact-evidence-boundary.md) | 2026-08-16 | 2026-11-15 | 补充 ADR 90 对部分 GIF/WebP 预览须走 Chromium bitmap 解码器的边界约束 |
 | [`64-workbench-source-highlight-without-monaco.md`](./64-workbench-source-highlight-without-monaco.md) | 2026-08-17 | 2026-11-15 | 跨 ADR 对齐：标注聊天开块延迟高亮与 ADR 109 R9/R10 用户显式编辑对部分前提的演进 |
-| [`65-cli-headless-exec.md`](./65-cli-headless-exec.md) | 2026-08-18 | 2026-11-15 | 跨 ADR 对齐：同步裸 `peer` 默认进入 Bot 壳 / `--classic`、权限遵循 ADR 101、基础壳命令 `doctor` / `sessions resume` 等归入 ADR 108-cli |
+| [`65-cli-headless-exec.md`](./65-cli-headless-exec.md) | 2026-08-18 | 2026-11-16 | 对齐 ADR 129 / 133 统一 Rust Core 底座；保留 2026-11-15 裸 `peer` / ADR 101 / ADR 108-cli 对齐 |
 | [`66-browser-headless-fallback-execution.md`](./66-browser-headless-fallback-execution.md) | 2026-08-21 | 2026-11-15 | 明确 L1 headless 降级适用于经典对话内嵌 `<webview>`；0.1.0 Project Bot 后台任务走 ADR 71 L2 + ADR 38 `web_fetch`；2026-11-14 曾修正架构文档引用 |
 | [`67-task-shell-workbench-radar.md`](./67-task-shell-workbench-radar.md) | 2026-08-22 | 2026-11-15 | 明确原型 A 默认 0.1 壳层已被 ADR 80 / ADR 84 取代 |
 | [`68-goal-delivery-mode-contract.md`](./68-goal-delivery-mode-contract.md) | 2026-08-26 | 2026-11-15 | 标明 Project Bot 模式下默认直写与无确认合回已由 ADR 80 决策 7–8 取代，并受 ADR 116 / 127 资源占用锁约束 |
@@ -170,7 +174,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | [`71-l2-playwright-external-browser.md`](./71-l2-playwright-external-browser.md) | 2026-09-01 | 2026-11-15 | 消解§决策一内部工具面矛盾，并明确 0.1.0 Project Bot `work_session` 使用 L2 + `web_fetch` 的隔离地位 |
 | [`72-l1-default-web-entry.md`](./72-l1-default-web-entry.md) | 2026-09-02 | 2026-11-15 | 收窄适用范围：L1 默认网页入口仅限经典前台会话；0.1.0 Project Bot 模式遵循 ADR 85 决策 5 |
 | [`73-goal-interruption-suspension-vs-failure.md`](./73-goal-interruption-suspension-vs-failure.md) | 2026-09-03 | 2026-11-15 | 澄清 Project Bot 模式下受委派 WorkSession 技术中断由主 Bot 接管续接；保留 `interrupted` 持久化规则与取消终态优先权 |
-| [`74-deployment-surfaces-and-local-storage.md`](./74-deployment-surfaces-and-local-storage.md) | 2026-09-06 | 2026-11-15 | 状态规范为 Accepted，与 [ADR 48-cli](48-cli-first-class-release.md)、[ADR 81](81-project-agent-memory-system.md)、[ADR 85](85-project-agent-hosts-inputs-and-surfaces.md)、[ADR 104-progressive](104-progressive-interaction-and-coordination-storage.md)、[ADR 121](121-desktop-session-windowing-contract.md) 对齐 |
+| [`74-deployment-surfaces-and-local-storage.md`](./74-deployment-surfaces-and-local-storage.md) | 2026-09-06 | 2026-11-16 | 对齐 ADR 133：各部署面底层共享 Runtime 收敛至 Rust Core；保留 2026-11-15 Accepted 口径与 `<dataRoot>` 分层/Helper v1 边界 |
 | [`75-remote-read-preflight.md`](./75-remote-read-preflight.md) | 2026-09-26 | 2026-11-15 | 跨 ADR 对齐：补注 [ADR 85](85-project-agent-hosts-inputs-and-surfaces.md) 决策 8 的 4 个 opt-in project 操作与远程无授权底线 |
 | [`76-peer-acp-agent.md`](./76-peer-acp-agent.md) | 2026-09-08 | 2026-11-15 | 状态规范标注为 `Accepted`，与 [ADR 48-provider](48-provider-model-options.md) / [ADR 83](83-model-routing-by-role.md) 选项契约保持一致 |
 | [`77-image-generation-capability.md`](./77-image-generation-capability.md) | 2026-09-15 | 2026-11-15 | 明确工作区外生成图片的会话 `imageReadGrant` 边界对齐 [ADR 90](90-local-image-capability-and-product-review.md) / [ADR 92](92-scoped-permission-inheritance.md)；状态仍为 Proposed |
@@ -219,6 +223,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | [`125-resource-window-directory-tabs.md`](./125-resource-window-directory-tabs.md) | 2026-11-09 | 2026-11-15 | 跨 ADR 对齐：在被替代条款补入 [ADR 109](109-resource-reference-preview-and-artifact-collaboration.md)，并显式保留 [ADR 118](118-openui-interactive-results-and-runtime-boundaries.md) `interactive` 标签与 §17.4 布局兼容 |
 | [`126-execution-resource-claim-closure-and-unknown-retention.md`](./126-execution-resource-claim-closure-and-unknown-retention.md) | 2026-11-09 | 2026-11-15 | 正式转为 Accepted，与 ADR 127 配套生效；对齐克隆交回边界与格式门槛说明；2026-11-09 曾由 ADR 125 改号为 ADR 126 |
 | [`127-unknown-outcome-reconciliation-and-delegated-resolution.md`](./127-unknown-outcome-reconciliation-and-delegated-resolution.md) | 2026-11-09 | 2026-11-15 | 同步 ADR 126 为 Accepted，明确列出对 ADR 116 / 124 的部分取代条款及已退役条目的设置/诊断入口边界 |
+| [`133-unified-rust-core-and-dual-host-architecture.md`](./133-unified-rust-core-and-dual-host-architecture.md) | 2026-11-16 | 2026-11-16 | 新增 Accepted A 级总决定：确立后续以 Rust Core（`crates/peer-*`）为唯一底层核心、Desktop 复用同一体系并叠加桌面专属效果；部分取代 ADR 54，升级 ADR 129 §2.6，冻结 TS 双轨回填并约束 `PR #132` 与 `PR #133`/`PR #327` |
 
 ## 过时引用
 
@@ -275,14 +280,14 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 45 | [45. MCP OAuth 配置交互简化：探测即自动配置 + 回调地址只读 + 授权端点自动发现](./45-mcp-oauth-config-ux-simplification.md) | 2026-07-01 | 2026-11-15 | Accepted（对齐跨宿主 OAuth 安全边界与 ADR 0001 / ADR 32） |
 | 46 | [46. 会话绑定的 Workbench 与多标签浏览器](./46-conversation-bound-browser-tabs.md) | 2026-07-15 | 2026-11-15 | Accepted（`work_session` 改走 L2；用户资源窗口/独立窗与 ADR 109 / 125 对齐） |
 | 47 | [47. Workbench 多资源标签模型](./47-workbench-multi-resource-tabs.md) | 2026-07-15 | 2026-11-15 | Accepted（决策一第 4 条在资源窗口范围被 ADR 125 取代；兼容 ADR 118 `interactive` 与 ADR 109） |
-| 48 | [CLI First-Class Release（CLI 与 Desktop 同仓一等发布）](./48-cli-first-class-release.md) | 2026-07-20 | 2026-11-15 | Accepted（CLI + npm 安装面；macOS 签名公证；ADR 108-cli 收窄自动更新条款） |
+| 48 | [CLI First-Class Release（CLI 与 Desktop 同仓一等发布）](./48-cli-first-class-release.md) | 2026-07-20 | 2026-11-16 | Accepted（对齐 ADR 129 / 133：Cargo 原生产出 CLI，同仓同 `VERSION` 与零 Desktop 依赖不变） |
 | 48 | [48. 渠道无关的模型选项与渠道投影](./48-provider-model-options.md) | 2026-07-17 | 2026-11-15 | Accepted（渠道选项投影；`effort` 与上下文裁剪对齐 ADR 28 / 37 / 83） |
 | 49 | [49. 取消路径硬沙箱（允许跨工作区读写）](./49-cancel-path-hard-sandbox.md) | 2026-07-21 | 2026-11-15 | Accepted（跨工作区边界已被 ADR 90 / 92 / 101 / 106 部分取代） |
 | 50 | [50. CLI 系统代理回退（macOS）](./50-cli-system-proxy-fallback.md) | 2026-07-22 | 2026-07-22 | 页头已接受（代码已落地） |
 | 51 | [Unified Desktop and CLI File Tools（桌面端与 CLI 文件工具统一）](./51-unified-desktop-cli-file-tools.md) | 2026-07-22 | 2026-07-23 | 页头已接受（吸收 ADR 18 §1–§12） |
 | 52 | [ADR 52：统一下一次请求上下文统计](./52-unified-next-request-context-accounting.md) | 2026-07-23 | 2026-07-25 | 部分被替代（估算权威已被 ADR 56 取代；最终投影等边界保留） |
 | 53 | [Tool Call Duration Accounting](./53-tool-call-duration-accounting.md) | 2026-07-23 | 2026-07-23 | 页头已接受 |
-| 54 | [ADR 54：开放 Runtime 公开包与发布策略](./54-open-runtime-public-packages-and-release-policy.md) | 2026-07-24 | 2026-07-24 | 页头已接受 |
+| 54 | [ADR 54：开放 Runtime 公开包与发布策略](./54-open-runtime-public-packages-and-release-policy.md) | 2026-07-24 | 2026-11-16 | 部分被取代（ADR 133：`runtime-core`/`runtime-sdk` 降格为 TS 过渡包；`protocol`/`cli` 保持长期一等公开） |
 | 55 | [ADR 55：Desktop 与 TUI 统一 System Context Assembler](./55-shared-system-context-assembler.md) | 2026-07-25 | 2026-07-25 | 页头已接受 |
 | 56 | [ADR 56：Provider 实测优先的精确上下文记账](./56-provider-observed-context-accounting.md) | 2026-07-25 | 2026-11-15 | Accepted（实测优先上下文权威；明确 ADR 115 `input_prediction` 估算迁出 `requests.jsonl`） |
 | 57 | [ADR 57：Desktop 与 TUI 统一 Canonical Conversation History Projector](./57-canonical-conversation-history-projector.md) | 2026-07-25 | 2026-11-15 | Accepted（登记 ADR 97 / 104-progressive 两条窄例外及 `_compaction` 冷重载不变量） |
@@ -294,7 +299,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 62 | [62. Automation Runtime 与持久化边界](./62-automation-runtime-boundary.md) | 2026-08-04 | 2026-11-15 | Accepted（补充 Automation worktree 与共享 Git 写入的资源 claim 准入约束） |
 | 63 | [63. 用户产物与 Evidence 边界](./63-user-artifact-evidence-boundary.md) | 2026-08-16 | 2026-11-15 | Accepted（补充 ADR 90 对部分 GIF/WebP 预览须走 Chromium bitmap 解码器约束） |
 | 64 | [64. Workbench 源码预览先复用 highlight.js，不上 Monaco](./64-workbench-source-highlight-without-monaco.md) | 2026-08-17 | 2026-11-15 | Accepted（按帧全树高亮由 ADR 121 延迟高亮取代；只读前提对 ADR 109 R9/R10 放宽） |
-| 65 | [65. CLI 无头发起（`peer exec`）](./65-cli-headless-exec.md) | 2026-08-18 | 2026-11-15 | Accepted（P0 已落地；无回合上限；裸 `peer` 与基础壳命令对齐 ADR 84 / 108-cli） |
+| 65 | [65. CLI 无头发起（`peer exec`）](./65-cli-headless-exec.md) | 2026-08-18 | 2026-11-16 | Accepted（对齐 ADR 129 / 133：底层收敛至 Rust Core，命令/权限/Evidence 契约不变） |
 | 66 | [66. 浏览器工具的后台降级执行（Headless Fallback）](./66-browser-headless-fallback-execution.md) | 2026-08-21 | 2026-11-15 | Accepted（适用于经典内嵌 `<webview>`；Project Bot 后台走 L2 + `web_fetch`） |
 | 67 | [67. 任务壳 + 工作台雷达（原型 A）](./67-task-shell-workbench-radar.md) | 2026-08-22 | 2026-11-15 | Superseded in default 0.1 shell（默认 0.1 壳层已切至 ADR 80 / ADR 84；仅作历史对照） |
 | 68 | [68. 交付模式契约：direct 与隔离合回统一语义](./68-goal-delivery-mode-contract.md) | 2026-08-26 | 2026-11-15 | Accepted（经典 Goal 基线；Project Bot 下默认直写与无确认合回已由 ADR 80 取代） |
@@ -303,7 +308,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 71 | [71. L2 受控外部浏览器（Playwright / CDP）安全模型](./71-l2-playwright-external-browser.md) | 2026-09-01 | 2026-11-15 | Accepted（L2 第一刀已落地；为 0.1.0 `work_session` 唯一受委派浏览器执行层） |
 | 72 | [72. 网页任务默认入口：L1 内置浏览器（`browser_*`）](./72-l1-default-web-entry.md) | 2026-09-02 | 2026-11-15 | Accepted（仅限经典前台会话；0.1.0 Project Bot 遵循 ADR 85 决策 5） |
 | 73 | [73. Goal 中断挂起与失败解耦的状态契约](./73-goal-interruption-suspension-vs-failure.md) | 2026-09-03 | 2026-11-15 | Accepted（受委派 WorkSession 技术中断由主 Bot 接管续接；保留 `interrupted` 与取消终态） |
-| 74 | [74. 部署面与本机存储策略](./74-deployment-surfaces-and-local-storage.md) | 2026-09-06 | 2026-11-15 | Accepted（本机 `<dataRoot>` 分层基线已在 ADR 81/85/104-progressive/121 落地；远端拓扑渐进演进） |
+| 74 | [74. 部署面与本机存储策略](./74-deployment-surfaces-and-local-storage.md) | 2026-09-06 | 2026-11-16 | Accepted（对齐 ADR 133：唯一内核终局为 Rust Core；`<dataRoot>` 分层与 Helper v1 不变） |
 | 75 | [75. 远程读取预检：通过不等于获得执行权](./75-remote-read-preflight.md) | 2026-09-26 | 2026-11-15 | Accepted（补注 ADR 85 决策 8 四项 opt-in 操作与远程无授权底线） |
 | 76 | [ADR 76：Peer 作为 ACP Agent](./76-peer-acp-agent.md) | 2026-09-08 | 2026-11-15 | Accepted（实施边界已定；与 ADR 48-provider / 83 选项契约一致，打包验收另记） |
 | 77 | [77. 多服务图片生成能力与凭证、产物边界](./77-image-generation-capability.md) | 2026-09-15 | 2026-11-15 | Proposed（未接受；工作区外 `imageReadGrant` 对齐 ADR 90 / 92） |
@@ -369,11 +374,22 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 126 | [ADR 126：执行资源 claim 的受控闭包、unknown 保留与隔离逃生](./126-execution-resource-claim-closure-and-unknown-retention.md) | 2026-11-09 | 2026-11-15 | Accepted（2026-11-15 与 ADR 127 一并转正，部分取代 ADR 116 / 124；尚未实现与发布验收） |
 | 127 | [ADR 127：未知执行结果的对账协议、策略化自主收口与资源范围收敛](./127-unknown-outcome-reconciliation-and-delegated-resolution.md) | 2026-11-09 | 2026-11-15 | Accepted（仅保留 `ask` / `bot_verified` 两档，`auto` 取消；部分取代 ADR 116 / 124；未实现） |
 
+### 128–133 原生 Rust Core 与统一运行时终局（含在途远端登记）
+
+| 编号 | 文件 / 归属分支 | 创建 | 最后更新 | 读取 |
+|---|---|---|---|---|
+| 128 | `128-local-runtime-isolation-and-bounded-query-contract.md`（在途 `origin/codex/local-runtime-isolation-architecture` / PR #132） | 2026-11-11 | 2026-11-11 | Proposed（在途远端分支；合入前须按 ADR 133 §3 删除 Bun CLI sidecar 与 TS `M00–M14` 二次重写） |
+| 129 | `129-native-rust-cli-and-ratatui.md`（在途 `origin/codex/native-rust-cli` / PR #133） | 2026-11-14 | 2026-11-14 | Accepted（原生 Rust CLI 与 Ratatui；其 §2.6 关于 Desktop 接消费原生内核的预留已由 ADR 133 升级定案） |
+| 130 | `130-bounded-cli-memory-and-transcript.md`（在途 `origin/codex/native-rust-cli` / PR #133） | 2026-11-14 | 2026-11-14 | Accepted（有界内存与历史预算；待实测验收） |
+| 131 | `131-native-cli-contract-storage-and-recovery.md`（在途 `origin/codex/native-rust-cli` / PR #133） | 2026-11-14 | 2026-11-16 | Accepted（跨语言契约、共享存储与恢复；含 NR-03 / NR-04 补充） |
+| 132 | `132-mcp-vault-and-native-oauth.md`（在途 `origin/codex/native-rust-cli` / PR #133） | 2026-11-16 | 2026-11-16 | Accepted（MCP Vault v2 与原生 OAuth 边界） |
+| 133 | [ADR 133：全端统一 Rust Core 与双宿主融合终局架构](./133-unified-rust-core-and-dual-host-architecture.md) | 2026-11-16 | 2026-11-16 | Accepted（全 Peer 唯一 Rust Core + CLI/Desktop 双宿主终局标准；部分取代 ADR 54 并收口 `PR #132` / `PR #133`；实施与发布验收另记） |
+
 ## 维护
 
 2026-11-06 起，修改和新增功能先过本页，再写代码。细则见 [change-intake.md](../../playbook/change-intake.md)。
 
-新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `132+` 顺延，兼顾在途远端分支 `128–131`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
+新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `134+` 顺延，兼顾在途远端分支 `128–132` 及已登记 `133`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
 
 2026-11-06 本轮落实既有 ADR 95 / 96 / 120 的输入排序、有序持久化及统一恢复事实；各原文新增日期补充，未新增编号，既有权限、Evidence、存储所有权边界保持。实施与逐项验收见 [persisted-turn-recovery.md](../../playbook/v0.1.0/persisted-turn-recovery.md)。
 
@@ -391,3 +407,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 3. **A4 网页工具双层隔离与资源窗口收敛**：明确 0.1.0 `work_session` 剥离 L1 `browser_*` 并专走 L2 Playwright（ADR 71）+ `web_fetch`（ADR 38），L1 保留于经典会话 / 独立浏览窗 / 用户资源窗口标签；确认 ADR 109 第一阶段（R1–R4d/R5/R5a/R6）Accepted 与 R7–R10 / R5w1-w2 待后续包，ADR 125 补全对 ADR 109 部分取代与 ADR 118 兼容。
 4. **A5 凭据与账本边界**：严格坚持 ADR 0001 fail-closed Vault，废止 ADR 32 `file-fallback`；将 ADR 115 `input_prediction` 隔离到独立 `usage/input-prediction.jsonl` 账本。
 5. **A6 Proposed 严控与重号 / 门禁清理**：维持 `77 / 104-visibility / 113 / 119 / 123` 五篇 `Proposed` 不转正；清理 `ADR 107` 无效引用，将 `113 / 123 / 126` 特性门槛重编至 `> 11`；重号 `48 / 59 / 104 / 108` 全文消歧并登记在途远端分支 `128–131` 及待重编至 `132+` 规则。
+
+2026-11-16 新增 [ADR 133：全端统一 Rust Core 与双宿主融合终局架构](./133-unified-rust-core-and-dual-host-architecture.md)（`Accepted`，A 级决策，实施与发布验收另记）：确立后续以 Rust Core（`crates/peer-*`）为唯一底层核心、Desktop 退薄复用同一体系并叠加桌面专属效果；部分取代 [ADR 54](./54-open-runtime-public-packages-and-release-policy.md) 永久 TS 核心承诺，按 ADR 129（在途 `PR #133` `129-native-rust-cli-and-ratatui.md`）§2.6 升级 Desktop 消费原生核心终局，冻结 TS 双轨回填并明确对在途 `PR #132` 与 `PR #133`/`PR #327` 的收口边界；同步更新 `128–132` 占号并将后续可用号顺延至 `134+`。

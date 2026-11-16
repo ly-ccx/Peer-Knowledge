@@ -1,7 +1,7 @@
 # 65. CLI 无头发起（`peer exec`）
 
 创建时间：2026-08-18
-最后更新：2026-11-15（跨 ADR 对齐：同步裸 `peer` 默认进入 Bot 壳 / `--classic`、权限遵循 ADR 101、基础壳命令 `doctor` / `sessions resume` 等归入 ADR 108-cli）
+最后更新：2026-11-16（对齐 ADR 129 `PR #133` / [ADR 133](133-unified-rust-core-and-dual-host-architecture.md)：文中“挂载 `createTuiHost` / `@peer-agent/runtime-sdk` Pipeline”指向过渡期旧实现，终局收敛至同一 `crates/peer-*` Rust Core；命令行契约、模式投影、权限、退出码与 Evidence 不变量保持不变；2026-11-15 同步裸 `peer` 与 `ADR 108-cli`）
 
 状态：Accepted（P0 已落地；补充提供商/模型消歧；默认无回合上限）
 

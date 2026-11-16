@@ -1,7 +1,10 @@
 # Peer Agent 工程结构设计
 
-创建时间：2026-06-10  
-最后更新：2026-08-23  
+> [!NOTE] 2026-11-16 终局结构修订（[ADR 133](../decisions/133-unified-rust-core-and-dual-host-architecture.md)）
+> 在 ADR 129（`PR #133` / `129-native-rust-cli-and-ratatui.md`，CLI 迁至 Rust）基础上进一步定案：全产品唯一演进核心归属 Rust workspace（`crates/peer-protocol`、`crates/peer-runtime`、`crates/peer-store`、`crates/peer-cli`、`crates/peer-tui`、`crates/peer-credential-helper`，并补齐宿主中立 Port 与 Hook）；`apps/desktop` 终态退薄为 Electron 桌面表达壳 + 桌面专属 Host Capability Provider（接入同一独立 Rust Core 进程）；`packages/runtime-core` / `runtime-sdk` / `runtime-node` 进入过渡退场通道；早期 §2.7 `crates/cu-proxy-core` 占桩设想已被统一 `crates/peer-*` 架构取代。`packages/protocol` 继续为跨语言唯一契约源。
+
+创建时间：2026-06-10
+最后更新：2026-11-16（对齐 ADR 133 Rust Core + 双宿主终局；原基线 2026-08-23）
 
 > 状态：工程结构基线（持续修订）  
 > 目标：定义 Peer Agent 的仓库组织、模块边界与双宿主落地路径。  
