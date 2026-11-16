@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "C-only development conformance transport, product Runtime/CLI stdout/authorization/Store/Evidence unchanged.",
+  "candidate": {
+    "commit": "5bbbd0ed9317b88f64129f01ad5253ef07f1ef05",
+    "tree": "64aec8cbf9f1f3c8d8f7ce2a048482194b6cf9f6",
+    "pushed": true
+  },
+  "originalFailure": {
+    "source": "fcf06bc2bb85d3d7b01db88098344b182eb9f371",
+    "runId": 43875783285,
+    "job": 133328321354,
+    "platform": "macOS arm64",
+    "failedStep": "Native CLI scoped validation",
+    "case": "scripts/native-cli/coordination-conformance.ts:25 first native response in one four-case group; child status assertion0 passed, JSON.parse stdout reports Unterminated string.",
+    "earlierChecks": "126 native Episode and all prior Rust/Store stages passed; failure is later TS/native conformance, not OAuth assertion.",
+    "linuxJob": 133328320720,
+    "linuxConclusion": "cancelled",
+    "linuxObservation": "In final Electron smoke when corrective source was pushed; canceled by existing concurrency. No full-success claim.",
+    "log": {
+      "path": "/tmp/peer-native-mcp-refresh-intent-macos-ci-failure-20261116.log",
+      "sha256": "0785502e9366659dc54bb0d46654750f47213b425fbab9a2b350c0827e24bca0"
+    }
+  },
+  "investigation": {
+    "localProbe": {
+      "path": "/tmp/peer-native-coordination-stdout-probe-20261116/result-1.2.17.json",
+      "sha256": "5b1335ce597100a13faf0ba0b32e172c1015b64b85f4e5c33a8c13398a1f8ef3"
+    },
+    "result": "80 original synchronous pipe probes under CI Bun1.2.17 with actual native coordination Store succeeded, 140723 bytes each. Exact runner failure not reproduced; no flake claim.",
+    "mechanism": "Regular fixture-owned stdout file removes reliance on Bun synchronous pipe capture/drain. Child status, timeout, original 1MiB response bound, JSON parser and every deep Store assertion remain. File remains available on failure.",
+    "initialFailedAttempt": {
+      "log": {
+        "path": "/tmp/peer-native-coordination-file-stdout-bun-20261116.log",
+        "sha256": "6378919fcebf5bce056aec94283a7c33f7b04f77fc4a9d732c8841e09a27a190"
+      },
+      "result": "Bun1.2.17 Node-compatible spawnSync tried toString(encoding) on numeric stdout fd and threw radix RangeError. Removed unnecessary encoding for fd output; decode only complete file via readFileSync UTF-8."
+    }
+  },
+  "validation": {
+    "bun1217": {
+      "cases": 55,
+      "log": {
+        "path": "/tmp/peer-native-coordination-file-stdout-bun-final-20261116.log",
+        "sha256": "ed4fdcd0e9cd1029141c4f4aa8c15d810cd75101b431c6b6780d7ace2c7c7b05"
+      }
+    },
+    "node25": {
+      "cases": 55,
+      "log": {
+        "path": "/tmp/peer-native-coordination-file-stdout-node-final-20261116.log",
+        "sha256": "8b537f57285718d9b98cf5ca3ebf76192cda08f7f327e4607e76c8022d92c5e8"
+      }
+    },
+    "originalAssertions": "unchanged; no retries, malformed JSON acceptance, partial data fallback or smaller payloads",
+    "scope": "Focused actual native Store with current production TS/Bun peers, all synthetic fixtures. No full local campaign repeated for this isolated harness change."
+  },
+  "candidateCi": {
+    "runId": 43879494376,
+    "mergeCommit": "81a22aa8aa6c4690be08b62477edb29e6dc25551",
+    "mergeTree": "64aec8cbf9f1f3c8d8f7ce2a048482194b6cf9f6",
+    "matchesSourceTree": true,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "linuxJob": 133341556933,
+    "linuxConclusion": "success",
+    "linuxObservation": "Full job including final Electron smoke succeeded.",
+    "macosJob": 133341556661,
+    "macosConclusion": "cancelled",
+    "macosObservation": "Job never acquired hosted macOS arm64 runner; GitHub annotations cite capacity constraints. No macOS checks executed.",
+    "wholeRepositorySuccess": false
+  },
+  "limits": [
+    "Exact original runner pipe/JSON symptom not reproduced locally; remote macOS repair not yet verified due runner capacity.",
+    "No install, personal data migration, restart, default switch, merge or release.",
+    "Native MCP runtime auto-refresh code remains a separate work-in-progress candidate and is not part of this C-only source commit.",
+    "Captured response files live in the owned temporary conformance fixture. This card does not claim those out-of-output runner fixture directories were uploaded; the original complete Actions failure log is preserved separately."
+  ]
+}

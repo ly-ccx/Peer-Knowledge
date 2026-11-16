@@ -5,7 +5,7 @@
   "candidate": {
     "base": "4690766cfde8524213ff39e1a39c295b59111057",
     "tree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7",
-    "state": "final frozen native scoped gate and exact featureless artifact validated; independent combined CI in progress",
+    "state": "local frozen native gate and featureless artifact validated; remote macOS coordination conformance stdout parse failed; C-only follow-up 5bbbd0ed recorded separately",
     "commit": "fcf06bc2bb85d3d7b01db88098344b182eb9f371",
     "pushed": true
   },
@@ -204,16 +204,26 @@
   "candidateCi": {
     "runId": 43875783285,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43875783285",
-    "status": "in_progress",
-    "conclusion": null,
+    "status": "completed",
+    "conclusion": "cancelled",
     "linuxJob": 133328320720,
-    "linuxStatus": "in_progress",
+    "linuxStatus": "completed",
     "macosJob": 133328321354,
-    "macosStatus": "in_progress",
+    "macosStatus": "completed",
     "wholeRepositorySuccess": false,
     "mergeCommit": "10cbd6faa6b09ca2597dd93cf488390d46e27d2f",
     "mergeTree": "ef7d9dc8c780c2d9e41627bbc6b92c143c8be6a7",
     "matchesSourceTree": true,
-    "observation": "Both jobs acquired runners and began setup. This run is not inherited success from its baseline."
+    "observation": "macOS Rust tests and earlier native stages passed, then Bun coordination-conformance received status0 but failed JSON parse. Linux was in Electron smoke and canceled after corrective source push by existing concurrency. Not whole-repository green.",
+    "linuxConclusion": "cancelled",
+    "macosConclusion": "failure"
+  },
+  "followupCiCorrection": {
+    "commit": "5bbbd0ed9317b88f64129f01ad5253ef07f1ef05",
+    "receipt": "ci-coordination-stdout-20261116.json",
+    "runId": 43879494376,
+    "linuxConclusion": "success",
+    "macosConclusion": "cancelled",
+    "wholeRepositorySuccess": false
   }
 }

@@ -82,7 +82,7 @@ Rust真实工具准入及显式refresh、当前Desktop冷读OAuth解析均拒绝
 
 ## 2026-11-16 修订：原生运行时刷新与原授权代际延续（A，实施前登记）
 
-原生MCP Provider可在实际grant之后、tools/call之前，对过期/临近过期或只有相对有效期的OAuth token执行至多一次受管刷新；缺client/refresh token、交互授权、scope/issuer/client变化或pending仍阻断，不自动注册client、打开浏览器、重放tools/call或追随401。所有操作继续SDK编码、同一Network/地址/TLS/取消/响应边界及前置加密意图。成功后重新检查有效期、原权限、Goal/policy/lease/registry，再派发一次；失败保留真实刷新事实，未发工具不产生工具unknown。
+本修订局部取代前文首卡“运行时只消费有效token、过期要求显式refresh”的阶段限制。原生MCP Provider可在实际grant之后、tools/call之前，对过期/临近过期或只有相对有效期的OAuth token执行至多一次受管刷新；缺client/refresh token、交互授权、scope/issuer/client变化或pending仍阻断，不自动注册client、打开浏览器、重放tools/call或追随401。所有操作继续SDK编码、同一Network/地址/TLS/取消/响应边界及前置加密意图。成功后重新检查有效期、原权限、Goal/policy/lease/registry，再派发一次；失败保留真实刷新事实，未发工具不产生工具unknown。
 
 新增仅在当前原生执行内存中存在的credential epoch，由Host创建并绑定完整SessionExecutionIdentity与registry revision；保存初始凭据revision和当前已知revision，不落盘、不成为新授权或秘密副本。只有OAuth Module实际持锁publish返回的不可伪造内部publication可以推进它；严格匹配原expected binding、前一revision和实际Store回读，且限同一ref/client/issuer/resource/scopes的token刷新。发现的issuer/client必须与原实际加密配置一致，scope不扩大；未来/未知、DCR或外部轮换不能伪装刷新。意图与最终代均以同一owner的真实发布推进；提交失败或未知不能推进为成功。
 

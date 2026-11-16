@@ -9,12 +9,22 @@
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复及 MCP 多种 transport/auth 切片 | 混合安装版本认证兼容与显式管理/迁移条件恢复、Grok/Qoder、MCP运行时自动刷新/continuation、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及本机门禁通过的原生自动刷新、grant/Context续行和连接换代 | TS预读token发送guard、旧OAuth发现缓存绑定兼容、混合安装版本drain与恢复、Grok/Qoder、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令和总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
 
 不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
+
+2026-11-16 原生MCP自动刷新候选 `321d0ccb` 已推送（tree `61dd24c4`）。按先登记ADR132/131 A级修订58aa2c9与跨代脱敏实施复核731539d，实际grant后才解封凭据/访问IdP；execution内存epoch只接受OAuth owner持锁真实发布，逐次核对真实Store与registry，才规范化单一credential来源以复核原grant。Goal、args、policy、lease、祖先/角色、执行绑定和其它来源仍检查；不改写grant事实，不把epoch持久化成权限或秘密。Context继续同一已验证代。每server逻辑owner有界排队，使用当前请求的Host port；旧Connection停稳/join后才刷新与重初始化，stdio不自动重启，call_tool_once不重放。
+
+冻结完整原生scoped **370 Rust /135 native Episode /254根1480实际TS互读 /9PTY**，CI Bun1.2.17，exit0、402.291秒。featureless release 16,429,936 bytes、SHA256 `f5754b065cf0533a9a60902bcacfb67929de0936d8276d80c9ff2f4825c97381`，额外24组OAuth Host通过。过期→唯一刷新→两次真实工具/原grant/Evidence→下一模型请求、实际长工具调用中的自然到期换代、scope扩大/收窄拒绝、拒绝不读Helper/访问IdP、policy/registry/外部凭据变化、真实加密Vault+合成key、严格TLS数值OAuth CONNECT与普通MCP主机名路由均验证。TERM保留意图但证明确认工具not_dispatched，显式重登后新canonical任务成功且旧历史不变；KILL恢复必须保留unfenced_external unknown，不能凭credential pending猜未派发或重放。
+
+提前捕获未提交自动刷新版本的跨代旧token回显泄露，实际旧binary/hash和失败历史保留；最终逻辑owner用原64值/256KiB有界可零化集合保护接触/注入的旧新凭据及代理值，超限停止owner后续派发，epoch不持秘密。还保留新夹具把initialized通知计为initialize、错误Store代码假设、以及把OAuth数值规则误用于普通MCP的失败；原预期、权限/TLS/unknown断言不放宽。见[自动刷新回执](native-cli/evidence/p4-native-mcp-auto-refresh-20261116.json)。
+
+基线fcf06bc2的Mac CI在后续coordination-conformance遇到status0 stdout的JSON未结束；本机80次原始Bun1.2.17真实Store探针未精确复现，不能叫flake。5bbbd0ed只把该开发夹具完整响应交给自有文件后读取，保留原1MiB界限、timeout和55项断言；Bun/Node各55项通过，首个numeric fd+encoding的Bun RangeError也保留。[CI43879494376](https://github.com/ly-ccx/Peer-Agent/actions/runs/43879494376) Linux全仓success含Electron smoke，Mac因未取得托管arm64 runner容量取消未执行。见[stdout夹具回执](native-cli/evidence/ci-coordination-stdout-20261116.json)。新[CI43885810034](https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034)两平台已取得runner执行中（Mac133363511130/Linux133363511412），merge58a46f6a tree与源码相同，未继承前卡绿灯。
+
+原生刷新要求实际payload中有pinned issuer/client/scopes/refresh token；旧发现缓存独有绑定目前要求显式auth，不能冒充透明旧OAuth平价。当前TS已预读发送guard和安装版本drain仍必需；本卡epoch不阻止已预读TS请求。P4其余和P5–P7仍未完成，Ratatui仍不可发送，无完整长时内存验收。仅本机合成服务/密钥，未验真实IdP/模型/OS Vault/安装；无个人数据迁移、安装、运行实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
 
 2026-11-16 MCP刷新未知状态候选 `fcf06bc2` 已推送（tree `ef7d9dc8`）。按先登记的ADR132/131 A级修订（decf85a/7a5e981），在SDK刷新前先经Helper写入、回读核验不可变加密意图并持锁发布；移除普通oauth.tokens视图，元数据仅投影recovery_required。相同owner推进自身binding，成功才发布最终token代。已登记后的拒绝、超限、取消、registry/Helper/owner变化均保留意图与旧slot，不恢复或重放旧refresh。Rust工具/refresh、当前Desktop冷读/patch和旧代保存回调阻断；显式原生PKCE/state/code重登后原ready任务可经真实Grant/ToolResult/Evidence继续。未知/损坏意图连auth也拒绝并原样保全；KILL留下孤锁，不偷锁。
 
@@ -22,7 +32,7 @@
 
 首次冻结原生门禁360项虽过，后续release在socket关闭断言失败；保留失败与旧源码基线，未叫flake。控制实验发现普通CONNECT夹具漏计真实TCP RST，且3秒空闲截断在5秒预算内的4秒合法TLS隧道；修正为有限Tokio owner/双向copy/取消与join，客户端读侧只计真实EOF/reset，不把上游半关闭/本地清理/超时当关闭。原关闭期限、TLS及断言不放宽，同一release哈希通过15组后冻结最终tree重跑完整门禁。见[刷新意图回执](native-cli/evidence/p4-native-mcp-refresh-intent-20261116.json)。
 
-基线4690766c的Linux全仓CI通过；macOS因GitHub runner容量不足未执行，不称两平台全仓绿。新[CI43875783285](https://github.com/ly-ccx/Peer-Agent/actions/runs/43875783285)两端已取得runner并执行中（Linux133328320720/macOS133328321354），merge10cbd6fa tree与源码相同。下一项仍是运行时自动刷新、已预读TS发送guard、原grant/Context代际延续与旧连接停稳替换；不能用本卡冷读/CAS宣称拦住已发/预读TS请求。P4其余与P5–P7继续待办，Ratatui仍不能发送，无长期内存验收，无安装/重启/个人数据迁移/默认切换/合并/发布，无Bun/Node引擎sidecar。
+基线4690766c的Linux全仓CI通过；macOS因GitHub runner容量不足未执行，不称两平台全仓绿。新[CI43875783285](https://github.com/ly-ccx/Peer-Agent/actions/runs/43875783285)已终态：macOS133328321354在后续coordination-conformance解析stdout失败，Linux133328320720在修正推送后由既有并发取消；merge10cbd6fa tree与源码相同。失败与5bbbd0ed修正见上，不称全仓绿。下一项仍是运行时自动刷新、已预读TS发送guard、原grant/Context代际延续与旧连接停稳替换；不能用本卡冷读/CAS宣称拦住已发/预读TS请求。P4其余与P5–P7继续待办，Ratatui仍不能发送，无长期内存验收，无安装/重启/个人数据迁移/默认切换/合并/发布，无Bun/Node引擎sidecar。
 
 2026-11-16 验证夹具修正候选 `4690766c` 已推送（tree `c6c875cf`）。85dc28e3 的 CI43865232749：Linux133291958683在原生OAuth HTTPS代理场景失败；macOS原生/build/type/architecture/Test通过，后续Electron smoke在修正源码推送后被既有并发策略取消，不能记全仓绿。实际控制复现：旧TLS夹具在生产5秒CONNECT预算内等待4秒便丢隧道；修正为有owner的Tokio TLS、双向copy、有限并发与取消/join，原产品期限及断言不变。该复现证明夹具缺陷，不等于精确复现远端调度原因。合成代理trace写入受marker核验的CI证据目录。
 
