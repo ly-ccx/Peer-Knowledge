@@ -374,3 +374,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-17 ADR131 Qoder实施前对照补充：官方prepareInferRequest的COSY envelope requestId是独立随机UUID，不是正文request_id；维持每次物理发送认证准备，不借该标识重放或结算工具。
 
 2026-11-17 NR-04 ADR131实施前补充：Qoder旧JSON/Bearer方言、三个环境token优先级、metadata/config驱动分支和只读来源read set；不在错误后降级/换号，不改许可、Evidence、账本或unknown恢复边界。
+
+2026-11-17 NR-04 ADR131实施前补充：Qoder队列/重复/瞬态/连接重试归Host逐尝试计费和预算准入；冻结非身份正文、刷新请求身份/签名、等待续约/取消与历史版本复核，不重放本地工具或重启续发。

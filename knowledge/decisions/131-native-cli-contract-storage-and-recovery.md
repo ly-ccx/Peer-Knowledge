@@ -338,3 +338,13 @@ Qoder三个环境token保持QODER_ACCESS_TOKEN→QODER_PERSONAL_ACCESS_TOKEN→Q
 来源读取的存在与缺失观察集中为同一有界read set；credentials/catalog/endpoint均沿前述普通文件与有限快照规则。每次物理发送前重查该集合、当前环境、expiry和ModelBinding；目录出现/变化导致方言选择失效时，旧实例拒绝而不换token或自动重放。后续新实例可按实际修复后的来源重建，既有unknown、费用、工具效果、权限和Evidence不清除。此集中不新增持久化源、授权事实或恢复捷径。
 
 以当前TS请求/headers/方言选择对照及真实公开CLI验证两个方言的账户来源、优先级、正常工具链、拒绝、损坏、过期、换代、目录出现/配置变更、取消和后续任务。环境令牌不能进入其它Provider或日志。队列/连接重试及全部目录/流变体、真实服务和P4总闸仍须另验，不由本条接受或首环测试代替。
+
+### 2026-11-17 Qoder 逐尝试重试、身份与计费（A，实施前补充）
+
+原生Qoder沿当前TS的有界策略：10605队列至多40次等待、累计等待600000ms、单次50–60000ms，retryAfterSeconds优先于waitTime秒/estimatedWaitMs估计；估计至多作15000ms基础，再加min(attempt,3)*2000ms。剩余预算不足50ms时直接结束，不因下限突破总预算。103重复只重试一次、2000ms；其它已分类限流/瞬态失败按1000/2000/4000ms；收到响应前的连接失败按1000/3000ms，耗尽后进入同一外层瞬态预算，每次外层重试重置连接轮次。累计等待不是端到端耗时；每次HTTP仍受原有deadline与Host预算约束。取消、鉴权/配置/来源变化、上下文溢出、超限、非法流、缺终态和读空闲超时不自动重试；上下文溢出继续归既有压缩路径。两种Qoder方言共享该策略，其它Provider不借本条新增重试。
+
+重试以同一冻结的非身份正文为种子，只重建request/session/task标识、准备端点is_retry与实际编码字节/指纹；首次真实runtime task_id也用peer-agent:UUID，纯builder固定向量保留原默认值。每次认证仍从实际body重新生成并复核同一只读账户、环境、ModelBinding和Native Network。拒绝后不能换号、换方言或重放本地工具。分类只保留有界枚举/数值，不保留上游错误正文、秘密或部分工具intent。
+
+重试协调归现有Host请求生命周期，不能藏进网络层后只记最终一次。沿ADR25：每个已准入发送尝试都增加canonical modelRequests和providerRequestCount；失败的已知usage先进入同一budget/nativeUsageSnapshot，未知usage继续标unknown。费用/容量观察在策略等待前结算，晚到收费先保存事实再处理租约丢失。后续每次尝试前及等待后重新核对执行权、取消、Goal/MCP身份、预算与历史sourceRevision；maxTokens/maxCost的未知阻断不得绕过。等待由同一owned cancellation/heartbeat包裹；无独立后台请求、无持久重试队列，进程重启不自动续发旧模型请求。摘要请求沿同一逐次计费但capacityBearing=false；容量不能被摘要或累计费用替代。
+
+验收须包括实际TS分类/等待向量、真实公开CLI两方言队列/重复/HTTP限流/连接恢复与耗尽、逐次新身份/指纹和非身份正文不变、失败usage累积、预算阻断、等待取消与凭据/历史变化拒绝、已有工具不重放、硬退出后known/unknown保全和后续任务。只用隔离合成服务/账户；真实服务、P4完整总闸和P5–P7仍另验。
