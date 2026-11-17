@@ -262,17 +262,21 @@
   "ci": {
     "run": 44026396831,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44026396831",
-    "status": "in_progress",
+    "status": "completed",
     "jobs": [
       {
         "id": 133847657729,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress"
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T06:22:34Z"
       },
       {
         "id": 133847658070,
         "name": "ci-macos-14",
-        "status": "in_progress"
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T06:25:43Z"
       }
     ],
     "merge": {
@@ -283,7 +287,12 @@
       "sha": "30f5c895f28eea92221d4603be7e7047152f76a8",
       "tree": "27464a33218d67c210a8b856f795364321ce5023"
     },
-    "scope": "Independent final-source whole CI. Merge tree and base/candidate parents match; no inherited green claim."
+    "scope": "Independent final-source whole CI. Merge tree and base/candidate parents match; no inherited green claim.",
+    "conclusion": "success",
+    "terminalSnapshot": {
+      "path": "/tmp/peer-native-attachments-20261117/base-ci-terminal.json",
+      "sha256": "64934719dbdd24ed35887af7dec2beabd82d1563aa8e62d4b0f8d7fe789051fc"
+    }
   },
   "limitsOfAcceptance": [
     "Owned synthetic files, HTTP/model fixtures and encrypted test vaults only; no real service/OS Vault or installed-build proof.",
