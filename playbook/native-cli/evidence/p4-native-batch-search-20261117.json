@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "P4 native batch source and local scoped gates delivered; independent whole CI running. P4 total/P5–P7 incomplete.",
+  "source": {
+    "base": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
+    "tree": "3e72a85abfeb3fdded1de58fcb0f2ffeda7ac178",
+    "patchSha256": "2ddba1bf59f323a8ea379401a055a734e99cb89d77cd96da29b7eb6f39de38dd",
+    "startedAt": "2026-11-17T08:18:45.282218+00:00",
+    "pid": 53777,
+    "pgid": 53777,
+    "commit": "17548096fd2dde8fe6ec8e396249a81f62a525af"
+  },
+  "architectureCommit": "b77a7df",
+  "adrFiles": [
+    "49-cancel-path-hard-sandbox.md",
+    "51-unified-desktop-cli-file-tools.md",
+    "92-scoped-permission-inheritance.md",
+    "101-bot-owned-access-policy.md",
+    "127-unknown-outcome-reconciliation-and-delegated-resolution.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "A original reachable batch capability and native scheduling/resource registration before implementation; B actual Grant/failure fact separation and existing conservative unknown policy review. No new permission, replay or dispatch grammar.",
+  "baseline": {
+    "source": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
+    "binary": "/tmp/peer-native-attachments-final2-20261117/peer-native",
+    "binarySha256": "ec2e73728d5d7cd3379142778a7b72699ea4a59085efc9ad0eb05c9be8cd4c8a",
+    "result": "Real public model tool call fails tool_not_projected; owned failed fixture retained.",
+    "path": "/tmp/peer-native-batch-search-20261117/baseline.log",
+    "sha256": "eb0d8a41e8317039bf7d06ebcf4944e981c163568c8edf433e76c561612b61d8"
+  },
+  "implementation": {
+    "entry": "batch_search/local.search.aggregate, independent Provider Adapter in file domain, same Runtime Projection/Grant/Evidence and immutable tool-result archival",
+    "lanes": "1–8, original whitespace/default IDs and labels, duplicate ID rejection, per-lane case/path/max_results, input ordering, completed/failed/cancelled/partial facts, dedupe/hit counts/locale sorting and original500-cap-before-dedupe unsorted early exit",
+    "ownership": "At most two blocking scans process-wide via shared semaphore; configured1–8 concurrency is an upper bound, default4. All started workers awaited even on cancellation/revocation. Each scan uses existing EffectAdmission checks; no detached scan, Shell or custom execution path. Already-completed facts survive control stop. Host control processing explicitly yields per request and propagates latest external cancellation before fresh authorization, avoiding starvation under continuous multi-worker control traffic.",
+    "budgets": {
+      "lanes": 8,
+      "workers": 2,
+      "perLaneCollectionEntries": 16384,
+      "perLanePathBytes": 4194304,
+      "perFileSearchBytes": 1000000,
+      "perLaneResultBytes": 262144,
+      "aggregateMatches": 500,
+      "serializedBatchBytes": 4194304,
+      "argumentsPermissionBytes": 1048576
+    },
+    "authority": "One real Grant and Evidence pair for batch; failed lane results cannot retroactively revoke issued permission. Pure TS grant deny-on-total-failure stays recorded as explicit native factual delta. No change to role policy, scope grammar or unknown closure."
+  },
+  "focused": {
+    "tsOracle": {
+      "cases": 10,
+      "rawRoots": "oracle-write*.log and oracle-check-4.log retain actual TS owned roots. Frozen resource uses symbolic fixture root only in OS error strings.",
+      "coverage": "Actual current TS Provider, including overlap, duplicates, trim/max_results, Unicode/case, outside path, partial/all failure, invalid count/ID and500-cap; exact raw observations retained. Stable native missing-path code explicitly mapped."
+    },
+    "runtime": {
+      "passed": 2,
+      "path": "/tmp/peer-native-batch-search-20261117/unit-3.log",
+      "sha256": "b22cafdbf0189b0b1c6bc4f0828e88ba24d5dd066742115b88142814fbf1e446"
+    },
+    "publicHost": {
+      "passed": 9,
+      "mode": "parallel",
+      "path": "/tmp/peer-native-batch-search-20261117/host-5.log",
+      "sha256": "370696355b7fa96f1f7c61af0a4ec6246a9bb6c9f812aa17eb9effed25e5c13f"
+    },
+    "clippy": {
+      "result": "Earlier focused all-targets clippy success; final same-source complete gate reran all-targets clippy successfully.",
+      "path": "/tmp/peer-native-batch-search-20261117/clippy-1.log",
+      "sha256": "7015347f2d58e0ea4e4831d49bcca737e0de39bbbba52e099fdb1d206b0b5341"
+    }
+  },
+  "preservedFailures": [
+    {
+      "reason": "Original candidate does not project batch_search.",
+      "path": "/tmp/peer-native-batch-search-20261117/baseline.log",
+      "sha256": "eb0d8a41e8317039bf7d06ebcf4944e981c163568c8edf433e76c561612b61d8"
+    },
+    {
+      "reason": "Initial BatchSearchProvider visibility was too narrow for its parent re-export, fixed to providers-only visibility.",
+      "path": "/tmp/peer-native-batch-search-20261117/check-1.log",
+      "sha256": "10e7d631ca518236e90413fc0b72264754d66c4019387fed25fde2a8b6fc24d1"
+    },
+    {
+      "reason": "The initial hard-exit test mislabeled a same-directory new task as independent. Production correctly returned execution_resource_busy under unchanged undeclared namespace protection. Final test retains same-scope denial and proves a genuinely independent directory can run without altering old unknown; no production relaxation.",
+      "path": "/tmp/peer-native-batch-search-20261117/host-3.log",
+      "sha256": "83c8e1f0902e795dc2c702c5bb375725fa0387c6c3c857b57bd6f98859498845",
+      "facts": {
+        "path": "/tmp/peer-native-batch-search-20261117/failed-unknown-facts.json",
+        "sha256": "a957f25051a8bb82fd4fd753432e2ca0bce242faf2649947de17aa5a74e7ca75"
+      },
+      "pinnedPrototypeBinary": {
+        "path": "/tmp/peer-native-batch-search-20261117/fixture-peer-native-3",
+        "sha256": "ae3d6312c3f67459dc3c4b591ceeb2e760e19ec9ebcd6d0d9a14554a63ec537e"
+      },
+      "identityLimit": "No intermediate full source tree was frozen for the failed expectation; original log/owned root, canonical/SQLite facts and pinned binary retained. Final acceptance is separately bound to the final frozen tree."
+    },
+    {
+      "reason": "First full gate5bf5543d completed with two8-second command-exit failures in cancellation tests;218 other Native Episodes passed. Both owned fixtures retained. One canonical cancelled Tool Result/Evidence was already committed while control remained unset, the other remained pending; neither final outcome is manufactured after the parent-owned timeout killed/reaped its child. Not called a flake or a successful gate.",
+      "source": {
+        "base": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
+        "tree": "5bf5543d77bb41dd8e57df6f3213ae1b93979221",
+        "patchSha256": "5f4dce19b7f5f23ac6eb0c75e02a6ea645e4690ab2b96adcf25bb14cf88dd182",
+        "startedAt": "2026-11-17T07:55:34.586242+00:00",
+        "pid": 39812,
+        "pgid": 39812
+      },
+      "exit": {
+        "exitCode": 1,
+        "finishedAt": "2026-11-17T08:04:55.709227+00:00"
+      },
+      "verifyLog": "/tmp/peer-native-batch-final-20261117/verify.log",
+      "verifyLogSha256": "0429d147458ed020b993f38e9089c084a838c6ff1f65749e876d0a59cb53b090",
+      "fixtures": [
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpLEjZxK",
+        "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmprtSbxk"
+      ]
+    }
+  ],
+  "coverage": [
+    "real native model->batch->matches/Grant/Evidence->model",
+    "actual TS vectors and retained error/grant deltas",
+    "500-result early cap and immutable archival",
+    "Ask denies before scan",
+    "per-lane result pressure preserves other completed lane",
+    "requested concurrency1 and8 with actual worker barriers",
+    "heartbeat continues while workers paused",
+    "cancel/revocation joins both workers and prevents queued reads",
+    "completed lane persists after control stop",
+    "hard exit keeps unknown, recover never repeats model/tool, same namespace blocked, independent namespace admitted",
+    "controlled continuously-ready authorization path: actual SIGINT red before fairness fix, green after under unchanged8-second bound"
+  ],
+  "baseCi": {
+    "source": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
+    "run": 44037023767,
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 133882253193,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T07:55:00Z"
+      },
+      {
+        "id": 133882253273,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T07:39:15Z"
+      }
+    ]
+  },
+  "authorization": {
+    "personalData": false,
+    "install": false,
+    "restartUserInstances": false,
+    "defaultSwitch": false,
+    "mergeOrRelease": false,
+    "bunNodeEngineSidecar": false
+  },
+  "remaining": [
+    "P4 actual remaining Runtime/tools/Skill/Plugin/Hook/ACP/headless/commands/Context/attachments and mixed-version recovery/real services/total gate",
+    "P5 full Bot/scheduling/Goal/verification/delivery chain",
+    "P6 full Ratatui sending/history/draft and long-memory/response acceptance",
+    "P7 final platform/package/updater/default switch and old reachable dependencies exit"
+  ],
+  "limitsOfAcceptance": [
+    "Owned synthetic roots and local HTTP model fixtures only",
+    "Implementer self-review, not independent",
+    "No full memory/real vendor/installed build/platform acceptance",
+    "Old unknown stays protected; no auto closure/replay",
+    "CLI view_image scope correction under b77a7df; attachments/current supported extension paths remain mandatory"
+  ],
+  "fairness": {
+    "problem": "Continuously ready EffectAdmission messages plus synchronous authority reads can occupy a complete cooperative scheduling budget on the current-thread Runtime, starving the signal watcher.",
+    "experiment": "A fixture-only100ms synchronous validator delay keeps both real blocking workers in the same ready authorization path; OS signal registration, signal sender, watcher and original8-second command-exit bound unchanged. Real native public SIGINT test fails before the fix and passes after, without relaxing its assertion.",
+    "before": {
+      "source": {
+        "base": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
+        "tree": "da2be85c7cdc57c208114ccd2c2aafabeef0b162",
+        "patchSha256": "2de7c7fb2a15b9cea8793894c6f5673bf81557418b93ee353e186087ef2559e0"
+      },
+      "binary": {
+        "path": "/tmp/peer-native-batch-search-20261117/fairness-before-peer-native",
+        "sha256": "679b3036635976b97c4390c1cbb9d5bb8c1f3910592fdabbfe88f2363eeab451"
+      },
+      "log": "/tmp/peer-native-batch-search-20261117/fairness-before.log",
+      "logSha256": "6d2738a98601211c3c60eb06711470704fdbf672d780ad087ae046c67b859f6d",
+      "result": "0 passed,1 failed at original8-second exit bound; total test9.35s"
+    },
+    "after": {
+      "binary": {
+        "path": "/tmp/peer-native-batch-search-20261117/fairness-after-peer-native",
+        "sha256": "3f5ee54f358781bacb3300e01de015dd8aba480f366aaa8bb945aa1583df2c22"
+      },
+      "log": "/tmp/peer-native-batch-search-20261117/fairness-after.log",
+      "logSha256": "d01ca74950657a06b045371dceb44c242063b256033bf792c5ff2ba660006dcf",
+      "result": "same real signal case passed, total harness test4.38s; not a p95/runtime100ms acceptance claim"
+    },
+    "fix": "Yield once before each current authority check, propagate latest external cancellation to the owned token before replying, then perform the original current-source validation. No dropped control messages or altered permission decision; all started workers remain awaited.",
+    "finalFocused": "9 native_batch tests passed in parallel,19.85s. In the final complete native gate the original two failure cases and new controlled fairness case passed with the same8-second exit assertions.",
+    "timingObservations": [
+      {
+        "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpswoAGN",
+        "measurement": {
+          "signalToCommandExitMs": 2148,
+          "boundMs": 8000,
+          "controlledSynchronousCheckMs": 100
+        },
+        "scope": "Actual SIGINT to full command exit under100ms controlled validator; not Runtime-cancel latency, p95 or long-response acceptance."
+      },
+      {
+        "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpVj4qFB",
+        "measurement": {
+          "signalToCommandExitMs": 2491,
+          "boundMs": 8000,
+          "controlledSynchronousCheckMs": 100
+        },
+        "scope": "Actual SIGINT to full command exit under100ms controlled validator; not Runtime-cancel latency, p95 or long-response acceptance."
+      }
+    ]
+  },
+  "finalNativeGate": {
+    "directory": "/tmp/peer-native-batch-final2-20261117",
+    "source": {
+      "base": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
+      "tree": "3e72a85abfeb3fdded1de58fcb0f2ffeda7ac178",
+      "patchSha256": "2ddba1bf59f323a8ea379401a055a734e99cb89d77cd96da29b7eb6f39de38dd",
+      "startedAt": "2026-11-17T08:18:45.282218+00:00",
+      "pid": 53777,
+      "pgid": 53777
+    },
+    "exit": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-17T08:32:04.626031+00:00"
+    },
+    "seconds": 799.343813,
+    "rustTestsPassed": 541,
+    "nativeEpisodesPassed": 221,
+    "actualTsNativeInterop": {
+      "roots": 567,
+      "checks": 3185
+    },
+    "ptyPassed": 9,
+    "verifyLogSha256": "57bfe9a97ec788e95daa822f62908b53a04292c29f58d014843a8fa0ed107af5",
+    "scope": "Same final frozen source; native contracts and real current TS Store interoperability, fmt/clippy/build/helper/static boundary/architecture and terminal lifecycle. Not complete P4 product total or release gate."
+  },
+  "featureless": {
+    "binary": "/tmp/peer-native-batch-final2-20261117/peer-native",
+    "bytes": 19226304,
+    "sha256": "3bc05f5f8d3bb94730ce1b853ea9e18a56ea7a1de04d8dbe2fdb66027b3960e7",
+    "harness": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/target/debug/deps/native_episode-22072befbe05c9c6",
+    "startedAt": "2026-11-17T08:32:47.575095+00:00",
+    "environment": "cleared, PATH=/nonexistent, owned fixtures/local HTTP model servers",
+    "exitCode": 0,
+    "finishedAt": "2026-11-17T08:33:05.590599+00:00",
+    "hostTestsPassed": 6,
+    "actualTsNativeInterop": {
+      "roots": 15,
+      "checks": 77
+    },
+    "linkage": "/tmp/peer-native-batch-final2-20261117/peer-native:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n",
+    "fixtureFlagsAbsent": [
+      "PEER_NATIVE_BATCH_BARRIER",
+      "PEER_NATIVE_AUTH_CONTROL_BARRIER"
+    ],
+    "logs": [
+      {
+        "path": "/tmp/peer-native-batch-final2-20261117/release-batch.log",
+        "sha256": "39d161a8e1cd7f6fdaf59673c170d1cfac96174263258a1899907b2bc729a9ba",
+        "results": [
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 217 filtered out; finished in 11.61s"
+        ]
+      },
+      {
+        "path": "/tmp/peer-native-batch-final2-20261117/release-files.log",
+        "sha256": "95ae1936a1a7aec44580d1edda8c7006a33d9ed06e0bb036ae53f5bad2bcbda0",
+        "results": [
+          "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 220 filtered out; finished in 1.82s"
+        ]
+      },
+      {
+        "path": "/tmp/peer-native-batch-final2-20261117/release-interop.log",
+        "sha256": "719d6be9fb0d4930f1dc34de520c36dbe21ff502eeccf9291850bab25e9c2ad7",
+        "results": [
+          "{\"ok\":true,\"roots\":15,\"cases\":77,\"coverage\":\"Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS.\"}"
+        ]
+      },
+      {
+        "path": "/tmp/peer-native-batch-final2-20261117/release-pty.log",
+        "sha256": "171f9c839953ba391b8d33858dbcf953809ae6c99aa3dbd2f59618bbbf3b8c30",
+        "results": [
+          "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 220 filtered out; finished in 4.53s"
+        ]
+      }
+    ]
+  },
+  "ci": {
+    "conclusion": null,
+    "head_branch": "codex/native-rust-cli",
+    "head_sha": "17548096fd2dde8fe6ec8e396249a81f62a525af",
+    "html_url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44048089581",
+    "id": 44048089581,
+    "status": "in_progress",
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "17548096fd2dde8fe6ec8e396249a81f62a525af"
+      ],
+      "sha": "15aa87384beb0ebbd629864b2492937cdc559f45",
+      "tree": "3e72a85abfeb3fdded1de58fcb0f2ffeda7ac178"
+    },
+    "jobs": [
+      {
+        "id": 133918687509,
+        "name": "ci-ubuntu-latest",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 133918687784,
+        "name": "ci-macos-14",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "scope": "Independent new-candidate whole CI. Run head, merge tree and base/candidate parents match the delivered source; not yet whole green."
+  }
+}

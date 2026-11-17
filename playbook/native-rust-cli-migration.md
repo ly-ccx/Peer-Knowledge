@@ -6,6 +6,18 @@
 
 
 
+## 2026-11-17 原生批量搜索与控制调度公平性候选
+
+`17548096`（tree `3e72a85a`）已提交并推送。按ADR49/51/92/101/127/129–131复核，A实施前登记随`b77a7df`已先推送。迁移旧CLI真实可达的batch_search/local.search.aggregate为文件域独立Provider Adapter；复用原有界扫描、locale与同一Projection/Grant/Evidence、不可变结果归档。1–8 lane、原id/label/query/path规范化、case/max_results、lane顺序、dedupe/命中排序、500 cap在去重前且早退不排序、失败/partial均与实际TS对照。max_concurrency保留请求上界1–8/默认4，原生实际最多两个阻塞worker并用进程共享semaphore限制；每lane原扫描预算、最终4MiB序列化闸不截断成功。全lane失败不反写真实已发Grant为拒绝；旧TS字段原样保留为显式原生事实差异。
+
+公开bc734产物的tool_not_projected失败保留。硬退出原测试把同目录新任务误称独立，实际被既有undeclared unknown规则正确阻止；修正测试同时保留同范围阻止、独立目录可准入与原unknown未变化，未放宽生产恢复。编译可见性失败、原失败根及canonical/SQLite事实均保留。
+
+首轮冻结5bf5543d整闸在两项取消场景8秒退出断言失败，218项其它Episode通过，原轮不称成功/flake。受控100ms同步校验使多worker持续占用控制通道，真实SIGINT反例在未修正的da2be85c上复现原8秒失败；固定二进制/源码patch/日志保留。Host现在每次控制校验前明确让步，先传播最新外部取消，再沿原真源验证并回复；不丢消息、不弱化Grant、不放弃等待实际worker。相同界限的反例修正后通过，9项批量测试并行通过；最终完整门禁中原失败两项也通过。已完成lane在取消/降权后保全，排队lane不读取；停稳后可接新任务。控制反例实测整命令退出分别2148/2491ms，仅为该受控场景，不称Runtime取消p95或P6验收。
+
+最终同一冻结源码完整本机原生门禁 **541 Rust（221 Native Episodes）/567根3185次实际TS↔Rust互读/9PTY**，exit0、799.344秒。固定featureless release **19,226,304 bytes**，SHA256 `3bc05f5f8d3bb94730ce1b853ea9e18a56ea7a1de04d8dbe2fdb66027b3960e7`，仅CoreFoundation/libiconv/libSystem且无批量/控制fixture开关；清空环境、PATH=/nonexistent下 **6公开Host**（批量、文件工作流、真实PTY批准/取消）通过，另 **15根77互读** 通过。实现者自审，非独立审查。见[批量搜索回执](native-cli/evidence/p4-native-batch-search-20261117.json)。
+
+基线bc734的CI44037023767两平台全仓success已核实，含各自Electron smoke。[新CI44048089581](https://github.com/ly-ccx/Peer-Agent/actions/runs/44048089581)独立运行中，merge15aa8738 tree及parents与最终候选/预期base一致。不替代P4完整Runtime/Context/附件/其它实际工具/Skill/Plugin/Hook/ACP/headless/命令、混合版本恢复及真实服务总闸；P5–P7、普通Ratatui发送和长期内存仍待完成。view_image默认CLI范围校正见下；无新增Desktop工具。无个人数据、安装、用户实例重启、默认入口切换、合并或发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-17 CLI 可达集校正与批量搜索启动
 
 实际运行旧createTuiHost全部8种mode隔离投影，均无local.image.read/view_image；Node bundle及project额外Provider装配源码也未注册它。Desktop有自己的注册与解码器。此前将该工具/视觉侧带列为CLI迁移必完项属于范围判断错误，原记录保留，以ADR131同日明确替代。图片路径/附件输入/生命周期仍必须迁移；不是把该工具记为已完成，也不扩大默认CLI能力。见[可达集回执](native-cli/evidence/p4-cli-reachable-scope-20261117.json)。
@@ -20,7 +32,7 @@
 
 原Responses oracle缺live sender字段、clippy排序和首轮冻结整闸的`undefined`/HTTP JSON比较失败均保留；校正为实际TS Runtime Responses sender、按实际序列化完整请求比较，原契约文件及断言内容未弱化。最终同一冻结源码完整本机原生门禁 **530 Rust（212 Native Episodes）/548根3081次实际TS↔Rust互读/9PTY**，exit0、877.999秒。固定featureless release **18,935,632 bytes**，SHA256 `ec2e73728d5d7cd3379142778a7b72699ea4a59085efc9ad0eb05c9be8cd4c8a`，仅CoreFoundation/libiconv/libSystem；清空环境、PATH=/nonexistent下 **17公开Host** 通过，另 **25根130互读** 通过。实现者自审，不称独立审查。见[附件回执](native-cli/evidence/p4-native-saved-attachments-20261117.json)。
 
-基线a717的CI44026396831两平台全仓success已核实。[新CI44037023767](https://github.com/ly-ccx/Peer-Agent/actions/runs/44037023767)独立运行中；merge2a3c72d9 tree与bc734878一致，parents与预期base/candidate一致。仍是P4：local.image.read/可信视觉侧带、附件输入与生命周期、完整Context/压缩策略、其它工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本恢复与真实服务/总闸继续开放；P5–P7未完成，普通Ratatui发送与长期内存未验收。仅隔离合成附件/账户/服务，无个人任务/凭据读取迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+基线a717的CI44026396831两平台全仓success已核实。[CI44037023767](https://github.com/ly-ccx/Peer-Agent/actions/runs/44037023767)已核实Linux133882253273/macOS133882253193两平台全仓success，含各自Native/build/type/architecture/Test/Electron smoke；merge2a3c72d9 tree与bc734878一致，parents与预期base/candidate一致。仍是P4：local.image.read/可信视觉侧带、附件输入与生命周期、完整Context/压缩策略、其它工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本恢复与真实服务/总闸继续开放；P5–P7未完成，普通Ratatui发送与长期内存未验收。仅隔离合成附件/账户/服务，无个人任务/凭据读取迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
 
 ## 2026-11-17 受管父目录创建与 unknown 范围候选
 

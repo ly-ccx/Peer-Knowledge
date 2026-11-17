@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-11-17",
-  "status": "P4 saved-user attachment local candidate validated; independent whole CI pending; P4 total and P5–P7 open",
+  "status": "P4 saved-user attachment source and scoped validation delivered; independent Linux/macOS whole CI successful. P4 total and P5–P7 remain open.",
   "source": {
     "base": "a717c42baa19b73e00f545fa521dd5f6b59a01bc",
     "tree": "cc35f895d59a52869d2ce93aa8ae3236ee84cd53",
@@ -223,12 +223,12 @@
     "No full P4 product gate, ordinary Ratatui sending, long-memory soak or P5–P7 acceptance"
   ],
   "ci": {
-    "conclusion": null,
+    "conclusion": "success",
     "head_branch": "codex/native-rust-cli",
     "head_sha": "bc734878fedf69ec94e1c58fb8de6d88f594066c",
     "html_url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44037023767",
     "id": 44037023767,
-    "status": "in_progress",
+    "status": "completed",
     "merge": {
       "parents": [
         "8b0c97175099a91d6495d6dd67ac063a7e262d63",
@@ -241,14 +241,23 @@
       {
         "id": 133882253193,
         "name": "ci-macos-14",
-        "status": "in_progress"
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T07:55:00Z"
       },
       {
         "id": 133882253273,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress"
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T07:39:15Z"
       }
     ],
-    "scope": "Independent current candidate whole CI; source, merge tree and base/candidate parents verified. Not yet whole green."
-  }
+    "scope": "Independent exact candidate whole CI, including Native/build/type/architecture/Test and Electron smoke on both platforms; merge tree and parents match.",
+    "terminalSnapshot": {
+      "path": "/tmp/peer-native-batch-search-20261117/base-ci-terminal.json",
+      "sha256": "fdf0dcae50e0838c000a7432c7effed24608a32ac052b7eced6352073caf93ea"
+    }
+  },
+  "scopeCorrection": "ADR131 CLI reachability correction b77a7df supersedes the local.image.read mandatory-CLI remainder below. Old CLI does not project it; actual attachment input/lifecycle and existing extension contracts remain mandatory."
 }
