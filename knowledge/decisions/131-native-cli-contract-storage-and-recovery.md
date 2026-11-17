@@ -14,6 +14,19 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 macOS 稳定进程起点与旧记录保全（A，实施前）
+
+普通恢复的真实时区反例已固定：同一实际活 CLI 在 TZ=UTC 采集 `ps lstart`，恢复者用 TZ=Asia/Shanghai 观察，旧实现把同一 PID 判成 Reused 并关闭其准入；原根、实际 owner/child、stdout/记录变化和清理保留于 [反例回执](../../playbook/native-cli/evidence/p4-recorder-timezone-baseline-20261118.json)。这不是允许接管的进程死亡，不将全仓/原生门禁绿代替本反例验收。
+
+收紧既有 boot/pid/start/host/acquiredAt 契约：macOS 新 recorder 的 pidStart 使用 OS 的 PROC_PIDTBSDINFO 起始 epoch 秒与微秒，编码为 `macos-v2:<seconds>:<microseconds>`；不使用日期格式、语言、TZ、进程命令名或裸 PID。通过固定版本 libproc 的安全 pidinfo/BSDInfo API 读取系统 libproc，检查 PID 匹配、seconds>0、microseconds<1000000；查询失败只能在实际 test_kill 确认 ESRCH 时判缺失，其余 Unproven。自有代码继续 forbid unsafe，FFI/绑定属于受审查依赖；固定 libproc=0.14.11（MIT，声明 MSRV1.72）并审查 BSDInfo 的零初始化/字段与 pidinfo 返回、bindgen 构建前提，Mac/Linux 实际构建另验。系统 boot 仍实际前后核对；Linux /proc start ticks 及原权限、Grant、Evidence、预算/stop/unknown 边界不动。
+
+pidStart 在原五字段中是 opaque string，不新增或覆写持久 schema，不把旧记录就地升级。只有双方都是可解释的 macos-v2 数值起点才可按完全匹配判 Alive 或不同起点判 Reused；旧 `macos:<本地显示时间>` 或未知版本在 PID 仍存在时一律 Unproven，不因字符串不同判 Reused，也不据此杀 child、关闭活 owner 准入或产生新 stop。旧记录若实际 PID 已不存在，仍可据明确 ESRCH 与稳定 boot 判 Dead；换 boot 仍按原规则。旧 child 只有旧秒级显示身份、PID 仍存在而无法安全匹配时保持原 handle/process/unknown 和明确恢复阻断；不能删除记录、重放工具或用升级假造新精确身份。原 known usage 在原 owner 死亡/stop 已确证时仍可独立核对，blocked child 不消除费用。该条局部取代早期 Adapter 把不同 macOS lstart 文本视作 Reused 的实现解释，不扩大接管/杀进程权限。
+
+验收含实际跨进程 TZ/LC_ALL 变化时活 owner 拒绝且 canonical 不变、真实 child group 不被误杀、实际新 owner/child 崩溃恢复、旧真实已死 owner 原16费用一次与 unknown 保全、旧仍活 PID/未知起点保守拒绝、完整 Goal/MCP/普通恢复回归、TS opaque 互读和固定 featureless release 无 Node/Bun。`recover --session` 仍不重放/不接受 unknown；P4 总闸、旧 TS/安装宿主 guard/drain、P5–P7 与长期内存/默认安装发布继续开放。
+
+依据：[libproc pidinfo](https://docs.rs/libproc/0.14.11/libproc/proc_pid/fn.pidinfo.html)、[固定源码](https://github.com/andrewdavidmackenzie/libproc-rs)。此次先核对 Cargo 下载的0.14.11实际源码；不是只凭 latest 文档推断已验收。
+
+
 ### 2026-11-18 NR-04 普通会话恢复入口与排他恢复权（A，实施前）
 
 在已接受的普通 execution v1 恢复边界上明确新增本地管理命令 `peer recover --session <conversation-id>`；原 `recover --plan` 保留。该入口不读 prompt、不初始化 TUI、不调用模型、Provider 工具或外部 MCP，也不向模型投影恢复能力。它只核对指定原 execution 的 canonical 事实、实际 OS 停稳和原用量提交；不补造 Goal/Work，不重放命令/网络请求；本次实施和自测仅使用隔离根，不修改个人数据或接管在用宿主。返回沿原 recover 的 `status=recovery_observed` / `facts` 形态，facts 为原 Protocol ConversationExecution；只有原 run 已 permits_new_run 才退出0，unknown 或停稳未证明仍输出真实观察并退出1，不能以命令运行过冒充恢复完成。

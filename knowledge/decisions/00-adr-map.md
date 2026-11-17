@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在OS Adapter修复前A登记 macOS PROC_PIDTBSDINFO 微秒 epoch 的 macos-v2 起点、固定安全 libproc seam与旧显示时间记录保全；真实跨TZ活owner误接管反例已保留。未知/旧起点仍活时 Unproven，不伪造死亡/升级或杀进程；五字段schema/授权/Evidence不变，完整验收另记。
+
 2026-11-18：ADR131在普通恢复实现前A登记 `recover --session`、原目录FD排他恢复 guard 与窄token；无新持久格式或普通派发权。完整 owner/child OS 证明、原 Grant/Tool Result/Evidence 与已知账本分开核对；未知效果/starting/未知孤锁保全，不从文件存在推导成功，不以本入口替代 P4完整对账或旧宿主drain。
 
 2026-11-18：ADR131在普通生产Host接线前B复核真实Conversation主体、同一ExecutionRegistry/credential epoch与loop/Provider；原Goal身份、access/Grant/Evidence/unknown和存储格式不变。普通Source以默认TS registry的实际section/hash对照，不用worker/测试Source替代；实际入口、旧宿主drain与P4总闸另验。
@@ -400,7 +402,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 |---|---|---|
 | 129 | [原生 Rust CLI 与 Ratatui](129-native-rust-cli-and-ratatui.md) | Accepted，2026-11-14；实现 / 验收另记 |
 | 130 | [有界内存与历史](130-bounded-cli-memory-and-transcript.md) | Accepted，2026-11-14；预算待实测 |
-| 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充用量恢复；2026-11-16 A级补充 Helper 条件提交及加密模型 OAuth 刷新意图，未知保全与跨宿主兼容闸；2026-11-17 A级登记原生受管child的canonical pending身份与语义floor13，保护只读任务恢复；2026-11-18 A级补充普通 recover --session、目录FD排他恢复与窄token，原未知和停稳/账本边界保留；实现 / 恢复另记 |
+| 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充用量恢复；2026-11-16 A级补充 Helper 条件提交及加密模型 OAuth 刷新意图，未知保全与跨宿主兼容闸；2026-11-17 A级登记原生受管child的canonical pending身份与语义floor13，保护只读任务恢复；2026-11-18 A级补充普通 recover --session、目录FD排他恢复与窄token，原未知和停稳/账本边界保留；实现 / 恢复另记  macOS稳定起点/旧记录保全实施前已登记 |
 | 132 | [MCP Vault 与原生 OAuth](132-mcp-vault-and-native-oauth.md) | Accepted，2026-11-16；MCP Helper 命名空间、旧凭据迁移、不可变 slot 与刷新意图；同日A补充execution内存epoch和原grant/Context续行。实现 / 验收另记 |
 
 2026-11-14 同日澄清 ADR 131 §1 的同号引用：`104-bot-capability-visibility.md` 仍未接受；`104-progressive-interaction-and-coordination-storage.md` 已接受的 writer fence / 恢复契约保留。未移动既有边界。
