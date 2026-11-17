@@ -9,7 +9,7 @@
     "pid": 66399,
     "pgid": 66399
   },
-  "status": "189c572c pushed; frozen whole native gate and final scoped checks passed; independent full CI in progress; P4 total remains open.",
+  "status": "189c572c pushed; frozen whole native gate and final scoped checks passed; both-platform whole CI success independently verified; P4 total remains open.",
   "classification": {
     "A": "ADR131/map registered model-side encoding and legacy saved-observation materialization, source/view bounds, failure/stderr/Unicode/MCP-shape fidelity and frozen count/send before implementation.",
     "B": "Same canonical projector, live identity, Grant/Evidence/unknown, request accounting, compaction marker/CAS and ownership seams. Shared content module avoids a second storage implementation.",
@@ -283,17 +283,19 @@
   "ci": {
     "run": 44021853800,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44021853800",
-    "status": "in_progress",
+    "status": "success",
     "jobs": [
       {
         "id": 133832933095,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress"
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 133832933419,
         "name": "ci-macos-14",
-        "status": "in_progress"
+        "status": "completed",
+        "conclusion": "success"
       }
     ],
     "merge": {
@@ -304,6 +306,26 @@
       "sha": "dd1876207e43fec43efc094de16754c9f11be109",
       "tree": "95539ea5957bf0323f6abd35f95e72c1d59787ea"
     },
-    "identity": "Merge tree equals final delivered source; expected base and candidate parents. No inherited final-source green claim."
+    "identity": "Whole CI passed both platforms, including Native/build/type/architecture/Test/Electron smoke; merge tree and parents match final source.",
+    "initialObservation": {
+      "status": "in_progress",
+      "jobs": [
+        {
+          "id": 133832933095,
+          "name": "ci-ubuntu-latest",
+          "status": "in_progress"
+        },
+        {
+          "id": 133832933419,
+          "name": "ci-macos-14",
+          "status": "in_progress"
+        }
+      ]
+    },
+    "terminalSnapshot": {
+      "path": "/tmp/peer-native-file-parents-20261117/base-ci-terminal.json",
+      "bytes": 9804,
+      "sha256": "8c7acd369bf355f3f9bbd698486ed2a85f91261c19a209defe94b9cad50cbaff"
+    }
   }
 }
