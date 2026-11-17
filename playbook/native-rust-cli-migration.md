@@ -4,6 +4,16 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通会话的原生流式与终态 Store 候选
+
+`fcfee273ea814bfbd2e51e83226e328cbe83834f`已提交并推送，tree `29ea6ae9d04a072d26b78a0beafede115e7eae39`。沿ADR129/131既有v1会话/sidecar与原index→body锁迁移；B级源前复核`ce38dbd`及`feef7ba`，不增加Goal、权限字段或私有执行日志。Rust现有追加消息之外，新增绑定原conversation/message、实际source/contentRevision的流式patch与终态合并。终态正文替换前先持久化原v1 provisional marker，已有预览保留，新marker为空patch；真实结果未确认时不暴露为committed。body/index/cleanup中断保留已写事实并返回uncertain；用新source核对原终态事实完成Store恢复，不重跑模型或工具。TS streaming写/清理参与同一锁，终态清理失败不伪报成功；原call/grant/result身份与opaque字段保留。
+
+冻结最终source scoped通过：98项Store Rust、148项conversation-store Node、Node和Bun各13根33项实际互读（合计26根66项）、5项Native终态测试函数、all-target Store clippy/fmt、root typecheck/architecture及native boundaries。实际Rust子进程在body/index后exit86，孤锁仍阻断；确认隔离根所有writer已退出并保全诊断副本后，显式离线维护空锁、完成原Store提交，再接新消息。没有自动删锁或借Store补造Tool Result。原a942归档生产TS上的3项真实反例、依赖/夹具参数/错误码及Clippy失败保留。见[终态Store回执](native-cli/evidence/p4-native-terminal-store-20261118.json)。原8MiB/4096行raw writer预算未扩大；大历史和安装版本drain仍待验收。
+
+前候选[a942 CI44126220185](https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185)两平台全仓success已核实，包括各自Native/build/type/architecture/Test/Electron smoke。merge `9dceb390`/tree `caf75dc4`、base与candidate parents已绑定；不验证后续Store改动。新[fcfee CI44137462307](https://github.com/ly-ccx/Peer-Agent/actions/runs/44137462307)独立排队/运行，不继承旧绿。
+
+**仍在P4，普通CLI发送尚未接通。** 下一卡直接推进共享回合循环与普通会话真实Host：独立会话主体、当前access/模式/allowlist、持久待执行调用及实际停稳/unknown、相同Provider/Grant/Evidence和Context/usage链；不能创建虚假Goal或继承Bot Full。Store接口不算普通Runtime、headless或ACP已完成。P4余项及P5–P7、完整Ratatui/长期内存/真实服务/安装验收继续开放。实现者自审，未安装、改个人数据、重启用户实例、切默认、合并/tag/发布；无Bun/Node引擎sidecar。
+
 ## 2026-11-18 共享 Provider Host、实时撤权与普通会话模式投影
 
 `1fb2790128f67dd2b3cc046b345070d4b451f1f5`（tree `8cd75095`）与后续 `a942b36e2d31bc10a57e14175f8e723ae074d7c4`（tree `caf75dc4`）已推送。ADR65/76/129/131 的共享执行接缝 B 复核 `760c1e8`、Git 计时修正 `4dc1377`、模式投影 B 复核 `3204589` 均先于对应源码；既有权限、Evidence、存储与 unknown 收口边界不动。Provider 改用 Host 调用事实和原 EffectAdmission，不再依赖具体 Goal Host/Grant/资源对象；调用事实不能授权，也没有为普通会话伪造 Goal。

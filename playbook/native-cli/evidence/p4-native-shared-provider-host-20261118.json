@@ -182,5 +182,232 @@
     "Full P4 gate, P5 project agent, P6 Ratatui sending/long-memory soak and P7 release/default switch are not achieved.",
     "No install, personal data migration, user process restart, default switch, merge, tag or release; main peer-dev remains old stack."
   ],
-  "evidenceDirectory": "/tmp/peer-native-shared-provider-final-20261117"
+  "evidenceDirectory": "/tmp/peer-native-shared-provider-final-20261117",
+  "subsequentA942WholeCi": {
+    "run": 44126220185,
+    "head": "a942b36e2d31bc10a57e14175f8e723ae074d7c4",
+    "conclusion": "success",
+    "merge": "9dceb39043ab5b836002b74e9115f13de375f2c7",
+    "tree": "caf75dc4fe0c9a5686f68db0057959b16c4ae974",
+    "parents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "a942b36e2d31bc10a57e14175f8e723ae074d7c4"
+    ],
+    "jobs": [
+      {
+        "id": 134190615292,
+        "name": "ci-macos-14",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup pnpm",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Node",
+            "conclusion": "success"
+          },
+          {
+            "name": "Require Node >= 24",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test Linux dependency bootstrap",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Bun",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Rust",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install Linux credential-helper build deps",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Install dependencies",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build",
+            "conclusion": "success"
+          },
+          {
+            "name": "Native CLI scoped validation",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve native CLI terminal checks",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check packaged main-process imports",
+            "conclusion": "success"
+          },
+          {
+            "name": "Typecheck",
+            "conclusion": "success"
+          },
+          {
+            "name": "Architecture check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bot shell Electron smoke (macOS)",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bot shell Electron smoke (Linux)",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Preserve bot shell report",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Bun",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Node",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup pnpm",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 134190615780,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup pnpm",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Node",
+            "conclusion": "success"
+          },
+          {
+            "name": "Require Node >= 24",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test Linux dependency bootstrap",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Bun",
+            "conclusion": "success"
+          },
+          {
+            "name": "Setup Rust",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install Linux credential-helper build deps",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install dependencies",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build",
+            "conclusion": "success"
+          },
+          {
+            "name": "Native CLI scoped validation",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve native CLI terminal checks",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check packaged main-process imports",
+            "conclusion": "success"
+          },
+          {
+            "name": "Typecheck",
+            "conclusion": "success"
+          },
+          {
+            "name": "Architecture check",
+            "conclusion": "success"
+          },
+          {
+            "name": "Test",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bot shell Electron smoke (macOS)",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Bot shell Electron smoke (Linux)",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve bot shell report",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Bun",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup Node",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Setup pnpm",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  }
 }
