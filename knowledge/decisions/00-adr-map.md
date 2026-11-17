@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131在修正实现前登记Darwin快速退出child的登记时点：ESRCH仅允许保全完整身份并等待，不代表group absent；正常wait/组不存在与恢复定向kill的证明要求不变。
+
 2026-11-17：ADR131在原生git_query实现前登记既有ADR106固定Git观察、共享owned child与原Probe窄边界、有界完整产物及动态读取scope的同Host批准/事实保真；不新增Shell/跨调用许可或unknown自动收口。
 
 2026-11-17：ADR131在实现前登记旧CLI静态web_fetch原生迁移：逐跳授权/Network、压缩隔离与有界正文、真实截断/脱敏事实、legacy网页产物兼容和不可变回读、FD发布/配额/partial unknown；不接受Proposed ADR38或新增Browser能力。
