@@ -6,6 +6,12 @@
 
 
 
+## 2026-11-17 CLI 可达集校正与批量搜索启动
+
+实际运行旧createTuiHost全部8种mode隔离投影，均无local.image.read/view_image；Node bundle及project额外Provider装配源码也未注册它。Desktop有自己的注册与解码器。此前将该工具/视觉侧带列为CLI迁移必完项属于范围判断错误，原记录保留，以ADR131同日明确替代。图片路径/附件输入/生命周期仍必须迁移；不是把该工具记为已完成，也不扩大默认CLI能力。见[可达集回执](native-cli/evidence/p4-cli-reachable-scope-20261117.json)。
+
+下一卡迁移旧CLI真实可达的batch_search，复用已验证文件扫描与同一Provider/Projection/Grant/Evidence，先登记ADR131的lane调度/partial/取消及预算，再实施；P4仍开放。
+
 ## 2026-11-17 已保存用户附件与事实序列化预算候选
 
 `bc734878`（tree `cc35f895`）已提交并推送。ADR pass：55/57/90/129–131；ADR131/map在实现前以`76b1bd3`登记A边界及B级准入排序。原canonical user text/image_url经同一encoder、PreparedRequest、count/send传输；无图片文件/URL抓取，不生成System Context指令、Grant或看图Evidence。不支持的Anthropic/Gemini形式在计数/发送前明确拒绝，不沿旧encoder静默丢图，也不自动换模型。原2MiB请求闸与8MiB历史闸保留；事实上下文使用显式8MiB JS序列化API，默认/权限/控制摘要仍固定1MiB。
@@ -167,7 +173,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、local.image.read/可信视觉侧带与附件输入/生命周期、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、附件输入/生命周期（view_image范围校正见上）、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |

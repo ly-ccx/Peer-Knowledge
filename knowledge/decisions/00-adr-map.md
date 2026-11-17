@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131实施前校正CLI实际可达集（view_image仅Desktop装配，图片附件仍须迁移），并登记既有batch_search原生Adapter、有界lane调度/partial/控制取消与同一Grant/Evidence链。
+
 2026-11-17：ADR131附件接线前补充分离事实上下文8MiB序列化预算与固定1MiB权限/控制摘要预算；JS算法及授权不变。纯图片预检在ready→started之前，实际请求仍重检，不清旧control/unknown。
 
 2026-11-17：ADR131在实现前登记已保存用户图片的原生请求准入：事实留在user分片，无本机/URL抓取，不可表达时在count/send前拒绝而非丢图，保持原预算、canonical选择与授权/Evidence边界；本地图片Provider及P4完整验收另记。

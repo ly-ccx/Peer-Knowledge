@@ -432,3 +432,17 @@ Provider对目标file保留原resource scope，并在确有缺失父目录时保
 2026-11-17 附件实施补充（A，接线前）：实际压力反例显示Canonical Projector复用permission_digest的1MiB序列化上限，使已可读取的合法事实历史在2MiB模型请求闸前提前失败。为事实上下文增加显式有界的同一JS序列化Interface，调用者预算至多8MiB；Canonical Projector的输入检查和展开/fingerprint沿已有8MiB历史边界，深度64、JS排序/数值/escaping算法不变。approval_args_digest、permission_operation_key、control/javascript_json_digest及默认javascript_json_string继续固定1MiB，不能通过新上下文API放宽Grant参数或更换授权摘要。共享资源记录不同预算；以实际TS大事实序列化对照和原授权/escaped大小拒绝断言验证。不修改模型2MiB请求上限、不把过大输入截成成功。
 
 同日B级准入排序：对首次已保存历史做纯图片传输预检，在reserve/activate、ready→started和attempt创建之前拒绝已知无法发送的内容；实际请求前仍重检当前历史。预检不签发Grant、不落执行成功或删除输入，不恢复旧started/unknown。这样新的未开始任务可在用户显式改变模型后以原输入/身份继续；旧候选已经started的失败仍需原recover/新准入，完整resume属P5继续迁移，不能静默清control或重放工具。
+
+### 2026-11-17 NR-04 CLI 实际可达集校正（A，实施前）
+
+原生迁移按ADR129的CLI产品执行栈与方案§6实际argv/registry可达集验收，不把共享runtime-node可导出的所有Desktop能力自动变成CLI新增能力。实际bc734878的createTuiHost在8种既有mode的隔离投影均不含local.image.read/view_image；createNodeProviderBundle未装配LocalImageProvider，tui-project-host仅注入project/interactive Provider；LOCAL_IMAGE_TOOL_DEFINITIONS和真实解码器仅由Desktop装配。CLI中的图片授权适配本身不是工具可达证据。
+
+因此，前节“已保存用户附件”末段将local.image.read Provider/可信视觉侧带作为CLI必迁余项的措辞在此被替代：保持Desktop ADR90及共享协议不变，不能凭迁移授权在默认CLI注册一项过去不可达的工具。原CLI图片路径/用户附件准入、Provider支持的图片发送、恢复和完整附件生命周期仍必须迁移；经已有受支持扩展路径提供的工具仍按该路径迁移，不凭符号导出宣称支持。此前状态记录作为范围判断错误保留，不能改写为已经迁移完成。真实旧CLI投影清单与源码锚点记入native-cli回执。
+
+### 2026-11-17 NR-04 原生批量文件搜索（A，实施前登记）
+
+迁移旧CLI实际投影的batch_search/local.search.aggregate，作为同一文件能力域内的独立Provider Adapter，复用既有有界文件扫描、locale排序/大小写、EffectAdmission和Host权限链，不执行Shell、不新增系统上下文来源或私有状态。1–8个lane；保持原id/label/query/path规范化、重复id拒绝、max_results 1–200、dedupe、lane输入顺序、命中计数/排序、500 aggregate上限及原先“先遇cap即返回、未排序”的截断语义。正常结果和全失败/部分失败事实与真实TS Provider对照，平台错误信息使用已登记稳定原生码，不能把失败lane丢失成全成功。
+
+max_concurrency是1–8的请求上界（默认4），不是保证实际同时启动的数量。原生有界调度至多两个阻塞扫描worker；多lane排队并遵循请求上界。每个worker复用原16384项/4MiB路径、1,000,000字节单文件、256KiB lane结果限制；最多8份lane结果合计2MiB，aggregate最多500条，最终结构化JSON另限4MiB。排队参数仍受原1MiB工具参数/权限摘要闸。该资源策略不降低8-lane契约、不截短query或把预算错误当完整结果，不改ADR130整体RSS/响应性验收门槛；完整P5并行Runtime仍须全局池与内存验收。
+
+整个批次只有一次真实Tool Call/Grant/Evidence。每次实际读取沿原控制端口复核；worker在取消/降权/Host停稳时停止新读取，全部已启动worker结束前不释放批次所有权。普通lane失败保留其它已完成观察及partial；控制取消/授权失效必须明确结算且保留已观察lane事实，不把仍在工作的线程标成停止，不重放已有搜索。结果归档仍走原不可变Tool Result路径，不新建缓存或持久化源。验收需实际TS向量、公开原生模型→批次→结果/Evidence→模型、并行上界、审批拒绝、执行中取消/降权/心跳、预算超额、后续任务及冷读互操作；P4总闸和P5–P7另验。
