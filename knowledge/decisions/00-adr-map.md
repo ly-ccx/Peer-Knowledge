@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在普通生产Host接线前B复核真实Conversation主体、同一ExecutionRegistry/credential epoch与loop/Provider；原Goal身份、access/Grant/Evidence/unknown和存储格式不变。普通Source以默认TS registry的实际section/hash对照，不用worker/测试Source替代；实际入口、旧宿主drain与P4总闸另验。
+
 2026-11-18：ADR131在普通Host实现前A登记原Conversation metadata的runtimeExecution v1与真实Store metadata publication回执：普通conversation身份/owner、pending/用量/停稳/unknown，沿原锁/CAS及Grant/Evidence；保留ADR25每stream汇总和严格历史当前性，无假Goal/私有执行日志，旧已加载宿主drain及完整P4另验。
 
 2026-11-18：ADR131在共享Context请求管线实现前B复核ADR55/56/57/65/76/129：同一计数/压缩/重试与用量事实捕获只依赖Host seam；Goal保留实际授权/预算/lease/MCP当前性，普通Host身份/持久执行仍另接，无新Source/格式/权限边界。

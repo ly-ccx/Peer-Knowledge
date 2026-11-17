@@ -14,6 +14,14 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 普通生产Host接线（B，实施前）
+
+依ADR25/26/49/55/56/57/65/76/92/101/129–132，继续实现已登记的普通conversation/stream主体：进程内ExecutionRegistry与MCP credential epoch只接纳显式、已校验的Goal或Conversation身份，Goal的原key/解析/生命周期不变；不得构造假Goal复用控制、凭据或资源许可。普通主体复用同一受管attempt/handle、取消与真实drain，只有实际结束且已写入canonical停稳/结算后才可逐出进程内记录；重启缺少live token仍为unknown。
+
+普通Host按原CLI的实际access状态和修订、模式/allowlist与当前会话主体签发真实Grant，通过既有ApprovalStore、Provider EffectAdmission、canonical消息及Evidence链执行。Full不绕过身份、当前性、清单或unknown；动态读取scope、command starting/running/ended和MCP未poll前登记沿原Provider契约。普通exec/Ratatui/ACP通过同一Host装配，无另一条文件/Shell执行器、loop或账本。Context迁移须以实际默认TS Source registry的有序section/hash为oracle，包含原core、agent策略、runtime、mode与MCP事实、project.instructions和continuity；不能用测试Source、worker规则或ad hoc系统字符串充当普通Source。尚未迁移的来源须保全并明确阻断，不能静默漏注入。
+
+本次是已接受边界内的B级接线，不新增持久格式、Source类别或许可政策；原runtimeExecution、真实metadata回执和ADR25汇总不变。owner死亡/未知效果仍须完整OS与资源证明，不能以缺少进程内记录、计时或仅PID收口；未证明时保持原阻断。先在隔离根验证真实入口、计数/发送同请求、工具Grant/Evidence、撤权/取消/硬退出及原数据保全，TS生产guard、旧安装版本drain、P4总闸与P5–P7继续分别验收，不因入口存在宣告可默认替换。
+
 ### 2026-11-18 NR-04 普通会话执行事实与已拥有metadata发布回执（A，实施前）
 
 普通exec、Ratatui与ACP必须以实际Conversation/stream为主体复用同一原生loop、cognition和Provider链，不建立假Goal/Work、继承Bot Full或私有执行日志。扩展原Conversation index metadata的可选`runtimeExecution` v1（执行事实，不是权限）：实际`conversationId/streamId`、engine、完整owner Recorder（boot/pid/start/host/acquiredAt）、单调revision、active/stopping/stopped/recovery_required、原调用的pendingTools、已观察的runtime_turn用量/原稳定归因与usageCommitted、真实本地停稳观察。未知版本/身份/状态或损坏保全并阻断执行，不降为无owner；其它metadata未知字段保留。无该字段的旧会话可在真实新准入时建立，不重建历史身份或补造旧工具事实。
