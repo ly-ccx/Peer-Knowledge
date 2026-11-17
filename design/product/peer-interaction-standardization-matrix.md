@@ -1367,6 +1367,10 @@ P06 的 done/aborted/error 只归并原会话表达层，不再用全量消息�
 
 UO-06b（PR #317、#318 及收尾 PR）。任务详情的未知结果保护按宿主 claim 的声明范围指名对象（"涉及文件/涉及目录"），scope 经协议 normalizer 校验后透传，坏形状丢弃不猜测，原始前缀不触达读者。询问卡在宿主核对证据合格时第一层显示核对结论（声明范围内未观察到影响/已观察到实际影响），事实每次列表读取时现算，不冻结进授权摘要；同时提供"今后由主 Bot 核对后直接收口"的一键委托，已委托显示回执行，无合格证据不出现委托入口。设置页工作流组新增"未知结果收口"两档选择（每次询问我／主 Bot 核对后直接收口），保存走独立审计 seam（策略写入记 obligation 日志），失败保留原值并显示错误码。委托与撤回只影响后续收口，已收口不重开；收口只结束占用，任何界面不把结果标成成功。状态覆盖：default、busy（委托/保存提交中，防重入）、error（结构化错误码）、已委托（receipt 行）；无新动效，无焦点转移。核对结论与策略均为宿主只读投影，renderer 不持有权限真值。
 
+## 原生 CLI Git scope 与恢复候选（2026-11-17）
+
+`b308ff75`/tree `e2758723`：目标为从真实Git观察取得可回读事实。根/发现scope来自Host的canonical路径、原参数摘要与当前身份/策略；终端只显示原批准请求并提交本次决定，不制造Grant或执行成功。实际PTY分别批准/拒绝平台system config与自有外置include，6秒等待保持lease；最初Grant保留，补充决定与同一Tool Result/Evidence存档。无审批者/坏参数不spawn；只读任务无写目录claim；starting/身份不匹配继续显示恢复阻断，不改unknown。完整原生583 Rust/619根3459互读/9PTY与固定featureless5项公开函数通过，额外7根35互读；39项Node协调专项与33项存储版本/重建检查通过。产物与大元数据以真实不可变JSON检索，不重新执行Git补历史。见[回执](../../playbook/native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审，非完整P4/普通Ratatui/真实厂商/安装/内存或独立产品验收；不切默认、不操作个人实例。
+
 ## 原生 CLI NR-01 候选（2026-11-14）
 
 2026-11-16 本地原生包 `4cf7a4c8`：T10 增加真实 terminal hangup 退出验证，关闭终端后不继续忙等、不启动任务或模型；窗口已不存在时不声称 termios 可被观测恢复。Crossterm 保持唯一 poll/read owner，改用有界 tty source；已有草稿、Ctrl-C/EOF、授权、焦点和静态表达不变。33解包Runtime、9PTY（含原8项及hangup）、5次额外hangup、264源码Rust与本地产物10项检查见 [打包回执](../../playbook/native-cli/evidence/local-native-package-20261116.json)。实现者自审；当前仍是迁移候选、未安装，不代表完整会话TUI / P4/P5 / 多平台 / 物理IME或读屏验收。

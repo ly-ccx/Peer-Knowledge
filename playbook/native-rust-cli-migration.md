@@ -4,6 +4,20 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 原生 Git 工具、动态读取范围与只读 child 恢复
+
+`b308ff75159f003b442e614112595c0952d8fd7d`已提交并推送，tree `e2758723832bd393f32e7a72e735deb708998bb4`。按ADR49/92/101/106/127/129–131实施；原生child/floor13与固定元数据超额先在ADR131登记，Darwin登记时点修订`a8cc238`也先于对应实现。真实`git_query`现已注册到默认Provider/Projection，沿同一Host授予根与动态scope、固定Git执行、不可变完整JSON/有界预览、Tool Result/Evidence及模型续行。原恢复Probe保持窄预算/编码/范围；不会以Git工具读取许可替代unknown对账。补充scope逐项使用原ApprovalStore/Input等待，保留最初真实Grant与随后批准/拒绝，不跨调用缓存。
+
+只读Worker从canonical Goal/会话解析独立读取锚点，空target可回退，仍无写目录claim。完整owner/child/调用/dispatch/generation保存在原pending/uncertain记录，TS/Rust写前晋级与重建保持floor13，旧<=12存储实现拒绝。Darwin已退出未回收child的getpgid=ESRCH、组探测=EPERM不冒充停稳；启动登记只保全身份，结束仍须实际Child wait/组不存在。恢复仅针对确证同tuple且PID=PGID的自有进程组；starting无child、身份复用/无法证明继续阻断，原unknown/产物不删不重放。真实恢复测试还暴露了可选数组被插入null的问题，已用不创建缺失字段的原位更新修正。
+
+同一最终冻结源码完整原生门禁 **583 Rust（含245公开Episode）/619根3459实际TS↔Rust/9PTY**，exit0、1068.473秒；全仓typecheck/architecture通过。37个实际TS协议形状向量、33项真实canonical往返/后台worker重建/中断/floor门与旧已加载存储读写拒绝，以及39项Node协调/fork/fence专项通过。首轮整闸因测试重复分支触发Clippy失败，修正后完整重跑，未关闭警告或放宽断言。
+
+8项公开Git用例涵盖实际模型→Git→结果/Evidence→模型、两种产物回读、真实系统/外置include逐scope批准与拒绝、6秒等待续租、无TTY/坏输入零spawn、只读无写claim、超大固定身份的双JSON归档、硬退出unknown与后续任务。恢复另用明确标注的持久状态夹具和真实自有sleep/reaper，验证匹配组停止、starting/变更start不被杀；不把它说成实际Git遗留孤儿或真实PID复用。最初scope提示遇平台system config、结构化read_file结果/filters位置等夹具错误和原失败均保留。阻塞授权轮询从确认后计算下一间隔，避免每个JSON小写入重复昂贵校验；同一公开场景由约99秒降为约18秒，控制/授权断言不变。
+
+固定featureless release **21,868,912 bytes**、SHA256 `6fcbcd1493433ea729ce485b9e3aee3f3fcf26529b3479b0aefed6789ea6dd12`，仅CoreFoundation/libiconv/libSystem，故障/短截止测试变量不在产物。清除继承模型/凭据/测试覆盖环境、产品PATH=/nonexistent，5项公开Git函数在该实际二进制通过，额外7根35次TS↔Rust互读通过。详见[Git Provider回执](native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审、合成模型；真实厂商服务、安装版本drain、MSRV1.88/平台发布、实际PID复用/boot重置与长期内存未验收。
+
+前8526的CI44086962694两平台全仓已通过；新[b308 CI44109003980](https://github.com/ly-ccx/Peer-Agent/actions/runs/44109003980)仍在运行，不继承旧绿。**P4总闸与P5–P7保持开放，普通Ratatui仍不可发送。** 下一段优先补齐普通会话共享Runtime及已发布exec/ACP装配，同时继续Context/Skill/Plugin/Hook、只读MCP/角色生产链、其余命令与兼容恢复；不能继续以专用`exec --plan`冒充日常CLI。未安装、改个人数据、重启用户实例、切默认、合并或发布，无Bun/Node引擎sidecar。
+
 
 
 ## 2026-11-17 原生待批准请求的归属、到期与未派发收口

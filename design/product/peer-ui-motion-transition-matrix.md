@@ -1,5 +1,9 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 原生 CLI Git 读取范围与恢复连续性（2026-11-17）
+
+CLI，`b308ff75`/tree `e2758723`。沿原静态终端提示显示具体file-read范围与本次调用；无新动画、焦点抢占、第二stdin读取者或模型文本审批。每个实际外置来源独立批准/拒绝，6秒等待保持续租；终态来自Host/Store，primary Grant不会因后续拒绝被倒改。真实PTY、新增公开Git8项及同一完整583 Rust/619根3459互读/9PTY通过；featureless产物再跑5项公开函数与7根35互读。只读任务读取锚点与写claim分开；硬退出后产物/unknown保全，不能以进程死亡或恢复文字画成成功。见[回执](../../playbook/native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审，完整普通对话/草稿/阅读位置、系统IME/读屏、安装与长期内存仍属P6/发布验收，不以本卡替代。
+
 ## 原生 CLI 权限等待与终态连续性（2026-11-17）
 
 CLI，`8526db01`，tree `aa059e57`。原静态授权提示增加5分钟未决定即暂停的说明，继续唯一stdin读取者及原[y/N]/Ctrl-C交互；pending对象拥有timer与输入future，终态后不保留后台stdin任务。无新动画/焦点切换。到期和取消的终态来自Host与Store，后续工具不能消费迟到回答；实际PTY覆盖批准/拒绝/TERM/到期/迟到输入与后续任务，原6秒延迟批准保持heartbeat的用例通过。Darwin测试保留自有slave以读取进程退出后的真实stderr，不把Child::Output.stderr误作PTY输出。25项Host测试通过，完整原生门禁572 Rust/237公开Episode/603根3374实际互读/9PTY及固定featureless产物复核通过，独立全仓CI待核对；实现者自审，系统IME/读屏/安装与完整P6另验。见[权限回执](../../playbook/native-cli/evidence/p4-native-permission-wait-20261117.json)。
