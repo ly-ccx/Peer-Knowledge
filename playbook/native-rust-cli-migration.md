@@ -6,13 +6,21 @@
 
 
 
+## 2026-11-17 模型侧结果编码与历史观察候选
+
+候选 `189c572c`（tree `95539ea5`）已提交并推送。按 ADR51/57/63/129–131复核并在实现前A登记模型视图/源绑定、受管历史材料化、资源与保真补充；B接既有Projector/live续行、count/send及压缩/CAS。先以原id/name/正文核验authentic续行，再替换模型副本；旧大观察只从已保存正文派生不可变快照，材料化后复核sourceRevision及权限，再计数/发送，不从当前工作区补历史、不重放工具。canonical Tool Result、Grant、Evidence、费用和unknown保持原事实。保留stderr、范围及显式错误；MCP形似file/shell仍保存其它字段。
+
+较早冻结tree `fb60ea7e` 的完整本机原生门禁已通过：510 Rust（含198 Native Episodes）、519根2918次TS↔Rust互读、9PTY。最终复审新增实际反例发现success标签下非空error被引用视图隐藏，保留失败并修正，原标签不被推断成失败。最终tree9553另通过101 Runtime、11 Store integration及1 Store unit、26实际TS向量、all-target clippy/fmt/build；固定featureless release在清空环境且PATH=/nonexistent下通过9模型结果+8快照+4文件公开Host，再经37根192互读。最终release18,959,488 bytes，SHA256 `c1738fe5ebfe537a925502e52c1ab56b3ca45ba7ddbf9560522227dff05a9814`；仅CoreFoundation/libiconv/libSystem。**不把fb60整闸记为最终修正树的整闸**。
+
+公开d636三项失败、显式错误反例、fixture/编译/lint失败保留；覆盖取消、并发历史变化、超额保全及后续任务、真实Anthropic count/send与thinking签名、378k已保存观察压缩。见[模型结果回执](native-cli/evidence/p4-native-model-result-encoding-20261117.json)。d636的CI44011702681两平台全仓success已核实；[新CI44021853800](https://github.com/ly-ccx/Peer-Agent/actions/runs/44021853800)独立运行中，merge dd187620的tree与最终源码一致，parents也已核对。P4总闸、大历史/其它Context策略、生命周期/混合版本、其余工具/协议/命令与真实服务、P5–P7仍开放；普通Ratatui发送与长期内存未验收。无个人数据迁移、安装、用户实例重启、默认切换、合并或发布；无Bun/Node引擎sidecar。
+
 ## 2026-11-17 不可变工具结果快照与大文件候选
 
 最终scoped候选 `d636aef0`（tree `f849b6ed`）已提交并推送。按ADR51/57/63/86/98/129–131复核，ADR131/map在实现前A登记Conversation Store不可变快照、无覆盖发布/保留配额及会话绑定的`local.tool-result.read`。B接原Host/Read Grant/Evidence与Provider声明的输出分类，Host不按capabilityId判格式，也不把MCP文件状payload丢成文件正文。原停稳/unknown边界不变；read2,000,000 bytes、write/edit128KiB、参数1MiB，帧/响应/请求/权限复合预算不放宽。
 
 完整原生门禁在tree `688afd24` 为493 Rust/190 Episode/510根2870互读/9PTY通过，固定featureless产物另12文件/快照Host测试在清空环境且PATH=/nonexistent下通过。随后复审实际反例证实全文校验后再采版本会放过同inode等长篡改，修正为携带真正哈希版本；输出格式改由Provider Interface选择。最终树通过16 Store/94 Runtime及all-target clippy、构建；固定featureless产物18,907,216 bytes（SHA256 `07fcf8684f6c7ab9f653aa4597c616424699f512758fc8fba5e0e07f192e422a`）在清空环境PATH=/nonexistent下通过12公开Host，再经27根139互读和4实际TS对照；**不把688的完整整闸冒充最终树整闸**。公开旧e629的大读file_too_large、90KiB写model_tool_limit、取消status反例、旧转义预算用例迁移及中止门禁均保留。原转义60k输入仍有正向归档/编辑/原快照验证，失败范围/read_required、拒绝和v2超限快照检查不弱化。见[快照候选回执](native-cli/evidence/p4-native-tool-artifacts-20261117.json)。
 
-e629的CI43999794341首轮Linux成功、macOS仅Electron更新器瞬时完成观察失败，原日志/逐帧报告保留；本机未改UI专项成功，不能解释远端根因。仅失败mac重试后两平台全仓success已核实（mac133778868310、Linux133778871031），不称原失败已修复/flake。新[CI44011702681](https://github.com/ly-ccx/Peer-Agent/actions/runs/44011702681)进行中，merge8c724681 tree与d636源码一致，尚未全仓绿。归档失败仍留dispatch unknown，原目录受保护、独立目录可准入，不伪称自动关闭未知。旧超限历史、模型副本其余编码、生命周期/混合版本、其余P4与P5–P7、普通Ratatui发送和长期内存均未验收；无个人数据/安装/运行实例重启/入口切换/合并/发布。
+e629的CI43999794341首轮Linux成功、macOS仅Electron更新器瞬时完成观察失败，原日志/逐帧报告保留；本机未改UI专项成功，不能解释远端根因。仅失败mac重试后两平台全仓success已核实（mac133778868310、Linux133778871031），不称原失败已修复/flake。[CI44011702681](https://github.com/ly-ccx/Peer-Agent/actions/runs/44011702681)已终态，merge8c724681 tree与d636源码一致；两平台全仓success已核实，含Native/build/type/architecture/Test/Electron smoke。归档失败仍留dispatch unknown，原目录受保护、独立目录可准入，不伪称自动关闭未知。旧超限历史、模型副本其余编码、生命周期/混合版本、其余P4与P5–P7、普通Ratatui发送和长期内存均未验收；无个人数据/安装/运行实例重启/入口切换/合并/发布。
 
 ## 2026-11-17 原生文件列举、搜索、编辑与受管I/O
 

@@ -375,17 +375,17 @@
   "candidateCi": {
     "run": 44011702681,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44011702681",
-    "status": "in_progress",
+    "status": "success",
     "jobs": [
       [
         133799995750,
         "ci-macos-14",
-        "in_progress"
+        "success"
       ],
       [
         133799995956,
         "ci-ubuntu-latest",
-        "in_progress"
+        "success"
       ]
     ],
     "merge": {
@@ -396,6 +396,26 @@
       "sha": "8c724681483dd413e633c48616d83d3462394889",
       "tree": "f849b6edb020fb2330cb2db3c566faac202f3fa2"
     },
-    "scope": "Independent full CI on final d636aef0; no earlier full gate is claimed for this final tree."
+    "scope": "Independent whole CI on final d636aef0, both platforms success including Native/build/type/architecture/Test/Electron smoke. Earlier local 688 gate remains separately bound.",
+    "initialObservation": {
+      "status": "in_progress",
+      "jobs": [
+        [
+          133799995750,
+          "ci-macos-14",
+          "in_progress"
+        ],
+        [
+          133799995956,
+          "ci-ubuntu-latest",
+          "in_progress"
+        ]
+      ]
+    },
+    "terminalJobs": {
+      "path": "/tmp/peer-native-result-encoding-20261117/base-ci-terminal.json",
+      "bytes": 9804,
+      "sha256": "5c9f2bff12c079b6ba2d47a6549de86e266701921458b93c653acbb95c5b9336"
+    }
   }
 }

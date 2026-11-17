@@ -384,3 +384,23 @@ Provider model-facing结果编码沿现有encoder seam：file/shell/ref保持现
 Host外置任务由原owned等待与取消/heartbeat包裹，受管阻塞任务结束后才释放所有权；归档失败时保留原dispatch预算pending，不能提交虚假成功。回读的较大窗口亦可按原同一快照外置规则保存，原引用/offset元数据保存在不可变JSON中。此新能力仅为已保存结果检索，不表示完整Context、大历史分页或原文件工具极端输入平价已经完成。
 
 2026-11-17 实施复核（B，既有边界不变）：回读窗口必须携带并复核全文哈希实际使用的文件版本，不能在哈希后重取版本而把中途篡改当作有效快照。归档类型由可信Provider的PreparedEffect Interface声明（缺省结构化JSON、真实File Read声明文件正文），Host不增加capabilityId分支，也不从MCP payload的文件状字段推断并丢失其它原始事实。反例、修正和各源码验证范围分别绑定，见实施账本；本补充不是P4总闸或发布验收。
+
+### 2026-11-17 NR-04 模型侧结果编码与历史观察材料化（A，实施前登记）
+
+沿ADR57/63/129–130迁移现TS tool-result-encoder seam，显式区分canonical Tool Result和只供模型请求使用的结果视图。Canonical Projector、ToolCall/Grant/Evidence、原正文与既有unknown不由视图改写；generic只选已知status/output/error及受治理Evidence引用，file/shell/local_*_ref按已登记结构编码。Evidence引用只收集真实Tool Result已知字段，不扫描output或URI文本创造事实。未知/纯文本旧观察保留为只读事实，不解释成新工具执行。模型视图不是第二份持久历史或System Context来源。
+
+原始消息身份先进入既有LiveHistory精确匹配，随后才对模型副本的tool content应用编码。编码覆盖以tool id/name/原正文绑定，变化或丢配对明确失败；不能用预览参与原始续行身份校验，也不能在不匹配时注入旧签名/thinking。Provider encoder最终冻结一次wire正文，count与每次实际send沿同一冻结字节；Qoder只沿既有身份重试。普通NativeModel准备为纯编码；需要材料化却未提供受管Store时明确返回materialization_required，不隐式读取用户home或落入JS缓存。
+
+Host在其已有可读历史范围内，从原已保存观察派生不可变内容快照。仅模型副本引用该快照，原canonical正文保持；这不是重新读取工作区、重放原工具、补写旧费用/许可或宣称旧任务成功。复用ToolArtifactStore的完整校验、配额、无覆盖发布、取消与部分残留规则；owned阻塞任务结束前不释放所有权，期间继续heartbeat/取消。材料化后、任何计数/发送前重新核对权限/Goal/MCP与实际历史sourceRevision；变化则阻断。缺失/损坏/超额/未来历史不猜写修复。8MiB之外的旧历史分页/恢复仍另验，不用本条缩小完整迁移范围。
+
+编码源与视图合计限16MiB，单个模型结果视图限64KiB，原结果JSON读取沿既有1MiB/深度/节点预算；压力为明确encoding_limit/materialization_required而非丢字段或截断成功。新工具结果仍先按前条6000 UTF-16规则保存，旧可读大观察和任何会丢正文的shell预览先材料化。完整正文按原已保存payload保留；没有原完整内容的provider-truncated观察只记录当时片段与truncated事实，不从当前文件补齐。
+
+局部收紧现TS视图：仅真实文件工具的文件观察采用file视图，MCP文件状payload保持结构化JSON及额外字段；shell保留独立stderr预览/长度，实际失败/取消/拒绝/unknown通过resultStatus/resultError明确携带，不能因现TS缺省completed或既有local ref而藏掉外层错误。预览计数用UTF-16单位但不拆完整Unicode字符。上述是原生字段/保真补充，实际TS基线与原生差异逐项登记在共享资源，不称字节全平价。受治理Evidence字段仍不由模型或payload升级。
+
+压缩的事实输入采用同一受管结果视图，保留快照回读路线和原canonical/marker选择、CAS、计费、取消与known/unknown边界；摘要文本仍是连续性上下文，不能代替Tool Result/Evidence或创建授权。整体验证包括实际TS编码向量、真实公开Host小文件/shell/generic/ref、旧正文材料化与当前工作区变化、活跃续行签名、同请求count/send、摘要重建、拒绝/损坏/取消/历史变化和后续任务。真实模型、完整大历史/其它Context策略、快照生命周期与P4总闸继续另验。
+
+2026-11-17 模型视图实施复核（B）：已保存文件范围观察的start_line/end_line/total_lines继续随模型副本保留，明确这是完整所选范围而不是整文件；不改变查询、原内容哈希、原字节计量、Grant或Evidence。现TS缺少该说明的视图作为基线保留，以显式原生保真差异验证。
+
+2026-11-17 形态判别补充（A，接入前）：同一保真约束也适用于shell形态MCP payload。只有真实shell工具的观察使用shell预览；其它Provider返回的stdout/command字段仍是其结构化数据，不因形似shell而丢失其它字段或暗示执行了本地shell。实际capability事实优先于历史别名，权限/Evidence链不由此推断。
+
+2026-11-17 显式错误保真复核（B）：若历史外层status为success/completed但仍含非空error，专用模型引用视图也保留原resultStatus与resultError；不得按状态标签删除已知错误，也不得把原成功标签改成推断失败。该反例属于既有外层错误保真要求，不改变canonical/权限/Evidence或执行状态。

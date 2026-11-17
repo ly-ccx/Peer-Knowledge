@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131在实现前登记模型侧结果编码、按原消息身份绑定的视图覆盖、历史观察受管材料化与sourceRevision复核；失败/stderr/Unicode保真、同字节count/send及压缩事实视图。原canonical/授权/Evidence/unknown不由视图改写，旧大历史与P4总闸另验。
+
 2026-11-17：ADR131在接线前补充local.tool-result.read原生快照回读能力，经原Provider/Projection/Read Grant/Evidence，严格绑定实际会话并校验全文摘要；无任意路径、跨会话、缓存回填或执行重放。
 
 2026-11-17：ADR131在实现前登记Conversation Store不可变工具快照、内容引用/流式校验、无覆盖发布和保留配额；大文件与模型结果副本、参数预算按v2资源迁移。原授权/Evidence/unknown政策不变；不以缓存逐出删除历史，不以当前工作区补旧事实，完整P4另验。
