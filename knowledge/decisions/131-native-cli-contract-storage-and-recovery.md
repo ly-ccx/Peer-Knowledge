@@ -470,3 +470,17 @@ max_concurrency是1–8的请求上界（默认4），不是保证实际同时�
 2026-11-17 静态抓取实施复核（B，既有Tool Result/Evidence状态边界不变）：公开Host反例发现新Adapter把超时写成timeout状态，现有Tool Result与Evidence登记只接受success/failed/denied/cancelled，导致原结果已经保存但登记失败并保守留下unknown。修正仅在Web Adapter将超时编码为failed并保留error.code=timeout；不扩大共享协议状态、不修改已产生unknown或抹除失败记录。授权撤回则保存原Grant与failed/permission_policy_changed，关闭实际连接；允许模型观察失败不等于重新批准后续网络。公开测试分别验证SIGTERM取消退出、超时失败续行和撤权后零新增抓取。
 
 网页元数据采用序列化时256KiB输出闸，禁止先构造无限编码副本；新增路径预算在发布前计入。写后全文复核以预期长度限制实际读取，命名身份复核使用NONBLOCK/NOFOLLOW，不可因外部追加或替换为FIFO无限读取/阻塞；已有文件保全。上述均是原有有界发布契约的实现约束，不放宽配额、权限或unknown恢复。真实网络、工作集与发布总验收以对应候选回执为准。
+
+### 2026-11-17 NR-04 原生结构化 Git 读取与动态读取范围（A，实施前登记）
+
+沿ADR49/92/101/106/127/129–130迁移旧CLI已投影的git_query/local.git.query，不把仅用于unknown对账的GitStatusProbe当完整工具。原snapshot/status/log、默认limit40与1–200、真实仓库/git/common/config来源、HEAD/branch/commit、顶层状态与漂移、unborn/detached、filtersDisabled/submoduleCount/submodulesInspected/clean=null等语义按实际TS GitRead/Provider冻结。不得以工作区硬沙箱取消跨仓/外置gitdir与worktree；不得以Git工具变相开放Shell或写操作。恢复专用Probe继续保持原10s/256KiB及原范围/编码/收口约束，不能从新工具的较宽读取许可继承对账成功。
+
+固定系统Git executable和编译期argv序列，无模型提交binary、flags、revision、config、环境或Shell。完整查询累计15秒实际Git执行预算、stdout/stderr累计8MiB；禁用pager/hooks/fsmonitor/optional locks/维护/外部clean-smudge-process filter/replace/lazy fetch/网络协议，不递归submodule，不修改index或仓库。复用原生owned-child生命周期：执行前及等待期间复核当前授权/取消；超时/超额/撤权关闭实际管道并终止、等待自有进程组，无法证明停稳不得伪报ended。共享底层命令执行实现时，原Probe的预算、错误和scope不被放宽；真正的Git发现/解析与授权分别归Module，不在中心Host按git capabilityId拼命令。
+
+对原根授权语义作显式适配：真实已准入workspace/read root内读取可沿该次Read Tool Call形成宿主Grant；Full对角色允许的外部读取仍走当前Bot自动批准，不能额外硬拒路径。Ask/session对原未准入目标及后续发现的repository/git/common/config外置来源必须取得实际宿主批准，不能将一次原路径批准扩大到新外置路径。具体可达行为以真实TS Provider/CLI授权对照为准；不从模型声明readOnly或路径文本推断许可。动态scope通过同一有界EffectAdmission控制通道请求，只能由Host核对原call/capability/args摘要、workspace/parent/session/plan/执行代、当前policy/lease/角色及canonical路径后签发；Provider不能回传自造Grant。
+
+需要人工批准的范围继续用现有ApprovalStore和PermissionInput，不开第二批准库或私有执行路线。批准参数绑定原操作摘要与具体读取路径/文件或目录语义；本次调用内只能复用已准入根和已批准的具体范围，不能跨调用/session自动复用。批准与拒绝事实随同一canonical Tool Result保存，保留原已签发Grant，新增scope的拒绝/撤回不能倒改过去批准。Evidence只引用真实Host决定；Grant不是执行成功，读到Git状态不等于Goal核验/签收。原生权限等待按ADR92既有5分钟截止、取消、过期与迟到决定收口补齐，实际等待/心跳和执行计时分别管理，不把审批耗时误算成Git执行超时。
+
+有界观察：最多16384条状态记录、4MiB状态路径文本、128个config来源/128个filter key（每key512bytes），单路径沿原8192bytes身份预算；超额明确失败，不丢条目后报告clean。UTF8无效字节按实际Node替换语义；路径/HEAD字段必须保持事实身份，不靠trim改变合法文件名。origin/subject沿原秘密规则，最多4000UTF16的原字段预览使用安全scalar边界并明确截断事实；最终完整观察JSON限8MiB，不能先无界扩容。进程内一次Git工作集，完整JSON经既有不可变ToolArtifactStore保存；预览沿原4000单位/limit/3个origin与400字符片段约束并明确contextPreviewTruncated。artifactPath指向实际保存的JSON，保留read_file检索并提供原生read_tool_result的会话/hash绑定入口；不重执行Git补历史、不覆盖或逐出旧产物。首次可能持久效果后发布/回执失败仍保留unknown与已知引用，不能删除来制造恢复。
+
+验收先实际TS真实临时仓库的clean/staged/unstaged/untracked/rename/特殊路径、log/detached/unborn/worktree/external gitdir/include config/filter/submodule/凭据origin与subject、输入/权限/执行失败向量。原生必须公开模型→投影→根/动态scope批准→固定Git→完整归档/预览→Evidence→模型/回读；真实PTY逐项批准/拒绝、无审批者、迟到/过期、执行中降权/取消/heartbeat/限额/进程组结束、无index/过滤器副作用、发布/硬退出unknown与后续独立任务都要覆盖。Module或GitProbe单测不能冒充Host闭环，合成Git服务不代替真实模型/平台/安装或P4总闸/P5–P7。

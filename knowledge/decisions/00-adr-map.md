@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131在原生git_query实现前登记既有ADR106固定Git观察、共享owned child与原Probe窄边界、有界完整产物及动态读取scope的同Host批准/事实保真；不新增Shell/跨调用许可或unknown自动收口。
+
 2026-11-17：ADR131在实现前登记旧CLI静态web_fetch原生迁移：逐跳授权/Network、压缩隔离与有界正文、真实截断/脱敏事实、legacy网页产物兼容和不可变回读、FD发布/配额/partial unknown；不接受Proposed ADR38或新增Browser能力。
 
 2026-11-17：ADR131批量搜索B复核保留真实Grant与失败结果分离；undeclared硬退出继续保守保护原命名空间，同范围后续任务仍阻断、独立目录另验，不放宽unknown恢复。
