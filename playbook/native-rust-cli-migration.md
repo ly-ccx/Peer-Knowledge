@@ -1,8 +1,18 @@
 # 原生 CLI 迁移实施账本
 
 创建时间：2026-11-14
-最后更新：2026-11-17
+最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
+
+## 2026-11-18 共享原生回合循环与旧JSONL实际兼容证明
+
+`9e64c928173293eba48a77ebdb378d891623b81d`已推送，tree `de0a6aa736c5f758119c455184b49e82f32d2093`。源前B复核：共享loop `df6eef9`、旧JSONL证明 `773bdd3`；沿ADR26/65/76/118/129/131，授权、Evidence、存储及验收边界不动。一个原生turn loop拥有请求→已观察正文提交→真实Host逐工具结算→authentic continuation绑定；Goal adapter继续原current policy/source/binding、Context/count/compaction、Provider/Projection、Grant/EffectAdmission、资源、Evidence、预算/materialization及外层停稳/计费。循环不签发Grant或判业务成功，只持当前turn/id；None不添隐式64回合上限，Goal既有显式上限不变，取消/未知/提交失败不重试。
+
+同一冻结树完整本机原生门禁通过：**605 Rust（含247公开Host）、627根3521实际TS↔Rust、9PTY**；另有Node/Bun各13根33项终态Store oracle。7项循环单元函数只证明顺序、上限、取消和失败路径；真实授权/效果/停稳由公开Host覆盖。all-target Runtime/CLI Clippy、fmt、全仓typecheck/architecture和边界通过。固定featureless release21,475,264 bytes、SHA256 `543893c9a35783933848b0f1443a1907ba6e83fb70efed5c563302f26d83a870`，仅CoreFoundation/libiconv/libSystem，fixture开关不在产物；产品PATH=/nonexistent下8项实际模型/文件/Shell/Git/Web/MCP闭环通过，再由当前TS核对13根76次持久事实。
+
+fcfee两平台CI的同一旧JSONL digest失败及重试保留；本机10过/1失败复现。原f943 digest保留在逐字冻结的8b3旧primitives，实际旧reader/writer重写同一隔离Conversation，再由当前Store更新/重开；附件全文、冻结条件、队列游标与重复inputId原断言保留，新durable块另审阅和hash检查。Interactive Results目录159项通过。顺序primitive互读不等于完整旧安装宿主drain；借用/Clippy失败也保留，不称flake或弱化门禁。详见[共享循环回执](native-cli/evidence/p4-native-shared-turn-loop-20261118.json)及[旧CI事实](native-cli/evidence/ci-fcfee-20261118.json)。新[9e64 CI44145578848](https://github.com/ly-ccx/Peer-Agent/actions/runs/44145578848)独立排队/运行，不记全仓绿。
+
+**仍在P4，普通CLI发送未接通。** 下一卡是普通会话真实主体、当前access/模式/allowlist、持久pending/unknown与实际停稳；沿同一Provider/共享loop装配普通exec、交互和ACP。实际源审计确认Context RequestFrame/BillingScope及资源HostResourcePlan仍绑定Goal/Work，必须按普通主体解耦，不能创建假Goal套用。其余Context/Skill/Plugin/Hook、兼容drain与P4总闸、P5–P7、真实服务/长期内存/安装默认及发布验收继续开放。实现者自审、合成服务；未安装、改个人数据、重启用户实例、切默认、合并/tag/发布，无Bun/Node引擎sidecar。
 
 ## 2026-11-18 普通会话的原生流式与终态 Store 候选
 
@@ -10,7 +20,7 @@
 
 冻结最终source scoped通过：98项Store Rust、148项conversation-store Node、Node和Bun各13根33项实际互读（合计26根66项）、5项Native终态测试函数、all-target Store clippy/fmt、root typecheck/architecture及native boundaries。实际Rust子进程在body/index后exit86，孤锁仍阻断；确认隔离根所有writer已退出并保全诊断副本后，显式离线维护空锁、完成原Store提交，再接新消息。没有自动删锁或借Store补造Tool Result。原a942归档生产TS上的3项真实反例、依赖/夹具参数/错误码及Clippy失败保留。见[终态Store回执](native-cli/evidence/p4-native-terminal-store-20261118.json)。原8MiB/4096行raw writer预算未扩大；大历史和安装版本drain仍待验收。
 
-前候选[a942 CI44126220185](https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185)两平台全仓success已核实，包括各自Native/build/type/architecture/Test/Electron smoke。merge `9dceb390`/tree `caf75dc4`、base与candidate parents已绑定；不验证后续Store改动。新[fcfee CI44137462307](https://github.com/ly-ccx/Peer-Agent/actions/runs/44137462307)独立排队/运行，不继承旧绿。
+前候选[a942 CI44126220185](https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185)两平台全仓success已核实，包括各自Native/build/type/architecture/Test/Electron smoke。merge `9dceb390`/tree `caf75dc4`、base与candidate parents已绑定；不验证后续Store改动。新[fcfee CI44137462307](https://github.com/ly-ccx/Peer-Agent/actions/runs/44137462307)现已两平台终态failure：各自Native/build/type/architecture通过，Test及其单文件重试均在Interactive Results反馈测试的旧JSONL源块digest失败；本机同源10过/1失败保留。详见[完整CI事实](native-cli/evidence/ci-fcfee-20261118.json)。不能记为全仓绿；后续修正独立验收。
 
 **仍在P4，普通CLI发送尚未接通。** 下一卡直接推进共享回合循环与普通会话真实Host：独立会话主体、当前access/模式/allowlist、持久待执行调用及实际停稳/unknown、相同Provider/Grant/Evidence和Context/usage链；不能创建虚假Goal或继承Bot Full。Store接口不算普通Runtime、headless或ACP已完成。P4余项及P5–P7、完整Ratatui/长期内存/真实服务/安装验收继续开放。实现者自审，未安装、改个人数据、重启用户实例、切默认、合并/tag/发布；无Bun/Node引擎sidecar。
 
