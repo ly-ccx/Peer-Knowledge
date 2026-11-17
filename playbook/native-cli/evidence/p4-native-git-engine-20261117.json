@@ -128,9 +128,17 @@
   },
   "candidateWholeCi": {
     "run": 44081181327,
-    "observedStatus": "in_progress",
-    "conclusion": null,
-    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327"
+    "observedStatus": "completed",
+    "conclusion": "failure",
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327",
+    "jobs": {
+      "linux": 134031882537,
+      "macos": 134031882848
+    },
+    "failures": {
+      "linux": "Rust1.100 -D warnings rejects deprecated AtomicUsize::fetch_update; Native step failed.",
+      "macos": "Actual TS Git oracle compares UTC raw %cI suffix +00:00 against frozen Z; Native step failed before clippy."
+    }
   },
   "remaining": [
     "Host primary approval unavailability/expiry provenance and live 5min wait; typed supplemental read scopes and real Git tool Provider loop",
@@ -141,5 +149,31 @@
     "Implementer self-review, not independent acceptance",
     "Synthetic Git/files/model HTTP only; no live service, actual MSRV1.88 campaign, installed/mixed-version drain or release acceptance",
     "No personal data/credentials, installation, user process restart, default switch, merge/tag/release"
-  ]
+  ],
+  "portabilityFollowup": {
+    "commit": "8830f5535e7179ed16b6d15f1d7780edb538eaa9",
+    "tree": "fa12170e5881b63b57909ec881df6e85742db744",
+    "pushed": true,
+    "fix": "Same combined byte budget uses checked compare_exchange_weak instead of deprecated fetch_update or newer try_update; no allow(deprecated) or MSRV raise. Synthetic author/committer timestamps use fixed +05:30 so real TS/raw native %cI outputs remain exactly compared without version-dependent UTC spelling or production normalization.",
+    "checks": {
+      "actualTsVectors": 17,
+      "invalid": 11,
+      "executionFailures": 3,
+      "rustModuleTests": 4,
+      "allTargetClippy": "passed on local1.98.1; not proof of new compiler or MSRV1.88"
+    },
+    "logs": {
+      "ci-linux-failed.log": "d86507cc3b51f56e022969055d65996cac473f87c486c6d7d7e47efda526c445",
+      "ci-macos-failed.log": "bf3f21d6ae1bdd575ab42feaa799b123819c98cdc2c77d1ffafcacea6c116e3e",
+      "oracle-portable-check.log": "24c60d1a5354b176b9e18a61ebbf1d363c7a86430ff897ea0c68b48bf7f44ddd",
+      "cas-portable-unit.log": "31d1f7f1ff78c27e65d2ed5865007aca45560945b72401d294c0c7cb53a59a45",
+      "cas-clippy.log": "caa6bcd9ded1d98a8a79a41c5cb3007acb69cca3d70a0a8fea87d764efd620ab"
+    },
+    "ci": {
+      "run": 44083336584,
+      "observedStatus": "in_progress",
+      "conclusion": null
+    },
+    "limits": "Old frozen whole-gate/release above belongs to53d1 product. This CAS production change has focused checks; updated complete native gate/release will run with the Host permission candidate. Neither prior green nor pending CI is promoted to final acceptance."
+  }
 }
