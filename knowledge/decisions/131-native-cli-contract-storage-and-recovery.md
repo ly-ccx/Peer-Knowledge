@@ -14,6 +14,8 @@
 
 ## 1. 问题
 
+2026-11-18 NR-04 共享认知请求管线（B，实施前）：依ADR55/56/57/65/76/129，从Goal绑定的ContextPipeline提取同一原生计数、结果视图、容量持久化、压缩/重建和物理请求重试实现。公共Runtime内核只依赖显式Host seam：当前性/请求预算准入、注册Source组装、受管等待与已观察用量归属；不接收Goal/Work/Grant/ResourcePlan。Goal Adapter保留原lease/执行修订/Bot policy/MCP revision与credential epoch、budget请求计数和canonical用量快照/终态结算，ModelObservation仍在实际响应后、所有权/取消拒绝之前捕获。计数与发送复用同一prepared bytes，summary与每次重试分别计费，结果视图不得重跑工具；原source CAS、单次overflow恢复与8MiB/256KiB等预算不动。不新增Context Source或系统字符串，不启用普通会话或新持久执行格式；普通Host须提供自己的真实主体与pending/unknown，不能构造假Goal。本卡完整实际Goal Host回归与非Goal Host seam验证分别记录，P4总闸及日常CLI仍开放。
+
 2026-11-18 NR-04 终态Store后的旧JSONL兼容证明修正（B，测试实现前）：fcfee全仓Linux Test及本机相同文件均在Interactive Results反馈测试的readJsonl→readJson源块digest失败；该块还包含writeJsonl，新增durable flush/目录同步改变源码而非消息序列化。保留原失败与8b3ffbcf冻结digest，不只替换expected。将该原版完整JSONL primitives逐字冻结为测试fixture，实际用旧reader/writer在隔离会话上重写已知附件，再由当前Store读取/更新/重开，验证全文、冻结版本、游标及重复inputId；同时保留其它原writer块检查并审查新durable块。此证明只覆盖这些旧primitives及已冻结的原队列，不冒充完整旧安装宿主并发/drain。依ADR118 §IUI-T29与本ADR既有共享数据契约，不改生产格式、授权、Evidence或兼容边界；普通Runtime/P4总闸仍开放。
 
 2026-11-18 NR-04 共享回合循环（B，实施前）：依 ADR26/65/76/129，从现有Goal episode提取同一个原生turn loop；Host接口承接模型请求、已观察助手内容提交、单个真实工具调用及本轮continuation绑定。循环只拥有请求/内容/顺序调用/续行的次序、显式回合限制和取消传播，不签发Grant、不写Store、不判Goal验收。Goal adapter继续使用原Context/count/compaction、canonical预算、权限/资源/Recorder/Evidence和停稳/计费finally路径，不构造新Goal或另一套工具执行器。普通入口未传max-turns时无隐式有限上限；已有Goal候选显式限制与max_turns退出码保留。取消后不接受迟到请求结果或启动下个工具；失败不自动重试/重放。循环只持有当前model turn和本轮已提交工具id，不能累计整个会话。新普通会话主体/持久执行/ACP仍须单独接线；本步不算普通CLI发送或P4总闸完成。
