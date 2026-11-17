@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在普通Host实现前A登记原Conversation metadata的runtimeExecution v1与真实Store metadata publication回执：普通conversation身份/owner、pending/用量/停稳/unknown，沿原锁/CAS及Grant/Evidence；保留ADR25每stream汇总和严格历史当前性，无假Goal/私有执行日志，旧已加载宿主drain及完整P4另验。
+
 2026-11-18：ADR131在共享Context请求管线实现前B复核ADR55/56/57/65/76/129：同一计数/压缩/重试与用量事实捕获只依赖Host seam；Goal保留实际授权/预算/lease/MCP当前性，普通Host身份/持久执行仍另接，无新Source/格式/权限边界。
 
 2026-11-18：ADR131在CI兼容证明修正前B登记：保留原失败和8b3ffbcf旧JSONL digest，以实际冻结旧writer↔当前Store重写取代仅靠当前源码未变的推断；原ADR118附件/游标/幂等边界不变，不宣称完整旧宿主drain。

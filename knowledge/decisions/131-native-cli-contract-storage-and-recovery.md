@@ -14,6 +14,23 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 普通会话执行事实与已拥有metadata发布回执（A，实施前）
+
+普通exec、Ratatui与ACP必须以实际Conversation/stream为主体复用同一原生loop、cognition和Provider链，不建立假Goal/Work、继承Bot Full或私有执行日志。扩展原Conversation index metadata的可选`runtimeExecution` v1（执行事实，不是权限）：实际`conversationId/streamId`、engine、完整owner Recorder（boot/pid/start/host/acquiredAt）、单调revision、active/stopping/stopped/recovery_required、原调用的pendingTools、已观察的runtime_turn用量/原稳定归因与usageCommitted、真实本地停稳观察。未知版本/身份/状态或损坏保全并阻断执行，不降为无owner；其它metadata未知字段保留。无该字段的旧会话可在真实新准入时建立，不重建历史身份或补造旧工具事实。
+
+调用意图只存Host派发身份/真实capability/args digest/声明scope与可选受管handle/process；原完整args、Tool Result、PermissionGrant与Evidence仍在原canonical消息/索引，不从metadata生成成功或允许。prepared意图须持久化于效果之前；进入dispatching并确认真实Store提交后才允许poll/start Provider。崩溃后dispatching/未知保持unknown，不重放；prepared的未派发观察也须完整owner/版本与真实生命周期证明，不能只看时间或PID。普通受管进程复用原starting/running/ended/完整Recorder语义，但execution为显式conversation identity；既有Goal的SessionExecutionIdentity解析仍严格，不把普通身份混入Work预算或Goal claim。所有控制回复仍由实际普通Host校验当前owner/模式/参数/访问修订和原Grant，MCP凭据连续性不是授权。
+
+同一会话只允许一个实际执行owner。新准入在原index→body目录锁内以实际source/contentRevision和原execution revision CAS；active、stopping、未知效果/句柄或未结用量不准覆盖。owner仍活着时不抢占；重新启动先读原记录，只有完整OS观察与实际owned资源结束证明才完成本地停稳，不以owner死亡推断文件/网络/MCP效果。unknown及原Grant/Evidence/产物保留，重复恢复不执行旧工具。停止metadata只投影Host真实停稳回执，不能由assistant文字或界面动作构造。source当前性失败时停止新派发，结算已观察事实；真实已退出的独立新会话不得受旧取消域污染。
+
+ADR25的每stream一份runtime_turn累计/原ledger id不变：每个实际模型响应（含summary、重试和迟到用量）先更新相同run的canonical已知用量快照，终态/恢复经既有serialized usage Store提交/去重，再以实际Store回执CAS确认usageCommitted。记录失败不能补零、拆成伪物理请求turn或清旧unknown；无已观察用量不生成虚假费用。账本不用于Context restore。
+
+该metadata写入会改变index source，新增Store签发、非Deserialize/不可由JSON制造的`ConversationMetadataPublication`：绑定原/新实际source、conversation/contentRevision及锁内已核对不变的正文/sidecar和上下文相关metadata。共享cognition只能在真实已拥有的纯execution metadata发布回执连续匹配原请求source时前移期待revision，随后仍与实际冷读source对照；任何正文、模式/模型、外来写入或不连续回执继续冲突。Host更新已知用量可在历史已变化时保全原stream事实，但不能给旧请求签发跨该变化的回执或继续认知。不得把source相等比较整体删除/改成仅revision。
+
+当前TS/Native普通宿主须参与同一owner/互斥与guard；原Bot/Work仍走其既有lease/Goal，不新增第二套项目控制。旧已加载/已安装实现不会因未知字段自动安全：生产共享写入及默认切换必须先完成实际旧宿主drain/升级兼容闸，未证明者不宣告受保护；本卡只在隔离根和当前双端源码验证，不操作在用实例/个人任务。旧版本未知控制记录的诊断读取与保全不等于可执行兼容。
+
+验收必须包括真实TS↔Rust读写/同会话跨进程竞争、外来内容/metadata CAS、未知schema/损坏保全、先存意图再真实Provider效果/Grant/Evidence、拒绝/撤权/取消/超时与实际资源结束、dispatch/结果/费用窗口硬退出、原unknown保全/不重放/已有状态恢复和后续独立新任务。生产普通exec与Ratatui/ACP入口、完整Context/协议/工具、旧宿主drain与P4总闸、P5–P7仍须分别接通验收；Store或类型测试不算日常CLI完成。
+
+
 2026-11-18 NR-04 共享认知请求管线（B，实施前）：依ADR55/56/57/65/76/129，从Goal绑定的ContextPipeline提取同一原生计数、结果视图、容量持久化、压缩/重建和物理请求重试实现。公共Runtime内核只依赖显式Host seam：当前性/请求预算准入、注册Source组装、受管等待与已观察用量归属；不接收Goal/Work/Grant/ResourcePlan。Goal Adapter保留原lease/执行修订/Bot policy/MCP revision与credential epoch、budget请求计数和canonical用量快照/终态结算，ModelObservation仍在实际响应后、所有权/取消拒绝之前捕获。计数与发送复用同一prepared bytes，summary与每次重试分别计费，结果视图不得重跑工具；原source CAS、单次overflow恢复与8MiB/256KiB等预算不动。不新增Context Source或系统字符串，不启用普通会话或新持久执行格式；普通Host须提供自己的真实主体与pending/unknown，不能构造假Goal。本卡完整实际Goal Host回归与非Goal Host seam验证分别记录，P4总闸及日常CLI仍开放。
 
 2026-11-18 NR-04 终态Store后的旧JSONL兼容证明修正（B，测试实现前）：fcfee全仓Linux Test及本机相同文件均在Interactive Results反馈测试的readJsonl→readJson源块digest失败；该块还包含writeJsonl，新增durable flush/目录同步改变源码而非消息序列化。保留原失败与8b3ffbcf冻结digest，不只替换expected。将该原版完整JSONL primitives逐字冻结为测试fixture，实际用旧reader/writer在隔离会话上重写已知附件，再由当前Store读取/更新/重开，验证全文、冻结版本、游标及重复inputId；同时保留其它原writer块检查并审查新durable块。此证明只覆盖这些旧primitives及已冻结的原队列，不冒充完整旧安装宿主并发/drain。依ADR118 §IUI-T29与本ADR既有共享数据契约，不改生产格式、授权、Evidence或兼容边界；普通Runtime/P4总闸仍开放。
