@@ -1,5 +1,9 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131附件接线前补充分离事实上下文8MiB序列化预算与固定1MiB权限/控制摘要预算；JS算法及授权不变。纯图片预检在ready→started之前，实际请求仍重检，不清旧control/unknown。
+
+2026-11-17：ADR131在实现前登记已保存用户图片的原生请求准入：事实留在user分片，无本机/URL抓取，不可表达时在count/send前拒绝而非丢图，保持原预算、canonical选择与授权/Evidence边界；本地图片Provider及P4完整验收另记。
+
 2026-11-17：ADR131实现前登记受管父目录创建：同一write_file/Grant，现存祖先协调claim，NOFOLLOW目录FD与实时授权复核，128层预算及首次效果后unknown保全，不扩大Goal/权限、不自动重放。
 
 2026-11-17：ADR131在实现前登记模型侧结果编码、按原消息身份绑定的视图覆盖、历史观察受管材料化与sourceRevision复核；失败/stderr/Unicode保真、同字节count/send及压缩事实视图。原canonical/授权/Evidence/unknown不由视图改写，旧大历史与P4总闸另验。

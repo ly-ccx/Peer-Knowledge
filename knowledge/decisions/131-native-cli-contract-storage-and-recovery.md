@@ -418,3 +418,17 @@ Provider对目标file保留原resource scope，并在确有缺失父目录时保
 验收绑定实际TS Provider生成的合成路径/内容/拒绝向量、原生公开write→read与Grant/Evidence、审批拒绝不创建、真实目录FD/替换、创建前后降权/取消、层数限额、硬退出后unknown保全/recover不重放及独立任务。完整P4、极端输入、真实服务/安装版本与P5–P7另验，不据本条宣称完成迁移。
 
 2026-11-17 父目录实施复核（B，沿ADR127 §5.1/5.7既有边界）：dispatch声明只在全部scope都可由原file/git_ref/remote_object语法表达时发布；含directory的文件准备效果保持undeclared/conservative，不能过滤掉directory而伪造成单file声明，再错误收窄unknown保护。原生此卡仅能表达file，故有任一非file就不发布declaredScopes；TS沿原规则。实际目录副作用/重启反例与修正分别保留，不扩展声明语法或重写旧unknown。现有原生Provider对已解析alias输出canonical相对路径，按ADR51允许宿主输出差异逐项登记；TS原期望不改写。
+
+### 2026-11-17 NR-04 已保存用户附件的原生模型准入（A，实施前登记）
+
+沿ADR55/57/90/129–130，解除NativeModel对canonical user内容数组的临时总拒绝；已由原Projector投影的text/image_url仍是用户事实，经原provider encoder、同一PreparedRequest/count/send及既有请求预算进入模型，不成为System Context指令、Tool Result、PermissionGrant或已看图/已验收Evidence。原始attachments/images、message id、历史选择/原正文与unknown不因准入改写；压缩后重建继续以同一canonical选择为准。
+
+增加纯内存的已保存用户图片传输准入：仅user内容数组中的已知text/image_url分片；图片URI只允许data:image或HTTP(S)，本机路径、file/其它scheme不得触发任何读取或抓取。Native CLI不会为URL下载图片，也不把保存的上传附件当作local.image.read授权。data base64做有界语法校验，非base64形式只在原encoder可表达时准入。Anthropic/Gemini当前encoder不能表达的远程URL/数据形式，在count/send之前明确model_image_transport_unsupported；不得静默丢图片，亦不自动切provider。其它wire保留原URL分片。坏类型/坏数据明确model_image_invalid；原2MiB请求预算与8MiB历史读取预算不抬高，压力在网络前拒绝。不引入图片长期cache、文件副本、私有模型通道或新Source。
+
+该准入只约束canonical用户输入；authentic thinking/tool-use续行仍在原LiveHistory身份校验后由可信运行时注入，不能借用户数组提升为provider原生控制块。实际TS wire/projector向量作为编码基线，无法表达图片时的原静默省略作为显式原生安全差异保留。迁移不复制旧丢图行为。
+
+验收包含现存公开候选的失败基线、四个标准wire与Qoder两方言的实际请求像素/URL字节和工具/Evidence闭环、同一图片count/send、取消/超限/不可表达时零网络、历史/原附件保全、显式模型切换恢复及后续独立任务，以及压缩后冷重建保留当前图片。仅合成附件/模型服务；不把传输断言称真实模型看图结论。local.image.read Provider/受信视觉侧带、附件输入/生命周期、其它Context目录/策略及P4总闸/P5–P7继续须完整迁移。
+
+2026-11-17 附件实施补充（A，接线前）：实际压力反例显示Canonical Projector复用permission_digest的1MiB序列化上限，使已可读取的合法事实历史在2MiB模型请求闸前提前失败。为事实上下文增加显式有界的同一JS序列化Interface，调用者预算至多8MiB；Canonical Projector的输入检查和展开/fingerprint沿已有8MiB历史边界，深度64、JS排序/数值/escaping算法不变。approval_args_digest、permission_operation_key、control/javascript_json_digest及默认javascript_json_string继续固定1MiB，不能通过新上下文API放宽Grant参数或更换授权摘要。共享资源记录不同预算；以实际TS大事实序列化对照和原授权/escaped大小拒绝断言验证。不修改模型2MiB请求上限、不把过大输入截成成功。
+
+同日B级准入排序：对首次已保存历史做纯图片传输预检，在reserve/activate、ready→started和attempt创建之前拒绝已知无法发送的内容；实际请求前仍重检当前历史。预检不签发Grant、不落执行成功或删除输入，不恢复旧started/unknown。这样新的未开始任务可在用户显式改变模型后以原输入/身份继续；旧候选已经started的失败仍需原recover/新准入，完整resume属P5继续迁移，不能静默清control或重放工具。
