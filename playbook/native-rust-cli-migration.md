@@ -6,6 +6,14 @@
 
 
 
+## 2026-11-17 不可变工具结果快照与大文件候选
+
+最终scoped候选 `d636aef0`（tree `f849b6ed`）已提交并推送。按ADR51/57/63/86/98/129–131复核，ADR131/map在实现前A登记Conversation Store不可变快照、无覆盖发布/保留配额及会话绑定的`local.tool-result.read`。B接原Host/Read Grant/Evidence与Provider声明的输出分类，Host不按capabilityId判格式，也不把MCP文件状payload丢成文件正文。原停稳/unknown边界不变；read2,000,000 bytes、write/edit128KiB、参数1MiB，帧/响应/请求/权限复合预算不放宽。
+
+完整原生门禁在tree `688afd24` 为493 Rust/190 Episode/510根2870互读/9PTY通过，固定featureless产物另12文件/快照Host测试在清空环境且PATH=/nonexistent下通过。随后复审实际反例证实全文校验后再采版本会放过同inode等长篡改，修正为携带真正哈希版本；输出格式改由Provider Interface选择。最终树通过16 Store/94 Runtime及all-target clippy、构建；固定featureless产物18,907,216 bytes（SHA256 `07fcf8684f6c7ab9f653aa4597c616424699f512758fc8fba5e0e07f192e422a`）在清空环境PATH=/nonexistent下通过12公开Host，再经27根139互读和4实际TS对照；**不把688的完整整闸冒充最终树整闸**。公开旧e629的大读file_too_large、90KiB写model_tool_limit、取消status反例、旧转义预算用例迁移及中止门禁均保留。原转义60k输入仍有正向归档/编辑/原快照验证，失败范围/read_required、拒绝和v2超限快照检查不弱化。见[快照候选回执](native-cli/evidence/p4-native-tool-artifacts-20261117.json)。
+
+e629的CI43999794341首轮Linux成功、macOS仅Electron更新器瞬时完成观察失败，原日志/逐帧报告保留；本机未改UI专项成功，不能解释远端根因。仅失败mac重试后两平台全仓success已核实（mac133778868310、Linux133778871031），不称原失败已修复/flake。新[CI44011702681](https://github.com/ly-ccx/Peer-Agent/actions/runs/44011702681)进行中，merge8c724681 tree与d636源码一致，尚未全仓绿。归档失败仍留dispatch unknown，原目录受保护、独立目录可准入，不伪称自动关闭未知。旧超限历史、模型副本其余编码、生命周期/混合版本、其余P4与P5–P7、普通Ratatui发送和长期内存均未验收；无个人数据/安装/运行实例重启/入口切换/合并/发布。
+
 ## 2026-11-17 原生文件列举、搜索、编辑与受管I/O
 
 联合候选 `e6292074`（tree `6ef6b6cb`）已提交并推送，完整本机原生scoped门禁通过。先按 `49-cancel-path-hard-sandbox.md`、`92-scoped-permission-inheritance.md`、`101-bot-owned-access-policy.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md` 完成ADR pass；ADR131/map在实现前登记A 级有界扫描/错误资源与受管I/O约定，B级迁移既有五种File Manifest和Provider。权限、Evidence、持久化与unknown对账政策不变。Host从实际Provider Manifest核对required capability；list/search/edit不再因旧中心白名单被拒。文件操作由单个受管阻塞任务执行，原EffectAdmission向真实Host复核当前授权；Host继续响应取消与heartbeat，实际任务结束前不释放所有权。编辑仍需原读取快照、当前内容与原文件claim。
@@ -16,7 +24,7 @@
 
 失败及改正保留：公开旧候选list_files报tool_not_projected；首轮工作候选把macOS /var与/private/var混作两个目录，且空白query误使回合退出，保留原断言后修正。新增真实FS/EffectAdmission Module反例确认CREATE后授权撤回可留空文件，原实现误报普通permission_policy_changed；修正保留空文件并报告execution_outcome_unknown，不删除以制造恢复。Cargo将平铺测试helper误作独立测试目标及新版clippy提示均已修正，无弱化断言。首轮完整门禁在pre-Host阶段为补齐限额协议资源而停止自有进程组，组已确认不存在；不记通过或测试失败，最终整闸使用独立输出根。
 
-6e前驱CI43986222565第一轮仅macOS报告上传ETIMEDOUT失败；第二轮Linux133736857658/macOS133736854580两平台全仓success已核实，含原Electron smoke和报告上传；merge509cf0cf tree与6e一致。新联合源码[CI43999794341](https://github.com/ly-ccx/Peer-Agent/actions/runs/43999794341)独立执行，merge7dd76a59 tree与e629源码一致，尚未全仓绿，不继承前驱结果。P4完整总闸继续开放：大文件/artifact与父目录等其余文件平价、完整Context/压缩/attachments、其余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain及真实服务仍须完成。P5–P7未完成，普通Ratatui对话仍不可发送，长期内存未验收。无个人任务/凭据迁移、安装、用户实例重启、默认入口切换、合并、tag或发布。
+6e前驱CI43986222565第一轮仅macOS报告上传ETIMEDOUT失败；第二轮Linux133736857658/macOS133736854580两平台全仓success已核实，含原Electron smoke和报告上传；merge509cf0cf tree与6e一致。新联合源码[CI43999794341](https://github.com/ly-ccx/Peer-Agent/actions/runs/43999794341)独立执行，merge7dd76a59 tree与e629源码一致；首轮mac更新器瞬时观察失败，失败日志/逐帧报告保留。仅失败mac重试后两平台全仓success已核实，见最新快照回执，不称原失败已解释/修复。P4完整总闸继续开放：大文件/artifact与父目录等其余文件平价、完整Context/压缩/attachments、其余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain及真实服务仍须完成。P5–P7未完成，普通Ratatui对话仍不可发送，长期内存未验收。无个人任务/凭据迁移、安装、用户实例重启、默认入口切换、合并、tag或发布。
 
 ## 2026-11-17 Qoder 标签流与本地目录匹配
 
@@ -131,7 +139,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder完整目录/发送包装/流变体、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |

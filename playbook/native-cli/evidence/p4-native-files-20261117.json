@@ -315,12 +315,7 @@
   },
   "candidateCi": {
     "run": 43999794341,
-    "status": "in_progress",
-    "jobsSnapshot": {
-      "path": "/tmp/peer-native-files-final-2-20261117/candidate-ci-jobs.json",
-      "bytes": 7751,
-      "sha256": "f6177fa206670c2f699d8b751ef7a92dbf5fbe7d2df0ef4e0d33f2aea81fa819"
-    },
+    "status": "success on second attempt; original macOS failure retained",
     "merge": {
       "parents": [
         "8b0c97175099a91d6495d6dd67ac063a7e262d63",
@@ -329,7 +324,39 @@
       "sha": "7dd76a5905574fa50d670818e42a785a84584142",
       "tree": "6ef6b6cb7608e7f1dde4456b18f289fb5659f702"
     },
-    "scope": "Independent full CI on the actual combined commit; not yet whole-job green."
+    "scope": "Actual e629 combined source: both full jobs success after failed macOS job retry; original failure not erased or claimed fixed. New d636 source CI independent.",
+    "initialObservation": {
+      "path": "/tmp/peer-native-files-final-2-20261117/candidate-ci-jobs.json",
+      "bytes": 7751,
+      "sha256": "f6177fa206670c2f699d8b751ef7a92dbf5fbe7d2df0ef4e0d33f2aea81fa819"
+    },
+    "firstAttempt": {
+      "linux": 133760701619,
+      "linuxStatus": "success",
+      "macos": 133760701891,
+      "macosStatus": "failure",
+      "cause": "Updater minimize fast-completion observation failed; Native/build/type/architecture/Test passed. Remote cause still unexplained, not called flake.",
+      "log": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-macos.log",
+        "bytes": 606333,
+        "sha256": "6abdcc494ae27f3423a47071ff49e438daacadc8170cdc2d9fa87ad45c523737"
+      },
+      "report": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-macos-report.json",
+        "bytes": 159193,
+        "sha256": "40c5b97f3347c8dfa51c6673e631cdafdce69f1c3680eadd913c61b856e4ea99"
+      }
+    },
+    "secondAttempt": {
+      "macos": 133778868310,
+      "linux": 133778871031,
+      "status": "both whole jobs success",
+      "jobsSnapshot": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-retry-terminal.json",
+        "bytes": 9807,
+        "sha256": "766b377bb18dd55f912ffc103e03fea26433d08fa7e3e35d365c6bed6bb76436"
+      }
+    }
   },
   "limits": [
     "P4 total gate remains open; P5-P7 incomplete; ordinary Ratatui chat disabled.",

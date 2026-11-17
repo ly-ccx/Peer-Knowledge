@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "base": "e62920742bf0cfa2dc2c6c584a5f4136f0767a9b",
+    "tree": "f849b6edb020fb2330cb2db3c566faac202f3fa2",
+    "patchSha256": "0e064e377f5dc43052e805cc5cf9f616417530c51862c3df47bd35b02c89ff2e",
+    "frozenAt": "2026-11-17T03:33:32.184824+00:00",
+    "validation": "Full native gate on 688afd24 before final window-race and typed Provider-encoding corrections; final changes receive scoped Store/runtime/clippy/public Host/release/noJS/interop checks. New full CI is independent and pending until push.",
+    "commit": "d636aef0d1c0b3aa02bdd848d46359bcca071506",
+    "status": "committed and pushed"
+  },
+  "status": "final candidate passed scoped regression and fixed featureless release/noJS/interop; new full CI in progress; P4 total gate remains open",
+  "classification": {
+    "A": "ADR131/map registered before implementation: immutable canonical tool-result content and native read capability, storage/retention/resource boundaries and file v2 budgets.",
+    "B": "Host-owned archive before Tool Result commit; same live Read Grant and Evidence; original stop/unknown policies unchanged.",
+    "adrFiles": [
+      "51-unified-desktop-cli-file-tools.md",
+      "57-canonical-conversation-history-projector.md",
+      "63-user-artifact-evidence-boundary.md",
+      "86-batched-persisted-conversation-reads.md",
+      "98-large-history-execution-responsiveness.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ]
+  },
+  "implementation": {
+    "storage": "conversations/<conversationId>.tool-results/<sha256>.<txt|json>; canonical observation content, never cache/UserArtifact/permissions/System Context",
+    "durability": "FD-relative operations, cancellable OS advisory directory lock, 0600/0700, streaming UTF-8/SHA verification, no-overwrite link publication and file/directory fsync; partials retained and counted; no LRU or execution replay",
+    "reader": "local.tool-result.read/read_tool_result through Provider/Manifest/Projection/Read Grant/Evidence, current authoritative Grant conversation binding, complete hash before bounded byte window, live admission before/after and owned cancellation",
+    "archive": "Host-owned blocking task before canonical result commit; over 6000 UTF-16 serialized output units externalized; file content utf8, other output complete json; preview max1200 UTF-16 without scalar split; canonical call/grant/status/error/Evidence metadata retained",
+    "limits": {
+      "fileReadBytes": 2000000,
+      "fileWriteEditBytes": 131072,
+      "modelArgumentBytes": 1048576,
+      "artifactBytes": 134217728,
+      "conversationBytes": 268435456,
+      "entries": 4096,
+      "pathBytes": 4194304,
+      "streamChunkBytes": 65536,
+      "windowBytes": 262144
+    },
+    "providerEncoding": "Trusted PreparedEffect::output_kind (default Structured, actual File Read adapter declares FileRead) selects archive encoding. Host never branches on capabilityId or trusts a file-shaped MCP output to discard its extra facts."
+  },
+  "baselines": {
+    "release": {
+      "path": "/tmp/peer-native-files-final-2-20261117/peer-native",
+      "bytes": 18711488,
+      "sha256": "d42c84ccfb11f4e121504aeed1c705244a294b1f43f023840e33b79cf49c86d4"
+    },
+    "read": "file_too_large (.tmpD6UQOf)",
+    "write": "model_tool_limit (.tmpvKJn4f)",
+    "firstAttempt": "Also hit missing fixture output-root marker in destructor after factual file_too_large; original trace retained, reran both tests with proper isolated marked root.",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-baseline.log",
+        "bytes": 6105,
+        "sha256": "84a4df4840a8009b411c8770f12a6133ee7dcfd435015a6d7700860811079a01"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-baseline-2.log",
+        "bytes": 1992,
+        "sha256": "40f80d430f460539a2a647eeded2751fff065a2b02b750ef7f8062d9731f4773"
+      }
+    ]
+  },
+  "focusedValidation": {
+    "store": "11 tests passed: 100MiB streaming, Unicode chunk boundary, dedupe/cold read/window, corruption/missing/symlink/FIFO, quota/partial preservation, 4 independent writers, killed lock owner, publication-link recovery, cancellation and directory replacement",
+    "host": "8 public native Host tests passed, including three reader scenarios; escaped 60k original input now explicitly archives/edits and preserves the original snapshot. Failed-range-read/read_required and denial retained; v2 oversized read/write pressure retained.",
+    "ts": "4 actual TS File Provider and existing-ref encoder oracle checks passed, read180000/write92160 bytes; native storage/retention behavior is an explicit ADR extension, not LRU parity",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/store-tests-4.log",
+        "bytes": 1122,
+        "sha256": "286b1196b3f0e8552caf026d17b9a218235e9b57ad3e9f148e375f047bb4b375"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-7.log",
+        "bytes": 1255,
+        "sha256": "5bb714cce9b38c19bf8a2fe9c6b6a8be648e98a9cb8c6830844bb23f170f075a"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/ts-artifact-contracts.log",
+        "bytes": 312,
+        "sha256": "9102170bf72338f02d54b44428941e687f32ab2854af6a49e447a0f820bbb935"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-8.log",
+        "bytes": 1378,
+        "sha256": "1bfb93f685a421204c1bec8a2388cbf7264e107d9df8f5b15a55bcd032631cbe"
+      }
+    ],
+    "limits": "No real ENOSPC/read-only filesystem fault injection or installed/real-service/long-memory acceptance is claimed."
+  },
+  "failedAttempts": {
+    "portableFifoTest": "Initial mknodat/mkfifoat compile attempts unavailable on macOS; replaced test fixture creation with actual mkfifo, retaining original assertion and FIFO rejection.",
+    "firstHost": "Reader incorrectly assumed serialized Grant facts contained conversationId; fixed with internal authoritative conversation_id Interface. Quota test originally expected inner artifact_limit, but existing stop correctly gives execution_outcome_unknown. Unknown read scope remains protected; assertion now explicitly requires same-scope blocking and independent-scope subsequent admission, not silent claim removal.",
+    "cancellation": "New real public counterexample proved status failed rather than cancelled (.tmpDWyMS3); preserved baseline, fixed Store cancelled -> native CANCELLED/status cancelled, same assertion passed.",
+    "interruptedGate": {
+      "path": "/tmp/peer-native-artifacts-final-20261117",
+      "tree": "69be0d361898ec5b7271b54c9b4188160d63943d",
+      "exit": -15,
+      "reason": "Stopped only owned PGID41764 before final gate to fix discovered structured cancellation. Confirmed group absent before modifying source. Not a passing gate."
+    },
+    "logs": [
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-1.log",
+        "bytes": 1435,
+        "sha256": "1362ce4f014a50446fce942c83d937f82273be168109c46e0b81b616f2137dda"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-3.log",
+        "bytes": 2388,
+        "sha256": "6a1dc3ff4fe1f161e084c82609738233ee4bfdc66ee7dba87712c16e0be5f879"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/large-host-4.log",
+        "bytes": 1856,
+        "sha256": "833fbb374c1a6b964ab2a3449a7428a6e0cdcf36fc1f013b6ac8eef8226e85f1"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/cancel-status-baseline.log",
+        "bytes": 1751,
+        "sha256": "38e02797ad480cd890672dde2782fda6e1091921c6c284d292b844ee2919d3b8"
+      }
+    ],
+    "secondInterruptedGate": {
+      "path": "/tmp/peer-native-artifacts-final-2-20261117",
+      "tree": "4bf514981a66097577504b0d5fdc2a83fa087316",
+      "exit": -15,
+      "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpj8atZe",
+      "failure": "Old escaped 60k input read/edited successfully under accepted v2; old test expected file_result_limit/no snapshot, so original-content equality assertion failed. Exact owned root/Tool Results retained in episodes/roots.jsonl; stopped only owned PGID from source receipt, confirmed absent.",
+      "correction": "Preserved the original escaped input as a positive public read/archive/edit/immutable-original test. Retained failed-read/no-edit and denial assertions using an invalid range; separate actual >2000000-byte public pressure plus private real FileEffect read verifies snapshots remain empty. No assertion weakened to permit an unverified edit."
+    },
+    "windowVersionRace": {
+      "scope": "After full hash verification, old range reader recaptured a new file version. Same-inode/same-length mutation between the two was incorrectly accepted as fully verified.",
+      "baseline": {
+        "path": "/tmp/peer-native-artifacts-20261117/window-race-baseline.log",
+        "bytes": 1311,
+        "sha256": "9a81eb14a6a551fc53f62a0511583458b5c0185e8fb203388f77176c24ed1d14"
+      },
+      "patch": {
+        "path": "/tmp/peer-native-artifacts-20261117/window-race-baseline.patch",
+        "bytes": 3383,
+        "sha256": "beedcb0ed9c3ad3d2a95a841c378dcf6babfb91cddc2b9ba00edb6be3f7b4569"
+      },
+      "fix": "Private verify returns the actual hashed version with the owned File; bounded range read compares against that same version. No second blessing of a changed file.",
+      "fixed": {
+        "path": "/tmp/peer-native-artifacts-20261117/window-race-fixed.log",
+        "bytes": 501,
+        "sha256": "77c49aaa0a498aa6475d9851d3c2d91c4ae806f86ec6904752cb403aaa4b8f5d"
+      }
+    }
+  },
+  "recovery": {
+    "preserved": "Interrupted partials/links and corrupted content never overwritten/evicted. Same address reverified on retry. Historical reads never use current workspace or rerun original tools.",
+    "archiveFailure": "Original dispatch stays pending/unknown; stop error takes precedence. Original scope remains blocked after recover; independent later task allowed. No claim of automatic unknown closure or restored missing original output.",
+    "limits": "Old >8MiB conversation files and original generic model encoder/history paging, lifecycle copy/delete/export/drain remain incomplete."
+  },
+  "baseCi": {
+    "run": 43999794341,
+    "source": "e6292074",
+    "attempt1": {
+      "linux": "success",
+      "macJob": 133760701891,
+      "mac": "failure: completion actually arrives while the outgoing modal is still mounted; all Native/build/type/architecture/Test steps success",
+      "rootCause": "unexplained; downloaded=false in captured exit frames, not called a flake"
+    },
+    "localUnchangedUpdater": "updater-only smoke passed; does not fix/explain remote failure",
+    "retry": {
+      "status": "both whole jobs success verified",
+      "mac": 133778868310,
+      "linux": 133778871031,
+      "jobs": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-retry-terminal.json",
+        "bytes": 9807,
+        "sha256": "766b377bb18dd55f912ffc103e03fea26433d08fa7e3e35d365c6bed6bb76436"
+      }
+    },
+    "evidence": [
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-macos.log",
+        "bytes": 606333,
+        "sha256": "6abdcc494ae27f3423a47071ff49e438daacadc8170cdc2d9fa87ad45c523737"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-macos-report.json",
+        "bytes": 159193,
+        "sha256": "40c5b97f3347c8dfa51c6673e631cdafdce69f1c3680eadd913c61b856e4ea99"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/updater-report.json",
+        "bytes": 246263,
+        "sha256": "4c586ed0c5eee3377bc6dd91d1b2fdc6443ccee72eac8d1ff5b359af3b20ba67"
+      }
+    ]
+  },
+  "remaining": [
+    "Complete same-seam generic model-facing encoder and old history migration/paging",
+    "Artifact lifecycle copy/delete/export and mixed installed versions",
+    "Remaining file path/extreme input parity, Context/compaction/attachments",
+    "Other tools/Skill/Plugin/Hook/ACP/headless/session commands and real services",
+    "P4 total gate; P5-P7; ordinary Ratatui send and long-memory release acceptance"
+  ],
+  "authorization": "Only isolated fixtures. No personal tasks or credentials, installation, running-instance restart, default switch, merge, tag or release. No Bun/Node runtime sidecar.",
+  "fullNativeGateBeforeFinalCorrections": {
+    "source": {
+      "base": "e62920742bf0cfa2dc2c6c584a5f4136f0767a9b",
+      "tree": "688afd246830e581b4212fc5dbc7618f59692e15",
+      "patchSha256": "164886c633a6648428f324592318d08284d50b35f16b614b3b7ea9c221253b87",
+      "startedAt": "2026-11-17T03:10:09.639401+00:00",
+      "pid": 49652,
+      "pgid": 49652
+    },
+    "exit": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-17T03:23:38.526499+00:00"
+    },
+    "rustTests": 493,
+    "nativeEpisodes": 190,
+    "roots": 510,
+    "interopChecks": 2870,
+    "ptyCases": 9,
+    "log": {
+      "path": "/tmp/peer-native-artifacts-final-3-20261117/verify.log",
+      "bytes": 107941,
+      "sha256": "cf7a07b6269190e33dc272ac6354dfe7bcf6fb492d1a4539bdb0fea973d2cc37"
+    },
+    "featureless": {
+      "path": "/tmp/peer-native-artifacts-final-3-20261117/peer-native",
+      "bytes": 18908320,
+      "sha256": "4c21f1a18811a8f2092651350f664b7387f66ee2bdf60d96ff48be7b4dbbea51",
+      "libraries": [
+        "\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)",
+        "\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)",
+        "\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)"
+      ]
+    },
+    "noJsHost": {
+      "binary": "/tmp/peer-native-artifacts-final-3-20261117/peer-native",
+      "harness": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/target/debug/deps/native_episode-22072befbe05c9c6",
+      "results": [
+        {
+          "filter": "native_artifacts",
+          "exit": 0,
+          "seconds": 13.097069
+        },
+        {
+          "filter": "native_files",
+          "exit": 0,
+          "seconds": 22.433123
+        }
+      ],
+      "environment": "Cleared; PATH=/nonexistent; no Node/Bun engine"
+    },
+    "limit": "These results do not claim a full gate on the later f849b6ed final corrections."
+  },
+  "finalScopedChecks": {
+    "commands": [
+      {
+        "check": "final-store",
+        "exit": 0,
+        "seconds": 34.037596
+      },
+      {
+        "check": "final-runtime",
+        "exit": 0,
+        "seconds": 21.28069
+      },
+      {
+        "check": "final-clippy",
+        "exit": 0,
+        "seconds": 46.378346
+      }
+    ],
+    "storeTests": 16,
+    "runtimeTests": 94,
+    "buildAndHost": [
+      {
+        "check": "harness-build",
+        "exit": 0,
+        "seconds": 12.625289
+      },
+      {
+        "check": "release-build",
+        "exit": 0,
+        "seconds": 17.2499
+      },
+      {
+        "check": "release-native_artifacts",
+        "exit": 0,
+        "seconds": 16.058254
+      },
+      {
+        "check": "release-native_files",
+        "exit": 0,
+        "seconds": 22.235716
+      }
+    ],
+    "interop": [
+      {
+        "check": "interop-helper-build",
+        "exit": 0,
+        "seconds": 8.738291
+      },
+      {
+        "check": "release-interop",
+        "exit": 0,
+        "seconds": 3.75419
+      },
+      {
+        "check": "ts-artifact-oracle",
+        "exit": 0,
+        "seconds": 0.057695
+      }
+    ],
+    "releaseHostTests": 12,
+    "releaseInteropRoots": 27,
+    "releaseInteropChecks": 139,
+    "logs": [
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/final-store.log",
+        "bytes": 1923,
+        "sha256": "e2d045df6c982d218f08da07c657652615b20f30d399068024fcd802cc2465d3"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/final-runtime.log",
+        "bytes": 10334,
+        "sha256": "08e3a9d5e56ad244b50041c419dbc256e97724f5412116e5081e8a770258ded6"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/final-clippy.log",
+        "bytes": 682,
+        "sha256": "f28dfe27c12181d366b8d5740300de129af39fe55afa3804994e726dd37d4a83"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-20261117/provider-kind.log",
+        "bytes": 871,
+        "sha256": "a76b09cea9ba65e060052fc5400ad39a232be6ff7ee6bd0037e017969cae5f22"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-final-4-20261117/release-native_artifacts.log",
+        "bytes": 982,
+        "sha256": "8e6aa71df55e94922db40fc55847c9b1e56517cad412fb13fc69538f97620006"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-final-4-20261117/release-native_files.log",
+        "bytes": 522,
+        "sha256": "0dab7af1d972f766a5ffc116a9e1449bf86071de4038231433e793202ad8fbc4"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-final-4-20261117/release-interop.log",
+        "bytes": 216,
+        "sha256": "6106475b532a1d9a4309351f46c666b46bc32febffb4b456ef2c57a49f616fe8"
+      },
+      {
+        "path": "/tmp/peer-native-artifacts-final-4-20261117/ts-artifact-oracle.log",
+        "bytes": 312,
+        "sha256": "6604754facf1508f297eb1c1e97537a589f5f1d76ebf71e2901be3dcd02fad82"
+      }
+    ]
+  },
+  "release": {
+    "path": "/tmp/peer-native-artifacts-final-4-20261117/peer-native",
+    "bytes": 18907216,
+    "sha256": "07fcf8684f6c7ab9f653aa4597c616424699f512758fc8fba5e0e07f192e422a",
+    "libraries": [
+      "\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)",
+      "\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)",
+      "\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)"
+    ],
+    "hostEnvironment": "Cleared; PATH=/nonexistent; actual fixed featureless artifact, no Node/Bun engine"
+  },
+  "candidateCi": {
+    "run": 44011702681,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44011702681",
+    "status": "in_progress",
+    "jobs": [
+      [
+        133799995750,
+        "ci-macos-14",
+        "in_progress"
+      ],
+      [
+        133799995956,
+        "ci-ubuntu-latest",
+        "in_progress"
+      ]
+    ],
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "d636aef0d1c0b3aa02bdd848d46359bcca071506"
+      ],
+      "sha": "8c724681483dd413e633c48616d83d3462394889",
+      "tree": "f849b6edb020fb2330cb2db3c566faac202f3fa2"
+    },
+    "scope": "Independent full CI on final d636aef0; no earlier full gate is claimed for this final tree."
+  }
+}

@@ -361,3 +361,26 @@ list/search的v1扫描集合同时限16384项、路径UTF-8合计4MiB；单文�
 目录排序与locale search使用原生ICU4X 2.1.1（MSRV1.83；不增加JS/WASM VM），复核当前TS默认locale的环境优先级和en-US默认值，以实际跨语言locale向量验收。具体依赖锁、未知locale回退、Unicode比较和展开不得靠ASCII替代或只测英文。版本/平台数据差异明确报告；没有跨平台证明时不称全平价。参考[Collator2.1.1](https://docs.rs/icu_collator/2.1.1/icu_collator/struct.Collator.html)、[CaseMapper2.1.1](https://docs.rs/icu_casemap/2.1.1/icu_casemap/struct.CaseMapper.html)。
 
 公开原生CLI须覆盖真实列举→搜索→读取→编辑→读取、项目外路径沿原Goal/claim约束、未读/外部改动/歧义、拒绝/降权/取消、特殊文件/扫描超限、写后硬退出/unknown保全和后续任务。实际TS Provider对照与Host授权测试分开；本条登记不代表实现或P4总闸通过。
+
+
+### 2026-11-17 NR-04 不可变工具结果快照与大文件（A，实施前登记）
+
+沿ADR51/57/63/86/98/129–130，新增Conversation Store内部ToolArtifactStore，位置为已登记conversations目录下`<conversationId>.tool-results/`。它保存原工具观察的完整不可变正文，是canonical Tool Result的内容引用，不是用户交付物、缓存、权限记录、另一套对话真源或System Context来源。现有`artifacts/`缓存及其LRU不管理此目录；不得为准入新结果自动删除旧依据。conversations数据项注释登记该子格式；复制/删除/恢复兼容须逐项验证，不由目录存在推断迁移已完成。
+
+v1引用为`{schemaVersion:1,conversationId,sha256,bytes,format:"utf8"|"json"}`；受信Store按当前home和严格id/摘要推导路径，不接受引用中的任意路径作为存储目标。完整数据按SHA256内容寻址、只写一次、0600文件/0700目录；同摘要再次写入必须核验已有字节，损坏/冲突保全并拒绝。临时文件独占创建、写入/限额/取消/哈希、fsync、无覆盖发布和目录fsync后才返回引用；发布后确认丢失报commit_unknown，按实际同摘要对象核对，不重放工具。使用目录OS advisory锁串行配额/发布，进程死亡自动释放；不增加可被TTL擅自清除的孤锁。未发布临时残留不成为正文，保全并计入磁盘准入，不因恢复而删未知内容。
+
+单快照128MiB、单会话256MiB、4096个文件项，目录/文件名观察另限4MiB；写入和校验流式使用64KiB块。超额/磁盘满/只读/损坏返回结构化存储失败，不编造成功引用、不退回无限内存，也不删除已确认事实。内部读取按同一引用核验格式/字节/完整SHA和文件版本后给出有界窗口，范围读取不能把窗口冒充完整正文。旧引用缺失/损坏保留明确状态，不能读取当前工作区或自动重跑原命令代替。
+
+Host在canonical结果提交前，将超过6000 UTF-16单位的结构化输出外置；文件读取原文用utf8格式，保留原path/bytes/contentHash及截断标记；其余输出保存完整JSON。canonical结果沿已有`local_file_ref`/`local_tool_result_ref`和可选`nativeContentRef`表达预览/回读路径，原ToolCall、Grant、状态、错误及Evidence元数据不被预览替代。预览至多1200 UTF-16单位，完整Unicode字符边界及真实总量保持；模型副本不得把预览称作全文。Store失败发生于工具之后时保留原pending/unknown恢复边界，不把实际副作用当未派发；已有不可读大历史单列恢复限制，不猜写旧数据。
+
+本条局部修订前节文件预算：原生read上限对齐现TS的2000000 bytes；write/edit结果上限128KiB，仍受工具参数JSON/权限摘要1MiB等复合准入约束，超限必须在效果前拒绝。模型工具参数上限由64KiB提高至1MiB；SSE单事件1MiB/响应累计8MiB、32调用及既有64MiB组装预算保持，不接受部分参数生成Grant。write/edit的全量旧CLI极端输入平价仍须随整体资源预算验证，不能仅提高常量宣称全部完成。v2文件/引用资源登记在packages/protocol，TS/Rust差分和真实公开Host正常/拒绝/取消/崩溃/回读/后续任务必须绑定最终源码。
+
+Provider model-facing结果编码沿现有encoder seam：file/shell/ref保持现TS字段和检索语义；原canonical事实不被模型预览覆写。live continuation先按原canonical身份核验，再编码模型副本；count和send消费同一冻结编码体。压缩及旧记录同样不能绕过原History/权限/预算边界。完整generic/旧超限历史、生命周期级联、混合旧安装版本、真实平台和P4总闸另验。
+
+#### 2026-11-17 不可变结果的受管回读（A，接线前补充）
+
+原生快照不能仅给出无法验证的路径。以同一Capability Provider链登记`local.tool-result.read`（模型别名`read_tool_result`），Manifest/schema纳入native-cli/tool-artifacts资源；它接受严格nativeContentRef、字节offset和至多256KiB的length，不接受home/任意文件路径。Provider从实际Host PermissionGrant绑定conversationId，必须与引用相同，不能借模型输入选择其它会话。沿既有Read授权类别及Goal/role/lease/policy实时复核，仍产生ToolCall/Grant/Evidence；不增加另一执行通道、文件写权限或System Context来源。完整正文先通过Store全量摘要/版本校验，再返回窗口。UTF-8起点不合法则明确拒绝，末尾不完整字符可缩短至完整边界并返回真实offset/bytes/totalBytes/complete，不能替代原快照。回读失败不读取当前工作区、不重放原工具。
+
+Host外置任务由原owned等待与取消/heartbeat包裹，受管阻塞任务结束后才释放所有权；归档失败时保留原dispatch预算pending，不能提交虚假成功。回读的较大窗口亦可按原同一快照外置规则保存，原引用/offset元数据保存在不可变JSON中。此新能力仅为已保存结果检索，不表示完整Context、大历史分页或原文件工具极端输入平价已经完成。
+
+2026-11-17 实施复核（B，既有边界不变）：回读窗口必须携带并复核全文哈希实际使用的文件版本，不能在哈希后重取版本而把中途篡改当作有效快照。归档类型由可信Provider的PreparedEffect Interface声明（缺省结构化JSON、真实File Read声明文件正文），Host不增加capabilityId分支，也不从MCP payload的文件状字段推断并丢失其它原始事实。反例、修正和各源码验证范围分别绑定，见实施账本；本补充不是P4总闸或发布验收。

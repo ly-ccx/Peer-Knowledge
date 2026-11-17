@@ -1,5 +1,9 @@
 # ADR 文档图谱
 
+2026-11-17：ADR131在接线前补充local.tool-result.read原生快照回读能力，经原Provider/Projection/Read Grant/Evidence，严格绑定实际会话并校验全文摘要；无任意路径、跨会话、缓存回填或执行重放。
+
+2026-11-17：ADR131在实现前登记Conversation Store不可变工具快照、内容引用/流式校验、无覆盖发布和保留配额；大文件与模型结果副本、参数预算按v2资源迁移。原授权/Evidence/unknown政策不变；不以缓存逐出删除历史，不以当前工作区补旧事实，完整P4另验。
+
 2026-11-17：ADR131在原生文件能力实现前登记五种既有Manifest操作、受管I/O任务与实时EffectAdmission复核、扫描/结果双预算及明确超限；ICU4X对照原locale排序/搜索。授权/未知恢复边界不变，大文件artifact与P4总闸另验。
 
 2026-11-17：ADR131沿既有108-cli-basic-shell-commands在实现前登记只读doctor、会话目录与流式展示导出：独立于canonical模型历史，源版本复核、原子目标发布、原目标/会话保全和取消；复用有界JSON projection，不新增工具或授权/Evidence/Context来源。实现/大历史与P4总闸另验。
