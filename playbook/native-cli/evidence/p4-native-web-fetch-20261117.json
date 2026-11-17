@@ -317,12 +317,12 @@
     "limitation": "20 unchanged native diagnostic runs did not reproduce remote reset. Exact remote errno and delayed CI step end after Node error not proven; no flake or Runtime socket fix claim."
   },
   "ci": {
-    "conclusion": null,
+    "conclusion": "success",
     "head_branch": "codex/native-rust-cli",
     "head_sha": "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0",
     "html_url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44067260477",
     "id": 44067260477,
-    "status": "queued",
+    "status": "completed",
     "merge": {
       "parents": [
         "8b0c97175099a91d6495d6dd67ac063a7e262d63",
@@ -331,7 +331,275 @@
       "sha": "45af97a2bc5ecf0a709a55c518f1344b6c94e7cf",
       "tree": "461f9b879ca2b9d3d645840f628e0c10a2473760"
     },
-    "scope": "Independent corrected-candidate CI queued/running; head, merge tree and expected parents verified. Not whole green."
+    "jobs": [
+      {
+        "conclusion": "success",
+        "id": 133984229551,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Checkout",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup pnpm",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup Node",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Require Node >= 24",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Test Linux dependency bootstrap",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup Bun",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup Rust",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install Linux credential-helper build deps",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install dependencies",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Native CLI scoped validation",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve native CLI terminal checks",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check packaged main-process imports",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Typecheck",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Architecture check",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Test",
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Bot shell Electron smoke (macOS)",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Bot shell Electron smoke (Linux)",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve bot shell report",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "id": 133984230000,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Checkout",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup pnpm",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup Node",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Require Node >= 24",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Test Linux dependency bootstrap",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup Bun",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Setup Rust",
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Install Linux credential-helper build deps",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Install dependencies",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Build",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Native CLI scoped validation",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve native CLI terminal checks",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Check packaged main-process imports",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Typecheck",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Architecture check",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Test",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Bot shell Electron smoke (macOS)",
+            "status": "completed"
+          },
+          {
+            "conclusion": "skipped",
+            "name": "Bot shell Electron smoke (Linux)",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Preserve bot shell report",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Setup Bun",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Setup Node",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Setup pnpm",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Checkout",
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "status": "completed"
+          }
+        ]
+      }
+    ],
+    "scope": "Independent corrected-candidate whole CI succeeded on Linux/macOS including each native/build/type/architecture/Test/Electron smoke. Merge tree and base/candidate parents bound to b716. Does not validate subsequent Git Module working tree or full P4/P5-P7."
   },
   "limits": [
     "Synthetic owned data/services only; no real internet/vendor/model/OS Vault acceptance.",
