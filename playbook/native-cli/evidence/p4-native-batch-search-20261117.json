@@ -298,12 +298,12 @@
     ]
   },
   "ci": {
-    "conclusion": null,
+    "conclusion": "cancelled",
     "head_branch": "codex/native-rust-cli",
     "head_sha": "17548096fd2dde8fe6ec8e396249a81f62a525af",
     "html_url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44048089581",
     "id": 44048089581,
-    "status": "in_progress",
+    "status": "completed",
     "merge": {
       "parents": [
         "8b0c97175099a91d6495d6dd67ac063a7e262d63",
@@ -316,16 +316,30 @@
       {
         "id": 133918687509,
         "name": "ci-ubuntu-latest",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 133918687784,
         "name": "ci-macos-14",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "cancelled"
       }
     ],
-    "scope": "Independent new-candidate whole CI. Run head, merge tree and base/candidate parents match the delivered source; not yet whole green."
+    "scope": "Independent candidate CI did not pass in full. Linux succeeded; macOS recorded a real model_wires assertion failure, later reached the 60-minute job cancellation. No failed assertion or timeout is omitted.",
+    "macosFailure": {
+      "test": "all_wires_match_actual_ts_requests_results_and_close_on_terminal_without_eof",
+      "location": "crates/peer-runtime/tests/model_wires.rs:109",
+      "wire": "gemini",
+      "message": "must close the owned streaming socket",
+      "testFailureAt": "2026-11-17T08:50:08Z",
+      "jobCancellationAt": "2026-11-17T09:36:03Z",
+      "log": {
+        "path": "/tmp/peer-native-web-fetch-20261117/base-ci-macos.log",
+        "bytes": 323684,
+        "sha256": "b14b1b2933dfdce51ef44fc80eef862060f66d77c8d1a0026292fc21bda33cbc"
+      },
+      "limitation": "Server fixture collapsed socket read errors into false. Remote errno and reason the job remained open after the Node command error are not proven. Local real TCP EOF/reset counterexample retained; no product/socket fix or flake claim."
+    }
   }
 }

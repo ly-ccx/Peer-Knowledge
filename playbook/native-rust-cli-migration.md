@@ -6,6 +6,20 @@
 
 
 
+## 2026-11-17 原生静态 HTTP 抓取与网页产物候选
+
+`7f09e51c`实现，后续`b71696f1`修正跨平台oracle（最终tree `461f9b87`），均已提交并推送；ADR131/map的A登记`58afede`在源实现前已推送。迁移旧CLI真实可达的web_fetch/local.web.fetch，同一Provider/Projection/Grant/Evidence；仅静态HTTP(S)，无Browser/JS/Cookie/模型凭据。逐跳复核授权/路线/证书、最多6次GET、无自动重试；gzip/br/deflate只在Web开启，共享模型/MCP默认禁用。实际TS HTML/实体/UTF8与旧Provider/ArtifactStore对照；2M UTF16安全scalar上限与明确截断/源长度、5M解码体和标题/URL/序列化预算。代理秘密在模型视图及两种产物中单次有界脱敏，HTTP身份不由正文改写。
+
+网页产物保留原legacy路径/refs并给出原不可变ToolArtifactRef与read_tool_result入口。NOFOLLOW/EXCL/目录FD、0700/0600、fsync/全文hash/版本和命名复核；原生根flock下流式配额，不删除旧历史。工作集semaphore随真实解析/发布worker，取消/降权需实际结束。部分发布和硬退出保留已知引用/部分文件/原unknown，recover不重发HTTP，同范围受保护、实际独立目录可接新任务。timeout状态错误的公开反例保留，改为现协议failed/error.code=timeout；不扩大Evidence状态或清旧unknown。
+
+冻结产品树`c210a22c`完整本机原生门禁 **562 Rust（236 Native Episodes）/602根3368次实际TS↔Rust/9PTY**，exit0、940.456秒。最后另补CI的model_wires测试观察与开发oracle跨平台修正，最终产品对象与c210相同，另3项真实wire/Helper/EOF-reset-live-data反例、all-target clippy/fmt及oracle红/绿/损坏输入反例通过；**不把c210整闸冒充最终测试树的整闸**。固定featureless release **21,252,480 bytes**、SHA256 `5070ed541ba91b931f770c73aa9ce3d142f643c7a19291906dea160f42c796e6`，仅CoreFoundation/libiconv/libSystem，无发布/硬退fixture开关；清空环境、产品PATH=/nonexistent下 **12公开Host** 通过，另 **32根163互读** 通过。含真实PTY批准/拒绝零网络、三codec解码后超限、跨站重定向/URI凭据拒绝/HTTP状态、TLS/额外CA/代理/主机名、脱敏、取消socket关闭和后续任务。见[Web抓取回执](native-cli/evidence/p4-native-web-fetch-20261117.json)。
+
+原175 CI的mac真实失败/60分钟取消见下，未全仓通过。受控SO_LINGER=0真实reset使原EOF-only观察器失败；修正只接受EOF或ConnectionReset，live/timeout/data仍失败，原1s/3s限制不变，断言保留实际错误。20次原生诊断未复现原远端reset；不能声称已证明远端errno或解释Node报错后作业仍存活。7f09的CI44066456549 Linux在开发oracle失败：gzip OS byte为Linux03/Darwin13，不是正文不同；原日志保留。b716固定压缩输入并验证真实解压等于独立构造正文及原摘要/长度，两种OS头均通过，损坏流仍失败；不再把编码器平台头当wire合同。固定输入的原生codec/5M解码上限断言不变。[新候选CI44067260477](https://github.com/ly-ccx/Peer-Agent/actions/runs/44067260477)排队/运行中，merge tree及base/candidate parents已与b716核对，不称全仓通过。实际MSRV1.88编译、真实服务/平台/安装/混合版本drain和P4总闸仍开放；实现者自审，非独立审查。P5–P7、普通Ratatui发送与长期内存未验收。无个人数据、安装、用户实例重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 批量候选 CI 终态复核
+
+17548096的CI44048089581未全仓通过：Linux133918687509成功；macOS133918687784在08:50Z发生model_wires的Gemini“must close owned streaming socket”断言失败，随后09:36Z触及60分钟作业取消。原日志保留；测试把服务端read的所有错误直接折叠为false，未保留远端errno。本机实际TCP在未消费完响应时可观察ECONNRESET而非EOF，是该观察器的受控反例，但不能据此声称已证明原远端errno或解释命令报错后作业仍存活的原因。不得只称慢CI、重试成功或flake，也不改变Runtime超时/取消语义；后续按真实关闭与仍存活/超时分别验证观察契约。见原批量回执新增ci.macosFailure。
+
 ## 2026-11-17 原生批量搜索与控制调度公平性候选
 
 `17548096`（tree `3e72a85a`）已提交并推送。按ADR49/51/92/101/127/129–131复核，A实施前登记随`b77a7df`已先推送。迁移旧CLI真实可达的batch_search/local.search.aggregate为文件域独立Provider Adapter；复用原有界扫描、locale与同一Projection/Grant/Evidence、不可变结果归档。1–8 lane、原id/label/query/path规范化、case/max_results、lane顺序、dedupe/命中排序、500 cap在去重前且早退不排序、失败/partial均与实际TS对照。max_concurrency保留请求上界1–8/默认4，原生实际最多两个阻塞worker并用进程共享semaphore限制；每lane原扫描预算、最终4MiB序列化闸不截断成功。全lane失败不反写真实已发Grant为拒绝；旧TS字段原样保留为显式原生事实差异。
@@ -16,7 +30,7 @@
 
 最终同一冻结源码完整本机原生门禁 **541 Rust（221 Native Episodes）/567根3185次实际TS↔Rust互读/9PTY**，exit0、799.344秒。固定featureless release **19,226,304 bytes**，SHA256 `3bc05f5f8d3bb94730ce1b853ea9e18a56ea7a1de04d8dbe2fdb66027b3960e7`，仅CoreFoundation/libiconv/libSystem且无批量/控制fixture开关；清空环境、PATH=/nonexistent下 **6公开Host**（批量、文件工作流、真实PTY批准/取消）通过，另 **15根77互读** 通过。实现者自审，非独立审查。见[批量搜索回执](native-cli/evidence/p4-native-batch-search-20261117.json)。
 
-基线bc734的CI44037023767两平台全仓success已核实，含各自Electron smoke。[新CI44048089581](https://github.com/ly-ccx/Peer-Agent/actions/runs/44048089581)独立运行中，merge15aa8738 tree及parents与最终候选/预期base一致。不替代P4完整Runtime/Context/附件/其它实际工具/Skill/Plugin/Hook/ACP/headless/命令、混合版本恢复及真实服务总闸；P5–P7、普通Ratatui发送和长期内存仍待完成。view_image默认CLI范围校正见下；无新增Desktop工具。无个人数据、安装、用户实例重启、默认入口切换、合并或发布，无Bun/Node引擎sidecar。
+基线bc734的CI44037023767两平台全仓success已核实，含各自Electron smoke。本节登记时[CI44048089581](https://github.com/ly-ccx/Peer-Agent/actions/runs/44048089581)独立运行中（失败终态复核见上），merge15aa8738 tree及parents与最终候选/预期base一致。不替代P4完整Runtime/Context/附件/其它实际工具/Skill/Plugin/Hook/ACP/headless/命令、混合版本恢复及真实服务总闸；P5–P7、普通Ratatui发送和长期内存仍待完成。view_image默认CLI范围校正见下；无新增Desktop工具。无个人数据、安装、用户实例重启、默认入口切换、合并或发布，无Bun/Node引擎sidecar。
 
 ## 2026-11-17 CLI 可达集校正与批量搜索启动
 

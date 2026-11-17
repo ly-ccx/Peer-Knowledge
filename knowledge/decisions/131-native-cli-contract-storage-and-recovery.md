@@ -455,7 +455,7 @@ max_concurrency是1–8的请求上界（默认4），不是保证实际同时�
 
 沿ADR55/57/98/101/129–130迁移旧CLI真实可达的web_fetch/local.web.fetch；旧Node Provider/engine/ArtifactStore是行为对照。ADR38仍Proposed，不在本次借迁移接受其搜索/Browser设计；ADR72的Desktop浏览器边界不变。仅静态HTTP(S)，waitForRender仍是兼容参数，rendered=false；不加载JS、浏览器登录态、模型凭据或Cookie，不新增默认浏览器工具或系统上下文Source。网页正文/title/URL是事实Tool Result和artifact内容，不能成为System Context指令、授权或模型已经核验的Evidence。
 
-独立Provider Adapter经原Manifest/Projection/一次Grant/Evidence，按原web-fetch自动批准语义：Full沿当前Bot策略，Ask/session需实际批准；只读Explorer/Verifier/主Bot的能力闸不扩大。参数原url/waitForRender/timeoutMs，超时默认30000ms、钳制1–120000ms；手动最多5次重定向/6次GET，无自动重试/错误降级。仅HTTP(S)，每跳重新校验URL、当前授权、取消和原Native Network路线/证书策略；无跨目的client复用。URI userinfo明确拒绝（旧Node fetch实际也拒绝），不因reqwest默认行为添加Basic凭据。URL上限16384 bytes，content-type上限8192 bytes，标题上限64KiB；超限明确失败，不以标题片段冒充完整标题。
+独立Provider Adapter经原Manifest/Projection/一次Grant/Evidence，按原web-fetch自动批准语义：Full沿当前Bot策略，Ask/session需实际批准；只读Explorer/Verifier/主Bot的能力闸不扩大。参数原url/waitForRender/timeoutMs，超时默认30000ms、钳制1–120000ms；手动最多5次重定向/6次GET，无自动重试/错误降级。仅HTTP(S)，每跳重新校验URL、当前授权、取消和原Native Network路线/证书策略；无跨目的client复用。URI userinfo明确拒绝（旧Node fetch实际也拒绝），不因reqwest默认行为添加Basic凭据。URL上限16384 bytes，content-type上限8192 bytes，标题原始capture及规范化结果各上限64KiB；超限明确失败，不以标题片段冒充完整标题。
 
 启用固定reqwest0.12.24的gzip/br/deflate解码，但在共享Network默认builder显式禁用，仅Web Adapter开启，不能静默改变原模型/MCP/认证请求的Accept-Encoding或解码语义。响应解码后最多5000000 bytes，分块先检查再扩容；网络等待/正文读取的取消与权限撤回沿原EffectAdmission控制通道定期复核。HTML去脚本/样式/标签、实体和空白沿实际TS算法对照，原2,000,000 UTF-16正文与4000摘要上限保留；不截断Unicode scalar。原TS在engine先截正文却可能contentTruncated=false的事实保留为对照；原生明确contentTruncated并记录源长度/已存长度，不能将已截断artifact称完整网页。坏数字实体/无法表达的UTF-16明确web_content_invalid；网络/HTTP错误保留原HTTP状态和原http_<status>细节，native错误族可用稳定web_http_error/web_fetch_failed，不返回可能含秘密的底层错误串。
 
@@ -466,3 +466,7 @@ max_concurrency是1–8的请求上界（默认4），不是保证实际同时�
 正文同时经既有Conversation ToolArtifactStore保存不可变UTF-8引用（原128MiB单对象/256MiB会话配额），在output给出原生read_tool_result回读参数，支持旧read_file字节上限之外的已存网页正文。此双格式保留是兼容成本，不是第二历史真源；legacy文件供旧工具读取，native回读只信其不可变全文hash/会话绑定，不从可改legacy文件重建事实。产物写入失败/取消前无效果可明确失败；首次可能持久效果之后无法证明完整发布则保留execution_outcome_unknown及已知引用/尝试身份，不删除部分目录、不重发HTTP、不清原unknown。常规HTTP/内容错误不制造产物或成功Evidence。
 
 验收须实际TS HTTP/HTML/截断/错误向量和旧ArtifactStore内容/metadata、公开原生模型→网络批准→静态抓取→两种artifact/真实Evidence→模型、不可变全文回读、拒绝零网络/零目录、逐跳限制/降权、分块/压缩/超限、真实TLS/代理/额外CA和凭据回显脱敏、超时/取消连接关闭与worker结束、发布中断/硬退出/原unknown保全及后续独立任务。固定依赖/lock/MSRV实际编译；仅本机服务不能冒充真实互联网/平台/发布或P4总闸/P5–P7验收。
+
+2026-11-17 静态抓取实施复核（B，既有Tool Result/Evidence状态边界不变）：公开Host反例发现新Adapter把超时写成timeout状态，现有Tool Result与Evidence登记只接受success/failed/denied/cancelled，导致原结果已经保存但登记失败并保守留下unknown。修正仅在Web Adapter将超时编码为failed并保留error.code=timeout；不扩大共享协议状态、不修改已产生unknown或抹除失败记录。授权撤回则保存原Grant与failed/permission_policy_changed，关闭实际连接；允许模型观察失败不等于重新批准后续网络。公开测试分别验证SIGTERM取消退出、超时失败续行和撤权后零新增抓取。
+
+网页元数据采用序列化时256KiB输出闸，禁止先构造无限编码副本；新增路径预算在发布前计入。写后全文复核以预期长度限制实际读取，命名身份复核使用NONBLOCK/NOFOLLOW，不可因外部追加或替换为FIFO无限读取/阻塞；已有文件保全。上述均是原有有界发布契约的实现约束，不放宽配额、权限或unknown恢复。真实网络、工作集与发布总验收以对应候选回执为准。

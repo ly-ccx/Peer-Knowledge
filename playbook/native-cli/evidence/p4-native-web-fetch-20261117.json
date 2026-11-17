@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "branch": "codex/native-rust-cli",
+    "head": "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0",
+    "tree": "461f9b879ca2b9d3d645840f628e0c10a2473760",
+    "base": "17548096fd2dde8fe6ec8e396249a81f62a525af",
+    "architecturePreregistration": "58afede5231246b93a0478eabf26b6ccb2d4f73f",
+    "implementationHead": "7f09e51c50d16de6c94036e56c0550f7464321e5"
+  },
+  "status": "P4 native static HTTP candidate; whole P4 and P5-P7 remain open",
+  "classification": "A publication/resource boundaries preregistered in ADR131/map before source. B existing CLI Provider/Projection/Grant/Evidence, current authority and unknown policy retained. C socket-observation test correction, no Runtime socket/timeout change.",
+  "adrs": [
+    "38-web-search-fetch-provider.md (Proposed; not accepted here)",
+    "55-shared-system-context-assembler.md",
+    "57-canonical-conversation-history-projector.md",
+    "72-l1-default-web-entry.md (Desktop boundary retained)",
+    "98-large-history-execution-responsiveness.md",
+    "101-bot-owned-access-policy.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "implementation": {
+    "capability": "web_fetch/local.web.fetch",
+    "network": "Static HTTP(S), manual five redirects/six GETs, no retries, no browser/JS/cookie/model auth. Same Native Network proxy/CA seam, fresh client and current EffectAdmission per destination; owned response closes before parsing/publication.",
+    "codecs": "Pinned reqwest0.12.24 gzip/brotli/deflate enabled only in Web; shared Network defaults explicitly disabled, model header absence asserted on actual HTTP.",
+    "limits": {
+      "urlBytes": 16384,
+      "contentTypeBytes": 8192,
+      "rawAndNormalizedTitleBytes": 65536,
+      "decodedResponseBytes": 5000000,
+      "contentUtf16Units": 2000000,
+      "summaryUtf16Units": 4000,
+      "metadataBytes": 262144,
+      "simultaneousWorkingSets": 1,
+      "webStoreBytes": 536870912,
+      "webStoreEntries": 16384,
+      "webStorePathBytes": 4194304,
+      "webStoreDepth": 4
+    },
+    "facts": "Actual TS HTML/entities/UTF8 behavior retained. Explicit native safe-scalar truncation and source/stored length; no unpaired UTF16 or silent loss. Proxy route secrets use one-pass longest-match redaction before both artifact formats and model result. HTTP status/error identity independent of body/redaction.",
+    "publication": "Selected data_home legacy web-artifacts/date/uuid files and local-web-artifact refs; same immutable conversation ToolArtifactRef for read_tool_result. Held directory FDs, NOFOLLOW/NONBLOCK/EXCL, 0700/0600, fsync/name/version/hash checks; streaming quota under native root flock. No old file overwrite/eviction, no reconstruction from mutable legacy copy.",
+    "control": "One process semaphore held through actual blocking worker completion. Fresh authority/cancel checks; no detached parser/publisher. Partial persistence retains native ref and execution_outcome_unknown, no cleanup or HTTP replay.",
+    "timeoutCorrection": "New Adapter timeout status was rejected by existing Evidence contract; corrected to failed/error.code=timeout. Existing failed fixtures/history/unknown retained; no shared status expansion."
+  },
+  "validation": {
+    "wholeNativeGate": {
+      "source": {
+        "tree": "c210a22c1bf2b723e7bfc9c7bb16a8ce2a4dc1fe",
+        "head": "17548096fd2dde8fe6ec8e396249a81f62a525af",
+        "patchSha256": "2ee17dec0281d6af1e0761234179ff93eb42ecbab42280882db5982c5d681163",
+        "pid": 72598,
+        "pgid": 72598,
+        "startedAt": "2026-11-17T09:35:23.210590+00:00"
+      },
+      "terminal": {
+        "exitCode": 0,
+        "endedAt": "2026-11-17T09:51:03.667031+00:00"
+      },
+      "seconds": 940.456441,
+      "rustTests": 562,
+      "nativeEpisodes": 236,
+      "interopRoots": 602,
+      "interopChecks": 3368,
+      "ptyCases": 9,
+      "log": {
+        "path": "/tmp/peer-native-web-final-20261117/verify.log",
+        "bytes": 117324,
+        "sha256": "0f63c3f7e1dbb9e2f873cb00f6d4cff35faa55d1879e1741412d2eed38955c29",
+        "results": [
+          "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s",
+          "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.86s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s",
+          "test result: ok. 236 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 405.08s",
+          "test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.17s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s",
+          "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.23s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.18s",
+          "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 110 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.26s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+          "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s",
+          "test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.13s",
+          "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.41s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s",
+          "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s",
+          "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s",
+          "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s",
+          "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s",
+          "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.30s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.81s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.37s",
+          "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.11s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s",
+          "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s",
+          "test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s",
+          "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+          "test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 20.16s",
+          "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s",
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+          "test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s",
+          "{\"ok\":true,\"roots\":602,\"cases\":3368,\"coverage\":\"Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS.\"}",
+          "Native scoped verification passed; PTY evidence: /tmp/peer-native-web-final-20261117"
+        ]
+      }
+    },
+    "finalSourceBinding": {
+      "tree": "461f9b879ca2b9d3d645840f628e0c10a2473760",
+      "wholeGateTree": "c210a22c1bf2b723e7bfc9c7bb16a8ce2a4dc1fe",
+      "delta": [
+        "crates/peer-runtime/tests/model_wires.rs",
+        "scripts/native-cli/web-fetch-contracts.mjs"
+      ],
+      "unchangedProductObjects": {
+        "crates/peer-runtime/src": "511370187489ddd540904b66191afa0a911a2ddd",
+        "crates/peer-store/src": "b2e849ce047b45fc2fcb38111506fb030c3ffc20",
+        "crates/peer-cli/src": "5e73e7e092d289bbe0b82d8256b93b14245ab41e",
+        "crates/peer-tui/src": "97026ac865802399d6e7aef266aa809c6470b507",
+        "crates/peer-protocol/src": "952699706fb1f159c673221114677d698570db3b",
+        "Cargo.lock": "2e5e349a98ac44b5389126a114ce0171f74e59a3",
+        "crates/peer-runtime/Cargo.toml": "3d401f2595fd9af82edef559c356144bcb1671f3",
+        "scripts/native-cli/verify.mjs": "d142055a7bc01bb36cda0618d799da643f22d6a6"
+      },
+      "patchSha256": "90f33f6313da59a9268d56e7913bf54f721094444edec26eee162004ebe177a3",
+      "scope": "Whole gate c210, final source adds only socket-observation test correction and portable development oracle. All recorded product objects remain identical. Final focused wire tests/clippy and oracle portability red/green/corruption check passed. No final-tree whole gate claim.",
+      "initialFinalTestTree": "18d22ca63244e72c4207f970d5277be53b106f32"
+    },
+    "finalFocused": {
+      "modelWires": {
+        "path": "/tmp/peer-native-web-fetch-20261117/socket-observer-after.log",
+        "bytes": 640,
+        "sha256": "bab2a12ffc5aa461560e6e1c9a8f08a2246e19a9c36fac00d062094a8c816eeb",
+        "results": [
+          "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s"
+        ]
+      },
+      "store": {
+        "path": "/tmp/peer-native-web-fetch-20261117/store-4.log",
+        "bytes": 701,
+        "sha256": "4143e720ebad5aca5193fd52bee44e26132acd474470d433be62df53ebd75359",
+        "results": [
+          "test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s"
+        ]
+      },
+      "host": {
+        "path": "/tmp/peer-native-web-fetch-20261117/host-6.log",
+        "bytes": 2128,
+        "sha256": "2a72fececb74cb11d2b09396a6ad55b4632554134341f6582911f84322f6ebbd",
+        "results": [
+          "test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 221 filtered out; finished in 24.26s"
+        ]
+      },
+      "allTargetClippy": {
+        "path": "/tmp/peer-native-web-fetch-20261117/clippy-final.log",
+        "bytes": 682,
+        "sha256": "f60d4f0bd06c352e212873cbc6110dfc45d8c71f53db5cbf7a127d97643743e7"
+      },
+      "oracle": {
+        "path": "/tmp/peer-native-web-fetch-20261117/oracle-check.log",
+        "bytes": 233,
+        "sha256": "e5cf0229e11756e7c90befc26d393db51188384c2e8a95dae4b4f1c2e96f1094"
+      }
+    },
+    "reference": "16 actual legacy engine vectors, actual old Provider/ArtifactStore files; real Node HTTP userinfo refusal with zero request, six gzip/br/deflate success/decoded-limit vectors; pure vectors and real native Host/network are distinct.",
+    "release": {
+      "binary": {
+        "path": "/tmp/peer-native-web-final-20261117/peer-native",
+        "bytes": 21252480,
+        "sha256": "5070ed541ba91b931f770c73aa9ce3d142f643c7a19291906dea160f42c796e6"
+      },
+      "systemLibraries": [
+        "CoreFoundation",
+        "libiconv",
+        "libSystem"
+      ],
+      "fixtureFlagsAbsent": [
+        "PEER_NATIVE_WEB_PUBLICATION_FAULT",
+        "PEER_NATIVE_EPISODE_FAULT_AFTER_EFFECT"
+      ],
+      "environment": "Cleared parent environment; product PATH=/nonexistent, no runtime Node/Bun/SDK engine.",
+      "publicHostTests": 12,
+      "publicLog": {
+        "path": "/tmp/peer-native-web-final-20261117/release-web.log",
+        "bytes": 2055,
+        "sha256": "dc6123e7c40c0ebdcb8fdfca90649ca01963a3ac7edef5b017e3343d0dd8e156",
+        "results": [
+          "test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 224 filtered out; finished in 20.56s"
+        ]
+      },
+      "additionalInterop": {
+        "roots": 32,
+        "checks": 163,
+        "log": {
+          "path": "/tmp/peer-native-web-final-20261117/release-interop.log",
+          "bytes": 216,
+          "sha256": "eca55802ef262da2fcbaf39e6e416af103094de98c169aa3f93ff758c6410d3d",
+          "results": [
+            "{\"ok\":true,\"roots\":32,\"cases\":163,\"coverage\":\"Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS.\"}"
+          ]
+        }
+      }
+    },
+    "scope": "Whole gate c210, final source adds only socket-observation test correction and portable development oracle. All recorded product objects remain identical. Final focused wire tests/clippy and oracle portability red/green/corruption check passed. No final-tree whole gate claim."
+  },
+  "failuresRetained": [
+    {
+      "kind": "pre-migration baseline",
+      "binary": {
+        "path": "/tmp/peer-native-batch-final2-20261117/peer-native",
+        "bytes": 19226304,
+        "sha256": "3bc05f5f8d3bb94730ce1b853ea9e18a56ea7a1de04d8dbe2fdb66027b3960e7"
+      },
+      "log": {
+        "path": "/tmp/peer-native-web-fetch-20261117/host-baseline-4.log",
+        "bytes": 1463,
+        "sha256": "cde1043cc7e6ad0e9fa9b60cbbedee12ee96ab476d2488fa88610013175d81ab"
+      },
+      "failure": "tool_not_projected on existing featureless175 binary. Earlier attempt additionally hit missing owned-root marker in test Drop; that abort/log/root are retained, not attributed to product."
+    },
+    {
+      "kind": "web timeout fact",
+      "log": {
+        "path": "/tmp/peer-native-web-fetch-20261117/host-2.log",
+        "bytes": 2489,
+        "sha256": "897495486c0a30f0c11cdadb96cc1aedab84f9d7c29d0a25edbb6d26915fe5e3"
+      },
+      "failure": "Invalid timeout Tool Result saved, Evidence registration refused and conservative unknown remained. Preserved owned .tmpiIgNUv and .tmpzRAary histories; no rollback/erasure."
+    },
+    {
+      "kind": "fixture expectations",
+      "logs": [
+        {
+          "path": "/tmp/peer-native-web-fetch-20261117/host-3.log",
+          "bytes": 1650,
+          "sha256": "e461425e0e5cda058f85daf246c53b529c57b12c25099681e654d7ed2d487a1b"
+        },
+        {
+          "path": "/tmp/peer-native-web-fetch-20261117/host-4.log",
+          "bytes": 1033,
+          "sha256": "a7d5d5c50ed40c3df6caa11dfdeaeca5c2f1faaae94fd4625b068a3ea4c10519"
+        }
+      ],
+      "failure": "Incorrect expected HTML newline, policy-revocation command exit, Rust policy enum and include path corrected against actual legacy/contract. Actual permission_policy_changed and issued Grant retained; no new fetch or weaker denial assertion."
+    },
+    {
+      "kind": "Store compile",
+      "log": {
+        "path": "/tmp/peer-native-web-fetch-20261117/store-1.log",
+        "bytes": 968,
+        "sha256": "9f4aee4f75fea58a0451bda9f275cfc953fff2396368d51a747861b82b1d5cfe"
+      },
+      "failure": "Missing Debug on new publication result; derive added."
+    }
+  ],
+  "baseCiSocketObservation": {
+    "run": 44048089581,
+    "linux": 133918687509,
+    "macos": 133918687784,
+    "conclusion": "Not whole green; mac recorded Gemini close assertion failure then job cancelled at60min. Original logs and batch receipt updated.",
+    "source": {
+      "path": "/tmp/peer-native-web-fetch-20261117/base-ci-model-wires-source.json",
+      "bytes": 481,
+      "sha256": "a9b28c8f3f1b761940215907379800370faa1f7d7f73b6e34617ba3e2b6312b0"
+    },
+    "remoteLog": {
+      "path": "/tmp/peer-native-web-fetch-20261117/base-ci-macos.log",
+      "bytes": 323684,
+      "sha256": "b14b1b2933dfdce51ef44fc80eef862060f66d77c8d1a0026292fc21bda33cbc"
+    },
+    "controlledOldPredicate": {
+      "path": "/tmp/peer-native-web-fetch-20261117/socket-observer-before.log",
+      "bytes": 1360,
+      "sha256": "841444dac9716338c2c81ac2192f1d46aac60794bd3743bb4c3ccc8401fc6858",
+      "results": [
+        "test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.10s"
+      ]
+    },
+    "controlledResult": "Original EOF-only predicate fails forced real SO_LINGER=0 reset (macOS errno54). Updated observer accepts only EOF or ConnectionReset; actual live timeout and received bytes remain false; original one/three-second native limits unchanged. Real read cause retained in assertion.",
+    "diagnosticNativeRuns": {
+      "path": "/tmp/peer-native-web-fetch-20261117/model-wires-diagnostic-results.json",
+      "bytes": 833,
+      "sha256": "2613c07ade5007b1b51cb281d65aab072cbbf6ab2cb777674af0a57b21ab42d7"
+    },
+    "limitation": "20 unchanged native diagnostic runs did not reproduce remote reset. Exact remote errno and delayed CI step end after Node error not proven; no flake or Runtime socket fix claim."
+  },
+  "ci": {
+    "conclusion": null,
+    "head_branch": "codex/native-rust-cli",
+    "head_sha": "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0",
+    "html_url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44067260477",
+    "id": 44067260477,
+    "status": "queued",
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0"
+      ],
+      "sha": "45af97a2bc5ecf0a709a55c518f1344b6c94e7cf",
+      "tree": "461f9b879ca2b9d3d645840f628e0c10a2473760"
+    },
+    "scope": "Independent corrected-candidate CI queued/running; head, merge tree and expected parents verified. Not whole green."
+  },
+  "limits": [
+    "Synthetic owned data/services only; no real internet/vendor/model/OS Vault acceptance.",
+    "Current compiler Rust1.98.1; workspace MSRV1.88 retained; explicit new dependency rust_version max1.83 observed, not an actual1.88 compiler run.",
+    "No real disk full/EIO/power loss/platform installation or mixed uncooperating old-writer drain acceptance.",
+    "Implementer self-review, not independent review.",
+    "Full Context/attachment lifecycle, other reachable tools, Skill/Plugin/Hook/ACP/headless/commands and real services remain P4 work.",
+    "P5 project-agent full product, ordinary Ratatui send, P6 long memory and P7 default/release switch incomplete.",
+    "No personal-data migration, install, user process restart, default switch, merge/tag/release or Bun/Node engine sidecar."
+  ],
+  "portabilityCorrection": {
+    "head": "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0",
+    "file": "scripts/native-cli/web-fetch-contracts.mjs",
+    "observedCi": {
+      "run": 44066456549,
+      "linuxJob": 133981265362,
+      "conclusion": "failure",
+      "merge": {
+        "parents": [
+          "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+          "7f09e51c50d16de6c94036e56c0550f7464321e5"
+        ],
+        "sha": "7a9d7a1232f80aedca1345af05896803002d532c",
+        "tree": "18d22ca63244e72c4207f970d5277be53b106f32"
+      },
+      "log": {
+        "path": "/tmp/peer-native-web-final-20261117/ci-linux-failed.log",
+        "bytes": 293567,
+        "sha256": "bab810dc92cf54bdc79c7bd6d50639455792f7020ef0b495bc8368d68e61ddf8"
+      },
+      "message": "gzip encoded fixture OS byte0x13 on Darwin versus0x03 on Linux; decoded bodies same. Whole CI not green; original mac job may be superseded by corrected-candidate workflow.",
+      "jobs": [
+        {
+          "id": 133981265362,
+          "conclusion": "failure"
+        },
+        {
+          "id": 133981265891,
+          "conclusion": "cancelled"
+        }
+      ],
+      "scope": "Original Linux failure retained. macOS cancelled when corrected candidate push superseded it under existing workflow concurrency; no whole-green claim."
+    },
+    "change": "Keep compressed bytes as fixed HTTP inputs, validate real decompression equals independently constructed expected body and original size/hash; real Node HTTP and original decoded-limit checks remain. Both OS header variants explicitly decode to identical expected body. Do not compare platform-specific encoder bytes as a wire contract. No product/fixture body/hash changes.",
+    "controlledBeforeAfter": {
+      "path": "/tmp/peer-native-web-final-20261117/oracle-portability/results.json",
+      "bytes": 150,
+      "sha256": "98260758f477d766d3f399f709e54813ed864392c7460aa36e93b0715857e043"
+    },
+    "logs": [
+      {
+        "path": "/tmp/peer-native-web-final-20261117/oracle-portability/before/run.log",
+        "bytes": 65536,
+        "sha256": "d811f21e94fc75b823589322dd2b1a12c72636672ee9c1379925e87db25b6b2c"
+      },
+      {
+        "path": "/tmp/peer-native-web-final-20261117/oracle-portability/after/run.log",
+        "bytes": 233,
+        "sha256": "f0af36edef75939461ae3f6141671a48d824f55620df16cc188f415cef1d9ab6"
+      },
+      {
+        "path": "/tmp/peer-native-web-final-20261117/oracle-portability/corrupt/run.log",
+        "bytes": 544,
+        "sha256": "fc74dacb6f777251868b93754e893d31a9594fa45c2a660c5387abe78d4d8bbb"
+      }
+    ],
+    "actualOracle": {
+      "path": "/tmp/peer-native-web-final-20261117/oracle-portable.log",
+      "bytes": 233,
+      "sha256": "0a6a928c899e7f1b2ce1ea8550fc845636ee3ad207db2cbff99a6a4c5eb39846"
+    },
+    "result": "Original OS-dependent comparison fails on opposite-OS fixed gzip header; corrected script passes, deliberately corrupt compressed content still fails."
+  }
+}
