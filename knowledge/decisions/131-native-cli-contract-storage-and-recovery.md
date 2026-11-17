@@ -508,3 +508,11 @@ Git接线复核发现，既有ExecutionResourceStore对readOnly任务的markHand
 2026-11-17 Git大固定元数据的归档澄清（A，实施前登记）：4000单位预算同时包含新增原生检索元数据，先裁切旧约定内的entries/commits/origin预览，并明确contextPreviewTruncated。真实repository/git/common/config路径等固定身份不可为了过预算被字符串截断或替换成猜测路径；固定部分仍超过预算时，沿已接受的通用JSON Tool Result归档/模型视图引用保存整个预览对象，返回既有local_tool_result_ref与read_tool_result，不新造结果类型。完整Git观察另有其原不可变JSON；被引用的完整预览保留真实artifactPath/read_file提示及该观察引用，检索不能重执行Git。正常内联结果继续直接含artifactPath，超额引用明确“预览/需继续读取”，不能称完整。两次可能发布都受原Store/权限/取消/配额与unknown保护，失败保留已知引用，不删除旧产物。该补充保护身份及完整检索能力，不放宽最终模型视图预算或把引用当执行成功。
 
 2026-11-17 child登记实施复核（A，修正上述“实际进程组”观测时点）：真实Darwin快速退出且尚未wait回收的Git仍可由ps观测完整start身份，但getpgid返回ESRCH，kill(-pgid,0)可能返回EPERM；不能把它当组不存在，也不能要求暂停或改用Shell才能登记。固定Engine仍通过process_group(0)真实启动且独占Child/wait；Host在启动回执只登记原owner、完整child身份及running（已发起、尚未证明停止）。getpgid返回实际group时必须PID=PGID；仅ESRCH允许保全身份并继续等待，其它查询错误拒绝。该分支不签发死亡/组不存在/ended事实，不允许在恢复中凭ESRCH杀进程；正常结束仍由原Child wait和实际group absence共同证明，下一generation仍须旧child结束且组不存在。硬退出恢复杀仍只限完整同PID/start/boot的Alive且getpgid确为PID；EPERM/组查询失败保留unproven。保留原失败与真实zombie实验，公开入口覆盖快速命令；不降低停稳或unknown规则。
+
+### 2026-11-17 NR-04 共享 Provider 执行接缝（B，实施前复核）
+
+ADR65/76/129要求普通exec、ACP、交互入口复用本地能力链。当前b308的PreparedEffect.start直接要求NativeSessionHost与Goal Grant，MCP Provider还直接写Goal资源句柄并操作live registry；这使已实现的Provider不能供普通会话使用。先将该真实变化点收敛到原EffectAdmission：Provider只取得Host生成的调用事实（conversation/toolCall/startedAt）与不可由模型制造的绑定端口；开始前和实际I/O仍从该端口取得当前授权确认。调用事实不是PermissionGrant，Grant仍由实际宿主保存、实时校验并与同一Tool Result/Evidence提交。不能构造虚假Goal、继承Bot Full给经典会话或另开文件/Shell执行器解决普通入口。
+
+MCP新连接的未启动driver经同一有界控制通道交给Host，Host先核对本次MCP准入、源版本/owner及取消，再保存原nativeMcp handle并登记原live owner，确认后才能运行driver/发请求。拒绝、队列关闭或登记失败不启动该driver；取消/撤权后仍等待真正owner结束，不凭future drop制造已停止。Provider的连接池有界，异步等待不持标准Mutex，池失败不能导致新旧连接双跑；连接/child事实、旧凭据epoch、未围栏远端unknown与恢复规则不变。当前Goal adapter继续使用原ExecutionResourceStore/ExecutionRegistry，不增加存储、权限枚举、外部消息或私有账本。
+
+该复核是已接受统一能力链的B级实现解耦，不移动准入/授权/Evidence/存储边界。验证应覆盖实际公开模型→file/Shell/Web/Git/MCP→结果链、MCP连接复用/换代/注册拒绝与断连、owner拒绝时零spawn/网络、取消/撤权/硬退出/后续任务与旧记录互读；不得以接口编译替代行为。普通会话身份/持久执行与完整Context/exec/ACP仍须沿既有契约分别接线和验收；本步本身不等于普通CLI可用或P4完成。
