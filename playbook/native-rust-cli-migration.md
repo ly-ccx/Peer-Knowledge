@@ -4,6 +4,20 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 共享 Provider Host、实时撤权与普通会话模式投影
+
+`1fb2790128f67dd2b3cc046b345070d4b451f1f5`（tree `8cd75095`）与后续 `a942b36e2d31bc10a57e14175f8e723ae074d7c4`（tree `caf75dc4`）已推送。ADR65/76/129/131 的共享执行接缝 B 复核 `760c1e8`、Git 计时修正 `4dc1377`、模式投影 B 复核 `3204589` 均先于对应源码；既有权限、Evidence、存储与 unknown 收口边界不动。Provider 改用 Host 调用事实和原 EffectAdmission，不再依赖具体 Goal Host/Grant/资源对象；调用事实不能授权，也没有为普通会话伪造 Goal。
+
+MCP 未启动 driver 经原有界控制通道交给实际 Host；先核对 canonical pending Recorder 的完整 owner 元组、真实 registry revision/manifest transport，再登记原持久句柄和 live owner，随后才运行 transport。七种 owner/start/boot/role/transport/revision 错配均零启动并能接后续任务。Shell 在启动产物、spawn 前及运行期间复核实时授权；真实撤权反例由原六秒边界失败转为停止/回收成功，保留此前真实 granted=true 和实际失败结果。Git 累计15秒只计 spawn→真正完成/组不存在；Host starting 确认另限5秒，恢复 Probe 原绝对10秒/256KiB不变。原并行超时、依赖回读失败和慢准入红例保留。
+
+精确 `1fb27901` 完整原生门禁通过：589 Rust、247公开Episode、627根/3521实际TS↔Rust、9PTY，1045.007秒；全仓typecheck/architecture通过。其固定 featureless 产物 21,442,016 bytes / SHA256 `9c16fab7f0f0e05223f602d2d02144e689e55105c6f0859bffbca69b4a2eeaa8`，仅CoreFoundation/libiconv/libSystem；fixture开关不在产物。清除继承模型/凭据/测试覆盖且产品PATH=/nonexistent，8项实际文件/Shell/Git/Web/MCP stdio/HTTP/SSE与10根64互读通过。见[共享接缝回执](native-cli/evidence/p4-native-shared-provider-host-20261118.json)。
+
+后续 `a942b36e` 将既有八种 Runtime mode 与 Host capability allowlist 交集接入同一 immutable Projection，Goal入口明确使用goal；不可见工具在prepare仍拒绝。实际TS helper128向量、隔离TUI迁移子集8种模式成员对照、123 Runtime library（含4项新投影测试）、all-target clippy/fmt/boundary/architecture通过；保留注册顺序和goal原有工具集合。完整旧门禁不冒充此新tree整闸。新固定 featureless 产物 21,476,240 bytes / SHA256`e15433ff984753d5f47286d48553b553b3876f4d93e70d625f218c00890456ff`；11项公开函数（8正常/异常闭环及远端原失败3项）与15根89互读通过，详见[模式投影回执](native-cli/evidence/p4-native-runtime-projection-20261118.json)；原生普通会话发送仍未接通。
+
+CI44113613779的精确merge `fe5524e3`/tree `9a598e34`、base和b3c parents已核对：Linux134145773558全仓success；macOS134145773028在15:41:25Z先发生242过/3失败（两项明确git_query_timeout，另一项artifact_invalid，远端原fixture缺失，不能断言其前序结果），之后作业未退出，到16:23:23Z触发60分钟取消。不能仅记为跑得慢或全仓绿。现有本机同类失败与慢准入红转绿支持计时修正；未宣称精确复现远端或解释打印错误后仍存活的原因。新[a942 CI44126220185](https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185)独立排队/运行，尚未全绿。原失败日志、身份和断言均保留，没有放宽15秒执行预算或60分钟CI总限。
+
+**P4总闸与P5–P7继续开放。** 下一段是普通会话真实身份/持久执行、同一Runtime的headless/ACP及Context/Skill/Plugin/Hook余项；模式投影与Provider解耦不等于普通CLI已可用。实现者自审、合成服务，未做真实付费模型、安装版本drain或长期内存验收。未安装、改个人数据、重启用户实例、切默认、合并/tag/发布；无Bun/Node引擎sidecar。
+
 ## 2026-11-17 Git CI filter 夹具修正
 
 `b308`独立CI44109003980：Linux134129146730在原生门禁失败，公开Episode为244过/1失败；snapshot对clean=false的断言实际得到null。macOS134129146953的原生门禁成功，整作业在后续推送后取消，不记全仓绿。原runner失败fixture/config未保存在本地，不能声称精确Linux复现；用同一固定b308 featureless二进制、自有HOME/.gitconfig配置clean filter，原断言同样实际失败。ADR106已要求禁用配置filter时clean=null；NOSYSTEM仅在初始化夹具设置，真实产品清除GIT_*环境，不能假定系统无filter。

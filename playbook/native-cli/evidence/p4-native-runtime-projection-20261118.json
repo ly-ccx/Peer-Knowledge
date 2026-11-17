@@ -1,0 +1,128 @@
+{
+  "date": "2026-11-18",
+  "classification": "B implementation of existing ADR35/65/76/106/129/131 boundaries; no new permission, storage or execution path.",
+  "candidate": {
+    "commit": "a942b36e2d31bc10a57e14175f8e723ae074d7c4",
+    "tree": "caf75dc4fe0c9a5686f68db0057959b16c4ae974",
+    "pushed": true,
+    "prior": "1fb2790128f67dd2b3cc046b345070d4b451f1f5",
+    "patchSha256": "d6897204effd9065a0f2d329deddd03136d9853d06b288ff08958c065d6f5d55"
+  },
+  "knowledgeBeforeSource": "3204589650b6951d20a0173631d1e74d8506fa6a",
+  "implementation": "Typed eight existing Runtime modes; source Manifest scope filtering intersected with Host canonical capability allowlist. Validate excluded modeScopes; preserve unscoped normal-mode fallback and registration order. Same immutable lookup rejects unprojected effects. Existing Goal explicitly projects Goal mode; Shell declares original chat/goal scopes. No ordinary conversation runner fabricated.",
+  "actualTsReference": {
+    "syntheticCases": 16,
+    "modeChecks": 128,
+    "actualIsolatedTuiMembershipModes": 8,
+    "scope": "Compare membership only for actually migrated local capabilities. read_tool_result remains Goal-only; missing shell_stop, Goal/Skill/interactive capabilities are not claimed.",
+    "fixtureSha256": "5c5754e6d3a9a5e9def43377939ecdf7fece268e9b7dac0a215e296059b9665a",
+    "argvAndPolicyBaseline": "124 actual TS argv and224 automatic-policy observations retained outside repo; not Rust conformance or working ordinary runner."
+  },
+  "validation": {
+    "runtimeLibraryTests": 123,
+    "newProjectionTests": 4,
+    "allTargetClippy": true,
+    "fmt": true,
+    "boundaries": true,
+    "architecture": true,
+    "releaseBuild": true,
+    "sourceTree": "caf75dc4fe0c9a5686f68db0057959b16c4ae974",
+    "releasePublicFunctions": [
+      {
+        "test": "native_model_file_shell_result_evidence_and_pause_use_the_public_composition_root",
+        "exitCode": 0,
+        "seconds": 1.888839625
+      },
+      {
+        "test": "native_provider_host::running_shell_rechecks_actual_policy_stops_its_group_and_admits_a_later_task",
+        "exitCode": 0,
+        "seconds": 1.9997141669999998
+      },
+      {
+        "test": "native_mcp::stdio_grant_transport_result_evidence_and_owned_stop_are_native",
+        "exitCode": 0,
+        "seconds": 1.2854715839999997
+      },
+      {
+        "test": "native_mcp::streamable_json_sse_and_legacy_endpoint_sse_have_real_native_tool_loops",
+        "exitCode": 0,
+        "seconds": 3.0012964589999998
+      },
+      {
+        "test": "native_mcp::signal_cancellation_stops_native_mcp_and_retains_the_sent_effect_as_unknown",
+        "exitCode": 0,
+        "seconds": 0.7855803340000005
+      },
+      {
+        "test": "native_git::public_native_git_snapshot_keeps_the_real_child_artifact_and_evidence_chain",
+        "exitCode": 0,
+        "seconds": 3.339674958
+      },
+      {
+        "test": "native_git::public_native_readonly_git_uses_a_read_anchor_without_claiming_a_write_directory",
+        "exitCode": 0,
+        "seconds": 3.2264642079999994
+      },
+      {
+        "test": "native_web::native_web_http_publishes_legacy_and_immutable_facts_before_model_continuation",
+        "exitCode": 0,
+        "seconds": 0.9685067089999997
+      }
+    ],
+    "exactRemoteFailedPublicFunctions": [
+      {
+        "test": "public_native_git_external_include_requires_its_own_real_pty_scope_decision",
+        "exitCode": 0,
+        "seconds": 18.37746875
+      },
+      {
+        "test": "public_native_git_fixed_metadata_overflow_keeps_full_identity_in_existing_json_artifacts",
+        "exitCode": 0,
+        "seconds": 3.771762290999998
+      },
+      {
+        "test": "public_native_git_model_can_read_both_saved_reference_and_legacy_artifact_path",
+        "exitCode": 0,
+        "seconds": 7.471983499999997
+      }
+    ],
+    "releaseTsRustInterop": {
+      "ok": true,
+      "roots": 15,
+      "cases": 89,
+      "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+    },
+    "fullNativeGate": "Preceding1fb tree only:589 Rust/247 Episodes/627roots3521TS-Rust/9PTY. Not rerun or claimed for this later source."
+  },
+  "featurelessRelease": {
+    "bytes": 21476240,
+    "sha256": "e15433ff984753d5f47286d48553b553b3876f4d93e70d625f218c00890456ff",
+    "dependencies": "/tmp/peer-native-ordinary-runtime-20261118/peer-native:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n"
+  },
+  "ci": {
+    "run": 44126220185,
+    "status": "queued/in_progress",
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185",
+    "wholeGreen": false
+  },
+  "preservedFailures": [
+    "Initial mode fixture order disagreed with actual TUI_RUNTIME_MODES export; corrected fixture order; log retained. Production semantics unchanged.",
+    "Preceding CI3 actual failures and post-error hang retained in shared-provider receipt, not called flake or budget-widened."
+  ],
+  "open": [
+    "Ordinary conversation identity, owned execution/history/recovery and actual stdin/argv exec and ACP adapters.",
+    "Remaining Context/Skill/Plugin/Hook/roles/background shell/commands, mixed-version drain and actual model/platform acceptance.",
+    "FullP4/P5 project-agent/P6 complete Ratatui sending and memory/P7 release and default switch."
+  ],
+  "limits": "Implementer self-review and synthetic services. No personal data, install, user restart, default switch, merge/tag/release or JS engine sidecar.",
+  "evidenceDirectory": "/tmp/peer-native-ordinary-runtime-20261118",
+  "logSha256": {
+    "projection-library.log": "9b33f28d45aa7d606051b626314490609923aacff38f7db09e2697cba61bd524",
+    "projection-clippy.log": "bc59681d5717895e6903dee823a59ddaf76b366583263abcfef4c6a146bdc196",
+    "projection-architecture.log": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560",
+    "projection-release-build.log": "218d832d7247d53f85b0d4320e7b23f6fc56c277a3e3e0b3ed0318d74cfc50a9",
+    "release-check.log": "d7972e20b268daee44d6fa6176753261df0343915807d3a085d71212bb1e8df9",
+    "ci-git-regression.log": "499aa1093333414c8317f036a34e61da9de17e40bb8474112f0e89b4d11eb098",
+    "release-interop-after-ci-regression.log": "1d5186c076333915244fdf8c3a55ec4e769092ac41a430258d9975953dfbe945"
+  }
+}
