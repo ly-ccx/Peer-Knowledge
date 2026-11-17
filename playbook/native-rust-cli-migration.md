@@ -4,6 +4,12 @@
 最后更新：2026-11-17
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-17 Git CI filter 夹具修正
+
+`b308`独立CI44109003980：Linux134129146730在原生门禁失败，公开Episode为244过/1失败；snapshot对clean=false的断言实际得到null。macOS134129146953的原生门禁成功，整作业在后续推送后取消，不记全仓绿。原runner失败fixture/config未保存在本地，不能声称精确Linux复现；用同一固定b308 featureless二进制、自有HOME/.gitconfig配置clean filter，原断言同样实际失败。ADR106已要求禁用配置filter时clean=null；NOSYSTEM仅在初始化夹具设置，真实产品清除GIT_*环境，不能假定系统无filter。
+
+仅测试修正`b3c825e364aa729ace2e44e5dbea48b2029054f3`/tree `9a598e34`已推送：显式固定配置filter，断言filtersDisabled=true、clean=null及过滤命令零效果，原untracked/HEAD/index/完整产物/Grant/Evidence/进程/版本断言保留。固定正式产物聚焦红转绿；生产源码与b308完全相同，普通Runtime解耦在制代码未混入。见[回执](native-cli/evidence/ci-native-git-filter-20261117.json)。新[CI44113613779](https://github.com/ly-ccx/Peer-Agent/actions/runs/44113613779)仍在运行，不以旧本机门禁冒充新测试树完整CI，也不称flake或通过放宽产品政策解决。
+
 ## 2026-11-17 原生 Git 工具、动态读取范围与只读 child 恢复
 
 `b308ff75159f003b442e614112595c0952d8fd7d`已提交并推送，tree `e2758723832bd393f32e7a72e735deb708998bb4`。按ADR49/92/101/106/127/129–131实施；原生child/floor13与固定元数据超额先在ADR131登记，Darwin登记时点修订`a8cc238`也先于对应实现。真实`git_query`现已注册到默认Provider/Projection，沿同一Host授予根与动态scope、固定Git执行、不可变完整JSON/有界预览、Tool Result/Evidence及模型续行。原恢复Probe保持窄预算/编码/范围；不会以Git工具读取许可替代unknown对账。补充scope逐项使用原ApprovalStore/Input等待，保留最初真实Grant与随后批准/拒绝，不跨调用缓存。

@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-11-17",
-  "status": "Native Git Provider/scope/Artifact/Evidence and canonical owned-command recovery implemented and locally validated; current whole CI in progress; full P4/P5-P7 remain open",
+  "status": "Native Git source locally validated; b308 independent Linux CI exposed incorrect filter-fixture assertion; test-only b3c825e3 pushed, new CI in progress; full P4/P5-P7 open",
   "candidate": {
     "commit": "b308ff75159f003b442e614112595c0952d8fd7d",
     "tree": "e2758723832bd393f32e7a72e735deb708998bb4",
@@ -127,9 +127,24 @@
     "previousRun": 44086962694,
     "previousConclusion": "Both full macOS/Linux jobs success including own Electron smoke; not evidence for current source.",
     "candidateRun": 44109003980,
-    "status": "in_progress",
-    "conclusion": null,
-    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44109003980"
+    "status": "completed",
+    "conclusion": "failure",
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44109003980",
+    "jobs": [
+      {
+        "id": 134129146730,
+        "platform": "Linux",
+        "conclusion": "failure",
+        "failedStep": "Native CLI scoped validation"
+      },
+      {
+        "id": 134129146953,
+        "platform": "macOS",
+        "nativeConclusion": "success",
+        "conclusion": "cancelled after new push; not whole green"
+      }
+    ],
+    "correctionReceipt": "ci-native-git-filter-20261117.json"
   },
   "evidence": {
     "lab": "/tmp/peer-native-git-provider-final-v2-20261117",
