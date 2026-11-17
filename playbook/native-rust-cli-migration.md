@@ -6,6 +6,16 @@
 
 
 
+## 2026-11-17 原生 Git 读取 Module 候选
+
+`53d1cc14`（tree `e8a666ce`）已提交并推送；ADR131/map 的 A 级登记 `18fae8a` 先于实现。新增固定系统 Git 的 snapshot/status/log 原生读取引擎与受管命令生命周期，原 GitStatusProbe 共享底层命令实现但保留原10s/256KiB、严格UTF8和范围限制；完整工具预算15s/8MiB及观察界限不回流到恢复Probe。真实取消/超时/降权/超额与parent已回收但descendant仍占管道的进程组结束通过。**本卡没有注册 git_query，也未完成动态Host范围批准、完整工具产物/Evidence或公开Git闭环。**
+
+冻结tree `3c0ab0ae`完整原生门禁 **567 Rust（236公开Episode）/602根3368实际TS↔Rust/9PTY**，exit0、953.374秒。后续审阅发现外置include fixture相对路径错一层，原场景没有加载外置文件，不能算覆盖；修正为真正加载，增加实际来源、filtersDisabled/clean=null及真实Provider批准请求断言，两端增加index字节不变/无index.lock检查。最终仅三份测试/oracle资源变化，产品对象与冻结树相同；最终17实际TS向量、11非法输入、3执行失败、4原生Module及all-target clippy/fmt通过，21项Host停稳/恢复回归通过于相同产品源码。不把早先整闸冒充最终测试树的整闸。
+
+固定featureless release **21,286,896 bytes**、SHA256 `683caa74a5f578cf8eb6bcb2d81d8bdb240a9df10452a8bdb5e0c68e171141b0`，仅CoreFoundation/libiconv/libSystem；产品PATH不可发现Node/Bun，4项公开Host测试生成7根、37次实际TS/Rust互读通过。最初只生成1根导致原互读器至少6根的集合断言失败，原记录保留；补充真实多协议/拒绝/截断恢复用例后用原验证器通过，未放松断言。其它实施中失败及准确候选绑定见[Git Module回执](native-cli/evidence/p4-native-git-engine-20261117.json)。
+
+基线b716两平台全仓CI44067260477已通过；新候选[CI44081181327](https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327)目前in_progress，尚无本候选全仓成功结论。接线前已保全non-TTY批准误记local_ui且无deadline的隔离事实，后续按ADR92/101既有决定来源、5分钟等待及迟到拒绝边界修正，不改旧历史。P4总闸、P5–P7、普通Ratatui发送与长期内存仍开放。实现者自审、合成服务；无个人数据、安装、用户实例重启、默认切换、合并或发布。
+
 ## 2026-11-17 原生静态 HTTP 抓取与网页产物候选
 
 `7f09e51c`实现，后续`b71696f1`修正跨平台oracle（最终tree `461f9b87`），均已提交并推送；ADR131/map的A登记`58afede`在源实现前已推送。迁移旧CLI真实可达的web_fetch/local.web.fetch，同一Provider/Projection/Grant/Evidence；仅静态HTTP(S)，无Browser/JS/Cookie/模型凭据。逐跳复核授权/路线/证书、最多6次GET、无自动重试；gzip/br/deflate只在Web开启，共享模型/MCP默认禁用。实际TS HTML/实体/UTF8与旧Provider/ArtifactStore对照；2M UTF16安全scalar上限与明确截断/源长度、5M解码体和标题/URL/序列化预算。代理秘密在模型视图及两种产物中单次有界脱敏，HTTP身份不由正文改写。

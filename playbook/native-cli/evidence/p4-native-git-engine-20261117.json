@@ -1,0 +1,145 @@
+{
+  "createdAt": "2026-11-17",
+  "status": "native GitRead Module delivered; public git_query/Host scope integration not delivered; P4 total open",
+  "candidate": {
+    "commit": "53d1cc14409530710f06f1f59f667fdda31215c7",
+    "tree": "e8a666cea74898d1a0beb1efe362bbd2bd8bd85a",
+    "branch": "codex/native-rust-cli",
+    "pushed": true
+  },
+  "decisions": [
+    "49-cancel-path-hard-sandbox.md",
+    "92-scoped-permission-inheritance.md",
+    "101-bot-owned-access-policy.md",
+    "106-readonly-git-and-delegation-capability-admission.md",
+    "127-unknown-outcome-reconciliation-and-delegated-resolution.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "preregisteredKnowledgeCommit": "18fae8a",
+  "implementation": {
+    "engine": "Fixed /usr/bin/git and compiled argv, no shell or model executable/env; all GIT_* injection removed; read-only status/log/snapshot, canonical repository/git/common/config sources and live authority port. Cumulative 15s Git execution, 8MiB stdout+stderr, explicit observation/path/entry limits and JS-compatible redaction/scalar clipping.",
+    "ownership": "Shared owned raw-byte command collector captures process group before root reap; actual timeout/cancel/revoke/output and parent-exit descendant cases terminate and await group. Unproven stop stays ended=false.",
+    "reconciliation": "GitStatusProbe shares command ownership only; original 10s/256KiB, strict UTF8 and narrower read scopes retained.",
+    "notImplemented": "No git_query Provider registration, supplemental Host read-scope approvals, full ToolArtifact/preview/Evidence loop or public Git PTY acceptance in this commit."
+  },
+  "wholeNativeGate": {
+    "tree": "3c0ab0ae0278021378cb9abefa76838d8a9d5d0e",
+    "head": "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0",
+    "patchSha256": "741b2abc1de8cdd3da7870c2cabc8ecf504bcbba1e0a1d14001578504525a630",
+    "pid": 99704,
+    "pgid": 99704,
+    "startedAt": "2026-11-17T11:36:27.321888+00:00",
+    "scope": "Frozen 3c0 source only. Final test/oracle correction below was separately checked; this is not a claim that the final corrected test tree ran the whole native gate or that P4 total passed.",
+    "exitCode": 0,
+    "endedAt": "2026-11-17T11:52:20.695719+00:00",
+    "seconds": 953.373831,
+    "rustTests": 567,
+    "publicEpisodesIncluded": 236,
+    "actualTsRustRoots": 602,
+    "actualTsRustCases": 3368,
+    "ptyCases": 9,
+    "logSha256": "6310780bb4be666345c043369d40ea1c371064f5c5e05abecbe31f1f36e4100d"
+  },
+  "finalFixtureCorrection": {
+    "files": [
+      "crates/peer-runtime/src/git_read/tests.rs",
+      "packages/protocol/contracts/native-cli/git-query-cases.json",
+      "scripts/native-cli/git-query-contracts.mjs"
+    ],
+    "baseline": "included-filter used ../outside-config relative to repo/.git/config while real fixture file was scope/outside-config; it did not load an external config. Original vector and frozen tree preserved in included-filter-before.json.",
+    "fix": "../../outside-config plus actual TS assertions for external source, filtersDisabled=true/clean=null and real Provider permission request; Rust consumes corrected actual TS vector. Added before/after actual index byte preservation and no index.lock assertions in both implementations.",
+    "checks": {
+      "actualTsVectors": 17,
+      "invalidInputs": 11,
+      "executionFailures": 3,
+      "rustModuleTests": 4,
+      "hostStopRecoveryTests": 21,
+      "fmt": "passed",
+      "allTargetClippy": "passed"
+    },
+    "logs": {
+      "oracle-included-check.log": "487efd00dfa8f17afdc6ae22dc556ad5ed2f7ddf538cd73aa3b99e5a32443b8d",
+      "unit-included-fixed.log": "d1de7a06ec3246da8729ffe05d417282ec2d3ba7484c5625b50bdd4128c78e43",
+      "host-stop-fixtures.log": "d89cc477e9944877bdbc8cdf13f9581c5983d67f48a006ce3780890432983910",
+      "clippy-included-final.log": "9de8230afc1656b1bfda1b5d94cea2005f47e02c13993a09cc501b7f499513d4"
+    },
+    "productObjectsUnchangedFromFrozenTree": true
+  },
+  "featurelessRelease": {
+    "bytes": 21286896,
+    "sha256": "683caa74a5f578cf8eb6bcb2d81d8bdb240a9df10452a8bdb5e0c68e171141b0",
+    "linkedLibraries": [
+      "CoreFoundation",
+      "libiconv",
+      "libSystem"
+    ],
+    "publicHostChecks": {
+      "tests": [
+        "native_model_file_shell_result_evidence_and_pause_use_the_public_composition_root",
+        "four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation",
+        "denial_is_a_real_persisted_result_without_effect",
+        "truncated_stream_cannot_dispatch_a_partial_tool_and_next_task_can_run"
+      ],
+      "exitCode": 0,
+      "seconds": 35.06579089164734,
+      "roots": 7
+    },
+    "actualTsRustRoundtrip": {
+      "ok": true,
+      "roots": 7,
+      "cases": 37,
+      "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+    },
+    "productPath": "/nonexistent",
+    "note": "Harness selects pinned binary; no production launcher override or Bun/Node engine sidecar."
+  },
+  "retainedFailures": [
+    {
+      "case": "synthetic timeout marker",
+      "fact": "150ms controlled deadline could kill synthetic process before readiness marker; retained failures unit-2/control-diagnostic. Test-only budget set to 5s with actual 3s readiness and group absence assertions; production 15s unchanged."
+    },
+    {
+      "case": "oracle generation dependency",
+      "fact": "unit-7 compiled while contract --write was still running and saw missing pathBytes; retained log, sequential generation then unit-8 passed."
+    },
+    {
+      "case": "wrong no-feature Host invocation",
+      "fact": "host-stop.log selected zero tests; not counted. host-stop-fixtures.log has 21 real passing tests."
+    },
+    {
+      "case": "extra release interop incomplete population",
+      "fact": "First extra release run exercised one root; episode-conformance rejected roots.length>=6. Original release-interop.log preserved. Fresh four public test functions generated seven independent roots; same unchanged verifier passed 37 actual roundtrips. No assertion weakened."
+    }
+  ],
+  "baseWholeCi": {
+    "candidate": "b71696f11a74e09b7cbeaf4b24a5177b9e0ea8c0",
+    "run": 44067260477,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": {
+      "linux": 133984229551,
+      "macos": 133984230000
+    },
+    "merge": "45af97a2bc5ecf0a709a55c518f1344b6c94e7cf",
+    "tree": "461f9b879ca2b9d3d645840f628e0c10a2473760",
+    "scope": "Both full jobs incl native/build/type/architecture/Test/Electron smoke; not this new Git source."
+  },
+  "candidateWholeCi": {
+    "run": 44081181327,
+    "observedStatus": "in_progress",
+    "conclusion": null,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327"
+  },
+  "remaining": [
+    "Host primary approval unavailability/expiry provenance and live 5min wait; typed supplemental read scopes and real Git tool Provider loop",
+    "All remaining P4 Runtime/protocol/Context/lifecycle work and P4 total gate",
+    "P5 complete project-agent, P6 ordinary Ratatui send/history/long-memory acceptance, P7 packaging/default switch/old reachable CLI retirement"
+  ],
+  "limits": [
+    "Implementer self-review, not independent acceptance",
+    "Synthetic Git/files/model HTTP only; no live service, actual MSRV1.88 campaign, installed/mixed-version drain or release acceptance",
+    "No personal data/credentials, installation, user process restart, default switch, merge/tag/release"
+  ]
+}
