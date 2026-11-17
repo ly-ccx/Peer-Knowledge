@@ -491,3 +491,16 @@ max_concurrency是1–8的请求上界（默认4），不是保证实际同时�
 2026-11-17 Git Host接线实施复核（B，沿上段已接受读取准入边界）：实施复核确认旧Git Provider已有file-read/capabilityId/path/workspacePath运行时对象，但Protocol中并不存在名为LocalFilePermissionScope的类型，前稿名称表述不准确。按本节已接受的typed scope要求，将该既有JSON形态正式命名为LocalReadPermissionScope并补齐TS/Rust类型，在原PermissionGrant.scope与Host提示中表达，不增加历史批准的执行权或另一个持久格式；目录/文件包含关系由Host根据实际canonical路径及类型判定，模型不能提交已准入根。追加scope批准使用“原工具参数摘要+具体scope”的独立摘要，避免旧普通操作匹配器复用为整次工具批准；原Authority仍校验原参数摘要/主体/策略/执行代。补充批准由Host保留、随同一canonical消息/Evidence保存，不把它委托给Provider输出。一次调用的根/补充scope集有界，终态释放，不从历史记录恢复执行权。
 
 只读任务的resourceDirectory原本为null，这是“不占写目录”的资源事实，不能拿它当读取工作区不存在。原生Host按当前canonical Goal的已绑定worktree/target、会话workspacePath与原workspace来源解析读取锚点，按原source revision复核；不把目录重新写入只读资源claim，不从工具参数授予根。readonly Worker的公开exec沿相同准入/当前性/预算/停稳链；模型投影与Provider都检查已接受的只读能力策略。Explorer/Verifier的任务发起、模型角色选择、核验和签收仍由P5原有角色入口接入，不能仅凭一个枚举或Git单测宣称完整产品闭环。完整CLI迁移目标不变。
+
+
+### 2026-11-17 NR-04 原生受管本地子进程的只读恢复（A，实施前登记）
+
+Git接线复核发现，既有ExecutionResourceStore对readOnly任务的markHandle为no-op；原native recorder v1只证明CLI宿主死亡，不证明其尚存Git子进程结束。不能用resourceDirectory=null制造本地停稳。沿原canonical work budget的attempt.pendingTools/uncertainDispatches中同一调用保存可选nativeProcess v1：完整owner Recorder、handleId、调用/dispatch身份、单调generation、not_started/starting/running/ended状态及running时完整child Recorder。一个工具至多64次固定命令启动；不新开进程/批准/恢复账本，不把预算数值或模型文本当进程事实。字段是Host-owned协议，Provider不能提交原任务/owner身份或持久写入。
+
+登记新的coordination语义floor13（12继续保留给ADR127，10不复用）：写入该字段前沿既有writer-fence晋级，TS/Rust同样识别、保留及校验；含该语义的头/索引/重建保持13，旧<=12 reader/writer明确拒绝，不仅靠进程内标志防旧宿主把parent死亡当全部停止。无该字段的旧记录不补造身份/未派发证明。当前已加载旧宿主/安装版本drain仍是独立P4兼容闸，源码更新不倒过来保护旧实例；不操作个人任务或在用进程。
+
+每次固定Git spawn之前，受管Engine必须通过原有有界EffectAdmission端口让Host在同一pending dispatch记录starting并收到持久确认；之后立即捕获完整PID/start/boot与原host/acquiredAt，Host核对owner、当前call/args/scope/lease及实际进程组，再保存running。旧child必须已实际结束/组不存在才可推进下一generation。回执或身份捕获失败仍由原owner终止并await实际子进程组，不能遗失进程、只drop future或伪报ended。首次未启动状态与真实ended可解释为已知本地空闲；starting且没有完整child身份的崩溃窗口保持unproven，不能凭超时或“Git只读”推测无子进程。
+
+原CLI已确证死亡、原执行身份/owner一致、当前Host取得既有owned恢复权后，才能针对仍为同一PID/start/boot且PID=PGID的自有child发停止；复用PID、不同boot及不存在等沿原Recorder proof区分，组存在/查询失败均不等于结束。恢复更新同一canonical记录的实际停止观察，再允许原managed_execution停稳；原工具pending/unknown及产物不因此变success、不重放Git、不删除部分JSON或旧Evidence。正常最终结果只有在所有自有child已结束后才可结算；取消/撤权/超时的清理不因新派发许可已撤回而被拒绝，但不得趁清理启动新命令。该Host seam可供后续已接受的本地工具Adapter复用；不改变外部MCP远端效果的unfenced判断。
+
+验收包含：真实命令意图/完整Recorder冷读及TS↔Rust往返、<=12已加载实现对13拒绝、只读任务不占写目录却能恢复自有child、实际TERM/KILL与PID复用/boot变化/失败查询、starting崩溃窗口保全、原unknown/产物/批准不变、重复recover幂等及后续独立任务。只有本地停稳可证明时才推进；该登记与单元测试不等于P4总闸、完整角色产品或安装/真实模型验收。
