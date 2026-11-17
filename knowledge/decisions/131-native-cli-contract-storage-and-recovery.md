@@ -14,6 +14,8 @@
 
 ## 1. 问题
 
+2026-11-18 终态提交窗口复核（B，源前）：替换终态正文前，先确保同一 v1 provisional marker 已持久化并绑定真实目标消息；已有 marker 保留原预览，没有 marker 时使用空 patch，不提前注入未确认全文或工具结果。body/index/marker 后半段失败明确返回 uncertain，保留实际写入；恢复从新 source 核对原终态事实，完成 Store 提交，不重跑工具。TS streaming 写/清理使用原 index→body 锁，终态清理失败不能伪报成功。原生有界历史预算不扩大，大历史与旧安装版本 drain 另验；无新权限/执行日志，不等于普通 Runtime 已完成。
+
 2026-11-18 普通会话终态 Store 接线（B，实施前）：依 ADR55/57/65/76/129/130 与本 ADR 的现有 JSONL/v1 streaming sidecar/锁/CAS 契约，迁移既有 patchStreamingMessage/commitStreamingMessage，不新增任务、权限或执行日志。Rust 接口用真实 HistorySnapshot 的 source identity/revision、明确 messageId 与 Host patch；禁止找不到目标时回退最后一条 assistant，不能改变消息身份。正文、metadata 和未知字段保全；patch 不是权限或 Tool Result 的来源，Host 仍只提交真实结果。
 
 流式 patch 沿原 v1 文件，只影响展示 sidecar，不 bump contentRevision 或使其成为 committed history。终态沿原 index→body 目录锁，合并 canonical 原消息与 Host 的完整终态 patch（不把旧 sidecar 文本混为已确认结果），更新 index/revision/preview 并仅清同一 messageId 的 sidecar。TS 的公开 streaming patch/clear 同样参与原锁；内部已持锁的清理不重复加锁。Native 的稳定 source 校验拒绝中途变化、未知/损坏 sidecar、外来目标、非普通文件和超限；未迁移的大历史明确失败，不以本卡宣称 P6。
