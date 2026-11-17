@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通原生 Host 与公开 exec 接通
+
+代码 `86fb2fa9c416a6e2c44aecf9dab23e8458958f69`（tree `0cdde6e4478c0b66f1231fc6924b4ddd9c05031b`）已验证并推送。依 ADR25/55–57/65/76/92/101/129–131，B 级接线前登记 `ad92204` / `0651316`，既有权限、Evidence、Context Source 与存储边界不动。普通 conversation/stream 使用真实 owner/access 修订、同一 Provider/Grant/Evidence、共享 turn/cognition 和原账本；不创建假 Goal、不继承 Bot Full。公开 `exec [prompt]` 支持 argv/stdin、模式与 allowlist、当前模型选择、文本/JSON 和回合上限。原 TS 默认 Source 的36组有序正文/hash/snapshot 与32组argv、35项工具别名、11组模型消歧已冻结对照；实际 Skill/Hook 配置未迁移时明确阻断，不静默遗漏。
+
+最终冻结原生验证通过：642 Rust（含256公开Host）、627根/3521 TS互读、9PTY；普通Store11项行为、Runtime真实HTTP/工具/撤权/外来内容与原Grant保全、CLI9项实际公开用例均通过。固定无测试特性的release为22,199,648字节，SHA `2fff2db5d390fd0d346998826fb7de9b6c5f116a83b0a6c4332aef65111633d2`；隔离HOME、子进程PATH无Node/Bun的17项真实Host、13根/76旧链互读，以及普通exec3场景、Node/Bun各3根19项互读通过。全仓typecheck、架构/UI、fmt和warnings-denied clippy通过。首轮lint失败、254/255时暴露的Shell取消状态错误、PTY取消审计缺口、实际HTTP fixture的Darwin非阻塞反例及修正均保留，未放宽原取消/授权/停稳断言。见[本卡来源与完整回执](native-cli/evidence/p4-native-ordinary-host-20261118.json)。
+
+`dfef2922` 的[两平台全仓CI](native-cli/evidence/ci-dfef-20261118.json)已核对实际checkout/merge/tree/parents；本候选[CI44187770148](https://github.com/ly-ccx/Peer-Agent/actions/runs/44187770148)首次观察in_progress，不继承前绿。**仍在P4。** 普通owner死亡/commit-uncertain/unknown对账入口、TS生产owner/guard和旧安装宿主drain、完整动态Context/压缩/附件、Skill/Plugin/Hook、ACP与其它命令平价及真实服务/总闸继续开放；普通模型HTTP认证退出分类仍待补齐。P5完整项目代理、P6完整Ratatui/长期内存、P7默认安装/更新/发布未完成。实现者自审、受控服务；无个人数据、安装、用户实例重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-18 普通会话 canonical 执行记录与真实 Store 回执
 
 代码 `dfef292291ff98367bae3c0e89ce008b18211d2b`（tree `42390a0b1413e6dfa6b019063038f4f1e9a8470f`）已完成本卡专项验证并推送。按 ADR131/map 的 A 级实施前登记 `5a74211`，普通 conversation/stream 执行事实写入原 index，沿原锁与 source/contentRevision/owner CAS；不建立假 Goal、继承 Bot Full 或私有日志。prepared/dispatching、process/handle、用量与真实停稳分别保留，unknown 不重放。原每 stream 汇总账本经绑定数据根和 owner 的真实 Store 回执确认。共享 cognition 只接受连续的纯 metadata 发布回执；外来历史/模型修改仍冲突，迟到的已知用量仍保存。
@@ -291,7 +299,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、附件输入/生命周期（view_image范围校正见上）、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；普通原生exec已完成本卡接线与限定验证（86fb2fa9），未达完整无头平价；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、附件输入/生命周期（view_image范围校正见上）、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |

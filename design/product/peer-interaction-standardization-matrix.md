@@ -1,5 +1,9 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生普通 exec 的运行与中断（2026-11-18，候选）
+
+CLI，ADR65/92/101/129–131。用户从 argv 或 stdin 发起普通会话；Runtime 以真实 conversation/stream 为主体，沿同一 Provider/Projection/Grant/Evidence 执行，不创建 Goal、不继承 Bot Full。当前 access 及修订由 Host 持有；拒绝、取消、撤权与外来正文更新关闭后续派发，已经观察的费用和实际工具结果仍须保存。结果 JSON 的 ok 表示 Runtime 正常结束，不能替代任务核验或签收。修改原授权记录时保全原事实、拒绝覆盖并保持 unknown 阻断；独立新会话仍可准入。尚未迁移的实际 Skill/Hook 配置明确阻断，不静默省略。公开二进制与真实 Runtime 的模型/文件/Shell/MCP、取消/撤权/外来输入和后续工作验证见[普通 Host 回执](../../playbook/native-cli/evidence/p4-native-ordinary-host-20261118.json)。实现者自审、隔离数据与受控服务；owner 死亡恢复、TS 生产互斥、完整 Ratatui、真实服务及默认安装验收继续开放。
+
 ## 原生 CLI 待批准请求的归属与到期（2026-11-17）
 
 CLI，`8526db01`，tree `aa059e57`；沿ADR92/101/131既有边界。用户可一次批准或拒绝当前工具；Host记录新请求的5分钟deadlineAt，只有真实Approve/Deny归local_ui，缺TTY/读取不可用、取消与超时归policy。待批准到期不会使过去已签发Grant凭时间失效；执行仍检查当前策略/参数/lease。取消与到期先保存实际未派发的Tool Result/Evidence，再停稳本轮，不把迟到y用于下一提示。旧open只沿已有owned恢复闸变stale/expired，不重写旧误归因或把历史audit当新许可。实际non-TTY、PTY批准/拒绝/TERM、2.5秒测试截止/迟到y、后续独立任务和25项Host授权/恢复已通过，300秒边界另有虚拟时钟/真实Host Store检查；完整原生门禁572 Rust/237公开Episode/603根3374实际互读/9PTY及固定featureless产物复核通过，独立全仓CI待核对。实现者自审；无真实用户数据、安装或完整Ratatui/IME/读屏/长时验收。见[权限回执](../../playbook/native-cli/evidence/p4-native-permission-wait-20261117.json)。

@@ -1,5 +1,9 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 原生普通 exec 的输入与退出连续性（2026-11-18，候选）
+
+CLI，ADR65/129–131。argv 优先于 stdin，普通无头入口不初始化全屏终端；stdin 在唯一 owner 中读取，收到取消后结束真实读取，不遗留后台输入线程。无 TTY 的 ask 在数据或模型效果前返回用法错误；实际交互批准继续复用现有 TerminalPermission，不新增读取者、动画或焦点切换。stdout 提供原文本/JSON 回执，终端控制文本安全编码；执行中断先保存实际结果、停稳与费用，再呈现终态。真实 SIGTERM 用例通过实际管道消费或 canonical running child 确认准备状态，再发送信号；不把启动延时当生命周期证明。证据与范围见[普通 Host 回执](../../playbook/native-cli/evidence/p4-native-ordinary-host-20261118.json)。完整 Ratatui 的发送、IME、阅读位置、读屏、长期内存及安装仍待 P6/发布验收；实现者自审。
+
 ## 原生 CLI Git 读取范围与恢复连续性（2026-11-17）
 
 CLI，`b308ff75`/tree `e2758723`。沿原静态终端提示显示具体file-read范围与本次调用；无新动画、焦点抢占、第二stdin读取者或模型文本审批。每个实际外置来源独立批准/拒绝，6秒等待保持续租；终态来自Host/Store，primary Grant不会因后续拒绝被倒改。真实PTY、新增公开Git8项及同一完整583 Rust/619根3459互读/9PTY通过；featureless产物再跑5项公开函数与7根35互读。只读任务读取锚点与写claim分开；硬退出后产物/unknown保全，不能以进程死亡或恢复文字画成成功。见[回执](../../playbook/native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审，完整普通对话/草稿/阅读位置、系统IME/读屏、安装与长期内存仍属P6/发布验收，不以本卡替代。
