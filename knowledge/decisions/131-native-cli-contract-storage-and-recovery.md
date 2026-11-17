@@ -14,6 +14,8 @@
 
 ## 1. 问题
 
+2026-11-18 NR-04 共享回合循环（B，实施前）：依 ADR26/65/76/129，从现有Goal episode提取同一个原生turn loop；Host接口承接模型请求、已观察助手内容提交、单个真实工具调用及本轮continuation绑定。循环只拥有请求/内容/顺序调用/续行的次序、显式回合限制和取消传播，不签发Grant、不写Store、不判Goal验收。Goal adapter继续使用原Context/count/compaction、canonical预算、权限/资源/Recorder/Evidence和停稳/计费finally路径，不构造新Goal或另一套工具执行器。普通入口未传max-turns时无隐式有限上限；已有Goal候选显式限制与max_turns退出码保留。取消后不接受迟到请求结果或启动下个工具；失败不自动重试/重放。循环只持有当前model turn和本轮已提交工具id，不能累计整个会话。新普通会话主体/持久执行/ACP仍须单独接线；本步不算普通CLI发送或P4总闸完成。
+
 2026-11-18 终态提交窗口复核（B，源前）：替换终态正文前，先确保同一 v1 provisional marker 已持久化并绑定真实目标消息；已有 marker 保留原预览，没有 marker 时使用空 patch，不提前注入未确认全文或工具结果。body/index/marker 后半段失败明确返回 uncertain，保留实际写入；恢复从新 source 核对原终态事实，完成 Store 提交，不重跑工具。TS streaming 写/清理使用原 index→body 锁，终态清理失败不能伪报成功。原生有界历史预算不扩大，大历史与旧安装版本 drain 另验；无新权限/执行日志，不等于普通 Runtime 已完成。
 
 2026-11-18 普通会话终态 Store 接线（B，实施前）：依 ADR55/57/65/76/129/130 与本 ADR 的现有 JSONL/v1 streaming sidecar/锁/CAS 契约，迁移既有 patchStreamingMessage/commitStreamingMessage，不新增任务、权限或执行日志。Rust 接口用真实 HistorySnapshot 的 source identity/revision、明确 messageId 与 Host patch；禁止找不到目标时回退最后一条 assistant，不能改变消息身份。正文、metadata 和未知字段保全；patch 不是权限或 Tool Result 的来源，Host 仍只提交真实结果。
