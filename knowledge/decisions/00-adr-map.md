@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在普通会话 Store 接线前B复核既有v1流式sidecar与终态CAS；TS streaming写/清理共用原锁，部分提交保全并以新source核对原终态patch恢复，不新建执行日志或权限真源，普通Host/P4总闸仍开放。
+
 2026-11-18：ADR131在普通 Runtime 接线前B复核 typed mode 投影与 capability allowlist 交集，先冻结真实 TS helper/隔离 Host 向量；既有 Goal 显式选 mode，不新增授权/存储路径，普通执行与 P4 另验。
 
 2026-11-17：ADR131在计时修复前保留并行Git超时，按既有约定区分工具spawn起15秒累计窗口与Probe原绝对10秒总时限；spawn前Host准入单独有界，不提高预算或放宽unknown。

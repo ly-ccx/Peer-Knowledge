@@ -14,6 +14,12 @@
 
 ## 1. 问题
 
+2026-11-18 普通会话终态 Store 接线（B，实施前）：依 ADR55/57/65/76/129/130 与本 ADR 的现有 JSONL/v1 streaming sidecar/锁/CAS 契约，迁移既有 patchStreamingMessage/commitStreamingMessage，不新增任务、权限或执行日志。Rust 接口用真实 HistorySnapshot 的 source identity/revision、明确 messageId 与 Host patch；禁止找不到目标时回退最后一条 assistant，不能改变消息身份。正文、metadata 和未知字段保全；patch 不是权限或 Tool Result 的来源，Host 仍只提交真实结果。
+
+流式 patch 沿原 v1 文件，只影响展示 sidecar，不 bump contentRevision 或使其成为 committed history。终态沿原 index→body 目录锁，合并 canonical 原消息与 Host 的完整终态 patch（不把旧 sidecar 文本混为已确认结果），更新 index/revision/preview 并仅清同一 messageId 的 sidecar。TS 的公开 streaming patch/clear 同样参与原锁；内部已持锁的清理不重复加锁。Native 的稳定 source 校验拒绝中途变化、未知/损坏 sidecar、外来目标、非普通文件和超限；未迁移的大历史明确失败，不以本卡宣称 P6。
+
+部分提交不能回滚或丢弃已保存的 Tool Result/Grant/Evidence。body/index/sidecar 清理后的未知均返回 commit-uncertain，保留可观察文件。恢复是重新读取实际 source、核对原目标及已经观察的完整终态 patch，再调用同一 Store CAS 完成元数据/sidecar；此操作不调用模型或工具、不补造成功。重复的已提交相同 patch 不再写入；外部变更必须重新准入，不接受旧 snapshot。恢复多 bump 的 revision 仅使派生视图失效，不重复消息、工具或计费。测试保留各阶段失败并验证未知字段、并发/孤锁、取消、实际 TS↔Rust 互读和恢复后追加新消息。此处不引入普通会话执行身份或恢复授权；后续 Host 接线和混合安装版本 drain 仍须分别验收。
+
 2026-11-16 NR-04模型OAuth条件提交：按[ADR0001原生模型OAuth修订](0001-cross-platform-credential-vault.md)先登记Helper可协商快照/CAS，再实现原生token读取、刷新和模型传输；不增加能力或本地执行授权。配置元数据不能取代实际Vault token，迟到刷新不得复活删除或覆盖新一代。模型配置完整写入、登录回执和提示投影恢复未验证前仍属于P4余项。旧Helper特性缺失须在远端效果前拒绝，原子Vault提交与失败保全需真实跨进程验证。
 
 同日补强：远端刷新前先以同一加密token的`peerModelRefresh`意图争取唯一刷新者，未知结果保留意图并阻止自动重放；完成仅CAS自己的意图代。完整新旧宿主须迁移同一seam并验证，旧预读token的宿主不因新增字段自动变安全。该连续性事实不改变本地能力授权或Evidence，未完成多宿主兼容不记P4总闸。
