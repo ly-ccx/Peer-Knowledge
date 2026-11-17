@@ -22,6 +22,8 @@
 
 本次是已接受边界内的B级接线，不新增持久格式、Source类别或许可政策；原runtimeExecution、真实metadata回执和ADR25汇总不变。owner死亡/未知效果仍须完整OS与资源证明，不能以缺少进程内记录、计时或仅PID收口；未证明时保持原阻断。先在隔离根验证真实入口、计数/发送同请求、工具Grant/Evidence、撤权/取消/硬退出及原数据保全，TS生产guard、旧安装版本drain、P4总闸与P5–P7继续分别验收，不因入口存在宣告可默认替换。
 
+接线前补充复核两项既有生命周期：MCP connection属于整个execution，已确认的单次Tool Result可在该连接仍存活时结算，连接必须保持完整原owner/registry/transport事实并在最终stop中真实drain，不能把任意未结束handle当成可忽略连接。已观察费用的结算与工具停稳分开：Host须先等待实际认知/模型观察完成、关闭新准入进入stopping，再以原最终汇总提交账本；工具或连接停稳失败不能抹去已知费用，usage回执也不能制造stop。cognition尚活跃时禁止冻结/提交汇总，未知工具和句柄仍阻断后续准入。
+
 ### 2026-11-18 NR-04 普通会话执行事实与已拥有metadata发布回执（A，实施前）
 
 普通exec、Ratatui与ACP必须以实际Conversation/stream为主体复用同一原生loop、cognition和Provider链，不建立假Goal/Work、继承Bot Full或私有执行日志。扩展原Conversation index metadata的可选`runtimeExecution` v1（执行事实，不是权限）：实际`conversationId/streamId`、engine、完整owner Recorder（boot/pid/start/host/acquiredAt）、单调revision、active/stopping/stopped/recovery_required、原调用的pendingTools、已观察的runtime_turn用量/原稳定归因与usageCommitted、真实本地停稳观察。未知版本/身份/状态或损坏保全并阻断执行，不降为无owner；其它metadata未知字段保留。无该字段的旧会话可在真实新准入时建立，不重建历史身份或补造旧工具事实。
