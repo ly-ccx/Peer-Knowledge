@@ -16,7 +16,7 @@
 
 ### 2026-11-18 NR-04 普通会话恢复入口与排他恢复权（A，实施前）
 
-在已接受的普通 execution v1 恢复边界上明确新增本地管理命令 `peer recover --session <conversation-id>`；原 `recover --plan` 保留。该入口不读 prompt、不初始化 TUI、不调用模型、Provider 工具或外部 MCP，也不向模型投影恢复能力。它只核对指定原 execution 的 canonical 事实、实际 OS 停稳和原用量提交；不补造 Goal/Work，不重放命令/网络请求，不修改个人数据或接管在用宿主。返回沿原 recover 的 `status=recovery_observed` / `facts` 形态，facts 为原 Protocol ConversationExecution；只有原 run 已 permits_new_run 才退出0，unknown 或停稳未证明仍输出真实观察并退出1，不能以命令运行过冒充恢复完成。
+在已接受的普通 execution v1 恢复边界上明确新增本地管理命令 `peer recover --session <conversation-id>`；原 `recover --plan` 保留。该入口不读 prompt、不初始化 TUI、不调用模型、Provider 工具或外部 MCP，也不向模型投影恢复能力。它只核对指定原 execution 的 canonical 事实、实际 OS 停稳和原用量提交；不补造 Goal/Work，不重放命令/网络请求；本次实施和自测仅使用隔离根，不修改个人数据或接管在用宿主。返回沿原 recover 的 `status=recovery_observed` / `facts` 形态，facts 为原 Protocol ConversationExecution；只有原 run 已 permits_new_run 才退出0，unknown 或停稳未证明仍输出真实观察并退出1，不能以命令运行过冒充恢复完成。
 
 恢复者在原 conversations 目录 FD 取得非阻塞排他 flock，并核对实际命名目录的 device/inode；跨进程竞争只能有一名恢复者。FD 必须 CLOEXEC、由当前恢复任务持有，退出/进程死亡由 OS 释放；不新建持久锁文件、执行日志、权限真源或 runtimeExecution schema。它与原短期 index→body mkdir 锁分别负责“整个恢复生命周期排他”与“单次事实提交 CAS”，不能持 mkdir 锁跨 OS 等待或递归获取同一锁。正常调用仍使用原 owner token；恢复 Store 只暴露受排他 guard 约束的窄 token，不能反序列化、转成正常派发 token、观察新模型费用、prepare 或 dispatch。每次修改复核原 identity/owner/revision，目录替换或控制记录变化立即拒绝。旧 TS/安装宿主仍须独立参与 owner/guard 与 drain，目录 flock 不倒过来保护忽略本协议的实现。
 
