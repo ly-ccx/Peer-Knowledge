@@ -404,3 +404,17 @@ Host在其已有可读历史范围内，从原已保存观察派生不可变内�
 2026-11-17 形态判别补充（A，接入前）：同一保真约束也适用于shell形态MCP payload。只有真实shell工具的观察使用shell预览；其它Provider返回的stdout/command字段仍是其结构化数据，不因形似shell而丢失其它字段或暗示执行了本地shell。实际capability事实优先于历史别名，权限/Evidence链不由此推断。
 
 2026-11-17 显式错误保真复核（B）：若历史外层status为success/completed但仍含非空error，专用模型引用视图也保留原resultStatus与resultError；不得按状态标签删除已知错误，也不得把原成功标签改成推断失败。该反例属于既有外层错误保真要求，不改变canonical/权限/Evidence或执行状态。
+
+### 2026-11-17 NR-04 缺失父目录的受管文件写入（A，实施前登记）
+
+沿ADR49/51/92/101/129–130迁移当前TS write_file的recursive mkdir行为；仍是local.file.write同一次调用的准备性文件效果，不增加独立mkdir工具、权限类别或执行通道。路径先按现有绝对/相对语义规范化，再绑定现存祖先和缺失后缀；不在prepare或拒绝/审批等待期间创建任何目录。其它read/list/search/edit及shell cwd不借本卡自动创建目录。
+
+Provider对目标file保留原resource scope，并在确有缺失父目录时保守预留最近现存祖先directory scope，避免以尚不存在的目录身份自证所有权。该目录claim只协调/保护本次准备效果，不扩大Goal/角色/当前PermissionGrant；现存祖先身份须持续匹配。其同一执行若未知，将连同原file claim保留保护；正常成功沿原停稳/结算释放，不引入目录materialization真值或私有恢复表。现有目标file的materialization仍须真实成功结果/Evidence后按原Host条件提交。
+
+受管阻塞任务持有目录FD，从根逐段openat且NOFOLLOW，实际mkdirat、目标openat/write/fsync前沿现有EffectAdmission重检当前授权/取消，并复核命名路径与受控FD身份。对执行中新增的symlink/目录替换明确拒绝；不跟随替换后的路径写出。已有合法symlink先解析到其真实目标，保留既有跨工作区路径政策。文件数据和父目录flush按原耐久约定；新目录也需确认其父目录发布。文件内容/参数预算不放宽。缺失父目录最多128层，路径继续受原资源scope的8192 bytes及文件工具路径预算约束；超限在任何效果前明确file_parent_limit。
+
+第一次成功mkdir或CREATE已是效果；后续取消、降权、命名变化、I/O失败或无法确认发布均保留部分目录/文件并返回execution_outcome_unknown，不能删除以制造未执行，不自动续写或重放。任何效果之前的拒绝/取消沿原明确失败/取消；restart/recover只观察、保留未知及其范围，再允许无冲突的后续工作。旧unknown不会被本实现自动结清。
+
+验收绑定实际TS Provider生成的合成路径/内容/拒绝向量、原生公开write→read与Grant/Evidence、审批拒绝不创建、真实目录FD/替换、创建前后降权/取消、层数限额、硬退出后unknown保全/recover不重放及独立任务。完整P4、极端输入、真实服务/安装版本与P5–P7另验，不据本条宣称完成迁移。
+
+2026-11-17 父目录实施复核（B，沿ADR127 §5.1/5.7既有边界）：dispatch声明只在全部scope都可由原file/git_ref/remote_object语法表达时发布；含directory的文件准备效果保持undeclared/conservative，不能过滤掉directory而伪造成单file声明，再错误收窄unknown保护。原生此卡仅能表达file，故有任一非file就不发布declaredScopes；TS沿原规则。实际目录副作用/重启反例与修正分别保留，不扩展声明语法或重写旧unknown。现有原生Provider对已解析alias输出canonical相对路径，按ADR51允许宿主输出差异逐项登记；TS原期望不改写。
