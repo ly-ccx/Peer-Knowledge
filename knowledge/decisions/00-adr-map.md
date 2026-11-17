@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在普通恢复实现前A登记 `recover --session`、原目录FD排他恢复 guard 与窄token；无新持久格式或普通派发权。完整 owner/child OS 证明、原 Grant/Tool Result/Evidence 与已知账本分开核对；未知效果/starting/未知孤锁保全，不从文件存在推导成功，不以本入口替代 P4完整对账或旧宿主drain。
+
 2026-11-18：ADR131在普通生产Host接线前B复核真实Conversation主体、同一ExecutionRegistry/credential epoch与loop/Provider；原Goal身份、access/Grant/Evidence/unknown和存储格式不变。普通Source以默认TS registry的实际section/hash对照，不用worker/测试Source替代；实际入口、旧宿主drain与P4总闸另验。
 
 2026-11-18：ADR131在普通Host实现前A登记原Conversation metadata的runtimeExecution v1与真实Store metadata publication回执：普通conversation身份/owner、pending/用量/停稳/unknown，沿原锁/CAS及Grant/Evidence；保留ADR25每stream汇总和严格历史当前性，无假Goal/私有执行日志，旧已加载宿主drain及完整P4另验。

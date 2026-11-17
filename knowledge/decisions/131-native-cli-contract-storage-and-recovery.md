@@ -14,6 +14,22 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 普通会话恢复入口与排他恢复权（A，实施前）
+
+在已接受的普通 execution v1 恢复边界上明确新增本地管理命令 `peer recover --session <conversation-id>`；原 `recover --plan` 保留。该入口不读 prompt、不初始化 TUI、不调用模型、Provider 工具或外部 MCP，也不向模型投影恢复能力。它只核对指定原 execution 的 canonical 事实、实际 OS 停稳和原用量提交；不补造 Goal/Work，不重放命令/网络请求，不修改个人数据或接管在用宿主。返回沿原 recover 的 `status=recovery_observed` / `facts` 形态，facts 为原 Protocol ConversationExecution；只有原 run 已 permits_new_run 才退出0，unknown 或停稳未证明仍输出真实观察并退出1，不能以命令运行过冒充恢复完成。
+
+恢复者在原 conversations 目录 FD 取得非阻塞排他 flock，并核对实际命名目录的 device/inode；跨进程竞争只能有一名恢复者。FD 必须 CLOEXEC、由当前恢复任务持有，退出/进程死亡由 OS 释放；不新建持久锁文件、执行日志、权限真源或 runtimeExecution schema。它与原短期 index→body mkdir 锁分别负责“整个恢复生命周期排他”与“单次事实提交 CAS”，不能持 mkdir 锁跨 OS 等待或递归获取同一锁。正常调用仍使用原 owner token；恢复 Store 只暴露受排他 guard 约束的窄 token，不能反序列化、转成正常派发 token、观察新模型费用、prepare 或 dispatch。每次修改复核原 identity/owner/revision，目录替换或控制记录变化立即拒绝。旧 TS/安装宿主仍须独立参与 owner/guard 与 drain，目录 flock 不倒过来保护忽略本协议的实现。
+
+没有已记录 stop 时，必须先以完整原 owner 的 boot/pid/start/host/acquiredAt 取得实际死亡/复用/换 boot 证明；活 owner 或查询失败不变成死亡，不向其发停止。存在 canonical stop 时可修复同一闭合汇总的账本，不重新制造 stop 或假定旧任务成功。原 cognition 只有在 owner 已死或原 stop 已证明 runner idle 后才可冻结；关闭准入、保留 dispatching 为 outcome_unknown，再结算已知费用。停止不证明的工具/连接仍阻断，费用回执不创造 stop。真实 OS 查询、停止与 Store 写入均保留实际 owner；截止或取消关闭后续恢复操作，已开始观察/清理不能靠 drop future 伪报完成。单次遍历沿 v1 的128个pending/handle上限，并设恢复控制截止；未完成部分留待原身份重复核对。
+
+command 与 MCP stdio 沿既有受管 child 规则：not_started 只有在 owner 死亡后才可形成未启动观察；starting 无完整 child 的崩溃窗口保持 unproven；running 只针对完整同 boot/pid/start 且 PID=PGID 的原 child 定向停止，并实测 group absent。不同 owner、未知 handle 元数据、失败查询或缺失 stdio child 都保持原记录。网络 MCP 的本地 pump 可在 owner 已死后收口，远端工具效果继续 unknown。只有原完整 handle/process 全部得到实际本地结束证明，才能提交新 stop；不从“缺少 live registry”推断空闲。共享 OS 停止实现可由 Goal 与普通 adapter 复用，原 Goal lease/身份与预算闸不变。
+
+恢复只承认原 message/stream/toolCall/capability/args digest 绑定的 canonical 结构化 Tool Result、原 Grant 与 Evidence。已有已确认结果可通过原 Evidence Store 补齐登记并沿原结算闸核对；不得由 assistant 文本、文件存在、工具产物片段或 summary 推导成功。prepared 且确证原 owner 死亡的未派发调用可记录真实 cancelled/not_dispatched，保留已有 Grant；尚无 Grant 时仅记录当前恢复 Host 的拒绝事实，不能签发执行许可。dispatching/unknown 没有已确认结果时不合成结果、不删除 pending、不因进程结束抹去未知效果。重复恢复不得重放工具、重复费用或在事实未变时改写 stop；后续独立会话使用新的真实准入。更进一步的未知效果范围核对/解除阻断仍需既有 Probe/Grant/Evidence 的具体证明，不能借本入口自动接受 unknown。
+
+Store-only uncertain publication 须保全原身份和真实已拥有的 claim；恢复不得靠读取 JSON 重造正常执行权。原 mkdir 锁无 owner 来源时不能仅凭 execution owner 已死便删除：保持 lock_busy、未知锁和数据，给出具体阻碍及离线核对路径，不用测试中的孤锁维护替代生产证明。历史/模型外来修改只影响后续认知准入；清理与已观察事实仍可按同一原意图核对，不能覆盖外来 Grant 或 unknown。
+
+验收：固定86fb2fa9的真实公开 exec→文件效果→exit88为红例，保留原根/二进制/请求与摘要；实际恢复须原效果不重放、known16一次入账、unknown仍阻断；已确认结果/未派发/终态费用窗口、真实 Shell/MCP child 与活 owner 拒绝、并发恢复者/恢复进程死亡释放、目录替换/记录CAS/未知 schema/starting窗口、取消/重复恢复与后续独立任务均须覆盖。真实 TS 互读、无 Node/Bun PATH 的固定 featureless 产物另验。该新增管理入口和恢复 guard 不取代 P4总闸、混合安装版本 drain、普通 unknown 全部核对或 P5–P7/长期内存/安装发布验收。
+
 ### 2026-11-18 NR-04 普通生产Host接线（B，实施前）
 
 依ADR25/26/49/55/56/57/65/76/92/101/129–132，继续实现已登记的普通conversation/stream主体：进程内ExecutionRegistry与MCP credential epoch只接纳显式、已校验的Goal或Conversation身份，Goal的原key/解析/生命周期不变；不得构造假Goal复用控制、凭据或资源许可。普通主体复用同一受管attempt/handle、取消与真实drain，只有实际结束且已写入canonical停稳/结算后才可逐出进程内记录；重启缺少live token仍为unknown。
