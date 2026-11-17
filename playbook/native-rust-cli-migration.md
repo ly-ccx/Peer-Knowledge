@@ -4,13 +4,23 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 共享原生认知请求管线与非Goal Host seam
+
+`066b63e803caae344efc4dca1b1b380877bbf126`已提交推送，tree `2ff7ffb8588c47aab081ca47249a43c31fbbd1e0`。按ADR25/55/56/57/65/76/129/131复核，B级源前登记 `43e286e`；授权、Evidence、存储格式/写入所有权、Context Source与验收边界不动。原Goal绑定的请求/计数/结果视图/容量快照/压缩重建/物理请求重试移入同一个cognition Module，只依赖Host的当前性、预算、注册Source组装、受管等待与用量归属。Goal adapter仍校验真实lease/Goal修订/parent policy/MCP registry及credential epoch，并保存原canonical Work用量快照；ModelObservation在实际响应之后、等待的所有权/取消拒绝之前捕获。count/send仍消费同一prepared bytes，summary/重试计费、单次overflow恢复、历史CAS与原资源预算不变。无第二个模型引擎或假Goal。
+
+同一冻结源码完整本机原生门禁通过：**609 Rust（含247公开Host与4项新非Goal Host seam）、627根3521实际TS↔Rust互读、9PTY**；all-target Runtime/CLI Clippy、fmt、边界及全仓architecture通过。非Goal测试直接使用真实HTTP和ConversationStore，验证同请求计数/发送与fingerprint、容量冷读、实际迟到用量先到Host、当前性撤回零网络、外来canonical输入CAS拒绝与后续新请求；它们是合成Source/test Host，不是生产普通会话或授权闭环完成。新增夹具helper命名遮蔽及旧imports失败保留，修正后未抑制lint或放宽断言。
+
+固定featureless release21,485,632 bytes / SHA256 `eb77e9f209e6e6ccb45f781eb2ad1dfde67bb8bb7b6ecb34e487e87b2af11d81`，仅CoreFoundation/libiconv/libSystem、fixture开关不在产物；env-i清除继承环境、产品PATH=/nonexistent下8项实际模型/文件/Shell/Git/Web/MCP闭环通过，随后当前TS核对13根76次持久事实。见[认知管线回执](native-cli/evidence/p4-native-cognition-host-20261118.json)。前9e64两平台完整CI已终态success且merge/tree/parents核对后才推送本候选；新[066b CI44153366272](https://github.com/ly-ccx/Peer-Agent/actions/runs/44153366272)独立运行，不记新源码全仓绿。
+
+**P4总闸仍未完成，普通CLI发送尚未接通。** 下一卡直接接普通主体与canonical pending/stop/unknown、同一Provider/Grant/Evidence，供普通exec/Ratatui/ACP使用。普通用量/控制metadata写入会改变index source，须真实Store回执并验证canonical内容未变，不能忽略CAS；ADR25每stream一份runtime_turn汇总不得拆成伪物理请求账目。实际Source/身份/进程/MCP依赖与此约束已在回执保留供接线。其余Context/Skill/Plugin/Hook、兼容drain、P5–P7、真实服务/长期内存/安装默认与发布验收继续开放；实现者自审、合成服务，无个人数据改动、安装、用户重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-18 共享原生回合循环与旧JSONL实际兼容证明
 
 `9e64c928173293eba48a77ebdb378d891623b81d`已推送，tree `de0a6aa736c5f758119c455184b49e82f32d2093`。源前B复核：共享loop `df6eef9`、旧JSONL证明 `773bdd3`；沿ADR26/65/76/118/129/131，授权、Evidence、存储及验收边界不动。一个原生turn loop拥有请求→已观察正文提交→真实Host逐工具结算→authentic continuation绑定；Goal adapter继续原current policy/source/binding、Context/count/compaction、Provider/Projection、Grant/EffectAdmission、资源、Evidence、预算/materialization及外层停稳/计费。循环不签发Grant或判业务成功，只持当前turn/id；None不添隐式64回合上限，Goal既有显式上限不变，取消/未知/提交失败不重试。
 
 同一冻结树完整本机原生门禁通过：**605 Rust（含247公开Host）、627根3521实际TS↔Rust、9PTY**；另有Node/Bun各13根33项终态Store oracle。7项循环单元函数只证明顺序、上限、取消和失败路径；真实授权/效果/停稳由公开Host覆盖。all-target Runtime/CLI Clippy、fmt、全仓typecheck/architecture和边界通过。固定featureless release21,475,264 bytes、SHA256 `543893c9a35783933848b0f1443a1907ba6e83fb70efed5c563302f26d83a870`，仅CoreFoundation/libiconv/libSystem，fixture开关不在产物；产品PATH=/nonexistent下8项实际模型/文件/Shell/Git/Web/MCP闭环通过，再由当前TS核对13根76次持久事实。
 
-fcfee两平台CI的同一旧JSONL digest失败及重试保留；本机10过/1失败复现。原f943 digest保留在逐字冻结的8b3旧primitives，实际旧reader/writer重写同一隔离Conversation，再由当前Store更新/重开；附件全文、冻结条件、队列游标与重复inputId原断言保留，新durable块另审阅和hash检查。Interactive Results目录159项通过。顺序primitive互读不等于完整旧安装宿主drain；借用/Clippy失败也保留，不称flake或弱化门禁。详见[共享循环回执](native-cli/evidence/p4-native-shared-turn-loop-20261118.json)及[旧CI事实](native-cli/evidence/ci-fcfee-20261118.json)。新[9e64 CI44145578848](https://github.com/ly-ccx/Peer-Agent/actions/runs/44145578848)独立排队/运行，不记全仓绿。
+fcfee两平台CI的同一旧JSONL digest失败及重试保留；本机10过/1失败复现。原f943 digest保留在逐字冻结的8b3旧primitives，实际旧reader/writer重写同一隔离Conversation，再由当前Store更新/重开；附件全文、冻结条件、队列游标与重复inputId原断言保留，新durable块另审阅和hash检查。Interactive Results目录159项通过。顺序primitive互读不等于完整旧安装宿主drain；借用/Clippy失败也保留，不称flake或弱化门禁。详见[共享循环回执](native-cli/evidence/p4-native-shared-turn-loop-20261118.json)及[旧CI事实](native-cli/evidence/ci-fcfee-20261118.json)。[9e64 CI44145578848](https://github.com/ly-ccx/Peer-Agent/actions/runs/44145578848)现已两平台全仓success，含各自Native/build/type/architecture/Test/Electron smoke；merge f31e3798/tree de0a6aa7、base及9e64 parents已由两个真实Checkout日志/API核对。见[完整CI事实](native-cli/evidence/ci-9e64-20261118.json)，不验证后续认知管线源码。
 
 **仍在P4，普通CLI发送未接通。** 下一卡是普通会话真实主体、当前access/模式/allowlist、持久pending/unknown与实际停稳；沿同一Provider/共享loop装配普通exec、交互和ACP。实际源审计确认Context RequestFrame/BillingScope及资源HostResourcePlan仍绑定Goal/Work，必须按普通主体解耦，不能创建假Goal套用。其余Context/Skill/Plugin/Hook、兼容drain与P4总闸、P5–P7、真实服务/长期内存/安装默认及发布验收继续开放。实现者自审、合成服务；未安装、改个人数据、重启用户实例、切默认、合并/tag/发布，无Bun/Node引擎sidecar。
 

@@ -1,0 +1,211 @@
+{
+  "date": "2026-11-18",
+  "status": "scoped-validation-passed-whole-ci-pending",
+  "source": {
+    "base": "9e64c928173293eba48a77ebdb378d891623b81d",
+    "tree": "2ff7ffb8588c47aab081ca47249a43c31fbbd1e0",
+    "patchSha256": "83b7a4a8c360d2a0cb22a2170643e30023a6d5cfaa78934d229f9130b6c01df3",
+    "frozenAt": "2026-11-17T18:36:42.683684+00:00",
+    "commit": "066b63e803caae344efc4dca1b1b380877bbf126"
+  },
+  "classification": "B; shared implementation/Host dependency refactor. Permission, Evidence, storage schema, Context Sources, budget and acceptance boundaries unchanged.",
+  "preregistration": "43e286e89cc0cd3f86ec4b2741e2669d0c696848",
+  "adrPass": [
+    "25-runtime-usage-ledger.md",
+    "55-shared-system-context-assembler.md",
+    "56-provider-observed-context-accounting.md",
+    "57-canonical-conversation-history-projector.md",
+    "65-cli-headless-exec.md",
+    "76-peer-acp-agent.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "implementation": {
+    "module": "cognition.rs owns the original request/count/Tool Result view/capacity snapshot/compaction/reconstruction/physical-attempt retry sequence. Its Host seam owns current authority, request budget, registered Source assembly, managed waits and actual usage attribution. No concrete Goal/Work/Grant/resource dependency, capability execution, new Source or alternate request engine.",
+    "goalAdapter": "session_host/cognition_host.rs retains original MCP inventory/credential epoch, canonical Goal/source/parent policy, budget request/check, managed lease/cancellation wait and canonical usage snapshots. Goal tool/stop/unknown/Evidence/billing-finally paths retained.",
+    "observations": "ModelObservation moved verbatim into the model Module, retaining physical response capture before a Host wait can reject late completion; known usage still reaches Host before authority/cancellation failure.",
+    "sourceCas": "Unreceipted history/source change still returns CONTEXT_SNAPSHOT_CHANGED. count/send borrow and consume the same prepared payload. Actual summary and Qoder physical retry accounting/budgets/overflow/8MiB history and256KiB factual summary bounds retained.",
+    "dependencyGuard": "Native boundary check now also rejects concrete Goal Host/frame imports in the common cognition Module."
+  },
+  "validation": {
+    "completeNativeGate": {
+      "base": "9e64c928173293eba48a77ebdb378d891623b81d",
+      "tree": "2ff7ffb8588c47aab081ca47249a43c31fbbd1e0",
+      "exitCode": 0,
+      "rustTests": 609,
+      "actualPublicHostFunctions": 247,
+      "episodeInterop": {
+        "ok": true,
+        "roots": 627,
+        "cases": 3521,
+        "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+      },
+      "ptyChecks": 9,
+      "recordedAt": "2026-11-17T18:52:28.066927+00:00",
+      "gateLogSha256": "babdad836f411f4f27df14c6bc556c114f75f22799b4f0ee16f0a31448a6805c"
+    },
+    "neutralHostSeamFunctions": 4,
+    "neutralHostScope": "Actual native HTTP/count/generation and ConversationStore, no Goal/Work folder. Synthetic Source/test authority only; no production ordinary authorization/execution claimed. Covers same count/send bytes + fingerprint, warm/cold capacity, real late usage before cancelled wait, revoked currentness before network, actual external canonical input CAS rejection and later request admission.",
+    "allTargetRuntimeCliClippy": true,
+    "fmt": true,
+    "nativeBoundaries": true,
+    "rootArchitecture": true,
+    "featurelessProduct": {
+      "base": "9e64c928173293eba48a77ebdb378d891623b81d",
+      "tree": "2ff7ffb8588c47aab081ca47249a43c31fbbd1e0",
+      "path": "/tmp/peer-native-cognition-host-20261118/featureless-peer-native",
+      "bytes": 21485632,
+      "sha256": "eb77e9f209e6e6ccb45f781eb2ad1dfde67bb8bb7b6ecb34e487e87b2af11d81",
+      "fixtureSwitchesPresent": [],
+      "publicHostFunctions": 8,
+      "parentEnvironment": "env -i; explicit test-owned HOME, OS tool path and synthetic roots. Product child PATH=/nonexistent.",
+      "interop": {
+        "ok": true,
+        "roots": 13,
+        "cases": 76,
+        "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+      },
+      "dynamicLibraries": [
+        "CoreFoundation.framework",
+        "libiconv.2.dylib",
+        "libSystem.B.dylib"
+      ],
+      "log": "/tmp/peer-native-cognition-host-20261118/product-host.log",
+      "buildIdentity": "Built from frozen tree2ff7ffb8588c47aab081ca47249a43c31fbbd1e0 before commit; final066b63e8 has exactly the same tree. No source changed during validation."
+    },
+    "scope": "Implementer self-review. Synthetic model/MCP/HTTP services and isolated roots. Not real paid model, installed host drain, full long-history/memory/IME/accessibility/platform/release acceptance."
+  },
+  "preservedAttempts": [
+    "check-1 captured old now-unused billing imports, removed without suppression.",
+    "seam-1 and clippy-1 caught test helper model() shadowed by local model binding; renamed helper, seam-2 four functions pass; final clippy-3 and full frozen gate pass."
+  ],
+  "nextActualOrdinaryHost": {
+    "scope": "Observed implementation seams for the still-open actual ordinary conversation Host. Findings, not accepted new storage design or completed ordinary execution.",
+    "sourceBaseline": "9e64c928173293eba48a77ebdb378d891623b81d",
+    "entry": [
+      "apps/tui/src/cli-exec.ts -> createTuiRuntime/createChatController -> RuntimePipeline",
+      "apps/tui/src/acp/runtime.ts -> same ordinary controller/Host",
+      "apps/tui/src/conversation-persistence.ts syncSnapshot persists stable messages; pending ones excluded"
+    ],
+    "existingSeams": {
+      "capabilities": "ProviderRegistry/PreparedEffect and bounded EffectAdmission already independent of Goal. Ordinary Host must actually own every port reply, approval and Evidence.",
+      "cognition": "Current WIP extracts the actual request/count/compaction/result-view/retry implementation, with real Goal adapter and non-Goal test Host. No production ordinary Host yet.",
+      "principal": "principal.rs can resolve a direct conversation without plan; do not fabricate GoalPlan or inherit Bot Full.",
+      "resources": "resources.rs HostResourcePlan requires complete SessionExecutionIdentity. Reusing it with invented plan/session would violate ownership. Ordinary control/pending must follow an explicitly reviewed canonical conversation seam.",
+      "usage": "ADR25 explicitly requires one runtime_turn total per stream, deduplicated by runtime-turn id, not one ledger row per physical model request. Existing usage intent captures a terminal aggregate and also carries before/after index counters. Do not split the ordinary stream into fake turns or mutate pending intent totals. Ordinary canonical usage snapshot/control metadata writes change the index source revision: preserve history CAS and known late usage with an explicitly reviewed, actual Store-bound metadata commit receipt (validating unchanged canonical content), or another contract-preserving design. Current shared kernel continues to reject every unreceipted source change; the neutral Host test covers this refusal and later admission.",
+      "mcp": "CredentialEpoch internally binds SessionExecutionIdentity for normalized credential source, while McpProvider only needs actual Recorder. An ordinary owner must have its own actual scope; credential lineage is not permission.",
+      "process": "NativeOwnedProcess currently validates Goal execution. Ordinary owned children require actual ordinary execution identity, not invented Goal. Starting windows, real stop/group proof and unknown retention must remain.",
+      "exec": "Published ordinary exec JSON requires actual model turns; current LoopOutcome returns tool_calls but omits turns. Add real counter at actual loop when wiring ordinary output, retaining Goal behavior."
+    },
+    "constraints": [
+      "No private execution journal or fabricated Goal/Bot Full.",
+      "No prompt-only permission enforcement, missing Tool Result/Evidence or assumed stop from owner death.",
+      "Canonical pending/usage/control source changes must have real TS/native old-state interoperability and independent later request admission.",
+      "P4 total gate, P5–P7 and default peer-dev switch remain open."
+    ],
+    "adrToReadNext": [
+      "25-runtime-usage-ledger.md",
+      "55-shared-system-context-assembler.md",
+      "56-provider-observed-context-accounting.md",
+      "57-canonical-conversation-history-projector.md",
+      "65-cli-headless-exec.md",
+      "76-peer-acp-agent.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ]
+  },
+  "previousWholeCi": {
+    "receipt": "ci-9e64-20261118.json",
+    "head": "9e64c928173293eba48a77ebdb378d891623b81d",
+    "conclusion": "success",
+    "scope": "Both full platform jobs terminal success, verified before next source push. Does not validate this new cognition source."
+  },
+  "currentWholeCi": {
+    "run": 44153366272,
+    "head": "066b63e803caae344efc4dca1b1b380877bbf126",
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44153366272",
+    "status": "in_progress",
+    "wholeGreen": false
+  },
+  "stillOpen": [
+    "Ordinary canonical execution identity/persistent pending/actual stop and unknown recovery; no fabricated Goal or inherited Bot Full.",
+    "ADR25 per-runtime-turn aggregate must remain: do not split into fake physical-request ledger turns to avoid index/source CAS. Actual owned metadata publication requires verified Store/Host receipt, not a relaxed comparison.",
+    "Ordinary production Host through the same loop and cognition; prompt exec, Ratatui sending, ACP and remaining P4 Context/Skill/Plugin/Hook/compatibility work.",
+    "P4 total exit gate; P5 project-agent full chain; P6 complete Ratatui/memory; P7 packaging/platform/default/release gates."
+  ],
+  "limits": {
+    "ordinarySendingConnected": false,
+    "p4Complete": false,
+    "defaultPeerDevSwitched": false,
+    "realPaidModel": false,
+    "installedBuildAcceptance": false,
+    "oldInstalledHostDrain": false,
+    "longMemoryAcceptance": false,
+    "personalDataChanged": false,
+    "userInstancesRestarted": false,
+    "bunNodeEngineSidecar": false
+  },
+  "localEvidenceRoot": "/tmp/peer-native-cognition-host-20261118",
+  "evidenceFiles": {
+    "candidate.json": {
+      "path": "/tmp/peer-native-cognition-host-20261118/candidate.json",
+      "sha256": "b9621857d6e932f9a0501f5b2a0601819f0a49757f0a7965fa33950dd4c8e7d1"
+    },
+    "candidate.patch": {
+      "path": "/tmp/peer-native-cognition-host-20261118/candidate.patch",
+      "sha256": "83b7a4a8c360d2a0cb22a2170643e30023a6d5cfaa78934d229f9130b6c01df3"
+    },
+    "baseline.json": {
+      "path": "/tmp/peer-native-cognition-host-20261118/baseline.json",
+      "sha256": "0b30237242645002c3d6e8d6489220f071f4cb4e2eea88718bf2fb6d1815b2da"
+    },
+    "check-1.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/check-1.log",
+      "sha256": "e6eb7d8ee3b72b9f273a35ede3ddfd9ba92a5166933352d310fb89557afa93e2"
+    },
+    "seam-1.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/seam-1.log",
+      "sha256": "c22c14896b51d4b487efee6bbecf555315688abd3a08ae7f2af700030104ee59"
+    },
+    "seam-2.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/seam-2.log",
+      "sha256": "78fcc3c0ab8a94250349de4ca903446d3e42a9524aa26205ef9bd9549ad7bd98"
+    },
+    "clippy-1.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/clippy-1.log",
+      "sha256": "1a91d89a73438e70db0e90559ce8d99ea25d49efd9d66926e770924250e2c876"
+    },
+    "clippy-3.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/clippy-3.log",
+      "sha256": "982b19dadc5e64d1ebeeb6718d48158f8cb1619ae6ffdb6e3eff43226bdf39c3"
+    },
+    "architecture.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/architecture.log",
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    "gate-result.json": {
+      "path": "/tmp/peer-native-cognition-host-20261118/gate-result.json",
+      "sha256": "02a98279a6a085c1bd80d559929b8f841b75456f6ea26850bc8d78163cb8f90f"
+    },
+    "gate.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/gate.log",
+      "sha256": "babdad836f411f4f27df14c6bc556c114f75f22799b4f0ee16f0a31448a6805c"
+    },
+    "product-binary.json": {
+      "path": "/tmp/peer-native-cognition-host-20261118/product-binary.json",
+      "sha256": "67d6377a25fbf889d537417131dba9ca759e9cc02f842948c75648e04b9fdc60"
+    },
+    "product-host.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/product-host.log",
+      "sha256": "04850d78d0219dcea9e63511678d483059788e4614b8f5922d437c616858d5ab"
+    },
+    "product-interop.log": {
+      "path": "/tmp/peer-native-cognition-host-20261118/product-interop.log",
+      "sha256": "ce01ff835275cfcb91ebd07c4cc5a81e54bba6925408e1a79346be10ce17c179"
+    },
+    "ordinary-host-audit.json": {
+      "path": "/tmp/peer-native-cognition-host-20261118/ordinary-host-audit.json",
+      "sha256": "2ae70b97b8c95e1fe9be3ef6a698a2101bdedbb5345ca2b5e6ea2ee08dc4c5f6"
+    }
+  }
+}
