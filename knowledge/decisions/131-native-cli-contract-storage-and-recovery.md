@@ -516,3 +516,5 @@ ADR65/76/129要求普通exec、ACP、交互入口复用本地能力链。当前b
 MCP新连接的未启动driver经同一有界控制通道交给Host，Host先核对本次MCP准入、源版本/owner及取消，再保存原nativeMcp handle并登记原live owner，确认后才能运行driver/发请求。拒绝、队列关闭或登记失败不启动该driver；取消/撤权后仍等待真正owner结束，不凭future drop制造已停止。Provider的连接池有界，异步等待不持标准Mutex，池失败不能导致新旧连接双跑；连接/child事实、旧凭据epoch、未围栏远端unknown与恢复规则不变。当前Goal adapter继续使用原ExecutionResourceStore/ExecutionRegistry，不增加存储、权限枚举、外部消息或私有账本。
 
 该复核是已接受统一能力链的B级实现解耦，不移动准入/授权/Evidence/存储边界。验证应覆盖实际公开模型→file/Shell/Web/Git/MCP→结果链、MCP连接复用/换代/注册拒绝与断连、owner拒绝时零spawn/网络、取消/撤权/硬退出/后续任务与旧记录互读；不得以接口编译替代行为。普通会话身份/持久执行与完整Context/exec/ACP仍须沿既有契约分别接线和验收；本步本身不等于普通CLI可用或P4完成。
+
+2026-11-17 共享接缝验证的Git执行计时复核（B，修复前登记）：真实并行专项在只读查询generation4即得到git_query_timeout，源代码将每次run之前的Host授权/starting持久意图等待也累加到execution预算。原约定仍是累计15秒受管Git执行窗口，审批/宿主准入单独管理；不能提高15秒或把此失败称flake。共享command runner用明确的deadline作用域表达：完整Git工具从实际spawn前瞬间计时至真正owned completion/组不存在，累计该区间（含spawn后的保守登记/排空开销）；spawn前的准入不重复计入，持久starting确认仍独立有界5秒且未确认不得spawn。超时后继续等待实际清理，不能以掉future代替停止。恢复Probe继续使用其原绝对10秒总时限/256KiB/范围和编码，不从工具较宽的计时作用域继承放宽。用同一受管runner的真实命令、受控慢准入建立红例，并保留公开只读/回读失败源和最终回归；无新权限、存储或结果成功规则。
