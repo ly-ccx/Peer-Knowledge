@@ -10,7 +10,7 @@
 
 最终冻结原生验证通过：642 Rust（含256公开Host）、627根/3521 TS互读、9PTY；普通Store11项行为、Runtime真实HTTP/工具/撤权/外来内容与原Grant保全、CLI9项实际公开用例均通过。固定无测试特性的release为22,199,648字节，SHA `2fff2db5d390fd0d346998826fb7de9b6c5f116a83b0a6c4332aef65111633d2`；隔离HOME、子进程PATH无Node/Bun的17项真实Host、13根/76旧链互读，以及普通exec3场景、Node/Bun各3根19项互读通过。全仓typecheck、架构/UI、fmt和warnings-denied clippy通过。首轮lint失败、254/255时暴露的Shell取消状态错误、PTY取消审计缺口、实际HTTP fixture的Darwin非阻塞反例及修正均保留，未放宽原取消/授权/停稳断言。见[本卡来源与完整回执](native-cli/evidence/p4-native-ordinary-host-20261118.json)。
 
-`dfef2922` 的[两平台全仓CI](native-cli/evidence/ci-dfef-20261118.json)已核对实际checkout/merge/tree/parents；本候选[CI44187770148](https://github.com/ly-ccx/Peer-Agent/actions/runs/44187770148)首次观察in_progress，不继承前绿。**仍在P4。** 普通owner死亡/commit-uncertain/unknown对账入口、TS生产owner/guard和旧安装宿主drain、完整动态Context/压缩/附件、Skill/Plugin/Hook、ACP与其它命令平价及真实服务/总闸继续开放；普通模型HTTP认证退出分类仍待补齐。P5完整项目代理、P6完整Ratatui/长期内存、P7默认安装/更新/发布未完成。实现者自审、受控服务；无个人数据、安装、用户实例重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+`dfef2922` 的[两平台全仓CI](native-cli/evidence/ci-dfef-20261118.json)已核对实际checkout/merge/tree/parents；本候选[CI44187770148](https://github.com/ly-ccx/Peer-Agent/actions/runs/44187770148)后续已核实Linux134408766914/macOS134408767642两平台全仓success，含各自Electron smoke；实际merge978f2c00的tree与86fb一致，parents与既有base/candidate匹配。首次in_progress观察保留于原回执，完整来源见[CI终态回执](native-cli/evidence/ci-86fb-20261118.json)；不验证后续普通恢复在制源码。**仍在P4。** 普通owner死亡/commit-uncertain/unknown对账入口、TS生产owner/guard和旧安装宿主drain、完整动态Context/压缩/附件、Skill/Plugin/Hook、ACP与其它命令平价及真实服务/总闸继续开放；普通模型HTTP认证退出分类仍待补齐。P5完整项目代理、P6完整Ratatui/长期内存、P7默认安装/更新/发布未完成。实现者自审、受控服务；无个人数据、安装、用户实例重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
 
 ## 2026-11-18 普通会话 canonical 执行记录与真实 Store 回执
 
