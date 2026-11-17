@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在普通 Runtime 接线前B复核 typed mode 投影与 capability allowlist 交集，先冻结真实 TS helper/隔离 Host 向量；既有 Goal 显式选 mode，不新增授权/存储路径，普通执行与 P4 另验。
+
 2026-11-17：ADR131在计时修复前保留并行Git超时，按既有约定区分工具spawn起15秒累计窗口与Probe原绝对10秒总时限；spawn前Host准入单独有界，不提高预算或放宽unknown。
 
 2026-11-17：ADR131沿ADR65/76/129复核共享Provider执行接缝：调用事实不授予权限，原绑定Host端口校验；MCP未启动driver由原Host先登记owner再运行。B级解耦，不改原授权/存储/unknown边界，不以此宣称普通exec/ACP完成。

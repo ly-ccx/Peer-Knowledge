@@ -1,10 +1,16 @@
 # ADR 131：原生 CLI 的跨语言契约、共享数据与恢复
 
 创建时间：2026-11-14
-最后更新：2026-11-17
+最后更新：2026-11-18
 状态：Accepted（2026-11-14 用户接受评审稿 118；正式编号 131；授权实施，不授权个人数据迁移、接管、安装或重启）
 级别：A
 依赖：[ADR 129](129-native-rust-cli-and-ratatui.md)、[ADR 130](130-bounded-cli-memory-and-transcript.md)
+
+2026-11-18 NR-04 普通 Runtime 模式投影（B，实施前）：依 ADR35/65/76/106/129，隔离真实 TS Host 的工具数为 chat15、plan10、goal15、explorer5、compact0、system0；尚未迁移的 Goal/Skill/交互工具和 shell_stop 不能计入原生完成。补齐同一 ProviderRegistry 的 typed mode 投影和 capability allowlist 交集；现有 Goal 模型入口显式选择 goal，再叠加原 readonly 约束。无 mode 的 project() 保留全工具观察契约；实际模型发送使用明确 mode。
+
+沿真实 isRuntimeToolAvailableInMode/createRuntimeProjection：缺失或空 modeScopes 仅在 chat/plan/goal 可见；explorer/compact/system/project_agent 需显式声明。保留原 scope，不由未知 scope 推导执行权。Shell 声明原 chat/goal 可见性，仍经同一实时 EffectAdmission。工具回读 Manifest 当前 goal-only 不借本卡扩大；普通大产物历史回读另列验收。实际筛选后的 Manifest 集合派生 projection hash，同一 immutable 投影限制 Provider prepare，不让工具名穿透 mode/allowlist。
+
+先冻结真实 TS helper 与隔离 Host 向量，验证 Rust 投影及实际 prepare 拒绝、既有 Goal 模型/工具/Evidence 与 readonly 回归。本卡不新增权限、持久 schema、执行账本或 Bot Full 继承；普通会话身份/持久执行、Context、ACP 与完整 P4 继续开放。
 
 ## 1. 问题
 
