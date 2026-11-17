@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "base": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+    "patchSha256": "3b341745cb554e563721c5e36444ff184cd6526b2d36c1f2ef3f0ac918546dbd",
+    "binary": "/tmp/peer-native-qoder-metadata-20261117/peer-native",
+    "binarySha256": "cab589555d1d5e451aab233956867260c8c916b3ad1a5dfe2fcdf76031ecb95f",
+    "bytes": 17290624,
+    "tree": "bcd9cccf4c60b1007644967aaa8cad4d5fdc49fb",
+    "status": "locally validated staged source; not yet committed or pushed while predecessor retry remains live"
+  },
+  "classification": "B-level same-boundary Qoder compatibility under ADR37,56,129,130,131. No permission, Evidence, retry, Context admission, schema or storage boundary change.",
+  "baseline": {
+    "featurelessSource": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+    "featurelessSha256": "bc1b79a503b80eb91c56d0ed750fb0f6d1b897c8b679300c8d8f3bce4c5bfeb9",
+    "stream": {
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/stream-baseline.log",
+        "bytes": 1289,
+        "sha256": "6f1f345a2c7a74d8b212cefcf31f4ac45e60ce3c3a72b2d1a08fe9d8f1832c28"
+      },
+      "exit": {
+        "exit": 101,
+        "source": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+        "binary": "/tmp/peer-native-qoder-stream-final-2-20261117/peer-native"
+      },
+      "failure": "Actual public CLI rejects plain-labelled-chat with model_event_unsupported before executing a tool. Owned .tmpyHNXkl preserved."
+    },
+    "catalog": {
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/catalog-baseline.log",
+        "bytes": 1266,
+        "sha256": "a682b3c558569eae0a61cf91d9cace7413be308297e14dbdb74fcd8c9df6f132"
+      },
+      "exit": {
+        "exit": 101,
+        "source": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+        "binary": "/tmp/peer-native-qoder-stream-final-2-20261117/peer-native"
+      },
+      "failure": "Actual public CLI completes tool execution but the test observes contextWindow null instead of 200000 for selected ämodel against catalog ÄModel. Owned .tmpmrX4Xv, its effects and history are preserved; this is a behavioral assertion failure, not a claim that the CLI command failed."
+    }
+  },
+  "change": {
+    "stream": "Optional event type labels retain recognized choices/usage payloads; unknown control-only events and business errors remain rejected before tools. All59 actual TS stream vectors now cross both real native endpoint styles (118 cases).",
+    "catalog": "Use ECMAScript trim helper and full string lowercasing for catalog lookup/legacy merge, including contextual Greek and expanded dotted-I examples. BOM ids, empty BOM context entries and BOM thinking effort keys match current TS. Account uid equality and exact-id deduplication remain case-sensitive.",
+    "scopeAudit": {
+      "actualCliModels": "apps/tui/src/cli-models.ts -> resolveTuiModelConfig -> loadSharedModelMetadataList/Selection: configured catalog, not remote vendor discovery.",
+      "actualSend": "qoder-private-adapter.mjs getQoderModelMetadataForSend -> local/sync cache only.",
+      "desktopOnly": "provider-access-application-service.mjs calls listQoderModels; Desktop subscription-quota.mjs calls fetchQoderUsageInfo. TUI quota OAUTH_METHODS includes ChatGPT/Google/Grok only. Barrel exports do not create a CLI call path.",
+      "decision": "Existing ADR131 NR-04 配置能力范围校正 governs actual CLI scope; no new removal/deferral of CLI behavior and no added Desktop SDK management requirement."
+    }
+  },
+  "validation": {
+    "actualTsStream": {
+      "cases": 59,
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/stream-check.log",
+        "bytes": 336,
+        "sha256": "929eead4251b26c901d553d4e8caeebf9c06e54c1e8d842973d461f469bc3e97"
+      }
+    },
+    "actualTsPublicCaller": {
+      "cases": 18,
+      "physicalBuildAttempts": 54,
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/caller-check.log",
+        "bytes": 479,
+        "sha256": "e43433acf7e92b1e9e970cbc0331bd9a7a4f63f00c36cc2395782f9312e51210"
+      },
+      "scope": "Real current compiled TS sender/catalog/stream parser; only auth and HTTP host seams substituted in development."
+    },
+    "runtimeTests": {
+      "passed": 23,
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/runtime-final.log",
+        "bytes": 3271,
+        "sha256": "79cf7b7ff713957d39a59c69e6820a67ee5f9bbcd5f946bda8cb0750da71279d"
+      }
+    },
+    "featurelessNoJsHost": {
+      "passed": 27,
+      "streamEndpointCases": 118,
+      "callerCases": 18,
+      "exit": {
+        "exit": 0,
+        "seconds": 241.779776,
+        "harness": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/target/debug/deps/native_episode-a0af90568a8ed1be",
+        "binary": "/tmp/peer-native-qoder-metadata-20261117/peer-native",
+        "environment": {
+          "PATH": "/nonexistent",
+          "PEER_NATIVE_TEST_BINARY": "/tmp/peer-native-qoder-metadata-20261117/peer-native",
+          "PEER_NATIVE_P3_EVIDENCE_ROOT": "/tmp/peer-native-qoder-metadata-20261117/episodes"
+        }
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/release-qoder.log",
+        "bytes": 3051,
+        "sha256": "a92a6769794472bbed9e7f9e30fe3310e99b2ee82a399f0681846a71608e08e9"
+      },
+      "scope": "Same retained production binary, env cleared/PATH=/nonexistent; real local HTTP/TLS/proxy, Grant/tools/Evidence, cancellation, queue/retry/fees/hard-exit recovery and later task paths. Test harness only may select the binary; no product launcher seam."
+    },
+    "interop": {
+      "roots": 188,
+      "checks": 1020,
+      "exit": {
+        "exit": 0,
+        "command": [
+          "/tmp/peer-native-model-network-ci-bun-20261116/bin/bun",
+          "scripts/native-cli/episode-conformance.ts",
+          "/tmp/peer-native-qoder-metadata-20261117/episodes"
+        ],
+        "seconds": 16.245365417
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/release-interop.log",
+        "bytes": 218,
+        "sha256": "70757b1901d4e0dedacf02af33da45db2275ee974f51d397e255e1e1a2f53168"
+      },
+      "scope": "Actual native stores -> current TS writers -> real Rust Store reader; not another model execution."
+    },
+    "existingShared": {
+      "passed": 73,
+      "exit": {
+        "exit": 0,
+        "home": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-qoder-catalog-tests-em2cicmh",
+        "command": [
+          "node",
+          "--test",
+          "apps/desktop/electron/main/provider-adapters/qoder-model-catalog.test.mjs",
+          "apps/desktop/electron/main/provider-adapters/qoder-private-adapter.test.mjs",
+          "apps/desktop/electron/main/provider-adapters/qoder-provider-expansion.test.mjs"
+        ],
+        "seconds": 1.531468458
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/shared-catalog-tests.log",
+        "bytes": 6738,
+        "sha256": "27ead6a73b3bcff63f53c5b90372e75b9f60fac7d3321afef3819efd4c46a1e3"
+      },
+      "unexecutedAttempt": "Initial zsh glob targeted a nonexistent runtime-node test path, so no tests ran. Located real Desktop adapter test entry files, ran them with synthetic HOME/QODER_CONFIG_DIR, all73 passed."
+    },
+    "checks": [
+      {
+        "name": "runtime-final",
+        "command": [
+          "cargo",
+          "test",
+          "--locked",
+          "-p",
+          "peer-runtime",
+          "qoder",
+          "--lib"
+        ],
+        "exit": 0,
+        "seconds": 13.004944834000002
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--check"
+        ],
+        "exit": 0,
+        "seconds": 0.49491591600000007
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--locked",
+          "-p",
+          "peer-cli",
+          "-p",
+          "peer-runtime",
+          "--all-targets",
+          "--features",
+          "peer-cli/test-fixtures,peer-store/test-fixtures",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "exit": 0,
+        "seconds": 26.101459916
+      }
+    ],
+    "architecture": {
+      "path": "/tmp/peer-native-qoder-metadata-20261117/architecture.log",
+      "bytes": 384,
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    "boundaries": {
+      "path": "/tmp/peer-native-qoder-metadata-20261117/boundaries.log",
+      "bytes": 87,
+      "sha256": "7de28e0d3683315e3cebd7ef07bc04e00dd3d3a2d71cfd273a3c1ddaa17c78f7"
+    },
+    "dynamicLibraries": {
+      "path": "/tmp/peer-native-qoder-metadata-20261117/dynamic-libraries.log",
+      "bytes": 356,
+      "sha256": "affa4d313ecfc17527dfc251848d6f72933b89b57413e17f5b683f5ff32852ab"
+    },
+    "fullLocalGate": "Not rerun for this scoped same-boundary follow-up. Prior6e full gate is separately source-bound; new candidate full CI remains independent."
+  },
+  "existingStateRecovery": "No personal data read or changed. Preserve both failing owned fixtures, old effects/Grant/Evidence, unknown usage and fees. New explicit admissions read corrected catalog; no automatic replay of old tasks or tools, no retroactive reconstruction of old fabricated-zero usage. Static review of ContextPipeline::open shows the current model window is supplied to capacity restore; no dedicated old-Unicode-snapshot recovery test or historical ledger rewrite is claimed.",
+  "predecessorCi": {
+    "run": 43986222565,
+    "firstAttempt": {
+      "linuxJob": 133714935183,
+      "linux": "success",
+      "macosJob": 133714935060,
+      "macos": "failure",
+      "onlyFailedStep": "Preserve bot shell report",
+      "reason": "actions/upload-artifact@v7 CreateArtifact ETIMEDOUT. Native/build/import/type/architecture/Test and actual Electron smoke are success. Extracted smoke report ok=true, source509cf0cf; not claimed whole-job success.",
+      "terminalJobs": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/base-ci-jobs-terminal.json",
+        "bytes": 9804,
+        "sha256": "bf947528882e66853be52c613d469bedd29bcedbffb6848419728b2dd3a4e52e"
+      },
+      "macosLog": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/base-ci-macos.log",
+        "bytes": 2250983,
+        "sha256": "21d6c9fdc0f0eea45b5840f9605800d9eac92c60f17486253a6b0c835e889fec"
+      },
+      "actualSmokeReport": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/base-ci-macos-smoke-report.json",
+        "bytes": 366023,
+        "sha256": "c35fbc0c71e9f2bf2f1199e00e81bee8f1b5a6f1e4a2889660e7772192ddbeb3"
+      }
+    },
+    "retry": {
+      "action": "rerun-failed-jobs",
+      "requested": true,
+      "jobs": [
+        {
+          "id": 133736854580,
+          "name": "ci-macos-14",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 133736857658,
+          "name": "ci-ubuntu-latest",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "snapshot": {
+        "path": "/tmp/peer-native-qoder-metadata-20261117/base-ci-retry-jobs.json",
+        "bytes": 9052,
+        "sha256": "882364d84529735f174b51e0b892b090b64a632a7bcdca97e3864f9051f777a8"
+      },
+      "reason": "Confirmed artifact-service timeout; original job/log/result preserved, no source changes or weakened checks."
+    }
+  },
+  "candidateCi": {
+    "status": "not pushed yet"
+  },
+  "limits": [
+    "P4 total gate remains open; P5-P7 not complete.",
+    "No real Qoder account/IdP/service, OS Vault, installed-build or long-running memory acceptance.",
+    "No installation, personal task/credential migration, running instance restart, default switch, merge, tag or release.",
+    "Remaining full Context/compaction/attachments, tools/Skill/Plugin/Hook, ACP/headless/commands and mixed installed-version drain remain required."
+  ],
+  "nextToolAudit": {
+    "scope": "Actual TS Provider only, synthetic data; not native implementation or runtime authorization acceptance.",
+    "script": {
+      "path": "/tmp/peer-native-qoder-metadata-20261117/file-provider-audit.mjs",
+      "bytes": 2211,
+      "sha256": "4d9d2431ca503e4d7e27f85d3189d6158d073fa26db9a542b06a9836f74caac9"
+    },
+    "report": {
+      "path": "/tmp/peer-native-qoder-metadata-20261117/file-provider-audit.json",
+      "bytes": 698,
+      "sha256": "82a2c894e98926b89cece401839df1664ccd120a7ebf09019d7277957bc22f30"
+    },
+    "operations": 7,
+    "currentNativeFileCapabilities": [
+      "local.file.read",
+      "local.file.write"
+    ],
+    "missingFileCapabilities": [
+      "local.file.list",
+      "local.file.edit",
+      "local.file.search"
+    ],
+    "adrPass": [
+      "49-cancel-path-hard-sandbox.md",
+      "92-scoped-permission-inheritance.md",
+      "101-bot-owned-access-policy.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ]
+  }
+}

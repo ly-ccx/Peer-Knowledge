@@ -6,6 +6,16 @@
 
 
 
+## 2026-11-17 Qoder 标签流与本地目录匹配
+
+冻结候选 tree `bcd9cccf` 已完成本机验证，尚未推送。ADR pass：`37-provider-channel-and-wire-protocol-separation.md`、`56-provider-observed-context-accounting.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；B级同边界兼容修复，没有新ADR或授权/Evidence/Context/存储边界变更。带可选type标签的既有choices/usage仍进入同一Qoder decoder；未知控制帧、明确业务错误、缺终态及坏工具身份仍拒绝。目录沿现有ECMAScript trim和完整字符串lowercase查找，覆盖大小写展开、Greek final sigma和BOM；账号uid及原id去重不转为忽略大小写。
+
+旧6e featureless真实公开入口反例保留：plain-labelled-chat报model_event_unsupported；ämodel对ÄModel时实际工具已成功，但contextWindow为null而非200000，原效果/历史及失败断言保留，不把第二项说成CLI执行失败。新实际TS参考为59流向量与18完整caller场景/54次物理构造；同一新featureless release **17,290,624 bytes、SHA256 `cab589555d1d5e451aab233956867260c8c916b3ad1a5dfe2fcdf76031ecb95f`** 在env-i/PATH无JS下27组Host通过（241.780秒），实际覆盖59×2端点流形态、18目录/发送场景、真实工具/Grant/ToolResult/Evidence与既有TLS/代理/取消/重试/费用/恢复。随后 **188根1020次** 当前TS↔Rust持久状态互读通过；23 Runtime聚焦、73既有Qoder Adapter、fmt/clippy/边界/架构通过。没有为同边界跟进重跑完整本机门禁；完整CI仍单独绑定候选。详见[标签与目录回执](native-cli/evidence/p4-native-qoder-metadata-20261117.json)。
+
+实际调用范围复核：原CLI models/model-config读取配置元数据，发送时getQoderModelMetadataForSend只读本地/sync cache。listQoderModels的SDK远程发现由Desktop provider-access-application-service调用，Qoder配额只由Desktop调用；TUI quota仅ChatGPT/Google/Grok。按已接受ADR131的配置能力范围校正，不将这些Desktop管理能力新增为CLI迁移前提，也不把实际CLI本地选择/发送路径删去。
+
+基线6e的[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)第一轮已终态：Linux133714935183全仓success；macOS133714935060的Native/build/import/type/architecture/Test及Electron smoke均success，提取的真实smoke报告ok=true、source509cf0cf，但最后actions/upload-artifact创建报告超时ETIMEDOUT，整作业failure。日志/报告/失败身份保留，不记两平台全仓绿。已请求仅失败macOS作业的第二轮；新修复源码暂未提交/推送，不取消该轮。P4总闸及完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与真实服务仍开放。下一工具切片已定位原file provider的list/edit/search与read-snapshot、精确替换、大小写/结果上限和拒绝/取消合同，尚未声称原生实现。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
+
 ## 2026-11-17 Qoder 稀疏流、block 与用量观察
 
 候选 `6e8036ef`（tree `5b5ec6e1`）已推送。复核 ADR25/37/56/129–131，B级同边界迁移/修复，不新增ADR。Qoder私有Shape Adapter将稀疏Chat/缺省index、嵌套正文与六类thinking别名、稳定重复id/终态前的工具名、稀疏content-block统一进入原有有界Chat decoder；HTTP方言、账号/模型选择、Network和Host授权链不变。只有真实DONE/message_stop且参数/身份/块状态完整才公开tool intent；EOF、截断reason、冲突/mixed/坏形状/超限仍拒绝。原始thinking只属于live continuation，不成为落盘Evidence。共享TS同时修正首个block值丢失及缺用量维度补零：原断言分别复现前缀丢失和input12/output0伪完整，修正后53份实际TS向量冻结。完整/递增/重复usage只观察同一物理请求，后续partial不能抹去已知观察，独有partial仍unknown。
@@ -16,9 +26,9 @@
 
 失败保留：首个Host编译误用了兄弟私有receipt helper（未执行行为），修正后旧featureless328实际以model_choices_unsupported拒绝合法稀疏流；新增标量坏帧测试捕获候选JSON boolean上的index写入panic，对象校验修正后原测试通过。首次完整门禁tree d392因复核发现function:null占位不应拒绝而停止自有进程组，Host已开始，原组/fixture进程后来确认不在；不记通过或测试失败，不删其效果/unknown。新增真实TS反例、原生拒绝日志及null修正保留，以独立根重跑最终全部门禁。没有放宽终态/调用身份/费用/效果断言。
 
-基线328的[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)已核实Linux133686958023/macOS133686957697两平台全仓success，含各自Electron smoke；merge a250fc32 tree与328源码一致。c09两项失败和全trace仍保留、根因未确定，不把后续通过改写成旧失败修复证明。新[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)独立执行，merge509cf0cf tree与6e源码一致，尚未全仓绿。旧已落盘零值不能仅凭ledger判断是真零还是旧解析器补零，没有原始provider证据不猜写旧账单；本卡未读取用户旧数据或声称自动追溯修复。
+基线328的[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)已核实Linux133686958023/macOS133686957697两平台全仓success，含各自Electron smoke；merge a250fc32 tree与328源码一致。c09两项失败和全trace仍保留、根因未确定，不把后续通过改写成旧失败修复证明。新[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)的merge509cf0cf tree与6e源码一致；第一轮全部行为检查通过但macOS报告上传超时失败，第二轮见上，不记全仓绿。旧已落盘零值不能仅凭ledger判断是真零还是旧解析器补零，没有原始provider证据不猜写旧账单；本卡未读取用户旧数据或声称自动追溯修复。
 
-后续实点：实际TS探针确认带可选type=chat.completion.chunk标签的有效Chat帧可读，静态当前Shape会先报unsupported；尚未补原生公开反例或修正，继续作为流平价余项。其余Qoder完整目录/发送/真实服务、完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与P4总闸仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
+后续type标签公开反例、修正及本机验证见上（tree bcd9cccf，尚未推送）；本节5b5原验证不含该修复。其余Qoder完整目录/发送/真实服务、完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与P4总闸仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
 
 ## 2026-11-17 Qoder 公共发送入口与持久选项对照
 
