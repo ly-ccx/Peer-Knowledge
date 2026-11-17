@@ -171,8 +171,31 @@
     },
     "ci": {
       "run": 44083336584,
-      "observedStatus": "in_progress",
-      "conclusion": null
+      "observedStatus": "completed",
+      "conclusion": "cancelled",
+      "mergeBinding": {
+        "parents": [
+          "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+          "8830f5535e7179ed16b6d15f1d7780edb538eaa9"
+        ],
+        "sha": "f7d074bc0b0e580d1b0b4fbfd5a4ae0bf6b6b17a",
+        "tree": "fa12170e5881b63b57909ec881df6e85742db744"
+      },
+      "jobs": {
+        "linux": {
+          "id": 134039263184,
+          "conclusion": "cancelled",
+          "native": "success",
+          "buildTypeArchitectureTest": "success",
+          "electronSmoke": "cancelled"
+        },
+        "macos": {
+          "id": 134039263667,
+          "conclusion": "cancelled",
+          "native": "cancelled"
+        }
+      },
+      "note": "Superseded by the pushed8526 candidate while Linux Electron/macOS Native were running. No failed steps, but neither full job is success; new8526 CI independent."
     },
     "limits": "Old frozen whole-gate/release above belongs to53d1 product. This CAS production change has focused checks; updated complete native gate/release will run with the Host permission candidate. Neither prior green nor pending CI is promoted to final acceptance."
   }

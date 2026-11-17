@@ -1,5 +1,9 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 原生 CLI 权限等待与终态连续性（2026-11-17）
+
+CLI，`8526db01`，tree `aa059e57`。原静态授权提示增加5分钟未决定即暂停的说明，继续唯一stdin读取者及原[y/N]/Ctrl-C交互；pending对象拥有timer与输入future，终态后不保留后台stdin任务。无新动画/焦点切换。到期和取消的终态来自Host与Store，后续工具不能消费迟到回答；实际PTY覆盖批准/拒绝/TERM/到期/迟到输入与后续任务，原6秒延迟批准保持heartbeat的用例通过。Darwin测试保留自有slave以读取进程退出后的真实stderr，不把Child::Output.stderr误作PTY输出。25项Host测试通过，完整原生门禁572 Rust/237公开Episode/603根3374实际互读/9PTY及固定featureless产物复核通过，独立全仓CI待核对；实现者自审，系统IME/读屏/安装与完整P6另验。见[权限回执](../../playbook/native-cli/evidence/p4-native-permission-wait-20261117.json)。
+
 ## 原生CLI Grok设备授权（2026-11-17）
 
 CLI，`5182ad5e`，授权提示沿结构化JSON输出，增加公开userCode/有效期；不自动开浏览器、不抢焦点或创建动画。URL/控制文本/secret回显先校验；取消沿实际owner停稳，原浏览器登录输出及草稿不受本次管理命令替代。9PTY覆盖原终端恢复，设备等待/活动HTTP取消及后续新登录走公开CLI测试；featureless固定URL TLS验证通过。ADR108补全只输出原脚本或帮助，不开TUI、不改变焦点或shell文件；无HOME/TTY/JS入口与实际Bash复核通过。实现者自审；完整P6、系统IME/读屏与安装验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-native-grok-20261117.json)。

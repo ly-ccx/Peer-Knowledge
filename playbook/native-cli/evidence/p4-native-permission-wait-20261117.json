@@ -1,0 +1,168 @@
+{
+  "createdAt": "2026-11-17",
+  "status": "B-scoped native pending-permission fix delivered; full native and pinned featureless public tests passed; new independent whole CI pending; P4 total open",
+  "candidate": {
+    "commit": "8526db012a7f878abc699387a5707069dac12772",
+    "tree": "aa059e5761055fc657e6ca136f989ce4ed052150",
+    "branch": "codex/native-rust-cli",
+    "pushed": true
+  },
+  "decisions": {
+    "files": [
+      "92-scoped-permission-inheritance.md",
+      "101-bot-owned-access-policy.md",
+      "106-readonly-git-and-delegation-capability-admission.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "classification": "B: implement existing accepted decision provenance/5min pending expiry, existing ApprovalStore state/reason/deadline and canonical Evidence boundaries; no new policy, storage format, system source or execution path.",
+    "priorKnowledge": "ed4f0a956e9063dac800facb9a71c914947b4704 records the retained baseline and required repair before source."
+  },
+  "baseline": {
+    "source": "8830f553 working tree tests against pre-fix product; pinned featureless53d1 binary for actual non-TTY failure.",
+    "failures": [
+      "Pending Host request record has deadlineAt=null instead of createdAt+5min.",
+      "Changed arguments feed non-whitelisted permission_authority_changed into ApprovalStore, which returns InvalidInput instead of persisting Expired and retaining the real Host failure.",
+      "Actual non-TTY Ask tool denies without effect but records decidedBy=local_ui despite no human UI."
+    ],
+    "logs": {
+      "deadline-before.log": "e65b5aecb0e599066a2cd2d39d7dfe3e124d31397a51f19cc730e87f99ef3453",
+      "arguments-before.log": "917cdf5c64d0cf6fa832568121f9dbd8540fdb6232d1a172ccd3237be66d900e",
+      "non-tty-before.log": "8f324f0dae674a558910e30855862e21c13f8dcc59ba90b0465648049ff7845e"
+    }
+  },
+  "implementation": {
+    "request": "Each new pending Host request persists createdAt+300s deadlineAt and owns a monotonic deadline/input future. Same Host wait retains lease heartbeat and structured cancellation; no detached stdin task.",
+    "provenance": "Only real Approve/Deny use local_ui; Unavailable/Cancel/Timeout use policy and existing precise reason. Non-TTY, EOF/read failure and oversized terminal input cannot mint a user denial.",
+    "currentness": "Expired wall or monotonic deadline rejects late approval; exact args/Goal/principal/source/policy/role/lease/resource validation stays live. Store CAS rejects a previously closed record. Pending TTL does not expire an already issued once grant.",
+    "settlement": "Cancel/expiry saves false grant + canonical paired Tool Result/Evidence/not_dispatched and settles budget before stopping run. No later model request/prompt in that episode can consume a late y. Ordinary denial/unavailable preserves legacy permission_denied outcome; precise reason remains in grant/approval.",
+    "history": "No old misattributed/open/audit rows rewritten or reused as new grants. Existing owned startup stale/expired recovery unchanged; subsequent synthetic independent task preserves original expired approval and history byte-for-byte.",
+    "fixtureOnly": "Shorter test deadline accepted only in fixture-enabled Host with owned marker; PEER_NATIVE_PERMISSION_WAIT_MS absent from pinned featureless binary."
+  },
+  "focused": {
+    "hostTests": 25,
+    "publicFunctions": [
+      "denial_is_a_real_persisted_result_without_effect",
+      "real_pty_permission_accept_deny_and_signal_have_no_stuck_stdin_reader",
+      "expired_pty_permission_persists_no_dispatch_and_late_yes_cannot_start_another_tool",
+      "delayed_pty_approval_keeps_current_lease_and_completes_the_real_tool_episode"
+    ],
+    "coverage": [
+      "Real non-TTY no effects, actual policy provenance and deadline",
+      "Real PTY once allow/deny/TERM with canonical no-dispatch cancellation and no stuck reader",
+      "2.5s owned test timeout, actual terminal timeout error, late yes, no next tool/model dispatch; later independent task admitted with old approval/history unchanged",
+      "Existing delayed6s approval retains heartbeat and actually performs its tool",
+      "300s virtual monotonic deadline at real Host/Store seam; wall boundary and issued-grant-no-TTL; actual Store CAS/args/policy/lease rejection"
+    ],
+    "logs": {
+      "denial_is_a_real_persisted_result_without_effect-final.log": "08cbe78ee399a1910d7c08c03c49211ea0f4b5ef9987f1caf1f6a690e2b725f4",
+      "real_pty_permission_accept_deny_and_signal_have_no_stuck_stdin_reader-final.log": "d21cfaa13ed06e1ab7bb8933f3e1315dccfbf92c19a703b575d1be69e1017150",
+      "expired-pty-v3.log": "a0ea4b78eae0b627b4eb0acf51a8b5e89b861792efdd3a3671ecc6e286b7e547",
+      "delayed-pty-final.log": "2c9643c598349ac7d28565d4d51c7abee086464f4a32ad9f7d0a3c20ea16772b",
+      "host-final-focused.log": "612247eeefd928dd4ffbc8bfe39093b5936da8f74867a5971ec7b9ab3d5f7491"
+    }
+  },
+  "wholeNativeGate": {
+    "head": "8830f5535e7179ed16b6d15f1d7780edb538eaa9",
+    "tree": "aa059e5761055fc657e6ca136f989ce4ed052150",
+    "patchSha256": "b2db909c58260b580dcd8b1e78eaf0e3651cffe49835ecef694aa3c58bae2ce3",
+    "startedAt": "2026-11-17T12:31:32.562567+00:00",
+    "scope": "Same exact final product/test tree aa059. Includes8830 checked-CAS Git correction and corrected included-filter/timezone oracle; existing native fmt/clippy/contracts/build/helper/store/architecture/static boundaries. Not P4 product total or full release acceptance.",
+    "pid": 21864,
+    "pgid": 21864,
+    "wrapperPid": 21854,
+    "pidScope": "Verification command owned process group; not an application installation or user instance.",
+    "exitCode": 0,
+    "endedAt": "2026-11-17T12:48:18.001343+00:00",
+    "seconds": 1005.483787333,
+    "rustTests": 572,
+    "includedPublicEpisodes": 237,
+    "actualTsRustRoots": 603,
+    "actualTsRustCases": 3374,
+    "ptyCases": 9,
+    "logSha256": "cd329aaf478eed25449883d61b8ed43d0425bf0a5777e644af1915e628d0dee4"
+  },
+  "featurelessRelease": {
+    "bytes": 21253760,
+    "sha256": "21ab3dd28390b545378da4706fc60a077fa7273c710546a3e72b940a386e15fe",
+    "testDeadlineOverridePresent": false,
+    "linkedLibraries": [
+      "CoreFoundation",
+      "libiconv",
+      "libSystem"
+    ],
+    "publicHost": {
+      "exitCode": 0,
+      "tests": [
+        "native_model_file_shell_result_evidence_and_pause_use_the_public_composition_root",
+        "four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation",
+        "denial_is_a_real_persisted_result_without_effect",
+        "real_pty_permission_accept_deny_and_signal_have_no_stuck_stdin_reader"
+      ],
+      "seconds": 37.713360166,
+      "roots": 9
+    },
+    "actualTsRustRoundtrip": {
+      "ok": true,
+      "roots": 9,
+      "cases": 47,
+      "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+    },
+    "harnessEnvironment": "Cleared inherited model/credential environment; owned HOME, explicit build Cargo cache; each actual product child PATH=/nonexistent and synthetic PEER_AGENT_HOME. Bun only development interoperability peer.",
+    "logs": {
+      "host": "58ac843f8c8932ee98e00c6f68e9cf3818a8320478ead2bf6ae146639bff8a9b",
+      "interop": "1e5bddea5f36d8ca41e0d3114e54dece0df129ce5796a608036a4b79adbfee56"
+    }
+  },
+  "retainedValidationFailures": {
+    "attempts": {
+      "deadline-before.log": {
+        "sha256": "e65b5aecb0e599066a2cd2d39d7dfe3e124d31397a51f19cc730e87f99ef3453",
+        "bytes": 1442
+      },
+      "arguments-before.log": {
+        "sha256": "917cdf5c64d0cf6fa832568121f9dbd8540fdb6232d1a172ccd3237be66d900e",
+        "bytes": 1014
+      },
+      "non-tty-before.log": {
+        "sha256": "8f324f0dae674a558910e30855862e21c13f8dcc59ba90b0465648049ff7845e",
+        "bytes": 1384
+      },
+      "expired_pty_permission_persists_no_dispatch_and_late_yes_cannot_start_another_tool.log": {
+        "sha256": "2ceaa716ef33ad12f8564ea5cef0e07b11890cbbc4242c3ba344a03f98ab9d8d",
+        "bytes": 976
+      },
+      "expired_pty_permission_persists_no_dispatch_and_late_yes_cannot_start_another_tool-final.log": {
+        "sha256": "0263910e48d0aa17387a83acab7ea610914dc0e8e25ec9bc7fe52c071cec4def",
+        "bytes": 893
+      },
+      "expired-pty-v3.log": {
+        "sha256": "a0ea4b78eae0b627b4eb0acf51a8b5e89b861792efdd3a3671ecc6e286b7e547",
+        "bytes": 981
+      }
+    },
+    "ptyCapture": "First expiry test inspected Child::Output.stderr even though stderr was attached to PTY. Corrected to actual master read; Darwin last-slave close can discard unread output, second failure retained. Final test holds its own slave open only for post-exit terminal/late-answer observation; does not feed product stdin. Same terminal error/no-effect/late-no-dispatch assertions preserved and pass. Not a production timeout regression."
+  },
+  "wholeCi": {
+    "baseGitFailureRun": 44081181327,
+    "baseGitPortabilityRun": 44083336584,
+    "baseGitPortabilityStatus": "completed/cancelled on both platforms after new8526 push. Linux Native/build/type/architecture/Test success, Electron cancelled; macOS Native cancelled. No full job success and no failed step; not whole green.",
+    "candidateRun": 44086962694,
+    "observedStatus": "pending",
+    "conclusion": null,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44086962694",
+    "scope": "No inherited whole-green claim; final candidate requires independent check."
+  },
+  "remaining": [
+    "Git Provider registration/typed live supplemental read scopes/full Artifact/Evidence/PTy closure; readonly worker/Explorer/Verifier production episode still requires genuine read-workspace/role wiring",
+    "Remaining full P4 Context/lifecycle/tools/Skill/Plugin/Hook/ACP/headless/commands/mixed-version recovery/real-service total gate",
+    "P5 complete project-agent; P6 ordinary Ratatui chat/history/memory; P7 installation/release/default switch/old reachable CLI retirement"
+  ],
+  "limits": [
+    "Implementer self-review, synthetic owned data/model HTTP and PTY; no independent product reviewer",
+    "Real5min wall-clock wait not soaked: exact300s boundary via virtual clock+real Host Store,2.5s real PTY,6s real heartbeat and featureless default deadline checks",
+    "Actual MSRV1.88, real vendors/OS Vault, installed/mixed-version drain and full memory acceptance unverified",
+    "No personal data/credentials, installation, user process restart, default switch, merge/tag/release; no Bun/Node engine sidecar"
+  ]
+}

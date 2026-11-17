@@ -6,6 +6,16 @@
 
 
 
+## 2026-11-17 原生待批准请求的归属、到期与未派发收口
+
+`8526db01`已提交并推送（tree `aa059e57`）。复核ADR92/101/106/129–131，按知识`ed4f0a9`在源前保全的事实作B级修复，既有授权/存储/Evidence边界不动。新pending持久化原5分钟deadlineAt并拥有单调截止与输入future；真实Approve/Deny归local_ui，缺TTY/输入不可用、取消与超时归policy。过期/参数或策略失效与Store CAS拒绝迟到批准；不让非白名单错误把Expired写入变成InvalidInput，调用仍保留精确失效原因。到期只限pending，不凭时间撤销已经签发的once Grant；实际执行仍实时复核。取消/到期先写false Grant、配对Tool Result/Evidence及not_dispatched，结算预算后停止本轮，后续提示不能消费迟到y。
+
+最终同一冻结源码完整原生门禁 **572 Rust（含237公开Episode）/603根3374实际TS↔Rust/9PTY**，exit0、1005.484秒。包括前Git候选的checked CAS与真实include/nonzero时区oracle修正，fmt/clippy/contracts/build/helper/Store/静态边界等原闸均通过。25 Host聚焦覆盖300秒单调/墙钟边界、已签发Grant不受pending TTL、参数/策略/CAS失效。实际PTY覆盖批准/拒绝/TERM、2.5秒测试截止/迟到y、后续独立任务及原6秒延迟批准heartbeat；旧过期批准和会话字节不变。原缺deadline、错误决定来源、参数变化写入错误三反例修复前真实失败记录保留。
+
+固定featureless release **21,253,760 bytes**、SHA256 `21ab3dd28390b545378da4706fc60a077fa7273c710546a3e72b940a386e15fe`，仅CoreFoundation/libiconv/libSystem，短截止测试开关不在产物；清空继承模型/凭据环境、产品PATH=/nonexistent，4项公开Host测试生成9根、47次实际TS/Rust互读通过。两次PTY终态文字检查失败保留：先误读Child.stderr，后遇Darwin最后slave关闭丢弃未读输出；最终夹具持有自有slave读取真实终端，不代读/代答产品stdin，原超时/零效果/迟到拒绝断言保留。见[权限等待回执](native-cli/evidence/p4-native-permission-wait-20261117.json)。实现者自审；300秒真实墙钟未soak，虚拟时钟与短真实PTY覆盖不冒充安装/真实用户/长时验收。
+
+新[CI44086962694](https://github.com/ly-ccx/Peer-Agent/actions/runs/44086962694)pending，独立全仓结论未取得；前8830 CI两平台被新推送取消，Linux Native/build/type/architecture/Test成功、Electron取消，macOS Native取消；不以新本机整闸替代全仓绿。Git工具及动态scope/只读角色生产回合仍未接，P4总闸与P5–P7保持开放，普通Ratatui仍不可发送。未读改个人数据、未安装/重启用户实例/切默认/合并/发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-17 原生 Git 读取 Module 候选
 
 `53d1cc14`（tree `e8a666ce`）已提交并推送；ADR131/map 的 A 级登记 `18fae8a` 先于实现。新增固定系统 Git 的 snapshot/status/log 原生读取引擎与受管命令生命周期，原 GitStatusProbe 共享底层命令实现但保留原10s/256KiB、严格UTF8和范围限制；完整工具预算15s/8MiB及观察界限不回流到恢复Probe。真实取消/超时/降权/超额与parent已回收但descendant仍占管道的进程组结束通过。**本卡没有注册 git_query，也未完成动态Host范围批准、完整工具产物/Evidence或公开Git闭环。**
@@ -14,7 +24,7 @@
 
 固定featureless release **21,286,896 bytes**、SHA256 `683caa74a5f578cf8eb6bcb2d81d8bdb240a9df10452a8bdb5e0c68e171141b0`，仅CoreFoundation/libiconv/libSystem；产品PATH不可发现Node/Bun，4项公开Host测试生成7根、37次实际TS/Rust互读通过。最初只生成1根导致原互读器至少6根的集合断言失败，原记录保留；补充真实多协议/拒绝/截断恢复用例后用原验证器通过，未放松断言。其它实施中失败及准确候选绑定见[Git Module回执](native-cli/evidence/p4-native-git-engine-20261117.json)。
 
-基线b716两平台全仓CI44067260477已通过；初始Git候选[CI44081181327](https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327)终态两平台失败：Linux的Rust1.100把fetch_update弃用警告升为错误；macOS先在实际TS oracle遇到%cI的UTC后缀+00:00/Z差异。后续`8830f553`已推送（tree `fa12170e`）：用原子checked CAS保留共享字节预算，不屏蔽警告/提高MSRV；合成仓库固定+05:30偏移，仍精确比较真实TS/raw Git时间，不改生产输出。17实际向量/11非法/3失败、4原生Module及本机1.98.1 all-target clippy通过；旧冻结整闸与release不冒充本CAS生产改动的完整验证。新[CI44083336584](https://github.com/ly-ccx/Peer-Agent/actions/runs/44083336584)in_progress；更新完整原生门禁/release随Host权限候选另验。接线前已保全non-TTY批准误记local_ui且无deadline的隔离事实，后续按ADR92/101既有决定来源、5分钟等待及迟到拒绝边界修正，不改旧历史。P4总闸、P5–P7、普通Ratatui发送与长期内存仍开放。实现者自审、合成服务；无个人数据、安装、用户实例重启、默认切换、合并或发布。
+基线b716两平台全仓CI44067260477已通过；初始Git候选[CI44081181327](https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327)终态两平台失败：Linux的Rust1.100把fetch_update弃用警告升为错误；macOS先在实际TS oracle遇到%cI的UTC后缀+00:00/Z差异。后续`8830f553`已推送（tree `fa12170e`）：用原子checked CAS保留共享字节预算，不屏蔽警告/提高MSRV；合成仓库固定+05:30偏移，仍精确比较真实TS/raw Git时间，不改生产输出。17实际向量/11非法/3失败、4原生Module及本机1.98.1 all-target clippy通过；旧冻结整闸与release不冒充本CAS生产改动的完整验证。后续[CI44083336584](https://github.com/ly-ccx/Peer-Agent/actions/runs/44083336584)两平台终态cancelled：新8526推送时Linux Native/build/type/architecture/Test已过、Electron取消；macOS Native取消，无失败步骤但不记全仓绿。CAS改动已随8526同一最终tree完整原生门禁/release通过，不能代替独立全仓CI。接线前已保全non-TTY批准误记local_ui且无deadline的隔离事实，后续按ADR92/101既有决定来源、5分钟等待及迟到拒绝边界修正，不改旧历史。P4总闸、P5–P7、普通Ratatui发送与长期内存仍开放。实现者自审、合成服务；无个人数据、安装、用户实例重启、默认切换、合并或发布。
 
 ## 2026-11-17 原生静态 HTTP 抓取与网页产物候选
 

@@ -1,5 +1,9 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生 CLI 待批准请求的归属与到期（2026-11-17）
+
+CLI，`8526db01`，tree `aa059e57`；沿ADR92/101/131既有边界。用户可一次批准或拒绝当前工具；Host记录新请求的5分钟deadlineAt，只有真实Approve/Deny归local_ui，缺TTY/读取不可用、取消与超时归policy。待批准到期不会使过去已签发Grant凭时间失效；执行仍检查当前策略/参数/lease。取消与到期先保存实际未派发的Tool Result/Evidence，再停稳本轮，不把迟到y用于下一提示。旧open只沿已有owned恢复闸变stale/expired，不重写旧误归因或把历史audit当新许可。实际non-TTY、PTY批准/拒绝/TERM、2.5秒测试截止/迟到y、后续独立任务和25项Host授权/恢复已通过，300秒边界另有虚拟时钟/真实Host Store检查；完整原生门禁572 Rust/237公开Episode/603根3374实际互读/9PTY及固定featureless产物复核通过，独立全仓CI待核对。实现者自审；无真实用户数据、安装或完整Ratatui/IME/读屏/长时验收。见[权限回执](../../playbook/native-cli/evidence/p4-native-permission-wait-20261117.json)。
+
 ## 原生CLI Grok设备授权（2026-11-17）
 
 CLI，`5182ad5e`，按ADR131/28实施前修订。用户显式`models auth <channel>`取得公开URL/userCode/有效期；等待提示不代表已登录，只有真实Vault CAS/回读后的管理回执表示凭据提交。Ctrl-C/TERM取消当前操作，保留原凭据、配置与任务；新登录从新device grant开始。拒绝/过期/无scope/身份冲突/secret回显拒绝后均可沿明确登录修复。模型执行仍从实际Grant与ToolResult/Evidence取事实。387 Rust/148公开Episode与featureless固定URL TLS Host通过，为实现者自审；真实服务、OS Vault、安装与完整Ratatui流程未验收。另沿ADR108输出原三种shell补全/帮助，stdout为脚本、用法错误退出2、不写配置；实际Bash与正式产物复核通过。见[回执](../../playbook/native-cli/evidence/p4-native-grok-20261117.json)。
