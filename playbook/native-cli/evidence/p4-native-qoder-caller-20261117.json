@@ -387,15 +387,36 @@
     "runId": 43978031587,
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587",
     "head": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
-    "status": "in_progress",
-    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "wholeRepositorySuccess": true,
     "mergeCommit": "a250fc3215033504b693fefe5f4242e3a06549dd",
     "mergeTree": "e2c9b88ea55d0929401e7c847d0150b7fcf53474",
     "matchesSourceTree": true,
     "parents": [
       "8b0c97175099a91d6495d6dd67ac063a7e262d63",
       "328cd85cf69755ef0a0aad9ec8caf553349a5a93"
-    ]
+    ],
+    "conclusion": "success",
+    "observedAt": "2026-11-17T00:02:02.680968+00:00",
+    "jobs": [
+      {
+        "id": 133686957697,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success",
+        "electronSmoke": "success",
+        "nativeScoped": "success"
+      },
+      {
+        "id": 133686958023,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "electronSmoke": "success",
+        "nativeScoped": "success"
+      }
+    ],
+    "qualification": "Both whole jobs including original Electron smoke passed on this source. Earlier c09 failures remain retained and unexplained; this is not proof that their root causes were fixed."
   },
   "limits": {
     "p4TotalGatePassed": false,
