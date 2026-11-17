@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通会话 canonical 执行记录与真实 Store 回执
+
+代码 `dfef292291ff98367bae3c0e89ce008b18211d2b`（tree `42390a0b1413e6dfa6b019063038f4f1e9a8470f`）已完成本卡专项验证并推送。按 ADR131/map 的 A 级实施前登记 `5a74211`，普通 conversation/stream 执行事实写入原 index，沿原锁与 source/contentRevision/owner CAS；不建立假 Goal、继承 Bot Full 或私有日志。prepared/dispatching、process/handle、用量与真实停稳分别保留，unknown 不重放。原每 stream 汇总账本经绑定数据根和 owner 的真实 Store 回执确认。共享 cognition 只接受连续的纯 metadata 发布回执；外来历史/模型修改仍冲突，迟到的已知用量仍保存。
+
+冻结候选原生门禁通过：620 Rust（含247公开Host）、627根/3521 TS互读、9PTY；新增9项Store行为与49组解码向量、实际Node/Bun各12项Store保全检查。全仓typecheck、架构/UI、Protocol336测试及warnings-denied clippy通过。固定无测试特性release二进制21,502,736字节、SHA `024e2d581177b308b833174f815824f656a960f712fcc77edfdbd3a23dcfd15a`；env-i隔离HOME、PATH无Node/Bun的8项真实模型/工具Host及13根/76互读通过。原失败、候选来源和限制见[本卡回执](native-cli/evidence/p4-conversation-execution-20261118.json)。`066b63e8` 的[全仓CI](native-cli/evidence/ci-066-20261118.json)已核对两平台success及实际Checkout/merge/tree/parents；新[CI44165606361](https://github.com/ly-ccx/Peer-Agent/actions/runs/44165606361)首次观察queued，不能继承旧绿。
+
+**仍在P4，普通CLI发送未接通。** 本卡是执行事实与回执底座；HTTP验证使用明确的测试Source/Host，不是普通生产Host。下一卡须接真实普通owner/当前权限、原Provider/Grant/Evidence、已拥有资源停稳与owner死亡/unknown对账，以及相同loop/cognition的普通exec/Ratatui/ACP。TS生产owner/guard及旧安装宿主drain仍须验收；当前TS保全未知字段不等于互斥已保护。其余Context/Skill/Plugin/Hook、完整协议/命令、P4总闸与P5–P7、真实服务/长期内存/安装默认和发布验收继续开放。实现者自审，无个人数据、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-18 共享原生认知请求管线与非Goal Host seam
 
 `066b63e803caae344efc4dca1b1b380877bbf126`已提交推送，tree `2ff7ffb8588c47aab081ca47249a43c31fbbd1e0`。按ADR25/55/56/57/65/76/129/131复核，B级源前登记 `43e286e`；授权、Evidence、存储格式/写入所有权、Context Source与验收边界不动。原Goal绑定的请求/计数/结果视图/容量快照/压缩重建/物理请求重试移入同一个cognition Module，只依赖Host的当前性、预算、注册Source组装、受管等待与用量归属。Goal adapter仍校验真实lease/Goal修订/parent policy/MCP registry及credential epoch，并保存原canonical Work用量快照；ModelObservation在实际响应之后、等待的所有权/取消拒绝之前捕获。count/send仍消费同一prepared bytes，summary/重试计费、单次overflow恢复、历史CAS与原资源预算不变。无第二个模型引擎或假Goal。
