@@ -6,15 +6,27 @@
 
 
 
+## 2026-11-17 原生文件列举、搜索、编辑与受管I/O
+
+联合候选 `e6292074`（tree `6ef6b6cb`）已提交并推送，完整本机原生scoped门禁通过。先按 `49-cancel-path-hard-sandbox.md`、`92-scoped-permission-inheritance.md`、`101-bot-owned-access-policy.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md` 完成ADR pass；ADR131/map在实现前登记A 级有界扫描/错误资源与受管I/O约定，B级迁移既有五种File Manifest和Provider。权限、Evidence、持久化与unknown对账政策不变。Host从实际Provider Manifest核对required capability；list/search/edit不再因旧中心白名单被拒。文件操作由单个受管阻塞任务执行，原EffectAdmission向真实Host复核当前授权；Host继续响应取消与heartbeat，实际任务结束前不释放所有权。编辑仍需原读取快照、当前内容与原文件claim。
+
+真实TS FileProvider生成 **12场景/34步、8 locale** 对照，验证列举、CRLF/最终CR、默认/敏感大小写、结果上限、忽略目录、UTF-8替换、编辑歧义/缺失/未读、Unicode及单次替换的既有美元符号语义。锁定原生ICU4X2.1.1及其依赖，新增依赖MSRV不高于1.83，workspace仍1.88。真实原生公开链为list→search→read→edit→read，经同一Grant/ToolResult/Evidence；受控worker暂停验证heartbeat继续、外部改动与降权后不写、TERM停稳后新任务可执行；编辑效果后硬退出保持unknown，recover不重放。
+
+最终联合源码 **470 Rust（含182 Native Episodes）/499根2811次实际TS↔Rust互读/9PTY**，760.561秒、exit0；fmt/clippy/边界/架构通过。featureless release **18,711,488 bytes、SHA256 `d42c84ccfb11f4e121504aeed1c705244a294b1f43f023840e33b79cf49c86d4`**，同一产物env-i/PATH无JS下 **4组文件+27组Qoder Host全部通过**（22.345秒+232.967秒），随后 **204根1100次** 当前TS↔Rust持久状态互读通过。见[文件能力回执](native-cli/evidence/p4-native-files-20261117.json)。
+
+失败及改正保留：公开旧候选list_files报tool_not_projected；首轮工作候选把macOS /var与/private/var混作两个目录，且空白query误使回合退出，保留原断言后修正。新增真实FS/EffectAdmission Module反例确认CREATE后授权撤回可留空文件，原实现误报普通permission_policy_changed；修正保留空文件并报告execution_outcome_unknown，不删除以制造恢复。Cargo将平铺测试helper误作独立测试目标及新版clippy提示均已修正，无弱化断言。首轮完整门禁在pre-Host阶段为补齐限额协议资源而停止自有进程组，组已确认不存在；不记通过或测试失败，最终整闸使用独立输出根。
+
+6e前驱CI43986222565第一轮仅macOS报告上传ETIMEDOUT失败；第二轮Linux133736857658/macOS133736854580两平台全仓success已核实，含原Electron smoke和报告上传；merge509cf0cf tree与6e一致。新联合源码[CI43999794341](https://github.com/ly-ccx/Peer-Agent/actions/runs/43999794341)独立执行，merge7dd76a59 tree与e629源码一致，尚未全仓绿，不继承前驱结果。P4完整总闸继续开放：大文件/artifact与父目录等其余文件平价、完整Context/压缩/attachments、其余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain及真实服务仍须完成。P5–P7未完成，普通Ratatui对话仍不可发送，长期内存未验收。无个人任务/凭据迁移、安装、用户实例重启、默认入口切换、合并、tag或发布。
+
 ## 2026-11-17 Qoder 标签流与本地目录匹配
 
-冻结候选 tree `bcd9cccf` 已完成本机验证，尚未推送。ADR pass：`37-provider-channel-and-wire-protocol-separation.md`、`56-provider-observed-context-accounting.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；B级同边界兼容修复，没有新ADR或授权/Evidence/Context/存储边界变更。带可选type标签的既有choices/usage仍进入同一Qoder decoder；未知控制帧、明确业务错误、缺终态及坏工具身份仍拒绝。目录沿现有ECMAScript trim和完整字符串lowercase查找，覆盖大小写展开、Greek final sigma和BOM；账号uid及原id去重不转为忽略大小写。
+本节 tree `bcd9cccf` 是独立本机验证的Qoder组件；后续随联合候选 `e6292074`（tree `6ef6b6cb`）提交推送，联合总闸见上。本节旧产物/向量证据不冒充新联合源码验证。ADR pass：`37-provider-channel-and-wire-protocol-separation.md`、`56-provider-observed-context-accounting.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；B级同边界兼容修复，没有新ADR或授权/Evidence/Context/存储边界变更。带可选type标签的既有choices/usage仍进入同一Qoder decoder；未知控制帧、明确业务错误、缺终态及坏工具身份仍拒绝。目录沿现有ECMAScript trim和完整字符串lowercase查找，覆盖大小写展开、Greek final sigma和BOM；账号uid及原id去重不转为忽略大小写。
 
 旧6e featureless真实公开入口反例保留：plain-labelled-chat报model_event_unsupported；ämodel对ÄModel时实际工具已成功，但contextWindow为null而非200000，原效果/历史及失败断言保留，不把第二项说成CLI执行失败。新实际TS参考为59流向量与18完整caller场景/54次物理构造；同一新featureless release **17,290,624 bytes、SHA256 `cab589555d1d5e451aab233956867260c8c916b3ad1a5dfe2fcdf76031ecb95f`** 在env-i/PATH无JS下27组Host通过（241.780秒），实际覆盖59×2端点流形态、18目录/发送场景、真实工具/Grant/ToolResult/Evidence与既有TLS/代理/取消/重试/费用/恢复。随后 **188根1020次** 当前TS↔Rust持久状态互读通过；23 Runtime聚焦、73既有Qoder Adapter、fmt/clippy/边界/架构通过。没有为同边界跟进重跑完整本机门禁；完整CI仍单独绑定候选。详见[标签与目录回执](native-cli/evidence/p4-native-qoder-metadata-20261117.json)。
 
 实际调用范围复核：原CLI models/model-config读取配置元数据，发送时getQoderModelMetadataForSend只读本地/sync cache。listQoderModels的SDK远程发现由Desktop provider-access-application-service调用，Qoder配额只由Desktop调用；TUI quota仅ChatGPT/Google/Grok。按已接受ADR131的配置能力范围校正，不将这些Desktop管理能力新增为CLI迁移前提，也不把实际CLI本地选择/发送路径删去。
 
-基线6e的[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)第一轮已终态：Linux133714935183全仓success；macOS133714935060的Native/build/import/type/architecture/Test及Electron smoke均success，提取的真实smoke报告ok=true、source509cf0cf，但最后actions/upload-artifact创建报告超时ETIMEDOUT，整作业failure。日志/报告/失败身份保留，不记两平台全仓绿。已请求仅失败macOS作业的第二轮；新修复源码暂未提交/推送，不取消该轮。P4总闸及完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与真实服务仍开放。下一工具切片已定位原file provider的list/edit/search与read-snapshot、精确替换、大小写/结果上限和拒绝/取消合同，尚未声称原生实现。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
+基线6e的[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)第一轮已终态：Linux133714935183全仓success；macOS133714935060的Native/build/import/type/architecture/Test及Electron smoke均success，提取的真实smoke报告ok=true、source509cf0cf，但最后actions/upload-artifact创建报告超时ETIMEDOUT，整作业failure。日志/报告/失败身份保留，不记两平台全仓绿。仅失败macOS作业的第二轮已核实全仓success（133736854580；Linux保留success，133736857658），未取消原轮；新修复后随e629联合交付，见上。P4总闸及完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与真实服务仍开放。后续file provider有界list/edit/search与受管I/O实现及验证见上，大文件等完整平价仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
 
 ## 2026-11-17 Qoder 稀疏流、block 与用量观察
 
@@ -26,9 +38,9 @@
 
 失败保留：首个Host编译误用了兄弟私有receipt helper（未执行行为），修正后旧featureless328实际以model_choices_unsupported拒绝合法稀疏流；新增标量坏帧测试捕获候选JSON boolean上的index写入panic，对象校验修正后原测试通过。首次完整门禁tree d392因复核发现function:null占位不应拒绝而停止自有进程组，Host已开始，原组/fixture进程后来确认不在；不记通过或测试失败，不删其效果/unknown。新增真实TS反例、原生拒绝日志及null修正保留，以独立根重跑最终全部门禁。没有放宽终态/调用身份/费用/效果断言。
 
-基线328的[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)已核实Linux133686958023/macOS133686957697两平台全仓success，含各自Electron smoke；merge a250fc32 tree与328源码一致。c09两项失败和全trace仍保留、根因未确定，不把后续通过改写成旧失败修复证明。新[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)的merge509cf0cf tree与6e源码一致；第一轮全部行为检查通过但macOS报告上传超时失败，第二轮见上，不记全仓绿。旧已落盘零值不能仅凭ledger判断是真零还是旧解析器补零，没有原始provider证据不猜写旧账单；本卡未读取用户旧数据或声称自动追溯修复。
+基线328的[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)已核实Linux133686958023/macOS133686957697两平台全仓success，含各自Electron smoke；merge a250fc32 tree与328源码一致。c09两项失败和全trace仍保留、根因未确定，不把后续通过改写成旧失败修复证明。新[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)的merge509cf0cf tree与6e源码一致；第一轮全部行为检查通过但macOS报告上传超时失败，第二轮两平台全仓success见上；原第一轮失败仍保留。旧已落盘零值不能仅凭ledger判断是真零还是旧解析器补零，没有原始provider证据不猜写旧账单；本卡未读取用户旧数据或声称自动追溯修复。
 
-后续type标签公开反例、修正及本机验证见上（tree bcd9cccf，尚未推送）；本节5b5原验证不含该修复。其余Qoder完整目录/发送/真实服务、完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与P4总闸仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
+后续type标签公开反例、修正及本机验证见上（组件tree bcd9cccf，后随e629联合推送）；本节5b5原验证不含该修复。其余Qoder完整目录/发送/真实服务、完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与P4总闸仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
 
 ## 2026-11-17 Qoder 公共发送入口与持久选项对照
 

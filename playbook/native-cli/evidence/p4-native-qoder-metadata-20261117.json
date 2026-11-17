@@ -8,7 +8,8 @@
     "binarySha256": "cab589555d1d5e451aab233956867260c8c916b3ad1a5dfe2fcdf76031ecb95f",
     "bytes": 17290624,
     "tree": "bcd9cccf4c60b1007644967aaa8cad4d5fdc49fb",
-    "status": "locally validated staged source; not yet committed or pushed while predecessor retry remains live"
+    "status": "bcd tree was the separately validated local component; folded into published combined commit e62920742bf0cfa2dc2c6c584a5f4136f0767a9b with native file tools (tree6ef6b6cb). No standalone bcd commit or inherited final-source full-gate claim.",
+    "deliveredIn": "e62920742bf0cfa2dc2c6c584a5f4136f0767a9b"
   },
   "classification": "B-level same-boundary Qoder compatibility under ADR37,56,129,130,131. No permission, Evidence, retry, Context admission, schema or storage boundary change.",
   "baseline": {
@@ -234,29 +235,42 @@
       "action": "rerun-failed-jobs",
       "requested": true,
       "jobs": [
-        {
-          "id": 133736854580,
-          "name": "ci-macos-14",
-          "status": "in_progress",
-          "conclusion": null
-        },
-        {
-          "id": 133736857658,
-          "name": "ci-ubuntu-latest",
-          "status": "completed",
-          "conclusion": "success"
-        }
+        [
+          133736854580,
+          "success"
+        ],
+        [
+          133736857658,
+          "success"
+        ]
       ],
       "snapshot": {
         "path": "/tmp/peer-native-qoder-metadata-20261117/base-ci-retry-jobs.json",
         "bytes": 9052,
         "sha256": "882364d84529735f174b51e0b892b090b64a632a7bcdca97e3864f9051f777a8"
       },
-      "reason": "Confirmed artifact-service timeout; original job/log/result preserved, no source changes or weakened checks."
+      "reason": "Confirmed artifact-service timeout; original job/log/result preserved, no source changes or weakened checks.",
+      "status": "success",
+      "terminalSnapshot": {
+        "path": "/tmp/peer-native-files-20261117/base-ci-retry-terminal.json",
+        "bytes": 9807,
+        "sha256": "93dd114da08fe6621775d1a2133c999c3c4a2b1292bc6e1d2a9f73374820da6f"
+      },
+      "merge": {
+        "parents": [
+          "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+          "6e8036ef852f18da119ebd51c453e7ca12c09821"
+        ],
+        "sha": "509cf0cfdd8a0bf1b1559a695f5e1b7892f173ab",
+        "tree": "5b5ec6e163e43cc4b07bedc2ccb2e466c7907ce8"
+      }
     }
   },
   "candidateCi": {
-    "status": "not pushed yet"
+    "combinedCommit": "e62920742bf0cfa2dc2c6c584a5f4136f0767a9b",
+    "run": 43999794341,
+    "status": "in_progress",
+    "receipt": "p4-native-files-20261117.json"
   },
   "limits": [
     "P4 total gate remains open; P5-P7 not complete.",

@@ -348,3 +348,16 @@ Qoder三个环境token保持QODER_ACCESS_TOKEN→QODER_PERSONAL_ACCESS_TOKEN→Q
 重试协调归现有Host请求生命周期，不能藏进网络层后只记最终一次。沿ADR25：每个已准入发送尝试都增加canonical modelRequests和providerRequestCount；失败的已知usage先进入同一budget/nativeUsageSnapshot，未知usage继续标unknown。费用/容量观察在策略等待前结算，晚到收费先保存事实再处理租约丢失。后续每次尝试前及等待后重新核对执行权、取消、Goal/MCP身份、预算与历史sourceRevision；maxTokens/maxCost的未知阻断不得绕过。等待由同一owned cancellation/heartbeat包裹；无独立后台请求、无持久重试队列，进程重启不自动续发旧模型请求。摘要请求沿同一逐次计费但capacityBearing=false；容量不能被摘要或累计费用替代。
 
 验收须包括实际TS分类/等待向量、真实公开CLI两方言队列/重复/HTTP限流/连接恢复与耗尽、逐次新身份/指纹和非身份正文不变、失败usage累积、预算阻断、等待取消与凭据/历史变化拒绝、已有工具不重放、硬退出后known/unknown保全和后续任务。只用隔离合成服务/账户；真实服务、P4完整总闸和P5–P7仍另验。
+
+
+### 2026-11-17 NR-04 原生文件能力与有界扫描（A，实施前登记）
+
+沿ADR49/92/101/129–130迁移既有read/list/search/write/edit五个文件能力，名称/schema/mode来自当前TS Manifest和local-tool-contracts；不是新增权限种类。Provider内部按操作分工，Host从实际Provider投影核对required capability，不继续手写已支持能力白名单。所有操作仍由原Grant/Goal/role/policy/lease/取消和Evidence链约束。编辑复用同一Provider读取快照及文件claim；未读取、已改变、匹配不存在/歧义均不写，实际写入前重新检查原输入绑定的授权和文件内容。未知写入沿原dispatch/unknown恢复，不因新工具名重放；新模块不恢复任意旧未知效果。
+
+文件操作在单个受管阻塞任务中执行，Host继续服务取消/授权复核/heartbeat；任务返回或确认结束前不能释放其执行所有权。复用有界EffectAdmission控制通道，阻塞任务通过原Host实时复核，不复制Grant或创建后台独立执行链。普通文件读取使用非阻塞打开及类型检查，FIFO/设备不按普通文件读取。保留当前原生read128KiB/write32KiB预算；大正文/artifact完整迁移仍为P4余项，不能因本条将原CLI较大文件能力算完整完成。
+
+list/search的v1扫描集合同时限16384项、路径UTF-8合计4MiB；单文件search读取最多1000000 bytes（沿原TS上限）、结果最多200行，序列化结果最多256KiB。每步检查取消；预算耗尽返回明确file_collection_limit/file_result_limit，不以部分输出冒充完整目录或悄悄降低max_results。搜索保持原TS忽略.git/node_modules、非递归跟随目录symlink、按UTF-16完整路径排序、CRLF/缺省大小写/结果上限及truncated语义；文件正常不可读可按原算法跳过，取消/总体预算错误不得被跳过逻辑吞掉。list仅直接子项，保留file/directory/other事实。
+
+目录排序与locale search使用原生ICU4X 2.1.1（MSRV1.83；不增加JS/WASM VM），复核当前TS默认locale的环境优先级和en-US默认值，以实际跨语言locale向量验收。具体依赖锁、未知locale回退、Unicode比较和展开不得靠ASCII替代或只测英文。版本/平台数据差异明确报告；没有跨平台证明时不称全平价。参考[Collator2.1.1](https://docs.rs/icu_collator/2.1.1/icu_collator/struct.Collator.html)、[CaseMapper2.1.1](https://docs.rs/icu_casemap/2.1.1/icu_casemap/struct.CaseMapper.html)。
+
+公开原生CLI须覆盖真实列举→搜索→读取→编辑→读取、项目外路径沿原Goal/claim约束、未读/外部改动/歧义、拒绝/降权/取消、特殊文件/扫描超限、写后硬退出/unknown保全和后续任务。实际TS Provider对照与Host授权测试分开；本条登记不代表实现或P4总闸通过。
