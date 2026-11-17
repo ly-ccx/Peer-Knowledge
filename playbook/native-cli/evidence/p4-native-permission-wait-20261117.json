@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-11-17",
-  "status": "B-scoped native pending-permission fix delivered; full native and pinned featureless public tests passed; new independent whole CI pending; P4 total open",
+  "status": "B-scoped native pending-permission fix delivered; full native, pinned featureless public tests and independent macOS/Linux whole CI passed; P4 total open",
   "candidate": {
     "commit": "8526db012a7f878abc699387a5707069dac12772",
     "tree": "aa059e5761055fc657e6ca136f989ce4ed052150",
@@ -149,10 +149,33 @@
     "baseGitPortabilityRun": 44083336584,
     "baseGitPortabilityStatus": "completed/cancelled on both platforms after new8526 push. Linux Native/build/type/architecture/Test success, Electron cancelled; macOS Native cancelled. No full job success and no failed step; not whole green.",
     "candidateRun": 44086962694,
-    "observedStatus": "pending",
-    "conclusion": null,
+    "observedStatus": "completed",
+    "conclusion": "success",
     "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44086962694",
-    "scope": "No inherited whole-green claim; final candidate requires independent check."
+    "scope": "Both complete jobs passed Build, Native, typecheck, architecture, Test and their own platform Electron smoke. Exact8526 merge tree; does not validate later uncommitted Git/scope/process changes or P4 total/release acceptance.",
+    "mergeCommit": "3a4f0073c0928719fc12ae0fe86c0f84fcf4e99d",
+    "mergeTree": "aa059e5761055fc657e6ca136f989ce4ed052150",
+    "mergeParents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "8526db012a7f878abc699387a5707069dac12772"
+    ],
+    "jobs": [
+      {
+        "id": 134051964925,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 134051965408,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
+    ],
+    "terminalEvidence": {
+      "ci-terminal-run.json": "807abf091571e79f6cb3397371c3f39593fe8745f2f12282969b95ef04913bb5",
+      "ci-terminal-jobs.json": "232b94c1b02feb53d9d4708296ffd70af8dbb485c0b5a7cd4264ff6beb7de7b3",
+      "ci-merge.json": "23024b39512cd6ac077e4fb0d50e871247c43ec7423818d59c8ca2ae0f9c8d5c"
+    }
   },
   "remaining": [
     "Git Provider registration/typed live supplemental read scopes/full Artifact/Evidence/PTy closure; readonly worker/Explorer/Verifier production episode still requires genuine read-workspace/role wiring",

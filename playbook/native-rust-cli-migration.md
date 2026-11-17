@@ -14,7 +14,7 @@
 
 固定featureless release **21,253,760 bytes**、SHA256 `21ab3dd28390b545378da4706fc60a077fa7273c710546a3e72b940a386e15fe`，仅CoreFoundation/libiconv/libSystem，短截止测试开关不在产物；清空继承模型/凭据环境、产品PATH=/nonexistent，4项公开Host测试生成9根、47次实际TS/Rust互读通过。两次PTY终态文字检查失败保留：先误读Child.stderr，后遇Darwin最后slave关闭丢弃未读输出；最终夹具持有自有slave读取真实终端，不代读/代答产品stdin，原超时/零效果/迟到拒绝断言保留。见[权限等待回执](native-cli/evidence/p4-native-permission-wait-20261117.json)。实现者自审；300秒真实墙钟未soak，虚拟时钟与短真实PTY覆盖不冒充安装/真实用户/长时验收。
 
-新[CI44086962694](https://github.com/ly-ccx/Peer-Agent/actions/runs/44086962694)pending，独立全仓结论未取得；前8830 CI两平台被新推送取消，Linux Native/build/type/architecture/Test成功、Electron取消，macOS Native取消；不以新本机整闸替代全仓绿。Git工具及动态scope/只读角色生产回合仍未接，P4总闸与P5–P7保持开放，普通Ratatui仍不可发送。未读改个人数据、未安装/重启用户实例/切默认/合并/发布，无Bun/Node引擎sidecar。
+后续已核实[CI44086962694](https://github.com/ly-ccx/Peer-Agent/actions/runs/44086962694)两平台完整作业success（Linux134051964925、macOS134051965408），包含各自Build/Native/typecheck/architecture/Test及Electron smoke；merge3a4f0073的tree为aa059e57、精确绑定8526与既有base，不验证后续未提交Git/scope/child改动。前8830 CI两平台被新推送取消，Linux Native/build/type/architecture/Test成功、Electron取消，macOS Native取消；不以新本机整闸替代全仓绿。Git工具及动态scope/只读角色生产回合仍未接，P4总闸与P5–P7保持开放，普通Ratatui仍不可发送。未读改个人数据、未安装/重启用户实例/切默认/合并/发布，无Bun/Node引擎sidecar。
 
 ## 2026-11-17 原生 Git 读取 Module 候选
 
