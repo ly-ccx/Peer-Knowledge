@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131在CI兼容证明修正前B登记：保留原失败和8b3ffbcf旧JSONL digest，以实际冻结旧writer↔当前Store重写取代仅靠当前源码未变的推断；原ADR118附件/游标/幂等边界不变，不宣称完整旧宿主drain。
+
 2026-11-18：ADR131在共享原生turn loop实现前B复核ADR26/65/76/129的同一循环语义；Goal adapter保留实际权限/预算/存储/停稳与计费，普通默认不添隐式回合上限，不以抽出循环声称普通Host或P4完成。
 
 2026-11-18：ADR131在普通会话 Store 接线前B复核既有v1流式sidecar与终态CAS；TS streaming写/清理共用原锁，部分提交保全并以新source核对原终态patch恢复，不新建执行日志或权限真源，普通Host/P4总闸仍开放。

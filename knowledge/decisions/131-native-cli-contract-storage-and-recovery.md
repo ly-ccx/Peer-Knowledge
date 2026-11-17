@@ -14,6 +14,8 @@
 
 ## 1. 问题
 
+2026-11-18 NR-04 终态Store后的旧JSONL兼容证明修正（B，测试实现前）：fcfee全仓Linux Test及本机相同文件均在Interactive Results反馈测试的readJsonl→readJson源块digest失败；该块还包含writeJsonl，新增durable flush/目录同步改变源码而非消息序列化。保留原失败与8b3ffbcf冻结digest，不只替换expected。将该原版完整JSONL primitives逐字冻结为测试fixture，实际用旧reader/writer在隔离会话上重写已知附件，再由当前Store读取/更新/重开，验证全文、冻结版本、游标及重复inputId；同时保留其它原writer块检查并审查新durable块。此证明只覆盖这些旧primitives及已冻结的原队列，不冒充完整旧安装宿主并发/drain。依ADR118 §IUI-T29与本ADR既有共享数据契约，不改生产格式、授权、Evidence或兼容边界；普通Runtime/P4总闸仍开放。
+
 2026-11-18 NR-04 共享回合循环（B，实施前）：依 ADR26/65/76/129，从现有Goal episode提取同一个原生turn loop；Host接口承接模型请求、已观察助手内容提交、单个真实工具调用及本轮continuation绑定。循环只拥有请求/内容/顺序调用/续行的次序、显式回合限制和取消传播，不签发Grant、不写Store、不判Goal验收。Goal adapter继续使用原Context/count/compaction、canonical预算、权限/资源/Recorder/Evidence和停稳/计费finally路径，不构造新Goal或另一套工具执行器。普通入口未传max-turns时无隐式有限上限；已有Goal候选显式限制与max_turns退出码保留。取消后不接受迟到请求结果或启动下个工具；失败不自动重试/重放。循环只持有当前model turn和本轮已提交工具id，不能累计整个会话。新普通会话主体/持久执行/ACP仍须单独接线；本步不算普通CLI发送或P4总闸完成。
 
 2026-11-18 终态提交窗口复核（B，源前）：替换终态正文前，先确保同一 v1 provisional marker 已持久化并绑定真实目标消息；已有 marker 保留原预览，没有 marker 时使用空 patch，不提前注入未确认全文或工具结果。body/index/marker 后半段失败明确返回 uncertain，保留实际写入；恢复从新 source 核对原终态事实，完成 Store 提交，不重跑工具。TS streaming 写/清理使用原 index→body 锁，终态清理失败不能伪报成功。原生有界历史预算不扩大，大历史与旧安装版本 drain 另验；无新权限/执行日志，不等于普通 Runtime 已完成。
