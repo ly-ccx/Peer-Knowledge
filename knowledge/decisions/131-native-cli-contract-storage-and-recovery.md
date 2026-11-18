@@ -14,6 +14,14 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 原生 Skill 准入和正文（A，运行时接线前）
+
+依 ADR 16 的现行能力链、ADR 55、58、76、129、130。隔离旧入口证明工作区同名覆盖、禁用过滤和用户显式借用安装链接。旧在制原生入口连已禁用清单也整轮阻断，见 [基线](../../playbook/native-cli/evidence/p4-native-acp-v1-20261118.json)。共享的 Skill 目录、挂载 settings 和正文路径继续按 ADR58 读入；全局安装叶链接保留借用能力，工作区叶链接只准到同一实际工作区，目录根和 SKILL.md 不得以链接换代绕过检查。读取规模、YAML 深度和展开量须有界。无法验证的配置在发送或执行前显式失败。
+
+Host 将实际挂载、模式与允许列表求交，投影既有 `skill__<id>` 和 `local.skill.<id>`。L4 Source 只列真实投影中 Skill 的定位字段，描述仍由 Manifest 提供。正文经固定包体的读取能力和实际一次 Grant 获取，保持 Tool Result 的事实身份；旧输出的 system-reminder 字样不导入 System Context。Model 参数不选择本地路径，allowed-tools 只是包体元数据。每次认知和读取前验证挂载及选中包体的当前性。取消、挂载撤销或改链在读取前失败，已确认读回保留其实际 Evidence；不得从过时握手或文本补写授权。
+
+大正文沿既有 immutable Tool Result 存储。普通会话在挂载 Skill 时可投影同会话的 `read_tool_result`，它仍经显式模式、允许列表及原一次授权。受委派的只读角色不增加 Skill 准入，Skill 不建立可执行脚本或新资产访问权。原 Hook、Plugin 和未迁移设置的已有阻断不归本切片放开。验收须包含真实模型 HTTP 的工具投影与选中正文、实时撤销和下一轮恢复、允许列表拒绝、持久 Grant/Result/Evidence 配对及大正文引用检索。
+
 ### 2026-11-18 NR-04 ACP 并发会话的 Store 当前性（A，实施前）
 
 ADR 76 要求两个独立 ACP 会话可并发持有各自的 Runtime 和待批准请求。真实原生在制入口已复现两个不同会话因共享 index.jsonl 换代均返回 CONTEXT_SNAPSHOT_CHANGED，实际没有发送模型请求。见 [隔离反例](../../playbook/native-cli/evidence/p4-acp-conversation-source-baseline-20261118.json)。
