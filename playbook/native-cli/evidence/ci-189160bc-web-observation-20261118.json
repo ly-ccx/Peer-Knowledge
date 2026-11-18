@@ -1,0 +1,27 @@
+{
+  "run": 44223788350,
+  "job": 134531859742,
+  "source": "189160bc54a2588ca0424888206e7133c4a39f66",
+  "merge": "57bf00b1069408194e2f442765bbfdfc74c3b4ac",
+  "status": "macOS native scoped validation failed",
+  "lines": [
+    "2026-11-18T02:30:46.8059920Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +57bf00b1069408194e2f442765bbfdfc74c3b4ac:refs/remotes/pull/327/merge",
+    "2026-11-18T02:30:50.3323130Z  * [new ref]           57bf00b1069408194e2f442765bbfdfc74c3b4ac -> pull/327/merge",
+    "2026-11-18T02:30:50.8456810Z HEAD is now at 57bf00b1 Merge 189160bc54a2588ca0424888206e7133c4a39f66 into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "2026-11-18T02:30:50.8676230Z 57bf00b1069408194e2f442765bbfdfc74c3b4ac",
+    "2026-11-18T02:45:11.6650850Z test native_web::native_web_timeout_cancel_and_revocation_close_the_actual_body_socket ... FAILED",
+    "2026-11-18T02:46:43.2937190Z body socket still owned after CLI exit",
+    "2026-11-18T02:46:43.2942730Z test result: FAILED. 271 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 635.18s"
+  ],
+  "scope": "Remote test discarded its read errno and mode. The exact remote socket observation cannot be reconstructed from this stdout.",
+  "tree": "0d1e2ccd0135b7ea319f219f8ad537f1f207034b",
+  "actualJob": "ci-macos-14",
+  "observedBaseline": "The actual job checked out the candidate merge. Its Web observer accepted only EOF and discarded other errno and the timeout/cancel/revoke mode. The exact remote callback state is unavailable.",
+  "localSubstitute": "An owned TCP fixture distinguishes real EOF, abortive peer reset, live byte, still-open timeout, and explicit errors. The updated Web tests wait for response-body publication before initiating controls and keep the same stop deadlines and original grant, usage and no-later-effect assertions. The publisher and Runtime are unchanged.",
+  "localValidation": {
+    "newObserverAndWebCases": 16,
+    "usingOriginalFeaturelessAuthArtifact": 2,
+    "strictClippy": 0,
+    "scope": "The 16-case group ran on the ACP development workspace. The two targeted tests used the exact auth release artifact. Remote verification is separate."
+  }
+}

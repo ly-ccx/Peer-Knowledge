@@ -8,7 +8,7 @@
 
 `189160bc` 已推送。按 ADR65/129/131 的既有退出码合同处理。原候选真实 401 正文包含容量超限字样时，实际执行压缩和续发并错误返回成功。现在收到模型 HTTP 401/403 即结束，不消费拒绝正文。压缩摘要收到同类拒绝也不再续发。已完成的工具结果、授权、Evidence 与已知用量仍由原 Host 结算。无效配置返回 3，错误模型参数返回 2，普通服务端或代理响应错误仍返回 1。
 
-25 项普通 Host、2 项模型目录对照、8 项相关传输与恢复回归及严格 Clippy、架构检查通过。无测试特性的 macOS arm64 产物在 PATH 无 Node/Bun 下另外通过 3 个公开入口测试。完整来源见[认证退出回执](native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。前置 `dc9df72` 已核对 Linux/macOS 全仓成功。认证提交的[独立 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44223788350)在运行。
+25 项普通 Host、2 项模型目录对照、8 项相关传输与恢复回归及严格 Clippy、架构检查通过。无测试特性的 macOS arm64 产物在 PATH 无 Node/Bun 下另外通过 3 个公开入口测试。完整来源见[认证退出回执](native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。前置 `dc9df72` 已核对 Linux/macOS 全仓成功。认证提交的[独立 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44223788350)在 macOS 原生门禁的 Web 连接关闭断言失败。实际 checkout 与错误见[失败回执](native-cli/evidence/ci-189160bc-web-observation-20261118.json)。本地对照验证真实 TCP EOF、复位和仍打开的连接，修正测试的观察和正文就绪后通过局部回归。远端原错误码未被保留，不能据此判定原失败原因。
 
 原生 ACP 在制入口的双会话、迟到授权与断连已完成局部验证。实际共享索引反例已登记到 ADR131，完整原生门禁运行中。窗口选项与实际模型配置仍在另行验证。P4 总闸及 P5–P7 继续开放。
 
