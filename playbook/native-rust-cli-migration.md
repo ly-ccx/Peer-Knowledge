@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通工具消息持久化与兼容性回归
+
+`1657e9bb` 双平台原生专项成功。Linux 与 macOS 全仓 Test 和既有单文件重试均命中同一 Interactive Results 源码指纹断言。隔离同树本机复现，原 4 个指纹覆盖的变化限于 append/update/rewrite 路径的既有 owner 防线。修复候选保留原冻结旧 JSONL 模块的完整指纹和实际执行，重新审核当前四处指纹，并通过真实 Store 验证已有附件在 Native owner 激活时阻断四个外来写入路径、原索引/正文逐字节保留、原停止事实后恢复既有更新，同时老 reader 完整读回冻结选择。macOS arm64 与 Linux amd64 容器各过 15 项。本机全仓 build 后通过 2,155 项 Runtime Node 测试及单独的 Watch 性能回归。测试修复 `f3e04723` 已推送独立全仓 CI。[原 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218) · [修复候选 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240)
+
+独立隔离候选实测旧原型在正文没有真实 Tool Call 时仍可登记派发。新 Store 在原 owner 和原 index→body 锁内持久发布实际调用、原始参数和 stream 关联，随后提交 `prepared`。Rust 冷读原消息、修订和相同参数摘要，旧可见预览及历史原字节保留。注入正文落盘后索引 rename 失败，返回不确定提交，正文及原 owner 保留，没有派发回执、文件效果或再次认领。两端各通过 7 项正文/派发场景和 7 项认领回归。本机另通过 149 项 Store 回归及架构检查。沿 ADR65、116、118、129、131 的既有消息、权限和持久边界。[验收回执](native-cli/evidence/p4-ordinary-tool-publication-20261119.json)
+
+旧生产入口接线、原始结果和 Evidence 持久化、用量、真实停稳、既有异常恢复与 P4 总闸继续开放。P5–P7 的退出条件仍开放。
+
 ## 2026-11-19 普通会话持久派发门槛
 
 `1657e9bb` 同树本机原生专项完整通过，包含 370 项原生场景、169 项 Runtime 测试、存储互操作、两端 Helper 协商和 9 项 PTY。全仓 GitHub CI 单独核对。[CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218)
