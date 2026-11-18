@@ -1,0 +1,59 @@
+{
+  "candidateTree": "ad3172f333307ba486e2aad68726e3e8cdba74d0",
+  "predecessorCandidateTree": "30a16b88197162df1ceef1af67442d060c1417ba",
+  "patchSha256": "bd24400f5c7d16219d407eadcbbe9e9c9d53bb96b806d647c77d832280601166",
+  "sourceTarSha256": "5d924d89dd9a0b9932426ecbab221b6cdfb29361113c03018e35526a01b10e2c",
+  "contract": {
+    "knowledgeCommit": "a934ab4",
+    "decision": "131-native-cli-contract-storage-and-recovery.md",
+    "section": "2026-11-19 NR-04 普通 headless 的独立 Verifier（实施前补充）",
+    "related": [
+      "35-mode-scoped-tool-projection.md",
+      "55-shared-system-context-assembler.md",
+      "65-cli-headless-exec.md",
+      "93-verification-continuity-and-repair-ownership.md",
+      "95-progress-driven-execution-policy.md",
+      "103-verification-settlement-and-progress.md",
+      "116-session-control-and-resource-settlement.md",
+      "117-intent-driven-coordination-and-goal-closure.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md"
+    ]
+  },
+  "verification": {
+    "ordinaryConversationTests": {"macArm64": 85, "linuxAmd64": 83},
+    "static": ["cargo fmt", "scoped Clippy -D warnings", "native boundaries", "architecture governance"],
+    "packagedMacArm64": {
+      "publicGoalTests": 22,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "70003c97147918d1e5de554dab950b7497f403407ea8fdd5631b3ad70fbf2f59",
+      "binarySha256": "2018918fb8d7f344113e55381998d7ee0c432dfbe9dcb691f9ad745301e3716b"
+    },
+    "packagedLinuxAmd64": {
+      "publicGoalTests": 22,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "525f268e8c374e13052f37fc7c0b30341bbaab520bd207e89e7bd17ca090f9a2",
+      "binarySha256": "7ecb2c549f2af00cda39c75124650d1b076b0a3cdd6bb966c84bded17f0ac64c"
+    },
+    "admission": "The ordinary Runner uses the existing leaf, automatic criteria and manual approval gate before launching independent review. A plan whose leaves settled during intake uses a check-only owner. It cannot turn a completed leaf into unreviewed Goal completion when the explicit request budget is already used.",
+    "proof": "Actual read-only Tool Call, Grant carrying the Verifier ID, settled Tool Result, parent Conversation, stream, plan, worker-tagged history row and Evidence Index agree. Successful completion rechecks that report and exact Goal version after the real owner stops. A forged-only report or one borrowing its parent's tool ref fails even after an actual Verifier read. A mixed report records only its independently indexed ref.",
+    "negativePaths": "An actual model asking write_file in the Verifier role gets tool_not_projected with no file written. A Goal edit during the response invalidates the late report. After hard exit following a real read, recover settles the original attempt as interrupted and preserves the actual evidence. Repeated recover preserves state without re-dispatching. Both exhaustion before Verifier and exhaustion after its real read return the explicit cap with provisional completion reopened."
+  },
+  "legacyReplay": {
+    "transport": "Same controlled local HTTP SSE through the actual old binary and the extracted macOS candidate",
+    "legacy": {"physicalRequests": 13, "verifierAttempts": 3, "exitCode": 6},
+    "previousNativeSource30a16b88": {"physicalRequests": 5, "verifierAttempts": 0, "exitCode": 6, "exitReason": "goal_verifier_required"},
+    "candidate": {"physicalRequests": 7, "verifierAttempts": 1, "indexedVerifierRefs": 1, "exitCode": 0},
+    "compatibility": "The existing TS criterionSourceRevision matched the saved native digest, and both existing Verifier Source sections matched the native request. The old GoalStore cold-read the passed report. Old History projection excluded the private worker activity. Five canonical files including Evidence index remained byte-identical after old cold read."
+  },
+  "ci": {
+    "publishedGoalTaskUpdate": "0bbb810ef2b7f9efa02bb7bf81674e67a3a8f52d",
+    "run": 44354720128,
+    "macOriginal": 134979586465,
+    "macOriginalResult": "Cancelled before assignment with zero executed steps. GitHub check-run annotations say the hosted runner did not acquire the job and warn about macOS arm64 capacity.",
+    "linuxOriginal": 134979585919,
+    "candidate": "Isolated source and two local archives. Ordered after explicit Explorer, inspection and ordinary Runner candidates."
+  },
+  "validationCorrections": "The earlier strictly linted candidate exposed a large shared worker enum. Both owned lease variants were boxed without changing the bounded read activity. An early legacy replay fixture retried requests without tracking distinct worker IDs. The controlled replay isolated each actual Verifier attempt and preserved the nonmatching Evidence domains before comparing the sealed Rust package.",
+  "limits": "Independent evidence verification for ordinary headless now closes. Legacy-format repair continuation, persisted model_review judgments, bounded automatic repair, real service or installed application acceptance, long-duration/no-progress soak and P4–P7 total exit criteria remain separate work."
+}

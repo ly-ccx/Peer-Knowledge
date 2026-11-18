@@ -4,6 +4,12 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通 Goal 独立 Verifier
+
+隔离树 `ad3172f3` 让普通原生 `exec` 在事实闸门后实际启动独立只读 Verifier。同一 live Conversation、stream 和父 Goal 归属贯穿实际工具批准、Tool Result、独立历史、Evidence Index 和报告。计划及核验来源复核通过，父 Host 证明停稳后才放行完成。即使叶子在 intake 全部落盘，也走同一完成门。未经当前独立读取的结果、模型提供的外来引用、越权写、迟到报告和无预算均不放行。硬退出保留实际读取，recover 证明停稳后结算原核验，重复恢复保持原结果。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS arm64 85 项、Linux amd64 83 项普通会话回归通过。两端解包后在 PATH 无 Bun/Node 时各通过 22 项 Goal 入口用例。复跑同一受控 HTTP 模型序列，旧 CLI 共 13 次请求，三个 Verifier 的实际读取归属临时会话，父 Goal 拒绝，退出 6。当前解包产物发出 7 次请求，一次独立核验以真实同域 Evidence 完成，退出 0。真实旧 Source 的两个 section 和 `criterionSourceRevision` 均对照一致，旧 GoalStore 和历史可冷读，五个 canonical 文件字节一致。前驱 `0bbb810e` 的 macOS 首作业未获得托管执行器，实际执行步骤为零，Linux 独立结果仍按原 CI 核实。语义 `model_review`、报告修复续接、自动返修、真实服务和 P4 总闸仍待验收。[Verifier 回执](native-cli/evidence/p4-ordinary-goal-verifier-20261119.json) · [前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128)
+
 ## 2026-11-19 普通 Goal Runner 模型回合
 
 候选 `30a16b88` 将普通 `exec` 的 Runner 绑定到本轮实际创建的计划、Conversation 和 stream。实际 orient、自动只读 inspect 与后续 plan_scaffold 共用原模型、工具、Grant、Evidence 和结算入口。任务回填仍核对同一当前 owner 和真实引用。未批准的 Chat 即使显示 accepted 仍等待，明确自驱和已经进入执行的同一计划可继续。模型请求带命名 Runner Source 和临时输入，原始用户历史保留真实发言。无进展、显式回合上限、报告过期、信号取消和硬退出均沿原 stop 证明收口。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
