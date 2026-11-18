@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通 Goal 机械验收缺口返修
+
+隔离树 `3b92290e` 接通缺少自动标准检查或叶子 Evidence 的自驱 Goal 返修。Host 在原计划锁下核对现有已登记引用，记录确定性失败原因，并复用同一宿主的原返修额度。人工确认与作用域阻塞仍按原门处理。原公开 Rust 前驱在缺少 `file-exists` 检查时五次请求后退出 6。实际旧 CLI 同一场景七次请求、两次返修后阻塞。新包以真实读取补齐检查，经独立新核验在十次请求后完成。旧 Store 冷读原机械失败、标准证据与新独立核验，五份 canonical 文件字节一致。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) · [验收回执](native-cli/evidence/p4-ordinary-goal-completion-gate-20261119.json)
+
+macOS 89 项、Linux 87 项普通会话自测通过。两端 PATH 无 Bun/Node 的解包产物各通过 26 项 Goal 入口测试。真实入口验证持续缺证据时耗尽上限，机械与独立返修共享两次，并覆盖混合人工门。CI 前驱 `0bbb810e` 的 Linux 全仓已通过，macOS 第三轮仍在 Native CLI scoped validation。[CI 第三轮](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128/attempts/3)
+
+隔离数据的公开差分还确认：旧 `sessions delete` 在无 TTY 时先要求 `--yes`，明确确认后级联删除会话与所属 Goal；当前原生候选将该子命令作为迁移未完成返回。后续沿 ADR34、108、116、131 对照删除范围、停止证明、未知派发与跨 Store 恢复。
+
 ## 2026-11-19 普通 Goal 核验报告续接
 
 隔离树 `6868451c` 接通 ADR 103 的普通原生 Host 报告续接。首次格式错误只在原 Verifier、原版本及显式预算内追加一次认知请求。用户上下文保留原核验任务、有界引述及已索引引用；工具定义为空，Host 拒绝落盘及派发模型尝试的工具调用。原来的明确判断不能被改写，外来引用不能派生通过。授权拒绝、版本变化和硬退出沿原结算。此 B 级接线沿用 Goal 的授权、Evidence 与 canonical 记录契约。[ADR 103](../knowledge/decisions/103-verification-settlement-and-progress.md)
