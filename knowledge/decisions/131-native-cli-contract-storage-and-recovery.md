@@ -14,6 +14,16 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 原生 Hook 进程与原 Tool Call（A，运行时接线前）
+
+依据 ADR16 的现行链路、35、76、116、129、130 与 [Hooks 规范](../specifications/hooks.md)。真实旧 TUI 的工作区 Hook 可在本地 Shell 原效果前拒绝并留下 Evidence；无 stdin 消费的快速退出旧例出现 EPIPE，见 [隔离回执](../../playbook/native-cli/evidence/p4-native-skill-runtime-20261118.json)。Hook 使用用户已有全局和当前工作区配置，依原次序合并；目录与文件版本必须可核。脚本由已选本地配置提供，模型只提供原已投影 Tool Call 的数据，不能指定 Hook 命令。保留显式配置的外部 Shell 接口，核心 Host 使用 Rust。子进程持有有界 stdin/stdout/stderr，只继承用于查找用户已配置命令与区域设置的最小环境。
+
+Pre 在原 Tool Call 准备持久化后、Provider 授权前运行。Post 接收已观察的原 Provider 结果。Hook 选择和生效需同一实际 Host、配置版本、Tool Call、dispatch 与进程所有权。允许只表示继续原授权，询问归原审批，拒绝收紧原授权。全局、工作区及 Shell 附加匹配不能由模型文本生成权限。只保留结构化的决策、退出、时长、原因和来源标识到原 Evidence；不把 Hook stdout 或 stderr 整段传给模型。
+
+普通 Runtime 使用既有 canonical 执行句柄容纳子 Hook 命令，每个源进程绑定原 Tool Call 和 phase，保留独立状态。准备、准备启动、观察实际 child、真实 wait 与 process-group 缺失分别记账；不同 Hook 与 Provider 进程不得互相覆盖。启动缺口、未证明结束、已停止但未观察到真实结果必须保留。Hook 结束的事实由实际证据提供；回收进程不证明外部效果成功。源不再当前、取消、输出限额和超时通过原 Host 停稳。旧执行句柄保持兼容读取，未知新状态由保守恢复保全。
+
+验收以实际原生入口为准，覆盖 Pre allow/ask/deny、Post 证据、普通与 ACP 的同一授权、早退出与 EPIPE、取消/超时和进程组、硬退出前后身份与未知保全。委派工作执行及旧安装宿主对照另取真实证据。纯配置与选择测试不构成此验收。
+
 ### 2026-11-18 NR-04 原生 Skill 准入和正文（A，运行时接线前）
 
 依 ADR 16 的现行能力链、ADR 55、58、76、129、130。隔离旧入口证明工作区同名覆盖、禁用过滤和用户显式借用安装链接。旧在制原生入口连已禁用清单也整轮阻断，见 [基线](../../playbook/native-cli/evidence/p4-native-acp-v1-20261118.json)。共享的 Skill 目录、挂载 settings 和正文路径继续按 ADR58 读入；全局安装叶链接保留借用能力，工作区叶链接只准到同一实际工作区，目录根和 SKILL.md 不得以链接换代绕过检查。读取规模、YAML 深度和展开量须有界。无法验证的配置在发送或执行前显式失败。
