@@ -4,6 +4,18 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通会话原生恢复与跨平台目录身份
+
+普通恢复 `28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24`（tree `5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f`）已提交推送；依ADR129/130/131及原用量/权限/Evidence契约，ADR131/map的排他恢复与macOS稳定起点A修订先于实施。公开 `recover --session` 不发现模型/凭据或重放工具，只在完整原owner死亡或已有canonical stop后管理原执行。现有目录FD排他flock、完整control与dev/inode复核持有恢复权；prepared只可形成真实未派发取消，原Grant保全，匹配的canonical Result经原Evidence索引与结算闸确认。已知费用按原stream一次结清，未知效果、Starting身份缺口和未证明结束的child/handle继续阻断。真实Shell/MCP group停稳只证明本地生命周期，不能证明远端效果；旧孤mkdir锁不自动删除，明确给出离线核对路径。
+
+该树完整本机原生门禁通过：**662 Rust（269公开Host、146 Runtime）、627根3521互读、9PTY**，root typecheck/architecture通过。实际时区切换暴露的活owner误接管、解压包Git快速child的21/22失败与确定性zombie红例、原Store锁内崩溃/100ms竞争和Git空PID marker反例均保留。macOS使用固定libproc0.14.11的实际内核秒/微秒和包含未回收child的BSDInfo查询；status不代替wait/组缺失证明。旧显示身份仍活时保守Unproven，既有真实旧死亡owner的16已知费用和unknown可恢复；不就地改旧记录。见[普通恢复与失败来源](native-cli/evidence/p4-native-ordinary-recovery-20261118.json)。
+
+最终仅两文件FD类型适配修正为 `dc9df7273d734d5641d0c10e5e7cea51dbbc04f5`（tree `9b6f076d206963c34c214da5d1d1fa7a2adab81c`）：标准库从同一已打开FD提供统一u64设备/inode，保持原权限、恢复与CAS边界，B级不改ADR。Linux形状u64转换的本地Clippy红例是替代验证，不冒充实际Linux/远端失败。该最终树另通过16项Store（3子进程helper在父目录忽略且由实际测试调用）、22项普通/恢复Host、all-target warnings-denied clippy、fmt/diff及architecture；完整662整闸仍只绑定前一树，不继承成最终全仓绿。
+
+最终featureless包 **22,396,640 bytes** / SHA256 `be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7`，原打包器显式输入Rust和原生Helper，解压后env-clear/PATH无Node/Bun的22真实Host、5真实崩溃恢复、Node/Bun各5根82互读及13根76旧链互读、9PTY通过。测试开关不在产品中，Helper和系统动态库来源已核对。详见[最终FD修正及解包回执](native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)。原28dc CI44215318326已cancelled，不能记全仓通过；当前[CI44217341964](https://github.com/ly-ccx/Peer-Agent/actions/runs/44217341964)独立in_progress，实际checkout/merge/tree/parents尚待核对，不继承86fb的双平台全仓绿。
+
+**仍在P4。** TS普通生产owner/guard与旧原生/安装宿主实际drain、进一步unknown Probe/Grant/Evidence对账、完整动态Context/压缩/附件生命周期、持久Shell与剩余工具/Skill/Plugin/Hook、ACP/命令/Provider平价和真实平台/服务/MSRV/总闸继续开放。P5完整项目代理、P6完整Ratatui与长对话内存/响应、P7默认安装更新/发布未完成。实现者自审、隔离数据与受控服务；无个人数据/安装/运行实例重启/默认peer-dev切换/合并/tag/发布，无Bun/Node引擎sidecar。
+
 ## 2026-11-18 普通原生 Host 与公开 exec 接通
 
 代码 `86fb2fa9c416a6e2c44aecf9dab23e8458958f69`（tree `0cdde6e4478c0b66f1231fc6924b4ddd9c05031b`）已验证并推送。依 ADR25/55–57/65/76/92/101/129–131，B 级接线前登记 `ad92204` / `0651316`，既有权限、Evidence、Context Source 与存储边界不动。普通 conversation/stream 使用真实 owner/access 修订、同一 Provider/Grant/Evidence、共享 turn/cognition 和原账本；不创建假 Goal、不继承 Bot Full。公开 `exec [prompt]` 支持 argv/stdin、模式与 allowlist、当前模型选择、文本/JSON 和回合上限。原 TS 默认 Source 的36组有序正文/hash/snapshot 与32组argv、35项工具别名、11组模型消歧已冻结对照；实际 Skill/Hook 配置未迁移时明确阻断，不静默遗漏。
@@ -294,12 +306,12 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 
 基线5182两平台全仓CI43916683249（含各自Electron smoke）已核实成功；本候选[CI43931485780](https://github.com/ly-ccx/Peer-Agent/actions/runs/43931485780)已核实Linux133524760580/macOS133524761193两平台全仓success，含各自Electron smoke；merge f3897471 tree与源一致。P4完整总闸、sessions resume/delete/update及其余Runtime/协议仍开放；P5–P7完整退出条件未满足，Ratatui仍不可发送普通对话。无个人数据迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
 
-## 当前剩余范围（2026-11-17）
+## 当前剩余范围（2026-11-18）
 
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；普通原生exec已完成本卡接线与限定验证（86fb2fa9），未达完整无头平价；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | 混合安装版本drain与恢复、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、附件输入/生命周期（view_image范围校正见上）、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；普通原生exec与recover --session已完成限定验证（dc9df727；完整原生整闸绑定28dc4814），未达完整无头平价；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | TS普通生产owner/guard与混合安装native/TS版本drain、进一步unknown对账/Starting缺口、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、附件输入/生命周期（view_image范围校正见上）、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |

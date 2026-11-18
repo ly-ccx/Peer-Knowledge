@@ -1,5 +1,9 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 普通中断恢复的事实与控制（2026-11-18，dc9df727）
+
+CLI，ADR129/130/131。用户显式运行 `recover --session <id>` 恢复既有中断会话；命令不初始化全屏终端或请求模型。实际原owner仍活或不能证明死亡时静态拒绝且不接管；已有canonical stop可修复记账。状态来自原执行control、原Grant/Result/Evidence、实际OS和原用量Store回执：stopped且无pending才允许新run，recovery_required明确保留unknown；已停本地runner不表示工具效果成功。只取消原call匹配的open批准，不触碰同参数其它call或已决定历史。Ctrl-C/TERM取消后保留已写事实；FD互斥由OS释放，未知mkdir锁给出离线核对提示且保全。重复恢复不重放效果或重复收费。最终包22真实Host、5既有状态恢复、当前Node/Bun各5根82互读和9PTY见[回执](../../playbook/native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)；完整662原生门禁只属于28dc前一树。实现者自审、受控服务；真实平台/模型/旧安装drain、完整unknown对账、Ratatui/长期内存及默认安装仍待验收。
+
 ## 原生普通 exec 的运行与中断（2026-11-18，候选）
 
 CLI，ADR65/92/101/129–131。用户从 argv 或 stdin 发起普通会话；Runtime 以真实 conversation/stream 为主体，沿同一 Provider/Projection/Grant/Evidence 执行，不创建 Goal、不继承 Bot Full。当前 access 及修订由 Host 持有；拒绝、取消、撤权与外来正文更新关闭后续派发，已经观察的费用和实际工具结果仍须保存。结果 JSON 的 ok 表示 Runtime 正常结束，不能替代任务核验或签收。修改原授权记录时保全原事实、拒绝覆盖并保持 unknown 阻断；独立新会话仍可准入。尚未迁移的实际 Skill/Hook 配置明确阻断，不静默省略。公开二进制与真实 Runtime 的模型/文件/Shell/MCP、取消/撤权/外来输入和后续工作验证见[普通 Host 回执](../../playbook/native-cli/evidence/p4-native-ordinary-host-20261118.json)。实现者自审、隔离数据与受控服务；owner 死亡恢复、TS 生产互斥、完整 Ratatui、真实服务及默认安装验收继续开放。
