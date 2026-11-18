@@ -2,6 +2,8 @@
 
 2026-11-18：ADR131沿65/116/129登记原生后台 Shell。启动回执、现有 native process/handle、定向停止与最终停稳由同一 Host 持有，前序 Grant、scope、unknown 及其他执行隔离不变。普通 handles 兼容和委派 fence 分别验收。
 
+2026-11-18：ADR131根据公开 `exec` 双后台红例修正同一执行的 pending 准入。只接受原已确认的 Running Shell 启动、完整进程镜像、原 Grant 与 Evidence；其他挂起、未知及跨宿主准入维持保护。
+
 2026-11-18：ADR131沿65/116/129复核 Shell 旧产物只读引用和有界写入。固定路径、目录/文件 FD、2 MB 正文及 64 KiB 预览、真实截断和原 owner 停稳不改 Grant/Evidence。保留公开入口的链接与 100,000 字节输出失败基线，持久/后台能力另验。
 
 2026-11-18：ADR131沿ADR118 §17.3/§19、108-cli-basic-shell-commands和ADR129复核原生 `peer result`。原 profile、schema 5、发布回执/索引、真实墓碑与原可携带会话来源仍是事实来源；只读、有界，无新持久格式、模型执行、授权或 Evidence。B级移植前登记，旧实现与原生失败基线保留。
