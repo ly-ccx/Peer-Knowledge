@@ -1,0 +1,75 @@
+{
+  "candidateTree": "30a16b88197162df1ceef1af67442d060c1417ba",
+  "predecessorCandidateTree": "ec99e2c8f72a5b4a8b0b837769ddca466efdb52a",
+  "patchSha256": "fcf2cdf80205f13b57e0a776b7a9050f08cf8304b4c57344dd25efe804ebfe26",
+  "sourceTarSha256": "4f60413847225194b69751d89e37e5976dfc22f09fff7f62369409054ce5b1ac",
+  "contract": {
+    "knowledgeCommits": ["da4d7fc", "7df2655"],
+    "decision": "131-native-cli-contract-storage-and-recovery.md",
+    "section": "2026-11-19 NR-04 普通 headless Goal Runner 的模型回合（实施前补充）",
+    "related": [
+      "35-mode-scoped-tool-projection.md",
+      "41-rename-goal-mode-to-plan-mode.md",
+      "55-shared-system-context-assembler.md",
+      "65-cli-headless-exec.md",
+      "116-session-control-and-resource-settlement.md",
+      "117-intent-driven-coordination-and-goal-closure.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md"
+    ]
+  },
+  "ci": {
+    "creation": {
+      "source": "0e54c66fd79de9e98be1cb66f036b807713ad168",
+      "run": 44336850584,
+      "linux": 134915779139,
+      "macRetry": 134945546695,
+      "result": "Both platforms full success, including Electron smoke",
+      "checkout": "404a8a0cea6c8794598eb0020ec882b9a020c974",
+      "tree": "0fbce08cbd4457404f99e42e86584b4ba55d2f56"
+    },
+    "taskUpdate": {
+      "source": "0bbb810ef2b7f9efa02bb7bf81674e67a3a8f52d",
+      "tree": "b778edecef34e0ff63c346910acd279ca36c3161",
+      "run": 44354720128,
+      "linux": 134979585919,
+      "mac": 134979586465,
+      "result": "independent run started after creation was confirmed"
+    }
+  },
+  "verification": {
+    "ordinaryConversationTests": {"macArm64": 84, "linuxAmd64": 82},
+    "static": ["cargo fmt", "scoped strict Clippy", "native boundaries", "architecture"],
+    "packagedMacArm64": {
+      "publicGoalTests": 21,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "cfb88c074a6c04e4f0e879f0592c3bd3d507b46e7138c379e6bed78f8d565595",
+      "binarySha256": "ecb5c264551f13a166c2affb98fdbc31e6db913361a892525646a585fe6246ce"
+    },
+    "packagedLinuxAmd64": {
+      "publicGoalTests": 21,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "4c4d1542488232b5bb35d226477ca02accf8b7c4e1da79b0c133a37c760290ad",
+      "binarySha256": "5c6e81852d6c2d353a84da621e220226cf338c7c5a55bd690bfaf504939fa1e3"
+    },
+    "legacyReplay": {
+      "transport": "Controlled local HTTP SSE through both actual executables",
+      "physicalRequestsPerHost": 10,
+      "runnerTicksPerHost": 2,
+      "exitCode": 6,
+      "exitReason": "no_progress",
+      "checked": "Orient, real isolated Explorer read, plan_scaffold, preserved open leaf and actual report. Legacy Store cold-read the native runner and report. The legacy history projection retained the one authentic user message and excluded all worker rows and synthetic tick inputs. The four source files were byte-identical after reading."
+    },
+    "approval": "The accepted label of an approval-gated Chat creation did not launch a Runner or send an extra request. A self-driven Goal created with explicit --mode goal did. The executing Chat fixture remained eligible. Plan approval and tool grant tests retained their original effect assertions.",
+    "stop": "The explicit primary request cap held even when the last allowed model request returned a real tool call. Changing the plan while the first Runner model response was in flight suppressed the late write call. Hard loss during the Runner model request or its Explorer was recovered using real closed admission and settled handles. Repeated recovery was idempotent.",
+    "completionGate": "The same live Runner's real file read and scoped update settled the original leaf. Passing automatic criteria alone produced goal_verifier_required. Manual approval and a missing criterion result produced their own waits or blocks. The gate verified actual indexed Tool Result references."
+  },
+  "nextVerifierBaseline": {
+    "source": "Same independent-review HTTP fixture through actual old CLI and extracted native candidate",
+    "legacy": "13 physical requests, including three actual read-only Verifier attempts. The real references were written in the shared Evidence index under separate tui-worker conversations with null planId. The parent Goal correctly rejected those unbound refs. Exit 6.",
+    "native": "5 physical requests, including the actual task read and criterion update. Exit 6 with goal_verifier_required.",
+    "required": "Run the real independent Verifier and bind its observations to the current Goal and original stream without widening Evidence authority. Add approved manual and failed/stale/refused-verdict paths before claiming retirement of the gate."
+  },
+  "validationCorrections": "An earlier draft treated the automatic gate as final and started accepted Chat plans without an approval owner. The actual legacy start and completion policies exposed both gaps. Added explicit stop conditions and package assertions. A package built before the approval correction failed the new three-request assertion as expected. The exact corrected tree ran independently on both platforms.",
+  "limits": "Independent Verifier execution, criterion revision binding, repair and resumed undispatched work remain open. No real provider, installed old-version drain, release-long-memory or P4–P7 total acceptance is claimed. Candidate is isolated after the already-tested explicit-Explorer and automatic-inspect candidates."
+}

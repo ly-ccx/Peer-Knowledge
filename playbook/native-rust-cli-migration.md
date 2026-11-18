@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通 Goal Runner 模型回合
+
+候选 `30a16b88` 将普通 `exec` 的 Runner 绑定到本轮实际创建的计划、Conversation 和 stream。实际 orient、自动只读 inspect 与后续 plan_scaffold 共用原模型、工具、Grant、Evidence 和结算入口。任务回填仍核对同一当前 owner 和真实引用。未批准的 Chat 即使显示 accepted 仍等待，明确自驱和已经进入执行的同一计划可继续。模型请求带命名 Runner Source 和临时输入，原始用户历史保留真实发言。无进展、显式回合上限、报告过期、信号取消和硬退出均沿原 stop 证明收口。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS 84 项、Linux 82 项普通会话回归通过，两端无 Bun/Node PATH 的解包产物各通过 21 项 Goal 用例。相同受控序列在旧 CLI 和当前解包产物都发出 10 次模型请求，实际顺序为 orient、Explorer 读取和报告、plan_scaffold，均以 `no_progress` 返回 6。旧 Store 和历史投影冷读当前结果，四个 canonical 文件字节一致。自动标准和叶子 Evidence 验过后，当前候选仍等待独立 Verifier。下一条实测中旧 CLI 的三次真实 Verifier 读取落在无父计划绑定的 worker 会话，父 Goal 拒绝这些引用，下一卡须修复真实归属才能闭环。[Runner 回执](native-cli/evidence/p4-ordinary-goal-runner-20261119.json)
+
+`0e54c66f` 的 Linux 和 macOS 全仓均通过，含 Electron 冒烟。两端实际 checkout 均为 `404a8a0c`，与原提交同树。随后推送已验证的任务更新 `0bbb810e`，独立 CI 已启动。显式 Explorer、自动 inspect、Runner 候选依次待推送。真实服务、完整 Verifier、恢复续推、P4 总闸和后续阶段继续开放。[创建 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584) · [任务更新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128)
+
 ## 2026-11-19 普通 Goal 自动 inspect
 
 隔离树 `ec99e2c8` 接通普通原生 `exec` 的确定性 inspect。已结算的本轮 Goal 创建、当前计划与工作区共同准入。按原策略生成最多两个只读问题，经现有 Explorer Host 调用真实模型和工具。落盘问题批次及报告。后继只从前一提交产生的计划版本继续。已批准的工作才可进入派发，已有显式 Explorer 报告跳过自动批次。计划在运行中变化时拒绝迟到报告和过期问题。SIGTERM、硬退出及两次 recover 保留原工具事实和明确的停稳结果。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
