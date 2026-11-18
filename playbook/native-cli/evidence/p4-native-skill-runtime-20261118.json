@@ -19,7 +19,21 @@
       "path": "${RAW_EVIDENCE_ROOT}/skill-ts-oracle.log",
       "sha256": "5d8a178f14a8e8d280b09e05f32322ed1c3048e14757b79a61b48dcb2312ebe6"
     },
-    "fullNativeStatus": "in_progress"
+    "fullNativeStatus": "success",
+    "rustTotal": 683,
+    "publicHost": 284,
+    "interopRoots": 628,
+    "interopCases": 3526,
+    "pty": 9,
+    "ptyReleaseSha256": "1729071706078fb90d8edc3232fa336ae2b1bb6232ed5f6201333f7b45d1d6d9",
+    "fullLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-runtime-full.log",
+      "sha256": "c0a6daa99d90624828a9d2d700405d36b25c7b953d81c6e2ba3fd3f0038a17f5"
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-architecture.log",
+      "sha256": "799084929876327a463a4fb5a62d22af39b10e611356fe1c718fd9090d119611"
+    }
   },
   "observations": [
     {
@@ -88,10 +102,34 @@
   },
   "precedingAcpCi": {
     "run": 44233766860,
-    "status": "in_progress"
+    "status": "in_progress",
+    "nativeLinux": "success",
+    "nativeMacOS": "success",
+    "fullRepository": "in_progress",
+    "observed": "2026-11-18T04:22Z"
   },
   "limits": [
     "Local implementer validation and loopback model endpoints. External Skill packages and assets lifecycle, Hook, Plugin and the P4 feature gate remain open.",
     "Candidate is frozen locally. The package was extracted to an isolated data root. Published default launcher, installed behaviour, real editors, model services and long-lived memory acceptance remain pending."
-  ]
+  ],
+  "hookScratch": {
+    "tree": "a3530844865ce0ed2bbe7a519541655a320fc62c",
+    "scope": "Bounded dual-source config, UTF-16 selector matching and decision normalization; no Runtime dispatch.",
+    "storeTests": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-config-scoped.log",
+      "sha256": "1d01a7f000d1410e924d80d5a941d00ea4e715e19167c605455432b685905374"
+    },
+    "policyTests": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-policy-final.log",
+      "sha256": "6c427c8ba225a44fe6e5bbe0834b2eb9df5a1b0d00ee52b368838058477e7833"
+    },
+    "tsOracle": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-ts-policy-oracle.log",
+      "sha256": "a9b3322d07943d38b8141a63ff34c4fab9aab8b5eb52529aca2122390697c60f"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-clippy.log",
+      "sha256": "a838aede556c288cfeac0c54a4b6490230cca647a6b16b069fe6f895f1d6f3df"
+    }
+  }
 }

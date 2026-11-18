@@ -8,9 +8,9 @@
 
 冻结源码树 `f169eae0`，前置 `b2e09fea`。依 ADR16 有效部分、55、58、76、129、130，ADR131 先行登记 A 级 Skill 准入和正文。真实挂载只按工作区与用户设置，工作区同名覆盖，显式安装叶链接保留。工具实际进入用户允许列表和模式交集，L4 只列投影，正文经绑定包体、当前性、一次 Grant 和既有 Tool Result 获取。大正文通过同会话的不可变引用按范围读取。
 
-7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选全量本机门禁和前置 ACP 全仓 CI 正在执行。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
+7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选完整本机门禁通过 683 项 Rust（284 公开 Host）、628 根 3526 互读和 9 项 PTY。前置 ACP 的 Linux/macOS 原生门禁已通过，全仓 CI 继续执行。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
 
-Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 deny 且文件效果未发生，Rust 暂以 `native_hooks_not_migrated` 阻断。最早的旧 Hook 立即退出用例发生 stdin EPIPE，消费 stdin 后完成基线。Skill 安装管理、额外资源生命周期、Hook、Plugin 以及完整 P4 与 P5–P7 继续开放。
+Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 deny 且文件效果未发生，Rust 暂以 `native_hooks_not_migrated` 阻断。最早的旧 Hook 立即退出用例发生 stdin EPIPE，消费 stdin 后完成基线。后续隔离工作树已通过双来源配置读入、UTF-16 选择和决策归并共 4 项 Rust 测试，并与实际 TS selector 和退出结果对照；待接真实受管进程、审批与 Evidence。Skill 安装管理、额外资源生命周期、Hook、Plugin 以及完整 P4 与 P5–P7 继续开放。
 
 ## 2026-11-18 原生 ACP 会话模型与持久化
 
