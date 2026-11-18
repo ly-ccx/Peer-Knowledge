@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-18",
+  "status": "Actual in-progress native ACP candidate rejected the two distinct sessions before model traffic",
+  "base": "189160bc54a2588ca0424888206e7133c4a39f66",
+  "scope": "Uncommitted ACP composition using the current production ordinary Host and ConversationStore, isolated workspaces and model fixture. No process or data outside the fixture.",
+  "observation": "Both prompts saw CONTEXT_SNAPSHOT_CHANGED. Two distinct canonical conversation IDs share the same index.jsonl. Model requests: 0. Full index filesystem identity changed when independent session metadata was committed.",
+  "evidence": [
+    {
+      "path": "trace.json",
+      "sha256": "6df5a3aeca7a7cbc33ca43a4b62f4d7f2d8b053b1a8ae21e6e24a425ff59a1b9"
+    },
+    {
+      "path": "stderr.txt",
+      "sha256": "cc255b2ef99b4052bf2e3b63f05be0934132371874f5404a89e5cd33eb2adfe5"
+    },
+    {
+      "path": "requests.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "data/conversations/index.jsonl",
+      "sha256": "c4df18cc082a74a4308c0ace0300d949c1749dba8120bc0a1656d25685f94567"
+    }
+  ]
+}

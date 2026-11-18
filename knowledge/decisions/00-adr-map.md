@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131/76 在 ACP Store 修正前登记目标会话逻辑 sourceRevision 与事务整索引实际代的职责。原真实双会话零模型请求反例保留，禁止用旧索引覆盖其它行。
+
 2026-11-18：ADR131在OS Adapter修复前A登记 macOS PROC_PIDTBSDINFO 微秒 epoch 的 macos-v2 起点、固定安全 libproc seam与旧显示时间记录保全；真实跨TZ活owner误接管反例已保留。未知/旧起点仍活时 Unproven，不伪造死亡/升级或杀进程；五字段schema/授权/Evidence不变，完整验收另记。
 
 2026-11-18：ADR131在普通恢复实现前A登记 `recover --session`、原目录FD排他恢复 guard 与窄token；无新持久格式或普通派发权。完整 owner/child OS 证明、原 Grant/Tool Result/Evidence 与已知账本分开核对；未知效果/starting/未知孤锁保全，不从文件存在推导成功，不以本入口替代 P4完整对账或旧宿主drain。

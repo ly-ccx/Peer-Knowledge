@@ -14,6 +14,14 @@
 
 ## 1. 问题
 
+### 2026-11-18 NR-04 ACP 并发会话的 Store 当前性（A，实施前）
+
+ADR 76 要求两个独立 ACP 会话可并发持有各自的 Runtime 和待批准请求。真实原生在制入口已复现两个不同会话因共享 index.jsonl 换代均返回 CONTEXT_SNAPSHOT_CHANGED，实际没有发送模型请求。见 [隔离反例](../../playbook/native-cli/evidence/p4-acp-conversation-source-baseline-20261118.json)。
+
+将既有会话 HistorySnapshot 的逻辑 sourceRevision 明确绑定到目标会话的唯一完整 metadata 行和该会话实际正文、stream sidecar 版本。只改别的行不会中止该会话。目标行任何字段包括未知字段改变、同会话正文/sidecar 改变、身份重复或文件读取期间换代仍按原错误拒绝。仍有界检查整个索引的可读性、JSON 结构与真实文件代。单次 Store 事务另持有原 index→body 锁并核对整索引实际代。对整个索引发布的中途变化按原先失败/提交不确定处理。过时的调用者只允许凭本会话逻辑版本进入锁内取得新全索引，不能用旧全索引覆盖其它行。全索引目录/导出的原读指纹仍独立。局部修订本 ADR 普通 metadata publication 对“外来写入”的旧说明，目标会话的外来写入继续冲突。
+
+原持久 schema、模型上下文/授权/Evidence/计费和恢复真源保持原合同。验收同时覆盖两个真实 ACP prompt 交错、取消后迟到允许未执行、同会话 CAS 与不同会话保全，以及现有 TS/原生持久往返。本卡不宣告完整 ACP 配置平价、旧安装宿主 drain 或 P4 总闸。
+
 ### 2026-11-18 NR-04 macOS 稳定进程起点与旧记录保全（A，实施前）
 
 普通恢复的真实时区反例已固定：同一实际活 CLI 在 TZ=UTC 采集 `ps lstart`，恢复者用 TZ=Asia/Shanghai 观察，旧实现把同一 PID 判成 Reused 并关闭其准入；原根、实际 owner/child、stdout/记录变化和清理保留于 [反例回执](../../playbook/native-cli/evidence/p4-recorder-timezone-baseline-20261118.json)。这不是允许接管的进程死亡，不将全仓/原生门禁绿代替本反例验收。
