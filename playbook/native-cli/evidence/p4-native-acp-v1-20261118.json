@@ -184,6 +184,17 @@
         "path": "${RAW_EVIDENCE_ROOT}/skill-disabled-baseline.log",
         "sha256": "4f4585300420097a7277be28aeafd35b94d7f5b148c91fb1665cd7248c9ab6ce"
       }
+    },
+    "explicitBorrowedInstall": {
+      "sourceRootOnlyAvailable": true,
+      "explicitInstallSymlink": true,
+      "nativeWorktree": "isolated scratch"
+    },
+    "nativeStagedStore": {
+      "tree": "b186a199d43d4b65a53153b0acaacb882ed2f8cd",
+      "tests": 4,
+      "scope": "Scratch Rust catalog only. Header parsing budgets, mounts and workspace overrides, plus changed file and installed link rejection. No Runtime integration.",
+      "logSha256": "6151bc901bdbd3b2a0d2acfd4f21a01ee01cc472b3a36247fe2b533a377a3a01"
     }
   },
   "limits": [
@@ -213,8 +224,14 @@
     "mergeTreeAndParentsMatch": true,
     "nativeLinux": "success",
     "nativeMacOS": "success",
-    "fullRepository": "in_progress",
+    "fullRepository": "success",
     "linuxFullRepository": "success",
-    "macOSFullRepository": "in_progress"
+    "macOSFullRepository": "success",
+    "receipt": "ci-b4c72637-20261118.json"
+  },
+  "candidateCommit": "b2e09fead526def16f84ff669307aa77167df835",
+  "candidateIndependentCI": {
+    "run": 44233766860,
+    "status": "in_progress"
   }
 }
