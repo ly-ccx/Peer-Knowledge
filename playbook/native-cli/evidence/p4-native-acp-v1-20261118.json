@@ -175,6 +175,15 @@
     "observation": {
       "path": "${RAW_EVIDENCE_ROOT}/skill-discovery-baseline.log",
       "sha256": "016c7134c199a5ebc2244f07aef07dcc5944f881166f82f85899c31975504ff0"
+    },
+    "disabledInventoryStaysBlocked": {
+      "legacyEnabledSkillCount": 0,
+      "nativeAllowlist": "read_file",
+      "nativeHttpRequests": 0,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/skill-disabled-baseline.log",
+        "sha256": "4f4585300420097a7277be28aeafd35b94d7f5b148c91fb1665cd7248c9ab6ce"
+      }
     }
   },
   "limits": [
@@ -183,10 +192,18 @@
     "Release installation, actual default launcher switch, published artefact, personal data and live app acceptance are outside this evidence."
   ],
   "candidateFullNative": {
-    "snapshotAt": "2026-11-18T03:28:00Z",
-    "status": "in_progress",
+    "status": "success",
     "tree": "4b41a91989d1a37bd0b7a99dc8be35e5dd3b64a6",
-    "output": "${RAW_EVIDENCE_ROOT}/acp-persistence-full.log"
+    "rust": 672,
+    "publicHostTests": 277,
+    "interopRoots": 627,
+    "interopCases": 3521,
+    "pty": 9,
+    "ptyReleaseSha256": "7407ccf892f10eab3f5d79ed014f46aad14ddd36a83d1ec8f5c55d6049faeb15",
+    "log": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-full.log",
+      "sha256": "a55638e18bc55fba3a8fed13792f6448447c79d8d735bd1bbfc42266ef30edf0"
+    }
   },
   "precedingRemote": {
     "run": 44227322669,
@@ -196,6 +213,8 @@
     "mergeTreeAndParentsMatch": true,
     "nativeLinux": "success",
     "nativeMacOS": "success",
-    "fullRepository": "in_progress"
+    "fullRepository": "in_progress",
+    "linuxFullRepository": "success",
+    "macOSFullRepository": "in_progress"
   }
 }
