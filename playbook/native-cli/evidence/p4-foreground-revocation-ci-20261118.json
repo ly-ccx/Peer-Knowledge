@@ -101,9 +101,44 @@
   "publishedCommit": "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f",
   "candidateCI": {
     "run": 44311287210,
+    "attempt": 1,
     "head": "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f",
-    "linuxJob": 134825787702,
-    "macOSJob": 134825788036,
-    "status": "in_progress_or_queued"
+    "merge": "6c32440eedc6611d8ad7a467303df66d3d917945",
+    "mergeTree": "dec1fe60c8678ba1631d675c60e5a401c24ea11a",
+    "mergeParents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f"
+    ],
+    "linux": {
+      "job": 134825787702,
+      "conclusion": "failure",
+      "publicRustEpisodeTestsPassed": 324,
+      "scopedRustTestsPassed": 748,
+      "failedStep": "Native CLI scoped validation",
+      "failure": "episode-conformance.ts expected the TS reader to accept the native Work Shell semantic floor 15 and failed with coordination_schema_unsupported",
+      "jobLogSha256": "a40c91f0dc3553590e3a8427073ff67ce704cbbfe749d068bf1b316dd38ae96a"
+    },
+    "macOS": {
+      "job": 134825788036,
+      "conclusion": "cancelled",
+      "cause": "The job was not acquired by a hosted runner after multiple attempts. No step started."
+    },
+    "status": "completed",
+    "conclusion": "failure"
+  },
+  "episodeConformanceCorrection": {
+    "commit": "80b9807b068568c962c0e6b0d7cb6d4cbbb4e6b9",
+    "tree": "de624eaf5cb35e613ff54b2b0dcebe6a5167bd2f",
+    "patchSha256": "9e972940ab5737226488f04cfff8f86a06492c66ba36b281428e4ebfcecd0af3",
+    "contract": "ADR 131 NR-04 Work Shell. Keep the semantic floor and the current TS storage refusal; preserve the canonical manifest, head, segments and blobs. Retain the two-way TS/Rust round trip for compatible journals.",
+    "macArm64": { "nativePublicTests": 7, "conformanceCases": 58, "fencedRoots": 5, "compatibleRoots": 2, "storageCases": 79 },
+    "linuxAmd64": { "nativePublicTests": 7, "conformanceCases": 58, "fencedRoots": 5, "compatibleRoots": 2, "node": "25.9.0", "bun": "1.2.17" },
+    "checks": "Original validator reproduced the recorded CI error on both platforms. For actual fenced Work, the corrected validator checks old prepare, read and write denial, exact canonical file retention, Rust cold replay with the same durable head, and existing cross-host Goal/history/resource invariants.",
+    "logs": {
+      "floor15-public-mac-original.log": "187c805422989e5a46a788fecb475f71c8462be672be921c1dafd329b64c5a2e",
+      "floor15-public-mac-verification.log": "359ddd433847c3c6e33bc4fd806b6e0615cf49c84824c6e16c5a3c0c1476c45e",
+      "floor15-public-linux-verification.log": "b47ed1496b66e684a8b54a9dce0bd6825cd11b604309b209df1b3f1a582f920e"
+    },
+    "ci": { "run": 44315691651, "linuxJob": 134841058705, "macOSJob": 134841058215, "statusAtDispatch": "in_progress_or_queued" }
   }
 }

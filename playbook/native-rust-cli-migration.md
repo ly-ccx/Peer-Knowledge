@@ -4,13 +4,25 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 委派 Shell 的版本保护验收
+
+`a2717f4a` 的 [CI 44311287210](https://github.com/ly-ccx/Peer-Agent/actions/runs/44311287210) 已终止。Linux 实际 checkout merge `6c32440e`，tree 与原提交一致。748 项 Rust 测试通过，含 324 项公开 Episode。随后旧验收误把 v15 委派 Shell 日志交给旧 TypeScript writer，得到 ADR131 预期的 `coordination_schema_unsupported`，全仓仍失败。macOS 作业未分配到托管执行器，未开始测试。
+
+`80b9807b` 仅修正开发期验收。旧 TypeScript 在真实 Work 前台、后台及恢复样本上拒绝准备、读取和写入。实际 manifest、head、日志及 blob 保持原字节，Rust 冷读核对原 durable head 的修订和哈希。旧格式样本仍执行 TypeScript 写入、Rust 复读，同时保留 Goal、会话和资源检查。macOS 与 Linux 各通过 7 项真实入口和 58 项互操作检查，其中每端有 5 个 v15 样本。macOS 另通过 79 项既有存储检查。沿 ADR65、116、129–131，格式、授权、Evidence 与兼容边界未变。已安装旧进程停稳仍待实际验证。[复现及校验回执](native-cli/evidence/p4-foreground-revocation-ci-20261118.json) · [新候选全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44315691651)
+
+## 2026-11-18 旧 TUI v3 设置的显式执行
+
+真实旧 TUI 写入主题、语言和访问偏好后，原生包在普通 `exec` 和 Work 均因 `native_capability_inventory_unsupported` 在模型请求前退出。按 ADR55、65、116、129–131 及 ADR131 本日补充，隔离候选 `efdaa3b4` 接收已知主题、Bots 默认与布尔引导标记、语言和访问偏好。普通 `exec --access ask` 实际请求批准并尊重拒绝。Work 仍按 canonical Workspace Policy 拒绝，记录原 Grant 和 Evidence。两处均无文件效果，原设置字节保持一致。Classic、未迁移设置和损坏形态仍按既有错误阻断。
+
+macOS 与 Linux 各通过 4 项 Context 库和 4 项公开入口，30 项实际 TypeScript Source 与原生互操作通过。macOS arm64 解包后在 PATH 无 Bun/Node 环境中通过 8 项设置、压缩和 Shell 公开验证。候选基于隔离压缩树 `512935dd`，两轮源码和产物各有独立身份记录。已安装旧宿主、真实模型与 P4 总闸继续验证。[设置兼容回执](native-cli/evidence/p4-legacy-v3-settings-20261118.json)
+
 ## 2026-11-18 委派前台 Shell 全仓回归修复
 
 `33327fed` 的 macOS 全仓在三项原生公开测试失败。Linux 首次遇 Microsoft 源 HTTP 429，针对同一提交重跑后进入原生门禁，实测复现相同三项失败。两端 checkout 均为同树 merge `4d8d5675`。旧 Node Shell Session 的真实 `exit` 和 `exec` 均没有命令完成码，下次调用会重建解释器。原生缺帧保持原授权及未知效果。原失败与差分见[复测回执](native-cli/evidence/p4-foreground-revocation-ci-20261118.json)。
 
 经验证的源树 `dec1fe60` 原样推送为 `a2717f4a`，记录实际授权失败原因后取消 Work。公开入口核对真实进程组消失，Tool Result 与产物记录同一原因，原授权和未知效果保留，同目录继续受保护，独立目录成功准入。OAuth 和非零退出码测试让真实子进程结束后由解释器返回命令帧，原结果和凭据断言继续成立。新增公开缺帧用例保留原 stderr 与真实未知效果。两端各 4 项公开及 10 项 Shell Session 检查通过。格式、Clippy 和架构检查通过，macOS 解包后在 PATH 无 Bun/Node 时另通过 3 项公开验证。沿 ADR65、116、129–131，授权、Evidence 与结算职责沿既有契约。
 
-本机 326 项公开 Episode 测试覆盖分两轮完成。首轮 292 项成功，34 项未加载测试所需的 JS 互操作构建产物。用 Node 25 与同一源码构建所需包后，精确复跑这 34 项全部成功。初轮真实失败和复测见回执。新提交的 [独立全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44311287210) 已启动。
+本机 326 项公开 Episode 测试覆盖分两轮完成。首轮 292 项成功，34 项未加载测试所需的 JS 互操作构建产物。用 Node 25 与同一源码构建所需包后，精确复跑这 34 项全部成功。初轮真实失败和复测见回执。全仓候选终态及后续校验见本页委派 Shell 版本保护章节。
 
 ## 2026-11-18 有界压缩摘要与冷恢复
 
@@ -20,7 +32,7 @@
 
 macOS 与 Linux 各 10 项认知库、9 项公开压缩场景通过。格式、严格 Clippy 和源码架构验证通过。macOS arm64 解包产物在 PATH 无 Node/Bun 下通过 3 项新增公开场景。测试端点的字节限制不折算为真实模型容量。候选保持在隔离验证树。[实现及失败证据](native-cli/evidence/p4-bounded-summary-20261118.json)
 
-将同一摘要补丁应用到 `a2717f4a` 后，联合树 `512935dd` 两端各通过 10 项认知库和 13 项公开场景。macOS arm64 解包后在 PATH 无 Bun/Node 时通过 6 个 Shell 与压缩场景。联合树段保持在隔离工作树，等 `a2717f4a` 的独立 CI。
+将同一摘要补丁应用到 `a2717f4a` 后，联合树 `512935dd` 两端各通过 10 项认知库和 13 项公开场景。macOS arm64 解包后在 PATH 无 Bun/Node 时通过 6 个 Shell 与压缩场景。叠加 `80b9807b` 的验收修正后，隔离压缩树为 `c87a0d9c`，含设置兼容的隔离树为 `f5bfe986`。两树相对原验证各只增加一处开发验收脚本的改动，等待 `80b9807b` 独立 CI。
 
 前驱 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 核对 checkout merge `4d8d5675` 与 `33327fed` 同树。Linux 在三次 APT 刷新时均遇 Microsoft 源 HTTP 429，未执行产品测试。macOS 随后出现三项前台 Shell 相关失败，重跑 Linux 亦复现。上节记录对照和修复候选。P4 总闸、真实服务和后续阶段仍待验收。
 
