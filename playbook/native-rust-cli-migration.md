@@ -4,13 +4,21 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通 Goal 任务更新候选
+
+隔离树 `b778edec` 接通 `peer exec` 的 `goal_update_task`。对话内的实际文件读取提供 Evidence 并回填已声明的成功标准，目标叶子完成，另一叶子保持 pending。伪造和跨会话的引用被拒绝，外来和缺失计划返回相同结果，待批准计划的任务不能开始。相同更新重复调用保留原计划字节。硬退出后的两次 `recover` 保留已落盘叶子和通知，并把原调用保留为效果待核对。macOS 与 Linux 各通过 14 项 CLI 检查和 1 项 Store 校验，两端解包后在 PATH 无 Bun/Node 时另各通过 12 项。格式、严格 Clippy、边界和架构检查通过。[更新及恢复回执](native-cli/evidence/p4-ordinary-goal-update-20261118.json) · [ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+下一项 Explorer 的隔离对照中，旧 CLI 的实际 Runner 启动只读 Explorer，以真实文件读取回传 `tool-result://`，并从模型报告剔除伪造引用。解包的 Rust 候选完成同一任务更新，没有启动 Runner 或 Explorer。下一次继续使用该实际模型序列验证 Runner、Explorer 投影、权限、Evidence 和停稳。前驱 `0e54c66f` 的独立全仓 CI 正在执行。派生关系、已安装宿主停稳、真实模型与 P4 总闸仍待验收。[前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
 ## 2026-11-18 普通 Goal 计划创建
 
 隔离树 `0fbce08c` 接通实际 `peer exec` 的 `goal_create_plan`。旧 TUI Manifest 和三种模式的计划状态由实际 bridge 对照。Plan 在 `awaiting_approval`，显式 Goal 进入自驱模式。任务初始为 pending，重复提案读回原计划，冲突提案、循环依赖及输入自报完成得到明确拒绝。计划元数据由普通 Host 的当前授权派发，文件与 Shell 继续经过实际能力授权。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
 
 前一解包产物的 3 项创建回归均报 `tool_not_projected`。初版另在 4,097 条历史通知上实测拒绝创建，修正后保留原日志并追加一条。实际索引写入失败保留计划正文，同调用修复索引和通知，第二次确认无重复写入。公开 CLI 在计划落盘后硬退出，连续两次 recover 均保留原未知调用及待审批计划，原正文、索引和通知逐字节不变。macOS arm64 与 Linux amd64 各通过 1 项 Store 故障注入和 10 项 Goal 公开入口，每端解包后在 PATH 无 Bun/Node 环境中另通过 9 项入口。实际旧 TUI 冷读原生 Plan 的正文和列表，三个原文件的字节保持一致。格式、严格 Clippy、边界和架构检查通过。[创建及恢复回执](native-cli/evidence/p4-ordinary-goal-create-20261118.json)
 
-最新前驱 `a66fdb81` 的 Linux 全仓成功，实际 checkout `66125bdd` 与源树一致，macOS 尚在执行。创建候选已保持独立源码树。下一项更新基线中，旧 CLI 拒绝未登记引用，随后用同会话实际文件读取的 Evidence 成功完成一项叶子任务，另一项仍 pending。原生 `0fbce08c` 创建相同计划后在更新处报 `tool_not_projected`。旧 CLI 的完整调用退出码仍为 6，记录这一事实以区分叶子事实与 Runner/整计划收口。其他 Goal 变更、Explorer、真实服务、旧宿主验收与 P4 总闸仍开放。[前驱 CI 44327109379](https://github.com/ly-ccx/Peer-Agent/actions/runs/44327109379)
+前驱 `a66fdb81` 的 Linux 与 macOS 全仓均通过，包含各平台 Electron 冒烟，实际 checkout `66125bdd` 与源树一致。创建树 `0fbce08c` 原样推送为 `0e54c66f`，其双平台包各额外通过 6 项先前压缩、旧设置和委派 Shell 回归。新提交单独运行全仓 CI。[前驱 CI 44327109379](https://github.com/ly-ccx/Peer-Agent/actions/runs/44327109379) · [创建 CI 44336850584](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
+下一项更新基线中，旧 CLI 拒绝未登记引用，随后用同会话实际文件读取的 Evidence 成功完成一项叶子任务，另一项仍 pending。原生 `0fbce08c` 创建相同计划后在更新处报 `tool_not_projected`。旧 CLI 的完整调用退出码仍为 6，记录这一事实以区分叶子事实与 Runner/整计划收口。其他 Goal 变更、Explorer、真实服务、旧宿主验收与 P4 总闸仍开放。
 
 ## 2026-11-18 四项 P4 改动推送
 
