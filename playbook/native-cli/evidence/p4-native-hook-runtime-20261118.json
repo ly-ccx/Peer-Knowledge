@@ -176,5 +176,78 @@
     },
     "oldStorageSource": "a2b99935714ff3970220b8094db767009dc89dd0",
     "scope": "Actual Rust and TypeScript writer, reader and rebuild, interrupted publication, cached <=13 storage denial and unchanged segments, exact Hook facts across pending to uncertain and future floor rejection. The public delegated execution baseline remains red."
+  },
+  "delegatedRuntime": {
+    "tree": "d6e35b99bb6c23c02410f6dfe590b80922657131",
+    "base": "a2b99935714ff3970220b8094db767009dc89dd0",
+    "governance": "ADR131 delegated Work preregistration bfd8892; ADR16 current portions, 35, 116, 129 and 130.",
+    "scope": "Projected exec --plan calls, canonical Work budget before Pre, existing local approval, Hook/Provider dispatch distinction, Post observation, signal and proven dead child recovery. Process groups with missing start identity remain unproven, effects are never replayed.",
+    "publicHookCases": 16,
+    "delegatedHookCases": 6,
+    "publicHookLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-final-host.log",
+      "sha256": "3466cc12754d32712e2371e02fc3083dab4bda4653e28a4b9c11ba40aaf9b037"
+    },
+    "permissionRegressionCases": 4,
+    "permissionRegressionLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-permission-regression.log",
+      "sha256": "aea36103df07924c9733217844b4f9d1dc4e2d0e1f3b6c93cc18c2b6ef184da5"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-final-clippy.log",
+      "sha256": "e9b6d0569a41b7bb62315b255beb40484565c924fd41b960f9887e91bed81b7e"
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-architecture.log",
+      "sha256": "44ded4c976d2807e7341de67226f8db101b144b4f4a36084b2c703e9964cfb07"
+    },
+    "actualStorageCases": 51,
+    "actualStorageLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-storage-final.log",
+      "sha256": "efa88792a09b6d6cdb0dc9b5136de3077e29032f15992ad1063c596ad04f5236"
+    },
+    "failedOwnerRecovery": {
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-recovery-red.log",
+        "sha256": "379a2112536dc90842a6cbdd7d2b32d313385b872e203d78710b340efe909bf3"
+      },
+      "failure": "A mutable JSON index inserted a null uncertainDispatches field even when the original array was absent. Recovery persisted stop proof then rejected the malformed Work budget. The recovery mutation now only touches existing arrays. The same live-child scenario now stops, retains unknown, and repeats without mutation. The initial synthetic root stays preserved."
+    },
+    "package": {
+      "platform": "darwin-arm64",
+      "archive": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-package/dist/peer-darwin-arm64.tar.gz",
+        "sha256": "975b77bce603dd17235076feb130fcbb3327ad1129eecc5e582971417a4061aa"
+      },
+      "bytes": 9505869,
+      "binary": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-package/extracted/peer-darwin-arm64/peer",
+        "sha256": "dd2ebe771107a7391edd1c55678b70502f0c7a7ad9885084a4dec5214e18ac43"
+      },
+      "members": [
+        "peer",
+        "peer-credential-helper"
+      ],
+      "featureless": true,
+      "noNodeOrBunOnProductPath": true,
+      "extractedPublicCases": 14,
+      "extractedPublicLog": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-archive-public.log",
+        "sha256": "9913cfd189eda278adb6873823a014f358e0d173966775e249acd9c370a225d8"
+      },
+      "sdk": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-archive-sdk.log",
+        "sha256": "5f5b14b733adc43ee04fcc509d2ae3bb6b3eceb7dd56ca2780430a5c880fcd27"
+      }
+    },
+    "fullNative": {
+      "status": "in_progress",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-runtime-verified.log"
+    },
+    "limits": [
+      "All tests use isolated owners and local controlled model endpoints. Crash injection is fixture-only.",
+      "Cold reconciliation of fully observed Pre before Provider admission and of a Provider result observed immediately before a hard Post crash still need further work. Unresolved records remain conservative.",
+      "The archived candidate and its scoped verification do not complete P4, install P7 or the long-dialog P6 memory gate."
+    ]
   }
 }
