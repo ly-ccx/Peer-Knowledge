@@ -4,15 +4,21 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 委派 Hook 崩溃窗口和 Skill 全仓验证
+
+原生 Skill `a2b99935` 的 Linux/macOS 全仓 CI 44240049384 均通过，实际 merge tree 与源码一致，含各自 Electron smoke。普通 Hook 的精确本机通过候选已推送 `db16e7be`，独立 CI 44245930398 正在执行。见 [Skill 全仓回执](native-cli/evidence/ci-a2b99935-20261118.json)。
+
+委派 Hook 的隔离树 `a914e90f` 已覆盖两处此前实际失败的硬退出窗口。先在原 Work 持久化 Tool Call 消息身份和原参数摘要，原 Grant 随 Work 派发准入提交。已确认的 Pre 只收口原未派发调用。真实 Provider 返回和 Evidence 索引在 Post 启动前保存，Post 未证明启动时未知继续保留。通过 18 项公开 Hook 入口、22 组 Rust/TS 记录以及严格 Clippy。修正后的 OAuth 用例按真实命令已开始、结果已到达和进程退出分别观察，独立重跑通过。此树完整本机原生门禁正在执行，P4 总闸和 P5–P7 仍待完成。见 [Hook 回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
+
 ## 2026-11-18 委派 Work Hook 运行时
 
 冻结源码树 `d6e35b99` 已经通过原生 `exec --plan` 的拒绝、真实终端一次批准、等待撤销配置、Post 中取消、真实 owner 硬退出及缺少启动身份这六项。Hook 归入原 Work 工具预算；在原授权前登记 Pre，Post 保留已观察的 Provider Tool Result。硬退出只停进程组，已停但未观察的 Hook 效果留在原 uncertain 记录。最初恢复因遍历缺失数组时写入 null 无法完成，修正并从公开入口重跑两次恢复，第二次与首次 Work 预算相同。
 
-同一树另过完整 Hook 公开用例 16 项、相邻权限回归 4 项、实际存储对照 51 项、严格 Clippy 与架构检查。无测试特性的 macOS arm64 测试包解压后在无 Node/Bun 的 PATH 下通过 14 项实际公开入口，ACP SDK 1.4.0 双会话接线通过。此树正在跑完整本机原生门禁。委派 Pre 已观察但 Provider 未派发的已知事实回填，以及实际 Provider 返回与 Post 硬退出之间的持久结果锚点，仍需收口。见 [Hook 回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
+同一树另过完整 Hook 公开用例 16 项、相邻权限回归 4 项、实际存储对照 51 项、严格 Clippy 与架构检查。无测试特性的 macOS arm64 测试包解压后在无 Node/Bun 的 PATH 下通过 14 项实际公开入口，ACP SDK 1.4.0 双会话接线通过。此树的完整门禁在 OAuth fixture 退出等待处失败。保留的数据表明真实 Shell 结果已提交且控制已停稳。相同二进制的隔离重跑通过，独立新树按真实子进程和结果到达切分观察。见 [Hook 回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
 
 ## 2026-11-18 原生 Hook 运行闭环候选
 
-冻结源码树 `ca3a5ebd` 以 `a2b99935` 为前置。依 ADR16 有效部分、35、76、116、129、130，ADR131 已在实现前登记原 Tool Call 与受管 Hook 进程。普通 `exec` 与 ACP 共享同一接线。配置版本与子进程身份写在原工具记录，Pre 收紧原授权，Post 保留已观察的 Provider 结果。中断时回收已证明身份的进程组，保全未知效果。原失败数据经修正入口成功恢复，原工具未重放。
+已推送 `db16e7be`（冻结源码树 `ca3a5ebd`），以 `a2b99935` 为前置。依 ADR16 有效部分、35、76、116、129、130，ADR131 已在实现前登记原 Tool Call 与受管 Hook 进程。普通 `exec` 与 ACP 共享同一接线。配置版本与子进程身份写在原工具记录，Pre 收紧原授权，Post 保留已观察的 Provider 结果。中断时回收已证明身份的进程组，保全未知效果。原失败数据经修正入口成功恢复，原工具未重放。
 
 解包初验在并发测试负载下将即时拒绝记作超时，工具仍未派发。确定性测试复现持久准备耗尽子进程预算。修正后从实际启动起计时，超时用例仍使用原 120 ms。冻结树已通过 10 项公开入口、6 项 Hook Runtime、架构检查。跨语言 Hook 记录经实际 TS / Rust 各验证 60 项。无测试特性的 macOS arm64 包解压后在 PATH 无 Node/Bun 下再通过 9 项公开用例及 ACP SDK 1.4.0。精确树的本机原生门禁通过 699 项 Rust（293 项公开 Host）和 9 项真实 PTY。委派 Goal/Work Hook、旧安装宿主停稳和完整 P4 尚待验收。见 [Hook 运行、恢复与打包回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
 
@@ -22,7 +28,7 @@
 
 已推送 `a2b99935`（冻结源码树 `f169eae0`），前置 `b2e09fea`。依 ADR16 有效部分、55、58、76、129、130，ADR131 先行登记 A 级 Skill 准入和正文。真实挂载只按工作区与用户设置，工作区同名覆盖，显式安装叶链接保留。工具实际进入用户允许列表和模式交集，L4 只列投影，正文经绑定包体、当前性、一次 Grant 和既有 Tool Result 获取。大正文通过同会话的不可变引用按范围读取。
 
-7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选完整本机门禁通过 683 项 Rust（284 公开 Host）、628 根 3526 互读和 9 项 PTY。前置 ACP 的 Linux/macOS 全仓 CI 均已通过，已核对实际检出树。Skill 的独立 CI 44240049384 仍在执行。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
+7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选完整本机门禁通过 683 项 Rust（284 公开 Host）、628 根 3526 互读和 9 项 PTY。前置 ACP 的 Linux/macOS 全仓 CI 均已通过，已核对实际检出树。Skill 的独立 CI 44240049384 已通过 Linux/macOS 全仓验证。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
 
 Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 deny 且文件效果未发生，Rust 暂以 `native_hooks_not_migrated` 阻断。最早的旧 Hook 立即退出用例发生 stdin EPIPE，消费 stdin 后完成基线。后续普通 exec 与 ACP Hook 接线见本页顶部。Skill 安装管理、额外资源生命周期、委派 Hook、Plugin 以及完整 P4 与 P5–P7 继续开放。
 

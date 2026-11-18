@@ -241,13 +241,72 @@
       }
     },
     "fullNative": {
-      "status": "in_progress",
-      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-runtime-verified.log"
+      "status": "failure",
+      "rustHostPassed": 298,
+      "rustHostFailed": 1,
+      "failure": "The test-side eight-second OAuth process wait expired. Canonical Work and Conversation facts in the preserved fixture show a successful tool and settled control before the watchdog killed the process. An isolated replay of the exact fixture binary passed. The next immutable tree waits for the actual running child, then the observed tool result, then separately bounds the original exit wait. The existing 5000 ms Shell and 8 s exit limits remain.",
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-runtime-verified.log",
+        "sha256": "a695d7f5819ca3d46ce89f87b0a88a0adca043dd59b7991be12aa23bb60d7d82"
+      },
+      "exactIsolatedReplay": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-credential-rotation-isolated.log",
+        "sha256": "9f37c3594a79ff27e153730b2c16d351e091ff530bc84f45df1bd920e3c12748"
+      },
+      "correctedCausalFixture": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-oauth-causal.log",
+        "sha256": "5fd3b1812dbb472889597a47aea62d51bbd12681199b1ad4e5a159b98e87c863"
+      }
     },
     "limits": [
       "All tests use isolated owners and local controlled model endpoints. Crash injection is fixture-only.",
       "Cold reconciliation of fully observed Pre before Provider admission and of a Provider result observed immediately before a hard Post crash still need further work. Unresolved records remain conservative.",
       "The archived candidate and its scoped verification do not complete P4, install P7 or the long-dialog P6 memory gate."
     ]
+  },
+  "source": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+  "candidateCi": {
+    "run": 44245930398,
+    "status": "in_progress"
+  },
+  "delegatedObservations": {
+    "tree": "a914e90f95da69ed46f6949887a0d8b4fb72b03d",
+    "rootedOn": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+    "governance": "ADR131 Work original Tool Result addendum 8eb3315, respecting ADR16, 35, 116, 129 and 130.",
+    "initialCrashFailures": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-red.log",
+      "sha256": "20e83e63956b8ce522886f9f163ffda1a08a52ebc617d441deb3b30b637db73e"
+    },
+    "firstImplementationRegression": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-grant-source-red.log",
+      "sha256": "0f7d2772c6872a550c5f5e330de353ad7746e7dfb0279026d40542262c6f837e"
+    },
+    "scope": "Work binds its original canonical Conversation Tool Call message and args digest. The Grant is published atomically with dispatch admission in the Work journal without mutating the conversation revision used for live permission. A provider result and its Evidence index are published before Post starts. Known stopped Pre recovers only the original undispatched call; unknown Post remains unproven.",
+    "hookHostCount": 18,
+    "hookHost": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-final-host.log",
+      "sha256": "56d7fa5f76ab83445e886699d2b7d9122809b04d9d60f485f3829210758bc0bc"
+    },
+    "shapeCasesEach": 22,
+    "rustShape": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-rust-contract.log",
+      "sha256": "9ecebfcb1b4b05b444169369bb52650cc695f12d1be08ec4b10f66c6b3ac0cba"
+    },
+    "tsShape": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-ts-contract.log",
+      "sha256": "340828a7cca7ac8094ecc6dafc719ed2a44a3ba8563c7ede00ce199f31eea6e7"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-clippy.log",
+      "sha256": "1808a3d9c2d572ea629ae6a9e3ab9a3f754c75662c70800b665cc95d82ef2abf"
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-architecture.log",
+      "sha256": "f8c9e773fa36ef6f20ecae84a830023f528e1e26a7271c9a5508f29e8d8322ec"
+    },
+    "fullNative": {
+      "status": "in_progress",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-verified.log"
+    }
   }
 }
