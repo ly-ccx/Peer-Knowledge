@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-19",
+  "scope": "P4 native ACP intent, decision and result presentation",
+  "decisions": [76, 116, 129, 130, 131],
+  "publishedPredecessor": {
+    "commit": "9febafee710dcbe7b202a1da9de305b35b30e641",
+    "tree": "39047a4c9cf7cec10344232c09cca22a881cd3b2",
+    "ci": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251",
+    "previousFullCI": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44412174861",
+    "previousFullCIHead": "644310378eaeb5ae66ab8d28a0088fd387a9628a",
+    "previousFullCIJobs": {"macOS": 135182953042, "linux": 135182953830},
+    "previousFullCIBothPassed": true
+  },
+  "candidate": {
+    "tree": "afdf4edf550a933b43af35d34519df1ba0ca4583",
+    "incrementalPatchSha256": "00ce7fadd64a2b46d4187453de2e6a1ed5a7b2a0d546155e580d0522794e4f0f"
+  },
+  "behavior": [
+    "ACP preparation and permission requests project the same original tool arguments under the same call identifier while it is pending.",
+    "The settled update projects the original persisted structured output or failure reason. The tool-result reference comes from the successful Evidence registration, after the existing settlement path.",
+    "Preparation carries no completion or Evidence reference. Oversized raw input is omitted with an explicitly marked, bounded UTF-8 preview. The terminal detail is similarly bounded."
+  ],
+  "maximumRawInputBytes": 1048576,
+  "maximumDetailUtf8Bytes": 4096,
+  "checks": {
+    "macOSArm64": {
+      "debugAcpPassed": 13,
+      "debugAcpLogsSha256": "d5b1387366b1f6295a54eb1e1f792af2b5360493720941d5d7d6edffd789e35b",
+      "boundedProjectionPassed": 1,
+      "boundedProjectionLogSha256": "9a6d54b55119960e226808ba89a1cd67c67acd26db7f92b49ca0aad311a9bf83",
+      "featurelessAcpPassed": 13,
+      "featurelessAcpLogSha256": "5a182e4ece48886c916ced56b7ae7f33a4436207768c93934184b13a36547bc8",
+      "featurelessSha256": "24996ad9e55dedaa990f3401eb948997f6723c04ad914380f1a53507ea0f6f63",
+      "sdkVersion": "1.4.0",
+      "sdkTest": "Two real loopback model requests, one editor approval, actual 24-byte file write, pending rawInput and one completed output detail with the original tool-result reference.",
+      "sdkReceiptSha256": "6a630f7b15d0581d5e1faa8a5ca3d2816d175c7879c6434f14997f5a137c36b2"
+    },
+    "linuxAmd64Container": {
+      "debugAcpPassed": 13,
+      "boundedProjectionPassed": 1,
+      "logSha256": "cf544e0200d1c59396f21475f8377c691d2cca0a5c506982726b8f6065c7922c"
+    },
+    "strictClippyPassed": true,
+    "nativeDependencyBoundaryPassed": true
+  },
+  "limits": [
+    "Isolated controlled model, workspace and actual ACP SDK. No installed editor or user session was used.",
+    "The previous CI applies to 64431037. A separate run validates 9febafee. The tool presentation candidate requires its own full CI.",
+    "P4 installed-host handoff, remaining Runtime functionality, P5–P7 and complete release remain open."
+  ]
+}

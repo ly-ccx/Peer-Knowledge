@@ -1,5 +1,9 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生 ACP 工具参数与结果（2026-11-19，候选）
+
+编辑器在原 `toolCallId` 的待批准状态查阅工具参数，使用 ACP 的批准或拒绝选择。完成后展示已保存结果和同一调用的 Evidence，拒绝与迟到批准沿原权限及停稳事实处理。超限详情明确截断。SDK 及两平台进程自测覆盖真实批准、落盘、取消和后续会话。实现者自审，编辑器界面与辅助技术待验。[回执](../../playbook/native-cli/evidence/p4-acp-tool-presentation-20261119.json)
+
 普通 exec 模型配置不可用或模型 HTTP 401/403 返回 3。无效模型选择返回 2。已派发并结算的工具授权、Evidence 与已知用量来自原 Host，摘要遭认证拒绝时结束。 本机验证见[认证退出回执](../../playbook/native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。
 
 ## 普通中断恢复的事实与控制（2026-11-18，dc9df727）

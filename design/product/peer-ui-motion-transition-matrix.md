@@ -397,7 +397,7 @@ E16/E17-F5；基线 040a3e1b，本批代码 [59451598](https://github.com/ly-ccx
 | F5-21 原生 Quick Chat 弹选窗口 | DOM 每次真实打开一次 fade 入场；退出依主进程/OS 即时隐藏，既有 closed 事件同时送达独立菜单宿主清旧内容 | 不延迟选择/失焦/hide IPC，不另造窗口许可/状态 | S；V 真窗口重开/焦点/旧事件/多屏 · E11/E13 |
 | F5-22 OAuth 授权码、保存完成/切页/目标交接 | 保共享入场；这些结束由真实流程或目标页面立即承接 | 删除 noop onClose，Escape 不再把待授权面淡为空壳；真实完成不为动画等待 | S；V 授权完成/失败/重复 Escape/目标消失 · E08/E13 |
 | F5-23 Workbench tabs/browser keepalive、历史正文/行内技术详情 | 保原局部 tabs/折叠/静态阅读，不额外 remount guest 或重播历史 | 这是内容/对象连续性；不因“全产品动效”给每条历史补入场 | S 沿用；V 真实 guest/读位/焦点 · E05/E11/E13 |
-| F5-24 Gateway 两网页、TUI/CLI/ACP、系统 select/dialog/context menu | Gateway 原生 select/行内面；终端无 DOM；系统窗口按宿主绘制 | DOM 动画 N/A/有意静态，无跨宿主 renderer CSS；业务与原生选择保持即时 | 源码登记；V 真宿主/辅助技术 · E11/E13 |
+| F5-24 Gateway 两网页、TUI/CLI/ACP、系统 select/dialog/context menu | Gateway 原生 select/行内面；终端无 DOM；系统窗口按宿主绘制 | DOM 动画 N/A/有意静态，无跨宿主 renderer CSS；ACP 工具更新按同一调用追加结构化事实，焦点由编辑器持有 | ACP 参数、结算和取消已过 [SDK 与进程验证](../../playbook/native-cli/evidence/p4-acp-tool-presentation-20261119.json)；V 真宿主/辅助技术 · E11/E13 |
 
 本次专项已验证的 F5-02/05/13/15/17/20 子用例及源头见本文顶部 PR214/215 记录；不能将专项通过扩展到整行全部 V，以下为原始批次的完整待核列表。
 
