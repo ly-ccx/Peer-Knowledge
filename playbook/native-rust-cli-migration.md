@@ -8,7 +8,7 @@
 
 按 ADR55、57、90、129–131，把旧 Composer 的显式本地图片输入接进普通原生 Host。隔离树 `4c1349b7` 新增可重复的 `exec --image <path>`，支持仅图片或配合 argv/stdin 文字。通过实际公开入口验证模型请求和工具续行、源文件与授权/Evidence 保全、空文件/格式不符/特殊文件/远程 URI 拒绝以及总数量和字节预算。旧 TUI 的 Composer 25 项通过。图片包解开后四项公开入口均过，删除隔离原图后，真实旧 TUI 仍能从新会话读回同一图片，原消息字节保持。见 [图片输入回执](native-cli/evidence/p4-native-image-intake-20261118.json)。
 
-旧 CLI 正常 `createTuiRuntime` 的八种模式没有投影隔离 Plugin 包，本仓生产装配也未找到正式包注册入口。该结果绑定当前实际 CLI 可达范围，ADR15 草案中的包注册设计仍是规划。Ratatui 图片草稿、剪贴板与长期内存还需验收。图片与委派 Hook 的组合树 `c4567fee` 正在跑完整本机门禁。
+旧 CLI 正常 `createTuiRuntime` 的八种模式没有投影隔离 Plugin 包，本仓生产装配也未找到正式包注册入口。该结果绑定当前实际 CLI 可达范围，ADR15 草案中的包注册设计仍是规划。Ratatui 图片草稿、剪贴板与长期内存还需验收。图片与委派 Hook 的组合树 `c4567fee` 已通过本机原生门禁，712 项 Rust（含 305 项公开 Host）、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后另通过 14 项 Hook、4 项图片入口、实际 ACP SDK 1.4.0 和旧 TUI 读回。该树仍需远端全仓 CI，见[本机组合回执](native-cli/evidence/p4-native-hook-image-combined-20261118.json)。
 
 ## 2026-11-18 委派 Hook 崩溃窗口和 Skill 全仓验证
 
@@ -363,7 +363,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中；普通原生exec与recover --session已完成限定验证（dc9df727；完整原生整闸绑定28dc4814），未达完整无头平价；已接原生模型/工具、用量、压缩恢复、MCP transport/auth，以及原生自动刷新、grant/Context续行、连接换代、当前TS发送guard、旧SDK缓存兼容、原生Grok与Qoder两种端点、账户/工具/TLS/取消及Qoder逐尝试重试/计费/等待恢复的本机验证 | TS普通生产owner/guard与混合安装native/TS版本drain、进一步unknown对账/Starting缺口、Qoder CLI发送/配置剩余平价与真实服务（远端SDK目录发现属Desktop既有范围）、大文件/快照生命周期/旧历史、附件输入/生命周期（view_image范围校正见上）、完整 Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令、真实服务与总闸 |
+| P4 | 实施中；原生模型与工具、用量、压缩恢复、MCP transport/auth、普通 `exec`、`recover --session`、ACP、Skill 和普通 Hook 已有公开入口验证；委派 Hook 与本地图片输入的组合树已过本机原生门禁 | 当前 CLI 可达工具、Context/压缩、附件与快照生命周期的等价性；旧版并存停稳和余下 unknown 对账；真实服务与协议异常覆盖；原生 `result` 等剩余命令；P4 总闸。Plugin 按已查证的旧 CLI 生产可达范围评估 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |

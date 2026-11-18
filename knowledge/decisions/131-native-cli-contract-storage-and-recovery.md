@@ -416,6 +416,14 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 验证先冻实际TS格式/脱敏/参数与正常Store/stream可见结果；损坏/未来sidecar的明确差异单列。公开原生CLI覆盖无HOME/TTY/JS、空/多角色目录、Helper/数据根失败、可见正文与秘密/控制、覆盖拒绝/原子--force、源/目标竞争、取消/损坏后原字节与后续导出。使用隔离合成Store验证1GiB历史、10MiB正文与100MiB被跳过工具行及资源曲线；正式二进制与普通P4总闸/安装/全产品/长时P6验收分开记录。实现与验收另记。
 
 
+### 2026-11-18 NR-04 固定交互结果的只读 CLI（B，实施前复核）
+
+沿 `108-cli-basic-shell-commands.md`、ADR118 §17.3 和 §19、ADR129–131 迁移现有 `peer result <interactive-result://…> [--json]`。CLI 解析固定版本并格式化，Store 只读原 sqlite schema 5，原 Bot profile 仍是访问范围真源。读取前后核对 active profile 及原会话归属，读取过程中校验库、文件身份、固定版本、原发布操作与索引回执。复用既有无创建 SQLite 接缝，按已有合同限制所选字段和解码。不执行程序、取执行租约、访问模型、补写索引或创建清理回执。
+
+本地可用版本、已清理墓碑和原设备摘要沿原可用性分支。只在固定版本确实缺失时查原 EvidenceIndex、GoalPlan、工作会话和唯一已完成的原 Tool Result；待登记、范围拒绝、损坏和清理均沿自身事实返回。清理后的摘要只读已校验墓碑。摘要以原 schema、纯文本/JSON 和未验证标识返回，不进入 System Context、模型工具或 Evidence。沿本机原格式与权限边界实现，不增加持久入口。P5 发布、核验、交付与保留清理另有工作包。
+
+采用隔离数据上实际 TS/Bun 发布与登记写者、实际旧 CLI 输出和 Rust 正式入口做对照，覆盖三种可用性、原数据不变、owner 变更、重复/损坏/未知数据、待登记与终端控制字符。原 TS 集成基线 12 项通过，现有 featureless 原生包对固定引用明确返回命令不可用。实现和验收另记。
+
 ## 2026-11-17 NR-04 Qoder 本地凭据与目录格式原生化（A，实施前登记）
 
 沿ADR129的Qoder完整迁移范围及本ADR的Provider encoder/credential seam，先替换现有`qoder-local-auth.mjs`依赖官方程序内嵌WASM的本地解封和model-cache算法。最终CLI使用RustCrypto执行相同密码原语，不启动qodercli/Bun/Node，不嵌入WASM VM或捆绑官方SDK二进制；官方模块只在隔离开发夹具中作为互操作oracle。这里不声称Qoder原生请求/认证/队列/工具闭环已经完成，也不能以本Module替代整条Provider验收。
