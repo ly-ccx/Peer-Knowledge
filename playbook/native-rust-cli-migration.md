@@ -4,6 +4,12 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 持久前台 Shell 进程与存储
+
+沿 ADR65、116、129–131，隔离树 `d6e75622` 的真实受管 Shell 保留进程、物理 cwd、环境和函数。全双工 Unix socket 传输请求和控制回执，命令看不到控制描述符，伪 PWD 不参与校验。测试覆盖隔离、提权决策变化后的写入拒绝、超时、取消、大输出和原 Registry 回收空闲进程。Store 可分开结算多条有各自 Grant 和 Evidence 的命令，空闲句柄继续由原进程持有，未知命令保持阻断。
+
+8 项新进程测试、17 项 Conversation Store 测试、86 组 Rust/TS 契约、27 项实际 TS Store/原生互读检查及严格 Clippy 通过。公开恢复在实际宿主硬退出后回收真实孤儿进程组，确认保留 OutcomeUnknown；此例用夹具转换原有运行记录为持久句柄。另有确定性红例，前一命令异步启动的子进程输出混入第二条命令。接线前需先隔离每次命令的输出通道，再通过公开 `exec` 和 ACP 验收。见[持久 Shell 回执](native-cli/evidence/p4-persistent-shell-worker-store-candidate-20261118.json)。
+
 ## 2026-11-18 普通会话原生后台 Shell
 
 隔离候选沿 ADR55、57、65、116、129、131，把 `bash background:true` 和 `shell_stop` 接入普通原生 Host 和 ACP。模型收到真实已登记的进程启动、原任务 ID 和产物引用。当前权限、进程完成、终态产物和旧启动 Evidence 各自可核对。相同执行的重复停止返回已经结束，其他任务保持活跃。只有带原 Grant、Running 镜像、已提交的启动结果和 Evidence 的后台调用可以与下一串行 Tool Call 并存。模型请求内部的容量、用量和压缩写入通过实际 CAS 前后修订更新后台监督，过期修订仍不能授权。

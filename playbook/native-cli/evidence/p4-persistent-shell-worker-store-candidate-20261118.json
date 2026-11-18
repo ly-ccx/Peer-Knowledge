@@ -1,0 +1,50 @@
+{
+  "registration": ["56af5e9", "31dd1e4"],
+  "sourceParent": "a69d852aca398f21be0aca2c549278d86230d1f6",
+  "isolatedTree": "d6e7562204ceed02f81e71b4efaaad0dbdbc69f4",
+  "patchSha256": "2133155754f481dd4f9f82caec2e9490730d6a43eb436bee9c1ad6d9c66ea13b",
+  "predecessorCI": {
+    "run": 44277507175,
+    "merge": "75bd954567a4b8e8c32d8839564c87f3e8a46f1d",
+    "tree": "cf8fd9415fbd0475afec4126bf480c26abab2dd1",
+    "nativeScopedLinux": "success",
+    "nativeScopedMacOS": "success",
+    "wholeRepository": "in_progress"
+  },
+  "verified": {
+    "platform": "darwin-arm64",
+    "newWorkerTests": 8,
+    "shellTestsIncludingExistingArtifactCheck": 9,
+    "conversationStoreTests": 17,
+    "subprocessFixturesExcludedFromStandaloneRuns": 2,
+    "sharedRustTsVectors": 86,
+    "actualStoreInteropChecks": 27,
+    "existingPublicRecoveryChecks": 5,
+    "newPublicRecoveryChecks": 1,
+    "rustFmt": "passed",
+    "strictClippy": "passed",
+    "protocolTypeScriptBuild": "passed",
+    "logSha256": {
+      "persistent-shell-final-worker.log": "8158335f3f8c8aa049fd64b81c04a0794f54acd930478033a1b4774e709b9d33",
+      "persistent-shell-final-contract.log": "190d75a3edf238147c41eb1694541ec446c887510063d520326ed55a4af505dd",
+      "persistent-shell-final-store.log": "35ec246a5cebc5f8739e59531f164e779866aa0ae640132ffe6093faa008bece",
+      "persistent-shell-final-recovery.log": "a9ebcf67c6a38c46a2b76a52738243ab69e9a72422b5e19ec77d6dc8263dd1b9",
+      "persistent-shell-final-recovery-baseline.log": "d3946503b7c90c03e68a63cf3841f4255004ec4c625feb4f546b0e51ff68561f",
+      "persistent-shell-final-clippy.log": "822a2b28633b9adccba897eb832b41b529a653b84afcd97417be807e17a73d3a",
+      "persistent-shell-final-interop.log": "926fe87924d9e1c46b77b8e3e07831a68d308184b83b452e2143e5ad8c7c7796"
+    }
+  },
+  "recoveryScope": "Public recover after killing an actual ordinary native owner. The fixture converts the real recorded child and pending dispatch to the new persistent session envelope before invoking recover. Actual group absence and preservation of OutcomeUnknown were observed. Production persistent launch was not exercised.",
+  "failedCasesRetained": {
+    "initialImplementationRejectedByForbidUnsafe": "9aaa469bc74907874115a569aafbb220e0ec3a387f42cc7b7d2db409c0254260",
+    "sharedFixtureOwnerWasMutatedByNegativeVectorThenCopiedInstead": "80aad4ee78c56bca8ef29b19a54ccd05c2117fb1e30fdf715cd4ba293007b7b5"
+  },
+  "lateOutputReproduction": {
+    "log": "persistent-shell-late-output-red.log",
+    "sha256": "b8f4558102f0b4edc8fa8b81eba9050cc23fe8a7af9aafd468d7edf9a747c6d0",
+    "reproductionPatchSha256": "5c3d3c739fc9ce404cb2090296b1fdd7adc681501e67ad06cf48b3750ce449d0",
+    "expectedSecondOutput": "second-command",
+    "actualSecondOutput": "previous-jobsecond-command"
+  },
+  "remaining": ["isolate command data streams and prove late-output ownership", "integrate actual ordinary Host and ACP launch, current Grant, registry and artifact completion", "Linux worker and older installed host compatibility", "delegated Work Shell lifecycle", "P4 total gate"]
+}
