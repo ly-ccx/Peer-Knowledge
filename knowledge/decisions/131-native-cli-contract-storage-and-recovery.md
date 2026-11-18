@@ -26,6 +26,8 @@ pidStart 在原五字段中是 opaque string，不新增或覆写持久 schema�
 
 验收含实际跨进程 TZ/LC_ALL 变化时活 owner 拒绝且 canonical 不变、真实 child group 不被误杀、实际新 owner/child 崩溃恢复、旧真实已死 owner 原16费用一次与 unknown 保全、旧仍活 PID/未知起点保守拒绝、完整 Goal/MCP/普通恢复回归、TS opaque 互读和固定 featureless release 无 Node/Bun。`recover --session` 仍不重放/不接受 unknown；P4 总闸、旧 TS/安装宿主 guard/drain、P5–P7 与长期内存/默认安装发布继续开放。
 
+实现期 B 复核（同日，修正前）：冻结718f 的完整原生门禁成功，但实际解压 featureless 包在 Git 快速子命令失败；21/22 不算产品接受。已用真实已退出未回收 child 在生产 process_recorder seam 确定性复现 None，原断言和现场见[红例](../../playbook/native-cli/evidence/p4-owned-child-zombie-baseline-20261118.json)。XNU 的 PROC_PIDTBSDINFO 在非零 arg 时才包含 zombie；固定 libproc 的同一 BSDInfo API 改用该查询选项，仍读取实际 PID/微秒起点，不退回显示时间、不补造身份、不延长执行/恢复时限。SZOMB 仅用于测试确认 readiness，不成为生产 ended/death/stop 证明；已拥有 Child 的实际 wait 与 group absent 规则不变。该修正不改五字段格式、权限、Evidence 或已登记恢复边界；需真实快速 child/原 Git/普通 Shell/MCP 与最终解压产物再次验证。
+
 依据：[libproc pidinfo](https://docs.rs/libproc/0.14.11/libproc/proc_pid/fn.pidinfo.html)、[固定源码](https://github.com/andrewdavidmackenzie/libproc-rs)。此次先核对 Cargo 下载的0.14.11实际源码；不是只凭 latest 文档推断已验收。
 
 
