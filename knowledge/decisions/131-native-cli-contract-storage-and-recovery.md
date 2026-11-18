@@ -313,6 +313,14 @@ Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budg
 
 `completed` 必须核验同一计划或现有同会话 Tool Result/EvidenceIndex 的真实可解析引用。外来、未登记、未派发、尚待核对的观察不可替代结果。新引用取自已经持久化的原始 Host 事实，Goal 元数据调用自身不能作为完成其它工作的证明。已登记标准才可记录 criterionResults；自动标准通过要求对应 Evidence，model_review 仍由 Verifier 写入。模型文本只能作为记录说明。所有变更先校验后在同一原 Goal 写锁下发布，避免验证失败先覆盖任务事实，再报告整次失败。索引、正文、通知仍使用原格式，写入后的不确定性沿原调用保留。验收使用实际旧 TUI 差分与真实 Rust CLI，覆盖有效文件观察、伪造及外来 Evidence、待批准拒绝、重复请求、故障与冷读；Runner、派生链接与正式交付继续单独接通。
 
+### 2026-11-18 NR-04 普通 Runner 的只读 Explorer（实施前复核）
+
+沿 ADR35、41、55、65、116、117、129–131、《Goal 计划生命周期治理》与现行 Explorer 任务清单。旧 `request_explorer` Tool Result 的 `registered=true` 表示请求已登记。旧 `peer exec` 的实际 Runner 随后另发 Explorer 请求，仅投影 Git、读取、列目录、搜索和批量搜索；实测真实读取的引用进入报告，模型杜撰的引用被剔除。继续沿原 `GoalPlan.runner.explorers` 保存实例、状态和报告。登记、实际派发和完成分别由各阶段的宿主事实证明。Plan 的待批准、已暂停、已取消或外来的计划不启动新的 Explorer。
+
+普通原生宿主在已结算的请求之后，以同一活跃 Conversation/stream owner 和原计划为界派发。工作子循环复用已有 TurnHost、NativeModel 编码/用量和工具链。每个 Explorer 获得独立、受限的工作历史，使用原有不可作为父模型输入的 `agent_activity` 行保存事实，并用宿主签发的 Explorer ID 关联原工具、原 Grant、Tool Result 和 Evidence。再次加载父模型或其它 Explorer 时，不把工作历史当成用户原话。任务简报进入 `runtime.explorer` Source，路径提示是事实，实际范围由当前 canonical 计划和宿主工作区限定。Explorer 无文件写入、任意 Shell、Hook 命令、扩展工具、用户批准或 Goal 修改权限。固定 Git 仍走原受管进程所有权，首个和后续路径均须在工作区。模型角色沿已选目标路线，独立角色选择仍按 ADR83 已接受范围接通。
+
+从实际计划快照和原 Tool Result 定位任务，在根写锁下确认为同一会话和实际工作区后发布 Explorer 开始事实。每次发送和派发复核当前计划/执行代、原 owner 和取消。沿旧 Explorer 的 4 次只读工具和 120 秒执行上界，由宿主停止新派发并等待实际工作者归还控制，不把超时等同于已停。模型报告只采用本次已结算成功工具的同域引用，找不到可核验引用时明确失败。报告写入前重新核对同一 Explorer 和计划修订。故障后保留原工具和部分记录，不以旧确认或后到模型输出补造成功，不自动重放未核对的 Explorer。首个入口验收真实显式 `request_explorer`、只读投影、跨路径和伪造引用、取消/硬退出及持久报告。旧 Runner 的自动 inspect、Verifier、完整停稳/恢复及退出码仍沿原入口分别接通和验证。
+
 ### 2026-11-18 NR-04 压缩摘要输入预算（实施前补充）
 
 沿 ADR55、56、57、129–131。摘要模型使用原 canonical 投影及已核验的受管 Tool Result 视图。旧普通正文、内容块正文、工具参数及上一次 continuity 摘要沿既有 TUI 的 UTF-16 预算做显式预览，保留首尾且不拆 Unicode 字符。旧图片只出现省略说明，原始 URL 或编码字节不进入摘要请求。正常模型请求及保留的当前用户消息沿原 encoder。
