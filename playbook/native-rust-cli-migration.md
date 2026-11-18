@@ -4,6 +4,16 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 委派 Work 前台和后台 Shell 验证
+
+已验证源树 `937bd33b` 原样提交并推送为 `33327fed`，已接通委派 Work 的持久前台和独立后台 Shell。后台进程在原派发保存 Grant 与实际进程身份。只有配对 Tool Result 和 Evidence 写入后才允许同一次 Work 继续请求模型。定向停止按同一执行及 stream 校验作用域，无关 ID 无实际派发。重复停止仍查询原回执。Work 退出停稳真实句柄。硬退出恢复只收原进程，启动事实保留，未知效果继续对账。沿 ADR65、116、129–131，依 ADR131 已登记的语义版本 15，首个后台记录写入同样阻止旧协调宿主继续读写。
+
+macOS 164 项和 Linux amd64 163 项 Runtime 库测试通过，每端各 3 项协议与 9 个公开 Work 场景，另有 79 项真实 TypeScript 与 Rust 协调存储互操作验证。macOS arm64 本地包解开后，在 PATH 无 Node/Bun 的环境通过 4 项后台 Shell。保留初次测试的 HTTP 读取超时和 Linux 缺失合成 Vault 夹具两项失败。前者在五条实际回执后发生，调整监督轮询避免连续占用 I/O 调度后完整复测通过。后者补建原夹具后通过。原失败、版本和产物身份见[委派 Shell 回执](native-cli/evidence/p4-delegated-work-shell-20261118.json)。
+
+`99e1e5e3` 的 [CI 44296531703](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 两端全仓通过，含原生门禁、两端 Electron smoke 和报告上传。两端 checkout 的 PR merge 树与源提交相同。`33327fed` 的独立 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 正在运行。
+
+另在上述解包原生产品，用实际公开 `exec --plan` 复现单条 30 万字符的旧历史触发 `context_summary_limit`。现有 TypeScript formatter 在同量级样本中按正文预算生成 12,040 字节预览，含截断标记。独立隔离候选沿 ADR55、56、57、129–131，把旧纯文本限制在同一 UTF-16 预算内，保留两端及截断标记。原 JSONL、已受管 Tool Result 回读和 Cold projector 未改。新增公开反例、原生压缩相关 5 项公开测试和 UTF-16 边界用例已通过，完整摘要输入、聚合限制与 P4 总闸继续验证。
+
 ## 2026-11-18 委派 Shell 空闲期撤权
 
 候选 `b96c71b3` 在模型等待和下一次批准期间仍核对原 Work 所有权、占用和策略。公开回归先启动真实解释器并结清第一条命令，扣住第二个 HTTP 响应后撤权。候选在响应仍被扣住时证实原进程组消失，保留第一条回执，后续命令未产生效果。上一个候选在同例的有界观察中仍存活。macOS 164 项 Runtime 库与两个平台各 5 个公开 Work 场景通过。macOS 首轮有一次 CLI 整体退出等待超时，现场已有停稳回执和空 unknown，保留原日志。相同并发组合随后通过 5 轮，最终 scoped 验证通过。
@@ -431,7 +441,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中。原生模型与工具、用量、压缩恢复、MCP transport/auth、`exec`、`recover --session`、ACP、Skill 和 Hook 已有公开入口验证。固定结果已过双平台 CI。Shell 产物已推送。普通后台 Shell 组合通过本机门禁和解包测试 | 委派 Work 的后台 Shell、持久前台会话，以及当前 CLI 可达工具、Context/压缩、附件和快照生命周期的余下平价；旧版并存停稳、余下 unknown 对账、真实服务与协议异常覆盖和 P4 总闸。Plugin 按已查证的旧 CLI 生产可达范围评估 |
+| P4 | 实施中。原生模型与工具、用量、压缩恢复、MCP transport/auth、`exec`、`recover --session`、ACP、Skill 和 Hook 已有公开入口验证。普通 Shell 及委派 Work 前后台已过本地验证，后者已推送并等待独立全仓 CI | 当前 CLI 可达工具、Context/压缩、附件和快照生命周期的余项，旧版并存停稳、unknown 对账、真实服务与协议异常覆盖及 P4 总闸。Plugin 按实际旧 CLI 生产可达范围评估 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |

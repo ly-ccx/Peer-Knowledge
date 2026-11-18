@@ -1,0 +1,96 @@
+{
+  "base": "99e1e5e312c3565c9a827effcbfd9eadad9dd557",
+  "tree": "937bd33beb2639e8a2eb68c5bd59957c4fd2d553",
+  "combinedPatchSha256": "6a61b4ae616efa6c1a7434480f61787f17effc2981a86087497003bae989d101",
+  "frozenSourceTarSha256": "376a474cc1ee734917b6141e47395f7d2b53585bf5b5f42d1f168fc6cc3f59fb",
+  "implementation": [
+    "Delegated Work reuses the native Shell Provider and Registry. Each original dispatch stores its process and grant before spawn. Starting and Running require the actual owned process facts.",
+    "Model continuation requires a live in-memory owner from the same Work attempt, the original Running observation, the paired Tool Result, and the Evidence registration. The canonical startup marker survives lease loss or a hard exit for reconciliation.",
+    "Targeted and duplicate stop use the original handle in the same execution and stream. Unowned task IDs produce a not-dispatched result; they cannot signal another process. Final Work closure drains all of its handles and preserves unresolved effects.",
+    "Authority polling is paced from the end of each observation so synchronous storage reads do not repeatedly take precedence over ready model I/O. Revocation stops the owning Work while a response is still being withheld."
+  ],
+  "verified": {
+    "macArm64": {
+      "runtimeLibrary": 164,
+      "workProtocol": 3,
+      "publicForeground": 5,
+      "publicBackground": 4,
+      "fmt": true,
+      "strictClippy": true,
+      "architecture": true,
+      "sidecarBoundary": true,
+      "concurrentRepeatCount": 3
+    },
+    "linuxAmd64": {
+      "runtimeLibrary": 163,
+      "workProtocol": 3,
+      "publicForeground": 5,
+      "publicBackground": 4,
+      "exit": 0
+    },
+    "typescriptRustInteropAssertions": 79,
+    "unpackedMacPublicBackground": 4,
+    "macArchiveSha256": "8deef684ac05e72c6c77559a848a08f4af59e8a51b644b56768f4fdf3dc44b44",
+    "macPeerSha256": "7d6a4a431f39a3fbe123f447978369ad1c49d65ef21832fdafbc2c6fc5ccb16d",
+    "macPeerBytes": 25040160,
+    "macLibraryDependencies": [
+      "CoreFoundation",
+      "libiconv",
+      "libSystem"
+    ]
+  },
+  "preservedFailures": {
+    "originalPublicArchive": "1f6b0a55 reported native_background_shell_unsupported for delegated background startup.",
+    "macF519e6e6": "The sixth HTTP request timed out reading request headers in the fixture. The prior five Tool Results were already recorded, including all directed and duplicate stops. The final candidate paces ownership checks after each synchronous observation and passes the original assertions. The failing run alone does not establish the root cause.",
+    "linuxF503589f": "The Native Runtime test needed the synthetic vault-fixture binary at the expected target path. Building that fixture and resolving the isolated Cargo target uncovered no Runtime failure; the failure run is retained."
+  },
+  "predecessorCI": {
+    "run": 44296531703,
+    "merge": "ff9386f6385be253164390637ddb0a72797e0584",
+    "tree": "ff6f7326d331923bcf20a9dcf5361cf3e72f6c0e",
+    "linux": {
+      "job": 134774895985,
+      "conclusion": "success"
+    },
+    "macOS": {
+      "job": 134774895483,
+      "conclusion": "success"
+    },
+    "verified": "Both raw checkout logs name the same PR merge. GitHub commit API reports the exact base head as its second parent and a matching source tree. Both platforms passed Native CLI validation, all tests, Electron smoke and report upload."
+  },
+  "logs": {
+    "delegated-shell-background-public-red.log": "eb043b205220929695f255d51436cc31e147a6bc0663cad95225e90c23168e51",
+    "work-background-mac-f519e6e6.log": "34441a15e7650ab6c38ee8e47ae1ce32ef5872ffc2d26b244bef4dd07d38c654",
+    "work-background-linux-f503589f.log": "72af8d26276e0c3d8d7495823682fd49445699e355d99b5af1fa6ee561bef3c7",
+    "work-background-mac-937bd33b.log": "0e801925eb67ba8808a16eb73db4b4ac7623d3ead193f8e34b80d3c180f01a55",
+    "work-background-linux-937bd33b.log": "16a43f523e8aed6d11390305d1495a8608e8e03675e878a24748e911c7639032",
+    "work-background-package-937bd33b.log": "28ce293e70d18d4f0c46782a3a4044db703e6824ea80305886a19cf1a7be5e41",
+    "work-background-repeat-937bd33b.log": "08b2b457fb842205600c9cc8fbf6cd4015f0fb865d0a689bc305c44300616451"
+  },
+  "limits": "Synthetic service, isolated test homes and unsigned local archive. The candidate has not completed independent whole-repository CI, live installation, P4, or a default-entry migration.",
+  "publishedCommit": "33327fed3ba0264d744435a2e98ffd0ecbc3dfd9",
+  "candidateCI": {
+    "run": 44305158070,
+    "macOSJob": 134804696684,
+    "linuxJob": 134804697181,
+    "status": "in_progress"
+  },
+  "nextCompactionCandidate": {
+    "patchSha256": "552fafe5f70eed57954eb6450838210b66f9126712319abb6b17f62ca57fae70",
+    "typescript": "Actual runtime-core formatter retained latest user and projected 300090 serialized bytes to 12040 summary input bytes with truncation notice.",
+    "baseline": "Featureless packaged Rust CLI returns context_summary_limit for 300000-character earlier assistant reply, preserved actual fixture.",
+    "candidate": "Plain historical user and assistant text receives 12000 UTF-16 units for summary input only, independently preserves both ends and actual original JSONL. Tool Result view is unchanged.",
+    "scopedMac": {
+      "publicCompactionCases": 5,
+      "utf16UnitCases": 1,
+      "clippy": true,
+      "format": true
+    },
+    "logs": {
+      "large-history-summary-public-red.log": "9525ecd859a7245a4e0d8d1719a42b2a9bf0f837d960228ae48c5cf7d4ccaf05",
+      "large-history-summary-focused.log": "a6c3ebb9a0f4abb8d6407e9d69700392a065d5f08964841d6821ac6ab2bad606",
+      "large-history-summary-clippy.log": "da5f790c2e72dab249ff4092fa92311cb66412a085ea04e20357b21aad81ad6b"
+    },
+    "remaining": "Promote only after delegated Shell candidate's independent CI. Remaining Content block and aggregate summary parity, actual providers, mixed installed hosts, P4 overall acceptance."
+  }
+}
