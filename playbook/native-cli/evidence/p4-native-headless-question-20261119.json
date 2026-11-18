@@ -27,7 +27,9 @@
     },
     "linuxAmd64": {
       "publicRegressionsPassed": 3,
-      "scope": "Debug executable in a container with network disabled and the loopback SSE fixture."
+      "scope": "Debug executable in a container with network disabled and the loopback SSE fixture.",
+      "ordinaryConversationTests": 94,
+      "acpTests": 11
     },
     "publicCases": [
       "The allowlisted canonical tool was visible to the model. A later write in the same batch was not prepared or dispatched. An installed matching PreToolUse Hook produced no effect.",
@@ -35,7 +37,29 @@
       "The Goal Runner settled as blocked with request_user_input_unavailable instead of recording a waiting user task or making a later model request.",
       "ACP sent a failed Tool Call update with a readable Evidence reference, ended the prompt and accepted another prompt on the same session."
     ],
-    "formatStrictClippyAndNativeArchitectureChecks": "passed"
+    "formatStrictClippyAndNativeArchitectureChecks": "passed",
+    "macosArm64": {
+      "ordinaryConversationTests": 96,
+      "acpTests": 11
+    },
+    "linuxAmd64ExtractedFeaturelessPackage": {
+      "archiveSha256": "b1042582fc590d10a35e796188808424435613a84cb8adb61b4ee37ee2ad3e9e",
+      "binarySha256": "56802c30976e94e75260855c318398de64aa889706b3116baf834f6d3c8c1fa1",
+      "publicRegressionsPassed": 3
+    },
+    "publicToolInventory": {
+      "modes": [
+        "chat",
+        "plan",
+        "goal"
+      ],
+      "missingLegacyTools": [],
+      "sharedSchemaDifferences": [],
+      "nativeOnly": [
+        "read_tool_result"
+      ],
+      "inventorySha256": "dc7158cef97ee03fda5fb2bc34e3ba1bd1af871fae2602956b2b34dd217d219e"
+    }
   },
   "integration": {
     "pushedBranch": "codex/native-rust-cli",
@@ -50,11 +74,23 @@
     },
     "candidateWholeRepoCiRunId": 44379988625,
     "candidateWholeRepoCi": "in progress at the time of this receipt",
-    "localBroaderCoverage": "Additional macOS ordinary Goal tests reached their local time limits. One large-result retrieval timeout also reproduced with the exact predecessor package. Full local macOS coverage is unverified."
+    "localBroaderCoverage": "An initial macOS ordinary run under concurrent full verification reached five Goal fixture deadlines. The exact predecessor reproduced the large-result deadline. All five cases passed on the extracted package when run one at a time. A subsequent isolated macOS run passed all 96 ordinary and 11 ACP tests.",
+    "candidatePotentialMergeCommit": "c589a5b6cf65f5789aa78ada6fcd48e7df6a1c5d",
+    "candidatePotentialMergeTree": "75fe7df5a1684377da4589005d2e86443f7f9027",
+    "localDesktopSmoke": "The actual all-flags macOS smoke timed out waiting for the version subtitle. The failure capture subsequently showed the correct subtitle. An isolated CI-mode updater-only rerun passed all seven checks with the same Desktop source. Candidate whole-repository CI remains separate.",
+    "localDesktopUpdaterReportSha256": "90924681b6843a0ca4f8e3ec84febd1d5b2350a649bd63ac1326bc7ab075725d"
   },
   "remaining": [
     "P4 whole-repository acceptance and verification against real external services and installed mixed-host recovery",
     "P5 through P7",
     "interactive question delivery through the native product Host"
-  ]
+  ],
+  "followupBaseline": {
+    "entry": "result-cleanup-receipt",
+    "requestKind": "result",
+    "legacy": "Absent receipt returns null; committed receipt matches the SQLite retention result; a foreign parent conversation is denied.",
+    "native": "All three cases return 1 and explicitly identify the missing command.",
+    "persistentDatabaseAndWalBytesStable": true,
+    "rawLogSha256": "ef57d31f2f8a62bb1a525d7ccb22527c2687f53349430ecea4c192ebb7690a62"
+  }
 }
