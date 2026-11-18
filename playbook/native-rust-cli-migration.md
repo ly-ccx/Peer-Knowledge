@@ -10,6 +10,8 @@
 
 已验证两项真实后台任务的定向停止与退出清理、权限拒绝、自然结束和超时、大启动回执归档、实际撤权、真实宿主硬退出及 ACP 断连和同 scope 停止。硬退出保留原启动回执及未知效果。组合树 `cf8fd941` 通过本机原生门禁的 724 项 Rust、314 项公开 Host、637 根/3576 项互读、15 项固定结果及 9 项 PTY。旧 oracle 缺少 Conversation Store 构建产物，补建后在同一源码与原生二进制上重跑故障及后续门禁。arm64 原生包解开后通过 7 项公开场景及实际 ACP SDK 1.4.0 的一次授权启停。委派 Work 后台链路仍待迁移。见[公开后台 Shell 回执](native-cli/evidence/p4-native-background-shell-live-candidate-20261118.json)。
 
+`b1490f69` 的 Linux/macOS 全仓 CI 和各自 Electron smoke 均通过。前述组合原样晋级为 `a69d852a`，独立 CI 44277507175 运行中。见[前驱全仓回执](native-cli/evidence/ci-b1490f69-20261118.json)。
+
 ## 2026-11-18 持久前台 Shell 基线
 
 旧 Node Shell Session 实跑 6 项，覆盖前台多次调用的 `cwd`、环境变量、同会话串行、隔离、排队授权复检、超时重建和空闲进程通过原停稳屏障清理。当前 `b1490f69` 对应 arm64 原生归档公开入口仍在第二次调用读到 `empty workspace`。迁移必须沿原 Tool Call 重新授权每一次写入，保留单个受管进程带来的前台会话状态，并把空闲进程、执行中命令和最终停稳分别记录。
