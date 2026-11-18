@@ -1,8 +1,16 @@
 # 原生 CLI 迁移实施账本
 
 创建时间：2026-11-14
-最后更新：2026-11-18
+最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
+
+## 2026-11-19 原生只读 Explorer
+
+隔离树 `1b807f3e` 完成显式 `request_explorer` 的登记、真实工作回合、权限、Evidence、报告和停稳。Runner 按同一会话/stream 的实际已结算请求和当前计划准入。Explorer 的模型历史与父对话隔离，沿旧 Source 渲染 brief 和约束，工具取只读投影与用户 allowlist 的交集。实际 Git、文件、目录、搜索和批量 lane 都核对作用域，文件内容和枚举使用不跟随符号链接的目录描述符。报告只收本次真实已结算的 Evidence。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+前一个任务更新解包产物在两个入口用例上缺少 `request_explorer`。本次 macOS arm64 与 Linux amd64 各通过 46 项入口回归和 1 项真实 TypeScript Source 对照，两端解包后在 PATH 无 Bun/Node 时各通过 18 项。真实 SIGTERM 和硬退出覆盖已落盘的 Explorer 开始记录，原 worker 停稳后保留失败原因并阻断重放。macOS 解包另执行实际列目录、搜索、批量搜索与文件读取，旧 TUI 冷读得到四条原 Evidence，并从父模型上下文排除 worker 历史，原文件字节保持一致。初次广跑 macOS 大结果用例超时，原断言隔离复跑通过，最终以两测试线程完成同组验证。Linux 初次实际 PTY poll 收到 EINTR，修正重试同一 poll/read，原 15 秒上限和所有断言保留。[Explorer 回执](native-cli/evidence/p4-ordinary-explorer-20261119.json)
+
+`0e54c66f` 的全仓 CI 首轮 Linux 成功，含 Electron 冒烟，实际 checkout `404a8a0c` 与提交同树。macOS 在未分配执行器时取消。已单独重跑 macOS，新 job `134945546695` 已进入 Native CLI scoped validation。任务更新 `b778edec` 仍待前驱全仓结果，Explorer 候选基于该任务更新树。对照复跑中，旧 `exec` 在无显式 Explorer 请求时实际启动自动 inspect 和独立 Explorer，累计 10 次模型请求，保留真实读取报告。此次原生解包完成同一叶子更新，6 次模型请求后退出。普通 Runner 自动 inspect、后续推进、Verifier、派生计划、真实模型与 P4 总闸仍开放。[CI 两轮记录](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
 
 ## 2026-11-18 普通 Goal 任务更新候选
 
