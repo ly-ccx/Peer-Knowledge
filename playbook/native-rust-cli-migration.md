@@ -4,6 +4,12 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 委派 Shell 空闲期撤权
+
+候选 `b96c71b3` 在模型等待和下一次批准期间仍核对原 Work 所有权、占用和策略。公开回归先启动真实解释器并结清第一条命令，扣住第二个 HTTP 响应后撤权。候选在响应仍被扣住时证实原进程组消失，保留第一条回执，后续命令未产生效果。上一个候选在同例的有界观察中仍存活。macOS 164 项 Runtime 库与两个平台各 5 个公开 Work 场景通过。macOS 首轮有一次 CLI 整体退出等待超时，现场已有停稳回执和空 unknown，保留原日志。相同并发组合随后通过 5 轮，最终 scoped 验证通过。
+
+旧实际原生包在公开 Work 入口返回 `native_background_shell_unsupported`。已保留双后台定向停止及结束清理的公开回归用例和 [ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) 契约。后台实现与完整 P4 仍开放。[验证和失败回执](native-cli/evidence/p4-work-shell-revocation-20261118.json)
+
 ## 2026-11-18 委派 Work 持久前台 Shell 与普通 Host CI 修正
 
 `1f6b0a55` 两端全仓 CI 在原生门禁中同一普通 Host 用例失败。实际 checkout `cb66d319` 的树与提交一致。旧用例在 pending 命令中等单次进程记录。修正后的 `99e1e5e3` 先核对实际绑定后的持久句柄和命令已写出的标记，再验证取消、撤权、外来消息与 Grant 变化对原结果、真实停稳、用量和后续独立执行的影响。macOS 164 项与 Linux amd64 163 项 Runtime 库测试通过，已推送，新的[全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 继续核对。
