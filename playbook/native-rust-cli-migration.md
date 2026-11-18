@@ -4,6 +4,12 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 持久前台 Shell 输出归属
+
+`a69d852a` 在 Linux 与 macOS 的全仓 CI 通过。已核对 PR 合并树、原生 CLI 检查、全仓测试和两端 Electron smoke。[全仓回执](native-cli/evidence/ci-a69d852a-20261118.json)
+
+隔离树 `04d6d836` 为每条前台命令保留独立 stdout 和 stderr 通道，后台子进程的迟到字节写回原命令的产物。两个通道分别使用原有配额。读取端须实际观察 EOF 并同步文件，超时和失去拥有者保留不完整状态。进程层区分目录变更和用户命令写入的两个授权挂点。macOS 通过 11 项 Shell、17 项 Store、公开恢复和严格 Clippy。真实迟到输出回归连续通过 16 次。普通 `exec`、ACP 前台派发及 P4 总闸仍待接线与验收。[输出隔离回执](native-cli/evidence/p4-persistent-shell-output-isolation-20261118.json)
+
 ## 2026-11-18 持久前台 Shell 进程与存储
 
 沿 ADR65、116、129–131，隔离树 `d6e75622` 的真实受管 Shell 保留进程、物理 cwd、环境和函数。全双工 Unix socket 传输请求和控制回执，命令看不到控制描述符，伪 PWD 不参与校验。测试覆盖隔离、提权决策变化后的写入拒绝、超时、取消、大输出和原 Registry 回收空闲进程。Store 可分开结算多条有各自 Grant 和 Evidence 的命令，空闲句柄继续由原进程持有，未知命令保持阻断。
