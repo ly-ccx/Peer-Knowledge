@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通工具 Grant、结果与 Evidence 结算
+
+隔离候选通过实际 Node 文件 Provider 和已有 EvidenceIndex 验证普通会话闭环。原 allow Grant 在首个文件变更前与 dispatching 一起持久发布。Rust 在实际效果前独立冷读原授权，结果沿同一 Grant 回填原 Tool Call。EvidenceIndex 耐久登记并按 conversation、stream、tool call、capability 读回后，才清原 pending。真实拒绝不派发；在同一 owner 下关闭准入后，可继续结算已观察结果，原停止状态仍待真实停稳。
+
+注入实际 Evidence 文件打开失败时，正文中的原结果和 pending 都保留。相同结果及时间的重试只补 Evidence 并结算，文件 inode、mtime、ctime 保持一致。外来 Evidence 保留，注入的 unknown 即使有 Grant 和 Evidence 仍阻止新认领。硬退出位于正文结果与 Evidence 提交之间时，Rust 读回原结果并阻断再次认领。macOS arm64 与 Linux amd64 容器各通过 7 项结果场景、7 项正文派发回归和 7 项认领回归。本机另过 157 项定向测试及架构检查。沿 ADR65、116、129、131，复用原消息、授权及 EvidenceIndex。[验收回执](native-cli/evidence/p4-ordinary-tool-outcome-20261119.json)
+
+候选仍在隔离工作树，覆盖实际文件 Provider 与完成/拒绝回执。旧生产入口、其他工具和 Hook/MCP 生命周期、模型用量、停稳与重启后对账需要真实接线。P4 总闸、P5–P7 继续开放。`f3e04723` 全仓 GitHub CI 独立运行。[CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240)
+
 ## 2026-11-19 普通工具消息持久化与兼容性回归
 
 `1657e9bb` 双平台原生专项成功。Linux 与 macOS 全仓 Test 和既有单文件重试均命中同一 Interactive Results 源码指纹断言。隔离同树本机复现，原 4 个指纹覆盖的变化限于 append/update/rewrite 路径的既有 owner 防线。修复候选保留原冻结旧 JSONL 模块的完整指纹和实际执行，重新审核当前四处指纹，并通过真实 Store 验证已有附件在 Native owner 激活时阻断四个外来写入路径、原索引/正文逐字节保留、原停止事实后恢复既有更新，同时老 reader 完整读回冻结选择。macOS arm64 与 Linux amd64 容器各过 15 项。本机全仓 build 后通过 2,155 项 Runtime Node 测试及单独的 Watch 性能回归。测试修复 `f3e04723` 已推送独立全仓 CI。[原 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218) · [修复候选 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240)

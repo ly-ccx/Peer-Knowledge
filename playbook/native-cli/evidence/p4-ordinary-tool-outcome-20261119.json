@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "phase": "P4",
+  "pushedBase": {
+    "commit": "f3e0472336c4563b4b3996bccab42404781d44b0",
+    "ciRun": 44405581240,
+    "ciAtRecording": "in progress on both platforms"
+  },
+  "isolatedCandidate": {
+    "tree": "c70388b3207557d4f58d9353e3fe40e6ca89b454",
+    "status": "isolated, uncommitted and not pushed",
+    "patchSha256": "e3d1019a1e9f40b8b433345e1be8e7e2acf9add6fd0e493d60b4d82dc3088568",
+    "outcomeHarnessSha256": "24fa716f320f64ab126aad14314998a7557eff2972bb6129ae058c0e62af6ddd",
+    "publicationHarnessSha256": "2c3953f28e4e281d64b842b25246f6a7f9c671b13295badab06c369442bb4cab",
+    "previousPublicationTree": "32367d2dfd44993621713bd98ec12d66b669d4ad",
+    "previousFailure": {
+      "reason": "The previous Provider reaches the final file scope check with no owned pre-mutation Grant admission. It reports conversation_execution_busy and does not complete the Tool Call.",
+      "logSha256": "ab39847df7e916f7404c2fb3aa57e371d55362699426de40efd42c4b9b6e88cd"
+    },
+    "macArm64": {
+      "outcomeCasesPassed": 7,
+      "publicationCasesPassed": 7,
+      "claimCasesPassed": 7,
+      "focusedTestsPassed": 157,
+      "architectureCheck": "passed",
+      "outcomeReceiptSha256": "3cc96f7da85ec397642649d8c0e361d522adad021c49537d29d8078baca431f2",
+      "publicationReceiptSha256": "5c70f11fe48718dd3e202968971e94963a4ef771a8bc8222cc02a8e0d308c4f5",
+      "claimReceiptSha256": "8213e10d16eecf5f9f88fa7b071e438648f45cacaf940b126e0fbb8383928106",
+      "focusedTestsLogSha256": "0c943d5d0a96b90ff3d9d3056b43506a7f05a5e3c39832f418a53db328f47cc6"
+    },
+    "linuxAmd64Emulated": {
+      "outcomeCasesPassed": 7,
+      "publicationCasesPassed": 7,
+      "claimCasesPassed": 7,
+      "outcomeReceiptSha256": "ca6d52325d75a86b124ad67e01b835e610f2ddb97c2299b2993bf080b6872766",
+      "publicationReceiptSha256": "8c8aa40831ff3f40aad784c3b41e06c15ef2b3328dfad6e07e0b339b665dfbe5",
+      "claimReceiptSha256": "63da5c6dfcd39fe9bce40c0e08979e5b1f16c2349ff764b53a6daa8ca46288cf",
+      "logSha256": "e8942c6ba2c496ddb2708e3a77394b424d7e341a24aae4e63256704f1d4e54bd"
+    },
+    "outcomeCases": [
+      "The actual Node file Provider's allow Grant is readable with dispatching before the first mutation, matches the returned Grant, and settles only with actual result and matching durable Evidence.",
+      "An actual denied Grant closes the prepared intent without dispatch or a file effect.",
+      "Injected EvidenceIndex append-open failure preserves the actual body result and pending call. Retrying that exact observation under the same live owner settles with no file identity or timestamp change and no effect replay.",
+      "A foreign Evidence origin is retained and prevents settlement.",
+      "An injected unknown observation remains pending even when Grant and Evidence exist.",
+      "Observed facts can settle in stopping. Stop remains unconfirmed and a new claim remains blocked.",
+      "A real SIGKILL between body result and Evidence publication preserves the original result and pending, and Rust rejects a subsequent claim."
+    ],
+    "limits": "Only the ordinary file Provider's live allow/deny, result and Evidence path was wired in an isolated Host. The published migration branch is unchanged. Other Provider and Hook lifetimes, real model usage, production Host integration, installed compatibility, real stop and restart reconciliation, P4 acceptance and P5-P7 remain open."
+  }
+}
