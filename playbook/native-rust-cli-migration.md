@@ -4,6 +4,16 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通会话真实请求用量与原账本
+
+隔离 Host 将已有 TUI 模型适配器的实际 stream attempt 接到普通会话 owner。每次实际流式返回、失败重试或压缩摘要先更新原 `runtimeExecution` 已知用量。原来源并发变化仍保留已观察用量，拒绝后续新模型请求。压缩摘要只累计账单，主请求继续提供真实上下文容量。未返回用量保持 unknown，不写零费用账单。
+
+真实 OpenAI 兼容解码器通过本地 HTTP SSE 夹具自测。同一 stream 两次请求写一条原账本，Rust 使用现有 Store 同身份冷读保持原账本字节。部分用量流后断线的已知量与后续重试合计，unknown 仍保留。注入账本追加失败后沿原 intent 恢复，不重复累加 lifetime 或重复账单。压缩摘要的用量保存失败能穿透结构化压缩回退并阻止下一次请求。沿 ADR25、56、131，原账本、容量来源及权限边界不变。
+
+macOS arm64 与 Linux amd64 容器各通过 6 项用量用例与 21 项已有关闭准入、工具结果、正文及认领回归。本机另通过 149 项 Store、34 项 TUI 模型适配器测试、TUI 类型检查和架构检查。[验收回执](native-cli/evidence/p4-ordinary-model-usage-20261119.json)
+
+接线使用隔离会话的真实适配器和低层 Store，生产入口、资源停稳及重启后对账仍待接通。P4 总闸与 P5–P7 继续开放。
+
 ## 2026-11-19 普通工具 Grant、结果与 Evidence 结算
 
 隔离候选通过实际 Node 文件 Provider 和已有 EvidenceIndex 验证普通会话闭环。原 allow Grant 在首个文件变更前与 dispatching 一起持久发布。Rust 在实际效果前独立冷读原授权，结果沿同一 Grant 回填原 Tool Call。EvidenceIndex 耐久登记并按 conversation、stream、tool call、capability 读回后，才清原 pending。真实拒绝不派发；在同一 owner 下关闭准入后，可继续结算已观察结果，原停止状态仍待真实停稳。
