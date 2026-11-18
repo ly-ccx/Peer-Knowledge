@@ -2,6 +2,8 @@
 
 2026-11-18：ADR131沿ADR118 §17.3/§19、108-cli-basic-shell-commands和ADR129复核原生 `peer result`。原 profile、schema 5、发布回执/索引、真实墓碑与原可携带会话来源仍是事实来源；只读、有界，无新持久格式、模型执行、授权或 Evidence。B级移植前登记，旧实现与原生失败基线保留。
 
+2026-11-18：ADR131按实际旧 CLI 冷读兼容复核原 WAL 与缺少 `-shm`。仅由同一只读 SQLite 恢复已有 WAL 的派生索引，主库/WAL 的版本和内容保全，无执行或写入事实。
+
 2026-11-18：ADR131/76 在 ACP Store 修正前登记目标会话逻辑 sourceRevision 与事务整索引实际代的职责。原真实双会话零模型请求反例保留，禁止用旧索引覆盖其它行。
 
 2026-11-18：ADR131在OS Adapter修复前A登记 macOS PROC_PIDTBSDINFO 微秒 epoch 的 macos-v2 起点、固定安全 libproc seam与旧显示时间记录保全；真实跨TZ活owner误接管反例已保留。未知/旧起点仍活时 Unproven，不伪造死亡/升级或杀进程；五字段schema/授权/Evidence不变，完整验收另记。

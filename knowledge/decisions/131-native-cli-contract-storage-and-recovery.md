@@ -424,6 +424,8 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 
 采用隔离数据上实际 TS/Bun 发布与登记写者、实际旧 CLI 输出和 Rust 正式入口做对照，覆盖三种可用性、原数据不变、owner 变更、重复/损坏/未知数据、待登记与终端控制字符。原 TS 集成基线 12 项通过，现有 featureless 原生包对固定引用明确返回命令不可用。实现和验收另记。
 
+2026-11-18 兼容复核（B，恢复接线前）：使用真实旧写者的隔离 SQLite 状态复现了非空 WAL 与缺少共享内存索引的组合。旧只读入口由 SQLite 重建 `-shm`，会读取 WAL 已提交事实。原生沿同一只读 SQLite 连接处理，保持主库及 WAL 的原身份和内容代，禁止 checkpoint、事务写入与自建数据库，仅允许原 SQLite 为已有 WAL 恢复派生共享内存索引。原 WAL 或文件代变化、索引异常与无法重建均失败，本地原记录保全。正常已有索引的读取仍需验证文件字节不变。使用原路径稳定开关与旧端相同的 SQLite 恢复，不另存数据副本或增加执行能力。
+
 ## 2026-11-17 NR-04 Qoder 本地凭据与目录格式原生化（A，实施前登记）
 
 沿ADR129的Qoder完整迁移范围及本ADR的Provider encoder/credential seam，先替换现有`qoder-local-auth.mjs`依赖官方程序内嵌WASM的本地解封和model-cache算法。最终CLI使用RustCrypto执行相同密码原语，不启动qodercli/Bun/Node，不嵌入WASM VM或捆绑官方SDK二进制；官方模块只在隔离开发夹具中作为互操作oracle。这里不声称Qoder原生请求/认证/队列/工具闭环已经完成，也不能以本Module替代整条Provider验收。
