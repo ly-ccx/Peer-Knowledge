@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 原生导出与真实协议验证
+
+`bd983c54` 的 Linux 与 macOS 全仓 CI 均在原有两项导出断言失败。stdout 交付中断和文件发布后回执失败都错误返回 0。实际 macOS 解包与本机 Linux amd64 复现。`ae6dd9a8` 恢复 `export` 原有退出码 1，发布回执丢失仍保留完整文件并报告 `export_publication_unknown`。后续显式 `--force` 核对当前文件。沿 ADR65、108、129 和 131，授权、Evidence、Store 与恢复边界未变。两平台解包各通过 10 项会话壳和 2 项退出码测试。Linux 首次同树测试有一项停稳等待超时，保留原日志，随后同一测试二进制连续三次通过。新候选全仓 CI 独立运行。[导出和真实协议回执](native-cli/evidence/p4-export-delivery-and-live-protocols-20261119.json) · [新候选 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775)
+
+`bd983c54` 的解包 Rust CLI 借本地真实 Qwen3 推理分别完成 Chat Completions、配置后的 Responses、ACP SDK 加 MCP SDK 的 Streamable HTTP 和 legacy SSE 闭环。测试端无 Bun/Node PATH，真实工具授权与 Evidence 已落盘。Responses 使用合成密钥的加密 Vault。原始 Anthropic 兼容服务 SSE 省略工具起始帧的 `input`，但发送了完整参数增量。冻结字节经实际旧适配器解析成功，原生前驱提前返回 `model_arguments_invalid`。真实云端身份、OS Keychain 与托管服务验收另记。[回执](native-cli/evidence/p4-export-delivery-and-live-protocols-20261119.json)
+
+`ae6dd9a8` 与日常 checkout 的旧 Bun 包在同一隔离数据根并发完成不同会话。旧模型请求仍挂起时，原生完成真实读工具与独立写入，旧会话索引不变，Rust 恢复命令未取得旧会话执行权。旧进程恢复并结算后，双方冷读列表和对方导出，原生已落盘正文未变。此验证覆盖独立会话，已安装旧宿主停稳、同会话所有权及默认切换继续按 ADR131 另验。
+
 ## 2026-11-19 原生会话删除
 
 隔离树 `c3b5f307` 接通 `sessions delete`。非 TTY 要求 `--yes`，真实 TTY 默认取消。明确确认后级联删除目标会话、所属 Goal 与对应侧带。新增持久删除意图通过已登记原子安装的锁身份，在五处硬退出后续接原级联和一次原更改通知。实际旧 CLI 遵守原生持有的共享锁，旧监听器收到同会话一次删除；其它会话和用量原字节保留。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
