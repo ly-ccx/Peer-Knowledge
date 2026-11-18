@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131登记委派 Work 持久 Shell，经原 attempt 与 pending Tool Call 保存解释器和本次许可，原 claim/Registry 停稳，coordination-v2 semantic floor 15 防止旧宿主误写。
+
 2026-11-18：ADR131沿65/116/129登记原生后台 Shell。启动回执、现有 native process/handle、定向停止与最终停稳由同一 Host 持有，前序 Grant、scope、unknown 及其他执行隔离不变。普通 handles 兼容和委派 fence 分别验收。
 
 2026-11-18：ADR131根据公开 `exec` 双后台红例修正同一执行的 pending 准入。只接受原已确认的 Running Shell 启动、完整进程镜像、原 Grant 与 Evidence；其他挂起、未知及跨宿主准入维持保护。

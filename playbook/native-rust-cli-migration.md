@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 委派 Work 持久前台 Shell 与普通 Host CI 修正
+
+`1f6b0a55` 两端全仓 CI 在原生门禁中同一普通 Host 用例失败。实际 checkout `cb66d319` 的树与提交一致。旧用例在 pending 命令中等单次进程记录。修正后的 `99e1e5e3` 先核对实际绑定后的持久句柄和命令已写出的标记，再验证取消、撤权、外来消息与 Grant 变化对原结果、真实停稳、用量和后续独立执行的影响。macOS 164 项与 Linux amd64 163 项 Runtime 库测试通过，已推送，新的[全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 继续核对。
+
+委派候选 `5a4d3b07` 把解释器归原 Work attempt。命令的当前绑定与原 Grant 同一事务提交，现有 claim 和 Registry 拥有停稳责任。实际公开 Work 保留两条命令的解释器 PID、物理目录与环境，并结清各自 dispatch 和 Evidence。真实超时、SIGTERM 和 Host 硬退出均证实进程组消失，原未知调用和 Grant 仍可对账。每端通过 2 项协议与 4 项公开 Work 场景，macOS 另通过 164 项 Runtime 库和严格 Clippy。实际旧版 Native CLI 拒绝新语义版本。已打开的 TypeScript 协调存储在新 Work 发布及发布中断后均拒绝继续读写，65 项互操作断言通过。
+
+本卡的 Work 持久化边界在 [ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) 登记。委派后台、空闲期策略变化、已安装旧宿主停稳和 P4 总闸继续开放。P5 尚未启动。[验收与失败回执](native-cli/evidence/p4-delegated-foreground-shell-20261118.json)
+
 ## 2026-11-18 公开原生持久前台 Shell
 
 `1f6b0a55` 已接通普通 `exec` 和 ACP。每次命令的实际目录及 Git 共享目录复核后，使用本次原 Grant 在真实解释器接收命令前持久绑定 Tool Call、dispatch 与进程代次。公开回归确认同一实际 PID 保留 cwd、环境变量及函数。ACP 两次各自授权，目录在第二次批准等待中被替换时两目录均未收到命令。命令结果保留独立 Evidence，迟到字节只写原调用产物。正常关闭确认实际组不存在。真实 SIGTERM、ACP 断连和 Host 硬退出后的恢复保留已派发但不可证实的命令与实际用量。启动间隙夹具在真实记录 Starting 后、spawn 前退出。沿 ADR65、116、129–131，无新权限或存储边界。

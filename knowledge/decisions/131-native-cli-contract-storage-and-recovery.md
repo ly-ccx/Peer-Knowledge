@@ -442,6 +442,16 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 
 实现复核（B，命令输出归属）。原生进程实测中，前一命令启动的异步子进程在下一命令中输出，第二条回执混入 `previous-job`。控制回执只能证明命令边界，跨调用共享的数据流无法单独证明 stdout/stderr 归属。正式入口必须为每次命令保留专属输出通道和独立配额，迟到的输出只能关联原命令或标明归属未知。异步子进程保留原进程组与关闭责任。继续用真实进程重跑此例后，再接公开前台入口。见[复现回执](../../playbook/native-cli/evidence/p4-persistent-shell-worker-store-candidate-20261118.json)。
 
+### 2026-11-18 NR-04 委派 Work 持久 Shell（A，实施前登记）
+
+沿 ADR65、116、129–131。实际 `1f6b0a55` 原生包经公开 Work 入口执行两次前台 Shell。第二条在工作区根目录读取到 `empty:workspace`，同一 Work 应保留第一条的物理目录和环境。`exec` 和 ACP 已使用共享原生 Shell Provider。委派入口复用解释器、命令帧、输出归档与实际停稳模块，并通过现有 Work Host 绑定原 Goal、Work attempt、lease 和资源占用。
+
+解释器事实随 Work budget 的原 `work_session` attempt 保存在 `nativeShellSession`，复用已有 Shell 进程与当前命令绑定格式。已派发的当前调用在其原 pending 行保存当次 `nativeShellGrant`，沿原 Host 决定，规范化后同命令绑定在一次 canonical Work 变更中提交。命令前核对 Lease、Goal 修订、实际资源范围与许可。每次写入只消费本次当前许可。真实进程组由既有 ExecutionRegistry 持有，资源账本现有 handle 保持独立的占用与停止防线，不授予派发权。完成第一条命令不释放空闲解释器。真实命令结果绑定原调用、dispatch 和 generation 后才清当前命令绑定，原 Grant 与 Evidence 随结果保留。
+
+退出回合先保全 Work 用量和待对账调用，解释器仍归原 attempt。实际停稳后才写 Ended 和释放 handle。硬退出恢复只在完整原 owner、原 attempt、进程启动身份和 OS 观测均匹配时定向清理，Starting 缺少子进程身份时继续阻断。已派发且结果未证实的原调用及 Grant 随 unknown 保留，实际组消失不创建结果。清理和普通停止沿同一 Session Control 和现有 claim。Host 准入和目录复核使用独立有界等待，命令 `timeoutMs` 从准备写入用户命令时开始计算。后台 Work 的独立启动、取消和继续派发验收继续登记。
+
+在首个新事实发布前，把既有 coordination-v2 的 reader/writer semantic floor 提升至 15，让尚未解释该记录的旧宿主在重新打开时拒绝执行。无需改 SQLite 布局或增加日志。恢复和 fork 不得降低这个 floor。未知形态、错配身份与 active 解释器丢失均被拒绝。当前旧宿主读写保护、已打开实例停稳、跨平台和完整总闸分别验收，单条新状态的 shape 测试不替代实际运行或兼容验收。
+
 ### 2026-11-18 NR-04 原生 Shell 产物的有界记录（B，实施前复核）
 
 沿 ADR65、116、129–131 补齐原 `local-shell-artifact://shell_<uuid>` 的产物写入。原路径、三份引用、Grant/Evidence 与已拥有进程组保持。Shell 产物根、日期、独占任务目录及各文件使用原目录 FD 打开和复核，拒绝替代路径、链接或已有任务目录。生成元数据必须在实际 spawn 前写成，失败沿原未派发状态。正文用小块从原进程管道持续读取，最多持久化每流 2,000,000 字节及一次截断标识，预览仍至多每流 64 KiB。超出持久化配额继续有界排空，遵循原超时及实时授权，保留已观察效果和截断事实。正文与终态元数据分别条件写入并同步，不作未经证实的成功回执。
