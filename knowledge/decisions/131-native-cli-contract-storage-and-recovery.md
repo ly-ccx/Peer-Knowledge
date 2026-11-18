@@ -428,6 +428,14 @@ CLI先将脱敏Markdown写入自己拥有的0600临时文件，源检查成功�
 
 2026-11-18 实施复核（A，修正单 pending 准入）：真实原生 `exec` 已观察前一个后台任务实际 Running 和原启动回执，第二个 Tool Call 仍因 `prepare_conversation_tool` 的单 pending 守卫返回 `conversation_execution_busy`。普通 Host 仍只有一条串行工具调用链。该守卫只允许同一 active execution 下已经发布启动事实的后台 Shell 与下一次准备并存。要求原 Dispatching 记录、Running 的完整进程及精确 handle 镜像、原消息/调用/Grant/参数摘要、已提交的启动结果和匹配 Evidence 同时成立。任何 Prepared、未获准、未知、未留 Evidence 或其他种类的待处理工具继续拒绝后续准入。原会话新一轮准入、跨宿主读写和冷恢复保护保持原条件。原 owner 观察真实结束后，终态产物与现有进程记录分别落定，并用同一 Store 事务移除已确认的原挂起调用和已结束的镜像；启动回执和原 Evidence 留存。
 
+### 2026-11-18 NR-04 持久前台 Shell（A，实施前登记）
+
+沿 ADR65、116、129–131 将旧 Shell Session 中同会话的 `cwd`、环境变量和 Shell 状态迁入原生执行。实际旧 Node 套件覆盖同键串行、隔离、每次写入前重新授权、空闲句柄停稳、拒绝不消费 bootstrap 与超时重建。实际 `b1490f69` arm64 归档第二条前台命令仍报告 `empty workspace`。原始对照见[Shell 回执](../../playbook/native-cli/evidence/p4-native-background-shell-live-candidate-20261118.json)。
+
+在同一实际会话执行内，由原生 Provider 持有唯一前台 Shell 进程组并保持原 owner。持久进程与每一次命令效果各自保存事实。普通世代的 Tool Call、Grant、声明 scope、派发和最终 Evidence 仍由原 Host 接线；进入排队和实际写入前用真实当前目录核对，拒绝无写入、无重放、无 bootstrap 损耗。空闲进程仍进入原 live Registry 与既有 canonical handles；每次命令关联当前进程代次及原 Tool Call。命令帧需要绑定本次写入和输出边界，stdout/stderr 分别有界流式归档，截断后继续排空。普通输出、时钟和退出文本不能单独确认命令完成。必要的命令结果观测和进程组停稳都由真实 owned worker 返回。
+
+取消、超时、撤权、写入中断和关闭走原停稳屏障。仅确认实际旧进程组已结束后才能以新世代重建，已写入而无可信终态的原命令继续 unknown。失主恢复须核对旧 owner 死亡、进程组与本机启动代，不自动派发记录。未得到旧宿主兼容证明前，新增记录或语义不对旧读写器开放。普通 exec/ACP/交互共用当前会话装配和 Registry，委派资源继续受旧 claim/语义 fence 保护。接受条件包含真实 cwd/env 跨调用、命令/对话隔离、权限撤销和迟到、丢失帧及大输出、空闲与忙时断连、硬退出冷恢复、旧版互读和原生包执行。
+
 ### 2026-11-18 NR-04 原生 Shell 产物的有界记录（B，实施前复核）
 
 沿 ADR65、116、129–131 补齐原 `local-shell-artifact://shell_<uuid>` 的产物写入。原路径、三份引用、Grant/Evidence 与已拥有进程组保持。Shell 产物根、日期、独占任务目录及各文件使用原目录 FD 打开和复核，拒绝替代路径、链接或已有任务目录。生成元数据必须在实际 spawn 前写成，失败沿原未派发状态。正文用小块从原进程管道持续读取，最多持久化每流 2,000,000 字节及一次截断标识，预览仍至多每流 64 KiB。超出持久化配额继续有界排空，遵循原超时及实时授权，保留已观察效果和截断事实。正文与终态元数据分别条件写入并同步，不作未经证实的成功回执。
