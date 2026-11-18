@@ -10,6 +10,8 @@
 
 真实 CLI 入口在 macOS arm64 与 Linux amd64 容器各过 13 项 ACP，macOS 无测试特性 release 另过 13 项。四个标准 wire 的现有碎片向量及 Qoder Retry 检查通过。SDK 1.4.0 实际连接 macOS release，在允许模型结束前收到第一段，随后只收到第二段，旧包同源对照一致。自测使用隔离数据和回环服务。完整 P4、已部署旧宿主接管、真实编辑器和长时内存继续开放。[验收回执](native-cli/evidence/p4-acp-native-assistant-stream-20261119.json)
 
+同一无测试特性 macOS 产物与原生凭据 Helper 打包，解包后再通过 13 项实际 ACP 入口、SDK 增量和无 Node/Bun PATH 启动。补建隔离工作树缺失的测试 Vault Helper 后，原 OAuth 失败用例、Runtime 全部 169 项及 32 项压缩、计数、Qoder 与取消入口检查通过。SDK 对成功授权写入的旁路对照还记录了工具参数和结果详情的显示差异。旧入口提供 `rawInput` 和 `content`，原生当前提供状态和 Evidence 引用，后续仍需接入有界详情投影。
+
 ## 2026-11-19 ACP 输出断连与跨会话停稳
 
 实际原生 `peer acp` 存在一处半断连缺口。编辑器关闭 stdout 的读取端并保留 stdin 写端时，原候选超过 8 秒仍保留已运行的 Shell 和另一会话的待决审批。隔离候选让现有 stdio 共读点同时观察两端，输出失去读取端便汇入原断连取消和等待路径，缓冲审批帧也重新检查输出连接。修正后真实 Shell 进程组消失，已派发调用保留 outcome_unknown，另一待决写入未发生，两次执行已知用量结算。新 ACP 进程在原第二工作区准入。沿 ADR76、116、129–131，权限、Evidence、恢复和持久契约保持一致。

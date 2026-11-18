@@ -12,6 +12,9 @@
     "featurelessReleaseCases": 13,
     "featurelessReleaseSha256": "add4012d356cfcb902a82f0f971a0fc82e730d02607c066a7aecdcbaa2ab48d4",
     "featurelessTestsLogSha256": "ef164e3fd0cde0f99b4260881de69dbab3441421d093d2bc545ea5b9763e5c52",
+    "isolatedArchiveSha256": "11a832fb4a3e2dbd25ebadb2d7305c80a6d09f29ddb5eaa8ebc1036fe3614271",
+    "extractedCredentialHelperSha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c",
+    "extractedArchiveAcpCases": 13,
     "wireTests": 8,
     "wireLogSha256": "706a95e51650a2347cd1929ace0225570c063620bfb873baf26cf8359434a764"
   },
@@ -27,6 +30,22 @@
     "legacyAndNativeReleaseParityReceiptSha256": "902f725f15f1514d67fa9f6dbe2921cf14f8bf27c5efb9936006d6ea80c9eb9a",
     "firstTextBeforeTerminal": "第一段",
     "lastTextAfterTerminal": "第二段"
+  },
+  "additionalRuntimeVerification": {
+    "baseFailure": "Initial isolated Runtime sweep omitted the expected synthetic Vault helper and failed before the OAuth test sent a request.",
+    "initialLogSha256": "afa7c01058e81373996a3778eaef341b134fae962f2de2e26bcab42332d97b54",
+    "recovery": "Built the existing credential-helper vault-fixture in the isolated target, exposed it at the fixture's expected target path, and reran the unchanged failing test and Runtime sweep.",
+    "runtimePassed": 169,
+    "rerunLogSha256": "c9d54cdc2a2414978c7e14c73f5c03f327696008c764332a8a0b4147ca29d441",
+    "nearbyHostPassed": 32,
+    "nearbyHostLogSha256": "69bc68030b714fbe674feed0310bb95592503adc549528136137bb928d857618"
+  },
+  "nextToolProjectionGap": {
+    "scope": "SDK 1.4.0, one real approved write_file and two model requests per artifact. Both verify the expected workspace file bytes.",
+    "legacyFields": ["rawInput", "content", "completed status"],
+    "nativeFields": ["pending status", "completed status", "canonical Evidence reference"],
+    "harnessSha256": "c3c9249ece930a755410485b91888911b1bfa4c4d390d66f858bcca44431367d",
+    "receiptSha256": "b16c02e530226128319a9afa8cfb08e3b1e2988e9df528e55b09db498538bdc0"
   },
   "verified": [
     "The real public ACP process passes complete and deliberately truncated responses from a controlled HTTP model. The first text arrives before the terminal frame, independently of final persistence.",
