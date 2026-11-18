@@ -1,0 +1,60 @@
+{
+  "candidateTree": "ec99e2c8f72a5b4a8b0b837769ddca466efdb52a",
+  "predecessorCandidateTree": "1b807f3e91e2726c0d29d72faa96a2651e8b7148",
+  "lastPublishedAgentCommit": "0e54c66fd79de9e98be1cb66f036b807713ad168",
+  "patchSha256": "121e1b7dd362592d84ba51a0baabaa8be5a661110a18cc3970e130172f04f3f7",
+  "sourceTarSha256": "0e25d4c88e4026ebf5daa54185cc88389265f7584435ac5f086d4e9c83925901",
+  "contract": {
+    "knowledgeCommit": "8b1bb7f",
+    "decision": "131-native-cli-contract-storage-and-recovery.md",
+    "section": "2026-11-19 NR-04 普通 headless 的自动 inspect（实施前补充）",
+    "related": [
+      "35-mode-scoped-tool-projection.md",
+      "41-rename-goal-mode-to-plan-mode.md",
+      "55-shared-system-context-assembler.md",
+      "65-cli-headless-exec.md",
+      "116-session-control-and-resource-settlement.md",
+      "117-intent-driven-coordination-and-goal-closure.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md"
+    ]
+  },
+  "verification": {
+    "ordinaryConversationTests": {
+      "macArm64": 81,
+      "linuxAmd64": 79
+    },
+    "packagedMacArm64": {
+      "publicGoalTests": 18,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "6265aca4612f9664f2b2bf221552de5c99dc8b330f98b7df1868b7a3c75a62e3",
+      "binarySha256": "2e8e5a68d977eb9ab7ee16462a1730336703cbc5944e7eadd02626670e74aaa9"
+    },
+    "packagedLinuxAmd64": {
+      "publicGoalTests": 18,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "660bdfd7bf4551707673be539e09916741f870bdca42aac7e2933e1c6d181245",
+      "binarySha256": "01f7cee303f06f94743fa2d1f132522b68ec2bb1634d2c120822ba7dd752931a"
+    },
+    "static": ["cargo fmt", "scoped Clippy -D warnings", "native boundaries", "architecture governance"],
+    "publicTwoQuestionBatch": "The two workers each performed a separate actual file read through the ordinary Host. Each report references only its own indexed result. Fake refs and sibling worker history were excluded. Parent task progress and its original completion reference remained unchanged.",
+    "admission": "Waiting approval does not dispatch inspection. A duplicated plan creation in the same turn does not duplicate the inspect batch. An already completed explicit Explorer suppresses the automatic batch. Worker tool admission keeps its permission, projection and workspace fences.",
+    "recovery": "SIGTERM and hard exit while either type of Explorer awaited an actual model response did not replay work. Updating the plan during automatic inspection invalidated the late report and second question. Actual recovery preserved the changed title and first tool result, settled the original worker as interrupted and was idempotent."
+  },
+  "legacyReplay": {
+    "provider": "Local controlled HTTP SSE, same sequence of parent tools",
+    "earlierNativeTree1b807f3e": {"physicalRequests": 6, "explorers": 0, "exitCode": 0},
+    "actualLegacyBunCLI": {"physicalRequests": 10, "runnerModelTicks": 2, "explorers": 1, "exitCode": 6, "exitReason": "no_progress"},
+    "candidateExtractedNativeCLI": {"physicalRequests": 8, "runnerModelTicks": 0, "explorers": 1, "exitCode": 6, "exitReason": "runner_continuation_required"},
+    "actualLegacyScheduleMatch": true,
+    "actualLegacyColdRead": "The existing TS inspect policy produced the same questions, budget and criteria after normalizing the isolated paths and timestamps. The actual old GoalStore read the candidate's schedule and report. The old History projector omitted the Explorer activity from its parent messages. The four canonical files remained byte-identical."
+  },
+  "initialFailures": "Three fixture scripts stopped after the original intake or returned plain text when the new automatic model requests arrived. Extended them with actual scoped reads and reports, kept the original Goal, foreign Evidence and duplicate-creation assertions. The next local run caught an invalid attempt to add unsupported creation inputs to ground two fixtures. Removed those inputs and exercised the actual isolated workers before the final cohort passed.",
+  "ci": {
+    "predecessorRun": 44336850584,
+    "predecessorLinux": "success",
+    "predecessorMacRetry": 134945546695,
+    "candidate": "Validated isolated tree queued after the Goal update and explicit Explorer candidates."
+  },
+  "limits": "The headless candidate dispatches deterministic inspection and reports an unfinished Goal after the worker returns. Runner orient/continue model ticks, Verifier, resumed scheduling of undispatched work, real providers, full P4 exit criteria, installed application drain, P5–P7 and final default cutover remain open."
+}

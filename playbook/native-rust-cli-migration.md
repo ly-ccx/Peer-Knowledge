@@ -4,6 +4,12 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通 Goal 自动 inspect
+
+隔离树 `ec99e2c8` 接通普通原生 `exec` 的确定性 inspect。已结算的本轮 Goal 创建、当前计划与工作区共同准入。按原策略生成最多两个只读问题，经现有 Explorer Host 调用真实模型和工具。落盘问题批次及报告。后继只从前一提交产生的计划版本继续。已批准的工作才可进入派发，已有显式 Explorer 报告跳过自动批次。计划在运行中变化时拒绝迟到报告和过期问题。SIGTERM、硬退出及两次 recover 保留原工具事实和明确的停稳结果。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS arm64 81 项、Linux amd64 79 项普通会话回归通过，两端解包在 PATH 无 Bun/Node 时各通过 18 项公开 Goal 用例。格式、严格 Clippy、依赖边界和架构检查通过。同一受控模型序列经过旧 CLI 和当前 macOS 解包产物，均自动取得一次实际读取，inspect 策略一致。旧 CLI 10 次模型请求，含两个 Runner tick；当前候选 8 次，自动观察后停在 `plan_scaffold`，报告 `runner_continuation_required` 并返回 6。旧 TUI 可冷读计划与证据，父历史排除了 worker 活动，原始文件字节保持一致。前驱 `0e54c66f` 的 Linux 全仓绿，macOS 重跑已通过 Native CLI 步骤并进入全仓 Test；候选沿任务更新、显式 Explorer 顺序待推送。orient / act 的模型续推、Verifier、未派发批次的恢复、真实服务和 P4 总闸仍待验收。[自动 inspect 回执](native-cli/evidence/p4-ordinary-automatic-inspect-20261119.json) · [前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
 ## 2026-11-19 原生只读 Explorer
 
 隔离树 `1b807f3e` 完成显式 `request_explorer` 的登记、真实工作回合、权限、Evidence、报告和停稳。Runner 按同一会话/stream 的实际已结算请求和当前计划准入。Explorer 的模型历史与父对话隔离，沿旧 Source 渲染 brief 和约束，工具取只读投影与用户 allowlist 的交集。实际 Git、文件、目录、搜索和批量 lane 都核对作用域，文件内容和枚举使用不跟随符号链接的目录描述符。报告只收本次真实已结算的 Evidence。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
