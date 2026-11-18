@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 推送停稳候选与双端原子存储准入
+
+`ae6dd9a8` 的 Linux 全仓已通过，macOS 两项进程组停稳测试失败，原失败轮保留。按原验证树将兼容 Anthropic 流、会话写入保护和进程组停稳修复分三个提交推送，分支头为 `1657e9bb`，tree `d37d1e29`。本机同树的 370 项原生场景与 169 项 Runtime 测试通过，覆盖原两项 macOS 停稳测试。原生整套件后续互操作、PTY 与新一轮两端全仓 CI 继续运行。[新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218)
+
+隔离 Store 原型使用 ADR131 的同一份 `runtimeExecution` v1 与原 index→body 锁。真实 Node 和 Rust 子进程在 macOS 与 Linux amd64 容器各通过 7 类用例。双方争抢只允许一个写入，陈旧快照拒绝，另一会话的索引行原字节保留，启动前显式收口后 Rust 可以重新准入。强制关闭原 TS 进程保留原 active 记录，两端继续阻断。首轮 Linux 竞争期间 Rust 开发夹具因初读失稳只返回退出码 2，保留原日志。复测开发夹具仅增加原 Store 失败码输出，Linux fixtures 使用容器本地文件系统。[双端存储回执](native-cli/evidence/p4-atomic-store-admission-20261119.json)
+
+此原型待接入 TS 执行前登记、实际 Provider 派发与结果、账本、停稳和恢复。现行 Rust 与 TS 轮次、真实外部认证及已安装版本的共享执行验收仍开放，未改变默认入口。沿 ADR65、116、129、131，沿用既有协议、权限和 Evidence 边界。
+
 ## 2026-11-19 普通会话准入与进程组停稳
 
 两端实际隔离进程验证了旧 Classic 的生产 controller、persistence 和 Runtime 工厂。旧源码在 Rust 持有同一会话时写入第二份输入并发送模型请求，导致 Rust 因 `CONTEXT_SNAPSHOT_CHANGED` 退出。接入已有共享 `runtimeExecution` 校验后，Classic 在派发前拒绝已知活跃 owner，Store 在原锁内拒绝上下文、正文和流式侧带冲突写入。在同一会话的拒绝后，模型服务只观察到 Rust 的请求，原索引、正文逐字节保留。原宿主正常结算后，显式提交原内容成功。149 项 Store、86 项 CLI 及交互相关用例、类型与架构检查通过。此验证使用生产 Module 和隔离服务，直接 PTY 探针未呈现可操作画面。TS 仍需在同一持久 owner 上原子准入，Desktop 发送、版本升级与默认切换另验。沿 ADR65、108、116、129、131，存储与授权边界未移动。[验收回执](native-cli/evidence/p4-shared-admission-and-process-stop-20261119.json)
