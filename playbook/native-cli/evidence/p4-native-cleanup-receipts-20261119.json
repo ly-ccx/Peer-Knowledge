@@ -29,7 +29,10 @@
       "archiveSha256": "0859f2ba0f19f0599f404aabc0b0a99677369d0dca789eb40014ac7efad81b8d",
       "binarySha256": "68ed0d1971a7439514109bfcc075009cb9f69d8b2f1630957f32bb5dce336cbd",
       "extractedColdWalCasesPerUser": 8,
-      "testedUids": [0, 1000],
+      "testedUids": [
+        0,
+        1000
+      ],
       "storeTests": 15,
       "oracle": "Imported active and retired copies from the actual legacy writer with nonempty WAL and no shared-memory index. Read all three receipt kinds and both fixed-result states in fresh copies. Every before/after database and WAL content hash matched."
     },
@@ -39,8 +42,9 @@
   "integration": {
     "baseWholeRepoCi": 44379988625,
     "baseNativeValidation": "macOS and Linux passed",
-    "baseWholeRepoCiStatusAtReceipt": "in progress, macOS Electron smoke and Linux Test",
-    "candidatePromotion": "Staged and source-archived. The existing branch workflow cancels an earlier run when a new head is pushed. Preserve the live predecessor job until it has a terminal result."
+    "baseWholeRepoCiStatusAtReceipt": "Completed successfully on macOS and Linux; both jobs checked out c589a5b6cf65f5789aa78ada6fcd48e7df6a1c5d with source tree 75fe7df5a1684377da4589005d2e86443f7f9027.",
+    "candidatePromotion": "Included in combined tree 9e643147c38464fa1760cd559f1e368ab12e84ad, pushed as bd983c544c3230a886f92adf33a9694302aab941.",
+    "candidateWholeRepoCi": 44388313785
   },
   "remaining": [
     "Run candidate whole-repository validation",

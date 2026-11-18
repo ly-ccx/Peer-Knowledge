@@ -29,10 +29,21 @@
     },
     "rawPublicShellReplaySha256": "72adc0625ecddd7b67346589e35b2ddfa39866ffe1beeab8b8a14861116ab6f6",
     "rawPublicExecReplaySha256": "61ab16b192795e28c3cebadaaa4ba3db791e85dd92d4f33dc4df9ee9041781f9",
-    "formatStrictClippyAndArchitectureChecks": "passed"
+    "formatStrictClippyAndArchitectureChecks": "passed",
+    "linuxAmd64ExtractedPackage": {
+      "archiveSha256": "2198adac3ce4104840673ed4f61b65cbcb13184abb6e6c2ec75a47e8f1c5830e",
+      "binarySha256": "c9fb1818830328449a6ad57d1f95b8dffbef6ff5ffd2f6c68ffb022b48eb800a",
+      "coldWalCases": 8,
+      "closedStdoutTestGroups": 2
+    }
   },
   "integration": {
     "baseRun": 44379988625,
-    "candidatePromotion": "Stacked after the cleanup receipts and cold WAL patch. Preserve the currently running whole-repository predecessor jobs before a push to the draft PR branch."
+    "candidatePromotion": "Pushed to codex/native-rust-cli after both predecessor jobs succeeded.",
+    "candidateCommit": "bd983c544c3230a886f92adf33a9694302aab941",
+    "candidateWholeRepoCi": 44388313785,
+    "predecessorConclusion": "success on both jobs",
+    "predecessorActualCiMergeCommit": "c589a5b6cf65f5789aa78ada6fcd48e7df6a1c5d",
+    "predecessorActualCiTree": "75fe7df5a1684377da4589005d2e86443f7f9027"
   }
 }
