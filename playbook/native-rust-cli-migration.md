@@ -4,11 +4,17 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 原生 Shell 产物与旧读取器
+
+旧 TUI Host、Provider、会话和任务管理的 48 项基线通过。固定原生 `179fd29a` 的公开入口复现产物别名目录被写入、100,000 字节 stdout 中断命令、后台请求失败和前台跨调用状态未保留。沿 ADR65、116、129–131 先补齐原生 Shell 产物。产物目录与文件的 FD 跨整个调用持有，派发前复核，stdout/stderr 分块持久化，64 KiB 预览与 2,000,000 字节产物上限分别记录，超额后继续排空管道并保留真实退出与截断状态。
+
+独立树 `92cc6275` 通过公开入口、路径替换、实时取消和归档复读，macOS arm64 解包 12 项 Shell 场景通过，旧 TUI 实际读取原生登记的 100,000 字节 stdout。固定结果与本卡的组合树 `f8ae3cb7` 进入原生门禁。持久前台会话、后台启动及其停止仍待迁移。见[Shell 回执](native-cli/evidence/p4-native-shell-artifact-candidate-20261118.json)。
+
 ## 2026-11-18 原生固定结果只读候选
 
 按 108-cli-basic-shell-commands、ADR118 §17.3/§19、ADR129–131，对接 `peer result <interactive-result://…> [--json]`。本机 SQLite 的固定版本、发布索引状态与墓碑，及已导入会话的原 EvidenceIndex、GoalPlan 和唯一完成的 Tool Result 均可形成有界摘要。实际旧 CLI 截断产生的 UTF-16 边界在文本和 JSON 输出中一致。保留 owner 拒绝、待登记、无效/重复/未提交历史等诊断。普通读保持原文件字节不变；缺少 `-shm` 时，SQLite 只读恢复派生索引，已验证主库及非空 WAL 字节不变。该入口不获得执行租约。
 
-独立树 `68d36d26` 通过 15 项 CLI 集成测试、22 项旧版输出对照、严格 Clippy 和 TUI typecheck。组合树 `f2630994` 正在跑本机原生门禁，前驱 `179fd29a` 的独立远端 CI 正在执行。只读命令已实现，完整打包及总闸验收另记。仍在 P4。见[候选回执](native-cli/evidence/p4-native-fixed-result-candidate-20261118.json)。
+独立树 `68d36d26` 通过 15 项 CLI 集成测试、22 项旧版输出对照、严格 Clippy 和 TUI typecheck。组合树 `f2630994` 已过本机原生门禁，712 项 Rust 测试、305 项公开 Host、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后通过 15 项固定结果集成、22 项旧版输出对照、14 项 Hook、4 项图片输入和真实 ACP SDK 1.4.0。前驱 `179fd29a` 的独立 CI 为 Linux 全仓通过，macOS 作业仍运行，候选晋级条件另记。仍在 P4。见[候选回执](native-cli/evidence/p4-native-fixed-result-candidate-20261118.json)。
 
 ## 2026-11-18 原生图片输入与组合验收
 

@@ -17,6 +17,24 @@
     "missingShmRebuild": "Actual legacy SQLite writer fixture with a nonempty WAL. Only SQLite's transient index may be created. Main database and WAL bytes verified identical.",
     "initialFailuresRetained": ["statement not available in previous native package", "cleanup receipt field count", "cold WAL missing SHM", "first combined verifier scratch Electron postinstall not provisioned"]
   },
-  "verificationPending": {"combinedLocalLog": "result-wal-combined-verified.log", "priorWholeRepoRun": 44252160154},
+  "verifiedCombination": {
+    "rustTests": 712, "publicHostTests": 305, "interopRoots": 637, "interopCases": 3576, "ptyTests": 9,
+    "log": "result-wal-combined-verified.log",
+    "logSha256": "15fad3ba12a5d2dfb88d4e72282612d0efc19138e882f22727cb1e49d1080e21",
+    "archive": {
+      "platform": "darwin-arm64", "members": ["peer", "peer-credential-helper"], "size": 9665772,
+      "sha256": "9f962daf3bcf292b2945a69440aa3e5d1e4df161f842176269fa2964491fd50e",
+      "binarySha256": "c03522b461fd8337b6c5928023d7de512160d9c55a3277bb751e612203b6698a",
+      "fixedResult": 15, "legacyOutputs": 22, "publicHooks": 14, "publicImages": 4, "acpSdk": "1.4.0",
+      "logs": {
+        "result-wal-extracted-suite.log": "b242b509f585431da0f886685d5dba744b0f642bec971ef0a7db68e7cd34b4b6",
+        "result-wal-extracted-golden.log": "7183d94633993bdb77093c25ed49ef241160ef7c7f938061013fcc21c8848295",
+        "result-wal-extracted-hook.log": "d6038a3407b4a97c58c19876306aaefcaf978b25e6729db39932c15c3657e67e",
+        "result-wal-extracted-images.log": "3c621ed4f89367cf67a002891fd53b680ca938fe90d87ef217a0b591e3933a63",
+        "result-wal-extracted-sdk.log": "f50f3465141cb55260d13c7c573cf3864261448fd98da3c386c83ce341a6a41f"
+      }
+    }
+  },
+  "remote": {"priorWholeRepoRun": 44252160154, "linux": "success", "macOS": "in_progress"},
   "scope": "Isolated fixtures, no JS in the executed native product path, no model or installed device changes. Fixed result cleanup receipts and P5 publication, verification and delivery remain separately implemented or gated."
 }

@@ -1,0 +1,35 @@
+{
+  "registration": "5ed0dcd",
+  "sourceParent": "179fd29a7062275141e871945d59f626a5241dee",
+  "componentTree": "92cc627577b66fd4742fd12b5e12e4f118c78f9d",
+  "patchSha256": "a290bc1a179f558c89fbc2fdd9f4ba3be3ffaec0a69e6082e812054ba9ade99b",
+  "fixedResultTree": "f2630994fa3013df861b1d619551a3c26097bc95",
+  "combinedTree": "f8ae3cb7d48001711cf458880e2413d6507ec82a",
+  "legacyBaseline": {
+    "tests": 48,
+    "logSha256": "86951651f1a289e41f7a30e53771f54b82278fc8a7f5b3c61a4ebe90a7d5c443"
+  },
+  "nativeMissingBehavior": {
+    "logSha256": "68ef7eae02db6b22217cedd33d0e874fea803278dd33f4ffeacbed934a60ac63",
+    "scenarios": ["artifact alias accepted before dispatch", "100,000 byte stdout unexpectedly stops the command", "background rejected", "working directory and environment lost across calls"]
+  },
+  "localVerification": {
+    "publicRegressionCases": 2, "storeAndRuntimeCases": 3, "strictClippy": "passed",
+    "earlierFailure": "First dual-stream assertion read inline history instead of following the real immutable content reference. Final test reads and validates the archived result."
+  },
+  "archive": {
+    "platform": "darwin-arm64",
+    "members": ["peer", "peer-credential-helper"],
+    "featureless": true,
+    "sha256": "8df5fa6369f789ee79d9dca664e9390a60f719d57fe429e9df9b6d55da643649",
+    "binarySha256": "778562546a2ba8b094f3f52c9e8d4fdb3e635e82711a2e19953b378d7f1d4eb9",
+    "publicShellCases": 12,
+    "logSha256": "a92a9372aa162e19ee7c1da9932aa7dec371763f9a322145ffb8c2e9aef4879f"
+  },
+  "legacyTuiEvidenceReader": {
+    "scope": "Actual TUI opened the registered stdout artifact and preserved the original EvidenceIndex bytes",
+    "shellBytes": 100000,
+    "logSha256": "d7009d57a3bdcce74f991af32a8c9d062c54ed79ec0f88f0753ce586c6eb6984"
+  },
+  "remaining": ["exact combined check shell-result-combined-verified.log", "foreground Shell session persistence", "background shell dispatch, stop and recovery", "P4 total acceptance", "P5 to P7"]
+}
