@@ -34,6 +34,12 @@ Rust 和 TS 对同一 Work pending / uncertain 原记录校验执行身份、Too
 
 验收须经原生 `exec --plan`、真实工作区 lease、持久预算与 Evidence，覆盖来源替换、审批期间撤销、只读模式、取消、硬退出、失去启动身份和下一独立任务。用 TS 冷读、旧写入门禁及重建证明跨宿主保全。
 
+### 2026-11-18 NR-04 委派 Hook 的已观察 Tool Result（A，落盘接线前）
+
+沿上节的 Work/Hook 执行边界。登记原 Tool Call 时，Work 持久记录绑定会话内同一 Tool Call 消息身份和原参数摘要。以既有会话写入及 Work dispatch 为准，原参数只保存在原会话消息。原 Grant 在 Provider 实际派发前保存。原 Provider 的真实返回需要在 Post Hook 能启动前写入该同一调用。有界结构化 Tool Result 使用既有正文外置和原 Evidence 规则。Post 可补写 Hook 观察和停稳信息，不能变更原返回、Grant 或外置正文的对象身份。
+
+恢复仅在原 Work owner 已证明终止且原消息、Work dispatch、工具参数身份和存储版本一致时补写。已观察结束的 Pre 且 Provider 未获准派发，可形成原调用未派发的收口。已有真实 Provider Result 时保留原结果，已观察 Hook 继续回填，未知的独立 Hook 仍保持未解，不能用原工具结果自动关闭其未知外部效果。缺失或冲突的锚点、启动身份缺口及缺少原 Provider Result 的已派发调用继续保守对账。恢复不重跑模型、Hook 或 Provider。
+
 ### 2026-11-18 NR-04 原生 Skill 准入和正文（A，运行时接线前）
 
 依 ADR 16 的现行能力链、ADR 55、58、76、129、130。隔离旧入口证明工作区同名覆盖、禁用过滤和用户显式借用安装链接。旧在制原生入口连已禁用清单也整轮阻断，见 [基线](../../playbook/native-cli/evidence/p4-native-acp-v1-20261118.json)。共享的 Skill 目录、挂载 settings 和正文路径继续按 ADR58 读入；全局安装叶链接保留借用能力，工作区叶链接只准到同一实际工作区，目录根和 SKILL.md 不得以链接换代绕过检查。读取规模、YAML 深度和展开量须有界。无法验证的配置在发送或执行前显式失败。
