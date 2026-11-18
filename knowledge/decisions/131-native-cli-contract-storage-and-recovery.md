@@ -295,6 +295,14 @@ Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budg
 
 模型可见视图输出计划与任务标识、正文、成功标准、审阅和既有终态事实。持久 runner-progress 参与状态和最近修订的复核。原 Goal 索引、正文与 progress 在读取前后核对身份，取消和上限返回明确错误。内部 checkpoint、私有诊断及未知字段不出现在工具结果。保留相同 Conversation 的原生 Tool Result artifact 回读，普通三种模式按原投影规则访问；跨会话、拒绝、过期或损坏的引用走既有失败路径。读工具不能改变计划、激活、授权或 Task 收口事实。验收使用实际旧 Store 创建的计划、公开模型请求、原 Grant/Evidence、会话隔离、损坏、超限和实际大正文回读。
 
+### 2026-11-18 NR-04 普通 Goal 计划创建（实施前复核）
+
+沿 ADR35、41、65、116、129–131 和《Goal Plan 生命周期治理》。实际旧 `exec --mode plan` 持久化 `awaiting_approval`，未批准的任务写入完成被拒绝。迁移真实 `local.goal.create_plan` Manifest，通过普通 Conversation Host 的当前投影和 PermissionGrant 派发；宿主只给当前会话的计划元数据授权。Plan 保留待审批，Chat 沿旧计划状态，显式 Goal 沿已选自驱模式建立目标。计划元数据不授予任何文件、Shell 或其目标目录权限。工具输入只能形成新的 pending 任务、任务依赖及成功条件。计划、任务状态、用户确认、Evidence、执行身份与 runner 不从模型参数采纳。
+
+存储复用旧 Goal 根 index 锁、plan JSON、index JSONL 和变化通知。使用原实际调用 ID 派生新计划身份，以当前 Conversation 绑定。先核对原 index 及同会话 canonical 计划，再在实际首次写入前重查宿主许可。正文、索引按旧顺序提交，已开始持久化后完整观察实际结果。单会话同一未启动计划的重复创建可返回原计划，原任务、权限和 Evidence 保存。不同提案与已有未收口计划冲突时返回明确拒绝，沿原 Session Control/Goal 修订规则处理；不能由 create 抹掉旧执行。派生计划的双向归属改动须走后续同一 Goal 事务，不发布只有单侧链接的计划。
+
+正文已写而索引或变化通知仍未证明时保留原正文和原派发的 unknown。相同调用和相同输入可在旧根锁下核对正文身份、续接索引或通知，原授权仍须当前可用；冷恢复不能以模型猜测补造成功。验收覆盖公开创建回读、旧 TS Store 复读、Plan/Goal 状态、重复请求、同会话冲突、未过审批无工具效果、部分提交及旧数据保全。Goal 变更、派生关系及完整 Runner 另沿已批准能力接通。
+
 ### 2026-11-18 NR-04 压缩摘要输入预算（实施前补充）
 
 沿 ADR55、56、57、129–131。摘要模型使用原 canonical 投影及已核验的受管 Tool Result 视图。旧普通正文、内容块正文、工具参数及上一次 continuity 摘要沿既有 TUI 的 UTF-16 预算做显式预览，保留首尾且不拆 Unicode 字符。旧图片只出现省略说明，原始 URL 或编码字节不进入摘要请求。正常模型请求及保留的当前用户消息沿原 encoder。
