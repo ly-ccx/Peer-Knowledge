@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通显式 Goal 的写入准入
+
+实际旧包按 Goal intake 拒绝无计划的 `write_file`。同样的 `--mode goal --access full` 请求令原生包 `efdaa3b4` 实际写入。按 ADR35、41、55、65、116、129–131 及 ADR131 本日补充，候选 `b6f58fef` 读取现有 canonical Goal、Runner 和索引，核实本会话、同目录的普通就绪计划。在真实派发前再次核对计划和索引，文件或执行状态已变即拒绝。工具仍要求现有真实 Grant。
+
+在旧原生包上新增三项公开回归均失败。新候选在 macOS 和 Linux 各通过 6 项公开入口与既有 Goal 事实互操作，macOS 解包后在 PATH 无 Bun/Node 的环境另通过 5 项入口。无计划时文件、Shell 和对应 PreToolUse Hook 均无派发，原 Tool Call、拒绝 Grant、Tool Result 和 Evidence 保留，读取可以继续。真实 PTY 拒绝能拦下已有计划的写入，等待过程中暂停计划则使随后点击允许的操作也无法派发。普通 chat 和 Work 各有实际通过的回归。当前为已验证候选，Goal 工具和 Explorer 的运行入口仍待接通。[准入回执](native-cli/evidence/p4-ordinary-goal-intake-20261118.json)
+
+叠加长历史压缩和旧设置兼容后的隔离树 `40893514` 在 macOS 再通过 9 项公开入口。三个候选等待前驱全仓 CI，原包和隔离树保留独立身份。
+
 ## 2026-11-18 公开 exec 的 Goal 与 Explorer 基线
 
 用实际旧 Bun 包与隔离原生归档 `efdaa3b4` 分别发送 chat、plan、goal 三种模式的首个请求。共同投影工具的 JSON Schema 相符。旧包仍投影三个 Goal 工具、Explorer 与无头提问，当前原生包尚未投影这些工具。实际无参数 `goal_get_plan` 会读取当前会话并返回空计划列表。普通旧 `request_explorer` 返回请求登记，真正 Explorer 运行仍取决于既有 Goal 执行链。两条受控调用均有原工具结果和 Evidence 引用，并进入第二次请求。原生在一次请求后报告 `tool_not_projected`。旧无头提问在一次请求后终止，无第二次请求或工具结果回传。
