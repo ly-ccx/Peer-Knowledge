@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 Anthropic 兼容流与跨宿主删除保护
+
+真实本地推理的 Anthropic 兼容服务发送了完整工具参数增量，起始块省略 `input`。冻结响应由实际旧 TypeScript decoder 读出原 `read_file` 参数，原生前驱提前拒绝。隔离树 `5bed7c64` 在同一 Rust wire decoder 接受这一既有兼容形态，仅在完整终态和完整有界 JSON 对象都成立时交回工具意图。缺参数、显式 null、起始对象与增量冲突仍失败。按 ADR37、65、129、131，维持模型投影、工具授权、用量和 Evidence 契约。macOS 与 Linux amd64 均通过 34 项模型单测和两组公开 Host 入口套件。macOS 解包产物用真实 Qwen3 加隔离加密 Vault 分别通过 Responses 与 Anthropic 两个回合，均独立确认一次本机工具授权、实际 Evidence 和随机码回传。[兼容流及跨宿主删除回执](native-cli/evidence/p4-anthropic-and-cross-host-delete-20261119.json)
+
+隔离数据根中，正在等待模型的实际 Rust 进程持有原会话 owner。Rust 自身拒绝 `sessions delete --yes`，已安装版本的旧 Bun 包删除了会话和索引，Rust 等到模型响应后以 `NOT_FOUND` 退出。重建的兼容宿主在同一个 Store 锁内读取现有 canonical 执行元数据，经共享 Protocol 校验后拒绝单会话与工作区删除。两端真实公开进程对照时，拒绝前后原索引和正文逐字节相同，原宿主正常结算，随后显式删除成功。停稳、未知或无效状态检查沿 ADR34、108、116、131 既有约定。149 项 Store、8 项旧 CLI、6 项 Desktop service、类型与架构检查通过。此 B 级修复不移动持久化或授权边界。旧已部署的可执行文件、普通同会话写入准入和全量 drain 仍需单独核对。[回执](native-cli/evidence/p4-anthropic-and-cross-host-delete-20261119.json)
+
+组合候选 `7e2b7422` 已从固定源在隔离 worktree 开始原生总套件，等待 `ae6dd9a8` 的独立全仓 CI 后按序推送。P4 总闸继续开放。
+
 ## 2026-11-19 原生导出与真实协议验证
 
 `bd983c54` 的 Linux 与 macOS 全仓 CI 均在原有两项导出断言失败。stdout 交付中断和文件发布后回执失败都错误返回 0。实际 macOS 解包与本机 Linux amd64 复现。`ae6dd9a8` 恢复 `export` 原有退出码 1，发布回执丢失仍保留完整文件并报告 `export_publication_unknown`。后续显式 `--force` 核对当前文件。沿 ADR65、108、129 和 131，授权、Evidence、Store 与恢复边界未变。两平台解包各通过 10 项会话壳和 2 项退出码测试。Linux 首次同树测试有一项停稳等待超时，保留原日志，随后同一测试二进制连续三次通过。新候选全仓 CI 独立运行。[导出和真实协议回执](native-cli/evidence/p4-export-delivery-and-live-protocols-20261119.json) · [新候选 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775)
