@@ -1,0 +1,22 @@
+{
+  "registration": ["dd1473b966dd31ea7090c5dccf2fd36262d90307", "c65f6dd"],
+  "sourceParent": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+  "componentTree": "68d36d26ab9a76461a56b10c514dc98932b617c5",
+  "combinedParent": "179fd29a7062275141e871945d59f626a5241dee",
+  "combinedTree": "f2630994fa3013df861b1d619551a3c26097bc95",
+  "patchSha256": "438e2e635deb655524e73f9fe1eda1784ae9907abea4f849a78235cf04b4f765",
+  "verifiedComponent": {
+    "cliIntegration": {"passed": 15, "log": "result-wal-rebuild-suite.log", "sha256": "4c02d9934546a9063c5d2d06c662af1de3c4de40e996a333e25d569712d54dca"},
+    "legacyOutputs": {"passed": 22, "log": "result-wal-rebuild-golden.log", "sha256": "7183d94633993bdb77093c25ed49ef241160ef7c7f938061013fcc21c8848295"},
+    "clippy": {"exit": 0, "log": "result-wal-clippy.log", "sha256": "b7ea6bb035f2b769aa3ff40af38d059f22f563a2de55ab5d14654e894f58af28"},
+    "tuiTypecheck": {"exit": 0, "log": "result-wal-typecheck.log", "sha256": "ce59e8f7ce7beb0d52cefe196bffc7030c6d07a7457f3a2156accce7af8a460c"}
+  },
+  "compatibility": {
+    "display": ["available", "cleaned", "origin_only", "terminal controls removed", "UTF-16 split surrogate matches in JSON and UTF-8 text"],
+    "normalReadLeavesFilesByteIdentical": true,
+    "missingShmRebuild": "Actual legacy SQLite writer fixture with a nonempty WAL. Only SQLite's transient index may be created. Main database and WAL bytes verified identical.",
+    "initialFailuresRetained": ["statement not available in previous native package", "cleanup receipt field count", "cold WAL missing SHM", "first combined verifier scratch Electron postinstall not provisioned"]
+  },
+  "verificationPending": {"combinedLocalLog": "result-wal-combined-verified.log", "priorWholeRepoRun": 44252160154},
+  "scope": "Isolated fixtures, no JS in the executed native product path, no model or installed device changes. Fixed result cleanup receipts and P5 publication, verification and delivery remain separately implemented or gated."
+}

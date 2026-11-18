@@ -4,6 +4,12 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 原生固定结果只读候选
+
+按 108-cli-basic-shell-commands、ADR118 §17.3/§19、ADR129–131，对接 `peer result <interactive-result://…> [--json]`。本机 SQLite 的固定版本、发布索引状态与墓碑，及已导入会话的原 EvidenceIndex、GoalPlan 和唯一完成的 Tool Result 均可形成有界摘要。实际旧 CLI 截断产生的 UTF-16 边界在文本和 JSON 输出中一致。保留 owner 拒绝、待登记、无效/重复/未提交历史等诊断。普通读保持原文件字节不变；缺少 `-shm` 时，SQLite 只读恢复派生索引，已验证主库及非空 WAL 字节不变。该入口不获得执行租约。
+
+独立树 `68d36d26` 通过 15 项 CLI 集成测试、22 项旧版输出对照、严格 Clippy 和 TUI typecheck。组合树 `f2630994` 正在跑本机原生门禁，前驱 `179fd29a` 的独立远端 CI 正在执行。只读命令已实现，完整打包及总闸验收另记。仍在 P4。见[候选回执](native-cli/evidence/p4-native-fixed-result-candidate-20261118.json)。
+
 ## 2026-11-18 原生图片输入与组合验收
 
 按 ADR55、57、90、129–131，把旧 Composer 的显式本地图片输入接进普通原生 Host。隔离树 `4c1349b7` 新增可重复的 `exec --image <path>`，支持仅图片或配合 argv/stdin 文字。通过实际公开入口验证模型请求和工具续行、源文件与授权/Evidence 保全、空文件/格式不符/特殊文件/远程 URI 拒绝以及总数量和字节预算。旧 TUI 的 Composer 25 项通过。图片包解开后四项公开入口均过，删除隔离原图后，真实旧 TUI 仍能从新会话读回同一图片，原消息字节保持。见 [图片输入回执](native-cli/evidence/p4-native-image-intake-20261118.json)。
