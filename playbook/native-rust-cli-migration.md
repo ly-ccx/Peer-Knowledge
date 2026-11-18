@@ -4,6 +4,12 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 原生会话删除
+
+隔离树 `c3b5f307` 接通 `sessions delete`。非 TTY 要求 `--yes`，真实 TTY 默认取消。明确确认后级联删除目标会话、所属 Goal 与对应侧带。新增持久删除意图通过已登记原子安装的锁身份，在五处硬退出后续接原级联和一次原更改通知。实际旧 CLI 遵守原生持有的共享锁，旧监听器收到同会话一次删除；其它会话和用量原字节保留。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+安装版旧数据的会话/Goal 经新包实际删除并由旧 CLI 冷读。真实活跃宿主与实际写入后的未知结果得到保护。初版缺少旧 `agent_turn` 的 `cancelled_outcome_unknown`，解包反例复现后加上结构化/字符串两种实际表示。最终 macOS 94 项、Linux 92 项普通会话回归，两端各 14 项 Store 单测及 PATH 无 Bun/Node 的解包 29 项 Goal/会话入口通过。严格 Clippy 与架构检查通过。前驱 `0bbb810e` 的 Linux 全仓已过，macOS 第三轮进入 Electron 冒烟。P4 整体验收及后续阶段继续开放。[会话删除回执](native-cli/evidence/p4-native-session-delete-20261119.json) · [前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128/attempts/3)
+
 ## 2026-11-19 普通 Goal 机械验收缺口返修
 
 隔离树 `3b92290e` 接通缺少自动标准检查或叶子 Evidence 的自驱 Goal 返修。Host 在原计划锁下核对现有已登记引用，记录确定性失败原因，并复用同一宿主的原返修额度。人工确认与作用域阻塞仍按原门处理。原公开 Rust 前驱在缺少 `file-exists` 检查时五次请求后退出 6。实际旧 CLI 同一场景七次请求、两次返修后阻塞。新包以真实读取补齐检查，经独立新核验在十次请求后完成。旧 Store 冷读原机械失败、标准证据与新独立核验，五份 canonical 文件字节一致。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) · [验收回执](native-cli/evidence/p4-ordinary-goal-completion-gate-20261119.json)

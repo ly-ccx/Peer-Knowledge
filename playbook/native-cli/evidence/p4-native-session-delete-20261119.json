@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "candidateTree": "c3b5f307756e9f3365587d2f7824a265ab5e86c2",
+  "predecessorTree": "3b92290e75397044581aee5ae641369b26dd1de8",
+  "patchSha256": "a25ed08d615d87492c7c3e5ae00184c5e51a16b037445e79675597e824b0d0a0",
+  "sourceArchiveSha256": "4cdce99bfd5d13b33555791b7ad405a044e9b8012b4871d60e56b2dcd6bc6bfe",
+  "decisionCommit": "87a98ab",
+  "baseline": {
+    "scope": "Actual legacy and extracted native binaries, the same isolated copied conversation and Goal",
+    "legacyHeadlessConfirmationRequiredExit": 2,
+    "legacyExplicitCascadeExit": 0,
+    "predecessorExplicitDeleteUnavailableExit": 1,
+    "focusedRegressionFailedOnPredecessor": true,
+    "intermediateTree": "a71ec7ec9e24a3e47c63e67478a0267b1a3403ee",
+    "intermediateFailure": "The actual unpacked intermediate binary deleted a synthetic legacy agent_turn whose original tool receipt used cancelled_outcome_unknown. The final tree checks that value in both structured and text-encoded legacy receipts and preserves the original files."
+  },
+  "validation": {
+    "macosArm64": {
+      "ordinaryConversationTests": 94,
+      "storeLibraryTests": 14,
+      "publicGoalAndSessionTestsOnExtractedFeaturelessPackage": 29,
+      "archiveSha256": "5e7f3e44da3c4c1d2e4a3b56b3e5881e0f5989098914110dee1d8df7622e15eb",
+      "binarySha256": "bfe052d5950a69a753c04609e6bcb453189f4648db2f16f82b25ba1240f26379"
+    },
+    "linuxAmd64": {
+      "ordinaryConversationTests": 92,
+      "storeLibraryTests": 14,
+      "publicGoalAndSessionTestsOnExtractedFeaturelessPackage": 29,
+      "archiveSha256": "f1540c5c59c576ecd8fa880a459591ffa295485afb5fd920b72c16b7b4371aa4",
+      "binarySha256": "a08ccb4972b36b01c854893116f037a8a5160f05db8992052eb448b021c3531b"
+    },
+    "packagePathWithoutBunOrNode": true,
+    "formatStrictClippyCrateAndArchitectureChecks": "passed",
+    "publicCases": [
+      "non-TTY confirmation required",
+      "actual PTY default cancellation and explicit approval",
+      "only the selected conversation, owned Goal and scoped sidecars deleted",
+      "large runner payload with bounded field projection",
+      "foreign Goal identity or external lock rejected",
+      "active native owner and legacy stream preserved",
+      "native unpaired dispatch and legacy agent_turn unknown outcomes preserved",
+      "five hard exit phases resumed without duplicated notification"
+    ],
+    "crossHost": {
+      "oldRealConversationDeletedByNativePackage": true,
+      "oldBinaryReadsSurvivingIndex": true,
+      "actualOldWriterBlockedByNativeCompatibleLockAfterHardExit": true,
+      "actualOldWatcherReceivedOneScopedDeletion": true,
+      "unrelatedConversationAndUsageBytesPreserved": true
+    }
+  },
+  "predecessorCi": {
+    "commit": "0bbb810e",
+    "runId": 44354720128,
+    "linux": "success",
+    "macosJob": 135021110104,
+    "macosLatestObservedStep": "Bot shell Electron smoke (macOS)"
+  },
+  "remaining": ["ordered promotion after predecessor full CI", "real external service and installed mixed-host settlement", "remaining complete P4 acceptance", "P5 through P7"]
+}
