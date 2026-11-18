@@ -1,0 +1,208 @@
+{
+  "nativeTree": "efdaa3b46f54ad4717955224721bf42bce2366a7",
+  "binarySha256": {
+    "legacy": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+    "native": "8bd855428e3362dd5b43a9e3e70bdf1d8f4c0c933bd6bd4cbe86d76d869eaa6b"
+  },
+  "surface": "Actual previously built Bun TUI CLI and extracted macOS arm64 Rust CLI, each running ordinary peer exec with isolated settings, workspace and loopback OpenAI-compatible SSE.",
+  "projectionModes": {
+    "chat": {
+      "old": [
+        "bash",
+        "batch_search",
+        "edit_file",
+        "git_query",
+        "goal_create_plan",
+        "goal_get_plan",
+        "goal_update_task",
+        "list_files",
+        "read_file",
+        "request_explorer",
+        "request_user_input",
+        "search_files",
+        "shell_stop",
+        "web_fetch",
+        "write_file"
+      ],
+      "native": [
+        "bash",
+        "batch_search",
+        "edit_file",
+        "git_query",
+        "list_files",
+        "read_file",
+        "search_files",
+        "shell_stop",
+        "web_fetch",
+        "write_file"
+      ],
+      "oldOnly": [
+        "goal_create_plan",
+        "goal_get_plan",
+        "goal_update_task",
+        "request_explorer",
+        "request_user_input"
+      ],
+      "nativeOnly": [],
+      "schemaDifferences": []
+    },
+    "plan": {
+      "old": [
+        "batch_search",
+        "git_query",
+        "goal_create_plan",
+        "goal_get_plan",
+        "goal_update_task",
+        "list_files",
+        "read_file",
+        "request_user_input",
+        "search_files",
+        "web_fetch"
+      ],
+      "native": [
+        "batch_search",
+        "git_query",
+        "list_files",
+        "read_file",
+        "search_files",
+        "web_fetch"
+      ],
+      "oldOnly": [
+        "goal_create_plan",
+        "goal_get_plan",
+        "goal_update_task",
+        "request_user_input"
+      ],
+      "nativeOnly": [],
+      "schemaDifferences": []
+    },
+    "goal": {
+      "old": [
+        "bash",
+        "batch_search",
+        "edit_file",
+        "git_query",
+        "goal_create_plan",
+        "goal_get_plan",
+        "goal_update_task",
+        "list_files",
+        "read_file",
+        "request_explorer",
+        "request_user_input",
+        "search_files",
+        "shell_stop",
+        "web_fetch",
+        "write_file"
+      ],
+      "native": [
+        "bash",
+        "batch_search",
+        "edit_file",
+        "git_query",
+        "list_files",
+        "read_file",
+        "read_tool_result",
+        "search_files",
+        "shell_stop",
+        "web_fetch",
+        "write_file"
+      ],
+      "oldOnly": [
+        "goal_create_plan",
+        "goal_get_plan",
+        "goal_update_task",
+        "request_explorer",
+        "request_user_input"
+      ],
+      "nativeOnly": [
+        "read_tool_result"
+      ],
+      "schemaDifferences": []
+    }
+  },
+  "actualChatInvocations": {
+    "legacy-goal_get_plan": {
+      "projected": true,
+      "exit": 0,
+      "modelRequests": 2,
+      "reportedResult": "Fixture done.",
+      "reportedError": null,
+      "toolMessages": [
+        {
+          "status": "success",
+          "output": {
+            "ok": true,
+            "plans": []
+          },
+          "evidenceRefs": [
+            "tool-result://fixture-tool-call"
+          ]
+        }
+      ]
+    },
+    "legacy-request_explorer": {
+      "projected": true,
+      "exit": 0,
+      "modelRequests": 2,
+      "reportedResult": "Fixture done.",
+      "reportedError": null,
+      "toolMessages": [
+        {
+          "status": "success",
+          "output": {
+            "ok": true,
+            "registered": true,
+            "question": "Read-only fixture question",
+            "reason": "",
+            "scope": {
+              "include": [],
+              "exclude": []
+            }
+          },
+          "evidenceRefs": [
+            "tool-result://fixture-tool-call"
+          ]
+        }
+      ]
+    },
+    "legacy-request_user_input": {
+      "projected": true,
+      "exit": 0,
+      "modelRequests": 1,
+      "reportedResult": null,
+      "reportedError": null,
+      "toolMessages": []
+    },
+    "native-goal_get_plan": {
+      "projected": false,
+      "exit": 1,
+      "modelRequests": 1,
+      "reportedResult": null,
+      "reportedError": "tool_not_projected",
+      "toolMessages": []
+    },
+    "native-request_explorer": {
+      "projected": false,
+      "exit": 1,
+      "modelRequests": 1,
+      "reportedResult": null,
+      "reportedError": "tool_not_projected",
+      "toolMessages": []
+    },
+    "native-request_user_input": {
+      "projected": false,
+      "exit": 1,
+      "modelRequests": 1,
+      "reportedResult": null,
+      "reportedError": "tool_not_projected",
+      "toolMessages": []
+    }
+  },
+  "limits": "One explicit empty-plan read, one ordinary Explorer registration, and one headless question per binary. The Explorer result records registration only. No delegated run, Goal mutation, real model, installed-host drain, or total P4 acceptance.",
+  "localEvidenceSha256": {
+    "public-tool-inventory.py": "2d56e93ed84c07186aa41174cda1bcf7ce4a24a911d1b0c2312bf5ec4e088f76",
+    "public-tool-inventory.log": "1ad43e134567585d5690eb828c888559753c6fd1193721b89049ea14cb9660cb",
+    "public-goal-tool-probe.py": "95f499de8159042ce5f64b47093a713d4471083bcc199a42a42a4626358876ff",
+    "public-goal-tool-probe.log": "ec3b1209c7571e933caa6c3ec991520744047ffb6c85f6ee4fd630a3c885c8c7"
+  }
+}

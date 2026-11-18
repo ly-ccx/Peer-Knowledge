@@ -4,17 +4,27 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 公开 exec 的 Goal 与 Explorer 基线
+
+用实际旧 Bun 包与隔离原生归档 `efdaa3b4` 分别发送 chat、plan、goal 三种模式的首个请求。共同投影工具的 JSON Schema 相符。旧包仍投影三个 Goal 工具、Explorer 与无头提问，当前原生包尚未投影这些工具。实际无参数 `goal_get_plan` 会读取当前会话并返回空计划列表。普通旧 `request_explorer` 返回请求登记，真正 Explorer 运行仍取决于既有 Goal 执行链。两条受控调用均有原工具结果和 Evidence 引用，并进入第二次请求。原生在一次请求后报告 `tool_not_projected`。旧无头提问在一次请求后终止，无第二次请求或工具结果回传。
+
+下一次实施沿 ADR35、55、65、116、129–131 和实际 Goal 入口，核对普通无头对话、已有 canonical Goal 与受管运行的区别。基线未执行 Goal 变更、真正 Explorer 子任务或真实模型，也未改变原生投影。候选 Tool Result 回读已在 goal 模式单独出现。[两包实际入口回执](native-cli/evidence/p4-public-tool-inventory-20261118.json)
+
 ## 2026-11-18 委派 Shell 的版本保护验收
 
 `a2717f4a` 的 [CI 44311287210](https://github.com/ly-ccx/Peer-Agent/actions/runs/44311287210) 已终止。Linux 实际 checkout merge `6c32440e`，tree 与原提交一致。748 项 Rust 测试通过，含 324 项公开 Episode。随后旧验收误把 v15 委派 Shell 日志交给旧 TypeScript writer，得到 ADR131 预期的 `coordination_schema_unsupported`，全仓仍失败。macOS 作业未分配到托管执行器，未开始测试。
 
 `80b9807b` 仅修正开发期验收。旧 TypeScript 在真实 Work 前台、后台及恢复样本上拒绝准备、读取和写入。实际 manifest、head、日志及 blob 保持原字节，Rust 冷读核对原 durable head 的修订和哈希。旧格式样本仍执行 TypeScript 写入、Rust 复读，同时保留 Goal、会话和资源检查。macOS 与 Linux 各通过 7 项真实入口和 58 项互操作检查，其中每端有 5 个 v15 样本。macOS 另通过 79 项既有存储检查。沿 ADR65、116、129–131，格式、授权、Evidence 与兼容边界未变。已安装旧进程停稳仍待实际验证。[复现及校验回执](native-cli/evidence/p4-foreground-revocation-ci-20261118.json) · [新候选全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44315691651)
 
+随后精确同树的 macOS 完整原生专项门禁退出 0，覆盖 751 项 Rust 测试（326 项公开 Episode）、645 个数据根的 3,677 项互操作检查（20 个 v15 根）及 9 项真实 PTY。远端全仓仍需核对两端完成结果。
+
 ## 2026-11-18 旧 TUI v3 设置的显式执行
 
 真实旧 TUI 写入主题、语言和访问偏好后，原生包在普通 `exec` 和 Work 均因 `native_capability_inventory_unsupported` 在模型请求前退出。按 ADR55、65、116、129–131 及 ADR131 本日补充，隔离候选 `efdaa3b4` 接收已知主题、Bots 默认与布尔引导标记、语言和访问偏好。普通 `exec --access ask` 实际请求批准并尊重拒绝。Work 仍按 canonical Workspace Policy 拒绝，记录原 Grant 和 Evidence。两处均无文件效果，原设置字节保持一致。Classic、未迁移设置和损坏形态仍按既有错误阻断。
 
 macOS 与 Linux 各通过 4 项 Context 库和 4 项公开入口，30 项实际 TypeScript Source 与原生互操作通过。macOS arm64 解包后在 PATH 无 Bun/Node 环境中通过 8 项设置、压缩和 Shell 公开验证。候选基于隔离压缩树 `512935dd`，两轮源码和产物各有独立身份记录。已安装旧宿主、真实模型与 P4 总闸继续验证。[设置兼容回执](native-cli/evidence/p4-legacy-v3-settings-20261118.json)
+
+合并开发期验收修正后的同一产品源码 `f5bfe986` 再通过 12 项真实入口和 11 个数据根的 78 项互操作检查，包括 5 个 v15 根。
 
 ## 2026-11-18 委派前台 Shell 全仓回归修复
 

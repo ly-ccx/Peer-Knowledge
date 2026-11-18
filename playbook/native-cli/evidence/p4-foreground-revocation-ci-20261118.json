@@ -133,6 +133,20 @@
     "contract": "ADR 131 NR-04 Work Shell. Keep the semantic floor and the current TS storage refusal; preserve the canonical manifest, head, segments and blobs. Retain the two-way TS/Rust round trip for compatible journals.",
     "macArm64": { "nativePublicTests": 7, "conformanceCases": 58, "fencedRoots": 5, "compatibleRoots": 2, "storageCases": 79 },
     "linuxAmd64": { "nativePublicTests": 7, "conformanceCases": 58, "fencedRoots": 5, "compatibleRoots": 2, "node": "25.9.0", "bun": "1.2.17" },
+    "macArm64FullNativeScoped": {
+      "exit": 0,
+      "node": "25.9.0",
+      "bun": "1.2.17",
+      "rustTests": 751,
+      "publicEpisodeTests": 326,
+      "episodeDataRoots": 645,
+      "nativeOnlyEpisodeDataRoots": 20,
+      "episodeConformanceCases": 3677,
+      "ptyCases": 9,
+      "fixturePeerSha256": "41420f66b325c74dc8a36e2119532c4ae9e77bc573c8c2d3556f16678606e51c",
+      "featurelessPeerSha256": "097a531140f32d9c79ed153da298e1125ea4be947611a67dfb1184b96fde2b87",
+      "logSha256": "b27818b6e66fc539c2fc85111345994bc2314253bf39f0658e04882884efdf1a"
+    },
     "checks": "Original validator reproduced the recorded CI error on both platforms. For actual fenced Work, the corrected validator checks old prepare, read and write denial, exact canonical file retention, Rust cold replay with the same durable head, and existing cross-host Goal/history/resource invariants.",
     "logs": {
       "floor15-public-mac-original.log": "187c805422989e5a46a788fecb475f71c8462be672be921c1dafd329b64c5a2e",
