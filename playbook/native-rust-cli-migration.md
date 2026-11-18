@@ -8,7 +8,7 @@
 
 隔离候选沿 ADR55、57、65、116、129、131，把 `bash background:true` 和 `shell_stop` 接入普通原生 Host 和 ACP。模型收到真实已登记的进程启动、原任务 ID 和产物引用。当前权限、进程完成、终态产物和旧启动 Evidence 各自可核对。相同执行的重复停止返回已经结束，其他任务保持活跃。只有带原 Grant、Running 镜像、已提交的启动结果和 Evidence 的后台调用可以与下一串行 Tool Call 并存。模型请求内部的容量、用量和压缩写入通过实际 CAS 前后修订更新后台监督，过期修订仍不能授权。
 
-已验证两项真实后台任务的定向停止与退出清理、权限拒绝、自然结束和超时、大启动回执归档、实际撤权、真实宿主硬退出及 ACP 断连和同 scope 停止。硬退出保留原启动回执及未知效果。组合源正在运行本机门禁。委派 Work 后台链路仍待迁移。见[公开后台 Shell 回执](native-cli/evidence/p4-native-background-shell-live-candidate-20261118.json)。
+已验证两项真实后台任务的定向停止与退出清理、权限拒绝、自然结束和超时、大启动回执归档、实际撤权、真实宿主硬退出及 ACP 断连和同 scope 停止。硬退出保留原启动回执及未知效果。组合树 `cf8fd941` 通过本机原生门禁的 724 项 Rust、314 项公开 Host、637 根/3576 项互读、15 项固定结果及 9 项 PTY。旧 oracle 缺少 Conversation Store 构建产物，补建后在同一源码与原生二进制上重跑故障及后续门禁。arm64 原生包解开后通过 7 项公开场景及实际 ACP SDK 1.4.0 的一次授权启停。委派 Work 后台链路仍待迁移。见[公开后台 Shell 回执](native-cli/evidence/p4-native-background-shell-live-candidate-20261118.json)。
 
 ## 2026-11-18 持久前台 Shell 基线
 
@@ -389,7 +389,7 @@ Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536�
 | 阶段 | 当前事实 | 尚待完成 |
 |---|---|---|
 | P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
-| P4 | 实施中。原生模型与工具、用量、压缩恢复、MCP transport/auth、`exec`、`recover --session`、ACP、Skill 和 Hook 已有公开入口验证。固定结果已推送并等待独立 CI。Shell 产物组合通过隔离门禁 | 公开后台 Shell 启停、持久前台会话，以及当前 CLI 可达工具、Context/压缩、附件和快照生命周期的余下平价；旧版并存停稳、余下 unknown 对账、真实服务与协议异常覆盖和 P4 总闸。Plugin 按已查证的旧 CLI 生产可达范围评估 |
+| P4 | 实施中。原生模型与工具、用量、压缩恢复、MCP transport/auth、`exec`、`recover --session`、ACP、Skill 和 Hook 已有公开入口验证。固定结果已过双平台 CI。Shell 产物已推送。普通后台 Shell 组合通过本机门禁和解包测试 | 委派 Work 的后台 Shell、持久前台会话，以及当前 CLI 可达工具、Context/压缩、附件和快照生命周期的余下平价；旧版并存停稳、余下 unknown 对账、真实服务与协议异常覆盖和 P4 总闸。Plugin 按已查证的旧 CLI 生产可达范围评估 |
 | P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
 | P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
 | P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
