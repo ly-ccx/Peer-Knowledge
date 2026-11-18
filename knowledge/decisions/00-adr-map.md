@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131 登记普通 Goal 查询的会话范围、canonical 计划与 Runner 复核、实际 TS 工具契约及原生 Tool Result 回读。显式 ID 查询收紧到同会话。
+
 2026-11-18：ADR131 复核普通显式 Goal 的文件与 Shell 准入。真实旧包拒绝无计划写入，原生候选实测产生文件效果。以 canonical Goal 及原会话、实际目录核对准入，沿原 Grant、Evidence 和停稳边界收口。
 
 2026-11-18：ADR131补充真实旧 TUI v3 设置的 Native 显式执行读取规则，普通和 Work 继续以各自已有授权真源为准。

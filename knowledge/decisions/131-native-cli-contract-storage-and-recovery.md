@@ -289,6 +289,12 @@ Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budg
 
 在运行 PreToolUse 或请求新批准前核对 Goal 准入。拒绝应保留原 Tool Call、未派发的拒绝 Grant、Tool Result 和 Evidence，交还实际对话。可用计划仍须走已有 Hook、审批、所有权、scope、停稳与结算。原 Goal 文件与索引为只读。后续 Goal 工具、Runner 及交付沿既有边界接线。验收包含真实入口的无计划、错误归属或不再就绪、同目录已接受计划、权限拒绝、计划事实在派发前变化以及普通 chat 的回归。
 
+### 2026-11-18 NR-04 普通 Goal 工具读取（实施前复核）
+
+沿 ADR35、41、55、57、65、116、129–131，迁移实际旧 TUI 在普通 chat、plan、goal 发布的 `local.goal.get_plan`，沿现行 modeScopes 与 `--tools` 交集。无参数列出原会话计划，保留旧客户端对取消状态的列表过滤和旧计划回读。指定 planId 时按原索引和 canonical 计划的 Conversation 归属核对，再返回计划与任务。旧 TUI 的显式 ID 查询缺少会话核对，原生普通 Host 对其他会话和不存在的 ID 返回相同的空结果。查询使用既有 Conversation、Projection、PermissionGrant、Tool Result 和 Evidence。
+
+模型可见视图输出计划与任务标识、正文、成功标准、审阅和既有终态事实。持久 runner-progress 参与状态和最近修订的复核。原 Goal 索引、正文与 progress 在读取前后核对身份，取消和上限返回明确错误。内部 checkpoint、私有诊断及未知字段不出现在工具结果。保留相同 Conversation 的原生 Tool Result artifact 回读，普通三种模式按原投影规则访问；跨会话、拒绝、过期或损坏的引用走既有失败路径。读工具不能改变计划、激活、授权或 Task 收口事实。验收使用实际旧 Store 创建的计划、公开模型请求、原 Grant/Evidence、会话隔离、损坏、超限和实际大正文回读。
+
 ### 2026-11-18 NR-04 压缩摘要输入预算（实施前补充）
 
 沿 ADR55、56、57、129–131。摘要模型使用原 canonical 投影及已核验的受管 Tool Result 视图。旧普通正文、内容块正文、工具参数及上一次 continuity 摘要沿既有 TUI 的 UTF-16 预算做显式预览，保留首尾且不拆 Unicode 字符。旧图片只出现省略说明，原始 URL 或编码字节不进入摘要请求。正常模型请求及保留的当前用户消息沿原 encoder。
