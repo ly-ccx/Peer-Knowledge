@@ -460,3 +460,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-19 NR-04 ADR131 实施前补充：普通 headless 使用已结算的本轮创建与 canonical Goal 版本触发原自动 inspect，同批后继按实际提交版本派发，复用只读 Explorer 与停稳。运行推进、核验和 P4 总闸分别验收。
 
 2026-11-19 NR-04 ADR131 实施前补充：普通 headless Runner 将模型续推、同 stream 任务更新、只读检查及真实停稳绑定到 canonical Goal，沿现有 Source、工具授权与完成门。
+
+2026-11-19 NR-04 ADR131 实施前补充：普通 headless 独立 Verifier 复用只读 Host，真实引用绑定父 Goal 与 stream，报告按来源版本保存，父宿主停稳后复核完成门。ADR93、103 仍持有续接与返修责任。
