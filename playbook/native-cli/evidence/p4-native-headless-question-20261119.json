@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "commit": "afda4134febe996a2916d35973870029c59e4d4b",
+  "candidateTree": "75fe7df5a1684377da4589005d2e86443f7f9027",
+  "predecessorTree": "c3b5f307756e9f3365587d2f7824a265ab5e86c2",
+  "patchSha256": "7e565112c98a30715c0f224a3b9b53c58938c992d49ccebca14efca4fa0a60a8",
+  "sourceArchiveSha256": "75737ee45824b571b3493981ac95e4303e655afc04d36f20d5411426bcf8f39e",
+  "adrs": [
+    "35-mode-scoped-tool-projection.md",
+    "65-cli-headless-exec.md",
+    "76-peer-acp-agent.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "baseline": {
+    "legacyActualBinary": "Both non-TTY and PTY stdin projected the capability, ended after one model request and returned exit 0 with a null JSON result.",
+    "predecessorExtractedNativeBinary": "Both inputs returned exit 1 with tool_not_projected.",
+    "setup": "Controlled loopback SSE, fresh independent data stores, and PATH without Bun or Node."
+  },
+  "validation": {
+    "macosArm64ExtractedFeaturelessPackage": {
+      "archiveSha256": "488c01cc9f7803cab04bc254698a918013841c1a05c7662454d417778db59150",
+      "binarySha256": "1e907173f3d8c61746ddc7773b1c94167f3afc2e3012e9e40ebaba005772a3a6",
+      "publicRegressionsPassed": 3,
+      "legacyAndNativeReplay": "Both physical input types ended after one model request with exit 0 and null JSON result.",
+      "legacyStoreColdRead": "The unmodified JS Store read the original denied Tool Result and not_dispatched Evidence, with the same grant ID in each recovered record."
+    },
+    "linuxAmd64": {
+      "publicRegressionsPassed": 3,
+      "scope": "Debug executable in a container with network disabled and the loopback SSE fixture."
+    },
+    "publicCases": [
+      "The allowlisted canonical tool was visible to the model. A later write in the same batch was not prepared or dispatched. An installed matching PreToolUse Hook produced no effect.",
+      "The ordinary conversation persisted a denied Grant and indexed Evidence before ending the turn. The Store admitted a later run.",
+      "The Goal Runner settled as blocked with request_user_input_unavailable instead of recording a waiting user task or making a later model request.",
+      "ACP sent a failed Tool Call update with a readable Evidence reference, ended the prompt and accepted another prompt on the same session."
+    ],
+    "formatStrictClippyAndNativeArchitectureChecks": "passed"
+  },
+  "integration": {
+    "pushedBranch": "codex/native-rust-cli",
+    "draftPr": 327,
+    "predecessorWholeRepoCi": {
+      "commit": "0bbb810ef2b7f9efa02bb7bf81674e67a3a8f52d",
+      "mergeTree": "b778edecef34e0ff63c346910acd279ca36c3161",
+      "runId": 44354720128,
+      "attempt": 3,
+      "linux": "success",
+      "macos": "cancelled during Bot shell Electron smoke"
+    },
+    "candidateWholeRepoCiRunId": 44379988625,
+    "candidateWholeRepoCi": "in progress at the time of this receipt",
+    "localBroaderCoverage": "Additional macOS ordinary Goal tests reached their local time limits. One large-result retrieval timeout also reproduced with the exact predecessor package. Full local macOS coverage is unverified."
+  },
+  "remaining": [
+    "P4 whole-repository acceptance and verification against real external services and installed mixed-host recovery",
+    "P5 through P7",
+    "interactive question delivery through the native product Host"
+  ]
+}
