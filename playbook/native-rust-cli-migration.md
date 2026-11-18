@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通会话准入与进程组停稳
+
+两端实际隔离进程验证了旧 Classic 的生产 controller、persistence 和 Runtime 工厂。旧源码在 Rust 持有同一会话时写入第二份输入并发送模型请求，导致 Rust 因 `CONTEXT_SNAPSHOT_CHANGED` 退出。接入已有共享 `runtimeExecution` 校验后，Classic 在派发前拒绝已知活跃 owner，Store 在原锁内拒绝上下文、正文和流式侧带冲突写入。在同一会话的拒绝后，模型服务只观察到 Rust 的请求，原索引、正文逐字节保留。原宿主正常结算后，显式提交原内容成功。149 项 Store、86 项 CLI 及交互相关用例、类型与架构检查通过。此验证使用生产 Module 和隔离服务，直接 PTY 探针未呈现可操作画面。TS 仍需在同一持久 owner 上原子准入，Desktop 发送、版本升级与默认切换另验。沿 ADR65、108、116、129、131，存储与授权边界未移动。[验收回执](native-cli/evidence/p4-shared-admission-and-process-stop-20261119.json)
+
+`ae6dd9a8` 的 macOS 全仓作业在两项真实进程组停稳测试失败。Linux 原生专项已通过，记录时余下 Electron 冒烟仍在跑。旧 Linux 解包 CLI 在已经观察到组内真实后代的条件下，先于后代回收返回 `native_execution_stop_unproven`。新候选在原总时限内同时等待 leader 回收与组消失，将 Shell、Git、Hook 的同一观察收敛到进程适配器。隔离容器延迟回收约 600ms 时，新产物证明本机停稳，保留工具效果 unknown 与原已知费用。超过原期限仍明确保留未确认，未重派发。macOS Runtime 169 项与严格 Clippy 通过。当前本机旧树和新树的默认测试线程栈均曾溢出，保留日志，以 8 MiB 测试线程栈复测，生产配置不变。[全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775) · [验收回执](native-cli/evidence/p4-shared-admission-and-process-stop-20261119.json)
+
+前一组合树 `7e2b7422` 的本机全套件有 365 项通过、5 项 Goal 入口失败。同一编译产物在两测试线程重跑原 5 项通过，前一轮仍记失败。当前组合树 `d37d1e29` 已在隔离 worktree 开始验证，P4 保持开放。
+
 ## 2026-11-19 Anthropic 兼容流与跨宿主删除保护
 
 真实本地推理的 Anthropic 兼容服务发送了完整工具参数增量，起始块省略 `input`。冻结响应由实际旧 TypeScript decoder 读出原 `read_file` 参数，原生前驱提前拒绝。隔离树 `5bed7c64` 在同一 Rust wire decoder 接受这一既有兼容形态，仅在完整终态和完整有界 JSON 对象都成立时交回工具意图。缺参数、显式 null、起始对象与增量冲突仍失败。按 ADR37、65、129、131，维持模型投影、工具授权、用量和 Evidence 契约。macOS 与 Linux amd64 均通过 34 项模型单测和两组公开 Host 入口套件。macOS 解包产物用真实 Qwen3 加隔离加密 Vault 分别通过 Responses 与 Anthropic 两个回合，均独立确认一次本机工具授权、实际 Evidence 和随机码回传。[兼容流及跨宿主删除回执](native-cli/evidence/p4-anthropic-and-cross-host-delete-20261119.json)
