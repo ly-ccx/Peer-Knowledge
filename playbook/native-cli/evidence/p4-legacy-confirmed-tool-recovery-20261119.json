@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-19",
+  "scope": "Original legacy tool result and usage reconciliation after a durable stop",
+  "decisions": [25, 65, 116, 129, 131],
+  "source": {
+    "publishedBase": "9febafee710dcbe7b202a1da9de305b35b30e641",
+    "priorStagedTree": "afdf4edf550a933b43af35d34519df1ba0ca4583",
+    "testedTree": "e914b953fdd17910e9eaa9712bddfb144a42fe69",
+    "incrementalPatchSha256": "11ca7f443cfcffebfb6d7205209b465be03a2a8b07f155c1770c3d8ef13fb22f"
+  },
+  "capture": {
+    "legacyTree": "a85709d97f0611bedfc0b58c16a11e4b3c0c9ae0",
+    "legacyCompiledArtifactSha256": "f8297488b13020b877046a57d6d6783d66b44757f82eabab4ce3526c63a53aed",
+    "nativeBeforeSha256": "24996ad9e55dedaa990f3401eb948997f6723c04ad914380f1a53507ea0f6f63",
+    "harnessSha256": "a24f2fe382b6605e925c00d276540c96675c0a4d2fd42762a4d90b830ec43a81",
+    "receiptSha256": "9f425a5a3adf942b946250a6314270a0f2e62905423f0ca206461c26114c6888",
+    "facts": [
+      "During the actual loopback model request, the native predecessor rejected recovery of the active legacy execution and left its index and absent ledger alone.",
+      "A blocked Evidence path made the compiled legacy exec exit 1 after a real authorized write. The tool result, grant, owner stop and 16 tokens were saved. Once the fault was removed, the native predecessor still returned 1 without recording Evidence or changing the index."
+    ]
+  },
+  "verified": [
+    "After the legacy stop, native recovery reuses exact matching committed tool facts, writes one Evidence record and settles the same execution.",
+    "The actual file's inode, size and timestamps and the original committed transcript remain intact. Repeat recovery preserves the index, transcript, Evidence and usage bytes.",
+    "With the result missing or the arguments digest mismatched, recovery retains the unknown and produces no Evidence. The active legacy execution remains unproven before stop.",
+    "A Rust Store conformance process can acquire the same session after repaired settlement."
+  ],
+  "bothWritesInterrupted": {
+    "scope": "Original legacy process could write neither the Evidence index nor the usage ledger. The actual tool result and stop were durable with 16 tokens and usageCommitted false.",
+    "harnessSha256": "098d8abb062a34b1ed480d13b86934cd7a4ec182b64eacbec532f6f10516f130",
+    "capturedSha256": "c010705c305ff0b7291be5f053c16e43933ba9abdaee204464cda3a402147e94",
+    "recoveryReceiptSha256": "d9311fddc755d02369d2c7283a86447fbbbc7405af5ede51063faa17c1102d08",
+    "observed": "One Evidence row and one 16-token ledger row, stable repeat, unchanged original file, subsequent Rust claim."
+  },
+  "checks": {
+    "macDebugRecoveryPassed": 16,
+    "macDebugLogSha256": "f851b94c4a4ced8da6c648196c3bbe42c36defda7b6b83e9322e8a735288a18c",
+    "macFeaturelessRecoveryPassed": 2,
+    "macFeaturelessBinarySha256": "fa6baebd9e94745a0656659e797a973f0116df7329f5aaf2c3b1791f07354121",
+    "macFeaturelessActualLegacyReceiptSha256": "9ab41deb7d531de5a442a47b06ac64f7312e7c0dfea838e5f549368aece45d9b",
+    "macRecoveryAndClaimReceiptSha256": "c575c3dd3afac0c88b07e131ebd477559df65acc0d2f7493473e9e1e4274c1ed",
+    "linuxAmd64RecoveryPassed": 14,
+    "linuxAmd64ActualLegacySnapshotReplay": true,
+    "linuxAmd64LogSha256": "b995f20f00bc41000b30aa0c4614aaadd42b6578379579212c2c7c46947c3a92",
+    "strictClippy": true,
+    "initialRustFixture": {
+      "result": "Rejected because the required usage field was absent in the synthetic v1 record.",
+      "logSha256": "ee9e1d293b7f59b07869ced92568b5af1cd47cfcdfb28e6714a563ff0348b3d9",
+      "correction": "Explicit null for the no-usage fixture, followed by the full recovery test rerun."
+    }
+  },
+  "limits": [
+    "The actual legacy capture used the pre-existing opt-in isolated exec build. Linux replayed that canonical capture with a separately compiled Rust binary.",
+    "Current production and previously installed legacy binaries still require runtime drain and a shared admission gate. Existing unproven executions or unresolved effects cannot be handed over on this evidence.",
+    "Hosted checks for the published predecessor are independent. P4, P5–P7 and production release remain open."
+  ]
+}

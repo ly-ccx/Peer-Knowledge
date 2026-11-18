@@ -4,6 +4,12 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 旧宿主停稳后对账已保存工具结果
+
+隔离旧 `peer exec` 真正写入文件。Evidence 路径被阻断后，旧宿主保留原授权、成功结果、16 token 及原停稳回执。移除故障后，原生前驱仍在同一记录返回 1。组合树 `e914b953` 在验证原 stop 和无句柄后，用原恢复器按消息、stream、调用、能力及参数摘要核对 canonical 结果。补齐 Evidence 后结清 pending，允许新认领。原文件、授权和正文保持原字节。缺少结果或参数不符保留待核对状态。沿 ADR25、65、116、129、131 的既有边界。
+
+实际故障同时阻断 Evidence 与账本时，macOS featureless 候选只为原 stream 登记一条 16 token 账单和一条 Evidence，重复恢复字节一致。macOS 16 项、Linux amd64 容器 14 项恢复回归通过，Linux 独立重放同一真实旧数据。macOS featureless 另通过两项公开恢复及原生 Store 后续认领。旧宿主仍以隔离标记开启；混合安装中的真实停稳、完整旧入口、当前候选独立全仓及 P4 总闸尚待验收。[回执](native-cli/evidence/p4-legacy-confirmed-tool-recovery-20261119.json)
+
 ## 2026-11-19 ACP 工具参数、落盘结果与 Evidence 投影
 
 `64431037` 的 [全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44412174861) 已在 macOS 与 Linux 全部通过，包含各自 Electron 冒烟和报告上传。流式与断连组合树 `39047a4c` 原样提交为 `9febafee` 并推送，[独立 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251) 已运行。
