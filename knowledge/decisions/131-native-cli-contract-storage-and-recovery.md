@@ -281,6 +281,14 @@ Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budg
 
 普通无头执行以本次 `--access` 为准。Work 以已有 workspace Bot Policy、Goal、lease 和实时授权为准。旧 `localAccessLevel` 仅容许共存，不能成为原生授权、fallback 或写入任何 Policy。Native 交互启动和 Project Agent 完整配置留给其后续已约定阶段。含 Classic 切换、未移植的 Project Agent 子项、未知顶层字段、未知 schema 或错误类型仍明确阻断。验收要求实际 TS 保存文件、Native 普通真实 PTY 拒绝、委派策略拒绝、零写效果、原文件字节和真实 Grant/Tool Result/Evidence 不变。
 
+### 2026-11-18 NR-04 普通显式 Goal 的本地写入准入（实施前复核）
+
+沿 ADR35、41、55、65、116、129–131。实际旧 Bun CLI 的 `exec --mode goal` 在没有本会话的就绪计划时拒绝文件写入。隔离原生包 `efdaa3b4` 对相同模型调用授予 Full 并产生文件效果。恢复旧入口的 Goal intake，覆盖普通显式 Goal 的本地文件变更和 Shell 派发。Shell 定向停稳、读操作、普通 chat 和已独立绑定 canonical Work 的入口沿各自既有控制。
+
+宿主以当前 Conversation 与实际工作区查询既有 GoalStore，读取 canonical 计划、Runner 进度及原索引。已接受、已批准或执行中的普通计划才可满足此项准入。draft、等待审批、停止、未知状态、其他会话、其他目录或带委派来源的计划不能提供普通写入准入。旧 TUI 的显示索引可保留宽松的历史状态和 activation 提示，原生执行不从该提示恢复已停止的授权。选中的已核实计划及原索引、正文、Runner 文件身份随当前 Grant 在内存中持有，真实派发前重查。计划变化或已停止，先前的观察失效。工具权限继续由实际宿主在每次 Tool Call 检查。
+
+在运行 PreToolUse 或请求新批准前核对 Goal 准入。拒绝应保留原 Tool Call、未派发的拒绝 Grant、Tool Result 和 Evidence，交还实际对话。可用计划仍须走已有 Hook、审批、所有权、scope、停稳与结算。原 Goal 文件与索引为只读。后续 Goal 工具、Runner 及交付沿既有边界接线。验收包含真实入口的无计划、错误归属或不再就绪、同目录已接受计划、权限拒绝、计划事实在派发前变化以及普通 chat 的回归。
+
 ### 2026-11-18 NR-04 压缩摘要输入预算（实施前补充）
 
 沿 ADR55、56、57、129–131。摘要模型使用原 canonical 投影及已核验的受管 Tool Result 视图。旧普通正文、内容块正文、工具参数及上一次 continuity 摘要沿既有 TUI 的 UTF-16 预算做显式预览，保留首尾且不拆 Unicode 字符。旧图片只出现省略说明，原始 URL 或编码字节不进入摘要请求。正常模型请求及保留的当前用户消息沿原 encoder。
