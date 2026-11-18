@@ -4,6 +4,16 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通会话排空与已停稳旧宿主补账
+
+隔离 Host 候选关闭新认知与工具准入，持久化 fence 后取消实际本地 SSE reader 和仍在等待的文件 Provider。等待截止仍有文件操作时保留原 owner 和 stopping，原调用结束并登记真实 Evidence 后才可停稳和新认领。SSE 停止过程中已收到的用量保留。未纳入受管生命周期的旧执行不产生停稳证明；本卡实际范围为模型与文件写入路径，Shell/MCP/Hook 仍需各自的资源观察接线。
+
+在已证实本地停稳后，账本追加失败保留原回执及未结用量。公有 Rust `recover --session` 在 PATH 无 Bun/Node 时，经原排他 recovery guard 对账。旧 Rust 二进制面对同一数据拒绝且原文件不变，新候选只补原流一条账单，重复执行原字节不变，未知调用不退役。沿 ADR116、129、131，新增 Rust 接线只接受已有原 stop 且无活句柄的旧执行，运行中或缺证明的旧 owner 仍阻断。macOS 与 Linux amd64 容器各过 6 项实际停稳/补账及 27 项既有回归，本机另过 149 项 Store 测试。[验收回执](native-cli/evidence/p4-ordinary-stop-and-recovery-20261119.json)
+
+`f3e04723` Linux 全仓成功。macOS 在原生专项 370 项 CLI 场景通过后，Runtime 单测 168/169，Git 取消实际组时返回 `git_query_stop_unconfirmed`。同 Rust 源本机原用例定向 6 次通过，CI 失败保留。已推 `23e9880b` 的原生补账和 `64431037` 的失败组成员诊断，原断言和期限保留，反馈源未改。原生恢复定向 15 项及诊断用例通过。[原 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240) · [新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44412174861)
+
+隔离的旧 Host 生命周期仍待生产入口接线。无停稳回执的旧宿主崩溃、实际混合安装、完整受管资源和 P4 总闸开放，P5–P7 继续开放。
+
 ## 2026-11-19 普通会话真实请求用量与原账本
 
 隔离 Host 将已有 TUI 模型适配器的实际 stream attempt 接到普通会话 owner。每次实际流式返回、失败重试或压缩摘要先更新原 `runtimeExecution` 已知用量。原来源并发变化仍保留已观察用量，拒绝后续新模型请求。压缩摘要只累计账单，主请求继续提供真实上下文容量。未返回用量保持 unknown，不写零费用账单。

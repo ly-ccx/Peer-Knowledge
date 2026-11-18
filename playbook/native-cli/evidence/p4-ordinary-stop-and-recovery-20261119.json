@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "phase": "P4",
+  "previousWholeRepoCI": {
+    "commit": "f3e0472336c4563b4b3996bccab42404781d44b0",
+    "run": 44405581240,
+    "linuxFull": "success",
+    "macOS": {
+      "conclusion": "failure",
+      "nativeEpisodePassed": 370,
+      "runtimeUnitPassed": 168,
+      "failure": "Git cancellation returned git_query_stop_unconfirmed, ended=false.",
+      "logSha256": "02dbbc2cf25356014e21aba3a5d061ebf1927a8615299e901c3894b19a793994",
+      "originalLocalIsolatedRepeatsPassed": 6,
+      "localRepeatsLogSha256": "ed28bbaab8f99448f43f49c22f6f3178fc10d616a90e1fc9e144e159e35e180e"
+    }
+  },
+  "pushedNative": {
+    "recoveryCommit": "23e9880b",
+    "headWithDiagnostics": "644310378eaeb5ae66ab8d28a0088fd387a9628a",
+    "tree": "019201c7bc1443516fb87d8e31a3f3a42b9387c1",
+    "ciRun": 44412174861,
+    "macRecoveryTestsPassed": 15,
+    "localNativeRecoveryLogSha256": "2527bf58ac4d51dd81d9ade402d41f4d7d8fef7b9086eb028c40f73c5c8114b4",
+    "gitDiagnosticTest": "passed",
+    "diagnosticLogSha256": "8158e848e3331f5aa4610a2442efc222f68393f90952f52bdd5635a92aafcad7",
+    "scope": "Only an original validated peer-ts stop with no process/handle obligations admits reuse of the existing billing recovery. It never clears unknown effects, probes the legacy owner PID, dispatches work, or updates Goal state. Test diagnostics emit signal-zero status and bounded group membership on failure, keeping the original deadline and assertion."
+  },
+  "isolatedHostCandidate": {
+    "tree": "3ec7b802a2a489a2f234b82a27180b837d0db29f",
+    "previousTree": "0a0034aad7767d69d6624d934b59c3ce537ee54f",
+    "patchSha256": "da81eae0477eec6ed5a49b35cfa541c70f3e802a084bcd990f244de0a05fd3c8",
+    "harnessSha256": "f156c4b1cdda5964583ce12530a88efff34491187fe27794d8b2b7c53477188c",
+    "baselineLogSha256": "87b8dfd3400ca61abe0d7f1f3e3973a5080f826f36bcfae424a4bd634e6b9835",
+    "macArm64": {
+      "stopPassed": 6,
+      "priorRegressionsPassed": 27,
+      "storeTestsPassed": 149,
+      "architecture": "passed",
+      "receiptSha256": "d07037df9ecadee0975332255b90ff788714695baf1ce52b7595467ae68872bf",
+      "oldRustBinary": "On the identical partial-commit stopped legacy record, the previous CLI refused and retained the bytes verbatim."
+    },
+    "linuxAmd64Emulated": {
+      "stopPassed": 6,
+      "priorRegressionsPassed": 27,
+      "receiptSha256": "c071cb2538e3fa833ab440d82e24cde239254533932f222ba3ef2bd535f28af9",
+      "logSha256": "09aeb9eefc734b12bc8eda711451e146588979b4040f0013cb2ed6c79c2cf53a"
+    },
+    "scope": "The live legacy Host functions were tested in isolation using the real TUI SSE Provider adapter and the real awaited file mutation Provider. Evidence includes a held write after drain expiry, actual SSE cancellation, locally proved stop with missing Evidence and unknown effect, rejection of untracked ownership and unsupported Shell lifecycle, and public featureless Rust recovery of the original usage after an actual append failure with no Node/Bun in PATH. The legacy Host assembly, other resource lifetimes, old owners lacking a stop and final migration acceptance remain open."
+  }
+}
