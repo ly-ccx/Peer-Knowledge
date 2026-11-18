@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通 Goal 核验返修
+
+隔离树 `436c59e9` 将当前独立失败核验接到同一自驱 Goal 的真实返修。原计划、Conversation、stream、标准修订和实际引用仍需重新核对。两次上限只限制返修次数。返修与独立核验累计消耗用户显式回合预算。返修结束以实际叶子状态重新进入独立核验；Hook 拒绝、人工门、取消、过期引用和未知派发均不派生后续动作。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS 87 项、Linux 85 项普通会话测试通过，两端正式解包候选在 PATH 无 Bun/Node 时各通过 24 项 Goal 入口用例。真实 HTTP 受控差分中，旧 CLI 三次核验、两次返修后阻塞；原生前驱一次核验便阻塞。新候选在同一计划做了一次有授权的实际写入，再由新 Verifier 用独立读取及新修订完成。旧 Store 冷读两次核验与当前语义判断，五份 canonical 文件字节一致。隔离故障夹具让返修写入在 Tool Result 落盘前退出，两次 recover 保留相同 unknown 与原停稳证据，没有重派发。[返修回执](native-cli/evidence/p4-ordinary-goal-repair-20261119.json)
+
+已推送前驱 `0bbb810e` 的 Linux 全仓通过，实际 checkout 与原提交同树。macOS 两轮未取得托管执行器，零步骤。第三轮取得执行器并进入 Setup Rust。后续候选待前驱全仓 CI。单请求报告格式续接、结构性闸门后续处置、真实模型及 P4 总闸仍待验收。[CI 第三轮](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128/attempts/3)
+
 ## 2026-11-19 普通 Goal 语义评审
 
 隔离树 `3a0ead02` 补齐普通 Goal 的 `model_review`。实际旧 CLI 接受此标准，前一个 Rust 解包产物拒绝创建。模型可用真实任务 Evidence 结算叶子。若用同一引用提交语义自评，任务工具会拒绝。独立 Verifier 实际读取后，按原 `modelReviews` 保存每项标准的判断、来源修订、Verifier ID 和真实引用。通过与失败均以来源绑定的判断落盘，失败保持 Goal 开放。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
