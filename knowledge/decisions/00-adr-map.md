@@ -32,6 +32,8 @@
 
 2026-11-17：ADR131批量搜索B复核保留真实Grant与失败结果分离；undeclared硬退出继续保守保护原命名空间，同范围后续任务仍阻断、独立目录另验，不放宽unknown恢复。
 
+2026-11-18：ADR131登记原生用户本地图片输入，沿原用户消息、模型预算与明确选择边界，新增显式 `exec --image`，不投影模型侧图片读取工具。
+
 2026-11-17：ADR131实施前校正CLI实际可达集（view_image仅Desktop装配，图片附件仍须迁移），并登记既有batch_search原生Adapter、有界lane调度/partial/控制取消与同一Grant/Evidence链。
 
 2026-11-17：ADR131附件接线前补充分离事实上下文8MiB序列化预算与固定1MiB权限/控制摘要预算；JS算法及授权不变。纯图片预检在ready→started之前，实际请求仍重检，不清旧control/unknown。
