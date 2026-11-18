@@ -31,5 +31,30 @@
     "shellBytes": 100000,
     "logSha256": "d7009d57a3bdcce74f991af32a8c9d062c54ed79ec0f88f0753ce586c6eb6984"
   },
-  "remaining": ["exact combined check shell-result-combined-verified.log", "foreground Shell session persistence", "background shell dispatch, stop and recovery", "P4 total acceptance", "P5 to P7"]
+  "verifiedCombination": {
+    "rustTests": 715,
+    "publicHostTests": 307,
+    "interopRoots": 637,
+    "interopCases": 3576,
+    "ptyTests": 9,
+    "log": "shell-result-combined-verified.log",
+    "logSha256": "a63dddd1e4af3ecccf9478d4457d6544a67ec06f77b5e41d0b53db471f13be8c",
+    "archive": {
+      "size": 9704867,
+      "sha256": "049b0cc0c904ff729361c29e137b76340e8a9cb5b7719c13ec4bc4f5fa271d",
+      "binarySha256": "810a73d8d8b540fc97e1aa373b589be21245930519df6bc7cddca90299a82f07",
+      "fixedResult": 15,
+      "legacyOutputs": 22,
+      "publicShellCases": 12,
+      "acpSdk": "1.4.0",
+      "logs": {
+        "shell-result-extracted-results.log": "e4bf6a9c8838bc99cf9ab8e7a6bd1e3531fda069634526624d7800795d9f9f03",
+        "shell-result-extracted-oracles.log": "7183d94633993bdb77093c25ed49ef241160ef7c7f938061013fcc21c8848295",
+        "shell-result-extracted-shell.log": "7dc832e93eeeafd9d9307b612de55ed0bd3fd2a3d9be898e0feef5367762ccba",
+        "shell-result-extracted-sdk.log": "0c61b724b41c4757839d21de0524591740fc8536cc8ea0c7cada04de6c03e7a4"
+      }
+    },
+    "promotionGate": {"commit": "b20401000e5cd2110b7c127c778fd56e5994a566", "run": 44260971378}
+  },
+  "remaining": ["predecessor whole-repository CI and combination promotion", "foreground Shell session persistence", "public background shell dispatch and stop", "P4 total acceptance", "P5 to P7"]
 }
