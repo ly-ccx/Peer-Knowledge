@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-18",
+  "phase": "P4 / NR-04",
+  "base": "b2e09fead526def16f84ff669307aa77167df835",
+  "tree": "f169eae0906d349251829b8448206c1acf34845b",
+  "governance": "A-level runtime Skill admission and content: ADR131 update 9a8e1e9, ADR16 (current portion), ADR55, ADR58, ADR76, ADR129, ADR130.",
+  "scope": "Native Skill discovery, selected workspace override, bounded frontmatter, runtime manifest and explicit projection, selected immutable package read, existing scoped PermissionGrant, Evidence and selected result in tool messages; ordinary exec, ACP and delegated Goal Native Host.",
+  "tests": {
+    "publicSelected": 7,
+    "run": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-complete-scoped.log",
+      "sha256": "7571e26e7f36477a852ecd8c41b712b3de2ac031315db6837544006702d76206"
+    },
+    "allTargetsWarningsDenied": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-complete-clippy.log",
+      "sha256": "0708019debe5091fcc8935fb6e42aa2615bacf2c8e43c7bb4bcea3f026a8e526"
+    },
+    "actualTsProjectionAndColdRead": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-ts-oracle.log",
+      "sha256": "5d8a178f14a8e8d280b09e05f32322ed1c3048e14757b79a61b48dcb2312ebe6"
+    },
+    "fullNativeStatus": "in_progress"
+  },
+  "observations": [
+    {
+      "baseline": "Legacy workspace scope, disabled mounts and installed borrow link",
+      "logs": [
+        {
+          "path": "${RAW_EVIDENCE_ROOT}/skill-discovery-baseline.log",
+          "sha256": "016c7134c199a5ebc2244f07aef07dcc5944f881166f82f85899c31975504ff0"
+        },
+        {
+          "path": "${RAW_EVIDENCE_ROOT}/skill-disabled-baseline.log",
+          "sha256": "4f4585300420097a7277be28aeafd35b94d7f5b148c91fb1665cd7248c9ab6ce"
+        },
+        {
+          "path": "${RAW_EVIDENCE_ROOT}/skill-link-baseline.log",
+          "sha256": "4560877dffe03e6d65934c14263498fe75a323ba4bd0357fbdcbdf2e8f1ae592"
+        }
+      ]
+    },
+    {
+      "validationCorrection": "Read a tail range confirmed reaching the end; complete means the entire observation from offset zero. JSON exec puts normalized Runtime errors in stdout. The earlier scope assertions are preserved.",
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/skill-actual-hosts.log",
+        "sha256": "7305a04589868a12f87539f46ac793361402206bd48bb2078a42e255664e4560"
+      }
+    },
+    {
+      "nextHookBaseline": "Actual configured TS Hook denied a real local call with no file effect. Same configured workspace blocks Rust before use. Legacy immediate exit exposed an EPIPE on child stdin; consuming fixture input validated the original decision behavior.",
+      "logs": [
+        {
+          "path": "${RAW_EVIDENCE_ROOT}/hook-legacy-stdin-epipe.log",
+          "sha256": "20dc0ee99b3b7846fa5b6b071c3f0552642661503100b62e2941eda116e1fa57"
+        },
+        {
+          "path": "${RAW_EVIDENCE_ROOT}/hook-runtime-baseline.log",
+          "sha256": "05a517510f773d576843bea53cc4e64f89e1c481c4bed86f2f242674171cc203"
+        }
+      ]
+    }
+  ],
+  "package": {
+    "platform": "darwin-arm64",
+    "featureless": true,
+    "binary": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-runtime-package/extracted/peer-darwin-arm64/peer",
+      "sha256": "8f2ee162d5601fa01faa38371fe58b99f7b040a2d80c261650d80e3030cd00e1"
+    },
+    "archive": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-runtime-package/dist/peer-darwin-arm64.tar.gz",
+      "sha256": "a73986b74907311a204d101bb5e0ddff68076c88d543e5d8a6a350de33b7c541"
+    },
+    "archiveBytes": 9406814,
+    "extractedHostTests": 7,
+    "testLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-runtime-package/tests.log",
+      "sha256": "f045a82a2de68d768f94d1e06746dd60cd516039700fb275f334b5d7d8cf03c1"
+    },
+    "sdk1.4.0": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-runtime-package/sdk.log",
+      "sha256": "8c5af1d971873053ec7a02396e43531b45861175fe8759f887619deea8e52e14"
+    },
+    "members": [
+      "peer",
+      "peer-credential-helper"
+    ]
+  },
+  "precedingAcpCi": {
+    "run": 44233766860,
+    "status": "in_progress"
+  },
+  "limits": [
+    "Local implementer validation and loopback model endpoints. External Skill packages and assets lifecycle, Hook, Plugin and the P4 feature gate remain open.",
+    "Candidate is frozen locally. The package was extracted to an isolated data root. Published default launcher, installed behaviour, real editors, model services and long-lived memory acceptance remain pending."
+  ]
+}
