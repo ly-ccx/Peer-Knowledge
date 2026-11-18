@@ -2,7 +2,7 @@
   "date": "2026-11-18",
   "phase": "P4 / NR-04",
   "base": "a2b99935714ff3970220b8094db767009dc89dd0",
-  "governance": "A-level ordinary Hook ownership registered in ADR131 at 3e0f4ea; applies ADR16 (current portion), 35, 76, 116, 129 and 130.",
+  "governance": "A-level ordinary Hook ownership registered in ADR131 at 3e0f4ea; applies ADR16 (current portion), 35, 76, 116, 129 and 130. Delegated Work contract registered separately in bfd8892.",
   "supersededTree": "f87c468ef40a4da3752804a6b53a22025bccbddb",
   "tree": "ca3a5ebd341a414fe1d802e248f5105e04eb65e6",
   "scope": "Ordinary exec and ACP share the native Host. Global and workspace Hook selection, owned process lifecycle, existing Tool Call, native approval and canonical Evidence. Pre can deny or require approval; Post keeps the observed Provider result.",
@@ -38,8 +38,13 @@
       "sha256": "98ee095ea22cda0f302a83e9736eadfb054e92a2e2f82b902b774582b5af81c0"
     },
     "completeNative": {
-      "status": "in_progress",
-      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-verified.log"
+      "status": "success",
+      "rustTotal": 699,
+      "publicHost": 293,
+      "pty": 9,
+      "ptyReleaseSha256": "3b4c68bd50d556bad77538c595ff99e61a554ae1770b6b2bece8e8545ca56e22",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-verified.log",
+      "sha256": "2ec20b21d8597bae61fb49cb20350d2da12252b742921c22be17b3ddff000bf4"
     }
   },
   "failuresAndRecovery": [
@@ -117,5 +122,59 @@
   "limits": [
     "Isolated macOS self-test and loopback HTTP. Crash injection runs only in the fixture build. Owner death and recovery also run on the plain extracted product binary.",
     "Delegated Goal/Work still blocks configured Hook. Real editors and model services, installed-host drain and full P4 acceptance remain open."
-  ]
+  ],
+  "delegatedContract": {
+    "tree": "a70a7ab1ee7cb38bf63a30f1cdd72b76f4cf9dba",
+    "status": "contract_and_store_only",
+    "governance": "ADR131 preregistration bfd8892; minimum reader and writer 14",
+    "actualLegacyHookHost": {
+      "passed": 8,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/legacy-goal-hook-host.log",
+        "sha256": "4480bef1ad213380469bd2831f34304f533fdf99069976ce2632919bd8c3992f"
+      }
+    },
+    "publicGoalBaseline": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-red.log",
+      "sha256": "1f19c18ce7cd68748c9518c9c02fb2a1507c78b0fd28d3237e470a8796fa8d9c"
+    },
+    "publicGoalFixtureSetupFailure": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-fixture-parent-red.log",
+      "sha256": "5a31e8c9ccf5001e6ca3bfd364d01b7b7f57a667e268f7a6ff603000e400b56a"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-clippy.log",
+      "sha256": "783dfe0e52bf6aa8dcdbb99cb125cd997b5a00c673e0a0ffe2c23615c74e3b78"
+    },
+    "crossLanguageWorkShapes": {
+      "casesEach": 16,
+      "rust": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-work-rust-contracts.log",
+        "sha256": "34fea23dee7c62d5694c7d28fa736e1d27d44f110e04335a2af2872b6027312a"
+      },
+      "typescript": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-work-typescript-contracts.log",
+        "sha256": "e01efa3a0633ac040f6e61a22331945ef3b8159be6300f247c79b00466487076"
+      }
+    },
+    "durableCasesEach": 51,
+    "node": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-conformance.log",
+      "sha256": "ef0c171027c4a606d3e3e5e6ffcf02a11eb3e60c8a0c8ba545dcf425692d5ff3"
+    },
+    "bun": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-bun-conformance.log",
+      "sha256": "be2e68e16bc0f1c132f4299d91bf03217a341199d94ce29f81ec21b5f33d8aaa"
+    },
+    "durableFixtureCorrection": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-conformance-metadata-red.log",
+      "sha256": "c9434fc33d4f7d1f96801125e916bf7724e7ca766fe6ed9e2f96a00c88f35c36"
+    },
+    "bunDynamicImportCorrection": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-bun-conformance-import-red.log",
+      "sha256": "dd29b8469d57d5cbd416c92f9ef33792788353a3f858a08c5e26dd7c306839d0"
+    },
+    "oldStorageSource": "a2b99935714ff3970220b8094db767009dc89dd0",
+    "scope": "Actual Rust and TypeScript writer, reader and rebuild, interrupted publication, cached <=13 storage denial and unchanged segments, exact Hook facts across pending to uncertain and future floor rejection. The public delegated execution baseline remains red."
+  }
 }
