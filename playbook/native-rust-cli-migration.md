@@ -4,6 +4,12 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 公开原生持久前台 Shell
+
+`1f6b0a55` 已接通普通 `exec` 和 ACP。每次命令的实际目录及 Git 共享目录复核后，使用本次原 Grant 在真实解释器接收命令前持久绑定 Tool Call、dispatch 与进程代次。公开回归确认同一实际 PID 保留 cwd、环境变量及函数。ACP 两次各自授权，目录在第二次批准等待中被替换时两目录均未收到命令。命令结果保留独立 Evidence，迟到字节只写原调用产物。正常关闭确认实际组不存在。真实 SIGTERM、ACP 断连和 Host 硬退出后的恢复保留已派发但不可证实的命令与实际用量。启动间隙夹具在真实记录 Starting 后、spawn 前退出。沿 ADR65、116、129–131，无新权限或存储边界。
+
+组合树 `ad4a64b0` 的 macOS 60 项普通 Host、10 项 ACP、严格 Clippy 与格式通过。Linux amd64 11 项 Shell、58 项普通 Host、10 项 ACP 通过，初轮三项真实 PTY `EINTR` 保留，修正只处理重试且维持原时限和断言。原生产物树 `cce1ca10` 与组合树仅差上述测试代码，macOS 同树 11 项 Shell、17 项 Store。86 个 TypeScript/Rust 契约向量及实际解包产物的空闲句柄互读通过。无测试特性的 macOS arm64 本地包解压后，在 PATH 无 Node/Bun 下通过 7 项公开场景与 ACP SDK 1.4.0 实际连接。新 [CI 44292908299](https://github.com/ly-ccx/Peer-Agent/actions/runs/44292908299) 两端运行中。委派 Work、旧安装宿主停稳和完整 P4 总闸继续开放。[持久前台 Shell 回执](native-cli/evidence/p4-native-foreground-shell-live-20261118.json)
+
 ## 2026-11-18 持久前台 Shell 中断与跨平台验证
 
 实际 Linux Shell 的 `exec /bin/sleep` 替换解释器后提前关闭控制通道，旧测试因此未测到预期的超时和取消。原 9 通过、2 失败保留。修正夹具让解释器等待真正的子进程，并分别验证 `exit` 和 `exec` 引起的控制帧缺失。隔离树 `de982db4` 的真实 Linux 与 macOS 各通过 11 项 Shell。
