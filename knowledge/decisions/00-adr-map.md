@@ -404,7 +404,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 |---|---|---|
 | 129 | [原生 Rust CLI 与 Ratatui](129-native-rust-cli-and-ratatui.md) | Accepted，2026-11-14；实现 / 验收另记 |
 | 130 | [有界内存与历史](130-bounded-cli-memory-and-transcript.md) | Accepted，2026-11-14；预算待实测 |
-| 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充用量恢复；2026-11-16 A级补充 Helper 条件提交及加密模型 OAuth 刷新意图，未知保全与跨宿主兼容闸；2026-11-17 A级登记原生受管child的canonical pending身份与语义floor13，保护只读任务恢复；2026-11-18 A级补充普通 recover --session、目录FD排他恢复与窄token，原未知和停稳/账本边界保留；实现 / 恢复另记  macOS稳定起点/旧记录保全实施前已登记   2026-11-18 A级补充原生 Skill 准入、挂载当前性与同会话正文检索   2026-11-18 A级补充原生 Hook 子进程、原 Tool Call 与保守恢复 |
+| 131 | [跨语言契约、数据与恢复](131-native-cli-contract-storage-and-recovery.md) | Accepted，2026-11-14；2026-11-15 A级补充用量恢复；2026-11-16 A级补充 Helper 条件提交及加密模型 OAuth 刷新意图，未知保全与跨宿主兼容闸；2026-11-17 A级登记原生受管child的canonical pending身份与语义floor13，保护只读任务恢复；2026-11-18 A级补充普通 recover --session、目录FD排他恢复与窄token，原未知和停稳/账本边界保留；实现 / 恢复另记  macOS稳定起点/旧记录保全实施前已登记   2026-11-18 A级补充原生 Skill 准入、挂载当前性与同会话正文检索   2026-11-18 A级补充原生 Hook 子进程、原 Tool Call 与保守恢复；同日登记委派 Work Hook 原 dispatch、持久化最低版本与停稳恢复 |
 | 132 | [MCP Vault 与原生 OAuth](132-mcp-vault-and-native-oauth.md) | Accepted，2026-11-16；MCP Helper 命名空间、旧凭据迁移、不可变 slot 与刷新意图；同日A补充execution内存epoch和原grant/Context续行。实现 / 验收另记 |
 
 2026-11-14 同日澄清 ADR 131 §1 的同号引用：`104-bot-capability-visibility.md` 仍未接受；`104-progressive-interaction-and-coordination-storage.md` 已接受的 writer fence / 恢复契约保留。未移动既有边界。

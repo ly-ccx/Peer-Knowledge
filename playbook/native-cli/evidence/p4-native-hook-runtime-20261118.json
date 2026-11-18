@@ -1,0 +1,121 @@
+{
+  "date": "2026-11-18",
+  "phase": "P4 / NR-04",
+  "base": "a2b99935714ff3970220b8094db767009dc89dd0",
+  "governance": "A-level ordinary Hook ownership registered in ADR131 at 3e0f4ea; applies ADR16 (current portion), 35, 76, 116, 129 and 130.",
+  "supersededTree": "f87c468ef40a4da3752804a6b53a22025bccbddb",
+  "tree": "ca3a5ebd341a414fe1d802e248f5105e04eb65e6",
+  "scope": "Ordinary exec and ACP share the native Host. Global and workspace Hook selection, owned process lifecycle, existing Tool Call, native approval and canonical Evidence. Pre can deny or require approval; Post keeps the observed Provider result.",
+  "tests": {
+    "publicHost": {
+      "passed": 10,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-public.log",
+        "sha256": "d03993fffef074a09b85f3f306def42bb796a0b7874cc092beeca9448a3846e4"
+      }
+    },
+    "hookRuntime": {
+      "passed": 6,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-runtime.log",
+        "sha256": "d874b6da1769ae604516f0c288189166b5b5d8f8f8a8b144110768b90c64bc13"
+      }
+    },
+    "crossLanguageRecords": {
+      "casesEach": 60,
+      "typescript": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-ts-shape.log",
+        "sha256": "0625a6052e4e15b88e768e89da573760f9d34489c7d93ab61dcf4ed5156067d0"
+      },
+      "rust": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-rust-shape.log",
+        "sha256": "f15336690b7ab89d5a757a5a16ea383c18d1223fb09d760b401a760a0eaff763"
+      },
+      "scope": "Deadline source update leaves Protocol and vectors untouched."
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-architecture.log",
+      "sha256": "98ee095ea22cda0f302a83e9736eadfb054e92a2e2f82b902b774582b5af81c0"
+    },
+    "completeNative": {
+      "status": "in_progress",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-verified.log"
+    }
+  },
+  "failuresAndRecovery": [
+    {
+      "fact": "Actual legacy CLI workspace Hook denied the original local write. Immediate exit showed EPIPE. Actual TUI Shell used one SDK Pre and no Desktop Shell classification callback.",
+      "baseline": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-runtime-baseline.log",
+        "sha256": "05a517510f773d576843bea53cc4e64f89e1c481c4bed86f2f242674171cc203"
+      },
+      "brokenPipe": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-legacy-stdin-epipe.log",
+        "sha256": "20dc0ee99b3b7846fa5b6b071c3f0552642661503100b62e2941eda116e1fa57"
+      },
+      "singlePre": {
+        "path": "${RAW_EVIDENCE_ROOT}/legacy-tui-shell-hook-shape.log",
+        "sha256": "8dcde555fcf0bcc1261ce16740164857af9f5815e107cef9a3bc26ef4fb1689b"
+      }
+    },
+    {
+      "fact": "Hard exit after observed Pre originally left an unsettled call. Corrected recovery applied to that same preserved failing fixture. The original Tool Call and known Hook observation settled without Provider replay.",
+      "failure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-recovery-red.log",
+        "sha256": "a1bf93f61cc60a33607a2225b9f419a23bd3644777a6585b582b229c88d13926"
+      },
+      "resolvedOriginalFixture": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-existing-fixture-resolved.json",
+        "sha256": "4d40db820be21624760e6e3f5360f087790822676e4528d60458ccba525df7d1"
+      }
+    },
+    {
+      "fact": "Initial extracted artifact under overlapping validation produced timeout in the immediate deny case. The Provider stayed undispatched. Slow durable preparation independently reproduced the classification. Child time now starts at spawn. The timeout case retains 120 ms. The immediate deny case uses 3000 ms and retains its strict outcome assertions.",
+      "initialPackageFailure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-archive-public.log",
+        "sha256": "1039a64f0fbb72bdb9da5dc8644f5c3ceab9a0be672a6d3a6340d9096d30221c"
+      },
+      "deterministicFailure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-red.log",
+        "sha256": "d558d31f65ee1d5571538665d4341f198bf0162a79cff7d4a2f25a0fdd63e10e"
+      }
+    },
+    {
+      "fact": "The fresh scratch dependency install skipped scripts and lacked the Electron path marker. The pinned dependency was linked to the existing isolated same-version Electron app and the unchanged verifier was rerun.",
+      "setupFailure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-full-missing-electron-path.log",
+        "sha256": "afcd4561e509d58c39e5c81041337348c79a12a61035dbb49b5a9aaca31fb7b6"
+      }
+    }
+  ],
+  "package": {
+    "platform": "darwin-arm64",
+    "featureless": true,
+    "members": [
+      "peer",
+      "peer-credential-helper"
+    ],
+    "archiveBytes": 9463162,
+    "archive": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-package/dist/peer-darwin-arm64.tar.gz",
+      "sha256": "20b91ea581d6137e880029a864f1e34e048ddde83c03fc0af0095a5bbe6a20e4"
+    },
+    "binary": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-package/extracted/peer-darwin-arm64/peer",
+      "sha256": "e88bd4ae046a22251167b1192b655bab27394d97e250d31a448036631bdbe3b6"
+    },
+    "extractedHostTests": 9,
+    "extractedHostLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-archive-public.log",
+      "sha256": "4b081d2abf6535a92ef4128e3f9a380d81404acdb37d8013fabac98b2e5237b1"
+    },
+    "sdk1_4_0": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-archive-sdk.log",
+      "sha256": "a11defc14e885e792a3cc27a9d01cf4ace870cde42172124d64d32ed5099093b"
+    }
+  },
+  "limits": [
+    "Isolated macOS self-test and loopback HTTP. Crash injection runs only in the fixture build. Owner death and recovery also run on the plain extracted product binary.",
+    "Delegated Goal/Work still blocks configured Hook. Real editors and model services, installed-host drain and full P4 acceptance remain open."
+  ]
+}

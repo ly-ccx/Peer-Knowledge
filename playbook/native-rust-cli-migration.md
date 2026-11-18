@@ -4,13 +4,19 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 原生 Hook 运行闭环候选
+
+冻结源码树 `ca3a5ebd` 以 `a2b99935` 为前置。依 ADR16 有效部分、35、76、116、129、130，ADR131 已在实现前登记原 Tool Call 与受管 Hook 进程。普通 `exec` 与 ACP 共享同一接线。配置版本与子进程身份写在原工具记录，Pre 收紧原授权，Post 保留已观察的 Provider 结果。中断时回收已证明身份的进程组，保全未知效果。原失败数据经修正入口成功恢复，原工具未重放。
+
+解包初验在并发测试负载下将即时拒绝记作超时，工具仍未派发。确定性测试复现持久准备耗尽子进程预算。修正后从实际启动起计时，超时用例仍使用原 120 ms。冻结树已通过 10 项公开入口、6 项 Hook Runtime、架构检查。跨语言 Hook 记录经实际 TS / Rust 各验证 60 项。无测试特性的 macOS arm64 包解压后在 PATH 无 Node/Bun 下再通过 9 项公开用例及 ACP SDK 1.4.0。精确树的完整本机门禁正在执行。委派 Goal/Work Hook、旧安装宿主停稳和完整 P4 尚待验收。见 [Hook 运行、恢复与打包回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
+
 ## 2026-11-18 原生 Skill 运行闭环候选
 
-冻结源码树 `f169eae0`，前置 `b2e09fea`。依 ADR16 有效部分、55、58、76、129、130，ADR131 先行登记 A 级 Skill 准入和正文。真实挂载只按工作区与用户设置，工作区同名覆盖，显式安装叶链接保留。工具实际进入用户允许列表和模式交集，L4 只列投影，正文经绑定包体、当前性、一次 Grant 和既有 Tool Result 获取。大正文通过同会话的不可变引用按范围读取。
+已推送 `a2b99935`（冻结源码树 `f169eae0`），前置 `b2e09fea`。依 ADR16 有效部分、55、58、76、129、130，ADR131 先行登记 A 级 Skill 准入和正文。真实挂载只按工作区与用户设置，工作区同名覆盖，显式安装叶链接保留。工具实际进入用户允许列表和模式交集，L4 只列投影，正文经绑定包体、当前性、一次 Grant 和既有 Tool Result 获取。大正文通过同会话的不可变引用按范围读取。
 
-7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选完整本机门禁通过 683 项 Rust（284 公开 Host）、628 根 3526 互读和 9 项 PTY。前置 ACP 的 Linux/macOS 原生门禁已通过，全仓 CI 继续执行。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
+7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选完整本机门禁通过 683 项 Rust（284 公开 Host）、628 根 3526 互读和 9 项 PTY。前置 ACP 的 Linux/macOS 全仓 CI 均已通过，已核对实际检出树。Skill 的独立 CI 44240049384 仍在执行。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
 
-Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 deny 且文件效果未发生，Rust 暂以 `native_hooks_not_migrated` 阻断。最早的旧 Hook 立即退出用例发生 stdin EPIPE，消费 stdin 后完成基线。后续隔离工作树已通过双来源配置读入、UTF-16 选择和决策归并共 4 项 Rust 测试，并与实际 TS selector 和退出结果对照；待接真实受管进程、审批与 Evidence。Skill 安装管理、额外资源生命周期、Hook、Plugin 以及完整 P4 与 P5–P7 继续开放。
+Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 deny 且文件效果未发生，Rust 暂以 `native_hooks_not_migrated` 阻断。最早的旧 Hook 立即退出用例发生 stdin EPIPE，消费 stdin 后完成基线。后续普通 exec 与 ACP Hook 接线见本页顶部。Skill 安装管理、额外资源生命周期、委派 Hook、Plugin 以及完整 P4 与 P5–P7 继续开放。
 
 ## 2026-11-18 原生 ACP 会话模型与持久化
 
@@ -18,9 +24,9 @@ Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 d
 
 已推送 `b2e09fea`（tree `4b41a919`），将用户所选 provider、模型和兼容强度保存在原会话字段。首次会话创建即保存，后续空闲期取得同一 Store 锁再更新。当前 owner 未退出或历史尚未对账时拒绝修改。模型请求准入对照同一行。在锁冲突下既有选择保留，下一轮可在切换后的同一会话使用原历史。仅模型改变时清除过时的容量镜像，容量选项仍属当前 ACP 会话。该在制接线沿用已有持久字段、权限、Evidence 和恢复边界。
 
-较早树 `2c48b52c` 的完整本机原生门禁已通过 671 项 Rust、627 根 3521 互读和 9 项 PTY。新树已通过 4 项公开 ACP 用例、1 项 Store 选模并发准入回归、严格 Clippy 与架构检查。macOS arm64 测试包解开后，在 PATH 无 Node/Bun 的环境下重跑 4 项公开用例和 SDK 1.4.0 真连接。旧 TUI 冷读两个会话的模型/强度正确，并对照两个模型请求、128K/32K 容量 sidecar 与原全局配置字节。新树的完整本机原生门禁已通过 672 项 Rust（277 项公开 Host）、627 根 3521 互读和 9 项 PTY。前置 `b4c72637` 的 Linux / macOS 全仓及两端 Electron smoke 均通过，实际 merge tree 与源码一致，见 [全仓回执](native-cli/evidence/ci-b4c72637-20261118.json)。ACP 候选的 [独立 CI 44233766860](https://github.com/ly-ccx/Peer-Agent/actions/runs/44233766860) 正在执行。见 [ACP 测试回执](native-cli/evidence/p4-native-acp-v1-20261118.json)。
+较早树 `2c48b52c` 的完整本机原生门禁已通过 671 项 Rust、627 根 3521 互读和 9 项 PTY。新树已通过 4 项公开 ACP 用例、1 项 Store 选模并发准入回归、严格 Clippy 与架构检查。macOS arm64 测试包解开后，在 PATH 无 Node/Bun 的环境下重跑 4 项公开用例和 SDK 1.4.0 真连接。旧 TUI 冷读两个会话的模型/强度正确，并对照两个模型请求、128K/32K 容量 sidecar 与原全局配置字节。新树的完整本机原生门禁已通过 672 项 Rust（277 项公开 Host）、627 根 3521 互读和 9 项 PTY。前置 `b4c72637` 的 Linux / macOS 全仓及两端 Electron smoke 均通过，实际 merge tree 与源码一致，见 [全仓回执](native-cli/evidence/ci-b4c72637-20261118.json)。ACP 候选的 Linux/macOS 全仓 CI 44233766860 均已通过，含各自 Electron smoke。实际检出、原生门禁、merge tree 与 parents 已核对，见 [全仓回执](native-cli/evidence/ci-b2e09fea-20261118.json)。见 [ACP 测试回执](native-cli/evidence/p4-native-acp-v1-20261118.json)。
 
-作为下一项 P4 工作的隔离基线，旧 TUI 使用工作区同名 Skill、排除该工作区已禁用 Skill，并为加载工作区正文生成 Evidence；原生入口返回 `native_skills_not_migrated`，模型 HTTP 请求数为零。另将两个 Skill 都禁用，确认旧 TUI 投影无 Skill；原生即使使用 `--tools read_file` 仍在发送前阻断。旧入口显式借用后创建安装符号链接，原生隔离工作树已验证目录挂载、正文版本、链接换目标以及有界 YAML 解析四项 Store 测试。接入原生 Runtime Projection、实时授权和 Evidence 仍待完成。P4 总闸与 P5–P7 仍开放，已发布旧宿主停稳、真实编辑器界面和真实模型未验收。
+作为下一项 P4 工作的隔离基线，旧 TUI 使用工作区同名 Skill、排除该工作区已禁用 Skill，并为加载工作区正文生成 Evidence；原生入口返回 `native_skills_not_migrated`，模型 HTTP 请求数为零。另将两个 Skill 都禁用，确认旧 TUI 投影无 Skill；原生即使使用 `--tools read_file` 仍在发送前阻断。旧入口显式借用后创建安装符号链接，原生隔离工作树已验证目录挂载、正文版本、链接换目标以及有界 YAML 解析四项 Store 测试。该处为 Skill 接线前的历史基线，后续实测见本页顶部。P4 总闸与 P5–P7 仍开放，已发布旧宿主停稳、真实编辑器界面和真实模型未验收。
 
 ## 2026-11-18 普通 exec 认证与配置错误
 

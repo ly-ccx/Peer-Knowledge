@@ -18,11 +18,21 @@
 
 依据 ADR16 的现行链路、35、76、116、129、130 与 [Hooks 规范](../specifications/hooks.md)。真实旧 TUI 的工作区 Hook 可在本地 Shell 原效果前拒绝并留下 Evidence；无 stdin 消费的快速退出旧例出现 EPIPE，见 [隔离回执](../../playbook/native-cli/evidence/p4-native-skill-runtime-20261118.json)。Hook 使用用户已有全局和当前工作区配置，依原次序合并；目录与文件版本必须可核。脚本由已选本地配置提供，模型只提供原已投影 Tool Call 的数据，不能指定 Hook 命令。保留显式配置的外部 Shell 接口，核心 Host 使用 Rust。子进程持有有界 stdin/stdout/stderr，只继承用于查找用户已配置命令与区域设置的最小环境。
 
-Pre 在原 Tool Call 准备持久化后、Provider 授权前运行。Post 接收已观察的原 Provider 结果。Hook 选择和生效需同一实际 Host、配置版本、Tool Call、dispatch 与进程所有权。允许只表示继续原授权，询问归原审批，拒绝收紧原授权。全局、工作区及 Shell 附加匹配不能由模型文本生成权限。只保留结构化的决策、退出、时长、原因和来源标识到原 Evidence；不把 Hook stdout 或 stderr 整段传给模型。
+Pre 在原 Tool Call 准备持久化后、Provider 授权前运行。Post 接收已观察的原 Provider 结果。Hook 选择和生效需同一实际 Host、配置版本、Tool Call、dispatch 与进程所有权。允许只表示继续原授权，询问归原审批，拒绝收紧原授权。原 TUI Shell 经过单次 SDK lifecycle 匹配，旧 Desktop 的额外 Shell 分类回调继续按既有宿主契约处理。配置选择不能由模型文本生成权限。只保留结构化的决策、退出、时长、原因和来源标识到原 Evidence；不把 Hook stdout 或 stderr 整段传给模型。
 
 普通 Runtime 使用既有 canonical 执行句柄容纳子 Hook 命令，每个源进程绑定原 Tool Call 和 phase，保留独立状态。准备、准备启动、观察实际 child、真实 wait 与 process-group 缺失分别记账；不同 Hook 与 Provider 进程不得互相覆盖。启动缺口、未证明结束、已停止但未观察到真实结果必须保留。Hook 结束的事实由实际证据提供；回收进程不证明外部效果成功。源不再当前、取消、输出限额和超时通过原 Host 停稳。旧执行句柄保持兼容读取，未知新状态由保守恢复保全。
 
 验收以实际原生入口为准，覆盖 Pre allow/ask/deny、Post 证据、普通与 ACP 的同一授权、早退出与 EPIPE、取消/超时和进程组、硬退出前后身份与未知保全。委派工作执行及旧安装宿主对照另取真实证据。纯配置与选择测试不构成此验收。
+
+### 2026-11-18 NR-04 委派 Work Hook 登记与恢复（A，运行时接线前）
+
+沿上节以及 ADR 16、35、116、129、130。旧 TUI 的委派工具经过同一 TUI Host 和 SDK Pre/Post；SDK 的 Hook ask 使用当前本机审批入口。已迁移的普通 Host 持有 ConversationExecution，委派 Host 的权威执行源是带工作区 lease、目标修订和预算登记的既有 Work。共享同一 Hook 配置、选择、命令、输入输出边界和结构化结果，执行记录归各自 Host 的 canonical 原 Tool Call。
+
+委派 Host 在 Pre 运行前先为原投影调用登记预算与当前执行身份，关联该 dispatch 下各 Hook 独立进程和阶段。Pre 的允许继续原许可，询问进入原一次批准，拒绝形成原调用的未派发结果。权限等待和 Provider 实际派发前复核目标修订、工作区 lease、配置版本和当前策略。通过 Pre、取得许可、派发 Provider 分别留存事实。Post 接收已观察的 Provider 结果，已有 Provider 及其 Grant/Evidence 继续保全。无外部效果的运行状态必须由原 Host 的未派发事实证明。Hook 和 Provider 的进程身份、结束观察及 Evidence 分别持久化。
+
+Rust 和 TS 对同一 Work pending / uncertain 原记录校验执行身份、Tool Call、dispatch、owner、Hook handle 和观察。旧 Work 记录继续可读。新增语义必须提高持久化读写最低版本，避免不了解 Hook 进程事实的旧宿主写入或收口。复制、预算转 uncertain、索引重建、历史修复和故障接管都须保全记录。原 owner 已证明死亡时，只能回收 positively identified Hook 进程组。启动缺口、未观察的 Hook 效果及已派发而无原结果的 Provider 继续未知。已观察的原事实经现行 Evidence 和停稳对账门禁收口。任何 Hook 命令或 Provider effect 均不因恢复而重放。
+
+验收须经原生 `exec --plan`、真实工作区 lease、持久预算与 Evidence，覆盖来源替换、审批期间撤销、只读模式、取消、硬退出、失去启动身份和下一独立任务。用 TS 冷读、旧写入门禁及重建证明跨宿主保全。
 
 ### 2026-11-18 NR-04 原生 Skill 准入和正文（A，运行时接线前）
 
