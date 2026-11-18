@@ -1,5 +1,7 @@
 # Peer 全产品交互状态覆盖矩阵
 
+普通 exec 模型配置不可用或模型 HTTP 401/403 返回 3。无效模型选择返回 2。已派发并结算的工具授权、Evidence 与已知用量来自原 Host，摘要遭认证拒绝时结束。 本机验证见[认证退出回执](../../playbook/native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。
+
 ## 普通中断恢复的事实与控制（2026-11-18，dc9df727）
 
 CLI，ADR129/130/131。用户显式运行 `recover --session <id>` 恢复既有中断会话；命令不初始化全屏终端或请求模型。实际原owner仍活或不能证明死亡时静态拒绝且不接管；已有canonical stop可修复记账。状态来自原执行control、原Grant/Result/Evidence、实际OS和原用量Store回执：stopped且无pending才允许新run，recovery_required明确保留unknown；已停本地runner不表示工具效果成功。只取消原call匹配的open批准，不触碰同参数其它call或已决定历史。Ctrl-C/TERM取消后保留已写事实；FD互斥由OS释放，未知mkdir锁给出离线核对提示且保全。重复恢复不重放效果或重复收费。最终包22真实Host、5既有状态恢复、当前Node/Bun各5根82互读和9PTY见[回执](../../playbook/native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)；完整662原生门禁只属于28dc前一树。实现者自审、受控服务；真实平台/模型/旧安装drain、完整unknown对账、Ratatui/长期内存及默认安装仍待验收。

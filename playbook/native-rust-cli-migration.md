@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通 exec 认证与配置错误
+
+`189160bc` 已推送。按 ADR65/129/131 的既有退出码合同处理。原候选真实 401 正文包含容量超限字样时，实际执行压缩和续发并错误返回成功。现在收到模型 HTTP 401/403 即结束，不消费拒绝正文。压缩摘要收到同类拒绝也不再续发。已完成的工具结果、授权、Evidence 与已知用量仍由原 Host 结算。无效配置返回 3，错误模型参数返回 2，普通服务端或代理响应错误仍返回 1。
+
+25 项普通 Host、2 项模型目录对照、8 项相关传输与恢复回归及严格 Clippy、架构检查通过。无测试特性的 macOS arm64 产物在 PATH 无 Node/Bun 下另外通过 3 个公开入口测试。完整来源见[认证退出回执](native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。前置 `dc9df72` 已核对 Linux/macOS 全仓成功。认证提交的[独立 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44223788350)在运行。
+
+原生 ACP 在制入口的双会话、迟到授权与断连已完成局部验证。实际共享索引反例已登记到 ADR131，完整原生门禁运行中。窗口选项与实际模型配置仍在另行验证。P4 总闸及 P5–P7 继续开放。
+
 ## 2026-11-18 普通会话原生恢复与跨平台目录身份
 
 普通恢复 `28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24`（tree `5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f`）已提交推送；依ADR129/130/131及原用量/权限/Evidence契约，ADR131/map的排他恢复与macOS稳定起点A修订先于实施。公开 `recover --session` 不发现模型/凭据或重放工具，只在完整原owner死亡或已有canonical stop后管理原执行。现有目录FD排他flock、完整control与dev/inode复核持有恢复权；prepared只可形成真实未派发取消，原Grant保全，匹配的canonical Result经原Evidence索引与结算闸确认。已知费用按原stream一次结清，未知效果、Starting身份缺口和未证明结束的child/handle继续阻断。真实Shell/MCP group停稳只证明本地生命周期，不能证明远端效果；旧孤mkdir锁不自动删除，明确给出离线核对路径。
@@ -12,7 +20,7 @@
 
 最终仅两文件FD类型适配修正为 `dc9df7273d734d5641d0c10e5e7cea51dbbc04f5`（tree `9b6f076d206963c34c214da5d1d1fa7a2adab81c`）：标准库从同一已打开FD提供统一u64设备/inode，保持原权限、恢复与CAS边界，B级不改ADR。Linux形状u64转换的本地Clippy红例是替代验证，不冒充实际Linux/远端失败。该最终树另通过16项Store（3子进程helper在父目录忽略且由实际测试调用）、22项普通/恢复Host、all-target warnings-denied clippy、fmt/diff及architecture；完整662整闸仍只绑定前一树，不继承成最终全仓绿。
 
-最终featureless包 **22,396,640 bytes** / SHA256 `be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7`，原打包器显式输入Rust和原生Helper，解压后env-clear/PATH无Node/Bun的22真实Host、5真实崩溃恢复、Node/Bun各5根82互读及13根76旧链互读、9PTY通过。测试开关不在产品中，Helper和系统动态库来源已核对。详见[最终FD修正及解包回执](native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)。原28dc CI44215318326已cancelled，不能记全仓通过；当前[CI44217341964](https://github.com/ly-ccx/Peer-Agent/actions/runs/44217341964)独立in_progress，实际checkout/merge/tree/parents尚待核对，不继承86fb的双平台全仓绿。
+最终featureless包 **22,396,640 bytes** / SHA256 `be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7`，原打包器显式输入Rust和原生Helper，解压后env-clear/PATH无Node/Bun的22真实Host、5真实崩溃恢复、Node/Bun各5根82互读及13根76旧链互读、9PTY通过。测试开关不在产品中，Helper和系统动态库来源已核对。详见[最终FD修正及解包回执](native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)。原28dc CI44215318326已cancelled，不能记全仓通过；后续已核对[CI44217341964](https://github.com/ly-ccx/Peer-Agent/actions/runs/44217341964)的实际checkout、merge/tree/parents及Linux/macOS全仓成功，包含两端Electron smoke。见[全仓回执](native-cli/evidence/ci-dc9df-20261118.json)。
 
 **仍在P4。** TS普通生产owner/guard与旧原生/安装宿主实际drain、进一步unknown Probe/Grant/Evidence对账、完整动态Context/压缩/附件生命周期、持久Shell与剩余工具/Skill/Plugin/Hook、ACP/命令/Provider平价和真实平台/服务/MSRV/总闸继续开放。P5完整项目代理、P6完整Ratatui与长对话内存/响应、P7默认安装更新/发布未完成。实现者自审、隔离数据与受控服务；无个人数据/安装/运行实例重启/默认peer-dev切换/合并/tag/发布，无Bun/Node引擎sidecar。
 

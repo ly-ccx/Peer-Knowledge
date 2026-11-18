@@ -1,5 +1,7 @@
 # Peer UI、动效与过渡体系覆盖表
 
+普通 exec 认证拒绝在现有文本/JSON 终态表达。头部 HTTP 状态决定退出，工具与费用的终态仍来自其原有写入回执。 本机验证见[认证退出回执](../../playbook/native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。
+
 ## 普通恢复入口与中断连续性（2026-11-18，dc9df727）
 
 CLI，ADR129–131。`recover --session` 是静态管理输出，不启动raw/alternate screen，不引入输入读取者或后台抢焦点；draft/focus/reading position及motion在此入口N/A，完整交互由P6另验。恢复状态仅消费原canonical执行/Grant/Result/Evidence和实际OS/账本回执，不以时间或动画创造停稳/成功。活owner跨TZ/locale保持拒绝，旧显示身份仍活时明确unproven；取消与SIGKILL由实际FD释放恢复互斥，原孤锁保全并显示支持的离线诊断。解压featureless包22真实Host、5崩溃窗口/旧状态及9PTY见[回执](../../playbook/native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)。实现者自审；物理IME/读屏/完整Ratatui发送与长对话内存、旧安装drain/默认切换未验收。源码修正与发布接受分开，P4仍开放。

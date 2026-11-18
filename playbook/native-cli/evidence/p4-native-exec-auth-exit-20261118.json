@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-18",
+  "source": "189160bc54a2588ca0424888206e7133c4a39f66",
+  "base": "dc9df7273d734d5641d0c10e5e7cea51dbbc04f5",
+  "tree": "0d1e2ccd0135b7ea319f219f8ad537f1f207034b",
+  "patchSha256": "d32c18f05e9dbab165d35fc9c96a58ddab30e3d2e3551fc7c3d48e2b9833f9be",
+  "adrPass": [
+    "65-cli-headless-exec.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "B. Applies the existing configuration/auth/usage/runtime exit contract using the actual Model HTTP response and existing Host stop, Grant, Evidence and usage rules.",
+  "baselines": [
+    "A real 401 with context-like body incorrectly completed after four requests and returned exit 0.",
+    "Malformed persisted model config returned usage exit 2 before admission.",
+    "The first corrected fixture expected one logical turn. It was updated to assert the Host contract: two logical attempts, and a third physical request only for the denied summary."
+  ],
+  "verified": [
+    "25 ordinary Host and recovery tests",
+    "2 model catalog comparisons",
+    "8 transport, wire, channel, Qoder retry and overflow tests",
+    "fmt, strict all-target peer-cli/peer-runtime Clippy, architecture/UI conventions",
+    "3 public CLI tests on independent featureless macOS arm64 build with PATH without Node/Bun",
+    "401/403 exit 3 including denied summary. 407 and 503 exit 1. Wrong model selection exits 2. Confirmed result, Grant and Evidence remain available, known usage commits once and unobserved usage stays unknown."
+  ],
+  "binary": {
+    "sha256": "c39f6ef1ce484a82745d3a503ae0a10a194c096f32459268bcc23b14781d1099",
+    "bytes": 22392848
+  },
+  "rawEvidence": [
+    {
+      "check": "baseline_bad_status",
+      "file": "peer-native-exec-auth-red.log",
+      "sha256": "443d2b6003c044c3ee29414770e5d4033300e04d242c69c7c544584f35e18137"
+    },
+    {
+      "check": "baseline_invalid_config",
+      "file": "peer-native-exec-config-red.log",
+      "sha256": "36e3461f13f7ea566add14044958874afa497bdc49d37d38b94ee23264c3038d"
+    },
+    {
+      "check": "fixture_turn_count_assertion_corrected",
+      "file": "peer-native-exec-auth-green.log",
+      "sha256": "745e47ac5630bbbd91d3c6f4e5e2920d43b841ccdb38fef7015358bf03228259"
+    },
+    {
+      "check": "ordinary_tests_catalog_clippy",
+      "file": "peer-native-exec-auth-final.log",
+      "sha256": "2de44b827870cc0ab7cb22bd1ec57e2069c6e3aea65f771f44ef3f34e39936b8"
+    },
+    {
+      "check": "model_transport_qoder_overflow",
+      "file": "runtime-regression.log",
+      "sha256": "ba8a9c1333f034d056741202cd6c17de47c78c6aff3eff95abc1026ac6e3615e"
+    },
+    {
+      "check": "featureless_test",
+      "file": "product-test.log",
+      "sha256": "b31be56a1fdfb56488e138654ea844046f9b7e5d8e7b4f12d5216d0517f2f03c"
+    },
+    {
+      "check": "architecture",
+      "file": "peer-native-exec-auth-architecture.log",
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    }
+  ],
+  "limits": "Controlled local HTTP, development self-review. Full P4, native ACP parity, real service and installed/default acceptance remain open.",
+  "previousWholeCi": "ci-dc9df-20261118.json",
+  "currentWholeCi": {
+    "workflow_runs": [
+      {
+        "id": 44223788350,
+        "name": "CI",
+        "status": "in_progress",
+        "conclusion": null,
+        "run_number": 1441,
+        "jobs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44223788350/jobs",
+        "logs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44223788350/logs",
+        "workflow_id": 367429807
+      }
+    ]
+  }
+}
