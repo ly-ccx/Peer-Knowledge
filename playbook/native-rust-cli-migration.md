@@ -4,6 +4,12 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通 Goal 核验报告续接
+
+隔离树 `6868451c` 接通 ADR 103 的普通原生 Host 报告续接。首次格式错误只在原 Verifier、原版本及显式预算内追加一次认知请求。用户上下文保留原核验任务、有界引述及已索引引用；工具定义为空，Host 拒绝落盘及派发模型尝试的工具调用。原来的明确判断不能被改写，外来引用不能派生通过。授权拒绝、版本变化和硬退出沿原结算。此 B 级接线沿用 Goal 的授权、Evidence 与 canonical 记录契约。[ADR 103](../knowledge/decisions/103-verification-settlement-and-progress.md)
+
+原解包候选收到非 JSON 后第七次请求退出 1，同一真实入口测试在前驱红。旧普通 headless 在这个受控场景也未发格式请求，旧实际续接 Module 的 12 项检查通过。新包用第八次请求在原 Verifier 收口，只有一条实际只读工具。macOS 88 项、Linux 86 项普通会话自测，两端 PATH 无 Bun/Node 的解包候选各通过 25 项 Goal 入口测试。旧 Store 冷读当前评审，父历史排除核验活动，五份 canonical 文件字节一致。候选等待有序推送，剩余 P4 总闸和真实服务另验。[格式续接回执](native-cli/evidence/p4-ordinary-verifier-report-format-20261119.json)
+
 ## 2026-11-19 普通 Goal 核验返修
 
 隔离树 `436c59e9` 将当前独立失败核验接到同一自驱 Goal 的真实返修。原计划、Conversation、stream、标准修订和实际引用仍需重新核对。两次上限只限制返修次数。返修与独立核验累计消耗用户显式回合预算。返修结束以实际叶子状态重新进入独立核验；Hook 拒绝、人工门、取消、过期引用和未知派发均不派生后续动作。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)

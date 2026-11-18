@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "candidateTree": "6868451ce17dea323ab74bcb06ecc1c04d7de4ed",
+  "predecessorTree": "436c59e96ed7b49241d9f4d49b6e1f708a95af71",
+  "patchSha256": "ad3c574cbd8a16270c916c99ccc43a10c39ba9b16831f5ce582e3621574ce57e",
+  "sourceArchiveSha256": "8a00cc588056f41a7522b1fe3d4b535328a7993024a5fa89eb92ceee97c7dce6",
+  "existingDecisions": [93, 95, 103, 116, 117, 131],
+  "baseline": {
+    "scope": "Actual predecessor release package and isolated HTTP SSE provider",
+    "exit": 1,
+    "error": "goal_verifier_report_invalid",
+    "providerRequests": 7,
+    "formatRequests": 0,
+    "focusedRegressionFailedOnPredecessor": true,
+    "legacyHeadlessObservation": "No format request in this controlled scenario. The accepted ADR 103 contract is verified separately in the actual legacy continuation Module.",
+    "legacyVerificationContinuationTests": 12
+  },
+  "validation": {
+    "macosArm64": {
+      "ordinaryConversationTests": 88,
+      "publicGoalTestsOnExtractedFeaturelessPackage": 25,
+      "archiveSha256": "4ba106175d9d7d382460a3fae81b97045864560699e623ca7ca3996de34f4350",
+      "binarySha256": "376904769b06169dbbf7c78ec8ec30207f8c6488b739b6dc92953e3452f0f97f"
+    },
+    "linuxAmd64": {
+      "ordinaryConversationTests": 86,
+      "publicGoalTestsOnExtractedFeaturelessPackage": 25,
+      "archiveSha256": "fd33c6a6d6f22b780df3dc863dc8183f44eba4440283048bd91b265fbe6b1f0c",
+      "binarySha256": "51eee639fd607422ed7c1f2b7ff1a80b1182a45647d9cd93c9eeb3ae215808c6"
+    },
+    "packagePathWithoutBunOrNode": true,
+    "formatStrictClippyCrateAndArchitectureChecks": "passed",
+    "cases": ["single valid format repair", "unprojected tool attempt", "still malformed", "previous typed verdict contradicted", "forged evidence", "original shared budget exhausted", "original worker admission denied", "goal revision changed while formatting", "hard exit and two recoveries"],
+    "packagedReplay": {
+      "providerRequests": 8,
+      "formatRequests": 1,
+      "readOnlyToolCalls": 1,
+      "additionalToolCalls": 0,
+      "verifierIds": 1,
+      "priorIndexedReferenceRetained": true,
+      "measuredRequestCountPersisted": true,
+      "legacyStoreColdRead": true,
+      "parentHistoryExcludesFormatActivity": true,
+      "canonicalFilesByteIdenticalAfterRead": 5,
+      "exit": 0
+    }
+  },
+  "remaining": ["predecessor whole-repository CI and ordered promotion", "completion-gate repairs", "remaining P4 acceptance and live service validation", "P5, P6 and P7"]
+}
