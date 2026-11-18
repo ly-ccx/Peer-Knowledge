@@ -8,11 +8,11 @@
 
 按 ADR55、57、90、129–131，把旧 Composer 的显式本地图片输入接进普通原生 Host。隔离树 `4c1349b7` 新增可重复的 `exec --image <path>`，支持仅图片或配合 argv/stdin 文字。通过实际公开入口验证模型请求和工具续行、源文件与授权/Evidence 保全、空文件/格式不符/特殊文件/远程 URI 拒绝以及总数量和字节预算。旧 TUI 的 Composer 25 项通过。图片包解开后四项公开入口均过，删除隔离原图后，真实旧 TUI 仍能从新会话读回同一图片，原消息字节保持。见 [图片输入回执](native-cli/evidence/p4-native-image-intake-20261118.json)。
 
-旧 CLI 正常 `createTuiRuntime` 的八种模式没有投影隔离 Plugin 包，本仓生产装配也未找到正式包注册入口。该结果绑定当前实际 CLI 可达范围，ADR15 草案中的包注册设计仍是规划。Ratatui 图片草稿、剪贴板与长期内存还需验收。图片与委派 Hook 的组合树 `c4567fee` 已通过本机原生门禁，712 项 Rust（含 305 项公开 Host）、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后另通过 14 项 Hook、4 项图片入口、实际 ACP SDK 1.4.0 和旧 TUI 读回。该树仍需远端全仓 CI，见[本机组合回执](native-cli/evidence/p4-native-hook-image-combined-20261118.json)。
+旧 CLI 正常 `createTuiRuntime` 的八种模式没有投影隔离 Plugin 包，本仓生产装配也未找到正式包注册入口。该结果绑定当前实际 CLI 可达范围，ADR15 草案中的包注册设计仍是规划。Ratatui 图片草稿、剪贴板与长期内存还需验收。图片与委派 Hook 的组合树 `c4567fee` 已通过本机原生门禁，712 项 Rust（含 305 项公开 Host）、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后另通过 14 项 Hook、4 项图片入口、实际 ACP SDK 1.4.0 和旧 TUI 读回。相同树已作为 `179fd29a` 推送，需独立远端全仓 CI，见[本机组合回执](native-cli/evidence/p4-native-hook-image-combined-20261118.json)。
 
 ## 2026-11-18 委派 Hook 崩溃窗口和 Skill 全仓验证
 
-原生 Skill `a2b99935` 的 Linux/macOS 全仓 CI 44240049384 均通过，实际 merge tree 与源码一致，含各自 Electron smoke。普通 Hook 的精确本机通过候选已推送 `db16e7be`，独立 CI 44245930398 正在执行。见 [Skill 全仓回执](native-cli/evidence/ci-a2b99935-20261118.json)。
+原生 Skill `a2b99935` 的 Linux/macOS 全仓 CI 44240049384 均通过，实际 merge tree 与源码一致，含各自 Electron smoke。普通 Hook `db16e7be` 的独立 CI 44245930398 已双平台全仓通过，两个作业实际 checkout 的 merge tree 均与候选一致，含各自 Electron smoke。见 [Skill 全仓回执](native-cli/evidence/ci-a2b99935-20261118.json)、[普通 Hook 全仓回执](native-cli/evidence/ci-db16e7be-20261118.json)。
 
 委派 Hook 的隔离树 `a914e90f` 已覆盖两处此前实际失败的硬退出窗口。先在原 Work 持久化 Tool Call 消息身份和原参数摘要，原 Grant 随 Work 派发准入提交。已确认的 Pre 只收口原未派发调用。真实 Provider 返回和 Evidence 索引在 Post 启动前保存，Post 未证明启动时未知继续保留。通过 18 项公开 Hook 入口、22 组 Rust/TS 记录以及严格 Clippy。修正后的 OAuth 用例按真实命令已开始、结果已到达和进程退出分别观察，独立重跑通过。此树完整本机原生门禁通过 708 项 Rust（301 项公开 Host）及 9 项真实 PTY。解包的无测试特性产物通过 14 项公开入口和 ACP SDK 1.4.0 测试。P4 总闸和 P5–P7 仍待完成。见 [Hook 回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
 
