@@ -4,6 +4,16 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 普通会话原生后台 Shell
+
+隔离候选沿 ADR55、57、65、116、129、131，把 `bash background:true` 和 `shell_stop` 接入普通原生 Host 和 ACP。模型收到真实已登记的进程启动、原任务 ID 和产物引用。当前权限、进程完成、终态产物和旧启动 Evidence 各自可核对。相同执行的重复停止返回已经结束，其他任务保持活跃。只有带原 Grant、Running 镜像、已提交的启动结果和 Evidence 的后台调用可以与下一串行 Tool Call 并存。模型请求内部的容量、用量和压缩写入通过实际 CAS 前后修订更新后台监督，过期修订仍不能授权。
+
+已验证两项真实后台任务的定向停止与退出清理、权限拒绝、自然结束和超时、大启动回执归档、实际撤权、真实宿主硬退出及 ACP 断连和同 scope 停止。硬退出保留原启动回执及未知效果。组合源正在运行本机门禁。委派 Work 后台链路仍待迁移。见[公开后台 Shell 回执](native-cli/evidence/p4-native-background-shell-live-candidate-20261118.json)。
+
+## 2026-11-18 持久前台 Shell 基线
+
+旧 Node Shell Session 实跑 6 项，覆盖前台多次调用的 `cwd`、环境变量、同会话串行、隔离、排队授权复检、超时重建和空闲进程通过原停稳屏障清理。当前 `b1490f69` 对应 arm64 原生归档公开入口仍在第二次调用读到 `empty workspace`。迁移必须沿原 Tool Call 重新授权每一次写入，保留单个受管进程带来的前台会话状态，并把空闲进程、执行中命令和最终停稳分别记录。
+
 ## 2026-11-18 后台 Shell 恢复与定向停止
 
 按 ADR65、116、129、131，隔离树 `611b5e56` 增加与原执行、Tool Call 和进程身份绑定的后台 Shell 记录。Rust/TS 共享 71 组执行契约。公开 `recover --session` 的真实进程测试覆盖宿主硬退出后回收已登记的进程，并保留原启动回执和未知执行效果。该测试在隔离夹具中补写将来后台启动时会落盘的记录。运行时内部定向停止已验证跨会话隔离，超时保留活跃状态，真实进程退出后结束。公开后台启动、`shell_stop` 的授权与 Evidence 闭环，以及持久前台会话仍待接通。见[后台 Shell 回执](native-cli/evidence/p4-native-background-shell-recovery-candidate-20261118.json)。
@@ -12,13 +22,13 @@
 
 旧 TUI Host、Provider、会话和任务管理的 48 项基线通过。固定原生 `179fd29a` 的公开入口复现产物别名目录被写入、100,000 字节 stdout 中断命令、后台请求失败和前台跨调用状态未保留。沿 ADR65、116、129–131 先补齐原生 Shell 产物。产物目录与文件的 FD 跨整个调用持有，派发前复核，stdout/stderr 分块持久化，64 KiB 预览与 2,000,000 字节产物上限分别记录，超额后继续排空管道并保留真实退出与截断状态。
 
-独立树 `92cc6275` 通过公开入口、路径替换、实时取消和归档复读，macOS arm64 解包 12 项 Shell 场景通过，旧 TUI 实际读取原生登记的 100,000 字节 stdout。固定结果与本卡的组合树 `f8ae3cb7` 通过本机原生门禁，含 715 项 Rust、307 项公开 Host、637 根/3576 项互读及 9 项 PTY。该组合解包后通过 12 项 Shell、15 项固定结果、22 项旧版输出对照和真实 ACP SDK 1.4.0。等待前驱 `b2040100` 独立全仓 CI。见[Shell 回执](native-cli/evidence/p4-native-shell-artifact-candidate-20261118.json)。
+独立树 `92cc6275` 通过公开入口、路径替换、实时取消和归档复读，macOS arm64 解包 12 项 Shell 场景通过，旧 TUI 实际读取原生登记的 100,000 字节 stdout。固定结果与本卡的组合树 `f8ae3cb7` 通过本机原生门禁，含 715 项 Rust、307 项公开 Host、637 根/3576 项互读及 9 项 PTY。该组合解包后通过 12 项 Shell、15 项固定结果、22 项旧版输出对照和真实 ACP SDK 1.4.0。前驱 `b2040100` 的 Linux/macOS 全仓 CI 通过后，相同树已推送为 `b1490f69` 并触发独立 CI 44269223370。见[Shell 回执](native-cli/evidence/p4-native-shell-artifact-candidate-20261118.json)。
 
 ## 2026-11-18 原生固定结果只读候选
 
 按 108-cli-basic-shell-commands、ADR118 §17.3/§19、ADR129–131，对接 `peer result <interactive-result://…> [--json]`。本机 SQLite 的固定版本、发布索引状态与墓碑，及已导入会话的原 EvidenceIndex、GoalPlan 和唯一完成的 Tool Result 均可形成有界摘要。实际旧 CLI 截断产生的 UTF-16 边界在文本和 JSON 输出中一致。保留 owner 拒绝、待登记、无效/重复/未提交历史等诊断。普通读保持原文件字节不变；缺少 `-shm` 时，SQLite 只读恢复派生索引，已验证主库及非空 WAL 字节不变。该入口不获得执行租约。
 
-独立树 `68d36d26` 通过 15 项 CLI 集成测试、22 项旧版输出对照、严格 Clippy 和 TUI typecheck。组合树 `f2630994` 已过本机原生门禁，712 项 Rust 测试、305 项公开 Host、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后通过 15 项固定结果集成、22 项旧版输出对照、14 项 Hook、4 项图片输入和真实 ACP SDK 1.4.0。前驱 `179fd29a` 的 Linux/macOS 全仓 CI 已通过，已将该原生固定结果组合推送为 `b2040100`，独立全仓 CI 44260971378 运行中。见[前驱 CI 回执](native-cli/evidence/ci-179fd29a-20261118.json)、[候选回执](native-cli/evidence/p4-native-fixed-result-candidate-20261118.json)。
+独立树 `68d36d26` 通过 15 项 CLI 集成测试、22 项旧版输出对照、严格 Clippy 和 TUI typecheck。组合树 `f2630994` 已过本机原生门禁，712 项 Rust 测试、305 项公开 Host、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后通过 15 项固定结果集成、22 项旧版输出对照、14 项 Hook、4 项图片输入和真实 ACP SDK 1.4.0。前驱 `179fd29a` 两平台全仓通过。相同固定结果树推送为 `b2040100` 后，独立 CI 44260971378 的 Linux/macOS 全仓与各自 Electron smoke 均通过。见[前驱 CI 回执](native-cli/evidence/ci-179fd29a-20261118.json)、[全仓 CI 回执](native-cli/evidence/ci-b2040100-20261118.json)、[候选回执](native-cli/evidence/p4-native-fixed-result-candidate-20261118.json)。
 
 ## 2026-11-18 原生图片输入与组合验收
 
