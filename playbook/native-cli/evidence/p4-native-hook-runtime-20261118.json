@@ -305,8 +305,40 @@
       "sha256": "f8c9e773fa36ef6f20ecae84a830023f528e1e26a7271c9a5508f29e8d8322ec"
     },
     "fullNative": {
-      "status": "in_progress",
-      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-verified.log"
+      "status": "success",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-verified.log",
+      "rustTotal": 708,
+      "publicHost": 301,
+      "pty": 9,
+      "sha256": "a26cdd8fbed6f1058df46c77f15da2b2277f541608a531c649251af4457560f4",
+      "ptyReleaseSha256": "571999276629c164eef904c00b34ef7cd4675adc5dfa20feeb1b5f1955721ac2"
+    },
+    "package": {
+      "platform": "darwin-arm64",
+      "archive": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-package/dist/peer-darwin-arm64.tar.gz",
+        "sha256": "fda2221692fba3289567be0a3f5a5e164ccbaa81fc1d3e4168074bc936c40168"
+      },
+      "bytes": 9529119,
+      "binary": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-package/extracted/peer-darwin-arm64/peer",
+        "sha256": "571999276629c164eef904c00b34ef7cd4675adc5dfa20feeb1b5f1955721ac2"
+      },
+      "members": [
+        "peer",
+        "peer-credential-helper"
+      ],
+      "featureless": true,
+      "noNodeOrBunOnProductPath": true,
+      "publicCases": 14,
+      "public": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-archive-public.log",
+        "sha256": "60dcf82b36ba198b1ac2c39f8c329471cd0348aaf722aad077d8e2c8b5136c8f"
+      },
+      "sdk": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-archive-sdk.log",
+        "sha256": "43007b704cda5a0a903bee20502cc7e3f7a3b885270ab976a2b84bb08ac04367"
+      }
     }
   }
 }
