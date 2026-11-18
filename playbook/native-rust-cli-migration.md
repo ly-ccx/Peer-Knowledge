@@ -4,6 +4,16 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 普通会话持久派发门槛
+
+`1657e9bb` 同树本机原生专项完整通过，包含 370 项原生场景、169 项 Runtime 测试、存储互操作、两端 Helper 协商和 9 项 PTY。全仓 GitHub CI 单独核对。[CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218)
+
+隔离 Store 候选扩展普通会话 owner。只有同一实际 owner、原 execution 修订和上下文来源仍匹配时，才可把原调用从 `prepared` 持久推进到 `dispatching`。停止准入保留原派发记录，也保留外来 metadata。启动后不可复用空认领关闭路径。真实 Node 文件 Provider 的授权回调期间由独立 Rust 进程读到 prepared；允许后的两处效果前检查均读到已持久 dispatching。拒绝权限、修改模型来源、批准等待期间关闭准入均未产生文件效果。正常效果后硬退出保留原调用和文件，Rust 拒绝新认领。沿既有 ADR 65、116、129、131，权限、Evidence 和持久格式边界不变。
+
+macOS arm64 与 Linux amd64 容器各通过 5 项真实派发场景和 7 项认领回归。本机另通过 149 项 Conversation Store 测试及架构检查。[派发回执](native-cli/evidence/p4-ordinary-owned-dispatch-20261119.json)
+
+这段验证使用实际 Provider 与隔离 Host 接线。旧生产 Host 的认知/用量、原始 Tool Result / Evidence 持久化、真实资源停稳和跨版本恢复还须接入。现有调用分组允许多个工具共享一个展示消息，生产接线需将每个 canonical 调用的 messageId 按原契约分配，不能使用临时 UI 段落充抵。P4 总闸与 P5–P7 继续开放。
+
 ## 2026-11-19 推送停稳候选与双端原子存储准入
 
 `ae6dd9a8` 的 Linux 全仓已通过，macOS 两项进程组停稳测试失败，原失败轮保留。按原验证树将兼容 Anthropic 流、会话写入保护和进程组停稳修复分三个提交推送，分支头为 `1657e9bb`，tree `d37d1e29`。本机同树的 370 项原生场景与 169 项 Runtime 测试通过，覆盖原两项 macOS 停稳测试。原生整套件后续互操作、PTY 与新一轮两端全仓 CI 继续运行。[新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218)
