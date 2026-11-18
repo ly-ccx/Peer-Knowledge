@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 委派前台 Shell 全仓回归修复
+
+`33327fed` 的 macOS 全仓在三项原生公开测试失败。Linux 首次遇 Microsoft 源 HTTP 429，针对同一提交重跑后进入原生门禁，实测复现相同三项失败。两端 checkout 均为同树 merge `4d8d5675`。旧 Node Shell Session 的真实 `exit` 和 `exec` 均没有命令完成码，下次调用会重建解释器。原生缺帧保持原授权及未知效果。原失败与差分见[复测回执](native-cli/evidence/p4-foreground-revocation-ci-20261118.json)。
+
+经验证的源树 `dec1fe60` 原样推送为 `a2717f4a`，记录实际授权失败原因后取消 Work。公开入口核对真实进程组消失，Tool Result 与产物记录同一原因，原授权和未知效果保留，同目录继续受保护，独立目录成功准入。OAuth 和非零退出码测试让真实子进程结束后由解释器返回命令帧，原结果和凭据断言继续成立。新增公开缺帧用例保留原 stderr 与真实未知效果。两端各 4 项公开及 10 项 Shell Session 检查通过。格式、Clippy 和架构检查通过，macOS 解包后在 PATH 无 Bun/Node 时另通过 3 项公开验证。沿 ADR65、116、129–131，授权、Evidence 与结算职责沿既有契约。
+
+本机 326 项公开 Episode 测试覆盖分两轮完成。首轮 292 项成功，34 项未加载测试所需的 JS 互操作构建产物。用 Node 25 与同一源码构建所需包后，精确复跑这 34 项全部成功。初轮真实失败和复测见回执。新提交的 [独立全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44311287210) 已启动。
+
 ## 2026-11-18 有界压缩摘要与冷恢复
 
 以已推送的 `33327fed` 为基线，冻结本地联合候选 `2c6e02a8`。单条正文已缩到 12,000 UTF-16 单位后，多条历史仍触发 `context_summary_limit`。改为在 256 KiB 内保留最近的完整消息组，标明省略条数。原已核验 Tool Result 与调用成对保留，模型摘要只收到历史图片省略标记，原 JSONL 保留。长历史在 marker 落盘后硬退出，连续两次 recover 和后续任务证明无需重新摘要或重放工具，原已知费用只入账一次。
@@ -12,7 +20,9 @@
 
 macOS 与 Linux 各 10 项认知库、9 项公开压缩场景通过。格式、严格 Clippy 和源码架构验证通过。macOS arm64 解包产物在 PATH 无 Node/Bun 下通过 3 项新增公开场景。测试端点的字节限制不折算为真实模型容量。候选保持在隔离验证树。[实现及失败证据](native-cli/evidence/p4-bounded-summary-20261118.json)
 
-前驱 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 核对 checkout merge `4d8d5675` 与 `33327fed` 同树。Linux 在三次 APT 刷新时均遇 Microsoft 源 HTTP 429，未执行产品测试。macOS 原生门禁仍在执行。GitHub 在本轮未完成时拒绝单独重跑 Linux。P4 总闸、真实服务和后续阶段仍待验收。
+将同一摘要补丁应用到 `a2717f4a` 后，联合树 `512935dd` 两端各通过 10 项认知库和 13 项公开场景。macOS arm64 解包后在 PATH 无 Bun/Node 时通过 6 个 Shell 与压缩场景。联合树段保持在隔离工作树，等 `a2717f4a` 的独立 CI。
+
+前驱 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 核对 checkout merge `4d8d5675` 与 `33327fed` 同树。Linux 在三次 APT 刷新时均遇 Microsoft 源 HTTP 429，未执行产品测试。macOS 随后出现三项前台 Shell 相关失败，重跑 Linux 亦复现。上节记录对照和修复候选。P4 总闸、真实服务和后续阶段仍待验收。
 
 ## 2026-11-18 委派 Work 前台和后台 Shell 验证
 
@@ -20,7 +30,7 @@ macOS 与 Linux 各 10 项认知库、9 项公开压缩场景通过。格式、�
 
 macOS 164 项和 Linux amd64 163 项 Runtime 库测试通过，每端各 3 项协议与 9 个公开 Work 场景，另有 79 项真实 TypeScript 与 Rust 协调存储互操作验证。macOS arm64 本地包解开后，在 PATH 无 Node/Bun 的环境通过 4 项后台 Shell。保留初次测试的 HTTP 读取超时和 Linux 缺失合成 Vault 夹具两项失败。前者在五条实际回执后发生，调整监督轮询避免连续占用 I/O 调度后完整复测通过。后者补建原夹具后通过。原失败、版本和产物身份见[委派 Shell 回执](native-cli/evidence/p4-delegated-work-shell-20261118.json)。
 
-`99e1e5e3` 的 [CI 44296531703](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 两端全仓通过，含原生门禁、两端 Electron smoke 和报告上传。两端 checkout 的 PR merge 树与源提交相同。`33327fed` 的独立 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 正在运行。
+`99e1e5e3` 的 [CI 44296531703](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 两端全仓通过，含原生门禁、两端 Electron smoke 和报告上传。两端 checkout 的 PR merge 树与源提交相同。`33327fed` 的独立 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 两端复现同三项失败，修复候选见上。
 
 另在上述解包原生产品，用实际公开 `exec --plan` 复现单条 30 万字符的旧历史触发 `context_summary_limit`。现有 TypeScript formatter 在同量级样本中按正文预算生成 12,040 字节预览，含截断标记。独立隔离候选沿 ADR55、56、57、129–131，把旧纯文本限制在同一 UTF-16 预算内，保留两端及截断标记。原 JSONL、已受管 Tool Result 回读和 Cold projector 未改。新增公开反例、原生压缩相关 5 项公开测试和 UTF-16 边界用例已通过，完整摘要输入、聚合限制与 P4 总闸继续验证。
 

@@ -40,18 +40,44 @@
     "head": "33327fed3ba0264d744435a2e98ffd0ecbc3dfd9",
     "merge": "4d8d567588b7a6e2ef0043a8c9eb0f50bc9912aa",
     "mergeTree": "937bd33beb2639e8a2eb68c5bd59957c4fd2d553",
-    "linux": {
-      "job": 134804697181,
-      "conclusion": "failure",
-      "step": "Install Linux credential-helper build deps",
-      "cause": "All three strict APT refresh attempts received HTTP 429 from the Microsoft Ubuntu 26.04 feed before any product build/test.",
-      "rerunAttempt": "HTTP 403 while the same workflow run is still running."
+    "attempt1": {
+      "macOS": {
+        "job": 134804696684,
+        "conclusion": "failure",
+        "step": "Native CLI scoped validation",
+        "passed": 322,
+        "failed": [
+          "native_model_oauth::credential_rotation_after_a_real_tool_stops_next_cognition_and_later_task_uses_new_login",
+          "native_provider_host::running_shell_rechecks_actual_policy_stops_its_group_and_admits_a_later_task",
+          "native_result_encoding::shell_failure_stderr_and_ranged_file_metadata_remain_visible_to_the_model"
+        ]
+      },
+      "linux": {
+        "job": 134804697181,
+        "conclusion": "failure",
+        "step": "Install Linux credential-helper build deps",
+        "cause": "HTTP 429 three times from the Microsoft Ubuntu feed"
+      }
     },
-    "mac": {
-      "job": 134804696684,
-      "status": "in_progress",
-      "step": "Native CLI scoped validation"
-    }
+    "attempt2": {
+      "Linux": {
+        "job": 134815574338,
+        "conclusion": "failure",
+        "step": "Native CLI scoped validation",
+        "passed": 320,
+        "failed": [
+          "native_model_oauth::credential_rotation_after_a_real_tool_stops_next_cognition_and_later_task_uses_new_login",
+          "native_provider_host::running_shell_rechecks_actual_policy_stops_its_group_and_admits_a_later_task",
+          "native_result_encoding::shell_failure_stderr_and_ranged_file_metadata_remain_visible_to_the_model"
+        ]
+      },
+      "macOS": {
+        "job": 134815577116,
+        "note": "Earlier macOS failure carried over"
+      }
+    },
+    "status": "completed",
+    "conclusion": "failure"
   },
   "logs": {
     "aggregate-summary-public-red.log": "8fe960b523be734ddc852e3ed5786185f22cd74b77de9e16ea57df38b99c358c",
@@ -64,5 +90,30 @@
     "structural-summary-governance-2c6e02a8.log": "cbbe243bdb769898c73d6edf2ca850f2a8eaeb64472481960b53a1279af8da2f",
     "ci-33327-linux.log": "0a37a697e028483fab5039826bfefce44b783e0f395ef8fc5469bb55c695a5f0"
   },
-  "limits": "The executable and provider exchanges use isolated data and a controlled HTTP endpoint. The 32 KiB simulated endpoint acceptance is not a measurement of real provider context capacity. The combined candidate is staged for the active migration after predecessor CI; it has no whole-repository CI, installed acceptance, or P4 release receipt."
+  "limits": "The executable and provider exchanges use isolated data and a controlled HTTP endpoint. The 32 KiB simulated endpoint acceptance is not a measurement of real provider context capacity. The combined candidate is staged for the active migration after predecessor CI; it has no whole-repository CI, installed acceptance, or P4 release receipt.",
+  "rebasedCandidate": {
+    "base": "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f",
+    "tree": "512935dd928a4552812b3d226adcacc43d48d7dd",
+    "patchSha256": "2e6432a9f7a0f37e050ec29fad3ab236fabf090ed2edb1e1665df4cd36698617",
+    "predecessorCI": {
+      "run": 44311287210,
+      "head": "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f",
+      "linuxJob": 134825787702,
+      "macOSJob": 134825788036,
+      "status": "in_progress_or_queued"
+    },
+    "scopedPublicMac": 13,
+    "scopedPublicLinux": 13,
+    "cognitionLibraryMac": 10,
+    "cognitionLibraryLinux": 10,
+    "featurelessPackagedMacPublic": 6,
+    "archiveSha256": "d87b54404ab652c27e711d8ad924f58a188a676eb990f9b552a0cd4cead250b9",
+    "peerSha256": "a9383e72062af451d50fdc449e09444643facfba42db350f2d8d4f2590e84038",
+    "logs": {
+      "compaction-rebased-mac-512935dd.log": "c72d45168f0ba56803b7ca8cd9afcbd9ba47f94b313fa8f3a0b5fe90fdfdbf26",
+      "compaction-rebased-linux-512935dd.log": "dc2f3f191f68203b02662f2e38d508091c60b904c218ca60682684b944c49ba0",
+      "compaction-rebased-package-512935dd.log": "1c87249b0e6e0855166eda116a137cc5825c7623045d04a7bf4e3332f91f318f"
+    },
+    "status": "Validated isolated candidate; not yet pushed."
+  }
 }
