@@ -6,7 +6,7 @@
 
 ## 2026-11-19 普通 Goal 语义评审
 
-隔离树 `3a0ead02` 补齐普通 Goal 的 `model_review`。实际旧 CLI 接受此标准，前一个 Rust 解包产物拒绝创建。当前原生 (模型通过工具提交的真实任务 Evidence) 可结算叶子，使用同一引用的语义自评仍被任务工具拒绝。独立 Verifier 实际读取后，按原 `modelReviews` 保存每项标准的判断、来源修订、Verifier ID 和真实引用。通过与失败均以来源绑定的判断落盘，失败保持 Goal 开放。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+隔离树 `3a0ead02` 补齐普通 Goal 的 `model_review`。实际旧 CLI 接受此标准，前一个 Rust 解包产物拒绝创建。模型可用真实任务 Evidence 结算叶子。若用同一引用提交语义自评，任务工具会拒绝。独立 Verifier 实际读取后，按原 `modelReviews` 保存每项标准的判断、来源修订、Verifier ID 和真实引用。通过与失败均以来源绑定的判断落盘，失败保持 Goal 开放。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
 
 双平台各通过 25 项 Goal 回归，两个无 Bun/Node PATH 的解包产物各通过 23 项 Goal 入口。相同受控语义序列在旧 CLI 实际走了三次独立核验和两次 repair，最后因引用无父计划归属而等待。当前解包原生候选在七个请求内取得真实同域 Evidence 后完成。旧 Source、`criterionSourceRevision`、`currentModelReview`、GoalStore 和历史冷读均通过，五份 canonical 文件字节一致。原生自动返修、报告格式续接、真实服务与 P4 总闸仍待验收。[语义评审回执](native-cli/evidence/p4-ordinary-goal-model-review-20261119.json)
 
