@@ -4,6 +4,14 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 持久前台 Shell 中断与跨平台验证
+
+实际 Linux Shell 的 `exec /bin/sleep` 替换解释器后提前关闭控制通道，旧测试因此未测到预期的超时和取消。原 9 通过、2 失败保留。修正夹具让解释器等待真正的子进程，并分别验证 `exit` 和 `exec` 引起的控制帧缺失。隔离树 `de982db4` 的真实 Linux 与 macOS 各通过 11 项 Shell。
+
+在真实超时下另复现已读取的短输出因控制帧 future 被丢弃而丢失。隔离树 `25eabd69` 的输出读取由原 Shell 独立持有至 EOF，超时或取消保留两路已观察字节，并标记未完整。macOS 与 Linux amd64 各通过 11 项 Shell，macOS 同树另通过 17 项 Store、带真实孤儿进程的公开恢复夹具、fmt 和严格 Clippy。仍沿 ADR65、116、129–131 的持有者、逐次授权、独立 Evidence 和未知保护边界。
+
+现有 `a69d852a` 无测试特性包在受控服务与无 Node/Bun PATH 的公开 `exec` 下，第一条前台命令返回 `ready`，第二条仍取得 `empty:missing:workspace`。已保留集成红例，接线后须取得 `retained:function:nested`，并核对同一实际 PID、每次原 dispatch 的 Evidence、真实组停稳及后续准入。普通前台与 ACP 接线及 P4 总闸仍待完成。[中断与公开基线回执](native-cli/evidence/p4-persistent-shell-interruption-20261118.json)
+
 ## 2026-11-18 持久前台 Shell 输出归属
 
 `a69d852a` 在 Linux 与 macOS 的全仓 CI 通过。已核对 PR 合并树、原生 CLI 检查、全仓测试和两端 Electron smoke。[全仓回执](native-cli/evidence/ci-a69d852a-20261118.json)

@@ -1,0 +1,75 @@
+{
+  "sourceParent": "a69d852aca398f21be0aca2c549278d86230d1f6",
+  "isolatedTree": "25eabd69583e6c9983c0c34c45f38cd722629739",
+  "combinedPatchSha256": "10efe58d4a3b8af080c6e70b273533bbb44e32138ac0afe50ac4943e6356fd4d",
+  "adr": [
+    65,
+    116,
+    129,
+    130,
+    131
+  ],
+  "controlFailure": {
+    "initialTree": "04d6d83622d9ad5dced67940a2b5b62064de4268",
+    "initialLinux": {
+      "passed": 9,
+      "failed": 2
+    },
+    "observed": "Explicit exec replaces the process. On the Debian Linux image, the shell's saved descriptors close immediately or the control socket is reset, although the same PID is still running sleep and the payload wrote its marker. With a normal child, the original interpreter keeps the control socket open and returns its packet.",
+    "fixtureCorrectionTree": "de982db4fec17f5f404641157993c58edd71f225",
+    "fixtureCorrection": "Run the real timeout and cancellation as a waiting interpreter with a live child; independently exercise loss of the frame both by exit and by replacing the interpreter with exec.",
+    "fixtureCorrectionPassed": {
+      "darwinArm64": 11,
+      "linuxAmd64": 11
+    }
+  },
+  "outputFailure": {
+    "observed": "A real command wrote both streams and waited for a child. Timeout dropped the fence future after it consumed the last bytes into a pending buffer. The stdout preview became empty after owned shutdown.",
+    "reproductionPatchSha256": "d6837fd49bdd2ea96a532818ca6642c099257664de09b524d9e7c247211de01d",
+    "resolution": "Both fence readers retain ownership of the bytes until the FIFO actually reaches EOF. They keep running under the original Shell owner on timeout, cancellation, and lost control. The observed byte prefixes survive in their original stdout and stderr files. Missing trusted completion still marks the output incomplete."
+  },
+  "verified": {
+    "darwinArm64": {
+      "shellTests": 11,
+      "storeTests": 17,
+      "storeSubprocessFixturesIgnored": 2,
+      "publicRecoveryFixture": 1,
+      "fmt": "passed",
+      "strictClippy": "passed"
+    },
+    "linuxAmd64": {
+      "shellTests": 11,
+      "image": "peer-adr118-linux-toolchain:74e0bae9",
+      "rustc": "1.90.0",
+      "exit": 0,
+      "containerUsesInit": true
+    },
+    "publicRecoveryLimit": "Fixture binds a recorded real orphan process to the persistent handle schema. It does not dispatch the foreground command through the public persistent route."
+  },
+  "publicForegroundBaseline": {
+    "binary": "extracted a69d852a featureless macOS arm64 package",
+    "entry": "ordinary exec with PATH=/nonexistent and an isolated local model endpoint",
+    "firstCommandPreview": "ready",
+    "secondCommandPreview": "empty:missing:workspace",
+    "expectedSecondCommandPreview": "retained:function:nested",
+    "testPatchSha256": "97f5b7e675f1242eb57d13425177dac83dc9fc8cf9b8957b5e3ff1510fe9e7f7",
+    "acceptance": "Same process and generation for distinct bound dispatches, same cwd, environment and shell function, canonical Grant/Result/Evidence per call, kernel-proven stop after CLI returns."
+  },
+  "logSha256": {
+    "persistent-shell-linux-verify.log": "eb6b5afa9ab69e3b1b78306d283f6e8759082a4ffbb6d2d08119cff6dc01881e",
+    "persistent-shell-platform-control-probe-verified.log": "30126cb14e61a2928490f5dbe2d62a598e62bfbfcdb6ef86d7fd644bf8c3c036",
+    "persistent-shell-linux-de982db4.log": "b14bd23cb6be58507292be893a9fd1dd94d0dcfa434501dd2ce8ba3effdb4a24",
+    "persistent-shell-timeout-output-red.log": "40d0ba21873390b4766bf4c42661d3724b9d36cf9f1f81d94216ae5245f787d6",
+    "persistent-shell-macos-25eabd69.log": "7ce0b44a6708fd641e39b3e60766c2dbff189b74322209256684dde9c1c06149",
+    "persistent-shell-linux-25eabd69.log": "6d11d5d34f6794645c1c198c021cd78400594b198e2ada5bd252f0a0deb715dc",
+    "persistent-shell-recover-25eabd69.log": "96674a2fd98dc185bcbcbae11b03bd7eec6e35cd5829369bef54c5f10868d502",
+    "persistent-shell-public-a69d852a-first-output.log": "8a8b65bf084c7f0a8470bd246fa00365d1bad9cb8f8a86496e46dd4af7faf563",
+    "persistent-shell-public-a69d852a-state-red.log": "6c75a159e41425e6a70fdba05701dbd25c886fa2e8a2fbcc6c2cefc217675020"
+  },
+  "remaining": [
+    "ordinary Provider/Host wiring",
+    "public exec and ACP authorization and shutdown",
+    "delegated Work",
+    "P4 acceptance and P5–P7"
+  ]
+}
