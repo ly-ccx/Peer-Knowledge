@@ -22,6 +22,8 @@
 
 pidStart 在原五字段中是 opaque string，不新增或覆写持久 schema，不把旧记录就地升级。只有双方都是可解释的 macos-v2 数值起点才可按完全匹配判 Alive 或不同起点判 Reused；旧 `macos:<本地显示时间>` 或未知版本在 PID 仍存在时一律 Unproven，不因字符串不同判 Reused，也不据此杀 child、关闭活 owner 准入或产生新 stop。旧记录若实际 PID 已不存在，仍可据明确 ESRCH 与稳定 boot 判 Dead；换 boot 仍按原规则。旧 child 只有旧秒级显示身份、PID 仍存在而无法安全匹配时保持原 handle/process/unknown 和明确恢复阻断；不能删除记录、重放工具或用升级假造新精确身份。原 known usage 在原 owner 死亡/stop 已确证时仍可独立核对，blocked child 不消除费用。该条局部取代早期 Adapter 把不同 macOS lstart 文本视作 Reused 的实现解释，不扩大接管/杀进程权限。
 
+旧原生二进制也属于兼容边界：只认识显示时间的旧 prove 实现可能把新 macos-v2 误判为 Reused，不能因旧 normalizer 能保全 opaque string 就宣称执行兼容。默认共享写域切换前必须完成旧原生与 TS/安装宿主的真实 drain/升级；已有项目 lease/owner 闸保留。本卡不操作运行中的旧实例，仅隔离根验证当前消费者和保守的旧记录读取，不声称旧二进制因本次字段前缀自动安全。
+
 验收含实际跨进程 TZ/LC_ALL 变化时活 owner 拒绝且 canonical 不变、真实 child group 不被误杀、实际新 owner/child 崩溃恢复、旧真实已死 owner 原16费用一次与 unknown 保全、旧仍活 PID/未知起点保守拒绝、完整 Goal/MCP/普通恢复回归、TS opaque 互读和固定 featureless release 无 Node/Bun。`recover --session` 仍不重放/不接受 unknown；P4 总闸、旧 TS/安装宿主 guard/drain、P5–P7 与长期内存/默认安装发布继续开放。
 
 依据：[libproc pidinfo](https://docs.rs/libproc/0.14.11/libproc/proc_pid/fn.pidinfo.html)、[固定源码](https://github.com/andrewdavidmackenzie/libproc-rs)。此次先核对 Cargo 下载的0.14.11实际源码；不是只凭 latest 文档推断已验收。
