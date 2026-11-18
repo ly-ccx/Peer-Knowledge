@@ -4,6 +4,18 @@
 最后更新：2026-11-18
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-18 四项 P4 改动推送
+
+`80b9807b` 的 Linux 与 macOS 全仓 CI 均通过，含各自 Electron 冒烟测试。两端实际 checkout `678493ba`，tree `de624eaf` 与候选相同。[前驱 CI 44315691651](https://github.com/ly-ccx/Peer-Agent/actions/runs/44315691651)
+
+分别提交长历史压缩 `a8e83ab8`、旧 TUI 设置兼容 `a8ad0c17`、Goal 准入 `e6fc4c96` 和 Goal 读取 `a66fdb81`，一次推送组合树 `02a0e6e0`。两端解包前各 9 项入口检查，解包后各 12 项涉及整组改动的真实入口检查。原生文件、Shell、准入和 Goal 源码均为实际推送树，P4 总闸继续核对。[组合 CI 44327109379](https://github.com/ly-ccx/Peer-Agent/actions/runs/44327109379) · [组合回执](native-cli/evidence/p4-ordinary-goal-read-20261118.json)
+
+## 2026-11-18 普通 Goal 工具读取
+
+隔离树 `02a0e6e0` 接通 `goal_get_plan`。Manifest、列表与正文由实际旧 TUI/GoalStore 夹具核对。原生通过同一 Projection、Grant、Tool Result 和 Evidence 读取本会话计划。实际 Runner 进度参与状态判定，取消项不进入列表，外部 ID 和缺失 ID 返回相同空结果。大正文输出以原生已保存 Tool Result 分段读回，模型端实际读到原观察，源计划随后变化也未影响回读。沿 ADR35、41、55、57、65、116、129–131 及 ADR131 本日补充，保留跨会话读取收紧和本机 checkpoint 隔离。
+
+旧原生包上三项公开入口因 `tool_not_projected` 失败。新候选两端各通过 9 项公开入口，含之前的 Goal 准入和原生 artifact 拒绝回归。macOS arm64 与 Linux amd64 解包后，PATH 无 Bun/Node 时各通过 6 项 Goal 入口。相同归档另在两端各通过 12 项组合检查，覆盖压缩、旧设置、Goal 准入和读取、委派 Shell。真实模型、Goal 创建和更新、Explorer 执行、已安装旧宿主停稳及 P4 总闸仍待验收。[Goal 查询回执](native-cli/evidence/p4-ordinary-goal-read-20261118.json)
+
 ## 2026-11-18 普通显式 Goal 的写入准入
 
 实际旧包按 Goal intake 拒绝无计划的 `write_file`。同样的 `--mode goal --access full` 请求令原生包 `efdaa3b4` 实际写入。按 ADR35、41、55、65、116、129–131 及 ADR131 本日补充，候选 `b6f58fef` 读取现有 canonical Goal、Runner 和索引，核实本会话、同目录的普通就绪计划。在真实派发前再次核对计划和索引，文件或执行状态已变即拒绝。工具仍要求现有真实 Grant。
@@ -16,7 +28,9 @@
 
 用实际旧 Bun 包与隔离原生归档 `efdaa3b4` 分别发送 chat、plan、goal 三种模式的首个请求。共同投影工具的 JSON Schema 相符。旧包仍投影三个 Goal 工具、Explorer 与无头提问，当前原生包尚未投影这些工具。实际无参数 `goal_get_plan` 会读取当前会话并返回空计划列表。普通旧 `request_explorer` 返回请求登记，真正 Explorer 运行仍取决于既有 Goal 执行链。两条受控调用均有原工具结果和 Evidence 引用，并进入第二次请求。原生在一次请求后报告 `tool_not_projected`。旧无头提问在一次请求后终止，无第二次请求或工具结果回传。
 
-下一次实施沿 ADR35、55、65、116、129–131 和实际 Goal 入口，核对普通无头对话、已有 canonical Goal 与受管运行的区别。基线未执行 Goal 变更、真正 Explorer 子任务或真实模型，也未改变原生投影。候选 Tool Result 回读已在 goal 模式单独出现。[两包实际入口回执](native-cli/evidence/p4-public-tool-inventory-20261118.json)
+写入基线追加实测。旧 `exec --mode plan` 创建一份等待审批的计划，在模型尝试标记任务完成时拒绝，任务仍为 pending。对已接受计划，真实旧 TUI bridge 分别拒绝缺少 Evidence 和 EvidenceIndex 未登记的引用。同一场景的旧包发出 3 次模型请求并保留待审批状态，当前原生归档在一次模型请求后返回 `tool_not_projected`，没有创建计划。[写入基线回执](native-cli/evidence/p4-ordinary-goal-read-20261118.json)
+
+下一次实施沿 ADR35、55、65、116、129–131 和实际 Goal 入口，核对普通无头对话、已有 canonical Goal 与受管运行的区别。上述基线使用受控模型，原生 Goal 创建、更新和 Explorer 执行继续按现有契约接线。候选 Tool Result 回读已在 goal 模式单独出现。[两包实际入口回执](native-cli/evidence/p4-public-tool-inventory-20261118.json)
 
 ## 2026-11-18 委派 Shell 的版本保护验收
 
