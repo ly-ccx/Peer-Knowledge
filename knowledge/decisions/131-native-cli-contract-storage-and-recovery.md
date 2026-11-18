@@ -275,6 +275,12 @@ Loop 结束时，原 attempt 的快照和 nativeRecorder 原样移入 `work.budg
 
 验收包括：真实“模型→文件效果→硬退出→停稳→已知用量一次入账”；stop后/意图前硬退出；Store错误及回执丢失；未知快照仍先停稳、事实原样保留；TS往返与后续任务；无模型/工具重放。此前未携带分量快照的旧记录继续 unknown，不自动制造账目。
 
+### 2026-11-18 NR-04 旧 TUI v3 设置的原生显式执行（实施前复核）
+
+沿 ADR 55、65、116、129–131。用旧 TUI 三个真实保存入口生成 settings.json，schemaVersion 3 写入 `themeMode`、`projectAgent.shell: bots`、语言和 `localAccessLevel`。原生对已知有效的主题值、Bots 默认字段及布尔引导标记、合法旧权限偏好做有界只读验证，允许普通 `exec` 和既有 canonical Work 同文件运行。只有原有语言、分支前缀及 System Instructions 配置贡献已注册 Source 内容。原文件和 UI 设置继续由其现有宿主维护。
+
+普通无头执行以本次 `--access` 为准。Work 以已有 workspace Bot Policy、Goal、lease 和实时授权为准。旧 `localAccessLevel` 仅容许共存，不能成为原生授权、fallback 或写入任何 Policy。Native 交互启动和 Project Agent 完整配置留给其后续已约定阶段。含 Classic 切换、未移植的 Project Agent 子项、未知顶层字段、未知 schema 或错误类型仍明确阻断。验收要求实际 TS 保存文件、Native 普通真实 PTY 拒绝、委派策略拒绝、零写效果、原文件字节和真实 Grant/Tool Result/Evidence 不变。
+
 ### 2026-11-18 NR-04 压缩摘要输入预算（实施前补充）
 
 沿 ADR55、56、57、129–131。摘要模型使用原 canonical 投影及已核验的受管 Tool Result 视图。旧普通正文、内容块正文、工具参数及上一次 continuity 摘要沿既有 TUI 的 UTF-16 预算做显式预览，保留首尾且不拆 Unicode 字符。旧图片只出现省略说明，原始 URL 或编码字节不进入摘要请求。正常模型请求及保留的当前用户消息沿原 encoder。

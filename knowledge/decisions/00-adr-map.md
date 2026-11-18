@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-18：ADR131补充真实旧 TUI v3 设置的 Native 显式执行读取规则，普通和 Work 继续以各自已有授权真源为准。
+
 2026-11-18：ADR131补充原生压缩摘要输入的单项和总量预算及原文回读规则，保留 canonical、Tool Result、冷读重计数和恢复契约。
 
 2026-11-18：ADR131登记委派 Work 后台 Shell，同执行原启动 Evidence 后继续派发，定向停止沿原资源和实际 owned handle。
