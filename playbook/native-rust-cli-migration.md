@@ -2,11 +2,13 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact` 全量对齐完成并推仓（`Peer-Agent` `b9555492`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典对齐完成并推仓（`Peer-Agent` `bf81cbae`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
 
 ## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
 
-提交 `b9555492` 将 `crates/peer-tui` 与 `crates/peer-cli/src/terminal/` 的交互命令、快捷键和弦、浮层选择器、会话恢复与上下文压缩全量对齐原 `apps/tui`（OpenTUI）行为规范（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移，视图层零文件/进程 I/O，开屏与 `F2` 切换零持久化落盘）：
+补充提交 `bf81cbae` 对齐未绑定工作区 `BindWorkspace` 确认页（`crates/peer-tui/src/bot_view.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`、`scripts/native-cli/tui_e2e_pty.py`）：文案与横排/窄屏排版对齐 `ProjectApp.tsx` / `project-copy.ts`（`把这个目录绑定为机器人？`、`是，创建机器人  Y`、`否，进入普通任务模式  N`、`←/→ 选择 · 回车确认 · Esc 进入普通任务模式`，并保留 `Peer · 机器人模式` 顶栏兼容 `pty_checks.py`）；`y/Y` 直接绑定创建，`n/N`、`Esc` 或选否回车均以零落盘直入 Classic 模式。提交 `bf81cbae` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **22/22**、`peer-cli --lib` **15/15**、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**，新增 `bind-refusal-enters-classic-without-writing` 验证 `No + Enter` 与 `Esc` 零写盘进入 Classic、`resume_pty.py` **10/10**）。
+
+基线提交 `b9555492` 将 `crates/peer-tui` 与 `crates/peer-cli/src/terminal/` 的交互命令、快捷键和弦、浮层选择器、会话恢复与上下文压缩全量对齐原 `apps/tui`（OpenTUI）行为规范（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移，视图层零文件/进程 I/O，开屏与 `F2` 切换零持久化落盘）：
 - **Store / Runtime 只读枚举与会话控制接口**（`crates/peer-store/src/{presentation,conversation_write,skill_catalog,goal}.rs`、`crates/peer-runtime/src/{capability,cognition,conversation_host,model_catalog}.rs`）：新增 `ConversationStore::list_resumable_sessions`（过滤非活跃与子会话）、`update_ordinary_mode` / `update_ordinary_model`（忙碌会话拒写）、共享 `SkillCatalog::discover` + `list_all`、只读 `GoalStore::list_by_conversation`、`NativeConversationRuntime::compact_conversation`（复用 `ContextPipeline::compact` 结构化摘要 + `historySelection` 提交标记）以及 `supports_fast_mode`。
 - **Leader 和弦、交互选择器与斜杠精简补齐**（`crates/peer-tui/src/{leader_key,overlays,commands,slash_menu,classic_view,bot_view}.rs`）：新增 `LeaderKeyState`（`Ctrl+X M/O/P/N/L/1/2/3`）、全套 Peer Frost 浮层与弹窗（`/resume` 会话选择器、`/mode` 模式选择器、`/permissions` 本地权限选择器、`/theme`、`/language`、`/skill`、`/mcp`、`/goals` 搜索过滤选择器与 `/help` 快捷键/命令参考）；在 `slash_menu::filter_items` 增加精确匹配优先桶（消除 `/mode` 与 `/model` 前缀抢占），支持 `/fast` 与 `/goal-pause`/`/goal-resume`/`/goal-cancel` 动态显隐，为经典与机器人模式补齐 `/version` 等命令与快捷键右对齐提示。
 - **Classic / Bot Shell 全命令接线与能力设置原子持久化**（`crates/peer-cli/src/terminal/{classic,bot_shell,capability_store}.rs`）：接入经典模式全部 20+ 条交互命令（`/resume [id]`、`/mode`、`/permissions`、`/fast`、`/skill`、`/mcp`、`/clear`、`/compact`、`/history`、`/goals`、`/goal-*`、`/bots`、`/help`、`/version` 等）与 `Ctrl+X` 和弦；`capability_store` 仅在用户按 `Space` 切换 Skill/MCP 开关时原子更新 `skills/settings.json` 与 `mcp-registry.json`；Bot 模式同步接入 `/theme`、`/language` Frost 选择浮层与 `/version`。
