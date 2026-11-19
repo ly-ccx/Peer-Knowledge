@@ -2,7 +2,28 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P6 scoped 验证通过；P7 实施中（不代表全仓 CI、4 小时真实长稳或发布验收）
+状态：P0–P7 源码实现与本机原生全门禁/解包零 Node·Bun 冒烟全部通过（`Peer-Agent` `cc9c3dda`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-19 P7 原生 `peer update`、7-Crate 版本治理、发布打包切换与解包零 Node/Bun 冒烟
+
+提交 `cc9c3dda` 完成 P7 原生发布链与自更新能力（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移）：
+- **原生 `peer update [--check]` 与顶层命令对齐**（`crates/peer-runtime/src/http_fetch.rs`、`crates/peer-cli/src/update.rs`、`lib.rs`、`main.rs`）：沿 ADR 48 / ADR 108 实现同通道（`stable` / `beta` / `rc`）SemVer 比较与 GitHub Releases 查询（`rustls` TLS + 有界字节与超时预算 + 最多 5 跳重定向）、`resolve_release_install_target` 非 `peer` 拒绝覆盖保护、`PEER_AGENT_INSTALL_SOURCE`（`release` / `npm` / `pnpm`）分发、以及 `peer` + `peer-credential-helper` 双二进制 `.next` 预置 / `.previous` 备份原子切换与异常回退；同步补齐 `peer help`、`peer version` 与子命令 `--help` 首行版本号动态替换。
+- **版本脚本与发布打包切换**：`scripts/check-version.mjs` 与 `scripts/stamp-version.mjs` 扩展至全部 7 个 Rust workspace crates（`peer-credential-helper`、`peer-protocol`、`peer-store`、`peer-runtime`、`peer-project-agent`、`peer-tui`、`peer-cli`）；`scripts/package-cli-archive.mjs` 支持 `--native` 与 `--dist-dir`；`.github/workflows/release.yml` 的 `build-cli` 作业彻底移除 `Setup Bun` / `pnpm install` / `@peer-agent/tui build`，改为纯 Cargo `--release --locked` 构建 `peer-native` + `peer-credential-helper`，保留 macOS Developer ID 签名 helper 复用并在解包后以 `PATH=/nonexistent` 验活。
+
+实测验证（隔离临时目录 + 受控本地 HTTP Mock，零修改用户 `~/.peer-agent`、个人数据或已安装 `peer`）：
+- **定向单元与打包测试**：`peer-cli --lib` 13/13、`peer-cli --test update` 3/3（覆盖 `--help` / 用法错误退出码 2 / 通道匹配 / 拒绝替换 `peer-native` / 真实 `peer` + `peer-credential-helper` 原子替换 / 残缺归档保护）、`pnpm version:check`、`stamp-version.mjs` 幂等回写、`pnpm architecture:check`、`pnpm typecheck`（16/16 workspace 项目）、`pnpm changelog:test`（28/28，含 `package-cli-archive.test.mjs` 16/16）、`check-release-source.test.mjs` + `rc-upgrade-matrix.test.mjs`（7/7）全部通过。
+- **macOS arm64 正式解包归档零 Node/Bun 冒烟**（[P7 解包冒烟证据](native-cli/evidence/p7-unpacked-release-smoke-20261119.json)）：
+  - `node scripts/package-cli-archive.mjs --native darwin-arm64` 生成 `peer-darwin-arm64.tar.gz`（**11.13 MiB**，SHA-256 `651b7df0…`），内含 `peer`（**27.84 MiB**，SHA-256 `4685f925…`）与 `peer-credential-helper`（**818 KiB**，SHA-256 `1644f4f9…`）；
+  - `otool -L` 确认两个二进制仅链接 macOS 系统库（`CoreFoundation` / `Security` / `libiconv.2` / `libSystem.B`），零 Bun/Node/V8/Electron/Homebrew 动态依赖；
+  - 解包后以 `PATH=/nonexistent` 通过 `--version` / `version` / `--help` / `doctor` / `models` / `bots --json` / `completions zsh` / `update --help` / `update --check` / `exec` / `acp`（JSON-RPC `initialize`）/`helper-probe` 及全部 **22 项真实 PTY 套件**（`pty_checks.py` 9/9、`tui_e2e_pty.py` 3/3、`resume_pty.py` 10/10）。
+- **全量原生门禁 `scripts/native-cli/verify.mjs`**：
+  - 首轮默认 14 线程并发时，`native_episode` 有 5 个多轮 `goal_*` 用例（`goal_read` / `goal_update` / 3 项 `goal_runner`）在 debug 并发负载下触发 8s/15s 墙钟超时（372/377 通过）；单独复跑该 5 项 **5/5 通过**；
+  - 不放宽任何断言或超时、以 `RUST_TEST_THREADS=4` 端到端完整运行 `verify.mjs` 退出码 0：**75 个 Rust 测试集共 846/846 全部通过**、**650 数据根 / 3,703 项 TS↔Rust 互操作用例通过**（含 20 个 v15 原生根）、`project-agent-conformance.mjs` 8 存储 + FTS5 中英文双向冷读通过、`helper-probe` debug/release 双通过、以及 22 项 release PTY 全通过。
+
+**发布前仍待用户确认与执行的门禁项（本次未越权操作）**：
+1. 推送 PR 触发 GitHub Actions Linux x64 + macOS arm64 全仓 CI 与 Electron smoke；
+2. 真实模型在线闭环、真实物理终端中文 IME/读屏器、4 小时真实长稳 soak、以及已安装旧版 `peer` 原位升级/降级演练；
+3. 待新原生 CLI 稳定发布并完成回退验证后，另提清理卡移除旧 `apps/tui` 的 Bun / React / OpenTUI 遗留依赖。
 
 ## 2026-11-19 P6 原生 Ratatui 日常 TUI、Bot/Classic 交互壳与 ADR 130 内存/延迟验收
 

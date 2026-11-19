@@ -1,0 +1,188 @@
+{
+  "platform": "darwin-arm64",
+  "archiveName": "peer-darwin-arm64.tar.gz",
+  "archiveBytes": 11671010,
+  "archiveSha256": "651b7df0fea509df7f3de79c964d6a43e83636be012c40ea396f4fa80a5fa559",
+  "peerBytes": 29193136,
+  "peerSha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+  "helperBytes": 837824,
+  "helperSha256": "1644f4f96215fa5f9b1d12bf2ac59c056abe731d5d9e3d78d27e9825c4e7ddf7",
+  "linkage": {
+    "peer": {
+      "libs": [
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "forbidden": [],
+      "passed": true
+    },
+    "helper": {
+      "libs": [
+        "/System/Library/Frameworks/Security.framework/Versions/A/Security",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "/usr/lib/libiconv.2.dylib",
+        "/usr/lib/libSystem.B.dylib"
+      ],
+      "forbidden": [],
+      "passed": true
+    }
+  },
+  "checks": {
+    "version": {
+      "exitCode": 0,
+      "output": "peer 0.1.0-rc.40",
+      "passed": true
+    },
+    "help": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "doctor": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "models": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "botsJson": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "completionsZsh": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "updateCheck": {
+      "exitCode": 0,
+      "output": "peer 0.1.0-rc.40 \u2192 0.1.0-rc.999 (rc, release)\nhttps://example.invalid/releases/v0.1.0-rc.999",
+      "passed": true
+    },
+    "execOrdinary": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "acpInitialize": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "helperProbe": {
+      "exitCode": 0,
+      "passed": true
+    },
+    "ptyChecks": {
+      "passed": 9,
+      "results": [
+        {
+          "case": "normal",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 847,
+          "binarySha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+          "passed": true
+        },
+        {
+          "case": "unicode-paste-resize-draft",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 8324,
+          "binarySha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+          "passed": true
+        },
+        {
+          "case": "sigterm",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 848,
+          "binarySha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+          "passed": true
+        },
+        {
+          "case": "ctrl-d",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 847,
+          "binarySha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+          "passed": true
+        },
+        {
+          "case": "guard-normal",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 1122,
+          "binarySha256": "80b83825f56382bd5c551b88cd8137bdeb7e1ef0616495acb970edaba7db7bac",
+          "passed": true
+        },
+        {
+          "case": "guard-error",
+          "exitCode": 1,
+          "termiosRestored": true,
+          "terminalBytes": 1197,
+          "binarySha256": "80b83825f56382bd5c551b88cd8137bdeb7e1ef0616495acb970edaba7db7bac",
+          "passed": true
+        },
+        {
+          "case": "guard-panic",
+          "exitCode": 101,
+          "termiosRestored": true,
+          "terminalBytes": 1339,
+          "binarySha256": "80b83825f56382bd5c551b88cd8137bdeb7e1ef0616495acb970edaba7db7bac",
+          "passed": true
+        },
+        {
+          "case": "oversized-terminal",
+          "exitCode": 1,
+          "termiosRestored": true,
+          "terminalBytes": 55,
+          "binarySha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+          "passed": true
+        },
+        {
+          "case": "pty-hangup",
+          "exitCode": 0,
+          "reaped": true,
+          "settledWithoutKill": true,
+          "terminalNoLongerAvailable": true,
+          "binarySha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+          "passed": true
+        }
+      ]
+    },
+    "tuiE2ePty": {
+      "passed": 3,
+      "results": [
+        {
+          "case": "bot-bind-chat-and-subcommands",
+          "passed": true
+        },
+        {
+          "case": "classic-stream-approval-cancel-continue",
+          "passed": true
+        },
+        {
+          "case": "f2-bot-classic-roundtrip",
+          "passed": true
+        }
+      ]
+    },
+    "resumePty": {
+      "sessionId": "f7c6fa21-865f-47e4-b517-c3a67a22b485",
+      "sha256": "4685f9253c95855e0c15eb956e01bec41ee809a788820316332734daee9b5d4e",
+      "cases": [
+        "no-tty",
+        "open-read-only",
+        "deny",
+        "bounded-approval-viewport",
+        "approve",
+        "busy",
+        "cancel",
+        "continue-after-cancel",
+        "unrecorded",
+        "history-paging"
+      ],
+      "requests": 7
+    }
+  },
+  "passed": true
+}
