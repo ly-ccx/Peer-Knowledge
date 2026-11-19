@@ -2,9 +2,11 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典对齐完成并推仓（`Peer-Agent` `bf81cbae`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称对齐完成并推仓（`Peer-Agent` `3e97e9d0`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
 
 ## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
+
+补充提交 `3e97e9d0` 将模型选择器、顶栏徽标与切换提示从原始供应商 UUID 改为人类可读名称（`crates/peer-cli/src/terminal/model_picker_adapter.rs`、`crates/peer-tui/src/model_picker.rs`、`crates/peer-cli/src/terminal/{classic,bot_shell}.rs`）：按 `tui-model-selection.ts` `splitModelDisplayName` 拆分 `"{model} · {provider}"`，分组保留 catalog 原序、不合并不同 `provider_id`；`ModelPicker` 标签行支持超宽横向滑动窗口（`‹`/`›` 指示）与 CJK 宽度按列裁剪；`ClassicSession::model_badge` 及模型切换提示统一展示可读 `display_name`。提交 `3e97e9d0` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **23/23**、`peer-cli --lib` **17/17**、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）。
 
 补充提交 `bf81cbae` 对齐未绑定工作区 `BindWorkspace` 确认页（`crates/peer-tui/src/bot_view.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`、`scripts/native-cli/tui_e2e_pty.py`）：文案与横排/窄屏排版对齐 `ProjectApp.tsx` / `project-copy.ts`（`把这个目录绑定为机器人？`、`是，创建机器人  Y`、`否，进入普通任务模式  N`、`←/→ 选择 · 回车确认 · Esc 进入普通任务模式`，并保留 `Peer · 机器人模式` 顶栏兼容 `pty_checks.py`）；`y/Y` 直接绑定创建，`n/N`、`Esc` 或选否回车均以零落盘直入 Classic 模式。提交 `bf81cbae` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **22/22**、`peer-cli --lib` **15/15**、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**，新增 `bind-refusal-enters-classic-without-writing` 验证 `No + Enter` 与 `Esc` 零写盘进入 Classic、`resume_pty.py` **10/10**）。
 
