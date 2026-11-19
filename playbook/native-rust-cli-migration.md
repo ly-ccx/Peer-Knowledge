@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 原生终端续跑已有普通会话
+
+隔离组合树 `e256c19b` 接通公开 `peer sessions resume <id>`。打开只读原会话，Enter 才经原 Runtime 发送。实际 Host 确认正文落盘后清草稿。原执行记录要在 Store 写锁内与提交前观测一致且可准入。仍在执行、已经换代、缺少停稳记录或结果待核对时保留草稿，提示相应阻断。Ratatui 读取有界历史页，小窗不能批准看不全的请求，粘贴不触发批准。Ctrl-C 等待原 Runtime 的取消与停稳，未完成的流式正文标明状态。沿 ADR 108、129、130、131，能力、授权、Evidence 和存储契约保持原有边界。
+
+macOS arm64 调试与无测试特性解包产物、Linux amd64 容器各过 10 个公开终端场景。macOS 解包产物另过 9 项终端生命周期检查。用实际旧 Bun 编译产物完成两次前台 Shell 调用后，同一会话在解包 Rust CLI 的原入口续跑，模型请求带入两条原 Tool Result，仍保留原会话 ID、正文和旧账目。旧产物只作为隔离夹具，续跑进程 PATH 无 Bun/Node。无停稳证明的已安装旧宿主、完整 Runtime/协议平价、P4 总闸和 P5–P7 继续开放。[验收回执](native-cli/evidence/p4-native-session-resume-20261119.json)
+
+`9febafee` [第二轮全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251/attempts/2) 的 macOS 和 Linux 全部成功，包括各自 Electron 冒烟和报告上传。两个作业的实际 checkout 都是 `072782dd`，tree 与 `9febafee` 一致。已将上一批验证过的 `68f2c5f3` 原样提交并推送为 `3e1c8746`。续跑改动保存在独立候选，等前驱全仓 CI 后承接。
+
 ## 2026-11-19 前台 Shell 旧宿主协作交接
 
 隔离候选 `9fe73c65` 让编译版旧 `peer exec` 通过同一 `runtimeExecution` 记录前台 Shell。原命令、Grant、解释器身份和本次命令绑定先于命令效果落盘。两次命令使用同一解释器，保留环境变量、原 Tool Result、Evidence 与 9 token 账目。命令结束后仍保留空闲句柄，直至旧宿主观察原进程组消失。运行中 Rust 冷读同一记录并拒绝认领，停稳后原生 Host 在原会话 ID 上完成新回合，两条旧工具结果成为实际模型请求的一部分。沿 ADR 65、116、129 和已登记的 ADR 131 协作补充。
