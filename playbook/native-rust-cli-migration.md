@@ -2,7 +2,19 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P7 源码实现与原生 Ratatui **Peer Frost** 视觉样式对齐全部完成并推仓（`Peer-Agent` `cfd0c8d4`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact` 全量对齐完成并推仓（`Peer-Agent` `b9555492`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
+
+提交 `b9555492` 将 `crates/peer-tui` 与 `crates/peer-cli/src/terminal/` 的交互命令、快捷键和弦、浮层选择器、会话恢复与上下文压缩全量对齐原 `apps/tui`（OpenTUI）行为规范（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移，视图层零文件/进程 I/O，开屏与 `F2` 切换零持久化落盘）：
+- **Store / Runtime 只读枚举与会话控制接口**（`crates/peer-store/src/{presentation,conversation_write,skill_catalog,goal}.rs`、`crates/peer-runtime/src/{capability,cognition,conversation_host,model_catalog}.rs`）：新增 `ConversationStore::list_resumable_sessions`（过滤非活跃与子会话）、`update_ordinary_mode` / `update_ordinary_model`（忙碌会话拒写）、共享 `SkillCatalog::discover` + `list_all`、只读 `GoalStore::list_by_conversation`、`NativeConversationRuntime::compact_conversation`（复用 `ContextPipeline::compact` 结构化摘要 + `historySelection` 提交标记）以及 `supports_fast_mode`。
+- **Leader 和弦、交互选择器与斜杠精简补齐**（`crates/peer-tui/src/{leader_key,overlays,commands,slash_menu,classic_view,bot_view}.rs`）：新增 `LeaderKeyState`（`Ctrl+X M/O/P/N/L/1/2/3`）、全套 Peer Frost 浮层与弹窗（`/resume` 会话选择器、`/mode` 模式选择器、`/permissions` 本地权限选择器、`/theme`、`/language`、`/skill`、`/mcp`、`/goals` 搜索过滤选择器与 `/help` 快捷键/命令参考）；在 `slash_menu::filter_items` 增加精确匹配优先桶（消除 `/mode` 与 `/model` 前缀抢占），支持 `/fast` 与 `/goal-pause`/`/goal-resume`/`/goal-cancel` 动态显隐，为经典与机器人模式补齐 `/version` 等命令与快捷键右对齐提示。
+- **Classic / Bot Shell 全命令接线与能力设置原子持久化**（`crates/peer-cli/src/terminal/{classic,bot_shell,capability_store}.rs`）：接入经典模式全部 20+ 条交互命令（`/resume [id]`、`/mode`、`/permissions`、`/fast`、`/skill`、`/mcp`、`/clear`、`/compact`、`/history`、`/goals`、`/goal-*`、`/bots`、`/help`、`/version` 等）与 `Ctrl+X` 和弦；`capability_store` 仅在用户按 `Space` 切换 Skill/MCP 开关时原子更新 `skills/settings.json` 与 `mcp-registry.json`；Bot 模式同步接入 `/theme`、`/language` Frost 选择浮层与 `/version`。
+
+实测验证（仅统计 `b9555492` 最终改动后的本轮输出）：
+- **边界与静态门禁**：`cargo fmt --all`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-store -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）全部通过；`git diff Cargo.lock Cargo.toml` 为空。
+- **单元测试**：`peer-tui` **21/21**、`peer-store --lib` **15/15**、`peer-store --test conversation_execution` **19/19 通过**（2 sub-process fixture ignored）、`peer-runtime --lib` **169/169**、`peer-runtime --test model_count` **4/4**、`peer-cli --lib` **15/15**、`peer-cli --test completions` **2/2** 全部通过。
+- **Release 真实 PTY 套件（23/23）与 ADR 130 内存探测**：`pty_checks.py` **9/9**、`tui_e2e_pty.py` **4/4**（含 `f2-bot-classic-roundtrip` 零持久化写入检查与新增 `classic-resume-pickers-and-leader-chords`：覆盖 `/new` -> `Ctrl+X L` `/resume` -> `/help` -> `/version` -> `/mode` `2` -> `Ctrl+X 1` -> `/permissions` -> `/theme` -> `/skill` -> `/mcp` -> 续聊 -> `/compact`）、`resume_pty.py` **10/10**、`adr130-soak-probe --soak-secs 5` **4/4 场景**（`steadyRssMiB` 17.1875 / 81.96875、`finalRssMiB` 84.15625、`fdDelta` 0、`wrapCacheBytes` 4,468,265 B < 32 MiB 预算）全部通过。
 
 ## 2026-11-19 原生 Ratatui TUI **Peer Frost** 视觉样式与交互细节对齐
 
