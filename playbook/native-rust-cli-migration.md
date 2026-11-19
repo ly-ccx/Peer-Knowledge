@@ -2,7 +2,22 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
+状态：P0–P5 scoped 验证通过；P6 实施中，P7 未开始（不代表全仓 CI 或发布验收）
+
+## 2026-11-19 P5 原生项目代理运行时、`peer exec --bot` 与双语互读验证
+
+提交链 `b3fc808b` → `3ca2c1ae` → `d688626d` 新增 `crates/peer-project-agent`（`#![forbid(unsafe_code)]`，零 Bun/Node sidecar）并接入 `peer-cli`。沿 ADR 55、80–88、91–103、117、122、129–131 保持既有存储、能力投影、PermissionGrant、Evidence 与租约边界不变：
+- **存储与索引**：`ProjectRegistry`、`BotProfileStore`、`InputQueue`、`InputDraftStore`（CAS + content-addressed blob）、`ProjectInbox`（gzip 归档 + 2s 合并窗）、`BotDirectory`、`MemoryStore` + SQLite FTS5 trigram `MemoryIndex`（路径对齐 `cache/memory-index/memory-index.sqlite`，支持中文 `<3` 字 `LIKE` 回退）、`ObjectiveStore` 与确定性 `WatchHost`。
+- **调度、委派、核验与签收**：`ExecutionScheduler`（全局信号量 + 读写/worktree 槽位 + 依赖验收）、`GoalWorktreeAdapter`、`SessionSupervisor`（原生 worker 执行 + Host 确定性文件核验登记 Evidence）、`acceptance` / `reply`（未核验声明门禁、策略代签与去重）。
+- **主 Bot 运行与 CLI 入口**：`ProjectCapabilityProvider`（`RuntimeMode::ProjectAgent` + `EffectAdmission::spawn_read_only_host` 禁止写/Shell/连接）、`ProjectAgentRunner`、`NativeProjectHost`，以及公开 `peer exec --bot [--input-id <id>] [--wait-ms <ms>] [--output-format text|json]`、`peer bots --json`、`__interactive-maintenance` 别名。
+
+定向验证（本机隔离临时目录 + 受控本地 HTTP Mock 服务，无真实模型/个人数据/旧运行实例改动）：
+- `cargo fmt --all --check`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-store -p peer-runtime -p peer-project-agent -p peer-cli --lib --bins --examples -- -D warnings` 全部通过。
+- `peer-project-agent` 13 项单元测试 + 5 项 E2E 集成测试通过（覆盖完整 Bot → 委派 → Worker 实写文件/Grant/Evidence → Host 核验 → Inbox 唤醒 → `post_reply` → 策略自动签收闭环；只读准入拒绝；双宿主租约竞争客户端提交/观察；过期审批恢复交接；中文 `<3` 字 FTS5 记忆与目标工具）。
+- `peer-cli` 10 项单元测试 + `bot_exec` 子进程集成测试通过（覆盖未绑定退出码 2、`peer bots --json`、绑定 Bot 实跑返回退出码 0 及冲突退出码 1）。
+- `scripts/native-cli/project-agent-conformance.mjs` 双向 Rust ↔ TS 冷读一致性全部通过（覆盖全部 8 类存储与 SQLite FTS5 中英文检索），并已接入 `scripts/native-cli/verify.mjs`。
+
+P6（完整 Ratatui 日常交互壳与 ADR 130 有界内存/长时稳态验证）及 P7（打包、`peer update`、全仓 CI、默认 `peer` 切换与旧栈下线）继续推进。
 
 ## 2026-11-19 原生终端续跑已有普通会话
 
