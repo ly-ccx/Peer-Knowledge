@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-19",
+  "scope": "Uninstrumented legacy shell exits and native recovery diagnostics against the same data",
+  "decisions": [108, 116, 129, 131],
+  "source": {
+    "precedingTree": "26755bb9b6cf6edfd63753116092be88f59ee4d2",
+    "testedTree": "b7ff3c7cba33905ade3a061b31820edef28529eb",
+    "incrementalPatchSha256": "19da0412423002c2f88e02ac1daebc2512ed43c1843374687dca281445398007"
+  },
+  "capture": {
+    "unmodifiedLegacyCompiledBinarySha256": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+    "precedingNativePackagedBinarySha256": "294f3bdce09006e1b1fb5ba910903a6c66d3b923be4ae831162a66d3d438b723",
+    "initialHarnessSha256": "ecdefe0b0f010f063f216f1640bdf2121b021ead0d47c76c1ba75b22ff67d961",
+    "initialReceiptSha256": "961457c608940b756c3a7dff069923824527d43efe4f6e09b49c419eb2967519",
+    "initialObservation": "On the existing legacy conversation, recover returned NOT_FOUND both during the live Shell and after legacy normal exit or SIGTERM. It did not mutate the index."
+  },
+  "verified": {
+    "harnessSha256": "a25e43ede72ded1be14b6e50a22ea5bc578d2890a981f097694d2c9255d94bb7",
+    "receiptSha256": "9bc26175021c43829fb2b16ab9ae1f3dde87b5d373e03bbe893ea57bd5ffc28c",
+    "packagedBinarySha256": "573f93e36dd6fcdec604d630c22de0b90dcbc085327e917f265b65aaeed40be0",
+    "archiveSha256": "7d66bfa4266010eb0d0f4cbe9cf7527420be536b9875455e119ae1e7ca532f44",
+    "cases": [
+      "Normal exit: two real model requests, original file effect visible, shell group gone, completed body and old Evidence and ledger present.",
+      "SIGTERM: status 4, one real model request, shell group gone, intended final test write absent, partial original body and old Evidence and ledger present.",
+      "SIGKILL: one real model request, CLI terminated while actual shell group remained active. Older runtime saved an index row without body, Evidence or a ledger entry. Native recovery left the live group and all records untouched. The isolated group was released separately by the harness."
+    ],
+    "shared": "All three actual old sessions lacked runtimeExecution. New recovery explains the missing execution record before any recovery write, distinguishes unknown ID and invalid future schema, and keeps old bytes and absent files intact. Native sessions list and export read what the old program actually committed. A new prompt in a different workspace on the same synthetic data root reaches the model and completes without reusing the old conversation or altering its committed facts.",
+    "initialFixtureCorrection": "The extended harness initially expected a user message after SIGKILL. Inspection of the real isolated data showed an index-only conversation and an export header without a body. The final harness explicitly checks this case separately and requires the original body and visible prompt after normal exit or SIGTERM."
+  },
+  "checks": {
+    "macRecoveryCases": 12,
+    "macRecoveryLogSha256": "4ba25b76f6d6bc1ca884bc7d977ef068824e642f395968f7f1a79c519ae5fc01",
+    "linuxAmd64RecoveryCases": 12,
+    "linuxAmd64RecoveryLogSha256": "d6406265df47e3e1ce1a99bef820275ff0681aacb3c7ae2a0a664a25179959b3",
+    "macExtractedRecoveryAndAcpCases": 22,
+    "macExtractedLogSha256": "caa8e90ddf8695b84e8cf38232f286003cded6bf597d6d0d6deca46e8171e236",
+    "strictClippyLogSha256": "7d0055faf308a0b0fd524cc50040ed22fe87305c69c487709d819318a82af757",
+    "rustfmt": true,
+    "nativeBoundaries": true
+  },
+  "limits": [
+    "macOS arm64 actual legacy executable copy, controlled model and synthetic profiles. No installed instance, user-owned process or profile, default shell alias, package release or installation was changed.",
+    "Observed process group exit belongs to the isolated legacy probes. It does not authorize claiming an unrecorded live or interrupted session. The production cross-host drain gate remains open."
+  ]
+}
