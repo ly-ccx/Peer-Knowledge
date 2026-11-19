@@ -2,9 +2,14 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听及 OpenTUI Classic 排版与 `working...` 动画还原/大 `evidence-index.jsonl` 流式读写修复完成并推仓（`Peer-Agent` `aa2dd5a8`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线及 `PEER` 回合归组还原完成并推仓（`Peer-Agent` `8e7e2601`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
 
 ## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
+
+补充提交 `8e7e2601` 还原 OpenTUI `ToolActivityTimeline` 工具调用时间线、`PEER` 回合归组、`Ctrl+O` 详情展开与运行条间距修复（`crates/peer-tui/src/{theme.rs, lib.rs, classic_view.rs}`、`crates/peer-cli/src/terminal/classic.rs`、`crates/peer-cli/examples/adr130-soak-probe.rs`）：
+- **还原 `ToolActivityTimeline` 与 `Ctrl+O` 工具详情展开**：`crates/peer-tui/src/classic_view.rs` 扩展 `ClassicMessage`（`thinking`、`tools: Vec<ToolTimelineRow>`、`continuation`）并按 `app.tsx` 排版绘制每条工具行：`✓`/`✗`/`○`/`◇`/`◆` 状态符号、可读工具名（`Bash`/`Read`/`Write`/`List`/`Search`/`Git` 等）、参数摘要、右对齐耗时（`now` / `0.2s` / `12s`）与 `+`/`−` 指示符；在 `crates/peer-cli/src/terminal/classic.rs` 用 `Ctrl+O` 切换展开最多 4 行 `┆` 详情及 `evidence` 高亮标记，并在 `poll_active` 重载记录时同步刷新底部上下文占用百分比（`MAX_DISPLAY_MESSAGES = 64`）。
+- **`PEER` 同回合归组、`ThinkingView` 与运行条间距修复**：同 `streamId` 或连续辅助工具段设置 `continuation = true`，统一归并于同一 `PEER` 标轨下缩进，不再重复打印 `PEER` 或虚假的 `TOOL ` 标签；流式前缀剥离多余 `"Peer  "`；`working...` 与 `· 42s` 间改用独立 `"  "` Span 避免 `clip_bot_line` 折叠空格。
+- 提交 `8e7e2601` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **24/24**、`peer-cli --lib` **18/18**、Release 构建（`peer-native`）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.828125 / 82.59375、`finalRssMiB` 84.46875、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
 
 补充提交 `aa2dd5a8` 修复工具调用触发 `BACKGROUND_HISTORY_LIMIT`（大 `evidence-index.jsonl`）并还原 OpenTUI `working...` 扫光动画与 `Thinking.` 占位提示（`crates/peer-store/src/evidence.rs`、`crates/peer-store/tests/evidence.rs`、`crates/peer-tui/src/{theme.rs, lib.rs, classic_view.rs}`、`crates/peer-cli/src/terminal/classic.rs`、`crates/peer-cli/examples/adr130-soak-probe.rs`）：
 - **大体积 `evidence-index.jsonl` 有界流式读写**：`EvidenceIndexStore`（`find` / `list_for_plan` / `list_for_conversation` / `register`）原调用 `durable_jsonl::read` 与 `encode(&history)` 触发 `8 MiB / 4096 行` 上限而在真实 70 MB / 71,710 行 `~/.peer-agent/goal-plans/evidence-index.jsonl` 上返回 `StoreError::HistoryLimit`（`BACKGROUND_HISTORY_LIMIT`）。现改为 `files::open(..., u64::MAX)` + 64 KiB `BufReader` 逐行有界扫描（单行上限仍为 `8 MiB`，小文件严格全行校验，大文件尾字节与末行完整性校验 + JSON 转义子串预过滤），`register` 仅将增量 `changes` 通过 `append_to_limit(..., u64::MAX, ...)` 写入，保留 `interactive` 篡改拒入与截断残行 `HistoryCorrupt` 不变量。
