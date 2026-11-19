@@ -2,7 +2,19 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P7 源码实现与本机原生全门禁/解包零 Node·Bun 冒烟全部通过（`Peer-Agent` `cc9c3dda`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui **Peer Frost** 视觉样式对齐全部完成并推仓（`Peer-Agent` `cfd0c8d4`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-19 原生 Ratatui TUI **Peer Frost** 视觉样式与交互细节对齐
+
+提交 `cfd0c8d4` 将 `crates/peer-tui` 与 `crates/peer-cli/src/terminal/` 对齐至原 `apps/tui`（OpenTUI）的 **Peer Frost** 视觉规范（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移，视图层零文件/进程 I/O）：
+- **Frost 调色盘与排版令牌**（`crates/peer-tui/src/theme.rs`）：完整引入 Dark/Light `TuiPalette` 十六进制色板、语义标志（`› ` 选定符、`◆` 品牌菱形、`●` 在线点、`▌ ` 用户左竖条、`──` 分割线）、上下文占用分级着重色与全画布底色填充（`fill_canvas`），保留 F2 切换与空开屏零落盘写入。
+- **B3 品牌字标与斜杠补全**（`crates/peer-tui/src/wordmark.rs`、`crates/peer-tui/src/slash_menu.rs`）：精确移植 7×23 像素级 `peer agent` B3 字标（按 76/42 列阈值自适配 Full/Half/Narrow），并在 Bot 与 Classic 模式接入过滤式斜杠命令补全浮层。
+- **Markdown / 代码高亮 / 模型选择器 / Bot 与 Classic 视图对齐**（`crates/peer-tui/src/{markdown,model_picker,bot_view,classic_view,resumed_view,commands,view,lib}.rs`）：为 Markdown 代码块与 Diff 增加 `code_bg` 下沉底色与有界单趟语法着色（保留 32 KiB / 256 行 ADR 130 上限）；模型选择器采用 `panel` 浮层 + `info` 顶线 + `› ` 选中态；Bot 模式保留 `BindWorkspace` 居中卡片、ADR 122 三行右对齐列表、对话 `reply_to_echo` / `marks` 与 `Tab` 内联任务卡跳转；Classic 模式启用 `◆` 顶栏、居中 B3 欢迎屏、用户 `▌ ` 渲染与右对齐状态底栏；扩展 `/theme` 与 `/language` 命令及 `crates/peer-cli/src/terminal/theme_store.rs` 仅写即读原子持久化。
+
+实测验证（仅统计 `cfd0c8d4` 最终改动后的本轮输出）：
+- **边界与静态门禁**：`cargo fmt --all`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）全部通过；`git diff Cargo.lock` 为空。
+- **单元测试**：`cargo test --locked -p peer-tui` **19/19 通过**、`cargo test --locked -p peer-cli --lib` **14/14 通过**。
+- **Release 真实 PTY 套件（22/22）与 ADR 130 内存探测**：`pty_checks.py` **9/9**、`tui_e2e_pty.py` **3/3**（含 `F2` 往返切换零持久化落盘检验）、`resume_pty.py` **10/10**、`adr130-soak-probe --soak-secs 5` **4/4 场景**（`steadyRssMiB` 16.92 / 81.70，`fdDelta` 0，`wrapCacheBytes` 4.47 MB < 32 MB 预算）全部通过。
 
 ## 2026-11-19 P7 原生 `peer update`、7-Crate 版本治理、发布打包切换与解包零 Node/Bun 冒烟
 
