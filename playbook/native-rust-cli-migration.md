@@ -2,9 +2,11 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称对齐完成并推仓（`Peer-Agent` `3e97e9d0`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容完成并推仓（`Peer-Agent` `fd606f6e`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
 
 ## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
+
+补充提交 `fd606f6e` 修复共用 `~/.peer-agent/settings.json` 时发送消息触发 `native_capability_inventory_unsupported` 的阻塞（`crates/peer-runtime/src/system_context/instructions/{settings,tests}.rs`、`scripts/native-cli/tui_e2e_pty.py`）：在只读提示词投影中放行并校验桌面端标准非提示词元数据键（`activeWorkspace`、`workspaces`、`appearance`、`appMode`、`appshots`、`composerDrafts`、`developer`、`effort`、`fallbackVision`、`inputPrediction`、`memory`、`modelRouting`、`remoteAccess`、`updateChannel`、`workbench` 及 `projectAgent.{proactivity, quietHours, digestTime, concurrency}`），不写入系统提示词，同时继续对未知顶层键或 `projectAgent.shell != "bots"` / `interactiveResults` 保持 `native_capability_inventory_unsupported` 拒入。提交 `fd606f6e` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **169/169**、`peer-cli --test native_episode unsupported_context_is_a_visible_blocker_before_model_dispatch` **1/1**（定向过滤 258）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**，Case 2 预置完整桌面 `settings.json` 验证经典对话发送/审批/续聊及零修改保留、`resume_pty.py` **10/10**）。
 
 补充提交 `3e97e9d0` 将模型选择器、顶栏徽标与切换提示从原始供应商 UUID 改为人类可读名称（`crates/peer-cli/src/terminal/model_picker_adapter.rs`、`crates/peer-tui/src/model_picker.rs`、`crates/peer-cli/src/terminal/{classic,bot_shell}.rs`）：按 `tui-model-selection.ts` `splitModelDisplayName` 拆分 `"{model} · {provider}"`，分组保留 catalog 原序、不合并不同 `provider_id`；`ModelPicker` 标签行支持超宽横向滑动窗口（`‹`/`›` 指示）与 CJK 宽度按列裁剪；`ClassicSession::model_badge` 及模型切换提示统一展示可读 `display_name`。提交 `3e97e9d0` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **23/23**、`peer-cli --lib` **17/17**、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）。
 
