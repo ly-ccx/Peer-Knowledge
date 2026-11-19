@@ -1,5 +1,12 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生 Ratatui Bot 壳、Classic 对话与 ModelPicker（2026-11-19，P6 候选 `3b486756`）
+
+沿 ADR 108/122/129–131 在纯视图 `peer-tui` 与原生宿主 `peer-cli/src/terminal/` 实现日常交互 TUI：
+- **Bot 模式（默认）**：未绑定项目目录进入引导绑定页，显式确认后创建绑定；已绑定目录进入列表页（标题 `Peer`，`▸` 选中与独立预览行）或对话页（`Peer · <Name>`），支持 `/tasks`、`/task N`、`/memory`、`/objectives`、`/cards`、`/approve N`、`/deny N`、`/answer N`、`/takeover`、`/model`/`F3`、`/classic`/`F2`、`/older`、`/latest`、`/save-draft`、`/help`、`/quit`；草稿经 `InputDraftStore` CAS 持久化，恢复失败提示不阻塞输入，租约被占用时只读提示并需显式 `/takeover`。
+- **Classic 模式（`--classic` / `F2`）**：延迟建会话使空开退出零落盘；流式正文、工具审批（小窗防误批、粘贴不触发批准）、Ctrl-C 取消等待原 Runtime 停稳并标明未完成状态后可续跑；`F3`/`/model` 打开分组 `ModelPicker`，浏览不修改配置，不可用模型拒绝选中，`Esc` 保留草稿与阅读位置。
+- **验证范围**：无测试特性 `--release` 二进制（`PATH=/nonexistent`）通过 15 项 `peer-tui` 单元测试、22 项真实 PTY 端到端用例与 ADR 130 内存/延迟基准（空载 RSS 8.38 MiB、输入 p95 0.23 ms、取消 p95 84.53 ms、1.03 GiB 尾页 16 KiB 扫描、100 周期 FD 增量 0）。实现者自审；物理 OS IME 候选窗、读屏器、4 小时真实长稳与已安装发布版仍待后续验收。[ADR 130 证据](../../playbook/native-cli/evidence/p6-adr130-memory-bench-20261119.json)
+
 ## 原生终端打开并续跑普通会话（2026-11-19，候选）
 
 用户打开指定会话先读原持久历史，Enter 显式发送。接收与执行来自 Runtime 和原会话 Store，提交受阻时保留草稿并提示原因。当前调用展示工具参数和 scope，y 仅允许本次，n / Esc 拒绝本次，Ctrl-C 停止当前回合并等待停稳。小窗不能批准，粘贴只是编辑输入。真实 PTY 覆盖只读打开、历史分页、审批、并发拒绝、未登记旧会话和取消后续跑。实现者自审，物理输入法、读屏、长期内存和已安装版本待验。[回执](../../playbook/native-cli/evidence/p4-native-session-resume-20261119.json)

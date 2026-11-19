@@ -1,0 +1,67 @@
+{
+  "platform": "darwin",
+  "idleAndInputLatency": {
+    "idleSecs": 15.0,
+    "idleRssMaxMiB": 8.38,
+    "idleRssFinalMiB": 8.38,
+    "physicalFootprintMiB": 3.14,
+    "idleBudgetMiB": 100.0,
+    "inputLatencyP50Ms": 0.15,
+    "inputLatencyP95Ms": 0.23,
+    "inputLatencyP99Ms": 0.25,
+    "inputP95BudgetMs": 50.0,
+    "inputP99BudgetMs": 100.0,
+    "passed": true
+  },
+  "cancelLatency": {
+    "samplesMs": [
+      81.58,
+      83.76,
+      84.53
+    ],
+    "p95Ms": 84.53,
+    "budgetMs": 100.0,
+    "passed": true
+  },
+  "workloadProbe": {
+    "scenario1_1000_turns": {
+      "transcriptBytes": 111867560,
+      "pagesRead": 120,
+      "durationMs": 478,
+      "steadyRssMiB": 15.359375,
+      "peakRssMiB": 15.359375,
+      "budgetSteadyMiB": 256.0,
+      "budgetPeakMiB": 512.0,
+      "passed": true
+    },
+    "scenario2_1gib_10mb_single_msg": {
+      "transcriptBytes": 1104638754,
+      "tailScannedBytes": 16384,
+      "giantMessageBytes": 13000000,
+      "diagnosedDefaultRecordLimit": true,
+      "durationMs": 45,
+      "steadyRssMiB": 80.703125,
+      "wrapCacheBytes": 2346761,
+      "wrapCacheBudgetBytes": 33554432,
+      "passed": true
+    },
+    "scenario3_100_session_cycles": {
+      "rssBeforeMiB": 80.703125,
+      "rssAfterMiB": 82.078125,
+      "peakRssMiB": 82.078125,
+      "fdsBefore": 4,
+      "fdsAfter": 4,
+      "fdDelta": 0,
+      "passed": true
+    },
+    "scenario4_soak": {
+      "durationSecs": 25,
+      "iterations": 416,
+      "sampleCount": 41,
+      "lateWindowSlopeMiBPerHour": -8013.805315632152,
+      "finalRssMiB": 57.3125,
+      "wrapCacheBytes": 2298153,
+      "passed": true
+    }
+  }
+}

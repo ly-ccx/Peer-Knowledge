@@ -1,5 +1,12 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 原生 Ratatui 阅读锚点、草稿保留与有界视口虚拟化（2026-11-19，P6 候选 `3b486756`）
+
+CLI（ADR 122/129/130）：纯视图 `peer-tui` 以静态终端渲染实现 Bot 列表/对话、Classic 对话与 ModelPicker，无动画计时器、无后台抢焦点、无隐式滚动劫持。
+- **阅读锚点 (`ReadingAnchor`)**：用户在浏览历史时维持 `Anchored` 状态，新流式分片或后台 Bot 回复仅更新状态提示，不强制拉回底部；显式 `/latest` 或 `PgDn` 恢复 `FollowingLatest`。
+- **有界缓存与大消息降级**：`ByteBudgetLru` 强制 32 MiB wrap cache / 16 MiB 页缓存 / 8 MiB 流式预算上限，单条 13 MB / 100 万行消息通过 32 KiB / 256 行分块上限有界渲染；宽/窄视口（120×40 与 40×16）和 PTY hangup 均保留光标定位与终端恢复，无 panic。
+- **焦点与草稿连续性**：ModelPicker（`F3`/`/model`）与审批浮层临时接管按键，`Esc` 或审批结束后归焦 Composer 并原样保留 Unicode 草稿；Bot ↔ Classic 通过 `F2` 在单 `TerminalGuard` 内切换，不闪退或破坏 termios。验证覆盖 15 项单元测试、22 项 release PTY 与 ADR 130 基准，物理 IME 候选窗、读屏器与 4 小时发布前长稳留待发布验收。[ADR 130 证据](../../playbook/native-cli/evidence/p6-adr130-memory-bench-20261119.json)
+
 ## 原生终端续跑的草稿、历史和权限焦点（2026-11-19，候选）
 
 复用原终端恢复 guard。历史有界分页，主动上滚后留在原页，PgDn 显式回到最新。审批临时占用输入，结束后继续原草稿或读位。小窗口提示放大，终端实际重新画出权限详情后才接受批准。收到 Host 输入落盘回执才清本轮草稿，停止后仍可看到标为未完成的流式预览。终端状态为静态文本。实际 PTY 与解包产物自测，辅助技术及长时验收由后续 P6 覆盖。[回执](../../playbook/native-cli/evidence/p4-native-session-resume-20261119.json)

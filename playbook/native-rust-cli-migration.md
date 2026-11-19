@@ -2,7 +2,25 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-19
-状态：P0–P5 scoped 验证通过；P6 实施中，P7 未开始（不代表全仓 CI 或发布验收）
+状态：P0–P6 scoped 验证通过；P7 实施中（不代表全仓 CI、4 小时真实长稳或发布验收）
+
+## 2026-11-19 P6 原生 Ratatui 日常 TUI、Bot/Classic 交互壳与 ADR 130 内存/延迟验收
+
+提交 `3b486756` 完成 P6 纯视图 `crates/peer-tui` 与完整原生交互宿主 `crates/peer-cli/src/terminal/`（`#![forbid(unsafe_code)]`，零 Bun/Node sidecar，无视图层直接文件/进程 I/O）：
+- **纯 Ratatui 视图与有界预算 (`peer-tui`)**：新增 `ByteBudgetLru`（16 MiB 展示页 / 32 MiB Markdown wrap / 8 MiB 流式预算）、`ReadingAnchor`（手动历史浏览期间绝不自动劫持回最新）、分块有界 Markdown/代码/Diff 渲染（单消息硬上限 32 KiB / 256 行）、`ModelPickerState` + 分组模型选择器（Tab 切思考强度，浏览不改配置，Esc 保留草稿与读位）、按 ADR 122 设计的 `BotView`（列表页标题 `Peer` 无 Host/Client 条与常驻模式提示，`▸` 选择、独立预览行、全宽分隔线与 Composer、草稿恢复告警不阻塞输入）及 `ClassicView`（模型/模式/权限徽章、虚拟化消息列表、审批浮层、流式预览）。
+- **原生交互宿主 (`peer-cli/src/terminal/`)**：`BotShell` 接入 `NativeProjectHost`（`BindWorkspace` / `BotList` / `Conversation` / `/tasks` / `/task N` / `/memory` / `/objectives` / `/cards` / `/approve N` / `/deny N` / `/answer N` / `/takeover` / `/model` / `/classic` / `/older` / `/latest` / `/save-draft` / `/quit` 与 `InputDraftStore` CAS 持久化）；`ClassicShell` 接入 `NativeConversationRuntime::execute_observed`（延迟建会话使空开退出零落盘、独立 `mpsc` 审批通道与 `watch` 渲染通道、小窗审批保护、Ctrl-C 取消停稳与继续对话）；单 `TerminalGuard` 内无缝 `F2` Bot ↔ Classic 切换。
+
+无测试特性 `--release` 产物定向实测（macOS arm64，`peer-native` SHA-256 `cf805589f045c4d943cf2ab07af4fddd2c8402b5d55a7e59d2d38c129fbfb2d6`，`PATH=/nonexistent` 无 Bun/Node，隔离临时目录 + 本地受控 HTTP Mock）：
+- **静态与单元测试**：`cargo fmt --all --check`、`scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-project-agent -p peer-cli --lib --bins --examples -- -D warnings` 全部 0 告警通过；`peer-tui` 15/15 单元测试通过。
+- **22 项真实 PTY 端到端用例全过**：`pty_checks.py` 9/9（含正常退出、Unicode 粘贴/缩放草稿保留、SIGTERM、Ctrl-D、guard normal/error/panic、超大终端拒入、PTY hangup 无 EIO panic）、`tui_e2e_pty.py` 3/3（Bot 绑定对话与子命令、Classic 流式/审批/Ctrl-C 取消与续跑、F2 Bot↔Classic 往返）、`resume_pty.py` 10/10。
+- **ADR 130 内存与延迟基准**（详见 [P6 ADR 130 实测证据](native-cli/evidence/p6-adr130-memory-bench-20261119.json)）：
+  - 空载 15s：最大/终态 RSS **8.38 MiB**（预算 ≤100 MiB），macOS 物理 footprint **3.14 MiB**；
+  - 30 键交互延迟：p50 **0.15 ms**、p95 **0.23 ms**（≤50 ms）、p99 **0.25 ms**（≤100 ms）；
+  - 真实 PTY Ctrl-C 取消延迟（3 轮）：`[81.58, 83.76, 84.53]` ms，p95 **84.53 ms**（≤100 ms）；
+  - 场景 1（1,000 轮 / 111.87 MB ≥ 100 MiB，120 页）：稳态/峰值 RSS **15.36 MiB**（≤256 / ≤512 MiB）；
+  - 场景 2（1.03 GiB 历史 + 13 MB / 1,000,000 行单条消息）：尾页仅扫描 **16 KiB**、默认 2 MiB 记录上限明确诊断 `RecordBytes`、直接有界 Markdown 虚拟化宽窄双视口渲染 45 ms，稳态 RSS **80.70 MiB**、wrap cache **2.24 MiB**（≤32 MiB）；
+  - 场景 3（100 轮会话与 `NativeProjectHost` 创建/打开/渲染/关闭）：RSS 80.70 → 82.08 MiB，打开 FD **4 → 4（增量 0）**；
+  - 场景 4（25s 加速稳态压测，416 轮）：终态 RSS **57.31 MiB**（非攀升），wrap cache **2.19 MiB**。注：25s 为本机加速稳态验证，完整 4 小时发布前长稳 soak 与物理 IME/读屏器仍归发布门禁范围。
 
 ## 2026-11-19 P5 原生项目代理运行时、`peer exec --bot` 与双语互读验证
 
