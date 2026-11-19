@@ -4,6 +4,14 @@
 最后更新：2026-11-19
 状态：P0–P3 scoped 总闸通过；P4 实施中，P5 未开始（不代表完整迁移或发布验收）
 
+## 2026-11-19 旧版前台 Shell 的真实进程组停稳
+
+用旧编译产物实际请求两轮模型，前台 Shell 启动同组子进程后，旧 CLI 正常退出，但该组仍存在。候选树 `68f2c5f3` 将前台 Shell 的关闭回执绑定到原解释器关闭和原进程组消失，也处理子进程持有原输出管道的路径。停稳超时保留原句柄，下一代 Shell 等待原组停稳和当前准入；原 Shell 工具结果、四条产物引用与一条 8 token 账目保持原语义。沿 ADR 65、116、129、131，复用原 Provider、运行中的句柄 Registry 和停止屏障。
+
+macOS 与 Linux amd64 的新编译 CLI 均观察到原组在正常退出时消失。macOS Node/Bun 各过 16 项；Linux 容器的 Node 过 16 项，Bun 1.2.17 过 Shell Session 的 8 项。两端 Runtime 构建、TUI 类型检查通过，macOS 架构和 UI 检查通过。本卡完成旧宿主本机停稳的实现与实际包验收。旧宿主共享执行记录、同会话跨宿主接管和 P4 总闸仍开放。[验收回执](native-cli/evidence/p4-legacy-shell-group-drain-20261119.json)
+
+`9febafee` 的首轮 [全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251/attempts/1) 中，Linux 作业成功。macOS 已完成原生专项、全仓测试、Electron 冒烟和报告上传，整个作业在配置的 60 分钟边界附近以 `cancelled` 结束。两个作业实际 checkout `072782dd`，tree 与源一致，两个冒烟报告均为 `ok=true`。首轮整体结果保留，已单独重跑 macOS 作业，Linux 保留成功。[第二轮](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251/attempts/2)
+
 ## 2026-11-19 实际旧版 Shell 退出与未登记执行诊断
 
 复制正在保留的旧 Bun 编译产物，在隔离数据根验证真实 `peer exec`。正常结束和 SIGTERM 路径在进程退出时观测到原 Shell 进程组已消失，并能导出旧正文。SIGKILL 路径下原 Shell 和进程组仍活跃，旧数据仅登记了会话，未提交正文、Evidence 或用量。三条路径均无共同 `runtimeExecution` 记录。前驱 Rust 将确实存在的会话也报告为 `NOT_FOUND`。

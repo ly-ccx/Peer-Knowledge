@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-19",
+  "scope": "Real foreground legacy Shell group drain through the provider and public executable",
+  "decisions": [65, 116, 129, 131],
+  "source": {
+    "precedingTree": "b7ff3c7cba33905ade3a061b31820edef28529eb",
+    "testedTree": "68f2c5f3bae6574b460643c9cf79e51619a3c673",
+    "incrementalPatchSha256": "164bd541bf843b04a0aef66a38d32fe19f1644a6671b14858fa8958c48c7f3c8",
+    "publicHarnessSha256": "10a91451be431ca8ed9c279f3a6d46b741db3fce444027d6827437ed3053cd68"
+  },
+  "before": {
+    "existingLegacyMacBinarySha256": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+    "publicReceiptSha256": "e32e85bcc07203a2b79d50045bcad7e5c9b0d29144cf162b4220fba1efd27c03",
+    "registryRegressionLogSha256": "6e0d0a1c0e4e6c382140bb6aacb0ef84a5b6e94ac28017d5510a22c3468c7350",
+    "observation": "The original shared stop returned while the original group was still present. In the actual old packaged executable, both model requests and the tool succeeded, the CLI exited 0, and the group remained alive. The fixture then cleaned up its own original group."
+  },
+  "after": {
+    "observation": "The Registry waits for both child close and original group absence. A failed proof retains the original handle and blocks its replacement. A leader exit with inherited pipes triggers group drain while preserving final output. The next approved command uses a new generation after actual stop.",
+    "publicParity": "Both compiled candidates exit successfully after two actual loopback model requests with the group absent. The model receives the original tool result and the Store retains one Tool Result Evidence ref, four artifact refs and one eight-token ledger entry.",
+    "macOSArm64": {
+      "nodeCases": 16,
+      "bunCases": 16,
+      "buildAndTestsLogSha256": "d564bbdb46766f492b2d7083431c7ef4a90c7540354963887119a224bcc75612",
+      "binarySha256": "84750fab3cf11e8537100e8c86c20f8ac8c360c550a5fff1d5da8649bcb3bce6",
+      "publicReceiptSha256": "0d43f69b8358c133ab89408088911eed8393ae60f48df6a86d36e92bef0d87e9",
+      "additional": ["Runtime build", "TUI typecheck", "architecture check", "UI conventions check"]
+    },
+    "linuxAmd64ContainerWithInit": {
+      "nodeCases": 16,
+      "bunSessionCases": 8,
+      "buildAndTestsLogSha256": "152897c6a1ca9de49c44503bad134e5ab1fb05f3f2d912f2554ff9741a1f7c09",
+      "binarySha256": "59fefb4b24c5aa9de974355a3319da293f7417590a016de1fff0fe307a42c9fd",
+      "additional": ["Runtime build", "TUI typecheck"]
+    },
+    "initialFixtureCorrection": "The fixture first assumed there was just one index entry. The actual old index showed the original Tool Result plus four Shell artifact references. The final fixture requires all five distinct entries and the original usage row."
+  },
+  "predecessorHostedCI": {
+    "head": "9febafee710dcbe7b202a1da9de305b35b30e641",
+    "run": 44420602251,
+    "attempt": 1,
+    "actualMergeOnBothJobs": "072782dd5e6bb1c5dca1d2c3ee9ce2f6941732e8",
+    "tree": "39047a4c9cf7cec10344232c09cca22a881cd3b2",
+    "baseParent": "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "linuxJob": 135212212315,
+    "macJob": 135212212894,
+    "linuxConclusion": "success",
+    "macConclusion": "cancelled",
+    "macSmokeAndArtifactUploadConclusion": "success",
+    "statusSnapshotSha256": "f7445decc96accd7673a4402f6ad4d4d8172fdadb1f1577908d736c8747be94e",
+    "macLogSha256": "e4b0e7b3bbb5fb4a93e821474623f215858273ea15b7b610953594353d75e2a8",
+    "macSmokeIdentitySha256": "930c2a62941af83f8d26ab20bebdc1c5a14c42ba0b4a496f4066019fbf7a6def",
+    "linuxSmokeIdentitySha256": "65fd81c015d5270602c119812f3df728ab76c0a39566b65a2e060a36a7969900",
+    "macRetryJob": 135241250908,
+    "macRetryStatusAtCapture": "in_progress"
+  },
+  "limits": [
+    "Isolated test processes and copied/rebuilt legacy artifacts. No installed CLI, running user session, data root, alias, version tag or release changed.",
+    "This proves the cooperative compatibility host stop. SIGKILL of an original uninstrumented owner and mixed installed session ownership remain guarded. The new native executable does not link or launch the compatibility host."
+  ]
+}
