@@ -34,6 +34,11 @@
     },
     "initialFixtureCorrection": "The fixture first assumed there was just one index entry. The actual old index showed the original Tool Result plus four Shell artifact references. The final fixture requires all five distinct entries and the original usage row."
   },
+  "unconfirmedStopLinux": {
+    "harnessSha256": "88650fa8f03f97b6cf829e2c4c1a92d7b9a63b5a555990356e6c2eb947198e9e",
+    "receiptSha256": "bb536a9150b7d08c1ed9b169ff75f9b552d9f3d5ad63be0b6be88c3d4dc05253",
+    "observation": "PID 1 intentionally did not reap orphaned processes. The original descendant's /proc state was Z after child close, and the original group still existed. A bounded stop returned execution_stop_unconfirmed and kept the original handle. A same-conversation retry returned shell_session_stop_unconfirmed and did not write a file. Dispose retried and retained the unresolved handle until container exit."
+  },
   "predecessorHostedCI": {
     "head": "9febafee710dcbe7b202a1da9de305b35b30e641",
     "run": 44420602251,
