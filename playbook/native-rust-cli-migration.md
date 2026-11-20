@@ -2,7 +2,18 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做（`Peer-Agent` `48eb729d`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片（`Peer-Agent` `150b5801`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 Classic Plan/Goal 任务侧栏与 Plan 审批卡片补齐
+
+补充提交 `150b5801` 在原生 Classic TUI 中完整补齐对齐 OpenTUI（`apps/tui/src/{goal-status-view.tsx, goal-status-model.ts, goal-plan-history.ts, plan-mode.ts}`）与 Desktop `GoalStore` 规范（`goal-plan-store.mjs`）的任务区侧栏、窄屏紧凑进度条与交互式 Plan 审批卡片：
+- **标准 Plan 审批状态持久化（`crates/peer-store/src/goal/approval.rs`）**：新增 `PlanApprovalDecision`（`Approve` / `Revise` / `Reject`）与 `GoalStore::decide_ordinary_plan_approval`，沿用 `PlanWrite` 锁与版本号乐观校验，原子更新计划 `approval` / `activation`（批准写 `approved_plan`、`status="approved"`；修改写 `"drafting"`；拒绝写 `"cancelled"`）及 `index.jsonl` / `.changes.jsonl`。
+- **纯显示任务区侧栏、窄屏紧凑条与圆角 Plan 审批卡片（`crates/peer-tui/src/{goal_panel.rs, classic_view.rs}`）**：
+  - 终端宽度 `>= 120` 列时在左侧对话列与右侧分栏渲染 34–42 列的 `render_goal_status_panel`（`MISSION / 01 OF N`、`● STATUS`、标题、`COMPLETED / TOTAL COMPLETE` + `━─` 进度条、`NOW WORKING` 当前任务卡、`TASKS` 最多 10 项状态列表与 `+N more`、`NEEDS ATTENTION` 阻塞原因），同步将对话超链接精确投影在左侧列；
+  - 宽度 `< 120` 列自动降级为输入区上方单行 `render_goal_compact_summary`（状态图标 + 当前任务/标题 + 多目标序号 + 4 格 `━─` 进度条 + `completed/total`）；
+  - 存在本地 `awaiting_approval` 计划且空闲无冲突浮层时，在 Dock 区域渲染圆角 `render_plan_approval_dock`（列出目标、编号任务及 `[1] 批准并执行` / `[2] 修改计划` / `[3] 拒绝` 操作选择与快捷键提示）。
+- **Classic 会话水合、回合内实时刷新与按键接线（`crates/peer-cli/src/terminal/classic.rs`）**：升级 `LoadedGoalPlan`（过滤 `cancelled` 与 `activation.kind == "intake"`，优先锁定 `awaiting_approval` 及运行中计划），在 `poll_active` 每次 `need_reload` 实时刷新任务状态；支持 `↑/↓/←/→/Tab` 切换、`1/y/2/3/n/Esc/Enter` 决策持久化并联动切换到 `Goal`（提交执行回合）或 `Plan` 模式。
+- **提交 `150b5801` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-store --lib` **16/16**、`peer-tui` **43/43**、`peer-cli --lib` **27/27**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 16.890625 / 81.921875、`finalRssMiB` 85.359375、`fdDelta` 0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
 
 ## 2026-11-20 原生 Bot TUI Frost 2.0 布局重做
 
