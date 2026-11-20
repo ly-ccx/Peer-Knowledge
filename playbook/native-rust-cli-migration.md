@@ -2,7 +2,26 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复/TS→Rust Bot Harness 补齐 Phase 1（`Peer-Agent` `5a6a7c9a`）与 Phase 2（Digest 队列、锚点解析与验真标记、停止卡片/重试连续性、全量 Objective 与会话治理工具、结果确认/Worktree 合并丢弃卡片，`Peer-Agent` `da2fab2d`）完成并推仓；待用户确认后继续 Phase 3 或进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复/TS→Rust Bot Harness 补齐 Phase 1（`Peer-Agent` `5a6a7c9a`）、Phase 2（`Peer-Agent` `da2fab2d`）与 Phase 3（Coordination V2 桥接、工作会话能力天花板与独立只读 Verifier、`Working Context` 连续性/代理通信与协调控制工具、用户输入优先抢占与非阻塞后台并发执行，`Peer-Agent` `d46df0f2`）完成并推仓；待用户确认后继续 Phase 4 或进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 3 补齐：Coordination V2、独立 Verifier、Working Context、代理通信与用户抢占
+
+- **对齐 `coordination-v2` / `verifier` / `working-context` / `agent-communication` / `wake-wait` 契约并解耦 Bot TUI 前台交互与后台 Worker 执行（提交 `d46df0f2`）**：
+  1. **Coordination V2 运行时桥接（`crates/peer-project-agent/src/{coordination_bridge.rs, host.rs, lib.rs}`）**：
+     - 新增 `CoordinationHub` 封装按 workspace 隔离、带租约围栏的 `CoordinationStore` 访问，支持 `work_notes`（乐观 `expectedRevision` 并发控制 + 幂等回放）、`context_windows`（续接交接窗口）、`agent_messages`（父子耐久邮箱投递与已读标记）、`work` 生命周期与 `coordination_decision` 版本化委派约束日志；
+     - `NativeProjectHost` 切换至共享 `Arc<CoordinationHub>` 并暴露 `coordination()` 与稳定工作 ID 生成 `coordination_work_id`。
+  2. **工作会话能力天花板与独立只读 Verifier（`crates/peer-project-agent/src/{verifier.rs, supervisor.rs, lib.rs}`）**：
+     - 新增 `resolve_work_session_profile` 强制实施按角色/权限（`worker`/`explorer`/`verifier`、`readOnly` 标记与本地访问级别）交集裁剪后的只读能力天花板，杜绝越权投影写/执行能力；
+     - 新增 `run_independent_verifier`（固定只读 `verifier` Profile、`DenyEscalationPermission`、至多 2 轮结构化 JSON `VerifierReport` 修复、禁止编造未索引 `evidenceRefs` 并识别同家族/跨家族 `model_family`），由 `SessionSupervisor::run_session_episode_with_verifier` 持久化 `verificationReport`、`modelReviews` 与 `read_verification_detail`。
+  3. **`Working Context`、`send_agent_message`、`coordinate_work` 与 `memory_remember` 受治理工具（`crates/peer-project-agent/src/{provider.rs, system_context.rs, runner.rs}`）**：
+     - 投影并实现 `read_work_notes`、`write_work_note`、`search_work_history`（复用 `memory_secret_reason` 脱敏）、`prepare_context_handoff`、`send_agent_message`（写入 Coordination V2 邮箱并持久化子会话 `agent_message` 记录）、`coordinate_work`（`query`/`cancel`/`resume`/`answer`/`augment`/`revise`/`parallel`/`replace`/`handoff`/`assess`）与 `memory_remember`（屏蔽运行时内部元数据注入）；
+     - `system_context.rs` 与 `runner.rs` 注入 `L7_CONTINUITY` 段 `project-agent.working-context` 与 `project-agent.agent-messages`，并在每轮前后关联工作流状态与邮箱观察回执。
+  4. **用户输入优先抢占与后台 Worker 非阻塞并发（`crates/peer-project-agent/src/{host.rs, lib.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - `NativeProjectHost` 新增 `tick_foreground`、`ForegroundTickReport` 与 `run_promoted_session`，并在 `maybe_run_wake_turn` 实现 `inputs.has_pending` 用户输入优先抢占及参考 `wake-wait.mjs#hostWakeWait` 的 `is_routine_host_wake_wait`（吸收活跃进行中会话的例行 `session_spawned`/`session_running` 等事件，避免空转唤醒）；
+     - `bot_shell.rs` 改造为基于 `tick_foreground` 与独立异步 `active_workers` 任务池的非阻塞架构，后台 Worker 授权统一经共享 `PermissionPort` 接入交互 Dock，用户输入/滚动/`Ctrl-C` 停止后台任务与退出清理均不阻塞于后台执行。
+  5. **Phase 3 E2E 回归验证（`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - 新增 5 组端到端测试：`working_context_notes_handoff_and_work_history_redaction_via_coordination_v2`、`work_session_profile_enforces_read_only_ceiling_and_independent_verifier_evaluates_model_review`、`send_agent_message_and_coordinate_work_query_and_control_through_coordination_v2`、`user_input_preempts_pending_wake_events_and_foreground_tick_never_blocks_on_workers`、`coordination_v2_state_survives_host_restart_and_lease_handoff`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **26/26**、`peer-project-agent --test project_agent_e2e` **23/23**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
 
 ## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 2 补齐：Digest 队列、锚点解析与验真标记、全量工具矩阵、停止延续与 Worktree 交付卡片
 
