@@ -2,7 +2,22 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片（`Peer-Agent` `150b5801`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修（`Peer-Agent` `07525692`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 Peer Frost 2.0 / OpenTUI 交互与排版精修补齐
+
+补充提交 `07525692` 补齐 `peer-native`（`crates/peer-tui/src/{wordmark.rs, lib.rs, overlays.rs, model_picker.rs, classic_view.rs, bot_view.rs}`、`crates/peer-cli/src/terminal/{classic.rs, bot_shell.rs}`、`crates/peer-cli/examples/adr130-soak-probe.rs`）中对齐 OpenTUI（`apps/tui/src/{app.tsx, tui-theme.ts, b3-wordmark-view.tsx, composer-status-view.tsx, responsive-layout.ts}`）的 6 项视觉与交互精修：
+- **`PICKER_CHROME` 终端画布层停靠区与呼吸留白（`overlays.rs`、`classic_view.rs`）**：将停靠选择器（`Resume`/`Mode`/`Permissions`/`Theme`/`Language`/`Goals`/`Help`）与 `Ask user` 停靠区由 `palette.panel` 灰底方块改为 `palette.background` 终端层表面并保留全宽顶部极细分隔线与上下呼吸间距；`Skills`/`Mcp` 管理弹窗、红框 `Approval required` 与圆角 `Plan approval` 仍保留圆角 `palette.panel` 卡片表面，同时为 `Skills`/`Mcp` 弹窗增加内侧 1 列左右内边距与选定行全宽 `palette.selection` 高亮条。
+- **保留光标与多空格列对齐（`overlays.rs`、`model_picker.rs`、`classic_view.rs`）**：新增保留前导缩进与内部多空格间距的 `clip_preserve_indent` 并拆分 `caret`（`› ` / `  `、` › ` / `   `）为独立 `Span`，彻底修复 `clip_bot_line`（`split_whitespace().join(" ")`）剥离未选中行缩进及压扁 `/help` 与技能详情列对齐的问题。
+- **选择器层级与搜索体验完善（`overlays.rs`、`model_picker.rs`、`classic.rs`）**：
+  - `ClassicOverlay::Resume` 新增 `query: String` 与 `filtered_resume_indices`（支持按标题/工作区/模式/ID 实时键入过滤、空匹配提示与 `Esc` 先清空搜索再关闭），行尾改为右对齐 `palette.muted` 元信息（`{count} 条 · {ws} · {when}`）；
+  - `Mode` 与 `Permissions` 在空间充裕时恢复两行式选项（`caret + [1] Label` + `    description` 浅灰副行），窄高度自动回退单行；
+  - `Goals` 列表右侧 `{status} · {completed}/{total}` 接入 `goal_panel::goal_status_color` 语义着色并右对齐；
+  - `Help` 在快捷键/斜杠命令/运行模式分区间插入空行并完整保留列排版；
+  - `ModelPickerState` 新增跨供应商实时搜索 `query: String`（`filtered_entries`、`Esc` 先清搜索、命跨供应商条目尾部附 ` · {group.label}`）、仅当前激活供应商 tab 使用 `[Group]` 方括号且移除下划线、并按 `TuiLocale` 本地化标题/脚标与状态文案。
+- **Classic 响应式外边距与状态栏左缩进（`classic_view.rs`）**：新增 `responsive_outer_padding` 对齐 `responsive-layout.ts`（宽 `>=120 -> 3`、`>=80 -> 2`、`>=60 -> 1`、`<60 -> 0`；高 `>=18` 且宽 `>=60 -> vpad=1`），对话区历史消息上方增加 1 行顶部呼吸间距，`render_composer_status_bar` 在宽度 `>= 40` 时增加 1 列左内缩进对齐输入框光标边线。
+- **`B3Wordmark` 逐行显现与冰湖青呼吸动效（`wordmark.rs`、`classic.rs`、`bot_shell.rs`）**：新增 `WORDMARK_REVEAL_STEP_MS = 100`、`WORDMARK_BREATHE_PERIOD_MS = 2_000`、`WORDMARK_ANIMATION_TICK_MS = 125`、`breathe_signal_color` 与 `b3_wordmark_lines_animated`（保持 7×53 / 4×30 / 1×10 几何尺寸不变，逐行揭幕完成后信号条按 2 秒正弦波以 `0.35` 振幅向 `palette.brand_highlight` 呼吸渐变），并仅在 Classic 欢迎页或 Bot 空态 Hero 徽标实际可见时按 125 ms 节拍重绘，退出欢迎/进入会话后零空转定时刷新。
+- **提交 `07525692` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **47/47**、`peer-cli --lib` **27/27**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.015625 / 83.90625、`finalRssMiB` 85.59375、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,227,185 / 4,086,321 B）全部通过。
 
 ## 2026-11-20 Classic Plan/Goal 任务侧栏与 Plan 审批卡片补齐
 
