@@ -2,7 +2,30 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复/TS→Rust Bot Harness 补齐 Phase 1（P0 核心运行时统一、持久化熔断、回答卡片与租约让渡，`Peer-Agent` `5a6a7c9a`）完成并推仓；待用户确认后继续 Phase 2 或进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复/TS→Rust Bot Harness 补齐 Phase 1（`Peer-Agent` `5a6a7c9a`）与 Phase 2（Digest 队列、锚点解析与验真标记、停止卡片/重试连续性、全量 Objective 与会话治理工具、结果确认/Worktree 合并丢弃卡片，`Peer-Agent` `da2fab2d`）完成并推仓；待用户确认后继续 Phase 3 或进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 2 补齐：Digest 队列、锚点解析与验真标记、全量工具矩阵、停止延续与 Worktree 交付卡片
+
+- **对齐 `digest.mjs` / `reply-composer.mjs` / `user-anchor.mjs` / `retry-continuity.mjs` / `tool-specs.mjs` / `objective-tool-specs.mjs` 并补齐 Bot TUI 确认与分支交付卡片（提交 `da2fab2d`）**：
+  1. **持久化 Digest 汇总队列（`crates/peer-project-agent/src/{digest.rs, host.rs, lib.rs}`）**：
+     - 新增 `DigestQueue`（原子持久化 `<data_home>/project-runtime/digest.json`），支持 `hold`（按项 ID 去重并保留原回复 `sources`/`replyTo`/`marks`/`meta` 引用）、`consider`（UTC `HH:MM` 到达触发且按 workspace 每日仅汇总一次，生成 `"今天 {clock} · 今日小结"` 分隔标与合并引用）与 `acknowledge`；
+     - `NativeProjectHost` 集成 `digests()`、`flush_due_digest`、`confirm_session_result`、`handoff_session_worktree` 与 `retry_stopped_input`。
+  2. **锚点解析、验真标记与防漏报守卫（`crates/peer-project-agent/src/{reply.rs, lib.rs}`）**：
+     - 新增 `resolve_user_anchors` 支持由 `messageId` 或原始 `inputId`（映射 `input-<id>`）解析用户消息锚点，失配/歧义返回 `anchor_not_found` / `anchor_ambiguous` 与最近 5 条 `availableReplyAnchors` 诊断；
+     - 新增 `question` 结构/选项校验与 `result_source_required`（阻止仅在引用文本含未汇报 `result_ready` 会话时省略 `sources`）；为引用会话补充 `marks` 与 `meta.verdictRef` 验真追溯。
+  3. **Objective CRUD 与 Session Supervisor / InputQueue 治理（`crates/peer-project-agent/src/{objectives.rs, supervisor.rs, input_queue.rs}`）**：
+     - `ObjectiveStore` 新增支持字段级与 `expectedVersion` 乐观锁更新的 `update` 与带 `closeEvidenceRefs` 的 `close`；
+     - `SessionSupervisor` 新增 `read_verification_detail`、`discard_worktree`、`resume_session`，持久化 `deliveryHandoff` 状态到计划文档，并在 `list_bot_sessions`/`list_all_bot_sessions` 计算 `result_confirmation_required`；`InputQueue` 新增 `requeue_executed` 支持用户中断输入不重复入队的精准重排。
+  4. **扩展受治理 Bot 工具矩阵与诊断透传（`crates/peer-project-agent/src/provider.rs`）**：
+     - 新增暴露 `resume_session`、`get_verification_detail`、`search_conversation`（调用 `memory_secret_reason` 自动脱敏为 `[REDACTED]`）、`get_objective`、`update_objective`、`pause_objective`、`resume_objective` 与 `close_objective`；
+     - 升级 `create_objective`、`spawn_session` 与 `post_reply`，透传 `availableReplyAnchors` 错误诊断，将 `Surfacing::Digest` 路由入 `DigestQueue::hold` 并跟踪 `post_reply_rejected` 状态。
+  5. **停止卡片、重试连续性与 1 轮交付修复（`crates/peer-project-agent/src/{system_context.rs, runner.rs, lib.rs}`）**：
+     - 用户取消回合持久化 `system_card`（`card: "agent_stopped"`，`{turn_id}-stopped`，保留实时/分轮部分回复 `partialReply`），并在流式返回后增加取消守卫避免误写兜底回复；
+     - 新增 `read_retry_continuity`（回溯同锚点最近 `stopped`/`error` 回合工具历史与脱敏 `partialReply`）并注入 `L7_CONTINUITY` `project-agent.retry-continuity`；针对 `wake` 空结尾或被拒绝 `post_reply` 执行最多 1 轮合成纠偏（`delivery_repair`）。
+  6. **Bot TUI 交互卡片与 E2E 回归（`crates/peer-cli/src/terminal/bot_shell.rs`、`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - Bot 视图投影 `ConfirmResult`（待确认接收）、`HandoffWorktree`（合并分支 / 丢弃分支）与 `agent_stopped` Retry 卡片并接入执行回调；
+     - 新增 5 组 Phase 2 E2E 测试：`objective_full_lifecycle_and_conversation_search_redacts_secrets`、`post_reply_anchor_resolution_verdict_marks_and_delivery_repair_after_rejection`、`stopped_turn_persists_agent_stopped_card_and_retry_carries_retry_continuity`、`digest_surfacing_defers_to_digest_queue_and_flushes_when_due`、`confirm_session_result_and_worktree_handoff_merge_and_discard`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **22/22**、`peer-project-agent --test project_agent_e2e` **18/18**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
 
 ## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 1（P0）补齐：核心认知/计费/压缩/熔断统一、提问卡片与租约接管
 
