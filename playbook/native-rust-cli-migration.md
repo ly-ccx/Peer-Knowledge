@@ -2,7 +2,14 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复（`Peer-Agent` `b146c917`、`3ce1d467`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时（`Peer-Agent` `3bcaa18a`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 修复重启重置权限为 Ask 及 60s 授权等待触发 `waiting_user`
+
+- **同步读写 `settings.json` `localAccessLevel` 并移除交互端口 60s 硬超时（提交 `3bcaa18a`）**：
+  - 根因：1）`crates/peer-cli/src/terminal/classic.rs` 启动时硬编码 `LocalAccessLevel::AskBeforeLocal`，既不读取桌面/OpenTUI 写入 `~/.peer-agent/settings.json` 的 `localAccessLevel`（如 `full_local` / `session_local`），`/permissions` 切换后也未写回磁盘；2）`crates/peer-cli/src/terminal/resumed/ports.rs` 的 `PermissionPort::decide` 在 60 秒后返回 `LocalPermissionDecision::Timeout`，使授权弹框到期变成不透明错误 `执行未完成（waiting_user）`。
+  - 修复：`theme_store.rs` 只读加载并新增 `save_local_access_level` 原子写回（保护无关字段与损坏 JSON）；`classic.rs` 在 `ClassicSession::new` 初始化、`apply_access` 同步写回 `settings.json`，并在 `poll_active` 为 `waiting_user` 增加明确超时提示文案；`resumed/ports.rs` 移除 60 秒截断定时器（由 Runtime `permission.rs` 既有的 300s 兜底）。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10** 全部通过。
 
 ## 2026-11-20 修复多工具回合 `model_continuation_identity_changed` 与工具摘要截断省略号
 
