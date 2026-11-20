@@ -2,7 +2,18 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复（`Peer-Agent` `6be02311`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复（`Peer-Agent` `a090ebf8`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 修复 Bot 超大工具结果触发 `model_tool_result_materialization_required`
+
+- **为 Bot `ProjectAgentRunner` 接入超限工具结果落盘引用与 `read_tool_result` 投影（提交 `a090ebf8`）**：
+  - **根因**：`6be02311` 打通 Bot 多轮工具历史编码后，主 Bot 读取大文件或长输出（超过 6,000 UTF-16 字符，如 `read_file` / `git_query`）触发了下一轮编码限制——`crates/peer-project-agent/src/runner.rs` 调用仅支持内联视图的 `NativeModel::turn_with_history`（内部走 `ToolResultEncoding::inline()`），对 > 6,000 字符工具结果直接报错 `model_tool_result_materialization_required`；同时 `ProjectAgentRunner` 默认构造 `ProviderRegistry::default()` 未投影 `read_tool_result`。
+  - **修复**：
+    1. `crates/peer-runtime/src/model.rs` 新增 `NativeModel::turn_with_materialized_history`，对超限工具结果先调用 `ToolResultEncoding::materialize` 落盘到 `<home>/conversations/<conversation_id>.tool-results/` 并替换为 `local_file_ref`/`local_tool_result_ref`；
+    2. `crates/peer-runtime/src/providers/tool_artifact.rs` 与 `crates/peer-runtime/src/providers.rs` 在 `ToolArtifactProvider(true)` 的 `modeScopes` 增加 `"project_agent"` 并提供 `ProviderRegistry::for_project_agent()`；
+    3. `crates/peer-project-agent/src/runner.rs` 改用 `ProviderRegistry::for_project_agent()` 与 `turn_with_materialized_history`，并在首轮无消息对话启动时确保 `<conversation_id>.jsonl` 存在以免首次工具物化因缺对话正文文件失败；
+    4. `crates/peer-project-agent/tests/project_agent_e2e.rs` 新增 E2E 回归测试 `bot_materializes_oversized_tool_results_and_can_read_tool_result`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **177/177**、`peer-project-agent --lib` **17/17**、`peer-project-agent --test project_agent_e2e` **8/8**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
 
 ## 2026-11-20 修复 Bot TUI 授权错乱、多轮无回复与重复 `BOT Bot` 徽标
 
