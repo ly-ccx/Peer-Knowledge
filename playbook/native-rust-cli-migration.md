@@ -2,7 +2,19 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时（`Peer-Agent` `3bcaa18a`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复（`Peer-Agent` `6be02311`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 修复 Bot TUI 授权错乱、多轮无回复与重复 `BOT Bot` 徽标
+
+- **修复 Bot TUI 后台 worker 授权写穿备用屏、发送消息不回复及重复 `BOT Bot` 前缀（提交 `6be02311`）**：
+  - **界面错乱根因与修复**：`crates/peer-cli/src/terminal/bot_shell.rs` 原将无头阻塞终端提示器 `TerminalPermission` 传入 `host.tick`（后台 worker 在只读探索项目读取系统 gitconfig 等工作区外路径时直接向 `io::stderr()` 输出文本并抢占 `io::stdin()`），冲垮 Ratatui 备用屏导致 `working...` 叠绘在输入框。现改为共享 `PermissionPort` 通道 + `crates/peer-tui/src/{classic_view.rs, bot_view.rs}` 复用 Frost 圆角红框 `render_approval_dock` 处理键盘授权，补充单测 `bot_conversation_renders_approval_dock_cleanly_without_corrupting_layout`。
+  - **Bot 不回复与“短暂显示两个 `BOT Bot` 后消失”根因与修复**：
+    1. `crates/peer-project-agent/src/runner.rs` 在第 1 轮调用工具后把工具历史写成 snake_case（`tool_calls`/`tool_call_id`），被 `crates/peer-runtime/src/model/continuation.rs` `lower()` 剥离，导致第 2 轮请求发送孤立 `role: "tool"` 而被模型 API（Chat / Responses / Gemini 等）400 拒绝。现新增 `LiveHistory::remember_turn` 并改写为 canonical camelCase（`toolCalls` / `toolCallId` / `name` + `sanitize_assistant`/`javascript_trim` 分段），同步将工具轮次预算从 `6/16` 提至 `10/24`、过滤历史空白助手消息并在 user 轮次耗尽预算时追加无工具收口回复；`system_context.rs` 与 `provider.rs` 补充 wake turn `proactive: true` 指引与 `user` 轮次 `replyTo` 锚点兜底。
+    2. `crates/peer-project-agent/src/host.rs` 原在 `TurnEndKind::Failed` 后仍把输入标为 `executedInputId`；现仅在非 `Failed`/`CircuitOpen` 时 `mark_executed`，失败/熔断/停止即刻终止本轮保留真实结果，并在 worker 后刷新租约心跳；新增 `input_queue.rs` / `inbox.rs` / `host.rs` `has_pending` 与 `has_pending_work`。
+    3. `crates/peer-cli/src/terminal/bot_shell.rs` 将 `ActiveTick` 返回 `HostTickReport`，失败/租约被占/熔断时显式展示底部提示而不再被 `Ok(Ok(()))` 清空；记录活跃 tick 期间到达的输入并在完成后自动续推，进入 `BotShellState::run` 或从 `/bots` 切入有待处理工作时自动触发推流。
+    4. `bot_view.rs` 左侧栏已绘制 `BOT` 徽标，移除 `bot_shell.rs::draw` 里给 `live_activity` 额外拼接的 `"Bot  "` 前缀（并本地化 `thinking`/`tool` 阶段文案为 `思考中…`/`调用工具中…`）。
+  - 补充 E2E 回归测试 `crates/peer-project-agent/tests/project_agent_e2e.rs`（`multi_round_bot_tool_loop_encodes_valid_wire_tool_calls_for_chat_and_responses` 与 `failed_bot_user_turn_preserves_unexecuted_input_and_recovers_on_retry`）。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **177/177**、`peer-project-agent --lib` **17/17**、`peer-project-agent --test project_agent_e2e` **7/7**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
 
 ## 2026-11-20 修复重启重置权限为 Ask 及 60s 授权等待触发 `waiting_user`
 
