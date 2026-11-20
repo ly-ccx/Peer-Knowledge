@@ -2,7 +2,14 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接对齐完成并推仓（`Peer-Agent` `582791a5`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化对齐完成并推仓（`Peer-Agent` `05e62a2b`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 Bot 模式冷启动与刷新性能优化
+
+补充提交 `05e62a2b` 消除打开 Bot 模式与刷新期间重复反序列化非委派/超大 `goal-plans/*.json` DOM 的冷启动延迟（`crates/peer-project-agent/src/{supervisor.rs, host.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）：
+- **单趟字节预过滤 + `(len, mtime)` 摘要缓存 + 超大计划头尾快路径（`supervisor.rs`）**：引入轻量 `PlanIndexMetaRow`、`PlanSummaryDoc` 与纯安全 Boyer-Moore-Horspool `find_bytes` / `contains_bytes`；`PlanIndexCache` 将缓存负载从完整 `serde_json::Value` 降至 `Option<WorkSessionSummary>` 并按 `(len, modified)` 缓存，未命中时先用原字节排查 `"delegationOrigin"` 跳过约 98% 非委派计划，超过 `256 KiB`（如真实环境 `88.74 MiB` / `77.83 MiB` 含庞大 `runTrace` / `revisionHistory` 的计划）采用 `32 KiB` 头 + `128 KiB` 尾顶层字段快路径（校验 2-space `planId` 且无法命中则自动退回整文件 `PlanSummaryDoc`），新增单趟 `list_all_bot_sessions` 与 `write_plan` 同进程失效；`host::bot_list_json` 改为单趟调用。
+- **按当前屏幕按需加载（`bot_shell.rs`）**：`BindWorkspace` 首帧零扫描（仅 **5.7–5.9 ms**）；`Conversation` 不再拉取全部 Bot 列表与他人大对话文件（消除了每秒周期全仓扫描）；`memories` 与 `objectives` 延迟至切入对应子视图时加载。
+- **真实数据基准与提交 `05e62a2b` 实测**：在含 `1,512` 条 `goal-plans`（`184.52 MiB`，其中 24 条委派计划 `171.41 MiB`）与 `Peer RSI` `20.13 MiB` 对话的真实 `~/.peer-agent` 下对比，Bot 默认打开首帧由 **2,116.7 ms → 43.7 ms**（提速约 **48×**）、`peer-native bots --json` 由 **1,783.0 ms → 42.1 ms**（提速约 **42×**）、`bots` 列表 **35.9 ms**、`BindWorkspace` **5.9 ms**、`--classic` **6.3 ms**；静态与测试方面：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-project-agent -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-project-agent --lib` **17/17**、`peer-cli --lib` **25/25**、`peer-tui` **38/38**、Release 构建与 24 项真实 PTY 套件（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.59375 / 84.484375、`finalRssMiB` 86.15625、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0）全部通过。
 
 ## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
 
