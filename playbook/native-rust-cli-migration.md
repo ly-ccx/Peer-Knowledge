@@ -2,7 +2,17 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与 `tui-bot-composer` Bot 输入条及卡片重做对齐完成并推仓（`Peer-Agent` `448af3b6`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做（`Peer-Agent` `71f36d0b`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 原生 Bot TUI Frost 2.0 布局重做
+
+补充提交 `71f36d0b` 基于 Peer Frost 2.0 与经典模式视觉语言直接重做原生 Bot TUI 布局（`crates/peer-tui/src/bot_view.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`），在不引入额外启动磁盘 I/O 且严格守住 ADR 122 边界的前提下补全信息层级与视觉框架：
+- **顶部状态栏与分隔线（`render_bot_topbar`）**：对话与二级子视图顶部显示 `◆ Peer · <Name>`、当前子视图标签、紧凑工作区路径、`● 由本终端运行` / 租约状态以及待处理与运行中角标，并配全宽极细分隔线；`BotList` 页标题严格保持 `Peer` 以维持 ADR 122 与 F2 往返切换契约。
+- **居中 Hero 空态与圆角工作区绑定卡**：无历史消息时居中展示响应式 `b3_wordmark_lines`（`peer agent` 徽标）、机器人标识与工作区路径、副标题、圆角卡片框（`╭─╮│╰─╯`）与胶囊式动作筹码及内联会话列表（`< 12x30` 自动降级为紧凑排版）；未绑定工作区页面在宽高充足时居中展示圆角 `BindWorkspace` 卡片。
+- **对话流左轨、圆角卡片与委派任务区（`render_conversation_body`、`push_rounded_card_lines`、`push_inline_task_rows`）**：`width >= 44` 时采用与经典模式一致的 Frost 2.0 / Crush 左轨（` YOU  ▌ ` 与 ` BOT  `）并精确平移 `LineLink` 列坐标保障 OSC 8 `Cmd+Click` 点击准确；底部内联展示委派任务状态行与左轨对齐的实时活动行。
+- **悬浮圆角输入盒与底部状态栏（`render_bot_shell_with_links`、`render_bot_status_bar`）**：输入区升级为带 `palette.panel` 填充和聚焦边框的圆角盒子（支持 1–3 行动态换行与卡片聚焦动作 placeholder；高度 `< 12` 或宽度 `< 20` 时回退为紧凑分隔线），底部增加 Frost 状态栏（左侧显示 `mode bot · host 本机宿主 · ...` 等状态，右侧显示 `<short_model> · <effort>`，严禁出现 `F2 · 普通任务模式`）。
+- **`bot_shell.rs` 零新增磁盘 I/O 接线**：复用 `open()` 既有 `resolve_exec` 解析并保存 `selected_display_name`，在 `ModelPickerEvent::Select` 时同步更新；`draw()` 直接传入内存中的 `workspace_path`、`model_badge`、`effort_badge` 与 `is_running`（合并 `active_tick.is_some()` 与运行中任务状态，并同步驱动 80 ms `working...` 动画刷新）。
+- **提交 `71f36d0b` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、`peer-cli --lib` **25/25**、`peer-project-agent --lib` **17/17**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.484375 / 84.359375、`finalRssMiB` 86.203125、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
 
 ## 2026-11-20 Peer Frost 2.0 视觉配色与 Bot 输入条/卡片重做对齐
 
