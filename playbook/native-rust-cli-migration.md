@@ -2,7 +2,17 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修（`Peer-Agent` `07525692`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复（`Peer-Agent` `b146c917`、`3ce1d467`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 修复多工具回合 `model_continuation_identity_changed` 与工具摘要截断省略号
+
+- **修复工具调用前置助手正文带首尾空白触发 `model_continuation_identity_changed`（提交 `b146c917`）**：
+  - 根因：`crates/peer-runtime/src/canonical_history.rs` 的 `flush()` 对工具调用前输出的助手正文同时执行 `sanitize_assistant` 与 `peer_protocol::javascript_trim`，而 `crates/peer-runtime/src/model/continuation.rs` 的 `LiveHistory::remember` 仅做 `sanitize_assistant(&continuation.text)` 未执行 `javascript_trim`，导致推理模型在工具前输出末尾含 `\n\n` 的提示语（如 `deepseek-v4.1-flash` 实测复现）在工具执行后校验身份失败。
+  - 修复：在 `LiveHistory::remember` 对比 `expected` 前与 `canonical_history.rs` 对齐执行 `peer_protocol::javascript_trim`，并补充平行工具调用与防篡改回归单测 `live_replay_matches_canonical_history_trimmed_assistant_text_with_parallel_tools`。
+- **移除单行工具摘要等 UI 短字段中的 `［预览，完整正文见导出］` 伪后缀（提交 `3ce1d467`）**：
+  - 在 `crates/peer-cli/src/terminal/resumed/ports.rs` 新增专用单行截断函数 `compact_bounded_text`（清理控制符、合并空白并以 `…` 结尾）；保留 `bounded_text` 仅用于超大消息正文预览。
+  - 将 `crates/peer-cli/src/terminal/classic.rs` 的工具摘要上限从 `120` 提升至 `256` 并替换为 `compact_bounded_text`，同步切换 `push_detail_line`（`240`）、交互选项（`160`）/提问（`400`）、`build_approval_card` 参数（`240`）及 `crates/peer-cli/src/terminal/resumed.rs` 会话标题与工具短名；新增单测 `long_tool_summary_and_approval_args_use_ellipsis_never_export_preview`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **177/177**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10** 全部通过。
 
 ## 2026-11-20 Peer Frost 2.0 / OpenTUI 交互与排版精修补齐
 
