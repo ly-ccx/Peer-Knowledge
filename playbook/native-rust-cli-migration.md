@@ -2,7 +2,17 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化对齐完成并推仓（`Peer-Agent` `05e62a2b`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与 `tui-bot-composer` Bot 输入条及卡片重做对齐完成并推仓（`Peer-Agent` `448af3b6`）；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 Peer Frost 2.0 视觉配色与 Bot 输入条/卡片重做对齐
+
+补充提交 `448af3b6` 将未合入分支 `codex/peer-frost-2-visual-upgrade`（`ca679e2a`）与 `PeerAgent/tui-bot-composer`（`f00c9553`）的全部 UI 与交互重做合入 `peer-native`（`crates/peer-tui/src/{theme.rs, bot_view.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）：
+- **Peer Frost 2.0 全端冰湖青色板（`theme.rs`）**：将 `DARK_PALETTE` 从旧纯黑+荧光青柠（`#080a0c` / `#b8f35b`）升级为冷黑曜石石板+冰湖青（`#10141B` 底、`#171C25`/`#1E2430`/`#232A38` 阶梯表面、`#1D2E3F` 选区、`#76B0D4` 主重点与光标、`#96C7E5` 次重点/用户/代码、`#EEF2F7`/`#B2BCCB`/`#8C98A9` 石墨字阶、`#63B39D` 成功、`#E0B268` 警告、`#D97C92` 错误、`#76A5D6` 运行中）；同步将 `LIGHT_PALETTE` 升级为冷雪纸+深冰湖青（`#EFF3F8` 底、`#F7F9FC`/`#FCFDFF` 表面、`#181C22` 字、`#286891` 主重点、`#296E5D` 成功、`#963850` 错误）。
+- **Bot 对话卡片与输入条重做（`bot_view.rs`、`bot_shell.rs`）**：
+  - 对话流卡片（`BotScreen::Conversation`）不再在卡片框内渲染编号选项（`1. 先熟悉一下项目` 仅保留在 `/cards` 子视图），去掉分隔线上方常驻的 `Tab 选择卡片 · 方向键切换选项 · 回车执行` 提示行；按下 `Tab` 进入卡片焦点后，当前选中动作直接呈现在输入区 placeholder（`←/→` 切选项、`↑/↓` 切卡片、`Enter` 执行、`Esc`/`Backspace`/直接打字回到输入，且仅草稿为空时允许 `Tab` 进卡片焦点）；
+  - 默认输入区 placeholder 精简为 `跟机器人说话` / `Message this bot`，输入 `/help` 时改为向输入框填入 `/` 直接唤起斜杠菜单并回到对话页，`Invalid` 与无匹配斜杠分支统一显示 `输入 / 查看命令。` / `Type / for commands.`；
+  - 对话流底部内联显示委派子任务状态行（`› / ✓ / × / · <标题> · <状态>`），存在 `queued`/`starting`/`running`/`verifying` 子任务时在分隔线上方展示与经典模式同源的扫光 `working...` + `PEER / ACTIVE` 状态条（由 `bot_shell.rs` `animation_frame` 以 80 ms 节拍驱动）。
+- **提交 `448af3b6` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、`peer-cli --lib` **25/25**、`peer-project-agent --lib` **17/17**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.34375 / 84.953125、`finalRssMiB` 86.6875、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
 
 ## 2026-11-20 Bot 模式冷启动与刷新性能优化
 
