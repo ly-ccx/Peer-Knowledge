@@ -2,7 +2,29 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复（`Peer-Agent` `a090ebf8`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复/TS→Rust Bot Harness 补齐 Phase 1（P0 核心运行时统一、持久化熔断、回答卡片与租约让渡，`Peer-Agent` `5a6a7c9a`）完成并推仓；待用户确认后继续 Phase 2 或进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 1（P0）补齐：核心认知/计费/压缩/熔断统一、提问卡片与租约接管
+
+- **对齐 `peer-runtime` 与 `agent-turn-plan.mjs` / `circuit-breaker.mjs` 并补全 Bot TUI 卡片与租约握手（提交 `5a6a7c9a`）**：
+  1. **`peer-runtime` 共享能力暴露与角色模型路由（`crates/peer-runtime/src/{model.rs, model/error.rs, cognition.rs, lib.rs, model_catalog/exec.rs, model_catalog.rs}`）**：
+     - `ModelError` 新增 `http_status`、`is_transient_retryable()`（区分瞬态 408/429/5xx/超时/中断与不可重试的 401/403 鉴权/上下文溢出/`CANCELLED`）与 `observed_usage()`；
+     - 公开 `ModelDelta`、`SAME_PROVIDER_RETRY_DELAYS_MS`（`[500, 1500, 3000]ms`）、`SameProviderRetryPolicy`（统一通用退避与 `qoder_retry::Policy`）、`ModelTurn::usage_amounts()` 与 `NativeModel::turn_with_materialized_history_and_deltas`；
+     - 暴露 `compaction_summary_prompts`、`build_compaction_summary_input` 与 `build_structural_compaction_summary`，新增 `resolve_role_model` 支持读取 `settings.json` `modelRouting` 与 `profile.modelPolicy`（`scope` 白名单与 `overrides` 角色覆盖，显式 `--model`/`--provider` 仍优先）。
+  2. **持久化熔断器（`crates/peer-project-agent/src/circuit_breaker.rs`、`lib.rs`）**：
+     - 新增兼容 `packages/runtime-node/src/project-agent/circuit-breaker.mjs` 契约的 `CircuitBreakerStore`（原子读写 `<data_home>/project-runtime/<workspace_id>/circuit-breaker.json`，保留未知扩展字段），实现 `5` 次连续失败熔断 `10` 分钟、`turnId` 去重、按 `provider:<name>` 维度隔离、冷却期满/用户输入 `half_open` 试探、`abandon_trial` 回退及手动复位。
+  3. **`ProjectAgentRunner`、`system_context` 与 `directory` 统一（`crates/peer-project-agent/src/{runner.rs, system_context.rs, directory.rs}`）**：
+     - `runner.rs` 拆分 `user`（`10` 轮 / `20` 工具调用）与 `wake`（`6` 轮 / `12` 工具调用）预算；`system_context.rs` 新增 `L6_MODE_REMINDER`（`wake` / `taskDeliveryReminder`）与压缩延续摘要段；
+     - 接入 `call_model_with_retry` 瞬态退避与流式 `ModelDelta::Text` 实时刷新 `ProjectAgentActivity::reply_text` 与有界 `publicUpdates`；
+     - 接入 `RuntimeUsageAccounting` 与 `ConversationStore::record_runtime_turn_usage` 将 Bot 回合用量写入 canonical `~/.peer-agent/usage/requests.jsonl`（按实际执飞角色归因 `modelProviderId`）；
+     - 接入 `load_bot_history` 与 `compact_bot_history`（`85%` 窗口阈值预检 + HTTP 413/context overflow 溢出自动压缩，优先 LLM 摘要、失败退回结构化摘要，落盘标准 `_compaction` 标记）；`directory.rs` 隐藏 `_compaction` 标记并补齐 `card:question:reply:<id>` 前缀剥离、`question.answered` 与新回复覆盖旧开放问题契约；
+     - 持久化隐藏 `agent_turn` 过程记录（`rounds`/`publicUpdates`/`diagnosticTiming`）及失败 `unavailableCard`（`{turn_id}-card`，`system_card` / `agent_unavailable`）。
+  4. **租约让渡握手与 Bot TUI 卡片/流式体验（`crates/peer-project-agent/src/host.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - `NativeProjectHost` 新增 `request_takeover`（写入 `host.yield`）、`takeover_requested`、`resolve_bot_model_selection`，并在 `tick` 各阶段检查 `host.yield` 及时释放租约避免宿主乒乓争夺；
+     - `bot_shell.rs` 投影开放式回复提问卡（选项按钮与 `/answer N`）与未覆盖失败重试卡（重置熔断并重试），接入 `/takeover` 协商让渡、被请求方自动停止当前 tick 并退回客户端模式、角色模型徽标解析与按 `activity.revision` 触发的零等待流式重绘。
+  5. **E2E 回归（`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - 新增 5 组端到端回归测试覆盖瞬态重试/401 不重试与跨实例持久化熔断、canonical 用量账本 + 隐藏 `agent_turn` + `publicUpdates`、HTTP 413 上下文溢出自动压缩、回复提问卡片 `card:question:reply:` 生命周期与双宿主 `host.yield` 租约让渡。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **20/20**、`peer-project-agent --test project_agent_e2e` **13/13**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
 
 ## 2026-11-20 修复 Bot 超大工具结果触发 `model_tool_result_materialization_required`
 
