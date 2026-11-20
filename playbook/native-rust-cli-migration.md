@@ -2,7 +2,7 @@
 
 创建时间：2026-11-14
 最后更新：2026-11-20
-状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做（`Peer-Agent` `71f36d0b`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做（`Peer-Agent` `48eb729d`）完成并推仓；待用户确认后进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
 
 ## 2026-11-20 原生 Bot TUI Frost 2.0 布局重做
 
@@ -13,6 +13,7 @@
 - **悬浮圆角输入盒与底部状态栏（`render_bot_shell_with_links`、`render_bot_status_bar`）**：输入区升级为带 `palette.panel` 填充和聚焦边框的圆角盒子（支持 1–3 行动态换行与卡片聚焦动作 placeholder；高度 `< 12` 或宽度 `< 20` 时回退为紧凑分隔线），底部增加 Frost 状态栏（左侧显示 `mode bot · host 本机宿主 · ...` 等状态，右侧显示 `<short_model> · <effort>`，严禁出现 `F2 · 普通任务模式`）。
 - **`bot_shell.rs` 零新增磁盘 I/O 接线**：复用 `open()` 既有 `resolve_exec` 解析并保存 `selected_display_name`，在 `ModelPickerEvent::Select` 时同步更新；`draw()` 直接传入内存中的 `workspace_path`、`model_badge`、`effort_badge` 与 `is_running`（合并 `active_tick.is_some()` 与运行中任务状态，并同步驱动 80 ms `working...` 动画刷新）。
 - **提交 `71f36d0b` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、`peer-cli --lib` **25/25**、`peer-project-agent --lib` **17/17**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.484375 / 84.359375、`finalRssMiB` 86.203125、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
+- **补充提交 `48eb729d`（Hero 副标题与底部状态栏 `/classic` 入口提示）**：按终端宽度分档在 Bot 首页 Hero 副标题与底部状态栏展示 `/classic 普通对话` / `/classic chat`（窄宽 80 列仍完整保留且不触发 ADR 122 禁用的 `F2 · 普通任务模式` 字样），修改后复跑 `cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、Release 构建（`target/release/peer-native`）与 `tui_e2e_pty.py` **5/5** 全部通过。
 
 ## 2026-11-20 Peer Frost 2.0 视觉配色与 Bot 输入条/卡片重做对齐
 
