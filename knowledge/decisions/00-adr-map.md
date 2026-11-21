@@ -472,3 +472,12 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-19 NR-04 ADR131 实施前补充：普通自驱 Goal 的确定性验收缺口沿既有核验行记录检查来源，机械检查和模型核验共享原返修额度，完成仍要求新独立核验与真实停稳。
 
 2026-11-19 NR-04 ADR131 实施前补充：按 ADR34、108-cli-basic-shell-commands、116 接通会话删除，对确切确认范围登记持久级联与原锁的所有权，保护未结算事实及外来锁。
+
+## 统一 Rust Core 基座（2026-11-21）
+
+用户接受 Classic 先行的统一基座架构方案并授权先落 A 级设计决策再按 C0–C3 分阶段实施：以单一 `peer` 原生二进制暴露跨平台 `peer core --stdio`（后续演进至本机 UDS / Named Pipe 共享 Daemon），经双向有界 JSON-RPC 2.0 统一驱动 Desktop 与 CLI，并通过 `ExternalRpcProvider` 保持 Desktop 专属能力仍走唯一 `Capability Provider → Manifest → Runtime Projection → Tool Call → PermissionGrant → Evidence` 主链。
+
+| 编号 | 文件 | 状态 |
+|---|---|---|
+| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C3 Classic 先行分阶段实施，验收另记 |
+
