@@ -479,5 +479,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 | 编号 | 文件 | 状态 |
 |---|---|---|
-| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C3a 已完成（受 PEER_CORE_CLASSIC=1 门控），余 C3b/C4 推进中 |
+| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C3b 已完成（Classic 默认走 Rust Core，保留即时回退开关），余 C4 推进中 |
 
