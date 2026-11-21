@@ -1,7 +1,7 @@
 # ADR 133：统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）
 
-- 状态：Accepted（2026-11-21；Milestone C0–C4a 已在 `codex/native-rust-cli` 上完成，Classic 与 Automations 默认走 Rust `peer-native core --stdio` 并保留 `PEER_CORE_CLASSIC=0` / `PEER_CORE_ENGINE=ts` 即时回退开关，余 C4b–C4d 推进中）
-- 创建 / 更新：2026-11-21
+- 状态：Accepted（2026-11-21；Milestone C0–C4b-1 已在 `codex/native-rust-cli` 上完成，Classic、Automations 及 project-memory/objectives/unknown-outcome policy 默认走 Rust `peer-native core --stdio` 并保留 `PEER_CORE_CLASSIC=0` / `PEER_CORE_ENGINE=ts` 即时回退开关，余 C4b-2–C4d 推进中）
+- 创建 / 更新：2026-11-22
 - 级别：A
 - 依赖：0001、22、48、54、74、85、129、130、131、132
 
@@ -54,7 +54,8 @@ Capability Provider → Manifest → Runtime Projection → Tool Call → Permis
 | **C3a（已完成，`afe26aac`）** | Classic 周边 5 域收口至 `peer-core-rpc`（43 个 JSON-RPC 方法：`classic.conversations.*` 20、`classic.usage.*` 4、`classic.skills.*` 8、`classic.mcp.*` 8、`classic.llm.*` 3）+ `peer-store` 持久化/查询原语 | Electron Main 受 `PEER_CORE_CLASSIC=1` 门控接管上述 5 域读写与 LLM 调用，同时保持桌面壳层清理、live MCP probe/OAuth/vault 与 IPC 411 通道契约不变 |
 | **C3b（已完成，`94556179`）** | Classic 默认路径切换至 Rust `peer-native core --stdio`（保留 `PEER_CORE_CLASSIC=0` / `PEER_CORE_ENGINE=ts` 即时回退开关与缺失二进制自动降级），补齐 Desktop `settings.json` 兼容、`configInstructions` / `contextAttachments` / `contextExtensions` 透传、`chat:compaction` 通道与登记表同步、活跃流与选区运行态合并 | 完成 4,000+ 桌面主进程回归清零与全量 IPC 校验；Electron Main 中 `chat-runtime/` 与 `agent-host/` 仍被 `project-agent`（Bot）、`automation-runner`、`resource-edit-permission-bridge` 与 `desktop-visual-review` 依赖，随 **C4** 迁移完成后整体退役 |
 | **C4a（已完成，`fe0187d7`）** | Automations 执行路径收敛至 Rust `peer-core-rpc`（`AutomationPermissionPolicy` 强制执行 Grant 门禁并封堵 `L4`/`L5` 提权与破坏性命令，绕开无 `GoalPlan` 的 `goal` intake 阻塞，`evidenceRefs` 收集回执，`cancelRun` 实时中断在途 Rust 流，`create_classic_conversation` 持久化 `modelProviderId` 及未绑定 provider 归一化） | 即使宿主开启 `full_local`，Automation 仍严格受请求级 `AutomationPermissionPolicy` 隔离约束，完成 4,034 项桌面主进程/预加载测试清零 |
-| **C4b（待推进）** | `project-agent` Bot + `project-memory` + `project-objectives`（50 路 IPC）收口至 Rust `peer-project-agent`（`NativeProjectHost`），补齐记忆 `setPinned`/`restore`/`resolveConflict`/`reviseStated` 等原语 | Bot 自治运行与项目记忆/目标管理收敛至 Rust 单一宿主实现 |
+| **C4b-1（已完成，`837bb44b`）** | `project-memory` 7 路 IPC、`project-objectives` 5 路 IPC 与 Bot `unknown-outcome-policy` 2 路 IPC 收口至 Rust `peer-project-agent` + `peer-core-rpc`（13 个 JSON-RPC 方法），补齐 `MemoryStore` 的 `set_pinned`/`forget_visible`/`restore`/`resolve_conflict`/`revise_stated`、`ObjectiveStore::apply_command` 与 `BotProfileStore` 未知结果策略原语 | 保持 `PEER_CORE_CLASSIC=0` 同步 TS 自动回退能力；`project-memory` / `project-objectives` / `unknownOutcomePolicy` 全量单测及真实 `peer-native` E2E 通过，桌面 4,036 项测试 0 失败 |
+| **C4b-2（待推进）** | `project-agent` 活体 Bot Actor、`SessionSupervisor`、`BotDirectory`、`InputQueue` / `InputDraftStore`、`InteractiveResultStore`、`ExecutionObligationService`、`WatchHost` 与 4 路实时事件流收口至 Rust `NativeProjectHost` | Bot 自治运行、输入草稿、审批/义务闭环与实时事件完全收敛至 Rust 单一宿主实现 |
 | **C4c（待推进）** | `remote-device-connector` 接入与本机 UDS（`0600`）/ Windows ACL Named Pipe 共享 Daemon 升级（`peer core --daemon`） | Desktop 与 `peer` CLI 共用单一活体宿主，消除跨进程 `host.lease` 竞争 |
 | **C4d（待推进）** | 整体退役 Electron Main `chat-runtime/`、`agent-host/`，清理 `packages/runtime-node` 死引擎路径 | 全运行形态收敛至单一 Rust Core 基座，移除双内核冗余代码 |
 
