@@ -1,6 +1,6 @@
 # ADR 133：统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）
 
-- 状态：Accepted（2026-11-21 用户接受 Classic 先行方案并授权按 A 级先落 ADR 133 并实施 Milestone C0；各阶段实现与验收另记）
+- 状态：Accepted（2026-11-21；Milestone C0–C3a 已在 `codex/native-rust-cli` 上实现并受 `PEER_CORE_CLASSIC=1` 门控，余 C3b/C4 待推进）
 - 创建 / 更新：2026-11-21
 - 级别：A
 - 依赖：0001、22、48、54、74、85、129、130、131、132
@@ -48,14 +48,16 @@ Capability Provider → Manifest → Runtime Projection → Tool Call → Permis
 
 | 阶段 | 范围 | 验收与灰度边界 |
 |---|---|---|
-| **C0（本轮）** | 新增 `peer-core-rpc`（跨平台 `tokio::io` `--stdio` 骨架：`core.initialize`、`core.ping` 含双向 `probeHost`、`core.capabilities.list`、`core.shutdown`）+ `peer core --stdio` + Electron `peer-core-client.mjs` + Desktop 打包接线 | 受 `PEER_CORE_CLASSIC=1` 环境变量显式门控（默认关闭，零改变现有生产与开发行为）；验证 Rust↔Node 握手、双向探针、异常退出自愈、优雅退出与边界门禁 |
-| **C1** | Classic Chat + Plan 核心执行链（`chat:send`、`chat:abort`、`chat:stream:reattach` / `list-active`、`chat:compact`、`permission:approve` / `deny`） | Rust `NativeConversationRuntime` 扩展 prepared-turn（消费外部 `assistantMessageId` 与节流 sidecar/终态提交）、`ClassicStreamRegistry`（ADR 22 5 分钟保留）、15 路 `chat:stream:*` 投影、双向权限审批、`ExternalRpcProvider`；TS 与 Rust 可按开关切换且不破坏磁盘 JSONL 契约 |
-| **C2** | Classic Goal 模式 + Goal Runner + Worktree Handoff + `desktop-preview` 视觉复核回调 | 接管 `chat:start-task`、`goalPlans:*`、`goalRunner:*`，复用 Rust Goal Runner 与独立 Verifier |
-| **C3** | Classic 周边与 TS 重复引擎退役；随后切 Bot、Automation 与 Remote Connector | 收口 `conversations:*`、`llm:*`、`mcp:*`、`skills:*`、`usage:*`，分批退役 `chat-runtime/`、`agent-host/` 等重复引擎；接着切换 `project-agent`、`automations` 与 `remote-device-connector`，最终清理 `packages/runtime-node` |
+| **C0（已完成，`b55bf1fe`）** | 新增 `peer-core-rpc`（跨平台 `tokio::io` `--stdio` 骨架：`core.initialize`、`core.ping` 含双向 `probeHost`、`core.capabilities.list`、`core.shutdown`）+ `peer core --stdio` + Electron `peer-core-client.mjs` + Desktop 打包接线 | 受 `PEER_CORE_CLASSIC=1` 环境变量显式门控（默认关闭，零改变现有生产与开发行为）；验证 Rust↔Node 握手、双向探针、异常退出自愈、优雅退出与边界门禁 |
+| **C1（已完成，`d1c96d62`）** | Classic Chat + Plan 核心执行链（`chat:send`、`chat:abort`、`chat:stream:reattach` / `list-active`、`chat:compact`、`permission:approve` / `deny`） | Rust `NativeConversationRuntime` 扩展 prepared-turn（消费外部 `assistantMessageId` 与节流 sidecar/终态提交）、`ClassicStreamRegistry`（ADR 22 5 分钟保留）、15 路 `chat:stream:*` 投影、双向权限审批、`ExternalRpcProvider`；TS 与 Rust 可按开关切换且不破坏磁盘 JSONL 契约 |
+| **C2（已完成，`9280c3ec`）** | Classic Goal 模式 + Goal Runner + Worktree Handoff + `desktop-preview` 视觉复核回调 | 接管 `chat:start-task`、`goalPlans:*`、`goalRunner:*`，复用 Rust Goal Runner 与独立 Verifier |
+| **C3a（已完成，`afe26aac`）** | Classic 周边 5 域收口至 `peer-core-rpc`（43 个 JSON-RPC 方法：`classic.conversations.*` 20、`classic.usage.*` 4、`classic.skills.*` 8、`classic.mcp.*` 8、`classic.llm.*` 3）+ `peer-store` 持久化/查询原语 | Electron Main 受 `PEER_CORE_CLASSIC=1` 门控接管上述 5 域读写与 LLM 调用，同时保持桌面壳层清理、live MCP probe/OAuth/vault 与 IPC 411 通道契约不变 |
+| **C3b（待推进）** | Classic 默认灰度切换与实机/回归验收，分批退役 Electron Main 中 `chat-runtime/`、`agent-host/` 等 TS 重复引擎 | 放开默认流量门控前的稳定性、性能与回退演练达标后切换默认路径 |
+| **C4（待推进）** | `project-agent` Bot、`automations` 与 `remote-device-connector` 切换至 Rust Core，推进本机 UDS / Named Pipe 共享宿主升级并最终清理 `packages/runtime-node` | 全运行形态收敛至单一 Rust Core 基座，消除跨进程 `host.lease` 竞争 |
 
 ## 3. 红线与非目标
 
 1. 不重写 React Renderer；`apps/desktop/electron/ipc/channels.mjs` 对渲染层的通道名、权限策略与语义契约保持兼容。
 2. 不得为桌面同步引入第二套 Agent loop 决策或第二份磁盘存储格式；所有已持久化会话、Goal、Evidence 与用量账本继续遵循 `~/.peer-agent` 单一真源（ADR 48 / 74 / 131）。
 3. 本 ADR 不撤销或破坏公开 TypeScript 编排接口 `@peer-agent/runtime-sdk` 与 `@peer-agent/protocol` 的对外契约（ADR 54 / ADR 129 §2.6）。
-4. C0 仅建立经过端到端验证的通信、生命周期与打包骨架，不在本阶段切换默认用户流量或修改既有发布门禁结果语义。
+4. C0–C3a 仅在显式开启 `PEER_CORE_CLASSIC=1` 时走 Rust Core，在 C3b 切换默认路径前不改变默认用户流量或既有发布门禁结果语义。
