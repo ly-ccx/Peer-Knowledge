@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "native-Qoder-prepared-infer/account/tool-loop-scoped-and-featureless-release-passed; P4 remains open",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "head": "b33200859306cabebf2d7143fb88bfc57308fb53",
+    "tree": "4012fd0f8e089ecf00036ab6df721724dd94a96d",
+    "branch": "codex/native-rust-cli"
+  },
+  "preSourceKnowledge": [
+    "df920ca3a78f5d4dc63b33c89cdeac65b783c16a",
+    "91f46b968dcc4eb73d79f22acd8f4ef960f06c6c"
+  ],
+  "adrs": [
+    "37-provider-channel-and-wire-protocol-separation.md",
+    "56-provider-observed-context-accounting.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "A-level readonly third-party account/catalog/source and compatible auth assembly registered before source; B-level factory/encoder/stream/Host wiring implements that contract. PermissionGrant, Evidence, canonical history, Context admission and persistence authority unchanged. No UI flow changed.",
+  "implemented": {
+    "account": "Selected qoder_local_auth/local_cli factory reads only explicit QODER_CONFIG_DIR > QODER_CLI_HOME/.qoder > HOME/.qoder. Final regular files NOFOLLOW/NONBLOCK/CLOEXEC, bounded captured-size read, cancel checks, dev/inode/size/mtime/ctime pre/post fd/path comparison. Machine4KiB/user1MiB/catalog4MiB, bounded JSON; exact JS UTF16 slice key compatibility. Typed token/uid/expiry/profile validation; application-owned secret strings/buffers erased on owner drop. No third-party source writes or CLI/VM fallback.",
+    "binding": "Actual ModelBinding operational config, credential/machine/catalog/endpoint source identities and captured Qoder environment are rechecked before dispatch. Logout, expiry, channel/model changes or source rotation block the old model. Source preserved; repaired credentials admit a separate subsequent task without erasing prior history/Evidence.",
+    "authentication": "Reuse existing encrypt_user_info/key; otherwise OS UUID-derived16-byte ASCII key, AES128-CBC/PKCS7 with IV=key and official fixed RSA1024 public-key PKCS1v15 encryption. RustCrypto rsa0.10.0/md-5 0.10.6 pinned. COSY independent random auth request UUID, exact envelope and MD5 preimage of base64 envelope/key/date/actual encoded body/API path. No production seed, arbitrary public key or vendor runtime. Protected/sensitive identity/auth headers. Third-party compatibility does not prove remote login or grant tools.",
+    "request": "Dedicated Qoder FREE_INPUT encoder for canonical history/Projection: tool pairing, adjacent assistant merging, dual content/contents, schemas, effort and context-tier choices. Native local QMC/legacy catalog projection binds selected model to readonly source. Frozen actual encoded request bytes/fingerprint keep the2MiB prepared-request ceiling. Observed-only count; Native Network/proxy/TLS and the existing Host/permission/tool/Evidence/store chain.",
+    "stream": "Bounded OpenAI-shaped stream plus Qoder body envelopes. Both outer and inner business failures checked before exposing tools, including queue10605/duplicate103/statusCodeValue rejection. Incomplete/error streams expose no tool intents. Complete decoder usage follows existing billing/unknown paths. Full retry and all wire variants remain unfinished."
+  },
+  "validation": {
+    "fullNativeGate": {
+      "tree": "4012fd0f8e089ecf00036ab6df721724dd94a96d",
+      "exitCode": 0,
+      "seconds": 470.43568999999997,
+      "rustTests": 428,
+      "nativeEpisodesIncludedInRust": 154,
+      "actualTsInteropRoots": 300,
+      "actualTsInteropChecks": 1736,
+      "ptyCases": 9,
+      "bun": "1.2.17",
+      "log": {
+        "path": "/tmp/peer-native-qoder-host-accepted-20261117/verify.log",
+        "bytes": 98716,
+        "sha256": "ffaec5bf256bb538b5e412eb642d4e4cb32b0ee56f145f42ef20c8908feed3a1"
+      }
+    },
+    "vectors": {
+      "actualTsRequestBuilders": 54,
+      "actualTsLocalCatalogProjections": 12,
+      "unmodifiedOfficialSdkAuthHeaders": 8,
+      "rngOnlyOfficialSdkRuntimeFieldGoldens": 4,
+      "officialSdkEncryptedCatalogPublicCliCases": 1,
+      "resource": {
+        "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/protocol/contracts/native-cli/qoder-requests.json",
+        "bytes": 457568,
+        "sha256": "d22b67cb2b4aba35b84dde742339cda33b9ee4d3b3aa031b77ac1b4d2be2ce6f"
+      }
+    },
+    "optimizedQoderUnitTests": {
+      "passed": 12,
+      "log": {
+        "path": "/tmp/peer-native-qoder-host-accepted-20261117/release-qoder-unit.log",
+        "bytes": 2133,
+        "sha256": "2048855279c6086ef073c90eb25785c1578745abc308e3d3f15c266c1f17a97d"
+      }
+    },
+    "featurelessRelease": {
+      "path": "/tmp/peer-native-qoder-host-accepted-20261117/peer-native",
+      "bytes": 17107648,
+      "sha256": "5544caa5d1dd3b7e342b017f625e8025a4c64e186ba4b058c6d348e27680556f",
+      "withoutJsPublicHostTests": 6,
+      "environment": "env -i PATH=/nonexistent; actual child CLI uses isolated HOME/Peer data and local HTTP only",
+      "log": {
+        "path": "/tmp/peer-native-qoder-host-accepted-20261117/no-js-release-host.log",
+        "bytes": 732,
+        "sha256": "5b8085b09b2b30425a8402fd8febc81d9dc69e67ab821ff3e6280507a63b47a4"
+      },
+      "releaseStoreInterop": {
+        "roots": 9,
+        "checks": 48,
+        "log": {
+          "path": "/tmp/peer-native-qoder-host-accepted-20261117/release-interop.log",
+          "bytes": 214,
+          "sha256": "2429c5962280857a5bade1151a53953ca854d9b8a381940be7d41e3e8fac3664"
+        }
+      },
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-qoder-host-accepted-20261117/release-dylibs.txt",
+        "bytes": 361,
+        "sha256": "8944767a62ce610249fef4f1e75de35ebdbb07eb6aa05ae9740c807f5466d62c"
+      },
+      "hostDependencyTree": {
+        "path": "/tmp/peer-native-qoder-host-accepted-20261117/host-dependencies.txt",
+        "bytes": 31230,
+        "sha256": "28b93b21bcbe76f9317733056eaabb529e93623fb7b30d4d121bde86aab4fe7c"
+      },
+      "vendorAuthWasmEmbedded": false
+    },
+    "architectureAndUi": {
+      "path": "/tmp/peer-native-qoder-host-accepted-20261117/architecture.log",
+      "bytes": 384,
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    "newDependencyDeclaredMsrv": {
+      "highest": "1.87",
+      "workspace": "1.88",
+      "actualLocalCompiler": "1.98.0",
+      "minimumCompilerBuildNotRun": true,
+      "metadata": {
+        "path": "/tmp/peer-native-qoder-audit-20261117/new-dependencies-msrv.json",
+        "bytes": 1396,
+        "sha256": "2d0f7dbf3a30a18f2a92d8c26df72a7261d4330104decca92aa2f330dae9f921"
+      }
+    },
+    "publicCases": [
+      "generated-auth/encoded request -> read/write tools -> actual structured ToolResult/Evidence and pending acceptance",
+      "denial persists with no effect; separate subsequent task admitted",
+      "corrupt or env-only prepared auth fails before network and preserves source",
+      "actual Shell changes synthetic credential after successful effect; next request blocked; Evidence/history preserved after repair and later task",
+      "official SDK encrypted local catalog -> chosen model/context tier -> real HTTP",
+      "outer queue/duplicate/error-status with inner valid executable tool never executes"
+    ],
+    "sourceTests": [
+      "expiry/logout/config disable/rotation",
+      "missing fields use fresh OS randomness without writing profile",
+      "UTF8/type/size/cipher failures preserve source and recover after repair",
+      "final symlink/FIFO rejection without blocking",
+      "catalog/endpoint identity invalidation and env-token priority",
+      "truncated/envelope/business-error streams never expose partial tools"
+    ]
+  },
+  "oracle": {
+    "package": "@qoder-ai/qodercli",
+    "version": "1.0.39",
+    "authModuleSha256": "15dad38f7d9744dabfdc8a892ebad80d2c8157779f4e33882123ab3c954f04d3",
+    "unchangedAuthModuleForHeaders": true,
+    "runtimeFieldOracleModification": "RNG imports only replaced with fixed synthetic7 bytes for golden fixtures. Production is OS random. No vendor CLI execution, personal source read or runtime VM.",
+    "generators": [
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/generate-account-fixtures.mjs",
+        "bytes": 4777,
+        "sha256": "3b1a26c4d09d39ed193120b021f6d5027150f944b8eb9d681ec681b6bd7bda37"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/generate-catalog-fixtures.mjs",
+        "bytes": 2170,
+        "sha256": "5c16a93bcb29fece46827bfa6ad52cbe5bd5da9a228ce003ea330825bff12321"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/generate-encrypted-catalog-fixtures.mjs",
+        "bytes": 605,
+        "sha256": "94d9fb8677a974d454d94d68e64592c339d30651b771c5e097c1e66dbe122e4b"
+      }
+    ],
+    "fixedRngGlue": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/auth-fixed-rng-oracle.mjs",
+      "bytes": 24163,
+      "sha256": "55039b25db33abc2b92ac51a70f3b52536793b2f4836f446690f4af6be25ed0b"
+    },
+    "publicKey": {
+      "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/crates/peer-runtime/src/qoder/inference-public.pem",
+      "bytes": 272,
+      "sha256": "b95c45e006a68b8e8370aac5ac3ffb790f5095f0cfcefb9574d672e53a0e88e4"
+    }
+  },
+  "failedAttempts": {
+    "initialWholeNativeGate": {
+      "tree": "e07c03e5af1d682ec8877af826a4c61f35a5b69f",
+      "passedThenInsufficient": true,
+      "gate": {
+        "tree": "e07c03e5af1d682ec8877af826a4c61f35a5b69f",
+        "exitCode": 0,
+        "seconds": 504.138342417
+      },
+      "reason": "Later self-review preserved and reproduced an outer-business-error bypass, so this green gate was not substituted for final-source validation."
+    },
+    "businessErrorReleaseBaseline": {
+      "binarySha256": "5753944b3924f408f0353292ef274f5f3961ccaca1c7acfae84759311898dc99",
+      "log": {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-outer-error-release-baseline.log",
+        "bytes": 733,
+        "sha256": "d106db70e54bc60aadbb22de254bd5e5c86f87ac33bc7b4f443c1568af1fdfd2"
+      },
+      "ownedRoot": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpWr4jeq",
+      "effect": "Real synthetic write occurred despite outer10605; original assertion/fixture retained. Fixed both layers, added public queue/duplicate/statusCodeValue counterexamples and reran final whole gate."
+    },
+    "initialWrappedStreamFixture": {
+      "log": {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-host-first.log",
+        "bytes": 1792,
+        "sha256": "95854f53ac333b8e74a39eff43e6066aa312938e6a68ad64fabea5db3d459887"
+      },
+      "ownedRoot": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpBMBi1M",
+      "reason": "Fixture .lines/join dropped final SSE blank line; parser correctly rejected incomplete. Preserve trailing delimiters, do not weaken decoder."
+    },
+    "catalogNumberRepresentation": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/qoder-catalog-first.log",
+      "bytes": 1511,
+      "sha256": "2af82ff1e2d5acc35b1ffc6fa225d3ef9bdccc735fc1f83e6de3864383aaaf43"
+    },
+    "initialCompilationAndLintLogs": [
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-account-check.log",
+        "bytes": 1636,
+        "sha256": "53bc17f6f181f56a44942cb968dab6fd15ea9d8e7ba5303cb62b30c9009ecb34"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-account-check-2.log",
+        "bytes": 1028,
+        "sha256": "aae78a1ab8118838c92832beeb0f96ca7a9b049de0889d08adccaa0c6beb6e6d"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-unit-first.log",
+        "bytes": 2063,
+        "sha256": "7ec0ce37d6316a3a7b23329ed01db52c4dd17f66e0c7adc135b73dade1a72a33"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-clippy-first.log",
+        "bytes": 2145,
+        "sha256": "3ca1a75eba6409f0d4ae85fc0e9766a6aae46fbd2de907c9db5799017d59a5aa"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-clippy-2.log",
+        "bytes": 1043,
+        "sha256": "a4e1d93cf0927d9adc890fe33afb259e5dd32bf7bbdb6248ef4ee48ccc067395"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/qoder-cli-check.log",
+        "bytes": 16982,
+        "sha256": "e1addfc13575753ce0f788b597485d615663cd143055141c433bbdc9d672931d"
+      }
+    ],
+    "fixSummary": "Preserved actual source/value failures, original failing effect and exact release. Fixed visibility/exhaustiveness, enum storage and test-module discovery; no warning suppression, deadline inflation, assertion removal or flake classification."
+  },
+  "baselineCi": {
+    "head": "cfdfd40a5e7ea5020f74ac15f1b443caef081d5b",
+    "runId": 43938893409,
+    "mergeCommit": "0cfff93dadd12387962509c7b888670c1bd26ac6",
+    "tree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
+    "linuxJob": 133550764577,
+    "macOSJob": 133550764777,
+    "bothWholeRepositoryAndElectronSmokesSuccess": true
+  },
+  "candidateCi": {
+    "runId": 43949887094,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43949887094",
+    "head": "b33200859306cabebf2d7143fb88bfc57308fb53",
+    "tree": "4012fd0f8e089ecf00036ab6df721724dd94a96d",
+    "mergeCommit": "0ae68ff845764658233e4cdb1273ef45572a05df",
+    "mergeTree": "4012fd0f8e089ecf00036ab6df721724dd94a96d",
+    "matchesSourceTree": true,
+    "wholeRepositorySuccess": true,
+    "jobs": [
+      {
+        "id": 133589242332,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "active": [],
+        "failures": []
+      },
+      {
+        "id": 133589242848,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success",
+        "active": [],
+        "failures": []
+      }
+    ],
+    "bothElectronSmokes": true,
+    "status": "completed"
+  },
+  "limits": {
+    "qoderQueueAndRetryMigrationComplete": false,
+    "qoderLegacyPrivateEndpointComplete": false,
+    "allCatalogAndMixedStreamVariantsComplete": false,
+    "realQoderServiceUsed": false,
+    "p4TotalGatePassed": false,
+    "p5ThroughP7Complete": false,
+    "ordinaryRatatuiChatEnabled": false,
+    "notes": [
+      "P4 full Qoder catalog/legacy/queue/connection resilience, full Context/compaction policy, remaining tools/Skill/Plugin/Hook/ACP/headless/original commands and mixed installed-version drain/recovery remain.",
+      "Synthetic account/HTTP only; no real provider/IdP/OS Vault, installed-build or multi-platform release acceptance. Review is implementer self-review.",
+      "No original8.27GB resolution, full long-session/1GiB interactive/4h/footprint acceptance.",
+      "No personal data or personal third-party auth access/migration, vendor CLI execution, install, running user instance restart, default switch, merge, release or tag. No Bun/Node engine sidecar or vendor VM.",
+      "Qoder-specific TLS/proxy synthetic cases were not separately exercised on this wire; it uses the unchanged Native Network seam covered by the existing full regression. Local minimum-Rust1.88 compilation was not run; newly introduced dependency declarations are <=1.87."
+    ]
+  }
+}

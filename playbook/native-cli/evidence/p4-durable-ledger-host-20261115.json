@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-15",
+  "candidate": "9fb1b4ff1dbba6b3a8233a9788c01e6789e6ea65",
+  "tree": "861e6d62b88751d0336df3880709cef7627e191b",
+  "validationSource": "Frozen worktree contents, subsequently committed unchanged; not reported as clean during the pre-commit run",
+  "classification": "B under ADR25/37/56/129/131; no permission, Evidence, Context admission, storage format or Goal acceptance boundary moved",
+  "entry": "public peer-native exec/recover -> NativeSessionHost -> blocking ConversationStore sink; no Node/Bun execution dependency",
+  "behavior": [
+    "ledger readiness before new model dispatch; unknown bytes retained and block the same task until controlled correction",
+    "successful/max_turns and terminal-error/cancellation known turnTotal persisted before terminal presentation",
+    "actual stop/drain attempted before billing I/O; stop failure also cannot discard a known provider charge",
+    "empty response and incomplete tool stream may retain normalized provider usage; never return executable calls from those failures",
+    "model error observation fingerprint equals SHA256 of the actual sent HTTP bytes",
+    "capture provider facts before the ownership wait rejects a late result; live authority still gates tool execution",
+    "native recover settles a pending commit without model/tool replay, then a subsequent task is admitted",
+    "blocking billing waits maintain actual lease heartbeat and are awaited during cancellation"
+  ],
+  "fullNativeScoped": {
+    "rust": 202,
+    "publicNativeTests": 28,
+    "providerTransportTests": 3,
+    "oldStoreCrossProcess": 302,
+    "ledgerCrossProcess": [
+      {
+        "cases": 28,
+        "peerRuntime": {
+          "name": "node",
+          "version": "v25.9.0"
+        },
+        "binarySha256": "65e0c4b60a9c2ec171518eb14ca0624d31de6d8e0507f843a3777f41745e8a1d",
+        "contractSha256": "f992c4283b4ecc42ce55284b7e9badc15845484b8b1be0df834dfa381bf6535f",
+        "scope": "Actual TS Store peer runtime and native Rust processes; owned synthetic roots; no personal state; exact original partial line bytes; controlled offline orphan-lock maintenance after observed child exit",
+        "fixtureId": "peer-native-ledger-conformance-CsztZd"
+      },
+      {
+        "cases": 28,
+        "peerRuntime": {
+          "name": "bun",
+          "version": "1.4.2"
+        },
+        "binarySha256": "65e0c4b60a9c2ec171518eb14ca0624d31de6d8e0507f843a3777f41745e8a1d",
+        "contractSha256": "f992c4283b4ecc42ce55284b7e9badc15845484b8b1be0df834dfa381bf6535f",
+        "scope": "Actual TS Store peer runtime and native Rust processes; owned synthetic roots; no personal state; exact original partial line bytes; controlled offline orphan-lock maintenance after observed child exit",
+        "fixtureId": "peer-native-ledger-conformance-uF6cp6"
+      }
+    ],
+    "tsColdRead": {
+      "ok": true,
+      "roots": 40,
+      "cases": 127,
+      "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+    },
+    "PTY": 8,
+    "checks": [
+      "fmt",
+      "clippy -D warnings",
+      "generated contracts",
+      "release build",
+      "SDK/sidecar boundaries",
+      "architecture",
+      "actual Helper ping (no secret access)"
+    ],
+    "logSha256": "81e010e01507e7433f83fa25355f2d990ee1da6d53844d4e641d6265c56d3146",
+    "releaseBinarySha256": "29e1bf9516a926ab4ae475fbdb4770e6f0a09889b513e59fd94ddb79059ed5e1",
+    "releaseFaultEntryStringsPresent": false
+  },
+  "failedAttempts": [
+    "real public empty-response test had no ledger; first root auto-cleaned, same-source rerun retained its fixture and failure before implementation",
+    "mechanical ModelError constructor refactor compile errors corrected; codes unchanged",
+    "initial heartbeat fixture used one deadline spanning startup and cleanup; heartbeat had passed but process-exit wait failed. Phase timing now starts at persisted intent, startup and cleanup each remain bounded. Owned child guard and failed-fixture retention added",
+    "clippy needless_borrow/unused_unit corrected without suppressions"
+  ],
+  "heartbeatMeasurement": {
+    "intentToHeartbeatSeconds": 5.007341,
+    "intentToProcessExitSeconds": 6.050695417,
+    "wholeIsolatedTestSeconds": 7.96,
+    "scope": "controlled six-second Store-worker hold, not a throughput/production latency benchmark"
+  },
+  "recoveryLimits": [
+    "Hard exit before a billing intent can currently preserve only aggregate Work tokens and unknown status; raw per-dimension attribution is not recoverable yet. Current stage does not claim this case is durably billed",
+    "Legacy half-commits without v1 intent cannot be inferred or rewritten",
+    "No personal data repair or installation; no live provider/vault/soak/release acceptance",
+    "P4 total gate incomplete and P5 not started"
+  ]
+}

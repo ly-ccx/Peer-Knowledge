@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "migrationPhase": "P4",
+  "predecessor": {
+    "commit": "ae6dd9a8b7485ec27b5e0e73898a243780d6b0e6",
+    "ci": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775",
+    "ciStatusAtRecording": "in_progress"
+  },
+  "candidate": {
+    "combinedTree": "7e2b7422c54ba8d9e98d1f27f3f7fb7b7d6935c9",
+    "fullNativeGateAtRecording": "in_progress",
+    "pushed": false
+  },
+  "compatibleAnthropicStream": {
+    "sourceTree": "5bed7c641a373fca4c5edb61922311c11a9554e4",
+    "previousRealAndLegacyReplay": "p4-export-delivery-and-live-protocols-20261119.json",
+    "oldRustRegressionLogSha256": "c2284ed6dc8c0913edb3f05834d6a26b24af7e3d296a54c26c30c0961c6646b0",
+    "acceptedShape": "Initial tool_use input omitted, then a complete bounded JSON object assembled from input_json_delta in a completed stream.",
+    "retainedRejections": [
+      "omitted input without complete deltas",
+      "explicit null input",
+      "conflicting initial input and deltas"
+    ],
+    "officialStreamDocs": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming",
+    "providerServerSource": "https://github.com/ggml-org/llama.cpp/blob/3837bf0bc02ea5d08f8ee3585fc8c7784a81bce8/tools/server/server-task.cpp",
+    "macLocal": {
+      "strictClippy": true,
+      "modelRustTests": 34,
+      "publicHostTests": 2,
+      "archiveSha256": "d1ace8f56e67bfdf13dc52040a269a9bb88627ab5aeb7bf05133a5933f8befb5"
+    },
+    "linuxAmd64Emulated": {
+      "modelRustTests": 34,
+      "publicHostTests": 2
+    },
+    "unpackedLiveConfiguredWires": {
+      "sha256": "8341ce2a44ff1a4fff61e3fb1582580a0caeb2e21309358e11a7e7fdd5215a50",
+      "observation": {
+        "nativeBinarySha256": "93a6ee2d57d2fb768104cf195ad69e3818872a60a714bee58eb08cff9d321352",
+        "cases": [
+          {
+            "wire": "openai-responses",
+            "turns": 2,
+            "nativeToolCalls": 1,
+            "nonceMatched": true,
+            "encryptedFixtureCredential": true
+          },
+          {
+            "wire": "anthropic-messages",
+            "turns": 2,
+            "nativeToolCalls": 1,
+            "nonceMatched": true,
+            "encryptedFixtureCredential": true
+          }
+        ]
+      }
+    },
+    "scope": "Real local Qwen3, synthetic encrypted fixture-key vault. Official hosted Claude authentication and OS Vault are independent checks."
+  },
+  "foreignDeletion": {
+    "sourceTreeWithOnlyGuard": "77a8f7da6e29a6d9b45619c81a4bf261ace3d1da",
+    "actualInstalledLegacyRed": {
+      "sha256": "6b9cc096cc2bb885545431c6390d4fa27a114546017dd9c4f0d6b97dd31fee80",
+      "observation": {
+        "nativeSha256": "d3d78cc87adabd03148fa01f4ae6dcac9a1ec60008ded986da479212bda8057c",
+        "legacySha256": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+        "nativeDelete": {
+          "exit": 1,
+          "stderr": "peer sessions: conversation_execution_busy",
+          "stdout": ""
+        },
+        "legacyDelete": {
+          "exit": 0,
+          "stderr": "",
+          "stdout": "Deleted session ff84a171-d85d-41d0-ba1d-65c845335f67."
+        },
+        "sessionId": "ff84a171-d85d-41d0-ba1d-65c845335f67",
+        "ownedBeforeDelete": true,
+        "activeSourceSha256": "ea431ee2b0a0ef2b1e38547321a2cde783eccf7d8896e6e0d5f93a2720812544",
+        "ownerTerminal": {
+          "exit": 1,
+          "stdout": {
+            "sessionId": "ff84a171-d85d-41d0-ba1d-65c845335f67",
+            "ok": false,
+            "result": null,
+            "error": "NOT_FOUND",
+            "turns": 1,
+            "durationMs": 426,
+            "usage": {
+              "usageScope": "runtime_turn",
+              "providerRequestCount": 1,
+              "inputTokens": 12,
+              "outputTokens": 4,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0,
+              "totalTokens": 16
+            }
+          },
+          "stderr": ""
+        },
+        "modelRequests": [
+          "/v1/chat/completions"
+        ],
+        "beforeModelRelease": {
+          "ownerAlive": true,
+          "bodyExists": false,
+          "indexHasSession": false
+        }
+      }
+    },
+    "newlyBundledLegacyGreen": {
+      "sha256": "56e6ce11e74ffd0f1c916a0b5b8404e17b17923dee995510a7349f224117e132",
+      "observation": {
+        "settledExplicitDelete": {
+          "exit": 0,
+          "stderr": "",
+          "stdout": "Deleted session adf02e24-2f97-44a9-877b-70a4ac0ee58a."
+        },
+        "nativeSha256": "d3d78cc87adabd03148fa01f4ae6dcac9a1ec60008ded986da479212bda8057c",
+        "legacySha256": "4c3559c3f315c83be690e64cb603830d4393d55896388eb15be8d1a305d84b62",
+        "nativeDelete": {
+          "exit": 1,
+          "stderr": "peer sessions: conversation_execution_busy",
+          "stdout": ""
+        },
+        "legacyDelete": {
+          "exit": 1,
+          "stderr": "peer sessions: conversation_execution_busy",
+          "stdout": ""
+        },
+        "sessionId": "adf02e24-2f97-44a9-877b-70a4ac0ee58a",
+        "ownedBeforeDelete": true,
+        "activeSourceSha256": "07aee64b257619e2bcb5048a681c9ab242f425265e96523d9eef2e63c54f9f54",
+        "ownerTerminal": {
+          "exit": 0,
+          "stdout": {
+            "sessionId": "adf02e24-2f97-44a9-877b-70a4ac0ee58a",
+            "ok": true,
+            "result": "controlled response",
+            "error": null,
+            "turns": 1,
+            "durationMs": 1245,
+            "usage": {
+              "usageScope": "runtime_turn",
+              "providerRequestCount": 1,
+              "inputTokens": 12,
+              "outputTokens": 4,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0,
+              "totalTokens": 16
+            }
+          },
+          "stderr": ""
+        },
+        "modelRequests": [
+          "/v1/chat/completions"
+        ],
+        "beforeModelRelease": {
+          "ownerAlive": true,
+          "bodyExists": true,
+          "indexHasSession": true
+        },
+        "indexAndBodyBeforeReleasePreserved": true
+      }
+    },
+    "storeRedLogSha256": "9d41da24c8ab512aebf67acb38636c088036746cb84be63139a3d4f79e2066ba",
+    "validation": {
+      "fullStoreNodeTests": 149,
+      "legacyTuiCliShellTests": 8,
+      "desktopServiceTests": 6,
+      "legacyTuiTypecheck": true,
+      "architectureAndUiChecks": true
+    },
+    "contract": "Under the existing Store index lock, canonical native metadata is validated before per-session or workspace removal. Active, unknown, invalid or future execution, retained handles and streaming sidecars prevent deletion. A valid settled run can still be deleted on explicit confirmation.",
+    "scope": "Isolated reproduction and rebuilt compatibility candidate. The running deployed legacy binary did not change. This addresses one known mutating surface; same-session production admission and pre-upgrade drain have separate acceptance requirements."
+  }
+}

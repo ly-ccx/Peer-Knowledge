@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "source": "c2f19ce5ddb681b9534d38e1a04f8922fa41a4dc",
+  "scope": "Native execution resource ledger schema 3 and shared SQLite admission",
+  "status": "scoped-validation-passed; P2 incomplete",
+  "checks": {
+    "rustTests": 93,
+    "nativeRustTests": 81,
+    "existingCredentialHelperTests": 12,
+    "crossProcessCases": 117,
+    "newResourceCrossProcessCases": 39,
+    "legacyNodeResourceTests": 32,
+    "runtimeGoldenCases": 51,
+    "controlTransitions": 29,
+    "controlDigests": 7,
+    "ptyCases": 8,
+    "helper": "isolated real executable ping",
+    "fmtClippyReleaseBoundary": "passed",
+    "runtimeNodeBuild": "passed",
+    "architecture": "passed"
+  },
+  "logs": [
+    "/tmp/peer-native-resource-verified.log",
+    "/tmp/peer-native-resource-runtime-build.log",
+    "/tmp/peer-native-resource-architecture.log"
+  ],
+  "preservedFailures": [
+    {
+      "log": "/tmp/peer-native-resource-file-activation-failure.log",
+      "fact": "New legacy regression reproduced file activation failure before the source fix; existing scope resolver now handles file claims."
+    },
+    {
+      "log": "/tmp/peer-native-resource-fixture-path-failure.log",
+      "fact": "Fixture used /var instead of canonical /private/var; expectations now derive from the real TS scope adapter."
+    }
+  ],
+  "ci": {
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43572824411",
+    "linux": "in_progress at receipt",
+    "macos": "in_progress at receipt"
+  },
+  "limits": [
+    "HostResourcePlan and closure values are Host-bound interfaces; no production authorizer or CLI runtime assembly exists yet.",
+    "No personal state or OS vault secrets used.",
+    "Canonical coordination preparation, durable approvals/Evidence assembly and real execution recovery remain.",
+    "No real model, installed-build, complete TUI or long soak acceptance.",
+    "Historical memory probes retain their original candidate identity."
+  ]
+}

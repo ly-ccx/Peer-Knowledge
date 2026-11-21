@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "phase": "P4",
+  "pushedCandidate": {
+    "commit": "1657e9bb34560d6fb4c610b2da0fb0b9f5afb156",
+    "tree": "d37d1e29911401c817f02feb7f9e7adf46fe0c20",
+    "ciRun": 44399851218,
+    "ciAtRecording": {
+      "macOS": "in_progress",
+      "linux": "in_progress"
+    },
+    "macNativeScopedVerification": {
+      "result": "passed",
+      "nativeEpisodePassed": 370,
+      "runtimeLibraryPassed": 169,
+      "ptyPassed": 9,
+      "logSha256": "6b6b5db304783d191996e5e7039cae120f4af5fbe43748b8a6f4fa7808169e49",
+      "ptyReceiptSha256": "11e5a58d7006aa749e775a97461f99d7b2fade22b974247e1c870ea57c1717bf"
+    }
+  },
+  "isolatedCandidate": {
+    "tree": "ce01db590f0c89c64d0ece8c7d84bcdb15729628",
+    "status": "isolated, uncommitted and not pushed",
+    "patchSha256": "c694d40af289ee9a1f68127d576420db46c5a4ebe30a2f4598586cfef97aa4ff",
+    "dispatchHarnessSha256": "e29dad0c353973e754aea9c9705c81fcac2599c15c78d7e293d6f235f196f522",
+    "macArm64": {
+      "dispatchCasesPassed": 5,
+      "claimCasesPassed": 7,
+      "storeTestsPassed": 149,
+      "architectureCheck": "passed",
+      "dispatchReceiptSha256": "5906686cfc17983a781785cdfe3ce2a3d719a1b7fea76fae610932ec38baa93f",
+      "claimReceiptSha256": "28b5e2ec84bf125ed85aa005751382624d9e20f3d96fc1933be651b6778466b3",
+      "storeTestLogSha256": "7beaef8bc37fd0ea50f23d831bfd27f268e967bd326033aa7f26d394a418883c"
+    },
+    "linuxAmd64Emulated": {
+      "dispatchCasesPassed": 5,
+      "claimCasesPassed": 7,
+      "dispatchReceiptSha256": "8b9bc5d855f16e3451631de110693ef3c0f28e765eed4e4ba923014ca1f4b060",
+      "claimReceiptSha256": "9e547f77f157c962cffe127fbfdd8ee004595e1febaf2a4dbe3332802f326cb5",
+      "logSha256": "8124bda525ab6c1c5b0793eddced82c73e0f99ae42e25091268402c5a0f3f496",
+      "priorSetupFailures": [
+        {
+          "reason": "The login shell omitted the container Cargo path.",
+          "logSha256": "936c06f10222b4564f5b98a44d5fb9a35d1f2d677a1475c979add930f158adac"
+        },
+        {
+          "reason": "The offline pnpm store lacked ajv-formats. The final run used the frozen lockfile and fetched dependencies.",
+          "logSha256": "49060ee469fabbe758905346634fca6d826d3a3028867f04fdfc9f7af0960032"
+        }
+      ]
+    },
+    "dispatchCases": [
+      "The governed Node file Provider returns an actual deny PermissionGrant, leaves the pending tool prepared, and writes nothing.",
+      "A concurrent change to original model metadata invalidates dispatch after approval. The same owner closes admission while retaining the foreign metadata.",
+      "Closing admission during approval prevents the Provider effect and preserves the original claim.",
+      "Repeating dispatch or attempting to reuse a dispatch after closing admission fails without changing the original pending record.",
+      "An independent Rust reader sees the durable dispatching record at both effect gates before the actual Node write. Killing the owner after the write retains the prior dispatch and file verbatim and blocks a subsequent Rust claim."
+    ],
+    "limits": "The isolated Host fixture pre-stages the canonical Tool Call and wires the existing Provider effect gate. It observes the returned Provider Grant and Evidence but does not publish or settle them. A live production Host, durable usage, complete stop observation and recovery, already-installed old-version drain, and the full P4 gate remain open."
+  }
+}

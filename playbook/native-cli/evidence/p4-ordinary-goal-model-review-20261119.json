@@ -1,0 +1,36 @@
+{
+  "candidateTree": "3a0ead024b97d3643cf82e5b1b05833b0a827e62",
+  "predecessorCandidateTree": "ad3172f333307ba486e2aad68726e3e8cdba74d0",
+  "patchSha256": "687c6a2d79a495d52462e3d8a7b5af423643f60fbc79454858739e523b95589f",
+  "sourceTarSha256": "2678298846ca714edbbdc95f0a9218f9549e047eed48fe131fe63fad75715dcf",
+  "contract": {
+    "knowledgeCommit": "64ddd40",
+    "decision": "131-native-cli-contract-storage-and-recovery.md",
+    "related": ["93-verification-continuity-and-repair-ownership.md", "103-verification-settlement-and-progress.md", "117-intent-driven-coordination-and-goal-closure.md"]
+  },
+  "verification": {
+    "publicAndFixtureGoalTestsPerPlatform": 25,
+    "static": ["cargo fmt", "scoped Clippy -D warnings", "native boundaries", "architecture governance"],
+    "packagedMacArm64": {
+      "publicGoalTests": 23,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "52965b31ba327b4e18b566b039ecfad4215d1af47bd9b54cd00249f2fda96a49",
+      "binarySha256": "acae008ce07b10d9f33effe22b1ca1e31d871a5c501f7be7908bbd67de5c87a8"
+    },
+    "packagedLinuxAmd64": {
+      "publicGoalTests": 23,
+      "cliLaunchPath": "/nonexistent",
+      "archiveSha256": "b45b879ec85ce70a95cd42043b9e17f77edce562881d7fae47de36cc42f34849",
+      "binarySha256": "9e302d2ebd34cc54c0a0bc1edf0e12023fb90e405c4fe60292a92885d1d13930"
+    },
+    "authority": "The real task tool attempted to submit a semantic verdict using actual primary file Evidence. It was refused with model_review_requires_host_verifier. Ordinary task evidence then settled without a semantic verdict. Two semantic criteria got their own entries linked to the same actual independent Verifier, current criterion source revision and independently indexed reference. A failed report wrote bound false judgments and kept the Goal open.",
+    "legacyReplay": {
+      "legacy": {"creation": "success", "physicalRequests": 13, "verifierAttempts": 3, "semanticJudgments": 3, "exitCode": 6},
+      "previousRustAd3172f3": {"creation": "failed", "physicalRequests": 2, "verifierAttempts": 0, "semanticJudgments": 0},
+      "currentRust": {"creation": "success", "physicalRequests": 7, "verifierAttempts": 1, "semanticJudgments": 1, "exitCode": 0},
+      "compatibility": "The legacy Source, criterionSourceRevision and currentModelReview implementations recognized the saved Rust judgment. The old GoalStore and history projector cold-read without changing any of the five canonical files."
+    }
+  },
+  "nextRepairBaseline": "The same legacy run dispatched repair ticks at requests 8 and 11. Each re-entered independent review with a fresh Verifier run ID. Its gate ultimately blocked because the independent tool references were bound to synthetic worker conversations. Use the actual role sequence to validate bounded, evidence-backed repair without reproducing its lost authority.",
+  "limits": "Ordinary semantic judgments and evidence review are complete for this tested candidate scope. Automatic repair, interruption continuation/format repair, real services, installed application and P4–P7 total acceptance remain open."
+}

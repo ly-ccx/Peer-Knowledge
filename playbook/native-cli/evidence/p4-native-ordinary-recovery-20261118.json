@@ -1,0 +1,907 @@
+{
+  "date": "2026-11-18",
+  "status": "Scoped ordinary recovery candidate verified and pushed; full P4 and full CLI migration remain open",
+  "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+  "base": "86fb2fa9c416a6e2c44aecf9dab23e8458958f69",
+  "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+  "patchSha256": "595a6be973798aab0254c60106e25a02a0870ced32b6b4e73bc68797fde4e963",
+  "classification": "A: non-dispatchable recovery authority and stable macOS recorder interpretation preregistered before implementation. B: reuse original canonical settlement/known usage and owned process cleanup; original authorization, Evidence, unknown outcome and per-stream accounting boundaries remain.",
+  "adrPass": [
+    "25-runtime-usage-ledger.md",
+    "55-shared-system-context-assembler.md",
+    "56-provider-observed-context-accounting.md",
+    "57-canonical-conversation-history-projector.md",
+    "65-cli-headless-exec.md",
+    "76-peer-acp-agent.md",
+    "92-scoped-permission-inheritance.md",
+    "101-bot-owned-access-policy.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "preregistration": [
+    "c91e454",
+    "ed951ff",
+    "8cc2169",
+    "c18a2a9",
+    "7847019",
+    "e28ac14"
+  ],
+  "implementation": [
+    "Public recover --session runs without model/provider/credential discovery, freezes only a proven-dead original owner or repairs an existing canonical stop; live or unproven owner refuses without mutation. Exit0 requires actual later-run admission; remaining unknown returns1.",
+    "Nonblocking exclusive flock on existing conversations directory is held through recovery; complete original execution control and actual device/inode identity checked before/inside writes. CLOEXEC/OS release on cancellation or process death; no mkdir lock expiry/deletion. No recovery token can dispatch.",
+    "Known original per-stream aggregate fees committed exactly once independent of unresolved child cleanup. Prepared intent receives actual cancelled/not_dispatched fact only after ownership/lifecycle proof; original Grant preserved. Open approval cancellation requires original call identity, conversation/stream/capability/args and actual UUID suffix; foreign/decided approvals preserved.",
+    "Known canonical Tool Result and original Grant/call/stream/args must match; missing actual Evidence is registered through the original Evidence Store before original settlement. Owner death, an existing artifact or assistant text never proves tool effect.",
+    "Recorded Shell and MCP stdio group cleanup requires original complete owner/child tuples, actual PID birth/PGID and actual group absence. Local network pump termination never clears remote unknown. Starting publication gap remains blocked.",
+    "Initial uncertain claim retains a sealed actual empty claim capable only of cleanup. No JSON-reopened dispatch authority; no prompt/model send or fake fees after failed admission. LockBusy cannot mint cleanup.",
+    "macOS uses exact libproc0.14.11 safe BSDInfo API, real epoch seconds/microseconds and nonzero arg to include unreaped owned children. Actual Child.wait/group absence still proves stop. Own code forbids unsafe; dependency FFI separately reviewed. Old opaque display identities are not rewritten: present PID stays Unproven, actual absent PID can prove death; old native/TS consumers still require actual drain before shared default deployment."
+  ],
+  "validation": {
+    "platform": {
+      "rust": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8",
+      "architecture": "arm64",
+      "macOS": "27.0.1"
+    },
+    "nativeGate": {
+      "command": "node scripts/native-cli/verify.mjs ${RAW_EVIDENCE_ROOT}/full-5",
+      "exitCode": 0,
+      "rustTests": 662,
+      "publicHostTests": 269,
+      "runtimeUnitTests": 146,
+      "ordinaryStoreActiveTests": 16,
+      "ordinaryStoreSubprocessHelpersIgnoredInParent": 3,
+      "episodeInteropRoots": 627,
+      "episodeInteropChecks": 3521,
+      "ptyChecks": 9,
+      "includes": [
+        "fmt",
+        "all-target warnings-denied clippy",
+        "native dependency/sidecar boundary checks",
+        "real current TS reference stores/contracts",
+        "featureless release build",
+        "native Helper non-secret protocol probes",
+        "actual PTY terminal recovery"
+      ]
+    },
+    "rootTypecheck": {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "sourceTree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f"
+    },
+    "rootArchitecture": {
+      "command": "pnpm architecture:check",
+      "exitCode": 0,
+      "sourceTree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f"
+    },
+    "extractedProduct": {
+      "exitCode": 0,
+      "selected": 22,
+      "binarySha256": "905de6cf5165ada392c006f530f5508ef66215a9e8ccd26516cfb4df4dd5682a",
+      "sourceTree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f"
+    },
+    "existingStateRecovery": {
+      "cases": [
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-baseline-xe61_udj",
+          "session": "a6ce088a-803f-4bb4-a27d-636c82243024",
+          "phase": "recovery_required",
+          "knownTokens": 16,
+          "requests": 1,
+          "beforeRepeatIndexSha256": "434fb6e69d590cb6e281c22addc94f6549a6a626b856f70d00548b8cc09166d6",
+          "beforeRepeatBodySha256": "9aca10d5511293059dab40d4a3803df9c5654b908207269a13721d7da52b6adb"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-u7lm9bxd",
+          "session": "70f3b756-dd62-480b-bbe3-1f2726ba6a21",
+          "phase": "stopped",
+          "knownTokens": 16,
+          "requests": 1,
+          "stage": "after_prepared",
+          "beforeRepeatIndexSha256": "ee68fe721c2445295a516be585af0a51e42536e6432f93235711d06484a7d742",
+          "beforeRepeatBodySha256": "14f161837d9159b0a10e15e21e5add7dc22447e3a2ff5a64135bf34fcd7e0616"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-stzletre",
+          "session": "4e079759-8f02-48f7-92fd-339d243679f2",
+          "phase": "stopped",
+          "knownTokens": 16,
+          "requests": 1,
+          "stage": "after_grant",
+          "beforeRepeatIndexSha256": "43401f33ff068321d7c1eedfa872a2f6443c054a523ed2f755aba41a47938294",
+          "beforeRepeatBodySha256": "bc796d9deff55ae1c098928fab9b199a80439945ccb6e441029006ecbfd671e1"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-9coivjkz",
+          "session": "1d04462c-e1b9-4328-a7af-b94bfbfa4dab",
+          "phase": "stopped",
+          "knownTokens": 16,
+          "requests": 1,
+          "stage": "after_tool_facts",
+          "beforeRepeatIndexSha256": "331ffd61ff81112a9a4994791d9e45f1ea5ac9e9b23882067044d1323dc3f88b",
+          "beforeRepeatBodySha256": "9a7c5d98864011ce0128edd710741c1f630686bec87efaf05afa50a0005aca05"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-yu_ve8kn",
+          "session": "66a2dccf-a3ca-4994-abad-0ad3394b6343",
+          "phase": "stopped",
+          "knownTokens": 32,
+          "requests": 2,
+          "stage": "before_billing",
+          "beforeRepeatIndexSha256": "b0943f57925283fc8e54053cd2ac541279ab047cc59dc2f15a8f5e4279a71f7a",
+          "beforeRepeatBodySha256": "73b6469b79e9d8bbf23afd86602399f3a86433eb5022e439a12362a9ca467807"
+        }
+      ],
+      "oldActual86fbCrashCopy": true,
+      "currentActualCrashWindows": [
+        "after_prepared",
+        "after_grant",
+        "after_tool_facts",
+        "before_billing"
+      ],
+      "noModelsOrMcpServersAliveDuringRecovery": true,
+      "unknownNotReplayed": true,
+      "repeatCanonicalAndLedgerByteIdempotent": true,
+      "actualCurrentTsInterop": {
+        "node": {
+          "roots": 5,
+          "checks": 82
+        },
+        "bun": {
+          "roots": 5,
+          "checks": 82
+        }
+      },
+      "actualTsApprovalStoreSeed": {
+        "root": "${RAW_EVIDENCE_ROOT}/approval-fixed-5-5gsgsmiy",
+        "sourceTree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+        "binarySha256": "af166347b9b5b0a3ed8d1fcd0cf91de64e84cfa7670cdd57b838940302f25d1e",
+        "session": "1d9ba5dd-7a19-47c1-8504-5e0e984d3bdb",
+        "actualResult": {
+          "matching": "cancelled",
+          "foreignSameArguments": "open"
+        },
+        "expectedForeignState": "open",
+        "cause": "Recovery bound conversation/stream/capability/args but omitted original call identity encoded by the actual Host approval id. Both rows came from the actual current TS ApprovalStore; no positive grant or tool effect was created.",
+        "classification": "Candidate5 fixed: actual original call approval cancelled; foreign call with same stream/capability/arguments stays open. No tool replay."
+      }
+    },
+    "rootChecksExactReceipt": [
+      {
+        "name": "root-typecheck-final",
+        "command": [
+          "pnpm",
+          "typecheck"
+        ],
+        "exitCode": 0,
+        "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+        "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f"
+      },
+      {
+        "name": "architecture-final",
+        "command": [
+          "pnpm",
+          "architecture:check"
+        ],
+        "exitCode": 0,
+        "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+        "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f"
+      }
+    ],
+    "productEpisodeInterop": {
+      "roots": 13,
+      "checks": 76,
+      "log": "package-product-episode-interop-5.log"
+    }
+  },
+  "productArtifact": {
+    "sourceTree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+    "archive": "${RAW_EVIDENCE_ROOT}/package-dist-5/peer-darwin-arm64.tar.gz",
+    "sha256": "0de26e519f5f7bbaa1dea477ed449bfa05326a10941ec4429b0ea94eb3fed408",
+    "members": [
+      "peer-darwin-arm64",
+      "peer-darwin-arm64/peer",
+      "peer-darwin-arm64/peer-credential-helper"
+    ],
+    "packagingEnv": {
+      "COPYFILE_DISABLE": "1"
+    },
+    "extractedPeer": "${RAW_EVIDENCE_ROOT}/package-extracted-5/peer-darwin-arm64/peer",
+    "extractedHelper": "${RAW_EVIDENCE_ROOT}/package-extracted-5/peer-darwin-arm64/peer-credential-helper",
+    "binarySha256": "905de6cf5165ada392c006f530f5508ef66215a9e8ccd26516cfb4df4dd5682a",
+    "bytes": 22396640,
+    "helperSha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c",
+    "version": "peer 0.1.0-rc.40",
+    "doctorExit": 0,
+    "linkage": "${RAW_EVIDENCE_ROOT}/package-extracted-5/peer-darwin-arm64/peer:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n",
+    "testSwitchesAbsent": true,
+    "scope": "Actual existing packageCliArchive with explicit native input and metadata-free tar caller; extracted direct binaries under env-clear isolated HOME and no Node/Bun PATH. No installation/default switch/signing/release. Not full P7 acceptance."
+  },
+  "dependencyAudit": {
+    "version": "0.14.11",
+    "crateChecksum": "a54ad7278b8bc5301d5ffd2a94251c004feb971feba96c971ea4063645990757",
+    "license": "MIT",
+    "declaredMsrv": "1.72",
+    "repositoryCommit": "9c5b669ca414918eadc81e70ec654505a0c8a93f",
+    "usedApi": "libproc::proc_pid::pidinfo::<libproc::bsd_info::BSDInfo>(pid, 1)",
+    "reviewScope": "Used BSDInfo/PIDInfo layout, zero initialization and error return, exact PID/nonzero seconds/microsecond bound checks at our seam; bindgen and macOS SDK build prerequisites. Not independent or a full dependency security audit.",
+    "ownedCodeUnsafe": false,
+    "buildPrerequisites": [
+      "libclang for bindgen0.72.1",
+      "macOS SDK libproc.h"
+    ],
+    "runtimeRequirement": "OS libproc API; no Clang, Node or Bun needed to run built artifact",
+    "probeLog": "${RAW_EVIDENCE_ROOT}/libproc-probe.log",
+    "files": [
+      {
+        "name": "src/libproc/proc_pid.rs",
+        "sha256": "04542eb38f1a07d8145a755004a6084ad27711769109f7703fbceb3580210205"
+      },
+      {
+        "name": "src/libproc/bsd_info.rs",
+        "sha256": "aed74224bcd00340807a38f8766ecc5b1dc7f1098fc126f9d05c44dce2a49b72"
+      },
+      {
+        "name": "build.rs",
+        "sha256": "4588201d84f707ea117e31e19e89559f0eba8ef4d6a16456d671bec7f248ff26"
+      },
+      {
+        "name": "Cargo.toml",
+        "sha256": "7ff7688557b994022c4819809c4ed2526bc09d48074b328b25445bd0e283efae"
+      },
+      {
+        "name": ".cargo_vcs_info.json",
+        "sha256": "79c94ccd8681a88117571de8d36cd112801e8f961279398db8e5f62b427013cc"
+      }
+    ],
+    "zombieScope": "Nonzero arg includes real unreaped child per XNU PROC_PIDTBSDINFO; actual kernel start is recorded, status is not a death proof. Source4 real packaged Git failure and arg0/1 ten-child probes retained; deterministic red then green production-seam test waits the actual child before asserting."
+  },
+  "failedAttempts": [
+    {
+      "explanation": "Original Store mkdir lock interrupted by actual CLI death: refusal and original locks preserved; explicit test-owned cleanup is not recovery.",
+      "source": {
+        "failureLog": "${RAW_EVIDENCE_ROOT}/recovery-repeat-1.log",
+        "root": "${TMPDIR}/.tmpqEVFqi",
+        "actualFailure": "Recovery returned STORE_LOCK_BUSY before any control/fees/child mutation. The test killed the CLI after observing the Running index but while the actual original index/body mkdir transaction still owned locks.",
+        "originalDataRetained": true,
+        "locksNotDeleted": [
+          "${TMPDIR}/.tmpqEVFqi/data/conversations/index.jsonl.lock",
+          "${TMPDIR}/.tmpqEVFqi/data/conversations/ecd14084-1d84-47cc-83e3-59ff8d7782f7.jsonl.lock"
+        ],
+        "files": [
+          {
+            "path": "${TMPDIR}/.tmpqEVFqi/data/conversations/ecd14084-1d84-47cc-83e3-59ff8d7782f7.jsonl",
+            "size": 811,
+            "sha256": "f6a0f4ba4592e56d053086b37694302856c412d95e094a7e8915d3e0070ab91c"
+          },
+          {
+            "path": "${TMPDIR}/.tmpqEVFqi/data/conversations/index.jsonl",
+            "size": 3319,
+            "sha256": "2f1107370982d1c1b46865d59afc2992e72ee23f4ca93c1a0a2a995131bc0956"
+          }
+        ],
+        "correction": "The long-running effect crash test now first acquires the same original short index/body locks to observe completed publication, kills only its own CLI while owning those test locks, then releases its own locks. A separate public test preserves unknown locks and checks the supported offline diagnostic; production never auto-deletes locks.",
+        "cleanup": "Test-owned Shell group was explicitly killed by test cleanup after recovery refused; this cleanup is not claimed as successful recovery."
+      },
+      "sha256": "ca4b2d8ee1c5ce229f38fc13414aaf3d73751325ecf859b9390c79bdf917b43a"
+    },
+    {
+      "explanation": "Ready filename was visible before PID bytes; atomic marker publication corrects test observation without changing command/reap deadlines.",
+      "source": {
+        "sourceTree": "ac85f9bb129814c2f2b1588c70d09f32eae2797d",
+        "nativeGateExitCode": 1,
+        "episodePassed": 266,
+        "runtimePassed": 143,
+        "runtimeFailed": 1,
+        "failure": "Git cancellation fixture saw ready file created by shell redirection before printf wrote PID; cancellation ended actual owned command with ended=true, then test parsed empty marker. Original budgets/assertions remain.",
+        "retained": [
+          {
+            "path": "${TMPDIR}/.tmpinutbR/.native-cli-fixture",
+            "size": 8,
+            "sha256": "afed2f77cefe58d821f08e334aeb42e52facc63c4f97e9d5d18f53fd0e285953",
+            "content": "isolated"
+          },
+          {
+            "path": "${TMPDIR}/.tmpinutbR/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/started",
+            "size": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "content": ""
+          },
+          {
+            "path": "${TMPDIR}/.tmpinutbR/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/owned-git",
+            "size": 263,
+            "sha256": "8ed03861c36a9732a5805bdb07da92eecc34a0416c9396f9ae5f7e8ffc8092ef",
+            "content": "#!/bin/sh\nprintf '%s\\n' \"$$\" > '${TMPDIR}/.tmpinutbR/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/started'\n/bin/sleep 60 &\nwait\n"
+          }
+        ]
+      },
+      "sha256": "4a4134f1643163dc0bba8e00dc9736e65e9a24d9cfdc95a4101e407441a46fd2"
+    },
+    {
+      "explanation": "Initial lost stdout cannot retrospectively establish errno. Later actual diagnostic proves bounded LockBusy; exactly one claimant/one blocked and original100ms limit retained, with separate deterministic held-lock denial.",
+      "source": {
+        "initialFullGate": "full-verify-3.log",
+        "initialFailure": "Parent observed a non-success claim child; original test discarded stdout, so original child errno and root are not retrospectively available.",
+        "diagnosticRepeat": "store-diagnostic-repeat-15.log",
+        "reproducedError": "ConversationClaimFailure LockBusy after the original bounded 100ms directory lock wait. Other child successfully claimed; both authoritatively waited.",
+        "root": "${TMPDIR}/.tmphGyNbY",
+        "files": [
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/child-one.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/ready-two",
+            "bytes": 5,
+            "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/go",
+            "bytes": 2,
+            "sha256": "4cd0e21a9a0795a14ec9aa5f0e7d1abff0492565770e43eafdf1e3e8afed1f33"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/child-two.stdout",
+            "bytes": 455,
+            "sha256": "89048f5710681e079badc4ada06e481b1f9ae257db59384da4e6a8b4e8e670fb"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/ready-one",
+            "bytes": 5,
+            "sha256": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/child-two.stderr",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/result-one",
+            "bytes": 7,
+            "sha256": "d79d3458a58877cd8e48c18ebaf4c27b9d5c1a9cb5dfbdac769a7a21d8a1022e"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/child-one.stdout",
+            "bytes": 137,
+            "sha256": "0c5d1391d41281315fc6d56a458e7f52dbe12a2d448531bc4b7cb6e9509119d1"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/conversations/index.jsonl",
+            "bytes": 1217,
+            "sha256": "2ec0a9a7db2c79a1eafc76108d29d7faa9a1f74d906ea94253239620304268d4"
+          },
+          {
+            "path": "${TMPDIR}/.tmphGyNbY/conversations/012263f3-d76d-43b8-9215-f9ab126aec8a.jsonl",
+            "bytes": 50,
+            "sha256": "305a414c451e5f3ed67add146014bd34a990c5ea218f5e87d48412f0b454d1b8"
+          }
+        ],
+        "inferenceLimit": "Diagnostic repeat proves this real failure family and the missing valid bounded-denial case; it does not recover the discarded original child stdout.",
+        "correction": "Claim test accepts only VersionChanged, ExecutionBusy or LockBusy as denied. LockBusy must carry no minted cleanup/authority. One claimed + one blocked invariant and original timeout unchanged. A deterministic held-lock child proves source unchanged/no owner, owned lock retained, then fresh admission after actual release.",
+        "validation": "20 complete Store suite repetitions passed:16 active behavioral tests each,3 subprocess fixtures ignored in parent run."
+      },
+      "sha256": "ac279f5bf34eab7a2612d92af02870429d789cfba27483b06789efd8a3bd19cc"
+    },
+    {
+      "explanation": "Rejected candidate2 despite native gate success: actual cross-TZ live owner takeover. A preregistration before kernel identity correction; original lifecycle/effect facts retained.",
+      "source": {
+        "sourceTree": "587d6275e8302cb9bd9f8de9c419cb69df0251db",
+        "root": "${RAW_EVIDENCE_ROOT}/timezone-baseline-eqz3tfol",
+        "session": "64ef0243-2502-4488-a580-54aae6317ce5",
+        "originalOwner": {
+          "bootId": "boottime:1792827130.697182",
+          "pid": 54345,
+          "pidStart": "macos:Tue Nov 17 23:50:38 2026",
+          "hostId": "native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928",
+          "acquiredAt": "2026-11-17T23:50:38.958Z"
+        },
+        "originalChild": {
+          "bootId": "boottime:1792827130.697182",
+          "pid": 54389,
+          "pidStart": "macos:Tue Nov 17 23:50:40 2026",
+          "hostId": "native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928",
+          "acquiredAt": "2026-11-17T23:50:38.958Z"
+        },
+        "collectTimezone": "UTC",
+        "recoverTimezone": "Asia/Shanghai",
+        "originalWasAliveBeforeRecover": true,
+        "recoveryExitCode": 1,
+        "recoveryStdout": "{\"status\":\"recovery_observed\",\"facts\":{\"schemaVersion\":1,\"identity\":{\"kind\":\"conversation\",\"conversationId\":\"64ef0243-2502-4488-a580-54aae6317ce5\",\"streamId\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\"},\"engine\":\"peer-native\",\"owner\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54345,\"pidStart\":\"macos:Tue Nov 17 23:50:38 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"revision\":13,\"phase\":\"recovery_required\",\"pendingTools\":[{\"toolCallId\":\"call-cda9f98c-d5d8-401b-b749-165c002b85eb\",\"dispatchId\":\"dispatch-225917fb-4149-4108-9f70-ed386d84152f\",\"messageId\":\"message-a0b973e0-f4a2-4626-88da-66d5d18a93dd\",\"capabilityId\":\"local.shell.exec\",\"argsDigest\":\"a3971fca88e19e4528bbc437a97d66dcdfadc657ac3f76be98ee9fdaa85a9073\",\"phase\":\"outcome_unknown\",\"declaredScopes\":[{\"kind\":\"directory\",\"path\":\"/private${RAW_EVIDENCE_ROOT}/timezone-baseline-eqz3tfol/workspace\"}],\"nativeProcess\":{\"schemaVersion\":1,\"kind\":\"command\",\"handleId\":\"shell_6ce9aa09-7900-4bb6-b985-8d356405febc\",\"toolCallId\":\"call-cda9f98c-d5d8-401b-b749-165c002b85eb\",\"dispatchId\":\"dispatch-225917fb-4149-4108-9f70-ed386d84152f\",\"execution\":{\"kind\":\"conversation\",\"conversationId\":\"64ef0243-2502-4488-a580-54aae6317ce5\",\"streamId\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\"},\"generation\":1,\"state\":\"ended\",\"owner\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54345,\"pidStart\":\"macos:Tue Nov 17 23:50:38 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"child\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54389,\"pidStart\":\"macos:Tue Nov 17 23:50:40 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"stopObservation\":\"owner_dead_group_absent\"}}],\"handles\":[],\"usage\":{\"usageScope\":\"runtime_turn\",\"providerRequestCount\":1,\"inputTokens\":12,\"outputTokens\":4,\"cacheReadTokens\":0,\"cacheWriteTokens\":0,\"totalTokens\":16},\"unknownUsage\":false,\"attribution\":{\"id\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\",\"streamId\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\",\"at\":\"2026-11-17T23:50:38.958Z\",\"modelProviderId\":\"openai-compatible::model\",\"model\":\"model\",\"providerName\":\"openai-compatible\",\"role\":\"chat\"},\"usageCommitted\":true,\"stop\":{\"owner\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54345,\"pidStart\":\"macos:Tue Nov 17 23:50:38 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"observedAt\":\"2026-11-17T23:50:40.667Z\",\"runnerIdle\":true,\"admissionClosed\":true,\"handlesEnded\":true},\"updatedAt\":\"2026-11-17T23:50:40.667Z\"}}\n",
+        "recoveryStderr": "",
+        "originalPhase": "active",
+        "afterPhase": "recovery_required",
+        "originalControlUnchanged": false,
+        "expectation": "A timezone change must not classify a live original owner as reused/dead, close its admission or kill its child."
+      },
+      "sha256": "d328f52309249dc0e137340f27cfb78c42ca953ba11229a48cf6d053be680f4d"
+    },
+    {
+      "explanation": "Rejected candidate4 despite native gate success: extracted Git21/22; actual fast child and deterministic red/arg0-vs1 probes before fix. Original success/PID/wait assertions retained.",
+      "source": {
+        "status": "Rejected candidate4 product validation; not accepted despite complete native gate success",
+        "sourceTree": "718f7c053850f3e44b6d6f51c839f20a0437ce68",
+        "patchSha256": "f45ae1ec70ae907b3d6612edc95da0e9d80520eb8a0c674f0c3c907a76bfb7fa",
+        "binarySha256": "af0482af67b65d10946983f45157865a8002f6777ca5e43305a7a61abf924df8",
+        "publicHostPassed": 21,
+        "publicHostFailed": 1,
+        "failure": "Git fast command generation9 failed native_process_recorder_unavailable. Original assertion success and actual native child identity remain required.",
+        "root": "${TMPDIR}/.tmpWtTGIS",
+        "rootExists": true,
+        "deterministicModuleRed": "owned-zombie-red.log: actual Child reached kernel SZOMB before recording; production process_recorder returned None, then actual Child::wait reaped it before failure assertion.",
+        "osProbe": "pidinfo BSDInfo arg0 rejected all10 exited-unreaped children; arg1 returned matching PID and real microsecond birth time for all10.",
+        "kernelSource": "https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/proc_info.c",
+        "analysis": "Kernel PROC_PIDTBSDINFO needs nonzero arg to include zombies. Use this same precise kernel identity; do not fall back to display time, invent identity, infer ended from status, or extend tool deadlines. Normal ended still needs actual wait/group absence.",
+        "retainedArtifacts": "${RAW_EVIDENCE_ROOT}/rejected-product-4",
+        "scope": "Own synthetic commands only. No user processes/data or installed/default changes."
+      },
+      "sha256": "c41e1c81a8ec7fda8bd5ff3277efab79fca1cea9f5827923ff445c24b3d75a4a"
+    }
+  ],
+  "previousWholeCi": {
+    "source": "86fb2fa9c416a6e2c44aecf9dab23e8458958f69",
+    "receipt": "ci-86fb-20261118.json",
+    "status": "Both platforms complete success with actual checkout/merge/tree/parents verified; does not validate current source"
+  },
+  "currentWholeCi": {
+    "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+    "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+    "firstRunObservation": {
+      "workflow_runs": [
+        {
+          "id": 44215318326,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_number": 1439,
+          "jobs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44215318326/jobs",
+          "logs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44215318326/logs",
+          "workflow_id": 367429807
+        }
+      ]
+    },
+    "firstJobsObservation": {
+      "jobs": [
+        {
+          "id": 134503583235,
+          "name": "ci-macos-14",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 44215318326,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Checkout",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Setup pnpm",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Setup Node",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Require Node >= 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Test Linux dependency bootstrap",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Setup Bun",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Setup Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Install Linux credential-helper build deps",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 9
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Build",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 11
+            },
+            {
+              "name": "Native CLI scoped validation",
+              "status": "pending",
+              "conclusion": null,
+              "number": 12
+            },
+            {
+              "name": "Preserve native CLI terminal checks",
+              "status": "pending",
+              "conclusion": null,
+              "number": 13
+            },
+            {
+              "name": "Check packaged main-process imports",
+              "status": "pending",
+              "conclusion": null,
+              "number": 14
+            },
+            {
+              "name": "Typecheck",
+              "status": "pending",
+              "conclusion": null,
+              "number": 15
+            },
+            {
+              "name": "Architecture check",
+              "status": "pending",
+              "conclusion": null,
+              "number": 16
+            },
+            {
+              "name": "Test",
+              "status": "pending",
+              "conclusion": null,
+              "number": 17
+            },
+            {
+              "name": "Bot shell Electron smoke (macOS)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 18
+            },
+            {
+              "name": "Bot shell Electron smoke (Linux)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 19
+            },
+            {
+              "name": "Preserve bot shell report",
+              "status": "pending",
+              "conclusion": null,
+              "number": 20
+            },
+            {
+              "name": "Post Setup Bun",
+              "status": "pending",
+              "conclusion": null,
+              "number": 37
+            },
+            {
+              "name": "Post Setup Node",
+              "status": "pending",
+              "conclusion": null,
+              "number": 38
+            },
+            {
+              "name": "Post Setup pnpm",
+              "status": "pending",
+              "conclusion": null,
+              "number": 39
+            },
+            {
+              "name": "Post Checkout",
+              "status": "pending",
+              "conclusion": null,
+              "number": 40
+            }
+          ]
+        },
+        {
+          "id": 134503583503,
+          "name": "ci-ubuntu-latest",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_id": 44215318326,
+          "logs_url": null,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1
+            },
+            {
+              "name": "Checkout",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2
+            },
+            {
+              "name": "Setup pnpm",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3
+            },
+            {
+              "name": "Setup Node",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4
+            },
+            {
+              "name": "Require Node >= 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5
+            },
+            {
+              "name": "Test Linux dependency bootstrap",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6
+            },
+            {
+              "name": "Setup Bun",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7
+            },
+            {
+              "name": "Setup Rust",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8
+            },
+            {
+              "name": "Install Linux credential-helper build deps",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10
+            },
+            {
+              "name": "Build",
+              "status": "in_progress",
+              "conclusion": null,
+              "number": 11
+            },
+            {
+              "name": "Native CLI scoped validation",
+              "status": "pending",
+              "conclusion": null,
+              "number": 12
+            },
+            {
+              "name": "Preserve native CLI terminal checks",
+              "status": "pending",
+              "conclusion": null,
+              "number": 13
+            },
+            {
+              "name": "Check packaged main-process imports",
+              "status": "pending",
+              "conclusion": null,
+              "number": 14
+            },
+            {
+              "name": "Typecheck",
+              "status": "pending",
+              "conclusion": null,
+              "number": 15
+            },
+            {
+              "name": "Architecture check",
+              "status": "pending",
+              "conclusion": null,
+              "number": 16
+            },
+            {
+              "name": "Test",
+              "status": "pending",
+              "conclusion": null,
+              "number": 17
+            },
+            {
+              "name": "Bot shell Electron smoke (macOS)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 18
+            },
+            {
+              "name": "Bot shell Electron smoke (Linux)",
+              "status": "pending",
+              "conclusion": null,
+              "number": 19
+            },
+            {
+              "name": "Preserve bot shell report",
+              "status": "pending",
+              "conclusion": null,
+              "number": 20
+            },
+            {
+              "name": "Post Setup Bun",
+              "status": "pending",
+              "conclusion": null,
+              "number": 37
+            },
+            {
+              "name": "Post Setup Node",
+              "status": "pending",
+              "conclusion": null,
+              "number": 38
+            },
+            {
+              "name": "Post Setup pnpm",
+              "status": "pending",
+              "conclusion": null,
+              "number": 39
+            },
+            {
+              "name": "Post Checkout",
+              "status": "pending",
+              "conclusion": null,
+              "number": 40
+            }
+          ]
+        }
+      ]
+    },
+    "scope": "Actual source28dc run44215318326 later completed/cancelled after new head; never full CI success. First observations retained. Local complete native gate remains valid only for its original tree.",
+    "laterRunObservation": {
+      "workflow_runs": [
+        {
+          "id": 44215318326,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "run_number": 1439,
+          "jobs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44215318326/jobs",
+          "logs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44215318326/logs",
+          "workflow_id": 367429807
+        }
+      ]
+    }
+  },
+  "remaining": [
+    "P4: current TS ordinary owner/guard and actual older native/installed writer drain; preserving opaque fields is not executable compatibility.",
+    "P4: further unknown reconciliation Probe/Grant/Evidence, terminal partial commits and complete dynamic Context/compaction/attachment lifecycle; remaining tools including background/persistent Shell, Skill/Plugin/Hook.",
+    "P4: full ACP and remaining command/runtime parity, ordinary model HTTP auth exit classification, real services/platform/MSRV and combined P4 acceptance.",
+    "P5: complete project agent product, queues/delegation/worktree, Goal/Watch/memory, verification/acceptance/delivery and recovery.",
+    "P6: complete Ratatui send/model selection/approval/history/search/drafts/reading position; long-memory/response acceptance.",
+    "P7: full packaging/install/update/signing/multiple platforms/default peer-dev switch/old reachable dependency exit and full release regression."
+  ],
+  "limits": [
+    "Implementer self-review, not independent review. Synthetic accounts/services/data only, no paid real provider/IdP/OS keychain acceptance.",
+    "Local actual macOS27.0.1 arm64/rustc1.98.1. Declared1.88 MSRV and current independent Linux/macOS whole CI are not yet accepted.",
+    "No installation, default launcher/peer-dev change, personal data migration, running app restart, merge/tag/release. No product Bun/Node engine sidecar. Node/Bun are development interop/build tools only.",
+    "No complete P4/P5/P6/P7 or long-conversation memory acceptance claim. Old display identities with live/reused PID and Starting gaps remain explicitly blocked.",
+    "Mac tar AppleDouble attempt retained; standard COPYFILE_DISABLE=1 used by isolated packaging caller, no product packaging source changed. Python3.9 lacks extractall filter; exact member/type checks used before extraction. Not final P7 pipeline acceptance."
+  ],
+  "rawEvidence": [
+    {
+      "path": "candidate-1.json",
+      "bytes": 1167,
+      "sha256": "176ac4f7081dd47fd054ee440f65ebd9ab3053a63c6d92d615e6d40313cd787c"
+    },
+    {
+      "path": "candidate-2.json",
+      "bytes": 1216,
+      "sha256": "0bd7be90ed3af47666576ac72ac6aba0820999168ec1fe989190da9637362a20"
+    },
+    {
+      "path": "candidate-3.json",
+      "bytes": 1319,
+      "sha256": "3fd9d07fece7750abbc33d2225e70793b3d6582d811ab1054c780ffbfddf76bf"
+    },
+    {
+      "path": "candidate-4.json",
+      "bytes": 1319,
+      "sha256": "99411f34c7d87889ecc62f72dec8ce3d4a55d5ce694cb2d774f9df53a78a5a09"
+    },
+    {
+      "path": "candidate-5.json",
+      "bytes": 1319,
+      "sha256": "d05bdf09d1b8806d19c08dd710255f3e1cfbaf73c400dde8c26915593c5a873c"
+    },
+    {
+      "path": "baseline-receipt.json",
+      "bytes": 1408,
+      "sha256": "8fa2cc3ff05eb9cdf4c0168ba19c28db4c3ac561ce93af90ed646dccb5b8dee2"
+    },
+    {
+      "path": "full-verify-1.log",
+      "bytes": 89118,
+      "sha256": "4dcbe47792056c31a28cff6ceb33f1c94195ed67bf21fbdf9b259764b7d07598"
+    },
+    {
+      "path": "full-verify-2.log",
+      "bytes": 129093,
+      "sha256": "75c92ee495ca7145898bfdc71ca2858268ff761bfb175ceedd0d01a929853640"
+    },
+    {
+      "path": "full-verify-3.log",
+      "bytes": 99694,
+      "sha256": "224f144356f89be8fbc4d81dfb445d79bbf53e9f8a2df75ac1bec53a26c80e88"
+    },
+    {
+      "path": "full-verify-4.log",
+      "bytes": 131074,
+      "sha256": "1df2fc263abcb0916007b0575ac114781174fb4c6f026128addc2d7ca0affcb5"
+    },
+    {
+      "path": "full-verify-5.log",
+      "bytes": 128921,
+      "sha256": "9ca207185bbe217ea6ae78691e443bd1feebb3dc173949a7f6513fd9600e0900"
+    },
+    {
+      "path": "root-typecheck-5.log",
+      "bytes": 1294,
+      "sha256": "a44614be0bea5b6ffe88a86f0025ee7cdae2d92118d71089c6a3070165f7789f"
+    },
+    {
+      "path": "architecture-5.log",
+      "bytes": 384,
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    {
+      "path": "package-product-host-5.log",
+      "bytes": 2555,
+      "sha256": "780904d5241491a58b2cb1451abfc020e18a94c7b13be758afef605ba573d176"
+    },
+    {
+      "path": "product-recovery-5.log",
+      "bytes": 411,
+      "sha256": "fc08ea41e9be1a3cb0dc5c67a40000bd3be19d6be1927e47a59ca71ee36b4324"
+    },
+    {
+      "path": "product-recovery-interop-node-5.log",
+      "bytes": 244,
+      "sha256": "e5b3812a6ec4151b3517267be3a34e0bb75c6ae7562de03ba487f38d8922676a"
+    },
+    {
+      "path": "product-recovery-interop-bun-5.log",
+      "bytes": 244,
+      "sha256": "e5b3812a6ec4151b3517267be3a34e0bb75c6ae7562de03ba487f38d8922676a"
+    },
+    {
+      "path": "owned-zombie-red.log",
+      "bytes": 1351,
+      "sha256": "f8401ec8fbe1bdf28e32e4de8746c713dc963755765f666062c81da377478446"
+    },
+    {
+      "path": "owned-zombie-fixed.log",
+      "bytes": 772,
+      "sha256": "ec125fc7bd72159db6bf8e4379b126c7aed1de1fb515393f19f1ad2088543b41"
+    },
+    {
+      "path": "approval-fixed-5.log",
+      "bytes": 782,
+      "sha256": "19748c9fd85b3cf25e933023f2fcabc922f9cba8ea72f96e75f0d686a91daf73"
+    }
+  ]
+}

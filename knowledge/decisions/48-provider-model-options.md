@@ -1,7 +1,7 @@
 # 48. 渠道无关的模型选项与渠道投影
 
 创建时间：2026-07-17
-最后更新：2026-07-17
+最后更新：2026-11-16
 
 ## 状态
 
@@ -114,6 +114,8 @@ Qoder 适配器把 `context_config` 归一化成 ID 为 `contextTier` 的 select
 6. 不声明模型选项的现有渠道、模型选择和请求测试保持通过。
 
 ## 不做的事情
+
+2026-11-16原生等价性校正（实施前A级）：上文最初样例的choice.value/optionValues仅string已被当前Protocol的`LlmModelOptionValue = string | number | boolean`标量契约扩展；移植以现行Protocol与实际Adapter为准。select仍是有限声明，不允许object/array、脚本或任意请求路径。匹配保留类型，不将字符串数字强制转换为数值选择；未知/非法/过期值回退当前定义默认。ChatGPT订阅当前数值contextTier属于相同Provider Adapter投影，Qoder并非唯一实例。具体模型目录与预算随既有Adapter生成conformance资源，不在Host追加品牌分支或维护第二份手工目录。
 
 - 不允许渠道原始配置对象直接跨 IPC 进入 Renderer。
 - 不构建可执行脚本、任意 JSON Schema 或渠道自定义 React 组件系统。

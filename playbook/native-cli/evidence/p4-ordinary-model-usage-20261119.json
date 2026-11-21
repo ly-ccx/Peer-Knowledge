@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "phase": "P4",
+  "migrationBranch": {
+    "commit": "f3e0472336c4563b4b3996bccab42404781d44b0",
+    "ciRun": 44405581240,
+    "ciAtRecording": "in progress"
+  },
+  "isolatedCandidate": {
+    "tree": "0a0034aad7767d69d6624d934b59c3ce537ee54f",
+    "previousTree": "c70388b3207557d4f58d9353e3fe40e6ca89b454",
+    "status": "isolated, uncommitted and not pushed",
+    "patchSha256": "953c1cf6a87cc67c0ad30ab0d9c176fbe88f4d240f40b3d5e3b497974409b52a",
+    "harnessSha256": "7f1f1f62347e9e8405f050256e4eb53e512875f44a84fee9800a519667fd619e",
+    "macArm64": {
+      "usageScenariosPassed": 6,
+      "toolOutcomeScenariosPassed": 7,
+      "publicationScenariosPassed": 7,
+      "claimScenariosPassed": 7,
+      "conversationStoreTestsPassed": 149,
+      "tuiProviderTestsPassed": 34,
+      "tuiTypecheck": "passed",
+      "architecture": "passed",
+      "usageReceiptSha256": "fc1c642cb5b2eb1137d9859357c8579b324e2dda01130fb5ab0ec4140ef5cb38",
+      "otherReceiptSha256": {
+        "outcome": "7e5864a3680c23922246ca83e93e37ce392461b659e343580d9d28cdfaab69ab",
+        "publication": "1a33bc0a96e5f90e37cb77111cb8d10831e9f9b01baeb2b12fcad87bc0f4ac06",
+        "claim": "a3c9a616e9c386d512e1f40483fe67bd8278cb53de629246f6a4565b18f0c2a3"
+      },
+      "storeLogSha256": "56ef3c20e5d7f58e2445d7b85ea787dbfb8c48497449943dad7c1406634a5ac7",
+      "tuiProviderLogSha256": "86ca5aca3c6a4563d884b03d35e74e681d95d8a8cd7724620256767dd4e65442",
+      "firstHarnessShapeCorrection": {
+        "reason": "The development harness initially read totalTokens from the outer Rust receipt instead of ledgerRow. Source behavior was unchanged. The final harness checks the returned ledger row and unchanged ledger bytes.",
+        "logSha256": "1d1ccfd14a6d869d042ab8d2a626fea4063e5aa86cd8ea3ce2c6da5d0179db4e"
+      }
+    },
+    "linuxAmd64Emulated": {
+      "usageScenariosPassed": 6,
+      "toolOutcomeScenariosPassed": 7,
+      "publicationScenariosPassed": 7,
+      "claimScenariosPassed": 7,
+      "usageReceiptSha256": "af95092a73f48af3db69e4af016d4480070e16ad011c94833cbfaad48ff79a87",
+      "otherReceiptSha256": {
+        "outcome": "b0b314574b34c409aeca4b419b6690e0fe5748815663bbbc1685a3cbe4e29131",
+        "publication": "84f54bbc116140dd917fee5c5b458edbf6711edbdc6d73fb63358f7baecd1abe",
+        "claim": "80154d5035cb257e75a19fca256aa94b71d1be005f37c375a10a6ccc959f2dca"
+      },
+      "logSha256": "bbc05ae6a083665fca690c49db2e589ae7b94047d0d17457ed018aca393b14d4"
+    },
+    "usageCases": [
+      "Two actual local SSE streams decoded by the existing OpenAI-compatible provider record two observations and one canonical 30-token stream row including 3 cached tokens. Rust's same-id ledger call returns the original row and leaves ledger bytes unchanged.",
+      "A real socket teardown after a streamed 8-token usage record persists the known amount and unknown state before retry. The successful request brings known usage to 17. A forced append-open error after index update leaves the original transaction, and retry completes exactly one bill without incrementing lifetime twice.",
+      "A provider response without usage increments the physical attempt and retains unknown, with no synthetic zero billing row.",
+      "An external model metadata edit retains actual observed usage and blocks the next physical request while keeping the external edit.",
+      "An actual compaction summary and the agent request both contribute to durable usage. Only the agent's observed input defines context capacity.",
+      "A billing failure during actual compaction cannot be consumed by its structural fallback as permission to send another model request."
+    ],
+    "limits": "The approved owned Store was bound through an isolated Host to the production TUI model adapter and a controlled loopback SSE peer. No live production Host or real external service was used. Usage settlement remains separate from actual resource stop, crash recovery, and installed upgrade compatibility."
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "source": "b4c726374ae43cf59c94566a9e9b1f4254abe12b",
+  "tree": "594a62681748509b8e464d514c19111b733fda09",
+  "merge": "f96137a58953c7ac4641ce4c8019b2c41705800d",
+  "parents": [
+    "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "b4c726374ae43cf59c94566a9e9b1f4254abe12b"
+  ],
+  "run": 44227322669,
+  "result": "success",
+  "jobs": [
+    {
+      "id": 134543707058,
+      "name": "ci-ubuntu-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check packaged main-process imports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (macOS)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Bot shell Electron smoke (Linux)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 134543707914,
+      "name": "ci-macos-14",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check packaged main-process imports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (macOS)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (Linux)",
+          "conclusion": "skipped"
+        }
+      ]
+    }
+  ],
+  "actualCheckout": [
+    {
+      "job": 134543707058,
+      "checkout": "2026-11-18T03:01:00.2653978Z HEAD is now at f96137a5 Merge b4c726374ae43cf59c94566a9e9b1f4254abe12b into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "native": "2026-11-18T03:14:01.3359708Z Native scoped verification passed; PTY evidence: /home/runner/work/_temp/native-cli"
+    },
+    {
+      "job": 134543707914,
+      "checkout": "2026-11-18T03:01:05.2829280Z HEAD is now at f96137a5 Merge b4c726374ae43cf59c94566a9e9b1f4254abe12b into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "native": "2026-11-18T03:26:09.6265090Z Native scoped verification passed; PTY evidence: /Users/runner/work/_temp/native-cli"
+    }
+  ],
+  "scope": "Both full repository jobs passed on the same tree as the Web fixture correction. This does not identify the earlier CI socket errno or cover the later ACP tree."
+}

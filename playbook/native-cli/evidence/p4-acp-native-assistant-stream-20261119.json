@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-19",
+  "scope": "P4 native assistant text projection for ACP",
+  "decisions": [76, 116, 129, 130, 131],
+  "base": "644310378eaeb5ae66ab8d28a0088fd387a9628a",
+  "includesOutputDisconnectTree": "fc23367066a0a7a3a73713ec37b90dcd33cd371c",
+  "testedTree": "39047a4c9cf7cec10344232c09cca22a881cd3b2",
+  "patchSha256": "4798f2ddfafea4fbafc8d99c4b0f5b222dbfd4827afb6d81733b0b9205592e77",
+  "baseline": "p4-acp-output-disconnect-20261119.json",
+  "macOSArm64": {
+    "acpProcessCases": 13,
+    "featurelessReleaseCases": 13,
+    "featurelessReleaseSha256": "add4012d356cfcb902a82f0f971a0fc82e730d02607c066a7aecdcbaa2ab48d4",
+    "featurelessTestsLogSha256": "ef164e3fd0cde0f99b4260881de69dbab3441421d093d2bc545ea5b9763e5c52",
+    "isolatedArchiveSha256": "11a832fb4a3e2dbd25ebadb2d7305c80a6d09f29ddb5eaa8ebc1036fe3614271",
+    "extractedCredentialHelperSha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c",
+    "extractedArchiveAcpCases": 13,
+    "wireTests": 8,
+    "wireLogSha256": "706a95e51650a2347cd1929ace0225570c063620bfb873baf26cf8359434a764"
+  },
+  "linuxAmd64Container": {
+    "acpProcessCases": 13,
+    "wireAndRetryTests": 12,
+    "logSha256": "c3dff99e957446bd93e6cfa3c884ab9a383982d523ae061cf96e5749baddc6bd"
+  },
+  "externalClient": {
+    "sdkVersion": "1.4.0",
+    "harnessSha256": "311fde0317a69f6a2699e1fbad4448b120cbc7c99a618916612f3143d4ec5940",
+    "releaseReceiptSha256": "3a95e2bebc1145a1bffa834aac3357d42b7b7f3b7774c0c9113a85824f537cfe",
+    "legacyAndNativeReleaseParityReceiptSha256": "902f725f15f1514d67fa9f6dbe2921cf14f8bf27c5efb9936006d6ea80c9eb9a",
+    "firstTextBeforeTerminal": "第一段",
+    "lastTextAfterTerminal": "第二段"
+  },
+  "additionalRuntimeVerification": {
+    "baseFailure": "Initial isolated Runtime sweep omitted the expected synthetic Vault helper and failed before the OAuth test sent a request.",
+    "initialLogSha256": "afa7c01058e81373996a3778eaef341b134fae962f2de2e26bcab42332d97b54",
+    "recovery": "Built the existing credential-helper vault-fixture in the isolated target, exposed it at the fixture's expected target path, and reran the unchanged failing test and Runtime sweep.",
+    "runtimePassed": 169,
+    "rerunLogSha256": "c9d54cdc2a2414978c7e14c73f5c03f327696008c764332a8a0b4147ca29d441",
+    "nearbyHostPassed": 32,
+    "nearbyHostLogSha256": "69bc68030b714fbe674feed0310bb95592503adc549528136137bb928d857618"
+  },
+  "nextToolProjectionGap": {
+    "scope": "SDK 1.4.0, one real approved write_file and two model requests per artifact. Both verify the expected workspace file bytes.",
+    "legacyFields": ["rawInput", "content", "completed status"],
+    "nativeFields": ["pending status", "completed status", "canonical Evidence reference"],
+    "harnessSha256": "c3c9249ece930a755410485b91888911b1bfa4c4d390d66f858bcca44431367d",
+    "receiptSha256": "b16c02e530226128319a9afa8cfb08e3b1e2988e9df528e55b09db498538bdc0"
+  },
+  "verified": [
+    "The real public ACP process passes complete and deliberately truncated responses from a controlled HTTP model. The first text arrives before the terminal frame, independently of final persistence.",
+    "The complete reply is written once to the canonical transcript and arrives as two client chunks without a repeated final copy.",
+    "The incomplete response emits a protocol error without committing the provisional text or dispatching the unvalidated write_file.",
+    "Four existing standard wire fixture families preserve exact text across input fragmentation. The public Chat Completions test and SDK also verify two Chinese chunks end to end.",
+    "Qoder's window for physical retry retains its legacy terminal-buffered text behavior. Auxiliary summary requests never feed the visible assistant stream."
+  ],
+  "limits": [
+    "External SDK and Chat Completions loopback on macOS, with standard wire fragmentation checked using recorded fixtures. No installed editor or real-account acceptance.",
+    "Linux build is an amd64 container debug test. No long-duration buffer or memory acceptance.",
+    "Full P4, legacy installed-host handoff, P5–P7 and release remain open."
+  ]
+}

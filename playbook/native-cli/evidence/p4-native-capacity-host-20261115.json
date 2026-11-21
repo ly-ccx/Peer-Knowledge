@@ -1,0 +1,127 @@
+{
+  "date": "2026-11-15",
+  "candidate": "daa4c478f8fa2f5e7d90eba3a9ec52fb043e23cb",
+  "tree": "f90c761ca6c9e310291b27f5387af1b3927c70a5",
+  "classification": "B migration of existing ContextAccountingSnapshot/count/provider seams; no permission, Evidence, Context ordering or persistence boundary moved",
+  "ADRFilesRead": [
+    "25-runtime-usage-ledger.md",
+    "37-provider-channel-and-wire-protocol-separation.md",
+    "55-shared-system-context-assembler.md",
+    "56-provider-observed-context-accounting.md",
+    "57-canonical-conversation-history-projector.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "entry": "public peer-native exec -> NativeSessionHost -> prepared count/send -> normalized provider observation -> ContextCapacity; billing remains its distinct canonical path",
+  "behavior": [
+    "Counts are requested on the same frozen provider request, under the actual Host ownership/heartbeat wait",
+    "ContextAccountingSnapshot selects same-request observation/count authority, tracks pending changes and verifies count drift",
+    "Drift or advisory count errors degrade the counter for later requests in the episode; healthy generation continues",
+    "Explicit configured model/channel window is used; unknown/invalid window produces null percent, never a text estimate or bill total",
+    "Provider normalized input+cache read is capacity; output/cache write/runtime_turn/lifetime are not capacity",
+    "Loop return binds pending snapshot to the actual committed metadata revision via index-only read; invalid revisions cannot be silently clamped",
+    "Kernel compaction epoch supersedes old occupancy and permits recount; actual compactor/Store integration is not claimed by these kernel cases"
+  ],
+  "realPublicChecks": {
+    "wires": [
+      "anthropic-messages",
+      "gemini"
+    ],
+    "countAvailableAndUnavailable": true,
+    "toolCallsPerEpisode": 1,
+    "modelRequestsPerEpisode": 2,
+    "counterCallsPerEpisode": 1,
+    "initialCount": 12,
+    "observedCapacity": 20,
+    "runtimeAndLifetimeBilling": 46,
+    "configuredWindow": 1000,
+    "percent": 2,
+    "normalObservedOnly": {
+      "threeRequestTurnBilling": 144,
+      "lastRequestBilling": 59,
+      "lastRequestCapacity": 55,
+      "contextWindow": null,
+      "percent": null,
+      "laterTaskCapacity": 12
+    }
+  },
+  "fullNativeScoped": {
+    "rust": 216,
+    "publicCLI": 33,
+    "countAdapterVectors": 30,
+    "actualTSPipelineSequences": 10,
+    "tsRoundtrip": {
+      "roots": 51,
+      "cases": 274
+    },
+    "oldStoreCrossProcess": 302,
+    "nodeLedgerCrossProcess": 28,
+    "bunLedgerCrossProcess": 28,
+    "pty": 8,
+    "checks": [
+      "fmt",
+      "clippy warnings denied",
+      "contracts",
+      "release build",
+      "sidecar/dependency boundaries",
+      "architecture",
+      "actual Helper ping without secret access"
+    ],
+    "releaseBinarySha256": "717aa7d9165e30db936e1193e2bd69d7b1e6d36fb05e59edb1ff33e663710e2f",
+    "releaseFaultHooksPresent": false,
+    "sourceBinding": "Final sealed run on frozen worktree contents, committed unchanged"
+  },
+  "failedAttempts": [
+    "One intermediate full run mixed a later metadata-only read refinement; retained as supporting evidence, not the final frozen candidate run",
+    "New observed-only assertion incorrectly expected56; actual fixture source is input50 + cache5 =55 (last total59 includes output4). Failure fixture .tmpF2McVy retained; original billing144/59 assertions unchanged; corrected arithmetic and repeated full validation",
+    "Final strict revision/fingerprint checks replace silent safe-integer clamping; invalid updates leave existing capacity unchanged"
+  ],
+  "logs": [
+    {
+      "id": "peer-native-capacity-kernel.log",
+      "sha256": "9a8ae7ac74c87a97b6292df209c062b2a7f38a3cdefb80782cd6fb22686c12ec"
+    },
+    {
+      "id": "peer-native-capacity-public.log",
+      "sha256": "5a23b65bcd1fdd993411b5cb3bd94397d75f51b50b066d7fc266142ab5b400e3"
+    },
+    {
+      "id": "peer-native-capacity-count-host-focus.log",
+      "sha256": "da06eb3f3844f9c6a002e429e596debb6ea5cdcdabd14ab29149e9a0980ed574"
+    },
+    {
+      "id": "peer-native-p4-capacity-host.log",
+      "sha256": "31729a5afc3f82cd68d273ab8d557371e3d58f4362a6cb02282d71a39849d1cc"
+    },
+    {
+      "id": "peer-native-p4-capacity-host-final.log",
+      "sha256": "d240b2d53d5d1916e0d23f056fbe119b1ce012e7c5f700a6281732333b20dd02"
+    },
+    {
+      "id": "peer-native-p4-capacity-host-final2.log",
+      "sha256": "92bcffd97293094a9bf82e61eeae909c050c005a63d6f47ea895cb0525d28e4c"
+    },
+    {
+      "id": "peer-native-p4-capacity-host-sealed.log",
+      "sha256": "7fe47b096eacd0167000a0642316ef73803b66ce4940302dee5c9d4989c2cbef"
+    }
+  ],
+  "CI": {
+    "priorCandidate": "c136ced5a85c2e23e1a3eebc8d044222fcb56c59",
+    "run": 43683648966,
+    "jobs": [
+      132719528358,
+      132719528551
+    ],
+    "conclusion": "cancelled by new push; build/native/type/architecture/Test completed successfully, no failed steps, Electron smoke was in progress; not reported full green",
+    "currentCandidate": "Independent CI pending; previous success not inherited"
+  },
+  "limits": [
+    "Context snapshot persistence/restore and complete compaction/rebuild/recount/overflow recovery remain unimplemented",
+    "10 pipeline sequences cover the kernel; epoch tests do not prove a native summarizer or durable compaction",
+    "Advanced auth/config, MCP/Skill/Plugin/Hook, headless/ACP/commands and complete Context/Host discovery remain P4 work",
+    "P4 total gate incomplete; P5 not started",
+    "No live authenticated providers/vault, personal data, installed-build, soak or release acceptance; implementer self-review"
+  ]
+}

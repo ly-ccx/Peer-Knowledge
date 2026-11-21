@@ -1,0 +1,97 @@
+{
+  "status": "Scoped passed. Ordinary production Host/exec/ACP not wired; full P4 remains open.",
+  "source": "dfef292291ff98367bae3c0e89ce008b18211d2b",
+  "tree": "42390a0b1413e6dfa6b019063038f4f1e9a8470f",
+  "base": "066b63e803caae344efc4dca1b1b380877bbf126",
+  "candidatePatchSha256": "21a97175f94e06c2fbfaeedfe6606b59f434c0661ae833d66b81ca8057fe1494",
+  "decisions": {
+    "classification": "A implementation under the prior accepted registration. No further boundary change.",
+    "preregistrationKnowledgeCommit": "5a74211c4092d4b15aa4c16d764d63bb51919dd0",
+    "files": [
+      "00-adr-map.md",
+      "25-runtime-usage-ledger.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "section": "2026-11-18 NR-04 canonical ordinary conversation execution and owned metadata publication receipts"
+  },
+  "implementation": [
+    "Optional strict runtimeExecution v1 in the original index: actual conversation/stream identity, complete owner, execution revision, pending dispatch/process/handles, known usage plus unknown-usage fact, and local stop observation. No fake Goal, Bot Full inheritance or private execution journal.",
+    "Original index-to-body locks, full source/contentRevision claim CAS and same-owner execution-revision mutation CAS. Active, unknown or uncommitted runs are not overwritten. Unknown/corrupt schema remains unchanged and blocks execution.",
+    "Sealed metadata publication receipt binds real before/after source and unchanged history/body/sidecar plus exact full index publication. Common cognition advances only through a continuous actual Store receipt and then still checks the cold source.",
+    "Goal cognition returns no ordinary publication receipt and retains original authority, lease, budgets and billing. Actual non-Goal HTTP tests persist response usage but reject continuation over foreign body/model changes. Their Source is explicitly synthetic, not a production ordinary Source assembler.",
+    "One aggregate per stream uses the original runtime_turn ledger and real sealed receipt acknowledgment, bound to data root, owner, identity, usage and attribution. No per-physical-request ledger turns.",
+    "TS strict decoder reuses pure process-envelope checking; original Goal identity validation remains strict. Its generated coordination worker was rebuilt and the unescaped 46-line pure-helper diff reviewed. TS Store preservation is not TS production execution guard participation."
+  ],
+  "validation": {
+    "source": "dfef292291ff98367bae3c0e89ce008b18211d2b",
+    "tree": "42390a0b1413e6dfa6b019063038f4f1e9a8470f",
+    "patchSha256": "21a97175f94e06c2fbfaeedfe6606b59f434c0661ae833d66b81ca8057fe1494",
+    "gateExitCode": 0,
+    "rustPassed": 620,
+    "publicHostPassed": 247,
+    "ptyPassed": 9,
+    "oldInterop": {
+      "roots": 627,
+      "cases": 3521
+    },
+    "ordinaryDecoderVectors": 49,
+    "ordinaryStoreInteropChecks": 12,
+    "protocolTsTestsPassed": 336,
+    "productBinarySha256": "024e2d581177b308b833174f815824f656a960f712fcc77edfdbd3a23dcfd15a",
+    "productHostPassed": 8,
+    "productInterop": {
+      "roots": 13,
+      "cases": 76
+    }
+  },
+  "behavioralEvidence": [
+    "Nine actual Store tests: two competing processes with the same initial source; real exit87 after publication; source-bound receipt continuity; foreign body/model changes; final ledger dedupe and next admission; copied-root receipt rejection; process lifecycle regression; canonical Grant/Result and actual Evidence registration; unknown retention and independent later conversation.",
+    "claim_child is ignored only as a subprocess fixture. Parent tests actually run it. Offline orphan mkdir lock removal is isolated fixture maintenance only, after wait() proves the sole writer exited, with an original diagnostic copy. No production lock expiry or owner-death inference.",
+    "Five cognition test functions use actual model HTTP sockets and canonical Store usage publication. No ordinary production Host or full Context Source acceptance is claimed.",
+    "49 pinned TS/Rust decoder vectors; oracle executed under Node and Bun. Twelve real TS Store/native interop checks under each Node/Bun host. Native bridge PATH=/nonexistent. TS owner examples are explicitly raw serialization fixtures, not production owner creation.",
+    "Full native verify exit0: 620 Rust including247 actual public Host cases; 627 roots/3521 TS/native checks; 9 PTY. Warnings-denied all-target clippy, fmt, root typecheck, root architecture/UI, Protocol build/typecheck/336 TS tests passed.",
+    "Fixed featureless release artifact passes eight actual model/file/Shell/Git/Web/MCP Host cases under env-i, isolated HOME, PATH=/nonexistent, then13 roots/76 TS reads. These remain actual Goal/worker Host cases, not ordinary prompt exec."
+  ],
+  "productArtifact": {
+    "bytes": 21502736,
+    "sha256": "024e2d581177b308b833174f815824f656a960f712fcc77edfdbd3a23dcfd15a",
+    "faultSwitchesPresent": [],
+    "linkage": [
+      "CoreFoundation",
+      "libiconv",
+      "libSystem"
+    ],
+    "path": "/tmp/peer-native-conversation-execution-20261118/featureless-peer-native"
+  },
+  "priorWholeCi": {
+    "receipt": "ci-066-20261118.json",
+    "head": "066b63e803caae344efc4dca1b1b380877bbf126",
+    "conclusion": "success"
+  },
+  "currentWholeCi": {
+    "run": 44165606361,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44165606361",
+    "head": "dfef292291ff98367bae3c0e89ce008b18211d2b",
+    "status": "completed success on both platforms; exact checkout/merge/tree/parents verified",
+    "inheritsPriorGreen": false,
+    "firstObservation": "queued at first observation; result not yet verified",
+    "completionReceipt": "ci-dfef-20261118.json"
+  },
+  "failedAttemptsPreserved": [
+    "store-check-1.log: initial WIP compile errors, corrected before this candidate.",
+    "store-tests-1.log and store-debug-1/2.log: struct tag serialized kind but strict Deserialize rejected it. Identity decoding now uses a strict internally tagged enum. Original Store/cross-language checks rerun.",
+    "store-tests-2/4.log: ledger fixture compared numeric0.0 with canonical JS0 and expected derived totalTokens in raw lifetime metadata. Exact ledger row/byte dedupe remains asserted. Lifetime comparison uses the existing JS digest, with actual receipt total20, persisted input17/output3 and runtimeTurnCount1.",
+    "contracts-write.log: fixture process name shadowed the global. Renamed commandProcess; no production behavior changed.",
+    "store-tests-7.log: fixture expected wrong stable error name. Corrected to existing USAGE_LEDGER_CONFLICT; rejected cross-root operation and untouched data remain asserted.",
+    "clippy-1/2.log: nested-if diagnostics. Let-chain corrections, no warning suppression. clippy-3 and final complete native gate passed."
+  ],
+  "limits": [
+    "No ordinary production Host, prompt exec, Ratatui sending or ACP execution enabled by these Store types and APIs.",
+    "Actual ordinary owner/live authority/Provider/Grant/Evidence/owned cleanup, owner-death and late-outcome reconciliation entry, plus TS production owner/guard remain to wire before production use. Current TS opaque-field preservation does not fence loaded/installed old engines; drain/upgrade remains a separate gate.",
+    "Remaining Context/Skill/Plugin/Hook and protocol/command parity, P4 total gate, full P5 project-agent, P6 terminal/long-memory and P7 installed/default/release acceptance remain open.",
+    "Implementation self-review, synthetic network/services, isolated data only. No paid real-model, installed-version drain, long soak or independent-review claim. No personal task change, install, user-runtime restart, default entry switch, merge/tag/release or Bun/Node engine sidecar."
+  ],
+  "rawEvidence": "/tmp/peer-native-conversation-execution-20261118"
+}

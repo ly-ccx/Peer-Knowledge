@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "phase": "P4/NR-04",
+  "status": "native-mcp-scoped-passed; P4-total-open; P5-not-started",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "commit": "b9623558b20be05b56fc0326b343e9ea67621497",
+    "tree": "866607fce602e35934f8095f1465f8f8da4445df",
+    "runtimeCommit": "613b2cc8353111576c7934b6359444b479e65f35",
+    "runtimeTree": "ef84f2e99922a3dc32d0bb3abe6c5b4892796c00",
+    "followup": "Only two shared protocol type declarations differ; crates, lockfile, protocol contract resources and verification scripts are byte-identical. Protocol build/type/test separately passed. New CI is checked independently.",
+    "pr": "https://github.com/ly-ccx/Peer-Agent/pull/327"
+  },
+  "adrSupplement": {
+    "repository": "ly-ccx/Peer-Knowledge",
+    "commit": "b60d71aef2bb0f7a942ce9964dd28c39b1af4121",
+    "file": "knowledge/decisions/131-native-cli-contract-storage-and-recovery.md",
+    "section": "NR-04 native MCP dispatch and stop observations",
+    "classification": "A-level optional ownership/Evidence metadata supplement; existing visibility, grant, scope, unknown and manual-resolution policies unchanged"
+  },
+  "adrPass": [
+    "00-adr-map.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md",
+    "31-mcp-connection-management.md",
+    "32-mcp-authentication.md",
+    "36-mcp-tool-card-title-passthrough.md",
+    "0001-cross-platform-credential-vault.md",
+    "124-legacy-stop-obligation-controlled-resolution.md",
+    "127-unknown-outcome-reconciliation-and-delegated-resolution.md"
+  ],
+  "baselineCI": {
+    "commit": "c835a4597864c26ae8d00d3dbd1e24642d3e7f63",
+    "run": 43722096748,
+    "linuxJob": 132836192244,
+    "macosJob": 132836191923,
+    "conclusion": "success",
+    "mergeCommit": "468e23e750b24a01d112c7c4ef9778dd028a5010",
+    "matchingTree": "4695f7db37a3847cc7cd662e943b8d9c2b001633"
+  },
+  "candidateCI": {
+    "commit": "b9623558b20be05b56fc0326b343e9ea67621497",
+    "conclusion": "success",
+    "run": 43730831267,
+    "linuxJob": 132862734334,
+    "macosJob": 132862734619,
+    "lastObserved": "Both complete jobs succeeded, including native scoped, full repository tests and platform Electron smoke.",
+    "mergeCommit": "182f0806f9e43b0285d8aa7d97b10e8ade9e6890",
+    "matchingTree": "866607fce602e35934f8095f1465f8f8da4445df"
+  },
+  "checks": {
+    "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-mcp-final-20261115",
+    "rustTests": 246,
+    "publicCliScenarios": 50,
+    "newMcpScenarios": 12,
+    "actualTsNativeRoots": 76,
+    "actualTsNativeChecks": 448,
+    "productionTsMcpResultVectors": 7,
+    "actualTsSdkInitializeAndToolsCall": true,
+    "ptyScenarios": 8,
+    "nodeLedgerInterop": 28,
+    "bunLedgerInterop": 28,
+    "nodeCapacityInterop": 11,
+    "bunCapacityInterop": 11,
+    "protocolTests": 336,
+    "protocolBuild": true,
+    "protocolTypecheck": true,
+    "fmt": true,
+    "clippyDenyWarnings": true,
+    "releaseBuild": true,
+    "nativeBoundary": true,
+    "architecture": true,
+    "releaseFixtureFaultHooksAbsent": true
+  },
+  "artifacts": {
+    "nativeBinarySha256": "91e5331614401c4b94f13e22ec9495860c4d6271162d36308f9ac506d1a4f28d",
+    "scopedLog": "/tmp/peer-native-mcp-final-total.log",
+    "scopedLogSha256": "52a17de031307ca221371d8ff2b1c4b9b771a1c3a8eea785c07a023f349ef357",
+    "architectureLog": "/tmp/peer-native-mcp-architecture.log",
+    "architectureLogSha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560",
+    "fixtureRoot": "/tmp/peer-native-mcp-final-20261115"
+  },
+  "validatedBehavior": [
+    "Public peer-native exec drives a native Rust MCP fixture with PATH=/nonexistent; no Node/Bun engine sidecar.",
+    "Actual stdio SDK initialization and repeated tools/call reuse one managed connection; JSON and SSE Streamable HTTP and separate legacy GET endpoint/SSE POST all return paired structured Tool Result/Evidence.",
+    "One actual PTY approval permits one call; the next call requires a fresh decision and a denial sends no tools/call. Non-TTY Ask denies before transport startup.",
+    "Registry/config revision drift and policy revocation during blocked initialize invalidate the original grant before tools/call; definite not-dispatched facts use canonical receipts.",
+    "SDK business isError, JSON-RPC errors, disconnect, oversize frame, oversize normalized result, real 30-second timeout and SIGTERM retain distinct actual outcomes; sent uncertain calls are never retried.",
+    "Configured header/env echoes are redacted before persistence; one-pass matching cannot recursively expand replacement text. Redaction cannot change the independently preserved protocol failure outcome.",
+    "After a real parent hard exit, complete original recorder and process-group observations settle only local pumps/owned children. Remote effect remains unfenced_external and canonical uncertain dispatch stays present.",
+    "Repeated recover does not duplicate known billing or replay a model/tool. A distinct independently scoped worktree accepts a later task without erasing the prior unknown.",
+    "Future handle metadata is preserved byte-for-value and blocks recovery; restoring the original known synthetic identity allows real managed cleanup while retaining external unknown.",
+    "Current TS cold-read preserves exact MCP result/Evidence records; real TS Work save then native re-read preserves canonical pending/receipt/usage facts."
+  ],
+  "limits": {
+    "maxConnections": 8,
+    "channelEntries": 1,
+    "frameBytes": 1048576,
+    "requestBytes": 262144,
+    "normalizedResultBytes": 262144,
+    "rpcBytes": 8388608,
+    "rpcFrames": 128,
+    "deadlineMs": 30000,
+    "httpRedirects": "disabled",
+    "legacySseEndpoint": "same-origin only",
+    "autoReplay": false
+  },
+  "failedAttemptsPreserved": [
+    {
+      "log": "/tmp/peer-mcp-provider-check.log",
+      "reason": "HostResourcePlan not Clone and duplicate outcome field; implementation corrected."
+    },
+    {
+      "log": "/tmp/peer-mcp-public-first.log",
+      "reason": "Fixture used nonexistent policy API/enum; corrected against real PolicyStore."
+    },
+    {
+      "log": "/tmp/peer-mcp-public-second.log",
+      "reason": "Test incorrectly expected success for sent unknown; existing error/unknown policy retained and canonical-unknown/no-replay assertions preserved.",
+      "fixtureBasename": ".tmpQzVLVg"
+    },
+    {
+      "log": "/tmp/peer-mcp-final-focused.log",
+      "reason": "Missing initialize-disconnect fixture branch and incorrect POSIX130 expectation; real fixture branch added, existing CLI unknown error precedence retained.",
+      "fixtureBasenames": [
+        ".tmpeQSOZL",
+        ".tmpaFim0O"
+      ]
+    },
+    {
+      "log": "/tmp/peer-mcp-clippy.log",
+      "reason": "Two lint failures corrected without weakening checks."
+    },
+    {
+      "log": "/tmp/peer-mcp-future-handle.log",
+      "reason": "Recovery had already released the new idle lease; synthetic test now ages only an existing lease. Unknown handle identity assertions unchanged.",
+      "fixtureBasename": ".tmph2rFpt"
+    },
+    {
+      "log": "/tmp/peer-mcp-cold-read.log",
+      "reason": "New TS checker referenced try-local history outside its scope; corrected to read the actual Store inside the checker."
+    },
+    {
+      "log": "/tmp/peer-native-mcp-total.log",
+      "reason": "Earlier full scoped run passed on an intermediate source; final scoped campaign rerun after preserving protocol status during redaction and adding recovery coverage."
+    }
+  ],
+  "remainingP4": [
+    "MCP credentialRef / Helper-Vault adapter and safe legacy credential migration; current native adapter explicitly rejects non-none auth rather than sending unauthenticated requests.",
+    "MCP OAuth discovery/login/refresh/persistence, remote TLS/proxy/custom-certificate and reconnect/resume/session-lifecycle parity, resources/prompts admission where currently reachable.",
+    "Remaining model authentication/private Qoder wire and network settings.",
+    "Complete Context Source and microcompaction/compaction strategy parity; remaining file/search/fetch/Goal/user-input/background-Shell capabilities.",
+    "Skill/Plugin/Hook Providers; native headless/ACP multi-session, late approval, disconnect and remaining commands.",
+    "Real-model, real external-server, platform and installed-build acceptance; full P4 feature-matrix gate."
+  ],
+  "unrunAcceptance": [
+    "P4 total gate",
+    "P5",
+    "real-model credentials",
+    "installed/default CLI switch",
+    "1 GiB history and 4-hour P6 soak",
+    "release/product regression"
+  ],
+  "preservedBoundaries": [
+    "No personal data touched or migrated",
+    "No app restart/install/release/tag/merge",
+    "Default peer entry still unchanged",
+    "No JavaScript runtime fallback",
+    "Unknown or unregistered stdio startup identity remains blocked; owner death alone never proves remote effects stopped",
+    "Full policy and tool visibility do not bypass current Host grant/revision/lease/Goal checks"
+  ],
+  "priorRuntimeOnlyCI": {
+    "commit": "613b2cc8353111576c7934b6359444b479e65f35",
+    "run": 43730555608,
+    "note": "Superseded by the protocol-types follow-up; do not count its pending/cancelled execution as a full success."
+  },
+  "references": [
+    "https://docs.rs/rmcp/3.10.0/rmcp/",
+    "https://github.com/modelcontextprotocol/rust-sdk",
+    "https://modelcontextprotocol.io/specification/2025-03-26/basic/transports",
+    "https://docs.rs/aho-corasick/1.1.4/aho_corasick/"
+  ],
+  "followupReceipt": "p4-mcp-duplex-and-recovery-20261116.json"
+}

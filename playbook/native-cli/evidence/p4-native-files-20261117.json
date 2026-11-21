@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "base": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+    "tree": "6ef6b6cb7608e7f1dde4456b18f289fb5659f702",
+    "startedAt": "2026-11-17T01:39:16.163813+00:00",
+    "patchSha256": "5b898568da8d897ae3d6bf69b87c51abfb30a615a0a0c67eb022ac7f8ee1a882",
+    "commit": "e62920742bf0cfa2dc2c6c584a5f4136f0767a9b",
+    "status": "committed and pushed"
+  },
+  "classification": {
+    "A": "ADR131 NR-04 原生文件能力与有界扫描 registered before implementation: native limits/errors contract and owned file-I/O task/control seam under ADR130. Existing permission, Evidence, storage and unknown-reconciliation policy remains in force.",
+    "B": "Migrate current five file manifests and aliases under ADR49/92/101/129/131; same-boundary fixes for canonical workspace display, semantic tool failures and partial creation outcome. Qoder labelled-frame/catalog follow-up is included in this combined source.",
+    "adrFiles": [
+      "49-cancel-path-hard-sandbox.md",
+      "92-scoped-permission-inheritance.md",
+      "101-bot-owned-access-policy.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ]
+  },
+  "change": {
+    "chain": "Provider -> same manifests -> Runtime Projection -> Tool Call -> existing live Grant -> file I/O -> canonical result/Evidence. Required-capability admission uses actual built-in provider manifests rather than a separate central list.",
+    "operations": [
+      "read_file",
+      "list_files",
+      "search_files",
+      "write_file",
+      "edit_file"
+    ],
+    "ownership": "Each operation is one awaited spawn_blocking task. Bounded EffectAdmission Check asks the actual Host for current policy/Goal/lease/input authority before I/O and writes; cancellation is observed without starving heartbeat. The real worker is awaited, not abandoned on cancellation.",
+    "fidelity": "Locale-aware directory sort and search casing use pinned ICU4X; final search full-path order uses UTF-16. Skip .git/node_modules and non-regular child entries, preserve CRLF/final-CR semantics, invalid UTF-8 replacement for search, result limits and truncated flags. Exact edit retains read hashes, ambiguity/missing/conflict errors and current TS single-replacement dollar tokens.",
+    "resourceContract": {
+      "path": "packages/protocol/contracts/native-cli/file-operations.json",
+      "bytes": 22971,
+      "sha256": "9165abb71c08b367c9c2a192ac1f1f062ad3ed8b4d559fdcba10e4bd4ec1f3b7",
+      "repository": "ly-ccx/Peer-Agent"
+    },
+    "limits": {
+      "version": 1,
+      "limits": {
+        "readBytes": 131072,
+        "writeBytes": 32768,
+        "snapshotEntries": 128,
+        "collectionItems": 16384,
+        "collectionPathBytes": 4194304,
+        "searchFileBytes": 1000000,
+        "resultBytes": 262144
+      },
+      "pressureErrors": [
+        "file_collection_limit",
+        "file_result_limit"
+      ],
+      "onPressure": "Fail explicitly without publishing a partial success; preserve effects/history/Evidence and unknown dispatches."
+    },
+    "dependencyAudit": {
+      "path": "/tmp/peer-native-files-20261117/icu-msrv.json",
+      "bytes": 1794,
+      "sha256": "29859f7847e07bef27d03fad880a6e35bfcccd64dda125e6a9cbefa7dba6f634"
+    },
+    "dependencySources": [
+      "https://docs.rs/icu_collator/2.1.1/icu_collator/struct.Collator.html",
+      "https://docs.rs/icu_casemap/2.1.1/icu_casemap/struct.CaseMapper.html"
+    ]
+  },
+  "baseline": {
+    "native": {
+      "exit": 101,
+      "binary": "/tmp/peer-native-qoder-metadata-20261117/peer-native",
+      "sha256": "cab589555d1d5e451aab233956867260c8c916b3ad1a5dfe2fcdf76031ecb95f",
+      "failure": "tool_not_projected",
+      "fixture": ".tmpZKxBQm"
+    },
+    "log": {
+      "path": "/tmp/peer-native-files-20261117/native-baseline.log",
+      "bytes": 1678,
+      "sha256": "5f7b6078ccff8205f8c7f9264162ff71882c6eb9a0ef409c81451bea15a1b877"
+    },
+    "description": "Retained featureless predecessor bcd candidate refuses list_files at the real public CLI with tool_not_projected; synthetic failed fixture retained.",
+    "actualTs": {
+      "cases": 12,
+      "steps": 34,
+      "locales": 8,
+      "log": {
+        "path": "/tmp/peer-native-files-20261117/contracts-check.log",
+        "bytes": 284,
+        "sha256": "55f263c4a64d966d59c31373149f4a87806344deccfde30e0b60867ac3d06da1"
+      },
+      "scope": "Actual compiled TS FileProvider over synthetic files and actual Node Intl locale observations. Separate from Host authorization and real-model evidence."
+    }
+  },
+  "failuresAndCorrections": {
+    "firstHost": {
+      "log": {
+        "path": "/tmp/peer-native-files-20261117/native-files.log",
+        "bytes": 2085,
+        "sha256": "e64c44fd2071175cdf154715612c2ffbad1d1906f4fdf030f63c707ac361bf5f"
+      },
+      "retainedBinary": {
+        "path": "/tmp/peer-native-files-20261117/fixture-peer-native",
+        "bytes": 58192992,
+        "sha256": "eb21799e1bce9a882356d7d1e2663023eb0281b33dd71eb95f143d468e47afce"
+      },
+      "fixtures": [
+        ".tmpUvEBV8",
+        ".tmpUY50KV"
+      ],
+      "reason": "Canonical target /private/var vs lexical workspace /var produced an incorrect relative path; whitespace query incorrectly aborted the episode instead of a structured tool failure. Original assertions retained; canonicalize workspace namespace and defer semantic validation to Provider outcome."
+    },
+    "partialCreate": {
+      "baseline": {
+        "path": "/tmp/peer-native-files-20261117/create-unknown-baseline.log",
+        "bytes": 1491,
+        "sha256": "e8ee786a765b236460d31bc44f3bb19330b786cbcb362f9c7278cc3af6dc5263"
+      },
+      "fixed": {
+        "path": "/tmp/peer-native-files-20261117/create-unknown-fixed.log",
+        "bytes": 1033,
+        "sha256": "ce0e2bc29008c9fb0c8cf4b38e978057461d91bd87ce1334b8dae397a786c7eb"
+      },
+      "counterexampleSource": {
+        "path": "/tmp/peer-native-files-20261117/file-create-fixed.rs",
+        "bytes": 20274,
+        "sha256": "0c4251ebd517758833b64a0113ab266c53e0e90659c427df01e4442412601e8c"
+      },
+      "changedBlock": {
+        "path": "/tmp/peer-native-files-20261117/create-unknown-fix.patch",
+        "bytes": 436,
+        "sha256": "82ae462f63d1f920227ad4aaec54480de3c36f89eab3fb715e21dcdba1e12c31"
+      },
+      "reason": "Real filesystem CREATE followed by a denied control check left an empty file but reported only permission_policy_changed. Original test fails before correction, then passes with execution_outcome_unknown and empty file preserved. This is an actual EffectAdmission/FS module test with an authority seam; not a dedicated public-CLI partial-create race reproduction."
+    },
+    "clippy": {
+      "first": {
+        "path": "/tmp/peer-native-files-20261117/clippy.log",
+        "bytes": 27052,
+        "sha256": "900a2cd21b91b404dee835bb53b20555b34529c7395cc6e61ff9075769ba1336"
+      },
+      "second": {
+        "path": "/tmp/peer-native-files-20261117/clippy-2.log",
+        "bytes": 1327,
+        "sha256": "69470d2995c37caae97cb2f7f4548e7d1b5226ce64ce8be3441153b161fd485f"
+      },
+      "final": {
+        "path": "/tmp/peer-native-files-20261117/clippy-3.log",
+        "bytes": 185,
+        "sha256": "1f172f21e837bf7db4c7f70dafc7c007e8c6f057eeaaa4309e82e39c5a9399b1"
+      },
+      "reason": "Cargo auto-discovered new flat helper modules as standalone test targets; moved helpers into module directories. Replaced constant chunks_exact with MSRV-compatible as_chunks; no assertions or warning gates weakened."
+    },
+    "interruptedGate": {
+      "source": {
+        "base": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+        "tree": "7e04d578c869f3f8d3640238258952e7d0258899",
+        "startedAt": "2026-11-17T01:36:35.329829+00:00",
+        "patchSha256": "428cc3076bfcc8beaabad142cf179d68f280871838f7ced4cfc056bf36b1c2c0"
+      },
+      "exit": {
+        "exit": -15,
+        "seconds": 80.165082125,
+        "source": {
+          "base": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+          "tree": "7e04d578c869f3f8d3640238258952e7d0258899",
+          "startedAt": "2026-11-17T01:36:35.329829+00:00",
+          "patchSha256": "428cc3076bfcc8beaabad142cf179d68f280871838f7ced4cfc056bf36b1c2c0"
+        },
+        "finalTree": "7e04d578c869f3f8d3640238258952e7d0258899",
+        "unstaged": ""
+      },
+      "interruption": {
+        "reason": "Review found accepted native scan limits/errors were recorded in ADR and real Host tests but not yet registered as a language-neutral protocol resource. Stop this owned pre-Host gate to add the missing contract before final validation. Not a passing or failed test gate.",
+        "pid": 20658,
+        "pgid": 20658,
+        "at": "2026-11-17T01:37:55.509615+00:00",
+        "groupAbsentAfterExit": true
+      },
+      "log": {
+        "path": "/tmp/peer-native-files-final-20261117/verify.log",
+        "bytes": 28983,
+        "sha256": "074cc7fd272a56ded35886c1bbbc54dfad355988e65f8852150482c7271e4365"
+      },
+      "scope": "Stopped owned group during pre-Host clippy to register the missing language-neutral native limit contract; not a passing or failing test gate. Final validation uses a fresh output root."
+    }
+  },
+  "validation": {
+    "fullNativeScoped": {
+      "exit": {
+        "exit": 0,
+        "seconds": 760.561318084,
+        "source": {
+          "base": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+          "tree": "6ef6b6cb7608e7f1dde4456b18f289fb5659f702",
+          "startedAt": "2026-11-17T01:39:16.163813+00:00",
+          "patchSha256": "5b898568da8d897ae3d6bf69b87c51abfb30a615a0a0c67eb022ac7f8ee1a882"
+        },
+        "finalTree": "6ef6b6cb7608e7f1dde4456b18f289fb5659f702",
+        "unstaged": ""
+      },
+      "rustTests": 470,
+      "nativeEpisodes": 182,
+      "interopRoots": 499,
+      "interopChecks": 2811,
+      "ptyCases": 9,
+      "log": {
+        "path": "/tmp/peer-native-files-final-2-20261117/verify.log",
+        "bytes": 107286,
+        "sha256": "5f51e481281d2d4fd50a413e8d07560cf913dd12190c68d5cb8b1ef3e48c8e17"
+      },
+      "sourcePatch": {
+        "path": "/tmp/peer-native-files-final-2-20261117/candidate.patch",
+        "bytes": 129081,
+        "sha256": "5b898568da8d897ae3d6bf69b87c51abfb30a615a0a0c67eb022ac7f8ee1a882"
+      },
+      "fixtureBinary": {
+        "path": "/tmp/peer-native-files-final-2-20261117/fixture-peer-native",
+        "sha256": "5f82034ba24fb5c47d7982a4c842c6af09f8b4b935db85164fbebe30f9cd4234"
+      }
+    },
+    "newHostCoverage": "Seven new tests: real list->search->read->edit->read with Grant/Evidence;12 actual TS cases/34 operations;16,385 entries and FIFO/result pressure; failed read cannot grant edit snapshot; actual edit denial; paused real worker heartbeat then policy/content changes; signal drain/later task; post-edit hard exit/unknown recovery without replay. Worker barrier is fixture-only; the final featureless suite excludes those fault-only controls explicitly.",
+    "featureless": {
+      "identity": {
+        "binary": "/tmp/peer-native-files-final-2-20261117/peer-native",
+        "sha256": "d42c84ccfb11f4e121504aeed1c705244a294b1f43f023840e33b79cf49c86d4",
+        "bytes": 18711488,
+        "harness": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/target/debug/deps/native_episode-22072befbe05c9c6",
+        "environment": {
+          "PATH": "/nonexistent",
+          "PEER_NATIVE_TEST_BINARY": "/tmp/peer-native-files-final-2-20261117/peer-native",
+          "PEER_NATIVE_P3_EVIDENCE_ROOT": "/tmp/peer-native-files-final-2-20261117/release-episodes"
+        }
+      },
+      "status": "passed",
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-files-final-2-20261117/dynamic-libraries.log",
+        "bytes": 355,
+        "sha256": "5b87368a5cebf31bc6be87300f2aa7f057af2094df90eea4deae43b6a9820a64"
+      },
+      "hostTests": 31,
+      "fileTests": 4,
+      "qoderTests": 27,
+      "exit": [
+        {
+          "filter": "native_files",
+          "exit": 0,
+          "seconds": 22.344970500000002
+        },
+        {
+          "filter": "native_qoder",
+          "exit": 0,
+          "seconds": 232.96683825000002
+        }
+      ],
+      "fileLog": {
+        "path": "/tmp/peer-native-files-final-2-20261117/release-native_files.log",
+        "bytes": 533,
+        "sha256": "bfc3d8248a41611c337c52f42e1715ed664939c00db95462c1f735716ab1c366"
+      },
+      "qoderLog": {
+        "path": "/tmp/peer-native-files-final-2-20261117/release-native_qoder.log",
+        "bytes": 3051,
+        "sha256": "50c6156d980ac598c11c65bc5211584fec7ff9646b449260674fe4f7b06d81d2"
+      },
+      "interop": {
+        "roots": 204,
+        "checks": 1100,
+        "exit": {
+          "exit": 0,
+          "seconds": 17.454662458999998,
+          "command": [
+            "/tmp/peer-native-model-network-ci-bun-20261116/bin/bun",
+            "scripts/native-cli/episode-conformance.ts",
+            "/tmp/peer-native-files-final-2-20261117/release-episodes"
+          ]
+        },
+        "log": {
+          "path": "/tmp/peer-native-files-final-2-20261117/release-interop.log",
+          "bytes": 218,
+          "sha256": "94bed03c5e091790c1e564c106bfa6b5c0fbccdf40ff780eb6fb0491b3f3add9"
+        }
+      }
+    }
+  },
+  "existingStateRecovery": "No personal records inspected or modified. Snapshot state is ephemeral and never permission truth. Failed/denied operations preserve source files. Existing pending dispatch/unknown and known fees/Evidence survive cancellation or hard exit; restart/recover does not replay edits. A new explicit task may run while original unknown effects stay blocked by existing scope/claim policy. Empty post-CREATE outcomes are not deleted to manufacture no-effect recovery.",
+  "predecessorCi": {
+    "source": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+    "run": 43986222565,
+    "firstAttempt": "Linux success; macOS behavior incl Native/Test/Electron success but report upload CreateArtifact ETIMEDOUT. Original failure/log/report preserved in Qoder metadata receipt.",
+    "secondAttempt": {
+      "jobs": [
+        [
+          133736854580,
+          "success"
+        ],
+        [
+          133736857658,
+          "success"
+        ]
+      ],
+      "jobsSnapshot": {
+        "path": "/tmp/peer-native-files-20261117/base-ci-retry-terminal.json",
+        "bytes": 9807,
+        "sha256": "93dd114da08fe6621775d1a2133c999c3c4a2b1292bc6e1d2a9f73374820da6f"
+      },
+      "merge": {
+        "parents": [
+          "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+          "6e8036ef852f18da119ebd51c453e7ca12c09821"
+        ],
+        "sha": "509cf0cfdd8a0bf1b1559a695f5e1b7892f173ab",
+        "tree": "5b5ec6e163e43cc4b07bedc2ccb2e466c7907ce8"
+      }
+    }
+  },
+  "candidateCi": {
+    "run": 43999794341,
+    "status": "success on second attempt; original macOS failure retained",
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "e62920742bf0cfa2dc2c6c584a5f4136f0767a9b"
+      ],
+      "sha": "7dd76a5905574fa50d670818e42a785a84584142",
+      "tree": "6ef6b6cb7608e7f1dde4456b18f289fb5659f702"
+    },
+    "scope": "Actual e629 combined source: both full jobs success after failed macOS job retry; original failure not erased or claimed fixed. New d636 source CI independent.",
+    "initialObservation": {
+      "path": "/tmp/peer-native-files-final-2-20261117/candidate-ci-jobs.json",
+      "bytes": 7751,
+      "sha256": "f6177fa206670c2f699d8b751ef7a92dbf5fbe7d2df0ef4e0d33f2aea81fa819"
+    },
+    "firstAttempt": {
+      "linux": 133760701619,
+      "linuxStatus": "success",
+      "macos": 133760701891,
+      "macosStatus": "failure",
+      "cause": "Updater minimize fast-completion observation failed; Native/build/type/architecture/Test passed. Remote cause still unexplained, not called flake.",
+      "log": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-macos.log",
+        "bytes": 606333,
+        "sha256": "6abdcc494ae27f3423a47071ff49e438daacadc8170cdc2d9fa87ad45c523737"
+      },
+      "report": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-macos-report.json",
+        "bytes": 159193,
+        "sha256": "40c5b97f3347c8dfa51c6673e631cdafdce69f1c3680eadd913c61b856e4ea99"
+      }
+    },
+    "secondAttempt": {
+      "macos": 133778868310,
+      "linux": 133778871031,
+      "status": "both whole jobs success",
+      "jobsSnapshot": {
+        "path": "/tmp/peer-native-artifacts-20261117/base-ci-retry-terminal.json",
+        "bytes": 9807,
+        "sha256": "766b377bb18dd55f912ffc103e03fea26433d08fa7e3e35d365c6bed6bb76436"
+      }
+    }
+  },
+  "limits": [
+    "P4 total gate remains open; P5-P7 incomplete; ordinary Ratatui chat disabled.",
+    "Read128KiB/write32KiB remain the previously bounded native subset; larger content/artifacts, remaining path/parent-directory and full file parity require follow-up before migration acceptance.",
+    "Only eight locale vectors and current platform are proved; arbitrary POSIX locale modifiers and other ICU/platform versions are not certified.",
+    "No real provider/IdP, OS Vault, installed-build, full release or long-memory acceptance.",
+    "No personal credential/task migration, install, running-instance restart, default switch, merge, tag or release."
+  ]
+}

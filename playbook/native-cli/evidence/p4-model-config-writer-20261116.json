@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 shared model configuration writer Store foundation and actual Desktop/runtime-node adoption; not complete native configuration commands or P4 acceptance",
+  "candidate": {
+    "commit": "e632120fb2acc22515e3691247ab36c47f829038",
+    "tree": "41ae5d1f98d8d420fa74c61c2dd447619b9fc351",
+    "branch": "codex/native-rust-cli",
+    "pushed": true
+  },
+  "decisionPass": {
+    "classification": "A model configuration write ownership, C test handshake publication",
+    "priorKnowledgeCommit": "dc238b2",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "revision": "ADR131 NR-04 model configuration writer ownership registered and pushed before source. Config file facts only; no permission, Evidence or Context authority change."
+  },
+  "baselineCi": {
+    "commit": "54e020632da7385656e147ec96cee92ef36cb412",
+    "runId": 43818809913,
+    "mergeCommit": "150b4b9ada93f0ffa1b011c82800b9463e9179cd",
+    "mergeTree": "fe02670bd24713d13b4651f22e326fac994cbcd9",
+    "matchesSourceTree": true,
+    "status": "completed",
+    "jobs": [
+      {
+        "id": 133136880644,
+        "platform": "Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133136881114,
+        "platform": "macOS",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "wholeRepositorySuccess": true,
+    "conclusion": "success"
+  },
+  "validation": {
+    "nativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-config-writer-frozen-20261116",
+      "exitCode": 0,
+      "rustTests": 306,
+      "nativeEpisodes": 90,
+      "actualTsInteropRoots": 179,
+      "actualTsInteropChecks": 1018,
+      "ptyChecks": 9,
+      "newConfigCrossLanguageChecks": 13,
+      "focusedConfigTests": 81,
+      "log": {
+        "path": "/tmp/peer-native-config-writer-frozen-20261116/verify.log",
+        "sha256": "58f48264c1611b943b740bc4fe6fa8b944f2d92127b4ea2d15de7df8bbd9868d"
+      }
+    },
+    "workspaceTests": {
+      "command": "pnpm test",
+      "sourceTree": "41ae5d1f98d8d420fa74c61c2dd447619b9fc351",
+      "exitCode": 0,
+      "durationSeconds": 364.379,
+      "status": "completed",
+      "log": {
+        "path": "/tmp/peer-native-config-workspace-tests.log",
+        "sha256": "6c72b9a2ef25df9c5f6246c64bbaea01d52a92ae21dbe7a5690689d4604ae68a"
+      },
+      "all14WorkspacePackagesDone": true
+    },
+    "workspaceTypecheck": {
+      "exitCode": 0,
+      "log": {
+        "path": "/tmp/peer-native-config-types-sealed.log",
+        "sha256": "fb67e20d56a46dd3b4daa217724ec258d054abd06cf297052da5fd927142cab8"
+      }
+    },
+    "architectureAndUi": "passed",
+    "ipc": {
+      "channels": 411,
+      "preload": 445,
+      "main": 359
+    },
+    "packagedMainImports": 887,
+    "artifact": {
+      "bytes": 14469552,
+      "sha256": "d77f18dc649cd9c515bc9b6def022ac09ac55f686d65c4974debbd91510c46d1",
+      "nodeOrBunEngineSidecar": false
+    },
+    "normalAndRecovery": [
+      "Real Desktop public CRUD and Rust Store concurrently perform 20 channel/model creations and 30 independent counter updates in one isolated v2 file. Unknown root and all updates preserved; both languages compute the same raw-file and identity revision.",
+      "Node and Rust reject stale snapshot commits, corruption, explicit future versions and bounds without overwriting the original. Missing alone yields empty; Node legacy adapters retain layouts/unknown fields.",
+      "Common canonical-directory mkdir lock encloses full synchronous read/mutate/write, including Desktop read-time migration and runtime-node explicit OAuth metadata. Nested ownership stays in one process; replaced owners and unknown lock bodies remain untouched.",
+      "Actual delayed Desktop model diagnostic releases lock during HTTP, then skips stale writeback after another Store changes configuration. Pricing backfill re-reads under lock after network.",
+      "0600 temporary file, file fsync, atomic rename and directory fsync. Injected real directory-sync failure after credential and config commit retains actual Vault/config state and reports unknown; no rollback to older credentials.",
+      "The Node lock handles an owner releasing between mkdir EEXIST and lstat within the original deadline. Rust fixture completion marker is atomically published so cancellation assertions wait for a complete JSON handshake."
+    ]
+  },
+  "preservedFailures": [
+    {
+      "log": {
+        "path": "/tmp/peer-native-config-writer-baseline.log",
+        "sha256": "a35cc8dde63b049766b565d2bc6148059465ed35da6facf750a7317a3fc13321"
+      },
+      "observed": "Actual prior Desktop addProvider accepted corrupt JSON as empty and discarded an unknown root field. Both regression tests failed before repair."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-config-writer-sealed-20261116/verify.log",
+        "sha256": "387d7fe21a55093bba2d736eee577962fa8413aedd3ff25a4c5bc67c62a68f40"
+      },
+      "observed": "Actual Rust/Desktop contention hit ENOENT after mkdir EEXIST and before lock lstat. Fixed bounded recompetition, no timeout increase or assertion removal."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-config-writer-fixed-20261116/verify.log",
+        "sha256": "552abe7a902e3a5f0376fc131ef9dc8ff4a07b91e86e3349eb1875a1e64783c3"
+      },
+      "observed": "89/90 Episode tests passed; MCP cancellation test read an empty newly created last-request JSON. Failed owned root .tmpLj2iHy preserved; writer source used truncate/write rather than atomic publish.",
+      "repair": "Test-only helper marker publishes complete bytes via rename; unchanged get/action/cancel=4/no-MCP and killed/reaped assertions passed focused and full native rerun. Failed fixture child PID43453 confirmed absent; no unrelated process signaled."
+    },
+    {
+      "logs": [
+        "/tmp/peer-native-config-focused-final.log",
+        "/tmp/peer-native-config-focused-sealed.log"
+      ],
+      "observed": "Directory-sync injection initially fired on a preceding read-time subscription migration. Fixture now arms only after actual new credential write; both token and config reconciliation assertions remain."
+    },
+    {
+      "logs": [
+        "/tmp/peer-native-config-writer-final-20261116/verify.log",
+        "/tmp/peer-native-config-types-final.log"
+      ],
+      "observed": "Inferred JS exception helper returned void, widening decoded content to undefined. Declared never return rather than weakening the TS serializer input."
+    },
+    {
+      "logs": [
+        "/tmp/peer-native-config-mcp-handshake-fixed.log",
+        "/tmp/peer-native-config-writer-accepted-20261116/verify.log"
+      ],
+      "observed": "Initial test marker PathBuf shadowed request DTO and failed compilation. Renamed marker variable; focused and final full clippy/test pass."
+    }
+  ],
+  "remaining": [
+    "Native model configuration CRUD/creation/selection commands and Ratatui management surface still need the new Store. This card does not claim an interactive user can create a complete account yet.",
+    "Configuration/Vault joint submission and conditional recovery across all native auth/refresh/TS mutation paths, rebuildable metadata, mixed installed-version upgrade/drain and real combined Host acceptance. Existing read fences alone are not atomic with config writes.",
+    "Remaining P4 Grok/Qoder, proxy/cert, Context/compaction strategy, tools, Skill/Plugin/Hook, ACP/headless/commands; complete P5 project-agent, P6 general Ratatui chat/memory, P7 default switch/release/retirement."
+  ],
+  "coverageLimits": [
+    "Isolated synthetic configuration, IdP/model and injected encrypted Vault only; no personal data or real IdP/OS Vault acceptance.",
+    "Current-platform source candidate; no multi-platform installed/full-product/soak/release acceptance.",
+    "No install, restart, release tag or default switch. Interactive Ratatui still only edits drafts."
+  ],
+  "candidateCi": {
+    "runId": 43823605671,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 133152103303,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133152103586,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
+    ],
+    "mergeCommit": "848671e383a976591fb6bf2199362a77af5e3bb6",
+    "mergeTree": "41ae5d1f98d8d420fa74c61c2dd447619b9fc351",
+    "matchesSourceTree": true,
+    "wholeRepositorySuccess": true
+  },
+  "scopeClarification": {
+    "knowledgeCommit": "a986a18",
+    "note": "Later actual-cli scope audit corrected the earlier full new CRUD command prerequisite: old models is a list and PEER_MODEL_* is the standalone configuration source. Preserve this historical receipt; original CLI models/env/selection/auth/metadata recovery and shared writer safety remain required."
+  }
+}

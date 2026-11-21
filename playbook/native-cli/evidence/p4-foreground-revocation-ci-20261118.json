@@ -1,0 +1,167 @@
+{
+  "base": "33327fed3ba0264d744435a2e98ffd0ecbc3dfd9",
+  "tree": "dec1fe60c8678ba1631d675c60e5a401c24ea11a",
+  "patchSha256": "8a25815e3831c13f7926476909cde9ca5c4630e103c41667b05cb7d7a844153a",
+  "archiveSha256": "adf8810df06ca6748f32f4ed7f2e06a83660c1c719ad76089c0aa87fd3a4b5cf",
+  "previousCI": {
+    "run": 44305158070,
+    "head": "33327fed3ba0264d744435a2e98ffd0ecbc3dfd9",
+    "merge": "4d8d567588b7a6e2ef0043a8c9eb0f50bc9912aa",
+    "mergeTree": "937bd33beb2639e8a2eb68c5bd59957c4fd2d553",
+    "attempt1": {
+      "macOS": {
+        "job": 134804696684,
+        "conclusion": "failure",
+        "step": "Native CLI scoped validation",
+        "passed": 322,
+        "failed": [
+          "native_model_oauth::credential_rotation_after_a_real_tool_stops_next_cognition_and_later_task_uses_new_login",
+          "native_provider_host::running_shell_rechecks_actual_policy_stops_its_group_and_admits_a_later_task",
+          "native_result_encoding::shell_failure_stderr_and_ranged_file_metadata_remain_visible_to_the_model"
+        ]
+      },
+      "linux": {
+        "job": 134804697181,
+        "conclusion": "failure",
+        "step": "Install Linux credential-helper build deps",
+        "cause": "HTTP 429 three times from the Microsoft Ubuntu feed"
+      }
+    },
+    "attempt2": {
+      "Linux": {
+        "job": 134815574338,
+        "conclusion": "failure",
+        "step": "Native CLI scoped validation",
+        "passed": 320,
+        "failed": [
+          "native_model_oauth::credential_rotation_after_a_real_tool_stops_next_cognition_and_later_task_uses_new_login",
+          "native_provider_host::running_shell_rechecks_actual_policy_stops_its_group_and_admits_a_later_task",
+          "native_result_encoding::shell_failure_stderr_and_ranged_file_metadata_remain_visible_to_the_model"
+        ]
+      },
+      "macOS": {
+        "job": 134815577116,
+        "note": "Earlier macOS failure carried over"
+      }
+    },
+    "status": "completed",
+    "conclusion": "failure"
+  },
+  "observed": {
+    "osNormalExit": "Actual legacy Shell Session null exit code for exit and exec before the command trailer, preserving available stderr. A subsequent call builds a replacement.",
+    "native": "Actual 33327 package retained unknown and observed stderr for the interpreter exit. The Work revocation also stopped the real process but dropped its trusted policy error into CANCELLED. The fixture-enabled executable reproduced the committed interpreter-replacement fixture timing out waiting for a confirmed Shell result."
+  },
+  "change": [
+    "Record the live authorization failure from the current Work wait before cancelling. Carry that fact into the Provider interruption and original Tool Result plus Shell metadata. The create/mint path is untouched.",
+    "Use an actual child subprocess in the OAuth test and a subshell failure in the existing stderr/error-code test, maintaining the tests' credential rotation, evidence, later-login and result assertions.",
+    "Cover actual interpreter exit separately through the public CLI. Retain observed stderr, original grant and unresolved command where its authenticated frame is missing.",
+    "Check actual group disappearance, original policy cause in both record surfaces, same-directory admission rejection and independent-directory success."
+  ],
+  "verified": {
+    "macArm64": {
+      "publicForeground": 4,
+      "shellSessionLibrary": 10,
+      "fmt": true,
+      "clippy": true,
+      "architecture": true,
+      "publicEpisodeCoverage": {
+        "originalPass": 292,
+        "exactFailedCasesRetested": 34,
+        "retestPass": 34,
+        "initialCause": "Isolated worktree omitted the test-only Credential Helper dist and built JS peers. Default Node was 22. Independently reproduced the missing module under Node 25. Built protocol, credential helper, runtime and conversation fixture packages from the same checkout and reran the exact 34 named cases under Node 25."
+      }
+    },
+    "linuxAmd64": {
+      "publicForeground": 4,
+      "shellSessionLibrary": 10,
+      "exit": 0
+    },
+    "packagedMac": {
+      "publicForeground": 3,
+      "pathContainsNodeOrBun": false,
+      "archiveSha256": "d47cc97e68c358000229cb63c5dd96eba6b01ec0c3a6c9961e1081dcdd0c22db",
+      "peerSha256": "661b238d54415694e430f1a3ae438a9756bc5dc5fd7be819b33cd4a119f59889"
+    }
+  },
+  "logs": {
+    "ci-33327-macos.log": "191e8c8f5190714de606304299ce5f8c2308a630f5cb007e9997c4649b54ad3b",
+    "ci-33327-linux.log": "0a37a697e028483fab5039826bfefce44b783e0f395ef8fc5469bb55c695a5f0",
+    "ci-33327-linux-attempt2.log": "e08135a8e7370029c13e63245dd3fb87e59e908485d9ee7d28f248b2e12b7f78",
+    "legacy-shell-close-oracle.log": "6e1030a0029bf8836d7413745d183911894ee93212f6f0453a36a07074623a62",
+    "33327-mac-shell-ci-focused-red.log": "d2a17835211685b2a6d826d83e0fc70646654916429d86bbdc5bc70f865fc612",
+    "33327-mac-oauth-fixture-enabled-red.log": "855da5d89e2226ee8d29fd4a4cf18dec302e14dcb11701123d9d1489f6552aaa",
+    "foreground-revocation-mac-dec1fe60.log": "56e4ac971c40f8473c864b41f4c863581bcc1059c5330e5a600783259e749522",
+    "foreground-revocation-linux-dec1fe60.log": "1b87b4614fefbf8cd52957fdb8b4d576479e6ec8510375f21df2d1b3830040ad",
+    "foreground-revocation-package-dec1fe60.log": "effbe990eb641ca5e39fcc1b3a1d6bf9f373c34c787135e28a9b7cc38b83b1ea",
+    "foreground-revocation-mac-public-326-dec1fe60.log": "6dbea1c3045f64543e3ccf528adea5f65ad4f2a8cd80f5c3f03bb0ef73d96988",
+    "foreground-revocation-mcp-fixture-first.log": "f09fa3af3c59eb18de70c0af4160ea5a803bae3c88aa8497fc0f1f5b50aab58d",
+    "foreground-revocation-local-js-fixtures.log": "6b546de5cb8097641726f70763e68d59e60d6683d14afc675678131fe75717c0",
+    "foreground-revocation-mac-public-retry-dec1fe60.log": "d72224ff261acac7b2a25c3a896ed4b3c3b7a4f5b1857fe65e697fadf0e446aa"
+  },
+  "publishedCommit": "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f",
+  "candidateCI": {
+    "run": 44311287210,
+    "attempt": 1,
+    "head": "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f",
+    "merge": "6c32440eedc6611d8ad7a467303df66d3d917945",
+    "mergeTree": "dec1fe60c8678ba1631d675c60e5a401c24ea11a",
+    "mergeParents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "a2717f4a8ad8fb5e0c9a2844c12cebf202d7e61f"
+    ],
+    "linux": {
+      "job": 134825787702,
+      "conclusion": "failure",
+      "publicRustEpisodeTestsPassed": 324,
+      "scopedRustTestsPassed": 748,
+      "failedStep": "Native CLI scoped validation",
+      "failure": "episode-conformance.ts expected the TS reader to accept the native Work Shell semantic floor 15 and failed with coordination_schema_unsupported",
+      "jobLogSha256": "a40c91f0dc3553590e3a8427073ff67ce704cbbfe749d068bf1b316dd38ae96a"
+    },
+    "macOS": {
+      "job": 134825788036,
+      "conclusion": "cancelled",
+      "cause": "The job was not acquired by a hosted runner after multiple attempts. No step started."
+    },
+    "status": "completed",
+    "conclusion": "failure"
+  },
+  "episodeConformanceCorrection": {
+    "commit": "80b9807b068568c962c0e6b0d7cb6d4cbbb4e6b9",
+    "tree": "de624eaf5cb35e613ff54b2b0dcebe6a5167bd2f",
+    "patchSha256": "9e972940ab5737226488f04cfff8f86a06492c66ba36b281428e4ebfcecd0af3",
+    "contract": "ADR 131 NR-04 Work Shell. Keep the semantic floor and the current TS storage refusal; preserve the canonical manifest, head, segments and blobs. Retain the two-way TS/Rust round trip for compatible journals.",
+    "macArm64": { "nativePublicTests": 7, "conformanceCases": 58, "fencedRoots": 5, "compatibleRoots": 2, "storageCases": 79 },
+    "linuxAmd64": { "nativePublicTests": 7, "conformanceCases": 58, "fencedRoots": 5, "compatibleRoots": 2, "node": "25.9.0", "bun": "1.2.17" },
+    "macArm64FullNativeScoped": {
+      "exit": 0,
+      "node": "25.9.0",
+      "bun": "1.2.17",
+      "rustTests": 751,
+      "publicEpisodeTests": 326,
+      "episodeDataRoots": 645,
+      "nativeOnlyEpisodeDataRoots": 20,
+      "episodeConformanceCases": 3677,
+      "ptyCases": 9,
+      "fixturePeerSha256": "41420f66b325c74dc8a36e2119532c4ae9e77bc573c8c2d3556f16678606e51c",
+      "featurelessPeerSha256": "097a531140f32d9c79ed153da298e1125ea4be947611a67dfb1184b96fde2b87",
+      "logSha256": "b27818b6e66fc539c2fc85111345994bc2314253bf39f0658e04882884efdf1a"
+    },
+    "checks": "Original validator reproduced the recorded CI error on both platforms. For actual fenced Work, the corrected validator checks old prepare, read and write denial, exact canonical file retention, Rust cold replay with the same durable head, and existing cross-host Goal/history/resource invariants.",
+    "logs": {
+      "floor15-public-mac-original.log": "187c805422989e5a46a788fecb475f71c8462be672be921c1dafd329b64c5a2e",
+      "floor15-public-mac-verification.log": "359ddd433847c3c6e33bc4fd806b6e0615cf49c84824c6e16c5a3c0c1476c45e",
+      "floor15-public-linux-verification.log": "b47ed1496b66e684a8b54a9dce0bd6825cd11b604309b209df1b3f1a582f920e"
+    },
+    "ci": {
+      "run": 44315691651,
+      "head": "80b9807b068568c962c0e6b0d7cb6d4cbbb4e6b9",
+      "checkoutMerge": "678493ba25abdb9eb31eed76907c6da0b0d1e0bf",
+      "checkoutTree": "de624eaf5cb35e613ff54b2b0dcebe6a5167bd2f",
+      "checkoutParents": ["8b0c97175099a91d6495d6dd67ac063a7e262d63", "80b9807b068568c962c0e6b0d7cb6d4cbbb4e6b9"],
+      "conclusion": "success",
+      "linux": { "job": 134841058705, "conclusion": "success", "electronSmoke": "success", "logSha256": "bfab99973f419b533f87b0618b8921868332f77b839e03367e50b30e8040ee5a" },
+      "macOS": { "job": 134841058215, "conclusion": "success", "electronSmoke": "success", "logSha256": "07c5342d669ca3ea3a22a205cc419c0859724cf58f444154c017c28e696c1b5b" }
+    }
+  }
+}

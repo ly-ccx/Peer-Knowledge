@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "phase": "P4",
+  "failedWholeRepoCI": {
+    "commit": "1657e9bb34560d6fb4c610b2da0fb0b9f5afb156",
+    "run": 44399851218,
+    "linux": {
+      "job": 135139580403,
+      "nativeScoped": "success",
+      "full": "failure",
+      "logSha256": "db8602cffb208b131594febad34d175c129c377bf088d31716fd449e612c78b8"
+    },
+    "macOS": {
+      "job": 135139579676,
+      "nativeScoped": "success",
+      "full": "failure",
+      "logSha256": "f558a8378abe2789cab3b16f4882bad5da63db5b5bdd69f809434191ade6c840"
+    },
+    "reason": "Both package Test steps and the built-in retry failed the original source digest check in the same feedback-transport.test.mjs case. Current append/update/replace wrappers gained the Native execution fence in 60ab2011.",
+    "localExactTreeReproductionSha256": "1635b9725badf238127e52b17ef8b8ed21ef9e5bc5d36b8784706c283c96614b"
+  },
+  "pushedCompatibilityTestRepair": {
+    "commit": "f3e0472336c4563b4b3996bccab42404781d44b0",
+    "tree": "42ddb20474c66f6450563f22015ff9000bbc5940",
+    "ciRun": 44405581240,
+    "macFocusedPassed": 15,
+    "macFocusedLogSha256": "49bb649af742bd14aadd810c5bf5024a596491d3d28a79801b71951b611f72c5",
+    "linuxAmd64EmulatedFocusedPassed": 15,
+    "linuxFocusedLogSha256": "b6623012eea12dec34333786e96defa2a22712fec9c45935101740564a8b1912",
+    "macRuntimeSuite": {
+      "workspaceBuild": "success",
+      "buildLogSha256": "be3ab95efd80200f5c5c690ea6a93b771cd358729aed86b7d0c609166e694ad1",
+      "runtimePassed": 2155,
+      "watchPerformancePassed": 1,
+      "logSha256": "e17df830b4c0c5f7fa2e9fcdb121849fb94aa0a5f7dedb1dd03baf9db2372eb2",
+      "setupFailure": {
+        "reason": "The first local suite used stale generated dependencies without nativeWorkHasHookFacts. Rebuilt all workspace packages from the same candidate.",
+        "logSha256": "bef8ccae9f3eaf9e8e2e6afa6dd418461caab651d1bd8fa05e4f06c916b9cca9"
+      }
+    },
+    "proof": "Original pinned old JSONL implementation and digest retained and executed. The added official Store scenarios prove four actual writer fences, index/body byte preservation, and later permitted current write with exact selection cold-read by the old reader."
+  },
+  "isolatedToolPublication": {
+    "tree": "32367d2dfd44993621713bd98ec12d66b669d4ad",
+    "patchSha256": "12dfd7e747df1e364025785a250dbd35dbe6833228df6f526d02dbc3f6d0dbfc",
+    "previousTree": "ce01db590f0c89c64d0ece8c7d84bcdb15729628",
+    "previousFailureSha256": "1108475d23ae58aec94d679df73b1469da4f24e3a3e812c369617f242905e0a6",
+    "harnessSha256": "08b74afe0602eb03841490f24e4978f732557d1b19c2f72ca82f53b258e949ca",
+    "macArm64": {
+      "publicationCasesPassed": 7,
+      "claimCasesPassed": 7,
+      "storeTestsPassed": 149,
+      "architectureCheck": "passed",
+      "publicationReceiptSha256": "f87767f85a22ffb554877a0c1b2accc80d5f62c5c07ddb275edf43452accb503",
+      "claimReceiptSha256": "ab1ae5d2ed5814f0ce11ebaddf8b4ad1806087f460dd7f58ad8ab918e70a5393",
+      "storeTestsLogSha256": "687db56737673a2927cd230b53e38d168c88dde153f7a68399f5f1b9b19fa88f"
+    },
+    "linuxAmd64Emulated": {
+      "publicationCasesPassed": 7,
+      "claimCasesPassed": 7,
+      "publicationReceiptSha256": "ecf841d368d70ed32cda3f6b65392a79cc29592b1c5db84cd2e9a8391738e95b",
+      "claimReceiptSha256": "c9cdadc5b7d001d1e9fc2ffd87e8887f7f3de8e2edc1d84b7df8bfd069f0dccd"
+    },
+    "proof": "Previous Store fails before reaching the real Node file provider because prepared did not publish a canonical Tool Call. New candidate keeps the existing bytes, appends one real tool message with original identity and args, and publishes prepared under the original Store locks. Rust reads the message, revision and independently derives the same approval argument digest. Forced index rename failure after body publication retains body and owner, returns commit uncertain and cannot yield a new dispatch or claim.",
+    "open": "The candidate is isolated and uncommitted. The tested Store preparation publishes a real call, while legacy-production model/Host wiring, canonical result and Evidence publication, usage, complete local stop and reconciliation after restart remain open. The injected partial commit remains protected and has no release observation."
+  }
+}

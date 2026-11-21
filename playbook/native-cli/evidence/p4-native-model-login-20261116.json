@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 configured native ChatGPT/Google account login, logout and authoritative status; P4 total remains open",
+  "candidate": {
+    "commit": "54e020632da7385656e147ec96cee92ef36cb412",
+    "tree": "fe02670bd24713d13b4651f22e326fac994cbcd9",
+    "branch": "codex/native-rust-cli",
+    "pushed": true
+  },
+  "decisionPass": {
+    "classification": "A auth contract; B native implementation; C test orchestration/fixtures",
+    "priorKnowledgeCommit": "0b29cad",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md",
+      "82-project-objectives-and-watches.md",
+      "98-large-history-execution-responsiveness.md"
+    ],
+    "boundary": "ADR131/28/map explicit account commands and actual Vault status registered before source. No tool permission, Evidence or System Context authority change."
+  },
+  "baselineCi": {
+    "commit": "aea028931301e20927f4e322361e3e231f4fa855",
+    "runId": 43809352936,
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs": [
+      133107532651,
+      133107533049
+    ],
+    "cause": "Same five high-level mock host-port omissions on both platforms; real request assertions retained and locally fixed."
+  },
+  "candidateCi": {
+    "runId": 43818809913,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 133136880644,
+        "platform": "Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133136881114,
+        "platform": "macOS",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "mergeCommit": "150b4b9ada93f0ffa1b011c82800b9463e9179cd",
+    "wholeRepositorySuccess": true,
+    "mergeTree": "fe02670bd24713d13b4651f22e326fac994cbcd9",
+    "matchesSourceTree": true
+  },
+  "validation": {
+    "nativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-model-login-sealed-20261116",
+      "exitCode": 0,
+      "rustTests": 305,
+      "nativeEpisodes": 90,
+      "actualTsInteropRoots": 179,
+      "actualTsInteropChecks": 1018,
+      "ptyCases": 9,
+      "actualTsBrowserLoginFlows": 2,
+      "actualTsRefreshForms": 6,
+      "subscriptionRequestCases": 5,
+      "modelContextChoices": 77,
+      "log": {
+        "path": "/tmp/peer-native-model-login-sealed-20261116/verify.log",
+        "sha256": "18b879f74d0691159867ee26acf1ab81f4a251ec6c034dc4ffd402f15448b3b4",
+        "bytes": 68356
+      }
+    },
+    "workspaceTests": {
+      "command": "pnpm test",
+      "all14WorkspacePackagesDone": true,
+      "failureSummaries": 0,
+      "finalUpgradeMatrix": "passed, 1 real tagged upgrade/downgrade/recovery/updater matrix test",
+      "rootProcess": "Owned PIDs 93783/93784 observed live through upgrade:test, then both absent after final passing summary. Original exec session handle lost during context compaction; no shell exit code fabricated. Complete package/final-chain summaries are the observation evidence.",
+      "log": {
+        "path": "/tmp/peer-native-model-login-workspace-tests-sealed.log",
+        "sha256": "9cd94d2b981e56b863dea0993b3f389a168e1e68b4690289757c73c8fa555f0e",
+        "bytes": 1265938
+      },
+      "desktopMain": {
+        "tests": 6367,
+        "passed": 6362,
+        "skipped": 5,
+        "failed": 0
+      },
+      "legacyTui": {
+        "passed": 880,
+        "failed": 0
+      }
+    },
+    "workspaceTypecheck": {
+      "result": "all package Done, no errors",
+      "log": {
+        "path": "/tmp/peer-native-model-login-types-final.log",
+        "sha256": "c2931ad856704b25b545540844481daf475a5378606da869a97dc4da29d3a498",
+        "bytes": 1294
+      }
+    },
+    "focused": {
+      "desktopHighLevelOAuthFiles": 152,
+      "viteSdkPolicy": 3,
+      "runnerFaultScenarios": 3,
+      "ipcChannels": 411,
+      "ipcPreload": 445,
+      "ipcMain": 359,
+      "packagedMainImports": 886,
+      "architectureAndUi": "passed",
+      "fmtClippyReleaseBoundary": "passed"
+    },
+    "featurelessArtifact": {
+      "path": "target/release/peer-native",
+      "sha256": "9aa5fdafd490a1be9c6a57921b9566bc1a3cbcef07f2ecf2dd753de62b0a6d1e",
+      "bytes": 14468976,
+      "browserFixtureMarkerPresent": false,
+      "refreshFixtureMarkerPresent": false,
+      "encryptedHelperStatusLogoutCases": 4,
+      "childPath": "/nonexistent",
+      "nodeOrBunEngineSidecar": false
+    },
+    "helperArtifact": {
+      "path": "target/release/peer-credential-helper",
+      "sha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c",
+      "bytes": 814176
+    },
+    "normalAndRecovery": [
+      "Existing configured channels only; actual encrypted Rust Helper Vault is authoritative even when oauthConfigured hint is false. llm-providers.json stays byte-identical.",
+      "Real native CLI + local IdP PKCE callback + real model SSE + read_file + PermissionGrant/ToolResult/Evidence for both ChatGPT and Google.",
+      "Forged state/Host/path/method and duplicate parameters, 16-connection bound, port conflict, denial, signal, timeout and partial token HTTP cancellation preserve prior credentials and close owned resources.",
+      "New login/logout/config change before or during exchange cannot be overwritten by a late conditional commit; next explicit login succeeds.",
+      "Pending unknown refresh can be replaced by explicit reauthorization; logout is idempotent; lost commit receipt reconciles actual Vault via status without code replay.",
+      "Old Helper lacks CAS: auth refuses before URL/remote effects; fresh read-only status remains supported. Cancellation while negotiating reaps the real helper and exits cancelled.",
+      "Explicit malformed token_type and blank/CRLF access reject before commit; pinned token HTTP rejects redirects/replay, oversized responses, invalid expiry/account.",
+      "Shared loopback parser preserves MCP IP-only redirect and error policy; existing MCP conformance/transport tests rerun in full native gate."
+    ]
+  },
+  "preservedFailures": [
+    {
+      "log": "/tmp/peer-native-model-login-ci-two-files-before.log",
+      "observed": "147 pass / 5 fail",
+      "repair": "Test host adapters implement fresh-token refresh port; same two files 152 pass after."
+    },
+    {
+      "log": "/tmp/peer-native-model-login-helper-cancel-before.log",
+      "observed": "Helper negotiation cancellation exited 3 instead of 4",
+      "repair": "Preserve cancellation mapping and CLI cancel state; actual child kill/reap and no authorization URL verified."
+    },
+    {
+      "log": "/tmp/peer-native-model-login-token-type-before.log",
+      "observed": "Explicit null token_type accepted as absence",
+      "repair": "Require Bearer string whenever present; absent remains compatible. Exact regression and full native gate pass."
+    },
+    {
+      "logs": [
+        "/tmp/peer-native-model-login-workspace-tests.log",
+        "/tmp/peer-native-model-login-workspace-tests-final.log"
+      ],
+      "observed": "Watch wall-clock benchmark exceeded original 500ms under package parallel file load; actual reads remained 144. Isolated original file passed.",
+      "repair": "Same original eight test globs retained. Package runner executes 265 behavioral files, then the unchanged Watch benchmark. Three fault scenarios prove either phase failure remains nonzero and benchmark still runs after behavioral failure. No product Watch or threshold change; this is orchestration, not a product performance claim."
+    },
+    {
+      "log": "/tmp/peer-native-model-login-workspace-tests-isolated-scale.log",
+      "observed": "Shared dependency realpath outside worktree was refused by Vite fixture default fs.allow",
+      "repair": "Test server alone allows normal workspace plus exact resolved SDK public entry; production policy untouched. All three actual policy checks and full workspace chain pass."
+    },
+    {
+      "observed": "Runner self-test inherited NODE_TEST_CONTEXT and Node skipped recursive test execution",
+      "repair": "Independent fixture clears only NODE_TEST_CONTEXT; failure propagation assertions now actually execute."
+    }
+  ],
+  "remaining": [
+    "Complete native model configuration CRUD, account creation, shared writer ownership and rebuildable metadata recovery. Read fences are not atomic against uncooperative legacy config writers.",
+    "Mixed installed version/old pre-read process and external SDK upgrade/drain, direct combined real Host execution and shared default-domain acceptance.",
+    "Grok/Qoder, proxy/cert parity, complete Context/compaction strategy and discovery, remaining tools, Skill/Plugin/Hook, ACP/headless/commands.",
+    "P5 complete project-agent/Bot chain; P6 full Ratatui general chat and large-history/four-hour memory acceptance; P7 installed/release/default switch and legacy CLI retirement."
+  ],
+  "coverageLimits": [
+    "Synthetic IdP/model network and injected encrypted KeyStore are not actual public IdP, paid model or OS Vault acceptance.",
+    "Local macOS validation only; no new multi-platform installed/release/full product acceptance.",
+    "Interactive Ratatui still only edits drafts; restricted native exec is not full general chat.",
+    "No install, personal data migration, running app restart, release tag or default CLI replacement."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "source": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+  "tree": "ca3a5ebd341a414fe1d802e248f5105e04eb65e6",
+  "merge": "ae6a728e6ab773459bb9301e3356dfe669de8f07",
+  "parents": ["8b0c97175099a91d6495d6dd67ac063a7e262d63", "db16e7be9c077dc42b78fa9ce0306ee9ae41da46"],
+  "run": 44245930398,
+  "attempt": 1,
+  "result": "success",
+  "jobs": [
+    {
+      "id": 134604752291,
+      "name": "ci-macos-14",
+      "conclusion": "success",
+      "checkoutAt": "2026-11-18T05:41:10.6680170Z",
+      "nativeGatePassedAt": "2026-11-18T06:05:08.0760470Z",
+      "logSha256": "c91d543eaef8e749214fbdba71ecc7f06cdba8bf3753c0162617977f9d070690"
+    },
+    {
+      "id": 134604752861,
+      "name": "ci-ubuntu-latest",
+      "conclusion": "success",
+      "checkoutAt": "2026-11-18T05:41:06.0357195Z",
+      "nativeGatePassedAt": "2026-11-18T05:57:26.5692355Z",
+      "logSha256": "9b5140b68685f52123015c325f28772472aec72273e3c99685c17284500e8a68"
+    }
+  ],
+  "successfulSteps": ["Build", "Native CLI scoped validation", "Check packaged main-process imports", "Typecheck", "Architecture check", "Test", "Platform Electron smoke"],
+  "nextSource": "179fd29a7062275141e871945d59f626a5241dee",
+  "scope": "Whole-repository CI on the ordinary Hook source. The later delegated Hook and local image tree has its own verification."
+}

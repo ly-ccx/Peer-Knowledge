@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "migrationPhase": "P4",
+  "branchHead": {
+    "commit": "ae6dd9a8b7485ec27b5e0e73898a243780d6b0e6",
+    "ci": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775",
+    "macos": {
+      "job": 135116260452,
+      "failed": "Native CLI scoped validation",
+      "failures": [
+        "actual_shell_interruptions_drain_owned_child_keep_facts_and_admit_later_work reports actual group survived",
+        "command_cancellation_timeout_revocation_and_output_limit_reap_the_real_group reports git_query_stop_unconfirmed"
+      ],
+      "log": {
+        "file": "ci-44393251775-mac.log",
+        "sha256": "0a68b7c28c39ee4010c33264c23e01aae1aea22168f83307db51096430d6b4fe"
+      }
+    },
+    "linux": {
+      "job": 135116260939,
+      "nativeScopedValidation": "passed",
+      "fullJobAtRecording": "in_progress"
+    }
+  },
+  "classicForeignExecution": {
+    "before": {
+      "file": "same-session-production-modules-baseline.log",
+      "sha256": "0a67178d5d3b61a8e907b4fb62b271ed26ff26068aaa1efc1b41157c1ae9cb9b",
+      "observation": {
+        "sessionId": "7b4488fa-f499-4091-b19d-d57bb65a9746",
+        "nativeBinarySha256": "d3d78cc87adabd03148fa01f4ae6dcac9a1ec60008ded986da479212bda8057c",
+        "ownedBeforeTest": true,
+        "beforeRelease": {
+          "oldSentProviderRequest": true,
+          "nativeStillRunning": false,
+          "originalIndexUnchanged": false,
+          "originalBodyUnchanged": false,
+          "oldResult": {
+            "cli": {
+              "result": {
+                "status": "completed",
+                "turns": 1,
+                "output": "legacy controlled terminal reply"
+              },
+              "draft": "Independent classic submit marker",
+              "id": "7b4488fa-f499-4091-b19d-d57bb65a9746",
+              "mode": "detect"
+            },
+            "stderr": ""
+          }
+        },
+        "afterRelease": {
+          "nativeExit": 1,
+          "nativeResult": {
+            "sessionId": "7b4488fa-f499-4091-b19d-d57bb65a9746",
+            "ok": false,
+            "result": null,
+            "error": "CONTEXT_SNAPSHOT_CHANGED",
+            "turns": 1,
+            "durationMs": 4331,
+            "usage": {
+              "usageScope": "runtime_turn",
+              "providerRequestCount": 1,
+              "inputTokens": 0,
+              "outputTokens": 0,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0,
+              "totalTokens": 0
+            }
+          },
+          "nativeStderr": ""
+        },
+        "providerHosts": [
+          "native",
+          "legacy"
+        ]
+      }
+    },
+    "guarded": {
+      "file": "same-session-production-modules-guarded.log",
+      "sha256": "d1d53ccac459c7d9b85bc0e75530413d0e8b139a5a05fff17f794aae7e4734fe",
+      "observation": {
+        "sessionId": "ac32a6ba-bb85-47b8-a3c1-a92a49c67f84",
+        "nativeBinarySha256": "d3d78cc87adabd03148fa01f4ae6dcac9a1ec60008ded986da479212bda8057c",
+        "ownedBeforeTest": true,
+        "beforeRelease": {
+          "oldSentProviderRequest": false,
+          "nativeStillRunning": true,
+          "originalIndexUnchanged": true,
+          "originalBodyUnchanged": true,
+          "oldResult": {
+            "cli": {
+              "error": "Error: conversation_execution_busy",
+              "draft": "Independent classic submit marker",
+              "id": "ac32a6ba-bb85-47b8-a3c1-a92a49c67f84",
+              "mode": "reject"
+            },
+            "stderr": "Error: conversation_execution_busy\n"
+          }
+        },
+        "afterRelease": {
+          "nativeExit": 0,
+          "nativeResult": {
+            "sessionId": "ac32a6ba-bb85-47b8-a3c1-a92a49c67f84",
+            "ok": true,
+            "result": "native controlled terminal reply",
+            "error": null,
+            "turns": 1,
+            "durationMs": 484,
+            "usage": {
+              "usageScope": "runtime_turn",
+              "providerRequestCount": 1,
+              "inputTokens": 12,
+              "outputTokens": 4,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0,
+              "totalTokens": 16
+            }
+          },
+          "nativeStderr": "",
+          "recheckOnExplicitSubmit": {
+            "cli": {
+              "result": {
+                "status": "completed",
+                "turns": 1,
+                "output": "legacy controlled terminal reply"
+              },
+              "draft": "Independent classic submit marker",
+              "id": "ac32a6ba-bb85-47b8-a3c1-a92a49c67f84",
+              "mode": "reject"
+            },
+            "stderr": ""
+          }
+        },
+        "providerHosts": [
+          "native",
+          "legacy"
+        ]
+      }
+    },
+    "localValidation": {
+      "storeTests": 149,
+      "cliControllerAndComposerTests": 86,
+      "typecheck": true,
+      "architectureAndUiChecks": true
+    },
+    "boundaries": "The classic controller checks original execution metadata before starting its local turn. The Store protects context, history and terminal patch writes under the existing lock. A rejected input keeps the draft and the explicit retry follows the same session after the known Rust owner settles.",
+    "unverified": "This is a production module smoke with external owned processes and synthetic responses. The direct terminal negotiation attempts never reached an interactive rendered session and do not count as a PTY acceptance. The guard is not a durable TS claim and does not prove atomic protection against a later Rust acquisition, Desktop send, or an already installed legacy version."
+  },
+  "localStopObservation": {
+    "sourceTree": "34210c4a224ac6bf3a2539413ee28922e9626844",
+    "linuxReleaseBinarySha256": "459c199920e9e8ce72fd09ede6c709cd5fa3f82fee318d7944564af072788f35",
+    "oldReleaseReceipt": {
+      "file": "owned-shell-delayed-reap-exact-red.log",
+      "sha256": "cd106a2d0ca7f6ca494bc9e33c4b4983c9ccef48bbff3ae15625db02a7679dd0",
+      "observation": {
+        "cliExit": 1,
+        "alreadyExitedBeforeDescendantReap": true,
+        "reapedDescendants": 1,
+        "localStopProved": false,
+        "executionPhase": "stopping",
+        "pendingPhases": [
+          "dispatching"
+        ],
+        "observedUsageCommitted": true,
+        "responses": [
+          "model"
+        ],
+        "durationSeconds": 0.62,
+        "result": {
+          "sessionId": "acf1ad11-58a2-4e2f-8087-55ac712dc258",
+          "ok": false,
+          "result": null,
+          "error": "native_execution_stop_unproven",
+          "turns": 1,
+          "durationMs": 772,
+          "usage": {
+            "usageScope": "runtime_turn",
+            "providerRequestCount": 1,
+            "inputTokens": 12,
+            "outputTokens": 4,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "totalTokens": 16
+          }
+        }
+      }
+    },
+    "reapsWithinBudget": {
+      "file": "owned-shell-delayed-reap-exact-green.log",
+      "sha256": "e7742cdde84868b26a012a94ee7c5fe8741ef5bd8514dcd422e7a0a5344e32bd",
+      "observation": {
+        "cliExit": 1,
+        "alreadyExitedBeforeDescendantReap": false,
+        "reapedDescendants": 1,
+        "localStopProved": true,
+        "executionPhase": "recovery_required",
+        "pendingPhases": [
+          "outcome_unknown"
+        ],
+        "observedUsageCommitted": true,
+        "responses": [
+          "model"
+        ],
+        "durationSeconds": 0.731,
+        "result": {
+          "sessionId": "ad0d24de-7a00-435a-a009-9c82b837083c",
+          "ok": false,
+          "result": null,
+          "error": "execution_outcome_unknown",
+          "turns": 1,
+          "durationMs": 1508,
+          "usage": {
+            "usageScope": "runtime_turn",
+            "providerRequestCount": 1,
+            "inputTokens": 12,
+            "outputTokens": 4,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "totalTokens": 16
+          }
+        }
+      }
+    },
+    "stillPresentAfterBudget": {
+      "file": "owned-shell-delayed-reap-exact-bounded.log",
+      "sha256": "fa0e020af648d2596080f7f3b4d7aa99e5a591ac300b0eba5cf1ad1c35a3033a",
+      "observation": {
+        "cliExit": 1,
+        "alreadyExitedBeforeDescendantReap": true,
+        "reapedDescendants": 1,
+        "localStopProved": false,
+        "executionPhase": "stopping",
+        "pendingPhases": [
+          "dispatching"
+        ],
+        "observedUsageCommitted": true,
+        "responses": [
+          "model"
+        ],
+        "durationSeconds": 2.619,
+        "result": {
+          "sessionId": "2fb9350f-5f81-4366-bf02-369fb7117a3e",
+          "ok": false,
+          "result": null,
+          "error": "native_execution_stop_unproven",
+          "turns": 1,
+          "durationMs": 2933,
+          "usage": {
+            "usageScope": "runtime_turn",
+            "providerRequestCount": 1,
+            "inputTokens": 12,
+            "outputTokens": 4,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0,
+            "totalTokens": 16
+          }
+        }
+      }
+    },
+    "macRuntimeLibrary": {
+      "testsPassed": 169,
+      "clippyStrictPassed": true,
+      "log": {
+        "file": "stop-owned-group-macos-sized-test-stack.log",
+        "sha256": "a83c39792d107d1952b653ad8172e32dd83e3a0afba87108bdc59c159377d58d"
+      },
+      "testStackBytes": 8388608,
+      "originalDefaultLocalTestStack": {
+        "baseline": "overflow",
+        "candidate": "overflow",
+        "logs": [
+          {
+            "file": "stop-owned-group-mac-baseline-isolated.log",
+            "sha256": "c1069febb95d7a882d56a38a80e1a2d8eadc944665244d28cf0b4ff1be5c3d11"
+          },
+          {
+            "file": "stop-owned-group-mac-isolated-current.log",
+            "sha256": "a3718bb3bbbcb5d3c73dcb3c7a37d1bdce149a71367fc07890d0785bf42b4182"
+          }
+        ]
+      }
+    },
+    "method": "Linux/amd64 in a disposable container. The real recorded Shell command launches sleep. The harness temporarily stops only the observed test Shell leader to keep a kill/reap race out of the observation, then sends cancellation to the original Peer process. The container subreaper reaps the original group after the controlled hold. The 600ms outcome and 2600ms outcome keep the same model-use count and preserve unknown tool effects.",
+    "bounds": "Original total stop budgets remain Git 2000ms and Shell/Hook 2200ms. Group disappearance and Child wait are both required; unconfirmed stopping retains dispatch and billing."
+  },
+  "combinedEvidence": {
+    "previousTree": "7e2b7422c54ba8d9e98d1f27f3f7fb7b7d6935c9",
+    "previousNativeGate": {
+      "episodesPassed": 365,
+      "episodesFailed": 5,
+      "fullResult": "failed",
+      "log": {
+        "file": "combined-native-scoped.log",
+        "sha256": "52a9663edc34dba4a482541ce2c3e6f5a3e537abfd7d240125bfd7fded3bdce8"
+      },
+      "replaySameFixtureBinary": {
+        "passed": 5,
+        "testThreads": 2,
+        "log": {
+          "file": "combined-goal-failures-bounded-replay.log",
+          "sha256": "8f4745cbb49efc836c705fbd237b2fe6beb9cf51e34de01e26a0788afed9d398"
+        }
+      },
+      "interpretation": "The failed full run remains rejected. Timeouts and observed turn mismatch reproduced in that loaded run. The scoped replay passed with the same tests and executable; cause is not assumed to be fully established."
+    },
+    "nextTree": "d37d1e29911401c817f02feb7f9e7adf46fe0c20",
+    "nextTreeNativeGateAtRecording": "running",
+    "remotePushed": false
+  }
+}

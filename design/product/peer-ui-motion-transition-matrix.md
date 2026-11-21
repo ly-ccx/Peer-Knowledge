@@ -1,5 +1,46 @@
 # Peer UI、动效与过渡体系覆盖表
 
+## 原生 Ratatui 阅读锚点、草稿保留与有界视口虚拟化（2026-11-19，P6 候选 `3b486756`）
+
+CLI（ADR 122/129/130）：纯视图 `peer-tui` 以静态终端渲染实现 Bot 列表/对话、Classic 对话与 ModelPicker，无动画计时器、无后台抢焦点、无隐式滚动劫持。
+- **阅读锚点 (`ReadingAnchor`)**：用户在浏览历史时维持 `Anchored` 状态，新流式分片或后台 Bot 回复仅更新状态提示，不强制拉回底部；显式 `/latest` 或 `PgDn` 恢复 `FollowingLatest`。
+- **有界缓存与大消息降级**：`ByteBudgetLru` 强制 32 MiB wrap cache / 16 MiB 页缓存 / 8 MiB 流式预算上限，单条 13 MB / 100 万行消息通过 32 KiB / 256 行分块上限有界渲染；宽/窄视口（120×40 与 40×16）和 PTY hangup 均保留光标定位与终端恢复，无 panic。
+- **焦点与草稿连续性**：ModelPicker（`F3`/`/model`）与审批浮层临时接管按键，`Esc` 或审批结束后归焦 Composer 并原样保留 Unicode 草稿；Bot ↔ Classic 通过 `F2` 在单 `TerminalGuard` 内切换，不闪退或破坏 termios。验证覆盖 15 项单元测试、22 项 release PTY 与 ADR 130 基准，物理 IME 候选窗、读屏器与 4 小时发布前长稳留待发布验收。[ADR 130 证据](../../playbook/native-cli/evidence/p6-adr130-memory-bench-20261119.json)
+
+## 原生终端续跑的草稿、历史和权限焦点（2026-11-19，候选）
+
+复用原终端恢复 guard。历史有界分页，主动上滚后留在原页，PgDn 显式回到最新。审批临时占用输入，结束后继续原草稿或读位。小窗口提示放大，终端实际重新画出权限详情后才接受批准。收到 Host 输入落盘回执才清本轮草稿，停止后仍可看到标为未完成的流式预览。终端状态为静态文本。实际 PTY 与解包产物自测，辅助技术及长时验收由后续 P6 覆盖。[回执](../../playbook/native-cli/evidence/p4-native-session-resume-20261119.json)
+
+普通 exec 认证拒绝在现有文本/JSON 终态表达。头部 HTTP 状态决定退出，工具与费用的终态仍来自其原有写入回执。 本机验证见[认证退出回执](../../playbook/native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。
+
+## 普通恢复入口与中断连续性（2026-11-18，dc9df727）
+
+CLI，ADR129–131。`recover --session` 是静态管理输出，不启动raw/alternate screen，不引入输入读取者或后台抢焦点；draft/focus/reading position及motion在此入口N/A，完整交互由P6另验。恢复状态仅消费原canonical执行/Grant/Result/Evidence和实际OS/账本回执，不以时间或动画创造停稳/成功。活owner跨TZ/locale保持拒绝，旧显示身份仍活时明确unproven；取消与SIGKILL由实际FD释放恢复互斥，原孤锁保全并显示支持的离线诊断。解压featureless包22真实Host、5崩溃窗口/旧状态及9PTY见[回执](../../playbook/native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)。实现者自审；物理IME/读屏/完整Ratatui发送与长对话内存、旧安装drain/默认切换未验收。源码修正与发布接受分开，P4仍开放。
+
+## 原生普通 exec 的输入与退出连续性（2026-11-18，候选）
+
+CLI，ADR65/129–131。argv 优先于 stdin，普通无头入口不初始化全屏终端；stdin 在唯一 owner 中读取，收到取消后结束真实读取，不遗留后台输入线程。无 TTY 的 ask 在数据或模型效果前返回用法错误；实际交互批准继续复用现有 TerminalPermission，不新增读取者、动画或焦点切换。stdout 提供原文本/JSON 回执，终端控制文本安全编码；执行中断先保存实际结果、停稳与费用，再呈现终态。真实 SIGTERM 用例通过实际管道消费或 canonical running child 确认准备状态，再发送信号；不把启动延时当生命周期证明。证据与范围见[普通 Host 回执](../../playbook/native-cli/evidence/p4-native-ordinary-host-20261118.json)。完整 Ratatui 的发送、IME、阅读位置、读屏、长期内存及安装仍待 P6/发布验收；实现者自审。
+
+## 原生 CLI Git 读取范围与恢复连续性（2026-11-17）
+
+CLI，`b308ff75`/tree `e2758723`。沿原静态终端提示显示具体file-read范围与本次调用；无新动画、焦点抢占、第二stdin读取者或模型文本审批。每个实际外置来源独立批准/拒绝，6秒等待保持续租；终态来自Host/Store，primary Grant不会因后续拒绝被倒改。真实PTY、新增公开Git8项及同一完整583 Rust/619根3459互读/9PTY通过；featureless产物再跑5项公开函数与7根35互读。只读任务读取锚点与写claim分开；硬退出后产物/unknown保全，不能以进程死亡或恢复文字画成成功。见[回执](../../playbook/native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审，完整普通对话/草稿/阅读位置、系统IME/读屏、安装与长期内存仍属P6/发布验收，不以本卡替代。
+
+## 原生 CLI 权限等待与终态连续性（2026-11-17）
+
+CLI，`8526db01`，tree `aa059e57`。原静态授权提示增加5分钟未决定即暂停的说明，继续唯一stdin读取者及原[y/N]/Ctrl-C交互；pending对象拥有timer与输入future，终态后不保留后台stdin任务。无新动画/焦点切换。到期和取消的终态来自Host与Store，后续工具不能消费迟到回答；实际PTY覆盖批准/拒绝/TERM/到期/迟到输入与后续任务，原6秒延迟批准保持heartbeat的用例通过。Darwin测试保留自有slave以读取进程退出后的真实stderr，不把Child::Output.stderr误作PTY输出。25项Host测试通过，完整原生门禁572 Rust/237公开Episode/603根3374实际互读/9PTY及固定featureless产物复核通过，独立全仓CI待核对；实现者自审，系统IME/读屏/安装与完整P6另验。见[权限回执](../../playbook/native-cli/evidence/p4-native-permission-wait-20261117.json)。
+
+## 原生CLI Grok设备授权（2026-11-17）
+
+CLI，`5182ad5e`，授权提示沿结构化JSON输出，增加公开userCode/有效期；不自动开浏览器、不抢焦点或创建动画。URL/控制文本/secret回显先校验；取消沿实际owner停稳，原浏览器登录输出及草稿不受本次管理命令替代。9PTY覆盖原终端恢复，设备等待/活动HTTP取消及后续新登录走公开CLI测试；featureless固定URL TLS验证通过。ADR108补全只输出原脚本或帮助，不开TUI、不改变焦点或shell文件；无HOME/TTY/JS入口与实际Bash复核通过。实现者自审；完整P6、系统IME/读屏与安装验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-native-grok-20261117.json)。
+
+## 原生CLI用量与中断核对（2026-11-15）
+
+CLI，`9fb1b4ff`，ADR25/56/129–131。沿原终端输入、JSON回执和静态错误提示，无新动效或抢焦点。账本阻断提示区分首次准入修正与已停稳回合的recover。实际SIGTERM在受控I/O挂起期间仍被接收，先停稳再完成已知账本，后续任务可准入；系统IME/读屏/安装版未验收。 28项真实公开CLI测试、8项PTY及实现者自审；完整P4/发布验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-durable-ledger-host-20261115.json)。
+
+## Bot 设置保存后的读取连续性（2026-11-15）
+
+P06，`6406f7af`。沿原 Frost 模型/设置控件、焦点、读位和静态保存反馈；不新增动效。只读投影按已发布保存回执和读发起时的对象身份阻止迟到回滚，原刷新与失败恢复保留。实现者检查明暗设置截图；范围不含系统辅助技术或安装版。 25 项聚焦、9 项邻接测试及 type/build 通过。原 CI 失败、复现与 Electron 跟进见[回执](../../playbook/native-cli/evidence/p4-ci-profile-recovery-20261115.json)。
+
 ## ADR 118 固定结果的来源状态
 
 P14，`15915dd7`。静态来源状态在生成内容之前可读，详情沿原 MotionDetails、Frost 与 SVG 展开。保存的观察时间和范围仍属原快照。切换或重开沿原固定引用，焦点和草稿使用原恢复路径。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
@@ -367,7 +408,7 @@ E16/E17-F5；基线 040a3e1b，本批代码 [59451598](https://github.com/ly-ccx
 | F5-21 原生 Quick Chat 弹选窗口 | DOM 每次真实打开一次 fade 入场；退出依主进程/OS 即时隐藏，既有 closed 事件同时送达独立菜单宿主清旧内容 | 不延迟选择/失焦/hide IPC，不另造窗口许可/状态 | S；V 真窗口重开/焦点/旧事件/多屏 · E11/E13 |
 | F5-22 OAuth 授权码、保存完成/切页/目标交接 | 保共享入场；这些结束由真实流程或目标页面立即承接 | 删除 noop onClose，Escape 不再把待授权面淡为空壳；真实完成不为动画等待 | S；V 授权完成/失败/重复 Escape/目标消失 · E08/E13 |
 | F5-23 Workbench tabs/browser keepalive、历史正文/行内技术详情 | 保原局部 tabs/折叠/静态阅读，不额外 remount guest 或重播历史 | 这是内容/对象连续性；不因“全产品动效”给每条历史补入场 | S 沿用；V 真实 guest/读位/焦点 · E05/E11/E13 |
-| F5-24 Gateway 两网页、TUI/CLI/ACP、系统 select/dialog/context menu | Gateway 原生 select/行内面；终端无 DOM；系统窗口按宿主绘制 | DOM 动画 N/A/有意静态，无跨宿主 renderer CSS；业务与原生选择保持即时 | 源码登记；V 真宿主/辅助技术 · E11/E13 |
+| F5-24 Gateway 两网页、TUI/CLI/ACP、系统 select/dialog/context menu | Gateway 原生 select/行内面；终端无 DOM；系统窗口按宿主绘制 | DOM 动画 N/A/有意静态，无跨宿主 renderer CSS；ACP 工具更新按同一调用追加结构化事实，焦点由编辑器持有 | ACP 参数、结算和取消已过 [SDK 与进程验证](../../playbook/native-cli/evidence/p4-acp-tool-presentation-20261119.json)；V 真宿主/辅助技术 · E11/E13 |
 
 本次专项已验证的 F5-02/05/13/15/17/20 子用例及源头见本文顶部 PR214/215 记录；不能将专项通过扩展到整行全部 V，以下为原始批次的完整待核列表。
 
@@ -855,3 +896,43 @@ P06 工作现场保持原行身份、打开任务动作和阅读位置。`8907cb
 ## 本地持久化失败与流终态连续性（2026-11-06，范围内候选）
 
 P06 的 done/aborted/error 只归并原会话表达层，不再用全量消息快照覆盖下一轮占位。草稿保留，沿原流路由/静态结束状态，无新增动画或焦点动作。工作面板按同一宿主 followUp.local_persistence_failed 保留 Bot 当前技术阻塞，用户可进入原任务/恢复入口；排队不表达为执行成功。真实回调+Store 和任务投影的范围内检查见 [F1/F4/F7](../../playbook/v0.1.0/persisted-turn-recovery.md)。不据此宣称安装版、系统辅助技术或完整产品回归已验收。
+
+## 原生 CLI NR-01 候选（2026-11-14）
+
+2026-11-16 本地原生包 `4cf7a4c8`：T10 保持静态退出，无动效（N/A）。真实关闭 PTY 后，已初始化输入源须有界返回并退出；终端消失后不制造可见恢复或任务成功。原草稿/焦点/授权交互未新增或改义。9PTY、5次额外hangup与33解包Runtime场景见 [打包回执](../../playbook/native-cli/evidence/local-native-package-20261116.json)；实现者自审，完整TUI、安装、真实终端/IME/读屏和P4/P5仍未验收。
+
+NR-04 MCP OAuth（2026-11-16，`c8479317`）：T07/T10 静态交接，motion N/A。CLI pending URL / loopback 已收到 / Vault提交完成分别表达，回调不当成功、登录不当工具批准；用户拥有浏览器导航和 Ctrl-C/信号取消。旧代 / 原文件与未知效果保持，晚到回调受代际 CAS 拒绝；初始化期间轮换阻断工具与后续认知。沿原 Host / Evidence 与终端 guard，无新增草稿、滚动或焦点操作。原生公开登录 / 刷新 / DCR / 错误 state/issuer / 取消及8PTY见 [凭据回执](../../playbook/native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。实现者自审，真实浏览器、系统辅助技术、Keychain、安装与完整 TUI / P4/P5 未验收。
+
+ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时草稿 / 静态候选说明，不发送、不执行、不持有权限真值。目标是原生终端输入 / 退出骨架，不代表 Bot 功能或默认入口已迁移。
+
+状态：空 / 中文与组合字 / 大粘贴 / 大小超限 / 发送未启用 / 退出确认 / Esc 继续 / resize / 正常与异常收尾。事实源是纯 Composer reducer 与终端 guard；用户拥有草稿和明确退出决定。静态，无动效（motion N/A）；终端 cell / caret 保持可见，输入内容不发模型。
+
+验证：Ratatui TestBackend + Rust reducer，8 项真实 PTY（含 Unicode paste、resize、Ctrl-C / Ctrl-D、SIGTERM、panic / error、尺寸拒绝）通过。物理 IME / 日用终端 / 读屏 / 已安装包未覆盖；临时草稿没有持久恢复，P2 后续接入，不能算 T06 / T10 全面验收。详见 [迁移账本](../../playbook/native-rust-cli-migration.md)。
+
+NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显式 PEER_AGENT_HOME / PEER_USER_DATA_PATH 的真实子进程入口识别配置且不创建数据，PATH 无 JS Runtime；边界组合先失败后修复。临时草稿 / 无执行状态不变，8 项 PTY 仍通过，不扩大为完整 CLI 或发布接受。
+
+NR-04（2026-11-15，`84007b83`）：四种基本模型 wire 复用 T06/T10 静态 exec/recover 控制，motion N/A；供应商切换不创造审批或结果事实。流结束与断流均由结构化协议状态收口；连续性材料只在同一执行和精确历史身份下回传，签名不成为界面/磁盘权限真值。公开多轮执行、客户端关闭连接、Helper 头、8 PTY 的候选与结果见 [P4 首卡证据](../../playbook/native-cli/evidence/p4-model-wires-20261115.json)。草稿入口、焦点、阅读锚点仍为 NR-01 范围，不称完整 TUI、独立体验或安装验收。
+
+NR-04 Context（2026-11-15，`10c86bd7`）：workspace 根项目指导由 Host 的已注册 Source 呈现，不新增 UI/动效（N/A），不改变用户批准、草稿、焦点和阅读锚点。错误不伪造工具结果；超限阻断后的同待准入任务重试保留身份。7 Source / 14 Provider Context 向量、公开真实否决与恢复、FIFO 进程界限、8 PTY 的精确候选与限制见 [Context 证据](../../playbook/native-cli/evidence/p4-context-source-20261115.json)。Source 截断不生成半个 Unicode 字符；真实终端视觉、物理 IME、读屏与安装仍非本卡覆盖。
+
+NR-04 Instructions（2026-11-15，`f6949bae`）：配置读取失败的静态反馈说明原文件保留、未调用模型和同一待执行任务的修正重试路径；不创建授权、执行成功或新任务身份。T06/T10 仍无动画（motion N/A），草稿、焦点与阅读位置不变。配置指导真实否决、坏配置恢复、Source 路径/哈希对照和 FIFO/终端恢复见 [发现证据](../../playbook/native-cli/evidence/p4-instruction-discovery-20261115.json)。未覆盖完整交互 TUI、物理 IME、读屏、真实供应商或安装；实现者自审。
+
+NR-04 usage scope（2026-11-15，`83a0733f`）：静态 JSON 回执使用现有带 tag 的协议对象，motion N/A；回合和单请求数量独立，TUI view 不计算或据此签发执行/接受。草稿、焦点、阅读锚点与权限输入不变；公开工具循环、后续任务、max_turns 和终端恢复见 [scope 证据](../../playbook/native-cli/evidence/p4-usage-scopes-20261115.json)。未增加可视容量 UI，未验收 durable accounting、完整 TUI、真实模型或安装；实现者自审。
+
+## 原生 CLI NR-03 的静态执行与恢复（2026-11-14）
+
+T06 / T10：公开 exec/recover 的授权、结果、停稳与阻断均为静态文本，无动画（motion N/A）；动作/范围先于技术参数，禁止终端控制与 bidi 内容冒充 Host 提示。批准输入只归当前 prompt，非 TTY 不暗中接受，SIGINT/TERM/HUP 进入真实取消/drain；网络观察或模型文字不产生执行成功。中断回到同一 plan/execution，unknown 和 Evidence 留在原 canonical Store，恢复不重放工具。现有 Ratatui 草稿、焦点与阅读入口仍保持 NR-01 范围，尚未迁入完整会话发送/历史交互。
+
+验证来自真实公开二进制、PTY 批准/拒绝/信号取消、实际 child kill+reap、崩溃后原生恢复与后续任务，以及 8 项终端 guard 生命周期检查；精确候选和结果见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。实现者自审，未覆盖日用终端视觉、物理 IME、系统辅助技术、真实供应商或安装包，不登记为 T06/T10 全面或发布验收通过。
+
+2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。
+
+2026-11-15 原生CLI容量Host `daa4c478`：结构化contextAccounting来自真实count/provider观察；计数失败或漂移明确degraded，未知窗口的percent保持null。单请求容量与回合/历史账单分离，后续内容标pending；数据不创建许可、Tool Result或Evidence。33公开CLI、51根274 TS/Rust往返与8PTY为实现者自测；完整压缩和发布体验未验收。见 playbook/native-cli/evidence/p4-native-capacity-host-20261115.json。
+
+
+NR-04 会话壳（2026-11-17，`7627d4c8`）：用户显式检查安装/列会话/导出阅读副本。事实源为当前exe/Helper文件属性、真实Store index及稳定的有界展示快照；这些不是工具许可、Evidence或会话发送。静态doctor必查失败、列表空/损坏、导出源变更/终端控制拒绝、默认拒绝覆盖、取消、成功和发布未知分别表达；Ctrl-C/TERM可取消扫描/背压/锁等待。发布前失败保留原target，提交后回执未知保留新副本，用户可从当前代显式force重试。不自动迁移/删会话、不动草稿/焦点/阅读位置，motion N/A。10个公开CLI/4个展示Store测试、完整406 Rust/9PTY及五次1GiB文件导出专项见[回执](../../playbook/native-cli/evidence/p4-native-session-shell-20261117.json)。实现者自审；不是完整TUI/P4/P5、长期内存、读屏/物理IME/真实服务/安装或发布验收。
+
+NR-04 共享执行与模式投影（2026-11-18，1fb27901/a942b36e）：状态反馈保留原真实Grant、实时撤权/取消、Tool Result/Evidence及后续准入；MCP登记失败不能成为运行成功，模式可见不能成为许可。无新增视图、焦点/草稿/阅读迁移或motion，均N/A；普通Ratatui发送、完整Composer/ModelPicker和长期内存仍待P4/P6接线验收。精确1fb整闸9PTY通过；后续a942只作投影/Runtime与11公开release函数、15根89互读的scoped验证，不继承旧tree整闸或宣称UI完工。见[共享Host](../../playbook/native-cli/evidence/p4-native-shared-provider-host-20261118.json)、[模式投影](../../playbook/native-cli/evidence/p4-native-runtime-projection-20261118.json)。实现者自审，未安装/重启/切默认/发布。
+
+
+2026-11-18 NR-04 native terminal Store (fcfee273): stable conversation/message/source CAS keeps streaming provisional until canonical body, metadata and matched marker cleanup complete. Interrupted publication preserves known call/grant/result facts; fresh-source Store-only recovery and explicit isolated offline orphan-lock maintenance do not replay execution. TS streaming participates in the same locks.98 Rust/148 Node and26 actual TS/Bun/native roots66 checks are implementer self-review. No renderer/focus/draft/motion change; motion N/A. Ordinary send, P4 final gate and P5-P7 remain open. See [receipt](../../playbook/native-cli/evidence/p4-native-terminal-store-20261118.json).

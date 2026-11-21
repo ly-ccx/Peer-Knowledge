@@ -1,0 +1,60 @@
+{
+  "registration": ["22ae397", "35f126a"],
+  "combinedParent": "b1490f69e208796bede331ed3410e8fa988dc44b",
+  "combinedTree": "cf8fd9415fbd0475afec4126bf480c26abab2dd1",
+  "patchSha256": "0bf1a44f2fb2b858f537992558df906a55d5af58026506bc06e0a14f9fe25012",
+  "predecessorCI": {"run": 44269223370, "merge": "434accf9f516bb0755e3f5c2cc5b7e6775fb6d0b", "tree": "f8ae3cb7d48001711cf458880e2413d6507ec82a", "conclusion": "success"},
+  "promoted": {"commit": "a69d852aca398f21be0aca2c549278d86230d1f6", "run": 44277507175, "statusAtRegistration": "in_progress"},
+  "focused": {
+    "sharedRustTsVectors": 72,
+    "strictClippy": {"log": "shell-background-live-clippy-final.log", "sha256": "7368211663712b5f4e6fa28ab5a1a3bad890877f3258a29b5867652b07aee1e7"},
+    "publicExecAndAcp": {"count": 6, "log": "shell-background-live-timeout-retest.log", "sha256": "a06a09bb50e47f316a4b39d7473320759af73f5792470d142028b211735bd22b"},
+    "publicAcpSameScopeStop": {"log": "shell-background-acp-stop.log", "sha256": "39ca2895ccabd4bdf952769fe5b326e369156e352d7169fbbe0936a9389fadf3"},
+    "hostRevocation": {"log": "shell-background-revocation-after-revision.log", "sha256": "2304e157325312badcfb33dd667922246b29d90cef4073da758e19b49a7a8d5a"}
+  },
+  "retainedFailures": {
+    "secondToolBlockedAfterProvenStartup": "e0234fb4864a9f683ed22a605a27e6f1dd0228d15eca21dfd78e1f4220bf3c49",
+    "acpSessionIdWasUsedInPlaceOfCanonicalConversationIdInTest": "a1a877b4935c163dc6ed976ef5b2c5f5b138bc7f906e874ded9f393556786301",
+    "capacityPublicationMadeHostUseAStaleRevision": "2c27954564dccda1744b291914d79fb1063e7e2cbb43eafcee8eb6bda809ce44",
+    "isolatedPrebuildMissingDependency": "3d97577eef24e010a18558b334b76f5823a2842df12c9bb0e66d711010646240",
+    "clippyNestedConditional": "919274e2549e7155d4e6e4800219b435f3971ece827a3105a6119d5b2df62132",
+    "postClippyFormatting": "2f4daf2a2aa6f629ff24265603e63049432eeb960a4c91de12cffde233af4546"
+  },
+  "normalClose": "Actual model and public exec use separately owned real process groups. Scoped stop and repeat preserve the other running group, then execution drain joins it before exit. A denied Launch has no Shell child or artifact.",
+  "ownerCrash": "The original native exec published the actual Running record to its next model call. The isolated test killed the Host, recovered the real child through public recover, retained the original startup and kept the effect OutcomeUnknown.",
+  "foregroundPersistentBaseline": {
+    "legacyCases": 6,
+    "legacyTestLogSha256": "b68bf2187229e5e25aa81b838e2b5a772d56b43973b40e92ce5e52ee71b7452b",
+    "b149PublicBaselineLogSha256": "954d4eded143627c2955ee5c72b319c9d584a7f9e7801b41fa87bddbcf6ed239",
+    "actualNativeSecondCommand": "empty workspace"
+  },
+  "wholeNativeGate": {
+    "status": "success",
+    "rustTests": 724,
+    "publicHostTests": 314,
+    "interopRoots": 637,
+    "interopCases": 3576,
+    "ptyTests": 9,
+    "fixedResultIntegration": 15,
+    "firstLog": {"path": "shell-background-exact-gate.log", "sha256": "38630f848e8a080cebc52e646eec8d81a3e930301978c17b0a1e6f44570d6927"},
+    "oracleBuild": {"path": "shell-background-exact-oracle-prebuild.log", "sha256": "73b45c4c1b5f24c09fdce3c1b4d30f03736cd40aef6ee82d99bb4f493855da35"},
+    "resumedLog": {"path": "shell-background-exact-resume.log", "sha256": "2c6e545ac0258fc39fbff34b98881e0e787abc989dd7c591631399e9792263a1"},
+    "resumeScope": "The old comparison oracle lacked built conversation-store exports. Built that workspace dependency and reran the failed comparison plus every remaining step from the original verifier on the unchanged Git tree and featureless binary."
+  },
+  "archive": {
+    "platform": "darwin-arm64",
+    "size": 9759612,
+    "members": ["peer", "peer-credential-helper"],
+    "sha256": "5ad9f173441fa8c944f6638688c2bbfa1f10863092857c05735e912eae57e29e",
+    "binarySha256": "30090527fd4079c838d1320f2a668d3d697ffa2a48169665f32c21abc0bd5a43",
+    "publicTests": 7,
+    "acpSdk": "1.4.0",
+    "sdkScope": "Actual SDK starts and stops real native Shell with exactly one approval. Canonical Execution is stopped, original Shell and Shell stop Evidence both exist, the same process group is absent, and binary PATH was /nonexistent.",
+    "logs": {
+      "shell-background-package-public.log": "795be8b23600eb3319c7c6b0c428e2ad2ce80e594ad64830a6d241de750c2131",
+      "shell-background-package-acp-stop.log": "c08f59eff53235d559768845e386c72fe6e74e2b262bd4828268b3c81beea51e",
+      "shell-background-package-sdk.log": "6f1f9d829f6d171e8a1bfa646e46ed05423e85dcba2db187667dca8ea0f42711"
+    }
+  },
+  "remaining": ["independent whole-repository CI for a69d852a", "delegated Work background lifecycle", "persistent foreground Shell", "P4 total acceptance", "P5 to P7"]
+}

@@ -1,0 +1,37 @@
+{
+  "source": "a2b99935714ff3970220b8094db767009dc89dd0",
+  "tree": "f169eae0906d349251829b8448206c1acf34845b",
+  "merge": "05e2b4937544b8e013b1273aaeed47e0607fb20e",
+  "parents": [
+    "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "a2b99935714ff3970220b8094db767009dc89dd0"
+  ],
+  "run": 44240049384,
+  "result": "success",
+  "jobs": [
+    {
+      "id": 134585433437,
+      "name": "ci-ubuntu-latest",
+      "conclusion": "success",
+      "checkout": "2026-11-18T04:50:18.3630795Z HEAD is now at 05e2b493 Merge a2b99935714ff3970220b8094db767009dc89dd0 into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "native": "2026-11-18T05:03:17.5590114Z Native scoped verification passed; PTY evidence: /home/runner/work/_temp/native-cli"
+    },
+    {
+      "id": 134585433877,
+      "name": "ci-macos-14",
+      "conclusion": "success",
+      "checkout": "2026-11-18T04:50:27.0914810Z HEAD is now at 05e2b493 Merge a2b99935714ff3970220b8094db767009dc89dd0 into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "native": "2026-11-18T05:15:45.7873770Z Native scoped verification passed; PTY evidence: /Users/runner/work/_temp/native-cli"
+    }
+  ],
+  "successfulSteps": [
+    "Build",
+    "Native CLI scoped validation",
+    "Check packaged main-process imports",
+    "Typecheck",
+    "Architecture check",
+    "Test",
+    "Platform Electron smoke"
+  ],
+  "scope": "Both full repository jobs passed on the exact Skill tree, including both platform smoke jobs. Later Hook candidates have separate receipts."
+}

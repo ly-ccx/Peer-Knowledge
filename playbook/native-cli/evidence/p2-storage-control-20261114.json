@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "status": "P2 partial candidate, no production runtime or release acceptance",
+  "candidate": "886cfe4372d0b595165a9ee980aedca2cdca0e6b",
+  "adr": [
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "platform": {
+    "system": "Darwin",
+    "release": "27.0.0",
+    "machine": "arm64",
+    "compiler": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)",
+    "declaredMsrv": "1.88",
+    "msrvTested": false
+  },
+  "checks": {
+    "rustWorkspace": {
+      "passed": 77,
+      "native": 65,
+      "existingHelper": 12
+    },
+    "runtimeGolden": 51,
+    "controlTransitions": 29,
+    "controlJsonStringifyDigests": 7,
+    "crossProcess": {
+      "store": 14,
+      "policyInitialization": 13,
+      "lease": 13,
+      "rawTranscriptPages": 24
+    },
+    "pty": 8,
+    "fmt": true,
+    "clippyWarningsDenied": true,
+    "staticBoundaries": true,
+    "releaseBuild": true,
+    "realHelperPing": {
+      "ok": true,
+      "secretAccess": false,
+      "dataHomeMutated": false,
+      "pathHasJSRuntime": false
+    }
+  },
+  "binarySha256": "4e30d954095027f1901e8cb4c3e1ecb856d30421bab05f048d62da2871cb01b1",
+  "cargoLockSha256": "71cf2520f180591d3b9a16f265690d9d970d6057843001c76a30771e94326b0d",
+  "contractHashes": {
+    "control-v1.json": "30bb8894e984ada28fe178ca505132a5620e78b4354cf9b70f70b23617adadc3",
+    "runtime-v1.json": "cef866ad4ee9168e4c7252a6e04773d587a94752b4401bc847d32ffda6770965",
+    "store-v1.schema.json": "36f829d7b9fe627dcaeb6d787a52f4918618d666b54b29f841e43af0e3a61bd7",
+    "transcript-v1.json": "25cdfae4e6253f7f69d5156c59896333e1517bd9919e694b266b7b4d8cac8183",
+    "v1.json": "6dbc88d58d3540f290b4e126c2999f13c340e610b4d7833941aed964ee07f8c0",
+    "v1.schema.json": "9395ff4f85c6ad2517788f24f62a629e152a5142a35a1ad2064002d391813b81"
+  },
+  "memoryProbes": {
+    "goal": {
+      "scenario": "raw goal read only",
+      "fixtureRoot": "peer-native-goal-memory-wytk7ilu",
+      "sourceBytes": 134217847,
+      "sourceSha256": "667643aaa2d5af79d452b4610e59c075c31a61ddff8dd67a0eb9a280e47a4c6e",
+      "sourceUnchanged": true,
+      "binarySha256": "6a4b638692d1ea924802a8b440037ccac1f06e1e1113ac3009ba72f867a05e61",
+      "runs": [
+        {
+          "run": 0,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2113536,
+          "peakPhysicalFootprintBytes": 1360256,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 134217847,
+            "selectedBytes": 108,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 822
+          }
+        },
+        {
+          "run": 1,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2113536,
+          "peakPhysicalFootprintBytes": 1360256,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 134217847,
+            "selectedBytes": 108,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 812
+          }
+        },
+        {
+          "run": 2,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2129920,
+          "peakPhysicalFootprintBytes": 1376640,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 134217847,
+            "selectedBytes": 108,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 830
+          }
+        },
+        {
+          "run": 3,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2113536,
+          "peakPhysicalFootprintBytes": 1360256,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 134217847,
+            "selectedBytes": 108,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 818
+          }
+        },
+        {
+          "run": 4,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2113536,
+          "peakPhysicalFootprintBytes": 1360256,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 134217847,
+            "selectedBytes": 108,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 820
+          }
+        }
+      ],
+      "limits": "No canonical Goal normalization, Runtime/tool execution, Ratatui viewport or full CLI memory/soak acceptance.",
+      "rawArtifacts": {
+        "summarySha256": "d949ba14d65b74bee4c23affc7045d631fbfad442d2acf387e05b2f5c168ca95",
+        "curves": {
+          "run-0.json": "fd32c4cd1dfd49b76a606bd635525b13d58a33e3278c24a01d6060692d86f187",
+          "run-1.json": "96a6933219578bbbb72e5d319dc29440807d840385e3547da30472bb940c6180",
+          "run-2.json": "feedd81a5c23334ebbc841673ed27bff6778061ef51673d4fc06dda0732332ec",
+          "run-3.json": "46402bf3a37a512f57fed67e7c071f45658ad232856f0a392aa1d7a5778a7521",
+          "run-4.json": "4802b3604cd52560ed5035364288fa66ddf246c795d46a7baf8cc7327cd85ab5"
+        },
+        "location": "system temporary directory; retained locally, not a durable remote artifact"
+      }
+    },
+    "transcript": {
+      "scenario": "raw transcript read only",
+      "fixtureRoot": "peer-native-transcript-memory-q10hxpen",
+      "sourceBytes": 1073762880,
+      "sourceSha256": "fd25c6e4e9621e548441a8639c1b0bafc9204f514b5d2c086a805fc9712952ef",
+      "sourceUnchanged": true,
+      "binarySha256": "bde79d37dc994344bbfcac0a95aecd12ba665f80dba6123496d33fc02bc846a9",
+      "runs": [
+        {
+          "run": 0,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2277376,
+          "peakPhysicalFootprintBytes": 1556864,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 1073762880,
+            "rows": 80,
+            "scannedBytes": 81920,
+            "hasOlder": true,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 0
+          }
+        },
+        {
+          "run": 1,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2277376,
+          "peakPhysicalFootprintBytes": 1556864,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 1073762880,
+            "rows": 80,
+            "scannedBytes": 81920,
+            "hasOlder": true,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 0
+          }
+        },
+        {
+          "run": 2,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2277376,
+          "peakPhysicalFootprintBytes": 1556864,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 1073762880,
+            "rows": 80,
+            "scannedBytes": 81920,
+            "hasOlder": true,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 0
+          }
+        },
+        {
+          "run": 3,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2277376,
+          "peakPhysicalFootprintBytes": 1556864,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 1073762880,
+            "rows": 80,
+            "scannedBytes": 81920,
+            "hasOlder": true,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 0
+          }
+        },
+        {
+          "run": 4,
+          "exitCode": 0,
+          "passed": true,
+          "reason": null,
+          "peakRssBytes": 2277376,
+          "peakPhysicalFootprintBytes": 1556864,
+          "facts": {
+            "ok": true,
+            "sourceBytes": 1073762880,
+            "rows": 80,
+            "scannedBytes": 81920,
+            "hasOlder": true,
+            "requiresRuntimeCheck": true,
+            "elapsedMs": 0
+          }
+        }
+      ],
+      "limits": "No canonical Goal normalization, Runtime/tool execution, Ratatui viewport or full CLI memory/soak acceptance.",
+      "rawArtifacts": {
+        "summarySha256": "5d4a5bd873489c705aec2624ef6606cf736da03e5e8f9ef7e70861b47ea3e1e0",
+        "curves": {
+          "run-0.json": "02204f0654577283f2d1b69d9c6e4b76ffca53b197a3ba221e1a5496bdf90754",
+          "run-1.json": "bbfe6481554d4a8cf5b7f3bf32a57029abc52c06217549d36ea8b4e9c7b30262",
+          "run-2.json": "7811f62b7eb35772723863eb8a4c23db231fa97931423d06ab2447917999c3f8",
+          "run-3.json": "d160a600afb5a21a545fbcf4015ea2dc8b6e8b0bdfd3c987b923584f3388859a",
+          "run-4.json": "18ccafee71fbc941751e8b54b71147aac2e80193608812e334d04bc90b38a2ac"
+        },
+        "location": "system temporary directory; retained locally, not a durable remote artifact"
+      }
+    }
+  },
+  "rawLogs": {
+    "peer-native-wal-failure.log": {
+      "sha256": "471e205b78c7ffd3de3abf8ad6aa66126d19571c36f0e46f248cb8d9a47f3dee",
+      "location": "system temporary directory; retained locally, not a durable remote artifact"
+    },
+    "peer-native-final-check.log": {
+      "sha256": "42dd44c5df77061898f620f276e8db15fae5c18d38758d71c7dc8cab644d5ab3",
+      "location": "system temporary directory; retained locally, not a durable remote artifact"
+    },
+    "peer-native-transcript-check.log": {
+      "sha256": "3e1a79ee3549ad0096fe9cb60159ff49f718da4cb3a5ed921c67a21daec39c50",
+      "location": "system temporary directory; retained locally, not a durable remote artifact"
+    }
+  },
+  "failedAttempts": [
+    {
+      "case": "c8d3a2ae Linux unknown-schema byte preservation",
+      "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43561371481",
+      "reproduction": "Native fixture commits schema 2 to WAL then exits without Drop; main database remains schema 1. Reproduced locally on macOS.",
+      "cause": "Opening RW before rejection allowed close-time WAL checkpoint to modify the main file.",
+      "correction": "Read-only schema snapshot preflight, NO_CKPT_ON_CLOSE before SQL, transaction schema recheck; restore close checkpoint only after successful admitted write.",
+      "verification": "Four initialize/read/register/update paths reject schema 2 with main and committed WAL bytes unchanged."
+    },
+    {
+      "case": "Raw transcript leading-blank cursor mismatch",
+      "correction": "Restore TS oldest-record offset semantics, including the possible last empty prefix page; retain cross-language assertion."
+    }
+  ],
+  "remoteCi": {
+    "head": "886cfe4372d0b595165a9ee980aedca2cdca0e6b",
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824",
+    "macOS": "in_progress",
+    "linux": "in_progress",
+    "supersededCandidate": "caedca4364fe69d9f4d225509a672abe58eb81e7",
+    "supersededCandidateLastObserved": "macOS/Linux in_progress before latest source push; no success inferred",
+    "nativeScopedValidation": {
+      "linux": "success",
+      "macOS": "success",
+      "linuxJob": 132361408957,
+      "macOSJob": 132361408765
+    },
+    "fullWorkflow": "in_progress; native scoped success does not imply whole-job completion"
+  },
+  "limits": [
+    "CLI is still draft-only. P0/P1 passed locally; P2 total gate remains incomplete.",
+    "Raw Goal fields are not normalizePlan or runner-progress overlay; principal canonical adapter remains unfinished.",
+    "Raw transcript pages are presentation facts only, do not merge stream sidecars, and do not admit model history or tools.",
+    "Oversized single JSONL records currently return explicit resource errors; block-level text reading and full viewport remain unimplemented.",
+    "No canonical coordination writer fence, durable execution/grant/Evidence transaction, unknown reconciliation or production shared-task writer is admitted.",
+    "No Bun/Node runtime sidecar. Development conformance intentionally invokes legacy TS/Bun as a reference.",
+    "RSS/footprint probes measure standalone Store examples with synthetic data, no model/tool execution or full CLI memory/soak acceptance. Transcript internal 0 ms values have integer-millisecond resolution, not zero latency.",
+    "No real Vault read/write, real model, physical IME, screen reader, installed build, four-hour soak or full release campaign.",
+    "Self-review; not independent acceptance."
+  ]
+}

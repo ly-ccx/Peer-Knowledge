@@ -1,0 +1,32 @@
+{
+  "sourceTree": "587d6275e8302cb9bd9f8de9c419cb69df0251db",
+  "root": "/tmp/peer-native-ordinary-recovery-20261118/timezone-baseline-eqz3tfol",
+  "session": "64ef0243-2502-4488-a580-54aae6317ce5",
+  "originalOwner": {
+    "bootId": "boottime:1792827130.697182",
+    "pid": 54345,
+    "pidStart": "macos:Tue Nov 17 23:50:38 2026",
+    "hostId": "native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928",
+    "acquiredAt": "2026-11-17T23:50:38.958Z"
+  },
+  "originalChild": {
+    "bootId": "boottime:1792827130.697182",
+    "pid": 54389,
+    "pidStart": "macos:Tue Nov 17 23:50:40 2026",
+    "hostId": "native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928",
+    "acquiredAt": "2026-11-17T23:50:38.958Z"
+  },
+  "collectTimezone": "UTC",
+  "recoverTimezone": "Asia/Shanghai",
+  "originalWasAliveBeforeRecover": true,
+  "recoveryExitCode": 1,
+  "recoveryStdout": "{\"status\":\"recovery_observed\",\"facts\":{\"schemaVersion\":1,\"identity\":{\"kind\":\"conversation\",\"conversationId\":\"64ef0243-2502-4488-a580-54aae6317ce5\",\"streamId\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\"},\"engine\":\"peer-native\",\"owner\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54345,\"pidStart\":\"macos:Tue Nov 17 23:50:38 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"revision\":13,\"phase\":\"recovery_required\",\"pendingTools\":[{\"toolCallId\":\"call-cda9f98c-d5d8-401b-b749-165c002b85eb\",\"dispatchId\":\"dispatch-225917fb-4149-4108-9f70-ed386d84152f\",\"messageId\":\"message-a0b973e0-f4a2-4626-88da-66d5d18a93dd\",\"capabilityId\":\"local.shell.exec\",\"argsDigest\":\"a3971fca88e19e4528bbc437a97d66dcdfadc657ac3f76be98ee9fdaa85a9073\",\"phase\":\"outcome_unknown\",\"declaredScopes\":[{\"kind\":\"directory\",\"path\":\"/private/tmp/peer-native-ordinary-recovery-20261118/timezone-baseline-eqz3tfol/workspace\"}],\"nativeProcess\":{\"schemaVersion\":1,\"kind\":\"command\",\"handleId\":\"shell_6ce9aa09-7900-4bb6-b985-8d356405febc\",\"toolCallId\":\"call-cda9f98c-d5d8-401b-b749-165c002b85eb\",\"dispatchId\":\"dispatch-225917fb-4149-4108-9f70-ed386d84152f\",\"execution\":{\"kind\":\"conversation\",\"conversationId\":\"64ef0243-2502-4488-a580-54aae6317ce5\",\"streamId\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\"},\"generation\":1,\"state\":\"ended\",\"owner\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54345,\"pidStart\":\"macos:Tue Nov 17 23:50:38 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"child\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54389,\"pidStart\":\"macos:Tue Nov 17 23:50:40 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"stopObservation\":\"owner_dead_group_absent\"}}],\"handles\":[],\"usage\":{\"usageScope\":\"runtime_turn\",\"providerRequestCount\":1,\"inputTokens\":12,\"outputTokens\":4,\"cacheReadTokens\":0,\"cacheWriteTokens\":0,\"totalTokens\":16},\"unknownUsage\":false,\"attribution\":{\"id\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\",\"streamId\":\"stream-06a9853e-b47e-428e-b483-27a034958d05\",\"at\":\"2026-11-17T23:50:38.958Z\",\"modelProviderId\":\"openai-compatible::model\",\"model\":\"model\",\"providerName\":\"openai-compatible\",\"role\":\"chat\"},\"usageCommitted\":true,\"stop\":{\"owner\":{\"bootId\":\"boottime:1792827130.697182\",\"pid\":54345,\"pidStart\":\"macos:Tue Nov 17 23:50:38 2026\",\"hostId\":\"native-conversation-ae47aed9-e6d8-4ad2-9cc1-2e36db834928\",\"acquiredAt\":\"2026-11-17T23:50:38.958Z\"},\"observedAt\":\"2026-11-17T23:50:40.667Z\",\"runnerIdle\":true,\"admissionClosed\":true,\"handlesEnded\":true},\"updatedAt\":\"2026-11-17T23:50:40.667Z\"}}\n",
+  "recoveryStderr": "",
+  "originalPhase": "active",
+  "afterPhase": "recovery_required",
+  "originalControlUnchanged": false,
+  "expectation": "A timezone change must not classify a live original owner as reused/dead, close its admission or kill its child.",
+  "status": "Observed unsafe timezone-dependent takeover before stable-start fix; not delivery acceptance",
+  "source": "uncommitted ordinary recovery candidate on86fb",
+  "currentCandidateNativeGate": "In progress; would not supersede this genuine failure even if green"
+}

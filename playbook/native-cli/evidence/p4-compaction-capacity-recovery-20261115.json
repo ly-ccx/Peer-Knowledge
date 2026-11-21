@@ -1,0 +1,159 @@
+{
+  "date": "2026-11-15",
+  "candidate": "c69bec11777838f0b96bc3ecdfd985304871a9ca",
+  "tree": "f6405bd61ab604afd122caae27cc12a382148d49",
+  "implementation": "6afb58823fc2ffb8d3280ae8027dc72462cda28b",
+  "implementationTree": "3827f22b91e00741cc34c6e9028541a745da542a",
+  "cosmeticFollowup": "c69bec11 removes three trailing blank lines; no executable behavior changed",
+  "classification": "A: ADR131/57 historySelection and durable capacity binding supplement preceded implementation in knowledge commit 1247c41. Existing permission, Evidence, local capability execution and billing authority stay unchanged.",
+  "ADRFilesRead": [
+    "55-shared-system-context-assembler.md",
+    "56-provider-observed-context-accounting.md",
+    "57-canonical-conversation-history-projector.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "baseline": {
+    "candidate": "daa4c478f8fa2f5e7d90eba3a9ec52fb043e23cb",
+    "warmMessages": 1,
+    "coldMessages": 4,
+    "defect": "Legacy same-user-turn marker insertion revived completed tool history on cold projection",
+    "scope": "Actual TS splitter/projector and preserved synthetic raw identities; the new native append-only producer is exercised through the public CLI. Legacy TUI marker production is not claimed migrated."
+  },
+  "baselineCI": {
+    "run": 43685522973,
+    "merge": "e806edddda04d9bb8953f1cc09d265f7502c62d8",
+    "tree": "f90c761ca6c9e310291b27f5387af1b3927c70a5",
+    "linux": {
+      "job": 132725178298,
+      "result": "success"
+    },
+    "mac": {
+      "job": 132725178077,
+      "result": "success"
+    },
+    "treeEqualsCandidate": true
+  },
+  "behavior": [
+    "Native cognition -> summary request with no tools -> existing locked/CAS ConversationStore append -> actual cold projector v3 -> registered continuity Source -> new immutable PreparedRequest -> provider count -> send.",
+    "Original message chronology and Tool Result/Evidence remain on disk. Ordered original IDs in historySelection choose retained user context, never authorization or completion.",
+    "Existing capacity sidecar and index mirror bind to projectorVersion 3 and actual compactionBoundaryId/epoch. A body-before-index marker invalidates old numeric authority even before index recovery.",
+    "Native restore accepts only same-conversation/model/boundary request observation, clears counts and restores pending; superseded observations and cumulative billing cannot become occupancy.",
+    "Summary requests are billed with capacityBearing=false. API-key Anthropic/Gemini examples: three generations bill 69 while current capacity is 20.",
+    "Provider HTTP context overflow is classified from at most 64 KiB, records sanitized evidence, and may compact/retry once. Repeated overflow stops and admits later independent tasks without replay.",
+    "Hard exit after marker retains original records and known fees; actual native stop precedes index/billing reconciliation. Recovery twice cannot duplicate fees or execute tools/models.",
+    "Capacity sidecar-before-index failure, unknown root fields, old model-key metadata, future/corrupt snapshots and subsequent admission are tested."
+  ],
+  "validation": {
+    "nativeScopedGate": "pass",
+    "rustPassed": 226,
+    "publicCLI": 36,
+    "nativeRoots": 56,
+    "actualTSRoundtrips": 302,
+    "actualTSCompactionProjections": 10,
+    "protocolMarkerAndSelectionCases": 10,
+    "actualContinuitySourceCases": 4,
+    "contextStore": {
+      "node": 11,
+      "bun": 11
+    },
+    "runtimeCore": 155,
+    "conversationStore": 145,
+    "desktopConversationStore": 48,
+    "tuiPersistence": 25,
+    "pty": 8,
+    "fmt": "pass",
+    "clippy": "pass",
+    "release": "pass",
+    "boundary": "pass",
+    "architecture": "pass",
+    "tuiTypecheck": "pass",
+    "releaseSha256": "45e8891b77e74be05c2630f78211999cd77c0cb43d6c82417361246129251353"
+  },
+  "failedAttempts": [
+    {
+      "kind": "initial Rust compile",
+      "detail": "private write_directory and nonexistent lock::sync_directory; corrected using the existing guarded Store directory seam and directory fsync"
+    },
+    {
+      "kind": "initial desktop Store tests",
+      "failed": 2,
+      "detail": "extraction misplaced AUTOMATION_TRIGGER_SOURCES; snapshot assertion required the new projector/boundary fields. Constant restored and exact expected fields added; 48/48 passed."
+    },
+    {
+      "kind": "CI macOS",
+      "run": 43702231610,
+      "job": 132775700899,
+      "detail": "Build/native/type/architecture passed; Test step reached 15-minute timeout. Last TUI output was first goal-bridge test. No assertion failure at that point; root cause not established."
+    }
+  ],
+  "ci": {
+    "run": 43702231610,
+    "linuxOriginal": {
+      "job": 132775701173,
+      "result": "success"
+    },
+    "macOriginal": {
+      "job": 132775700899,
+      "result": "failure-timeout"
+    },
+    "macRetry": {
+      "job": 132833989909,
+      "result": "cancelled by newer c835a459 push while native scoped validation was in progress; not success"
+    },
+    "unchangedReproduction": {
+      "platform": "local macOS arm64",
+      "bun": "1.2.17",
+      "isolatedGoalBridgePassed": 10,
+      "wholeTuiPassed": 876,
+      "skipped": 1,
+      "failed": 0,
+      "limit": "Local runner did not reproduce remote hang. This does not explain the CI timeout or establish a flake."
+    },
+    "merge": "534545b8591fa3e75f3a8f2e318eba36e000f8fe",
+    "mergeTreeEqualsCandidate": true,
+    "validatedByLaterCandidate": {
+      "candidate": "c835a4597864c26ae8d00d3dbd1e24642d3e7f63",
+      "run": 43722096748,
+      "linuxJob": 132836192244,
+      "macJob": 132836191923,
+      "result": "both all-repository jobs success including native gate, tests and Electron smoke",
+      "merge": "468e23e750b24a01d112c7c4ef9778dd028a5010",
+      "mergeTreeEqualsCandidate": true
+    }
+  },
+  "logs": [
+    {
+      "file": "peer-native-compaction-final-20261115.log",
+      "sha256": "f76389015ccf48885c925ebd389c5e33106648ed82ca070b9464572b04fd99c0"
+    },
+    {
+      "file": "peer-compaction-core-tests2.log",
+      "sha256": "ea76a428a0180bc7c03530accca5879d174bef86d61582a8132e5e4544d11030"
+    },
+    {
+      "file": "peer-compaction-store-all.log",
+      "sha256": "7245f67ab9a30ebb66a5165e9f9697e6e0504bf314c7cc3e51668be34fc9e32a"
+    },
+    {
+      "file": "peer-compaction-desktop2.log",
+      "sha256": "c2e73af97ca758b6fdd0e191abfa3ab8e71eccfc6410f5b03b7b41b69ca879cc"
+    },
+    {
+      "file": "peer-c69-tui-full-old-bun.log",
+      "sha256": "f32850890352cd924dc31f94ae6e0dcd42897208442fd2c9b8575685a6837b60"
+    },
+    {
+      "file": "peer-c69-mac-ci-failure-excerpt.log",
+      "sha256": "b0d53ebe56075fc4a3e87622536ffdf3f9fcc2c7d7b86d064bcd34aa0f5b1cf8"
+    }
+  ],
+  "limits": [
+    "Not P4 total acceptance or P5. Full Context/compaction strategy parity, external execution protocols, OAuth/Qoder/network settings and remaining command surfaces are unfinished.",
+    "Generation uses bounded local HTTP/SSE fixtures, not a paid real-model campaign. Installed/default peer, personal task data and running apps were untouched.",
+    "New native selection needs current v3 readers. No claim that old installed binaries can resume it; shared-default/rollback needs joint compatibility and drain gates.",
+    "Runtime history is currently bounded at 8 MiB; summary factual input at 256 KiB and complete assembled Source at 512 KiB. Over-limit input blocks explicitly. The 1 GiB long-history and installed memory release gates are not claimed.",
+    "Fallback keeps bounded original structured facts and may still end in visible pressure; complete shared micro/structural compaction strategy parity remains P4 work."
+  ]
+}

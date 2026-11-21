@@ -1,7 +1,10 @@
 # ADR 57：Desktop 与 TUI 统一 Canonical Conversation History Projector
 
+> 2026-11-14 局部修订：[ADR 129](129-native-rust-cli-and-ratatui.md) 已接受（评审稿原编号 116），CLI 的技术终态改为 Rust / Ratatui；TS 与 Rust 的共享算法 / 资源 / 契约和 conformance 规则见 [ADR 131](131-native-cli-contract-storage-and-recovery.md)。仅替换 ADR 129 §3 点名的语言及直接共享实现条款，权限、Evidence、上下文准入与数据真源不变。旧 CLI 仍是迁移期默认入口，不能据设计接受声称已切换或验收。
+
+
 创建时间：2026-07-25
-最后更新：2026-07-25
+最后更新：2026-11-15
 状态：Accepted / Implemented
 关联代码仓：`/Users/liangyin/Documents/DEV/github/peer_agent`
 
@@ -277,3 +280,7 @@ fingerprint 不同的快照仍不可复用。
 
 该结果证明历史投影与诊断输入已对齐；最终 UI 是否展示精确百分比仍服从 ADR 56 的
 provider evidence 规则。
+
+## 2026-11-15 原生迁移的持久历史选择修订
+
+[ADR131 NR-04](131-native-cli-contract-storage-and-recovery.md) 为 warm/cold 不一致补充 historySelection v1 和 projector3。它局部替代 §3.1/§3.6 与不变式5的无条件 suffix：有合法显式选择时，按原序解析引用的原始行，再接后续行；旧 marker 不变。原文、稳定身份、配对、权限与 Evidence 不变。实现与兼容验收另记；旧发行版不能据此被称为支持新选择。

@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "candidateTree": "3b92290e75397044581aee5ae641369b26dd1de8",
+  "predecessorTree": "6868451ce17dea323ab74bcb06ecc1c04d7de4ed",
+  "patchSha256": "2c9d6fadaaa06724e0ac3ee10e31bba91d800125377525bdaa04cc64db220ee9",
+  "sourceArchiveSha256": "d0cc56c191024227644cd3cdc708c7f5c11bece8ea51fa54e66ac669562b7b2f",
+  "decisionCommit": "7822fa5",
+  "baseline": {
+    "scope": "The actual legacy and extracted Rust CLI executed the same controlled file-exists task through HTTP SSE.",
+    "legacy": {"providerRequests": 7, "repairTicks": 2, "mechanicalFailureRows": 3, "exit": 6},
+    "rustPredecessor": {"providerRequests": 5, "repairTicks": 0, "reason": "goal_verification_criterion_evidence_required", "exit": 6},
+    "focusedRegressionFailedOnPredecessor": true
+  },
+  "validation": {
+    "macosArm64": {
+      "ordinaryConversationTests": 89,
+      "publicGoalTestsOnExtractedFeaturelessPackage": 26,
+      "archiveSha256": "6c642d99ce2e45a5235e3e3146496f2fede1f277c72c491c2d0ff3ff00d91f57",
+      "binarySha256": "f8b68b3517053be047cb94eef76a349a9bc42a9d7ce09c490c203c4a4b42dc31"
+    },
+    "linuxAmd64": {
+      "ordinaryConversationTests": 87,
+      "publicGoalTestsOnExtractedFeaturelessPackage": 26,
+      "archiveSha256": "160d3aec1d30377b558b284c80229fd93ebf1c22c1f97871680fb66a6a6ec588",
+      "binarySha256": "5def443024dc905fde4df2803c2ef3e0a476fd30e7659806345619731b51cc43"
+    },
+    "packagePathWithoutBunOrNode": true,
+    "formatStrictClippyCrateAndArchitectureChecks": "passed",
+    "cases": ["complete after recording new automatic check evidence", "two missing-check attempts then blocked", "mechanical and independent repairs share the two-attempt allowance", "manual gate wins when both a check and confirmation are pending", "fresh independent Evidence remains required"],
+    "packagedReplay": {
+      "providerRequests": 10,
+      "distinctIndexedFileReads": 3,
+      "actualCriterionResults": 1,
+      "mechanicalRepairTicks": 1,
+      "independentVerifiers": 1,
+      "samePlanAndStream": true,
+      "legacyStoreColdRead": true,
+      "canonicalFilesByteIdenticalAfterRead": 5,
+      "exit": 0
+    }
+  },
+  "remaining": ["predecessor whole-repository CI and ordered promotion", "session management and remaining protocol/lifecycle work", "real external services, mixed-host recovery and P4 acceptance", "P5 through P7"]
+}

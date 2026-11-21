@@ -1,0 +1,344 @@
+{
+  "date": "2026-11-18",
+  "phase": "P4 / NR-04",
+  "base": "a2b99935714ff3970220b8094db767009dc89dd0",
+  "governance": "A-level ordinary Hook ownership registered in ADR131 at 3e0f4ea; applies ADR16 (current portion), 35, 76, 116, 129 and 130. Delegated Work contract registered separately in bfd8892.",
+  "supersededTree": "f87c468ef40a4da3752804a6b53a22025bccbddb",
+  "tree": "ca3a5ebd341a414fe1d802e248f5105e04eb65e6",
+  "scope": "Ordinary exec and ACP share the native Host. Global and workspace Hook selection, owned process lifecycle, existing Tool Call, native approval and canonical Evidence. Pre can deny or require approval; Post keeps the observed Provider result.",
+  "tests": {
+    "publicHost": {
+      "passed": 10,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-public.log",
+        "sha256": "d03993fffef074a09b85f3f306def42bb796a0b7874cc092beeca9448a3846e4"
+      }
+    },
+    "hookRuntime": {
+      "passed": 6,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-runtime.log",
+        "sha256": "d874b6da1769ae604516f0c288189166b5b5d8f8f8a8b144110768b90c64bc13"
+      }
+    },
+    "crossLanguageRecords": {
+      "casesEach": 60,
+      "typescript": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-ts-shape.log",
+        "sha256": "0625a6052e4e15b88e768e89da573760f9d34489c7d93ab61dcf4ed5156067d0"
+      },
+      "rust": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-rust-shape.log",
+        "sha256": "f15336690b7ab89d5a757a5a16ea383c18d1223fb09d760b401a760a0eaff763"
+      },
+      "scope": "Deadline source update leaves Protocol and vectors untouched."
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-architecture.log",
+      "sha256": "98ee095ea22cda0f302a83e9736eadfb054e92a2e2f82b902b774582b5af81c0"
+    },
+    "completeNative": {
+      "status": "success",
+      "rustTotal": 699,
+      "publicHost": 293,
+      "pty": 9,
+      "ptyReleaseSha256": "3b4c68bd50d556bad77538c595ff99e61a554ae1770b6b2bece8e8545ca56e22",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-verified.log",
+      "sha256": "2ec20b21d8597bae61fb49cb20350d2da12252b742921c22be17b3ddff000bf4"
+    }
+  },
+  "failuresAndRecovery": [
+    {
+      "fact": "Actual legacy CLI workspace Hook denied the original local write. Immediate exit showed EPIPE. Actual TUI Shell used one SDK Pre and no Desktop Shell classification callback.",
+      "baseline": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-runtime-baseline.log",
+        "sha256": "05a517510f773d576843bea53cc4e64f89e1c481c4bed86f2f242674171cc203"
+      },
+      "brokenPipe": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-legacy-stdin-epipe.log",
+        "sha256": "20dc0ee99b3b7846fa5b6b071c3f0552642661503100b62e2941eda116e1fa57"
+      },
+      "singlePre": {
+        "path": "${RAW_EVIDENCE_ROOT}/legacy-tui-shell-hook-shape.log",
+        "sha256": "8dcde555fcf0bcc1261ce16740164857af9f5815e107cef9a3bc26ef4fb1689b"
+      }
+    },
+    {
+      "fact": "Hard exit after observed Pre originally left an unsettled call. Corrected recovery applied to that same preserved failing fixture. The original Tool Call and known Hook observation settled without Provider replay.",
+      "failure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-recovery-red.log",
+        "sha256": "a1bf93f61cc60a33607a2225b9f419a23bd3644777a6585b582b229c88d13926"
+      },
+      "resolvedOriginalFixture": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-existing-fixture-resolved.json",
+        "sha256": "4d40db820be21624760e6e3f5360f087790822676e4528d60458ccba525df7d1"
+      }
+    },
+    {
+      "fact": "Initial extracted artifact under overlapping validation produced timeout in the immediate deny case. The Provider stayed undispatched. Slow durable preparation independently reproduced the classification. Child time now starts at spawn. The timeout case retains 120 ms. The immediate deny case uses 3000 ms and retains its strict outcome assertions.",
+      "initialPackageFailure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-archive-public.log",
+        "sha256": "1039a64f0fbb72bdb9da5dc8644f5c3ceab9a0be672a6d3a6340d9096d30221c"
+      },
+      "deterministicFailure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-red.log",
+        "sha256": "d558d31f65ee1d5571538665d4341f198bf0162a79cff7d4a2f25a0fdd63e10e"
+      }
+    },
+    {
+      "fact": "The fresh scratch dependency install skipped scripts and lacked the Electron path marker. The pinned dependency was linked to the existing isolated same-version Electron app and the unchanged verifier was rerun.",
+      "setupFailure": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-full-missing-electron-path.log",
+        "sha256": "afcd4561e509d58c39e5c81041337348c79a12a61035dbb49b5a9aaca31fb7b6"
+      }
+    }
+  ],
+  "package": {
+    "platform": "darwin-arm64",
+    "featureless": true,
+    "members": [
+      "peer",
+      "peer-credential-helper"
+    ],
+    "archiveBytes": 9463162,
+    "archive": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-package/dist/peer-darwin-arm64.tar.gz",
+      "sha256": "20b91ea581d6137e880029a864f1e34e048ddde83c03fc0af0095a5bbe6a20e4"
+    },
+    "binary": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-package/extracted/peer-darwin-arm64/peer",
+      "sha256": "e88bd4ae046a22251167b1192b655bab27394d97e250d31a448036631bdbe3b6"
+    },
+    "extractedHostTests": 9,
+    "extractedHostLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-archive-public.log",
+      "sha256": "4b081d2abf6535a92ef4128e3f9a380d81404acdb37d8013fabac98b2e5237b1"
+    },
+    "sdk1_4_0": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-deadline-archive-sdk.log",
+      "sha256": "a11defc14e885e792a3cc27a9d01cf4ace870cde42172124d64d32ed5099093b"
+    }
+  },
+  "limits": [
+    "Isolated macOS self-test and loopback HTTP. Crash injection runs only in the fixture build. Owner death and recovery also run on the plain extracted product binary.",
+    "Delegated Goal/Work still blocks configured Hook. Real editors and model services, installed-host drain and full P4 acceptance remain open."
+  ],
+  "delegatedContract": {
+    "tree": "a70a7ab1ee7cb38bf63a30f1cdd72b76f4cf9dba",
+    "status": "contract_and_store_only",
+    "governance": "ADR131 preregistration bfd8892; minimum reader and writer 14",
+    "actualLegacyHookHost": {
+      "passed": 8,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/legacy-goal-hook-host.log",
+        "sha256": "4480bef1ad213380469bd2831f34304f533fdf99069976ce2632919bd8c3992f"
+      }
+    },
+    "publicGoalBaseline": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-red.log",
+      "sha256": "1f19c18ce7cd68748c9518c9c02fb2a1507c78b0fd28d3237e470a8796fa8d9c"
+    },
+    "publicGoalFixtureSetupFailure": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-fixture-parent-red.log",
+      "sha256": "5a31e8c9ccf5001e6ca3bfd364d01b7b7f57a667e268f7a6ff603000e400b56a"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-clippy.log",
+      "sha256": "783dfe0e52bf6aa8dcdbb99cb125cd997b5a00c673e0a0ffe2c23615c74e3b78"
+    },
+    "crossLanguageWorkShapes": {
+      "casesEach": 16,
+      "rust": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-work-rust-contracts.log",
+        "sha256": "34fea23dee7c62d5694c7d28fa736e1d27d44f110e04335a2af2872b6027312a"
+      },
+      "typescript": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-work-typescript-contracts.log",
+        "sha256": "e01efa3a0633ac040f6e61a22331945ef3b8159be6300f247c79b00466487076"
+      }
+    },
+    "durableCasesEach": 51,
+    "node": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-conformance.log",
+      "sha256": "ef0c171027c4a606d3e3e5e6ffcf02a11eb3e60c8a0c8ba545dcf425692d5ff3"
+    },
+    "bun": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-bun-conformance.log",
+      "sha256": "be2e68e16bc0f1c132f4299d91bf03217a341199d94ce29f81ec21b5f33d8aaa"
+    },
+    "durableFixtureCorrection": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-conformance-metadata-red.log",
+      "sha256": "c9434fc33d4f7d1f96801125e916bf7724e7ca766fe6ed9e2f96a00c88f35c36"
+    },
+    "bunDynamicImportCorrection": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-work-storage-bun-conformance-import-red.log",
+      "sha256": "dd29b8469d57d5cbd416c92f9ef33792788353a3f858a08c5e26dd7c306839d0"
+    },
+    "oldStorageSource": "a2b99935714ff3970220b8094db767009dc89dd0",
+    "scope": "Actual Rust and TypeScript writer, reader and rebuild, interrupted publication, cached <=13 storage denial and unchanged segments, exact Hook facts across pending to uncertain and future floor rejection. The public delegated execution baseline remains red."
+  },
+  "delegatedRuntime": {
+    "tree": "d6e35b99bb6c23c02410f6dfe590b80922657131",
+    "base": "a2b99935714ff3970220b8094db767009dc89dd0",
+    "governance": "ADR131 delegated Work preregistration bfd8892; ADR16 current portions, 35, 116, 129 and 130.",
+    "scope": "Projected exec --plan calls, canonical Work budget before Pre, existing local approval, Hook/Provider dispatch distinction, Post observation, signal and proven dead child recovery. Process groups with missing start identity remain unproven, effects are never replayed.",
+    "publicHookCases": 16,
+    "delegatedHookCases": 6,
+    "publicHookLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-final-host.log",
+      "sha256": "3466cc12754d32712e2371e02fc3083dab4bda4653e28a4b9c11ba40aaf9b037"
+    },
+    "permissionRegressionCases": 4,
+    "permissionRegressionLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-permission-regression.log",
+      "sha256": "aea36103df07924c9733217844b4f9d1dc4e2d0e1f3b6c93cc18c2b6ef184da5"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-final-clippy.log",
+      "sha256": "e9b6d0569a41b7bb62315b255beb40484565c924fd41b960f9887e91bed81b7e"
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-architecture.log",
+      "sha256": "44ded4c976d2807e7341de67226f8db101b144b4f4a36084b2c703e9964cfb07"
+    },
+    "actualStorageCases": 51,
+    "actualStorageLog": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-goal-storage-final.log",
+      "sha256": "efa88792a09b6d6cdb0dc9b5136de3077e29032f15992ad1063c596ad04f5236"
+    },
+    "failedOwnerRecovery": {
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-recovery-red.log",
+        "sha256": "379a2112536dc90842a6cbdd7d2b32d313385b872e203d78710b340efe909bf3"
+      },
+      "failure": "A mutable JSON index inserted a null uncertainDispatches field even when the original array was absent. Recovery persisted stop proof then rejected the malformed Work budget. The recovery mutation now only touches existing arrays. The same live-child scenario now stops, retains unknown, and repeats without mutation. The initial synthetic root stays preserved."
+    },
+    "package": {
+      "platform": "darwin-arm64",
+      "archive": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-package/dist/peer-darwin-arm64.tar.gz",
+        "sha256": "975b77bce603dd17235076feb130fcbb3327ad1129eecc5e582971417a4061aa"
+      },
+      "bytes": 9505869,
+      "binary": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-package/extracted/peer-darwin-arm64/peer",
+        "sha256": "dd2ebe771107a7391edd1c55678b70502f0c7a7ad9885084a4dec5214e18ac43"
+      },
+      "members": [
+        "peer",
+        "peer-credential-helper"
+      ],
+      "featureless": true,
+      "noNodeOrBunOnProductPath": true,
+      "extractedPublicCases": 14,
+      "extractedPublicLog": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-archive-public.log",
+        "sha256": "9913cfd189eda278adb6873823a014f358e0d173966775e249acd9c370a225d8"
+      },
+      "sdk": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-archive-sdk.log",
+        "sha256": "5f5b14b733adc43ee04fcc509d2ae3bb6b3eceb7dd56ca2780430a5c880fcd27"
+      }
+    },
+    "fullNative": {
+      "status": "failure",
+      "rustHostPassed": 298,
+      "rustHostFailed": 1,
+      "failure": "The test-side eight-second OAuth process wait expired. Canonical Work and Conversation facts in the preserved fixture show a successful tool and settled control before the watchdog killed the process. An isolated replay of the exact fixture binary passed. The next immutable tree waits for the actual running child, then the observed tool result, then separately bounds the original exit wait. The existing 5000 ms Shell and 8 s exit limits remain.",
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-runtime-verified.log",
+        "sha256": "a695d7f5819ca3d46ce89f87b0a88a0adca043dd59b7991be12aa23bb60d7d82"
+      },
+      "exactIsolatedReplay": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-credential-rotation-isolated.log",
+        "sha256": "9f37c3594a79ff27e153730b2c16d351e091ff530bc84f45df1bd920e3c12748"
+      },
+      "correctedCausalFixture": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-goal-oauth-causal.log",
+        "sha256": "5fd3b1812dbb472889597a47aea62d51bbd12681199b1ad4e5a159b98e87c863"
+      }
+    },
+    "limits": [
+      "All tests use isolated owners and local controlled model endpoints. Crash injection is fixture-only.",
+      "Cold reconciliation of fully observed Pre before Provider admission and of a Provider result observed immediately before a hard Post crash still need further work. Unresolved records remain conservative.",
+      "The archived candidate and its scoped verification do not complete P4, install P7 or the long-dialog P6 memory gate."
+    ]
+  },
+  "source": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+  "candidateCi": {
+    "run": 44245930398,
+    "status": "in_progress"
+  },
+  "delegatedObservations": {
+    "tree": "a914e90f95da69ed46f6949887a0d8b4fb72b03d",
+    "rootedOn": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+    "governance": "ADR131 Work original Tool Result addendum 8eb3315, respecting ADR16, 35, 116, 129 and 130.",
+    "initialCrashFailures": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-red.log",
+      "sha256": "20e83e63956b8ce522886f9f163ffda1a08a52ebc617d441deb3b30b637db73e"
+    },
+    "firstImplementationRegression": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-grant-source-red.log",
+      "sha256": "0f7d2772c6872a550c5f5e330de353ad7746e7dfb0279026d40542262c6f837e"
+    },
+    "scope": "Work binds its original canonical Conversation Tool Call message and args digest. The Grant is published atomically with dispatch admission in the Work journal without mutating the conversation revision used for live permission. A provider result and its Evidence index are published before Post starts. Known stopped Pre recovers only the original undispatched call; unknown Post remains unproven.",
+    "hookHostCount": 18,
+    "hookHost": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-final-host.log",
+      "sha256": "56d7fa5f76ab83445e886699d2b7d9122809b04d9d60f485f3829210758bc0bc"
+    },
+    "shapeCasesEach": 22,
+    "rustShape": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-rust-contract.log",
+      "sha256": "9ecebfcb1b4b05b444169369bb52650cc695f12d1be08ec4b10f66c6b3ac0cba"
+    },
+    "tsShape": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-ts-contract.log",
+      "sha256": "340828a7cca7ac8094ecc6dafc719ed2a44a3ba8563c7ede00ce199f31eea6e7"
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-clippy.log",
+      "sha256": "1808a3d9c2d572ea629ae6a9e3ab9a3f754c75662c70800b665cc95d82ef2abf"
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-architecture.log",
+      "sha256": "f8c9e773fa36ef6f20ecae84a830023f528e1e26a7271c9a5508f29e8d8322ec"
+    },
+    "fullNative": {
+      "status": "success",
+      "path": "${RAW_EVIDENCE_ROOT}/hook-observations-verified.log",
+      "rustTotal": 708,
+      "publicHost": 301,
+      "pty": 9,
+      "sha256": "a26cdd8fbed6f1058df46c77f15da2b2277f541608a531c649251af4457560f4",
+      "ptyReleaseSha256": "571999276629c164eef904c00b34ef7cd4675adc5dfa20feeb1b5f1955721ac2"
+    },
+    "package": {
+      "platform": "darwin-arm64",
+      "archive": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-package/dist/peer-darwin-arm64.tar.gz",
+        "sha256": "fda2221692fba3289567be0a3f5a5e164ccbaa81fc1d3e4168074bc936c40168"
+      },
+      "bytes": 9529119,
+      "binary": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-package/extracted/peer-darwin-arm64/peer",
+        "sha256": "571999276629c164eef904c00b34ef7cd4675adc5dfa20feeb1b5f1955721ac2"
+      },
+      "members": [
+        "peer",
+        "peer-credential-helper"
+      ],
+      "featureless": true,
+      "noNodeOrBunOnProductPath": true,
+      "publicCases": 14,
+      "public": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-archive-public.log",
+        "sha256": "60dcf82b36ba198b1ac2c39f8c329471cd0348aaf722aad077d8e2c8b5136c8f"
+      },
+      "sdk": {
+        "path": "${RAW_EVIDENCE_ROOT}/hook-observations-archive-sdk.log",
+        "sha256": "43007b704cda5a0a903bee20502cc7e3f7a3b885270ab976a2b84bb08ac04367"
+      }
+    }
+  }
+}

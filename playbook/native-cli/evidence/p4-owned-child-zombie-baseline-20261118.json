@@ -1,0 +1,17 @@
+{
+  "status": "Rejected candidate4 product validation; not accepted despite complete native gate success",
+  "sourceTree": "718f7c053850f3e44b6d6f51c839f20a0437ce68",
+  "patchSha256": "f45ae1ec70ae907b3d6612edc95da0e9d80520eb8a0c674f0c3c907a76bfb7fa",
+  "binarySha256": "af0482af67b65d10946983f45157865a8002f6777ca5e43305a7a61abf924df8",
+  "publicHostPassed": 21,
+  "publicHostFailed": 1,
+  "failure": "Git fast command generation9 failed native_process_recorder_unavailable. Original assertion success and actual native child identity remain required.",
+  "root": "/private/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpWtTGIS",
+  "rootExists": true,
+  "deterministicModuleRed": "owned-zombie-red.log: actual Child reached kernel SZOMB before recording; production process_recorder returned None, then actual Child::wait reaped it before failure assertion.",
+  "osProbe": "pidinfo BSDInfo arg0 rejected all10 exited-unreaped children; arg1 returned matching PID and real microsecond birth time for all10.",
+  "kernelSource": "https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/proc_info.c",
+  "analysis": "Kernel PROC_PIDTBSDINFO needs nonzero arg to include zombies. Use this same precise kernel identity; do not fall back to display time, invent identity, infer ended from status, or extend tool deadlines. Normal ended still needs actual wait/group absence.",
+  "retainedArtifacts": "/tmp/peer-native-ordinary-recovery-20261118/rejected-product-4",
+  "scope": "Own synthetic commands only. No user processes/data or installed/default changes."
+}

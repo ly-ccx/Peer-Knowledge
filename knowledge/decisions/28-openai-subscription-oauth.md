@@ -191,5 +191,18 @@ LlmSettingsPanel (协议类型 + 鉴权方式 + 登录按钮)
 
 ## References
 
+### 原生迁移目录与请求契约校正（2026-11-16，实施前 A级修订）
+
+§6的`/^gpt-5/`旧前缀白名单和§8的远程优先/失败fallback，不再描述当前生产实现。本修订以当前`provider-adapters/openai-model-catalog.mjs`导出的`SUBSCRIPTION_CATALOG`为唯一内置权威订阅目录，包含当前gpt-6等实际已声明ID；CLI移植生成相同语言无关资源，按明确ID准入，不按品牌前缀臆造、扩展或误杀模型。codex平面无模型目录请求；source仍为builtin，不把内置权威称作远端失败兜底。目录接受与真实远端模型验收分别记录。
+
+按既有声明式modelOptions投影当前contextTier，保留选择的标量类型与默认/失效回退规则；上下文窗口是预算输入，不是凭证、模型用量或权限。实际订阅Responses请求省略max_output_tokens；maxOutputTokens元数据不因此丢失。沿现有TUI的originator身份头、account头与固定codex端点构造，不把access token送到用户覆盖的API base。off继续省略reasoning，default采用服务端默认；显式支持的档位与fastMode沿现有encoder seam。普通API-key Responses不受这些订阅专用规则影响。
+
+原生刷新/条件持久化沿[ADR0001原生OAuth修订](0001-cross-platform-credential-vault.md)，尚未完成的浏览器登录、配置写入/提示投影、真实IdP/平台验收不得由只读token和本地mock模型闭环冒充完成。
+
 - ADR 23 Provider Encoder Seam
 - opencode `packages/core/src/plugin/provider/openai-auth.ts`(PKCE / 流程参考)
+
+2026-11-16 原生账号入口补充（实施前A）：原生 CLI 的显式登录/退出/status、固定端点/PKCE/loopback 和迟到凭据代条件提交见 [ADR131 NR-04模型账号条款](131-native-cli-contract-storage-and-recovery.md)。本地元数据提示不能充作实际 token 真值；完整配置管理与提示恢复仍是迁移必交范围，不由只读配置登录替代。权限/Evidence不变。
+
+
+2026-11-16 Grok原生迁移补充（实施前A）：当前CLI既有Grok订阅OAuth的device登录、固定issuer/client与api:access、唯一刷新者、现有Vault条件提交、结构化人机提示及Grok版本兼容426行为见[ADR131 NR-04 Grok条款](131-native-cli-contract-storage-and-recovery.md)。ChatGPT/Google身份与原权限/Evidence合同不变；不新增API-key渠道，不借官方CLI作运行sidecar。实现/真实服务及平台验收另记。

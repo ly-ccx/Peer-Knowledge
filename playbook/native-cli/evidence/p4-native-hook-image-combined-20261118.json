@@ -1,0 +1,27 @@
+{
+  "sourceParent": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+  "tree": "c4567fee9dd98acf477f0615e6367d7757b26a0d",
+  "localNativeGate": {
+    "result": "success",
+    "rustTests": 712,
+    "publicHostTests": 305,
+    "interopRoots": 637,
+    "interopCases": 3576,
+    "ptyCases": 9,
+    "log": "attachment-combined-verified.log",
+    "sha256": "6d04d85bb8ae85d2e9210342637d5d735999597edfdf7af4756f3e24ad0c9d10"
+  },
+  "archive": {
+    "platform": "darwin-arm64",
+    "featureless": true,
+    "members": ["peer", "peer-credential-helper"],
+    "archiveSha256": "dad5bec088c726ebc3e45da7894092716237b7d5bc0f08226a57a16283df516d",
+    "executableSha256": "d3229031b1cdfc812aeb7f21999d2e66a4f090e67797971cc96100128f6ce209",
+    "mainPtyExecutableMatches": true,
+    "publicHook": {"cases": 14, "log": "attachment-combined-archive-hooks.log", "sha256": "2fd8ee6ace01c0aac88506f844ca01a0ae27d69ad31b19753a58c4ae38523cc7"},
+    "publicImage": {"cases": 4, "log": "attachment-combined-archive-images.log", "sha256": "0e008be618e02a86a5d1ac8eca1d3654d875fed518f156d7b82c138dd5fd9fee"},
+    "acp": {"sdk": "1.4.0", "log": "attachment-combined-archive-sdk.log", "sha256": "db33c6554c219acbe27be00b50d8fbda83f55f12f4c7677d97bd6023c6864d4b"},
+    "oldTuiColdRead": {"originalMessageBytesUnchanged": true, "log": "attachment-combined-cold-read.log", "sha256": "a49249ccec2ab3d89bb1c8ee3f7241b990e8aae3c75bbb228714cd3a8b173c39"}
+  },
+  "scope": "Isolated fixtures and services on macOS arm64, featureless archive, independent whole-repo CI and release acceptance tracked separately. These checks neither run a real model nor exercise P6 memory soak or installed cutover."
+}

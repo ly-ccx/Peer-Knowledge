@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-15",
+  "candidate": "c136ced",
+  "tree": "6e764a7b6323a9a989b0ab6e2d73e97f11b3d64c",
+  "classification": "B under ADR37/55/56/57/129/130/131; no permission, Evidence, Context admission or persistence boundary moved",
+  "scope": "Native model Module and existing callers through the same immutable request; complete Host accounting/compaction loop is not implemented by this card",
+  "behavior": [
+    "PreparedRequest owns frozen encoder body/bytes/fingerprint and borrows its original NativeModel; send consumes it",
+    "Actual Anthropic/Gemini counters derive from that body, preserving system/tools/messages/generation options except documented count transform",
+    "Same authorization header factory; Gemini counts remove SSE query and require matching model path",
+    "OpenAI and OAuth remain observed-only; bad counter does not mutate or consume generation request",
+    "Counter response limited to16KiB, operation to10s or shorter model deadline; no raw provider error body or usage observation",
+    "Count cancellation/timeout close real controlled sockets while keeping the reactor running"
+  ],
+  "validation": {
+    "rust": 213,
+    "publicCLI": 32,
+    "nativeCountHTTPTests": 4,
+    "actualTSCountAdapterVectors": 30,
+    "tsRoundtrip": {
+      "roots": 47,
+      "cases": 254
+    },
+    "oldStoreCrossProcess": 302,
+    "nodeLedger": 28,
+    "bunLedger": 28,
+    "pty": 8,
+    "checks": [
+      "fmt",
+      "clippy warnings denied",
+      "contract generation comparison",
+      "release build",
+      "sidecar/dependency boundaries",
+      "architecture"
+    ],
+    "releaseBinarySha256": "813e2e36e80a6ce821e1129717e9f7df80812c5cbd40cb77f23531ea2290606f"
+  },
+  "failedAttempts": [
+    "Missing count module during initial refactor check; created before completed validation",
+    "Reqwest own timeout was initially labeled transport failure; normalized to context_count_timeout",
+    "Immediate blocking join in a current-thread Tokio test prevented the socket-cancellation reactor from running. Awaited bounded blocking-worker join preserves the same socket-close assertion and2s server read deadline; no production connection policy change",
+    "Clippy rejected a complex fixture return type; added a CapturedRequests alias without suppressions"
+  ],
+  "logs": [
+    {
+      "id": "peer-native-prepared-check.log",
+      "sha256": "b62951699eb75985e674e00397d63a1bf2300c355b7e16f29252e055b115d77d"
+    },
+    {
+      "id": "peer-native-count-focus.log",
+      "sha256": "ae132bccb0cda01bae44cde52d2c8ce72e1eec735e4995d37294c88918f02c55"
+    },
+    {
+      "id": "peer-native-count-focus-retry.log",
+      "sha256": "bf8e5a545d1bf02f59d90c7dd07a1f05b45ad350114e07147e3186c0429d41bb"
+    },
+    {
+      "id": "peer-native-p4-count-prepared.log",
+      "sha256": "5a791c1cd63e6fb2a68f04c8a16043383e84a522c023bb22e7755f5c6cae15aa"
+    },
+    {
+      "id": "peer-native-p4-count-prepared-final.log",
+      "sha256": "80597a8d592a1dfa86423ea7ac79ad082f3ab147694dc20f30f3a9939362ef8d"
+    }
+  ],
+  "primaryReferences": [
+    "https://platform.claude.com/docs/en/api/messages/count_tokens",
+    "https://raw.githubusercontent.com/googleapis/googleapis/master/google/ai/generativelanguage/v1beta/generative_service.proto"
+  ],
+  "limits": [
+    "Real authenticated supplier calls not run; HTTP fixtures are synthetic",
+    "Module capability is not a claim of full CLI count/compact/rebuild/recount wiring",
+    "P4 total gate incomplete, P5 not started; no installed-build, personal data, soak or release acceptance",
+    "Implementer self-review"
+  ]
+}

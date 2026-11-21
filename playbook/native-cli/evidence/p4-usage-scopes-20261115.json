@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "candidate": "83a0733f50b281708f3dc532d106fa04063a5aac",
+  "tree": "1a38894b4f0e0589eede8158c36ae63be9516df9",
+  "binarySha256": "4c4a0869ba8194a836ea1217fabab363e1ece130632887752cdc8965ad88bee4",
+  "scope": "P4 native RuntimeUsageAccounting and existing tagged protocol amounts in public exec receipts; not durable usage or complete context-accounting pipeline",
+  "classification": "B; existing ADR 37/56/129/131 behavior and scope contract, no permission/Evidence/Context-authority/storage boundary move",
+  "implemented": [
+    "shared Rust ProviderRequestUsage and RuntimeTurnUsage types emit immutable scope tags",
+    "one RuntimeUsageAccounting owner per episode; normalized disjoint dimensions; raw provider total is not used as canonical sum",
+    "null/zero observations count without erasing the last capacity-bearing observation; auxiliary metadata separates billable summaries from capacity",
+    "safe-integer and bounded fingerprint limits; overflow leaves prior accounting state unchanged",
+    "public replied/max_turns receipts expose tagged usage and lastRequestUsage; subsequent task starts a fresh owner"
+  ],
+  "realPublicBehavior": {
+    "providerRequests": 3,
+    "actualReadFileCalls": 2,
+    "lastRequest": {
+      "usageScope": "provider_request",
+      "requestIndex": 3,
+      "inputTokens": 50,
+      "totalTokens": 59
+    },
+    "turnTotal": {
+      "usageScope": "runtime_turn",
+      "inputTokens": 120,
+      "outputTokens": 9,
+      "cacheReadTokens": 15,
+      "cacheWriteTokens": 0,
+      "totalTokens": 144
+    },
+    "laterTask": {
+      "providerRequests": 1,
+      "totalTokens": 16
+    },
+    "partialUsage": "two provider invocations; known token floor 16; canonical Work budget unknownUsage remains true",
+    "maxTurns": "exit 5; actual paired successful tool result, Goal acceptance pending, observed request retained in JSON"
+  },
+  "validation": {
+    "nativeTotal": "passed",
+    "rustTests": 194,
+    "crossProcessStoreCases": 302,
+    "tsColdReadCases": 97,
+    "nativeFixtureRoots": 30,
+    "nodeFocusedTests": 157,
+    "publicExecutableRustTests": 21,
+    "usageReferenceSequences": 7,
+    "usageReferenceObservations": 17,
+    "instructionCrossProcessCases": 28,
+    "ptyCases": 8,
+    "fmtClippyReleaseBoundaries": "passed",
+    "architecture": "passed"
+  },
+  "logs": [
+    {
+      "localLog": "/tmp/peer-native-p4-usage-scopes-final.log",
+      "sha256": "4207425ea932a5b63192f5cdd1b516d927a00b259e58929d16858a9b1537c1ef"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-usage-scope-first.log",
+      "sha256": "21e48ac027456ba78c616cbd6f92cd303ea84858af925c1c6978040d37556f98"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-usage-scope-public.log",
+      "sha256": "990032b6cda5e084c7ec8072bc99e51b03824a44bc54021a4b5b91c78ed4d35f"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-usage-scope-clippy.log",
+      "sha256": "5db63bc985a6630ca864c6d9b1e3774ccc024070180ac1b3ff501785064c6825"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-usage-scope-final-architecture.log",
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    }
+  ],
+  "ci": {
+    "run": "43627852431",
+    "linuxJob": 132547656519,
+    "macosJob": 132547656837,
+    "status": "in_progress; not counted as full job acceptance",
+    "precedingExactCandidate": "f6949bae500aeb5eaf41f51c28b5d72cbaa13849",
+    "precedingRun": "43624988490",
+    "precedingStatus": "both full jobs success including respective Electron smoke"
+  },
+  "limits": [
+    "Successful/max_turns JSON is a receipt, not durable conversation lifetime billing or an authoritative context percentage",
+    "Null observations and provider errors are accounted in the episode-local Module; the existing canonical Work budget remains the durable path. No new durable request/turn ledger or error usage receipt was added.",
+    "Summary accounting is conformance-covered at the Module seam; native compaction/summary execution is not implemented",
+    "Null usage is unknown; returned numeric turn quantities are known amounts, not a reconstruction of missing provider observations",
+    "Full context counting/compaction/recount, durable request/turn/lifetime recovery and remaining P4 external protocols are pending"
+  ],
+  "p4Complete": false,
+  "p5Started": false,
+  "defaultPeerSwitched": false,
+  "nativeRuntimeUsesBunNodeSidecar": false,
+  "realSupplierCoverage": false,
+  "installedBuildCoverage": false,
+  "review": "implementer self-review",
+  "reviewCorrection": {
+    "originalCandidate": "b9eff584c01421ba08a52d23aae4bf75de267582",
+    "originalBinarySha256": "84407d7449efe9a7bf71497bd79ea798c659ad393cc9d5cbb13ee665f75caed0",
+    "finding": "Static trace: wait_owned(...).await? could return on lease loss before the request observation; canonical budget usage could also return before local observation. This was not a separately reproduced lease-loss race.",
+    "correction": "Observe a null request on supervision error and observe returned model facts before budget handling. Ownership checks, stop semantics and durable Work budget stay in their original owner.",
+    "patch": "diff --git a/crates/peer-runtime/src/session_host/episode.rs b/crates/peer-runtime/src/session_host/episode.rs\nindex 62ee79e3..1a7f16ba 100644\n--- a/crates/peer-runtime/src/session_host/episode.rs\n+++ b/crates/peer-runtime/src/session_host/episode.rs\n@@ -259,11 +259,12 @@ impl NativeSessionHost {\n                 if history.history.excluded_from_message_id.is_some(){return Err(HostError(\"native_execution_recovery_required\"))}\n                 let projected=project_history(&history.history.messages).map_err(HostError)?;\n                 budget.request(self,&now())?;\n-                let turn=self.wait_owned(model.turn_with_history(system[\"rendered\"].as_str().unwrap(),&projected,&projection.definitions(),&live_history,&cancellation),&cancellation,cancel).await?;\n-                let turn=match turn{Ok(turn)=>turn,Err(e)=>{budget.usage(self,None,&now())?;usage_accounting.observe(None,RequestMetadata::default()).map_err(HostError)?;return Err(HostError(e.0))}};\n-                budget.usage(self,turn.usage.as_ref(),&now())?;\n+                let turn=self.wait_owned(model.turn_with_history(system[\"rendered\"].as_str().unwrap(),&projected,&projection.definitions(),&live_history,&cancellation),&cancellation,cancel).await;\n+                let turn=match turn{Ok(turn)=>turn,Err(e)=>{usage_accounting.observe(None,RequestMetadata::default()).map_err(HostError)?;return Err(e)}};\n+                let turn=match turn{Ok(turn)=>turn,Err(e)=>{usage_accounting.observe(None,RequestMetadata::default()).map_err(HostError)?;budget.usage(self,None,&now())?;return Err(HostError(e.0))}};\n                 let observed=turn.usage.as_ref().filter(|u|!u.is_null()).map(|u|serde_json::from_value(u.clone()).map_err(|_|HostError(\"native_usage_invalid\"))).transpose()?;\n                 usage_accounting.observe(observed,RequestMetadata {fingerprint:Some(&turn.request_fingerprint),..RequestMetadata::default()}).map_err(HostError)?;\n+                budget.usage(self,turn.usage.as_ref(),&now())?;\n                 if !turn.content.is_empty(){self.append_episode_message(&conversation,&json!({\"id\":uuid::Uuid::new_v4().to_string(),\"role\":\"assistant\",\"content\":turn.content,\"createdAt\":now(),\"streamId\":stream,\"contextSnapshot\":system[\"snapshot\"],\"requestFingerprint\":turn.request_fingerprint}))?;content=turn.content;}\n                 if turn.calls.is_empty(){return Ok((\"replied\",content,count))}\n                 let mut completed_ids=Vec::new();\n",
+    "finalValidation": "Complete native verification rerun against the fixed candidate; 194 Rust / 302 Store / 97 cold-read / 157 Node / 21 public / 8 PTY passed; lease-loss accounting itself was reviewed statically, not claimed as dedicated race reproduction."
+  }
+}

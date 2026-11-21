@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "candidateTree": "436c59e96ed7b49241d9f4d49b6e1f708a95af71",
+  "predecessorTree": "3a0ead024b97d3643cf82e5b1b05833b0a827e62",
+  "patchSha256": "f81b7d6c941a6fb26f39944604afc09fee3bf33a386ad76f4b8fa052c620d7ca",
+  "sourceArchiveSha256": "747e346caf39c7af4c6929832c3c8098ea6a6fdb716c9c5a7b84b95319617683",
+  "decisionCommit": "0145f3b",
+  "baseline": {
+    "transport": "Controlled HTTP SSE through actual installed legacy binary and actual extracted Rust package",
+    "legacy": {"requests": 13, "verifiers": 3, "repairTurns": 2, "exit": 6},
+    "predecessor": {"requests": 7, "verifiers": 1, "repairTurns": 0, "exit": 6}
+  },
+  "validated": {
+    "macosArm64": {
+      "ordinaryConversationTests": 87,
+      "extractedFeaturelessGoalTests": 24,
+      "archiveSha256": "e417806ff7d4f03335747b2c61b398a49ed0113a3e8239952ba3573ccf67e4ae",
+      "binarySha256": "bdf5c11c887e5714321003e17c99023742bb11fc3aec7241063ee3f7ed9ece91"
+    },
+    "linuxAmd64": {
+      "ordinaryConversationTests": 85,
+      "extractedFeaturelessGoalTests": 24,
+      "archiveSha256": "37a06edc5a6ef7f8af5df91466cedc6985e3dd5af62273526ea938e88708da65",
+      "binarySha256": "bc7db2f851877b01f806fd67ecf1c3a6211fa131a26d9c13001546da4854b867"
+    },
+    "packagePathWithoutBunOrNode": true,
+    "formatStrictClippyCrateAndArchitectureChecks": "passed",
+    "publicGoalCases": ["grounded failure then approved write and fresh pass", "two attempts exhausted", "explicit model budget during repair", "real Hook denial before dispatch", "hard exit after confirmed repair followed by two recoveries"],
+    "packageReplay": {
+      "providerRequests": 13,
+      "independentVerifiers": 2,
+      "actualGrantedWrites": 1,
+      "samePlanConversationAndStream": true,
+      "freshToolEvidenceAndCriterionRevision": true,
+      "exit": 0,
+      "legacyStoreColdRead": true,
+      "canonicalFilesByteIdenticalAfterColdRead": 5
+    },
+    "unpairedDispatchRecovery": {
+      "scope": "macOS fixture build, after real file effect and before Tool Result publication",
+      "exit": 88,
+      "providerRequests": 8,
+      "firstAndSecondRecoverExit": [1, 1],
+      "recordedStatus": "execution_outcome_unknown",
+      "actualEffectPreserved": true,
+      "originalCallAndStopObservationRetained": true,
+      "planBytesIdenticalAfterSecondRecovery": true,
+      "redispatched": false
+    }
+  },
+  "validationCorrections": [
+    "The first mock read assertion looked under output.content. The actual model-visible file reference exposes preview; the final assertion matches the full file value there.",
+    "Non-PTY --access ask is rejected before admission. The denial case now runs the real pre-tool Hook in headless full mode, asserts the denied result and checks the file remained unchanged.",
+    "The legacy reader projects verifier ID, status and evidence and filters optional verifier-row revisions. Compare the persisted revision to the legacy criterion calculation, then verify the current semantic review through the legacy API.",
+    "Recovery for an unpaired dispatch exits 1 with the authoritative outcome_unknown row and actual stop facts. Both recovery invocations assert the original owner, single dispatch and identical retained state."
+  ],
+  "predecessorCi": {
+    "commit": "0bbb810ef2b7f9efa02bb7bf81674e67a3a8f52d",
+    "runId": 44354720128,
+    "linuxJob": 134979585919,
+    "linuxCheckout": "359ee8742bf132713cf23b8cd35658793c69de09",
+    "linuxTree": "b778edecef34e0ff63c346910acd279ca36c3161",
+    "linuxConclusion": "success",
+    "firstTwoMacosAttempts": "cancelled before runner assignment; zero steps",
+    "thirdMacosJob": 135021110104,
+    "thirdMacosObservation": "assigned and running Setup Rust"
+  },
+  "remaining": [
+    "Promote validated source candidates in order after predecessor whole-repository CI",
+    "ADR103 single-request report format continuation and ungrounded structural gate follow-up",
+    "Real model service validation and remaining P4 integration acceptance",
+    "P5, P6, and P7"
+  ]
+}

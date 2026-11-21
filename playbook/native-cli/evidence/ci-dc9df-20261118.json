@@ -1,0 +1,110 @@
+{
+  "source": "dc9df7273d734d5641d0c10e5e7cea51dbbc04f5",
+  "tree": "9b6f076d206963c34c214da5d1d1fa7a2adab81c",
+  "merge": "889bbbee41de9c1bd38eda606ef1af56d089bb6a",
+  "parents": [
+    "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "dc9df7273d734d5641d0c10e5e7cea51dbbc04f5"
+  ],
+  "run": 44217341964,
+  "result": "success",
+  "jobs": [
+    {
+      "id": 134510516333,
+      "name": "ci-ubuntu-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check packaged main-process imports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (macOS)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Bot shell Electron smoke (Linux)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 134510516847,
+      "name": "ci-macos-14",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check packaged main-process imports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (macOS)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (Linux)",
+          "conclusion": "skipped"
+        }
+      ]
+    }
+  ],
+  "actualCheckout": {
+    "linux": "2026-11-18T01:39:00.5323026Z HEAD is now at 889bbbee Merge dc9df7273d734d5641d0c10e5e7cea51dbbc04f5 into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "mac": "2026-11-18T01:39:03.7542790Z HEAD is now at 889bbbee Merge dc9df7273d734d5641d0c10e5e7cea51dbbc04f5 into 8b0c97175099a91d6495d6dd67ac063a7e262d63"
+  },
+  "electron": {
+    "linux": true,
+    "mac": true
+  },
+  "scope": "Actual CI checkout, merge tree/parents and final job scopes were verified. This receipt validates only dc9df727 and its equal merge tree."
+}

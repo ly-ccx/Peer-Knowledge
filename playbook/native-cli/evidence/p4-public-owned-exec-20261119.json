@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-19",
+  "scope": "P4 ordinary conversation ownership through the actual legacy exec composition on synthetic data",
+  "decisions": [65, 116, 129, 131],
+  "candidate": {
+    "base": "1657e9bb",
+    "isolatedTree": "a85709d97f0611bedfc0b58c16a11e4b3c0c9ae0",
+    "patchSha256": "07b93096fe6057920e1fe787918d5dee9b3bb2683b35a74c24138e6d75720f7f",
+    "harnessSha256": "742d84bcf99519fcd5ebf1ec5a4624a08eddfbed830bad2cfeb08bb6399bd225",
+    "published": false
+  },
+  "verified": [
+    "Real public legacy exec emits two loopback SSE requests and one normal 26-token billing row, with the observed authorized file effect and exactly one matching Evidence reference.",
+    "The Rust Store denies acquisition while the legacy owner is active, and can acquire after the recorded stop.",
+    "SIGTERM during real SSE preserves an observed five tokens and closes the original owner while retaining unknown usage. macOS also explicitly reran the cancellation-exit-code assertion.",
+    "Unsupported tool selection, missing isolated marker and configured Hooks are refused before opening a conversation. The unflagged legacy route remains usable."
+  ],
+  "artifacts": {
+    "macOSArm64": {
+      "cases": 6,
+      "compiledBun": "1.4.2",
+      "binarySha256": "f8297488b13020b877046a57d6d6783d66b44757f82eabab4ce3526c63a53aed",
+      "receiptSha256": "75beeab1fcdd857e196e1629c6b66b5db791d7312f589c720430ac35afe7960d",
+      "additionalChecks": ["64 focused TUI tests", "TUI typecheck", "architecture and UI checks"]
+    },
+    "linuxAmd64Container": {
+      "cases": 6,
+      "compiledBun": "1.2.17",
+      "binarySha256": "db33918d7f5bbe7ae462f0c8ca2bb985724a2cc5d9524bd135c6731651c3802f",
+      "receiptSha256": "03b478dbbd1e871044aaf023510b4dcfddf6aa535402dcd3e2100040b7ce7b13"
+    }
+  },
+  "limits": [
+    "Explicit fixture flag, marker, chat mode and write_file only. The experiment exercises compatibility with the legacy binary. The deliverable native CLI does not call that binary.",
+    "Current production legacy tool ownership, Shell/MCP/Hook drain, compaction persistence, existing installed processes and P4 acceptance are open.",
+    "Synthetic provider and data only. No install, update, release, default entry change or user-data mutation."
+  ]
+}

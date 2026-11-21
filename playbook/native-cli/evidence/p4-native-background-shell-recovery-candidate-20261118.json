@@ -1,0 +1,27 @@
+{
+  "registration": "22ae397",
+  "sourceParent": "179fd29a7062275141e871945d59f626a5241dee",
+  "shellArtifactTree": "92cc627577b66fd4742fd12b5e12e4f118c78f9d",
+  "isolatedTree": "611b5e56bed865a8fdc0f9d3ccfef25bb3c2cb1b",
+  "patchSha256": "6138131ff68f7565bf34a0494f9a7b8e9e9d493246f119cac2342e1526deecd4",
+  "incrementalPatchSha256": "2bfa4fe6bfd5ab4ebfb62817f6c6ec6910b8ccf12ad1339c95f82f0f39054589",
+  "checks": {
+    "sharedRustTsVectors": 71,
+    "newBackgroundVectors": 11,
+    "recoveryCliTests": 5,
+    "scopedLiveExecutionTests": 2,
+    "tsProtocolBuild": "passed",
+    "rustFmt": "passed",
+    "strictClippyWithTestFixtures": "passed",
+    "logs": {
+      "shell-background-contract-final.log": "882b2e33c28b95a7d1d991beaa257d0608135234a874e9ddc156ae6b4e6444f9",
+      "shell-background-live-stop-final.log": "339a464bc4c1376a0520a6a365928e597c7287a61ba4d683ed666824df4e6807",
+      "shell-background-recovery-feature-fixtures.log": "abd1d5a7a2db02e20835483091729d3323a6e9021609a6af8874ad40bed0c4b5",
+      "shell-background-ts.log": "c303d1ef2e88b25041fe2f16ef301fac5c59832da28f012b0be80b0bfaecf9ee"
+    }
+  },
+  "recoveryScope": "Public recover operated on a real original owner and shell process group. The fixture wrote the future background state and startup result into isolated canonical data after killing the original Host. Recovery reaped the group and kept the original bytes and unknown effect. Production background launch was not exercised.",
+  "scopedStopScope": "The internal registry waited for the real child exit, preserved the active handle after timeout and left another execution untouched. No public tool admission or Evidence was exercised.",
+  "initialFailuresRetained": ["Attempt to append startup receipt through an active-owner Store guard", "MCP recovery fixture test run without its test-fixtures feature"],
+  "remaining": ["Production background launch and result publication", "Public shell_stop authorization, execution and Evidence", "Delegated background lifecycle", "Persistent foreground Shell", "P4 total gate"]
+}

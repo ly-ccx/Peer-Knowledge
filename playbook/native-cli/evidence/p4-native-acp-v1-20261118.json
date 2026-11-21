@@ -1,0 +1,237 @@
+{
+  "date": "2026-11-18",
+  "migrationStage": "P4 / NR-04",
+  "baseCommit": "b4c726374ae43cf59c94566a9e9b1f4254abe12b",
+  "candidateTree": "4b41a91989d1a37bd0b7a99dc8be35e5dd3b64a6",
+  "governedBy": [
+    "76-peer-acp-agent.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "scope": "Native ACP v1 stdio through the ordinary Conversation Runtime and original Store. The selected provider, model, and compatible reasoning effort use the existing conversation index fields. The context option belongs to the ACP session; observed capacity remains in its canonical sidecar.",
+  "baseline": {
+    "tree": "2c48b52c356f38eca181dacbfa55f860ed7fa608",
+    "fullNative": {
+      "rust": 671,
+      "interopRoots": 627,
+      "interopCases": 3521,
+      "pty": 9,
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-web-full.log",
+        "sha256": "5c74d5dbfe87f584f92682b884c1ef850052cc9e3aaa791557c87513fa645f6c"
+      }
+    },
+    "effortMismatch": {
+      "sent": "high",
+      "stored": "default",
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-selection-baseline.log",
+        "sha256": "80a21faf0f86ff6ffb0132b9c6d66a112294de726c61f2e28fe257a2fa0dd074"
+      }
+    },
+    "laterModelSwitch": {
+      "acknowledged": true,
+      "laterPrompt": "CONTEXT_SNAPSHOT_CHANGED",
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-later-model-baseline.log",
+        "sha256": "2f12bf65f55dbe5e785ded068188cedf52812ee848c8aa1e4e426953693fe252"
+      }
+    }
+  },
+  "candidateScoped": {
+    "nativePublicAcp": {
+      "passed": 4,
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-scoped.log",
+        "sha256": "b7fb437fcaa26d3f3ef9313897f22f9f58cef10beabe27ae274c2cd1b9adab66"
+      }
+    },
+    "storeClaim": {
+      "passed": 1,
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-store.log",
+        "sha256": "807b6e8c7ff8b09d74420c296bf6a01c9c69ce2f4d0e0addf1856d541d8a83f9"
+      }
+    },
+    "strictClippy": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-clippy-final.log",
+      "sha256": "c0dc39b747464b6224316fc61336f5f218e743eb443767d5e8574571e300faec"
+    },
+    "architecture": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-architecture.log",
+      "sha256": "636231f34e774d71116bd6daf192af9071e4b7e6d0da82daf6c2a91596ef1330"
+    },
+    "coldRead": {
+      "actual": {
+        "actual": [
+          {
+            "workspace": "a",
+            "modelId": "model-b",
+            "reasoningEffort": "high"
+          },
+          {
+            "workspace": "b",
+            "modelId": "model-a",
+            "reasoningEffort": "low"
+          }
+        ],
+        "indexSha256": "97430022ce3e2ea89e254ae8c7fe217d3360b048ac2c956f09ecb7af52c78fd7",
+        "indexUnchanged": true
+      },
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-cold-read.log",
+        "sha256": "cd7a68aefe3c097b65f93f04dd8d48caaeb8111e3241daaf03824c9ff0ab32a2"
+      }
+    },
+    "wire": {
+      "sessionWindows": [
+        131072,
+        32768
+      ],
+      "globalConfigUnchanged": true,
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-wire.json",
+        "sha256": "243ebf457971140e872851b341d4f79f742c91e9ce2d0444e61848e797f2562e"
+      }
+    }
+  },
+  "nativePackage": {
+    "platform": "darwin-arm64",
+    "archive": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-package/dist/peer-darwin-arm64.tar.gz",
+      "sha256": "781cae083e524031491a914e7e3ff4ee4ab57de9b857f8b49eb56a75babe93e7"
+    },
+    "archiveBytes": 9263420,
+    "featurelessBinary": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-package/extracted/peer-darwin-arm64/peer",
+      "sha256": "bad8efa6ca36e757db4916158e24156ec60549323c894c0eef6320534847efae"
+    },
+    "binaryBytes": 22946272,
+    "members": [
+      "peer",
+      "peer-credential-helper"
+    ],
+    "nativeAcpPublicTests": 4,
+    "actualSdk": "1.4.0",
+    "sdk": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-package/sdk.log",
+      "sha256": "b292c98e34627e31ad8a3eb4b9a4c3c74e85445973442db90476aec79b715f1b"
+    },
+    "test": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-package/tests.log",
+      "sha256": "6ad323ed7605f9d1136b94a1d1b1b9405286b3186250620413976d77d6223e3e"
+    }
+  },
+  "freshCheckoutBootstrap": [
+    {
+      "missing": "topological workspace dependency builds",
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-fresh-order.log",
+        "sha256": "c2843c1593c36e68a634f896241bc0c0fc1ce6d451e9dc2f2fa6160feee7e854"
+      },
+      "recovery": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-dependencies.log",
+        "sha256": "22004e8de66806eeb65f2a1f2ca96bfe417dc33cfea2b808ea07cc956845c310"
+      }
+    },
+    {
+      "missing": "Electron distribution after offline install with ignored scripts",
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-electron-bootstrap.log",
+        "sha256": "b0143fc9cb613abd865ea8bec147d7f3437450039fc5ca0787873aa7c3e35c1a"
+      },
+      "recovery": "Used installed Electron 41.7.1 distribution with identical package metadata in the isolated checkout."
+    },
+    {
+      "missing": "ACP SDK module path",
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-sdk-path.log",
+        "sha256": "840916cc617fa9878a74817e963df29ff999fec34f32916c1c777274722c138b"
+      },
+      "recovery": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-sdk.log",
+        "sha256": "a9b8c2e3833a6a4d6afc14f95aa74d2e9d3cb101817807f4e0a928aa40303b94"
+      }
+    },
+    {
+      "missing": "built conversation-store exports before TUI cold read",
+      "observation": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-cold-read-missing-build.log",
+        "sha256": "4d14f00bf3545e33941076cd181fc38c27e3f4654acdb36c26392b5a94387f3d"
+      },
+      "recovery": {
+        "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-conversation-store-build.log",
+        "sha256": "c6b0f4c6a5e86a69fbb58cf89e6eb006800231fc78ca8e230632aeec4546a8f6"
+      }
+    }
+  ],
+  "nextGateBaseline": {
+    "skillWorkspaceOverridesGlobal": true,
+    "disabledSkillOmittedByLegacyProjection": true,
+    "native": "native_skills_not_migrated",
+    "nativeModelRequests": 0,
+    "legacyEvidenceDataLevel": "D1_internal",
+    "observation": {
+      "path": "${RAW_EVIDENCE_ROOT}/skill-discovery-baseline.log",
+      "sha256": "016c7134c199a5ebc2244f07aef07dcc5944f881166f82f85899c31975504ff0"
+    },
+    "disabledInventoryStaysBlocked": {
+      "legacyEnabledSkillCount": 0,
+      "nativeAllowlist": "read_file",
+      "nativeHttpRequests": 0,
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/skill-disabled-baseline.log",
+        "sha256": "4f4585300420097a7277be28aeafd35b94d7f5b148c91fb1665cd7248c9ab6ce"
+      }
+    },
+    "explicitBorrowedInstall": {
+      "sourceRootOnlyAvailable": true,
+      "explicitInstallSymlink": true,
+      "nativeWorktree": "isolated scratch"
+    },
+    "nativeStagedStore": {
+      "tree": "b186a199d43d4b65a53153b0acaacb882ed2f8cd",
+      "tests": 4,
+      "scope": "Scratch Rust catalog only. Header parsing budgets, mounts and workspace overrides, plus changed file and installed link rejection. No Runtime integration.",
+      "logSha256": "6151bc901bdbd3b2a0d2acfd4f21a01ee01cc472b3a36247fe2b533a377a3a01"
+    }
+  },
+  "limits": [
+    "Local implementer validation. Model traffic used isolated loopback endpoints.",
+    "Editor user-interface exercise, full protocol parity, native Skill/Plugin/Hook, mixed installed-host drain and P4 acceptance remain open.",
+    "Release installation, actual default launcher switch, published artefact, personal data and live app acceptance are outside this evidence."
+  ],
+  "candidateFullNative": {
+    "status": "success",
+    "tree": "4b41a91989d1a37bd0b7a99dc8be35e5dd3b64a6",
+    "rust": 672,
+    "publicHostTests": 277,
+    "interopRoots": 627,
+    "interopCases": 3521,
+    "pty": 9,
+    "ptyReleaseSha256": "7407ccf892f10eab3f5d79ed014f46aad14ddd36a83d1ec8f5c55d6049faeb15",
+    "log": {
+      "path": "${RAW_EVIDENCE_ROOT}/acp-persistence-full.log",
+      "sha256": "a55638e18bc55fba3a8fed13792f6448447c79d8d735bd1bbfc42266ef30edf0"
+    }
+  },
+  "precedingRemote": {
+    "run": 44227322669,
+    "source": "b4c726374ae43cf59c94566a9e9b1f4254abe12b",
+    "tree": "594a62681748509b8e464d514c19111b733fda09",
+    "merge": "f96137a58953c7ac4641ce4c8019b2c41705800d",
+    "mergeTreeAndParentsMatch": true,
+    "nativeLinux": "success",
+    "nativeMacOS": "success",
+    "fullRepository": "success",
+    "linuxFullRepository": "success",
+    "macOSFullRepository": "success",
+    "receipt": "ci-b4c72637-20261118.json"
+  },
+  "candidateCommit": "b2e09fead526def16f84ff669307aa77167df835",
+  "candidateIndependentCI": {
+    "run": 44233766860,
+    "status": "in_progress"
+  }
+}

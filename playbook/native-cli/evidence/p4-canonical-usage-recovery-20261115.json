@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-15",
+  "candidate": "0ffdec08",
+  "tree": "9eef3a8bb0214e2e40d3856c1a09293e046b76fa",
+  "classification": "A: ADR131 NR-04 canonical budget observation supplement, knowledge fe555e4; decision written before source changes and committed before source delivery",
+  "behavior": [
+    "Known normalized usage is canonical in the same Work budget transaction before tool dispatch",
+    "Loop finish preserves original process recorder until an actual matching managed_execution stop receipt",
+    "Closed billing snapshots persist and acknowledge by stable ledger identity and per-Work CAS; bounded batch of 64",
+    "Actual stop/drain precedes billing validation, including unsupported future snapshots",
+    "Billing never erases unknown tool effects or budget unknown",
+    "Current TS read/saveWork/read followed by actual Rust Host/Store re-read preserves raw and future budget facts"
+  ],
+  "fullNativeScoped": {
+    "rust": 208,
+    "publicCLI": 32,
+    "tsRoundtrip": {
+      "roots": 47,
+      "cases": 254
+    },
+    "oldStoreCrossProcess": 302,
+    "nodeLedgerCrossProcess": 28,
+    "bunLedgerCrossProcess": 28,
+    "pty": 8,
+    "checks": [
+      "fmt",
+      "clippy warnings denied",
+      "contract resources",
+      "release build",
+      "sidecar dependency boundaries",
+      "architecture",
+      "protocol build/typecheck",
+      "actual native Helper ping without secret access"
+    ],
+    "releaseBinarySha256": "84a7dac01a3a916021d6f49f6ab4f40884957aca25d2b02d42439883bb4db91e",
+    "releaseFaultStringsPresent": false
+  },
+  "baseline": {
+    "candidate": "9fb1b4ff",
+    "fixtureId": ".tmpEREMlx",
+    "case": "crash_after_file_effect_is_unknown_and_native_recovery_never_replays_it",
+    "originalConversationLifetime": null,
+    "ledgerConversations": [
+      "c2"
+    ],
+    "actualEffect": "Original file exists and unknown remains reconciling; original known 16 lacked durable per-dimension billing"
+  },
+  "failedAttempts": [
+    "Per-row canonical acknowledgment replayed the growing journal repeatedly: 65-row test took 246.07s and the later task exceeded the controlled HTTP server 15s lifetime. Retained fixture .tmpxkC2vO. Per-Work bounded CAS grouping reduced isolated test to 8.32s. This is fixture-scale measurement, not production benchmark.",
+    "The first complete scoped run passed 31/32 public tests; the same later-task fixture HTTP lifetime expired under parallel load. Retained .tmprsN0TF. The later task now starts a fresh bounded server after recovery; assertions and original provider identity remain.",
+    "Clippy rejected test module placement; moved it to file end without a suppression."
+  ],
+  "logs": [
+    {
+      "id": "peer-native-usage-batch-focus.log",
+      "sha256": "e3a621e326524f247cac7f124dec864c5b4587140a3da9827945a2e597416a8f"
+    },
+    {
+      "id": "peer-native-usage-batch-grouped.log",
+      "sha256": "092d852c3c43eea4d538e49aa0c6d690e36a0b7d89c6d965f440fadebbc78d54"
+    },
+    {
+      "id": "peer-native-p4-canonical-usage.log",
+      "sha256": "9a89f2423bff274d1814b2dc36abdf992b3fa50809d55173da35f7ef4ee86cff"
+    },
+    {
+      "id": "peer-native-p4-canonical-usage-retry.log",
+      "sha256": "de0ce8ee8b612ed90c30840196fd1e7c7833d914402543d782315fbc15544c37"
+    },
+    {
+      "id": "peer-native-p4-canonical-usage-final.log",
+      "sha256": "ffc4da4766504135db719e78b9bfb2516f9859669827038f3de4414d91125812"
+    }
+  ],
+  "CI": {
+    "priorCandidate": "9fb1b4ff1dbba6b3a8233a9788c01e6789e6ea65",
+    "run": 43678064980,
+    "jobs": [
+      132702469993,
+      132702470142
+    ],
+    "conclusion": "success",
+    "merge": "50ebfd41bbdd97e04c3076702ea14945a32b73af",
+    "candidateAndMergeTree": "861e6d62b88751d0336df3880709cef7627e191b",
+    "currentCandidate": "Independent CI pending; prior success is not inherited"
+  },
+  "limits": [
+    "Legacy missing raw dimensions cannot be inferred; no personal usage repair",
+    "Only the migrated work_session executor is covered; coordinator parity not claimed",
+    "No live supplier/vault, installed-build, soak or release acceptance",
+    "P4 total gate incomplete; P5 not started",
+    "Implementer self-review; no independent review claimed"
+  ]
+}

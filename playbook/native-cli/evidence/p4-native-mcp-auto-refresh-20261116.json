@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 native runtime MCP automatic refresh under the original grant, execution-local credential epoch, Context continuation and bounded connection replacement. Not current TS preloaded outgoing refresh guarding or complete cross-host/P4 acceptance.",
+  "candidate": {
+    "base": "5bbbd0ed9317b88f64129f01ad5253ef07f1ef05",
+    "commit": "321d0ccb1ae530ea99b866d1edf4b9240c3501b8",
+    "tree": "61dd24c49862aa5608ce8749d17f47b4ae73ce09",
+    "pushed": true
+  },
+  "decisionPass": {
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "31-mcp-connection-management.md",
+      "32-mcp-authentication.md",
+      "45-mcp-oauth-config-ux-simplification.md",
+      "50-cli-system-proxy-fallback.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "classification": "A: pre-source execution-local epoch and original-grant/Context continuation, plus logical connection ownership. No new tool permission, Context Source, durable permission or Evidence schema.",
+    "preSourceKnowledge": [
+      "58aa2c9",
+      "731539d"
+    ],
+    "review": "Implementation self-review, not independent. Same configured ref/client/issuer/resource/scope binding, not a claim to identify the account behind an opaque access token."
+  },
+  "baseline": {
+    "commit": "fcf06bc2bb85d3d7b01db88098344b182eb9f371",
+    "featurelessBinarySha256": "5e305dfa12cf94d1e649f9fd0cd29f4a5a7c89f25b7d552743b3e1064124e8ea",
+    "ownedRootName": ".tmpI5BMdF",
+    "log": {
+      "path": "/tmp/peer-native-mcp-auto-refresh-baseline-bound-20261116.log",
+      "sha256": "4c498edc8c20a77b667d54560646d442777ec641977ce3ff7064e0036870c284"
+    },
+    "result": "Actual old featureless binary given expired token with pinned issuer/client/scopes made zero refresh POSTs; exact regression requires one, two real tool calls and following model request. Initial unpinned fixture attempt retained in separate log, not substituted for this bound-token reproduction.",
+    "initialUnpinnedAttempt": {
+      "path": "/tmp/peer-native-mcp-auto-refresh-baseline-20261116.log",
+      "sha256": "94fc6b09eedcb8ad1f5554e917e0b7036eb27c467a2d70dd7002e9ab2e8b2e3e"
+    }
+  },
+  "baselineCi": {
+    "commit": "5bbbd0ed9317b88f64129f01ad5253ef07f1ef05",
+    "runId": 43879494376,
+    "mergeCommit": "81a22aa8aa6c4690be08b62477edb29e6dc25551",
+    "mergeTree": "64aec8cbf9f1f3c8d8f7ce2a048482194b6cf9f6",
+    "matchesSourceTree": true,
+    "linuxJob": 133341556933,
+    "linuxConclusion": "success",
+    "macosJob": 133341556661,
+    "macosConclusion": "cancelled",
+    "wholeRepositorySuccess": false,
+    "macosObservation": "Hosted arm64 runner not acquired; capacity annotations. No macOS checks ran.",
+    "receipt": "ci-coordination-stdout-20261116.json"
+  },
+  "validation": {
+    "nativeScoped": {
+      "base": "5bbbd0ed9317b88f64129f01ad5253ef07f1ef05",
+      "tree": "61dd24c49862aa5608ce8749d17f47b4ae73ce09",
+      "bunVersion": "1.2.17",
+      "startedAt": 1794838592.6248178,
+      "exitCode": 0,
+      "durationSeconds": 402.291,
+      "bytes": 16429936,
+      "sha256": "f5754b065cf0533a9a60902bcacfb67929de0936d8276d80c9ff2f4825c97381",
+      "rustTests": 370,
+      "nativeEpisodes": 135,
+      "actualTsInteropRoots": 254,
+      "actualTsInteropChecks": 1480,
+      "ptyChecks": 9,
+      "logSha256": "8953b1b63a6bf90c21238d284fc18e7216f60480c2cc9905444fb68e79e717cf",
+      "syntheticMarkersAbsent": true,
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-20261116/verify.log",
+        "sha256": "8953b1b63a6bf90c21238d284fc18e7216f60480c2cc9905444fb68e79e717cf"
+      }
+    },
+    "release": {
+      "tree": "61dd24c49862aa5608ce8749d17f47b4ae73ce09",
+      "bytes": 16429936,
+      "sha256": "f5754b065cf0533a9a60902bcacfb67929de0936d8276d80c9ff2f4825c97381",
+      "rustTests": 370,
+      "nativeEpisodes": 135,
+      "actualTsInteropRoots": 254,
+      "actualTsInteropChecks": 1480,
+      "ptyChecks": 9,
+      "logSha256": "8953b1b63a6bf90c21238d284fc18e7216f60480c2cc9905444fb68e79e717cf",
+      "syntheticMarkersAbsent": true,
+      "featureless": true,
+      "extraOAuthHostPassed": 24,
+      "hostLog": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-20261116/release-host.log",
+        "sha256": "acfc18672df9e47ba9c0711219e5902f9a5cc021735e67e62bc105fe0759a107"
+      }
+    },
+    "mcpFocused": {
+      "passed": 51,
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-all-mcp-20261116.log",
+        "sha256": "f6ddccaea81fcf8ca77075ff9cd72210d3f767ba38f66238eb05fc5e44269cf5"
+      },
+      "note": "Followed by strict equal-scope refinement and final complete frozen native gate."
+    },
+    "scopeChanged": {
+      "scenarios": [
+        "expansion",
+        "narrowing"
+      ],
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-scope-final-20261116.log",
+        "sha256": "18f9f95b3d5d405b22b741d0d06e8233d9a7bd8730a1c36a51f36fe8393a3e34"
+      }
+    },
+    "architectureUi": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-architecture-20261116.log",
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "fmtClippy": "passed in final frozen native gate",
+    "fullLocalPnpmTestTypecheck": "Not repeated for Rust product and development-only conformance fixture delta; remote combined CI checked separately."
+  },
+  "verifiedBehavior": [
+    "Expired token with known issuer/client/scopes in the actual credential envelope refreshes once after a real grant, publishes intent/final immutable slots, initializes once, executes two distinct tools and continues Context/model under unchanged grant facts; next request receives its own live Host port.",
+    "Epoch binds full execution identity and registry. Only private OAuth publication owner can advance actual Store revision; normalized credential-source identity applies only when current Store is exactly that owned generation. Goal/args/policy/lease/ancestry/role/registry and foreign credential mutations retain live checks. Epoch contains no secrets and is never serialized as permission truth.",
+    "A naturally expiring token during a real 16-second tool call causes old Connection close/join before a second refresh and new initialize; two token exchanges, two initializes, two tools. Bound redaction carries used prior access tokens/proxy credentials and original refresh credentials across generations; untrusted old/new token echoes never enter Tool Result, model Context or Evidence.",
+    "Denied expired OAuth reads neither Helper nor IdP and leaves metadata bytes unchanged. Policy revocation during sent refresh persists actual token but prevents tool initialization; registry/foreign credential mutations preserve pending/foreign data and prevent tool dispatch. No credential operation alone creates tool unknown.",
+    "Scope expansion and narrowing both preserve pending and block initialization; following tool request sees recovery_required and does not repeat refresh. Missing actual issuer/client/scope/refresh binding requires explicit authorization rather than DCR or browser automation.",
+    "TERM during automatic token exchange preserves intent, confirms tool not_dispatched, closes the owner and leaves zero tool uncertain dispatches. Explicit new code authorization then admits a later canonical native task with actual ToolResult/Evidence while old conversation stays unchanged.",
+    "KILL during token exchange leaves orphan credential lock. Canonical recovery retains unfenced_external tool uncertainty because credential pending is not proof of no tool dispatch; old tool is never replayed, metadata/history retained and further admission blocked.",
+    "Actual encrypted Vault/lock with synthetic key participates in runtime refresh and real grant/tool/evidence/model closure. HTTP(S) authenticated CONNECT tests require each OAuth request numeric while ordinary MCP retains configured hostname routing; proxy auth does not reach origin. Existing stdio/Streamable JSON/SSE/legacy SSE, denial, initialization revocation, deadlines, loss/unknown and stop tests pass.",
+    "Logical per-server owner has eight queue entries and bounded pool; each command owns its current Host admission port. Stdio is never auto-restarted. An execution_outcome_unknown RPC or protection-overflow stops the owner; cancellation/stop waits actual Connection/SDK/worker cleanup, and unproven stop remains unknown."
+  ],
+  "preservedAttempts": [
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-first-20261116.log",
+        "sha256": "797ad4650a0685ef6a5c165fde19ac9aa2b1fa03d0630dc4410be46c6563de69"
+      },
+      "ownedRootName": ".tmpulpCdK",
+      "cause": "New initialize-count assertion used substring and counted notifications/initialized. Exact parsed JSON-RPC method now distinguishes initialize; expected count remains one."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-regression-20261116.log",
+        "sha256": "7cfd7916ffaa406c403ee49946b4a82af710276c39ae053bd657ff07bc70d156"
+      },
+      "ownedRootName": ".tmp1zoL6M",
+      "cause": "Historical unbound expired-token test expected refresh_required. Runtime now requires actual pinned issuer and reports authorization_required; exact new code plus original no-MCP/no-unknown assertions retained; bound-token success separately tested."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-runtime-20261116.log",
+        "sha256": "e6b6a793f25be717fdf56b15c791be2aa254de76467a7ffef3cdefff4fbd9ea0"
+      },
+      "ownedRootName": ".tmptLQiCG",
+      "cause": "New foreign-write fault test assumed store_version_changed; existing Store canonical error is BACKGROUND_VERSION_CHANGED. Assert exact existing code, retain external-data/no-dispatch/unknown checks."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-runtime-complete-20261116.log",
+        "sha256": "989a906f7cba283bbeed7f6badcecfe4cc7a3fb47cc337040b72a6f0ac8b6609"
+      },
+      "ownedRootName": ".tmpL7DhxN",
+      "cause": "New proxy assertion incorrectly applied OAuth numeric-only contract to ordinary MCP. Final test maps actual OAuth request count to numeric CONNECT and ordinary RPC count to configured hostname CONNECT, preserving both accepted policies."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-retired-secret-baseline-20261116.log",
+        "sha256": "146d6a69055f189af1242d4da503ad7814549c1c38850ecabb4e917e4bcd52b9"
+      },
+      "ownedRootName": ".tmpoA8YLw",
+      "earlyUncommittedCandidateBinary": {
+        "path": "/tmp/peer-native-mcp-auto-refresh-before-protection-20261116",
+        "sha256": "8ffd200e6366ad32f019c49826c82647ca52328212c01a3f13035a229f42a976"
+      },
+      "cause": "Controlled actual early automatic-refresh candidate leaked a used prior token echo after rotation. Final bounded zeroizing protection across logical-session generations fixes the same real tool/history case; this was caught before source commit, not a released baseline bug."
+    }
+  ],
+  "candidateCi": {
+    "runId": 43885810034,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034",
+    "status": "completed",
+    "conclusion": "success",
+    "macosJob": 133363511130,
+    "macosStatus": "completed",
+    "linuxJob": 133363511412,
+    "linuxStatus": "completed",
+    "wholeRepositorySuccess": true,
+    "mergeCommit": "58a46f6aab056283ae0aa295162609a32696bfce",
+    "mergeTree": "61dd24c49862aa5608ce8749d17f47b4ae73ce09",
+    "matchesSourceTree": true,
+    "observation": "Both macOS and Linux whole-repository jobs succeeded, including build, native validation, types, architecture, tests and platform Electron smoke. Checked before starting current TS cohost implementation; no inherited green for the next candidate.",
+    "macosConclusion": "success",
+    "linuxConclusion": "success"
+  },
+  "limits": [
+    "Current TS cached/preloaded outgoing refresh guard and legacy installed-version drain are still required; native epoch does not stop an already-preloaded TS sender.",
+    "Native runtime requires a pinned issuer, configured client/scopes and refresh token in actual envelope; legacy discovery-cache-only bindings require explicit native auth currently, not claimed transparent automatic refresh parity.",
+    "No original-grant continuation across restart; real Store/current task recovery admits a new execution and never restores memory epoch as permission.",
+    "Protection retains up to64 distinct values/256KiB per logical owner; overflow blocks further dispatch and stops that owner. No unlimited secret cache, persistent secret shadow or zeroization claim for every transient SDK/parser/OS allocation.",
+    "P4 total remains open: TS send guard/legacy OAuth bindings/mixed-version drain, Grok/Qoder, full Context/compaction strategy, remaining tools/Skill/Plugin/Hook/ACP/headless/commands. P5 full project-agent not started; P6 TUI cannot send general chat and long memory/latency gate unverified; P7 installed/release/default retirement open.",
+    "Synthetic local IdP/model/proxy and encrypted fixture Vault key, not public IdP/model/VPN/OS secure-store or installed/platform acceptance. No install, personal-data migration, running-instance restart, default switch, merge, release or tag."
+  ]
+}

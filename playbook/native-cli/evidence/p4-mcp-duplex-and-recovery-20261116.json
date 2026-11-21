@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "status": "scoped-passed; P4-total-open; P5-not-started",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "commit": "9e634d7bfdf8cf176918fa359431649ce0a80151",
+    "tree": "ed880ce311bfbf1879d7411026052964568007c3",
+    "pr": "https://github.com/ly-ccx/Peer-Agent/pull/327"
+  },
+  "adrPass": {
+    "classification": "B: completes the accepted bidirectional MCP contract and fixes protocol fact ownership; C: owned synthetic fixture lifecycle/decision-vs-episode measurement. No capability/permission/Evidence/storage/System Context boundary moved.",
+    "files": [
+      "31-mcp-connection-management.md",
+      "32-mcp-authentication.md",
+      "36-mcp-tool-card-title-passthrough.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "clarificationCommit": "a49c79e",
+    "clarificationSection": "2026-11-16 bounded duplex/control and initialize-only negotiated-version observations"
+  },
+  "baselineCI": {
+    "commit": "b9623558b20be05b56fc0326b343e9ea67621497",
+    "run": 43730831267,
+    "linuxJob": 132862734334,
+    "macosJob": 132862734619,
+    "conclusion": "success",
+    "mergeCommit": "182f0806f9e43b0285d8aa7d97b10e8ade9e6890",
+    "matchingTree": "866607fce602e35934f8095f1465f8f8da4445df",
+    "note": "A full green baseline did not cover the newly reproduced duplex/header/cancellation cases; the follow-up is validated separately."
+  },
+  "candidateCI": {
+    "run": 43758620404,
+    "conclusion": "success",
+    "notInheritedFromBaseline": true,
+    "linuxJob": 132948138411,
+    "macosJob": 132948138128,
+    "lastObserved": "Both full Build steps succeeded; Native CLI scoped validation in progress; no failed steps observed.",
+    "mergeCommit": "00c3c75038c3e4e709ba98ff0769b7f2eea1f3ee",
+    "matchingTree": "ed880ce311bfbf1879d7411026052964568007c3",
+    "verifiedOn": "2026-11-16",
+    "fullRepository": true
+  },
+  "reproducedBaselines": [
+    {
+      "log": "/tmp/peer-mcp-duplex-traced-baseline.log",
+      "fixtureBasename": ".tmpqsN0Ja",
+      "runtimeCommit": "b9623558b20be05b56fc0326b343e9ea67621497",
+      "fixturePatch": "/tmp/peer-mcp-duplex-fixture-baseline.patch",
+      "fixturePatchSha256": "14bb4c6b9b1fcf4cd078fbb8f57b947620853e480da386bcef0dca82022a071f",
+      "actualEvents": [
+        "ping_queued",
+        "server_wait_expired",
+        "pong_received"
+      ],
+      "outcome": "Client tools/call stayed unknown and failed after the real 30-second deadline because the serial HTTP POST pump did not send the ping response while awaiting the tool stream."
+    },
+    {
+      "log": "/tmp/peer-mcp-protocol-binding-baseline.log",
+      "fixtureBasename": ".tmp8Evm3I",
+      "candidateOverlay": "b9623558 plus the duplex worker fix, before negotiated-version binding fix",
+      "outcome": "The second actual tools/call carried mcp-protocol-version: untrusted-result-not-negotiation, copied from an unknown Tool Result field."
+    },
+    {
+      "log": "/tmp/peer-mcp-init-cancel-baseline.log",
+      "fixtureBasename": ".tmpzcUGvw",
+      "outcome": "SIGTERM during initialize correctly avoided tools/call and exited4, but persisted a failed status instead of cancelled."
+    },
+    {
+      "log": "/tmp/peer-native-mcp-duplex-total.log",
+      "outcome": "First broad run:46/52 public cases passed, six failed. Five model failures occurred in multi-request/recovery cases consistent with the fixture absolute15-second lifetime; the PTY finish check conflated stdin completion with the full model/tool/stop/billing episode. These failures were investigated and not called flakes.",
+      "fixtureBasenames": [
+        ".tmpA81Ejj",
+        ".tmp0mudOq",
+        ".tmpFpuVVB",
+        ".tmpJFtQpO",
+        ".tmp6Hom39",
+        ".tmpzJgilt"
+      ],
+      "observedChronology": "The four actual file results in .tmpA81Ejj were at root ages4.027,6.982,10.243,14.317 seconds; the next model request failed. Another later-worktree result was already at15.049 seconds. The PTY fixture retained an approved record, successful write and final assistant result before eventual pause."
+    },
+    {
+      "log": "/tmp/peer-model-fixture-lifetime-baseline.log",
+      "fixtureBasename": ".tmpFVXBDE",
+      "actualModelEvents": [
+        {
+          "event": "request",
+          "elapsedMs": 1029
+        },
+        {
+          "event": "lifetime_expired",
+          "elapsedMs": 15002
+        }
+      ],
+      "outcome": "A deterministic16-second real PTY decision wait preserved the lease and authorized file effect, but the second model request failed because the owned model fixture had stopped. This isolated the fixture lifetime boundary."
+    }
+  ],
+  "changes": [
+    "A primary Streamable HTTP SSE response and one SDK control POST coexist inside one registered worker; no detached task is spawned.",
+    "Only SDK protocol replies/notifications can be sent while the primary call waits. Responses/notifications require202; a rejected or stalled control exchange preserves the original tool as unknown.",
+    "Direction matters: a same-id server request is not a response to the client call. Different-id and same-id ping cases each run two actual MCP calls with one grant per call.",
+    "Only the response bound to the real initialize id sets negotiated protocol version. The same-named Tool Result field remains in raw factual output and cannot alter later headers.",
+    "HTTP redirect and protocol-NACK retry are explicitly disabled. No request replay is introduced.",
+    "A cancelled bootstrap emits cancelled + not_dispatched, retains actual known billing and proves the owned stdio child was reaped. Sent cancellations remain unknown.",
+    "Model fixture listener lifetime follows its explicit owner; socket read/write waits remain3seconds and a deliberately stalled response remains bounded15seconds. Drop requests stop and joins the worker.",
+    "PTY tests separately require a persisted approved/denied/cancelled fact within5seconds, then bound the actual remaining model/tool/stop/billing episode within15seconds. Child ownership now guarantees cleanup on failed assertions. Existing effect/exit/status/unknown assertions remain.",
+    "A16-second approval wait verifies ongoing lease renewal, no pre-approval effect, actual granted write, subsequent model response and managed pause."
+  ],
+  "checks": {
+    "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-mcp-duplex-final-20261116",
+    "rustTests": 250,
+    "publicCliScenarios": 54,
+    "mcpScenarios": 15,
+    "nativeRoots": 82,
+    "actualTsNativeChecks": 493,
+    "productionTsMcpResultVectors": 7,
+    "ptyScenarios": 8,
+    "fmt": true,
+    "clippyDenyWarnings": true,
+    "release": true,
+    "nativeBoundary": true,
+    "architecture": true,
+    "nodeLedgerInterop": 28,
+    "bunLedgerInterop": 28,
+    "nodeCapacityInterop": 11,
+    "bunCapacityInterop": 11,
+    "releaseFaultFixtureHooksAbsent": true
+  },
+  "artifacts": {
+    "binarySha256": "98d3dbc679abb74a119db26f233741e7716e96f7d53a71f35484d832882c5eac",
+    "scopedLog": "/tmp/peer-native-mcp-duplex-final-total.log",
+    "scopedLogSha256": "3ea501f7bbc9eb773114fb65256a4cc55a2339a2c2dc974ece11356bb6738cb9",
+    "architectureLog": "/tmp/peer-native-mcp-duplex-final-architecture.log",
+    "architectureLogSha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560",
+    "root": "/tmp/peer-native-mcp-duplex-final-20261116"
+  },
+  "review": {
+    "independent": false,
+    "kind": "implementer behavior/source/diff review"
+  },
+  "remaining": "MCP credentialRef/Vault/legacy migration and OAuth/network/session parity; remaining auth/private wires, Context/compaction strategy/capabilities, Skill/Plugin/Hook, headless/ACP/commands and full P4 real-model/platform acceptance. P5 has not started.",
+  "limits": [
+    "Deterministic native fixture servers and actual public CLI, not live provider/MCP credentials or installed-build acceptance.",
+    "No P6 1GiB/four-hour soak or release/product regression performed.",
+    "No personal data touched, no app restart/install/tag/release/default-entry switch.",
+    "Native non-none MCP auth still blocks before cognition. Native engine has no Bun/Node sidecar."
+  ],
+  "references": [
+    "https://modelcontextprotocol.io/specification/2025-03-26/basic/transports",
+    "reqwest0.12.24 src/retry.rs: never() disables default protocol-NACK retry"
+  ]
+}

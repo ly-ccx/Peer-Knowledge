@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 native API-key channel configuration, not the full P4 gate or release acceptance",
+  "candidate": {
+    "commit": "35e213d13eb2e191c1fcf9fb881402c1f3b14991",
+    "tree": "f7c8db52d7c5e141a3c36d901c3a9f3c085c1197",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "nativeBinarySha256": "5d4bbd1809df022e3866d1af98fae481edc26f40d3dc0b34306b152a0e106985"
+  },
+  "decisionPass": {
+    "files": [
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "classification": "B",
+    "boundaryMoved": false
+  },
+  "baselineCi": {
+    "commit": "4cf7a4c8486319e6d59408a3c1dde8b836f1337c",
+    "runId": 43787766212,
+    "jobs": [
+      {
+        "id": 133039151481,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133039151743,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "candidateCi": {
+    "runId": 43794213954,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 133059215802,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133059216064,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
+    ],
+    "mergeCommit": "0556763c708a4f78fe732e704bdaaff361d5e70a",
+    "mergeTree": "f7c8db52d7c5e141a3c36d901c3a9f3c085c1197",
+    "matchesSourceTree": true
+  },
+  "validation": {
+    "fullNativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs <isolated-temporary-output>",
+      "exitCode": 0,
+      "rustTestsPassed": 269,
+      "publicCliTests": 67,
+      "actualTsInteropRoots": 123,
+      "actualTsInteropChecks": 731,
+      "ptyChecks": 9,
+      "logSha256": "29fda8e945d8550ca410f20f58ccc34ab21e2242a85d4a1e37febe2b522a3893"
+    },
+    "finalTestOnlyDelta": "After the full scoped gate, added an assertion that every configured request header occurs exactly once. Production source unchanged. Re-ran the real-HTTP model_channels integration and peer-runtime all-target clippy successfully.",
+    "actualTsChannelCases": 171,
+    "apiKeyChannels": 17,
+    "channelWireCombinationsWithActualToolEvidence": 19,
+    "countAndSend": "Existing v2 file -> native load_model -> actual local HTTP -> frozen encoded bytes, fingerprint and shared sensitive headers; Anthropic/Gemini count payloads checked against the same request",
+    "normalAndRecovery": [
+      "reasoning enabled/disabled, mapped-off, missing mapping, output limits, null caching, model/channel precedence",
+      "exact-spelling replacement and case-insensitive HTTP header combination, sensitive debug formatting, CRLF/invalid/protected/oversized header rejection",
+      "public CLI model -> read_file -> actual one-use grant -> structured result/Evidence",
+      "rejected headers preserve source bytes and do not dispatch; same canonical task succeeds after correcting isolated configuration",
+      "unknown private model options never enter requests or authentication"
+    ],
+    "checks": {
+      "fmt": "passed",
+      "workspaceClippy": "passed",
+      "releaseBuild": "passed",
+      "nativeBoundaries": "passed",
+      "architecture": "passed",
+      "uiConventions": "passed"
+    }
+  },
+  "preservedFailures": [
+    {
+      "ownedFixture": ".tmpyelZ5I",
+      "cause": "Test assumed raw role=tool storage; actual canonical tool result is assistant.segments. Real grant/result/Evidence already existed. Corrected the lookup and retained exact result assertions."
+    },
+    {
+      "ownedFixture": ".tmpp5AxcH",
+      "cause": "Test assumed Gemini model appears in the body; its model is in the endpoint. Corrected against actual TS request and retained model identity in contextSnapshot."
+    },
+    {
+      "cause": "Intermediate request-builder edit lacked the semicolon after HeaderMap.insert; compiler rejected it. Fixed before the final scoped validation."
+    }
+  ],
+  "limits": [
+    "OpenCode Go dynamic routing/reasoning/session identity not yet migrated",
+    "Model OAuth/login/refresh, Qoder private wire/options and proxy/certificate settings remain incomplete",
+    "Full Context sources, remaining tools, Skill/Plugin/Hook, headless/ACP/commands remain incomplete",
+    "Interactive Ratatui remains a draft scaffold; complete Bot workflow and P5 not started",
+    "No real remote model, IdP, OS Keychain or multi-platform installed build validation",
+    "No full memory/performance or release acceptance"
+  ],
+  "noInstallRestartPersonalDataMigrationOrRelease": true,
+  "bunNodeEngineSidecar": false
+}

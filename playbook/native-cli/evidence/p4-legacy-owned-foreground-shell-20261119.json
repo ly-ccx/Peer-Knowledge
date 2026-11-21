@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-19",
+  "scope": "Registered persistent foreground Shell in a real legacy exec and the original Rust conversation Host",
+  "decisions": [65, 116, 129, 131],
+  "adrRevision": "c2eaeec",
+  "source": {
+    "primaryStagedTree": "68f2c5f3bae6574b460643c9cf79e51619a3c673",
+    "isolatedFileBridgeTree": "2ac8c131f44b19189296637d127baa605743c357",
+    "testedTree": "9fe73c65eeac02bf8fc03769ef375999677e145e",
+    "incrementalShellPatchSha256": "3b7f41be13695a87985dd199182e98c9b5c4f5a5c9797e21745f109d2fcf90cc",
+    "publicHarnessSha256": "c1edc611e510ff8b299adb0d3d88e4ddd217dfe1768cf1f4496bed9891642b5c"
+  },
+  "observations": [
+    "The actual legacy executable persists the original allow Grant before spawn. A separately compiled Rust Store reads the running peer-ts shell_session, matching the real interpreter PID, command binding, original argument digest and unsettled Tool Call. The active owner blocks Rust acquisition.",
+    "Two actual commands reuse one interpreter, carry its environment forward and each write the matching Tool Result and Evidence. The idle handle survives the individual command settlement. Legacy process exit publishes a stop and releases the original group. The observed old ledger records nine tokens in one entry.",
+    "After confirmed stop, the development executable runs the actual Rust conversation Host with the identical session ID. A real HTTP model request contains both original tool responses and a new user prompt. The reply is committed to that same session under a stopped peer-native owner.",
+    "SIGTERM ends the original group and preserves its original three tokens, actual stop and unresolved pending command. SIGKILL leaves the old group active with the original handle and three observed tokens. Closed eligibility stays false; Rust recovery and acquisition reject both. Test cleanup uses the isolated release file after recording the hard-exit behavior."
+  ],
+  "checks": {
+    "dualLanguageVectors": 90,
+    "macOSArm64": {
+      "legacyBinarySha256": "774830ae08421f530e4a6f8d08bda780d3443aa7ca3e7523e458340c0864b2ce",
+      "nativeBinarySha256": "26eb629f608e4599fba58c404a8ad27222d333a9998d20d5746d52388fa1ebcb",
+      "runtimeProbeBinarySha256": "d518680a656e4a79baea5f2eb024a25669222c3f499feafbf2d82a90b9c9",
+      "publicReceiptSha256": "d556877c4ef7b66270edf6e7c7b52f872ccc6cfe08c36a31e25732af286bfd0b",
+      "shellTests": 16,
+      "storeTests": 149,
+      "realFileCases": 4,
+      "fileReceiptSha256": "7ee2cbbd04ad15423e6a80dec06bb819b37777aba157d8534be0aca3f5730a56",
+      "regressionLogSha256": "10de7ee8f37021065b60c5e5615e9045c7c7ce8b04d3c05550e5275ca97d6589",
+      "rustStoreTests": 17,
+      "rustFixtureSubprocessCasesNotRunDirectly": 2,
+      "rustfmtAndStrictProbeClippy": true,
+      "rustRegressionLogSha256": "9d99aac5eb24cd85213c3882c32c7789678361430e52f322daf7862a416bee99"
+    },
+    "linuxAmd64ContainerWithInit": {
+      "legacyBinarySha256": "5a653f216a7f91e2bc99d0c2401e5ba167d38cf988d0f4eb0182bd3c50ba82c9",
+      "buildAndPublicLogSha256": "4c77cdeb64d709068ccdf475f3d744bcac423f36eec2e8d53324f173f8db3d76",
+      "shellTests": 16
+    },
+    "initialFailures": [
+      {"observation": "The previous TypeScript validator rejected a valid peer-ts starting shell_session record.", "logSha256": "f3239f4c47d3fc8d74bc402cfcdf3dec2703c780b15e2ce0eb2a0b23b5062a10"},
+      {"observation": "TUI typecheck rejected direct reading of a generic result output. The host now narrows the observed shape before checking exit code.", "logSha256": "5a61dc32d4bad7aa716a6e459ba5b49f4c0fd6e4d557d5db9fd41b67560fb3d8"},
+      {"observation": "After the initial SIGKILL fixture checks, signal-zero temporarily returned EPERM during cleanup. The final harness preserves that as a still-existing group and releases only the isolated shell using its fixture file.", "logSha256": "ee1abea76748ad743b224105e44cf6f4d7fdabdcff5216a67a0117cfdeda7827"}
+    ]
+  },
+  "limits": [
+    "Explicit isolated profile and local controlled model. Foreground Shell only. The existing old host scope and actual interpreter cwd must agree before writing; directory replacement parity is still open.",
+    "Actual Rust Host continuation was driven by a development probe with a synthetic text-only model response. Public CLI resume, general crash recovery and installed mixed-host operation still require separate acceptance.",
+    "The source tree remains isolated. No installed CLI, user root, alias, published binary or default runtime was changed. The native runtime does not link or launch the legacy executable."
+  ]
+}

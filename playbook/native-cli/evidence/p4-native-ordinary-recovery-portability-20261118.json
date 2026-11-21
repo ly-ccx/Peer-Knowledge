@@ -1,0 +1,455 @@
+{
+  "date": "2026-11-18",
+  "status": "Portable directory identity correction scoped-validated and pushed; P4/full migration remain open",
+  "source": "dc9df7273d734d5641d0c10e5e7cea51dbbc04f5",
+  "base": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+  "tree": "9b6f076d206963c34c214da5d1d1fa7a2adab81c",
+  "patchSha256": "f65db6678918e8e394472c57af2077ed6dd98db0324b18064fa07a0adecb04e8",
+  "classification": "B: same open FD/dev/inode, exclusive recovery guard, complete control CAS and original error/permission/Evidence boundary. No ADR boundary change. Existing ADR129/130/131 pass; ordinary recovery/macOS preregistrations and full explanation are in the preceding recovery receipt.",
+  "implementation": "Use Unix std::fs::MetadataExt dev()/ino() on the exact nofollow-opened FD, whose public output is canonical u64 on both platforms; replace three platform-dependent raw Stat casts. No lint suppression, serialized identity/schema change, dispatch authority or new execution path.",
+  "baseline": {
+    "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+    "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+    "substitute": "Actual current Clippy on Linux-shaped u64 Stat fields, whose definition was read from linux-raw-sys0.12.1 x86_64/aarch64. This is a local type-shape counterexample, not an actual Linux compile or remote CI failure.",
+    "exitCode": 101,
+    "cause": "Three explicit st_dev/st_ino as-u64 conversions are platform-dependent lint: macOS needs a device conversion; Linux fields are already u64.",
+    "correction": "Use std Unix MetadataExt dev/ino from the exact opened FD, with canonical u64 output; preserve same directory identity and error/CAS/guard boundary, no lint suppression or schema change."
+  },
+  "precedingCompleteNativeGate": {
+    "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+    "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+    "rustTests": 662,
+    "publicHostTests": 269,
+    "episodeInteropRoots": 627,
+    "episodeInteropChecks": 3521,
+    "ptyChecks": 9,
+    "receipt": "p4-native-ordinary-recovery-20261118.json",
+    "scope": "Full native gate belongs to28dc/tree5469, not automatically to this final portable-FD delta."
+  },
+  "validation": {
+    "focused": [
+      {
+        "name": "store-6",
+        "command": [
+          "cargo",
+          "test",
+          "--locked",
+          "-p",
+          "peer-store",
+          "--test",
+          "conversation_execution",
+          "--features",
+          "test-fixtures"
+        ],
+        "exitCode": 0
+      },
+      {
+        "name": "clippy-6",
+        "command": [
+          "cargo",
+          "clippy",
+          "--locked",
+          "-p",
+          "peer-cli",
+          "-p",
+          "peer-protocol",
+          "-p",
+          "peer-tui",
+          "-p",
+          "peer-store",
+          "-p",
+          "peer-runtime",
+          "--all-targets",
+          "--features",
+          "peer-cli/test-fixtures,peer-store/test-fixtures",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "exitCode": 0
+      },
+      {
+        "name": "fixture-build-6",
+        "command": [
+          "cargo",
+          "build",
+          "--locked",
+          "-p",
+          "peer-cli",
+          "--bins",
+          "--features",
+          "peer-cli/test-fixtures,peer-store/test-fixtures"
+        ],
+        "exitCode": 0
+      },
+      {
+        "name": "ordinary-host-6",
+        "command": [
+          "cargo",
+          "test",
+          "--locked",
+          "-p",
+          "peer-cli",
+          "--test",
+          "native_episode",
+          "--features",
+          "test-fixtures,peer-store/test-fixtures",
+          "native_conversation::"
+        ],
+        "exitCode": 0
+      }
+    ],
+    "ordinaryStoreActiveTests": 16,
+    "ordinaryStoreSubprocessHelpers": 3,
+    "ordinaryHostTests": 22,
+    "fmt": "cargo fmt --all then diff review",
+    "architecture": {
+      "command": "pnpm architecture:check",
+      "exitCode": 0
+    },
+    "rootTypecheck": {
+      "source": "28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24",
+      "tree": "5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f",
+      "exitCode": 0,
+      "scope": "TypeScript inputs/resources unchanged by final two-Rust-file delta; exact root receipt retained with prior full gate."
+    },
+    "releaseBuild": {
+      "exitCode": 0
+    },
+    "productHost": {
+      "exitCode": 0,
+      "selected": 22,
+      "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+      "sourceTree": "9b6f076d206963c34c214da5d1d1fa7a2adab81c"
+    },
+    "existingStateRecovery": {
+      "results": [
+        {
+          "name": "product-recovery-6",
+          "command": [
+            "python3",
+            "${RAW_EVIDENCE_ROOT}/product_recovery_6.py"
+          ],
+          "exitCode": 0
+        },
+        {
+          "name": "product-recovery-interop-node-6",
+          "command": [
+            "node",
+            "${RAW_EVIDENCE_ROOT}/product-recovery-interop-6.mjs"
+          ],
+          "exitCode": 0
+        },
+        {
+          "name": "product-recovery-interop-bun-6",
+          "command": [
+            "bun",
+            "${RAW_EVIDENCE_ROOT}/product-recovery-interop-6.mjs"
+          ],
+          "exitCode": 0
+        }
+      ],
+      "cases": [
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-baseline-rjin4mt5",
+          "session": "a6ce088a-803f-4bb4-a27d-636c82243024",
+          "phase": "recovery_required",
+          "knownTokens": 16,
+          "requests": 1,
+          "beforeIndexSha256": "d013079be36aabe06270d664ff698d7a05c490948ac0679cff35a30d0f95081f",
+          "beforeBodySha256": "9aca10d5511293059dab40d4a3803df9c5654b908207269a13721d7da52b6adb"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-idl61s_r",
+          "session": "2700108f-32d4-481b-a63b-6d0693e71839",
+          "phase": "stopped",
+          "knownTokens": 16,
+          "requests": 1,
+          "beforeIndexSha256": "a41907c2929392c23b5bd359eded425be56ffb949d862d3295312ae0ee62b282",
+          "beforeBodySha256": "c6db9011349eec92decede243a2563e84818500d03ed3ef7640bc5a0d121bc21",
+          "stage": "after_prepared"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-6bfjz64b",
+          "session": "3ee71aa7-5f1e-4812-9939-95d13bc89a6f",
+          "phase": "stopped",
+          "knownTokens": 16,
+          "requests": 1,
+          "beforeIndexSha256": "c73d0b314a937ab8552de3950f3d32ccdc2ad025a8c42aea3ba74126a9c3ae06",
+          "beforeBodySha256": "0ec17e6aa7d190acfca78c2f0e32e91b567454e10504dedc173323d5e6417294",
+          "stage": "after_grant"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-h_765g3g",
+          "session": "4a3c59c8-00e2-423a-bfaa-6da64b589e13",
+          "phase": "stopped",
+          "knownTokens": 16,
+          "requests": 1,
+          "beforeIndexSha256": "f5330802488e9b38ed5695b12c49cc88c70f05edfe79474fdc53a7ea720e8cbe",
+          "beforeBodySha256": "f432830869e794290734c26f6e3163b8dc0dcf446616868a87b48fd2e2e063e4",
+          "stage": "after_tool_facts"
+        },
+        {
+          "root": "${RAW_EVIDENCE_ROOT}/product-case-_sx4mw5r",
+          "session": "030b5583-866c-4a16-9bfa-b8a370575821",
+          "phase": "stopped",
+          "knownTokens": 32,
+          "requests": 2,
+          "beforeIndexSha256": "bf8c2feebe52d94b6356292efb8ab29459d14e45cfbcf03c19cba9428cb831f8",
+          "beforeBodySha256": "efb110d14330566b1e5eed2b33cd0d419139936a1a09111972600fb27867e67a",
+          "stage": "before_billing"
+        }
+      ],
+      "node": {
+        "roots": 5,
+        "checks": 82
+      },
+      "bun": {
+        "roots": 5,
+        "checks": 82
+      },
+      "originalUnknownAndGrantsPreserved": true,
+      "feesOnceAndRepeatCanonicalBytesIdempotent": true,
+      "noModelOrMcpServerAliveDuringProductRecovery": true
+    },
+    "productEpisodeTsInterop": {
+      "roots": 13,
+      "checks": 76,
+      "consumer": "Current actual TS Store/canonical projection and previously full-gate-built Rust conformance reader; decoding inputs unchanged by FD helper delta. Product producer is exact source/tree above."
+    },
+    "pty": {
+      "passed": 9,
+      "results": [
+        {
+          "case": "normal",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 1122,
+          "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+          "passed": true
+        },
+        {
+          "case": "unicode-paste-resize-draft",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 3056,
+          "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+          "passed": true
+        },
+        {
+          "case": "sigterm",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 1122,
+          "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+          "passed": true
+        },
+        {
+          "case": "ctrl-d",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 1122,
+          "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+          "passed": true
+        },
+        {
+          "case": "guard-normal",
+          "exitCode": 0,
+          "termiosRestored": true,
+          "terminalBytes": 1122,
+          "binarySha256": "161dcaa5731d8a2752fa3560694886d747947dd11b06b2c0ab54a2bbf9ad3a38",
+          "passed": true
+        },
+        {
+          "case": "guard-error",
+          "exitCode": 1,
+          "termiosRestored": true,
+          "terminalBytes": 1197,
+          "binarySha256": "161dcaa5731d8a2752fa3560694886d747947dd11b06b2c0ab54a2bbf9ad3a38",
+          "passed": true
+        },
+        {
+          "case": "guard-panic",
+          "exitCode": 101,
+          "termiosRestored": true,
+          "terminalBytes": 1339,
+          "binarySha256": "161dcaa5731d8a2752fa3560694886d747947dd11b06b2c0ab54a2bbf9ad3a38",
+          "passed": true
+        },
+        {
+          "case": "oversized-terminal",
+          "exitCode": 1,
+          "termiosRestored": true,
+          "terminalBytes": 55,
+          "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+          "passed": true
+        },
+        {
+          "case": "pty-hangup",
+          "exitCode": 0,
+          "reaped": true,
+          "settledWithoutKill": true,
+          "terminalNoLongerAvailable": true,
+          "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "artifact": {
+    "sourceTree": "9b6f076d206963c34c214da5d1d1fa7a2adab81c",
+    "archive": "${RAW_EVIDENCE_ROOT}/package-dist-6/peer-darwin-arm64.tar.gz",
+    "sha256": "a2cdc823f2d2b5ad41304f6d7bee4ca83b6889696ad03069a287d20857e79ec5",
+    "members": [
+      "peer-darwin-arm64",
+      "peer-darwin-arm64/peer",
+      "peer-darwin-arm64/peer-credential-helper"
+    ],
+    "packagingEnv": {
+      "COPYFILE_DISABLE": "1"
+    },
+    "extractedPeer": "${RAW_EVIDENCE_ROOT}/package-extracted-6/peer-darwin-arm64/peer",
+    "extractedHelper": "${RAW_EVIDENCE_ROOT}/package-extracted-6/peer-darwin-arm64/peer-credential-helper",
+    "binarySha256": "be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7",
+    "bytes": 22396640,
+    "helperSha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c",
+    "version": "peer 0.1.0-rc.40",
+    "doctorExit": 0,
+    "linkage": "${RAW_EVIDENCE_ROOT}/package-extracted-6/peer-darwin-arm64/peer:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n",
+    "testSwitchesAbsent": true,
+    "scope": "Actual existing packageCliArchive with explicit native input and metadata-free tar caller; extracted direct binaries under env-clear isolated HOME and no Node/Bun PATH. No installation/default switch/signing/release. Not full P7 acceptance."
+  },
+  "ci": {
+    "previous": {
+      "workflow_runs": [
+        {
+          "id": 44215318326,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "run_number": 1439,
+          "jobs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44215318326/jobs",
+          "logs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44215318326/logs",
+          "workflow_id": 367429807
+        }
+      ]
+    },
+    "current": {
+      "workflow_runs": [
+        {
+          "id": 44217341964,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_number": 1440,
+          "jobs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44217341964/jobs",
+          "logs_url": "https://api.github.com/repos/ly-ccx/Peer-Agent/actions/runs/44217341964/logs",
+          "workflow_id": 367429807
+        }
+      ]
+    },
+    "currentVerifiedWhole": "ci-dc9df-20261118.json"
+  },
+  "limits": [
+    "Implementer self-review, not independent review. Synthetic accounts/services/data only, no paid real provider/IdP/OS keychain acceptance.",
+    "Local actual macOS27.0.1 arm64/rustc1.98.1. Declared1.88 MSRV and current independent Linux/macOS whole CI are not yet accepted.",
+    "No installation, default launcher/peer-dev change, personal data migration, running app restart, merge/tag/release. No product Bun/Node engine sidecar. Node/Bun are development interop/build tools only.",
+    "No complete P4/P5/P6/P7 or long-conversation memory acceptance claim. Old display identities with live/reused PID and Starting gaps remain explicitly blocked.",
+    "Mac tar AppleDouble attempt retained; standard COPYFILE_DISABLE=1 used by isolated packaging caller, no product packaging source changed. Python3.9 lacks extractall filter; exact member/type checks used before extraction. Not final P7 pipeline acceptance."
+  ],
+  "remaining": [
+    "P4: current TS ordinary owner/guard and actual older native/installed writer drain; preserving opaque fields is not executable compatibility.",
+    "P4: further unknown reconciliation Probe/Grant/Evidence, terminal partial commits and complete dynamic Context/compaction/attachment lifecycle; remaining tools including background/persistent Shell, Skill/Plugin/Hook.",
+    "P4: full ACP and remaining command/runtime parity, ordinary model HTTP auth exit classification, real services/platform/MSRV and combined P4 acceptance.",
+    "P5: complete project agent product, queues/delegation/worktree, Goal/Watch/memory, verification/acceptance/delivery and recovery.",
+    "P6: complete Ratatui send/model selection/approval/history/search/drafts/reading position; long-memory/response acceptance.",
+    "P7: full packaging/install/update/signing/multiple platforms/default peer-dev switch/old reachable dependency exit and full release regression."
+  ],
+  "rawEvidence": [
+    {
+      "path": "candidate-6.patch",
+      "bytes": 3017,
+      "sha256": "f65db6678918e8e394472c57af2077ed6dd98db0324b18064fa07a0adecb04e8"
+    },
+    {
+      "path": "linux-stat-cast-red.log",
+      "bytes": 964,
+      "sha256": "748df799d03e6d6b409117a6fe1240cec865cf4518f3592473b4b7e09ac11517"
+    },
+    {
+      "path": "linux-stat-cast-baseline.json",
+      "bytes": 726,
+      "sha256": "c14f6ab55e25213e60619aa3ffd129787bd3f7ec3e103799a4c9558d12c55d38"
+    },
+    {
+      "path": "focused-results-6.json",
+      "bytes": 1221,
+      "sha256": "50c5072c441a75a41b13ab94ff382fcb0b6cc680962f3911ce1294f549322e63"
+    },
+    {
+      "path": "store-6.log",
+      "bytes": 2175,
+      "sha256": "6edf1525a6b89a843bed51d3384b845a0c6d81cdefa9593987451839775fb406"
+    },
+    {
+      "path": "clippy-6.log",
+      "bytes": 682,
+      "sha256": "3d195e806244af125796ed76108a4dc2724e30168ab0339f3643fb113e232838"
+    },
+    {
+      "path": "ordinary-host-6.log",
+      "bytes": 3296,
+      "sha256": "3526aa704fb0fe5d1f08500f345d9cb787f900f882066d16787ff99560ee7b7a"
+    },
+    {
+      "path": "architecture-6.log",
+      "bytes": 384,
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    {
+      "path": "release-6.log",
+      "bytes": 672,
+      "sha256": "f8378d73c9a6264176242a90d34b38d6a1a0398bd2bcd7c732eef3a1539188c1"
+    },
+    {
+      "path": "package-product-host-plan-6.json",
+      "bytes": 2781,
+      "sha256": "30a6705cb6ea98e4644ddc6f455f9409d7c26136dad4b5392ba7198d3301e8f4"
+    },
+    {
+      "path": "package-product-host-6.log",
+      "bytes": 2555,
+      "sha256": "1a0a30fc7f3865b4d741d143819a8f106327ef29331b0a488d285f2546c453bb"
+    },
+    {
+      "path": "product-recovery-6.log",
+      "bytes": 411,
+      "sha256": "92d39c5866273c32eca451c913fbdeff46458937377d30a04456d64cab11980f"
+    },
+    {
+      "path": "product-recovery-interop-node-6.log",
+      "bytes": 244,
+      "sha256": "e5b3812a6ec4151b3517267be3a34e0bb75c6ae7562de03ba487f38d8922676a"
+    },
+    {
+      "path": "product-recovery-interop-bun-6.log",
+      "bytes": 244,
+      "sha256": "e5b3812a6ec4151b3517267be3a34e0bb75c6ae7562de03ba487f38d8922676a"
+    },
+    {
+      "path": "package-product-episode-interop-6.log",
+      "bytes": 215,
+      "sha256": "ce01ff835275cfcb91ebd07c4cc5a81e54bba6925408e1a79346be10ce17c179"
+    },
+    {
+      "path": "pty-6.log",
+      "bytes": 1758,
+      "sha256": "865cdfbc229d24b6ed4fea18da4904c5bebfbb4a2c9ad66acf3e857b98ff7fb9"
+    },
+    {
+      "path": "ci-final-observation.json",
+      "bytes": 881,
+      "sha256": "80bfa57cc588f487d8670f9798b0a1b4a7c023df9d2ad0e0c4c21d78c0301f8e"
+    }
+  ]
+}

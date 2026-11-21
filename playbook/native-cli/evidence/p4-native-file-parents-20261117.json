@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "base": "189c572c1b3322efcea3b29d25cbc358e17a833b",
+    "tree": "27464a33218d67c210a8b856f795364321ce5023",
+    "patchSha256": "caef15dda322e01d0221e58fd4d8da46048f6ca66b87bc70d6a7a2c5e16d54c8",
+    "startedAt": "2026-11-17T05:30:17.870297+00:00",
+    "pid": 82348,
+    "pgid": 82348,
+    "commit": "a717c42baa19b73e00f545fa521dd5f6b59a01bc"
+  },
+  "status": "a717c42b committed and pushed; full frozen native gate and featureless public/interop checks passed; independent whole CI in progress; P4 total remains open.",
+  "adrFiles": [
+    "49-cancel-path-hard-sandbox.md",
+    "51-unified-desktop-cli-file-tools.md",
+    "92-scoped-permission-inheritance.md",
+    "101-bot-owned-access-policy.md",
+    "127-unknown-outcome-reconciliation-and-delegated-resolution.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": {
+    "A": "ADR131/map register same-call recursive parent creation, existing-ancestor coordination claim, descriptor/identity/authorization boundaries, 128 missing-directory bound and retained partial effects before implementation.",
+    "B": "Actual scoped-declaration bug matches existing TS/ADR127 rule: an unexpressible directory effect must not be filtered into a false single-file proof; no new storage grammar, permission or Evidence policy."
+  },
+  "baseline": {
+    "source": "189c572c1b3322efcea3b29d25cbc358e17a833b",
+    "binary": "/tmp/peer-native-result-encoding-fix-20261117/peer-native",
+    "binarySha256": "c1738fe5ebfe537a925502e52c1ab56b3ca45ba7ddbf9560522227dff05a9814",
+    "actualFailure": "Public write -> read failed with file_parent_unavailable, no file created.",
+    "log": {
+      "path": "/tmp/peer-native-file-parents-20261117/baseline.log",
+      "bytes": 855,
+      "sha256": "9a508df0833ed5b5467059082a2c89680997b6049a26fafe51cb0f75d1530593"
+    },
+    "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpOyQ4vE"
+  },
+  "implementation": {
+    "entry": "Existing FileProvider/Manifest/Projection -> file write Grant -> owned blocking worker -> Result/Evidence; no separate mkdir tool or execution bypass.",
+    "target": "Same canonical Resource path identity, captured existing ancestor and missing suffix. Reserve file plus existing ancestor directory only when missing parents exist. Root-to-parent openat NOFOLLOW, same retained directory FD through mkdirat/openat/fsync and identity/path revalidation.",
+    "authority": "Current EffectAdmission before mkdir and publication; Host heartbeat/cancellation remains responsive; after any actual mkdir/CREATE error/cancel/revocation maps to unknown without cleanup/replay. Existing file snapshot/hash and Host materialization rules preserved.",
+    "recovery": "Directory effect cannot publish a file-only declaredScopes proof. Unknown protection retains its namespace; explicit recover observes facts without replay; same scope stays blocked and independent later work can run.",
+    "limits": {
+      "missingParentDirectories": 128,
+      "resourceScopePathBytes": 8192,
+      "fileAndArgumentBudgets": "unchanged v2"
+    },
+    "fidelity": "Seven actual TS Provider vectors. Existing native canonical alias output path is an explicit ADR51 host-shape delta; actual saved bytes/hash/target remain equivalent."
+  },
+  "focused": {
+    "unit": "Seven File Module tests passed, including seven actual filesystem/control sequences for cancellation/denial/anchor/directory/symlink replacement and retained materialization. Existing read/edit/Unicode/range contract assertions remain.",
+    "public": "Three normal public tests and two control tests passed before freezing. The final scope omission assertion, absolute Target invariant, read-only opener separation and conservative I/O-error fence were all included in the complete frozen gate.",
+    "tsBudget": "Existing TS work-budget focused suite passed unchanged.",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/oracle-write.log",
+        "bytes": 261,
+        "sha256": "1ef4fc3964a4f5f399b404338d7171e9f060cd50682a23fa10d2e1644f6911af"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/oracle-check.log",
+        "bytes": 261,
+        "sha256": "e1e08c8d210611f17edba9c55144a1a66b5c9dfa9873cb06750f048489a111a6"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/unit-2.log",
+        "bytes": 1204,
+        "sha256": "b0a27ae8176664a709d10f929a2cbb3d70ece4790acdc2a4cb1e5b4f8a3b4092"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/unit-3.log",
+        "bytes": 1440,
+        "sha256": "d5b7eb853643886b31b15b9446deb5d5fb91e44f1b78071be35332744b21c7a2"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/host-1.log",
+        "bytes": 220,
+        "sha256": "97d5b0d616786cf14380d33922cd4c9188a46e54e6b87cd5eb44fef799e442d6"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/host-2-native_parents.log",
+        "bytes": 430,
+        "sha256": "f0277670d83ce7e766874f240eb36f86106e12a954c29690fcffa08d5e633fa1"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/host-3-controls.log",
+        "bytes": 357,
+        "sha256": "da3def0abe363a1a384efaf8bb03a84bc7a01bf23e7b68444144589e0e7488fb"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/ts-budget.log",
+        "bytes": 886,
+        "sha256": "2b566745d993fc5fa444dea6c3343857217c63e1d7f6f925052629b41d69696f"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/clippy-1.log",
+        "bytes": 682,
+        "sha256": "bb279aad973abae2416fb19f35f8930eaedfb649777d840403d5dee83f5514f1"
+      }
+    ]
+  },
+  "preservedFailures": {
+    "unitFixture": "Initial direct FileEffect test supplied raw macOS /var alias to an Interface bound to canonical paths; fixture uses the real canonical root while retaining original unknown/empty-file assertions.",
+    "unknownScope": "First actual controls failed because canonical dispatch filtered away directory scopes; stop narrowed the primary directory to a file and allowed later same-scope work. No assertions/timeouts weakened; fixed the producer to remain conservative whenever any scope is not expressible.",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/unit-1.log",
+        "bytes": 1806,
+        "sha256": "e485c79e7492fb9b2e86ac74e44f0f5026353610390478f9e8e33183f222a7fb"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-20261117/host-2-native_parent_controls.log",
+        "bytes": 1635,
+        "sha256": "acd530c619d7130f014cdcac7c4c494cf3134b38d149e83efe4c6f4b50f18bd3"
+      }
+    ],
+    "failedOwnedRoots": [
+      "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpNibS52",
+      "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpo2J5X3"
+    ],
+    "existingState": "Failure was an unpublished prototype in owned fixtures only. No personal task changed; old unknown records are not inferred into corrected effects or auto-released.",
+    "unknownScopeEvidence": {
+      "path": "/tmp/peer-native-file-parents-20261117/failed-scope-narrowing.json",
+      "bytes": 4043,
+      "sha256": "7c1b828e38fcd354703bc3d9cd613c73ca9bae4d7a39dc02a4cb7a1a1edfcf5b"
+    },
+    "prototypeIdentityLimit": "The failed prototype binaries were overwritten by later builds; no exact binary/source-hash claim is made for them. Original build/Host logs, failed isolated roots and canonical/SQL scope facts are retained; final acceptance is bound to the frozen source/patch and pinned binary above."
+  },
+  "remaining": [
+    "P4 complete Context/attachments/large history and compaction strategies",
+    "Snapshot lifecycle/copy/delete/export and mixed installed-version recovery",
+    "Other tools/Skill/Plugin/Hook/ACP/headless/session commands and real service/Vault validation",
+    "P4 total gate; P5-P7; ordinary Ratatui sending, long-memory and installed/release acceptance",
+    "Physical ENOSPC/read-only filesystem/power-loss faults and non-macOS platform validation are not claimed by local fixtures"
+  ],
+  "authorization": "No personal task/credential migration, installation, running-user-instance restart, default entry switch, merge/tag/release or Bun/Node engine sidecar.",
+  "baseCi": {
+    "run": 44021853800,
+    "source": "189c572c1b3322efcea3b29d25cbc358e17a833b",
+    "status": "both platforms whole success",
+    "jobs": [
+      {
+        "id": 133832933095,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133832933419,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "snapshot": {
+      "path": "/tmp/peer-native-file-parents-20261117/base-ci-terminal.json",
+      "bytes": 9804,
+      "sha256": "8c7acd369bf355f3f9bbd698486ed2a85f91261c19a209defe94b9cad50cbaff"
+    },
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "189c572c1b3322efcea3b29d25cbc358e17a833b"
+      ],
+      "sha": "dd1876207e43fec43efc094de16754c9f11be109",
+      "tree": "95539ea5957bf0323f6abd35f95e72c1d59787ea"
+    }
+  },
+  "architectureCommit": "7deed79 (pushed before code candidate)",
+  "finalNativeGate": {
+    "terminal": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-17T05:44:12.789819+00:00"
+    },
+    "rustTests": 518,
+    "nativeEpisodes": 204,
+    "episodeInterop": {
+      "ok": true,
+      "roots": 533,
+      "cases": 3004,
+      "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+    },
+    "ptyCases": 9,
+    "otherCoverage": "All other existing native contract, Store/lease/writer/Goal/policy/resource/recovery/accounting/config/OAuth/MCP conformance, fmt/clippy/release/helper/static boundary and architecture checks remained in the same complete verify command. This is not the P4 product total gate or a whole JS release campaign.",
+    "log": {
+      "path": "/tmp/peer-native-file-parents-final-20261117/verify.log",
+      "bytes": 111242,
+      "sha256": "30cc4563c0f8482e298b5916871254f4f1a81c7d8d96ad029503677f1c130b76"
+    },
+    "source": {
+      "base": "189c572c1b3322efcea3b29d25cbc358e17a833b",
+      "tree": "27464a33218d67c210a8b856f795364321ce5023",
+      "patchSha256": "caef15dda322e01d0221e58fd4d8da46048f6ca66b87bc70d6a7a2c5e16d54c8",
+      "startedAt": "2026-11-17T05:30:17.870297+00:00",
+      "pid": 82348,
+      "pgid": 82348,
+      "commit": "a717c42baa19b73e00f545fa521dd5f6b59a01bc"
+    },
+    "binary": {
+      "path": "/tmp/peer-native-file-parents-final-20261117/peer-native",
+      "bytes": 18886368,
+      "sha256": "003c1b071ff8e6d78d32869ff7d75f26e012926848bc01cfceb372747f4940ee",
+      "libraries": "/tmp/peer-native-file-parents-final-20261117/peer-native:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n"
+    }
+  },
+  "featureless": {
+    "sourceTree": "27464a33218d67c210a8b856f795364321ce5023",
+    "binary": {
+      "path": "/tmp/peer-native-file-parents-final-20261117/peer-native",
+      "bytes": 18886368,
+      "sha256": "003c1b071ff8e6d78d32869ff7d75f26e012926848bc01cfceb372747f4940ee",
+      "libraries": "/tmp/peer-native-file-parents-final-20261117/peer-native:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n"
+    },
+    "terminal": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-17T05:44:59.436589+00:00"
+    },
+    "publicHostTests": {
+      "parents": 3,
+      "files": 4,
+      "snapshots": 8,
+      "modelResultEncoding": 9,
+      "total": 24
+    },
+    "environment": "Cleared environment, PATH=/nonexistent, pinned featureless release. Node/Bun are not an engine or test-process runtime here.",
+    "interop": {
+      "ok": true,
+      "roots": 46,
+      "cases": 245,
+      "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+    },
+    "logs": [
+      {
+        "path": "/tmp/peer-native-file-parents-final-20261117/featureless-native_parents.log",
+        "bytes": 430,
+        "sha256": "48004663c97b67170cbd6efa6dc39ab655a92a2da437557dce0f249f4202f0e2"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-final-20261117/featureless-native_files.log",
+        "bytes": 523,
+        "sha256": "570886f0fda7b81ebc1b4c1872761596b8c7a9641c3d768f4320dc22494efc70"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-final-20261117/featureless-native_artifacts.log",
+        "bytes": 983,
+        "sha256": "af25881518b107fc42d0ff343daa62152567eb5afa905230e89d61a995537f71"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-final-20261117/featureless-native_result_encoding.log",
+        "bytes": 1177,
+        "sha256": "9f8c7c23378926a3a32026dea2a40f0db28db805efcfcef8195f69c53b646580"
+      },
+      {
+        "path": "/tmp/peer-native-file-parents-final-20261117/featureless-interop.log",
+        "bytes": 216,
+        "sha256": "5a7f64d102f69d671eccc8bfc04b6c293d45cbeae0917ea56930d55e43b831d6"
+      }
+    ]
+  },
+  "ci": {
+    "run": 44026396831,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44026396831",
+    "status": "completed",
+    "jobs": [
+      {
+        "id": 133847657729,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T06:22:34Z"
+      },
+      {
+        "id": 133847658070,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-17T06:25:43Z"
+      }
+    ],
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "a717c42baa19b73e00f545fa521dd5f6b59a01bc"
+      ],
+      "sha": "30f5c895f28eea92221d4603be7e7047152f76a8",
+      "tree": "27464a33218d67c210a8b856f795364321ce5023"
+    },
+    "scope": "Independent final-source whole CI. Merge tree and base/candidate parents match; no inherited green claim.",
+    "conclusion": "success",
+    "terminalSnapshot": {
+      "path": "/tmp/peer-native-attachments-20261117/base-ci-terminal.json",
+      "sha256": "64934719dbdd24ed35887af7dec2beabd82d1563aa8e62d4b0f8d7fe789051fc"
+    }
+  },
+  "limitsOfAcceptance": [
+    "Owned synthetic files, HTTP/model fixtures and encrypted test vaults only; no real service/OS Vault or installed-build proof.",
+    "Real ENOSPC/read-only-volume/EIO/forced power-loss and platform-specific filesystem failures were not injected. Cancellation/revocation/path replacement/hard process exit and retained unknown were exercised.",
+    "Prior unpublished failed prototype roots are preserved, not silently repaired or claimed as migrated personal state.",
+    "P4 remaining Context/attachments/compaction/large-history and snapshot lifecycle/mixed versions; other tools/Skill/Plugin/Hook/ACP/headless/session commands and services; P5-P7.",
+    "Ordinary Ratatui send, 1GiB/four-hour UI memory and complete release/installed/default-switch acceptance remain open."
+  ]
+}

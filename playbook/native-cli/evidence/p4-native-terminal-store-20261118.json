@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-18",
+  "status": "Native streaming/terminal Store seam and current TS cooperation scoped validated. Ordinary conversation Runtime, full P4 and P5-P7 remain open.",
+  "candidate": {
+    "commit": "fcfee273ea814bfbd2e51e83226e328cbe83834f",
+    "tree": "29ea6ae9d04a072d26b78a0beafede115e7eae39",
+    "pushed": true,
+    "priorHead": "a942b36e2d31bc10a57e14175f8e723ae074d7c4",
+    "patchSha256": "be6adf3e5fd5771f0bf96ce6575d252792c9a7a30cfe9526d64f612812e6d35e"
+  },
+  "decisions": {
+    "classification": "B migration of existing v1 conversation sidecar/terminal merge and same-lock cooperation. No new execution journal, permission, Goal or storage format.",
+    "files": [
+      "00-adr-map.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "knowledgeBeforeSource": [
+      "ce38dbd",
+      "feef7bacc38d3bbbfe7c908d183fb9e46170efe8"
+    ]
+  },
+  "implementation": {
+    "native": "Bound typed Host Store APIs patch_stream_message and commit_terminal_message. Exact conversation/message plus source/contentRevision CAS, original index->body locks, bounded existing history policy, strict sidecar ownership/schema, canonical/index/marker opaque field retention. Streaming does not bump contentRevision. Terminal shallow-merges the original stable message, preserving original call/grant/result identities supplied by Host; no new model/tool execution.",
+    "publication": "Persist existing v1 provisional target before body replacement. Existing preview retained, new marker uses empty patch. Body->index->marker failures are explicit uncertain and preserve published facts. After first publication cancellation cannot abandon known storage cleanup. Fresh-source reapplication of the same known terminal facts completes Store-only recovery; no model/tool replay or duplicate message. Fresh identical native terminal is a no-op.",
+    "ts": "Streaming patch/clear now participate in same index/body locks and preserve marker opaque fields. Current terminal worker commit validates original marker, durably keeps provisional target during body/index publication, and reports cleanup/commit failures rather than false success. No high-frequency change broadcast added.",
+    "limits": "Existing bounded8MiB/4096-row raw writer policy retained, not complete large-history P6 acceptance. Metadata revision can advance again when explicitly finishing an interrupted commit; no execution or Evidence is manufactured."
+  },
+  "validation": {
+    "rustStoreAllTargetTests": 98,
+    "nativeTerminalTestFunctions": 5,
+    "nodeConversationStoreTests": 148,
+    "nodeInterop": {
+      "roots": 13,
+      "cases": 33,
+      "log": "/tmp/peer-native-terminal-store-20261118/interop-final-node.log"
+    },
+    "bunInterop": {
+      "roots": 13,
+      "cases": 33,
+      "log": "/tmp/peer-native-terminal-store-20261118/interop-final-bun.log"
+    },
+    "allTargetStoreClippy": true,
+    "fmt": true,
+    "rootTypecheck": true,
+    "rootArchitecture": true,
+    "nativeBoundaryCheck": true,
+    "fixtureBridgeSha256": "2b937a134c749718e135b808a0f2c1f891665eaa913ca2f692f8a3d200270d9c",
+    "scope": "Actual Store, current TS/Bun worker and real native child seams; not current whole native CLI gate, ordinary headless/TUI/ACP, real model/platform/install or full product acceptance."
+  },
+  "failureAndRecovery": {
+    "baseline": "Exact a942 archived conversation-store production source; baseline index sha matches git object. Same current new test subject override, unchanged common dependencies. Three real assertions fail: unlocked streaming/clear, corrupt/foreign sidecar terminal acceptance, unclassified post-body index error. Fixture roots and raw failure/source logs preserved.",
+    "native": "Four controlled marker/body/index/cleanup interruption stages; actual native child exits86 after body and index. Orphan index/body locks block writers. Tests prove child has exited, preserve diagnostic copies and explicitly remove only empty test-owned locks during isolated offline maintenance; then complete known Store patch and admit later message. This is not product automatic orphan removal or installed writer drain.",
+    "preservedHarnessAttempts": [
+      "Initial archived module dependency resolution failed, then proper package local dependency path admitted actual3 baseline failures.",
+      "Initial conformance request used wrong message key, then wrong expected existing error code. Real bridge/error mapping corrected; failed roots/logs retained.",
+      "First clippy caught nested conditional in fixture cancellation. Corrected without lint suppression; all-target clippy and final native tests pass."
+    ]
+  },
+  "priorCandidateWholeCi": {
+    "receipt": "ci-a942-20261118.json",
+    "run": 44126220185,
+    "head": "a942b36e2d31bc10a57e14175f8e723ae074d7c4",
+    "conclusion": "success",
+    "scope": "Exact a942 source; not later fcfee terminal Store candidate."
+  },
+  "currentCi": {
+    "receipt": "ci-fcfee-20261118.json",
+    "run": 44137462307,
+    "head": "fcfee273ea814bfbd2e51e83226e328cbe83834f",
+    "status": "completed",
+    "conclusion": "failure",
+    "scope": "Both native/build/type/architecture steps succeed; Test fails/retry fails at stale JSONL source digest. Later correction must be independently validated."
+  },
+  "remaining": [
+    "Shared ordinary Runtime turn loop and legitimate conversation Host identity/authority/persistent pending-call recovery; no fake Goal or inherited Bot Full.",
+    "Full headless/ACP/command parity, remaining Context/Skill/Plugin/Hook and P4 compatibility drain/real-service gate.",
+    "P5 project agent, P6 complete Ratatui experience and long-memory gates, P7 release/default switch."
+  ],
+  "safety": "Implementer self-review, not independent. Isolated synthetic roots only; no personal data, install, user restart, default switch, merge/tag/release. No Bun/Node engine sidecar; development conformance uses TS/Bun as reference.",
+  "evidenceDirectory": "/tmp/peer-native-terminal-store-20261118",
+  "logs": {
+    "rust-all-final.log": "55a6880e6573c82a9a528165ee0af808392d0155e0369085d08a73e1c6e21727",
+    "rust-terminal-final.log": "785f808cd002e3a3e4e3b28068ac2e393bf171ed1d5b25c3c764363b19833e6f",
+    "node-all-1.log": "b7c367fc29deb8167988713e5e365852298a661fcf8a5921660cb34348f6e8e7",
+    "node-new-before-2.log": "320b0b0f239fd2bb72b8fa1d2a897bc473b0de143d96a2ba7022d78a193973cc",
+    "clippy-1.log": "250489c4d5a85fbef89c1235ff15a3d4c3343314c85fe5deb9de5b2772ee5783",
+    "clippy-2.log": "0c9ba05a1fc0a5a16747f03fdf73970fdee8262a294a0f9274522cf8a857f164",
+    "interop-1.log": "28afa79622a3574089db583791d0097eb4f823b4f32ca21bc990f03374c99a69",
+    "interop-3.log": "921e710ffe1fa530d89bcd0e0266327bb191d6e3b905bf128aaeee8ad018de22",
+    "interop-final-node.log": "a792f313a049f49c97287156c34d7a3bb6ef7185319d98b0b98877ad8fe67a72",
+    "interop-final-bun.log": "390a2f9315f22d6f16f8e662c78174505fd3d39f735dd48bf484bc8c2ad9e416",
+    "architecture.log": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560",
+    "typecheck.log": "eebfe9879081de223671c6e9276576e919f3ae87338c4e1438f8858935e56830"
+  }
+}

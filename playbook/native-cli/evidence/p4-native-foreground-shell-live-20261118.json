@@ -1,0 +1,100 @@
+{
+  "head": "1f6b0a55e793101a4f9eb73cf7cfa1f19557ee99",
+  "tree": "ad4a64b0f50f9b7c236e04db43aaf3d03fc763d7",
+  "parent": "a69d852aca398f21be0aca2c549278d86230d1f6",
+  "patchSha256": "92f883fb3833e33e2faaf1930c7ad654c9390fc0962b054b3bc8856cb4510aca",
+  "contractFiles": [
+    "65-cli-headless-exec.md",
+    "116-session-control-and-resource-settlement.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "actualBehavior": [
+    "Ordinary exec and ACP use one governed foreground Shell in each owned execution. Each prompt tool call obtains a current grant and binds the original dispatch to the real interpreter before the user command reaches the control socket.",
+    "Real two-call public CLI retained physical cwd, exported variables and shell function. The two results had separate dispatches and authentic one-group ownership. ACP used two separate allow-once decisions and a real directory replacement was rejected before writing.",
+    "Real late stdout and stderr were saved under the original CLI call in actual artifact files. Short interrupted output remains incomplete and unknown even when the owned group is confirmed absent.",
+    "Real SIGTERM, ACP disconnect after dispatch, and hard Host exit were checked against kernel group absence, actual known usage, canonical unknown pending work, and refusal of new conflicting execution. The start-gap fault runs after durable Starting and before actual spawn."
+  ],
+  "verification": {
+    "macArm64": {
+      "ordinaryHost": 60,
+      "acp": 10,
+      "rustFmt": "passed",
+      "strictClippy": "passed"
+    },
+    "linuxAmd64": {
+      "shell": 11,
+      "ordinaryHost": 58,
+      "acp": 10,
+      "image": "peer-adr118-linux-toolchain:74e0bae9",
+      "container": "0fa0ad269f731b82a6200a23f2398f49d25492836759a70a7cb56e95c365770e",
+      "exit": 0
+    },
+    "contract": {
+      "typeScriptVectors": 86,
+      "rustContractSuite": "passed",
+      "actualPackagedNativeIdleRecordReadByTypeScript": true
+    },
+    "architectureGovernance": "passed",
+    "productCodeEquivalentTree": {
+      "tree": "cce1ca10d848b26851cc0a0ef563efdb5b7891ba",
+      "onlyLaterChange": "crates/peer-cli/tests/native_episode.rs handles EINTR in the same bounded permission PTY wait",
+      "macArm64": {
+        "shell": 11,
+        "store": 17,
+        "storeSubprocessFixturesIgnored": 2
+      }
+    }
+  },
+  "archive": {
+    "sourceTree": "cce1ca10d848b26851cc0a0ef563efdb5b7891ba",
+    "target": "darwin-arm64",
+    "testFeatures": false,
+    "sha256": "ea0db09fb61a3c39704679129b15812b689cda46e55ea4339274291c6f43e6cc",
+    "contents": [
+      "peer",
+      "peer-credential-helper"
+    ],
+    "nativeChildPath": "/nonexistent",
+    "publicExtractedScenariosPassed": 7,
+    "actualAcpSdk": "1.4.0",
+    "sdkRequests": 3,
+    "sdkApprovals": 2,
+    "sdkProcessGroupAbsent": true,
+    "fixtureService": "isolated OpenAI-compatible HTTP"
+  },
+  "retainedFailures": {
+    "oldArchiveDoesNotRetainShellState": "persistent-shell-public-a69d852a-state-red.log",
+    "cleanupTriedToAdvanceClosedContextSnapshot": "persistent-shell-live-store-failure.log",
+    "oldArtifactTestExpectedCommandFinishToEndInterpreter": "persistent-shell-live-ordinary-first.log",
+    "linuxHarnessArchiveInitiallyOmittedVersion": "persistent-shell-live-linux-cce1ca10.log",
+    "threeLinuxPtyPollCallsWereInterrupted": "persistent-shell-live-linux-cce1ca10-retry.log",
+    "linuxPtyCorrection": "Retry only EINTR under the original bounded permission prompt deadline. The same decisions, kernel effects and assertions still run."
+  },
+  "remoteCI": {
+    "run": 44292908299,
+    "linuxJob": 134762387993,
+    "macJob": 134762388688,
+    "observed": "in_progress"
+  },
+  "logSha256": {
+    "persistent-shell-live-store-failure.log": "05f4dde0e3af11df08c0f2e157632ac11b7e6a6c1e1d6880e4e88148941ea9c2",
+    "persistent-shell-live-ordinary-first.log": "c780a6ebaa536ad300e6e18664c7071398bdb702e55640b90cae1beece435a41",
+    "persistent-shell-live-macos-cce1ca10.log": "308df19eb574913e6b78d173c629d4489e8a22ff3dacc6a029365ddf1ee426e9",
+    "persistent-shell-live-macos-ad4a64b0.log": "8942907cebdd91c4924700e35b3e17012916afaa4d13f97823433d0c0721c662",
+    "persistent-shell-live-linux-cce1ca10.log": "02f1da30bd343ffc31737b0a3d6d5ad6da53cdf927f04406cf369e4fa71f16d3",
+    "persistent-shell-live-linux-cce1ca10-retry.log": "bd9cf3d8d3fdff3dcbc5e4fea384c068e88229782dd87e17a2852eb41d999669",
+    "persistent-shell-live-linux-ad4a64b0.log": "7a542c5d9b0a953ee7f680b38327ade37ad45c042c52a7a08e42879e629e5ff0",
+    "persistent-shell-live-package-cce1ca10.log": "ae588870dc659ccd36ec4f4817b0a68a840dd248fe31d7ee2bf4acf06f6c5785",
+    "persistent-shell-live-extracted-public.log": "7228c998d005ddfb56137a981665117f97806e5fb06486149a9f395096f0be7f",
+    "persistent-shell-live-extracted-sdk-idle.log": "28300653cf1b10727161918afba403b6ce326f0a83544cacd6d58c07cd20ab82",
+    "persistent-shell-live-observed-runtime.json": "4d02e1108e2cc65a29122dcea37a8be5b90fd1a11046fb746cf1729627f7f1d2"
+  },
+  "remaining": [
+    "Exact remote all-repository CI",
+    "Delegated Work shell under its actual claim and old installed Host coexistence/drain",
+    "Remaining P4 tasks and total P4 acceptance",
+    "P5, P6, P7 and default peer cutover"
+  ]
+}

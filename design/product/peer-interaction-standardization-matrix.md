@@ -1,5 +1,46 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 原生 Ratatui Bot 壳、Classic 对话与 ModelPicker（2026-11-19，P6 候选 `3b486756`）
+
+沿 ADR 108/122/129–131 在纯视图 `peer-tui` 与原生宿主 `peer-cli/src/terminal/` 实现日常交互 TUI：
+- **Bot 模式（默认）**：未绑定项目目录进入引导绑定页，显式确认后创建绑定；已绑定目录进入列表页（标题 `Peer`，`▸` 选中与独立预览行）或对话页（`Peer · <Name>`），支持 `/tasks`、`/task N`、`/memory`、`/objectives`、`/cards`、`/approve N`、`/deny N`、`/answer N`、`/takeover`、`/model`/`F3`、`/classic`/`F2`、`/older`、`/latest`、`/save-draft`、`/help`、`/quit`；草稿经 `InputDraftStore` CAS 持久化，恢复失败提示不阻塞输入，租约被占用时只读提示并需显式 `/takeover`。
+- **Classic 模式（`--classic` / `F2`）**：延迟建会话使空开退出零落盘；流式正文、工具审批（小窗防误批、粘贴不触发批准）、Ctrl-C 取消等待原 Runtime 停稳并标明未完成状态后可续跑；`F3`/`/model` 打开分组 `ModelPicker`，浏览不修改配置，不可用模型拒绝选中，`Esc` 保留草稿与阅读位置。
+- **验证范围**：无测试特性 `--release` 二进制（`PATH=/nonexistent`）通过 15 项 `peer-tui` 单元测试、22 项真实 PTY 端到端用例与 ADR 130 内存/延迟基准（空载 RSS 8.38 MiB、输入 p95 0.23 ms、取消 p95 84.53 ms、1.03 GiB 尾页 16 KiB 扫描、100 周期 FD 增量 0）。实现者自审；物理 OS IME 候选窗、读屏器、4 小时真实长稳与已安装发布版仍待后续验收。[ADR 130 证据](../../playbook/native-cli/evidence/p6-adr130-memory-bench-20261119.json)
+
+## 原生终端打开并续跑普通会话（2026-11-19，候选）
+
+用户打开指定会话先读原持久历史，Enter 显式发送。接收与执行来自 Runtime 和原会话 Store，提交受阻时保留草稿并提示原因。当前调用展示工具参数和 scope，y 仅允许本次，n / Esc 拒绝本次，Ctrl-C 停止当前回合并等待停稳。小窗不能批准，粘贴只是编辑输入。真实 PTY 覆盖只读打开、历史分页、审批、并发拒绝、未登记旧会话和取消后续跑。实现者自审，物理输入法、读屏、长期内存和已安装版本待验。[回执](../../playbook/native-cli/evidence/p4-native-session-resume-20261119.json)
+
+## 原生 ACP 工具参数与结果（2026-11-19，候选）
+
+编辑器在原 `toolCallId` 的待批准状态查阅工具参数，使用 ACP 的批准或拒绝选择。完成后展示已保存结果和同一调用的 Evidence，拒绝与迟到批准沿原权限及停稳事实处理。超限详情明确截断。SDK 及两平台进程自测覆盖真实批准、落盘、取消和后续会话。实现者自审，编辑器界面与辅助技术待验。[回执](../../playbook/native-cli/evidence/p4-acp-tool-presentation-20261119.json)
+
+普通 exec 模型配置不可用或模型 HTTP 401/403 返回 3。无效模型选择返回 2。已派发并结算的工具授权、Evidence 与已知用量来自原 Host，摘要遭认证拒绝时结束。 本机验证见[认证退出回执](../../playbook/native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。
+
+## 普通中断恢复的事实与控制（2026-11-18，dc9df727）
+
+CLI，ADR129/130/131。用户显式运行 `recover --session <id>` 恢复既有中断会话；命令不初始化全屏终端或请求模型。实际原owner仍活或不能证明死亡时静态拒绝且不接管；已有canonical stop可修复记账。状态来自原执行control、原Grant/Result/Evidence、实际OS和原用量Store回执：stopped且无pending才允许新run，recovery_required明确保留unknown；已停本地runner不表示工具效果成功。只取消原call匹配的open批准，不触碰同参数其它call或已决定历史。Ctrl-C/TERM取消后保留已写事实；FD互斥由OS释放，未知mkdir锁给出离线核对提示且保全。重复恢复不重放效果或重复收费。最终包22真实Host、5既有状态恢复、当前Node/Bun各5根82互读和9PTY见[回执](../../playbook/native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)；完整662原生门禁只属于28dc前一树。实现者自审、受控服务；真实平台/模型/旧安装drain、完整unknown对账、Ratatui/长期内存及默认安装仍待验收。
+
+## 原生普通 exec 的运行与中断（2026-11-18，候选）
+
+CLI，ADR65/92/101/129–131。用户从 argv 或 stdin 发起普通会话；Runtime 以真实 conversation/stream 为主体，沿同一 Provider/Projection/Grant/Evidence 执行，不创建 Goal、不继承 Bot Full。当前 access 及修订由 Host 持有；拒绝、取消、撤权与外来正文更新关闭后续派发，已经观察的费用和实际工具结果仍须保存。结果 JSON 的 ok 表示 Runtime 正常结束，不能替代任务核验或签收。修改原授权记录时保全原事实、拒绝覆盖并保持 unknown 阻断；独立新会话仍可准入。尚未迁移的实际 Skill/Hook 配置明确阻断，不静默省略。公开二进制与真实 Runtime 的模型/文件/Shell/MCP、取消/撤权/外来输入和后续工作验证见[普通 Host 回执](../../playbook/native-cli/evidence/p4-native-ordinary-host-20261118.json)。实现者自审、隔离数据与受控服务；owner 死亡恢复、TS 生产互斥、完整 Ratatui、真实服务及默认安装验收继续开放。
+
+## 原生 CLI 待批准请求的归属与到期（2026-11-17）
+
+CLI，`8526db01`，tree `aa059e57`；沿ADR92/101/131既有边界。用户可一次批准或拒绝当前工具；Host记录新请求的5分钟deadlineAt，只有真实Approve/Deny归local_ui，缺TTY/读取不可用、取消与超时归policy。待批准到期不会使过去已签发Grant凭时间失效；执行仍检查当前策略/参数/lease。取消与到期先保存实际未派发的Tool Result/Evidence，再停稳本轮，不把迟到y用于下一提示。旧open只沿已有owned恢复闸变stale/expired，不重写旧误归因或把历史audit当新许可。实际non-TTY、PTY批准/拒绝/TERM、2.5秒测试截止/迟到y、后续独立任务和25项Host授权/恢复已通过，300秒边界另有虚拟时钟/真实Host Store检查；完整原生门禁572 Rust/237公开Episode/603根3374实际互读/9PTY及固定featureless产物复核通过，独立全仓CI待核对。实现者自审；无真实用户数据、安装或完整Ratatui/IME/读屏/长时验收。见[权限回执](../../playbook/native-cli/evidence/p4-native-permission-wait-20261117.json)。
+
+## 原生CLI Grok设备授权（2026-11-17）
+
+CLI，`5182ad5e`，按ADR131/28实施前修订。用户显式`models auth <channel>`取得公开URL/userCode/有效期；等待提示不代表已登录，只有真实Vault CAS/回读后的管理回执表示凭据提交。Ctrl-C/TERM取消当前操作，保留原凭据、配置与任务；新登录从新device grant开始。拒绝/过期/无scope/身份冲突/secret回显拒绝后均可沿明确登录修复。模型执行仍从实际Grant与ToolResult/Evidence取事实。387 Rust/148公开Episode与featureless固定URL TLS Host通过，为实现者自审；真实服务、OS Vault、安装与完整Ratatui流程未验收。另沿ADR108输出原三种shell补全/帮助，stdout为脚本、用法错误退出2、不写配置；实际Bash与正式产物复核通过。见[回执](../../playbook/native-cli/evidence/p4-native-grok-20261117.json)。
+
+## 原生CLI用量与中断核对（2026-11-15）
+
+CLI，`9fb1b4ff`，ADR25/56/129–131。用户从原exec/recover核对任务与用量。Model只提供归一化请求观察；Store提供runtime_turn/conversation_lifetime，Session Control提供停稳事实。错误/取消仍结算已知用量；坏账本保留并阻断首次准入，原已停稳回合经recover核对原提交，不重放工具或更换任务身份。 28项真实公开CLI测试、8项PTY及实现者自审；完整P4/发布验收另行执行。见[回执](../../playbook/native-cli/evidence/p4-durable-ledger-host-20261115.json)。
+
+## Bot 设置保存后的读取连续性（2026-11-15）
+
+P06，`6406f7af`。用户在 Bot 设置中修改模型或策略后，真实保存回执发布的 profile 保持当前；早发的详情/列表读取不能回滚它。详情重验证最多四轮，持续变化沿原读取失败/重试恢复；新读取仍能反映宿主后续变更。没有自动翻转已保存策略或新增授权事实。 25 项聚焦、9 项邻接测试及 type/build 通过。原 CI 失败、复现与 Electron 跟进见[回执](../../playbook/native-cli/evidence/p4-ci-profile-recovery-20261115.json)。
+
 ## ADR 118 固定结果的来源状态
 
 P14，`15915dd7`。用户在原固定结果中查看打开时核对的来源状态及保存时的观察范围。宿主绑定原材料、规范会话与当前 Bot。缺少可信位置时显示无法核对，固定结果和试算条件继续按原回执。见[实施台账](../../playbook/v0.1.0/interactive-results.md)。
@@ -1350,3 +1391,47 @@ P06 的 done/aborted/error 只归并原会话表达层，不再用全量消息�
 ## ADR 127 未知结果的范围、核对与委托收口
 
 UO-06b（PR #317、#318 及收尾 PR）。任务详情的未知结果保护按宿主 claim 的声明范围指名对象（"涉及文件/涉及目录"），scope 经协议 normalizer 校验后透传，坏形状丢弃不猜测，原始前缀不触达读者。询问卡在宿主核对证据合格时第一层显示核对结论（声明范围内未观察到影响/已观察到实际影响），事实每次列表读取时现算，不冻结进授权摘要；同时提供"今后由主 Bot 核对后直接收口"的一键委托，已委托显示回执行，无合格证据不出现委托入口。设置页工作流组新增"未知结果收口"两档选择（每次询问我／主 Bot 核对后直接收口），保存走独立审计 seam（策略写入记 obligation 日志），失败保留原值并显示错误码。委托与撤回只影响后续收口，已收口不重开；收口只结束占用，任何界面不把结果标成成功。状态覆盖：default、busy（委托/保存提交中，防重入）、error（结构化错误码）、已委托（receipt 行）；无新动效，无焦点转移。核对结论与策略均为宿主只读投影，renderer 不持有权限真值。
+
+## 原生 CLI Git scope 与恢复候选（2026-11-17）
+
+`b308ff75`/tree `e2758723`：目标为从真实Git观察取得可回读事实。根/发现scope来自Host的canonical路径、原参数摘要与当前身份/策略；终端只显示原批准请求并提交本次决定，不制造Grant或执行成功。实际PTY分别批准/拒绝平台system config与自有外置include，6秒等待保持lease；最初Grant保留，补充决定与同一Tool Result/Evidence存档。无审批者/坏参数不spawn；只读任务无写目录claim；starting/身份不匹配继续显示恢复阻断，不改unknown。完整原生583 Rust/619根3459互读/9PTY与固定featureless5项公开函数通过，额外7根35互读；39项Node协调专项与33项存储版本/重建检查通过。产物与大元数据以真实不可变JSON检索，不重新执行Git补历史。见[回执](../../playbook/native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审，非完整P4/普通Ratatui/真实厂商/安装/内存或独立产品验收；不切默认、不操作个人实例。
+
+## 原生 CLI NR-01 候选（2026-11-14）
+
+2026-11-16 本地原生包 `4cf7a4c8`：T10 增加真实 terminal hangup 退出验证，关闭终端后不继续忙等、不启动任务或模型；窗口已不存在时不声称 termios 可被观测恢复。Crossterm 保持唯一 poll/read owner，改用有界 tty source；已有草稿、Ctrl-C/EOF、授权、焦点和静态表达不变。33解包Runtime、9PTY（含原8项及hangup）、5次额外hangup、264源码Rust与本地产物10项检查见 [打包回执](../../playbook/native-cli/evidence/local-native-package-20261116.json)。实现者自审；当前仍是迁移候选、未安装，不代表完整会话TUI / P4/P5 / 多平台 / 物理IME或读屏验收。
+
+NR-04 MCP 凭据 / OAuth（2026-11-16，`c8479317`）：用户显式运行 `mcp auth <server-id>` 查看结构化待授权 URL，自己打开浏览器；`mcp refresh` 显式刷新，二者不产生工具许可。状态来自真实 OAuth / Vault 提交：等待外部、回调拒绝、取消、保存已确认、提交不确定；callback 页面只说明“已收到，回 CLI 核对”，不抢先宣称登录成功。Ctrl-C/TERM/HUP 关闭受管 listener，错误 / 轮换保留原代；旧密文只由 Desktop 迁移。静态、无动效或焦点抢占。运行时拒绝时不读密钥，真实 grant 后才注入，并在写入模型 / Evidence 前脱敏。26个MCP公开场景、生产 Desktop 冷读、8PTY 等见 [凭据回执](../../playbook/native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。实现者自审；真实浏览器 / IdP / OS keychain / 读屏与安装未验收，完整 TUI 和 P4/P5 仍未通过。
+
+ADR 129–131，Peer-Agent `c24dc465` / PR 327。新 `crates/peer-tui` 仅临时草稿 / 静态候选说明，不发送、不执行、不持有权限真值。目标是原生终端输入 / 退出骨架，不代表 Bot 功能或默认入口已迁移。
+
+状态：空 / 中文与组合字 / 大粘贴 / 大小超限 / 发送未启用 / 退出确认 / Esc 继续 / resize / 正常与异常收尾。事实源是纯 Composer reducer 与终端 guard；用户拥有草稿和明确退出决定。静态，无动效（motion N/A）；终端 cell / caret 保持可见，输入内容不发模型。
+
+验证：Ratatui TestBackend + Rust reducer，8 项真实 PTY（含 Unicode paste、resize、Ctrl-C / Ctrl-D、SIGTERM、panic / error、尺寸拒绝）通过。物理 IME / 日用终端 / 读屏 / 已安装包未覆盖；临时草稿没有持久恢复，P2 后续接入，不能算 T06 / T10 全面验收。详见 [迁移账本](../../playbook/native-rust-cli-migration.md)。
+
+NR-01 scoped 补充（2026-11-14，`9f33d9a2`）：doctor 在无 HOME、有显式 PEER_AGENT_HOME / PEER_USER_DATA_PATH 的真实子进程入口识别配置且不创建数据，PATH 无 JS Runtime；边界组合先失败后修复。临时草稿 / 无执行状态不变，8 项 PTY 仍通过，不扩大为完整 CLI 或发布接受。
+
+NR-04 模型适配补充（2026-11-15，`84007b83`）：公开 `exec --plan` 的相同静态授权 / 结果 / 停稳流程支持四种基本 API-key wire，Context 的供应商事实来自实际配置。用户目标是原生执行已准入任务；状态仍由 canonical Goal/policy/lease、真实 Provider 结果与 Evidence 决定，模型终态不签收 Goal。保持连接的供应商流在权威终止后退出，错误/截断不派发部分工具；失败沿原 managed pause / unknown 恢复。四 wire 多轮工具、凭据头、21 根冷读、8 PTY 验证见 [P4 首卡证据](../../playbook/native-cli/evidence/p4-model-wires-20261115.json)。实现者自审；不是完整 CLI / P4 / 产品发布接受，真实供应商与安装包仍未验证。
+
+NR-04 Context（2026-11-15，`10c86bd7`）：相同任务现在可读 workspace 根注册项目指导。Host 在准入前观察有界、稳定文件；内容遵守 Source trust，不能产生许可。读取超限/坏编码/变更时给静态错误、保全文件与待准入任务，修正指导后同身份可重试；普通未注册文件与附件不因此成为指令。Unicode 截断不切半个字符，FIFO 不能卡住原生进程。实际入口否决、同任务恢复与 Source/快照对照见 [Context 证据](../../playbook/native-cli/evidence/p4-context-source-20261115.json)。无新输入控件、焦点或动效；实现者自审，完整 Source / TUI 及发布仍待验收。
+
+NR-04 Instructions（2026-11-15，`f6949bae`）：用户已有配置指导与 workspace 指导进入同一注册 Source；无设置时保留现有 TUI 的语言/分支前缀缺省值，全局指导仍需显式 Host 开关。未知或损坏设置在请求前给出静态阻断并保留原文件，普通修正后同一待执行任务可继续。配置文字不产生授权，真实 Ask 路径仍形成 denied Result/Evidence。公开入口覆盖坏配置恢复和 FIFO 设置及时失败，28 项同文件跨进程对照与 8 PTY 见 [发现证据](../../playbook/native-cli/evidence/p4-instruction-discovery-20261115.json)。未增加控件或动效；Source seam 的 global/targetPaths 不等于生产入口已装配。实现者自审，完整 P4/P5、真实供应商与安装包仍未验收。
+
+NR-04 usage scope（2026-11-15，`83a0733f`）：公开 exec 的 replied/max_turns JSON 分别标记单请求观察与回合已知量；实际工具循环 lastRequest=59、turnTotal=144，下一任务重新累计。计数不构造 Goal 验收、工具 Evidence 或 Context 百分比；部分用量的 unknown 继续由 canonical Work budget 保留。无新增焦点/控件/动效；[scope 证据](../../playbook/native-cli/evidence/p4-usage-scopes-20261115.json) 记录 21 项真实公开入口、7 TS 序列 / 17 观察与 8 PTY。durable ledger、异常用量恢复和完整 Context pipeline 尚未完成，实现者自审。
+
+## 原生 CLI NR-03 执行、授权与中断恢复候选（2026-11-14）
+
+用户通过 `exec --plan` 执行已存在且当前绑定有效的委托片段，`recover --plan` 对账中断。状态包括当前绑定拒绝、等待批准、允许/拒绝、执行、超时/取消、实际停稳、unknown 保护与后续不同任务准入。事实由原生 Host 的当前 policy/lease/Goal/journal、live token/handle、真实 Provider Result/Evidence 和原资源账本持有；模型最终回复只结束片段，Goal 验收仍 pending。授权先呈现动作与范围，参数为次级详情；TTY 一次明确 y/n，非 TTY 拒绝，Ctrl-C 或信号可中断。拒绝/失败保留真实结果，不向用户索取笼统全访问来绕过。
+
+真实效果后崩溃保持 pending/unknown，原生 OS 死亡观测只证明 runner 停稳，不能改写效果；未证明结束的能力句柄继续阻断。现有状态恢复不重放调用、不删除锁或历史，不改用户原数据。12 项公开可执行入口测试、其中真实 PTY 批准/拒绝与取消，以及当前 TS 冷读配对检查见 [P3 证据](../../playbook/native-cli/evidence/p3-native-execution-20261114.json)。这是隔离源码候选的实现者自审；普通终端、物理 IME、读屏、真实供应商与安装包未验收。当前 Ratatui 草稿入口尚未接发送，完整 TUI/Bot 平价留待后续卡。
+
+2026-11-15 原生CLI canonical用量恢复 `0ffdec08`：结构化recover回执给出本批settled/remaining；未知快照提示核对受阻并保留来源，真实停机优先于记账校验，后续模型准入受阻。原工具unknown不因记账清除。32公开CLI、47根254 TS/Rust往返及8PTY通过，属于实现者自测；无安装/真实模型/完整产品发布验收。见 playbook/native-cli/evidence/p4-canonical-usage-recovery-20261115.json。
+
+2026-11-15 原生CLI容量Host `daa4c478`：结构化contextAccounting来自真实count/provider观察；计数失败或漂移明确degraded，未知窗口的percent保持null。单请求容量与回合/历史账单分离，后续内容标pending；数据不创建许可、Tool Result或Evidence。33公开CLI、51根274 TS/Rust往返与8PTY为实现者自测；完整压缩和发布体验未验收。见 playbook/native-cli/evidence/p4-native-capacity-host-20261115.json。
+
+
+NR-04 会话壳（2026-11-17，`7627d4c8`）：用户显式检查安装/列会话/导出阅读副本。事实源为当前exe/Helper文件属性、真实Store index及稳定的有界展示快照；这些不是工具许可、Evidence或会话发送。静态doctor必查失败、列表空/损坏、导出源变更/终端控制拒绝、默认拒绝覆盖、取消、成功和发布未知分别表达；Ctrl-C/TERM可取消扫描/背压/锁等待。发布前失败保留原target，提交后回执未知保留新副本，用户可从当前代显式force重试。不自动迁移/删会话、不动草稿/焦点/阅读位置，motion N/A。10个公开CLI/4个展示Store测试、完整406 Rust/9PTY及五次1GiB文件导出专项见[回执](../../playbook/native-cli/evidence/p4-native-session-shell-20261117.json)。实现者自审；不是完整TUI/P4/P5、长期内存、读屏/物理IME/真实服务/安装或发布验收。
+
+NR-04 共享执行与模式投影（2026-11-18，1fb27901/a942b36e）：用户既有工具调用的授权归实际Host。运行中Shell撤权停止并回收原进程组，原Grant和失败结果分开保留，随后可接新任务；MCP owner/版本/transport错配在启动前明确失败。普通会话模式与allowlist仅限制可见性，不能批准工具；Goal入口明确投影goal。事实来自真实PolicyStore、canonical dispatch Recorder、Manifest/registry与原EffectAdmission。无新TUI交互或注意力转移，draft/focus/reading/motion N/A；普通Ratatui发送仍未接通。1fb精确整闸589Rust/247Episode/627根3521互读/9PTY；a942 scoped为123Runtime/128实际TS投影向量及8模式迁移子集、11公开release函数/15根89互读。独立CI仍待验，未过完整P4、长期内存或发布体验验收。见[共享Host](../../playbook/native-cli/evidence/p4-native-shared-provider-host-20261118.json)、[模式投影](../../playbook/native-cli/evidence/p4-native-runtime-projection-20261118.json)；实现者自审。
+
+
+2026-11-18 NR-04 native terminal Store (fcfee273): stable conversation/message/source CAS keeps streaming provisional until canonical body, metadata and matched marker cleanup complete. Interrupted publication preserves known call/grant/result facts; fresh-source Store-only recovery and explicit isolated offline orphan-lock maintenance do not replay execution. TS streaming participates in the same locks.98 Rust/148 Node and26 actual TS/Bun/native roots66 checks are implementer self-review. No renderer/focus/draft/motion change; motion N/A. Ordinary send, P4 final gate and P5-P7 remain open. See [receipt](../../playbook/native-cli/evidence/p4-native-terminal-store-20261118.json).

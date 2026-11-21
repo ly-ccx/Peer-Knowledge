@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "branch": "codex/native-rust-cli",
+    "head": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+    "tree": "5b5ec6e163e43cc4b07bedc2ccb2e466c7907ce8",
+    "base": "328cd85cf69755ef0a0aad9ec8caf553349a5a93"
+  },
+  "classification": "B-level migration and same-boundary bug fixes under ADR25-runtime-usage-ledger,37-provider-channel-and-wire-protocol-separation,56-provider-observed-context-accounting,129-native-rust-cli-and-ratatui,130-bounded-cli-memory-and-transcript,131-native-cli-contract-storage-and-recovery. No permission, Evidence, System Context, schema/storage ownership or retry policy boundary moved; no new ADR.",
+  "baseline": {
+    "nativeHost": {
+      "source": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
+      "binary": {
+        "path": "/tmp/peer-native-qoder-caller-final-2-20261117/peer-native",
+        "bytes": 17163312,
+        "sha256": "37496a9933404832478ed09a2c89fc497951caff40d0c8efaed915d0ce4c60f4"
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/baseline-host-2.log",
+        "bytes": 1278,
+        "sha256": "bb53d0cc01cff86f7584c033d26d47a103177abd19a43611365dcfcda542e5fb"
+      },
+      "failure": "Actual public CLI with retained predecessor featureless release refused plain-sparse-chat-text as model_choices_unsupported. Named stream remains in current resource.",
+      "ownedFixture": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/.tmpWSWdyc"
+    },
+    "sharedParserInitialValues": {
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/baseline-initial-values.log",
+        "bytes": 486,
+        "sha256": "06e7ea56e9929224e42541f1f39097de51a2b4c2f085782fc2a25d763cf84475"
+      },
+      "failure": "Actual freshly built previous shared parser returned complete. instead of Native complete. because initial block text was discarded. Explicit original assertion retained."
+    },
+    "sharedParserPartialUsage": {
+      "script": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/baseline-usage.mjs",
+        "bytes": 706,
+        "sha256": "4a4f5bd28c17b7c855075036b0d5261d4712512332017649969db278c22a1e97"
+      },
+      "module": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/baseline-openai-chat-adapter.mjs",
+        "bytes": 20183,
+        "sha256": "2df79d3f635f1c03170c02946baf4d39051ab9a55555c23db59fc47bd638c049"
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/baseline-usage.log",
+        "bytes": 722,
+        "sha256": "b5c003da67bb2a071f7ba28fa986f7daf840d6a65b2596a07f522fac3bfc368b"
+      },
+      "failure": "Exact predecessor mjs parser with current emitted relative dependencies produced input12/output0/cache0 for prompt_tokens12 with no completion dimension, expected null. Development-only temporary dist module was hash-checked and removed after capture; no network/auth/user data."
+    }
+  },
+  "change": {
+    "module": "Private Qoder Shape normalizes sparse Chat/index defaults, nested content/reasoning aliases, stable repeated IDs, provisional final tool names and sparse content-block streams into the same bounded Chat decoder. Qoder HTTP/auth dialect and selected model do not change. Each physical stream owns its state.",
+    "completion": "Only actual DONE or message_stop can finalize. Block closure, typed object/JSON arguments, contiguous bounded tool identities, limits, explicit non-truncating reason and both envelope error layers still gate exposure. Missing finish_reason can be inferred from validated calls only at that physical terminal. EOF, length/max_tokens, malformed/mixed/duplicate/unfinished blocks never become calls.",
+    "usage": "Repeated usage is one physical request: latest complete observation wins, a later partial cannot erase known amounts, incomplete alone remains unknown and explicit zeros remain quantities. Chat input/output aliases normalize through the existing accounting seam. Anthropic-only partial fields do not become Chat billing zero.",
+    "sharedReferenceFix": "Shared TS parser now preserves initial text/thinking/tool input, recognizes input/output aliases and refuses to fabricate a missing dimension as zero. Same53 generated actual parser cases also validate the native decoder. No extra Agent loop, provider request, execution path or engine sidecar.",
+    "limits": "Existing8MiB response/1MiB event decode and bounded nodes/depth;512KiB text/thinking,64KiB tool arguments,32 tools and128 blocks. No new dependencies. Calls remain model intent until existing Host Projection/Grant/Provider/Evidence execution."
+  },
+  "validation": {
+    "reference": {
+      "cases": 53,
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/contracts-nullable.log",
+        "bytes": 336,
+        "sha256": "885473bf1a49d0f7bda780ca6507a6c48a7070338e98e21abec623f04c294395"
+      },
+      "resource": {
+        "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/protocol/contracts/native-cli/qoder-streams.json",
+        "bytes": 56759,
+        "sha256": "0d61a1139b661b9893d1a6c99aedf776c9747b76b0d0c518c11942dbd2f7792e"
+      },
+      "scope": "Actual compiled shared TS parser with finite synthetic Response, not auth/HTTP/provider evidence."
+    },
+    "nativeDecoder": {
+      "splitWidths": [
+        1,
+        7,
+        4096
+      ],
+      "tests": 3,
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/decoder-nullable-fixed.log",
+        "bytes": 707,
+        "sha256": "1ae402e44519fe2e819f9b6e2ee22767e076cc188f643884202614b613d721b1"
+      },
+      "coverage": "Both envelope/plain sparse Chat and blocks, six thinking aliases, Unicode/grapheme text, initial values, provisional names/null placeholders, multiple tools, repeated/progressive/partial usage; malformed scalar/shape/closed/index/mixed/size and missing terminal refuse without calls."
+    },
+    "actualHost": "Two new actual native CLI tests cover all53 vectors, real write_file effects/Grant/ToolResult/Evidence and one/multiple request totals, missing usage stays unknown. Six invalid flows preserve known fees or unknown, produce no tool effect, and admit a later independent task without changing old history. New matrix uses prepared endpoint; static factory uses the same Qoder decoder for legacy and existing legacy/TLS/retry tests also pass. Not a claim of53x2 actual endpoint runs.",
+    "existingSharedAdapters": {
+      "passed": 72,
+      "failed": 0,
+      "exit": {
+        "exit": 0,
+        "home": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-qoder-stream-ts-ps8j1607"
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/existing-adapters.log",
+        "bytes": 7030,
+        "sha256": "3f2ebccc58aa8ce8354b4f311150e764169a1d550504cb2ca8b28a0e3f64e921"
+      }
+    },
+    "fullNativeScoped": {
+      "exit": {
+        "exit": 0,
+        "elapsedSeconds": 597.4133075,
+        "source": {
+          "base": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
+          "tree": "5b5ec6e163e43cc4b07bedc2ccb2e466c7907ce8",
+          "startedAt": "2026-11-16T23:57:13.716231+00:00"
+        },
+        "finalTree": "5b5ec6e163e43cc4b07bedc2ccb2e466c7907ce8",
+        "unstaged": ""
+      },
+      "rustTests": 460,
+      "nativeEpisodes": 175,
+      "interopRoots": 408,
+      "interopChecks": 2323,
+      "ptyCases": 9,
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/verify.log",
+        "bytes": 103638,
+        "sha256": "cfa3092182299b97340dc0f0d3d1a5d2fc728ab0f6041a8d4044a5d6610c03e0"
+      },
+      "patch": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/candidate.patch",
+        "bytes": 102961,
+        "sha256": "04d28552bfbe9617e2208fe6ed436e57f1d846ed05e11bbd908e7f06d87f08dc"
+      },
+      "fixtureBinary": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/fixture-peer-native",
+        "sha256": "dc22266b67474ff2aa6e127cdaed7f6396e5f702d4710adedb7209e4ceb7602f"
+      },
+      "pty": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/pty/results.json",
+        "bytes": 2008,
+        "sha256": "792f4cf19af2cd0d27cd70d3d644b02d12855add892f3d1b7eec2dae65a26390"
+      }
+    },
+    "featureless": {
+      "binary": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/peer-native",
+        "bytes": 17299040,
+        "sha256": "bc1b79a503b80eb91c56d0ed750fb0f6d1b897c8b679300c8d8f3bce4c5bfeb9"
+      },
+      "tests": 27,
+      "exit": {
+        "exit": 0,
+        "environment": "env-i PATH=/nonexistent; retained featureless release",
+        "harness": "target/debug/deps/native_episode-a1126b6c37cc8749"
+      },
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/release-qoder.log",
+        "bytes": 3051,
+        "sha256": "a04f88d06ea79ec72918acc3a233566c588ffb79c5ffd41c4f46fb001b2d7c6e"
+      },
+      "interop": {
+        "ok": true,
+        "roots": 117,
+        "cases": 635,
+        "coverage": "Actual native exec -> current TS Goal/Conversation/canonical coordination, native recorder retention, pending/receipt history and later task; no model execution by TS."
+      },
+      "interopLog": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/release-interop.log",
+        "bytes": 217,
+        "sha256": "4acb82e467cf4a3f92d45e68a75fd8c9d023907558143e5f38a905ffcfd37f5b"
+      },
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-qoder-stream-final-2-20261117/dynamic-libraries.log",
+        "bytes": 362,
+        "sha256": "904d6c4c2723c838775cd79ed4af72dc88c898f3a3cd29c61f0a923f5196f963"
+      },
+      "scope": "Same retained production featureless binary, env-i PATH=/nonexistent; actual synthetic native HTTP/tools/Store. No Node/Bun engine or fixture-only product switch."
+    },
+    "architecture": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-qoder-stream-20261117/architecture-final.log",
+        "bytes": 384,
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "preservedAttempts": {
+      "unexecutedFirstHostCompile": {
+        "log": {
+          "path": "/tmp/peer-native-qoder-stream-20261117/baseline-host.log",
+          "bytes": 847,
+          "sha256": "ee243146ad604781d16fd3f21f05e2ccebc3053e21898cb5255cfc8786b815fa"
+        },
+        "reason": "Test referenced a private sibling receipt helper; fixed test to parse actual JSON output. No behavioral baseline was claimed before compilation."
+      },
+      "scalarPanic": {
+        "log": {
+          "path": "/tmp/peer-native-qoder-stream-20261117/shape-invalid-baseline.log",
+          "bytes": 1534,
+          "sha256": "56d35c857a4fe810d755d0318926bd1ca011b1c47985b77c263f6440d0eb4bd8"
+        },
+        "reason": "Candidate attempted index mutation on a JSON boolean. Added object validation; original malformed-frame test retained and final decoder/full gate pass."
+      },
+      "nullablePlaceholder": {
+        "fixture": {
+          "path": "/tmp/peer-native-qoder-stream-20261117/nullable-fixture.json",
+          "bytes": 56759,
+          "sha256": "0d61a1139b661b9893d1a6c99aedf776c9747b76b0d0c518c11942dbd2f7792e"
+        },
+        "log": {
+          "path": "/tmp/peer-native-qoder-stream-20261117/nullable-baseline.log",
+          "bytes": 1466,
+          "sha256": "11647dacc4c3996ad0f6543734f274bf598ab654ec9625425f5d7df46589ffed"
+        },
+        "reason": "Candidate rejected legitimate function:null placeholder. Kept actual TS counterexample, corrected null-as-absent normalization, reran final complete gate."
+      },
+      "interruptedFirstGate": {
+        "source": {
+          "base": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
+          "tree": "d39225226f2c5666cb690a8c62905152271c7366",
+          "startedAt": "2026-11-16T23:51:19.343883+00:00"
+        },
+        "interruption": {
+          "at": "2026-11-16T23:54:10.286246+00:00",
+          "reason": "Review found nullable function placeholders rejected by the new normalizer. Stopped owned validation before source correction; not a passing or failed total gate. Exact phase and owned process group retained.",
+          "pid": 97024,
+          "hostSuiteStarted": true,
+          "membersCount": 13
+        },
+        "log": {
+          "path": "/tmp/peer-native-qoder-stream-final-20261117/verify.log",
+          "bytes": 33738,
+          "sha256": "b7161c21a386b5a297858578a04d2f1db5eb605f94beeb03c009aafe4275993d"
+        },
+        "qualification": "Owned validation group stopped for nullable correction, not an observed timeout or claimed passing gate. Host suite had started. Exact group members retained, original owned group and fixture executables later absent; fixtures/effects/unknown records preserved. Fresh final gate used separate roots."
+      }
+    }
+  },
+  "existingStateRecovery": {
+    "current": "Error/truncated flows retain observed known fees or unknown, no partial tool dispatch, old history preserved and later tasks verified. Existing native recover/ledger/compaction/MCP ownership tests remain in the final gate.",
+    "legacy": "No personal old records were inspected. A previously persisted zero cannot be distinguished from a coerced missing dimension using a ledger row alone. Do not guess/rewrite old billing or history; authoritative original provider usage/trace is required for reconciliation. Automatic retroactive repair was not implemented or claimed."
+  },
+  "predecessorCi": {
+    "runId": 43978031587,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587",
+    "head": "328cd85cf69755ef0a0aad9ec8caf553349a5a93",
+    "status": "completed",
+    "wholeRepositorySuccess": true,
+    "mergeCommit": "a250fc3215033504b693fefe5f4242e3a06549dd",
+    "mergeTree": "e2c9b88ea55d0929401e7c847d0150b7fcf53474",
+    "matchesSourceTree": true,
+    "parents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "328cd85cf69755ef0a0aad9ec8caf553349a5a93"
+    ],
+    "conclusion": "success",
+    "observedAt": "2026-11-17T00:02:02.680968+00:00",
+    "jobs": [
+      {
+        "id": 133686957697,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success",
+        "electronSmoke": "success",
+        "nativeScoped": "success"
+      },
+      {
+        "id": 133686958023,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "electronSmoke": "success",
+        "nativeScoped": "success"
+      }
+    ],
+    "qualification": "Both whole jobs including original Electron smoke passed on this source. Earlier c09 failures remain retained and unexplained; this is not proof that their root causes were fixed."
+  },
+  "candidateCi": {
+    "runId": 43986222565,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565",
+    "head": "6e8036ef852f18da119ebd51c453e7ca12c09821",
+    "status": "in_progress",
+    "wholeRepositorySuccess": false,
+    "mergeCommit": "509cf0cfdd8a0bf1b1559a695f5e1b7892f173ab",
+    "mergeTree": "5b5ec6e163e43cc4b07bedc2ccb2e466c7907ce8",
+    "matchesSourceTree": true,
+    "parents": [
+      "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "6e8036ef852f18da119ebd51c453e7ca12c09821"
+    ]
+  },
+  "limits": {
+    "p4TotalGatePassed": false,
+    "p5ThroughP7Complete": false,
+    "ordinaryRatatuiChatEnabled": false,
+    "remaining": "Remaining complete Qoder catalog/sender/stream and real-service acceptance; full Context/compaction/attachments, remaining tools/Skill/Plugin/Hook, ACP/headless/commands, mixed installed-version drain/recovery and P4 total gate. P5 project-agent chain, P6 terminal/memory, P7 packaging/update/signing/default switch/release remain.",
+    "scope": "Only synthetic accounts/endpoints/stores. No personal Qoder credentials/tasks read or migrated, install, user-instance restart, default switch, merge, tag or release. Real Qoder/OS Vault/platform/installed and long-memory acceptance remain separate."
+  },
+  "followUpAudit": {
+    "probe": {
+      "path": "/tmp/peer-native-qoder-stream-20261117/typed-frame-audit.json",
+      "bytes": 534,
+      "sha256": "05c70d29af9f135b33782992066262ed5d97885395c4d2016f295b72eb99b428"
+    },
+    "finding": "Optional Chat type labels with otherwise recognized choices/usage are accepted by actual TS. Static current native Shape returns unsupported before processing them. No native public counterexample or fix claimed yet; this is a concrete remaining stream-parity item, not a completed full Qoder gate."
+  }
+}

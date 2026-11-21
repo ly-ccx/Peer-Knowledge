@@ -1,0 +1,38 @@
+{
+  "predecessor": "0e54c66fd79de9e98be1cb66f036b807713ad168",
+  "predecessorCI": { "run": 44336850584, "linuxJob": 134915779139, "macArm64Job": 134915778773 },
+  "candidateTree": "b778edecef34e0ff63c346910acd279ca36c3161",
+  "patchSha256": "ec188e7f8bb8d98866a388a0109934f5db3a1eefcf950741220ee0243d20d82a",
+  "sourceTarSha256": "81a63409c3ce8c8b143a853dcda5ee762acc2ded4530593d682703f9ec802276",
+  "contract": "ADR 131 ordinary Goal task update. ADRs 35, 41, 55, 65, 116, 129 and 130 also apply. Task facts do not confer authorization, verification or user acceptance.",
+  "baseline": {
+    "actualOldCLI": "The same conversation rejected an unregistered completion ref and accepted the real file observation for the first leaf. The second leaf remained pending. The outer old Runner subsequently exited 6.",
+    "extractedNativePredecessor": { "tested": 2, "failed": 2, "error": "tool_not_projected", "logSha256": "7a6b5502ababd2c6b05684823fc405b4757c80dac72adaaad6199de5123684b4" },
+    "firstReimplementation": "Five of six tests passed. The remaining test wrongly assumed the file result appeared inside a success envelope. The actual model request had a flattened local_file_ref with preview and evidenceRefs. The check now asserts that wire shape and exact file content before using the same actual evidence ref."
+  },
+  "verification": {
+    "publicGoalTestsPerPlatform": 14,
+    "storeTestsPerPlatform": 1,
+    "fmt": "pass",
+    "strictClippy": "pass",
+    "boundaries": "pass",
+    "architecture": "pass",
+    "crashAfterEffect": "The real CLI changes an existing nested task, then exits 88 before the Tool Result. Two recoveries preserve the same outcome_unknown call, task bytes and notification without replay.",
+    "packagedMacArm64": { "version": "peer 0.1.0-rc.40", "pathContainsNodeOrBun": false, "publicEntryTests": 12, "archiveSha256": "977673c4160b4169aca1d68a58444224734bdde1c12eb7518a500d9c21f46649", "peerSha256": "eae3acd9783badd4ea8dd1192be1dba78006e74c699013cb040bba78987162b7" },
+    "packagedLinuxAmd64": { "version": "peer 0.1.0-rc.40", "pathContainsNodeOrBun": false, "publicEntryTests": 12, "archiveSha256": "ef3c9d5f9c078bb761047f2658d9c0c4313c11ed3023cdf695882687c11b1fad", "peerSha256": "d8bf15749fdd222b4ccd22508b5c50e6e76b64bec963fd8cbc84e17396f6ae8e" }
+  },
+  "nextExplorerBaseline": {
+    "actualOldCLI": { "exit": 6, "modelRequests": 10, "projection": ["git_query", "read_file", "list_files", "search_files", "batch_search"], "reportStatus": "completed", "retainedReadReference": "tool-result://tui-tool-1", "inventedReferenceStored": false },
+    "extractedNativeCandidate": { "exit": 0, "modelRequests": 6, "indexedLeafUpdate": "success", "workers": 0, "reports": 0 },
+    "logSha256": "ad87e14a97feb1fc1ea06b21374db17654e91b623a5dc904f20135d43ea92fac"
+  },
+  "logs": {
+    "goal-update-wide.log": "6df5f9c2a36005a44becab16befdd868ae47950176aee7507d2e3fd99f3d946a",
+    "goal-update-store-final.log": "6a3e811eb758a9e983ad32c37816cf5c8840333ef49dcf365b819d252a9faa62",
+    "goal-update-clippy-final.log": "7d5559a3b877cf0c519bde77cf8bf169d3568f67376907fba2900575b29e8171",
+    "goal-update-mac-package-b778edec.log": "fb6ba599db4f74b3f419c8b926dbd1c485dd059f8fb6c76e051a8e590c40b6fa",
+    "goal-update-linux-b778edec.log": "e946572c779f78ebdb7eb029fc4dcc284cf1d292c5dae3d11e7957f585f54ee2",
+    "goal-update-linux-package-b778edec.log": "c8ce2ab0282eff0bf7cda31fb76470571a220954138d0f358082eb63d492b51a"
+  },
+  "limits": "Frozen source with isolated fixtures and loopback model. Previous full CI remains in flight. Derived plan mutation, installed host stopping, Runner/Explorer and production-model workflows are open."
+}

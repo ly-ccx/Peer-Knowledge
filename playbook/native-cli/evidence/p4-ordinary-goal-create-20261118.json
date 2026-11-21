@@ -1,0 +1,52 @@
+{
+  "predecessor": "a66fdb8129c82293514858cd545c79925462ad5a",
+  "candidateTree": "0fbce08cbd4457404f99e42e86584b4ba55d2f56",
+  "patchSha256": "373b4fc939cb11ed9482aa6ada411fe234abda39ac556b24a32795f4969d8752",
+  "sourceTarSha256": "95b4b2d2c91e9eeeec5e34023f856ce75ac65a9b17442ad1b84362029f51af83",
+  "fixtureSha256": "15baca997224f756c90d7385ea91487ba0b21dfa9dad8eaaec27b441d8cb409d",
+  "publishedCandidate": { "commit": "0e54c66fd79de9e98be1cb66f036b807713ad168", "independentRun": 44336850584, "statusAtDispatch": "queued" },
+  "contract": "ADR 131 ordinary Goal creation, along with ADRs 35, 41, 65, 116, 129 and 130. Creation is a current conversation metadata effect, never approval for local file or Shell effects.",
+  "predecessorCI": {
+    "run": 44327109379,
+    "linux": { "job": 134881256484, "conclusion": "success", "actualMerge": "66125bdd8ccb8220e675832a77378bf1518e549d", "actualTree": "02a0e6e013b645da05cd4bbc3901c0504d2e2bd2" },
+    "macArm64": { "job": 134881257959, "conclusion": "success", "actualMerge": "66125bdd8ccb8220e675832a77378bf1518e549d", "actualTree": "02a0e6e013b645da05cd4bbc3901c0504d2e2bd2" },
+    "conclusion": "success"
+  },
+  "baseline": {
+    "previousExtractedNative": { "publicCreationTestsFailed": 3, "error": "tool_not_projected" },
+    "firstCreationTree": { "tree": "c5d84b9ace6d9f218cf8f6dc895e6bb88a738500", "failureOn4097ExistingNotificationRows": "GOAL_SOURCE_LIMIT" },
+    "legacy": "Pinned Bun 1.2.17 ran actual TUI Goal bridge and Goal Store with the frozen fixture; all three mode views, manifests, list and detail matched."
+  },
+  "verification": {
+    "storeFaultTestsPerPlatform": 1,
+    "publicGoalTestsPerPlatform": 10,
+    "fmt": "pass",
+    "strictClippy": "pass",
+    "boundaries": "pass",
+    "architecture": "pass",
+    "crashAfterEffect": "Actual CLI exits 88 after the plan is persisted. Both recover invocations preserve the same original outcome_unknown call, plan JSON, index and notification bytes. The model fixture received one request, and the original conversation stays fenced.",
+    "partialIndex": "The actual index replacement fails after body publication. A same-call retry repairs index and notification without replacing the body. A repeated same-call confirmation leaves all existing and newly appended notification bytes intact.",
+    "packagedMacArm64": { "version": "peer 0.1.0-rc.40", "pathContainsNodeOrBun": false, "publicEntryTests": 9, "archiveSha256": "9766c64f2508f9048400a9194a93250016e5a0936e9b3af9db444a988c924d3f", "peerSha256": "5d5e24c3bf60f773457d19ae17d0dbb931d4cd4c665efa7f495a021a55b08740" },
+    "packagedLinuxAmd64": { "version": "peer 0.1.0-rc.40", "pathContainsNodeOrBun": false, "publicEntryTests": 9, "archiveSha256": "3727b01da22096300059f9523dfe34ca3bdcdaf9c5bcd6ad775852a502c78857", "peerSha256": "411b9436d1193558cb08e973915fb754c418bcb59d45fae02fcf5ceab1d8e04e" },
+    "additionalPackagedRegressionPerPlatform": 6,
+    "oldTuiColdReadNewPackage": "A fresh Plan was created by extracted macOS release in a root with 4,097 prior events. The actual old TUI bridge read the plan, both task IDs and the dependency, and found exactly one list entry. Body, index and notification bytes were identical before and after its reads."
+  },
+  "nextUpdateBaseline": {
+    "oldExec": { "mode": "chat", "modelRequests": 9, "forgedUnregisteredRef": "rejected", "actualReadEvidenceRef": "tool-result://fixture-read", "indexedUpdate": "success", "leafStatuses": ["completed", "pending"], "exit": 6 },
+    "nativeExec": { "modelRequests": 2, "error": "tool_not_projected", "leafStatuses": ["pending", "pending"], "exit": 1 },
+    "logSha256": "7ac259b67645ac2cda4d0be160c2e9d7db92b7869fa88cba5e0fe22d437cab4d"
+  },
+  "logs": {
+    "goal-create-mac-0fbce08c.log": "b89a2d4a4ea8f96f39495af46e3f91678f1ae6e442d0ec84aa2cba964bcbd573",
+    "goal-create-linux-0fbce08c.log": "538020859c32a46a98bcbb49d7091707e3a2b47ace27a985c79c9284a4e9a1a3",
+    "goal-create-store-0fbce08c.log": "aa8a71b1a040b7c19cea6c0c8066f34a4f66e57e743d9ddcaf40b0066d90c9d4",
+    "goal-create-clippy-0fbce08c.log": "e51d8589a83f7933269172a1c294b27f588eb956eb4d6139eaf07a194a0d6bae",
+    "goal-create-mac-package-0fbce08c.log": "759f0c358ea95a8c0501f3c40e537318e5f6fc1fa39e6aa61423cffff57a2906",
+    "goal-create-linux-package-0fbce08c.log": "6929d24b12df26050a3fe7cef4020d4d2c9ce3087fd3d7e1cc15504a58c61227",
+    "goal-create-mac-adjacent-0fbce08c.log": "17c77cfcfc00cd2451f3bc51190bf544bd41496911f855a87d5e1a8da007e76c",
+    "goal-create-linux-adjacent-0fbce08c.log": "64101b084f423528d77fd620e52f111885e54658b0e9766c0061c12645839530",
+    "goal-create-mac-red.log": "ddca7e62ea684a1569965ca4d1b7818a3cc06e11129ff884fa3ebf2c7178a568",
+    "goal-create-old-journal-red-c5d84b9a.log": "6fefaeb27a65b2ecbce06fcd4100ae95f59bc53835eea8829c7f608dede6522c"
+  },
+  "limits": "Isolated data and loopback model. Source is pushed and awaits its independent full CI. Real models, ordinary task update, derived plans, Explorer/Runner, installed old Host stopping, the aggregate P4 gate, P5–P7 and production installation remain open."
+}

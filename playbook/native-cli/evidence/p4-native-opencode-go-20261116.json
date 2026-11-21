@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 OpenCode Go adapter and closed live Chat effort mappings; not the full P4 gate or release acceptance",
+  "candidate": {
+    "commit": "c34f161f5e846b44d415b96a20f9922023aa215e",
+    "tree": "e4ba2f48b43eb1b9912de7f5cc83c61d79823daf",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "nativeBinarySha256": "af342478256d62959c99c99d98c0e6fcb02d9c77107d70606d1c03e44c53f967"
+  },
+  "decisionPass": {
+    "files": [
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "classification": "B",
+    "boundaryMoved": false
+  },
+  "baselineCi": {
+    "commit": "35e213d13eb2e191c1fcf9fb881402c1f3b14991",
+    "runId": 43794213954,
+    "status": "completed",
+    "mergeCommit": "0556763c708a4f78fe732e704bdaaff361d5e70a",
+    "mergeTree": "f7c8db52d7c5e141a3c36d901c3a9f3c085c1197",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133059215802,
+        "platform": "Linux",
+        "tests": "success",
+        "conclusion": "success"
+      },
+      {
+        "id": 133059216064,
+        "platform": "macOS",
+        "tests": "success",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "candidateCi": {
+    "runId": 43797484064,
+    "status": "completed",
+    "conclusion": "success",
+    "mergeCommit": "ba9e8d492fe92ee34fecc52d777c0a1363262796",
+    "mergeTree": "e4ba2f48b43eb1b9912de7f5cc83c61d79823daf",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133069491919,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133069492282,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "validation": {
+    "fullNativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs <isolated-temporary-output>",
+      "exitCode": 0,
+      "rustTestsPassed": 272,
+      "nativeEpisodeTests": 68,
+      "actualTsInteropRoots": 133,
+      "actualTsInteropChecks": 782,
+      "ptyChecks": 9,
+      "logSha256": "1b84f9e737c18426156d81241cc5b685f871f31cd4a8b530bfa1f4f2a27f20a2"
+    },
+    "actualTsChannelCases": 294,
+    "goCases": 123,
+    "generatedGoStaticProfiles": 21,
+    "publicToolConfigurationWireCombinations": 28,
+    "normalAndRecovery": [
+      "model-selected wire and explicit override; legacy channel aliases; case-insensitive Go root normalization",
+      "synced declared efforts take precedence over frozen profiles, then per-wire defaults; old generic fields cannot override Go declarations",
+      "mapped-off and closed/empty/unknown live Chat mappings match current Desktop behavior while shared Runtime history admission remains",
+      "Go session header stable across actual native model/tool continuation; separate later task gets fresh identity; source configuration bytes unchanged",
+      "same frozen count/send body, fingerprint and headers; custom session header follows existing precedence",
+      "exact shared request at 2MiB is rejected after added live fields would exceed the wire budget",
+      "invalid Go wire, malformed synced values, CRLF session and over-1024-byte explicit session rejected"
+    ],
+    "checks": {
+      "fmt": "passed",
+      "workspaceClippy": "passed",
+      "releaseBuild": "passed",
+      "nativeBoundaries": "passed",
+      "architecture": "passed",
+      "uiConventions": "passed"
+    }
+  },
+  "preservedFailures": [
+    {
+      "cause": "Before the live Chat fix, native mapped-off request lacked reasoning_effort:none compared with actual Desktop encoder; explicit empty/unknown maps also regained generic fallback. Native live encoder corrected, original request comparison retained."
+    },
+    {
+      "cause": "Previous test deliberately rejected all Go channels while its adapter was unavailable. After implementing it, retained unsupported-channel checks and replaced only that temporary assertion with a Go-invalid-wire denial; actual Go inputs now receive full real transport and tool/Evidence validation."
+    },
+    {
+      "cause": "Intermediate extraction used pub(super) for a crate-visible live encoder re-export, rejected by Rust visibility checks; corrected before the frozen validation."
+    }
+  ],
+  "limits": [
+    "Local synthetic HTTP/SSE only; no live OpenCode service or billing acceptance",
+    "Native model OAuth/login/refresh, Qoder private wire/options, proxy/certificate settings remain incomplete",
+    "Full Context sources, remaining tools, Skill/Plugin/Hook, headless/ACP/commands remain incomplete",
+    "Interactive Ratatui remains a draft scaffold; complete Bot workflow and P5 not started",
+    "No OS Keychain or multi-platform installed build validation",
+    "No full long-session memory/performance or release acceptance"
+  ],
+  "noInstallRestartPersonalDataMigrationOrRelease": true,
+  "bunNodeEngineSidecar": false
+}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-19",
+  "scope": "P4 native ACP output-only disconnect through the actual stdio process",
+  "decisions": [76, 116, 129, 130, 131],
+  "base": "644310378eaeb5ae66ab8d28a0088fd387a9628a",
+  "testedTree": "fc23367066a0a7a3a73713ec37b90dcd33cd371c",
+  "patchSha256": "f785f939d51bb8f3807ac5518304e7e71c0d0d1dfe07a4e8e690955811bc904a",
+  "regression": "native_acp_output_reader_close_drains_other_sessions_with_input_still_open",
+  "before": {
+    "result": "timed out after eight seconds with an active Shell and a pending approval while the input writer remained open",
+    "logSha256": "ee6b18b3fd1615f93ade6f46db58346bb75e00aa3c9033faf16cf1dac0112bb5"
+  },
+  "after": {
+    "cases": [
+      "The stdout reader disappears while two requests are still active. The agent exits while the client's input writer is still open.",
+      "The actual Shell group is absent and its dispatched effect is retained as unknown. No unexpected delayed file is present.",
+      "The second session's approval is canceled before dispatch and the target file is absent. Both runs have known usage committed.",
+      "A new ACP process starts a fresh session in the second workspace and receives the next model response."
+    ],
+    "macOSArm64": {
+      "passed": 12,
+      "logSha256": "381fed8e378e613cbf0ec23b78049c8e3b9b06f8428f74595b22b853cdfedef0",
+      "releasePassed": 12,
+      "releaseTestsLogSha256": "58465b8cf8f9f2bf8ebf843aa76a10fb360c44fd8b30af8bf9b299dbb8b39514",
+      "featurelessReleaseSha256": "bcc080d620556d0a576e3c08c36b265a4257df8775db277cf77e38cf185ab6b5"
+    },
+    "linuxAmd64Container": {
+      "passed": 12,
+      "logSha256": "b1ac98261d9b978b34943b64fdceb1a3c2d053f4297ac12208e4c680e26c2f43",
+      "releasePassed": 12,
+      "releaseTestsLogSha256": "4b47c735b02263dcc2cd28a2bb636c347d1b06cd144fb753df93ec808482e1fe",
+      "featurelessReleaseSha256": "a9a4206bbbf41b1252415ad036f4ae5eb45b08277c9aba0d782e80f4ae689e5a"
+    },
+    "staticChecks": ["rustfmt", "strict peer-cli Clippy", "native dependency boundaries", "architecture and UI checks"]
+  },
+  "nextObservedGap": {
+    "scope": "Loopback Chat Completions sends the first Chinese text frame and waits before it sends the terminal frames.",
+    "legacyBinarySha256": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+    "legacyBeforeTerminal": ["第一段"],
+    "legacyAfterTerminal": ["第二段"],
+    "nativeBeforeTerminal": [],
+    "nativeAfterTerminal": ["第一段第二段"],
+    "harnessSha256": "1c5979d76edf7eee4ab079fdc68702a459e6431b0677ebb790d77250545f44cf",
+    "receiptSha256": "381779b2ab26501444b34a9706a0ea4d1ed9625d8b401ed52d41bbd20f9cdf45"
+  },
+  "limits": [
+    "Local controlled model and synthetic workspaces, no real account or installed editor acceptance.",
+    "Both featureless candidates ran from isolated build directories, with Linux amd64 tested in a container.",
+    "The tested tree is local. The full-repository CI run 44412174861 is for the published base and cannot verify this change.",
+    "Native streaming projection, complete P4 parity, production handoff, longer memory tests, and default entry replacement remain open."
+  ]
+}

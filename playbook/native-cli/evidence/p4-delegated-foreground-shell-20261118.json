@@ -1,0 +1,79 @@
+{
+  "ordinaryCIRepair": {
+    "failedHead": "1f6b0a55e793101a4f9eb73cf7cfa1f19557ee99",
+    "failedRun": 44292908299,
+    "observedCheckout": {
+      "merge": "cb66d319c308cd6bec9dd887ea2f765e3b8e5527",
+      "tree": "ad4a64b0f50f9b7c236e04db43aaf3d03fc763d7",
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "1f6b0a55e793101a4f9eb73cf7cfa1f19557ee99"
+      ]
+    },
+    "linuxJob": 134762387993,
+    "macOSJob": 134762388688,
+    "observedFailure": "Both runners failed the Native CLI scoped stage. The remaining production Host test waited for nativeProcess in pendingTools after migration had moved foreground ownership to the persistent session handle.",
+    "repairHead": "99e1e5e312c3565c9a827effcbfd9eadad9dd557",
+    "repairTree": "ff6f7326d331923bcf20a9dcf5361cf3e72f6c0e",
+    "repair": "Test observes the actual bound persistent handle and a marker written by the real command. Cover cancellation, permission revision change, foreign message and foreign grant, original child/group retirement, known usage, unknown dispatch, and independent subsequent admission.",
+    "local": {
+      "macOSArm64RuntimeLibrary": 164,
+      "linuxAmd64RuntimeLibrary": 163
+    },
+    "rerun": {
+      "run": 44296531703,
+      "linuxJob": 134774895985,
+      "macOSJob": 134774895483,
+      "observed": "pending"
+    }
+  },
+  "delegatedForeground": {
+    "base": "99e1e5e312c3565c9a827effcbfd9eadad9dd557",
+    "tree": "5a4d3b07b016f9ea2a490663c0eb89fbc5b48c6f",
+    "linuxTree": "14828151fe3227653573d4a15d9e1ce829df03e2",
+    "onlyDifferenceFromLinuxTree": "Additional development interoperability assertions in scripts/native-cli/native-process-conformance.mjs.",
+    "combinedPatchSha256": "e1f46bfb7715216f3862b7b91be530e7ef8ab08f4f7b8b898733150eca42dcec",
+    "baseBehavior": "Public Work on the previous featureless archive reports empty:workspace on its second foreground command.",
+    "verified": {
+      "macOSArm64RuntimeLibrary": 164,
+      "protocolCasesPerPlatform": 2,
+      "publicWorkCasesPerPlatform": 4,
+      "macOSStrictClippy": "passed",
+      "coordinationInterop": 65,
+      "oldNativeArchiveRejectedFloor15": true,
+      "alreadyOpenTypeScriptV14": "The actual older reader and writer reject floor 15 after the new Work record is published. Both complete and interrupted publication preserved the same segment bytes."
+    },
+    "actualBehavior": [
+      "Work stores one interpreter on the original attempt. Fresh grant and command binding are committed together to the same pending call. The normal CLI case preserves actual PID, physical cwd and environment, settles two distinct Evidence-backed dispatches and releases original process/claim after stop.",
+      "A macOS workspace alias produced a real no-dispatch result on initial wiring. The same Provider now selects the canonical operating-system directory before constructing the scope proof.",
+      "Actual timeout, SIGTERM and Host kill demonstrated group absence while preserving original uncertain dispatch and grant. Timeout and SIGTERM retain known usage. No extra model request or tool replay occurs during cold recovery.",
+      "Storage establishes semantic floor 15 before publishing Work facts. Known successful command receipt may clear its binding. Non-ended interpreter records and replacement of a bound original grant are rejected."
+    ],
+    "remaining": [
+      "Work background dispatch and stop",
+      "Idle session policy change coverage",
+      "Already-running installed legacy Host coexistence and drain",
+      "P4 total gate and P5–P7"
+    ]
+  },
+  "contractFiles": [
+    "65-cli-headless-exec.md",
+    "116-session-control-and-resource-settlement.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "logSha256": {
+    "ci-1f6b0a55-linux-full.log": "cf3825106adc68da1a503556e3dfdcc9ff442f4797c93586b5f2c3a42578a4b5",
+    "ci-1f6b0a55-macos-full.log": "61938226b8202ebdf6922acc50cf909b0431534054e5fbe94aff0f2994db959a",
+    "ordinary-shell-ci-macos-ff6f7326-ready.log": "298b5da839bd37e852a580effb34fe782650362e71dc516de53c742e5a20a0f9",
+    "ordinary-shell-ci-linux-ff6f7326-ready.log": "a90c35a98438c5e152aee2fd87e658cbc1073873f03dd74fd9bf9287e62d8c8a",
+    "delegated-shell-live-1f6b0a55-red.log": "90ea610347ba866ef61d6a83482ee8fa86ef394a0b3d31d1966466a0455e4d2f",
+    "delegated-shell-first-live.log": "b775ece81b6be0024bb105f611eca6dcddec3f8da9e3c62b39ca8af315f97f1c",
+    "delegated-shell-scoped-macos.log": "c107300b4154579e85d5d008406ff11a0a39bba33e5ca8b13806d1eccabdf411",
+    "delegated-shell-macos-dedicated.log": "e18ec9a41fda6b18724b5aaa444b1c150dad2569afd5a12ec7c786a4665beacb",
+    "delegated-shell-linux-14828151.log": "5ec235644cf701486761567310e291fe5b4ef39e410ee89d3c0e5e09a8d21c9b",
+    "delegated-shell-older-native-fence.log": "b8b52f200f9d0c24c5b6efec1bb4472932028f3a2bac391b666aabdf4457d1e2",
+    "delegated-shell-fence-ts-interop-node25.log": "ec61bd2105aca19c9f76c1cb8aa5ddd2015b128caf5d70595a5420a7ab3b5a85"
+  }
+}
