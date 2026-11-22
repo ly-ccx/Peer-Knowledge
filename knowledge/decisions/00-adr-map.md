@@ -479,5 +479,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 | 编号 | 文件 | 状态 |
 |---|---|---|
-| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C4c 已完成（`750b8769`，共享本机 UDS `0600`/Windows Named Pipe Daemon `peer core --daemon` 与 `remote-device-connector` 接入 Rust Core，保留 `PEER_CORE_DAEMON=0`、`PEER_CORE_CLASSIC=0` 与 `--standalone`），余 C4d 推进中 |
+| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C4d 全部完成（C4d `3559a986` 退役 Desktop TS Agent 内核并整体收敛至 Rust Core，取代 C3b–C4c 过渡期 `PEER_CORE_CLASSIC=0` TS 回退条款，保留 `PEER_CORE_DAEMON=0`、`fallbackToStdio` 与 `--standalone`） |
 
