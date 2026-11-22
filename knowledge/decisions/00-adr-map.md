@@ -479,5 +479,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 | 编号 | 文件 | 状态 |
 |---|---|---|
-| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C4b-2b-2b-2a 已完成（Classic、Automations、Memory、Objectives 与 Bot 只读/投影面已默认走 Rust Core，Rust 活体 `ProjectHostRuntime` 与 17 路 `project.bot.*` 写通道/4 路推送流已就绪且默认休眠，保留即时回退开关），余 C4b-2b-2b-2b–C4d 推进中 |
+| 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C4b-2b-2b-2b 已完成（Classic、Automations、Memory、Objectives 与完整 Project Bot 活体宿主 runtime + 15 路写通道/4 路推送流已默认切换至 Rust Core，零 `host.lease` 脑裂并保留即时 TS 回退开关），余 C4c–C4d 推进中 |
 
