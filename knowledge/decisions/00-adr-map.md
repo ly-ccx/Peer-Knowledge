@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-23：新增 [ADR134 侧栏任务层级、全宽任务工作台与输入框一体化动态 Touch Bar](134-sidebar-tasks-fullwidth-workspace-and-composer-touchbar.md)（A/B 级，用户已确认原型与实施契约；部分修订 ADR 84 壳层任务入口，保留 ADR 80 一对一模型与 ADR 110/124 唯一 `followUp` 投影）。
+
 2026-11-19：ADR131 登记普通 `peer-ts` 前台 Shell 的同一 `shell_session` 记录。旧宿主先持久化原授权、启动与本次命令绑定，凭原进程组消失结清句柄；新版读侧保全旧宿主未证明停稳的记录，后台 Shell 与冷恢复权限保持原范围。
 
 2026-11-18：ADR131 登记普通 Goal 创建、任务更新和只读 Explorer。沿既有根锁、canonical 文件及同一个会话执行 owner，保留 Plan 批准闸。Explorer 的独立历史、派发、报告及取消沿真实证据和停稳契约，部分提交保全并阻断未经核对的重放。
@@ -365,7 +367,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 88 | [88 项目代理连续执行与结果交付方案](./88-project-agent-execution-continuity.md) | 2026-10-07 | 2026-11-01 | 页头已接受 |
 | 89 | [ADR 89：独立 Agent 接手、双向通信与真实工作动态](./89-independent-agent-delegation-and-communication.md) | 2026-10-10 | 2026-10-10 | 页头已接受 |
 | 90 | [ADR 90：本地图片能力与安装版产品截图审查](./90-local-image-capability-and-product-review.md) | 2026-10-10 | 2026-10-10 | 页头已接受 |
-| 91 | [ADR 91：主 Bot 自主协调、并行调度与取消重派](./91-project-bot-autonomous-coordination.md) | 2026-10-10 | 2026-11-05 | 页头已接受 |
+| 91 | [ADR 91：主 Bot 自主协调、并行调度与取消重派](./91-project-bot-autonomous-coordination.md) | 2026-10-10 | 2026-11-05 | 页头已接受；2026-11-23 补充 Rust Core 有界恢复实施契约 |
 | 92 | [ADR 92：具体资源授权与执行链继承](./92-scoped-permission-inheritance.md) | 2026-10-11 | 2026-10-21 | 页头已接受 |
 | 93 | [ADR 93：复核续跑与未完成工作的处理责任](./93-verification-continuity-and-repair-ownership.md) | 2026-10-18 | 2026-11-01 | 页头已接受 |
 | 94 | [ADR 94：主 Bot 回复、静默等待与历史错误](./94-reply-attempts-silent-wait-and-recovery.md) | 2026-10-18 | 2026-11-01 | 页头已接受 |
