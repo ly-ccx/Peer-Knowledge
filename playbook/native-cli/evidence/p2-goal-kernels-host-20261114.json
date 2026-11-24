@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "source": "0921d6739c17816f1caae2a7de8e829ba4109805",
+  "status": "scoped verification passed; P2 total gate not yet accepted; production model/tool entry remains closed",
+  "scope": "Canonical Goal execution/ancestry facts, all remaining coordination reducers, fresh delegated Host authorization, real stop barrier and bounded unknown reconciliation",
+  "checks": {
+    "rustTests": 129,
+    "nativeRustTests": 117,
+    "existingHelperTests": 12,
+    "crossProcessCases": 281,
+    "canonicalKernelTransitions": 66,
+    "goalExecutionProjections": 23,
+    "goalSourceCases": 36,
+    "hostIntegrationTests": 11,
+    "legacyFocusedTests": 128,
+    "runtimeGolden": 51,
+    "controlTransitions": 29,
+    "controlDigests": 7,
+    "workEventDeliveryTransitions": 29,
+    "ptyCases": 8,
+    "helper": "real isolated native Helper ping; no secret access",
+    "fmtClippyReleaseBoundary": "passed",
+    "architecture": "passed"
+  },
+  "logs": {
+    "full": "/tmp/peer-native-p2-host-final2.log",
+    "architecture": "/tmp/peer-native-p2-host-architecture.log"
+  },
+  "cliBinarySha256": "ae772c1358e01d18c7eed709fc0d91cd8ad5f34d0636ff3392b9c82116f2f66a",
+  "behavior": [
+    "Canonical Goal + runner-progress merge and active-index source rechecks; 32 MiB bodies/checkpoints scanned with bounded execution projections.",
+    "Actual TS canonical journal cold reads after 35 native kernel transitions; full 66 pure TS transition vectors cover decisions, obligations, supervision, intent and history.",
+    "Native live approval objects bind exact args, fresh Goal/ancestry, Bot policy revision, canonical execution binding, lease and resource admission; no historical approved row creates a grant.",
+    "A real native child is cancelled, killed/reaped, observed ended, committed to ledger and canonical stop control; later resource reservation succeeds.",
+    "Deadline retains owner and protection; later true completion settles; restarted running plans without ownership and abandoned/failed handles do not create receipts.",
+    "Native fixed-argv Git probes disable executable filters/hooks/fsmonitor, bound cumulative output/time and reject out-of-claim repository scope.",
+    "Host probes and current saved unknown policy drive file-only delegated closure; retained unknown and uncertain dispatch history remain; shell and revoked policies are denied."
+  ],
+  "limits": {
+    "publicCli": "Existing native binary is still the terminal/draft spike. New Host ports run through integration seams, not the public CLI.",
+    "canonicalGoal": "Execution and ancestry read adapter only; full Goal CRUD/workflow mutation remains closed until shared-write/CAS and normalization are validated.",
+    "remainingP2": [
+      "Shared Goal execution-control/claim-closure mirror and crash recovery; unsupported large-body write diagnostics.",
+      "Remaining model decision admission functions, role/mode and automatic access semantics; isolated Host startup/recovery total gate.",
+      "Source-bound interruption, orphan locks, stale approval and unknown existing-state recovery across the assembled Host."
+    ],
+    "P3": "Native Context/history, wire provider, runtime projection and actual file/shell loop not yet connected.",
+    "platform": "Local macOS only for this source. New Linux/macOS CI pending; Rust 1.88 MSRV and installed/full release acceptance unverified.",
+    "review": "Implementer self-review; no independent reviewer."
+  },
+  "failedAttempts": [
+    {
+      "log": "/tmp/peer-native-kernel-store-first-failure.log",
+      "finding": "Native raw kernel state retained empty optional buckets and unnormalized observation values; corrected public snapshot to actual TS SQL adapter projection."
+    },
+    {
+      "log": "/tmp/peer-native-p2-host-full2.log",
+      "finding": "Fixture regeneration compared in-memory undefined fields to persisted JSON; now compares the actual JSON transport form."
+    },
+    {
+      "log": "/tmp/peer-native-host-stop-tests.log",
+      "finding": "Host incorrectly opened read-only resource adapter; added explicit existing schema-3 writable opening with read-only preflight, no create/migrate fallback."
+    },
+    {
+      "log": "/tmp/peer-native-host-stop-tests2.log",
+      "finding": "Test assumed released claims appear in active snapshot; corrected to actual interface and verified subsequent reservation, without weakening stop/receipt assertions."
+    },
+    {
+      "log": "/tmp/peer-native-host-combined-clippy.log",
+      "finding": "Three clippy style failures fixed; complete clippy -D warnings passed."
+    },
+    {
+      "log": "/tmp/peer-native-p2-host-final.log",
+      "finding": "New semantic-floor regression test module placement failed clippy; moved after implementation; complete final scoped run passed."
+    }
+  ],
+  "ci": {
+    "previousSource": "82ce5819666698b530aa7e9fdd4476dbd004fb4a",
+    "previousRun": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43578026254",
+    "previousLinux": "success",
+    "previousMacos": "success",
+    "current": {
+      "source": "0921d6739c17816f1caae2a7de8e829ba4109805",
+      "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43584888148",
+      "linux": "failure in clippy: AtomicUsize.fetch_update deprecated under Rust 1.100",
+      "macos": "same clippy failure; later checks skipped",
+      "patchSource": "05c6bc05b6925075fda2a79ab521376dfccf9c69",
+      "patch": "replace fetch_update with bounded compare_exchange_weak loop; preserve Rust 1.88 compatibility, no warning suppression",
+      "patchLocalFullScoped": "passed /tmp/peer-native-ci-rust-compat.log; same 129 Rust, 281 cross-process, 128 legacy focused, 8 PTY checks",
+      "patchRemote": "pending"
+    }
+  }
+}

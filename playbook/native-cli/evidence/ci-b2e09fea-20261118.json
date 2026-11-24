@@ -1,0 +1,114 @@
+{
+  "source": "b2e09fead526def16f84ff669307aa77167df835",
+  "tree": "4b41a91989d1a37bd0b7a99dc8be35e5dd3b64a6",
+  "merge": "60ae467aea881e83059814ddf62f9a66767cd742",
+  "parents": [
+    "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "b2e09fead526def16f84ff669307aa77167df835"
+  ],
+  "run": 44233766860,
+  "result": "success",
+  "jobs": [
+    {
+      "id": 134564835917,
+      "name": "ci-macos-14",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check packaged main-process imports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (macOS)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (Linux)",
+          "conclusion": "skipped"
+        }
+      ]
+    },
+    {
+      "id": 134564836580,
+      "name": "ci-ubuntu-latest",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check packaged main-process imports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bot shell Electron smoke (macOS)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Bot shell Electron smoke (Linux)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "actualCheckout": [
+    {
+      "job": 134564836580,
+      "checkout": "2026-11-18T03:55:44.0948999Z HEAD is now at 60ae467a Merge b2e09fead526def16f84ff669307aa77167df835 into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "native": "2026-11-18T04:17:08.9712782Z Native scoped verification passed; PTY evidence: /home/runner/work/_temp/native-cli"
+    },
+    {
+      "job": 134564835917,
+      "checkout": "2026-11-18T03:55:51.9640830Z HEAD is now at 60ae467a Merge b2e09fead526def16f84ff669307aa77167df835 into 8b0c97175099a91d6495d6dd67ac063a7e262d63",
+      "native": "2026-11-18T04:20:32.2637780Z Native scoped verification passed; PTY evidence: /Users/runner/work/_temp/native-cli"
+    }
+  ],
+  "scope": "Both full repository jobs passed on the ACP source tree, including platform Electron smoke. This receipt does not validate the later Skill or Hook source trees, installed editors or real model services."
+}

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "status": "P2 physical writer-fence storage slice passed local scoped checks; canonical recovery and production admission remain incomplete",
+  "candidate": "6a729852e4a8272005a31fcaff2ea5a4fe4e0a91",
+  "adrRead": [
+    "104-progressive-interaction-and-coordination-storage.md",
+    "105-portable-coordination-baseline-integrity.md",
+    "112-runtime-module-and-loading-boundaries.md",
+    "116-session-control-and-resource-settlement.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "checks": {
+    "rustWorkspace": {
+      "passed": 85,
+      "native": 73,
+      "existingHelper": 12,
+      "newFenceTests": 8
+    },
+    "crossProcess": {
+      "store": 14,
+      "policy": 13,
+      "lease": 13,
+      "rawTranscript": 24,
+      "fence": 14
+    },
+    "runtimeGolden": 51,
+    "controlTransitions": 29,
+    "controlDigests": 7,
+    "pty": 8,
+    "realIsolatedNativeHelperPing": true,
+    "fmt": true,
+    "clippyWarningsDenied": true,
+    "releaseBuild": true,
+    "staticBoundaries": true
+  },
+  "interruptionCases": {
+    "steps": [
+      "prepared",
+      "baseline-copied",
+      "legacy-archived",
+      "writer-fenced",
+      "head-published",
+      "published"
+    ],
+    "tsToNative": 6,
+    "nativeToTs": 6,
+    "nativeInterruption": "Controlled process::exit(77), skips Rust Drop; not hardware power-loss testing.",
+    "ownership": "Real TS/native host lease files; explicit stale takeover for a crashed synthetic fixture. Never execution-stop proof."
+  },
+  "identity": {
+    "cargoLockSha256": "a054def0396ea11d17927cf04b8add1800d2aa22490e41c57190be6108243c03",
+    "cliBinarySha256": "4e30d954095027f1901e8cb4c3e1ecb856d30421bab05f048d62da2871cb01b1",
+    "fixtureBinarySha256": "c9228eb3aaa7c64d42ee8c417c8e837d7c47b8da81f5731ffe5e2a1d2af72d05",
+    "uuid": "1.18.1, v4; registry metadata reports MSRV 1.63; own workspace declared MSRV remains 1.88, not actually tested at that compiler."
+  },
+  "failedAttempts": [
+    {
+      "case": "First TS fixture called nonexistent lease.epoch",
+      "correction": "Read the existing diagnosticSnapshot and use the actual Host hostId:acquiredAt epoch; do not fake lease ownership."
+    },
+    {
+      "case": "Late higher manifest floor accepted by initial native promotion",
+      "reproduction": "At HeadPublished, fixture raises reader/writer to 12. Original implementation returned Promoted instead of Changed.",
+      "correction": "Check live intent-compatible prefixes at publication boundaries; compare allowed prior JSON values plus strong file identity before atomic publish; preserve new head/floor and retain prepared intent.",
+      "verification": "Late higher floor and later head are preserved, return coordination_read_changed. Initial no-replace publication uses persist_noclobber."
+    },
+    {
+      "case": "Initial unused-import and manual_contains clippy warnings",
+      "correction": "Remove unused import; use contains; final -D warnings passes."
+    }
+  ],
+  "rawLogs": {
+    "peer-native-writer-fence-final.log": {
+      "sha256": "8db3e9480edbc477db124e42403b435652534fe67e2f23e57a3696e39cf692cf",
+      "location": "system temporary directory; retained locally, not durable remote artifact"
+    },
+    "peer-native-fence-late-head-failure.log": {
+      "sha256": "028c605616f12de02c9866b1561768ceecd6465fcb82de564de81712f70db649",
+      "location": "system temporary directory; retained locally, not durable remote artifact"
+    },
+    "peer-native-fence-fixture-api-failure.log": {
+      "sha256": "5c783f05c9dddf43f66ffb3e372cbc8ba48d0459422bbcc40148c776389a9932",
+      "location": "system temporary directory; retained locally, not durable remote artifact"
+    }
+  },
+  "ci": {
+    "head": "6a729852e4a8272005a31fcaff2ea5a4fe4e0a91",
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797",
+    "linux": "in_progress",
+    "macOS": "in_progress",
+    "priorHeadNativeScopedSuccess": "886cfe4372d0b595165a9ee980aedca2cdca0e6b; does not validate the new fence source",
+    "nativeScopedValidation": {
+      "linux": "success",
+      "macOS": "success",
+      "linuxJob": 132367759976,
+      "macOSJob": 132367759772
+    },
+    "fullWorkflow": "in_progress; native scoped steps passed, whole jobs not yet complete"
+  },
+  "limits": [
+    "Physical writer barrier and preservation only. It does not parse/replay/validate the canonical v2 reducer/hash chain or authorize task execution.",
+    "Host must serialize prepare per workspace, maintain heartbeat and complete canonical v2 prepare before promotion. Native assembly remains unfinished.",
+    "Late-change checks do not create a new cross-runtime strong filesystem CAS; lease/read-check-rename cooperation and later resource/execution fences remain required.",
+    "Baseline hash/copy limit is 2 GiB with 256 KiB chunks; metadata limits apply. Oversized sources fail explicitly, not truncate.",
+    "Existing unknown effects, permissions, history and Evidence are never cleared or replayed. This slice does not implement unknown reconciliation.",
+    "No production CLI shared-task writes, model request or tool loop admitted. CLI remains draft-only; P2 total gate incomplete.",
+    "Prior bounded-reader memory probes remain bound to their recorded 886cfe43 source/binaries; not reattributed to newly rebuilt Store examples.",
+    "No real task data, true power loss, disk-full, real-model, installed-build or full memory/soak acceptance; implementer self-review."
+  ]
+}

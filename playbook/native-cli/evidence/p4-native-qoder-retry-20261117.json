@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "native Qoder per-attempt retry/usage/Host scoped and exact featureless release passed; complete Qoder/P4 and full repository CI remain open",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "head": "1d796f2a4b4781b00bce86e26b6de864d1cb97f3",
+    "tree": "dd7bc413720a32f7eaa5c0cea8ab7d325f28b756",
+    "branch": "codex/native-rust-cli"
+  },
+  "preSourceKnowledge": "524c9e18ffe4e1cc850ac7c59a82699ebbc4d001",
+  "adrs": [
+    "25-runtime-usage-ledger.md",
+    "37-provider-channel-and-wire-protocol-separation.md",
+    "55-shared-system-context-assembler.md",
+    "56-provider-observed-context-accounting.md",
+    "57-canonical-conversation-history-projector.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "ADR131/map A supplement precedes source. Runtime migration follows it; subsequent canonical Store conflict error alignment is same-boundary B, test synchronization C. No new permission/Evidence/System Context or persistence schema. No UI flow changed.",
+  "implemented": {
+    "policy": "Both Qoder dialects: queue40/600000ms cumulative sleeps/50-60000ms each; upstream cadence before estimate, mild backoff; less than50ms remaining terminates rather than overshoot. Duplicate once2000ms; transient1000/2000/4000; connection-before-headers1000/3000 then same bounded outer transient policy. No wall-clock600s claim. Auth/source/config, malformed/oversized/incomplete, idle read timeout/cancel and context-overflow stay outside this retry policy.",
+    "request": "One frozen bounded nonidentity seed per logical request. Refresh request/session/task IDs and prepared is_retry; re-encode/fingerprint exact immutable bytes. Runtime initial task also peer-agent:UUID, shared pure builder goldens stay unchanged. Fresh account/config/environment/file and network validation plus authentication per attempt; no account/dialect fallback.",
+    "host": "Existing ContextPipeline owns each attempt: canonical budget admission, owned wait/heartbeat/cancel, capture before lease wrapper rejects late result, per-request usage/unknown snapshot before wait, capacity-bearing observation/persistence, next authority/budget/history CAS. Summary uses same loop with capacityBearing=false. Model layers never replay tools; partial intents discarded. No persistent retry queue or automatic crash continuation.",
+    "billing": "Known failed usage adds to runtime total, unknown remains unknown; maxRequests and unknown token/cost caps block before another post. Canonical counters count admitted dispatch attempts, so authentication/source denial can conservatively count an attempt without a physical HTTP post. No remote-processing fact is inferred from an admitted count or fingerprint.",
+    "recovery": "Complete Context Store commit is index+sidecar, not sidecar appearance. Test hard-kills only after index turn_complete and released Store locks; restart rejects old work, two recover calls do not resume request or duplicate charges, later fresh task works. Separately recovered the actual interrupted Store fixture on a copy after proven process death and diagnostic preservation/empty-orphan-lock offline maintenance. Product never expires/steals anonymous Store locks; in-flight Store crash still requires that maintenance."
+  },
+  "validation": {
+    "fullNativeGate": {
+      "tree": "dd7bc413720a32f7eaa5c0cea8ab7d325f28b756",
+      "exitCode": 0,
+      "seconds": 547.023292417,
+      "rustTests": 454,
+      "nativeEpisodesIncludedInRust": 171,
+      "actualTsInteropRoots": 336,
+      "actualTsInteropChecks": 1924,
+      "ptyCases": 9,
+      "bun": "1.2.17",
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-final-2-20261117/verify.log",
+        "bytes": 102393,
+        "sha256": "f94d4dcc3b0bb39a39f28c2ca3073b1e392ccc4818f73251f803085f78df531c"
+      },
+      "exitReceipt": {
+        "path": "/tmp/peer-native-qoder-retry-final-2-20261117/exit.json",
+        "bytes": 311,
+        "sha256": "aabed58273932dc814010f2621af994d6373bed1a4f913c99233177e10459911"
+      }
+    },
+    "actualTsRetryVectors": 35,
+    "featurelessRelease": {
+      "path": "/tmp/peer-native-qoder-retry-final-2-20261117/peer-native",
+      "bytes": 17163312,
+      "sha256": "37496a9933404832478ed09a2c89fc497951caff40d0c8efaed915d0ce4c60f4",
+      "withoutJsQoderHostTests": 23,
+      "environment": "env-i, PATH=/nonexistent; every HOME/Peer/Qoder root synthetic; both dialects, actual HTTP/TLS/CONNECT, grants/Evidence/usage and stop/recovery",
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-final-2-20261117/no-js-release-host.log",
+        "bytes": 2574,
+        "sha256": "ad30848ee3a574a1db5ae7d340615f49c443af41cf3a72e91a3b4fb6cb1303b6"
+      },
+      "subsequentActualTsInterop": {
+        "roots": 45,
+        "checks": 236,
+        "log": {
+          "path": "/tmp/peer-native-qoder-retry-final-2-20261117/release-interop.log",
+          "bytes": 216,
+          "sha256": "ae769c563f21b6934f6a6a9c19a258b825be9b720ca35c6e4cc04e7f1539f3db"
+        }
+      },
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-qoder-retry-final-2-20261117/release-dylibs.txt",
+        "bytes": 361,
+        "sha256": "fd69dbbb2675d47c9855054c824b948266f45cbe6a3db5d694ca2114f96fdfd7"
+      },
+      "builtInJsEngineOrSidecar": false
+    },
+    "architectureAndUi": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-final-2-20261117/architecture.log",
+        "bytes": 384,
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "focused": {
+      "correctedRetryTests": 10,
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-20261117/retry-second.log",
+        "bytes": 1428,
+        "sha256": "635527cd9e4c4755a7d71a4c489625f5e9b06ce738c39f0d910bd0ddc1c61da6"
+      },
+      "restartAndLaterAdmission": {
+        "path": "/tmp/peer-native-qoder-retry-20261117/recovery-second.log",
+        "bytes": 497,
+        "sha256": "f945df7974e0b531e9aa3b5811cecb0c2ca62270f5fc9fe157ba0bd61b98d43d"
+      }
+    },
+    "review": "implementer self-review; not independent. New Host tests preserve real effects, denial, failure, known/unknown, cancellation and subsequent admission assertions."
+  },
+  "failuresAndRecovery": {
+    "audit": {
+      "path": "/tmp/peer-native-qoder-retry-20261117/audit.json",
+      "bytes": 6156,
+      "sha256": "d236ff2926562d8eef9b1eefb83386ca76a712caf678120fe14370aaebf3e75d"
+    },
+    "originalUnsupportedQueue": {
+      "path": "/tmp/peer-native-qoder-retry-20261117/baseline-real.log",
+      "bytes": 764,
+      "sha256": "a8a6a7ba737847f417292aa2d6618978f49d7ae72450b1f2747d746989fd6574"
+    },
+    "firstFrozenGate": {
+      "tree": "af8c1fc4cd1ca37ac9b18bddc79dd20088af7ba6",
+      "passedEpisodes": 169,
+      "failedEpisodes": 2,
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-final-20261117/verify.log",
+        "bytes": 52099,
+        "sha256": "77d76be15b105ba327c238e23d3f1baaf686b4eb57db2ac48c880113ce98949f"
+      },
+      "patch": {
+        "path": "/tmp/peer-native-qoder-retry-final-20261117/candidate.patch",
+        "bytes": 61153,
+        "sha256": "6b9d53fb764fee89a903070c371b4532586eba7a3d4480f154f7bcbd04312986"
+      }
+    },
+    "existingStateRecovery": {
+      "path": "/tmp/peer-native-qoder-retry-20261117/interrupted-store-recovery-copy/recovery.json",
+      "bytes": 752,
+      "sha256": "3531da52eec58b1b8c59dca5d7589ea4b2c11ce5f91a2a4fd467e843f2c4454e"
+    },
+    "scope": "Original failed sources/data/logs retained. Corrected fixture waits for the real commit, not a longer arbitrary delay. Canonical conflict error reused; no assertion suppression, tool replay, historical repair by deletion or automatic lock stealing."
+  },
+  "baselineCi": {
+    "runId": 43957840836,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836",
+    "head": "683b601a36351a7241ba81c080a18b9351e2d627",
+    "tree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+    "mergeCommit": "7b45f4948ad72a3e5d9d4eb25ba8a823c73129d2",
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      {
+        "id": 133617013628,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success",
+        "failures": []
+      },
+      {
+        "id": 133617013973,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "failure",
+        "failures": [
+          "Bot shell Electron smoke (macOS)"
+        ]
+      }
+    ],
+    "mergeTree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+    "matchesSourceTree": true,
+    "failureInvestigation": {
+      "log": {
+        "path": "/tmp/peer-native-qoder-retry-20261117/baseline-macos-ci.log",
+        "bytes": 2270037,
+        "sha256": "3b06fb29ca0a93837bdb4d457abf9acb39b3ba5ef8a55a790779fd435bbe7d21"
+      },
+      "summary": {
+        "path": "/tmp/peer-native-qoder-retry-20261117/baseline-macos-summary.json",
+        "bytes": 2040,
+        "sha256": "2463f1f96a371a5ab3a99c3abfe82fd89d0daab0784f2f4fe3c0e30f36fe9b7a"
+      },
+      "error": "real disclosure input and observation complete within the bound",
+      "source": "apps/desktop/scripts/bot-history-motion-checks.mjs:239",
+      "facts": "taskClose one click, first open=false sample5900ms, last5930ms, global6000ms timer, requires480ms after click. Remote dispatch consumed observation deadline. Product cause not reproduced; no flake label, rerun, timeout inflation or assertion relaxation. Separate scoped fixture timing investigation remains."
+    }
+  },
+  "candidateCi": {
+    "runId": 43967102253,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253",
+    "head": "1d796f2a4b4781b00bce86e26b6de864d1cb97f3",
+    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "mergeCommit": "3ea1e32ab99bd69130164ddd55c4b9ef2bb4f94c",
+    "mergeTree": "dd7bc413720a32f7eaa5c0cea8ab7d325f28b756",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133649296283,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "cancelled",
+        "passed": [
+          "Build",
+          "Native CLI scoped validation",
+          "Typecheck",
+          "Architecture check",
+          "Test"
+        ],
+        "cancelled": [
+          "Bot shell Electron smoke (Linux)"
+        ],
+        "failures": []
+      },
+      {
+        "id": 133649295872,
+        "name": "ci-macos-14",
+        "conclusion": "cancelled",
+        "passed": [
+          "Build"
+        ],
+        "cancelled": [
+          "Native CLI scoped validation"
+        ],
+        "unrun": [
+          "Typecheck",
+          "Architecture check",
+          "Test",
+          "Bot shell Electron smoke (macOS)"
+        ],
+        "failures": []
+      }
+    ],
+    "conclusion": "cancelled",
+    "reason": "The pushed source fixes the known capture deadline defect; existing workflow concurrency superseded the old source run. Not a rerun due to an observation timeout.",
+    "followUp": "C-only capture correction c09d2bc3, receipt ci-motion-observation-20261117.json. Native source unchanged; no whole repository success inherited."
+  },
+  "limits": {
+    "p4TotalGatePassed": false,
+    "ordinaryRatatuiChatEnabled": false,
+    "p5ThroughP7Complete": false,
+    "notes": [
+      "Actual TS nested prepared sender still drops persisted-only modelOptions without catalog metadata; complete caller parity needs explicit closure. Full catalog/stream variants and real Qoder service remain.",
+      "Full Context/compaction policy, remaining tools/Skill/Plugin/Hook, ACP/headless/original commands, mixed installed-version drain/recovery and P4 total gate remain.",
+      "Anonymous Store locks intentionally need controlled offline maintenance after an in-flight Store crash; waiting-policy crash recovery is separately verified.",
+      "Only synthetic accounts/services, no personal auth/task reads or migrations, installed app, real model/IdP/OS Vault, MSRV1.88 compilation, full-platform release or long UI memory soak.",
+      "No installation, user-instance restart, alias/default switch, merge, tag or release. No Bun/Node engine sidecar. Baseline macOS Desktop smoke failure remains unaccepted and under investigation."
+    ]
+  }
+}

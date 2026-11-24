@@ -1,7 +1,7 @@
 # Peer Frost 产品体验规范 v1
 
 创建时间：2026-10-23
-最后更新：2026-11-03
+最后更新：2026-11-24
 
 > 状态：生效。用户要求后续产品开发依据自己的规范；本文是设计与实现的默认基线，不代表存量界面已经全部达标。
 > 适用范围：Peer 产品的视觉、组件、动效和人机交互。Desktop 使用本文的 Frost 视觉规则；TUI、CLI、远程入口共享交互语义，按宿主能力表达。
@@ -57,7 +57,19 @@
 
 优先消费现有 `--ui-*` 的字体、圆角、焦点、选择与表面语义；颜色与材质继续使用 Frost 正名 `--chrome-* / --paper-* / --control-* / --graphite-* / --azure-* / --state-* / --glass-*`。间距使用 `--space-*`。
 
-现有 `--za-motion-* / --za-ease-* / --za-code-font-size` 是仍在使用的共享接口，可以继续消费。旧 `--ink-* / --cinnabar-* / --surface-vellum-*` 不向新组件扩散。组件不得复制一组数值后另起设计系统；新需求先扩展既有语义 token，再在一个位置落值。
+现有 `--za-motion-* / --za-ease-* / --za-code-font-size` 是仍在使用的共享接口，可以继续消费。旧 `--ink-* / --cinnabar-* / --surface-vellum-*` 及颜色/表面类 `--za-* / --pa-*` 别名已冻结，严禁向新 CSS 文件扩散或增加存量计数。组件不得复制一组数值后另起设计系统；新需求先扩展既有语义 token，再在一个位置落值。
+
+#### 4.1.1 Peer Frost v2 A × G 哑光表面与门禁契约（2026-11-24 生效）
+
+为消除深色模式蓝灰偏色、廉价玻璃白高光及卡片蓝底污染，Desktop 端默认深浅主题统一执行以下硬约束（由代码仓 `apps/desktop/renderer/src/styles/frostTokenContract.test.ts` 在 `pnpm test` 与 CI 中静态强制校验）：
+
+1. **纯中性哑光黑曜石深色阶梯**：默认 `[data-theme="dark"]` 下所有 `--chrome-*`、`--paper-*`、`--control-*` 底面保持中性哑光（RGB 通道差 `<= 7`），典型层级为壳层 `#151518` → 浮起阅读纸面 `#19191C` → 抬升卡片/输入框 `#212125` → 内嵌/悬停面 `#26262B`；兼容别名 `--za-* / --pa-*` 必须通过 `var(...)` 指向正名 token，禁止硬写 hex。
+2. **A × G 双级激活语法**：
+   - **A 级（多行/高卡，如侧栏 Bot 行）**：消费 `--chrome-glass-row-active` 与 `--chrome-glass-row-border`，保持纯平哑光，不使用光泽渐变。
+   - **G 级（单行导航、子任务行、分段切换、主 CTA）**：消费 `--chrome-keycap-bg` 与 `--chrome-keycap-fg`（深色粉笔键帽 `#E6E8EC / #121316`，浅色石墨键帽），保证 WCAG AAA（`>= 7:1`）高对比。
+3. **零顶部白高光与零蓝底铺面**：`--glass-edge-highlight` 保持 `0 0 0 0 transparent`，禁止新增 `inset 0 1px 0 rgba(255, 255, 255, ...)` 顶部白色高光线；禁止在卡片、面板或状态块背景上使用 `--azure-trace` / `--za-accent-soft` 大面积铺底（Azure 仅限 `<= 12%` 轻透小徽标、焦点环与少量状态印记）。
+4. **同心圆角阶梯**：`--ui-radius-detail (4px)` ≤ `--ui-radius-chip / --ui-radius-control-compact (8px)` ≤ `--ui-radius-control / --ui-radius-row (10px)` ≤ `--ui-radius-inset (12px)` ≤ `--ui-radius-panel (16px)` ≤ `--ui-radius-popover / --ui-radius-composer / --ui-radius-modal (18px)` ≤ `--ui-radius-dialog (20px)`。
+5. **棘轮收敛机制**：所有新建 CSS 文件必须满足 0 裸 `#hex`、0 冻结旧颜色别名、0 蓝色铺底、0 顶部白高光；存量文件仅允许维持或减少违约基线，随触及路径逐步清零。
 
 以下是研究时的代码快照，便于选型，不是要求把数值重新写入组件：
 

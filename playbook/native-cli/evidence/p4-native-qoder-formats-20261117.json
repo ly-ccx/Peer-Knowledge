@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "status": "native-format-primitives-and-release-tests-passed; this candidate does not wire the Qoder Provider; both-platform whole CI passed",
+  "source": {
+    "head": "cfdfd40a5e7ea5020f74ac15f1b443caef081d5b",
+    "tree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
+    "repository": "ly-ccx/Peer-Agent"
+  },
+  "preSourceKnowledge": [
+    "fe5a6cd1059904086c348bb792090fa35a489b14",
+    "053b481753aa61816dce8107107b4f3053ec9734"
+  ],
+  "adrs": [
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "classification": "Registered A-level Qoder third-party credential/cache preparation contracts precede implementation. This delta implements only stateless Rust format primitives, with no file, config, network, process, authorization, Evidence or System Context admission. No UI surface changed.",
+  "oracle": {
+    "provenance": {
+      "package": "@qoder-ai/qodercli",
+      "version": "1.0.39",
+      "url": "https://registry.npmjs.org/@qoder-ai/qodercli/-/qodercli-1.0.39.tgz",
+      "npmIntegrity": "sha512-0Li49Q/JeAH3anrNSrxzsjxC7et0YMowvuLI2xXeCK/GxPc+K3BJULS97jtV/c3EfRhmkB34noiCrc/fhpu4NA==",
+      "authModuleSha256": "15dad38f7d9744dabfdc8a892ebad80d2c8157779f4e33882123ab3c954f04d3",
+      "scope": "Official SDK isolated oracle, synthetic data only. No vendor CLI executed, no personal auth read. Body inputs include actual repository TS builder output; this resource does not prove the Rust message builder or Host is wired."
+    },
+    "npmMetadata": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/npm-1.0.39.json",
+      "bytes": 1530,
+      "sha256": "406cb4e87f5563b8181b72adab43aa576d26744233b991cdff5f7de153028c78"
+    },
+    "archive": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/qodercli-1.0.39.tgz",
+      "bytes": 26601095,
+      "sha256": "c7b4dbf574523e71cf028e5481d6a42ea28cac9f5043afe5fe10a5b7baf27762"
+    },
+    "integrityChecked": "Actual archive SHA512 equals published npm dist.integrity; no npm installation/postinstall or vendor CLI execution.",
+    "authModule": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/qoder_auth.wasm",
+      "bytes": 288929,
+      "sha256": "15dad38f7d9744dabfdc8a892ebad80d2c8157779f4e33882123ab3c954f04d3"
+    },
+    "moduleSelection": "Module selected by actual credential_storage_decrypt export, not the longest unrelated bundled WASM. Oracle is the current TS createAuthWasm glue with only raw module loading and encrypt export visibility for synthetic fixtures; vendor bytecode is unchanged. No SDK bytecode is committed or embedded in the CLI.",
+    "oracleGlue": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/auth-oracle.mjs",
+      "bytes": 24230,
+      "sha256": "63abf5695fff7b86b7e1912401627928be371e545812aa384111369858b3af11"
+    },
+    "fixtureGenerator": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/generate-fixtures.mjs",
+      "bytes": 3761,
+      "sha256": "ed2905302ec7e5fe1ac6e31bbdeba85f1b605b0e3e15d8e9595ce44f5cc14f87"
+    },
+    "actualBuilderInputAttachment": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/add-builder-inputs.mjs",
+      "bytes": 1537,
+      "sha256": "cb8c6ace98d50624932719d2c2bcb1adbdb4c4d58a9b65518467fff88954e9ac"
+    },
+    "fixtureGeneration": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/generate-fixtures-final.log",
+      "bytes": 420,
+      "sha256": "05dfc822b3173a9d52e1b4c41670d847fd66e1d4a613f9a1822b19e69b6cc121"
+    },
+    "resource": {
+      "path": "packages/protocol/contracts/native-cli/qoder-formats.json",
+      "bytes": 52905,
+      "sha256": "ddbee077b3549aad96f54a3d7f793998033a252c900ce5f1dfc40cc6ef43ba91"
+    }
+  },
+  "implemented": {
+    "credential": "Standard base64 AES-128-CBC/PKCS7; 16-byte UTF8 key is also the IV, preserving old format. CBC provides no authenticity; caller still must validate user/expiry/config identity. Encoded source max1MiB.",
+    "catalog": "QMC v1 prefix, 12-byte nonce, AES-256-GCM with HKDF-SHA256(uid, salt=qoder-model-cache-enc, info=model-cache-v1). Also exact legacy plain-text and base64 UTF8 carriers, returned with separate CacheFormat. Max4MiB and4096-byte uid. Caller owns catalog schema validation.",
+    "body": "Fixed official custom base64 alphabet and dollar padding, outer thirds swap; strict canonical decode. Raw UTF8 body max8MiB; bounds checked before allocations. This is obfuscation, not encryption or authentication.",
+    "ownership": "PrivateText owns a Zeroizing byte vector, has no Debug/Display/Clone, validates UTF8 before exposing borrowed text. Decode failures keep partially written buffers under zeroizing ownership. Static typed errors carry no source data. AES/CBC key schedules enable zeroize features.",
+    "dependencies": "Only existing locked AES0.8.4/CBC0.1.2/AES-GCM0.10.3/HKDF0.12.4 versions become direct dependencies. No new dependency version, JS runtime, vendor CLI or WASM VM."
+  },
+  "validation": {
+    "pinnedOfficialSdkVectors": 65,
+    "credentialVectors": 21,
+    "gcmVectorsIncludingThreeRejectedEmptyPayloads": 21,
+    "legacyCarrierVectors": 7,
+    "bodyVectors": 16,
+    "actualTsBuilderInputsIncludedInBodyVectors": 9,
+    "rustFormatTests": 4,
+    "fullNativeGate": {
+      "tree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
+      "head": "7627d4c8f664fb07b04c9db13b4e62f8984c66a5",
+      "startedAt": 1794856346.734852,
+      "bun": "1.2.17",
+      "exitCode": 0,
+      "elapsedSeconds": 498.97219681739807,
+      "finalTree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
+      "rustTests": 410,
+      "nativeEpisodesIncludedInRust": 148,
+      "actualTsInteropRoots": 291,
+      "actualTsInteropChecks": 1688,
+      "ptyCases": 9,
+      "log": {
+        "path": "/tmp/peer-native-qoder-formats-final-20261117/verify.log",
+        "bytes": 98170,
+        "sha256": "57c7bbc7851f01126d4578080963e2a9d01f90d98e4398bd297efe8b45dc887a"
+      }
+    },
+    "focusedTests": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/format-tests.log",
+      "bytes": 1697,
+      "sha256": "5b7b96edb5a4a6b12e1681dd1fed2f1a04bd65006646354349bebfbfb5333a1c"
+    },
+    "strictClippy": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/format-clippy-v3.log",
+      "bytes": 193,
+      "sha256": "1f8eda4c2cbf6668c3608587c2639a6679985350d0c0c26b62836f8d27a95260"
+    },
+    "architectureAndUi": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/architecture.log",
+      "bytes": 384,
+      "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    "releaseFormatTests": {
+      "path": "/tmp/peer-native-qoder-formats-final-20261117/release-formats.log",
+      "bytes": 1662,
+      "sha256": "0e070700f5f7b66b65d5a7459b15636a52d2a4a7f76ba1aa364064f8ee33ddf6"
+    },
+    "releaseFormatTestsWithoutHomeOrJs": {
+      "path": "/tmp/peer-native-qoder-formats-final-20261117/no-js-formats.log",
+      "bytes": 455,
+      "sha256": "56aa648eab997057795d7e4fac181f838499e559f38065224be4eb87be8a6c84"
+    },
+    "featurelessRelease": {
+      "path": "/tmp/peer-native-qoder-formats-final-20261117/peer-native",
+      "bytes": 16705504,
+      "sha256": "14bfa423916c9fc6f8136b303144c1c7c66b1cd619cde747fbd7a693e4421d8a",
+      "unchangedPublicSessionCommandsTests": 10,
+      "publicSessionLog": {
+        "path": "/tmp/peer-native-qoder-formats-final-20261117/release-session-shell.log",
+        "bytes": 1087,
+        "sha256": "ede0177af6b826d96d3f8668388bd344ce01bc45e23ed4989d38374f0bfb0a14"
+      },
+      "dynamicLibraries": {
+        "path": "/tmp/peer-native-qoder-formats-final-20261117/release-dylibs.txt",
+        "bytes": 361,
+        "sha256": "1a057b5eca42d25cc85288594042550adacaca0fc7681139b162676363b99437"
+      },
+      "hostDependencyTree": {
+        "path": "/tmp/peer-native-qoder-formats-final-20261117/native-dependencies.txt",
+        "bytes": 30263,
+        "sha256": "3b10c214fb0293a105da3cab4ea24019292bec0ecc3159c157c0f47062259d72"
+      },
+      "rawVendorAuthModuleAbsent": true,
+      "noWasmVmDependency": true,
+      "scope": "Native format test binary under release profile and env-i PATH=/nonexistent; same featureless CLI artifact also passes10 existing public session tests and9 PTY in the full gate. Qoder format functions are not yet used by the public model factory; do not call this a Qoder model/tool or installed-build test."
+    }
+  },
+  "preservedAttempts": {
+    "strictClippyFailures": [
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/format-clippy.log",
+        "bytes": 2505,
+        "sha256": "37e39519b11698047f270bafc03e38e988ee3f23fbad610bc652e6f5174bea1b"
+      },
+      {
+        "path": "/tmp/peer-native-qoder-audit-20261117/format-clippy-v2.log",
+        "bytes": 890,
+        "sha256": "a093181b406a76d57a0363a68a4bd1ebfd9776ef5d76492e2ed9f8a260bfe21d"
+      }
+    ],
+    "initialNodeReferenceImportFailure": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/generate-fixtures.log",
+      "bytes": 1274,
+      "sha256": "c59dfb34b859db22569e255d7b9e08da4dfa480f21f8805dd7e3f0dec42f17fa"
+    },
+    "workingCiBunReferenceGeneration": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/generate-fixtures-final.log",
+      "bytes": 420,
+      "sha256": "05dfc822b3173a9d52e1b4c41670d847fd66e1d4a613f9a1822b19e69b6cc121"
+    },
+    "scope": "Initial Node import could not resolve a source .js alias to .ts; actual TS comparison runs under the existing pinned CI Bun1.2.17 resolver. Clippy deref/multiple-of warnings were fixed without suppressing warnings or altering failure assertions.",
+    "remainingAuthResearch": {
+      "path": "/tmp/peer-native-qoder-audit-20261117/auth-sign-probe.log",
+      "bytes": 221,
+      "sha256": "a38b3671e33d1b2641e09b245fbcc7f3c6d5bf58f7ffcfcb452456c9bda8bb27"
+    }
+  },
+  "baselineCi": {
+    "head": "7627d4c8f664fb07b04c9db13b4e62f8984c66a5",
+    "tree": "8f05f77832d82cd4e6ddd1cabee8cf4ed17cd8dd",
+    "runId": 43931485780,
+    "linuxJob": 133524760580,
+    "macOSJob": 133524761193,
+    "wholeRepositorySuccess": true,
+    "bothElectronSmokes": true,
+    "receiptKnowledge": "3fda30e4ecded3a991fd6f4dc9469f22c5262742"
+  },
+  "candidateCi": {
+    "runId": 43938893409,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43938893409",
+    "head": "cfdfd40a5e7ea5020f74ac15f1b443caef081d5b",
+    "tree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
+    "mergeCommit": "0cfff93dadd12387962509c7b888670c1bd26ac6",
+    "mergeTree": "929583465477bc02a05a46eeb8a4651a318ee6b8",
+    "matchesSourceTree": true,
+    "wholeRepositorySuccess": true,
+    "status": "completed",
+    "jobs": [
+      {
+        "id": 133550764577,
+        "platform": "Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133550764777,
+        "platform": "macOS",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "bothElectronSmokes": true
+  },
+  "limits": {
+    "qoderFileSourceAdapterImplemented": false,
+    "qoderProviderFactoryWired": false,
+    "qoderAuthEnvelopeAndRuntimeFieldGenerationImplemented": false,
+    "qoderQueueAndRetryMigrationComplete": false,
+    "realQoderServiceOrPersonalAuthUsed": false,
+    "notes": [
+      "Qoder account file read/fingerprint/expiry/config binding, catalog projection, auth envelope/runtime auth field generation, request lowering/options, network/SSE/usage/queue/cancel and canonical model/tool/Grant/Evidence Host wiring remain. Current public factory still rejects Qoder; this is a required foundation, not a substituted completed Provider.",
+      "P4 full Context/compaction policy, remaining tools/Skill/Plugin/Hook/ACP/headless/original commands, installed-version drain/recovery, real-service coverage and total gate remain. P5–P7 complete exit conditions are not met; Ratatui remains draft-only with ordinary chat disabled.",
+      "No long-session/1GiB-interactive/4h/footprint acceptance or original8.27GB resolution claim. Review is implementer self-review, no real-model/IdP/Vault/IME/accessibility or installed-build acceptance.",
+      "No personal data/third-party credential reads or migration, install, user instance restart, default switching, merge, release or tag. No Bun/Node engine sidecar or runtime WASM VM."
+    ]
+  }
+}

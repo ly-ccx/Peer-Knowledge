@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-15",
+  "candidate": "c835a4597864c26ae8d00d3dbd1e24642d3e7f63",
+  "tree": "4695f7db37a3847cc7cd662e943b8d9c2b001633",
+  "classification": "B: existing MCP registry -> Manifest and frozen native inventory admission. No capability execution, permission, Evidence, auth or System Context boundary moved.",
+  "ADRFilesRead": [
+    "31-mcp-connection-management.md",
+    "32-mcp-authentication.md",
+    "36-mcp-tool-card-title-passthrough.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "flow": "NativeSessionHost -> McpRegistryStore strict bounded source identity -> protocol registry/Manifest adapter -> empty inventory admission -> request authority revalidates inventory source before cognition. Nonempty inventory stays blocked.",
+  "facts": [
+    "Reads the existing mcp-registry.json without creating or rewriting it. Missing source is an empty inventory; corruption/future versions are not treated as empty.",
+    "Current v1 and legacy arrays retain transport identity, displayName, visibility, policy metadata, credential-presence flags, stable capability IDs and JavaScript UTF-16 aliases.",
+    "Descriptions/schema are untrusted Manifest metadata. Secret headers/env are not exported. required=false remains metadata and never produces a grant.",
+    "Strict source reads cap bytes at 1 MiB, nodes at 65536 and depth at 32; server/tool/projected counts are bounded. Symlink, unstable, malformed, future and oversized sources are preserved and blocked.",
+    "The real CLI can execute a fresh task with an empty registry. A nonempty or future registry blocks before model dispatch.",
+    "An admitted native write that changes the registry stops before the next cognition; its original Result/Evidence and known fee remain, and a later independent task is admitted without replay.",
+    "No MCP process, HTTP connection, credential read or tool execution is implemented by this card; stdio, Streamable HTTP and legacy SSE transport gates remain open."
+  ],
+  "validation": {
+    "nativeScopedGate": "pass",
+    "rustPassed": 231,
+    "publicCLI": 38,
+    "nativeRoots": 58,
+    "actualTSRoundtrips": 314,
+    "mcpActualTSFixtureGroups": 19,
+    "mcpNativeRejectionCases": 5,
+    "mcpStoreTests": 2,
+    "mcpPublicCLI": 2,
+    "capacityInterop": {
+      "node": 11,
+      "bun": 11
+    },
+    "ledgerInterop": {
+      "node": 28,
+      "bun": 28
+    },
+    "pty": 8,
+    "fmt": "pass",
+    "clippy": "pass",
+    "release": "pass",
+    "boundary": "pass",
+    "architecture": "pass",
+    "desktopConversationStore": 48,
+    "releaseSha256": "dc767e6266f44f7b5036b53687596e38f8a7c9d126b511ee7c9ecf6d9bcc66bb"
+  },
+  "checks": [
+    {
+      "file": "peer-native-p4-card-final-20261115.log",
+      "sha256": "8752aea1a82276ac486d3f97f7f83e24e2bba72ceec7dfd9643eb0cb65701180"
+    }
+  ],
+  "ci": {
+    "run": 43722096748,
+    "merge": "468e23e750b24a01d112c7c4ef9778dd028a5010",
+    "treeEqualsCandidate": true,
+    "linux": {
+      "job": 132836192244,
+      "result": "success"
+    },
+    "mac": {
+      "job": 132836191923,
+      "result": "success"
+    },
+    "allRepositoryChecks": "success"
+  },
+  "p4TotalGate": false,
+  "p5Started": false,
+  "limits": [
+    "Source implementation and deterministic Host behavior only; no real-model or installed-build acceptance.",
+    "The default legacy peer entry has not switched. No app restart/install/release or personal task migration.",
+    "Full external transport/auth/PermissionGrant/Evidence, full compaction strategy/Context catalog, remaining providers/network settings and CLI/ACP surfaces are unfinished."
+  ]
+}

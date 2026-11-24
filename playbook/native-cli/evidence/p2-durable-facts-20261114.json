@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "candidates": [
+    {
+      "source": "e1e7af77",
+      "scope": "Durable approvals and canonical conversation JSONL commit/index recovery",
+      "rustTests": 103,
+      "crossProcessCases": 148,
+      "legacyResourceTests": 32,
+      "legacyApprovalTests": 10,
+      "log": "/tmp/peer-native-durable-final2.log"
+    },
+    {
+      "source": "7af3ab505cb6efbc7bf8ac2ede45d47da3c244a3",
+      "scope": "Durable tool Evidence registration and shared TS/native Store lock",
+      "rustTests": 107,
+      "nativeRustTests": 95,
+      "existingHelperTests": 12,
+      "crossProcessCases": 155,
+      "legacyFocusedTests": 128,
+      "log": "/tmp/peer-native-evidence-final.log",
+      "runtimeNodeBuild": "/tmp/peer-native-evidence-runtime-build.log",
+      "architecture": "/tmp/peer-native-evidence-architecture.log",
+      "cliBinarySha256": "16af0a5002801bbccf1404ff03f285e7b0d5fcd69081ed9d5bad86f8f912faad"
+    }
+  ],
+  "commonChecks": {
+    "runtimeGolden": 51,
+    "controlTransitions": 29,
+    "digests": 7,
+    "pty": 8,
+    "fmtClippyReleaseBoundaries": "passed",
+    "realHelper": "isolated ping without secrets"
+  },
+  "preservedFailures": [
+    {
+      "log": "/tmp/peer-native-approval-lock-failure.log",
+      "finding": "Real legacy approval writer ignored native mkdir lock; new shared owner-checked lock fixes both Store seams."
+    },
+    {
+      "log": "/tmp/peer-native-durable-conformance.log",
+      "finding": "First crash fixture used rm on an empty directory; corrected to rmdir. No recursive cleanup of unknown locks.",
+      "logStatus": "This path was reused on rerun; the initial EISDIR trace remains in the chat tool output. It is not claimed to be in the current pass log."
+    }
+  ],
+  "previousRemoteCI": {
+    "source": "c2f19ce5ddb681b9534d38e1a04f8922fa41a4dc",
+    "linux": "all steps success",
+    "macos": "all steps success",
+    "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43572824411"
+  },
+  "status": "P2 remains incomplete; production execution and P3 not admitted",
+  "limits": [
+    "Approval records are audit facts; no current-policy/Host PermissionGrant assembly yet.",
+    "Conversation idempotency/index reconciliation does not settle incomplete tools or erase their pending segments.",
+    "Interactive Evidence facts are preserved; native mutation explicitly unsupported until its canonical adapter is ported.",
+    "Current fact log reads/writes have explicit 8 MiB/4096 row/65536 node budgets; large-store product paging remains later work.",
+    "Canonical Goal/coordination prepare and real stop/unknown recovery assembly remain.",
+    "No personal state, OS secrets, real model, installed-build or soak acceptance."
+  ]
+}

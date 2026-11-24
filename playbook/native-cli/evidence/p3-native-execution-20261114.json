@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "phase": "NR-03 first native execution slice",
+  "candidate": "1578380047050512974f72fccb33d0c33b1f8851",
+  "implementation": "cd13f250415a6581e4fea9176d14daf708cc7a25",
+  "typeSupplement": "1eccbec7: shared protocol types only; protocol build/typecheck passed",
+  "binary": {
+    "path": "target/release/peer-native",
+    "sha256": "63cf5bfb0d3b5633e7b4160e498e265811f5c70244dd86bcdbe5168887d2d543",
+    "linkedMacLibraries": [
+      "libiconv.2.dylib",
+      "libSystem.B.dylib"
+    ],
+    "sidecar": false
+  },
+  "validation": {
+    "rustTests": 170,
+    "legacyStoreCrossProcessCases": 302,
+    "nativeOutputTsColdReadCases": 58,
+    "nativeOutputRoots": 17,
+    "legacyFocusedTests": 131,
+    "publicExecutableTests": 12,
+    "terminalLifecycleCases": 8,
+    "contracts": {
+      "canonicalHistory": 21,
+      "systemContext": 2,
+      "wire": 21,
+      "shellRisk": 25,
+      "fileRanges": 25,
+      "workerAdmission": 120,
+      "automaticAndRolePolicy": 840
+    },
+    "checks": [
+      "fmt",
+      "clippy -D warnings",
+      "release build",
+      "native dependency/sidecar boundary",
+      "architecture",
+      "system-context build",
+      "protocol build/typecheck"
+    ],
+    "log": "/tmp/peer-native-p3-lease-complete.log",
+    "nativeHelperPing": true,
+    "realSecretAccess": false,
+    "architectureLog": "/tmp/peer-native-p3-lease-architecture.log",
+    "leaseContentionRounds": 256,
+    "releaseFixtureCrashInjectionExcluded": true
+  },
+  "behaviors": [
+    "actual native HTTP/SSE -> Manifest/Projection -> fresh grant -> file/Shell -> paired Result/Evidence -> canonical Conversation/budget -> managed pause",
+    "real PTY allow/deny/cancel; non-TTY denial",
+    "foreground timeout and actual SIGTERM kill/reap; new task admitted",
+    "abrupt exit(77) after real file effect before receipt; retained pending, fresh OS death proof, native reconciliation, no model/tool replay, nonconflicting later task",
+    "current TS Goal/Conversation/canonical coordination cold reads retain unknown, metadata and paired history",
+    "archived Bot/foreign conversation/unported context rejected before cognition",
+    "same public episode creates, reads, overwrites and re-reads a new file; ledger identity changes only from trusted Provider receipt, stale/foreign/unknown/closed cases reject, TS cold reads original events and actual paired Evidence including later-task conversation"
+  ],
+  "scopeLimits": [
+    "first slice requires fresh canonical delegated worker binding; no fabricated task or resume checkpoint",
+    "plain v2 openai-compatible channel only; unsupported reasoning, max-output override, auth/dialect/custom headers/proxy metadata fail closed",
+    "global settings/permissions/skills/MCP inventory, project instructions, frozen memory, nested context, compaction and incompatible checkpoints fail closed until their adapters migrate",
+    "only bounded read_file/write_file/foreground bash; no persistent/background shell, complete Goal CRUD or Bot workflow",
+    "active or unknown capability handles prevent native-recorder-only stop proof; Shell/external unknown still require governed manual reconciliation",
+    "real supplier, OS credential access through model loop, installed binary, accessibility and long-session memory/soak remain unverified",
+    "default peer and interactive sending unchanged; P4-P7 remain; not a release"
+  ],
+  "adr": {
+    "read": [
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "55-shared-system-context-assembler.md",
+      "56-provider-observed-context-accounting.md",
+      "57-canonical-conversation-history-projector.md",
+      "101-bot-owned-access-policy.md",
+      "111-project-agent-duplex-supervision-and-continuity.md",
+      "116-session-control-and-resource-settlement.md",
+      "117-intent-driven-coordination-and-goal-closure.md",
+      "124-legacy-stop-obligation-controlled-resolution.md",
+      "127-unknown-outcome-reconciliation-and-delegated-resolution.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "revision": "131 optional nativeRecorder / dead native runner proof (7072691), confirmed exclusive file creation identity (3e03860), both committed/pushed before their implementation"
+  },
+  "previousFailures": [
+    {
+      "log": "/tmp/peer-native-p3-owned-launch-tests.log",
+      "cause": "Darwin accepted socket inherited listener nonblocking flag; explicit blocking accepted stream, bounded timeout and original assertions retained"
+    },
+    {
+      "log": "/tmp/peer-native-p3-network-exit-tests.log",
+      "cause": "test blocked the current-thread Tokio runtime and sent into a dropped observation channel; async oneshot preserves socket-closure assertion"
+    },
+    {
+      "log": "/tmp/peer-native-p3-total.log",
+      "cause": "doctor assertion still described disconnected P1 runtime; now checked against connected public executable"
+    },
+    {
+      "log": "/tmp/peer-native-p3-final.log",
+      "cause": "parallel test receipt writes interleaved JSONL; serialize only the fixture receipt collector"
+    },
+    {
+      "log": "/tmp/peer-native-materialization-baseline.log",
+      "cause": "actual public executable reproduced execution_resource_busy after own file creation; fixed only after doc-first ADR 131 amendment, not by allowing generic identity refresh"
+    },
+    {
+      "log": "/tmp/peer-native-p3-materialization-total.log",
+      "cause": "new TS evidence pairing test inspected only conversation c; later-task receipt correctly belonged to c2. Resolve exact conversation through real Evidence index, retain success/pairing assertions; 58 cases pass, then full verification rerun"
+    },
+    {
+      "candidate": "fd981b019e4b0a8fcee006d3336ed6375c9344e7",
+      "ciRun": "43599806661",
+      "job": 132462052721,
+      "test": "independent_threads_competing_for_a_free_lease_have_one_owner",
+      "error": "VersionChanged",
+      "cause": "Strict identity observed a publication race; hard-link temp alias unlink changes inode ctime. Static root-cause window plus isolated inode diagnostic; local original 256-round stress did not reproduce CI interleaving, deterministic lstat/open replacement reproduced VersionChanged. Reobserve inside original five-attempt loop without weakening identity or ownership checks.",
+      "baselineLog": "/tmp/peer-native-lease-reobserve-baseline.log",
+      "fixedLog": "/tmp/peer-native-lease-reobserve-fixed.log"
+    },
+    {
+      "log": "/tmp/peer-native-p3-lease-final.log",
+      "cause": "New cfg(test) module was placed before production items; clippy items_after_test_module rejected. Move test module to end, retain -D warnings; complete verification rerun."
+    }
+  ],
+  "ci": {
+    "p2": {
+      "candidate": "0b2ee6dfd1a640b630a39794eff477727aeae8f7",
+      "run": "43594616352",
+      "linux": "success",
+      "macos": "success"
+    },
+    "p3": {
+      "candidate": "1578380047050512974f72fccb33d0c33b1f8851",
+      "run": "43600632864",
+      "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43600632864",
+      "nativeScoped": {
+        "linux": "success",
+        "linuxJob": 132464474319,
+        "macos": "success",
+        "macosJob": 132464474532
+      },
+      "repositoryJobs": "in_progress: Linux Test, macOS Typecheck at last snapshot; no completed failure observed. Not a full repository/release acceptance.",
+      "previousCandidate": "fd981b01",
+      "previousLinux": "failed lease competition; corrected in 15783800, failure retained",
+      "fullRepositoryFollowup": {
+        "receipt": "p3-ci-followup-20261114.json",
+        "run": "43600632864",
+        "linuxJob": 132485357863,
+        "macosJob": 132485356050,
+        "linux": "success",
+        "macos": "success",
+        "priorMacSmokeFailureRetained": true
+      }
+    }
+  },
+  "review": {
+    "independent": false,
+    "personalDataModified": false,
+    "installedOrRestarted": false,
+    "published": false
+  },
+  "candidateTree": "1f89ec13c5e740b13f2e4263326c894525feee0d",
+  "materializationFix": "fd981b01: reproduce actual CLI create/read/rewrite failure; confirm only owned exclusive creation after durable paired results, Evidence and dispatch receipt",
+  "earlierPassedCandidate": {
+    "candidate": "1eccbec7e7d895eb977a7ef0918a3390ed0637de",
+    "log": "/tmp/peer-native-p3-complete.log",
+    "rustTests": 165,
+    "nativeOutputTsColdReadCases": 34,
+    "nativeOutputRoots": 16,
+    "binarySha256": "8ec481041ea5d01be99b088804afe7165191c19f5f02d5ec4d8875bb5572395b"
+  },
+  "additionalPassedCandidate": {
+    "candidate": "fd981b019e4b0a8fcee006d3336ed6375c9344e7",
+    "tree": "ceb9f1e96a55c967af1e585796bad80fb93d5985",
+    "log": "/tmp/peer-native-p3-materialization-final.log",
+    "rustTests": 169,
+    "binarySha256": "0e3aa5dbcaa9496ba032278fa74e1c561ee01a3721ab9c869277ffcf73b1e8ae",
+    "remoteAcceptance": false
+  },
+  "leaseRaceFix": "15783800: original bounded acquisition reobserves VersionChanged before current owner/freshness decision; strict file identity/corruption rejection/takeover unchanged; deterministic old-code failure and 256 actual two-thread rounds"
+}

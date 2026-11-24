@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "status": "local-package-scoped-passed; not a release or P4/P5 acceptance",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "commit": "4cf7a4c8486319e6d59408a3c1dde8b836f1337c",
+    "tree": "0392994e1a5dd7d547c13a45ba4aa9b663bf1363",
+    "baseCommit": "c8479317f9f9428865724e5fc42600ca3ff11f8c",
+    "pr": "https://github.com/ly-ccx/Peer-Agent/pull/327"
+  },
+  "adrPass": {
+    "classification": "B: terminal input polling implementation now returns on EOF/hangup; C: test-only extracted-binary selection and fixture ownership/absolute-output handling. No capability/permission/Evidence/System Context/storage boundary moved.",
+    "files": [
+      "48-cli-first-class-release.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ]
+  },
+  "package": {
+    "target": "darwin-arm64",
+    "version": "0.1.0-rc.40",
+    "buildCommand": "cargo build --release --locked -p peer-cli --bin peer-native -p peer-credential-helper --bin peer-credential-helper",
+    "archiveRelative": "target/native-package/tty-hangup-fixed-darwin-arm64/peer-darwin-arm64.tar.gz",
+    "archiveBytes": 6088242,
+    "archiveSha256": "6b71189240cad2a2bad6e77aebc1c41cace44900e3bff7d43654aad6a732f0b4",
+    "files": [
+      {
+        "name": "peer",
+        "bytes": 14436288,
+        "sha256": "71acd145abd67f41caa8c4d0c162409717676cfa8225fc650f8c10a7d67b5bcf",
+        "mode": "755"
+      },
+      {
+        "name": "peer-credential-helper",
+        "bytes": 768640,
+        "sha256": "02cc0129660fd947e4207e706d33491beff637fb9e72e547df6951e550488486",
+        "mode": "755"
+      }
+    ],
+    "onlyNativeExecutables": true,
+    "published": false,
+    "installed": false,
+    "defaultPeerChanged": false
+  },
+  "validation": {
+    "smokeChecks": 10,
+    "packagedRuntimeScenarios": 33,
+    "ptyChecks": 9,
+    "activePollHangupRepeats": 5,
+    "workspaceRustTests": 264,
+    "packageScriptTests": 15,
+    "fmt": "passed",
+    "workspaceClippy": "passed",
+    "architectureAndBoundary": "passed",
+    "pathDuringRuntime": "/nonexistent",
+    "realHelper": "ping only; no OS secret access",
+    "personalDataChanged": false,
+    "installed": false
+  },
+  "baselineCI": {
+    "sourceCommit": "c8479317f9f9428865724e5fc42600ca3ff11f8c",
+    "run": 43779685385,
+    "linuxJob": 133013819714,
+    "macosJob": 133013819940,
+    "conclusion": "success",
+    "fullRepository": true,
+    "mergeCommit": "f791fe45f9949fe256061fd6094da2adabfcf199",
+    "matchingTree": "d028b18ccb8d2d2e2a522d995e87160c3655e07f"
+  },
+  "candidateCI": {
+    "conclusion": "in_progress",
+    "notInheritedFromBaseline": true,
+    "run": 43787766212
+  },
+  "reproducedFailure": {
+    "sourceCommit": "c8479317f9f9428865724e5fc42600ca3ff11f8c",
+    "binarySha256": "feacf229988c1449fdcaf4a9bc935841f5158b3c2f8e2fb041472109e3e668cd",
+    "case": "close PTY master after input-source initialization",
+    "baseline": "process failed to settle within 2 seconds; fixture killed and reaped its own child",
+    "fixed": "bounded tty source; normal exit without force kill, repeated five times",
+    "initialProbeLimit": "Closing immediately after first render only tests initialization failure; warm 200ms after render binds the actual active-poll reproduction. An earlier zero-sized forkpty probe did not reach rendering and is not counted as reproduction."
+  },
+  "changes": [
+    "Select the pinned official Crossterm 0.29.0 use-dev-tty polling implementation, whose read-zero path returns to its bounded poll deadline and the application cancellation flag. Same single poll/read input owner, no EventStream/background input reader.",
+    "PTY output is resolved before child cwd changes; guardian owns child termination/reap even if receipt persistence fails. Original leaked draft-only test process was identified by executable/cwd/start time and forcibly stopped after TERM could not settle it.",
+    "Test harness may explicitly select an absolute extracted native executable; product has no such environment launcher. Same actual Host/permission/model/MCP/Evidence suite runs against archive bytes."
+  ],
+  "scope": [
+    "10 extracted startup/exit/architecture/system-library/signature checks, PATH=/nonexistent, fresh HOME/PEER_AGENT_HOME; no read-only startup data mutation",
+    "33 extracted runtime cases: model/file/Shell, four wires, repeated file mutation, turn accounting, durable compaction/recount, real PTY authorization, Shell cancellation and 26 MCP cases including externally killed-child recovery, transport/auth/Vault/OAuth",
+    "9 PTY cases: prior 8 restoration/draft/resize/EOF/signal/panic/size cases plus active-poll master hangup; five additional release-artifact hangup repetitions",
+    "264 source workspace Rust tests, workspace clippy/fmt, 15 existing archive-assembler tests and boundary/architecture checks"
+  ],
+  "preservedAttempts": [
+    "Initial relative PTY output failed and orphaned its draft child; original failure/OS identity and owned cleanup retained. Absolute and relative paths passed after the fixture fix.",
+    "Packaged featureless binary correctly ignored test-only exit77 fault injection, so the old crash-after-effect fixture was inapplicable and failed its unchanged assertion. Its test was not weakened or counted as packaged acceptance; the full source suite passed it with the intended test feature. Packaged externally killed MCP recovery passed independently."
+  ],
+  "logSha256": {
+    "peer-native-fixed-package-runtime.log": "59e87504967c6f542a6f850a0c729e483e9d3516f5998c629af51963a5656998",
+    "peer-native-fixed-package-pty.log": "f40a0f18875b6336fffbfa078bbb86b33ba7a30b64de719a41a9813bbcad1826",
+    "peer-native-package-workspace-tests.log": "46ad5aa3e643ef770912e4226523cf6e1a1f5e63fa664800e1edd5aa61bbae6a",
+    "peer-native-package-workspace-clippy.log": "7e9dc0aba29c37bf96949bf68d21edd51152cd1d50958634007dfa57a8d528fc",
+    "peer-native-package-script-tests.log": "0c025e2500d24dc2bad0028cc1ca78cd0f5807029f6bb354001a4dd781902442",
+    "peer-native-package-runtime-core.log": "77cd6b4c874450e5ef827f02a2594728b6cf98958a46145bf45ab7c770efeca7",
+    "peer-native-package-pty.log": "27fb29ef575ae01715a9f27631cb09024f058e72a7f9071afc317bb3012c985f"
+  },
+  "limits": [
+    "Local macOS arm64 only; no Linux/Windows package or installed-build validation.",
+    "Current interactive TUI remains the migration draft surface; P4/P5 are unfinished.",
+    "Synthetic HTTP/model/MCP endpoints; real IdP/model/Keychain credential reads and stable Developer ID/notarization are not accepted by this test.",
+    "Crash-after-effect exit77 fixture is disabled in featureless binaries; its old assertion was preserved and passed in the separate full workspace suite. Packaged MCP externally killed-child recovery is covered."
+  ],
+  "review": "implementer self-review; no independent or installed-build acceptance",
+  "primaryReference": "https://docs.rs/crate/crossterm/0.29.0/features"
+}

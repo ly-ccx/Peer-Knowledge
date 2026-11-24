@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "status": "P2 foundations candidate; not complete P2, migration or release acceptance",
+  "candidate": "9f33d9a25a6e600bf4dc0b3201db448df366cf0c",
+  "adr": [
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "platform": "macOS arm64",
+  "checks": {
+    "rustWorkspace": {
+      "passed": 54,
+      "native": 42,
+      "existingHelper": 12
+    },
+    "sharedRuntimeGoldenCases": {
+      "identity": 15,
+      "resourceScope": 11,
+      "evidenceRefs": 4,
+      "principalOverHostFacts": 11,
+      "operationKey": 2,
+      "oneTimeApprovalSteps": 8
+    },
+    "storeCrossProcess": 14,
+    "leaseCrossProcess": 13,
+    "pty": 8,
+    "realHelperPing": {
+      "ok": true,
+      "secretAccess": false,
+      "dataHomeMutated": false,
+      "pathHasJSRuntime": false
+    },
+    "fmt": true,
+    "clippyWarningsDenied": true,
+    "staticBoundaries": true,
+    "nativeReleaseBuild": true
+  },
+  "binarySha256": "386376c1344f9f06699d8f0bbecb2a8a91a913d287810e163669fdb96bb9f99e",
+  "cargoLockSha256": "d1ee80267d95e2bcecd927fccae6df2a22a8d3d1ab72b705c791d806c5b42d66",
+  "contractHashes": {
+    "v1.json": "6dbc88d58d3540f290b4e126c2999f13c340e610b4d7833941aed964ee07f8c0",
+    "runtime-v1.json": "cef866ad4ee9168e4c7252a6e04773d587a94752b4401bc847d32ffda6770965",
+    "store-v1.schema.json": "36f829d7b9fe627dcaeb6d787a52f4918618d666b54b29f841e43af0e3a61bd7"
+  },
+  "rawArtifacts": {
+    "peer-native-lease-check.log": {
+      "sha256": "7ffaba157f0d41faefb5b0213030c7bd1c3b8c2d7b52e0f919e187cc345ede89",
+      "location": "system temporary directory; retained locally, not a durable remote artifact"
+    },
+    "peer-native-identity-check.log": {
+      "sha256": "9ad20d57092c5d7fb17c17fac8a44f4a7fe7ac253840d066341f6cc7cdf2b56e",
+      "location": "system temporary directory; retained locally, not a durable remote artifact"
+    },
+    "peer-native-data-home-failure.log": {
+      "sha256": "2e51ec370863f7d865eb32ac8cd02e72f0210ca6c5325b547584121777bce769",
+      "location": "system temporary directory; retained locally, not a durable remote artifact"
+    }
+  },
+  "failedAttempts": [
+    {
+      "case": "SQLite NOFOLLOW with macOS /var alias",
+      "correction": "Canonicalize parent only; retain final-path nofollow."
+    },
+    {
+      "case": "Lock fixture two-line stage response",
+      "correction": "Validate locked stage then final response; do not discard unexpected lines."
+    },
+    {
+      "case": "JSON node expectation 9 vs actual 8",
+      "correction": "Fix arithmetic; both duplicate values remain budgeted."
+    },
+    {
+      "case": "Deprecated time parser warning",
+      "correction": "Use explicit parse_borrowed version 2."
+    },
+    {
+      "case": "Explicit data root without HOME ignored",
+      "baseline": "new real CLI entry test failed with dataHomeConfigured=false",
+      "correction": "Resolve explicit overrides before HOME; also align JS trim BOM/NEL cases."
+    }
+  ],
+  "limits": [
+    "No production tool execution, model request or shared task writer admitted.",
+    "Principal resolver consumes host-projected facts; canonical GoalPlan / Session Control adapter and execution fences unfinished.",
+    "Lease protocol retains the existing read-check-rename race; lease is not stop proof.",
+    "Existing policy initialization / legacy migration / unknown reconciliation not yet exposed in native CLI.",
+    "CLI still draft-only; native Store / Runtime ports are not end-user functional parity.",
+    "No real OS Vault read/write, real model, physical IME, screen reader, installed build or full memory/soak acceptance.",
+    "Rust declared MSRV 1.88, tested compiler 1.98.1; latest remote CI pending."
+  ]
+}

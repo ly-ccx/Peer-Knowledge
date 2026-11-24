@@ -1,0 +1,30 @@
+{
+  "sourceParent": "a69d852aca398f21be0aca2c549278d86230d1f6",
+  "priorIsolatedTree": "d6e7562204ceed02f81e71b4efaaad0dbdbc69f4",
+  "isolatedTree": "04d6d83622d9ad5dced67940a2b5b62064de4268",
+  "patchSha256": "1e379378a08b638ae5cea1a25da59b093b827d5aa98b5be99dd0617ca7ad984e",
+  "combinedPatchSha256": "5e4f050daa75d82dd71035522507e726603be0efe85554c7cbc6d72dd548eace",
+  "contract": "ADR 131 retains one owned process group. Each admitted foreground call has its own stdout and stderr pipes, artifact budgets, and drain state. Only actual EOF and synced files seal an output. Timeout or a canceled drain leaves incomplete output.",
+  "verified": {
+    "platform": "darwin-arm64",
+    "shellWorkerAndArtifactChecks": 11,
+    "lateOutputRegressionRepeated": 16,
+    "conversationStoreChecks": 17,
+    "publicRecoveryChecks": 1,
+    "rustFmt": "passed",
+    "strictClippy": "passed",
+    "logSha256": {
+      "persistent-shell-isolation-runtime-verified.log": "fb6723fe677a9342023f9a918b2a5df9af351b90f1f7c587d24323083854ed50",
+      "persistent-shell-isolation-repeats.log": "6e568b0f905c3472160777de965d8e0bfc227ca30902081bd4e938e10af7adac",
+      "persistent-shell-isolation-store-verified.log": "835bc3b070619a156d43f3d46e6783941531a6a839a66fbfe1fe5a66cee83ce0",
+      "persistent-shell-isolation-recovery-verified.log": "1f500b7a66877e1d8b919a5d8cd2858c9802591df3cb0f0820a3ccdab2182394",
+      "persistent-shell-isolation-clippy.log": "a224db54cd6ae27bd4b65d7ebca17686b4303fed67e10acb0b4a4402556722bb"
+    }
+  },
+  "actualRegression": "An earlier shell job waits until the second command starts, then writes to both streams. The second command receives only its own bytes. Earlier stdout and capped stderr remain in the earlier command's actual ShellArtifacts files. Its metadata seals after confirmed drain.",
+  "retainedFailedAttempts": {
+    "lateArtifactStayedIncompleteAfterDrainDeadline": "3488ded67d32a74213eb95a254813bb418e5057c341cb8e4c4ad31c99f67853d",
+    "cancellationFixtureObservedCreationBeforeWrite": "100864c8644da65c65927e60cedf9001aca5d663576b17e2ba2ed9921b1d5fd6"
+  },
+  "remaining": ["Linux validation of the new data pipes", "production shell coordinator and Provider/Host wiring", "public foreground exec and ACP, including original workflow approval and shutdown", "delegated Work shell lifecycle", "P4 total gate"]
+}

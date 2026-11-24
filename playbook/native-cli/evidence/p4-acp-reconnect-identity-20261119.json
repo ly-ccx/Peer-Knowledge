@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-19",
+  "scope": "ACP v1 session and approval identity across a real stdio reconnect",
+  "decisions": [76, 129, 131],
+  "source": {
+    "precedingTree": "e914b953fdd17910e9eaa9712bddfb144a42fe69",
+    "testedTree": "26755bb9b6cf6edfd63753116092be88f59ee4d2",
+    "incrementalPatchSha256": "c225c9c51088d4f3b2e395e45bdd853eb8b5559c5ed0f08c1339711bb95fe08b",
+    "sourceArchiveSha256": "e6b5f534f7eed928400b43708da4c9a41c2715858e36069bc93822ead74d11db",
+    "publicHarnessSha256": "55056fe3567f4b426f51143929dd1b0872273a580a85248a31a0bbf947fe4ee1"
+  },
+  "before": {
+    "macFeaturelessBinarySha256": "fa6baebd9e94745a0656659e797a973f0116df7329f5aaf2c3b1791f07354121",
+    "publicReceiptSha256": "5d7f419bd8af7aa36e892dee5256c16db56480184a85954115c4fa9ada4c4742",
+    "regressionLogSha256": "80908a93623438f0613a55a0d061469caf4df1bd49650514f60a4b56cc9d8a3a",
+    "observation": "Two actual ACP processes issued the same session and approval IDs. A stale prompt sent to the second process reached the model. A stale allow from the first process applied to a different Tool Call in the second process and the authorized file Provider wrote a fixture file. Both added Rust assertions failed on this executable."
+  },
+  "after": {
+    "macDebugAcpPassed": 15,
+    "macDebugLogSha256": "2f231f3bbb379a5f120dde6a12a2ea44205f4a7cb0f2c94e16e8c0bd004947aa",
+    "macExtractedReleaseAcpPassed": 15,
+    "macExtractedReleaseLogSha256": "bbf61261b23c0d87f953a1032bfe84c4e2960e02fd5e406153fa45af7715ad4f",
+    "macExtractedReleaseBinarySha256": "294f3bdce09006e1b1fb5ba910903a6c66d3b923be4ae831162a66d3d438b723",
+    "macReleaseArchiveSha256": "695eb30c44836333849db0e18cf6f5f69cc1e16c7bdbdc385efcd06878c0bc27",
+    "linuxAmd64ContainerAcpPassed": 15,
+    "linuxAmd64ContainerLogSha256": "f79b5c6b00df11ed3958b5f3ef07755e3082879c58fc56efb9a7bb022099194c",
+    "matchingOriginalEntryReceiptSha256": "91cbde1892ac58667c41df125e1f6acdfa3f7c479b36fe75b3094c6e6b3bc8b2",
+    "matchingOriginalEntryEnvironments": ["macOS arm64 debug", "macOS arm64 extracted featureless release", "Linux amd64 container with init"],
+    "observation": "A stale session ID receives invalid params before a model call. A stale approval response does not match the new request. The current explicit denial settles through the existing Provider and the fixture file stays absent. A valid current prompt proceeds.",
+    "strictClippy": true,
+    "clippyLogSha256": "9342028acfd9143e9526e9d90250ddd16575d520ccb79e943e9ec4baa6598fa3",
+    "rustfmt": true,
+    "nativeBoundaries": true
+  },
+  "preservedLinuxFailure": {
+    "logSha256": "f1807622f90cd7e31730f6266b48a64bc40c672dd21f1062d04df51b527fe05c",
+    "observation": "The first container run had no init. Both new reconnect cases passed. The existing stdout-disconnect case still saw the Shell process group after the CLI exited, yielding 14 passed and 1 failed. The same source and assertions passed with Docker init. The first group's individual process states were not captured."
+  },
+  "limits": [
+    "Synthetic profile, loopback model and test file only. The macOS artifact uses the standard archive layout; no install or default entry change was performed.",
+    "The protocol change does not introduce session/load or treat a transport ID as a stored conversation identity. Actual editor verification, the legacy installed handoff and the P4 gate remain open."
+  ]
+}

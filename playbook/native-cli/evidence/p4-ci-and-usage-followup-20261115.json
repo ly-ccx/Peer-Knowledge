@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "candidate": "e6ae55616d70e90ae33da53a5a29e5ef6cc6c5aa",
+  "tree": "dc81408606f534d67e5c2b6962277bb0da6f6ef5",
+  "binarySha256": "9f1fa0d7751eb54b56ed8bc4974d6e1650af6cc359c365a2f1d4083a7ff378e7",
+  "classification": "B usage observation completeness (37/56/131); C legacy CLI integration-test harness (108-cli-basic-shell-commands, 118-openui-interactive-results-and-runtime-boundaries); existing boundaries unchanged",
+  "legacyCliTest": {
+    "originalCandidate": "10c86bd756eacad679a3d24b46ffc52f3c331f62",
+    "ciRun": "43618145086",
+    "linuxJob": 132517742642,
+    "failure": "The compound fixed-result CLI integration test exceeded Bun 1.2.17 implicit 5000 ms test budget in both full Test and automatic isolated retry, at different later process launches.",
+    "localOriginal": "Bun 1.4.2 original test passed locally; this is not an exact Linux scheduling reproduction.",
+    "correctionCandidate": "ea7e8e4d5ea5c52b1a56ff1d65cb87d7a1ebe348",
+    "correction": "Split independent CLI commands into 12 tests with private owned fixtures; preserve original assertions and the unchanged per-test deadline. Add same-identity before/after-cleanup coverage.",
+    "controlledDelay": {
+      "root": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-native-result-budget-53md1ggq",
+      "base": "10c86bd756eacad679a3d24b46ffc52f3c331f62",
+      "mechanism": "Inject an owned 400 ms CLI startup delay. Original cumulative implicit 5-second budget should fail; isolated original assertions each keep the same deadline and pass. This reconstructs the budget mechanism, not Linux CPU scheduling.",
+      "bun": "1.2.17 darwin-arm64",
+      "files": {
+        "before.test.ts": "9fbecaa8ca371db01ceea3430fa583a335a2bac4fcc62ccf8d270a7237fa0189",
+        "after.test.ts": "0fb9e6f9f53366700b336ec2ff02070ae67e41ead902c6e1b3d3b4811385f705",
+        "slow-peer": "86ce0d91c4b7d8d0320b30928b63cd2766cce214b0de2a1e7a098b0a478bb2a8",
+        "run.py": "2fca9dff5a0785fd86c7476765877b147dd7eb529e49b56bec9413aff9782851"
+      }
+    },
+    "before": {
+      "exitCode": 1,
+      "tests": 1,
+      "failures": 1,
+      "observedTimeoutMs": 5042,
+      "killedDanglingProcess": true,
+      "log": {
+        "localLog": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-native-result-budget-53md1ggq/before.log",
+        "sha256": "abcdaef0d5f404db7c7e4feb1726e5b7aaebec1329a52950c3dc5e5db03c526e"
+      }
+    },
+    "after": {
+      "exitCode": 0,
+      "tests": 12,
+      "failures": 0,
+      "assertions": 33,
+      "wholeFileSeconds": 8.06,
+      "longestTestMs": 1529.65,
+      "log": {
+        "localLog": "/var/folders/8v/nx4ql1m94mb14kj861c16cph0000gn/T/peer-native-result-budget-53md1ggq/after.log",
+        "sha256": "cc98700eef129667962eb4cd80a2bb6ea6876a1d2893d9de85028aa8686f5507"
+      }
+    },
+    "exactCiVersionLocal": "Bun 1.2.17 darwin-arm64: 12 pass / 33 assertions; no global tool upgrade",
+    "bunSha256": "7b683359eb67153e72e3a87e6c24a4d15c850009d6234d04a32a783b80a66ff9",
+    "limits": "Owned 400 ms launch delay reconstructs cumulative-budget failure, not the exact Linux CPU scheduler. No runtime assertion was weakened or production timeout increased."
+  },
+  "usageCompleteness": {
+    "originalCandidate": "ea7e8e4d5ea5c52b1a56ff1d65cb87d7a1ebe348",
+    "failingObservation": {
+      "total_tokens": 16
+    },
+    "before": "Partial usage incorrectly normalized missing input/output to known zero.",
+    "after": "Incomplete dimensions remain unknown. Actual public native read_file call followed by a later known model request preserves Work budget unknownUsage, two requests, and the known 16-token floor.",
+    "scope": "Four native wires validate present counts and require complete input/output dimensions before emitting known normalized usage; null optional cache-write fields remain absent.",
+    "existingStateRecovery": "Old partial raw observations were not persisted; aggregate budgets cannot reconstruct their missing dimensions. No personal data was edited, no model request was replayed, and no historical totals were fabricated. Complete durable request ledger remains P4 work."
+  },
+  "validation": {
+    "nativeTotal": "passed",
+    "rustTests": 186,
+    "crossProcessStoreCases": 302,
+    "tsColdReadCases": 82,
+    "nativeFixtureRoots": 25,
+    "nodeFocusedTests": 157,
+    "publicExecutableRustTests": 17,
+    "ptyCases": 8,
+    "fmtClippyReleaseBoundaries": "passed",
+    "legacyCliTests": 12,
+    "legacyCliAssertions": 33,
+    "tuiTypecheck": "passed"
+  },
+  "logs": [
+    {
+      "localLog": "/tmp/peer-native-p4-final-total.log",
+      "sha256": "04ca5a5accb338f70761d7f631dc31712180463a5852cfc3ecc315ba489f7f26"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-partial-usage-before.log",
+      "sha256": "0c0d2c542a5a4ddf14bae585ff0e3406eaa2673a1a50b4d060ace262259dc464"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-partial-usage-after.log",
+      "sha256": "94ec06dc0d81f6e4ab4f02262642edaa5ccbfdeff0851277cd750c153cd2b1d2"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-partial-usage-public.log",
+      "sha256": "3a70f255b027aba3eb5e8bb42721848a6d595225f767cb95572c9ca098365b19"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-legacy-result-before.log",
+      "sha256": "3867cac6c378f327ad0c5a343e3c199ccda9afc34ae5f4127d6d8d724fd9cad4"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-legacy-result-after.log",
+      "sha256": "9b8c12276aaa7b59166a07e98dc3db3dc9e109c4318a4c287e3009702cbc80f5"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-legacy-result-bun1217.log",
+      "sha256": "867e8e857fff6e0e3f3a3f367070786bee14876ff04dce89cd4c358894f9d9c3"
+    },
+    {
+      "localLog": "/tmp/peer-native-p4-legacy-result-type.log",
+      "sha256": "8e9a4aeaf6fbac5bc7ee1ab6abfff38ee696b37d4c445ea4c4e2d89586749d4d"
+    }
+  ],
+  "ci": {
+    "run": "43622520379",
+    "linuxJob": 132531262083,
+    "macosJob": 132531262439,
+    "status": "success; both full jobs including Native/build/type/architecture/Test and respective Electron smoke",
+    "ciMerge": "2549e2a03e4b07c14d6e6facff7f72c71a3ab184",
+    "ciMergeTree": "dc81408606f534d67e5c2b6962277bb0da6f6ef5",
+    "candidateTreeMatches": true,
+    "macosAnnotation": "notice: arm64 runner capacity constraints; no failure"
+  },
+  "p4Complete": false,
+  "p5Started": false,
+  "defaultPeerSwitched": false,
+  "nativeRuntimeUsesBunNodeSidecar": false,
+  "realSupplierCoverage": false,
+  "installedBuildCoverage": false,
+  "review": "implementer self-review"
+}

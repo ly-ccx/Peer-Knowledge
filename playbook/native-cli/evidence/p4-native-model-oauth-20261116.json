@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 configured ChatGPT/Google model OAuth and conditional encrypted refresh; not full P4 or release acceptance",
+  "candidate": {
+    "commit": "505ac8e4e7128ea7c270b4118e9438bbf3caddfa",
+    "tree": "68f3ca8757082fc676bc06dc947784abc90c98a4",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "nativeBinarySha256": "fb5c9bb4de86b081a479b189a6a38543daf69a0feb35cc297fe134ac167b459d",
+    "nativeBinaryBytes": 14352592,
+    "helperSha256": "4ba4ac3559dfd046b0d199b1253ca17b65f2d459f241ebf5ec25833d8b8e295c",
+    "helperBytes": 814176
+  },
+  "decisionPass": {
+    "classification": "A",
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "28-openai-subscription-oauth.md",
+      "37-provider-channel-and-wire-protocol-separation.md",
+      "48-provider-model-options.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "revisionsBeforeCode": [
+      "cceecf9",
+      "2ce89a3",
+      "9df3605"
+    ],
+    "boundary": "Optional Helper v1 snapshot/CAS, encrypted refresh continuity intent and current authoritative subscription catalog; capability/PermissionGrant/Evidence unchanged"
+  },
+  "baselineCi": {
+    "runId": 43797484064,
+    "status": "completed",
+    "conclusion": "success",
+    "mergeCommit": "ba9e8d492fe92ee34fecc52d777c0a1363262796",
+    "mergeTree": "e4ba2f48b43eb1b9912de7f5cc83c61d79823daf",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133069491919,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133069492282,
+        "platform": "macOS",
+        "conclusion": "success"
+      }
+    ],
+    "commit": "c34f161f5e846b44d415b96a20f9922023aa215e"
+  },
+  "candidateCi": {
+    "runId": 43806200856,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "mergeCommit": "0d86028e6687e106363b9197cddba9c89c46c5c7",
+    "mergeTree": "68f3ca8757082fc676bc06dc947784abc90c98a4",
+    "matchesSourceTree": true,
+    "jobs": [
+      {
+        "id": 133097441813,
+        "platform": "Linux",
+        "conclusion": "success"
+      },
+      {
+        "id": 133097442004,
+        "platform": "macOS",
+        "conclusion": "cancelled",
+        "step": "Bot shell Electron smoke (macOS)"
+      }
+    ],
+    "supersededBy": "aea028931301e20927f4e322361e3e231f4fa855",
+    "wholeRepositorySuccess": false
+  },
+  "validation": {
+    "fullNativeScoped": {
+      "command": "node scripts/native-cli/verify.mjs /tmp/peer-native-model-oauth.8sadUA",
+      "exitCode": 0,
+      "rustTestsPassed": 291,
+      "nativeEpisodeTests": 79,
+      "actualTsInteropRoots": 157,
+      "actualTsInteropChecks": 908,
+      "ptyChecks": 9,
+      "logSha256": "4c071aa9717dd4b1bb400a85f4edffd8b5d5cfc82cfde63d4bd94ffa42787be6"
+    },
+    "actualTsContracts": {
+      "channelCases": 294,
+      "refreshForms": 6,
+      "subscriptionRequests": 5,
+      "typedContextChoices": 77
+    },
+    "desktopFocusedTestsPassed": 80,
+    "tsHelperTestsPassed": 11,
+    "desktopIpc": {
+      "channels": 411,
+      "preload": 445,
+      "main": 359
+    },
+    "checks": {
+      "fmt": "passed",
+      "workspaceClippy": "passed",
+      "releaseBuild": "passed",
+      "architecture": "passed",
+      "nativeBoundaries": "passed",
+      "uiConventions": "passed",
+      "tsHelperTypecheck": "passed"
+    },
+    "finalValidationDelta": {
+      "scope": "After full scoped run: additive release Helper build/probes and Desktop helper formatting; runtime implementation unchanged",
+      "checks": [
+        "cargo fmt --all --check",
+        "cargo clippy --locked -p peer-runtime --example helper-probe -- -D warnings",
+        "release Helper build",
+        "debug and release Helper probes report modelOAuthCas:true with no secret access/data mutation",
+        "actual TS -> encrypted Rust Vault CAS roundtrip rerun"
+      ],
+      "productionCliFixtureEndpointCompiled": false
+    },
+    "normalAndRecovery": [
+      "Configured fresh/expired ChatGPT and Google accounts through real native HTTP model streams -> read_file -> PermissionGrant/ToolResult/Evidence using encrypted Rust Vault with injected test KeyStore",
+      "Two native owners: exactly one pre-HTTP reservation and one refresh request; actual TS legacy set/delete invalidate snapshots; unrelated encrypted keys preserved",
+      "Real new login/logout during gated refresh prevents late overwrite/resurrection; following task reads current generation",
+      "Cancel or SIGKILL after HTTP dispatch retains encrypted pending intent; retry sends no old refresh; native recover settles previous Host without replay; explicit reauthentication enables following task",
+      "Lost final CAS receipt preserves actually committed new token; next task uses it without refresh replay",
+      "Rejected HTTP, redirects, invalid JSON/content/expiry/type, missing access or refresh, oversized responses and unknown intent schemas fail closed and preserve recoverable state",
+      "Credential rotation after real Bash execution stops next cognition while preserving prior tool Evidence; changed/disabled model configuration stops late refresh publication",
+      "Old Helper permits fresh existing credentials but refuses expired refresh before remote effect; expiry metadata cannot override actual token expiration",
+      "Actual production Desktop store default token write rejects pending; explicit successful login replaces it; OAuth source config bytes are not rewritten by native Runtime"
+    ]
+  },
+  "preservedFailures": [
+    {
+      "cause": "Old cancellation fixture expected unchanged encrypted bytes. Pre-dispatch intent intentionally changes encrypted bytes; assertions now require original token/unknown fields preserved plus pending intent and no replay; original failing fixture retained (.tmpGpjIK5)."
+    },
+    {
+      "cause": "Intermediate Rust is_err_or use and visibility/test target placement corrected before full scoped validation; clippy nested-if correction retained."
+    },
+    {
+      "cause": "CAS harness used helperPath instead of explicitPath; corrected to actual SDK option and real encrypted Vault roundtrip passed."
+    },
+    {
+      "cause": "Guessed nonexistent IPC/test paths failed; corrected actual desktop ipc:check and three real test files passed (80 tests)."
+    }
+  ],
+  "remaining": [
+    "Pre-read TS automatic refreshers still lack the same pre-HTTP reservation transaction. Get-time pending guards cannot prevent already-read old hosts from refreshing; shared-domain upgrade/drain compatibility and full P4 remain unaccepted.",
+    "Native browser login, complete provider config writer ownership and metadata recovery, Grok/Qoder and proxy/cert behavior",
+    "Full Context discovery/compaction policies, remaining tools, Skill/Plugin/Hook, ACP/headless and remaining commands",
+    "P5 full Bot/project-agent chain, P6 full Ratatui/general conversation and long-memory acceptance, P7 final packaging/release/default switch and legacy CLI retirement"
+  ],
+  "coverageLimits": [
+    "No real IdP or paid model requests",
+    "Injected KeyStore is not OS Keychain/Secret Service acceptance",
+    "Context tiers are adapter budget projections, not verified real 400k/1m model support",
+    "No multi-platform installed-build or full product/soak acceptance",
+    "Current Ratatui interactive entry still only edits drafts; restricted native exec is not full general chat",
+    "No production install, release/tag, personal data migration, running-instance restart or Bun/Node engine sidecar"
+  ]
+}

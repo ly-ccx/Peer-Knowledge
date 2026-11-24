@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-15",
+  "timezone": "Asia/Shanghai",
+  "phase": "P4 model-wire work package only; full Runtime/external protocols not yet accepted",
+  "candidate": "84007b834bfa67a978007a51bccd43799c22530b",
+  "tree": "5a36e8b91db5191ed6be06b6346d3c139630f430",
+  "binarySha256": "7c7a306c7e67393371d9bfb5a1e0e1bf99c0c4331b19ba50d389f4df89b665c1",
+  "p3Prerequisite": {
+    "candidate": "1578380047050512974f72fccb33d0c33b1f8851",
+    "run": "43600632864",
+    "linuxJob": 132485357863,
+    "macosJob": 132485356050,
+    "result": "full success"
+  },
+  "scope": {
+    "production": "fresh canonical delegated exec/recover; plain v2 API-key channels; openai-chat, openai-responses, anthropic-messages and Gemini",
+    "requestAndResultReference": "8 real TS Provider captures and stream decoders plus RuntimeUsageAccounting; 1320 shared TS pure encoder cases",
+    "host": "same Manifest/Projection/live Grant/Result/Evidence/stop/unknown recovery seam as P3",
+    "continuation": "owned by one episode/provider instance; exact canonical identity; bounded to 32 entries / 1 MiB; no persisted native signatures",
+    "unportedConfiguration": "reasoning/configured output limits/Fast/model options, custom headers/proxy, OAuth/Qoder and other aliases remain explicitly rejected; pure encoder coverage does not imply these are admitted",
+    "runtime": "native HTTP and native credential Helper v1; PATH cannot discover Node/Bun in public CLI fixtures",
+    "credentialLimits": "only synthetic key with native Helper transport; real OS vault not accessed for model loop"
+  },
+  "checks": [
+    {
+      "check": "native total",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-wires-verified.log",
+      "logSha256": "40ea9a2184b060675e5dd16d29bc0c501ec75ae5e19790a15bfe708308d10bca"
+    },
+    {
+      "check": "build",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-owned-build.log",
+      "logSha256": "39b349c5613444dcdbda6c332cf7617b939e2db829dd0b6e239776f175e2655f"
+    },
+    {
+      "check": "typecheck",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-owned-typecheck.log",
+      "logSha256": "a4f436b362888674fb78f3772dc64e43cadd2004b9d934af01a9727bc23dc19b"
+    },
+    {
+      "check": "architecture",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-architecture.log",
+      "logSha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+    },
+    {
+      "check": "TS providers",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-ts-providers.log",
+      "logSha256": "0a5b222be5fb578d380739c67b5ddef302e1a09e70895876453d080c38069298"
+    },
+    {
+      "check": "live roundtrip",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-live-content-after.log",
+      "logSha256": "39229dc71e74012fe3e1b56e7d93d4ef9bde6d18beed8ec72307c1c4332f7d22"
+    },
+    {
+      "check": "wire credentials",
+      "result": "passed",
+      "localLog": "/tmp/peer-native-p4-http-wire-content.log",
+      "logSha256": "919d02f2f954fade84c345b6806c0ef451395246b2ad5e959e6e04871a005fe8"
+    }
+  ],
+  "counts": {
+    "rustTests": 179,
+    "crossProcessStoreCases": 302,
+    "tsColdReadCases": 70,
+    "nativeFixtureRoots": 21,
+    "nodeFocusedTests": 134,
+    "publicExecutableRustTests": 13,
+    "nativeWireVariantsInPublicTest": 4,
+    "httpWireFragmentationCases": 24,
+    "authWireCases": 4,
+    "ptyLifecycleCases": 8,
+    "tsProviderFocusedTests": 20
+  },
+  "failuresPreserved": [
+    {
+      "log": "/tmp/peer-native-p4-gemini-usage-before.log",
+      "failure": "real Gemini adapter returned 20 uncached input + 5 cache + 3 output for provider total 23",
+      "correction": "uncached input 15; tool-use prompt/thoughts assigned to input/output; no invented cache-write zero"
+    },
+    {
+      "log": "/tmp/peer-native-p4-http-wire-before.log",
+      "failure": "Anthropic reference request without explicit off enables default thinking while the selected plain native model has reasoning off",
+      "correction": "fixture now passes explicit off to actual Anthropic Provider; request equality assertion remains exact; advanced source/default semantics are not claimed admitted"
+    },
+    {
+      "logs": [
+        "/tmp/peer-native-p4-wire-edge-before.log",
+        "/tmp/peer-native-p4-wire-edge-after.log"
+      ],
+      "failure": "null/default and nonpositive mapped budget differed from TS",
+      "correction": "fix native lowerings; expand actual golden cases to 1320"
+    },
+    {
+      "log": "/tmp/peer-native-p4-live-content-before.log",
+      "failure": "same-response thinking/text/tool split; Gemini signed text could repeat",
+      "correction": "bind and replay the complete live assistant turn only when its canonical text/calls/results still match; final tests assert one copy and native block co-location",
+      "limit": "The first unsealed intermediate attempt remains limited; the separately sealed reconstruction pins the same final fixtures/assertions and independently reproduces both failures. It is a reconstructed baseline, not the original source snapshot."
+    },
+    {
+      "log": "/tmp/peer-native-p4-wire-accepted.log",
+      "failure": "release build failed after unused legacy encoder removal exposed a transitive json macro import during ongoing verification",
+      "correction": "explicit import in SSE module; frozen candidate full verification rerun passed; failed run not counted as success"
+    }
+  ],
+  "ci": {
+    "run": "43615775154",
+    "linuxJob": 132510388297,
+    "macosJob": 132510388630,
+    "status": "both repository jobs failed at Test; Native validation succeeded on both",
+    "failure": {
+      "test": "apps/desktop/electron/main/provider-adapter.test.mjs:753",
+      "actualInputTokens": 8,
+      "oldExpectedInputTokens": 11,
+      "rawUsage": {
+        "promptTokenCount": 11,
+        "candidatesTokenCount": 7,
+        "cachedContentTokenCount": 3
+      },
+      "retry": "same assertion failed in automatic isolated file retry",
+      "cause": "Gemini disjoint normalization was corrected but the older Desktop expectation was missed",
+      "nativeSteps": "success on both platforms; not full repository success"
+    }
+  },
+  "remaining": [
+    "full default System Context Source catalog and Host discovery",
+    "context count/compaction/rebuild/recount and request/turn/lifetime ledger",
+    "Qoder native local-auth/WASM and OAuth lifecycle",
+    "MCP stdio/legacy SSE/streamable HTTP, Skill/Plugin/Hook lifecycle",
+    "standard classic/headless/ACP/command coverage",
+    "P5 Bot/Goal workflows after complete P4 gate",
+    "P6/P7 feature/memory/installed-build and release gates"
+  ],
+  "independentReview": false,
+  "realSupplierCoverage": false,
+  "installedBuildCoverage": false,
+  "fourHourSoak": false,
+  "defaultPeerSwitched": false,
+  "personalDataChanged": false,
+  "sealedReconstructedBaseline": {
+    "base": "84007b834bfa67a978007a51bccd43799c22530b",
+    "semanticOverride": "Remove live continuation prefix grouping to preserve the pre-fix behavior; same final wire fixtures and final assertions. Test-only wire filter selects each failing provider independently.",
+    "files": {
+      "crates/peer-runtime/src/model/continuation.rs": "ba0e47c7d99c5c67ee3b7fac85949e540ebfc999e561272778ae4b2abd611581",
+      "crates/peer-cli/tests/native_episode.rs": "5740cdf9c87378bca72ab22ea507681820c7c850fa585a13e0267f7321232407",
+      "packages/protocol/contracts/native-cli/model-streams.json": "51def06c48e5728735e799fabbe0aae8039f4c8f6377e82e86f0d7748f9effec"
+    },
+    "patch": "diff --git a/crates/peer-cli/tests/native_episode.rs b/crates/peer-cli/tests/native_episode.rs\nindex ad00ac69..2dd0086d 100644\n--- a/crates/peer-cli/tests/native_episode.rs\n+++ b/crates/peer-cli/tests/native_episode.rs\n@@ -334,6 +334,7 @@ fn four_native_wires_execute_real_tools_and_preserve_only_live_provider_continua\n         (\"anthropic-messages\", \"anthropic\", \"anthropic\"),\n         (\"gemini\", \"google-ai\", \"google\"),\n     ] {\n+        if std::env::var(\"PEER_NATIVE_TEST_WIRE\").ok().as_deref().is_some_and(|only| only != wire) { continue; }\n         let rows = fixtures[\"cases\"].as_array().unwrap();\n         let tool = rows\n             .iter()\ndiff --git a/crates/peer-runtime/src/model/continuation.rs b/crates/peer-runtime/src/model/continuation.rs\nindex 23319783..ac6b531e 100644\n--- a/crates/peer-runtime/src/model/continuation.rs\n+++ b/crates/peer-runtime/src/model/continuation.rs\n@@ -56,21 +56,10 @@ impl LiveHistory {\n             return Ok(());\n         }\n         let messages = lower(history)?;\n-        let mut start = messages\n+        let start = messages\n             .iter()\n             .position(|m| m[\"role\"] == \"assistant\" && m[\"tool_calls\"][0][\"id\"] == ids[0])\n             .ok_or(ModelError(\"model_continuation_identity_changed\"))?;\n-        if !peer_protocol::javascript_trim(&continuation.text).is_empty() {\n-            let expected = crate::canonical_history::sanitize_assistant(&continuation.text);\n-            if start == 0\n-                || messages[start - 1][\"role\"] != \"assistant\"\n-                || messages[start - 1][\"content\"] != expected\n-                || !messages[start - 1][\"tool_calls\"].is_null()\n-            {\n-                return Err(ModelError(\"model_continuation_identity_changed\"));\n-            }\n-            start -= 1;\n-        }\n         let end = messages\n             .iter()\n             .rposition(|m| m[\"role\"] == \"tool\" && m[\"tool_call_id\"] == *ids.last().unwrap())\n",
+    "results": [
+      {
+        "wire": "anthropic-messages",
+        "expectedResult": "failed assertion under reconstructed pre-fix behavior",
+        "actualResult": "failed",
+        "log": "/tmp/peer-native-p4-sealed-anthropic-before.log",
+        "logSha256": "ae84a60289a5491663e79c317896c1ad4d82042edd85daabc3314c330f695e6b",
+        "failure": "---- four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation stdout ----\n\nthread 'four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation' (32236121) panicked at crates/peer-cli/tests/native_episode.rs:418:17:\nthinking, text and tool intent from one response stay in one assistant turn\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+      },
+      {
+        "wire": "gemini",
+        "expectedResult": "failed assertion under reconstructed pre-fix behavior",
+        "actualResult": "failed",
+        "log": "/tmp/peer-native-p4-sealed-gemini-before.log",
+        "logSha256": "37d7c111ddc9b59259ab4be3902121692f3a53f09eed0f9cc7b56e6ead14df4f",
+        "failure": "---- four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation stdout ----\n\nthread 'four_native_wires_execute_real_tools_and_preserve_only_live_provider_continuation' (32237409) panicked at crates/peer-cli/tests/native_episode.rs:412:13:\nassertion `left == right` failed: gemini must not duplicate signed live text\n  left: 2\n right: 1\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+      }
+    ]
+  },
+  "ciCorrection": {
+    "candidate": "1f7adc173f2f18acef53681df8b31ac1e2ef0d68",
+    "change": "test-only correction; retains 8 uncached + 3 cache = 11 prompt and total 18 with 7 output; no cache write zero",
+    "localCheck": "node --test apps/desktop/electron/main/provider-adapter.test.mjs",
+    "result": "22 passed",
+    "run": "43617038055",
+    "linuxJob": 132514246559,
+    "macosJob": 132514246403,
+    "ciStatus": "in_progress; not counted as passing"
+  }
+}

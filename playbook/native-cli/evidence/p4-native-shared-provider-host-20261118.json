@@ -1,0 +1,193 @@
+{
+  "createdAt": "2026-11-18",
+  "status": "Shared Provider seam locally validated; ordinary conversation Runtime remains next. Full P4/P5-P7 unaccepted.",
+  "candidate": {
+    "commit": "1fb2790128f67dd2b3cc046b345070d4b451f1f5",
+    "tree": "8cd750958284ce8fcf37325a49986016fb661ef2",
+    "pushed": true,
+    "branch": "codex/native-rust-cli",
+    "priorHead": "b3c825e364aa729ace2e44e5dbea48b2029054f3",
+    "patchSha256": "269ec568b936792430ae2b3942bd22adee270fdf90cb38df3a4b3a1bd512f835"
+  },
+  "decisions": {
+    "classification": "B: existing governed capability chain, permission/Evidence/storage boundaries retained. No new Goal or execution journal.",
+    "files": [
+      "49-cancel-path-hard-sandbox.md",
+      "65-cli-headless-exec.md",
+      "76-peer-acp-agent.md",
+      "92-scoped-permission-inheritance.md",
+      "101-bot-owned-access-policy.md",
+      "106-readonly-git-and-delegation-capability-admission.md",
+      "127-unknown-outcome-reconciliation-and-delegated-resolution.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ],
+    "knowledgeBeforeSource": [
+      "760c1e8",
+      "4dc1377"
+    ]
+  },
+  "implementation": {
+    "provider": "Host-created correlation facts plus original bound EffectAdmission; no dependency on concrete Goal Host/Grant/HostResourcePlan. Classification is not grant. Same providers for future ordinary/exec/ACP adapters.",
+    "mcp": "Unpolled connection driver is handed to Host over original bounded port. Compare canonical pending nativeRecorder, complete owner PID/start/boot/lease tuple, real manifest transport and registry revision before original durable handle/live registration and any transport polling. Seven rejected fault types cause zero transport requests and admit later work. Original tool grant/credential epoch/recovery retained.",
+    "shell": "Admission before startup artifacts and spawn, fresh 100ms policy checks while actual child runs; revoked authority stops and reaps owned group. Prior real granted=true fact remains, failure is permission_policy_changed/interrupted, then later task admitted.",
+    "gitClock": "Cumulative tool execution15s starts immediately before spawn through owned completion/group absence; bounded5s starting ack is separate. Original Probe absolute10s/256KiB/scopes/encoding unchanged. Actual slow-admission red/green, Total deadline still times out.",
+    "boundary": "Provider tree cannot reference NativeSessionHost, HostPermissionGrant, HostResourcePlan or session_host namespace; existing renderer/unsafe/JS engine bans retained."
+  },
+  "wholeNativeGate": {
+    "sourceTree": "8cd750958284ce8fcf37325a49986016fb661ef2",
+    "pid": 84701,
+    "pgid": 84701,
+    "startedAt": "2026-11-17T15:49:25.590123+00:00",
+    "exitCode": 0,
+    "seconds": 1045.00663675,
+    "endedAt": "2026-11-17T16:06:50.601815+00:00",
+    "rustTests": 589,
+    "publicEpisodes": 247,
+    "tsRustRoots": 627,
+    "tsRustCases": 3521,
+    "ptyCases": 9,
+    "logSha256": "a035dd276209dac84c542a7bed2723031fe61d677dd82e74dad0a103b55a1963",
+    "scope": "Existing full native scoped suite; not P4 final/full repository CI or release acceptance."
+  },
+  "focused": {
+    "mcpPublicFunctions": 55,
+    "webPublicFunctions": 15,
+    "gitPublicFunctions": 8,
+    "providerAdmissionUnits": 2,
+    "gitModuleTests": 6,
+    "allTargetCheckAndClippy": true,
+    "typecheck": true,
+    "architecture": true
+  },
+  "featurelessRelease": {
+    "bytes": 21442016,
+    "sha256": "9c16fab7f0f0e05223f602d2d02144e689e55105c6f0859bffbca69b4a2eeaa8",
+    "dependencies": "/tmp/peer-native-shared-provider-final-20261117/peer-native:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n",
+    "pinnedBinary": "/tmp/peer-native-shared-provider-final-20261117/peer-native",
+    "fixtureSwitchesAbsent": [
+      "PEER_NATIVE_CONNECTION_FAULT",
+      "PEER_NATIVE_AUTH_CONTROL_BARRIER",
+      "PEER_NATIVE_EPISODE_FAULT_AFTER_EFFECT",
+      "PEER_NATIVE_BILLING_CRASH",
+      "PEER_NATIVE_PERMISSION_WAIT_MS"
+    ],
+    "publicFunctions": 8,
+    "results": [
+      {
+        "test": "native_model_file_shell_result_evidence_and_pause_use_the_public_composition_root",
+        "exitCode": 0,
+        "seconds": 1.572823875
+      },
+      {
+        "test": "native_provider_host::running_shell_rechecks_actual_policy_stops_its_group_and_admits_a_later_task",
+        "exitCode": 0,
+        "seconds": 1.921034709
+      },
+      {
+        "test": "native_mcp::stdio_grant_transport_result_evidence_and_owned_stop_are_native",
+        "exitCode": 0,
+        "seconds": 1.2401262500000003
+      },
+      {
+        "test": "native_mcp::streamable_json_sse_and_legacy_endpoint_sse_have_real_native_tool_loops",
+        "exitCode": 0,
+        "seconds": 2.839417708
+      },
+      {
+        "test": "native_mcp::signal_cancellation_stops_native_mcp_and_retains_the_sent_effect_as_unknown",
+        "exitCode": 0,
+        "seconds": 0.7566025419999995
+      },
+      {
+        "test": "native_git::public_native_git_snapshot_keeps_the_real_child_artifact_and_evidence_chain",
+        "exitCode": 0,
+        "seconds": 3.2081371249999986
+      },
+      {
+        "test": "native_git::public_native_readonly_git_uses_a_read_anchor_without_claiming_a_write_directory",
+        "exitCode": 0,
+        "seconds": 3.1564514999999993
+      },
+      {
+        "test": "native_web::native_web_http_publishes_legacy_and_immutable_facts_before_model_continuation",
+        "exitCode": 0,
+        "seconds": 0.9506370839999985
+      }
+    ],
+    "actualTsRustRoots": 10,
+    "actualTsRustCases": 64,
+    "interopLogSha256": "ee3f60492abe5dedb549f9a65204c4a8a0ce082ab18cd2f4f15d56496127dbfc",
+    "environment": "Inherited model/credential/test overrides removed. Actual product PATH=/nonexistent; MCP test executable is Rust, development TS oracle is separate.",
+    "scope": "Exact1fb source, before mode projection change. Current a942 product has separate scoped validation receipt."
+  },
+  "preservedFailures": [
+    {
+      "source": "Pinned b308 production Shell",
+      "log": "/tmp/peer-native-shared-provider-host-20261117/shell-policy-before.log",
+      "observation": "Actual write marker then sleep20 remains running beyond original6s policy-withdrawal boundary; owner received TERM and completed cleanup before failure.",
+      "after": "Same test with unchanged6s bound passes current fixture and fixed featureless product."
+    },
+    {
+      "source": "Current pre-clock-fix focused Git source",
+      "logs": [
+        "git-focused-1.log",
+        "git-focused-2.log"
+      ],
+      "observation": "Real parallel readonly query generation4 got git_query_timeout; dependent artifact read then failed. Original roots preserved. Missing explicit cleanup Instant import on first correction is retained.",
+      "after": "Actual slow Host starting2200ms and original2s command budget red; Execution budget succeeds, Total2s remains timeout; all8 public Git functions pass."
+    },
+    {
+      "logs": [
+        "check-2.log",
+        "check-4.log",
+        "check-5.log",
+        "clippy-1.log"
+      ],
+      "observation": "Initial Child borrow compile failure; Cargo auto-discovered test filename error and already-enumerated stale path after move. Corrected proper submodule and all-target checks pass; no assertions weakened."
+    }
+  ],
+  "previousCi": {
+    "run": 44113613779,
+    "head": "b3c825e364aa729ace2e44e5dbea48b2029054f3",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "linuxJob": 134145773558,
+    "linux": "Full job success including Native/build/type/architecture/Test/Electron smoke.",
+    "macJob": 134145773028,
+    "mac": "Actual Native Episodes242 passed3 failed at15:41:25Z; job remained active until60min limit at16:23:23Z. Not whole green.",
+    "macFailures": {
+      "external_include": "git_query_timeout generation14 after actual scope decisions",
+      "fixed_metadata_overflow": "git_query_timeout after actual scope decisions",
+      "model_reference_retrieval": "artifact_invalid; original remote fixture unavailable to prove preceding Git outcome"
+    },
+    "macLogSha256": "505f33e4fe92d33cbe5de63976d1ac362eb732cc62c94f5a9ee49a1a8205f2e3",
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "b3c825e364aa729ace2e44e5dbea48b2029054f3"
+      ],
+      "sha": "fe5524e3ceea5a867280400492875e759c83a183",
+      "tree": "9a598e3464a6df0bb02c032e5c715a2046f5b421"
+    },
+    "limits": "No exact remote-host reproduction or established cause of post-error hang. Existing local pre-fix and controlled slow-admission red/green plus exact failed public functions validate corrected timing on current product.",
+    "nextRun": 44126220185,
+    "nextHead": "a942b36e2d31bc10a57e14175f8e723ae074d7c4",
+    "nextStatus": "queued/in_progress; independent, not green"
+  },
+  "validationLimits": [
+    "Implementer self-review, synthetic data/services; no independent review or real paid-model/vendor acceptance.",
+    "Ordinary conversation identity/Runtime, default Context catalog/Skill/Plugin/Hook, full headless/ACP and remaining commands still open.",
+    "Full P4 gate, P5 project agent, P6 Ratatui sending/long-memory soak and P7 release/default switch are not achieved.",
+    "No install, personal data migration, user process restart, default switch, merge, tag or release; main peer-dev remains old stack."
+  ],
+  "evidenceDirectory": "/tmp/peer-native-shared-provider-final-20261117",
+  "subsequentA942WholeCi": {
+    "receipt": "ci-a942-20261118.json",
+    "run": 44126220185,
+    "head": "a942b36e2d31bc10a57e14175f8e723ae074d7c4",
+    "conclusion": "success",
+    "scope": "Exact a942 source; not later fcfee terminal Store candidate."
+  }
+}

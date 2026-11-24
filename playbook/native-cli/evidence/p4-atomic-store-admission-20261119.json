@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "phase": "P4",
+  "previous": {
+    "commit": "ae6dd9a8b7485ec27b5e0e73898a243780d6b0e6",
+    "run": 44393251775,
+    "linuxFull": "success",
+    "macosFull": "failure",
+    "macosFailure": "Two existing real process-group stoppage assertions failed. See p4-shared-admission-and-process-stop-20261119.json."
+  },
+  "pushed": {
+    "commit": "1657e9bb34560d6fb4c610b2da0fb0b9f5afb156",
+    "tree": "d37d1e29911401c817f02feb7f9e7adf46fe0c20",
+    "run": 44399851218,
+    "commits": [
+      "30111654",
+      "60ab2011",
+      "1657e9bb"
+    ],
+    "ciStatusAtRecording": "in_progress",
+    "isolatedMacNativeVerification": {
+      "nativeEpisodePassed": 370,
+      "runtimeLibraryPassed": 169,
+      "olderGroupStopCasesPassed": true,
+      "testThreads": 4,
+      "fullVerifierAtRecording": "in_progress"
+    }
+  },
+  "draftStoreAdmission": {
+    "tree": "9beadd6e0d2c38020146d1126053890955b339ec",
+    "status": "isolated, not pushed",
+    "typescriptAndRustMac": {
+      "receiptSha256": "d9dd20e08bdf37de9cd8a6bb42cc7c08f5a072ed5a222ecd7c69f01110f08893",
+      "caseCount": 7,
+      "cases": [
+        "durable TS acquisition and close before start admit exactly one later Rust claim",
+        "TS stale snapshot cannot replace a live Rust claim",
+        "killed TS owner record survives, no synthetic stop or claimed recovery",
+        "same-conversation source change is a CAS failure",
+        "other conversation can change independently and its raw index line is retained",
+        "exactly one Node/Rust contender wins the same original lock domain",
+        "future execution schema blocks both peers and remains byte-identical"
+      ],
+      "raceWinner": "peer-ts"
+    },
+    "typescriptAndRustLinuxAmd64Emulated": {
+      "receiptSha256": "b408cfccd81bf949f6792e2bed063e3e832db6a23d1af39eb7701a9448e1f62b",
+      "caseCount": 7,
+      "cases": [
+        "durable TS acquisition and close before start admit exactly one later Rust claim",
+        "TS stale snapshot cannot replace a live Rust claim",
+        "killed TS owner record survives, no synthetic stop or claimed recovery",
+        "same-conversation source change is a CAS failure",
+        "other conversation can change independently and its raw index line is retained",
+        "exactly one Node/Rust contender wins the same original lock domain",
+        "future execution schema blocks both peers and remains byte-identical"
+      ],
+      "raceWinner": "peer-ts"
+    },
+    "firstLinuxRaceDiagnostic": {
+      "logSha256": "200fb945391a1ddfad3a0090a9479eaa22ae5c3ba619a2cf156da7a19043a16b",
+      "explanation": "The original existing Rust diagnostic exited 2 before returning a claim result when its initial unlocked history read raced a change. Structured reporting was added only to the development example. Final Linux used the container-local filesystem."
+    },
+    "ordinaryOwner": "Actual independent Node process and original peer-store Rust implementation used the existing index and body locks, shared runtimeExecution v1, and same-source CAS.",
+    "priorFailureRecovery": "The empty owner can explicitly close before starting. A forcibly terminated owner remains protected. No model or effect is run, no unknown is removed, and no replay or automatic takeover is asserted.",
+    "open": "Before wiring temporary compatibility hosts, bind the acquired token to ordinary TS input, real provider preparation/dispatch, canonical results and usage, owned handle drain, and public classic/ACP/Desktop entry points. Unknown or unobserved effects remain protected. Real service auth, installed old-version drain, P4 total and P5–P7 remain open."
+  }
+}

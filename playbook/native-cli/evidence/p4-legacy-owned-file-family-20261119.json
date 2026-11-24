@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-19",
+  "scope": "Legacy ordinary exec file capabilities and authorization through the shared conversation execution record",
+  "decisions": [25, 65, 116, 129, 131],
+  "source": {
+    "base": "1657e9bb",
+    "previousTree": "a85709d97f0611bedfc0b58c16a11e4b3c0c9ae0",
+    "testedTree": "3b86dc71e5c247b87fcd985019c1e610c1961e6a",
+    "incrementalPatchSha256": "ffd60b587dba12c5999a94720c8e92cf9f1efffa2498d1143172fe8fb0546610",
+    "publicHarnessSha256": "2ab5c473834de96efdc4a03ff61d3bbbd4d5ab73422d61755a7045bc1e9aa901",
+    "approvalHarnessSha256": "f6e098251ad56a4a01fa738ea55abcc0b5ea618a168b85a3895a6e48812d1e2d",
+    "stdinPtyHarnessSha256": "74aaa52c059d33c60b1a31efb2ff02f4336143008f90d146f9bedd00530b0d27",
+    "published": false
+  },
+  "verified": [
+    "Actual read_file, list_files, search_files, write_file and edit_file calls settle original grants, canonical outcomes and Evidence, with one 16-token ledger row. Rust rejects acquisition while the legacy owner is active and accepts it after a recorded stop.",
+    "Two calls received in the same model response both settle before the next request. A read failure after dispatch retains the original grant. A rejected edit prior to dispatch records denial.",
+    "On macOS, a real filesystem error after admission leaves the original write grant and stopped owner with an unresolved mutation. Rust rejects recovery and acquisition of that session.",
+    "Legacy headless ask inside a real stdin PTY records denial when the approval listener is unavailable. The real TUI Host separately passes allow-once, denial and a late allow racing with stop, with no file effect from the late grant."
+  ],
+  "checks": {
+    "macOSArm64": {
+      "binarySha256": "08d72d0768897aafc6265bd0973a1c7227d0141fdb1454ba5dce41d5e7815b8c",
+      "publicCases": 4,
+      "publicReceiptSha256": "7ee2cbbd04ad15423e6a80dec06bb819b37777aba157d8534be0aca3f5730a56",
+      "regressionCases": 6,
+      "regressionReceiptSha256": "b1010193cc1db1fa130be0eba9906e0848b36e59f55183bb1c1622aece1bbc55",
+      "tuiHostApprovalCases": 3,
+      "tuiHostApprovalReceiptSha256": "3f9363412270830a00fe3ccb4db6e351b77928fa1eb9d9253dacdd0a63662ef9",
+      "fileProviderTests": 7,
+      "conversationStoreTests": 149,
+      "additional": ["TUI typecheck", "architecture check", "UI conventions check"]
+    },
+    "linuxAmd64Container": {
+      "binarySha256": "82d6758d349a54ebecb8fbbf976110018bf6a997a5a7aef705bc5f54e5abb3a9",
+      "publicCases": 3,
+      "publicReceiptSha256": "a710ba5a6e522e4515e50e3fa4788701797a4e6084ca25cb008f27d0938e1cfd",
+      "regressionCases": 6,
+      "regressionReceiptSha256": "fe3b7528d5f4c3ccbf257a6a830c9f71070bc989b791013cc90b14d9ea33446b",
+      "tuiHostApprovalCases": 3,
+      "tuiHostApprovalReceiptSha256": "3f9363412270830a00fe3ccb4db6e351b77928fa1eb9d9253dacdd0a63662ef9",
+      "additional": ["TUI typecheck", "Rust Store conformance build"]
+    },
+    "initialFailures": [
+      { "observation": "TUI typecheck rejected lookup by the public string capability ID in a literal-key Map. The explicit registry type preserves all five manifest-backed entries.", "logSha256": "9f897df060136ce327fe62f6d38239b767059bba115144c16d992815452780b3" },
+      { "observation": "The compiled candidate still returned conversation_execution_out_of_scope because the Store guard allowed only write and edit. The guard was corrected before rebuilding and running the public cases.", "logSha256": "7403b2084366e6f202efef5fca1e3311ccb1704c7feaae508adfaef17573ede9" }
+    ]
+  },
+  "limits": [
+    "The legacy assembly requires the opt-in marker and flag, an explicit file allowlist, chat mode and no Hook configuration. The native executable does not invoke this assembly.",
+    "The filesystem permission error case ran on macOS only. The Linux container ran as root.",
+    "Synthetic data and loopback provider. The TUI Host cases used its real approval subscriber, without accepting any change to the default CLI, installed processes or user data."
+  ]
+}

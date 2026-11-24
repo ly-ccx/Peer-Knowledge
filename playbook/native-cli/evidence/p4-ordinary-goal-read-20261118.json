@@ -1,0 +1,83 @@
+{
+  "predecessor": "80b9807b068568c962c0e6b0d7cb6d4cbbb4e6b9",
+  "baseTreeWithCompactionSettingsAndIntake": "40893514d1311cc6f2c299525a282eeb6cbc3afb",
+  "candidateTree": "02a0e6e013b645da05cd4bbc3901c0504d2e2bd2",
+  "patchSha256": "9c59775c3635ed6e5a7117ca1fb09cb4a335a4f1cb0beb1322b703819d102e4d",
+  "sourceTarSha256": "a46828df2b344ab21988400de9c7b878e609acb7a69b808b2f2b8912f4b6a070",
+  "fixtureSha256": "bbdb5d70eab5ed30ec80a515c3b109559b3ff5df6ed0b17559661c319abe97e6",
+  "publishedStack": {
+    "predecessorCI": { "run": 44315691651, "conclusion": "success" },
+    "compaction": "a8e83ab85d3bbfa05df2eee5936c5565f817abf2",
+    "legacySettings": "a8ad0c179bef448e1b4158c16a4689fffa834ecb",
+    "goalIntake": "e6fc4c9608e8e78f134c61e232e41963a54e8566",
+    "goalRead": "a66fdb8129c82293514858cd545c79925462ad5a",
+    "combinedTree": "02a0e6e013b645da05cd4bbc3901c0504d2e2bd2",
+    "independentCI": { "run": 44327109379, "statusAtDispatch": "queued" }
+  },
+  "contract": "ADR 131, NR-04 ordinary Goal tool read. ADRs 35, 41, 55, 57, 65, 116 and 129–130 also apply.",
+  "baseline": {
+    "legacy": "Actual TUI bridge creates a canonical plan and returns its list and detail. Fixture generation compares the real manifest, list and detail. The excluded internal run trace has a random event ID.",
+    "native": "Three public tests against the extracted b6f58fef predecessor stop at the first actual model request with tool_not_projected.",
+    "firstCandidateRun": "Seven pass and one fails. The large-result test expected a nested output field for the flattened artifact-reference wire shape. The harness was corrected to check the actual top-level ref and request fixed windows, with the saved-source mutation assertion retained."
+  },
+  "verified": {
+    "macArm64": { "publicEntryTests": 9, "fmt": true, "strictClippy": true, "boundaries": true, "architecture": true },
+    "linuxAmd64": { "publicEntryTests": 9 },
+    "ordinaryPublicSurface": [
+      "The actual --tools intersection leaves precisely the TS goal_get_plan schema in Plan mode. Current-conversation list and explicit detail preserve canonical task identities, status and success criteria from the real old store.",
+      "The latest runner-progress changes the displayed status without changing plan-body bytes. A stale cancelled index entry is filtered. Foreign and missing IDs return the same empty explicit result. Private trace and unknown task fields stay out of the model response.",
+      "An absent index produces an empty list. Corrupt or oversized sources yield explicit failure. Original Tool Result, live Grant, Evidence and settled conversation are present.",
+      "Ordinary chat reads a larger Goal observation back in windows from the original immutable Tool Result even after the actual plan body changes."
+    ],
+    "packagedMacArm64": {
+      "version": "peer 0.1.0-rc.40",
+      "pathContainsNodeOrBun": false,
+      "publicEntryTests": 6,
+      "archiveSha256": "9177d917b7d5745609811055373e4e5a7cb09fac048a17b9c36b981355fc055a",
+      "peerSha256": "336378879408178e420a9b8b9e831e2884f5d961c4949da46a431aceeb1cf710"
+    },
+    "packagedLinuxAmd64": {
+      "version": "peer 0.1.0-rc.40",
+      "pathContainsNodeOrBun": false,
+      "publicEntryTests": 6,
+      "archiveSha256": "dc1b74adcf13179842be263e0705db1e0e8f9ae52bf3d0ad2e9de553df1c77d7",
+      "peerSha256": "b3728a907fb1db6939559415217c8d49062f1c88c7537941f452bc21819e7bf2"
+    },
+    "wholePackagedChangeStack": {
+      "macArm64PublicEntryTests": 12,
+      "linuxAmd64PublicEntryTests": 12,
+      "coverage": "Bounded compaction and its fallback, legacy settings, Goal intake and reads, and the original delegated foreground shell from the same extracted featureless binaries."
+    }
+  },
+  "logs": {
+    "goal-read-ts-fixture.log": "3193d71bb4d7688b2a2c7e462a47679d80b13d0bcd7b6b5a29fe7318e9fb7b4c",
+    "goal-read-mac-red.log": "10f1742d00e188e401532edd91f893325ad905a0d21a3b05216030e7ab949da5",
+    "goal-read-mac-green.log": "3fc5c24462ab1a923be294a7705579a488b8ca8a647b2a607c92fefbb9db0182",
+    "goal-read-mac-recheck.log": "e67ab9648717868da7470d71587dc0935aac143ff273b682f1cf6a76c096fe26",
+    "goal-read-mac-02a0e6e0.log": "94d94a1946c0075abaef8f10a70c07bc088ca7345e790b78ef309cee71ab34a1",
+    "goal-read-linux-02a0e6e0.log": "fc52398802bf3faf2dd476a3a2687e01eb9a936c93dca61bff45c59f69bac8ea",
+    "goal-read-linux-package-02a0e6e0.log": "e348e227eedb4e5592e2ca428557c32bd0fe33e63288cdd27a66b16006f305f8",
+    "goal-read-combined-package-mac-02a0e6e0.log": "b85eba5246a8bc9ba5ff8069a1072caec9b70dff03c73012a5aa68400f6401c8",
+    "goal-read-combined-package-linux-02a0e6e0.log": "37c905a118fb4ff3db014f4ab2e91f961fc210d46c15f2b839d4d9c4b2586475"
+  },
+  "limits": "Isolated candidate and loopback model. Goal plan creation, updating, Explorer execution, installed-host stop, production model and whole P4 acceptance remain open.",
+  "nextMutationBaseline": {
+    "actualLegacyExec": {
+      "mode": "plan",
+      "modelRequests": 3,
+      "createdStatus": "awaiting_approval",
+      "taskStatusAfterRejectedUpdate": "pending",
+      "updateResult": "failed",
+      "rejection": "Task completion before plan approval",
+      "boundedObservationSeconds": 9,
+      "cliEmittedTerminalResultWithinObservation": false
+    },
+    "actualNativeExecAt02a0e6e0": { "exit": 1, "modelRequests": 1, "plansCreated": 0, "error": "tool_not_projected" },
+    "actualLegacyTuiBridgeOnAcceptedPlan": {
+      "missingEvidence": { "updateResult": "failed", "taskStatus": "pending" },
+      "unresolvedToolResultRef": { "updateResult": "failed", "taskStatus": "pending", "source": "existing EvidenceIndex" }
+    },
+    "logSha256": "86e1ce3e27cd4f6f646823e983aa8d7f941f41046bb53ce65c2fb38be836195b",
+    "evidenceOracleLogSha256": "94c40cd2c2f9fa21d4a428f2102147a045fd193afa83f5459b76e36b8142a501"
+  }
+}

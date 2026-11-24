@@ -1,0 +1,1529 @@
+# 原生 CLI 迁移实施账本
+
+创建时间：2026-11-14
+最后更新：2026-11-21
+状态：P0–P7 源码实现与原生 Ratatui TUI 样式/命令/选择器/快捷键/`/resume`/`/compact`/未绑定拒绝入经典/可读模型名称/桌面 `settings.json` 兼容/实时 SSE 兼容与订阅额度监听/大 `evidence-index.jsonl` 流式读写/`working...` 动画与 OpenTUI `ToolActivityTimeline` 工具调用时间线/`PEER` 回合归组/全链路 thinking 推理/交互式 `request_user_input`（`Ask user` 卡片）/圆角 `Approval required` 授权选择器与 `allow-session`/独立圆角 GFM 表格渲染组件/Bot 模式 `familiarizeOffer` 卡片与瞬态斜杠草稿清理/终端 OSC 8 `Cmd+Click` 超链接/Bot 冷启动毫秒级优化/Peer Frost 2.0 视觉配色与原生 Bot TUI Frost 2.0 布局重做/Classic Plan·Goal 任务侧栏与 Plan 审批卡片/OpenTUI 交互视觉精修/工具前置正文 continuation 空白修剪与单行摘要省略号修复/`localAccessLevel` 持久化对齐与移除 60 秒授权硬超时/Bot 授权 Dock 接管与多轮回复闭环修复/Bot 超大工具结果落盘引用与 `read_tool_result` 投影修复/TS→Rust Bot Harness 补齐 Phase 1（`Peer-Agent` `5a6a7c9a`）、Phase 2（`Peer-Agent` `da2fab2d`）、Phase 3（`Peer-Agent` `d46df0f2`）、Phase 4（`Peer-Agent` `bd70ba1f`）与 Phase 5（P3 全功能平价：固定交互结果存储/墓碑清理与受治理查看、用户多模态附件与 Worker 物化、FTS5 trigram + 中文检索索引与话题冲突消解、4 项 TS↔Rust 实时双语一致性回归，`Peer-Agent` `f690d71e`）全部完成并推仓，TS→Rust Bot Harness 5 阶段补齐路线图收官；待进入远端双平台 CI、PR 合入、发布前 4 小时真实长稳/物理终端验收与旧 `apps/tui` 退场
+
+## 2026-11-21 TS→Rust Bot Harness 缺口清点 Phase 5（P3）补齐：全功能平价与双语一致性验证
+
+- **对齐 `interactive-results` / `input-attachments` / `conversation-search-index` / `memory/conflict` 并补齐 `ts_rust_parity` 实时双向互通校验（提交 `f690d71e`，保持 `Cargo.toml`、`Cargo.lock`、`crates/peer-tui` 与 `crates/peer-cli/src/ordinary_exec/args.rs` 零改动）**：
+  1. **原生 `interactive-results` 领域存储、脱敏观测捕获、墓碑清理与 `/result N` 查看器（`crates/peer-project-agent/src/{interactive_results.rs, provider.rs, host.rs, lib.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - 新增 `InteractiveResultStore`（`PRAGMA user_version = 5`，路径 `<data_home>/project-runtime/<workspace_id>/interactive-results/store.sqlite`，限额 `256` 结果/`128 MiB`/`256` 墓碑），实现 `commit_publication`、`mark_indexed`、`reconcile_pending`（`DirectoryLock` 保护写入 `goal-plans/evidence-index.jsonl` 并核验）、`capture_tool_observation`（脱敏敏感词）、`inspect_for_role`（向主 Bot 投影 `inspect_interactive_result` / `local.interactive.inspect` 且仅放行 `metadata`/`text`，拒绝对话外与 `program`/`data`/`evaluate`）、及 `cleanup_result`（写入符合 `peer_store::read_interactive_cleanup_receipt` 9 字段 + `receiptDigest` 规范的墓碑回执）；
+     - `NativeProjectHost::recover_workspace_barrier` 的 `"tasks"` 阶段自动驱动 `reconcile_pending`；`NativeProjectHost` 暴露 `read_interactive_result_summary` / `read_task_result`，`bot_shell.rs` 在 `/task N` 列举 `固定结果 (/result N)` 并将 `/result N` 接入 `BotScreen::TaskDetail` 只读摘要展示。
+  2. **多模态附件持久化、模型投影与 Worker 图片物化（`crates/peer-project-agent/src/{attachments.rs, input_queue.rs, runner.rs, supervisor.rs, host.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - 新增零新增依赖的纯 Rust `attachments.rs`（RFC 4648 Base64 编解码、图片 `8 MiB` / 文本 `512 KiB` / 最多 `8` 项准入 `normalize_user_upload`、`load_local_image_attachment` 魔数校验证、`project_user_message_for_model` 多模态消息组装及 `materialize_image_attachments`）；
+     - 扩展 `SubmitInputRequest.attachments`、`NativeProjectHost::submit_user_input_with_attachments` 与 `InputQueue::consume` 持久化附件；`ProjectAgentRunner` 支持仅附件（空文本）消息与历史压缩摘要兼容；`SessionSupervisor::run_session_episode_with_verifier` 将锚定用户图片物化至会话临时目录传入 `ConversationOptions.image_paths` 并在执行后清理；`bot_shell.rs` 支持 `/attach <path> [prompt]` 提交。
+  3. **统一对话全文检索索引与记忆话题冲突消解（`crates/peer-project-agent/src/{search_index.rs, memory/conflict.rs, memory.rs, provider.rs, host.rs}`）**：
+     - 新增 `ConversationSearchIndex`（`<data_home>/project-runtime/<workspace_id>/search-index.sqlite`，SQLite FTS5 trigram + `<3` UTF-8 字符 `LIKE` 精确子串回退、`300/200/100/50` 分值排序、`collect_conversation_search_documents`、`rebuild`、`sync`、`upsert`、`remove`）；同步更新 `execute_search_conversation`（保留 `kinds` 过滤与 `[REDACTED]` 脱敏）及 `NativeProjectHost::{search_workspace, search_all}`；
+     - 新增 `memory_conflict_decision` 并接入 `MemoryStore::{write, write_curated}`，在同作用域同 `topicKey` 冲突时实现新 `stated`/`verified` 替代旧条目（`forgotten` + `supersededBy`）以及 `inferred`/乱序写入双向 `conflicted` 标记。
+  4. **Phase 5 E2E 回归（+4 → 32 项）与 TS↔Rust 实时双语一致性测试（4 项）（`crates/peer-project-agent/tests/{project_agent_e2e.rs, ts_rust_parity.rs}`）**：
+     - `project_agent_e2e.rs` 新增 4 组 E2E：`interactive_result_capture_publish_reconcile_inspect_tool_and_cleanup_tombstone`、`user_image_and_text_attachments_flow_through_input_queue_to_multimodal_model_request`、`conversation_search_index_fts5_trigram_chinese_and_redaction_with_memory_conflicts`、`interactive_result_slash_result_lookup_from_task_evidence_refs`；
+     - 新增 `ts_rust_parity.rs` 直接拉起 `node --input-type=module` 实测 `packages/runtime-node/src/` 模块与 Rust 双向对照：`ts_rust_parity_interactive_results_cross_read_write_and_cleanup`、`ts_rust_parity_input_attachments_validation_and_limits`、`ts_rust_parity_conversation_search_index_ranking_and_collection`、`ts_rust_parity_memory_conflict_and_watchdog_same_cause`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **41/41**、`peer-project-agent --test project_agent_e2e` **32/32**、`peer-project-agent --test ts_rust_parity` **4/4**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 4（P2）补齐：长稳自愈与后台智能
+
+- **对齐 `watchdog.mjs` / `watch-publisher.mjs` / `execution-obligation.mjs` / `unknown-outcome-reconciliation.mjs` / `recovery.mjs` / `memory/{admission-policy,curator,episodes,file-anchors,maintenance}.mjs` / `watch-runner.mjs` / `objective-actions.mjs` 并接入宿主机维护循环与 Bot TUI 确认卡片（提交 `bd70ba1f`）**：
+  1. **停滞/失败看门狗与事件去重发布器（`crates/peer-project-agent/src/{watchdog.rs, host.rs, lib.rs}`）**：
+     - 实现 `STALL_WINDOW_MS`、`SAME_CAUSE_RETRY_LIMIT`（3 次停重试询用户）、`PROGRESS_THROTTLE_MS`、`assess_stall`（覆盖 `running`/`verifying` 进度停滞与 `result_ready` 验真挂起停滞，等待用户输入时抑制误报）、`assess_same_cause` / `stable_failure_class` 与有状态 `WatchPublisher::publish`（去重同 `stallId` 与节流进度差分）；
+     - 挂载 `NativeProjectHost::watch_publisher()`，由后台维护与恢复屏障写入 `ProjectInbox`。
+  2. **受治理执行义务内核与未知结果核对（`crates/peer-project-agent/src/{obligation.rs, provider.rs, host.rs, lib.rs}`）**：
+     - 实现 `classify_execution_obligation`、`reconcile_unknown_outcome`（结合 `ExecutionResourceStore` 认领状态、recorder 存活证明与 git 可见变更判定 `no_effect_observed`/`inconclusive`/`unfenced_external`）及 `ExecutionObligationService`（`inspect` / `inspect_async`、`request_authorization`、`confirm_grant` / `revoke_grant`、幂等 `resolve` 与 `suspend_live`）；
+     - 向主 Bot 投影异步工具 `inspect_execution_obligation`、`request_obligation_authorization`、`resolve_execution_obligation`，并在 `NativeProjectHost` 暴露 `pending_obligation_grants` / `confirm_obligation_grant`（确认后向 inbox 追加 `obligation_grant_confirmed`）。
+  3. **片段记忆准入、3 次偏好激活与文件锚点日常维护（`crates/peer-project-agent/src/{memory.rs, memory/{admission.rs, episodes.rs, file_anchors.rs, maintenance.rs, curator.rs}, runner.rs, host.rs}`）**：
+     - 补齐 `MemoryStore::{get, write_curated, mark_maintained}` 与 5 个子模块：敏感词与无证据放松拦截（`decide_memory_admission`）、回合用户输入/任务结束事件记录与 10 分钟冷却调度（`EpisodeLog`）、工作区文件 SHA-256 锚点捕获与防路径逃逸（`capture_file_anchors`）、基于模型的片段提炼并在第 3 次偏好命中时激活（`MemoryCurator::extract_due_with_model`）以及按日过期清理/文件漂移 `needs_reverify` 标记（`MemoryMaintenance::run_due`）。
+  4. **7 阶段项目恢复屏障、Objective 后台探针与提案审批卡（`crates/peer-project-agent/src/{recovery.rs, objectives.rs, objectives/watches.rs, provider.rs, host.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - 新增 `ProjectRecoveryBarrier` 按 `RECOVERY_PHASES`（`["lease", "inputs", "inbox", "queue", "tasks", "watch", "digest"]`）串行恢复、校验租约持有并将诊断写入 `recovery.json`，同步修复空摘要队列在 recovery/maintenance 中提前写入当天 `fired` 标记的回归问题；
+     - 扩展 `WatchHost` 支持只读零工具模型探针（`run_agent_probe`）与游标/周期门控对账（`reconcile_workspace`），新增 `ObjectiveActions`、工具 `propose_objective_action`（返回 `objective_action_card_id`）及 `NativeProjectHost::{recover_workspace_barrier, decide_objective_proposal, run_background_maintenance}`；
+     - `bot_shell.rs` 投影 `DecideObjectiveProposal` / `DecideObligationGrant` 交互确认卡片，并在事件循环接入 15 秒周期 `run_background_maintenance`（保持 `Cargo.toml`、`Cargo.lock`、`crates/peer-tui` 零改动）。
+  5. **Phase 4 E2E 回归验证（`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - 新增 5 组端到端测试：`watchdog_detects_running_and_result_ready_stalls_and_stops_auto_retry_on_same_cause_limit`、`execution_obligation_inspect_authorize_confirm_resolve_and_unknown_outcome_reconciliation`、`seven_phase_project_recovery_barrier_persists_recovery_json_and_re_runs_after_lease_drop`、`memory_curator_episode_admission_three_episode_preference_and_file_anchor_maintenance`、`objective_watch_runner_reconciles_deterministic_and_agent_probes_and_proposal_card_spawns_session`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **36/36**、`peer-project-agent --test project_agent_e2e` **28/28**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 3 补齐：Coordination V2、独立 Verifier、Working Context、代理通信与用户抢占
+
+- **对齐 `coordination-v2` / `verifier` / `working-context` / `agent-communication` / `wake-wait` 契约并解耦 Bot TUI 前台交互与后台 Worker 执行（提交 `d46df0f2`）**：
+  1. **Coordination V2 运行时桥接（`crates/peer-project-agent/src/{coordination_bridge.rs, host.rs, lib.rs}`）**：
+     - 新增 `CoordinationHub` 封装按 workspace 隔离、带租约围栏的 `CoordinationStore` 访问，支持 `work_notes`（乐观 `expectedRevision` 并发控制 + 幂等回放）、`context_windows`（续接交接窗口）、`agent_messages`（父子耐久邮箱投递与已读标记）、`work` 生命周期与 `coordination_decision` 版本化委派约束日志；
+     - `NativeProjectHost` 切换至共享 `Arc<CoordinationHub>` 并暴露 `coordination()` 与稳定工作 ID 生成 `coordination_work_id`。
+  2. **工作会话能力天花板与独立只读 Verifier（`crates/peer-project-agent/src/{verifier.rs, supervisor.rs, lib.rs}`）**：
+     - 新增 `resolve_work_session_profile` 强制实施按角色/权限（`worker`/`explorer`/`verifier`、`readOnly` 标记与本地访问级别）交集裁剪后的只读能力天花板，杜绝越权投影写/执行能力；
+     - 新增 `run_independent_verifier`（固定只读 `verifier` Profile、`DenyEscalationPermission`、至多 2 轮结构化 JSON `VerifierReport` 修复、禁止编造未索引 `evidenceRefs` 并识别同家族/跨家族 `model_family`），由 `SessionSupervisor::run_session_episode_with_verifier` 持久化 `verificationReport`、`modelReviews` 与 `read_verification_detail`。
+  3. **`Working Context`、`send_agent_message`、`coordinate_work` 与 `memory_remember` 受治理工具（`crates/peer-project-agent/src/{provider.rs, system_context.rs, runner.rs}`）**：
+     - 投影并实现 `read_work_notes`、`write_work_note`、`search_work_history`（复用 `memory_secret_reason` 脱敏）、`prepare_context_handoff`、`send_agent_message`（写入 Coordination V2 邮箱并持久化子会话 `agent_message` 记录）、`coordinate_work`（`query`/`cancel`/`resume`/`answer`/`augment`/`revise`/`parallel`/`replace`/`handoff`/`assess`）与 `memory_remember`（屏蔽运行时内部元数据注入）；
+     - `system_context.rs` 与 `runner.rs` 注入 `L7_CONTINUITY` 段 `project-agent.working-context` 与 `project-agent.agent-messages`，并在每轮前后关联工作流状态与邮箱观察回执。
+  4. **用户输入优先抢占与后台 Worker 非阻塞并发（`crates/peer-project-agent/src/{host.rs, lib.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - `NativeProjectHost` 新增 `tick_foreground`、`ForegroundTickReport` 与 `run_promoted_session`，并在 `maybe_run_wake_turn` 实现 `inputs.has_pending` 用户输入优先抢占及参考 `wake-wait.mjs#hostWakeWait` 的 `is_routine_host_wake_wait`（吸收活跃进行中会话的例行 `session_spawned`/`session_running` 等事件，避免空转唤醒）；
+     - `bot_shell.rs` 改造为基于 `tick_foreground` 与独立异步 `active_workers` 任务池的非阻塞架构，后台 Worker 授权统一经共享 `PermissionPort` 接入交互 Dock，用户输入/滚动/`Ctrl-C` 停止后台任务与退出清理均不阻塞于后台执行。
+  5. **Phase 3 E2E 回归验证（`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - 新增 5 组端到端测试：`working_context_notes_handoff_and_work_history_redaction_via_coordination_v2`、`work_session_profile_enforces_read_only_ceiling_and_independent_verifier_evaluates_model_review`、`send_agent_message_and_coordinate_work_query_and_control_through_coordination_v2`、`user_input_preempts_pending_wake_events_and_foreground_tick_never_blocks_on_workers`、`coordination_v2_state_survives_host_restart_and_lease_handoff`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **26/26**、`peer-project-agent --test project_agent_e2e` **23/23**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 2 补齐：Digest 队列、锚点解析与验真标记、全量工具矩阵、停止延续与 Worktree 交付卡片
+
+- **对齐 `digest.mjs` / `reply-composer.mjs` / `user-anchor.mjs` / `retry-continuity.mjs` / `tool-specs.mjs` / `objective-tool-specs.mjs` 并补齐 Bot TUI 确认与分支交付卡片（提交 `da2fab2d`）**：
+  1. **持久化 Digest 汇总队列（`crates/peer-project-agent/src/{digest.rs, host.rs, lib.rs}`）**：
+     - 新增 `DigestQueue`（原子持久化 `<data_home>/project-runtime/digest.json`），支持 `hold`（按项 ID 去重并保留原回复 `sources`/`replyTo`/`marks`/`meta` 引用）、`consider`（UTC `HH:MM` 到达触发且按 workspace 每日仅汇总一次，生成 `"今天 {clock} · 今日小结"` 分隔标与合并引用）与 `acknowledge`；
+     - `NativeProjectHost` 集成 `digests()`、`flush_due_digest`、`confirm_session_result`、`handoff_session_worktree` 与 `retry_stopped_input`。
+  2. **锚点解析、验真标记与防漏报守卫（`crates/peer-project-agent/src/{reply.rs, lib.rs}`）**：
+     - 新增 `resolve_user_anchors` 支持由 `messageId` 或原始 `inputId`（映射 `input-<id>`）解析用户消息锚点，失配/歧义返回 `anchor_not_found` / `anchor_ambiguous` 与最近 5 条 `availableReplyAnchors` 诊断；
+     - 新增 `question` 结构/选项校验与 `result_source_required`（阻止仅在引用文本含未汇报 `result_ready` 会话时省略 `sources`）；为引用会话补充 `marks` 与 `meta.verdictRef` 验真追溯。
+  3. **Objective CRUD 与 Session Supervisor / InputQueue 治理（`crates/peer-project-agent/src/{objectives.rs, supervisor.rs, input_queue.rs}`）**：
+     - `ObjectiveStore` 新增支持字段级与 `expectedVersion` 乐观锁更新的 `update` 与带 `closeEvidenceRefs` 的 `close`；
+     - `SessionSupervisor` 新增 `read_verification_detail`、`discard_worktree`、`resume_session`，持久化 `deliveryHandoff` 状态到计划文档，并在 `list_bot_sessions`/`list_all_bot_sessions` 计算 `result_confirmation_required`；`InputQueue` 新增 `requeue_executed` 支持用户中断输入不重复入队的精准重排。
+  4. **扩展受治理 Bot 工具矩阵与诊断透传（`crates/peer-project-agent/src/provider.rs`）**：
+     - 新增暴露 `resume_session`、`get_verification_detail`、`search_conversation`（调用 `memory_secret_reason` 自动脱敏为 `[REDACTED]`）、`get_objective`、`update_objective`、`pause_objective`、`resume_objective` 与 `close_objective`；
+     - 升级 `create_objective`、`spawn_session` 与 `post_reply`，透传 `availableReplyAnchors` 错误诊断，将 `Surfacing::Digest` 路由入 `DigestQueue::hold` 并跟踪 `post_reply_rejected` 状态。
+  5. **停止卡片、重试连续性与 1 轮交付修复（`crates/peer-project-agent/src/{system_context.rs, runner.rs, lib.rs}`）**：
+     - 用户取消回合持久化 `system_card`（`card: "agent_stopped"`，`{turn_id}-stopped`，保留实时/分轮部分回复 `partialReply`），并在流式返回后增加取消守卫避免误写兜底回复；
+     - 新增 `read_retry_continuity`（回溯同锚点最近 `stopped`/`error` 回合工具历史与脱敏 `partialReply`）并注入 `L7_CONTINUITY` `project-agent.retry-continuity`；针对 `wake` 空结尾或被拒绝 `post_reply` 执行最多 1 轮合成纠偏（`delivery_repair`）。
+  6. **Bot TUI 交互卡片与 E2E 回归（`crates/peer-cli/src/terminal/bot_shell.rs`、`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - Bot 视图投影 `ConfirmResult`（待确认接收）、`HandoffWorktree`（合并分支 / 丢弃分支）与 `agent_stopped` Retry 卡片并接入执行回调；
+     - 新增 5 组 Phase 2 E2E 测试：`objective_full_lifecycle_and_conversation_search_redacts_secrets`、`post_reply_anchor_resolution_verdict_marks_and_delivery_repair_after_rejection`、`stopped_turn_persists_agent_stopped_card_and_retry_carries_retry_continuity`、`digest_surfacing_defers_to_digest_queue_and_flushes_when_due`、`confirm_session_result_and_worktree_handoff_merge_and_discard`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **22/22**、`peer-project-agent --test project_agent_e2e` **18/18**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 TS→Rust Bot Harness 缺口清点 Phase 1（P0）补齐：核心认知/计费/压缩/熔断统一、提问卡片与租约接管
+
+- **对齐 `peer-runtime` 与 `agent-turn-plan.mjs` / `circuit-breaker.mjs` 并补全 Bot TUI 卡片与租约握手（提交 `5a6a7c9a`）**：
+  1. **`peer-runtime` 共享能力暴露与角色模型路由（`crates/peer-runtime/src/{model.rs, model/error.rs, cognition.rs, lib.rs, model_catalog/exec.rs, model_catalog.rs}`）**：
+     - `ModelError` 新增 `http_status`、`is_transient_retryable()`（区分瞬态 408/429/5xx/超时/中断与不可重试的 401/403 鉴权/上下文溢出/`CANCELLED`）与 `observed_usage()`；
+     - 公开 `ModelDelta`、`SAME_PROVIDER_RETRY_DELAYS_MS`（`[500, 1500, 3000]ms`）、`SameProviderRetryPolicy`（统一通用退避与 `qoder_retry::Policy`）、`ModelTurn::usage_amounts()` 与 `NativeModel::turn_with_materialized_history_and_deltas`；
+     - 暴露 `compaction_summary_prompts`、`build_compaction_summary_input` 与 `build_structural_compaction_summary`，新增 `resolve_role_model` 支持读取 `settings.json` `modelRouting` 与 `profile.modelPolicy`（`scope` 白名单与 `overrides` 角色覆盖，显式 `--model`/`--provider` 仍优先）。
+  2. **持久化熔断器（`crates/peer-project-agent/src/circuit_breaker.rs`、`lib.rs`）**：
+     - 新增兼容 `packages/runtime-node/src/project-agent/circuit-breaker.mjs` 契约的 `CircuitBreakerStore`（原子读写 `<data_home>/project-runtime/<workspace_id>/circuit-breaker.json`，保留未知扩展字段），实现 `5` 次连续失败熔断 `10` 分钟、`turnId` 去重、按 `provider:<name>` 维度隔离、冷却期满/用户输入 `half_open` 试探、`abandon_trial` 回退及手动复位。
+  3. **`ProjectAgentRunner`、`system_context` 与 `directory` 统一（`crates/peer-project-agent/src/{runner.rs, system_context.rs, directory.rs}`）**：
+     - `runner.rs` 拆分 `user`（`10` 轮 / `20` 工具调用）与 `wake`（`6` 轮 / `12` 工具调用）预算；`system_context.rs` 新增 `L6_MODE_REMINDER`（`wake` / `taskDeliveryReminder`）与压缩延续摘要段；
+     - 接入 `call_model_with_retry` 瞬态退避与流式 `ModelDelta::Text` 实时刷新 `ProjectAgentActivity::reply_text` 与有界 `publicUpdates`；
+     - 接入 `RuntimeUsageAccounting` 与 `ConversationStore::record_runtime_turn_usage` 将 Bot 回合用量写入 canonical `~/.peer-agent/usage/requests.jsonl`（按实际执飞角色归因 `modelProviderId`）；
+     - 接入 `load_bot_history` 与 `compact_bot_history`（`85%` 窗口阈值预检 + HTTP 413/context overflow 溢出自动压缩，优先 LLM 摘要、失败退回结构化摘要，落盘标准 `_compaction` 标记）；`directory.rs` 隐藏 `_compaction` 标记并补齐 `card:question:reply:<id>` 前缀剥离、`question.answered` 与新回复覆盖旧开放问题契约；
+     - 持久化隐藏 `agent_turn` 过程记录（`rounds`/`publicUpdates`/`diagnosticTiming`）及失败 `unavailableCard`（`{turn_id}-card`，`system_card` / `agent_unavailable`）。
+  4. **租约让渡握手与 Bot TUI 卡片/流式体验（`crates/peer-project-agent/src/host.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`）**：
+     - `NativeProjectHost` 新增 `request_takeover`（写入 `host.yield`）、`takeover_requested`、`resolve_bot_model_selection`，并在 `tick` 各阶段检查 `host.yield` 及时释放租约避免宿主乒乓争夺；
+     - `bot_shell.rs` 投影开放式回复提问卡（选项按钮与 `/answer N`）与未覆盖失败重试卡（重置熔断并重试），接入 `/takeover` 协商让渡、被请求方自动停止当前 tick 并退回客户端模式、角色模型徽标解析与按 `activity.revision` 触发的零等待流式重绘。
+  5. **E2E 回归（`crates/peer-project-agent/tests/project_agent_e2e.rs`）**：
+     - 新增 5 组端到端回归测试覆盖瞬态重试/401 不重试与跨实例持久化熔断、canonical 用量账本 + 隐藏 `agent_turn` + `publicUpdates`、HTTP 413 上下文溢出自动压缩、回复提问卡片 `card:question:reply:` 生命周期与双宿主 `host.yield` 租约让渡。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **179/179**、`peer-project-agent --lib` **20/20**、`peer-project-agent --test project_agent_e2e` **13/13**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 修复 Bot 超大工具结果触发 `model_tool_result_materialization_required`
+
+- **为 Bot `ProjectAgentRunner` 接入超限工具结果落盘引用与 `read_tool_result` 投影（提交 `a090ebf8`）**：
+  - **根因**：`6be02311` 打通 Bot 多轮工具历史编码后，主 Bot 读取大文件或长输出（超过 6,000 UTF-16 字符，如 `read_file` / `git_query`）触发了下一轮编码限制——`crates/peer-project-agent/src/runner.rs` 调用仅支持内联视图的 `NativeModel::turn_with_history`（内部走 `ToolResultEncoding::inline()`），对 > 6,000 字符工具结果直接报错 `model_tool_result_materialization_required`；同时 `ProjectAgentRunner` 默认构造 `ProviderRegistry::default()` 未投影 `read_tool_result`。
+  - **修复**：
+    1. `crates/peer-runtime/src/model.rs` 新增 `NativeModel::turn_with_materialized_history`，对超限工具结果先调用 `ToolResultEncoding::materialize` 落盘到 `<home>/conversations/<conversation_id>.tool-results/` 并替换为 `local_file_ref`/`local_tool_result_ref`；
+    2. `crates/peer-runtime/src/providers/tool_artifact.rs` 与 `crates/peer-runtime/src/providers.rs` 在 `ToolArtifactProvider(true)` 的 `modeScopes` 增加 `"project_agent"` 并提供 `ProviderRegistry::for_project_agent()`；
+    3. `crates/peer-project-agent/src/runner.rs` 改用 `ProviderRegistry::for_project_agent()` 与 `turn_with_materialized_history`，并在首轮无消息对话启动时确保 `<conversation_id>.jsonl` 存在以免首次工具物化因缺对话正文文件失败；
+    4. `crates/peer-project-agent/tests/project_agent_e2e.rs` 新增 E2E 回归测试 `bot_materializes_oversized_tool_results_and_can_read_tool_result`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **177/177**、`peer-project-agent --lib` **17/17**、`peer-project-agent --test project_agent_e2e` **8/8**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 修复 Bot TUI 授权错乱、多轮无回复与重复 `BOT Bot` 徽标
+
+- **修复 Bot TUI 后台 worker 授权写穿备用屏、发送消息不回复及重复 `BOT Bot` 前缀（提交 `6be02311`）**：
+  - **界面错乱根因与修复**：`crates/peer-cli/src/terminal/bot_shell.rs` 原将无头阻塞终端提示器 `TerminalPermission` 传入 `host.tick`（后台 worker 在只读探索项目读取系统 gitconfig 等工作区外路径时直接向 `io::stderr()` 输出文本并抢占 `io::stdin()`），冲垮 Ratatui 备用屏导致 `working...` 叠绘在输入框。现改为共享 `PermissionPort` 通道 + `crates/peer-tui/src/{classic_view.rs, bot_view.rs}` 复用 Frost 圆角红框 `render_approval_dock` 处理键盘授权，补充单测 `bot_conversation_renders_approval_dock_cleanly_without_corrupting_layout`。
+  - **Bot 不回复与“短暂显示两个 `BOT Bot` 后消失”根因与修复**：
+    1. `crates/peer-project-agent/src/runner.rs` 在第 1 轮调用工具后把工具历史写成 snake_case（`tool_calls`/`tool_call_id`），被 `crates/peer-runtime/src/model/continuation.rs` `lower()` 剥离，导致第 2 轮请求发送孤立 `role: "tool"` 而被模型 API（Chat / Responses / Gemini 等）400 拒绝。现新增 `LiveHistory::remember_turn` 并改写为 canonical camelCase（`toolCalls` / `toolCallId` / `name` + `sanitize_assistant`/`javascript_trim` 分段），同步将工具轮次预算从 `6/16` 提至 `10/24`、过滤历史空白助手消息并在 user 轮次耗尽预算时追加无工具收口回复；`system_context.rs` 与 `provider.rs` 补充 wake turn `proactive: true` 指引与 `user` 轮次 `replyTo` 锚点兜底。
+    2. `crates/peer-project-agent/src/host.rs` 原在 `TurnEndKind::Failed` 后仍把输入标为 `executedInputId`；现仅在非 `Failed`/`CircuitOpen` 时 `mark_executed`，失败/熔断/停止即刻终止本轮保留真实结果，并在 worker 后刷新租约心跳；新增 `input_queue.rs` / `inbox.rs` / `host.rs` `has_pending` 与 `has_pending_work`。
+    3. `crates/peer-cli/src/terminal/bot_shell.rs` 将 `ActiveTick` 返回 `HostTickReport`，失败/租约被占/熔断时显式展示底部提示而不再被 `Ok(Ok(()))` 清空；记录活跃 tick 期间到达的输入并在完成后自动续推，进入 `BotShellState::run` 或从 `/bots` 切入有待处理工作时自动触发推流。
+    4. `bot_view.rs` 左侧栏已绘制 `BOT` 徽标，移除 `bot_shell.rs::draw` 里给 `live_activity` 额外拼接的 `"Bot  "` 前缀（并本地化 `thinking`/`tool` 阶段文案为 `思考中…`/`调用工具中…`）。
+  - 补充 E2E 回归测试 `crates/peer-project-agent/tests/project_agent_e2e.rs`（`multi_round_bot_tool_loop_encodes_valid_wire_tool_calls_for_chat_and_responses` 与 `failed_bot_user_turn_preserves_unexecuted_input_and_recovers_on_retry`）。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **177/177**、`peer-project-agent --lib` **17/17**、`peer-project-agent --test project_agent_e2e` **7/7**、`peer-tui` **48/48**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**（`requests: 7`）全部通过。
+
+## 2026-11-20 修复重启重置权限为 Ask 及 60s 授权等待触发 `waiting_user`
+
+- **同步读写 `settings.json` `localAccessLevel` 并移除交互端口 60s 硬超时（提交 `3bcaa18a`）**：
+  - 根因：1）`crates/peer-cli/src/terminal/classic.rs` 启动时硬编码 `LocalAccessLevel::AskBeforeLocal`，既不读取桌面/OpenTUI 写入 `~/.peer-agent/settings.json` 的 `localAccessLevel`（如 `full_local` / `session_local`），`/permissions` 切换后也未写回磁盘；2）`crates/peer-cli/src/terminal/resumed/ports.rs` 的 `PermissionPort::decide` 在 60 秒后返回 `LocalPermissionDecision::Timeout`，使授权弹框到期变成不透明错误 `执行未完成（waiting_user）`。
+  - 修复：`theme_store.rs` 只读加载并新增 `save_local_access_level` 原子写回（保护无关字段与损坏 JSON）；`classic.rs` 在 `ClassicSession::new` 初始化、`apply_access` 同步写回 `settings.json`，并在 `poll_active` 为 `waiting_user` 增加明确超时提示文案；`resumed/ports.rs` 移除 60 秒截断定时器（由 Runtime `permission.rs` 既有的 300s 兜底）。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10** 全部通过。
+
+## 2026-11-20 修复多工具回合 `model_continuation_identity_changed` 与工具摘要截断省略号
+
+- **修复工具调用前置助手正文带首尾空白触发 `model_continuation_identity_changed`（提交 `b146c917`）**：
+  - 根因：`crates/peer-runtime/src/canonical_history.rs` 的 `flush()` 对工具调用前输出的助手正文同时执行 `sanitize_assistant` 与 `peer_protocol::javascript_trim`，而 `crates/peer-runtime/src/model/continuation.rs` 的 `LiveHistory::remember` 仅做 `sanitize_assistant(&continuation.text)` 未执行 `javascript_trim`，导致推理模型在工具前输出末尾含 `\n\n` 的提示语（如 `deepseek-v4.1-flash` 实测复现）在工具执行后校验身份失败。
+  - 修复：在 `LiveHistory::remember` 对比 `expected` 前与 `canonical_history.rs` 对齐执行 `peer_protocol::javascript_trim`，并补充平行工具调用与防篡改回归单测 `live_replay_matches_canonical_history_trimmed_assistant_text_with_parallel_tools`。
+- **移除单行工具摘要等 UI 短字段中的 `［预览，完整正文见导出］` 伪后缀（提交 `3ce1d467`）**：
+  - 在 `crates/peer-cli/src/terminal/resumed/ports.rs` 新增专用单行截断函数 `compact_bounded_text`（清理控制符、合并空白并以 `…` 结尾）；保留 `bounded_text` 仅用于超大消息正文预览。
+  - 将 `crates/peer-cli/src/terminal/classic.rs` 的工具摘要上限从 `120` 提升至 `256` 并替换为 `compact_bounded_text`，同步切换 `push_detail_line`（`240`）、交互选项（`160`）/提问（`400`）、`build_approval_card` 参数（`240`）及 `crates/peer-cli/src/terminal/resumed.rs` 会话标题与工具短名；新增单测 `long_tool_summary_and_approval_args_use_ellipsis_never_export_preview`。
+- **实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **177/177**、`peer-cli --lib` **28/28**、`cargo build --release -p peer-cli`、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10** 全部通过。
+
+## 2026-11-20 Peer Frost 2.0 / OpenTUI 交互与排版精修补齐
+
+补充提交 `07525692` 补齐 `peer-native`（`crates/peer-tui/src/{wordmark.rs, lib.rs, overlays.rs, model_picker.rs, classic_view.rs, bot_view.rs}`、`crates/peer-cli/src/terminal/{classic.rs, bot_shell.rs}`、`crates/peer-cli/examples/adr130-soak-probe.rs`）中对齐 OpenTUI（`apps/tui/src/{app.tsx, tui-theme.ts, b3-wordmark-view.tsx, composer-status-view.tsx, responsive-layout.ts}`）的 6 项视觉与交互精修：
+- **`PICKER_CHROME` 终端画布层停靠区与呼吸留白（`overlays.rs`、`classic_view.rs`）**：将停靠选择器（`Resume`/`Mode`/`Permissions`/`Theme`/`Language`/`Goals`/`Help`）与 `Ask user` 停靠区由 `palette.panel` 灰底方块改为 `palette.background` 终端层表面并保留全宽顶部极细分隔线与上下呼吸间距；`Skills`/`Mcp` 管理弹窗、红框 `Approval required` 与圆角 `Plan approval` 仍保留圆角 `palette.panel` 卡片表面，同时为 `Skills`/`Mcp` 弹窗增加内侧 1 列左右内边距与选定行全宽 `palette.selection` 高亮条。
+- **保留光标与多空格列对齐（`overlays.rs`、`model_picker.rs`、`classic_view.rs`）**：新增保留前导缩进与内部多空格间距的 `clip_preserve_indent` 并拆分 `caret`（`› ` / `  `、` › ` / `   `）为独立 `Span`，彻底修复 `clip_bot_line`（`split_whitespace().join(" ")`）剥离未选中行缩进及压扁 `/help` 与技能详情列对齐的问题。
+- **选择器层级与搜索体验完善（`overlays.rs`、`model_picker.rs`、`classic.rs`）**：
+  - `ClassicOverlay::Resume` 新增 `query: String` 与 `filtered_resume_indices`（支持按标题/工作区/模式/ID 实时键入过滤、空匹配提示与 `Esc` 先清空搜索再关闭），行尾改为右对齐 `palette.muted` 元信息（`{count} 条 · {ws} · {when}`）；
+  - `Mode` 与 `Permissions` 在空间充裕时恢复两行式选项（`caret + [1] Label` + `    description` 浅灰副行），窄高度自动回退单行；
+  - `Goals` 列表右侧 `{status} · {completed}/{total}` 接入 `goal_panel::goal_status_color` 语义着色并右对齐；
+  - `Help` 在快捷键/斜杠命令/运行模式分区间插入空行并完整保留列排版；
+  - `ModelPickerState` 新增跨供应商实时搜索 `query: String`（`filtered_entries`、`Esc` 先清搜索、命跨供应商条目尾部附 ` · {group.label}`）、仅当前激活供应商 tab 使用 `[Group]` 方括号且移除下划线、并按 `TuiLocale` 本地化标题/脚标与状态文案。
+- **Classic 响应式外边距与状态栏左缩进（`classic_view.rs`）**：新增 `responsive_outer_padding` 对齐 `responsive-layout.ts`（宽 `>=120 -> 3`、`>=80 -> 2`、`>=60 -> 1`、`<60 -> 0`；高 `>=18` 且宽 `>=60 -> vpad=1`），对话区历史消息上方增加 1 行顶部呼吸间距，`render_composer_status_bar` 在宽度 `>= 40` 时增加 1 列左内缩进对齐输入框光标边线。
+- **`B3Wordmark` 逐行显现与冰湖青呼吸动效（`wordmark.rs`、`classic.rs`、`bot_shell.rs`）**：新增 `WORDMARK_REVEAL_STEP_MS = 100`、`WORDMARK_BREATHE_PERIOD_MS = 2_000`、`WORDMARK_ANIMATION_TICK_MS = 125`、`breathe_signal_color` 与 `b3_wordmark_lines_animated`（保持 7×53 / 4×30 / 1×10 几何尺寸不变，逐行揭幕完成后信号条按 2 秒正弦波以 `0.35` 振幅向 `palette.brand_highlight` 呼吸渐变），并仅在 Classic 欢迎页或 Bot 空态 Hero 徽标实际可见时按 125 ms 节拍重绘，退出欢迎/进入会话后零空转定时刷新。
+- **提交 `07525692` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **47/47**、`peer-cli --lib` **27/27**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.015625 / 83.90625、`finalRssMiB` 85.59375、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,227,185 / 4,086,321 B）全部通过。
+
+## 2026-11-20 Classic Plan/Goal 任务侧栏与 Plan 审批卡片补齐
+
+补充提交 `150b5801` 在原生 Classic TUI 中完整补齐对齐 OpenTUI（`apps/tui/src/{goal-status-view.tsx, goal-status-model.ts, goal-plan-history.ts, plan-mode.ts}`）与 Desktop `GoalStore` 规范（`goal-plan-store.mjs`）的任务区侧栏、窄屏紧凑进度条与交互式 Plan 审批卡片：
+- **标准 Plan 审批状态持久化（`crates/peer-store/src/goal/approval.rs`）**：新增 `PlanApprovalDecision`（`Approve` / `Revise` / `Reject`）与 `GoalStore::decide_ordinary_plan_approval`，沿用 `PlanWrite` 锁与版本号乐观校验，原子更新计划 `approval` / `activation`（批准写 `approved_plan`、`status="approved"`；修改写 `"drafting"`；拒绝写 `"cancelled"`）及 `index.jsonl` / `.changes.jsonl`。
+- **纯显示任务区侧栏、窄屏紧凑条与圆角 Plan 审批卡片（`crates/peer-tui/src/{goal_panel.rs, classic_view.rs}`）**：
+  - 终端宽度 `>= 120` 列时在左侧对话列与右侧分栏渲染 34–42 列的 `render_goal_status_panel`（`MISSION / 01 OF N`、`● STATUS`、标题、`COMPLETED / TOTAL COMPLETE` + `━─` 进度条、`NOW WORKING` 当前任务卡、`TASKS` 最多 10 项状态列表与 `+N more`、`NEEDS ATTENTION` 阻塞原因），同步将对话超链接精确投影在左侧列；
+  - 宽度 `< 120` 列自动降级为输入区上方单行 `render_goal_compact_summary`（状态图标 + 当前任务/标题 + 多目标序号 + 4 格 `━─` 进度条 + `completed/total`）；
+  - 存在本地 `awaiting_approval` 计划且空闲无冲突浮层时，在 Dock 区域渲染圆角 `render_plan_approval_dock`（列出目标、编号任务及 `[1] 批准并执行` / `[2] 修改计划` / `[3] 拒绝` 操作选择与快捷键提示）。
+- **Classic 会话水合、回合内实时刷新与按键接线（`crates/peer-cli/src/terminal/classic.rs`）**：升级 `LoadedGoalPlan`（过滤 `cancelled` 与 `activation.kind == "intake"`，优先锁定 `awaiting_approval` 及运行中计划），在 `poll_active` 每次 `need_reload` 实时刷新任务状态；支持 `↑/↓/←/→/Tab` 切换、`1/y/2/3/n/Esc/Enter` 决策持久化并联动切换到 `Goal`（提交执行回合）或 `Plan` 模式。
+- **提交 `150b5801` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-store --lib` **16/16**、`peer-tui` **43/43**、`peer-cli --lib` **27/27**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 16.890625 / 81.921875、`finalRssMiB` 85.359375、`fdDelta` 0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
+
+## 2026-11-20 原生 Bot TUI Frost 2.0 布局重做
+
+补充提交 `71f36d0b` 基于 Peer Frost 2.0 与经典模式视觉语言直接重做原生 Bot TUI 布局（`crates/peer-tui/src/bot_view.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`），在不引入额外启动磁盘 I/O 且严格守住 ADR 122 边界的前提下补全信息层级与视觉框架：
+- **顶部状态栏与分隔线（`render_bot_topbar`）**：对话与二级子视图顶部显示 `◆ Peer · <Name>`、当前子视图标签、紧凑工作区路径、`● 由本终端运行` / 租约状态以及待处理与运行中角标，并配全宽极细分隔线；`BotList` 页标题严格保持 `Peer` 以维持 ADR 122 与 F2 往返切换契约。
+- **居中 Hero 空态与圆角工作区绑定卡**：无历史消息时居中展示响应式 `b3_wordmark_lines`（`peer agent` 徽标）、机器人标识与工作区路径、副标题、圆角卡片框（`╭─╮│╰─╯`）与胶囊式动作筹码及内联会话列表（`< 12x30` 自动降级为紧凑排版）；未绑定工作区页面在宽高充足时居中展示圆角 `BindWorkspace` 卡片。
+- **对话流左轨、圆角卡片与委派任务区（`render_conversation_body`、`push_rounded_card_lines`、`push_inline_task_rows`）**：`width >= 44` 时采用与经典模式一致的 Frost 2.0 / Crush 左轨（` YOU  ▌ ` 与 ` BOT  `）并精确平移 `LineLink` 列坐标保障 OSC 8 `Cmd+Click` 点击准确；底部内联展示委派任务状态行与左轨对齐的实时活动行。
+- **悬浮圆角输入盒与底部状态栏（`render_bot_shell_with_links`、`render_bot_status_bar`）**：输入区升级为带 `palette.panel` 填充和聚焦边框的圆角盒子（支持 1–3 行动态换行与卡片聚焦动作 placeholder；高度 `< 12` 或宽度 `< 20` 时回退为紧凑分隔线），底部增加 Frost 状态栏（左侧显示 `mode bot · host 本机宿主 · ...` 等状态，右侧显示 `<short_model> · <effort>`，严禁出现 `F2 · 普通任务模式`）。
+- **`bot_shell.rs` 零新增磁盘 I/O 接线**：复用 `open()` 既有 `resolve_exec` 解析并保存 `selected_display_name`，在 `ModelPickerEvent::Select` 时同步更新；`draw()` 直接传入内存中的 `workspace_path`、`model_badge`、`effort_badge` 与 `is_running`（合并 `active_tick.is_some()` 与运行中任务状态，并同步驱动 80 ms `working...` 动画刷新）。
+- **提交 `71f36d0b` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、`peer-cli --lib` **25/25**、`peer-project-agent --lib` **17/17**、Release 构建（`target/release/peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.484375 / 84.359375、`finalRssMiB` 86.203125、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
+- **补充提交 `48eb729d`（Hero 副标题与底部状态栏 `/classic` 入口提示）**：按终端宽度分档在 Bot 首页 Hero 副标题与底部状态栏展示 `/classic 普通对话` / `/classic chat`（窄宽 80 列仍完整保留且不触发 ADR 122 禁用的 `F2 · 普通任务模式` 字样），修改后复跑 `cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、Release 构建（`target/release/peer-native`）与 `tui_e2e_pty.py` **5/5** 全部通过。
+
+## 2026-11-20 Peer Frost 2.0 视觉配色与 Bot 输入条/卡片重做对齐
+
+补充提交 `448af3b6` 将未合入分支 `codex/peer-frost-2-visual-upgrade`（`ca679e2a`）与 `PeerAgent/tui-bot-composer`（`f00c9553`）的全部 UI 与交互重做合入 `peer-native`（`crates/peer-tui/src/{theme.rs, bot_view.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）：
+- **Peer Frost 2.0 全端冰湖青色板（`theme.rs`）**：将 `DARK_PALETTE` 从旧纯黑+荧光青柠（`#080a0c` / `#b8f35b`）升级为冷黑曜石石板+冰湖青（`#10141B` 底、`#171C25`/`#1E2430`/`#232A38` 阶梯表面、`#1D2E3F` 选区、`#76B0D4` 主重点与光标、`#96C7E5` 次重点/用户/代码、`#EEF2F7`/`#B2BCCB`/`#8C98A9` 石墨字阶、`#63B39D` 成功、`#E0B268` 警告、`#D97C92` 错误、`#76A5D6` 运行中）；同步将 `LIGHT_PALETTE` 升级为冷雪纸+深冰湖青（`#EFF3F8` 底、`#F7F9FC`/`#FCFDFF` 表面、`#181C22` 字、`#286891` 主重点、`#296E5D` 成功、`#963850` 错误）。
+- **Bot 对话卡片与输入条重做（`bot_view.rs`、`bot_shell.rs`）**：
+  - 对话流卡片（`BotScreen::Conversation`）不再在卡片框内渲染编号选项（`1. 先熟悉一下项目` 仅保留在 `/cards` 子视图），去掉分隔线上方常驻的 `Tab 选择卡片 · 方向键切换选项 · 回车执行` 提示行；按下 `Tab` 进入卡片焦点后，当前选中动作直接呈现在输入区 placeholder（`←/→` 切选项、`↑/↓` 切卡片、`Enter` 执行、`Esc`/`Backspace`/直接打字回到输入，且仅草稿为空时允许 `Tab` 进卡片焦点）；
+  - 默认输入区 placeholder 精简为 `跟机器人说话` / `Message this bot`，输入 `/help` 时改为向输入框填入 `/` 直接唤起斜杠菜单并回到对话页，`Invalid` 与无匹配斜杠分支统一显示 `输入 / 查看命令。` / `Type / for commands.`；
+  - 对话流底部内联显示委派子任务状态行（`› / ✓ / × / · <标题> · <状态>`），存在 `queued`/`starting`/`running`/`verifying` 子任务时在分隔线上方展示与经典模式同源的扫光 `working...` + `PEER / ACTIVE` 状态条（由 `bot_shell.rs` `animation_frame` 以 80 ms 节拍驱动）。
+- **提交 `448af3b6` 实测（修改后终版结果）**：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --workspace --all-targets -- -D warnings`（0 告警）、`peer-tui` **39/39**、`peer-cli --lib` **25/25**、`peer-project-agent --lib` **17/17**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.34375 / 84.953125、`finalRssMiB` 86.6875、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）全部通过。
+
+## 2026-11-20 Bot 模式冷启动与刷新性能优化
+
+补充提交 `05e62a2b` 消除打开 Bot 模式与刷新期间重复反序列化非委派/超大 `goal-plans/*.json` DOM 的冷启动延迟（`crates/peer-project-agent/src/{supervisor.rs, host.rs}`、`crates/peer-cli/src/terminal/bot_shell.rs`）：
+- **单趟字节预过滤 + `(len, mtime)` 摘要缓存 + 超大计划头尾快路径（`supervisor.rs`）**：引入轻量 `PlanIndexMetaRow`、`PlanSummaryDoc` 与纯安全 Boyer-Moore-Horspool `find_bytes` / `contains_bytes`；`PlanIndexCache` 将缓存负载从完整 `serde_json::Value` 降至 `Option<WorkSessionSummary>` 并按 `(len, modified)` 缓存，未命中时先用原字节排查 `"delegationOrigin"` 跳过约 98% 非委派计划，超过 `256 KiB`（如真实环境 `88.74 MiB` / `77.83 MiB` 含庞大 `runTrace` / `revisionHistory` 的计划）采用 `32 KiB` 头 + `128 KiB` 尾顶层字段快路径（校验 2-space `planId` 且无法命中则自动退回整文件 `PlanSummaryDoc`），新增单趟 `list_all_bot_sessions` 与 `write_plan` 同进程失效；`host::bot_list_json` 改为单趟调用。
+- **按当前屏幕按需加载（`bot_shell.rs`）**：`BindWorkspace` 首帧零扫描（仅 **5.7–5.9 ms**）；`Conversation` 不再拉取全部 Bot 列表与他人大对话文件（消除了每秒周期全仓扫描）；`memories` 与 `objectives` 延迟至切入对应子视图时加载。
+- **真实数据基准与提交 `05e62a2b` 实测**：在含 `1,512` 条 `goal-plans`（`184.52 MiB`，其中 24 条委派计划 `171.41 MiB`）与 `Peer RSI` `20.13 MiB` 对话的真实 `~/.peer-agent` 下对比，Bot 默认打开首帧由 **2,116.7 ms → 43.7 ms**（提速约 **48×**）、`peer-native bots --json` 由 **1,783.0 ms → 42.1 ms**（提速约 **42×**）、`bots` 列表 **35.9 ms**、`BindWorkspace` **5.9 ms**、`--classic` **6.3 ms**；静态与测试方面：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-project-agent -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-project-agent --lib` **17/17**、`peer-cli --lib` **25/25**、`peer-tui` **38/38**、Release 构建与 24 项真实 PTY 套件（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.59375 / 84.484375、`finalRssMiB` 86.15625、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0）全部通过。
+
+## 2026-11-19 原生 Ratatui TUI 交互命令、选择器、快捷键、/resume 与 /compact 全量对齐
+
+补充提交 `582791a5` 为原生 Ratatui TUI（Classic / Bot 模式、Markdown 正文、行内代码与圆角 GFM 表格）补齐终端 OSC 8 `Cmd+Click` 可点击超链接支持（`crates/peer-tui/src/{lib.rs, markdown.rs, table.rs, classic_view.rs, bot_view.rs}`、`crates/peer-cli/src/{terminal.rs, terminal/hyperlinks.rs, terminal/classic.rs, terminal/bot_shell.rs}`）：
+- **纯视图链接模型与列/视口投影（`peer-tui`）**：新增 `LineLink`、`ScreenHyperlink`、`MAX_SCREEN_HYPERLINKS_PER_FRAME`（`256`）及 `display_width`，保持零 `std::fs`/`std::env`/`std::process` 边界与既有渲染签名向后兼容；`tokenize_inline_markdown` 识别 Markdown `[label](url)`（支持嵌套括弧与行内代码标签）、裸 URL（`https://`/`http://`/`file://`，裁剪句末标点并保留成对右括弧）、绝对/`~/`/工作区相对文件路径（含 `:line(:col)`，覆盖散文与行内 `` `code` `` 如 `` `/Users/.../133-unified-rust-core-and-dual-host-architecture.md` ``），同时跳过 `/help`/`/classic` 斜杠命令、`codex/native-rust-cli` 等分支名、`/v1/chat/completions` 接口路径、`2/3` 比值与 `[1](备注)`；`push_wrapped_segments`、`table.rs` 表格单元格与窄屏堆叠降级、`classic_view.rs` 角色标轨与滚动裁剪、以及 `bot_view.rs` 会话与任务详情视图将 `LineLink` 映射到精确屏幕坐标（多行折行共享统一非零 `id`，弹窗浮层开启时抑制底层链接）。
+- **终端能力路由与原子 DECSC/DECRC 叠加绘制（`peer-cli`）**：`crates/peer-cli/src/terminal/hyperlinks.rs` 借鉴 `xai-org/grok-build` 的 `HyperlinkRoute` 实现环境感知路由（自动放行 Ghostty / iTerm2 / Warp / WezTerm / Cursor / VS Code / cmux / Orca 等支持终端，安全屏蔽 `Apple_Terminal`、`dumb`、无 `tmux` 的 GNU Screen、`NO_HYPERLINKS=1` 及无扩展变量的隔离 `xterm-256color` PTY 夹具）；`resolve_osc8_uri` 校验协议并过滤控制字符/ESC/BEL 注入、剥离 `:line(:col)`、展开 `~/` 并校验工作区/一级子仓相对路径存在性后 RFC 3986 编码为 `file:///` URI；`HyperlinkOverlayState` 在 `TerminalGuard::draw_frame_with_links` 刷新 Ratatui buffer 差量后通过原子 `\x1b7 ... \x1b8` 补写 `\x1b]8;id=p<id>;<uri>\x1b\\` 与原单元 SGR/宽字符跨度，滚出或隐藏时清除旧链接并重绘纯文本，退出或 panic 时清理 `OSC8_ACTIVE`。
+- 提交 `582791a5` 实测（修改后终版结果）：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-project-agent -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **38/38**、`peer-cli --lib` **25/25**、`peer-project-agent --lib` **16/16**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.25 / 83.09375、`finalRssMiB` 84.765625、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `fed72f7a` 补齐项目机器人模式首次进入时的 `familiarizeOffer`（「要我先熟悉一下这个项目吗？」）选项卡片、`start_familiarize` 只读熟悉流、`/cards` 与 `/action N M` 键盘操作对齐，并修复瞬态斜杠命令草稿残留导致启动自动弹出 `/classic` 菜单的问题（`crates/peer-project-agent/src/{directory.rs, host.rs, lib.rs}`、`crates/peer-tui/src/bot_view.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`）：
+- **`FamiliarizeOffer` 与 `NativeProjectHost::start_familiarize`**：`BotDirectory::read_interactions` 在 `before == None` 且 `profile.familiarize.is_none()` 时（含尚未生成对话文件的全新绑定机器人）只读返回 `default_familiarize_offer()`；`NativeProjectHost::start_familiarize` 幂等判断空/仅隐藏文件目录（补建对话后追加「这个机器人主要负责什么」）或非空目录（获取租约并以 `FAMILIARIZE_READ_CAPABILITIES` 只读能力派生 `熟悉项目` `research` 会话，写入 `profile.familiarize` 防重）。
+- **Bot 卡片样式、`/cards` 交互与瞬态命令草稿清理**：`bot_view.rs` 按 `CardLine.tsx` / `project-copy.ts` 对齐 `[1] 要我先熟悉一下这个项目吗？` / `1. 先熟悉一下项目` 与空态/聚焦提示（保持不含 `F2 · 普通任务模式`）；`bot_shell.rs` 打通 `Tab`+`Enter`、`/cards` 方向键+回车与 `/action N 选项`，并在初始化跳过瞬态导航命令草稿回填（`/classic`/`/bots`/`/help` 等，零写盘），命令执行时同步清理持久化草稿 `tui.json`。
+- 提交 `fed72f7a` 实测（修改后终版结果）：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-project-agent -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-project-agent --lib` **16/16**、`peer-tui` **34/34**、`peer-cli --lib` **22/22**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.578125 / 82.40625、`finalRssMiB` 85.25、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `eab33285` 新增独立零新增依赖的圆角 GFM Markdown 表格渲染组件 `crates/peer-tui/src/table.rs`（`lib.rs` 导出、`markdown.rs` 与 `classic_view.rs` 集成验证）：
+- **借鉴 `xai-org/grok-build`（`xai-grok-markdown` / `xai-grok-pager-render`）并针对 Peer 增强的表格布局引擎**：支持 11 字符 `TableBorders::ROUNDED`（`╭─┬─╮ / │ / ├─┼─┤ / ╰─┴─╯`）与 `BOX`、1 格单元格内边距、表头与行间分隔线及左/中/右对齐；采用两级列宽预算结合 **公平份额窄列锁定（Phase 1 Fair-Share Lock-In）+ Grok 比例分配（Phase 2 Proportional）**，确保如 `仓库` / `Peer-Knowledge` 等短标识列在 110 列/72 列视口下优先保持完整不折断，宽说明列则按 CJK 与 URL/semver 感知分词（单字宽中文可折、`$145,000`/`v0.1.0` 不拆）自动单元格内多行折行并跨行投影行内 `` `code` `` / `**bold**` / `~~strike~~` 样式；仅当终端极端窄到连单字宽下限都无法容纳时降级为 `[1]` 堆叠卡片。
+- **GFM 解析细节补齐**：`markdown.rs` 支持反引号内管道符保护（`` `a | b` ``）、单元格内 `<br>`/`<br/>` 显式换行、`~~删除线~~` 行内样式、单横线分隔符（`|-|`）及表头/分隔行列数一致性校验（避免含 `|` 的普通散文误判），并完整保留 ADR 130 `32 KiB / 256 行` 单条上限。
+- 提交 `eab33285` 实测（修改后终版结果）：`cargo fmt --all -- --check`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **33/33**、`peer-cli --lib` **21/21**、`peer-runtime --lib` **176/176**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.703125 / 82.46875、`finalRssMiB` 84.640625、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 262.70395730747674、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `cf2c2044` 还原 OpenTUI 圆角红框 `Approval required` 授权选择器（含 `ApproveSession` 运行时会话记忆）与 GFM Markdown 表格及分隔线渲染（`crates/peer-runtime/src/{session_host/authority.rs, conversation_host.rs, conversation_host/permission.rs, conversation_host/tests.rs}`、`crates/peer-tui/src/{lib.rs, classic_view.rs, markdown.rs}`、`crates/peer-cli/src/terminal/{resumed/ports.rs, classic.rs}`）：
+- **运行时 `ApproveSession` 与结构化授权上下文**：`LocalPermissionDecision` 新增 `ApproveSession`，`ConversationAccess` 维护按 `(policy_revision, permission_operation_key / canonical read path)` 索引的内存级 `session_approvals`（切换访问级别或切换/清空会话立即失效，且 `HookDecision::Ask` 与只读工作区 worker 永不绕过）；`Host::decide` 向端口透传 `capabilityId` / `workspacePath` / `reason` / `riskLevel`，授权记录按 `duration: "session"` 与 `approved_for_tui_session` 落盘，Goal Host、ACP 与 `resumed` 契约不受影响。
+- **OpenTUI 风格圆角红框 `Approval required` 选择器卡片**：`crates/peer-tui/src/classic_view.rs` 新增 `ApprovalCard` 与 `render_approval_dock`，在底部停靠栏内绘制圆角红框卡片（`Action` / `Where` / `Reason` / `Risk` / `Args` 与 `1. 允许本次` / `2. 本会话允许此操作` / `3. 拒绝`，支持 `↑↓`/`←→`/`Tab`/`Enter`/`1–3`/`y`/`n`/`Esc`，保留 `30×10` 最小视口核验保护），同时主体对话历史保持完整可见；`ports.rs` 保留 `Approval.text` / `.scroll` / `.shown_at` 不变以兼容 `resumed.rs`。
+- **OpenTUI 三态 GFM 表格与分隔线渲染**：`crates/peer-tui/src/markdown.rs` 移植 `markdown-view.tsx` 逻辑，支持 `---` 水平分隔线以及三种有界表格视图：双列摘要表（`KeyValueTable`）、列宽适配时按 CJK 与行内语法去除后可视宽度对齐的数据表（`DataTable`，带轻量表头底线 `───` 且无竖线边框），以及超宽表自动降级为索引卡片的堆叠表（`StackedTable` `[1]`/`[2]`），全量保留 ADR 130 32 KiB / 256 行硬上限。
+- 提交 `cf2c2044` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **176/176**、`peer-tui` **27/27**、`peer-cli --lib` **21/21**、`peer-cli --test native_episode native_acp` **15/15**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 16.46875 / 81.46875、`finalRssMiB` 84.53125、`fdDelta` 0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `fbdc150d` 补齐 Classic 模式交互式 `request_user_input` 运行时能力与底部 `Ask user` 可选项卡片（`crates/peer-runtime/src/{providers/interaction.rs, providers.rs, turn_loop.rs, conversation_host.rs, conversation_host/permission.rs, conversation_host/tool.rs, conversation_host/tests.rs}`、`crates/peer-tui/src/{lib.rs, classic_view.rs}`、`crates/peer-cli/src/terminal/classic.rs`、`crates/peer-cli/examples/adr130-soak-probe.rs`）：
+- **交互/无头双态 `InteractionProvider` 与批内立即停轮**：`NativeConversationRuntime::execute_interactive`（仅 Classic 交互会话调用）注册交互描述的 `request_user_input` 工具、`Host::authorize` 走 `interaction_self_grant`（跳过交互工具 PreToolUse/PostToolUse 钩子拦截）、以符合 `EvidenceIndexStore` 契约的 `"success"` 落盘完整 `question`/`options`/`control: {"terminal": true, "reason": "request_user_input"}`，并通过 `ToolStep::RequestedUserInput` / `LoopStop::RequestedUserInput` 立即阻断同批后续工具并返还控制权给用户；`execute`（无头 `peer exec`）与 `execute_observed`（`resumed` / ACP）保持 `request_user_input_unavailable` 不变。
+- **Classic 底部 `Ask user` 可选项卡片与无阻断自由输入**：`crates/peer-tui/src/classic_view.rs` 新增 `UserInputPrompt` 与 `render_user_input_dock`（展示问题、窗口化 `› [1] ...` 选项列表及提示脚标）；`crates/peer-cli/src/terminal/classic.rs` 从最新一轮已完成的 assistant 段落扫描未答复 `request_user_input`（跳过 `denied`/`failed`/`cancelled` 历史，用户回复后自动清除），支持 `↑↓`/`Tab`（空草稿含 `←→`）切换、`1–9` 快捷键与 `Enter` 直接提交所选项、`Esc` 收起，并在草稿非空时保留数字输入与自由文本 `Enter` 发送。
+- 提交 `fbdc150d` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **175/175**、`peer-tui` **25/25**、`peer-cli --lib` **20/20**、`peer-cli --test native_episode` 过滤回归 **3/3**（无头 `interaction` 2/2 + `native_acp` 1/1）、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.734375 / 82.59375、`finalRssMiB` 84.25、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 20.20447627439067、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `70db467d` 打通全链路模型 thinking 推理过程流式解码、会话持久化、重启回放与 TUI 实时/历史渲染（`crates/peer-runtime/src/{model.rs, model/sse.rs, model/stream.rs, model/stream/anthropic.rs, model/stream/gemini.rs, model/stream/responses.rs, conversation_host.rs, turn_loop.rs, turn_loop/tests.rs, session_host/episode/turn_host.rs}`、`crates/peer-tui/src/classic_view.rs`、`crates/peer-cli/src/{acp/permission.rs, terminal/resumed/ports.rs, terminal/classic.rs}`、`crates/peer-cli/examples/adr130-soak-probe.rs`）：
+- **全 wire decoder 实时 + 终态 thinking 输出与增量分发**：`ModelTurn` 新增 `thinking: String`，`Stream::preview_thinking` 为 Chat（兼容 `reasoning_content` 与 `reasoning`）、Anthropic（`thinking` 块与 `thinking_delta`）、Responses、Gemini 暴露流式推理增量（`Qoder` 对齐 `preview_text` 仅终态输出避免重试重复）；`PreparedRequest::send_with_deltas` 通过 `ModelDelta` 与 `ConversationEvent::ThinkingDelta` 实时发布推理文本，ACP 保持兼容忽略不扰动助手正文。
+- **thinking-only 工具回合持久化与历史兼容解析**：`turn_loop::run` 在 `!turn.content.is_empty() || !turn.thinking.is_empty()` 时调用 `record_assistant`（解决模型仅输出 thinking + 工具调用时整段推理丢失问题），`Host::record_assistant` 与 `GoalTurnHost::record_assistant` 通过共享 `apply_assistant_thinking` 写入 `thinkingContent` 与 `[{"type":"thinking",...}]` `segments`（`canonical_history.rs` 按契约跳过推理片段不改变请求历史与 continuation 不变量）；`ClassicSession::parse_transcript_row` 支持 `segments` 与顶层 `thinkingContent` 双路径解析。
+- **TUI 实时与历史 thinking 渲染（48 行可视窗口）**：`OutputPort`（`resumed/ports.rs`）维护有界 `live_thinking` 与 `delta_revision` 并在 `AssistantText` / `ToolPrepared` 落盘后清空实时缓冲防重；`ClassicView` 扩展 `live_thinking` 字段并统一通过 `render_thinking_lines_with_label`（`max_lines = 48`、斜体灰字 + `QUOTE_PREFIX` 竖线引用）在 `PEER` 标轨下渲染实时与历史推理过程。
+- 提交 `70db467d` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **174/174**、`peer-tui` **24/24**、`peer-cli --lib` **19/19**、Release 构建（`peer-native` 与 `terminal-lifecycle`/`adr130-soak-probe` 示例）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.6875 / 82.59375、`finalRssMiB` 84.453125、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `8e7e2601` 还原 OpenTUI `ToolActivityTimeline` 工具调用时间线、`PEER` 回合归组、`Ctrl+O` 详情展开与运行条间距修复（`crates/peer-tui/src/{theme.rs, lib.rs, classic_view.rs}`、`crates/peer-cli/src/terminal/classic.rs`、`crates/peer-cli/examples/adr130-soak-probe.rs`）：
+- **还原 `ToolActivityTimeline` 与 `Ctrl+O` 工具详情展开**：`crates/peer-tui/src/classic_view.rs` 扩展 `ClassicMessage`（`thinking`、`tools: Vec<ToolTimelineRow>`、`continuation`）并按 `app.tsx` 排版绘制每条工具行：`✓`/`✗`/`○`/`◇`/`◆` 状态符号、可读工具名（`Bash`/`Read`/`Write`/`List`/`Search`/`Git` 等）、参数摘要、右对齐耗时（`now` / `0.2s` / `12s`）与 `+`/`−` 指示符；在 `crates/peer-cli/src/terminal/classic.rs` 用 `Ctrl+O` 切换展开最多 4 行 `┆` 详情及 `evidence` 高亮标记，并在 `poll_active` 重载记录时同步刷新底部上下文占用百分比（`MAX_DISPLAY_MESSAGES = 64`）。
+- **`PEER` 同回合归组、`ThinkingView` 与运行条间距修复**：同 `streamId` 或连续辅助工具段设置 `continuation = true`，统一归并于同一 `PEER` 标轨下缩进，不再重复打印 `PEER` 或虚假的 `TOOL ` 标签；流式前缀剥离多余 `"Peer  "`；`working...` 与 `· 42s` 间改用独立 `"  "` Span 避免 `clip_bot_line` 折叠空格。
+- 提交 `8e7e2601` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **24/24**、`peer-cli --lib` **18/18**、Release 构建（`peer-native`）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.828125 / 82.59375、`finalRssMiB` 84.46875、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `aa2dd5a8` 修复工具调用触发 `BACKGROUND_HISTORY_LIMIT`（大 `evidence-index.jsonl`）并还原 OpenTUI `working...` 扫光动画与 `Thinking.` 占位提示（`crates/peer-store/src/evidence.rs`、`crates/peer-store/tests/evidence.rs`、`crates/peer-tui/src/{theme.rs, lib.rs, classic_view.rs}`、`crates/peer-cli/src/terminal/classic.rs`、`crates/peer-cli/examples/adr130-soak-probe.rs`）：
+- **大体积 `evidence-index.jsonl` 有界流式读写**：`EvidenceIndexStore`（`find` / `list_for_plan` / `list_for_conversation` / `register`）原调用 `durable_jsonl::read` 与 `encode(&history)` 触发 `8 MiB / 4096 行` 上限而在真实 70 MB / 71,710 行 `~/.peer-agent/goal-plans/evidence-index.jsonl` 上返回 `StoreError::HistoryLimit`（`BACKGROUND_HISTORY_LIMIT`）。现改为 `files::open(..., u64::MAX)` + 64 KiB `BufReader` 逐行有界扫描（单行上限仍为 `8 MiB`，小文件严格全行校验，大文件尾字节与末行完整性校验 + JSON 转义子串预过滤），`register` 仅将增量 `changes` 通过 `append_to_limit(..., u64::MAX, ...)` 写入，保留 `interactive` 篡改拒入与截断残行 `HistoryCorrupt` 不变量。
+- **还原 `working...` 高亮扫光动画与 `Thinking.` 占位**：`crates/peer-tui/src/theme.rs` 移植 `composer-status-view.tsx` HSL 短路径插值（`activity_sweep_intensity` / `activity_sweep_color`，`SWEEP_FALLOFF = 2.0`、`SWEEP_LEAD = 6`）、`format_running_elapsed` 与 `thinking_status_label`；`ClassicView` 在运行中非欢迎态展示 `working...  · {elapsed}   PEER / ACTIVE` 与 `PEER  Thinking.`；`ClassicSession` 接入 `80ms`（12.5fps）动画重绘节拍及 `Ctrl+C`/`cancelling` 状态标识。
+- 提交 `aa2dd5a8` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-store -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-store --test evidence` **5/5**（含 >8 MiB / 4,600 行回归）、`peer-store --lib` **15/15**、`peer-runtime --lib` **173/173**、`peer-tui` **24/24**、`peer-cli --lib` **17/17**、Release 构建（`peer-native` 与 `peer-credential-helper`）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 18.03125 / 83.546875、`finalRssMiB` 85.40625、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `e8266426` 解决真实 OpenAI/ChatGPT OAuth 与兼容代理实流兼容、原生订阅额度监听与 Classic 视图 OpenTUI 还原（`crates/peer-runtime/src/{model.rs, model/stream.rs, model/stream/responses.rs, subscription_quota.rs, lib.rs}`、`crates/peer-tui/src/{theme.rs, lib.rs, model_picker.rs, classic_view.rs}`、`crates/peer-cli/src/terminal/classic.rs`、`crates/peer-cli/examples/adr130-soak-probe.rs`、`scripts/native-cli/tui_e2e_pty.py`）：
+- **实时 SSE `Content-Type` 宽松兼容与无害包络事件**：`crates/peer-runtime/src/model.rs` 新增 `sse_content_type_allowed`（允许缺失 `Content-Type`、`text/event-stream`、`text/plain`、`application/octet-stream` 与空串，同时继续拦截 `text/html` / `application/json` / `application/xml` 等错误页）；`model/stream/responses.rs` 在无害忽略分支补入 `response.metadata`、`response.queued`、`response.output_text.annotation.added`、`keepalive`。
+- **原生 OAuth 订阅额度监听**：`crates/peer-runtime/src/subscription_quota.rs` 复用 `ModelBinding` + `ModelOAuth` + `Network`，支持 `oauth_chatgpt`（`backend-api/wham/usage`）、`oauth_grok`（`GetGrokCreditsConfig` gRPC-Web）、`oauth_google`（`loadCodeAssist` + `retrieveUserQuota`）只读额度查询；在 `ClassicSession` 启动、模型切换、`/resume`、回合结束及 300s 周期异步刷新（环境变量直连/非 OAuth 渠道零写盘、零请求），顶栏以 `剩余XX% · plan` 按阈值着重色展示。
+- **OpenTUI Classic 排版与交互停靠栏还原**：顶栏对齐 `◆ Peer  ~/path ... model ● 剩余%`；空对话开屏在垂直居中容器内联排 B3 Wordmark 与输入框停靠栏（`<=112` 列）；对话消息改用两列 Crush 角色标轨（`YOU   ▌ ...` 与 `PEER  ...`）；`ModelPicker` 改为从底部停靠栏向上展开且顶部栏加 `[Provider]` 标签；运行中展示 `PEER / ACTIVE` 状态条；底部重构为两段式 `ComposerStatusBar`（左 `mode agent · access ask`，右 `model · effort  ████░░░░ %` 视觉块进度条），空闲态移除常驻长提示行。
+- 提交 `e8266426` 实测（修改后终版结果）：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **173/173**、`peer-tui` **23/23**、`peer-cli --lib` **17/17**、Release 构建（`peer-native` 与 `peer-credential-helper`）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）、`adr130-soak-probe --soak-secs 5` **4/4**（`steadyRssMiB` 17.875 / 82.703125、`finalRssMiB` 84.46875、`fdDelta` 0、`lateWindowSlopeMiBPerHour` 0.0、`wrapCacheBytes` 4,323,617 / 4,173,345 B）。
+
+补充提交 `fd606f6e` 修复共用 `~/.peer-agent/settings.json` 时发送消息触发 `native_capability_inventory_unsupported` 的阻塞（`crates/peer-runtime/src/system_context/instructions/{settings,tests}.rs`、`scripts/native-cli/tui_e2e_pty.py`）：在只读提示词投影中放行并校验桌面端标准非提示词元数据键（`activeWorkspace`、`workspaces`、`appearance`、`appMode`、`appshots`、`composerDrafts`、`developer`、`effort`、`fallbackVision`、`inputPrediction`、`memory`、`modelRouting`、`remoteAccess`、`updateChannel`、`workbench` 及 `projectAgent.{proactivity, quietHours, digestTime, concurrency}`），不写入系统提示词，同时继续对未知顶层键或 `projectAgent.shell != "bots"` / `interactiveResults` 保持 `native_capability_inventory_unsupported` 拒入。提交 `fd606f6e` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-runtime -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-runtime --lib` **169/169**、`peer-cli --test native_episode unsupported_context_is_a_visible_blocker_before_model_dispatch` **1/1**（定向过滤 258）、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**，Case 2 预置完整桌面 `settings.json` 验证经典对话发送/审批/续聊及零修改保留、`resume_pty.py` **10/10**）。
+
+补充提交 `3e97e9d0` 将模型选择器、顶栏徽标与切换提示从原始供应商 UUID 改为人类可读名称（`crates/peer-cli/src/terminal/model_picker_adapter.rs`、`crates/peer-tui/src/model_picker.rs`、`crates/peer-cli/src/terminal/{classic,bot_shell}.rs`）：按 `tui-model-selection.ts` `splitModelDisplayName` 拆分 `"{model} · {provider}"`，分组保留 catalog 原序、不合并不同 `provider_id`；`ModelPicker` 标签行支持超宽横向滑动窗口（`‹`/`›` 指示）与 CJK 宽度按列裁剪；`ClassicSession::model_badge` 及模型切换提示统一展示可读 `display_name`。提交 `3e97e9d0` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **23/23**、`peer-cli --lib` **17/17**、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**、`resume_pty.py` **10/10**）。
+
+补充提交 `bf81cbae` 对齐未绑定工作区 `BindWorkspace` 确认页（`crates/peer-tui/src/bot_view.rs`、`crates/peer-cli/src/terminal/bot_shell.rs`、`scripts/native-cli/tui_e2e_pty.py`）：文案与横排/窄屏排版对齐 `ProjectApp.tsx` / `project-copy.ts`（`把这个目录绑定为机器人？`、`是，创建机器人  Y`、`否，进入普通任务模式  N`、`←/→ 选择 · 回车确认 · Esc 进入普通任务模式`，并保留 `Peer · 机器人模式` 顶栏兼容 `pty_checks.py`）；`y/Y` 直接绑定创建，`n/N`、`Esc` 或选否回车均以零落盘直入 Classic 模式。提交 `bf81cbae` 实测：`cargo fmt --all`、`check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）、`peer-tui` **22/22**、`peer-cli --lib` **15/15**、Release 真实 PTY 套件 **24/24**（`pty_checks.py` **9/9**、`tui_e2e_pty.py` **5/5**，新增 `bind-refusal-enters-classic-without-writing` 验证 `No + Enter` 与 `Esc` 零写盘进入 Classic、`resume_pty.py` **10/10**）。
+
+基线提交 `b9555492` 将 `crates/peer-tui` 与 `crates/peer-cli/src/terminal/` 的交互命令、快捷键和弦、浮层选择器、会话恢复与上下文压缩全量对齐原 `apps/tui`（OpenTUI）行为规范（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移，视图层零文件/进程 I/O，开屏与 `F2` 切换零持久化落盘）：
+- **Store / Runtime 只读枚举与会话控制接口**（`crates/peer-store/src/{presentation,conversation_write,skill_catalog,goal}.rs`、`crates/peer-runtime/src/{capability,cognition,conversation_host,model_catalog}.rs`）：新增 `ConversationStore::list_resumable_sessions`（过滤非活跃与子会话）、`update_ordinary_mode` / `update_ordinary_model`（忙碌会话拒写）、共享 `SkillCatalog::discover` + `list_all`、只读 `GoalStore::list_by_conversation`、`NativeConversationRuntime::compact_conversation`（复用 `ContextPipeline::compact` 结构化摘要 + `historySelection` 提交标记）以及 `supports_fast_mode`。
+- **Leader 和弦、交互选择器与斜杠精简补齐**（`crates/peer-tui/src/{leader_key,overlays,commands,slash_menu,classic_view,bot_view}.rs`）：新增 `LeaderKeyState`（`Ctrl+X M/O/P/N/L/1/2/3`）、全套 Peer Frost 浮层与弹窗（`/resume` 会话选择器、`/mode` 模式选择器、`/permissions` 本地权限选择器、`/theme`、`/language`、`/skill`、`/mcp`、`/goals` 搜索过滤选择器与 `/help` 快捷键/命令参考）；在 `slash_menu::filter_items` 增加精确匹配优先桶（消除 `/mode` 与 `/model` 前缀抢占），支持 `/fast` 与 `/goal-pause`/`/goal-resume`/`/goal-cancel` 动态显隐，为经典与机器人模式补齐 `/version` 等命令与快捷键右对齐提示。
+- **Classic / Bot Shell 全命令接线与能力设置原子持久化**（`crates/peer-cli/src/terminal/{classic,bot_shell,capability_store}.rs`）：接入经典模式全部 20+ 条交互命令（`/resume [id]`、`/mode`、`/permissions`、`/fast`、`/skill`、`/mcp`、`/clear`、`/compact`、`/history`、`/goals`、`/goal-*`、`/bots`、`/help`、`/version` 等）与 `Ctrl+X` 和弦；`capability_store` 仅在用户按 `Space` 切换 Skill/MCP 开关时原子更新 `skills/settings.json` 与 `mcp-registry.json`；Bot 模式同步接入 `/theme`、`/language` Frost 选择浮层与 `/version`。
+
+实测验证（仅统计 `b9555492` 最终改动后的本轮输出）：
+- **边界与静态门禁**：`cargo fmt --all`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-store -p peer-runtime -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）全部通过；`git diff Cargo.lock Cargo.toml` 为空。
+- **单元测试**：`peer-tui` **21/21**、`peer-store --lib` **15/15**、`peer-store --test conversation_execution` **19/19 通过**（2 sub-process fixture ignored）、`peer-runtime --lib` **169/169**、`peer-runtime --test model_count` **4/4**、`peer-cli --lib` **15/15**、`peer-cli --test completions` **2/2** 全部通过。
+- **Release 真实 PTY 套件（23/23）与 ADR 130 内存探测**：`pty_checks.py` **9/9**、`tui_e2e_pty.py` **4/4**（含 `f2-bot-classic-roundtrip` 零持久化写入检查与新增 `classic-resume-pickers-and-leader-chords`：覆盖 `/new` -> `Ctrl+X L` `/resume` -> `/help` -> `/version` -> `/mode` `2` -> `Ctrl+X 1` -> `/permissions` -> `/theme` -> `/skill` -> `/mcp` -> 续聊 -> `/compact`）、`resume_pty.py` **10/10**、`adr130-soak-probe --soak-secs 5` **4/4 场景**（`steadyRssMiB` 17.1875 / 81.96875、`finalRssMiB` 84.15625、`fdDelta` 0、`wrapCacheBytes` 4,468,265 B < 32 MiB 预算）全部通过。
+
+## 2026-11-19 原生 Ratatui TUI **Peer Frost** 视觉样式与交互细节对齐
+
+提交 `cfd0c8d4` 将 `crates/peer-tui` 与 `crates/peer-cli/src/terminal/` 对齐至原 `apps/tui`（OpenTUI）的 **Peer Frost** 视觉规范（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移，视图层零文件/进程 I/O）：
+- **Frost 调色盘与排版令牌**（`crates/peer-tui/src/theme.rs`）：完整引入 Dark/Light `TuiPalette` 十六进制色板、语义标志（`› ` 选定符、`◆` 品牌菱形、`●` 在线点、`▌ ` 用户左竖条、`──` 分割线）、上下文占用分级着重色与全画布底色填充（`fill_canvas`），保留 F2 切换与空开屏零落盘写入。
+- **B3 品牌字标与斜杠补全**（`crates/peer-tui/src/wordmark.rs`、`crates/peer-tui/src/slash_menu.rs`）：精确移植 7×23 像素级 `peer agent` B3 字标（按 76/42 列阈值自适配 Full/Half/Narrow），并在 Bot 与 Classic 模式接入过滤式斜杠命令补全浮层。
+- **Markdown / 代码高亮 / 模型选择器 / Bot 与 Classic 视图对齐**（`crates/peer-tui/src/{markdown,model_picker,bot_view,classic_view,resumed_view,commands,view,lib}.rs`）：为 Markdown 代码块与 Diff 增加 `code_bg` 下沉底色与有界单趟语法着色（保留 32 KiB / 256 行 ADR 130 上限）；模型选择器采用 `panel` 浮层 + `info` 顶线 + `› ` 选中态；Bot 模式保留 `BindWorkspace` 居中卡片、ADR 122 三行右对齐列表、对话 `reply_to_echo` / `marks` 与 `Tab` 内联任务卡跳转；Classic 模式启用 `◆` 顶栏、居中 B3 欢迎屏、用户 `▌ ` 渲染与右对齐状态底栏；扩展 `/theme` 与 `/language` 命令及 `crates/peer-cli/src/terminal/theme_store.rs` 仅写即读原子持久化。
+
+实测验证（仅统计 `cfd0c8d4` 最终改动后的本轮输出）：
+- **边界与静态门禁**：`cargo fmt --all`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-cli --all-targets -- -D warnings`（0 告警）全部通过；`git diff Cargo.lock` 为空。
+- **单元测试**：`cargo test --locked -p peer-tui` **19/19 通过**、`cargo test --locked -p peer-cli --lib` **14/14 通过**。
+- **Release 真实 PTY 套件（22/22）与 ADR 130 内存探测**：`pty_checks.py` **9/9**、`tui_e2e_pty.py` **3/3**（含 `F2` 往返切换零持久化落盘检验）、`resume_pty.py` **10/10**、`adr130-soak-probe --soak-secs 5` **4/4 场景**（`steadyRssMiB` 16.92 / 81.70，`fdDelta` 0，`wrapCacheBytes` 4.47 MB < 32 MB 预算）全部通过。
+
+## 2026-11-19 P7 原生 `peer update`、7-Crate 版本治理、发布打包切换与解包零 Node/Bun 冒烟
+
+提交 `cc9c3dda` 完成 P7 原生发布链与自更新能力（`#![forbid(unsafe_code)]`，零 `Cargo.lock` 漂移）：
+- **原生 `peer update [--check]` 与顶层命令对齐**（`crates/peer-runtime/src/http_fetch.rs`、`crates/peer-cli/src/update.rs`、`lib.rs`、`main.rs`）：沿 ADR 48 / ADR 108 实现同通道（`stable` / `beta` / `rc`）SemVer 比较与 GitHub Releases 查询（`rustls` TLS + 有界字节与超时预算 + 最多 5 跳重定向）、`resolve_release_install_target` 非 `peer` 拒绝覆盖保护、`PEER_AGENT_INSTALL_SOURCE`（`release` / `npm` / `pnpm`）分发、以及 `peer` + `peer-credential-helper` 双二进制 `.next` 预置 / `.previous` 备份原子切换与异常回退；同步补齐 `peer help`、`peer version` 与子命令 `--help` 首行版本号动态替换。
+- **版本脚本与发布打包切换**：`scripts/check-version.mjs` 与 `scripts/stamp-version.mjs` 扩展至全部 7 个 Rust workspace crates（`peer-credential-helper`、`peer-protocol`、`peer-store`、`peer-runtime`、`peer-project-agent`、`peer-tui`、`peer-cli`）；`scripts/package-cli-archive.mjs` 支持 `--native` 与 `--dist-dir`；`.github/workflows/release.yml` 的 `build-cli` 作业彻底移除 `Setup Bun` / `pnpm install` / `@peer-agent/tui build`，改为纯 Cargo `--release --locked` 构建 `peer-native` + `peer-credential-helper`，保留 macOS Developer ID 签名 helper 复用并在解包后以 `PATH=/nonexistent` 验活。
+
+实测验证（隔离临时目录 + 受控本地 HTTP Mock，零修改用户 `~/.peer-agent`、个人数据或已安装 `peer`）：
+- **定向单元与打包测试**：`peer-cli --lib` 13/13、`peer-cli --test update` 3/3（覆盖 `--help` / 用法错误退出码 2 / 通道匹配 / 拒绝替换 `peer-native` / 真实 `peer` + `peer-credential-helper` 原子替换 / 残缺归档保护）、`pnpm version:check`、`stamp-version.mjs` 幂等回写、`pnpm architecture:check`、`pnpm typecheck`（16/16 workspace 项目）、`pnpm changelog:test`（28/28，含 `package-cli-archive.test.mjs` 16/16）、`check-release-source.test.mjs` + `rc-upgrade-matrix.test.mjs`（7/7）全部通过。
+- **macOS arm64 正式解包归档零 Node/Bun 冒烟**（[P7 解包冒烟证据](native-cli/evidence/p7-unpacked-release-smoke-20261119.json)）：
+  - `node scripts/package-cli-archive.mjs --native darwin-arm64` 生成 `peer-darwin-arm64.tar.gz`（**11.13 MiB**，SHA-256 `651b7df0…`），内含 `peer`（**27.84 MiB**，SHA-256 `4685f925…`）与 `peer-credential-helper`（**818 KiB**，SHA-256 `1644f4f9…`）；
+  - `otool -L` 确认两个二进制仅链接 macOS 系统库（`CoreFoundation` / `Security` / `libiconv.2` / `libSystem.B`），零 Bun/Node/V8/Electron/Homebrew 动态依赖；
+  - 解包后以 `PATH=/nonexistent` 通过 `--version` / `version` / `--help` / `doctor` / `models` / `bots --json` / `completions zsh` / `update --help` / `update --check` / `exec` / `acp`（JSON-RPC `initialize`）/`helper-probe` 及全部 **22 项真实 PTY 套件**（`pty_checks.py` 9/9、`tui_e2e_pty.py` 3/3、`resume_pty.py` 10/10）。
+- **全量原生门禁 `scripts/native-cli/verify.mjs`**：
+  - 首轮默认 14 线程并发时，`native_episode` 有 5 个多轮 `goal_*` 用例（`goal_read` / `goal_update` / 3 项 `goal_runner`）在 debug 并发负载下触发 8s/15s 墙钟超时（372/377 通过）；单独复跑该 5 项 **5/5 通过**；
+  - 不放宽任何断言或超时、以 `RUST_TEST_THREADS=4` 端到端完整运行 `verify.mjs` 退出码 0：**75 个 Rust 测试集共 846/846 全部通过**、**650 数据根 / 3,703 项 TS↔Rust 互操作用例通过**（含 20 个 v15 原生根）、`project-agent-conformance.mjs` 8 存储 + FTS5 中英文双向冷读通过、`helper-probe` debug/release 双通过、以及 22 项 release PTY 全通过。
+
+**发布前仍待用户确认与执行的门禁项（本次未越权操作）**：
+1. 推送 PR 触发 GitHub Actions Linux x64 + macOS arm64 全仓 CI 与 Electron smoke；
+2. 真实模型在线闭环、真实物理终端中文 IME/读屏器、4 小时真实长稳 soak、以及已安装旧版 `peer` 原位升级/降级演练；
+3. 待新原生 CLI 稳定发布并完成回退验证后，另提清理卡移除旧 `apps/tui` 的 Bun / React / OpenTUI 遗留依赖。
+
+## 2026-11-19 P6 原生 Ratatui 日常 TUI、Bot/Classic 交互壳与 ADR 130 内存/延迟验收
+
+提交 `3b486756` 完成 P6 纯视图 `crates/peer-tui` 与完整原生交互宿主 `crates/peer-cli/src/terminal/`（`#![forbid(unsafe_code)]`，零 Bun/Node sidecar，无视图层直接文件/进程 I/O）：
+- **纯 Ratatui 视图与有界预算 (`peer-tui`)**：新增 `ByteBudgetLru`（16 MiB 展示页 / 32 MiB Markdown wrap / 8 MiB 流式预算）、`ReadingAnchor`（手动历史浏览期间绝不自动劫持回最新）、分块有界 Markdown/代码/Diff 渲染（单消息硬上限 32 KiB / 256 行）、`ModelPickerState` + 分组模型选择器（Tab 切思考强度，浏览不改配置，Esc 保留草稿与读位）、按 ADR 122 设计的 `BotView`（列表页标题 `Peer` 无 Host/Client 条与常驻模式提示，`▸` 选择、独立预览行、全宽分隔线与 Composer、草稿恢复告警不阻塞输入）及 `ClassicView`（模型/模式/权限徽章、虚拟化消息列表、审批浮层、流式预览）。
+- **原生交互宿主 (`peer-cli/src/terminal/`)**：`BotShell` 接入 `NativeProjectHost`（`BindWorkspace` / `BotList` / `Conversation` / `/tasks` / `/task N` / `/memory` / `/objectives` / `/cards` / `/approve N` / `/deny N` / `/answer N` / `/takeover` / `/model` / `/classic` / `/older` / `/latest` / `/save-draft` / `/quit` 与 `InputDraftStore` CAS 持久化）；`ClassicShell` 接入 `NativeConversationRuntime::execute_observed`（延迟建会话使空开退出零落盘、独立 `mpsc` 审批通道与 `watch` 渲染通道、小窗审批保护、Ctrl-C 取消停稳与继续对话）；单 `TerminalGuard` 内无缝 `F2` Bot ↔ Classic 切换。
+
+无测试特性 `--release` 产物定向实测（macOS arm64，`peer-native` SHA-256 `cf805589f045c4d943cf2ab07af4fddd2c8402b5d55a7e59d2d38c129fbfb2d6`，`PATH=/nonexistent` 无 Bun/Node，隔离临时目录 + 本地受控 HTTP Mock）：
+- **静态与单元测试**：`cargo fmt --all --check`、`scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-tui -p peer-project-agent -p peer-cli --lib --bins --examples -- -D warnings` 全部 0 告警通过；`peer-tui` 15/15 单元测试通过。
+- **22 项真实 PTY 端到端用例全过**：`pty_checks.py` 9/9（含正常退出、Unicode 粘贴/缩放草稿保留、SIGTERM、Ctrl-D、guard normal/error/panic、超大终端拒入、PTY hangup 无 EIO panic）、`tui_e2e_pty.py` 3/3（Bot 绑定对话与子命令、Classic 流式/审批/Ctrl-C 取消与续跑、F2 Bot↔Classic 往返）、`resume_pty.py` 10/10。
+- **ADR 130 内存与延迟基准**（详见 [P6 ADR 130 实测证据](native-cli/evidence/p6-adr130-memory-bench-20261119.json)）：
+  - 空载 15s：最大/终态 RSS **8.38 MiB**（预算 ≤100 MiB），macOS 物理 footprint **3.14 MiB**；
+  - 30 键交互延迟：p50 **0.15 ms**、p95 **0.23 ms**（≤50 ms）、p99 **0.25 ms**（≤100 ms）；
+  - 真实 PTY Ctrl-C 取消延迟（3 轮）：`[81.58, 83.76, 84.53]` ms，p95 **84.53 ms**（≤100 ms）；
+  - 场景 1（1,000 轮 / 111.87 MB ≥ 100 MiB，120 页）：稳态/峰值 RSS **15.36 MiB**（≤256 / ≤512 MiB）；
+  - 场景 2（1.03 GiB 历史 + 13 MB / 1,000,000 行单条消息）：尾页仅扫描 **16 KiB**、默认 2 MiB 记录上限明确诊断 `RecordBytes`、直接有界 Markdown 虚拟化宽窄双视口渲染 45 ms，稳态 RSS **80.70 MiB**、wrap cache **2.24 MiB**（≤32 MiB）；
+  - 场景 3（100 轮会话与 `NativeProjectHost` 创建/打开/渲染/关闭）：RSS 80.70 → 82.08 MiB，打开 FD **4 → 4（增量 0）**；
+  - 场景 4（25s 加速稳态压测，416 轮）：终态 RSS **57.31 MiB**（非攀升），wrap cache **2.19 MiB**。注：25s 为本机加速稳态验证，完整 4 小时发布前长稳 soak 与物理 IME/读屏器仍归发布门禁范围。
+
+## 2026-11-19 P5 原生项目代理运行时、`peer exec --bot` 与双语互读验证
+
+提交链 `b3fc808b` → `3ca2c1ae` → `d688626d` 新增 `crates/peer-project-agent`（`#![forbid(unsafe_code)]`，零 Bun/Node sidecar）并接入 `peer-cli`。沿 ADR 55、80–88、91–103、117、122、129–131 保持既有存储、能力投影、PermissionGrant、Evidence 与租约边界不变：
+- **存储与索引**：`ProjectRegistry`、`BotProfileStore`、`InputQueue`、`InputDraftStore`（CAS + content-addressed blob）、`ProjectInbox`（gzip 归档 + 2s 合并窗）、`BotDirectory`、`MemoryStore` + SQLite FTS5 trigram `MemoryIndex`（路径对齐 `cache/memory-index/memory-index.sqlite`，支持中文 `<3` 字 `LIKE` 回退）、`ObjectiveStore` 与确定性 `WatchHost`。
+- **调度、委派、核验与签收**：`ExecutionScheduler`（全局信号量 + 读写/worktree 槽位 + 依赖验收）、`GoalWorktreeAdapter`、`SessionSupervisor`（原生 worker 执行 + Host 确定性文件核验登记 Evidence）、`acceptance` / `reply`（未核验声明门禁、策略代签与去重）。
+- **主 Bot 运行与 CLI 入口**：`ProjectCapabilityProvider`（`RuntimeMode::ProjectAgent` + `EffectAdmission::spawn_read_only_host` 禁止写/Shell/连接）、`ProjectAgentRunner`、`NativeProjectHost`，以及公开 `peer exec --bot [--input-id <id>] [--wait-ms <ms>] [--output-format text|json]`、`peer bots --json`、`__interactive-maintenance` 别名。
+
+定向验证（本机隔离临时目录 + 受控本地 HTTP Mock 服务，无真实模型/个人数据/旧运行实例改动）：
+- `cargo fmt --all --check`、`node scripts/native-cli/check-boundaries.mjs`、`cargo clippy --locked -p peer-store -p peer-runtime -p peer-project-agent -p peer-cli --lib --bins --examples -- -D warnings` 全部通过。
+- `peer-project-agent` 13 项单元测试 + 5 项 E2E 集成测试通过（覆盖完整 Bot → 委派 → Worker 实写文件/Grant/Evidence → Host 核验 → Inbox 唤醒 → `post_reply` → 策略自动签收闭环；只读准入拒绝；双宿主租约竞争客户端提交/观察；过期审批恢复交接；中文 `<3` 字 FTS5 记忆与目标工具）。
+- `peer-cli` 10 项单元测试 + `bot_exec` 子进程集成测试通过（覆盖未绑定退出码 2、`peer bots --json`、绑定 Bot 实跑返回退出码 0 及冲突退出码 1）。
+- `scripts/native-cli/project-agent-conformance.mjs` 双向 Rust ↔ TS 冷读一致性全部通过（覆盖全部 8 类存储与 SQLite FTS5 中英文检索），并已接入 `scripts/native-cli/verify.mjs`。
+
+P6（完整 Ratatui 日常交互壳与 ADR 130 有界内存/长时稳态验证）及 P7（打包、`peer update`、全仓 CI、默认 `peer` 切换与旧栈下线）继续推进。
+
+## 2026-11-19 原生终端续跑已有普通会话
+
+隔离组合树 `e256c19b` 接通公开 `peer sessions resume <id>`。打开只读原会话，Enter 才经原 Runtime 发送。实际 Host 确认正文落盘后清草稿。原执行记录要在 Store 写锁内与提交前观测一致且可准入。仍在执行、已经换代、缺少停稳记录或结果待核对时保留草稿，提示相应阻断。Ratatui 读取有界历史页，小窗不能批准看不全的请求，粘贴不触发批准。Ctrl-C 等待原 Runtime 的取消与停稳，未完成的流式正文标明状态。沿 ADR 108、129、130、131，能力、授权、Evidence 和存储契约保持原有边界。
+
+macOS arm64 调试与无测试特性解包产物、Linux amd64 容器各过 10 个公开终端场景。macOS 解包产物另过 9 项终端生命周期检查。用实际旧 Bun 编译产物完成两次前台 Shell 调用后，同一会话在解包 Rust CLI 的原入口续跑，模型请求带入两条原 Tool Result，仍保留原会话 ID、正文和旧账目。旧产物只作为隔离夹具，续跑进程 PATH 无 Bun/Node。无停稳证明的已安装旧宿主、完整 Runtime/协议平价、P4 总闸和 P5–P7 继续开放。[验收回执](native-cli/evidence/p4-native-session-resume-20261119.json)
+
+`9febafee` [第二轮全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251/attempts/2) 的 macOS 和 Linux 全部成功，包括各自 Electron 冒烟和报告上传。两个作业的实际 checkout 都是 `072782dd`，tree 与 `9febafee` 一致。已将上一批验证过的 `68f2c5f3` 原样提交并推送为 `3e1c8746`。续跑改动保存在独立候选，等前驱全仓 CI 后承接。
+
+## 2026-11-19 前台 Shell 旧宿主协作交接
+
+隔离候选 `9fe73c65` 让编译版旧 `peer exec` 通过同一 `runtimeExecution` 记录前台 Shell。原命令、Grant、解释器身份和本次命令绑定先于命令效果落盘。两次命令使用同一解释器，保留环境变量、原 Tool Result、Evidence 与 9 token 账目。命令结束后仍保留空闲句柄，直至旧宿主观察原进程组消失。运行中 Rust 冷读同一记录并拒绝认领，停稳后原生 Host 在原会话 ID 上完成新回合，两条旧工具结果成为实际模型请求的一部分。沿 ADR 65、116、129 和已登记的 ADR 131 协作补充。
+
+macOS arm64 和 Linux amd64 各通过正常、SIGTERM、SIGKILL 三种实际入口。SIGTERM 保留原授权、未知命令效果和实际停稳，SIGKILL 原进程组仍活跃且保留身份，两个异常分支都拒绝跨宿主接管。双平台通过 90 条 TS/Rust 共享向量、16 项 Shell 回归及旧 CLI 构建、TUI 类型检查。macOS 另过 149 项 Store 和 4 项实际文件能力回归。验证使用显式隔离目录，真实续跑走开发期 Rust Host 探针。正式 CLI 的同会话入口、未登记旧进程处置、后台能力、动态目录完整对照及 P4 总闸仍开放。[验收回执](native-cli/evidence/p4-legacy-owned-foreground-shell-20261119.json)
+
+## 2026-11-19 旧版前台 Shell 的真实进程组停稳
+
+用旧编译产物实际请求两轮模型，前台 Shell 启动同组子进程后，旧 CLI 正常退出，但该组仍存在。候选树 `68f2c5f3` 将前台 Shell 的关闭回执绑定到原解释器关闭和原进程组消失，也处理子进程持有原输出管道的路径。停稳超时保留原句柄，下一代 Shell 等待原组停稳和当前准入；原 Shell 工具结果、四条产物引用与一条 8 token 账目保持原语义。沿 ADR 65、116、129、131，复用原 Provider、运行中的句柄 Registry 和停止屏障。
+
+macOS 与 Linux amd64 的新编译 CLI 均观察到原组在正常退出时消失。macOS Node/Bun 各过 16 项，Linux 容器的 Node 过 16 项、Bun 1.2.17 过 Shell Session 的 8 项。Linux 另以故意不回收孤儿的 PID 1 保留实际进程组，停稳明确失败，原句柄保留，同会话后续写入未执行。两端 Runtime 构建、TUI 类型检查通过，macOS 架构和 UI 检查通过。旧宿主共享执行记录、同会话跨宿主接管和 P4 总闸仍开放。[验收回执](native-cli/evidence/p4-legacy-shell-group-drain-20261119.json)
+
+`9febafee` 的首轮 [全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251/attempts/1) 中，Linux 作业成功。macOS 已完成原生专项、全仓测试、Electron 冒烟和报告上传，整个作业在配置的 60 分钟边界附近以 `cancelled` 结束。两个作业实际 checkout `072782dd`，tree 与源一致，两个冒烟报告均为 `ok=true`。首轮整体结果保留，已单独重跑 macOS 作业，Linux 保留成功。[第二轮](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251/attempts/2)
+
+## 2026-11-19 实际旧版 Shell 退出与未登记执行诊断
+
+复制正在保留的旧 Bun 编译产物，在隔离数据根验证真实 `peer exec`。正常结束和 SIGTERM 路径在进程退出时观测到原 Shell 进程组已消失，并能导出旧正文。SIGKILL 路径下原 Shell 和进程组仍活跃，旧数据仅登记了会话，未提交正文、Evidence 或用量。三条路径均无共同 `runtimeExecution` 记录。前驱 Rust 将确实存在的会话也报告为 `NOT_FOUND`。
+
+候选树 `b7ff3c7c` 区分无执行记录、会话不存在和记录损坏。无记录时明确报告 `conversation_execution_unrecorded`，不启动恢复写入。在真实旧会话上验证 `recover` 保留索引、正文、Evidence 与账本。原 Shell 仍活跃时没有被误停，后由夹具单独释放。三次读取旧会话后，同数据根内另一工作目录的新原生任务成功。沿 ADR 108、116、129、131，既有存储、权限、Evidence 和恢复边界不变。
+
+macOS 和 Linux amd64 容器各通过 12 项恢复，macOS 解包发布候选再过 22 项公开恢复及 ACP，严格 Clippy、格式和原生边界通过。首次加入 SIGKILL 的夹具误以为有正文，失败后直接查证原文件从未提交，按原观察补上独立断言。已安装旧宿主的生产停稳和同会话接管、P4 总闸仍待完成。[验收回执](native-cli/evidence/p4-legacy-unrecorded-recovery-20261119.json)
+
+## 2026-11-19 ACP 重连后的会话与批准隔离
+
+组合前驱的真实原生进程重启后重复使用会话和审批序号。受控双进程复现中，旧会话 prompt 被新会话接受，旧审批响应触发了新会话的文件写入。后继树 `26755bb9` 给 ACP 会话和每次审批分别发放 UUID。旧 prompt 明确拒绝，迟到批准不消费当前审批，新会话继续用本次实际决定。沿 ADR 76、129、131，保留原协议方法与权限、Evidence 和持久边界。
+
+macOS debug、macOS 解包 release 和 Linux amd64 容器各通过 15 项 ACP。三端另跑同一真实双进程复现，均未发生旧批准写入。格式、严格 Clippy 和原生边界检查通过。Linux 未使用 init 的首次验证有一个既有进程组停稳断言失败，记录原轮；同树使用 Docker init 后全套通过。当前候选仍按前驱全仓 CI 门禁推进，完整 P4 及真实编辑器验收继续开放。[验收回执](native-cli/evidence/p4-acp-reconnect-identity-20261119.json)
+
+## 2026-11-19 旧版文件能力与审批交接
+
+隔离候选通过编译后的旧版 `peer exec` 实测读取、列目录、搜索、写文件和编辑五种能力。同一响应内的读取批次逐项结算，重新请求模型前可冷读每项实际授权、结果与 Evidence。读取失败保留派发前的原授权，未派发的失败保留拒绝记录。macOS 实际文件系统拒绝已获批的修改时，保存原授权及未知效果，Rust 拒绝重新认领。沿 ADR 25、65、116、129、131 复用原会话、工具结果、账本和停稳边界。
+
+macOS arm64 及 Linux amd64 容器分别通过 4 项及 3 项编译入口自测，两端各另过 6 项入口回归及 3 项实际 TUI Host 审批用例。停止后的迟到批准没有关联文件效果；真正的 stdin PTY 上，旧无头入口仍以缺少审批监听器明确拒绝。macOS 另通过 7 项文件 Provider、149 项 Conversation Store、TUI 类型及架构检查。隔离接线仍要求专用数据标志、普通会话及显式文件 allowlist。已安装旧宿主的停稳和正式入口、非文件工具及 P4 总闸继续开放。[验收回执](native-cli/evidence/p4-legacy-owned-file-family-20261119.json)
+
+## 2026-11-19 旧宿主停稳后对账已保存工具结果
+
+隔离旧 `peer exec` 真正写入文件。Evidence 路径被阻断后，旧宿主保留原授权、成功结果、16 token 及原停稳回执。移除故障后，原生前驱仍在同一记录返回 1。组合树 `e914b953` 在验证原 stop 和无句柄后，用原恢复器按消息、stream、调用、能力及参数摘要核对 canonical 结果。补齐 Evidence 后结清 pending，允许新认领。原文件、授权和正文保持原字节。缺少结果或参数不符保留待核对状态。沿 ADR25、65、116、129、131 的既有边界。
+
+实际故障同时阻断 Evidence 与账本时，macOS featureless 候选只为原 stream 登记一条 16 token 账单和一条 Evidence，重复恢复字节一致。macOS 16 项、Linux amd64 容器 14 项恢复回归通过，Linux 独立重放同一真实旧数据。macOS featureless 另通过两项公开恢复及原生 Store 后续认领。旧宿主仍以隔离标记开启；混合安装中的真实停稳、完整旧入口、当前候选独立全仓及 P4 总闸尚待验收。[回执](native-cli/evidence/p4-legacy-confirmed-tool-recovery-20261119.json)
+
+## 2026-11-19 ACP 工具参数、落盘结果与 Evidence 投影
+
+`64431037` 的 [全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44412174861) 已在 macOS 与 Linux 全部通过，包含各自 Electron 冒烟和报告上传。流式与断连组合树 `39047a4c` 原样提交为 `9febafee` 并推送，[独立 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44420602251) 已运行。
+
+后继树 `afdf4edf` 接通 ACP 工具详情。准备和权限请求用同一原 Tool Call 的参数，结算后投影已保存结果或失败原因，Evidence 引用直接取原索引登记回执。参数采用现有 1 MiB 模型预算，超出时明确标记并给有界摘要，结果详情上限 4096 字节。沿 ADR76、116、129–131，权限、结果与停稳仍消费原持有者事实。
+
+macOS 与 Linux amd64 容器各过 13 项 ACP，macOS 无测试特性 release 另过 13 项。ACP SDK 1.4.0 经一次实际批准写入 24 字节，返回路径、大小、内容哈希和可核对的原 Evidence。两会话迟到审批仍未写入；有界 UTF-8 投影、严格 Clippy 和原生依赖边界通过。后继候选待前驱独立 CI，旧安装宿主接管及 P4 总闸仍需验收。[验收回执](native-cli/evidence/p4-acp-tool-presentation-20261119.json)
+
+## 2026-11-19 ACP 原生助手正文增量
+
+隔离组合树 `39047a4c` 沿 ADR76、116、129–131，把同一原生模型解码器的有效可见文本送入普通 Host 的 ACP 表现适配器。中间文本只有表现作用，最终正文仍经完整终态校验和原会话提交。实时增量和正式文本只展示一次。截断流会返回协议错误，已显示的临时文本没有写入正文，末尾未校验的工具调用未派发。Qoder 继续沿旧适配器的终态缓冲行为，压缩摘要不进入助手流。此 B 级接线保留 Runtime、权限、Evidence 和存储契约。
+
+真实 CLI 入口在 macOS arm64 与 Linux amd64 容器各过 13 项 ACP，macOS 无测试特性 release 另过 13 项。四个标准 wire 的现有碎片向量及 Qoder Retry 检查通过。SDK 1.4.0 实际连接 macOS release，在允许模型结束前收到第一段，随后只收到第二段，旧包同源对照一致。自测使用隔离数据和回环服务。完整 P4、已部署旧宿主接管、真实编辑器和长时内存继续开放。[验收回执](native-cli/evidence/p4-acp-native-assistant-stream-20261119.json)
+
+同一无测试特性 macOS 产物与原生凭据 Helper 打包，解包后再通过 13 项实际 ACP 入口、SDK 增量和无 Node/Bun PATH 启动。补建隔离工作树缺失的测试 Vault Helper 后，原 OAuth 失败用例、Runtime 全部 169 项及 32 项压缩、计数、Qoder 与取消入口检查通过。SDK 对成功授权写入的旁路对照还记录了工具参数和结果详情的显示差异。旧入口提供 `rawInput` 和 `content`，原生当前提供状态和 Evidence 引用，后续仍需接入有界详情投影。
+
+## 2026-11-19 ACP 输出断连与跨会话停稳
+
+实际原生 `peer acp` 存在一处半断连缺口。编辑器关闭 stdout 的读取端并保留 stdin 写端时，原候选超过 8 秒仍保留已运行的 Shell 和另一会话的待决审批。隔离候选让现有 stdio 共读点同时观察两端，输出失去读取端便汇入原断连取消和等待路径，缓冲审批帧也重新检查输出连接。修正后真实 Shell 进程组消失，已派发调用保留 outcome_unknown，另一待决写入未发生，两次执行已知用量结算。新 ACP 进程在原第二工作区准入。沿 ADR76、116、129–131，权限、Evidence、恢复和持久契约保持一致。
+
+macOS arm64 与 Linux amd64 容器的调试和无测试特性 release 产物各过 12 项实际 ACP 入口测试。格式、严格 Clippy、原生依赖边界和架构检查通过。本地候选 tree `fc233670`，该次远端 CI 对应前驱。受控公开对照还确认旧包在模型终态之前已发出首段，断连修正候选在终态一次发出全文。流式文本随后的候选沿原解码器接入表现层，工具意图和持久化维持各自的终态门槛。[验收与流式差分回执](native-cli/evidence/p4-acp-output-disconnect-20261119.json)
+
+## 2026-11-19 旧版公开 exec 与原生接管验证
+
+隔离候选从实际旧版 `peer exec` 经过原模型适配器、文件 Provider、Grant 和 Evidence。一个回合包含两次 SSE 请求和一条 26 token 账单。Rust 在原 owner 活跃时拒绝同会话认领，收到原停稳事实后接管。在 SSE 尚未结束时发出 SIGTERM，保存已观察的 5 token 与原未知用量标记，正常走取消退出。沿 ADR65、116、129、131 保留原执行、权限与存储边界。
+
+macOS arm64 和 Linux amd64 容器的编译包各通过六项实际入口用例。另通过 64 项 TUI 定向测试、类型检查和架构检查。接线限于带隔离标志的 chat + write_file，普通目录、Hook 配置及其他工具均明确拒绝启用该夹具。当前生产兼容入口、Shell/MCP/Hook 停稳、混合安装、压缩写入和 P4 总闸仍待验证。[验收回执](native-cli/evidence/p4-public-owned-exec-20261119.json)
+
+## 2026-11-19 普通会话排空与已停稳旧宿主补账
+
+隔离 Host 候选关闭新认知与工具准入，持久化 fence 后取消实际本地 SSE reader 和仍在等待的文件 Provider。等待截止仍有文件操作时保留原 owner 和 stopping，原调用结束并登记真实 Evidence 后才可停稳和新认领。SSE 停止过程中已收到的用量保留。未纳入受管生命周期的旧执行不产生停稳证明；本卡实际范围为模型与文件写入路径，Shell/MCP/Hook 仍需各自的资源观察接线。
+
+在已证实本地停稳后，账本追加失败保留原回执及未结用量。公有 Rust `recover --session` 在 PATH 无 Bun/Node 时，经原排他 recovery guard 对账。旧 Rust 二进制面对同一数据拒绝且原文件不变，新候选只补原流一条账单，重复执行原字节不变，未知调用不退役。沿 ADR116、129、131，新增 Rust 接线只接受已有原 stop 且无活句柄的旧执行，运行中或缺证明的旧 owner 仍阻断。macOS 与 Linux amd64 容器各过 6 项实际停稳/补账及 27 项既有回归，本机另过 149 项 Store 测试。[验收回执](native-cli/evidence/p4-ordinary-stop-and-recovery-20261119.json)
+
+`f3e04723` Linux 全仓成功。macOS 在原生专项 370 项 CLI 场景通过后，Runtime 单测 168/169，Git 取消实际组时返回 `git_query_stop_unconfirmed`。同 Rust 源本机原用例定向 6 次通过，CI 失败保留。已推 `23e9880b` 的原生补账和 `64431037` 的失败组成员诊断，原断言和期限保留，反馈源未改。原生恢复定向 15 项及诊断用例通过。[原 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240) · [新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44412174861)
+
+隔离的旧 Host 生命周期仍待生产入口接线。无停稳回执的旧宿主崩溃、实际混合安装、完整受管资源和 P4 总闸开放，P5–P7 继续开放。
+
+## 2026-11-19 普通会话真实请求用量与原账本
+
+隔离 Host 将已有 TUI 模型适配器的实际 stream attempt 接到普通会话 owner。每次实际流式返回、失败重试或压缩摘要先更新原 `runtimeExecution` 已知用量。原来源并发变化仍保留已观察用量，拒绝后续新模型请求。压缩摘要只累计账单，主请求继续提供真实上下文容量。未返回用量保持 unknown，不写零费用账单。
+
+真实 OpenAI 兼容解码器通过本地 HTTP SSE 夹具自测。同一 stream 两次请求写一条原账本，Rust 使用现有 Store 同身份冷读保持原账本字节。部分用量流后断线的已知量与后续重试合计，unknown 仍保留。注入账本追加失败后沿原 intent 恢复，不重复累加 lifetime 或重复账单。压缩摘要的用量保存失败能穿透结构化压缩回退并阻止下一次请求。沿 ADR25、56、131，原账本、容量来源及权限边界不变。
+
+macOS arm64 与 Linux amd64 容器各通过 6 项用量用例与 21 项已有关闭准入、工具结果、正文及认领回归。本机另通过 149 项 Store、34 项 TUI 模型适配器测试、TUI 类型检查和架构检查。[验收回执](native-cli/evidence/p4-ordinary-model-usage-20261119.json)
+
+接线使用隔离会话的真实适配器和低层 Store，生产入口、资源停稳及重启后对账仍待接通。P4 总闸与 P5–P7 继续开放。
+
+## 2026-11-19 普通工具 Grant、结果与 Evidence 结算
+
+隔离候选通过实际 Node 文件 Provider 和已有 EvidenceIndex 验证普通会话闭环。原 allow Grant 在首个文件变更前与 dispatching 一起持久发布。Rust 在实际效果前独立冷读原授权，结果沿同一 Grant 回填原 Tool Call。EvidenceIndex 耐久登记并按 conversation、stream、tool call、capability 读回后，才清原 pending。真实拒绝不派发；在同一 owner 下关闭准入后，可继续结算已观察结果，原停止状态仍待真实停稳。
+
+注入实际 Evidence 文件打开失败时，正文中的原结果和 pending 都保留。相同结果及时间的重试只补 Evidence 并结算，文件 inode、mtime、ctime 保持一致。外来 Evidence 保留，注入的 unknown 即使有 Grant 和 Evidence 仍阻止新认领。硬退出位于正文结果与 Evidence 提交之间时，Rust 读回原结果并阻断再次认领。macOS arm64 与 Linux amd64 容器各通过 7 项结果场景、7 项正文派发回归和 7 项认领回归。本机另过 157 项定向测试及架构检查。沿 ADR65、116、129、131，复用原消息、授权及 EvidenceIndex。[验收回执](native-cli/evidence/p4-ordinary-tool-outcome-20261119.json)
+
+候选仍在隔离工作树，覆盖实际文件 Provider 与完成/拒绝回执。旧生产入口、其他工具和 Hook/MCP 生命周期、模型用量、停稳与重启后对账需要真实接线。P4 总闸、P5–P7 继续开放。`f3e04723` 全仓 GitHub CI 独立运行。[CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240)
+
+## 2026-11-19 普通工具消息持久化与兼容性回归
+
+`1657e9bb` 双平台原生专项成功。Linux 与 macOS 全仓 Test 和既有单文件重试均命中同一 Interactive Results 源码指纹断言。隔离同树本机复现，原 4 个指纹覆盖的变化限于 append/update/rewrite 路径的既有 owner 防线。修复候选保留原冻结旧 JSONL 模块的完整指纹和实际执行，重新审核当前四处指纹，并通过真实 Store 验证已有附件在 Native owner 激活时阻断四个外来写入路径、原索引/正文逐字节保留、原停止事实后恢复既有更新，同时老 reader 完整读回冻结选择。macOS arm64 与 Linux amd64 容器各过 15 项。本机全仓 build 后通过 2,155 项 Runtime Node 测试及单独的 Watch 性能回归。测试修复 `f3e04723` 已推送独立全仓 CI。[原 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218) · [修复候选 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44405581240)
+
+独立隔离候选实测旧原型在正文没有真实 Tool Call 时仍可登记派发。新 Store 在原 owner 和原 index→body 锁内持久发布实际调用、原始参数和 stream 关联，随后提交 `prepared`。Rust 冷读原消息、修订和相同参数摘要，旧可见预览及历史原字节保留。注入正文落盘后索引 rename 失败，返回不确定提交，正文及原 owner 保留，没有派发回执、文件效果或再次认领。两端各通过 7 项正文/派发场景和 7 项认领回归。本机另通过 149 项 Store 回归及架构检查。沿 ADR65、116、118、129、131 的既有消息、权限和持久边界。[验收回执](native-cli/evidence/p4-ordinary-tool-publication-20261119.json)
+
+旧生产入口接线、原始结果和 Evidence 持久化、用量、真实停稳、既有异常恢复与 P4 总闸继续开放。P5–P7 的退出条件仍开放。
+
+## 2026-11-19 普通会话持久派发门槛
+
+`1657e9bb` 同树本机原生专项完整通过，包含 370 项原生场景、169 项 Runtime 测试、存储互操作、两端 Helper 协商和 9 项 PTY。全仓 GitHub CI 单独核对。[CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218)
+
+隔离 Store 候选扩展普通会话 owner。只有同一实际 owner、原 execution 修订和上下文来源仍匹配时，才可把原调用从 `prepared` 持久推进到 `dispatching`。停止准入保留原派发记录，也保留外来 metadata。启动后不可复用空认领关闭路径。真实 Node 文件 Provider 的授权回调期间由独立 Rust 进程读到 prepared；允许后的两处效果前检查均读到已持久 dispatching。拒绝权限、修改模型来源、批准等待期间关闭准入均未产生文件效果。正常效果后硬退出保留原调用和文件，Rust 拒绝新认领。沿既有 ADR 65、116、129、131，权限、Evidence 和持久格式边界不变。
+
+macOS arm64 与 Linux amd64 容器各通过 5 项真实派发场景和 7 项认领回归。本机另通过 149 项 Conversation Store 测试及架构检查。[派发回执](native-cli/evidence/p4-ordinary-owned-dispatch-20261119.json)
+
+这段验证使用实际 Provider 与隔离 Host 接线。旧生产 Host 的认知/用量、原始 Tool Result / Evidence 持久化、真实资源停稳和跨版本恢复还须接入。现有调用分组允许多个工具共享一个展示消息，生产接线需将每个 canonical 调用的 messageId 按原契约分配，不能使用临时 UI 段落充抵。P4 总闸与 P5–P7 继续开放。
+
+## 2026-11-19 推送停稳候选与双端原子存储准入
+
+`ae6dd9a8` 的 Linux 全仓已通过，macOS 两项进程组停稳测试失败，原失败轮保留。按原验证树将兼容 Anthropic 流、会话写入保护和进程组停稳修复分三个提交推送，分支头为 `1657e9bb`，tree `d37d1e29`。本机同树的 370 项原生场景与 169 项 Runtime 测试通过，覆盖原两项 macOS 停稳测试。原生整套件后续互操作、PTY 与新一轮两端全仓 CI 继续运行。[新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44399851218)
+
+隔离 Store 原型使用 ADR131 的同一份 `runtimeExecution` v1 与原 index→body 锁。真实 Node 和 Rust 子进程在 macOS 与 Linux amd64 容器各通过 7 类用例。双方争抢只允许一个写入，陈旧快照拒绝，另一会话的索引行原字节保留，启动前显式收口后 Rust 可以重新准入。强制关闭原 TS 进程保留原 active 记录，两端继续阻断。首轮 Linux 竞争期间 Rust 开发夹具因初读失稳只返回退出码 2，保留原日志。复测开发夹具仅增加原 Store 失败码输出，Linux fixtures 使用容器本地文件系统。[双端存储回执](native-cli/evidence/p4-atomic-store-admission-20261119.json)
+
+此原型待接入 TS 执行前登记、实际 Provider 派发与结果、账本、停稳和恢复。现行 Rust 与 TS 轮次、真实外部认证及已安装版本的共享执行验收仍开放，未改变默认入口。沿 ADR65、116、129、131，沿用既有协议、权限和 Evidence 边界。
+
+## 2026-11-19 普通会话准入与进程组停稳
+
+两端实际隔离进程验证了旧 Classic 的生产 controller、persistence 和 Runtime 工厂。旧源码在 Rust 持有同一会话时写入第二份输入并发送模型请求，导致 Rust 因 `CONTEXT_SNAPSHOT_CHANGED` 退出。接入已有共享 `runtimeExecution` 校验后，Classic 在派发前拒绝已知活跃 owner，Store 在原锁内拒绝上下文、正文和流式侧带冲突写入。在同一会话的拒绝后，模型服务只观察到 Rust 的请求，原索引、正文逐字节保留。原宿主正常结算后，显式提交原内容成功。149 项 Store、86 项 CLI 及交互相关用例、类型与架构检查通过。此验证使用生产 Module 和隔离服务，直接 PTY 探针未呈现可操作画面。TS 仍需在同一持久 owner 上原子准入，Desktop 发送、版本升级与默认切换另验。沿 ADR65、108、116、129、131，存储与授权边界未移动。[验收回执](native-cli/evidence/p4-shared-admission-and-process-stop-20261119.json)
+
+`ae6dd9a8` 的 macOS 全仓作业在两项真实进程组停稳测试失败。Linux 原生专项已通过，记录时余下 Electron 冒烟仍在跑。旧 Linux 解包 CLI 在已经观察到组内真实后代的条件下，先于后代回收返回 `native_execution_stop_unproven`。新候选在原总时限内同时等待 leader 回收与组消失，将 Shell、Git、Hook 的同一观察收敛到进程适配器。隔离容器延迟回收约 600ms 时，新产物证明本机停稳，保留工具效果 unknown 与原已知费用。超过原期限仍明确保留未确认，未重派发。macOS Runtime 169 项与严格 Clippy 通过。当前本机旧树和新树的默认测试线程栈均曾溢出，保留日志，以 8 MiB 测试线程栈复测，生产配置不变。[全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775) · [验收回执](native-cli/evidence/p4-shared-admission-and-process-stop-20261119.json)
+
+前一组合树 `7e2b7422` 的本机全套件有 365 项通过、5 项 Goal 入口失败。同一编译产物在两测试线程重跑原 5 项通过，前一轮仍记失败。当前组合树 `d37d1e29` 已在隔离 worktree 开始验证，P4 保持开放。
+
+## 2026-11-19 Anthropic 兼容流与跨宿主删除保护
+
+真实本地推理的 Anthropic 兼容服务发送了完整工具参数增量，起始块省略 `input`。冻结响应由实际旧 TypeScript decoder 读出原 `read_file` 参数，原生前驱提前拒绝。隔离树 `5bed7c64` 在同一 Rust wire decoder 接受这一既有兼容形态，仅在完整终态和完整有界 JSON 对象都成立时交回工具意图。缺参数、显式 null、起始对象与增量冲突仍失败。按 ADR37、65、129、131，维持模型投影、工具授权、用量和 Evidence 契约。macOS 与 Linux amd64 均通过 34 项模型单测和两组公开 Host 入口套件。macOS 解包产物用真实 Qwen3 加隔离加密 Vault 分别通过 Responses 与 Anthropic 两个回合，均独立确认一次本机工具授权、实际 Evidence 和随机码回传。[兼容流及跨宿主删除回执](native-cli/evidence/p4-anthropic-and-cross-host-delete-20261119.json)
+
+隔离数据根中，正在等待模型的实际 Rust 进程持有原会话 owner。Rust 自身拒绝 `sessions delete --yes`，已安装版本的旧 Bun 包删除了会话和索引，Rust 等到模型响应后以 `NOT_FOUND` 退出。重建的兼容宿主在同一个 Store 锁内读取现有 canonical 执行元数据，经共享 Protocol 校验后拒绝单会话与工作区删除。两端真实公开进程对照时，拒绝前后原索引和正文逐字节相同，原宿主正常结算，随后显式删除成功。停稳、未知或无效状态检查沿 ADR34、108、116、131 既有约定。149 项 Store、8 项旧 CLI、6 项 Desktop service、类型与架构检查通过。此 B 级修复不移动持久化或授权边界。旧已部署的可执行文件、普通同会话写入准入和全量 drain 仍需单独核对。[回执](native-cli/evidence/p4-anthropic-and-cross-host-delete-20261119.json)
+
+组合候选 `7e2b7422` 已从固定源在隔离 worktree 开始原生总套件，等待 `ae6dd9a8` 的独立全仓 CI 后按序推送。P4 总闸继续开放。
+
+## 2026-11-19 原生导出与真实协议验证
+
+`bd983c54` 的 Linux 与 macOS 全仓 CI 均在原有两项导出断言失败。stdout 交付中断和文件发布后回执失败都错误返回 0。实际 macOS 解包与本机 Linux amd64 复现。`ae6dd9a8` 恢复 `export` 原有退出码 1，发布回执丢失仍保留完整文件并报告 `export_publication_unknown`。后续显式 `--force` 核对当前文件。沿 ADR65、108、129 和 131，授权、Evidence、Store 与恢复边界未变。两平台解包各通过 10 项会话壳和 2 项退出码测试。Linux 首次同树测试有一项停稳等待超时，保留原日志，随后同一测试二进制连续三次通过。新候选全仓 CI 独立运行。[导出和真实协议回执](native-cli/evidence/p4-export-delivery-and-live-protocols-20261119.json) · [新候选 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775)
+
+`bd983c54` 的解包 Rust CLI 借本地真实 Qwen3 推理分别完成 Chat Completions、配置后的 Responses、ACP SDK 加 MCP SDK 的 Streamable HTTP 和 legacy SSE 闭环。测试端无 Bun/Node PATH，真实工具授权与 Evidence 已落盘。Responses 使用合成密钥的加密 Vault。原始 Anthropic 兼容服务 SSE 省略工具起始帧的 `input`，但发送了完整参数增量。冻结字节经实际旧适配器解析成功，原生前驱提前返回 `model_arguments_invalid`。真实云端身份、OS Keychain 与托管服务验收另记。[回执](native-cli/evidence/p4-export-delivery-and-live-protocols-20261119.json)
+
+`ae6dd9a8` 与日常 checkout 的旧 Bun 包在同一隔离数据根并发完成不同会话。旧模型请求仍挂起时，原生完成真实读工具与独立写入，旧会话索引不变，Rust 恢复命令未取得旧会话执行权。旧进程恢复并结算后，双方冷读列表和对方导出，原生已落盘正文未变。此验证覆盖独立会话，已安装旧宿主停稳、同会话所有权及默认切换继续按 ADR131 另验。
+
+## 2026-11-19 原生会话删除
+
+隔离树 `c3b5f307` 接通 `sessions delete`。非 TTY 要求 `--yes`，真实 TTY 默认取消。明确确认后级联删除目标会话、所属 Goal 与对应侧带。新增持久删除意图通过已登记原子安装的锁身份，在五处硬退出后续接原级联和一次原更改通知。实际旧 CLI 遵守原生持有的共享锁，旧监听器收到同会话一次删除；其它会话和用量原字节保留。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+安装版旧数据的会话/Goal 经新包实际删除并由旧 CLI 冷读。真实活跃宿主与实际写入后的未知结果得到保护。初版缺少旧 `agent_turn` 的 `cancelled_outcome_unknown`，解包反例复现后加上结构化/字符串两种实际表示。最终 macOS 94 项、Linux 92 项普通会话回归，两端各 14 项 Store 单测及 PATH 无 Bun/Node 的解包 29 项 Goal/会话入口通过。严格 Clippy 与架构检查通过。前驱 `0bbb810e` 的 Linux 全仓已过，macOS 第三轮进入 Electron 冒烟。P4 整体验收及后续阶段继续开放。[会话删除回执](native-cli/evidence/p4-native-session-delete-20261119.json) · [前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128/attempts/3)
+
+## 2026-11-19 普通 Goal 机械验收缺口返修
+
+隔离树 `3b92290e` 接通缺少自动标准检查或叶子 Evidence 的自驱 Goal 返修。Host 在原计划锁下核对现有已登记引用，记录确定性失败原因，并复用同一宿主的原返修额度。人工确认与作用域阻塞仍按原门处理。原公开 Rust 前驱在缺少 `file-exists` 检查时五次请求后退出 6。实际旧 CLI 同一场景七次请求、两次返修后阻塞。新包以真实读取补齐检查，经独立新核验在十次请求后完成。旧 Store 冷读原机械失败、标准证据与新独立核验，五份 canonical 文件字节一致。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) · [验收回执](native-cli/evidence/p4-ordinary-goal-completion-gate-20261119.json)
+
+macOS 89 项、Linux 87 项普通会话自测通过。两端 PATH 无 Bun/Node 的解包产物各通过 26 项 Goal 入口测试。真实入口验证持续缺证据时耗尽上限，机械与独立返修共享两次，并覆盖混合人工门。CI 前驱 `0bbb810e` 的 Linux 全仓已通过，macOS 第三轮仍在 Native CLI scoped validation。[CI 第三轮](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128/attempts/3)
+
+隔离数据的公开差分还确认：旧 `sessions delete` 在无 TTY 时先要求 `--yes`，明确确认后级联删除会话与所属 Goal；当前原生候选将该子命令作为迁移未完成返回。后续沿 ADR34、108、116、131 对照删除范围、停止证明、未知派发与跨 Store 恢复。
+
+## 2026-11-19 普通 Goal 核验报告续接
+
+隔离树 `6868451c` 接通 ADR 103 的普通原生 Host 报告续接。首次格式错误只在原 Verifier、原版本及显式预算内追加一次认知请求。用户上下文保留原核验任务、有界引述及已索引引用；工具定义为空，Host 拒绝落盘及派发模型尝试的工具调用。原来的明确判断不能被改写，外来引用不能派生通过。授权拒绝、版本变化和硬退出沿原结算。此 B 级接线沿用 Goal 的授权、Evidence 与 canonical 记录契约。[ADR 103](../knowledge/decisions/103-verification-settlement-and-progress.md)
+
+原解包候选收到非 JSON 后第七次请求退出 1，同一真实入口测试在前驱红。旧普通 headless 在这个受控场景也未发格式请求，旧实际续接 Module 的 12 项检查通过。新包用第八次请求在原 Verifier 收口，只有一条实际只读工具。macOS 88 项、Linux 86 项普通会话自测，两端 PATH 无 Bun/Node 的解包候选各通过 25 项 Goal 入口测试。旧 Store 冷读当前评审，父历史排除核验活动，五份 canonical 文件字节一致。候选等待有序推送，剩余 P4 总闸和真实服务另验。[格式续接回执](native-cli/evidence/p4-ordinary-verifier-report-format-20261119.json)
+
+## 2026-11-19 普通 Goal 核验返修
+
+隔离树 `436c59e9` 将当前独立失败核验接到同一自驱 Goal 的真实返修。原计划、Conversation、stream、标准修订和实际引用仍需重新核对。两次上限只限制返修次数。返修与独立核验累计消耗用户显式回合预算。返修结束以实际叶子状态重新进入独立核验；Hook 拒绝、人工门、取消、过期引用和未知派发均不派生后续动作。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS 87 项、Linux 85 项普通会话测试通过，两端正式解包候选在 PATH 无 Bun/Node 时各通过 24 项 Goal 入口用例。真实 HTTP 受控差分中，旧 CLI 三次核验、两次返修后阻塞；原生前驱一次核验便阻塞。新候选在同一计划做了一次有授权的实际写入，再由新 Verifier 用独立读取及新修订完成。旧 Store 冷读两次核验与当前语义判断，五份 canonical 文件字节一致。隔离故障夹具让返修写入在 Tool Result 落盘前退出，两次 recover 保留相同 unknown 与原停稳证据，没有重派发。[返修回执](native-cli/evidence/p4-ordinary-goal-repair-20261119.json)
+
+已推送前驱 `0bbb810e` 的 Linux 全仓通过，实际 checkout 与原提交同树。macOS 两轮未取得托管执行器，零步骤。第三轮取得执行器并进入 Setup Rust。后续候选待前驱全仓 CI。单请求报告格式续接、结构性闸门后续处置、真实模型及 P4 总闸仍待验收。[CI 第三轮](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128/attempts/3)
+
+## 2026-11-19 普通 Goal 语义评审
+
+隔离树 `3a0ead02` 补齐普通 Goal 的 `model_review`。实际旧 CLI 接受此标准，前一个 Rust 解包产物拒绝创建。模型可用真实任务 Evidence 结算叶子。若用同一引用提交语义自评，任务工具会拒绝。独立 Verifier 实际读取后，按原 `modelReviews` 保存每项标准的判断、来源修订、Verifier ID 和真实引用。通过与失败均以来源绑定的判断落盘，失败保持 Goal 开放。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+双平台各通过 25 项 Goal 回归，两个无 Bun/Node PATH 的解包产物各通过 23 项 Goal 入口。相同受控语义序列在旧 CLI 实际走了三次独立核验和两次 repair，最后因引用无父计划归属而等待。当前解包原生候选在七个请求内取得真实同域 Evidence 后完成。旧 Source、`criterionSourceRevision`、`currentModelReview`、GoalStore 和历史冷读均通过，五份 canonical 文件字节一致。原生自动返修、报告格式续接、真实服务与 P4 总闸仍待验收。[语义评审回执](native-cli/evidence/p4-ordinary-goal-model-review-20261119.json)
+
+## 2026-11-19 普通 Goal 独立 Verifier
+
+隔离树 `ad3172f3` 让普通原生 `exec` 在事实闸门后实际启动独立只读 Verifier。同一 live Conversation、stream 和父 Goal 归属贯穿实际工具批准、Tool Result、独立历史、Evidence Index 和报告。计划及核验来源复核通过，父 Host 证明停稳后才放行完成。即使叶子在 intake 全部落盘，也走同一完成门。未经当前独立读取的结果、模型提供的外来引用、越权写、迟到报告和无预算均不放行。硬退出保留实际读取，recover 证明停稳后结算原核验，重复恢复保持原结果。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS arm64 85 项、Linux amd64 83 项普通会话回归通过。两端解包后在 PATH 无 Bun/Node 时各通过 22 项 Goal 入口用例。复跑同一受控 HTTP 模型序列，旧 CLI 共 13 次请求，三个 Verifier 的实际读取归属临时会话，父 Goal 拒绝，退出 6。当前解包产物发出 7 次请求，一次独立核验以真实同域 Evidence 完成，退出 0。真实旧 Source 的两个 section 和 `criterionSourceRevision` 均对照一致，旧 GoalStore 和历史可冷读，五个 canonical 文件字节一致。前驱 `0bbb810e` 的 macOS 首作业未获得托管执行器，实际执行步骤为零，Linux 独立结果仍按原 CI 核实。语义 `model_review`、报告修复续接、自动返修、真实服务和 P4 总闸仍待验收。[Verifier 回执](native-cli/evidence/p4-ordinary-goal-verifier-20261119.json) · [前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128)
+
+## 2026-11-19 普通 Goal Runner 模型回合
+
+候选 `30a16b88` 将普通 `exec` 的 Runner 绑定到本轮实际创建的计划、Conversation 和 stream。实际 orient、自动只读 inspect 与后续 plan_scaffold 共用原模型、工具、Grant、Evidence 和结算入口。任务回填仍核对同一当前 owner 和真实引用。未批准的 Chat 即使显示 accepted 仍等待，明确自驱和已经进入执行的同一计划可继续。模型请求带命名 Runner Source 和临时输入，原始用户历史保留真实发言。无进展、显式回合上限、报告过期、信号取消和硬退出均沿原 stop 证明收口。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS 84 项、Linux 82 项普通会话回归通过，两端无 Bun/Node PATH 的解包产物各通过 21 项 Goal 用例。相同受控序列在旧 CLI 和当前解包产物都发出 10 次模型请求，实际顺序为 orient、Explorer 读取和报告、plan_scaffold，均以 `no_progress` 返回 6。旧 Store 和历史投影冷读当前结果，四个 canonical 文件字节一致。自动标准和叶子 Evidence 验过后，当前候选仍等待独立 Verifier。下一条实测中旧 CLI 的三次真实 Verifier 读取落在无父计划绑定的 worker 会话，父 Goal 拒绝这些引用，下一卡须修复真实归属才能闭环。[Runner 回执](native-cli/evidence/p4-ordinary-goal-runner-20261119.json)
+
+`0e54c66f` 的 Linux 和 macOS 全仓均通过，含 Electron 冒烟。两端实际 checkout 均为 `404a8a0c`，与原提交同树。随后推送已验证的任务更新 `0bbb810e`，独立 CI 已启动。显式 Explorer、自动 inspect、Runner 候选依次待推送。真实服务、完整 Verifier、恢复续推、P4 总闸和后续阶段继续开放。[创建 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584) · [任务更新 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44354720128)
+
+## 2026-11-19 普通 Goal 自动 inspect
+
+隔离树 `ec99e2c8` 接通普通原生 `exec` 的确定性 inspect。已结算的本轮 Goal 创建、当前计划与工作区共同准入。按原策略生成最多两个只读问题，经现有 Explorer Host 调用真实模型和工具。落盘问题批次及报告。后继只从前一提交产生的计划版本继续。已批准的工作才可进入派发，已有显式 Explorer 报告跳过自动批次。计划在运行中变化时拒绝迟到报告和过期问题。SIGTERM、硬退出及两次 recover 保留原工具事实和明确的停稳结果。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+macOS arm64 81 项、Linux amd64 79 项普通会话回归通过，两端解包在 PATH 无 Bun/Node 时各通过 18 项公开 Goal 用例。格式、严格 Clippy、依赖边界和架构检查通过。同一受控模型序列经过旧 CLI 和当前 macOS 解包产物，均自动取得一次实际读取，inspect 策略一致。旧 CLI 10 次模型请求，含两个 Runner tick；当前候选 8 次，自动观察后停在 `plan_scaffold`，报告 `runner_continuation_required` 并返回 6。旧 TUI 可冷读计划与证据，父历史排除了 worker 活动，原始文件字节保持一致。前驱 `0e54c66f` 的 Linux 全仓绿，macOS 重跑已通过 Native CLI 步骤并进入全仓 Test；候选沿任务更新、显式 Explorer 顺序待推送。orient / act 的模型续推、Verifier、未派发批次的恢复、真实服务和 P4 总闸仍待验收。[自动 inspect 回执](native-cli/evidence/p4-ordinary-automatic-inspect-20261119.json) · [前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
+## 2026-11-19 原生只读 Explorer
+
+隔离树 `1b807f3e` 完成显式 `request_explorer` 的登记、真实工作回合、权限、Evidence、报告和停稳。Runner 按同一会话/stream 的实际已结算请求和当前计划准入。Explorer 的模型历史与父对话隔离，沿旧 Source 渲染 brief 和约束，工具取只读投影与用户 allowlist 的交集。实际 Git、文件、目录、搜索和批量 lane 都核对作用域，文件内容和枚举使用不跟随符号链接的目录描述符。报告只收本次真实已结算的 Evidence。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+前一个任务更新解包产物在两个入口用例上缺少 `request_explorer`。本次 macOS arm64 与 Linux amd64 各通过 46 项入口回归和 1 项真实 TypeScript Source 对照，两端解包后在 PATH 无 Bun/Node 时各通过 18 项。真实 SIGTERM 和硬退出覆盖已落盘的 Explorer 开始记录，原 worker 停稳后保留失败原因并阻断重放。macOS 解包另执行实际列目录、搜索、批量搜索与文件读取，旧 TUI 冷读得到四条原 Evidence，并从父模型上下文排除 worker 历史，原文件字节保持一致。初次广跑 macOS 大结果用例超时，原断言隔离复跑通过，最终以两测试线程完成同组验证。Linux 初次实际 PTY poll 收到 EINTR，修正重试同一 poll/read，原 15 秒上限和所有断言保留。[Explorer 回执](native-cli/evidence/p4-ordinary-explorer-20261119.json)
+
+`0e54c66f` 的全仓 CI 首轮 Linux 成功，含 Electron 冒烟，实际 checkout `404a8a0c` 与提交同树。macOS 在未分配执行器时取消。已单独重跑 macOS，新 job `134945546695` 已进入 Native CLI scoped validation。任务更新 `b778edec` 仍待前驱全仓结果，Explorer 候选基于该任务更新树。对照复跑中，旧 `exec` 在无显式 Explorer 请求时实际启动自动 inspect 和独立 Explorer，累计 10 次模型请求，保留真实读取报告。此次原生解包完成同一叶子更新，6 次模型请求后退出。普通 Runner 自动 inspect、后续推进、Verifier、派生计划、真实模型与 P4 总闸仍开放。[CI 两轮记录](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
+## 2026-11-18 普通 Goal 任务更新候选
+
+隔离树 `b778edec` 接通 `peer exec` 的 `goal_update_task`。对话内的实际文件读取提供 Evidence 并回填已声明的成功标准，目标叶子完成，另一叶子保持 pending。伪造和跨会话的引用被拒绝，外来和缺失计划返回相同结果，待批准计划的任务不能开始。相同更新重复调用保留原计划字节。硬退出后的两次 `recover` 保留已落盘叶子和通知，并把原调用保留为效果待核对。macOS 与 Linux 各通过 14 项 CLI 检查和 1 项 Store 校验，两端解包后在 PATH 无 Bun/Node 时另各通过 12 项。格式、严格 Clippy、边界和架构检查通过。[更新及恢复回执](native-cli/evidence/p4-ordinary-goal-update-20261118.json) · [ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+下一项 Explorer 的隔离对照中，旧 CLI 的实际 Runner 启动只读 Explorer，以真实文件读取回传 `tool-result://`，并从模型报告剔除伪造引用。解包的 Rust 候选完成同一任务更新，没有启动 Runner 或 Explorer。下一次继续使用该实际模型序列验证 Runner、Explorer 投影、权限、Evidence 和停稳。前驱 `0e54c66f` 的独立全仓 CI 正在执行。派生关系、已安装宿主停稳、真实模型与 P4 总闸仍待验收。[前驱 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
+## 2026-11-18 普通 Goal 计划创建
+
+隔离树 `0fbce08c` 接通实际 `peer exec` 的 `goal_create_plan`。旧 TUI Manifest 和三种模式的计划状态由实际 bridge 对照。Plan 在 `awaiting_approval`，显式 Goal 进入自驱模式。任务初始为 pending，重复提案读回原计划，冲突提案、循环依赖及输入自报完成得到明确拒绝。计划元数据由普通 Host 的当前授权派发，文件与 Shell 继续经过实际能力授权。[ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md)
+
+前一解包产物的 3 项创建回归均报 `tool_not_projected`。初版另在 4,097 条历史通知上实测拒绝创建，修正后保留原日志并追加一条。实际索引写入失败保留计划正文，同调用修复索引和通知，第二次确认无重复写入。公开 CLI 在计划落盘后硬退出，连续两次 recover 均保留原未知调用及待审批计划，原正文、索引和通知逐字节不变。macOS arm64 与 Linux amd64 各通过 1 项 Store 故障注入和 10 项 Goal 公开入口，每端解包后在 PATH 无 Bun/Node 环境中另通过 9 项入口。实际旧 TUI 冷读原生 Plan 的正文和列表，三个原文件的字节保持一致。格式、严格 Clippy、边界和架构检查通过。[创建及恢复回执](native-cli/evidence/p4-ordinary-goal-create-20261118.json)
+
+前驱 `a66fdb81` 的 Linux 与 macOS 全仓均通过，包含各平台 Electron 冒烟，实际 checkout `66125bdd` 与源树一致。创建树 `0fbce08c` 原样推送为 `0e54c66f`，其双平台包各额外通过 6 项先前压缩、旧设置和委派 Shell 回归。新提交单独运行全仓 CI。[前驱 CI 44327109379](https://github.com/ly-ccx/Peer-Agent/actions/runs/44327109379) · [创建 CI 44336850584](https://github.com/ly-ccx/Peer-Agent/actions/runs/44336850584)
+
+下一项更新基线中，旧 CLI 拒绝未登记引用，随后用同会话实际文件读取的 Evidence 成功完成一项叶子任务，另一项仍 pending。原生 `0fbce08c` 创建相同计划后在更新处报 `tool_not_projected`。旧 CLI 的完整调用退出码仍为 6，记录这一事实以区分叶子事实与 Runner/整计划收口。其他 Goal 变更、Explorer、真实服务、旧宿主验收与 P4 总闸仍开放。
+
+## 2026-11-18 四项 P4 改动推送
+
+`80b9807b` 的 Linux 与 macOS 全仓 CI 均通过，含各自 Electron 冒烟测试。两端实际 checkout `678493ba`，tree `de624eaf` 与候选相同。[前驱 CI 44315691651](https://github.com/ly-ccx/Peer-Agent/actions/runs/44315691651)
+
+分别提交长历史压缩 `a8e83ab8`、旧 TUI 设置兼容 `a8ad0c17`、Goal 准入 `e6fc4c96` 和 Goal 读取 `a66fdb81`，一次推送组合树 `02a0e6e0`。两端解包前各 9 项入口检查，解包后各 12 项涉及整组改动的真实入口检查。原生文件、Shell、准入和 Goal 源码均为实际推送树，P4 总闸继续核对。[组合 CI 44327109379](https://github.com/ly-ccx/Peer-Agent/actions/runs/44327109379) · [组合回执](native-cli/evidence/p4-ordinary-goal-read-20261118.json)
+
+## 2026-11-18 普通 Goal 工具读取
+
+隔离树 `02a0e6e0` 接通 `goal_get_plan`。Manifest、列表与正文由实际旧 TUI/GoalStore 夹具核对。原生通过同一 Projection、Grant、Tool Result 和 Evidence 读取本会话计划。实际 Runner 进度参与状态判定，取消项不进入列表，外部 ID 和缺失 ID 返回相同空结果。大正文输出以原生已保存 Tool Result 分段读回，模型端实际读到原观察，源计划随后变化也未影响回读。沿 ADR35、41、55、57、65、116、129–131 及 ADR131 本日补充，保留跨会话读取收紧和本机 checkpoint 隔离。
+
+旧原生包上三项公开入口因 `tool_not_projected` 失败。新候选两端各通过 9 项公开入口，含之前的 Goal 准入和原生 artifact 拒绝回归。macOS arm64 与 Linux amd64 解包后，PATH 无 Bun/Node 时各通过 6 项 Goal 入口。相同归档另在两端各通过 12 项组合检查，覆盖压缩、旧设置、Goal 准入和读取、委派 Shell。真实模型、Goal 创建和更新、Explorer 执行、已安装旧宿主停稳及 P4 总闸仍待验收。[Goal 查询回执](native-cli/evidence/p4-ordinary-goal-read-20261118.json)
+
+## 2026-11-18 普通显式 Goal 的写入准入
+
+实际旧包按 Goal intake 拒绝无计划的 `write_file`。同样的 `--mode goal --access full` 请求令原生包 `efdaa3b4` 实际写入。按 ADR35、41、55、65、116、129–131 及 ADR131 本日补充，候选 `b6f58fef` 读取现有 canonical Goal、Runner 和索引，核实本会话、同目录的普通就绪计划。在真实派发前再次核对计划和索引，文件或执行状态已变即拒绝。工具仍要求现有真实 Grant。
+
+在旧原生包上新增三项公开回归均失败。新候选在 macOS 和 Linux 各通过 6 项公开入口与既有 Goal 事实互操作，macOS 解包后在 PATH 无 Bun/Node 的环境另通过 5 项入口。无计划时文件、Shell 和对应 PreToolUse Hook 均无派发，原 Tool Call、拒绝 Grant、Tool Result 和 Evidence 保留，读取可以继续。真实 PTY 拒绝能拦下已有计划的写入，等待过程中暂停计划则使随后点击允许的操作也无法派发。普通 chat 和 Work 各有实际通过的回归。当前为已验证候选，Goal 工具和 Explorer 的运行入口仍待接通。[准入回执](native-cli/evidence/p4-ordinary-goal-intake-20261118.json)
+
+叠加长历史压缩和旧设置兼容后的隔离树 `40893514` 在 macOS 再通过 9 项公开入口。三个候选等待前驱全仓 CI，原包和隔离树保留独立身份。
+
+## 2026-11-18 公开 exec 的 Goal 与 Explorer 基线
+
+用实际旧 Bun 包与隔离原生归档 `efdaa3b4` 分别发送 chat、plan、goal 三种模式的首个请求。共同投影工具的 JSON Schema 相符。旧包仍投影三个 Goal 工具、Explorer 与无头提问，当前原生包尚未投影这些工具。实际无参数 `goal_get_plan` 会读取当前会话并返回空计划列表。普通旧 `request_explorer` 返回请求登记，真正 Explorer 运行仍取决于既有 Goal 执行链。两条受控调用均有原工具结果和 Evidence 引用，并进入第二次请求。原生在一次请求后报告 `tool_not_projected`。旧无头提问在一次请求后终止，无第二次请求或工具结果回传。
+
+写入基线追加实测。旧 `exec --mode plan` 创建一份等待审批的计划，在模型尝试标记任务完成时拒绝，任务仍为 pending。对已接受计划，真实旧 TUI bridge 分别拒绝缺少 Evidence 和 EvidenceIndex 未登记的引用。同一场景的旧包发出 3 次模型请求并保留待审批状态，当前原生归档在一次模型请求后返回 `tool_not_projected`，没有创建计划。[写入基线回执](native-cli/evidence/p4-ordinary-goal-read-20261118.json)
+
+下一次实施沿 ADR35、55、65、116、129–131 和实际 Goal 入口，核对普通无头对话、已有 canonical Goal 与受管运行的区别。上述基线使用受控模型，原生 Goal 创建、更新和 Explorer 执行继续按现有契约接线。候选 Tool Result 回读已在 goal 模式单独出现。[两包实际入口回执](native-cli/evidence/p4-public-tool-inventory-20261118.json)
+
+## 2026-11-18 委派 Shell 的版本保护验收
+
+`a2717f4a` 的 [CI 44311287210](https://github.com/ly-ccx/Peer-Agent/actions/runs/44311287210) 已终止。Linux 实际 checkout merge `6c32440e`，tree 与原提交一致。748 项 Rust 测试通过，含 324 项公开 Episode。随后旧验收误把 v15 委派 Shell 日志交给旧 TypeScript writer，得到 ADR131 预期的 `coordination_schema_unsupported`，全仓仍失败。macOS 作业未分配到托管执行器，未开始测试。
+
+`80b9807b` 仅修正开发期验收。旧 TypeScript 在真实 Work 前台、后台及恢复样本上拒绝准备、读取和写入。实际 manifest、head、日志及 blob 保持原字节，Rust 冷读核对原 durable head 的修订和哈希。旧格式样本仍执行 TypeScript 写入、Rust 复读，同时保留 Goal、会话和资源检查。macOS 与 Linux 各通过 7 项真实入口和 58 项互操作检查，其中每端有 5 个 v15 样本。macOS 另通过 79 项既有存储检查。沿 ADR65、116、129–131，格式、授权、Evidence 与兼容边界未变。已安装旧进程停稳仍待实际验证。[复现及校验回执](native-cli/evidence/p4-foreground-revocation-ci-20261118.json) · [新候选全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44315691651)
+
+随后精确同树的 macOS 完整原生专项门禁退出 0，覆盖 751 项 Rust 测试（326 项公开 Episode）、645 个数据根的 3,677 项互操作检查（20 个 v15 根）及 9 项真实 PTY。远端全仓仍需核对两端完成结果。
+
+## 2026-11-18 旧 TUI v3 设置的显式执行
+
+真实旧 TUI 写入主题、语言和访问偏好后，原生包在普通 `exec` 和 Work 均因 `native_capability_inventory_unsupported` 在模型请求前退出。按 ADR55、65、116、129–131 及 ADR131 本日补充，隔离候选 `efdaa3b4` 接收已知主题、Bots 默认与布尔引导标记、语言和访问偏好。普通 `exec --access ask` 实际请求批准并尊重拒绝。Work 仍按 canonical Workspace Policy 拒绝，记录原 Grant 和 Evidence。两处均无文件效果，原设置字节保持一致。Classic、未迁移设置和损坏形态仍按既有错误阻断。
+
+macOS 与 Linux 各通过 4 项 Context 库和 4 项公开入口，30 项实际 TypeScript Source 与原生互操作通过。macOS arm64 解包后在 PATH 无 Bun/Node 环境中通过 8 项设置、压缩和 Shell 公开验证。候选基于隔离压缩树 `512935dd`，两轮源码和产物各有独立身份记录。已安装旧宿主、真实模型与 P4 总闸继续验证。[设置兼容回执](native-cli/evidence/p4-legacy-v3-settings-20261118.json)
+
+合并开发期验收修正后的同一产品源码 `f5bfe986` 再通过 12 项真实入口和 11 个数据根的 78 项互操作检查，包括 5 个 v15 根。Linux amd64 用同一树构建并解包，清空环境及 PATH 后直接启动原生 `peer`，另通过 8 项真实入口。随包的独立受管救援启动器未在此轮运行。
+
+## 2026-11-18 委派前台 Shell 全仓回归修复
+
+`33327fed` 的 macOS 全仓在三项原生公开测试失败。Linux 首次遇 Microsoft 源 HTTP 429，针对同一提交重跑后进入原生门禁，实测复现相同三项失败。两端 checkout 均为同树 merge `4d8d5675`。旧 Node Shell Session 的真实 `exit` 和 `exec` 均没有命令完成码，下次调用会重建解释器。原生缺帧保持原授权及未知效果。原失败与差分见[复测回执](native-cli/evidence/p4-foreground-revocation-ci-20261118.json)。
+
+经验证的源树 `dec1fe60` 原样推送为 `a2717f4a`，记录实际授权失败原因后取消 Work。公开入口核对真实进程组消失，Tool Result 与产物记录同一原因，原授权和未知效果保留，同目录继续受保护，独立目录成功准入。OAuth 和非零退出码测试让真实子进程结束后由解释器返回命令帧，原结果和凭据断言继续成立。新增公开缺帧用例保留原 stderr 与真实未知效果。两端各 4 项公开及 10 项 Shell Session 检查通过。格式、Clippy 和架构检查通过，macOS 解包后在 PATH 无 Bun/Node 时另通过 3 项公开验证。沿 ADR65、116、129–131，授权、Evidence 与结算职责沿既有契约。
+
+本机 326 项公开 Episode 测试覆盖分两轮完成。首轮 292 项成功，34 项未加载测试所需的 JS 互操作构建产物。用 Node 25 与同一源码构建所需包后，精确复跑这 34 项全部成功。初轮真实失败和复测见回执。全仓候选终态及后续校验见本页委派 Shell 版本保护章节。
+
+## 2026-11-18 有界压缩摘要与冷恢复
+
+以已推送的 `33327fed` 为基线，冻结本地联合候选 `2c6e02a8`。单条正文已缩到 12,000 UTF-16 单位后，多条历史仍触发 `context_summary_limit`。改为在 256 KiB 内保留最近的完整消息组，标明省略条数。原已核验 Tool Result 与调用成对保留，模型摘要只收到历史图片省略标记，原 JSONL 保留。长历史在 marker 落盘后硬退出，连续两次 recover 和后续任务证明无需重新摘要或重放工具，原已知费用只入账一次。
+
+另在实际解包的前一候选复现辅助摘要被拒后，把大段摘要输入作为结构化回退写入连续性，重建请求再次超限。联合候选使用 12 KiB 的结构化事实预算，保留最近的调用身份、可用观察和回读引用。受控模型端点拒绝第一次生成和摘要后，第三次请求进入 32 KiB 的测试接收预算。沿 ADR55、56、57、129–131 与 ADR131 预算补充，原 marker、存储、授权与 Evidence 的职责沿已有契约。
+
+macOS 与 Linux 各 10 项认知库、9 项公开压缩场景通过。格式、严格 Clippy 和源码架构验证通过。macOS arm64 解包产物在 PATH 无 Node/Bun 下通过 3 项新增公开场景。测试端点的字节限制不折算为真实模型容量。候选保持在隔离验证树。[实现及失败证据](native-cli/evidence/p4-bounded-summary-20261118.json)
+
+将同一摘要补丁应用到 `a2717f4a` 后，联合树 `512935dd` 两端各通过 10 项认知库和 13 项公开场景。macOS arm64 解包后在 PATH 无 Bun/Node 时通过 6 个 Shell 与压缩场景。叠加 `80b9807b` 的验收修正后，隔离压缩树为 `c87a0d9c`，含设置兼容的隔离树为 `f5bfe986`。两树相对原验证各只增加一处开发验收脚本的改动，等待 `80b9807b` 独立 CI。
+
+前驱 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 核对 checkout merge `4d8d5675` 与 `33327fed` 同树。Linux 在三次 APT 刷新时均遇 Microsoft 源 HTTP 429，未执行产品测试。macOS 随后出现三项前台 Shell 相关失败，重跑 Linux 亦复现。上节记录对照和修复候选。P4 总闸、真实服务和后续阶段仍待验收。
+
+## 2026-11-18 委派 Work 前台和后台 Shell 验证
+
+已验证源树 `937bd33b` 原样提交并推送为 `33327fed`，已接通委派 Work 的持久前台和独立后台 Shell。后台进程在原派发保存 Grant 与实际进程身份。只有配对 Tool Result 和 Evidence 写入后才允许同一次 Work 继续请求模型。定向停止按同一执行及 stream 校验作用域，无关 ID 无实际派发。重复停止仍查询原回执。Work 退出停稳真实句柄。硬退出恢复只收原进程，启动事实保留，未知效果继续对账。沿 ADR65、116、129–131，依 ADR131 已登记的语义版本 15，首个后台记录写入同样阻止旧协调宿主继续读写。
+
+macOS 164 项和 Linux amd64 163 项 Runtime 库测试通过，每端各 3 项协议与 9 个公开 Work 场景，另有 79 项真实 TypeScript 与 Rust 协调存储互操作验证。macOS arm64 本地包解开后，在 PATH 无 Node/Bun 的环境通过 4 项后台 Shell。保留初次测试的 HTTP 读取超时和 Linux 缺失合成 Vault 夹具两项失败。前者在五条实际回执后发生，调整监督轮询避免连续占用 I/O 调度后完整复测通过。后者补建原夹具后通过。原失败、版本和产物身份见[委派 Shell 回执](native-cli/evidence/p4-delegated-work-shell-20261118.json)。
+
+`99e1e5e3` 的 [CI 44296531703](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 两端全仓通过，含原生门禁、两端 Electron smoke 和报告上传。两端 checkout 的 PR merge 树与源提交相同。`33327fed` 的独立 [CI 44305158070](https://github.com/ly-ccx/Peer-Agent/actions/runs/44305158070) 两端复现同三项失败，修复候选见上。
+
+另在上述解包原生产品，用实际公开 `exec --plan` 复现单条 30 万字符的旧历史触发 `context_summary_limit`。现有 TypeScript formatter 在同量级样本中按正文预算生成 12,040 字节预览，含截断标记。独立隔离候选沿 ADR55、56、57、129–131，把旧纯文本限制在同一 UTF-16 预算内，保留两端及截断标记。原 JSONL、已受管 Tool Result 回读和 Cold projector 未改。新增公开反例、原生压缩相关 5 项公开测试和 UTF-16 边界用例已通过，完整摘要输入、聚合限制与 P4 总闸继续验证。
+
+## 2026-11-18 委派 Shell 空闲期撤权
+
+候选 `b96c71b3` 在模型等待和下一次批准期间仍核对原 Work 所有权、占用和策略。公开回归先启动真实解释器并结清第一条命令，扣住第二个 HTTP 响应后撤权。候选在响应仍被扣住时证实原进程组消失，保留第一条回执，后续命令未产生效果。上一个候选在同例的有界观察中仍存活。macOS 164 项 Runtime 库与两个平台各 5 个公开 Work 场景通过。macOS 首轮有一次 CLI 整体退出等待超时，现场已有停稳回执和空 unknown，保留原日志。相同并发组合随后通过 5 轮，最终 scoped 验证通过。
+
+旧实际原生包在公开 Work 入口返回 `native_background_shell_unsupported`。已保留双后台定向停止及结束清理的公开回归用例和 [ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) 契约。后台实现与完整 P4 仍开放。[验证和失败回执](native-cli/evidence/p4-work-shell-revocation-20261118.json)
+
+## 2026-11-18 委派 Work 持久前台 Shell 与普通 Host CI 修正
+
+`1f6b0a55` 两端全仓 CI 在原生门禁中同一普通 Host 用例失败。实际 checkout `cb66d319` 的树与提交一致。旧用例在 pending 命令中等单次进程记录。修正后的 `99e1e5e3` 先核对实际绑定后的持久句柄和命令已写出的标记，再验证取消、撤权、外来消息与 Grant 变化对原结果、真实停稳、用量和后续独立执行的影响。macOS 164 项与 Linux amd64 163 项 Runtime 库测试通过，已推送，新的[全仓 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44296531703) 继续核对。
+
+委派候选 `5a4d3b07` 把解释器归原 Work attempt。命令的当前绑定与原 Grant 同一事务提交，现有 claim 和 Registry 拥有停稳责任。实际公开 Work 保留两条命令的解释器 PID、物理目录与环境，并结清各自 dispatch 和 Evidence。真实超时、SIGTERM 和 Host 硬退出均证实进程组消失，原未知调用和 Grant 仍可对账。每端通过 2 项协议与 4 项公开 Work 场景，macOS 另通过 164 项 Runtime 库和严格 Clippy。实际旧版 Native CLI 拒绝新语义版本。已打开的 TypeScript 协调存储在新 Work 发布及发布中断后均拒绝继续读写，65 项互操作断言通过。
+
+本卡的 Work 持久化边界在 [ADR 131](../knowledge/decisions/131-native-cli-contract-storage-and-recovery.md) 登记。委派后台、空闲期策略变化、已安装旧宿主停稳和 P4 总闸继续开放。P5 尚未启动。[验收与失败回执](native-cli/evidence/p4-delegated-foreground-shell-20261118.json)
+
+## 2026-11-18 公开原生持久前台 Shell
+
+`1f6b0a55` 已接通普通 `exec` 和 ACP。每次命令的实际目录及 Git 共享目录复核后，使用本次原 Grant 在真实解释器接收命令前持久绑定 Tool Call、dispatch 与进程代次。公开回归确认同一实际 PID 保留 cwd、环境变量及函数。ACP 两次各自授权，目录在第二次批准等待中被替换时两目录均未收到命令。命令结果保留独立 Evidence，迟到字节只写原调用产物。正常关闭确认实际组不存在。真实 SIGTERM、ACP 断连和 Host 硬退出后的恢复保留已派发但不可证实的命令与实际用量。启动间隙夹具在真实记录 Starting 后、spawn 前退出。沿 ADR65、116、129–131，无新权限或存储边界。
+
+组合树 `ad4a64b0` 的 macOS 60 项普通 Host、10 项 ACP、严格 Clippy 与格式通过。Linux amd64 11 项 Shell、58 项普通 Host、10 项 ACP 通过，初轮三项真实 PTY `EINTR` 保留，修正只处理重试且维持原时限和断言。原生产物树 `cce1ca10` 与组合树仅差上述测试代码，macOS 同树 11 项 Shell、17 项 Store。86 个 TypeScript/Rust 契约向量及实际解包产物的空闲句柄互读通过。无测试特性的 macOS arm64 本地包解压后，在 PATH 无 Node/Bun 下通过 7 项公开场景与 ACP SDK 1.4.0 实际连接。新 [CI 44292908299](https://github.com/ly-ccx/Peer-Agent/actions/runs/44292908299) 两端运行中。委派 Work、旧安装宿主停稳和完整 P4 总闸继续开放。[持久前台 Shell 回执](native-cli/evidence/p4-native-foreground-shell-live-20261118.json)
+
+## 2026-11-18 持久前台 Shell 中断与跨平台验证
+
+实际 Linux Shell 的 `exec /bin/sleep` 替换解释器后提前关闭控制通道，旧测试因此未测到预期的超时和取消。原 9 通过、2 失败保留。修正夹具让解释器等待真正的子进程，并分别验证 `exit` 和 `exec` 引起的控制帧缺失。隔离树 `de982db4` 的真实 Linux 与 macOS 各通过 11 项 Shell。
+
+在真实超时下另复现已读取的短输出因控制帧 future 被丢弃而丢失。隔离树 `25eabd69` 的输出读取由原 Shell 独立持有至 EOF，超时或取消保留两路已观察字节，并标记未完整。macOS 与 Linux amd64 各通过 11 项 Shell，macOS 同树另通过 17 项 Store、带真实孤儿进程的公开恢复夹具、fmt 和严格 Clippy。仍沿 ADR65、116、129–131 的持有者、逐次授权、独立 Evidence 和未知保护边界。
+
+现有 `a69d852a` 无测试特性包在受控服务与无 Node/Bun PATH 的公开 `exec` 下，第一条前台命令返回 `ready`，第二条仍取得 `empty:missing:workspace`。已保留集成红例，接线后须取得 `retained:function:nested`，并核对同一实际 PID、每次原 dispatch 的 Evidence、真实组停稳及后续准入。普通前台与 ACP 接线及 P4 总闸仍待完成。[中断与公开基线回执](native-cli/evidence/p4-persistent-shell-interruption-20261118.json)
+
+## 2026-11-18 持久前台 Shell 输出归属
+
+`a69d852a` 在 Linux 与 macOS 的全仓 CI 通过。已核对 PR 合并树、原生 CLI 检查、全仓测试和两端 Electron smoke。[全仓回执](native-cli/evidence/ci-a69d852a-20261118.json)
+
+隔离树 `04d6d836` 为每条前台命令保留独立 stdout 和 stderr 通道，后台子进程的迟到字节写回原命令的产物。两个通道分别使用原有配额。读取端须实际观察 EOF 并同步文件，超时和失去拥有者保留不完整状态。进程层区分目录变更和用户命令写入的两个授权挂点。macOS 通过 11 项 Shell、17 项 Store、公开恢复和严格 Clippy。真实迟到输出回归连续通过 16 次。普通 `exec`、ACP 前台派发及 P4 总闸仍待接线与验收。[输出隔离回执](native-cli/evidence/p4-persistent-shell-output-isolation-20261118.json)
+
+## 2026-11-18 持久前台 Shell 进程与存储
+
+沿 ADR65、116、129–131，隔离树 `d6e75622` 的真实受管 Shell 保留进程、物理 cwd、环境和函数。全双工 Unix socket 传输请求和控制回执，命令看不到控制描述符，伪 PWD 不参与校验。测试覆盖隔离、提权决策变化后的写入拒绝、超时、取消、大输出和原 Registry 回收空闲进程。Store 可分开结算多条有各自 Grant 和 Evidence 的命令，空闲句柄继续由原进程持有，未知命令保持阻断。
+
+8 项新进程测试、17 项 Conversation Store 测试、86 组 Rust/TS 契约、27 项实际 TS Store/原生互读检查及严格 Clippy 通过。公开恢复在实际宿主硬退出后回收真实孤儿进程组，确认保留 OutcomeUnknown；此例用夹具转换原有运行记录为持久句柄。另有确定性红例，前一命令异步启动的子进程输出混入第二条命令。接线前需先隔离每次命令的输出通道，再通过公开 `exec` 和 ACP 验收。见[持久 Shell 回执](native-cli/evidence/p4-persistent-shell-worker-store-candidate-20261118.json)。
+
+## 2026-11-18 普通会话原生后台 Shell
+
+隔离候选沿 ADR55、57、65、116、129、131，把 `bash background:true` 和 `shell_stop` 接入普通原生 Host 和 ACP。模型收到真实已登记的进程启动、原任务 ID 和产物引用。当前权限、进程完成、终态产物和旧启动 Evidence 各自可核对。相同执行的重复停止返回已经结束，其他任务保持活跃。只有带原 Grant、Running 镜像、已提交的启动结果和 Evidence 的后台调用可以与下一串行 Tool Call 并存。模型请求内部的容量、用量和压缩写入通过实际 CAS 前后修订更新后台监督，过期修订仍不能授权。
+
+已验证两项真实后台任务的定向停止与退出清理、权限拒绝、自然结束和超时、大启动回执归档、实际撤权、真实宿主硬退出及 ACP 断连和同 scope 停止。硬退出保留原启动回执及未知效果。组合树 `cf8fd941` 通过本机原生门禁的 724 项 Rust、314 项公开 Host、637 根/3576 项互读、15 项固定结果及 9 项 PTY。旧 oracle 缺少 Conversation Store 构建产物，补建后在同一源码与原生二进制上重跑故障及后续门禁。arm64 原生包解开后通过 7 项公开场景及实际 ACP SDK 1.4.0 的一次授权启停。委派 Work 后台链路仍待迁移。见[公开后台 Shell 回执](native-cli/evidence/p4-native-background-shell-live-candidate-20261118.json)。
+
+`b1490f69` 的 Linux/macOS 全仓 CI 和各自 Electron smoke 均通过。前述组合原样晋级为 `a69d852a`，独立 CI 44277507175 运行中。见[前驱全仓回执](native-cli/evidence/ci-b1490f69-20261118.json)。
+
+## 2026-11-18 持久前台 Shell 基线
+
+旧 Node Shell Session 实跑 6 项，覆盖前台多次调用的 `cwd`、环境变量、同会话串行、隔离、排队授权复检、超时重建和空闲进程通过原停稳屏障清理。当前 `b1490f69` 对应 arm64 原生归档公开入口仍在第二次调用读到 `empty workspace`。迁移必须沿原 Tool Call 重新授权每一次写入，保留单个受管进程带来的前台会话状态，并把空闲进程、执行中命令和最终停稳分别记录。
+
+## 2026-11-18 后台 Shell 恢复与定向停止
+
+按 ADR65、116、129、131，隔离树 `611b5e56` 增加与原执行、Tool Call 和进程身份绑定的后台 Shell 记录。Rust/TS 共享 71 组执行契约。公开 `recover --session` 的真实进程测试覆盖宿主硬退出后回收已登记的进程，并保留原启动回执和未知执行效果。该测试在隔离夹具中补写将来后台启动时会落盘的记录。运行时内部定向停止已验证跨会话隔离，超时保留活跃状态，真实进程退出后结束。公开后台启动、`shell_stop` 的授权与 Evidence 闭环，以及持久前台会话仍待接通。见[后台 Shell 回执](native-cli/evidence/p4-native-background-shell-recovery-candidate-20261118.json)。
+
+## 2026-11-18 原生 Shell 产物与旧读取器
+
+旧 TUI Host、Provider、会话和任务管理的 48 项基线通过。固定原生 `179fd29a` 的公开入口复现产物别名目录被写入、100,000 字节 stdout 中断命令、后台请求失败和前台跨调用状态未保留。沿 ADR65、116、129–131 先补齐原生 Shell 产物。产物目录与文件的 FD 跨整个调用持有，派发前复核，stdout/stderr 分块持久化，64 KiB 预览与 2,000,000 字节产物上限分别记录，超额后继续排空管道并保留真实退出与截断状态。
+
+独立树 `92cc6275` 通过公开入口、路径替换、实时取消和归档复读，macOS arm64 解包 12 项 Shell 场景通过，旧 TUI 实际读取原生登记的 100,000 字节 stdout。固定结果与本卡的组合树 `f8ae3cb7` 通过本机原生门禁，含 715 项 Rust、307 项公开 Host、637 根/3576 项互读及 9 项 PTY。该组合解包后通过 12 项 Shell、15 项固定结果、22 项旧版输出对照和真实 ACP SDK 1.4.0。前驱 `b2040100` 的 Linux/macOS 全仓 CI 通过后，相同树已推送为 `b1490f69` 并触发独立 CI 44269223370。见[Shell 回执](native-cli/evidence/p4-native-shell-artifact-candidate-20261118.json)。
+
+## 2026-11-18 原生固定结果只读候选
+
+按 108-cli-basic-shell-commands、ADR118 §17.3/§19、ADR129–131，对接 `peer result <interactive-result://…> [--json]`。本机 SQLite 的固定版本、发布索引状态与墓碑，及已导入会话的原 EvidenceIndex、GoalPlan 和唯一完成的 Tool Result 均可形成有界摘要。实际旧 CLI 截断产生的 UTF-16 边界在文本和 JSON 输出中一致。保留 owner 拒绝、待登记、无效/重复/未提交历史等诊断。普通读保持原文件字节不变；缺少 `-shm` 时，SQLite 只读恢复派生索引，已验证主库及非空 WAL 字节不变。该入口不获得执行租约。
+
+独立树 `68d36d26` 通过 15 项 CLI 集成测试、22 项旧版输出对照、严格 Clippy 和 TUI typecheck。组合树 `f2630994` 已过本机原生门禁，712 项 Rust 测试、305 项公开 Host、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后通过 15 项固定结果集成、22 项旧版输出对照、14 项 Hook、4 项图片输入和真实 ACP SDK 1.4.0。前驱 `179fd29a` 两平台全仓通过。相同固定结果树推送为 `b2040100` 后，独立 CI 44260971378 的 Linux/macOS 全仓与各自 Electron smoke 均通过。见[前驱 CI 回执](native-cli/evidence/ci-179fd29a-20261118.json)、[全仓 CI 回执](native-cli/evidence/ci-b2040100-20261118.json)、[候选回执](native-cli/evidence/p4-native-fixed-result-candidate-20261118.json)。
+
+## 2026-11-18 原生图片输入与组合验收
+
+按 ADR55、57、90、129–131，把旧 Composer 的显式本地图片输入接进普通原生 Host。隔离树 `4c1349b7` 新增可重复的 `exec --image <path>`，支持仅图片或配合 argv/stdin 文字。通过实际公开入口验证模型请求和工具续行、源文件与授权/Evidence 保全、空文件/格式不符/特殊文件/远程 URI 拒绝以及总数量和字节预算。旧 TUI 的 Composer 25 项通过。图片包解开后四项公开入口均过，删除隔离原图后，真实旧 TUI 仍能从新会话读回同一图片，原消息字节保持。见 [图片输入回执](native-cli/evidence/p4-native-image-intake-20261118.json)。
+
+旧 CLI 正常 `createTuiRuntime` 的八种模式没有投影隔离 Plugin 包，本仓生产装配也未找到正式包注册入口。该结果绑定当前实际 CLI 可达范围，ADR15 草案中的包注册设计仍是规划。Ratatui 图片草稿、剪贴板与长期内存还需验收。图片与委派 Hook 的组合树 `c4567fee` 已通过本机原生门禁，712 项 Rust（含 305 项公开 Host）、637 根/3576 项互读、9 项 PTY。macOS arm64 原生归档解包后另通过 14 项 Hook、4 项图片入口、实际 ACP SDK 1.4.0 和旧 TUI 读回。相同树已作为 `179fd29a` 推送，需独立远端全仓 CI，见[本机组合回执](native-cli/evidence/p4-native-hook-image-combined-20261118.json)。
+
+## 2026-11-18 委派 Hook 崩溃窗口和 Skill 全仓验证
+
+原生 Skill `a2b99935` 的 Linux/macOS 全仓 CI 44240049384 均通过，实际 merge tree 与源码一致，含各自 Electron smoke。普通 Hook `db16e7be` 的独立 CI 44245930398 已双平台全仓通过，两个作业实际 checkout 的 merge tree 均与候选一致，含各自 Electron smoke。见 [Skill 全仓回执](native-cli/evidence/ci-a2b99935-20261118.json)、[普通 Hook 全仓回执](native-cli/evidence/ci-db16e7be-20261118.json)。
+
+委派 Hook 的隔离树 `a914e90f` 已覆盖两处此前实际失败的硬退出窗口。先在原 Work 持久化 Tool Call 消息身份和原参数摘要，原 Grant 随 Work 派发准入提交。已确认的 Pre 只收口原未派发调用。真实 Provider 返回和 Evidence 索引在 Post 启动前保存，Post 未证明启动时未知继续保留。通过 18 项公开 Hook 入口、22 组 Rust/TS 记录以及严格 Clippy。修正后的 OAuth 用例按真实命令已开始、结果已到达和进程退出分别观察，独立重跑通过。此树完整本机原生门禁通过 708 项 Rust（301 项公开 Host）及 9 项真实 PTY。解包的无测试特性产物通过 14 项公开入口和 ACP SDK 1.4.0 测试。P4 总闸和 P5–P7 仍待完成。见 [Hook 回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
+
+## 2026-11-18 委派 Work Hook 运行时
+
+冻结源码树 `d6e35b99` 已经通过原生 `exec --plan` 的拒绝、真实终端一次批准、等待撤销配置、Post 中取消、真实 owner 硬退出及缺少启动身份这六项。Hook 归入原 Work 工具预算；在原授权前登记 Pre，Post 保留已观察的 Provider Tool Result。硬退出只停进程组，已停但未观察的 Hook 效果留在原 uncertain 记录。最初恢复因遍历缺失数组时写入 null 无法完成，修正并从公开入口重跑两次恢复，第二次与首次 Work 预算相同。
+
+同一树另过完整 Hook 公开用例 16 项、相邻权限回归 4 项、实际存储对照 51 项、严格 Clippy 与架构检查。无测试特性的 macOS arm64 测试包解压后在无 Node/Bun 的 PATH 下通过 14 项实际公开入口，ACP SDK 1.4.0 双会话接线通过。此树的完整门禁在 OAuth fixture 退出等待处失败。保留的数据表明真实 Shell 结果已提交且控制已停稳。相同二进制的隔离重跑通过，独立新树按真实子进程和结果到达切分观察。见 [Hook 回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
+
+## 2026-11-18 原生 Hook 运行闭环候选
+
+已推送 `db16e7be`（冻结源码树 `ca3a5ebd`），以 `a2b99935` 为前置。依 ADR16 有效部分、35、76、116、129、130，ADR131 已在实现前登记原 Tool Call 与受管 Hook 进程。普通 `exec` 与 ACP 共享同一接线。配置版本与子进程身份写在原工具记录，Pre 收紧原授权，Post 保留已观察的 Provider 结果。中断时回收已证明身份的进程组，保全未知效果。原失败数据经修正入口成功恢复，原工具未重放。
+
+解包初验在并发测试负载下将即时拒绝记作超时，工具仍未派发。确定性测试复现持久准备耗尽子进程预算。修正后从实际启动起计时，超时用例仍使用原 120 ms。冻结树已通过 10 项公开入口、6 项 Hook Runtime、架构检查。跨语言 Hook 记录经实际 TS / Rust 各验证 60 项。无测试特性的 macOS arm64 包解压后在 PATH 无 Node/Bun 下再通过 9 项公开用例及 ACP SDK 1.4.0。精确树的本机原生门禁通过 699 项 Rust（293 项公开 Host）和 9 项真实 PTY。委派 Goal/Work Hook、旧安装宿主停稳和完整 P4 尚待验收。见 [Hook 运行、恢复与打包回执](native-cli/evidence/p4-native-hook-runtime-20261118.json)。
+
+委派 Work 的已知缺口已用同一解包产物复现，`exec --plan` 在当前 Hook 配置下返回 `native_hooks_not_migrated`。ADR131 已先登记专用持久事实与恢复，隔离树 `a70a7ab1` 的双语言记录形状各过 16 项，实际 Rust/Node/Bun 共用存储对照各过 51 项。现行宿主可读回首笔记录、待定结果与重建后原文，旧 ABI 13 的实际读写入口在新记录公开前被门禁挡住。委派授权、子进程停稳和完整恢复仍需接入公开入口。
+
+## 2026-11-18 原生 Skill 运行闭环候选
+
+已推送 `a2b99935`（冻结源码树 `f169eae0`），前置 `b2e09fea`。依 ADR16 有效部分、55、58、76、129、130，ADR131 先行登记 A 级 Skill 准入和正文。真实挂载只按工作区与用户设置，工作区同名覆盖，显式安装叶链接保留。工具实际进入用户允许列表和模式交集，L4 只列投影，正文经绑定包体、当前性、一次 Grant 和既有 Tool Result 获取。大正文通过同会话的不可变引用按范围读取。
+
+7 项实际公开入口覆盖普通 exec、ACP、委派 Goal、挂载撤销恢复、作用域排除、原安装 ID 和正文尾段检索，严格 Clippy 已通过。实际旧 TUI 的模型工具定义匹配原生 HTTP 投影，旧 Store 冷读 Tool Result、Grant 与 Evidence 配对，索引字节一致。打包后在 PATH 无 Node/Bun 的环境复测 7 项公开例及 ACP SDK 1.4.0。候选完整本机门禁通过 683 项 Rust（284 公开 Host）、628 根 3526 互读和 9 项 PTY。前置 ACP 的 Linux/macOS 全仓 CI 均已通过，已核对实际检出树。Skill 的独立 CI 44240049384 已通过 Linux/macOS 全仓验证。见 [Skill 与打包回执](native-cli/evidence/p4-native-skill-runtime-20261118.json)。
+
+Hook 基线使用实际旧 TUI、配置文件和受控命令。旧入口记录 deny 且文件效果未发生，Rust 暂以 `native_hooks_not_migrated` 阻断。最早的旧 Hook 立即退出用例发生 stdin EPIPE，消费 stdin 后完成基线。后续普通 exec 与 ACP Hook 接线见本页顶部。Skill 安装管理、额外资源生命周期、委派 Hook、Plugin 以及完整 P4 与 P5–P7 继续开放。
+
+## 2026-11-18 原生 ACP 会话模型与持久化
+
+按 ADR76、129、130、131 接通原生 ACP v1 stdio 的普通会话 Host。双会话独立处理请求、审批和历史，执行和停稳经原 Runtime。在首轮真实请求发送了 `high` 时，旧在制树存成 `default`。另一次基线中，空闲期切模型得到协议成功，下一轮却在发送前被 `CONTEXT_SNAPSHOT_CHANGED` 拦住。
+
+已推送 `b2e09fea`（tree `4b41a919`），将用户所选 provider、模型和兼容强度保存在原会话字段。首次会话创建即保存，后续空闲期取得同一 Store 锁再更新。当前 owner 未退出或历史尚未对账时拒绝修改。模型请求准入对照同一行。在锁冲突下既有选择保留，下一轮可在切换后的同一会话使用原历史。仅模型改变时清除过时的容量镜像，容量选项仍属当前 ACP 会话。该在制接线沿用已有持久字段、权限、Evidence 和恢复边界。
+
+较早树 `2c48b52c` 的完整本机原生门禁已通过 671 项 Rust、627 根 3521 互读和 9 项 PTY。新树已通过 4 项公开 ACP 用例、1 项 Store 选模并发准入回归、严格 Clippy 与架构检查。macOS arm64 测试包解开后，在 PATH 无 Node/Bun 的环境下重跑 4 项公开用例和 SDK 1.4.0 真连接。旧 TUI 冷读两个会话的模型/强度正确，并对照两个模型请求、128K/32K 容量 sidecar 与原全局配置字节。新树的完整本机原生门禁已通过 672 项 Rust（277 项公开 Host）、627 根 3521 互读和 9 项 PTY。前置 `b4c72637` 的 Linux / macOS 全仓及两端 Electron smoke 均通过，实际 merge tree 与源码一致，见 [全仓回执](native-cli/evidence/ci-b4c72637-20261118.json)。ACP 候选的 Linux/macOS 全仓 CI 44233766860 均已通过，含各自 Electron smoke。实际检出、原生门禁、merge tree 与 parents 已核对，见 [全仓回执](native-cli/evidence/ci-b2e09fea-20261118.json)。见 [ACP 测试回执](native-cli/evidence/p4-native-acp-v1-20261118.json)。
+
+作为下一项 P4 工作的隔离基线，旧 TUI 使用工作区同名 Skill、排除该工作区已禁用 Skill，并为加载工作区正文生成 Evidence；原生入口返回 `native_skills_not_migrated`，模型 HTTP 请求数为零。另将两个 Skill 都禁用，确认旧 TUI 投影无 Skill；原生即使使用 `--tools read_file` 仍在发送前阻断。旧入口显式借用后创建安装符号链接，原生隔离工作树已验证目录挂载、正文版本、链接换目标以及有界 YAML 解析四项 Store 测试。该处为 Skill 接线前的历史基线，后续实测见本页顶部。P4 总闸与 P5–P7 仍开放，已发布旧宿主停稳、真实编辑器界面和真实模型未验收。
+
+## 2026-11-18 普通 exec 认证与配置错误
+
+`189160bc` 已推送。按 ADR65/129/131 的既有退出码合同处理。原候选真实 401 正文包含容量超限字样时，实际执行压缩和续发并错误返回成功。现在收到模型 HTTP 401/403 即结束，不消费拒绝正文。压缩摘要收到同类拒绝也不再续发。已完成的工具结果、授权、Evidence 与已知用量仍由原 Host 结算。无效配置返回 3，错误模型参数返回 2，普通服务端或代理响应错误仍返回 1。
+
+25 项普通 Host、2 项模型目录对照、8 项相关传输与恢复回归及严格 Clippy、架构检查通过。无测试特性的 macOS arm64 产物在 PATH 无 Node/Bun 下另外通过 3 个公开入口测试。完整来源见[认证退出回执](native-cli/evidence/p4-native-exec-auth-exit-20261118.json)。前置 `dc9df72` 已核对 Linux/macOS 全仓成功。认证提交的[独立 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44223788350)在 macOS 原生门禁的 Web 连接关闭断言失败。实际 checkout 与错误见[失败回执](native-cli/evidence/ci-189160bc-web-observation-20261118.json)。本地对照验证真实 TCP EOF、复位和仍打开的连接，修正测试的观察和正文就绪后通过局部回归。远端原错误码未被保留，不能据此判定原失败原因。 测试修正 `b4c72637` 已推送，独立源码上 16 项 Web 用例通过，其中两项另在原认证发布产物验证。[修正提交 CI](https://github.com/ly-ccx/Peer-Agent/actions/runs/44227322669)正在运行。
+
+原生 ACP 在制入口已通过真实双会话审批、迟到授权、等待审批和运行 Shell 时的断连。实际共享索引反例和目标会话当前性修订见 ADR131。初步候选 tree 823c0ebb 通过 669 项 Rust、627 根 3521 互读与 9 PTY。后续配置补丁的独立候选通过 4 项原生 ACP 公开入口，涵盖两会话真实模型与推理强度、128K/32K 容量落盘，且原共享配置保留。该版本的无测试特性产物还通过 SDK 1.4.0 实际连接和旧入口模型菜单与窗口选项对照。最终在制树 2c48b52c 的完整原生门禁运行中，未进入上述代码提交。P4 总闸及 P5–P7 继续开放。
+
+## 2026-11-18 普通会话原生恢复与跨平台目录身份
+
+普通恢复 `28dc48149c0cc8f8bf722b2d0c1a9c4e9925cb24`（tree `5469ec6b6a0fbb6e3897bf4513b6e6acd54f887f`）已提交推送；依ADR129/130/131及原用量/权限/Evidence契约，ADR131/map的排他恢复与macOS稳定起点A修订先于实施。公开 `recover --session` 不发现模型/凭据或重放工具，只在完整原owner死亡或已有canonical stop后管理原执行。现有目录FD排他flock、完整control与dev/inode复核持有恢复权；prepared只可形成真实未派发取消，原Grant保全，匹配的canonical Result经原Evidence索引与结算闸确认。已知费用按原stream一次结清，未知效果、Starting身份缺口和未证明结束的child/handle继续阻断。真实Shell/MCP group停稳只证明本地生命周期，不能证明远端效果；旧孤mkdir锁不自动删除，明确给出离线核对路径。
+
+该树完整本机原生门禁通过：**662 Rust（269公开Host、146 Runtime）、627根3521互读、9PTY**，root typecheck/architecture通过。实际时区切换暴露的活owner误接管、解压包Git快速child的21/22失败与确定性zombie红例、原Store锁内崩溃/100ms竞争和Git空PID marker反例均保留。macOS使用固定libproc0.14.11的实际内核秒/微秒和包含未回收child的BSDInfo查询；status不代替wait/组缺失证明。旧显示身份仍活时保守Unproven，既有真实旧死亡owner的16已知费用和unknown可恢复；不就地改旧记录。见[普通恢复与失败来源](native-cli/evidence/p4-native-ordinary-recovery-20261118.json)。
+
+最终仅两文件FD类型适配修正为 `dc9df7273d734d5641d0c10e5e7cea51dbbc04f5`（tree `9b6f076d206963c34c214da5d1d1fa7a2adab81c`）：标准库从同一已打开FD提供统一u64设备/inode，保持原权限、恢复与CAS边界，B级不改ADR。Linux形状u64转换的本地Clippy红例是替代验证，不冒充实际Linux/远端失败。该最终树另通过16项Store（3子进程helper在父目录忽略且由实际测试调用）、22项普通/恢复Host、all-target warnings-denied clippy、fmt/diff及architecture；完整662整闸仍只绑定前一树，不继承成最终全仓绿。
+
+最终featureless包 **22,396,640 bytes** / SHA256 `be02eb3d52f152842dad699d25dc54762e757c55ebc8dbf67753e43038d165f7`，原打包器显式输入Rust和原生Helper，解压后env-clear/PATH无Node/Bun的22真实Host、5真实崩溃恢复、Node/Bun各5根82互读及13根76旧链互读、9PTY通过。测试开关不在产品中，Helper和系统动态库来源已核对。详见[最终FD修正及解包回执](native-cli/evidence/p4-native-ordinary-recovery-portability-20261118.json)。原28dc CI44215318326已cancelled，不能记全仓通过；后续已核对[CI44217341964](https://github.com/ly-ccx/Peer-Agent/actions/runs/44217341964)的实际checkout、merge/tree/parents及Linux/macOS全仓成功，包含两端Electron smoke。见[全仓回执](native-cli/evidence/ci-dc9df-20261118.json)。
+
+**仍在P4。** TS普通生产owner/guard与旧原生/安装宿主实际drain、进一步unknown Probe/Grant/Evidence对账、完整动态Context/压缩/附件生命周期、持久Shell与剩余工具/Skill/Plugin/Hook、ACP/命令/Provider平价和真实平台/服务/MSRV/总闸继续开放。P5完整项目代理、P6完整Ratatui与长对话内存/响应、P7默认安装更新/发布未完成。实现者自审、隔离数据与受控服务；无个人数据/安装/运行实例重启/默认peer-dev切换/合并/tag/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-18 普通原生 Host 与公开 exec 接通
+
+代码 `86fb2fa9c416a6e2c44aecf9dab23e8458958f69`（tree `0cdde6e4478c0b66f1231fc6924b4ddd9c05031b`）已验证并推送。依 ADR25/55–57/65/76/92/101/129–131，B 级接线前登记 `ad92204` / `0651316`，既有权限、Evidence、Context Source 与存储边界不动。普通 conversation/stream 使用真实 owner/access 修订、同一 Provider/Grant/Evidence、共享 turn/cognition 和原账本；不创建假 Goal、不继承 Bot Full。公开 `exec [prompt]` 支持 argv/stdin、模式与 allowlist、当前模型选择、文本/JSON 和回合上限。原 TS 默认 Source 的36组有序正文/hash/snapshot 与32组argv、35项工具别名、11组模型消歧已冻结对照；实际 Skill/Hook 配置未迁移时明确阻断，不静默遗漏。
+
+最终冻结原生验证通过：642 Rust（含256公开Host）、627根/3521 TS互读、9PTY；普通Store11项行为、Runtime真实HTTP/工具/撤权/外来内容与原Grant保全、CLI9项实际公开用例均通过。固定无测试特性的release为22,199,648字节，SHA `2fff2db5d390fd0d346998826fb7de9b6c5f116a83b0a6c4332aef65111633d2`；隔离HOME、子进程PATH无Node/Bun的17项真实Host、13根/76旧链互读，以及普通exec3场景、Node/Bun各3根19项互读通过。全仓typecheck、架构/UI、fmt和warnings-denied clippy通过。首轮lint失败、254/255时暴露的Shell取消状态错误、PTY取消审计缺口、实际HTTP fixture的Darwin非阻塞反例及修正均保留，未放宽原取消/授权/停稳断言。见[本卡来源与完整回执](native-cli/evidence/p4-native-ordinary-host-20261118.json)。
+
+`dfef2922` 的[两平台全仓CI](native-cli/evidence/ci-dfef-20261118.json)已核对实际checkout/merge/tree/parents；本候选[CI44187770148](https://github.com/ly-ccx/Peer-Agent/actions/runs/44187770148)后续已核实Linux134408766914/macOS134408767642两平台全仓success，含各自Electron smoke；实际merge978f2c00的tree与86fb一致，parents与既有base/candidate匹配。首次in_progress观察保留于原回执，完整来源见[CI终态回执](native-cli/evidence/ci-86fb-20261118.json)；不验证后续普通恢复在制源码。**仍在P4。** 普通owner死亡/commit-uncertain/unknown对账入口、TS生产owner/guard和旧安装宿主drain、完整动态Context/压缩/附件、Skill/Plugin/Hook、ACP与其它命令平价及真实服务/总闸继续开放；普通模型HTTP认证退出分类仍待补齐。P5完整项目代理、P6完整Ratatui/长期内存、P7默认安装/更新/发布未完成。实现者自审、受控服务；无个人数据、安装、用户实例重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-18 普通会话 canonical 执行记录与真实 Store 回执
+
+代码 `dfef292291ff98367bae3c0e89ce008b18211d2b`（tree `42390a0b1413e6dfa6b019063038f4f1e9a8470f`）已完成本卡专项验证并推送。按 ADR131/map 的 A 级实施前登记 `5a74211`，普通 conversation/stream 执行事实写入原 index，沿原锁与 source/contentRevision/owner CAS；不建立假 Goal、继承 Bot Full 或私有日志。prepared/dispatching、process/handle、用量与真实停稳分别保留，unknown 不重放。原每 stream 汇总账本经绑定数据根和 owner 的真实 Store 回执确认。共享 cognition 只接受连续的纯 metadata 发布回执；外来历史/模型修改仍冲突，迟到的已知用量仍保存。
+
+冻结候选原生门禁通过：620 Rust（含247公开Host）、627根/3521 TS互读、9PTY；新增9项Store行为与49组解码向量、实际Node/Bun各12项Store保全检查。全仓typecheck、架构/UI、Protocol336测试及warnings-denied clippy通过。固定无测试特性release二进制21,502,736字节、SHA `024e2d581177b308b833174f815824f656a960f712fcc77edfdbd3a23dcfd15a`；env-i隔离HOME、PATH无Node/Bun的8项真实模型/工具Host及13根/76互读通过。原失败、候选来源和限制见[本卡回执](native-cli/evidence/p4-conversation-execution-20261118.json)。`066b63e8` 的[全仓CI](native-cli/evidence/ci-066-20261118.json)已核对两平台success及实际Checkout/merge/tree/parents；新[CI44165606361](https://github.com/ly-ccx/Peer-Agent/actions/runs/44165606361)首次观察queued，不能继承旧绿。
+
+**仍在P4，普通CLI发送未接通。** 本卡是执行事实与回执底座；HTTP验证使用明确的测试Source/Host，不是普通生产Host。下一卡须接真实普通owner/当前权限、原Provider/Grant/Evidence、已拥有资源停稳与owner死亡/unknown对账，以及相同loop/cognition的普通exec/Ratatui/ACP。TS生产owner/guard及旧安装宿主drain仍须验收；当前TS保全未知字段不等于互斥已保护。其余Context/Skill/Plugin/Hook、完整协议/命令、P4总闸与P5–P7、真实服务/长期内存/安装默认和发布验收继续开放。实现者自审，无个人数据、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 2026-11-18 共享原生认知请求管线与非Goal Host seam
+
+`066b63e803caae344efc4dca1b1b380877bbf126`已提交推送，tree `2ff7ffb8588c47aab081ca47249a43c31fbbd1e0`。按ADR25/55/56/57/65/76/129/131复核，B级源前登记 `43e286e`；授权、Evidence、存储格式/写入所有权、Context Source与验收边界不动。原Goal绑定的请求/计数/结果视图/容量快照/压缩重建/物理请求重试移入同一个cognition Module，只依赖Host的当前性、预算、注册Source组装、受管等待与用量归属。Goal adapter仍校验真实lease/Goal修订/parent policy/MCP registry及credential epoch，并保存原canonical Work用量快照；ModelObservation在实际响应之后、等待的所有权/取消拒绝之前捕获。count/send仍消费同一prepared bytes，summary/重试计费、单次overflow恢复、历史CAS与原资源预算不变。无第二个模型引擎或假Goal。
+
+同一冻结源码完整本机原生门禁通过：**609 Rust（含247公开Host与4项新非Goal Host seam）、627根3521实际TS↔Rust互读、9PTY**；all-target Runtime/CLI Clippy、fmt、边界及全仓architecture通过。非Goal测试直接使用真实HTTP和ConversationStore，验证同请求计数/发送与fingerprint、容量冷读、实际迟到用量先到Host、当前性撤回零网络、外来canonical输入CAS拒绝与后续新请求；它们是合成Source/test Host，不是生产普通会话或授权闭环完成。新增夹具helper命名遮蔽及旧imports失败保留，修正后未抑制lint或放宽断言。
+
+固定featureless release21,485,632 bytes / SHA256 `eb77e9f209e6e6ccb45f781eb2ad1dfde67bb8bb7b6ecb34e487e87b2af11d81`，仅CoreFoundation/libiconv/libSystem、fixture开关不在产物；env-i清除继承环境、产品PATH=/nonexistent下8项实际模型/文件/Shell/Git/Web/MCP闭环通过，随后当前TS核对13根76次持久事实。见[认知管线回执](native-cli/evidence/p4-native-cognition-host-20261118.json)。前9e64两平台完整CI已终态success且merge/tree/parents核对后才推送本候选；新[066b CI44153366272](https://github.com/ly-ccx/Peer-Agent/actions/runs/44153366272)独立运行，不记新源码全仓绿。
+
+**P4总闸仍未完成，普通CLI发送尚未接通。** 下一卡直接接普通主体与canonical pending/stop/unknown、同一Provider/Grant/Evidence，供普通exec/Ratatui/ACP使用。普通用量/控制metadata写入会改变index source，须真实Store回执并验证canonical内容未变，不能忽略CAS；ADR25每stream一份runtime_turn汇总不得拆成伪物理请求账目。实际Source/身份/进程/MCP依赖与此约束已在回执保留供接线。其余Context/Skill/Plugin/Hook、兼容drain、P5–P7、真实服务/长期内存/安装默认与发布验收继续开放；实现者自审、合成服务，无个人数据改动、安装、用户重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-18 共享原生回合循环与旧JSONL实际兼容证明
+
+`9e64c928173293eba48a77ebdb378d891623b81d`已推送，tree `de0a6aa736c5f758119c455184b49e82f32d2093`。源前B复核：共享loop `df6eef9`、旧JSONL证明 `773bdd3`；沿ADR26/65/76/118/129/131，授权、Evidence、存储及验收边界不动。一个原生turn loop拥有请求→已观察正文提交→真实Host逐工具结算→authentic continuation绑定；Goal adapter继续原current policy/source/binding、Context/count/compaction、Provider/Projection、Grant/EffectAdmission、资源、Evidence、预算/materialization及外层停稳/计费。循环不签发Grant或判业务成功，只持当前turn/id；None不添隐式64回合上限，Goal既有显式上限不变，取消/未知/提交失败不重试。
+
+同一冻结树完整本机原生门禁通过：**605 Rust（含247公开Host）、627根3521实际TS↔Rust、9PTY**；另有Node/Bun各13根33项终态Store oracle。7项循环单元函数只证明顺序、上限、取消和失败路径；真实授权/效果/停稳由公开Host覆盖。all-target Runtime/CLI Clippy、fmt、全仓typecheck/architecture和边界通过。固定featureless release21,475,264 bytes、SHA256 `543893c9a35783933848b0f1443a1907ba6e83fb70efed5c563302f26d83a870`，仅CoreFoundation/libiconv/libSystem，fixture开关不在产物；产品PATH=/nonexistent下8项实际模型/文件/Shell/Git/Web/MCP闭环通过，再由当前TS核对13根76次持久事实。
+
+fcfee两平台CI的同一旧JSONL digest失败及重试保留；本机10过/1失败复现。原f943 digest保留在逐字冻结的8b3旧primitives，实际旧reader/writer重写同一隔离Conversation，再由当前Store更新/重开；附件全文、冻结条件、队列游标与重复inputId原断言保留，新durable块另审阅和hash检查。Interactive Results目录159项通过。顺序primitive互读不等于完整旧安装宿主drain；借用/Clippy失败也保留，不称flake或弱化门禁。详见[共享循环回执](native-cli/evidence/p4-native-shared-turn-loop-20261118.json)及[旧CI事实](native-cli/evidence/ci-fcfee-20261118.json)。[9e64 CI44145578848](https://github.com/ly-ccx/Peer-Agent/actions/runs/44145578848)现已两平台全仓success，含各自Native/build/type/architecture/Test/Electron smoke；merge f31e3798/tree de0a6aa7、base及9e64 parents已由两个真实Checkout日志/API核对。见[完整CI事实](native-cli/evidence/ci-9e64-20261118.json)，不验证后续认知管线源码。
+
+**仍在P4，普通CLI发送未接通。** 下一卡是普通会话真实主体、当前access/模式/allowlist、持久pending/unknown与实际停稳；沿同一Provider/共享loop装配普通exec、交互和ACP。实际源审计确认Context RequestFrame/BillingScope及资源HostResourcePlan仍绑定Goal/Work，必须按普通主体解耦，不能创建假Goal套用。其余Context/Skill/Plugin/Hook、兼容drain与P4总闸、P5–P7、真实服务/长期内存/安装默认及发布验收继续开放。实现者自审、合成服务；未安装、改个人数据、重启用户实例、切默认、合并/tag/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-18 普通会话的原生流式与终态 Store 候选
+
+`fcfee273ea814bfbd2e51e83226e328cbe83834f`已提交并推送，tree `29ea6ae9d04a072d26b78a0beafede115e7eae39`。沿ADR129/131既有v1会话/sidecar与原index→body锁迁移；B级源前复核`ce38dbd`及`feef7ba`，不增加Goal、权限字段或私有执行日志。Rust现有追加消息之外，新增绑定原conversation/message、实际source/contentRevision的流式patch与终态合并。终态正文替换前先持久化原v1 provisional marker，已有预览保留，新marker为空patch；真实结果未确认时不暴露为committed。body/index/cleanup中断保留已写事实并返回uncertain；用新source核对原终态事实完成Store恢复，不重跑模型或工具。TS streaming写/清理参与同一锁，终态清理失败不伪报成功；原call/grant/result身份与opaque字段保留。
+
+冻结最终source scoped通过：98项Store Rust、148项conversation-store Node、Node和Bun各13根33项实际互读（合计26根66项）、5项Native终态测试函数、all-target Store clippy/fmt、root typecheck/architecture及native boundaries。实际Rust子进程在body/index后exit86，孤锁仍阻断；确认隔离根所有writer已退出并保全诊断副本后，显式离线维护空锁、完成原Store提交，再接新消息。没有自动删锁或借Store补造Tool Result。原a942归档生产TS上的3项真实反例、依赖/夹具参数/错误码及Clippy失败保留。见[终态Store回执](native-cli/evidence/p4-native-terminal-store-20261118.json)。原8MiB/4096行raw writer预算未扩大；大历史和安装版本drain仍待验收。
+
+前候选[a942 CI44126220185](https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185)两平台全仓success已核实，包括各自Native/build/type/architecture/Test/Electron smoke。merge `9dceb390`/tree `caf75dc4`、base与candidate parents已绑定；不验证后续Store改动。新[fcfee CI44137462307](https://github.com/ly-ccx/Peer-Agent/actions/runs/44137462307)现已两平台终态failure：各自Native/build/type/architecture通过，Test及其单文件重试均在Interactive Results反馈测试的旧JSONL源块digest失败；本机同源10过/1失败保留。详见[完整CI事实](native-cli/evidence/ci-fcfee-20261118.json)。不能记为全仓绿；后续修正独立验收。
+
+**仍在P4，普通CLI发送尚未接通。** 下一卡直接推进共享回合循环与普通会话真实Host：独立会话主体、当前access/模式/allowlist、持久待执行调用及实际停稳/unknown、相同Provider/Grant/Evidence和Context/usage链；不能创建虚假Goal或继承Bot Full。Store接口不算普通Runtime、headless或ACP已完成。P4余项及P5–P7、完整Ratatui/长期内存/真实服务/安装验收继续开放。实现者自审，未安装、改个人数据、重启用户实例、切默认、合并/tag/发布；无Bun/Node引擎sidecar。
+
+## 2026-11-18 共享 Provider Host、实时撤权与普通会话模式投影
+
+`1fb2790128f67dd2b3cc046b345070d4b451f1f5`（tree `8cd75095`）与后续 `a942b36e2d31bc10a57e14175f8e723ae074d7c4`（tree `caf75dc4`）已推送。ADR65/76/129/131 的共享执行接缝 B 复核 `760c1e8`、Git 计时修正 `4dc1377`、模式投影 B 复核 `3204589` 均先于对应源码；既有权限、Evidence、存储与 unknown 收口边界不动。Provider 改用 Host 调用事实和原 EffectAdmission，不再依赖具体 Goal Host/Grant/资源对象；调用事实不能授权，也没有为普通会话伪造 Goal。
+
+MCP 未启动 driver 经原有界控制通道交给实际 Host；先核对 canonical pending Recorder 的完整 owner 元组、真实 registry revision/manifest transport，再登记原持久句柄和 live owner，随后才运行 transport。七种 owner/start/boot/role/transport/revision 错配均零启动并能接后续任务。Shell 在启动产物、spawn 前及运行期间复核实时授权；真实撤权反例由原六秒边界失败转为停止/回收成功，保留此前真实 granted=true 和实际失败结果。Git 累计15秒只计 spawn→真正完成/组不存在；Host starting 确认另限5秒，恢复 Probe 原绝对10秒/256KiB不变。原并行超时、依赖回读失败和慢准入红例保留。
+
+精确 `1fb27901` 完整原生门禁通过：589 Rust、247公开Episode、627根/3521实际TS↔Rust、9PTY，1045.007秒；全仓typecheck/architecture通过。其固定 featureless 产物 21,442,016 bytes / SHA256 `9c16fab7f0f0e05223f602d2d02144e689e55105c6f0859bffbca69b4a2eeaa8`，仅CoreFoundation/libiconv/libSystem；fixture开关不在产物。清除继承模型/凭据/测试覆盖且产品PATH=/nonexistent，8项实际文件/Shell/Git/Web/MCP stdio/HTTP/SSE与10根64互读通过。见[共享接缝回执](native-cli/evidence/p4-native-shared-provider-host-20261118.json)。
+
+后续 `a942b36e` 将既有八种 Runtime mode 与 Host capability allowlist 交集接入同一 immutable Projection，Goal入口明确使用goal；不可见工具在prepare仍拒绝。实际TS helper128向量、隔离TUI迁移子集8种模式成员对照、123 Runtime library（含4项新投影测试）、all-target clippy/fmt/boundary/architecture通过；保留注册顺序和goal原有工具集合。完整旧门禁不冒充此新tree整闸。新固定 featureless 产物 21,476,240 bytes / SHA256`e15433ff984753d5f47286d48553b553b3876f4d93e70d625f218c00890456ff`；11项公开函数（8正常/异常闭环及远端原失败3项）与15根89互读通过，详见[模式投影回执](native-cli/evidence/p4-native-runtime-projection-20261118.json)；原生普通会话发送仍未接通。
+
+CI44113613779的精确merge `fe5524e3`/tree `9a598e34`、base和b3c parents已核对：Linux134145773558全仓success；macOS134145773028在15:41:25Z先发生242过/3失败（两项明确git_query_timeout，另一项artifact_invalid，远端原fixture缺失，不能断言其前序结果），之后作业未退出，到16:23:23Z触发60分钟取消。不能仅记为跑得慢或全仓绿。现有本机同类失败与慢准入红转绿支持计时修正；未宣称精确复现远端或解释打印错误后仍存活的原因。新[a942 CI44126220185](https://github.com/ly-ccx/Peer-Agent/actions/runs/44126220185)独立排队/运行，尚未全绿。原失败日志、身份和断言均保留，没有放宽15秒执行预算或60分钟CI总限。
+
+**P4总闸与P5–P7继续开放。** 下一段是普通会话真实身份/持久执行、同一Runtime的headless/ACP及Context/Skill/Plugin/Hook余项；模式投影与Provider解耦不等于普通CLI已可用。实现者自审、合成服务，未做真实付费模型、安装版本drain或长期内存验收。未安装、改个人数据、重启用户实例、切默认、合并/tag/发布；无Bun/Node引擎sidecar。
+
+## 2026-11-17 Git CI filter 夹具修正
+
+`b308`独立CI44109003980：Linux134129146730在原生门禁失败，公开Episode为244过/1失败；snapshot对clean=false的断言实际得到null。macOS134129146953的原生门禁成功，整作业在后续推送后取消，不记全仓绿。原runner失败fixture/config未保存在本地，不能声称精确Linux复现；用同一固定b308 featureless二进制、自有HOME/.gitconfig配置clean filter，原断言同样实际失败。ADR106已要求禁用配置filter时clean=null；NOSYSTEM仅在初始化夹具设置，真实产品清除GIT_*环境，不能假定系统无filter。
+
+仅测试修正`b3c825e364aa729ace2e44e5dbea48b2029054f3`/tree `9a598e34`已推送：显式固定配置filter，断言filtersDisabled=true、clean=null及过滤命令零效果，原untracked/HEAD/index/完整产物/Grant/Evidence/进程/版本断言保留。固定正式产物聚焦红转绿；生产源码与b308完全相同，普通Runtime解耦在制代码未混入。见[回执](native-cli/evidence/ci-native-git-filter-20261117.json)。新[CI44113613779](https://github.com/ly-ccx/Peer-Agent/actions/runs/44113613779)仍在运行，不以旧本机门禁冒充新测试树完整CI，也不称flake或通过放宽产品政策解决。
+
+## 2026-11-17 原生 Git 工具、动态读取范围与只读 child 恢复
+
+`b308ff75159f003b442e614112595c0952d8fd7d`已提交并推送，tree `e2758723832bd393f32e7a72e735deb708998bb4`。按ADR49/92/101/106/127/129–131实施；原生child/floor13与固定元数据超额先在ADR131登记，Darwin登记时点修订`a8cc238`也先于对应实现。真实`git_query`现已注册到默认Provider/Projection，沿同一Host授予根与动态scope、固定Git执行、不可变完整JSON/有界预览、Tool Result/Evidence及模型续行。原恢复Probe保持窄预算/编码/范围；不会以Git工具读取许可替代unknown对账。补充scope逐项使用原ApprovalStore/Input等待，保留最初真实Grant与随后批准/拒绝，不跨调用缓存。
+
+只读Worker从canonical Goal/会话解析独立读取锚点，空target可回退，仍无写目录claim。完整owner/child/调用/dispatch/generation保存在原pending/uncertain记录，TS/Rust写前晋级与重建保持floor13，旧<=12存储实现拒绝。Darwin已退出未回收child的getpgid=ESRCH、组探测=EPERM不冒充停稳；启动登记只保全身份，结束仍须实际Child wait/组不存在。恢复仅针对确证同tuple且PID=PGID的自有进程组；starting无child、身份复用/无法证明继续阻断，原unknown/产物不删不重放。真实恢复测试还暴露了可选数组被插入null的问题，已用不创建缺失字段的原位更新修正。
+
+同一最终冻结源码完整原生门禁 **583 Rust（含245公开Episode）/619根3459实际TS↔Rust/9PTY**，exit0、1068.473秒；全仓typecheck/architecture通过。37个实际TS协议形状向量、33项真实canonical往返/后台worker重建/中断/floor门与旧已加载存储读写拒绝，以及39项Node协调/fork/fence专项通过。首轮整闸因测试重复分支触发Clippy失败，修正后完整重跑，未关闭警告或放宽断言。
+
+8项公开Git用例涵盖实际模型→Git→结果/Evidence→模型、两种产物回读、真实系统/外置include逐scope批准与拒绝、6秒等待续租、无TTY/坏输入零spawn、只读无写claim、超大固定身份的双JSON归档、硬退出unknown与后续任务。恢复另用明确标注的持久状态夹具和真实自有sleep/reaper，验证匹配组停止、starting/变更start不被杀；不把它说成实际Git遗留孤儿或真实PID复用。最初scope提示遇平台system config、结构化read_file结果/filters位置等夹具错误和原失败均保留。阻塞授权轮询从确认后计算下一间隔，避免每个JSON小写入重复昂贵校验；同一公开场景由约99秒降为约18秒，控制/授权断言不变。
+
+固定featureless release **21,868,912 bytes**、SHA256 `6fcbcd1493433ea729ce485b9e3aee3f3fcf26529b3479b0aefed6789ea6dd12`，仅CoreFoundation/libiconv/libSystem，故障/短截止测试变量不在产物。清除继承模型/凭据/测试覆盖环境、产品PATH=/nonexistent，5项公开Git函数在该实际二进制通过，额外7根35次TS↔Rust互读通过。详见[Git Provider回执](native-cli/evidence/p4-native-git-provider-20261117.json)。实现者自审、合成模型；真实厂商服务、安装版本drain、MSRV1.88/平台发布、实际PID复用/boot重置与长期内存未验收。
+
+前8526的CI44086962694两平台全仓已通过；新[b308 CI44109003980](https://github.com/ly-ccx/Peer-Agent/actions/runs/44109003980)仍在运行，不继承旧绿。**P4总闸与P5–P7保持开放，普通Ratatui仍不可发送。** 下一段优先补齐普通会话共享Runtime及已发布exec/ACP装配，同时继续Context/Skill/Plugin/Hook、只读MCP/角色生产链、其余命令与兼容恢复；不能继续以专用`exec --plan`冒充日常CLI。未安装、改个人数据、重启用户实例、切默认、合并或发布，无Bun/Node引擎sidecar。
+
+
+
+## 2026-11-17 原生待批准请求的归属、到期与未派发收口
+
+`8526db01`已提交并推送（tree `aa059e57`）。复核ADR92/101/106/129–131，按知识`ed4f0a9`在源前保全的事实作B级修复，既有授权/存储/Evidence边界不动。新pending持久化原5分钟deadlineAt并拥有单调截止与输入future；真实Approve/Deny归local_ui，缺TTY/输入不可用、取消与超时归policy。过期/参数或策略失效与Store CAS拒绝迟到批准；不让非白名单错误把Expired写入变成InvalidInput，调用仍保留精确失效原因。到期只限pending，不凭时间撤销已经签发的once Grant；实际执行仍实时复核。取消/到期先写false Grant、配对Tool Result/Evidence及not_dispatched，结算预算后停止本轮，后续提示不能消费迟到y。
+
+最终同一冻结源码完整原生门禁 **572 Rust（含237公开Episode）/603根3374实际TS↔Rust/9PTY**，exit0、1005.484秒。包括前Git候选的checked CAS与真实include/nonzero时区oracle修正，fmt/clippy/contracts/build/helper/Store/静态边界等原闸均通过。25 Host聚焦覆盖300秒单调/墙钟边界、已签发Grant不受pending TTL、参数/策略/CAS失效。实际PTY覆盖批准/拒绝/TERM、2.5秒测试截止/迟到y、后续独立任务及原6秒延迟批准heartbeat；旧过期批准和会话字节不变。原缺deadline、错误决定来源、参数变化写入错误三反例修复前真实失败记录保留。
+
+固定featureless release **21,253,760 bytes**、SHA256 `21ab3dd28390b545378da4706fc60a077fa7273c710546a3e72b940a386e15fe`，仅CoreFoundation/libiconv/libSystem，短截止测试开关不在产物；清空继承模型/凭据环境、产品PATH=/nonexistent，4项公开Host测试生成9根、47次实际TS/Rust互读通过。两次PTY终态文字检查失败保留：先误读Child.stderr，后遇Darwin最后slave关闭丢弃未读输出；最终夹具持有自有slave读取真实终端，不代读/代答产品stdin，原超时/零效果/迟到拒绝断言保留。见[权限等待回执](native-cli/evidence/p4-native-permission-wait-20261117.json)。实现者自审；300秒真实墙钟未soak，虚拟时钟与短真实PTY覆盖不冒充安装/真实用户/长时验收。
+
+后续已核实[CI44086962694](https://github.com/ly-ccx/Peer-Agent/actions/runs/44086962694)两平台完整作业success（Linux134051964925、macOS134051965408），包含各自Build/Native/typecheck/architecture/Test及Electron smoke；merge3a4f0073的tree为aa059e57、精确绑定8526与既有base，不验证后续未提交Git/scope/child改动。前8830 CI两平台被新推送取消，Linux Native/build/type/architecture/Test成功、Electron取消，macOS Native取消；不以新本机整闸替代全仓绿。Git工具及动态scope/只读角色生产回合仍未接，P4总闸与P5–P7保持开放，普通Ratatui仍不可发送。未读改个人数据、未安装/重启用户实例/切默认/合并/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 原生 Git 读取 Module 候选
+
+`53d1cc14`（tree `e8a666ce`）已提交并推送；ADR131/map 的 A 级登记 `18fae8a` 先于实现。新增固定系统 Git 的 snapshot/status/log 原生读取引擎与受管命令生命周期，原 GitStatusProbe 共享底层命令实现但保留原10s/256KiB、严格UTF8和范围限制；完整工具预算15s/8MiB及观察界限不回流到恢复Probe。真实取消/超时/降权/超额与parent已回收但descendant仍占管道的进程组结束通过。**本卡没有注册 git_query，也未完成动态Host范围批准、完整工具产物/Evidence或公开Git闭环。**
+
+冻结tree `3c0ab0ae`完整原生门禁 **567 Rust（236公开Episode）/602根3368实际TS↔Rust/9PTY**，exit0、953.374秒。后续审阅发现外置include fixture相对路径错一层，原场景没有加载外置文件，不能算覆盖；修正为真正加载，增加实际来源、filtersDisabled/clean=null及真实Provider批准请求断言，两端增加index字节不变/无index.lock检查。最终仅三份测试/oracle资源变化，产品对象与冻结树相同；最终17实际TS向量、11非法输入、3执行失败、4原生Module及all-target clippy/fmt通过，21项Host停稳/恢复回归通过于相同产品源码。不把早先整闸冒充最终测试树的整闸。
+
+固定featureless release **21,286,896 bytes**、SHA256 `683caa74a5f578cf8eb6bcb2d81d8bdb240a9df10452a8bdb5e0c68e171141b0`，仅CoreFoundation/libiconv/libSystem；产品PATH不可发现Node/Bun，4项公开Host测试生成7根、37次实际TS/Rust互读通过。最初只生成1根导致原互读器至少6根的集合断言失败，原记录保留；补充真实多协议/拒绝/截断恢复用例后用原验证器通过，未放松断言。其它实施中失败及准确候选绑定见[Git Module回执](native-cli/evidence/p4-native-git-engine-20261117.json)。
+
+基线b716两平台全仓CI44067260477已通过；初始Git候选[CI44081181327](https://github.com/ly-ccx/Peer-Agent/actions/runs/44081181327)终态两平台失败：Linux的Rust1.100把fetch_update弃用警告升为错误；macOS先在实际TS oracle遇到%cI的UTC后缀+00:00/Z差异。后续`8830f553`已推送（tree `fa12170e`）：用原子checked CAS保留共享字节预算，不屏蔽警告/提高MSRV；合成仓库固定+05:30偏移，仍精确比较真实TS/raw Git时间，不改生产输出。17实际向量/11非法/3失败、4原生Module及本机1.98.1 all-target clippy通过；旧冻结整闸与release不冒充本CAS生产改动的完整验证。后续[CI44083336584](https://github.com/ly-ccx/Peer-Agent/actions/runs/44083336584)两平台终态cancelled：新8526推送时Linux Native/build/type/architecture/Test已过、Electron取消；macOS Native取消，无失败步骤但不记全仓绿。CAS改动已随8526同一最终tree完整原生门禁/release通过，不能代替独立全仓CI。接线前已保全non-TTY批准误记local_ui且无deadline的隔离事实，后续按ADR92/101既有决定来源、5分钟等待及迟到拒绝边界修正，不改旧历史。P4总闸、P5–P7、普通Ratatui发送与长期内存仍开放。实现者自审、合成服务；无个人数据、安装、用户实例重启、默认切换、合并或发布。
+
+## 2026-11-17 原生静态 HTTP 抓取与网页产物候选
+
+`7f09e51c`实现，后续`b71696f1`修正跨平台oracle（最终tree `461f9b87`），均已提交并推送；ADR131/map的A登记`58afede`在源实现前已推送。迁移旧CLI真实可达的web_fetch/local.web.fetch，同一Provider/Projection/Grant/Evidence；仅静态HTTP(S)，无Browser/JS/Cookie/模型凭据。逐跳复核授权/路线/证书、最多6次GET、无自动重试；gzip/br/deflate只在Web开启，共享模型/MCP默认禁用。实际TS HTML/实体/UTF8与旧Provider/ArtifactStore对照；2M UTF16安全scalar上限与明确截断/源长度、5M解码体和标题/URL/序列化预算。代理秘密在模型视图及两种产物中单次有界脱敏，HTTP身份不由正文改写。
+
+网页产物保留原legacy路径/refs并给出原不可变ToolArtifactRef与read_tool_result入口。NOFOLLOW/EXCL/目录FD、0700/0600、fsync/全文hash/版本和命名复核；原生根flock下流式配额，不删除旧历史。工作集semaphore随真实解析/发布worker，取消/降权需实际结束。部分发布和硬退出保留已知引用/部分文件/原unknown，recover不重发HTTP，同范围受保护、实际独立目录可接新任务。timeout状态错误的公开反例保留，改为现协议failed/error.code=timeout；不扩大Evidence状态或清旧unknown。
+
+冻结产品树`c210a22c`完整本机原生门禁 **562 Rust（236 Native Episodes）/602根3368次实际TS↔Rust/9PTY**，exit0、940.456秒。最后另补CI的model_wires测试观察与开发oracle跨平台修正，最终产品对象与c210相同，另3项真实wire/Helper/EOF-reset-live-data反例、all-target clippy/fmt及oracle红/绿/损坏输入反例通过；**不把c210整闸冒充最终测试树的整闸**。固定featureless release **21,252,480 bytes**、SHA256 `5070ed541ba91b931f770c73aa9ce3d142f643c7a19291906dea160f42c796e6`，仅CoreFoundation/libiconv/libSystem，无发布/硬退fixture开关；清空环境、产品PATH=/nonexistent下 **12公开Host** 通过，另 **32根163互读** 通过。含真实PTY批准/拒绝零网络、三codec解码后超限、跨站重定向/URI凭据拒绝/HTTP状态、TLS/额外CA/代理/主机名、脱敏、取消socket关闭和后续任务。见[Web抓取回执](native-cli/evidence/p4-native-web-fetch-20261117.json)。
+
+原175 CI的mac真实失败/60分钟取消见下，未全仓通过。受控SO_LINGER=0真实reset使原EOF-only观察器失败；修正只接受EOF或ConnectionReset，live/timeout/data仍失败，原1s/3s限制不变，断言保留实际错误。20次原生诊断未复现原远端reset；不能声称已证明远端errno或解释Node报错后作业仍存活。7f09的CI44066456549 Linux在开发oracle失败：gzip OS byte为Linux03/Darwin13，不是正文不同；原日志保留。b716固定压缩输入并验证真实解压等于独立构造正文及原摘要/长度，两种OS头均通过，损坏流仍失败；不再把编码器平台头当wire合同。固定输入的原生codec/5M解码上限断言不变。[CI44067260477](https://github.com/ly-ccx/Peer-Agent/actions/runs/44067260477)已终态：Linux133984229551/macOS133984230000两平台全仓success，含各自Native/build/type/architecture/Test/Electron smoke；merge45af97a2的tree与base/candidate parents已与b716核对。此结果不验证后续Git Module在制树，也不替代P4总闸/P5–P7。实际MSRV1.88编译、真实服务/平台/安装/混合版本drain和P4总闸仍开放；实现者自审，非独立审查。P5–P7、普通Ratatui发送与长期内存未验收。无个人数据、安装、用户实例重启、默认切换、合并/tag/发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 批量候选 CI 终态复核
+
+17548096的CI44048089581未全仓通过：Linux133918687509成功；macOS133918687784在08:50Z发生model_wires的Gemini“must close owned streaming socket”断言失败，随后09:36Z触及60分钟作业取消。原日志保留；测试把服务端read的所有错误直接折叠为false，未保留远端errno。本机实际TCP在未消费完响应时可观察ECONNRESET而非EOF，是该观察器的受控反例，但不能据此声称已证明原远端errno或解释命令报错后作业仍存活的原因。不得只称慢CI、重试成功或flake，也不改变Runtime超时/取消语义；后续按真实关闭与仍存活/超时分别验证观察契约。见原批量回执新增ci.macosFailure。
+
+## 2026-11-17 原生批量搜索与控制调度公平性候选
+
+`17548096`（tree `3e72a85a`）已提交并推送。按ADR49/51/92/101/127/129–131复核，A实施前登记随`b77a7df`已先推送。迁移旧CLI真实可达的batch_search/local.search.aggregate为文件域独立Provider Adapter；复用原有界扫描、locale与同一Projection/Grant/Evidence、不可变结果归档。1–8 lane、原id/label/query/path规范化、case/max_results、lane顺序、dedupe/命中排序、500 cap在去重前且早退不排序、失败/partial均与实际TS对照。max_concurrency保留请求上界1–8/默认4，原生实际最多两个阻塞worker并用进程共享semaphore限制；每lane原扫描预算、最终4MiB序列化闸不截断成功。全lane失败不反写真实已发Grant为拒绝；旧TS字段原样保留为显式原生事实差异。
+
+公开bc734产物的tool_not_projected失败保留。硬退出原测试把同目录新任务误称独立，实际被既有undeclared unknown规则正确阻止；修正测试同时保留同范围阻止、独立目录可准入与原unknown未变化，未放宽生产恢复。编译可见性失败、原失败根及canonical/SQLite事实均保留。
+
+首轮冻结5bf5543d整闸在两项取消场景8秒退出断言失败，218项其它Episode通过，原轮不称成功/flake。受控100ms同步校验使多worker持续占用控制通道，真实SIGINT反例在未修正的da2be85c上复现原8秒失败；固定二进制/源码patch/日志保留。Host现在每次控制校验前明确让步，先传播最新外部取消，再沿原真源验证并回复；不丢消息、不弱化Grant、不放弃等待实际worker。相同界限的反例修正后通过，9项批量测试并行通过；最终完整门禁中原失败两项也通过。已完成lane在取消/降权后保全，排队lane不读取；停稳后可接新任务。控制反例实测整命令退出分别2148/2491ms，仅为该受控场景，不称Runtime取消p95或P6验收。
+
+最终同一冻结源码完整本机原生门禁 **541 Rust（221 Native Episodes）/567根3185次实际TS↔Rust互读/9PTY**，exit0、799.344秒。固定featureless release **19,226,304 bytes**，SHA256 `3bc05f5f8d3bb94730ce1b853ea9e18a56ea7a1de04d8dbe2fdb66027b3960e7`，仅CoreFoundation/libiconv/libSystem且无批量/控制fixture开关；清空环境、PATH=/nonexistent下 **6公开Host**（批量、文件工作流、真实PTY批准/取消）通过，另 **15根77互读** 通过。实现者自审，非独立审查。见[批量搜索回执](native-cli/evidence/p4-native-batch-search-20261117.json)。
+
+基线bc734的CI44037023767两平台全仓success已核实，含各自Electron smoke。本节登记时[CI44048089581](https://github.com/ly-ccx/Peer-Agent/actions/runs/44048089581)独立运行中（失败终态复核见上），merge15aa8738 tree及parents与最终候选/预期base一致。不替代P4完整Runtime/Context/附件/其它实际工具/Skill/Plugin/Hook/ACP/headless/命令、混合版本恢复及真实服务总闸；P5–P7、普通Ratatui发送和长期内存仍待完成。view_image默认CLI范围校正见下；无新增Desktop工具。无个人数据、安装、用户实例重启、默认入口切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 CLI 可达集校正与批量搜索启动
+
+实际运行旧createTuiHost全部8种mode隔离投影，均无local.image.read/view_image；Node bundle及project额外Provider装配源码也未注册它。Desktop有自己的注册与解码器。此前将该工具/视觉侧带列为CLI迁移必完项属于范围判断错误，原记录保留，以ADR131同日明确替代。图片路径/附件输入/生命周期仍必须迁移；不是把该工具记为已完成，也不扩大默认CLI能力。见[可达集回执](native-cli/evidence/p4-cli-reachable-scope-20261117.json)。
+
+下一卡迁移旧CLI真实可达的batch_search，复用已验证文件扫描与同一Provider/Projection/Grant/Evidence，先登记ADR131的lane调度/partial/取消及预算，再实施；P4仍开放。
+
+## 2026-11-17 已保存用户附件与事实序列化预算候选
+
+`bc734878`（tree `cc35f895`）已提交并推送。ADR pass：55/57/90/129–131；ADR131/map在实现前以`76b1bd3`登记A边界及B级准入排序。原canonical user text/image_url经同一encoder、PreparedRequest、count/send传输；无图片文件/URL抓取，不生成System Context指令、Grant或看图Evidence。不支持的Anthropic/Gemini形式在计数/发送前明确拒绝，不沿旧encoder静默丢图，也不自动换模型。原2MiB请求闸与8MiB历史闸保留；事实上下文使用显式8MiB JS序列化API，默认/权限/控制摘要仍固定1MiB。
+
+公开a717的`native_model_images_unsupported`失败保留。真实Host压力与同任务模型切换另揭示事实误用1MiB摘要预算，以及预检晚于ready→started；修正后同一断言通过，纯预检在reserve/activate/attempt之前，实际请求仍重检。原输入/附件保全，旧started/control/unknown不清除；旧失败仍需原恢复/新准入。四个标准wire、Qoder两方言的实际本机请求和文件工具/Evidence、count/send、取消、超限/坏数据零请求、显式模型切换、压缩冷重建和Ask拒绝均覆盖。1.2MiB用户数据测试仅证明传输，不称栅格解码。
+
+原Responses oracle缺live sender字段、clippy排序和首轮冻结整闸的`undefined`/HTTP JSON比较失败均保留；校正为实际TS Runtime Responses sender、按实际序列化完整请求比较，原契约文件及断言内容未弱化。最终同一冻结源码完整本机原生门禁 **530 Rust（212 Native Episodes）/548根3081次实际TS↔Rust互读/9PTY**，exit0、877.999秒。固定featureless release **18,935,632 bytes**，SHA256 `ec2e73728d5d7cd3379142778a7b72699ea4a59085efc9ad0eb05c9be8cd4c8a`，仅CoreFoundation/libiconv/libSystem；清空环境、PATH=/nonexistent下 **17公开Host** 通过，另 **25根130互读** 通过。实现者自审，不称独立审查。见[附件回执](native-cli/evidence/p4-native-saved-attachments-20261117.json)。
+
+基线a717的CI44026396831两平台全仓success已核实。[CI44037023767](https://github.com/ly-ccx/Peer-Agent/actions/runs/44037023767)已核实Linux133882253273/macOS133882253193两平台全仓success，含各自Native/build/type/architecture/Test/Electron smoke；merge2a3c72d9 tree与bc734878一致，parents与预期base/candidate一致。仍是P4：local.image.read/可信视觉侧带、附件输入与生命周期、完整Context/压缩策略、其它工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本恢复与真实服务/总闸继续开放；P5–P7未完成，普通Ratatui发送与长期内存未验收。仅隔离合成附件/账户/服务，无个人任务/凭据读取迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 受管父目录创建与 unknown 范围候选
+
+`a717c42b`（tree `27464a33`）已提交并推送。按ADR49/51/92/101/127/129–131复核，ADR131/map在实现前登记A边界，knowledge `7deed79`在代码候选前推送。write_file复用同一Manifest/Projection/Grant/owned worker；准备阶段只观察，真实写入通过现存祖先目录FD逐段NOFOLLOW mkdirat/openat，保留当前权限/取消复核及目录发布fsync。缺失父目录最多128层，原文件/参数预算不变。首次mkdir/CREATE之后的取消、降权、命名替换或失败保留部分效果为unknown，不清理或重放；只有完整成功才沿原Evidence条件确认file materialization。
+
+公开189产物的file_parent_unavailable原失败保留。实际控制反例又揭示dispatch过滤directory后错误形成file-only声明，导致unknown范围被收窄、同目录后续任务误准入。按现TS/ADR127原规则修正为有不可表达scope就不声明；不改格式或放宽范围。保留两组失败及原canonical/SQL事实，修正后原“同范围必须阻止”断言未弱化，独立目录可执行。已有alias按原生canonical目标报告相对path，作为ADR51允许的显式宿主输出差异，TS原期望不重写。
+
+最终同一冻结源码完整本机原生scoped门禁 **518 Rust（204 Native Episodes）/533根3004次实际TS↔Rust互读/9PTY**，exit0；七项实际TS路径/内容/拒绝向量、目录FD替换/取消/降权、heartbeat、硬退出、保留unknown/recover不重放与后续准入均在门禁内。固定featureless release **18,886,368 bytes**，SHA256 `003c1b071ff8e6d78d32869ff7d75f26e012926848bc01cfceb372747f4940ee`，仅CoreFoundation/libiconv/libSystem；清空环境且PATH=/nonexistent下 **24公开Host** 再通过，另 **46根245互读** 通过。未注入真实磁盘满/只读卷/EIO或断电，不声称真实服务、安装、多平台与长时内存验收。见[父目录/范围回执](native-cli/evidence/p4-native-file-parents-20261117.json)。
+
+189c572c的CI44021853800两平台全仓success已核实，含各自Electron smoke；原run未重启/取消，完成后才推送新候选。[CI44026396831](https://github.com/ly-ccx/Peer-Agent/actions/runs/44026396831)已核实Linux133847657729/macOS133847658070两平台全仓success，含各自Native/build/type/architecture/Test/Electron smoke；merge30f5c895的tree和parents与a717及预期base一致。完整P4总闸与P5–P7仍开放；普通Ratatui发送、长会话内存尚未验收。无个人数据迁移、安装、用户实例重启、默认入口切换、合并或发布；无Bun/Node引擎sidecar。
+
+## 2026-11-17 模型侧结果编码与历史观察候选
+
+候选 `189c572c`（tree `95539ea5`）已提交并推送。按 ADR51/57/63/129–131复核并在实现前A登记模型视图/源绑定、受管历史材料化、资源与保真补充；B接既有Projector/live续行、count/send及压缩/CAS。先以原id/name/正文核验authentic续行，再替换模型副本；旧大观察只从已保存正文派生不可变快照，材料化后复核sourceRevision及权限，再计数/发送，不从当前工作区补历史、不重放工具。canonical Tool Result、Grant、Evidence、费用和unknown保持原事实。保留stderr、范围及显式错误；MCP形似file/shell仍保存其它字段。
+
+较早冻结tree `fb60ea7e` 的完整本机原生门禁已通过：510 Rust（含198 Native Episodes）、519根2918次TS↔Rust互读、9PTY。最终复审新增实际反例发现success标签下非空error被引用视图隐藏，保留失败并修正，原标签不被推断成失败。最终tree9553另通过101 Runtime、11 Store integration及1 Store unit、26实际TS向量、all-target clippy/fmt/build；固定featureless release在清空环境且PATH=/nonexistent下通过9模型结果+8快照+4文件公开Host，再经37根192互读。最终release18,959,488 bytes，SHA256 `c1738fe5ebfe537a925502e52c1ab56b3ca45ba7ddbf9560522227dff05a9814`；仅CoreFoundation/libiconv/libSystem。**不把fb60整闸记为最终修正树的整闸**。
+
+公开d636三项失败、显式错误反例、fixture/编译/lint失败保留；覆盖取消、并发历史变化、超额保全及后续任务、真实Anthropic count/send与thinking签名、378k已保存观察压缩。见[模型结果回执](native-cli/evidence/p4-native-model-result-encoding-20261117.json)。d636的CI44011702681两平台全仓success已核实；[CI44021853800](https://github.com/ly-ccx/Peer-Agent/actions/runs/44021853800)已核实Linux133832933095/macOS133832933419两平台全仓success，含各自Electron smoke，merge dd187620的tree与最终源码一致，parents也已核对。P4总闸、大历史/其它Context策略、生命周期/混合版本、其余工具/协议/命令与真实服务、P5–P7仍开放；普通Ratatui发送与长期内存未验收。无个人数据迁移、安装、用户实例重启、默认切换、合并或发布；无Bun/Node引擎sidecar。
+
+## 2026-11-17 不可变工具结果快照与大文件候选
+
+最终scoped候选 `d636aef0`（tree `f849b6ed`）已提交并推送。按ADR51/57/63/86/98/129–131复核，ADR131/map在实现前A登记Conversation Store不可变快照、无覆盖发布/保留配额及会话绑定的`local.tool-result.read`。B接原Host/Read Grant/Evidence与Provider声明的输出分类，Host不按capabilityId判格式，也不把MCP文件状payload丢成文件正文。原停稳/unknown边界不变；read2,000,000 bytes、write/edit128KiB、参数1MiB，帧/响应/请求/权限复合预算不放宽。
+
+完整原生门禁在tree `688afd24` 为493 Rust/190 Episode/510根2870互读/9PTY通过，固定featureless产物另12文件/快照Host测试在清空环境且PATH=/nonexistent下通过。随后复审实际反例证实全文校验后再采版本会放过同inode等长篡改，修正为携带真正哈希版本；输出格式改由Provider Interface选择。最终树通过16 Store/94 Runtime及all-target clippy、构建；固定featureless产物18,907,216 bytes（SHA256 `07fcf8684f6c7ab9f653aa4597c616424699f512758fc8fba5e0e07f192e422a`）在清空环境PATH=/nonexistent下通过12公开Host，再经27根139互读和4实际TS对照；**不把688的完整整闸冒充最终树整闸**。公开旧e629的大读file_too_large、90KiB写model_tool_limit、取消status反例、旧转义预算用例迁移及中止门禁均保留。原转义60k输入仍有正向归档/编辑/原快照验证，失败范围/read_required、拒绝和v2超限快照检查不弱化。见[快照候选回执](native-cli/evidence/p4-native-tool-artifacts-20261117.json)。
+
+e629的CI43999794341首轮Linux成功、macOS仅Electron更新器瞬时完成观察失败，原日志/逐帧报告保留；本机未改UI专项成功，不能解释远端根因。仅失败mac重试后两平台全仓success已核实（mac133778868310、Linux133778871031），不称原失败已修复/flake。[CI44011702681](https://github.com/ly-ccx/Peer-Agent/actions/runs/44011702681)已终态，merge8c724681 tree与d636源码一致；两平台全仓success已核实，含Native/build/type/architecture/Test/Electron smoke。归档失败仍留dispatch unknown，原目录受保护、独立目录可准入，不伪称自动关闭未知。旧超限历史、模型副本其余编码、生命周期/混合版本、其余P4与P5–P7、普通Ratatui发送和长期内存均未验收；无个人数据/安装/运行实例重启/入口切换/合并/发布。
+
+## 2026-11-17 原生文件列举、搜索、编辑与受管I/O
+
+联合候选 `e6292074`（tree `6ef6b6cb`）已提交并推送，完整本机原生scoped门禁通过。先按 `49-cancel-path-hard-sandbox.md`、`92-scoped-permission-inheritance.md`、`101-bot-owned-access-policy.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md` 完成ADR pass；ADR131/map在实现前登记A 级有界扫描/错误资源与受管I/O约定，B级迁移既有五种File Manifest和Provider。权限、Evidence、持久化与unknown对账政策不变。Host从实际Provider Manifest核对required capability；list/search/edit不再因旧中心白名单被拒。文件操作由单个受管阻塞任务执行，原EffectAdmission向真实Host复核当前授权；Host继续响应取消与heartbeat，实际任务结束前不释放所有权。编辑仍需原读取快照、当前内容与原文件claim。
+
+真实TS FileProvider生成 **12场景/34步、8 locale** 对照，验证列举、CRLF/最终CR、默认/敏感大小写、结果上限、忽略目录、UTF-8替换、编辑歧义/缺失/未读、Unicode及单次替换的既有美元符号语义。锁定原生ICU4X2.1.1及其依赖，新增依赖MSRV不高于1.83，workspace仍1.88。真实原生公开链为list→search→read→edit→read，经同一Grant/ToolResult/Evidence；受控worker暂停验证heartbeat继续、外部改动与降权后不写、TERM停稳后新任务可执行；编辑效果后硬退出保持unknown，recover不重放。
+
+最终联合源码 **470 Rust（含182 Native Episodes）/499根2811次实际TS↔Rust互读/9PTY**，760.561秒、exit0；fmt/clippy/边界/架构通过。featureless release **18,711,488 bytes、SHA256 `d42c84ccfb11f4e121504aeed1c705244a294b1f43f023840e33b79cf49c86d4`**，同一产物env-i/PATH无JS下 **4组文件+27组Qoder Host全部通过**（22.345秒+232.967秒），随后 **204根1100次** 当前TS↔Rust持久状态互读通过。见[文件能力回执](native-cli/evidence/p4-native-files-20261117.json)。
+
+失败及改正保留：公开旧候选list_files报tool_not_projected；首轮工作候选把macOS /var与/private/var混作两个目录，且空白query误使回合退出，保留原断言后修正。新增真实FS/EffectAdmission Module反例确认CREATE后授权撤回可留空文件，原实现误报普通permission_policy_changed；修正保留空文件并报告execution_outcome_unknown，不删除以制造恢复。Cargo将平铺测试helper误作独立测试目标及新版clippy提示均已修正，无弱化断言。首轮完整门禁在pre-Host阶段为补齐限额协议资源而停止自有进程组，组已确认不存在；不记通过或测试失败，最终整闸使用独立输出根。
+
+6e前驱CI43986222565第一轮仅macOS报告上传ETIMEDOUT失败；第二轮Linux133736857658/macOS133736854580两平台全仓success已核实，含原Electron smoke和报告上传；merge509cf0cf tree与6e一致。新联合源码[CI43999794341](https://github.com/ly-ccx/Peer-Agent/actions/runs/43999794341)独立执行，merge7dd76a59 tree与e629源码一致；首轮mac更新器瞬时观察失败，失败日志/逐帧报告保留。仅失败mac重试后两平台全仓success已核实，见最新快照回执，不称原失败已解释/修复。P4完整总闸继续开放：大文件/artifact与父目录等其余文件平价、完整Context/压缩/attachments、其余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain及真实服务仍须完成。P5–P7未完成，普通Ratatui对话仍不可发送，长期内存未验收。无个人任务/凭据迁移、安装、用户实例重启、默认入口切换、合并、tag或发布。
+
+## 2026-11-17 Qoder 标签流与本地目录匹配
+
+本节 tree `bcd9cccf` 是独立本机验证的Qoder组件；后续随联合候选 `e6292074`（tree `6ef6b6cb`）提交推送，联合总闸见上。本节旧产物/向量证据不冒充新联合源码验证。ADR pass：`37-provider-channel-and-wire-protocol-separation.md`、`56-provider-observed-context-accounting.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；B级同边界兼容修复，没有新ADR或授权/Evidence/Context/存储边界变更。带可选type标签的既有choices/usage仍进入同一Qoder decoder；未知控制帧、明确业务错误、缺终态及坏工具身份仍拒绝。目录沿现有ECMAScript trim和完整字符串lowercase查找，覆盖大小写展开、Greek final sigma和BOM；账号uid及原id去重不转为忽略大小写。
+
+旧6e featureless真实公开入口反例保留：plain-labelled-chat报model_event_unsupported；ämodel对ÄModel时实际工具已成功，但contextWindow为null而非200000，原效果/历史及失败断言保留，不把第二项说成CLI执行失败。新实际TS参考为59流向量与18完整caller场景/54次物理构造；同一新featureless release **17,290,624 bytes、SHA256 `cab589555d1d5e451aab233956867260c8c916b3ad1a5dfe2fcdf76031ecb95f`** 在env-i/PATH无JS下27组Host通过（241.780秒），实际覆盖59×2端点流形态、18目录/发送场景、真实工具/Grant/ToolResult/Evidence与既有TLS/代理/取消/重试/费用/恢复。随后 **188根1020次** 当前TS↔Rust持久状态互读通过；23 Runtime聚焦、73既有Qoder Adapter、fmt/clippy/边界/架构通过。没有为同边界跟进重跑完整本机门禁；完整CI仍单独绑定候选。详见[标签与目录回执](native-cli/evidence/p4-native-qoder-metadata-20261117.json)。
+
+实际调用范围复核：原CLI models/model-config读取配置元数据，发送时getQoderModelMetadataForSend只读本地/sync cache。listQoderModels的SDK远程发现由Desktop provider-access-application-service调用，Qoder配额只由Desktop调用；TUI quota仅ChatGPT/Google/Grok。按已接受ADR131的配置能力范围校正，不将这些Desktop管理能力新增为CLI迁移前提，也不把实际CLI本地选择/发送路径删去。
+
+基线6e的[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)第一轮已终态：Linux133714935183全仓success；macOS133714935060的Native/build/import/type/architecture/Test及Electron smoke均success，提取的真实smoke报告ok=true、source509cf0cf，但最后actions/upload-artifact创建报告超时ETIMEDOUT，整作业failure。日志/报告/失败身份保留，不记两平台全仓绿。仅失败macOS作业的第二轮已核实全仓success（133736854580；Linux保留success，133736857658），未取消原轮；新修复后随e629联合交付，见上。P4总闸及完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与真实服务仍开放。后续file provider有界list/edit/search与受管I/O实现及验证见上，大文件等完整平价仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
+
+## 2026-11-17 Qoder 稀疏流、block 与用量观察
+
+候选 `6e8036ef`（tree `5b5ec6e1`）已推送。复核 ADR25/37/56/129–131，B级同边界迁移/修复，不新增ADR。Qoder私有Shape Adapter将稀疏Chat/缺省index、嵌套正文与六类thinking别名、稳定重复id/终态前的工具名、稀疏content-block统一进入原有有界Chat decoder；HTTP方言、账号/模型选择、Network和Host授权链不变。只有真实DONE/message_stop且参数/身份/块状态完整才公开tool intent；EOF、截断reason、冲突/mixed/坏形状/超限仍拒绝。原始thinking只属于live continuation，不成为落盘Evidence。共享TS同时修正首个block值丢失及缺用量维度补零：原断言分别复现前缀丢失和input12/output0伪完整，修正后53份实际TS向量冻结。完整/递增/重复usage只观察同一物理请求，后续partial不能抹去已知观察，独有partial仍unknown。
+
+最终冻结源码完整原生scoped **460 Rust（含175 Native Episodes）/408根2323次实际TS互读/9PTY**，CI Bun1.2.17，exit0、597.413秒，fmt/clippy与边界/架构/UI通过；既有共享Adapter72项通过。53份向量按1/7/4096字节分片对照，真实公开Host覆盖全部向量的write_file/Grant/ToolResult/Evidence、用量，以及6种拒绝→无效果→已知费用或unknown保留→后续任务与旧历史不变。新矩阵实际走prepared端点；legacy静态装配使用同一Qoder decoder，原legacy/TLS/重试测试也通过，不称53×2端点实测。见[流变体回执](native-cli/evidence/p4-native-qoder-streams-20261117.json)。
+
+新featureless release **17,299,040 bytes、SHA256 `bc1b79a503b80eb91c56d0ed750fb0f6d1b897c8b679300c8d8f3bce4c5bfeb9`**；同一保留产物env-i/PATH无JS下27组Qoder Host通过，117根635次后续互读通过。动态库仍只有系统/CoreFoundation/iconv，不增加依赖或Bun/Node/厂商VM。没有把真实本机合成HTTP/文件效果叫作真实Qoder服务、OS Vault或安装验收。
+
+失败保留：首个Host编译误用了兄弟私有receipt helper（未执行行为），修正后旧featureless328实际以model_choices_unsupported拒绝合法稀疏流；新增标量坏帧测试捕获候选JSON boolean上的index写入panic，对象校验修正后原测试通过。首次完整门禁tree d392因复核发现function:null占位不应拒绝而停止自有进程组，Host已开始，原组/fixture进程后来确认不在；不记通过或测试失败，不删其效果/unknown。新增真实TS反例、原生拒绝日志及null修正保留，以独立根重跑最终全部门禁。没有放宽终态/调用身份/费用/效果断言。
+
+基线328的[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)已核实Linux133686958023/macOS133686957697两平台全仓success，含各自Electron smoke；merge a250fc32 tree与328源码一致。c09两项失败和全trace仍保留、根因未确定，不把后续通过改写成旧失败修复证明。新[CI43986222565](https://github.com/ly-ccx/Peer-Agent/actions/runs/43986222565)的merge509cf0cf tree与6e源码一致；第一轮全部行为检查通过但macOS报告上传超时失败，第二轮两平台全仓success见上；原第一轮失败仍保留。旧已落盘零值不能仅凭ledger判断是真零还是旧解析器补零，没有原始provider证据不猜写旧账单；本卡未读取用户旧数据或声称自动追溯修复。
+
+后续type标签公开反例、修正及本机验证见上（组件tree bcd9cccf，后随e629联合推送）；本节5b5原验证不含该修复。其余Qoder完整目录/发送/真实服务、完整Context/压缩/attachments、剩余工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与P4总闸仍开放。P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收；无个人凭据/任务迁移、安装、用户实例重启、默认切换、合并、tag或发布。
+
+## 2026-11-17 Qoder 公共发送入口与持久选项对照
+
+候选 `328cd85c`（tree `e2c9b88e`）已推送。复核 ADR25/37/56/129–131，B级同边界修复：公共sender已经解析的catalog/持久metadata直接传入私有prepared sender，移除再次查目录丢失fallback metadata的路径。缺目录但持久large512000的原公共入口断言在基线c09失败，修正后同一断言通过；保留空数组显式覆盖、null未声明、目录/选项默认规则，不移动权限、Evidence、Context或存储边界，不另开ADR。Rust生产实现本卡未改，不是新建另一种语义。
+
+12份实际公共TS sender/catalog/stream parser向量、36次物理build覆盖缺目录、默认/选定/非法值、null/空/非空覆盖及auto；每个恢复组只查一次目录，非身份正文不变、身份更新、认证所见正文与实际init一致。认证与HTTP是显式mock，不能当真实SDK/网络证据。原生公开Host用同一12份选择完成真实write_file/Grant/ToolResult/Evidence与用量/容量；真实Bash改选后旧请求拒绝、已知16及成功事实保留，新Goal用小档位且不改旧历史。见[公共入口回执](native-cli/evidence/p4-native-qoder-caller-20261117.json)。
+
+最终冻结源码完整原生scoped **456 Rust（含173 Native Episodes）/349根2002次实际TS互读/9PTY**，CI Bun1.2.17，exit0、440.365秒；fmt/clippy/边界与架构/UI通过。featureless release仍为 **17,163,312 bytes、SHA256 `37496a9933404832478ed09a2c89fc497951caff40d0c8efaed915d0ce4c60f4`**，与前候选字节相同；同一保留产物在env-i/PATH无JS下25组Qoder Host通过，58根314次后续互读通过。不是长期内存、真实服务、系统Vault或安装验收。
+
+保留两次中间失败：初次TS null effort与原生Goal off输入不一致，已统一双方显式off并由真实caller重生成，原全等断言保留；首轮全闸172/173通过，150ms固定等待在Host首个容量观察提交前追加历史，保留fixture显示request_preflight、并发user及known16。等待测试复用已有hard-exit测试的index turn_complete与Store锁释放事实后再变更/杀进程，原错误码、一次HTTP及费用断言不放宽；10项重试测试及最终整闸通过。产品并发拒绝/恢复契约没有被修改。
+
+基线c09的[CI43970657817](https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817)已终态失败：两平台native/build/type/architecture通过；Linux最后Electron smoke在Evidence返回详情时仍隐藏，发生在motion检查前；macOS Desktop测试全部完成，但Test步骤15分钟超时，旧TUI最后停在Goal bridge首项，未确认根因。本机隔离旧TUI879项（878pass/1skip）、Goal bridge10项、实际Electron work-surfaces/Evidence返回均通过；这不证明远端已修复，不称flake，未重跑或削弱断言。全日志、失败报告/图与trace保留。新[CI43978031587](https://github.com/ly-ccx/Peer-Agent/actions/runs/43978031587)独立执行，merge a250fc32 tree与328cd85c一致，尚未全仓绿。
+
+P4仍缺剩余Qoder目录/发送/流变体及真实服务、完整Context/压缩、其余工具/Skill/Plugin/Hook/ACP/headless/命令和混合安装版本恢复；P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收。无个人凭据/任务读取迁移、安装、用户实例重启、默认入口切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 CI 折叠采集的输入与观察边界
+
+候选 `c09d2bc3`（tree `af216294`）已推送。复核ADR44/129–131与当前动效/验证规范，C级夹具修正，产品与Runtime边界不动，不另开ADR。683b的macOS CI原断言/全日志保留；输入与观察共用6000ms计时，而实际关闭采样直到5900ms才出现，无法保住所需480ms。以原函数不改正文、仅开发导出，在实际DelegatedWork/MotionDetails/原CSS的隔离Electron中加延迟真实派发，再次复现同一deadline断言；不是对原托管CI环境的精确复现或生产动画缺陷证明。
+
+采样Module为两处既有disclosure/panel夹具统一定时和清理：全部真实点击仍须在原6s内完成，最后预期点击另开有界6s观察，保留480ms最小后观察；多余点击不能刷新截止。点击数、中间帧、完整高度跳变拒绝、终态/隐藏/焦点、反向/减少动效均保持，原缺中间帧最多重采一次不增加。7项虚拟时间/跳变测试、真实Electron开合/反向/隐藏Tab/减少动效及晚点击通过；最终晚输入5805ms、后观察483.5ms。严格Desktop+夹具类型检查和architecture/UI通过；早期临时配置放在workspace外丢Node类型解析的错误保留，改为从现有Desktop配置在workspace内解析，没有关类型检查。两张最终图由实施者自审，不称独立/完整Bot体验验收。新测试接入Desktop原CI命令。见[计时修正回执](native-cli/evidence/ci-motion-observation-20261117.json)。
+
+Rust/Cargo/native contracts/verifier与Desktop生产renderer树均与1d796f2a完全一致，原生454 Rust/336根1924互读/9PTY/无JS23组Host仍只作为相同Runtime的scoped证据，不冒充这张全仓绿。1d的[CI43967102253](https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253)因推送已验证修正而由既有并发策略取消：Linux build/native/type/architecture/Test成功、Electron smoke取消；macOS build成功、native取消，其后未跑，无失败步骤，不记全仓成功。新[CI43970657817](https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817)独立执行，merge90d3e41c tree与c09d2bc3相同。
+
+后续Qoder caller基线：在c09d2bc3重新build的实际共享TS公共sender上，以自有空目录、认证/HTTP Host mock和真实流解析器运行，持久contextTier=large（512000、tier-large）实际准备正文却无contextTier、max_input_tokens=200000、is_vl=false，原断言确实失败。outer已解析的fallback metadata未传入inner，inner再次查目录得到null；下一B卡复用既有已接受的metadata/显式覆盖契约修复，并补原生Host对照。此证据只证明完整caller的正文参数缺陷，不是SDK认证/真实HTTP/真实Qoder服务或原生平价验收。原始src/旧Node导入尝试未执行目标函数，另留日志，不计行为证据。
+
+继续P4原范围：Qoder完整caller/目录/流变体与真实服务、完整Context/压缩、剩余工具/Skill/Plugin/Hook/ACP/headless/命令及混合版本恢复仍开放；P5–P7未完成，普通Ratatui对话不可发送，长期内存未验收。无个人数据、安装、用户实例重启、入口切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 Qoder 逐尝试重试与用量/恢复
+
+候选 `1d796f2a`（tree `dd7bc413`）已推送。复核ADR25/37/55–57/129–131，先由知识提交524c9e1登记ADR131/map的逐尝试契约，再接Host。两方言已有界queue/duplicate/transient/connection恢复；冻结非身份正文，每次重建request/session/task和准备端点is_retry、字节/指纹与认证。首次runtime task也为peer-agent:UUID，纯builder默认向量保持。每次尝试的known usage/unknown先入canonical预算快照再等待，等待沿同一取消/续约，下一次复核预算、Goal/MCP/历史及原凭据来源；不重放本地工具。摘要逐次计费但不覆盖容量。准入后来源拒绝可保守增加请求数，不能把该数字当HTTP已发送或远端处理证明。
+
+最终冻结源码完整原生scoped **454 Rust（含171 Native Episodes）/336根1924次实际TS互读/9PTY**，CI Bun1.2.17，exit0、547.023秒；fmt/clippy/边界及架构/UI通过。featureless release **17,163,312 bytes，SHA256 `37496a9933404832478ed09a2c89fc497951caff40d0c8efaed915d0ce4c60f4`**，同一产物env-i/PATH无JS下额外23组Qoder公开Host通过，45个自有根再做236次TS/原生互读。35份实际TS分类/队列等待向量匹配；真实闭环覆盖队列后工具、已完成Shell效果后队列不重放、部分intent丢弃但费用保全、重复/HTTP限流耗尽、连接恢复、预算/unknown费用阻断、换凭据/历史、等待续约与取消、硬退出→旧任务拒绝→幂等恢复→新任务准入。
+
+首轮完整门禁af8c1fc4的171 Episodes有2失败：测试只看到sidecar便SIGKILL，实际杀在index提交内，留下两个空Store锁；并发历史变化落到真实Store CAS，返回CONTEXT_SNAPSHOT_CHANGED，与新helper另一分支的自造错误码冲突。原候选/日志/数据保留。复用Store错误码；测试改等index的turn_complete和锁释放，真实等待点才杀进程，不放大任意sleep。另在原失败数据副本保留诊断、确认原进程死亡后，只维护两个已证明空的孤锁，recover两次成功且不虚构用量，原数据hash未变。**产品不自动抢匿名Store锁，事务中断仍需受控离线维护**，不冒充自动恢复已验收。更早的取消计时器、raw等待估计和lint失败亦保留，原取消速度/效果断言不削弱。见[重试回执](native-cli/evidence/p4-native-qoder-retry-20261117.json)。
+
+基线683b的[CI43957840836](https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836)已终态：Linux133617013628全仓success；macOS133617013973的build/native/type/architecture/Test通过，Desktop Electron smoke在bot-history-motion-checks:239失败。taskClose首个关闭样本5900ms、末样5930ms，6000ms总计时未给最后真实点击留下所需480ms；仅定位夹具计时边界，未复现该CI环境，不称flake或生产已修复，未重跑/放宽断言。merge7b45f494 tree与683b源相同；旧回执更新该真实终态。新[CI43967102253](https://github.com/ly-ccx/Peer-Agent/actions/runs/43967102253)后因计时夹具修正推送被既有并发策略取消，具体已过/未跑步骤见上；merge3ea1e32a tree与1d796f2a源相同，不称全仓成功。
+
+仍是P4：Qoder完整目录/流变体、持久选项caller差异及真实服务、其余Context/压缩/工具/Skill/Plugin/Hook/ACP/headless/命令、混合安装版本drain与完整总闸开放；P5–P7未完成，普通Ratatui对话仍不可发送，长期内存未验收。无个人数据读取迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 2026-11-17 Qoder 旧JSON/Bearer端点与环境凭据
+
+候选 `683b601a`（tree `3bd3eba6`）已推送。ADR37/56/129–131复核，ADR131/map先由a70d138登记旧方言与环境来源：目录命中或有非空modelOptions时走准备端点，其余模型走旧JSON/Bearer；不是错误后的认证降级。三个Qoder环境token保留trim后的优先级，获胜时不读磁盘user/machine文件；准备端点仍要求资料，旧端点可用env token或解封的本地token。旧方言不要求准备端点专有uid，但已有类型/大小/expiry继续校验，第三方文件不写回。null选项为未声明，空数组显式覆盖；有错/已知未来QMC/冲突来源不冒充“没有模型”。
+
+来源存在/缺失观察集中进ReadSet，保持普通文件NOFOLLOW/NONBLOCK/CLOEXEC、有界快照、fd/path版本和发送前ModelBinding/环境/expiry校验。捕获设置、凭据owner、端点选择各自负责，构造后只留选中目录元数据。旧body复用同一history/tool transforms直接冻结JSON，Bearer与X-Request-ID/X-Session-ID受保护且sensitive，2MiB上限与实际发送字节指纹不变；显式baseUrl优先，未配置才沿既有model-host/prod/daily/test。两种方言复用原Network与工具Grant/Evidence/账本链，没有新Agent循环或JS/VM fallback。
+
+冻结源码完整原生门禁 **440 Rust（含161 native Episodes）/316根1819实际TS互读/9PTY**，CI Bun1.2.17，exit0、510.710秒，fmt/clippy/边界与架构/UI通过。24个实际TS旧body/header向量、4个官方SDK合成凭据载体匹配。featureless release **17,116,976 bytes，SHA256 `1fd9eeb8b795d8bbceacfb2eca62ee5e1af32face18ccfd05e5c8a0786e5aa57`**，同一产物在env-i/PATH无JS下额外13组Qoder公开Host测试通过；25个自有根再做131次TS/原生互读。17项Qoder测试在release profile再过。已有真实HTTP count/send测试在3个Qoder token同时存在时另过，294个渠道/选项组合、4种wire继续断言无Authorization/X-API-Key串入。
+
+实际覆盖本地/三个env优先级、坏本地文件不能抢占env来源、UID仅准备端点必需、过期/类型否决、原始请求指纹、真实写入与成对Evidence，以及工具成功后目录出现使旧方言停住。两种方言另经真实TLS/认证CONNECT，正确证书成功、错主机名不进模型HTTP，代理/模型认证分离；不完整工具流收到TERM后无效果、socket关闭/保留原历史与账本，独立后续任务可准入。旧b332同一featureless release对未知模型确实报native_qoder_legacy_wire_unsupported，原失败断言/二进制/自有根保留；测试可见性和相对include失败修正，未削弱断言、期限或lint。见[旧端点与凭据回执](native-cli/evidence/p4-native-qoder-legacy-20261117.json)。
+
+基线b332的CI43949887094已核实Linux133589242332/macOS133589242848两平台全仓success，含各自Electron smoke，merge0ae68ff8 tree与源一致。新[CI43957840836](https://github.com/ly-ccx/Peer-Agent/actions/runs/43957840836)已终态：Linux133617013628全仓success，macOS133617013973在Desktop disclosure观察超时失败；merge7b45f494 tree与683b源码一致。具体失败/保全与后续重试候选见上，不称两平台全仓绿。**Qoder队列/连接/瞬态/重复重试与完整发送包装尚未完成**；共享builder默认task_id与实际TS sender每次qoderTurnTaskId的差异须随逐尝试身份/指纹收口。静态追踪另记录TS nested prepared sender在无目录命中时丢持久选项，native当前依已登记选择及实际builder；完整caller平价须在P4总闸前明确，未声称真实服务复现。全部目录/流变体、其余P4及总闸、P5–P7仍开放，普通Ratatui对话仍不可发送，长期内存未验收。仅合成账户/服务，未读个人凭据/任务、未安装/重启用户实例/默认切换/合并/发布。
+
+## 2026-11-17 Qoder 原生账户与准备端点模型/工具闭环
+
+候选 `b3320085`（tree `4012fd0f`）已推送。ADR37/56/129/130/131复核；ADR131与map先由df920ca/91f46b9登记只读第三方账户、来源绑定与认证接线，并以官方模块对照校正COSY认证requestId为独立随机UUID，不复用正文request_id。账户按QODER_CONFIG_DIR/QODER_CLI_HOME/HOME解析，普通文件NOFOLLOW/NONBLOCK/CLOEXEC、有界读取与fd/path双身份复核；坏/超限/过期/换号/退出/配置变更明确拒绝，源文件不写回。现有认证字段复用，缺失时由OS随机与固定官方公钥生成AES-CBC/RSA-PKCS1v15兼容字段；Cosy身份/认证头受保护且sensitive。不是Peer授权或Vault的新格式。
+
+原生factory已接qoder-private准备端点、FREE_INPUT encoder与现有Network/Host。canonical history/Projection经工具配对、相邻assistant合并、双content/contents、schema、effort及contextTier转换后冻结实际编码字节和指纹，prepared request仍限2MiB，计数observed-only。只读本地加密/旧目录及所选模型绑定实际来源。实际工具仍经原Grant/Provider/ToolResult/Evidence/Store；没有第二个执行循环或JS/厂商VM。54份实际TS请求、12份本地目录投影、8份未修改官方模块认证头与4份仅测试RNG固定的运行时字段样本相符；真实HTTP另按捕获的实际正文核验签名。
+
+最终冻结源码完整原生门禁 **428 Rust（含154 native Episodes）/300根1736实际TS互读/9PTY**，CI Bun1.2.17，exit0、470.436秒，fmt/clippy/边界及架构/UI通过。featureless release **17,107,648 bytes，SHA256 `5544caa5d1dd3b7e342b017f625e8025a4c64e186ba4b058c6d348e27680556f`**；该同一产物在env-i、PATH=/nonexistent下额外6组Qoder公开Host测试通过，9个自有数据根另做48次实际TS/原生互读。12项Qoder相关测试在release profile再过。无厂商认证WASM嵌入，host依赖无VM，动态库只有系统/CoreFoundation/iconv。
+
+真实覆盖合成登录→认证→HTTP→读写工具/Evidence；拒绝无效果及后续任务；损坏/仅env token的准备端点认证前置阻断；实际Shell改写合成凭据后阻断下一次请求，保留已有成功Evidence/历史，修复后新任务可运行；官方加密目录选中模型/context档位；外层业务失败包着有效工具的拒绝。首轮完整门禁虽绿，后续反例在同一release真实写出了合成文件，日志/产物/数据根保留；修正为外层与内层先分别校验业务失败，新增10605/103/statusCodeValue公开反例，随后重跑最终完整门禁，没有继承旧绿或削弱工具断言。另保留SSE夹具缺末尾空行、目录整数被转浮点、编译/lint及测试模块发现失败。见[Qoder Host回执](native-cli/evidence/p4-native-qoder-host-20261117.json)。
+
+基线cfdf两平台全仓CI43938893409含各自Electron smoke已成功，merge0cfff93d tree与源一致。新[CI43949887094](https://github.com/ly-ccx/Peer-Agent/actions/runs/43949887094)已核实Linux133589242332/macOS133589242848两平台全仓success，含各自Electron smoke；merge0ae68ff8 tree与源码一致。**Qoder完整队列/连接重试、旧私有端点/env-token路径、全部目录/流变体及真实服务仍未完成**；只有合成本机HTTP账户/服务，不声称Qoder特定TLS/代理、真实账号/OS Vault或安装验收。P4其余及总闸、P5–P7保持开放，Ratatui普通对话仍不可发送，长期内存未验收。无个人凭据/任务读取迁移、安装、用户实例重启、默认切换、合并或发布。
+
+## 2026-11-17 Qoder 原生格式基础（未接 Provider）
+
+候选 `cfdfd40a`（tree `92958346`）已推送。依ADR129–131范围，先由knowledge fe5a6cd/053b481登记第三方凭据/目录读取与有界密码格式、旧载体和传输编码，再实现RustCrypto Module。解封当前AES-128-CBC/PKCS7本地凭据、HKDF-SHA256/AES-256-GCM的QMC v1目录，以及旧明文/base64 UTF-8载体；后两类不会被标成已认证。正文按官方固定字表/美元padding和首尾third换位编码，明确只是混淆。边界1MiB凭据/4MiB目录/8MiB原始body、严格key/block/tag/UTF8/版本/编码校验，部分解码数据与明文归非Debug/Display/Clone的零化owner。只启用锁中已有密码crate版本和zeroize feature，不捆绑/启动SDK、WASM VM或JS。
+
+公开npm1.0.39包完整性校验后，只在隔离开发oracle使用真正认证WASM（SHA256 `15dad38f7d9744dabfdc8a892ebad80d2c8157779f4e33882123ab3c954f04d3`），不运行官方CLI或读取个人账户。65个官方样本（21CBC、21GCM含3空输入拒绝、7旧载体、16body），含9个实际TS消息builder输入，与原生和Node密码原语交叉匹配。四组原生测试另覆盖nonce/密文/tag篡改、错误uid/key、坏块/填充、UTF8、未来QMC版本、非canonical正文、预算否决及随后正确解封。
+
+最终完整原生scoped **410 Rust（含148 native Episodes）/291根1688实际TS互读/9PTY**，CI Bun1.2.17，498.972秒exit0；fmt/clippy/边界/架构/UI通过。release profile四组格式测试在env-i、PATH无JS下再过，featureless CLI 16,705,504 bytes、SHA256 `14bfa423916c9fc6f8136b303144c1c7c66b1cd619cde747fbd7a693e4421d8a`，额外10项既有公开会话命令通过。原生依赖无VM，产物不包含官方WASM。首轮/第二轮clippy及初次Node源导入失败保留，使用原CI Bun解析实际TS，不抑制断言或静态检查。见[Qoder格式回执](native-cli/evidence/p4-native-qoder-formats-20261117.json)。
+
+基线7627两平台全仓CI43931485780含各自Electron smoke已成功；新[CI43938893409](https://github.com/ly-ccx/Peer-Agent/actions/runs/43938893409)已核实Linux133550764577/macOS133550764777两平台全仓success，含各自Electron smoke；merge0cfff93d tree与源一致。**本卡没有接文件读取/账户身份、Model factory或Qoder模型发送**；认证封装/运行时auth字段、完整消息/目录/选项、网络/SSE/队列重试/用量/取消，以及模型→工具→Grant/Evidence仍待完成，当前公开factory仍拒绝Qoder。其余P4与P5–P7保持开放，普通Ratatui对话仍不可发送，长期内存未验收；无个人数据、安装、用户进程重启、默认切换、合并或发布。
+
+## 2026-11-17 原生 doctor / sessions list / 有界 export
+
+候选 `7627d4c8`（tree `8f05f778`）已推送。ADR108/129/130/131 已复核；ADR131/map的展示读取、原子发布与未知回执 A 级补充由6395a575/c52072fb/c4d35111先登记。doctor改为检查实际peer/同目录Helper可执行性、数据根或最近现有父目录及版本，必查失败退出1，不执行Helper/读Vault/建数据根。sessions默认/list只读真实index，原角色/排序/标题不读正文、不后台迁移。export沿实际TS可见消息与v1 stream patch生成脱敏Markdown，不能用canonical执行历史的provisional排除规则替代展示。
+
+Store复用有界JSON Reader，16KiB扫描、每行源1GiB、所选12MiB/65536节点/深度64；捕获有限文件长度，持续追加不延长读取。源版本或损坏/未来/孤patch明确失败。CLI匿名0600 spool、默认no-clobber、force目标CAS与父目录OS短锁/原子rename，拒绝Store/所读源别名；发布前取消保留旧target，rename后flush/回执失败保留新副本并报publication unknown。真实stdout背压/破管道/TERM、取消锁等待、后续显式重试覆盖；不改变grant、Evidence、任务、unknown或模型Context。
+
+最终完整原生scoped门禁 **406 Rust（含148 native Episodes）/291根1688实际TS互读/9PTY**，CI Bun1.2.17，467.896秒exit0，fmt/clippy/边界/架构/UI通过。5个实际TS Store/可见消息fixture、17参数、14脱敏样本匹配。featureless release **16,691,456 bytes，SHA256 `218d34a218cce60792847962db105162cc02e1d5053d3b8c6e29c4b07f0d81ab`**，同一产物额外10个公开会话命令测试通过。五次1,080,033,792字节有效JSONL（10×100MiB工具/3×10MiB可见正文）导出均完整hash匹配且源未变；峰值macOS采样RSS49.23–51.42MiB、约6.89–7.07秒。只是文件导出专项，没有footprint/全进程树/长期交互验收。
+
+首轮整闸因额外无fixture的cargo test重链接同路径debug peer造成109过39败（故障exit0而非77、夹具IdP未收到请求），日志/合成失败Store保留，不称flake。相同真实故障测试用featureless产物可重现失败、冻结fixture产物通过；verify改为先构建并复制/记录fixture hash，再给Host测试固定产物，原断言/期限不动，最终整闸独立重跑通过。另保留ya29断言、clippy与发布成功回执破管道反例，修正并覆盖提交未知后的显式恢复。见[会话壳回执](native-cli/evidence/p4-native-session-shell-20261117.json)。
+
+基线5182两平台全仓CI43916683249（含各自Electron smoke）已核实成功；本候选[CI43931485780](https://github.com/ly-ccx/Peer-Agent/actions/runs/43931485780)已核实Linux133524760580/macOS133524761193两平台全仓success，含各自Electron smoke；merge f3897471 tree与源一致。P4完整总闸、sessions resume/delete/update及其余Runtime/协议仍开放；P5–P7完整退出条件未满足，Ratatui仍不可发送普通对话。无个人数据迁移、安装、用户实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
+## 当前剩余范围（2026-11-18）
+
+| 阶段 | 当前事实 | 尚待完成 |
+|---|---|---|
+| P0–P3 | 各自 scoped 总闸通过 | 不代表完整日常 CLI 已可替换 |
+| P4 | 实施中。原生模型与工具、用量、压缩恢复、MCP transport/auth、`exec`、`recover --session`、ACP、Skill 和 Hook 已有公开入口验证。普通 Shell 及委派 Work 前后台已过本地验证，后者已推送并等待独立全仓 CI | 当前 CLI 可达工具、Context/压缩、附件和快照生命周期的余项，旧版并存停稳、unknown 对账、真实服务与协议异常覆盖及 P4 总闸。Plugin 按实际旧 CLI 生产可达范围评估 |
+| P5 | 完整项目代理全链未开始；已有 kernel/reducer 地基不算产品完成 | 主 Bot、队列/调度、委派并行/worktree、Goal/Watch/记忆、问题、核验/签收/交付、Interactive Results 与恢复 |
+| P6 | 有终端骨架和局部 PTY 验证；完整验收未完成 | Ratatui 普通对话发送、模型选择/批准、历史/大正文/搜索、草稿/阅读位置恢复及长期内存/响应性 |
+| P7 | 有本机候选打包验证；发布切换未完成 | 最终打包/安装更新/签名、多平台和全量发布回归、默认入口切换与旧 CLI 可达依赖退出 |
+
+不能按阶段数量换算完成百分比。当前仍是 P4；P5–P7 的完整退出条件尚未满足。原生 `exec --plan` 的受限 worker 闭环与不可发送的 Ratatui 草稿入口，均不能冒充完整会话。
+
+2026-11-17 原生Grok与基础补全候选 `5182ad5e` 已推送（tree `0966d4fc`）：按实现前ADR131/28/map修订 `2d5e1cf`，`oauth_grok`沿原Responses编码、ModelBinding、Helper CAS/刷新意图与Account提交Module接通，不启动Grok CLI、JS业务引擎或sidecar。显式`models auth`执行一次device grant，有界pending/slow_down轮询、取消和新授权恢复；用户提示只含公开URL/userCode/有效期，实际scope、固定issuer/client与原配置/Vault代分别检查。刷新scope变化保留pending，不重放模型或工具。兼容版本feed有界无凭据读取，6h缓存/24h受限旧值策略；仅426且版本实际变化允许同一prepared原始字节再发一次。ChatGPT账号头归其Provider，不随Responses协议泄到Grok。
+
+完整原生验证冻结在tree `29ea9c09`：**387 Rust /148公开native Episode /291根1688实际TS互读 /9PTY**，CI Bun1.2.17，exit0、420.721秒；之后仅CI作业总预算改动，Rust与资源/脚本不变。全仓typecheck/architecture/UI在新增补全前通过，补全后的Rust由完整fmt/clippy/build/测试验证；最终featureless release **16,508,272 bytes**、SHA256 `1e36dd7aa1799f532349b7b747e0bbdc8aa4d192cb4a5da5713d948e30fd1d68`，额外用同一公开Host测试在固定官方URL/原域名TLS验证下，经强制隔离CONNECT代理走device登录或过期凭据刷新→两次模型请求→真实文件工具/Grant/Evidence。无端点覆盖文件，PATH不可发现Bun/Node，测试证书私钥不在正式产物中。
+
+按已接受ADR108迁移`completions <bash|zsh|fish>`：从实际TS生成三份脚本、帮助与9个参数解析样本，原生入口无HOME/TTY/JS运行依赖，正文仅进stdout、用法错误退出2，不写shell配置。实际Bash可补全models和sessions resume；新增2组公开入口及3项邻接测试通过，正式产物再跑同一2组测试通过。此B级实现不移动能力、授权、Evidence、存储或提示边界。
+
+前候选dc70的CI43899256310已终态：Linux全仓success，Mac首轮无arm64 runner取消；取得runner的重跑通过build/native/type/architecture/Test，最后Electron检查1219秒时触及整个作业45分钟上限而取消，没有报告，不能记全仓绿。原生门禁784秒、全仓测试531秒，同一Linux Electron包808秒。仅将作业总预算改为60分钟，原场景断言、性能预算与单步/动作超时不变；[新CI43916683249](https://github.com/ly-ccx/Peer-Agent/actions/runs/43916683249)已核实macOS133472597563/Linux133472598121两平台全仓success，含各自Electron smoke，merge c70991e9 tree与最终源一致。实际原Desktop生产源码未变的本机隔离全旗标检查（仅await前日志的实验副本）已通过并正常退出：列表12.87ms/搜索21.60ms/收到28.10ms中位数在原100/150/300ms门槛内。该日志副本可能影响调度，不冒充精确CI复现、独立产品审阅；远端通过由上述实际CI单独证明。
+
+原`native_model_auth_unsupported`基线与中间失败保留；首轮整闸通过后审阅发现user_code可等于secret device_code，公开CLI反例真实失败（`.tmp3QMMGP`）。修正为展示前拒绝并保全旧Vault/config，反例通过后重跑完整最终整闸，未借先前绿替代。旧浏览器/MCP、停稳、账本与恢复仍在同一门禁。见[原生Grok回执](native-cli/evidence/p4-native-grok-20261117.json)。6h/24h真实时间老化未soak；真实Grok IdP/模型、OS Vault、旧安装版本drain、完整P4与P5–P7另验，Ratatui仍不可发送普通对话。无个人数据迁移、安装、运行实例重启、默认切换、合并或发布。
+
+2026-11-16 当前TS发送者与旧SDK缓存候选 `dc70fc3c` 已推送（tree `ed6c2ee0`）。按源前ADR132/131 A修订 `cf9540e`：官方SDK真正token HTTP之前，由同一credential目录锁owner核对generation、旧refresh/PKCE和issuer/token endpoint，先经Helper回读验证并发布不可变加密意图；网络等待中不交锁，只有owner能发布最终代。SDK saveTokens仅消费一次匹配提交回执，不再写新代或重算expires_at；拒绝/redirect/损坏/超限/取消/Helper或源变化保留pending，不吞错后DCR、浏览器fallback、invalidate或重试。显式管理authorize purpose只恢复已知pending，保留它直到新code成功；旧code/verifier不能重放。close/disconnect取消并join，管理Host等待清理。
+
+Streamable HTTP及legacy SSE已发tools/call的401/403/redirect不向SDK交出可重放响应；只有本地owned GuardError身份可投影为既有terminal `execution_outcome_unknown`。实际Provider→canonical预算checkpoint/finish保留原pending和unknown，阻止该executor继续模型请求，不拿错误文字当效果证明。实际SDK预读/双请求基线、首轮仅错误文字而缺结构化unknown的回归均已保留。
+
+原生支持旧SDK cache中的issuer绑定，所有同时存在候选须合法一致；仍做新受限发现，不直接信任缓存token endpoint。实际token.scope优先，省略响应scope沿旧grant保存，保留请求偏好与未知cache字段；变化/未知原授权不被新响应洗成成功。真实加密夹具Vault下TS与Rust双向竞争仅一POST，随后原生Grant/ToolResult/Evidence继续；cache-only→native闭环、冲突/null issuer及scope省略冷读均通过。
+
+完整原生门禁在冻结tree `ae80ace4` 通过：**373 Rust /138 native Episode /261根1528实际TS互读 /9PTY**，CI Bun1.2.17，exit0、403.595秒。之后仅TS owned-error→Provider终止投影及回归测试三文件改动，Rust源与release不变；最终tree另通过**67项聚焦测试**、新runtime build、全仓typecheck、architecture/UI及890 packaged imports。相同featureless release 16,431,344 bytes、SHA256 `31eeb1be8199be95580b4bc520b57db37d46642580bd1c39bf1090a5f9560ab0`，额外27组OAuth Host通过。全仓pnpm build/test通过于后续TS细化前，不冒充最终tree完整发布活动。见[当前TS/旧缓存回执](native-cli/evidence/p4-mcp-cohost-and-legacy-cache-20261116.json)。
+
+首轮完整原生门禁130过7败：五项旧刷新夹具无实际scope却返回mcp.read；正常夹具补齐其明确的原grant，新增未知原grant必须pending的反例，scope/TLS/unknown断言不放宽。两项未改模型测试在与全仓JS并跑时超过原8秒停稳界限；原样隔离通过，最终完整原生门禁单独通过，不称原轮绿或flake。新夹具id0、错Helper和错Store代码失败均保留。[CI43899256310](https://github.com/ly-ccx/Peer-Agent/actions/runs/43899256310)已终态：Linux全仓成功；Mac初次runner容量取消，重跑原生/构建/类型/架构/Test通过，最后Electron遭整作业45分钟上限取消，未获全仓成功。merge e3965514 tree与最终源一致。事实、日志与5182ad5e的作业预算后续见上及Grok回执；321d0ccb两平台全仓绿已单独核实，不能移作本候选结果。
+
+旧运行/安装版本drain仍未证明；本卡源码不能倒过来保护已加载旧代码。P4总闸与其余Provider/Context/工具/Skill/Plugin/Hook/ACP/headless/命令、P5–P7仍待完成；Ratatui仍不可发送普通对话，长期内存未验收。仅合成服务与加密夹具key，未验真实IdP/模型/OS Vault/安装；无个人数据迁移、安装、运行实例重启、默认切换、合并或发布，原生CLI无Bun/Node引擎sidecar。
+
+2026-11-16 原生MCP自动刷新候选 `321d0ccb` 已推送（tree `61dd24c4`）。按先登记ADR132/131 A级修订58aa2c9与跨代脱敏实施复核731539d，实际grant后才解封凭据/访问IdP；execution内存epoch只接受OAuth owner持锁真实发布，逐次核对真实Store与registry，才规范化单一credential来源以复核原grant。Goal、args、policy、lease、祖先/角色、执行绑定和其它来源仍检查；不改写grant事实，不把epoch持久化成权限或秘密。Context继续同一已验证代。每server逻辑owner有界排队，使用当前请求的Host port；旧Connection停稳/join后才刷新与重初始化，stdio不自动重启，call_tool_once不重放。
+
+冻结完整原生scoped **370 Rust /135 native Episode /254根1480实际TS互读 /9PTY**，CI Bun1.2.17，exit0、402.291秒。featureless release 16,429,936 bytes、SHA256 `f5754b065cf0533a9a60902bcacfb67929de0936d8276d80c9ff2f4825c97381`，额外24组OAuth Host通过。过期→唯一刷新→两次真实工具/原grant/Evidence→下一模型请求、实际长工具调用中的自然到期换代、scope扩大/收窄拒绝、拒绝不读Helper/访问IdP、policy/registry/外部凭据变化、真实加密Vault+合成key、严格TLS数值OAuth CONNECT与普通MCP主机名路由均验证。TERM保留意图但证明确认工具not_dispatched，显式重登后新canonical任务成功且旧历史不变；KILL恢复必须保留unfenced_external unknown，不能凭credential pending猜未派发或重放。
+
+提前捕获未提交自动刷新版本的跨代旧token回显泄露，实际旧binary/hash和失败历史保留；最终逻辑owner用原64值/256KiB有界可零化集合保护接触/注入的旧新凭据及代理值，超限停止owner后续派发，epoch不持秘密。还保留新夹具把initialized通知计为initialize、错误Store代码假设、以及把OAuth数值规则误用于普通MCP的失败；原预期、权限/TLS/unknown断言不放宽。见[自动刷新回执](native-cli/evidence/p4-native-mcp-auto-refresh-20261116.json)。
+
+基线fcf06bc2的Mac CI在后续coordination-conformance遇到status0 stdout的JSON未结束；本机80次原始Bun1.2.17真实Store探针未精确复现，不能叫flake。5bbbd0ed只把该开发夹具完整响应交给自有文件后读取，保留原1MiB界限、timeout和55项断言；Bun/Node各55项通过，首个numeric fd+encoding的Bun RangeError也保留。[CI43879494376](https://github.com/ly-ccx/Peer-Agent/actions/runs/43879494376) Linux全仓success含Electron smoke，Mac因未取得托管arm64 runner容量取消未执行。见[stdout夹具回执](native-cli/evidence/ci-coordination-stdout-20261116.json)。新[CI43885810034](https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034)两平台全仓success已核实（Mac133363511130/Linux133363511412），含各自Electron smoke；merge58a46f6a tree与源码相同。之后才推进当前TS发送guard与旧缓存兼容，不把本轮绿灯继承给下一候选。
+
+原生刷新要求实际payload中有pinned issuer/client/scopes/refresh token；旧发现缓存独有绑定目前要求显式auth，不能冒充透明旧OAuth平价。当前TS已预读发送guard和安装版本drain仍必需；本卡epoch不阻止已预读TS请求。P4其余和P5–P7仍未完成，Ratatui仍不可发送，无完整长时内存验收。仅本机合成服务/密钥，未验真实IdP/模型/OS Vault/安装；无个人数据迁移、安装、运行实例重启、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
+2026-11-16 MCP刷新未知状态候选 `fcf06bc2` 已推送（tree `ef7d9dc8`）。按先登记的ADR132/131 A级修订（decf85a/7a5e981），在SDK刷新前先经Helper写入、回读核验不可变加密意图并持锁发布；移除普通oauth.tokens视图，元数据仅投影recovery_required。相同owner推进自身binding，成功才发布最终token代。已登记后的拒绝、超限、取消、registry/Helper/owner变化均保留意图与旧slot，不恢复或重放旧refresh。Rust工具/refresh、当前Desktop冷读/patch和旧代保存回调阻断；显式原生PKCE/state/code重登后原ready任务可经真实Grant/ToolResult/Evidence继续。未知/损坏意图连auth也拒绝并原样保全；KILL留下孤锁，不偷锁。
+
+最终完整原生scoped **361 Rust /126 native Episode /242根1391实际TS互读 /9PTY**，CI Bun1.2.17，exit0、373.267秒。featureless release 15,667,584 bytes、SHA256 `5e305dfa12cf94d1e649f9fd0cd29f4a5a7c89f25b7d552743b3e1064124e8ea`，额外15组OAuth Host通过，含真实加密Vault/锁+合成key的中断、Desktop冷读阻断、重登与工具Evidence。其余故障用有界v1 Helper夹具，不冒充OS安全存储。2项持锁publish Store测试、16项Desktop Store、8项实际模型网络及architecture/UI通过。
+
+首次冻结原生门禁360项虽过，后续release在socket关闭断言失败；保留失败与旧源码基线，未叫flake。控制实验发现普通CONNECT夹具漏计真实TCP RST，且3秒空闲截断在5秒预算内的4秒合法TLS隧道；修正为有限Tokio owner/双向copy/取消与join，客户端读侧只计真实EOF/reset，不把上游半关闭/本地清理/超时当关闭。原关闭期限、TLS及断言不放宽，同一release哈希通过15组后冻结最终tree重跑完整门禁。见[刷新意图回执](native-cli/evidence/p4-native-mcp-refresh-intent-20261116.json)。
+
+基线4690766c的Linux全仓CI通过；macOS因GitHub runner容量不足未执行，不称两平台全仓绿。新[CI43875783285](https://github.com/ly-ccx/Peer-Agent/actions/runs/43875783285)已终态：macOS133328321354在后续coordination-conformance解析stdout失败，Linux133328320720在修正推送后由既有并发取消；merge10cbd6fa tree与源码相同。失败与5bbbd0ed修正见上，不称全仓绿。下一项仍是运行时自动刷新、已预读TS发送guard、原grant/Context代际延续与旧连接停稳替换；不能用本卡冷读/CAS宣称拦住已发/预读TS请求。P4其余与P5–P7继续待办，Ratatui仍不能发送，无长期内存验收，无安装/重启/个人数据迁移/默认切换/合并/发布，无Bun/Node引擎sidecar。
+
+2026-11-16 验证夹具修正候选 `4690766c` 已推送（tree `c6c875cf`）。85dc28e3 的 CI43865232749：Linux133291958683在原生OAuth HTTPS代理场景失败；macOS原生/build/type/architecture/Test通过，后续Electron smoke在修正源码推送后被既有并发策略取消，不能记全仓绿。实际控制复现：旧TLS夹具在生产5秒CONNECT预算内等待4秒便丢隧道；修正为有owner的Tokio TLS、双向copy、有限并发与取消/join，原产品期限及断言不变。该复现证明夹具缺陷，不等于精确复现远端调度原因。合成代理trace写入受marker核验的CI证据目录。
+
+最终本机完整原生门禁 **352 Rust /119 native Episode /232根1323实际TS互读 /9PTY**，CI Bun1.2.17，exit0、357.123秒；featureless release 15,632,704 bytes、SHA256 `c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41`，与85dc产物字节相同，另5组OAuth Host通过。新[CI43869546961](https://github.com/ly-ccx/Peer-Agent/actions/runs/43869546961)已终态：Linux133306984261全仓success（含Electron smoke）；macOS133306985019因未取得托管arm64 runner而取消，GitHub容量注释已保留，不能称两平台全仓绿。merge411da5dc tree与源码相同。见[夹具修正回执](native-cli/evidence/ci-native-https-proxy-fixture-20261116.json)。本卡仅C级验证修正，未改变产品边界，未实现MCP运行时自动刷新；P4总闸与P5–P7仍待完成。
+
+2026-11-16 MCP OAuth原生网络候选 `85dc28e3` 已推送（tree `df1ebeab`）：沿ADR132既有数值连接/原主机TLS合同，接线前复核6364740/d687a6c，B级实现同一Native Network路由与PEM/DER根选择。官方SDK继续编码发现/PKCE/state/issuer/resource/DCR与token；本地批准DNS/IP（最多64），直连或HTTP(S)代理仅连接批准的数值目标，保留origin Host和严格TLS名称，代理认证不进入origin。固定30秒操作、5秒建连/TLS/CONNECT、256KiB body、32KiB head/100字段及1MiB响应；driver和exchange由同一future持有，无detached driver、自动切路或token重放。挑战只取有界头，不等待无限SSE body。
+
+冻结原生scoped **351 Rust / 118 native Episode / 232根1323实际TS互读 / 9PTY**，CI Bun1.2.17，exit0、396.469秒。featureless release为15,632,704 bytes、SHA256 `c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41`，额外5组实际OAuth代理Host场景通过；合成私钥不在产物。9组OAuth公开CLI、5组地址/真实socket测试、architecture/UI及fmt/clippy通过。真正的TLS代理登录/刷新→加密Vault→模型/工具Grant/Evidence、禁止元数据目标、混合DNS/64界限、HTTP(S)代理与NO_PROXY、错主机/未知根、redirect/body/head限制、SIGTERM token交换与socket EOF/锁释放、显式重登后原ready任务继续均验证。取消保留已发刷新事实和原generation，不自动重放或声称旧refresh仍可用。
+
+真实旧release即使配CA/代理仍发现失败的现场保留。测试还证明hyper max_buf_size单独可能接受完整超限head；保留原断言并加parser发布最终响应前的IO读预算，1MiB精确边界仍成功，informational heads不绕过。初版API假设、测试临时借用和误把credential取消当exec exit1的尝试均保留；采用既有精确exit4，不放宽权限/TLS/unknown断言。见[OAuth原生网络回执](native-cli/evidence/p4-native-mcp-oauth-network-20261116.json)。
+
+基线2c071885的[CI43859827036](https://github.com/ly-ccx/Peer-Agent/actions/runs/43859827036)两平台全仓success（含各自Electron smoke）已核实后才推送；原run未取消/重启。新[CI43865232749](https://github.com/ly-ccx/Peer-Agent/actions/runs/43865232749)已终态：Linux133291958683原生OAuth代理测试失败、macOS133291959134在Electron smoke取消，merge f7502d2b tree与源码相同；失败与4690766c修正见上。本卡不是P4总闸：MCP运行时自动刷新/grant continuation、Grok/Qoder、完整Context/压缩策略、剩余工具/Skill/Plugin/Hook、ACP/headless/原命令、混合版本drain仍待完成；P5–P7完整退出条件未满足，Ratatui仍不能发送，无长期内存验收。仅本机合成IdP/模型/代理及测试加密Helper，无真实IdP/模型/VPN/OS Vault/安装验收，无安装、重启、个人任务迁移、默认切换或发布，无Bun/Node引擎sidecar。
+
+2026-11-16 全仓CI验证修正候选 `2c071885` 已推送（tree `d342880a`）：1495b867 的 CI43855704882 原生门禁/build/type/architecture/Test两端通过；macOS全仓success，Linux最后Electron smoke在updater-minimize-checks第8行报`Resulting promise was garbage collected`，不能记全仓绿。只将该隔离夹具的安装和最后计数改走已有main command/receipt，不改产品UI/更新/Runtime，不加重试、不吞错。3组动画/缩减动效、真实第四次调用快速完成、最终计数4、错误恢复和真实进程退出在本机隔离Electron通过；具体脚本hash绑定提交，其他JS/UI源不变。实际Linux失败日志/Source/工件身份保留，本机未精确复现该VM GC，不能称flake或已通过Linux。[修正CI43859827036](https://github.com/ly-ccx/Peer-Agent/actions/runs/43859827036)已核实Linux133273408424/macOS133273407898两平台全仓success（含各自Electron smoke），merge91bed719 tree与源一致。见[CI夹具回执](native-cli/evidence/ci-updater-control-20261116.json)。后续原生OAuth数值代理候选85dc28e3见上，P4总闸及P5–P7仍未完成。
+
+2026-11-16 原生普通 MCP 网络候选 `1495b867` 已推送（tree `9f7b463c`）：先登记并推送 ADR132 的 A级网络补充（ac6896a），再接同一 Native Network。实际旧 SDK transport 使用默认 fetch，不能冒充模型专用策略已在旧 MCP 落地。Streamable JSON、Streamable SSE、legacy SSE 的逐物理 GET/POST 均选择 env/NO_PROXY/macOS 路由和严格额外/系统根信任；前置构造完成才记 tools/call 已发送，不重试/redirect/fallback。仅选中代理的有界可零化秘密集合在结果入 Context/历史/Evidence 前脱敏，isError 协议真值独立保留。
+
+冻结原生 scoped **341 Rust / 113 native Episode / 222根1261实际TS互读 / 9PTY**，CI Bun1.2.17，exit0、359.918秒。featureless release 14,906,224 bytes、SHA256 `394fadd315b9e565613dc3a17a9e03767e01cd9da109a10a6f0c9f685594764c`，额外5组真实MCP网络Host测试通过；合成私钥不在产物，architecture/UI及fmt/clippy通过。真实代理认证（含HTTPS代理转发HTTP）、NO_PROXY、TLS未知根/错主机、显式CA修复、凭据回显、双向控制POST与SIGTERM实际socket EOF通过。已发调用unknown保留并继续阻断原工作区；独立范围后续文件任务成功且原unknown/历史不变。旧release显式CA仍无法MCP初始化的失败、reqwest HTTPS转发不附认证的实际失败、测试误用类型/工作区/证据字段的尝试均保留，未弱化原权限或TLS/unknown断言。详见[普通MCP网络回执](native-cli/evidence/p4-native-mcp-network-20261116.json)。
+
+本卡不放宽 MCP OAuth 地址政策；其受限 HTTP Adapter 仍不接环境代理。下一项须实现本地批准 IP 后数值 CONNECT、原域名 TLS/Host 和同一信任策略，防止代理重解析绕过；其余P4与P5–P7继续待办，Ratatui仍不可发送，长期内存未验收。仅隔离本机合成服务，无安装、重启、个人任务迁移、默认切换或发布。基线9d09192b的[CI43848554075](https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075)两平台全仓success（含各自Electron smoke）已核实，原run未取消/重启，完成后才推送本卡。[新CI43855704882](https://github.com/ly-ccx/Peer-Agent/actions/runs/43855704882)已终态：Linux133259289639最后Electron smoke失败、macOS133259290066全仓success，merge f130fbea tree与源码9f7b463c一致。失败及2c071885局部验证修正见上，不以本地scoped冒充全仓success。
+
+2026-11-16 原生模型网络候选 `297ba570` / `9d09192b` 已推送（tree `9ca1777d`）：依先登记的ADR50实施复核（知识43a77a0）沿129/130/131做B级迁移，无新增授权/Evidence/Context边界。模型生成、冻结count和ChatGPT/Google交换/刷新共用Native Network Module，保留原环境优先/NO_PROXY精确host及后缀规则、逐请求macOS scutil回退和附加根证书选择；显式extra CA有界普通文件，保留Rustls公共根及主机名/TLS验证。OS查询为固定程序/参数、有界输出/2秒查询与清理期限；取消/超限/超时后实际子进程回收和后续查询通过。普通合成测试显式绕开个人代理，专门网络测试选择实际隔离HTTP/HTTPS/CONNECT代理，不修改系统信任。
+
+完整冻结候选原生scoped **334 Rust / 108 native Episode / 212根1186实际TS互读 / 9PTY**，exit0、330.352秒，log SHA256 `33a0399ca24dca6f9eb19e144dbe0611a69ffd547c04507bff55edb6dc32218b`。38组真实TS route、4组scutil、3组指纹/证书选择及26项旧TS网络测试通过；7公开CLI网络场景涵盖真实代理鉴权、NO_PROXY、TLS/错主机/未知根、1MiB/编码/目录/FIFO拒绝、修复后任务、count/send和仅一次OAuth刷新→真实工具Grant/Evidence。19原生账号回归、fmt/clippy/architecture/UI通过。featureless release为14,811,216 bytes、SHA256 `f5cb2f84f590b06f7bef9704ec19c0a3ab4539858aa56849463293f2a900d2da`，额外6项真实网络Host测试通过，合成私钥不在产物。变更仅Rust/开发夹具，未为未变的JS/TS产品源码重跑本地整仓pnpm test/typecheck；旧候选全仓CI已绿，新候选独立验。详见[原生模型网络回执](native-cli/evidence/p4-native-model-network-20261116.json)。
+
+实际复现旧46511513忽略坏PEER_EXTRA_CA_CERTS而继续模型/工具，失败根.tmpY0evv2保留；修复明确请求前阻断且同一ready任务修正后继续。TLS夹具最初被本机LibreSSL默认签成ecdsa-with-SHA1，OpenSSL verify虽成功但Rustls正确拒绝；原完整PKI与失败日志保留，显式SHA256签名修复夹具，生产验证不放松。新query PID marker非原子和私有测试helper误用的中间失败保留；已修复、原断言与期限不弱化。OAuth前置意图仅在证明确未send时条件恢复，真正发送后的未知继续保全。
+
+首轮297ba570的[CI43846561319](https://github.com/ly-ccx/Peer-Agent/actions/runs/43846561319)两平台均在Native scoped的network-contracts比较失败：夹具误取运行时rootCertificates[0/1]，CI Bun1.2.17与本机1.4.2数据不同。已用CI版本实际复现；9d09192b只将输入固定为入库合成公开证书，仍由真实TS筛选器生成expected，原断言不放宽。两版Bun对照和CI版本完整原生门禁通过，最终产物字节与已验收的6项release测试相同；初验与最终tree、失败和hash均在回执保留。
+
+基线46511513两平台全仓CI（含Electron smoke）success已核实；最终[CI43848554075](https://github.com/ly-ccx/Peer-Agent/actions/runs/43848554075)已核实Linux133234880361/macOS133234880280两平台全仓success，含各自Electron smoke；merge bf745936 tree与源码相同。本卡只完成模型路由/信任切片，MCP普通transport及OAuth的网络/地址政策、完整Provider/Host恢复策略、Grok/Qoder、完整Context/压缩、剩余工具/Skill/Plugin/Hook、ACP/headless/原命令、混合安装版本drain和P4总闸仍待完成；P5–P7未完成。仅本机合成代理/TLS/IdP/模型，不冒充真实VPN切换、正式模型/IdP/OS Vault、多平台安装或长时UI内存验收；Ratatui仍不能发送。无安装、重启、个人任务迁移、默认切换、合并或发布，无Bun/Node引擎sidecar。
+
+2026-11-16 原模型目录与OAuth提示恢复候选 `46511513` 已推送（tree `a09a4c61`）：依先登记的ADR131范围/恢复/环境身份修订（a986a18 / 7a36114 / 7431edb）做B级接线。原 `models` 的12组真实TS入口对照、`PEER_MODEL_*` 独立来源和off/default wire已接；显式来源绑定不会把环境key交给已有文件渠道。实际canonical Host→模型流→工具→Grant/ToolResult/Evidence及拒绝场景通过，无Helper或JS引擎需求。`models reconcile <configured-channel-id>`只从真实Vault重建三项非秘密提示；auth/logout分别返回已知凭据结果和metadata状态，失败不回滚或重放登录，status/list仍只读。实际Store超限、配置owner被置换、pending/损坏/错误provider/不可解密、重复无写入、后续显式修复，以及自动刷新提示失败后真实工具闭环均验证。
+
+最终冻结候选完整原生scoped **324 Rust / 101 native Episode / 202根1134实际TS互读 / 9PTY**，log SHA256 `60cf7d49f514ffcb8ec71201197dad8fbc1ad28b362ab6d3751e12f473a3af59`。真实Desktop/TUI跨HTTP提示/endpoint/auth/header绑定8场景、24次加密Vault CAS通过；全仓types、architecture/UI、887打包imports通过。完整pnpm test退出0、354.946秒、14包及最后升级/降级矩阵通过；开始tree0a57b3e5与最终tree差异仅PTY夹具，业务源码和pnpm测试源码不变，最终完整原生重跑覆盖夹具。featureless release为14,582,624 bytes、SHA256 `49d27eff8ad77e118b875275382328ab07c626b65d6830e3e691f0b2a334052b`；额外12模型列表、3环境执行与2真实Vault修复Host测试通过，测试端点marker不在产物。详见[模型目录与提示恢复回执](native-cli/evidence/p4-model-catalog-projection-20261116.json)。
+
+首轮完整原生在最后PTY的PID文件存在但JSON尚未写完处失败，且清理wait期限触发；失败现场保留，进程表确认自有子进程已结束，原运行实例未动。修正为PID/status原子发布和清理失败仍关闭fd/保存ANSI，原期限、退出与终端属性断言不变；9PTY聚焦及最终完整重跑通过。两处旧“登录不写metadata”的阶段断言改为完整文档只允许三提示投影；种子历史非空的测试错误改为原历史精确不变，实际授权/Evidence断言保留。
+
+基线c8654dd6两平台全仓CI成功已核实后才推送；[CI43839577892](https://github.com/ly-ccx/Peer-Agent/actions/runs/43839577892)已核实macOS133204605842/Linux133204606470两平台全仓success，含各自Electron smoke；merge72e41602的treea09a4c61与46511513相同。本卡仍不是P4总闸：混合安装版本升级/drain、Grok/Qoder、代理/证书、完整Context/压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/原命令，以及P5–P7仍待完成。仅合成IdP/模型与加密KeyStore，不冒充正式IdP/OS Vault/真实模型或安装验收；交互Ratatui仍不能发送，无1GiB/四小时完整UI验收，无安装/重启/个人任务迁移/默认切换/发布。
+
+2026-11-16 配置/Vault短提交候选 `c8654dd6` 已推送（tree `1ba940c5`）：依此前 `dc238b2` ADR131做B级接线，未移动权限/Evidence/Context或Helper协议边界。实际复现e632旧原生logout在别的config写者持锁时仍删除Vault并返回0；失败隔离根 `.tmpmlfjYa` 保留。Native auth/status/logout与模型OAuth读取、前置意图、最终CAS改为config→Helper短段；浏览器/HTTP等待释放锁。Store finish检查原源版本和owner，不改配置；异步零等待争取+Tokio期限/取消无遗留worker。SDK由实际Desktop/TUI宿主传入相同短事务，13次真实加密Vault CAS证明持锁，HTTP期间另一配置Store可进入。
+
+冻结源码完整原生scoped通过 **311 Rust / 93 native Episode / 182根1034实际TS往返 / 9PTY**；14项原生登录聚焦、17项OAuth SDK测试、全仓types、architecture/UI、887打包imports通过；完整pnpm test退出0、363.254秒，14包与最后升级矩阵通过，退出回执绑定tree1ba940c5。公开CLI验证持锁logout不改密文、回调后等待可取消且不交换code、刷新后无法提交保留原pending、显式原生重登与新canonical任务可继续。Native log SHA256 `d7c54b517e9045ae7b728108720d2088c9db7f799930ea32efbbd5de88b9039c`，featureless产物SHA256 `3ba3b80778e0c4aa1a89ad86c48d77d1417898f6ec6d1bc1a9f242e20bcea650`。详见[短提交回执](native-cli/evidence/p4-model-config-vault-20261116.json)。
+
+基线e632120f的CI43823605671 Linux133152103303/macOS133152103586均全仓success，含各自Electron smoke，merge848671e3 tree与源一致；确认终态后推送本卡。[CI43828693350](https://github.com/ly-ccx/Peer-Agent/actions/runs/43828693350)已核实macOS133168487356/Linux133168487738两平台全仓success，含各自Electron smoke；merge1e1465c8的tree1ba940c5与c8654dd6相同。A修订a986a18校正新增CRUD的范围偏差；7a36114先登记后续提示重建/reconcile，这两项不被当作本卡已实现功能。接下来补原models列表和环境配置、真实Vault提示重建/恢复及剩余P4。普通交互聊天、P5–P7、真实平台/模型、混合安装版本drain均未验收；无安装、重启、个人数据迁移、默认切换或发布。
+
+2026-11-16 范围复核：从实际 `cli-argv.ts` / `cli-models.ts` / `cli-model-lines.ts` / `model-config.ts` 确认，原CLI的 models只列出模型，独立模型配置通过PEER_MODEL_*；原CLI没有整套渠道/模型CRUD命令。此前将“完整原生CRUD/账号创建命令”列为必要退出条件，扩大了原方案 §6 “以实际argv registry为准”的范围。ADR131已在后续命令实现前作A级澄清并登记map：优先补原models、环境模型来源、原有选择/auth与metadata恢复；配置/Vault共锁、条件恢复、混合旧安装版本drain及全部原功能仍必须交付。历史回执保留原范围判断，不反写为当时已完成；本次不是把缺失功能删出迁移目标，P4总闸仍未通过。
+
+2026-11-16 模型配置写入候选 `e632120f` 已推送：先于源码登记 ADR131 A级配置Store写入所有权（知识 `dc238b2`），原生 `ModelConfigStore` 与当前Node/ Desktop参与同一真实目录下的mkdir锁、相同原文件/身份revision和条件原子替换。完整同步 read→mutate→write及读取时迁移受锁保护；坏JSON、未知版本/超限保全原文件，不再当空配置覆盖；保留未知root字段和旧providers envelope。异步诊断网络期间释放锁，提交时只修改仍匹配原配置的对象；价格回填在网络后锁内重读。配置rename后目录同步失败时保留实际Vault/config并报告unknown，不无条件回滚旧凭据。
+
+真实Desktop公开CRUD与Rust Store跨进程竞争，20次渠道/模型创建与30次原生更新全部保留，双端revision相同；新13项互读与81项配置聚焦通过。冻结tree `41ae5d1f`完整原生scoped通过 **306 Rust / 90 native Episode / 179根1018实际TS往返 / 9PTY**；全仓类型、IPC411/445/359、architecture/UI与887打包imports通过。完整 `pnpm test` 真正exit0、364.379秒，退出回执绑定同一tree；14包和最后升级矩阵全部通过。Native log SHA256 `58f48264c1611b943b740bc4fe6fa8b944f2d92127b4ea2d15de7df8bbd9868d`，featureless CLI SHA256 `d77f18dc649cd9c515bc9b6def022ac09ac55f686d65c4974debbd91510c46d1`。见[配置写入回执](native-cli/evidence/p4-model-config-writer-20261116.json)。
+
+保留真实竞争的mkdir已存在→lstat时owner已释放的ENOENT，修正为原期限内重争取；没有增加timeout或放松断言。完整回归还复现Helper测试握手文件存在但JSON尚未写完的EOF，失败隔离根保留；只把测试marker改为完整原子发布，原cancel=4、未启动MCP、kill/reap断言不变，聚焦与完整重跑通过。目录同步注入首次命中合法read-time迁移，改为确认新凭据真实写入后才触发；编译/类型推断中间失败与最终修复均记入回执。
+
+基线54e02063的[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913) Linux133136880644与macOS133136881114均全仓success，含各自Electron smoke；merge150b4b9a tree与源码一致，确认终态后才推送下一候选。新[CI43823605671](https://github.com/ly-ccx/Peer-Agent/actions/runs/43823605671)Linux133152103303/macOS133152103586均已全仓success，含各自Electron smoke；merge848671e3 tree与e632一致。
+
+这张卡仍是共享Store地基和当前写者接线，不等于完整原生配置CRUD/账号创建命令。下一步将native auth/refresh/logout短提交与TS凭据管理接入同一config锁、补齐配置/Vault联合条件恢复及提示重建；不跨网络等待持锁。混合旧安装版本drain、其余P4与完整P5–P7继续待办。无真实IdP/OS Vault、多平台安装、完整交互与长期内存验收；未安装、迁移个人数据、重启或发布，无Bun/Node引擎sidecar。
+
+2026-11-16 原生模型账号候选 `54e02063` 已推送：先登记 A 级 ADR131/28/map（知识 `0b29cad`），再接 `models auth/logout/status <configured-channel-id>`。ChatGPT/Google 采用真实 TS 冻结的 PKCE 身份与端点、外部浏览器 URL、自有有界 loopback、加密 Helper snapshot/CAS；迟到登录/退出/配置变化不覆盖新代，未知提交用真实 status 对账，不重放 code。`oauthConfigured` 仅是提示，已登录但提示过期不再阻止模型准入；配置原字节不改。共享 callback Module 保留 MCP 原限制。实际原生 CLI→本地 IdP→加密 Vault→模型/工具/Grant/ToolResult/Evidence 通过，含拒绝、错误回调、超时、取消、旧 Helper、丢回执和后续准入。
+
+冻结源码本地原生 scoped 通过 **305 Rust / 90 native Episode / 179 根 1018 实际 TS 往返 / 9 PTY**；2 组真实 TS browser flow、6 refresh、5 subscription request、77 context choices 一起核对。featureless release 14,468,976 bytes，SHA256 `9aa5fdafd490a1be9c6a57921b9566bc1a3cbcef07f2ecf2dd753de62b0a6d1e`，无测试端点 marker；无 Node/Bun 的 PATH 下实际 release+加密 Helper status/logout 四场景通过。全仓 type、IPC411/445/359、architecture/UI、886打包 imports通过；本地 `pnpm test` 14包均 Done、无失败，末尾升级矩阵通过。原 exec handle 在上下文压缩中丢失，未虚构 shell exit code；实际进程在末尾通过后均已结束，完整日志摘要与 hash保留。详见[原生登录证据](native-cli/evidence/p4-native-model-login-20261116.json)。
+
+前候选 `aea02893` 的 CI43809352936 已核实两平台 **failure**，相同5个高层OAuth测试替身缺新接口，152项原文件修复后通过。全仓本地还暴露 Watch墙钟基准在并发文件负载下超500ms（原144次读）和 Vite测试fixture不允许共享依赖真实路径；前者保留原阈值/读数断言、相同8个glob覆盖，调整为265行为文件后独立跑原基准，故障自测证明失败不吞；后者仅允许测试fixture读取确切SDK入口。原失败、helper取消退出码和token_type缺口均保留，并在完整重跑中验证；不声称产品Watch性能已修复。新候选[CI43818809913](https://github.com/ly-ccx/Peer-Agent/actions/runs/43818809913)Linux133136880644/macOS133136881114均已全仓success，含各自Electron smoke；merge150b4b9a的tree fe02670b与54e02063完全相同。
+
+完整配置CRUD/写入所有权/提示恢复、混合旧安装版本升级与drain、其余P4以及P5–P7继续待办；正式IdP/OS Vault、多平台安装、完整交互与长期内存未验收。无安装、个人数据迁移、重启或发布，原生CLI无Bun/Node引擎sidecar。
+
+2026-11-16 当前宿主 OAuth 刷新协调候选 `aea02893`：依 ADR0001/28/37/48/129–131 做 B 级接线，沿已接受的加密前置意图/CAS，不新增权限、Evidence、存储格式或 Context 边界。SDK 在真实 token 读取时用 WeakMap 保留 Vault 记录代，复制或修改对象不能伪造回执；同值 set 也使预读快照失效。Desktop 请求解析/模型目录、旧 TUI Responses/Gemini/额度刷新统一在远端前争取原意图，仅提交自己仍持有的代；自动刷新不再无条件写回或因元数据错误回滚旧 refresh。新鲜旧 Helper 可继续读，过期先拒绝升级；保留未知字段与相同 64KiB 上限。宿主刷新 POST 禁止重放和重定向、15秒整响应取消，沿既有代理/证书 Adapter。额度失败不继续使用预读 access，也不把 unknown 虚构成 token 已过期。
+
+实际复现 `505ac8e4` 的旧 resolver：真实加密 Rust Vault 在预读后写入 native 等价占用，旧代码仍发 1 次重复 HTTP；当前代码为 0。实际 Desktop/TUI/SharedSelection→加密 Vault→HTTP 覆盖单 owner、迟到登录/退出、停用、未知结果、丢提交回执、窄视图保留原代及后续准入。原生 full scoped 重跑通过 291 Rust / 79 native Episode / 157 根908互读 / 9PTY；SDK26、Desktop82、TUI34、Runtime27、全仓type、IPC411/445/359、architecture/UI与886打包imports通过。首次 full scoped 暴露 Helper 1秒期限内未到 fixture 启动标记（0个）的测试前提失败；保留日志，不称flake。测试时钟先确认真实子进程，再推进同一1秒并验证kill/reap与后续准入，未修改生产deadline；6聚焦与完整重跑通过。完整回归开始后仅将额度错误收紧为 fetch_failed，5聚焦复验，避免假称过期。详见[刷新协调回执](native-cli/evidence/p4-model-oauth-coordination-20261116.json)。
+
+这仍不是 P4 总闸：当前源码入口已接同一协议，已经运行的旧二进制/预读宿主和外部SDK不会自动升级；实际双宿主执行、升级/drain与默认共享域完整验收仍缺。配置写入所有权/提示恢复、原生浏览器登录及其他P4、P5–P7继续待办。原生CLI产物字节未变，无Bun/Node引擎sidecar，无安装/重启/个人数据迁移。基线505ac8e4的CI43806200856 Linux全仓success；macOS最后smoke在新源码推送后按既有concurrency被取消，未观察到失败step，但不能记全仓success或解释未结束原因。新[CI43809352936](https://github.com/ly-ccx/Peer-Agent/actions/runs/43809352936)最终两平台Test失败，原因与后续54e02063局部修复见上；不能记全仓success。
+
+2026-11-16 模型 OAuth 候选 `505ac8e4`：先于源码推送 A 级 ADR0001/131 Helper 快照/CAS（cceecf9）、ADR28/48 当前订阅目录与类型校正（2ce89a3）、刷新前加密意图与 unknown 保全（9df3605）。现有 ChatGPT/Google 账号在实际模型请求前读取真实 Vault token、核对配置/凭据代，先 CAS 加密刷新意图再发 HTTP；成功仅提交自己的意图代。取消、超时、崩溃或未知效果保留意图，后续不重放旧 refresh；新登录/退出使迟到回调失效。Helper v1 可选 feature 协商，旧 Helper 对新鲜 token 仍可读取，但过期刷新在远端效果前拒绝。原有权限与 Evidence 边界不动。
+
+本地完整 scoped：291 Rust（79 native Episode）、157 隔离根 / 908 实际 TS 往返、9 PTY；6 组真实 TS refresh 表单、5 组订阅请求、77 组类型化窗口选择，以及真实 TS client→加密 Rust Vault 条件协议通过。Desktop 80 聚焦、TS Helper 11、IPC 411/445/359、fmt/clippy/release/boundary/architecture/UI 通过。完整 scoped 后仅追加 release Helper 构建/探针与格式整理，并重跑聚焦检查；featureless CLI 不含测试 OAuth 端点，debug/release Helper 均声明 CAS，探针不读秘密或改数据根。详见[模型 OAuth 回执](native-cli/evidence/p4-native-model-oauth-20261116.json)。新候选已推送，[独立 CI43806200856](https://github.com/ly-ccx/Peer-Agent/actions/runs/43806200856)的Linux已成功，macOS最后smoke被后续源码推送取消，不记全仓success。
+
+本卡仍未通过 P4 总闸：旧 TS 预读 token 的自动刷新尚未迁移同一前置意图事务，仅有 get 保护不能防重复远端刷新；必须继续补齐同域升级/drain 兼容。原生浏览器登录、完整配置写入与元数据恢复、其余 P4 能力，以及 P5–P7 都未完成。未请求真实 IdP/付费模型，注入 KeyStore 不替代 OS Vault；没有安装、迁移个人数据、重启实例或发布。
+
+2026-11-16 OpenCode Go候选 `c34f161f`：复核ADR37、`48-provider-model-options.md`、129、131，沿既有Channel/Wire与数据契约做B级迁移，不增加执行、授权或存储事实。原生Adapter接通按模型选Chat/Responses/Anthropic、显式wireOverride、旧双渠道别名与Go根地址归一；21个静态模型推理profile及各wire默认值从实际TS resolver生成并冻结，已同步reasoningEffortValues优先，旧支持标记/样式/五档映射不能覆盖Go模型声明。Go会话头和Anthropic身份头走同一受限headers seam；无显式会话标识时由NativeModel owner创建临时UUID，同一执行的count/send/工具续接不变，后续执行新建且不回写配置。自定义session头仍按现有条目覆盖规则执行，显式session长度与CRLF受限。
+
+实际差分还复现了原native live Chat漏发mapped-off、空映射补回通用强度的缺口；按当前Desktop encoder与ADR37的声明映射语义修复，保留已有Runtime的DeepSeek历史准入，纯共享wire fixtures不改。live dialect集中在wire/runtime.rs，追加runtime字段后再核对2MiB上限；精确边界测试证明不能由一个合法共享请求扩成超限发送。
+
+完整原生scoped通过：272 Rust（68 native Episode测试）、294组实际TS配置/请求及真实HTTP count/send，其中123组Go；28组公开CLI配置/wire组合（含旧别名）通过真实模型流→工具→grant/ToolResult/Evidence。133隔离根782项实际TS往返、9PTY、fmt/workspace clippy/release/boundary/architecture/UI均通过。独立公开CLI验证未知Go模型使用服务端默认、同一执行头稳定及后续任务新身份；配置原字节不变。保留原mapped-off差分失败、旧临时Go拒绝断言与中间Rust可见性编译失败；更新为Go已支持/非法wire仍拒绝的真实合同，不删除工具/Evidence覆盖。见[Go回执](native-cli/evidence/p4-native-opencode-go-20261116.json)。基线35e213d1的CI43794213954 Linux133059215802 / macOS133059216064两平台全仓（含Test和Electron smoke）success；merge0556763c的tree与候选f7c8db52相同，[CI43797484064](https://github.com/ly-ccx/Peer-Agent/actions/runs/43797484064)已核实Linux133069491919 / macOS133069492282全仓success；merge ba9e8d49的tree e4ba2f48与候选相同。
+
+本卡未通过P4总闸：订阅OAuth/自动刷新、Qoder私有wire/选项、代理/证书、完整Context发现与压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/命令仍待完成；P5完整Bot与Ratatui交互未开始。真实Go服务、真实模型/IdP/OS Vault、多平台安装、完整体验与长时内存未验收。没有发布、安装、迁移个人数据或重启实例；原生执行链不含Bun/Node引擎sidecar。
+
+2026-11-16 模型渠道配置候选 `35e213d1`：先核实基线 `4cf7a4c8` 的 CI43787766212 Linux133039151481 / macOS133039151743 全仓 success，再按 ADR37、`48-provider-model-options.md`、129、131 做 B级补齐，原能力链、权限、Evidence、System Context与持久化边界不动。原生 loader 不再 blanket 拒绝推理、输出上限、缓存和自定义头：Cargo直接嵌入从现有 TS ChannelDescriptor生成的注册表，17个普通API-key渠道 / 19种wire组合经四个原生encoder执行；Responses live seam对齐实际Desktop的声明映射（含mapped-off）与fastMode=priority。模型覆盖渠道的既有优先级、null缓存元数据回退、未知私有选项不注入均经真实TS差分。受保护鉴权/协议头、传输控制头、CRLF及超限请求头明确拒绝；自定义头视为敏感值，case-sensitive object merge后按HTTP语义归一，count/send共用且不重复版本头。Grok仅有订阅auth，不再误当API-key渠道；未知渠道不静默兼容。
+
+完整原生 scoped通过：269 Rust（67公开CLI）、123隔离根731项实际TS往返、171组渠道/请求差分及实际HTTP count/send、9PTY，fmt/workspace clippy/release/boundary/architecture/UI通过。公开CLI覆盖19种组合的模型→read_file→真实grant/ToolResult/Evidence，以及非法头保全原配置→修正后同一任务重试。首次断言误把canonical工具结果当role=tool、误把Gemini模型名当body字段，两次失败夹具保留；按实际segments和URL契约修正，未删除真实工具/Evidence断言。最后仅新增“同名请求头恰好一次”的测试断言，聚焦171组HTTP重跑和clippy通过，生产源码与完整scoped一致。见[模型渠道配置回执](native-cli/evidence/p4-native-model-channel-options-20261116.json)。[CI43794213954](https://github.com/ly-ccx/Peer-Agent/actions/runs/43794213954)已核实Linux133059215802 / macOS133059216064全仓success，merge0556763c的tree与35e213d1相同。
+
+本卡仍不是P4总闸：OpenCode Go模型路由与声明、订阅OAuth/自动刷新、Qoder私有wire/选项、代理/证书、完整Context发现与压缩策略、剩余工具、Skill/Plugin/Hook、ACP/headless/其余命令均待补齐；P5完整Bot和Ratatui交互尚未开始。真实模型/IdP/OS Vault、多平台安装、完整体验和长时内存未验收。未发布、安装、迁移个人数据或重启实例，无Bun/Node引擎sidecar。
+
+2026-11-16 本地打包候选 `4cf7a4c8`：按用户请求，仅对当前 macOS arm64 生成原生测试归档，使用 Cargo featureless release 的 `peer` + `peer-credential-helper`，显式覆盖旧归档脚本的默认 Bun 产物目录。解包字节、执行位、ARM64/system dylib、签名完整性、隔离启动和 Helper ping 均验证；无安装、默认入口替换、用户数据或运行实例变更。归档 6,088,242 字节，SHA256 `6b71189240cad2a2bad6e77aebc1c41cace44900e3bff7d43654aad6a732f0b4`，本地产物位于代码仓 gitignored `target/native-package/tty-hangup-fixed-darwin-arm64/`。
+
+解包测试真实暴露 active input poll 在 PTY master 关闭后忙等、不能返回取消标记的缺陷。旧 featureless 二进制先渲染并等待 input 初始化，再断开终端，2秒未停稳、需测试 owner 强制回收；过早关闭只验证初始化失败，未混作重现。沿 ADR48/129/130/131 的既有终端生命周期，B级选择锁定 Crossterm 的有界 tty poll source（`use-dev-tty`），仍是唯一 poll/read 输入所有者；新包正常退出并额外重复5次。测试驱动同时修复相对输出目录与 guardian 失败后的 child 回收；临时残留的纯草稿进程已按实际可执行文件/cwd/start 身份清理，无任务或工具效果。
+
+最终包 scoped：10启动/退出/结构检查、33解包真实 Runtime 场景（含26 MCP与外部杀进程恢复）、9PTY；源码264 Rust、workspace clippy/fmt、15归档脚本测试及boundary/architecture通过。实际 packaged binary 无故障注入代码，旧 exit77 夹具的失败保留且不弱化断言；它在独立源码全套以测试feature通过，未冒充产物 crash-after-file 覆盖。详见 [本地打包回执](native-cli/evidence/local-native-package-20261116.json)。基线 `c8479317` 的 CI43779685385 两平台全仓 success，merge `f791fe45` tree相同；新源码 CI 单独核对。当前交互 Ratatui 仍是草稿骨架，完整会话/TUI和P4/P5未完成；本卡不等于正式签名/公证、真实模型/IdP/Keychain或多平台安装验收。
+
+2026-11-16 MCP Vault / OAuth 候选 `c8479317`（tree `d028b18c`）：已先核实 `9e634d7b` 的 CI `43758620404` Linux / macOS 全仓 success，merge `00c3c750` 与源 tree 相同，再实施。ADR pass 包括 0001、31、32、36、45、129–131；新增 A级 [ADR132](../knowledge/decisions/132-mcp-vault-and-native-oauth.md) / map 及 superseded 交叉引用先于源码登记（知识提交 `2f4b1f2`）。它扩展 Helper MCP 命名空间和 v2 元数据提交，取代新写入的明文 fallback，保留原授权 / Evidence / unknown 政策。
+
+Desktop-only 迁移严格读取原 v1，每条先通过 Helper 写入并常量时间回读验证，全部成功后才原子发布 v2；失败保留原文件字节、身份、未知字段和旧密文。OAuth clientSecret、tokens、clientInformation、PKCE / discovery 都进入不可变 Vault slot；原生端只消费 v2 / Helper，不解密 Electron。容量写入在既有 16 MiB reader 上限前拒绝，旧 Vault 继续可读；退役 / 孤立加密 slot 暂不自动删除。晚到 Desktop OAuth 回调须 CAS 原代，不能污染轮换后的凭据。
+
+原生 MCP 支持 bearer / header / stdio_env 与有效 OAuth token，真实 grant 后才读取 Helper，连接启动 / 初始化后 / 下一模型请求前复核身份；Helper 取消证明 kill+reap，拒绝不读密钥也不启动 MCP。原生 `mcp auth` / `mcp refresh` 使用锁定官方 SDK，401 metadata pointer → issuer discovery → PKCE/state/resource → 预注册 / DCR → loopback callback → 原子 Vault 新代；不自动开浏览器或重放工具。错误 state 后仍可接收合法 callback，错误 issuer 不交换 token，取消关闭 listener。刷新失败 / token redirect / 超限响应保留原元数据；远端可能已轮换的 token 不承诺仍有效，沿显式重新授权恢复。
+
+最终完整 scoped：264 Rust / 65公开CLI（26 MCP）/ 103根631项实际 TS 读写及 Rust 重读 / 7生产 TS MCP 向量与实际 SDK握手 / 8PTY，另有15项 Desktop凭据、11项 TS Helper、Protocol build/type/336测试、Helper typecheck、全 workspace clippy、release、boundary、architecture/UI与IPC检查通过。实际生产 Desktop reader 核对原生写入的 access/refresh/expiry/client payload；native 登录后再运行真实授权 MCP / Evidence。保留 fixture 路径/包解析、绑定字段、空 redirect、stdout owner、DCR缺字段、脱敏夹具和clippy失败；初始化期间轮换后仍继续认知的真实缺口已修复并保留原断言。最终源码冻结后独立重跑，见 [Vault/OAuth回执](native-cli/evidence/p4-mcp-vault-oauth-20261116.json)。新 [CI43779685385](https://github.com/ly-ccx/Peer-Agent/actions/runs/43779685385) 单独核对，不继承基线绿灯。
+
+本卡不是 P4 总闸：运行时过期或缺失绝对时间的旧 token 要求显式 refresh/auth；原 grant 下的自动刷新 continuation、代理/证书和协议恢复平价仍缺。完整 model auth/private wire/settings、Source catalog/Host discovery、其余 Runtime 工具、Skill/Plugin/Hook、headless/ACP/命令仍待迁移，P5 尚未开始。没有安装、默认切换、个人数据迁移或重启；真实 IdP/模型、系统 Keychain 与多平台安装、完整体验和长时内存仍未验收。原生候选不启动 Bun/Node 引擎 sidecar。
+
+2026-11-16 MCP协议补齐候选 `9e634d7b`：修复Streamable HTTP等待工具结果时不能及时回复服务器ping的实际死等、双向相同请求id被误当终态，以及Tool Result同名字段覆盖协商版本的问题；协议控制流仍受原owner管理，禁止重定向和底层协议NACK自动重试。初始化期间取消记录为cancelled + not_dispatched，已发出的取消仍保留unknown。协议控制请求不产生工具、许可、Evidence或模型用量。ADR131的B级澄清先记录于知识提交 `a49c79e`，既有能力、许可、存储与System Context边界未移动。
+
+保留了真实失败轨迹：ping_queued→server_wait_expired→pong_received、下一次HTTP请求带入工具结果中的伪协议版本、初始化取消误记failed。广门禁的六项失败也保留并调查；模型fixture在创建15秒后退出的边界由16秒真实PTY审批等待独立复现。现改为显式owner控制监听器生命周期，socket读写仍3秒、受控stall仍15秒；审批决定须5秒内成为持久事实，后续完整模型/工具/停稳/记账工作流另有15秒界限，失败时OwnedChild保证清理。原退出码、效果、授权和unknown断言保留。
+
+最终完整scoped为250 Rust / 54公开CLI（15 MCP场景）/ 82原生根493实际TS读写及Rust重读 / 7真实TS MCP归一化向量与SDK调用 / 8PTY；fmt/clippy/release/boundary/architecture通过。含同id/异id服务器ping的两次真实工具调用、控制POST拒绝与取消/关闭socket、伪版本字段仍按原始数据持久化、16秒等待期间续约及允许后正常收尾。详见[MCP双向协议与恢复回执](native-cli/evidence/p4-mcp-duplex-and-recovery-20261116.json)。`b9623558` 的CI `43730831267` 已核实两平台全仓（含Test与Electron smoke）success，merge `182f0806` 的tree与候选一致；该绿灯不覆盖随后复现的新场景。`9e634d7b` 的CI `43758620404` 独立核对，P4总闸仍未通过，P5未启动。
+
+2026-11-15 原生 MCP 执行卡：源码 `613b2cc8` 接通 stdio、Streamable HTTP JSON/SSE 与独立 legacy SSE；后续 `b9623558` 仅补共享 Protocol 类型声明，Rust、lockfile、合同资源及验证脚本完全相同。Provider 仍沿 Manifest→Projection→当前 Host grant→真实 transport→Tool Result/Evidence 执行；初始化后再核对原 grant、registry revision、policy、Goal/binding 和 lease。连接复用并登记真实完成所有者，停止必须 drain；硬退出按完整原 recorder/进程组观测恢复本地句柄，远端效果仍为 `unfenced_external`，不会重放或凭 Git clean 自动收口。未知版本句柄原样保留并阻断恢复；独立范围的后续 worktree 任务可准入，旧 unknown 保留。
+
+最终原生 scoped 门禁为246 Rust（50个公开CLI场景，其中12个新增MCP场景）、76个实际原生根/448项TS读写及Rust重读、7组实际TS结果归一化向量和真实TS SDK握手/调用、8项PTY；fmt/clippy/release/boundary/architecture通过。Protocol补充类型的build/type及336测试通过；原生门禁绑定 `613b2cc8` 的树，类型补充候选的远端CI独立核对。覆盖真实PTY的一次批准/第二次拒绝、非TTY拒绝、初始化期间降权/配置变化、响应业务错误/RPC错误、断连/帧与结果超限、30秒真实超时、SIGTERM、硬退出/未知版本恢复、已知用量不重复及后续任务。脱敏不递归重写替代串，也不能将协议失败改为成功。见[原生MCP执行证据](native-cli/evidence/p4-native-mcp-runtime-20261115.json)。ADR131的句柄/Evidence观测合同见知识提交 `b60d71a`；既有许可、占用与unknown人工收口政策未改变。
+
+此卡只放开未绑定 credentialRef 的既有配置；非 none 的auth仍在模型调用前明确阻断，不降级为无认证。MCP Vault/旧凭据安全迁移、OAuth、代理/证书及协议恢复平价、其余模型auth/private wire、完整Context/压缩策略、剩余能力、Skill/Plugin/Hook、headless/ACP/其余命令与真实模型/平台验收仍缺。P4总闸未通过，因此P5尚未启动；不以MCP scoped通过代替完整Runtime。默认peer、个人数据、运行实例与安装均未改变，无Bun/Node引擎sidecar。
+
+2026-11-15 NR-04 压缩持久化候选：`6afb5882` 已完成追加式 historySelection、TS/Rust v3 projector、原生 summary cognition、落盘后重建重计数、容量 sidecar/index mirror、冷恢复和单次 overflow 恢复；后续 `c69bec11` 仅移除文件尾空行。源码 scoped 为 226 Rust（36 个公开 CLI 场景）、56 根 302 项真实 TS/Rust 往返、Node/Bun 各 11 项容量存储互读，以及 8 项 PTY；完整原生 scoped 门禁通过。daa4c478 的全仓 Linux/macOS CI 已核实成功；新候选全仓 CI 单独核对。该卡不代表 P4 总闸：完整 Source/compaction 策略、OAuth/Qoder/代理证书、MCP/Skill/Plugin/Hook、headless/ACP/其余命令与真实模型/平台验收仍须逐项完成。默认 `peer` 未切换、P5 尚未开始，未安装或迁移个人数据。
+
+下一张 NR-04 MCP 入口卡按 B 级实施：复核 `31-mcp-connection-management.md`、`32-mcp-authentication.md`、`36-mcp-tool-card-title-passthrough.md` 和 ADR131。先迁移既有 registry→Manifest 的有界只读 Adapter，冻结真实 TS 差分；未知版本/损坏源保留并拒绝，不把空 registry 误认为已有外部能力。Manifest 的可见性、来源和 auth metadata 不授予执行权限。空 registry 的真实 Host 准入可接通；非空 inventory 在 transport/credential/PermissionGrant/Evidence 全链未完成前继续明确阻断。stdio、Streamable HTTP 和 legacy SSE 必须分别验证，不能改写 `sse` 的含义；SDK 调研或纯 projector 测试不算外部工具已接通。现有权限、Evidence、System Context 与存储事实边界不移动。
+
+该入口卡源码 `c835a459`：19 组真实 TS Manifest 差分、5 个明确拒绝合同、只读 Store 及两个公开 CLI 场景通过；空 inventory 放开，非空仍阻断，运行中 source identity 变化在下次认知前停稳并保留真实写入及费用。最终冻结 scoped 为 231 Rust / 38 公开 CLI / 58 根 314 TS/Rust 往返 / 8 PTY，完整原生 scoped 门禁、release、fmt/clippy、boundary 和 architecture 通过。详见 [压缩与容量恢复证据](native-cli/evidence/p4-compaction-capacity-recovery-20261115.json)、[MCP 入口证据](native-cli/evidence/p4-mcp-inventory-20261115.json)。c69bec11 的 Linux 全仓通过、macOS Test 15 分钟超时；同版本 Bun1.2.17 本机完整 TUI 为876通过/1跳过/0失败，未复现远端挂起，原因仍未知。原 macOS job 重跑在新候选推送后取消，不记 success；最终候选 CI 独立核对。P4 总闸未通过，P5 未开始。
+
+最终候选全仓回执：`c835a4597864c26ae8d00d3dbd1e24642d3e7f63` 的 CI `43722096748`，Linux job `132836192244` 与 macOS job `132836191923` 均 success（含完整 build、native scoped、type、architecture、全仓 Test 和 Electron smoke）。CI merge `468e23e750b24a01d112c7c4ef9778dd028a5010` 的 tree `4695f7db37a3847cc7cd662e943b8d9c2b001633` 与候选完全一致。该结果验证当前组合源，不倒推 c69bec11 超时原因已修复，也不替代 P4 功能总闸或发布验收。
+
+用户已接受评审稿 116–118；正式 ADR 为 129–131（避免与主线既有编号冲突）。用户要求 P0/P1 自测通过后持续推进至完整原生 CLI，无 Bun/Node sidecar。本账本记录候选与实际结果，不替代 ADR 或 Evidence。
+
+## NR-00 / P0
+
+允许：`scripts/native-cli/` 的隔离审计 / 测量工具、可分享合成 fixtures、知识库实施回执。真实入口为旧版 release CLI 的 classic 与 Bot 两条路径，使用临时数据根与受控 PTY。严禁个人数据 / 凭据 / 运行中实例；现有 8.27 GB 截图未精确复现，长历史渲染与流式链路须分别记录替代范围。
+
+退出：模块可达 / 持久化 / 功能清单；source / binary / fixture 身份；五次短基线曲线与失败；明确待覆盖项。资源目标按 ADR 130 保持。
+
+## NR-01 / P1
+
+允许：Cargo workspace / lockfile、`crates/peer-{cli,protocol,tui}`、`packages/protocol/contracts/native-cli/`、对应 scoped 测试与构建 / 观测脚本。准许所需 Rust 依赖，版本须锁定。终端仅候选 / 草稿，不接管任务、不签发授权、不把用户文本发送给模型。
+
+退出：独立原生二进制；轻量 help/version/doctor 路径；真实 TS/Rust 契约对照；Ratatui 渲染与输入 reducer；真实 PTY 的粘贴、Unicode、resize、Ctrl-C、EOF、panic 恢复与无 Node/Bun 路径；静态依赖规则、fmt/clippy/test/build。缺少真实 IME / 其他平台明确未覆盖，不冒充全产品验收。
+
+## 后续
+
+P1 通过后按方案进入 P2 数据、权限、锁与旧状态恢复；再推进原生工具闭环、Provider、项目代理、空间验收和发布切换。首轮不因骨架通过就将默认 peer 替换为功能不完整候选。
+
+## P0 / P1 回执（2026-11-14）
+
+源码候选 `c24dc465efb8dbce0d00ad3423384978178c5118`，已推送 [Peer-Agent PR 327](https://github.com/ly-ccx/Peer-Agent/pull/327)（draft）。实现基线取开发线 `8b0c9717`，未把此前 `f00c9553` 的独立 Bot 文案提交带入本 PR；旧版基线二进制仍绑定实际编译的 `f00c9553` 与已记录 workspace dist hash。
+
+真实结果见 [结构化回执](native-cli/evidence/p0-p1-20261114.json)。P0 盘点静态包依赖闭包 9 个包、668 源文件（包含可选 / re-export，不冒充运行时动态可达图）。50 轮 / 6.86 MB 正文，classic 与 Bot 各五次有效渲染 / 正常退出；补采 RSS 与 macOS physical footprint。1,000 轮 / 137.21 MB，classic 五次约 1.8 GiB RSS；Bot 五次超过 2 GiB 测量保护上限，保留失败与四次未到正文首帧的事实，不算性能通过。不是用户 8.27 GB 的精确复现。
+
+P1 `node scripts/native-cli/verify.mjs <temporary-output>`：25 项 Rust workspace 测试通过（13 新增原生 + 12 既有 Helper）；fmt / clippy、TS/Rust exit code / 数据根 / approval digest、Module 依赖与 sidecar 静态检查、8 项真实 PTY 通过。新 CLI binary 的 help/version/doctor 在 PATH 无 Node/Bun、无 HOME 配置下通过；Mach-O arm64 仅依赖 libSystem / libiconv。当前仅是不可发送 / 不执行的临时草稿候选，未替换默认 peer。
+
+保留首次 clippy warning、fixture workspace 身份不一致、PTY 观察器和宽字符匹配失败的原因与修正，不称 flake。macOS raw/restore 的 PENDIN 已用 Python 单独重现为内核瞬态标志；termios 其余字段、控制字符、速度均严格比较。真实 IME、Linux/Windows、读屏、真实模型、安装升级、四小时 soak 与完整 Runtime 均未验收。Rust 1.88 为依赖声明下界，实际编译 1.98.1，不声称 MSRV 已测。
+
+## NR-02 / P2（已开始，未验收）
+
+允许：`crates/peer-store`、`crates/peer-protocol` 的 Store 数据对象、Cargo workspace / lock、`scripts/native-cli` 的 TS/Rust 交叉进程夹具与 scoped 检查。依 ADR 129–131 以及既有 ADR 101 / 116 / 120 / 127，实现共享存储与权限地基，不改权限或停止 / unknown 政策。
+
+先做 NR-02a：真实 JSONL / sidecar / revision 的严格有界读取、同名目录锁、现有 Bot policy SQLite / CAS。跨语言真实 Store 对照，覆盖未知 schema、损坏、陈旧 revision、锁争用、取消 / 晚到结果所需身份，不因读取重建个人数据。随后 NR-02b：租约、执行 / grant / Evidence 身份、旧状态恢复与后续准入。未经全部 P2 门禁不开放生产写入或工具执行。
+
+NR-02a 验证补充：允许在现有 macOS/Linux CI job 中追加原生 scoped 验证和工件保全（不改变 required-check ID，不发布、不改版本）；使 Cargo / 跨语言 Store / PTY 检查在同一候选上执行，而非只依赖旧 JS 测试。
+
+## NR-02a 回执（2026-11-14）
+
+源码候选 `e4c5354410c34c039b51da10a6d043d5be64dbe5`；原生 Store 独立 crate，无 CLI 生产写入 / 工具入口。现有 JSONL / streaming sidecar 的严格读取共享 8 MiB 原始预算、65,536 JSON 节点、64 层深度与字符串预算，未知消息字段保留；此接口仅供有界活动历史，不冒充大历史 viewport 已完成。目录锁与既有 `${file}.lock` 互斥，不 TTL 回收。既有 Bot policy SQLite 只读 / CAS，未知 schema、损坏、主体更换拒绝，不创建或自动迁 Full。
+
+`node scripts/native-cli/verify.mjs /tmp/peer-native-p2a-check` 本地 macOS arm64 通过：35 项 Rust workspace 测试（23 原生 + 12 既有 Helper），fmt / clippy / 依赖与 sidecar 边界、14 项真实 TS/Bun/Rust Store 对照与双进程 CAS / 目录锁、8 项真实 PTY。夹具 `peer-native-store-conformance-NvqMxe` 位于系统临时目录，全部合成，无个人数据。PTY 候选 `peer-native` SHA-256 `b00d42e34bce808e3b10435b9e5e5910b7025908daa7a1846f60d37c06a8a9e0`。
+
+失败与修正：SQLite NOFOLLOW 原先拒绝 macOS `/var` 父目录别名，改为规范化父目录并继续拒绝最终文件 symlink；锁 fixture 的双行阶段输出原先被测试驱动当单 JSON 解析，现逐项检查唯一 locked 阶段并解析终行；JSON 节点测试原先误把 8 个值节点计为 9，修正算术并保留重复 key 两次计费断言。没有削弱资源 / 权限断言。
+
+P0/P1 提交 `c24dc465` 的 GitHub Actions run `43553408734`：macOS `ci-macos-14` 与 Linux `ci-ubuntu-latest` 均 success；该 CI 尚未包含新增的 native scoped step。P2a 新提交的远端结果另行记录，不以旧 CI 证明。P2b 租约、执行 / grant / Evidence 身份、凭证 Helper client、旧状态恢复尚未完成；P2 总门禁和完整原生 CLI 未验收。
+
+### NR-02b 首个切片：原生凭证端口
+
+按 ADR 0001 / 129 / 131 保留 Helper v1 和同一签名 / OS Vault 身份。允许新增 `crates/peer-runtime` 的受控 Helper client、Cargo 依赖与协议 fixture；不直接链接 Vault、不替换 Helper、不访问个人凭据。调用路径为 Runtime port → 指定原生 Helper → v1 响应；固定并发 / 请求 / 响应 / 解码 / deadline，取消与失败须 kill + reap，无 stderr / secret 泄露到错误。真实 Helper 只跑隔离根 ping 和无效请求（不触及钥匙串）；可控原生 fixture 验证 get/set/delete、超时、取消、洪泛、坏版本、错误状态和后续调用恢复。之后继续租约 / 执行身份与旧状态恢复，单切片通过不等于 P2 完成。
+
+原生凭证端口回执：源码 `66aa7e2c`，本地 scoped 验证 41 项 Rust 测试（29 原生 + 12 Helper）、14 Store conformance、8 PTY、真实 Helper v1 ping（PATH 无 Node/Bun、隔离根零写入）通过。6 项新增端口测试覆盖合成 get/set/delete、缺失密钥、输入预算、洪泛、坏版本 / 响应 / 状态、受控 Vault 错误、deadline / cancel / caller abort 的 kill + reap、四并发门及后续请求。没有真实 OS Vault 读写或生产 credential 配置验证。进程数据与 Secret 使用零化容器，未承诺第三方 JSON parser / OS / allocator 的所有瞬时副本均可消除。凭证 port 尚未由 CLI 配置入口装配。
+
+### NR-02b 下个切片：Host Lease
+
+按 ADR 85 / 116 / 131 复用 `host.lease` 与 `host.yield` 的原格式、5 秒心跳 / 20 秒 stale、surface=tui；不把租约过期当停稳或工具权限。允许 peer-store 的 lease port / protocol 对象与真实 TS↔Rust 子进程夹具；先验证持有者、续约、过期接手、丢失所有权和坏记录保全，之后由 Runtime / Session Control 装配 drain / writer fence。既有 TS lease 的 read-check-rename 窗口不提供强 CAS，不宣称此切片消灭旧版并发竞态；未经执行 / 资源 ledger fence 和恢复门禁不开放生产执行。
+
+租约存储切片回执：源码 `399ed176`，本地 scoped 检查 46 Rust 测试（34 原生 + 12 Helper）、14 Store + 13 Lease 真实跨进程对照、8 PTY、真实 Helper ping 通过；日志在临时 `peer-native-lease-check.log`。新增 5 Rust 用例覆盖同时抢占、续约、陈旧 handle 不能续约 / 释放新所有者、未知字段、yield 不自动放权、drop 不释放、损坏 / 未知 surface 保全、symlink 拒绝。兼容对照覆盖 TS→Rust→TS lease / yield、真实双进程空闲租约竞争、宿主退出后持有记录与过期接手；不把宿主退出或过期称执行已停稳。首次 `time` deprecated warning 改用明确版本的 `parse_borrowed::<2>`，clippy -D warnings 通过。记录损坏时原生失败关闭，不复制旧 TS 的 parse-error 回收。低层 heartbeat 仍沿既有 read-check-rename，执行 / resource fencing 与 Session Control drain 装配尚未完成，不开放生产写入或执行。
+
+### NR-02b 下个切片：执行身份 / 批准 / Evidence
+
+按 ADR 92 / 101 / 116 / 127 / 131 的现有契约，允许原生 protocol 的 execution identity / resource scope、grant / Evidence 数据结构与同一 TS normalizer / collector / operation-key 的对照；允许 peer-runtime 的 host principal resolver。只搬迁 shape / 身份 / 确定性规则，不让解析成功等于批准，不引入另一个任务或授权系统。恢复与实际工具入口继续等待 canonical Store、Session Control、policy revision 和 execution fence 的真实装配。
+
+身份 / 批准因子 / Evidence 引用切片回执：源码 `9f33d9a25a6e600bf4dc0b3201db448df366cf0c`，54 Rust 测试（42 原生 + 12 Helper）、51 个真实 TS 派生 golden case、14 Store + 13 Lease 双进程、8 PTY、真实 Helper ping、fmt / clippy / 静态依赖 / release build 通过。执行 identity 与 resource scope 严格校验未知字段、安全整数及 UTF-16 长度；principal resolver 只消费 Host 计划投影，未把 shape 当授权；一次性批准因子按完整 scope / policy revision、有界条目和字节、消耗 / 到期释放。Evidence 只收集既有结构字段，保插入顺序，不扫描助手文字或任意输出。完整操作 digest 直接借用 args，转义时逐段限额，不先复制整个参数对象。
+
+新增真实入口用例复现候选无 HOME 时忽略显式 PEER_AGENT_HOME；保留失败日志后修正为先解析覆盖值，并补 PEER_USER_DATA_PATH、BOM / NEL 的 JS trim 对照及零写入断言。最初测试少覆盖此组合，不能用此前通过替代本次修复后的候选检查。另做合成分隔符碰撞探查，旧 TS 的 workspace guard 已拒绝该跨 workspace 输入，未把探查误报为旧版漏洞，也未改旧 TS 权限政策。详见 [P2 地基结构化回执](native-cli/evidence/p2-foundations-20261114.json)。P2 总闸、canonical Store / Session Control / writer fence、持久 grant / Evidence 事务、完整 Runtime 和无 sidecar 功能平价仍未完成。
+
+### NR-02b 下个切片：Session Control 确定性 kernel
+
+已复核 ADR 116 / 120 / 124 / 127 / 131，以及现有 `session-control-kernel.mjs`。允许 peer-runtime 的纯 control reducer、peer-protocol 对应 JSON 序列化 / identity 帮助、Cargo serde_json preserve_order feature 与 TS/Rust golden / 故障序列测试；保持原控制状态、CAS、supersede、cancel 优先、stop receipt 和 minimumExecutorVersion 7/9 规则，不产生真实停止证明。须区别 approval stable-key digest 与 control 的 JSON.stringify digest，保留原对象 key 次序及 JS number / integer-key 顺序；不得以同一个“canonical JSON”代替两种既有语义。持久写入、进程停止和工具准入仍须 canonical Store / Host 装配后另验，不因 reducer 通过就开放执行。
+
+Session Control kernel 回执：源码 `2e48f45ae39eb84e85c166f285279a79a83b4e55`，57 Rust 测试（45 原生 + 12 Helper）、既有跨进程 / PTY / Helper 检查以及 29 组真实 TS 控制转换、7 个 JSON.stringify 摘要向量通过。serde_json 保留输入对象次序；批准摘要仍 UTF-16 stable-key 排序，控制摘要按 JS integer-key / 插入次序与 JS number 编码，未混用算法。覆盖 cancel 优先、supersede、stale revision / epoch、不可变 recorder、缺失 / 无效 stop receipt、原 unknown 保留、停止后 resume 的 shape 规则；不声称 reducer 产生真实停止证明。首次编译借用冲突修为借用原事实、验证后才复制候选；4 项 clippy collapsible-if 修正后 -D warnings 通过，未改断言。
+
+### NR-02b 下个切片：Policy 初始化与旧状态迁移
+
+已复核 ADR 101 / 131 与 `bot-access-policy.mjs` 的实际初始化入口。允许补 peer-store 原生初始化 / 仅首次 legacy 档位迁移 / 已初始化后新 Bot 默认 Ask 注册，及 TS↔Rust SQL fixture；沿同一 access_policy / access_meta、migrated 标记和 bot-access-imported.json 保护。原 read_existing 继续零隐式建库 / 迁移；未知 schema、损坏与主体更换仍拒绝，不能重建或回退 Full。验证新旧初始化互读、已有策略不重迁、导入标记、新 Bot、取消与坏库保全；仍不开放 CLI 生产权限管理入口。
+
+Policy 初始化 / 存量迁移回执：源码 `c8d3a2ae`，64 Rust 测试（52 原生 + 12 Helper）、既有 51 runtime golden + 29 control transitions / 7 摘要、14 Store + 13 Lease + 9 Policy 初始化跨进程检查、8 PTY、真实 Helper ping、fmt / clippy / release build 通过。初始化复用 access_policy/access_meta 和一次性迁移标记；新 Bot 默认 Ask；现有策略不重迁；导入标记阻止继承另一设备 Full；损坏 / 未知 schema / 未知 marker / 错列定义不重建。取消前置检查无写入；并发注册仅一条 revision=1；SQL 单值 1 MiB、SQL 文本 16 KiB、列数 32 的连接限制先于查询，异常值拒绝。初始化枚举上限 4,096 项，超限回滚并报告 POLICY_RESOURCE_LIMIT，不截断为完成。SQL busy 仍 3 秒；同步 Store port 尚待 Host 阻塞任务池 / 取消装配。
+
+保留交叉验证首次失败：旧 TS BotProfileStore 要求非空 displayName 与 avatar 对象，原生 profile reader 初稿漏校验、旧手写夹具也过窄。新增同一坏档案的 TS/Rust 实测后修正，测试正常档案补齐真实字段；不把改 fixture 当已验证旧边界。无生产入口曾调用这条候选权限路径，未读写个人策略；旧 Full / Evidence 未被擅自清理。日志保留于系统临时目录 `peer-native-policy-profile-failure.log` 和 `peer-native-policy-check.log`，最终交叉夹具 `peer-native-policy-init-q0mwKa`；首次 set_limit 的未处理 Result warning 改为错误传播，未忽略检查。
+
+### NR-02b 下个切片：大文档只读字段投影
+
+依 ADR 98 / 130 / 131，允许 peer-protocol 的流式 JSON 字段投影器、peer-store 的文件身份 / 只读 Goal 原文投影及隔离量测。目的：大 Goal 的轨迹 / checkpoint 正文不能为了查几个身份字段整篇进堆。输入用有界 BufReader，未选择字段跳过；Root key 解码、已选择载荷 / 节点 / 字符串、全源字节、嵌套深度与取消均在分配 / 读取中限制。已检查 serde_json 1.0.150 的 IgnoredAny：字符串可无拷贝跳过，但 ignore_value 的 scratch 随嵌套增长，必须由 Reader 深度守卫补上。输出明确为原始字段投影，携 source revision / requiresRuntimeCheck，不代替 normalizePlan、runner-progress 合并、Control / lease、live/unknown 或授权。不得重写源文件，不把新 Reader 误报成大历史视口已完成。
+
+字段投影 / WAL 修复回执：源码 `caedca4364fe69d9f4d225509a672abe58eb81e7`；本地 scoped 验证 71 Rust 测试（59 原生 + 12 Helper）、51 runtime golden、29 control transitions / 7 摘要、14 Store + 13 Lease + 13 Policy 跨进程检查、8 PTY、真实 Helper 隔离 ping、fmt / clippy / release build 通过。128 MiB 合成 Goal 字段扫描五次，RSS 均 2,129,920 bytes，physical footprint 均 1,376,640 bytes，扫描 811–821 ms；二进制重建 hash 未变，与量测一致。源 SHA-256 与原文不变；这不是完整 CLI / viewport / 千轮 / 四小时性能验收。
+
+远端上一候选 `c8d3a2ae` 的 macOS CI success，Linux CI 发现拒绝未知 schema 时的 WAL checkpoint 改写。用原生夹具模拟已提交但未 checkpoint 的 schema 2，macOS 也复现主文件改写，保留 `peer-native-wal-failure.log`。修复为只读事务检查 schema / marker；可写连接先禁用 close checkpoint，事务内再检查，只有成功的已准入事务恢复原 checkpoint 行为。新增 initialize / read / register / update 四条拒绝路径的主文件与 WAL 字节不变断言，全部通过。没有把失败归为 flake，也未削弱文件不变断言。新候选 CI [run 43565605621](https://github.com/ly-ccx/Peer-Agent/actions/runs/43565605621) 尚在运行，不能以旧候选结果代替。
+
+### NR-02b 下个切片：展示历史有界分页
+
+已复核 ADR 57 / 74 / 86 / 98 / 130 / 131 和实际 `jsonl-byte-window.mjs`、`history-source-reader.mjs`。允许 protocol 的原始展示页 / revision 绑定 cursor、peer-store 的逆向有界 JSONL 读取、共享 TS 对照 fixtures 和隔离资源量测。页同时限制记录数、扫描字节、单行 / AST 节点 / 字符串，取消在磁盘读取中生效；cursor 绑定文件身份，陈旧 cursor 明确失效。损坏行需显式诊断，不能悄悄当完整历史；未知字段保留。展示页不是 canonical 模型历史，不合并 streaming sidecar，不产生 grant / Evidence 或执行事实。超大单行先明确报告预算与原文范围，后续块级阅读另验；不把这一切片冒充完整虚拟 transcript 或所有大消息已可浏览。
+
+展示分页回执：源码 `886cfe4372d0b595165a9ee980aedca2cdca0e6b`；77 Rust 测试（65 原生 + 12 Helper）、原有 51 runtime / 29 control / 7 digest、64 跨进程用例（Store 14、Policy 13、Lease 13、Transcript 24）、8 PTY、真实 Helper ping、fmt / clippy / release build 通过。新增 6 Rust 用例覆盖 Unicode 跨块、unknown 字段、坏行 / 非 UTF-8 明确范围、扫描 / 单行 / 解码预算、长前缀尾页成本、取消前置、陈旧 / 跨会话 / 行中 cursor、symlink 与源文件不变。取消检查每个 16 KiB 读块，未把前置取消测试说成真实运行时取消时延验收。
+
+约 1 GiB（1,073,762,880 bytes）合成 JSONL 的尾部 80 行五次均只扫描 81,920 bytes，RSS 2,277,376 bytes、physical footprint 1,556,864 bytes；探针保持已解码页驻留 300 ms 供外部采样，PATH 无 Node/Bun、无 HOME、无子进程，原文 SHA-256 前后一致。内部计时为整毫秒分辨率，五次记录为 0 ms，表示小于该分辨率，不能称零耗时或完整 UI 延迟。大 Goal 同候选重新量测五次 RSS 2,113,536–2,129,920 bytes，812–830 ms。资源探针不是 Ratatui viewport / 模型历史 / 完整 CLI / 长期 soak 验收；超大单行目前明确拒绝，不声称已实现块级正文阅读。
+
+首次对照发现领先空行的 cursor 语义差异：原生初稿在扫到文件头后直接返回 null，旧 TS 返回最老记录 offset，并可能有最后一页空白前缀。保留 fixture，原生恢复同一旧锚点语义，24 项真实对照通过；未改断言为放过差异。完整机器回执见 [P2 Control / Policy / Reader 回执](native-cli/evidence/p2-storage-control-20261114.json)。当前仍未接通 canonical GoalStore、协调 writer fence、持久执行 / grant / Evidence 与 unknown 对账，P2 总闸未通过；不开放共享任务写入、模型请求或工具执行，不切换默认 peer。
+
+最新源码远端验证为 [run 43566467824](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824)。后续实际 job step 查询确认 Linux [132361408957](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824/job/132361408957) 与 macOS [132361408765](https://github.com/ly-ccx/Peer-Agent/actions/runs/43566467824/job/132361408765) 的 `Native CLI scoped validation` 均 success，原 Linux WAL 失败路径在新候选通过。两平台 Build / Typecheck / Architecture 也 success；全仓 job 仍 in_progress，不能把原生 step 通过说成整条 CI 完成。前一候选 `caedca43` 在本次推送前仍 in_progress，没有记录为通过。
+
+### NR-02b 下个切片：协调日志旧 writer 屏障
+
+依 ADR 104-progressive / 105 / 112 / 116 / 131 与现有 `coordination-writer-fence.mjs` / `coordination-legacy-integrity.mjs`，允许 peer-store 原生 lease 约束的健康 v2 writer promotion、既有 `coordination-fence.json` intent / `.coordination-fence` archive / frozen baseline / legacy seal 读写，以及合成 TS↔Rust 中断恢复夹具。不建立新的日志格式或执行记录。Interface 从 Host 持有的 LeaseToken 取得路径与归属，不接受模型 JSON 作为 owner。文件写入须 fsync + atomic publish，逐阶段重查租约与取消；保留旧 journal / head / manifest / seal，未知 schema、symlink、内容变化和第三方新 head 不得被覆盖。验证六个既有中断点的双向恢复、空项目、既有终态记录保全、旧 writer 实际被目录屏障拒绝及丢失所有权 / 取消 / 损坏拒绝。完成该存储切片仍不等于已有执行已停稳或 P2 执行准入通过。
+
+writer 屏障回执：源码 `6a729852e4a8272005a31fcaff2ea5a4fe4e0a91`；本地完整 scoped 检查 85 Rust（73 原生 + 12 Helper）、78 真实跨进程（新增 14 Fence）、原有 87 golden / control / digest、8 PTY、真实 Helper 隔离 ping、fmt / clippy / release build / 边界检查通过。六个中断点分别覆盖 TS→Rust 和 Rust→TS，原生日志采用受控 `process::exit(77)` 跳过 Drop 模拟进程中断，不声称真实断电；真实 lease / epoch、stale takeover 与目录屏障参与对照。旧终态 work 保留，恢复后由真实 TS v2 Store 写入后续 work 成功；不是原生任务执行已验收。
+
+新增 8 Rust 用例覆盖原文 / 归档 / unknown 元字段不变、旧 append 实际失败、六阶段续接、空基线、不存在 v2 不激活、前置与阶段取消、前置及 intent 后失去租约、损坏证明、symlink、未知 schema、baseline 改写、较新 head / reader-writer floor 保全。初稿的阶段校验遗漏已被新用例实际复现：HeadPublished 后注入 floor=12，错误返回 Promoted；修正为发布前校验允许前态及文件身份、阶段后重查合法前缀，拒绝且保留 floor=12 / 新 head / prepared intent。首次新建发布用 no-clobber；后续文件发布仍遵守既有 lease + read-check-rename 协作，不声称实现了新的跨 Runtime 强 CAS。
+
+保留 fixture 首次误用不存在的 lease.epoch 方法、clippy 的 unused import / manual_contains 失败，修正为读取真实 diagnosticSnapshot 并沿 Host 的 hostId:acquiredAt epoch；未替换成总为 true 的租约。hash/copy 每 256 KiB 检查取消 / 所有权，源扫描上限 2 GiB，元数据有独立预算。Host 仍须串行 prepare、维持 heartbeat 并完成 canonical v2 reducer/head/hash chain 校验后才可调用此 promotion；当前尚无这条原生生产装配，AlreadyProtected 只描述物理屏障，不证明任务已恢复。详见 [结构化回执](native-cli/evidence/p2-writer-fence-20261114.json)。当前新候选 [CI 43568584797](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797) 两平台仍 in_progress；不能沿用前一候选的原生 step success。
+
+ADR pass 补充：131 §1 原先笼统写“ADR 104 未接受”，已按同号文件名澄清：未接受的是 bot-capability-visibility，已接受的 progressive storage / writer fence 继续保留；map 同步记录。仅消除歧义，既有边界未变更。此前 Reader 量测仍绑定其回执中的实际源码 / 二进制，不挪用为本次新 Store 二进制的量测。
+
+后续实际查询确认：`6a729852` 的 Linux job [132367759976](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797/job/132367759976) 与 macOS job [132367759772](https://github.com/ly-ccx/Peer-Agent/actions/runs/43568584797/job/132367759772) 的 `Native CLI scoped validation` 均 success，包含本次新增 writer fence / 85 Rust / 78 跨进程用例。全仓 CI job 仍 in_progress；未运行完整发布或安装版验收。
+
+## NR-02 剩余实施（2026-11-14 用户再次要求继续至 P3）
+
+按同一已接受方案串行推进：设备级 Resource Ledger / native scope derivation → canonical 当前事实与持久执行 / 授权 / Evidence 提交及恢复 → P2 真实故障与后续准入门禁 → P3 Context/history/Provider/Projection/PermissionGrant/file/Shell/Evidence/持久化真实闭环。不得将已有纯 kernel 或测试探针改称完整 CLI。P3 的确定性 wire 回放与真实模型验收分开记录；不以 TS sidecar 填充任何运行环节。
+
+本卡先允许 peer-store 的 execution-resources.sqlite schema 3 Adapter、与 Policy 共享的有界 SQLite 文件打开防护、原生目录 / 文件 / Git common-dir scope、既有 claim / handle / settlement / closure / retained_unknown / reconciliation 格式及互读 fixture。复核 `116-session-control-and-resource-settlement.md`、`127-unknown-outcome-reconciliation-and-delegated-resolution.md`、`131-native-cli-contract-storage-and-recovery.md`，既有释放 / 授权 / unknown 不重放边界不变。正常与异常至少覆盖多连接 / 跨进程冲突、symlink 和父子目录别名、全资源集原子预留、同 receipt 幂等 / stale revision / late epoch、未结束 handle、unknown 保留 / 授权收口、缺失旧 ledger、未知 schema/WAL 保全、取消与恢复后新任务。源数据全部合成，生产入口在 P2 总门禁前继续关闭。
+
+Resource claim / scope 是集合；跨语言对照在声明前按 resourceRef / claimId 比较集合，Rust 不引入一套 ICU 运行依赖来复制 JS 默认 locale 的显示排列。所有实际身份 / receipt digest 输入和 unknownCalls 的既有有序或 UTF-16 排序语义仍逐字节对照，不借集合比较放宽授权或幂等。原生数据接口不把集合第一项当主目录身份。
+
+Resource Ledger 回执：源码 `c2f19ce5ddb681b9534d38e1a04f8922fa41a4dc`，完整 scoped 验证 93 Rust（81 原生 + 12 既有 Helper）、117 真实跨进程（本卡新增 39 Resource）、32 旧 Node resource 测试、原有 51 runtime golden / 29 control transitions / 7 digest、8 PTY、真实 Helper 隔离 ping、fmt / clippy / release build / 静态边界通过；另行 runtime-node build 与 architecture 检查通过。详见 [结构化回执](native-cli/evidence/p2-resources-20261114.json)。
+
+共享 SQLite 打开器先只读准入再写，未知 schema 的主库 / WAL 保全，连接查询有字节 / 行 / 节点预算。资源集在同一事务预留，claim 与索引列双向核验，receipt exact digest / CAS / late epoch、活动 handle、unknown 保留 / 显式收口、reconciliation evidence 均沿原格式。Host closure 参数不是模型可反序列化的授权值。原生仍未装配生产 authorizer，不开放共享任务执行。
+
+真实互操作发现旧 Node 的文件 claim 在 activate 时被错误当目录，复现 `execution_resource_scope_unknown` 后改为沿既有 claimScope/fileResource；32 项旧测试与 39 项互操作在修复后通过。初次 fixture 的 /var 与 /private/var 期望错误已按真实 TS canonical 输出修正，未放宽 scope 比较。失败日志保留，详见回执。当前候选两平台 CI 尚在运行，不能声称整仓通过。P2 总闸及 P3 实际闭环继续推进，以上不代替 canonical 当前事实、持久批准 / Evidence、停止与恢复装配。
+
+### NR-02 剩余：持久批准与会话提交
+
+依 ADR 57 / 65 / 74 / 85 / 92 / 101 / 116 / 127 / 131，允许补既有 approvals.jsonl 的有界读取 / 同身份状态追加及孤锁保全、ConversationStore 的同格式创建 / CAS 提交 / 幂等和中断恢复 fixture。执行批准仍须 Host 实时 scope / policy revision 检查；历史 approved 不自动成为许可。损坏 / 部分尾行、侧写草稿、未知效果不跳过为成功。持久化只能记录结构事实，不能让 assistant 文字变成 Evidence。既有边界不变，不新建私有执行日志。旧 checkpoint 无法安全解释时按 ADR 131 明确阻断并保留兼容恢复入口；完整 Bot runtime 在 P5 另验。
+
+持久批准 / 会话提交回执：源码 `e1e7af77`，103 Rust、148 真实跨进程、32 旧 resource / 10 旧 approval 测试及原有 golden / control / digest / PTY / Helper / fmt / clippy / release / 静态边界通过；runtime-node build、architecture 通过。补读 ADR `121-desktop-session-windowing-contract.md`：物化 preview 仍是派生展示，Runtime 冷路径 snapshot 不冒充产品 SessionService 的窗口返回。结构化回执与后续 Evidence 卡合记于 [P2 durable facts](native-cli/evidence/p2-durable-facts-20261114.json)。
+
+会话 CAS 同时绑定 contentRevision 与物理源版本；同消息身份 / 同正文返回已有回执，不重复追加。正文 durable 后索引失败返回 STORE_COMMIT_UNCERTAIN，受控 reconcile 只修派生索引，原未完成 tool segment 保留；原本已计数的消息丢失不能修成空会话成功。真实 process::exit(77) 跳过 Drop 的故障留下既有空目录锁；生产不自动清理，夹具确认子进程退出后只 rmdir 已知空锁，再恢复并接收后续消息。此处不是断电测试或原工具效果已结清。
+
+Evidence 登记回执：源码 `7af3ab505cb6efbc7bf8ac2ede45d47da3c244a3`，107 Rust（95 原生 + 12 Helper）、155 真实跨进程（durable 卡 38）、128 旧侧聚焦测试、原有 golden / control / digest / 8 PTY / Helper、fmt / clippy / release / 静态边界、runtime-node build、architecture 均通过。复用 goal-plans/evidence-index.jsonl；校验 call / grant / result 配对，成功结果要求实际 granted=true，只消费既有结构字段；任意输出 / 助手文字不注册。收集器新增直接借用 result 的入口，避免复制整个输出。普通引用沿旧 merge 规则并保未知字段；复杂 Interactive Receipt 保护原记录并明确返回 unsupported，未假称其 Adapter 完成。
+
+旧 TS 批准 writer 忽略目录锁的问题已由新用例复现，失败保留 `/tmp/peer-native-approval-lock-failure.log`。随后同一个 owner / ctime 检查的 Store 文件锁同时供批准与 Evidence writer 使用，与 Rust 空目录锁命名相同；没有 TTL / PID 回收。订阅回调在释放锁后运行，保留重入追加。此修正落实 ADR 131 的双端互斥条款，未改变授权或 Evidence 真值边界。候选 CLI hash 见回执；历史 Reader RSS 仍只绑定旧量测候选，不能移植为本卡验收。
+
+已进一步确认 `c2f19ce5` 两平台 CI 全部步骤（含 Test、Bot shell smoke）均 success。最新 `7af3ab50` 尚待远端检查，不用旧结果替代。P2 总门禁仍未通过：canonical Goal / 协调 prepare、真实授权 / 停止与 unknown 对账装配未完成；P3 原生模型 / 工具闭环仍未开放。
+
+### NR-02 剩余：canonical 协调存储
+
+继续依 ADR 104-progressive / 105 / 112 / 116 / 127 / 131，在既有 coordination-v2 manifest / head / segments / payload_ref / baseline / seal 上实现原生可取消有界验证、reducer seam 与 durable 追加 / 中断恢复。事实源必须是 canonical hash chain，不能拿 derived SQLite 的 revision 自证或把物理屏障称 canonical prepare。未知语义或超预算明确阻断，不能跳过记录得出空状态；不引入第二套任务表 / 执行日志。先过跨语言实际 Store 互读 / 后续任务与 head / tail / lease 故障，再装配执行准入。
+
+canonical 协调存储切片回执：源码 `82ce5819666698b530aa7e9fdd4476dbd004fb4a`，109 Rust（97 原生 + 12 Helper）、210 真实跨进程（本卡新增 55）、128 旧侧聚焦测试、51 runtime golden / 29 control / 7 digest / 新增 29 work-event-delivery 转换、8 PTY、真实 Helper ping、fmt / clippy -D warnings / release / 静态边界、architecture 均通过。完整日志 `/tmp/peer-native-canonical-final2.log`；[结构化回执](native-cli/evidence/p2-canonical-coordination-20261114.json) 记录源、二进制和覆盖限度。
+
+Store 沿既有 manifest / head / segments / payload_ref / seal / frozen baseline 验证逐条 canonical hash chain，检查 head 是已验证前缀，允许完整 durable tail 的 head 暂落后，但在 head checkpoint 前拒绝新追加。snapshot 同时绑定 metadata / 文件身份 / blob 身份及 generation；复制 derived SQLite revision 不构成证明。只读 replay 每 16 KiB 检查取消 / 租约，全读含 blobs 64 MiB、4096 records、单 envelope 64 KiB、单 legacy record / blob 及 state 编码 1 MiB 为显式门限，超限拒绝且不截成完成。
+
+原生可从空目录或可解释 v1 初始化同一 v2 格式，先 replay 后物理 promotion；原生追加后真实 TS backend 补其 derived SQL cache，并继续写入。head 前崩溃 / 完整 tail 未 checkpoint 时原记录保留，旧操作不重放，补 head 后后续 work 可写。语义 floor 先抬 durable head 再抬 manifest；中断时保留较高 floor 并沿现有物理证明续接。未知文件 / 孤儿片段不能初始化为空项目。真实进程 exit(77) 故障与 fixture stale lease takeover 只验证存储，不证明外部进程 / 工具停止。
+
+Runtime 当前支持 work/event/delivery 与既有 Session Control kernel；coordination decision、intent、agent supervision、obligation、history repair 的未搬迁语义返回明确 unsupported，整个 read/append 阻断。实际 TS 创建的合法未支持记录不会被跳过为新空状态，兼容端再次读取后仍保留原事实。P2 总闸仍未过，canonical Goal、剩余 reducer、真实 Host 当前授权 / handle 停稳 / unknown 对账与准入装配继续待办，P3 模型与工具闭环尚未开放。未改变 ADR 104-progressive / 105 / 112 / 116 / 127 / 131 的授权、恢复或存储边界。
+
+保留初次 fixture 构建漏启用 peer-store/test-fixtures、构建失败后误调用旧 probe，以及 70 KiB payload 超过 fixture 自身 64 KiB 请求限制的失败。均不计通过；后续改为 set -e、显式双方 fixture feature 和有界 1 MiB 请求，完整 scoped 流程重跑通过，未放宽生产预算。实现者完成内容 / diff 自审，未称独立评审。较早 `7af3ab50` Linux job 全步骤 success、macOS 原生/build/type/architecture/test/smoke 已 success，最后观察时 report/post 仍运行；最新源码 CI 另验，不挪用旧结果。
+
+最新远端 scoped 结果补记：`82ce5819` 的 [CI 43578026254](https://github.com/ly-ccx/Peer-Agent/actions/runs/43578026254) Linux job 132396468162、macOS job 132396468104 的 Native CLI scoped validation 均 success，包含 109 Rust / 210 跨进程及本卡 55 canonical 用例。最后观察时全仓 job 仍运行、未见失败；不称整仓完成，也不称 P2 / P3 或发布验收通过。
+
+## 2026-11-14 继续 NR-02 至 NR-03
+
+用户再次明确：补齐 canonical Goal、剩余协调 reducer、Host 实时授权 / 停稳 / unknown 对账，P2 总闸通过后直接进入 P3，最终无 Bun / Node sidecar。当前源码 82ce5819、知识 263f170；无在制代码改动。本卡复核 ADR map、`116-session-control-and-resource-settlement.md`、`117-intent-driven-coordination-and-goal-closure.md`、`111-project-agent-duplex-supervision-and-continuity.md`、`127-unknown-outcome-reconciliation-and-delegated-resolution.md`（以页头 Accepted 为准）与 `131-native-cli-contract-storage-and-recovery.md`，本轮为既有契约下的 B 级搬迁，未移动边界。
+
+先补齐 coordination decision / obligation / intent / agent supervision / history reducer 与对应只消费 Host 事实的 admission seam，再补 Goal 与 Host 装配。允许 native Runtime 的领域模块、共享 protocol conformance resources、真实 Store 往返和故障夹具。不把缓存、历史 approved、无进程内 token、时间或助手文本当成授权 / 停稳事实。新增语义均用实际 TS kernel 冻结正常和拒绝分支，并经 canonical journal 冷恢复验证；核验与后续新任务须跨真实 Store / Host seam。P2 未过前不开放生产模型 / 工具写入，不以另一套执行日志或 Node sidecar 填缺口。
+
+### NR-02 canonical Goal / 完整 reducer / Host 停稳切片回执
+
+源码 `0921d673`：补齐 decision / obligation / supervision / intent / history reducer，66 项真实 TS transition、35 项 canonical journal 往返通过。修复空 bucket / observations 的 SQL 读投影差异，并补 history 种入监督事实时最低 executor floor 的回归。Goal execution facts 通过 23 项真实 getPlan 投影、36 项 source / sidecar / active index / 大正文 / 拒绝测试；Goal 仍是执行事实读适配，不宣称完整 CRUD。
+
+Host 新端口组合 canonical Goal / journal / 现有 schema-3 ledger：实时 ancestry / policy / execution / lease / resource 校验，活动批准对象与执行前复核；原生 recorder tuple 与 live token / handle 所有权；停止回执落 canonical journal，超时保留 owner、晚到真实结束可继续结清。11 项集成含真实原生子进程 kill + reap、失败句柄、重启 unknown、epoch 变化、批准时策略变更、Git 干净/脏树及禁止执行过滤器、file-only 策略收口、Shell 拒绝、unknown 保留与后续资源预留。
+
+最终 scoped：129 Rust（含旧 Helper 12）、281 真实存储跨进程、128 旧 focused、8 PTY、Helper 无密钥 ping、fmt / clippy -D warnings / release / 静态边界与 architecture 均通过。详见 [结构化回执](native-cli/evidence/p2-goal-kernels-host-20261114.json)。`82ce5819` 两平台 CI 全部 job 已 success；新候选远端未验收。本次补读 ADR 101 的动态权限主体及 126 被 127 接受扩展的闭包条款，不更改权限或 Evidence 边界。
+
+P2 总闸仍待共享 Goal 执行镜像写域/CAS、closure 镜像中断恢复、剩余 admission 与自动权限/角色语义、完整 Host 启动及已有状态恢复验收。P3 Context / wire / Projection / file / Shell 闭环未接；公开 CLI 仍为终端草稿 spike，不以新 Host 集成测试冒充产品完成。继续补齐上述总闸，再接执行；最终无 Bun/Node sidecar 的要求不变。
+
+`0921d673` 新 CI 43584888148 的 Linux / macOS 均构建成功，但 scoped clippy 失败：CI Rust 1.100 已将 `AtomicUsize.fetch_update` 标为 deprecated，本机 Rust 1.98.1 尚无该告警。补丁 `05c6bc05` 改为兼容既有 MSRV 的 compare-exchange 循环，不放宽 warnings-as-errors；本地完整 scoped 再次通过（129 Rust / 281 跨进程 / 128 旧 focused / 8 PTY）。保留原失败与候选身份，新远端结果待查。
+
+剩余 admission 继续依同一卡实施：纯 coordination decision / intent assessment / intent closure 与 history resumption planner 对照实际 TS，只接受已准入 Host facts。planner 的 checkpoint port 必须先拒绝不兼容的旧 engine/provider checkpoint；测试中的普通 JS 对象不证明原生可恢复，也不得开生产执行。
+
+### NR-02 继续：共享 Goal 执行事实镜像与恢复
+
+依 ADR 101 / 116 / 127 / 131，不改变 Goal 意图、权限或 Evidence 边界：计划为 GoalStore 增加同一 `index.jsonl.lock` 根写事务，TS public mutator、内部 persist/index 与 runner-progress flush 同域；本机原生仅开放 lease + source revision 约束的执行事实镜像端口，保留正文未知字段、sidecar 和 canonical revision/change 通知。复杂 Goal CRUD / workflow 仍归后续功能平价，不借镜像端口暴露任意模型 patch。根锁不按时间/PID回收，回调在释放锁后交付；源变更、未知 schema、超预算大正文、孤锁与缺失 index 都失败关闭。原生 closure 后镜像失败必须从既有 closures / retained_unknowns 对账重试，不另建恢复 journal，不清除 unknown，不重放调用。
+
+实施前追踪确认：当前 TS Goal 写正文/sidecar/index 没有共享原生锁；只加 Rust 锁不能证明互斥。现有 bot-verified resolver 的 SQL closure 也不能代替 Goal 镜像恢复。验证至少包含 TS↔Rust root contention、两实例/进程写后读、callback 重入、runner sidecar 复查、body-before-index/closure-before-mirror 中断、未知字段与 unknown 保全、既有闭包重放恢复及后续任务准入。未验证前该共享写域与生产 P3 入口保持关闭。
+
+### NR-02 总闸回执与 NR-03 启动
+
+源码 `0809f7ca` 的完整 scoped 总闸通过：142 Rust、302 跨进程、131 旧侧 focused、840 权限/角色对照、60 admission、29 history planner、8 PTY、真实 Helper 无密钥 ping、fmt/clippy/release/architecture；TUI 30 项 Host 测试和引用本 checkout 新生成声明的 typecheck 通过。`9596dd03` 补齐纯 admission；`7775d3f4` 补齐共享 Goal 根事务、执行 control/closure 镜像及两阶段中断对账。closure 在旧 normalizer 丢失的真实问题已双端修正，保留失败记录。完整 Goal CRUD/产品工作流仍归 P5。详见 [P2 总闸结构化回执](native-cli/evidence/p2-total-20261114.json)。
+
+7775 的 CI 不计通过：Linux clean-schema 夹具的未知版本仍只在 WAL，已强制 checkpoint 并断言主库版本，再保持原逐字节不变断言；另有独立 uncheckpointed-WAL 保全用例不变。macOS 类型错误来自 Goal bind 丢失 API 返回类型，已泛型保留，未给调用处补 any。首次本地总闸的 PTY guardian 清理卡住，终止该夹具父进程并保留 trace；改为 start_new_session 后在 guardian 内取得 controlling terminal，清理有超时，8 项新目录重跑通过。旧隔离 guardian PID 34341 的内核退出状态未能取样/回收，不算原轮成功；不触碰其它运行实例。9596 的 Mac Electron model switch smoke commit 断言失败仍保留，不称随机失败；新候选 CI 另查。
+
+P2 数据/权限/恢复地基门禁已通过，允许开始 NR-03 原生纵向切片，不代表完整 CLI 或发布验收。补读 ADR 37/55/56/57，沿 129/130/131 搬迁，B 级边界不变：System Context 只经 Source assembler；历史以 canonical projector v2 为准，旧 tool 文字不能驱动新动作；wire 编码独立；模型输出只产生工具意图，Manifest→Projection→Tool Call→实时 Grant→Provider→结构化 Result/Evidence→canonical 会话/预算持久化。先支持一个现有 openai-chat wire 与有界 file/Shell foreground；未迁移的模式/凭据/上下文/旧 checkpoint 必须明确拒绝，不能静默少装上下文或借 Node sidecar 补齐。
+
+NR-03 验收：隔离数据目录、原生 HTTP/SSE transport、真实 Host 权限 allow/deny/策略变化、文件与子进程的超时/取消/kill+reap、写效果前 canonical pending dispatch、Result/Evidence 配对、崩溃后 unknown 不重放、停稳镜像恢复、后续不同任务准入；同一个实际 exec composition root 验证。模型回答只结束执行片段，不构造 Goal 验收或业务完成。真实供应商/OS secrets、其它 wires、完整 Bot 角色和 UI 保持分期验收，不能以控制回放代替。
+
+NR-03 Context 过渡 Adapter 明确：共享 core/work-session 资源从真实 TS Source 生成；workspace/provider 的既有 Source 语义迁移，临时 `native.goal-execution` 只把有界 canonical Goal 完整 JSON 作为 L7 事实呈现，不把未知文件/附件提升为指令，不增加 Goal 验收动作。完整 Goal Runner/项目/Skill/MCP/交互 Sources 尚未搬迁时，生产入口必须拒绝需要这些事实的路径；首条闭环限无这些特殊上下文的 fresh worker fixture。Shell 先暴露明确说明每调用新 shell、仅 foreground 的 Manifest，不能把尚未实现的 persistent session 宣传给模型。
+
+0809 的 Mac CI 43592006532 原生测试触发旧 Helper tamper 夹具：首个随机 Base64 字符本来是 A 时替换 A 没有篡改。b8be67a2 改为解码后 XOR 一个字节并额外断言密文改变，12 Helper 测试通过；没有放宽认证错误断言。新候选 CI 另验。
+
+### NR-02 远端总闸与 NR-03 第一条原生执行回执
+
+P2 候选 `0b2ee6df` 的 [CI 43594616352](https://github.com/ly-ccx/Peer-Agent/actions/runs/43594616352) Linux / macOS 全部 job success，包含 Native、全仓 build/type/architecture/test 和各自 Bot shell smoke。b8 初次 CI 的 fmt 失败另由 0b 修正；旧失败保留，不把它们称通过。P2 总闸完成，完整 Goal CRUD、Bot 产品工作流仍归 P5。
+
+P3 源实现 `cd13f250`，protocol 类型补充 `1eccbec7`：公开 `peer-native exec --plan` 组合 canonical Goal / lease / 协调、真实原生 HTTP/SSE、共享 Source/历史投影、独立 openai-chat encoder、Manifest/Projection、执行前实时 Grant、原生文件与 foreground Shell、配对 Tool Result/Evidence、原 canonical budget 与 managed pause。`recover --plan` 依据已记录的完整 nativeRecorder 与实际 OS 死亡观测停稳；有未结束能力句柄继续阻断。写效果后退出且未留回执的调用保持 unknown，不重放；不同资源的后续新任务可以准入。模型回复/CLI 退出码不构造 Goal 验收。
+
+ADR pass：37-provider-channel-and-wire-protocol-separation、55-shared-system-context-assembler、56-provider-observed-context-accounting、57-canonical-conversation-history-projector、101-bot-owned-access-policy、111-project-agent-duplex-supervision-and-continuity、116-session-control-and-resource-settlement、117-intent-driven-coordination-and-goal-closure、124-legacy-stop-obligation-controlled-resolution、127-unknown-outcome-reconciliation-and-delegated-resolution、129-native-rust-cli-and-ratatui、130-bounded-cli-memory-and-transcript、131-native-cli-contract-storage-and-recovery（均为 knowledge/decisions/ 下的 `.md` 文件）。B 级迁移沿现有边界；新增的可选 nativeRecorder 合同与已确认文件创建身份属于 A 级补充，已分别在知识 `7072691` / `3e03860` 的 ADR 131 与 map 中先行记录，再实施。没有更改授权主体、unknown 闭包或 Goal 验收规则。
+
+新文件正常路径曾被真实公开入口复现为 `execution_resource_busy`：原 missing claim 未随实际创建确认。补充只接受本 Host File Provider 独占创建并对照 owned fd 的身份；在真实配对结果、Evidence 与 dispatch 回执持久化后，ledger 事务核对原 scope / execution / hostEpoch / 当前 inode，更新原 claim revision 与 resource_events 的真实 tool-result 引用。相同身份幂等，既有 inode 变化、外来 Host/执行、unknown、draining/reconciling/released/closed 均拒绝；无推测刷新或强制解锁。
+
+最终源码 `fd981b01`：169 Rust、302 旧存储跨进程、58 项当前 TS 对原生真实数据冷读（17 个隔离根）、131 旧 focused、12 项公开入口和 8 项终端生命周期通过；fmt/clippy/release/boundary/architecture 通过。完整本地回执和候选以 [P3 结构化证据](native-cli/evidence/p3-native-execution-20261114.json) 为准。范围包括实际公开二进制、真实 PTY allow/deny/cancel、Shell timeout/kill+reap、模型网络失败/截断/取消、真实文件效果后硬退出、原生恢复、unknown 保全与后续任务；当前 TS Store 冷读 native 输出及真实 Evidence 配对。TS/Bun 只用于开发对照，原生运行不启动 sidecar。终端/恢复状态同步到两张产品矩阵，自审不称独立审查。
+
+本卡是方案定义的第一条原生闭环，尚非最终 CLI 替换：仅 fresh delegated worker / plain v2 openai-compatible channel / read_file、write_file、foreground bash。未迁移的项目指令、设置/权限清单、Skill/MCP、冻结 memory、嵌套上下文、compaction、其它 wire/auth/代理等明确拒绝。完整交互界面、功能平价、真实供应商和 OS 密钥闭环、安装/签名、长时间内存曲线及 P4–P7 继续待验收。默认 peer 尚未切换，不发布、不安装、不改用户原数据。
+
+NR-03 远端失败保留：`fd981b01` 的 Linux job 132462052721 / CI 43599806661 在既有 `independent_threads_competing_for_a_free_lease_have_one_owner` 失败，第二个 acquire 返回 VersionChanged。静态追踪发现 hard-link 发布的临时别名 unlink 可改变共享 inode ctime，与竞争者严格身份读取存在相交窗口；隔离 inode 诊断确认内容/mtime 不变而 ctime 改变。macOS 原码的 256 轮竞争未复现 CI 原现场；另以确定性 lstat/open 间替换夹具在原码复现同一 VersionChanged 拒绝，修复后返回重新观测到的当前 owner。按 ADR 116/131 的既有租约合同作 B 级修复：仅在 acquire 原有五次上限内，遇到版本变化重新读取当前事实，再重新判断 owner/freshness；不放宽底层文件身份检查，不把 corruption/unknown 当空租约，不改 takeover、lease、stop 或授权边界。扩大原真实线程竞争用例，保留一名 Acquired、一名 Held 的原断言；修复后完整总闸与新候选 CI 另记。
+
+租约修复 `15783800`：确定性原码 VersionChanged 基线已保存，修复后返回当前新 owner；256 轮真实双线程竞争仍是一名 Acquired、一名 Held。完整 scoped 新目录重跑通过：170 Rust / 302 跨进程 / 58 TS 冷读 / 131 旧 focused / 12 公开入口 / 8 PTY，fmt/clippy/release/boundary/architecture 均通过，SHA256 `63cf5bfb0d3b5633e7b4160e498e265811f5c70244dd86bcdbe5168887d2d543`。第一次修复总闸因测试模块位置触发 clippy，已移至末尾，未降级 warnings；原失败保留。新候选 CI 单独核对，fd981b01 的 Linux 失败不计通过。
+
+P3 最终候选 `15783800` 的 [CI 43600632864](https://github.com/ly-ccx/Peer-Agent/actions/runs/43600632864) Linux job 132464474319 / macOS job 132464474532 的 Native CLI scoped validation 均 success，包含修复后的租约竞争和完整原生闭环/恢复。最后观察 Linux 仍在全仓 Test、macOS 在 Typecheck，未见已完成失败；不把两个 Native step 成功记成全仓 job 或发布通过。release 二进制另已核对不含 fixture-only 硬退出注入入口。P2 总闸与 P3 第一条闭环通过，不替代 P4–P7、真实供应商/安装/长期内存和完整体验验收。
+
+## 2026-11-14 P3 全仓复核与 NR-04 启动
+
+用户要求「先确认当前候选的全仓 CI 通过，再按方案推进 P4」「自测通过后继续推进 P5」。`15783800` 的 CI 43600632864 重跑结果：Linux job 132485357863、macOS job 132485356050 全部 success，含 build / Native / type / architecture / test / Bot Electron smoke。原 macOS job 132464474532 的 disclosure reversal 断言失败保留：采样从 316ms 到 617ms，间隔 301ms 跨过全部展开高度；不称原轮通过或已修复生产动画。原码/断言未改，当前源码树与 CI merge d7d8de61 的 tree 完全一致。本地重点场景通过；第一次本地运行仍经原工作区依赖链接，已限定证据，修正为本工作树依赖后重建与隔离场景再次通过。详见 [全仓跟进回执](native-cli/evidence/p3-ci-followup-20261114.json)。用户原数据与应用不变；只清理测试自有进程。
+
+NR-04 按已接受 129–131 与既有 24/25/28/29/30/31/32/35/37/50/55/56/57/58/65/76 分步迁移，尚未写新完成状态。首卡允许 `peer-runtime` 的 wire / transport / model-config 模块、共享 fixtures、真实 TCP/HTTP/SSE 测试与 public exec 闭环；先固定实际 TS encoders、wire resolver、usage、失败与恢复行为，再接入生产调用。编码只在 wire seam；Source / canonical history、权限、Evidence 和 Goal 验收不借协议切换改变，首卡 B 级边界不动。Qoder 的宿主 Node/WASM fallback 必须迁走；若 Helper 或持久化 Interface 需要补充，则按 A 级先改 ADR/map 再实施。
+
+后续卡依次覆盖完整 Context / accounting / compaction 管线、MCP（含 legacy SSE）/ Skill / Plugin / Hook 与生命周期、标准 headless/ACP/命令适配；P4 功能表逐项绑定真实入口和异常/恢复证据，不能以 pure encoder 或 SDK 自带能力算全部完成。允许方案指定的原生依赖（HTTP/TLS、数据解析、官方 MCP/ACP SDK、必要的有界原生适配），需锁版本/MSRV、实际编译和协议对照；不引入厂商 Agent SDK 或 JS 引擎。P5 仅在 P4 对应总闸通过后开始。
+
+NR-04 首卡发现旧 Gemini usage Adapter 重复计算 cache：真实 `sendGeminiStream` 夹具 prompt=20 / cache=5 / output=3 返回 input=20，后续相加得到 28，而供应商 total=23。原失败保存于 `/tmp/peer-native-p4-gemini-usage-before.log`（临时本机证据，非持久制品）。依 Accepted ADR 56 的 disjoint dimensions 作 B 级纠正：uncached input 扣除已包含的 cache；供应商单列的 tool-use prompt / thoughts 分别计入 input / output，不遗漏、不给 cache write 编造 0。依据 [Gemini UsageMetadata](https://aistudio.google.com/api-reference/generate-content#Resource:GenerateContentResponse)，2026-11-14 核对。迁移对照不能把旧计算错误冻结成 Rust 黄金结果；同一原始 usage 用双端真实 Adapter 固定。没有改变上下文准入、计费权威或权限边界。
+
+### NR-04 模型 wire 首卡回执（2026-11-15）
+
+源码 `84007b83` 已推送。四种 wire（Chat / Responses / Anthropic / Gemini）进入同一个 `NativeModel` 及公开 `exec --plan`：原生 HTTP/SSE、Helper v1 API-key 请求头、实际 Provider Source、相同 Manifest/Projection/live Grant/Result/Evidence 与 managed pause。普通文本与工具同时返回时，原生连续性材料只跟随当前执行 / Provider 实例的精确 canonical 身份；完整 assistant 回合一起回传，避免 Anthropic 拆分 thinking/text/tool 或 Gemini 签名文本重复。缓存最多 32 项 / 1 MiB，签名不落盘；重启或事实改变不伪造材料。供应商终止标记立即结束并关闭客户端连接，不等待服务端 EOF；截断、失败终态和不完整参数不进入执行器。共有 normalizer 也保留真实 `redacted_thinking` 块，不把有签名的材料丢成普通历史。
+
+实际 TS Provider 捕获固定 8 份请求/解码/计量，另有 1320 纯 encoder 向量；后者覆盖 reasoning/cache/OAuth 形状，但不等于这些配置已准入。实际配置只开放 plain v2 API-key 基本渠道；高级模型参数、额外渠道 / OAuth / Qoder、自定义头 / 配置代理等仍明确拒绝，不能静默丢配置。默认 `peer` 仍是迁移期入口，原生候选运行无 Bun/Node sidecar。
+
+完整原生 scoped 总闸：179 Rust、302 跨进程 Store、70 当前 TS 冷读（21 个原生根）、134 Node focused、13 公开入口 Rust 测试（含四种真实 wire 的多轮工具），24 个 HTTP 分片组合、4 种原生 Helper 凭据头及注入拒绝、8 PTY；fmt/clippy/release/boundary、全仓 build/typecheck/architecture 与 20 项 TUI Provider focused 通过。失败及修正、精确候选与覆盖限制见 [NR-04 wire 结构化回执](native-cli/evidence/p4-model-wires-20261115.json)。CI 43615775154 正在核对，不将前一候选全绿继承给新候选。
+
+ADR pass：`37-provider-channel-and-wire-protocol-separation.md`、`55-shared-system-context-assembler.md`、`56-provider-observed-context-accounting.md`、`57-canonical-conversation-history-projector.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；本卡 B 级迁移及同边界修复，不移动权限、Evidence、Context 准入或 Goal 验收。完整 Runtime / 外部协议仍未通过 P4 总闸：继续 default Source / Host discovery、计数与 compaction / usage ledger、OAuth / Qoder、MCP / Skill / Plugin / Hook、headless / ACP / 命令平价；P5 继续受 P4 总闸约束。
+
+NR-04 Context 首卡（实施前）：依 ADR 55/57/129/130/131，B 级迁移已登记的 project.instructions Source 与其有界文件观察，不新增附件或 tool output 的指令提升路径。Source 保留固定文件名、scope/trust、priority、截断说明、排序/hash/snapshot；只有 Host 的当前 workspace/data-home/配置与显式 targetPaths 能选择观察范围，普通文件内容不能自行注册 Source。当前生产先接 workspace 根指令，未迁移的设置/Skill/扩展仍阻断，不把一个 Source 算整个默认 catalog。与实际 TUI Host 对照时，Provider Source target 取 channelId（缺失时 provider selection id），路由 family 独立校验，不用品牌替代渠道事实。覆盖真实公开 exec、指令不能授权工具、文件变化/读取失败、超限、Unicode 截断和 TS Source 差分；24000 UTF-16 单位截断遇到代理对时需保全完整字符，不能把旧孤 surrogate 冻结成跨语言合同。
+
+NR-04 CI 跟进：`84007b83` 的 CI 43615775154 两平台 Native scoped 均 success，随后全仓 Test 因旧 Desktop Gemini 断言 `inputTokens=11` 失败（实际 uncached=8，cache=3；自动隔离重试仍失败）。实现者遗漏了旧断言更新，不称基础噪声。`1f7adc17` 仅修测试：保留原 prompt 11 与 output 7，明确 8+3=11、总量 18、未知 cache write 不编造 0；本地该文件 22 项通过。原失败与后续独立候选分别登记于 wire 回执，不把原轮改记通过。
+
+NR-04 Context 首卡回执：`10c86bd7` 已推送，workspace 根 AGENTS/CLAUDE 通过原注册 Source 接入公开原生 exec；文件内容不能签发 Grant。正常/空/Unicode/截断/缺一文件的实际 TS Source 差分、真实变更中断/坏 UTF-8/超限保全、公开否决工具与同一待准入任务恢复、非普通文件 FIFO 不阻塞均已验证。Source 的共享截断 helper 修复了可复现的半个 surrogate，保留原失败。Provider Source 的 Host 目标值与现有 TUI 入口对齐为 channelId / selection id，独立于路由 family。完整 scoped：184 Rust、302 跨进程、79 TS 冷读（24 根）、157 Node focused、16 公开入口 Rust、8 PTY；7 指令 Source / 14 Provider Context 向量、13 共享 Source focused、build/clippy/架构通过。详见 [Context Source 证据](native-cli/evidence/p4-context-source-20261115.json)。CI 43618145086 尚在核对。当前只开放 workspace 根 Source；完整 catalog、配置/全局/显式目标子目录、计数压缩和外部协议仍未过 P4 总闸，不进入 P5。
+
+NR-04 usage 后续（实施前）：依 ADR 37/56/131 作 B 级观察完整性修复。`usage` 对象存在但缺输入或输出维度时，不能由默认 0 合成已知总量；仍可记录请求及完整结构化工具结果，但 Work budget 必须保留 unknownUsage，后续有 usage 的请求不能抹去该未知。不把供应商部分总量冒充完整 canonical 维度，不引入私有 ledger 或迁动持久化边界。完整 request/turn/lifetime 管线仍是独立待完成项。
+
+NR-04 Instructions 后续（实施前）：ADR pass 为 `55-shared-system-context-assembler.md`、`57-canonical-conversation-history-projector.md`、`129-native-rust-cli-and-ratatui.md`、`130-bounded-cli-memory-and-transcript.md`、`131-native-cli-contract-storage-and-recovery.md`；B 级迁移既有 Source / Host Interface，边界不动。扩展同一 project.instructions 到 typed Host 配置、显式全局开关与显式 targetPaths 的有界发现；实际 TUI 默认不自动打开 global，原生遵守这一点。当前原生 exec 先准入只包含已迁移 prompt 设置的 settings.json，缺省语言和 branch prefix 对照现有 TUI；其它键仍在请求前阻断，损坏 / 新 schema / 非普通文件 / 读取变化保全并明确失败，不借读取重写设置或迁移项目身份。全局 / scoped Source 能力以实际差分测试单列，不把未装配的生产开关或显式目标输入算 Host 已完成。验收覆盖同根真实公开请求、configured guidance 不可授权、未知设置仍阻断、坏设置修正后同一待准入任务可继续，以及全局 / scope 发现次序、去重、越界、Unicode、总预算与取消前置。
+
+NR-04 CI / usage 跟进：`10c86bd7` 的 Linux 全仓 Test 与自动隔离重试均在旧 fixed-result CLI 复合用例超过 Bun 1.2.17 的单测试 5 秒缺省时限；macOS Test success、后续 smoke cancelled，原轮不记全绿。`ea7e8e4d` 将独立命令拆为 12 项自有夹具测试，保留原断言与每项时限，并新增同一引用清理前后身份断言。相同 CI Bun 版本本机 12 pass / 33 assertions；受控每次启动延迟 400ms 的替代复现中，原复合测试 5042ms 超时并终止一个自有子进程，拆分后全文件 8.06 秒 / 单项最长 1530ms 通过。该实验解释累计预算，不声称复现 Linux 调度现场。原生 `e6ae5561` 同时修正部分 usage 缺维度被当已知零的问题：真实工具请求后再有完整 usage，原 unknownUsage 仍保留。完整 scoped 为 186 Rust / 302 Store / 82 TS 冷读（25 根）/ 157 Node focused / 17 公开入口 / 8 PTY。历史部分原始 usage 未保存，不能从聚合预算重建缺失量；未改个人数据、重放请求或编造历史值。完整 request/turn/lifetime ledger 仍待完成。详见 [CI 与 usage 跟进证据](native-cli/evidence/p4-ci-and-usage-followup-20261115.json)。
+
+NR-04 Instructions 后续回执：`f6949bae` 固定了配置指导、显式 global / scoped Source 发现与原生 Host 的 prompt 设置子集。实际 TUI Host + TS Source 对同一自有文件的 28 项跨进程对照，包括真实绝对路径参与的 checksum；缺省值、九种回复语言、截断、路径/去重、显式目标和全局与 workspace 同路径均通过。公开 exec 的配置指导不能批准写入；未知设置、坏编码/JSON、错误类型与新 schema 保留原文件并阻断，修正后同一 ready task 继续；设置 FIFO 及时失败。全局仍默认关闭，尚未新增生产 global/target-path 开关，不把 Source seam 测试算全部 Host 发现已完成。完整 scoped：190 Rust / 302 Store / 91 TS 冷读（28 根）/ 157 Node focused / 19 公开入口 / 28 Source 跨进程 / 8 PTY，fmt/clippy/release/boundary/architecture 通过。详见 [Instructions 发现证据](native-cli/evidence/p4-instruction-discovery-20261115.json)。完整 Context catalog、计数压缩、durable usage 与外部协议继续属于 P4 总闸，P5 未开始。
+
+NR-04 远端总仓复核：`e6ae5561` 的 [CI 43622520379](https://github.com/ly-ccx/Peer-Agent/actions/runs/43622520379) Linux job 132531262083 与 macOS job 132531262439 全部 success，含 Native、全仓 build/type/architecture/Test 与各自 Bot Electron smoke。实际 CI merge `2549e2a0` 的 tree 与 e6 完全相同；macOS annotation 仅为 arm64 runner capacity notice，无失败。Source 新候选 `f6949bae` 已推送，独立 [CI 43624988490](https://github.com/ly-ccx/Peer-Agent/actions/runs/43624988490) 尚在运行，不能继承 e6 的全绿。原 Gemini 旧断言失败与 compound-test 超时均保留；本轮通过不抹除原失败。
+
+NR-04 usage scope（实施前）：复核 Accepted `56-provider-observed-context-accounting.md` Phase 5、`37-provider-channel-and-wire-protocol-separation.md`、`129-native-rust-cli-and-ratatui.md`、`131-native-cli-contract-storage-and-recovery.md`，B 级迁移既有 RuntimeUsageAccounting / tagged UsageAmounts；不移动权限、Evidence、Context authority 或存储边界。原生 Module 对每次实际请求（含 null usage）计数，按 disjoint 维度累计回合，最后 capacity-bearing 单请求独立覆盖，summary 计费但不替代 context observation。公开 exec 成功/轮数耗尽回执使用现有 runtime_turn/provider_request 类型；不把回合总数除以上下文窗口，不将该 JSON 回执冒充 durable usage 或错误回合已恢复。当前 Work budget 的持久计数 / unknown 保持原路径；完整 ledger、异常终态持久化、count/compaction 后续另验。
+
+NR-04 usage scope 回执：`83a0733f` 的 typed ProviderRequestUsage / RuntimeTurnUsage 与原生 RuntimeUsageAccounting 接入公开 exec。实际两次 read_file、三次模型请求，最后一请求 59 与回合 144 分别带 provider_request / runtime_turn tag；后续独立任务从 1 次 / 16 重新开始。部分 usage 后的已知 16 只是已知量，Work budget unknownUsage 仍 true；max_turns 回执保留单请求与真实配对结果。7 份实际 TS 序列 / 17 次观察覆盖 null/zero、cache、原 raw total 不可信、auxiliary summary；summary 仅为 Module seam 测试，原生 compactor 尚未接通。溢出拒绝不改既有累计。复核修正了 lease-loss `.await?` / budget 提前返回跳过观察的路径，并在固定候选重新跑完整 scoped：194 Rust / 302 Store / 97 TS 冷读（30 根）/ 157 Node / 21 公开入口 / 28 Source 跨进程 / 8 PTY，fmt/clippy/release/boundary/architecture 通过。lease-loss 计数分支为静态追踪修正，不声称专门复现竞态；前后 patch、候选和范围见 [usage scope 证据](native-cli/evidence/p4-usage-scopes-20261115.json)。当前 JSON 回执不等于 durable ledger、异常用量已恢复或 Context 占用权威；完整 P4 总闸与 P5 仍待完成。
+
+NR-04 Source 全仓复核：`f6949bae` 的 CI 43624988490，Linux 132538724196 与 macOS 132538724407 全部 success，含完整 Native / build / type / architecture / Test / Electron smoke。CI merge `20e5bc13` 的 tree 与 f694 一致。随后才推送已完成本地 scoped 验证的 usage 候选 83a0733f；新 CI 必须独立核对，不继承此全绿。
+
+usage 候选 `83a0733f` 已推送，独立 [CI 43627852431](https://github.com/ly-ccx/Peer-Agent/actions/runs/43627852431)（Linux 132547656519 / macOS 132547656837）正在执行。本地二进制 SHA256 `4c4a0869ba8194a836ea1217fabab363e1ece130632887752cdc8965ad88bee4`；新 CI 尚未记为通过。P4 总闸仍缺完整 Source catalog/Host discovery、count/compaction/rebuild/recount、durable request/turn/lifetime、OAuth/Qoder、MCP/Skill/Plugin/Hook、headless/ACP/命令；P5 未开始。
+
+2026-11-15 继续前置 CI：83a0733f 的 Linux 全仓 success；macOS Native/build/type/architecture/Test success，最后 Bot smoke 在 accessibility checkSettings 的开关恢复等待超时。保留原失败 job 132547656837、merge 5885ba1d（tree 与83一致）、714451568-byte artifact 14127503675。完整首个 trace entry 已从自有诊断下载前缀解出：call@20911 before=true、input=false、after=true，后端 false→true 后该次操作再次保存 true，表明操作时展示发生了陈旧回滚；不把它直接称 flake。原源码/断言的单 job 重跑仅用于确认候选，不能证明此生产竞态已修复。
+
+前置修复卡（实施前）：复核 `85-project-agent-hosts-inputs-and-surfaces.md`、`129-native-rust-cli-and-ratatui.md`、`131-native-cli-contract-storage-and-recovery.md` 与当前交互/transition标准，B/C级档案只读投影修复，权限/存储/策略边界不移动。允许 Bot details pending reader 失效、catalog read-vs-commit fence、实际调用者装配、确定性迟到读取测试和原 Electron smoke；不改原开关时限/断言，不自动翻转已保存策略。先保存83原实现的复现失败，再验证本地保存回执不能被早发读取覆盖；旧错误保存只呈现当前真值与既有显式修改入口，不推断历史用户意图。
+
+前置修复候选 `6406f7af`：pending details 在真实保存回执后失效并有界重读，catalog 保留读取等待期间发布的 profile。83 原实现的三项迟到读取复现失败已保留，修复后 25 聚焦 / 9 邻接测试与 Desktop type/build 通过。隔离原 Electron smoke 的八种开关主题与原失败的设置恢复均通过；随后因调用方未创建附件输出目录而失败，源诊断 JSON 已验证，补齐目录后原命令重跑中。不称全 smoke 或新 CI 已通过。详见[原始 CI 与修复回执](native-cli/evidence/p4-ci-profile-recovery-20261115.json)。
+
+`6406f7af` 固定 clean source 的原完整 Electron smoke 第二次通过，所有原断言/时限保留：accessibility、diagnostics、streaming、effort-stability、work-surfaces，200 Bot 诊断无错误/私人字段，8 种开关主题通过，owned process 正常退出。第一次附件目录失败仍保留；此源码自测不替代83远端重跑或6406新 CI。
+
+前置 CI 已确认：83a0733f 的 run43627852431 重跑 Linux132676885967 / macOS132676884582 全仓 success，原断言与源码树不变，merge5885ba1d tree1a38894b与83完全一致。随后推送已完成原完整 Electron smoke 的6406修复候选，并按 ADR25/56/129–131 开始 durable ledger 卡。ADR131 的2026-11-15 NR-04补充及map先于代码登记；A 级只收紧 Store 双文件失败恢复，不移动权限/Evidence/Context或Goal签收边界。
+
+NR-04 durable Store 候选 `be497066` 已推送：ADR131 的 A级双文件提交恢复先登记，Rust/Node共享同一 v1意图与锁，真正流式扫描、按原始行补缺失后缀，不截断未知。固定 clean source 的完整 scoped通过：194 Rust / 28 新账本跨进程 / 原302 Store / 97 TS冷读（30根）/ 21公开入口 / 11新Store聚焦 / 8PTY；Store全包145、Desktop用量62、type/build、881 packaged imports与architecture通过。28场景包括双端互相恢复、硬退出与受控孤锁维护、未知保全、并发同id与后续回合。保留重复计费原缺陷和实施中的断言失败，未改旧幂等断言。详见[账本Store回执](native-cli/evidence/p4-durable-ledger-store-20261115.json)。这还不是原生exec持久计费闭环：下一B级卡按同一ADR接成功/错误终态、准入预检、native recover及heartbeat；完整计数/压缩与外部协议仍缺，P4总闸未过，P5未开始。
+
+Host账本卡的实际缺陷基线：完整空回复携带已归一化供应商usage时，现原生ModelError仅有静态码，公开exec错误终态无billing行。新增真实HTTP/公开入口断言失败（不是用编造Tool Result补账）。按 ADR25/37/56/129/131 继续B级Provider error seam：错误可携带有限的已观察UsageAmounts与本次不可变request fingerprint；不携带秘密/原始HTTP正文，不把失败变成成功或可执行调用。终态先停止/排空，再结算已知用量；Store故障仍保留意图，原recover不重放模型/工具。该补充不移动既有权限、Evidence、Context准入、存储格式或Goal验收边界。
+
+NR-04 Host终态账本候选 `9fb1b4ff` 已推送：成功/max_turns/已知错误/取消在真实停稳尝试之后、终态呈现之前落盘；Native recover 修复原提交不重放模型/工具。ModelError保留有限归一化用量及实际send字节指纹，空回复/截断流仍失败，接管时的未完成工具意图未执行而已知用量保留。完整scoped通过：202 Rust / 28公开CLI / 28 Node与28 Bun账本跨进程 / 原302 Store / 127 TS冷读(40根) / 8PTY；fmt/clippy/contracts/release/boundary/architecture通过。实测受控6秒I/O挂起期间5.007秒续约、6.051秒退出；旧断言混合启动与清理导致的失败及分段修正保留，不称flake。详见[Host账本回执](native-cli/evidence/p4-durable-ledger-host-20261115.json)。be497066的CI43673952633两平台全仓success，merge65ad4dbb tree与候选一致。9fb新CI独立核对。终态前硬退出的原始用量仍可能缺失，聚合预算与unknown保留；完整P4未总闸，P5未开始。
+
+下一A卡先登记 ADR131 NR-04 canonical预算观察快照与map，限work_session、billing-only。模型观察先随原Work预算落盘，Loop终止后移入原budget的pending，真实Store回执后CAS清除；stop/unknown/许可不由该快照决定。以解决新执行在工具效果后硬退出时原始用量丢失，不追写旧无分量记录；随后继续count/compaction等P4余项。
+
+NR-04 canonical 用量恢复候选 `0ffdec08`：ADR131 的 A 级预算快照补充与 map 先登记，knowledge `fe555e4` 先于源码交付。真实观察与预算同事务先于工具执行；循环结束后保留 OS recorder 至真实停稳，闭合快照按原账本 id 核对后 CAS 清除。文件效果后硬退出仍一次入账16，原工具 unknown 不变。未来快照先停稳再阻断、原始事实保留；65条按64/1分批核对、重复 recover 无重复账目、随后新任务可准入。逐条确认导致的246.07秒失败和首轮完整验证的 HTTP fixture 存活期耗尽均保留；同Work合并CAS后单项8.32秒，后续任务在恢复后启动独立有界HTTP fixture。补齐连续短操作跨越持久 heartbeat deadline 的续约测试。最终固定候选完整scoped：208 Rust / 32公开CLI / 47原生根254 TS往返（实际saveWork及Rust重读）/ Node28+Bun28账本 / 原302Store / 8PTY，fmt/clippy/contracts/release/boundary/architecture及protocol build/type通过；release无故障注入口。详见[canonical恢复证据](native-cli/evidence/p4-canonical-usage-recovery-20261115.json)。9fb1b4ff的CI43678064980 Linux132702469993/macOS132702470142全仓success，merge50ebfd41 tree与候选一致。0ff新CI独立核对。
+
+下一计数卡（实施前）：复核 ADR37/55/56/57/129/130/131，B 级迁移同一 provider encoder/count seam，权限、Evidence、Context ordering 与持久化边界不动。先冻结不可变 Prepared Request，计数从同一编码对象派生，send 使用原字节和指纹；Anthropic去掉stream/max_tokens，Gemini以generateContentRequest计数，OpenAI维持observed-only。计数失败明确降级，不阻断健康的generation；取消/超时/错误必须有界，不把计数当模型计费、工具或许可。按当前官方 count_tokens / countTokens 文档核对路径与载荷，再做实际HTTP及TS交叉测试。此卡不代替compaction/rebuild/recount与Host完整接线验收；P4总闸未过，P5未开始。
+
+NR-04 不可变计数 Module 候选 `c136ced`：count从同一原生encoder结果派生，send消耗原始字节，PreparedRequest按借用绑定原NativeModel。Anthropic/Gemini计数载荷与30份实际TS Adapter输出一致，真实HTTP验证调用方准备后修改输入不影响count/send、坏计数仍可发送、timeout/cancel关闭socket、OpenAI/OAuth不探测不适用端点。完整scoped为213 Rust / 32公开CLI / 47根254 TS/Rust往返 / Node28+Bun28账本 / 原302Store / 8PTY，fmt/clippy/contracts/release/boundary/architecture通过。保留timeout误分类、阻塞join使Tokio reactor无法处理关闭和clippy类型复杂度的失败，未放松socket断言；详见[计数Module证据](native-cli/evidence/p4-native-count-prepared-20261115.json)。本卡没有把Module测试冒充公开CLI count/compact/rebuild/recount闭环：Host尚未调用计数，计数漂移、压缩、容量快照持久化及外部协议仍属P4余项。0ffdec08的独立CI43682734166仍进行中；新候选CI不继承旧结果。
+
+下一容量卡（实施前）：依 ADR37/55/56/57/129–131 继续 B 级迁移现有 ContextAccountingSnapshot 的权威选择、同请求计数验证与明确降级；不把 runtime_turn/lifetime 充作占用，不改变许可/Evidence或持久化边界。先以实际TS pipeline冻结provider_count_api/observed-only、缺失用量、同指纹漂移、epoch失效和pending行为，再接Native Host。Source尚未接通的容量恢复/压缩/overflow重试继续明确未验收，不用一个占用数字宣告完整P4。
+
+NR-04 容量Host候选 `daa4c478`：公开exec已调用同一不可变请求的count，保留原Host ownership/heartbeat与终态停稳；采用既有ContextAccountingSnapshot分别呈现单请求容量、pending与降级。实际Anthropic/Gemini各两次模型请求、一次真实read_file：count12与observed20的漂移或count404均使后续counter停用，generation继续；账单46不进入容量20，显式窗口1000呈现2%。OpenAI三请求账单144、最后请求59、容量50+cache5=55；窗口未知时percent为null，后续新任务容量12。原误写56的断言失败及夹具 .tmpF2McVy 保留，修正算术后原账单断言不变。context revision用已有index-only seam跟进实际提交，超安全范围拒绝，不再clamp身份。10组实际TS pipeline序列冻结authority/pending/drift/epoch/recount等kernel语义；不把epoch单测冒充真实压缩。最终冻结源码scoped为216 Rust / 33公开CLI / 51根274 TS/Rust往返 / 30计数Adapter向量 / Node28+Bun28账本 / 原302Store / 8PTY；fmt/clippy/contracts/release/boundary/architecture通过。见[容量Host证据](native-cli/evidence/p4-native-capacity-host-20261115.json)。c136的CI43683648966在两端Electron smoke期间被新推送取消，之前build/native/type/architecture/Test成功、无失败步骤，不记全仓success。新候选独立CI待核对。Context容量持久化/恢复、压缩落盘/重建重计数/overflow、完整Context catalog与外部协议尚未总闸，P5未开始。
+
+2026-11-15: daa4c478 CI43685522973 passed Linux132725178298/macOS132725178077 in full. Merge e806eddd and candidate share tree f90c761c. ADR131/57 historySelection/projector3 decision precedes implementation; warm1/cold4 baseline retained outside the repo.

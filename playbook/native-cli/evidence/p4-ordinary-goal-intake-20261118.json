@@ -1,0 +1,45 @@
+{
+  "predecessor": "80b9807b068568c962c0e6b0d7cb6d4cbbb4e6b9",
+  "candidateTree": "b6f58fef800084ef5f0d9c1fd71b66898d102afa",
+  "patchSha256": "f6360605093883514f46feba579fa782982a729a012755628f17e8c104387988",
+  "sourceTarSha256": "e95d47a6e355827241b50e4d2af31b39ad738b259d7a630ddaded8eea31cf5dd",
+  "contract": "ADR 131, NR-04 ordinary explicit Goal admission, read with ADRs 35, 41, 55, 65, 116 and 129–130.",
+  "baseline": {
+    "surface": "Actual old Bun CLI and extracted featureless native arm64 CLI, same explicit goal mode, full access, loopback model emits write_file with no persisted plan.",
+    "legacyPeerSha256": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+    "nativePeerSha256": "8bd855428e3362dd5b43a9e3e70bdf1d8f4c0c933bd6bd4cbe86d76d869eaa6b",
+    "legacy": { "modelRequests": 2, "toolStatus": "failed", "workspaceEffect": false },
+    "native": { "modelRequests": 2, "toolStatus": "success", "workspaceEffect": true },
+    "publicRegressionTestsAgainstPriorNativePackage": { "failed": 3, "exit": 101 }
+  },
+  "verified": {
+    "macArm64": { "publicEntryTests": 6, "goalFactsInteropVectorsPassed": true, "fmt": true, "strictClippy": true, "boundaries": true, "architecture": true },
+    "linuxAmd64": { "publicEntryTests": 6, "goalFactsInteropVectorsPassed": true },
+    "admission": [
+      "No plan: write_file, bash and its matching PreToolUse Hook are not dispatched; an actual read succeeds, with original denied Grant, Tool Result and Evidence preserved.",
+      "Canonical plan bound to the same conversation and actual workspace permits a Full-authorized write. Other conversation, other workspace, awaiting approval, rejected, runner-paused and delegated records cannot grant admission.",
+      "A real PTY denial stops a write even with an accepted plan. A real PTY approval after the accepted plan pauses still yields a denied Tool Grant and no workspace effect. Both user decisions are preserved in ApprovalStore."
+    ],
+    "packagedMacArm64": {
+      "version": "peer 0.1.0-rc.40",
+      "pathContainsNodeOrBun": false,
+      "publicEntryTests": 5,
+      "archiveSha256": "5ac97df8266473dbe040af4b7eb3e562a0f304a6340234f9b9a015bf7b7e43c2",
+      "peerSha256": "9cbf0fba8d1c33ecd603a349e000e5c54f90c57ea2a507c12da3480f66ebf6d8"
+    }
+  },
+  "combinedCompactionSettingsAndIntake": {
+    "tree": "40893514d1311cc6f2c299525a282eeb6cbc3afb",
+    "macArm64PublicEntryTests": 9,
+    "logSha256": "4631b5002ac550c7521974bc5ace2385b1ef2a2f7710c87f734a924494bd19a2"
+  },
+  "logs": {
+    "public-goal-intake-probe.py": "01ace0ff6620fad85c3bf0ad746abd5f061e97e7c1c42651508571928c13bde9",
+    "public-goal-intake-probe.log": "c04fe29cc0ba9d23e1891086b301038565c413fdd8daad7e33a2efcc2990a4b0",
+    "goal-intake-mac-red.log": "60681ee99ca0cded745ac552c40bd0ab70e189aaf35eda0e6378d09ebaa0f996",
+    "goal-intake-mac-b6f58fef.log": "be3fcba1bd6b15343cefd267cbb15df07fee4fe89573a37621cf31ef57d9ac08",
+    "goal-intake-linux-b6f58fef.log": "34354a7f52f7e5b8cd8ab81ed000f1e5ead1d88835ecfd096545f5dfc462a8e3",
+    "goal-intake-package-b6f58fef.log": "0aa3a9d4a022f4ca608eea68bc0df6558ecd31f8d8314d74a077f11f90ab5afc"
+  },
+  "limits": "Isolated source and fixture data. The candidate restores effect admission for existing canonical plans. The public Goal create, update, query and Explorer execution paths, existing installed-host stop, production model and full P4 acceptance remain open."
+}

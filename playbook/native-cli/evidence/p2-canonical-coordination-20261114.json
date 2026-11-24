@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-14",
+  "source": "82ce5819666698b530aa7e9fdd4476dbd004fb4a",
+  "status": "scoped verification passed; P2 incomplete; P3 production execution closed",
+  "scope": "Existing canonical coordination journal initialize/read/prepare/append/head recovery plus work/event/delivery and existing Session Control reducer seam",
+  "checks": {
+    "rustTests": 109,
+    "nativeRustTests": 97,
+    "existingHelperTests": 12,
+    "crossProcessCases": 210,
+    "canonicalCoordinationCrossProcessCases": 55,
+    "legacyFocusedTests": 128,
+    "runtimeGolden": 51,
+    "controlTransitions": 29,
+    "controlDigests": 7,
+    "workEventDeliveryTransitions": 29,
+    "ptyCases": 8,
+    "helper": "real isolated executable ping, no secrets",
+    "fmtClippyReleaseBoundary": "passed",
+    "architecture": "passed"
+  },
+  "logs": {
+    "full": "/tmp/peer-native-canonical-final2.log",
+    "architecture": "/tmp/peer-native-canonical-architecture.log"
+  },
+  "cliBinarySha256": "16af0a5002801bbccf1404ff03f285e7b0d5fcd69081ed9d5bad86f8f912faad",
+  "interoperability": [
+    "TS v1 baseline and v2 payload_ref/control history replay; native physical promotion only after canonical replay.",
+    "Native-created empty/legacy v2 stores load in the actual TS backend and accept later work.",
+    "Native append, 70 KiB blob publication, semantic writer-floor increase, TS SQL cache catch-up and later writes.",
+    "Append-before-head interruption, blocked later append, exact source-bound head checkpoint and later work.",
+    "process::exit(77) leaves original lease; explicit fixture stale takeover does not prove a tool stopped.",
+    "Bad hash/head/seal/baseline/blob/schema/partial tail, in-read cancellation/source change/lease loss, orphan initialization facts and unported canonical semantics fail closed."
+  ],
+  "limits": {
+    "sourceBytesIncludingBlobsPerRead": 67108864,
+    "recordsPerRead": 4096,
+    "sourceChunkBytes": 16384,
+    "envelopeBytes": 65536,
+    "legacyRecordOrBlobBytes": 1048576,
+    "stateJavascriptEncodingBytes": 1048576,
+    "unknownKernels": "coordination decision/intent/agent supervision/obligation/history repair semantics remain unsupported and block the entire read/append rather than yielding an empty state.",
+    "execution": "No model or tool executor connected; no stop receipt or permission is proved by journal/head recovery.",
+    "remainingP2": "Canonical Goal facts and remaining kernels; current Host authorization, actual handle/stop/unknown reconciliation and production admission assembly."
+  },
+  "failedAttempts": [
+    {
+      "log": "/tmp/peer-native-canonical-build.log",
+      "finding": "Missing Store test-fixtures feature prevented append_fixture build; old probe was initially invoked after build failure. These outputs do not validate append. Later commands use set -e and both explicit fixture features."
+    },
+    {
+      "log": "/tmp/peer-native-canonical-append2.log",
+      "finding": "70 KiB blob fixture exceeded its own 64 KiB request cap; fixture now uses bounded 1 MiB decoding matching the existing native record budget. Production budgets were not relaxed."
+    },
+    {
+      "log": "/tmp/peer-native-coordination-append-clippy.log",
+      "finding": "Unnecessary Ok/question-mark lint corrected; full final clippy -D warnings passed."
+    }
+  ],
+  "ci": {
+    "latest": {
+      "source": "82ce5819666698b530aa7e9fdd4476dbd004fb4a",
+      "run": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43578026254",
+      "linuxNativeScopedValidation": "success",
+      "macosNativeScopedValidation": "success",
+      "fullJobs": "in progress at last inspection; no failed steps observed"
+    },
+    "previousSource": "7af3ab505cb6efbc7bf8ac2ede45d47da3c244a3",
+    "previousLinux": "all job steps success",
+    "previousMacos": "native/build/type/architecture/test/smoke success; report/post steps in progress at last observed snapshot"
+  },
+  "acceptanceLimits": [
+    "Implementer self-review, not independent review.",
+    "No real model, native tool Host loop, installed-build, full platform product acceptance or long soak.",
+    "No personal data, running process, credentials, default entry or release changed.",
+    "Earlier reader RSS probes retain their actual older candidate identity."
+  ]
+}

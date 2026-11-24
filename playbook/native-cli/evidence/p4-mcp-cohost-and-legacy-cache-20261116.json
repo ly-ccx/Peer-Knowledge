@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 current TS MCP token-send ownership and explicit pending recovery, bidirectional current TS/native fencing, native legacy SDK issuer-cache compatibility and actual token scope continuity. Not installed-version drain or complete P4.",
+  "candidate": {
+    "base": "321d0ccb1ae530ea99b866d1edf4b9240c3501b8",
+    "tree": "ed6c2ee0a33954951eaffcb4608a4e0b20e51a1a",
+    "commit": "dc70fc3c85f046ef6f96759d7cb41fe97a873ebe",
+    "pushed": true
+  },
+  "decisionPass": {
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "31-mcp-connection-management.md",
+      "32-mcp-authentication.md",
+      "45-mcp-oauth-config-ux-simplification.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "classification": "A, governed before source by knowledge cf9540e. Shared owned token exchange, explicit authorize-purpose pending recovery and SDK fetch/commit receipt. No new tool permission, Evidence or Context injection seam.",
+    "review": "Implementer self-review, not independent."
+  },
+  "baselineCi": {
+    "commit": "321d0ccb1ae530ea99b866d1edf4b9240c3501b8",
+    "runId": 43885810034,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43885810034",
+    "macosJob": 133363511130,
+    "linuxJob": 133363511412,
+    "conclusion": "success",
+    "wholeRepositorySuccess": true,
+    "mergeCommit": "58a46f6aab056283ae0aa295162609a32696bfce",
+    "mergeTree": "61dd24c49862aa5608ce8749d17f47b4ae73ce09",
+    "matchesSourceTree": true
+  },
+  "baseline": {
+    "result": "Actual official SDK startMcpOAuth with production Desktop Store sent two refresh requests before the second save CAS rejected. Regression expected outgoing second request to be blocked.",
+    "ownedRootName": "peer-mcp-oauth-owner-p3qQpg",
+    "log": {
+      "path": "/tmp/peer-mcp-ts-ownership-baseline-preserved-20261116.log",
+      "sha256": "1e88d6cbe45dbfa94c87bfd5c3da89f201c60a2be3367fbe355f0bde8c2de056"
+    },
+    "syntheticHttpTraceSha256": "f4a8d192d3b7e5b2c8bc64119930762f2fa6e242e0653f8ceb4333d77b61a01e"
+  },
+  "validation": {
+    "status": "scoped verification passed; final-source remote CI queued",
+    "nativeMcpOAuth": {
+      "passed": 27,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/mcp-focused-final.log",
+        "sha256": "88dd18164777705410389257f391e66db2bbe0e5679b6178772fac8296980f5c"
+      }
+    },
+    "build": {
+      "exitCode": 0,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/build.log",
+        "sha256": "2872d916fb5627013108697a323f1ec2ffa102a00b5f4931d4534fb95ce83dd7"
+      }
+    },
+    "wholeRepositoryJavaScript": {
+      "exitCode": 0,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/test.log",
+        "sha256": "7f17b41a9975b436c6cfd778cb9f37ba55a816991b9412bbff132213614df686"
+      },
+      "scopeNote": "Broad run completed before final local expiry/deadline/scope validation refinement; final refinement is covered by the 50 focused tests, fresh runtime build, final type/architecture checks and final native gate. Not claimed an exact final-tree full release campaign."
+    },
+    "unchangedModelTestsIsolated": {
+      "rotation": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/model-rotation-isolated.log",
+        "sha256": "d9140fc652d4c008e8758bdf71a072f9648544d6713b074f5988850f844516f2"
+      },
+      "commitWait": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/model-commit-wait-isolated.log",
+        "sha256": "87753812e8a7a26d975d5f290471b0ae0fed36abdf7e802fca33d88a846e7240"
+      },
+      "passed": 2
+    },
+    "nativeScoped": {
+      "tree": "ae80ace40460223e18aa785b981888d2d93b57bf",
+      "startedAt": 1794843048.984205,
+      "durationSeconds": 403.595,
+      "exitCode": 0,
+      "bunVersion": "1.2.17",
+      "bytes": 16431344,
+      "sha256": "31eeb1be8199be95580b4bc520b57db37d46642580bd1c39bf1090a5f9560ab0",
+      "rustTests": 373,
+      "nativeEpisodes": 138,
+      "logSha256": "fa00ad272fbc983dfc28af1f7de2e4ddc5cb1b2ac10c7110744bdb86e25f2e0a",
+      "actualTsInteropRoots": 261,
+      "actualTsInteropChecks": 1528,
+      "ptyChecks": 9,
+      "featureless": true,
+      "extraOAuthHostPassed": 27,
+      "extraHostLog": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/release-host.log",
+        "sha256": "c743a8cc015a4f5e274d5e398b3d4d62f1232dd466056919e6b3126a46d0c539"
+      },
+      "nativeGateTree": "ae80ace40460223e18aa785b981888d2d93b57bf",
+      "finalTree": "ed6c2ee0a33954951eaffcb4608a4e0b20e51a1a",
+      "postGateSource": {
+        "nativeGateTree": "ae80ace40460223e18aa785b981888d2d93b57bf",
+        "finalTree": "ed6c2ee0a33954951eaffcb4608a4e0b20e51a1a",
+        "postGateFiles": {
+          "apps/desktop/electron/main/mcp-oauth-ownership.test.mjs": "783dd57e8e0887c74e808dada4870930fd3ffbe4ad5023b84da7628f66c3dc26",
+          "packages/runtime-node/src/local-mcp-provider.mjs": "50d68fc350943644a060fa15d8673441e6ce7c0290994e540dcaf40aef37d70b",
+          "packages/runtime-node/src/mcp-oauth-io.mjs": "59825f0eec756c8ee7282f37af8558aaf117551a37a683a2027c1f4aa77f1f41"
+        },
+        "note": "Only TS guarded-error projection and regression test changed after the frozen native gate; Rust and the featureless release are unchanged. Covered by 67 focused tests, fresh runtime build/type/architecture and extra exact-release OAuth Host tests."
+      },
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/verify.log",
+        "sha256": "fa00ad272fbc983dfc28af1f7de2e4ddc5cb1b2ac10c7110744bdb86e25f2e0a"
+      }
+    },
+    "finalProviderProjection": {
+      "passed": 67,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/provider-focused.log",
+        "sha256": "88acd85cd5767e1777b8fc5aaf36830d42dff85bcb6146016488cb349ad8f27e"
+      },
+      "runtimeBuild": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/provider-build.log",
+        "sha256": "985575a5348499efd073aa396dd5c70a7d1badef9c0db9cd70d253feb79d017c"
+      },
+      "scope": "Includes original 50 OAuth/Store/SDK checks plus actual Provider -> canonical Work budget unknown hold, MCP integration and budget recovery cases. No Rust source changed after the frozen native gate."
+    },
+    "finalTypecheck": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/typecheck-final.log",
+        "sha256": "26d39ca4bcc11add7252ef29a5a635edc91070e5bcda17622fe50d0fadcf0c4a"
+      }
+    },
+    "finalArchitecture": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/architecture-final.log",
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "packagedImports": {
+      "passed": 890,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/packaged-imports.log",
+        "sha256": "5a338c61bb7d45cd2d8e8ada3f0c5de84b8893f01e1e60183c0536d4eab1c5c0"
+      }
+    },
+    "preProjectionSdkAndStore": {
+      "passed": 50,
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/oauth-final.log",
+        "sha256": "d108f22ec262a7b213a8f6b95171b4aa80e076dc8b9568638614cc1410763be6"
+      }
+    }
+  },
+  "verifiedBehavior": [
+    "Actual SDK cached second sender is rejected before remote HTTP; one token POST and immutable intent/final slots, no SDK save generation or expiry reset.",
+    "Official SDK Streamable HTTP and legacy SSE tools/call 401/403/307 return unknown and are not retried; expired credentials are prepared before actual tool dispatch.",
+    "Rejected, redirected, malformed, oversized, deep or scope-expanded token responses retain pending; no invalidation, registration, browser fallback or token replay. Helper failure before intent sends nothing; failure after HTTP preserves pending; foreign metadata is not overwritten.",
+    "Typed owned HTTP uncertainty survives the actual current TS Provider as terminal execution_outcome_unknown and result.error; real canonical budget checkpoint retains the original pending call, finish preserves uncertainty, and the same executor cannot request a model again. Remote text cannot manufacture this owned guard-error identity.",
+    "Abort and actual transport close cancel/join token HTTP and release only the owned lock. Explicit management reauthorization preserves pending across discovery/PKCE, exchanges one new code and clears pending only on successful final publication; reused code has no saved verifier and cannot send again.",
+    "Current TS SDK and native public CLI compete through the real encrypted fixture Vault in both orders: cached TS rejects after native publication; native rejects with STORE_LOCK_BUSY while TS owns refresh. Exactly one token POST, followed by native Grant/ToolResult/Evidence.",
+    "Native fresh discovery verifies every supplied native/config/legacy-cache issuer candidate; invalid/conflicting pins fail before network. Cached token endpoint is not trusted for native dispatch. Actual token.scope overrides requested config scopes; omitted response scope is retained, config preferences and unknown cache fields survive Desktop cold read.",
+    "Explicit refresh cannot accept response scopes as proof of an unknown previous grant; pending remains, repeat refresh is rejected. Synthetic normal-refresh fixtures now explicitly carry the known original mcp.read grant instead of an unrecorded grant."
+  ],
+  "preservedFailures": [
+    {
+      "log": {
+        "path": "/tmp/peer-mcp-ts-ownership-focused-20261116.log",
+        "sha256": "9ec56d0e2b9d72dd1cc39ef9ed3e2c96e340043c45b6ee815f29fd0b7675889c"
+      },
+      "cause": "New HTTP fixture treated JSON-RPC id 0 as a notification, timing out initialize. Fixed exact undefined-id check, preserving SDK and no-replay assertions."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-legacy-oauth-focused-20261116.log",
+        "sha256": "d1c18d3d31e09596801c19de3fd5d0deb1a3be6e9b502410484eec22677f0591"
+      },
+      "ownedRootName": ".tmpgdjmU9",
+      "cause": "New legacy test seeded encrypted Vault but selected the plain test helper for execution, reporting mcp_credential_missing. Correct helper explicitly selected; original success/Grant assertions retained."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-ts-cohost-20261116.log",
+        "sha256": "f86de8c1838ad63c8b3c33ee12295a1bd4d4c79226392a9e6b13343b420cdaa6"
+      },
+      "ownedRootName": ".tmpLQitrT",
+      "cause": "New cohost test assumed mcp_credential_lock_busy; actual native canonical Store error is STORE_LOCK_BUSY. Final test checks actual code and still requires no second request."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-20261116/verify.log",
+        "sha256": "0b80db9dba68865a8d21dfd10e14fb61a3f9c165a925d8ee5244debd4a4ea4e9"
+      },
+      "result": "130 native episodes passed, 7 failed. Five original explicit-refresh fixtures omitted actual scope, violating new strict continuation; fixtures now record their actual known grant and a new unknown-grant rejection test protects fail-closed behavior. Two unchanged model OAuth cases exceeded the existing 8s settle bound during simultaneous whole-JS/native runs; both exact unchanged cases pass isolated. Final gate separately rerun, no weakened deadline or flake claim.",
+      "ownedRootNames": [
+        ".tmpDilKp4",
+        ".tmp5AhGwM",
+        ".tmpL1xfDf",
+        ".tmpNGa1YO",
+        ".tmppu08yV",
+        ".tmp2bmpmu",
+        ".tmpxhBApF"
+      ]
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-cohost-final-20261116/provider-unknown-baseline.log",
+        "sha256": "cbb98304dfb7f847944327df57d7ab3fae55ef958b1075f9415aaa2fca4f088f"
+      },
+      "nativeGateTree": "ae80ace40460223e18aa785b981888d2d93b57bf",
+      "cause": "Late actual Module-flow audit found SDK uncertainty was only in an error message: current Provider returned an ordinary failed result with no terminal fact. New real Provider/canonical-budget regression failed at terminal==true. Final typed guarded-error projection preserves the existing unknown result/budget contract, passes within the 67-case final focused run; no new grant/Evidence schema or Rust source."
+    }
+  ],
+  "candidateCi": {
+    "runId": 43899256310,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43899256310",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "wholeRepositorySuccess": false,
+    "note": "Linux whole-repository success. First Mac attempt133411104083 cancelled without an acquired hosted runner; terminal job rerun133433836212 passed build/native/type/architecture/Test, then whole-job45m cap cancelled smoke after1219 seconds with no report. No failure is called a flake or accepted as whole-repository green. Evidence and followup60m job-budget candidate5182ad5e are in p4-native-grok-20261117.json.",
+    "linuxJob": 133411103275,
+    "linuxStatus": "completed",
+    "linuxStep": "Electron smoke success",
+    "macosJob": 133433836212,
+    "macosStatus": "completed",
+    "mergeCommit": "e3965514963385232979eede8e22cc071a55e909",
+    "mergeTree": "ed6c2ee0a33954951eaffcb4608a4e0b20e51a1a",
+    "matchesSourceTree": true,
+    "linuxConclusion": "success",
+    "macosConclusion": "cancelled",
+    "macosStep": "Electron smoke exceeded whole-job 45 minute budget"
+  },
+  "limits": [
+    "No proof that already-running or older installed TS senders are drained; source guards cannot retroactively fence old loaded code.",
+    "Synthetic local IdP/model/proxy and encrypted fixture Vault, not real IdP/model/OS Vault or installed/platform acceptance.",
+    "P4 still open: installed-version drain/recovery, remaining providers, full Context/compaction policy, remaining tools/Skill/Plugin/Hook/ACP/headless/commands and total gate. P5 full project-agent not started; P6 general Ratatui chat and long-memory/latency acceptance open; P7 package/install/update/sign/release/default retirement open.",
+    "TS/Bun are development/cohost compatibility references only; the native runtime does not spawn these test peers or a JS engine sidecar.",
+    "No personal-data migration, install, running-instance restart, default switch, merge, release or tag."
+  ]
+}

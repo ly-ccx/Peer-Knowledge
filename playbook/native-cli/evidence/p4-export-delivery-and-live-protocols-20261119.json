@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-19",
+  "migrationPhase": "P4",
+  "export": {
+    "baseline": {
+      "commit": "bd983c544c3230a886f92adf33a9694302aab941",
+      "tree": "9e643147c38464fa1760cd559f1e368ab12e84ad",
+      "ci": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44388313785",
+      "ciFailures": {
+        "macosJob": 135098807067,
+        "linuxJob": 135098807514,
+        "expectedExit": 1,
+        "actualExit": 0,
+        "assertionsPerJob": 2
+      },
+      "localDarwinExtracted": "Stdout delivery and post-rename receipt both exited 0 with no diagnostic. The receipt case retained a complete 2097188-byte copy. Both source hashes remained stable.",
+      "localLinuxAmd64ReproductionSha256": "9123517785ba556d2e006827e103f36032712821d07eb96724a2e00e56cdfe6e"
+    },
+    "repair": {
+      "commit": "ae6dd9a8b7485ec27b5e0e73898a243780d6b0e6",
+      "tree": "b56c0871622063104c2450b59413258fcb7f6b5f",
+      "ci": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44393251775",
+      "ciStatusAtRecording": "in_progress",
+      "darwinArm64": {
+        "sourceShellCases": 10,
+        "sourceExitCases": 2,
+        "extractedShellCases": 10,
+        "extractedExitCases": 2,
+        "strictClippyPassed": true,
+        "binarySha256": "d3d78cc87adabd03148fa01f4ae6dcac9a1ec60008ded986da479212bda8057c",
+        "archiveSha256": "fe3511ebd929c6d1acccd208c1073abf2ed76aca254dcd264b513d5b03d370e5"
+      },
+      "linuxAmd64": {
+        "emulated": true,
+        "replayShellCases": [
+          10,
+          10,
+          10
+        ],
+        "sourceExitCases": 2,
+        "replayLogSha256": "d87e5f98795917a500516d9129d89fc14728ad0d8d899b7b96fab01d09600a28",
+        "extractedShellCases": 10,
+        "extractedExitCases": 2,
+        "binarySha256": "acca10c7b04893e49075aee9d84f7bca249591cb97e906e602411044f52f9154",
+        "archiveSha256": "98ed66c882f9e53e06430b3df0611a1d7a5d76bbc1e95f3010d6e7257b4c1357"
+      },
+      "preservedFailures": [
+        {
+          "cause": "An intermediate regression test readiness poll was interrupted before a status could be asserted. Retry now consumes the original five-second deadline.",
+          "logSha256": "d3d15170b036528d5b3cf690768379047326aebf18cf3ab454ae3516ea91e76f"
+        },
+        {
+          "cause": "A first run of the final Linux session_shell suite had one process-stop timeout. The same compiled binaries passed three consecutive replays. Cause unconfirmed, hosted independent check pending.",
+          "logSha256": "7dfaa1bef02a6ec743498b765e591cf28eae000bf40b92be26d4cc125ac1cbe7"
+        }
+      ],
+      "contract": "Failed stdout export exits 1. Post-rename failed receipt exits 1 with export_publication_unknown and preserves the file. Explicit fresh --force revalidates the destination. The original Store, time bounds and other settled exit outcomes are preserved."
+    }
+  },
+  "liveModel": {
+    "server": {
+      "release": "b12248",
+      "commit": "3837bf0bc02ea5d08f8ee3585fc8c7784a81bce8",
+      "sha256OfUpstreamArchive": "7f643b4d35803ccc69270302f3368d9e8a40f56f74ef5a266e6f686d9dc7d3c6",
+      "source": "https://github.com/ggml-org/llama.cpp/releases/tag/b12248"
+    },
+    "weights": {
+      "format": "Q8_0 GGUF",
+      "commit": "90862c4b9d2787eaed51d12237eafdfe7c5f6077",
+      "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+      "source": "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF"
+    },
+    "directChatCompletions": {
+      "candidate": "bd983c54",
+      "file": "receipt.json",
+      "sha256": "1e1cbb614ddd6f3230cc191eb4ae08712902d0eb6033ca229308f1f5a0b8762a",
+      "observation": {
+        "case": "real model reads unpredictable isolated file via native tool",
+        "nativeBinarySha256": "c86a8d84730f46440b35767d47eeb3838ff7b3a41147337fd75bb01972e1af6b",
+        "httpAuthWithoutTestKey": 401,
+        "modelAlias": "peer-p4-qwen3-1.7b",
+        "transport": "live llama.cpp /v1/chat/completions streaming",
+        "nativeProcessPathEnvironment": "/nonexistent",
+        "modelTurns": 2,
+        "sessionId": "0ae71d89-450a-4243-ae0d-70bab34cb15f",
+        "toolCallId": "call-4c0ddaee-e2d8-47e4-984f-7d62b5c8f831",
+        "evidenceId": "evidence-49f944e5-e645-49c0-aa7a-b5227c499f59",
+        "localGrant": true,
+        "nonceEchoMatched": true,
+        "persistedUsageRows": 1,
+        "providerRequestCount": 2,
+        "durationSeconds": 5.404
+      }
+    },
+    "editorAndMcp": {
+      "candidate": "bd983c54",
+      "file": "protocol-live-receipt.json",
+      "sha256": "d82f921f2e7795555e89e02d76050b5042b6f21e692921babf26ce36a6187b19",
+      "observation": {
+        "nativeBinarySha256": "c86a8d84730f46440b35767d47eeb3838ff7b3a41147337fd75bb01972e1af6b",
+        "model": "peer-p4-qwen3-1.7b",
+        "acpSdk": "1.4.0",
+        "mcpSdk": "1.29.0",
+        "scope": "Live local inference and official ACP and MCP SDK implementations",
+        "cases": [
+          {
+            "transport": "streamable_http",
+            "sessionId": "peer-session-1",
+            "approvedOnce": true,
+            "toolCallId": "call-3aca3350-bfe8-4c4a-be37-ae0895fe3841",
+            "actualSdkInvocations": 1,
+            "canonicalEvidence": "evidence-26083b4d-b20d-4adf-bf5e-10a3207c779a",
+            "nonceMatched": true,
+            "editorHostEofExit": 0
+          },
+          {
+            "transport": "sse",
+            "sessionId": "peer-session-1",
+            "approvedOnce": true,
+            "toolCallId": "call-e0b799a7-da15-4a0a-96a6-e869653a1633",
+            "actualSdkInvocations": 1,
+            "canonicalEvidence": "evidence-ce11f579-cb68-4258-82eb-76e2c8801d1a",
+            "nonceMatched": true,
+            "editorHostEofExit": 0
+          }
+        ]
+      }
+    },
+    "mixedHost": {
+      "candidate": "ae6dd9a8",
+      "file": "mixed-host-live-receipt.json",
+      "sha256": "b7fa1494bafa8d7cd7d2421c6da351417093aeaa488c60f60e6d9c8b8cefdcc6",
+      "observation": {
+        "nativeSha256": "d3d78cc87adabd03148fa01f4ae6dcac9a1ec60008ded986da479212bda8057c",
+        "legacySha256": "2ef09b756b5756019e315c536174fa716601cb389309cdf377f2d6bcf8938e54",
+        "realLocalModel": "peer-p4-qwen3-1.7b",
+        "independentSessionsInSameDataRoot": true,
+        "legacyRanThroughoutNativeTurn": true,
+        "legacyBodyAlreadyPersistedDuringFirstRequest": false,
+        "nativeRecoveryOfOldSessionExit": 1,
+        "nativeRecoveryOfOldSessionCode": "peer recover: NOT_FOUND (session=e4bdf6e3-2cec-4581-a56d-b2b872a3d9df)",
+        "inactiveSessionBodyPreservedDuringOtherWriter": true,
+        "modelRequests": {
+          "legacy": 1,
+          "native": 2
+        },
+        "nativeGrantsAndIndexedEvidence": 1,
+        "crossReads": [
+          {
+            "reader": "native",
+            "otherSession": "e4bdf6e3-2cec-4581-a56d-b2b872a3d9df",
+            "nonceMatched": true,
+            "settledReplyPresent": true
+          },
+          {
+            "reader": "legacy",
+            "otherSession": "ef047e16-71a1-4462-b291-67000c7156f1",
+            "nonceMatched": true,
+            "settledReplyPresent": true
+          }
+        ],
+        "seconds": 10.753
+      }
+    },
+    "configuredResponses": {
+      "candidate": "bd983c54",
+      "turns": 2,
+      "actualNativeToolCalls": 1,
+      "nonceMatched": true,
+      "vault": "encrypted fixture with synthetic key, independent of OS Keychain"
+    },
+    "anthropicCompatibilityGap": {
+      "candidate": "bd983c54",
+      "afterFixtureBaseUrlCorrection": "HTTP 200 and successful count. Server omitted tool block start input, then sent a complete object through input_json_delta. Rust rejected model_arguments_invalid, the actual TypeScript stream adapter decoded read_file with the original arguments.",
+      "source": "https://github.com/ggml-org/llama.cpp/blob/3837bf0bc02ea5d08f8ee3585fc8c7784a81bce8/tools/server/server-task.cpp",
+      "officialProtocol": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming",
+      "providerSseSha256": "4e5b46643eb9ed380376ad9aa9ca52038156cb891d6ec1f9d25a0192a9145c3e",
+      "legacyReplay": {
+        "file": "legacy-anthropic-replay-receipt.json",
+        "sha256": "d093171f37aeeeba822ed39f751db8e9306de0283de95551cc78ef60564df06c",
+        "observation": {
+          "providerOutputSha256": "4e5b46643eb9ed380376ad9aa9ca52038156cb891d6ec1f9d25a0192a9145c3e",
+          "legacyAdapterAccepted": true,
+          "stopReason": "tool_use",
+          "tool": "read_file",
+          "args": {
+            "path": "probe.txt"
+          }
+        }
+      }
+    },
+    "scope": "Isolated public local weights, actual native hosts and ACP/MCP SDK peers. Independent legacy and Rust sessions shared an isolated root concurrently and cold-read both exercises. Recovery of the active legacy session did not take ownership. No shared-session takeover, production drain, hosted IdP/cloud provider, deployed release or installed-default acceptance.",
+    "modelAndFixtureObservations": [
+      "Earlier greedy native chat probes requested repeated independent file reads despite the one-read prompt. At explicit temperature 0.15 the unchanged one-read assertion passed with one Grant and one indexed Evidence record.",
+      "In one mixed-host attempt the legacy model returned a different nonempty string than requested. The mixed-host check verifies its actual settled response was persisted and exported verbatim, plus the original user nonce, separately from the native tool-output nonce test."
+    ]
+  }
+}

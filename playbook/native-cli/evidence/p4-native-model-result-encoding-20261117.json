@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "base": "d636aef0d1c0b3aa02bdd848d46359bcca071506",
+    "tree": "fb60ea7e1762679fa852d0f0b1a7f7f56007af9d",
+    "patchSha256": "5c2d4a2e4d58b24ee77273c75fadda562936b65d7bb65a83b95ff379a5f5b879",
+    "startedAt": "2026-11-17T04:42:04.983278+00:00",
+    "pid": 66399,
+    "pgid": 66399
+  },
+  "status": "189c572c pushed; frozen whole native gate and final scoped checks passed; both-platform whole CI success independently verified; P4 total remains open.",
+  "classification": {
+    "A": "ADR131/map registered model-side encoding and legacy saved-observation materialization, source/view bounds, failure/stderr/Unicode/MCP-shape fidelity and frozen count/send before implementation.",
+    "B": "Same canonical projector, live identity, Grant/Evidence/unknown, request accounting, compaction marker/CAS and ownership seams. Shared content module avoids a second storage implementation.",
+    "adrFiles": [
+      "51-unified-desktop-cli-file-tools.md",
+      "57-canonical-conversation-history-projector.md",
+      "63-user-artifact-evidence-boundary.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md"
+    ]
+  },
+  "change": {
+    "views": "Request-local exact (id/name/original-content) overlays; authentic LiveHistory matching occurs first, then only model tool content changes. Original rows/ToolResult/Grant/Evidence remain unchanged.",
+    "oldFacts": "Derive immutable snapshots only from readable saved observations, with owned I/O and a post-wait sourceRevision/authority guard before count/send. No workspace reread, tool replay, cache eviction, permission/usage backfill or old-result rewrite.",
+    "fidelity": "Actual TS generic/file/shell/local-ref shapes with explicit native corrections: real capability/alias class, MCP extra facts, stderr (including whitespace), actual failed/cancelled/unknown result fields, selected range and scalar-safe UTF-16 previews. Any explicit non-null error survives a success/completed label on specialized views, retaining the actual status without inventing a failure.",
+    "prepared": "Count and send share the same frozen encoded bytes; summary facts use the same result views and retain canonical source/marker selection. No implicit home access in pure NativeModel preparation.",
+    "limits": {
+      "sourceAndViewBytes": 16777216,
+      "viewBytes": 65536,
+      "inlineChars": 6000,
+      "fileInlineChars": 32000,
+      "shellPreviewChars": 4000
+    }
+  },
+  "baseline": {
+    "source": "d636aef0d1c0b3aa02bdd848d46359bcca071506",
+    "binary": {
+      "path": "/tmp/peer-native-artifacts-final-4-20261117/peer-native",
+      "bytes": 18907216,
+      "sha256": "07fcf8684f6c7ab9f653aa4597c616424699f512758fc8fba5e0e07f192e422a"
+    },
+    "result": "Three new public Host cases failed: small file was raw Tool Result; legacy shell observation had no snapshot; clipped shell route was not encoded.",
+    "log": {
+      "path": "/tmp/peer-native-result-encoding-20261117/baseline.log",
+      "bytes": 3284,
+      "sha256": "c578c358667deaa558f31316cf171a2d7489c225cbf4b9aaa044bda1953789ea"
+    }
+  },
+  "focused": {
+    "host": "8 public native Host tests passed, including actual Anthropic authentic thought and count/send equality; unchanged saved rows; old body/shell snapshot; stderr/range; real OS-lock materialization cancellation and history mutation before any cognition; quota/preserved partial/independent later task; 378k saved result through compaction without truncation.",
+    "unit": "Six tool-result module tests passed before final preview-completeness refinement; new seventh test and complete final tree are included in the frozen gate. Golden dataset now25 actual TS cases with explicit native deltas.",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/host-5.log",
+        "bytes": 1459,
+        "sha256": "9aee3da26384f8afee3f3368f20414c6cd91cfbe0ce569219566c4f4c9206c29"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/unit-5.log",
+        "bytes": 1098,
+        "sha256": "889f12b70db0408cb1e87994acc383d49c420799f54c665ecbb82e6273660d09"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/ts-contracts-write-5.log",
+        "bytes": 222,
+        "sha256": "4486f48af00e99b9303d200d7bab4d594de868a09934e451fb1c7d613cdf10c6"
+      }
+    ]
+  },
+  "failures": {
+    "moduleFile": "Initial module declaration used a different file name; corrected to actual tool_results.rs; original compile output retained.",
+    "goldenKey": "First vector test used nativeExpected instead of generated expectedNative; corrected key while retaining complete comparisons.",
+    "summaryWire": "Initial test assumed Anthropic user content was blocks; actual production wire can use a string. Corrected normalization, retaining source-ref/full-original assertions.",
+    "clippy": "Collapsed nested conditions and used the double-ended iterator endpoint; no assertion/lint suppression.",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/host-1.log",
+        "bytes": 742,
+        "sha256": "f4fc38393f9c71a18d6d7834e402717e7e69ada11d592d61b930d8c493913dfb"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/unit-1.log",
+        "bytes": 1622,
+        "sha256": "07a6cecc713d4eba4edbe2cc570cf940932aba454bf71e6493d05d21c413894e"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/host-4.log",
+        "bytes": 2068,
+        "sha256": "d71edb3242e1cff1a8390da69f9b8088c2f37fc739b1f1607ba143cc8cd75a16"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/clippy-1.log",
+        "bytes": 2311,
+        "sha256": "b026391272c827db2360dac1be3e3df4718cfc301e3cbabe40bdb907c8a22b54"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-20261117/clippy-2.log",
+        "bytes": 1180,
+        "sha256": "545e21f33de6096f9bbc2ce9d6eefb60782a0f850f5cd9a81ddec905d0f3ac91"
+      }
+    ]
+  },
+  "baseCi": {
+    "source": "d636aef0",
+    "run": 44011702681,
+    "status": "both platforms whole success",
+    "jobs": [
+      [
+        133799995750,
+        "ci-macos-14",
+        "success"
+      ],
+      [
+        133799995956,
+        "ci-ubuntu-latest",
+        "success"
+      ]
+    ],
+    "snapshot": {
+      "path": "/tmp/peer-native-result-encoding-20261117/base-ci-terminal.json",
+      "bytes": 9804,
+      "sha256": "5c9f2bff12c079b6ba2d47a6549de86e266701921458b93c653acbb95c5b9336"
+    }
+  },
+  "remaining": [
+    "Old >8MiB history and complete Context/attachments/compaction strategy",
+    "Snapshot lifecycle copy/delete/export and mixed installed versions",
+    "Other tools/Skill/Plugin/Hook/ACP/headless/session commands and real services/Vault",
+    "P4 total gate, P5-P7, ordinary Ratatui send and long-memory/installed/release acceptance"
+  ],
+  "authorization": "Only synthetic isolated fixtures. No personal task/credential migration, installation, user-instance restart, default switch, merge/tag/release or Bun/Node engine sidecar.",
+  "wholeNativeGate": {
+    "source": {
+      "base": "d636aef0d1c0b3aa02bdd848d46359bcca071506",
+      "tree": "fb60ea7e1762679fa852d0f0b1a7f7f56007af9d",
+      "patchSha256": "5c2d4a2e4d58b24ee77273c75fadda562936b65d7bb65a83b95ff379a5f5b879",
+      "startedAt": "2026-11-17T04:42:04.983278+00:00",
+      "pid": 66399,
+      "pgid": 66399
+    },
+    "terminal": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-17T04:55:30.995849+00:00"
+    },
+    "rustTests": 510,
+    "nativeEpisodes": 198,
+    "interopRoots": 519,
+    "interopCases": 2918,
+    "ptyCases": 9,
+    "log": {
+      "path": "/tmp/peer-native-result-encoding-final-20261117/verify.log",
+      "bytes": 110090,
+      "sha256": "60ad6ebd79ca91a133db19fb452b959453a8b8d98a93dbac502b62cea79e6008"
+    },
+    "featurelessBinary": {
+      "path": "/tmp/peer-native-result-encoding-final-20261117/frozen-peer-native",
+      "bytes": 18959488,
+      "sha256": "8531c02c1b55adac528566611c09e4869cb1a2b9e49d4951c70447127e3fc3fe"
+    },
+    "limits": "This gate belongs only to fb60ea7e; the subsequent explicit-error correction is independently scoped below."
+  },
+  "finalCorrection": {
+    "source": {
+      "base": "d636aef0d1c0b3aa02bdd848d46359bcca071506",
+      "tree": "95539ea5957bf0323f6abd35f95e72c1d59787ea",
+      "patchSha256": "6920b829e2e5bf782e78f212d3cf8107838fd1128ce185f8bf613ace24af1609",
+      "startedAt": "2026-11-17T05:02:39.655482+00:00",
+      "pid": 78832
+    },
+    "baseline": {
+      "path": "/tmp/peer-native-result-encoding-20261117/success-error-baseline.log",
+      "bytes": 1860,
+      "sha256": "bd181f3983a81a790a714176ab89b9d317e6b2ef4af39e0b87ffa1fff69f0036"
+    },
+    "observedFailure": "Existing local ref lost non-null saved error when outer status was success; actual TS/native oracle assertion failed. Original status must not be inferred into a failure. Preserve resultStatus=success and actual resultError.",
+    "coverage": "26 actual TS encoder vectors with explicit native fidelity deltas. Nine public Host tests passed on the fixed featureless release, including the new saved success+error case, no replay and unchanged canonical rows."
+  },
+  "deliveredSource": {
+    "commit": "189c572c1b3322efcea3b29d25cbc358e17a833b",
+    "tree": "95539ea5957bf0323f6abd35f95e72c1d59787ea",
+    "patchSha256": "6920b829e2e5bf782e78f212d3cf8107838fd1128ce185f8bf613ace24af1609"
+  },
+  "finalScoped": {
+    "source": {
+      "commit": "189c572c1b3322efcea3b29d25cbc358e17a833b",
+      "tree": "95539ea5957bf0323f6abd35f95e72c1d59787ea",
+      "patchSha256": "6920b829e2e5bf782e78f212d3cf8107838fd1128ce185f8bf613ace24af1609"
+    },
+    "terminal": {
+      "exitCode": 0,
+      "finishedAt": "2026-11-17T05:07:02.805261+00:00"
+    },
+    "runtimeLibTests": 101,
+    "artifactStoreTests": {
+      "integration": 11,
+      "unit": 1
+    },
+    "actualTsEncoderVectors": 26,
+    "featurelessBinary": {
+      "path": "/tmp/peer-native-result-encoding-fix-20261117/peer-native",
+      "bytes": 18959488,
+      "sha256": "c1738fe5ebfe537a925502e52c1ab56b3ca45ba7ddbf9560522227dff05a9814",
+      "libraries": "/tmp/peer-native-result-encoding-fix-20261117/peer-native:\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)\n\t/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)\n"
+    },
+    "publicHost": {
+      "modelResultEncoding": 9,
+      "toolArtifacts": 8,
+      "nativeFiles": 4,
+      "environment": "env cleared; PATH=/nonexistent; pinned featureless release; only owned synthetic roots; macOS absolute lsof is a test-only observer of the owned child PID"
+    },
+    "interop": {
+      "roots": 37,
+      "cases": 192,
+      "runtime": "Bun 1.2.17 as test reference; not an engine sidecar"
+    },
+    "buildAndReview": "fmt, all-target clippy -D warnings, featureless release/harness builds and staged/unstaged diff checks passed. Only the source tree above is final; fb60 whole-gate results are separately bound.",
+    "logs": [
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/oracle.log",
+        "bytes": 222,
+        "sha256": "3d8048f443c04d3bbd3ebce3b618e7a835a25fbe26093b0710c61917566d7dfe"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/runtime.log",
+        "bytes": 11180,
+        "sha256": "3bd4793da5920e8c13ee3212a7ff4bf7c039afb2eff008fa088d2bb8b16c2b1c"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/store.log",
+        "bytes": 3506,
+        "sha256": "35c70fab2ace020fe07a05e1d191df8d39d3bf0f530e988da2927e60ee853957"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/store-target.log",
+        "bytes": 1005,
+        "sha256": "12af0eed76d9dccd3216dde6449aa6e20802a0bcf1c6b2ff28977acf9512e90f"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/clippy.log",
+        "bytes": 682,
+        "sha256": "6942c12b4449ba90d645462a27a602d687420e2af75cdeea88e848c0eb9dd9b6"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/release.log",
+        "bytes": 297,
+        "sha256": "81a7b459e30c32607a801e81d4de0dd465c9fcfd55697d3602f19b3c5a2a9019"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/harness.log",
+        "bytes": 249773,
+        "sha256": "c5c453a7078118efcc18565298e5f5091c4b1bcade6e03283ad1af964bc1b803"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/native_result_encoding.log",
+        "bytes": 1176,
+        "sha256": "791cb67883319912172f03211fc587d951745e3a993aa556030c7de209aff4bd"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/native_artifacts.log",
+        "bytes": 982,
+        "sha256": "e29242b81141470a82fb96861fd9dc8fcfc6694aa23cb05d514834069a0661c8"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/native_files.log",
+        "bytes": 522,
+        "sha256": "bf775709636195a48abf6967bf817705917d15bcc5a5f844466c98b527e74b51"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/interop-build.log",
+        "bytes": 310,
+        "sha256": "510b370779b1f2f8019331cb6ec41a1741c8bbb1df9cbeb5904cad37171fd148"
+      },
+      {
+        "path": "/tmp/peer-native-result-encoding-fix-20261117/interop.log",
+        "bytes": 216,
+        "sha256": "d78ff493ab634a0b0d0d2c3fa940377efe509a6ee62e7b225c96f6e2b8494236"
+      }
+    ]
+  },
+  "ci": {
+    "run": 44021853800,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44021853800",
+    "status": "success",
+    "jobs": [
+      {
+        "id": 133832933095,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 133832933419,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "merge": {
+      "parents": [
+        "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+        "189c572c1b3322efcea3b29d25cbc358e17a833b"
+      ],
+      "sha": "dd1876207e43fec43efc094de16754c9f11be109",
+      "tree": "95539ea5957bf0323f6abd35f95e72c1d59787ea"
+    },
+    "identity": "Whole CI passed both platforms, including Native/build/type/architecture/Test/Electron smoke; merge tree and parents match final source.",
+    "initialObservation": {
+      "status": "in_progress",
+      "jobs": [
+        {
+          "id": 133832933095,
+          "name": "ci-ubuntu-latest",
+          "status": "in_progress"
+        },
+        {
+          "id": 133832933419,
+          "name": "ci-macos-14",
+          "status": "in_progress"
+        }
+      ]
+    },
+    "terminalSnapshot": {
+      "path": "/tmp/peer-native-file-parents-20261117/base-ci-terminal.json",
+      "bytes": 9804,
+      "sha256": "8c7acd369bf355f3f9bbd698486ed2a85f91261c19a209defe94b9cad50cbaff"
+    }
+  }
+}

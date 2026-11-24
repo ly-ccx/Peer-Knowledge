@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "C: owned TLS test fixture IO and failure diagnostics; production source, permission, Evidence, Vault and address boundaries unchanged. Not P4 acceptance.",
+  "candidate": {
+    "commit": "4690766cfde8524213ff39e1a39c295b59111057",
+    "tree": "c6c875cf060d008d37183cb37883917264f1b8b8",
+    "pushed": true
+  },
+  "decisionPass": [
+    "129-native-rust-cli-and-ratatui.md",
+    "130-bounded-cli-memory-and-transcript.md",
+    "131-native-cli-contract-storage-and-recovery.md",
+    "132-mcp-vault-and-native-oauth.md"
+  ],
+  "priorFailure": {
+    "commit": "85dc28e3dea6c10dfcc17e29ba4da8c04001484b",
+    "runId": 43865232749,
+    "linuxJob": 133291958683,
+    "linuxConclusion": "failure",
+    "failure": "oauth_https_proxy_and_explicit_no_proxy_use_the_same_strict_origin_trust: bypass=false mcp_oauth_http_failed; 117 passed, 1 failed; preserved /tmp/.tmp8Sioff",
+    "macosJob": 133291959134,
+    "macosConclusion": "cancelled",
+    "macosObservation": "Native/build/imports/type/architecture/Test passed; Electron smoke canceled after corrective source push by existing CI concurrency. Not whole-repository success.",
+    "log": {
+      "path": "/tmp/peer-native-https-proxy-linux-failure-20261116.log",
+      "sha256": "6dba2ddecd7391e7238fd5a547669437283289cf7ccf76bc7aee862c0c458330"
+    }
+  },
+  "correction": "Replace TLS fixture 10ms synchronous read polling / 3-second idle copy with owned Tokio TLS worker, JoinSet capped at16, cancellation/join, 30-second connection cap and copy_bidirectional. Production deadlines and all original assertions retained. Add synthetic request trace to marker-verified uploaded evidence directory. Dev-only edge to already locked tokio-rustls; no version upgrade.",
+  "controlledReproduction": {
+    "baseline": {
+      "path": "/tmp/peer-native-https-proxy-idle-baseline-20261116.log",
+      "sha256": "85b8305bc988dc67e9a25015aa2ee9e2eb5b7c5401af1b2db6f21054bbf8a005"
+    },
+    "fixed": {
+      "path": "/tmp/peer-native-https-proxy-idle-fixed-20261116.log",
+      "sha256": "00ea9b1659c0308982020e6723b0d23ce37378467424e991361c5f87c5ce0414"
+    },
+    "result": "Old fixture loses tunnel after a 4-second pause inside actual 5-second connect budget; fixed fixture returns exact ping and joins owners. This establishes a fixture defect, not the exact remote Linux scheduling cause."
+  },
+  "validation": {
+    "nativeScoped": {
+      "base": "85dc28e3dea6c10dfcc17e29ba4da8c04001484b",
+      "tree": "c6c875cf060d008d37183cb37883917264f1b8b8",
+      "bunVersion": "1.2.17",
+      "startedAt": 1794832634.684858,
+      "exitCode": 0,
+      "durationSeconds": 357.123,
+      "bytes": 15632704,
+      "sha256": "c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41",
+      "rustTests": 352,
+      "nativeEpisodes": 119,
+      "actualTsInteropRoots": 232,
+      "actualTsInteropChecks": 1323,
+      "ptyChecks": 9,
+      "logSha256": "b6e6abce6dcb8b69f6d638eca9949ebf180d7124d0e602e59d18c63091d464ef"
+    },
+    "log": {
+      "path": "/tmp/peer-native-https-proxy-fixture-20261116/verify.log",
+      "sha256": "b6e6abce6dcb8b69f6d638eca9949ebf180d7124d0e602e59d18c63091d464ef"
+    },
+    "oauthHost": {
+      "passed": 5,
+      "log": {
+        "path": "/tmp/peer-native-https-proxy-oauth-fixed-20261116.log",
+        "sha256": "78af69443f7d02da8ec259565a83dd514578550306d021dff660459c6c958dc3"
+      }
+    },
+    "network": {
+      "passed": 7,
+      "log": {
+        "path": "/tmp/peer-native-https-proxy-network-regression-20261116.log",
+        "sha256": "d219960da7750b49c3534aeb2d8de27f4dda64fe2806d57bf69c4f1c08c7e29b"
+      }
+    },
+    "clippy": {
+      "path": "/tmp/peer-native-https-proxy-fixture-clippy-20261116.log",
+      "sha256": "243550db3c5fc3a3d9e97a48c73f84754e094888c9c10caba7e830fce774791c"
+    },
+    "featurelessRelease": {
+      "tree": "c6c875cf060d008d37183cb37883917264f1b8b8",
+      "bytes": 15632704,
+      "sha256": "c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41",
+      "rustTests": 352,
+      "nativeEpisodes": 119,
+      "actualTsInteropRoots": 232,
+      "actualTsInteropChecks": 1323,
+      "ptyChecks": 9,
+      "logSha256": "b6e6abce6dcb8b69f6d638eca9949ebf180d7124d0e602e59d18c63091d464ef",
+      "extraOAuthHostPassed": 5,
+      "byteIdenticalToProduction85dc": true,
+      "log": {
+        "path": "/tmp/peer-native-https-proxy-fixture-20261116/release-host.log",
+        "sha256": "39d68ce3a300e47cbfd309161a24ecb73e8204d3421a7d9b640af551f4971962"
+      }
+    }
+  },
+  "candidateCi": {
+    "runId": 43869546961,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43869546961",
+    "mergeCommit": "411da5dc4c121a84d3e99d0499adb0775ba31177",
+    "mergeTree": "c6c875cf060d008d37183cb37883917264f1b8b8",
+    "matchesSourceTree": true,
+    "linuxJob": 133306984261,
+    "linuxStatus": "completed",
+    "linuxActiveStep": null,
+    "macosJob": 133306985019,
+    "macosStatus": "completed",
+    "wholeRepositorySuccess": false,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "linuxConclusion": "success",
+    "macosConclusion": "cancelled",
+    "linuxObservation": "Full Linux job success including native, build, types, architecture, tests and final Electron smoke.",
+    "macosObservation": "No hosted macOS arm64 runner acquired; GitHub annotation reports capacity constraints. No macOS checks executed, not success.",
+    "macosAnnotations": {
+      "path": "/tmp/peer-native-https-proxy-fixture-macos-capacity-20261116.json",
+      "sha256": "b2883e67373e4bf352d34aea6d81370add3ef6c08d9091b552c8f6dde33f9ede"
+    },
+    "linuxLog": {
+      "path": "/tmp/peer-native-https-proxy-fixture-linux-success-20261116.log",
+      "sha256": "b18acf286975b387f82303755dccd08903198a12c17a54d090fd1529961b0d29"
+    }
+  },
+  "limits": [
+    "Full Linux correction verified successful by job133306984261. macOS canceled without obtaining a hosted runner; whole-repository cross-platform success remains unverified. Exact original scheduling cause unproven, no flake claim.",
+    "No P4 total gate or runtime MCP auto-refresh/grant continuation implementation in this fixture change. P5-P7 incomplete; Ratatui still cannot send general chat.",
+    "No installation, running-instance restart, personal-data migration, default switch, release or merge."
+  ]
+}

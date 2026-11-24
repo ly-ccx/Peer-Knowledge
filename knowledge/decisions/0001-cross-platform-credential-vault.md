@@ -2,7 +2,8 @@
 
 - 状态：Accepted
 - 创建时间：2026-07-15
-- 最后更新：2026-07-15
+- 最后更新：2026-11-16
+- 2026-11-16 MCP 补充：[ADR132](132-mcp-vault-and-native-oauth.md) 将同一 Helper / Vault 扩展到 MCP credentialRef 与 OAuth envelope，原生端仍不解密 Electron。旧密文的 Desktop-only 安全迁移责任不变。
 
 ## 背景
 
@@ -108,6 +109,24 @@ Windows Helper 随 Desktop/TUI 一同发布，凭证绑定当前 Windows 用户�
 - 禁止任何隐式明文回退。
 
 ## 影响
+
+### 原生模型 OAuth 的条件提交（2026-11-16，实施前 A级修订）
+
+本节为已接受 ADR129/131 全面原生迁移中的模型 OAuth 生命周期补齐，取代§1「只允许四种action」在已协商扩展上的封闭限制，不改变旧四种action、Vault v1密文格式、Helper身份或权限边界。设计接受与实现/验收分别记录。
+
+- Helper协议仍为1，`ping.data.features`可声明`model-oauth-cas-v1`；新增可选`get-snapshot`与`compare-set`，仅允许既有`model/<group>/oauth-tokens`键。旧客户端继续使用ping/get/set/delete；旧Helper不声明feature时，新客户端必须在远端token刷新之前拒绝条件更新，不能发送后才发现不能持久化。
+- `get-snapshot`在既有Vault共享锁下返回原secret及不含秘密的opaque revision；缺失键返回secret/revision均null。revision来自该记录已有的随机nonce，不是授权、时间、配置版本或文件全局revision。每次旧/新`set`都生成新nonce，delete使旧revision失效。
+- `compare-set`携带expectedRevision（null表示仅当不存在）与secret（null表示删除）。Helper在同一既有Vault独占锁内核对原revision；匹配后认证原密文、加密新值并原子保存，再返回applied与新revision。失配不写Vault，不返回当前secret；失败和未知返回不能当作成功。原密文损坏、未知Vault版本或容量不足继续失败关闭。
+- 原生刷新使用既有token JSON的access/refresh/expires/accountId等字段，保留未知字段；secret只经继承管道，不进argv/环境日志/ToolResult/Evidence。临近过期的请求先以当前快照刷新，落盘成功才准入模型；迟到refresh若遇旧/新客户端轮换或删除，条件写入必须失败，不能无条件覆盖、复活或自动重放。远端可能已经轮换而本地提交失败时，保留当前Vault与原错误，支持重新登录/显式恢复，不声称旧refresh仍有效。
+- 配置中的oauthConfigured/oauthExpires/oauthAccountId保持非敏感投影，不是token有效性、凭据读取授权或请求成功的权威。原生模型读取实际Helper token与绝对expires；不为更新提示字段无锁覆写整个llm-providers.json。现有Desktop元数据提示可能暂旧，完整配置写入/登录收据须经共享Store ownership另行补齐并验证，未完成不记P4总闸。不得借本节新增明文token、私有事实根或从原生端解密Electron旧数据。
+
+验收覆盖真实Helper加密Vault（注入测试KeyStore）、旧客户端set/delete使新快照失效、同键与异键并发、条件删除/创建、容量/损坏保全、双向TS/Rust协议；原生模型真实HTTP刷新→条件持久化→模型/工具/Evidence、取消/超时/重定向/截断/过期/缺refresh、竞争退出/新登录、提交失败和后续准入。真实平台Vault/IdP与安装升级验收独立，不以注入KeyStore替代。
+
+2026-11-16同日实施前补强（A）：仅有完成时CAS不能防止并发发送同一refresh token，也不能记录超时后的未知远端轮换。已协商客户端须在远端请求前以原快照CAS写入加密token内保留字段`peerModelRefresh:{schemaVersion:1,attemptId:<UUIDv4>,authMethod,phase:"in_flight",createdAt:<epoch-ms>}`，再核对自己提交的revision后才发送；只有一个客户端能取得该意图。字段是刷新操作的连续性事实，不是凭证授权或远端成功证明，不新建明文日志/私有根。
+
+完成时仅从自己仍持有的意图revision条件提交新token并移除此字段。取消、超时、连接中断、提交回执丢失或崩溃后可能已发出请求的意图必须保留，后续自动请求不得重放旧refresh；重新登录以新授权凭据显式替换，或由支持该状态的恢复流程对账。明确在HTTP future首次poll前取消、可证明未发送时，可按原意图revision条件恢复原token；CAS失配仍保留新状态。未知schema/损坏意图保全并拒绝，不按时间或进程死亡猜测远端未轮换。
+
+新Helper的旧`get`以及新TS客户端对模型OAuth键发现该字段时返回稳定pending错误，不向不支持连续性状态的调用方返回旧refresh；`get-snapshot`仍向条件更新客户端提供原始加密payload解密结果。已预读token的旧运行时也必须迁移到同一前置意图/CAS seam，不能靠get时保护声称全版本并发安全；旧Helper与旧运行时混合在新刷新状态上的执行兼容须经ADR131 drain/升级门禁，未验证不得开放默认共享写域。现有配置元数据、Tool/Evidence与权限契约不变。
 
 - 新增 Rust Helper 与 TypeScript 客户端包；
 - Desktop LLM Store 改为元数据 + Vault；

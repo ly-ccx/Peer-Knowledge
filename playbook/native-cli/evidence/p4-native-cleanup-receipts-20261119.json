@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "candidateTree": "a0f10b9ea6672cba05b6103d09356025617432dc",
+  "baseCommit": "afda4134febe996a2916d35973870029c59e4d4b",
+  "patchSha256": "20fb6ff2be38ac16661a73df3c5b03fe43f4d1a469fe3dbf0b87b60f13c35efc",
+  "sourceArchiveSha256": "54aeb480ff302cba12afda2d00310125fff1aca22acbc8c67f64a956857c5c17",
+  "adrs": [
+    "65-cli-headless-exec.md",
+    "108-cli-basic-shell-commands.md",
+    "118-openui-interactive-results-and-runtime-boundaries.md",
+    "129-native-rust-cli-and-ratatui.md",
+    "131-native-cli-contract-storage-and-recovery.md"
+  ],
+  "scope": "B-level port of the public receipt-only command for results, followups, and materials. Existing current Bot ownership, schema 5, request and digest binding, saved outcomes, byte bounds, and no-creation read snapshot. Managed cleanup authority and persisted formats unchanged.",
+  "baseline": {
+    "command": "The actual legacy CLI returned null for an existing unretired result, its exact saved receipt after cleanup, and code 3 for a foreign conversation. The extracted base native build returned unavailable for all inputs.",
+    "linux": "The base featureless native package also rejected peer result on an imported nonempty WAL with no shared-memory index. The SQLite rebuild changed only WAL ctime and created the derived index. File device, inode, size, modification time and persistent byte hashes were unchanged.",
+    "repair": "On Linux cold initialization the reader binds the opened WAL generation to its before/after content hash. After the connection is confirmed it rechecks the strict file identity around the query. A same-size mutation with the original mtime fails the content proof."
+  },
+  "validation": {
+    "macosArm64": {
+      "archiveSha256": "368eecc0c2fbf82941553dab24b64ac08625a2be20569595fb488f0ca527e8c9",
+      "binarySha256": "edf2525764b763935c0370f500fb95a8610bbe9a1d3f96e362874f6672548a20",
+      "extractedPublicCommandCases": 19,
+      "oracle": "Actual old compiled CLI and canonical SQLite writer. Tests include active and retired receipts, changed request, foreign owner, corrupt digest, unauthorized operation, oversized input, split UTF-16 summary, and cold WAL."
+    },
+    "linuxAmd64": {
+      "archiveSha256": "0859f2ba0f19f0599f404aabc0b0a99677369d0dca789eb40014ac7efad81b8d",
+      "binarySha256": "68ed0d1971a7439514109bfcc075009cb9f69d8b2f1630957f32bb5dce336cbd",
+      "extractedColdWalCasesPerUser": 8,
+      "testedUids": [
+        0,
+        1000
+      ],
+      "storeTests": 15,
+      "oracle": "Imported active and retired copies from the actual legacy writer with nonempty WAL and no shared-memory index. Read all three receipt kinds and both fixed-result states in fresh copies. Every before/after database and WAL content hash matched."
+    },
+    "noBunOrNodeOnProductExecutablePath": true,
+    "formatStrictClippyTuiTypecheckAndArchitectureChecks": "passed"
+  },
+  "integration": {
+    "baseWholeRepoCi": 44379988625,
+    "baseNativeValidation": "macOS and Linux passed",
+    "baseWholeRepoCiStatusAtReceipt": "Completed successfully on macOS and Linux; both jobs checked out c589a5b6cf65f5789aa78ada6fcd48e7df6a1c5d with source tree 75fe7df5a1684377da4589005d2e86443f7f9027.",
+    "candidatePromotion": "Included in combined tree 9e643147c38464fa1760cd559f1e368ab12e84ad, pushed as bd983c544c3230a886f92adf33a9694302aab941.",
+    "candidateWholeRepoCi": 44388313785
+  },
+  "remaining": [
+    "Run candidate whole-repository validation",
+    "P4 real external services and installed mixed-host recovery",
+    "Managed write-capable Interactive Results maintenance and the project-agent lifecycle",
+    "Ratatui experience, memory soak, and default entry cutover"
+  ]
+}

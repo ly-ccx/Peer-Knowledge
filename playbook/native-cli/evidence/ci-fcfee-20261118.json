@@ -1,0 +1,134 @@
+{
+  "scope": "Authoritative terminal CI for fcfee, not later loop/test correction or release acceptance.",
+  "run": 44137462307,
+  "head": "fcfee273ea814bfbd2e51e83226e328cbe83834f",
+  "merge": "34f5ab381815d3318c678b7a20d5d9d74bdceebf",
+  "tree": "29ea6ae9d04a072d26b78a0beafede115e7eae39",
+  "parents": [
+    "8b0c97175099a91d6495d6dd67ac063a7e262d63",
+    "fcfee273ea814bfbd2e51e83226e328cbe83834f"
+  ],
+  "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/44137462307",
+  "status": "completed",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "id": 134230822058,
+      "name": "ci-ubuntu-latest",
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Build",
+          "conclusion": "success",
+          "started_at": "2026-11-17T17:29:53Z",
+          "completed_at": "2026-11-17T17:30:55Z"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success",
+          "started_at": "2026-11-17T17:30:55Z",
+          "completed_at": "2026-11-17T17:47:22Z"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success",
+          "started_at": "2026-11-17T17:47:29Z",
+          "completed_at": "2026-11-17T17:47:53Z"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success",
+          "started_at": "2026-11-17T17:47:53Z",
+          "completed_at": "2026-11-17T17:47:54Z"
+        },
+        {
+          "name": "Test",
+          "conclusion": "failure",
+          "started_at": "2026-11-17T17:47:54Z",
+          "completed_at": "2026-11-17T17:49:42Z"
+        }
+      ],
+      "log": "/tmp/peer-native-terminal-store-20261118/ci-linux-134230822058.log",
+      "logSha256": "2baa92edf2afa6f27482e45c424f5b44aae31c3d8d3f52f043ead34c8cf3d33e"
+    },
+    {
+      "id": 134230822355,
+      "name": "ci-macos-14",
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Build",
+          "conclusion": "success",
+          "started_at": "2026-11-17T17:39:46Z",
+          "completed_at": "2026-11-17T17:40:52Z"
+        },
+        {
+          "name": "Native CLI scoped validation",
+          "conclusion": "success",
+          "started_at": "2026-11-17T17:40:52Z",
+          "completed_at": "2026-11-17T18:02:20Z"
+        },
+        {
+          "name": "Typecheck",
+          "conclusion": "success",
+          "started_at": "2026-11-17T18:02:25Z",
+          "completed_at": "2026-11-17T18:02:56Z"
+        },
+        {
+          "name": "Architecture check",
+          "conclusion": "success",
+          "started_at": "2026-11-17T18:02:56Z",
+          "completed_at": "2026-11-17T18:02:59Z"
+        },
+        {
+          "name": "Test",
+          "conclusion": "failure",
+          "started_at": "2026-11-17T18:02:59Z",
+          "completed_at": "2026-11-17T18:05:22Z"
+        }
+      ],
+      "log": "/tmp/peer-native-terminal-store-20261118/ci-macos-134230822355.log",
+      "logSha256": "29cf057043bc62580407b3b514f983f13409db33398e3ed176d5e02df22cdbda"
+    }
+  ],
+  "failure": {
+    "file": "packages/runtime-node/src/interactive-results/feedback-transport.test.mjs",
+    "test": "known attachments carry the complete selection through a real already-open old queue, its cursor and actual Conversation rewrite/reopen",
+    "block": "function readJsonl( through function readJson( also covers writeJsonl",
+    "expected": "f943550e04e210417ac7615ceb2facfcbe46757d58b6fe4b5743e8dd70cb65c0",
+    "actual": "f949bb59a56320c71cbe26e4bee7672571fe2c8cf08c92894413b7620e3a94b7",
+    "retry": "CI retry retains same source digest failure on both platforms; not called flake.",
+    "localBaseline": "Same frozen fcfee test/current Conversation source: 10 pass,1 fail with identical digest. Before source/test copies and full log retained at lab. No remote original fixture claimed."
+  },
+  "artifactRoot": "/tmp/peer-native-terminal-store-20261118",
+  "evidenceFiles": {
+    "ci-linux-134230822058.log": {
+      "path": "/tmp/peer-native-terminal-store-20261118/ci-linux-134230822058.log",
+      "sha256": "2baa92edf2afa6f27482e45c424f5b44aae31c3d8d3f52f043ead34c8cf3d33e"
+    },
+    "ci-macos-134230822355.log": {
+      "path": "/tmp/peer-native-terminal-store-20261118/ci-macos-134230822355.log",
+      "sha256": "29cf057043bc62580407b3b514f983f13409db33398e3ed176d5e02df22cdbda"
+    },
+    "feedback-before.log": {
+      "path": "/tmp/peer-native-terminal-store-20261118/feedback-before.log",
+      "sha256": "807e674fe830ea6f9f1cf4c3a0d15a78ff6347d615c09ca92403d71e031e27b1"
+    },
+    "feedback-before-feedback-transport.test.mjs": {
+      "path": "/tmp/peer-native-terminal-store-20261118/feedback-before-feedback-transport.test.mjs",
+      "sha256": "efa7c10eb967aada10b4cbf4423a13851918172b90142deee57ca682c193bdc0"
+    },
+    "feedback-before-index.mjs": {
+      "path": "/tmp/peer-native-terminal-store-20261118/feedback-before-index.mjs",
+      "sha256": "b680e4c134e597d505844b5e30ff387b0920c1f36640dd1b9135aa2e42b72a32"
+    },
+    "feedback-after-1.log": {
+      "path": "/tmp/peer-native-terminal-store-20261118/feedback-after-1.log",
+      "sha256": "98c4c6861d93a44185f0e634ec9e192958ac65c48b31145cbf53948b329667a0"
+    },
+    "feedback-suite-after.log": {
+      "path": "/tmp/peer-native-terminal-store-20261118/feedback-suite-after.log",
+      "sha256": "34d08ede50891fcea5e0b9a12ce90a67e2677841fff42dbc4046be6082d895ba"
+    }
+  }
+}

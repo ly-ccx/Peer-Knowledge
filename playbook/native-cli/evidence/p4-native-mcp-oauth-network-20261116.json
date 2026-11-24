@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 explicit native MCP OAuth HTTP network, approved-address direct/HTTP(S) CONNECT, shared trust, bounded SDK operations and real credential/tool closure. Not runtime automatic MCP refresh/continuation or complete P4.",
+  "candidate": {
+    "base": "2c071885f8be923170ff80ffa38564f7bcdab130",
+    "tree": "df1ebeab70fcba9a96846f1f767f8c592a1b8136",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "state": "local frozen source validated; remote Linux native gate failed; test-only correction 4690766c pushed separately",
+    "commit": "85dc28e3dea6c10dfcc17e29ba4da8c04001484b"
+  },
+  "decisionPass": {
+    "files": [
+      "0001-cross-platform-credential-vault.md",
+      "31-mcp-connection-management.md",
+      "32-mcp-authentication.md",
+      "45-mcp-oauth-config-ux-simplification.md",
+      "50-cli-system-proxy-fallback.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "classification": "B implements the accepted numeric-connect/original-host-TLS policy from ADR132; pre-source implementation clarification 6364740 and parser mechanism correction d687a6c. No permission/Evidence/Context/Vault/storage-owner/address-range change.",
+    "writtenBoundaryMoved": false
+  },
+  "baselineCi": {
+    "commit": "2c071885f8be923170ff80ffa38564f7bcdab130",
+    "tree": "d342880a8898a80cc2d8e102e237799675c379bf",
+    "runId": 43859827036,
+    "jobs": [
+      133273407898,
+      133273408424
+    ],
+    "status": "completed",
+    "conclusion": "success",
+    "wholeRepositorySuccess": true,
+    "linuxConclusion": "success",
+    "macosStatus": "completed",
+    "macosActiveStep": null,
+    "mergeCommit": "91bed719c7382ab5d50841606096001535a4477f",
+    "matchesSourceTree": true,
+    "macosConclusion": "success",
+    "observation": "Both platform terminal successes including Electron smoke verified before this source commit/push; original run not canceled or restarted."
+  },
+  "validation": {
+    "nativeScoped": {
+      "base": "2c071885f8be923170ff80ffa38564f7bcdab130",
+      "tree": "df1ebeab70fcba9a96846f1f767f8c592a1b8136",
+      "bunVersion": "1.2.17",
+      "startedAt": 1794829750.316957,
+      "exitCode": 0,
+      "durationSeconds": 396.469,
+      "rustTests": 351,
+      "nativeEpisodes": 118,
+      "actualTsInteropRoots": 232,
+      "actualTsInteropChecks": 1323,
+      "ptyChecks": 9,
+      "log": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-20261116/verify.log",
+        "sha256": "94ae5708eb562dfa7cce28132cca997c8bab9f5828f18a2a5b6978059c89b8c4"
+      }
+    },
+    "release": {
+      "tree": "df1ebeab70fcba9a96846f1f767f8c592a1b8136",
+      "bytes": 15632704,
+      "sha256": "c87083cac172c05084ef09618d63048f0347302073449986d6afc7719a323d41",
+      "syntheticPrivateKeyAbsent": true,
+      "rustTests": 351,
+      "nativeEpisodes": 118,
+      "actualTsInteropRoots": 232,
+      "actualTsInteropChecks": 1323,
+      "ptyChecks": 9,
+      "logSha256": "94ae5708eb562dfa7cce28132cca997c8bab9f5828f18a2a5b6978059c89b8c4",
+      "featureless": true,
+      "extraNativeMcpOAuthHostTests": 5,
+      "log": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-20261116/release-host.log",
+        "sha256": "dba06f50dace34053969429c83615a3b909a3cd98a036c233ec0e61647201d99"
+      }
+    },
+    "focused": {
+      "actualNativeOAuthHostTests": 9,
+      "hostLog": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-host-20261116-final.log",
+        "sha256": "a97b59a2b59112bc7a5152d7b4a14cad54ebd401fda01767f172152866ea1a18"
+      },
+      "pinnedRealSocketUnitTests": 4,
+      "pinnedLog": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-unit-20261116-final.log",
+        "sha256": "80fda37cc395e1809bfbc7af654a8f346f09871222d0d353d58bd73a516696bd"
+      },
+      "dnsAddressPolicyTests": 1,
+      "dnsLog": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-addresses-20261116.log",
+        "sha256": "b69bea74f34de5dc2c5df6aff93b1fba3f84fadfc999800229bed72eb6700b4f"
+      },
+      "architectureUi": "passed",
+      "architectureLog": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-architecture-20261116.log",
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      },
+      "fmtClippy": "full frozen gate passed"
+    },
+    "localFullPnpmTestTypecheck": "Not repeated for this Rust-only product delta. The separately committed CI fixture correction has its own real Electron scoped evidence; remote combined-source checks are observed independently."
+  },
+  "verifiedBehavior": [
+    "Explicit mcp auth/refresh retain official rmcp SDK discovery, PKCE/state/issuer/resource, DCR and code/refresh encoding; only bounded HTTP port replaced. Public CLI -> encrypted fixture Vault -> strict native TLS through CONNECT -> login/refresh -> canonical model/tool Grant/ToolResult/Evidence succeeds.",
+    "Routing selected using the original URL via the common Network Module. Each OAuth destination is locally validated/resolved, capped at 64 DNS answers and pinned to approved SocketAddr; proxy receives numeric CONNECT authority. Original Host and TLS hostname survive; origin never receives proxy authorization. HTTP(S) proxy TLS, original-host TLS and NO_PROXY are tested.",
+    "Public-address policy denies literal/mapped loopback, private and metadata addresses, and actual localhost DNS; mixed results keep only approved public IPs, deduplicate, and reject >64 raw answers. Actual SDK discovered metadata-address URL is rejected before any corresponding proxy CONNECT or token exchange.",
+    "Same strict PEM/DER root selection serves reqwest model/MCP and pinned Rustls; explicit trust admits synthetic origin/proxy, unknown root/wrong name reject. No TLS verification disable or OS trust changes.",
+    "30-second full SDK HTTP operation including redirects, 5-second connection/TLS/CONNECT waits, 256KiB body, 32KiB request/response head and 100 fields, 1MiB body. Explicit read budget before parser publication covers informational heads; hyper parses HTTP and trailers. Exact 1MiB succeeds, excessive body/head/field count fail without partial success.",
+    "Headers-only challenge returns from an infinite SSE header without awaiting body and closes the socket. The connection driver/exchange are polled in one owned future; cancellation, rejected/oversized proxy and timeout close sockets with no direct fallback or automatic origin replay.",
+    "Real proxied token exchange canceled by SIGTERM returns canonical credential exit4, preserves metadata bytes/Vault generation and history, releases lock, closes proxy socket EOF and records exactly one token POST. Explicit relogin sends authorization code rather than replaying refresh; original ready task then executes one tool with real Grant/Evidence.",
+    "Token redirects and oversized responses preserve previous credential generation and never re-send a token or reach redirect target. Adding explicit CA after an initial refusal permits a later explicit credential action."
+  ],
+  "baselineReproduction": {
+    "commit": "1495b8677302fad074269e1bc4809c78fb8537b5",
+    "binarySha256": "394fadd315b9e565613dc3a17a9e03767e01cd9da109a10a6f0c9f685594764c",
+    "ownedRootName": ".tmp3lLMhv",
+    "log": {
+      "path": "/tmp/peer-native-mcp-oauth-pinned-baseline-20261116.log",
+      "sha256": "62d440c151f2086587a7ded16dd29630e4035c4c49c34e6c50e1a67f945ef44d"
+    },
+    "result": "Explicit synthetic CA/proxy did not enable prior native MCP OAuth discovery; no successful refresh. The same real public-CLI case passes in the candidate."
+  },
+  "preservedAttempts": [
+    {
+      "logs": [
+        {
+          "path": "/tmp/peer-native-mcp-oauth-pinned-check-20261116.log",
+          "sha256": "c010bd1e4c19451ca9a056a778684ae2d24c5e019d56bd30234584aceae8798a"
+        },
+        {
+          "path": "/tmp/peer-native-mcp-oauth-pinned-check-20261116-v2.log",
+          "sha256": "9b3a82424e80f828cfb37c7b98bd417b9cfa6c29cf31178aac6353cb859642dc"
+        }
+      ],
+      "cause": "Initial probe-based implementation assumed a reqwest HTTP/1 buffer builder API and direct url::Position import. Locked public API did not provide the bound; ADR clarified before replacing it with owned hyper parser/upgrade, no API/version upgrade or weaker budget."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-unit-compile-20261116.log",
+        "sha256": "9e7abccef1855347f639cb71efeb85fabdbc7f54b978d429e8752da31824f96e"
+      },
+      "cause": "New join test borrowed a temporary address array; stable fixture binding fixed compilation without changing behavior."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-header-limit-failure-20261116.log",
+        "sha256": "38c763f2d6658f6522fe803f0d07c2ab3d9d982fba3ee3c9955021be088750e5"
+      },
+      "cause": "A complete oversized header could pass hyper max_buf_size alone. Actual failing assertion retained; pre-parser IO read budget now enforces 32KiB until final response publication. Exact body and informational-head cases pass."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-oauth-pinned-cancel-exit-assumption-20261116.log",
+        "sha256": "669c08574c922bd3c7bb5f3058a741370e067c13c28f05bef7f07bd9fbad6d0c"
+      },
+      "ownedRootName": ".tmpz61HgA",
+      "cause": "New fixture wrongly expected generic exec failure1 for credential cancellation. Existing canonical CliExit::Cancelled and prior OAuth callback cancellation are4. Final assertion requires exact4; credentials, no replay, socket EOF and later task assertions remain."
+    }
+  ],
+  "precedingCiCorrection": {
+    "commit": "2c071885f8be923170ff80ffa38564f7bcdab130",
+    "receipt": "ci-updater-control-20261116.json",
+    "originalRun": 43855704882,
+    "originalLinuxFailure": "Electron inspector Promise GC before updater minimize; native/build/types/architecture/Test passed both platforms, macOS full CI succeeded. Original failure retained, not called a flake.",
+    "correction": "C-only main-owned fixture configuration/count via existing isolated command receipt, all original assertions preserved; scoped actual macOS Electron and subsequent full Linux/macOS CI43859827036 succeeded."
+  },
+  "limits": [
+    "P4 total not complete: runtime MCP auto-refresh/grant continuation, Grok/Qoder, complete Context/compaction strategy, remaining tools/Skill/Plugin/Hook/ACP/headless/commands and mixed installed-version drain remain.",
+    "P5 complete project-agent not started; P6 Ratatui still cannot send general chat, no full long-session memory/latency acceptance; P7 installed/release/default switch/legacy retirement remains.",
+    "Synthetic localhost IdP/model/proxy and encrypted test Helper only. No real paid model/public IdP/VPN/OS Vault/installed/multiplatform UI acceptance; no claim of complete MCP OAuth protocol parity beyond accepted bounded policy.",
+    "No install, personal-task migration, running-instance restart, production default switch, merge, release/tag. Native product path has no Bun/Node engine sidecar; TS conformance and disposable Electron tests are development verification.",
+    "Root/private-credential lifetime guarantees cover owned containers and sockets, not zeroization of every transient SDK/parser/allocator/OS copy."
+  ],
+  "candidateCi": {
+    "runId": 43865232749,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43865232749",
+    "jobs": [
+      133291958683,
+      133291959134
+    ],
+    "status": "completed",
+    "conclusion": "failure",
+    "wholeRepositorySuccess": false,
+    "mergeCommit": "f7502d2b126a6efa0041595ca2cd15bc2ad13f3c",
+    "mergeTree": "df1ebeab70fcba9a96846f1f767f8c592a1b8136",
+    "matchesSourceTree": true,
+    "linuxConclusion": "failure",
+    "macosConclusion": "cancelled",
+    "observation": "Native/build/imports/type/architecture/Test passed; Electron smoke canceled after corrective source push by existing CI concurrency. Not whole-repository success."
+  },
+  "followupFixtureCorrection": {
+    "commit": "4690766cfde8524213ff39e1a39c295b59111057",
+    "receipt": "ci-native-https-proxy-fixture-20261116.json",
+    "runId": 43869546961,
+    "wholeRepositorySuccess": false,
+    "linuxConclusion": "success",
+    "macosConclusion": "cancelled",
+    "observation": "No hosted macOS arm64 runner acquired; GitHub annotation reports capacity constraints. No macOS checks executed, not success."
+  }
+}

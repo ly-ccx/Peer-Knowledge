@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-17",
+  "source": {
+    "repository": "ly-ccx/Peer-Agent",
+    "branch": "codex/native-rust-cli",
+    "head": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+    "tree": "af216294c08e512e2dfa7f1545b5fc0130264cbe",
+    "base": "1d796f2a4b4781b00bce86e26b6de864d1cb97f3"
+  },
+  "classification": "C-level validation-only correction; ADR44/129/130/131 and current motion/validation standards reviewed. No product, runtime, permission, Evidence, storage, System Context or animation-token boundary moves. Existing decisions retained; no new ADR.",
+  "problem": {
+    "ciRun": 43957840836,
+    "job": 133617013973,
+    "sourceMerge": "7b45f4948ad72a3e5d9d4eb25ba8a823c73129d2",
+    "sourceTree": "3bd3eba6d8b03c0a8a3fe344d9b9dd65ccb57862",
+    "trace": "One real close near5900ms, last sample5930ms, a6000ms capture deadline and required480ms after input. The single timer included remote input dispatch. No exact CI-runner reproduction or production animation defect is claimed.",
+    "log": {
+      "path": "/tmp/peer-native-qoder-retry-20261117/baseline-macos-ci.log",
+      "bytes": 2270037,
+      "sha256": "3b06fb29ca0a93837bdb4d457abf9acb39b3ba5ef8a55a790779fd435bbe7d21"
+    },
+    "summary": {
+      "path": "/tmp/peer-native-qoder-retry-20261117/baseline-macos-summary.json",
+      "bytes": 2040,
+      "sha256": "2463f1f96a371a5ab3a99c3abfe82fd89d0daab0784f2f4fe3c0e30f36fe9b7a"
+    }
+  },
+  "change": {
+    "module": "Browser-side validation sampler shared by disclosure and panel captures. The original6s bound covers all intended clicks. Their completion starts a separate6s observation cap; the actual post-input frame interval stays480ms. Extra clicks cannot extend the cap. Missing input or stalled RAF fail in their own phase, and timeout/RAF/listener cleanup is centralized.",
+    "assertions": "Real trusted clicks, exact click count, >8px disclosure span, intermediate height, full-height jump denial, final open/visibility, panel opacity/inert, closed Tab exclusion, reversal and reduced-motion behavior remain. Existing at-most-one missing-frame recapture is unchanged; no new retries or product timeout changes.",
+    "ci": "Seven timing/jump tests and actual Electron seam test are included in the existing desktop test command. New browser fixture renders actual DelegatedWork/MotionDetails/PeerIcon and existing tokens/motion CSS; it has typed accepted synthetic task data, an isolated HOME/userData and no model/tool execution.",
+    "unchangedTrees": {
+      "crates": {
+        "before": "e0a6382279d194dbcf7fc36971fbc4e53b052aca",
+        "after": "e0a6382279d194dbcf7fc36971fbc4e53b052aca"
+      },
+      "Cargo.toml": {
+        "before": "cc0574dc30f358e6eb36deaa7dee6045a8ab2462",
+        "after": "cc0574dc30f358e6eb36deaa7dee6045a8ab2462"
+      },
+      "Cargo.lock": {
+        "before": "a0645ec751b3d12b666b8e3a86e2c9415b9061b8",
+        "after": "a0645ec751b3d12b666b8e3a86e2c9415b9061b8"
+      },
+      "packages/protocol/contracts/native-cli": {
+        "before": "4e01d853bb60827a0196091c4240e0217d32e270",
+        "after": "4e01d853bb60827a0196091c4240e0217d32e270"
+      },
+      "scripts/native-cli": {
+        "before": "f637176985fcd8af8cbba8b54b9286887816dd30",
+        "after": "f637176985fcd8af8cbba8b54b9286887816dd30"
+      },
+      "apps/desktop/renderer": {
+        "before": "d49070f1fa88c6d67b6e7baaf90d61b04050b611",
+        "after": "d49070f1fa88c6d67b6e7baaf90d61b04050b611"
+      }
+    }
+  },
+  "validation": {
+    "counterfactual": {
+      "baselineFunctions": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/baseline-capture.mjs",
+        "bytes": 5923,
+        "sha256": "baf505670b844560d31c4ae5a80fab134660c7c231d1b7645235425855789797"
+      },
+      "identity": {
+        "head": "1d796f2a4b4781b00bce86e26b6de864d1cb97f3",
+        "source": "apps/desktop/scripts/bot-history-motion-checks.mjs",
+        "sourceSha256": "4db87a955122d84666b5c4218c46b3cb018bcb9c35921501bbe01ac4f4f4e524",
+        "functionsSha256": "679ae0bbb7cdbe395441d682ad68f760359b488f54dd151f1330500c3f880fc2",
+        "scope": "Exact unmodified capture functions with development-only exports for the isolated host baseline; product components/CSS from same worktree."
+      },
+      "baselineLog": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/baseline-electron-final.log",
+        "bytes": 1365,
+        "sha256": "4340f62546e6b17047b6b14190fd485976c9ae58afff2a7369d9f08e4eea3fd5"
+      },
+      "baselineReport": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/peer-motion-capture-j6ZEUR/report.json",
+        "bytes": 164146,
+        "sha256": "8c2581a22dcf27ac1d4f86ba8b269b75ff4e68ff4dd14f6ec79249856a26339f"
+      },
+      "baselineTimedOut": true,
+      "description": "Exact unmodified original capture functions with test-only exports; same real component/CSS fixture with synthetic delayed dispatch. One trusted closing input near the end of the original window reproduces the deadline assertion."
+    },
+    "unit": {
+      "passed": 7,
+      "log": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/clock-unit-final.log",
+        "bytes": 749,
+        "sha256": "d2319d5c328a8aa53c8098f49353819eae987bdcb0f39ff4a8d760e0d26e33e4"
+      },
+      "coverage": [
+        "late5900ms click then >=480ms observation",
+        "both intended reversal clicks share original input limit",
+        "missing input or second click fails at6000ms",
+        "stalled RAF after input fails at separate observation deadline",
+        "callbacks/listeners/timers released in both phases",
+        "existing full-height jump denial retained"
+      ]
+    },
+    "electron": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/candidate-electron.log",
+        "bytes": 474,
+        "sha256": "148e27fbbbea19bdc5dda7d1de34230437e4cd32daaf4f2a8216580fb359b234"
+      },
+      "report": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/peer-motion-capture-AVkRHg/report.json",
+        "bytes": 212011,
+        "sha256": "e5f3df84627035da43fab9e09ae0eee8f2720fb5f5c053c7dfb51c43930b6bd8"
+      },
+      "lateClosingInputAtMs": 5805,
+      "postInputObservationMs": 483.5,
+      "cases": [
+        "open",
+        "lateClose",
+        "reopen",
+        "close",
+        "reverse"
+      ],
+      "pageErrors": [],
+      "reducedMotion": "actual native Enter toggles and0s transition",
+      "closedFocus": "actual Tab cannot enter hidden detail"
+    },
+    "typecheck": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/typecheck-final.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "scope": "Existing strict desktop tsconfig plus the typed fixture; temporary config resolved within desktop workspace, no compiler checks disabled. Earlier temp config outside workspace lost Node ambient resolution; original failed log retained."
+    },
+    "architecture": {
+      "passed": true,
+      "log": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/architecture.log",
+        "bytes": 384,
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      }
+    },
+    "screenshots": {
+      "review": "Implementer self-review, not independent. Actual open and closed light fixture screenshots inspected: real Chinese labels, SVG direction, detail content and hidden closed body/focus ring. These are an isolated component surface, not full Bot/installed UX acceptance.",
+      "open": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/peer-motion-capture-AVkRHg/disclosure-open.png",
+        "bytes": 38605,
+        "sha256": "369e6e2933a714831e8681531351e3f6effcbb83998677264b038f6b8db7cf35"
+      },
+      "closed": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/peer-motion-capture-AVkRHg/disclosure.png",
+        "bytes": 18334,
+        "sha256": "4d8050f4591ce5ddc20cc5c30b081503ec76418b4739f25c44a4820a19afc436"
+      }
+    },
+    "earlierUnacceptedRuns": {
+      "originalScratchLog": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/baseline-electron.log",
+        "bytes": 1367,
+        "sha256": "dba5064cec4854b77e836b067cf7608f2acdbb622207f3d9e7f88fcdc97cbd5c"
+      },
+      "initialFixedLog": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/fixed-electron.log",
+        "bytes": 474,
+        "sha256": "74859e619251e7cfc384de49f0188949d6d0dc533a0dd0c24f819ba91452d361"
+      },
+      "typeConfigResolutionFailure": {
+        "path": "/tmp/peer-native-disclosure-clock-20261117/typecheck.log",
+        "bytes": 188207,
+        "sha256": "dada3b8934f91b2da2dafddffb7d75a4c49cdc098d4433417770e5a3686c34e3"
+      },
+      "scope": "Retained, excluded from final acceptance. Final paired fixture uses a valid fully typed accepted task; final source is recorded separately."
+    },
+    "nativeEvidence": "Native crates, Cargo files, native contract/verifier and desktop production renderer trees exactly match1d796f2a. Its454 Rust/336roots1924interop/9PTY and exact featureless23-Qoder-Host evidence are unchanged scoped runtime evidence, not a new full-repository green result on this validation-only tree."
+  },
+  "predecessorCi": {
+    "runId": 43967102253,
+    "head": "1d796f2a4b4781b00bce86e26b6de864d1cb97f3",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "reason": "The pushed source fixes the known capture deadline defect; existing workflow concurrency superseded the old source run. Not a rerun due to an observation timeout.",
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      {
+        "id": 133649296283,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "cancelled",
+        "passed": [
+          "Build",
+          "Native CLI scoped validation",
+          "Typecheck",
+          "Architecture check",
+          "Test"
+        ],
+        "cancelled": [
+          "Bot shell Electron smoke (Linux)"
+        ],
+        "failures": []
+      },
+      {
+        "id": 133649295872,
+        "name": "ci-macos-14",
+        "conclusion": "cancelled",
+        "passed": [
+          "Build"
+        ],
+        "cancelled": [
+          "Native CLI scoped validation"
+        ],
+        "unrun": [
+          "Typecheck",
+          "Architecture check",
+          "Test",
+          "Bot shell Electron smoke (macOS)"
+        ],
+        "failures": []
+      }
+    ]
+  },
+  "candidateCi": {
+    "runId": 43970657817,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43970657817",
+    "head": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+    "mergeCommit": "90d3e41c8c9b0b818a689d3734ee92d158a36b97",
+    "mergeTree": "af216294c08e512e2dfa7f1545b5fc0130264cbe",
+    "matchesSourceTree": true,
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      {
+        "id": 133661881862,
+        "name": "ci-macos-14",
+        "status": "completed",
+        "conclusion": "failure",
+        "nativeScoped": "success",
+        "failure": "Test step timed out after15minutes; Desktop tests completed, last old TUI line was first Goal bridge test. No exact cause established.",
+        "log": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci-macos.log",
+          "bytes": 1944306,
+          "sha256": "c6eac53bd5cd99b5258ac93f14545d932cc3af4bbb2b56aa4b9fa93df2003d44"
+        }
+      },
+      {
+        "id": 133661882380,
+        "name": "ci-ubuntu-latest",
+        "status": "completed",
+        "conclusion": "failure",
+        "nativeScoped": "success",
+        "failure": "Bot shell Electron smoke: bot-evidence-checks.mjs:69 restore; reply details remained hidden after Back. Before history-motion checks.",
+        "log": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.log",
+          "bytes": 2226642,
+          "sha256": "63f5a141024bb7f5727e98aa5376e5372840a473c655d50605957e80835dbf14"
+        },
+        "report": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-report.json",
+          "bytes": 299689,
+          "sha256": "3b257f2fbf5bd6aee0d0769c6a1e4783605eb4c052729d2819ef77336f0a458b"
+        },
+        "screenshot": {
+          "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-failure.png",
+          "bytes": 47901,
+          "sha256": "166d0a246d6e04e6ae8ed6e39a06a01da94400d53f920cf8a57cfe01d91ab182"
+        }
+      }
+    ],
+    "observedAt": "2026-11-16T23:16:35.887845+00:00",
+    "followUp": "Isolated local actual work-surfaces/Evidence return passed; isolated old TUI879 tests878pass1skip and Goal bridge10pass. These do not resolve or reclassify either CI failure. Remote full trace now preserved and inspected; no retry or assertion weakening.",
+    "traceInvestigation": {
+      "artifactId": 14279074307,
+      "archive": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci-linux.zip",
+        "bytes": 349200931,
+        "sha256": "7f780de4c0af96d10a65ba7af5fb71bf40227837b43b1485fd8e81ba19beec83"
+      },
+      "trace": {
+        "path": "/tmp/peer-native-evidence-return-20261117/ci/bot-shell-trace.zip",
+        "bytes": 357479601,
+        "sha256": "d5059a02193969fc2f13688824fd9f786fd7ea4e9eea9a5f2f26fd47b9f833bf"
+      },
+      "findings": {
+        "path": "/tmp/peer-native-evidence-return-20261117/trace-findings.json",
+        "bytes": 7470,
+        "sha256": "3eeceaa2f8ea8f0d166a8ee6b9a26a7965fcb2f6a4fecd87e38c05c4e4197a37"
+      },
+      "observation": "call@14782 Back click reported complete at390743ms, point1039.2/84, target bot-inspect-back. Before/input/after and15s timeout snapshots retain metadata_only evidence and hidden reply slot; no successful return state. Failure follows760->1280 viewport restore. This is factual trace, not proof of root cause or fix. Local scoped same flow passed."
+    }
+  },
+  "limits": {
+    "wholeRepositoryCiPassed": false,
+    "p4TotalGatePassed": false,
+    "ordinaryRatatuiChatEnabled": false,
+    "p5ThroughP7Complete": false,
+    "scope": "No full Bot21minute CI environment reproduction, full product/regression release, installed build, real provider/OS Vault or long-memory acceptance. No user data reads/migration, install, user-instance restart, default switch, merge, tag or release; no Bun/Node engine sidecar."
+  },
+  "followUpQoderCallerBaseline": {
+    "source": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+    "expected": {
+      "contextTier": "tier-large",
+      "max_input_tokens": 512000,
+      "is_vl": true
+    },
+    "actual": {
+      "key": "missing-synthetic-model",
+      "display_name": "missing-synthetic-model",
+      "model": "",
+      "format": "openai",
+      "is_vl": false,
+      "is_reasoning": false,
+      "api_key": "",
+      "url": "",
+      "source": "system",
+      "max_input_tokens": 200000
+    },
+    "baselineExit": {
+      "exit": 1,
+      "node": "/Users/yinliang/.nvm/versions/node/v25.9.0/bin/node",
+      "source": "c09d2bc347d551eae5b007c7f440ccce41faef2d",
+      "scope": "Actual compiled public sender. Host auth/HTTP mocks; not real authentication or network."
+    },
+    "log": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.log",
+      "bytes": 1473,
+      "sha256": "311e6755da5787eb0f21868367bac328cb68ac6b884363bbb839350109c68b4b"
+    },
+    "script": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.mjs",
+      "bytes": 2856,
+      "sha256": "24ab268107959ee735e3e48c5a4faf715d971210ca0ebef3e2abc1742c7785e8"
+    },
+    "bodyEvidence": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/baseline.json",
+      "bytes": 939,
+      "sha256": "bd469be8344db64bb4a7fb9851c8c23698eeb44eb7189bdd7cca3043d731c7dc"
+    },
+    "build": {
+      "path": "/tmp/peer-native-qoder-caller-20261117/build.log",
+      "bytes": 340,
+      "sha256": "985575a5348499efd073aa396dd5c70a7d1badef9c0db9cd70d253feb79d017c"
+    },
+    "sourceAdapter": {
+      "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/runtime-node/src/provider-adapters/qoder-private-adapter.mjs",
+      "bytes": 52827,
+      "sha256": "94c313a44bdfb8144b5e1a7ec2f47033589eb84dfd8fbfa0407bd7494a355b42"
+    },
+    "builtAdapter": {
+      "path": "/Users/yinliang/.codex/worktrees/native-rust-cli/Peer-Agent/packages/runtime-node/dist/provider-adapters/qoder-private-adapter.mjs",
+      "bytes": 58823,
+      "sha256": "965ba0efe2ec8b44ed6891e5e2712eb6ffbd9d109d5007dbb173e146474c5191"
+    },
+    "scope": "Actual public shared TS sender and real stream parser, explicit auth/HTTP host mocks with an owned empty catalog/HOME. No SDK/credential/network/provider or native-model parity evidence is claimed by this probe. Raw-src/old-Node import attempt retained as unexecuted; this baseline ran the freshly built module on Node25.9.0. Static-only audit is now an executable caller-seam defect; fix still pending."
+  }
+}

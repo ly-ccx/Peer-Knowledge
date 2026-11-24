@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-16",
+  "scope": "P4 ordinary native MCP transport routing/trust/proxy credential protection. MCP OAuth pinned-address proxy is still pending; not complete P4.",
+  "candidate": {
+    "tree": "9f7b463c1f538e169fb1a332c5cc3f80ef765c53",
+    "base": "9d09192b2789d1565fff5c2a2f72c836703541ec",
+    "branch": "codex/native-rust-cli",
+    "pushed": true,
+    "commit": "1495b8677302fad074269e1bc4809c78fb8537b5"
+  },
+  "decisionPass": {
+    "files": [
+      "31-mcp-connection-management.md",
+      "32-mcp-authentication.md",
+      "45-mcp-oauth-config-ux-simplification.md",
+      "50-cli-system-proxy-fallback.md",
+      "129-native-rust-cli-and-ratatui.md",
+      "130-bounded-cli-memory-and-transcript.md",
+      "131-native-cli-contract-storage-and-recovery.md",
+      "132-mcp-vault-and-native-oauth.md"
+    ],
+    "classification": "A: explicit shared ordinary MCP network policy supplement, registered and pushed before source at knowledge ac6896a. Legacy SDK default fetch did not implement the model-specific complete policy. Permission/Evidence/Context facts unchanged.",
+    "oauthAddressPolicyBroadened": false
+  },
+  "baselineCi": {
+    "commit": "9d09192b2789d1565fff5c2a2f72c836703541ec",
+    "runId": 43848554075,
+    "linuxJob": 133234880361,
+    "linuxConclusion": "success",
+    "macosJob": 133234880280,
+    "macosStatus": "completed",
+    "macosActiveStep": null,
+    "wholeRepositorySuccess": true,
+    "mergeCommit": "bf7459369520a98f170e59c266e6c8a7ac9f6047",
+    "mergeTree": "9ca1777d8ee866d12a2db6bea0b72a907c9fde0a",
+    "matchesSourceTree": true,
+    "macosConclusion": "success",
+    "observation": "Both jobs reached actual success, including Electron smoke, before this candidate commit/push. Original run was neither canceled nor restarted. Running-job BlobNotFound was not treated as termination."
+  },
+  "validation": {
+    "nativeScoped": {
+      "base": "9d09192b2789d1565fff5c2a2f72c836703541ec",
+      "tree": "9f7b463c1f538e169fb1a332c5cc3f80ef765c53",
+      "bunVersion": "1.2.17",
+      "startedAt": 1794826470.2592142,
+      "exitCode": 0,
+      "durationSeconds": 359.918,
+      "rustTests": 341,
+      "nativeEpisodes": 113,
+      "actualTsInteropRoots": 222,
+      "actualTsInteropChecks": 1261,
+      "ptyChecks": 9,
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-20261116/verify.log",
+        "sha256": "475c294266606a28cf7cafed01c300c57e93f9130c04d0e5fbaa890cdfe9cd0f"
+      }
+    },
+    "release": {
+      "tree": "9f7b463c1f538e169fb1a332c5cc3f80ef765c53",
+      "bytes": 14906224,
+      "sha256": "394fadd315b9e565613dc3a17a9e03767e01cd9da109a10a6f0c9f685594764c",
+      "syntheticPrivateKeyAbsent": true,
+      "nativeRustTests": 341,
+      "nativeEpisodes": 113,
+      "actualTsInteropRoots": 222,
+      "actualTsInteropChecks": 1261,
+      "ptyChecks": 9,
+      "verifyLogSha256": "475c294266606a28cf7cafed01c300c57e93f9130c04d0e5fbaa890cdfe9cd0f",
+      "featureless": true,
+      "extraNativeMcpHostTests": 5,
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-20261116/release-host.log",
+        "sha256": "261f16d8ae03c11e8b9e87c16491389781c365412150051afe94f32c8ecf76d0"
+      }
+    },
+    "focused": {
+      "nativeMcpHostTests": 5,
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-focused-20261116-final.log",
+        "sha256": "f6422483d1efe81c746763a5a5274a1ba60adf0d4c1863c52e738e9e02ebc67c"
+      },
+      "architectureUi": "passed",
+      "architectureLog": {
+        "path": "/tmp/peer-native-mcp-network-architecture-20261116.log",
+        "sha256": "63ca0b6e79fe7cf710cc09e34cdcfc82bbf51d0a5ca5c59f830187af210fd560"
+      },
+      "fmtClippy": "full frozen native gate passed"
+    },
+    "fullLocalPnpmTestTypecheck": "Not repeated for this Rust-only product delta; baseline and new candidate whole-repository CI are independently observed."
+  },
+  "verifiedBehavior": [
+    "Actual public CLI -> canonical Host -> model -> PermissionGrant -> native MCP -> Tool Result/Evidence, with Streamable JSON, Streamable SSE and distinct legacy endpoint-event SSE over authenticated CONNECT and explicitly trusted TLS.",
+    "Real HTTP and HTTPS forward proxies, exact NO_PROXY bypass, TLS unknown-root/wrong-host refusal, adding trust and later canonical task admission; no TLS validation disable.",
+    "Only selected proxy URI/encoded and decoded user/password/Basic wire values are protected; proxy auth absent at origin and echoed secrets absent from model continuation/history/public output/Evidence. An unused proxy secret remains ordinary untrusted content, proving no blanket ambient-secret mutation.",
+    "MCP preflight/client construction completes before tools/call sent marker. Invalid proxy gives definite not_dispatched without remote requests/unknown, prior history unchanged and subsequent repaired-route task succeeds.",
+    "Real duplex Streamable SSE control POST over proxy; SIGTERM closes owned native proxy sockets to EOF within existing bounded stop, one sent tool retained unknown and not replayed. Same-workspace task remains denied; independent workspace reads a real file with Evidence, old unknown/history preserved.",
+    "Per-connection zeroizing protection patterns deduplicate and reject above 64 entries/256KiB before dispatch. Protocol isError remains authoritative even when redaction changes the server key.",
+    "Shared Network prepares every physical MCP GET/POST; previous model generation/count/OAuth callers use the same prepared builder. No automatic request retry/redirect/fallback."
+  ],
+  "baselineReproduction": {
+    "binarySha256": "f5cb2f84f590b06f7bef9704ec19c0a3ab4539858aa56849463293f2a900d2da",
+    "log": {
+      "path": "/tmp/peer-native-mcp-network-baseline-20261116.log",
+      "sha256": "b823b427deb30c28c4bd21bab8c9750d2884b44a5ff790176b2b9fb6ac437c12"
+    },
+    "ownedRootName": ".tmpwPjPWa",
+    "result": "Original release with explicit synthetic CA failed MCP initialize; no origin initialize/tool calls. A model completion exit0 did not satisfy real MCP evidence assertions."
+  },
+  "preservedAttempts": [
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-fixture-compile-20261116.log",
+        "sha256": "f231cc16676d89b43cce5cb90fa9c1c890bd2a984273d81d363e01a0da4c1687"
+      },
+      "cause": "New fixture tried Display on canonical Vec<Value>; corrected to JSON serialization, keeping actual evidence assertions."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-https-proxy-auth-failure-20261116.log",
+        "sha256": "b489e956db7308ab238e1a35fabe02c1178c78fc3becf82752680d9da4954a06"
+      },
+      "ownedRootName": ".tmpeRDdRv",
+      "cause": "Locked reqwest 0.12.24 does not insert forwarding auth for HTTPS proxies to HTTP destination. Shared single-destination/no-redirect builder now adds the sensitive proxy-only header for that exact case; actual forward proxy records it and origin never receives it."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-focused-20261116-v2.log",
+        "sha256": "6517c6d2ac13ad428f86399b389f64bcec4c8345e5ac990d384b1ca51d20a7c7"
+      },
+      "ownedRootName": ".tmpHJaaDG",
+      "cause": "Test assumed same-workspace admission after a sent unknown. Existing resource fence correctly denied it; final assertion requires that denial plus supported independent-workspace admission, preserving unknown."
+    },
+    {
+      "log": {
+        "path": "/tmp/peer-native-mcp-network-focused-20261116-v3.log",
+        "sha256": "f984ad338ce63a9ca9de16b7e00e8397fb599781f0e07bfd68ba4f4c878136b8"
+      },
+      "ownedRootName": ".tmp0HQnnJ",
+      "cause": "Test looked for an invented local_file_read evidenceKind. Actual canonical file result has capabilityId local.file.read plus status/content/evidenceId. Final assertion validates those real fields and actual file content."
+    }
+  ],
+  "limits": [
+    "P4 total gate not passed; Grok/Qoder, full Context/compaction strategy, remaining tools/Skill/Plugin/Hook/ACP/headless/commands and mixed installed-version drain remain.",
+    "MCP OAuth HTTP still uses its existing no-proxy address-restricted SDK Adapter. Next implementation must approve DNS/IP locally, CONNECT numeric IP, preserve original TLS hostname/Host, and reuse trust without remote-DNS bypass.",
+    "P5 complete project-agent not started, P6 Ratatui general chat still cannot send; no full long-session memory/latency or original 8.27GB reproduction acceptance. P7 installed/release/default switch/legacy retirement incomplete.",
+    "All new servers/proxies/keys/CA/model replies are owned synthetic fixtures on local macOS arm64. Not public IdP/paid model, real VPN changes, OS Vault, Linux installed or full UI acceptance.",
+    "No install, personal-task migration, running-instance restart, production default switch, merge, release/tag. Native product chain contains no Bun/Node engine sidecar. Development TS conformance is not a product sidecar.",
+    "Zeroizing covers owned routing/protection containers, not every transient third-party parser/HTTP matcher/allocator/OS copy."
+  ],
+  "nextOAuthProbe": {
+    "scope": "Isolated non-product Rust experiment; not OAuth/TLS/address-policy acceptance. Separate ephemeral Cargo manifest, production source and release artifact unchanged.",
+    "log": "/tmp/peer-native-pinned-connect-probe-20261116/probe.log",
+    "sha256": "269c010ed4ce2fcc7356b9b5b4669dfa221b0be90a0dea1172d52e56c8b6682a",
+    "observed": "Locked top-level reqwest 0.12.24 can send CONNECT 192.0.2.10:443 HTTP/1.1 through a local proxy, upgrade the 200 tunnel and exchange bytes. No actual connection to documentation IP is made by this fixture. Supports investigating SDK HTTP Adapter with locally approved numeric target; original hostname TLS, bounded DNS/headers/body/deadline/cancellation and shared trust remain to implement."
+  },
+  "candidateCi": {
+    "runId": 43855704882,
+    "url": "https://github.com/ly-ccx/Peer-Agent/actions/runs/43855704882",
+    "status": "completed",
+    "conclusion": "failure",
+    "wholeRepositorySuccess": false,
+    "jobs": [
+      133259289639,
+      133259290066
+    ],
+    "mergeCommit": "f130fbea3a753fe2689c6e7945ea82e42ea0f97a",
+    "mergeTree": "9f7b463c1f538e169fb1a332c5cc3f80ef765c53",
+    "matchesSourceTree": true,
+    "jobDetails": [
+      {
+        "jobId": 133259289639,
+        "name": "ci-ubuntu-latest",
+        "conclusion": "failure",
+        "failedStep": "Bot shell Electron smoke (Linux)"
+      },
+      {
+        "jobId": 133259290066,
+        "name": "ci-macos-14",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "validationCorrection": {
+    "commit": "2c071885f8be923170ff80ffa38564f7bcdab130",
+    "scope": "Only two Electron smoke fixture scripts; native product bytes unchanged. Actual inspector GC failure; main-owned configuration/query, original assertions retained.",
+    "receipt": "ci-updater-control-20261116.json",
+    "ciRunId": 43859827036,
+    "ciStatus": "completed",
+    "ciConclusion": "success",
+    "wholeRepositorySuccess": true
+  }
+}

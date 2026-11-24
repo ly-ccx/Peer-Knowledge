@@ -1,0 +1,102 @@
+{
+  "phase": "P4 / NR-04",
+  "base": "db16e7be9c077dc42b78fa9ce0306ee9ae41da46",
+  "tree": "4c1349b7c776a38a8ab8695ad240f17ee59a365b",
+  "governance": "ADR131 preregistration 6b859d5, continuing ADR55, 57, 90, 129 and 130.",
+  "scope": "Explicit ordinary exec --image, repeatable paths relative to selected workspace. Text-only or piped text accepted as before; image-only also supported. Original files are bounded and version-checked before canonical submission. User Image data goes through the existing model request, with no path or permission upgrade.",
+  "publicCases": 4,
+  "public": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-public-final.log",
+    "sha256": "f09958a1cda0df495e8260e0aa4719dc8904627d661cf06ecac91a64bab275ca"
+  },
+  "argvAndShellLibrary": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-argv.log",
+    "sha256": "90be0c78771e8f4f55de4e8d90e9df7867df439aba19176e5610f1758d82d40c"
+  },
+  "architecture": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-architecture.log",
+    "sha256": "4d1ccf69299f67c3437d6ee1aed42b50929cc269c78be613441336efd7b1cbbf"
+  },
+  "strictClippy": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-clippy.log",
+    "sha256": "151e872db6bdcdfb929c6e925e7a98bc93c06d9888cb4aeb0055bd7d511c0ea5"
+  },
+  "legacyComposer": {
+    "passed": 25,
+    "log": {
+      "path": "${RAW_EVIDENCE_ROOT}/legacy-attachment-intake.log",
+      "sha256": "2d180d6e6648bf50a48efa7571cc86ac3ab4850fb8471b7e492c736123824747"
+    }
+  },
+  "previousPublicFailure": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-old-cli-red.log",
+    "sha256": "5b4efc6ea489a60d63a9f42b9528061464ea6e4068e57a4c2a5b424588c94114"
+  },
+  "legacyPluginProbe": {
+    "modes": 8,
+    "installedFixtureProjected": false,
+    "log": {
+      "path": "${RAW_EVIDENCE_ROOT}/plugin-production-probe.log",
+      "sha256": "99c11f8765fee88873aa9e1852699db018cc31df0a7ed8c323a07d24a7100d71"
+    },
+    "scope": "Legacy production createTuiRuntime on eight mode projections. Synthetic on-disk draft package adds no capability. Production-source trace found no package registry wiring. An independent provider implementation or future package format is outside this observation."
+  },
+  "package": {
+    "platform": "darwin-arm64",
+    "archive": {
+      "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-package/dist/peer-darwin-arm64.tar.gz",
+      "sha256": "7dea5963a173096f5e71c598cf554ac05f73bb00dad5682c55c393c24a513a3f"
+    },
+    "bytes": 9519457,
+    "binary": {
+      "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-package/extracted/peer-darwin-arm64/peer",
+      "sha256": "373b0ccab1bc4f756c2850729db3aaac9ed5342692ea4921e36f0e8f8ecece82"
+    },
+    "members": [
+      "peer",
+      "peer-credential-helper"
+    ],
+    "featureless": true,
+    "noNodeOrBunOnProductPath": true
+  },
+  "packagedPublic": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-archive-public.log",
+    "sha256": "88c368d2d3186a4f53170a7881abcc8d2b8c72350db4a49643f44a304917bf18"
+  },
+  "actualLegacyColdRead": {
+    "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-cold-read.log",
+    "sha256": "50b69929142b7fc5879e8abbb748e4243316c5b6dd360a0345250602e4aa92f3"
+  },
+  "failures": [
+    {
+      "stage": "Clippy chunks_exact",
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-clippy-red.log",
+        "sha256": "a2d0aa4fbf4c6bbfb275b39abc9d6b533010ff5ccf46089e58c8a895bd85e71e"
+      }
+    },
+    {
+      "stage": "Clippy expanded argv enum",
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-clippy-enum-red.log",
+        "sha256": "08422cf7eb68b6c8846a0755463f6f4e8e9347852dc50b29f7dc10358ebc1235"
+      }
+    },
+    {
+      "stage": "Legacy reader dependency dist was missing",
+      "log": {
+        "path": "${RAW_EVIDENCE_ROOT}/attachment-intake-cold-reader-deps-red.log",
+        "sha256": "86bb3ad95ea6584d87f49acc8926dcb1f59094ffc5a8e48c29fd270b4e69c1ef"
+      }
+    }
+  ],
+  "combinedWithDelegatedHook": {
+    "tree": "c4567fee9dd98acf477f0615e6367d7757b26a0d",
+    "fullNative": "in_progress",
+    "log": "${RAW_EVIDENCE_ROOT}/attachment-combined-verified.log"
+  },
+  "limits": [
+    "Loopback controlled model and isolated local evidence. Existing provider limits still apply.",
+    "Ratatui image Composer, clipboard UX, long-session resource budget and release acceptance remain open."
+  ]
+}

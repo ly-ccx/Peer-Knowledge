@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-19",
+  "phase": "P4 / NR-04",
+  "baseTree": "a0f10b9ea6672cba05b6103d09356025617432dc",
+  "candidateTree": "9e643147c38464fa1760cd559f1e368ab12e84ad",
+  "patchSha256": "88a7118a574f7825193d372af1b1d3332eed873b612739050ceee40ea7e05aad",
+  "sourceArchiveSha256": "faf5384a265785b1035e62996b65d27cb7333c9edabeb9a344275dc372ddaca1",
+  "scope": "ADR65, 108-cli-basic-shell-commands and ADR129. A closed stdout pipe preserves the settled status for ordinary exec, help/version and completion text, session list/delete and export. Earlier I/O failures, in-flight cancellation, model and permission decisions remain authoritative.",
+  "baseline": {
+    "actualLegacyExec": "Exit 0 after two model requests and one confirmed isolated file write, with no stderr.",
+    "actualNativeExecBeforePort": "Same two requests and saved effect, with stderr Broken pipe and exit 1.",
+    "basicCommands": "Actual legacy help, list, export-to-stdout, export-to-file and confirmed delete returned 0. The predecessor native package returned 1 for all five even though its file publication and deletion had already committed.",
+    "execLogSha256": "14b0c84ade694023e260590ef4b7fccb707e5dc18d7f5db29c92dd2e555f46cd"
+  },
+  "validation": {
+    "cases": [
+      "Actual model SSE success and later provider 401 both used a known file write. With stdout disconnected the CLI preserved exits 0 and 3, respectively. Each retained one successful persisted Tool Result, indexed Evidence and settled usage, without retry.",
+      "The package replay of five shell entries matched the legacy exit statuses. Confirmed deletion removed the selected conversation and Goal. File export kept the same bytes as its predecessor's committed output, and unrelated usage bytes were unchanged.",
+      "All 19 fixed-result and cleanup-receipt public integration cases still passed on the combined macOS package."
+    ],
+    "macosArm64": {
+      "targetedNativeTests": 2,
+      "archiveSha256": "ab216a663d2172dbfccdf7b29843a373c7075cb290e4888d4d6063a511b54874",
+      "binarySha256": "c86a8d84730f46440b35767d47eeb3838ff7b3a41147337fd75bb01972e1af6b"
+    },
+    "linuxAmd64": {
+      "targetedNativeTests": 2,
+      "scope": "Exact combined source in network-disabled container, isolated loopback model."
+    },
+    "rawPublicShellReplaySha256": "72adc0625ecddd7b67346589e35b2ddfa39866ffe1beeab8b8a14861116ab6f6",
+    "rawPublicExecReplaySha256": "61ab16b192795e28c3cebadaaa4ba3db791e85dd92d4f33dc4df9ee9041781f9",
+    "formatStrictClippyAndArchitectureChecks": "passed",
+    "linuxAmd64ExtractedPackage": {
+      "archiveSha256": "2198adac3ce4104840673ed4f61b65cbcb13184abb6e6c2ec75a47e8f1c5830e",
+      "binarySha256": "c9fb1818830328449a6ad57d1f95b8dffbef6ff5ffd2f6c68ffb022b48eb800a",
+      "coldWalCases": 8,
+      "closedStdoutTestGroups": 2
+    }
+  },
+  "integration": {
+    "baseRun": 44379988625,
+    "candidatePromotion": "Pushed to codex/native-rust-cli after both predecessor jobs succeeded.",
+    "candidateCommit": "bd983c544c3230a886f92adf33a9694302aab941",
+    "candidateWholeRepoCi": 44388313785,
+    "predecessorConclusion": "success on both jobs",
+    "predecessorActualCiMergeCommit": "c589a5b6cf65f5789aa78ada6fcd48e7df6a1c5d",
+    "predecessorActualCiTree": "75fe7df5a1684377da4589005d2e86443f7f9027"
+  }
+}
