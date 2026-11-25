@@ -2,7 +2,7 @@
 
 创建时间：2026-11-25
 最后更新：2026-11-25
-状态：Accepted（2026-11-25 仓库所有者在会话中确认方向并授权实施：只读调研/文档类任务不再强制独立核验，先补 ADR 再改触发条件；核验员的工具参数错误回给模型重试。实现候选 `Peer-Agent` `5fc41bf3` 位于分支 `PeerAgent/pa/research-verifier-floor`，未推送、未经安装版验收）
+状态：Accepted（2026-11-25 仓库所有者在会话中确认方向并授权实施：只读调研/文档类任务不再强制独立核验，先补 ADR 再改触发条件；核验员的工具参数错误回给模型重试。实现候选 `Peer-Agent` `8451826c` 位于分支 `PeerAgent/pa/research-verifier-floor`，已推送、未并入开发线、未经安装版验收）
 级别：A（关闭闸门与验证下限在一类委托会话上的适用范围），B（委派核验面的工具准备失败处置、`spawn_session` 标准描述）
 依赖：ADR 80、88、93、95、103、106、116、117、118、131；[委托运行时](../architecture/project-agent-delegation-runtime.md) 验证下限表。
 
@@ -58,7 +58,9 @@ Worker 面的 `invalid_line_range` 等准备失败仍按原路径终止，本决
 
 ### D5 界面表达
 
-`independentVerifier=not_required` 时，任务现场与裁决抽屉显示「无需独立核验」及未经独立核验的质量标准，不显示「独立只读核验通过」。事实来源仍是宿主核验结论；界面不产生核验事实。
+`independentVerifier=not_required` 时，任务现场顶部状态条的核验按钮显示「无需核验」且不带「通过」色调，不显示「核验通过」；裁决抽屉的独立复核行显示「无需独立核验」，质量标准行显示「未经独立核验」。事实来源仍是宿主核验结论；界面只表达，不产生核验事实。
+
+实施期间 `codex/native-rust-cli` 的 `ace6b57b` 把子任务视图改为对话优先，原正文里的核验横幅不再存在。本决策的表达因此落在状态条按钮（`verdictStrip`）与裁决抽屉（`TaskVerification`），两处都只读取宿主检查项的 `reason`。
 
 ## 3. 修订与澄清的条款
 
@@ -93,13 +95,15 @@ ADR 117「上述缺口不是放宽授权、删除核验或增加默认累计上�
 - 核验结论：`not_required` 的 `independent_verifier` 检查项带 `reason=not_required`，`model_review` 检查项为 `not_reviewed`。
 - 端到端：联网只读会话完成后核验模型零请求、状态 `not_required`、无核验运行记录；本地只读会话仍由核验员评估 `model_review`。
 - D3：核验员先用非法行号调用 `read_file`，收到未派发结果后更正并给出裁决；未投影工具名仍终止。
-- 界面：`not_required` 不渲染「独立只读核验通过」。
+- 界面：`not_required` 的核验按钮为「无需核验」且无通过色调；裁决抽屉显示「无需独立核验」「未经独立核验」。
 
 实际结果、候选身份与未覆盖范围在实施后补录于下。
 
 ## 7. 实施验收记录（2026-11-25）
 
-实现者自审（`independent=false`）。候选为 `Peer-Agent` `5fc41bf35952acb232405e39e25e82ac600b05a5`，分支 `PeerAgent/pa/research-verifier-floor`，基于 `codex/native-rust-cli` 的 `78bece77`。在独立工作树与独立构建目录完成，未触碰原工作树、运行中的 daemon 和用户数据；候选尚未推送、未合并、未经安装版验收。
+实现者自审（`independent=false`）。候选为 `Peer-Agent` `8451826c`（合并提交，含实现 `5fc41bf3` 与 `codex/native-rust-cli` 的 `ace6b57b`），分支 `PeerAgent/pa/research-verifier-floor`，已推送。在独立工作树与独立构建目录完成，未触碰原工作树、运行中的 daemon 和用户数据；未并入开发线，未经安装版验收。
+
+**实现候选 `5fc41bf3`（基于 `78bece77`）**
 
 先红后绿：保留测试、把实现还原到基线时，联网调研用例报「不得请求独立核验」，行号更正用例只收到 1 个核验请求即终止；把 D1 判定关掉时，3 个签收单元用例失败；裁决抽屉在基线组件上把「无需核验」显示为「通过」。恢复实现后全部通过。
 
@@ -116,6 +120,19 @@ ADR 117「上述缺口不是放宽授权、删除核验或增加默认累计上�
 | i18n 中英键位一致性 | 通过（912 键） |
 
 `architecture:check` 与 `ui:check` 在该基线上因其他提交带入的 CSS（`bot-touchbar.css`、`bot-conversation.css`、`deferred-panel.css`、`bot-list.css` 等）失败，本次未改任何 CSS，检查器对本次改动的 TSX 文件没有报告。
+
+**合并 `ace6b57b` 后的复验（候选 `8451826c`）**
+
+`ace6b57b` 改为对话优先的子任务视图并移除了正文核验横幅，与本次横幅改动在 `TaskWorkspaceView.tsx` 冲突。按 D5 把表达迁到状态条核验按钮（`verdictStrip`）后复验：
+
+| 范围 | 结果 |
+| --- | --- |
+| `peer-project-agent` 单元 / e2e / parity | 107 通过；54 通过 / 1 失败（仍为 `stopped_turn…`）；4 通过 |
+| `cargo check --locked --workspace`、`cargo clippy` | 通过，0 警告 |
+| 桌面 typecheck | 通过，0 错误 |
+| 桌面完整测试（重建 `peer-native`） | 5818 个：5811 通过 / 2 失败 / 5 跳过。剩余 2 个是路径式 ID 校验与 Frost CSS token 契约；负载下不稳定的删除后在线状态断言本次通过 |
+
+`peer-runtime` 未被该合并触及，沿用上面的结果。
 
 覆盖边界：模型响应由测试控制；文件读取、授权、Evidence、核验会话、签收判定与删除/恢复链路使用生产入口和真实 `peer-native`。没有验证真实模型的裁决质量，未运行产品截图回归、读屏与安装版验收，未替换或重启运行中的应用。
 
