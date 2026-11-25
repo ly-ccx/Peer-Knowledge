@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-16（新增 [ADR 133：全端统一 Rust Core 与双宿主融合终局架构](133-unified-rust-core-and-dual-host-architecture.md) 为 Accepted：确立后续以 Rust 为唯一核心构建、Desktop 复用同一套体系并叠加桌面专属效果；部分取代 ADR 54 永久 TS 内核承诺，升级 ADR 129 §2.6，明确 `PR #132` / `PR #133` 与 TS 过渡态收口规则，同步 `128–132` 占号并将后续可用号顺延至 `134+`；前次 2026-11-15 全量跨 ADR 对齐记录见下文维护节）
+最后更新：2026-11-25（新增 [ADR 135：自然绘本猫形象体系、主对话内联任务流与可插拔 CLI 执行器架构](135-editorial-cat-avatars-inline-worker-stream-and-pluggable-cli-executors.md) 为 Accepted，并登记在途 `ADR 134` 占号，后续可用编号顺延至 `136+`；前次 2026-11-16 登记 ADR 133 记录见下文维护节）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `7600b00`（`merge commit 923fb71` 合入后于 2026-11-15 完成全量跨 ADR 对齐）。
@@ -384,12 +384,14 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 131 | `131-native-cli-contract-storage-and-recovery.md`（在途 `origin/codex/native-rust-cli` / PR #133） | 2026-11-14 | 2026-11-16 | Accepted（跨语言契约、共享存储与恢复；含 NR-03 / NR-04 补充） |
 | 132 | `132-mcp-vault-and-native-oauth.md`（在途 `origin/codex/native-rust-cli` / PR #133） | 2026-11-16 | 2026-11-16 | Accepted（MCP Vault v2 与原生 OAuth 边界） |
 | 133 | [ADR 133：全端统一 Rust Core 与双宿主融合终局架构](./133-unified-rust-core-and-dual-host-architecture.md) | 2026-11-16 | 2026-11-16 | Accepted（全 Peer 唯一 Rust Core + CLI/Desktop 双宿主终局标准；部分取代 ADR 54 并收口 `PR #132` / `PR #133`；实施与发布验收另记） |
+| 134 | `ADR 134`（在途 `Peer-Agent` `codex/native-rust-cli`：`v0.1.0-rc.42` 桌面端 Bot 壳层导航、侧栏任务、Touch Bar 与全宽任务工作台） | 2026-11-20 | 2026-11-24 | Accepted（代码已合入本地 `codex/native-rust-cli`；正文待补录知识库，编号已占用） |
+| 135 | [ADR 135：自然绘本猫形象体系、主对话内联任务流与可插拔 CLI 执行器架构](./135-editorial-cat-avatars-inline-worker-stream-and-pluggable-cli-executors.md) | 2026-11-25 | 2026-11-25 | Accepted（路线 A 8 只自然毛色绘本猫、自家小猫 CLI `ExecutorIcon`、侧栏树 + 对话流内联任务动态 + Touch Bar 升级、抽屉收口及阶段 2–4 多 CLI Control Plane / WorkerExecutor 边界；配套 [实施设计文档](../specifications/adr-135-implementation-design.md)） |
 
 ## 维护
 
 2026-11-06 起，修改和新增功能先过本页，再写代码。细则见 [change-intake.md](../../playbook/change-intake.md)。
 
-新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `134+` 顺延，兼顾在途远端分支 `128–132` 及已登记 `133`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
+新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `136+` 顺延，兼顾在途远端分支 `128–132`、`134` 及已登记 `133`、`135`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
 
 2026-11-06 本轮落实既有 ADR 95 / 96 / 120 的输入排序、有序持久化及统一恢复事实；各原文新增日期补充，未新增编号，既有权限、Evidence、存储所有权边界保持。实施与逐项验收见 [persisted-turn-recovery.md](../../playbook/v0.1.0/persisted-turn-recovery.md)。
 
@@ -409,3 +411,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 5. **A6 Proposed 严控与重号 / 门禁清理**：维持 `77 / 104-visibility / 113 / 119 / 123` 五篇 `Proposed` 不转正；清理 `ADR 107` 无效引用，将 `113 / 123 / 126` 特性门槛重编至 `> 11`；重号 `48 / 59 / 104 / 108` 全文消歧并登记在途远端分支 `128–131` 及待重编至 `132+` 规则。
 
 2026-11-16 新增 [ADR 133：全端统一 Rust Core 与双宿主融合终局架构](./133-unified-rust-core-and-dual-host-architecture.md)（`Accepted`，A 级决策，实施与发布验收另记）：确立后续以 Rust Core（`crates/peer-*`）为唯一底层核心、Desktop 退薄复用同一体系并叠加桌面专属效果；按 [ADR 54](./54-open-runtime-public-packages-and-release-policy.md) 回退条件正式触发 `@peer-agent/runtime-core` / `@peer-agent/runtime-sdk` 退场（方案 B：不另建 JS 薄壳运行库，外部嵌入走 `peer acp` / `peer exec` / Rust crate，npm 长期只保留 `@peer-agent/cli` 与 `@peer-agent/protocol`）；按 ADR 129（在途 `PR #133` `129-native-rust-cli-and-ratatui.md`）§2.6 升级 Desktop 消费原生核心终局，冻结 TS 双轨回填并明确对在途 `PR #132` 与 `PR #133`/`PR #327` 的收口边界；同步更新 `128–132` 占号并将后续可用号顺延至 `134+`。
+
+2026-11-25 登记在途 `ADR 134`（Desktop Bot 壳层导航与 Touch Bar，已在 `Peer-Agent` `codex/native-rust-cli` 落地）并新增 [ADR 135：自然绘本猫形象体系、主对话内联任务流与可插拔 CLI 执行器架构](./135-editorial-cat-avatars-inline-worker-stream-and-pluggable-cli-executors.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-135-implementation-design.md)：确立路线 A 8 只自然毛色绘本猫（兼容既有 `BOT_AVATAR_SHAPES`/`BOT_AVATAR_COLORS` 协议契约）、自家小猫 CLI 优先的 `ExecutorIcon` 与防“猫套猫”角标规则、侧栏 Bot→活跃任务树（去黑块/去行内重验/按需搜索）+ 主对话流无边框单行任务动态 + Touch Bar 轻量化三位一体流转模型、抽屉细节收口，以及阶段 2–4 基于 Rust `WorkerExecutor` trait + Worktree 隔离 + 统一 Verifier/Evidence 闭环的多 CLI 执行器架构；后续可用编号顺延至 `136+`。
