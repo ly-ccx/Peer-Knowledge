@@ -1,5 +1,7 @@
 # ADR 文档图谱
 
+2026-11-25：新增 [ADR 137：联网只读任务的独立核验下限与核验准备失败回执](137-web-research-verifier-floor-and-preparation-recovery.md)（A 级：修订 ADR 88 §7.1 在联网只读委托会话上的适用范围，澄清委托运行时验证下限表与 ADR 131 NR-04 的范围；B 级：委派核验面的工具准备失败以未派发结果回给核验模型，`spawn_session` 的 `model_review` 描述同步。写任务、界面任务与本地只读调研的核验、签收、Evidence 与授权不变）。
+
 2026-11-23：新增 [ADR134 侧栏任务层级、全宽任务工作台与输入框一体化动态 Touch Bar](134-sidebar-tasks-fullwidth-workspace-and-composer-touchbar.md)（A/B 级，用户已确认原型与实施契约；部分修订 ADR 84 壳层任务入口，保留 ADR 80 一对一模型与 ADR 110/124 唯一 `followUp` 投影）。
 
 2026-11-19：ADR131 登记普通 `peer-ts` 前台 Shell 的同一 `shell_session` 记录。旧宿主先持久化原授权、启动与本次命令绑定，凭原进程组消失结清句柄；新版读侧保全旧宿主未证明停稳的记录，后台 Shell 与冷恢复权限保持原范围。
@@ -364,7 +366,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 85 | [85. 项目代理的宿主、输入与多入口（0.1.0 落地边界）](./85-project-agent-hosts-inputs-and-surfaces.md) | 2026-09-26 | 2026-11-09 | 页头已接受；展示交接条款被 ADR87 2026-11-09 修订替代（仅新契约范围） |
 | 86 | [ADR 86：已持久化对话的批量读取](./86-batched-persisted-conversation-reads.md) | 2026-10-02 | 2026-10-02 | 页头已接受 |
 | 87 | [87. 用户回合可展开的实时过程](./87-user-turn-live-process-presentation.md) | 2026-10-05 | 2026-11-09 | 页头已接受；D1–D11 修订（过程叙述与正式交付分离）2026-11-09 经用户接受，实施未完成 |
-| 88 | [88 项目代理连续执行与结果交付方案](./88-project-agent-execution-continuity.md) | 2026-10-07 | 2026-11-01 | 页头已接受 |
+| 88 | [88 项目代理连续执行与结果交付方案](./88-project-agent-execution-continuity.md) | 2026-10-07 | 2026-11-25 | 页头已接受；ADR 137 修订 §7.1 在联网只读委托会话上的适用范围 |
 | 89 | [ADR 89：独立 Agent 接手、双向通信与真实工作动态](./89-independent-agent-delegation-and-communication.md) | 2026-10-10 | 2026-10-10 | 页头已接受 |
 | 90 | [ADR 90：本地图片能力与安装版产品截图审查](./90-local-image-capability-and-product-review.md) | 2026-10-10 | 2026-10-10 | 页头已接受 |
 | 91 | [ADR 91：主 Bot 自主协调、并行调度与取消重派](./91-project-bot-autonomous-coordination.md) | 2026-10-10 | 2026-11-05 | 页头已接受；2026-11-23 补充 Rust Core 有界恢复实施契约 |
@@ -482,4 +484,12 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 编号 | 文件 | 状态 |
 |---|---|---|
 | 133 | [统一 Rust Core 基座与 Desktop 接入架构（Classic 先行）](133-unified-rust-core-and-desktop-bridge.md) | Accepted，2026-11-21；C0–C4d 全部完成（C4d `3559a986` 退役 Desktop TS Agent 内核并整体收敛至 Rust Core，取代 C3b–C4c 过渡期 `PEER_CORE_CLASSIC=0` TS 回退条款，保留 `PEER_CORE_DAEMON=0`、`fallbackToStdio` 与 `--standalone`） |
+
+## 委托任务核验下限（2026-11-25）
+
+只读联网调研/文档会话的独立核验为 `not_required`，按委托运行时验证下限表的「验证闸门（叶子证据）」交付；其 `model_review` 标准如实列为未经独立核验，不阻断关闭闸门。核验员对已投影工具的准备失败回给模型更正，真实权限拒绝仍立即结束核验。
+
+| 编号 | 文件 | 状态 |
+|---|---|---|
+| 137 | [ADR 137：联网只读任务的独立核验下限与核验准备失败回执](137-web-research-verifier-floor-and-preparation-recovery.md) | Accepted，2026-11-25；修订 ADR 88 §7.1 在联网只读委托会话上的适用范围，澄清委托运行时验证下限表与 ADR 131 NR-04 的范围；实现候选在 `Peer-Agent` `PeerAgent/pa/research-verifier-floor`，未经安装版验收 |
 

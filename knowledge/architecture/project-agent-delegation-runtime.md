@@ -1,7 +1,7 @@
 # 项目代理委托运行时
 
 创建时间：2026-09-24
-最后更新：2026-11-01
+最后更新：2026-11-25
 
 ## 2026-11-01：意图驱动协调与目标闭环（交付分支源码已实施）
 
@@ -249,6 +249,8 @@ type AcceptanceReason =
 | 改了界面 | 上一行 + 视觉验证（intake 时已按 UI 交付臂自动启用） |
 | 多文件或跨模块改动 | 上一行 + 独立 Verifier |
 | 只读调研 / 文档 | 验证闸门（叶子证据） |
+
+**2026-11-25 补充（[ADR 137](../decisions/137-web-research-verifier-floor-and-preparation-recovery.md)）**：请求 `local.web.search` / `local.web.fetch` 且未请求交互结果发布的只读会话，独立核验为 `not_required`，按本行交付，不因 `model_review` 标准或核验模型配置自动上调。其 `model_review` 标准不被标记通过，列为未经独立核验，不阻断关闭闸门。显式复核仍走既有 `reverify_session`。其余会话的验证下限与 `model_review` 验证不变；ADR 131 NR-04 的「必须等待独立核验」限于普通 headless Goal Runner。
 
 **签收的提交时机**：
 

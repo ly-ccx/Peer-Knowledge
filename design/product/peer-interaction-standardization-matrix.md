@@ -1,5 +1,16 @@
 # Peer 全产品交互状态覆盖矩阵
 
+## 联网只读任务的核验结论表达（2026-11-25，候选，[ADR 137](../../knowledge/decisions/137-web-research-verifier-floor-and-preparation-recovery.md)）
+
+用户目标：拿到只读联网调研的结果时，分清哪些经过核验、哪些没有，并且不被核验员读不到的证据卡住签收。
+
+- **事实来源**：`independentVerifier=not_required`、检查项 `independent_verifier` 的 `reason=not_required` 与 `model_review` 的 `reason=not_reviewed` 全部来自宿主核验结论（`compute_verification_verdict`）。界面只表达，不产生核验事实。
+- **任务现场横幅**（`TaskWorkspaceView`）：该状态显示「无需独立核验」，下一行直接说明「结果按证据闸门交付，未做独立核验。」，存在告知性质量标准时追加「任务说明中的质量标准未经独立核验。」；不渲染「独立只读核验通过」。既有通过、未通过、进行中三种标题与次数文案不变。
+- **核验裁决抽屉**（`TaskVerification`）：独立复核行显示「无需独立核验」，质量标准行显示「未经独立核验」；「结论：已验证」仅指证据闸门。
+- **控件与恢复**：显式「重新核验」沿用既有入口与 3 次上限；只有无裁决失败记录的既有会话保留失败标题与历史，用户可手动签收。无新增动效、焦点、键盘或滚动行为，无新增 CSS。
+- **状态覆盖**：default、窄窗既有布局复用；loading / empty / error / stale 沿用任务现场既有分支；disabled 不适用（无可禁用控件）。
+- **验证**：`verdictBanner.test.ts` 与 `TaskVerification.labels.test.ts` 覆盖中英文案及既有通过、未通过、尚未核验分支，先红后绿。实现者自审（`independent=false`）；未做产品截图回归、读屏与安装版验收。
+
 ## 原生 Ratatui Bot 壳、Classic 对话与 ModelPicker（2026-11-19，P6 候选 `3b486756`）
 
 沿 ADR 108/122/129–131 在纯视图 `peer-tui` 与原生宿主 `peer-cli/src/terminal/` 实现日常交互 TUI：
