@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-26（新增 [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](138-project-bot-unified-scheduling-followup-and-natural-reply.md) 为 Accepted，登记在途 `ADR 137` 占号，后续可用编号顺延至 `139+`）
+最后更新：2026-11-26（[ADR 139：Worker 单步推理重试、用量缺失与原地恢复](139-worker-inference-resilience-and-usage-recovery.md) 转为 Accepted，后续可用编号顺延至 `140+`）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `7600b00`（`merge commit 923fb71` 合入后于 2026-11-15 完成全量跨 ADR 对齐）。
@@ -389,12 +389,13 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 136 | [ADR 136：下线 Qoder（本机 CLI）模型渠道与 Gemini OAuth 链路](./136-retire-qoder-cli-provider-and-gemini-oauth.md) | 2026-11-25 | 2026-11-25 | Accepted（全仓彻底移除 Qoder 本机 CLI 私有模型渠道与 Gemini OAuth / Code Assist 链路，同步裁剪 6 个 Rust 加密 crate 与 `@qoder-ai/qoder-agent-sdk`；强制保留 Skills「Qoder 市场」与普通 Gemini API Key；配套 [实施设计文档](../specifications/adr-136-implementation-design.md)） |
 | 137 | `ADR 137`（在途 Proposed：Peer ACP 社区标准对齐与会话级 MCP / Skill 扩展契约） | 2026-11-25 | 2026-11-25 | Proposed（编号已占用，待审阅转正；转正前 ADR 76 仍为现行基线） |
 | 138 | [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md) | 2026-11-26 | 2026-11-26 | Accepted（确立自然回复为主通道 + `NO_REPLY` 静默协议、唤醒整包直投、同 Worker 全生命周期续作、单真源终态发射与增量上下文/Failure Hold；局部修订 ADR 80 / 88 / 94 / 95 / 111；配套 [实施设计文档](../specifications/adr-138-implementation-design.md)） |
+| 139 | [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md) | 2026-11-26 | 2026-11-26 | Accepted（项目主人已审定，拆分用量观测与执行副作用、限定单步重放和只读重连活动、按冻结绑定启动与恢复，并规定 Responses WebSocket 后续准入） |
 
 ## 维护
 
 2026-11-06 起，修改和新增功能先过本页，再写代码。细则见 [change-intake.md](../../playbook/change-intake.md)。
 
-新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `139+` 顺延，兼顾在途远端分支 `128–132`、`134`、`137` 及已登记 `133`、`135`、`136`、`138`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
+新增一篇 ADR 时，使用还没有被占用的编号（当前顶栈从 `140+` 顺延，兼顾在途远端分支 `128–132`、`134`、`137` 及已登记 `133`、`135`、`136`、`138`、`139`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
 
 2026-11-06 本轮落实既有 ADR 95 / 96 / 120 的输入排序、有序持久化及统一恢复事实；各原文新增日期补充，未新增编号，既有权限、Evidence、存储所有权边界保持。实施与逐项验收见 [persisted-turn-recovery.md](../../playbook/v0.1.0/persisted-turn-recovery.md)。
 
@@ -420,3 +421,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-25 同日新增 [ADR 136：下线 Qoder（本机 CLI）模型渠道与 Gemini OAuth 链路](./136-retire-qoder-cli-provider-and-gemini-oauth.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-136-implementation-design.md)：确立全仓彻底移除 Qoder 本机 CLI 模型渠道（连同 6 个 Rust 加密 crate 与 `@qoder-ai/qoder-agent-sdk`）与 Gemini OAuth / Code Assist 链路，强制保留 Skills「Qoder 市场」与普通 Gemini API Key 渠道，并规定遗留 `llm-providers.json` 的安全降级边界；后续可用编号顺延至 `137+`。
 
 2026-11-26 新增 [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-138-implementation-design.md)：吸收 `stablyai/orca` 的核心编排与回复范式，确立主 Bot 自然 Final Message 即回复 + `NO_REPLY` 静默防闪烁协议、`WakeEnvelope` 唤醒整包直投、同 Worker 全生命周期 `message_session(followup)` 原地续作与安全降级、`SessionSupervisor` 单真源终态发射（Watchdog 收窄为纯非终态停滞观测）以及增量上下文指纹与限额 `FailureHold` 策略；局部修订 ADR 80 / 88 / 94 / 95 / 111，登记在途 `ADR 137` 占号，后续可用编号顺延至 `139+`。
+
+2026-11-26 新增 [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md)（`Accepted`，A 级决策）。本决策细化 ADR 30 的 Rust Core 单步重试、ADR 83 的冻结模型绑定及 ADR 138 的原地续作准入。项目主人已审定 D1–D4，待在途 PR 合入后实施 Wave 2 A 级变更。代码落地与发布验收另行核实，后续可用编号顺延至 `140+`。
