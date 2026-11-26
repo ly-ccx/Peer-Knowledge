@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-26（新增 [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](139-worker-inference-resilience-and-usage-recovery.md) 为 Proposed，后续可用编号顺延至 `140+`）
+最后更新：2026-11-26（[ADR 139：Worker 单步推理重试、用量缺失与原地恢复](139-worker-inference-resilience-and-usage-recovery.md) 转为 Accepted，后续可用编号顺延至 `140+`）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `7600b00`（`merge commit 923fb71` 合入后于 2026-11-15 完成全量跨 ADR 对齐）。
@@ -104,12 +104,11 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 | 类别 | 文件 | 当前页头 / 适用说明 |
 |---|---|---|
-| **Proposed（未接受，6 篇）** | [`77-image-generation-capability.md`](./77-image-generation-capability.md) | `Proposed`（待架构评审；补齐工作区外 `imageReadGrant` 对齐 ADR 90/92） |
-| **Proposed（未接受，6 篇）** | [`104-bot-capability-visibility.md`](./104-bot-capability-visibility.md) | `Proposed`（待逐项评审；已清理 `ADR 107` 引用，Bot 自定义指令另延 `132+`） |
-| **Proposed（未接受，6 篇）** | [`113-checkpoint-content-addressed-storage-and-retention.md`](./113-checkpoint-content-addressed-storage-and-retention.md) | `Proposed`（仅 §4.6 提前落地；兼容门槛拟迁 `> 11` 未占用代次） |
-| **Proposed（未接受，6 篇）** | [`119-user-stop-cognition-admission-and-settlement.md`](./119-user-stop-cognition-admission-and-settlement.md) | `Proposed`（未批准实施；§6.3 `handling` 与门禁 `10` 已被 ADR 120 / 124 取代） |
-| **Proposed（未接受，6 篇）** | [`123-main-bot-unnoticed-memory.md`](./123-main-bot-unnoticed-memory.md) | `Proposed`（已更名「无感上下文整理（情节压缩）」，增补 `L7_CONTINUITY` 仲裁与 SQLite/FTS 复用约束，未授权实现） |
-| **Proposed（未接受，6 篇）** | [`139-worker-inference-resilience-and-usage-recovery.md`](./139-worker-inference-resilience-and-usage-recovery.md) | `Proposed`（待项目主人审定；Wave 2 A 级变更须转为 Accepted 后实施） |
+| **Proposed（未接受，5 篇）** | [`77-image-generation-capability.md`](./77-image-generation-capability.md) | `Proposed`（待架构评审；补齐工作区外 `imageReadGrant` 对齐 ADR 90/92） |
+| **Proposed（未接受，5 篇）** | [`104-bot-capability-visibility.md`](./104-bot-capability-visibility.md) | `Proposed`（待逐项评审；已清理 `ADR 107` 引用，Bot 自定义指令另延 `132+`） |
+| **Proposed（未接受，5 篇）** | [`113-checkpoint-content-addressed-storage-and-retention.md`](./113-checkpoint-content-addressed-storage-and-retention.md) | `Proposed`（仅 §4.6 提前落地；兼容门槛拟迁 `> 11` 未占用代次） |
+| **Proposed（未接受，5 篇）** | [`119-user-stop-cognition-admission-and-settlement.md`](./119-user-stop-cognition-admission-and-settlement.md) | `Proposed`（未批准实施；§6.3 `handling` 与门禁 `10` 已被 ADR 120 / 124 取代） |
+| **Proposed（未接受，5 篇）** | [`123-main-bot-unnoticed-memory.md`](./123-main-bot-unnoticed-memory.md) | `Proposed`（已更名「无感上下文整理（情节压缩）」，增补 `L7_CONTINUITY` 仲裁与 SQLite/FTS 复用约束，未授权实现） |
 | **早期草案（3 篇）** | [`15`](./15-plugin-skill-mcp-system.md)、[`17`](./17-local-context-compaction.md)、[`18`](./18-claude-code-style-file-edit-plan.md) | 早期设计/历史计划草案，核心思路已被后续 Accepted ADR 吸收或局部作废 |
 | **分阶段状态（1 篇）** | [`38-web-search-fetch-provider.md`](./38-web-search-fetch-provider.md) | Phase 1 `web_fetch` 已 `Accepted / Shipped`（跨宿主无 `BrowserWindow`）；Phase 2 `web_search` 仍为 `Proposed` |
 | **整体 / 默认壳被取代（2 篇）** | [`42-context-display-vs-trigger-accounting.md`](./42-context-display-vs-trigger-accounting.md)、[`67-task-shell-workbench-radar.md`](./67-task-shell-workbench-radar.md) | 42 `Superseded`（由 ADR 52 / 56 取代）；67 `Superseded in default 0.1 shell`（默认 0.1 壳切至 ADR 80 / 84） |
@@ -390,7 +389,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 136 | [ADR 136：下线 Qoder（本机 CLI）模型渠道与 Gemini OAuth 链路](./136-retire-qoder-cli-provider-and-gemini-oauth.md) | 2026-11-25 | 2026-11-25 | Accepted（全仓彻底移除 Qoder 本机 CLI 私有模型渠道与 Gemini OAuth / Code Assist 链路，同步裁剪 6 个 Rust 加密 crate 与 `@qoder-ai/qoder-agent-sdk`；强制保留 Skills「Qoder 市场」与普通 Gemini API Key；配套 [实施设计文档](../specifications/adr-136-implementation-design.md)） |
 | 137 | `ADR 137`（在途 Proposed：Peer ACP 社区标准对齐与会话级 MCP / Skill 扩展契约） | 2026-11-25 | 2026-11-25 | Proposed（编号已占用，待审阅转正；转正前 ADR 76 仍为现行基线） |
 | 138 | [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md) | 2026-11-26 | 2026-11-26 | Accepted（确立自然回复为主通道 + `NO_REPLY` 静默协议、唤醒整包直投、同 Worker 全生命周期续作、单真源终态发射与增量上下文/Failure Hold；局部修订 ADR 80 / 88 / 94 / 95 / 111；配套 [实施设计文档](../specifications/adr-138-implementation-design.md)） |
-| 139 | [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md) | 2026-11-26 | 2026-11-26 | Proposed（拆分用量观测与执行副作用、限定单步重放和只读重连活动、按冻结绑定启动与恢复；登记 Responses WebSocket 后续准入） |
+| 139 | [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md) | 2026-11-26 | 2026-11-26 | Accepted（项目主人已审定，拆分用量观测与执行副作用、限定单步重放和只读重连活动、按冻结绑定启动与恢复，并规定 Responses WebSocket 后续准入） |
 
 ## 维护
 
@@ -423,4 +422,4 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 
 2026-11-26 新增 [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-138-implementation-design.md)：吸收 `stablyai/orca` 的核心编排与回复范式，确立主 Bot 自然 Final Message 即回复 + `NO_REPLY` 静默防闪烁协议、`WakeEnvelope` 唤醒整包直投、同 Worker 全生命周期 `message_session(followup)` 原地续作与安全降级、`SessionSupervisor` 单真源终态发射（Watchdog 收窄为纯非终态停滞观测）以及增量上下文指纹与限额 `FailureHold` 策略；局部修订 ADR 80 / 88 / 94 / 95 / 111，登记在途 `ADR 137` 占号，后续可用编号顺延至 `139+`。
 
-2026-11-26 新增 [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md)（`Proposed`，A 级前置）。提案细化 ADR 30 的 Rust Core 单步重试、ADR 83 的冻结模型绑定及 ADR 138 的原地续作准入。项目主人审定后方可实施 Wave 2 A 级变更，后续可用编号顺延至 `140+`。
+2026-11-26 新增 [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md)（`Accepted`，A 级决策）。本决策细化 ADR 30 的 Rust Core 单步重试、ADR 83 的冻结模型绑定及 ADR 138 的原地续作准入。项目主人已审定 D1–D4，待在途 PR 合入后实施 Wave 2 A 级变更。代码落地与发布验收另行核实，后续可用编号顺延至 `140+`。

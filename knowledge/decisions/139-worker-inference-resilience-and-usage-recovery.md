@@ -1,8 +1,8 @@
 # ADR 139：Worker 单步推理重试、用量缺失与原地恢复
 
 创建时间：2026-11-26
-最后更新：2026-11-26（初稿）
-状态：Proposed（待项目主人审定；转为 Accepted 后方可实施 Wave 2 A 级变更）
+最后更新：2026-11-26（项目主人审定转为 Accepted）
+状态：Accepted（2026-11-26 项目主人审定通过，解锁 Wave 2 A 级实施；代码落地与发布验收另行独立核实）
 级别：A（Worker 恢复准入、跨宿主活动投影、冻结模型一致性）；Wave 1 Track 1 的共享重试与脱敏分类按 B 级并行推进
 
 ## 1. 背景与问题
@@ -32,12 +32,12 @@ Session Control 和 Supervisor 在现有控制与调度路径中读取权威收�
 
 符合六项条件的历史 `unknownUsage=true` 记录可只读识别，经 `resume` 或 `message_session(intent="followup")` 请求原地恢复。仍使用既有控制操作 ID、版本校验及 `followUpEpoch` 防重复派发，保留原会话、工作区、已结算工具、Evidence 和累积账务。续作不得擦除或篡改历史 `unknownUsage=true`，不得把未观测用量写成零，也不得自动放宽费用、轮次或工具预算上限。
 
-| 现行决定 | 本提案细化的范围 |
+| 既有 ADR | 本决策细化的范围 |
 |---|---|
 | [ADR 73](./73-goal-interruption-suspension-vs-failure.md) | 活执行中的单步退避属于认知步骤内部。停稳后的 `interrupted` 仍沿原恢复入口消费，由 Project Bot 监督技术中断，显式取消终态优先。 |
 | [ADR 116](./116-session-control-and-resource-settlement.md) | 原地恢复继续使用唯一停稳屏障与执行代次控制。用量缺失不构成执行效果未知的证据。 |
 | [ADR 120](./120-runtime-facts-disposition-and-resource-wait.md) | 统一处置读取各自的运行、控制、资源与账务事实。资源等待、恢复排队、实际开始和执行结果沿原事实分别表达。 |
-| [ADR 126](./126-execution-resource-claim-closure-and-unknown-retention.md) / [ADR 127](./127-unknown-outcome-reconciliation-and-delegated-resolution.md) | 保留原 claim、对账与授权闭包。执行未知或 `RetainedUnknown` 继续拦截本提案的原地续作准入。 |
+| [ADR 126](./126-execution-resource-claim-closure-and-unknown-retention.md) / [ADR 127](./127-unknown-outcome-reconciliation-and-delegated-resolution.md) | 保留原 claim、对账与授权闭包。执行未知或 `RetainedUnknown` 继续拦截原地续作。 |
 | [ADR 138 §3 D3–D4](./138-project-bot-unified-scheduling-followup-and-natural-reply.md) | 已结束 Worker 的 `resumed_followup` 按六项条件和 D3 校验。`started_fresh` 只在原替代准入允许时使用，不能绕开未知效果、资源或用户控制。终态仍由 `SessionSupervisor` 单源发射。 |
 
 ## 3. D2：共享单步纯推理重试与只读重连活动
@@ -94,7 +94,7 @@ P2 属于后续立项。任何在 `peer-runtime` 引入 Responses WebSocket 的�
 
 ## 6. 实施索引与验收
 
-Wave 1 Track 1 在 `peer-runtime` 交付共享纯推理重试与错误分类，按既有 B 级范围验收。Wave 1 Track 2 以本提案为交付。Wave 2 待本 ADR 转为 Accepted 后实施下列 A 级变更，代码候选、存量恢复与安装包验收分别记录。
+Wave 1 Track 1 在 `peer-runtime` 交付共享纯推理重试与错误分类，按既有 B 级范围验收。Wave 1 Track 2 交付本 ADR。项目主人已审定 D1–D4，待在途 PR 合入后启动 Wave 2。下列 A 级变更的代码落地、存量恢复和发布验收须分别核实并记录。
 
 | 实施包 | 验收检查 |
 |---|---|
