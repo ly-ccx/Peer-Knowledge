@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-26（[ADR 139：Worker 单步推理重试、用量缺失与原地恢复](139-worker-inference-resilience-and-usage-recovery.md) 转为 Accepted，后续可用编号顺延至 `140+`）
+最后更新：2026-11-27（[ADR 58：本地 Skill 范围与工作空间挂载](58-local-skill-scope-and-workspace-mounting.md) 修订 Bot 技能安装目标与批量回执）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `7600b00`（`merge commit 923fb71` 合入后于 2026-11-15 完成全量跨 ADR 对齐）。
@@ -291,7 +291,7 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 55 | [ADR 55：Desktop 与 TUI 统一 System Context Assembler](./55-shared-system-context-assembler.md) | 2026-07-25 | 2026-07-25 | 页头已接受 |
 | 56 | [ADR 56：Provider 实测优先的精确上下文记账](./56-provider-observed-context-accounting.md) | 2026-07-25 | 2026-11-15 | Accepted（实测优先上下文权威；明确 ADR 115 `input_prediction` 估算迁出 `requests.jsonl`） |
 | 57 | [ADR 57：Desktop 与 TUI 统一 Canonical Conversation History Projector](./57-canonical-conversation-history-projector.md) | 2026-07-25 | 2026-11-15 | Accepted（登记 ADR 97 / 104-progressive 两条窄例外及 `_compaction` 冷重载不变量） |
-| 58 | [本地 Skill 范围与工作空间挂载](./58-local-skill-scope-and-workspace-mounting.md) | 2026-07-27 | 2026-07-27 | 页头已接受（取代 ADR 15 云端 `SkillDefinition`；ADR 104-visibility 为拟议后续） |
+| 58 | [本地 Skill 范围与工作空间挂载](./58-local-skill-scope-and-workspace-mounting.md) | 2026-07-27 | 2026-11-27 | Accepted（Bot 技能安装目标取活跃档案与当前有效绑定的交集，兼容经典工作区。市场候选、安装准入与已安装视图共用目标集合，支持多选与逐目标回执。原决策取代 ADR 15 云端 `SkillDefinition`，ADR 104-visibility 为拟议后续） |
 | 59 | [Appshots 能力边界与 Evidence 链](./59-appshots-capability-boundary.md) | 2026-07-30 | 2026-11-15 | Accepted（P0a 边界保留） |
 | 59 | [59. Browser 面板主动打开与可见工作现场闭环](./59-browser-panel-reveal-capability.md) | 2026-08-03 | 2026-11-15 | Accepted（`work_session` reveal 边界受 ADR 66 / 72 / 85 / 109 收窄） |
 | 60 | [Quick Chat 独立 Popover 窗](./60-quick-chat-independent-popover-window.md) | 2026-07-30 | 2026-11-15 | Accepted（`effort` 由 ADR 37 / 48-provider 统一；`model` 分组与 ADR 76 共享） |
@@ -423,3 +423,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-26 新增 [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-138-implementation-design.md)：吸收 `stablyai/orca` 的核心编排与回复范式，确立主 Bot 自然 Final Message 即回复 + `NO_REPLY` 静默防闪烁协议、`WakeEnvelope` 唤醒整包直投、同 Worker 全生命周期 `message_session(followup)` 原地续作与安全降级、`SessionSupervisor` 单真源终态发射（Watchdog 收窄为纯非终态停滞观测）以及增量上下文指纹与限额 `FailureHold` 策略；局部修订 ADR 80 / 88 / 94 / 95 / 111，登记在途 `ADR 137` 占号，后续可用编号顺延至 `139+`。
 
 2026-11-26 新增 [ADR 139：Worker 单步推理重试、用量缺失与原地恢复](./139-worker-inference-resilience-and-usage-recovery.md)（`Accepted`，A 级决策）。本决策细化 ADR 30 的 Rust Core 单步重试、ADR 83 的冻结模型绑定及 ADR 138 的原地续作准入。项目主人已审定 D1–D4，待在途 PR 合入后实施 Wave 2 A 级变更。代码落地与发布验收另行核实，后续可用编号顺延至 `140+`。
+
+2026-11-27 修订 [ADR 58：本地 Skill 范围与工作空间挂载](./58-local-skill-scope-and-workspace-mounting.md)（项目主人已确认，维持 `Accepted`）。市场候选、主进程准入与「已安装」视图统一消费有效的 Bot 及经典兼容目标集合。Bot 模式的一次多选安装复用同一份已校验包，逐目标复核、写入和回执。代码落地与发布验收另行核实。
