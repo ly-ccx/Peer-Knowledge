@@ -1,7 +1,7 @@
 # ADR 文档图谱
 
 创建时间：2026-11-06
-最后更新：2026-11-25（新增 [ADR 136：下线 Qoder（本机 CLI）模型渠道与 Gemini OAuth 链路](136-retire-qoder-cli-provider-and-gemini-oauth.md) 与 [ADR 135：自然绘本猫形象体系、主对话内联任务流与可插拔 CLI 执行器架构](135-editorial-cat-avatars-inline-worker-stream-and-pluggable-cli-executors.md) 为 Accepted，登记在途 `ADR 134` 占号，后续可用编号顺延至 `137+`）
+最后更新：2026-11-26（新增 [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](138-project-bot-unified-scheduling-followup-and-natural-reply.md) 为 Accepted，登记在途 `ADR 137` 占号，后续可用编号顺延至 `139+`）
 
 > 这是 `knowledge/decisions/` 的索引，不是一条新的架构决定。
 > 基线是知识库 `origin/main` 的 `7600b00`（`merge commit 923fb71` 合入后于 2026-11-15 完成全量跨 ADR 对齐）。
@@ -387,12 +387,14 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 | 134 | `ADR 134`（在途 `Peer-Agent` `codex/native-rust-cli`：`v0.1.0-rc.42` 桌面端 Bot 壳层导航、侧栏任务、Touch Bar 与全宽任务工作台） | 2026-11-20 | 2026-11-24 | Accepted（代码已合入本地 `codex/native-rust-cli`；正文待补录知识库，编号已占用） |
 | 135 | [ADR 135：自然绘本猫形象体系、主对话内联任务流与可插拔 CLI 执行器架构](./135-editorial-cat-avatars-inline-worker-stream-and-pluggable-cli-executors.md) | 2026-11-25 | 2026-11-25 | Accepted（路线 A 8 只自然毛色绘本猫、自家小猫 CLI `ExecutorIcon`、侧栏树 + 对话流内联任务动态 + Touch Bar 升级、抽屉收口及阶段 2–4 多 CLI Control Plane / WorkerExecutor 边界；配套 [实施设计文档](../specifications/adr-135-implementation-design.md)） |
 | 136 | [ADR 136：下线 Qoder（本机 CLI）模型渠道与 Gemini OAuth 链路](./136-retire-qoder-cli-provider-and-gemini-oauth.md) | 2026-11-25 | 2026-11-25 | Accepted（全仓彻底移除 Qoder 本机 CLI 私有模型渠道与 Gemini OAuth / Code Assist 链路，同步裁剪 6 个 Rust 加密 crate 与 `@qoder-ai/qoder-agent-sdk`；强制保留 Skills「Qoder 市场」与普通 Gemini API Key；配套 [实施设计文档](../specifications/adr-136-implementation-design.md)） |
+| 137 | `ADR 137`（在途 Proposed：Peer ACP 社区标准对齐与会话级 MCP / Skill 扩展契约） | 2026-11-25 | 2026-11-25 | Proposed（编号已占用，待审阅转正；转正前 ADR 76 仍为现行基线） |
+| 138 | [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md) | 2026-11-26 | 2026-11-26 | Accepted（确立自然回复为主通道 + `NO_REPLY` 静默协议、唤醒整包直投、同 Worker 全生命周期续作、单真源终态发射与增量上下文/Failure Hold；局部修订 ADR 80 / 88 / 94 / 95 / 111；配套 [实施设计文档](../specifications/adr-138-implementation-design.md)） |
 
 ## 维护
 
 2026-11-06 起，修改和新增功能先过本页，再写代码。细则见 [change-intake.md](../../playbook/change-intake.md)。
 
-新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `137+` 顺延，兼顾在途远端分支 `128–132`、`134` 及已登记 `133`、`135`、`136`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
+新增一篇 ADR 时，使用还没有被占用的编号（当前主线从 `139+` 顺延，兼顾在途远端分支 `128–132`、`134`、`137` 及已登记 `133`、`135`、`136`、`138`），并在同一天给本页目录加一行。修订一篇 ADR 时，改那篇的「最后更新」，写明新增、删减、修复或优化了什么，以及哪一条款被替代，同时改本页对应行。禁止复用已有编号或回填历史缺号。不要因为本页写了「页头已接受 / Accepted」，就把它说成发布验收已经通过。
 
 2026-11-06 本轮落实既有 ADR 95 / 96 / 120 的输入排序、有序持久化及统一恢复事实；各原文新增日期补充，未新增编号，既有权限、Evidence、存储所有权边界保持。实施与逐项验收见 [persisted-turn-recovery.md](../../playbook/v0.1.0/persisted-turn-recovery.md)。
 
@@ -416,3 +418,5 @@ ADR 是知识库五层中的决策层。产品方向和架构治理各自保留�
 2026-11-25 登记在途 `ADR 134`（Desktop Bot 壳层导航与 Touch Bar，已在 `Peer-Agent` `codex/native-rust-cli` 落地）并新增 [ADR 135：自然绘本猫形象体系、主对话内联任务流与可插拔 CLI 执行器架构](./135-editorial-cat-avatars-inline-worker-stream-and-pluggable-cli-executors.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-135-implementation-design.md)：确立路线 A 8 只自然毛色绘本猫（兼容既有 `BOT_AVATAR_SHAPES`/`BOT_AVATAR_COLORS` 协议契约）、自家小猫 CLI 优先的 `ExecutorIcon` 与防“猫套猫”角标规则、侧栏 Bot→活跃任务树（去黑块/去行内重验/按需搜索）+ 主对话流无边框单行任务动态 + Touch Bar 轻量化三位一体流转模型、抽屉细节收口，以及阶段 2–4 基于 Rust `WorkerExecutor` trait + Worktree 隔离 + 统一 Verifier/Evidence 闭环的多 CLI 执行器架构；后续可用编号顺延至 `136+`。
 
 2026-11-25 同日新增 [ADR 136：下线 Qoder（本机 CLI）模型渠道与 Gemini OAuth 链路](./136-retire-qoder-cli-provider-and-gemini-oauth.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-136-implementation-design.md)：确立全仓彻底移除 Qoder 本机 CLI 模型渠道（连同 6 个 Rust 加密 crate 与 `@qoder-ai/qoder-agent-sdk`）与 Gemini OAuth / Code Assist 链路，强制保留 Skills「Qoder 市场」与普通 Gemini API Key 渠道，并规定遗留 `llm-providers.json` 的安全降级边界；后续可用编号顺延至 `137+`。
+
+2026-11-26 新增 [ADR 138：主 Bot 统一唤醒直投、同 Worker 全生命周期续作与自然回复静默契约](./138-project-bot-unified-scheduling-followup-and-natural-reply.md)（`Accepted`，A 级决策）与配套 [工程实施文档](../specifications/adr-138-implementation-design.md)：吸收 `stablyai/orca` 的核心编排与回复范式，确立主 Bot 自然 Final Message 即回复 + `NO_REPLY` 静默防闪烁协议、`WakeEnvelope` 唤醒整包直投、同 Worker 全生命周期 `message_session(followup)` 原地续作与安全降级、`SessionSupervisor` 单真源终态发射（Watchdog 收窄为纯非终态停滞观测）以及增量上下文指纹与限额 `FailureHold` 策略；局部修订 ADR 80 / 88 / 94 / 95 / 111，登记在途 `ADR 137` 占号，后续可用编号顺延至 `139+`。
